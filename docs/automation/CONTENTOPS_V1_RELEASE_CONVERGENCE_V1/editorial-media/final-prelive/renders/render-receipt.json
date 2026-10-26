@@ -1,0 +1,83 @@
+{
+  "renderer": {
+    "html_path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\renders\\index.html",
+    "bytes": 23636886,
+    "component": "ReportEditorialWorkspace",
+    "public_write_performed": false
+  },
+  "edition": {
+    "schema_version": "contentops.native_owner_edition.v1",
+    "edition_id": "v1-final-prelive-seven",
+    "title": "V1 final pre-live editorial acceptance \u2014 seven useful articles",
+    "operation_ids": [
+      "v1-media-oil-r1",
+      "v1-media-ibm-r1",
+      "v1-prelive-tesla-r2",
+      "v1-media-meta-r1",
+      "v1-prelive-southwest-r2",
+      "v1-prelive-fed-policy",
+      "v1-prelive-gold-oct23"
+    ],
+    "held_candidates": [
+      {
+        "operation_id": "goal35-fx",
+        "title": "October21 FX candidate",
+        "reason": "Preserved prior held source gap; not silently substituted or counted ready."
+      }
+    ],
+    "publication_authority": false,
+    "opportunity_outcomes": [
+      {
+        "operation_id": "v1-media-oil-r1",
+        "outcome": "KEEP",
+        "source_blocked": false,
+        "reason": "Valid C9 copy/media/render retained"
+      },
+      {
+        "operation_id": "v1-media-ibm-r1",
+        "outcome": "KEEP",
+        "source_blocked": false,
+        "reason": "Valid C9 copy/media/render retained"
+      },
+      {
+        "operation_id": "v1-prelive-tesla-r2",
+        "outcome": "UPDATE",
+        "source_blocked": false,
+        "reason": "Material source-note editorial revision with unchanged facts"
+      },
+      {
+        "operation_id": "v1-media-meta-r1",
+        "outcome": "KEEP",
+        "source_blocked": false,
+        "reason": "Valid C9 copy/media/render retained"
+      },
+      {
+        "operation_id": "v1-prelive-southwest-r2",
+        "outcome": "UPDATE",
+        "source_blocked": false,
+        "reason": "Material source-note editorial revision with unchanged facts"
+      },
+      {
+        "operation_id": "v1-prelive-fed-policy",
+        "outcome": "NEW",
+        "source_blocked": false,
+        "reason": "Dated policy implementation case"
+      },
+      {
+        "operation_id": "v1-prelive-gold-oct23",
+        "outcome": "NEW",
+        "source_blocked": false,
+        "reason": "Genuinely October23 attributed report"
+      }
+    ]
+  },
+  "source_projection": "report_workspace_projection actual owner outbox/reviews, filtered only to seven existing operation IDs",
+  "required_new_changed_inspections": [
+    "v1-prelive-tesla-r2",
+    "v1-prelive-southwest-r2",
+    "v1-prelive-fed-policy",
+    "v1-prelive-gold-oct23"
+  ],
+  "prior_unchanged_views": "C9 oil/IBM/Meta final actual desktop/mobile inspection reused",
+  "public_write_performed": false
+}

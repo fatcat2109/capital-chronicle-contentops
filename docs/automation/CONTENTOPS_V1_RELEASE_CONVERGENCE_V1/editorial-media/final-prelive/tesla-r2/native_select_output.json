@@ -1,0 +1,21 @@
+{
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "status": "SELECT_CANDIDATE_PLAN",
+  "ordered_candidate_plan": [
+    {
+      "candidate_id": "simple-story-6c6ae25852f4519d9a6d2168",
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_rationale": "The actual retained article has one material reader-facing defect: internal microsecond chronology and process-heavy source notes distract from the evidence. A bounded editorial revision is warranted on the same unchanged October 21 facts; it is not a new reporting opportunity, economic observation or factual update.",
+      "research_queries": [
+        "Retained Tesla October 21 2026 article concise source date and no new reporting disclosure",
+        "Retained Tesla operating cash flow countercase and working capital bridge",
+        "Exact prior Tesla photograph chart and story update identity reuse"
+      ],
+      "angle": "Keep the existing actual-versus-expected cash-flow thesis and serious operating-cash countercase; improve only the public source/revision disclosure and necessary directly related prose coherence. Preserve the dated report-only scope and no-new-reporting status.",
+      "primary_reader_question": "What does the reported cash-flow surprise establish, and what operating-cash evidence remains missing, when the article is read as an unpublished editorial revision of the October 21 report?",
+      "evidence_plan": "Use the exact frozen prior package and retained SOURCE_1 bytes with canonical content SHA-256 71e2a19775f806406468b4705d5c5bdff4184cb7db6483ae6927d8e58fec9248; preserve prior article identity 44561321bc94626d866e87985e4778435e0a497417f2a76fb3cbdd830b6b6705 and story/update chain simple-story-6c6ae25852f4519d9a6d2168. Preserve all C9 article/review/preparation bytes as immutable prior history. Writer should replace internal known-at/cutoff microseconds and retained-review process wording with a concise October 21, 2026 Reuters source date and honest unpublished editorial-revision/no-new-reporting disclosure, retaining detailed clocks only in source/history. Preserve reported actual positive free cash flow versus expected burn, total capex below expectation yet more than twice the year-earlier level, and absence of a separate AI-only measure. Do not supply an operating-cash bridge or attribute the result solely to spending. Retain the serious possibility that operating cash improved and the concrete working-capital/operating-cash/investment-commitment watchpoint, report-only single Reuters origin uncertainty and same-facts SEO alignment. Reuse byte-for-byte the exact already inspected lawful photograph and source-bound chart/data through existing binding; no new acquisition, recalculation, image or fresh pixel-inspection claim. A changed revision needs its own downstream review; historical C9 approval cannot approve new copy. No fresh currentness or independent confirmation."
+    }
+  ],
+  "selection_summary": "Select the sole exact Tesla candidate for a bounded same-facts editorial disclosure repair; no new report or fallback.",
+  "public_write_attempted": false
+}

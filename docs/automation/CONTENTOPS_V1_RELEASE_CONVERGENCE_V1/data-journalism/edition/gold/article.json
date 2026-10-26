@@ -1,0 +1,34 @@
+{
+  "title": "Reuters reports gold below $4,000 on October 23",
+  "dek": "Reuters put the week's decline at 4% and linked gold's weakness to energy prices and US rate expectations. The spot quote was an intraday reading.",
+  "substack_body_markdown": "## Gold in Reuters’ October 23 report\n\nIn its [October 23, 2026 report carried by Kitco](https://www.kitco.com/news/off-the-wire/2026-10-23/gold-set-steep-weekly-loss-rising-oil-prices-bolster-fed-rate-hike), Reuters put spot gold at $3,998.35 per ounce at 15:20 UTC, down 0.6%. It described the first move below $4,000 since mid-July.\n\nReuters separately put the week's gold loss at 4%, leaving it heading for its weakest weekly performance since June. That was a week-to-date measure, not a completed weekly result.\n\n## The explanation Reuters offered\n\nReuters linked gold's weakness to higher energy prices, inflation concerns and expectations of a US rate increase ahead of the following week's Federal Reserve meeting. That is Reuters' account of the pressure, not an independently established cause or a Fed decision.\n\nThe spot quote is an intraday observation. A later quote would be needed to show whether gold remained below $4,000; a final weekly result would require a closing reading.\n\n## Sources\n\n[Reuters report via Kitco, October 23, 2026](https://www.kitco.com/news/off-the-wire/2026-10-23/gold-set-steep-weekly-loss-rising-oil-prices-bolster-fed-rate-hike). Kitco carries the same Reuters report, rather than a second independent account. ",
+  "display_date": "October 23, 2026",
+  "source_date_notice": "Source date: 2026-10-23. Interpretation remains analysis.",
+  "search_title": "Gold below $4,000: Reuters’ October 23, 2026 report",
+  "meta_description": "Reuters put spot gold at $3,998.35 per ounce on October 23, down 0.6% at 15:20 UTC, with a separate 4% week-to-date loss.",
+  "search_freshness_class": "UPDATE",
+  "canonical_slug_candidate": "reuters-gold-below-4000-october-23-2026",
+  "topics": [
+    "Gold",
+    "Precious metals",
+    "Reported market moves",
+    "US rate expectations"
+  ],
+  "entities": [
+    "Reuters",
+    "Kitco",
+    "Gold",
+    "Federal Reserve"
+  ],
+  "primary_reader_question": "What did Reuters report about gold’s October 23 decline, at what observation time and over which horizon?",
+  "secondary_reader_questions": [
+    "What spot-gold reading did Reuters report on October 23?",
+    "How does the intraday quote differ from the reported weekly loss?"
+  ],
+  "reader_first_version": "DATA_JOURNALISM_V1",
+  "resolved_article_mode": "BREAKING_BRIEF",
+  "social_hook": "Reuters’ October 23 report put gold below $4,000 and its loss for the week at 4%. The spot quote was intraday; the weekly result was unfinished.",
+  "social_mechanism_summary": "Reuters linked gold's weakness to higher energy prices, inflation concerns and expectations of a US rate increase ahead of the following week's Federal Reserve meeting. That is Reuters' account of the pressure, not an independently established cause or a Fed decision.",
+  "social_policy_summary": "Reuters separately put the week's gold loss at 4%, leaving it heading for its weakest weekly performance since June. That was a week-to-date measure, not a completed weekly result.",
+  "social_cross_asset_summary": "The spot quote is an intraday observation. A later quote would be needed to show whether gold remained below $4,000; a final weekly result would require a closing reading."
+}

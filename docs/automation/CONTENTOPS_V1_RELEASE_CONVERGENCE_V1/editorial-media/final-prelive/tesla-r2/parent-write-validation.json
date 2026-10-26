@@ -1,0 +1,192 @@
+{
+  "schema_valid": true,
+  "source_validation": {
+    "schema_version": "contentops.v1_simple_gemini_validation.v1",
+    "status": "PASS",
+    "ordering": "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_PROVENANCE_AWARE_BOUNDED_HTTP_THEN_BROWSER_RENDERED_RECOVERY_THEN_EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE",
+    "supported_material_claim_count": 14,
+    "unsupported_material_claim_count": 0,
+    "supported_material_claims": [
+      {
+        "claim_id": "tesla_metadata_title",
+        "claim_text": "Reuters: Tesla's cash-flow surprise leaves the operating question open",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "goal35-tesla",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "013356642ee11f4df5aaffce2de8e684c5cd5bcc89c161024cd52b774b48dfab"
+      },
+      {
+        "claim_id": "tesla_metadata_dek",
+        "claim_text": "SINGLE-SOURCE REPORT - REUTERS: Positive free cash flow beat expectations for cash burn in the October 21 report. Capital spending below forecasts leaves the operating-cash contribution unresolved.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "goal35-tesla",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "013356642ee11f4df5aaffce2de8e684c5cd5bcc89c161024cd52b774b48dfab"
+      },
+      {
+        "claim_id": "tesla_metadata_search_title",
+        "claim_text": "Tesla free cash flow beats burn forecast, Reuters reports",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "goal35-tesla",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "013356642ee11f4df5aaffce2de8e684c5cd5bcc89c161024cd52b774b48dfab"
+      },
+      {
+        "claim_id": "tesla_metadata_meta_description",
+        "claim_text": "Reuters' October 21 report puts Tesla free cash flow above an expected burn. Below-forecast capex leaves operating-cash strength unresolved.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "goal35-tesla",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "013356642ee11f4df5aaffce2de8e684c5cd5bcc89c161024cd52b774b48dfab"
+      },
+      {
+        "claim_id": "tesla_metadata_social_hook",
+        "claim_text": "Reuters reports positive Tesla free cash flow as capex misses estimates. The test is whether operating cash can sustain it.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "goal35-tesla",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "013356642ee11f4df5aaffce2de8e684c5cd5bcc89c161024cd52b774b48dfab"
+      },
+      {
+        "claim_id": "tesla_cash_result",
+        "claim_text": "Reuters' October 21, 2026 report describes a $1.53 billion September-quarter surplus against analysts' expected $4.92 billion burn.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "document_id": "goal35-tesla",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "e3c7fd00549ac919e294f2e5bfa2ce8b92137d05b2602c2cc7a1f4eddf749ef5"
+      },
+      {
+        "claim_id": "tesla_qualified_thesis",
+        "claim_text": "Tesla's reported positive free cash flow is a much better outcome than the expected cash burn, while leaving the strength of its operations unresolved.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "goal35-tesla",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "013356642ee11f4df5aaffce2de8e684c5cd5bcc89c161024cd52b774b48dfab"
+      },
+      {
+        "claim_id": "tesla_conditional_mechanism",
+        "claim_text": "Capital Chronicle's analysis: if the report is accurate, lower capital outlays than analysts assumed could help leave more cash after investment without establishing a stronger operating business. The reported numbers do not divide the surprise between operating cash and capital expenditure, so they cannot show how much either contributed.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "document_id": "goal35-tesla",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "013356642ee11f4df5aaffce2de8e684c5cd5bcc89c161024cd52b774b48dfab"
+      },
+      {
+        "claim_id": "tesla_capex_estimate",
+        "claim_text": "Reuters reports third-quarter capex of $4.73 billion against roughly $7.5 billion expected.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "document_id": "goal35-tesla",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "51065337d6e307ed4ca7166b5da668ef2c1c3d131b0984047ba7b5fc0d23a896"
+      },
+      {
+        "claim_id": "tesla_capex_year_comparison",
+        "claim_text": "Its year-earlier comparison rounds the amount to $4.7 billion and describes spending as more than twice the prior-year level, citing LSEG for the average analyst estimate.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "document_id": "goal35-tesla",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "09b6c56d34891513b1771c4dc9c6e1fbeaaf5ffba9cc9667e9e10722dc077339"
+      },
+      {
+        "claim_id": "tesla_comparison_meaning",
+        "claim_text": "Spending below forecasts can therefore coexist with spending substantially more than a year earlier.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "goal35-tesla",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "09b6c56d34891513b1771c4dc9c6e1fbeaaf5ffba9cc9667e9e10722dc077339"
+      },
+      {
+        "claim_id": "tesla_total_capex_scope",
+        "claim_text": "Those reported figures describe total capital expenditure. They provide no separate AI-only spending measure, so assigning the cash result to a specific AI investment change would exceed their scope. These figures also leave the timing, composition and efficiency of that investment unresolved.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "goal35-tesla",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "0589a0a69a62c48cb3547bc57ffba9ae62f5e63e108d9621c69afbd3e84a9662"
+      },
+      {
+        "claim_id": "tesla_operating_countercase",
+        "claim_text": "The serious countercase is that operating cash may also have strengthened. If that improvement accompanied the reported investment increase, positive free cash flow could be more durable than a spending-only reading suggests. The supplied record leaves that explanation open; it does not justify dismissing the result as a timing effect.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "document_id": "goal35-tesla",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "013356642ee11f4df5aaffce2de8e684c5cd5bcc89c161024cd52b774b48dfab"
+      },
+      {
+        "claim_id": "tesla_repeatability_watch",
+        "claim_text": "The next useful test is an operating-cash-flow and working-capital bridge, alongside capex composition and future investment commitments. If later disclosures show stronger operating cash while those commitments are funded, the repeatability case would strengthen. If cash generation cannot support investment as it comes due, it would weaken.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "document_id": "goal35-tesla",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "013356642ee11f4df5aaffce2de8e684c5cd5bcc89c161024cd52b774b48dfab"
+      }
+    ],
+    "cited_source_count": 1,
+    "source_urls": [
+      "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/"
+    ],
+    "source_timestamps_are_model_authority": false,
+    "source_bytes_precede_writer": true,
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": true,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "UNCONFIRMED",
+      "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+      "event_truth_support_status": "UNCONFIRMED",
+      "event_truth_supported": false,
+      "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+      "origin_character": "UNSPECIFIED",
+      "primary_reporting_publisher": "Reuters",
+      "primary_reporting_source_identity": "reuters.com",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+      "relay_source_identity": null,
+      "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+      "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "DIRECT_REPUTABLE_REPORT",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "goal35-tesla"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": false
+    },
+    "report_truth_validated_separately_from_event_truth": true,
+    "public_write_performed": false,
+    "unknown_write_detected": false
+  },
+  "native_submit": {
+    "stage": "write",
+    "response_sha256": "8df2193dbd272da4bb8b383fc11e7a71eba1fb88848e8133b121d40ca6f036e5",
+    "public_write_performed": false
+  }
+}

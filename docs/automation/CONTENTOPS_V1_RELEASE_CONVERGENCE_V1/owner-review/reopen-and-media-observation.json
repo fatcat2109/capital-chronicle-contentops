@@ -1,0 +1,29 @@
+[
+  {
+    "page": 320,
+    "value": {
+      "buttons": [
+        "Previous story",
+        "Next story"
+      ],
+      "channel": "instagram_business",
+      "imagesLoaded": true,
+      "offlineReopened": true,
+      "resources": [],
+      "scriptsExternal": false,
+      "story": "v1-media-ibm-r1",
+      "url": "file:///C:/Users/bullw/.codex/worktrees/v1-newsroom-release-recovered/ContentOps/docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/START_HERE.html"
+    }
+  },
+  {
+    "page": 320,
+    "value": {
+      "chartContainerWidth": 300,
+      "chartNaturalWidth": 1680,
+      "chartOpen": true,
+      "chartScrollWidth": 1680,
+      "pageWidth": 375,
+      "width": 390
+    }
+  }
+]

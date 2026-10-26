@@ -10,6 +10,7 @@ import io
 import json
 import re
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -43,6 +44,94 @@ DISCOVERY_PRIORITY = (
 SELECTABLE_RIGHTS = frozenset({
     "FIRST_PARTY_REUSABLE", "PUBLIC_DOMAIN", "OPEN_LICENSED", "LICENSED_REUSE",
 })
+
+
+def validate_contextual_photo(asset: Mapping[str, Any]) -> None:
+    """Check exact delivery pixels and retained license metadata, separately from facts.
+
+    The inspected subject/date/relevance judgment remains an editorial observation;
+    this verifies its byte binding, not the truth of a photographer's description.
+    """
+    from pathlib import Path
+    from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
+    if (asset.get("modality") != "documentary_photo"
+            or asset.get("rights_status") not in SELECTABLE_RIGHTS
+            or any(asset.get(k) for k in ("is_logo", "is_thumbnail", "is_synthetic", "ai_generated_image"))):
+        raise ValueError("AUTHENTIC_LAWFUL_CONTEXTUAL_PHOTO_REQUIRED")
+    required = ("source_page_url", "original_asset_url", "creator_publisher", "license_url",
+                "attribution", "caption", "alt_text", "relevance_rationale", "depicted_date",
+                "source_reuse_basis")
+    if any(not isinstance(asset.get(k), str) or not asset[k].strip() for k in required):
+        raise ValueError("PHOTO_PROVENANCE_INCOMPLETE")
+    if any(not asset[k].startswith("https://") for k in ("source_page_url", "original_asset_url", "license_url")):
+        raise ValueError("PHOTO_PUBLIC_SOURCE_REQUIRED")
+    raw = resolve_workspace_path(asset["path"]).read_bytes()
+    digest = hashlib.sha256(raw).hexdigest()
+    if digest != asset.get("sha256"):
+        raise ValueError("PHOTO_DELIVERY_BYTES_CHANGED")
+    receipt_raw = Path(asset["rights_evidence_path"]).read_bytes()
+    if hashlib.sha256(receipt_raw).hexdigest() != asset.get("rights_evidence_sha256"):
+        raise ValueError("PHOTO_RIGHTS_RECEIPT_CHANGED")
+    receipt = json.loads(receipt_raw)
+    fields = ("source_page_url", "original_asset_url", "creator_publisher", "license_url", "rights_status", "depicted_date")
+    if any(receipt.get(k) != asset.get(k) for k in fields):
+        raise ValueError("PHOTO_RIGHTS_SOURCE_BINDING_CHANGED")
+    # A generic rights string cannot replace the retained provider record.
+    if not receipt.get("provider_metadata") or not receipt.get("license_text"):
+        raise ValueError("PHOTO_EXACT_LICENSE_EVIDENCE_REQUIRED")
+    provider = receipt["provider_metadata"]
+    try:
+        info = provider["page"]["imageinfo"][0]
+        meta = info["extmetadata"]
+        def plain(value):
+            return sanitize_source_text(re.sub(r"<[^>]*>", "", str(value))).strip()
+        if (info["descriptionurl"] != asset["source_page_url"]
+                or info["url"].split("?", 1)[0] != asset["original_asset_url"]
+                or _contextual_license_url(receipt, provider, meta) != asset["license_url"]
+                or _rights_from_license(meta["LicenseShortName"]["value"]) != asset["rights_status"]
+                or plain(meta["DateTimeOriginal"]["value"]) != asset["depicted_date"]
+                or receipt.get("original_sha256") != digest):
+            raise ValueError("PHOTO_PROVIDER_METADATA_BINDING_CHANGED")
+    except (KeyError, IndexError, TypeError) as exc:
+        raise ValueError("PHOTO_PROVIDER_METADATA_INCOMPLETE") from exc
+    review = asset.get("visual_review") or {}
+    if (digest != asset.get("sha256") or review.get("asset_sha256") != digest
+            or review.get("pixels_inspected") is not True
+            or review.get("relevant_subject") is not True or not review.get("reviewer")):
+        raise ValueError("PHOTO_EXACT_PIXEL_REVIEW_REQUIRED")
+    with Image.open(io.BytesIO(raw)) as im:
+        im.verify()
+    with Image.open(io.BytesIO(raw)) as im:
+        if im.format not in {"JPEG", "PNG", "WEBP"} or im.size != (asset.get("width"), asset.get("height")):
+            raise ValueError("PHOTO_DELIVERY_DIMENSIONS_INVALID")
+    if asset.get("context_only") is not True or asset.get("corroborates_article_facts") is not False:
+        raise ValueError("CONTEXTUAL_PHOTO_IS_NOT_FACTUAL_CORROBORATION")
+
+
+def _contextual_license_url(receipt, provider, meta):
+    """Commons US federal works may have no LicenseUrl; verify its exact basis."""
+    if meta.get("LicenseUrl", {}).get("value"):
+        return _normalise_license_url(meta["LicenseUrl"]["value"].replace("http://", "https://", 1))
+    basis = receipt.get("public_domain_basis") or {}
+    policy_url = "https://commons.wikimedia.org/wiki/Template:PD-USGov"
+    if (meta.get("License", {}).get("value") != "pd"
+            or meta.get("LicenseShortName", {}).get("value") != "Public domain"
+            or meta.get("Copyrighted", {}).get("value") != "False"
+            or "{{PD-USGov}}" not in provider["page"].get("license_wikitext", "")
+            or basis.get("policy_url") != policy_url):
+        raise ValueError("PHOTO_PUBLIC_DOMAIN_BASIS_REQUIRED")
+    raw = Path(basis["policy_capture_path"]).read_bytes()
+    policy = json.loads(raw)
+    text = " ".join(str(policy.get("canonical_content_text") or "").split()).lower()
+    if (hashlib.sha256(raw).hexdigest() != basis.get("policy_capture_sha256")
+            or policy.get("status") != "PASS" or policy.get("final_url") != policy_url
+            or policy.get("retrieval_method") != "READ_ONLY_BROWSEROS_NEO_PUBLIC_LICENSE"
+            or not all(s in text for s in ("public domain", "united states federal government",
+                                          "official duties", "section 105"))
+            or policy.get("credential_or_session_material_read") is not False
+            or policy.get("public_write_performed") is not False):
+        raise ValueError("PHOTO_PUBLIC_DOMAIN_POLICY_NOT_VERIFIED")
+    return policy_url
 REQUIRED_CANDIDATE_FIELDS = (
     "visual_intent", "discovery_provider", "query", "source_page_url",
     "original_asset_url", "creator_publisher", "reuse_basis", "attribution", "width",

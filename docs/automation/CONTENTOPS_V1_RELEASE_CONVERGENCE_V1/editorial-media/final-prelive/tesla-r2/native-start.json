@@ -1,0 +1,40 @@
+{
+  "classification": "NATIVE_DESKTOP_INPUT_REQUIRED",
+  "stage": "select",
+  "request_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\v1-prelive-tesla-r2\\desktop_request_select.json",
+  "request_sha256": "3e7e55a67ecd1b51963e2c04a9fa504eb49cf757afe655b7a4eec351ce122bfe",
+  "editorial_execution": {
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "observed_models": [],
+    "observed_efforts": [],
+    "native_invocation_count_observed": null,
+    "semantic_response_count": 0,
+    "maximum_repair_count": 1,
+    "external_provider_attempt_count": 0,
+    "usage_tokens": null,
+    "cost_usd": null,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "observations": []
+  },
+  "public_write_performed": false
+}

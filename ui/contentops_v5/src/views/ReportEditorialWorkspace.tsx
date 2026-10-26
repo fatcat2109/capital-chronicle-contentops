@@ -1,17 +1,18 @@
 import { ResearchPackageDecision } from './ResearchPackageDecision';
 import { EvolvingStoryWorkspace } from './EvolvingStoryWorkspace';
-import { useState } from 'react';
-import type { ReportWorkspaceData, MaintainedNativeStory } from '../dailyAppTypes';
+import { useEffect, useRef, useState } from 'react';
+import type { ReportWorkspaceData, MaintainedNativeStory, OwnerReviewContext } from '../dailyAppTypes';
 
 const DESTINATIONS = ['telegram', 'discord', 'x', 'linkedin', 'facebook_page', 'instagram_business', 'threads', 'youtube'];
 const display = (value: string) => value.replace(/_/g, ' ');
 const retainedSourceDate = (source: { published_at_source?: string; published_at_utc: string }) =>
-  /^\d{4}-\d{2}-\d{2}$/.test(source.published_at_source ?? '')
+  /^(?:\d{4}-\d{2}-\d{2}|(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{4})$/.test(source.published_at_source ?? '')
     ? `${source.published_at_source} (date only; release time not supplied)`
     : source.published_at_utc || 'Không cung cấp ngày xuất bản';
 const sourceDecision: Record<string, string> = {
   USE_UNCHANGED: 'Giữ nguyên bài', MATERIAL_FOLLOW_UP: 'Cần bài tiếp nối',
   CORRECTION_OR_WITHDRAWAL: 'Cần sửa hoặc rút phạm vi cũ', STALE_OR_SOURCE_GAP: 'Còn thiếu nguồn mới',
+  EDITORIAL_REVISION: 'Editorial refinement of retained facts',
   RETAIN_EXACT_BYTES_DATED_SUPPORT: 'Giữ ảnh đã kiểm tra với nguồn có ngày cũ',
   REVALIDATE_CHANGED_SUPPORT: 'Kiểm tra lại ảnh theo nguồn đã đổi',
 };
@@ -39,6 +40,97 @@ const gapText: Record<string, string> = {
 function previewText(payload: Record<string, unknown>): string {
   const text = payload.full_text ?? [payload.text ?? payload.root_text ?? '', ...(Array.isArray(payload.reply_texts) ? payload.reply_texts : [])].join('\n\n');
   return String(text).replace(/https:\/\/capitalchronicle\.substack\.com\/p\/pending-publication-[a-z0-9]+/g, '[Canonical link pending]');
+}
+
+type EditorialMedia = NonNullable<NonNullable<ReportWorkspaceData['native_edition']>[number]['media_assets']>[number];
+function MediaFigure({ asset: a, originalHref, readerDetails = true }: { asset: EditorialMedia; originalHref?: string; readerDetails?: boolean }) {
+  const [expanded, setExpanded] = useState(false);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const opener = useRef<HTMLAnchorElement>(null);
+  useEffect(() => {
+    if (!expanded || !dialog.current) return;
+    dialog.current.showModal();
+    return () => { opener.current?.focus(); };
+  }, [expanded]);
+  const credit = a.reader_credit ?? a.attribution;
+  const sources = a.modality === 'source_backed_chart' ? a.source_links ?? [] : [];
+  const imageHref = originalHref ?? a.preview_data_url;
+  return <figure data-media-asset={a.asset_id}>
+    {a.preview_data_url && <a ref={opener} className="media-zoom" href={imageHref} target="_blank" rel="noreferrer" aria-label={`View full-size ${a.alt_text ?? a.caption}`}
+      onClick={event => { if (!originalHref || a.modality === 'source_backed_chart') { event.preventDefault(); setExpanded(true); } }}>
+      <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', maxWidth: a.width ?? '100%', height: 'auto' }} />
+    </a>}
+    <figcaption>{a.reader_caption ?? a.caption}{sources.length ? <> · {sources.length > 1 ? 'Sources: ' : 'Source: '}
+      {sources.map((source,index) => <span key={source.document_id}>{index > 0 && '; '}
+        <a href={source.url} target="_blank" rel="noreferrer">{source.label}</a></span>)}</>
+      : credit && <> · {a.source_page_url?.startsWith('https://')
+      ? <a href={a.source_page_url} target="_blank" rel="noreferrer">{credit}</a> : credit}</>}
+      {a.license_url?.startsWith('https://') && <> · <a href={a.license_url} target="_blank" rel="noreferrer">{a.license_name ?? 'Reuse terms'}</a></>}
+      {readerDetails && a.support_caption && <p style={{ margin: '8px 0' }}>{a.support_caption}</p>}
+    {readerDetails && a.reader_table && <div className="media-reference-table" style={{ margin: '20px 0' }}>
+      <table aria-label={a.reader_table.caption} style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed', fontSize: '0.9rem' }}>
+        <caption style={{ textAlign: 'left', fontWeight: 650, paddingBottom: 10 }}>{a.reader_table.caption} · {a.reader_table.unit}</caption>
+        <colgroup><col style={{ width: '52%' }} />{a.reader_table.columns.map(column => <col key={column} style={{ width: `${48 / a.reader_table!.columns.length}%` }} />)}</colgroup>
+        <thead><tr><th scope="col" style={{ textAlign: 'left', padding: '9px 8px 9px 0', borderBottom: '1px solid #a8bab4' }}>Measure</th>
+          {a.reader_table.columns.map(column => <th key={column} scope="col" style={{ textAlign: 'right', padding: '9px 0 9px 8px', borderBottom: '1px solid #a8bab4' }}>{column}</th>)}</tr></thead>
+        <tbody>{a.reader_table.rows.map(row => <tr key={row.label}>
+          <th scope="row" style={{ textAlign: 'left', fontWeight: 500, padding: '10px 8px 10px 0', borderBottom: '1px solid #d9e1db', overflowWrap: 'anywhere' }}>{row.label}</th>
+          {row.values.map((value, index) => <td key={index} style={{ textAlign: 'right', padding: '10px 0 10px 8px', borderBottom: '1px solid #d9e1db', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>{new Intl.NumberFormat('en-US', { maximumFractionDigits: 3 }).format(value)}</td>)}
+        </tr>)}</tbody>
+      </table>
+      {a.reader_table.notes.map(note => <p key={note} style={{ fontSize: '0.85rem', margin: '8px 0' }}>{note}</p>)}
+    </div>}
+    </figcaption>
+    {expanded && <dialog ref={dialog} aria-modal="true" aria-label={`Full-size ${a.alt_text ?? a.caption}`}
+      onCancel={event => { event.preventDefault(); setExpanded(false); }}
+      onKeyDown={event => {
+        if (event.key === 'Escape') setExpanded(false);
+        if (event.key === 'Tab' && !event.ctrlKey && !event.metaKey && !event.altKey) {
+          event.preventDefault(); event.currentTarget.querySelector('button')?.focus();
+        }
+      }}
+      style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', maxWidth: 'none', maxHeight: 'none', margin: 0, zIndex: 20, overflow: 'auto', background: '#faf9f5' }}>
+      <button type="button" autoFocus onClick={() => setExpanded(false)}>Close image</button>
+      <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ display: 'block', width: a.width ?? 'auto', maxWidth: 'none', height: 'auto' }} />
+    </dialog>}
+  </figure>;
+}
+
+function ArticleWithMedia({ text, assets = [], originals }: { text: string; assets?: EditorialMedia[]; originals?: Record<string, string> }) {
+  const sections = text.split(/(?=^#{1,6}\s)/m).filter(Boolean);
+  const placed = new Set<string>();
+  const figure = (a: EditorialMedia) => <MediaFigure key={a.asset_id} asset={a} originalHref={originals?.[a.sha256]} />;
+  return <>
+    {assets.filter(a => a.modality === 'documentary_photo').map(figure)}
+    {sections.map((section, i) => {
+      const heading = /^#{1,6}\s+([^\n]+)/.exec(section)?.[1].trim();
+      const inline = assets.filter(a => a.modality !== 'documentary_photo' && !!heading && a.placement_after === heading);
+      inline.forEach(a => placed.add(a.asset_id));
+      return <div key={i}><ArticleParagraphs text={section.trim()} />{inline.map(figure)}</div>;
+    })}
+    {assets.filter(a => a.modality !== 'documentary_photo' && !placed.has(a.asset_id)).map(figure)}
+  </>;
+}
+function PackagePreview({ payload, assets = [], originals }: { payload: Record<string, unknown>; assets?: EditorialMedia[]; originals?: Record<string, string> }) {
+  const posts = Array.isArray(payload.posts) ? payload.posts as Array<Record<string, unknown>> : [];
+  const ids = new Set([...(Array.isArray(payload.media_asset_ids) ? payload.media_asset_ids : []),
+    ...posts.flatMap(p => Array.isArray(p.media_asset_ids) ? p.media_asset_ids : [])]);
+  const attached = assets.filter(a => ids.has(a.asset_id));
+  // Display a complete photo attribution once, beside its image. The actual channel
+  // payload is immutable and keeps its standalone credit, license and archive caveat.
+  // Unknown/changed credits and missing images stay in the copy rather than being stripped.
+  const figureCredits = new Set(attached.filter(a => a.preview_data_url && a.modality === 'documentary_photo'
+    && a.reader_caption && a.reader_credit && a.license_name && a.license_url?.startsWith('https://')
+    && a.source_page_url?.startsWith('https://')).map(a =>
+    `Photo: [${a.reader_credit}](${a.source_page_url}) · [${a.license_name}](${a.license_url}). ${a.reader_caption}`));
+  const readingText = (text: string) => text.split(/\n\s*\n/).filter(block => !figureCredits.has(block.trim())).join('\n\n');
+  return <>
+    {posts.length ? posts.map((p, index) => <div key={index} data-preview-post={index}>
+      <p><strong>{index === 0 ? 'Root post' : `Reply ${index}`}</strong></p>
+      <ArticleParagraphs text={readingText(previewText({ text: p.text }))} />
+    </div>) : <ArticleParagraphs text={readingText(previewText(payload))} />}
+    {attached.map(a => <MediaFigure key={a.asset_id} asset={a} originalHref={originals?.[a.sha256]} readerDetails={false} />)}
+  </>;
 }
 
 const storyState: Record<string, string> = { NEW: 'New story', UPDATE: 'Updated story', KEEP: 'Keep dated view',
@@ -109,7 +201,115 @@ function MaintainedStories({ stories }: { stories: MaintainedNativeStory[] }) {
   </section>;
 }
 
-export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData }) {
+const channelNames: Record<string, string> = { telegram: 'Telegram', discord: 'Discord', x: 'X', linkedin: 'LinkedIn',
+  facebook_page: 'Facebook Page', instagram_business: 'Instagram Business', threads: 'Threads', youtube: 'YouTube Community' };
+
+function OwnerEditionReview({ data, context }: { data?: ReportWorkspaceData; context?: OwnerReviewContext }) {
+  const edition = data?.owner_edition;
+  const articles = edition?.operation_ids.flatMap(id => data?.native_edition?.filter(i => i.run_id === id) ?? []) ?? [];
+  const [position, setPosition] = useState(0);
+  const [channel, setChannel] = useState('canonical');
+  const [releaseOpen, setReleaseOpen] = useState(false);
+  const item = articles[position];
+  const selectStory = (index: number) => { setPosition(index); setChannel('canonical'); };
+  if (!edition || !item) return <section role="status"><h2>No selected owner edition</h2>
+    <p>This read-only export has no selected articles. Ask the existing ContentOps owner to open the intended edition; no replacement content has been generated.</p></section>;
+  const preview = item.previews.find(p => p.destination === channel);
+  const pub = item.publication;
+  const undispatched = articles.reduce((sum, a) => sum + (a.publication?.destinations.filter(d => d.status === 'NOT_DISPATCHED').length ?? 0), 0);
+  return <section className="owner-review" aria-label="Private owner review">
+    <header className="owner-intro" id="review-top">
+      <p className="eyebrow">Capital Chronicle</p><h1>Newsroom</h1>
+      <p className="review-mode" role="status"><strong>Private, read-only preview.</strong></p>
+      <details><summary>Edition status</summary>
+        <p className="review-counts">{edition.ready} ready · {edition.missing} missing · {edition.held} held · {edition.preview_count} channel previews · {undispatched} destination states not dispatched</p>
+        <p>Snapshot: {context?.captured_at_utc ?? 'capture time not supplied'}. Source dates remain their original dates; these examples are not a production day.</p>
+      </details>
+      <nav className="guide-links" aria-label="Review guide"><a href="#how-v1-works">How V1 works</a>
+        <a href="#release-decision" onClick={() => setReleaseOpen(true)}>Activation boundary</a></nav>
+    </header>
+    <div className="reading-controls">
+      <label>Story <select aria-label="Choose story" value={position} onChange={e => selectStory(Number(e.target.value))}>
+        {articles.map((a, i) => <option value={i} key={a.article_identity}>{i + 1}. {a.article.title}</option>)}</select></label>
+      <div className="story-step"><button type="button" onClick={() => selectStory(position - 1)} disabled={position === 0}>Previous story</button>
+        <span aria-live="polite">{position + 1} of {articles.length}</span>
+        <button type="button" onClick={() => selectStory(position + 1)} disabled={position === articles.length - 1}>Next story</button></div>
+      <label>Reading view <select aria-label="Choose reading view" value={channel} onChange={e => setChannel(e.target.value)}>
+        <option value="canonical">Canonical article · Substack</option>
+        {DESTINATIONS.map(d => <option key={d} value={d}>{channelNames[d]}</option>)}</select></label>
+    </div>
+    <article className="report-copy owner-article" data-owner-story={item.run_id} data-reading-view={channel} aria-label="Selected article">
+      <h2>{channel === 'canonical' ? item.article.title : channelNames[channel]}</h2>
+      {channel === 'canonical' && <><p className="article-dek">{item.article.dek}</p>
+        {item.article.display_date && <p className="article-date">{item.article.display_date}</p>}</>}
+      {channel === 'canonical' ? <>
+        <ArticleWithMedia text={item.article.substack_body_markdown} assets={item.media_assets} originals={context?.original_media_links} />
+      </> : preview ? <>
+        <PackagePreview payload={preview.payload} assets={item.media_assets} originals={context?.original_media_links} /></> : <p role="status">No package is recorded for this destination.</p>}
+      <details className="dated-sources" aria-label="Dated sources"><summary>Sources and dates</summary>
+        <p>{item.article.source_date_notice}</p>
+        {item.evidence?.map(s => <p key={s.source_id}><strong>{s.source_id} · {s.publisher}</strong><br />{retainedSourceDate(s)}<br />
+          {s.url.startsWith('https://') ? <a href={s.url} target="_blank" rel="noreferrer">Read original source</a> : 'Retained public report; no external source URL recorded.'}</p>)}
+        <p>A source check does not create a new event. Attributed reporting and independently confirmed event truth remain distinct.</p>
+      </details>
+    </article>
+      <details className="owner-record"><summary>Owner record: review and preparation</summary>
+        <p>Editorial review: {item.review?.decision ?? 'not recorded'} · Preparation: {pub?.state ?? 'not prepared'} · Not published</p>
+        <p>Search title: {item.article.search_title ?? 'not separately recorded'}</p>
+        <p>{item.article.meta_description}</p><p>Slug: {item.article.canonical_slug_candidate ?? 'not separately recorded'}</p><p>{item.review?.rationale}</p>
+        <p>Article identity: <code>{item.article_identity}</code></p><p>Operation: <code>{item.run_id}</code>.</p>
+        <p>These isolated manual examples have no dispatch authority. KEEP and PREPARED do not establish publication or current account readiness.</p>
+        {pub?.destinations.map(d => <p key={d.destination}>{d.destination === 'substack' ? 'Substack' : channelNames[d.destination] ?? d.destination}: {display(d.status)} · readiness {display(d.cached_readiness)}</p>)}
+      </details>
+    <section className="owner-guide" id="how-v1-works"><h2>What you are reviewing</h2>
+      <p>V1 turns admitted public reporting and public-safe Capital Chronicle research into a sourced article, lawful contextual photography and eight channel-specific packages. Substantial analysis uses two to five distinct useful charts drawn from primary data. A news or policy story may omit charts when no defensible useful comparison exists; its editorial reason stays in the record.</p>
+      <details><summary>How to use the working manual newsroom</summary>
+        <p>In the existing ContentOps Codex chat, ask: “Prepare an article about [your question]” or “Continue the existing [story]”. Codex uses the configured manual newsroom entry, handles the native requests and returns the reader. Resume the same operation after interruption; a changed question gets its own identity.</p>
+        <p>Sol6.1 Light selects and prepares evidence and proposes visuals. Sol6.1 MAX decides the argument, data, chart forms, count and placement, then writes prose and SEO in that same context. A bounded revision stays with that writer. Luna MAX filters genuinely new X intake. Code retrieves, computes, renders and validates. Source changes invalidate affected review/preparation while preserving history.</p>
+        <p>This offline file shows the selected edition. It does not send a question, run a model, refresh sources or record KEEP. Give revision/review instructions to the existing owner in Codex; no JSON assembly is needed from you.</p>
+        <details><summary>Existing operator entry</summary><code>python scripts/run_native_desktop_editorial.py newsroom --operation-id &lt;stable-id&gt; --request-file &lt;UTF-8 request&gt;</code>
+          <p><code>desk</code> reopens an export of the existing owner edition. Manual preparation remains isolated from production.</p></details>
+      </details>
+      <details><summary>What the release review checks</summary><ol>
+        <li>People-first SEO and house voice: supported titles, descriptions and readable original copy; ranking remains unknown.</li>
+        <li>Reporting quality: fact-led thesis, mechanism, serious countercase and next evidence, assessed against the existing publication study; no publisher-parity certification.</li>
+        <li>Evidence-led analysis: exact source support and truthful dates; attributed reports remain distinct from confirmed events.</li>
+        <li>Authentic lawful photographs: relevant archive context, exact identity/date/credit/license and inspected pixels.</li>
+        <li>Useful quantitative charts: exact signed values, units, periods and actual/estimate/forecast or announced-setting distinctions.</li>
+        <li>Existing V1 scope: eight modes, native roles, public-safe intake, review/history/corrections, canonical plus eight packages, recovery, four windows, privacy and guarded learning. Live operational dimensions remain unobserved.</li>
+      </ol>{context?.acceptance_href && <a href={context.acceptance_href}>Exact acceptance matrix and evidence</a>}</details>
+      <details><summary>Held story, history and measured availability</summary>
+        {edition.held_candidates.map((h, i) => <p key={i}><strong>Held: {h.title}.</strong> {h.reason}</p>)}
+        <p>Original articles, source captures, review versions and held candidates remain history. Revised copy and media need their own current review; a later capture does not create a new event.</p>
+        <p>Real audience samples: {context?.audience?.sample_count ?? 'unavailable'}. Content: {context?.audience ? display(context.audience.content_state) : 'not supplied'}.
+          Search: {context?.audience ? display(context.audience.search_state) : 'not supplied'}. Destination metrics: {context?.audience ? display(context.audience.destination_state) : 'not supplied'}.</p>
+        <p>No traffic improvement, SEO ranking, audience uplift or publisher parity is inferred. Sustained output and platform behavior require actual authorized operation.</p>
+        {context?.history_href && <a href={context.history_href}>Preserved historical evidence</a>}
+      </details>
+    </section>
+    <details id="release-decision" className="release-decision" open={releaseOpen} onToggle={e => setReleaseOpen(e.currentTarget.open)}>
+      <summary>Production activation needs Jim's decision</summary>
+      <p>Private article acceptance does not enable production. Jim's remaining decision must name the code to deploy,
+        whether to enable the same four newsroom windows, and the permitted publication destinations. Production,
+        schedules, publication and V2/V3 remain paused until their respective authority changes.</p>
+      <p>Fresh production articles require current sources, lawful media and exact review. These dated private examples
+        are not copied into production or credited as a new production day.</p>
+      <p>The existing coordinator publishes Substack first, reads it back, then prepares the eight derivatives with
+        the real article URL. An uncertain write stops retries until readback and reconciliation.</p>
+      <p>Calendar execution, published output and audience/search results require actual operating evidence.
+        Private previews establish none of those results.</p>
+      {context?.accepted_delivery_head && <p>Reviewed code: <code>{context.accepted_delivery_head}</code></p>}
+    </details>
+    <p className="review-footer"><a href="#review-top">Back to story navigation</a> · Close and reopen this HTML file to return; no preview process or local server is required.</p>
+  </section>;
+}
+
+export function ReportEditorialWorkspace({ data, mode = 'workspace', reviewContext }: { data?: ReportWorkspaceData; mode?: 'workspace' | 'owner-review'; reviewContext?: OwnerReviewContext }) {
+  if (mode === 'owner-review') return <OwnerEditionReview data={data} context={reviewContext} />;
+  return <FullReportEditorialWorkspace data={data} />;
+}
+
+function FullReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData }) {
   const [selected, select] = useState('');
   const [family, setFamily] = useState('ALL');
   const library = data?.foundation_library;
@@ -155,17 +355,17 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
       {articles?.map(item => <article id={'article-' + item.article_identity} key={item.article_identity} className="report-copy" data-edition-run={item.run_id}>
         <h3>{item.article.title}</h3><p>{item.article.dek}</p>
         <p><strong>{item.review?.decision ?? 'Chờ đọc duyệt'}</strong> · {item.reader_question}</p>
-        {item.prepared_state && <p role="status">Bản gốc được giữ nguyên; chuẩn bị phát hành đã mất hiệu lực do nguồn đổi hoặc còn thiếu.</p>}
+        {item.prepared_state && <p role="status">The retained article remains available. This copy, source or media revision needs a current review before preparation.</p>}
         {item.source_review && <p>{sourceDecision[item.source_review.decision] ?? display(item.source_review.decision)}: {item.source_review.reader_change_summary}</p>}
         {item.report_id && <p>Bổ sung từ {item.report_id} bản {item.report_version}; phân tích Main có điều kiện, không phải xác nhận độc lập.</p>}
-        <details open><summary>Đọc toàn bài</summary><ArticleParagraphs text={item.article.substack_body_markdown} /></details>
+        <details open><summary>Đọc toàn bài</summary><ArticleWithMedia text={item.article.substack_body_markdown} assets={item.media_assets} /></details>
         <details><summary>Góc bài và quyết định đọc duyệt</summary><p>{item.angle ?? item.mode}</p><p>{item.review?.rationale}</p></details>
         {item.article.search_title && <details><summary>SEO và ngày nguồn</summary><p>{item.article.search_title}</p><p>{item.article.meta_description}</p><p>Slug: {item.article.canonical_slug_candidate}</p><p>{item.article.source_date_notice}</p></details>}
         <details><summary>Nguồn và ngày</summary>{item.evidence?.map(s => <p key={s.source_id} style={{ overflowWrap: 'anywhere' }}>
           {s.source_id} · {s.publisher} · {retainedSourceDate(s)} · {s.published_at_source === 'MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME' ? 'Mốc báo cáo Main, không phải ngày phát hành nguồn' : 'Nguồn lưu giữ có ngày riêng'}<br />
           {s.url.startsWith('https://') ? <a href={s.url} target="_blank" rel="noreferrer">Đọc nguồn gốc</a> : 'Bản báo cáo công khai có định danh bất biến'}
         </p>)}</details>
-        {item.media_assets?.map(a => <figure key={a.asset_id}>{a.preview_data_url && <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', height: 'auto' }} />}<figcaption>{a.caption}</figcaption></figure>)}
+        <p role="status">Release media: {item.release_media?.state ?? 'NOT VERIFIED'}{item.release_media?.blocker ? ` · ${item.release_media.blocker}` : ''}</p>
         {!item.media_assets?.length && <p role="status">Media gap: no inspected, rights-cleared image is bound to this article. Text previews remain available.</p>}
         <h4>{item.previews.length}/8 bản xem trước theo nền tảng</h4>
         {item.publication && <details aria-label="Publication continuation"><summary>Publication: {display(item.publication.state)}</summary>
@@ -180,7 +380,7 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
             {d.blocker ? ' · ' + display(d.blocker) : ''}
             {d.public_object_url && <> · <a href={d.public_object_url}>Observed object</a></>}</p>)}
         </details>}
-        {item.previews.map(p => <details key={p.preview_id} data-edition-destination={p.destination}><summary>{display(p.destination)}</summary><div className="report-body"><ArticleParagraphs text={previewText(p.payload)} /></div></details>)}
+        {item.previews.map(p => <details key={p.preview_id} data-edition-destination={p.destination}><summary>{display(p.destination)}</summary><div className="report-body"><PackagePreview payload={p.payload} assets={item.media_assets} /></div></details>)}
       </article>)}
     </section>}
     {!!history?.length && <details><summary>Bài và phiên bản trước ({history.length})</summary>{history.map(h => <details key={h.article_identity}><summary>{h.article.title} · {h.prepared_state ? 'chuẩn bị cũ mất hiệu lực' : h.source_review?.decision === 'USE_UNCHANGED' ? 'giữ dùng, không viết lại' : h.review?.decision ?? 'chưa duyệt'}</summary>
@@ -198,7 +398,7 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
         {s.invalidates_prepared_review && <p>Chuẩn bị phát hành bản cũ cần xem lại; chưa được dùng quyết định KEEP trước đây để phát hành.</p>}
         <p>Media: {sourceDecision[s.media_state] ?? display(s.media_state)}.</p>
         <details><summary>Đối chiếu nguồn, ngày và giới hạn</summary>
-          {s.source_editions.map(e => <p key={e.item_id}>{e.proposition}<br />Quan sát: {e.observation_date ?? 'không ghi'} · Công bố: {e.published_at_utc?.slice(0, 10) ?? 'chưa xác minh'} · Lấy nguồn: {e.retrieved_at_utc}<br />{display(e.period_relation)} · {e.rights_state} · <a href={e.source_url}>Nguồn gốc</a></p>)}
+          {s.source_editions.map(e => <p key={e.item_id}>{e.proposition ?? 'Retained source identity; no new source proposition recorded.'}<br />Quan sát: {e.observation_date ?? 'không ghi'} · Công bố: {e.published_at_utc?.slice(0, 10) ?? 'chưa xác minh'} · Lấy nguồn: {e.retrieved_at_utc ?? 'not separately recorded in this revision'}<br />{e.period_relation ? display(e.period_relation) : 'No new observation period declared'} · {e.rights_state ?? 'See the exact retained source rights record'} · <a href={e.source_url}>Nguồn gốc</a></p>)}
           {s.source_attempts.map((a, i) => <p key={i}>{display(a.status)} · <a href={a.url}>Nguồn đã kiểm tra</a> · {a.observed_at_utc}</p>)}
           {!!s.removed_main_claim_ids.length && <p>Main đã rút: {s.removed_main_claim_ids.join(', ')}.</p>}
         </details>

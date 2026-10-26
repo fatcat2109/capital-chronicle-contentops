@@ -1,0 +1,190 @@
+[
+  {
+    "destination": "telegram",
+    "payload": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tesla-dj-cash-versus-investment-r1",
+        "tesla-dj-operating-cash-composition-r1"
+      ],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nTesla's cash rebound rests on more than lower spending\n\nTesla's cash rebound had two drivers: higher operating inflow and lower capital outlays.\n\nWhat to watch: The stronger case for durability would be operating cash that continues to cover investment as liability obligations are met, together with a sustained improvement in operating margins.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-54786100c3d59d8c"
+    },
+    "preview_id": "cc-preview-9c7f7be950575d9354e54ddc240eea422a4b6645064d0d62abd6bbfae0d46385"
+  },
+  {
+    "destination": "x",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "Tesla's cash rebound rests on more than lower spending\n\nTesla's cash rebound had two drivers: higher operating inflow and lower capital outlays.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-54786100c3d59d8c\n\nWatch: The stronger case for durability would be operating cash that continues to cover investment as liability obligations are met, together with a sustained improvement in operating margins.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tesla-dj-cash-versus-investment-r1"
+      ],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "tesla-dj-cash-versus-investment-r1"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "Tesla's cash rebound rests on more than lower spending\n\nTesla's cash rebound had two drivers: higher operating inflow and lower capital outlays.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-54786100c3d59d8c"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Watch: The stronger case for durability would be operating cash that continues to cover investment as liability obligations are met, together with a sustained improvement in operating margins."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.793,
+          0.686
+        ],
+        "post_character_counts": [
+          222,
+          192
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.865,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Watch: The stronger case for durability would be operating cash that continues to cover investment as liability obligations are met, together with a sustained improvement in operating margins."
+      ],
+      "root_text": "Tesla's cash rebound rests on more than lower spending\n\nTesla's cash rebound had two drivers: higher operating inflow and lower capital outlays.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-54786100c3d59d8c",
+      "text": "Tesla's cash rebound rests on more than lower spending\n\nTesla's cash rebound had two drivers: higher operating inflow and lower capital outlays.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-54786100c3d59d8c"
+    },
+    "preview_id": "cc-preview-0b8c1587e5fadd19327489060fb654f48eb7f3b7af7b896904c461cfc3d359b5"
+  },
+  {
+    "destination": "linkedin",
+    "payload": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tesla-dj-cash-versus-investment-r1",
+        "tesla-dj-margin-transmission-r1"
+      ],
+      "platform_limit": 3000,
+      "text": "Tesla's cash rebound rests on more than lower spending\n\nWhy it matters: Tesla generated $6.26 billion of operating cash in Q3 and spent $4.73 billion on capital expenditure.\n\nContext: The serious countercase is that Tesla improved both margins from Q2 while still investing far more than a year earlier.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-54786100c3d59d8c"
+    },
+    "preview_id": "cc-preview-eaf3ede606b69680753e7786d6a9b5d2351f910db3eb124b0ee64406c4b986a5"
+  },
+  {
+    "destination": "discord",
+    "payload": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tesla-dj-cash-versus-investment-r1"
+      ],
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: Tesla's cash rebound rests on more than lower spending**\n\nTesla's cash rebound had two drivers: higher operating inflow and lower capital outlays.\n\n**Context:** The serious countercase is that Tesla improved both margins from Q2 while still investing far more than a year earlier.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-54786100c3d59d8c"
+    },
+    "preview_id": "cc-preview-6dfd09a3e785800b671e3d9dd7e2925ada862804b4f98908b5c39ab3e30054f8"
+  },
+  {
+    "destination": "facebook_page",
+    "payload": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tesla-dj-cash-versus-investment-r1"
+      ],
+      "platform_limit": 63206,
+      "text": "Tesla's cash rebound rests on more than lower spending\n\nTesla's cash rebound had two drivers: higher operating inflow and lower capital outlays.\n\nWhy it matters: Tesla generated $6.26 billion of operating cash in Q3 and spent $4.73 billion on capital expenditure.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-54786100c3d59d8c"
+    },
+    "preview_id": "cc-preview-4486e4f1066c5f4a58078ff02fa933053e1a757b065c4dafecd3b22b730af4b4"
+  },
+  {
+    "destination": "instagram_business",
+    "payload": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tesla-dj-cash-versus-investment-r1",
+        "tesla-dj-margin-transmission-r1",
+        "tesla-dj-revenue-composition-r1"
+      ],
+      "platform_limit": 2200,
+      "text": "Tesla's cash rebound rests on more than lower spending\n\nTesla's cash rebound had two drivers: higher operating inflow and lower capital outlays.\n\nIn focus: The serious countercase is that Tesla improved both margins from Q2 while still investing far more than a year earlier.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-54786100c3d59d8c\n\n#CapitalChronicle"
+    },
+    "preview_id": "cc-preview-430f858b8f715ca9753e52285acc2ef76caa1fc5d14b99cef4de8864ba958f8b"
+  },
+  {
+    "destination": "threads",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "Tesla's cash rebound rests on more than lower spending\n\nThe serious countercase is that Tesla improved both margins from Q2 while still investing far more than a year earlier.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-54786100c3d59d8c\n\nWhat to watch: The stronger case for durability would be operating cash that continues to cover investment as liability obligations are met, together with a sustained improvement in operating margins.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tesla-dj-cash-versus-investment-r1"
+      ],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "tesla-dj-cash-versus-investment-r1"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "Tesla's cash rebound rests on more than lower spending\n\nThe serious countercase is that Tesla improved both margins from Q2 while still investing far more than a year earlier.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-54786100c3d59d8c"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: The stronger case for durability would be operating cash that continues to cover investment as liability obligations are met, together with a sustained improvement in operating margins."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.506,
+          0.4
+        ],
+        "post_character_counts": [
+          253,
+          200
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.791,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: The stronger case for durability would be operating cash that continues to cover investment as liability obligations are met, together with a sustained improvement in operating margins."
+      ],
+      "root_text": "Tesla's cash rebound rests on more than lower spending\n\nThe serious countercase is that Tesla improved both margins from Q2 while still investing far more than a year earlier.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-54786100c3d59d8c",
+      "text": "Tesla's cash rebound rests on more than lower spending\n\nThe serious countercase is that Tesla improved both margins from Q2 while still investing far more than a year earlier.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-54786100c3d59d8c"
+    },
+    "preview_id": "cc-preview-50bf7baeca0d5b6e80f75f39acfa937a0583bccee4bac3a75f61d81ec1de27c5"
+  },
+  {
+    "destination": "youtube",
+    "payload": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tesla-dj-cash-versus-investment-r1"
+      ],
+      "platform_limit": 1000,
+      "text": "Update: Tesla's cash rebound rests on more than lower spending\n\nTesla's cash rebound had two drivers: higher operating inflow and lower capital outlays.\n\nWhat to watch: The stronger case for durability would be operating cash that continues to cover investment as liability obligations are met, together with a sustained improvement in operating margins.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-54786100c3d59d8c"
+    },
+    "preview_id": "cc-preview-c041e206ffb91224bd45144c97e28e2fde29f05aee0a6e168be59ded058b98f9"
+  }
+]

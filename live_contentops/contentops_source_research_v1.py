@@ -166,6 +166,8 @@ class RetainedSourceResearch:
             raise ValueError("RESEARCH_EVIDENCE_NOT_ADMITTED")
         if spec.get("authorship_class") == "ISSUER_FILING_FACTS_ONLY":
             return self._verify_issuer_facts(spec, raw, policy, loader, doc)
+        if spec.get("authorship_class") == "ORIGINAL_PUBLIC_FACTS_ONLY":
+            return self._verify_original_facts(spec, raw, policy, loader, doc)
         if spec.get("authorship_class") == "REPUTABLE_REPORT_FACTS_ONLY":
             return self._verify_report_facts(spec, raw, policy, loader, doc)
         url = urlsplit(doc["source_url"])
@@ -304,6 +306,127 @@ class RetainedSourceResearch:
         }
         return record
 
+    def _verify_original_facts(self, spec, raw, policy, loader, doc):
+        """Exact original release/data facts; never a license to copy issuer expression."""
+        url = urlsplit(doc["source_url"])
+        original_routes = {
+            "newsroom.ibm.com": ("/2026-",),
+            "investor.atmeta.com": ("/investor-news/press-release-details/2026/",),
+            "investors.southwest.com": ("/news-events/press-releases/detail/",),
+            "assets-ir.tesla.com": ("/tesla-contents/IR/",),
+            "ir.tesla.com": ("/_flysystem/s3/sec/",),
+            "www.eia.gov": ("/dnav/pet/hist/LeafHandler.ashx", "/dnav/pet/hist/RBRTED.htm", "/dnav/pet/hist/RWTCD.htm"),
+            "www.newyorkfed.org": ("/markets/reference-rates/",),
+        }
+        if (url.scheme != "https" or url.username or url.password or url.fragment
+                or url.port not in (None, 443) or url.hostname not in original_routes
+                or not any(url.path.startswith(p) for p in original_routes[url.hostname])):
+            raise ValueError("ORIGINAL_FACTS_LOCATOR_INVALID")
+        policy_url = "https://www.copyright.gov/help/faq/faq-protect.html"
+        if spec["policy_url"] != policy_url or _hash(policy) != spec["policy_capture_sha256"]:
+            raise ValueError("SOURCE_PERMISSION_CAPTURE_MISMATCH")
+        rights = _rendered(policy, policy_url)
+        if not all(t in _normalize(rights["canonical_content_text"]).lower() for t in (
+                "copyright does not protect facts", "may protect the way these things are expressed")):
+            raise ValueError("SOURCE_PERMISSION_TEXT_NOT_VERIFIED")
+        capture = json.loads(raw)
+        text = capture["canonical_content_text"]
+        if (capture.get("status") != "PASS" or capture.get("url") != doc["source_url"]
+                or capture.get("public_write_performed") is not False
+                or capture.get("credential_or_session_material_read") is not False
+                or capture.get("source_capture_sha256") != spec["original_capture_sha256"]
+                or doc.get("source_interest_role") not in {"ISSUER", "ORIGINAL_DATA_PRODUCER"}
+                or spec.get("public_expression_reuse_allowed") is not False
+                or _hash(raw) != spec["source_capture_sha256"] or _hash(raw) != doc["raw_sha256"]
+                or doc["canonical_content_text"] != text
+                or doc.get("canonical_content_sha256") != _hash(text.encode())
+                or not 40 <= len(text) <= 48_000):
+            raise ValueError("ORIGINAL_FACTS_CAPTURE_INVALID")
+        original = self._read(spec["original_capture_path"])
+        if _hash(original) != spec["original_capture_sha256"]:
+            raise ValueError("ORIGINAL_FACTS_SOURCE_BYTES_CHANGED")
+        original_doc = json.loads(original)
+        if original_doc.get("url") != doc["source_url"]:
+            raise ValueError("ORIGINAL_FACTS_SOURCE_IDENTITY_CHANGED")
+        original_text = original_doc["text"]
+        if url.hostname == "www.eia.gov" and re.search(r"data source:\s*Thomson Reuters", original_text, re.I):
+            raise ValueError("ORIGINAL_DATA_PRODUCER_IS_THIRD_PARTY_RIGHTS_NOT_ADMITTED")
+        additional_terms = None
+        if url.hostname in {"www.newyorkfed.org", "www.eia.gov"}:
+            terms = spec.get("data_terms") or {}
+            expected = ("https://www.newyorkfed.org/privacy/termsofuse" if url.hostname == "www.newyorkfed.org"
+                else "https://www.eia.gov/about/copyrights_reuse.php")
+            terms_raw = self._read(terms["capture_path"])
+            if _hash(terms_raw) != terms.get("sha256") or terms.get("url") != expected:
+                raise ValueError("ORIGINAL_DATA_TERMS_UNBOUND")
+            if url.hostname == "www.newyorkfed.org":
+                terms_doc = json.loads(terms_raw)
+                terms_text = _normalize(terms_doc["text"]).casefold()
+                if terms_doc["url"] != expected or not all(s in terms_text for s in (
+                        "personal or business purposes", "modify and create derivative works", "must include any copyright notice")):
+                    raise ValueError("ORIGINAL_DATA_TERMS_NOT_VERIFIED")
+                required_credit = "© 2026 Federal Reserve Bank of New York. Content from the New York Fed subject to the Terms of Use at newyorkfed.org."
+            else:
+                terms_text = _normalize(_html_canonical_visible_text(terms_raw.decode())).casefold()
+                if not all(s in terms_text for s in ("public domain", "you may use and/or distribute", "protected materials")):
+                    raise ValueError("ORIGINAL_DATA_TERMS_NOT_VERIFIED")
+                required_credit = "U.S. Energy Information Administration"
+            additional_terms = {"url": expected, "sha256": _hash(terms_raw),
+                "required_attribution": required_credit, "independent_modification_label_required": True,
+                "endorsement_granted": False}
+        excerpts = capture["excerpts"]
+        if not excerpts or "\n\n".join(e["text"] for e in excerpts) != text or any(
+                type(e["start"]) is not int or type(e["end"]) is not int
+                or not 0 <= e["start"] < e["end"] <= len(original_text)
+                or original_text[e["start"]:e["end"]] != e["text"] for e in excerpts):
+            raise ValueError("ORIGINAL_FACTS_SPANS_CHANGED")
+        if original_doc.get("binary_capture"):
+            binary = original_doc["binary_capture"]
+            relative = PurePosixPath(binary["path"])
+            if relative.is_absolute() or ".." in relative.parts or "\\" in binary["path"] or ":" in binary["path"]:
+                raise ValueError("ORIGINAL_FACTS_BINARY_PATH_INVALID")
+            target = (self.root / binary["path"]).resolve()
+            if (not target.is_relative_to(self.root) or target.stat().st_size > 20_000_000
+                    or _hash(target.read_bytes()) != binary["sha256"]
+                    or _hash(original_text.encode()) != binary["extracted_text_sha256"]):
+                raise ValueError("ORIGINAL_FACTS_BINARY_OR_EXTRACTION_CHANGED")
+        known = loader["provenance"]["retrieved_at_utc"]
+        if (known != original_doc["observed"] or known != capture["observed_at_utc"]
+                or _time(doc["published_at_utc"]) > _time(known)
+                or _time(known) > _time(spec["revision_at_utc"])
+                or _time(spec["policy_retrieved_at_utc"]) > _time(spec["revision_at_utc"])):
+            raise ValueError("RESEARCH_CLOCK_ORDER_INVALID")
+        start, end = spec["proposition_span"]
+        proposition = _normalize(text[start:end])
+        if (type(start) is not int or type(end) is not int or not 0 <= start < end <= len(text)
+                or not proposition or proposition != _normalize(spec["headline_text"]) or end - start > 1000):
+            raise ValueError("SOURCE_PROPOSITION_NOT_EXACT")
+        permission = {"scope": "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+            "source_capture_sha256": _hash(raw), "canonical_text_sha256": _hash(text.encode()),
+            "policy_url": policy_url, "policy_capture_sha256": _hash(policy),
+            "policy_retrieved_at_utc": spec["policy_retrieved_at_utc"],
+            "public_expression_reuse_allowed": False, "images_logos_exhibits_reuse_allowed": False,
+            "attribution_required": True, "government_authorship": False,
+            "INTERNAL_ANALYSIS_ALLOWED": True, "MODEL_INPUT_ALLOWED": True, "LLM_INPUT_ALLOWED": True,
+            "provider_safe": True, "permitted_consumers": ["internal_research", "narrative_context"]}
+        if additional_terms:
+            permission["data_terms"] = additional_terms
+        return {"headline_id": spec["headline_id"], "headline_text": proposition,
+            "text_sha256": _hash(proposition.encode()), "source_identity": doc["publisher"],
+            "source_account": doc["publisher"], "source_platform": "CONTENTOPS_ORIGINAL_PUBLIC_FACTS_ACQUISITION",
+            "source_timestamp_utc": doc["published_at_utc"], "headline_timestamp": doc["published_at_utc"],
+            "source_url": doc["source_url"], "official_source_urls": [doc["source_url"]],
+            "known_at_utc": known, "retrieval_time_utc": known, "revision_at_utc": spec["revision_at_utc"],
+            "revision_clock_basis": "CAPTURE_ADMISSION_TIME_PUBLISHER_REVISION_NOT_VERIFIED",
+            "rights_state": "GOVERNED_ORIGINAL_PUBLIC_FACTS_ONLY_NO_EXPRESSIVE_REUSE",
+            "rights_evidence_sha256": _hash(policy), "source_capture_sha256": _hash(raw),
+            "source_permission_record_sha256": sha256_of(permission), "source_permissions": permission,
+            "candidate_catalyst_tags": list(spec.get("candidate_catalyst_tags", [])),
+            "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION", "correction_of": spec.get("correction_of"),
+            "document": {**doc, "source_reuse_constraints": permission}, "source_chart": None,
+            "permitted_source_text": text, "supporting_headline_ids": list(spec.get("supporting_headline_ids", []))[:2],
+            "research_metadata": dict(spec.get("research_metadata") or {})}
+
     def _verify_issuer_facts(self, spec, raw, policy, loader, doc):
         """Bounded filing facts, not a public-domain grant over issuer expression.
 
@@ -399,9 +522,11 @@ class RetainedSourceResearch:
 
     def _verify_report_facts(self, spec, raw, policy, loader, doc):
         """Retain bounded attributed reporting without granting event truth or prose rights."""
+        from datetime import datetime
         url = urlsplit(doc["source_url"])
         paths = {"www.reuters.com": ("/business/", "/world/", "/markets/", "/legal/"),
-                 "finance.yahoo.com": ("/news/",), "www.kitco.com": ("/news/off-the-wire/",)}
+                 "finance.yahoo.com": ("/news/",), "www.kitco.com": ("/news/off-the-wire/",),
+                 "en.yna.co.kr": ("/view/AEN",)}
         if (url.scheme != "https" or url.hostname not in paths or url.username or url.password
                 or url.port not in (None, 443) or url.query or url.fragment
                 or not any(url.path.startswith(p) for p in paths.get(url.hostname, ()))):
@@ -414,13 +539,14 @@ class RetainedSourceResearch:
                 "copyright does not protect facts", "may protect the way these things are expressed")):
             raise ValueError("SOURCE_PERMISSION_TEXT_NOT_VERIFIED")
         capture = json.loads(raw)
+        publisher, identity = ("Yonhap News Agency", "en.yna.co.kr") if url.hostname == "en.yna.co.kr" else ("Reuters", "reuters.com")
         if (capture.get("status") != "PASS" or capture.get("url") != doc["source_url"]
                 or capture.get("retrieval_method") != "READ_ONLY_BROWSEROS_NEO_BOUNDED_EXTRACTS"
                 or capture.get("credential_or_session_material_read") is not False
                 or capture.get("public_write_performed") is not False
-                or capture.get("reporting_publisher") != "Reuters" or doc["publisher"] != "Reuters"
-                or doc.get("source_identity") != "reuters.com"
-                or "Reuters" not in capture.get("attribution_text", "")
+                or capture.get("reporting_publisher") != publisher or doc["publisher"] != publisher
+                or doc.get("source_identity") != identity
+                or ("Yonhap" if identity == "en.yna.co.kr" else publisher) not in capture.get("attribution_text", "")
                 or not re.fullmatch(r"[a-f0-9]{64}", capture.get("full_text_sha256", ""))
                 or spec.get("public_expression_reuse_allowed") is not False
                 or doc.get("source_authority_class") != "reputable_secondary_source"
@@ -433,6 +559,24 @@ class RetainedSourceResearch:
                        or e["end"]-e["start"] != len(e["text"]) for e in excerpts)):
             raise ValueError("PUBLIC_REPORT_EXTRACTS_INVALID")
         canonical = "\n\n".join(e["text"] for e in excerpts)
+        if identity == "en.yna.co.kr":
+            original = self._read(spec["original_capture_path"])
+            page = json.loads(original)
+            metadata = {m["name"]: m["content"] for m in page["meta"]}
+            if (not re.fullmatch(r"/view/AEN\d{17}", url.path)
+                    or _hash(original) != spec["original_capture_sha256"]
+                    or page["url"] != doc["source_url"]
+                    or metadata.get("og:site_name") != publisher
+                    or metadata.get("og:url") != doc["source_url"]
+                    or metadata.get("article:published_time") != doc.get("published_at_source")
+                    or datetime.fromisoformat(metadata["article:published_time"]) != datetime.fromisoformat(doc["published_at_utc"])
+                    or metadata.get("author") != capture.get("byline")
+                    or not capture.get("byline")
+                    or page["title"] != doc["title"]
+                    or _hash(page["text"].encode()) != capture["full_text_sha256"]
+                    or len(page["text"]) != capture["full_text_characters"]
+                    or any(page["text"][e["start"]:e["end"]] != e["text"] for e in excerpts)):
+                raise ValueError("PUBLIC_REPORT_ORIGINAL_IDENTITY_OR_SPANS_INVALID")
         capture_hash = _hash(raw)
         if (capture_hash != spec["source_capture_sha256"] or doc["raw_sha256"] != capture_hash
                 or doc["canonical_content_text"] != canonical):
@@ -457,7 +601,7 @@ class RetainedSourceResearch:
             "images_logos_exhibits_reuse_allowed": False, "government_authorship": False,
             "underlying_event_truth_granted": False}
         return {"headline_id": spec["headline_id"], "headline_text": proposition,
-            "text_sha256": permission["content_sha256"], "source_identity": "reuters.com", "source_account": "Reuters",
+            "text_sha256": permission["content_sha256"], "source_identity": identity, "source_account": publisher,
             "source_platform": "CONTENTOPS_ORIGINAL_REPUTABLE_REPORT_ACQUISITION", "source_url": doc["source_url"],
             "official_source_urls": [], "source_timestamp_utc": doc["published_at_utc"], "headline_timestamp": doc["published_at_utc"],
             "known_at_utc": known, "retrieval_time_utc": known, "revision_at_utc": revision,

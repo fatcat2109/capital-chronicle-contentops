@@ -1,0 +1,21 @@
+{
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "status": "SELECT_CANDIDATE_PLAN",
+  "ordered_candidate_plan": [
+    {
+      "candidate_id": "simple-story-231c501f96a7eb733a96a29b",
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_rationale": "The admitted October 23 Reuters-origin report supplies a useful contemporaneous tension: gold and three other precious metals are reported lower despite the simple safe-haven narrative. Select the exact admitted report, not a fresh official confirmation or an already retained October 21 revision. Kitco syndication is the same reporting origin, not independent corroboration.",
+      "research_queries": [
+        "Reuters October 23 2026 gold silver platinum palladium reported percentage declines and observation timing",
+        "October 23 2026 gold report publication update and capture provenance",
+        "Archive gold photograph Banque de France September 17 2022 Ibex73 CC BY 4.0"
+      ],
+      "angle": "Test the limits of the safe-haven shorthand against the reported gold and precious-metal declines, explaining conditional competing mechanisms without asserting a proven oil-to-rates-to-gold causal chain. Distinguish the reported intraday gold reading, weekly trajectory and publisher timestamps.",
+      "primary_reader_question": "Why can reported gold weakness alongside silver, platinum and palladium complicate a safe-haven story, and what can this single report actually establish about prices and their causes?",
+      "evidence_plan": "Use exact gold-report-admission.json and source-editions/index.json; retain Reuters as sole origin and Kitco as syndicator. Gold observation is October 23 at 15:20 UTC, publication is 19:17:01 UTC, publisher update 19:18:51 UTC, retained capture/known-to-this-packet bound is 23:40:05.724 UTC and frozen cutoff is 23:44:21.481427 UTC. Do not invent an earlier independent known-at time or call capture the market event. Retain detailed clocks in evidence, with enough public timing to distinguish observation from publication and no market-close claim. Use deterministic admitted-data extraction to chart the four reported percentage declines: gold 0.6%, silver 1%, platinum 0.9%, palladium 0.5%, expressed as negative changes only through exact negative_evidence spans copied from fell/slid/dropped wording. Preserve source-specific observation scope: only the gold paragraph explicitly fixes 15:20 UTC, so do not assign the other metals that exact timestamp without evidence. Label this as reported percentage moves in one report, not a synchronized close, historical series or estimated correlations. Keep the separate 4% weekly gold decline and session low out of a mixed-horizon comparison. Code owns signs, parsing and any transformation. Price co-movement does not prove oil or rate expectations caused it; the report supplies attributed framing rather than identified causal evidence. A countercase is that industrial exposure, liquidity or different observation conventions could also matter, but none is measured here. Next useful evidence would be exact subsequently admitted rates/energy/price observations and comparable timing; none is claimed now. Reuse gold/release-photo-asset.json original 2022 archive image and its CC BY 4.0 attribution/date/context-only caption; it proves neither October trading nor holdings. Parent owns accepted public Main manifest review; no independent Main numeric authority or new corroboration is asserted by this role."
+    }
+  ],
+  "selection_summary": "Select one exact admitted October 23 gold report analysis with a source-bound comparison and authentic archive media; no fallback needed.",
+  "public_write_attempted": false
+}

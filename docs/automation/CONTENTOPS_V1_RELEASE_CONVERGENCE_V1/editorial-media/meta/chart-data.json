@@ -1,0 +1,34 @@
+{
+  "chart": {
+    "render_instruction": "Clearly labelled comparison bars with visible zero baseline and signed negative burn/deficit; forecast ranges use intervals, no midpoint. Attribute retained Reuters October 21 report. Preserve ACTUAL/ESTIMATE/FORECAST labels and distinct periods. No spreads, growth or surprise calculations. Exact excerpts are internal evidence only; public prose paraphrases facts.",
+    "rows": [
+      {
+        "label": "Third-quarter free cash flow \u2014 deficit",
+        "metric_source_text": "free cash flow deficit",
+        "negative_evidence": "free cash flow deficit of $2.12 billion",
+        "observation_kind": "ACTUAL",
+        "period": "third quarter",
+        "source_document_id": "goal35-meta",
+        "support_excerpt": "Meta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash \u200bflow of $10.63 billion a year earlier.",
+        "unit": "USD billion",
+        "value_context": "Meta reported a free cash flow deficit of $2.12 billion in the third quarter",
+        "value_text": "2.12"
+      },
+      {
+        "label": "Free cash flow \u2014 year earlier",
+        "metric_source_text": "positive free cash \u200bflow",
+        "observation_kind": "ACTUAL",
+        "period": "a year earlier",
+        "source_document_id": "goal35-meta",
+        "support_excerpt": "Meta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash \u200bflow of $10.63 billion a year earlier.",
+        "unit": "USD billion",
+        "value_context": "positive free cash \u200bflow of $10.63 billion a year earlier",
+        "value_text": "10.63"
+      }
+    ],
+    "title": "Reported Meta free cash flow: third quarter and year earlier",
+    "unit": "USD billion"
+  },
+  "plan_request_sha256": "df248dda5b88ed6771de7927f5515facfe847fcfd343f31a8e34b7f02a198abc",
+  "source_exactness_adapter": "EXACT_VALUE_CONTEXT_SUBSTRINGS_ONLY_NO_NUMERIC_CHANGE"
+}

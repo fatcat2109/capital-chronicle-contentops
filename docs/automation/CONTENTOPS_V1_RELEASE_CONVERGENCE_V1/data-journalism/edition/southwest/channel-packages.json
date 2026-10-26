@@ -1,0 +1,190 @@
+[
+  {
+    "destination": "telegram",
+    "payload": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "southwest-dj-revenue-without-traffic-r1",
+        "southwest-dj-unit-revenue-versus-cost-r1"
+      ],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nSouthwest Airlines' earnings improved without a traffic rebound\n\nSouthwest's Q3 revenue rose as passenger traffic fell.\n\nWhat to watch: Can Southwest keep revenue per seat mile ahead of total cost as fuel conditions change?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-d45dfe402a0b7b1b"
+    },
+    "preview_id": "cc-preview-de567755a25682292126b3aea3a176907e5ceeb4f1ff5b331a09fbc4f624aff6"
+  },
+  {
+    "destination": "x",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "Southwest Airlines' earnings improved without a traffic rebound\n\nSouthwest's Q3 revenue rose as passenger traffic fell.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d45dfe402a0b7b1b\n\nWatch: Can Southwest keep revenue per seat mile ahead of total cost as fuel conditions change?",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "southwest-dj-revenue-without-traffic-r1"
+      ],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "southwest-dj-revenue-without-traffic-r1"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "Southwest Airlines' earnings improved without a traffic rebound\n\nSouthwest's Q3 revenue rose as passenger traffic fell.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d45dfe402a0b7b1b"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Watch: Can Southwest keep revenue per seat mile ahead of total cost as fuel conditions change?"
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.704,
+          0.336
+        ],
+        "post_character_counts": [
+          197,
+          94
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.477,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Watch: Can Southwest keep revenue per seat mile ahead of total cost as fuel conditions change?"
+      ],
+      "root_text": "Southwest Airlines' earnings improved without a traffic rebound\n\nSouthwest's Q3 revenue rose as passenger traffic fell.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d45dfe402a0b7b1b",
+      "text": "Southwest Airlines' earnings improved without a traffic rebound\n\nSouthwest's Q3 revenue rose as passenger traffic fell.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d45dfe402a0b7b1b"
+    },
+    "preview_id": "cc-preview-97181312ae0c11d2eff03dd58d82adc88eeccc035dd2b2fdfa395c71fce92410"
+  },
+  {
+    "destination": "linkedin",
+    "payload": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "southwest-dj-revenue-without-traffic-r1",
+        "southwest-dj-unit-revenue-versus-cost-r1"
+      ],
+      "platform_limit": 3000,
+      "text": "Southwest Airlines' earnings improved without a traffic rebound\n\nWhy it matters: Southwest's revenue per seat mile rose faster than all-in cost per seat mile.\n\nContext: Southwest's wider unit-revenue advantage challenges a failed-turnaround account.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-d45dfe402a0b7b1b"
+    },
+    "preview_id": "cc-preview-5020bf103fb5d4c54405eb1f8a494ef9cef1b2adfb6f6df0dce228062d9020e3"
+  },
+  {
+    "destination": "discord",
+    "payload": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "southwest-dj-revenue-without-traffic-r1",
+        "southwest-dj-unit-revenue-versus-cost-r1"
+      ],
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: Southwest Airlines' earnings improved without a traffic rebound**\n\nSouthwest's Q3 revenue rose as passenger traffic fell.\n\n**Context:** Southwest's wider unit-revenue advantage challenges a failed-turnaround account.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-d45dfe402a0b7b1b"
+    },
+    "preview_id": "cc-preview-d608caa269f78f5113e532282502bb1f4dc49ca07c8d728bbbef2a0b41eac6e6"
+  },
+  {
+    "destination": "facebook_page",
+    "payload": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "southwest-dj-unit-revenue-versus-cost-r1"
+      ],
+      "platform_limit": 63206,
+      "text": "Southwest Airlines' earnings improved without a traffic rebound\n\nSouthwest's Q3 revenue rose as passenger traffic fell.\n\nWhy it matters: Southwest's revenue per seat mile rose faster than all-in cost per seat mile.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-d45dfe402a0b7b1b"
+    },
+    "preview_id": "cc-preview-89c8b092f800acbc67b6be124e1944d299e3c7a35e53b723a663c25169be6b83"
+  },
+  {
+    "destination": "instagram_business",
+    "payload": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "southwest-dj-revenue-without-traffic-r1",
+        "southwest-dj-unit-revenue-versus-cost-r1"
+      ],
+      "platform_limit": 2200,
+      "text": "Southwest Airlines' earnings improved without a traffic rebound\n\nSouthwest's Q3 revenue rose as passenger traffic fell.\n\nIn focus: Southwest's wider unit-revenue advantage challenges a failed-turnaround account.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-d45dfe402a0b7b1b\n\n#CapitalChronicle"
+    },
+    "preview_id": "cc-preview-fbc5f3251d56faac1eefc2deee725ec62ebda9c337e6c04f0bf760dab1b8863c"
+  },
+  {
+    "destination": "threads",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "Southwest Airlines' earnings improved without a traffic rebound\n\nSouthwest's wider unit-revenue advantage challenges a failed-turnaround account.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d45dfe402a0b7b1b\n\nWhat to watch: Can Southwest keep revenue per seat mile ahead of total cost as fuel conditions change?",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "southwest-dj-fuel-price-versus-volume-r1"
+      ],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "southwest-dj-fuel-price-versus-volume-r1"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "Southwest Airlines' earnings improved without a traffic rebound\n\nSouthwest's wider unit-revenue advantage challenges a failed-turnaround account.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d45dfe402a0b7b1b"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: Can Southwest keep revenue per seat mile ahead of total cost as fuel conditions change?"
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.446,
+          0.204
+        ],
+        "post_character_counts": [
+          223,
+          102
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.457,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: Can Southwest keep revenue per seat mile ahead of total cost as fuel conditions change?"
+      ],
+      "root_text": "Southwest Airlines' earnings improved without a traffic rebound\n\nSouthwest's wider unit-revenue advantage challenges a failed-turnaround account.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d45dfe402a0b7b1b",
+      "text": "Southwest Airlines' earnings improved without a traffic rebound\n\nSouthwest's wider unit-revenue advantage challenges a failed-turnaround account.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d45dfe402a0b7b1b"
+    },
+    "preview_id": "cc-preview-79e7e9f6878586e93dacd71d4170643daae131fd69d628f505c6a7313abbdee4"
+  },
+  {
+    "destination": "youtube",
+    "payload": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "southwest-dj-unit-revenue-versus-cost-r1"
+      ],
+      "platform_limit": 1000,
+      "text": "Update: Southwest Airlines' earnings improved without a traffic rebound\n\nSouthwest's Q3 revenue rose as passenger traffic fell.\n\nWhat to watch: Can Southwest keep revenue per seat mile ahead of total cost as fuel conditions change?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-d45dfe402a0b7b1b"
+    },
+    "preview_id": "cc-preview-2949f7cf21e1a7b7bd6a3362b4c9c29c5095ac6623cb608d2f7337de281cbb70"
+  }
+]

@@ -44,6 +44,45 @@ def source_review_projection(rows):
     return [json.loads(r["payload"]) for r in rows if r["destination"] == SOURCE_REVIEW]
 
 
+def record_story_editorial_revision(store, *, run_id, article_identity, review_operation_id, reason):
+    """A warranted owner editorial revision, explicitly without new factual evidence.
+
+    Reuse the source/history owner; never manufacture a material source update to
+    allocate a writer. The original accepted article and review remain unchanged.
+    """
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, canonical_bytes
+    if not isinstance(reason, str) or len(reason.strip()) < 20:
+        raise ValueError("SUBSTANTIVE_EDITORIAL_REVISION_REASON_REQUIRED")
+    row = store.get_outbox_message("cc-editorial-final-" + sha256_of(run_id))
+    result = json.loads(row["payload"]) if row else {}
+    if result.get("article_identity") != article_identity or not result.get("qualified_article_count"):
+        raise ValueError("EXACT_EXISTING_STORY_REQUIRED")
+    evidence = result.get("evidence") or []
+    if not evidence or any(not d.get("canonical_content_sha256") for d in evidence):
+        raise ValueError("RETAINED_SOURCE_IDENTITY_REQUIRED")
+    prior = result["article"]
+    review = {"schema_version": "contentops.native_story_source_review.v1",
+        "review_id": "native-editorial-revision-" + sha256_of([run_id, review_operation_id]),
+        "run_id": run_id, "article_identity": article_identity, "title": prior["title"],
+        "cutoff_utc": result["simple_result"]["cutoff_utc"],
+        "decision": "EDITORIAL_REVISION", "reader_change_summary": reason,
+        "source_editions": [{"item_id": d["document_id"], "source_url": d["url"],
+            "published_at_utc": d.get("published_at_utc"), "text_sha256": d["canonical_content_sha256"]} for d in evidence],
+        "previous_sources": evidence, "source_attempts": [], "source_changes": [],
+        "source_coverage_complete": True, "new_factual_evidence": False,
+        "invalidates_prepared_review": False, "removed_main_claim_ids": [],
+        "changed_research_descriptor_claim_ids": [], "main_receipt_id": None,
+        "media_state": "REPLAN_LAWFUL_CONTEXTUAL_PHOTO_AND_SOURCE_BOUND_CHART",
+        "prior_story": {"story_identity": prior.get("update_chain_identity") or prior["story_identity"],
+            "article_identity": article_identity, "title": prior["title"],
+            "full_text": prior["substack_body_markdown"], "stage": "UNPUBLISHED_REVIEWED_ARTICLE"},
+        "writer_required": True, "publication_authority": False, "public_write_performed": False}
+    review["request_sha256"] = sha256_of(review)
+    store.register_outbox_message(message_id=review["review_id"], work_item_id=row["work_item_id"],
+        destination=SOURCE_REVIEW, payload=canonical_bytes(review).decode(), status="EDITORIAL_INTERNAL")
+    return review
+
+
 def record_story_source_review(store, *, run_id, article_identity, review_operation_id,
                                research, source_ids, attempts, cutoff_utc, reason,
                                main_receipt_id=None):
@@ -434,8 +473,8 @@ def record_native_article_review(store, *, run_id, article_identity, decision, r
             if (prior["review_id"] if prior else None) != expected_review_id:
                 raise ValueError("REVIEW_VERSION_CONFLICT_REFRESH_DESK")
             metadata_sha = sha256_of(value["article"])
-            revision = sha256_of([article_identity, value["simple_result"]["publication_lifecycle_plan"]["plan_hash"],
-                                  value.get("claim_lineage"), value.get("media_assets"), metadata_sha])
+            from live_contentops.native_desktop_editorial_v1 import native_review_revision
+            revision = native_review_revision(value)
             note = {"schema_version": "contentops.native_article_review.v1", "run_id": run_id,
                 "article_identity": article_identity, "package_revision": revision, "article_metadata_sha256": metadata_sha,
                 "rationale": rationale.strip(), "publication_authority": False}

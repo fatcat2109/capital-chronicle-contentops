@@ -1,0 +1,116 @@
+{
+  "asset_id": "tesla-dj-margin-transmission-r1",
+  "title": "Gross margins recover; operating margins remain thin",
+  "question": "How much of Tesla's gross profitability is reaching operating profit?",
+  "unit": "percent",
+  "source_links": [],
+  "comparability_limits": [
+    "Both series are source-reported GAAP consolidated margins, not automotive-only or adjusted margins.",
+    "Values are percentage levels with the same quarterly revenue denominator; a difference between them is percentage points, not percent growth.",
+    "The source rounds margins to one decimal place. Do not reverse-engineer exact expense shares from those rounded percentages.",
+    "The gross-to-operating gap contains operating expenses and is not a capex or cash-flow measure.",
+    "Five quarters provide comparison, not proof of a durable trend or future profitability. Keep straight connections between observed points and do not interpolate extra observations."
+  ],
+  "series": [
+    {
+      "name": "Gross margin (GAAP)",
+      "points": [
+        {
+          "period": "Q3 2025",
+          "value": 18.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q4 2025",
+          "value": 20.1,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q1 2026",
+          "value": 21.1,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": 16.8,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": 19.6,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Operating margin (GAAP)",
+      "points": [
+        {
+          "period": "Q3 2025",
+          "value": 5.8,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q4 2025",
+          "value": 5.7,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q1 2026",
+          "value": 4.2,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": 1.4,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": 2.6,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        }
+      ]
+    }
+  ]
+}

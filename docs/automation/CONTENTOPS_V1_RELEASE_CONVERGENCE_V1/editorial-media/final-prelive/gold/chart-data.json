@@ -1,0 +1,58 @@
+{
+  "title": "Precious-metal percentage declines reported by Reuters, October 23, 2026",
+  "unit": "%",
+  "source_id": "SOURCE_1",
+  "source_url": "https://www.kitco.com/news/off-the-wire/2026-10-23/gold-set-steep-weekly-loss-rising-oil-prices-bolster-fed-rate-hike",
+  "source_content_sha256": "53f87f918b9e92a4947d4465c600115e9ff9e175844c23dfbb7684adec0dbfea",
+  "rows": [
+    {
+      "label": "Gold",
+      "metric_source_text": "Spot gold",
+      "period": "2026-10-23",
+      "unit": "%",
+      "observation_kind": "ACTUAL",
+      "support_excerpt": "Spot gold fell 0.6% to $3,998.35 an ounce by 11:20 a.m. EDT (1520 GMT), \u200bslipping below the $4,000 mark for the first time since mid-July and touching a session low \u200bof $3,975.23.",
+      "value_context": "Spot gold fell 0.6% to $3,998.35 an ounce by 11:20 a.m. EDT (1520 GMT), \u200bslipping below the $4,000 mark for the first time since mid-July and touching a session low \u200bof $3,975.23.",
+      "value_text": "0.6",
+      "negative_evidence": "Spot gold fell 0.6% to $3,998.35 an ounce by 11:20 a.m. EDT (1520 GMT), \u200bslipping below the $4,000 mark for the first time since mid-July and touching a session low \u200bof $3,975.23."
+    },
+    {
+      "label": "Silver",
+      "metric_source_text": "spot silver",
+      "period": "2026-10-23",
+      "unit": "%",
+      "observation_kind": "ACTUAL",
+      "support_excerpt": "Among other metals, spot silver slid 1% to $53.97 per ounce",
+      "value_context": "Among other metals, spot silver slid 1% to $53.97 per ounce",
+      "value_text": "1",
+      "negative_evidence": "Among other metals, spot silver slid 1% to $53.97 per ounce"
+    },
+    {
+      "label": "Palladium",
+      "metric_source_text": "palladium",
+      "period": "2026-10-23",
+      "unit": "%",
+      "observation_kind": "ACTUAL",
+      "support_excerpt": "Among other metals, spot silver slid 1% to $53.97 per ounce, \u2060and palladium \u200bdropped 0.5% to $1,048.31, hitting their lowest since November 2025 and June \u200b2025 respectively.",
+      "value_context": "palladium \u200bdropped 0.5% to $1,048.31",
+      "value_text": "0.5",
+      "negative_evidence": "palladium \u200bdropped 0.5% to $1,048.31"
+    },
+    {
+      "label": "Platinum",
+      "metric_source_text": "Spot platinum",
+      "period": "2026-10-23",
+      "unit": "%",
+      "observation_kind": "ACTUAL",
+      "support_excerpt": "Spot platinum fell 0.9% to $1,555.84 per ounce, its lowest since July.",
+      "value_context": "Spot platinum fell 0.9% to $1,555.84 per ounce, its lowest since July.",
+      "value_text": "0.9",
+      "negative_evidence": "Spot platinum fell 0.9% to $1,555.84 per ounce, its lowest since July."
+    }
+  ],
+  "period_binding": "2026-10-23 is the exact document publication date component; the body observation clauses do not repeat the date.",
+  "timing_limit": "Only spot gold explicitly has a 15:20 UTC reading. The four metals have no proven exact shared observation clock in this packet. Compare reported percentage changes, not synchronized closes or measured correlation.",
+  "presentation": "One categorical comparison; code parses the explicit negative_evidence to signed declines. Value_text preserves original positive magnitude spelling, with direction retained separately. Do not add the separate 4% weekly gold move to this comparison or invent historical points.",
+  "observation_scope": "ACTUAL denotes a reported observation in one Reuters-origin report syndicated by Kitco; it grants no independent underlying-event confirmation, new source, probability or causal proof.",
+  "source_expression_scope": "Independent attributed paraphrase and original deterministic chart only; no copied publisher prose, photograph or chart."
+}

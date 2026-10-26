@@ -1,0 +1,168 @@
+{
+  "asset_id": "tesla-dj-revenue-composition-r1",
+  "title": "Services growth offsets declines elsewhere",
+  "question": "What is keeping total revenue roughly flat while the businesses move in different directions?",
+  "unit": "USD billion",
+  "source_links": [],
+  "comparability_limits": [
+    "Reported GAAP USD revenue uses the same source edition and five quarter labels; it is not constant-currency growth.",
+    "Stack the three mutually exclusive disclosed revenue categories once. Do not add total revenue as a fourth stack.",
+    "Services and other is not a pure software, subscription or FSD segment; automotive revenue also includes its disclosed ancillary items.",
+    "Energy deployment in GWh and recognized revenue have different timing and scope. Do not derive unit prices or margins from their ratio.",
+    "The issuer attributes some energy-revenue weakness to tariff-related customer refunds and cites several other revenue drivers. Attribute that explanation if used; the bars do not establish independent causality.",
+    "Revenue composition alone cannot establish profitability, product demand, investment returns or a software-led transformation.",
+    "Use USD billions by multiplying original USD-million values by 0.001, a zero baseline and no decorative three-dimensional effects."
+  ],
+  "series": [
+    {
+      "name": "Automotive",
+      "points": [
+        {
+          "period": "Q3 2025",
+          "value": 21.205,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q4 2025",
+          "value": 17.693,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q1 2026",
+          "value": 16.234,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": 20.516,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": 20.56,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Energy generation and storage",
+      "points": [
+        {
+          "period": "Q3 2025",
+          "value": 3.415,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q4 2025",
+          "value": 3.837,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q1 2026",
+          "value": 2.408,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": 3.139,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": 2.881,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Services and other",
+      "points": [
+        {
+          "period": "Q3 2025",
+          "value": 3.475,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q4 2025",
+          "value": 3.371,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q1 2026",
+          "value": 3.745,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": 4.581,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": 4.605,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        }
+      ]
+    }
+  ]
+}

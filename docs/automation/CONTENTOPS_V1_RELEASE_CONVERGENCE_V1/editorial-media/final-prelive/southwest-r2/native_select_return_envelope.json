@@ -1,0 +1,32 @@
+{
+  "request_sha256": "26e4c3e4dabcb0b11496c21dd126cbb19c2a6f7bd5edf9efb89f87bd3bc30e72",
+  "output": {
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "status": "SELECT_CANDIDATE_PLAN",
+    "ordered_candidate_plan": [
+      {
+        "candidate_id": "simple-story-f2a30d4ebd709c3c05cb0692",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "selection_rationale": "The sole frozen candidate warrants a bounded same-facts editorial revision because its public source note exposes an internal microsecond cutoff and process-heavy wording. Retain the useful stronger-quarter/lower-annual-outlook analysis; this is no fresh reporting or economic observation.",
+        "research_queries": [
+          "Retained Southwest October 21 2026 concise source date and unpublished editorial revision disclosure",
+          "Southwest retained fare fuel operating margin countercase and missing earnings bridge",
+          "Exact Southwest C9 chart photograph and prior story chain reuse"
+        ],
+        "angle": "Repair only source-note readability and directly related coherence while retaining the existing distinction between reported completed-quarter strength and a lower annual outlook. Do not recast the dated October 21 Reuters account as current news.",
+        "primary_reader_question": "How can a reported quarterly earnings beat coexist with a lower annual outlook, and which missing operating contributions prevent a fuel-only explanation?",
+        "evidence_plan": "Use exact retained SOURCE_1 bytes with canonical content SHA-256 711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc and prior article identity 857f96cfc5871ccf64e49d33ba1224ccbc275ff7f9b91ef1061982d7d4572f2f. Preserve story/update chain simple-story-f2a30d4ebd709c3c05cb0692 and every C9 article/review/preparation artifact unchanged as historical evidence. Writer should replace internal cutoff microseconds and process-heavy source-note language with concise Reuters October 21, 2026 source dating and honest unpublished editorial-revision/no-new-reporting disclosure. Keep detailed cutoff/acquisition clocks in immutable history. Preserve single-source Reuters report uncertainty; completed-quarter actual/consensus/year-earlier comparison remains distinct from annual forecasts. Preserve the fare/fuel tension and strongest countercase that adjusted operating margin improved despite higher fuel costs. Keep the missing earnings bridge separating fares, passenger mix/traffic, nonfuel costs and fuel price versus volume; do not assign the entire outlook cut to fuel or infer stronger demand from fares alone. Keep next later-results/operating-contribution evidence conditional. Historical 2025 hedge/AOCI context establishes no current hedge-status update; preserve that exact gap. Reuse byte-for-byte the exact already inspected lawful C9 photograph, chart and source-bound data via existing bindings; no new acquisition, calculation or pixel-inspection claim. Keep SEO describing the same supported proposition. New copy requires downstream revision-specific review; C9 acceptance does not approve this new revision."
+      }
+    ],
+    "selection_summary": "Select the sole exact Southwest candidate for a bounded public source-note readability repair on unchanged October 21 facts, preserving the analysis, countercase, hedge-status gap, immutable C9 history and exact media. No fallback or fresh factual update.",
+    "public_write_attempted": false
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/v1_prelive_light",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "speed": "standard",
+    "observation_source": "Actual collaboration.spawn_agent and returned native worker files; exact request and execution note retained"
+  }
+}

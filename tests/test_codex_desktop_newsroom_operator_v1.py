@@ -798,6 +798,7 @@ def test_exact_four_task_packet_assigns_native_roles_and_keeps_four_paused_light
     assert packet["editorial_roles"] == {
         "filter": {"model": "gpt-6-luna", "reasoning_effort": "max"},
         "select": {"model": "gpt-6.1-sol", "reasoning_effort": "low"},
+        "visual-edit": {"model": "gpt-6.1-sol", "reasoning_effort": "max"},
         "write": {"model": "gpt-6.1-sol", "reasoning_effort": "max"},
         "revise": {"model": "gpt-6.1-sol", "reasoning_effort": "max"},
     }
@@ -813,6 +814,11 @@ def test_exact_four_task_packet_assigns_native_roles_and_keeps_four_paused_light
         assert "ALL unprocessed admissible headlines" in task["prompt"]
         assert "institutional_edge_editorial_packet" in task["prompt"]
         assert "same writer" in task["prompt"]
+        assert "DATA_JOURNALISM_V1" in task["prompt"]
+        assert "same MAX visual editor/final writer" in task["prompt"]
+        assert "2-5 distinct useful" in task["prompt"]
+        assert "may justify zero with an explicit editorial reason" in task["prompt"]
+        assert "and one useful source-bound quantitative chart" not in task["prompt"]
         assert task["model"] == "gpt-6.1-sol" and task["reasoning_effort"] == "low"
     assert "isolated" in MANUAL_GO_PROMPT
 

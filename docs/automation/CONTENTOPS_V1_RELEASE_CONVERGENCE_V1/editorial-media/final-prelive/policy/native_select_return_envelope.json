@@ -1,0 +1,32 @@
+{
+  "request_sha256": "3eacf6fb916be0867222ebe23e1de5255946276b46b965441f9f8840e4ca9c35",
+  "output": {
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "status": "SELECT_CANDIDATE_PLAN",
+    "ordered_candidate_plan": [
+      {
+        "candidate_id": "simple-story-9a564d15cef7ff0407ce3862",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "selection_rationale": "Select the admitted September 16 implementation note for a useful dated policy explainer: it distinguishes the policy decision from the administered rates effective September 17 and adds a concrete operational document to the retained original statement. This is not a current decision, new market observation or recycled breaking update. Supporting goal21-fed-policy remains a separate official document, not independent corroboration from another publisher.",
+        "research_queries": [
+          "Federal Reserve September 16 2026 implementation note reserve balances standing repo reverse repo effective September 17",
+          "Federal Reserve September 16 2026 FOMC statement target range ample reserves",
+          "September 15 16 2026 FOMC minutes Kevin Warsh Chairman voting policy decision"
+        ],
+        "angle": "Explain how the September 16, 2026 decision becomes operational on September 17 through separate reserve-balance, standing repo and reverse-repo settings. Pair a dated exact-source comparison with plain-English bank/cash transmission, while separating the official operational instructions from conditional interpretation.",
+        "primary_reader_question": "How do the three announced administered rates implement this dated Fed decision, and why do those settings alone not establish current borrowing costs, realized market rates or a direction for currencies and other assets?",
+        "evidence_plan": "Use source-editions/fed-implementation-admission.json and index.json as the admitted implementation lineage; retain goal21-fed-policy as provenance-distinct decision context. Bind September 16 decision and September 17 effective date explicitly. Have deterministic code extract the announced annual percentage rates for reserve balances (3.90 percent), standing overnight repo (4.0 percent), and standing overnight reverse repo (3.75 percent); render one labelled categorical comparison for this single effective date with source URL, units, announcement/effective dates and announced-policy-setting status. No fabricated history, interpolation, forecast or observed-market-rate label; any differences must be computed by code. Explain reserve remuneration, liquidity provision and cash absorption only to the extent supported by admitted source text; distinguish mechanism interpretation from documented settings and flag additional official operational documentation if needed. The serious countercase is that administered settings do not alone prove effective pass-through to bank deposits, credit or asset prices; no observed pass-through or causal market reaction is supplied. Next observation requires exact subsequent official policy/operation evidence with its own date and lineage, not assumed implementation outcomes. Preserve accepted public Main manifest context without promoting it to independent official-source evidence. Use policy/release-photo-asset.json for the separately cleared authentic Kevin Warsh May 22 archive photo; retain its caption, attribution, date and context-only classification, and use the recorded September minutes role binding without claiming this worker independently verified the minutes or inspected pixels. Photo is not September-event documentation or policy corroboration. Carry all factual, rights and identity bindings to the writer; unresolved bindings remain explicit, not invented."
+      }
+    ],
+    "selection_summary": "One primary dated policy document explainer selected from the actual 31-candidate frozen pool; no fallback is needed for this exact owner-scoped opportunity. The meaningful quantitative asset compares three announced settings effective September 17, 2026. No new forecast, current-news claim, independent confirmation or public action is asserted.",
+    "public_write_attempted": false
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/v1_prelive_light",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "speed": "standard",
+    "observation_source": "Actual collaboration.spawn_agent and returned native worker files; exact request and execution note retained"
+  }
+}

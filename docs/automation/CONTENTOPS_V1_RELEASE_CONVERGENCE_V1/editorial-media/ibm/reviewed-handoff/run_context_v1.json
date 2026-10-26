@@ -1,0 +1,279 @@
+{
+  "accepted_evidence_ids": [
+    "goal35-ibm"
+  ],
+  "accepted_evidence_sha256": "e6c354294b6fc893bf7697a59c4b22e298bc43960fcaf193712bf9e8a475a0ca",
+  "article": {
+    "editorial_scope_notice": "Source date: 2026-10-21. Interpretation remains analysis.",
+    "effective_article_mode": "STANDARD_NEWS_ANALYSIS",
+    "native_brief_layout": true,
+    "social_cross_asset_summary": "Comparable disclosures of new and deferred transaction-processing business would test recurrence. Continued software growth supported by margins and cash conversion would strengthen the durable-demand reading; weaker follow-through would challenge it.",
+    "social_hook": "Reuters reports a higher IBM software growth floor with the same ceiling. The demand test comes after delayed deals clear.",
+    "social_mechanism_summary": "If Reuters' account is accurate, delayed deals reaching the current quarter could strengthen reported revenue without establishing a lasting increase in fresh demand. Capital Chronicle's timing test is whether new business can sustain growth once that catch-up fades.",
+    "social_policy_summary": "If Kavanaugh's transaction-processing breakdown reported by Reuters is accurate, the new-business component would challenge a catch-up-only explanation. Fresh business and delayed deals could coexist.",
+    "substack_body_markdown": "SINGLE-SOURCE REPORT - REUTERS: IBM's reported software outlook lifts the growth floor while keeping the ceiling unchanged. Reuters' October 21, 2026 account of Kavanaugh's comments puts annual software revenue growth at about 7% to 8%, compared with 6% to 8% previously. If accurate, that revision would narrow the weaker end of management's range without establishing lasting demand after delayed deals clear. [Reuters](https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/)\n\nReuters puts third-quarter company-wide revenue at $17.10 billion, with reported growth of 4.7%, against a $16.82 billion average analyst estimate compiled by LSEG. Its separate software figures are $7.80 billion in quarterly revenue, growth of 8.3% and a $7.62 billion estimate. [Reuters](https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/)\n\nThe transaction-processing denominator matters\n\nReuters attributes a narrower revenue split to Kavanaugh: about 25% of transaction-processing revenue came from business deferred from the second quarter, while he characterized the other 75% as net new business. Those shares describe transaction-processing revenue; they cannot be applied to all IBM revenue or treated as a breakdown of software revenue growth. [Reuters](https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/)\n\nIf Reuters' account is accurate, delayed deals reaching the current quarter could strengthen reported revenue without establishing a lasting increase in fresh demand. Capital Chronicle's timing test is whether new business can sustain growth once that catch-up fades. [Reuters](https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/)\n\nIf Kavanaugh's transaction-processing breakdown reported by Reuters is accurate, the new-business component would challenge a catch-up-only explanation. Fresh business and delayed deals could coexist. [Reuters](https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/)\n\nRecurrence needs comparable evidence\n\nComparable disclosures of new and deferred transaction-processing business would test recurrence. Continued software growth supported by margins and cash conversion would strengthen the durable-demand reading; weaker follow-through would challenge it. [Reuters](https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/)\n\nSource notes: The Reuters report is dated October 21, 2026, at 20:12 UTC. This editorial revision retains the facts and source date of the earlier unpublished analysis; it adds no new reporting or independent confirmation. The figures and Kavanaugh's comments remain attributed through Reuters. [Reuters](https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/)",
+    "subtitle": "SINGLE-SOURCE REPORT - REUTERS: IBM's reported software revenue growth range has a higher floor and unchanged ceiling. Demand after delayed deals clear remains the test.",
+    "title": "SINGLE-SOURCE REPORT - REUTERS | Reuters: IBM's higher software revenue growth floor leaves a durability test [Source 2026-10-21]"
+  },
+  "article_content_sha256": "7842b1bbd57ae4e4b9799a17eba0b5868ed12d4e17715c040a42117f1d99b19b",
+  "article_identity": "05b6d7610301815ddaaf01559fe66c2a751bb7eb3d5c8001f8372a1c9336e188",
+  "compiler_input_sha256": "d4cabcef7234cd9535b53ad984e1fb9bde2126003130ddcba2f6cd333f4d0ff3",
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "IBM raises annual software revenue outlook as deal delays ease",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Reuters",
+    "primary_reporting_source_identity": "reuters.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+    "relay_source_identity": null,
+    "report_proposition": "Reuters reports that IBM raises annual software revenue outlook as deal delays ease",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "DIRECT_REPUTABLE_REPORT",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal35-ibm"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "media": {
+    "assets": [
+      {
+        "ai_generated_image": false,
+        "alt_text": "Company-wide revenue — actual (Third-quarter, actual): 17.1 USD billion; Company-wide revenue — analyst estimate (Third-quarter, estimate): 16.82 USD billion",
+        "article_section": "key_facts",
+        "asset_id": "source_value_comparison",
+        "canonical_article_section_association": "key_facts",
+        "caption": "Reported IBM third-quarter revenue: actual and estimate Source: Reuters; retained report 2026-10-21.",
+        "chart_title": "Reported IBM third-quarter revenue: actual and estimate Source: Reuters; retained report 2026-10-21.",
+        "chart_unit": "USD billion",
+        "computed_values": [
+          [
+            17.1
+          ],
+          [
+            16.82
+          ]
+        ],
+        "dimensions": {
+          "height": 980,
+          "width": 1680
+        },
+        "evidence_dimension": "source_value_comparison",
+        "height": 980,
+        "is_avatar": false,
+        "is_logo": false,
+        "is_manipulated": false,
+        "is_synthetic": false,
+        "is_thumbnail": false,
+        "media_class": "source_backed_render",
+        "media_role": "source_value_comparison",
+        "missingness": "NO_VALUES_FILLED_OR_INTERPOLATED",
+        "modality": "source_backed_chart",
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\ibm\\media_assets\\source_value_comparison.png",
+        "provenance_status": "SOURCE_BACKED",
+        "publication_date": "2026-10-21T20:12:00Z",
+        "publisher": "Reuters",
+        "relevance_rationale": "Compares the exact reported observations or forecast bounds relevant to this thesis.",
+        "render_rights_status": "capital_chronicle_owned",
+        "rights_status": "capital_chronicle_owned",
+        "role": "supporting_fact_context",
+        "sha256": "d67221435268d2c676c408dbdfe6ee535e4c62bec4933c62265af6f9477d23c9",
+        "source": "Reuters",
+        "source_content_sha256": "3ea8bbea4ba84df6bba32068466924d478361609c2b60a814baabdfbcadb0a84",
+        "source_label": "Reuters",
+        "source_page_url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/",
+        "source_reuse_basis": "Independent CC chart of attributed reported facts; no source expression or chart reused.",
+        "source_value_bindings": [
+          {
+            "label": "Company-wide revenue — actual",
+            "metric_source_text": "Third-quarter revenue",
+            "observation_kind": "ACTUAL",
+            "period": "Third-quarter",
+            "source_document_id": "goal35-ibm",
+            "support_excerpt": "Third-quarter revenue rose 4.7% to $17.10 billion, above ​analysts' average estimate of $16.82 billion, according to data compiled by LSEG",
+            "unit": "USD billion",
+            "value_context": "Third-quarter revenue rose 4.7% to $17.10 billion",
+            "value_text": "17.10"
+          },
+          {
+            "label": "Company-wide revenue — analyst estimate",
+            "metric_source_text": "analysts' average estimate",
+            "observation_kind": "ESTIMATE",
+            "period": "Third-quarter",
+            "source_document_id": "goal35-ibm",
+            "support_excerpt": "Third-quarter revenue rose 4.7% to $17.10 billion, above ​analysts' average estimate of $16.82 billion, according to data compiled by LSEG",
+            "unit": "USD billion",
+            "value_context": "analysts' average estimate of $16.82 billion",
+            "value_text": "16.82"
+          }
+        ],
+        "supports_headline": false,
+        "transform_sha256": "5590dd35e0f49b862fed181061cea09c3cf883e175c706eb20922e7c88381e86",
+        "transformation": "EXACT_REPORTED_MAGNITUDES_WITH_EXPLICIT_SIGN_AND_RANGE_BOUNDS",
+        "underlying_series_ids": [],
+        "underlying_source_rights_status": "attributed_facts_independent_chart",
+        "visual_review": {
+          "asset_sha256": "d67221435268d2c676c408dbdfe6ee535e4c62bec4933c62265af6f9477d23c9",
+          "labels_and_units_legible": true,
+          "pixels_inspected": true,
+          "review_scope": "Exact full-size PNG reviewed after title/label wrap repair; mobile embedded preview pending.",
+          "reviewer": "Codex parent actual view_image per final chart"
+        },
+        "width": 1680
+      },
+      {
+        "ai_generated_image": false,
+        "alt_text": "Archive view of IBM headquarters in Armonk, New York.",
+        "article_section": "lead",
+        "asset_id": "documentary_ibm",
+        "attribution": "Mark Hillary / Wikimedia Commons / Creative Commons Attribution 2.0",
+        "canonical_article_section_association": "lead",
+        "caption": "Photo: Mark Hillary. IBM headquarters in Armonk. Archive context image; Commons DateTimeOriginal records 2010-08-03. License: https://creativecommons.org/licenses/by/2.0. Source: https://commons.wikimedia.org/wiki/File:IBM_Armonk_corporate_headquarters_unusual_view.jpg. Changes: Unchanged original; display resizing only.",
+        "changes_description": "Unchanged original; display resizing only.",
+        "context_only": true,
+        "corroborates_article_facts": false,
+        "creator_publisher": "Mark Hillary",
+        "depicted_date": "2010-08-03",
+        "dimensions": {
+          "height": 1552,
+          "width": 2592
+        },
+        "evidence_dimension": "documentary_context",
+        "height": 1552,
+        "is_logo": false,
+        "is_synthetic": false,
+        "is_thumbnail": false,
+        "license_url": "https://creativecommons.org/licenses/by/2.0",
+        "media_class": "documentary",
+        "media_role": "contextual_photo",
+        "modality": "documentary_photo",
+        "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/9/93/IBM_Armonk_corporate_headquarters_unusual_view.jpg",
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\ibm\\documentary_original.jpg",
+        "publication_date": "2010-08-03",
+        "publisher": "Mark Hillary",
+        "relevance_rationale": "Company setting only; no corroboration of demand or earnings.",
+        "rights_evidence_path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\ibm\\release-photo-rights.json",
+        "rights_evidence_sha256": "35376a6ac1ab6d4c7462459338463d4f887bdcbd36943d731d33df4154069ff6",
+        "rights_status": "OPEN_LICENSED",
+        "role": "hero",
+        "sha256": "48c82af1e097e69ccb07911d25d4a69f283110501da99b17173cce6c8c17c087",
+        "source_label": "Mark Hillary",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:IBM_Armonk_corporate_headquarters_unusual_view.jpg",
+        "source_reuse_basis": "Creative Commons Attribution 2.0; exact original retained. Delivery image unchanged; reader display may resize.",
+        "supports_headline": false,
+        "underlying_source_rights_status": "open_licensed",
+        "visual_review": {
+          "asset_sha256": "48c82af1e097e69ccb07911d25d4a69f283110501da99b17173cce6c8c17c087",
+          "pixels_inspected": true,
+          "relevant_subject": true,
+          "review_scope": "Source originals shown in photo-contact-sheet-1/2; delivery retained original. Article desktop/mobile layout still pending.",
+          "reviewer": "Codex parent actual contact-sheet and original-pixel inspection; contextual subject/date review"
+        },
+        "width": 2592
+      }
+    ],
+    "delivery_only_assets": []
+  },
+  "public_write_performed": false,
+  "run_id": "v1-media-ibm-r1",
+  "schema_version": "contentops.simple_durable_run_context.v1",
+  "selection": {
+    "candidate_id": "simple-story-cfa3cb4bdb5389780c472d78",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [
+      {
+        "changed_evidence": [],
+        "disposition": "EDITORIAL_REVISION",
+        "new_factual_evidence": false,
+        "prior_package": {
+          "article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+          "full_text": "SINGLE-SOURCE REPORT - REUTERS: Does IBM's reported software upgrade show lasting demand, or business arriving after a delay? Reuters' October 21, 2026 report attributes to Kavanaugh an annual software revenue growth outlook of about 7% to 8%, previously 6% to 8%; the underlying update has not been independently confirmed. Those reported ranges lift the floor and retain an 8% ceiling. If the report is accurate, Capital Chronicle's reading is greater confidence in the bottom of the range, while a faster upper-end growth path remains unestablished. [[SOURCE:SOURCE_1]]\n\nReuters puts IBM's third-quarter company-wide revenue at $17.10 billion, up 4.7%, against a $16.82 billion LSEG consensus estimate. Its software figures are separate: $7.80 billion of revenue, growth of 8.3%, versus a $7.62 billion estimate. These are reported earnings comparisons, not a measure of growth after removing delayed deals. [[SOURCE:SOURCE_1]]\n\n## The deal-mix distinction\n\nThe deal-mix detail has a narrower denominator. Reuters attributes to Kavanaugh a breakdown of transaction-processing revenue: about 25% came from business deferred from the second quarter, with the other 75% characterized as net new business. Those shares refer to that revenue category; they are neither a split of all IBM revenue nor a decomposition of software revenue growth. [[SOURCE:SOURCE_1]]\n\nIf the report is accurate, business delayed from an earlier quarter could support the current result without proving a lasting rise in demand. Capital Chronicle's timing test is whether fresh business keeps arriving after that catch-up fades. [[SOURCE:SOURCE_1]]\n\nIf the report is accurate, Kavanaugh's account of net new transaction-processing business challenges a catch-up-only reading. Fresh demand and delayed deals could coexist, so the presence of deferred business alone would not disprove improvement. [[SOURCE:SOURCE_1]]\n\nReuters also describes an approximately 4% increase in IBM's shares during extended trading. That reported price observation cannot establish recurring demand or identify why investors bought the shares. [[SOURCE:SOURCE_1]]\n\n## What would change the reading\n\nIf IBM sustains new transaction-processing business after delayed deals clear, the durable-demand reading would strengthen. Weaker follow-through would challenge it; comparable software growth, revenue, margin and cash-conversion evidence would help distinguish timing from persistence. [[SOURCE:SOURCE_1]]\n\n### Source notes\n\nSource notes: The Reuters report is dated October 21, 2026, with a supplied publication time of 20:12 UTC. It was known to this edition at 22:27:23.029 UTC; the editorial cutoff was 22:29:51.437174 UTC that day. Kavanaugh's remarks and the estimates above are attributed through Reuters. [[SOURCE:SOURCE_1]]",
+          "stage": "UNPUBLISHED_REVIEWED_ARTICLE",
+          "story_identity": "simple-story-cfa3cb4bdb5389780c472d78",
+          "title": "Reuters reports IBM raises software revenue growth floor; durability is the test"
+        },
+        "publication_state": "UNPUBLISHED_RESEARCH",
+        "reason": "Owner-directed dated editorial/media revision: A higher software-growth floor does not establish durable demand after delayed deals clear. Lead with the raised floor and unchanged ceiling, then separate company-wide revenue, software and transaction-processing denominators. Add the exact independently cleared archival contextual photo and useful source-bound chart; preserve the original facts, report-only authority and dates.",
+        "removed_main_claim_ids": [],
+        "retained_sources": [
+          {
+            "browser_rendered_acquisition": null,
+            "canonical_content_sha256": "3ea8bbea4ba84df6bba32068466924d478361609c2b60a814baabdfbcadb0a84",
+            "canonical_content_text": "IBM raises annual software revenue outlook as deal delays ease\n\nIn an interview with Reuters, Kavanaugh said ​IBM now expects annual software revenue growth of about ​7% to 8%, up from 6% to 8% ⁠previously. IBM's shares rose about 4% in extended trading.\n\nThird-quarter revenue rose 4.7% to $17.10 billion, above ​analysts' average estimate of $16.82 billion, according to data compiled by LSEG\n\nSoftware revenue rose 8.3% to $7.80 billion in the third quarter, topping estimates of $7.62 billion\n\nKavanaugh ​said about 25% of the transaction processing ​revenue came ⁠from deals deferred from the second quarter and \"the remaining 75% is net new business\"",
+            "canonical_resolution_status": "",
+            "document_id": "goal35-ibm",
+            "published_at_source": "2026-10-21T20:12:00Z",
+            "published_at_utc": "2026-10-21T20:12:00Z",
+            "publisher": "Reuters",
+            "report_truth_only": true,
+            "retrieval_method": "RETAINED_PUBLIC_FACTS_ONLY",
+            "secondary_listing_only": false,
+            "source_authority_class": "reputable_secondary_source",
+            "source_id": "SOURCE_1",
+            "source_identity": "reuters.com",
+            "source_reuse_constraints": {
+              "INTERNAL_ANALYSIS_ALLOWED": true,
+              "LLM_INPUT_ALLOWED": true,
+              "MODEL_INPUT_ALLOWED": true,
+              "attribution_required": true,
+              "canonical_text_sha256": "3ea8bbea4ba84df6bba32068466924d478361609c2b60a814baabdfbcadb0a84",
+              "content_sha256": "8a3a5eb3b8293d0fe6f80f180c86334f3c446926b89292d27aaf3fd315de1bc8",
+              "government_authorship": false,
+              "images_logos_exhibits_reuse_allowed": false,
+              "permitted_consumers": [
+                "internal_research",
+                "narrative_context"
+              ],
+              "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+              "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+              "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+              "provider_safe": true,
+              "public_expression_reuse_allowed": false,
+              "scope": "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+              "source_capture_sha256": "468ebc08e76e964e126e926ac97c922e6053d588b781d60968257e146e93c9d6",
+              "underlying_event_truth_granted": false
+            },
+            "url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/"
+          }
+        ],
+        "source_item_ids": [
+          "goal35-ibm"
+        ],
+        "source_review_id": "native-editorial-revision-82c47aaeade6a6414b0096bb4b77e5269b9ad04d6c27058bf796809ac651c610",
+        "story_identity": "simple-story-cfa3cb4bdb5389780c472d78",
+        "update_chain_identity": "simple-story-cfa3cb4bdb5389780c472d78"
+      }
+    ],
+    "headline_id": "goal35-ibm",
+    "headline_text": "IBM raises annual software revenue outlook as deal delays ease",
+    "official_source_urls": [],
+    "public_source_urls": [
+      "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/"
+    ],
+    "report_editorial_context": {},
+    "revision_at_utc": "2026-10-21T22:29:51.242826Z",
+    "source_account": "Reuters",
+    "source_platform": "",
+    "source_timestamp_utc": "2026-10-21T20:12:00Z",
+    "source_url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+      "known_access_risk": true,
+      "known_official_path": false,
+      "reputable_public_secondary_path": true,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-cfa3cb4bdb5389780c472d78",
+    "update_chain_identity": "simple-story-cfa3cb4bdb5389780c472d78"
+  }
+}

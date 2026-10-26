@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { ReportEditorialWorkspace } from '../views/ReportEditorialWorkspace';
 import type { ReportWorkspaceData } from '../dailyAppTypes';
 
@@ -17,6 +17,225 @@ function data(): ReportWorkspaceData {
 }
 
 describe('Main report editorial workspace', () => {
+  function ownerData() {
+    const snapshot = data();
+    snapshot.native_edition = ['one', 'two', 'history'].map(id => ({ run_id: id, article_identity: id,
+      article: { ...snapshot.article!, title: `Owner story ${id}` },
+      review: { decision: 'KEEP', rationale: 'Exact controlled edition review.' },
+      previews: snapshot.previews.map(p => ({ ...p, article_identity: id, preview_id: `${id}-${p.destination}` })),
+      evidence: [{ source_id: 'SOURCE_1', publisher: 'Controlled agency', url: 'https://example.com/source',
+        published_at_utc: '2026-09-16T00:00:00Z', published_at_source: 'September 16, 2026' }],
+      publication: { state: 'PREPARED', operation_scope: 'OWNER_MANUAL_ISOLATED', next_operation: 'BLOCKED',
+        destinations: [{ destination: 'substack', status: 'NOT_DISPATCHED', cached_readiness: 'NOT_VERIFIED' }] } }));
+    snapshot.owner_edition = { edition_id: 'controlled-owner', title: 'Controlled selected edition', operation_ids: ['one', 'two'],
+      ready: 2, held: 1, missing: 0, preview_count: 16, held_candidates: [{ title: 'Held FX', reason: 'Missing exact source.' }] };
+    return snapshot;
+  }
+
+  it('navigates the exact selected owner edition and resets channel selection without exposing history actions', () => {
+    render(<ReportEditorialWorkspace data={ownerData()} mode="owner-review" />);
+    expect(screen.getByRole('heading', { name: 'Owner story one' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Previous story' })).toBeDisabled();
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: 'x' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Next story' }));
+    expect(screen.getByRole('heading', { name: 'Owner story two' })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: 'Choose reading view' })).toHaveValue('canonical');
+    expect(screen.getByRole('button', { name: 'Next story' })).toBeDisabled();
+    expect(screen.queryByRole('option', { name: /Owner story history/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /approve|publish|dispatch|keep|revise/i })).not.toBeInTheDocument();
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose story' }), { target: { value: '0' } });
+    expect(screen.getByRole('heading', { name: 'Owner story one' })).toBeInTheDocument();
+  });
+
+  it('renders all eight actual native packages with pending canonical links in the read-only owner mode', () => {
+    render(<ReportEditorialWorkspace data={ownerData()} mode="owner-review" />);
+    const view = screen.getByRole('combobox', { name: 'Choose reading view' });
+    for (const destination of ['telegram', 'discord', 'x', 'linkedin', 'facebook_page', 'instagram_business', 'threads', 'youtube']) {
+      fireEvent.change(view, { target: { value: destination } });
+      const article = screen.getByRole('article', { name: 'Selected article' });
+      expect(article).toHaveAttribute('data-reading-view', destination);
+      expect(within(article).getByText(new RegExp(`${destination}: controlled native text`))).toBeInTheDocument();
+      expect(within(article).getByText(/Canonical link pending/)).toBeInTheDocument();
+      expect(within(article).queryByRole('link', { name: /pending-publication/ })).not.toBeInTheDocument();
+    }
+  });
+
+  it('keeps source dates, held scope and real insufficient metrics visible and opens the release guide', () => {
+    const snapshot = ownerData();
+    snapshot.native_edition![0].media_assets = [{ asset_id: 'controlled-photo', path: 'controlled.jpg', sha256: 'photo-hash',
+      caption: 'Controlled archival photograph.', alt_text: 'Controlled archive subject', preview_data_url: 'data:image/jpeg;base64,Y29udHJvbGxlZA==', modality: 'documentary_photo' }];
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" reviewContext={{ captured_at_utc: '2026-10-24T07:00:00Z',
+      original_media_links: { 'photo-hash': 'editorial-media/controlled.jpg' },
+      audience: { sample_count: 0, content_state: 'INSUFFICIENT_REAL_SAMPLE', search_state: 'INSUFFICIENT_REAL_SEARCH_SAMPLE', destination_state: 'INSUFFICIENT_REAL_DESTINATION_SAMPLE' } }} />);
+    expect(screen.getByText('September 16, 2026 (date only; release time not supplied)')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Sources and dates'));
+    expect(screen.getByRole('link', { name: 'Read original source' })).toHaveAttribute('href', 'https://example.com/source');
+    expect(screen.getByRole('link', { name: 'View full-size Controlled archive subject' })).toHaveAttribute('href', 'editorial-media/controlled.jpg');
+    expect(screen.getByText(/Real audience samples: 0/)).toHaveTextContent('INSUFFICIENT REAL SEARCH SAMPLE');
+    expect(screen.getByText(/Held: Held FX/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('link', { name: 'Activation boundary' }));
+    expect(screen.getByText("Production activation needs Jim's decision").closest('details')).toHaveAttribute('open');
+    expect(screen.getByText(/Private, read-only preview/)).toBeInTheDocument();
+  });
+
+  it('fails visibly when the owner edition has no exact selected record', () => {
+    const missing = ownerData(); missing.native_edition = [];
+    render(<ReportEditorialWorkspace data={missing} mode="owner-review" />);
+    expect(screen.getByRole('status')).toHaveTextContent('No selected owner edition');
+    expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
+  });
+
+  it('places a chosen chart beside its explanation and keeps workflow details collapsed', () => {
+    const snapshot = ownerData();
+    const item = snapshot.native_edition![0];
+    item.article = { ...item.article, reader_first_version: 'DATA_JOURNALISM_V1', display_date: 'Updated 24 October 2026',
+      substack_body_markdown: 'Opening argument.\n\n### Cash conversion\n\nCash explanation.\n\n### Countercase\n\nCompeting explanation.' };
+    item.media_assets = [{ asset_id: 'cash-chart', path: 'cash.png', sha256: 'chart-hash', modality: 'source_backed_chart',
+      caption: 'Cash comparison.', alt_text: 'Comparable cash series', placement_after: 'Cash conversion',
+      preview_data_url: 'data:image/png;base64,Y29udHJvbGxlZA==' }];
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" reviewContext={{ original_media_links: { 'chart-hash': 'cash.png' } }} />);
+    const article = screen.getByRole('article', { name: 'Selected article' });
+    const explanation = within(article).getByText('Cash explanation.');
+    const chart = within(article).getByRole('img', { name: 'Comparable cash series' });
+    const next = within(article).getByRole('heading', { name: 'Countercase' });
+    expect(explanation.compareDocumentPosition(chart) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(chart.compareDocumentPosition(next) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(within(article).getByRole('link', { name: 'View full-size Comparable cash series' })).toHaveAttribute('href', 'cash.png');
+    expect(within(article).queryByText(/Editorial review:|Preparation:|KEEP|PREPARED|Article identity:|Operation:/)).not.toBeInTheDocument();
+    expect(screen.getByText(/Editorial review:/).closest('details')).not.toHaveAttribute('open');
+    expect(within(article).queryByText(/Open original image|Enlarge image|Interpretation remains analysis/)).not.toBeInTheDocument();
+    expect(within(article).getByText('Updated 24 October 2026')).toBeVisible();
+  });
+
+  it.each(['instagram_business', 'facebook_page', 'x'])('shows the complete attached photo credit once in %s without changing its actual package', destination => {
+    const snapshot = ownerData();
+    const item = snapshot.native_edition![0];
+    const caption = 'Archive context, May 2015. Different vendor; not the reported project.';
+    const credit = `Photo: [Original photographer](https://example.com/photo) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0). ${caption}`;
+    item.media_assets = [{ asset_id: 'archive', path: 'archive.jpg', sha256: 'original-photo', modality: 'documentary_photo',
+      caption, reader_caption: caption, reader_credit: 'Original photographer', source_page_url: 'https://example.com/photo',
+      license_name: 'CC BY-SA 4.0', license_url: 'https://creativecommons.org/licenses/by-sa/4.0',
+      preview_data_url: 'data:image/jpeg;base64,Y29udHJvbGxlZA==' }];
+    const payload = { text: `Attributed reporting; execution is unconfirmed.\n\n${credit}`, media_asset_ids: ['archive'] };
+    item.previews.find(p => p.destination === destination)!.payload = destination === 'x' ? { posts: [payload] } : payload;
+    const before = JSON.stringify(snapshot);
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" />);
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: destination } });
+    const article = screen.getByRole('article', { name: 'Selected article' });
+    expect(within(article).getAllByText(/Archive context, May 2015/)).toHaveLength(1);
+    expect(within(article).getAllByRole('link', { name: 'Original photographer' })).toHaveLength(1);
+    expect(within(article).getAllByRole('link', { name: 'CC BY-SA 4.0' })).toHaveLength(1);
+    expect(within(article).getByText(/execution is unconfirmed/)).toBeInTheDocument();
+    expect(JSON.stringify(snapshot)).toBe(before);
+  });
+
+  it.each(['missing-image', 'unbound-image', 'changed-credit'])('preserves standalone photo attribution and uncertainty for %s', condition => {
+    const snapshot = ownerData();
+    const item = snapshot.native_edition![0];
+    const caption = 'Archive context; not this project.';
+    const credit = `Photo: [Photographer](https://example.com/photo) · [CC BY 2.0](https://creativecommons.org/licenses/by/2.0). ${caption}`;
+    item.media_assets = [{ asset_id: 'archive', path: 'archive.jpg', sha256: 'original-photo', modality: 'documentary_photo',
+      caption, reader_caption: caption, reader_credit: 'Photographer', source_page_url: 'https://example.com/photo',
+      license_name: 'CC BY 2.0', license_url: 'https://creativecommons.org/licenses/by/2.0',
+      preview_data_url: condition === 'missing-image' ? undefined : 'data:image/jpeg;base64,Y29udHJvbGxlZA==' }];
+    const text = `Reported deal.\n\n${credit}${condition === 'changed-credit' ? ' Cropped by a third party; further rights unresolved.' : ''}`;
+    item.previews.find(p => p.destination === 'instagram_business')!.payload = {
+      text, media_asset_ids: condition === 'unbound-image' ? [] : ['archive'] };
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" />);
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: 'instagram_business' } });
+    expect(screen.getByRole('article', { name: 'Selected article' }).textContent).toContain('Photo: Photographer');
+    if (condition === 'changed-credit') expect(screen.getByText(/further rights unresolved/)).toBeInTheDocument();
+  });
+
+  it('uses a native modal for full-size media and returns keyboard focus on close', () => {
+    const showModal = vi.fn(function (this: HTMLDialogElement) { this.setAttribute('open', ''); });
+    Object.defineProperty(HTMLDialogElement.prototype, 'showModal', { configurable: true, value: showModal });
+    const snapshot = ownerData();
+    snapshot.native_edition![0].media_assets = [{ asset_id: 'cash', path: 'cash.png', sha256: 'cash-hash',
+      caption: 'Exact chart.', alt_text: 'Cash series', modality: 'source_backed_chart', preview_data_url: 'data:image/png;base64,Y29udHJvbGxlZA==' }];
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" reviewContext={{ original_media_links: { 'cash-hash': 'original-cash.png' } }} />);
+    const opener = screen.getByRole('link', { name: 'View full-size Cash series' });
+    opener.focus(); fireEvent.click(opener);
+    expect(showModal).toHaveBeenCalledOnce();
+    const modal = screen.getByRole('dialog', { name: 'Full-size Cash series' });
+    expect(modal).toHaveAttribute('aria-modal', 'true');
+    fireEvent.keyDown(modal, { key: 'Tab' });
+    expect(within(modal).getByRole('button', { name: 'Close image' })).toHaveFocus();
+    fireEvent.keyDown(modal, { key: 'Escape' });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(opener).toHaveFocus();
+  });
+
+  it('keeps aligned source-bound year columns in the article and compiled context in channel copy', () => {
+    const snapshot = ownerData();
+    const item = snapshot.native_edition![0];
+    item.media_assets = [{ asset_id: 'cash', path: 'cash.png', sha256: 'cash-hash', caption: 'Cash changes, not a balance bridge.',
+      modality: 'source_backed_chart', reader_table: { caption: 'Reported nine-month levels', unit: 'USD million',
+        columns: ['2025', '2026'], rows: [
+          { label: 'GAAP operating cash flow', values: [9153, 11791] },
+          { label: 'Less: Financing-receivables change', values: [905, 2805] },
+          { label: 'Net capital expenditures (signed)', values: [-1067, -1200] },
+          { label: 'IBM-defined free cash flow', values: [7181, 7787] }],
+        notes: ['IBM-defined free cash flow is non-GAAP; consolidated cash does not establish Software cash conversion.'] } }];
+    item.previews[0].payload.media_asset_ids = ['cash'];
+    item.previews[0].payload.text = 'Controlled channel caption retains reported levels and non-GAAP scope.';
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" />);
+    const assertTable = () => {
+      const table = screen.getByRole('table', { name: 'Reported nine-month levels' });
+      expect(within(table).getAllByRole('columnheader').map(cell => cell.textContent)).toEqual(['Measure', '2025', '2026']);
+      const capex = within(table).getByRole('rowheader', { name: 'Net capital expenditures (signed)' }).closest('tr')!;
+      const numbers = within(capex).getAllByRole('cell');
+      expect(numbers.map(cell => cell.textContent)).toEqual(['-1,067', '-1,200']);
+      numbers.forEach(cell => expect(cell).toHaveStyle({ textAlign: 'right', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }));
+      expect(screen.getByText(/consolidated cash does not establish Software cash conversion/)).toBeVisible();
+    };
+    assertTable();
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: 'telegram' } });
+    expect(screen.queryByRole('table')).not.toBeInTheDocument();
+    expect(screen.getByText('Controlled channel caption retains reported levels and non-GAAP scope.')).toBeVisible();
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: 'discord' } });
+    expect(screen.queryByRole('table')).not.toBeInTheDocument();
+  });
+
+  it('shows photo pixels, credits and exact license/source links with release readiness', () => {
+    const snapshot = data();
+    snapshot.previews[0].payload.media_asset_ids = ['photo'];
+    snapshot.native_edition = [{ run_id: 'controlled-photo-reader', article_identity: 'controlled-media-id',
+      article: { title: 'Controlled media article', dek: 'Dated source scope.', substack_body_markdown: 'Source-bound copy.' },
+      release_media: { state: 'READY', photo_count: 1, chart_count: 1 }, previews: snapshot.previews,
+      media_assets: [{ asset_id: 'photo', path: 'controlled.jpg', sha256: 'controlled-hash', modality: 'documentary_photo', width: 640,
+        caption: 'Archive context photograph.', alt_text: 'Controlled contextual subject',
+        preview_data_url: 'data:image/jpeg;base64,Y29udHJvbGxlZA==', attribution: 'Controlled creator / CC BY 2.0',
+        license_url: 'https://creativecommons.org/licenses/by/2.0/', source_page_url: 'https://commons.wikimedia.org/wiki/File:Controlled.jpg' }] }];
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    const edition = screen.getByLabelText('Ấn bản newsroom');
+    expect(within(edition).getByText('Release media: READY')).toBeInTheDocument();
+    expect(within(edition).getAllByRole('img', { name: 'Controlled contextual subject' })).toHaveLength(2);
+    expect(within(edition).getAllByRole('img')[0]).toHaveAttribute('src', 'data:image/jpeg;base64,Y29udHJvbGxlZA==');
+    const preview = edition.querySelector('[data-edition-destination="telegram"]') as HTMLElement;
+    expect(within(preview).getByRole('img', { name: 'Controlled contextual subject', exact: true })).toHaveStyle({ maxWidth: '640px' });
+    expect(within(preview).getByText(/Controlled creator/)).toBeInTheDocument();
+    expect(within(preview).getByRole('link', { name: 'Reuse terms' })).toHaveAttribute('href', 'https://creativecommons.org/licenses/by/2.0/');
+    expect(within(preview).getByRole('link', { name: 'Controlled creator / CC BY 2.0' })).toHaveAttribute('href', 'https://commons.wikimedia.org/wiki/File:Controlled.jpg');
+  });
+  it('keeps exact single and multiple chart sources in the article and selected channel', () => {
+    const snapshot = data();
+    snapshot.native_edition = [{ run_id: 'controlled-source-links', article_identity: 'controlled-source-id',
+      article: { title: 'Controlled source chart', dek: 'Dated facts.', substack_body_markdown: 'Bound comparison.' },
+      media_assets: [{ asset_id: 'chart', path: 'chart.png', sha256: 'controlled-chart', modality: 'source_backed_chart',
+        caption: 'Quarterly comparison.', source_page_url: 'https://example.org/wrong-quarter',
+        source_links: [{ document_id: 'q1', url: 'https://example.org/q1', label: 'Issuer · Q1' },
+          { document_id: 'q3', url: 'https://example.org/q3', label: 'Issuer · Q3' }] }],
+      previews: [{ preview_id: 'controlled-preview', destination: 'telegram', payload: { text: 'Comparison.', media_asset_ids: ['chart'] } }] }];
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    const figures = document.querySelectorAll('[data-media-asset="chart"]');
+    expect(figures).toHaveLength(2);
+    for (const figure of figures) {
+      expect(within(figure as HTMLElement).getByRole('link', { name: 'Issuer · Q1' })).toHaveAttribute('href', 'https://example.org/q1');
+      expect(within(figure as HTMLElement).getByRole('link', { name: 'Issuer · Q3' })).toHaveAttribute('href', 'https://example.org/q3');
+      expect(figure.querySelector('[href="https://example.org/wrong-quarter"]')).toBeNull();
+    }
+  });
   it('opens exact maintained versions and keeps partial coverage, dates and preparation distinct', () => {
     const snapshot = data();
     const version = { run_id: 'controlled-current', article_identity: 'current-id', article: snapshot.article!,
@@ -146,7 +365,8 @@ describe('Main report editorial workspace', () => {
       angle: 'Separate contract risks', reader_question: 'What is actually owned?', mode: 'EVERGREEN_EXPLAINER',
       review: { decision: 'KEEP', rationale: 'Bounded educational scope and exact source dates retained.' },
       evidence: [{ source_id: 'SOURCE_1', publisher: 'CFTC', url: 'https://www.cftc.gov/example', published_at_utc: '' },
-        { source_id: 'SOURCE_2', publisher: 'Issuer', url: 'https://www.sec.gov/Archives/example.htm', published_at_utc: '2025-07-24T00:00:00Z', published_at_source: '2025-07-24' }],
+        { source_id: 'SOURCE_2', publisher: 'Issuer', url: 'https://www.sec.gov/Archives/example.htm', published_at_utc: '2025-07-24T00:00:00Z', published_at_source: '2025-07-24' },
+        { source_id: 'SOURCE_3', publisher: 'Controlled dated agency', url: 'https://example.com/policy', published_at_utc: '2026-09-16T00:00:00Z', published_at_source: 'September 16, 2026' }],
       previews: snapshot.previews }];
     render(<ReportEditorialWorkspace data={snapshot} />);
     const edition = screen.getByLabelText('Ấn bản newsroom');
@@ -156,11 +376,28 @@ describe('Main report editorial workspace', () => {
     expect(within(edition).getByText(/Không cung cấp ngày xuất bản/)).toBeInTheDocument();
     expect(within(edition).getByText(/2025-07-24 \(date only; release time not supplied\)/)).toBeInTheDocument();
     expect(edition.textContent).not.toContain('2025-07-24T00:00:00Z');
+    expect(within(edition).getByText(/September 16, 2026 \(date only; release time not supplied\)/)).toBeInTheDocument();
+    expect(edition.textContent).not.toContain('2026-09-16T00:00:00Z');
     expect(edition.querySelectorAll('[data-edition-destination]')).toHaveLength(8);
     expect(within(edition).getByText('Mechanism')).toBeInTheDocument();
     expect(within(edition).getByText('Dated educational interpretation.').tagName).toBe('STRONG');
     expect(within(edition).getByRole('link', { name: 'Agency source' })).toHaveAttribute('href', 'https://www.cftc.gov/example');
     expect(within(edition).getByRole('listitem')).toHaveTextContent('Exact dated scope.');
+  });
+  it('renders an exact minimal editorial revision source record without inventing missing metadata', () => {
+    const snapshot = data();
+    snapshot.source_reviews = [{ review_id: 'editorial-revision-control', run_id: 'revision', title: 'Same-facts editorial revision',
+      decision: 'EDITORIAL_REVISION', reader_change_summary: 'Reader-facing prose change; no new facts.',
+      cutoff_utc: '2026-10-21T22:29:51Z', invalidates_prepared_review: false,
+      media_state: 'REPLAN_LAWFUL_CONTEXTUAL_PHOTO_AND_SOURCE_BOUND_CHART', removed_main_claim_ids: [],
+      source_editions: [{ item_id: 'retained-source', source_url: 'https://example.com/retained', published_at_utc: '2026-10-21T20:06:00Z' }],
+      source_attempts: [] }];
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    expect(screen.getByText('Same-facts editorial revision')).toBeInTheDocument();
+    expect(screen.getByText(/No new observation period declared/)).toBeInTheDocument();
+    expect(screen.getByText(/not separately recorded in this revision/)).toBeInTheDocument();
+    expect(screen.getByText(/See the exact retained source rights record/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Nguồn gốc' })).toHaveAttribute('href', 'https://example.com/retained');
   });
   it('keeps independent evidence, recirculation, controlled conversion and media visible', () => {
     const snapshot = data();

@@ -1,0 +1,48 @@
+{
+  "asset_id": "southwest-dj-fuel-price-versus-volume-r1",
+  "title": "Fuel cost per gallon rose as consumption fell",
+  "question": "Was the larger fuel bill associated with a higher reported cost per gallon or with consuming more fuel?",
+  "unit": "percent change year over year",
+  "source_links": [],
+  "comparability_limits": [
+    "Reported per-gallon fuel cost including tax is USD 3.92 versus USD 2.40; fuel consumed is 548 versus 554 million gallons; fuel expense and related taxes is USD 2,152 million versus USD 1,331 million.",
+    "Use the cost-per-gallon measure including fuel tax, not the separate unhedged measure. Taxes, terminated-contract premium expense, accounting and rounding prevent presenting this as a pure spot jet-fuel price series.",
+    "Rates are not additive and are not an exact multiplicative reconciliation of the nominal expense line. No fuel-price elasticity, EPS sensitivity or forecast bridge is inferred.",
+    "These are completed-quarter observations, not the later quarter's fuel outcome. Any company forward-curve assumption must retain its separate as-of date and forecast status.",
+    "Mobile layout: three horizontal rows with a visible zero baseline, one shared linear percentage axis and one-decimal signed labels; distinguish the small negative consumption bar with its label rather than rescaling it independently."
+  ],
+  "series": [
+    {
+      "name": "Change from Q3 2025 to Q3 2026",
+      "points": [
+        {
+          "period": "Fuel cost per gallon, including tax",
+          "value": 63.33333333333333,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "PERCENT_CHANGE",
+          "source_document_ids": [
+            "dj-southwest-q3-2026"
+          ]
+        },
+        {
+          "period": "Gallons consumed",
+          "value": -1.0830324909747335,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "PERCENT_CHANGE",
+          "source_document_ids": [
+            "dj-southwest-q3-2026"
+          ]
+        },
+        {
+          "period": "Fuel expense and related taxes",
+          "value": 61.68294515401953,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "PERCENT_CHANGE",
+          "source_document_ids": [
+            "dj-southwest-q3-2026"
+          ]
+        }
+      ]
+    }
+  ]
+}

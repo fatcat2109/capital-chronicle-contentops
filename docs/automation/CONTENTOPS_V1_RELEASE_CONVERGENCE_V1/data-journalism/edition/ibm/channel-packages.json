@@ -1,0 +1,391 @@
+[
+  {
+    "destination": "discord",
+    "payload": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "ibm-dj-revenue-drivers-r2",
+        "ibm-dj-cash-improvement-r2"
+      ],
+      "media_source_links": {
+        "ibm-dj-cash-improvement-r2": [
+          {
+            "document_id": "dj-ibm-q3-2026",
+            "label": "IBM · 21 Oct 2026",
+            "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+          }
+        ],
+        "ibm-dj-revenue-drivers-r2": [
+          {
+            "document_id": "dj-ibm-q1-2026",
+            "label": "IBM · 22 Apr 2026",
+            "url": "https://newsroom.ibm.com/2026-04-22-IBM-RELEASES-FIRST-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q2-2026",
+            "label": "IBM · 22 Jul 2026",
+            "url": "https://newsroom.ibm.com/2026-07-22-IBM-RELEASES-SECOND-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q3-2026",
+            "label": "IBM · 21 Oct 2026",
+            "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+          }
+        ]
+      },
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: IBM's software-led rebound faces a broader demand test**\n\nIBM's Q3 recovery leans on software.\n\n**Context:** The strongest countercase is that software revenue rose in every same-quarter comparison and its segment profit margin improved.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-b39e88587862e50c\n\nOperating cash flow increased by $2,638 million. The larger IBM Financing-receivables adjustment removes $1,900 million of that increase, and higher net capital spending removes $133 million. IBM-defined free cash flow rose by a reported $606 million, from $7,181 million to $7,787 million. Arithmetic on the rounded components yields $605 million, a $1 million difference from the reported gain. IBM-defined free cash flow is non-GAAP. These are consolidated IBM figures, not Software cash conversion or a full cash-balance bridge. Financing amounts are quantities removed; net capital expenditures retain their reported negative signs. Reported levels (USD million, 2025 / 2026): GAAP operating cash flow 9,153 / 11,791; Financing-receivables change removed 905 / 2,805; net capital expenditures -1,067 / -1,200; IBM-defined free cash flow 7,181 / 7,787. Source: IBM Q3 2026 earnings release, October 21, 2026; nine-month cash-flow reconciliation. Sources: [IBM · 21 Oct 2026](https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS)."
+    },
+    "preview_id": "cc-preview-345258854ae34d881a8bb1ae932dc9e98718419ede1f99119f2303c69aa71f15"
+  },
+  {
+    "destination": "facebook_page",
+    "payload": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "documentary_ibm",
+        "ibm-dj-revenue-drivers-r2"
+      ],
+      "media_source_links": {
+        "ibm-dj-revenue-drivers-r2": [
+          {
+            "document_id": "dj-ibm-q1-2026",
+            "label": "IBM · 22 Apr 2026",
+            "url": "https://newsroom.ibm.com/2026-04-22-IBM-RELEASES-FIRST-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q2-2026",
+            "label": "IBM · 22 Jul 2026",
+            "url": "https://newsroom.ibm.com/2026-07-22-IBM-RELEASES-SECOND-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q3-2026",
+            "label": "IBM · 21 Oct 2026",
+            "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+          }
+        ]
+      },
+      "platform_limit": 63206,
+      "text": "IBM's software-led rebound faces a broader demand test\n\nIBM's Q3 recovery leans on software.\n\nWhy it matters: IBM removes the change in Financing receivables before subtracting net capital spending to calculate free cash flow.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-b39e88587862e50c\n\nPhoto: [Mark Hillary](https://commons.wikimedia.org/wiki/File:IBM_Armonk_corporate_headquarters_unusual_view.jpg) · [CC BY 2.0](https://creativecommons.org/licenses/by/2.0). IBM headquarters in Armonk. Archival photograph dated 2010-08-03."
+    },
+    "preview_id": "cc-preview-a71cb7fff12e4449ef98c67a12ff0a1bf9ce425d1b3bacc5ccd35084a83bff1f"
+  },
+  {
+    "destination": "instagram_business",
+    "payload": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "ibm-dj-revenue-drivers-r2",
+        "ibm-dj-software-margins-r2",
+        "ibm-dj-cash-improvement-r2"
+      ],
+      "media_source_links": {
+        "ibm-dj-cash-improvement-r2": [
+          {
+            "document_id": "dj-ibm-q3-2026",
+            "label": "IBM · 21 Oct 2026",
+            "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+          }
+        ],
+        "ibm-dj-revenue-drivers-r2": [
+          {
+            "document_id": "dj-ibm-q1-2026",
+            "label": "IBM · 22 Apr 2026",
+            "url": "https://newsroom.ibm.com/2026-04-22-IBM-RELEASES-FIRST-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q2-2026",
+            "label": "IBM · 22 Jul 2026",
+            "url": "https://newsroom.ibm.com/2026-07-22-IBM-RELEASES-SECOND-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q3-2026",
+            "label": "IBM · 21 Oct 2026",
+            "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+          }
+        ],
+        "ibm-dj-software-margins-r2": [
+          {
+            "document_id": "dj-ibm-q1-2026",
+            "label": "IBM · 22 Apr 2026",
+            "url": "https://newsroom.ibm.com/2026-04-22-IBM-RELEASES-FIRST-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q2-2026",
+            "label": "IBM · 22 Jul 2026",
+            "url": "https://newsroom.ibm.com/2026-07-22-IBM-RELEASES-SECOND-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q3-2026",
+            "label": "IBM · 21 Oct 2026",
+            "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+          }
+        ]
+      },
+      "platform_limit": 2200,
+      "text": "IBM's software-led rebound faces a broader demand test\n\nIBM's Q3 recovery leans on software.\n\nIn focus: The strongest countercase is that software revenue rose in every same-quarter comparison and its segment profit margin improved.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-b39e88587862e50c\n\n#CapitalChronicle\n\nOperating cash flow increased by $2,638 million. The larger IBM Financing-receivables adjustment removes $1,900 million of that increase, and higher net capital spending removes $133 million. IBM-defined free cash flow rose by a reported $606 million, from $7,181 million to $7,787 million. Arithmetic on the rounded components yields $605 million, a $1 million difference from the reported gain. IBM-defined free cash flow is non-GAAP. These are consolidated IBM figures, not Software cash conversion or a full cash-balance bridge. Financing amounts are quantities removed; net capital expenditures retain their reported negative signs. Reported levels (USD million, 2025 / 2026): GAAP operating cash flow 9,153 / 11,791; Financing-receivables change removed 905 / 2,805; net capital expenditures -1,067 / -1,200; IBM-defined free cash flow 7,181 / 7,787. Source: IBM Q3 2026 earnings release, October 21, 2026; nine-month cash-flow reconciliation. Sources: [IBM · 21 Oct 2026](https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS)."
+    },
+    "preview_id": "cc-preview-297a7ac60599dfaab8d99e5305e8f3b4c8191e969ffae1653e84461a5a1a6c78"
+  },
+  {
+    "destination": "linkedin",
+    "payload": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "ibm-dj-revenue-drivers-r2",
+        "ibm-dj-software-margins-r2"
+      ],
+      "media_source_links": {
+        "ibm-dj-revenue-drivers-r2": [
+          {
+            "document_id": "dj-ibm-q1-2026",
+            "label": "IBM · 22 Apr 2026",
+            "url": "https://newsroom.ibm.com/2026-04-22-IBM-RELEASES-FIRST-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q2-2026",
+            "label": "IBM · 22 Jul 2026",
+            "url": "https://newsroom.ibm.com/2026-07-22-IBM-RELEASES-SECOND-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q3-2026",
+            "label": "IBM · 21 Oct 2026",
+            "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+          }
+        ],
+        "ibm-dj-software-margins-r2": [
+          {
+            "document_id": "dj-ibm-q1-2026",
+            "label": "IBM · 22 Apr 2026",
+            "url": "https://newsroom.ibm.com/2026-04-22-IBM-RELEASES-FIRST-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q2-2026",
+            "label": "IBM · 22 Jul 2026",
+            "url": "https://newsroom.ibm.com/2026-07-22-IBM-RELEASES-SECOND-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q3-2026",
+            "label": "IBM · 21 Oct 2026",
+            "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+          }
+        ]
+      },
+      "platform_limit": 3000,
+      "text": "IBM's software-led rebound faces a broader demand test\n\nWhy it matters: IBM removes the change in Financing receivables before subtracting net capital spending to calculate free cash flow.\n\nContext: The strongest countercase is that software revenue rose in every same-quarter comparison and its segment profit margin improved.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-b39e88587862e50c"
+    },
+    "preview_id": "cc-preview-534a2fc81cbefd6f06b8e12b7bdc2fbe154a1a3b37d4a2b666819214e88159ae"
+  },
+  {
+    "destination": "telegram",
+    "payload": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "ibm-dj-revenue-drivers-r2"
+      ],
+      "media_source_links": {
+        "ibm-dj-revenue-drivers-r2": [
+          {
+            "document_id": "dj-ibm-q1-2026",
+            "label": "IBM · 22 Apr 2026",
+            "url": "https://newsroom.ibm.com/2026-04-22-IBM-RELEASES-FIRST-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q2-2026",
+            "label": "IBM · 22 Jul 2026",
+            "url": "https://newsroom.ibm.com/2026-07-22-IBM-RELEASES-SECOND-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q3-2026",
+            "label": "IBM · 21 Oct 2026",
+            "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+          }
+        ]
+      },
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nIBM's software-led rebound faces a broader demand test\n\nIBM's Q3 recovery leans on software.\n\nWhat to watch: The next test is whether Software keeps its profit improvement, Consulting contributes more and cash gains survive the same financing adjustment.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-b39e88587862e50c"
+    },
+    "preview_id": "cc-preview-b06db530df6d12f12c9f672a8c0264bd112333344bab46a181451fb0415c9d9c"
+  },
+  {
+    "destination": "threads",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "IBM's software-led rebound faces a broader demand test\n\nThe strongest countercase is that software revenue rose in every same-quarter comparison and its segment profit margin improved.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b39e88587862e50c\n\nWhat to watch: The next test is whether Software keeps its profit improvement, Consulting contributes more and cash gains survive the same financing adjustment.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "ibm-dj-software-margins-r2"
+      ],
+      "media_source_links": {
+        "ibm-dj-software-margins-r2": [
+          {
+            "document_id": "dj-ibm-q1-2026",
+            "label": "IBM · 22 Apr 2026",
+            "url": "https://newsroom.ibm.com/2026-04-22-IBM-RELEASES-FIRST-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q2-2026",
+            "label": "IBM · 22 Jul 2026",
+            "url": "https://newsroom.ibm.com/2026-07-22-IBM-RELEASES-SECOND-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q3-2026",
+            "label": "IBM · 21 Oct 2026",
+            "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+          }
+        ]
+      },
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "ibm-dj-software-margins-r2"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "IBM's software-led rebound faces a broader demand test\n\nThe strongest countercase is that software revenue rose in every same-quarter comparison and its segment profit margin improved.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b39e88587862e50c"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: The next test is whether Software keeps its profit improvement, Consulting contributes more and cash gains survive the same financing adjustment."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.524,
+          0.32
+        ],
+        "post_character_counts": [
+          262,
+          160
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.611,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: The next test is whether Software keeps its profit improvement, Consulting contributes more and cash gains survive the same financing adjustment."
+      ],
+      "root_text": "IBM's software-led rebound faces a broader demand test\n\nThe strongest countercase is that software revenue rose in every same-quarter comparison and its segment profit margin improved.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b39e88587862e50c",
+      "text": "IBM's software-led rebound faces a broader demand test\n\nThe strongest countercase is that software revenue rose in every same-quarter comparison and its segment profit margin improved.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b39e88587862e50c"
+    },
+    "preview_id": "cc-preview-08783dddddbd049e6a4e6a03f7a2f1daeb8509c28c297539110fa560b517f882"
+  },
+  {
+    "destination": "x",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "IBM's software-led rebound faces a broader demand test\n\nIBM's Q3 recovery leans on software.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b39e88587862e50c\n\nWatch: The next test is whether Software keeps its profit improvement, Consulting contributes more and cash gains survive the same financing adjustment.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "ibm-dj-revenue-drivers-r2"
+      ],
+      "media_source_links": {
+        "ibm-dj-revenue-drivers-r2": [
+          {
+            "document_id": "dj-ibm-q1-2026",
+            "label": "IBM · 22 Apr 2026",
+            "url": "https://newsroom.ibm.com/2026-04-22-IBM-RELEASES-FIRST-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q2-2026",
+            "label": "IBM · 22 Jul 2026",
+            "url": "https://newsroom.ibm.com/2026-07-22-IBM-RELEASES-SECOND-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q3-2026",
+            "label": "IBM · 21 Oct 2026",
+            "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+          }
+        ]
+      },
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "ibm-dj-revenue-drivers-r2"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "IBM's software-led rebound faces a broader demand test\n\nIBM's Q3 recovery leans on software.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b39e88587862e50c"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Watch: The next test is whether Software keeps its profit improvement, Consulting contributes more and cash gains survive the same financing adjustment."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.607,
+          0.543
+        ],
+        "post_character_counts": [
+          170,
+          152
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.894,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Watch: The next test is whether Software keeps its profit improvement, Consulting contributes more and cash gains survive the same financing adjustment."
+      ],
+      "root_text": "IBM's software-led rebound faces a broader demand test\n\nIBM's Q3 recovery leans on software.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b39e88587862e50c",
+      "text": "IBM's software-led rebound faces a broader demand test\n\nIBM's Q3 recovery leans on software.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b39e88587862e50c"
+    },
+    "preview_id": "cc-preview-42512e7d37a542b851dfcf31906901df11cf778784cedbae32562b5efee9f3dd"
+  },
+  {
+    "destination": "youtube",
+    "payload": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "ibm-dj-revenue-drivers-r2"
+      ],
+      "media_source_links": {
+        "ibm-dj-revenue-drivers-r2": [
+          {
+            "document_id": "dj-ibm-q1-2026",
+            "label": "IBM · 22 Apr 2026",
+            "url": "https://newsroom.ibm.com/2026-04-22-IBM-RELEASES-FIRST-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q2-2026",
+            "label": "IBM · 22 Jul 2026",
+            "url": "https://newsroom.ibm.com/2026-07-22-IBM-RELEASES-SECOND-QUARTER-RESULTS"
+          },
+          {
+            "document_id": "dj-ibm-q3-2026",
+            "label": "IBM · 21 Oct 2026",
+            "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+          }
+        ]
+      },
+      "platform_limit": 1000,
+      "text": "Update: IBM's software-led rebound faces a broader demand test\n\nIBM's Q3 recovery leans on software.\n\nWhat to watch: The next test is whether Software keeps its profit improvement, Consulting contributes more and cash gains survive the same financing adjustment.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-b39e88587862e50c"
+    },
+    "preview_id": "cc-preview-cd1216b54c2cf4034acf08ebb575b6c9ccf485126485ed627bb3416db31f449a"
+  }
+]

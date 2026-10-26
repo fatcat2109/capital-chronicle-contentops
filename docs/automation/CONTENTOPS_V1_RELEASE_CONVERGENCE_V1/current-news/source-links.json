@@ -1,0 +1,17 @@
+{
+  "cutoff_utc": "2026-10-26T03:59:47Z",
+  "source_links": [
+    {
+      "source_id": "SOURCE_1",
+      "document_id": "current-news-yonhap-samsung-20261026",
+      "publisher": "Yonhap News Agency",
+      "url": "https://en.yna.co.kr/view/AEN20261026001800320",
+      "published_at_utc": "2026-10-26T00:24:27Z",
+      "published_at_source": "2026-10-26T09:24:27+09:00",
+      "source_identity": "en.yna.co.kr",
+      "report_truth_only": true,
+      "canonical_content_sha256": "5a3c70cc88fba92ebc09f605ab8f54f6319e5615eb8c43ca65dfc8dff28b83e3"
+    }
+  ],
+  "scope": "Attributed reported facts only. Underlying execution is unconfirmed. Restricted publisher text and native model returns stay private."
+}

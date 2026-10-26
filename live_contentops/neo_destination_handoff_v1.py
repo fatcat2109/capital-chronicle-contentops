@@ -79,7 +79,14 @@ def _payload_binding(intent, destination):
             if text:
                 texts.append(str(text))
                 thread_texts.append(str(text))
-    media = [{k: a[k] for k in ("asset_id", "path", "sha256", "rights", "public_delivery_sha256", "verified_public_delivery_url") if k in a}
+    if destination != "substack" and isinstance(payload, dict) and (
+            "media_asset_ids" in payload or any(isinstance(p, dict) and "media_asset_ids" in p for p in posts)):
+        media_ids = set(payload.get("media_asset_ids") or [])
+        media_ids.update(a for post in posts if isinstance(post, dict) for a in post.get("media_asset_ids") or [])
+        assets = [a for a in assets if a.get("asset_id") in media_ids]
+    media = [{k: a[k] for k in ("asset_id", "path", "sha256", "rights", "rights_status", "caption", "alt_text",
+              "attribution", "license_url", "source_page_url", "changes_description", "article_section",
+              "canonical_article_section_association", "modality", "public_delivery_sha256", "verified_public_delivery_url") if k in a}
              for a in assets if isinstance(a, dict)]
     return payload, {"expected_text_segments": texts, "expected_thread_texts": thread_texts, "thread_post_count": len(posts),
                      "media_manifest": media, "artifact_manifest": artifacts}

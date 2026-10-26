@@ -1,0 +1,15 @@
+{
+  "schema_version": "contentops.native_chart_enlargement_observation.v1",
+  "surface": "BrowserOS neo actual snapshot-ref click",
+  "scope": "Task-owned local native reader at390px",
+  "observation": {
+    "containerWidth": 332,
+    "imageWidth": 1680,
+    "naturalWidth": 1680,
+    "opened": true,
+    "pageScrollWidth": 390,
+    "scrollableWidth": 1680,
+    "viewport": 390
+  },
+  "result": "PASS_INLINE_ORIGINAL_SIZE_SCROLL_WITHOUT_PAGE_OVERFLOW"
+}

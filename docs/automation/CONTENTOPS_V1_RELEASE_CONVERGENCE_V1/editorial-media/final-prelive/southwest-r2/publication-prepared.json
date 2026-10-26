@@ -1,0 +1,28 @@
+{
+  "classification": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+  "schema_version": "contentops.native_publication_binding.v1",
+  "run_id": "v1-prelive-southwest-r2",
+  "work_item_id": "v1-prelive-southwest-r2",
+  "article_identity": "941b6728350853dd90cbe45a4669a89c3a9a1fd0df46e138ec6f29480fae9a9a",
+  "review_id": "native-article-review-b9ea9b85e3134cfe92f7f88859534894",
+  "review_notes_sha256": "b111d92b2c7597dcf17845affd704f0287cafea04a5c665466c00d7e7bde2dfa",
+  "prepared_handoff_sha256": "b7b4cab690d68bc70aed7fb68492791fbd4ece5a26d8869106b14416ffae98ce",
+  "plan_hash": "15569e79c4e5702d05e0c8540b1989fbd0f0c9f4e4f67c07e54bbcee4f8352b6",
+  "binding_sha256": "e2b18c9f73172e8c94692ad2673ea984a70acc618a413788804456e46cd05665",
+  "accepted_evidence_sha256": "ecf36d9879dba4baa3686077f412f74512af724039f2c209bd61d172b03e064c",
+  "native_result_sha256": "f0fe709a5cf3b3edc78e9d3f828dfddd4b3a9dc14fc55fff8d242f6746cd9c48",
+  "artifact_sha256": {
+    "article_manifest_v1.json": "a3c9ac7f0096704cd14721e1c3ff259167bcbee64a4a4b32646b3233ea35920f",
+    "qualified_article_record_v1.json": "9e78b00fa6511a2fa490413abe216ed7ce96ab00ffaed6a386cc4d61da52edc5",
+    "native_derivative_previews_v1.json": "07e82f975a445c4227afd6981b4bbae204b5dbceda91404932a682a736401f1e",
+    "publication_lifecycle_plan_v1.json": "76362c84066bf2bbcb070d71eccad007fba2052fcf3fdd6e364c99ff0feeed3f",
+    "run_context_v1.json": "7d95b9a91eee8dc4d83a382e3d05eafc2bbcd4cdd243f02a1a17ec516590fe39"
+  },
+  "media_sha256": {
+    "source_value_comparison": "78b9380ca8668ace03d60a578038a3de581db009bab3f31c14ed85d1306d6242",
+    "documentary_southwest": "80db21feff928cbad4c83480b48daa70158fd1baf3cd855de882fc03aab040a4"
+  },
+  "publication_authority": false,
+  "next_operation": "publication-status",
+  "public_write_performed": false
+}

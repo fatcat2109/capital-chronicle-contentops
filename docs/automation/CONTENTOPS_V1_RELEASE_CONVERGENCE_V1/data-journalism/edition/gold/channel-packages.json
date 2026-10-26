@@ -1,0 +1,172 @@
+[
+  {
+    "destination": "telegram",
+    "payload": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nReuters reports gold below $4,000 on October 23\n\nThe spot quote was intraday; the weekly result was unfinished.\n\nWhat to watch: The spot quote is an intraday observation.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-5486aaf1bfa24963"
+    },
+    "preview_id": "cc-preview-d5ceebf52cff67c84e3401ffc8a7ab76c79f6b458dfd90279c302f991a181275"
+  },
+  {
+    "destination": "x",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "Reuters reports gold below $4,000 on October 23\n\nThe spot quote was intraday; the weekly result was unfinished.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-5486aaf1bfa24963\n\nWatch: The spot quote is an intraday observation.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "Reuters reports gold below $4,000 on October 23\n\nThe spot quote was intraday; the weekly result was unfinished.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-5486aaf1bfa24963"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Watch: The spot quote is an intraday observation."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.675,
+          0.175
+        ],
+        "post_character_counts": [
+          189,
+          49
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.259,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Watch: The spot quote is an intraday observation."
+      ],
+      "root_text": "Reuters reports gold below $4,000 on October 23\n\nThe spot quote was intraday; the weekly result was unfinished.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-5486aaf1bfa24963",
+      "text": "Reuters reports gold below $4,000 on October 23\n\nThe spot quote was intraday; the weekly result was unfinished.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-5486aaf1bfa24963"
+    },
+    "preview_id": "cc-preview-3ba07901f39708fa9c655e90248255ed17b3faa4faa2e50c72e8e079f2af79a6"
+  },
+  {
+    "destination": "linkedin",
+    "payload": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 3000,
+      "text": "Reuters reports gold below $4,000 on October 23\n\nWhy it matters: Reuters linked gold's weakness to higher energy prices, inflation concerns and expectations of a US rate increase ahead of the following week's Federal Reserve meeting.\n\nContext: Reuters separately put the week's gold loss at 4%, leaving it heading for its weakest weekly performance since June.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-5486aaf1bfa24963"
+    },
+    "preview_id": "cc-preview-fbf267c0fedc7876d3bdd7e717d2d6eb1da4cb0216319e7ca9a9a08bea9da325"
+  },
+  {
+    "destination": "discord",
+    "payload": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: Reuters reports gold below $4,000 on October 23**\n\nThe spot quote was intraday; the weekly result was unfinished.\n\n**Context:** Reuters separately put the week's gold loss at 4%, leaving it heading for its weakest weekly performance since June.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-5486aaf1bfa24963"
+    },
+    "preview_id": "cc-preview-1efa5ccc5531482c07f2341329c982f99b19f479d997f9783411b513ecc0b740"
+  },
+  {
+    "destination": "facebook_page",
+    "payload": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "prelive-documentary-gold"
+      ],
+      "platform_limit": 63206,
+      "text": "Reuters reports gold below $4,000 on October 23\n\nThe spot quote was intraday; the weekly result was unfinished.\n\nWhy it matters: Reuters linked gold's weakness to higher energy prices, inflation concerns and expectations of a US rate increase ahead of the following week's Federal Reserve meeting.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-5486aaf1bfa24963\n\nPhoto: [Ibex73](https://commons.wikimedia.org/wiki/File:Gold_ingot_and_bar_of_Banque_de_France.jpg) · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0). Gold ingot and bar on display at the Banque de France, Paris, September 17, 2022. Archive context, not a photograph of October 2026 trading or current holdings."
+    },
+    "preview_id": "cc-preview-1fff273460114fbf5778bf16ca799edbd0ddb2b92b0d064cd8a10835cd67756d"
+  },
+  {
+    "destination": "instagram_business",
+    "payload": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "prelive-documentary-gold"
+      ],
+      "platform_limit": 2200,
+      "text": "Reuters reports gold below $4,000 on October 23\n\nThe spot quote was intraday; the weekly result was unfinished.\n\nIn focus: Reuters separately put the week's gold loss at 4%, leaving it heading for its weakest weekly performance since June.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-5486aaf1bfa24963\n\n#CapitalChronicle\n\nPhoto: [Ibex73](https://commons.wikimedia.org/wiki/File:Gold_ingot_and_bar_of_Banque_de_France.jpg) · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0). Gold ingot and bar on display at the Banque de France, Paris, September 17, 2022. Archive context, not a photograph of October 2026 trading or current holdings."
+    },
+    "preview_id": "cc-preview-79438a2f004ab3014be595f606c1f784d8fa3b785ce544a159a353743e0c76f3"
+  },
+  {
+    "destination": "threads",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "Reuters reports gold below $4,000 on October 23\n\nReuters separately put the week's gold loss at 4%, leaving it heading for its weakest weekly performance since June.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-5486aaf1bfa24963\n\nWhat to watch: The spot quote is an intraday observation.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "Reuters reports gold below $4,000 on October 23\n\nReuters separately put the week's gold loss at 4%, leaving it heading for its weakest weekly performance since June.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-5486aaf1bfa24963"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: The spot quote is an intraday observation."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.486,
+          0.114
+        ],
+        "post_character_counts": [
+          243,
+          57
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.235,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: The spot quote is an intraday observation."
+      ],
+      "root_text": "Reuters reports gold below $4,000 on October 23\n\nReuters separately put the week's gold loss at 4%, leaving it heading for its weakest weekly performance since June.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-5486aaf1bfa24963",
+      "text": "Reuters reports gold below $4,000 on October 23\n\nReuters separately put the week's gold loss at 4%, leaving it heading for its weakest weekly performance since June.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-5486aaf1bfa24963"
+    },
+    "preview_id": "cc-preview-40cae6617b1fffe6149302c3c1745790e44e39a93a4e6d86159c2023b662181d"
+  },
+  {
+    "destination": "youtube",
+    "payload": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "prelive-documentary-gold"
+      ],
+      "platform_limit": 1000,
+      "text": "Update: Reuters reports gold below $4,000 on October 23\n\nThe spot quote was intraday; the weekly result was unfinished.\n\nWhat to watch: The spot quote is an intraday observation.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-5486aaf1bfa24963\n\nPhoto: [Ibex73](https://commons.wikimedia.org/wiki/File:Gold_ingot_and_bar_of_Banque_de_France.jpg) · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0). Gold ingot and bar on display at the Banque de France, Paris, September 17, 2022. Archive context, not a photograph of October 2026 trading or current holdings."
+    },
+    "preview_id": "cc-preview-91bc27e3d22dd0deaf2123c1484bcdfc5b0efffae55a0ac623698f87feb07e29"
+  }
+]

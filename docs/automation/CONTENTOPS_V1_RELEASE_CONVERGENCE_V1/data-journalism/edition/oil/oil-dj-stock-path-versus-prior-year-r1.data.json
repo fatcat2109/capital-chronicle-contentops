@@ -1,0 +1,225 @@
+{
+  "asset_id": "oil-dj-stock-path-versus-prior-year-r1",
+  "title": "US crude stocks diverged from last autumn in October",
+  "question": "Did stocks simply follow the prior autumn, or did their path diverge before mid-October?",
+  "unit": "thousand barrels",
+  "source_links": [],
+  "comparability_limits": [
+    "U.S. commercial crude stocks excluding the Strategic Petroleum Reserve; not global oil supply, end-user demand, or a price series.",
+    "EIA release dated October 21, 2026; final observation is the week ending October 16. This is not a new October 24/25 release.",
+    "Captured vintage only; no revision history or market-expectations series supplied.",
+    "Paired week-ending dates differ by one calendar day; these are nearby seasonal positions, never same-day or seasonally adjusted observations.",
+    "Omit August 1, 2025 because this paired window begins August 8, 2025 against August 7, 2026. October 24/31, 2025 are outside the matched endpoint and are excluded.",
+    "No five-year seasonal range, scarcity threshold, inventory-cover ratio, or price-response estimate is available. A narrowed stock-level axis must be plainly labelled and must not exaggerate the size of the inventory change."
+  ],
+  "series": [
+    {
+      "name": "2025",
+      "points": [
+        {
+          "period": "2025-08-08\n2026-08-07",
+          "value": 426698,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-08-15\n2026-08-14",
+          "value": 420684,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-08-22\n2026-08-21",
+          "value": 418292,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-08-29\n2026-08-28",
+          "value": 420707,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-09-05\n2026-09-04",
+          "value": 424646,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-09-12\n2026-09-11",
+          "value": 415361,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-09-19\n2026-09-18",
+          "value": 414754,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-09-26\n2026-09-25",
+          "value": 416546,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-10-03\n2026-10-02",
+          "value": 420261,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-10-10\n2026-10-09",
+          "value": 423785,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-10-17\n2026-10-16",
+          "value": 422824,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2026",
+      "points": [
+        {
+          "period": "2025-08-08\n2026-08-07",
+          "value": 424410,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-08-15\n2026-08-14",
+          "value": 428815,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-08-22\n2026-08-21",
+          "value": 428910,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-08-29\n2026-08-28",
+          "value": 424460,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-09-05\n2026-09-04",
+          "value": 424069,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-09-12\n2026-09-11",
+          "value": 423429,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-09-19\n2026-09-18",
+          "value": 426398,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-09-26\n2026-09-25",
+          "value": 427320,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-10-03\n2026-10-02",
+          "value": 424134,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-10-10\n2026-10-09",
+          "value": 415577,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "2025-10-17\n2026-10-16",
+          "value": 412517,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -380,6 +380,28 @@ export interface MaintainedNativeStory {
       after?: { proposition?: string } | null }> };
   versions: MaintainedStoryVersion[]; current_version: MaintainedStoryVersion; observed_at_utc: string;
 }
+export interface OwnerReviewContext {
+  captured_at_utc: string;
+  source_commit?: string;
+  reader_source_commit?: string;
+  accepted_delivery_head?: string;
+  proposal_sha256?: string;
+  proposal_href?: string;
+  decision_href?: string;
+  acceptance_href?: string;
+  history_href?: string;
+  original_media_links?: Record<string, string>;
+  audience?: { sample_count: number; content_state: string; search_state: string; destination_state: string; observed_at_utc?: string };
+}
+
+export interface EditorialMediaTable {
+  caption: string;
+  unit: string;
+  columns: string[];
+  rows: Array<{ label: string; values: number[] }>;
+  notes: string[];
+}
+
 export interface ReportWorkspaceData {
   maintained_stories?: MaintainedNativeStory[];
   audience_learning?: {
@@ -395,13 +417,14 @@ export interface ReportWorkspaceData {
     opportunity_outcomes?: Array<{ operation_id: string; outcome: string; reason: string; source_blocked: boolean }> } | null;
   source_reviews?: Array<{ review_id: string; run_id: string; title: string; decision: string; reader_change_summary: string;
     cutoff_utc: string; invalidates_prepared_review: boolean; media_state: string; removed_main_claim_ids: string[];
-    source_editions: Array<{ item_id: string; proposition: string; source_url: string; published_at_utc: string | null;
-      observation_date?: string; retrieved_at_utc: string; period_relation: string; rights_state: string }>;
+    source_editions: Array<{ item_id: string; proposition?: string; source_url: string; published_at_utc: string | null;
+      observation_date?: string; retrieved_at_utc?: string; period_relation?: string; rights_state?: string }>;
     source_attempts: Array<{ url: string; status: string; observed_at_utc: string }> }>;
   native_edition?: Array<{
     run_id: string; article_identity: string; article: NonNullable<ReportWorkspaceData['article']>;
     angle?: string; reader_question?: string; mode?: string;
     prepared_state?: string;
+    release_media?: { state: string; blocker?: string; photo_count?: number; chart_count?: number };
     publication?: { state: string; next_operation: string; next_command?: string; dispatch_blocker?: string; operation_scope?: string;
       review_id?: string; plan_hash?: string; work_item_id?: string;
       destinations: Array<{ destination: string; status: string; reconciliation_status?: string | null;
@@ -411,7 +434,7 @@ export interface ReportWorkspaceData {
     review?: { decision: string; rationale: string } | null;
     previews: ReportWorkspaceData['previews'];
     evidence?: Array<{ source_id: string; url: string; publisher: string; published_at_utc: string; published_at_source?: string }>;
-    media_assets?: Array<{ asset_id: string; caption: string; alt_text?: string; preview_data_url?: string; path: string; sha256: string }>;
+    media_assets?: Array<{ asset_id: string; caption: string; reader_caption?: string; reader_table?: EditorialMediaTable; support_caption?: string; alt_text?: string; preview_data_url?: string; path: string; sha256: string; attribution?: string; reader_credit?: string; license_name?: string; license_url?: string; source_page_url?: string; source_links?: Array<{ document_id: string; url: string; label: string }>; modality?: string; width?: number; placement_after?: string }>;
   }>;
   media_assets?: Array<{ asset_id: string; path: string; sha256: string; caption: string; alt_text?: string; preview_data_url?: string; reuse_state?: string }>;
   native_article_reviews?: Array<{ article_identity: string; decision: string; rationale: string; package_revision: string; publication_authority: boolean }>;
@@ -461,7 +484,8 @@ export interface ReportWorkspaceData {
   latest_editorial_input?: Record<string, unknown> | null;
   latest_simple_result?: { classification?: string; model_execution_state?: string; draft_count?: number; preview_count?: number; claim_lineage?: Array<Record<string, unknown>> } | null;
   article: null | { title: string; dek: string; substack_body_markdown: string; search_title?: string;
-    meta_description?: string; canonical_slug_candidate?: string; source_date_notice?: string; source_notes?: string[] };
+    meta_description?: string; canonical_slug_candidate?: string; source_date_notice?: string; source_notes?: string[];
+    reader_first_version?: string; display_date?: string };
   previews: Array<{ destination: string; preview_id: string; article_identity: string; payload: Record<string, unknown>; claim_lineage: Array<Record<string, unknown>> }>;
   history: Array<{ report_version: number; state: string; article_identity: string; preview_ids: string[]; superseded_by_version: number }>;
   workspaces?: ReportWorkspaceData[];

@@ -54,8 +54,8 @@ def test_repeated_identical_source_failure_preserves_each_attempt(tmp_path, monk
     receipt = json.dumps(failed).encode()
 
     class PendingFeed:
-        def __init__(self, *args):
-            pass
+        def __init__(self, *args, retained_research=None):
+            assert retained_research is None  # This controlled operation has no admitted snapshot yet.
 
         def opportunity(self, **kwargs):
             raise DesktopInputRequired({"stage": "select", "request_path": "controlled", "request_sha256": "controlled"})
@@ -112,7 +112,8 @@ def test_source_recovery_preserves_pending_request_and_rejects_answered_writer(t
     turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"], owner_manual_validation=True)
     with pytest.raises(DesktopInputRequired) as pending:
         turn(logical_invocation_id=binding["run_id"] + ":write", prompt="controlled pending source pack",
-            governed_input={"source_pack": []}, validator=lambda raw: (True, None, {}, None))
+            # Thin protocol recovery fixture, not a new article bypassing media planning.
+            governed_input={"controlled_source_request": []}, validator=lambda raw: (True, None, {}, None))
     expected = pending.value.request["request_sha256"]
     result = module.operation(binding, command="recover-sources", response={"expected_request_sha256": expected, "supporting_headline_ids": ["goal21-gas-storage"]})
     assert result["retained_selection"] is True
@@ -195,18 +196,20 @@ def test_oil_date_notice_excludes_unused_gas_context():
     assert "2026-10-15" not in notice
 
 
-def test_media_binding_keeps_dates_of_cited_sources_without_main_lineage(tmp_path):
+def test_media_binding_keeps_dates_of_cited_sources_without_main_lineage(tmp_path,monkeypatch):
     from hashlib import sha256
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
     from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
     from live_contentops.native_desktop_editorial_v1 import bind_editorial_media
+    import live_contentops.v1_simple_gemini_newsroom_v1 as compiler
+    monkeypatch.setattr(compiler,"_native_preview_bundle",lambda **_:({"packages":{}},[]))
     store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
     work = "cc-opportunity-" + sha256_of("source-dates")
     store.create_work_item(story_id=work, work_item_id=work, title="Controlled dated copy", target_surface="CONTENTOPS_EDITORIAL_ONLY")
     key = "cc-editorial-final-" + sha256_of("source-dates")
     source = "https://www.federalreserve.gov/controlled-source"
     value = {"qualified_article_count": 1, "article_identity": "a" * 64,
-        "article": {"substack_body_markdown": "Definition [[SOURCE:SOURCE_1]]. Convention [[SOURCE:SOURCE_4]]."},
+        "article": {"resolved_article_mode":"DATA_OR_DOCUMENT_LENS", "substack_body_markdown": "Definition [[SOURCE:SOURCE_1]]. Convention [[SOURCE:SOURCE_4]]."},
         "evidence": [{"source_id": "SOURCE_1", "url": source, "published_at_utc": "2026-10-13T00:00:00Z"},
             {"source_id": "SOURCE_2", "url": "https://www.sec.gov/unused", "published_at_utc": "2026-09-01T00:00:00Z"},
             {"source_id": "SOURCE_4", "url": source, "published_at_utc": "2026-10-13T00:00:00Z"}]}
@@ -214,7 +217,7 @@ def test_media_binding_keeps_dates_of_cited_sources_without_main_lineage(tmp_pat
     asset = tmp_path / "controlled-asset"
     asset.write_bytes(b"test-only")
     bind_editorial_media(store, run_id="source-dates", article_identity="a" * 64,
-        assets=[{"path": str(asset), "sha256": sha256(asset.read_bytes()).hexdigest(), "source_page_url": source,
+        assets=[{"asset_id":"controlled", "path": str(asset), "sha256": sha256(asset.read_bytes()).hexdigest(), "source_page_url": source,
             "caption": "Controlled source", "alt_text": "Controlled source", "underlying_source_rights_status": "public_domain"}])
     after = json.loads(store.get_outbox_message(key)["payload"])
     assert after["article"]["substack_body_markdown"] == value["article"]["substack_body_markdown"]

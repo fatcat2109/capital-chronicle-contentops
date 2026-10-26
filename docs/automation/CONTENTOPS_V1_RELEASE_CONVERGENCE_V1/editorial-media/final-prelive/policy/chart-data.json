@@ -1,0 +1,41 @@
+{
+  "title": "Announced Fed implementation rates effective September 17, 2026",
+  "unit": "%",
+  "source_id": "SOURCE_1",
+  "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a1.htm",
+  "source_content_sha256": "66bb6a69148a52b34afff9c73a9ff974dcef04b15d8cb02f57a91db997cf6f1d",
+  "rows": [
+    {
+      "label": "Reserve-balance interest",
+      "metric_source_text": "interest rate paid on reserve balances",
+      "period": "September 17, 2026",
+      "observation_kind": "ANNOUNCED_POLICY",
+      "unit": "%",
+      "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.",
+      "value_context": "raise the interest rate paid on reserve balances to 3.90 percent",
+      "value_text": "3.90"
+    },
+    {
+      "label": "Standing overnight repo",
+      "metric_source_text": "standing overnight repurchase agreement operations",
+      "period": "September 17, 2026",
+      "observation_kind": "ANNOUNCED_POLICY",
+      "unit": "%",
+      "support_excerpt": "\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+      "value_context": "Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent.",
+      "value_text": "4.0"
+    },
+    {
+      "label": "Standing overnight reverse repo",
+      "metric_source_text": "standing overnight reverse repurchase agreement operations",
+      "period": "September 17, 2026",
+      "observation_kind": "ANNOUNCED_POLICY",
+      "unit": "%",
+      "support_excerpt": "\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+      "value_context": "Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent",
+      "value_text": "3.75"
+    }
+  ],
+  "presentation": "One categorical comparison of three administered settings for the same effective date; no historical line or forecast. Keep original numeric spelling in source bindings; code owns numeric parsing and rendering.",
+  "limits": "ANNOUNCED_POLICY, not observed market rates. No prior series or realized pass-through data supplied. The reverse-repo counterparty limit is not a fourth rate; primary credit is not substituted for standing repo."
+}

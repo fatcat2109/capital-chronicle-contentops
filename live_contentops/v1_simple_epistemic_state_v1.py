@@ -131,6 +131,7 @@ def _event_proposition(text: str, hint: Mapping[str, Any] | None) -> str:
         re.IGNORECASE,
     )
     cleaned = trailing_reported.sub("", cleaned)
+    cleaned = re.sub(rf"\s+-\s+(?:the\s+)?{alias}\.?$", "", cleaned, flags=re.IGNORECASE)
     return cleaned.strip(" -:;,.\n")
 
 
@@ -406,6 +407,7 @@ def build_epistemic_state(
         **dict(request),
         "story_context": {**dict(context), "leaf_summaries": [event]},
     }
+    publication_scope = False
     if relay or rumor:
         relay_text = _normal(matching_docs[0].get("canonical_content_text"))
         event_terms = {
@@ -429,6 +431,23 @@ def build_epistemic_state(
         }
     else:
         contract = build_claim_evidence_contract(contract_request, matching_docs)
+        if contract.get("status") != "PASS" and primary:
+            # A promotional issuer headline can contain an unsupported causal
+            # explanation. Its exact publication is a narrower observable act.
+            # This does not verify that explanation or any other issuer claim.
+            exact_issuer = next((d for d in matching_docs
+                if d.get("source_interest_role") == "ISSUER"
+                and _normal(d.get("title")) == _normal(event)
+                and (d.get("source_reuse_constraints") or {}).get("scope")
+                    == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"), None)
+            if exact_issuer:
+                narrow_event = str(exact_issuer.get("publisher") or "Issuer") + ' published a release titled "' + event + '".'
+                narrow_request = {**contract_request, "story_context": {
+                    **contract_request["story_context"], "leaf_summaries": [narrow_event]}}
+                narrow_contract = build_claim_evidence_contract(narrow_request, matching_docs)
+                if narrow_contract.get("status") == "PASS":
+                    event, contract = narrow_event, narrow_contract
+                    publication_scope = True
         if contract.get("status") != "PASS":
             return None, [
                 "epistemic_selected_event_not_supported_by_route",
@@ -499,6 +518,8 @@ def build_epistemic_state(
         "authority_granted_by_adapter": False,
         "public_write_authority": False,
         "selected_route": selected_route,
+        **({"event_proposition_scope": "PUBLICATION_OF_EXACT_ISSUER_DOCUMENT_ONLY",
+            "issuer_causal_explanation_independently_verified": False} if publication_scope else {}),
     }
     blockers = validate_epistemic_state(state)
     return (None, blockers) if blockers else (state, [])

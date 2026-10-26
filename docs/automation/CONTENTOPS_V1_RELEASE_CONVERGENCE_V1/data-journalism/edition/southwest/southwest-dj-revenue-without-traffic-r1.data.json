@@ -1,0 +1,66 @@
+{
+  "asset_id": "southwest-dj-revenue-without-traffic-r1",
+  "title": "Southwest earned more without carrying more traffic",
+  "question": "Did the reported revenue increase come with more passengers and passenger miles, or with greater revenue per customer and seat?",
+  "unit": "percent change year over year",
+  "source_links": [],
+  "comparability_limits": [
+    "Each change uses its own Q3 2025 denominator. Percentage changes do not make passenger count, passenger miles and seat miles economically interchangeable.",
+    "Average fare is per revenue passenger; route length, product and passenger mix can change it. It does not by itself identify pure pricing, volume demand or causal effects of commercial initiatives.",
+    "Use the displayed operating revenue total of USD 8,422 million and USD 6,949 million; do not substitute the sum of rounded revenue components.",
+    "Two comparable third quarters establish a year-on-year comparison, not a continuous multi-quarter trend.",
+    "Mobile layout: five short horizontal rows, visible zero baseline, signed labels rounded to one decimal for display, and a shared linear axis; no separate truncated axes or dual units."
+  ],
+  "series": [
+    {
+      "name": "Change from Q3 2025 to Q3 2026",
+      "points": [
+        {
+          "period": "Operating revenue",
+          "value": 21.197294574758963,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "PERCENT_CHANGE",
+          "source_document_ids": [
+            "dj-southwest-q3-2026"
+          ]
+        },
+        {
+          "period": "Average fare per passenger",
+          "value": 26.911700262927262,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "PERCENT_CHANGE",
+          "source_document_ids": [
+            "dj-southwest-q3-2026"
+          ]
+        },
+        {
+          "period": "Revenue passengers",
+          "value": -3.2214221682426714,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "PERCENT_CHANGE",
+          "source_document_ids": [
+            "dj-southwest-q3-2026"
+          ]
+        },
+        {
+          "period": "Passenger miles (traffic)",
+          "value": -0.40701831582421466,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "PERCENT_CHANGE",
+          "source_document_ids": [
+            "dj-southwest-q3-2026"
+          ]
+        },
+        {
+          "period": "Seat miles (capacity)",
+          "value": -0.3818552900125116,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "PERCENT_CHANGE",
+          "source_document_ids": [
+            "dj-southwest-q3-2026"
+          ]
+        }
+      ]
+    }
+  ]
+}

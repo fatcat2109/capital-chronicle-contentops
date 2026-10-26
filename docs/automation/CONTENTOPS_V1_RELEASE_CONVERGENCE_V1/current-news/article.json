@@ -1,0 +1,32 @@
+{
+  "schema_version": "contentops.v1_simple_article_manifest.v1",
+  "title": "Samsung SDI reports 1 GWh US storage deal, Yonhap says",
+  "dek": "Yonhap reports a further agreement with Alpha Omega Power, with supply due by December. The latest 1 GWh is part of a 1.5 GWh two-agreement total.",
+  "substack_body_markdown": "Samsung SDI says its US subsidiary has agreed to provide Alpha Omega Power with 1 gigawatt-hour of energy-storage battery solutions, with supply due by December, Yonhap News Agency reported on 26 Oct 2026. The announcement describes a signed agreement; it does not establish that the batteries have been delivered.\n\n## What the agreement covers\n\nThe latest deal covers 1 GWh, according to Yonhap's account of Samsung SDI's statement. Including the agreement signed last year brings the reported combined volume to 1.5 GWh. The latest agreement is already included in that total, so the two figures should not be added together.\n\nAccording to Yonhap News Agency, the product is Samsung Battery Box and production is planned at StarPlus Energy in Indiana. That remains a stated manufacturing plan, rather than evidence of completed production or delivery.\n\n## What the agreement leaves open\n\nYonhap also reports talks with other US customers. Those discussions are separate from the agreement with Alpha Omega Power; they should not be counted as additional signed orders.\n\nA second signed agreement would be a more concrete commercial signal than a prospective sale. The counterweight is the economics: Yonhap gives only a broad value description for the combined agreements, without an exact price or profit estimate. Even if supply takes place as described, this announcement alone would not establish an earnings improvement or a wider storage-demand upswing.\n\nThe next useful test is whether supply happens by the reported December deadline. Evidence of delivery and clearer contract economics would help readers judge execution; more customer talks alone would not answer those questions.\n\n## Sources and notes\n\nSource: [Yonhap News Agency's 26 Oct 2026 report](https://en.yna.co.kr/view/AEN20261026001800320), describing Samsung SDI's statement. Capital Chronicle has not independently confirmed the agreement or its execution. ",
+  "display_date": "26 Oct 2026",
+  "source_date_notice": "Source date: 2026-10-26. Interpretation remains analysis.",
+  "reader_first_version": "DATA_JOURNALISM_V1",
+  "search_title": "Yonhap: Samsung SDI reports Alpha Omega Power storage deal",
+  "seo_title": "Yonhap: Samsung SDI reports Alpha Omega Power storage deal",
+  "meta_description": "Yonhap reports a 1 GWh Samsung SDI America storage agreement with Alpha Omega Power, with supply due by December and delivery still prospective.",
+  "canonical_slug_candidate": "samsung-sdi-alpha-omega-power-ess-agreement",
+  "slug": "samsung-sdi-alpha-omega-power-ess-agreement",
+  "social_hook": "Yonhap reports 1 GWh in Samsung SDI's latest storage deal. The 1.5 GWh figure covers two agreements.",
+  "social_lede": "Yonhap reports 1 GWh in Samsung SDI's latest storage deal. The 1.5 GWh figure covers two agreements.",
+  "social_mechanism_summary": "Yonhap also reports talks with other US customers. Those discussions are separate from the agreement with Alpha Omega Power; they should not be counted as additional signed orders.",
+  "social_policy_summary": "A second signed agreement would be a more concrete commercial signal than a prospective sale. The counterweight is the economics: Yonhap gives only a broad value description for the combined agreements, without an exact price or profit estimate. Even if supply takes place as described, this announcement alone would not establish an earnings improvement or a wider storage-demand upswing.",
+  "social_cross_asset_summary": "The next useful test is whether supply happens by the reported December deadline. Evidence of delivery and clearer contract economics would help readers judge execution; more customer talks alone would not answer those questions.",
+  "public_source_bindings": [
+    {
+      "published_at_utc": "2026-10-26T00:24:27Z",
+      "publisher": "Yonhap News Agency",
+      "reader_label": "Yonhap News Agency · 2026-10-26",
+      "source_id": "SOURCE_1",
+      "url": "https://en.yna.co.kr/view/AEN20261026001800320"
+    }
+  ],
+  "resolved_article_mode": "BREAKING_BRIEF",
+  "public_write_performed": false,
+  "author_identity": "Capital Chronicle",
+  "publisher_identity": "Capital Chronicle"
+}

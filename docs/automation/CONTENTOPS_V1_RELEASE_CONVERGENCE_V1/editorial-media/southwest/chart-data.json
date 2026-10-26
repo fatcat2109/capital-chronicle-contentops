@@ -1,0 +1,35 @@
+{
+  "chart": {
+    "render_instruction": "Clearly labelled comparison bars with visible zero baseline and signed negative burn/deficit; forecast ranges use intervals, no midpoint. Attribute retained Reuters October 21 report. Preserve ACTUAL/ESTIMATE/FORECAST labels and distinct periods. No spreads, growth or surprise calculations. Exact excerpts are internal evidence only; public prose paraphrases facts.",
+    "rows": [
+      {
+        "label": "Prior 2026 forecast",
+        "lower_text": "3.25",
+        "metric_source_text": "earlier forecast",
+        "observation_kind": "FORECAST",
+        "period": "2026",
+        "source_document_id": "goal35-southwest",
+        "support_excerpt": "The Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below \u200banalysts' average estimate of $2.85 per share, according to data compiled by LSEG.",
+        "unit": "USD/share",
+        "upper_text": "4.25",
+        "value_context": "earlier forecast of $3.25 to $4.25"
+      },
+      {
+        "label": "Current 2026 forecast",
+        "lower_text": "2.60",
+        "metric_source_text": "adjusted earnings",
+        "observation_kind": "FORECAST",
+        "period": "2026",
+        "source_document_id": "goal35-southwest",
+        "support_excerpt": "The Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below \u200banalysts' average estimate of $2.85 per share, according to data compiled by LSEG.",
+        "unit": "USD/share",
+        "upper_text": "2.85",
+        "value_context": "expects adjusted earnings of $2.60 to $2.85 per share in 2026"
+      }
+    ],
+    "title": "Reported Southwest 2026 adjusted EPS forecast ranges",
+    "unit": "USD/share"
+  },
+  "plan_request_sha256": "df248dda5b88ed6771de7927f5515facfe847fcfd343f31a8e34b7f02a198abc",
+  "source_exactness_adapter": "EXACT_VALUE_CONTEXT_SUBSTRINGS_ONLY_NO_NUMERIC_CHANGE"
+}

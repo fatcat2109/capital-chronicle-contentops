@@ -18,7 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import LatestReportDeliveryTracker, canonical_bytes, sha256_of
 from live_contentops.capital_chronicle_report_feed_v1 import MainReportFeed
-from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore, WorkItemNotFoundError
 from live_contentops.llm_operator_control_v1 import llm_operator_pause_active
 from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired, NativeDesktopTurn, DESTINATION
 from live_contentops.published_corpus_read_model_v1 import load_canonical_published_memory_read_only
@@ -129,10 +129,28 @@ def continue_owner_story(profile, *, source_review_id, operation_id=None, reques
     # Omitted request on resume keeps the original owner wording, including a
     # custom request. A pending binding is the authority for its frozen input.
     existing = Path(profile["editorial_output_root"]) / operation_id / "binding.json"
+    revision = review["decision"] == "EDITORIAL_REVISION"
     _, binding = resolve_owner_operation(profile, operation_id=operation_id, request=request if existing.is_file() else text,
-        source_review_ids=[source_review_id])
+        source_review_ids=[source_review_id],
+        now=datetime.fromisoformat(review["cutoff_utc"].replace("Z", "+00:00")) if revision else None)
     if binding.get("source_review_ids") != [source_review_id]:
         raise ValueError("EXACT_FOLLOWUP_OPERATION_SOURCE_BINDING_REQUIRED")
+    if revision:
+        original = store.get_outbox_message("native-current-input-" + sha256_of(review["run_id"]))
+        if not original:
+            raise ValueError("EDITORIAL_REVISION_REQUIRES_ORIGINAL_FROZEN_INPUT")
+        frozen = {**json.loads(original["payload"]), "run_id": operation_id,
+                  "source_review_ids": [source_review_id], "source_requests_before_writer_freeze": 0,
+                  "editorial_revision_of": review["article_identity"], "new_factual_evidence": False}
+        work = "cc-opportunity-" + sha256_of(operation_id)
+        try:
+            work_title = store.get_work_item(work)["title"]
+        except WorkItemNotFoundError:
+            work_title = "Main-enriched newsroom opportunity"
+        store.create_work_item(story_id=work, work_item_id=work, title=work_title,
+                               target_surface="CONTENTOPS_EDITORIAL_ONLY")
+        store.register_outbox_message(message_id="native-current-input-" + sha256_of(operation_id), work_item_id=work,
+            destination="internal:native-current-input", payload=canonical_bytes(frozen).decode(), status="EDITORIAL_INTERNAL")
     return operation(binding)
 
 
@@ -150,7 +168,11 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
         if not previous:
             raise ValueError("EXACT_REGISTERED_OPERATION_BINDING_REQUIRED")
         return NativeReviewedPublication(store, binding, native_invocation_id=None).projection()
-    store.create_work_item(story_id=work, title="Main-enriched newsroom opportunity",
+    try:
+        previous_work = store.get_work_item(work)
+    except WorkItemNotFoundError:
+        previous_work = None
+    store.create_work_item(story_id=work, title=previous_work["title"] if previous_work else "Main-enriched newsroom opportunity",
                            target_surface="CONTENTOPS_EDITORIAL_ONLY", work_item_id=work)
     if not previous:
         store.register_outbox_message(message_id=key, work_item_id=work, destination=DESTINATION,
@@ -185,7 +207,43 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
     if command == "media":
         from live_contentops.native_desktop_editorial_v1 import bind_editorial_media
         return bind_editorial_media(store, run_id=binding["run_id"], **response)
+    if command == "media-plan":
+        from live_contentops.native_desktop_editorial_v1 import bind_editorial_media_plan
+        if response is None:
+            frozen_plan = turn.frozen_request("media-plan")
+            governed = (frozen_plan["governed_input"] if frozen_plan else
+                json.loads((resolve_workspace_path(binding["output_dir"]) / "editorial_media_plan_required.json").read_bytes()))
+            try:
+                output, receipt = turn(logical_invocation_id=binding["run_id"] + ":media-plan",
+                    prompt=(frozen_plan["prompt"] if frozen_plan else
+                            "Return JSON {story_plan: {thesis, photo_plan, chart_plan}}. Prepare exact comparable "
+                            "primary-data series and useful visual proposals; MAX decides the count, chart forms "
+                            "and placement. Substantial analysis needs 2-5 distinct useful charts; genuine narrow "
+                            "news/policy may justify zero internally. Plan relevant authentic "
+                            "photo discovery with subject/archive caption and lawful exact license/source evidence, "
+                            "using the exact source_pack. Preserve metric/unit/currency/period, "
+                            "actual/estimate/forecast and missingness. No prose, new numbers, forecasts, copied charts or public action. "
+                            "Code/tools retrieve exact originals and compute/validate/render admitted values. "
+                            "This Light proposal is followed by actual same-context MAX visual editing and writing."),
+                    governed_input=governed, validator=lambda raw: (True, None, json.loads(raw), None))
+                if not turn.visual_response():
+                    turn.request_visual_decision(source_packet=governed, preparation={
+                        "native_plan_run_id": binding["run_id"], "native_plan_stage": "media-plan",
+                        "native_plan_request_sha256": turn.frozen_request("media-plan")["request_sha256"],
+                        "story_plan": output["story_plan"]})
+            except DesktopInputRequired as pending:
+                return {"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "stage": pending.request["stage"],
+                        "request_path": pending.request["request_path"], "request_sha256": pending.request["request_sha256"],
+                        "public_write_performed": False}
+            return {"classification": "NATIVE_VISUAL_PLAN_RETURNED_ASSETS_REQUIRED", "output": output,
+                    "request_sha256": receipt["request_sha256"], "public_write_performed": False}
+        return bind_editorial_media_plan(store, run_id=binding["run_id"], output_dir=binding["output_dir"], **response)
     if command == "recover-sources":
+        if response.get("expected_selection_request_sha256"):
+            # A one-shot manual recovery appends verified captures; it never rewrites
+            # selection, the frozen input, a started writer, or the production budget.
+            from live_contentops.native_desktop_editorial_v1 import admit_pre_writer_source_recovery
+            return admit_pre_writer_source_recovery(turn, binding, response)
         pending = turn.frozen_request("write")
         if (not pending or pending["request_sha256"] != response.get("expected_request_sha256")
                 or turn._get("write", "response") or (resolve_workspace_path(binding["output_dir"]) / "qualified_article_record_v1.json").exists()):
@@ -220,20 +278,26 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
                 "editorial_execution": turn.telemetry(), "publication_handoff_state": "EXISTING_REVIEW_NO_DISPATCH",
                 "public_write_performed": False}
     # Retain failed deterministic attempts while resuming the same frozen selection.
-    # Qualified output and started/returned writers are never replaced by this path.
+    # Source/model outputs are never replaced. A failed compiler receipt can be
+    # archived even if compilation reached the qualified file before its final receipt.
     root = resolve_workspace_path(binding["output_dir"])
     receipt_path = root / "simple_gemini_newsroom_receipt_v1.json"
-    if receipt_path.is_file() and not (root / "qualified_article_record_v1.json").exists():
+    if receipt_path.is_file():
         failed = json.loads(receipt_path.read_bytes())
+        source_blocked = (not (root / "qualified_article_record_v1.json").exists()
+            and failed.get("exact_next_blocker") == "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED"
+            and turn._get("write", "response") is None)
+        compiler_blocked = (failed.get("exact_next_blocker") == "NATIVE_DERIVATIVE_COMPILATION_BLOCKED"
+            and turn._get("write", "response") is not None)
         if (failed.get("qualified_article_count") == 0
-                and failed.get("exact_next_blocker") == "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED"
-                and turn._get("write", "response") is None):
+                and (source_blocked or compiler_blocked)):
             history = root / "blocked-attempts" / sha256_of(failed)
             history.mkdir(parents=True, exist_ok=True)
             if (history / "simple_gemini_newsroom_receipt_v1.json").exists():
                 history = history / ("resume-" + uuid4().hex)
                 history.mkdir()
-            for name in ("simple_gemini_evidence_v1.json", "simple_gemini_newsroom_receipt_v1.json"):
+            for name in (("simple_gemini_newsroom_receipt_v1.json",) if compiler_blocked else
+                    ("simple_gemini_evidence_v1.json", "simple_gemini_newsroom_receipt_v1.json")):
                 source = root / name
                 if source.is_file():
                     target = history / name
@@ -266,7 +330,13 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
         if binding.get("research_editions_root"):
             pointer["research_editions_root"] = binding["research_editions_root"]
         pointer["source_review_ids"] = binding.get("source_review_ids", [])
-        feed = MainReportFeed(LatestReportDeliveryTracker(store), pointer)
+        admitted_research = None
+        if binding.get("owner_manual_validation"):
+            frozen = store.get_outbox_message("native-current-input-" + sha256_of(binding["run_id"]))
+            if frozen and (research := json.loads(frozen["payload"]).get("research")):
+                from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+                admitted_research = RetainedSourceResearch.from_frozen_snapshot(research)
+        feed = MainReportFeed(LatestReportDeliveryTracker(store), pointer, retained_research=admitted_research)
         kwargs = {"output_dir": str(root), "cutoff_utc": binding["cutoff_utc"],
                   "run_id": binding["run_id"], "published_memory": memory, "llm_invoke": turn,
                   "attempted_candidate_ids": binding.get("attempted_candidate_ids", [])}
@@ -294,11 +364,13 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("newsroom", "follow-up", "refresh", "desk", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "recover-sources", "relocate-workspace", "edition",
+    parser.add_argument("command", choices=("newsroom", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "recover-sources", "relocate-workspace", "edition",
         "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
         "audience-status", "audience-observe", "audience-tool-begin", "audience-tool-submit", "audience-evaluate", "audience-feedback", "audience-follow-up"))
     parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE)
     parser.add_argument("--operation-id")
+    parser.add_argument("--article-id", help="Exact retained News article identity; never a path")
+    parser.add_argument("--asset-id", help="Exact asset belonging to that retained News article")
     parser.add_argument("--request", help="Owner's ordinary-language editorial question; metadata only")
     parser.add_argument("--request-file", type=Path, help="UTF-8 ordinary-language request")
     parser.add_argument("--report-only", action="store_true", help="Explicit Main/research trigger: no new X intake or fabricated filter work")
@@ -314,6 +386,44 @@ def main(argv=None):
     parser.add_argument("--source-review-id", action="append", default=[])
     parser.add_argument("--workspace-root", type=Path, help="Explicit stable destination for authorized manual-workspace relocation")
     args = parser.parse_args(argv)
+    if args.command in {"news-export", "news-read"}:
+        # The shared operator CLI exposes many paths for other owner operations.
+        # None is accepted by this read seam, including its trusted profile override.
+        allowed = {"command", "article_id", "asset_id"}
+        defaults = parser.parse_args([args.command])
+        if any(getattr(args, key) != getattr(defaults, key) for key in vars(args) if key not in allowed):
+            parser.error("News uses its fixed configured edition; path/profile/operation overrides are unsupported")
+        from live_contentops.retained_news_read_v1 import export_selected_news, local_owner_read, ARTIFACT_PATH
+        if args.command == "news-export":
+            if args.article_id or args.asset_id:
+                parser.error("news-export uses the configured selected edition")
+            result = export_selected_news()
+            renderer = Path(__file__).resolve().parents[1] / "ui/contentops_v5/scripts/render-report-workspace.mjs"
+            subprocess.run(["node", str(renderer), str(ARTIFACT_PATH), str(ARTIFACT_PATH.parent / "reader.html"),
+                            "--retained-news"], check=True)
+        else:
+            if not args.article_id:
+                parser.error("news-read requires --article-id")
+            result = local_owner_read(args.article_id, asset_id=args.asset_id)
+            if isinstance(result.get("body"), bytes):
+                import base64
+                result["body"] = {"content_base64": base64.b64encode(result["body"]).decode("ascii")}
+        print(json.dumps(result, ensure_ascii=True))
+        return 0 if result.get("status", 200) == 200 else 2
+    if args.command == "editorial-revision":
+        if not args.response or not args.operation_id:
+            parser.error("editorial-revision requires exact prior article/reason in --response and stable --operation-id")
+        from live_contentops.contentops_editorial_desk_v1 import record_story_editorial_revision
+        profile = json.loads(args.profile.read_bytes())
+        prior = json.loads(args.response.read_bytes())
+        review = record_story_editorial_revision(ContentOpsDurableStore(profile["store_path"], auto_migrate=False),
+            **prior, review_operation_id=args.operation_id)
+        result = continue_owner_story(profile, source_review_id=review["review_id"], operation_id=args.operation_id,
+            request=("Revise this exact retained article under CONTENTOPS_V1_EDITORIAL_MEDIA_AND_DATA_RELEASE_STANDARD_V1. "
+                     "The financial facts and source dates are unchanged; this is an editorial/media revision, not fresh news. "
+                     "Preserve prior identity/history, attribution, report-only uncertainty and the existing update chain. " + prior["reason"]))
+        print(json.dumps(result, ensure_ascii=True))
+        return 0
     if args.command == "follow-up":
         if len(args.source_review_id) != 1:
             parser.error("follow-up requires one exact --source-review-id")
@@ -406,7 +516,10 @@ def main(argv=None):
         root.mkdir(parents=True, exist_ok=True)
         (root / "workspace.json").write_bytes(canonical_bytes(projection))
         renderer = Path(__file__).resolve().parents[1] / "ui/contentops_v5/scripts/render-report-workspace.mjs"
-        subprocess.run(["node", str(renderer), str(root / "workspace.json"), str(root / "index.html")], check=True)
+        subprocess.run(["node", str(renderer), str(root / "workspace.json"), str(root / "index.html"), "--owner-review"], check=True)
+        print(json.dumps({"review_entry": str(root / "index.html"), "mode": "OFFLINE_READ_ONLY_OWNER_REVIEW",
+                          "reopen": "Open the same HTML file in a browser; no preview server is required.",
+                          "publication_authority": False}, ensure_ascii=True))
         return 0
     if args.command == "newsroom":
         try:

@@ -36,9 +36,25 @@ A substantive article should answer, where evidence supports it:
 
 For early attributed intelligence, question 1 becomes two questions: what did the named source
 report, and what is independently confirmed about the underlying event? An exact reputable report
-may itself be the timely peg. The article must retain the reader-visible epistemic label in the
-headline/dek/opening and all derivatives; analysis that depends on an unconfirmed event remains
-conditional without becoming bland.
+may itself be the timely peg. The article must preserve natural named attribution and material
+uncertainty in the headline/dek/opening and derivatives. Machine epistemic labels remain in
+evidence metadata for the reader-first V1 method; analysis dependent on an unconfirmed event
+remains conditional without repetitive ritual language.
+
+Substantial V1 analysis uses two to five distinct useful primary-data charts chosen by the actual
+native Sol6.1 MAX editor for the argument. Light prepares exact series and proposes questions;
+that same MAX context chooses data, form, count and placement, then authors the prose. Genuine
+news/policy may omit charts when no defensible useful comparison exists, with its reason recorded
+internally. Never relabel analysis or pad near-identical panels to meet a count. Code computes,
+binds and renders exact values; original source dates, rights, denominators and missingness govern.
+
+Place each chart beside its explanation, with readable units, period and concise dataset credit.
+Use natural key attribution, a meaningful linked phrase at useful first material use and compact
+distinct-document Sources/Notes; keep claim-to-source spans internally rather than repeating one
+publisher link after every paragraph. Public canonical/channel copy contains no review IDs,
+KEEP/PREPARED status, source-clock bureaucracy or ritual interpretation disclaimer. Required
+legal photo/data attribution and substantive uncertainty remain accessible. Channel packages use
+editorially chosen media subsets; production authority is unchanged.
 
 No-publication remains valid. The system must not manufacture a thesis merely to fill a slot.
 

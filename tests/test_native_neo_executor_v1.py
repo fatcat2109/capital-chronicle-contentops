@@ -93,6 +93,52 @@ def test_readback_requires_exact_text_url_media_and_thread(tmp_path):
     assert bad.readback(destination="x", intent=value, public_object_id=object_id, public_object_url=url)["verified"] is False
 
 
+def test_lost_readonly_observation_resumes_in_new_turn_without_reclaiming_write(tmp_path):
+    store, first = setup(tmp_path)
+    packet, object_id, url = pending_readback(NeoDestinationHandoff(native_executor=first))
+    request_hash = packet["request"]["request_sha256"]
+    first.begin(request_hash)
+    original_claim = first._get(request_hash, "started")
+    restarted = NativeNeoExecutor(store, operation_id="same-op", output_dir=tmp_path / "resume",
+                                  native_invocation_id="resumed-readonly-turn")
+    assert restarted.begin(request_hash)["tool_request_sha256"] == packet["tool_request_sha256"]
+    with pytest.raises(ValueError, match="ALREADY_CLAIMED"):
+        restarted.begin(request_hash)
+    returned = {
+        "tool_request_sha256": packet["tool_request_sha256"],
+        "tool_observation": {"tool_name": TOOL, "native_invocation_id": "resumed-readonly-turn",
+            "surface": "CODEX_DESKTOP_CONVERSATION", "observation_source": "CONTROLLED_TEST_NOT_BROWSER_PROOF",
+            "observed_at_utc": datetime.now(timezone.utc).isoformat()},
+        "result": {"request_sha256": request_hash, "status": "SUCCESS", "observed_identity": "capitalchronicle.substack.com",
+            "public_object_id": object_id, "public_object_url": url, "observed_text": "Exact supported proposition.",
+            "content_verified": True},
+    }
+    restarted.submit(request_hash, returned)
+    result = NeoDestinationHandoff(native_executor=restarted).readback(destination="substack", intent=intent(),
+        public_object_id=object_id, public_object_url=url)
+    assert result["verified"] is True
+    assert first._get(request_hash, "started") == original_claim
+    assert store.list_platform_dispatches() == []
+
+
+def test_new_turn_gets_its_own_identity_probe_even_in_same_five_minute_epoch(tmp_path):
+    store, first = setup(tmp_path)
+    now = datetime(2026, 10, 24, 0, 1, tzinfo=timezone.utc)
+    first.clock = lambda: now
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        first.readiness("SUBSTACK_ARTICLE")
+    packet = pending.value.request
+    first.begin(packet["request"]["request_sha256"])
+    restarted = NativeNeoExecutor(store, operation_id="same-op", output_dir=tmp_path / "resume",
+        native_invocation_id="new-identity-turn", clock=lambda: now)
+    with pytest.raises(NativeNeoInputRequired) as fresh:
+        restarted.readiness("SUBSTACK_ARTICLE")
+    assert fresh.value.request["request"]["request_sha256"] != packet["request"]["request_sha256"]
+    assert first._get(packet["request"]["request_sha256"], "started")["native_invocation_id"] == "controlled-test"
+    assert [p["request"]["request_sha256"] for p in restarted.pending()] == [fresh.value.request["request"]["request_sha256"]]
+    assert store.list_platform_dispatches() == []
+
+
 def test_coordinator_pending_publish_and_claimed_loss_enters_readback_only(tmp_path, monkeypatch):
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
     store, executor = setup(tmp_path, allow_publish=True)
@@ -117,6 +163,10 @@ def test_coordinator_pending_publish_and_claimed_loss_enters_readback_only(tmp_p
     executor.begin(packet["request"]["request_sha256"])
     with pytest.raises(ValueError, match="ALREADY_CLAIMED"):
         executor.begin(packet["request"]["request_sha256"])
+    restarted = NativeNeoExecutor(store, operation_id="same-op", output_dir=tmp_path / "resume",
+                                  native_invocation_id="new-publish-turn", allow_publish=True)
+    with pytest.raises(ValueError, match="ALREADY_CLAIMED"):
+        restarted.begin(packet["request"]["request_sha256"])
     recovered = coordinator.recover_pending()
     assert recovered["publish_calls"] == 0
     assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == UNKNOWN_WRITE

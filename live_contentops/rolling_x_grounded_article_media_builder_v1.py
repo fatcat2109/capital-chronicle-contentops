@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import re
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
@@ -839,6 +840,8 @@ def build_source_value_comparison_chart(
     source excerpt. The caller retains responsibility for editorial usefulness;
     this compiler rejects unbound values and unsupported source reuse.
     """
+    if rows and all("observation_kind" in r for r in rows):
+        return _build_typed_source_value_chart(document, rows=rows, title=title, unit=unit, output_dir=output_dir)
     rights, basis = _underlying_source_rights(document)
     text = " ".join(str(document.get("canonical_content_text") or "").split())
     if rights != UNDERLYING_RIGHTS_PUBLIC_DOMAIN or not document.get("rights_evidence_sha256"):
@@ -887,6 +890,1084 @@ def build_source_value_comparison_chart(
              underlying_source_rights_status=rights, source_reuse_basis=basis),
             "source_content_sha256": document.get("raw_sha256"),
             "rights_evidence_sha256": document["rights_evidence_sha256"], "source_value_bindings": list(rows)}
+
+
+def _typed_chart_values(document, rows, unit):
+    """Validate reported facts, including signed observations and forecast ranges."""
+    import math
+    units = {"USD billion": ("$", "billion"), "USD/barrel": ("$", "barrel"),
+             "USD/share": ("$", "per share"), "%": ("%",)}
+    text = " ".join(str(document.get("canonical_content_text") or "").split())
+    constraints = document.get("source_reuse_constraints") or {}
+    rights, _ = _underlying_source_rights(document)
+    facts_allowed = (constraints.get("scope") == "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"
+                     and constraints.get("attribution_required") is True
+                     and constraints.get("policy_capture_sha256") and constraints.get("source_capture_sha256"))
+    if not facts_allowed and not (rights == UNDERLYING_RIGHTS_PUBLIC_DOMAIN and document.get("rights_evidence_sha256")):
+        raise GroundedArticleBuilderError("chart_source_reuse_not_established")
+    if unit not in units or not 2 <= len(rows) <= 12:
+        raise GroundedArticleBuilderError("chart_series_scope_invalid")
+    parsed = []
+    for row in rows:
+        excerpt = " ".join(str(row.get("support_excerpt") or "").split())
+        period = str(row.get("period") or "")
+        metric = str(row.get("metric_source_text") or "")
+        kind = row.get("observation_kind")
+        value_context = " ".join(str(row.get("value_context") or "").split())
+        if (not excerpt or excerpt not in text or not metric or metric not in excerpt or not period
+                or (period not in excerpt and period != str(document.get("published_at_utc", ""))[:10])
+                or (not re.search(r"%|\bpercent\b", excerpt) if unit == "%" else any(token not in excerpt for token in units[unit]))
+                or row.get("unit") != unit or not row.get("label") or not value_context or value_context not in excerpt
+                or kind not in {"ACTUAL", "ESTIMATE", "FORECAST", "ANNOUNCED_POLICY"}):
+            raise GroundedArticleBuilderError("chart_metric_unit_period_or_kind_unbound")
+        if kind == "ANNOUNCED_POLICY" and (unit != "%" or not re.search(r"\brate\b", value_context, re.I)
+                                             or not re.search(r"\beffective\b", excerpt, re.I)):
+            raise GroundedArticleBuilderError("chart_announced_policy_unbound")
+        if kind == "ESTIMATE" and not re.search(r"expect|estimate", value_context, re.I):
+            raise GroundedArticleBuilderError("chart_estimate_label_unbound")
+        if kind == "FORECAST" and not re.search(r"expect|forecast|outlook|previously", value_context, re.I):
+            raise GroundedArticleBuilderError("chart_forecast_label_unbound")
+        if kind == "ACTUAL" and re.search(r"expect|estimate|forecast", value_context, re.I):
+            raise GroundedArticleBuilderError("chart_actual_label_conflicts_with_source")
+        spellings = ([row.get("lower_text"), row.get("upper_text")]
+                     if "lower_text" in row else [row.get("value_text")])
+        vals = []
+        for spelling in spellings:
+            value = str(spelling)
+            if (not re.fullmatch(r"-?\d+(?:\.\d+)?", value)
+                    or not re.search(r"(?<![\d.])" + re.escape(value) + r"(?!\d|\.\d)", value_context)):
+                raise GroundedArticleBuilderError("chart_value_not_bound_to_source")
+            number = float(value)
+            if not math.isfinite(number):
+                raise GroundedArticleBuilderError("chart_value_not_finite")
+            vals.append(number)
+        decline = r"\b(?:fell|fallen|slid|dropped|declined)\b" if unit == "%" else r"(?!)"
+        negative_pattern = r"\b(deficit|cash burn|loss)\b|" + decline
+        if row.get("negative_evidence"):
+            negative = " ".join(str(row["negative_evidence"]).split())
+            if (len(vals) != 1 or negative not in value_context or str(spellings[0]) not in negative
+                    or not re.search(negative_pattern, negative, re.I) or vals[0] < 0):
+                raise GroundedArticleBuilderError("chart_negative_sign_unbound")
+            vals[0] = -vals[0]
+        elif re.search(negative_pattern, value_context, re.I) and not all(v < 0 for v in vals):
+            raise GroundedArticleBuilderError("chart_negative_magnitude_requires_explicit_sign_binding")
+        if len(vals) == 2 and vals[0] > vals[1]:
+            raise GroundedArticleBuilderError("chart_range_inverted")
+        parsed.append(vals)
+    return parsed
+
+
+def _build_typed_source_value_chart(document, *, rows, title, unit, output_dir):
+    values = _typed_chart_values(document, rows, unit)
+    import textwrap
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    path = Path(output_dir) / "media_assets" / "source_value_comparison.png"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with plt.rc_context({"font.family": "DejaVu Sans", "font.size": 13}):
+        fig, ax = plt.subplots(figsize=(12, 7), dpi=140)
+        fig.patch.set_facecolor("#f5f2eb")
+        ax.set_facecolor("#f5f2eb")
+        labels = []
+        flat = [v for pair in values for v in pair] + [0]
+        span = max(flat) - min(flat) or 1
+        for i, (row, pair) in enumerate(zip(rows, values)):
+            kind_label = row["observation_kind"].lower().replace("_", " ")
+            if document.get("report_truth_only") and row["observation_kind"] == "ACTUAL":
+                kind_label = "reported actual"
+            labels.append(textwrap.fill(row["label"], 28) + "\n" + row["period"] + " · " + kind_label)
+            color = "#12666a" if row["observation_kind"] == "ACTUAL" else "#8a6b36"
+            if len(pair) == 2:
+                ax.plot(pair, [i, i], linewidth=9, color=color, solid_capstyle="butt")
+                ax.plot(pair, [i, i], "|", color=color, markersize=17)
+                display = row["lower_text"] + "–" + row["upper_text"]
+            else:
+                ax.barh(i, pair[0], height=.45, color=color)
+                display = ("−" if pair[0] < 0 else "") + str(row["value_text"]).lstrip("-")
+            ax.text(max(pair) + span * .025, i, display, va="center", fontweight="bold")
+        ax.set_yticks(range(len(rows)), labels)
+        ax.invert_yaxis()
+        ax.set_xlim(min(flat) - span * .08, max(flat) + span * .25)
+        ax.axvline(0, color="#333333", linewidth=.8)
+        ax.set_xlabel(unit)
+        fig.suptitle(textwrap.fill(title, 64), x=.04, y=.96, ha="left", fontsize=20, fontweight="bold")
+        ax.spines[["top", "right", "left"]].set_visible(False)
+        ax.grid(axis="x", alpha=.13)
+        ax.set_axisbelow(True)
+        fig.text(.04, .035, "Source: " + str(document["publisher"]) + " · retained report " +
+                 str(document["published_at_utc"])[:10] +
+                 "\nReported values, independently redrawn. " +
+                 ("Ranges are bounds, not midpoint estimates." if any(len(v) == 2 for v in values)
+                 else "Reported observations; timing may differ. No causal inference or forecasts."
+                 if document.get("report_truth_only") else "No missing values filled or forecasts derived."), fontsize=10)
+        fig.subplots_adjust(left=.34, right=.96, top=.78, bottom=.21)
+        fig.savefig(path, facecolor=fig.get_facecolor())
+        plt.close(fig)
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    source_hash = _sha256_text(document["canonical_content_text"])
+    return {**_base_asset_record(asset_id="source_value_comparison", path=path, role="supporting_fact_context",
+        media_role="source_value_comparison", modality="source_backed_chart", evidence_dimension="source_value_comparison",
+        caption=title + " Source: " + document["publisher"] + "; retained report " + document["published_at_utc"][:10] + ".",
+        alt_text="; ".join(r["label"] + " (" + r["period"] + ", " + r["observation_kind"].lower() + "): " +
+            " to ".join(str(v) for v in pair) + " " + unit for r, pair in zip(rows, values)),
+        source_label=document["publisher"], source_page_url=document.get("source_url") or document["url"],
+        publication_date=document["published_at_utc"], article_section="key_facts",
+        relevance_rationale="Compares the exact reported observations or forecast bounds relevant to this thesis.",
+        underlying_source_rights_status="attributed_facts_independent_chart",
+        source_reuse_basis="Independent CC chart of attributed reported facts; no source expression or chart reused."),
+        "source_content_sha256": source_hash, "source_value_bindings": list(rows), "chart_unit": unit,
+        "computed_values": values, "missingness": "NO_VALUES_FILLED_OR_INTERPOLATED",
+        "transformation": "EXACT_REPORTED_MAGNITUDES_WITH_EXPLICIT_SIGN_AND_RANGE_BOUNDS",
+        "transform_sha256": sha256_of([source_hash, unit, rows, values])}
+
+
+def validate_source_value_chart(asset, documents):
+    if asset.get("editorial_data_packet"):
+        return validate_editorial_data_chart(asset, documents)
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    document = next((d for d in documents if (d.get("source_url") or d.get("url")) == asset.get("source_page_url")
+                     and _sha256_text(d.get("canonical_content_text", "")) == asset.get("source_content_sha256")), None)
+    if not document:
+        raise ValueError("CHART_EXACT_FACT_SOURCE_REQUIRED")
+    values = _typed_chart_values(document, asset.get("source_value_bindings") or [], asset.get("chart_unit"))
+    expected = sha256_of([asset["source_content_sha256"], asset["chart_unit"], asset["source_value_bindings"], values])
+    if (asset.get("transform_sha256") != expected or asset.get("computed_values") != values
+            or _sha256_file(Path(asset["path"])) != asset.get("sha256")):
+        raise ValueError("CHART_DATA_OR_BYTES_CHANGED")
+
+
+def _editorial_data_values(packet, documents):
+    """Validate attributed original numbers and explicit computations, never infer missing data."""
+    sources = {d.get("document_id"): d for d in documents}
+    if packet.get("chart_type") not in {
+        "line",
+        "grouped_bar",
+        "stacked_bar",
+        "range",
+        "SMALL_MULTIPLE_HORIZONTAL_DIVERGING_BARS",
+        "SMALL_MULTIPLE_PAIRED_DOT",
+        "PAIRED_WATERFALL_TOTALS_AT_START_AND_END",
+        "diverging_columns_with_net_markers",
+        "grouped_columns_with_operating_cash_reference_line",
+        "direct_labelled_two_line",
+        "stacked_columns",
+        "horizontal_diverging_bar",
+        "paired_dumbbell",
+        "QUARTER_CONTRIBUTION_MATRIX_WITH_COMPANY_ANCHOR",
+        "MARGIN_LEVEL_TABLE_WITH_DIVERGING_PP_CHANGE",
+        "HORIZONTAL_CHANGE_BRIDGE_WITH_REPORTED_LEVELS",
+        "SIGNED_CASH_CONTRIBUTIONS_WITH_SEPARATE_REPORTED_RESULT",
+        "SIGNED_CASH_CHANGE_COMPARISON_WITH_SEPARATE_SAME_SCALE_REPORTED_RESULT",
+    }:
+        raise ValueError("EDITORIAL_CHART_TYPE_UNSUPPORTED")
+    if not packet.get("question") or not packet.get("title") or not packet.get("unit"):
+        raise ValueError("EDITORIAL_CHART_QUESTION_REQUIRED")
+    output = []
+    for series in packet.get("series", []):
+        points = []
+        for point in series.get("points", []):
+            bound = []
+            for operand in point.get("inputs", []):
+                doc = sources.get(operand.get("document_id"))
+                excerpt = operand.get("support_excerpt", "")
+                token = str(operand.get("value_text", ""))
+                if (
+                    not doc
+                    or not excerpt
+                    or excerpt not in doc.get("canonical_content_text", "")
+                    or not token
+                    or not re.search(
+                        r"(?<![\d.,])" + re.escape(token) + r"(?![\d.,])", excerpt
+                    )
+                    or not operand.get("source_period_text")
+                    or operand["source_period_text"] not in excerpt
+                ):
+                    raise ValueError("EDITORIAL_CHART_EXACT_VALUE_PERIOD_UNBOUND")
+                if (
+                    operand.get("source_content_sha256")
+                    != hashlib.sha256(
+                        doc["canonical_content_text"].encode()
+                    ).hexdigest()
+                    or not operand.get("metric")
+                    or not operand.get("unit")
+                    or not operand.get("prepared_period")
+                    or not operand.get("period_basis")
+                ):
+                    raise ValueError("EDITORIAL_CHART_METRIC_UNIT_PERIOD_HASH_REQUIRED")
+                rights = doc.get("source_reuse_constraints") or {}
+                if not (
+                    rights.get("attribution_required")
+                    and rights.get("policy_capture_sha256")
+                    and rights.get("source_capture_sha256")
+                ):
+                    raise ValueError("EDITORIAL_CHART_FACT_RIGHTS_UNBOUND")
+                terms = rights.get("data_terms") or {}
+                if terms.get("required_attribution"):
+                    legal = packet.get("required_attribution") or {}
+                    credit = legal.get("attribution", "") if legal else packet.get("source_caption", "")
+                    if terms["required_attribution"] not in credit:
+                        raise ValueError("EDITORIAL_CHART_DATA_CREDIT_REQUIRED")
+                    if terms.get("url") == "https://www.newyorkfed.org/privacy/termsofuse":
+                        if (legal.get("terms_url") != terms["url"]
+                                or legal.get("source_url") != (doc.get("url") or doc.get("source_url"))
+                                or not legal.get("reference_rates_notice")
+                                or not legal.get("non_affiliation_notice")):
+                            raise ValueError("EDITORIAL_CHART_REFERENCE_RATE_NOTICES_REQUIRED")
+                clean = token.replace(",", "").replace("%", "").replace("$", "").strip()
+                number = (
+                    -float(clean[1:-1])
+                    if clean.startswith("(") and clean.endswith(")")
+                    else float(clean)
+                )
+                if conversion := operand.get("source_unit_conversion"):
+                    if (
+                        conversion.get("source_unit") != "USD billion"
+                        or conversion.get("prepared_unit") != "USD million"
+                        or operand["unit"] != "USD million"
+                        or conversion.get("scale") != 1000
+                        or not re.search(r"\bbillion\b", excerpt, re.I)
+                    ):
+                        raise ValueError(
+                            "EDITORIAL_CHART_SOURCE_UNIT_CONVERSION_UNBOUND"
+                        )
+                    number *= 1000
+                basis = operand["period_basis"]
+                if (
+                    operand.get("binding_basis")
+                    == "ACTUAL_LIGHT_EXACT_SERIES_AND_PERIOD_INDEX"
+                ):
+                    index, periods = (
+                        basis.get("period_index"),
+                        basis.get("series_periods", []),
+                    )
+                    if (
+                        type(index) is not int
+                        or not 0 <= index < len(periods)
+                        or periods[index] != operand["prepared_period"]
+                        or abs(float(basis["prepared_value"]) - number) > 1e-7
+                        or not re.fullmatch(
+                            r"[a-f0-9]{64}", basis.get("series_sha256", "")
+                        )
+                    ):
+                        raise ValueError(
+                            "EDITORIAL_CHART_PREPARED_PERIOD_VALUE_CHANGED"
+                        )
+                if operand.get("sign") == -1 and number >= 0:
+                    negative = operand.get("negative_evidence", "")
+                    if negative not in excerpt or not re.search(
+                        r"negative|declin|fell|slid|burn|outflow|loss|expenditure",
+                        negative,
+                        re.I,
+                    ):
+                        raise ValueError("EDITORIAL_CHART_SIGN_UNBOUND")
+                    number = -number
+                bound.append(number)
+            transform = point.get("transform", "IDENTITY")
+            if transform == "IDENTITY" and len(bound) == 1:
+                value = bound[0]
+            elif transform == "DIFFERENCE" and len(bound) == 2:
+                value = bound[0] - bound[1]
+            elif transform == "PERCENT_CHANGE" and len(bound) == 2 and bound[1] != 0:
+                value = (bound[0] / bound[1] - 1) * 100
+            elif transform == "RATIO_PERCENT" and len(bound) == 2 and bound[1] != 0:
+                value = bound[0] / bound[1] * 100
+            else:
+                raise ValueError("EDITORIAL_CHART_TRANSFORM_UNBOUND")
+            scale = point.get("scale", 1)
+            if scale not in {1, -1, 0.001, -0.001, 1000, 100, 0.01} or not point.get(
+                "period"
+            ):
+                raise ValueError("EDITORIAL_CHART_SCALE_OR_PERIOD_INVALID")
+            def normalize_unit(value):
+                return value.casefold().replace("us$", "usd").replace(" per asm", " per available seat mile").strip()
+            units = {normalize_unit(i["unit"]) for i in point["inputs"]}
+            if len(units) != 1 or (
+                transform in {"IDENTITY", "DIFFERENCE"}
+                and not (
+                    normalize_unit(packet["unit"]) in units
+                    or units == {"usd million"}
+                    and normalize_unit(packet["unit"]) == "usd billion"
+                    and abs(scale) == 0.001
+                    or units == {"percent"}
+                    and normalize_unit(packet["unit"])
+                    in {"%", "percentage points", "percent"}
+                    or units == {"percent"} and normalize_unit(packet["unit"]).startswith("basis points") and scale == 100
+                )
+            ):
+                raise ValueError("EDITORIAL_CHART_DIMENSION_OR_SCALE_CHANGED")
+            if transform in {"PERCENT_CHANGE", "RATIO_PERCENT"} and not normalize_unit(packet["unit"]).startswith(("percent", "%")):
+                raise ValueError("EDITORIAL_CHART_PERCENT_OUTPUT_UNIT_REQUIRED")
+            if scale < 0 and not point.get("sign_presentation_reason"):
+                raise ValueError("EDITORIAL_CHART_SIGN_PRESENTATION_REASON_REQUIRED")
+            value *= scale
+            if not math.isfinite(value) or abs(value - float(point["value"])) > 1e-7:
+                raise ValueError("EDITORIAL_CHART_COMPUTED_VALUE_CHANGED")
+            if point.get("observation_kind") not in {
+                "ACTUAL",
+                "REPORTED_ACTUAL",
+                "ANNOUNCED_POLICY",
+                "FORECAST",
+                "ESTIMATE",
+            }:
+                raise ValueError("EDITORIAL_CHART_OBSERVATION_KIND_REQUIRED")
+            points.append(value)
+        if not points or len(points) > 260:
+            raise ValueError("EDITORIAL_CHART_SERIES_SCOPE_INVALID")
+        output.append(points)
+    if not output or len(output) > 12:
+        raise ValueError("EDITORIAL_CHART_SERIES_SCOPE_INVALID")
+    if reference := packet.get("reported_reference_series"):
+        levels = _editorial_data_values({**packet,"series":reference,"reported_reference_series":None},documents)
+        # Reference levels show the financing quantity removed as positive, while
+        # the reconciliation's source-bound operand keeps its subtraction sign.
+        displayed = [[abs(v) if j == 1 else v for j,v in enumerate(row)] for row in levels]
+        if [row["values"] for row in packet["render_spec"]["reference_table"]["rows"]] != [list(p) for p in zip(*displayed)]:
+            raise ValueError("EDITORIAL_CHART_REFERENCE_LEVELS_CHANGED")
+        if table := packet.get("reader_table"):
+            columns = table["columns"]
+            years = [str(c["label"]) if isinstance(c, dict) else str(c) for c in columns]
+            if years[0] == "Measure":
+                years = years[1:]
+            if (years != ["2025", "2026"]
+                    or [row["values"] for row in table["rows"]] != [list(p) for p in zip(*displayed)]):
+                raise ValueError("EDITORIAL_CHART_READER_TABLE_YEAR_OR_VALUES_CHANGED")
+    return output
+
+
+def editorial_chart_source_links(packet, documents):
+    """Attribute the documents actually used by chart point operands."""
+    from datetime import datetime
+    sources = {d.get("document_id"): d for d in documents}
+    ids = dict.fromkeys(i["document_id"] for s in packet["series"]
+        for p in s["points"] for i in p["inputs"])
+    links = []
+    for identity in ids:
+        doc = sources.get(identity) or {}
+        url = doc.get("url") or doc.get("source_url") or ""
+        if not url.startswith("https://"):
+            raise ValueError("EDITORIAL_CHART_BOUND_SOURCE_LINK_REQUIRED")
+        publisher = str(doc.get("publisher") or doc.get("source_identity") or "Source")
+        date = str(doc.get("published_at_source") or doc.get("published_at_utc") or "")[:10]
+        try:
+            label = publisher + " · " + datetime.strptime(date, "%Y-%m-%d").strftime("%d %b %Y")
+        except ValueError:
+            label = str(doc.get("title") or publisher)
+        links.append({"document_id": identity, "url": url, "label": label})
+    if not links:
+        raise ValueError("EDITORIAL_CHART_BOUND_SOURCE_LINK_REQUIRED")
+    return links
+
+
+def _label_paired_endpoints(ax, values, y, periods, colors, *, suffix=""):
+    """Direct year/value labels stay attached for rising, falling and equal pairs."""
+    for index, (value, period, color) in enumerate(zip(values, periods, colors)):
+        other = values[1-index]
+        side = -1 if value < other or (value == other and index == 0) else 1
+        ax.annotate(f"{period}: {value:g}{suffix}", xy=(value,y),
+            xytext=(side*9, -19 if index == 0 else 13), textcoords="offset points",
+            ha="right" if side < 0 else "left", va="center", fontsize=11, color=color,
+            arrowprops={"arrowstyle":"-", "color":color, "linewidth":.7},
+            bbox={"facecolor":"#faf9f5", "edgecolor":"none", "pad":.5})
+
+
+def _draw_compact_editorial_comparison(packet, values, plt):
+    """Render the native editor's compact comparison, with source-validated values."""
+    import textwrap
+    spec = packet["render_spec"]
+    kind, series = packet["chart_type"],packet["series"]
+    fig, ax = plt.subplots(figsize=(5.6,spec["height_inches"]),dpi=200)
+    fig.subplots_adjust(left=0,right=1,bottom=0,top=1)
+    ax.set(xlim=(0,1),ylim=(0,1))
+    ax.axis("off")
+    fig.patch.set_facecolor("#faf9f5")
+    ink, positive, negative = "#193b3e","#12666a","#b96b37"
+    def text(x,y,label,*,size=16,**kwargs):
+        ax.text(x,y,label,fontsize=size,color=kwargs.pop("color",ink),
+            va=kwargs.pop("va","center"),**kwargs)
+    text(.04,.975,textwrap.fill(packet["title"],26),size=20,weight="bold",va="top")
+    text(.04,.855,textwrap.fill(packet["subtitle"],42),size=12,va="top")
+    if kind == "QUARTER_CONTRIBUTION_MATRIX_WITH_COMPANY_ANCHOR":
+        if len(values)!=3 or any(len(row)!=6 for row in values):
+            raise ValueError("CONTRIBUTION_MATRIX_REQUIRES_THREE_QUARTERS_SIX_ROWS")
+        columns = [.47,.68,.89]
+        for x,header in zip(columns,["Q1","Q2","Q3"]):
+            text(x,.755,header,size=16,ha="center")
+        low,high = spec["shared_cell_value_domain"]
+        for row_index,name in enumerate(spec["row_order"]):
+            y = .635-row_index*.098
+            text(.025,y,name,size=15.5,weight="bold" if row_index==0 else "normal")
+            for column,source,nums in zip(columns,series,values):
+                value = nums[[p["period"] for p in source["points"]].index(name)]
+                color = ink if row_index==0 else positive if value>=0 else negative
+                text(column,y+.018,f"{value:+,.0f}",size=17,ha="center",color=color,
+                    weight="bold" if row_index==0 else "normal")
+                if row_index<4:
+                    left,width = column-.085,.17
+                    zero = left+(0-low)/(high-low)*width
+                    end = left+(value-low)/(high-low)*width
+                    ax.plot([zero,zero],[y-.035,y-.005],color="#9caeaa",lw=.7)
+                    ax.barh(y-.02,abs(end-zero),left=min(end,zero),height=.014,color=color)
+            if row_index==0:
+                ax.plot([.025,.98],[y-.055,y-.055],color="#a3b4af",lw=.8)
+    elif kind == "MARGIN_LEVEL_TABLE_WITH_DIVERGING_PP_CHANGE":
+        if len(values)!=6 or any(len(row)!=3 for row in values):
+            raise ValueError("MARGIN_TABLE_REQUIRES_TWO_THREE_QUARTER_COMPARISONS")
+        for panel,old_index,change_index,top in zip(spec["panels"],[0,2],[4,5],[.765,.405]):
+            text(.04,top,panel["title"],size=16.5,weight="bold")
+            text(.04,top-.04,panel["definition"],size=13)
+            for x,label in zip([.12,.37,.60,.85],["Quarter","2025 (%)","2026 (%)","Change (pp)"]):
+                text(x,top-.09,label,size=14,ha="center")
+            for q in range(3):
+                y = top-.155-q*.075
+                old,new,delta = values[old_index][q],values[old_index+1][q],values[change_index][q]
+                if abs(new-old-delta)>1e-7:
+                    raise ValueError("MARGIN_TABLE_CHANGE_DIFFERS_FROM_LEVELS")
+                for x,label in zip([.12,.37,.60,.85],[f"Q{q+1}",f"{old:.1f}",f"{new:.1f}",f"{delta:+.1f}"]):
+                    text(x,y,label,size=17,ha="center")
+                low,high = spec["change_domain_pp"]
+                zero = .74+(0-low)/(high-low)*.22
+                end = .74+(delta-low)/(high-low)*.22
+                ax.barh(y-.025,abs(end-zero),left=min(zero,end),height=.012,color=positive if delta>=0 else negative)
+                ax.plot([zero,zero],[y-.036,y-.014],color="#829992",lw=.8)
+    else:
+        if len(values)!=1 or len(values[0])!=4:
+            raise ValueError("CASH_CHANGE_BRIDGE_REQUIRES_OPEN_TWO_ADJUSTMENTS_CLOSE")
+        nums = values[0]
+        level = nums[0]
+        low,high = spec["value_domain"]
+        def coord(n):
+            return .48+(n-low)/(high-low)*.41
+        previous_end = None
+        for j,(name,value) in enumerate(zip(spec["row_order"],nums)):
+            y = .74-j*.085
+            start = 0 if j in {0,3} else level
+            end = value if j in {0,3} else level+value
+            if previous_end is not None:
+                ax.plot([coord(previous_end),coord(previous_end)],[y+.072,y+.015],color="#849b94",lw=1)
+            ax.barh(y,abs(coord(end)-coord(start)),left=min(coord(start),coord(end)),height=.022,color=ink if j in {0,3} else negative)
+            text(.025,y,textwrap.fill(name,22),size=13.5)
+            text(.96,y+.024,f"{value:+,.0f}",size=17,ha="right",weight="bold" if j in {0,3} else "normal")
+            if j<3:
+                level=end
+            previous_end=end
+        text(.04,.405,textwrap.fill(spec["small_note"],52),size=13.5)
+        for x,label in zip([.04,.70,.94],spec["reference_table"]["columns"]):
+            text(x,.335,label,size=14,ha="left" if x==.04 else "right",weight="bold")
+        for j,row in enumerate(spec["reference_table"]["rows"]):
+            y=.27-j*.067
+            text(.025,y,textwrap.fill(row["label"],23),size=13.5,weight="bold" if j==3 else "normal")
+            for x,value in zip([.70,.94],row["values"]):
+                text(x,y,f"{value:,.0f}",size=16.5,ha="right",weight="bold" if j==3 else "normal")
+    return fig
+
+
+def _validated_cash_contributions(packet, values):
+    """Keep the three additive changes distinct from the independently reported result."""
+    spec = packet["render_spec"]
+    if len(values) != 1 or len(values[0]) != 4:
+        raise ValueError("SIGNED_CASH_REQUIRES_THREE_COMPONENTS_AND_REPORTED_RESULT")
+    nums = values[0]
+    component_indices = spec["plotted_point_indices"]
+    result_index = spec["reported_result_panel"]["point_ref"]["point_index"]
+    if component_indices != [0, 1, 2] or result_index != 3:
+        raise ValueError("SIGNED_CASH_RESULT_MUST_BE_SEPARATE_FROM_COMPONENTS")
+    low, high = spec["value_domain"]
+    axis_spec = spec["axis"]
+    if (not low < 0 < high or axis_spec["domain"] != [low, high]
+            or 0 not in axis_spec["ticks"] or not axis_spec["visible"]):
+        raise ValueError("SIGNED_CASH_VISIBLE_SHARED_ZERO_REQUIRED")
+    rows = spec["component_rows"]
+    if len(rows) != 3:
+        raise ValueError("SIGNED_CASH_EXACT_COMPONENT_ROWS_REQUIRED")
+    for index, row in enumerate(rows):
+        if (row["point_ref"] != {"series_index": 0, "point_index": index}
+                or row["start"] != 0 or row["end"] != nums[index]
+                or not low <= nums[index] <= high
+                or row["display_value"] != f"{nums[index]:+,.0f}"
+                or row["direction"] != ("LEFT_FROM_ZERO" if nums[index] < 0 else "RIGHT_FROM_ZERO")
+                or row["color_role"] != ("negative" if nums[index] < 0 else "positive")):
+            raise ValueError("SIGNED_CASH_MARK_DIFFERS_FROM_BOUND_CONTRIBUTION")
+    roles = packet["value_roles"]
+    component_sum = sum(nums[index] for index in component_indices)
+    if (roles["rounded_component_sum"]["value"] != component_sum
+            or roles["reported_gain_minus_rounded_component_sum"]["value"] != nums[result_index] - component_sum
+            or spec["reported_result_panel"]["display_value"] != f"{nums[result_index]:+,.0f}"):
+        raise ValueError("SIGNED_CASH_RESULT_OR_ROUNDING_DIFFERS_FROM_BOUND_VALUES")
+    return nums
+
+
+def _draw_signed_cash_contributions(packet, values, plt):
+    """Render the prior signed graphic; preserve historical render specifications."""
+    import textwrap
+
+    nums = _validated_cash_contributions(packet, values)
+    spec = packet["render_spec"]
+    low, high = spec["value_domain"]
+    axis_spec = spec["axis"]
+    rows = spec["component_rows"]
+    result_index = spec["reported_result_panel"]["point_ref"]["point_index"]
+    component_sum = sum(nums[:3])
+
+    # The MAX layout explicitly permits more height to preserve mobile type size.
+    height = max(float(spec["height_inches"]), 15.8)
+    palette = spec["palette"]
+    ink = palette["company_total"]
+    fig = plt.figure(figsize=(spec["width_inches"], height), dpi=200)
+    fig.patch.set_facecolor(palette["background"])
+    canvas = fig.add_axes([0, 0, 1, 1])
+    canvas.set(xlim=(0, 1), ylim=(0, height))
+    canvas.axis("off")
+
+    def text(x, y, label, size=16, **kwargs):
+        return canvas.text(x, y, label, fontsize=size, color=kwargs.pop("color", ink),
+                           va=kwargs.pop("va", "top"), linespacing=1.15, **kwargs)
+
+    text(.055, height - .20, textwrap.fill(packet["title"], 29), size=23, weight="bold")
+    period, *comparison = packet["subtitle"].split("|")
+    text(.055, height - 1.10, period.strip() + "\n" + " | ".join(s.strip() for s in comparison), size=16)
+    text(.055, height - 1.88, textwrap.fill(spec["contribution_panel_title"], 43), size=16, weight="bold")
+    key = axis_spec["direction_key"]
+    text(.27, height - 2.45, textwrap.fill(key["negative_half"], 22), size=15,
+         ha="center", color=palette["negative"])
+    text(.73, height - 2.45, textwrap.fill(key["positive_half"], 22), size=15,
+         ha="center", color=palette["positive"])
+
+    top = height - 3.15
+    bottom = top - 2.80
+    plot = fig.add_axes([.055, bottom / height, .89, (top - bottom) / height])
+    plot.set_facecolor(palette["background"])
+    plot.set(xlim=(low, high), ylim=(-.1, 3.2))
+    plot.set_yticks([])
+    for side in ("top", "left", "right"):
+        plot.spines[side].set_visible(False)
+    plot.spines["bottom"].set_color(ink)
+    plot.set_xticks(axis_spec["ticks"], axis_spec["tick_labels"], fontsize=15, color=ink)
+    plot.tick_params(axis="x", length=4, color=ink, pad=6)
+    plot.get_xticklabels()[0].set_ha("left")
+    plot.get_xticklabels()[-1].set_ha("right")
+    for label, value in zip(plot.get_xticklabels(), axis_spec["ticks"]):
+        if value == 0:
+            label.set_weight("bold")
+    plot.set_xlabel(axis_spec["axis_label"], fontsize=15, color=ink, labelpad=10)
+    for index, (row, y) in enumerate(zip(rows, [2.3, 1.3, .3])):
+        label = "\n".join(textwrap.fill(line, 27) for line in row["display_label"].splitlines())
+        plot.text(0, y + .70, label, transform=plot.get_yaxis_transform(),
+                  va="top", fontsize=16, color=ink, linespacing=1.12)
+        plot.text(1, y + .70, f"{nums[index]:+,.0f}", transform=plot.get_yaxis_transform(),
+                  va="top", ha="right", fontsize=17, weight="bold", color=palette[row["color_role"]])
+        for tick in axis_spec["grid"]["values"]:
+            plot.plot([tick, tick], [y - .15, y + .15], color=axis_spec["grid"]["color"], lw=.7, zorder=1)
+        bar = plot.barh(y, nums[index], left=0, height=.19, color=palette[row["color_role"]], zorder=2)[0]
+        bar.set_gid(f"cash-contribution-{index}")
+        # The zero spine stays out of the full-width label bands above each bar.
+        plot.plot([0, 0], [y - .16, y + .16], color=ink, lw=1.8, zorder=3)
+
+    result = spec["reported_result_panel"]
+    panel_top = bottom - .92
+    panel_bottom = panel_top - 3.12
+    from matplotlib.patches import Rectangle
+    canvas.add_patch(Rectangle((.035, panel_bottom), .93, panel_top - panel_bottom,
+                               facecolor=result["background"], edgecolor="none"))
+    canvas.plot([.055, .945], [panel_top, panel_top], color=palette["neutral"], lw=1)
+    text(.065, panel_top - .14, textwrap.fill(result["heading"], 40), size=16, weight="bold")
+    text(.065, panel_top - .70, f"{nums[result_index]:+,.0f}", size=25, weight="bold")
+    text(.065, panel_top - 1.18, result["definition"], size=15)
+    text(.065, panel_top - 1.56, result["reported_levels"], size=16)
+    expression = f"{nums[0]:+,.0f}" + "".join(
+        f" {'-' if value < 0 else '+'} {abs(value):,.0f}" for value in nums[1:3])
+    rounding = (f"Rounded components:\n{expression} = {component_sum:+,.0f}\n"
+                f"Reported gain: {nums[result_index]:+,.0f}\n"
+                f"${abs(nums[result_index] - component_sum):g} million rounding difference.")
+    text(.065, panel_top - 1.96, rounding, size=16)
+
+    table = spec["reference_table"]
+    table_top = panel_bottom - .35
+    text(.055, table_top, textwrap.fill(table["heading"], 43), size=16, weight="bold")
+    for index, row in enumerate(table["rows"]):
+        y = table_top - .62 - index * .90
+        weight = "bold" if index == 3 else "normal"
+        text(.055, y, textwrap.fill(row["label"], 42), size=16, weight=weight)
+        for x, year, value in zip([.055, .55], table["year_order"], row["values"]):
+            text(x, y - .48, f"{year}  {value:,.0f}", size=17, weight=weight)
+    text(.055, 1.08, textwrap.fill(table["definition_note"], 43), size=16)
+    text(.055, .52, textwrap.fill(spec["scope_note"], 43), size=16)
+    return fig
+
+
+def _draw_compact_cash_comparison(packet, values, plt):
+    """One scale, three component bars and a separated outcome marker; detail stays HTML."""
+    nums = _validated_cash_contributions(packet, values)
+    spec = packet["render_spec"]
+    result = spec["reported_result_panel"]
+    if (result["x_value"] != nums[3] or result["marker"]["stem_from_zero"]
+            or spec["result_marker_point_ref"] != {"series_index": 0, "point_index": 3}
+            or not spec["axis"]["shared_with_reported_result_marker"]):
+        raise ValueError("SIGNED_CASH_RESULT_MARKER_REQUIRES_IDENTICAL_SCALE_AND_NO_STEM")
+    geo, palette = spec["geometry_export_px"], spec["palette"]
+    width, height = geo["canvas"]
+    fig = plt.figure(figsize=(width / 200, height / 200), dpi=200)
+    fig.patch.set_facecolor(palette["background"])
+    left, right = geo["plot_x_limits"]
+    ax = fig.add_axes([left / width, 0, (right - left) / width, 1])
+    ax.set_facecolor(palette["background"])
+    ax.set(xlim=spec["value_domain"], ylim=(height, 0))
+    ax.set_yticks([])
+    for side in ("top", "left", "right"):
+        ax.spines[side].set_visible(False)
+    ink = palette["company_total"]
+    ax.spines["bottom"].set_position(("data", geo["shared_axis_y"]))
+    ax.spines["bottom"].set_color(ink)
+    axis = spec["axis"]
+    ax.set_xticks(axis["ticks"], axis["tick_labels"], fontsize=15, color=ink)
+    ax.tick_params(axis="x", length=4, pad=6, color=ink)
+    ax.get_xticklabels()[0].set_ha("left")
+    ax.get_xticklabels()[-1].set_ha("right")
+    ax.get_xticklabels()[axis["ticks"].index(0)].set_weight("bold")
+
+    def text(x, y, label, size=16, **kwargs):
+        return ax.text(x, y, label, transform=ax.get_yaxis_transform(), fontsize=size,
+                       color=kwargs.pop("color", ink), va="top", linespacing=1.15, **kwargs)
+
+    text(0, geo["title_top"], "\n".join(spec["title_wrapping"]["lines"]), size=23, weight="bold")
+    text(0, geo["subtitle_top"], "\n".join(spec["subtitle_lines"]))
+    text(0, geo["contribution_heading_top"], spec["contribution_panel_title"], weight="bold")
+    tracks = [row["mark_center_y"] for row in geo["contribution_rows"]] + [geo["result_marker_center_y"]]
+    for y in tracks:
+        for tick in axis["grid"]["values"]:
+            ax.plot([tick, tick], [y - 24, y + 24], color=axis["grid"]["color"], lw=.7, zorder=1)
+        ax.plot([0, 0], [y - 25, y + 25], color=ink, lw=1.5, zorder=3)
+    for index, (row, geometry) in enumerate(zip(spec["component_rows"], geo["contribution_rows"])):
+        text(0, geometry["label_top"], row["display_label"])
+        text(1, geometry["label_top"], f"{nums[index]:+,.0f}", size=17, ha="right",
+             weight="bold", color=palette[row["color_role"]])
+        bar = ax.barh(geometry["mark_center_y"], nums[index], left=0, height=geo["bar_height"],
+                      color=palette[row["color_role"]], zorder=2)[0]
+        bar.set_gid(f"cash-contribution-{index}")
+    top, bottom = geo["result_top_rule_y"], geo["shared_axis_y"] - 8
+    ax.axhspan(top, bottom, facecolor=result["background"], zorder=0)
+    ax.axhline(top, color=palette["neutral"], lw=1)
+    text(0, geo["result_heading_top"], result["heading"], weight="bold")
+    text(0, geo["result_label_top"], result["row_label"])
+    text(1, geo["result_label_top"], f"{nums[3]:+,.0f}", size=17, ha="right", weight="bold")
+    marker, = ax.plot([nums[3]], [geo["result_marker_center_y"]], marker="D", linestyle="none",
+                      markersize=9.4, markerfacecolor=palette["background"], markeredgecolor=ink,
+                      markeredgewidth=1.8, zorder=4)
+    marker.set_gid("cash-reported-result")
+    text(.5, geo["shared_axis_y"] + 82, axis["axis_label"], size=15, ha="center")
+    text(0, geo["reported_fcf_levels_top"] + 30, result["reported_levels"])
+    expression = f"{nums[0]:+,.0f}" + "".join(f" {'-' if n < 0 else '+'} {abs(n):,.0f}" for n in nums[1:3])
+    rounding = f"{expression} = {sum(nums[:3]):+,.0f}\nReported {nums[3]:+,.0f}; ${abs(nums[3] - sum(nums[:3])):g} million\nrounding difference."
+    text(0, geo["rounding_note_top"] + 20, rounding)
+    text(0, geo["scope_note_top"] + 60, spec["scope_note"])
+    text(0, geo["source_footer_top"] + 70, spec["source_footer"], size=15)
+    return fig
+
+
+def _signed_horizontal_domain(values):
+    """Keep zero, every signed endpoint and its outside label on the shared scale."""
+    low = min(0, min(values))
+    high = max(0, max(values))
+    span = high - low or 1.0
+    return low - span * .35, high + span * .35, span
+
+
+def _draw_editorial_chart(packet, values, plt, np):
+    """Render the editor's selected grammar; no content or chart-count decision here."""
+    import textwrap
+
+    colors = ["#12666a", "#b96b37", "#718e8a", "#7c6296", "#c39838", "#6b788a"]
+    kind = packet["chart_type"]
+    series = packet["series"]
+    if kind == "SIGNED_CASH_CONTRIBUTIONS_WITH_SEPARATE_REPORTED_RESULT":
+        return _draw_signed_cash_contributions(packet, values, plt)
+    if kind == "SIGNED_CASH_CHANGE_COMPARISON_WITH_SEPARATE_SAME_SCALE_REPORTED_RESULT":
+        return _draw_compact_cash_comparison(packet, values, plt)
+    if kind in {"QUARTER_CONTRIBUTION_MATRIX_WITH_COMPANY_ANCHOR",
+            "MARGIN_LEVEL_TABLE_WITH_DIVERGING_PP_CHANGE","HORIZONTAL_CHANGE_BRIDGE_WITH_REPORTED_LEVELS"}:
+        return _draw_compact_editorial_comparison(packet,values,plt)
+    labels = [s.get("name") or s["label"] for s in series]
+    periods = list(dict.fromkeys(p["period"] for s in series for p in s["points"]))
+    small = kind in {
+        "SMALL_MULTIPLE_HORIZONTAL_DIVERGING_BARS",
+        "SMALL_MULTIPLE_PAIRED_DOT",
+        "PAIRED_WATERFALL_TOTALS_AT_START_AND_END",
+    }
+    if kind in {"horizontal_diverging_bar", "paired_dumbbell"}:
+        fig, ax = plt.subplots(figsize=(9, 6.5), dpi=160)
+        axes = [ax]
+        if kind == "horizontal_diverging_bar":
+            if len(series) != 1:
+                raise ValueError("HORIZONTAL_COMPARISON_REQUIRES_ONE_SERIES")
+            nums = values[0]
+            y = np.arange(len(nums))
+            ax.barh(y, nums, height=.58, color=[colors[0] if n >= 0 else colors[1] for n in nums])
+            ax.set_yticks(y, [textwrap.fill(p, 22) for p in periods], fontsize=10)
+            ax.invert_yaxis()
+            low, high, span = _signed_horizontal_domain(nums)
+            ax.set_xlim(low, high)
+            suffix = "%" if str(packet["unit"]).casefold().startswith(("%", "percent")) else ""
+            for x, yy in zip(nums,y):
+                ax.text(x+span*.025 if x>=0 else span*.025,yy,f"{x:+.1f}{suffix}",va="center",ha="left",fontsize=11)
+            ax.axvline(0,color="#6d807b",linewidth=.8)
+        else:
+            for i,(label,nums) in enumerate(zip(labels,values)):
+                if len(nums)!=2:
+                    raise ValueError("PAIRED_DUMBBELL_REQUIRES_TWO_COMPARABLE_PERIODS")
+                ax.plot(nums,[i,i],color="#a6b7b2",linewidth=3)
+                ax.scatter(nums,[i,i],color=[colors[2],colors[0]],s=85,zorder=3)
+                _label_paired_endpoints(ax, nums, i,
+                    [p["period"] for p in series[i]["points"]], [colors[2],colors[0]])
+            ax.set_yticks(range(len(labels)),[textwrap.fill(s,24) for s in labels],fontsize=10)
+            ax.set_ylim(len(labels)-.55,-.55)
+            ax.set_xlim(min(n for row in values for n in row)-.9,max(n for row in values for n in row)+.9)
+        ax.set_xlabel(packet["unit"])
+        ax.grid(axis="x",alpha=.16)
+        fig.subplots_adjust(left=.35,right=.94,top=.69,bottom=.21)
+    elif small:
+        panels = list(zip(labels, series, values))
+        if kind == "SMALL_MULTIPLE_PAIRED_DOT":
+            if len(series) % 2:
+                raise ValueError("PAIRED_DOT_REQUIRES_COMPARABLE_SERIES_PAIRS")
+            panels = [
+                (
+                    labels[i].rsplit(" - ", 1)[0],
+                    series[i],
+                    [v for pair in zip(values[i], values[i + 1]) for v in pair],
+                )
+                for i in range(0, len(series), 2)
+            ]
+        fig, axes = plt.subplots(
+            len(panels),
+            1,
+            figsize=(9, 2.5 * len(panels) + 2.5),
+            dpi=160,
+            sharex=kind == "SMALL_MULTIPLE_HORIZONTAL_DIVERGING_BARS",
+            squeeze=False,
+        )
+        axes = axes[:, 0]
+        for i, (ax, (panel_label, source, nums)) in enumerate(zip(axes, panels)):
+            ax.set_title(panel_label, loc="left", fontsize=11, weight="bold", pad=8)
+            names = [p["period"] for p in source["points"]]
+            if kind == "SMALL_MULTIPLE_HORIZONTAL_DIVERGING_BARS":
+                y = np.arange(len(nums))
+                ax.barh(
+                    y,
+                    nums,
+                    color=[colors[0] if n >= 0 else colors[1] for n in nums],
+                    height=0.62,
+                )
+                ax.set_yticks(y, names)
+                ax.invert_yaxis()
+                ax.axvline(0, color="#667b78", linewidth=0.8)
+                low, high, span = _signed_horizontal_domain([n for row in values for n in row])
+                ax.set_xlim(low, high)
+                for x, yy in zip(nums, y):
+                    ax.text(
+                        x + (span * 0.02 if x >= 0 else -span * 0.02),
+                        yy,
+                        f"{x:+,.0f}",
+                        ha="left" if x >= 0 else "right",
+                        va="center",
+                        fontsize=10,
+                    )
+                ax.grid(axis="x", alpha=0.15)
+                ax.set_xlabel(packet["unit"])
+            elif kind == "SMALL_MULTIPLE_PAIRED_DOT":
+                if len(nums) != 6:
+                    raise ValueError("PAIRED_DOT_EXPECTS_THREE_PAIRED_QUARTERS")
+                for q in range(3):
+                    left, right = nums[2 * q : 2 * q + 2]
+                    ax.plot([left, right], [q, q], color="#b5beba", linewidth=3)
+                    ax.scatter(
+                        [left, right],
+                        [q, q],
+                        color=[colors[2], colors[0]],
+                        s=65,
+                        zorder=3,
+                    )
+                    _label_paired_endpoints(ax, [left,right], q,
+                        [labels[i*2].rsplit(" - ",1)[-1], labels[i*2+1].rsplit(" - ",1)[-1]],
+                        [colors[2],colors[0]], suffix="%")
+                ax.set_yticks(range(3), ["Q1", "Q2", "Q3"])
+                ax.set_ylim(2.45, -0.5)
+                ax.set_xlabel("Percent · lighter: 2025; darker: 2026")
+                ax.set_xlim(min(nums) - 2, max(nums) + 2)
+                ax.grid(axis="x", alpha=0.15)
+            else:
+                if len(nums) != 4:
+                    raise ValueError("WATERFALL_REQUIRES_OPEN_ADJUSTMENTS_CLOSE")
+                level = nums[0]
+                for j, n in enumerate(nums):
+                    total = j in {0, len(nums) - 1}
+                    bottom = 0 if total else level
+                    ax.bar(
+                        j,
+                        n,
+                        bottom=bottom,
+                        color=colors[0] if total else colors[1],
+                        width=0.65,
+                    )
+                    end = n if total else level + n
+                    ax.text(
+                        j,
+                        max(bottom, end) + max(values[0][0], values[-1][0]) * 0.035,
+                        f"{n:,.0f}" if total else f"{n:+,.0f}",
+                        ha="center",
+                        fontsize=10,
+                    )
+                    if not total:
+                        level += n
+                ax.set_xticks(
+                    range(4), [textwrap.fill(n, 18) for n in names], fontsize=9
+                )
+                ax.set_ylabel(packet["unit"])
+                ax.set_ylim(0, max(row[0] for row in values) * 1.22)
+                ax.grid(axis="y", alpha=0.15)
+        fig.subplots_adjust(left=0.20, right=0.96, top=0.78, bottom=0.19, hspace=0.9)
+    else:
+        fig, ax = plt.subplots(figsize=(9, 6.5), dpi=160)
+        axes = [ax]
+        bottoms = np.zeros(len(periods))
+        for i, (source, nums) in enumerate(zip(series, values)):
+            x = np.array([periods.index(p["period"]) for p in source["points"]])
+            label = labels[i]
+            color = colors[i % len(colors)]
+            if (
+                kind in {"line", "direct_labelled_two_line"}
+                or kind == "grouped_columns_with_operating_cash_reference_line"
+                and i == len(series) - 1
+            ):
+                ax.plot(x, nums, marker="o", color=color, label=label, linewidth=2.5)
+                if kind == "direct_labelled_two_line":
+                    ax.annotate(
+                        f"{nums[-1]:g}%",
+                        (x[-1], nums[-1]),
+                        xytext=(8, 0),
+                        textcoords="offset points",
+                        color=color,
+                        fontsize=11,
+                    )
+            elif kind in {"stacked_bar", "stacked_columns"}:
+                if len(x) != len(periods) or any(n < 0 for n in nums):
+                    raise ValueError("EDITORIAL_STACKED_PERIOD_OR_SIGN_INVALID")
+                ax.bar(x, nums, bottom=bottoms, width=0.65, color=color, label=label)
+                bottoms += nums
+            elif kind == "diverging_columns_with_net_markers":
+                if len(series) != 3:
+                    raise ValueError("DIVERGING_CASH_REQUIRES_INFLOW_OUTFLOW_NET")
+                if i < 2:
+                    ax.bar(x, nums, width=0.55, color=color, label=label)
+                else:
+                    ax.plot(
+                        x,
+                        nums,
+                        "D",
+                        markersize=7,
+                        color="#182f33",
+                        label=label,
+                        zorder=4,
+                    )
+            elif kind == "range":
+                if len(values) != 2 or len(nums) != len(periods):
+                    raise ValueError("EDITORIAL_RANGE_REQUIRES_TWO_BOUND_SERIES")
+                if i == 0:
+                    ax.vlines(
+                        x,
+                        nums,
+                        values[1],
+                        linewidth=8,
+                        color=color,
+                        label=packet.get("range_label", "Announced bounds"),
+                    )
+            else:
+                count = (
+                    len(series) - 1
+                    if kind == "grouped_columns_with_operating_cash_reference_line"
+                    else len(series)
+                )
+                width = 0.8 / count
+                ax.bar(
+                    x - 0.4 + width * (i + 0.5),
+                    nums,
+                    width=width,
+                    color=color,
+                    label=label,
+                )
+        ticks = list(range(0, len(periods), max(1, math.ceil(len(periods) / 6))))
+        if len(periods) - 1 not in ticks:
+            ticks.append(len(periods) - 1)
+        ax.set_xticks(
+            ticks,
+            [periods[j] for j in ticks],
+            rotation=25 if len(periods) > 6 and not any("\n" in p for p in periods) else 0,
+            ha="right" if len(periods) > 6 and not any("\n" in p for p in periods) else "center",
+        )
+        ax.set_ylabel(packet["unit"])
+        if kind not in {"line", "direct_labelled_two_line"}:
+            ax.axhline(0, color="#83938e", linewidth=0.7)
+        ax.legend(
+            frameon=False,
+            loc="upper left",
+            bbox_to_anchor=(0, 1.16),
+            fontsize=9,
+            ncol=2,
+        )
+        ax.grid(axis="y", alpha=0.17)
+        fig.subplots_adjust(left=0.12, right=0.93, top=0.70, bottom=0.23)
+    old_height = fig.get_size_inches()[1]
+    extra_height = 0
+    legal = packet.get("required_attribution") or {}
+    legal_lines = []
+    if legal:
+        for key in ("attribution", "reference_rates_notice", "non_affiliation_notice"):
+            if legal.get(key):
+                legal_lines.extend(textwrap.wrap(legal[key], 110) + [""])
+        legal_lines.extend(textwrap.wrap("Source: " + legal.get("source_url", "") + " · Independent calculation/chart: Capital Chronicle.", 110))
+        extra_height = .14 * len(legal_lines) + .25
+        new_height = old_height + extra_height
+        fig.set_size_inches(9, new_height)
+        for ax in axes:
+            position = ax.get_position()
+            ax.set_position([position.x0, (position.y0*old_height+extra_height)/new_height,
+                position.width, position.height*old_height/new_height])
+    def page_y(y):
+        return (y*old_height+extra_height)/(old_height+extra_height)
+    fig.patch.set_facecolor("#faf9f5")
+    for ax in axes:
+        ax.set_facecolor("#faf9f5")
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.set_axisbelow(True)
+    fig.text(
+        0.08,
+        page_y(0.97),
+        textwrap.fill(packet["title"], 47),
+        fontsize=18,
+        weight="bold",
+        va="top",
+        color="#193b3e",
+    )
+    if packet.get("subtitle"):
+        fig.text(
+            0.08,
+            page_y(0.85),
+            textwrap.fill(packet["subtitle"], 90),
+            fontsize=10,
+            va="top",
+            color="#516763",
+        )
+    fig.text(
+        0.08,
+        page_y(0.025),
+        textwrap.fill(packet["source_caption"], 112),
+        fontsize=9,
+        color="#516763",
+    )
+    if legal_lines:
+        fig.text(.08, (extra_height-.16)/(old_height+extra_height), "\n".join(legal_lines),
+            fontsize=9, va="top", linespacing=1.1, color="#516763")
+    return fig
+
+
+def _editorial_reader_table(packet):
+    table = packet.get("reader_table")
+    if not table:
+        return None
+    columns = [str(c["label"]) if isinstance(c, dict) else str(c) for c in table["columns"]]
+    if columns[0] == "Measure":
+        columns = columns[1:]
+    return {"caption": table["caption"].removesuffix(" | " + packet["unit"]), "unit": packet["unit"],
+        "columns": columns, "rows": [{"label": row["label"], "values": list(row["values"])} for row in table["rows"]],
+        "notes": [table[key] for key in ("definition_note", "reconciliation_note", "scope_note") if table.get(key)]}
+
+
+def build_editorial_data_chart(packet, documents, *, output_dir):
+    """Existing media owner renders the actual MAX editor's source-bound visual choice."""
+    values = _editorial_data_values(packet, documents)
+    source_links = editorial_chart_source_links(packet, documents)
+    asset_id = packet["asset_id"]
+    if not re.fullmatch(r"[a-z][a-z0-9-]{2,90}", asset_id):
+        raise ValueError("EDITORIAL_CHART_DISTINCT_ID_REQUIRED")
+    path = Path(output_dir) / "media_assets" / (asset_id + ".png")
+    data_path = path.with_suffix(".json")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import (
+        sha256_of,
+        canonical_bytes,
+    )
+
+    packet_hash = sha256_of(packet)
+    if data_path.exists() and json.loads(data_path.read_bytes()) != packet:
+        raise ValueError("EDITORIAL_CHART_ID_ALREADY_BOUND_USE_NEW_REVISION")
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    with plt.rc_context({"font.family": "DejaVu Sans", "font.size": 12}):
+        fig = _draw_editorial_chart(packet, values, plt, np)
+        width, height = [round(v * fig.dpi) for v in fig.get_size_inches()]
+        fig.savefig(path, facecolor=fig.get_facecolor())
+        plt.close(fig)
+    data_path.write_bytes(canonical_bytes(packet))
+    return {
+        "asset_id": asset_id,
+        "path": str(path.resolve()),
+        "sha256": _sha256_file(path),
+        "media_role": "editorial_data_journalism",
+        "modality": "source_backed_chart",
+        "role": "supporting_fact_context",
+        "caption": packet.get("caption") or packet["question"],
+        "attribution": packet["source_caption"],
+        "alt_text": packet.get("alt_text") or packet["question"],
+        "source_page_url": source_links[0]["url"],
+        "source_links": source_links,
+        "source_lineage": [
+            {
+                "source_url": link["url"],
+                "document_id": link["document_id"],
+            }
+            for link in source_links
+        ],
+        "underlying_source_rights_status": "attributed_facts_independent_chart",
+        "source_reuse_basis": "Independent chart of attributed original-source facts; no source expression reused.",
+        "width": width,
+        "height": height,
+        "editorial_data_packet": packet,
+        "transform_sha256": packet_hash,
+        "placement_after": packet.get("placement_after"),
+        "destination_subset": packet.get("destination_subset", []),
+        "computed_values": values,
+        "missingness": packet.get("missingness", "NO_VALUES_FILLED_OR_INTERPOLATED"),
+        **({"reader_table": _editorial_reader_table(packet), "support_caption": packet["support_caption"],
+            "distribution_context": packet["derivative_context"]["fallback_when_html_table_absent"]}
+           if packet.get("reader_table") else {}),
+    }
+
+
+def validate_editorial_data_chart(asset, documents):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+
+    packet = asset["editorial_data_packet"]
+    values = _editorial_data_values(packet, documents)
+    if "source_links" in asset:
+        links = editorial_chart_source_links(packet, documents)
+        if (asset["source_links"] != links or asset.get("source_page_url") != links[0]["url"]
+                or asset.get("source_lineage") != [{"source_url":s["url"],"document_id":s["document_id"]} for s in links]):
+            raise ValueError("EDITORIAL_CHART_SOURCE_LINKS_CHANGED")
+    if (
+        sha256_of(packet) != asset.get("transform_sha256")
+        or values != asset.get("computed_values")
+        or packet.get("asset_id") != asset.get("asset_id")
+        or _sha256_file(Path(asset["path"])) != asset.get("sha256")
+    ):
+        raise ValueError("EDITORIAL_CHART_DATA_OR_BYTES_CHANGED")
+    if packet.get("reader_table") and (
+            asset.get("reader_table") != _editorial_reader_table(packet)
+            or asset.get("support_caption") != packet["support_caption"]
+            or asset.get("distribution_context") != packet["derivative_context"]["fallback_when_html_table_absent"]):
+        raise ValueError("EDITORIAL_CHART_READER_CONTEXT_CHANGED")
 
 
 def _build_third_asset(

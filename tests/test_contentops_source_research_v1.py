@@ -24,6 +24,67 @@ FILING_ROOT = ROOT.parent.parent / "goal34/source_editions"
 REPORT_ROOT = ROOT.parent.parent / "goal35/source_editions"
 
 
+def yonhap_fixture(root):
+    """Synthetic exact-page fixture; no network and no copied newsroom article."""
+    from hashlib import sha256
+    root.mkdir(parents=True, exist_ok=True)
+    def write(name, value):
+        path = root / name
+        path.write_text(json.dumps(value), encoding="utf-8")
+        return sha256(path.read_bytes()).hexdigest()
+    policy_spec = json.loads((REPORT_ROOT / "index.json").read_bytes())["records"][0]
+    policy = REPORT_ROOT / policy_spec["policy_capture_path"]
+    shutil.copyfile(policy, root / "policy.json")
+    url = "https://en.yna.co.kr/view/AEN20201026001800320"
+    title = "Controlled storage supplier reports a new battery contract"
+    text = title + "\nSEOUL (Yonhap) -- Controlled supplier reported a battery contract; customer talks are separate."
+    page = {"url": url, "title": title, "text": text, "meta": [
+        {"name": "og:site_name", "content": "Yonhap News Agency"}, {"name": "og:url", "content": url},
+        {"name": "author", "content": "Controlled fixture"},
+        {"name": "article:published_time", "content": "2020-10-26T09:00:00+09:00"}]}
+    original_hash = write("original.json", page)
+    capture = {"status": "PASS", "url": url, "reporting_publisher": "Yonhap News Agency",
+        "byline": "Controlled fixture", "attribution_text": "Controlled fixture, Yonhap News Agency",
+        "retrieval_method": "READ_ONLY_BROWSEROS_NEO_BOUNDED_EXTRACTS", "public_write_performed": False,
+        "credential_or_session_material_read": False, "observed_at_utc": "2020-10-26T04:00:00Z",
+        "full_text_sha256": sha256(text.encode()).hexdigest(), "full_text_characters": len(text),
+        "excerpts": [{"start": 0, "end": len(text), "text": text}]}
+    capture_hash = write("capture.json", capture)
+    doc = {"document_id": "controlled-yonhap", "title": title, "source_url": url,
+        "publisher": "Yonhap News Agency", "source_identity": "en.yna.co.kr", "raw_sha256": capture_hash,
+        "canonical_content_text": text, "canonical_content_sha256": sha256(text.encode()).hexdigest(),
+        "source_adapter_family": "reputable_secondary_report", "source_authority_class": "reputable_secondary_source",
+        "report_truth_only": True, "published_at_utc": "2020-10-26T00:00:00Z",
+        "published_at_source": "2020-10-26T09:00:00+09:00", "content_truncated": False}
+    write("admission.json", {"status": "PASS", "official_source_documents": [doc],
+        "provenance": {"retrieved_at_utc": "2020-10-26T04:00:00Z"}})
+    spec = {"authorship_class": "REPUTABLE_REPORT_FACTS_ONLY", "headline_id": "controlled-yonhap",
+        "headline_text": title, "capture_path": "capture.json", "source_capture_sha256": capture_hash,
+        "original_capture_path": "original.json", "original_capture_sha256": original_hash,
+        "loader_result_path": "admission.json", "policy_url": policy_spec["policy_url"],
+        "policy_capture_path": "policy.json", "policy_capture_sha256": sha256(policy.read_bytes()).hexdigest(),
+        "policy_retrieved_at_utc": "2020-10-26T04:00:00Z", "revision_at_utc": "2020-10-26T04:00:00Z",
+        "proposition_span": [0, len(title)], "public_expression_reuse_allowed": False}
+    write("index.json", {"schema_version": "contentops.retained_source_research.v1", "records": [spec]})
+    return root
+
+
+def test_exact_yonhap_report_keeps_attribution_and_existing_facts_only_scope(tmp_path):
+    root = yonhap_fixture(tmp_path / "source")
+    research = RetainedSourceResearch(root)
+    assert not research.gaps and len(research.records) == 1
+    record = research.records["controlled-yonhap"]
+    assert record["source_identity"] == "en.yna.co.kr"
+    assert record["source_permissions"]["underlying_event_truth_granted"] is False
+    assert record["source_permissions"]["public_expression_reuse_allowed"] is False
+    assert record["source_permissions"]["images_logos_exhibits_reuse_allowed"] is False
+    capture = json.loads((root / "capture.json").read_bytes())
+    capture["excerpts"][0]["text"] += " fabricated"
+    (root / "capture.json").write_text(json.dumps(capture))
+    rejected = RetainedSourceResearch(root)
+    assert not rejected.records and rejected.gaps
+
+
 def test_current_reuters_reports_preserve_report_truth_rights_and_syndication():
     from live_contentops.v1_simple_gemini_newsroom_v1 import _candidate_universe, _evidence_request, _source_pack
     research = RetainedSourceResearch(REPORT_ROOT)
@@ -312,6 +373,8 @@ def test_verified_frozen_record_without_loader_id_reaches_source_pack(missing_id
     pack = _source_pack(evidence["evidence_documents"])
     assert [p["document_id"] for p in pack] == [selected, context]
     assert pack[0]["canonical_content_text"] == research.records[selected]["permitted_source_text"]
+    assert pack[0]["underlying_reuse_classification"] == "governed_government_public_domain"
+    assert pack[0]["rights_evidence_sha256"] == research.records[selected]["rights_evidence_sha256"]
     assert evidence["evidence_documents"][1]["context_only"] is True
     assert evidence["provenance"]["request_count_for_call"] == 0
     assert evidence["publication_authority"] is False

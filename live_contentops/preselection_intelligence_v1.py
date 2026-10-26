@@ -103,6 +103,7 @@ ATTRIBUTED_REPUTABLE_PUBLISHERS = {
     "bbc.com": {"publisher": "BBC", "aliases": ("bbc",)},
     "bloomberg.com": {"publisher": "Bloomberg", "aliases": ("bloomberg",)},
     "cnbc.com": {"publisher": "CNBC", "aliases": ("cnbc",)},
+    "en.yna.co.kr": {"publisher": "Yonhap News Agency", "aliases": ("yonhap news agency", "yonhap")},
     "ft.com": {"publisher": "Financial Times", "aliases": ("financial times", "ft")},
     "theguardian.com": {"publisher": "The Guardian", "aliases": ("the guardian", "guardian")},
     "aljazeera.com": {"publisher": "Al Jazeera", "aliases": ("al jazeera",)},

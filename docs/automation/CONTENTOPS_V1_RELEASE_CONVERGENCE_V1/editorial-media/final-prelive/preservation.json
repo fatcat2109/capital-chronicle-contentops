@@ -1,0 +1,7 @@
+{
+  "baseline": "c9dfcdc5eb848114db0ffb4b3ebb69e82871ee03",
+  "tracked_prior_files": 430,
+  "git_diff_changed_paths": [],
+  "state": "EXACT_TRACKED_PRIOR_ARTIFACTS_PRESERVED",
+  "scope": "Goal35 and all five C9 story directories; existing acceptance matrix/checkpoint legitimately extended; ignored local captures are not Git proof"
+}

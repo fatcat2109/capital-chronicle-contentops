@@ -1,0 +1,337 @@
+[
+  {
+    "destination": "telegram",
+    "payload": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "meta-dj-cash-reinvestment-r1"
+      ],
+      "media_source_links": {
+        "meta-dj-cash-reinvestment-r1": [
+          {
+            "document_id": "dj-meta-q2-2026",
+            "label": "Meta · 29 Jul 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"
+          },
+          {
+            "document_id": "dj-meta-q3-2026",
+            "label": "Meta · 21 Oct 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx"
+          }
+        ]
+      },
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nMeta's Q3 results show investment outrunning cash generation\n\nMeta generated more operating cash in Q3.\n\nWhat to watch: The next test is whether operating cash generation can again cover equipment purchases and finance-lease principal through comparable periods.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-253e284c9ada8aae"
+    },
+    "preview_id": "cc-preview-849b6a48c84d7f51e71fefd01b6ec8119fbe646c4a3bef3b2eb01b7769950732"
+  },
+  {
+    "destination": "x",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "Meta's Q3 results show investment outrunning cash generation\n\nMeta generated more operating cash in Q3.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-253e284c9ada8aae\n\nWatch: The next test is whether operating cash generation can again cover equipment purchases and finance-lease principal through comparable periods.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "meta-dj-cash-reinvestment-r1"
+      ],
+      "media_source_links": {
+        "meta-dj-cash-reinvestment-r1": [
+          {
+            "document_id": "dj-meta-q2-2026",
+            "label": "Meta · 29 Jul 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"
+          },
+          {
+            "document_id": "dj-meta-q3-2026",
+            "label": "Meta · 21 Oct 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx"
+          }
+        ]
+      },
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "meta-dj-cash-reinvestment-r1"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "Meta's Q3 results show investment outrunning cash generation\n\nMeta generated more operating cash in Q3.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-253e284c9ada8aae"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Watch: The next test is whether operating cash generation can again cover equipment purchases and finance-lease principal through comparable periods."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.646,
+          0.532
+        ],
+        "post_character_counts": [
+          181,
+          149
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.823,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Watch: The next test is whether operating cash generation can again cover equipment purchases and finance-lease principal through comparable periods."
+      ],
+      "root_text": "Meta's Q3 results show investment outrunning cash generation\n\nMeta generated more operating cash in Q3.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-253e284c9ada8aae",
+      "text": "Meta's Q3 results show investment outrunning cash generation\n\nMeta generated more operating cash in Q3.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-253e284c9ada8aae"
+    },
+    "preview_id": "cc-preview-6dbcfb6e643aeeba40af5e29eec2752e4e2c33b6a692dc6a482c6f44f0d65439"
+  },
+  {
+    "destination": "linkedin",
+    "payload": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "meta-dj-cash-reinvestment-r1",
+        "meta-dj-profit-charge-r1"
+      ],
+      "media_source_links": {
+        "meta-dj-cash-reinvestment-r1": [
+          {
+            "document_id": "dj-meta-q2-2026",
+            "label": "Meta · 29 Jul 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"
+          },
+          {
+            "document_id": "dj-meta-q3-2026",
+            "label": "Meta · 21 Oct 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx"
+          }
+        ],
+        "meta-dj-profit-charge-r1": [
+          {
+            "document_id": "dj-meta-q2-2026",
+            "label": "Meta · 29 Jul 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"
+          },
+          {
+            "document_id": "dj-meta-q3-2026",
+            "label": "Meta · 21 Oct 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx"
+          }
+        ]
+      },
+      "platform_limit": 3000,
+      "text": "Meta's Q3 results show investment outrunning cash generation\n\nWhy it matters: Operating cash generation rose in both comparisons, but equipment purchases and finance-lease payments absorbed more of it.\n\nContext: The strongest countercase is an investment cycle: spending arrives before the benefits.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-253e284c9ada8aae"
+    },
+    "preview_id": "cc-preview-bc85fb786fa11ee2f4ed75d93fad1eb703c702d98e71f9b7009fe282057c1deb"
+  },
+  {
+    "destination": "discord",
+    "payload": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "meta-dj-cash-reinvestment-r1",
+        "meta-dj-profit-charge-r1"
+      ],
+      "media_source_links": {
+        "meta-dj-cash-reinvestment-r1": [
+          {
+            "document_id": "dj-meta-q2-2026",
+            "label": "Meta · 29 Jul 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"
+          },
+          {
+            "document_id": "dj-meta-q3-2026",
+            "label": "Meta · 21 Oct 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx"
+          }
+        ],
+        "meta-dj-profit-charge-r1": [
+          {
+            "document_id": "dj-meta-q2-2026",
+            "label": "Meta · 29 Jul 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"
+          },
+          {
+            "document_id": "dj-meta-q3-2026",
+            "label": "Meta · 21 Oct 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx"
+          }
+        ]
+      },
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: Meta's Q3 results show investment outrunning cash generation**\n\nMeta generated more operating cash in Q3.\n\n**Context:** The strongest countercase is an investment cycle: spending arrives before the benefits.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-253e284c9ada8aae"
+    },
+    "preview_id": "cc-preview-e1c7a658fc015c30565eb4ea4436c0e93f9c36f55aad6718becf6212b2d938f5"
+  },
+  {
+    "destination": "facebook_page",
+    "payload": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "meta-dj-cash-reinvestment-r1"
+      ],
+      "media_source_links": {
+        "meta-dj-cash-reinvestment-r1": [
+          {
+            "document_id": "dj-meta-q2-2026",
+            "label": "Meta · 29 Jul 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"
+          },
+          {
+            "document_id": "dj-meta-q3-2026",
+            "label": "Meta · 21 Oct 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx"
+          }
+        ]
+      },
+      "platform_limit": 63206,
+      "text": "Meta's Q3 results show investment outrunning cash generation\n\nMeta generated more operating cash in Q3.\n\nWhy it matters: Operating cash generation rose in both comparisons, but equipment purchases and finance-lease payments absorbed more of it.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-253e284c9ada8aae"
+    },
+    "preview_id": "cc-preview-5c13b2f2e71ca7e23de961bd9453c14dfa84b48cc9a83a7e5cf1e9b27f0582ff"
+  },
+  {
+    "destination": "instagram_business",
+    "payload": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "meta-dj-cash-reinvestment-r1",
+        "meta-dj-profit-charge-r1"
+      ],
+      "media_source_links": {
+        "meta-dj-cash-reinvestment-r1": [
+          {
+            "document_id": "dj-meta-q2-2026",
+            "label": "Meta · 29 Jul 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"
+          },
+          {
+            "document_id": "dj-meta-q3-2026",
+            "label": "Meta · 21 Oct 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx"
+          }
+        ],
+        "meta-dj-profit-charge-r1": [
+          {
+            "document_id": "dj-meta-q2-2026",
+            "label": "Meta · 29 Jul 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"
+          },
+          {
+            "document_id": "dj-meta-q3-2026",
+            "label": "Meta · 21 Oct 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx"
+          }
+        ]
+      },
+      "platform_limit": 2200,
+      "text": "Meta's Q3 results show investment outrunning cash generation\n\nMeta generated more operating cash in Q3.\n\nIn focus: The strongest countercase is an investment cycle: spending arrives before the benefits.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-253e284c9ada8aae\n\n#CapitalChronicle"
+    },
+    "preview_id": "cc-preview-c5cf037671dbc8d2e5726b3b5dfde99940577b3f3930b8f56495ed2f432c7f61"
+  },
+  {
+    "destination": "threads",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "Meta's Q3 results show investment outrunning cash generation\n\nThe strongest countercase is an investment cycle: spending arrives before the benefits.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-253e284c9ada8aae\n\nWhat to watch: The next test is whether operating cash generation can again cover equipment purchases and finance-lease principal through comparable periods.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "meta-dj-cash-reinvestment-r1"
+      ],
+      "media_source_links": {
+        "meta-dj-cash-reinvestment-r1": [
+          {
+            "document_id": "dj-meta-q2-2026",
+            "label": "Meta · 29 Jul 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"
+          },
+          {
+            "document_id": "dj-meta-q3-2026",
+            "label": "Meta · 21 Oct 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx"
+          }
+        ]
+      },
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "meta-dj-cash-reinvestment-r1"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "Meta's Q3 results show investment outrunning cash generation\n\nThe strongest countercase is an investment cycle: spending arrives before the benefits.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-253e284c9ada8aae"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: The next test is whether operating cash generation can again cover equipment purchases and finance-lease principal through comparable periods."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.454,
+          0.314
+        ],
+        "post_character_counts": [
+          227,
+          157
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.692,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: The next test is whether operating cash generation can again cover equipment purchases and finance-lease principal through comparable periods."
+      ],
+      "root_text": "Meta's Q3 results show investment outrunning cash generation\n\nThe strongest countercase is an investment cycle: spending arrives before the benefits.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-253e284c9ada8aae",
+      "text": "Meta's Q3 results show investment outrunning cash generation\n\nThe strongest countercase is an investment cycle: spending arrives before the benefits.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-253e284c9ada8aae"
+    },
+    "preview_id": "cc-preview-921c4421076ba822595303d4bf36f676798f91e40e6fc2e659684fe7f581e430"
+  },
+  {
+    "destination": "youtube",
+    "payload": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "meta-dj-cash-reinvestment-r1"
+      ],
+      "media_source_links": {
+        "meta-dj-cash-reinvestment-r1": [
+          {
+            "document_id": "dj-meta-q2-2026",
+            "label": "Meta · 29 Jul 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"
+          },
+          {
+            "document_id": "dj-meta-q3-2026",
+            "label": "Meta · 21 Oct 2026",
+            "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx"
+          }
+        ]
+      },
+      "platform_limit": 1000,
+      "text": "Update: Meta's Q3 results show investment outrunning cash generation\n\nMeta generated more operating cash in Q3.\n\nWhat to watch: The next test is whether operating cash generation can again cover equipment purchases and finance-lease principal through comparable periods.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-253e284c9ada8aae"
+    },
+    "preview_id": "cc-preview-b1fe67f63764b2fb54555ffa578aab0a161c5d54608945a4ef2d38543e20f326"
+  }
+]

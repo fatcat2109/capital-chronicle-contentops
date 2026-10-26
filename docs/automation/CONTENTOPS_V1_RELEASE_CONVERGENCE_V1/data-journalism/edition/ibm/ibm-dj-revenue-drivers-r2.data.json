@@ -1,0 +1,209 @@
+{
+  "asset_id": "ibm-dj-revenue-drivers-r2",
+  "title": "Software led an uneven revenue recovery",
+  "question": "Which segments explain IBM's reported revenue change in each comparable quarter, and how large was company growth itself?",
+  "unit": "USD million",
+  "source_links": [
+    {
+      "document_id": "dj-ibm-q1-2026",
+      "label": "IBM · 22 Apr 2026",
+      "url": "https://newsroom.ibm.com/2026-04-22-IBM-RELEASES-FIRST-QUARTER-RESULTS"
+    },
+    {
+      "document_id": "dj-ibm-q2-2026",
+      "label": "IBM · 22 Jul 2026",
+      "url": "https://newsroom.ibm.com/2026-07-22-IBM-RELEASES-SECOND-QUARTER-RESULTS"
+    },
+    {
+      "document_id": "dj-ibm-q3-2026",
+      "label": "IBM · 21 Oct 2026",
+      "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+    }
+  ],
+  "comparability_limits": [
+    "Use direct three-month rows in each respective release: Q1 ends March 31, Q2 June 30, Q3 September 30. Do not derive quarters by subtracting cumulative tables.",
+    "All amounts are company-reported unaudited actuals in USD million; transforms are current-quarter 2026 minus corresponding-quarter 2025. Reported dollars are not constant-currency, organic or acquisition-neutral demand.",
+    "The sum of five reported segment changes is 1,376, 183 and 774; independently reported company changes are 1,376, 185 and 772. Segment sum minus company change is 0, -2 and +2 million. Preserve this rounding difference with no residual segment or altered observations.",
+    "Software is the largest positive dollar contributor in these comparisons. This does not isolate deferred transactions, acquisition contribution or any single demand cause.",
+    "The Q1 2025 Software direct row is 6,336. Do not replace it with 6,335 derived from a later cumulative table."
+  ],
+  "series": [
+    {
+      "name": "Q1 2026 vs Q1 2025",
+      "points": [
+        {
+          "period": "IBM total",
+          "value": 1376,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q1-2026"
+          ]
+        },
+        {
+          "period": "Software",
+          "value": 716,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q1-2026"
+          ]
+        },
+        {
+          "period": "Consulting",
+          "value": 204,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q1-2026"
+          ]
+        },
+        {
+          "period": "Infrastructure",
+          "value": 440,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q1-2026"
+          ]
+        },
+        {
+          "period": "Financing",
+          "value": 29,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q1-2026"
+          ]
+        },
+        {
+          "period": "Other",
+          "value": -13,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q1-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Q2 2026 vs Q2 2025",
+      "points": [
+        {
+          "period": "IBM total",
+          "value": 185,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q2-2026"
+          ]
+        },
+        {
+          "period": "Software",
+          "value": 374,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q2-2026"
+          ]
+        },
+        {
+          "period": "Consulting",
+          "value": 13,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q2-2026"
+          ]
+        },
+        {
+          "period": "Infrastructure",
+          "value": -307,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q2-2026"
+          ]
+        },
+        {
+          "period": "Financing",
+          "value": 20,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q2-2026"
+          ]
+        },
+        {
+          "period": "Other",
+          "value": 83,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q2-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Q3 2026 vs Q3 2025",
+      "points": [
+        {
+          "period": "IBM total",
+          "value": 772,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        },
+        {
+          "period": "Software",
+          "value": 595,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        },
+        {
+          "period": "Consulting",
+          "value": 11,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        },
+        {
+          "period": "Infrastructure",
+          "value": 148,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        },
+        {
+          "period": "Financing",
+          "value": -8,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        },
+        {
+          "period": "Other",
+          "value": 28,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        }
+      ]
+    }
+  ]
+}
