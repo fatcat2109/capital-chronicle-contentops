@@ -84,6 +84,69 @@ def validate_visual_decision(value):
     return value
 
 
+def admit_pre_writer_source_recovery(turn, binding, response):
+    """Append already acquired facts to the same source-blocked manual opportunity."""
+    from datetime import datetime, timezone
+    from hashlib import sha256
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import _time
+    from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+    selection = turn.frozen_request("select")
+    selected = turn._get("select", "response")
+    if (not binding.get("owner_manual_validation") or not selection or not selected
+            or response["expected_selection_request_sha256"] != selection["request_sha256"]
+            or turn.frozen_request("write") or turn._get("write", "response")):
+        raise ValueError("EXACT_UNWRITTEN_MANUAL_SELECTION_REQUIRED")
+    plan = selected["output"]["ordered_candidate_plan"]
+    candidate = response["candidate_id"]
+    receipt = json.loads((turn.root / "simple_gemini_newsroom_receipt_v1.json").read_bytes())
+    if (candidate not in {p["candidate_id"] for p in plan}
+            or receipt.get("qualified_article_count") != 0
+            or receipt.get("exact_next_blocker") != "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED"):
+        raise ValueError("EXACT_SOURCE_BLOCKED_ADMITTED_CANDIDATE_REQUIRED")
+    requests = response["additional_source_requests"]
+    if (response.get("additional_request_limit") != 3 or not response.get("owner_instruction")
+            or not 1 <= len(requests) <= 3 or receipt.get("source_request_count") != 6
+            or any(not r.get("url", "").startswith("https://") or not r.get("observed_at_utc")
+                   or not r.get("capture_sha256") for r in requests)):
+        raise ValueError("BOUNDED_OWNER_MANUAL_SOURCE_EXCEPTION_REQUIRED")
+    source_root = Path(response["research_root"]).resolve()
+    if not source_root.is_relative_to(turn.root.resolve()):
+        raise ValueError("RECOVERY_SOURCE_MUST_STAY_IN_MANUAL_OUTPUT")
+    research = RetainedSourceResearch(source_root)
+    ids = response["supporting_headline_ids"]
+    if research.gaps or not 1 <= len(ids) <= 3 or set(ids) != set(research.records):
+        raise ValueError("EXACT_VERIFIED_RECOVERY_SOURCE_IDS_REQUIRED")
+    now = datetime.now(timezone.utc).isoformat()
+    for request in requests:
+        path = Path(request["capture_path"]).resolve()
+        if (not path.is_relative_to(turn.root.resolve())
+                or sha256(path.read_bytes()).hexdigest() != request["capture_sha256"]
+                or _time(request["observed_at_utc"]) > _time(now)):
+            raise ValueError("RECOVERY_ACQUISITION_CAPTURE_INVALID")
+    if any(_time(r["document"]["published_at_utc"]) > _time(binding["cutoff_utc"])
+           or _time(r["revision_at_utc"]) > _time(now) for r in research.records.values()):
+        raise ValueError("RECOVERY_PUBLICATION_OR_ADMISSION_CLOCK_INVALID")
+    value = {"schema_version": "contentops.native_pre_writer_source_recovery.v1",
+        "pre_writer_source_recovery": True, "candidate_id": candidate,
+        "selection_request_sha256": selection["request_sha256"],
+        "supporting_headline_ids": ids, "research_snapshot": research.frozen_snapshot(),
+        "admitted_at_utc": now, "cutoff_utc": binding["cutoff_utc"],
+        "source_request_count": 6 + len(requests), "source_request_limit": 9,
+        "additional_source_requests": requests, "owner_instruction": response["owner_instruction"],
+        "all_acquisition_already_completed": True, "further_acquisition_allowed": False,
+        "public_write_performed": False}
+    value["request_sha256"] = sha256_of(value)
+    previous = turn.source_recovery()
+    if previous:
+        raise ValueError("RECOVERY_ALREADY_ADMITTED_RESUME_SAME_OPERATION")
+    turn.store.register_outbox_message(message_id="native-source-recovery-" + sha256_of(value),
+        work_item_id=turn.work, destination="internal:native-desktop-source-recovery",
+        payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
+    return {"classification": "RETAINED_SOURCE_RECOVERY_PREPARED", "request_sha256": value["request_sha256"],
+        "source_request_count": value["source_request_count"], "source_request_limit": 9,
+        "next_operation": "advance same binding", "public_write_performed": False}
+
+
 class DesktopInputRequired(Exception):
     """A durable pending native request, not a failed provider/network call."""
 
@@ -112,9 +175,10 @@ class NativeDesktopTurn:
         return "native-desktop-" + sha256_of([self.work, stage, kind, revision["request_sha256"]] if revision else [self.work, stage, kind])
 
     def source_recovery(self):
-        rows = [json.loads(r["payload"]) for r in self.store.list_outbox_messages()
-            if r["work_item_id"] == self.work and r["destination"] == "internal:native-desktop-source-recovery"]
-        return rows[-1] if rows else None
+        with self.store.get_read_only_connection() as conn:
+            row = conn.execute("SELECT payload FROM outbox_messages WHERE work_item_id=? AND destination=? ORDER BY rowid DESC LIMIT 1",
+                (self.work, "internal:native-desktop-source-recovery")).fetchone()
+        return json.loads(row["payload"]) if row else None
 
     def _get(self, stage: str, kind: str) -> dict[str, Any] | None:
         row = self.store.get_outbox_message(self._key(stage, kind))

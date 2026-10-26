@@ -146,3 +146,49 @@ def test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift(tmp_pat
     else:
         result = operator.operation(binding)
         assert result["classification"] == "NATIVE_DESKTOP_INPUT_REQUIRED" and result["stage"] == "select"
+
+
+@pytest.mark.parametrize("failure", [None, "production", "changed_selection", "future_source", "changed_capture"])
+def test_pre_writer_recovery_is_scoped_append_only_and_counts_all_acquisitions(tmp_path, failure):
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, admit_pre_writer_source_recovery
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from tests.test_contentops_source_research_v1 import yonhap_fixture
+    from hashlib import sha256
+    root = tmp_path / "output"
+    source = yonhap_fixture(root / "source")
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    run = "controlled-manual-recovery"
+    work = "cc-opportunity-" + sha256_of(run)
+    store.create_work_item(story_id=work, work_item_id=work, title="controlled", target_surface="CONTENTOPS_EDITORIAL_ONLY")
+    turn = NativeDesktopTurn(store, run_id=run, output_dir=root, owner_manual_validation=True)
+    request = {"request_sha256": "a" * 64}
+    turn._put("select", "request", request)
+    turn._put("select", "response", {"output": {"ordered_candidate_plan": [{"candidate_id": "chosen"}]}})
+    (root / "simple_gemini_newsroom_receipt_v1.json").write_text(json.dumps({
+        "qualified_article_count": 0, "source_request_count": 6,
+        "exact_next_blocker": "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED"}))
+    capture = source / "original.json"
+    response = {"expected_selection_request_sha256": "a" * 64, "candidate_id": "chosen",
+        "research_root": str(source), "supporting_headline_ids": ["controlled-yonhap"],
+        "additional_request_limit": 3, "owner_instruction": "CONTROLLED TEST ONLY: three extra reads",
+        "additional_source_requests": [{"url": "https://example.org/" + str(i),
+            "observed_at_utc": "2020-10-26T04:00:00Z", "capture_path": str(capture),
+            "capture_sha256": sha256(capture.read_bytes()).hexdigest()} for i in range(3)]}
+    binding = {"owner_manual_validation": failure != "production", "cutoff_utc": "2020-10-26T03:59:47Z"}
+    if failure == "changed_selection":
+        response["expected_selection_request_sha256"] = "b" * 64
+    elif failure == "future_source":
+        binding["cutoff_utc"] = "2020-10-25T23:59:00Z"
+    elif failure == "changed_capture":
+        response["additional_source_requests"][0]["capture_sha256"] = "b" * 64
+    if failure:
+        with pytest.raises(ValueError):
+            admit_pre_writer_source_recovery(turn, binding, response)
+        assert turn.source_recovery() is None
+    else:
+        result = admit_pre_writer_source_recovery(turn, binding, response)
+        assert result["source_request_count"] == result["source_request_limit"] == 9
+        assert turn.frozen_request("select") == request and turn.frozen_request("write") is None
+        assert turn.source_recovery()["further_acquisition_allowed"] is False
+        with pytest.raises(ValueError, match="ALREADY_ADMITTED"):
+            admit_pre_writer_source_recovery(turn, binding, response)

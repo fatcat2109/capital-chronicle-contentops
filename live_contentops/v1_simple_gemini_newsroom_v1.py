@@ -2359,7 +2359,10 @@ def run_v1_simple_gemini_newsroom(
         cutoff_utc,
         source_route_health=source_route_health,
     )
-    request_count = 0
+    recovery = getattr(llm_invoke, "source_recovery", lambda: None)() if native else None
+    offline_recovery = bool(recovery and recovery.get("pre_writer_source_recovery"))
+    request_limit = recovery["source_request_limit"] if offline_recovery else MAX_SOURCE_REQUESTS
+    request_count = recovery["source_request_count"] if offline_recovery else 0
     candidate_attempt_history: list[dict[str, Any]] = []
     evidence_attempts: list[dict[str, Any]] = []
     selected: dict[str, Any] | None = None
@@ -2383,7 +2386,7 @@ def run_v1_simple_gemini_newsroom(
         zero_request_document, _zero_request_blockers = canonical_x_report_document(
             request
         )
-        if request_count >= MAX_SOURCE_REQUESTS and zero_request_document is None:
+        if request_count >= request_limit and zero_request_document is None and not offline_recovery:
             candidate_attempt_history.append(
                 {
                     "plan_position": plan_index,
@@ -2412,10 +2415,10 @@ def run_v1_simple_gemini_newsroom(
         for_call, request_count = _source_count_after_call(
             provenance, previous_total=request_count
         )
-        if request_count > MAX_SOURCE_REQUESTS:
+        if request_count > request_limit:
             raise SimpleGeminiNewsroomError(
                 "shared_source_request_budget_exceeded",
-                [f"observed={request_count}", f"limit={MAX_SOURCE_REQUESTS}"],
+                [f"observed={request_count}", f"limit={request_limit}"],
             )
         documents = [
             dict(row)
@@ -2510,7 +2513,7 @@ def run_v1_simple_gemini_newsroom(
         "selected_source_pack": source_pack,
         "selected_epistemic_state": dict(selected_epistemic_state or {}),
         "request_count": request_count,
-        "request_limit": MAX_SOURCE_REQUESTS,
+        "request_limit": request_limit,
         "model_calls_before_writer": 1,
         "codex_runtime_model_calls_before_writer": 0,
         "public_write_performed": False,
@@ -2934,7 +2937,7 @@ def run_v1_simple_gemini_newsroom(
         "selected_plan_entry": selected_plan_entry,
         "candidate_attempt_history": candidate_attempt_history,
         "source_request_count": request_count,
-        "source_request_limit": MAX_SOURCE_REQUESTS,
+        "source_request_limit": request_limit,
         "accepted_source_count": len(source_pack),
         "epistemic_state": dict(selected_epistemic_state or {}),
         "supported_material_claim_count": validation["supported_material_claim_count"],

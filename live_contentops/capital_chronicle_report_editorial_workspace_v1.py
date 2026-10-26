@@ -174,10 +174,7 @@ class _Stages:
                                        target_surface="CONTENTOPS_EDITORIAL_ONLY", work_item_id=self.work)
 
     def get(self, key: str) -> dict[str, Any] | None:
-        row = next(
-            (r for r in self.store.list_outbox_messages() if r["message_id"] == key),
-            None,
-        )
+        row = self.store.get_outbox_message(key)
         return json.loads(row["payload"]) if row else None
 
     def put(self, key: str, value: Mapping[str, Any], destination: str = STAGE) -> None:
@@ -525,6 +522,26 @@ def run_report_editorial_cycle(
         def evidence(request: Mapping[str, Any]) -> dict[str, Any]:
             stage = "source:" + str(request["cluster_id"])
             recovery = llm_invoke.source_recovery() if native else None
+            if recovery and recovery.get("pre_writer_source_recovery"):
+                # The exception has already spent its finite acquisitions. Resume
+                # only cached failures or its exact admitted source; never call GET.
+                from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+                def recovered():
+                    if request["cluster_id"] == recovery["candidate_id"]:
+                        research = RetainedSourceResearch.from_frozen_snapshot(recovery["research_snapshot"])
+                        value = research.evidence({**request, "headline_ids": recovery["supporting_headline_ids"]},
+                            cutoff_utc=recovery["admitted_at_utc"])
+                        if not value:
+                            raise ValueError("ADMITTED_RECOVERY_SOURCE_MISSING")
+                    else:
+                        old = stages.get("cc-step-" + sha256_of([stages.work, stage]))
+                        value = dict(old["result"]) if old else {"status": "BLOCKED", "evidence_documents": [],
+                            "blockers": ["manual_recovery_has_no_source_for_this_candidate"]}
+                    return {**value, "provenance": {**value.get("provenance", {}),
+                        "request_count_for_call": 0, "request_count_total": recovery["source_request_count"],
+                        "request_limit": recovery["source_request_limit"], "network_acquisition_on_resume": False,
+                        "recovery_request_sha256": recovery["request_sha256"]}}
+                return stages.call(stage + ":recovery:" + recovery["request_sha256"], request, recovered)
             if recovery:
                 request = {**request, "retained_supporting_headline_ids": recovery["supporting_headline_ids"]}
                 stage += ":recovery:" + recovery["request_sha256"]

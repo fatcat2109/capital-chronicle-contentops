@@ -522,9 +522,11 @@ class RetainedSourceResearch:
 
     def _verify_report_facts(self, spec, raw, policy, loader, doc):
         """Retain bounded attributed reporting without granting event truth or prose rights."""
+        from datetime import datetime
         url = urlsplit(doc["source_url"])
         paths = {"www.reuters.com": ("/business/", "/world/", "/markets/", "/legal/"),
-                 "finance.yahoo.com": ("/news/",), "www.kitco.com": ("/news/off-the-wire/",)}
+                 "finance.yahoo.com": ("/news/",), "www.kitco.com": ("/news/off-the-wire/",),
+                 "en.yna.co.kr": ("/view/AEN",)}
         if (url.scheme != "https" or url.hostname not in paths or url.username or url.password
                 or url.port not in (None, 443) or url.query or url.fragment
                 or not any(url.path.startswith(p) for p in paths.get(url.hostname, ()))):
@@ -537,13 +539,14 @@ class RetainedSourceResearch:
                 "copyright does not protect facts", "may protect the way these things are expressed")):
             raise ValueError("SOURCE_PERMISSION_TEXT_NOT_VERIFIED")
         capture = json.loads(raw)
+        publisher, identity = ("Yonhap News Agency", "en.yna.co.kr") if url.hostname == "en.yna.co.kr" else ("Reuters", "reuters.com")
         if (capture.get("status") != "PASS" or capture.get("url") != doc["source_url"]
                 or capture.get("retrieval_method") != "READ_ONLY_BROWSEROS_NEO_BOUNDED_EXTRACTS"
                 or capture.get("credential_or_session_material_read") is not False
                 or capture.get("public_write_performed") is not False
-                or capture.get("reporting_publisher") != "Reuters" or doc["publisher"] != "Reuters"
-                or doc.get("source_identity") != "reuters.com"
-                or "Reuters" not in capture.get("attribution_text", "")
+                or capture.get("reporting_publisher") != publisher or doc["publisher"] != publisher
+                or doc.get("source_identity") != identity
+                or ("Yonhap" if identity == "en.yna.co.kr" else publisher) not in capture.get("attribution_text", "")
                 or not re.fullmatch(r"[a-f0-9]{64}", capture.get("full_text_sha256", ""))
                 or spec.get("public_expression_reuse_allowed") is not False
                 or doc.get("source_authority_class") != "reputable_secondary_source"
@@ -556,6 +559,24 @@ class RetainedSourceResearch:
                        or e["end"]-e["start"] != len(e["text"]) for e in excerpts)):
             raise ValueError("PUBLIC_REPORT_EXTRACTS_INVALID")
         canonical = "\n\n".join(e["text"] for e in excerpts)
+        if identity == "en.yna.co.kr":
+            original = self._read(spec["original_capture_path"])
+            page = json.loads(original)
+            metadata = {m["name"]: m["content"] for m in page["meta"]}
+            if (not re.fullmatch(r"/view/AEN\d{17}", url.path)
+                    or _hash(original) != spec["original_capture_sha256"]
+                    or page["url"] != doc["source_url"]
+                    or metadata.get("og:site_name") != publisher
+                    or metadata.get("og:url") != doc["source_url"]
+                    or metadata.get("article:published_time") != doc.get("published_at_source")
+                    or datetime.fromisoformat(metadata["article:published_time"]) != datetime.fromisoformat(doc["published_at_utc"])
+                    or metadata.get("author") != capture.get("byline")
+                    or not capture.get("byline")
+                    or page["title"] != doc["title"]
+                    or _hash(page["text"].encode()) != capture["full_text_sha256"]
+                    or len(page["text"]) != capture["full_text_characters"]
+                    or any(page["text"][e["start"]:e["end"]] != e["text"] for e in excerpts)):
+                raise ValueError("PUBLIC_REPORT_ORIGINAL_IDENTITY_OR_SPANS_INVALID")
         capture_hash = _hash(raw)
         if (capture_hash != spec["source_capture_sha256"] or doc["raw_sha256"] != capture_hash
                 or doc["canonical_content_text"] != canonical):
@@ -580,7 +601,7 @@ class RetainedSourceResearch:
             "images_logos_exhibits_reuse_allowed": False, "government_authorship": False,
             "underlying_event_truth_granted": False}
         return {"headline_id": spec["headline_id"], "headline_text": proposition,
-            "text_sha256": permission["content_sha256"], "source_identity": "reuters.com", "source_account": "Reuters",
+            "text_sha256": permission["content_sha256"], "source_identity": identity, "source_account": publisher,
             "source_platform": "CONTENTOPS_ORIGINAL_REPUTABLE_REPORT_ACQUISITION", "source_url": doc["source_url"],
             "official_source_urls": [], "source_timestamp_utc": doc["published_at_utc"], "headline_timestamp": doc["published_at_utc"],
             "known_at_utc": known, "retrieval_time_utc": known, "revision_at_utc": revision,

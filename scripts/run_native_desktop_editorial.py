@@ -239,6 +239,11 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
                     "request_sha256": receipt["request_sha256"], "public_write_performed": False}
         return bind_editorial_media_plan(store, run_id=binding["run_id"], output_dir=binding["output_dir"], **response)
     if command == "recover-sources":
+        if response.get("expected_selection_request_sha256"):
+            # A one-shot manual recovery appends verified captures; it never rewrites
+            # selection, the frozen input, a started writer, or the production budget.
+            from live_contentops.native_desktop_editorial_v1 import admit_pre_writer_source_recovery
+            return admit_pre_writer_source_recovery(turn, binding, response)
         pending = turn.frozen_request("write")
         if (not pending or pending["request_sha256"] != response.get("expected_request_sha256")
                 or turn._get("write", "response") or (resolve_workspace_path(binding["output_dir"]) / "qualified_article_record_v1.json").exists()):
