@@ -583,6 +583,56 @@ def spawn_detached_daily_app(
     return process.pid
 
 
+def run_scheduled_daily_app() -> None:
+    """Run the existing CLI owner under Task Scheduler, with hidden-runtime logs."""
+    from contextlib import redirect_stderr, redirect_stdout
+    import traceback
+
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("--store-path", required=True)
+    parser.add_argument("--api-port", type=int, default=8765)
+    args, _ = parser.parse_known_args(sys.argv[1:])
+    store_path = Path(args.store_path)
+    logs = store_path.resolve().parent / "one_click_launcher"
+    logs.mkdir(parents=True, exist_ok=True)
+    stdout_log = logs / "daily_app.supervisor.stdout.log"
+    stderr_log = logs / "daily_app.supervisor.stderr.log"
+    with stdout_log.open("a", encoding="utf-8", buffering=1) as out, stderr_log.open(
+        "a", encoding="utf-8", buffering=1
+    ) as err, redirect_stdout(out), redirect_stderr(err):
+        print(f"Scheduled Daily App start {time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}")
+        try:
+            api_base = f"http://127.0.0.1:{args.api_port}"
+            inventory = collect_port_inventory(args.api_port)
+            if inventory.inventory_error:
+                raise LauncherError("SCHEDULED_RUNTIME_INVENTORY_UNAVAILABLE")
+            if inventory.listener_pids:
+                if probe_health(api_base) and all(
+                    is_canonical_daily_app_command_line(inventory.listener_command_lines.get(pid, ""), str(store_path))
+                    for pid in inventory.listener_pids
+                ):
+                    print("Existing canonical owner reused; scheduled invocation exits.")
+                    return
+                raise LauncherError("SCHEDULED_RUNTIME_PORT_OWNER_CONFLICT")
+            if logical_canonical_supervisor_count(inventory.supervisor_processes, str(store_path)) > 1:
+                raise LauncherError("SCHEDULED_RUNTIME_DUPLICATE_OWNER")
+            _write_runtime_identity(log_root=logs, source_sha=_current_source_sha(),
+                supervisor_pid=os.getpid(), store_path=store_path,
+                stdout_log=stdout_log, stderr_log=stderr_log)
+            from live_contentops.cli import main
+
+            code = main()
+            print(f"Scheduled Daily App exit code {code}")
+            if code:
+                raise SystemExit(code)
+        except BaseException as exc:
+            print(f"Scheduled owner failed: {type(exc).__name__}; errno={getattr(exc, 'errno', None)}; "
+                  f"winerror={getattr(exc, 'winerror', None)}", file=err)
+            for frame in traceback.extract_tb(exc.__traceback__):
+                print(f"  {Path(frame.filename).name}:{frame.lineno} in {frame.name}", file=err)
+            raise
+
+
 def wait_for_health(api_base: str, *, timeout_seconds: float = 90.0, poll_seconds: float = 1.0) -> bool:
     deadline = time.monotonic() + timeout_seconds
     while time.monotonic() < deadline:

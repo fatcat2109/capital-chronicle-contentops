@@ -17,21 +17,22 @@ Store: A:/Capital Chronicle/Runtime/ContentOps/contentops_daily_app_v1.sqlite3.
 Durable mode SHADOW_ONLY, version 37; rollout public_write_authority remains false.
 Exact operator fuse released LAST through its existing owner at 26 October 13:25:02 UTC.
 FDA-G/API8765 absent at 13:50–14:02 UTC; restored hidden at 14:03:55 through the same launcher.
-Current launch job has KILL_ON_JOB_CLOSE and ALLOW_BREAKAWAY; old launcher did not request breakaway.
-Reservation: existing launcher, intake/telemetry, focused owner tests and this checkpoint; no new scheduler.
+Codex's nested kill-on-close jobs outlive immediate commands but still kill detached children at turn transition.
+Breakaway-only restoration failed at that transition; existing disabled FDA-G task also retained a stale checkout path.
+Reservation: existing launcher/runtime installer, intake/telemetry, focused owner tests/checkpoint; no new scheduler.
 Fresh X restored through locked CDP9222 bootstrap; bounded captures added 550 then 46 identities.
 Prior 13:30 UTC readback admitted 573 current 24-hour rows; it is not a current-health claim.
 First 13:21 capture PermissionError preserved; Windows snapshot-reader/atomic-replace race independently reproduced.
 Same reader/writer lock fixes that boundary; original exception had no stack, so exact historical attribution is limited.
-Actual recurring capture at 14:03:57 added 61 headlines; zero provider calls; normal 14:18:57 follow-up retained.
-No unscheduled edition, new window or monitoring task; natural calendar execution remains unobserved.
+Actual 14:03:57 capture added 61 headlines; zero provider calls; normal backoff/history retained after owner exit.
+21:00 task created its exact native binding then stopped at FILTER_REQUIRED under stale paused root wording; no article.
 Immediate readback: public writes blocked, zero provider calls/unknown writes, unchanged dispatch counts.
 All 72 retained example destinations and fixed Main selection remain untouched; V2/V3 stay paused.
 [Actual application and private evidence](ACTIVATION.md); current lane/runtime docs supersede old prepared-only holds.
 Private evidence: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/applied-zero-write-activation-20261026/.
 Human grant verified: L2 turn 01a17840, user 01a17840-ea44-7522-b01e-d3f9d0951975.
 Strategic/role/native-return reads reused; no public destination, paid service, broker, CUA or user-app restart.
-Next: finish protected PR93 delivery, preserve operating WIP and verify the installed single owner/API; no future wait.
+Next: restore SAME hidden FDA-G Scheduled Task with current path/logged same-CLI entry; finish PR93 and installed proof.
 Scoped applied-state docs pushed/read back at 08b8cfae; executable release remains 9bda0d70.
 Predecessor notice was sent once; CURRENT recovery completion notice NOT_SENT.
 Current private evidence: reader-first-review/runtime-owner-recovery-20261026/ under the same local evidence root.
