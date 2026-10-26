@@ -124,9 +124,9 @@ function PackagePreview({ payload, assets = [], originals }: { payload: Record<s
   // payload is immutable and keeps its standalone credit, license and archive caveat.
   // Unknown/changed credits and missing images stay in the copy rather than being stripped.
   const figureCredits = new Set(attached.filter(a => a.preview_data_url && a.modality === 'documentary_photo'
-    && a.reader_caption && a.reader_credit && a.license_name && a.license_url?.startsWith('https://')
+    && a.reader_caption && (a.reader_credit ?? a.attribution) && a.license_url?.startsWith('https://')
     && a.source_page_url?.startsWith('https://')).map(a =>
-    `Photo: [${a.reader_credit}](${a.source_page_url}) · [${a.license_name}](${a.license_url}). ${a.reader_caption}`));
+    `Photo: [${a.reader_credit ?? a.attribution}](${a.source_page_url}) · [${a.license_name ?? 'Reuse terms'}](${a.license_url}). ${a.reader_caption}`));
   const readingText = (text: string) => text.split(/\n\s*\n/).filter(block => !figureCredits.has(block.trim())).join('\n\n');
   return <>
     {posts.length ? posts.map((p, index) => <div key={index} data-preview-post={index}>

@@ -169,6 +169,27 @@ describe('Main report editorial workspace', () => {
     if (condition === 'changed-credit') expect(screen.getByText(/further rights unresolved/)).toBeInTheDocument();
   });
 
+  it('matches the compiler default photo credit labels only when the complete exact block is rendered beside the image', () => {
+    const snapshot = ownerData();
+    const item = snapshot.native_edition![0];
+    const caption = 'Controlled archival launch, June 3, 2017. Archive photo: NASA/Controlled photographer.';
+    const credit = `Photo: [NASA/Controlled photographer](https://example.com/photo) · [Reuse terms](https://example.com/permission). ${caption}`;
+    item.media_assets = [{ asset_id: 'archive', path: 'archive.jpg', sha256: 'original-photo', modality: 'documentary_photo',
+      caption, reader_caption: caption, attribution: 'NASA/Controlled photographer', source_page_url: 'https://example.com/photo',
+      license_url: 'https://example.com/permission', preview_data_url: 'data:image/jpeg;base64,Y29udHJvbGxlZA==' }];
+    item.previews.find(p => p.destination === 'discord')!.payload = {
+      text: `Attributed report, unconfirmed.\n\n${credit}`, media_asset_ids: ['archive'] };
+    const before = JSON.stringify(snapshot);
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" />);
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: 'discord' } });
+    const article = screen.getByRole('article', { name: 'Selected article' });
+    expect(within(article).getAllByRole('link', { name: 'NASA/Controlled photographer' })).toHaveLength(1);
+    expect(within(article).getAllByRole('link', { name: 'Reuse terms' })).toHaveLength(1);
+    expect(article.textContent?.match(/Controlled archival launch/g)).toHaveLength(1);
+    expect(within(article).getByText('Attributed report, unconfirmed.')).toBeInTheDocument();
+    expect(JSON.stringify(snapshot)).toBe(before);
+  });
+
   it('uses a native modal for full-size media and returns keyboard focus on close', () => {
     const showModal = vi.fn(function (this: HTMLDialogElement) { this.setAttribute('open', ''); });
     Object.defineProperty(HTMLDialogElement.prototype, 'showModal', { configurable: true, value: showModal });
