@@ -1,34 +1,37 @@
-# V1 current IBM cash visual-clarity delivery
+# IBM chart reader layout refinement — 26 October 2026
 
-Goal: one bounded visual correction from Jim's later feedback; prior two-copy goal remains complete at9458dc0c.
-Owner: chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2:01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
-Sole execution root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
-One branch/integration writer: codex/v1-newsroom-release-convergence / this V1 Builder.
-[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92): OPEN/DRAFT; visual product da12fe31a6ae0895566f87f4c7d699e3238a8f0c pushed/read back.
-Human feedback verified through read_thread: L2 turn01a173ea-6a4e-7340-9033-fedb8d724383/message01a173ea-6c4d-7162-a325-44c582578043.
-Source: final section of A:/Capital Chronicle/research-audits/2026-10-25-contentops-ibm-chart-audit/IBM_CHART_AUDIT.md.
+Goal: CONTENTOPS_IBM_CHART_READER_LAYOUT_REFINEMENT_V1 — COMPLETE — implemented, verified, internally prepared and branch-delivered.
+Owner: V1 L3 chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2:01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
+Sole root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
+One execution branch/integration writer: codex/v1-newsroom-release-convergence / this V1 Builder.
+Source: L2 layout successor; L1 human dispatch turn01a17564-d1c5-72f0-ad36-b961ced00fcc and Argon follow-up memo.
+Prior signed-bar goal complete at345080ad; its productda12fe31 is retained in Git history.
+[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92): OPEN/DRAFT; product14224db9608ca163fcddb369211358727da51910 pushed/read back.
 
-Actual one native gpt-6.1-sol/MAX visual revision: /root/ibm_cash_visual_clarity; request253fb0078e0d30f11f97b169985cf8a7dfc38359434b319cd48f7826e9a02a8a.
-Chosen graphic:3 signed bars from a visible shared zero; positive right, negatives left; reported+606 in a separate numeric panel.
-Preserved+2638/-1900/-133, rounded sum605, reported606/$1million difference, eight reference levels and accounting definitions.
-Cash assetibm-dj-cash-improvement-r2 SHA2562069630a9003e815ed7b18dd338af66c19b2e78b6236cb1aba29cb46fe5663e6.
-All7 article/SEO objects, other15 chart images and56 channel payloads unchanged; corrected Tesla$1.53b/IBM caption retained.
-IBM body identityb39e88587862e50ced7333a61ad27c21546b45690b50a32c2c840799a28d7e13 unchanged.
-Only IBM review/preparation renewed through existing owners: native-article-review-103e2030a8624f23bfe6e5b3a75fd05e.
-IBM package revision65db0a9a2b3a0141a3883525c076eec887a4a1d249ea1442ff9552173888f30b.
-[Current reader](data-journalism/edition/index.html):7 KEEP/PREPARED articles/16 charts/56 packages/63 NOT_DISPATCHED.
-Final embedded reader equals portable workspace; source/Light/writer histories and prior chart bytes retained privately.
+One actual native gpt-6.1-sol/MAX revision: /root/ibm_reader_layout_max; request0ccd5808; saved return admitted once.
+Graphic:1760px versus3160px; no orphan arrows; three signed bars and separate hollow+606 result on the identical scale.
+Preserved+2638/−1900/−133,605 component sum/606 reported/$1 difference, exact period/units/Q3 source and accounting limits.
+All eight reported levels now use aligned2025/2026 semantic article columns; signed capex and removed Financing quantities retained.
+Only Discord/Instagram captions carry the complete fallback;1404/2000 and1394/2200 characters, no truncation.
+Seven article/SEO objects, other fifteen charts, all photo bytes and original source/Light/writer returns are unchanged.
+Tesla$1.53b SEO, original IBM factual caption, eight media subsets and the six unaffected IBM payloads remain.
+Image SHA256:928c7b51662662fd4c49f107da42ef29b51fe8addb3ff0c7b15daf0ee4ce7588.
+Only IBM review/preparation renewed: native-article-review-5a493f50c8c84c0faec5fe005ae193f4.
+Package revision:a26c183599402b7f9f77cdd4f462d22be237c82405fc54875fc92a39dd8be4b4.
+[Current reader](data-journalism/edition/index.html):7 KEEP/PREPARED articles,16 charts,56 packages,63 NOT_DISPATCHED states.
+Existing owner read model retains the table; embedded reader equals portable workspace; other six records/reviews unchanged.
 
-Verification:9 focused geometry/source/review checks PASS; changed-source Ruff/diff clean; unaffected tests reused.
-Actual changed chart/article pixels inspected at desktop/mobile; shared zero/ticks/signs/labels/result separation readable.
-Affected Discord/Instagram contracts checked at1440/390px; exact Q3-only sources and factual caption retained; no overflow.
-Private request/return/source/render/browser/current records: LocalAppData/CapitalChronicle/ContentOps/reader-first-review/ibm-cash-clarity-20261025/.
-[Same acceptance matrix](editorial-media/COMPLETION_AUDIT.md) records this single visual correction and its limits.
-Jim visual approval remains open; prior blanket acceptance is qualified by his later feedback.
+Verification:17 focused backend tests,21 UI tests, TypeScript build and changed-source Ruff pass; unaffected checks reused.
+Actual original/334px image, desktop/mobile article/table and affected local channel pixels inspected; no horizontal overflow.
+Both channel contracts checked at1440/390px; mobile Discord/Instagram and representative desktop Instagram pixels accepted.
+Glitched beyond-viewport/timed-out captures excluded; no destination-platform rendering or publication proof inferred.
+Private request/return/source/render/browser/owner records: LocalAppData/CapitalChronicle/ContentOps/reader-first-review/ibm-reader-layout-20261026/.
+[Existing acceptance matrix](editorial-media/COMPLETION_AUDIT.md) contains the actual revision, preserved scope, checks and limitations.
 
-Production/four schedules/publication/V2/V3 stay paused; no merge/deploy/platform write/spend/CUA or model migration.
-[Activation procedure](ACTIVATION.md) and missing Jim integration/deployment/four-window/publication decision unchanged.
-Existing dependent-base CI_NOT_RUN; no live operation/performance claim.
-Whole visual-correction completion notice SENT_ONCE to assigned L2; exact destination/isError=false returned.
-Human completion authority reverified via read_thread: L1 turn01a17171-3498-7471-8ec3-cdf4faa93051.
-Whole bounded correction delivered; L2/Jim visual readback remains separate. Stop; no polling, reply or acknowledgement chain.
+Jim final visual approval remains open; [integration/activation decision](ACTIVATION.md) is still separate.
+Production/four schedules/host prompts/publication/V2/V3 unchanged and paused; four PAUSED host files/fuse freshly verified.
+No new edition, source/writer campaign, merge/deploy/platform write/model migration/spend/CUA; dependent-base CI NOT_RUN.
+Completion messaging human authority reverified through read_thread: L1 turn01a17171-3498-7471-8ec3-cdf4faa93051.
+Remote source/PNG/reader Git blobs match product14224db9.
+Whole-goal completion notice: SENT_ONCE to assigned L2 at 2026-10-26T00:35:46+00:00.
+Successful transport only; L2 startup, review and Jim approval are not inferred. No follow-up polling.
