@@ -1,6 +1,6 @@
 # V1 applied zero-write activation — 26 October 2026
 
-Goal: CONTENTOPS_V1_APPLIED_ZERO_WRITE_ACTIVATION_V1 — applied; final remote closeout pending.
+Goal: CONTENTOPS_V1_APPLIED_ZERO_WRITE_ACTIVATION_V1 — COMPLETE; applied and immediately verified.
 Source root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
 Execution branch: codex/v1-newsroom-release-convergence; this chat is the sole V1 integrator.
 Operating root: A:/Capital Chronicle/ContentOps, pinned to merged 9bda0d70320517ce8dd8c676c5966b3fff0e167e.
@@ -17,7 +17,7 @@ Durable mode SHADOW_ONLY, version 37; rollout public_write_authority remains fal
 Exact operator fuse released LAST through its existing owner at 26 October 13:25:02 UTC.
 FDA-G started hidden through its existing launcher; source 9bda0d70, API8765 healthy; legacy scheduler Disabled.
 Fresh X restored through locked CDP9222 bootstrap; bounded captures added 550 then 46 identities.
-The first capture's 24-hour loader admitted 527 current rows; no full-X-universe claim.
+Final 13:30 UTC readback admits 573 current 24-hour rows; no full-X-universe claim.
 FDA-G's first recurring capture hit PermissionError; same-path check passed without reproducing it.
 Failure/backoff preserved, next retry 20:51 UTC+7; recurring intake reliability is not yet proven.
 Next eligible existing editorial window: TODAY 26 October 21:00 UTC+7, then 23:00/following 01:00.
@@ -29,4 +29,6 @@ Private evidence: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reade
 Human grant verified: L2 turn 01a17840, user 01a17840-ea44-7522-b01e-d3f9d0951975.
 Strategic/role/native-return reads reused; no public destination, paid service, broker, CUA or user-app restart.
 Next: natural tasks own per-run evidence; later public release requires its separate exact grant.
-This successor completion notice: NOT_SENT; one whole-goal notice to assigned L2 after remote verification.
+Scoped applied-state docs pushed/read back at 08b8cfae; executable release remains 9bda0d70.
+This successor completion notice: SENT once to assigned L2; successful transport, L2 startup NOT_VERIFIED.
+Native goal closed; no L1/peer/progress notice, monitoring schedule or future-window wait.
