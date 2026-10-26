@@ -7,13 +7,33 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const [input, output, ...options] = process.argv.slice(2);
 if (!input || !output) throw new Error('workspace JSON and HTML output paths required');
-const ownerReview = options.includes('--owner-review');
+const retainedNews = options.includes('--retained-news');
+const ownerReview = options.includes('--owner-review') || retainedNews;
 const contextIndex = options.indexOf('--context');
 const reviewContext = contextIndex < 0 ? { captured_at_utc: new Date().toISOString() }
   : JSON.parse(readFileSync(options[contextIndex + 1], 'utf8'));
 const ui = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const inputText = readFileSync(input, 'utf8');
-const inputData = JSON.parse(inputText);
+let inputText = readFileSync(input, 'utf8');
+let inputData = JSON.parse(inputText);
+if (retainedNews) {
+  if (inputData.consumer_view !== 'contentops.retained_news.private_preview.v1' || inputData.scope !== 'PRIVATE_PREVIEW_ONLY')
+    throw new Error('PRIVATE_RETAINED_NEWS_ARTIFACT_REQUIRED');
+  const articles = inputData.native_edition.filter(item => item.availability === 'AVAILABLE').map(item => ({
+    ...item, previews: [], publication: {...item.publication,
+      destinations: item.publication.destinations.map(destination => ({...destination, cached_readiness: 'NOT_SUPPLIED'}))},
+    media_assets: item.media_assets.map(asset => {
+      const {content_base64, preview_content_base64, ...metadata} = asset;
+      const encoded = content_base64 ?? preview_content_base64;
+      if (createHash('sha256').update(Buffer.from(encoded, 'base64')).digest('hex') !== (content_base64 ? asset.sha256 : asset.preview_sha256))
+        throw new Error('RETAINED_NEWS_MEDIA_CHANGED');
+      return {...metadata, preview_data_url: `data:${asset.preview_content_type ?? asset.content_type};base64,${encoded}`};
+    })
+  }));
+  inputData = {owner_edition: {...inputData.owner_edition, ready: articles.length,
+    held: 0, missing: inputData.native_edition.length - articles.length, held_candidates: [], preview_count: 0,
+    publication_authority: false}, native_edition: articles};
+  inputText = JSON.stringify(inputData);
+}
 if (ownerReview) {
   const edition = inputData.owner_edition;
   if (!edition?.operation_ids?.length) throw new Error('EXACT_OWNER_EDITION_REQUIRED');
@@ -30,6 +50,7 @@ if (ownerReview) {
   // Link the existing original bytes, keeping reduced preview objects unchanged.
   reviewContext.original_media_links = {};
   for (const article of articles) for (const asset of article.media_assets ?? []) {
+    if (retainedNews) continue; // Authored safe artifact embeds bytes; no host path exists.
     const original = resolve(asset.path);
     if (createHash('sha256').update(readFileSync(original)).digest('hex') !== asset.sha256)
       throw new Error('ORIGINAL_MEDIA_BYTES_CHANGED:' + asset.asset_id);

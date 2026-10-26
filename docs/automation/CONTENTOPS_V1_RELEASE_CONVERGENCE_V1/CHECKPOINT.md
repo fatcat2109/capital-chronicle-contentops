@@ -1,37 +1,36 @@
-# IBM chart reader layout refinement — 26 October 2026
+# Retained edition Main News read seam — 26 October 2026
 
-Goal: CONTENTOPS_IBM_CHART_READER_LAYOUT_REFINEMENT_V1 — COMPLETE — implemented, verified, internally prepared and branch-delivered.
-Owner: V1 L3 chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2:01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
-Sole root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
-One execution branch/integration writer: codex/v1-newsroom-release-convergence / this V1 Builder.
-Source: L2 layout successor; L1 human dispatch turn01a17564-d1c5-72f0-ad36-b961ced00fcc and Argon follow-up memo.
-Prior signed-bar goal complete at345080ad; its productda12fe31 is retained in Git history.
-[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92): OPEN/DRAFT; product14224db9608ca163fcddb369211358727da51910 pushed/read back.
+Goal:CONTENTOPS_RETAINED_EDITION_MAIN_NEWS_READ_SEAM_V1 — implemented and verified; Git delivery pending.
+Sole V1 writer:chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2:01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
+Sole root:A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; same branch:codex/v1-newsroom-release-convergence.
+[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92) remains OPEN/DRAFT; startup/fresh local-remotec3974fc8 match.
+Source:Tower9f126ae0 founder plan, ContentOps acceptance; L1 founder-turn01a175ce-6164-7bd2-9cd3-5bff856a10e4.
+No separate founder human-message ID was exposed or invented; prior human assignment/completion authority reused.
+Prior IBM layout goal remains COMPLETE at14224db9/checkpointc3974fc8; no writer/visual reopening.
 
-One actual native gpt-6.1-sol/MAX revision: /root/ibm_reader_layout_max; request0ccd5808; saved return admitted once.
-Graphic:1760px versus3160px; no orphan arrows; three signed bars and separate hollow+606 result on the identical scale.
-Preserved+2638/−1900/−133,605 component sum/606 reported/$1 difference, exact period/units/Q3 source and accounting limits.
-All eight reported levels now use aligned2025/2026 semantic article columns; signed capex and removed Financing quantities retained.
-Only Discord/Instagram captions carry the complete fallback;1404/2000 and1394/2200 characters, no truncation.
-Seven article/SEO objects, other fifteen charts, all photo bytes and original source/Light/writer returns are unchanged.
-Tesla$1.53b SEO, original IBM factual caption, eight media subsets and the six unaffected IBM payloads remain.
-Image SHA256:928c7b51662662fd4c49f107da42ef29b51fe8addb3ff0c7b15daf0ee4ce7588.
-Only IBM review/preparation renewed: native-article-review-5a493f50c8c84c0faec5fe005ae193f4.
-Package revision:a26c183599402b7f9f77cdd4f462d22be237c82405fc54875fc92a39dd8be4b4.
-[Current reader](data-journalism/edition/index.html):7 KEEP/PREPARED articles,16 charts,56 packages,63 NOT_DISPATCHED states.
-Existing owner read model retains the table; embedded reader equals portable workspace; other six records/reviews unchanged.
+Named gap fixed:the owner workspace included private source/host context and lacked an access-bound safe News selector.
+Existing report_workspace_projection supplies the exact selected edition, cutoff/retained clocks and epistemic fields.
+New thin retained_news_read_v1 adapter uses the Goal35 field paths and Main's existing trusted SessionAdapter.resolve convention.
+[Producer artifact and adoption contract](main-news/README.md); [actual representative reader](main-news/reader.html).
+Fixed artifact:main-news/selected-edition.json; selection derives from the existing portable owner-edition grouping.
+Command:python scripts/run_native_desktop_editorial.py news-read --article-id b39e88587862e50ced7333a61ad27c21546b45690b50a32c2c840799a28d7e13.
+Only supported identities select content; caller roots/paths/URLs/profile overrides are rejected. Article/image/table reads check permission.
+PRIVATE_PREVIEW_ONLY preserves admitted facts/rights, saved models, precise/unknown source clocks and PREPARED/NOT_DISPATCHED.
+Export time does not refresh dated work; pending canonical URLs are absent. No raw source/X/private/native/host/account context exported.
+IBM body5405characters, exact1120x1760cash PNG229919bytes, aligned2025/2026table,605/606/1rounding/source/accounting limits retained.
+All seven article/SEO identities, other fifteen charts, photos/source/Light/writer/current reviews/preparations unchanged;63NOT_DISPATCHED.
+Producer delivered; Main integration/consumption NOT_VERIFIED. No Main source/route/host, DB, Tower or coordinator/state edits.
 
-Verification:17 focused backend tests,21 UI tests, TypeScript build and changed-source Ruff pass; unaffected checks reused.
-Actual original/334px image, desktop/mobile article/table and affected local channel pixels inspected; no horizontal overflow.
-Both channel contracts checked at1440/390px; mobile Discord/Instagram and representative desktop Instagram pixels accepted.
-Glitched beyond-viewport/timed-out captures excluded; no destination-platform rendering or publication proof inferred.
-Private request/return/source/render/browser/owner records: LocalAppData/CapitalChronicle/ContentOps/reader-first-review/ibm-reader-layout-20261026/.
-[Existing acceptance matrix](editorial-media/COMPLETION_AUDIT.md) contains the actual revision, preserved scope, checks and limitations.
+Verification:34 focused News tests +27 existing owner workspace/export tests PASS; changed-source Ruff/Node syntax/diff checks pass.
+Actual IBM read/body/assets/dates/state and denied/missing controls, trusted selection/traversal and absence of read-side effects tested.
+Existing React reader actual desktop pixels inspected;390px table DOM has no horizontal overflow; no broad visual campaign.
+Private readback/demo/pixels:LocalAppData/CapitalChronicle/ContentOps/reader-first-review/retained-edition-main-news-20261026/.
+Touched source:live_contentops/{retained_news_read_v1.py,capital_chronicle_report_editorial_workspace_v1.py}.
+Touched CLI/renderer:scripts/run_native_desktop_editorial.py;ui/contentops_v5/scripts/render-report-workspace.mjs.
+Touched tests:tests/test_retained_news_read_v1.py;exact reservation recorded before edits in this checkpoint's Git history.
+Touched context:existing master plan/V1_CONTEXT and release START_HERE/ACTIVATION/main-news; no generated map rebuild.
 
-Jim final visual approval remains open; [integration/activation decision](ACTIVATION.md) is still separate.
-Production/four schedules/host prompts/publication/V2/V3 unchanged and paused; four PAUSED host files/fuse freshly verified.
-No new edition, source/writer campaign, merge/deploy/platform write/model migration/spend/CUA; dependent-base CI NOT_RUN.
-Completion messaging human authority reverified through read_thread: L1 turn01a17171-3498-7471-8ec3-cdf4faa93051.
-Remote source/PNG/reader Git blobs match product14224db9.
-Whole-goal completion notice: SENT_ONCE to assigned L2 at 2026-10-26T00:35:46+00:00.
-Successful transport only; L2 startup, review and Jim approval are not inferred. No follow-up polling.
+Jim visual verdict OPEN; production/four schedules/host prompts/fuse/publication/V2/V3 remain paused and unchanged.
+Later exact operating decision names accepted source,manual/scheduled mode,existing windows/time and any authorized destinations.
+No new edition/model/source/writer campaign,public platform write,merge/deploy/spend/model migration/CUA; dependent-base CI NOT_RUN.
+Whole-goal completion notice to assigned L2:NOT_SENT; send once only after actual source/artifact Git delivery and remote readback.

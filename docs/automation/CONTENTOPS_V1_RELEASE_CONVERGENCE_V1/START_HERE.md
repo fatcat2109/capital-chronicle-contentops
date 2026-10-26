@@ -11,3 +11,5 @@ Restricted third-party source text/captures and native returns containing intern
 For new work, use the existing ContentOps Codex chat: Prepare an article about... or Continue the existing... . Actual Light preparation and the same MAX editor/writer feed the existing source, media, review and publisher owners.
 
 [Current acceptance and limits](editorial-media/COMPLETION_AUDIT.md) · [Final activation procedure and missing Jim decision](ACTIVATION.md) · [Current checkpoint](CHECKPOINT.md). Production, all four schedules, publication and V2/V3 remain paused. This product delivery adds no runtime or platform-write authority.
+
+Main News private adoption: the existing owner projection now supplies a [fixed retained-edition artifact and trusted read selector](main-news/README.md), with a [representative reader](main-news/reader.html). It preserves source dates, PREPARED/NOT_DISPATCHED and current charts/tables. Producer delivery does not establish Main integration, new editorial work, approval or publication.

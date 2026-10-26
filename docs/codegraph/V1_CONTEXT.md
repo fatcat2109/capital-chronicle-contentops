@@ -194,3 +194,6 @@ The same React reader/export has an offline owner-review mode for the exact sele
 `scripts/run_native_desktop_editorial.py desk` reads the isolated owner and renders that
 mode; it creates no runtime, store, review or dispatch authority. The durable private entry
 is `docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/START_HERE.md`.
+
+
+`live_contentops/retained_news_read_v1.py` adds the bounded allowlisted private News view over that same owner projection. The existing operator CLI's `news-export` writes the fixed selected artifact; `news-read --article-id <identity>` inspects it without a store/model/source call. Main hosts inject their existing verified-session convention into `RetainedNewsReader`; no caller path/root selector or listener is added. Producer/adoption fields and exact usage are in `docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/main-news/README.md`. This map records source capability, not Main integration, deployment or publication.

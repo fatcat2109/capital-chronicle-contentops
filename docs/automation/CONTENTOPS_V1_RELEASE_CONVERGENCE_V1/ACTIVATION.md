@@ -1,10 +1,10 @@
 # Final activation procedure — prepared, not applied
 
-The delivery is seven internally reviewed/prepared articles,16 charts and56 channel packages on PR92. L2's remaining work is one material acceptance of those products, reusing valid unchanged checks and inspecting corrected IBM. No activation, merge, deployment or platform write is authorized by this delivery.
+The retained delivery is seven internally reviewed/prepared articles,16 charts and56 channel packages on PR92. The later IBM reader-layout refinement is delivered; Jim's final visual verdict remains OPEN. The independent private News read seam is producer-delivered for Main adoption, which remains NOT_VERIFIED. Neither delivery authorizes activation, merge, deployment or platform writes.
 
 ## The remaining Jim decision
 
-After L2 acceptance, Jim must name the exact accepted PR92 revision to integrate/deploy, the activation time, whether to enable the existing four windows for **zero-write editorial operation only**, and whether/which of the nine destinations receive a separate routine publication grant. A zero-write grant keeps `public_write_authority=false`; it cannot be interpreted as permission to save platform drafts, upload or post. An approval of these seven dated examples does not make them current news or authorize dispatch of their isolated manual bindings.
+Any later operating grant must name the exact accepted source/PR92 revision, intended integration/deployment if any, **manual zero-write versus scheduled mode**, and exact time/timezone. A scheduled grant must identify the existing four windows below; any authorized destination(s) require their own exact scope. A zero-write grant keeps `public_write_authority=false`; it cannot be interpreted as permission to save platform drafts, upload or post. An approval of these seven dated examples does not make them current news or authorize dispatch of their isolated manual bindings.
 
 ## Apply only that exact grant
 
@@ -43,3 +43,9 @@ These are exact existing host-local locators; public-repo copies are intentional
 The previous managed checkout disappeared; the cause is unknown. The same Git worktree was recovered at `A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence`. Existing original-photo/chart bytes, admitted canonical source text and accepted native outputs survived and are reused. Some original binary/raw capture files from that lost checkout are unavailable; their historical capture hashes are not presented as recovered bytes. Tesla/Southwest now reference the surviving curated photo-license receipts with unchanged original-image hashes. No third-party permission or replacement raw capture was fabricated.
 
 The ordinary manual entry remains `python scripts/run_native_desktop_editorial.py newsroom --operation-id <stable-id> --request-file <UTF-8 request>`. Codex handles actual native requests/returns and returns the existing reader. Resume the same operation/binding; the owner does not need to assemble JSON. The included offline edition remains usable independently of a running newsroom or database service.
+
+## Retained News read seam and the later exact decision
+
+The [fixed retained-edition read artifact/selector](main-news/README.md) is a private read-only producer delivery. It grants no runtime or publication transition and does not resolve Jim's open visual verdict. Main adoption is separately NOT_VERIFIED; ordinary reads execute neither newsroom nor exporter. The existing owner source, review, preparation and63NOT_DISPATCHED records remain intact.
+
+For any later operating transition, Jim's exact decision must identify the accepted source commit, **manual zero-write** versus **scheduled** mode, the intended time/timezone, and any separately authorized destination(s). A manual zero-write grant does not enable calendars or public sends. Scheduled work reuses only the four existing IDs/windows listed above:17:00/21:00/23:00/following01:00 Asia/Bangkok (UTC+7), with no fifth task. Host prompt readback, fuse release and actual calendar proof remain explicit activation work, not claims from this producer artifact. V2/V3 remain paused; V3 means authentic speaker/audio excerpts, not chart-explainer video.

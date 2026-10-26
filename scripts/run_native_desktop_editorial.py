@@ -347,11 +347,13 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("newsroom", "follow-up", "editorial-revision", "refresh", "desk", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "recover-sources", "relocate-workspace", "edition",
+    parser.add_argument("command", choices=("newsroom", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "recover-sources", "relocate-workspace", "edition",
         "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
         "audience-status", "audience-observe", "audience-tool-begin", "audience-tool-submit", "audience-evaluate", "audience-feedback", "audience-follow-up"))
     parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE)
     parser.add_argument("--operation-id")
+    parser.add_argument("--article-id", help="Exact retained News article identity; never a path")
+    parser.add_argument("--asset-id", help="Exact asset belonging to that retained News article")
     parser.add_argument("--request", help="Owner's ordinary-language editorial question; metadata only")
     parser.add_argument("--request-file", type=Path, help="UTF-8 ordinary-language request")
     parser.add_argument("--report-only", action="store_true", help="Explicit Main/research trigger: no new X intake or fabricated filter work")
@@ -367,6 +369,30 @@ def main(argv=None):
     parser.add_argument("--source-review-id", action="append", default=[])
     parser.add_argument("--workspace-root", type=Path, help="Explicit stable destination for authorized manual-workspace relocation")
     args = parser.parse_args(argv)
+    if args.command in {"news-export", "news-read"}:
+        # The shared operator CLI exposes many paths for other owner operations.
+        # None is accepted by this read seam, including its trusted profile override.
+        allowed = {"command", "article_id", "asset_id"}
+        defaults = parser.parse_args([args.command])
+        if any(getattr(args, key) != getattr(defaults, key) for key in vars(args) if key not in allowed):
+            parser.error("News uses its fixed configured edition; path/profile/operation overrides are unsupported")
+        from live_contentops.retained_news_read_v1 import export_selected_news, local_owner_read, ARTIFACT_PATH
+        if args.command == "news-export":
+            if args.article_id or args.asset_id:
+                parser.error("news-export uses the configured selected edition")
+            result = export_selected_news()
+            renderer = Path(__file__).resolve().parents[1] / "ui/contentops_v5/scripts/render-report-workspace.mjs"
+            subprocess.run(["node", str(renderer), str(ARTIFACT_PATH), str(ARTIFACT_PATH.parent / "reader.html"),
+                            "--retained-news"], check=True)
+        else:
+            if not args.article_id:
+                parser.error("news-read requires --article-id")
+            result = local_owner_read(args.article_id, asset_id=args.asset_id)
+            if isinstance(result.get("body"), bytes):
+                import base64
+                result["body"] = {"content_base64": base64.b64encode(result["body"]).decode("ascii")}
+        print(json.dumps(result, ensure_ascii=True))
+        return 0 if result.get("status", 200) == 200 else 2
     if args.command == "editorial-revision":
         if not args.response or not args.operation_id:
             parser.error("editorial-revision requires exact prior article/reason in --response and stable --operation-id")
