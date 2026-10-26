@@ -102,3 +102,47 @@ def test_desk_export_is_offline_read_only_and_preserves_the_existing_store(tmp_p
     assert not list(export.parent.glob("*.js"))  # no server, bundle or CDN dependency
     assert workspace_snapshot(store.db_path) == before
     assert json.loads(capsys.readouterr().out.strip().splitlines()[-1])["publication_authority"] is False
+
+
+@pytest.mark.parametrize("tampered", [False, True])
+def test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift(tmp_path, monkeypatch, tampered):
+    """Resume cannot re-admit moving source files or silently replace a changed snapshot."""
+    from scripts import run_native_desktop_editorial as operator
+    from live_contentops import native_newsroom_learning_v1 as learning
+    from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
+    from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired
+    run = "controlled-frozen-source-resume"
+    store = ContentOpsDurableStore(tmp_path / "manual.sqlite3")
+    work = "cc-opportunity-" + sha256_of(run)
+    store.create_work_item(story_id=work, work_item_id=work, title="Controlled", target_surface="CONTENTOPS_EDITORIAL_ONLY")
+    source = RetainedSourceResearch.__new__(RetainedSourceResearch)
+    source.root, source.revision, source.records, source.gaps = tmp_path / "old-source", "a" * 64, {}, []
+    frozen = source.frozen_snapshot()
+    if tampered:
+        frozen["revision"] = "b" * 64
+    store.register_outbox_message(message_id="native-current-input-" + sha256_of(run), work_item_id=work,
+        destination="internal:native-current-input", payload=canonical_bytes({"research": frozen}).decode(), status="EDITORIAL_INTERNAL")
+    pointer = tmp_path / "pointer.json"
+    pointer.write_text(json.dumps({"research_root": str(tmp_path / "changed-source")}))
+    binding = {"schema_version": operator.BINDING_SCHEMA, "run_id": run, "owner_manual_validation": True,
+        "store_path": str(store.db_path), "output_dir": str(tmp_path / "output"), "feed_pointer_path": str(pointer),
+        "published_memory_store": str(tmp_path / "absent-published.sqlite3"), "published_memory_output_root": str(tmp_path),
+        "cutoff_utc": "2026-10-26T03:59:47Z"}
+    monkeypatch.setattr(operator, "load_canonical_published_memory_read_only", lambda **_: ([], {}))
+    monkeypatch.setattr(learning, "freeze_learning", lambda *_a, **_k: None)
+    def forbidden_init(*_a, **_k):
+        pytest.fail("Manual frozen resume must not reread/re-admit the live source closure")
+    monkeypatch.setattr(RetainedSourceResearch, "__init__", forbidden_init)
+    class Feed:
+        def __init__(self, _tracker, _pointer, *, retained_research):
+            assert retained_research.frozen_snapshot() == source.frozen_snapshot()
+        def opportunity(self, **_kwargs):
+            raise DesktopInputRequired({"stage": "select", "request_path": "controlled-request", "request_sha256": "controlled"})
+    monkeypatch.setattr(operator, "MainReportFeed", Feed)
+    if tampered:
+        with pytest.raises(ValueError, match="FROZEN_RESEARCH_SNAPSHOT_CHANGED"):
+            operator.operation(binding)
+    else:
+        result = operator.operation(binding)
+        assert result["classification"] == "NATIVE_DESKTOP_INPUT_REQUIRED" and result["stage"] == "select"

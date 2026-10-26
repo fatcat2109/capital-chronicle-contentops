@@ -319,7 +319,13 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
         if binding.get("research_editions_root"):
             pointer["research_editions_root"] = binding["research_editions_root"]
         pointer["source_review_ids"] = binding.get("source_review_ids", [])
-        feed = MainReportFeed(LatestReportDeliveryTracker(store), pointer)
+        admitted_research = None
+        if binding.get("owner_manual_validation"):
+            frozen = store.get_outbox_message("native-current-input-" + sha256_of(binding["run_id"]))
+            if frozen and (research := json.loads(frozen["payload"]).get("research")):
+                from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+                admitted_research = RetainedSourceResearch.from_frozen_snapshot(research)
+        feed = MainReportFeed(LatestReportDeliveryTracker(store), pointer, retained_research=admitted_research)
         kwargs = {"output_dir": str(root), "cutoff_utc": binding["cutoff_utc"],
                   "run_id": binding["run_id"], "published_memory": memory, "llm_invoke": turn,
                   "attempted_candidate_ids": binding.get("attempted_candidate_ids", [])}
