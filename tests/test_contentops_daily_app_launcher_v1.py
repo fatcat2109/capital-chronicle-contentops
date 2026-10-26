@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-import inspect
 import json
 import os
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -452,6 +452,40 @@ def test_detached_spawn_survives_launcher_exit(tmp_path):
     assert marker.exists()
     flags = launcher.DETACHED_CREATION_FLAGS
     assert flags & launcher.CREATE_NO_WINDOW
+
+
+@pytest.mark.skipif(sys.platform != "win32", reason="Windows Job Object lifetime")
+def test_runtime_survives_launcher_kill_on_close_job(tmp_path):
+    marker = tmp_path / "survived.txt"
+    helper = tmp_path / "job_launcher.py"
+    helper.write_text(
+        "import ctypes, sys\n"
+        "from ctypes import wintypes\n"
+        "from pathlib import Path\n"
+        f"sys.path.insert(0, {str(Path(launcher.__file__).resolve().parents[1])!r})\n"
+        "from live_contentops.daily_app_launcher_v1 import spawn_detached_daily_app\n"
+        "k = ctypes.WinDLL('kernel32', use_last_error=True)\n"
+        "k.CreateJobObjectW.restype = wintypes.HANDLE\n"
+        "k.GetCurrentProcess.restype = wintypes.HANDLE\n"
+        "k.SetInformationJobObject.argtypes = [wintypes.HANDLE, ctypes.c_int, ctypes.c_void_p, wintypes.DWORD]\n"
+        "k.AssignProcessToJobObject.argtypes = [wintypes.HANDLE, wintypes.HANDLE]\n"
+        "job = k.CreateJobObjectW(None, None)\n"
+        "limits = ctypes.create_string_buffer(144)\n"
+        "ctypes.c_uint32.from_buffer(limits, 16).value = 0x2000 | 0x800\n"
+        "assert k.SetInformationJobObject(job, 9, limits, 144), ctypes.get_last_error()\n"
+        "assert k.AssignProcessToJobObject(job, k.GetCurrentProcess()), ctypes.get_last_error()\n"
+        f"root = Path({str(tmp_path)!r})\n"
+        f"child = \"import time;from pathlib import Path;time.sleep(0.3);Path({marker.as_posix()!r}).write_text('survived')\"\n"
+        "spawn_detached_daily_app([sys.executable, '-c', child], working_directory=root, "
+        "stdout_log=root/'out.log', stderr_log=root/'err.log')\n",
+        encoding="utf-8",
+    )
+    completed = subprocess.run([sys.executable, str(helper)], capture_output=True, text=True, timeout=10)
+    assert completed.returncode == 0, completed.stderr
+    deadline = time.monotonic() + 5
+    while not marker.exists() and time.monotonic() < deadline:
+        time.sleep(0.05)
+    assert marker.read_text() == "survived"
 
 
 def test_ui_bootstrap_is_local_only():

@@ -72,7 +72,10 @@ PROTECTED_STORE_MARKERS = ("pre_v8", "byte_exact", "migration-backups", "pre_sch
 
 CREATE_NO_WINDOW = 0x08000000
 CREATE_NEW_PROCESS_GROUP = 0x00000200
-DETACHED_CREATION_FLAGS = CREATE_NO_WINDOW | CREATE_NEW_PROCESS_GROUP
+CREATE_BREAKAWAY_FROM_JOB = 0x01000000
+# A hidden console/process group still inherits a launcher's kill-on-close Job Object.
+# The runtime must outlive that job when the supported host permits breakaway.
+DETACHED_CREATION_FLAGS = CREATE_NO_WINDOW | CREATE_NEW_PROCESS_GROUP | CREATE_BREAKAWAY_FROM_JOB
 
 POST_FORBIDDEN_PROOF = "this module performs only HTTP GET probes and detached process starts"
 
