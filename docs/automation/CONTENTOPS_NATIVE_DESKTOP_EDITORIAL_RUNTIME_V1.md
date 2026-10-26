@@ -7,9 +7,14 @@ and its SEO/voice package. This owner-approved target supersedes the previous So
 method and its HIGH ceiling. Builder model stays unchanged. No paid speed tier is selected.
 The original engineering slice had zero activation/deployment authority. Jim's26October scoped
 instruction authorized the applied scheduled zero-write transition: PR90/PR92 merged, source
-`9bda0d70` installed, four existing tasks ACTIVE, SHADOW_ONLY and publication authority false,
+`9bda0d70` installed, followed by runtime recovery PR93 at `cbfa1e8f`; four existing tasks ACTIVE, SHADOW_ONLY and publication authority false,
 with the operator fuse released last. See [actual application](CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md).
 This grants no public writes or V2/V3 work. Natural calendar/daily reliability remains unproven.
+The existing hidden FDA-G Windows task now owns the same CLI runtime independently of Codex turn lifetime;
+its two accepted triggers/principal remain unchanged. Snapshot and capture telemetry share their existing lock.
+Final26October14:33UTC readback proves one owner/API8765 and source `cbfa1e8f`, with zero new dispatches.
+The21:00calendar invocation stopped before native filtering under stale root pause wording; L2 must align that
+shared wording and preserve/resume the exact existing binding. See the recovery section in the application link.
 
 ## One supported opportunity
 
