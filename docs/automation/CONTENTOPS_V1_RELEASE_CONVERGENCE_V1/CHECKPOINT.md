@@ -1,6 +1,6 @@
 # V1 runtime owner recovery — 26 October 2026
 
-Goal: CONTENTOPS_V1_RUNTIME_OWNER_RECOVERY_V1 — DELIVERED; final notification/accounting pending.
+Goal: CONTENTOPS_V1_RUNTIME_OWNER_RECOVERY_V1 — COMPLETE; scoped recovery delivered and applied.
 The earlier immediate activation readback was superseded by an actual owner exit; failure evidence remains.
 Source root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
 Execution branch: codex/v1-newsroom-release-convergence; sole V1 integrator; recovery PR93.
@@ -33,6 +33,6 @@ Human grant verified: L2 turn 01a17840, user 01a17840-ea44-7522-b01e-d3f9d095197
 Strategic/role/native-return reads reused; no public destination, paid service, broker, CUA or user-app restart.
 Next L2 action: align shared root pause wording with Jim's applied grant; preserve/resume the same21:00pending binding.
 Exact binding/evidence and acceptance limits are in ACTIVATION.md; no new owner approval is requested.
-Predecessor notice was sent once; CURRENT recovery completion notice NOT_SENT.
+Recovery completion notice SENT once to assigned L2; successful transport, L2 startup/result NOT_VERIFIED.
 Future uptime, daily5–8published output, public-live/reader/SEO reliability remain unproven; recovery does not claim them.
 No L1/peer/progress notice, monitoring schedule, unscheduled edition or future-window wait.
