@@ -249,12 +249,18 @@ def browser_interaction_summary(
     rows: list[dict[str, Any]] = []
     if telemetry_root is not None:
         try:
-            loaded = json.loads((telemetry_root / "current_state.json").read_text(encoding="utf-8"))
+            # Windows readers hold a handle that denies os.replace. Share the writer's
+            # lock so a snapshot GET cannot abort a capture's telemetry transition.
+            with _telemetry_lock:
+                raw_state = (telemetry_root / "current_state.json").read_text(encoding="utf-8")
+            loaded = json.loads(raw_state)
             state = dict(loaded) if isinstance(loaded, Mapping) else {}
         except (OSError, ValueError, TypeError):
             state = {}
         try:
-            for line in (telemetry_root / "events.jsonl").read_text(encoding="utf-8").splitlines():
+            with _telemetry_lock:
+                raw_events = (telemetry_root / "events.jsonl").read_text(encoding="utf-8")
+            for line in raw_events.splitlines():
                 value = json.loads(line)
                 stamp = datetime.fromisoformat(str(value.get("occurred_at_utc") or "").replace("Z", "+00:00"))
                 stamp = stamp.replace(tzinfo=stamp.tzinfo or timezone.utc).astimezone(timezone.utc)

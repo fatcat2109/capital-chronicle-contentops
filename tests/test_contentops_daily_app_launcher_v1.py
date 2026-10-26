@@ -5,6 +5,7 @@ import os
 import subprocess
 import sys
 import time
+import venv
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -455,9 +456,14 @@ def test_detached_spawn_survives_launcher_exit(tmp_path):
 
 
 @pytest.mark.skipif(sys.platform != "win32", reason="Windows Job Object lifetime")
-def test_runtime_survives_launcher_kill_on_close_job(tmp_path):
+@pytest.mark.parametrize("venv_child", [False, True])
+def test_runtime_survives_launcher_kill_on_close_job(tmp_path, venv_child):
     marker = tmp_path / "survived.txt"
     helper = tmp_path / "job_launcher.py"
+    child_executable = Path(sys.executable)
+    if venv_child:
+        venv.EnvBuilder(with_pip=False).create(tmp_path / "venv")
+        child_executable = tmp_path / "venv" / "Scripts" / "pythonw.exe"
     helper.write_text(
         "import ctypes, sys\n"
         "from ctypes import wintypes\n"
@@ -476,7 +482,7 @@ def test_runtime_survives_launcher_kill_on_close_job(tmp_path):
         "assert k.AssignProcessToJobObject(job, k.GetCurrentProcess()), ctypes.get_last_error()\n"
         f"root = Path({str(tmp_path)!r})\n"
         f"child = \"import time;from pathlib import Path;time.sleep(0.3);Path({marker.as_posix()!r}).write_text('survived')\"\n"
-        "spawn_detached_daily_app([sys.executable, '-c', child], working_directory=root, "
+        f"spawn_detached_daily_app([{str(child_executable)!r}, '-c', child], working_directory=root, "
         "stdout_log=root/'out.log', stderr_log=root/'err.log')\n",
         encoding="utf-8",
     )
