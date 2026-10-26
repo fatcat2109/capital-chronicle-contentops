@@ -1778,7 +1778,8 @@ def _reader_safe_native_article(
         publisher = str((epistemic_state or {}).get("primary_reporting_publisher") or "").strip()
         bound = next((s for s in sources.values() if s.get("publisher", "").casefold() == publisher.casefold()), None)
         names = {("federal reserve bank of new york", "www.newyorkfed.org"): "New York Fed",
-            ("u.s. energy information administration", "www.eia.gov"): "EIA"}
+            ("u.s. energy information administration", "www.eia.gov"): "EIA",
+            ("yonhap news agency", "en.yna.co.kr"): "Yonhap"}
         short_name = names.get((publisher.casefold(), urlsplit(bound["url"]).hostname)) if bound else None
         if short_name:
             result["native_source_attribution"] = {"publisher": publisher, "display_name": short_name,

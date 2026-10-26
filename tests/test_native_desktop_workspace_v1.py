@@ -105,13 +105,14 @@ def test_desk_export_is_offline_read_only_and_preserves_the_existing_store(tmp_p
 
 
 @pytest.mark.parametrize("tampered", [False, True])
-def test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift(tmp_path, monkeypatch, tampered):
+@pytest.mark.parametrize("compiler_failure", [False, True])
+def test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift(tmp_path, monkeypatch, tampered, compiler_failure):
     """Resume cannot re-admit moving source files or silently replace a changed snapshot."""
     from scripts import run_native_desktop_editorial as operator
     from live_contentops import native_newsroom_learning_v1 as learning
     from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
-    from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired
+    from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired, NativeDesktopTurn
     run = "controlled-frozen-source-resume"
     store = ContentOpsDurableStore(tmp_path / "manual.sqlite3")
     work = "cc-opportunity-" + sha256_of(run)
@@ -129,6 +130,15 @@ def test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift(tmp_pat
         "store_path": str(store.db_path), "output_dir": str(tmp_path / "output"), "feed_pointer_path": str(pointer),
         "published_memory_store": str(tmp_path / "absent-published.sqlite3"), "published_memory_output_root": str(tmp_path),
         "cutoff_utc": "2026-10-26T03:59:47Z"}
+    output = tmp_path / "output"
+    if compiler_failure:
+        output.mkdir()
+        failure = {"qualified_article_count": 0, "exact_next_blocker": "NATIVE_DERIVATIVE_COMPILATION_BLOCKED"}
+        (output / "simple_gemini_newsroom_receipt_v1.json").write_text(json.dumps(failure))
+        (output / "qualified_article_record_v1.json").write_text('{"unchanged": true}')
+        (output / "simple_gemini_evidence_v1.json").write_text('{"unchanged": true}')
+        turn = NativeDesktopTurn(store, run_id=run, output_dir=output, owner_manual_validation=True)
+        turn._put("write", "response", {"output": {"article": "unchanged writer"}})
     monkeypatch.setattr(operator, "load_canonical_published_memory_read_only", lambda **_: ([], {}))
     monkeypatch.setattr(learning, "freeze_learning", lambda *_a, **_k: None)
     def forbidden_init(*_a, **_k):
@@ -146,6 +156,12 @@ def test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift(tmp_pat
     else:
         result = operator.operation(binding)
         assert result["classification"] == "NATIVE_DESKTOP_INPUT_REQUIRED" and result["stage"] == "select"
+    if compiler_failure:
+        history = list((output / "blocked-attempts").rglob("simple_gemini_newsroom_receipt_v1.json"))
+        assert len(history) == 1 and json.loads(history[0].read_bytes()) == failure
+        assert (output / "qualified_article_record_v1.json").read_text() == '{"unchanged": true}'
+        assert (output / "simple_gemini_evidence_v1.json").read_text() == '{"unchanged": true}'
+        assert turn._get("write", "response")["output"]["article"] == "unchanged writer"
 
 
 @pytest.mark.parametrize("failure", [None, "production", "changed_selection", "future_source", "changed_capture"])

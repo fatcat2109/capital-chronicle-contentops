@@ -531,6 +531,7 @@ def test_reader_photo_caption_retains_archive_date_and_original_evidence():
 @pytest.mark.parametrize("publisher,source_url,short_name", [
     ("Federal Reserve Bank of New York", "https://www.newyorkfed.org/markets/reference-rates/effr", "New York Fed"),
     ("U.S. Energy Information Administration", "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx", "EIA"),
+    ("Yonhap News Agency", "https://en.yna.co.kr/view/AEN20261026001800320", "Yonhap"),
 ])
 def test_native_packages_keep_bound_short_publisher_attribution_without_machine_labels(publisher, source_url, short_name):
     from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle
@@ -573,6 +574,12 @@ def test_native_packages_keep_bound_short_publisher_attribution_without_machine_
     unbound = {**article, "public_source_bindings": []}
     with pytest.raises(SimpleGeminiNewsroomError, match="epistemic_state_missing"):
         _native_preview_bundle(article=unbound, article_mode="DATA_OR_DOCUMENT_LENS",
+            article_identity="controlled-not-dispatched", epistemic_state=state,
+            media_asset_ids=["controlled-distinct-0", "controlled-distinct-1"])
+    wrong_host = {**article, "public_source_bindings": [{**article["public_source_bindings"][0],
+        "url": "https://example.org/unrelated-report"}]}
+    with pytest.raises(SimpleGeminiNewsroomError, match="epistemic_state_missing"):
+        _native_preview_bundle(article=wrong_host, article_mode="DATA_OR_DOCUMENT_LENS",
             article_identity="controlled-not-dispatched", epistemic_state=state,
             media_asset_ids=["controlled-distinct-0", "controlled-distinct-1"])
     inflated = {**article, "social_policy_summary": "Confirmed funding stress has arrived."}

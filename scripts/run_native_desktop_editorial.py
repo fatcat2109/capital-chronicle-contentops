@@ -278,20 +278,26 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
                 "editorial_execution": turn.telemetry(), "publication_handoff_state": "EXISTING_REVIEW_NO_DISPATCH",
                 "public_write_performed": False}
     # Retain failed deterministic attempts while resuming the same frozen selection.
-    # Qualified output and started/returned writers are never replaced by this path.
+    # Source/model outputs are never replaced. A failed compiler receipt can be
+    # archived even if compilation reached the qualified file before its final receipt.
     root = resolve_workspace_path(binding["output_dir"])
     receipt_path = root / "simple_gemini_newsroom_receipt_v1.json"
-    if receipt_path.is_file() and not (root / "qualified_article_record_v1.json").exists():
+    if receipt_path.is_file():
         failed = json.loads(receipt_path.read_bytes())
+        source_blocked = (not (root / "qualified_article_record_v1.json").exists()
+            and failed.get("exact_next_blocker") == "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED"
+            and turn._get("write", "response") is None)
+        compiler_blocked = (failed.get("exact_next_blocker") == "NATIVE_DERIVATIVE_COMPILATION_BLOCKED"
+            and turn._get("write", "response") is not None)
         if (failed.get("qualified_article_count") == 0
-                and failed.get("exact_next_blocker") == "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED"
-                and turn._get("write", "response") is None):
+                and (source_blocked or compiler_blocked)):
             history = root / "blocked-attempts" / sha256_of(failed)
             history.mkdir(parents=True, exist_ok=True)
             if (history / "simple_gemini_newsroom_receipt_v1.json").exists():
                 history = history / ("resume-" + uuid4().hex)
                 history.mkdir()
-            for name in ("simple_gemini_evidence_v1.json", "simple_gemini_newsroom_receipt_v1.json"):
+            for name in (("simple_gemini_newsroom_receipt_v1.json",) if compiler_blocked else
+                    ("simple_gemini_evidence_v1.json", "simple_gemini_newsroom_receipt_v1.json")):
                 source = root / name
                 if source.is_file():
                     target = history / name
