@@ -164,10 +164,12 @@ def scheduled_binding(rollout, automation_id, *, now=None, continue_after=None):
         raise ValueError("EXACT_COMPLETED_NATIVE_SLOT_REQUIRED")
     if len(due) != 1 or (continue_after and due[0]["opportunity_id"] != checkpoint["window"]["opportunity_id"]):
         upcoming = owner_locked_editorial_opportunities(build_bootstrap_editorial_window_policy(),
-            reference_utc=now, through_utc=now + timedelta(days=8), capacity=40)
+            reference_utc=now, through_utc=now + timedelta(days=8))
+        next_window = next((r for r in upcoming if r["session"] == session
+            and datetime.fromisoformat(r["start_utc"].replace("Z", "+00:00")) > now), None)
         return {"classification": "OUTSIDE_EXACT_NATIVE_WINDOW", "actual_entry_utc": now.isoformat(),
-            "next_calendar_opportunity": next((r for r in upcoming if r["session"] == session
-                and datetime.fromisoformat(r["start_utc"].replace("Z", "+00:00")) > now), None),
+            "next_calendar_opportunity": ({k: next_window[k] for k in
+                ("opportunity_id", "session", "start_utc", "end_utc")} if next_window else None),
             "public_write_performed": False}
     window = due[0]
     start = datetime.fromisoformat(window["start_utc"].replace("Z", "+00:00"))
