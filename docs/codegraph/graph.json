@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14971,
+    "edges": 14979,
     "entrypoints": 20,
-    "nodes": 7852,
+    "nodes": 7853,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,7 +25,7 @@
       "instructions": 9,
       "manifest": 21,
       "python_class": 638,
-      "python_function": 4282,
+      "python_function": 4283,
       "python_method": 314,
       "python_module": 825,
       "schema": 256,
@@ -10144,6 +10144,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::run_launcher"
+    },
+    {
+      "from": "live_contentops/daily_app_launcher_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::run_scheduled_daily_app"
     },
     {
       "from": "live_contentops/daily_app_launcher_v1.py",
@@ -50724,6 +50730,48 @@
       "to": "python_symbol:live_contentops/ingestion_bootstrap_v1.py::passive_canonical_ingestion_readiness"
     },
     {
+      "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::run_scheduled_daily_app",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::LauncherError"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::run_scheduled_daily_app",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::_current_source_sha"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::run_scheduled_daily_app",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::_write_runtime_identity"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::run_scheduled_daily_app",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::collect_port_inventory"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::run_scheduled_daily_app",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::is_canonical_daily_app_command_line"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::run_scheduled_daily_app",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::logical_canonical_supervisor_count"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::run_scheduled_daily_app",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::probe_health"
+    },
+    {
       "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::summarize_browser_state",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -90001,7 +90049,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-26T14:11:36Z",
+  "generation_timestamp_utc": "2026-10-26T14:27:16Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -91381,7 +91429,7 @@
     {
       "id": "live_contentops/daily_app_launcher_v1.py",
       "kind": "python_module",
-      "size_bytes": 48663
+      "size_bytes": 51355
     },
     {
       "id": "live_contentops/daily_app_performance_v1.py",
@@ -101965,14 +102013,14 @@
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_append_launcher_log",
       "kind": "python_function",
-      "line": 984,
+      "line": 1034,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_append_launcher_log"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_current_source_sha",
       "kind": "python_function",
-      "line": 972,
+      "line": 1022,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_current_source_sha"
     },
@@ -102007,14 +102055,14 @@
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_redaction_guard",
       "kind": "python_function",
-      "line": 962,
+      "line": 1012,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_redaction_guard"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_stop_pid",
       "kind": "python_function",
-      "line": 1141,
+      "line": 1191,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_stop_pid"
     },
@@ -102035,7 +102083,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_url_ok",
       "kind": "python_function",
-      "line": 877,
+      "line": 927,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_url_ok"
     },
@@ -102049,7 +102097,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_write_runtime_identity",
       "kind": "python_function",
-      "line": 991,
+      "line": 1041,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_write_runtime_identity"
     },
@@ -102063,14 +102111,14 @@
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::build_credential_inventory",
       "kind": "python_function",
-      "line": 595,
+      "line": 645,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "build_credential_inventory"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::build_credential_inventory.presence",
       "kind": "python_method",
-      "line": 598,
+      "line": 648,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "build_credential_inventory.presence"
     },
@@ -102112,7 +102160,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::ensure_ui",
       "kind": "python_function",
-      "line": 712,
+      "line": 762,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "ensure_ui"
     },
@@ -102133,7 +102181,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::open_operator_dashboard",
       "kind": "python_function",
-      "line": 810,
+      "line": 860,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "open_operator_dashboard"
     },
@@ -102161,23 +102209,30 @@
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::render_credential_inventory",
       "kind": "python_function",
-      "line": 630,
+      "line": 680,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "render_credential_inventory"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::render_summary",
       "kind": "python_function",
-      "line": 885,
+      "line": 935,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "render_summary"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::run_launcher",
       "kind": "python_function",
-      "line": 1012,
+      "line": 1062,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "run_launcher"
+    },
+    {
+      "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::run_scheduled_daily_app",
+      "kind": "python_function",
+      "line": 586,
+      "path": "live_contentops/daily_app_launcher_v1.py",
+      "symbol": "run_scheduled_daily_app"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::spawn_detached_daily_app",
@@ -102196,14 +102251,14 @@
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::summarize_browser_state",
       "kind": "python_function",
-      "line": 637,
+      "line": 687,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "summarize_browser_state"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::wait_for_health",
       "kind": "python_function",
-      "line": 586,
+      "line": 636,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "wait_for_health"
     },
@@ -132114,7 +132169,7 @@
     {
       "id": "scripts/Install-ContentOpsV1DailyAppRuntime.ps1",
       "kind": "manifest",
-      "size_bytes": 2729
+      "size_bytes": 3550
     },
     {
       "id": "scripts/Install-ContentOpsV1HourlyAudit.ps1",
@@ -133154,7 +133209,7 @@
     {
       "id": "tests/test_contentops_daily_app_launcher_v1.py",
       "kind": "test",
-      "size_bytes": 27831
+      "size_bytes": 30617
     },
     {
       "id": "tests/test_contentops_editorial_desk_v1.py",
@@ -140866,6 +140921,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "48453e138f53fddc7c9d3f3247c98a9b7e682b0c",
-  "source_tree_digest": "03b1f20270a7b349b2164143ee18e8bb272eec1b2ea949572eb07ada4f0d826c"
+  "source_head": "7418ccbe0f83bf59e87a44becef212d2bbb0930f",
+  "source_tree_digest": "5777aae25d5c867bc000ad92447002b225314420a844ca219122b775b2c0aaf1"
 }
