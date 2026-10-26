@@ -1,5 +1,13 @@
 # Capital Chronicle ContentOps — Current Stale Docs Manifest V1
 
+## Current V1 execution override — 26 October 2026
+
+Jim's direct instruction in L2 turn `01a17840-e9da-77d2-8f09-76b1319c6be4`, human message `01a17840-ea44-7522-b01e-d3f9d0951975`, authorized applying the next steps without another owner review. [Actual application and recovery](CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md) record the merged release and operating evidence.
+V1 scheduled editorial work is authorized and ACTIVE in **SHADOW_ONLY**, with `public_write_authority=false`; the existing runtime and four task calendars must not be stopped merely because older sections describe the pre-activation pause.
+Continue a pending scheduled operation through its existing native roles and frozen binding. Preserve its cutoff, source/request identity, ordinary budgets and recovery policy; no duplicate edition or fifth task.
+Older paused/not-deployed and missing-activation-grant statements below describe superseded epochs for this exact V1 zero-write scope. They do not override the applied grant or require Jim to approve it again.
+Public drafts/uploads/posts and V2/V3 remain paused. Full editorial/source/rights standards and North Stars remain in force; activation is not proof of daily output or public-live reliability.
+
 Authority date: 2026-10-20
 Status: `CURRENT_STALE_AUTHORITY_MANIFEST`
 
@@ -80,12 +88,14 @@ scheduler/start paths are non-routing in target source. Bulk X CDP ingestion rem
 Neo is the browser path for research and prepared browser-only destination handoffs. Existing
 Telegram/Discord/Meta/Threads/LinkedIn API transports remain channel-specific.
 
-Current engineering/deployed state: **PAUSED_NOT_DEPLOYED**. Host schedules, production pause,
-store and deployed bytes were not changed by this migration. Native manual proof is isolated.
-No current configuration grants activation or public writes. Historical Simple and old Desktop
-proofs establish only their exact epochs; do not rebuild their accepted deterministic components.
-See `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md` for the supported operation,
-exact paused rollout, truthful telemetry, bound native Neo request/return/readback loop and separate activation boundary.
+Current engineering/deployed state: **DEPLOYED_SCHEDULED_ZERO_WRITE**, applied 26 October 2026.
+The four existing host tasks are ACTIVE with the native editorial roles; the original production
+store is SHADOW_ONLY/version37 and rollout public_write_authority=false. The operator fuse is released.
+PR90/PR92/PR93 are merged; the existing Task Scheduler-owned FDA-G runtime uses release cbfa1e8f.
+These are dated application facts, not permanent liveness or daily-output proof. Resume an existing
+scheduled binding and its frozen requests after interruption; do not recreate its operation or cutoff.
+Public drafts/uploads/posts and V2/V3 remain paused. See the current execution override above and
+`docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md` for the existing mechanics.
 
 
 ## 5. Historical/non-routing families
@@ -159,6 +169,6 @@ Use the existing native flow: story/evidence/data/visual plan -> bounded Neo/sou
 
 An explicitly requested editorial refinement of unchanged retained facts uses the existing source/history owner with EDITORIAL_REVISION, exact prior article/source hashes and no new factual-evidence claim. It does not constitute fresh news or proof of daily throughput. New preparation and public sends must meet the current standard; an old UNKNOWN_WRITE still requires exact readback/reconciliation without retry. Source/copy/media changes invalidate the corresponding prepared review. Actual rendered desktop/mobile canonical and derivative inspection remains required.
 
-V1 is the sole active product priority. V2 and V3 work remain owner-paused until final V1 actually operates live daily; no video/speech dependency or work is authorized by this standard. Runtime, four Automations and publication stay paused; adoption grants no deployment, merge, activation, platform draft/upload/post, spend or new store/scheduler/publisher authority. Historical acceptance and native daily-live proof remain distinct.
+V1 is the sole active product priority. V2 and V3 work remain owner-paused until final V1 actually operates live daily; no video/speech dependency or work is authorized by this standard. V1 runtime and the four existing Automations are applied ACTIVE in scheduled zero-write mode under the 26 October override; public publication stays blocked. The media standard grants no additional platform draft/upload/post, spending, video resumption or new store/scheduler/publisher authority. Historical acceptance and native daily-live proof remain distinct.
 
 Native Sol6.1 Light prepares exact evidence/data and visual proposals; the same actual native gpt-6.1-sol/MAX writer decides data, chart types/count/placement and any justified exception, then authors/refines the article. Code owns acquisition/computation/rendering/state. No canned menu, copied proprietary chart, fabricated history/expectations or later information passed off as known earlier. Primary company/SEC/central-bank/statistical/energy sources govern data; Reuters remains attributed news, syndication one origin. Internal claim/span/rights/version records stay exact while public copy uses natural key attribution and compact distinct Sources/Notes, not identical links after every paragraph. Reader/public payloads contain no KEEP/PREPARED/IDs/workflow/revision bureaucracy or ritual source notices; one discreet private-preview notice stays outside the article. Natural accessible zoom and compact lawful photo credit replace repeated instructions. Derivatives use editorially chosen chart subsets. New source/copy/media/preview changes require traceable revision and fresh exact review; no store/publisher/scheduler or production authority is added.
