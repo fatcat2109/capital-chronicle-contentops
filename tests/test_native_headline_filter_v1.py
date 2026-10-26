@@ -70,6 +70,36 @@ def test_role_model_effort_fail_closed(tmp_path):
         _answer(turn, pending.value.request, model="gpt-6.1-sol")
 
 
+def test_pending_scheduled_filter_resumes_canonical_pool_without_replacing_request(tmp_path, monkeypatch):
+    from live_contentops import llm_operator_control_v1 as control
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes
+    monkeypatch.setattr(control, "assert_llm_operator_execution_enabled", lambda: None)
+    turn = _turn(tmp_path, "scheduled-pending")
+    turn.owner_manual_validation = False
+    rows = _rows(3)
+    with pytest.raises(DesktopInputRequired) as first:
+        turn.filter_headlines(rows)
+    request = first.value.request
+    original_bytes = (tmp_path / ("desktop_request_" + request["stage"] + ".json")).read_bytes()
+    # The actual scheduled pool round-trip changes insertion order, not values.
+    restarted_rows = json.loads(canonical_bytes(rows))
+    with pytest.raises(DesktopInputRequired) as resumed:
+        turn.filter_headlines(restarted_rows)
+    assert resumed.value.request == request
+    assert (tmp_path / ("desktop_request_" + request["stage"] + ".json")).read_bytes() == original_bytes
+    _answer(turn, request)
+    _, receipt = turn.filter_headlines(restarted_rows)
+    assert receipt["seen"] == 3 and receipt["remaining_unprocessed"] == 0
+    # A corrupted saved prompt still fails against its immutable request hash.
+    key = turn._key(request["stage"], "request")
+    changed = turn.frozen_request(request["stage"])
+    changed["prompt"] += " changed"
+    with turn.store.get_connection() as connection:
+        connection.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?", (canonical_bytes(changed).decode(), key))
+    with pytest.raises(ValueError, match="IMMUTABLE_RETURN_CONFLICT"):
+        turn.filter_headlines(restarted_rows)
+
+
 def test_accepted_batch_recovers_interruption_before_decision_materialization(tmp_path, monkeypatch):
     turn = _turn(tmp_path)
     with pytest.raises(DesktopInputRequired) as pending:

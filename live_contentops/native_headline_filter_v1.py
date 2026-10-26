@@ -123,6 +123,12 @@ def filter_native_headlines(turn, rolling_input):
                   "not event truth. Grouping never merges or rewrites original records. No source retrieval, selection of final angle, "
                   "article prose, numeric calculations or public writes. Return strict JSON only.\nOUTPUT_CONTRACT:\n"
                   + json.dumps(contract) + "\nGOVERNED_INPUT:\n" + json.dumps(governed, ensure_ascii=False))
+        # The saved scheduled pool is canonically serialized. Reloading it can reorder
+        # object keys without changing any governed value; retain the actual prompt
+        # issued for that exact pending batch rather than manufacture a new request.
+        frozen = turn.frozen_request(stage)
+        if frozen and frozen["governed_input"] == governed:
+            prompt = frozen["prompt"]
         output, provenance = turn(logical_invocation_id=turn.run_id + ":" + stage, prompt=prompt,
                                   governed_input=governed,
                                   validator=lambda raw: _validate(raw, {k: exact[k]["headline_id"] for k in keys}))
