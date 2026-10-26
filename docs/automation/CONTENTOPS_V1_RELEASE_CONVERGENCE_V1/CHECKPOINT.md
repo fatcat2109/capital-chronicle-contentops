@@ -1,9 +1,9 @@
 # Retained edition Main News read seam — 26 October 2026
 
-Goal:CONTENTOPS_RETAINED_EDITION_MAIN_NEWS_READ_SEAM_V1 — implemented and verified; Git delivery pending.
+Goal:CONTENTOPS_RETAINED_EDITION_MAIN_NEWS_READ_SEAM_V1 — COMPLETE implementation/verification/producer delivery; L2 notice pending.
 Sole V1 writer:chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2:01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
 Sole root:A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; same branch:codex/v1-newsroom-release-convergence.
-[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92) remains OPEN/DRAFT; startup/fresh local-remotec3974fc8 match.
+[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92) remains OPEN/DRAFT; productf7bfbfc19d6b28f95584964663fa37f6a0d384d8 pushed; remote source/artifact/reader blobs match.
 Source:Tower9f126ae0 founder plan, ContentOps acceptance; L1 founder-turn01a175ce-6164-7bd2-9cd3-5bff856a10e4.
 No separate founder human-message ID was exposed or invented; prior human assignment/completion authority reused.
 Prior IBM layout goal remains COMPLETE at14224db9/checkpointc3974fc8; no writer/visual reopening.
@@ -27,10 +27,10 @@ Existing React reader actual desktop pixels inspected;390px table DOM has no hor
 Private readback/demo/pixels:LocalAppData/CapitalChronicle/ContentOps/reader-first-review/retained-edition-main-news-20261026/.
 Touched source:live_contentops/{retained_news_read_v1.py,capital_chronicle_report_editorial_workspace_v1.py}.
 Touched CLI/renderer:scripts/run_native_desktop_editorial.py;ui/contentops_v5/scripts/render-report-workspace.mjs.
-Touched tests:tests/test_retained_news_read_v1.py;exact reservation recorded before edits in this checkpoint's Git history.
+Touched tests:tests/test_retained_news_read_v1.py;these exact paths were reserved in this checkpoint before edits.
 Touched context:existing master plan/V1_CONTEXT and release START_HERE/ACTIVATION/main-news; no generated map rebuild.
 
 Jim visual verdict OPEN; production/four schedules/host prompts/fuse/publication/V2/V3 remain paused and unchanged.
 Later exact operating decision names accepted source,manual/scheduled mode,existing windows/time and any authorized destinations.
 No new edition/model/source/writer campaign,public platform write,merge/deploy/spend/model migration/CUA; dependent-base CI NOT_RUN.
-Whole-goal completion notice to assigned L2:NOT_SENT; send once only after actual source/artifact Git delivery and remote readback.
+Whole-goal completion notice to assigned L2:NOT_SENT; product delivery/remote readback verified; send once after this handoff commit.
