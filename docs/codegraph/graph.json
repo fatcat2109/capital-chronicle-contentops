@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14979,
+    "edges": 14977,
     "entrypoints": 20,
-    "nodes": 7853,
+    "nodes": 7854,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -29,7 +29,7 @@
       "python_method": 314,
       "python_module": 825,
       "schema": 256,
-      "test": 788,
+      "test": 789,
       "typescript_export": 518,
       "typescript_or_javascript_module": 113
     }
@@ -23674,6 +23674,12 @@
       "inference": "test_exact_import",
       "kind": "covered_by",
       "to": "tests/test_native_desktop_publication_v1.py"
+    },
+    {
+      "from": "live_contentops/native_desktop_schedule_binding_v1.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_native_scheduled_continuity_v1.py"
     },
     {
       "from": "live_contentops/native_desktop_workspace_v1.py",
@@ -60327,18 +60333,6 @@
       "from": "python_symbol:live_contentops/native_desktop_schedule_binding_v1.py::scheduled_binding",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/capital_chronicle_latest_report_consumer_v1.py::canonical_bytes"
-    },
-    {
-      "from": "python_symbol:live_contentops/native_desktop_schedule_binding_v1.py::scheduled_binding",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/capital_chronicle_latest_report_consumer_v1.py::sha256_of"
-    },
-    {
-      "from": "python_symbol:live_contentops/native_desktop_schedule_binding_v1.py::scheduled_binding",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
       "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::build_bootstrap_editorial_window_policy"
     },
     {
@@ -60357,18 +60351,6 @@
       "from": "python_symbol:live_contentops/native_desktop_schedule_binding_v1.py::scheduled_binding",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/newsroom_production_day_v1.py::bounded_deficit_work_needed"
-    },
-    {
-      "from": "python_symbol:live_contentops/native_desktop_schedule_binding_v1.py::scheduled_binding",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/newsroom_production_day_v1.py::count_reconciled_published_articles"
-    },
-    {
-      "from": "python_symbol:live_contentops/native_desktop_schedule_binding_v1.py::scheduled_binding",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
       "to": "python_symbol:live_contentops/newsroom_production_day_v1.py::newsroom_production_day_id"
     },
     {
@@ -60376,12 +60358,6 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/published_corpus_read_model_v1.py::load_canonical_published_memory_read_only"
-    },
-    {
-      "from": "python_symbol:live_contentops/native_desktop_schedule_binding_v1.py::scheduled_binding",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::simple_gemini_slot_id"
     },
     {
       "from": "python_symbol:live_contentops/native_desktop_workspace_v1.py::relocate_owner_workspace",
@@ -80562,6 +80538,18 @@
       "to": "live_contentops/v1_simple_gemini_newsroom_v1.py"
     },
     {
+      "from": "tests/test_native_scheduled_continuity_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/native_desktop_schedule_binding_v1.py"
+    },
+    {
+      "from": "tests/test_native_scheduled_continuity_v1.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "live_contentops/native_desktop_schedule_binding_v1.py"
+    },
+    {
       "from": "tests/test_newsroom_assignment_scheduler_v1.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -90049,7 +90037,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-26T20:52:47Z",
+  "generation_timestamp_utc": "2026-10-26T21:56:09Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -91184,7 +91172,7 @@
     {
       "id": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "kind": "python_module",
-      "size_bytes": 85679
+      "size_bytes": 87171
     },
     {
       "id": "live_contentops/community_feedback_capture_contract_v6.py",
@@ -92504,7 +92492,7 @@
     {
       "id": "live_contentops/native_desktop_schedule_binding_v1.py",
       "kind": "python_module",
-      "size_bytes": 8163
+      "size_bytes": 14388
     },
     {
       "id": "live_contentops/native_desktop_workspace_v1.py",
@@ -99668,91 +99656,91 @@
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::arbitrate_hybrid_editorial_execution",
       "kind": "python_function",
-      "line": 401,
+      "line": 416,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "arbitrate_hybrid_editorial_execution"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::build_editorial_worker_routing_packet",
       "kind": "python_function",
-      "line": 558,
+      "line": 573,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "build_editorial_worker_routing_packet"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::build_hybrid_editorial_run_identity",
       "kind": "python_function",
-      "line": 359,
+      "line": 374,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "build_hybrid_editorial_run_identity"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::build_live_zero_write_rehearsal",
       "kind": "python_function",
-      "line": 1615,
+      "line": 1630,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "build_live_zero_write_rehearsal"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::build_same_xhigh_worker_revision_contract",
       "kind": "python_function",
-      "line": 701,
+      "line": 716,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "build_same_xhigh_worker_revision_contract"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::classify_desktop_candidate_universe",
       "kind": "python_function",
-      "line": 1401,
+      "line": 1416,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "classify_desktop_candidate_universe"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::four_task_setup_packet",
       "kind": "python_function",
-      "line": 187,
+      "line": 202,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "four_task_setup_packet"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::load_terminal_editorial_continuity",
       "kind": "python_function",
-      "line": 1148,
+      "line": 1163,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "load_terminal_editorial_continuity"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::persist_supported_automation_host_observation",
       "kind": "python_function",
-      "line": 257,
+      "line": 272,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "persist_supported_automation_host_observation"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::prepared_candidate_continuity_binding",
       "kind": "python_function",
-      "line": 538,
+      "line": 553,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "prepared_candidate_continuity_binding"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::validate_editorial_worker_return",
       "kind": "python_function",
-      "line": 860,
+      "line": 875,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "validate_editorial_worker_return"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::validate_hybrid_editorial_arbitration_receipt",
       "kind": "python_function",
-      "line": 515,
+      "line": 530,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "validate_hybrid_editorial_arbitration_receipt"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::validate_same_xhigh_worker_revision_return",
       "kind": "python_function",
-      "line": 802,
+      "line": 817,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "validate_same_xhigh_worker_revision_return"
     },
@@ -112849,7 +112837,7 @@
     {
       "id": "python_symbol:live_contentops/native_desktop_schedule_binding_v1.py::scheduled_binding",
       "kind": "python_function",
-      "line": 27,
+      "line": 122,
       "path": "live_contentops/native_desktop_schedule_binding_v1.py",
       "symbol": "scheduled_binding"
     },
@@ -132449,7 +132437,7 @@
     {
       "id": "scripts/run_native_desktop_editorial.py",
       "kind": "python_module",
-      "size_bytes": 40543
+      "size_bytes": 41058
     },
     {
       "id": "scripts/run_native_neo_executor.py",
@@ -134464,7 +134452,7 @@
     {
       "id": "tests/test_native_desktop_publication_v1.py",
       "kind": "test",
-      "size_bytes": 27525
+      "size_bytes": 28303
     },
     {
       "id": "tests/test_native_desktop_workspace_v1.py",
@@ -134500,6 +134488,11 @@
       "id": "tests/test_native_newsroom_owner_operation_v1.py",
       "kind": "test",
       "size_bytes": 17831
+    },
+    {
+      "id": "tests/test_native_scheduled_continuity_v1.py",
+      "kind": "test",
+      "size_bytes": 12275
     },
     {
       "id": "tests/test_newsroom_assignment_scheduler_v1.py",
@@ -140921,6 +140914,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "933b38ab2a2f217fcc2249846a7032165d0dc451",
-  "source_tree_digest": "34ab63904cc00021d01a267bed361b3a85a28288a031a28e4b2634b81cd236eb"
+  "source_head": "cab30609ab1032335c0daf76186155a1bab76560",
+  "source_tree_digest": "f75b1060b73fdedf592ef3f260674a5a15f33d271a02159606d8da08e0043f8b"
 }
