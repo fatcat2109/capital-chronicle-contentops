@@ -90049,7 +90049,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-26T20:49:00Z",
+  "generation_timestamp_utc": "2026-10-26T20:52:47Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -140395,7 +140395,7 @@
     {
       "id": "ui/contentops_v5/src/test/report_editorial_workspace.test.tsx",
       "kind": "test",
-      "size_bytes": 42967
+      "size_bytes": 44729
     },
     {
       "id": "ui/contentops_v5/src/test/research_package_decision.test.tsx",
@@ -140570,7 +140570,7 @@
     {
       "id": "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 61164
+      "size_bytes": 61199
     },
     {
       "id": "ui/contentops_v5/src/views/ResearchPackageDecision.tsx",
@@ -140921,6 +140921,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "953fe7b374a5b2ce216482c0647f812bb33d4175",
-  "source_tree_digest": "b83ec2248da56b29efcc4c4f686e9447827b3425b7cafad4b2276fd3a2c7ba2d"
+  "source_head": "933b38ab2a2f217fcc2249846a7032165d0dc451",
+  "source_tree_digest": "34ab63904cc00021d01a267bed361b3a85a28288a031a28e4b2634b81cd236eb"
 }
