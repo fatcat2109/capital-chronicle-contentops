@@ -24,16 +24,16 @@ Original advance1704 DRAFT_BLOCKED:Thailand2requests/no source;Samsung3/HTTP401;
 Jim's direct reply:Cho thêm 3 lượt Neo. Actual extra reads:Thai search/Samsung search/exact Yonhap article;total9/9,no further factual GET.
 Yonhap source AEN20261026001800320 published00:24:27Z,before cutoff;captured04:54:06.852Z. Exact author/meta/spans preserved privately.
 Narrow same-policy facts-only report verification extends exact Yonhap identity;expression/photo reuse and underlying event authority stay false.
-Recoverye7aa254f admitted;advance26006 terminal at media-plan requestc6ea9b19.1accepted Yonhap report/0articles/0new previews;MAX not invoked.
+Recoverye7aa254f admitted;Light preparationc6ea9b19 returnedf4e7d8eb;pending actual MAX visual requestd9d675ed;1source/0articles/0new previews.
 
 Reservation:owned current checkpoint and existing operation-private output/request/source/media/render/review artifacts only initially.
 Prior resume fix ddc32c89 pushed to PR92:reuse verified frozen snapshot;2focused reuse/tamper tests and changed-source Ruff PASS.
-Recovery artifacts:same operation/recovered-source and source-recovery-response.json;old failure preserved.83focused regressions PASS;latest6checks PASS.
+Recovery791d5151 pushed;source-recovery artifacts retain old failure.83focused regressions PASS;latest6checks PASS. No new implementation changes this turn.
 Existing portable old edition and main-news selection/artifact hashes saved in startup.json; never silently repoint Main.
 Fresh read-only check:all7retained article identities/latest KEEP/prepared review IDs unchanged;0actual dispatches;both fixed artifact hashes unchanged.
-Pending Light preparation:/root/current_edition_light_prepare owns requestc6ea9b19,exact source/data and lawful contextual-photo proposal;parent ends while child works.
+Photo:OP/media/contextual-photo-asset.json;exact Commons original SHA1 matched,CC BY-SA4.0,inspected1860x1047;archive2015different vendor,context only.
 No public URL/time/dispatch; public_write_authority=false; inspect actual changed desktop/mobile visual/article.
 Jim old visual verdict stays OPEN; independent run does not approve or reopen old examples.
 Production store/fuse/four calendars/host prompts/V2/V3 and unrelated runtime remain paused and unchanged.
 No paid fallback,SDK/AppServer models,spend,trade/backfill,public write,merge/deploy/CUA.
-Whole-goal completion notice NOT_SENT:required new article/media/eight previews/desktop-mobile acceptance remain incomplete. No peer/L1/progress message.
+Next:/root/current_edition_max_writer owns native visual/writer/one repair;same actual context,no new sources. Parent ends while child works;completion notice NOT_SENT.
