@@ -125,6 +125,37 @@ describe('Main report editorial workspace', () => {
     expect(opener).toHaveFocus();
   });
 
+  it('keeps aligned source-bound year columns in the article and compiled context in channel copy', () => {
+    const snapshot = ownerData();
+    const item = snapshot.native_edition![0];
+    item.media_assets = [{ asset_id: 'cash', path: 'cash.png', sha256: 'cash-hash', caption: 'Cash changes, not a balance bridge.',
+      modality: 'source_backed_chart', reader_table: { caption: 'Reported nine-month levels', unit: 'USD million',
+        columns: ['2025', '2026'], rows: [
+          { label: 'GAAP operating cash flow', values: [9153, 11791] },
+          { label: 'Less: Financing-receivables change', values: [905, 2805] },
+          { label: 'Net capital expenditures (signed)', values: [-1067, -1200] },
+          { label: 'IBM-defined free cash flow', values: [7181, 7787] }],
+        notes: ['IBM-defined free cash flow is non-GAAP; consolidated cash does not establish Software cash conversion.'] } }];
+    item.previews[0].payload.media_asset_ids = ['cash'];
+    item.previews[0].payload.text = 'Controlled channel caption retains reported levels and non-GAAP scope.';
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" />);
+    const assertTable = () => {
+      const table = screen.getByRole('table', { name: 'Reported nine-month levels' });
+      expect(within(table).getAllByRole('columnheader').map(cell => cell.textContent)).toEqual(['Measure', '2025', '2026']);
+      const capex = within(table).getByRole('rowheader', { name: 'Net capital expenditures (signed)' }).closest('tr')!;
+      const numbers = within(capex).getAllByRole('cell');
+      expect(numbers.map(cell => cell.textContent)).toEqual(['-1,067', '-1,200']);
+      numbers.forEach(cell => expect(cell).toHaveStyle({ textAlign: 'right', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }));
+      expect(screen.getByText(/consolidated cash does not establish Software cash conversion/)).toBeVisible();
+    };
+    assertTable();
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: 'telegram' } });
+    expect(screen.queryByRole('table')).not.toBeInTheDocument();
+    expect(screen.getByText('Controlled channel caption retains reported levels and non-GAAP scope.')).toBeVisible();
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: 'discord' } });
+    expect(screen.queryByRole('table')).not.toBeInTheDocument();
+  });
+
   it('shows photo pixels, credits and exact license/source links with release readiness', () => {
     const snapshot = data();
     snapshot.previews[0].payload.media_asset_ids = ['photo'];

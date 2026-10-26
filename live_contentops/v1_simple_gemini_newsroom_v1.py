@@ -1818,6 +1818,12 @@ def _publication_media_metadata(media_assets, *, compact=False):
         if asset.get("modality") == "source_backed_chart" and asset.get("source_links"):
             links = "; ".join(f"[{s['label']}]({s['url']})" for s in asset["source_links"])
             asset["caption"] = str(asset.get("caption") or "") + " Sources: " + links + "."
+            if asset.get("distribution_context"):
+                # The same native media compiler carries detail when a channel
+                # cannot display the source-bound semantic table.
+                context = asset["distribution_context"] + " Sources: " + links + "."
+                credits.append(context)
+                asset["caption"] = context
         if asset.get("modality") == "documentary_photo":
             credit = " ".join((
                 "Photo: " + str(asset["creator_publisher"]).strip().rstrip(".") + ".",

@@ -145,7 +145,7 @@
       ]
     }
   ],
-  "chart_type": "SIGNED_CASH_CONTRIBUTIONS_WITH_SEPARATE_REPORTED_RESULT",
+  "chart_type": "SIGNED_CASH_CHANGE_COMPARISON_WITH_SEPARATE_SAME_SCALE_REPORTED_RESULT",
   "contribution_point_indices": [
     0,
     1,
@@ -158,5 +158,51 @@
   "displayed_contribution_domain": [
     -3000,
     3000
-  ]
+  ],
+  "reported_result_mark": "SEPARATE_HOLLOW_DIAMOND_ON_IDENTICAL_SCALE",
+  "reported_reference_levels_location": "SEMANTIC_ARTICLE_TABLE_AND_SELECTED_CHANNEL_CAPTIONS",
+  "reader_table": {
+    "caption": "Reported nine-month cash levels",
+    "columns": [
+      "2025",
+      "2026"
+    ],
+    "notes": [
+      "GAAP operating cash flow; IBM-defined free cash flow is non-GAAP.",
+      "The rounded 2026 level components yield 7,786, while IBM reports 7,787. The rounded change components yield +605, while the difference between reported free-cash-flow totals is +606. These are the same $1 million rounding difference, not an extra contribution.",
+      "Consolidated IBM cash; not Software cash conversion or a full cash-balance bridge."
+    ],
+    "rows": [
+      {
+        "label": "GAAP operating cash flow",
+        "values": [
+          9153,
+          11791
+        ]
+      },
+      {
+        "label": "Less: Financing-receivables change",
+        "values": [
+          905,
+          2805
+        ]
+      },
+      {
+        "label": "Net capital expenditures (signed)",
+        "values": [
+          -1067,
+          -1200
+        ]
+      },
+      {
+        "label": "IBM-defined free cash flow",
+        "values": [
+          7181,
+          7787
+        ]
+      }
+    ],
+    "unit": "USD million"
+  },
+  "support_caption": "IBM-defined free cash flow is non-GAAP. These are consolidated IBM figures, not Software cash conversion or a full cash-balance bridge. Financing amounts are quantities removed; net capital expenditures retain their reported negative signs."
 }

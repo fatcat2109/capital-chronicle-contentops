@@ -229,6 +229,28 @@ def test_compact_cash_reference_table_cannot_change_reported_levels(tmp_path):
     packet["series"]=[{"name":"Controlled change","points":[point(new,label) for label in labels]}]
     asset=build_editorial_data_chart(packet,docs,output_dir=tmp_path)
     assert asset["width"]==1120 and asset["height"]==1760
+    packet["reader_table"]={"caption":"Reported levels | USD million", "unit":"USD million",
+        "columns":["2025","2026"],"rows":deepcopy(packet["render_spec"]["reference_table"]["rows"]),
+        "definition_note":"Controlled definitions.","reconciliation_note":"Controlled reconciliation.","scope_note":"Controlled scope."}
+    packet["support_caption"]="Controlled source-bound supporting context."
+    packet["derivative_context"]={"fallback_when_html_table_absent":"Controlled reported levels and scope."}
+    packet["asset_id"]="controlled-dj-chart-with-table-r2"
+    asset=build_editorial_data_chart(packet,docs,output_dir=tmp_path)
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_editorial_data_chart
+    assert asset["reader_table"]["columns"]==["2025","2026"]
+    assert asset["support_caption"]==packet["support_caption"]
+    assert asset["distribution_context"]==packet["derivative_context"]["fallback_when_html_table_absent"]
+    for mutation in ("year", "level"):
+        altered=deepcopy(packet)
+        if mutation=="year":
+            altered["reader_table"]["columns"].reverse()
+        else:
+            altered["reader_table"]["rows"][0]["values"][0]+=1
+        with pytest.raises(ValueError,match="READER_TABLE_YEAR_OR_VALUES_CHANGED"):
+            _editorial_data_values(altered,docs)
+    asset["reader_table"]["rows"][0]["values"][0]+=1
+    with pytest.raises(ValueError,match="READER_CONTEXT_CHANGED"):
+        validate_editorial_data_chart(asset,docs)
     packet["render_spec"]["reference_table"]["rows"][3]["values"][1]=119
     with pytest.raises(ValueError,match="REFERENCE_LEVELS_CHANGED"):
         _editorial_data_values(packet,docs)
@@ -335,6 +357,114 @@ def test_signed_cash_rejects_misleading_geometry_or_result_semantics(mutation):
         packet["value_roles"]["rounded_component_sum"]["value"] += 606
     with pytest.raises(ValueError, match="SIGNED_CASH_"):
         _draw_signed_cash_contributions(packet, values, plt)
+
+
+def _compact_cash_render_packet(sign=1):
+    packet, values = _signed_cash_render_packet(sign)
+    spec = packet["render_spec"]
+    spec.update(title_wrapping={"lines":["A smaller gain after IBM's", "cash adjustments"]},
+        subtitle_lines=["Nine months ended September 30", "2026 minus 2025 | USD million"],
+        contribution_panel_title="Contribution changes",
+        result_marker_point_ref={"series_index":0,"point_index":3},
+        source_footer="Source: IBM Q3 2026 results | 21 Oct 2026",
+        scope_note="Consolidated IBM cash; not Software cash\nconversion or a full cash-balance bridge.",
+        geometry_export_px={"canvas":[1120,1760],"plot_x_limits":[64,1056],"title_top":36,
+            "subtitle_top":200,"contribution_heading_top":326,"bar_height":32,
+            "contribution_rows":[{"label_top":398,"mark_center_y":478},
+                {"label_top":534,"mark_center_y":652},{"label_top":708,"mark_center_y":789}],
+            "result_top_rule_y":841,"result_heading_top":866,"result_label_top":936,
+            "result_marker_center_y":1019,"shared_axis_y":1080,"reported_fcf_levels_top":1200,
+            "rounding_note_top":1280,"scope_note_top":1430,"source_footer_top":1585})
+    spec["axis"].update(ticks=[-3000,0,3000],tick_labels=["-3,000","0","+3,000"],
+        shared_with_reported_result_marker=True)
+    spec["axis"].pop("direction_key")
+    spec["reported_result_panel"].update(x_value=values[0][3],marker={"stem_from_zero":False},
+        heading="Reported result (non-GAAP)",row_label="IBM-defined free-cash gain",
+        reported_levels="2025: 7,181 | 2026: 7,787")
+    return packet,values
+
+
+@pytest.mark.parametrize("sign", [1,-1])
+def test_compact_cash_bars_and_separate_result_use_identical_actual_scale(sign):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _draw_compact_cash_comparison
+    packet,values=_compact_cash_render_packet(sign)
+    fig=_draw_compact_cash_comparison(packet,values,plt)
+    ax,=fig.axes
+    assert tuple(fig.canvas.get_width_height())==(1120,1760)
+    bars=[p for p in ax.patches if str(p.get_gid()).startswith("cash-contribution-")]
+    assert len(bars)==3 and ax.get_xlim()==(-3000,3000) and ax.get_xscale()=="linear"
+    for bar,value in zip(bars,values[0][:3]):
+        assert bar.get_x()==0 and bar.get_width()==value
+        start,end=ax.transData.transform([(0,0),(value,0)])[:,0]
+        assert (end<start)==(value<0)
+    marker,=[p for p in ax.lines if p.get_gid()=="cash-reported-result"]
+    assert list(marker.get_xdata())==[values[0][3]] and marker.get_marker()=="D"
+    assert marker.get_linestyle()=="None" and marker.get_transform()==ax.transData
+    origin=ax.transData.transform((0,0))[0]
+    marker_x=ax.transData.transform((values[0][3],0))[0]
+    original_x=ax.transData.transform((values[0][0],0))[0]
+    assert (marker_x-origin)/(original_x-origin)==pytest.approx(606/2638)
+    assert not any(abs(p.get_width())==606 for p in bars)
+    fig.canvas.draw()
+    renderer=fig.canvas.get_renderer()
+    texts=[*ax.texts,*ax.get_xticklabels()]
+    for text in texts:
+        box=text.get_window_extent(renderer)
+        assert 0<=box.x0<=box.x1<=fig.bbox.width,text.get_text()
+        assert 0<=box.y0<=box.y1<=fig.bbox.height,text.get_text()
+    visible="\n".join(t.get_text() for t in texts)
+    assert "←" not in visible and "→" not in visible
+    assert f"Reported {values[0][3]:+,.0f}; $1 million" in visible
+    plt.close(fig)
+
+
+@pytest.mark.parametrize("mutation",["separate_scale","stem","result_as_component","wrong_marker_value"])
+def test_compact_cash_rejects_misleading_result_semantics(mutation):
+    import matplotlib.pyplot as plt
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _draw_compact_cash_comparison
+    packet,values=_compact_cash_render_packet()
+    spec=packet["render_spec"]
+    if mutation=="separate_scale":
+        spec["axis"]["shared_with_reported_result_marker"]=False
+    elif mutation=="stem":
+        spec["reported_result_panel"]["marker"]["stem_from_zero"]=True
+    elif mutation=="result_as_component":
+        spec["plotted_point_indices"].append(3)
+    else:
+        spec["reported_result_panel"]["x_value"]=605
+    with pytest.raises(ValueError,match="SIGNED_CASH_"):
+        _draw_compact_cash_comparison(packet,values,plt)
+
+
+def test_selected_chart_caption_context_reaches_only_affected_native_channel_packages():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _publication_media_metadata,_native_preview_bundle
+    choice=decision()
+    choice["channel_media"]={d:["cash"] if d in {"discord","instagram_business"} else ["other"] for d in choice["channel_media"]}
+    article={"title":"Controlled cash context", "dek":"Reported cash needs its definition.",
+        "social_hook":"Reported cash needs its definition.","social_mechanism_summary":"The adjustment changes the comparison.",
+        "social_policy_summary":"Use the same period.","social_cross_asset_summary":"Compare reported measures.",
+        "substack_body_markdown":"A controlled fixture. [[SOURCE:SOURCE_1]]",
+        "reader_first_version":"DATA_JOURNALISM_V1","visual_editorial_decision":choice,
+        "public_source_bindings":[{"source_id":"SOURCE_1","publisher":"Controlled","url":"https://example.org/source"}]}
+    link={"label":"Controlled Q3","url":"https://example.org/source"}
+    assets=[{"asset_id":name,"modality":"source_backed_chart","caption":"Short caption","source_links":[link]} for name in ("cash","other")]
+    fallback="Reported levels: 2025 / 2026. Non-GAAP; consolidated scope."
+    assets[0]["distribution_context"]=fallback
+    published,_=_publication_media_metadata(assets,compact=True)
+    assert fallback in published[0]["caption"] and fallback not in published[1]["caption"]
+    after,_=_native_preview_bundle(article=article,article_mode="DATA_OR_DOCUMENT_LENS",article_identity="controlled",
+        media_asset_ids=["cash","other"],media_assets=assets)
+    before,_=_native_preview_bundle(article=article,article_mode="DATA_OR_DOCUMENT_LENS",article_identity="controlled",
+        media_asset_ids=["cash","other"],media_assets=[{k:v for k,v in a.items() if k!="distribution_context"} for a in assets])
+    for d,payload in after["packages"].items():
+        if d in {"discord","instagram_business"}:
+            assert fallback in json.dumps(payload) and payload!=before["packages"][d]
+            assert payload["media_asset_ids"]==["cash"]
+        else:
+            assert payload==before["packages"][d]
 
 
 def test_compact_authored_links_retain_distinct_sources_and_internal_markers():

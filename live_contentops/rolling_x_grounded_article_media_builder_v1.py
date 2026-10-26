@@ -1058,6 +1058,7 @@ def _editorial_data_values(packet, documents):
         "MARGIN_LEVEL_TABLE_WITH_DIVERGING_PP_CHANGE",
         "HORIZONTAL_CHANGE_BRIDGE_WITH_REPORTED_LEVELS",
         "SIGNED_CASH_CONTRIBUTIONS_WITH_SEPARATE_REPORTED_RESULT",
+        "SIGNED_CASH_CHANGE_COMPARISON_WITH_SEPARATE_SAME_SCALE_REPORTED_RESULT",
     }:
         raise ValueError("EDITORIAL_CHART_TYPE_UNSUPPORTED")
     if not packet.get("question") or not packet.get("title") or not packet.get("unit"):
@@ -1223,6 +1224,14 @@ def _editorial_data_values(packet, documents):
         displayed = [[abs(v) if j == 1 else v for j,v in enumerate(row)] for row in levels]
         if [row["values"] for row in packet["render_spec"]["reference_table"]["rows"]] != [list(p) for p in zip(*displayed)]:
             raise ValueError("EDITORIAL_CHART_REFERENCE_LEVELS_CHANGED")
+        if table := packet.get("reader_table"):
+            columns = table["columns"]
+            years = [str(c["label"]) if isinstance(c, dict) else str(c) for c in columns]
+            if years[0] == "Measure":
+                years = years[1:]
+            if (years != ["2025", "2026"]
+                    or [row["values"] for row in table["rows"]] != [list(p) for p in zip(*displayed)]):
+                raise ValueError("EDITORIAL_CHART_READER_TABLE_YEAR_OR_VALUES_CHANGED")
     return output
 
 
@@ -1353,10 +1362,8 @@ def _draw_compact_editorial_comparison(packet, values, plt):
     return fig
 
 
-def _draw_signed_cash_contributions(packet, values, plt):
-    """Render signed changes from one zero; the reported result is never an addend."""
-    import textwrap
-
+def _validated_cash_contributions(packet, values):
+    """Keep the three additive changes distinct from the independently reported result."""
     spec = packet["render_spec"]
     if len(values) != 1 or len(values[0]) != 4:
         raise ValueError("SIGNED_CASH_REQUIRES_THREE_COMPONENTS_AND_REPORTED_RESULT")
@@ -1387,6 +1394,20 @@ def _draw_signed_cash_contributions(packet, values, plt):
             or roles["reported_gain_minus_rounded_component_sum"]["value"] != nums[result_index] - component_sum
             or spec["reported_result_panel"]["display_value"] != f"{nums[result_index]:+,.0f}"):
         raise ValueError("SIGNED_CASH_RESULT_OR_ROUNDING_DIFFERS_FROM_BOUND_VALUES")
+    return nums
+
+
+def _draw_signed_cash_contributions(packet, values, plt):
+    """Render the prior signed graphic; preserve historical render specifications."""
+    import textwrap
+
+    nums = _validated_cash_contributions(packet, values)
+    spec = packet["render_spec"]
+    low, high = spec["value_domain"]
+    axis_spec = spec["axis"]
+    rows = spec["component_rows"]
+    result_index = spec["reported_result_panel"]["point_ref"]["point_index"]
+    component_sum = sum(nums[:3])
 
     # The MAX layout explicitly permits more height to preserve mobile type size.
     height = max(float(spec["height_inches"]), 15.8)
@@ -1474,6 +1495,75 @@ def _draw_signed_cash_contributions(packet, values, plt):
     return fig
 
 
+def _draw_compact_cash_comparison(packet, values, plt):
+    """One scale, three component bars and a separated outcome marker; detail stays HTML."""
+    nums = _validated_cash_contributions(packet, values)
+    spec = packet["render_spec"]
+    result = spec["reported_result_panel"]
+    if (result["x_value"] != nums[3] or result["marker"]["stem_from_zero"]
+            or spec["result_marker_point_ref"] != {"series_index": 0, "point_index": 3}
+            or not spec["axis"]["shared_with_reported_result_marker"]):
+        raise ValueError("SIGNED_CASH_RESULT_MARKER_REQUIRES_IDENTICAL_SCALE_AND_NO_STEM")
+    geo, palette = spec["geometry_export_px"], spec["palette"]
+    width, height = geo["canvas"]
+    fig = plt.figure(figsize=(width / 200, height / 200), dpi=200)
+    fig.patch.set_facecolor(palette["background"])
+    left, right = geo["plot_x_limits"]
+    ax = fig.add_axes([left / width, 0, (right - left) / width, 1])
+    ax.set_facecolor(palette["background"])
+    ax.set(xlim=spec["value_domain"], ylim=(height, 0))
+    ax.set_yticks([])
+    for side in ("top", "left", "right"):
+        ax.spines[side].set_visible(False)
+    ink = palette["company_total"]
+    ax.spines["bottom"].set_position(("data", geo["shared_axis_y"]))
+    ax.spines["bottom"].set_color(ink)
+    axis = spec["axis"]
+    ax.set_xticks(axis["ticks"], axis["tick_labels"], fontsize=15, color=ink)
+    ax.tick_params(axis="x", length=4, pad=6, color=ink)
+    ax.get_xticklabels()[0].set_ha("left")
+    ax.get_xticklabels()[-1].set_ha("right")
+    ax.get_xticklabels()[axis["ticks"].index(0)].set_weight("bold")
+
+    def text(x, y, label, size=16, **kwargs):
+        return ax.text(x, y, label, transform=ax.get_yaxis_transform(), fontsize=size,
+                       color=kwargs.pop("color", ink), va="top", linespacing=1.15, **kwargs)
+
+    text(0, geo["title_top"], "\n".join(spec["title_wrapping"]["lines"]), size=23, weight="bold")
+    text(0, geo["subtitle_top"], "\n".join(spec["subtitle_lines"]))
+    text(0, geo["contribution_heading_top"], spec["contribution_panel_title"], weight="bold")
+    tracks = [row["mark_center_y"] for row in geo["contribution_rows"]] + [geo["result_marker_center_y"]]
+    for y in tracks:
+        for tick in axis["grid"]["values"]:
+            ax.plot([tick, tick], [y - 24, y + 24], color=axis["grid"]["color"], lw=.7, zorder=1)
+        ax.plot([0, 0], [y - 25, y + 25], color=ink, lw=1.5, zorder=3)
+    for index, (row, geometry) in enumerate(zip(spec["component_rows"], geo["contribution_rows"])):
+        text(0, geometry["label_top"], row["display_label"])
+        text(1, geometry["label_top"], f"{nums[index]:+,.0f}", size=17, ha="right",
+             weight="bold", color=palette[row["color_role"]])
+        bar = ax.barh(geometry["mark_center_y"], nums[index], left=0, height=geo["bar_height"],
+                      color=palette[row["color_role"]], zorder=2)[0]
+        bar.set_gid(f"cash-contribution-{index}")
+    top, bottom = geo["result_top_rule_y"], geo["shared_axis_y"] - 8
+    ax.axhspan(top, bottom, facecolor=result["background"], zorder=0)
+    ax.axhline(top, color=palette["neutral"], lw=1)
+    text(0, geo["result_heading_top"], result["heading"], weight="bold")
+    text(0, geo["result_label_top"], result["row_label"])
+    text(1, geo["result_label_top"], f"{nums[3]:+,.0f}", size=17, ha="right", weight="bold")
+    marker, = ax.plot([nums[3]], [geo["result_marker_center_y"]], marker="D", linestyle="none",
+                      markersize=9.4, markerfacecolor=palette["background"], markeredgecolor=ink,
+                      markeredgewidth=1.8, zorder=4)
+    marker.set_gid("cash-reported-result")
+    text(.5, geo["shared_axis_y"] + 82, axis["axis_label"], size=15, ha="center")
+    text(0, geo["reported_fcf_levels_top"] + 30, result["reported_levels"])
+    expression = f"{nums[0]:+,.0f}" + "".join(f" {'-' if n < 0 else '+'} {abs(n):,.0f}" for n in nums[1:3])
+    rounding = f"{expression} = {sum(nums[:3]):+,.0f}\nReported {nums[3]:+,.0f}; ${abs(nums[3] - sum(nums[:3])):g} million\nrounding difference."
+    text(0, geo["rounding_note_top"] + 20, rounding)
+    text(0, geo["scope_note_top"] + 60, spec["scope_note"])
+    text(0, geo["source_footer_top"] + 70, spec["source_footer"], size=15)
+    return fig
+
+
 def _draw_editorial_chart(packet, values, plt, np):
     """Render the editor's selected grammar; no content or chart-count decision here."""
     import textwrap
@@ -1483,6 +1573,8 @@ def _draw_editorial_chart(packet, values, plt, np):
     series = packet["series"]
     if kind == "SIGNED_CASH_CONTRIBUTIONS_WITH_SEPARATE_REPORTED_RESULT":
         return _draw_signed_cash_contributions(packet, values, plt)
+    if kind == "SIGNED_CASH_CHANGE_COMPARISON_WITH_SEPARATE_SAME_SCALE_REPORTED_RESULT":
+        return _draw_compact_cash_comparison(packet, values, plt)
     if kind in {"QUARTER_CONTRIBUTION_MATRIX_WITH_COMPANY_ANCHOR",
             "MARGIN_LEVEL_TABLE_WITH_DIVERGING_PP_CHANGE","HORIZONTAL_CHANGE_BRIDGE_WITH_REPORTED_LEVELS"}:
         return _draw_compact_editorial_comparison(packet,values,plt)
@@ -1768,6 +1860,18 @@ def _draw_editorial_chart(packet, values, plt, np):
     return fig
 
 
+def _editorial_reader_table(packet):
+    table = packet.get("reader_table")
+    if not table:
+        return None
+    columns = [str(c["label"]) if isinstance(c, dict) else str(c) for c in table["columns"]]
+    if columns[0] == "Measure":
+        columns = columns[1:]
+    return {"caption": table["caption"].removesuffix(" | " + packet["unit"]), "unit": packet["unit"],
+        "columns": columns, "rows": [{"label": row["label"], "values": list(row["values"])} for row in table["rows"]],
+        "notes": [table[key] for key in ("definition_note", "reconciliation_note", "scope_note") if table.get(key)]}
+
+
 def build_editorial_data_chart(packet, documents, *, output_dir):
     """Existing media owner renders the actual MAX editor's source-bound visual choice."""
     values = _editorial_data_values(packet, documents)
@@ -1827,6 +1931,9 @@ def build_editorial_data_chart(packet, documents, *, output_dir):
         "destination_subset": packet.get("destination_subset", []),
         "computed_values": values,
         "missingness": packet.get("missingness", "NO_VALUES_FILLED_OR_INTERPOLATED"),
+        **({"reader_table": _editorial_reader_table(packet), "support_caption": packet["support_caption"],
+            "distribution_context": packet["derivative_context"]["fallback_when_html_table_absent"]}
+           if packet.get("reader_table") else {}),
     }
 
 
@@ -1847,6 +1954,11 @@ def validate_editorial_data_chart(asset, documents):
         or _sha256_file(Path(asset["path"])) != asset.get("sha256")
     ):
         raise ValueError("EDITORIAL_CHART_DATA_OR_BYTES_CHANGED")
+    if packet.get("reader_table") and (
+            asset.get("reader_table") != _editorial_reader_table(packet)
+            or asset.get("support_caption") != packet["support_caption"]
+            or asset.get("distribution_context") != packet["derivative_context"]["fallback_when_html_table_absent"]):
+        raise ValueError("EDITORIAL_CHART_READER_CONTEXT_CHANGED")
 
 
 def _build_third_asset(

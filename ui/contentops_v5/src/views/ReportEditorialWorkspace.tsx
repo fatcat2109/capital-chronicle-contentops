@@ -43,7 +43,7 @@ function previewText(payload: Record<string, unknown>): string {
 }
 
 type EditorialMedia = NonNullable<NonNullable<ReportWorkspaceData['native_edition']>[number]['media_assets']>[number];
-function MediaFigure({ asset: a, originalHref }: { asset: EditorialMedia; originalHref?: string }) {
+function MediaFigure({ asset: a, originalHref, readerDetails = true }: { asset: EditorialMedia; originalHref?: string; readerDetails?: boolean }) {
   const [expanded, setExpanded] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLAnchorElement>(null);
@@ -66,6 +66,20 @@ function MediaFigure({ asset: a, originalHref }: { asset: EditorialMedia; origin
       : credit && <> · {a.source_page_url?.startsWith('https://')
       ? <a href={a.source_page_url} target="_blank" rel="noreferrer">{credit}</a> : credit}</>}
       {a.license_url?.startsWith('https://') && <> · <a href={a.license_url} target="_blank" rel="noreferrer">{a.license_name ?? 'Reuse terms'}</a></>}
+      {readerDetails && a.support_caption && <p style={{ margin: '8px 0' }}>{a.support_caption}</p>}
+    {readerDetails && a.reader_table && <div className="media-reference-table" style={{ margin: '20px 0' }}>
+      <table aria-label={a.reader_table.caption} style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed', fontSize: '0.9rem' }}>
+        <caption style={{ textAlign: 'left', fontWeight: 650, paddingBottom: 10 }}>{a.reader_table.caption} · {a.reader_table.unit}</caption>
+        <colgroup><col style={{ width: '52%' }} />{a.reader_table.columns.map(column => <col key={column} style={{ width: `${48 / a.reader_table!.columns.length}%` }} />)}</colgroup>
+        <thead><tr><th scope="col" style={{ textAlign: 'left', padding: '9px 8px 9px 0', borderBottom: '1px solid #a8bab4' }}>Measure</th>
+          {a.reader_table.columns.map(column => <th key={column} scope="col" style={{ textAlign: 'right', padding: '9px 0 9px 8px', borderBottom: '1px solid #a8bab4' }}>{column}</th>)}</tr></thead>
+        <tbody>{a.reader_table.rows.map(row => <tr key={row.label}>
+          <th scope="row" style={{ textAlign: 'left', fontWeight: 500, padding: '10px 8px 10px 0', borderBottom: '1px solid #d9e1db', overflowWrap: 'anywhere' }}>{row.label}</th>
+          {row.values.map((value, index) => <td key={index} style={{ textAlign: 'right', padding: '10px 0 10px 8px', borderBottom: '1px solid #d9e1db', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>{new Intl.NumberFormat('en-US', { maximumFractionDigits: 3 }).format(value)}</td>)}
+        </tr>)}</tbody>
+      </table>
+      {a.reader_table.notes.map(note => <p key={note} style={{ fontSize: '0.85rem', margin: '8px 0' }}>{note}</p>)}
+    </div>}
     </figcaption>
     {expanded && <dialog ref={dialog} aria-modal="true" aria-label={`Full-size ${a.alt_text ?? a.caption}`}
       onCancel={event => { event.preventDefault(); setExpanded(false); }}
@@ -106,7 +120,7 @@ function PackagePreview({ payload, assets = [], originals }: { payload: Record<s
       <p><strong>{index === 0 ? 'Root post' : `Reply ${index}`}</strong></p>
       <ArticleParagraphs text={previewText({ text: p.text })} />
     </div>) : <ArticleParagraphs text={previewText(payload)} />}
-    {assets.filter(a => ids.has(a.asset_id)).map(a => <MediaFigure key={a.asset_id} asset={a} originalHref={originals?.[a.sha256]} />)}
+    {assets.filter(a => ids.has(a.asset_id)).map(a => <MediaFigure key={a.asset_id} asset={a} originalHref={originals?.[a.sha256]} readerDetails={false} />)}
   </>;
 }
 
