@@ -2,7 +2,7 @@
 Goal: CONTENTOPS_V1_SCHEDULED_EDITORIAL_CONTINUATION_V1 — ACTIVE; same natural21:00 operation.
 Source root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
 Branch: codex/v1-newsroom-release-convergence; this chat is sole V1 integration/application writer.
-Operating root: A:/Capital Chronicle/ContentOps; installed PR94 merge3b29bcb24541a5dabc36dbc11c4e40d13d40bdfd.
+Operating root: A:/Capital Chronicle/ContentOps; installed PR95 mergeeb1944019e3fcf465ff6787b84fe3d430236d67b.
 PR94 merged through required exact-head ffa6770b CI SUCCESS; six instruction corrections and filter-resume fix applied.
 Jim run-now authority verified: L2 turn01a178ab-6331-7b61-9ea3-3f366b685d1b/user01a178ab-6491-7161-8d0e-71f7b1e444ba.
 Earlier application authority remains valid; no new review/date/calendar gate.
@@ -25,7 +25,12 @@ Ordinary32candidate/3admission/6source requests; exact source/PIT/rights; no lat
 MAX chose genuine narrow NEWS/zero charts with substantive rationale; source stays single-relay/unconfirmed.
 Private evidence: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/scheduled-editorial-continuation-20261026/.
 Existing72retained examples/fixed Main selection unchanged; V2/V3/public writes/paid services/CUA remain outside scope.
-NASA original1ddafd91 inspected; retained official policy/source/EXIF validated with scoped source repaird6a0cd77.
-Pending same-editor visual-edit-amend73377cff; next bind exact media plan, advance same binding, same MAX WRITE.
+NASA original1ddafd91 inspected; official source/policy/EXIF admitted by scoped repaird6a0cd77;87focused tests PASS.
+Same MAX amendment73377cff accepted59b3c8d; exact one-photo media plan bound through existing source owner.
+Same WRITE e2461d36 acceptedfc696cf7; advance produced1qualified article/8intents; no repair needed.
+PR95 exact-head CI40359621839 SUCCESS; normal merge/application preserved7WIP and listener40360; no restart.
+Article0f2fb2e4 has exact one-photo media already bound; private existing React reader exported; no new edition/selection.
+Rendered check found ignored photo placement/duplicate credit; scoped UI fix953fe7b3 passes28UI tests/build.
+Next: integrate/apply renderer fix, inspect desktop/mobile canonical and8previews; record exact review/handoff.
 Deployment preserved17tracked WIP/owned patches; exact six unrelated WIP retained; healthy API listener40360 unchanged.
 Completion notice NOT_SENT; no L1/peer/progress notice, future-window wait, heartbeat or monitoring task.

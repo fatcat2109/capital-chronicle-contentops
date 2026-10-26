@@ -107,6 +107,28 @@ describe('Main report editorial workspace', () => {
     expect(within(article).getByText('Updated 24 October 2026')).toBeVisible();
   });
 
+  it('honors an exact photo section choice and links its embedded credit once without changing the package', () => {
+    const snapshot = ownerData();
+    const item = snapshot.native_edition![0];
+    item.article.substack_body_markdown = 'Attributed opening.\n\n## Reported structure\n\nStructure description.\n\n## Unresolved terms\n\nOpen question.';
+    item.media_assets = [{ asset_id: 'archive', path: 'archive.jpg', sha256: 'original-photo', modality: 'documentary_photo',
+      caption: 'Archive photograph, June 3, 2017. Photo: NASA/Controlled photographer.',
+      alt_text: 'Controlled archive subject', attribution: 'NASA/Controlled photographer', placement_after: 'Reported structure',
+      source_page_url: 'https://example.com/controlled-photo', license_url: 'https://example.com/controlled-permission',
+      preview_data_url: 'data:image/jpeg;base64,Y29udHJvbGxlZA==' }];
+    const before = JSON.stringify(snapshot);
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" />);
+    const article = screen.getByRole('article', { name: 'Selected article' });
+    const photo = within(article).getByRole('img', { name: 'Controlled archive subject' });
+    expect(within(article).getByText('Structure description.').compareDocumentPosition(photo) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(photo.compareDocumentPosition(within(article).getByRole('heading', { name: 'Unresolved terms' })) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(article.querySelectorAll('figure')).toHaveLength(1);
+    const caption = photo.closest('figure')!.querySelector('figcaption')!;
+    expect(caption.textContent).toBe('Archive photograph, June 3, 2017. Photo: NASA/Controlled photographer. · Reuse terms');
+    expect(within(caption).getByRole('link', { name: 'NASA/Controlled photographer' })).toHaveAttribute('href', 'https://example.com/controlled-photo');
+    expect(JSON.stringify(snapshot)).toBe(before);
+  });
+
   it.each(['instagram_business', 'facebook_page', 'x'])('shows the complete attached photo credit once in %s without changing its actual package', destination => {
     const snapshot = ownerData();
     const item = snapshot.native_edition![0];
@@ -145,6 +167,27 @@ describe('Main report editorial workspace', () => {
     fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: 'instagram_business' } });
     expect(screen.getByRole('article', { name: 'Selected article' }).textContent).toContain('Photo: Photographer');
     if (condition === 'changed-credit') expect(screen.getByText(/further rights unresolved/)).toBeInTheDocument();
+  });
+
+  it('matches the compiler default photo credit labels only when the complete exact block is rendered beside the image', () => {
+    const snapshot = ownerData();
+    const item = snapshot.native_edition![0];
+    const caption = 'Controlled archival launch, June 3, 2017. Archive photo: NASA/Controlled photographer.';
+    const credit = `Photo: [NASA/Controlled photographer](https://example.com/photo) · [Reuse terms](https://example.com/permission). ${caption}`;
+    item.media_assets = [{ asset_id: 'archive', path: 'archive.jpg', sha256: 'original-photo', modality: 'documentary_photo',
+      caption, reader_caption: caption, attribution: 'NASA/Controlled photographer', source_page_url: 'https://example.com/photo',
+      license_url: 'https://example.com/permission', preview_data_url: 'data:image/jpeg;base64,Y29udHJvbGxlZA==' }];
+    item.previews.find(p => p.destination === 'discord')!.payload = {
+      text: `Attributed report, unconfirmed.\n\n${credit}`, media_asset_ids: ['archive'] };
+    const before = JSON.stringify(snapshot);
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" />);
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: 'discord' } });
+    const article = screen.getByRole('article', { name: 'Selected article' });
+    expect(within(article).getAllByRole('link', { name: 'NASA/Controlled photographer' })).toHaveLength(1);
+    expect(within(article).getAllByRole('link', { name: 'Reuse terms' })).toHaveLength(1);
+    expect(article.textContent?.match(/Controlled archival launch/g)).toHaveLength(1);
+    expect(within(article).getByText('Attributed report, unconfirmed.')).toBeInTheDocument();
+    expect(JSON.stringify(snapshot)).toBe(before);
   });
 
   it('uses a native modal for full-size media and returns keyboard focus on close', () => {
