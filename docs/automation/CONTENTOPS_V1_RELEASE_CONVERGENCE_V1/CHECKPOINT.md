@@ -1,6 +1,6 @@
 # Retained edition Main News read seam — 26 October 2026
 
-Goal:CONTENTOPS_RETAINED_EDITION_MAIN_NEWS_READ_SEAM_V1 — COMPLETE implementation/verification/producer delivery; L2 notice pending.
+Goal:CONTENTOPS_RETAINED_EDITION_MAIN_NEWS_READ_SEAM_V1 — COMPLETE — implemented, verified, producer delivered and assigned-L2 notice sent once.
 Sole V1 writer:chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2:01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
 Sole root:A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; same branch:codex/v1-newsroom-release-convergence.
 [PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92) remains OPEN/DRAFT; productf7bfbfc19d6b28f95584964663fa37f6a0d384d8 pushed; remote source/artifact/reader blobs match.
@@ -33,4 +33,5 @@ Touched context:existing master plan/V1_CONTEXT and release START_HERE/ACTIVATIO
 Jim visual verdict OPEN; production/four schedules/host prompts/fuse/publication/V2/V3 remain paused and unchanged.
 Later exact operating decision names accepted source,manual/scheduled mode,existing windows/time and any authorized destinations.
 No new edition/model/source/writer campaign,public platform write,merge/deploy/spend/model migration/CUA; dependent-base CI NOT_RUN.
-Whole-goal completion notice to assigned L2:NOT_SENT; product delivery/remote readback verified; send once after this handoff commit.
+Whole-goal completion notice:SENT_ONCE to assigned L2 at 2026-10-26T02:45:46+00:00.
+Successful transport is not L2 startup/acceptance or Main adoption; no follow-up polling.
