@@ -90001,7 +90001,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-26T07:49:10Z",
+  "generation_timestamp_utc": "2026-10-26T13:11:58Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -140886,6 +140886,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "e7a12242e9c589882270758e443ea9e38e097c13",
+  "source_head": "11848cba6fb01248e32abb0390011ae0cc9a3226",
   "source_tree_digest": "c52502587fb9d6011244e2131bfc9af5d4b92f5cb6e174a44c3d0781ade64ce9"
 }
