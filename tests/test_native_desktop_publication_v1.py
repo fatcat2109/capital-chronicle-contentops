@@ -568,7 +568,7 @@ def test_artifact_seal_and_pause_rechecked_at_continuation(tmp_path, monkeypatch
 
 
 @pytest.mark.parametrize("publication_enabled", [True, False])
-def test_real_scheduler_retains_reviewed_slot_for_publication(
+def test_real_scheduler_retains_reviewed_slot_until_exact_handoff_exists(
     tmp_path, monkeypatch, publication_enabled
 ):
     import live_contentops.native_desktop_schedule_binding_v1 as schedule
@@ -628,14 +628,24 @@ def test_real_scheduler_retains_reviewed_slot_for_publication(
     handoff.mkdir()
     (handoff / "publication_lifecycle_plan_v1.json").write_text("{}")
     resumed = schedule.scheduled_binding(rollout, "v1-newsroom-new-york-2100", now=now)
-    if publication_enabled:
-        assert resumed["classification"] == "NATIVE_WINDOW_PUBLICATION_REQUIRED"
-        assert resumed["binding_path"] == first["binding_path"]
-        assert resumed["slot_ordinal"] == first["slot_ordinal"]
-    else:
-        assert resumed["classification"] == "NATIVE_WINDOW_SLOT_READY"
-        assert resumed["slot_ordinal"] == first["slot_ordinal"] + 1
-        assert not store.list_platform_dispatches()
+    assert resumed["classification"] == "NATIVE_WINDOW_HANDOFF_REQUIRED"
+    assert resumed["binding_path"] == first["binding_path"]
+    assert resumed["slot_ordinal"] == first["slot_ordinal"]
+    assert not store.list_platform_dispatches()
+
+
+@pytest.mark.parametrize("publication_enabled", [True, False])
+def test_exact_prepared_slot_replays_or_retains_the_existing_publisher_boundary(tmp_path, monkeypatch, publication_enabled):
+    import live_contentops.native_desktop_schedule_binding_v1 as schedule
+    store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
+    rollout["public_write_authority"] = publication_enabled
+    before = len(store.list_outbox_messages())
+    reply = schedule._issued_state(store, rollout, {"capacity": 3}, binding,
+        Path(binding["output_dir"]) / "native_operation_binding.json")
+    assert reply["classification"] == ("NATIVE_WINDOW_PUBLICATION_REQUIRED" if publication_enabled
+                                         else "NATIVE_WINDOW_OPERATION_COMPLETE")
+    assert reply["slot_ordinal"] == 1 and reply["model_invocations"] == reply["source_requests"] == 0
+    assert len(store.list_outbox_messages()) == before and not store.list_platform_dispatches()
 
 
 def test_current_identity_request_and_runtime_reuse(tmp_path, monkeypatch):
