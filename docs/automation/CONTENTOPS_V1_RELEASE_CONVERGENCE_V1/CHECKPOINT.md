@@ -1,36 +1,33 @@
-# V1 scheduled editorial continuation — 26 October 2026
-Goal: CONTENTOPS_V1_SCHEDULED_EDITORIAL_CONTINUATION_V1 — ACTIVE; same natural21:00 operation.
-Source root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
-Branch: codex/v1-newsroom-release-convergence; this chat is sole V1 integration/application writer.
-Operating root: A:/Capital Chronicle/ContentOps; installed PR95 mergeeb1944019e3fcf465ff6787b84fe3d430236d67b.
-PR94 merged through required exact-head ffa6770b CI SUCCESS; six instruction corrections and filter-resume fix applied.
-Jim run-now authority verified: L2 turn01a178ab-6331-7b61-9ea3-3f366b685d1b/user01a178ab-6491-7161-8d0e-71f7b1e444ba.
-Earlier application authority remains valid; no new review/date/calendar gate.
-Prior runtime recovery accepted by L2; reuse68installed tests and actual task-owned capture; no restart/recovery rerun.
-Existing SHADOW_ONLY/version37, public_write_authority=false, fourACTIVE tasks and original store remain.
-Task Scheduler owns the existing FDA-G runtime; exact two triggers/principal and unrelated WIP preserved.
-Run: simple-gemini-slot-469afb66614b3245f5e822f38f628387.
-Window: editorial-window-cedb9958b953d56fcaf680d62566db37; cutoff2026-10-26T14:00:00Z.
-Binding under Runtime/ContentOps/daily_app_outputs/newsroom-production-day-2026-10-26-bangkok/<window>/<run>/native_operation_binding.json.
-Binding SHA25609d9324a2cd3974cf8007c52a3ca7e1438c5080d3f0f7964b7d418e6fbd51b94 retained.
-The natural trigger occurred; its first invocation stopped before FILTER_REQUIRED under stale instructions.
-L2 run-now then exposed IMMUTABLE_RETURN_CONFLICT; exact packet values match, JSON key order changed prompt text.
-Scoped native_headline_filter fix reuses the issued prompt only for identical governed input; corrupted prompt fails closed.
-Actual advance now returns the SAME first request SHA bce71715f8a048ddfcf9515c62b89de26bba4788181c0fa72567a09be682d71c.
-Six focused filter tests/Ruff PASS; installed pending-scheduled regression PASS; no request/binding replacement.
-Actual Luna/MAX completed24batches/all572frozen Xrecords; exact native returns retained without rerun.
-Actual SELECT b7c0b939 accepted; three admissions; Anthropic blocked, SpaceX relay qualified with2/6factual requests.
-Actual Sol6.1/low preparation accepted; same Sol6.1/MAX scheduled_2100_max_editor visual decision accepted46daf223.
-Ordinary32candidate/3admission/6source requests; exact source/PIT/rights; no later capture treated as earlier knowledge.
-MAX chose genuine narrow NEWS/zero charts with substantive rationale; source stays single-relay/unconfirmed.
-Private evidence: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/scheduled-editorial-continuation-20261026/.
-Existing72retained examples/fixed Main selection unchanged; V2/V3/public writes/paid services/CUA remain outside scope.
-NASA original1ddafd91 inspected; official source/policy/EXIF admitted by scoped repaird6a0cd77;87focused tests PASS.
-Same MAX amendment73377cff accepted59b3c8d; exact one-photo media plan bound through existing source owner.
-Same WRITE e2461d36 acceptedfc696cf7; advance produced1qualified article/8intents; no repair needed.
-PR95 exact-head CI40359621839 SUCCESS; normal merge/application preserved7WIP and listener40360; no restart.
-Article0f2fb2e4 has exact one-photo media already bound; private existing React reader exported; no new edition/selection.
-Rendered check found ignored photo placement/duplicate credit; scoped UI fix953fe7b3 passes28UI tests/build.
-Next: integrate/apply renderer fix, inspect desktop/mobile canonical and8previews; record exact review/handoff.
-Deployment preserved17tracked WIP/owned patches; exact six unrelated WIP retained; healthy API listener40360 unchanged.
-Completion notice NOT_SENT; no L1/peer/progress notice, future-window wait, heartbeat or monitoring task.
+# V1 scheduled editorial continuation - delivered
+Goal: CONTENTOPS_V1_SCHEDULED_EDITORIAL_CONTINUATION_V1; whole scheduled editorial outcome delivered.
+Owner: 01a16a43-bfad-7191-bd78-ef708c3468d7, assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
+Source: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
+Branch: codex/v1-newsroom-release-convergence; sole V1 integration/application writer retained.
+Operating: A:/Capital Chronicle/ContentOps; installed PR96 merge6945edf7396481afb274cad186f9f6be28f18ba7.
+Authority: Jim run-now L2 turn01a178ab/user01a178ab-6491-7161-8d0e-71f7b1e444ba, read_thread verified.
+Current authority/North Star/Master Plan/native-role reads reused; zero-write V1 only, V2/V3 remain paused.
+Same natural21:00 run simple-gemini-slot-469afb66614b3245f5e822f38f628387.
+Window editorial-window-cedb9958b953d56fcaf680d62566db37; original cutoff2026-10-26T14:00:00Z.
+Binding SHA25609d9324a2cd3974cf8007c52a3ca7e1438c5080d3f0f7964b7d418e6fbd51b94 unchanged.
+PR94 fixed JSON-order-only pending-filter resume while changed/corrupt input still fails closed;6focused tests PASS.
+Actual Luna/MAX completed24batches/all572frozen Xrecords; actual Sol6.1/low selection/preparation accepted.
+32candidate/3admission/6factual-request bounds retained;2requests used, primary Anthropic blocked, fallback relay qualified.
+Same /root/scheduled_2100_max_editor gpt-6.1-sol/MAX visual/amend/write accepted;29native semantic returns total.
+One original SpaceX-Apollo BREAKING_BRIEF produced; single StockMKTNewz relay citing Bloomberg, event UNCONFIRMED.
+Article identity0f2fb2e40da9195b200e5d15f73a3df0fab522529abf176ea3e05611e4a35583.
+MAX chose genuine NEWS/zero charts with substantive reason; no analytical relabel, fabricated data or filler.
+One authentic NASA/Bill Ingalls2017-06-03 archive photo source/policy/EXIF/rights/pixels bound; context only.
+PR95 NASA editorial permission route merged/applied;87focused media/data-journalism tests PASS.
+PR96 exact photo-placement/single-credit renderer merged/applied;29focused UI tests/build PASS.
+Installed10NASA/media-plan regressions PASS; both PR95/96 required exact-head CI SUCCESS; no bypass.
+Desktop canonical+8previews and390px mobile inspected in Neo; screenshots/PDF renders retained, no horizontal overflow.
+Exact KEEP review native-article-review-48fb87d4514c45d8a643c07c33e91434.
+Package revision6adc273cb9d19c4850693ed53207582fb717a137c99fc8cd4298ff2e897c12cb; PREPARED/no dispatch.
+Plan869b58f58efc458dc2590ae96caef027b91f3ba411f4fdade1b826f3de8e9f48;9destination states NOT_DISPATCHED.
+Reader: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/scheduled-editorial-continuation-20261026/reader.html.
+Evidence: same private directory delivery.json, rendered-review.json, publication-status-result.json and native-role files.
+Four existing host tasks ACTIVE; original store SHADOW_ONLY/version37/public_write_authority=false; healthy FDA-G listener40360 retained.
+Six unrelated tracked WIP,72retained example destination states and fixed Main selection preserved; no runtime restart.
+Natural trigger and delayed saved-operation completion are distinct; daily5-8published reliability/SEO/audience/platform-native rendering unproven.
+Completion notice PENDING once to assigned L2 only; next: send concise whole-goal delivery, record transport once, complete native goal and stop.
+No public draft/upload/post, paid provider, CUA, new scheduler/store/publisher, extra edition or future monitoring.
