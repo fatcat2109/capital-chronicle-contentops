@@ -54,8 +54,8 @@ def test_repeated_identical_source_failure_preserves_each_attempt(tmp_path, monk
     receipt = json.dumps(failed).encode()
 
     class PendingFeed:
-        def __init__(self, *args):
-            pass
+        def __init__(self, *args, retained_research=None):
+            assert retained_research is None  # This controlled operation has no admitted snapshot yet.
 
         def opportunity(self, **kwargs):
             raise DesktopInputRequired({"stage": "select", "request_path": "controlled", "request_sha256": "controlled"})

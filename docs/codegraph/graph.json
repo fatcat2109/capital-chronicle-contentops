@@ -13,7 +13,7 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14965,
+    "edges": 14971,
     "entrypoints": 20,
     "nodes": 7856,
     "nodes_by_kind": {
@@ -80406,6 +80406,12 @@
       "to": "tests/test_native_desktop_publication_v1.py"
     },
     {
+      "from": "tests/test_native_editorial_media_standard_v1.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_native_newsroom_learning_v1.py"
+    },
+    {
       "from": "tests/test_native_headline_filter_v1.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -80458,6 +80464,30 @@
       "inference": "test_exact_import",
       "kind": "tests",
       "to": "tests/test_daily_app_performance_learning_v1.py"
+    },
+    {
+      "from": "tests/test_native_newsroom_learning_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "tests/test_native_editorial_media_standard_v1.py"
+    },
+    {
+      "from": "tests/test_native_newsroom_learning_v1.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "tests/test_native_editorial_media_standard_v1.py"
+    },
+    {
+      "from": "tests/test_native_newsroom_learning_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "tests/test_reader_first_data_journalism_v1.py"
+    },
+    {
+      "from": "tests/test_native_newsroom_learning_v1.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "tests/test_reader_first_data_journalism_v1.py"
     },
     {
       "from": "tests/test_native_newsroom_learning_v1.py",
@@ -81472,6 +81502,12 @@
       "inference": "test_exact_import",
       "kind": "tests",
       "to": "live_contentops/visual_asset_discovery_v1.py"
+    },
+    {
+      "from": "tests/test_reader_first_data_journalism_v1.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_native_newsroom_learning_v1.py"
     },
     {
       "from": "tests/test_readiness_evidence_bundle_v6.py",
@@ -134403,12 +134439,12 @@
     {
       "id": "tests/test_native_newsroom_learning_v1.py",
       "kind": "test",
-      "size_bytes": 14149
+      "size_bytes": 17340
     },
     {
       "id": "tests/test_native_newsroom_owner_operation_v1.py",
       "kind": "test",
-      "size_bytes": 17720
+      "size_bytes": 17831
     },
     {
       "id": "tests/test_newsroom_assignment_scheduler_v1.py",
@@ -140851,5 +140887,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "e7a12242e9c589882270758e443ea9e38e097c13",
-  "source_tree_digest": "6b96d0e6a233a2854b0cd6811eda010bf5f256311fdb87fe53f0f7e33ea9574c"
+  "source_tree_digest": "c52502587fb9d6011244e2131bfc9af5d4b92f5cb6e174a44c3d0781ade64ce9"
 }

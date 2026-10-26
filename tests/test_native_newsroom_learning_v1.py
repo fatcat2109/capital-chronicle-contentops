@@ -347,7 +347,39 @@ def test_policy_reaches_real_native_selector_writer_seo_and_eight_packages(tmp_p
         evidence_loader=lambda r: _evidence_result(),
         run_id="controlled",
     )
+    from test_native_editorial_media_standard_v1 import controlled_release_packet
+    from test_reader_first_data_journalism_v1 import decision
+    from live_contentops.native_desktop_editorial_v1 import bind_editorial_media_plan
+
+    _, photo, _ = controlled_release_packet(tmp_path / "controlled-media")
+    visual = decision(kind="NEWS", count=0)
+    visual["exception_reason"] = "Narrow controlled announcement has no useful comparable primary-data series."
+    visual["contextual_photo_ids"] = [photo["asset_id"]]
+    visual["channel_media"]["instagram_business"] = [photo["asset_id"]]
     for stage in ("select", "write"):
+        if stage == "write":
+            with pytest.raises(DesktopInputRequired) as media_required:
+                run_v1_simple_gemini_newsroom(**args)
+            assert media_required.value.request["stage"] == "media-plan"
+            assert turn.frozen_request("write") is None
+            sources = media_required.value.request["source_pack"]
+            story = {"thesis": "Controlled announcement", "photo_plan": "Controlled archive context"}
+            with pytest.raises(DesktopInputRequired) as light:
+                turn(logical_invocation_id="controlled:media-plan", prompt="Controlled preparation",
+                    governed_input={"source_pack": sources}, validator=lambda text: (True, None, json.loads(text), None))
+            turn.submit("media-plan", {"request_sha256": light.value.request["request_sha256"],
+                "output": {"story_plan": story}, "invocation_observation": {
+                    "surface": "CODEX_NATIVE_SUBAGENT", "invocation_id": "CONTROLLED_PREPARER",
+                    "model": "gpt-6.1-sol", "reasoning_effort": "low", "observation_source": "CONTROLLED_TEST_NOT_MODEL_PROOF"}})
+            plan = {"native_plan_run_id": "controlled", "native_plan_stage": "media-plan",
+                "native_plan_request_sha256": light.value.request["request_sha256"], "story_plan": story}
+            with pytest.raises(DesktopInputRequired) as editor:
+                turn.request_visual_decision(source_packet=sources, preparation=plan)
+            turn.submit("visual-edit", {"request_sha256": editor.value.request["request_sha256"],
+                "output": visual, "invocation_observation": {
+                    "surface": "CODEX_NATIVE_SUBAGENT", "invocation_id": "CONTROLLED_EDITOR",
+                    "model": "gpt-6.1-sol", "reasoning_effort": "max", "observation_source": "CONTROLLED_TEST_NOT_MODEL_PROOF"}})
+            bind_editorial_media_plan(store, run_id="controlled", output_dir=tmp_path, plan=plan, assets=[photo])
         with pytest.raises(DesktopInputRequired) as caught:
             run_v1_simple_gemini_newsroom(**args)
         request = caught.value.request
@@ -364,6 +396,10 @@ def test_policy_reaches_real_native_selector_writer_seo_and_eight_packages(tmp_p
             )
         else:
             output = _article_output()
+            output["article"].update(reader_first_version="DATA_JOURNALISM_V1", visual_editorial_decision=visual,
+                social_mechanism_summary="The company said the financing framework would support data centres, chip factories and power infrastructure.",
+                social_policy_summary="The company said the financing framework would support data centres, chip factories and power infrastructure.",
+                social_cross_asset_summary="The company said the financing framework would support data centres, chip factories and power infrastructure.")
         turn.submit(
             stage,
             {
@@ -371,7 +407,7 @@ def test_policy_reaches_real_native_selector_writer_seo_and_eight_packages(tmp_p
                 "output": output,
                 "invocation_observation": {
                     "surface": "CODEX_NATIVE_SUBAGENT",
-                    "invocation_id": "CONTROLLED_" + stage,
+                    "invocation_id": "CONTROLLED_EDITOR" if stage == "write" else "CONTROLLED_select",
                     "model": "gpt-6.1-sol",
                     "reasoning_effort": "low" if stage == "select" else "max",
                     "observation_source": "CONTROLLED_TEST_NOT_MODEL_PROOF",
