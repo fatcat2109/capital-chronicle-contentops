@@ -1,7 +1,14 @@
 from __future__ import annotations
 
 import json
+import sys
 from datetime import datetime, timezone
+from pathlib import Path
+from threading import Event, Thread
+
+import pytest
+
+from live_contentops import browser_interaction_budget_v1 as budget
 
 from live_contentops.browser_interaction_budget_v1 import (
     BROWSER_INTERACTION_BUDGET_V1,
@@ -90,6 +97,49 @@ def test_local_hourly_counters_are_bounded_and_sanitized(tmp_path):
     assert summary["global_browser_probe_count_last_hour"] == 0
     assert "SECRET" not in (root / "events.jsonl").read_text(encoding="utf-8")
     configure_browser_interaction_telemetry(None)
+
+
+@pytest.mark.skipif(sys.platform != "win32", reason="Windows readers deny atomic replacement")
+def test_snapshot_reader_cannot_break_capture_telemetry_update(tmp_path, monkeypatch):
+    root = tmp_path / "telemetry"
+    root.mkdir()
+    state = root / "current_state.json"
+    state.write_text(json.dumps({"state": "IDLE"}), encoding="utf-8")
+    monkeypatch.setattr(budget, "_configured_root", root)
+    opened, finished = Event(), Event()
+    original_read = Path.read_text
+    errors = []
+
+    def held_read(path, *args, **kwargs):
+        if path != state:
+            return original_read(path, *args, **kwargs)
+        with path.open("r", encoding="utf-8") as stream:
+            text = stream.read()
+            opened.set()
+            finished.wait(0.5)
+            return text
+
+    monkeypatch.setattr(Path, "read_text", held_read)
+
+    def capture():
+        try:
+            with budget.browser_activity("INGESTION_ACTIVE", reason="DUE_LOW_FREQUENCY_X_INGESTION"):
+                pass
+        except Exception as exc:
+            errors.append(exc)
+        finally:
+            finished.set()
+
+    reader = Thread(target=budget.browser_interaction_summary)
+    reader.start()
+    assert opened.wait(2)
+    writer = Thread(target=capture)
+    writer.start()
+    reader.join(3)
+    writer.join(3)
+    assert not reader.is_alive() and not writer.is_alive()
+    assert not errors, repr(errors)
+    assert json.loads(original_read(state, encoding="utf-8"))["state"] == "IDLE"
 
 
 def test_edge_page_selection_reuses_existing_canonical_destination_tab():

@@ -1,34 +1,39 @@
-# V1 applied zero-write activation — 26 October 2026
+# V1 runtime owner recovery — 26 October 2026
 
-Goal: CONTENTOPS_V1_APPLIED_ZERO_WRITE_ACTIVATION_V1 — ACTIVE; same registered successor after quota.
-Root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
-Branch: codex/v1-newsroom-release-convergence; existing PR92; sole V1 integration writer: this chat.
-Product: e7a12242e9c589882270758e443ea9e38e097c13; see [working reader](release-candidate/index.html).
-Delivery:500415e2fb73a0d725c8721ebdeef3dae6ff5838 pushed/read back; PR92 OPEN/DRAFT/MERGEABLE, no checks exposed.
-Scope/result:8retained articles,64native previews,16charts,8photos;3held candidates,0missing selected records.
-All72destination states NOT_DISPATCHED; retained examples are not a production day or daily-throughput proof.
-Fixed named-Yonhap routing, signed/zero axes/unit labels, repeated attribution and workflow inside reader articles.
-Accepted IBM cash PNG unchanged; same actual MAX judgments/prose/returns retained; no writer/new-edition rerun.
-Verified:122affected Python tests,17integration/recovery tests,27UI tests; UI build/Ruff and actual chart pixels.
-Actual Neo canonical desktop/Instagram mobile inspected; all8Samsung views checked;3photo views show one attribution.
-Extra screenshot timeouts not counted as inspected pixels; no126-view campaign; routine32/3/6bounds unchanged.
-Actual same-operation reopen: same article,0new sources/models; current KEEP/PREPARED and9NOT_DISPATCHED remain.
-Main selected artifact and old7workspace unchanged; Main adoption not assessed or modified.
-Current X dependency:07:13UTC CDP9222 cdp_list_unreachable;0current canonical rows; existing producer owner must restore.
-Independent route: both configured public Main feeds validate15entries emitted20October; dated support, not fresh X.
-Host07:30UTC:4PAUSED on old5.6/high/prompts; fuse active; generated6.1/low/native MAX target not applied.
-Integration: PR92 depends on OPEN/DRAFT PR90/a1b08f96; remote master bc79e30c; neither merged.
-Operating root07:49UTC: master/d0760bf1 with42dirty/0staged entries; preserve/reconcile through one integration writer.
-[ACTIVATION](ACTIVATION.md) pins source, root, four IDs/generated prompts, roles/fuse, canonical-first and UNKNOWN_WRITE.
-Recommendation: approved integration then four-window scheduled zero-write probation from27October17:00Bangkok; no writes.
-Jim grant VERIFIED: L2turn01a17840/user01a17840-ea44-7522-b01e-d3f9d0951975 authorizes applying zero-write now.
-Applied state: NOT_APPLIED; fuse/tasks remain paused during accepted PR90/PR92 integration and WIP-safe deployment.
-Private evidence: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/live-operating-convergence-20261026/.
-Strategic sources: current root/26Oct North Star/Master Plan/tool handoff; prior unchanged strategic read reused.
-Human scope re-read: L2turn01a17703/user01a17703-ef5c-7e40-bdb5-1736be35a386.
-Completion permission re-read: L1turn01a17171/user01a17171-351a-70f0-85c6-43490491d490.
-Preserved six untracked data-journalism dirs, other WIP, V2/V3 pauses; no runtime/host/public/paid/CUA action.
-Next: merge PR90 then PR92 through normal protections; reconcile operating WIP, verify installed paths, update four paused tasks.
-Then: activate exact four zero-write tasks and release only existing fuse LAST; read back immediately; no future-window wait.
-Completion notice for THIS successor: NOT_SENT; previous candidate notice belongs only to the completed predecessor.
-No L1/peer/progress notice, polling or heartbeat; completion notice is not activation authority.
+Goal: CONTENTOPS_V1_RUNTIME_OWNER_RECOVERY_V1 — ACTIVE; post-activation owner lifetime/capture failure.
+Predecessor zero-write activation completed; its immediate readback does not establish ongoing health.
+Source root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
+Execution branch: codex/v1-newsroom-release-convergence; sole V1 integrator; recovery PR93.
+Operating root: A:/Capital Chronicle/ContentOps, merged 9bda0d70 plus two owned debug patches pending protected delivery.
+PR90 merged bc2e0ac6; PR92 merged 9bda0d70 after exact-head required CI passed on 86ddf99c.
+Six tracked WIP files and unrelated untracked work preserved; two historical append conflicts retain both histories.
+Installed native entry, config and owner modules match the merged source; the original store is retained.
+Stable runtime preflight and 15 installed/WIP smoke tests passed; prior 139 Python/27 UI/build evidence reused.
+CI's two stale fixtures now exercise frozen research and mandatory Light/media/MAX preparation; 17 tests pass.
+Four EXISTING App tasks updated through supported tools, read back PAUSED, then ACTIVE on Sol6.1/low.
+Exact generated prompts, calendars, local project and Luna MAX / Sol Light / same Sol MAX roles match.
+The setup packet remains a paused template; it does not override actual ACTIVE host state.
+Store: A:/Capital Chronicle/Runtime/ContentOps/contentops_daily_app_v1.sqlite3.
+Durable mode SHADOW_ONLY, version 37; rollout public_write_authority remains false.
+Exact operator fuse released LAST through its existing owner at 26 October 13:25:02 UTC.
+FDA-G/API8765 absent at 13:50–14:02 UTC; restored hidden at 14:03:55 through the same launcher.
+Codex's nested kill-on-close jobs outlive immediate commands but still kill detached children at turn transition.
+Breakaway-only restoration failed at that transition; existing disabled FDA-G task also retained a stale checkout path.
+Reservation: existing launcher/runtime installer, intake/telemetry, focused owner tests/checkpoint; no new scheduler.
+Fresh X restored through locked CDP9222 bootstrap; bounded captures added 550 then 46 identities.
+Prior 13:30 UTC readback admitted 573 current 24-hour rows; it is not a current-health claim.
+First 13:21 capture PermissionError preserved; Windows snapshot-reader/atomic-replace race independently reproduced.
+Same reader/writer lock fixes that boundary; original exception had no stack, so exact historical attribution is limited.
+Actual 14:03:57 capture added 61 headlines; zero provider calls; normal backoff/history retained after owner exit.
+21:00 task created its exact native binding then stopped at FILTER_REQUIRED under stale paused root wording; no article.
+Immediate readback: public writes blocked, zero provider calls/unknown writes, unchanged dispatch counts.
+All 72 retained example destinations and fixed Main selection remain untouched; V2/V3 stay paused.
+[Actual application and private evidence](ACTIVATION.md); current lane/runtime docs supersede old prepared-only holds.
+Private evidence: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/applied-zero-write-activation-20261026/.
+Human grant verified: L2 turn 01a17840, user 01a17840-ea44-7522-b01e-d3f9d0951975.
+Strategic/role/native-return reads reused; no public destination, paid service, broker, CUA or user-app restart.
+Next: restore SAME hidden FDA-G Scheduled Task with current path/logged same-CLI entry; finish PR93 and installed proof.
+Scoped applied-state docs pushed/read back at 08b8cfae; executable release remains 9bda0d70.
+Predecessor notice was sent once; CURRENT recovery completion notice NOT_SENT.
+Current private evidence: reader-first-review/runtime-owner-recovery-20261026/ under the same local evidence root.
+No L1/peer/progress notice, monitoring schedule, unscheduled edition or future-window wait.

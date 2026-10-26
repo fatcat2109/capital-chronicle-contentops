@@ -5,7 +5,11 @@ Model roles follow `CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2.md`: Luna
 filters X headlines; Sol6.1 Light selects content/prepares data; Sol6.1 MAX writes the article
 and its SEO/voice package. This owner-approved target supersedes the previous Sol-low-only
 method and its HIGH ceiling. Builder model stays unchanged. No paid speed tier is selected.
-This engineering slice has zero activation, deployment or public-write authority.
+The original engineering slice had zero activation/deployment authority. Jim's26October scoped
+instruction authorized the applied scheduled zero-write transition: PR90/PR92 merged, source
+`9bda0d70` installed, four existing tasks ACTIVE, SHADOW_ONLY and publication authority false,
+with the operator fuse released last. See [actual application](CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md).
+This grants no public writes or V2/V3 work. Natural calendar/daily reliability remains unproven.
 
 ## One supported opportunity
 
@@ -39,7 +43,7 @@ Unexposed token totals, API call counts and dollar cost are null, never invented
 Compatibility `simple_*` artifact filenames and accepted deterministic functions are reused;
 their names do not establish a Gemini model invocation. Historical Simple proofs stay intact.
 
-## Four scheduled identities, prepared and paused
+## Four scheduled identities — active zero-write application
 
 Use `config/native_desktop_rollout_v1.json`, generated from the existing four-task setup packet.
 The existing IDs are London 1700, New York 2100/2300/following 0100 UTC+7. The last window belongs
@@ -47,16 +51,17 @@ to the prior newsroom day. No fifth task, new polling loop or provider bridge is
 `native_desktop_schedule_binding_v1.py` maps App invocations onto existing window/day/slot hashes
 and bounded five-article reachability; 4/32 is telemetry, never a per-window stopping rule.
 
-Host objects remain PAUSED on their old model/prompt. Target source implementation is distinct
-from paused deployed runtime. The supported App tool can view/update each object but supplies
+Host objects were updated/read back on26October and are ACTIVE with current Sol6.1/low prompts.
+The committed rollout remains a paused setup template; actual host readback establishes status.
+The supported App tool can view/update each object but supplies
 no transactional four-object activation or programmatic run-now operation here. Local schedules
 require the machine and App running. Manual proof uses isolated state, without releasing pause.
 
 After independent audit and source deployment, the single activation transition is: retire
 legacy Simple scheduled ownership; use supported App update on the same four IDs with the
 exact target project/model/effort/prompts; read back all four; enable the four approved objects;
-clear the existing LLM pause LAST. Any partial operation keeps the fuse closed. This goal does
-none of those actions. Browser/publication activation remains separate from editorial build.
+clear the existing LLM pause LAST. Any partial operation keeps the fuse closed. That scoped
+transition was applied26October at13:25UTC; public publication remains separately blocked.
 
 ## Destinations
 

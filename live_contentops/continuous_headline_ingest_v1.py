@@ -24,7 +24,6 @@ import json
 import os
 import tempfile
 import threading
-import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Optional
@@ -385,6 +384,7 @@ def run_ingestion_housekeeping_iteration(
             "timeline_responses_observed": int(result.get("timeline_responses_observed") or 0),
             "failure_class": result.get("failure_class"),
             "failure_detail": result.get("failure_detail"),
+            "capture_error_context": result.get("capture_error_context"),
             "outcome_code": float(outcome_code),
             "rows_captured": int(rows),
             "newest_source_event_at_utc": result.get("newest_source_event_at_utc"),
@@ -552,6 +552,17 @@ def run_ingestion_housekeeping_iteration(
         result["capture_phase"] = "CAPTURE_CALL"
         result["failure_class"] = failure_class
         result["failure_detail"] = failure_detail
+        # Keep safe operation/error codes, never raw exception text or browser/session data.
+        trace = capture_error.__traceback__
+        while trace is not None and trace.tb_next is not None:
+            trace = trace.tb_next
+        result["capture_error_context"] = {
+            "errno": getattr(capture_error, "errno", None),
+            "winerror": getattr(capture_error, "winerror", None),
+            "module": Path(trace.tb_frame.f_code.co_filename).name if trace is not None else None,
+            "function": trace.tb_frame.f_code.co_name if trace is not None else None,
+            "line": trace.tb_lineno if trace is not None else None,
+        }
         result["detail"] = f"CAPTURE_FAILED:{failure_class}"
         return _finish(
             OUTCOME_CAPTURE_FAILED,

@@ -1,6 +1,10 @@
 # V1 post-acceptance activation authority
 
-Authority date: 2026-10-20
+Authority date: 2026-10-26 application amendment; original native-role direction retained.
+
+Jim's human instruction in assigned L2 turn `01a17840-e9da-77d2-8f09-76b1319c6be4`, message `01a17840-ea44-7522-b01e-d3f9d0951975`, authorized “dont wait for my review, implement next steps”. The accepted PR90/PR92 stack is now merged and installed at `9bda0d70320517ce8dd8c676c5966b3fff0e167e`. The four existing native tasks are ACTIVE with the exact current generated prompts/roles/calendars; the existing store is SHADOW_ONLY, rollout publication authority remains false, and the exact operator fuse was released last at13:25UTC26October. The next existing window is26October21:00Bangkok/Saigon. See [actual application and evidence](CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md).
+
+This scoped applied amendment supersedes the older PAUSED_NOT_DEPLOYED and missing-activation-grant wording below. It does not authorize public writes, draft/upload actions, new windows, paid model paths or V2/V3. No natural calendar opportunity or daily-output reliability is inferred from activation. Fresh X capture works; the first recurring FDA-G capture retains a non-reproduced PermissionError and its20:51UTC+7 retry backoff, so recurring intake reliability remains unproven.
 
 Routine V1 target ownership is `NATIVE_CODEX_DESKTOP`, with the owner-approved three-stage method:
 Luna/Terra MAX filters X headlines; `gpt-6.1-sol / low` (Light) selects content and prepares data;
@@ -19,7 +23,7 @@ scheduler/start paths are non-routing in target source. Bulk X CDP ingestion rem
 Neo is the browser path for research and prepared browser-only destination handoffs. Existing
 Telegram/Discord/Meta/Threads/LinkedIn API transports remain channel-specific.
 
-Current engineering/deployed state: **PAUSED_NOT_DEPLOYED**. Host schedules, production pause,
+Historical20October engineering/deployed state: **PAUSED_NOT_DEPLOYED**. Host schedules, production pause,
 store and deployed bytes were not changed by this migration. Native manual proof is isolated.
 No current configuration grants activation or public writes. Historical Simple and old Desktop
 proofs establish only their exact epochs; do not rebuild their accepted deterministic components.

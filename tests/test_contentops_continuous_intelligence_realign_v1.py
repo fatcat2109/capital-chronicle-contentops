@@ -296,6 +296,30 @@ def test_capture_exception_persists_30m_transient_retry_boundary(tmp_path):
     assert len(capture_calls) == 1
 
 
+def test_permission_failure_records_safe_operation_and_retains_backoff(tmp_path):
+    store = _store(tmp_path)
+
+    def capture_denied(**_kwargs):
+        raise PermissionError(13, "access_token=SECRET", "SECRET-cookie-file")
+
+    result = intake.run_ingestion_housekeeping_iteration(
+        store, now=FIXED_NOW, state_fn=lambda: {"state": "READY"},
+        session_fn=lambda: {"session_state": "READY"}, capture_fn=capture_denied,
+    )
+    context = result["capture_error_context"]
+    assert context["errno"] == 13
+    assert context["function"] == "capture_denied"
+    assert context["module"] == Path(__file__).name
+    assert context["line"] > 0
+    detail = intake.read_ingestion_checkpoint(store)["last_attempt_detail"]
+    assert detail["capture_error_context"] == context
+    assert "SECRET" not in json.dumps(detail)
+    assert result["cadence_state"] == "TRANSIENT_RETRY"
+    assert result["next_eligible_capture_utc"] == (
+        FIXED_NOW + timedelta(seconds=1800)
+    ).isoformat().replace("+00:00", "Z")
+
+
 def test_sanitized_capture_failure_detail_is_bounded_durable_and_restart_safe(tmp_path):
     store_path = tmp_path / "store.sqlite3"
     store = ContentOpsDurableStore(store_path)

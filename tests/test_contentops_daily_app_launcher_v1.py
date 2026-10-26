@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-import inspect
 import json
 import os
+import subprocess
 import sys
 import time
+import venv
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -454,6 +455,45 @@ def test_detached_spawn_survives_launcher_exit(tmp_path):
     assert flags & launcher.CREATE_NO_WINDOW
 
 
+@pytest.mark.skipif(sys.platform != "win32", reason="Windows Job Object lifetime")
+@pytest.mark.parametrize("venv_child", [False, True])
+def test_runtime_survives_launcher_kill_on_close_job(tmp_path, venv_child):
+    marker = tmp_path / "survived.txt"
+    helper = tmp_path / "job_launcher.py"
+    child_executable = Path(sys.executable)
+    if venv_child:
+        venv.EnvBuilder(with_pip=False).create(tmp_path / "venv")
+        child_executable = tmp_path / "venv" / "Scripts" / "pythonw.exe"
+    helper.write_text(
+        "import ctypes, sys\n"
+        "from ctypes import wintypes\n"
+        "from pathlib import Path\n"
+        f"sys.path.insert(0, {str(Path(launcher.__file__).resolve().parents[1])!r})\n"
+        "from live_contentops.daily_app_launcher_v1 import spawn_detached_daily_app\n"
+        "k = ctypes.WinDLL('kernel32', use_last_error=True)\n"
+        "k.CreateJobObjectW.restype = wintypes.HANDLE\n"
+        "k.GetCurrentProcess.restype = wintypes.HANDLE\n"
+        "k.SetInformationJobObject.argtypes = [wintypes.HANDLE, ctypes.c_int, ctypes.c_void_p, wintypes.DWORD]\n"
+        "k.AssignProcessToJobObject.argtypes = [wintypes.HANDLE, wintypes.HANDLE]\n"
+        "job = k.CreateJobObjectW(None, None)\n"
+        "limits = ctypes.create_string_buffer(144)\n"
+        "ctypes.c_uint32.from_buffer(limits, 16).value = 0x2000 | 0x800\n"
+        "assert k.SetInformationJobObject(job, 9, limits, 144), ctypes.get_last_error()\n"
+        "assert k.AssignProcessToJobObject(job, k.GetCurrentProcess()), ctypes.get_last_error()\n"
+        f"root = Path({str(tmp_path)!r})\n"
+        f"child = \"import time;from pathlib import Path;time.sleep(0.3);Path({marker.as_posix()!r}).write_text('survived')\"\n"
+        f"spawn_detached_daily_app([{str(child_executable)!r}, '-c', child], working_directory=root, "
+        "stdout_log=root/'out.log', stderr_log=root/'err.log')\n",
+        encoding="utf-8",
+    )
+    completed = subprocess.run([sys.executable, str(helper)], capture_output=True, text=True, timeout=10)
+    assert completed.returncode == 0, completed.stderr
+    deadline = time.monotonic() + 5
+    while not marker.exists() and time.monotonic() < deadline:
+        time.sleep(0.05)
+    assert marker.read_text() == "survived"
+
+
 def test_ui_bootstrap_is_local_only():
     assert launcher.UI_PREVIEW_PORT == 4173
     assert launcher.UI_DEV_PORT == 5173
@@ -634,7 +674,13 @@ def test_daily_app_task_installer_owns_existing_runtime_not_editorial_scheduler(
         encoding="utf-8"
     )
 
-    assert "live_contentops.cli daily-app start" in installer
+    assert "sys.argv[0]='live_contentops.cli'" in installer
+    assert "daily-app start --store-path" in installer
+    assert "run_scheduled_daily_app" in installer
+    assert "pythonw.exe" in installer
+    assert "-Hidden" in installer
+    assert "Set-ScheduledTask -TaskName $TaskName -Action $action -Settings $existingSettings" in installer
+    assert "CONTENTOPS_EXISTING_RUNTIME_TASK_REQUIRED" in installer
     assert "v1_runtime_preflight_v1" in installer
     assert "CapitalChronicle_ContentOps_V1_Daily_App_Runtime" in installer
     assert "New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew" in installer
@@ -645,3 +691,44 @@ def test_daily_app_task_installer_owns_existing_runtime_not_editorial_scheduler(
     assert "run_v1_simple_gemini_scheduler.py" not in installer
     assert "publish" not in installer.casefold()
     assert "Install-ContentOpsV1DailyAppRuntime.ps1" in wrapper
+
+
+def test_scheduled_owner_runs_same_cli_in_process_and_logs_exit(tmp_path, monkeypatch):
+    store = tmp_path / "store.sqlite3"
+    monkeypatch.setattr(sys, "argv", ["live_contentops.cli", "daily-app", "start", "--store-path", str(store)])
+    monkeypatch.setattr(launcher, "collect_port_inventory", lambda _: _inventory())
+    monkeypatch.setattr(launcher, "_current_source_sha", lambda: "a" * 40)
+    called = []
+    monkeypatch.setitem(sys.modules, "live_contentops.cli", SimpleNamespace(main=lambda: called.append(os.getpid()) or 0))
+    launcher.run_scheduled_daily_app()
+    assert called == [os.getpid()]
+    logs = tmp_path / "one_click_launcher"
+    assert "Scheduled Daily App exit code 0" in (logs / "daily_app.supervisor.stdout.log").read_text()
+    assert json.loads((logs / "runtime_identity_v1.json").read_text())["supervisor_pid"] == os.getpid()
+
+
+def test_scheduled_owner_reuses_existing_owner_without_duplicate(tmp_path, monkeypatch):
+    store = tmp_path / "store.sqlite3"
+    command = f'pythonw.exe -m live_contentops.cli daily-app start --store-path "{store}"'
+    monkeypatch.setattr(sys, "argv", ["live_contentops.cli", "daily-app", "start", "--store-path", str(store)])
+    monkeypatch.setattr(launcher, "collect_port_inventory", lambda _: _inventory(listeners=[123], listener_cmds={123: command}))
+    monkeypatch.setattr(launcher, "probe_health", lambda _: {"status": "LOOPBACK_API_HEALTHY"})
+    monkeypatch.setattr(launcher, "_write_runtime_identity", lambda **_: pytest.fail("existing owner identity overwritten"))
+    launcher.run_scheduled_daily_app()
+
+
+def test_scheduled_owner_records_fatal_exit_and_propagates_failure(tmp_path, monkeypatch):
+    store = tmp_path / "store.sqlite3"
+    monkeypatch.setattr(sys, "argv", ["live_contentops.cli", "daily-app", "start", "--store-path", str(store)])
+    monkeypatch.setattr(launcher, "collect_port_inventory", lambda _: _inventory())
+    monkeypatch.setattr(launcher, "_current_source_sha", lambda: "a" * 40)
+
+    def failed_main():
+        raise PermissionError(13, "SECRET-cookie")
+
+    monkeypatch.setitem(sys.modules, "live_contentops.cli", SimpleNamespace(main=failed_main))
+    with pytest.raises(PermissionError):
+        launcher.run_scheduled_daily_app()
+    text = (tmp_path / "one_click_launcher" / "daily_app.supervisor.stderr.log").read_text()
+    assert "PermissionError" in text and "errno=13" in text
+    assert "SECRET-cookie" not in text
