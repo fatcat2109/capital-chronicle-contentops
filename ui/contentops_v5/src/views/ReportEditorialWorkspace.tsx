@@ -53,6 +53,9 @@ function MediaFigure({ asset: a, originalHref, readerDetails = true }: { asset: 
     return () => { opener.current?.focus(); };
   }, [expanded]);
   const credit = a.reader_credit ?? a.attribution;
+  const caption = a.reader_caption ?? a.caption;
+  const embeddedCredit = a.modality === 'documentary_photo' && credit && a.source_page_url?.startsWith('https://')
+    ? caption.indexOf(credit) : -1;
   const sources = a.modality === 'source_backed_chart' ? a.source_links ?? [] : [];
   const imageHref = originalHref ?? a.preview_data_url;
   return <figure data-media-asset={a.asset_id}>
@@ -60,10 +63,11 @@ function MediaFigure({ asset: a, originalHref, readerDetails = true }: { asset: 
       onClick={event => { if (!originalHref || a.modality === 'source_backed_chart') { event.preventDefault(); setExpanded(true); } }}>
       <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', maxWidth: a.width ?? '100%', height: 'auto' }} />
     </a>}
-    <figcaption>{a.reader_caption ?? a.caption}{sources.length ? <> · {sources.length > 1 ? 'Sources: ' : 'Source: '}
+    <figcaption>{embeddedCredit >= 0 ? <>{caption.slice(0, embeddedCredit)}
+      <a href={a.source_page_url} target="_blank" rel="noreferrer">{credit}</a>{caption.slice(embeddedCredit + credit!.length)}</> : caption}{sources.length ? <> · {sources.length > 1 ? 'Sources: ' : 'Source: '}
       {sources.map((source,index) => <span key={source.document_id}>{index > 0 && '; '}
         <a href={source.url} target="_blank" rel="noreferrer">{source.label}</a></span>)}</>
-      : credit && <> · {a.source_page_url?.startsWith('https://')
+      : credit && embeddedCredit < 0 && <> · {a.source_page_url?.startsWith('https://')
       ? <a href={a.source_page_url} target="_blank" rel="noreferrer">{credit}</a> : credit}</>}
       {a.license_url?.startsWith('https://') && <> · <a href={a.license_url} target="_blank" rel="noreferrer">{a.license_name ?? 'Reuse terms'}</a></>}
       {readerDetails && a.support_caption && <p style={{ margin: '8px 0' }}>{a.support_caption}</p>}
@@ -101,14 +105,14 @@ function ArticleWithMedia({ text, assets = [], originals }: { text: string; asse
   const placed = new Set<string>();
   const figure = (a: EditorialMedia) => <MediaFigure key={a.asset_id} asset={a} originalHref={originals?.[a.sha256]} />;
   return <>
-    {assets.filter(a => a.modality === 'documentary_photo').map(figure)}
+    {assets.filter(a => a.modality === 'documentary_photo' && !a.placement_after).map(figure)}
     {sections.map((section, i) => {
       const heading = /^#{1,6}\s+([^\n]+)/.exec(section)?.[1].trim();
-      const inline = assets.filter(a => a.modality !== 'documentary_photo' && !!heading && a.placement_after === heading);
+      const inline = assets.filter(a => !!heading && a.placement_after === heading);
       inline.forEach(a => placed.add(a.asset_id));
       return <div key={i}><ArticleParagraphs text={section.trim()} />{inline.map(figure)}</div>;
     })}
-    {assets.filter(a => a.modality !== 'documentary_photo' && !placed.has(a.asset_id)).map(figure)}
+    {assets.filter(a => (a.modality !== 'documentary_photo' || a.placement_after) && !placed.has(a.asset_id)).map(figure)}
   </>;
 }
 function PackagePreview({ payload, assets = [], originals }: { payload: Record<string, unknown>; assets?: EditorialMedia[]; originals?: Record<string, string> }) {
