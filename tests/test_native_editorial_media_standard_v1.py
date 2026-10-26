@@ -179,7 +179,7 @@ def test_public_reader_links_replace_internal_source_identifiers():
 def test_media_plan_is_bound_before_writer_and_replays_exactly(tmp_path):
     from live_contentops.native_desktop_editorial_v1 import bind_editorial_media_plan
     from live_contentops.v1_simple_gemini_newsroom_v1 import _worker_prompt
-    doc, photo, chart = controlled_release_packet(tmp_path / "assets")
+    doc, photo, _ = controlled_release_packet(tmp_path / "assets")
     store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
     run = "controlled-planned-writer"
     work = "cc-opportunity-" + sha256_of(run)
@@ -200,7 +200,20 @@ def test_media_plan_is_bound_before_writer_and_replays_exactly(tmp_path):
             "model": "gpt-6.1-sol", "reasoning_effort": "low", "observation_source": "CONTROLLED_UNIT_TEST"}})
     plan = {"native_plan_run_id": run, "native_plan_stage": "media-plan",
             "native_plan_request_sha256": request.value.request["request_sha256"], "story_plan": story}
-    bind_editorial_media_plan(store, run_id=run, output_dir=tmp_path, plan=plan, assets=[photo, chart])
+    with pytest.raises(ValueError, match="ACTUAL_MAX_VISUAL_DECISION_REQUIRED"):
+        bind_editorial_media_plan(store, run_id=run, output_dir=tmp_path, plan=plan, assets=[photo])
+    with pytest.raises(DesktopInputRequired) as visual_request:
+        turn.request_visual_decision(source_packet={"source_pack": [doc]}, preparation=plan)
+    visual = {"reader_first_version": "DATA_JOURNALISM_V1", "story_kind": "NEWS",
+              "editorial_thesis": "Controlled plan/replay fixture, not editorial acceptance.", "charts": [],
+              "exception_reason": "Controlled narrow notice does not require a quantitative comparison.",
+              "contextual_photo_ids": [photo["asset_id"]],
+              "channel_media": {d: [photo["asset_id"]] for d in (
+                  "telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube")}}
+    turn.submit("visual-edit", {"request_sha256": visual_request.value.request["request_sha256"], "output": visual,
+        "invocation_observation": {"surface": "CODEX_NATIVE_SUBAGENT", "invocation_id": "CONTROLLED_MAX_NOT_MODEL_PROOF",
+            "model": "gpt-6.1-sol", "reasoning_effort": "max", "observation_source": "CONTROLLED_UNIT_TEST"}})
+    bind_editorial_media_plan(store, run_id=run, output_dir=tmp_path, plan=plan, assets=[photo])
     with pytest.raises(DesktopInputRequired) as first:
         turn(**args)
     with pytest.raises(DesktopInputRequired) as second:
@@ -338,4 +351,86 @@ def test_commons_federal_photo_without_license_url_needs_bound_policy(tmp_path):
     receipt['provider_metadata']['page']['license_wikitext'] = '{{Unrelated}}'
     seal()
     with pytest.raises(ValueError, match='PUBLIC_DOMAIN_BASIS'):
+        validate_contextual_photo(photo)
+
+
+def controlled_nasa_photo(root):
+    """Controlled permission/capture/EXIF contract, never actual NASA pixel proof."""
+    _, photo, _ = controlled_release_packet(root)
+    photo.update(source_page_url="https://www.nasa.gov/image-article/controlled/",
+                 original_asset_url="https://www.nasa.gov/wp-content/uploads/controlled.jpg",
+                 creator_publisher="NASA/Controlled fixture", rights_status="FIRST_PARTY_REUSABLE",
+                 license_url="https://www.nasa.gov/nasa-brand-center/images-and-media/",
+                 attribution="NASA/Controlled fixture", source_reuse_basis="Factual editorial permission")
+    exif = Image.Exif()
+    exif[315], exif[306] = photo["creator_publisher"], "2020:01:01 12:00:00"
+    Image.new("RGB", (100, 80), "#123456").save(photo["path"], exif=exif)
+    photo["sha256"] = sha256(Path(photo["path"]).read_bytes()).hexdigest()
+    photo["visual_review"].update(asset_sha256=photo["sha256"], identifiable_people=False,
+                                  promotional_logo_focus=False)
+    texts = {"source": "Photo credit: " + photo["creator_publisher"] + " " + photo["original_asset_url"],
+             "policy": "News outlets, schools, and text-book authors may use NASA content without needing "
+                       "explicit permission. A factual manner that does not imply endorsement. "
+                       "NASA should be acknowledged as the source. Except copyright-protected material of "
+                       "third parties. NASA imagery can be generally used editorially within published works "
+                       "that are not promotional in nature."}
+    provider = {"provider_id": "NASA_OFFICIAL"}
+    for kind, url, method in (("source", photo["source_page_url"], "PUBLIC_MEDIA"),
+                              ("policy", photo["license_url"], "PUBLIC_LICENSE")):
+        path = root / (kind + "-capture.json")
+        path.write_bytes(canonical_bytes({"final_url": url, "canonical_content_text": texts[kind],
+            "retrieval_method": "READ_ONLY_BROWSEROS_NEO_" + method,
+            "credential_or_session_material_read": False, "public_write_performed": False}))
+        provider[kind + "_capture_path"] = str(path)
+        provider[kind + "_capture_sha256"] = sha256(path.read_bytes()).hexdigest()
+    receipt = {key: photo[key] for key in ("source_page_url", "original_asset_url", "creator_publisher",
+                                          "license_url", "rights_status", "depicted_date")}
+    receipt.update(provider_metadata=provider, license_text=texts["policy"], original_sha256=photo["sha256"],
+                   use_scope="FACTUAL_EDITORIAL_NON_PROMOTIONAL")
+    return photo, receipt
+
+
+def write_controlled_rights(photo, receipt):
+    path = Path(photo["rights_evidence_path"])
+    path.write_bytes(canonical_bytes(receipt))
+    photo["rights_evidence_sha256"] = sha256(path.read_bytes()).hexdigest()
+
+
+def test_official_nasa_editorial_permission_with_original_exif(tmp_path):
+    photo, receipt = controlled_nasa_photo(tmp_path)
+    write_controlled_rights(photo, receipt)
+    validate_contextual_photo(photo)
+
+
+@pytest.mark.parametrize("change", ["foreign_host", "public_domain_flag", "third_party", "policy_terms",
+                                   "changed_capture", "exif_credit", "exif_date", "people"])
+def test_nasa_permission_cannot_be_created_by_flags_or_unbound_evidence(tmp_path, change):
+    photo, receipt = controlled_nasa_photo(tmp_path)
+    provider = receipt["provider_metadata"]
+    if change == "foreign_host":
+        photo["original_asset_url"] = receipt["original_asset_url"] = "https://www.nasa.gov.example/controlled.jpg"
+    elif change == "public_domain_flag":
+        photo["rights_status"] = receipt["rights_status"] = "PUBLIC_DOMAIN"
+    elif change in {"third_party", "policy_terms", "changed_capture"}:
+        kind = "policy" if change == "policy_terms" else "source"
+        path = Path(provider[kind + "_capture_path"])
+        capture = json.loads(path.read_bytes())
+        if change == "policy_terms":
+            capture["canonical_content_text"] = receipt["license_text"] = "NASA content, rights unknown."
+        else:
+            capture["canonical_content_text"] += " Copyright protected: third-party photographer."
+        path.write_bytes(canonical_bytes(capture))
+        if change != "changed_capture":
+            provider[kind + "_capture_sha256"] = sha256(path.read_bytes()).hexdigest()
+    elif change.startswith("exif_"):
+        exif = Image.Exif()
+        exif[315] = "Other photographer" if change == "exif_credit" else photo["creator_publisher"]
+        exif[306] = "2021:01:01 12:00:00" if change == "exif_date" else "2020:01:01 12:00:00"
+        Image.new("RGB", (100, 80), "#123456").save(photo["path"], exif=exif)
+        photo["sha256"] = receipt["original_sha256"] = sha256(Path(photo["path"]).read_bytes()).hexdigest()
+        photo["visual_review"]["asset_sha256"] = photo["sha256"]
+    else:
+        photo["visual_review"]["identifiable_people"] = True
+    write_controlled_rights(photo, receipt)
+    with pytest.raises(ValueError, match="PHOTO_NASA_"):
         validate_contextual_photo(photo)

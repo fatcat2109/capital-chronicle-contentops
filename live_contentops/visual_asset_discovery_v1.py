@@ -12,7 +12,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, urlopen
 
 from PIL import Image
@@ -80,6 +80,25 @@ def validate_contextual_photo(asset: Mapping[str, Any]) -> None:
     if not receipt.get("provider_metadata") or not receipt.get("license_text"):
         raise ValueError("PHOTO_EXACT_LICENSE_EVIDENCE_REQUIRED")
     provider = receipt["provider_metadata"]
+    if provider.get("provider_id") == "NASA_OFFICIAL":
+        _validate_nasa_contextual_rights(asset, receipt, raw, digest)
+    else:
+        _validate_commons_contextual_rights(asset, receipt, provider, digest)
+    review = asset.get("visual_review") or {}
+    if (digest != asset.get("sha256") or review.get("asset_sha256") != digest
+            or review.get("pixels_inspected") is not True
+            or review.get("relevant_subject") is not True or not review.get("reviewer")):
+        raise ValueError("PHOTO_EXACT_PIXEL_REVIEW_REQUIRED")
+    with Image.open(io.BytesIO(raw)) as im:
+        im.verify()
+    with Image.open(io.BytesIO(raw)) as im:
+        if im.format not in {"JPEG", "PNG", "WEBP"} or im.size != (asset.get("width"), asset.get("height")):
+            raise ValueError("PHOTO_DELIVERY_DIMENSIONS_INVALID")
+    if asset.get("context_only") is not True or asset.get("corroborates_article_facts") is not False:
+        raise ValueError("CONTEXTUAL_PHOTO_IS_NOT_FACTUAL_CORROBORATION")
+
+
+def _validate_commons_contextual_rights(asset, receipt, provider, digest):
     try:
         info = provider["page"]["imageinfo"][0]
         meta = info["extmetadata"]
@@ -94,18 +113,61 @@ def validate_contextual_photo(asset: Mapping[str, Any]) -> None:
             raise ValueError("PHOTO_PROVIDER_METADATA_BINDING_CHANGED")
     except (KeyError, IndexError, TypeError) as exc:
         raise ValueError("PHOTO_PROVIDER_METADATA_INCOMPLETE") from exc
+
+
+def _validate_nasa_contextual_rights(asset, receipt, raw, digest):
+    """Admit NASA's explicit editorial permission, not a blanket public-domain label.
+
+    Retained official source/policy captures and original EXIF must agree. Other
+    first-party publishers still need their own supported rights evidence route.
+    """
+    policy_url = "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+    provider = receipt["provider_metadata"]
+    for field, prefix in (("source_page_url", "/image-article/"),
+                          ("original_asset_url", "/wp-content/uploads/")):
+        url = urlsplit(asset[field])
+        if (url.scheme != "https" or url.netloc != "www.nasa.gov"
+                or not url.path.startswith(prefix) or url.query or url.fragment):
+            raise ValueError("PHOTO_NASA_OFFICIAL_SOURCE_REQUIRED")
+    if (asset["rights_status"] != "FIRST_PARTY_REUSABLE" or asset["license_url"] != policy_url
+            or receipt.get("use_scope") != "FACTUAL_EDITORIAL_NON_PROMOTIONAL"
+            or receipt.get("original_sha256") != digest):
+        raise ValueError("PHOTO_NASA_EDITORIAL_PERMISSION_REQUIRED")
+    captures = {}
+    for kind, url, method in (("source", asset["source_page_url"], "READ_ONLY_BROWSEROS_NEO_PUBLIC_MEDIA"),
+                              ("policy", policy_url, "READ_ONLY_BROWSEROS_NEO_PUBLIC_LICENSE")):
+        try:
+            capture_raw = Path(provider[kind + "_capture_path"]).read_bytes()
+            capture = json.loads(capture_raw)
+            if (hashlib.sha256(capture_raw).hexdigest() != provider[kind + "_capture_sha256"]
+                    or capture.get("final_url") != url or capture.get("retrieval_method") != method
+                    or capture.get("credential_or_session_material_read") is not False
+                    or capture.get("public_write_performed") is not False):
+                raise ValueError("PHOTO_NASA_CAPTURE_BINDING_CHANGED")
+            captures[kind] = " ".join(capture["canonical_content_text"].split())
+        except (KeyError, TypeError) as exc:
+            raise ValueError("PHOTO_NASA_EXACT_CAPTURE_REQUIRED") from exc
+    source, policy = captures["source"], captures["policy"]
+    if (asset["original_asset_url"] not in source
+            or "Photo credit: " + asset["creator_publisher"] not in source
+            or not asset["creator_publisher"].startswith("NASA/")
+            or asset["creator_publisher"] not in asset["attribution"]
+            or re.search(r"\u00a9|\bcopyright(?:ed)?\b|all rights reserved", source, re.IGNORECASE)):
+        raise ValueError("PHOTO_NASA_FIRST_PARTY_CREDIT_REQUIRED")
+    terms = ("News outlets, schools, and text-book authors may use NASA content without needing explicit permission",
+             "factual manner that does not imply endorsement", "NASA should be acknowledged as the source",
+             "copyright-protected material of third parties", "NASA imagery can be generally used editorially",
+             "published works that are not promotional in nature")
+    if receipt["license_text"] != policy or not all(term in policy for term in terms):
+        raise ValueError("PHOTO_NASA_EDITORIAL_POLICY_NOT_VERIFIED")
+    with Image.open(io.BytesIO(raw)) as image:
+        exif = image.getexif()
+        if (exif.get(315) != asset["creator_publisher"]
+                or str(exif.get(306, "")).split(" ", 1)[0].replace(":", "-") != asset["depicted_date"]):
+            raise ValueError("PHOTO_NASA_ORIGINAL_EXIF_BINDING_CHANGED")
     review = asset.get("visual_review") or {}
-    if (digest != asset.get("sha256") or review.get("asset_sha256") != digest
-            or review.get("pixels_inspected") is not True
-            or review.get("relevant_subject") is not True or not review.get("reviewer")):
-        raise ValueError("PHOTO_EXACT_PIXEL_REVIEW_REQUIRED")
-    with Image.open(io.BytesIO(raw)) as im:
-        im.verify()
-    with Image.open(io.BytesIO(raw)) as im:
-        if im.format not in {"JPEG", "PNG", "WEBP"} or im.size != (asset.get("width"), asset.get("height")):
-            raise ValueError("PHOTO_DELIVERY_DIMENSIONS_INVALID")
-    if asset.get("context_only") is not True or asset.get("corroborates_article_facts") is not False:
-        raise ValueError("CONTEXTUAL_PHOTO_IS_NOT_FACTUAL_CORROBORATION")
+    if review.get("identifiable_people") is not False or review.get("promotional_logo_focus") is not False:
+        raise ValueError("PHOTO_NASA_EDITORIAL_PIXEL_SCOPE_REQUIRED")
 
 
 def _contextual_license_url(receipt, provider, meta):
