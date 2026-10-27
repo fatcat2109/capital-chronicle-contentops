@@ -13,7 +13,7 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 15074,
+    "edges": 15080,
     "entrypoints": 20,
     "nodes": 7875,
     "nodes_by_kind": {
@@ -12114,6 +12114,12 @@
       "to": "tests/test_eight_platform_substack_first_pipeline_v1.py"
     },
     {
+      "from": "live_contentops/discord_live_adapter_v6.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_publication_coordinator_v1.py"
+    },
+    {
       "from": "live_contentops/dispatch_audit_dry_run_contract.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -20740,6 +20746,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/live_telemetry_v6.py::sanitize_summary"
+    },
+    {
+      "from": "live_contentops/live_telemetry_v6.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_discord_live_adapter_v6.py"
     },
     {
       "from": "live_contentops/live_telemetry_v6.py",
@@ -79566,6 +79578,18 @@
       "to": "live_contentops/discord_live_adapter_v6.py"
     },
     {
+      "from": "tests/test_discord_live_adapter_v6.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/live_telemetry_v6.py"
+    },
+    {
+      "from": "tests/test_discord_live_adapter_v6.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "live_contentops/live_telemetry_v6.py"
+    },
+    {
       "from": "tests/test_dispatch_audit_dry_run_contract.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -82024,6 +82048,18 @@
       "inference": "test_exact_import",
       "kind": "tests",
       "to": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py"
+    },
+    {
+      "from": "tests/test_publication_coordinator_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/discord_live_adapter_v6.py"
+    },
+    {
+      "from": "tests/test_publication_coordinator_v1.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "live_contentops/discord_live_adapter_v6.py"
     },
     {
       "from": "tests/test_publication_coordinator_v1.py",
@@ -90619,7 +90655,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-27T23:00:41Z",
+  "generation_timestamp_utc": "2026-10-27T23:33:12Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -92149,7 +92185,7 @@
     {
       "id": "live_contentops/discord_live_adapter_v6.py",
       "kind": "python_module",
-      "size_bytes": 11809
+      "size_bytes": 11894
     },
     {
       "id": "live_contentops/dispatch_audit_dry_run_contract.py",
@@ -93879,7 +93915,7 @@
     {
       "id": "live_contentops/publication_coordinator_v1.py",
       "kind": "python_module",
-      "size_bytes": 130026
+      "size_bytes": 132262
     },
     {
       "id": "live_contentops/publish_adapter_credential_secret_policy.py",
@@ -121560,56 +121596,56 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1",
       "kind": "python_class",
-      "line": 2341,
+      "line": 2357,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.__init__",
       "kind": "python_method",
-      "line": 2344,
+      "line": 2360,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.__init__"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.amend_photo_attribution",
       "kind": "python_method",
-      "line": 2374,
+      "line": 2390,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.amend_photo_attribution"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.collect_metrics",
       "kind": "python_method",
-      "line": 2497,
+      "line": 2525,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.collect_metrics"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.finalize_intent",
       "kind": "python_method",
-      "line": 2435,
+      "line": 2463,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.finalize_intent"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.prepare_delivery_media",
       "kind": "python_method",
-      "line": 2357,
+      "line": 2373,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.prepare_delivery_media"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.publish",
       "kind": "python_method",
-      "line": 2408,
+      "line": 2436,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.publish"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.readback",
       "kind": "python_method",
-      "line": 2456,
+      "line": 2484,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.readback"
     },
@@ -121637,7 +121673,7 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._confirmed_canonical_url_for_work_item",
       "kind": "python_method",
-      "line": 1840,
+      "line": 1856,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._confirmed_canonical_url_for_work_item"
     },
@@ -121658,7 +121694,7 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._execute_plan",
       "kind": "python_method",
-      "line": 1568,
+      "line": 1584,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._execute_plan"
     },
@@ -121798,7 +121834,7 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.collect_metrics",
       "kind": "python_method",
-      "line": 2265,
+      "line": 2281,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.collect_metrics"
     },
@@ -121812,7 +121848,7 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.execute_plan",
       "kind": "python_method",
-      "line": 1548,
+      "line": 1564,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.execute_plan"
     },
@@ -121833,21 +121869,21 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.publish_plan",
       "kind": "python_method",
-      "line": 2238,
+      "line": 2254,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.publish_plan"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.readback",
       "kind": "python_method",
-      "line": 2261,
+      "line": 2277,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.readback"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.readback_existing_dispatch",
       "kind": "python_method",
-      "line": 2241,
+      "line": 2257,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.readback_existing_dispatch"
     },
@@ -121861,7 +121897,7 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.recover_pending",
       "kind": "python_method",
-      "line": 1867,
+      "line": 1883,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.recover_pending"
     },
@@ -134193,7 +134229,7 @@
     {
       "id": "tests/test_discord_live_adapter_v6.py",
       "kind": "test",
-      "size_bytes": 2679
+      "size_bytes": 3734
     },
     {
       "id": "tests/test_dispatch_audit_dry_run_contract.py",
@@ -136038,7 +136074,7 @@
     {
       "id": "tests/test_publication_coordinator_v1.py",
       "kind": "test",
-      "size_bytes": 74725
+      "size_bytes": 78525
     },
     {
       "id": "tests/test_publish_adapter_credential_secret_policy.py",
@@ -141635,6 +141671,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "433060d7a49e8f4e8b5c7c67c09b30eca63f31cc",
-  "source_tree_digest": "9fe59ef14ca91dd60ceec8a8c29cfac12e48d0c4689c55ea8c664ef31f81cdcb"
+  "source_head": "d4977993aa6bc2e69f5c7b2129094ad7f8a35453",
+  "source_tree_digest": "83f481e6163bd870c32adb96fc0c09796c4c59aae0e35de930751b5e78672f75"
 }
