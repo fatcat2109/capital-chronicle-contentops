@@ -4372,15 +4372,22 @@ def _readback_one_destination_from_durable_intent(
             canonical_url=canonical_url,
         )
     elif destination == "threads" and public_object_id:
-        from live_contentops.threads_adapter_v6 import readback_threads_post
+        from live_contentops.threads_adapter_v6 import readback_threads_chain, readback_threads_post
+        package = payloads.get("threads") or {}
         result = readback_threads_post(
-            post_id=public_object_id, expected_text=text, canonical_url=canonical_url,
+            post_id=public_object_id, expected_text=str(package.get("root_text") or text), canonical_url=canonical_url,
             expected_media_local_path=image_path or None,
         )
+        reply_texts = package.get("reply_texts") or []
+        if reply_texts:
+            chain = readback_threads_chain(root_id=public_object_id,
+                reply_expectations=[{"text": value, "expected_media_local_path": None} for value in reply_texts])
+            result["reply_chain"] = chain
+            if chain.get("status") != "SUCCESS":
+                result["status"] = "FAILED_THREADS_REPLY_CHAIN_READBACK"
         if (
-            result.get("body_text_visible") is True
-            and result.get("substack_url_visible") is True
-            and result.get("public_url")
+            result.get("account_identity_verified") is True and result.get("visible_body_text")
+            and result.get("public_url") and str(result.get("post_id")) == str(public_object_id)
         ):
             result = {**result, "write_exists": True}
     elif destination in {"facebook_page", "instagram_business"} and not data["primary_media"]:
