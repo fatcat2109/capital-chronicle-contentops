@@ -956,6 +956,30 @@ def test_brief_watch_retains_the_condition_after_a_rhetorical_transition():
     assert article == before
 
 
+def test_reader_first_brief_preserves_qualified_passages_and_watch_subject():
+    context = "Reuters earlier reported no dialogue. A renewed push does not establish that talks resumed."
+    mechanism = "A durable reduction in tensions could ease supply concerns. Actual exports need separate evidence."
+    watch = "Watch for participants and concrete terms. An oil-price retreat alone cannot establish physical supply relief."
+    article = {"title": "Wire reports a diplomatic push", "reader_first_version": "DATA_JOURNALISM_V1",
+        "effective_article_mode": "BREAKING_BRIEF", "social_hook": "A wire relays a reported push. Direct talks remain unconfirmed.",
+        "social_policy_summary": context, "social_mechanism_summary": mechanism,
+        "social_cross_asset_summary": watch, "native_destination_media": {d: ["photo"] for d in (
+            "telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube")}}
+    original = dict(article)
+    payloads = build_native_derivative_payloads(article=article, selection={},
+        canonical_url="https://capitalchronicle.substack.com/p/diplomatic-push", media_asset_ids=["photo"])
+    for destination in ("linkedin", "discord", "instagram_business", "threads"):
+        assert context in str(payloads[destination].get("full_text") or payloads[destination]["text"])
+    for destination in ("linkedin", "facebook_page"):
+        assert mechanism in payloads[destination]["text"]
+    for destination in ("telegram", "x", "threads", "youtube"):
+        text = str(payloads[destination].get("full_text") or payloads[destination]["text"])
+        assert watch in " ".join(text.split()) and "Watch: Watch" not in text and "watch: Watch" not in text
+    for destination in ("x", "threads"):
+        assert all(len(p["text"]) <= payloads[destination]["platform_limit"] for p in payloads[destination]["posts"])
+    assert article == original
+
+
 def test_prepare_only_release_candidate_never_calls_publishers(tmp_path: Path, monkeypatch):
     context = {
         "article": {**_article(), "canonical_url": "https://capitalchronicle.substack.com/p/eia-oil-forecast", "word_count": 800, "substack_body_markdown_sha256": "d" * 64},

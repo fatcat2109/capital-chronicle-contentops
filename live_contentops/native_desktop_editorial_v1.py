@@ -675,19 +675,13 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
                 or asset.get("underlying_source_rights_status") not in {"public_domain", "attributed_facts_independent_chart"}
                 or sha256(resolve_workspace_path(asset["path"]).read_bytes()).hexdigest() != asset.get("sha256")):
             raise ValueError("MEDIA_SOURCE_RIGHTS_OR_BYTES_UNBOUND")
-    from live_contentops.v1_simple_gemini_newsroom_v1 import native_source_date_notice
+    from live_contentops.v1_simple_gemini_newsroom_v1 import native_source_date_notice, native_source_reader_label
     used_source_ids = set(re.findall(r"\[\[SOURCE:(SOURCE_\d+)\]\]", corrected_article["substack_body_markdown"]))
     article = {**corrected_article, "source_date_notice": native_source_date_notice(result.get("evidence", []),
         used_source_ids)}
-    if assets == result.get("media_assets") and article == result["article"]:
-        return {"classification": "MEDIA_ALREADY_BOUND", "article_identity": article_identity}
-    store.register_outbox_message(message_id=key + "-package-history-" + sha256_of(result),
-        work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
-        payload=canonical_bytes(result).decode(), status="EDITORIAL_INTERNAL")
-    if final_visual_repair is not None:
-        store.register_outbox_message(message_id=key + "-visual-repair-" + sha256_of(final_visual_repair),
-            work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
-            payload=canonical_bytes({**final_visual_repair, "corrected_worker_output": corrected_worker_output}).decode(), status="EDITORIAL_INTERNAL")
+    if reader_first:
+        article["public_source_bindings"] = [{**s, "reader_label": native_source_reader_label(s)}
+                                             for s in article.get("public_source_bindings", [])]
     if corrected_worker_output is not None:
         from live_contentops.v1_simple_gemini_newsroom_v1 import _text_hash
         article_identity = _text_hash(article["substack_body_markdown"])
@@ -698,6 +692,16 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     previews = [{"destination": k, "payload": v, "preview_id": "cc-preview-" + sha256_of([article_identity, k, v]),
         "article_identity": article_identity, "claim_lineage": result.get("claim_lineage", [])}
         for k, v in bundle["packages"].items()]
+    if (assets == result.get("media_assets") and article == result["article"]
+            and previews == result.get("previews")):
+        return {"classification": "MEDIA_ALREADY_BOUND", "article_identity": article_identity}
+    store.register_outbox_message(message_id=key + "-package-history-" + sha256_of(result),
+        work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
+        payload=canonical_bytes(result).decode(), status="EDITORIAL_INTERNAL")
+    if final_visual_repair is not None:
+        store.register_outbox_message(message_id=key + "-visual-repair-" + sha256_of(final_visual_repair),
+            work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
+            payload=canonical_bytes({**final_visual_repair, "corrected_worker_output": corrected_worker_output}).decode(), status="EDITORIAL_INTERNAL")
     updated = {**result, "article": article, "article_identity": article_identity, "media_assets": assets, "previews": previews,
         "media_preview_binding_sha256": sha256_of(previews),
         "media_reuse_count": sum(a.get("reuse_state") == "EXACT_BYTES_REUSED_NO_RENDER" for a in assets)}

@@ -601,6 +601,15 @@ def _build_native_derivative_payloads(
     scope_notice = str(article.get("editorial_scope_notice") or "")
     media_attribution = str(article.get("native_media_attribution") or "")
     if ordinary_brief or article_mode == "BREAKING_BRIEF" or text_only_package or article.get("native_brief_layout") is True:
+        def brief_passage(value: Any, fallbacks: Sequence[Any], *, rejected: Sequence[str]) -> str:
+            # Reader-first summaries are complete passages chosen by the actual
+            # writer. Their later sentences may contain the material qualification.
+            passage = " ".join(str(value or "").split())
+            if (article.get("reader_first_version") == "DATA_JOURNALISM_V1" and passage
+                    and not any(_materially_identical_derivative_sentence(passage, p) for p in rejected if p)):
+                return _punctuate(passage)
+            return _next_distinct_derivative_sentence((value, *fallbacks), rejected=rejected)
+
         def native_brief_text(*parts: str, limit: int, platform: str) -> str:
             text = "\n\n".join(part for part in (*parts, media_attribution, scope_notice) if part)
             if len(text) > limit:
@@ -611,9 +620,8 @@ def _build_native_derivative_payloads(
             _punctuate(sentence)
             for sentence in _sentence_units(str(article.get("substack_body_markdown") or ""))
         )
-        brief_dek = _next_distinct_derivative_sentence(
-            (
-                article.get("social_hook"),
+        brief_dek = brief_passage(
+            article.get("social_hook"), (
                 article.get("social_lede"),
                 article.get("subtitle"),
                 *article_body_sentences,
@@ -622,25 +630,22 @@ def _build_native_derivative_payloads(
         )
         if not brief_dek:
             raise ValueError("native_brief_requires_accepted_reader_detail")
-        mechanism = _next_distinct_derivative_sentence(
-            (
-                article.get("social_mechanism_summary"),
+        mechanism = brief_passage(
+            article.get("social_mechanism_summary"), (
                 article.get("market_mechanism"),
                 *article_body_sentences,
             ),
             rejected=(title, brief_dek),
         )
-        context = _next_distinct_derivative_sentence(
-            (
-                article.get("social_policy_summary"),
+        context = brief_passage(
+            article.get("social_policy_summary"), (
                 article.get("policy_context"),
                 *article_body_sentences,
             ),
             rejected=(title, brief_dek, mechanism),
         )
-        watch_point = _next_distinct_derivative_sentence(
-            (
-                article.get("social_cross_asset_summary"),
+        watch_point = brief_passage(
+            article.get("social_cross_asset_summary"), (
                 article.get("cross_asset_implications"),
                 *article_body_sentences,
             ),
@@ -648,6 +653,10 @@ def _build_native_derivative_payloads(
         )
         # A writer may already label its passage. Add one readable label only.
         watch_point = re.sub(r"^(?:(?:what to )?watch\s*:\s*)+", "", watch_point, flags=re.IGNORECASE)
+        def watch_passage(label: str) -> str:
+            if not watch_point:
+                return ""
+            return watch_point if re.match(r"^(?:what to )?watch\b", watch_point, re.IGNORECASE) else f"{label}: {watch_point}"
         def brief_layout(*, detail: str, continuation: str, limit: int) -> dict[str, Any]:
             layout = _root_and_replies(
                 title=title,
@@ -680,12 +689,12 @@ def _build_native_derivative_payloads(
 
         x_brief = brief_layout(
             detail=brief_dek,
-            continuation=f"Watch: {watch_point}" if watch_point else "",
+            continuation=watch_passage("Watch"),
             limit=280,
         )
         threads_brief = brief_layout(
             detail=context or brief_dek,
-            continuation=f"What to watch: {watch_point}" if watch_point else "",
+            continuation=watch_passage("What to watch"),
             limit=500,
         )
         return {
@@ -695,7 +704,7 @@ def _build_native_derivative_payloads(
                     "NEWSROOM BRIEF",
                     title,
                     brief_dek,
-                    f"What to watch: {watch_point}" if watch_point else "",
+                    watch_passage("What to watch"),
                     f"Full brief: {canonical_url}",
                     limit=1024,
                     platform="telegram",
@@ -769,7 +778,7 @@ def _build_native_derivative_payloads(
                 "text": native_brief_text(
                     f"Update: {title}",
                     brief_dek,
-                    f"What to watch: {watch_point}" if watch_point else "",
+                    watch_passage("What to watch"),
                     f"Read the full brief: {canonical_url}",
                     limit=1_000,
                     platform="youtube",
