@@ -4231,6 +4231,9 @@ def _publish_one_destination_from_durable_intent(
             text=text, canonical_url=canonical_url, image_path=image_path,
         )
     if destination == "discord":
+        if image_path and not public_image_url:
+            return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True,
+                    "reason_code": "VERIFIED_DELIVERY_MEDIA_UNAVAILABLE"}
         return _publish_discord_verified(
             text=text, canonical_url=canonical_url,
             image_url=public_image_url if image_path else None,
