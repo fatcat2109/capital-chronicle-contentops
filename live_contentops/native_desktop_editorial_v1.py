@@ -812,7 +812,8 @@ def final_visual_binding(result, *, renders):
         "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx", "ui/contentops_v5/src/index.css")}
     return {"article_identity": result["article_identity"], "article_revision": native_review_revision(result),
         "source_sha256": sha256_of(result.get("evidence", [])), "assets": assets,
-        "variants": variants, "renders": observed, "renderer_sha256": renderer}
+        "variants": variants, "renders": observed, "renderer_sha256": renderer,
+        "reviewer_assignment": dict(ROLE_ASSIGNMENTS["final-visual"])}
 
 
 def request_final_visual_review(turn, *, renders):
@@ -841,14 +842,19 @@ def request_final_visual_review(turn, *, renders):
         "Return JSON with decision ACCEPT, REPAIR_REQUIRED or EXTERNAL_BLOCK; asset_findings and render_findings. "
         "Every asset finding has asset_id, asset_sha256, pixels_inspected=true, checks containing every applicable "
         "layout/data/photo key from GOVERNED_INPUT, findings list and substantive evidence_notes. Every render finding "
-        "has render_id, sha256, pixels_inspected=true, all layout checks, findings and evidence_notes. Check values are "
+        "has render_id, sha256, pixels_inspected=true, all layout checks, findings and evidence_notes. If actual visual "
+        "access is unavailable, preserve pixels_inspected=false, UNVERIFIED and an exact EXTERNAL_BLOCK; never claim "
+        "inspection. Check values are "
         "PASS/FAIL/UNVERIFIED/NOT_APPLICABLE. ACCEPT requires no failed/unverified check or unresolved finding. "
         "If defective, YOU directly repair only affected source-bound copy/media/layout with existing tools, re-render "
         "affected views, inspect and resubmit the same article's corrected revision. Keep valid assets/returns; "
         "never discard the story or rerun intake. No one-repair ceiling for concrete correctable defects, no blind loop "
         "or repeated votes. External gaps preserve the product and exact pending repair. No public send here.\n"
         "GOVERNED_INPUT:\n" + canonical_bytes(governed).decode())
-    return turn(logical_invocation_id=turn.run_id + ":" + stage, prompt=prompt, governed_input=governed,
+    frozen = turn.frozen_request(stage)
+    return turn(logical_invocation_id=turn.run_id + ":" + stage,
+        prompt=frozen["prompt"] if frozen else prompt,
+        governed_input=frozen["governed_input"] if frozen else governed,
         validator=lambda raw: (True, None, json.loads(raw), None))
 
 
