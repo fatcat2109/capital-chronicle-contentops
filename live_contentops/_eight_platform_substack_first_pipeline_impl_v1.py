@@ -3902,6 +3902,17 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         canonical_url=canonical_url or "https://capitalchronicle.substack.com/p/pending-publication",
         media_asset_ids=[str(row.get("asset_id") or "") for row in media_assets],
     )
+    destination = str((intent.get("destination_plan") or {}).get("destination") or "")
+    frozen_payload = intent.get("native_payload")
+    if destination and isinstance(frozen_payload, Mapping):
+        # The canonical-first owner already froze the reviewed destination bytes.
+        # Rebuilding here can lose photo credits, handles or per-post media choices.
+        payloads[destination] = dict(frozen_payload)
+        if "media_asset_ids" in frozen_payload:
+            chosen = set(frozen_payload.get("media_asset_ids") or [])
+            chosen.update(asset_id for post in frozen_payload.get("posts") or []
+                          if isinstance(post, Mapping) for asset_id in post.get("media_asset_ids") or [])
+            media_assets = [asset for asset in media_assets if asset.get("asset_id") in chosen]
     local_media = next((
         str(row.get("path") or row.get("absolute_local_source_path") or "")
         for row in media_assets
@@ -4361,15 +4372,22 @@ def _readback_one_destination_from_durable_intent(
             canonical_url=canonical_url,
         )
     elif destination == "threads" and public_object_id:
-        from live_contentops.threads_adapter_v6 import readback_threads_post
+        from live_contentops.threads_adapter_v6 import readback_threads_chain, readback_threads_post
+        package = payloads.get("threads") or {}
         result = readback_threads_post(
-            post_id=public_object_id, expected_text=text, canonical_url=canonical_url,
+            post_id=public_object_id, expected_text=str(package.get("root_text") or text), canonical_url=canonical_url,
             expected_media_local_path=image_path or None,
         )
+        reply_texts = package.get("reply_texts") or []
+        if reply_texts:
+            chain = readback_threads_chain(root_id=public_object_id,
+                reply_expectations=[{"text": value, "expected_media_local_path": None} for value in reply_texts])
+            result["reply_chain"] = chain
+            if chain.get("status") != "SUCCESS":
+                result["status"] = "FAILED_THREADS_REPLY_CHAIN_READBACK"
         if (
-            result.get("body_text_visible") is True
-            and result.get("substack_url_visible") is True
-            and result.get("public_url")
+            result.get("account_identity_verified") is True and result.get("visible_body_text")
+            and result.get("public_url") and str(result.get("post_id")) == str(public_object_id)
         ):
             result = {**result, "write_exists": True}
     elif destination in {"facebook_page", "instagram_business"} and not data["primary_media"]:

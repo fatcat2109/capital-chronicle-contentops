@@ -133,6 +133,7 @@ class NeoDestinationHandoff:
                 "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
                 "PUBLISH only under this sole-coordinator authorization; READBACK never submits or retries",
                 "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"],
+            "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
             "forbidden": ["login", "reauthorize", "account_switch", "cookies", "storage", "blind_retry", "bulk_x_ingestion"]}
         value["request_sha256"] = sha256_of(value)
         return value

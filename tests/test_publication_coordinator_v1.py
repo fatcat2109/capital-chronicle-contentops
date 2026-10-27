@@ -1551,10 +1551,16 @@ def test_pending_unknown_write_uses_exact_destination_readback_only(tmp_path):
             DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
             RECONCILED_ABSENT_SAFE_TO_RETRY,
         ),
+        (
+            "facebook_page",
+            DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
+            RECONCILED_ABSENT_SAFE_TO_RETRY,
+        ),
     ),
 )
+@pytest.mark.parametrize("other_destination_unknown", [False, True])
 def test_explicit_transport_correction_is_exact_and_one_shot(
-    tmp_path, destination, durable_status, reconciliation_status
+    tmp_path, destination, durable_status, reconciliation_status, other_destination_unknown
 ):
     class ExactXUrlTransport(FixtureTransport):
         def publish(self, *, destination, intent, authorization_context):
@@ -1592,7 +1598,19 @@ def test_explicit_transport_correction_is_exact_and_one_shot(
     store.set_dispatch_status(dispatch["dispatch_id"], durable_status)
     store.set_outbox_status(dispatch["message_id"], durable_status)
     store.set_reconciliation_status(ids["reconciliation_id"], reconciliation_status)
+    if other_destination_unknown:
+        unrelated = next(d for d in store.list_platform_dispatches() if d["platform"] == "linkedin")
+        store.set_dispatch_status(unrelated["dispatch_id"], UNKNOWN_WRITE)
+        store.set_outbox_status(unrelated["message_id"], UNKNOWN_WRITE)
     before = transport.publish_calls.count(destination)
+
+    store.set_dispatch_status(dispatch["dispatch_id"], UNKNOWN_WRITE)
+    blocked = coordinator.complete_derivative_after_transport_correction(
+        dispatch["dispatch_id"], correction_id="owner-frozen-canary-platform-fix-v1")
+    assert blocked["status"] == "CORRECTION_BLOCKED_UNKNOWN_WRITE_PRESENT"
+    assert blocked["publish_called"] is False
+    assert transport.publish_calls.count(destination) == before
+    store.set_dispatch_status(dispatch["dispatch_id"], durable_status)
 
     first = coordinator.complete_derivative_after_transport_correction(
         dispatch["dispatch_id"], correction_id="owner-frozen-canary-platform-fix-v1"

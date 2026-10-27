@@ -93,6 +93,31 @@ def test_execute_edit_unsupported():
     assert res["platform_id"] == "threads"
 
 
+def test_readback_preserves_attributed_names_and_uncertainty_when_mention_marker_changes(monkeypatch):
+    value = {"id": "root", "text": "source: Direct talks remain unconfirmed.",
+        "username": "official.capitalchronicle", "permalink": "https://www.threads.com/@official.capitalchronicle/post/root"}
+    monkeypatch.setattr(adapter, "_get_json", lambda *args, **kwargs: value)
+    assert adapter.readback_threads_post(post_id="root", expected_text="@source: Direct talks remain unconfirmed.",
+        access_token="controlled")["status"] == "SUCCESS"
+    value["text"] = "source: Direct talks are confirmed."
+    assert adapter.readback_threads_post(post_id="root", expected_text="@source: Direct talks remain unconfirmed.",
+        access_token="controlled")["body_text_visible"] is False
+
+
+def test_recovery_finds_unique_existing_reply_and_rejects_ambiguous_duplicates(monkeypatch):
+    rows = [{"id": "reply", "text": "Watch for participants and concrete terms.",
+        "username": "official.capitalchronicle", "permalink": "https://www.threads.com/@official.capitalchronicle/post/reply",
+        "timestamp": "2026-10-27T17:00:00Z"}]
+    monkeypatch.setattr(adapter, "_get_json", lambda *args, **kwargs: {"data": rows})
+    expected = [{"text": rows[0]["text"]}]
+    result = adapter.readback_threads_chain(root_id="root", reply_expectations=expected, access_token="controlled")
+    assert result["status"] == "SUCCESS"
+    assert result["ordered_replies"][0]["id"] == "reply"
+    rows.append({**rows[0], "id": "duplicate"})
+    assert adapter.readback_threads_chain(root_id="root", reply_expectations=expected,
+        access_token="controlled")["status"] != "SUCCESS"
+
+
 def test_delete_exact_rejects_non_allowlisted_target(monkeypatch):
     monkeypatch.setenv("THREADS_USER_ACCESS_TOKEN", "fake_token")
     result = adapter.execute_threads_delete_exact(

@@ -912,6 +912,17 @@ class DurablePublicationCoordinator:
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
         native_pending_resume = bool(existing and existing.get("status") == NATIVE_NEO_PENDING
             and registration_for_destination(destination).transport_type == "BROWSEROS_NEO_MCP")
+        if native_pending_resume:
+            # A background/default recovery owner cannot consume another Desktop's
+            # claimed action through an unbound/read-only transport. Such a transport's
+            # FAILED_BEFORE_WRITE result says nothing about the in-flight native action.
+            executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
+            if (not getattr(executor, "native_neo_protocol", False)
+                    or not getattr(executor, "allow_publish", False)
+                    or getattr(executor, "operation_id", None) != intent["work_item_id"]
+                    or getattr(getattr(executor, "store", None), "db_path", None) != self.store.db_path):
+                return {"destination": destination, "status": NATIVE_NEO_PENDING,
+                    "reason_code": "EXACT_NATIVE_OPERATION_EXECUTOR_REQUIRED", "publish_called": False}
         if existing:
             reconciliation_status = None
             getter = getattr(self.store, "get_reconciliations_for_work_item", None)
@@ -936,7 +947,7 @@ class DurablePublicationCoordinator:
                 explicit_transport_correction_retry
                 and (
                     (
-                        destination == "instagram_business"
+                        destination in {"facebook_page", "instagram_business"}
                         and str(existing.get("status") or "") in {
                             DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
                             RECONCILED_ABSENT_SAFE_TO_RETRY,
@@ -1243,7 +1254,7 @@ class DurablePublicationCoordinator:
             }
         message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
         destination = str((message or {}).get("destination") or "")
-        if not message or destination not in {"x", "instagram_business"}:
+        if not message or destination not in {"x", "facebook_page", "instagram_business"}:
             return {
                 "status": "CORRECTION_BLOCKED_DESTINATION_NOT_AUTHORIZED",
                 "publish_called": False,
@@ -1279,10 +1290,9 @@ class DurablePublicationCoordinator:
                 "status": "CORRECTION_BLOCKED_CANONICAL_IDENTITY_MISMATCH",
                 "publish_called": False,
             }
-        unknown_write_count = sum(
-            str(row.get("status") or "") == UNKNOWN_WRITE
-            for row in self.store.list_platform_dispatches()
-        )
+        # An ambiguity is local to its existing dispatch after canonical confirmation.
+        # Never retry that action; an independent, proven-absent destination can repair.
+        unknown_write_count = int(dispatch.get("status") in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING})
         if unknown_write_count:
             return {
                 "status": "CORRECTION_BLOCKED_UNKNOWN_WRITE_PRESENT",
@@ -2258,8 +2268,22 @@ class CanonicalDestinationTransportRuntimeV1:
     def readback(self, *, destination: str, public_object_id: Optional[str],
                  public_object_url: Optional[str], intent: Mapping[str, Any]) -> Mapping[str, Any]:
         if destination in {"substack", "x", "youtube"}:
-            return self._neo_transport.readback(destination=destination, intent=intent,
+            result = self._neo_transport.readback(destination=destination, intent=intent,
                 public_object_id=public_object_id, public_object_url=public_object_url)
+            if destination == "substack" and result.get("verified") is True and result.get("public_image_urls"):
+                from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+                from live_contentops.media_manifest_authority_v1 import build_delivery_media_manifest
+                data = _durable_intent_inputs(intent)
+                delivery = build_delivery_media_manifest(media_packet={"assets": data["media_assets"]},
+                    public_image_urls=result["public_image_urls"], run_id=str(intent["work_item_id"]))
+                path = data["output_dir"] / "delivery_media_manifest_v1.json"
+                previous = json.loads(path.read_bytes()) if path.is_file() else {}
+                delivery_only = [a for a in previous.get("assets", []) if a.get("media_role") == "delivery_only"]
+                delivery["assets"].extend(delivery_only)
+                if any(a.get("local_public_hash_continuity") is not True for a in delivery_only):
+                    delivery["status"] = "BLOCKED"
+                path.write_text(_canonical_json(delivery), encoding="utf-8")
+            return result
         if destination == "linkedin":
             return self._linkedin_transport.readback(
                 public_object_id=public_object_id,

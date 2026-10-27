@@ -3,6 +3,7 @@ from __future__ import annotations
 import io
 from pathlib import Path
 
+import pytest
 from PIL import Image
 
 from live_contentops.media_manifest_authority_v1 import (
@@ -10,6 +11,7 @@ from live_contentops.media_manifest_authority_v1 import (
     build_delivery_only_editorial_card,
     build_delivery_media_manifest,
     select_primary_chart,
+    select_primary_delivery_media,
     sha256_file,
     validate_chart_media_object,
     visual_similarity_to_local_file,
@@ -93,6 +95,79 @@ def test_square_branding_asset_is_rejected_for_primary_chart(tmp_path: Path):
     assert manifest["status"] == "BLOCKED"
     assert "square_branding_or_avatar_rejected" in manifest["blockers"]
     assert "square_branding_or_avatar_rejected" in validate_chart_media_object(manifest["assets"][0])
+
+
+def test_admitted_photo_keeps_its_role_and_rights_when_canonical_bytes_match(tmp_path):
+    photo = tmp_path / "controlled-photo.png"
+    raw = _png(photo, (640, 427), "gray")
+    url = "https://substack-post-media.s3.amazonaws.com/public/images/controlled-photo.png"
+    asset = {"asset_id": "photo", "media_role": "contextual_photo", "modality": "documentary_photo",
+        "path": str(photo), "sha256": sha256_file(photo), "rights_status": "OPEN_LICENSED",
+        "rights_evidence_sha256": "controlled-rights", "source_page_url": "https://example.org/photo",
+        "license_url": "https://creativecommons.org/licenses/by-sa/2.0", "alt_text": "Controlled photo fixture."}
+    manifest = build_delivery_media_manifest(media_packet={"assets": [asset]}, public_image_urls=[url],
+        run_id="controlled-photo", remote_bytes_by_url={url: raw})
+    delivery = select_primary_delivery_media(manifest)
+    assert delivery["sha256"] == asset["sha256"]
+    assert delivery["media_role"] == "contextual_photo"
+    assert delivery["rights_evidence_sha256"] == asset["rights_evidence_sha256"]
+    with pytest.raises(ValueError, match="approved_primary_chart"):
+        select_primary_chart(manifest)
+
+    no_rights = build_delivery_media_manifest(media_packet={"assets": [{**asset, "rights_evidence_sha256": ""}]},
+        public_image_urls=[url], run_id="controlled-photo", remote_bytes_by_url={url: raw})
+    assert "documentary_photo_rights_binding_required" in no_rights["blockers"]
+    with pytest.raises(ValueError, match="manifest_not_pass"):
+        select_primary_delivery_media(no_rights)
+
+
+def test_native_canonical_readback_binds_photo_for_existing_derivative_delivery(tmp_path, monkeypatch):
+    import json
+    from live_contentops.publication_coordinator_v1 import CanonicalDestinationTransportRuntimeV1
+
+    photo = tmp_path / "controlled-photo.png"
+    raw = _png(photo, (640, 427), "gray")
+    url = "https://substack-post-media.s3.amazonaws.com/public/images/controlled-photo.png"
+    asset = {"asset_id": "photo", "media_role": "contextual_photo", "modality": "documentary_photo",
+        "path": str(photo), "sha256": sha256_file(photo), "rights_status": "OPEN_LICENSED",
+        "rights_evidence_sha256": "controlled-rights", "source_page_url": "https://example.org/photo",
+        "license_url": "https://creativecommons.org/licenses/by-sa/2.0", "alt_text": "Controlled photo fixture."}
+    monkeypatch.setattr('live_contentops._eight_platform_substack_first_pipeline_impl_v1._durable_intent_inputs',
+        lambda _: {"output_dir": tmp_path, "media_assets": [asset]})
+    monkeypatch.setattr('live_contentops.media_manifest_authority_v1.read_public_image_bytes', lambda _: raw)
+
+    class ActualReadbackFixture:
+        def readback(self, **kwargs):
+            return {"verified": True, "public_image_urls": [url]}
+
+    runtime = CanonicalDestinationTransportRuntimeV1(neo_transport=ActualReadbackFixture())
+    runtime.readback(destination="substack", public_object_id="controlled", public_object_url="https://example.org/p/post",
+        intent={"work_item_id": "controlled"})
+    manifest = json.loads((tmp_path / "delivery_media_manifest_v1.json").read_bytes())
+    delivery = select_primary_delivery_media(manifest)
+    assert delivery["verified_public_delivery_url"] == url
+    assert delivery["sha256"] == asset["sha256"]
+    assert delivery["rights_evidence_sha256"] == asset["rights_evidence_sha256"]
+
+
+def test_transport_keeps_frozen_text_and_explicit_no_photo_choice(tmp_path, monkeypatch):
+    import json
+    from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as owner
+
+    photo = tmp_path / "photo.png"
+    _png(photo, (640, 427), "gray")
+    context = {"article": {}, "selection": {}, "media": {"assets": [
+        {"asset_id": "photo", "path": str(photo)}]}}
+    (tmp_path / "run_context_v1.json").write_text(json.dumps(context), encoding="utf-8")
+    monkeypatch.setattr(owner, "build_native_derivative_payloads", lambda **_: {
+        "threads": {"text": "Rebuilt copy differs", "media_asset_ids": ["photo"]}})
+    frozen = {"text": "@attributed-source: Exact accepted copy.", "media_asset_ids": []}
+    result = owner._durable_intent_inputs({"output_dir": str(tmp_path),
+        "canonical_url": "https://example.org/p/confirmed", "destination_plan": {"destination": "threads"},
+        "native_payload": frozen})
+    assert result["payloads"]["threads"] == frozen
+    assert result["local_media"] == ""
+    assert result["media_assets"] == []
 
 
 def test_public_chart_readback_rejects_logo_visual(tmp_path: Path):

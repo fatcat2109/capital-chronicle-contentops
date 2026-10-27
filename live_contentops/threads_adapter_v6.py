@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import time
 import urllib.error
 import urllib.parse
@@ -152,6 +153,12 @@ def execute_threads_post(
     return result
 
 
+def _comparable_text(value: str) -> str:
+    # Threads may render an attributed handle without its mention marker.
+    # Preserve all names, words and punctuation carrying the actual proposition.
+    return " ".join(re.sub(r"(?<!\w)@(?=\w)", "", str(value)).split()).casefold()
+
+
 def readback_threads_post(
     *,
     post_id: str,
@@ -173,8 +180,8 @@ def readback_threads_post(
     except Exception as error:
         return {"status": "FAILED_READBACK", "error_class": type(error).__name__}
     visible_text = " ".join(str(value.get("text") or "").split())
-    expected_normalized = " ".join(expected_text.split())
-    text_verified = bool(expected_normalized and expected_normalized.casefold() in visible_text.casefold())
+    expected_normalized = _comparable_text(expected_text)
+    text_verified = bool(expected_normalized and expected_normalized in _comparable_text(visible_text))
     media_url = str(value.get("media_url") or "")
     similarity = None
     if media_url and expected_media_local_path:
@@ -233,6 +240,12 @@ def readback_threads_chain(
     ordered: list[dict[str, Any]] = []
     for index, expectation in enumerate(reply_expectations, start=1):
         reply_id = str(expectation.get("id") or "")
+        if not reply_id:
+            matches = [item for item in rows if _comparable_text(item.get("text") or "")
+                       == _comparable_text(expectation.get("text") or "")
+                       and str(item.get("username") or "").casefold() == "official.capitalchronicle"]
+            if len(matches) == 1:
+                reply_id = str(matches[0].get("id") or "")
         row = next((item for item in rows if str(item.get("id") or "") == reply_id), None)
         text = " ".join(str((row or {}).get("text") or "").split())
         expected_text = " ".join(str(expectation.get("text") or "").split())
@@ -252,14 +265,14 @@ def readback_threads_chain(
                 "parent_root_id": root_id,
                 "parent_child_verified": reply_id in edge_ids,
                 "visible_body_text": text,
-                "text_verified": bool(expected_text and expected_text.casefold() in text.casefold()),
+                "text_verified": bool(expected_text and _comparable_text(expected_text) in _comparable_text(text)),
                 "expected_media_local_path": expected_media_path or None,
                 "media_required": bool(expected_media_path),
                 "media_verified": bool(not expected_media_path or (similarity is not None and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM)),
                 "expected_chart_visual_similarity": similarity,
             }
         )
-    expected_ids = [str(item.get("id") or "") for item in reply_expectations]
+    expected_ids = [str(item.get("id") or "") for item in ordered]
     chronological_ids = [
         str(row.get("id") or "")
         for row in sorted(rows, key=lambda row: str(row.get("timestamp") or ""))
@@ -268,6 +281,7 @@ def readback_threads_chain(
     provider_order_verified = len(provider_positions) == len(expected_ids) and provider_positions == sorted(provider_positions)
     success = bool(
         ordered
+        and all(expected_ids) and len(set(expected_ids)) == len(expected_ids)
         and provider_order_verified
         and all(row["parent_child_verified"] and row["text_verified"] and row["media_verified"] for row in ordered)
     )
