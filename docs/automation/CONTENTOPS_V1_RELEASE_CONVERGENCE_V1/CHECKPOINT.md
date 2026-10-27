@@ -1,8 +1,8 @@
-# V1 live launch - same MAX prose writer resumed
+# V1 live launch - same MAX final rendered review resumed
 Goal: SAME unfinished CONTENTOPS_V1_LIVE_LAUNCH_AND_FIRST_CURRENT_EDITION_V1; current objective-file wrapper preserves this scope.
 Sole V1 integrator: this chat; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35 only; completion notice NOT_SENT.
 Authoring A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; codex/v1-newsroom-release-convergence.
-Authoringb4286ab4; PR100 merged/installed4b9f1536b3c98418138209e01102fb48fa819aba after exact-head CI40526743398PASS.
+Authoringe3394a00; PR101 merged/installed5c465779395faec651fddc354587987281e6b0a9 after exact-head CI40529570002PASS.
 PR98d6338148 applied live controls04:00:43UTC27October: AUTONOMOUS_DEFAULT/version38/public_write_authority=true.
 Same four ACTIVE tasks/calendars/project/preferences/native roles; no fifth scheduler/store/publisher or runtime restart.
 Live human grant read_thread verified: L2message01a17b6c-ac16-70d0-bea6-d2a6ca82412b; no new approval/17:00waiting.
@@ -28,13 +28,13 @@ PR99 permanent rule tracked/linked: CONTENTOPS_V1_FINAL_MEDIA_REVIEW_AND_REPAIR_
 Final acceptance binds article/source/media/render variants, current assigned model/effort/invocation and per-asset/render findings.
 Existing review/coordinator/tool-begin rejects missing/stale/wrong-model or unresolved acceptance; UNKNOWN recovery stays readback-first.
 Correctable copy/media/layout defects remain same MAX article repair, affected re-render/recheck; no restart/discard/arbitrary correction ceiling.
-Local10context/112native-workspace-media/61Simple-source and10installed context checks PASS; tests are not actual visual judgment.
-Eight existing dirty files preserved atPR100install; same healthy FDA-G14296listener/binding retained, no restart/store replacement.
+PR101 compiler/reader/final-review focused checks pass; full native social qualifications/date labels repaired; tests are not pixel acceptance.
+Eight existing dirty files including shared-compiler WIP preserved atPR101install; same healthy FDA-G14296/binding, no restart/store replacement.
 Configured channel identities checked at launch; LinkedIn official-member API readback limited; access gaps remain channel-local.
-Actual MAX chat01a17c51-2801-7633-834e-94e0863f1b04 completed/read; visual returndf77435a accepted; NEWS/0charts with rationale.
-Same MAX inspected Fawley2017photo/chose1dated Reuters comparison; current photo binding corrects publication_date to unknown.
-Real writer packetecfaf63b frozen with2dated sources/1photo; same /root/live_launch_max_writer resumed for write/useful revise only.
+Same MAX chat01a17c51-2801-7633-834e-94e0863f1b04 accepted visualdf77435a and writeecfaf63b;1validated article/8packages;NEWS/0charts.
+Article8885bd9e945f425731c93f73c51ff0fa70463d7148a088f8ee3482937de3069d/body unchanged;2dated sources/1lawful archive photo.
+18actual Neo canonical/channel desktop/mobile renders bound in final-render-review/render-manifest.json; invalid capture experiments excluded.
 Preserve all accepted native work/source budgets32/3/6 and strategic reads; V2/V3 paused, no CUA/spending/paid model/broker/Main/DB expansion.
 Evidence C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/live-launch-20261027/.
-Delayed extra3Neo reply already consumed by26October private run:9/9requests,1Samsung article/8previews/0dispatch; no new allowance here.
-Parent stops while same child works; next exact writer result ->18renders/same-MAX inspection/direct repair ->review/sole publication/readbacks.
+Current revisionc5184952;final stagefinal-visual-6122120fb4e677d362bdf6907b605ada14327e49704e0226c4bb578f0c90d9ef/requeste8cac767.
+Same MAX resumed for18pixel inspections/direct repair;owns only necessary ReportEditorialWorkspace.tsx/focused test hunks;parent stops.
