@@ -1,12 +1,12 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
-## Current V1 execution override — 26 October 2026
+## Current V1 execution override — 27 October 2026
 
-Jim's direct instruction in L2 turn `01a17840-e9da-77d2-8f09-76b1319c6be4`, human message `01a17840-ea44-7522-b01e-d3f9d0951975`, authorized applying the next steps without another owner review. [Actual application and recovery](docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md) record the merged release and operating evidence.
-V1 scheduled editorial work is authorized and ACTIVE in **SHADOW_ONLY**, with `public_write_authority=false`; the existing runtime and four task calendars must not be stopped merely because older sections describe the pre-activation pause.
-Continue a pending scheduled operation through its existing native roles and frozen binding. Preserve its cutoff, source/request identity, ordinary budgets and recovery policy; no duplicate edition or fifth task.
-Older paused/not-deployed and missing-activation-grant statements below describe superseded epochs for this exact V1 zero-write scope. They do not override the applied grant or require Jim to approve it again.
-Public drafts/uploads/posts and V2/V3 remain paused. Full editorial/source/rights standards and North Stars remain in force; activation is not proof of daily output or public-live reliability.
+Jim's direct operator/owner grant in L2 turn `01a17b6b-6a34-7d72-b76b-2b87223edd69`, human message `01a17b6c-ac16-70d0-bea6-d2a6ca82412b`, authorizes actual V1 publication after cleanup and an immediate native run without waiting until17:00. The human grant and completed cleanup turn `01a17b69-2f65-7612-bb69-5c2277f60843` were read through read_thread. No further Jim review is required for this scope.
+The previous SHADOW_ONLY/version37/public_write_authority=false state is the pre-application baseline. Apply and read back the existing control/rollout owners; [actual application](docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md) records actual application separately from authorization. The same four App calendars remain ACTIVE, using native Luna MAX filtering, Sol6.1 Light planning and the same Sol6.1 MAX visual editor/writer.
+Fresh current owner-manual or scheduled operations may publish through the sole DurablePublicationCoordinator with exact identity, source/media rights, current review and canonical-first readback. Pre-activation private examples and owner-removed historical objects are not a launch sample or retry queue. Cleanup reported both Substack Published lists empty; drafts and Discord pinned guidance remain. Deliberately removed capitalnicle.substack.com Privacy Policy/Terms are not silently restored.
+Preserve stable bindings/cutoffs, ordinary source budgets, existing store/outbox/leases and UNKNOWN_WRITE recovery. Missing access is destination-local. No fifth task, replacement scheduler/store/publisher, paid API model, CUA or V2/V3 resumption is authorized. V2/V3 stay paused. One live edition does not prove daily5–8 reliability, SEO or growth.
+Older zero-public-write and missing-activation-grant wording below records superseded V1 epochs and cannot block this exact newer grant. Actual applied controls and exact public-object readbacks remain required evidence.
 
 Authority date: 2026-10-20
 Status: `CURRENT_ROOT_AUTHORITY`
@@ -106,13 +106,13 @@ scheduler/start paths are non-routing in target source. Bulk X CDP ingestion rem
 Neo is the browser path for research and prepared browser-only destination handoffs. Existing
 Telegram/Discord/Meta/Threads/LinkedIn API transports remain channel-specific.
 
-Current engineering/deployed state: **DEPLOYED_SCHEDULED_ZERO_WRITE**, applied 26 October 2026.
+Historical pre-live application: **DEPLOYED_SCHEDULED_ZERO_WRITE**, applied 26 October 2026; superseded for new V1 sends by the27October grant above.
 The four existing host tasks are ACTIVE with the native editorial roles; the original production
 store is SHADOW_ONLY/version37 and rollout public_write_authority=false. The operator fuse is released.
 PR90/PR92/PR93 are merged; the existing Task Scheduler-owned FDA-G runtime uses release cbfa1e8f.
 These are dated application facts, not permanent liveness or daily-output proof. Resume an existing
 scheduled binding and its frozen requests after interruption; do not recreate its operation or cutoff.
-Public drafts/uploads/posts and V2/V3 remain paused. See the current execution override above and
+V1 publication follows the27October live grant above; V2/V3 remain paused. See the current execution override above and
 `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md` for the existing mechanics.
 
 
@@ -206,9 +206,9 @@ Use the cheapest lane that can produce evidence strong enough for the claim.
 
 1. Reuse merged PR90/PR92/PR93, the applied native runtime and the existing Task Scheduler-owned FDA-G lifetime.
 2. Resume existing frozen scheduled requests through Luna MAX filtering, Sol6.1/low selection/preparation and the same Sol6.1/MAX editor/writer; preserve operation identity and cutoff.
-3. Keep only the four existing ACTIVE windows, original store/outbox/lease and sole publisher; retain SHADOW_ONLY and public_write_authority=false.
-4. Complete authorized zero-write editorial work without another paused-runtime or owner-review gate. Preserve truthful source gaps and actual native-return evidence.
-5. Record actual useful/held outcomes and interruptions; calendar execution, daily5–8published reliability and later public release remain separate unproven states.
+3. Keep only the four existing ACTIVE windows, original store/outbox/lease and sole publisher; apply/read back the27October authorized live operating mode and rollout.
+4. Complete authorized current editorial work and reviewed live sends without another Jim review. Preserve truthful source/rights/access gaps and actual native-return evidence.
+5. Record actual useful/held outcomes, exact public URLs/readbacks and interruptions; daily5–8published reliability remains separately unproven.
 
 No production activation, public write, pause release, self-merge or deployment is part of Goal25.
 
@@ -263,6 +263,6 @@ Use the existing native flow: story/evidence/data/visual plan -> bounded Neo/sou
 
 An explicitly requested editorial refinement of unchanged retained facts uses the existing source/history owner with EDITORIAL_REVISION, exact prior article/source hashes and no new factual-evidence claim. It does not constitute fresh news or proof of daily throughput. New preparation and public sends must meet the current standard; an old UNKNOWN_WRITE still requires exact readback/reconciliation without retry. Source/copy/media changes invalidate the corresponding prepared review. Actual rendered desktop/mobile canonical and derivative inspection remains required.
 
-V1 is the sole active product priority. V2 and V3 work remain owner-paused until final V1 actually operates live daily; no video/speech dependency or work is authorized by this standard. V1 runtime and the four existing Automations are applied ACTIVE in scheduled zero-write mode under the 26 October override; public publication stays blocked. The media standard grants no additional platform draft/upload/post, spending, video resumption or new store/scheduler/publisher authority. Historical acceptance and native daily-live proof remain distinct.
+V1 is the sole active product priority. V2 and V3 work remain owner-paused until final V1 actually operates live daily; no video/speech dependency or work is authorized by this standard. The four existing Automations remain ACTIVE; V1 live controls/publication follow the27October override above, with actual applied state in ACTIVATION.md. The media standard grants no additional platform draft/upload/post, spending, video resumption or new store/scheduler/publisher authority. Historical acceptance and native daily-live proof remain distinct.
 
 Native Sol6.1 Light prepares exact evidence/data and visual proposals; the same actual native gpt-6.1-sol/MAX writer decides data, chart types/count/placement and any justified exception, then authors/refines the article. Code owns acquisition/computation/rendering/state. No canned menu, copied proprietary chart, fabricated history/expectations or later information passed off as known earlier. Primary company/SEC/central-bank/statistical/energy sources govern data; Reuters remains attributed news, syndication one origin. Internal claim/span/rights/version records stay exact while public copy uses natural key attribution and compact distinct Sources/Notes, not identical links after every paragraph. Reader/public payloads contain no KEEP/PREPARED/IDs/workflow/revision bureaucracy or ritual source notices; one discreet private-preview notice stays outside the article. Natural accessible zoom and compact lawful photo credit replace repeated instructions. Derivatives use editorially chosen chart subsets. New source/copy/media/preview changes require traceable revision and fresh exact review; no store/publisher/scheduler or production authority is added.

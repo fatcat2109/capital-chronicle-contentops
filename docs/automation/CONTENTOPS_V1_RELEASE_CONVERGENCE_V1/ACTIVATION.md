@@ -1,5 +1,14 @@
 # V1 scheduled zero-write activation — applied 26 October 2026
 
+## 27 October live launch — authorized, application in progress
+
+Direct Jim grant: L2turn01a17b6b-6a34-7d72-b76b-2b87223edd69 / human01a17b6c-ac16-70d0-bea6-d2a6ca82412b, verified via read_thread. Completed cleanup: chat01a17a57-785f-7f63-a78a-c734a9ba93cd / turn01a17b69-2f65-7612-bb69-5c2277f60843. Both Substack Published lists empty at that scope; drafts/pinned guidance retained. Secondary capitalnicle.substack.com Privacy/Terms deliberately deleted, not restored.
+Pre-application baseline remains SHADOW_ONLY/version37/public_write_authority=false. Source changes and intended live rollout are being validated; actual source/control/task application and current publication result will replace this paragraph after readback. No live send is claimed by this preparation.
+The existing owner-manual entry needs an explicit live binding in the original store; isolated historical manual proofs remain non-publishing. The same coordinator retains exact removed-object history with a no-retry disposition, protects old private examples by the activation cutoff, and keeps canonical-first readback/UNKNOWN recovery. No new runtime, scheduler, store or publisher.
+
+## Historical 26 October and earlier application evidence
+
+
 Jim authorized application in L2 turn `01a17840-e9da-77d2-8f09-76b1319c6be4`, human message `01a17840-ea44-7522-b01e-d3f9d0951975`: “dont wait for my review, implement next steps”. This supersedes the earlier prepared-only hold for integration, deployment and the four-task scheduled zero-write transition. Public publication, V2/V3 and native Computer Use remain outside that grant.
 
 ## Runtime recovery applied at 14:32 UTC

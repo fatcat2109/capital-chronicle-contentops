@@ -1,26 +1,33 @@
-# V1 scheduled continuity - in progress
-Goal: CONTENTOPS_V1_SCHEDULED_CONTINUITY_V1; prior scheduled-editorial goal confirmed complete in chat/accounting.
-Source: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
-Branch codex/v1-newsroom-release-convergence; this chat remains sole V1 integration/application writer.
-Operating root A:/Capital Chronicle/ContentOps at6945edf7396481afb274cad186f9f6be28f18ba7; unrelated WIP retained.
-Jim continue: L2turn01a17a25-a1c3-7f51-961c-ae27ace99409/user01a17a25-a33d-7311-8668-eac6e70c3f66, read_thread verified.
-Strategic/authority/native-role reads reused from prior admitted read; current root override/pointer/anti-red-tape checked.
-Exact accepted21:00article0f2fb2e4/review48fb87d4/plan869b58f5 and binding09d9324a retained;29returns not rerun.
-Existing fourACTIVE tasks, SHADOW_ONLY/version37/public_write_authority=false,72examples/fixed Main selection protected.
-Read actual23:00turn01a178ef-8e59-77b3-815e-13bfaeba29de: account limit before any observed scheduled command/binding.
-Read actual01:00turn01a179e9-1524-72d2-b26f-e6d497d812bd:03:31UTC+7 OUTSIDE_EXACT_NATIVE_WINDOW, no binding.
-26October day tree has only the completed21:00binding; two later unbound misses are not pending articles.
-Demonstrated gap: scheduled entry rejects by current due time before finding issued pending/completed bindings.
-Scoped fix reads issued identities first, validates paths/cutoff/store/frozen registration, resumes without allocation.
-Never-bound expired windows remain side-effect-free; current due/end+1hour grace unchanged.
-Duplicate callback replays completed/held operation; next bounded slot requires exact explicit --continue-after while eligible.
-Existing store lease fences new-slot callbacks; source/claim/native-role/publication/UNKNOWN_WRITE owners unchanged.
-Lean task prefix obtains binding after current override/pause checks; remaining admitted context precedes semantic work.
-53focused native schedule/CLI/owner/publication tests PASS;2task config checks and updated expired-next-calendar case PASS.
-Private evidence C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/scheduled-continuity-20261027/.
-Actual misses reconciled once in existing23:00/01:00automation memories; exact clocks/absence of bindings retained.
-Source cab30609 implements continuity/lean prompts and CI routing; existing graph generation completing.
-Next: normal protected PR/merge/application and supported updates to ONLY four existing task prompts.
-Then installed completed21:00no-work replay, expired-unbound readback, exact next calendar and final L2 delivery.
-No refilter/write/photo search/preview rebuild, new edition/task/timer/service/store, public action, V2/V3 or CUA.
-Completion notice NOT_SENT; no L1/peer/progress message, future-window wait, polling or heartbeat.
+# V1 live launch - in progress
+Goal: CONTENTOPS_V1_LIVE_LAUNCH_AND_FIRST_CURRENT_EDITION_V1; prior continuity goal genuinely complete.
+Owner/integrator: this chat, assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35 only.
+Authoring A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; codex/v1-newsroom-release-convergence.
+Startup HEAD28e6f76d; fresh master53bf6d2/PR97; operating A:/Capital Chronicle/ContentOps, preserve all WIP.
+Human grant read_thread verified: L2turn01a17b6b-6a34-7d72-b76b-2b87223edd69/user01a17b6c-ac16-70d0-bea6-d2a6ca82412b.
+Jim explicitly grants V1 operator/owner/live posting after cleanup and an immediate run; no17:00waiting or repeated approval.
+Cleanup delivery read_thread verified:01a17a57-785f-7f63-a78a-c734a9ba93cd/turn01a17b69-2f65-7612-bb69-5c2277f60843.
+Both Substack Published lists and identified posting lists empty; X deletion directly Jim-confirmed; drafts/pinned guidance retained.
+Secondary capitalnicle.substack.com Privacy/Terms deliberately removed; preserve that fact, never silently restore.
+Strategic/role/anti-red-tape reads reused; current root grant wording is superseded for this exact V1 launch.
+CodeGraph tool has no index for this authoring root; use scoped exact source/generated repository map, no new index.
+Pre-application store SHADOW_ONLY/version37/public_write_authority=false; existing four tasks ACTIVE, V2/V3 paused.
+Configured canonical Substack capitalchronicle.substack.com; direct Neo Published list empty at startup.
+Demonstrated seam: current manual entry is isolated-preview-only; live publication accepts only scheduled bindings.
+Implemented explicit live entry and fresh-cutoff guards; owner-removal readback/status preserves IDs/history with no retry.
+12new launch guards,113affected regressions and2task checks PASS; Ruff/diff checks PASS.
+PR98 first CI caught a historical PAUSED test assertion changed too broadly; restored ce0c91ef, exact test PASS.
+Preparing refreshed graph/revised protected CI; source/live-control application still pending.
+Browser Substack/X/YouTube/Facebook/Threads identity checks pass; sixAPI destination probes match configured pins.
+LinkedIn official-member metadata valid, readback capability limited; no personal/company switch inferred.
+Next: protected source integration/application, history reconciliation, applied controls/prompts, immediate native current run.
+Use existing coordinator/store/readbacks/statuses; preserve duplicate/UNKNOWN history and all accepted private examples.
+Cleanup reconciliation APPLIED in original store:51removed confirmed sends/2retained drafts, identities/history kept,0provider calls.
+Current published corpus0; no UNKNOWN/started/pending dispatches; store remains SHADOW_ONLY/version37 before live transition.
+Four existing task prompts APPLIED via supported update; only prompt/updated_at changed, calendars/project/preferences/roles exact.
+Then apply merged source/live controls and run one stable current owner-manual opportunity through native roles.
+Native Luna MAX filter -> Sol6.1Light plan -> same Sol6.1MAX visual editor/writer/one useful repair; ordinary32/3/6budgets.
+Code owns acquisition/computation/rendering/state; lawful photo/current rights and substantive chart judgment remain.
+Publish accepted useful output canonical-first and read back exact objects; destination access gaps remain channel-local.
+No fake scheduled window, old-proof republication, new scheduler/store/publisher/chat/worktree, paid API, CUA or V2/V3.
+Evidence: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/live-launch-20261027/.
+Completion notice NOT_SENT; one whole-goal notice to assigned L2 only; no progress/peer/L1 messages or heartbeat.

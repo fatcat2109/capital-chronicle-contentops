@@ -130,7 +130,8 @@ DESKTOP_TASK_PROMPT = (
     "Follow CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2: native gpt-6-luna/max filters; "
     "gpt-6.1-sol/low selects content and prepares evidence; native gpt-6.1-sol/max writes and repairs. "
     "Use fresh native subagents for the assigned MAX roles; keep the same writer for its one useful repair. "
-    "No Gemini/9Router, SDK/App-Server/API fallback, paid speed, permanent fleet, source/rights weakening or public write. "
+    "No Gemini/9Router, SDK/App-Server/API fallback, paid speed, permanent fleet or source/rights weakening. "
+    "Jim's27October V1 live grant is applied through the current rollout/control owners; publish only reviewed fresh operations under those exact guards. "
     "Run python scripts/run_native_desktop_editorial.py scheduled --automation-id {automation_id} "
     "--rollout config/native_desktop_rollout_v1.json. Respect LLM_OPERATOR_PAUSED before any store write. "
     "The command resolves this existing four-window slot and the frozen operation binding. "
@@ -178,13 +179,14 @@ DESKTOP_TASK_PROMPT = (
     "decision KEEP/REVISE/HOLD, rationale and expected_review_id for a revision; KEEP can then "
     "prepare handoff --binding <binding_path> "
     "through the existing sole DurablePublicationCoordinator plan. Neither command publishes. "
-    "For an explicitly bound existing-object readback, use scripts/run_native_neo_executor.py "
-    "with the saved Neo binding: verify/readback -> begin exact request hash -> actual Neo MCP "
-    "snapshot/action -> submit observed bound return -> resume readback/reconciliation. "
-    "The helper is readback-only and cannot save a draft. Missing executor blocks before writing; "
-    "a claimed uncertain write permits only readback. No fresh publish authority is granted. "
-    "Destination login gaps cannot veto independent article creation. Browser path Neo; bulk X ingestion "
-    "stays CDP. Do not edit source, run tests/CodeGraph, alter schedules/pause, or publish during routine work."
+    "Then publication-prepare and publication-resume --binding <binding_path> --rollout config/native_desktop_rollout_v1.json "
+    "--native-invocation-id <actual-active-turn-id> use the existing sole coordinator. For each returned native request, "
+    "publication-tool-begin its exact request hash, execute the actual Neo identity/publish/readback action, "
+    "and publication-tool-submit the observed bound return; resume that same coordinator. "
+    "Readback of the real canonical Substack /p/ URL precedes derivative rematerialization and sends. "
+    "Never publish retained pre-activation examples or owner-removed objects. A claimed uncertain write permits only readback. "
+    "Missing access is destination-local; continue available admitted channels. Preserve exact identities and source/media rights. "
+    "Browser path Neo; bulk X ingestion stays CDP. Do not edit source, run tests/CodeGraph or alter schedules/pause during routine work."
 )
 MANUAL_GO_PROMPT = (
     "Use contentops-newsroom and scripts/run_native_desktop_editorial.py newsroom with the current "
@@ -200,7 +202,7 @@ MANUAL_GO_PROMPT = (
 
 
 def four_task_setup_packet() -> dict[str, Any]:
-    """Prepared paused target: four Light coordinators with explicit native role boundaries."""
+    """The same four active Light coordinators; actual authority/control guards own sends."""
     from live_contentops.native_desktop_editorial_v1 import ROLE_ASSIGNMENTS
 
     tasks = [
@@ -250,9 +252,9 @@ def four_task_setup_packet() -> dict[str, Any]:
         "editorial_role_policy": "CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2",
         "editorial_roles": {role: dict(settings) for role, settings in ROLE_ASSIGNMENTS.items()},
         "role_settings_state": "CONFIGURED_TARGET_NOT_INVOCATION_PROOF",
-        "target_status": "PAUSED",
+        "target_status": "ACTIVE",
         "speed": "standard",
-        "tasks": [{**task, "status": "PAUSED", "model": "gpt-6.1-sol", "reasoning_effort": "low",
+        "tasks": [{**task, "status": "ACTIVE", "model": "gpt-6.1-sol", "reasoning_effort": "low",
                    "prompt": DESKTOP_TASK_PROMPT.replace("{automation_id}", task["id"])} for task in tasks],
         "routine_task_count": len(tasks),
         "build_qualified_floor": 4,

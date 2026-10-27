@@ -1,6 +1,6 @@
 # ContentOps Codex Context Map
 
-Generated from source HEAD `2116ad2c0f3e92023d2ddbea42f5d8fa0b4f61b5`. Source tree digest: `16cbcae5b2924f7613ef3f861d2f2c41b664dd09bc675d6c316995a3b85c1c97`.
+Generated from source HEAD `ce0c91ef62a1ba3a8b117b4bc5355222673babc7`. Source tree digest: `f641db4e14cb56c8a17b1fbb7ff8e4a0ad1285ad486dd5f06bae92aafe64f47b`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
 This generated map is descriptive repository state and is subordinate to root `AGENTS.md`.
@@ -48,8 +48,8 @@ task summaries.
 
 ## Graph inventory
 
-- Nodes: `7854`
-- Edges: `14977`
+- Nodes: `7857`
+- Edges: `14993`
 - Entrypoints: `20`
 - Python import edges, TypeScript/JavaScript relative import edges, and determinable test-to-
   implementation edges are included.

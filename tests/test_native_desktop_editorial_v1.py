@@ -110,8 +110,9 @@ def test_paused_rollout_and_active_authority_match_native_target():
     root = Path(__file__).resolve().parents[1]
     rollout = json.loads((root / "config/native_desktop_rollout_v1.json").read_bytes())
     assert rollout["tasks"] == four_task_setup_packet()["tasks"]
-    assert rollout["target_status"] == "PAUSED_NOT_INSTALLED"
-    assert rollout["public_write_authority"] is False
+    assert rollout["target_status"] == "AUTHORIZED_LIVE_TRANSITION"
+    assert rollout["public_write_authority"] is True
+    assert rollout["live_authority"]["scope"] == "V1_NATIVE_PUBLICATION"
     assert len({r["id"] for r in rollout["tasks"]}) == 4
     assert rollout["model"] == "gpt-6.1-sol" and rollout["reasoning_effort"] == "low"
     for name in ("AGENTS.md", "docs/codegraph/V1_CONTEXT.md",

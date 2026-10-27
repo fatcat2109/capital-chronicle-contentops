@@ -29,7 +29,7 @@ PRODUCTION_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps")
 DEFAULT_PROFILE = Path(__file__).resolve().parents[1] / "config/native_desktop_operator_profile_v1.json"
 
 
-def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=()):
+def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=(), live_rollout=None):
     """Resolve one explicit owner operation; frozen binding survives quota/restarts.
 
     This is an entry to the existing outbox/opportunity, not a queue or scheduler.
@@ -39,6 +39,17 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
         raise ValueError("NATIVE_OPERATOR_PROFILE_INVALID")
     if not operation_id or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_" for c in operation_id):
         raise ValueError("EXPLICIT_OPERATION_ID_REQUIRED")
+    if live_rollout is not None:
+        from live_contentops.native_desktop_publication_v1 import live_publication_policy
+        live_publication_policy(live_rollout)
+        assert_store = ContentOpsDurableStore(live_rollout["store_path"], auto_migrate=False)
+        if assert_store.get_operating_control()["operating_mode"] != "AUTONOMOUS_DEFAULT":
+            raise ValueError("PUBLICATION_OPERATING_MODE_BLOCKED")
+        profile = {**profile, "store_path": live_rollout["store_path"],
+            "editorial_output_root": str(Path(live_rollout["editorial_output_root"]) / "owner-manual"),
+            "feed_pointer_path": live_rollout["feed_pointer_path"],
+            "published_memory_store": live_rollout["store_path"],
+            "published_memory_output_root": live_rollout["published_output_root"]}
     root = Path(profile["editorial_output_root"]).resolve() / operation_id
     path = root / "binding.json"
     if path.is_file():
@@ -50,6 +61,10 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
         for key in ("store_path", "published_memory_store", "published_memory_output_root"):
             if resolve_workspace_path(profile[key], manifest_path=profile.get("workspace_relocation_manifest")) != resolve_workspace_path(binding[key], manifest_path=profile.get("workspace_relocation_manifest")):
                 raise ValueError("OWNER_PROFILE_BINDING_CHANGED:" + key)
+        if live_rollout is not None:
+            if (binding.get("owner_manual_live") is not True
+                    or binding.get("live_authority_sha256") != sha256_of(live_rollout["live_authority"])):
+                raise ValueError("OWNER_LIVE_AUTHORITY_BINDING_CHANGED")
     else:
         if not isinstance(request, str) or not 20 <= len(request.strip()) <= 6000:
             raise ValueError("NORMAL_LANGUAGE_EDITORIAL_REQUEST_REQUIRED")
@@ -57,6 +72,10 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
         binding.update(schema_version=BINDING_SCHEMA, run_id=operation_id, output_dir=str(root),
             owner_manual_validation=True, editorial_request=request,
             cutoff_utc=(now or datetime.now(timezone.utc)).isoformat().replace("+00:00", "Z"))
+        if live_rollout is not None:
+            live_publication_policy(live_rollout, cutoff_utc=binding["cutoff_utc"])
+            binding.update(owner_manual_validation=False, owner_manual_live=True,
+                live_authority_sha256=sha256_of(live_rollout["live_authority"]))
         for key in ("research_editions_root", "source_review_ids"):
             if profile.get(key):
                 binding[key] = profile[key]
@@ -331,7 +350,7 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
             pointer["research_editions_root"] = binding["research_editions_root"]
         pointer["source_review_ids"] = binding.get("source_review_ids", [])
         admitted_research = None
-        if binding.get("owner_manual_validation"):
+        if binding.get("owner_manual_validation") or binding.get("owner_manual_live"):
             frozen = store.get_outbox_message("native-current-input-" + sha256_of(binding["run_id"]))
             if frozen and (research := json.loads(frozen["payload"]).get("research")):
                 from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
@@ -374,6 +393,7 @@ def main(argv=None):
     parser.add_argument("--request", help="Owner's ordinary-language editorial question; metadata only")
     parser.add_argument("--request-file", type=Path, help="UTF-8 ordinary-language request")
     parser.add_argument("--report-only", action="store_true", help="Explicit Main/research trigger: no new X intake or fabricated filter work")
+    parser.add_argument("--live", action="store_true", help="Explicit authorized owner-manual run in the existing production store; requires --rollout")
     parser.add_argument("--binding", type=Path)
     parser.add_argument("--rollout", type=Path)
     parser.add_argument("--automation-id")
@@ -387,6 +407,8 @@ def main(argv=None):
     parser.add_argument("--source-review-id", action="append", default=[])
     parser.add_argument("--workspace-root", type=Path, help="Explicit stable destination for authorized manual-workspace relocation")
     args = parser.parse_args(argv)
+    if args.live and (args.command != "newsroom" or not args.rollout):
+        parser.error("--live requires newsroom and the applied --rollout")
     if args.command in {"news-export", "news-read"}:
         # The shared operator CLI exposes many paths for other owner operations.
         # None is accepted by this read seam, including its trusted profile override.
@@ -526,10 +548,13 @@ def main(argv=None):
         try:
             request = args.request_file.read_text(encoding="utf-8") if args.request_file else args.request
             path, binding = resolve_owner_operation(json.loads(args.profile.read_bytes()),
-                operation_id=args.operation_id, request=request, report_only=args.report_only, source_review_ids=args.source_review_id)
+                operation_id=args.operation_id, request=request, report_only=args.report_only, source_review_ids=args.source_review_id,
+                live_rollout=json.loads(args.rollout.read_bytes()) if args.live else None)
             result = operation(binding)
             print(json.dumps({**result, "binding_path": str(path),
-                "agent_instruction": "Continue assigned native roles, existing source tools, review, previews and prepared handoff in this same opportunity. Jim does not assemble CLI/claim/return JSON. No dispatch."}, ensure_ascii=True))
+                "agent_instruction": "Continue assigned native roles, existing source tools, review and previews in this same opportunity. "
+                    + ("Use the sole reviewed publication coordinator under the applied live rollout; verify exact objects and never retry UNKNOWN_WRITE."
+                       if args.live else "Prepare only; no dispatch.")}, ensure_ascii=True))
             return 0
         except (ValueError, OSError, KeyError, TypeError) as exc:
             print(json.dumps({"classification": "NATIVE_DESKTOP_BLOCKED", "blocker": str(exc)}))

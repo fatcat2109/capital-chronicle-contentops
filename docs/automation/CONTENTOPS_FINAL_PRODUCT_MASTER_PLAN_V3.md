@@ -1,12 +1,12 @@
 # Capital Chronicle ContentOps — Final Product Master Plan V3
 
-## Current V1 execution override — 26 October 2026
+## Current V1 execution override — 27 October 2026
 
-Jim's direct instruction in L2 turn `01a17840-e9da-77d2-8f09-76b1319c6be4`, human message `01a17840-ea44-7522-b01e-d3f9d0951975`, authorized applying the next steps without another owner review. [Actual application and recovery](CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md) record the merged release and operating evidence.
-V1 scheduled editorial work is authorized and ACTIVE in **SHADOW_ONLY**, with `public_write_authority=false`; the existing runtime and four task calendars must not be stopped merely because older sections describe the pre-activation pause.
-Continue a pending scheduled operation through its existing native roles and frozen binding. Preserve its cutoff, source/request identity, ordinary budgets and recovery policy; no duplicate edition or fifth task.
-Older paused/not-deployed and missing-activation-grant statements below describe superseded epochs for this exact V1 zero-write scope. They do not override the applied grant or require Jim to approve it again.
-Public drafts/uploads/posts and V2/V3 remain paused. Full editorial/source/rights standards and North Stars remain in force; activation is not proof of daily output or public-live reliability.
+Jim's direct operator/owner grant in L2 turn `01a17b6b-6a34-7d72-b76b-2b87223edd69`, human message `01a17b6c-ac16-70d0-bea6-d2a6ca82412b`, authorizes actual V1 publication after cleanup and an immediate native run without waiting until17:00. The human grant and completed cleanup turn `01a17b69-2f65-7612-bb69-5c2277f60843` were read through read_thread. No further Jim review is required for this scope.
+The previous SHADOW_ONLY/version37/public_write_authority=false state is the pre-application baseline. Apply and read back the existing control/rollout owners; [actual application](CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md) records actual application separately from authorization. The same four App calendars remain ACTIVE, using native Luna MAX filtering, Sol6.1 Light planning and the same Sol6.1 MAX visual editor/writer.
+Fresh current owner-manual or scheduled operations may publish through the sole DurablePublicationCoordinator with exact identity, source/media rights, current review and canonical-first readback. Pre-activation private examples and owner-removed historical objects are not a launch sample or retry queue. Cleanup reported both Substack Published lists empty; drafts and Discord pinned guidance remain. Deliberately removed capitalnicle.substack.com Privacy Policy/Terms are not silently restored.
+Preserve stable bindings/cutoffs, ordinary source budgets, existing store/outbox/leases and UNKNOWN_WRITE recovery. Missing access is destination-local. No fifth task, replacement scheduler/store/publisher, paid API model, CUA or V2/V3 resumption is authorized. V2/V3 stay paused. One live edition does not prove daily5–8 reliability, SEO or growth.
+Older zero-public-write and missing-activation-grant wording below records superseded V1 epochs and cannot block this exact newer grant. Actual applied controls and exact public-object readbacks remain required evidence.
 
 Authority date: 2026-10-20
 Status: `CURRENT_ROOT_EXECUTION_MASTER_PLAN / V1_ACCEPTED / ACTIVATION`
@@ -60,7 +60,7 @@ scheduler/start paths are non-routing in target source. Bulk X CDP ingestion rem
 Neo is the browser path for research and prepared browser-only destination handoffs. Existing
 Telegram/Discord/Meta/Threads/LinkedIn API transports remain channel-specific.
 
-Current engineering/deployed state: **DEPLOYED_SCHEDULED_ZERO_WRITE**, applied 26 October 2026.
+Historical pre-live application: **DEPLOYED_SCHEDULED_ZERO_WRITE**, applied 26 October 2026; superseded for new V1 sends by the27October grant above.
 The four existing host tasks are ACTIVE with the native editorial roles; the original production
 store is SHADOW_ONLY/version37 and rollout public_write_authority=false. The operator fuse is released.
 PR90/PR92/PR93 are merged; the existing Task Scheduler-owned FDA-G runtime uses release cbfa1e8f.

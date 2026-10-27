@@ -1,12 +1,13 @@
 """Native reviewed-owner composition over the existing handoff/coordinator/Neo protocol.
 
-Preparation and projection never probe or dispatch. Only a genuine registered scheduled
-binding with the existing pause released can resume publication. Manual proof stays isolated.
+Preparation and projection never probe or dispatch. Registered scheduled bindings and
+explicitly activated live owner operations use the same coordinator. Manual proof stays isolated.
 """
 
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from hashlib import sha256
 from pathlib import Path
 
@@ -113,8 +114,26 @@ def prepare_native_publication(store, binding):
     }
 
 
+def live_publication_policy(rollout, *, cutoff_utc=None):
+    """The applied operator grant covers fresh operations, never retained proof examples."""
+    authority = (rollout or {}).get("live_authority") or {}
+    if (not rollout or rollout.get("schema_version") != "contentops.native_desktop_rollout.v1"
+            or rollout.get("public_write_authority") is not True
+            or authority.get("scope") != "V1_NATIVE_PUBLICATION"
+            or not all(authority.get(k) for k in ("thread_id", "turn_id", "message_id", "not_before_utc"))):
+        raise ValueError("EXPLICIT_OWNER_LIVE_ACTIVATION_REQUIRED")
+    floor = datetime.fromisoformat(authority["not_before_utc"].replace("Z", "+00:00"))
+    if floor.tzinfo is None or floor > datetime.now(timezone.utc):
+        raise ValueError("OWNER_LIVE_ACTIVATION_CLOCK_INVALID")
+    if cutoff_utc is not None:
+        cutoff = datetime.fromisoformat(cutoff_utc.replace("Z", "+00:00"))
+        if cutoff.tzinfo is None or cutoff < floor:
+            raise ValueError("PRE_ACTIVATION_ARTICLE_REMAINS_PRIVATE")
+    return authority
+
+
 def scheduled_publication_authority(store, binding, rollout):
-    """Existing scheduled slot provenance, never an owner-manual or config-only write grant."""
+    """Registered scheduled or explicitly granted live-owner provenance, never manual proof."""
     from live_contentops.llm_operator_control_v1 import (
         assert_llm_operator_execution_enabled,
     )
@@ -132,6 +151,22 @@ def scheduled_publication_authority(store, binding, rollout):
     )
     if not registered or json.loads(registered["payload"]) != binding:
         raise ValueError("EXACT_REGISTERED_OPERATION_BINDING_REQUIRED")
+    if binding.get("owner_manual_live"):
+        authority = live_publication_policy(rollout, cutoff_utc=binding["cutoff_utc"])
+        if (binding.get("live_authority_sha256") != sha256_of(authority)
+                or resolve_workspace_path(binding["store_path"]) != resolve_workspace_path(rollout["store_path"])
+                or resolve_workspace_path(binding["published_memory_store"]) != resolve_workspace_path(rollout["store_path"])
+                or resolve_workspace_path(binding["published_memory_output_root"]) != resolve_workspace_path(rollout["published_output_root"])
+                or resolve_workspace_path(binding["output_dir"]) !=
+                    resolve_workspace_path(rollout["editorial_output_root"]) / "owner-manual" / binding["run_id"]
+                or "automation_id" in binding or "window_id" in binding):
+            raise ValueError("EXACT_OWNER_LIVE_PUBLICATION_BINDING_REQUIRED")
+        assert_llm_operator_execution_enabled()
+        if store.get_operating_control()["operating_mode"] != "AUTONOMOUS_DEFAULT":
+            raise ValueError("PUBLICATION_OPERATING_MODE_BLOCKED")
+        return
+    if rollout.get("live_authority"):
+        live_publication_policy(rollout, cutoff_utc=binding["cutoff_utc"])
     if (
         not rollout
         or rollout.get("schema_version") != "contentops.native_desktop_rollout.v1"
@@ -342,7 +377,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
     return {
         **bound,
         "state": state,
-        "operation_scope": "OWNER_MANUAL_ISOLATED"
+        "operation_scope": "OWNER_MANUAL_LIVE" if operation.get("owner_manual_live") else "OWNER_MANUAL_ISOLATED"
         if operation.get("owner_manual_validation")
         else "SCHEDULED",
         "destinations": entries,

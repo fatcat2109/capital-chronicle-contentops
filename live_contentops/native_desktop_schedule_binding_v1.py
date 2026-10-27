@@ -90,6 +90,7 @@ def _issued_state(store, rollout, checkpoint, binding, path):
                     classification = "NATIVE_WINDOW_HANDOFF_REQUIRED"
                 if (classification == "NATIVE_WINDOW_OPERATION_COMPLETE"
                         and rollout.get("public_write_authority") is True
+                        and binding["cutoff_utc"] >= (rollout.get("live_authority") or {}).get("not_before_utc", "")
                         and store.get_operating_control()["operating_mode"] == "AUTONOMOUS_DEFAULT"):
                     from live_contentops.native_desktop_publication_v1 import publication_projection
                     publication = publication_projection(store.list_outbox_messages(), store.list_platform_dispatches(),
