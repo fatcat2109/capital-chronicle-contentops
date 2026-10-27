@@ -897,7 +897,7 @@ def test_committed_automation_normalization_readback_remains_historical_evidence
         assert task["model"] == "gpt-5.6-sol"
         assert packet["model"] == "gpt-6.1-sol"
         assert task["reasoning_effort"] == "high"
-        assert task["status"] == "ACTIVE"
+        assert task["status"] == "PAUSED"
         assert task["after_prompt_sha256"] == historical_prompt_sha
         assert len(task["after_host_config_sha256"]) == 64
         assert "prompt" not in task
