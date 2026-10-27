@@ -57,6 +57,7 @@ def test_real_artifact_reads_full_exact_ibm_body_dates_models_and_prepared_state
     assert story["evidence"][0]["publication_precision"] == "DATE_ONLY"
     assert story["publication"]["state"] == "PREPARED"
     assert story["publication"]["canonical_url"] is None and story["publication"]["publication_at_utc"] is None
+    assert story["publication"]["canonical_public_object_id"] is None
     assert all(d["status"] == "NOT_DISPATCHED" for d in story["publication"]["destinations"])
     assert story["epistemic_state"]["primary_reporting_publisher"] == "IBM"
     assert {"role": "write", "stage": "write", "model": "gpt-6.1-sol", "reasoning_effort": "max"} in story["editorial_execution"]["observed_models"]
@@ -125,6 +126,7 @@ def test_exact_live_article_is_available_without_private_runtime_or_relay_expres
     assert item["run_id"] == "v1-live-launch-20261027"
     assert item["article_revision"] == "c51849523ae2d109a935d5da85b6607d7dca5e8fed11b3fb0a09eec3606ed77a"
     assert item["publication"]["canonical_url"] == "https://capitalchronicle.substack.com/p/firstsquawk-citing-the-wall-street"
+    assert item["publication"]["canonical_public_object_id"] == "222368666"
     assert item["evidence"][0]["published_at_utc"] == "2026-10-27T01:32:04Z"
     assert item["evidence"][0]["source_use_basis"] == "GOVERNED_RELAY_CITATION_METADATA_ONLY"
     assert "source_reuse_constraints" not in item["evidence"][0]
@@ -137,6 +139,32 @@ def test_exact_live_article_is_available_without_private_runtime_or_relay_expres
     assert len(photo["body"]) == 58991
     assert sha256(photo["body"]).hexdigest() == "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b"
     assert current.read_asset(identity, "ibm-dj-cash-improvement-r2", "current-opaque")["status"] == 404
+
+
+@pytest.mark.parametrize("reconciliation", ["RECONCILED_CONFIRMED", "RECONCILIATION_PENDING"])
+def test_canonical_object_id_and_url_come_from_the_same_reconciled_substack_record(actual, reconciliation):
+    item = deepcopy(next(i for i in actual["native_edition"] if i["run_id"] == "v1-live-launch-20261027"))
+    item["media_assets"] = []  # This test concerns the publication projection only.
+    item["review"]["package_revision"] = item["article_revision"]
+    item["publication"]["destinations"] = [
+        {"destination": "telegram", "reconciliation_status": "RECONCILED_CONFIRMED",
+         "public_object_id": "71", "public_object_url": "https://t.me/CapitalChronicle/71"},
+        {"destination": "substack", "reconciliation_status": reconciliation,
+         "public_object_id": "222368666", "public_object_url": "https://capitalchronicle.substack.com/p/firstsquawk-citing-the-wall-street"}]
+    projection = news.build_news_projection({"owner_edition": {"operation_ids": [item["run_id"]]},
+                                            "native_edition": [item]}, exported_at_utc=NOW)
+    publication = projection["native_edition"][0]["publication"]
+    assert publication["canonical_public_object_id"] == ("222368666" if reconciliation == "RECONCILED_CONFIRMED" else None)
+    assert bool(publication["canonical_url"]) is (reconciliation == "RECONCILED_CONFIRMED")
+    assert all("public_object_id" not in d for d in publication["destinations"])
+
+
+@pytest.mark.parametrize("canonical_id", [222368666, "C:/private/account", "222368666\n", "0"])
+def test_malformed_canonical_public_identity_fails_safe_artifact_admission(actual, canonical_id):
+    item = next(i for i in actual["native_edition"] if i["run_id"] == "v1-live-launch-20261027")
+    item["publication"]["canonical_public_object_id"] = canonical_id
+    with pytest.raises(ValueError, match="CONTENT_INTEGRITY"):
+        news._validate_shape(actual)
 
 
 def test_relay_citation_metadata_does_not_admit_unbound_text_or_reuse_rights():
@@ -310,6 +338,7 @@ def test_export_reads_existing_owner_query_only_without_store_constructor(tmp_pa
     monkeypatch.setattr(sqlite3, "connect", traced)
     result = news.export_selected_news()
     assert result["available"] == 0
+    assert b"\r\n" not in news.ARTIFACT_PATH.read_bytes()
     assert json.loads(news.ARTIFACT_PATH.read_bytes())["native_edition"][0]["availability"] == "LOCAL_CONTENT_MISSING"
     assert db.read_bytes() == original_bytes
     assert all(s.startswith(("PRAGMA query_only", "BEGIN", "SELECT", "COMMIT", "ROLLBACK")) for s in statements)
