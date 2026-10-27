@@ -1703,6 +1703,61 @@ def test_confirmed_photo_credit_edit_is_exact_once_and_never_a_new_post(tmp_path
     assert blocked["edit_called"] is False and len(transport.edits) == 1
 
 
+@pytest.mark.parametrize("mismatch", [None, "identity", "text", "media_present", "missing"])
+def test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once(tmp_path, monkeypatch, mismatch):
+    import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    transport = FixtureTransport()
+    transport.edits = []
+    transport.amend_photo_attribution = lambda **kw: transport.edits.append(kw) or {"verified": True}
+    store, _, coordinator = _coordinator(tmp_path, runtime=transport)
+    plan = _quality_plan()
+    coordinator.execute_plan("work-1", plan)
+    dispatch = next(d for d in store.list_platform_dispatches() if d["platform"] == "discord")
+    text = "Exact unchanged copy. https://capitalchronicle.substack.com/p/fixture-article-1"
+    monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda _: {"payloads": {"discord": {"text": text}}})
+    proof = {"write_exists": True, "message_id": dispatch["public_object_id"],
+        "body_text_visible": True, "substack_url_visible": True, "meaningful_media_visible": False}
+    if mismatch == "identity": proof["message_id"] = "other"
+    if mismatch == "text": proof["body_text_visible"] = False
+    if mismatch == "media_present": proof["meaningful_media_visible"] = True
+    if mismatch == "missing": proof["write_exists"] = False
+    transport.readback = lambda **_: proof
+    posts = list(transport.publish_calls)
+    first = coordinator.refresh_confirmed_photo_attribution(dispatch["dispatch_id"], repair_missing_media=True)
+    second = coordinator.refresh_confirmed_photo_attribution(dispatch["dispatch_id"], repair_missing_media=True)
+    assert len(transport.edits) == (1 if mismatch is None else 0)
+    assert transport.publish_calls == posts
+    assert second["edit_called"] is False
+    if mismatch is None:
+        assert first["edit_called"] is True and first["new_post_calls"] == 0
+        assert transport.edits[0]["repair_missing_media"] is True
+        assert transport.edits[0]["public_object_id"] == dispatch["public_object_id"]
+
+
+@pytest.mark.parametrize("verified_delivery", [True, False])
+def test_discord_media_repair_uses_only_hash_bound_original_delivery(monkeypatch, verified_delivery):
+    from live_contentops.publication_coordinator_v1 import CanonicalDestinationTransportRuntimeV1
+    import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    import live_contentops.discord_live_adapter_v6 as adapter
+    url = "https://example.test/exact-original.jpeg"
+    data = {"article": {"title": "Dated report"}, "media_assets": [{"sha256": "original"}],
+        "public_image_url": url, "primary_media": {"sha256": "original", "public_delivery_sha256": "original",
+                                                  "local_public_hash_continuity": verified_delivery}}
+    monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda _: data)
+    edits = []
+    monkeypatch.setattr(adapter, "execute_discord_edit", lambda *a, **kw: edits.append((a, kw)) or {"status": "SUCCESS"})
+    monkeypatch.setattr(adapter, "readback_discord_post", lambda **_: {"status": "SUCCESS"})
+    runtime = CanonicalDestinationTransportRuntimeV1(linkedin_transport=object(), neo_transport=object())
+    canonical = "https://capitalchronicle.substack.com/p/exact"
+    result = runtime.amend_photo_attribution(destination="discord", intent={"canonical_url": canonical},
+        public_object_id="123", text="Exact source-bound copy", repair_missing_media=True)
+    assert result["verified"] is verified_delivery
+    assert len(edits) == int(verified_delivery)
+    if verified_delivery:
+        assert edits[0][0] == ("123", "Exact source-bound copy")
+        assert edits[0][1]["embeds"] == [{"title": "Dated report", "url": canonical, "image": {"url": url}}]
+
+
 def test_native_internal_records_never_become_dispatch_destinations(tmp_path):
     store, transport, coordinator = _coordinator(tmp_path)
     store.register_outbox_message(message_id="native-request", work_item_id="work-1",

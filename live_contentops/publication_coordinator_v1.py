@@ -1497,13 +1497,15 @@ class DurablePublicationCoordinator:
             return {"status": RECONCILED_CONFIRMED, "provider_calls": 0}
         return {"status": "REPLAY_VERIFIED_READBACK_NOT_FOUND", "provider_calls": 0}
 
-    def refresh_confirmed_photo_attribution(self, dispatch_id: str) -> dict[str, Any]:
+    def refresh_confirmed_photo_attribution(self, dispatch_id: str, *, repair_missing_media: bool = False) -> dict[str, Any]:
         """Apply the owner-directed credit presentation once to an exact existing object."""
         dispatch = self.store.get_platform_dispatch(dispatch_id) or {}
         destination = str(dispatch.get("platform") or "")
         message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
         if not message or destination not in {"telegram", "discord"} or dispatch.get("status") != DISPATCH_CONFIRMED:
             return {"status": "PHOTO_ATTRIBUTION_EXACT_CONFIRMED_OBJECT_REQUIRED", "edit_called": False}
+        if repair_missing_media and destination != "discord":
+            return {"status": "PHOTO_MEDIA_REPAIR_DESTINATION_NOT_SUPPORTED", "edit_called": False}
         intent = json.loads(str(message["payload"]))
         state = self.publication_state(str(intent["work_item_id"]), {
             "plan_hash": intent["plan_hash"], "destinations": [intent["destination_plan"]]})
@@ -1521,9 +1523,22 @@ class DurablePublicationCoordinator:
         rendered = _durable_intent_inputs(intent)["payloads"][destination]
         text = str(rendered.get("text") or "")
         original = str((intent.get("native_payload") or {}).get("text") or intent.get("payload") or "")
-        if not text or text == original:
+        if not text or (text == original and not repair_missing_media):
             return {"status": "PHOTO_ATTRIBUTION_NO_CHANGE", "edit_called": False}
         edit_key = "photo-attribution-" + _hash(_canonical_json([dispatch_id, text]))
+        if repair_missing_media:
+            # Read the exact existing object first. A failed/unknown edit, missing
+            # message or changed text never authorizes another write.
+            observed = self.transport_runtime.readback(destination=destination,
+                public_object_id=str(dispatch["public_object_id"]),
+                public_object_url=dispatch.get("public_object_url"), intent=intent)
+            if not (observed.get("write_exists") is True
+                    and str(observed.get("message_id")) == str(dispatch["public_object_id"])
+                    and observed.get("body_text_visible") is True
+                    and observed.get("substack_url_visible") is True
+                    and observed.get("meaningful_media_visible") is False):
+                return {"status": "PHOTO_MEDIA_REPAIR_EXACT_READBACK_REQUIRED", "edit_called": False}
+            edit_key += "-missing-media-" + _hash(_canonical_json(intent.get("artifact_manifest") or []))
         prior = self.store.list_readbacks_for_dispatch(dispatch_id)
         if any(r["readback_id"] == edit_key for r in prior):
             return {"status": "PHOTO_ATTRIBUTION_ALREADY_ATTEMPTED_READBACK_ONLY", "edit_called": False}
@@ -1535,8 +1550,9 @@ class DurablePublicationCoordinator:
             readback_data=_canonical_json({"action": "EDIT_EXISTING_PHOTO_ATTRIBUTION", "status": "STARTED",
                 "public_object_id": dispatch["public_object_id"], "rendered_payload_sha256": _hash(text)}))
         try:
+            kwargs = {"repair_missing_media": True} if repair_missing_media else {}
             result = dict(self.transport_runtime.amend_photo_attribution(destination=destination,
-                intent=intent, public_object_id=str(dispatch["public_object_id"]), text=text))
+                intent=intent, public_object_id=str(dispatch["public_object_id"]), text=text, **kwargs))
         except Exception as exc:
             result = {"status": "UNKNOWN_EDIT", "safe_error_classification": type(exc).__name__}
         self.store.register_readback(readback_id=edit_key + "-return", dispatch_id=dispatch_id,
@@ -2371,7 +2387,7 @@ class CanonicalDestinationTransportRuntimeV1:
             preconditions=preconditions,
         )
 
-    def amend_photo_attribution(self, *, destination, intent, public_object_id, text):
+    def amend_photo_attribution(self, *, destination, intent, public_object_id, text, repair_missing_media=False):
         """Use existing exact-message edit adapters; never create or replace a public post."""
         canonical = str(intent["canonical_url"])
         if destination == "telegram":
@@ -2393,7 +2409,19 @@ class CanonicalDestinationTransportRuntimeV1:
                 and observed.get("caption") == text and bool(observed.get("photo")))
         elif destination == "discord":
             from live_contentops.discord_live_adapter_v6 import execute_discord_edit, readback_discord_post
-            raw = execute_discord_edit(public_object_id, text, dry_run=False)
+            kwargs = {}
+            if repair_missing_media:
+                from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+                data = _durable_intent_inputs(intent)
+                primary = data["primary_media"]
+                if (not data["public_image_url"] or not data["media_assets"]
+                        or primary.get("local_public_hash_continuity") is not True
+                        or primary.get("sha256") != primary.get("public_delivery_sha256")
+                        or primary.get("sha256") not in {a["sha256"] for a in data["media_assets"]}):
+                    return {"status": "PHOTO_MEDIA_BOUND_DELIVERY_REQUIRED", "verified": False}
+                kwargs["embeds"] = [{"title": data["article"].get("title"), "url": canonical,
+                    "image": {"url": data["public_image_url"]}}]
+            raw = execute_discord_edit(public_object_id, text, dry_run=False, **kwargs)
             observed = readback_discord_post(message_id=public_object_id, expected_text=text,
                 canonical_url=canonical) if raw.get("status") == "SUCCESS" else {}
             verified = observed.get("status") == "SUCCESS"

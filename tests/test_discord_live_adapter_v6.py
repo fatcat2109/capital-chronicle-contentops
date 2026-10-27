@@ -80,3 +80,23 @@ def test_readback_discord_post_proves_exact_object(monkeypatch):
     assert result["verified"] is True
     assert result["write_exists"] is True
     assert result["meaningful_media_visible"] is True
+
+
+def test_edit_existing_message_transmits_explicit_media_without_creating_a_post(monkeypatch):
+    from live_contentops import discord_live_adapter_v6 as adapter
+    import live_contentops.live_telemetry_v6 as telemetry
+    calls = []
+    class Response:
+        def __enter__(self): return self
+        def __exit__(self, *_): return None
+        def read(self): return b'{"id":"123"}'
+    def opener(request, **_):
+        calls.append(request)
+        return Response()
+    monkeypatch.setattr(adapter.urllib.request, "urlopen", opener)
+    monkeypatch.setattr(telemetry, "classify_and_record_dispatch", lambda **_: None)
+    embeds = [{"image": {"url": "https://example.test/original.jpeg"}}]
+    result = execute_discord_edit("123", "Same copy", webhook_url="https://discord.test/api/webhooks/id/token", embeds=embeds)
+    assert result["status"] == "SUCCESS" and len(calls) == 1
+    assert calls[0].method == "PATCH" and calls[0].full_url.endswith('/messages/123')
+    assert json.loads(calls[0].data) == {"content": "Same copy", "embeds": embeds}

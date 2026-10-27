@@ -273,10 +273,10 @@ def execute_discord_edit(
     new_message: str,
     webhook_url: str | None = None,
     dry_run: bool = False,
+    embeds: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Edits a previously published Discord webhook message via PATCH."""
     target_webhook = webhook_url or _get_default_webhook_url()
-    payload_hash = hashlib.md5(f"{message_id}:{new_message}".encode("utf-8")).hexdigest()[:12]
 
     if dry_run:
         return {
@@ -286,6 +286,7 @@ def execute_discord_edit(
             "payload_redacted": {
                 "message_id": message_id,
                 "new_message": new_message,
+                **({"embeds": embeds} if embeds is not None else {}),
             },
             "response": {
                 "id": message_id,
@@ -305,6 +306,8 @@ def execute_discord_edit(
     t0 = time.perf_counter()
     edit_url = f"{target_webhook.rstrip('/')}/messages/{message_id}"
     payload = {"content": new_message}
+    if embeds is not None:
+        payload["embeds"] = embeds
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(edit_url, data=data, method="PATCH")
     req.add_header("Content-Type", "application/json")
