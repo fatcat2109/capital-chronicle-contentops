@@ -1,40 +1,32 @@
-# V1 live launch - integrating completed same-MAX repair
-Native get_goal27October returned PAUSED, same thread01a16a43/objective-file wrapper; no resume action exposed; continuing direct human grant.
-Sole V1 integrator: this chat; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35 only; completion notice NOT_SENT.
+# V1 live launch — corrected final review resumed
+Goal: CONTENTOPS_V1_LIVE_LAUNCH_AND_FIRST_CURRENT_EDITION_V1; same unfinished scope and operation.
+Native get_goal returned ACTIVE in thread01a16a43-bfad-7191-bd78-ef708c3468d7 on this continuation.
+After same-MAX startup, update_goal returned PAUSED under Jim's conditional parent-stop rule; child preserved.
+Sole integrator: this chat; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35; whole-goal notice NOT_SENT.
 Authoring A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; codex/v1-newsroom-release-convergence.
-Authoringe3394a00; PR101 merged/installed5c465779395faec651fddc354587987281e6b0a9 after exact-head CI40529570002PASS.
-PR98d6338148 applied live controls04:00:43UTC27October: AUTONOMOUS_DEFAULT/version38/public_write_authority=true.
-Same four ACTIVE tasks/calendars/project/preferences/native roles; no fifth scheduler/store/publisher or runtime restart.
-Live human grant read_thread verified: L2message01a17b6c-ac16-70d0-bea6-d2a6ca82412b; no new approval/17:00waiting.
-Cleanup actual delivery read_thread verified:01a17a57-785f-7f63-a78a-c734a9ba93cd/01a17b69-2f65-7612-bb69-5c2277f60843.
-51owner-reported removed sends/2retained drafts reconciled no-retry with IDs/history intact;0provider calls, no new published article.
-Secondary capitalnicle.substack.com Privacy/Terms deliberately deleted; drafts/pinned guidance retained; never restore silently.
-Original operation v1-live-launch-20261027; frozen cutoff2026-10-27T04:00:52.972454Z; no replacement edition/window.
-Binding A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-live-launch-20261027/binding.json.
-Luna chat01a17b86-6cd9-73a1-a736-cd506f1f1a8d completed turn01a17bc4-082a-7c92-9630-7a32f89a7629, read_thread inspected.
-Exact filter receipt:1022distinct X seen,596KEEP/337REJECT/89DEFER,0remaining;35non-X preserved,1057total inputrows.
-Actual27accepted semantic filter-batch returns cover625records plus reused exact cached decisions; no refilter.
-Earlier175/300/450raw counts included per-headline cache records, not articles or semantic returns; correction evidence retained.
-Light chat01a17c16-af0f-7f23-b38b-8a9c268de5b6 completed/read; select8dd161fb/media-plan4c576fce accepted from32candidates.
-China primary used3requests/0sources/HTTP401; oil fallback simple-story-de5a1685a697615e3b3a90d6 qualified via1zero-GET relay;3/6spent.
-FirstSquawk citing WSJ supports narrow attributed report only; no confirmed dialogue/agreement/supply change or price causation.
-Continuity human verified: L1turn01a17bba-fa83-70b0-862a-d492a9b54bae/user01a17bba-fad0-7a80-bb53-186a64546906; subsequent continue read.
-Read only Event continuity and market digestion in CAPITAL_CHRONICLE_MACRO_FIRST_COVERAGE_AND_SELECTION_V1.md:105-158.
-Frozen33-source research includes goal35-oil/Reuters21October; related US-Iran/oil thesis and private prior CC interpretation retrieved.
-selected-story-continuity.json b8e1cc85 binds exact source clocks/old review; exact Reuters record now attached context-only before freeze.
-Existing recover-sources attachment0d11b178 preserves current-event source/epistemic state,3/6budget and original recovery history.
-Role/North Star/Master Plan continuity wording and focused source changes integrated/applied; no new platform/gate.
-PR99 permanent rule tracked/linked: CONTENTOPS_V1_FINAL_MEDIA_REVIEW_AND_REPAIR_RULE_V1.md, same actual MAX final inspection/direct correction.
-Final acceptance binds article/source/media/render variants, current assigned model/effort/invocation and per-asset/render findings.
-Existing review/coordinator/tool-begin rejects missing/stale/wrong-model or unresolved acceptance; UNKNOWN recovery stays readback-first.
-Correctable copy/media/layout defects remain same MAX article repair, affected re-render/recheck; no restart/discard/arbitrary correction ceiling.
-PR101 compiler/reader/final-review focused checks pass; full native social qualifications/date labels repaired; tests are not pixel acceptance.
-Eight existing dirty files including shared-compiler WIP preserved atPR101install; same healthy FDA-G14296/binding, no restart/store replacement.
-Configured channel identities checked at launch; LinkedIn official-member API readback limited; access gaps remain channel-local.
-Same MAX chat01a17c51-2801-7633-834e-94e0863f1b04 accepted visualdf77435a and writeecfaf63b;1validated article/8packages;NEWS/0charts.
-Article8885bd9e945f425731c93f73c51ff0fa70463d7148a088f8ee3482937de3069d/body unchanged;2dated sources/1lawful archive photo.
-18actual Neo canonical/channel desktop/mobile renders bound in final-render-review/render-manifest.json; invalid capture experiments excluded.
-Preserve all accepted native work/source budgets32/3/6 and strategic reads; V2/V3 paused, no CUA/spending/paid model/broker/Main/DB expansion.
+PR102 merged/installed4fe7810035e21f3e793492d2f9e379777ad2bafd; authoring a74808ff; exact-head CI40539712044 passed.
+Operating A:/Capital Chronicle/ContentOps; six unrelated tracked WIP paths preserved; no runtime restart.
+Live grant verified through L2 human01a17b6c-ac16-70d0-bea6-d2a6ca82412b; no new owner approval needed.
+Applied AUTONOMOUS_DEFAULT/version38/public_write_authority=true; same four ACTIVE windows/sole coordinator.
+No new public article/write; owner-removed objects and retained drafts remain no-retry/no-publish.
+Operation v1-live-launch-20261027; frozen cutoff2026-10-27T04:00:52.972454Z; unchanged binding/store/outbox/leases.
+Operation root A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-live-launch-20261027/.
+Accepted Luna/Light/source work preserved;1022Xdecisions/35non-X,32candidates; source budget3/6spent.
+Oil relay remains attributed/unconfirmed; Reuters21October is dated context; continuity binding retained before freeze.
+Same actual gpt-6.1-sol/max: /root/live_launch_max_writer, chat01a17c51-2801-7633-834e-94e0863f1b04.
+Article8885bd9e945f425731c93f73c51ff0fa70463d7148a088f8ee3482937de3069d;1article/8packages,2sources/1lawful archive photo.
+Revisionc51849523ae2d109a935d5da85b6607d7dca5e8fed11b3fb0a09eec3606ed77a; body/source/photo unchanged.
+Prior actual REPAIR_REQUIRED: native_response_final-visual_max_r1.json, abff20e7;12duplicate-credit views/5bad captures.
+Same-MAX duplicate-credit repair integrated/applied viaPR102; valid focused checks/29UItests/build reused.
+14affected views corrected;4unchanged Substack/X captures/prior findings retained in final-render-review-r2/render-manifest.json.
+Real-reader390/1280px frames replace faulty device emulation; parent spot checks are not MAX acceptance.
+Pending stage: final-visual-32b608193a7a02c66a29e98104dec2675ebd9b7b2d6f18727f6b9cecd2bc987e.
+Pending request SHA: b8f948713c7af0eed41c53473f776b5bce276096e390f04072d0597779b7fa36.
+Prior turn01a17e30-bb5c-7670-99cd-a41c3b629e3a failed before work with usage limit; no acceptance inferred.
+Fresh usage ordinaryUsageAllowed=true,18%primary/67%secondary; resumed same child once after availability changed.
+collaboration.list_agents confirmed same MAX RUNNING; no replacement writer/model, spending or retry loop.
+Next: consume actual corrected review/repairs; valid acceptance permits existing KEEP/preparation/canonical-first publication.
+Then reconcile actual canonical URL and admitted destinations through sole DurablePublicationCoordinator; UNKNOWN_WRITE readback first.
+Full completion requires corrected MAX acceptance and public URLs/readbacks or channel-local failures;5–8/day unproven.
+V2/V3 paused; no CUA/new sources/budget/scheduler/store/publisher/Main/DB changes, polling/heartbeat or progress notices.
 Evidence C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/live-launch-20261027/.
-Current revisionc5184952;final stagefinal-visual-6122120fb4e677d362bdf6907b605ada14327e49704e0226c4bb578f0c90d9ef/requeste8cac767.
-MAX completed turn01a17e16-3574-7812-afd0-3b1c3ab9bc3e:REPAIR_REQUIRED abff20e7;12duplicate-credit views/5invalid captures.
