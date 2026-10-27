@@ -549,6 +549,8 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
                 or final_visual_repair.get("invocation_id") != response["invocation_observation"]["invocation_id"]
                 or not final_visual_repair.get("findings_addressed")):
             raise ValueError("SAME_MAX_TARGETED_VISUAL_REPAIR_REQUIRED")
+        for original in result.get("media_assets", []):
+            _final_visual_file(original)  # Corrections use new revision paths, never overwrite frozen originals.
     if any(r["work_item_id"] == row["work_item_id"] and r["reviewer_ref"] == "NATIVE_DESKTOP_ARTICLE_REVIEW" for r in read_reviews(store)):
         if expected_package_revision != native_review_revision(result):
             raise ValueError("MEDIA_BINDING_REQUIRES_EXACT_REVIEWED_REVISION")
@@ -847,7 +849,8 @@ def request_final_visual_review(turn, *, renders):
         "inspection. Check values are "
         "PASS/FAIL/UNVERIFIED/NOT_APPLICABLE. ACCEPT requires no failed/unverified check or unresolved finding. "
         "If defective, YOU directly repair only affected source-bound copy/media/layout with existing tools, re-render "
-        "affected views, inspect and resubmit the same article's corrected revision. Keep valid assets/returns; "
+        "affected views, inspect and resubmit the same article's corrected revision. Save corrected assets/renders "
+        "at new revision paths; retain frozen originals and valid assets/returns. "
         "never discard the story or rerun intake. No one-repair ceiling for concrete correctable defects, no blind loop "
         "or repeated votes. External gaps preserve the product and exact pending repair. No public send here.\n"
         "GOVERNED_INPUT:\n" + canonical_bytes(governed).decode())
