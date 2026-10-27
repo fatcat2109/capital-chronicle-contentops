@@ -43,7 +43,7 @@ function previewText(payload: Record<string, unknown>): string {
 }
 
 type EditorialMedia = NonNullable<NonNullable<ReportWorkspaceData['native_edition']>[number]['media_assets']>[number];
-function MediaFigure({ asset: a, originalHref, readerDetails = true }: { asset: EditorialMedia; originalHref?: string; readerDetails?: boolean }) {
+function MediaFigure({ asset: a, originalHref, readerDetails = true, photoCredit = true }: { asset: EditorialMedia; originalHref?: string; readerDetails?: boolean; photoCredit?: boolean }) {
   const [expanded, setExpanded] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLAnchorElement>(null);
@@ -52,7 +52,7 @@ function MediaFigure({ asset: a, originalHref, readerDetails = true }: { asset: 
     dialog.current.showModal();
     return () => { opener.current?.focus(); };
   }, [expanded]);
-  const credit = a.reader_credit ?? a.attribution;
+  const credit = a.modality === 'documentary_photo' && !photoCredit ? undefined : a.reader_credit ?? a.attribution;
   const caption = a.reader_caption ?? a.caption;
   const embeddedCredit = a.modality === 'documentary_photo' && credit && a.source_page_url?.startsWith('https://')
     ? caption.indexOf(credit) : -1;
@@ -69,7 +69,7 @@ function MediaFigure({ asset: a, originalHref, readerDetails = true }: { asset: 
         <a href={source.url} target="_blank" rel="noreferrer">{source.label}</a></span>)}</>
       : credit && embeddedCredit < 0 && <> · {a.source_page_url?.startsWith('https://')
       ? <a href={a.source_page_url} target="_blank" rel="noreferrer">{credit}</a> : credit}</>}
-      {a.license_url?.startsWith('https://') && <> · <a href={a.license_url} target="_blank" rel="noreferrer">{a.license_name ?? 'Reuse terms'}</a></>}
+      {(a.modality !== 'documentary_photo' || photoCredit) && a.license_url?.startsWith('https://') && <> · <a href={a.license_url} target="_blank" rel="noreferrer">{a.license_name ?? 'Reuse terms'}</a></>}
       {readerDetails && a.support_caption && <p style={{ margin: '8px 0' }}>{a.support_caption}</p>}
     {readerDetails && a.reader_table && <div className="media-reference-table" style={{ margin: '20px 0' }}>
       <table aria-label={a.reader_table.caption} style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed', fontSize: '0.9rem' }}>
@@ -120,8 +120,8 @@ function PackagePreview({ payload, assets = [], originals }: { payload: Record<s
   const ids = new Set([...(Array.isArray(payload.media_asset_ids) ? payload.media_asset_ids : []),
     ...posts.flatMap(p => Array.isArray(p.media_asset_ids) ? p.media_asset_ids : [])]);
   const attached = assets.filter(a => ids.has(a.asset_id));
-  // Display a complete photo attribution once, beside its image. The actual channel
-  // payload is immutable and keeps its standalone credit, license and archive caveat.
+  // Exact known credit blocks render as archive captions; full attribution is on Substack.
+  // The immutable original package and internal source/license metadata stay available.
   // Unknown/changed credits and missing images stay in the copy rather than being stripped.
   const figureCredits = new Set(attached.filter(a => a.preview_data_url && a.modality === 'documentary_photo'
     && a.reader_caption && (a.reader_credit ?? a.attribution) && a.license_url?.startsWith('https://')
@@ -129,8 +129,9 @@ function PackagePreview({ payload, assets = [], originals }: { payload: Record<s
     // The compact transport uses the creator, while the figure may carry a fuller archive credit.
     const creator = 'creator_publisher' in a && typeof a.creator_publisher === 'string'
       ? a.creator_publisher.trim().replace(/\.$/, '') : '';
-    return [a.reader_credit ?? a.attribution, creator].filter(Boolean).map(credit =>
-      `Photo: [${credit}](${a.source_page_url}) · [${a.license_name ?? 'Reuse terms'}](${a.license_url}). ${a.reader_caption}`);
+    return [`Photo: ${a.reader_caption!.trim().replace(/\.$/, '')}.`,
+      ...[a.reader_credit ?? a.attribution, creator].filter(Boolean).map(credit =>
+        `Photo: [${credit}](${a.source_page_url}) · [${a.license_name ?? 'Reuse terms'}](${a.license_url}). ${a.reader_caption}`)];
   }));
   const readingText = (text: string) => text.split(/\n\s*\n/).filter(block => !figureCredits.has(block.trim())).join('\n\n');
   return <>
@@ -138,7 +139,7 @@ function PackagePreview({ payload, assets = [], originals }: { payload: Record<s
       <p><strong>{index === 0 ? 'Root post' : `Reply ${index}`}</strong></p>
       <ArticleParagraphs text={readingText(previewText({ text: p.text }))} />
     </div>) : <ArticleParagraphs text={readingText(previewText(payload))} />}
-    {attached.map(a => <MediaFigure key={a.asset_id} asset={a} originalHref={originals?.[a.sha256]} readerDetails={false} />)}
+    {attached.map(a => <MediaFigure key={a.asset_id} asset={a} originalHref={originals?.[a.sha256]} readerDetails={false} photoCredit={false} />)}
   </>;
 }
 

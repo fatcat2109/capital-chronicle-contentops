@@ -343,7 +343,9 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
                 )
     totals = DurablePublicationCoordinator.publication_totals(
         {e["destination"]: e for e in entries})
-    confirmed = int(totals["canonical_article_real_published"]) + totals["derivative_confirmed_count"]
+    confirmed = sum(e["reconciliation_status"] == "RECONCILED_CONFIRMED"
+        and DurablePublicationCoordinator._confirmed_public_object(e, destination=e["destination"])
+        for e in entries)
     state = (
         "RECONCILED"
         if confirmed == 9

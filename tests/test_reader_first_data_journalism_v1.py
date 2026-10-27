@@ -593,8 +593,8 @@ def test_reader_photo_caption_retains_archive_date_and_original_evidence():
     assert reader_photo_caption({"caption": caption}) == caption
 
 
-def test_channel_photo_preview_shows_compiler_credit_once_without_dropping_unknown_rights():
-    """Render the owning React view; compact transport credits use the creator's short name."""
+def test_channel_photo_preview_keeps_archive_context_without_dropping_unknown_rights():
+    """Render the owning React view; derivative photo rights stay in the canonical article."""
     from pathlib import Path
     import re
     import subprocess
@@ -660,8 +660,8 @@ def test_channel_photo_preview_shows_compiler_credit_once_without_dropping_unkno
         if case["name"] in {"compact", "posted"}:
             assert preview.count(asset["caption"]) == 1
             assert "Photo:" not in preview
-            assert preview.count('href="' + asset["source_page_url"] + '"') == 1
-            assert preview.count('href="' + asset["license_url"] + '"') == 1
+            assert preview.count('href="' + asset["source_page_url"] + '"') == 0
+            assert preview.count('href="' + asset["license_url"] + '"') == 0
         else:
             assert "Photo:" in preview
             if case["name"] == "extra_notice":
