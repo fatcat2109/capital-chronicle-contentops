@@ -1709,6 +1709,13 @@ def native_source_date_notice(source_pack, used_source_ids):
     return "; ".join(dict.fromkeys(dates)) + ". Interpretation remains analysis."
 
 
+def native_source_reader_label(source):
+    date = str(source.get("published_at_source") or "")
+    if not re.match(r"^\d{4}-\d{2}-\d{2}(?:T|$)", date):
+        date = str(source.get("published_at_utc") or "")
+    return str(source["publisher"]) + (" · " + date[:10] if date else "")
+
+
 def _reader_safe_native_article(
     article: Mapping[str, Any],
     *,
@@ -2804,7 +2811,7 @@ def run_v1_simple_gemini_newsroom(
             {c["source_id"] for c in worker_output["material_claim_bindings"]})}
     native_prior = [c for c in selected.get("evolving_story_context", []) if c.get("source_review_id")]
     article["public_source_bindings"] = [{**{k: d[k] for k in ("source_id", "url", "publisher", "published_at_utc")},
-        **({"reader_label": f"{d['publisher']} · {str(d.get('published_at_source') or d['published_at_utc'])[:10]}"}
+        **({"reader_label": native_source_reader_label(d)}
            if article.get("reader_first_version") == "DATA_JOURNALISM_V1" else {})} for d in source_pack]
     prior_chain = {c["update_chain_identity"] for c in native_prior}
     if len(prior_chain) > 1:

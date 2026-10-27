@@ -50,6 +50,15 @@ def decision(kind="ANALYSIS", count=2):
     }
 
 
+def test_public_source_date_label_does_not_expose_internal_clock_basis():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import native_source_reader_label
+    assert native_source_reader_label({"publisher": "Wire", "published_at_source": "EXACT_GOVERNED_SIDECAR_SOURCE_TIMESTAMP",
+        "published_at_utc": "2026-10-27T01:32:04Z"}) == "Wire · 2026-10-27"
+    assert native_source_reader_label({"publisher": "Source", "published_at_source": "2026-10-21",
+        "published_at_utc": "2026-10-21T00:00:00Z"}) == "Source · 2026-10-21"
+    assert native_source_reader_label({"publisher": "Retained", "published_at_source": "UNESTABLISHED"}) == "Retained"
+
+
 def chart_packet():
     text = "Comparable 2025 revenue 100 USD million; 2026 revenue 120 USD million."
     doc = {
