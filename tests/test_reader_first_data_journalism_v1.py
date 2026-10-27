@@ -593,6 +593,81 @@ def test_reader_photo_caption_retains_archive_date_and_original_evidence():
     assert reader_photo_caption({"caption": caption}) == caption
 
 
+def test_channel_photo_preview_shows_compiler_credit_once_without_dropping_unknown_rights():
+    """Render the owning React view; compact transport credits use the creator's short name."""
+    from pathlib import Path
+    import re
+    import subprocess
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _publication_media_metadata
+
+    ui = Path(__file__).resolve().parents[1] / "ui/contentops_v5"
+    asset = {
+        "asset_id": "controlled-photo", "modality": "documentary_photo",
+        "creator_publisher": "Controlled Photographer\u00a0",
+        "attribution": "Controlled Photographer / Controlled Archive, CC BY-SA 2.0. Unchanged original.",
+        "caption": "Controlled refinery, United Kingdom, 16 June 2017. Archive photograph; context only.",
+        "source_page_url": "https://example.org/controlled-original",
+        "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+        "changes_description": "Unchanged original; display resizing only.",
+        "path": "controlled-test-only.jpg", "sha256": "a" * 64,
+        "preview_data_url": "data:image/png;base64,controlled-test-not-real-media",
+        "alt_text": "Controlled archive photograph", "width": 640,
+    }
+    asset["reader_caption"] = asset["caption"]
+    _, credit = _publication_media_metadata([asset], compact=True)
+    cases = []
+    for name, text, selected_asset, posted in (
+        ("compact", credit, asset, False),
+        ("posted", credit, asset, True),
+        ("extra_notice", credit + " Separate required notice.", asset, False),
+        ("wrong_creator", credit.replace("[Controlled Photographer]", "[Different creator]"), asset, False),
+        ("wrong_source", credit.replace("https://example.org/controlled-original", "https://example.org/other"), asset, False),
+        ("missing_pixels", credit, {**asset, "preview_data_url": None}, False),
+    ):
+        payload = {"text": "Controlled news copy.\n\n" + text, "media_asset_ids": [asset["asset_id"]]}
+        if posted:
+            payload["posts"] = [{"text": payload["text"], "media_asset_ids": [asset["asset_id"]]}]
+        cases.append({"name": name, "native_edition": [{
+            "run_id": "controlled", "article_identity": "controlled", "media_assets": [selected_asset],
+            "article": {"title": "Controlled", "dek": "Controlled brief", "substack_body_markdown": "Controlled body."},
+            "previews": [{"destination": "instagram_business", "preview_id": "controlled", "payload": payload}],
+        }]})
+    entry = """
+        import React from 'react';
+        import { renderToStaticMarkup } from 'react-dom/server';
+        import { readFileSync } from 'node:fs';
+        import { ReportEditorialWorkspace } from './src/views/ReportEditorialWorkspace.tsx';
+        const cases = JSON.parse(readFileSync(0, 'utf8'));
+        process.stdout.write(JSON.stringify(cases.map(data => ({name: data.name,
+            html: renderToStaticMarkup(React.createElement(ReportEditorialWorkspace, {data}))}))));
+    """
+    runner = """
+        const {buildSync} = require('esbuild');
+        const bundle = buildSync({stdin: {contents: process.argv[1], resolveDir: process.cwd(), loader: 'tsx'},
+            bundle: true, platform: 'node', format: 'cjs', jsx: 'automatic', write: false,
+            define: {'import.meta.env': '{}'}});
+        new Function('require', 'module', 'exports', bundle.outputFiles[0].text)(require, {exports: {}}, {});
+    """
+    completed = subprocess.run(["node", "-e", runner, entry], cwd=ui,
+        input=json.dumps(cases), text=True, encoding="utf-8", capture_output=True)
+    assert completed.returncode == 0, completed.stderr
+    rendered = json.loads(completed.stdout)
+    for case in rendered:
+        preview = re.search(r'<details[^>]*data-edition-destination="instagram_business"[^>]*>(.*?)</details>',
+            case["html"], re.S).group(1)
+        assert "Controlled news copy." in preview
+        assert 'alt="Controlled archive photograph"' in preview or case["name"] == "missing_pixels"
+        if case["name"] in {"compact", "posted"}:
+            assert preview.count(asset["caption"]) == 1
+            assert "Photo:" not in preview
+            assert preview.count('href="' + asset["source_page_url"] + '"') == 1
+            assert preview.count('href="' + asset["license_url"] + '"') == 1
+        else:
+            assert "Photo:" in preview
+            if case["name"] == "extra_notice":
+                assert "Separate required notice." in preview
+
+
 @pytest.mark.parametrize("publisher,source_url,short_name", [
     ("Federal Reserve Bank of New York", "https://www.newyorkfed.org/markets/reference-rates/effr", "New York Fed"),
     ("U.S. Energy Information Administration", "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx", "EIA"),
