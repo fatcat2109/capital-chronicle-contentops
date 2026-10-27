@@ -271,16 +271,23 @@ def validate_chart_media_object(media: Mapping[str, Any]) -> list[str]:
 
 
 def validate_delivery_media_object(media: Mapping[str, Any]) -> list[str]:
-    """Validate either an article chart or an explicitly delivery-only asset."""
+    """Validate an article chart, admitted documentary photo or delivery-only asset."""
     if str(media.get("media_role") or "") == "primary_chart":
         return validate_chart_media_object(media)
     blockers: list[str] = []
     path = Path(str(media.get("absolute_local_source_path") or ""))
     if not path.is_absolute() or not path.is_file():
         blockers.append("absolute_local_source_path_required")
-    if str(media.get("media_role") or "") != "delivery_only":
+    photo = media.get("media_role") == "contextual_photo" and media.get("modality") == "documentary_photo"
+    if photo:
+        if (media.get("rights_status") not in {"OPEN_LICENSED", "PERMISSION_GRANTED", "OWNED"}
+                or not media.get("rights_evidence_sha256") or not media.get("source_page_url")
+                or not media.get("license_url") or not media.get("alt_text")):
+            blockers.append("documentary_photo_rights_binding_required")
+    elif str(media.get("media_role") or "") != "delivery_only":
         blockers.append("delivery_media_role_invalid")
-    if int(media.get("width") or 0) < MIN_CHART_WIDTH or int(media.get("height") or 0) < MIN_CHART_HEIGHT:
+    minimum_width, minimum_height = (1, 1) if photo else (MIN_CHART_WIDTH, MIN_CHART_HEIGHT)
+    if int(media.get("width") or 0) < minimum_width or int(media.get("height") or 0) < minimum_height:
         blockers.append("delivery_media_dimensions_below_threshold")
     if not str(media.get("sha256") or ""):
         blockers.append("media_sha256_required")
@@ -336,6 +343,8 @@ def build_delivery_media_manifest(
         row = {
             "media_asset_id": asset_id,
             "media_role": str(source.get("media_role") or ""),
+            **{key: source[key] for key in ("modality", "rights_status", "rights_evidence_sha256",
+                "source_page_url", "license_url") if key in source},
             "absolute_local_source_path": str(source_path),
             "sha256": local_sha,
             "declared_sha256": declared_sha,
@@ -368,6 +377,9 @@ def build_delivery_media_manifest(
     primary = next((asset for asset in assets if asset.get("media_role") == "primary_chart"), None)
     if primary is None:
         primary = next((asset for asset in assets if asset.get("media_role") == "delivery_only"), None)
+    if primary is None:
+        primary = next((asset for asset in assets if asset.get("media_role") == "contextual_photo"
+                        and asset.get("modality") == "documentary_photo"), None)
     if not primary:
         blockers.append("primary_chart_missing")
     else:

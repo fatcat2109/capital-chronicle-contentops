@@ -2269,8 +2269,22 @@ class CanonicalDestinationTransportRuntimeV1:
     def readback(self, *, destination: str, public_object_id: Optional[str],
                  public_object_url: Optional[str], intent: Mapping[str, Any]) -> Mapping[str, Any]:
         if destination in {"substack", "x", "youtube"}:
-            return self._neo_transport.readback(destination=destination, intent=intent,
+            result = self._neo_transport.readback(destination=destination, intent=intent,
                 public_object_id=public_object_id, public_object_url=public_object_url)
+            if destination == "substack" and result.get("verified") is True and result.get("public_image_urls"):
+                from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+                from live_contentops.media_manifest_authority_v1 import build_delivery_media_manifest
+                data = _durable_intent_inputs(intent)
+                delivery = build_delivery_media_manifest(media_packet={"assets": data["media_assets"]},
+                    public_image_urls=result["public_image_urls"], run_id=str(intent["work_item_id"]))
+                path = data["output_dir"] / "delivery_media_manifest_v1.json"
+                previous = json.loads(path.read_bytes()) if path.is_file() else {}
+                delivery_only = [a for a in previous.get("assets", []) if a.get("media_role") == "delivery_only"]
+                delivery["assets"].extend(delivery_only)
+                if any(a.get("local_public_hash_continuity") is not True for a in delivery_only):
+                    delivery["status"] = "BLOCKED"
+                path.write_text(_canonical_json(delivery), encoding="utf-8")
+            return result
         if destination == "linkedin":
             return self._linkedin_transport.readback(
                 public_object_id=public_object_id,

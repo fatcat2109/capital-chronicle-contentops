@@ -3902,6 +3902,17 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         canonical_url=canonical_url or "https://capitalchronicle.substack.com/p/pending-publication",
         media_asset_ids=[str(row.get("asset_id") or "") for row in media_assets],
     )
+    destination = str((intent.get("destination_plan") or {}).get("destination") or "")
+    frozen_payload = intent.get("native_payload")
+    if destination and isinstance(frozen_payload, Mapping):
+        # The canonical-first owner already froze the reviewed destination bytes.
+        # Rebuilding here can lose photo credits, handles or per-post media choices.
+        payloads[destination] = dict(frozen_payload)
+        if "media_asset_ids" in frozen_payload:
+            chosen = set(frozen_payload.get("media_asset_ids") or [])
+            chosen.update(asset_id for post in frozen_payload.get("posts") or []
+                          if isinstance(post, Mapping) for asset_id in post.get("media_asset_ids") or [])
+            media_assets = [asset for asset in media_assets if asset.get("asset_id") in chosen]
     local_media = next((
         str(row.get("path") or row.get("absolute_local_source_path") or "")
         for row in media_assets
