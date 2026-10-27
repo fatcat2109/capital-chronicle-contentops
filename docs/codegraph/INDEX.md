@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
 Source HEAD: `96bf9c52139536a788c8085f6cb99cc27295b2fd`
-Source tree digest: `e34b375eebe1bf2484a23e6c62e7979a1e8d8fb758bcfc49af5b23695b414244`
+Source tree digest: `48982e7c95a0c88fdc73a2e1f51cdcf74041a297bee111bd6a2ecf0c5b9cabb4`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.5.1`
 
 This generated map is descriptive, not product authority.
@@ -161,4 +161,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`7879` nodes and `15074` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`7875` nodes and `15074` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
