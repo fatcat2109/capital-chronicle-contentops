@@ -12,6 +12,8 @@ The delivered export clock is `2026-10-27T22:25:34.617384+00:00` (28 October 05:
 
 Builder B's next operation is to adopt the delivered producer/artifact pins in its existing bridge, then verify ordinary current oil/US–Iran and exact operation/article reads through its installed reader. Forty-two focused producer checks pass, including exact identity/dates/photo, historical access, session denial, restricted sources, query-only export, malformed identity and unconfirmed canonical rejection. All eight articles' prose/evidence/media equal the prior delivered bytes. Main's bridge, checkout, skill and installation remain Builder B-owned and were not changed here; Main adoption is NOT_VERIFIED.
 
+Producer source is merged/applied commit `c5609fe9262812d1159ee064a1aa29c8cefdaa8f` ([PR105](https://github.com/fatcat2109/capital-chronicle-contentops/pull/105)); exact-head CI `e181532551c9e070fda99b987337b21694c353fc`, run40595611101 attempt2 passed. Installed `news-read` returns200 for both this full article and its original photo. [Actual installed readback](<A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-live-launch-20261027/installed-safe-export-readback-r1.json>) records exact selectors, revision, clocks, canonical identity and artifact hash. Six unrelated WIP paths, the operation binding and listener14296 were preserved; no runtime restart or Main adoption is implied.
+
 ## Use the delivered source
 
 - Producer artifact: [selected-edition.json](selected-edition.json), schema `contentops.cc_report_editorial_workspace.v1`, consumer view `contentops.retained_news.private_preview.v1`.

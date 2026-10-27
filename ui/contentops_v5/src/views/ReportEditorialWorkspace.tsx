@@ -129,7 +129,7 @@ function PackagePreview({ payload, assets = [], originals }: { payload: Record<s
     // The compact transport uses the creator, while the figure may carry a fuller archive credit.
     const creator = 'creator_publisher' in a && typeof a.creator_publisher === 'string'
       ? a.creator_publisher.trim().replace(/\.$/, '') : '';
-    return [`Photo: ${a.reader_caption!.trim().replace(/\.$/, '')}.`,
+    return [a.reader_caption!.trim(), `Photo: ${a.reader_caption!.trim().replace(/\.$/, '')}.`,
       ...[a.reader_credit ?? a.attribution, creator].filter(Boolean).map(credit =>
         `Photo: [${credit}](${a.source_page_url}) · [${a.license_name ?? 'Reuse terms'}](${a.license_url}). ${a.reader_caption}`)];
   }));
