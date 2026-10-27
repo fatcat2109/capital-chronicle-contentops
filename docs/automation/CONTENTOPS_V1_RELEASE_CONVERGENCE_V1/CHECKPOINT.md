@@ -1,30 +1,32 @@
-# V1 first live edition — publication recovery and credit amendment
-Goal: SAME CONTENTOPS_V1_LIVE_LAUNCH_AND_FIRST_CURRENT_EDITION_V1; native get_goal ACTIVE this continuation.
+# V1 first live edition - exact producer handoff and destination recovery
+Goal: SAME CONTENTOPS_V1_LIVE_LAUNCH_AND_FIRST_CURRENT_EDITION_V1; active and incomplete.
 Objective: C:/Users/bullw/.codex/attachments/3e1d3511-8b77-4f97-8a2b-c888b10f8419/pasted-text-1.txt.
 Sole integrator chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35; completion notice NOT_SENT.
-Authoring A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; codex/v1-newsroom-release-convergence, HEAD5dc318bbf9c30c3be3da9c3d87081add496970a3; draftPR104 open; source changes not installed yet.
-Operating A:/Capital Chronicle/ContentOps and fresh remote master dba258511fd651732c424a234ccfcfb1921f3233, merged PR103.
-PR103 exact-head CI40553930767 passed; installed preserving unrelated WIP and listener14296; no restart.
+Authoring A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; codex/v1-newsroom-release-convergence.
+PR104 merged92d87bfe1342b1aa9e4359b91bc18712f647063b; exact-head CI40592176168 attempt2 passed.
+Operating A:/Capital Chronicle/ContentOps installed92d87bfe, preserving six unrelated WIP paths and listener14296; no runtime restart.
 Applied AUTONOMOUS_DEFAULT/version38/public_write_authority=true; same four ACTIVE windows and sole coordinator/store.
-Operation v1-live-launch-20261027; cutoff2026-10-27T04:00:52.972454Z; unchanged binding/source/intake/accepted native work.
-Article8885bd9e945f425731c93f73c51ff0fa70463d7148a088f8ee3482937de3069d; revisionc51849523ae2d109a935d5da85b6607d7dca5e8fed11b3fb0a09eec3606ed77a.
-Same actual gpt-6.1-sol/max writer chat01a17c51-2801-7633-834e-94e0863f1b04 accepted corrected18views.
-Final response native_response_final-visual_max_r2.json SHA32efc933; KEEP native-article-review-33a22abe6b494c7e9f73490228a5381d.
+Existing process loaded earlier source; installation is not proof of new long-running runtime behavior.
+Operation v1-live-launch-20261027; cutoff2026-10-27T04:00:52.972454Z; binding/source/intake unchanged.
+Article8885bd9e945f425731c93f73c51ff0fa70463d7148a088f8ee3482937de3069d.
+Revisionc51849523ae2d109a935d5da85b6607d7dca5e8fed11b3fb0a09eec3606ed77a; same MAX writer chat01a17c51-2801-7633-834e-94e0863f1b04.
 Canonical222368666 RECONCILED_CONFIRMED: https://capitalchronicle.substack.com/p/firstsquawk-citing-the-wall-street.
-Telegram71 RECONCILED_CONFIRMED: https://t.me/CapitalChronicle/71.
-Discord1564685823377416374 RECONCILED_CONFIRMED, configured channel1519311669216673802.
-Threads18191360326404150 + reply17869934589659764 RECONCILED_CONFIRMED; root https://www.threads.com/@official.capitalchronicle/post/DfAWVvEk9Q0.
-X2115185068423758099 + replies2115185072244670662/2115185077437313291 RECONCILED_CONFIRMED; one Post all, no retry.
-LinkedIn UNKNOWN_WRITE; bounded Neo profile/member/content search found no exact object; absence unproven. Evidence linkedin-neo-readback-r2.json.
-Facebook recovery exhausted but RECONCILED_ABSENT_SAFE_TO_RETRY; Instagram likewise absent; canonical photo delivery bytes/rights verified.
-YouTube not dispatched. Available channels remain independent from LinkedIn ambiguity; never blind-retry/repost confirmed objects.
-Source WIP fixes exact-plan durable totals, internal-outbox correction preflight/canonical recheck and the admitted Main producer seam.
-Actual authoring export8/8 AVAILABLE including current article/revision/canonical; seven historical articles retained; Main checkout/skill untouched.
-Producer docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/main-news/selected-edition.json; Main adoption NOT_VERIFIED.
-Relay source exports citation metadata only; source-expression/reuse rights are not invented or expanded.
-Owner credit amendment: full photo attribution on Substack; derivative archive context/canonical link; internal rights remain exact.
-Same MAX turn01a17f41 failed at usage limit before r3 pixels/acceptance; partial UI/export work retained. No new review or live credit edits claimed.
-Focused suites PASS:70 coordinator/recovery,14 native-publication,104 native/media/reader;36 reader checks after exact photo-byte repair.
-Next: integrate/apply independent totals/reader repairs; resume SAME MAX after quota restores for12 affected r3 views, then exact channel recovery/credit edits.
-Daily5–8 reliability unproven. V2/V3 paused; no CUA/spending/new sources/replacement operation/schedule/store/publisher.
-Evidence A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-live-launch-20261027/.
+Telegram71, Discord1564685823377416374, Threads18191360326404150 and X2115185068423758099 RECONCILED_CONFIRMED.
+Store-derived aggregate: one real canonical article; four confirmed derivatives; seven attempted, one UNKNOWN, two absent-safe-to-retry, one never attempted.
+Facebook exhausted and Instagram absent-safe-to-retry; YouTube never dispatched. No blind retry/repost.
+LinkedIn UNKNOWN_WRITE; bounded Neo/profile/member search found no object and did not prove absence; readback-only.
+Actual exact current producer export is AVAILABLE:8/8 articles, retaining all seven historical stories; no Main files/skills changed.
+Fixed artifact: docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/main-news/selected-edition.json.
+Builder B handoff: [main-news/README.md](main-news/README.md), exact selectors/version/source clocks/canonical identity and next operation.
+Source clocks: FirstSquawk2026-10-27T01:32:04Z; Reuters context2026-10-21T19:17:12Z; report-truth-only limits preserved.
+Producer ID amendment exports canonical_public_object_id222368666 from the same confirmed Substack record; unconfirmed IDs stay absent.
+Export2026-10-27T22:25:34.617384+00:00; SHA256b4a52997745fc86697e404a6d37c22b4230ce2571b837de90d97e3d41588dc7a.
+42 focused reader checks PASS; actual eight article/evidence/media values unchanged; exact original photo58,991bytes.
+Bounded producer-ID follow-up is tested locally, awaiting protected merge/application; Main consumption remains NOT_VERIFIED.
+Canonical full photo attribution retained; derivative archive context/canonical link and exact internal rights preserved.
+Same MAX turn01a17f41 failed at usage limit; r3 has five actual desktop captures, seven affected captures still missing; no fresh acceptance.
+No new live credit edits/sends until that same MAX accepts changed exact desktop/mobile renders; r2 accepted content remains retained.
+Next: apply the producer-ID amendment; Builder B adopts its own pins and verifies ordinary/exact installed reads.
+Then resume SAME MAX after quota restoration for affected r3 views, followed by exact channel recovery/credit edits.
+Daily5-8 reliability unproven; V2/V3 paused; no CUA/spending/new source/replacement operation/schedule/store/publisher.
+Evidence: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-live-launch-20261027/.

@@ -195,15 +195,18 @@ def build_news_projection(workspace, *, exported_at_utc, embedded_photo_operatio
             continue
         publication = item.get("publication") or {}
         destinations = [_pick(d, ("destination", "status", "reconciliation_status")) for d in publication.get("destinations", [])]
-        canonical = next((d.get("public_object_url") for d in publication.get("destinations", [])
+        canonical_record = next((d for d in publication.get("destinations", [])
             if d["destination"] == "substack" and d.get("reconciliation_status") == "RECONCILED_CONFIRMED"
             and _url(d.get("public_object_url")) and "pending-publication" not in d["public_object_url"]), None)
+        canonical = canonical_record["public_object_url"] if canonical_record else None
         execution = item.get("editorial_execution") or {}
         models = [_pick(o, ("role", "stage", "model", "reasoning_effort")) for o in execution.get("observations", [])]
         entry.update(availability="AVAILABLE", article=_pick(item["article"], ARTICLE_FIELDS),
             evidence=sources, media_assets=media, review=_pick(item["review"], ("decision",)),
             publication={"state": publication.get("state", "UNKNOWN"), "destinations": destinations,
-                         "canonical_url": canonical, "publication_at_utc": publication.get("published_at_utc") if canonical else None},
+                         "canonical_url": canonical,
+                         "canonical_public_object_id": canonical_record.get("public_object_id") if canonical_record else None,
+                         "publication_at_utc": publication.get("published_at_utc") if canonical else None},
             clocks={"evidence_cutoff_utc": item.get("source_cutoff_utc"), "retained_at_utc": item.get("retained_at_utc"),
                     "analysis_at_utc": item["article"].get("analysis_at_utc"), "current_market_refresh_verified": False},
             epistemic_state=_pick(item.get("epistemic_state") or {}, EPISTEMIC_FIELDS),
@@ -267,7 +270,7 @@ def export_selected_news():
     artifact = build_news_projection(projection, exported_at_utc=datetime.now(timezone.utc).isoformat(),
                                      embedded_photo_operations=missing)
     ARTIFACT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    ARTIFACT_PATH.write_text(json.dumps(artifact, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    ARTIFACT_PATH.write_text(json.dumps(artifact, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8", newline="\n")
     return {"state": "PRODUCER_DELIVERED", "edition_id": selection["edition_id"],
             "articles": len(artifact["native_edition"]), "available": sum(i["availability"] == "AVAILABLE" for i in artifact["native_edition"]),
             "main_adoption": "NOT_VERIFIED", "public_write_performed": False}
@@ -341,7 +344,14 @@ def _validate_shape(value):
             if not isinstance(item["article"][name], str) or not item["article"][name].strip():
                 raise ValueError("CONTENT_INTEGRITY")
         _keys(item["review"], ("decision",))
-        _keys(item["publication"], ("state", "destinations", "canonical_url", "publication_at_utc"))
+        _keys(item["publication"], ("state", "destinations", "canonical_url", "canonical_public_object_id", "publication_at_utc"))
+        canonical_id = item["publication"].get("canonical_public_object_id")
+        if canonical_id is not None and (not isinstance(canonical_id, str)
+                or not re.fullmatch(r"[1-9][0-9]{0,31}", canonical_id)
+                or not _url(item["publication"].get("canonical_url"))
+                or not any(d.get("destination") == "substack" and d.get("reconciliation_status") == "RECONCILED_CONFIRMED"
+                           for d in item["publication"]["destinations"])):
+            raise ValueError("CONTENT_INTEGRITY")
         for destination in item["publication"]["destinations"]:
             _keys(destination, ("destination", "status", "reconciliation_status"))
         _keys(item["clocks"], ("evidence_cutoff_utc", "retained_at_utc", "analysis_at_utc", "current_market_refresh_verified"))

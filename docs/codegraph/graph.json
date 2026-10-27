@@ -90619,7 +90619,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-27T22:02:39Z",
+  "generation_timestamp_utc": "2026-10-27T22:28:15Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -94024,7 +94024,7 @@
     {
       "id": "live_contentops/retained_news_read_v1.py",
       "kind": "python_module",
-      "size_bytes": 30631
+      "size_bytes": 31438
     },
     {
       "id": "live_contentops/review_bundle_manifest.py",
@@ -123135,7 +123135,7 @@
     {
       "id": "python_symbol:live_contentops/retained_news_read_v1.py::RetainedNewsReader",
       "kind": "python_class",
-      "line": 384,
+      "line": 394,
       "path": "live_contentops/retained_news_read_v1.py",
       "symbol": "RetainedNewsReader"
     },
@@ -123149,14 +123149,14 @@
     {
       "id": "python_symbol:live_contentops/retained_news_read_v1.py::export_selected_news",
       "kind": "python_function",
-      "line": 243,
+      "line": 246,
       "path": "live_contentops/retained_news_read_v1.py",
       "symbol": "export_selected_news"
     },
     {
       "id": "python_symbol:live_contentops/retained_news_read_v1.py::local_owner_read",
       "kind": "python_function",
-      "line": 489,
+      "line": 499,
       "path": "live_contentops/retained_news_read_v1.py",
       "symbol": "local_owner_read"
     },
@@ -136188,7 +136188,7 @@
     {
       "id": "tests/test_retained_news_read_v1.py",
       "kind": "test",
-      "size_bytes": 19717
+      "size_bytes": 21840
     },
     {
       "id": "tests/test_review_bundle_manifest.py",
@@ -141635,6 +141635,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "96bf9c52139536a788c8085f6cb99cc27295b2fd",
-  "source_tree_digest": "48982e7c95a0c88fdc73a2e1f51cdcf74041a297bee111bd6a2ecf0c5b9cabb4"
+  "source_head": "02a2a7f28fd73db35093a0e0fa74e3dd16575406",
+  "source_tree_digest": "043410dce4e9c650c82ee92503e11d377a1d5e5f2475d4f63579a013d95c1db4"
 }

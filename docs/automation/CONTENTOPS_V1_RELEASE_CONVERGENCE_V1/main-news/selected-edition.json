@@ -1,7 +1,7 @@
 {
   "schema_version": "contentops.cc_report_editorial_workspace.v1",
   "consumer_view": "contentops.retained_news.private_preview.v1",
-  "exported_at_utc": "2026-10-27T21:41:00.733204+00:00",
+  "exported_at_utc": "2026-10-27T22:25:34.617384+00:00",
   "owner_edition": {
     "edition_id": "v1-reader-first-data-journalism",
     "title": "Capital Chronicle · Retained stories and the current live edition",
@@ -403,6 +403,7 @@
           }
         ],
         "canonical_url": null,
+        "canonical_public_object_id": null,
         "publication_at_utc": null
       },
       "clocks": {
@@ -716,6 +717,7 @@
           }
         ],
         "canonical_url": null,
+        "canonical_public_object_id": null,
         "publication_at_utc": null
       },
       "clocks": {
@@ -1085,6 +1087,7 @@
           }
         ],
         "canonical_url": null,
+        "canonical_public_object_id": null,
         "publication_at_utc": null
       },
       "clocks": {
@@ -1380,6 +1383,7 @@
           }
         ],
         "canonical_url": null,
+        "canonical_public_object_id": null,
         "publication_at_utc": null
       },
       "clocks": {
@@ -1670,6 +1674,7 @@
           }
         ],
         "canonical_url": null,
+        "canonical_public_object_id": null,
         "publication_at_utc": null
       },
       "clocks": {
@@ -1985,6 +1990,7 @@
           }
         ],
         "canonical_url": null,
+        "canonical_public_object_id": null,
         "publication_at_utc": null
       },
       "clocks": {
@@ -2181,6 +2187,7 @@
           }
         ],
         "canonical_url": null,
+        "canonical_public_object_id": null,
         "publication_at_utc": null
       },
       "clocks": {
@@ -2401,6 +2408,7 @@
           }
         ],
         "canonical_url": "https://capitalchronicle.substack.com/p/firstsquawk-citing-the-wall-street",
+        "canonical_public_object_id": "222368666",
         "publication_at_utc": null
       },
       "clocks": {
