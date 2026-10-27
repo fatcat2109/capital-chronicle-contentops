@@ -467,7 +467,7 @@ class NativeReviewedPublication:
                 "next_operation": "review-current-packet",
                 "next_command": "Review the current source/article packet; do not begin any prior tool request.",
             }
-        if (not self.binding.get("owner_manual_validation") and value["state"] != "REVIEWED_HANDOFF_REQUIRED"
+        if (not self.binding.get("owner_manual_validation") and value["state"] not in {"REVIEWED_HANDOFF_REQUIRED", "RECONCILED"}
                 and not any(e["status"] in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED"}
                             for e in value.get("destinations", []))):
             from live_contentops.native_desktop_editorial_v1 import require_current_final_visual_review

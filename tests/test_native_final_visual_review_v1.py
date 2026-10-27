@@ -126,6 +126,21 @@ def test_matching_current_acceptance_allows_existing_continuation(tmp_path, monk
     assert outcome["classification"] == "NATIVE_PUBLICATION_CONTINUATION"
 
 
+def test_unavailable_pixels_are_preserved_as_unverified_without_acceptance(tmp_path, monkeypatch):
+    store, binding, _, result, _ = seeded(tmp_path, monkeypatch, final_visual=False)
+    turn, request, response = visual_request_fixture(store, binding, result)
+    finding = response["output"]["render_findings"][0]
+    finding.update(pixels_inspected=False, findings=["Controlled visual access is unavailable; preserve this exact article/view."])
+    finding["checks"]["crop_distortion"] = "UNVERIFIED"
+    with pytest.raises(ValueError, match="UNRESOLVED_ISSUE"):
+        turn.submit(request["stage"], response)
+    response["output"]["decision"] = "EXTERNAL_BLOCK"
+    turn.submit(request["stage"], response)
+    assert turn._get(request["stage"], "response")["output"]["decision"] == "EXTERNAL_BLOCK"
+    with pytest.raises(ValueError, match="ACTUAL_FINAL_MAX_VISUAL_REVIEW_REQUIRED"):
+        require_current_final_visual_review(store, run_id=binding["run_id"])
+
+
 def test_same_max_copy_correction_uses_existing_source_validator_without_restarting(tmp_path, monkeypatch):
     store, binding, _, result, _ = seeded(tmp_path, monkeypatch, final_visual=False)
     turn, request, response = visual_request_fixture(store, binding, result)

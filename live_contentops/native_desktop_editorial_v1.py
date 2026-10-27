@@ -882,11 +882,12 @@ def validate_final_visual_return(turn, request, response):
             if kind == "asset_findings":
                 keys.update(FINAL_VISUAL_DATA_CHECKS if original["modality"] == "source_backed_chart" else FINAL_VISUAL_PHOTO_CHECKS)
             values = finding.get("checks", {})
-            if (finding.get(sha_key) != original["sha256"] or finding.get("pixels_inspected") is not True
+            if (finding.get(sha_key) != original["sha256"] or not isinstance(finding.get("pixels_inspected"), bool)
                     or not keys <= set(values) or any(v not in {"PASS", "FAIL", "UNVERIFIED", "NOT_APPLICABLE"} for v in values.values())
                     or not isinstance(finding.get("findings"), list) or len(str(finding.get("evidence_notes", "")).strip()) < 20):
                 raise ValueError("FINAL_VISUAL_ACTUAL_PIXELS_AND_CHECKS_REQUIRED")
-            checks_failed |= bool(finding["findings"] or any(v in {"FAIL", "UNVERIFIED"} for v in values.values()))
+            checks_failed |= bool(not finding["pixels_inspected"] or finding["findings"]
+                                  or any(v in {"FAIL", "UNVERIFIED"} for v in values.values()))
     if checks_failed and output["decision"] == "ACCEPT":
         raise ValueError("FINAL_VISUAL_UNRESOLVED_ISSUE_CANNOT_ACCEPT")
     if not checks_failed and output["decision"] != "ACCEPT":
