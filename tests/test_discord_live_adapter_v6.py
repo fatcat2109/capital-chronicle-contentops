@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import json
 
+import pytest
+
 from live_contentops.discord_live_adapter_v6 import (
     execute_discord_comment,
     execute_discord_edit,
@@ -80,3 +82,42 @@ def test_readback_discord_post_proves_exact_object(monkeypatch):
     assert result["verified"] is True
     assert result["write_exists"] is True
     assert result["meaningful_media_visible"] is True
+
+
+def test_edit_existing_message_transmits_explicit_media_without_creating_a_post(monkeypatch):
+    from live_contentops import discord_live_adapter_v6 as adapter
+    import live_contentops.live_telemetry_v6 as telemetry
+    calls = []
+    class Response:
+        def __enter__(self): return self
+        def __exit__(self, *_): return None
+        def read(self): return b'{"id":"123"}'
+    def opener(request, **_):
+        calls.append(request)
+        return Response()
+    monkeypatch.setattr(adapter.urllib.request, "urlopen", opener)
+    monkeypatch.setattr(telemetry, "classify_and_record_dispatch", lambda **_: None)
+    embeds = [{"image": {"url": "https://example.test/original.jpeg"}}]
+    result = execute_discord_edit("123", "Same copy", webhook_url="https://discord.test/api/webhooks/id/token", embeds=embeds)
+    assert result["status"] == "SUCCESS" and len(calls) == 1
+    assert calls[0].method == "PATCH" and calls[0].full_url.endswith('/messages/123')
+    assert json.loads(calls[0].data) == {"content": "Same copy", "embeds": embeds}
+
+
+@pytest.mark.parametrize("photo_required,delivery_ready", [(True, False), (True, True), (False, False)])
+def test_native_discord_send_never_omits_a_reviewed_photo(monkeypatch, tmp_path, photo_required, delivery_ready):
+    import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    data = {"output_dir": tmp_path, "article": {"title": "Dated report"}, "payloads": {"discord": {"text": "Reviewed copy"}},
+        "canonical_url": "https://capitalchronicle.substack.com/p/exact", "media_assets": [],
+        "local_media": "photo.jpeg" if photo_required else "", "public_image_url": "https://example.test/photo.jpeg" if delivery_ready else ""}
+    calls = []
+    monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda _: data)
+    monkeypatch.setattr(pipeline, "_publish_discord_verified", lambda **kw: calls.append(kw) or {"status": "SUCCESS"})
+    result = pipeline._publish_one_destination_from_durable_intent(destination="discord", intent={"attempt_identity": "exact"},
+        authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT", "dispatch_attempt_identity": "exact"})
+    if photo_required and not delivery_ready:
+        assert result["status"] == "DEFINITE_NO_WRITE" and not calls
+        assert result["reason_code"] == "VERIFIED_DELIVERY_MEDIA_UNAVAILABLE"
+    else:
+        assert result["status"] == "SUCCESS" and len(calls) == 1
+        assert calls[0]["image_url"] == (data["public_image_url"] if photo_required else None)
