@@ -125,8 +125,13 @@ function PackagePreview({ payload, assets = [], originals }: { payload: Record<s
   // Unknown/changed credits and missing images stay in the copy rather than being stripped.
   const figureCredits = new Set(attached.filter(a => a.preview_data_url && a.modality === 'documentary_photo'
     && a.reader_caption && (a.reader_credit ?? a.attribution) && a.license_url?.startsWith('https://')
-    && a.source_page_url?.startsWith('https://')).map(a =>
-    `Photo: [${a.reader_credit ?? a.attribution}](${a.source_page_url}) · [${a.license_name ?? 'Reuse terms'}](${a.license_url}). ${a.reader_caption}`));
+    && a.source_page_url?.startsWith('https://')).flatMap(a => {
+    // The compact transport uses the creator, while the figure may carry a fuller archive credit.
+    const creator = 'creator_publisher' in a && typeof a.creator_publisher === 'string'
+      ? a.creator_publisher.trim().replace(/\.$/, '') : '';
+    return [a.reader_credit ?? a.attribution, creator].filter(Boolean).map(credit =>
+      `Photo: [${credit}](${a.source_page_url}) · [${a.license_name ?? 'Reuse terms'}](${a.license_url}). ${a.reader_caption}`);
+  }));
   const readingText = (text: string) => text.split(/\n\s*\n/).filter(block => !figureCredits.has(block.trim())).join('\n\n');
   return <>
     {posts.length ? posts.map((p, index) => <div key={index} data-preview-post={index}>
