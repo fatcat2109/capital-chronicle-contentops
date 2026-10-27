@@ -15,9 +15,16 @@ Configured canonical Substack capitalchronicle.substack.com; direct Neo Publishe
 Demonstrated seam: current manual entry is isolated-preview-only; live publication accepts only scheduled bindings.
 Implemented explicit live entry and fresh-cutoff guards; owner-removal readback/status preserves IDs/history with no retry.
 12new launch guards,113affected regressions and2task checks PASS; Ruff/diff checks PASS.
+PR98 first CI caught a historical PAUSED test assertion changed too broadly; restored ce0c91ef, exact test PASS.
+Preparing refreshed graph/revised protected CI; source/live-control application still pending.
+Browser Substack/X/YouTube/Facebook/Threads identity checks pass; sixAPI destination probes match configured pins.
+LinkedIn official-member metadata valid, readback capability limited; no personal/company switch inferred.
 Next: protected source integration/application, history reconciliation, applied controls/prompts, immediate native current run.
 Use existing coordinator/store/readbacks/statuses; preserve duplicate/UNKNOWN history and all accepted private examples.
-Then apply scoped source/controls/prompts and run one stable current owner-manual opportunity through native roles.
+Cleanup reconciliation APPLIED in original store:51removed confirmed sends/2retained drafts, identities/history kept,0provider calls.
+Current published corpus0; no UNKNOWN/started/pending dispatches; store remains SHADOW_ONLY/version37 before live transition.
+Four existing task prompts APPLIED via supported update; only prompt/updated_at changed, calendars/project/preferences/roles exact.
+Then apply merged source/live controls and run one stable current owner-manual opportunity through native roles.
 Native Luna MAX filter -> Sol6.1Light plan -> same Sol6.1MAX visual editor/writer/one useful repair; ordinary32/3/6budgets.
 Code owns acquisition/computation/rendering/state; lawful photo/current rights and substantive chart judgment remain.
 Publish accepted useful output canonical-first and read back exact objects; destination access gaps remain channel-local.
