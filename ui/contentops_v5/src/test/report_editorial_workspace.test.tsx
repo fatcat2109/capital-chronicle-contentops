@@ -129,7 +129,8 @@ describe('Main report editorial workspace', () => {
     expect(JSON.stringify(snapshot)).toBe(before);
   });
 
-  it.each(['telegram', 'discord', 'linkedin', 'facebook_page', 'instagram_business', 'youtube'])('keeps photo rights on canonical and archive context on %s without changing its actual package', destination => {
+  it.each(['telegram', 'discord', 'linkedin', 'facebook_page', 'instagram_business', 'youtube'].flatMap(destination =>
+    ['full-credit', 'canonical-linked-caption'].map(presentation => [destination, presentation])))('keeps photo rights on canonical and archive context once on %s for %s without changing its package', (destination, presentation) => {
     const snapshot = ownerData();
     const item = snapshot.native_edition![0];
     const caption = 'Archive context, May 2015. Different vendor; not the reported project.';
@@ -138,7 +139,7 @@ describe('Main report editorial workspace', () => {
       caption, reader_caption: caption, reader_credit: 'Original photographer', source_page_url: 'https://example.com/photo',
       license_name: 'CC BY-SA 4.0', license_url: 'https://creativecommons.org/licenses/by-sa/4.0',
       preview_data_url: 'data:image/jpeg;base64,Y29udHJvbGxlZA==' }];
-    const payload = { text: `Attributed reporting; execution is unconfirmed.\n\n${credit}`, media_asset_ids: ['archive'] };
+    const payload = { text: `Attributed reporting; execution is unconfirmed.\n\n${presentation === 'full-credit' ? credit : caption}`, media_asset_ids: ['archive'] };
     item.previews.find(p => p.destination === destination)!.payload = destination === 'x' ? { posts: [payload] } : payload;
     const before = JSON.stringify(snapshot);
     render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" />);
