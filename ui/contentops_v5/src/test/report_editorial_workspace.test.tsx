@@ -129,7 +129,7 @@ describe('Main report editorial workspace', () => {
     expect(JSON.stringify(snapshot)).toBe(before);
   });
 
-  it.each(['instagram_business', 'facebook_page', 'x'])('shows the complete attached photo credit once in %s without changing its actual package', destination => {
+  it.each(['telegram', 'discord', 'linkedin', 'facebook_page', 'instagram_business', 'youtube'])('keeps photo rights on canonical and archive context on %s without changing its actual package', destination => {
     const snapshot = ownerData();
     const item = snapshot.native_edition![0];
     const caption = 'Archive context, May 2015. Different vendor; not the reported project.';
@@ -142,11 +142,15 @@ describe('Main report editorial workspace', () => {
     item.previews.find(p => p.destination === destination)!.payload = destination === 'x' ? { posts: [payload] } : payload;
     const before = JSON.stringify(snapshot);
     render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" />);
+    const canonical = screen.getByRole('article', { name: 'Selected article' });
+    expect(within(canonical).getByRole('link', { name: 'Original photographer' })).toHaveAttribute('href', 'https://example.com/photo');
+    expect(within(canonical).getByRole('link', { name: 'CC BY-SA 4.0' })).toHaveAttribute('href', 'https://creativecommons.org/licenses/by-sa/4.0');
     fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: destination } });
     const article = screen.getByRole('article', { name: 'Selected article' });
     expect(within(article).getAllByText(/Archive context, May 2015/)).toHaveLength(1);
-    expect(within(article).getAllByRole('link', { name: 'Original photographer' })).toHaveLength(1);
-    expect(within(article).getAllByRole('link', { name: 'CC BY-SA 4.0' })).toHaveLength(1);
+    expect(within(article).queryByRole('link', { name: 'Original photographer' })).not.toBeInTheDocument();
+    expect(within(article).queryByRole('link', { name: 'CC BY-SA 4.0' })).not.toBeInTheDocument();
+    expect(article.textContent).not.toContain('Photo:');
     expect(within(article).getByText(/execution is unconfirmed/)).toBeInTheDocument();
     expect(JSON.stringify(snapshot)).toBe(before);
   });
@@ -169,10 +173,10 @@ describe('Main report editorial workspace', () => {
     if (condition === 'changed-credit') expect(screen.getByText(/further rights unresolved/)).toBeInTheDocument();
   });
 
-  it('matches the compiler default photo credit labels only when the complete exact block is rendered beside the image', () => {
+  it('matches only the exact compiler photo credit and retains archive context without derivative source links', () => {
     const snapshot = ownerData();
     const item = snapshot.native_edition![0];
-    const caption = 'Controlled archival launch, June 3, 2017. Archive photo: NASA/Controlled photographer.';
+    const caption = 'Controlled archival launch, June 3, 2017. Context only.';
     const credit = `Photo: [NASA/Controlled photographer](https://example.com/photo) · [Reuse terms](https://example.com/permission). ${caption}`;
     item.media_assets = [{ asset_id: 'archive', path: 'archive.jpg', sha256: 'original-photo', modality: 'documentary_photo',
       caption, reader_caption: caption, attribution: 'NASA/Controlled photographer', source_page_url: 'https://example.com/photo',
@@ -183,8 +187,8 @@ describe('Main report editorial workspace', () => {
     render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" />);
     fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: 'discord' } });
     const article = screen.getByRole('article', { name: 'Selected article' });
-    expect(within(article).getAllByRole('link', { name: 'NASA/Controlled photographer' })).toHaveLength(1);
-    expect(within(article).getAllByRole('link', { name: 'Reuse terms' })).toHaveLength(1);
+    expect(within(article).queryByRole('link', { name: 'NASA/Controlled photographer' })).not.toBeInTheDocument();
+    expect(within(article).queryByRole('link', { name: 'Reuse terms' })).not.toBeInTheDocument();
     expect(article.textContent?.match(/Controlled archival launch/g)).toHaveLength(1);
     expect(within(article).getByText('Attributed report, unconfirmed.')).toBeInTheDocument();
     expect(JSON.stringify(snapshot)).toBe(before);
@@ -257,9 +261,11 @@ describe('Main report editorial workspace', () => {
     expect(within(edition).getAllByRole('img')[0]).toHaveAttribute('src', 'data:image/jpeg;base64,Y29udHJvbGxlZA==');
     const preview = edition.querySelector('[data-edition-destination="telegram"]') as HTMLElement;
     expect(within(preview).getByRole('img', { name: 'Controlled contextual subject', exact: true })).toHaveStyle({ maxWidth: '640px' });
-    expect(within(preview).getByText(/Controlled creator/)).toBeInTheDocument();
-    expect(within(preview).getByRole('link', { name: 'Reuse terms' })).toHaveAttribute('href', 'https://creativecommons.org/licenses/by/2.0/');
-    expect(within(preview).getByRole('link', { name: 'Controlled creator / CC BY 2.0' })).toHaveAttribute('href', 'https://commons.wikimedia.org/wiki/File:Controlled.jpg');
+    expect(within(preview).getByText('Archive context photograph.')).toBeInTheDocument();
+    expect(within(preview).queryByText(/Controlled creator/)).not.toBeInTheDocument();
+    expect(within(preview).queryByRole('link', { name: 'Reuse terms' })).not.toBeInTheDocument();
+    expect(within(edition).getByRole('link', { name: 'Reuse terms' })).toHaveAttribute('href', 'https://creativecommons.org/licenses/by/2.0/');
+    expect(within(edition).getByRole('link', { name: 'Controlled creator / CC BY 2.0' })).toHaveAttribute('href', 'https://commons.wikimedia.org/wiki/File:Controlled.jpg');
   });
   it('keeps exact single and multiple chart sources in the article and selected channel', () => {
     const snapshot = data();

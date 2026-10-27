@@ -358,6 +358,33 @@ def test_real_packet_preparation_manual_isolation_and_seals(tmp_path, monkeypatc
         operation.validate()
 
 
+def test_renderer_only_review_reuses_dispatched_plan_and_immutable_artifacts(tmp_path, monkeypatch):
+    from native_final_visual_fixture_v1 import visual_request_fixture
+    store, binding, _, result, review = seeded(tmp_path, monkeypatch, manual=True)
+    packet, plan, root = _prepared_packet(store, binding)
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    store.create_work_item(story_id=binding["run_id"], work_item_id=binding["run_id"],
+        title="Controlled renderer-only existing publication", target_surface="TEST")
+    coordinator.register_plan(binding["run_id"], plan)
+    ids = coordinator._ids(binding["run_id"], plan["plan_hash"], "substack")
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="substack", status="UNKNOWN_WRITE", public_object_id="controlled-existing")
+    originals = {name: (root / name).read_bytes() for name in packet["artifact_sha256"]}
+    turn, request, response = visual_request_fixture(store, binding, result, revision_tag="renderer-only")
+    turn.submit(request["stage"], response)
+    revised = record_native_article_review(store, run_id=binding["run_id"], article_identity=result["article_identity"],
+        decision="KEEP", rationale="Controlled renderer-only acceptance preserves all dispatched article package bytes.",
+        expected_review_id=review["review_id"], final_visual_review={"stage": request["stage"],
+            "request_sha256": request["request_sha256"], "output_dir": str(turn.root)})
+    refreshed = prepare_native_publication(store, binding)
+    assert refreshed["plan_hash"] == plan["plan_hash"]
+    assert refreshed["review_id"] == revised["review_id"]
+    assert {name: (root / name).read_bytes() for name in originals} == originals
+    assert len(store.list_platform_dispatches()) == 1
+    assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == "UNKNOWN_WRITE"
+    assert _prepared_packet(store, binding)[1]["plan_hash"] == plan["plan_hash"]
+
+
 def test_compiler_change_after_keep_requires_a_new_preview_review(tmp_path, monkeypatch):
     store, binding, _, result, review = seeded(tmp_path, monkeypatch, manual=True)
     import live_contentops.v1_simple_gemini_newsroom_v1 as compiler

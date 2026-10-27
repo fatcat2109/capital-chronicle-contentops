@@ -546,6 +546,73 @@ class DurablePublicationCoordinator:
             )
         return True
 
+    @classmethod
+    def publication_totals(cls, outcomes: Mapping[str, Any], *, full_v1: bool = True) -> dict[str, Any]:
+        """Summarize exact durable destination records, independently of the latest callback."""
+        canonical = dict(outcomes.get("substack") or {})
+        canonical_real = cls._confirmed_public_object(canonical, destination="substack")
+        derivatives = {d: dict(o) for d, o in outcomes.items() if d != "substack"}
+        confirmed = {d for d, o in derivatives.items() if cls._confirmed_public_object(o, destination=d)}
+        required = set(V1_REQUIRED_DERIVATIVE_DESTINATIONS) if full_v1 else set(derivatives)
+        missing = sorted(required - confirmed)
+        distribution = (
+            FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED if full_v1 and not missing
+            else PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED if full_v1
+            else "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE" if not missing
+            else "CANONICAL_PUBLISHED_READY_FANOUT_ATTEMPTED"
+        ) if canonical_real else "CANONICAL_NOT_CONFIRMED"
+        return {
+            "canonical_article_status": "REAL_PUBLISHED" if canonical_real else "NOT_CONFIRMED",
+            "canonical_article_real_published": canonical_real,
+            "canonical_url": canonical.get("public_object_url") if canonical_real else None,
+            "canonical_publication_status": distribution,
+            "distribution_status": distribution,
+            "transaction_classification": distribution,
+            "derivative_confirmed_count": len(confirmed),
+            "derivative_attempted_count": sum(bool(o.get("dispatch_recorded")) for o in derivatives.values()),
+            "derivative_unknown_count": sum(o.get("status") == UNKNOWN_WRITE for o in derivatives.values()),
+            "derivative_absent_safe_to_retry_count": sum(
+                o.get("reconciliation_status") == RECONCILED_ABSENT_SAFE_TO_RETRY for o in derivatives.values()),
+            "derivative_failed_count": sum(o.get("status") in {
+                DEFINITE_NO_WRITE, DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
+                DERIVATIVE_EXPIRED_STALE_NO_WRITE} for o in derivatives.values()),
+            "derivative_never_attempted_count": sum(not o.get("dispatch_recorded") for o in derivatives.values()),
+            "recovery_required_destinations": missing if canonical_real else [],
+            "readback_limitation_destinations": sorted(d for d, o in derivatives.items()
+                if o.get("reconciliation_status") == RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE),
+            "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for o in outcomes.values()),
+            "unknown_write_count": sum(o.get("status") == UNKNOWN_WRITE for o in outcomes.values()),
+        }
+
+    def publication_state(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
+        """Read this exact operation/plan from the existing store; never probe or dispatch."""
+        plan_hash = str(plan.get("plan_hash") or _hash(_canonical_json(plan)))
+        reconciliations = {str(r["reconciliation_id"]): r
+            for r in self.store.get_reconciliations_for_work_item(work_item_id)}
+        outcomes = {}
+        for item in plan.get("destinations") or []:
+            destination = str(item.get("destination") or "")
+            if destination not in V1_REQUIRED_PUBLICATION_DESTINATIONS:
+                continue
+            ids = self._ids(work_item_id, plan_hash, destination)
+            message = self.store.get_outbox_message(ids["message_id"])
+            intent = json.loads(str(message["payload"])) if message else {}
+            admitted = (str(intent.get("work_item_id") or "") == work_item_id
+                and str(intent.get("plan_hash") or "") == plan_hash)
+            dispatch = (self.store.get_platform_dispatch(ids["dispatch_id"]) or {}) if admitted else {}
+            reconciliation = reconciliations.get(ids["reconciliation_id"], {}) if dispatch else {}
+            outcomes[destination] = {
+                "destination": destination, "dispatch_id": ids["dispatch_id"],
+                "dispatch_recorded": bool(dispatch),
+                "status": dispatch.get("status", "NOT_DISPATCHED"),
+                "reconciliation_status": reconciliation.get("status"),
+                "public_object_id": dispatch.get("public_object_id"),
+                "public_object_url": dispatch.get("public_object_url"),
+                "publish_called": False,
+            }
+        return {"per_destination": outcomes, **self.publication_totals(
+            outcomes, full_v1=self._full_v1_distribution_required(plan))}
+
     def _full_v1_distribution_preflight(
         self, work_item_id: str, plan: Mapping[str, Any]
     ) -> dict[str, Any]:
@@ -591,6 +658,7 @@ class DurablePublicationCoordinator:
         plan_hash = str(plan.get("plan_hash") or _hash(_canonical_json(plan)))
         readiness_rows: dict[str, Any] = {}
         readiness_blockers: list[str] = []
+        confirmed_canonical = self._confirmed_canonical_url_for_work_item(work_item_id, plan_hash=plan_hash)
         for destination in V1_REQUIRED_PUBLICATION_DESTINATIONS:
             item = item_by_destination.get(destination, {})
             if destination != "substack":
@@ -602,6 +670,13 @@ class DurablePublicationCoordinator:
                     "planned_readiness_state": str(item.get("readiness_state") or ""),
                     "safe_error_classification": None,
                     "sanitized_detail": {},
+                }
+                continue
+            if confirmed_canonical:
+                readiness_rows[destination] = {
+                    "readiness_state": RECONCILED_CONFIRMED, "identity_match": True,
+                    "write_eligible": False, "canonical_write_already_confirmed": True,
+                    "public_object_url": confirmed_canonical,
                 }
                 continue
             try:
@@ -1205,7 +1280,9 @@ class DurablePublicationCoordinator:
             json.loads(str(row["payload"]))
             for row in self.store.list_outbox_messages()
             if str(row.get("work_item_id") or "") == work_item_id
+            and str(row.get("destination") or "") in V1_REQUIRED_PUBLICATION_DESTINATIONS
         ]
+        intents = [row for row in intents if row.get("plan_hash") == intent.get("plan_hash")]
         retry_plan = {
             "plan_hash": intent.get("plan_hash"),
             "output_dir": intent.get("output_dir"),
@@ -1284,7 +1361,8 @@ class DurablePublicationCoordinator:
                 "status": "CORRECTION_BLOCKED_DERIVATIVE_STALE",
                 "publish_called": False,
             }
-        canonical_url = self._confirmed_canonical_url_for_work_item(work_item_id) or ""
+        canonical_url = self._confirmed_canonical_url_for_work_item(
+            work_item_id, plan_hash=str(intent.get("plan_hash") or "")) or ""
         if not canonical_url or str(intent.get("canonical_url") or "") != canonical_url:
             return {
                 "status": "CORRECTION_BLOCKED_CANONICAL_IDENTITY_MISMATCH",
@@ -1303,7 +1381,9 @@ class DurablePublicationCoordinator:
             json.loads(str(row["payload"]))
             for row in self.store.list_outbox_messages()
             if str(row.get("work_item_id") or "") == work_item_id
+            and str(row.get("destination") or "") in V1_REQUIRED_PUBLICATION_DESTINATIONS
         ]
+        intents = [row for row in intents if row.get("plan_hash") == intent.get("plan_hash")]
         correction_plan = {
             "plan_hash": intent.get("plan_hash"),
             "output_dir": intent.get("output_dir"),
@@ -1417,7 +1497,75 @@ class DurablePublicationCoordinator:
             return {"status": RECONCILED_CONFIRMED, "provider_calls": 0}
         return {"status": "REPLAY_VERIFIED_READBACK_NOT_FOUND", "provider_calls": 0}
 
+    def refresh_confirmed_photo_attribution(self, dispatch_id: str) -> dict[str, Any]:
+        """Apply the owner-directed credit presentation once to an exact existing object."""
+        dispatch = self.store.get_platform_dispatch(dispatch_id) or {}
+        destination = str(dispatch.get("platform") or "")
+        message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
+        if not message or destination not in {"telegram", "discord"} or dispatch.get("status") != DISPATCH_CONFIRMED:
+            return {"status": "PHOTO_ATTRIBUTION_EXACT_CONFIRMED_OBJECT_REQUIRED", "edit_called": False}
+        intent = json.loads(str(message["payload"]))
+        state = self.publication_state(str(intent["work_item_id"]), {
+            "plan_hash": intent["plan_hash"], "destinations": [intent["destination_plan"]]})
+        if not self._confirmed_public_object(state["per_destination"].get(destination) or {}, destination=destination):
+            return {"status": "PHOTO_ATTRIBUTION_CURRENT_READBACK_REQUIRED", "edit_called": False}
+        canonical = self._confirmed_canonical_url_for_work_item(str(intent["work_item_id"]), plan_hash=str(intent["plan_hash"]))
+        if not canonical or intent.get("canonical_url") != canonical or self._mode() != "AUTONOMOUS_DEFAULT":
+            return {"status": "PHOTO_ATTRIBUTION_CURRENT_LIVE_CANONICAL_REQUIRED", "edit_called": False}
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        native = self.store.get_outbox_message("native-operation-binding-" + sha256_of(intent["work_item_id"]))
+        if native:
+            from live_contentops.native_desktop_editorial_v1 import require_current_final_visual_review
+            require_current_final_visual_review(self.store, run_id=intent["work_item_id"])
+        from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+        rendered = _durable_intent_inputs(intent)["payloads"][destination]
+        text = str(rendered.get("text") or "")
+        original = str((intent.get("native_payload") or {}).get("text") or intent.get("payload") or "")
+        if not text or text == original:
+            return {"status": "PHOTO_ATTRIBUTION_NO_CHANGE", "edit_called": False}
+        edit_key = "photo-attribution-" + _hash(_canonical_json([dispatch_id, text]))
+        prior = self.store.list_readbacks_for_dispatch(dispatch_id)
+        if any(r["readback_id"] == edit_key for r in prior):
+            return {"status": "PHOTO_ATTRIBUTION_ALREADY_ATTEMPTED_READBACK_ONLY", "edit_called": False}
+        if self.readiness_manager is not None:
+            ready = self.readiness_manager.verify_destination_jit(destination, reason="PUBLICATION", persist=True)
+            if ready.get("readiness_state") not in READY_STATES or ready.get("identity_match") is False:
+                return {"status": "PHOTO_ATTRIBUTION_IDENTITY_NOT_READY", "edit_called": False}
+        self.store.register_readback(readback_id=edit_key, dispatch_id=dispatch_id,
+            readback_data=_canonical_json({"action": "EDIT_EXISTING_PHOTO_ATTRIBUTION", "status": "STARTED",
+                "public_object_id": dispatch["public_object_id"], "rendered_payload_sha256": _hash(text)}))
+        try:
+            result = dict(self.transport_runtime.amend_photo_attribution(destination=destination,
+                intent=intent, public_object_id=str(dispatch["public_object_id"]), text=text))
+        except Exception as exc:
+            result = {"status": "UNKNOWN_EDIT", "safe_error_classification": type(exc).__name__}
+        self.store.register_readback(readback_id=edit_key + "-return", dispatch_id=dispatch_id,
+            readback_data=_canonical_json({"action": "EDIT_EXISTING_PHOTO_ATTRIBUTION", "result": result}))
+        if result.get("verified") is True:
+            self._reconcile(dispatch, intent)
+        return {**result, "edit_called": True, "new_post_calls": 0}
+
     def execute_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
+        result = self._execute_plan(work_item_id, plan)
+        current = self.publication_state(work_item_id, plan)
+        if any(o["dispatch_recorded"] for o in current["per_destination"].values()):
+            callbacks = result.get("per_destination") or {}
+            merged = {d: dict(o) for d, o in callbacks.items()}
+            for destination, durable in current["per_destination"].items():
+                callback = dict(callbacks.get(destination) or {})
+                merged[destination] = ({**callback, **durable} if durable["dispatch_recorded"]
+                    else {**durable, **callback})
+                merged[destination]["publish_called"] = callback.get("publish_called") is True
+            current = {"per_destination": merged, **self.publication_totals(
+                merged, full_v1=self._full_v1_distribution_required(plan))}
+            if (not current["canonical_article_real_published"] and
+                    str(result.get("distribution_status") or "").startswith(("BLOCKED_", "HOLD_"))):
+                current.update({k: result[k] for k in ("distribution_status", "canonical_publication_status",
+                    "transaction_classification") if k in result})
+            result = {**result, **current}
+        return result
+
+    def _execute_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         if self._recovery_is_quarantined(work_item_id):
             return {
                 "plan_hash": str(plan.get("plan_hash") or _hash(_canonical_json(plan))),
@@ -1492,7 +1640,9 @@ class DurablePublicationCoordinator:
             if isinstance(row, Mapping) and str(row.get("destination") or "")
         }
         canonical_url: Optional[str] = None
-        messages = [m for m in self.store.list_outbox_messages() if m["work_item_id"] == work_item_id]
+        messages = [m for m in self.store.list_outbox_messages() if m["work_item_id"] == work_item_id
+            and m["destination"] in V1_REQUIRED_PUBLICATION_DESTINATIONS
+            and json.loads(str(m["payload"])).get("plan_hash") == plan.get("plan_hash")]
         messages.sort(key=lambda m: (0 if m["destination"] == "substack" else 1, m["destination"]))
         canonical_message = next(
             (message for message in messages if message["destination"] == "substack"),
@@ -1687,11 +1837,15 @@ class DurablePublicationCoordinator:
             "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for o in outcomes.values()),
         }
 
-    def _confirmed_canonical_url_for_work_item(self, work_item_id: str) -> Optional[str]:
+    def _confirmed_canonical_url_for_work_item(
+        self, work_item_id: str, *, plan_hash: str | None = None
+    ) -> Optional[str]:
         for message in self.store.list_outbox_messages():
             if str(message.get("work_item_id") or "") != work_item_id or str(
                 message.get("destination") or ""
             ) != "substack":
+                continue
+            if plan_hash is not None and json.loads(str(message["payload"])).get("plan_hash") != plan_hash:
                 continue
             dispatch = self.store.get_platform_dispatch(
                 "dispatch_" + str(message["message_id"]).removeprefix("outbox_")
@@ -2216,6 +2370,40 @@ class CanonicalDestinationTransportRuntimeV1:
             plan=plan,
             preconditions=preconditions,
         )
+
+    def amend_photo_attribution(self, *, destination, intent, public_object_id, text):
+        """Use existing exact-message edit adapters; never create or replace a public post."""
+        canonical = str(intent["canonical_url"])
+        if destination == "telegram":
+            from live_contentops.telegram_live_adapter_v6 import execute_telegram_caption_edit
+            from live_contentops.public_dispatch_freeze_guard_v6 import (
+                build_public_dispatch_payload_hash, make_public_dispatch_approval_marker)
+            topic = _hash(str(intent.get("package_identity") or ""))
+            digest = build_public_dispatch_payload_hash(platform="telegram", action="edit_caption",
+                body_text=text, canonical_url=canonical, topic_hash=topic)
+            raw = execute_telegram_caption_edit(public_object_id, text, dry_run=False, approval_context={
+                "operator_approval_marker": make_public_dispatch_approval_marker(run_id=intent["work_item_id"],
+                    topic_hash=topic, payload_hash=digest, platform="telegram"),
+                "run_id": intent["work_item_id"], "topic_hash": topic, "payload_hash": digest,
+                "canonical_url": canonical, "canonical_packet_status": "PASS",
+                "canonicalization_repair": True, "canonicalization_repair_message_id": public_object_id})
+            observed = (raw.get("response") or {}).get("result") or {}
+            verified = (raw.get("status") == "SUCCESS" and str(observed.get("message_id")) == public_object_id
+                and (observed.get("chat") or {}).get("username", "").casefold() == "capitalchronicle"
+                and observed.get("caption") == text and bool(observed.get("photo")))
+        elif destination == "discord":
+            from live_contentops.discord_live_adapter_v6 import execute_discord_edit, readback_discord_post
+            raw = execute_discord_edit(public_object_id, text, dry_run=False)
+            observed = readback_discord_post(message_id=public_object_id, expected_text=text,
+                canonical_url=canonical) if raw.get("status") == "SUCCESS" else {}
+            verified = observed.get("status") == "SUCCESS"
+        else:
+            return {"status": "PHOTO_ATTRIBUTION_DESTINATION_NOT_SUPPORTED", "verified": False}
+        if verified:
+            self._strict_publish_readbacks[(destination, public_object_id)] = {"presentation_edit": True}
+        return {"status": "SUCCESS" if verified else "PHOTO_ATTRIBUTION_EDIT_NOT_VERIFIED",
+            "verified": bool(verified), "public_object_id": public_object_id,
+            "canonical_url": canonical, "safe_error_classification": raw.get("error_code")}
 
     def publish(self, *, destination: str, intent: Mapping[str, Any],
                 authorization_context: Mapping[str, Any]) -> Mapping[str, Any]:

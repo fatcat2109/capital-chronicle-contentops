@@ -302,7 +302,7 @@ class SimplePublicationHandoffV1:
             "public_write_performed": bool(result.get("public_write_performed")),
             "provider_publication_writes": provider_publication_writes,
             "unknown_write_detected": unknown,
-            "unknown_write_count": int(unknown),
+            "unknown_write_count": int(result.get("unknown_write_count") or int(unknown)),
             "publication_coordinator_dispatched": True,
             "bridge_model_call_count": 0,
             "bridge_source_get_count": 0,
@@ -336,22 +336,25 @@ class SimplePublicationHandoffV1:
         recovery = self.recover_preflight()
         if int(recovery.get("backlog_remaining") or 0) > 0:
             plan = self.ensure_plan(slot_id=slot_id, slot_output_dir=slot_output_dir)
-            unknown_write_detected = _recovery_unknown_detected(recovery)
+            current = self.coordinator.publication_state(slot_id, plan)
             return {
                 "schema_version": SCHEMA_VERSION,
                 "state": "PUBLICATION_RECOVERY_REQUIRED",
                 "work_item_id": slot_id,
                 "plan_hash": str(plan.get("plan_hash") or ""),
                 "article_identity": str(plan.get("article_identity") or ""),
-                "canonical_article_real_published": False,
-                "canonical_url": None,
+                "canonical_article_real_published": current["canonical_article_real_published"],
+                "canonical_url": current["canonical_url"],
                 "distribution_status": "BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS",
-                "derivative_confirmed_count": 0,
-                "derivative_attempted_count": 0,
+                "derivative_confirmed_count": current["derivative_confirmed_count"],
+                "derivative_attempted_count": current["derivative_attempted_count"],
                 "public_write_performed": bool(recovery.get("publish_calls")),
                 "provider_publication_writes": int(recovery.get("publish_calls") or 0),
-                "unknown_write_detected": unknown_write_detected,
-                "unknown_write_count": int(unknown_write_detected),
+                "unknown_write_detected": current["unknown_write_detected"],
+                "unknown_write_count": current["unknown_write_count"],
+                "per_destination": current["per_destination"],
+                "recovery_required_destinations": current["recovery_required_destinations"],
+                "canonical_publication_status": current["canonical_publication_status"],
                 "publication_coordinator_dispatched": False,
                 "bridge_model_call_count": 0,
                 "bridge_source_get_count": 0,

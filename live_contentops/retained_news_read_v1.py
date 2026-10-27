@@ -23,6 +23,7 @@ RELEASE = ROOT / "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1"
 ARTIFACT_PATH = RELEASE / "main-news/selected-edition.json"
 SELECTION_PATH = RELEASE / "data-journalism/edition/workspace.json"
 PROFILE_PATH = ROOT / "config/native_desktop_operator_profile_v1.json"
+ROLLOUT_PATH = ROOT / "config/native_desktop_rollout_v1.json"
 SCHEMA = "contentops.cc_report_editorial_workspace.v1"
 VIEW = "contentops.retained_news.private_preview.v1"
 SCOPE = "subscriber:read:private-preview"
@@ -36,7 +37,8 @@ ARTICLE_FIELDS = ("title", "dek", "substack_body_markdown", "display_date", "sou
                   "topics", "entities", "primary_reader_question", "secondary_reader_questions",
                   "reader_first_version", "resolved_article_mode")
 SOURCE_FIELDS = ("source_id", "document_id", "publisher", "url", "published_at_source",
-                 "published_at_utc", "source_authority_class", "report_truth_only")
+                 "published_at_utc", "source_authority_class", "report_truth_only",
+                 "canonical_content_sha256", "retrieval_method", "source_use_basis")
 RIGHTS_FIELDS = ("scope", "INTERNAL_ANALYSIS_ALLOWED", "public_expression_reuse_allowed",
                 "images_logos_exhibits_reuse_allowed", "attribution_required", "permitted_consumers", "policy_url")
 MEDIA_FIELDS = ("asset_id", "sha256", "modality", "caption", "reader_caption", "alt_text", "attribution",
@@ -70,6 +72,24 @@ def _url(value):
 
 def _source(document):
     constraints = document.get("source_reuse_constraints") or {}
+    citation_only = document.get("source_use_basis") == "GOVERNED_RELAY_CITATION_METADATA_ONLY"
+    if not constraints and document.get("report_truth_only") is True:
+        digest = document.get("canonical_content_sha256") or ""
+        exact_relay = (document.get("retrieval_method") == "EXACT_GOVERNED_CANONICAL_X_RELAY_SIDECAR"
+            and document.get("source_authority_class") == "trusted_professional_feed_relay"
+            and document.get("document_id") == "trusted-relay-" + digest[:20]
+            and bool(IDENTITY.fullmatch(digest))
+            and (document.get("url") or "").startswith("https://x.com/")
+            and _url(document.get("url")))
+        text = document.get("canonical_content_text")
+        if exact_relay and (citation_only or isinstance(text, str)
+                and hashlib.sha256(text.encode()).hexdigest() == digest):
+            # Citation metadata and our independently authored article are readable.
+            # No relay text, source-expression right or new eligibility is exported.
+            return {**_pick(document, SOURCE_FIELDS),
+                    "source_use_basis": "GOVERNED_RELAY_CITATION_METADATA_ONLY",
+                    "publication_precision": "AS_SUPPLIED",
+                    "observation_time_utc": document.get("observation_time_utc")}
     if (constraints.get("scope") not in PERMITTED_FACT_SCOPES
             or constraints.get("INTERNAL_ANALYSIS_ALLOWED") is not True
             or "narrative_context" not in constraints.get("permitted_consumers", [])
@@ -102,7 +122,7 @@ def _media_permission(asset):
         raise ValueError("MEDIA_USE_PERMISSION_NOT_ADMITTED")
 
 
-def _media(asset):
+def _media(asset, *, embed_original=False):
     _media_permission(asset)
     safe = _pick(asset, MEDIA_FIELDS)
     safe["source_links"] = [_pick(link, ("document_id", "label", "url")) for link in asset.get("source_links", [])]
@@ -134,12 +154,16 @@ def _media(asset):
         preview = base64.b64decode(encoded, validate=True)
         safe.update(preview_content_type=prefix.removeprefix("data:").removesuffix(";base64"),
                     preview_content_base64=encoded, preview_sha256=hashlib.sha256(preview).hexdigest())
+        if embed_original:
+            # Current admitted runtime photos have no entry in the historical
+            # portable map. Embed the same verified public original, never its path.
+            safe["content_base64"] = base64.b64encode(raw).decode("ascii")
     else:
         safe["content_base64"] = base64.b64encode(raw).decode("ascii")
     return safe
 
 
-def build_news_projection(workspace, *, exported_at_utc):
+def build_news_projection(workspace, *, exported_at_utc, embedded_photo_operations=()):
     """Allowlisted view over the admitted, selected existing owner edition."""
     _utc(exported_at_utc)
     group = workspace["owner_edition"]
@@ -151,7 +175,8 @@ def build_news_projection(workspace, *, exported_at_utc):
             items.append({"run_id": run, "article_identity": None, "availability": "LOCAL_CONTENT_MISSING"})
             continue
         identity = item["article_identity"]
-        entry = {"run_id": run, "article_identity": identity}
+        entry = {"run_id": run, "article_identity": identity,
+                 "article_revision": (item.get("review") or {}).get("package_revision")}
         if not IDENTITY.fullmatch(identity):
             raise ValueError("ARTICLE_IDENTITY_REQUIRED")
         try:
@@ -161,7 +186,7 @@ def build_news_projection(workspace, *, exported_at_utc):
             sources = [_source(document) for document in item.get("evidence", [])]
             if not sources:
                 raise ValueError("SOURCE_USE_PERMISSION_NOT_ADMITTED")
-            media = [_media(asset) for asset in item.get("media_assets", [])]
+            media = [_media(asset, embed_original=run in embedded_photo_operations) for asset in item.get("media_assets", [])]
         except (ValueError, OSError) as exc:
             # An unqualified record must not leak prose, source URLs, tables or images.
             entry.update(availability="CONTENT_RESTRICTED" if isinstance(exc, ValueError) else "LOCAL_CONTENT_MISSING",
@@ -191,6 +216,30 @@ def build_news_projection(workspace, *, exported_at_utc):
             "scope": "PRIVATE_PREVIEW_ONLY", "public_write_performed": False}
 
 
+def _selected_runtime_projection(store_path, operation_ids):
+    """Read only the selected missing operations from the already configured live owner."""
+    import sqlite3
+    from live_contentops.capital_chronicle_report_editorial_workspace_v1 import report_workspace_projection
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    work = list(dict.fromkeys([*operation_ids, *("cc-opportunity-" + sha256_of(r) for r in operation_ids)]))
+    placeholders = ",".join("?" for _ in work)
+    with sqlite3.connect(Path(store_path).resolve().as_uri() + "?mode=ro", uri=True) as conn:
+        conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA query_only=ON")
+        conn.execute("BEGIN")
+        outbox = [dict(r) for r in conn.execute(
+            "SELECT * FROM outbox_messages WHERE work_item_id IN (" + placeholders + ") ORDER BY rowid", work)]
+        reviews = [dict(r) for r in conn.execute(
+            "SELECT * FROM review_records WHERE work_item_id IN (" + placeholders + ") ORDER BY rowid", work)]
+        dispatches = [dict(r) for r in conn.execute(
+            "SELECT d.* FROM platform_dispatches d JOIN outbox_messages o ON o.message_id=d.message_id "
+            "WHERE o.work_item_id IN (" + placeholders + ") ORDER BY d.rowid", work)]
+        reconciliations = [dict(r) for r in conn.execute(
+            "SELECT * FROM reconciliations WHERE work_item_id IN (" + placeholders + ") ORDER BY rowid", work)]
+    return report_workspace_projection(outbox, review_records=reviews, dispatches=dispatches,
+                                      reconciliations=reconciliations, readiness=[])
+
+
 def export_selected_news():
     """Fixed trusted producer operation: read the existing SQLite in query-only mode."""
     import sqlite3
@@ -205,9 +254,18 @@ def export_selected_news():
                   for table in ("outbox_messages", "review_records", "platform_dispatches", "reconciliations", "destination_readiness")}
     projection = report_workspace_projection(values["outbox_messages"], review_records=values["review_records"],
         dispatches=values["platform_dispatches"], reconciliations=values["reconciliations"], readiness=values["destination_readiness"])
+    missing = [r for r in selection["operation_ids"]
+               if r not in {i["run_id"] for i in projection["native_edition"]}]
+    if missing and ROLLOUT_PATH.is_file():
+        rollout = json.loads(ROLLOUT_PATH.read_bytes())
+        live_store = rollout.get("store_path")
+        if live_store and Path(live_store).resolve() != Path(profile["store_path"]).resolve() and Path(live_store).is_file():
+            current = _selected_runtime_projection(live_store, missing)
+            projection["native_edition"].extend(i for i in current["native_edition"] if i["run_id"] in missing)
     # Do not let a newer unrelated owner pointer change the configured selected edition.
     projection["owner_edition"] = selection
-    artifact = build_news_projection(projection, exported_at_utc=datetime.now(timezone.utc).isoformat())
+    artifact = build_news_projection(projection, exported_at_utc=datetime.now(timezone.utc).isoformat(),
+                                     embedded_photo_operations=missing)
     ARTIFACT_PATH.parent.mkdir(parents=True, exist_ok=True)
     ARTIFACT_PATH.write_text(json.dumps(artifact, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
     return {"state": "PRODUCER_DELIVERED", "edition_id": selection["edition_id"],
@@ -261,8 +319,10 @@ def _validate_shape(value):
     _keys(value["owner_edition"], ("edition_id", "title", "operation_ids"))
     identities, runs = set(), set()
     for item in value["native_edition"]:
-        _keys(item, ("run_id", "article_identity", "availability", "reason", "article", "evidence", "media_assets", "review",
+        _keys(item, ("run_id", "article_identity", "article_revision", "availability", "reason", "article", "evidence", "media_assets", "review",
                      "publication", "clocks", "epistemic_state", "editorial_execution", "use_permission"))
+        if item.get("article_revision") is not None and not IDENTITY.fullmatch(item["article_revision"]):
+            raise ValueError("CONTENT_INTEGRITY")
         if item["run_id"] in runs or item["run_id"] not in value["owner_edition"]["operation_ids"]:
             raise ValueError("CONTENT_INTEGRITY")
         runs.add(item["run_id"])
@@ -273,7 +333,7 @@ def _validate_shape(value):
         if item["availability"] not in {"AVAILABLE", "CONTENT_RESTRICTED", "LOCAL_CONTENT_MISSING"}:
             raise ValueError("CONTENT_INTEGRITY")
         if item["availability"] != "AVAILABLE":
-            _keys(item, ("run_id", "article_identity", "availability", "reason"))
+            _keys(item, ("run_id", "article_identity", "article_revision", "availability", "reason"))
             continue
         _keys(item["article"], ARTICLE_FIELDS)
         _leaves(item["article"])
@@ -297,8 +357,8 @@ def _validate_shape(value):
             raise ValueError("CONTENT_INTEGRITY")
         for source in item["evidence"]:
             _keys(source, (*SOURCE_FIELDS, "publication_precision", "observation_time_utc", "source_reuse_constraints"))
-            _keys(source["source_reuse_constraints"], (*RIGHTS_FIELDS, "data_terms"))
-            _keys(source["source_reuse_constraints"].get("data_terms", {}),
+            _keys(source.get("source_reuse_constraints", {}), (*RIGHTS_FIELDS, "data_terms"))
+            _keys(source.get("source_reuse_constraints", {}).get("data_terms", {}),
                   ("url", "required_attribution", "endorsement_granted", "independent_modification_label_required"))
             _source(source)
         for asset in item["media_assets"]:

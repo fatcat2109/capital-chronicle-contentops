@@ -60,7 +60,7 @@ def _payload_binding(intent, destination):
             payload = {"title": article.get("title"), "subtitle": article.get("subtitle"),
                        "body_markdown": article.get("substack_body_markdown")}
         else:
-            payload = intent.get("native_payload") or resolved["payloads"][destination]
+            payload = resolved["payloads"][destination]
         assets = resolved["media_assets"]
         for name in ("run_context_v1.json", "delivery_media_manifest_v1.json"):
             path = root / name

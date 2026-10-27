@@ -261,7 +261,7 @@ def test_exact_review_is_invalidated_by_copy_or_media_metadata_change(tmp_path, 
     assert item["publication"]["state"] == "REVIEW_REQUIRED"
 
 
-def test_cleared_photo_credit_reaches_all_previews_and_exact_transport_media(tmp_path):
+def test_photo_credit_stays_on_canonical_while_transport_keeps_exact_rights(tmp_path):
     from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle
     from live_contentops.neo_destination_handoff_v1 import _payload_binding
     _, photo, chart = controlled_release_packet(tmp_path / "assets")
@@ -274,12 +274,16 @@ def test_cleared_photo_credit_reaches_all_previews_and_exact_transport_media(tmp
         article_identity="a" * 64, media_asset_ids=[photo["asset_id"], chart["asset_id"]], media_assets=[photo, chart])
     for destination, payload in bundle["packages"].items():
         text = payload.get("full_text") or payload["text"]
-        assert photo["license_url"] in text and photo["source_page_url"] in text
-        assert "Photo: Controlled fixture." in text
+        assert photo["license_url"] not in text and photo["source_page_url"] not in text
+        assert "Photo: Controlled fixture." not in text
         _, binding = _payload_binding({"native_payload": payload, "media_assets": [photo, chart]}, destination)
         assert [a["asset_id"] for a in binding["media_manifest"]] == [photo["asset_id"]]
         assert binding["media_manifest"][0]["license_url"] == photo["license_url"]
         assert binding["media_manifest"][0]["alt_text"] == photo["alt_text"]
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _publication_media_metadata
+    canonical_assets, canonical_credit = _publication_media_metadata([photo])
+    assert photo["license_url"] in canonical_credit and photo["source_page_url"] in canonical_credit
+    assert "Photo: Controlled fixture." in canonical_assets[0]["caption"]
     # The owned chart is a useful short-channel visual without unused photo credit.
     chart_bundle, _ = _native_preview_bundle(article=article, article_mode="STANDARD_NEWS_ANALYSIS",
         article_identity="a" * 64, media_asset_ids=[chart["asset_id"], photo["asset_id"]], media_assets=[chart, photo])
@@ -287,6 +291,27 @@ def test_cleared_photo_credit_reaches_all_previews_and_exact_transport_media(tmp
         assert photo["license_url"] not in (payload.get("full_text") or payload["text"])
         _, binding = _payload_binding({"native_payload": payload, "media_assets": [chart, photo]}, destination)
         assert [a["asset_id"] for a in binding["media_manifest"]] == [chart["asset_id"]]
+
+
+def test_canonical_photo_presentation_preserves_frozen_package_and_unknown_notices():
+    from copy import deepcopy
+    from live_contentops.v1_simple_gemini_newsroom_v1 import canonical_photo_attribution_payload
+    credit = "Photo: [Photographer](https://example.org/photo) · [CC BY](https://example.org/license). Archive photograph, 2017."
+    article = {"native_destination_credits": {"telegram": credit}}
+    assets = [{"modality": "documentary_photo", "source_page_url": "https://example.org/photo",
+               "license_url": "https://example.org/license"}]
+    url = "https://capitalchronicle.substack.com/p/controlled"
+    payload = {"text": "Unconfirmed report.\n\n" + url + "\n\n" + credit,
+               "posts": [{"text": "Unconfirmed report.\n\n" + credit}], "media_asset_ids": ["photo"]}
+    before = deepcopy(payload)
+    rendered = canonical_photo_attribution_payload(payload, article=article, media_assets=assets, canonical_url=url)
+    assert payload == before
+    assert "Photo:" not in rendered["text"] and "Archive photograph, 2017." in rendered["text"]
+    assert url in rendered["text"] and "Unconfirmed report." in rendered["posts"][0]["text"]
+    assert rendered["media_asset_ids"] == ["photo"]
+    changed = {**payload, "text": payload["text"] + " Separate required notice."}
+    assert canonical_photo_attribution_payload(changed, article=article, media_assets=assets, canonical_url=url)["text"] == changed["text"]
+    assert canonical_photo_attribution_payload(payload, article=article, media_assets=assets, canonical_url="") == payload
 
 
 def test_announced_policy_rates_preserve_percent_words_and_effective_date(tmp_path):

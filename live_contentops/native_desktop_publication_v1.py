@@ -288,7 +288,9 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
                 "dispatch_id": ids["dispatch_id"],
                 "status": dispatch.get("status", "NOT_DISPATCHED"),
                 "reconciliation_status": reconciliation.get("status"),
+                "public_object_id": dispatch.get("public_object_id"),
                 "public_object_url": dispatch.get("public_object_url"),
+                "dispatch_recorded": bool(dispatch),
                 "cached_readiness": cached.get("readiness_state", "NOT_VERIFIED"),
                 "blocker": None
                 if reconciliation.get("status") == "RECONCILED_CONFIRMED"
@@ -339,9 +341,11 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
                         else "publication-tool-begin",
                     }
                 )
-    confirmed = sum(
-        e["reconciliation_status"] == "RECONCILED_CONFIRMED" for e in entries
-    )
+    totals = DurablePublicationCoordinator.publication_totals(
+        {e["destination"]: e for e in entries})
+    confirmed = sum(e["reconciliation_status"] == "RECONCILED_CONFIRMED"
+        and DurablePublicationCoordinator._confirmed_public_object(e, destination=e["destination"])
+        for e in entries)
     state = (
         "RECONCILED"
         if confirmed == 9
@@ -378,6 +382,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
         next_operation = "publication-status"
     return {
         **bound,
+        **totals,
         "state": state,
         "operation_scope": "OWNER_MANUAL_LIVE" if operation.get("owner_manual_live") else "OWNER_MANUAL_ISOLATED"
         if operation.get("owner_manual_validation")
@@ -547,6 +552,7 @@ class NativeReviewedPublication:
                 "state": "PENDING_NATIVE",
                 "native_tool_request": pending.request,
             }
+        summary = {**summary, **self.coordinator.publication_state(self.binding["run_id"], plan)}
         return {
             "classification": "NATIVE_PUBLICATION_CONTINUATION",
             "coordinator_result": summary,

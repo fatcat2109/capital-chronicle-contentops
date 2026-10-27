@@ -1855,6 +1855,44 @@ def _publication_media_metadata(media_assets, *, compact=False):
     return assets, "\n\n".join(credits)
 
 
+def _derivative_media_attribution(media_assets, *, compact=False):
+    """Photograph credits live on the linked canonical article; chart context stays local."""
+    charts = _publication_media_metadata(
+        [a for a in media_assets if a.get("modality") != "documentary_photo"], compact=compact)[1]
+    captions = ["Photo: " + reader_photo_caption(a).strip().rstrip(".") + "."
+                for a in media_assets if a.get("modality") == "documentary_photo"]
+    return "\n\n".join(filter(None, [charts, *captions]))
+
+
+def canonical_photo_attribution_payload(payload, *, article, media_assets, canonical_url):
+    """Render exact known photo-credit blocks as archive captions; retain immutable inputs."""
+    from copy import deepcopy
+    if not isinstance(payload, Mapping) or not canonical_url.startswith("https://capitalchronicle.substack.com/p/"):
+        return payload
+    photos = [a for a in media_assets if a.get("modality") == "documentary_photo"]
+    replacements = {}
+    for credit in (article.get("native_destination_credits") or {}).values():
+        for block in str(credit).split("\n\n"):
+            for photo in photos:
+                source, license_url = photo.get("source_page_url"), photo.get("license_url")
+                if block.startswith("Photo: [") and source and license_url and source in block and license_url in block:
+                    marker = "](" + license_url + "). "
+                    if marker in block:
+                        replacements[block] = block.split(marker, 1)[1]
+    if not replacements:
+        return payload
+    def clean(text):
+        return "\n\n".join(replacements.get(block, block) for block in str(text).split("\n\n"))
+    rendered = deepcopy(payload)
+    for field in ("text", "full_text", "root_text"):
+        if rendered.get(field):
+            rendered[field] = clean(rendered[field])
+    for post in rendered.get("posts") or []:
+        if isinstance(post, dict) and post.get("text"):
+            post["text"] = clean(post["text"])
+    return rendered
+
+
 def _native_preview_bundle(
     *,
     article: Mapping[str, Any],
@@ -1881,10 +1919,10 @@ def _native_preview_bundle(
     if reader_first:
         compiler_article["native_media_sources"] = {a["asset_id"]:a["source_links"]
             for a in media_assets if a.get("source_links")}
-        compiler_article["native_destination_credits"] = {d: _publication_media_metadata(
-            [a for a in media_assets if a["asset_id"] in ids],compact=True)[1]
+        compiler_article["native_destination_credits"] = {d: _derivative_media_attribution(
+            [a for a in media_assets if a["asset_id"] in ids],compact=True)
             for d,ids in compiler_article["native_destination_media"].items()}
-    _, attribution = _publication_media_metadata([] if reader_first else media_assets[:1])
+    attribution = _derivative_media_attribution([] if reader_first else media_assets[:1])
     if attribution:
         compiler_article["native_media_attribution"] = attribution
     payloads = build_native_derivative_payloads(
@@ -2025,12 +2063,12 @@ def _build_simple_publication_lifecycle_plan(
     )
     reader_first = article.get("reader_first_version") == "DATA_JOURNALISM_V1"
     publication_assets, attribution = _publication_media_metadata(media_assets, compact=reader_first)
-    _, attribution = _publication_media_metadata([] if reader_first else media_assets[:1])
+    attribution = _derivative_media_attribution([] if reader_first else media_assets[:1])
     if reader_first:
         compiler_article["native_media_sources"] = {a["asset_id"]:a["source_links"]
             for a in media_assets if a.get("source_links")}
-        compiler_article["native_destination_credits"] = {d: _publication_media_metadata(
-            [a for a in media_assets if a["asset_id"] in ids],compact=True)[1]
+        compiler_article["native_destination_credits"] = {d: _derivative_media_attribution(
+            [a for a in media_assets if a["asset_id"] in ids],compact=True)
             for d,ids in compiler_article["native_destination_media"].items()}
     if attribution:
         compiler_article["native_media_attribution"] = attribution

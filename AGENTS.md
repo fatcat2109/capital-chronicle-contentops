@@ -1,5 +1,18 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Canonical photo attribution — 28 October 2026
+
+Jim's direct current instruction keeps full photo creator/source/license attribution on
+the canonical Substack article. Derivative platforms carry the canonical link and any
+material archive/context caption, without repeated photo source/credit blocks where the
+actual admitted licence permits linked attribution. Internal source/rights/date/alt and
+exact original bytes remain bound; chart sources and factual-report attribution remain.
+Apply through existing compiler/renderer/coordinator owners, preserving immutable sent
+packages and exact public identities. Already-confirmed objects use exact-message edits,
+never reposts. Changed presentation requires the SAME designated MAX writer's affected
+desktop/mobile inspection before fresh sends or edits. No additional reuse rights,
+publication owner, schedule, store, model/API spending or V2/V3 authority is created.
+
 ## Permanent final-media review and direct repair — 27 October 2026
 
 Jim's actual messages01a17b8c-11a4-78b0-8686-d3ca0b1bcb6a,01a17b92-5b16-7a02-92d2-39c33c9df307 and01a17b94-5870-7402-9f46-c736f10052fe were verified via read_thread in assigned L2. The [permanent final-product rule](docs/automation/CONTENTOPS_V1_FINAL_MEDIA_REVIEW_AND_REPAIR_RULE_V1.md) is mandatory for every V1 article and material revision.

@@ -1,4 +1,14 @@
-# V1 scheduled zero-write activation — applied 26 October 2026
+# V1 activation and first live edition
+
+## First current live edition — observed28October2026
+
+The same operation `v1-live-launch-20261027` retained its frozen `2026-10-27T04:00:52.972454Z` cutoff and oil/US–Iran article `8885bd9e945f425731c93f73c51ff0fa70463d7148a088f8ee3482937de3069d`. The same actual `gpt-6.1-sol/max` writer accepted its corrected final render review, response `32efc933...`, before the first send. Canonical object `222368666` is [public and reconciled](https://capitalchronicle.substack.com/p/firstsquawk-citing-the-wall-street). Telegram71, Discord1564685823377416374, Threads18191360326404150 with its exact reply, and X2115185068423758099 with two exact replies are also reconciled. X used one three-post submission; readback did not repost it.
+
+LinkedIn returned no create identity and remains UNKNOWN_WRITE. Bounded actual Neo profile/activity and exact member/content/canonical-link searches found no matching post; this is not proof of absence and grants no retry. Facebook and Instagram are reconciled absent after the missing delivery-media failure; YouTube has not dispatched. Recovery is destination-local, with no effect on canonical truth or the four existing ACTIVE schedules. Daily5–8article operation remains unproven.
+
+Merged [PR103](https://github.com/fatcat2109/capital-chronicle-contentops/pull/103), `dba258511fd651732c424a234ccfcfb1921f3233`, is installed in the operating checkout with unrelated WIP, original store and healthy listener14296 preserved. No runtime restart occurred. This installed source is distinct from the long-running process's previously loaded source. Exact operation records and [CHECKPOINT.md](CHECKPOINT.md) retain current outcomes and the remaining scoped repair/application steps.
+
+Jim's28October amendment places full photo credit/source/license on Substack and removes redundant derivative photo attribution while keeping the archive caption, canonical link and internal rights. [Creative Commons attribution guidance](https://wiki.creativecommons.org/wiki/Recommended_practices_for_attribution#Publishing_attribution_on_a_separate_web_page) supports linked attribution pages; no third-party reuse grant is invented. Affected presentations require the same MAX editor's current rendered acceptance before fresh sends or exact existing-message edits. The historical application sections below describe their own epochs.
 
 ## Selected-story continuity — applied27October
 
