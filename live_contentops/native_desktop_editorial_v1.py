@@ -1048,6 +1048,39 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     from live_contentops.newsroom_production_day_v1 import persist_qualified_article_record
     result, row, current_review = validated_native_review(store, run_id=run_id)
     assets = result.get("media_assets", [])
+    # A renderer-only acceptance may advance after a public send. Reuse the exact
+    # frozen dispatch package and plan; a new plan would duplicate existing objects.
+    bindings = [json.loads(r["payload"]) for r in store.list_outbox_messages()
+        if r["destination"] == "internal:native-publication-binding"
+        and json.loads(r["payload"]).get("run_id") == run_id]
+    if bindings and any(d["message_id"] in {r["message_id"] for r in store.list_outbox_messages()
+            if r["work_item_id"] == run_id} for d in store.list_platform_dispatches()):
+        from hashlib import sha256
+        binding = bindings[-1]
+        prepared = [json.loads(r["payload"]) for r in store.list_outbox_messages()
+            if r["destination"] == "internal:native-prepared-handoff"
+            and json.loads(r["payload"]).get("run_id") == run_id]
+        prior = prepared[-1] if prepared else {}
+        root = resolve_workspace_path(prior.get("output_dir") or "")
+        if (binding.get("native_result_sha256") != sha256_of(result)
+                or prior.get("media_assets") != assets or prior.get("plan_hash") != binding.get("plan_hash")):
+            raise ValueError("DISPATCHED_HANDOFF_CONTENT_IMMUTABLE")
+        for name, digest in binding.get("artifact_sha256", {}).items():
+            path = root / name
+            if not path.is_file() or sha256(path.read_bytes()).hexdigest() != digest:
+                raise ValueError("DISPATCHED_HANDOFF_ARTIFACT_CHANGED")
+        if json.loads((root / "article_manifest_v1.json").read_bytes()) != result["article"]:
+            raise ValueError("DISPATCHED_HANDOFF_CONTENT_IMMUTABLE")
+        require_current_final_visual_review(store, run_id=run_id)
+        refreshed = {**prior, "review_id": current_review["review_id"]}
+        store.register_outbox_message(message_id="native-prepared-handoff-" + sha256_of(refreshed),
+            work_item_id=row["work_item_id"], destination="internal:native-prepared-handoff",
+            payload=canonical_bytes(refreshed).decode(), status="EDITORIAL_INTERNAL")
+        return {"classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH", "article_identity": result["article_identity"],
+            "review_id": current_review["review_id"], "plan_hash": prior["plan_hash"], "output_dir": str(root),
+            "media_reuse_count": len(assets), "preview_count": 8, "new_qualified_articles": 0,
+            "model_invocations": 0, "source_requests": 0, "public_write_performed": False,
+            "dispatched_package_reused": True}
     root = resolve_workspace_path(output_dir) / "reviewed-handoff" / native_review_revision(result)
     root.mkdir(parents=True, exist_ok=True)
     article = result["article"]

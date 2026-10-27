@@ -26,7 +26,7 @@ if (retainedNews) {
       const encoded = content_base64 ?? preview_content_base64;
       if (createHash('sha256').update(Buffer.from(encoded, 'base64')).digest('hex') !== (content_base64 ? asset.sha256 : asset.preview_sha256))
         throw new Error('RETAINED_NEWS_MEDIA_CHANGED');
-      return {...metadata, preview_data_url: `data:${asset.preview_content_type ?? asset.content_type};base64,${encoded}`};
+      return {...metadata, preview_data_url: `data:${content_base64 ? asset.content_type : asset.preview_content_type ?? asset.content_type};base64,${encoded}`};
     })
   }));
   inputData = {owner_edition: {...inputData.owner_edition, ready: articles.length,

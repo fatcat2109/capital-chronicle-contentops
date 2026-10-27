@@ -3913,6 +3913,10 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
             chosen.update(asset_id for post in frozen_payload.get("posts") or []
                           if isinstance(post, Mapping) for asset_id in post.get("media_asset_ids") or [])
             media_assets = [asset for asset in media_assets if asset.get("asset_id") in chosen]
+    if destination and destination != "substack":
+        from live_contentops.v1_simple_gemini_newsroom_v1 import canonical_photo_attribution_payload
+        payloads[destination] = canonical_photo_attribution_payload(payloads[destination], article=article,
+            media_assets=media_assets, canonical_url=canonical_url)
     local_media = next((
         str(row.get("path") or row.get("absolute_local_source_path") or "")
         for row in media_assets

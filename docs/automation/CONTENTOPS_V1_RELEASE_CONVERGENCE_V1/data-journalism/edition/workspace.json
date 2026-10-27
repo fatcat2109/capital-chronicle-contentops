@@ -1,7 +1,7 @@
 {
   "owner_edition": {
     "edition_id": "v1-reader-first-data-journalism",
-    "title": "Capital Chronicle · Seven source-led stories",
+    "title": "Capital Chronicle · Retained stories and the current live edition",
     "operation_ids": [
       "v1-data-journalism-ibm-correction-20261025",
       "v1-data-journalism-meta",
@@ -9,7 +9,8 @@
       "v1-data-journalism-southwest",
       "v1-data-journalism-oil",
       "v1-data-journalism-policy",
-      "v1-data-journalism-gold"
+      "v1-data-journalism-gold",
+      "v1-live-launch-20261027"
     ],
     "ready": 7,
     "missing": 0,

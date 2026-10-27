@@ -117,6 +117,11 @@ def test_pre_registration_crash_resume_recovers_then_registers_same_work_item_be
     events: list[str] = []
 
     class Coordinator:
+        def publication_state(self, work, current_plan):
+            from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+            assert work == slot_id and current_plan["plan_hash"] == plan["plan_hash"]
+            return {"per_destination": {}, **DurablePublicationCoordinator.publication_totals({})}
+
         def recover_pending(self):
             events.append("recover")
             return {"backlog_remaining": 0, "publish_calls": 0}
@@ -163,6 +168,11 @@ def test_ambiguous_or_unresolved_recovery_backlog_never_registers_or_republishes
     events: list[str] = []
 
     class Coordinator:
+        def publication_state(self, work, current_plan):
+            from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+            assert work == slot_id and current_plan["plan_hash"] == plan["plan_hash"]
+            return {"per_destination": {}, **DurablePublicationCoordinator.publication_totals({})}
+
         def recover_pending(self):
             events.append("recover")
             return {

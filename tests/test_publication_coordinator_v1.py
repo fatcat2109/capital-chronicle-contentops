@@ -1604,6 +1604,12 @@ def test_explicit_transport_correction_is_exact_and_one_shot(
         store.set_outbox_status(unrelated["message_id"], UNKNOWN_WRITE)
     before = transport.publish_calls.count(destination)
 
+    # Native requests share the work item but are not publication destinations.
+    store.register_outbox_message(message_id="controlled-native-request", work_item_id="work-1",
+        destination="internal:native-neo-tool", payload='{"request":"controlled"}', status="NATIVE_NEO_INTERNAL")
+    provider = coordinator.readiness_provider
+    coordinator.readiness_provider = lambda d: {"readiness_state": "AUTH_INVALID"} if d == "substack" else provider(d)
+
     store.set_dispatch_status(dispatch["dispatch_id"], UNKNOWN_WRITE)
     blocked = coordinator.complete_derivative_after_transport_correction(
         dispatch["dispatch_id"], correction_id="owner-frozen-canary-platform-fix-v1")
@@ -1624,3 +1630,91 @@ def test_explicit_transport_correction_is_exact_and_one_shot(
     assert second["status"] == "CORRECTION_ALREADY_ATTEMPTED_NO_WRITE"
     assert second["publish_called"] is False
     assert transport.publish_calls.count(destination) == before + 1
+
+
+def test_durable_totals_survive_pending_callback_and_duplicate_resume(tmp_path):
+    store, transport, coordinator = _coordinator(tmp_path)
+    plan = _quality_plan()
+    coordinator.register_plan("work-1", plan)
+    _set_mode(store, "AUTONOMOUS_DEFAULT")
+    canonical = "https://capitalchronicle.substack.com/p/fixture-article-1"
+    for destination in ("substack", "telegram", "discord", "threads", "x"):
+        ids = coordinator._ids("work-1", plan["plan_hash"], destination)
+        coordinator._dispatch_message(store.get_outbox_message(ids["message_id"]),
+            canonical_url=None if destination == "substack" else canonical)
+    for destination, status, reconciliation in (
+        ("linkedin", UNKNOWN_WRITE, RECONCILIATION_PENDING),
+        ("facebook_page", DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE, RECONCILED_ABSENT_SAFE_TO_RETRY),
+        ("instagram_business", RECONCILED_ABSENT_SAFE_TO_RETRY, RECONCILED_ABSENT_SAFE_TO_RETRY),
+    ):
+        ids = coordinator._ids("work-1", plan["plan_hash"], destination)
+        store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+            platform=destination, status=status)
+        store.set_outbox_status(ids["message_id"], status)
+        store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+            work_item_id="work-1", status=reconciliation)
+    before = list(transport.publish_calls)
+    state = coordinator.publication_state("work-1", plan)
+    assert state["canonical_article_real_published"] is True
+    assert state["canonical_url"] == canonical
+    assert state["derivative_confirmed_count"] == 4
+    assert state["derivative_unknown_count"] == 1
+    assert state["derivative_failed_count"] == 1
+    assert state["derivative_absent_safe_to_retry_count"] == 2
+    assert state["derivative_never_attempted_count"] == 1
+    assert state["per_destination"]["youtube"]["status"] == "NOT_DISPATCHED"
+    assert coordinator.publication_state("other-operation", plan)["derivative_confirmed_count"] == 0
+    coordinator.recover_pending = lambda: {"backlog_remaining": 1, "publish_calls": 0}
+    for _ in range(2):
+        result = coordinator.execute_plan("work-1", plan)
+        assert result["canonical_article_real_published"] is True
+        assert result["derivative_confirmed_count"] == 4
+        assert result["per_destination"]["linkedin"]["status"] == UNKNOWN_WRITE
+    assert transport.publish_calls == before
+
+
+def test_confirmed_photo_credit_edit_is_exact_once_and_never_a_new_post(tmp_path, monkeypatch):
+    import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    class EditingTransport(FixtureTransport):
+        def __init__(self):
+            super().__init__()
+            self.edits = []
+        def amend_photo_attribution(self, **kwargs):
+            self.edits.append(kwargs)
+            return {"status": "SUCCESS", "verified": True, "public_object_id": kwargs["public_object_id"]}
+    transport = EditingTransport()
+    store, _, coordinator = _coordinator(tmp_path, runtime=transport)
+    plan = _quality_plan()
+    coordinator.execute_plan("work-1", plan)
+    dispatch = next(d for d in store.list_platform_dispatches() if d["platform"] == "telegram")
+    text = "Unconfirmed report. Archive photograph, 2017. https://capitalchronicle.substack.com/p/fixture-article-1"
+    monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda _: {"payloads": {"telegram": {"text": text}}})
+    calls = list(transport.publish_calls)
+    first = coordinator.refresh_confirmed_photo_attribution(dispatch["dispatch_id"])
+    second = coordinator.refresh_confirmed_photo_attribution(dispatch["dispatch_id"])
+    assert first["verified"] is True and first["new_post_calls"] == 0
+    assert second["status"] == "PHOTO_ATTRIBUTION_ALREADY_ATTEMPTED_READBACK_ONLY"
+    assert second["edit_called"] is False
+    assert len(transport.edits) == 1
+    assert transport.edits[0]["public_object_id"] == dispatch["public_object_id"]
+    assert transport.publish_calls == calls
+    store.set_dispatch_status(dispatch["dispatch_id"], UNKNOWN_WRITE)
+    blocked = coordinator.refresh_confirmed_photo_attribution(dispatch["dispatch_id"])
+    assert blocked["edit_called"] is False and len(transport.edits) == 1
+
+
+def test_native_internal_records_never_become_dispatch_destinations(tmp_path):
+    store, transport, coordinator = _coordinator(tmp_path)
+    store.register_outbox_message(message_id="native-request", work_item_id="work-1",
+        destination="internal:native-neo-tool", payload='{"request":"native"}', status="NATIVE_NEO_INTERNAL")
+    store.register_outbox_message(message_id="native-return", work_item_id="work-1",
+        destination="internal:native-neo-tool", payload='{"result":"native"}', status="NATIVE_NEO_INTERNAL")
+    plan = _quality_plan()
+    result = coordinator.execute_plan("work-1", plan)
+    before = list(transport.publish_calls)
+    assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+    assert set(result["per_destination"]) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS)
+    repeated = coordinator.execute_plan("work-1", plan)
+    assert repeated["derivative_confirmed_count"] == 8
+    assert transport.publish_calls == before
+    assert len(store.list_platform_dispatches()) == 9

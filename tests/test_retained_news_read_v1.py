@@ -93,6 +93,8 @@ def test_all_actual_selected_members_and_allowlist_preserve_safe_original_fields
     previous = json.loads(news.SELECTION_PATH.read_bytes())
     assert actual["owner_edition"]["operation_ids"] == previous["owner_edition"]["operation_ids"]
     for item in actual["native_edition"]:
+        if item["run_id"] == "v1-live-launch-20261027":
+            continue  # The exact live producer is covered below; retained snapshots remain historical.
         source = next(c for c in previous["native_edition"] if c["article_identity"] == item["article_identity"])
         assert item["availability"] == "AVAILABLE"
         assert item["article"] == {k: v for k, v in source["article"].items() if k in news.ARTICLE_FIELDS}
@@ -106,6 +108,51 @@ def test_all_actual_selected_members_and_allowlist_preserve_safe_original_fields
     ibm = next(c for c in data["native_edition"] if c["article_identity"] == IBM)
     assert ibm["article"]["substack_body_markdown"] == actual["native_edition"][0]["article"]["substack_body_markdown"]
     assert next(a for a in ibm["media_assets"] if a["asset_id"] == CASH)["reader_table"]["columns"] == ["2025", "2026"]
+
+
+def test_exact_live_article_is_available_without_private_runtime_or_relay_expression(actual):
+    identity = "8885bd9e945f425731c93f73c51ff0fa70463d7148a088f8ee3482937de3069d"
+    class CurrentSession:
+        def resolve(self, opaque, *, read_at_utc):
+            assert opaque == "current-opaque"
+            return SimpleNamespace(status="ACTIVE", scopes=(news.SCOPE,), record_ids=(identity,),
+                not_before_utc="2026-10-27T00:00:00Z", verified_at_utc="2026-10-28T00:00:00Z",
+                expires_at_utc="2026-10-29T00:00:00Z")
+    current = news.RetainedNewsReader(CurrentSession(), clock=lambda: "2026-10-28T01:00:00Z")
+    response = current.read(identity, "current-opaque")
+    assert response["status"] == 200
+    item = response["body"]["story"]
+    assert item["run_id"] == "v1-live-launch-20261027"
+    assert item["article_revision"] == "c51849523ae2d109a935d5da85b6607d7dca5e8fed11b3fb0a09eec3606ed77a"
+    assert item["publication"]["canonical_url"] == "https://capitalchronicle.substack.com/p/firstsquawk-citing-the-wall-street"
+    assert item["evidence"][0]["published_at_utc"] == "2026-10-27T01:32:04Z"
+    assert item["evidence"][0]["source_use_basis"] == "GOVERNED_RELAY_CITATION_METADATA_ONLY"
+    assert "source_reuse_constraints" not in item["evidence"][0]
+    assert item["clocks"]["evidence_cutoff_utc"] == "2026-10-27T04:00:52.972454Z"
+    assert item["use_permission"]["source_expression_reuse_authorized"] is False
+    assert not re.search(r"[AC]:[/\\]|canonical_content_text|invocation_id|tool_request|account_balance", json.dumps(item))
+    assert current.read(IBM, "current-opaque")["status"] == 403
+    photo = current.read_asset(identity, "documentary_oil", "current-opaque")
+    assert photo["status"] == 200
+    assert len(photo["body"]) == 58991
+    assert sha256(photo["body"]).hexdigest() == "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b"
+    assert current.read_asset(identity, "ibm-dj-cash-improvement-r2", "current-opaque")["status"] == 404
+
+
+def test_relay_citation_metadata_does_not_admit_unbound_text_or_reuse_rights():
+    text = "Controlled attributed relay proposition."
+    digest = sha256(text.encode()).hexdigest()
+    document = {"source_id": "SOURCE_TEST", "document_id": "trusted-relay-" + digest[:20],
+        "publisher": "controlled", "url": "https://x.com/controlled/status/123", "report_truth_only": True,
+        "source_authority_class": "trusted_professional_feed_relay",
+        "retrieval_method": "EXACT_GOVERNED_CANONICAL_X_RELAY_SIDECAR",
+        "canonical_content_text": text, "canonical_content_sha256": digest}
+    metadata = news._source(document)
+    assert "canonical_content_text" not in metadata and "source_reuse_constraints" not in metadata
+    for change in ({"canonical_content_text": "Changed"}, {"report_truth_only": False},
+                   {"retrieval_method": "ARBITRARY_SOCIAL_ROW"}, {"url": "https://example.org/"}):
+        with pytest.raises(ValueError, match="SOURCE_USE_PERMISSION_NOT_ADMITTED"):
+            news._source({**document, **change})
 
 
 @pytest.mark.parametrize("changes", [{"scopes": ("owner:read",)}, {"record_ids": ("a" * 64,)},
