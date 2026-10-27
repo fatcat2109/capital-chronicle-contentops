@@ -947,7 +947,7 @@ class DurablePublicationCoordinator:
                 explicit_transport_correction_retry
                 and (
                     (
-                        destination == "instagram_business"
+                        destination in {"facebook_page", "instagram_business"}
                         and str(existing.get("status") or "") in {
                             DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
                             RECONCILED_ABSENT_SAFE_TO_RETRY,
@@ -1254,7 +1254,7 @@ class DurablePublicationCoordinator:
             }
         message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
         destination = str((message or {}).get("destination") or "")
-        if not message or destination not in {"x", "instagram_business"}:
+        if not message or destination not in {"x", "facebook_page", "instagram_business"}:
             return {
                 "status": "CORRECTION_BLOCKED_DESTINATION_NOT_AUTHORIZED",
                 "publish_called": False,
@@ -1290,10 +1290,9 @@ class DurablePublicationCoordinator:
                 "status": "CORRECTION_BLOCKED_CANONICAL_IDENTITY_MISMATCH",
                 "publish_called": False,
             }
-        unknown_write_count = sum(
-            str(row.get("status") or "") == UNKNOWN_WRITE
-            for row in self.store.list_platform_dispatches()
-        )
+        # An ambiguity is local to its existing dispatch after canonical confirmation.
+        # Never retry that action; an independent, proven-absent destination can repair.
+        unknown_write_count = int(dispatch.get("status") in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING})
         if unknown_write_count:
             return {
                 "status": "CORRECTION_BLOCKED_UNKNOWN_WRITE_PRESENT",
