@@ -801,6 +801,7 @@ def test_exact_four_task_packet_assigns_native_roles_and_keeps_four_active_light
         "visual-edit": {"model": "gpt-6.1-sol", "reasoning_effort": "max"},
         "write": {"model": "gpt-6.1-sol", "reasoning_effort": "max"},
         "revise": {"model": "gpt-6.1-sol", "reasoning_effort": "max"},
+        "final-visual": {"model": "gpt-6.1-sol", "reasoning_effort": "max"},
     }
     assert packet["editorial_worker_reasoning_effort"] == "max"
     assert packet["role_settings_state"] == "CONFIGURED_TARGET_NOT_INVOCATION_PROOF"

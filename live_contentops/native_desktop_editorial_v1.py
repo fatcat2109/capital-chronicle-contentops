@@ -32,10 +32,13 @@ ROLE_ASSIGNMENTS = {
     "visual-edit": {"model": MODEL, "reasoning_effort": "max"},
     "write": {"model": MODEL, "reasoning_effort": "max"},
     "revise": {"model": MODEL, "reasoning_effort": "max"},
+    "final-visual": {"model": MODEL, "reasoning_effort": "max"},
 }
 
 
 def native_role(stage):
+    if re.fullmatch(r"final-visual-[a-f0-9]{64}", stage):
+        return "final-visual"
     if stage == "visual-edit-amend":
         return "visual-edit"
     if stage == "media-plan":
@@ -396,6 +399,8 @@ class NativeDesktopTurn:
             raise ValueError("NATIVE_DESKTOP_INVOCATION_OBSERVATION_REQUIRED")
         if observation.get("speed", "standard") != "standard":
             raise ValueError("PAID_SPEED_NOT_AUTHORIZED")
+        if role == "final-visual":
+            validate_final_visual_return(self, request, response)
         if stage == "revise":
             writer = self._get("write", "response")
             if not writer or observation["invocation_id"] != writer["invocation_observation"]["invocation_id"]:
@@ -419,6 +424,8 @@ class NativeDesktopTurn:
             expected = {r["input_sha256"]: r["original_record"]["headline_id"]
                         for r in request["governed_input"]["records"]}
             ok, _, _, reason = _validate(json.dumps(response["output"]), expected)
+        elif role == "final-visual":
+            ok, reason = True, None
         elif role == "visual-edit":
             validate_visual_decision(response["output"])
             ok, reason = True, None
@@ -517,7 +524,8 @@ def normalize_native_receipt(value: dict[str, Any], telemetry: Mapping[str, Any]
         value["exact_next_blocker"] = value["exact_next_blocker"].replace("GEMINI_", "DESKTOP_")
 
 
-def bind_editorial_media(store, *, run_id, article_identity, assets, expected_package_revision=None):
+def bind_editorial_media(store, *, run_id, article_identity, assets, expected_package_revision=None,
+                         final_visual_repair=None, corrected_worker_output=None):
     """Seal relevant inspected media before review using the existing final outbox.
 
     Earlier bytes stay history. A reviewed correction needs its exact revision and
@@ -530,6 +538,19 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     result = json.loads(row["payload"]) if row else {}
     if result.get("article_identity") != article_identity or not result.get("qualified_article_count"):
         raise ValueError("EXACT_QUALIFIED_NATIVE_ARTICLE_REQUIRED")
+    if final_visual_repair is not None:
+        turn = NativeDesktopTurn(store, run_id=run_id, output_dir=final_visual_repair["output_dir"])
+        request = turn.frozen_request(final_visual_repair["stage"])
+        response = turn._get(final_visual_repair["stage"], "response")
+        if (not request or not response or native_role(final_visual_repair["stage"]) != "final-visual"
+                or request["request_sha256"] != final_visual_repair["request_sha256"]
+                or request["governed_input"]["binding"]["article_revision"] != native_review_revision(result)
+                or response["output"]["decision"] != "REPAIR_REQUIRED"
+                or final_visual_repair.get("invocation_id") != response["invocation_observation"]["invocation_id"]
+                or not final_visual_repair.get("findings_addressed")):
+            raise ValueError("SAME_MAX_TARGETED_VISUAL_REPAIR_REQUIRED")
+        for original in result.get("media_assets", []):
+            _final_visual_file(original)  # Corrections use new revision paths, never overwrite frozen originals.
     if any(r["work_item_id"] == row["work_item_id"] and r["reviewer_ref"] == "NATIVE_DESKTOP_ARTICLE_REVIEW" for r in read_reviews(store)):
         if expected_package_revision != native_review_revision(result):
             raise ValueError("MEDIA_BINDING_REQUIRES_EXACT_REVIEWED_REVISION")
@@ -539,10 +560,22 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
                 (run_id,row["work_item_id"])).fetchone()
         if dispatched:
             raise ValueError("REVIEWED_MEDIA_IMMUTABLE_AFTER_PUBLICATION_DISPATCH")
+    corrected_article = result["article"]
+    if corrected_worker_output is not None:
+        if final_visual_repair is None:
+            raise ValueError("COPY_CORRECTION_REQUIRES_SAME_MAX_FINAL_REPAIR")
+        from live_contentops.v1_simple_gemini_newsroom_v1 import _validate_worker_text, _validate_article_against_source_pack
+        ok, _, _, reason = _validate_worker_text(json.dumps(corrected_worker_output))
+        if not ok:
+            raise ValueError("TARGETED_COPY_REPAIR_SCHEMA:" + str(reason))
+        revised, _ = _validate_article_against_source_pack(corrected_worker_output, result["evidence"],
+            selected_candidate=result["simple_result"]["selected_candidate"],
+            article_mode=result["article"]["resolved_article_mode"], epistemic_state=result["article"].get("epistemic_state"))
+        corrected_article = {**result["article"], **revised}
     allowed = {d["url"] for d in result.get("evidence", [])}
     for d in result.get("evidence", []):
         allowed.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
-    reader_first = result["article"].get("reader_first_version") == "DATA_JOURNALISM_V1"
+    reader_first = corrected_article.get("reader_first_version") == "DATA_JOURNALISM_V1"
     if not 1 <= len(assets) <= (7 if reader_first else 3) or _private(assets):
         raise ValueError("BOUNDED_PUBLIC_MEDIA_REQUIRED")
     # The owned quantitative visual carries the story's evidence into short-form
@@ -550,7 +583,8 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     if not reader_first:
         assets = sorted(assets, key=lambda a: a.get("modality") != "source_backed_chart")
     else:
-        validate_release_media({**result, "media_assets": assets})
+        validate_release_media({**result, "article": corrected_article, "media_assets": assets,
+            "visual_editorial_decision": corrected_article.get("visual_editorial_decision")})
     for asset in assets:
         if asset.get("modality") == "documentary_photo":
             from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
@@ -563,24 +597,51 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
                 or sha256(resolve_workspace_path(asset["path"]).read_bytes()).hexdigest() != asset.get("sha256")):
             raise ValueError("MEDIA_SOURCE_RIGHTS_OR_BYTES_UNBOUND")
     from live_contentops.v1_simple_gemini_newsroom_v1 import native_source_date_notice
-    used_source_ids = set(re.findall(r"\[\[SOURCE:(SOURCE_\d+)\]\]", result["article"]["substack_body_markdown"]))
-    article = {**result["article"], "source_date_notice": native_source_date_notice(result.get("evidence", []),
+    used_source_ids = set(re.findall(r"\[\[SOURCE:(SOURCE_\d+)\]\]", corrected_article["substack_body_markdown"]))
+    article = {**corrected_article, "source_date_notice": native_source_date_notice(result.get("evidence", []),
         used_source_ids)}
     if assets == result.get("media_assets") and article == result["article"]:
         return {"classification": "MEDIA_ALREADY_BOUND", "article_identity": article_identity}
     store.register_outbox_message(message_id=key + "-package-history-" + sha256_of(result),
         work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
         payload=canonical_bytes(result).decode(), status="EDITORIAL_INTERNAL")
+    if final_visual_repair is not None:
+        store.register_outbox_message(message_id=key + "-visual-repair-" + sha256_of(final_visual_repair),
+            work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
+            payload=canonical_bytes({**final_visual_repair, "corrected_worker_output": corrected_worker_output}).decode(), status="EDITORIAL_INTERNAL")
+    if corrected_worker_output is not None:
+        from live_contentops.v1_simple_gemini_newsroom_v1 import _text_hash
+        article_identity = _text_hash(article["substack_body_markdown"])
     from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle
-    bundle, _ = _native_preview_bundle(article=article, article_mode=article["resolved_article_mode"],
+    bundle, intents = _native_preview_bundle(article=article, article_mode=article["resolved_article_mode"],
         article_identity=article_identity, epistemic_state=article.get("epistemic_state"),
         media_asset_ids=[a["asset_id"] for a in assets], media_assets=assets)
     previews = [{"destination": k, "payload": v, "preview_id": "cc-preview-" + sha256_of([article_identity, k, v]),
         "article_identity": article_identity, "claim_lineage": result.get("claim_lineage", [])}
         for k, v in bundle["packages"].items()]
-    updated = {**result, "article": article, "media_assets": assets, "previews": previews,
+    updated = {**result, "article": article, "article_identity": article_identity, "media_assets": assets, "previews": previews,
         "media_preview_binding_sha256": sha256_of(previews),
         "media_reuse_count": sum(a.get("reuse_state") == "EXACT_BYTES_REUSED_NO_RENDER" for a in assets)}
+    if corrected_worker_output is not None:
+        from live_contentops.newsroom_production_day_v1 import persist_qualified_article_record, _logical_hash
+        registered = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
+        operation = json.loads(registered["payload"]) if registered else {}
+        if resolve_workspace_path(operation.get("output_dir", ".")) != turn.root:
+            raise ValueError("EXACT_TARGETED_COPY_OPERATION_REQUIRED")
+        original_record = (result.get("visual_repair_revision") or {}).get("qualified_record_path") or str(turn.root / "qualified_article_record_v1.json")
+        record = json.loads(resolve_workspace_path(original_record).read_bytes())
+        root = turn.root / "editorial-revisions" / sha256_of([article, assets])
+        root.mkdir(parents=True, exist_ok=True)
+        article_path = root / "article_manifest_v1.json"
+        article_path.write_bytes(canonical_bytes(article))
+        record.update(article_identity=article_identity, article_path=str(article_path),
+            derivative_package_intents=intents, derivative_package_intent_count=len(intents))
+        record["record_sha256"] = _logical_hash({k:v for k,v in record.items() if k != "record_sha256"})
+        record_path = persist_qualified_article_record(root, record)
+        updated["visual_repair_revision"] = {"qualified_record_path": str(record_path),
+            "prior_article_identity": result["article_identity"], "source_requests": 0, "intake_restarted": False}
+        updated["simple_result"] = {**result["simple_result"], "article_identity": article_identity,
+            "article_path": str(article_path), "qualified_record_path": str(record_path)}
     store.finalize_outbox_payload_before_dispatch(message_id=key, payload=canonical_bytes(updated).decode(), status="EDITORIAL_INTERNAL")
     return {"classification": "MEDIA_BOUND_REVIEW_REQUIRED", "article_identity": article_identity, "media_count": len(assets), "public_write_performed": False}
 
@@ -685,6 +746,192 @@ def native_review_revision(result, *, include_metadata=True):
     return sha256_of(revision_input)
 
 
+FINAL_VISUAL_LAYOUT_CHECKS = ("overlap_clipping", "labels_legend", "text_contrast", "crop_distortion", "placement")
+FINAL_VISUAL_DATA_CHECKS = ("sign_magnitude", "denominator", "period_year_quarter", "units_currency",
+    "transformation_rounding", "source_link_claim", "zero_baseline_scale", "comparisons_stacks_totals_missingness")
+FINAL_VISUAL_PHOTO_CHECKS = ("identity_relevance", "archive_context", "caption_credit_alt", "lawful_reuse")
+FINAL_VISUAL_CHANNELS = {"substack", "telegram", "discord", "x", "linkedin", "facebook_page",
+    "instagram_business", "threads", "youtube"}
+
+
+def _final_visual_file(item):
+    from hashlib import sha256
+    path = resolve_workspace_path(item["path"])
+    if not item.get("sha256") or not path.is_file() or sha256(path.read_bytes()).hexdigest() != item["sha256"]:
+        raise ValueError("FINAL_VISUAL_ARTIFACT_BYTES_CHANGED")
+    return {"path": str(path), "sha256": item["sha256"]}
+
+
+def final_visual_binding(result, *, renders):
+    """Bind exact final pixels and view payloads; this does not judge those pixels."""
+    assets = result.get("media_assets", [])
+    for asset in assets:
+        _final_visual_file(asset)
+    by_id = {a["asset_id"]: a for a in assets}
+    previews = {p["destination"]: p["payload"] for p in result.get("previews", [])}
+    if set(previews) != FINAL_VISUAL_CHANNELS - {"substack"}:
+        raise ValueError("FINAL_VISUAL_EXACT_EIGHT_VARIANTS_REQUIRED")
+    variants = {}
+    for destination in sorted(FINAL_VISUAL_CHANNELS):
+        payload = result["article"] if destination == "substack" else previews[destination]
+        if destination == "substack":
+            ids = set(by_id)
+        else:
+            ids = set(payload.get("media_asset_ids", [])) if isinstance(payload, dict) else set()
+            if isinstance(payload, dict):
+                ids.update(a for p in payload.get("posts", []) if isinstance(p, dict) for a in p.get("media_asset_ids", []))
+        if not ids <= set(by_id):
+            raise ValueError("FINAL_VISUAL_VARIANT_MEDIA_UNBOUND")
+        variants[destination] = sha256_of([payload, [by_id[i] for i in sorted(ids)]])
+    if renders is None:
+        return {"article_identity": result["article_identity"], "article_revision": native_review_revision(result),
+                "variants": variants, "required_viewports": ["desktop", "mobile"]}
+    observed, seen = [], set()
+    from PIL import Image
+    for render in renders:
+        key = (render.get("destination"), render.get("viewport"))
+        if (key[0] not in FINAL_VISUAL_CHANNELS or key[1] not in {"desktop", "mobile"}
+                or key in seen or not render.get("render_id")
+                or render.get("variant_sha256") != variants[key[0]]):
+            raise ValueError("FINAL_VISUAL_RENDER_VARIANT_UNBOUND")
+        seen.add(key)
+        image = _final_visual_file(render)
+        html = _final_visual_file(render["render_source"])
+        with Image.open(image["path"]) as pixels:
+            width, height = pixels.size
+            pixels.verify()
+        if width < (800 if key[1] == "desktop" else 320) or height < 100 or (key[1] == "mobile" and width > 600):
+            raise ValueError("FINAL_VISUAL_VIEWPORT_PIXELS_REQUIRED")
+        observed.append({**render, **image, "render_source": html, "width": width, "height": height})
+    if seen != {(d, v) for d in FINAL_VISUAL_CHANNELS for v in ("desktop", "mobile")}:
+        raise ValueError("FINAL_VISUAL_DESKTOP_MOBILE_COVERAGE_REQUIRED")
+    if len({r["render_id"] for r in observed}) != len(observed):
+        raise ValueError("FINAL_VISUAL_DISTINCT_RENDER_IDS_REQUIRED")
+    from hashlib import sha256
+    root = Path(__file__).resolve().parents[1]
+    renderer = {name: sha256((root / name).read_bytes()).hexdigest() for name in (
+        "ui/contentops_v5/scripts/render-report-workspace.mjs",
+        "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx", "ui/contentops_v5/src/index.css")}
+    return {"article_identity": result["article_identity"], "article_revision": native_review_revision(result),
+        "source_sha256": sha256_of(result.get("evidence", [])), "assets": assets,
+        "variants": variants, "renders": observed, "renderer_sha256": renderer,
+        "reviewer_assignment": dict(ROLE_ASSIGNMENTS["final-visual"])}
+
+
+def request_final_visual_review(turn, *, renders):
+    """Same writer reviews final assembly; changed revisions receive their own immutable request."""
+    row = turn.store.get_outbox_message("cc-editorial-final-" + sha256_of(turn.run_id))
+    result = json.loads(row["payload"]) if row else {}
+    if not result.get("qualified_article_count"):
+        raise ValueError("FINAL_VISUAL_FINISHED_ARTICLE_REQUIRED")
+    writer = turn._get("write", "response")
+    if not writer:
+        raise ValueError("FINAL_VISUAL_SAME_NATIVE_WRITER_REQUIRED")
+    binding = final_visual_binding(result, renders=renders)
+    stage = "final-visual-" + sha256_of(binding)
+    governed = {"binding": binding, "article": result["article"], "previews": result["previews"],
+        "evidence": result.get("evidence", []), "writer_invocation_id": writer["invocation_observation"]["invocation_id"],
+        "layout_checks": list(FINAL_VISUAL_LAYOUT_CHECKS), "data_checks": list(FINAL_VISUAL_DATA_CHECKS),
+        "photo_checks": list(FINAL_VISUAL_PHOTO_CHECKS)}
+    prompt = (
+        "You are the SAME actual native gpt-6.1-sol/max visual editor/writer. Inspect the FINISHED article, "
+        "every visual and all bound canonical/channel desktop/mobile rendered pixels with local image or Neo tools. "
+        "Settings, plans, prose or deterministic tests are not visual inspection. Compare each chart to exact admitted "
+        "source values: sign/magnitude, denominator, period/year/quarter, units/currency, transformations/rounding, "
+        "source links/claims, visible correct zero baseline/scale, stacks/totals/comparisons/missingness. Check labels, "
+        "legend, overlap/clipping, readable text/contrast, crop/distortion and placement. Check photos for identity, "
+        "relevance, archive context, lawful reuse, caption/credit/alt. Chartless news still needs actual photo review. "
+        "Return JSON with decision ACCEPT, REPAIR_REQUIRED or EXTERNAL_BLOCK; asset_findings and render_findings. "
+        "Every asset finding has asset_id, asset_sha256, pixels_inspected=true, checks containing every applicable "
+        "layout/data/photo key from GOVERNED_INPUT, findings list and substantive evidence_notes. Every render finding "
+        "has render_id, sha256, pixels_inspected=true, all layout checks, findings and evidence_notes. If actual visual "
+        "access is unavailable, preserve pixels_inspected=false, UNVERIFIED and an exact EXTERNAL_BLOCK; never claim "
+        "inspection. Check values are "
+        "PASS/FAIL/UNVERIFIED/NOT_APPLICABLE. ACCEPT requires no failed/unverified check or unresolved finding. "
+        "If defective, YOU directly repair only affected source-bound copy/media/layout with existing tools, re-render "
+        "affected views, inspect and resubmit the same article's corrected revision. Save corrected assets/renders "
+        "at new revision paths; retain frozen originals and valid assets/returns. "
+        "never discard the story or rerun intake. No one-repair ceiling for concrete correctable defects, no blind loop "
+        "or repeated votes. External gaps preserve the product and exact pending repair. No public send here.\n"
+        "GOVERNED_INPUT:\n" + canonical_bytes(governed).decode())
+    frozen = turn.frozen_request(stage)
+    return turn(logical_invocation_id=turn.run_id + ":" + stage,
+        prompt=frozen["prompt"] if frozen else prompt,
+        governed_input=frozen["governed_input"] if frozen else governed,
+        validator=lambda raw: (True, None, json.loads(raw), None))
+
+
+def validate_final_visual_return(turn, request, response):
+    binding = request["governed_input"]["binding"]
+    observation, output = response["invocation_observation"], response["output"]
+    writer = turn._get("write", "response")
+    assignment = ROLE_ASSIGNMENTS["final-visual"]
+    if (not writer or observation.get("model") != assignment["model"]
+            or observation.get("reasoning_effort") != assignment["reasoning_effort"]
+            or observation.get("invocation_id") != writer["invocation_observation"]["invocation_id"]):
+        raise ValueError("FINAL_VISUAL_ACTUAL_SAME_SOL61_MAX_REQUIRED")
+    row = turn.store.get_outbox_message("cc-editorial-final-" + sha256_of(turn.run_id))
+    result = json.loads(row["payload"]) if row else {}
+    if final_visual_binding(result, renders=binding["renders"]) != binding:
+        raise ValueError("FINAL_VISUAL_REVIEW_REVISION_CHANGED")
+    if output.get("decision") not in {"ACCEPT", "REPAIR_REQUIRED", "EXTERNAL_BLOCK"}:
+        raise ValueError("FINAL_VISUAL_DECISION_REQUIRED")
+    if not isinstance(output.get("asset_findings"), list) or not isinstance(output.get("render_findings"), list):
+        raise ValueError("FINAL_VISUAL_PER_ASSET_RENDER_FINDINGS_REQUIRED")
+    checks_failed = False
+    for kind, expected, identity, sha_key in (
+            ("asset_findings", binding["assets"], "asset_id", "asset_sha256"),
+            ("render_findings", binding["renders"], "render_id", "sha256")):
+        found = output[kind]
+        if len(found) != len(expected) or {f.get(identity) for f in found} != {a[identity] for a in expected}:
+            raise ValueError("FINAL_VISUAL_EXACT_FINDING_COVERAGE_REQUIRED")
+        for original in expected:
+            finding = next(f for f in found if f[identity] == original[identity])
+            keys = set(FINAL_VISUAL_LAYOUT_CHECKS)
+            if kind == "asset_findings":
+                keys.update(FINAL_VISUAL_DATA_CHECKS if original["modality"] == "source_backed_chart" else FINAL_VISUAL_PHOTO_CHECKS)
+            values = finding.get("checks", {})
+            if (finding.get(sha_key) != original["sha256"] or not isinstance(finding.get("pixels_inspected"), bool)
+                    or not keys <= set(values) or any(v not in {"PASS", "FAIL", "UNVERIFIED", "NOT_APPLICABLE"} for v in values.values())
+                    or not isinstance(finding.get("findings"), list) or len(str(finding.get("evidence_notes", "")).strip()) < 20):
+                raise ValueError("FINAL_VISUAL_ACTUAL_PIXELS_AND_CHECKS_REQUIRED")
+            checks_failed |= bool(not finding["pixels_inspected"] or finding["findings"]
+                                  or any(v in {"FAIL", "UNVERIFIED"} for v in values.values()))
+    if checks_failed and output["decision"] == "ACCEPT":
+        raise ValueError("FINAL_VISUAL_UNRESOLVED_ISSUE_CANNOT_ACCEPT")
+    if not checks_failed and output["decision"] != "ACCEPT":
+        raise ValueError("FINAL_VISUAL_EXACT_REPAIR_FINDING_REQUIRED")
+
+
+def final_visual_acceptance(store, *, run_id, result, reference):
+    if not isinstance(reference, dict) or not reference.get("stage"):
+        raise ValueError("ACTUAL_FINAL_MAX_VISUAL_REVIEW_REQUIRED")
+    turn = NativeDesktopTurn(store, run_id=run_id, output_dir=reference["output_dir"], owner_manual_validation=True)
+    stage = reference["stage"]
+    request, response = turn.frozen_request(stage), turn._get(stage, "response")
+    if (native_role(stage) != "final-visual" or not request or not response
+            or request["request_sha256"] != reference.get("request_sha256")
+            or response["request_sha256"] != request["request_sha256"]):
+        raise ValueError("EXACT_FINAL_VISUAL_NATIVE_RETURN_REQUIRED")
+    validate_final_visual_return(turn, request, response)
+    if (response["output"]["decision"] != "ACCEPT"
+            or request["governed_input"]["binding"]["article_revision"] != native_review_revision(result)):
+        raise ValueError("FINAL_VISUAL_TARGETED_REPAIR_REQUIRED")
+    return {"stage": stage, "request_sha256": request["request_sha256"], "response_sha256": sha256_of(response),
+        "output_dir": str(turn.root), "article_revision": native_review_revision(result),
+        "render_binding_sha256": sha256_of(request["governed_input"]["binding"]),
+        "invocation_observation": response["invocation_observation"]}
+
+
+def require_current_final_visual_review(store, *, run_id):
+    result, _, review = validated_native_review(store, run_id=run_id)
+    note = json.loads(review["notes"])
+    acceptance = final_visual_acceptance(store, run_id=run_id, result=result, reference=note.get("final_visual_review"))
+    if note["final_visual_review"] != acceptance:
+        raise ValueError("FINAL_VISUAL_ACCEPTANCE_BINDING_CHANGED")
+    return acceptance
+
+
 def validated_native_review(store, *, run_id):
     """Read the current revision/source/media boundary shared by preparation and continuation."""
     from hashlib import sha256
@@ -718,7 +965,7 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     from live_contentops.newsroom_production_day_v1 import persist_qualified_article_record
     result, row, current_review = validated_native_review(store, run_id=run_id)
     assets = result.get("media_assets", [])
-    root = resolve_workspace_path(output_dir) / "reviewed-handoff"
+    root = resolve_workspace_path(output_dir) / "reviewed-handoff" / native_review_revision(result)
     root.mkdir(parents=True, exist_ok=True)
     article = result["article"]
     state = article.get("epistemic_state")
@@ -731,7 +978,9 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
         for k, v in previews["packages"].items()]
     if result.get("media_preview_binding_sha256") and current_previews != result.get("previews"):
         raise ValueError("COMPILED_PREVIEW_CHANGED_REVIEW_REQUIRED")
-    record = json.loads((resolve_workspace_path(output_dir) / "qualified_article_record_v1.json").read_bytes())
+    record_path = (result.get("visual_repair_revision") or {}).get("qualified_record_path")
+    record = json.loads((resolve_workspace_path(record_path) if record_path else
+        resolve_workspace_path(output_dir) / "qualified_article_record_v1.json").read_bytes())
     # Same article/source/worker identity; only the pre-publication package/media binding changes.
     record["derivative_package_intents"] = intents
     # The qualified-record hash uses the existing owner's canonical JSON convention.

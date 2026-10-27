@@ -17,6 +17,7 @@ from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.native_desktop_publication_v1 import (
     NativeReviewedPublication,
     prepare_native_publication,
+    _prepared_packet,
 )
 from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, TOOL
 from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
@@ -31,7 +32,7 @@ PROOF = ROOT / "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018"
 CANONICAL = "https://capitalchronicle.substack.com/p/controlled-goal32"
 
 
-def seeded(tmp_path, monkeypatch, *, manual=False):
+def seeded(tmp_path, monkeypatch, *, manual=False, final_visual=True):
     """Retain exact Goal31 prose/evidence/media bytes; relocate only this test packet."""
     fixture = json.loads(
         gzip.decompress((PROOF / "goal32/retained_goal31_packet.json.gz").read_bytes())
@@ -160,6 +161,10 @@ def seeded(tmp_path, monkeypatch, *, manual=False):
         expected_state_version=control["state_version"],
         control_source="CONTROLLED_TEST",
     )
+    if final_visual:
+        from native_final_visual_fixture_v1 import accept_final_visual_fixture
+        review = accept_final_visual_fixture(store, binding, result, review)
+        prepare_native_publication(store, binding)
     return store, binding, rollout, result, review
 
 
@@ -336,7 +341,7 @@ def test_real_packet_preparation_manual_isolation_and_seals(tmp_path, monkeypatc
         and not store.list_platform_dispatches()
     )
     original = (
-        Path(binding["output_dir"]) / "reviewed-handoff/article_manifest_v1.json"
+        _prepared_packet(store, binding)[2] / "article_manifest_v1.json"
     ).read_bytes()
     assert json.loads(original) == result["article"]
     prepare_native_publication(store, binding)
@@ -558,8 +563,7 @@ def test_artifact_seal_and_pause_rechecked_at_continuation(tmp_path, monkeypatch
     operation.resume()
     packet = executor.pending()[0]
     path = (
-        Path(binding["output_dir"])
-        / "reviewed-handoff/native_derivative_previews_v1.json"
+        _prepared_packet(store, binding)[2] / "native_derivative_previews_v1.json"
     )
     path.write_bytes(path.read_bytes() + b" ")
     with pytest.raises(ValueError, match="PACKET_CHANGED"):
