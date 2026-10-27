@@ -787,7 +787,7 @@ def test_desktop_rehearsal_reuses_canonical_reserved_frontier_and_never_promotes
     } == output_before
 
 
-def test_exact_four_task_packet_assigns_native_roles_and_keeps_four_paused_light_coordinators():
+def test_exact_four_task_packet_assigns_native_roles_and_keeps_four_active_light_coordinators():
     packet = four_task_setup_packet()
     assert packet["model"] == "gpt-6.1-sol"
     assert packet["reasoning_effort"] == "low"
@@ -807,7 +807,7 @@ def test_exact_four_task_packet_assigns_native_roles_and_keeps_four_paused_light
     assert packet["speed"] == "standard"
     for task in packet["tasks"]:
         assert task["id"] in EXACT_V1_AUTOMATION_IDS
-        assert task["status"] == "PAUSED"
+        assert task["status"] == "ACTIVE"
         assert task["id"] in task["prompt"]
         assert "scripts/run_native_desktop_editorial.py" in task["prompt"]
         assert "UNKNOWN" in task["prompt"]
@@ -897,7 +897,7 @@ def test_committed_automation_normalization_readback_remains_historical_evidence
         assert task["model"] == "gpt-5.6-sol"
         assert packet["model"] == "gpt-6.1-sol"
         assert task["reasoning_effort"] == "high"
-        assert task["status"] == "PAUSED"
+        assert task["status"] == "ACTIVE"
         assert task["after_prompt_sha256"] == historical_prompt_sha
         assert len(task["after_host_config_sha256"]) == 64
         assert "prompt" not in task

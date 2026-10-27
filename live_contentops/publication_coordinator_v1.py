@@ -38,6 +38,9 @@ RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE = (
     "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE"
 )
 DERIVATIVE_EXPIRED_STALE_NO_WRITE = "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+EXTERNAL_REMOVAL_REPORTED_NO_RETRY = "EXTERNAL_REMOVAL_REPORTED_NO_RETRY"
+OWNER_RETAINED_DRAFT_NO_PUBLISH = "OWNER_RETAINED_DRAFT_NO_PUBLISH"
+OWNER_RETIRED_STATUSES = {EXTERNAL_REMOVAL_REPORTED_NO_RETRY, OWNER_RETAINED_DRAFT_NO_PUBLISH}
 DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE = (
     "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE"
 )
@@ -308,6 +311,61 @@ class DurablePublicationCoordinator:
 
     def _recovery_is_quarantined(self, work_item_id: Any) -> bool:
         return str(work_item_id or "") in self._recovery_quarantined_work_item_ids
+
+    def reconcile_owner_removed_object(self, dispatch_id: str, *, disposition: str,
+                                       observation: Mapping[str, Any]) -> dict[str, Any]:
+        """Append the owner's cleanup observation and retire its exact historical send.
+
+        A posting-list observation is recorded as reported removal, not invented exact
+        object readback. IDs, prior success/ambiguity and original readbacks survive.
+        Neither removal nor a deliberately retained draft grants retry permission.
+        """
+        dispatch = self.store.get_platform_dispatch(dispatch_id)
+        if disposition not in OWNER_RETIRED_STATUSES or not dispatch:
+            raise ValueError("EXACT_OWNER_REMOVAL_DISPOSITION_REQUIRED")
+        message = self.store.get_outbox_message(dispatch["message_id"])
+        observed = dict(observation)
+        if (dispatch["status"] in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING}
+                and observed.get("exact_object_absence_verified") is not True):
+            raise ValueError("AMBIGUOUS_OBJECT_REQUIRES_EXACT_READBACK")
+        if (disposition == OWNER_RETAINED_DRAFT_NO_PUBLISH
+                and dispatch["status"] not in {RECONCILED_ABSENT_SAFE_TO_RETRY, OWNER_RETAINED_DRAFT_NO_PUBLISH}):
+            raise ValueError("EXACT_RECONCILED_DRAFT_REQUIRED")
+        if (not message or observed.get("destination") != message["destination"]
+                or observed.get("public_object_id") != dispatch.get("public_object_id")
+                or not dispatch.get("public_object_id")
+                or not all(observed.get(k) for k in ("authority_ref", "observation_ref", "observed_at_utc", "observation_basis"))):
+            raise ValueError("OWNER_REMOVAL_EXACT_OBJECT_AND_PROVENANCE_REQUIRED")
+        stamp = datetime.fromisoformat(observed["observed_at_utc"].replace("Z", "+00:00"))
+        if stamp.tzinfo is None or stamp > self._clock() + timedelta(seconds=30):
+            raise ValueError("OWNER_REMOVAL_OBSERVATION_CLOCK_INVALID")
+        readback_id = "owner-removal-" + _hash(_canonical_json([dispatch_id, disposition, observed]))
+        existing = next((r for r in self.store.list_readbacks_for_dispatch(dispatch_id)
+                         if r["readback_id"] == readback_id), None)
+        reconciliation_id = "reconciliation_" + dispatch_id.removeprefix("dispatch_")
+        prior = next((r for r in self.store.get_reconciliations_for_work_item(message["work_item_id"])
+                      if r["reconciliation_id"] == reconciliation_id), None)
+        if not existing:
+            if dispatch["status"] in OWNER_RETIRED_STATUSES:
+                raise ValueError("OWNER_REMOVAL_ALREADY_RECORDED_USE_ORIGINAL_OBSERVATION")
+            self.store.register_readback(readback_id=readback_id, dispatch_id=dispatch_id,
+                readback_data=_canonical_json({"schema_version": "contentops.owner_removal_observation.v1",
+                    "disposition": disposition, "observation": observed,
+                    "previous_dispatch": dispatch, "previous_reconciliation": prior,
+                    "exact_object_absence_independently_verified": observed.get("exact_object_absence_verified") is True,
+                    "retry_permitted": False}))
+        elif json.loads(existing["readback_data"])["disposition"] != disposition:
+            raise ValueError("OWNER_REMOVAL_OBSERVATION_CHANGED")
+        if prior is None:
+            self.store.register_reconciliation(reconciliation_id=reconciliation_id,
+                work_item_id=message["work_item_id"], status=disposition)
+        else:
+            self.store.set_reconciliation_status(reconciliation_id, disposition)
+        self.store.set_dispatch_status(dispatch_id, disposition)
+        self.store.set_outbox_status(message["message_id"], disposition)
+        return {"dispatch_id": dispatch_id, "public_object_id": dispatch["public_object_id"],
+                "public_object_url": dispatch.get("public_object_url"), "status": disposition,
+                "readback_id": readback_id, "retry_permitted": False, "provider_calls": 0}
 
     def _active_unknown_write_count(self) -> int:
         """Count UNKNOWN writes that are allowed to participate in current recovery.
@@ -1664,6 +1722,8 @@ class DurablePublicationCoordinator:
                 )
                 continue
             dispatch = dispatch_by_message.get(str(message["message_id"]))
+            if dispatch and dispatch.get("status") in OWNER_RETIRED_STATUSES:
+                continue
             if dispatch is None and str(message["status"]) == "READY":
                 if (
                     str(message["destination"]) != "substack"
@@ -1891,6 +1951,8 @@ class DurablePublicationCoordinator:
             if self._recovery_is_quarantined(intent.get("work_item_id")):
                 continue
             dispatch = refreshed_dispatches.get(str(message["message_id"]))
+            if dispatch and dispatch.get("status") in OWNER_RETIRED_STATUSES:
+                continue
             destination = str(message["destination"])
             if dispatch and dispatch.get("status") == NATIVE_NEO_PENDING:
                 remaining_destinations.append(destination)
