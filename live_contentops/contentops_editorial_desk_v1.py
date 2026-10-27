@@ -235,11 +235,13 @@ def native_story_projection(edition, rows, *, observed_at_utc=None):
     for chain, versions in groups.items():
         # Topological parent order first; arrival order breaks ties. Never infer
         # ancestry from a common issuer, title, retrieval clock or market topic.
-        remaining = list(versions); ordered = []
+        remaining = list(versions)
+        ordered = []
         while remaining:
             ready = next((v for v in remaining if not v["article"].get("prior_article_identity") or
                 v["article"]["prior_article_identity"] not in {p["article_identity"] for p in remaining}), remaining[0])
-            ordered.append(ready); remaining.remove(ready)
+            ordered.append(ready)
+            remaining.remove(ready)
         current = ordered[-1]
         parent_identity = current["article"].get("prior_article_identity")
         prior = next((v for v in ordered if v["article_identity"] == parent_identity), None)
@@ -454,7 +456,8 @@ def read_reviews(store):
         return [dict(r) for r in conn.execute("SELECT * FROM review_records ORDER BY rowid")]
 
 
-def record_native_article_review(store, *, run_id, article_identity, decision, rationale, expected_review_id=None):
+def record_native_article_review(store, *, run_id, article_identity, decision, rationale, expected_review_id=None,
+                                final_visual_review=None):
     """Revision-bound native result review in the existing review table; no publication grant."""
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
     if decision not in {"KEEP", "REVISE", "HOLD"} or not 20 <= len(rationale.strip()) <= 3000 or _private({"rationale": rationale}):
@@ -478,6 +481,10 @@ def record_native_article_review(store, *, run_id, article_identity, decision, r
             note = {"schema_version": "contentops.native_article_review.v1", "run_id": run_id,
                 "article_identity": article_identity, "package_revision": revision, "article_metadata_sha256": metadata_sha,
                 "rationale": rationale.strip(), "publication_authority": False}
+            if final_visual_review is not None:
+                from live_contentops.native_desktop_editorial_v1 import final_visual_acceptance
+                note["final_visual_review"] = final_visual_acceptance(store, run_id=run_id,
+                    result=value, reference=final_visual_review)
             review_id = "native-article-review-" + uuid4().hex
             conn.execute("INSERT INTO review_records VALUES (?,?,?,?,?,?)", (review_id, row["work_item_id"],
                 "NATIVE_DESKTOP_ARTICLE_REVIEW", decision, json.dumps(note, ensure_ascii=False), datetime.now(timezone.utc).isoformat()))

@@ -47,8 +47,10 @@ def _prepared_packet(store, binding):
     if not prepared or prepared[-1]["review_id"] != review["review_id"]:
         raise ValueError("CURRENT_REVIEWED_HANDOFF_REQUIRED")
     packet = prepared[-1]
-    root = resolve_workspace_path(binding["output_dir"]) / "reviewed-handoff"
-    if resolve_workspace_path(packet["output_dir"]) != root:
+    from live_contentops.native_desktop_editorial_v1 import native_review_revision
+    base = resolve_workspace_path(binding["output_dir"]) / "reviewed-handoff"
+    root = resolve_workspace_path(packet["output_dir"])
+    if root not in {base, base / native_review_revision(result)}:
         raise ValueError("REVIEWED_HANDOFF_PATH_CHANGED")
     if not all((root / name).is_file() for name in ARTIFACTS):
         raise ValueError("REVIEWED_HANDOFF_ARTIFACT_MISSING")
@@ -465,6 +467,20 @@ class NativeReviewedPublication:
                 "next_operation": "review-current-packet",
                 "next_command": "Review the current source/article packet; do not begin any prior tool request.",
             }
+        if (not self.binding.get("owner_manual_validation") and value["state"] != "REVIEWED_HANDOFF_REQUIRED"
+                and not any(e["status"] in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED"}
+                            for e in value.get("destinations", []))):
+            from live_contentops.native_desktop_editorial_v1 import require_current_final_visual_review
+            try:
+                acceptance = require_current_final_visual_review(self.store, run_id=self.binding["run_id"])
+                value = {**value, "final_visual_acceptance": acceptance}
+            except (ValueError, OSError, KeyError, TypeError) as exc:
+                value = {**value, "dispatch_blocker": str(exc), "final_visual_acceptance": None,
+                    "next_operation": "final-visual-review",
+                    "next_command": 'python scripts/run_native_desktop_editorial.py final-visual-review --binding "'
+                        + str(resolve_workspace_path(self.binding["output_dir"]) /
+                              ("binding.json" if self.binding.get("owner_manual_live") else "native_operation_binding.json")) + '"',
+                    "resume_condition": "Same designated MAX editor corrects findings, re-renders affected views and records current final acceptance; preserve this operation."}
         return value
 
     def _authorize_and_bind(self):
@@ -510,6 +526,19 @@ class NativeReviewedPublication:
                     "new_publish_calls": 0}
                 return {"classification": "NATIVE_PUBLICATION_CONTINUATION", "coordinator_result": summary,
                         "publication": self.projection()}
+            existing = [e for e in self.projection().get("destinations", [])
+                        if e["status"] in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED"}]
+            from live_contentops.native_desktop_editorial_v1 import require_current_final_visual_review
+            try:
+                require_current_final_visual_review(self.store, run_id=self.binding["run_id"])
+            except (ValueError, OSError) as visual_error:
+                if not existing:
+                    raise
+                summary = {"state": "RECOVERY_READBACK_BEFORE_FINAL_VISUAL_REVIEW", "blocker": str(visual_error),
+                    "readbacks": [self.coordinator.readback_existing_dispatch(e["dispatch_id"]) for e in existing],
+                    "new_publish_calls": 0}
+                return {"classification": "NATIVE_PUBLICATION_CONTINUATION", "coordinator_result": summary,
+                        "publication": self.projection()}
             summary = SimplePublicationHandoffV1(
                 store=self.store, coordinator=self.coordinator
             ).resume(slot_id=self.binding["run_id"], slot_output_dir=root)
@@ -530,9 +559,10 @@ class NativeReviewedPublication:
         if command == "begin":
             packet = self.executor._get(request_hash, "request")
             if packet and packet["request"]["action"] == "PUBLISH":
-                from live_contentops.native_desktop_editorial_v1 import validate_release_media
+                from live_contentops.native_desktop_editorial_v1 import validate_release_media, require_current_final_visual_review
                 result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
                 validate_release_media(result)
+                require_current_final_visual_review(self.store, run_id=self.binding["run_id"])
             try:
                 return self.executor.begin(request_hash)
             except NativeNeoInputRequired as pending:

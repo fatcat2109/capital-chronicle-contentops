@@ -217,6 +217,19 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
         return turn.submit(stage, response)
     if command == "status":
         return turn.telemetry()
+    if command == "final-visual-review":
+        from live_contentops.native_desktop_editorial_v1 import request_final_visual_review, final_visual_binding
+        try:
+            if response is None:
+                row = store.get_outbox_message("cc-editorial-final-" + sha256_of(binding["run_id"]))
+                return {"classification": "FINAL_VISUAL_RENDER_TARGETS", **final_visual_binding(json.loads(row["payload"]), renders=None)}
+            output, receipt = request_final_visual_review(turn, renders=response["renders"])
+            return {"classification": "FINAL_VISUAL_RETURNED", "output": output,
+                    "request_sha256": receipt["request_sha256"], "public_write_performed": False}
+        except DesktopInputRequired as pending:
+            return {"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "stage": pending.request["stage"],
+                    "request_path": pending.request["request_path"], "request_sha256": pending.request["request_sha256"],
+                    "public_write_performed": False}
     if command == "review":
         from live_contentops.contentops_editorial_desk_v1 import record_native_article_review
         return record_native_article_review(store, run_id=binding["run_id"], **response)
@@ -383,7 +396,7 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("newsroom", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "recover-sources", "relocate-workspace", "edition",
+    parser.add_argument("command", choices=("newsroom", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
         "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
         "audience-status", "audience-observe", "audience-tool-begin", "audience-tool-submit", "audience-evaluate", "audience-feedback", "audience-follow-up"))
     parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE)

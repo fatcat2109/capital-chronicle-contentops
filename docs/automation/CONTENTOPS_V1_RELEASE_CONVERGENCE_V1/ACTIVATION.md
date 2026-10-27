@@ -1,5 +1,11 @@
 # V1 scheduled zero-write activation — applied 26 October 2026
 
+## Permanent final-media rule amendment — in progress
+
+Jim's27October mandatory review/direct-repair/permanent-product messages are read_thread verified. [The permanent product contract](../CONTENTOPS_V1_FINAL_MEDIA_REVIEW_AND_REPAIR_RULE_V1.md) is owned by the V1 integrator and linked from current root/authority/strategy/role/runtime documents. Source changes add a same-MAX final-visual request/return bound to finished copy, exact source/media and canonical/eight-channel desktop/mobile renders; actual acceptance persists in existing article reviews and guards fresh coordinator dispatch/tool begin. Concrete failed findings remain the same article's targeted correction, affected re-render/recheck and resumption; there is no arbitrary final-repair cutoff.
+This amendment is not yet merged/installed. PR98 live controls and v1-live-launch-20261027 remain applied and intact; no actual final MAX inspection or new public article is claimed by contract tests. Existing UNKNOWN_WRITE readback/reconciliation remains first.
+
+
 ## 27 October live launch — controls applied, first edition in progress
 
 Direct Jim grant: L2turn01a17b6b-6a34-7d72-b76b-2b87223edd69 / human01a17b6c-ac16-70d0-bea6-d2a6ca82412b, verified via read_thread. Completed cleanup: chat01a17a57-785f-7f63-a78a-c734a9ba93cd / turn01a17b69-2f65-7612-bb69-5c2277f60843. Both Substack Published lists empty at that scope; drafts/pinned guidance retained. Secondary capitalnicle.substack.com Privacy/Terms deliberately deleted, not restored.

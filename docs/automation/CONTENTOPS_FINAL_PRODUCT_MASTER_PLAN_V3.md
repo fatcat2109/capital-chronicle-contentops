@@ -1,5 +1,12 @@
 # Capital Chronicle ContentOps — Final Product Master Plan V3
 
+## Permanent final-media review and direct repair — 27 October 2026
+
+Jim's actual messages01a17b8c-11a4-78b0-8686-d3ca0b1bcb6a,01a17b92-5b16-7a02-92d2-39c33c9df307 and01a17b94-5870-7402-9f46-c736f10052fe were verified via read_thread in assigned L2. The [permanent final-product rule](CONTENTOPS_V1_FINAL_MEDIA_REVIEW_AND_REPAIR_RULE_V1.md) is mandatory for every V1 article and material revision.
+After final assembly the SAME actual designated strongest native editor/writer, currently gpt-6.1-sol/max, inspects the exact rendered canonical/channel desktop/mobile pixels and source-bound visual meaning, then directly repairs concrete defects, re-renders affected outputs and checks the correction. Preserve valid article/intake/returns/assets; no discard/restart or arbitrary one-repair ceiling for recoverable defects. Missing external source/rights/access remains an exact resumable affected-article constraint.
+Existing native request/return and article-review owners bind actual model/effort/invocation, article/media/render revision and findings. The sole publisher rejects missing/stale/wrong-model acceptance or unresolved material issues before a fresh send; UNKNOWN_WRITE recovery remains readback-first. Planning/settings/tests do not prove inspection. Later approved stronger models may replace the active editorial assignment consistently; the review-and-repair obligation is permanent. V2/V3 remain paused.
+
+
 ## Current V1 execution override — 27 October 2026
 
 Jim's direct operator/owner grant in L2 turn `01a17b6b-6a34-7d72-b76b-2b87223edd69`, human message `01a17b6c-ac16-70d0-bea6-d2a6ca82412b`, authorizes actual V1 publication after cleanup and an immediate native run without waiting until17:00. The human grant and completed cleanup turn `01a17b69-2f65-7612-bb69-5c2277f60843` were read through read_thread. No further Jim review is required for this scope.

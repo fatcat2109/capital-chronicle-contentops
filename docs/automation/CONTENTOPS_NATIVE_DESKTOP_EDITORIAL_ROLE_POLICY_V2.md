@@ -1,5 +1,12 @@
 # ContentOps native Desktop editorial role policy V2
 
+## Permanent final-media review and direct repair — 27 October 2026
+
+Jim's actual messages01a17b8c-11a4-78b0-8686-d3ca0b1bcb6a,01a17b92-5b16-7a02-92d2-39c33c9df307 and01a17b94-5870-7402-9f46-c736f10052fe were verified via read_thread in assigned L2. The [permanent final-product rule](CONTENTOPS_V1_FINAL_MEDIA_REVIEW_AND_REPAIR_RULE_V1.md) is mandatory for every V1 article and material revision.
+After final assembly the SAME actual designated strongest native editor/writer, currently gpt-6.1-sol/max, inspects the exact rendered canonical/channel desktop/mobile pixels and source-bound visual meaning, then directly repairs concrete defects, re-renders affected outputs and checks the correction. Preserve valid article/intake/returns/assets; no discard/restart or arbitrary one-repair ceiling for recoverable defects. Missing external source/rights/access remains an exact resumable affected-article constraint.
+Existing native request/return and article-review owners bind actual model/effort/invocation, article/media/render revision and findings. The sole publisher rejects missing/stale/wrong-model acceptance or unresolved material issues before a fresh send; UNKNOWN_WRITE recovery remains readback-first. Planning/settings/tests do not prove inspection. Later approved stronger models may replace the active editorial assignment consistently; the review-and-repair obligation is permanent. V2/V3 remain paused.
+
+
 Authority date: 2026-10-20
 Authority: Jim's explicit three-stage model assignment and request to standardize it in the North Star.
 Status: OWNER_APPROVED_METHOD_IMPLEMENTED_ISOLATED_PROOF / PAUSED_NOT_DEPLOYED
@@ -12,6 +19,7 @@ Scope: ContentOps editorial work only; Main Core model/reasoning policy is uncha
 | X-headline filtering | Luna MAX by default: gpt-6-luna / max. Terra MAX: gpt-5.6-terra / max is an owner-approved alternative when supported and explicitly selected. | Semantic relevance, grouping/novelty signals, keep/reject/defer reasons and exact headline IDs for the next stage. | Source truth, numeric truth, final article selection, public certainty or publication. |
 | Content selection and data preparation | GPT-6.1 Sol Light: gpt-6.1-sol / low. | Story/angle/mode choice, audience question, relevant data/evidence plan, preparation of the compact writer input and existing tool-driven resolution. | Inventing facts, manual numeric calculations, dropping provenance, final canonical prose or overriding the MAX writer. |
 | Article and SEO writing | GPT-6.1 Sol MAX: gpt-6.1-sol / max. | The source-bound canonical article, SEO/search/social packaging, house voice/prose, native-copy passages and any useful bounded editorial revision. | Creating evidence, probabilities, measured market truth, public-write authority or self-certified SEO performance. |
+| Final rendered-media review and direct correction | Current strongest editorial assignment: gpt-6.1-sol / max, SAME actual writer/editor. | Inspect finished canonical/channel desktop/mobile pixels, compare exact data/rights, repair affected copy/media/layout, re-render/recheck and accept the corrected revision. | Substituting plans/tests/settings for actual inspection, weakening source/rights, abandoning a recoverable article or restarting intake. |
 
 This explicit owner policy supersedes Goal24's Sol-low-for-all-stages method and any global
 HIGH ceiling for these assigned MAX stages. It is not a new family-wide default, a paid

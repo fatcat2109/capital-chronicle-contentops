@@ -1004,6 +1004,15 @@ class DurablePublicationCoordinator:
         mode = "AUTONOMOUS_DEFAULT" if native_pending_resume else self._mode()
         if mode != "AUTONOMOUS_DEFAULT":
             return {"destination": destination, "status": f"WRITE_BLOCKED_{mode}", "publish_called": False}
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        native = self.store.get_outbox_message("native-operation-binding-" + sha256_of(intent["work_item_id"]))
+        if native:
+            from live_contentops.native_desktop_editorial_v1 import require_current_final_visual_review
+            try:
+                require_current_final_visual_review(self.store, run_id=intent["work_item_id"])
+            except (ValueError, OSError, KeyError, TypeError) as visual_error:
+                return {"destination": destination, "status": "FINAL_VISUAL_REPAIR_OR_REVIEW_REQUIRED",
+                        "blocker": str(visual_error), "publish_called": False}
         self._record_runtime_activity(intent, "PUBLICATION_JIT", destination=destination)
         if native_pending_resume:
             # Only consume the same durable request/return. Its Desktop action claim checks
