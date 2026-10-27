@@ -1,5 +1,5 @@
 # V1 live launch - final-media rule amendment in progress
-Goal: SAME unfinished CONTENTOPS_V1_LIVE_LAUNCH_AND_FIRST_CURRENT_EDITION_V1; no replacement/restart.
+Goal: SAME unfinished CONTENTOPS_V1_LIVE_LAUNCH_AND_FIRST_CURRENT_EDITION_V1; final-media amendment applied.
 Sole integrator: this chat; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35 only.
 Authoring A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; codex/v1-newsroom-release-convergence.
 PR98 merged/applied d63381482b66b7ee3893195e1c2b2f120a5c175c; exacta7dc05a9 CI40447052802 PASS.
@@ -11,12 +11,14 @@ Cleanup actual delivery read_thread verified:01a17a57-785f-7f63-a78a-c734a9ba93c
 Secondary capitalnicle.substack.com Privacy/Terms deliberately deleted; drafts/pinned guidance retained, never restore silently.
 Current owner-manual operation v1-live-launch-20261027; cutoff2026-10-27T04:00:52.972454Z, no fake scheduled window.
 Binding A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-live-launch-20261027/binding.json.
-Existing /root/live_launch_luna_filter gpt-6-luna/max work/returns preserved; no interruption or replacement.
+Existing Luna chat01a17b86-6cd9-73a1-a736-cd506f1f1a8d/turn01a17b86-6db4-72f3-b908-7e493753de10 inspected: interrupted.
+Same /root/live_launch_luna_filter followup_task accepted to resume pending filter-73151b15/SHAe631045f;175returns preserved.
 New human rules read_thread verified:01a17b8c-11a4-78b0-8686-d3ca0b1bcb6a;01a17b92-5b16-7a02-92d2-39c33c9df307;
 permanent-product clarification01a17b94-5870-7402-9f46-c736f10052fe, same assigned L2.
 L2-authored CONTENTOPS_V1_FINAL_MEDIA_REVIEW_AND_REPAIR_RULE_V1.md read and admitted as this Builder's source reservation.
 Linked permanent rule from root/authority/North Star/Master Plan/role/runtime/activation; generated same-four prompts updated in source.
-New final-visual native request/return binds finished article, exact media, source, all9views desktop/mobile and rendering identity.
+PR99 merged/applied899afb0124100b8d40818931a04261c9ed86abfa; exact7cf6cb92 CI40450853191 SUCCESS.
+Final-visual request/return binds finished article, exact media/source, all9views desktop/mobile and rendering identity.
 Actual same assigned strongest MAX invocation/effort and per-asset/render findings mandatory; plan/settings/tests are not inspection.
 Existing article-review note stores exact acceptance; fresh native coordinator dispatch/tool-begin checks same current acceptance.
 Missing/stale/wrong-model or failed/unverified material checks prevent affected send; UNKNOWN recovery remains readback-first.
@@ -24,11 +26,13 @@ Same MAX directly corrects media or source-validated copy through existing packa
 Versioned handoff artifacts preserve earlier reviewed packages; corrected revision needs affected re-render/review before publication.
 80affected review/publication/live/schedule/owner tests PASS including actual retained-copy source validation;3task/history checks PASS.
 60sole-coordinator/8desk cases PASS;16final review/repair contract cases and3targeted recovery/projection cases PASS.
-Changed-file Ruff/diff checks PASS; scoped source delivery df80a62c, graph refreshed; protected integration/application next.
-The permanent contract/source changes are NOT YET merged/installed; no actual final MAX review or public send claimed.
+Changed-file Ruff/diff checks PASS;16installed isolated final-visual cases PASS; tests do not prove actual visual judgment.
+Permanent contract/enforcement INSTALLED; same four ACTIVE prompts read back, only prompt/updated_at changed.
+Same binding/cutoff and175accepted native returns preserved at04:42UTC; no actual final MAX review/public send yet.
 Prior strategic/native-role/anti-red-tape reads and PR98 verification reused; source budgets32/3/6 and all frozen inputs remain.
 Configured identities verified at launch; LinkedIn official-member API has limited readback; access gaps remain channel-local.
-Next: finish focused checks, integrate/apply final-media requirement, then continue SAME pending native edition through publication.
+Next: existing Luna completes only filtering; resume its exact pending request, then Light and SAME MAX writing/final review/repair/send.
+Parent stops after installed verification under end-while-children-work rule; preserve child and this unfinished goal.
 V2/V3 paused; no new scheduler/store/publisher/reviewer fleet/chat/worktree, spending/paid model/API fallback, broker or CUA.
 Evidence C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/live-launch-20261027/.
 Completion notice NOT_SENT; only whole-goal notice to assigned L2, no L1/peer/progress/monitor/polling.
