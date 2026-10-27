@@ -142,6 +142,7 @@ def test_new_turn_gets_its_own_identity_probe_even_in_same_five_minute_epoch(tmp
 def test_coordinator_pending_publish_and_claimed_loss_enters_readback_only(tmp_path, monkeypatch):
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
     store, executor = setup(tmp_path, allow_publish=True)
+    executor.operation_id = "work"
     control = store.get_operating_control()
     store.update_operating_control(operating_mode="AUTONOMOUS_DEFAULT", expected_state_version=control["state_version"],
         control_source="CONTROLLED_TEST")
@@ -163,7 +164,7 @@ def test_coordinator_pending_publish_and_claimed_loss_enters_readback_only(tmp_p
     executor.begin(packet["request"]["request_sha256"])
     with pytest.raises(ValueError, match="ALREADY_CLAIMED"):
         executor.begin(packet["request"]["request_sha256"])
-    restarted = NativeNeoExecutor(store, operation_id="same-op", output_dir=tmp_path / "resume",
+    restarted = NativeNeoExecutor(store, operation_id="work", output_dir=tmp_path / "resume",
                                   native_invocation_id="new-publish-turn", allow_publish=True)
     with pytest.raises(ValueError, match="ALREADY_CLAIMED"):
         restarted.begin(packet["request"]["request_sha256"])
@@ -171,6 +172,55 @@ def test_coordinator_pending_publish_and_claimed_loss_enters_readback_only(tmp_p
     assert recovered["publish_calls"] == 0
     assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == UNKNOWN_WRITE
     assert any(p["request"]["action"] == "READBACK" for p in executor.pending())
+
+
+@pytest.mark.parametrize('recovery_owner', ['unbound', 'readonly', 'other-operation'])
+def test_unrelated_recovery_preserves_claimed_native_write_and_late_return(tmp_path, monkeypatch, recovery_owner):
+    monkeypatch.setattr('live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled', lambda: None)
+    store, executor = setup(tmp_path, allow_publish=True)
+    executor.operation_id = 'work'
+    control = store.get_operating_control()
+    store.update_operating_control(operating_mode='AUTONOMOUS_DEFAULT',
+        expected_state_version=control['state_version'], control_source='CONTROLLED_TEST')
+    coordinator = DurablePublicationCoordinator(store=store,
+        transport_runtime=CanonicalDestinationTransportRuntimeV1(
+            neo_transport=NeoDestinationHandoff(native_executor=executor)),
+        readiness_provider=lambda _: {'readiness_state': 'READY_AUTHENTICATED'})
+    value = intent()
+    ids = coordinator._ids('work', 'plan', 'substack')
+    store.register_outbox_message(message_id=ids['message_id'], work_item_id='work', destination='substack',
+        payload=json.dumps(value), status='READY')
+    message = store.get_outbox_message(ids['message_id'])
+    assert coordinator._dispatch_message(message, canonical_url=value['canonical_url'])['status'] == PENDING
+    packet = executor.pending()[0]
+    monkeypatch.setattr(executor, 'readiness', lambda _: {'authenticated': True, 'native_executor_bound': True})
+    executor.begin(packet['request']['request_sha256'])
+    claim = executor._get(packet['request']['request_sha256'], 'started')
+
+    foreign = None if recovery_owner == 'unbound' else NativeNeoExecutor(store,
+        operation_id='another-work' if recovery_owner == 'other-operation' else 'work',
+        output_dir=tmp_path/'foreign', native_invocation_id='unrelated-recovery',
+        allow_publish=recovery_owner != 'readonly')
+    recovery = DurablePublicationCoordinator(store=store,
+        transport_runtime=CanonicalDestinationTransportRuntimeV1(
+            neo_transport=NeoDestinationHandoff(native_executor=foreign)))
+    outcome = recovery.recover_pending()
+    assert outcome['publish_calls'] == 0
+    assert store.get_platform_dispatch(ids['dispatch_id'])['status'] == PENDING
+    assert executor._get(packet['request']['request_sha256'], 'started') == claim
+
+    executor.submit(packet['request']['request_sha256'], {
+        'tool_request_sha256': packet['tool_request_sha256'],
+        'tool_observation': {'tool_name': TOOL, 'native_invocation_id': executor.native_invocation_id,
+            'surface': 'CODEX_NATIVE_SUBAGENT', 'observation_source': 'CONTROLLED_TEST_NOT_BROWSER_PROOF',
+            'observed_at_utc': datetime.now(timezone.utc).isoformat()},
+        'result': {'request_sha256': packet['request']['request_sha256'], 'status': 'SUCCESS',
+            'observed_identity': 'capitalchronicle.substack.com', 'public_object_id': '123',
+            'public_object_url': value['canonical_url']}})
+    resumed = coordinator.recover_pending()
+    assert store.get_platform_dispatch(ids['dispatch_id'])['public_object_id'] == '123'
+    assert any(p['request']['action'] == 'READBACK' for p in executor.pending())
+    assert resumed['publish_calls'] == 0  # Consumes the saved return; no second native action.
 
 
 def test_existing_dispatch_readback_stays_in_coordinator_without_write(tmp_path):

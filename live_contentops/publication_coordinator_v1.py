@@ -912,6 +912,17 @@ class DurablePublicationCoordinator:
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
         native_pending_resume = bool(existing and existing.get("status") == NATIVE_NEO_PENDING
             and registration_for_destination(destination).transport_type == "BROWSEROS_NEO_MCP")
+        if native_pending_resume:
+            # A background/default recovery owner cannot consume another Desktop's
+            # claimed action through an unbound/read-only transport. Such a transport's
+            # FAILED_BEFORE_WRITE result says nothing about the in-flight native action.
+            executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
+            if (not getattr(executor, "native_neo_protocol", False)
+                    or not getattr(executor, "allow_publish", False)
+                    or getattr(executor, "operation_id", None) != intent["work_item_id"]
+                    or getattr(getattr(executor, "store", None), "db_path", None) != self.store.db_path):
+                return {"destination": destination, "status": NATIVE_NEO_PENDING,
+                    "reason_code": "EXACT_NATIVE_OPERATION_EXECUTOR_REQUIRED", "publish_called": False}
         if existing:
             reconciliation_status = None
             getter = getattr(self.store, "get_reconciliations_for_work_item", None)
