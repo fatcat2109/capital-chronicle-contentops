@@ -87,6 +87,85 @@ def validate_visual_decision(value):
     return value
 
 
+def admit_selected_story_context(turn, binding, response):
+    """Attach bounded, already admitted history before freezing the same writer."""
+    from datetime import datetime, timezone
+    from hashlib import sha256
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import _time
+    from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+    from live_contentops.v1_simple_gemini_newsroom_v1 import MAX_SOURCE_DOCUMENTS
+
+    turn._check_pause()
+    selection, visual = turn.frozen_request("select"), turn.frozen_request("visual-edit")
+    if (not selection or not turn._get("select", "response") or not visual
+            or not turn.visual_response()
+            or response.get("expected_request_sha256") != visual["request_sha256"]
+            or turn.frozen_request("write") or turn._get("write", "response")):
+        raise ValueError("EXACT_UNWRITTEN_SELECTED_VISUAL_REQUEST_REQUIRED")
+    ids = response.get("supporting_headline_ids", [])
+    reason = response.get("match_reason", "")
+    if (not isinstance(ids, list) or not 1 <= len(ids) <= 3 or len(set(ids)) != len(ids)
+            or not isinstance(reason, str) or len(reason.strip()) < 40):
+        raise ValueError("BOUNDED_SELECTED_STORY_CONTEXT_AND_MATCH_REASON_REQUIRED")
+    amendment_sha = sha256_of(response)
+    previous = turn.source_recovery()
+    if previous:
+        if previous.get("context_amendment_sha256") != amendment_sha:
+            raise ValueError("RECOVERY_ALREADY_ADMITTED_RESUME_SAME_OPERATION")
+        return {"classification": "SELECTED_STORY_CONTEXT_ATTACHED", "request_sha256": previous["request_sha256"],
+                "new_source_requests": 0, "public_write_performed": False}
+    row = turn.store.get_outbox_message("native-current-input-" + sha256_of(turn.run_id))
+    frozen = json.loads(row["payload"]) if row else {}
+    if frozen.get("run_id") != turn.run_id or frozen.get("cutoff_utc") != binding["cutoff_utc"]:
+        raise ValueError("EXACT_FROZEN_CURRENT_INPUT_REQUIRED")
+    research = RetainedSourceResearch.from_frozen_snapshot(frozen["research"])
+    walk = json.loads((turn.root / "simple_gemini_evidence_v1.json").read_bytes())
+    primary = visual["governed_input"]["source_packet"]["source_pack"]
+    candidate = response.get("candidate_id")
+    if (candidate != walk.get("selected_candidate_id") or not primary
+            or candidate not in {p["candidate_id"] for p in turn._get("select", "response")["output"]["ordered_candidate_plan"]}
+            or walk.get("selected_source_pack") != primary
+            or len(primary) + len(ids) > MAX_SOURCE_DOCUMENTS):
+        raise ValueError("EXACT_QUALIFIED_SELECTED_SOURCE_PACK_REQUIRED")
+    documents = []
+    for item_id in ids:
+        record = research.records.get(item_id)
+        if not record:
+            raise ValueError("CONTEXT_SOURCE_NOT_IN_FROZEN_RESEARCH")
+        if any(_time(record.get(k)) > _time(binding["cutoff_utc"])
+               for k in ("source_timestamp_utc", "known_at_utc", "revision_at_utc")):
+            raise ValueError("CONTEXT_SOURCE_AFTER_FROZEN_CUTOFF")
+        permission = record["source_permissions"]
+        if not permission.get("MODEL_INPUT_ALLOWED") or not record["document"].get("public_claim_allowed"):
+            raise ValueError("CONTEXT_SOURCE_PERMISSION_REQUIRED")
+        text = record["permitted_source_text"]
+        documents.append({**record["document"], "document_id": item_id,
+            "source_identity": record["source_identity"], "canonical_content_text": text,
+            "canonical_content_sha256": sha256(text.encode()).hexdigest(),
+            "known_at_utc": record["known_at_utc"], "retrieval_time_utc": record["retrieval_time_utc"],
+            "revision_at_utc": record["revision_at_utc"], "context_only": True,
+            "retrieval_method": "FROZEN_RETAINED_SELECTED_STORY_CONTEXT",
+            "source_reuse_constraints": permission})
+    value = {"schema_version": "contentops.native_selected_story_context.v1",
+        "pre_writer_context_attachment": True, "candidate_id": candidate,
+        "selection_request_sha256": selection["request_sha256"], "visual_request_sha256": visual["request_sha256"],
+        "context_amendment_sha256": amendment_sha, "primary_source_pack_sha256": sha256_of(primary),
+        "supporting_headline_ids": ids, "context_documents": documents,
+        "research_revision": research.revision, "cutoff_utc": binding["cutoff_utc"],
+        "admitted_at_utc": datetime.now(timezone.utc).isoformat(), "new_source_requests": 0,
+        "selected_story_context": {"story_identity": candidate, "source_item_ids": ids,
+            "relationship": "RELATED_DATED_CONTEXT_NOT_EVENT_CORROBORATION", "reason": reason,
+            "prior_analysis_state": "UNPUBLISHED_INTERNAL_INTERPRETATION_NOT_SOURCE_EVIDENCE",
+            "publication_state": "CONTEXT_SOURCE_REPORTING_NOT_PRIOR_PUBLIC_CC_COVERAGE"},
+        "public_write_performed": False}
+    value["request_sha256"] = sha256_of(value)
+    turn.store.register_outbox_message(message_id="native-source-recovery-" + sha256_of(value),
+        work_item_id=turn.work, destination="internal:native-desktop-source-recovery",
+        payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
+    return {"classification": "SELECTED_STORY_CONTEXT_ATTACHED", "request_sha256": value["request_sha256"],
+            "new_source_requests": 0, "public_write_performed": False}
+
+
 def admit_pre_writer_source_recovery(turn, binding, response):
     """Append already acquired facts to the same source-blocked manual opportunity."""
     from datetime import datetime, timezone

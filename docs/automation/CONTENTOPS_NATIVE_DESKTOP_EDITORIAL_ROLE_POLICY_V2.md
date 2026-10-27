@@ -1,5 +1,20 @@
 # ContentOps native Desktop editorial role policy V2
 
+## Selected-story continuity — 27 October 2026
+
+After Light selects a material developing story, retrieve relevant earlier dated sources,
+CC interpretations and unresolved alternatives through the existing source/story/version
+owners. Match the event, entities, aliases and related thesis; shared words or a ticker do
+not establish continuity. Attach only the useful selected context before writer freeze,
+preserving accepted native work, operation identity and the frozen cutoff.
+Keep source/publication/known-at clocks separate from retrieval; distinguish new evidence,
+syndication and prior model hypotheses. Deleted or unpublished work is not current public
+coverage or permission. The same MAX writer explains what changed relative to the earlier
+situation when warranted, with competing explanations and the next discriminating evidence.
+Do not infer market absorption, causation or alpha from a price move or recycled narrative.
+An absent relevant history remains an explicit internal limit, not invented coverage or a
+whole-corpus prerequisite. Reuse existing owners; no event platform or new release gate.
+
 ## Permanent final-media review and direct repair — 27 October 2026
 
 Jim's actual messages01a17b8c-11a4-78b0-8686-d3ca0b1bcb6a,01a17b92-5b16-7a02-92d2-39c33c9df307 and01a17b94-5870-7402-9f46-c736f10052fe were verified via read_thread in assigned L2. The [permanent final-product rule](CONTENTOPS_V1_FINAL_MEDIA_REVIEW_AND_REPAIR_RULE_V1.md) is mandatory for every V1 article and material revision.

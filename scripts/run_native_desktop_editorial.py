@@ -271,6 +271,9 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
                     "request_sha256": receipt["request_sha256"], "public_write_performed": False}
         return bind_editorial_media_plan(store, run_id=binding["run_id"], output_dir=binding["output_dir"], **response)
     if command == "recover-sources":
+        if response.get("selected_story_context") is True:
+            from live_contentops.native_desktop_editorial_v1 import admit_selected_story_context
+            return admit_selected_story_context(turn, binding, response)
         if response.get("expected_selection_request_sha256"):
             # A one-shot manual recovery appends verified captures; it never rewrites
             # selection, the frozen input, a started writer, or the production budget.
