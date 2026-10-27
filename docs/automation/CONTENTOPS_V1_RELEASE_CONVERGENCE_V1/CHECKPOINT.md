@@ -26,7 +26,9 @@ Current published corpus0; no UNKNOWN/started/pending dispatches at transition; 
 Four existing task prompts APPLIED via supported update; only prompt/updated_at changed, calendars/project/preferences/roles exact.
 Immediate live owner operation v1-live-launch-20261027 issued at cutoff2026-10-27T04:00:52.972454Z (11:00:52local).
 Binding A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-live-launch-20261027/binding.json.
-Pending first Luna filter requesta934bd07/stagefilter-97607acb; no model return, qualified article or public send yet.
+Pending first Luna filter requesta934bd07/stagefilter-97607acb; no qualified article or public send yet.
+Native /root/live_launch_luna_filter dispatched gpt-6-luna/max for all pending filter batches only; no Sol role/public sends.
+Parent stops under explicit end-while-children-work rule; resume from its exact next request, never repeat accepted stages.
 Native Luna MAX filter -> Sol6.1Light plan -> same Sol6.1MAX visual editor/writer/one useful repair; ordinary32/3/6budgets.
 Code owns acquisition/computation/rendering/state; lawful photo/current rights and substantive chart judgment remain.
 Publish accepted useful output canonical-first and read back exact objects; destination access gaps remain channel-local.
