@@ -1,5 +1,15 @@
 # Capital Chronicle ContentOps — Final Product North Star V3
 
+## Reader-visible continuity — 27 October 2026
+
+Material developing stories should explain what changed relative to the relevant earlier
+situation, evidence and CC interpretation, where those records exist. Retrieve bounded,
+event/entity/thesis-matched context through existing source/story owners before writer
+freeze; preserve dates, cutoff, uncertainty and unpublished/deleted status. Prior analysis
+is not factual corroboration, and a price move does not prove digestion or alpha. Follow
+the [selected-story role policy](CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2.md);
+missing relevant history does not require invented coverage or block independent reporting.
+
 ## Permanent final-media review and direct repair — 27 October 2026
 
 Jim's actual messages01a17b8c-11a4-78b0-8686-d3ca0b1bcb6a,01a17b92-5b16-7a02-92d2-39c33c9df307 and01a17b94-5870-7402-9f46-c736f10052fe were verified via read_thread in assigned L2. The [permanent final-product rule](CONTENTOPS_V1_FINAL_MEDIA_REVIEW_AND_REPAIR_RULE_V1.md) is mandatory for every V1 article and material revision.

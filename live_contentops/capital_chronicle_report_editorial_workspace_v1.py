@@ -522,6 +522,10 @@ def run_report_editorial_cycle(
         def evidence(request: Mapping[str, Any]) -> dict[str, Any]:
             stage = "source:" + str(request["cluster_id"])
             recovery = llm_invoke.source_recovery() if native else None
+            if recovery and recovery.get("pre_writer_context_attachment"):
+                # The selected history joins only after the unchanged current-event
+                # source walk; it must not change that event's route or certainty.
+                recovery = None
             if recovery and recovery.get("pre_writer_source_recovery"):
                 # The exception has already spent its finite acquisitions. Resume
                 # only cached failures or its exact admitted source; never call GET.

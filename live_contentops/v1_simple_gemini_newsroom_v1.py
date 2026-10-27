@@ -1079,6 +1079,8 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                 "canonical_content_text": text[:48_000] if (document.get("source_reuse_constraints") or {}).get("scope") == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" else text[:MAX_SOURCE_TEXT_CHARS],
                 **({"source_reuse_constraints": dict(document["source_reuse_constraints"])}
                    if document.get("source_reuse_constraints") else {}),
+                **({k: document[k] for k in ("context_only", "known_at_utc", "retrieval_time_utc", "revision_at_utc")
+                    if k in document} if document.get("context_only") else {}),
                 **({k: document[k] for k in ("underlying_reuse_classification", "rights_evidence_sha256")}
                    if document.get("underlying_reuse_classification") == "governed_government_public_domain"
                    and document.get("rights_evidence_sha256") else {}),
@@ -2179,6 +2181,18 @@ def run_v1_simple_gemini_newsroom(
             # Full invocation telemetry belongs only to the terminal receipt.
             normalize_native_receipt(value, llm_invoke.telemetry()
                 if Path(path).name == "simple_gemini_newsroom_receipt_v1.json" else None)
+            context = getattr(llm_invoke, "source_recovery", lambda: None)()
+            path = Path(path)
+            if (context and context.get("pre_writer_context_attachment")
+                    and path.name in {"simple_gemini_evidence_v1.json", "simple_gemini_editorial_edge_v1.json"}
+                    and path.is_file() and json.loads(path.read_bytes()) != value):
+                # Explicit selected-source revision: retain the original artifact
+                # in the existing recovery history before materializing this one.
+                archive = path.parent / "source-recovery-history" / context["request_sha256"] / path.name
+                if archive.exists():
+                    raise SimpleGeminiNewsroomError("selected_story_context_artifact_changed_again", [path.name])
+                archive.parent.mkdir(parents=True, exist_ok=True)
+                path.replace(archive)
         _write_json(path, value)
 
     cutoff_utc = _iso_utc(cutoff_utc)
@@ -2504,6 +2518,20 @@ def run_v1_simple_gemini_newsroom(
             selected_epistemic_state = candidate_epistemic_state or None
             source_pack = candidate_source_pack
             break
+    selected_context = recovery if recovery and recovery.get("pre_writer_context_attachment") else None
+    if selected is not None and selected_context:
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        if (selected_context["candidate_id"] != selected["candidate_id"]
+                or selected_context["cutoff_utc"] != cutoff_utc
+                or selected_context["primary_source_pack_sha256"] != sha256_of(source_pack)):
+            raise SimpleGeminiNewsroomError("selected_story_context_source_changed")
+        contextual = _source_pack(selected_context["context_documents"])
+        if len(contextual) != len(selected_context["supporting_headline_ids"]):
+            raise SimpleGeminiNewsroomError("selected_story_context_source_missing")
+        source_pack = [*source_pack, *[{**d, "source_id": f"SOURCE_{len(source_pack) + i + 1}"}
+                                     for i, d in enumerate(contextual)]]
+        selected = {**selected, "evolving_story_context": [*selected.get("evolving_story_context", []),
+                                                        selected_context["selected_story_context"]]}
     evidence_artifact = {
         "schema_version": "contentops.v1_simple_candidate_source_walk.v1",
         "status": "PASS" if selected is not None else "BLOCKED",
@@ -2513,6 +2541,7 @@ def run_v1_simple_gemini_newsroom(
         "selected_candidate_id": selected["candidate_id"] if selected else None,
         "selected_source_pack": source_pack,
         "selected_epistemic_state": dict(selected_epistemic_state or {}),
+        **({"selected_context_request_sha256": selected_context["request_sha256"]} if selected_context else {}),
         "request_count": request_count,
         "request_limit": request_limit,
         "model_calls_before_writer": 1,

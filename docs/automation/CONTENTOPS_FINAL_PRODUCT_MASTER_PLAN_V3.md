@@ -1,5 +1,18 @@
 # Capital Chronicle ContentOps — Final Product Master Plan V3
 
+## Selected-story continuity in the existing flow — 27 October 2026
+
+After actual Light selection, inspect the chosen packet for relevant dated event/entity/
+alias/thesis history in the existing source/story/version owners. Reuse adequate context;
+repair only a demonstrated missing connection before writer freeze, preserving the same
+operation, cutoff and accepted returns. Keep new facts, syndicated reporting, prior CC
+hypotheses and unresolved alternatives distinct, with source/publication/known-at and
+retrieval clocks. Unpublished or deleted articles remain such. The same MAX writer makes
+the useful evidence delta visible without unsupported pricing, causation or alpha claims.
+Record a genuine history gap internally and continue defensible independent work; no
+whole-corpus hydration, new event platform or unrelated lane prerequisite. The permanent
+same-writer final rendered-media review and direct-repair obligation remains unchanged.
+
 ## Permanent final-media review and direct repair — 27 October 2026
 
 Jim's actual messages01a17b8c-11a4-78b0-8686-d3ca0b1bcb6a,01a17b92-5b16-7a02-92d2-39c33c9df307 and01a17b94-5870-7402-9f46-c736f10052fe were verified via read_thread in assigned L2. The [permanent final-product rule](CONTENTOPS_V1_FINAL_MEDIA_REVIEW_AND_REPAIR_RULE_V1.md) is mandatory for every V1 article and material revision.
