@@ -1349,7 +1349,14 @@ class DurablePublicationCoordinator:
                 explicit_transport_correction_retry
                 and (
                     (
-                        destination in {"facebook_page", "instagram_business"}
+                        (
+                            destination in {"facebook_page", "instagram_business"}
+                            or (
+                                destination == "linkedin"
+                                and intent.get("dated_distribution_recovery")
+                                and registration.transport_type == "BROWSEROS_NEO_MCP"
+                            )
+                        )
                         and str(existing.get("status") or "") in {
                             DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
                             RECONCILED_ABSENT_SAFE_TO_RETRY,

@@ -4,7 +4,7 @@ Objective: C:/Users/bullw/.codex/attachments/3e1d3511-8b77-4f97-8a2b-c888b10f841
 Sole writer chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
 Authoring: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; codex/v1-newsroom-release-convergence.
 Operating: A:/Capital Chronicle/ContentOps; installed/fresh master1f99cf77db1fe97789f305d6a5476455a3bb041d (PR110).
-Current LinkedIn repair is authoring WIP, not yet applied. Six unrelated operating WIP paths and telemetry remain owned elsewhere.
+PR111 implements explicit personal/company Neo recovery; exact-head CI/application pending. Unrelated operating WIP and telemetry preserved.
 PR109/110 applied without restarting listener14296; original binding/store preserved. Four existing windows ACTIVE; V2/V3 paused.
 AUTONOMOUS_DEFAULT/version38 and the existing live grant remain; daily5–8 reliability remains unproven.
 Operation v1-live-launch-20261027; cutoff2026-10-27T04:00:52.972454Z; same plan57f020444107795eb9854917776f792aa3d986058abd0798616e90b7e683fa11.
@@ -27,12 +27,12 @@ Company API requires business email verification; Jim currently has none. No pro
 Official requirements: https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review; personal emails fail vetting.
 LinkedIn original dispatch_ada852dd41146aa23dcf651a6a859ebe has no ID/URL; owner report + fresh loaded own activity reconciled absence.
 Actual Neo requestccabb6d3a3bf0fa7ba608214a7b15f7970f5d32e9f45c67aabfae98ee0f43f5b; zero public writes during reconciliation.
-Current durable result: canonical +7 confirmed derivatives, LinkedIn absent-safe-to-retry; company not sent. No new LinkedIn post yet.
+Current durable result: canonical +7 confirmed derivatives; LinkedIn absence reconciled, old dispatch aged to EXPIRED_STALE_NO_WRITE; company not sent.
 Explicit Neo recovery retains original sent intents; company copy has separate recipient/dispatch. Routine eight-channel/API default unchanged.
 R6 shared LinkedIn dated copy has2 rendered viewports, exact recipients, same sources/photo/canonical; no fresh-news claim.
 R6 request1b3580f0d71c1b67eb541957142a8a0efad4a914e3627a08adf7da2df99b42cb; stage final-visual-87fd9f2bb7965499bb60068e8a360ddf369e758dabd29ea63c650958d04444eb.
 SAME /root/live_launch_max_writer continuation failed once with usage limit; no native R6 acceptance. Do not substitute reviewer or retry-loop.
-Focused R6/dated/native tests44PASS; isolated callback API13PASS. Eight legacy identity-test failures reproduced with unchanged HEAD registry.
+Focused R6/dated/native44PASS; aged-absence2PASS; API setup4PASS; callback API13PASS. Eight legacy identity failures reproduced unchanged.
 [Builder B producer handoff](main-news/README.md): exact1311chars/source clocks/Substack222368666/photo read200; B installed outcome COMPLETE.
 Pinned8-story export b4a52997745fc86697e404a6d37c22b4230ce2571b837de90d97e3d41588dc7a unchanged; no repin or Main edits.
 Evidence: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-live-launch-20261027/linkedin-neo-r6/; prior dated-distribution-r5/.

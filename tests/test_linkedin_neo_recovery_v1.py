@@ -12,7 +12,9 @@ from live_contentops.native_desktop_editorial_v1 import (
     build_dated_distribution_recovery, dated_distribution_recovery_view, final_visual_binding,
 )
 from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, NativeNeoInputRequired
-from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff, IDENTITIES, ROOTS, _public_url
+from live_contentops.neo_destination_handoff_v1 import (
+    NeoDestinationHandoff, IDENTITIES, ROOTS, _public_url, destination_setup_projection,
+)
 from live_contentops.publication_coordinator_v1 import CanonicalDestinationTransportRuntimeV1
 from test_dated_distribution_recovery_v1 import setup_recovery, accepted_recovery, CANONICAL
 
@@ -55,7 +57,16 @@ def test_linkedin_scope_keeps_eight_routine_destinations_and_old_review(tmp_path
     assert registration_for_destination("linkedin_company").expected_stable_id == "143198922"
 
 
-def test_dated_linkedin_requires_exact_same_writer_review_and_absence(tmp_path, monkeypatch):
+def test_neo_recovery_keeps_personal_api_setup_and_company_identity_separate(tmp_path):
+    setup = destination_setup_projection(env={}, linkedin_root=tmp_path)
+    assert setup["linkedin"]["chosen_transport"] == "OFFICIAL_MEMBER_API"
+    assert setup["linkedin"]["browser_login_needed"] is False
+    assert setup["linkedin_company"]["chosen_transport"] == "BROWSEROS_NEO_MCP"
+    assert setup["linkedin_company"]["expected_identity"] == "linkedin:company:143198922"
+
+
+@pytest.mark.parametrize("absent_status", ["RECONCILED_ABSENT_SAFE_TO_RETRY", "DERIVATIVE_EXPIRED_STALE_NO_WRITE"])
+def test_dated_linkedin_requires_exact_same_writer_review_and_absence(tmp_path, monkeypatch, absent_status):
     store, binding, result, co, runtime, recovery, ids = linkedin_recovery(tmp_path, monkeypatch)
     ref = accepted_recovery(store, binding, result, recovery, tmp_path)
     assert set(recovery["payloads"]) == {"linkedin"}
@@ -63,7 +74,7 @@ def test_dated_linkedin_requires_exact_same_writer_review_and_absence(tmp_path, 
     before = store.get_outbox_message(ids["message_id"])["payload"]
     assert co.complete_dated_distribution_recovery(ids["message_id"], review_reference=ref)["publish_called"] is False
     assert runtime.publish_calls == []
-    store.set_dispatch_status(ids["dispatch_id"], "RECONCILED_ABSENT_SAFE_TO_RETRY")
+    store.set_dispatch_status(ids["dispatch_id"], absent_status)
     store.register_reconciliation(reconciliation_id=ids["reconciliation_id"], work_item_id=binding["run_id"],
         status="RECONCILED_ABSENT_SAFE_TO_RETRY")
     runtime._neo_transport = SimpleNamespace(native_executor=SimpleNamespace(native_neo_protocol=True,

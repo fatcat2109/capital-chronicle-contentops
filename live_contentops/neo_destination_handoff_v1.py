@@ -241,6 +241,9 @@ def destination_setup_projection(*, env=None, now=None, linkedin_root=None):
     except (OSError, ValueError, TypeError):
         result["linkedin"]["owner_action"] = "Kiểm tra/cấp lại LinkedIn OAuth qua luồng hiện có."
     for destination in IDENTITIES:
+        if destination == "linkedin":
+            # Native Neo is an explicit reviewed recovery, not the routine API default.
+            continue
         result[destination] = {"chosen_transport": "BROWSEROS_NEO_MCP", "configuration_present": True,
             "validity": "NOT_VERIFIED", "identity_state": "NOT_VERIFIED", "browser_login_needed": True,
             "expected_identity": IDENTITIES[destination],
