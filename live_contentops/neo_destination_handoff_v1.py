@@ -219,14 +219,20 @@ class NeoDestinationHandoff:
         expected_media = {a.get("public_delivery_sha256") or a.get("sha256") for a in binding["media_manifest"]}
         expected_media.discard(None)
         media_match = expected_media <= set(result.get("observed_media_sha256") or [])
-        if destination in {"linkedin", "linkedin_company"} and not media_match:
+        reviewed_photo_edit = bool(intent.get("reader_presentation_review")) and destination in {"instagram_business", "youtube"}
+        if (destination in {"linkedin", "linkedin_company"} or reviewed_photo_edit) and not media_match:
             comparisons = result.get("media_comparisons") or []
+            def platform_image(url):
+                host = urlsplit(str(url or "")).hostname or ""
+                return ((destination in {"linkedin", "linkedin_company"} and host == "media.licdn.com")
+                    or (destination == "youtube" and host == "yt3.ggpht.com")
+                    or (destination == "instagram_business" and (host.endswith(".cdninstagram.com") or host.endswith(".fbcdn.net"))))
             source_matches = {m.get("source_asset_sha256") for m in comparisons
                 if m.get("pixels_inspected") is True and m.get("source_pixels_match") is True
                 and re.fullmatch(r"[0-9a-f]{64}", str(m.get("platform_sha256") or ""))
                 and m.get("public_object_url") == public_object_url
                 and urlsplit(str(m.get("public_image_url") or "")).scheme == "https"
-                and urlsplit(str(m.get("public_image_url") or "")).hostname == "media.licdn.com"}
+                and platform_image(m.get("public_image_url"))}
             media_match = expected_media <= source_matches
         thread = result.get("observed_thread") or []
         thread_match = (binding["thread_post_count"] <= 1 or (

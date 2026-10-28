@@ -197,3 +197,23 @@ def test_native_edit_lost_return_is_never_claimed_again(revised, tmp_path, monke
     with pytest.raises(ValueError, match="ALREADY_CLAIMED_READBACK_ONLY"):
         executor.begin(request["request_sha256"])
     assert store.get_platform_dispatch("dispatch-substack")["public_object_id"] == "123"
+
+
+@pytest.mark.parametrize("destination,url,image", [
+    ("instagram_business", "https://www.instagram.com/p/CONTROLLED/", "https://scontent.cdninstagram.com/controlled.jpg"),
+    ("youtube", "https://www.youtube.com/post/CONTROLLED", "https://yt3.ggpht.com/controlled")])
+def test_existing_photo_edit_readback_needs_bound_platform_comparison(destination, url, image):
+    from live_contentops.neo_destination_handoff_v1 import IDENTITIES
+    value = {"work_item_id": "CONTROLLED", "canonical_url": "https://capitalchronicle.substack.com/p/controlled",
+        "native_payload": {"text": "Dated attributed report.", "media_asset_ids": ["photo"]},
+        "media_assets": [{"asset_id": "photo", "sha256": "a" * 64}],
+        "reader_presentation_review": {"stage": "CONTROLLED"}, "removed_reader_text": ["Old footer."],
+        "destination_plan": {"payload_hash": "controlled"}}
+    observed = {"observed_identity": IDENTITIES[destination], "public_object_id": "CONTROLLED", "public_object_url": url,
+        "observed_text": "Dated attributed report.", "content_verified": True,
+        "media_comparisons": [{"source_asset_sha256": "a" * 64, "platform_sha256": "b" * 64,
+            "pixels_inspected": True, "source_pixels_match": True, "public_object_url": url, "public_image_url": image}]}
+    adapter = NeoDestinationHandoff(native_executor=lambda request: {**observed, "request_sha256": request["request_sha256"]})
+    assert adapter.readback(destination=destination, intent=value, public_object_id="CONTROLLED", public_object_url=url)["verified"]
+    observed["media_comparisons"][0]["public_object_url"] = "https://example.org/unrelated"
+    assert not adapter.readback(destination=destination, intent=value, public_object_id="CONTROLLED", public_object_url=url)["verified"]
