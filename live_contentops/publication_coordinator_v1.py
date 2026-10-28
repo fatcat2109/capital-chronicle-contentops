@@ -582,7 +582,16 @@ class DurablePublicationCoordinator:
         ids = self._ids(run_id, recovery["plan_hash"], "linkedin_company")
         prior = self.store.get_outbox_message(ids["message_id"])
         if prior and json.loads(prior["payload"]) != intent:
-            raise ValueError("LINKEDIN_COMPANY_IMMUTABLE_COPY_CONFLICT")
+            # Earlier generic finalization looked for a ninth compiled package
+            # and replaced this reviewed, still-unclaimed copy with an empty one.
+            empty = {**intent, "native_payload": {}, "payload": "",
+                "destination_plan": {**intent["destination_plan"], "payload_hash": sha256_of({}),
+                    "payload_hash_kind": "FINAL_CANONICAL_URL_BOUND_BYTES"}}
+            if (json.loads(prior["payload"]) != empty
+                    or self.store.get_platform_dispatch(ids["dispatch_id"])):
+                raise ValueError("LINKEDIN_COMPANY_IMMUTABLE_COPY_CONFLICT")
+            self.store.finalize_outbox_payload_before_dispatch(message_id=ids["message_id"],
+                payload=_canonical_json(intent), status="READY")
         message = self.store.register_outbox_message(message_id=ids["message_id"], work_item_id=run_id,
             destination="linkedin_company", payload=_canonical_json(intent), status="READY")
         return self._dispatch_message(message, canonical_url=recovery["canonical_url"],
@@ -2814,6 +2823,13 @@ class CanonicalDestinationTransportRuntimeV1:
         )
         finalized = dict(intent)
         finalized["canonical_url"] = canonical_url
+        if destination == "linkedin_company" and intent.get("dated_distribution_recovery"):
+            if (canonical_url != intent.get("canonical_url")
+                    or intent.get("destination_plan", {}).get("payload_hash_kind")
+                    != "OWNER_SELECTED_REVIEWED_LINKEDIN_COMPANY_COPY"
+                    or not intent.get("native_payload")):
+                raise ValueError("LINKEDIN_COMPANY_EXACT_REVIEWED_COPY_REQUIRED")
+            return finalized
         data = _durable_intent_inputs(finalized)
         native_payload = dict(data["payloads"].get(destination) or {})
         payload = str(native_payload.get("text") or "")

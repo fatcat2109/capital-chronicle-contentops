@@ -162,6 +162,34 @@ def test_company_queued_copy_cannot_change_after_its_review(tmp_path, monkeypatc
         co._dispatch_message({**original, "payload": json.dumps(changed)}, canonical_url=CANONICAL)
 
 
+@pytest.mark.parametrize("corruption", ["empty_unclaimed", "wrong_text", "dispatch_marker"])
+def test_company_queue_preserves_reviewed_copy_and_repairs_only_known_unclaimed_empty_package(tmp_path, monkeypatch, corruption):
+    store, binding, result, co, _runtime, recovery, _ids = linkedin_recovery(tmp_path, monkeypatch)
+    ref = accepted_recovery(store, binding, result, recovery, tmp_path)
+    monkeypatch.setattr(co, "_dispatch_message", lambda *args, **kwargs: {"publish_called": False})
+    co.publish_reviewed_linkedin_company_copy(run_id=binding["run_id"], review_reference=ref)
+    ids = co._ids(binding["run_id"], recovery["plan_hash"], "linkedin_company")
+    original = json.loads(store.get_outbox_message(ids["message_id"])["payload"])
+    runtime = CanonicalDestinationTransportRuntimeV1(neo_transport=SimpleNamespace())
+    assert runtime.finalize_intent(destination="linkedin_company", intent=original, canonical_url=CANONICAL) == original
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    empty = {**original, "native_payload": {}, "payload": "",
+        "destination_plan": {**original["destination_plan"], "payload_hash": sha256_of({}),
+            "payload_hash_kind": "FINAL_CANONICAL_URL_BOUND_BYTES"}}
+    if corruption == "wrong_text":
+        empty["payload"] = "Unreviewed replacement"
+    store.finalize_outbox_payload_before_dispatch(message_id=ids["message_id"], payload=json.dumps(empty))
+    if corruption == "dispatch_marker":
+        store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+            platform="linkedin_company", status="UNKNOWN_WRITE")
+    if corruption == "empty_unclaimed":
+        assert co.publish_reviewed_linkedin_company_copy(run_id=binding["run_id"], review_reference=ref)["publish_called"] is False
+        assert json.loads(store.get_outbox_message(ids["message_id"])["payload"]) == original
+    else:
+        with pytest.raises(ValueError, match="IMMUTABLE_COPY_CONFLICT"):
+            co.publish_reviewed_linkedin_company_copy(run_id=binding["run_id"], review_reference=ref)
+
+
 def test_native_projection_keeps_selected_company_copy_pending_without_changing_routine_count():
     from live_contentops.native_desktop_publication_v1 import publication_projection, DESTINATION
     from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator

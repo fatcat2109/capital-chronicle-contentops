@@ -32,8 +32,8 @@ Explicit Neo recovery retains original sent intents; company copy has separate r
 R6 shared LinkedIn dated copy has2 rendered viewports, exact recipients, same sources/photo/canonical; no fresh-news claim.
 R6 request1b3580f0d71c1b67eb541957142a8a0efad4a914e3627a08adf7da2df99b42cb; stage final-visual-87fd9f2bb7965499bb60068e8a360ddf369e758dabd29ea63c650958d04444eb.
 SAME MAX R6 ACCEPT cb52737490ff3464f9a3fb66cd487dc317adea5730933e9021c39e7d38d7ec55 submitted/validated; both exact renders and original inspected.
-LinkedIn shortened canonical to https://lnkd.in/gAgRw7rS; actual Neo interstitial resolves to exact Substack. Scoped readback comparison repair pending.
+PR112: exact shortlink proof + preserve reviewed company payload; repair only known empty pre-dispatch copy. Focused18PASS; exact-head CI pending.
 [Builder B producer handoff](main-news/README.md): exact1311chars/source clocks/Substack222368666/photo read200; B installed outcome COMPLETE.
 Pinned8-story export b4a52997745fc86697e404a6d37c22b4230ce2571b837de90d97e3d41588dc7a unchanged; no repin or Main edits.
 Evidence: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-live-launch-20261027/linkedin-neo-r6/; prior dated-distribution-r5/.
-Next: apply verified-shortlink readback repair, finish exact personal readback, then reviewed company copy and exact readback. Never repost personal.
+Next: apply PR112; reconcile known personal object, restore unclaimed exact company copy through existing finalizer, then company send/readback.
