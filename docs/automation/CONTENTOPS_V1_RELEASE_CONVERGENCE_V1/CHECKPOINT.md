@@ -1,39 +1,37 @@
-# V1 live edition — MAX R6 accepted; personal LinkedIn posted, readback in progress
-Goal: SAME CONTENTOPS_V1_LIVE_LAUNCH_AND_FIRST_CURRENT_EDITION_V1; ACTIVE/incomplete. No completion notice sent.
+# V1 live edition — completed and reconciled
+Goal: CONTENTOPS_V1_LIVE_LAUNCH_AND_FIRST_CURRENT_EDITION_V1; acceptance verified; native goal closeout follows this handoff.
 Objective: C:/Users/bullw/.codex/attachments/3e1d3511-8b77-4f97-8a2b-c888b10f8419/pasted-text-1.txt.
-Sole writer chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
+Owner: chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
 Authoring: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; codex/v1-newsroom-release-convergence.
-Operating: A:/Capital Chronicle/ContentOps; merged/applied master97bdf7512e8c71cfa1dab63b1fea784426acb055 (PR111).
-PR111 CI40635196545 PASS at e2e3d441; applied with6 unrelated WIP paths, original binding/store and listener14296 preserved; no restart.
-PR109/110 applied without restarting listener14296; original binding/store preserved. Four existing windows ACTIVE; V2/V3 paused.
-AUTONOMOUS_DEFAULT/version38 and the existing live grant remain; daily5–8 reliability remains unproven.
-Operation v1-live-launch-20261027; cutoff2026-10-27T04:00:52.972454Z; same plan57f020444107795eb9854917776f792aa3d986058abd0798616e90b7e683fa11.
-Article8885bd9e945f425731c93f73c51ff0fa70463d7148a088f8ee3482937de3069d; revisionc51849523ae2d109a935d5da85b6607d7dca5e8fed11b3fb0a09eec3606ed77a.
-Sources:27Oct01:32:04UTC FirstSquawk/WSJ relay;21Oct19:17:12UTC Reuters/Yahoo context; report truth only, unchanged.
-Original documentary photo d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b; Fawley16June2017, archive context.
-Substack222368666 confirmed: https://capitalchronicle.substack.com/p/firstsquawk-citing-the-wall-street; full photo attribution retained.
-Telegram survivor72 confirmed/edited: https://t.me/CapitalChronicle/72; Jim-deleted71 retained as external removal, never reposted.
-Discord1564685823377416374 repaired in place with exact photo/body/archive caption; no repost.
-X2115185068423758099 and two replies; Threads18191360326404150 and reply17869934589659764 remain confirmed.
-Facebook confirmed: https://www.facebook.com/1342369584748125/posts/1437213218597094; exact API/Neo readback.
-Instagram18451873360130335 confirmed: https://www.instagram.com/p/DfBYbYjAY3U/; exact API/Neo readback.
-YouTube confirmed once: https://www.youtube.com/post/UgkxEg96KptmQofovRB2_c84CvIqPJqMGwe2; original photo/public text verified.
-YT canonical URL is visible text; clickable external links await its account verification. No verification or extra write performed.
-FB/IG/YT R5 same MAX acceptance24e03fea24693d1ace2955c8220432165f10dfbb6e9bd94a9af7846f7a3f8e97 and canonical R3 acceptance revalidated.
-Jim human01a1808f-8117-7b11-8f28-989719b1afa6 selected BOTH linkedin:jimcc and linkedin:company:143198922; Neo API setup authorized.
-Personal API metadata has openid/profile/w_member_social; live GET fails TRANSPORT_UNAVAILABLE. Windows DNS resolves LinkedIn to loopback.
-Neo created Capital Chronicle Community app264177479 and verified association to Page143198922; original personal app262947024 retained.
-Company API requires business email verification; Jim currently has none. No product access/token/company API readiness is claimed.
-Official requirements: https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review; personal emails fail vetting.
-LinkedIn original absence was reconciled before the reviewed send. Same dispatch now holds urn:li:activity:7521104588075327488; no blind repost.
-Actual Neo requestccabb6d3a3bf0fa7ba608214a7b15f7970f5d32e9f45c67aabfae98ee0f43f5b; zero public writes during reconciliation.
-Personal posted once: https://www.linkedin.com/feed/update/urn:li:activity:7521104588075327488/; known identity, readback pending. Company not sent.
-Explicit Neo recovery retains original sent intents; company copy has separate recipient/dispatch. Routine eight-channel/API default unchanged.
-R6 shared LinkedIn dated copy has2 rendered viewports, exact recipients, same sources/photo/canonical; no fresh-news claim.
-R6 request1b3580f0d71c1b67eb541957142a8a0efad4a914e3627a08adf7da2df99b42cb; stage final-visual-87fd9f2bb7965499bb60068e8a360ddf369e758dabd29ea63c650958d04444eb.
-SAME MAX R6 ACCEPT cb52737490ff3464f9a3fb66cd487dc317adea5730933e9021c39e7d38d7ec55 submitted/validated; both exact renders and original inspected.
-PR112: exact shortlink proof + preserve reviewed company payload; repair only known empty pre-dispatch copy. Focused18PASS; exact-head CI pending.
-[Builder B producer handoff](main-news/README.md): exact1311chars/source clocks/Substack222368666/photo read200; B installed outcome COMPLETE.
-Pinned8-story export b4a52997745fc86697e404a6d37c22b4230ce2571b837de90d97e3d41588dc7a unchanged; no repin or Main edits.
-Evidence: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-live-launch-20261027/linkedin-neo-r6/; prior dated-distribution-r5/.
-Next: apply PR112; reconcile known personal object, restore unclaimed exact company copy through existing finalizer, then company send/readback.
+Operating: A:/Capital Chronicle/ContentOps; merged/applied source0e643b008e3dd0e238c45c87282e958ecbaf04da (PR112).
+PR112 exact-head d7af25f0 CI40649761253 PASS;19 focused repair cases PASS; prior unchanged R6/native/API checks retained.
+Applied with six unrelated WIP paths, original store/binding and listener14296 preserved; no runtime restart.
+Final coordinator projection: RECONCILED; canonical=true,8 routine derivatives +1 selected company copy confirmed,0 UNKNOWN,0 pending requests.
+No recovery destinations remain; next_operation=none. Totals use exact same-plan dispatch/reconciliation records, never accumulated resume files.
+Operation v1-live-launch-20261027; evidence cutoff2026-10-27T04:00:52.972454Z; dated distribution labels11:00 Bangkok27October2026.
+Article8885bd9e945f425731c93f73c51ff0fa70463d7148a088f8ee3482937de3069d; canonical revisionc51849523ae2d109a935d5da85b6607d7dca5e8fed11b3fb0a09eec3606ed77a.
+Source clocks:27Oct01:32:04UTC FirstSquawk/WSJ relay;21Oct19:17:12UTC Reuters context; attributed report truth and uncertainty retained.
+Substack222368666: https://capitalchronicle.substack.com/p/firstsquawk-citing-the-wall-street
+Telegram survivor72: https://t.me/CapitalChronicle/72; Jim-deleted71 remains retired; survivor edited/read back, never reposted.
+Discord1564685823377416374: exact existing message/photo repair confirmed; channel1519311669216673802; no invented public URL.
+X2115185068423758099: https://x.com/Capitalnicle/status/2115185068423758099; both bound replies confirmed.
+Threads18191360326404150: https://www.threads.com/@official.capitalchronicle/post/DfAWVvEk9Q0; bound reply confirmed.
+Facebook106091951705748_1437213218597094: https://www.facebook.com/1342369584748125/posts/1437213218597094
+Instagram18451873360130335: https://www.instagram.com/p/DfBYbYjAY3U/
+YouTube: https://www.youtube.com/post/UgkxEg96KptmQofovRB2_c84CvIqPJqMGwe2; external URL remains visible text pending account verification.
+LinkedIn Jim Pham: https://www.linkedin.com/feed/update/urn:li:activity:7521104588075327488/
+LinkedIn Capital Chronicle Page143198922: https://www.linkedin.com/feed/update/urn:li:activity:7521112281041113088/
+Both LinkedIn posts sent once via exact coordinator Neo claims; public actor/full text/photo/shortlink targets read back and reconciled.
+Original Fawley16June2017 photo d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b retained; archive context and alt intact.
+Full photo creator/source/licence credit stays canonical; derivative credit edits preserve admitted rights, original bytes and public IDs.
+SAME actual native gpt-6.1-sol/max writer: canonical R3, dated FB/IG/YT R5 and two-view LinkedIn R6 acceptances revalidated installed.
+R6 response cb52737490ff3464f9a3fb66cd487dc317adea5730933e9021c39e7d38d7ec55; exact renders/original inspected; no review substitution.
+Personal API default/routine8 unchanged. Company app264177479 Page association verified; API product access still pending business email.
+[Builder B producer/read handoff](main-news/README.md): same1311-character article/revision/source clocks/Substack222368666/photo; installed reads200.
+Pinned8-story export b4a52997745fc86697e404a6d37c22b4230ce2571b837de90d97e3d41588dc7a, exported27Oct22:25:34UTC, unchanged.
+Export publication observations remain its dated snapshot; current completed distribution is the coordinator projection, not a silent export repin.
+Four existing routine Automations remain ACTIVE; AUTONOMOUS_DEFAULT retained. V2/V3 paused; daily5–8 reliability remains unproven.
+Evidence: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-live-launch-20261027/linkedin-neo-r6/final-publication-status-r7.json.
+Installed application evidence: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/live-launch-20261027/linkedin-readback-r7-application/installed-source.json.
+Completion-only human authority verified via read_thread: L1 user01a1661d-90f0-74c1-8cd3-44fa35a9eeb6. No peer/L1 message authorized.
+Completion notice: not sent yet; send once only to assigned L2 after native whole-goal closure. No required publication work remains.

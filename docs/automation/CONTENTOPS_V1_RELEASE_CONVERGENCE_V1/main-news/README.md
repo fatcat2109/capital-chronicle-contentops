@@ -20,6 +20,12 @@ Builder B's referenced chat `01a15a8e-aaad-7410-a6fc-01bf02ef1e57` and its actua
 
 The export/hash above remain unchanged. ContentOps' later exact public-page checks confirm canonical availability and Telegram survivor `/72`; these observations are recorded in its [current checkpoint](../CHECKPOINT.md), not silently written into the pinned export. Distribution recovery remains separate from the completed safe-reading outcome.
 
+## Distribution completed — 28 October 2026
+
+The same edition is now durably `RECONCILED`: Substack `222368666`, all eight routine derivatives and the explicitly selected LinkedIn company copy are confirmed, with zero UNKNOWN writes or pending native requests. Exact public URLs and the final coordinator projection are linked in the [current checkpoint](../CHECKPOINT.md). Both LinkedIn recipients passed the same MAX writer's R6 review and exact public text/photo/canonical-target readback.
+
+The safe export above remains unchanged at its original export time and hash. Its saved distribution fields describe that dated snapshot; current completion does not silently replace those admitted bytes or Builder B's pins. Article/revision/source clocks and canonical identity remain the same.
+
 ## Use the delivered source
 
 - Producer artifact: [selected-edition.json](selected-edition.json), schema `contentops.cc_report_editorial_workspace.v1`, consumer view `contentops.retained_news.private_preview.v1`.
