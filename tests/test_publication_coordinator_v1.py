@@ -170,6 +170,74 @@ def _set_mode(store, mode):
     )
 
 
+def test_simultaneous_api_dispatchers_cross_provider_boundary_only_once(tmp_path):
+    from concurrent.futures import ThreadPoolExecutor
+    from threading import Barrier
+    store, transport, coordinator = _coordinator(tmp_path)
+    registered = coordinator.register_plan("work-1", _plan("telegram"))["registered"][0]
+    message = store.get_outbox_message(registered["message_id"])
+    gate = Barrier(2)
+    def ready(*_):
+        gate.wait(timeout=10)
+        return "READY_NON_BROWSER_BINDING"
+    coordinator._readiness = ready
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        futures = [pool.submit(coordinator._dispatch_message, message, canonical_url=None) for _ in range(2)]
+        outcomes = [f.result(timeout=20) for f in futures]
+    assert transport.publish_calls == ["telegram"]
+    assert sum(r["publish_called"] is True for r in outcomes) == 1
+    assert any(r.get("reason_code") == "EXACT_DISPATCH_ALREADY_CLAIMED" for r in outcomes)
+
+
+@pytest.mark.parametrize("invalid", [None, "text", "account", "photo", "removal", "stale"])
+def test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once(tmp_path, monkeypatch, invalid):
+    from datetime import timedelta
+    import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    from live_contentops.publication_coordinator_v1 import EXTERNAL_REMOVAL_REPORTED_NO_RETRY
+    from live_contentops.native_desktop_publication_v1 import publication_projection
+    store, transport, coordinator = _coordinator(tmp_path)
+    plan = _plan("substack", "telegram")
+    canonical = "https://capitalchronicle.substack.com/p/fixture-article-1"
+    payload = "Exact retained report. " + canonical
+    for item in plan["destinations"]:
+        if item["destination"] == "telegram": item.update(payload=payload, payload_hash=_sha(payload))
+    coordinator.execute_plan("work-1", plan)
+    original = next(d for d in store.list_platform_dispatches() if d["platform"] == "telegram")
+    monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda _: {"media_assets": [{"sha256": "original-photo"}],
+        "payloads": {"telegram": {"text": payload}}})
+    proof = {"public_object_id": "72", "public_object_url": "https://t.me/CapitalChronicle/72", "observed_identity": "@CapitalChronicle",
+        "observed_text": payload, "photo_pixels_inspected": True, "media_sha256": "original-photo", "canonical_url": canonical,
+        "removed_object_id": original["public_object_id"], "removed_object_absence_verified": True,
+        "tool_name": "mcp__browseros_neo__run", "owner_authority_ref": "controlled-human-instruction",
+        "observation_ref": "controlled-public-readback", "observation_source": "Actual controlled specimen",
+        "observed_at_utc": datetime.now(timezone.utc).isoformat()}
+    for case, change in {"text": {"observed_text": "Other story"}, "account": {"observed_identity": "@Other"},
+        "photo": {"media_sha256": "changed"}, "removal": {"removed_object_absence_verified": False},
+        "stale": {"observed_at_utc": (datetime.now(timezone.utc)-timedelta(hours=1)).isoformat()}}.items():
+        if invalid == case: proof.update(change)
+    writes = list(transport.publish_calls)
+    if invalid:
+        with pytest.raises(ValueError, match="EXACT_CURRENT_DUPLICATE_SURVIVOR_PROOF_REQUIRED"):
+            coordinator.reconcile_existing_duplicate_survivor(original["dispatch_id"], observation=proof)
+        assert store.get_platform_dispatch(original["dispatch_id"])["status"] == DISPATCH_CONFIRMED
+    else:
+        adopted = coordinator.reconcile_existing_duplicate_survivor(original["dispatch_id"], observation=proof)
+        assert coordinator.reconcile_existing_duplicate_survivor(original["dispatch_id"], observation=proof)["reused"]
+        old = store.get_platform_dispatch(original["dispatch_id"])
+        assert old["public_object_id"] == original["public_object_id"] and old["status"] == EXTERNAL_REMOVAL_REPORTED_NO_RETRY
+        state = coordinator.publication_state("work-1", plan)
+        assert state["per_destination"]["telegram"]["public_object_id"] == "72"
+        assert state["derivative_confirmed_count"] == 1
+        store.register_outbox_message(message_id="native-binding-controlled", work_item_id="work-1",
+            destination="internal:native-publication-binding", payload=json.dumps({"run_id":"work-1","plan_hash":plan["plan_hash"]}))
+        projection = publication_projection(store.list_outbox_messages(), store.list_platform_dispatches(),
+            store.get_reconciliations_for_work_item("work-1"), run_id="work-1")
+        assert next(d for d in projection["destinations"] if d["destination"]=="telegram")["public_object_id"] == "72"
+        assert coordinator.readback_existing_dispatch(adopted["dispatch_id"])["reconciliation_status"] == RECONCILED_CONFIRMED
+        assert store.get_platform_dispatch(original["dispatch_id"])["status"] == EXTERNAL_REMOVAL_REPORTED_NO_RETRY
+    assert transport.publish_calls == writes
+
+
 def test_registry_locks_surface_transport_and_browser_roles():
     registry = canonical_transport_registry()
     assert registry["publishing_cdp_port"] == 9223

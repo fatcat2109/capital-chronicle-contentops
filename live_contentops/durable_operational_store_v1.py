@@ -1300,6 +1300,30 @@ class ContentOpsDurableStore:
         finally:
             conn.close()
 
+    def claim_platform_dispatch_attempt(self, *, dispatch_id: str, message_id: str,
+                                        platform: str, expected_status: Optional[str] = None) -> bool:
+        """Atomically fence one provider call in the existing dispatch row."""
+        with self.get_connection() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute("SELECT * FROM platform_dispatches WHERE dispatch_id=?", (dispatch_id,)).fetchone()
+            if row is None:
+                if expected_status is not None:
+                    conn.execute("COMMIT")
+                    return False
+                conn.execute("INSERT INTO platform_dispatches (dispatch_id,message_id,platform,status,dispatched_at) VALUES (?,?,?,?,?)",
+                    (dispatch_id, message_id, platform, "DISPATCH_ATTEMPT_STARTED", self._get_now_iso()))
+            elif (row["message_id"] != message_id or row["platform"] != platform
+                    or expected_status is None or row["status"] != expected_status
+                    or expected_status not in {"NATIVE_NEO_TOOL_PENDING", "RECONCILED_ABSENT_SAFE_TO_RETRY",
+                        "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE", "DISPATCH_CONFIRMED"}):
+                conn.execute("COMMIT")
+                return False
+            else:
+                conn.execute("UPDATE platform_dispatches SET status=? WHERE dispatch_id=?",
+                    ("DISPATCH_ATTEMPT_STARTED", dispatch_id))
+            conn.execute("COMMIT")
+            return True
+
     def register_readback(self, *, readback_id: str, dispatch_id: str,
                           readback_data: str) -> Dict[str, Any]:
         return self._idempotent_insert(

@@ -367,6 +367,75 @@ class DurablePublicationCoordinator:
                 "public_object_url": dispatch.get("public_object_url"), "status": disposition,
                 "readback_id": readback_id, "retry_permitted": False, "provider_calls": 0}
 
+    @staticmethod
+    def _survivor_dispatch_id(original_id, object_id):
+        return original_id + "_observed_" + _hash(str(object_id))[:16]
+
+    @classmethod
+    def effective_dispatch(cls, original, dispatches):
+        """Resolve an observed survivor without changing the removed original identity."""
+        if original.get("platform") != "telegram" or original.get("status") not in OWNER_RETIRED_STATUSES:
+            return original
+        candidates = [d for d in dispatches if d.get("message_id") == original.get("message_id")
+            and d.get("platform") == "telegram" and d.get("status") == DISPATCH_CONFIRMED
+            and d.get("public_object_id") and d.get("dispatch_id") == cls._survivor_dispatch_id(
+                original["dispatch_id"], d["public_object_id"])]
+        if len(candidates) != 1:
+            return original
+        return {**candidates[0], "original_dispatch_id": original["dispatch_id"],
+                "original_public_object_id": original.get("public_object_id")}
+
+    def reconcile_existing_duplicate_survivor(self, dispatch_id, *, observation):
+        """Admit one actually observed Telegram duplicate; never send or replace IDs."""
+        original = self.store.get_platform_dispatch(dispatch_id) or {}
+        message = self.store.get_outbox_message(original.get("message_id", ""))
+        if not message or original.get("platform") != "telegram" or not original.get("public_object_id"):
+            raise ValueError("EXACT_ORIGINAL_TELEGRAM_DISPATCH_REQUIRED")
+        intent = json.loads(message["payload"])
+        proof = dict(observation)
+        object_id = str(proof.get("public_object_id") or "")
+        from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+        data = _durable_intent_inputs(intent)
+        expected = str((intent.get("native_payload") or {}).get("text") or intent.get("payload") or "")
+        observed_at = _parse_utc(proof.get("observed_at_utc"))
+        if (not object_id.isdigit() or object_id == original["public_object_id"]
+                or proof.get("public_object_url") != "https://t.me/CapitalChronicle/" + object_id
+                or proof.get("observed_identity") != "@CapitalChronicle"
+                or proof.get("observed_text") not in {expected, data["payloads"]["telegram"]["text"]}
+                or not expected or proof.get("photo_pixels_inspected") is not True
+                or proof.get("media_sha256") not in {a["sha256"] for a in data["media_assets"]}
+                or proof.get("canonical_url") != intent.get("canonical_url")
+                or str(intent.get("canonical_url") or "") not in str(proof.get("observed_text") or "")
+                or proof.get("removed_object_id") != original["public_object_id"]
+                or proof.get("removed_object_absence_verified") is not True
+                or proof.get("tool_name") != "mcp__browseros_neo__run"
+                or not all(proof.get(k) for k in ("owner_authority_ref", "observation_ref", "observation_source"))
+                or observed_at is None or not timedelta(0) <= self._clock() - observed_at <= timedelta(minutes=5)):
+            raise ValueError("EXACT_CURRENT_DUPLICATE_SURVIVOR_PROOF_REQUIRED")
+        if self._confirmed_canonical_url_for_work_item(intent["work_item_id"], plan_hash=intent["plan_hash"]) != intent["canonical_url"]:
+            raise ValueError("SURVIVOR_CANONICAL_IDENTITY_REQUIRED")
+        survivor_id = self._survivor_dispatch_id(dispatch_id, object_id)
+        existing = self.store.get_platform_dispatch(survivor_id)
+        if existing:
+            return {"dispatch_id": survivor_id, "public_object_id": object_id,
+                    "public_object_url": existing["public_object_url"], "new_posts": 0, "reused": True}
+        self.reconcile_owner_removed_object(dispatch_id, disposition=EXTERNAL_REMOVAL_REPORTED_NO_RETRY,
+            observation={"destination": "telegram", "public_object_id": original["public_object_id"],
+                "authority_ref": proof["owner_authority_ref"], "observation_ref": proof["observation_ref"],
+                "observed_at_utc": proof["observed_at_utc"], "observation_basis": proof["observation_source"],
+                "exact_object_absence_verified": True})
+        self.store.register_platform_dispatch(dispatch_id=survivor_id, message_id=message["message_id"],
+            platform="telegram", status=DISPATCH_CONFIRMED, public_object_id=object_id,
+            public_object_url=proof["public_object_url"])
+        self.store.register_readback(readback_id="observed-survivor-" + _hash(_canonical_json(proof)),
+            dispatch_id=survivor_id, readback_data=_canonical_json({"original_dispatch_id": dispatch_id,
+                "observation": proof, "readback": {"verified": True, "identity_match": True,
+                    "observed_public_object_id": object_id, "observed_public_object_url": proof["public_object_url"]}}))
+        self.store.register_reconciliation(reconciliation_id="reconciliation_" + survivor_id.removeprefix("dispatch_"),
+            work_item_id=intent["work_item_id"], status=RECONCILED_CONFIRMED)
+        return {"dispatch_id": survivor_id, "original_dispatch_id": dispatch_id, "public_object_id": object_id,
+                "public_object_url": proof["public_object_url"], "new_posts": 0, "reused": False}
+
     def _active_unknown_write_count(self) -> int:
         """Count UNKNOWN writes that are allowed to participate in current recovery.
 
@@ -600,9 +669,10 @@ class DurablePublicationCoordinator:
             admitted = (str(intent.get("work_item_id") or "") == work_item_id
                 and str(intent.get("plan_hash") or "") == plan_hash)
             dispatch = (self.store.get_platform_dispatch(ids["dispatch_id"]) or {}) if admitted else {}
-            reconciliation = reconciliations.get(ids["reconciliation_id"], {}) if dispatch else {}
+            dispatch = self.effective_dispatch(dispatch, self.store.list_platform_dispatches()) if dispatch.get("status") in OWNER_RETIRED_STATUSES else dispatch
+            reconciliation = reconciliations.get("reconciliation_" + dispatch["dispatch_id"].removeprefix("dispatch_"), {}) if dispatch else {}
             outcomes[destination] = {
-                "destination": destination, "dispatch_id": ids["dispatch_id"],
+                "destination": destination, "dispatch_id": dispatch.get("dispatch_id", ids["dispatch_id"]),
                 "dispatch_recorded": bool(dispatch),
                 "status": dispatch.get("status", "NOT_DISPATCHED"),
                 "reconciliation_status": reconciliation.get("status"),
@@ -851,6 +921,7 @@ class DurablePublicationCoordinator:
         destination = str(dispatch["platform"])
         object_id = str(dispatch.get("public_object_id") or "") or None
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
+        ids["reconciliation_id"] = "reconciliation_" + dispatch_id.removeprefix("dispatch_")
         registration = registration_for_destination(destination)
         self._record_runtime_activity(
             intent,
@@ -1122,12 +1193,13 @@ class DurablePublicationCoordinator:
             readiness = self._readiness(destination, item)
         if readiness not in READY_STATES:
             return {"destination": destination, "status": readiness or "READINESS_UNKNOWN", "publish_called": False}
-        self.store.register_platform_dispatch(
-            dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
-            platform=destination, status=ATTEMPT_STARTED,
-            public_object_id=(existing or {}).get("public_object_id"),
-            public_object_url=(existing or {}).get("public_object_url"),
-        )
+        claimed = self.store.claim_platform_dispatch_attempt(dispatch_id=ids["dispatch_id"],
+            message_id=ids["message_id"], platform=destination,
+            expected_status=existing.get("status") if existing else None)
+        if not claimed:
+            actual = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
+            return {"destination": destination, "status": actual.get("status", UNKNOWN_WRITE),
+                    "publish_called": False, "reason_code": "EXACT_DISPATCH_ALREADY_CLAIMED"}
         authorization = {
             "schema_version": "contentops.canonical_machine_authorization.v1",
             "operating_mode": mode,
@@ -2267,7 +2339,8 @@ class DurablePublicationCoordinator:
         message = self.store.get_outbox_message(dispatch["message_id"])
         intent = json.loads(message["payload"]) if message else {}
         expected = self._ids(str(intent.get("work_item_id")), str(intent.get("plan_hash")), str(dispatch["platform"]))
-        if expected["dispatch_id"] != dispatch_id or expected["message_id"] != dispatch["message_id"]:
+        survivor_id = self._survivor_dispatch_id(expected["dispatch_id"], dispatch.get("public_object_id"))
+        if dispatch_id not in {expected["dispatch_id"], survivor_id} or expected["message_id"] != dispatch["message_id"]:
             raise ValueError("EXISTING_DISPATCH_INTENT_BINDING_MISMATCH")
         status = self._reconcile(dispatch, intent)
         return {"dispatch_id": dispatch_id, "destination": dispatch["platform"],
