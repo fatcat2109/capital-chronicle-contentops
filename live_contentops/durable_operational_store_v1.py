@@ -1315,7 +1315,8 @@ class ContentOpsDurableStore:
             elif (row["message_id"] != message_id or row["platform"] != platform
                     or expected_status is None or row["status"] != expected_status
                     or expected_status not in {"NATIVE_NEO_TOOL_PENDING", "RECONCILED_ABSENT_SAFE_TO_RETRY",
-                        "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE", "DISPATCH_CONFIRMED"}):
+                        "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE", "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+                        "DISPATCH_CONFIRMED"}):
                 conn.execute("COMMIT")
                 return False
             else:

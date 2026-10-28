@@ -845,7 +845,76 @@ def _final_visual_file(item):
     return {"path": str(path), "sha256": item["sha256"]}
 
 
-def final_visual_binding(result, *, renders):
+DATED_DISTRIBUTION_DESTINATIONS = {"facebook_page", "instagram_business", "youtube"}
+
+
+def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref):
+    """Prepare the owner's dated distribution amendment without changing sent intents."""
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+    from live_contentops.native_desktop_publication_v1 import _prepared_packet
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+    row = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
+    if not row or not str(owner_authority_ref).startswith("human:"):
+        raise ValueError("DATED_DISTRIBUTION_OWNER_AUTHORITY_REQUIRED")
+    binding = json.loads(row["payload"])
+    _, plan, _ = _prepared_packet(store, binding)
+    result = json.loads(store.get_outbox_message("cc-editorial-final-" + sha256_of(run_id))["payload"])
+    ids = DurablePublicationCoordinator._ids(run_id, plan["plan_hash"], "substack")
+    canonical = store.get_platform_dispatch(ids["dispatch_id"]) or {}
+    reconciled = any(r["reconciliation_id"] == ids["reconciliation_id"] and r["status"] == "RECONCILED_CONFIRMED"
+        for r in store.get_reconciliations_for_work_item(run_id))
+    if canonical.get("status") != "DISPATCH_CONFIRMED" or not reconciled:
+        raise ValueError("DATED_DISTRIBUTION_CONFIRMED_CANONICAL_REQUIRED")
+    cutoff = datetime.fromisoformat(binding["cutoff_utc"].replace("Z", "+00:00")).astimezone(ZoneInfo("Asia/Bangkok"))
+    label = f"Reporting as of {cutoff:%H:%M} Bangkok on {cutoff.day} {cutoff:%B %Y}."
+    payloads, originals = {}, {}
+    for destination in sorted(DATED_DISTRIBUTION_DESTINATIONS):
+        ids = DurablePublicationCoordinator._ids(run_id, plan["plan_hash"], destination)
+        message = store.get_outbox_message(ids["message_id"])
+        if not message:
+            raise ValueError("DATED_DISTRIBUTION_EXACT_ORIGINAL_INTENT_REQUIRED")
+        intent = json.loads(message["payload"])
+        if intent.get("canonical_url") != canonical.get("public_object_url"):
+            raise ValueError("DATED_DISTRIBUTION_CANONICAL_BINDING_CHANGED")
+        payload = dict(_durable_intent_inputs(intent)["payloads"][destination])
+        payload["text"] = label + "\n\n" + payload["text"]
+        if len(payload["text"]) > int(payload["platform_limit"]):
+            raise ValueError("DATED_DISTRIBUTION_PLATFORM_LIMIT")
+        payloads[destination], originals[destination] = payload, sha256_of(intent)
+    return {"schema_version": "contentops.dated_distribution_recovery.v1", "run_id": run_id,
+        "owner_authority_ref": owner_authority_ref, "source_cutoff_utc": binding["cutoff_utc"],
+        "article_identity": result["article_identity"], "canonical_article_revision": native_review_revision(result),
+        "plan_hash": plan["plan_hash"], "canonical_url": canonical["public_object_url"],
+        "date_label": label, "original_intent_sha256": originals, "payloads": payloads}
+
+
+def dated_distribution_recovery_view(store, *, run_id, result, recovery):
+    from copy import deepcopy
+    expected = build_dated_distribution_recovery(store, run_id=run_id,
+        owner_authority_ref=recovery.get("owner_authority_ref"))
+    if recovery != expected or native_review_revision(result) != recovery["canonical_article_revision"]:
+        raise ValueError("DATED_DISTRIBUTION_SOURCE_OR_PAYLOAD_CHANGED")
+    view = deepcopy(result)
+    for preview in view["previews"]:
+        if preview["destination"] in DATED_DISTRIBUTION_DESTINATIONS:
+            preview["payload"] = recovery["payloads"][preview["destination"]]
+    return view
+
+
+def dated_distribution_recovery_acceptance(store, *, run_id, reference):
+    turn = NativeDesktopTurn(store, run_id=run_id, output_dir=reference["output_dir"], owner_manual_validation=True)
+    request = turn.frozen_request(reference["stage"])
+    recovery = (request or {}).get("governed_input", {}).get("distribution_recovery")
+    if not recovery:
+        raise ValueError("DATED_DISTRIBUTION_EXACT_NATIVE_REVIEW_REQUIRED")
+    result = json.loads(store.get_outbox_message("cc-editorial-final-" + sha256_of(run_id))["payload"])
+    view = dated_distribution_recovery_view(store, run_id=run_id, result=result, recovery=recovery)
+    return recovery, final_visual_acceptance(store, run_id=run_id, result=view, reference=reference)
+
+
+def final_visual_binding(result, *, renders, destinations=None):
     """Bind exact final pixels and view payloads; this does not judge those pixels."""
     assets = result.get("media_assets", [])
     for asset in assets:
@@ -854,8 +923,11 @@ def final_visual_binding(result, *, renders):
     previews = {p["destination"]: p["payload"] for p in result.get("previews", [])}
     if set(previews) != FINAL_VISUAL_CHANNELS - {"substack"}:
         raise ValueError("FINAL_VISUAL_EXACT_EIGHT_VARIANTS_REQUIRED")
+    scope = FINAL_VISUAL_CHANNELS if destinations is None else set(destinations)
+    if destinations is not None and scope != DATED_DISTRIBUTION_DESTINATIONS:
+        raise ValueError("FINAL_VISUAL_DATED_DISTRIBUTION_SCOPE_REQUIRED")
     variants = {}
-    for destination in sorted(FINAL_VISUAL_CHANNELS):
+    for destination in sorted(scope):
         payload = result["article"] if destination == "substack" else previews[destination]
         if destination == "substack":
             ids = set(by_id)
@@ -873,7 +945,7 @@ def final_visual_binding(result, *, renders):
     from PIL import Image
     for render in renders:
         key = (render.get("destination"), render.get("viewport"))
-        if (key[0] not in FINAL_VISUAL_CHANNELS or key[1] not in {"desktop", "mobile"}
+        if (key[0] not in scope or key[1] not in {"desktop", "mobile"}
                 or key in seen or not render.get("render_id")
                 or render.get("variant_sha256") != variants[key[0]]):
             raise ValueError("FINAL_VISUAL_RENDER_VARIANT_UNBOUND")
@@ -886,7 +958,7 @@ def final_visual_binding(result, *, renders):
         if width < (800 if key[1] == "desktop" else 320) or height < 100 or (key[1] == "mobile" and width > 600):
             raise ValueError("FINAL_VISUAL_VIEWPORT_PIXELS_REQUIRED")
         observed.append({**render, **image, "render_source": html, "width": width, "height": height})
-    if seen != {(d, v) for d in FINAL_VISUAL_CHANNELS for v in ("desktop", "mobile")}:
+    if seen != {(d, v) for d in scope for v in ("desktop", "mobile")}:
         raise ValueError("FINAL_VISUAL_DESKTOP_MOBILE_COVERAGE_REQUIRED")
     if len({r["render_id"] for r in observed}) != len(observed):
         raise ValueError("FINAL_VISUAL_DISTINCT_RENDER_IDS_REQUIRED")
@@ -895,13 +967,14 @@ def final_visual_binding(result, *, renders):
     renderer = {name: sha256((root / name).read_bytes()).hexdigest() for name in (
         "ui/contentops_v5/scripts/render-report-workspace.mjs",
         "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx", "ui/contentops_v5/src/index.css")}
-    return {"article_identity": result["article_identity"], "article_revision": native_review_revision(result),
+    return {**({"destinations": sorted(scope)} if destinations is not None else {}),
+        "article_identity": result["article_identity"], "article_revision": native_review_revision(result),
         "source_sha256": sha256_of(result.get("evidence", [])), "assets": assets,
         "variants": variants, "renders": observed, "renderer_sha256": renderer,
         "reviewer_assignment": dict(ROLE_ASSIGNMENTS["final-visual"])}
 
 
-def request_final_visual_review(turn, *, renders):
+def request_final_visual_review(turn, *, renders, distribution_recovery=None):
     """Same writer reviews final assembly; changed revisions receive their own immutable request."""
     row = turn.store.get_outbox_message("cc-editorial-final-" + sha256_of(turn.run_id))
     result = json.loads(row["payload"]) if row else {}
@@ -910,12 +983,17 @@ def request_final_visual_review(turn, *, renders):
     writer = turn._get("write", "response")
     if not writer:
         raise ValueError("FINAL_VISUAL_SAME_NATIVE_WRITER_REQUIRED")
-    binding = final_visual_binding(result, renders=renders)
+    if distribution_recovery is not None:
+        result = dated_distribution_recovery_view(turn.store, run_id=turn.run_id, result=result, recovery=distribution_recovery)
+    binding = final_visual_binding(result, renders=renders,
+        destinations=DATED_DISTRIBUTION_DESTINATIONS if distribution_recovery is not None else None)
     stage = "final-visual-" + sha256_of(binding)
     governed = {"binding": binding, "article": result["article"], "previews": result["previews"],
         "evidence": result.get("evidence", []), "writer_invocation_id": writer["invocation_observation"]["invocation_id"],
         "layout_checks": list(FINAL_VISUAL_LAYOUT_CHECKS), "data_checks": list(FINAL_VISUAL_DATA_CHECKS),
         "photo_checks": list(FINAL_VISUAL_PHOTO_CHECKS)}
+    if distribution_recovery is not None:
+        governed["distribution_recovery"] = distribution_recovery
     prompt = (
         "You are the SAME actual native gpt-6.1-sol/max visual editor/writer. Inspect the FINISHED article, "
         "every visual and all bound canonical/channel desktop/mobile rendered pixels with local image or Neo tools. "
@@ -955,7 +1033,11 @@ def validate_final_visual_return(turn, request, response):
         raise ValueError("FINAL_VISUAL_ACTUAL_SAME_SOL61_MAX_REQUIRED")
     row = turn.store.get_outbox_message("cc-editorial-final-" + sha256_of(turn.run_id))
     result = json.loads(row["payload"]) if row else {}
-    if final_visual_binding(result, renders=binding["renders"]) != binding:
+    recovery = request["governed_input"].get("distribution_recovery")
+    if recovery is not None:
+        result = dated_distribution_recovery_view(turn.store, run_id=turn.run_id, result=result, recovery=recovery)
+    if final_visual_binding(result, renders=binding["renders"],
+            destinations=DATED_DISTRIBUTION_DESTINATIONS if recovery is not None else None) != binding:
         raise ValueError("FINAL_VISUAL_REVIEW_REVISION_CHANGED")
     if output.get("decision") not in {"ACCEPT", "REPAIR_REQUIRED", "EXTERNAL_BLOCK"}:
         raise ValueError("FINAL_VISUAL_DECISION_REQUIRED")
