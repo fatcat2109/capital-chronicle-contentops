@@ -1,39 +1,32 @@
-# V1 live edition — MAX R6 accepted; personal LinkedIn posted, readback in progress
-Goal: SAME CONTENTOPS_V1_LIVE_LAUNCH_AND_FIRST_CURRENT_EDITION_V1; ACTIVE/incomplete. No completion notice sent.
-Objective: C:/Users/bullw/.codex/attachments/3e1d3511-8b77-4f97-8a2b-c888b10f8419/pasted-text-1.txt.
-Sole writer chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
-Authoring: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; codex/v1-newsroom-release-convergence.
-Operating: A:/Capital Chronicle/ContentOps; merged/applied master97bdf7512e8c71cfa1dab63b1fea784426acb055 (PR111).
-PR111 CI40635196545 PASS at e2e3d441; applied with6 unrelated WIP paths, original binding/store and listener14296 preserved; no restart.
-PR109/110 applied without restarting listener14296; original binding/store preserved. Four existing windows ACTIVE; V2/V3 paused.
-AUTONOMOUS_DEFAULT/version38 and the existing live grant remain; daily5–8 reliability remains unproven.
-Operation v1-live-launch-20261027; cutoff2026-10-27T04:00:52.972454Z; same plan57f020444107795eb9854917776f792aa3d986058abd0798616e90b7e683fa11.
-Article8885bd9e945f425731c93f73c51ff0fa70463d7148a088f8ee3482937de3069d; revisionc51849523ae2d109a935d5da85b6607d7dca5e8fed11b3fb0a09eec3606ed77a.
-Sources:27Oct01:32:04UTC FirstSquawk/WSJ relay;21Oct19:17:12UTC Reuters/Yahoo context; report truth only, unchanged.
-Original documentary photo d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b; Fawley16June2017, archive context.
-Substack222368666 confirmed: https://capitalchronicle.substack.com/p/firstsquawk-citing-the-wall-street; full photo attribution retained.
-Telegram survivor72 confirmed/edited: https://t.me/CapitalChronicle/72; Jim-deleted71 retained as external removal, never reposted.
-Discord1564685823377416374 repaired in place with exact photo/body/archive caption; no repost.
-X2115185068423758099 and two replies; Threads18191360326404150 and reply17869934589659764 remain confirmed.
-Facebook confirmed: https://www.facebook.com/1342369584748125/posts/1437213218597094; exact API/Neo readback.
-Instagram18451873360130335 confirmed: https://www.instagram.com/p/DfBYbYjAY3U/; exact API/Neo readback.
-YouTube confirmed once: https://www.youtube.com/post/UgkxEg96KptmQofovRB2_c84CvIqPJqMGwe2; original photo/public text verified.
-YT canonical URL is visible text; clickable external links await its account verification. No verification or extra write performed.
-FB/IG/YT R5 same MAX acceptance24e03fea24693d1ace2955c8220432165f10dfbb6e9bd94a9af7846f7a3f8e97 and canonical R3 acceptance revalidated.
-Jim human01a1808f-8117-7b11-8f28-989719b1afa6 selected BOTH linkedin:jimcc and linkedin:company:143198922; Neo API setup authorized.
-Personal API metadata has openid/profile/w_member_social; live GET fails TRANSPORT_UNAVAILABLE. Windows DNS resolves LinkedIn to loopback.
-Neo created Capital Chronicle Community app264177479 and verified association to Page143198922; original personal app262947024 retained.
-Company API requires business email verification; Jim currently has none. No product access/token/company API readiness is claimed.
-Official requirements: https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review; personal emails fail vetting.
-LinkedIn original absence was reconciled before the reviewed send. Same dispatch now holds urn:li:activity:7521104588075327488; no blind repost.
-Actual Neo requestccabb6d3a3bf0fa7ba608214a7b15f7970f5d32e9f45c67aabfae98ee0f43f5b; zero public writes during reconciliation.
-Personal posted once: https://www.linkedin.com/feed/update/urn:li:activity:7521104588075327488/; known identity, readback pending. Company not sent.
-Explicit Neo recovery retains original sent intents; company copy has separate recipient/dispatch. Routine eight-channel/API default unchanged.
-R6 shared LinkedIn dated copy has2 rendered viewports, exact recipients, same sources/photo/canonical; no fresh-news claim.
-R6 request1b3580f0d71c1b67eb541957142a8a0efad4a914e3627a08adf7da2df99b42cb; stage final-visual-87fd9f2bb7965499bb60068e8a360ddf369e758dabd29ea63c650958d04444eb.
-SAME MAX R6 ACCEPT cb52737490ff3464f9a3fb66cd487dc317adea5730933e9021c39e7d38d7ec55 submitted/validated; both exact renders and original inspected.
-PR112: exact shortlink proof + preserve reviewed company payload; repair only known empty pre-dispatch copy. Focused18PASS; exact-head CI pending.
-[Builder B producer handoff](main-news/README.md): exact1311chars/source clocks/Substack222368666/photo read200; B installed outcome COMPLETE.
-Pinned8-story export b4a52997745fc86697e404a6d37c22b4230ce2571b837de90d97e3d41588dc7a unchanged; no repin or Main edits.
-Evidence: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-live-launch-20261027/linkedin-neo-r6/; prior dated-distribution-r5/.
-Next: apply PR112; reconcile known personal object, restore unclaimed exact company copy through existing finalizer, then company send/readback.
+# V1 current edition and repeatable delivery
+Native goal: CONTENTOPS_V1_CURRENT_EDITION_AND_REPEATABLE_DELIVERY_V1; ACTIVE; created28October2026 at07:58:55UTC after get_goal returned none.
+Objective: finish one genuinely current useful edition through native evidence/writing/final MAX repair/publication and exact safe producer availability.
+Owner/integrator: chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
+Authoring: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; branch codex/v1-newsroom-release-convergence; source1d65b4b6; PR113 holds the reader-policy integration.
+Operating: A:/Capital Chronicle/ContentOps; installed/fresh master0e643b008e3dd0e238c45c87282e958ecbaf04da; unrelated WIP preserved.
+Current authority/strategic context reused; root AGENTS, native runtime/role policy, source/lane map and28October locked execution refreshed.
+Product synthesis: useful current source-faithful original newsroom output, existing sole coordinator/read producer and observed outcomes; no framework campaign.
+Previous completed launch remains closed; its scoped delivery/notice is in Git148957c7 and main-news/README.md. No original object/review reopened.
+Three27October scheduled bindings retain cutoffs10:00/14:00/18:00UTC and their pending stages; owning automations/children unchanged.
+No active editorial leases at startup; no28October production binding existed. Current canonical intake captured28October07:58:50UTC.
+Authorized owner-manual entry created v1-current-edition-20261028-a with exact current cutoff2026-10-28T08:01:00.380227Z.
+Binding: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-current-edition-20261028-a/binding.json.
+Request: A:/Capital Chronicle/Runtime/ContentOps/current-edition-20261028-request.txt; same normal-language request and operation survive interruption.
+Current filter:17 accepted24-record batches;408records,274KEEP/106REJECT/28DEFER. Saved seventeenth actual Luna return submitted after quota stop.
+Latest exact pending stage is in filter-advance-after-7744efa7d22c94dc73f2fa96b168b358083df2b830a4324972360f1452b98f2a.txt under the same operation.
+Luna /root/current_delivery_luna_filter stopped with actual account usage-limit error; no retry loop, replacement role, cutoff reset or fabricated completion.
+Child judges every bounded record, reuses accepted cache, submits exact responses and stops at the next non-filter stage; no source/public action.
+Next role: actual gpt-6.1-sol/low selects/plans within<=32 candidates/<=3admissions; aim2–3distinct supported stories without filler.
+Each admitted story retains<=6source requests and relevant dated event/thesis history; facts, CC hypotheses and measured reaction stay distinct.
+SAME actual gpt-6.1-sol/max writer/editor owns prose, visual choice, finished desktop/mobile inspection and direct affected-output repair.
+Canonical-first publication uses existing configured routine recipients; the launch-only extra LinkedIn company copy is not a new default.
+UNKNOWN_WRITE remains readback-first; source/account/API/verification gaps stay local. No paid fallback or account/product setup is required.
+New accepted stories must enter the existing legitimate dated producer selection/export; older article IDs and pinned launch export bytes remain historical.
+Main bridge/skill/pins stay Main-owned; parent pulls exact producer handoff. No peer message or Main/Database edit.
+Current new-edition result:0qualified/0published; remaining filtering needs actual native capacity. Independent reader-policy amendment continues.
+Operating observations will use existing production-day/outcome owners; source cutoff, publish/observation clocks and measured duration remain separate.
+Four existing schedules remain independently ACTIVE; no fifth task/new scheduler/store/publisher/reviewer fleet. V2/V3 stay owner-paused.
+Jim28October reader policy: same MAX accepted exact oil copy and ten revised desktop/mobile pixels; oil-reader-policy-r1/accepted-review-reference.json binds revision5ee98176.
+Next: merge/apply PR113 after exact-head checks; run existing coordinator via reader_policy_step.py for canonical-first six in-place edits/readbacks; resume frozen filter on capacity.
+Reader-policy verification:289 affected regressions,19 native edit/media tests,66 reader/workspace and26 final-review/context checks passed; lint passed. PR113 pending CI/application.
+No completion notice sent for this successor; only one after whole-goal acceptance. Daily5–8 reliability/SEO/growth remain unproven.

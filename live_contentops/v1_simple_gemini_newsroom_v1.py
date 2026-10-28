@@ -22,6 +22,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 from urllib.parse import urlsplit
+from zoneinfo import ZoneInfo
 
 from live_contentops.browser_rendered_source_recovery_v1 import (
     BrowserOSNeoRenderedSourceRecovery,
@@ -73,6 +74,21 @@ from live_contentops.v1_simple_epistemic_state_v1 import (
     candidate_report_provenance,
     validate_epistemic_state,
 )
+
+READER_ATTRIBUTION_POLICY = "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1"
+
+
+def reader_timestamp(instant: str, *, zone: str = "America/New_York") -> str:
+    """Display the supplied instant; never invent precision or refresh its clock."""
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", instant):
+        return instant
+    value = datetime.fromisoformat(instant.replace("Z", "+00:00"))
+    if value.tzinfo is None:
+        raise ValueError("READER_TIMESTAMP_REQUIRES_AWARE_INSTANT")
+    if zone not in {"America/New_York", "UTC", "Asia/Bangkok"}:
+        raise ValueError("READER_TIMESTAMP_ZONE_NOT_SUPPORTED")
+    local = value.astimezone(ZoneInfo(zone))
+    return f"{local:%H:%M %Z} on {local.day} {local:%B %Y}"
 
 SCHEMA_VERSION = "contentops.v1_simple_gemini_newsroom.v5"
 SELECTION_SCHEMA_VERSION = "contentops.v1_simple_gemini_selection.v2"
@@ -924,13 +940,21 @@ def _reader_first_worker_prompt(prompt, governed):
             "primary evidence and visual argument. Use the exact section headings in placement_after so each "
             "chart appears beside its explanation. Keep every internal SOURCE marker and material claim binding; "
             "they are not public links. At first useful material use, you may write [[CITE:SOURCE_N|meaningful source phrase]] "
-            "which the compiler resolves to the exact verified URL. Do not put the same publisher link after every "
+            "only when that particular link is needed for meaning or admitted reuse terms; the compiler resolves its verified URL. Do not put the same publisher link after every "
             "paragraph. No workflow/status/KEEP/PREPARED/source-clock bureaucracy or repeated 'Interpretation remains "
             "analysis' in public copy. Dates and real uncertainty remain clear in ordinary language. No artificial "
             "chart-gap banner. No generic If Reuters account is accurate ritual for attributed reported observations. "
             "Include article.display_date as an ordinary dated update, preserving original source dates internally. "
             "Keep concise natural photo/dataset credits separate from prose; required rights terms remain accessible."
         )
+    prompt += (
+        "\nREADER_ATTRIBUTION_AND_TIMEZONE: default to clean editorial copy without discretionary Sources/References "
+        "lists, paragraph-by-paragraph links or ritual cutoff footers. Keep natural claim attribution, relay qualification "
+        "and uncertainty, all internal source markers and actual mandatory quotation/photo/reuse credits or links. "
+        "Do not drop meaningful metric/unit/period/context notes. Omit unnecessary exact times; when material, "
+        "display the supplied instant with America/New_York date-correct EDT/EST, or UTC where clearer. Never "
+        "hardcode UTC-5, backdate or treat formatting as fresh evidence. Internal UTC/cutoff/Bangkok schedules stay exact."
+    )
     return prompt
 
 
@@ -1721,6 +1745,7 @@ def _reader_safe_native_article(
     *,
     article_mode: str,
     epistemic_state: Mapping[str, Any] | None = None,
+    legacy_presentation: bool = False,
 ) -> dict[str, Any]:
     """Adapt only final validated article truth to the existing native compiler."""
     sources = {s["source_id"]: s for s in article.get("public_source_bindings", []) if str(s.get("url", "")).startswith("https://")}
@@ -1732,7 +1757,7 @@ def _reader_safe_native_article(
     raw_body = str(article.get("substack_body_markdown") or "")
     if reader_first:
         # Every fact still has its internal paragraph/claim binding. Public references
-        # are authored meaningful phrases plus one compact distinct-document note.
+        # preserve authored meaningful phrases and required credits without an automatic bibliography.
         def named_citation(match):
             source = sources.get(match.group(1))
             if not source or not match.group(2).strip():
@@ -1747,11 +1772,11 @@ def _reader_safe_native_article(
         already_linked_in_notes = set(re.findall(r"\[\[CITE:(SOURCE_\d+)\|", raw_body[authored_notes.end():])) if authored_notes else set()
         notes = [f"[{s.get('reader_label') or s['publisher']}]({s['url']})" for sid, s in sources.items()
             if sid in used and sid not in already_linked_in_notes]
-        if notes:
+        if notes and legacy_presentation:
             existing_notes = re.search(notes_heading, body)
             body = body.rstrip() + ("\n\n" if existing_notes else "\n\n### Sources\n\n") + " · ".join(dict.fromkeys(notes))
     else:
-        body = _SOURCE_MARKER_RE.sub(reader_reference, raw_body)
+        body = _SOURCE_MARKER_RE.sub(reader_reference if legacy_presentation else "", raw_body)
     if not reader_first:
         body = re.sub(r"(?m)^#{1,6}\s+", "", body)
     title = str(article.get("title") or "")
@@ -1759,7 +1784,7 @@ def _reader_safe_native_article(
     if not reader_first and label and label.casefold() not in title.casefold():
         title = f"{label} | {title}"
     notice = str(article.get("source_date_notice") or "")
-    if notice and not reader_first:
+    if notice and not reader_first and legacy_presentation:
         dates = list(dict.fromkeys(re.findall(r"\d{4}-\d{2}-\d{2}", notice)))
         date_tag = ("Main report " if "Main report cutoff:" in notice else "Source ") + ", ".join(dates[:2]) if dates else "Source undated"
         title += " [" + date_tag + "]"
@@ -1772,7 +1797,7 @@ def _reader_safe_native_article(
         "substack_body_markdown": body,
         "editorial_scope_notice": " ".join(s for s in (
             str((epistemic_state or {}).get("report_scope_notice") or ""),
-            "" if reader_first else str(article.get("source_date_notice") or "")) if s),
+            str(article.get("source_date_notice") or "") if legacy_presentation and not reader_first else "") if s),
     }
     from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
     notices = [text for d in article.get("public_research_descriptors", []) for text in reader_notices(d)]
@@ -1914,6 +1939,7 @@ def _native_preview_bundle(
         article,
         article_mode=article_mode,
         epistemic_state=epistemic_state,
+        legacy_presentation=article.get("reader_attribution_policy") != READER_ATTRIBUTION_POLICY,
     )
     reader_first = article.get("reader_first_version") == "DATA_JOURNALISM_V1"
     if reader_first:
@@ -2060,6 +2086,7 @@ def _build_simple_publication_lifecycle_plan(
         article,
         article_mode=str(selected_plan_entry.get("article_mode") or ""),
         epistemic_state=epistemic_state,
+        legacy_presentation=article.get("reader_attribution_policy") != READER_ATTRIBUTION_POLICY,
     )
     reader_first = article.get("reader_first_version") == "DATA_JOURNALISM_V1"
     publication_assets, attribution = _publication_media_metadata(media_assets, compact=reader_first)
@@ -2653,6 +2680,7 @@ def run_v1_simple_gemini_newsroom(
             raise ValueError("EDITORIAL_REVISION_FACT_SOURCES_CHANGED_USE_SOURCE_REVIEW")
     writer_governed = {
         "cutoff_utc": cutoff_utc,
+        **({"reader_attribution_policy": READER_ATTRIBUTION_POLICY} if native else {}),
         "selected_candidate": selected,
         "evolving_story_context": [s for s in ((capital_chronicle_context or {}).get("foundation_library") or {}).get("stories", [])
                 if s["brief_id"] in {c.get("brief_id") for c in selected.get("evolving_story_context", [])}],
@@ -2847,6 +2875,8 @@ def run_v1_simple_gemini_newsroom(
     if native:
         article = {**article, "source_date_notice": native_source_date_notice(source_pack,
             {c["source_id"] for c in worker_output["material_claim_bindings"]})}
+        if writer_governed.get("reader_attribution_policy") == READER_ATTRIBUTION_POLICY:
+            article["reader_attribution_policy"] = READER_ATTRIBUTION_POLICY
     native_prior = [c for c in selected.get("evolving_story_context", []) if c.get("source_review_id")]
     article["public_source_bindings"] = [{**{k: d[k] for k in ("source_id", "url", "publisher", "published_at_utc")},
         **({"reader_label": native_source_reader_label(d)}

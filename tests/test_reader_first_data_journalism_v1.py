@@ -550,7 +550,7 @@ def test_compact_authored_links_retain_distinct_sources_and_internal_markers():
         ],
     }
     before = deepcopy(article)
-    public = _reader_safe_native_article(article, article_mode="DATA_OR_DOCUMENT_LENS")
+    public = _reader_safe_native_article(article, article_mode="DATA_OR_DOCUMENT_LENS", legacy_presentation=True)
     assert article == before
     body = public["substack_body_markdown"]
     assert body.count("https://example.org/1") == 2
@@ -564,22 +564,22 @@ def test_compact_authored_links_retain_distinct_sources_and_internal_markers():
     bad = deepcopy(article)
     bad["substack_body_markdown"] = "[[CITE:SOURCE_8|unbound phrase]]"
     with pytest.raises(SimpleGeminiNewsroomError):
-        _reader_safe_native_article(bad, article_mode="DATA_OR_DOCUMENT_LENS")
+        _reader_safe_native_article(bad, article_mode="DATA_OR_DOCUMENT_LENS", legacy_presentation=True)
     with_notes = {**article, "substack_body_markdown": article["substack_body_markdown"]
         + "\n\n## Sources and notes\n\nCompany-defined cash measure. [[SOURCE:SOURCE_1]]"}
-    notes_body = _reader_safe_native_article(with_notes, article_mode="DATA_OR_DOCUMENT_LENS")["substack_body_markdown"]
+    notes_body = _reader_safe_native_article(with_notes, article_mode="DATA_OR_DOCUMENT_LENS", legacy_presentation=True)["substack_body_markdown"]
     assert notes_body.count("Sources") == 1
     assert "Company-defined cash measure." in notes_body
     assert "Company Q1" in notes_body and "Company Q2" in notes_body
     linked_notes = {**article, "substack_body_markdown": article["substack_body_markdown"]
         + "\n\n## Sources and notes\n\n[[CITE:SOURCE_1|Current results]] and [[CITE:SOURCE_2|Prior results]]. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]"}
-    linked_body = _reader_safe_native_article(linked_notes, article_mode="DATA_OR_DOCUMENT_LENS")["substack_body_markdown"]
+    linked_body = _reader_safe_native_article(linked_notes, article_mode="DATA_OR_DOCUMENT_LENS", legacy_presentation=True)["substack_body_markdown"]
     assert linked_body.count("Sources") == 1
     assert "Company Q1" not in linked_body and "Company Q2" not in linked_body
     assert "[Current results](https://example.org/1)" in linked_body
     data_notes = {**linked_notes, "substack_body_markdown": linked_notes["substack_body_markdown"].replace(
         "## Sources and notes", "## Sources and data notes")}
-    data_body = _reader_safe_native_article(data_notes, article_mode="DATA_OR_DOCUMENT_LENS")["substack_body_markdown"]
+    data_body = _reader_safe_native_article(data_notes, article_mode="DATA_OR_DOCUMENT_LENS", legacy_presentation=True)["substack_body_markdown"]
     assert data_body.count("Sources") == 1
     assert "Company Q1" not in data_body and "Company Q2" not in data_body
 

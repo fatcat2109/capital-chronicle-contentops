@@ -109,6 +109,22 @@ def accepted_recovery(store, binding, result, recovery, tmp_path, *, model=None,
     return {"stage": request["stage"], "request_sha256": request["request_sha256"], "output_dir": str(turn.root)}
 
 
+def test_new_recovery_uses_eastern_time_and_replays_historical_bangkok_bytes(tmp_path, monkeypatch):
+    store, binding, result, _, _, recovery = setup_recovery(tmp_path, monkeypatch)
+    assert recovery["source_cutoff_utc"] == "2026-10-21T14:00:00Z"
+    assert recovery["date_label"] == "Reporting as of 10:00 EDT on 21 October 2026."
+    assert recovery["reader_timezone"] == "America/New_York"
+    original = copy.deepcopy(result)
+    assert dated_distribution_recovery_view(store, run_id=binding["run_id"], result=result,
+        recovery=recovery)["article_identity"] == result["article_identity"]
+    historical = build_dated_distribution_recovery(store, run_id=binding["run_id"],
+        owner_authority_ref="human:CONTROLLED_APPROVAL", reader_timezone=None)
+    assert "reader_timezone" not in historical
+    assert historical["date_label"] == "Reporting as of 21:00 Bangkok on 21 October 2026."
+    dated_distribution_recovery_view(store, run_id=binding["run_id"], result=result, recovery=historical)
+    assert result == original
+
+
 @pytest.mark.parametrize("destination", ["facebook_page", "instagram_business", "youtube"])
 def test_dated_amendment_retains_original_bytes_and_one_exact_send(tmp_path, monkeypatch, destination):
     store, binding, result, co, runtime, recovery = setup_recovery(tmp_path, monkeypatch)
