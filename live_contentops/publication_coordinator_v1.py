@@ -436,6 +436,70 @@ class DurablePublicationCoordinator:
         return {"dispatch_id": survivor_id, "original_dispatch_id": dispatch_id, "public_object_id": object_id,
                 "public_object_url": proof["public_object_url"], "new_posts": 0, "reused": False}
 
+    def _dated_distribution_message(self, message):
+        """Resolve an accepted append-only amendment while retaining original intent bytes."""
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        row = self.store.get_outbox_message("native-dated-distribution-" + sha256_of(message["message_id"]))
+        if not row:
+            return message
+        amendment = json.loads(row["payload"])
+        original = self.store.get_outbox_message(message["message_id"])
+        if not original or amendment["original_intent_sha256"] != sha256_of(json.loads(original["payload"])):
+            raise ValueError("DATED_DISTRIBUTION_ORIGINAL_INTENT_CHANGED")
+        from live_contentops.native_desktop_editorial_v1 import dated_distribution_recovery_acceptance
+        recovery, _ = dated_distribution_recovery_acceptance(self.store,
+            run_id=message["work_item_id"], reference=amendment["review_reference"])
+        intent = json.loads(original["payload"])
+        destination = message["destination"]
+        if destination not in recovery["payloads"] or intent["plan_hash"] != recovery["plan_hash"]:
+            raise ValueError("DATED_DISTRIBUTION_EXACT_DESTINATION_REQUIRED")
+        payload = recovery["payloads"][destination]
+        intent.update(native_payload=payload, payload=payload["text"],
+            dated_distribution_recovery=amendment["review_reference"])
+        intent["destination_plan"] = {**intent["destination_plan"], "payload_hash": sha256_of(payload),
+            "payload_hash_kind": "OWNER_APPROVED_DATED_DISTRIBUTION"}
+        return {**original, "payload": _canonical_json(intent)}
+
+    def complete_dated_distribution_recovery(self, message_id, *, review_reference):
+        """One owner-approved dated send on an absent/never-attempted existing destination."""
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        from live_contentops.native_desktop_editorial_v1 import dated_distribution_recovery_acceptance
+        message = self.store.get_outbox_message(message_id)
+        if not message or message["destination"] not in {"facebook_page", "instagram_business", "youtube"}:
+            raise ValueError("DATED_DISTRIBUTION_EXACT_ORIGINAL_DESTINATION_REQUIRED")
+        recovery, _ = dated_distribution_recovery_acceptance(self.store,
+            run_id=message["work_item_id"], reference=review_reference)
+        intent = json.loads(message["payload"])
+        ids = self._ids(message["work_item_id"], intent["plan_hash"], message["destination"])
+        dispatch = self.store.get_platform_dispatch(ids["dispatch_id"])
+        if dispatch and dispatch["status"] != NATIVE_NEO_PENDING:
+            reconciled = any(r["reconciliation_id"] == ids["reconciliation_id"]
+                and r["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+                for r in self.store.get_reconciliations_for_work_item(message["work_item_id"]))
+            if (dispatch.get("public_object_id") or not reconciled or dispatch["status"] not in {
+                    RECONCILED_ABSENT_SAFE_TO_RETRY, DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
+                    DERIVATIVE_EXPIRED_STALE_NO_WRITE}):
+                return {"status": "DATED_DISTRIBUTION_EXISTING_OR_AMBIGUOUS_OBJECT_READBACK_ONLY", "publish_called": False}
+        elif not dispatch and message["status"] != DERIVATIVE_EXPIRED_STALE_NO_WRITE:
+            return {"status": "DATED_DISTRIBUTION_NEVER_ATTEMPTED_EXPIRED_INTENT_REQUIRED", "publish_called": False}
+        if self._confirmed_canonical_url_for_work_item(message["work_item_id"], plan_hash=intent["plan_hash"]) != recovery["canonical_url"]:
+            raise ValueError("DATED_DISTRIBUTION_CANONICAL_IDENTITY_CHANGED")
+        correction_id = "dated-distribution-" + review_reference["request_sha256"]
+        if self._transport_correction_already_attempted(ids["dispatch_id"], correction_id):
+            return {"status": "DATED_DISTRIBUTION_ALREADY_ATTEMPTED_READBACK_ONLY", "publish_called": False}
+        amendment = {"original_intent_sha256": sha256_of(intent), "review_reference": review_reference}
+        key = "native-dated-distribution-" + sha256_of(message_id)
+        prior = self.store.get_outbox_message(key)
+        if prior and json.loads(prior["payload"]) != amendment:
+            raise ValueError("DATED_DISTRIBUTION_IMMUTABLE_REVIEW_CONFLICT")
+        self.store.register_outbox_message(message_id=key, work_item_id=message["work_item_id"],
+            destination="internal:native-desktop-editorial", payload=_canonical_json(amendment), status="EDITORIAL_INTERNAL")
+        outcome = self._dispatch_message(message, canonical_url=recovery["canonical_url"],
+            explicit_transport_correction_retry=True)
+        if outcome.get("publish_called") is True:
+            self._record_transport_correction_attempt(ids["dispatch_id"], correction_id, message["work_item_id"])
+        return outcome
+
     def _active_unknown_write_count(self) -> int:
         """Count UNKNOWN writes that are allowed to participate in current recovery.
 
@@ -918,6 +982,11 @@ class DurablePublicationCoordinator:
         provider_outcome: Mapping[str, Any] | None = None,
     ) -> str:
         dispatch_id = str(dispatch["dispatch_id"])
+        original_message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
+        if original_message:
+            resolved = self._dated_distribution_message(original_message)
+            if resolved["payload"] != original_message["payload"]:
+                intent = json.loads(resolved["payload"])
         destination = str(dispatch["platform"])
         object_id = str(dispatch.get("public_object_id") or "") or None
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
@@ -1051,6 +1120,7 @@ class DurablePublicationCoordinator:
         explicit_transport_correction_retry: bool = False,
         recovery_public_object_url: Optional[str] = None,
     ) -> dict[str, Any]:
+        message = self._dated_distribution_message(message)
         intent = json.loads(str(message["payload"]))
         destination = str(message["destination"])
         item = dict(intent["destination_plan"])
@@ -1097,6 +1167,7 @@ class DurablePublicationCoordinator:
                         and str(existing.get("status") or "") in {
                             DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
                             RECONCILED_ABSENT_SAFE_TO_RETRY,
+                            *({DERIVATIVE_EXPIRED_STALE_NO_WRITE} if intent.get("dated_distribution_recovery") else set()),
                         }
                         and reconciliation_status == RECONCILED_ABSENT_SAFE_TO_RETRY
                     )
@@ -2337,6 +2408,7 @@ class DurablePublicationCoordinator:
         if not dispatch or dispatch.get("status") not in {DISPATCH_CONFIRMED, UNKNOWN_WRITE, ATTEMPT_STARTED}:
             raise ValueError("EXISTING_PUBLIC_OR_AMBIGUOUS_DISPATCH_REQUIRED")
         message = self.store.get_outbox_message(dispatch["message_id"])
+        message = self._dated_distribution_message(message) if message else None
         intent = json.loads(message["payload"]) if message else {}
         expected = self._ids(str(intent.get("work_item_id")), str(intent.get("plan_hash")), str(dispatch["platform"]))
         survivor_id = self._survivor_dispatch_id(expected["dispatch_id"], dispatch.get("public_object_id"))
