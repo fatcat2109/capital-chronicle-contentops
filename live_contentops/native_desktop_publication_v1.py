@@ -580,4 +580,11 @@ class NativeReviewedPublication:
                 }
         if command != "submit" or not isinstance(response, dict):
             raise ValueError("ACTUAL_NATIVE_NEO_OBSERVED_RETURN_REQUIRED")
-        return self.executor.submit(request_hash, response)
+        submitted = self.executor.submit(request_hash, response)
+        packet = self.executor._get(request_hash, "request")
+        result = response.get("result") or {}
+        if (packet["request"]["action"] == "PUBLISH" and result.get("status") == "SUCCESS"
+                and result.get("public_object_id") and result.get("public_object_url")):
+            submitted["completed_write_reconciliation"] = self.coordinator.reconcile_completed_native_publish(
+                packet["request"]["dispatch_attempt_identity"], request_hash=request_hash)
+        return submitted

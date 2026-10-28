@@ -18,12 +18,12 @@ Telegram survivor72 confirmed/edited in place; Jim-deleted71 identity remains hi
 Discord1564685823377416374 repaired in place; exact body/canonical/original photo/one archive caption confirmed;0reposts.
 X2115185068423758099 + replies2115185072244670662/2115185077437313291 and Threads18191360326404150 + reply17869934589659764 remain confirmed.
 Facebook dated recovery confirmed106091951705748_1437213218597094: https://www.facebook.com/1342369584748125/posts/1437213218597094; exact API + Neo public readback.
-Instagram dated recovery confirmed18451873360130335: https://www.instagram.com/p/DfBYbYjAY3U/; exact API readback; Neo verification next.
+Instagram dated recovery confirmed18451873360130335: https://www.instagram.com/p/DfBYbYjAY3U/; exact API readback; Neo public body/photo also verified28Oct02:53UTC.
 YouTube created ONCE, confirmed UgkxEg96KptmQofovRB2_c84CvIqPJqMGwe2: https://www.youtube.com/post/UgkxEg96KptmQofovRB2_c84CvIqPJqMGwe2.
 YT actual Neo expanded public text/original640×427photo verified; platform encoding differs, original-source continuity and RGB RMSE4.00/3.73/4.14 recorded separately.
 YT UI says one-time account verification is needed for clickable external links; canonical URL remains visible text. No account verification/switch or extra write performed.
 Actual native create return was preserved while durable marker reverted to expired/no-write; bounded source repair consumes only that completed exact return and reads back, never calls publish.
-Three new completed-return controls PASS (stale marker/replay, missing return, wrong intent); prior8 dated-recovery and22 affected visual/dispatch checks reused. Repair source pending integration.
+Three new completed-return controls PASS (stale marker/replay, missing return, wrong intent); prior8 dated-recovery and22 affected visual/dispatch checks reused. Native tool-submit invokes this no-write reconciliation; repair source pending integration.
 Current actual projection: REAL_PUBLISHED canonical +7confirmed derivatives,1unknown,0pending native requests; RECOVERY_REQUIRED only linkedin.
 LinkedIn has no ID/URL; Neo own Jim Pham activity28Oct02:30UTC again showed no posts. No authoritative absence proof; no create retry.
 [Builder B producer handoff](main-news/README.md); exact article1311chars/revision/source clocks/Substack222368666/photo read200; B installed read outcome COMPLETE with67checks, draft/unmerged PR280.

@@ -14,7 +14,7 @@ from live_contentops.native_desktop_editorial_v1 import (
     FINAL_VISUAL_LAYOUT_CHECKS, FINAL_VISUAL_DATA_CHECKS, FINAL_VISUAL_PHOTO_CHECKS,
     DATED_DISTRIBUTION_DESTINATIONS,
 )
-from live_contentops.native_desktop_publication_v1 import _prepared_packet
+from live_contentops.native_desktop_publication_v1 import _prepared_packet, NativeReviewedPublication
 from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
 from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, NativeNeoInputRequired
@@ -189,14 +189,23 @@ def test_completed_native_write_survives_stale_marker_without_another_publish(tm
         executor(request)
     packet = pending.value.request
     executor.begin(request["request_sha256"])
+    store.set_dispatch_status(ids["dispatch_id"], "DERIVATIVE_EXPIRED_STALE_NO_WRITE")
     if invalid != "missing_return":
-        executor.submit(request["request_sha256"], {"tool_request_sha256": packet["tool_request_sha256"],
+        response = {"tool_request_sha256": packet["tool_request_sha256"],
             "tool_observation": {"tool_name": "mcp__browseros_neo__run", "native_invocation_id": "CONTROLLED",
                 "surface": "CODEX_DESKTOP_CONVERSATION", "observed_at_utc": datetime.now(timezone.utc).isoformat(),
                 "observation_source": "Synthetic disposable native-return fixture; no public write occurred."},
             "result": {"request_sha256": request["request_sha256"], "status": "SUCCESS", "observed_identity": "@CapitalChronicleYouTube",
-                "public_object_id": "UgControlled", "public_object_url": "https://www.youtube.com/post/UgControlled"}})
-    store.set_dispatch_status(ids["dispatch_id"], "DERIVATIVE_EXPIRED_STALE_NO_WRITE")
+                "public_object_id": "UgControlled", "public_object_url": "https://www.youtube.com/post/UgControlled"}}
+        if invalid:
+            executor.submit(request["request_sha256"], response)
+        else:
+            rollout = {"schema_version": "contentops.native_desktop_rollout.v1", "store_path": str(store.db_path),
+                "editorial_output_root": str(tmp_path/"editorial"), "public_write_authority": True}
+            publication = NativeReviewedPublication(store, binding, native_invocation_id="CONTROLLED",
+                rollout=rollout, coordinator=co, executor=executor)
+            submitted = publication.tool("submit", request_hash=request["request_sha256"], response=response)
+            assert submitted["completed_write_reconciliation"]["publish_called"] is False
     if invalid:
         with pytest.raises(ValueError, match="EXACT_COMPLETED_NATIVE_PUBLISH_RETURN_REQUIRED"):
             co.reconcile_completed_native_publish(ids["dispatch_id"], request_hash=request["request_sha256"])
