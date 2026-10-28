@@ -458,17 +458,147 @@ class DurablePublicationCoordinator:
             dated_distribution_recovery=amendment["review_reference"])
         intent["destination_plan"] = {**intent["destination_plan"], "payload_hash": sha256_of(payload),
             "payload_hash_kind": "OWNER_APPROVED_DATED_DISTRIBUTION"}
+        if destination == "linkedin" and recovery.get("transport_override") == "BROWSEROS_NEO_MCP":
+            intent["destination_plan"]["transport_type"] = "BROWSEROS_NEO_MCP"
         return {**original, "payload": _canonical_json(intent)}
+
+    def _intent_registration(self, destination, intent):
+        registration = registration_for_destination(destination)
+        if destination == "linkedin_company":
+            from live_contentops.native_desktop_editorial_v1 import dated_distribution_recovery_acceptance
+            reference = intent.get("dated_distribution_recovery")
+            if not reference:
+                raise ValueError("LINKEDIN_COMPANY_EXPLICIT_SAME_REVIEW_REQUIRED")
+            recovery, _ = dated_distribution_recovery_acceptance(self.store,
+                run_id=intent["work_item_id"], reference=reference)
+            source_id = self._ids(intent["work_item_id"], recovery["plan_hash"], "linkedin")["message_id"]
+            source = self.store.get_outbox_message(source_id)
+            original = json.loads(source["payload"]) if source else {}
+            from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+            if (recovery.get("recipients", {}).get(destination) != registration.expected_identity
+                    or recovery.get("original_intent_sha256", {}).get("linkedin") != sha256_of(original)
+                    or intent.get("company_copy_of_message_id") != source_id
+                    or intent.get("native_payload") != recovery["payloads"].get("linkedin")
+                    or intent.get("payload") != recovery["payloads"]["linkedin"]["text"]
+                    or intent.get("canonical_url") != recovery["canonical_url"]
+                    or intent.get("plan_hash") != recovery["plan_hash"]
+                    or intent.get("owner_authority_ref") != recovery["owner_authority_ref"]
+                    or intent.get("destination_plan", {}).get("payload_hash") != sha256_of(intent.get("native_payload"))):
+                raise ValueError("LINKEDIN_COMPANY_EXACT_REVIEWED_COPY_REQUIRED")
+        if destination == "linkedin" and intent.get("destination_plan", {}).get("transport_type") == "BROWSEROS_NEO_MCP":
+            from dataclasses import replace
+            from live_contentops.native_desktop_editorial_v1 import dated_distribution_recovery_acceptance
+            reference = intent.get("dated_distribution_recovery")
+            if not reference:
+                raise ValueError("LINKEDIN_NEO_EXPLICIT_REVIEWED_RECOVERY_REQUIRED")
+            recovery, _ = dated_distribution_recovery_acceptance(self.store,
+                run_id=intent["work_item_id"], reference=reference)
+            if recovery.get("transport_override") != "BROWSEROS_NEO_MCP" or recovery.get("recipients", {}).get("linkedin") != "linkedin:jimcc":
+                raise ValueError("LINKEDIN_NEO_EXACT_RECIPIENT_REQUIRED")
+            registration = replace(registration, transport_type="BROWSEROS_NEO_MCP",
+                adapter="neo_destination_handoff_v1.NeoDestinationHandoff")
+        return registration
+
+    def reconcile_owner_confirmed_linkedin_absence(self, dispatch_id, *, owner_authority_ref, request_hash=None):
+        """Combine Jim's absence report with a fresh, loaded own-profile Neo readback."""
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        from live_contentops.neo_destination_handoff_v1 import ROOTS
+        dispatch = self.store.get_platform_dispatch(dispatch_id) or {}
+        message = self.store.get_outbox_message(dispatch.get("message_id", ""))
+        if (not message or message["destination"] != "linkedin" or dispatch.get("public_object_id")
+                or dispatch.get("public_object_url") or dispatch.get("status") != UNKNOWN_WRITE
+                or not str(owner_authority_ref).startswith("human:")):
+            raise ValueError("LINKEDIN_EXACT_UNIDENTIFIED_UNKNOWN_AND_OWNER_REPORT_REQUIRED")
+        original = json.loads(message["payload"])
+        context = {"dispatch_id": dispatch_id, "original_intent_sha256": sha256_of(original),
+            "owner_authority_ref": owner_authority_ref, "owner_reported_absent": True,
+            "profile_url": ROOTS["linkedin"], "observation_epoch": int(self._clock().timestamp()) // 300}
+        transport = getattr(self.transport_runtime, "_neo_transport", None)
+        executor = getattr(transport, "native_executor", None)
+        if not getattr(executor, "native_neo_protocol", False) or executor.operation_id != message["work_item_id"]:
+            raise ValueError("LINKEDIN_EXACT_NATIVE_READBACK_EXECUTOR_REQUIRED")
+        if request_hash:
+            packet = executor._get(request_hash, "request") or {}
+            previous_context = packet.get("request", {}).get("owner_absence_context") or {}
+            if (packet.get("operation_id") != message["work_item_id"]
+                    or {k: v for k, v in previous_context.items() if k != "observation_epoch"}
+                    != {k: v for k, v in context.items() if k != "observation_epoch"}):
+                raise ValueError("LINKEDIN_EXACT_PRIOR_ABSENCE_REQUEST_REQUIRED")
+            context = previous_context
+        request = transport.request(destination="linkedin", action="READBACK",
+            intent={**original, "owner_absence_context": context})
+        if request_hash and request["request_sha256"] != request_hash:
+            raise ValueError("LINKEDIN_EXACT_PRIOR_ABSENCE_REQUEST_REQUIRED")
+        result = executor(request)
+        observation = result.get("native_tool_observation") or {}
+        observed = _parse_utc(observation.get("observed_at_utc"))
+        age = (self._clock() - observed).total_seconds() if observed else -1
+        if (result.get("request_sha256") != request["request_sha256"]
+                or result.get("observed_identity") != "linkedin:jimcc"
+                or result.get("observed_profile_url") != ROOTS["linkedin"]
+                or result.get("authenticated") is not True or result.get("activity_feed_loaded") is not True
+                or result.get("activity_feed_empty") is not True
+                or "Nothing to see for now" not in str(result.get("observed_text") or "")
+                or observation.get("tool_name") != "mcp__browseros_neo__run"
+                or observation.get("native_invocation_id") != executor.native_invocation_id
+                or not result.get("native_tool_return_sha256") or not 0 <= age <= 300):
+            return {"status": "LINKEDIN_ABSENCE_NOT_ESTABLISHED_READBACK_ONLY", "publish_called": False}
+        self.store.register_readback(readback_id="owner-absent-" + sha256_of([context, result]),
+            dispatch_id=dispatch_id, readback_data=_canonical_json({"dispatch_id": dispatch_id,
+                "absence_basis": "OWNER_REPORT_AND_FRESH_LOADED_OWN_ACTIVITY", "owner_context": context,
+                "native_observation": result, "readback": {"verified": False, "write_absent": True}}))
+        ids = self._ids(message["work_item_id"], original["plan_hash"], "linkedin")
+        self.store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+            work_item_id=message["work_item_id"], status=RECONCILED_ABSENT_SAFE_TO_RETRY)
+        self.store.set_reconciliation_status(ids["reconciliation_id"], RECONCILED_ABSENT_SAFE_TO_RETRY)
+        self.store.set_dispatch_status(dispatch_id, RECONCILED_ABSENT_SAFE_TO_RETRY)
+        self.store.set_outbox_status(message["message_id"], RECONCILED_ABSENT_SAFE_TO_RETRY)
+        return {"status": RECONCILED_ABSENT_SAFE_TO_RETRY, "publish_called": False,
+            "dispatch_id": dispatch_id, "absence_basis": "OWNER_REPORT_AND_FRESH_LOADED_OWN_ACTIVITY"}
+
+    def publish_reviewed_linkedin_company_copy(self, *, run_id, review_reference):
+        """One explicitly selected company copy of the same reviewed LinkedIn payload."""
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        from live_contentops.native_desktop_editorial_v1 import dated_distribution_recovery_acceptance
+        recovery, _ = dated_distribution_recovery_acceptance(self.store, run_id=run_id, reference=review_reference)
+        if recovery.get("recipients", {}).get("linkedin_company") != "linkedin:company:143198922":
+            raise ValueError("LINKEDIN_COMPANY_EXPLICIT_SAME_REVIEW_REQUIRED")
+        if self._confirmed_canonical_url_for_work_item(run_id, plan_hash=recovery["plan_hash"]) != recovery["canonical_url"]:
+            raise ValueError("DATED_DISTRIBUTION_CANONICAL_IDENTITY_CHANGED")
+        source_ids = self._ids(run_id, recovery["plan_hash"], "linkedin")
+        source = self.store.get_outbox_message(source_ids["message_id"])
+        original = json.loads(source["payload"])
+        if sha256_of(original) != recovery["original_intent_sha256"]["linkedin"]:
+            raise ValueError("DATED_DISTRIBUTION_ORIGINAL_INTENT_CHANGED")
+        payload = recovery["payloads"]["linkedin"]
+        registration = registration_for_destination("linkedin_company")
+        intent = {**original, "native_payload": payload, "payload": payload["text"],
+            "dated_distribution_recovery": review_reference, "company_copy_of_message_id": source["message_id"],
+            "owner_authority_ref": recovery["owner_authority_ref"],
+            "destination_plan": {**original["destination_plan"], "destination": "linkedin_company",
+                "surface": registration.surface, "transport_type": registration.transport_type,
+                "expected_identity": registration.expected_identity, "payload_hash": sha256_of(payload),
+                "payload_hash_kind": "OWNER_SELECTED_REVIEWED_LINKEDIN_COMPANY_COPY"}}
+        ids = self._ids(run_id, recovery["plan_hash"], "linkedin_company")
+        prior = self.store.get_outbox_message(ids["message_id"])
+        if prior and json.loads(prior["payload"]) != intent:
+            raise ValueError("LINKEDIN_COMPANY_IMMUTABLE_COPY_CONFLICT")
+        message = self.store.register_outbox_message(message_id=ids["message_id"], work_item_id=run_id,
+            destination="linkedin_company", payload=_canonical_json(intent), status="READY")
+        return self._dispatch_message(message, canonical_url=recovery["canonical_url"],
+            explicit_transport_correction_retry=True)
 
     def complete_dated_distribution_recovery(self, message_id, *, review_reference):
         """One owner-approved dated send on an absent/never-attempted existing destination."""
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
         from live_contentops.native_desktop_editorial_v1 import dated_distribution_recovery_acceptance
         message = self.store.get_outbox_message(message_id)
-        if not message or message["destination"] not in {"facebook_page", "instagram_business", "youtube"}:
+        if not message or message["destination"] not in {"facebook_page", "instagram_business", "youtube", "linkedin"}:
             raise ValueError("DATED_DISTRIBUTION_EXACT_ORIGINAL_DESTINATION_REQUIRED")
         recovery, _ = dated_distribution_recovery_acceptance(self.store,
             run_id=message["work_item_id"], reference=review_reference)
+        if message["destination"] not in recovery["payloads"]:
+            raise ValueError("DATED_DISTRIBUTION_EXACT_ORIGINAL_DESTINATION_REQUIRED")
         intent = json.loads(message["payload"])
         ids = self._ids(message["work_item_id"], intent["plan_hash"], message["destination"])
         dispatch = self.store.get_platform_dispatch(ids["dispatch_id"])
@@ -495,7 +625,7 @@ class DurablePublicationCoordinator:
         self.store.register_outbox_message(message_id=key, work_item_id=message["work_item_id"],
             destination="internal:native-desktop-editorial", payload=_canonical_json(amendment), status="EDITORIAL_INTERNAL")
         outcome = self._dispatch_message(message, canonical_url=recovery["canonical_url"],
-            explicit_transport_correction_retry=True)
+            explicit_transport_correction_retry=True, explicit_reconciled_absent_retry=message["destination"] == "linkedin")
         if outcome.get("publish_called") is True:
             self._record_transport_correction_attempt(ids["dispatch_id"], correction_id, message["work_item_id"])
         return outcome
@@ -529,7 +659,7 @@ class DurablePublicationCoordinator:
                 or not result.get("public_object_id")
                 or not _public_url(message["destination"], result.get("public_object_url"), result.get("public_object_id"))):
             raise ValueError("EXACT_COMPLETED_NATIVE_PUBLISH_RETURN_REQUIRED")
-        registration = registration_for_destination(message["destination"])
+        registration = self._intent_registration(message["destination"], intent)
         normalized = normalize_dispatch_result(result, destination=message["destination"],
             surface=registration.surface, transport_type=registration.transport_type)
         if normalized["status"] != DISPATCH_CONFIRMED:
@@ -729,7 +859,9 @@ class DurablePublicationCoordinator:
         """Summarize exact durable destination records, independently of the latest callback."""
         canonical = dict(outcomes.get("substack") or {})
         canonical_real = cls._confirmed_public_object(canonical, destination="substack")
-        derivatives = {d: dict(o) for d, o in outcomes.items() if d != "substack"}
+        derivatives = {d: dict(o) for d, o in outcomes.items() if d != "substack"
+            and (not full_v1 or d in V1_REQUIRED_DERIVATIVE_DESTINATIONS)}
+        additional = {d: dict(o) for d, o in outcomes.items() if d != "substack" and d not in derivatives}
         confirmed = {d for d, o in derivatives.items() if cls._confirmed_public_object(o, destination=d)}
         required = set(V1_REQUIRED_DERIVATIVE_DESTINATIONS) if full_v1 else set(derivatives)
         missing = sorted(required - confirmed)
@@ -760,6 +892,10 @@ class DurablePublicationCoordinator:
                 if o.get("reconciliation_status") == RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE),
             "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for o in outcomes.values()),
             "unknown_write_count": sum(o.get("status") == UNKNOWN_WRITE for o in outcomes.values()),
+            **({"additional_destinations": additional,
+                "additional_confirmed_count": sum(cls._confirmed_public_object(o, destination=d) for d, o in additional.items()),
+                "additional_recovery_required_destinations": sorted(d for d, o in additional.items()
+                    if not cls._confirmed_public_object(o, destination=d))} if additional else {}),
         }
 
     def publication_state(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
@@ -768,9 +904,13 @@ class DurablePublicationCoordinator:
         reconciliations = {str(r["reconciliation_id"]): r
             for r in self.store.get_reconciliations_for_work_item(work_item_id)}
         outcomes = {}
-        for item in plan.get("destinations") or []:
+        destinations = list(plan.get("destinations") or [])
+        company = self._ids(work_item_id, plan_hash, "linkedin_company")
+        if self.store.get_outbox_message(company["message_id"]):
+            destinations.append({"destination": "linkedin_company"})
+        for item in destinations:
             destination = str(item.get("destination") or "")
-            if destination not in V1_REQUIRED_PUBLICATION_DESTINATIONS:
+            if destination not in {*V1_REQUIRED_PUBLICATION_DESTINATIONS, "linkedin_company"}:
                 continue
             ids = self._ids(work_item_id, plan_hash, destination)
             message = self.store.get_outbox_message(ids["message_id"])
@@ -1036,7 +1176,7 @@ class DurablePublicationCoordinator:
         object_id = str(dispatch.get("public_object_id") or "") or None
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         ids["reconciliation_id"] = "reconciliation_" + dispatch_id.removeprefix("dispatch_")
-        registration = registration_for_destination(destination)
+        registration = self._intent_registration(destination, intent)
         self._record_runtime_activity(
             intent,
             "CANONICAL_READBACK" if destination == "substack" else "RECONCILIATION",
@@ -1169,10 +1309,11 @@ class DurablePublicationCoordinator:
         intent = json.loads(str(message["payload"]))
         destination = str(message["destination"])
         item = dict(intent["destination_plan"])
+        registration = self._intent_registration(destination, intent)
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
         native_pending_resume = bool(existing and existing.get("status") == NATIVE_NEO_PENDING
-            and registration_for_destination(destination).transport_type == "BROWSEROS_NEO_MCP")
+            and registration.transport_type == "BROWSEROS_NEO_MCP")
         if native_pending_resume:
             # A background/default recovery owner cannot consume another Desktop's
             # claimed action through an unbound/read-only transport. Such a transport's
@@ -1291,6 +1432,13 @@ class DurablePublicationCoordinator:
             # Only consume the same durable request/return. Its Desktop action claim checks
             # current mode itself; a lost claimed return becomes UNKNOWN, never another click.
             readiness = "READY_AUTHENTICATED"
+        elif destination == "linkedin" and registration.transport_type == "BROWSEROS_NEO_MCP":
+            executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
+            if not getattr(executor, "native_neo_protocol", False):
+                return {"destination": destination, "status": "EXACT_NATIVE_OPERATION_EXECUTOR_REQUIRED", "publish_called": False}
+            proof = executor.readiness(registration.surface)
+            readiness = "READY_AUTHENTICATED" if (proof.get("authenticated") and proof.get("native_executor_bound")
+                and proof.get("proof_fresh") and proof.get("public_handle") == registration.expected_public_handle) else "SESSION_UNAVAILABLE"
         elif self.readiness_manager is not None:
             cached_failure = None
             cached_failure_fn = getattr(self.readiness_manager, "cached_failed_jit_attempt", None)
@@ -1326,7 +1474,7 @@ class DurablePublicationCoordinator:
             "policy_version": intent.get("policy_mode_version"),
             "dispatch_attempt_identity": ids["dispatch_id"],
         }
-        registration = registration_for_destination(destination)
+        registration = self._intent_registration(destination, intent)
         self._record_runtime_activity(
             intent,
             "CANONICAL_DISPATCH" if destination == "substack" else "DERIVATIVE_DISPATCH",
@@ -2545,7 +2693,7 @@ class DurablePublicationCoordinator:
 
 
 class CanonicalDestinationTransportRuntimeV1:
-    """Single coordinator transport router; LinkedIn is official-member API only."""
+    """Single transport router; explicit reviewed LinkedIn recovery may use native Neo."""
 
     def __init__(self, *, linkedin_transport: Any = None, neo_transport: Any = None) -> None:
         self._strict_publish_readbacks: dict[tuple[str, str], Mapping[str, Any]] = {}
@@ -2625,7 +2773,9 @@ class CanonicalDestinationTransportRuntimeV1:
 
     def publish(self, *, destination: str, intent: Mapping[str, Any],
                 authorization_context: Mapping[str, Any]) -> Mapping[str, Any]:
-        if destination in {"substack", "x", "youtube"}:
+        if destination in {"substack", "x", "youtube", "linkedin_company"} or (destination == "linkedin"
+                and intent.get("dated_distribution_recovery")
+                and intent.get("destination_plan", {}).get("transport_type") == "BROWSEROS_NEO_MCP"):
             return self._neo_transport.publish(destination=destination, intent=intent,
                                                 authorization_context=authorization_context)
         if destination == "linkedin":
@@ -2673,7 +2823,9 @@ class CanonicalDestinationTransportRuntimeV1:
 
     def readback(self, *, destination: str, public_object_id: Optional[str],
                  public_object_url: Optional[str], intent: Mapping[str, Any]) -> Mapping[str, Any]:
-        if destination in {"substack", "x", "youtube"}:
+        if destination in {"substack", "x", "youtube", "linkedin_company"} or (destination == "linkedin"
+                and intent.get("dated_distribution_recovery")
+                and intent.get("destination_plan", {}).get("transport_type") == "BROWSEROS_NEO_MCP"):
             result = self._neo_transport.readback(destination=destination, intent=intent,
                 public_object_id=public_object_id, public_object_url=public_object_url)
             if destination == "substack" and result.get("verified") is True and result.get("public_image_urls"):

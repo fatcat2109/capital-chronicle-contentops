@@ -96,6 +96,13 @@ _SURFACES = (
         expected_identity_kind="PUBLIC_IDENTITY", expected_public_handle="linkedin:jimcc",
     ),
     SurfaceTransport(
+        "LINKEDIN_COMPANY_POST", "linkedin", "BROWSEROS_NEO_MCP",
+        "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "linkedin_company", "linkedin:company:143198922",
+        canonical_url_dependency="SUBSTACK_ARTICLE",
+        expected_identity_kind="STABLE_ID", expected_stable_id="143198922",
+    ),
+    SurfaceTransport(
         "YOUTUBE_COMMUNITY_POST", "youtube", "BROWSEROS_NEO_MCP",
         "neo_destination_handoff_v1.NeoDestinationHandoff",
         "youtube", "@CapitalChronicleYouTube",
@@ -153,6 +160,7 @@ DESTINATION_TO_SURFACE = {
     "substack": "SUBSTACK_ARTICLE",
     "x": "X_THREAD",
     "linkedin": "LINKEDIN_POST",
+    "linkedin_company": "LINKEDIN_COMPANY_POST",
     "youtube": "YOUTUBE_COMMUNITY_POST",
     "telegram": "TELEGRAM_CHANNEL_POST",
     "discord": "DISCORD_ANNOUNCEMENT",
@@ -213,7 +221,8 @@ def validate_registry() -> None:
         raise RuntimeError("duplicate_surface_transport_registration")
     if set(TIER1_SURFACES) - set(SURFACE_REGISTRY):
         raise RuntimeError("tier1_surface_transport_missing")
-    if set(V1_REQUIRED_PUBLICATION_DESTINATIONS) != set(DESTINATION_TO_SURFACE):
+    # The company copy is owner-selected; it is not a ninth routine derivative.
+    if set(V1_REQUIRED_PUBLICATION_DESTINATIONS) | {"linkedin_company"} != set(DESTINATION_TO_SURFACE):
         raise RuntimeError("v1_required_publication_destination_mismatch")
     for surface in TIER1_SURFACES:
         row = SURFACE_REGISTRY[surface]

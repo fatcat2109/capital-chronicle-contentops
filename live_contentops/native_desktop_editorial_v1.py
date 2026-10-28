@@ -846,9 +846,17 @@ def _final_visual_file(item):
 
 
 DATED_DISTRIBUTION_DESTINATIONS = {"facebook_page", "instagram_business", "youtube"}
+LINKEDIN_DATED_DISTRIBUTION_DESTINATIONS = {"linkedin"}
 
 
-def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref):
+def dated_distribution_destinations(recovery):
+    scope = set(recovery.get("destinations", DATED_DISTRIBUTION_DESTINATIONS))
+    if scope not in (DATED_DISTRIBUTION_DESTINATIONS, LINKEDIN_DATED_DISTRIBUTION_DESTINATIONS):
+        raise ValueError("DATED_DISTRIBUTION_EXACT_APPROVED_SCOPE_REQUIRED")
+    return scope
+
+
+def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref, destinations=None):
     """Prepare the owner's dated distribution amendment without changing sent intents."""
     from datetime import datetime
     from zoneinfo import ZoneInfo
@@ -869,8 +877,9 @@ def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref):
         raise ValueError("DATED_DISTRIBUTION_CONFIRMED_CANONICAL_REQUIRED")
     cutoff = datetime.fromisoformat(binding["cutoff_utc"].replace("Z", "+00:00")).astimezone(ZoneInfo("Asia/Bangkok"))
     label = f"Reporting as of {cutoff:%H:%M} Bangkok on {cutoff.day} {cutoff:%B %Y}."
+    scope = dated_distribution_destinations({} if destinations is None else {"destinations": destinations})
     payloads, originals = {}, {}
-    for destination in sorted(DATED_DISTRIBUTION_DESTINATIONS):
+    for destination in sorted(scope):
         ids = DurablePublicationCoordinator._ids(run_id, plan["plan_hash"], destination)
         message = store.get_outbox_message(ids["message_id"])
         if not message:
@@ -883,22 +892,30 @@ def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref):
         if len(payload["text"]) > int(payload["platform_limit"]):
             raise ValueError("DATED_DISTRIBUTION_PLATFORM_LIMIT")
         payloads[destination], originals[destination] = payload, sha256_of(intent)
-    return {"schema_version": "contentops.dated_distribution_recovery.v1", "run_id": run_id,
+    recovery = {"schema_version": "contentops.dated_distribution_recovery.v1", "run_id": run_id,
         "owner_authority_ref": owner_authority_ref, "source_cutoff_utc": binding["cutoff_utc"],
         "article_identity": result["article_identity"], "canonical_article_revision": native_review_revision(result),
         "plan_hash": plan["plan_hash"], "canonical_url": canonical["public_object_url"],
         "date_label": label, "original_intent_sha256": originals, "payloads": payloads}
+    if destinations is not None:
+        recovery["destinations"] = sorted(scope)
+    if scope == LINKEDIN_DATED_DISTRIBUTION_DESTINATIONS:
+        # This is an explicit reviewed recovery, never an automatic API fallback.
+        recovery["transport_override"] = "BROWSEROS_NEO_MCP"
+        recovery["recipients"] = {"linkedin": "linkedin:jimcc",
+            "linkedin_company": "linkedin:company:143198922"}
+    return recovery
 
 
 def dated_distribution_recovery_view(store, *, run_id, result, recovery):
     from copy import deepcopy
     expected = build_dated_distribution_recovery(store, run_id=run_id,
-        owner_authority_ref=recovery.get("owner_authority_ref"))
+        owner_authority_ref=recovery.get("owner_authority_ref"), destinations=recovery.get("destinations"))
     if recovery != expected or native_review_revision(result) != recovery["canonical_article_revision"]:
         raise ValueError("DATED_DISTRIBUTION_SOURCE_OR_PAYLOAD_CHANGED")
     view = deepcopy(result)
     for preview in view["previews"]:
-        if preview["destination"] in DATED_DISTRIBUTION_DESTINATIONS:
+        if preview["destination"] in dated_distribution_destinations(recovery):
             preview["payload"] = recovery["payloads"][preview["destination"]]
     return view
 
@@ -924,7 +941,8 @@ def final_visual_binding(result, *, renders, destinations=None):
     if set(previews) != FINAL_VISUAL_CHANNELS - {"substack"}:
         raise ValueError("FINAL_VISUAL_EXACT_EIGHT_VARIANTS_REQUIRED")
     scope = FINAL_VISUAL_CHANNELS if destinations is None else set(destinations)
-    if destinations is not None and scope != DATED_DISTRIBUTION_DESTINATIONS:
+    if destinations is not None and scope not in (
+            DATED_DISTRIBUTION_DESTINATIONS, LINKEDIN_DATED_DISTRIBUTION_DESTINATIONS):
         raise ValueError("FINAL_VISUAL_DATED_DISTRIBUTION_SCOPE_REQUIRED")
     variants = {}
     for destination in sorted(scope):
@@ -986,7 +1004,7 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None):
     if distribution_recovery is not None:
         result = dated_distribution_recovery_view(turn.store, run_id=turn.run_id, result=result, recovery=distribution_recovery)
     binding = final_visual_binding(result, renders=renders,
-        destinations=DATED_DISTRIBUTION_DESTINATIONS if distribution_recovery is not None else None)
+        destinations=dated_distribution_destinations(distribution_recovery) if distribution_recovery is not None else None)
     stage = "final-visual-" + sha256_of(binding)
     governed = {"binding": binding, "article": result["article"], "previews": result["previews"],
         "evidence": result.get("evidence", []), "writer_invocation_id": writer["invocation_observation"]["invocation_id"],
@@ -1037,7 +1055,7 @@ def validate_final_visual_return(turn, request, response):
     if recovery is not None:
         result = dated_distribution_recovery_view(turn.store, run_id=turn.run_id, result=result, recovery=recovery)
     if final_visual_binding(result, renders=binding["renders"],
-            destinations=DATED_DISTRIBUTION_DESTINATIONS if recovery is not None else None) != binding:
+            destinations=dated_distribution_destinations(recovery) if recovery is not None else None) != binding:
         raise ValueError("FINAL_VISUAL_REVIEW_REVISION_CHANGED")
     if output.get("decision") not in {"ACCEPT", "REPAIR_REQUIRED", "EXTERNAL_BLOCK"}:
         raise ValueError("FINAL_VISUAL_DECISION_REQUIRED")

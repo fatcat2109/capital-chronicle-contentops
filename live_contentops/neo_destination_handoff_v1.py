@@ -12,15 +12,18 @@ import re
 from hashlib import sha256
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, unquote
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, _private
 
 SCHEMA = "contentops.neo_destination_handoff.v1"
 IDENTITIES = {"substack": "capitalchronicle.substack.com", "x": "@Capitalnicle",
-              "youtube": "@CapitalChronicleYouTube"}
+              "youtube": "@CapitalChronicleYouTube", "linkedin": "linkedin:jimcc",
+              "linkedin_company": "linkedin:company:143198922"}
 ROOTS = {"substack": "https://capitalchronicle.substack.com/", "x": "https://x.com/Capitalnicle",
-         "youtube": "https://www.youtube.com/@CapitalChronicleYouTube/posts"}
+         "youtube": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+         "linkedin": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
+         "linkedin_company": "https://www.linkedin.com/company/143198922/admin/page-posts/published/"}
 
 
 def _canonical(url):
@@ -37,6 +40,10 @@ def _public_url(destination, url, object_id=None):
     if destination == "x":
         return (p.hostname in {"x.com", "www.x.com"} and re.fullmatch(r"/Capitalnicle/status/\d+", p.path, re.I)
                 and (not object_id or p.path.rsplit("/", 1)[-1] == str(object_id)))
+    if destination in {"linkedin", "linkedin_company"}:
+        match = re.fullmatch(r"/feed/update/(urn:li:(?:activity|share|ugcPost):\d+)/?", unquote(p.path))
+        return bool(p.hostname == "www.linkedin.com" and match
+            and (not object_id or match[1] == str(object_id)))
     return (p.hostname == "www.youtube.com" and p.path.startswith("/post/")
             and (not object_id or p.path.rsplit("/", 1)[-1] == str(object_id)))
 
@@ -127,6 +134,7 @@ class NeoDestinationHandoff:
             "content_binding": content_binding,
             "surface": intent.get("destination_plan", {}).get("surface") or {
                 "substack": "SUBSTACK_ARTICLE", "x": "X_THREAD" if content_binding["thread_post_count"] > 1 else "X_POST",
+                "linkedin": "LINKEDIN_POST", "linkedin_company": "LINKEDIN_COMPANY_POST",
                 "youtube": "YOUTUBE_COMMUNITY_POST"}[destination],
             "steps": ["name_session; list tabs, open a task-owned tab",
                 "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
@@ -135,6 +143,8 @@ class NeoDestinationHandoff:
                 "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"],
             "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
             "forbidden": ["login", "reauthorize", "account_switch", "cookies", "storage", "blind_retry", "bulk_x_ingestion"]}
+        if destination == "linkedin" and action == "READBACK" and not public_object_id:
+            value["owner_absence_context"] = intent.get("owner_absence_context")
         value["request_sha256"] = sha256_of(value)
         return value
 
@@ -166,6 +176,15 @@ class NeoDestinationHandoff:
         expected_media = {a.get("public_delivery_sha256") or a.get("sha256") for a in binding["media_manifest"]}
         expected_media.discard(None)
         media_match = expected_media <= set(result.get("observed_media_sha256") or [])
+        if destination in {"linkedin", "linkedin_company"} and not media_match:
+            comparisons = result.get("media_comparisons") or []
+            source_matches = {m.get("source_asset_sha256") for m in comparisons
+                if m.get("pixels_inspected") is True and m.get("source_pixels_match") is True
+                and re.fullmatch(r"[0-9a-f]{64}", str(m.get("platform_sha256") or ""))
+                and m.get("public_object_url") == public_object_url
+                and urlsplit(str(m.get("public_image_url") or "")).scheme == "https"
+                and urlsplit(str(m.get("public_image_url") or "")).hostname == "media.licdn.com"}
+            media_match = expected_media <= source_matches
         thread = result.get("observed_thread") or []
         thread_match = (binding["thread_post_count"] <= 1 or (
             len(thread) == binding["thread_post_count"]
