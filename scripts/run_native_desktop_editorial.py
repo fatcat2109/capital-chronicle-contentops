@@ -207,6 +207,8 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
             raise ValueError("NATIVE_NEO_ACTIVE_INVOCATION_REQUIRED")
         if command == "publication-resume":
             return continuation.resume()
+        if command in {"publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company"}:
+            return continuation.linkedin_recovery(command.rsplit("-", 1)[-1], response=response)
         if not request_hash:
             raise ValueError("EXACT_NATIVE_NEO_REQUEST_REQUIRED")
         return continuation.tool("begin" if command == "publication-tool-begin" else "submit",
@@ -401,6 +403,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("newsroom", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
         "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
+        "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company",
         "audience-status", "audience-observe", "audience-tool-begin", "audience-tool-submit", "audience-evaluate", "audience-feedback", "audience-follow-up"))
     parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE)
     parser.add_argument("--operation-id")

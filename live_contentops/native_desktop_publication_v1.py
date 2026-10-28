@@ -254,7 +254,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
     from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
 
     entries = []
-    for destination in (
+    destinations = [
         "substack",
         "telegram",
         "discord",
@@ -264,7 +264,11 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
         "instagram_business",
         "threads",
         "youtube",
-    ):
+    ]
+    company_id = DurablePublicationCoordinator._ids(run_id, bound["plan_hash"], "linkedin_company")["message_id"]
+    if any(r["message_id"] == company_id and r["work_item_id"] == run_id for r in rows):
+        destinations.append("linkedin_company")
+    for destination in destinations:
         ids = DurablePublicationCoordinator._ids(
             run_id, bound["plan_hash"], destination
         )
@@ -309,6 +313,11 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
             p.get("operation_id") == run_id
             and p.get("schema_version") == "contentops.native_neo_tool_request.v1"
         ):
+            absence = p["request"].get("owner_absence_context")
+            if p["request"]["action"] == "READBACK" and absence:
+                prior = next((d for d in dispatches if d["dispatch_id"] == absence.get("dispatch_id")), {})
+                if prior and prior.get("status") != "UNKNOWN_WRITE":
+                    continue
             if (native_invocation_id and p["request"]["action"] == "VERIFY_IDENTITY"
                     and p["request"].get("native_invocation_id") not in {None, native_invocation_id}):
                 continue
@@ -349,7 +358,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
         for e in entries)
     state = (
         "RECONCILED"
-        if confirmed == 9
+        if confirmed == len(entries)
         else "PENDING_NATIVE"
         if pending
         else "RECOVERY_REQUIRED"
@@ -373,7 +382,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
     )
     next_operation = (
         "none"
-        if confirmed == 9
+        if confirmed == len(entries)
         else actionable["next_operation"]
         if actionable
         else "publication-resume"
@@ -511,6 +520,32 @@ class NativeReviewedPublication:
         ):
             raise ValueError("EXACT_EXISTING_COORDINATOR_EXECUTOR_BINDING_REQUIRED")
 
+    def linkedin_recovery(self, action, *, response):
+        """Explicit owner recovery over the same bound publication and native executor."""
+        plan, _ = self.validate()
+        self._authorize_and_bind()
+        if not isinstance(response, dict):
+            raise ValueError("LINKEDIN_RECOVERY_OWNER_OR_REVIEW_REFERENCE_REQUIRED")
+        try:
+            if action == "absence":
+                dispatch = self.coordinator._ids(self.binding["run_id"], plan["plan_hash"], "linkedin")["dispatch_id"]
+                outcome = self.coordinator.reconcile_owner_confirmed_linkedin_absence(dispatch,
+                    owner_authority_ref=response.get("owner_authority_ref"), request_hash=response.get("request_sha256"))
+            elif action == "personal":
+                message = self.coordinator._ids(self.binding["run_id"], plan["plan_hash"], "linkedin")["message_id"]
+                outcome = self.coordinator.complete_dated_distribution_recovery(message,
+                    review_reference=response["review_reference"])
+            elif action == "company":
+                outcome = self.coordinator.publish_reviewed_linkedin_company_copy(run_id=self.binding["run_id"],
+                    review_reference=response["review_reference"])
+            else:
+                raise ValueError("LINKEDIN_RECOVERY_ACTION_UNSUPPORTED")
+        except NativeNeoInputRequired as pending:
+            outcome = {"status": "NATIVE_NEO_TOOL_PENDING", "native_tool_request": pending.request,
+                "public_write_performed": False}
+        return {"classification": "NATIVE_LINKEDIN_RECOVERY", "coordinator_result": outcome,
+            "publication": self.projection()}
+
     def resume(self):
         plan, root = self.validate()
         self._authorize_and_bind()
@@ -548,6 +583,18 @@ class NativeReviewedPublication:
             summary = SimplePublicationHandoffV1(
                 store=self.store, coordinator=self.coordinator
             ).resume(slot_id=self.binding["run_id"], slot_output_dir=root)
+            company = self.coordinator._ids(self.binding["run_id"], plan["plan_hash"], "linkedin_company")
+            dispatch = self.store.get_platform_dispatch(company["dispatch_id"])
+            message = self.store.get_outbox_message(company["message_id"])
+            if message:
+                # Selected company copies use their existing intent; generic continuation
+                # may consume a return or read back, never select another company send.
+                intent = json.loads(message["payload"])
+                if not dispatch or dispatch["status"] == "NATIVE_NEO_TOOL_PENDING":
+                    self.coordinator.publish_reviewed_linkedin_company_copy(run_id=self.binding["run_id"],
+                        review_reference=intent["dated_distribution_recovery"])
+                else:
+                    self.coordinator.readback_existing_dispatch(dispatch["dispatch_id"])
         except NativeNeoInputRequired as pending:
             summary = {
                 "state": "PENDING_NATIVE",

@@ -13,6 +13,7 @@ from live_contentops.native_desktop_editorial_v1 import (
     dated_distribution_recovery_view, final_visual_binding, request_final_visual_review,
     FINAL_VISUAL_LAYOUT_CHECKS, FINAL_VISUAL_DATA_CHECKS, FINAL_VISUAL_PHOTO_CHECKS,
     DATED_DISTRIBUTION_DESTINATIONS,
+    dated_distribution_destinations,
 )
 from live_contentops.native_desktop_publication_v1 import _prepared_packet, NativeReviewedPublication
 from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
@@ -72,7 +73,7 @@ def setup_recovery(tmp_path, monkeypatch):
 
 def accepted_recovery(store, binding, result, recovery, tmp_path, *, model=None, missing_render=False):
     view = dated_distribution_recovery_view(store, run_id=binding["run_id"], result=result, recovery=recovery)
-    variants = final_visual_binding(view, renders=None, destinations=DATED_DISTRIBUTION_DESTINATIONS)["variants"]
+    variants = final_visual_binding(view, renders=None, destinations=dated_distribution_destinations(recovery))["variants"]
     markup = tmp_path / "CONTROLLED_NOT_REAL_RENDER.html"
     markup.write_text("Synthetic contract render, no viewer-facing inspection proof.")
     source = {"path": str(markup), "sha256": sha256(markup.read_bytes()).hexdigest()}
@@ -162,7 +163,7 @@ def test_wrong_model_cannot_accept_dated_recovery(tmp_path, monkeypatch):
 
 def test_missing_review_or_other_destination_cannot_send(tmp_path, monkeypatch):
     store, binding, _, co, runtime, recovery = setup_recovery(tmp_path, monkeypatch)
-    ids = co._ids(binding["run_id"], recovery["plan_hash"], "linkedin")
+    ids = co._ids(binding["run_id"], recovery["plan_hash"], "telegram")
     with pytest.raises(ValueError, match="ORIGINAL_DESTINATION_REQUIRED"):
         co.complete_dated_distribution_recovery(ids["message_id"], review_reference={})
     ids = co._ids(binding["run_id"], recovery["plan_hash"], "youtube")

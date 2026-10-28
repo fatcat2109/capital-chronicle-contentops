@@ -185,10 +185,12 @@ class NativeNeoExecutor:
         age = self.clock() - datetime.fromisoformat(observed["observed_at_utc"].replace("Z", "+00:00"))
         current = (observed.get("native_invocation_id") == self.native_invocation_id
                    and timedelta(0) <= age <= timedelta(minutes=5))
-        matched = result.get("observed_identity") == IDENTITIES[destination]
+        matched = (result.get("observed_identity") == IDENTITIES[destination]
+            and (not registration.expected_stable_id or result.get("observed_stable_id") == registration.expected_stable_id))
         return {"authenticated": bool(current and matched and result.get("authenticated") is True),
                 "native_executor_bound": current, "domain": result.get("observed_identity") if destination == "substack" else None,
                 "public_handle": result.get("observed_identity") if destination != "substack" else None,
+                "stable_id": result.get("observed_stable_id"),
                 "native_invocation_id": observed.get("native_invocation_id"),
                 "observation_sha256": result.get("native_tool_return_sha256"), "proof_fresh": current}
 
@@ -200,6 +202,11 @@ class NativeNeoExecutor:
             payload = json.loads(row["payload"])
             if payload.get("schema_version") != SCHEMA or payload.get("operation_id") != self.operation_id:
                 continue
+            absence = payload["request"].get("owner_absence_context")
+            if payload["request"]["action"] == "READBACK" and absence:
+                prior = self.store.get_platform_dispatch(absence.get("dispatch_id", "")) or {}
+                if prior and prior.get("status") != "UNKNOWN_WRITE":
+                    continue
             if (payload["request"]["action"] == "VERIFY_IDENTITY"
                     and payload["request"].get("native_invocation_id") not in {None, self.native_invocation_id}):
                 continue

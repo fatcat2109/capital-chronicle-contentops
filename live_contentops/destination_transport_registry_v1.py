@@ -96,6 +96,13 @@ _SURFACES = (
         expected_identity_kind="PUBLIC_IDENTITY", expected_public_handle="linkedin:jimcc",
     ),
     SurfaceTransport(
+        "LINKEDIN_COMPANY_POST", "linkedin", "BROWSEROS_NEO_MCP",
+        "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "linkedin_company", "linkedin:company:143198922",
+        canonical_url_dependency="SUBSTACK_ARTICLE",
+        expected_identity_kind="STABLE_ID", expected_stable_id="143198922",
+    ),
+    SurfaceTransport(
         "YOUTUBE_COMMUNITY_POST", "youtube", "BROWSEROS_NEO_MCP",
         "neo_destination_handoff_v1.NeoDestinationHandoff",
         "youtube", "@CapitalChronicleYouTube",
@@ -160,6 +167,7 @@ DESTINATION_TO_SURFACE = {
     "instagram_business": "INSTAGRAM_BUSINESS_POST",
     "threads": "THREADS_POST",
 }
+OWNER_SELECTED_DESTINATION_TO_SURFACE = {"linkedin_company": "LINKEDIN_COMPANY_POST"}
 
 # Quality-probation V1 is one canonical article plus these exact eight derivative
 # surfaces. YouTube here means Community; video/Short surfaces remain V2-only.
@@ -202,7 +210,8 @@ def canonical_transport_registry() -> dict[str, Any]:
 
 
 def registration_for_destination(destination: str) -> SurfaceTransport:
-    surface = DESTINATION_TO_SURFACE.get(str(destination))
+    surface = (DESTINATION_TO_SURFACE.get(str(destination))
+        or OWNER_SELECTED_DESTINATION_TO_SURFACE.get(str(destination)))
     if not surface:
         raise ValueError(f"destination_transport_unregistered:{destination}")
     return SURFACE_REGISTRY[surface]
