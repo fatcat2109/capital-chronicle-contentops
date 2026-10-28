@@ -176,7 +176,8 @@ def build_news_projection(workspace, *, exported_at_utc, embedded_photo_operatio
             continue
         identity = item["article_identity"]
         entry = {"run_id": run, "article_identity": identity,
-                 "article_revision": (item.get("review") or {}).get("package_revision")}
+                 "article_revision": (item.get("presentation_revision") or {}).get("article_revision")
+                     or (item.get("review") or {}).get("package_revision")}
         if not IDENTITY.fullmatch(identity):
             raise ValueError("ARTICLE_IDENTITY_REQUIRED")
         try:

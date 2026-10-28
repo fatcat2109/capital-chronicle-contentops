@@ -881,6 +881,26 @@ def report_workspace_projection(
     from live_contentops.contentops_editorial_desk_v1 import source_review_projection
     source_reviews = source_review_projection(rows)
     for item in edition.values():
+        # Confirmed in-place presentation edits are dated projections, not replacements
+        # for immutable article, evidence, review or sent-intent records.
+        for row in rows:
+            if row["destination"] != "internal:native-reader-presentation" or row["status"] != "PRESENTATION_EDIT_CONFIRMED":
+                continue
+            edit = json.loads(row["payload"])
+            if edit.get("article_identity") != item["article_identity"] or edit.get("run_id") != item["run_id"]:
+                continue
+            original = next((r for r in rows if r["message_id"] == edit["public_message_id"]), None)
+            if not original or sha256_of(json.loads(original["payload"])) != edit["original_intent_sha256"]:
+                continue
+            if edit["destination"] == "substack":
+                item["article"] = edit["article"]
+                item["review"] = {**(item.get("review") or {}), "presentation_review": edit["acceptance"]}
+                item["presentation_revision"] = {"article_revision": edit["acceptance"]["article_revision"],
+                    "prior_revision": edit["prior_revision"], "public_object_id": edit["public_object_id"],
+                    "public_object_url": edit["public_object_url"]}
+            else:
+                item["previews"] = [{**p, "payload": edit["payload"]} if p["destination"] == edit["destination"] else p
+                    for p in item.get("previews", [])]
         from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article, reader_photo_caption
         if item["article"].get("reader_first_version") == "DATA_JOURNALISM_V1":
             item["media_assets"] = [{**a, **({"reader_caption": reader_photo_caption(a)}

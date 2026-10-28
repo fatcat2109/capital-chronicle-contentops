@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from contextlib import nullcontext
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -462,6 +463,99 @@ class DurablePublicationCoordinator:
             intent["destination_plan"]["transport_type"] = "BROWSEROS_NEO_MCP"
         return {**original, "payload": _canonical_json(intent)}
 
+    def _reader_presentation_intent(self, message, reference):
+        from live_contentops.native_desktop_editorial_v1 import reader_presentation_acceptance
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        revision, view, acceptance = reader_presentation_acceptance(self.store,
+            run_id=message["work_item_id"], reference=reference)
+        destination = message["destination"]
+        identity = revision["objects"][destination]
+        if identity["message_id"] != message["message_id"]:
+            raise ValueError("READER_REVISION_EXACT_MESSAGE_REQUIRED")
+        intent = json.loads(self._dated_distribution_message(message)["payload"])
+        from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+        retained_media = _durable_intent_inputs(intent).get("media_assets", [])
+        if destination == "substack":
+            from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
+            article = _reader_safe_native_article(view["article"], article_mode=view["article"].get("resolved_article_mode", ""))
+            payload = {"title": article["title"], "subtitle": article["subtitle"], "body_markdown": article["substack_body_markdown"]}
+        else:
+            payload = revision["payloads"][destination]
+        intent.update(native_payload=payload, payload=payload.get("text") or payload["body_markdown"],
+            media_assets=retained_media,
+            reader_presentation_review=reference, removed_reader_text=[
+                re.search(r"Reporting as of [^\n]+?\d{4}\.", revision["body_before"])[0]])
+        intent["destination_plan"] = {**intent["destination_plan"], "payload_hash": sha256_of(payload),
+            "payload_hash_kind": "SAME_MAX_REVIEWED_PRESENTATION"}
+        return intent, revision, view, acceptance
+
+    def _effective_message(self, message):
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        row = self.store.get_outbox_message("native-reader-presentation-" + sha256_of(message["message_id"]))
+        if not row or row["status"] != "PRESENTATION_EDIT_CONFIRMED":
+            return self._dated_distribution_message(message)
+        edit = json.loads(row["payload"])
+        intent, _, _, _ = self._reader_presentation_intent(message, edit["review_reference"])
+        return {**message, "payload": _canonical_json(intent)}
+
+    def amend_reader_presentation(self, dispatch_id, *, review_reference):
+        """Edit the reviewed existing object once; all uncertain outcomes are readback-only."""
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        dispatch = self.store.get_platform_dispatch(dispatch_id) or {}
+        message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
+        if not message or dispatch.get("status") != DISPATCH_CONFIRMED or self._mode() != "AUTONOMOUS_DEFAULT":
+            raise ValueError("READER_REVISION_CURRENT_LIVE_CONFIRMED_OBJECT_REQUIRED")
+        intent, revision, view, acceptance = self._reader_presentation_intent(message, review_reference)
+        destination = message["destination"]
+        key = "native-reader-presentation-" + sha256_of(message["message_id"])
+        canonical_id = revision["objects"]["substack"]["message_id"]
+        if destination != "substack":
+            canonical_edit = self.store.get_outbox_message("native-reader-presentation-" + sha256_of(canonical_id)) or {}
+            if canonical_edit.get("status") != "PRESENTATION_EDIT_CONFIRMED":
+                return {"status": "READER_REVISION_CANONICAL_EDIT_READBACK_REQUIRED", "edit_called": False}
+        note = {"run_id": intent["work_item_id"], "article_identity": revision["article_identity"],
+            "destination": destination, "public_message_id": message["message_id"],
+            "original_intent_sha256": sha256_of(json.loads(message["payload"])),
+            "review_reference": review_reference, "acceptance": acceptance,
+            "public_object_id": dispatch["public_object_id"], "public_object_url": dispatch["public_object_url"],
+            "article": view["article"] if destination == "substack" else None,
+            "payload": intent["native_payload"], "prior_revision": revision["prior_revision"]}
+        prior = self.store.get_outbox_message(key)
+        if prior and json.loads(prior["payload"]) != note:
+            raise ValueError("READER_REVISION_EXISTING_EDIT_IDENTITY_CHANGED")
+        if prior and prior["status"] == "PRESENTATION_EDIT_CONFIRMED":
+            return {"status": "PRESENTATION_EDIT_CONFIRMED", "edit_called": False, "new_post_calls": 0}
+        if not prior:
+            self.store.register_outbox_message(message_id=key, work_item_id=intent["work_item_id"],
+                destination="internal:native-reader-presentation", payload=_canonical_json(note), status="PRESENTATION_EDIT_PENDING")
+        if self.readiness_manager is not None:
+            ready = self.readiness_manager.verify_destination_jit(destination, reason="PUBLICATION", persist=True)
+            if ready.get("readiness_state") not in READY_STATES or ready.get("identity_match") is False:
+                return {"status": "READER_REVISION_IDENTITY_NOT_READY", "edit_called": False}
+        authorization = {"schema_version": "contentops.canonical_machine_authorization.v1",
+            "operating_mode": self._mode(), "work_item_id": intent["work_item_id"], "destination": destination,
+            "payload_hash": intent["destination_plan"]["payload_hash"], "dispatch_attempt_identity": dispatch_id,
+            "action": "EDIT_EXISTING"}
+        attempted = any(r["readback_id"] == key + "-api-started" for r in self.store.list_readbacks_for_dispatch(dispatch_id))
+        raw = {"status": "READBACK_ONLY_AFTER_EDIT_ATTEMPT"}
+        if not attempted:
+            if destination == "facebook_page":
+                self.store.register_readback(readback_id=key + "-api-started", dispatch_id=dispatch_id,
+                    readback_data=_canonical_json({"action": "EDIT_EXISTING", "public_object_id": dispatch["public_object_id"]}))
+            raw = self.transport_runtime.amend_reader_presentation(destination=destination, intent=intent,
+                public_object_id=dispatch["public_object_id"], public_object_url=dispatch["public_object_url"],
+                authorization_context=authorization)
+        # Native executor claims fence browser edits, including restart after a lost return.
+        observed = self.transport_runtime.readback(destination=destination, intent=intent,
+            public_object_id=dispatch["public_object_id"], public_object_url=dispatch["public_object_url"])
+        verified = observed.get("verified") is True
+        self.store.register_readback(readback_id=key + "-observed-" + sha256_of(observed), dispatch_id=dispatch_id,
+            readback_data=_canonical_json({"action": "EDIT_EXISTING", "result": raw, "readback": observed}))
+        if verified:
+            self.store.set_outbox_status(key, "PRESENTATION_EDIT_CONFIRMED")
+        return {"status": "PRESENTATION_EDIT_CONFIRMED" if verified else "UNKNOWN_EDIT_READBACK_REQUIRED",
+            "edit_called": not attempted, "verified": verified, "new_post_calls": 0, "readback": observed}
+
     def _intent_registration(self, destination, intent):
         registration = registration_for_destination(destination)
         if destination == "linkedin_company":
@@ -475,11 +569,17 @@ class DurablePublicationCoordinator:
             source = self.store.get_outbox_message(source_id)
             original = json.loads(source["payload"]) if source else {}
             from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+            reviewed_payload = recovery["payloads"]["linkedin"]
+            if intent.get("reader_presentation_review"):
+                from live_contentops.native_desktop_editorial_v1 import reader_presentation_acceptance
+                revision, _, _ = reader_presentation_acceptance(self.store, run_id=intent["work_item_id"],
+                    reference=intent["reader_presentation_review"])
+                reviewed_payload = revision["payloads"]["linkedin_company"]
             if (recovery.get("recipients", {}).get(destination) != registration.expected_identity
                     or recovery.get("original_intent_sha256", {}).get("linkedin") != sha256_of(original)
                     or intent.get("company_copy_of_message_id") != source_id
-                    or intent.get("native_payload") != recovery["payloads"].get("linkedin")
-                    or intent.get("payload") != recovery["payloads"]["linkedin"]["text"]
+                    or intent.get("native_payload") != reviewed_payload
+                    or intent.get("payload") != reviewed_payload["text"]
                     or intent.get("canonical_url") != recovery["canonical_url"]
                     or intent.get("plan_hash") != recovery["plan_hash"]
                     or intent.get("owner_authority_ref") != recovery["owner_authority_ref"]
@@ -652,7 +752,7 @@ class DurablePublicationCoordinator:
         packet, response = executor._get(request_hash, "request"), executor._get(request_hash, "response")
         request, result = (packet or {}).get("request", {}), (response or {}).get("result", {})
         observed = result.get("native_tool_observation") or {}
-        intent = json.loads(self._dated_distribution_message(message)["payload"])
+        intent = json.loads(self._effective_message(message)["payload"])
         ids = self._ids(message["work_item_id"], intent["plan_hash"], message["destination"])
         if (dispatch_id != ids["dispatch_id"] or request.get("action") != "PUBLISH"
                 or request.get("destination") != message["destination"]
@@ -1184,7 +1284,7 @@ class DurablePublicationCoordinator:
         dispatch_id = str(dispatch["dispatch_id"])
         original_message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
         if original_message:
-            resolved = self._dated_distribution_message(original_message)
+            resolved = self._effective_message(original_message)
             if resolved["payload"] != original_message["payload"]:
                 intent = json.loads(resolved["payload"])
         destination = str(dispatch["platform"])
@@ -1320,7 +1420,7 @@ class DurablePublicationCoordinator:
         explicit_transport_correction_retry: bool = False,
         recovery_public_object_url: Optional[str] = None,
     ) -> dict[str, Any]:
-        message = self._dated_distribution_message(message)
+        message = self._effective_message(message)
         intent = json.loads(str(message["payload"]))
         destination = str(message["destination"])
         item = dict(intent["destination_plan"])
@@ -2623,7 +2723,7 @@ class DurablePublicationCoordinator:
         if not dispatch or dispatch.get("status") not in {DISPATCH_CONFIRMED, UNKNOWN_WRITE, ATTEMPT_STARTED}:
             raise ValueError("EXISTING_PUBLIC_OR_AMBIGUOUS_DISPATCH_REQUIRED")
         message = self.store.get_outbox_message(dispatch["message_id"])
-        message = self._dated_distribution_message(message) if message else None
+        message = self._effective_message(message) if message else None
         intent = json.loads(message["payload"]) if message else {}
         expected = self._ids(str(intent.get("work_item_id")), str(intent.get("plan_hash")), str(dispatch["platform"]))
         survivor_id = self._survivor_dispatch_id(expected["dispatch_id"], dispatch.get("public_object_id"))
@@ -2729,6 +2829,19 @@ class CanonicalDestinationTransportRuntimeV1:
             from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
             neo_transport = NeoDestinationHandoff()
         self._neo_transport = neo_transport
+
+    def amend_reader_presentation(self, *, destination, intent, public_object_id, public_object_url,
+                                  authorization_context):
+        if (authorization_context.get("action") != "EDIT_EXISTING" or not intent.get("reader_presentation_review")
+                or authorization_context.get("destination") != destination
+                or authorization_context.get("payload_hash") != intent.get("destination_plan", {}).get("payload_hash")):
+            raise ValueError("SOLE_COORDINATOR_REVIEWED_EDIT_AUTHORIZATION_REQUIRED")
+        if destination == "facebook_page":
+            from live_contentops.facebook_page_adapter_v6 import execute_facebook_edit
+            return execute_facebook_edit(post_id=public_object_id, message=intent["native_payload"]["text"], dry_run=False)
+        return self._neo_transport.amend_existing(destination=destination, intent=intent,
+            public_object_id=public_object_id, public_object_url=public_object_url,
+            authorization_context=authorization_context)
 
     def prepare_delivery_media(
         self,
@@ -2852,6 +2965,9 @@ class CanonicalDestinationTransportRuntimeV1:
 
     def readback(self, *, destination: str, public_object_id: Optional[str],
                  public_object_url: Optional[str], intent: Mapping[str, Any]) -> Mapping[str, Any]:
+        if intent.get("reader_presentation_review") and destination != "facebook_page":
+            return self._neo_transport.readback(destination=destination, intent=intent,
+                public_object_id=public_object_id, public_object_url=public_object_url)
         if destination in {"substack", "x", "youtube", "linkedin_company"} or (destination == "linkedin"
                 and intent.get("dated_distribution_recovery")
                 and intent.get("destination_plan", {}).get("transport_type") == "BROWSEROS_NEO_MCP"):

@@ -77,7 +77,7 @@ class NativeNeoExecutor:
         request_hash = request.get("request_sha256")
         if request_hash != sha256_of({k: v for k, v in request.items() if k != "request_sha256"}):
             raise ValueError("NATIVE_NEO_REQUEST_HASH_INVALID")
-        if request["action"] == "PUBLISH" and not self.allow_publish:
+        if request["action"] in {"PUBLISH", "EDIT_EXISTING"} and not self.allow_publish:
             return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
                     "request_sha256": request_hash, "observed_identity": request["expected_identity"],
                     "reason_code": "NATIVE_NEO_OPERATION_READ_ONLY", "public_write_performed": False}
@@ -85,14 +85,14 @@ class NativeNeoExecutor:
         packet = {"schema_version": SCHEMA, "operation_id": self.operation_id,
                   "required_tool": TOOL, "request": request,
                   "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
-                  "public_write_authorized": request["action"] == "PUBLISH" and self.allow_publish}
+                  "public_write_authorized": request["action"] in {"PUBLISH", "EDIT_EXISTING"} and self.allow_publish}
         packet["tool_request_sha256"] = sha256_of(packet)
         self._put(request_hash, "request", packet, work)
         response = self._get(request_hash, "response")
         if response:
             return dict(response["result"])
         started = self._get(request_hash, "started")
-        if started and request["action"] == "PUBLISH":
+        if started and request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
             return {"status": "UNKNOWN_WRITE", "request_sha256": request_hash,
                     "observed_identity": request["expected_identity"],
                     "reason_code": "NATIVE_NEO_CLAIMED_ACTION_WITHOUT_RETURN", "retry_permitted": False}
@@ -115,14 +115,30 @@ class NativeNeoExecutor:
             if request["action"] not in {"READBACK", "VERIFY_IDENTITY"} or self._claim(request_hash, self.native_invocation_id):
                 raise ValueError("NATIVE_NEO_ACTION_ALREADY_CLAIMED_READBACK_ONLY")
             claim_kind = "started-readonly-" + sha256_of(self.native_invocation_id)
-        if request["action"] == "PUBLISH":
+        if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
             from live_contentops.llm_operator_control_v1 import assert_llm_operator_execution_enabled
             assert_llm_operator_execution_enabled()
             if not self.allow_publish or self.store.get_operating_control()["operating_mode"] != "AUTONOMOUS_DEFAULT":
                 raise ValueError("NATIVE_NEO_PUBLIC_WRITE_NOT_AUTHORIZED")
             dispatch = self.store.get_platform_dispatch(request["dispatch_attempt_identity"])
-            if not dispatch or dispatch["status"] != PENDING:
+            expected_status = "DISPATCH_CONFIRMED" if request["action"] == "EDIT_EXISTING" else PENDING
+            if not dispatch or dispatch["status"] != expected_status:
                 raise ValueError("NATIVE_NEO_EXACT_COORDINATOR_PENDING_DISPATCH_REQUIRED")
+            if request["action"] == "EDIT_EXISTING":
+                from live_contentops.native_desktop_editorial_v1 import reader_presentation_acceptance
+                revision, _, _ = reader_presentation_acceptance(self.store, run_id=request["work_item_id"],
+                    reference=request.get("reader_presentation_review"))
+                identity = revision["objects"][request["destination"]]
+                if any(request.get(k) != identity.get(k) for k in ("public_object_id", "public_object_url")):
+                    raise ValueError("NATIVE_NEO_EXACT_REVIEWED_EDIT_OBJECT_REQUIRED")
+                from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+                from live_contentops.neo_destination_handoff_v1 import _payload_binding
+                expected_intent, _, _, _ = DurablePublicationCoordinator(store=self.store, transport_runtime=None)._reader_presentation_intent(
+                    self.store.get_outbox_message(identity["message_id"]), request["reader_presentation_review"])
+                expected_payload, expected_content = _payload_binding(expected_intent, request["destination"])
+                if (request.get("native_payload") != expected_payload or request.get("content_binding") != expected_content
+                        or request.get("payload_hash") != sha256_of(expected_payload)):
+                    raise ValueError("NATIVE_NEO_EXACT_REVIEWED_EDIT_PAYLOAD_REQUIRED")
             content = request.get("content_binding") or {}
             if not content.get("expected_text_segments"):
                 raise ValueError("NATIVE_NEO_EXACT_PAYLOAD_REQUIRED")
@@ -212,7 +228,7 @@ class NativeNeoExecutor:
                 continue
             request_hash = payload["request"]["request_sha256"]
             if self._get(request_hash, "response") is None:
-                claim = (self._get(request_hash, "started") if payload["request"]["action"] == "PUBLISH"
+                claim = (self._get(request_hash, "started") if payload["request"]["action"] in {"PUBLISH", "EDIT_EXISTING"}
                          else self._claim(request_hash, self.native_invocation_id))
                 rows.append({**payload, "action_claimed": claim is not None})
         return rows

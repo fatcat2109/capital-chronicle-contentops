@@ -19,11 +19,12 @@ from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_o
 SCHEMA = "contentops.neo_destination_handoff.v1"
 IDENTITIES = {"substack": "capitalchronicle.substack.com", "x": "@Capitalnicle",
               "youtube": "@CapitalChronicleYouTube", "linkedin": "linkedin:jimcc",
-              "linkedin_company": "linkedin:company:143198922"}
+              "linkedin_company": "linkedin:company:143198922", "instagram_business": "official.capitalchronicle"}
 ROOTS = {"substack": "https://capitalchronicle.substack.com/", "x": "https://x.com/Capitalnicle",
          "youtube": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
          "linkedin": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
-         "linkedin_company": "https://www.linkedin.com/company/143198922/admin/page-posts/published/"}
+          "linkedin_company": "https://www.linkedin.com/company/143198922/admin/page-posts/published/",
+          "instagram_business": "https://www.instagram.com/official.capitalchronicle/"}
 
 
 def _canonical(url):
@@ -44,6 +45,8 @@ def _public_url(destination, url, object_id=None):
         match = re.fullmatch(r"/feed/update/(urn:li:(?:activity|share|ugcPost):\d+)/?", unquote(p.path))
         return bool(p.hostname == "www.linkedin.com" and match
             and (not object_id or match[1] == str(object_id)))
+    if destination == "instagram_business":
+        return p.hostname == "www.instagram.com" and bool(re.fullmatch(r"/p/[A-Za-z0-9_-]+/", p.path))
     return (p.hostname == "www.youtube.com" and p.path.startswith("/post/")
             and (not object_id or p.path.rsplit("/", 1)[-1] == str(object_id)))
 
@@ -59,7 +62,7 @@ def _payload_binding(intent, destination):
     assets = list(intent.get("media_assets") or [])
     artifacts = []
     root = Path(str(intent.get("output_dir") or ""))
-    if intent.get("output_dir"):
+    if intent.get("output_dir") and not intent.get("reader_presentation_review"):
         from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
         resolved = _durable_intent_inputs(intent)
         if destination == "substack":
@@ -95,8 +98,11 @@ def _payload_binding(intent, destination):
               "attribution", "license_url", "source_page_url", "changes_description", "article_section",
               "canonical_article_section_association", "modality", "public_delivery_sha256", "verified_public_delivery_url") if k in a}
              for a in assets if isinstance(a, dict)]
-    return payload, {"expected_text_segments": texts, "expected_thread_texts": thread_texts, "thread_post_count": len(posts),
-                     "media_manifest": media, "artifact_manifest": artifacts}
+    binding = {"expected_text_segments": texts, "expected_thread_texts": thread_texts, "thread_post_count": len(posts),
+               "media_manifest": media, "artifact_manifest": artifacts}
+    if intent.get("reader_presentation_review"):
+        binding["excluded_text_segments"] = intent["removed_reader_text"]
+    return payload, binding
 
 
 class NeoDestinationHandoff:
@@ -107,12 +113,14 @@ class NeoDestinationHandoff:
 
     def request(self, *, destination, action, intent, authorization_context=None,
                 public_object_id=None, public_object_url=None):
-        if destination not in IDENTITIES or action not in {"PUBLISH", "READBACK"}:
+        if destination not in IDENTITIES or action not in {"PUBLISH", "READBACK", "EDIT_EXISTING"}:
             raise ValueError("NEO_DESTINATION_ACTION_UNSUPPORTED")
+        if destination == "instagram_business" and action == "PUBLISH":
+            raise ValueError("INSTAGRAM_ROUTINE_API_TRANSPORT_UNCHANGED")
         if _private(intent):
             raise ValueError("PRIVATE_NEO_INTENT_EXCLUDED")
         auth = dict(authorization_context or {})
-        if action == "PUBLISH":
+        if action in {"PUBLISH", "EDIT_EXISTING"}:
             if (auth.get("schema_version") != "contentops.canonical_machine_authorization.v1"
                     or auth.get("operating_mode") != "AUTONOMOUS_DEFAULT"
                     or auth.get("destination") != destination or not auth.get("dispatch_attempt_identity")
@@ -121,6 +129,10 @@ class NeoDestinationHandoff:
                 raise ValueError("SOLE_COORDINATOR_AUTHORIZATION_REQUIRED")
             if destination != "substack" and not _canonical(intent.get("canonical_url")):
                 raise ValueError("RECONCILED_SUBSTACK_URL_REQUIRED")
+        if action == "EDIT_EXISTING" and (not intent.get("reader_presentation_review")
+                or not public_object_id or not _public_url(destination, public_object_url, public_object_id)
+                or auth.get("action") != "EDIT_EXISTING"):
+            raise ValueError("NEO_EXACT_REVIEWED_EXISTING_OBJECT_REQUIRED")
         native_payload, content_binding = _payload_binding(intent, destination)
         value = {"schema_version": SCHEMA, "destination": destination, "action": action,
             "expected_identity": IDENTITIES[destination], "entry_url": ROOTS[destination],
@@ -135,16 +147,19 @@ class NeoDestinationHandoff:
             "surface": intent.get("destination_plan", {}).get("surface") or {
                 "substack": "SUBSTACK_ARTICLE", "x": "X_THREAD" if content_binding["thread_post_count"] > 1 else "X_POST",
                 "linkedin": "LINKEDIN_POST", "linkedin_company": "LINKEDIN_COMPANY_POST",
+                 "instagram_business": "INSTAGRAM_BUSINESS_POST",
                 "youtube": "YOUTUBE_COMMUNITY_POST"}[destination],
             "steps": ["name_session; list tabs, open a task-owned tab",
                 "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
                 "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
-                "PUBLISH only under this sole-coordinator authorization; READBACK never submits or retries",
+                 "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
                 "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"],
             "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
             "forbidden": ["login", "reauthorize", "account_switch", "cookies", "storage", "blind_retry", "bulk_x_ingestion"]}
         if destination == "linkedin" and action == "READBACK" and not public_object_id:
             value["owner_absence_context"] = intent.get("owner_absence_context")
+        if intent.get("reader_presentation_review"):
+            value["reader_presentation_review"] = intent["reader_presentation_review"]
         value["request_sha256"] = sha256_of(value)
         return value
 
@@ -160,6 +175,20 @@ class NeoDestinationHandoff:
                 or result.get("observed_identity") != IDENTITIES[destination]):
             return {"status": "UNKNOWN_WRITE", "reason_code": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"}
         # Identity/readback ambiguity is left to the sole coordinator. Never retry here.
+        return result
+
+    def amend_existing(self, *, destination, intent, public_object_id, public_object_url, authorization_context):
+        request = self.request(destination=destination, action="EDIT_EXISTING", intent=intent,
+            public_object_id=public_object_id, public_object_url=public_object_url,
+            authorization_context=authorization_context)
+        if self.native_executor is None:
+            return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True, "request": request}
+        result = dict(self.native_executor(request))
+        if (result.get("request_sha256") != request["request_sha256"]
+                or result.get("observed_identity") != IDENTITIES[destination]
+                or result.get("public_object_id") != public_object_id
+                or result.get("public_object_url") != public_object_url):
+            return {"status": "UNKNOWN_EDIT", "retry_permitted": False}
         return result
 
     def readback(self, *, destination, intent, public_object_id, public_object_url):
@@ -185,7 +214,8 @@ class NeoDestinationHandoff:
                         and link.get("public_object_url") == public_object_url
                         and link.get("target_url") == canonical and _canonical(canonical)):
                     comparison_text = comparison_text.replace(_text(short), _text(canonical))
-        text_match = bool(segments) and all(_text(s) in comparison_text for s in segments)
+        text_match = (bool(segments) and all(_text(s) in comparison_text for s in segments)
+            and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
         expected_media = {a.get("public_delivery_sha256") or a.get("sha256") for a in binding["media_manifest"]}
         expected_media.discard(None)
         media_match = expected_media <= set(result.get("observed_media_sha256") or [])

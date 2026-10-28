@@ -817,12 +817,13 @@ def native_review_revision(result, *, include_metadata=True):
         revision_input.append(sha256_of(result["article"]))
     reader_first = result["article"].get("reader_first_version") == "DATA_JOURNALISM_V1"
     if reader_first:
-        from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
+        from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article, READER_ATTRIBUTION_POLICY
         # The reviewed reader text is a deterministic projection. A converter
         # change must invalidate KEEP even when the internal source markers stay.
         revision_input.append(sha256_of(_reader_safe_native_article(result["article"],
             article_mode=result["article"].get("resolved_article_mode", ""),
-            epistemic_state=result["article"].get("epistemic_state"))))
+            epistemic_state=result["article"].get("epistemic_state"),
+            legacy_presentation=result["article"].get("reader_attribution_policy") != READER_ATTRIBUTION_POLICY)))
     if result.get("media_preview_binding_sha256") or reader_first:
         # Include the actual current previews, so altered preview copy invalidates review.
         revision_input.append(sha256_of(result.get("previews", [])))
@@ -856,7 +857,8 @@ def dated_distribution_destinations(recovery):
     return scope
 
 
-def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref, destinations=None):
+def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref, destinations=None,
+                                      reader_timezone="America/New_York"):
     """Prepare the owner's dated distribution amendment without changing sent intents."""
     from datetime import datetime
     from zoneinfo import ZoneInfo
@@ -875,8 +877,13 @@ def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref, des
         for r in store.get_reconciliations_for_work_item(run_id))
     if canonical.get("status") != "DISPATCH_CONFIRMED" or not reconciled:
         raise ValueError("DATED_DISTRIBUTION_CONFIRMED_CANONICAL_REQUIRED")
-    cutoff = datetime.fromisoformat(binding["cutoff_utc"].replace("Z", "+00:00")).astimezone(ZoneInfo("Asia/Bangkok"))
-    label = f"Reporting as of {cutoff:%H:%M} Bangkok on {cutoff.day} {cutoff:%B %Y}."
+    if reader_timezone is None:
+        # Only rebuilding an immutable historical recovery uses its original label.
+        cutoff = datetime.fromisoformat(binding["cutoff_utc"].replace("Z", "+00:00")).astimezone(ZoneInfo("Asia/Bangkok"))
+        label = f"Reporting as of {cutoff:%H:%M} Bangkok on {cutoff.day} {cutoff:%B %Y}."
+    else:
+        from live_contentops.v1_simple_gemini_newsroom_v1 import reader_timestamp
+        label = f"Reporting as of {reader_timestamp(binding['cutoff_utc'], zone=reader_timezone)}."
     scope = dated_distribution_destinations({} if destinations is None else {"destinations": destinations})
     payloads, originals = {}, {}
     for destination in sorted(scope):
@@ -897,6 +904,8 @@ def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref, des
         "article_identity": result["article_identity"], "canonical_article_revision": native_review_revision(result),
         "plan_hash": plan["plan_hash"], "canonical_url": canonical["public_object_url"],
         "date_label": label, "original_intent_sha256": originals, "payloads": payloads}
+    if reader_timezone is not None:
+        recovery["reader_timezone"] = reader_timezone
     if destinations is not None:
         recovery["destinations"] = sorted(scope)
     if scope == LINKEDIN_DATED_DISTRIBUTION_DESTINATIONS:
@@ -910,7 +919,8 @@ def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref, des
 def dated_distribution_recovery_view(store, *, run_id, result, recovery):
     from copy import deepcopy
     expected = build_dated_distribution_recovery(store, run_id=run_id,
-        owner_authority_ref=recovery.get("owner_authority_ref"), destinations=recovery.get("destinations"))
+        owner_authority_ref=recovery.get("owner_authority_ref"), destinations=recovery.get("destinations"),
+        reader_timezone=recovery.get("reader_timezone"))
     if recovery != expected or native_review_revision(result) != recovery["canonical_article_revision"]:
         raise ValueError("DATED_DISTRIBUTION_SOURCE_OR_PAYLOAD_CHANGED")
     view = deepcopy(result)
@@ -931,6 +941,114 @@ def dated_distribution_recovery_acceptance(store, *, run_id, reference):
     return recovery, final_visual_acceptance(store, run_id=run_id, result=view, reference=reference)
 
 
+def build_reader_presentation_revision(store, *, run_id, proposal, owner_authority_ref):
+    """Admit a same-object footer correction, retaining the sent article and intents."""
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    from live_contentops.v1_simple_gemini_newsroom_v1 import READER_ATTRIBUTION_POLICY
+    row = store.get_outbox_message("cc-editorial-final-" + sha256_of(run_id))
+    result = json.loads(row["payload"]) if row else {}
+    if (not str(owner_authority_ref).startswith("human:") or not result.get("qualified_article_count")
+            or proposal.get("run_id") != run_id or proposal.get("article_identity") != result.get("article_identity")):
+        raise ValueError("READER_REVISION_EXACT_EXISTING_ARTICLE_AND_AUTHORITY_REQUIRED")
+    canonical = proposal["canonical_amendment"]
+    body = canonical["governed_article_body"]
+    dates = canonical["display_date_if_rendered"]
+    cutoff = datetime.fromisoformat(result["simple_result"]["cutoff_utc"].replace("Z", "+00:00")).astimezone(ZoneInfo("Asia/Bangkok"))
+    date = f"{cutoff.day} {cutoff:%B %Y}"
+    label = f"Reporting as of {cutoff:%H:%M} Bangkok on {date}."
+    suffix = body["removed_exact_suffix"]
+    if (body["before"] != result["article"]["substack_body_markdown"] or not body["after"].strip()
+            or body["before"] != body["after"] + suffix
+            or not suffix.startswith("\n\n### Sources\n\nReporting as of ")
+            or any(credit in suffix.casefold() for credit in ("photo:", "creativecommons", "wikimedia", "license:"))
+            or dates["before"] != result["article"].get("display_date") or dates["after"] != date):
+        raise ValueError("READER_REVISION_ONLY_DISCRETIONARY_SOURCE_FOOTER_REMOVAL_ALLOWED")
+    payloads, objects, originals = {}, {"substack": canonical["existing_public_identity"]}, {}
+    co = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+    for change in proposal["derivative_amendments"]:
+        destination = change["destination"]
+        if destination in objects or destination not in {"facebook_page", "instagram_business", "youtube", "linkedin", "linkedin_company"}:
+            raise ValueError("READER_REVISION_EXACT_AFFECTED_DESTINATIONS_REQUIRED")
+        identity = change["existing_public_identity"]
+        original = store.get_outbox_message(identity["message_id"])
+        intent = json.loads(original["payload"]) if original else {}
+        if change["original_immutable_intent_sha256"] != sha256_of(intent):
+            raise ValueError("READER_REVISION_ORIGINAL_INTENT_CHANGED")
+        effective = json.loads(co._dated_distribution_message(original)["payload"])
+        before, after = change["before_payload"], change["after_payload"]
+        resolved = _durable_intent_inputs(effective)["payloads"][destination]
+        if (before != resolved or before["text"] != label + "\n\n" + after["text"][len(date) + 2:]
+                or not after["text"].startswith(date + "\n\n")
+                or {k:v for k,v in before.items() if k != "text"} != {k:v for k,v in after.items() if k != "text"}):
+            raise ValueError("READER_REVISION_ONLY_DATED_PREFIX_PRESENTATION_ALLOWED")
+        payloads[destination], objects[destination], originals[destination] = after, identity, sha256_of(intent)
+    revision = {"policy": READER_ATTRIBUTION_POLICY, "run_id": run_id,
+        "article_identity": result["article_identity"], "prior_revision": native_review_revision(result),
+        "source_sha256": sha256_of(result.get("evidence", [])), "base_result_sha256": sha256_of(result),
+        "owner_authority_ref": owner_authority_ref, "proposal_sha256": sha256_of(proposal),
+        "body_before": body["before"], "body_after": body["after"],
+        "display_date_before": dates["before"], "display_date_after": date,
+        "payloads": payloads, "objects": objects, "original_intent_sha256": originals}
+    reader_presentation_revision_view(store, run_id=run_id, result=result, revision=revision)
+    return revision
+
+
+def reader_presentation_revision_view(store, *, run_id, result, revision):
+    from copy import deepcopy
+    from live_contentops.v1_simple_gemini_newsroom_v1 import READER_ATTRIBUTION_POLICY
+    if (revision.get("policy") != READER_ATTRIBUTION_POLICY or revision.get("run_id") != run_id
+            or not str(revision.get("owner_authority_ref")).startswith("human:")
+            or revision["base_result_sha256"] != sha256_of(result)
+            or revision["source_sha256"] != sha256_of(result.get("evidence", []))
+            or revision["prior_revision"] != native_review_revision(result)):
+        raise ValueError("READER_REVISION_RETAINED_ARTICLE_OR_SOURCES_CHANGED")
+    if (result["article"]["substack_body_markdown"] != revision["body_before"]
+            or not revision["body_before"].startswith(revision["body_after"] + "\n\n### Sources\n\nReporting as of ")
+            or revision["display_date_before"] != result["article"].get("display_date")):
+        raise ValueError("READER_REVISION_EXACT_FOOTER_CHANGE_REQUIRED")
+    if set(revision["objects"]) != {"substack", "facebook_page", "instagram_business", "youtube", "linkedin", "linkedin_company"}:
+        raise ValueError("READER_REVISION_EXACT_AFFECTED_OBJECTS_REQUIRED")
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+    co = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    for destination, identity in revision["objects"].items():
+        dispatch = store.get_platform_dispatch(identity["dispatch_id"]) or {}
+        if any(dispatch.get(k) != identity.get(k) for k in ("message_id", "platform", "public_object_id", "public_object_url")) or dispatch.get("status") != "DISPATCH_CONFIRMED":
+            raise ValueError("READER_REVISION_EXACT_CONFIRMED_OBJECT_REQUIRED")
+        if destination != "substack":
+            original = store.get_outbox_message(identity["message_id"])
+            if sha256_of(json.loads(original["payload"])) != revision["original_intent_sha256"][destination]:
+                raise ValueError("READER_REVISION_ORIGINAL_INTENT_CHANGED")
+            before = _durable_intent_inputs(json.loads(co._dated_distribution_message(original)["payload"]))["payloads"][destination]
+            after = revision["payloads"][destination]
+            prior_label, separator, prior_text = before["text"].partition("\n\n")
+            if (not prior_label.startswith("Reporting as of ") or not separator
+                    or after["text"] != revision["display_date_after"] + "\n\n" + prior_text
+                    or {k:v for k,v in before.items() if k != "text"} != {k:v for k,v in after.items() if k != "text"}):
+                raise ValueError("READER_REVISION_ONLY_DATED_PREFIX_PRESENTATION_ALLOWED")
+    view = deepcopy(result)
+    view["article"].update(substack_body_markdown=revision["body_after"],
+        display_date=revision["display_date_after"], reader_attribution_policy=READER_ATTRIBUTION_POLICY)
+    for preview in view["previews"]:
+        if preview["destination"] in revision["payloads"]:
+            preview["payload"] = deepcopy(revision["payloads"][preview["destination"]])
+    return view
+
+
+def reader_presentation_acceptance(store, *, run_id, reference):
+    turn = NativeDesktopTurn(store, run_id=run_id, output_dir=reference["output_dir"], owner_manual_validation=True)
+    request = turn.frozen_request(reference["stage"])
+    revision = (request or {}).get("governed_input", {}).get("reader_presentation_revision")
+    if not revision:
+        raise ValueError("READER_REVISION_EXACT_NATIVE_REVIEW_REQUIRED")
+    result = json.loads(store.get_outbox_message("cc-editorial-final-" + sha256_of(run_id))["payload"])
+    view = reader_presentation_revision_view(store, run_id=run_id, result=result, revision=revision)
+    return revision, view, final_visual_acceptance(store, run_id=run_id, result=view, reference=reference)
+
+
 def final_visual_binding(result, *, renders, destinations=None):
     """Bind exact final pixels and view payloads; this does not judge those pixels."""
     assets = result.get("media_assets", [])
@@ -942,7 +1060,8 @@ def final_visual_binding(result, *, renders, destinations=None):
         raise ValueError("FINAL_VISUAL_EXACT_EIGHT_VARIANTS_REQUIRED")
     scope = FINAL_VISUAL_CHANNELS if destinations is None else set(destinations)
     if destinations is not None and scope not in (
-            DATED_DISTRIBUTION_DESTINATIONS, LINKEDIN_DATED_DISTRIBUTION_DESTINATIONS):
+            DATED_DISTRIBUTION_DESTINATIONS, LINKEDIN_DATED_DISTRIBUTION_DESTINATIONS,
+            {"substack", "facebook_page", "instagram_business", "youtube", "linkedin"}):
         raise ValueError("FINAL_VISUAL_DATED_DISTRIBUTION_SCOPE_REQUIRED")
     variants = {}
     for destination in sorted(scope):
@@ -992,7 +1111,7 @@ def final_visual_binding(result, *, renders, destinations=None):
         "reviewer_assignment": dict(ROLE_ASSIGNMENTS["final-visual"])}
 
 
-def request_final_visual_review(turn, *, renders, distribution_recovery=None):
+def request_final_visual_review(turn, *, renders, distribution_recovery=None, reader_presentation_revision=None):
     """Same writer reviews final assembly; changed revisions receive their own immutable request."""
     row = turn.store.get_outbox_message("cc-editorial-final-" + sha256_of(turn.run_id))
     result = json.loads(row["payload"]) if row else {}
@@ -1003,8 +1122,16 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None):
         raise ValueError("FINAL_VISUAL_SAME_NATIVE_WRITER_REQUIRED")
     if distribution_recovery is not None:
         result = dated_distribution_recovery_view(turn.store, run_id=turn.run_id, result=result, recovery=distribution_recovery)
+    if reader_presentation_revision is not None:
+        if distribution_recovery is not None:
+            raise ValueError("FINAL_VISUAL_SINGLE_REVISION_REQUIRED")
+        result = reader_presentation_revision_view(turn.store, run_id=turn.run_id, result=result,
+            revision=reader_presentation_revision)
+    scope = ({"linkedin" if d == "linkedin_company" else d for d in reader_presentation_revision["objects"]}
+        if reader_presentation_revision is not None else dated_distribution_destinations(distribution_recovery)
+        if distribution_recovery is not None else None)
     binding = final_visual_binding(result, renders=renders,
-        destinations=dated_distribution_destinations(distribution_recovery) if distribution_recovery is not None else None)
+        destinations=scope)
     stage = "final-visual-" + sha256_of(binding)
     governed = {"binding": binding, "article": result["article"], "previews": result["previews"],
         "evidence": result.get("evidence", []), "writer_invocation_id": writer["invocation_observation"]["invocation_id"],
@@ -1012,6 +1139,8 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None):
         "photo_checks": list(FINAL_VISUAL_PHOTO_CHECKS)}
     if distribution_recovery is not None:
         governed["distribution_recovery"] = distribution_recovery
+    if reader_presentation_revision is not None:
+        governed["reader_presentation_revision"] = reader_presentation_revision
     prompt = (
         "You are the SAME actual native gpt-6.1-sol/max visual editor/writer. Inspect the FINISHED article, "
         "every visual and all bound canonical/channel desktop/mobile rendered pixels with local image or Neo tools. "
@@ -1054,8 +1183,13 @@ def validate_final_visual_return(turn, request, response):
     recovery = request["governed_input"].get("distribution_recovery")
     if recovery is not None:
         result = dated_distribution_recovery_view(turn.store, run_id=turn.run_id, result=result, recovery=recovery)
+    revision = request["governed_input"].get("reader_presentation_revision")
+    if revision is not None:
+        result = reader_presentation_revision_view(turn.store, run_id=turn.run_id, result=result, revision=revision)
+    scope = ({"linkedin" if d == "linkedin_company" else d for d in revision["objects"]} if revision is not None
+        else dated_distribution_destinations(recovery) if recovery is not None else None)
     if final_visual_binding(result, renders=binding["renders"],
-            destinations=dated_distribution_destinations(recovery) if recovery is not None else None) != binding:
+            destinations=scope) != binding:
         raise ValueError("FINAL_VISUAL_REVIEW_REVISION_CHANGED")
     if output.get("decision") not in {"ACCEPT", "REPAIR_REQUIRED", "EXTERNAL_BLOCK"}:
         raise ValueError("FINAL_VISUAL_DECISION_REQUIRED")
