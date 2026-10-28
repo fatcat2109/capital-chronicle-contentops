@@ -172,7 +172,20 @@ class NeoDestinationHandoff:
         binding = request["content_binding"]
         segments = binding["expected_text_segments"]
         observed_text = _text(result.get("observed_text"))
-        text_match = bool(segments) and all(_text(s) in observed_text for s in segments)
+        comparison_text = observed_text
+        if destination in {"linkedin", "linkedin_company"}:
+            # LinkedIn rewrites displayed links. Keep raw observed copy and only
+            # expand an actually verified target on this exact public object.
+            canonical = str(intent.get("canonical_url") or "")
+            for link in result.get("observed_link_resolutions") or []:
+                short = str(link.get("displayed_url") or "")
+                if (re.fullmatch(r"https://lnkd\.in/[A-Za-z0-9_-]+", short)
+                        and short in str(result.get("observed_text") or "")
+                        and link.get("target_verified") is True
+                        and link.get("public_object_url") == public_object_url
+                        and link.get("target_url") == canonical and _canonical(canonical)):
+                    comparison_text = comparison_text.replace(_text(short), _text(canonical))
+        text_match = bool(segments) and all(_text(s) in comparison_text for s in segments)
         expected_media = {a.get("public_delivery_sha256") or a.get("sha256") for a in binding["media_manifest"]}
         expected_media.discard(None)
         media_match = expected_media <= set(result.get("observed_media_sha256") or [])

@@ -1,10 +1,10 @@
-# V1 live edition — both LinkedIn destinations selected; final MAX review pending
-Goal: SAME CONTENTOPS_V1_LIVE_LAUNCH_AND_FIRST_CURRENT_EDITION_V1; ACTIVE, incomplete. No completion notice sent.
+# V1 live edition — MAX R6 accepted; personal LinkedIn posted, readback in progress
+Goal: SAME CONTENTOPS_V1_LIVE_LAUNCH_AND_FIRST_CURRENT_EDITION_V1; ACTIVE/incomplete. No completion notice sent.
 Objective: C:/Users/bullw/.codex/attachments/3e1d3511-8b77-4f97-8a2b-c888b10f8419/pasted-text-1.txt.
 Sole writer chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
 Authoring: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; codex/v1-newsroom-release-convergence.
-Operating: A:/Capital Chronicle/ContentOps; installed/fresh master1f99cf77db1fe97789f305d6a5476455a3bb041d (PR110).
-PR111 implements explicit personal/company Neo recovery; exact-head CI/application pending. Unrelated operating WIP and telemetry preserved.
+Operating: A:/Capital Chronicle/ContentOps; merged/applied master97bdf7512e8c71cfa1dab63b1fea784426acb055 (PR111).
+PR111 CI40635196545 PASS at e2e3d441; applied with6 unrelated WIP paths, original binding/store and listener14296 preserved; no restart.
 PR109/110 applied without restarting listener14296; original binding/store preserved. Four existing windows ACTIVE; V2/V3 paused.
 AUTONOMOUS_DEFAULT/version38 and the existing live grant remain; daily5–8 reliability remains unproven.
 Operation v1-live-launch-20261027; cutoff2026-10-27T04:00:52.972454Z; same plan57f020444107795eb9854917776f792aa3d986058abd0798616e90b7e683fa11.
@@ -25,15 +25,15 @@ Personal API metadata has openid/profile/w_member_social; live GET fails TRANSPO
 Neo created Capital Chronicle Community app264177479 and verified association to Page143198922; original personal app262947024 retained.
 Company API requires business email verification; Jim currently has none. No product access/token/company API readiness is claimed.
 Official requirements: https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review; personal emails fail vetting.
-LinkedIn original dispatch_ada852dd41146aa23dcf651a6a859ebe has no ID/URL; owner report + fresh loaded own activity reconciled absence.
+LinkedIn original absence was reconciled before the reviewed send. Same dispatch now holds urn:li:activity:7521104588075327488; no blind repost.
 Actual Neo requestccabb6d3a3bf0fa7ba608214a7b15f7970f5d32e9f45c67aabfae98ee0f43f5b; zero public writes during reconciliation.
-Current durable result: canonical +7 confirmed derivatives; LinkedIn absence reconciled, old dispatch aged to EXPIRED_STALE_NO_WRITE; company not sent.
+Personal posted once: https://www.linkedin.com/feed/update/urn:li:activity:7521104588075327488/; known identity, readback pending. Company not sent.
 Explicit Neo recovery retains original sent intents; company copy has separate recipient/dispatch. Routine eight-channel/API default unchanged.
 R6 shared LinkedIn dated copy has2 rendered viewports, exact recipients, same sources/photo/canonical; no fresh-news claim.
 R6 request1b3580f0d71c1b67eb541957142a8a0efad4a914e3627a08adf7da2df99b42cb; stage final-visual-87fd9f2bb7965499bb60068e8a360ddf369e758dabd29ea63c650958d04444eb.
-SAME /root/live_launch_max_writer continuation failed once with usage limit; no native R6 acceptance. Do not substitute reviewer or retry-loop.
-Focused R6/dated/native44PASS; aged-absence/API setup/routine plan/company independence PASS; callback API13PASS. Legacy8 failures unchanged.
+SAME MAX R6 ACCEPT cb52737490ff3464f9a3fb66cd487dc317adea5730933e9021c39e7d38d7ec55 submitted/validated; both exact renders and original inspected.
+LinkedIn shortened canonical to https://lnkd.in/gAgRw7rS; actual Neo interstitial resolves to exact Substack. Scoped readback comparison repair pending.
 [Builder B producer handoff](main-news/README.md): exact1311chars/source clocks/Substack222368666/photo read200; B installed outcome COMPLETE.
 Pinned8-story export b4a52997745fc86697e404a6d37c22b4230ce2571b837de90d97e3d41588dc7a unchanged; no repin or Main edits.
 Evidence: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-live-launch-20261027/linkedin-neo-r6/; prior dated-distribution-r5/.
-Next: finish/apply scoped source repair; when quota permits, resume SAME MAX R6 request, then native personal/company sends and exact readbacks.
+Next: apply verified-shortlink readback repair, finish exact personal readback, then reviewed company copy and exact readback. Never repost personal.

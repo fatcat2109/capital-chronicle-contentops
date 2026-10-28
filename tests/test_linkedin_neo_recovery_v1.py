@@ -263,6 +263,34 @@ def test_company_public_readback_requires_actor_text_and_real_media_observation(
     assert not _public_url("linkedin_company", url, "urn:li:activity:124")
 
 
+@pytest.mark.parametrize("destination", ["linkedin", "linkedin_company"])
+@pytest.mark.parametrize("invalid", [None, "missing", "unverified", "wrong_target", "wrong_post", "wrong_display", "wrong_host"])
+def test_shortened_canonical_requires_actual_exact_post_link_target(destination, invalid):
+    url = "https://www.linkedin.com/feed/update/urn:li:activity:123/"
+    short = "https://lnkd.in/fixture-link"
+    intent = {"work_item_id": "fixture", "canonical_url": CANONICAL,
+        "native_payload": {"text": "Dated report. " + CANONICAL}}
+    link = {"displayed_url": short, "target_url": CANONICAL, "target_verified": True,
+        "public_object_url": url}
+    if invalid == "unverified":
+        link["target_verified"] = False
+    elif invalid == "wrong_target":
+        link["target_url"] = "https://example.test/wrong"
+    elif invalid == "wrong_post":
+        link["public_object_url"] = url.replace("123", "124")
+    elif invalid == "wrong_display":
+        link["displayed_url"] = short + "other"
+    elif invalid == "wrong_host":
+        link["displayed_url"] = short.replace("lnkd.in", "example.test")
+    observed = {"observed_identity": IDENTITIES[destination], "public_object_id": "urn:li:activity:123",
+        "public_object_url": url, "content_verified": True, "observed_text": "Dated report. " + short,
+        "observed_link_resolutions": [] if invalid == "missing" else [link]}
+    neo = NeoDestinationHandoff(native_executor=lambda request: {**observed, "request_sha256": request["request_sha256"]})
+    actual = neo.readback(destination=destination, intent=intent, public_object_id="urn:li:activity:123", public_object_url=url)
+    assert actual["verified"] == (invalid is None)
+    assert actual["observed_text"] == observed["observed_text"]
+
+
 def test_normal_linkedin_runtime_keeps_api_and_only_explicit_recovery_routes_neo():
     called = []
     api = SimpleNamespace(publish=lambda **_: called.append("api") or {"status": "fixture"})
