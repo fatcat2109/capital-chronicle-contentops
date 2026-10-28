@@ -271,11 +271,12 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
         dispatch = next(
             (d for d in dispatches if d["dispatch_id"] == ids["dispatch_id"]), {}
         )
+        dispatch = DurablePublicationCoordinator.effective_dispatch(dispatch, dispatches)
         reconciliation = next(
             (
                 r
                 for r in reconciliations
-                if r["reconciliation_id"] == ids["reconciliation_id"]
+                if r["reconciliation_id"] == "reconciliation_" + str(dispatch.get("dispatch_id", ids["dispatch_id"])).removeprefix("dispatch_")
             ),
             {},
         )
@@ -285,7 +286,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
             {
                 "destination": destination,
                 "transport": reg.transport_type,
-                "dispatch_id": ids["dispatch_id"],
+                "dispatch_id": dispatch.get("dispatch_id", ids["dispatch_id"]),
                 "status": dispatch.get("status", "NOT_DISPATCHED"),
                 "reconciliation_status": reconciliation.get("status"),
                 "public_object_id": dispatch.get("public_object_id"),
