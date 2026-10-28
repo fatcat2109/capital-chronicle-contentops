@@ -128,6 +128,33 @@ def test_old_three_channel_review_cannot_authorize_company_copy(tmp_path, monkey
     assert runtime.publish_calls == []
 
 
+def test_completed_native_personal_write_supersedes_prior_absence_while_readback_waits(tmp_path, monkeypatch):
+    store, binding, result, co, _runtime, recovery, ids = linkedin_recovery(tmp_path, monkeypatch)
+    ref = accepted_recovery(store, binding, result, recovery, tmp_path)
+    store.set_dispatch_status(ids["dispatch_id"], "RECONCILED_ABSENT_SAFE_TO_RETRY")
+    store.register_reconciliation(reconciliation_id=ids["reconciliation_id"], work_item_id=binding["run_id"],
+        status="RECONCILED_ABSENT_SAFE_TO_RETRY")
+    executor = NativeNeoExecutor(store, operation_id=binding["run_id"], output_dir=tmp_path/"neo-completion",
+        native_invocation_id="CONTROLLED_CALLBACK_FIXTURE", allow_publish=True)
+    monkeypatch.setattr(executor, "readiness", lambda _: {"authenticated": True, "native_executor_bound": True,
+        "proof_fresh": True, "public_handle": IDENTITIES["linkedin"]})
+    co.transport_runtime = CanonicalDestinationTransportRuntimeV1(neo_transport=NeoDestinationHandoff(native_executor=executor))
+    pending = co.complete_dated_distribution_recovery(ids["message_id"], review_reference=ref)["native_tool_request"]
+    request_hash = pending["request"]["request_sha256"]
+    executor.begin(request_hash)
+    executor.submit(request_hash, {"tool_request_sha256": pending["tool_request_sha256"],
+        "tool_observation": {"tool_name": "mcp__browseros_neo__run", "native_invocation_id": executor.native_invocation_id,
+            "surface": "CODEX_DESKTOP_CONVERSATION", "observation_source": "SYNTHETIC_CALLBACK_FIXTURE_NOT_BROWSER_PROOF",
+            "observed_at_utc": datetime.now(timezone.utc).isoformat()},
+        "result": {"request_sha256": request_hash, "status": "SUCCESS", "observed_identity": IDENTITIES["linkedin"],
+            "public_object_id": "urn:li:activity:123", "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:123/"}})
+    actual = co.reconcile_completed_native_publish(ids["dispatch_id"], request_hash=request_hash)
+    assert actual["reconciliation_status"] == "RECONCILIATION_PENDING"
+    assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == "DISPATCH_CONFIRMED"
+    assert next(r for r in store.get_reconciliations_for_work_item(binding["run_id"])
+        if r["reconciliation_id"] == ids["reconciliation_id"])["status"] == "RECONCILIATION_PENDING"
+
+
 def test_company_pending_restart_and_claimed_action_never_create_again(tmp_path, monkeypatch):
     store, binding, result, co, _, recovery, _ = linkedin_recovery(tmp_path, monkeypatch)
     ref = accepted_recovery(store, binding, result, recovery, tmp_path)
@@ -160,6 +187,34 @@ def test_company_queued_copy_cannot_change_after_its_review(tmp_path, monkeypatc
     changed["native_payload"]["text"] = "Unreviewed new text"
     with pytest.raises(ValueError, match="EXACT_REVIEWED_COPY"):
         co._dispatch_message({**original, "payload": json.dumps(changed)}, canonical_url=CANONICAL)
+
+
+@pytest.mark.parametrize("corruption", ["empty_unclaimed", "wrong_text", "dispatch_marker"])
+def test_company_queue_preserves_reviewed_copy_and_repairs_only_known_unclaimed_empty_package(tmp_path, monkeypatch, corruption):
+    store, binding, result, co, _runtime, recovery, _ids = linkedin_recovery(tmp_path, monkeypatch)
+    ref = accepted_recovery(store, binding, result, recovery, tmp_path)
+    monkeypatch.setattr(co, "_dispatch_message", lambda *args, **kwargs: {"publish_called": False})
+    co.publish_reviewed_linkedin_company_copy(run_id=binding["run_id"], review_reference=ref)
+    ids = co._ids(binding["run_id"], recovery["plan_hash"], "linkedin_company")
+    original = json.loads(store.get_outbox_message(ids["message_id"])["payload"])
+    runtime = CanonicalDestinationTransportRuntimeV1(neo_transport=SimpleNamespace())
+    assert runtime.finalize_intent(destination="linkedin_company", intent=original, canonical_url=CANONICAL) == original
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    empty = {**original, "native_payload": {}, "payload": "",
+        "destination_plan": {**original["destination_plan"], "payload_hash": sha256_of({}),
+            "payload_hash_kind": "FINAL_CANONICAL_URL_BOUND_BYTES"}}
+    if corruption == "wrong_text":
+        empty["payload"] = "Unreviewed replacement"
+    store.finalize_outbox_payload_before_dispatch(message_id=ids["message_id"], payload=json.dumps(empty))
+    if corruption == "dispatch_marker":
+        store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+            platform="linkedin_company", status="UNKNOWN_WRITE")
+    if corruption == "empty_unclaimed":
+        assert co.publish_reviewed_linkedin_company_copy(run_id=binding["run_id"], review_reference=ref)["publish_called"] is False
+        assert json.loads(store.get_outbox_message(ids["message_id"])["payload"]) == original
+    else:
+        with pytest.raises(ValueError, match="IMMUTABLE_COPY_CONFLICT"):
+            co.publish_reviewed_linkedin_company_copy(run_id=binding["run_id"], review_reference=ref)
 
 
 def test_native_projection_keeps_selected_company_copy_pending_without_changing_routine_count():
@@ -261,6 +316,34 @@ def test_company_public_readback_requires_actor_text_and_real_media_observation(
             public_object_url=url)["verified"] == (invalid is None)
     assert _public_url("linkedin_company", url, "urn:li:activity:123")
     assert not _public_url("linkedin_company", url, "urn:li:activity:124")
+
+
+@pytest.mark.parametrize("destination", ["linkedin", "linkedin_company"])
+@pytest.mark.parametrize("invalid", [None, "missing", "unverified", "wrong_target", "wrong_post", "wrong_display", "wrong_host"])
+def test_shortened_canonical_requires_actual_exact_post_link_target(destination, invalid):
+    url = "https://www.linkedin.com/feed/update/urn:li:activity:123/"
+    short = "https://lnkd.in/fixture-link"
+    intent = {"work_item_id": "fixture", "canonical_url": CANONICAL,
+        "native_payload": {"text": "Dated report. " + CANONICAL}}
+    link = {"displayed_url": short, "target_url": CANONICAL, "target_verified": True,
+        "public_object_url": url}
+    if invalid == "unverified":
+        link["target_verified"] = False
+    elif invalid == "wrong_target":
+        link["target_url"] = "https://example.test/wrong"
+    elif invalid == "wrong_post":
+        link["public_object_url"] = url.replace("123", "124")
+    elif invalid == "wrong_display":
+        link["displayed_url"] = short + "other"
+    elif invalid == "wrong_host":
+        link["displayed_url"] = short.replace("lnkd.in", "example.test")
+    observed = {"observed_identity": IDENTITIES[destination], "public_object_id": "urn:li:activity:123",
+        "public_object_url": url, "content_verified": True, "observed_text": "Dated report. " + short,
+        "observed_link_resolutions": [] if invalid == "missing" else [link]}
+    neo = NeoDestinationHandoff(native_executor=lambda request: {**observed, "request_sha256": request["request_sha256"]})
+    actual = neo.readback(destination=destination, intent=intent, public_object_id="urn:li:activity:123", public_object_url=url)
+    assert actual["verified"] == (invalid is None)
+    assert actual["observed_text"] == observed["observed_text"]
 
 
 def test_normal_linkedin_runtime_keeps_api_and_only_explicit_recovery_routes_neo():
