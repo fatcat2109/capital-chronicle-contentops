@@ -128,6 +128,33 @@ def test_old_three_channel_review_cannot_authorize_company_copy(tmp_path, monkey
     assert runtime.publish_calls == []
 
 
+def test_completed_native_personal_write_supersedes_prior_absence_while_readback_waits(tmp_path, monkeypatch):
+    store, binding, result, co, _runtime, recovery, ids = linkedin_recovery(tmp_path, monkeypatch)
+    ref = accepted_recovery(store, binding, result, recovery, tmp_path)
+    store.set_dispatch_status(ids["dispatch_id"], "RECONCILED_ABSENT_SAFE_TO_RETRY")
+    store.register_reconciliation(reconciliation_id=ids["reconciliation_id"], work_item_id=binding["run_id"],
+        status="RECONCILED_ABSENT_SAFE_TO_RETRY")
+    executor = NativeNeoExecutor(store, operation_id=binding["run_id"], output_dir=tmp_path/"neo-completion",
+        native_invocation_id="CONTROLLED_CALLBACK_FIXTURE", allow_publish=True)
+    monkeypatch.setattr(executor, "readiness", lambda _: {"authenticated": True, "native_executor_bound": True,
+        "proof_fresh": True, "public_handle": IDENTITIES["linkedin"]})
+    co.transport_runtime = CanonicalDestinationTransportRuntimeV1(neo_transport=NeoDestinationHandoff(native_executor=executor))
+    pending = co.complete_dated_distribution_recovery(ids["message_id"], review_reference=ref)["native_tool_request"]
+    request_hash = pending["request"]["request_sha256"]
+    executor.begin(request_hash)
+    executor.submit(request_hash, {"tool_request_sha256": pending["tool_request_sha256"],
+        "tool_observation": {"tool_name": "mcp__browseros_neo__run", "native_invocation_id": executor.native_invocation_id,
+            "surface": "CODEX_DESKTOP_CONVERSATION", "observation_source": "SYNTHETIC_CALLBACK_FIXTURE_NOT_BROWSER_PROOF",
+            "observed_at_utc": datetime.now(timezone.utc).isoformat()},
+        "result": {"request_sha256": request_hash, "status": "SUCCESS", "observed_identity": IDENTITIES["linkedin"],
+            "public_object_id": "urn:li:activity:123", "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:123/"}})
+    actual = co.reconcile_completed_native_publish(ids["dispatch_id"], request_hash=request_hash)
+    assert actual["reconciliation_status"] == "RECONCILIATION_PENDING"
+    assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == "DISPATCH_CONFIRMED"
+    assert next(r for r in store.get_reconciliations_for_work_item(binding["run_id"])
+        if r["reconciliation_id"] == ids["reconciliation_id"])["status"] == "RECONCILIATION_PENDING"
+
+
 def test_company_pending_restart_and_claimed_action_never_create_again(tmp_path, monkeypatch):
     store, binding, result, co, _, recovery, _ = linkedin_recovery(tmp_path, monkeypatch)
     ref = accepted_recovery(store, binding, result, recovery, tmp_path)

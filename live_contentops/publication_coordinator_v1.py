@@ -678,6 +678,12 @@ class DurablePublicationCoordinator:
             public_object_id=normalized["public_object_id"], public_object_url=normalized["public_object_url"])
         self.store.set_dispatch_status(dispatch_id, DISPATCH_CONFIRMED)
         self.store.set_outbox_status(message["message_id"], DISPATCH_CONFIRMED)
+        # A newly observed public object supersedes the old attempt's absence.
+        # While native readback waits, recovery must not expire or retry it.
+        if any(row["reconciliation_id"] == ids["reconciliation_id"]
+                and row["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+                for row in self.store.get_reconciliations_for_work_item(message["work_item_id"])):
+            self.store.set_reconciliation_status(ids["reconciliation_id"], RECONCILIATION_PENDING)
         current = self.store.get_platform_dispatch(dispatch_id)
         status = self._reconcile(current, intent)
         return {"dispatch_id": dispatch_id, "destination": message["destination"],
