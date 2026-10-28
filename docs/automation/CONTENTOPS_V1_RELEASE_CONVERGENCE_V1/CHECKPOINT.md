@@ -2,7 +2,7 @@
 Native goal: CONTENTOPS_V1_CURRENT_EDITION_AND_REPEATABLE_DELIVERY_V1; ACTIVE; created28October2026 at07:58:55UTC after get_goal returned none.
 Objective: finish one genuinely current useful edition through native evidence/writing/final MAX repair/publication and exact safe producer availability.
 Owner/integrator: chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
-Authoring: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; branch codex/v1-newsroom-release-convergence; source148957c7.
+Authoring: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; branch codex/v1-newsroom-release-convergence; source1d65b4b6; PR113 holds the reader-policy integration.
 Operating: A:/Capital Chronicle/ContentOps; installed/fresh master0e643b008e3dd0e238c45c87282e958ecbaf04da; unrelated WIP preserved.
 Current authority/strategic context reused; root AGENTS, native runtime/role policy, source/lane map and28October locked execution refreshed.
 Product synthesis: useful current source-faithful original newsroom output, existing sole coordinator/read producer and observed outcomes; no framework campaign.
@@ -27,6 +27,6 @@ Current new-edition result:0qualified/0published; remaining filtering needs actu
 Operating observations will use existing production-day/outcome owners; source cutoff, publish/observation clocks and measured duration remain separate.
 Four existing schedules remain independently ACTIVE; no fifth task/new scheduler/store/publisher/reviewer fleet. V2/V3 stay owner-paused.
 Jim28October reader policy: same MAX accepted exact oil copy and ten revised desktop/mobile pixels; oil-reader-policy-r1/accepted-review-reference.json binds revision5ee98176.
-Next: integrate/apply reader policy, canonical-first in-place oil/footer edits through sole coordinator, then resume exact filter when native capacity returns.
-Reader-policy code:289 affected regressions passed; final changed-boundary checks5passed; lint passed. Integration/application and six exact object edits/readbacks remain.
+Next: merge/apply PR113 after exact-head checks; run existing coordinator via reader_policy_step.py for canonical-first six in-place edits/readbacks; resume frozen filter on capacity.
+Reader-policy verification:289 affected regressions,19 native edit/media tests,66 reader/workspace and26 final-review/context checks passed; lint passed. PR113 pending CI/application.
 No completion notice sent for this successor; only one after whole-goal acceptance. Daily5–8 reliability/SEO/growth remain unproven.
