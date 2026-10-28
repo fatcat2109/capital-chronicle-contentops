@@ -1,6 +1,7 @@
 """Disposable contract fixtures; synthetic MAX responses are never visual product proof."""
 import copy
 import json
+from types import SimpleNamespace
 from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 
@@ -13,8 +14,10 @@ from live_contentops.native_desktop_editorial_v1 import (
     FINAL_VISUAL_LAYOUT_CHECKS, FINAL_VISUAL_DATA_CHECKS, FINAL_VISUAL_PHOTO_CHECKS,
     DATED_DISTRIBUTION_DESTINATIONS,
 )
-from live_contentops.native_desktop_publication_v1 import _prepared_packet
+from live_contentops.native_desktop_publication_v1 import _prepared_packet, NativeReviewedPublication
 from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, NativeNeoInputRequired
 from test_native_desktop_publication_v1 import seeded
 from test_publication_coordinator_v1 import FixtureTransport
 
@@ -165,4 +168,51 @@ def test_missing_review_or_other_destination_cannot_send(tmp_path, monkeypatch):
     ids = co._ids(binding["run_id"], recovery["plan_hash"], "youtube")
     with pytest.raises((ValueError, KeyError)):
         co.complete_dated_distribution_recovery(ids["message_id"], review_reference={})
+    assert runtime.publish_calls == []
+
+
+@pytest.mark.parametrize("invalid", [None, "missing_return", "different_intent"])
+def test_completed_native_write_survives_stale_marker_without_another_publish(tmp_path, monkeypatch, invalid):
+    store, binding, _, co, runtime, recovery = setup_recovery(tmp_path, monkeypatch)
+    ids = co._ids(binding["run_id"], recovery["plan_hash"], "youtube")
+    intent = json.loads(store.get_outbox_message(ids["message_id"])["payload"])
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"], platform="youtube", status="NATIVE_NEO_TOOL_PENDING")
+    executor = NativeNeoExecutor(store, operation_id=binding["run_id"], output_dir=tmp_path/"neo", native_invocation_id="CONTROLLED", allow_publish=True)
+    monkeypatch.setattr(executor, "readiness", lambda _: {"authenticated": True, "native_executor_bound": True})
+    runtime._neo_transport = SimpleNamespace(native_executor=executor)
+    request = {"action": "PUBLISH", "destination": "youtube", "surface": "YOUTUBE_COMMUNITY_POST",
+        "expected_identity": "@CapitalChronicleYouTube", "work_item_id": binding["run_id"],
+        "dispatch_attempt_identity": ids["dispatch_id"], "intent_sha256": sha256_of(intent) if invalid != "different_intent" else "changed",
+        "content_binding": {"expected_text_segments": ["Controlled completed write"]}}
+    request["request_sha256"] = sha256_of(request)
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        executor(request)
+    packet = pending.value.request
+    executor.begin(request["request_sha256"])
+    store.set_dispatch_status(ids["dispatch_id"], "DERIVATIVE_EXPIRED_STALE_NO_WRITE")
+    if invalid != "missing_return":
+        response = {"tool_request_sha256": packet["tool_request_sha256"],
+            "tool_observation": {"tool_name": "mcp__browseros_neo__run", "native_invocation_id": "CONTROLLED",
+                "surface": "CODEX_DESKTOP_CONVERSATION", "observed_at_utc": datetime.now(timezone.utc).isoformat(),
+                "observation_source": "Synthetic disposable native-return fixture; no public write occurred."},
+            "result": {"request_sha256": request["request_sha256"], "status": "SUCCESS", "observed_identity": "@CapitalChronicleYouTube",
+                "public_object_id": "UgControlled", "public_object_url": "https://www.youtube.com/post/UgControlled"}}
+        if invalid:
+            executor.submit(request["request_sha256"], response)
+        else:
+            rollout = {"schema_version": "contentops.native_desktop_rollout.v1", "store_path": str(store.db_path),
+                "editorial_output_root": str(tmp_path/"editorial"), "public_write_authority": True}
+            publication = NativeReviewedPublication(store, binding, native_invocation_id="CONTROLLED",
+                rollout=rollout, coordinator=co, executor=executor)
+            submitted = publication.tool("submit", request_hash=request["request_sha256"], response=response)
+            assert submitted["completed_write_reconciliation"]["publish_called"] is False
+    if invalid:
+        with pytest.raises(ValueError, match="EXACT_COMPLETED_NATIVE_PUBLISH_RETURN_REQUIRED"):
+            co.reconcile_completed_native_publish(ids["dispatch_id"], request_hash=request["request_sha256"])
+        assert store.get_platform_dispatch(ids["dispatch_id"])["public_object_id"] is None
+    else:
+        for _ in range(2):
+            actual = co.reconcile_completed_native_publish(ids["dispatch_id"], request_hash=request["request_sha256"])
+            assert actual["reconciliation_status"] == "RECONCILED_CONFIRMED" and actual["publish_called"] is False
+        assert store.get_platform_dispatch(ids["dispatch_id"])["public_object_id"] == "UgControlled"
     assert runtime.publish_calls == []

@@ -500,6 +500,51 @@ class DurablePublicationCoordinator:
             self._record_transport_correction_attempt(ids["dispatch_id"], correction_id, message["work_item_id"])
         return outcome
 
+    def reconcile_completed_native_publish(self, dispatch_id, *, request_hash):
+        """Consume an actual completed native write return; this never calls publish."""
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        from live_contentops.neo_destination_handoff_v1 import _public_url, IDENTITIES
+        dispatch = self.store.get_platform_dispatch(dispatch_id) or {}
+        message = self.store.get_outbox_message(dispatch.get("message_id", ""))
+        executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
+        if (not message or not getattr(executor, "native_neo_protocol", False)
+                or executor.operation_id != message["work_item_id"]):
+            raise ValueError("EXACT_COMPLETED_NATIVE_PUBLISH_BINDING_REQUIRED")
+        packet, response = executor._get(request_hash, "request"), executor._get(request_hash, "response")
+        request, result = (packet or {}).get("request", {}), (response or {}).get("result", {})
+        observed = result.get("native_tool_observation") or {}
+        intent = json.loads(self._dated_distribution_message(message)["payload"])
+        ids = self._ids(message["work_item_id"], intent["plan_hash"], message["destination"])
+        if (dispatch_id != ids["dispatch_id"] or request.get("action") != "PUBLISH"
+                or request.get("destination") != message["destination"]
+                or request.get("expected_identity") != IDENTITIES.get(message["destination"])
+                or request.get("dispatch_attempt_identity") != dispatch_id
+                or request.get("work_item_id") != message["work_item_id"]
+                or request.get("intent_sha256") != sha256_of(intent)
+                or request.get("request_sha256") != request_hash or result.get("request_sha256") != request_hash
+                or observed.get("tool_name") != "mcp__browseros_neo__run"
+                or not executor._claim(request_hash, observed.get("native_invocation_id"))
+                or not result.get("native_tool_return_sha256")
+                or result.get("observed_identity") != request.get("expected_identity")
+                or not result.get("public_object_id")
+                or not _public_url(message["destination"], result.get("public_object_url"), result.get("public_object_id"))):
+            raise ValueError("EXACT_COMPLETED_NATIVE_PUBLISH_RETURN_REQUIRED")
+        registration = registration_for_destination(message["destination"])
+        normalized = normalize_dispatch_result(result, destination=message["destination"],
+            surface=registration.surface, transport_type=registration.transport_type)
+        if normalized["status"] != DISPATCH_CONFIRMED:
+            raise ValueError("COMPLETED_NATIVE_PUBLISH_STABLE_IDENTITY_REQUIRED")
+        self.store.register_platform_dispatch(dispatch_id=dispatch_id, message_id=message["message_id"],
+            platform=message["destination"], status=dispatch["status"],
+            public_object_id=normalized["public_object_id"], public_object_url=normalized["public_object_url"])
+        self.store.set_dispatch_status(dispatch_id, DISPATCH_CONFIRMED)
+        self.store.set_outbox_status(message["message_id"], DISPATCH_CONFIRMED)
+        current = self.store.get_platform_dispatch(dispatch_id)
+        status = self._reconcile(current, intent)
+        return {"dispatch_id": dispatch_id, "destination": message["destination"],
+            "public_object_id": current["public_object_id"], "public_object_url": current["public_object_url"],
+            "reconciliation_status": status, "publish_called": False, "public_write_performed": False}
+
     def _active_unknown_write_count(self) -> int:
         """Count UNKNOWN writes that are allowed to participate in current recovery.
 
