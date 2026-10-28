@@ -160,7 +160,6 @@ DESTINATION_TO_SURFACE = {
     "substack": "SUBSTACK_ARTICLE",
     "x": "X_THREAD",
     "linkedin": "LINKEDIN_POST",
-    "linkedin_company": "LINKEDIN_COMPANY_POST",
     "youtube": "YOUTUBE_COMMUNITY_POST",
     "telegram": "TELEGRAM_CHANNEL_POST",
     "discord": "DISCORD_ANNOUNCEMENT",
@@ -168,6 +167,7 @@ DESTINATION_TO_SURFACE = {
     "instagram_business": "INSTAGRAM_BUSINESS_POST",
     "threads": "THREADS_POST",
 }
+OWNER_SELECTED_DESTINATION_TO_SURFACE = {"linkedin_company": "LINKEDIN_COMPANY_POST"}
 
 # Quality-probation V1 is one canonical article plus these exact eight derivative
 # surfaces. YouTube here means Community; video/Short surfaces remain V2-only.
@@ -210,7 +210,8 @@ def canonical_transport_registry() -> dict[str, Any]:
 
 
 def registration_for_destination(destination: str) -> SurfaceTransport:
-    surface = DESTINATION_TO_SURFACE.get(str(destination))
+    surface = (DESTINATION_TO_SURFACE.get(str(destination))
+        or OWNER_SELECTED_DESTINATION_TO_SURFACE.get(str(destination)))
     if not surface:
         raise ValueError(f"destination_transport_unregistered:{destination}")
     return SURFACE_REGISTRY[surface]
@@ -221,8 +222,7 @@ def validate_registry() -> None:
         raise RuntimeError("duplicate_surface_transport_registration")
     if set(TIER1_SURFACES) - set(SURFACE_REGISTRY):
         raise RuntimeError("tier1_surface_transport_missing")
-    # The company copy is owner-selected; it is not a ninth routine derivative.
-    if set(V1_REQUIRED_PUBLICATION_DESTINATIONS) | {"linkedin_company"} != set(DESTINATION_TO_SURFACE):
+    if set(V1_REQUIRED_PUBLICATION_DESTINATIONS) != set(DESTINATION_TO_SURFACE):
         raise RuntimeError("v1_required_publication_destination_mismatch")
     for surface in TIER1_SURFACES:
         row = SURFACE_REGISTRY[surface]

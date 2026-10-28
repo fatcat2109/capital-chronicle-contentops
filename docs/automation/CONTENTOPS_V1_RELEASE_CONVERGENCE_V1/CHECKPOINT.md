@@ -32,7 +32,7 @@ Explicit Neo recovery retains original sent intents; company copy has separate r
 R6 shared LinkedIn dated copy has2 rendered viewports, exact recipients, same sources/photo/canonical; no fresh-news claim.
 R6 request1b3580f0d71c1b67eb541957142a8a0efad4a914e3627a08adf7da2df99b42cb; stage final-visual-87fd9f2bb7965499bb60068e8a360ddf369e758dabd29ea63c650958d04444eb.
 SAME /root/live_launch_max_writer continuation failed once with usage limit; no native R6 acceptance. Do not substitute reviewer or retry-loop.
-Focused R6/dated/native44PASS; aged-absence2PASS; API setup4PASS; callback API13PASS. Eight legacy identity failures reproduced unchanged.
+Focused R6/dated/native44PASS; aged-absence/API setup/routine plan/company independence PASS; callback API13PASS. Legacy8 failures unchanged.
 [Builder B producer handoff](main-news/README.md): exact1311chars/source clocks/Substack222368666/photo read200; B installed outcome COMPLETE.
 Pinned8-story export b4a52997745fc86697e404a6d37c22b4230ce2571b837de90d97e3d41588dc7a unchanged; no repin or Main edits.
 Evidence: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-live-launch-20261027/linkedin-neo-r6/; prior dated-distribution-r5/.

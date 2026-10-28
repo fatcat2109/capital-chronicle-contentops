@@ -6,7 +6,8 @@ from types import SimpleNamespace
 import pytest
 
 from live_contentops.destination_transport_registry_v1 import (
-    TIER1_SURFACES, V1_REQUIRED_DERIVATIVE_DESTINATIONS, registration_for_destination, validate_registry,
+    DESTINATION_TO_SURFACE, TIER1_SURFACES, V1_REQUIRED_DERIVATIVE_DESTINATIONS,
+    V1_REQUIRED_PUBLICATION_DESTINATIONS, registration_for_destination, validate_registry,
 )
 from live_contentops.native_desktop_editorial_v1 import (
     build_dated_distribution_recovery, dated_distribution_recovery_view, final_visual_binding,
@@ -63,6 +64,23 @@ def test_neo_recovery_keeps_personal_api_setup_and_company_identity_separate(tmp
     assert setup["linkedin"]["browser_login_needed"] is False
     assert setup["linkedin_company"]["chosen_transport"] == "BROWSEROS_NEO_MCP"
     assert setup["linkedin_company"]["expected_identity"] == "linkedin:company:143198922"
+
+
+def test_optional_company_copy_does_not_enter_routine_readiness_or_publication_plan(tmp_path, monkeypatch):
+    from live_contentops.destination_transport_registry_v1 import DestinationReadinessManager
+    import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    assert set(DESTINATION_TO_SURFACE) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS)
+    monkeypatch.setattr(DestinationReadinessManager, "probe_all", lambda *args, **kwargs: {
+        "surfaces": {surface: {"readiness_state": "READY_AUTHENTICATED"} for surface in TIER1_SURFACES}})
+    readiness = pipeline._rolling_x_destination_readiness(cdp_port=9223)
+    assert set(readiness["destinations"]) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS)
+    assert readiness["all_required_destinations_ready"] is True
+    plan = pipeline._build_rolling_x_publication_plan(run_id="routine-fixture", output_dir=tmp_path,
+        viability={}, readiness=readiness, preparation={"release_candidate_lock": {
+            "payload_sha256": {destination: "a" * 64 for destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS}},
+            "context": {"media": {"assets": [{"asset_id": "fixture-original"}]}}})
+    assert {row["destination"] for row in plan["destinations"]} == set(V1_REQUIRED_PUBLICATION_DESTINATIONS)
+    assert plan["pre_substack_blockers"] == []
 
 
 @pytest.mark.parametrize("absent_status", ["RECONCILED_ABSENT_SAFE_TO_RETRY", "DERIVATIVE_EXPIRED_STALE_NO_WRITE"])
