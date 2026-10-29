@@ -172,7 +172,9 @@ def test_public_reader_links_replace_internal_source_identifiers():
     from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
     article = {"title": "Controlled", "substack_body_markdown": "Attributed fact. [[SOURCE:SOURCE_1]]",
                "public_source_bindings": [{"source_id": "SOURCE_1", "publisher": "Publisher", "url": "https://example.org/report"}]}
-    body = _reader_safe_native_article(article, article_mode="STANDARD_NEWS_ANALYSIS")["substack_body_markdown"]
+    # This fixture verifies the retained presentation, before the current reader
+    # policy removed discretionary citation links by default.
+    body = _reader_safe_native_article(article, article_mode="STANDARD_NEWS_ANALYSIS", legacy_presentation=True)["substack_body_markdown"]
     assert "[Publisher](https://example.org/report)" in body and "SOURCE_1" not in body
 
 

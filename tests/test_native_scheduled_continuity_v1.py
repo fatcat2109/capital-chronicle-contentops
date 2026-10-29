@@ -169,6 +169,47 @@ def test_completed_previous_day_does_not_suppress_next_legitimate_calendar_windo
     assert next_binding["cutoff_utc"] == "2026-10-27T14:00:00Z"
 
 
+def test_pending_previous_day_does_not_suppress_next_due_window_and_both_bindings_survive(rollout):
+    _, old, old_path = start(rollout)
+    before = old_path.read_bytes()
+    new, binding, path = start(rollout, "2026-10-27T14:00:01Z")
+    assert binding["cutoff_utc"] == "2026-10-27T14:00:00Z" and binding["run_id"] != old["run_id"]
+    assert new["resumed_existing_binding"] is False and old_path.read_bytes() == before
+    repeated = schedule.scheduled_binding(rollout, AUTO, now=at("2026-10-27T14:00:02Z"))
+    assert repeated["binding_path"] == str(path) and repeated["resumed_existing_binding"] is True
+    assert len(list(Path(rollout["editorial_output_root"]).glob("**/native_operation_binding.json"))) == 2
+
+
+def test_2300_early_app_delivery_binds_nominal_identity_and_records_actual_clock(rollout):
+    # Deterministic reproduction of the observed13-second-early callback; not a live run.
+    moment = at("2026-10-27T15:59:46.891127Z")
+    result = schedule.scheduled_binding(rollout, "v1-newsroom-new-york-2300", now=moment)
+    binding = json.loads(Path(result["binding_path"]).read_bytes())
+    assert binding["cutoff_utc"] == "2026-10-27T16:00:00Z"
+    store = ContentOpsDurableStore(Path(rollout["store_path"]), auto_migrate=False)
+    checkpoint = schedule._latest_window(store, "new_york_2300_bangkok")
+    assert checkpoint["actual_entry_utc"] == moment.isoformat()
+    assert checkpoint["early_delivery_seconds"] == pytest.approx(13.108873)
+    at_boundary = schedule.scheduled_binding(rollout, "v1-newsroom-new-york-2300", now=at("2026-10-27T16:00:00Z"))
+    assert at_boundary["binding_path"] == result["binding_path"]
+
+
+def test_delivery_before_bounded_jitter_does_not_manufacture_a_window(rollout, tmp_path):
+    result = schedule.scheduled_binding(rollout, "v1-newsroom-new-york-2300", now=at("2026-10-27T15:59:29Z"))
+    assert result["classification"] == "OUTSIDE_EXACT_NATIVE_WINDOW"
+    assert not list(tmp_path.iterdir())
+
+
+def test_controlled_next_production_day_all_four_sessions_bind_despite_prior_pending_slots(rollout):
+    for day in ("2026-10-27", "2026-10-28"):
+        for auto, hour in [("v1-newsroom-london-1700", 10), (AUTO, 14),
+                           ("v1-newsroom-new-york-2300", 16), ("v1-newsroom-new-york-0100", 18)]:
+            reply = schedule.scheduled_binding(rollout, auto, now=at(f"{day}T{hour:02d}:00:01Z"))
+            assert reply["classification"] == "NATIVE_WINDOW_SLOT_READY" and reply["slot_ordinal"] == 1
+            assert reply["cutoff_utc"] == f"{day}T{hour:02d}:00:00Z"
+    assert len(list(Path(rollout["editorial_output_root"]).glob("**/native_operation_binding.json"))) == 8
+
+
 def test_actual_cli_uses_completed_discovery_without_advancing_or_allocating(rollout, monkeypatch, tmp_path, capsys):
     from scripts import run_native_desktop_editorial as cli
     _, binding, path = start(rollout)

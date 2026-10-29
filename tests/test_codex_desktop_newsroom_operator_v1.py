@@ -27,6 +27,7 @@ from live_contentops.codex_desktop_newsroom_operator_v1 import (
     build_live_zero_write_rehearsal,
     classify_desktop_candidate_universe,
     four_task_setup_packet,
+    native_subagent_completion_prompt,
     load_terminal_editorial_continuity,
     persist_supported_automation_host_observation,
     validate_editorial_worker_return,
@@ -821,7 +822,51 @@ def test_exact_four_task_packet_assigns_native_roles_and_keeps_four_active_light
         assert "may justify zero with an explicit editorial reason" in task["prompt"]
         assert "and one useful source-bound quantitative chart" not in task["prompt"]
         assert task["model"] == "gpt-6.1-sol" and task["reasoning_effort"] == "low"
+        assert "native_subagent_completion_prompt" in task["prompt"]
+        assert "Never tell a child to message its ancestor" in task["prompt"]
+        assert "HOLD or REPAIR_REQUIRED review is usable; partial batches/turns/quota interruptions are not completion" in task["prompt"]
     assert "isolated" in MANUAL_GO_PROMPT
+    assert "native_subagent_completion_prompt" in MANUAL_GO_PROMPT
+
+
+@pytest.mark.parametrize("parent,operation,stage", [
+    ("01a16a43-bfad-7191-bd78-ef708c3468d7", "v1-current-edition-20261028-a", "visual-edit"),
+    ("01a17cce-4439-7161-b20b-d580b080c068", "scheduled-london-slot", "filter-exact-batch"),
+])
+def test_child_handoff_binds_actual_builder_and_native_assignment(parent, operation, stage):
+    fields = dict(parent_thread_id=parent, parent_host_id="local", goal_id="existing-goal",
+        operation_id=operation, assignment_id=operation + ":" + stage,
+        result_path="A:/Capital Chronicle/Runtime/ContentOps/" + operation + "/result.json",
+        expected_return=stage + ":" + "a" * 64, native_invocation_id="/root/actual_assigned_role")
+    prompt = native_subagent_completion_prompt(**fields)
+    bound, _ = json.JSONDecoder().raw_decode(prompt.split("EXACT CHILD ASSIGNMENT:\n", 1)[1])
+    assert bound == fields
+    assert "personal instructions V3" in prompt and "L1 decision A1" in prompt
+    assert "continues the same operation" in prompt and "native final result" in prompt
+    assert "Do not send a chat message" in prompt and "Never tell a child to message its ancestor" in prompt
+    assert "Do not pause the parent merely" in prompt and "report the unattended gap" in prompt
+
+
+@pytest.mark.parametrize("missing", ["parent_thread_id", "parent_host_id", "goal_id", "operation_id",
+                                     "assignment_id", "result_path", "expected_return", "native_invocation_id"])
+def test_child_handoff_rejects_missing_routing_or_result_identity(missing):
+    fields = dict(parent_thread_id="01a17cce-4439-7161-b20b-d580b080c068", parent_host_id="local",
+        goal_id="existing-goal", operation_id="existing-operation", assignment_id="existing-task",
+        result_path="A:/result.json", expected_return="filter-exact-request", native_invocation_id="/root/actual_assigned_role")
+    with pytest.raises(ValueError, match="ASSIGNMENT_REQUIRED:" + missing):
+        native_subagent_completion_prompt(**{**fields, missing: ""})
+    with pytest.raises(ValueError, match="EXACT_PARENT_BUILDER_THREAD_REQUIRED"):
+        native_subagent_completion_prompt(**{**fields, "parent_thread_id": "Newsroom Builder"})
+
+
+def test_rollout_preserves_exact_four_generated_child_completion_prompts():
+    rollout = json.loads((Path(__file__).resolve().parents[1] / "config/native_desktop_rollout_v1.json").read_bytes())
+    intended = {t["id"]: t for t in four_task_setup_packet()["tasks"]}
+    assert {t["id"] for t in rollout["tasks"]} == set(intended)
+    for task in rollout["tasks"]:
+        expected = intended[task["id"]]
+        assert {key: task[key] for key in ("prompt", "rrule", "status", "model", "reasoning_effort")} == {
+            key: expected[key] for key in ("prompt", "rrule", "status", "model", "reasoning_effort")}
 
 
 def test_supported_host_observation_persists_only_exact_safe_four_task_readback(tmp_path):

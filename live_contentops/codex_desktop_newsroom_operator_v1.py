@@ -15,6 +15,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterator, Mapping, Sequence
 from urllib.parse import urlsplit
+from uuid import UUID
 
 from live_contentops.capital_chronicle_data_catalog_v1 import (
     DEFAULT_CC_ROOT,
@@ -112,14 +113,64 @@ BOUNDED_EDITORIAL_CONTEXT_KEYS = frozenset(
         "institutional_edge_editorial_packet",
     }
 )
+SUBAGENT_COMPLETION_AUTHORITY = (
+    "Jim's personal instructions V3, 29 October 2026, and Claude L1 decision A1 "
+    "in argon_event_operating_review_20261029/09_CLAUDE_L1_FINAL_SYNTHESIS_AND_DECISION_20261029.md"
+)
+SUBAGENT_COMPLETION_RULE = (
+    "NATIVE ROLE RESULTS: follow docs/automation/CONTENTOPS_BUILDER_SUBAGENT_COMPLETION_HANDOFF_RULE_V1.md. "
+    "Native Luna/Light/MAX roles belong to this operation, not separate Builder chats. "
+    "Before EVERY spawn/follow-up, append native_subagent_completion_prompt with the actual "
+    "parent_thread_id/parent_host_id, existing goal_id/operation_id, unique bounded assignment_id, result_path "
+    "and expected_return (native stage/request hash or concrete deliverable), plus native_invocation_id "
+    "from the actual spawn result/context. Save the exact result before "
+    "returning it through the platform's supported native final result. The Builder consumes that return or "
+    "saved artifact once by assignment/stage/result identity and continues the SAME operation inside its active "
+    "turn, without Jim relaying completion. Never tell a child to message its ancestor; that call is rejected. "
+    "Do not pause the parent merely because its own native child owns the next stage. A completed finite task, "
+    "HOLD or REPAIR_REQUIRED review is usable; partial batches/turns/quota interruptions are not completion. "
+    "Record actual native invocation identity from the assigned agent/context and result, not settings or invented "
+    "IDs; historical unobserved identity stays unknown. If supported result collection cannot continue the active "
+    "turn, retain the exact stage/artifact/platform limit and report the unattended gap. No polling/waits/sleep, "
+    "heartbeat, relay chats, alternate callback, GUI workaround, acknowledgement chain or watcher. "
+    "Only after genuinely completing the WHOLE goal may L3 send its one L2 completion notice. "
+    "Authority: " + SUBAGENT_COMPLETION_AUTHORITY + ". "
+)
+
+
+def native_subagent_completion_prompt(
+    *, parent_thread_id: str, parent_host_id: str, goal_id: str, operation_id: str,
+    assignment_id: str, result_path: str, expected_return: str, native_invocation_id: str,
+) -> str:
+    """Bind an in-operation role result; never send messages or supervise a child."""
+    fields = dict(parent_thread_id=parent_thread_id, parent_host_id=parent_host_id,
+        goal_id=goal_id, operation_id=operation_id, assignment_id=assignment_id,
+        result_path=result_path, expected_return=expected_return, native_invocation_id=native_invocation_id)
+    for name, value in fields.items():
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError("NATIVE_CHILD_COMPLETION_ASSIGNMENT_REQUIRED:" + name)
+    try:
+        UUID(parent_thread_id)
+    except ValueError as exc:
+        raise ValueError("EXACT_PARENT_BUILDER_THREAD_REQUIRED") from exc
+    return (SUBAGENT_COMPLETION_RULE + "\nEXACT CHILD ASSIGNMENT:\n"
+        + json.dumps(fields, ensure_ascii=False, sort_keys=True)
+        + "\nSave actual results at result_path and return the assignment/operation/stage, exact path/hash, "
+          "findings, verification, limits and next action in your native final result. Do not send a chat message. "
+          "The Builder reads the actual result and continues the same operation. Preserve incomplete/quota work "
+          "and distinguish it from a completed bounded assignment.")
+
+
 DESKTOP_TASK_PROMPT = (
     "STARTUP FIRST: read the current V1 execution override in AGENTS.md and check the existing "
     "LLM_OPERATOR_PAUSED boundary, then promptly run python scripts/run_native_desktop_editorial.py "
     "scheduled --automation-id {automation_id} --rollout config/native_desktop_rollout_v1.json. "
     "Obtain the existing binding before lengthy context reads; reuse the already-admitted strategic "
     "read and finish the required current role/source context before semantic work. Do not repeat "
-    "whole-project onboarding on each callback. The scheduled entry discovers the latest issued "
-    "binding even after its original due/grace interval; it never backdates a never-bound window. "
+    "whole-project onboarding on each callback. A currently eligible window binds independently of older pending slots; "
+    "the scheduled entry otherwise discovers the latest issued binding even after its original due/grace interval; "
+    "it never backdates a never-bound window. Bounded thirty-second early App jitter retains the nominal cutoff "
+    "and records actual entry separately; a more premature or expired unbound callback stays missed. "
     "On NATIVE_WINDOW_OPERATION_COMPLETE reuse the accepted result/review/preparation without "
     "refiltering, source requests or model turns. A duplicate callback is not another article. "
     "OUTSIDE_EXACT_NATIVE_WINDOW with no binding means a missed/expired opportunity: record the "
@@ -148,8 +199,10 @@ DESKTOP_TASK_PROMPT = (
     "Then Light chooses <=32 downstream candidates using Main public reports, reviewed retained research, "
     "prior-story/missing-dimension context and reconciled memory; it owns angle, mode, audience question "
     "and an evidence plan. Code/tools retrieve, parse, compute and validate permitted data; no DB backfill. "
-    "Submit each response with actual observable "
-    "invocation/model/effort (null if unobservable), then advance using returned binding_path. "
+    "Submit each response with the actual native invocation_id from the returned agent/context and a truthful "
+    "observation source; never submit null or invent a UUID from settings. Model/effort may remain null only "
+    "when genuinely unobserved. A missing invocation identity is a software/process gap, not a source HOLD. "
+    "Then advance using returned binding_path. "
     "Use python scripts/run_native_desktop_editorial.py submit --binding <binding_path> --stage "
     "<exact-returned-stage> --response <authored-response.json>, then advance --binding <binding_path>. "
     "The MAX writer receives the compact source/claim/prior-story packet plus the exact hash-bound "
@@ -165,6 +218,10 @@ DESKTOP_TASK_PROMPT = (
     "allocate after the existing due/grace limit. Pending or delayed work always retains its binding; "
     "4/32 is telemetry, never a reason to stop below five. Source limit six shared requests per article; "
     "primary plus <=2 useful fallback candidates. Preserve report/event certainty and Main numeric ownership. "
+    "HOLD, SOURCE_BLOCKED, REJECT and NO_STORY are valid typed pre-writer outcomes requiring zero media. "
+    "Submit the exact outcome to its pending native stage with the real first cause and retained source budget, "
+    "then advance the same binding to the next admitted candidate or terminal edition result. "
+    "Do not hide software/process or late-awareness failures inside an editorial HOLD. "
     "Recover existing UNKNOWN writes before fresh work: STOP RETRY -> READ BACK -> RECONCILE. "
     "Inspect actual prose and eight native previews, keep revision-bound review and reuse unchanged media. "
     "Before a new MAX writer freezes, the mandatory media-plan stage retains one relevant lawful documentary photo. "
@@ -203,7 +260,8 @@ DESKTOP_TASK_PROMPT = (
     "Readback of the real canonical Substack /p/ URL precedes derivative rematerialization and sends. "
     "Never publish retained pre-activation examples or owner-removed objects. A claimed uncertain write permits only readback. "
     "Missing access is destination-local; continue available admitted channels. Preserve exact identities and source/media rights. "
-    "Browser path Neo; bulk X ingestion stays CDP. Do not edit source, run tests/CodeGraph or alter schedules/pause during routine work."
+    "Browser path Neo; bulk X ingestion stays CDP. Do not edit source, run tests/CodeGraph or alter schedules/pause during routine work. "
+    + SUBAGENT_COMPLETION_RULE
 )
 MANUAL_GO_PROMPT = (
     "Use contentops-newsroom and scripts/run_native_desktop_editorial.py newsroom with the current "
@@ -214,6 +272,7 @@ MANUAL_GO_PROMPT = (
     "Advance, read each exact pending request, use its assigned native role and submit observed provenance; "
     "validate and inspect the article and eight native previews. No production pause release "
     "or schedule mutation; no publication. "
+    + SUBAGENT_COMPLETION_RULE
 )
 
 

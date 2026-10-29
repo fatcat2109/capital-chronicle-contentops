@@ -121,8 +121,9 @@ def test_analytical_one_chart_holds_and_explicit_news_zero_is_valid():
     news["exception_reason"] = (
         "A narrow attributed announcement has no defensible useful quantitative comparison."
     )
-    with pytest.raises(ValueError, match="INSTAGRAM_REQUIRES_EDITOR_SELECTED_IMAGE"):
-        validate_visual_decision(news)
+    # Delivery readiness is destination-local; this editorial decision can be
+    # retained without an Instagram asset or falsely claiming a published article.
+    assert validate_visual_decision(news) == news
     news["contextual_photo_ids"] = ["controlled-photo"]
     news["channel_media"]["instagram_business"] = ["controlled-photo"]
     assert validate_visual_decision(news) == news
