@@ -81,6 +81,15 @@ full records and request hashes stay frozen. Reuse every accepted result and con
 until all records are judged; no four-batch cap or truncation to selected headlines.
 These repairs are not proof of three consecutive days of natural scheduled operation.
 
+Jim's standalone-task handoff instruction also covers current `newsroom`, `follow-up`
+and `editorial-revision` task chats outside L1/L2/L3. Their `task-result` and
+`task-notice-begin/record` commands reuse this same result/outbox/fenced sender. Save
+the actual source chat/session, times, outcome, first cause, evidence and next actor.
+`task-blocked` retains a distinct cause in that existing run record; later terminal
+completion has its own fence. Native children still return inside the operation.
+Daily App run-now remains a deterministic API without a native chat-tool hook, explicitly
+UNSUPPORTED_IN_DETERMINISTIC_API_NO_NATIVE_CHAT_TOOL. No script bridge is installed.
+
 Current CO-1 admission correction: a due window takes priority over an older unfinished
 slot of the same session; the older binding remains available for explicit recovery.
 App delivery up to five minutes before the nominal calendar time can bind that

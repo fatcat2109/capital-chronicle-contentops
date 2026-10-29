@@ -48,7 +48,7 @@ jobs:
         run: python -m pytest -q tests/test_x_list_private_main_permission_v1.py
 
       - name: Verify scheduled window terminal reporting and one-attempt delivery
-        run: python -m pytest -q tests/test_native_window_result_reporting_v1.py tests/test_contentops_official_release_intake_v1.py
+        run: python -m pytest -q tests/test_native_window_result_reporting_v1.py tests/test_native_standalone_handoff_v1.py tests/test_contentops_official_release_intake_v1.py
 
       - name: Run LLM-first Phase A focused tests
         run: python -m pytest -q tests/test_llm_first_validate_after_v1.py

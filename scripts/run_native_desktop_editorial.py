@@ -464,6 +464,7 @@ def main(argv=None):
         "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
         "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company", "quota-stop",
         "window-result", "window-notice-begin", "window-notice-record", "window-close", "window-blocked", "window-blocked-begin", "window-blocked-record",
+        "task-result", "task-notice-begin", "task-notice-record", "task-blocked", "task-blocked-begin", "task-blocked-record",
         "audience-status", "audience-observe", "audience-tool-begin", "audience-tool-submit", "audience-evaluate", "audience-feedback", "audience-follow-up"))
     parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE)
     parser.add_argument("--operation-id")
@@ -488,25 +489,29 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.live and (args.command != "newsroom" or not args.rollout):
         parser.error("--live requires newsroom and the applied --rollout")
-    if args.command in {"window-result", "window-notice-begin", "window-notice-record", "window-close", "window-blocked", "window-blocked-begin", "window-blocked-record"}:
-        if not args.binding or not args.rollout or (args.command != "window-notice-begin" and not args.response):
+    if args.command in {"window-result", "window-notice-begin", "window-notice-record", "window-close", "window-blocked", "window-blocked-begin", "window-blocked-record",
+            "task-result", "task-notice-begin", "task-notice-record", "task-blocked", "task-blocked-begin", "task-blocked-record"}:
+        standalone = args.command.startswith("task-")
+        if not args.binding or (not standalone and not args.rollout) or (args.command not in {"window-notice-begin","task-notice-begin"} and not args.response):
             parser.error("window reporting requires --binding, --rollout and --response except for notice-begin")
-        from live_contentops.native_desktop_schedule_binding_v1 import prepare_window_result, window_notice_delivery, close_expired_window, window_blocked_notice
+        from live_contentops.native_desktop_schedule_binding_v1 import prepare_window_result, window_notice_delivery, close_expired_window, window_blocked_notice, prepare_standalone_result
         from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore, LeaseConflictError
         try:
             binding = json.loads(args.binding.read_bytes())
-            rollout = json.loads(args.rollout.read_bytes())
-            if binding["store_path"] != rollout["store_path"] or binding.get("owner_manual_validation"):
+            rollout = json.loads(args.rollout.read_bytes()) if args.rollout else None
+            if not standalone and (binding["store_path"] != rollout["store_path"] or binding.get("owner_manual_validation")):
                 raise ValueError("EXACT_SCHEDULED_REPORTING_STORE_REQUIRED")
             store = ContentOpsDurableStore(binding["store_path"], auto_migrate=False)
             response = json.loads(args.response.read_bytes()) if args.response else None
-            if args.command.startswith("window-blocked"):
-                result = window_blocked_notice(store,binding,response,begin=args.command=="window-blocked-begin",record=args.command=="window-blocked-record")
+            if args.command == "task-result":
+                result = prepare_standalone_result(store,binding,response)
+            elif args.command.startswith(("window-blocked","task-blocked")):
+                result = window_blocked_notice(store,binding,response,begin=args.command.endswith("-begin"),record=args.command.endswith("-record"))
             elif args.command == "window-close":
                 result = close_expired_window(store,rollout,binding,response)
             else:
                 result = (prepare_window_result(store, rollout, binding, response) if args.command == "window-result"
-                    else window_notice_delivery(store, binding, response=response, begin=args.command == "window-notice-begin"))
+                    else window_notice_delivery(store, binding, response=response, begin=args.command.endswith("-begin")))
         except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
             print(json.dumps({"classification":"WINDOW_REPORTING_FAILED", "error":str(exc)}))
             return 2

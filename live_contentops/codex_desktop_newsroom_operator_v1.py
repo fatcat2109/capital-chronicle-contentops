@@ -396,6 +396,23 @@ DESKTOP_TASK_PROMPT = (
     "Browser path Neo; bulk X ingestion stays CDP. Do not edit source, run tests/CodeGraph or alter schedules/pause during routine work. "
     + SUBAGENT_COMPLETION_RULE + SCHEDULED_WINDOW_RESULT_RULE
 )
+STANDALONE_TASK_HANDOFF_RULE = (
+    " STANDALONE TASK HANDOFF — Jim30October2026: only a separate triggered task chat outside L1/L2/L3 uses "
+    "task-result --binding <same-binding> --response <JSON containing entry_path newsroom/follow-up/editorial-revision, "
+    "actual source_context with source_role:STANDALONE_TASK and source_thread_id/source_turn_id, actual_entry_gmt7, "
+    "next_action and next_actor>. Save the actual terminal run result first; typed HOLD/NO_STORY/NO_CHANGE are "
+    "valid results, never product success. After WINDOW_RESULT_SAVED use task-notice-begin, execute its ONE returned "
+    "send_message_to_thread to L2 ContentOps01a1657e-f5d0-76a1-b52b-ec6c78b6fe35 host local, then task-notice-record "
+    "with the ACTUAL tool result. Genuine inability to continue uses task-blocked/task-blocked-begin/task-blocked-record "
+    "with the same exact first-cause evidence contract as windows; it does not fence a later terminal handoff. "
+    "Existing run/outbox records dedupe; failed/uncertain sends are recorded, with no retry or acknowledgement chain. "
+    "Guard/duplicate/progress/quota/turn-end interruptions send nothing. Continue functioning native children, which "
+    "return inside this operation and never message an ancestor. Engineering Builders retain whole-goal completion "
+    "and one distinct real BLOCKED handoff, not per-article completion messages. A deterministic API/script cannot "
+    "invoke native chat tools; record its unsupported delivery hook and keep the durable result readable, with no "
+    "bridge, watcher, schedule or GUI workaround."
+)
+
 MANUAL_GO_PROMPT = (
     "Use contentops-newsroom and scripts/run_native_desktop_editorial.py newsroom with the current "
     "config/native_desktop_operator_profile_v1.json, a stable operation-id and Jim's normal-language request. "
@@ -405,7 +422,7 @@ MANUAL_GO_PROMPT = (
     "Advance, read each exact pending request, use its assigned native role and submit observed provenance; "
     "validate and inspect the article and eight native previews. No production pause release "
     "or schedule mutation; no publication. "
-    + SUBAGENT_COMPLETION_RULE
+    + SUBAGENT_COMPLETION_RULE + STANDALONE_TASK_HANDOFF_RULE
 )
 
 

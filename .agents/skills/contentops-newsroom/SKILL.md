@@ -96,6 +96,22 @@ accepted native history without pretending to have completed their filtering.
 This scheduled-task rule does not apply to manual work or native children; the engineering
 Builder still sends only its genuine whole-goal completion notice. Claude remains Jim-triggered.
 
+For CURRENT standalone triggered task chats outside L1/L2/L3, the `newsroom`, `follow-up`
+and `editorial-revision` entries use the SAME reporting owner through `task-result`.
+Supply the exact binding and a response with `entry_path`, actual `source_context`
+(`source_role:STANDALONE_TASK`, source thread/turn), `actual_entry_gmt7`, `next_action`
+and `next_actor`. A saved terminal result precedes `task-notice-begin`; execute its one
+supported native L2/local send and record the ACTUAL return with `task-notice-record`.
+Genuine blocking uses `task-blocked`, `task-blocked-begin` and `task-blocked-record`.
+The distinct blocked notice never fences a later real terminal handoff. Existing run
+outbox records hold both outcomes; no second notification ledger or retry loop exists.
+This exception does not turn an engineering Builder article slice into goal completion.
+The Daily App run-now API (`daily_app_ui_read_model_v1.request_operator_cycle`) has no
+native conversation/chat tool hook: it returns NATIVE_DESKTOP_CONVERSATION_REQUIRED
+and UNSUPPORTED_IN_DETERMINISTIC_API_NO_NATIVE_CHAT_TOOL. Keep that exact limitation;
+scripts cannot send a chat message by assertion. Retained `news-read`/`news-export`/desk
+views are read-only views, not independent task runs or new notification sources.
+
 Run the actual assigned native roles: only new admissible X records need Luna MAX;
 Sol6.1 low selects the angle/mode and evidence plan; Sol6.1 max writes canonical prose/SEO
 under the exact institutional packet. Native subagents may perform these assigned roles.
