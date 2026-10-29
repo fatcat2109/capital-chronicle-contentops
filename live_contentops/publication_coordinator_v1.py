@@ -1159,11 +1159,13 @@ class DurablePublicationCoordinator:
             for row in (plan.get("skipped_derivative_destinations") or [])
             if isinstance(row, Mapping) and str(row.get("destination") or "")
         )
+        from live_contentops.native_newsroom_volume_v1 import permitted_photo_less_skip
+        permitted_skips = {"instagram_business"} if permitted_photo_less_skip(plan) else set()
         structural_blockers = {
             "missing_destinations": sorted(required - observed),
             "unexpected_destinations": sorted(observed - required),
             "duplicate_destinations": duplicate_destinations,
-            "skipped_derivative_destinations": skipped,
+            "skipped_derivative_destinations": [d for d in skipped if d not in permitted_skips],
             "pre_substack_blockers": sorted(
                 str(value) for value in (plan.get("pre_substack_blockers") or [])
                 if str(value)
@@ -1279,11 +1281,15 @@ class DurablePublicationCoordinator:
             raise ValueError("publication_plan_transport_registry_version_mismatch")
         plan_hash = str(plan.get("plan_hash") or _hash(_canonical_json(plan)))
         registered = []
+        from live_contentops.native_newsroom_volume_v1 import permitted_photo_less_skip
+        permitted_skips = {"instagram_business"} if permitted_photo_less_skip(plan) else set()
         for item in sorted(plan.get("destinations") or [], key=lambda row: (
             0 if str(row.get("destination")) == "substack" else 1,
             str(row.get("destination")),
         )):
             destination = str(item.get("destination") or "")
+            if destination in permitted_skips:
+                continue
             registration = registration_for_destination(destination)
             if str(item.get("surface") or "") != registration.surface:
                 raise ValueError(f"publication_plan_surface_mismatch:{destination}")
@@ -2212,7 +2218,9 @@ class DurablePublicationCoordinator:
             ):
                 canonical_url = str(outcome["public_object_url"])
         delivery_preparer = getattr(self.transport_runtime, "prepare_delivery_media", None)
-        if canonical_url and callable(delivery_preparer) and quality_preflight is not None:
+        from live_contentops.native_newsroom_volume_v1 import permitted_photo_less_skip
+        no_media_needed = permitted_photo_less_skip(plan) and plan.get("media_asset_count") == 0
+        if canonical_url and callable(delivery_preparer) and quality_preflight is not None and not no_media_needed:
             unknown_write_count = self._active_unknown_write_count()
             delivery_media_preparation = dict(
                 delivery_preparer(

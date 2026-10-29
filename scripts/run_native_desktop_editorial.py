@@ -85,6 +85,9 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
             binding["rolling_input_path"] = profile["rolling_input_path"]
         if source_review_ids:
             binding["source_review_ids"] = list(source_review_ids)
+        from live_contentops.native_newsroom_volume_v1 import volume_policy
+        if policy := volume_policy(binding["cutoff_utc"]):
+            binding["volume_policy"] = policy
         validate_binding(binding)
         root.mkdir(parents=True, exist_ok=True)
         path.write_bytes(canonical_bytes(binding))
@@ -173,7 +176,7 @@ def continue_owner_story(profile, *, source_review_id, operation_id=None, reques
     return operation(binding)
 
 
-def operation(binding, *, command="advance", response=None, stage=None, rollout=None,
+def _operation(binding, *, command="advance", response=None, stage=None, rollout=None,
               native_invocation_id=None, request_hash=None):
     validate_binding(binding, read_or_prepare=command in {"publication-prepare", "publication-status"})
     store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]), auto_migrate=command != "publication-status")
@@ -196,6 +199,10 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
     if not previous:
         store.register_outbox_message(message_id=key, work_item_id=work, destination=DESTINATION,
             payload=canonical_bytes(binding).decode(), status="EDITORIAL_INTERNAL")
+    if command == "quota-stop":
+        from live_contentops.native_brief_windows_v1 import record_quota_stop
+        record_quota_stop(store, binding, response)
+        return {"classification": "OBSERVED_QUOTA_STOP_RECORDED_CUT_ADDED_BRIEFS_FIRST", "public_write_performed": False}
     if command.startswith("publication-"):
         from live_contentops.native_desktop_publication_v1 import prepare_native_publication, NativeReviewedPublication
         if command == "publication-prepare":
@@ -215,6 +222,8 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
                                  request_hash=request_hash, response=response)
     turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"],
                              owner_manual_validation=binding.get("owner_manual_validation", False))
+    from live_contentops.native_newsroom_volume_v1 import configure_volume_turn
+    configure_volume_turn(turn, binding)
     if command == "submit":
         return turn.submit(stage, response)
     if command == "status":
@@ -401,11 +410,20 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
         store.release_lease(lease["lease_id"], owner, lease["fencing_token"])
 
 
+def operation(binding, **kwargs):
+    result = _operation(binding, **kwargs)
+    from live_contentops.native_newsroom_volume_v1 import bound_volume_policy, persist_native_day_measurement
+    if (bound_volume_policy(binding) and binding.get("window_id")
+            and kwargs.get("command", "advance") not in {"status", "publication-status", "context"}):
+        persist_native_day_measurement(ContentOpsDurableStore(binding["store_path"], auto_migrate=False), binding)
+    return result
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("newsroom", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
         "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
-        "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company",
+        "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company", "quota-stop",
         "audience-status", "audience-observe", "audience-tool-begin", "audience-tool-submit", "audience-evaluate", "audience-feedback", "audience-follow-up"))
     parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE)
     parser.add_argument("--operation-id")
@@ -584,6 +602,8 @@ def main(argv=None):
         parser.error("submit requires --response and --stage")
     if args.command == "review" and not args.response:
         parser.error("review requires --response with article_identity/decision/rationale/expected_review_id")
+    if args.command == "quota-stop" and not args.response:
+        parser.error("quota-stop requires the actual scoped observation --response")
     if args.command == "scheduled":
         if not args.rollout or not args.automation_id:
             parser.error("scheduled requires --rollout and --automation-id")

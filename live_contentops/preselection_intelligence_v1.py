@@ -508,6 +508,7 @@ def rank_simple_headline_candidate_universe(
     max_candidates: int,
     source_route_health: Mapping[str, Any] | None = None,
     learning_policy: Mapping[str, Any] | None = None,
+    source_resolvability_first: bool = False,
 ) -> dict[str, Any]:
     """Reorder Simple's full deduped universe before its bounded selector packet.
 
@@ -600,7 +601,9 @@ def rank_simple_headline_candidate_universe(
 
     ranked = sorted(
         profiled,
-        key=lambda row: (
+        key=lambda row: ((int(row["sourceability_work_order"]["observed_repeated_access_failure"]),
+            int(row["sourceability_work_order"]["expected_request_cost"]),
+            -float(row["sourceability_work_order"]["score"])) if source_resolvability_first else ()) + (
             int(
                 row["sourceability_work_order"][
                     "effective_work_order_freshness_band_index"

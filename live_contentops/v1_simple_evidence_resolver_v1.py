@@ -80,6 +80,7 @@ class SimpleFirstPartyAwareEvidenceResolver:
         *,
         evaluation_as_of_utc: str,
         max_requests: int = 6,
+        non_chargeable_only: bool = False,
         timeout_seconds: float = 12.0,
         http_get: Callable[[str, float, int], Mapping[str, Any]] | None = None,
         rendered_source_get: Callable[
@@ -91,7 +92,7 @@ class SimpleFirstPartyAwareEvidenceResolver:
         | Mapping[str, Any]
         | None = None,
     ) -> None:
-        if int(max_requests) != 6:
+        if int(max_requests) != 6 and not (int(max_requests) == 10 and non_chargeable_only):
             raise ValueError("simple_evidence_global_request_limit_must_equal_six")
         self._evaluation_as_of_utc = str(evaluation_as_of_utc)
         self._max_requests = int(max_requests)

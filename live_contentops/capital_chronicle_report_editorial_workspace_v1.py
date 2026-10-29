@@ -501,8 +501,12 @@ def run_report_editorial_cycle(
             model.source_recovery = llm_invoke.source_recovery
             model.admitted_editorial_media = getattr(llm_invoke, "admitted_editorial_media", lambda: [])
             model.audience_learning = getattr(llm_invoke, "audience_learning", None)
+            model.volume_policy = getattr(llm_invoke, "volume_policy", None)
+            model.source_request_count_at_start = getattr(llm_invoke, "source_request_count_at_start", 0)
+            model.inherited_selection = getattr(llm_invoke, "inherited_selection", None)
 
-        default_loader = _default_evidence_loader(cutoff_utc, source_route_health=source_route_health)
+        default_loader = _default_evidence_loader(cutoff_utc, source_route_health=source_route_health,
+            **({"volume_policy": model.volume_policy} if native and model.volume_policy else {}))
         spent = sum(
             int(
                 json.loads(r["payload"])["result"]
@@ -516,7 +520,8 @@ def run_report_editorial_cycle(
             and str(json.loads(r["payload"]).get("stage", "")).startswith("source:")
             and "result" in json.loads(r["payload"])
         )
-        default_loader.resume_request_count(spent + args.get("source_requests_before_writer_freeze", 0))
+        default_loader.resume_request_count(spent + args.get("source_requests_before_writer_freeze", 0)
+            + (model.source_request_count_at_start if native else 0))
         report_by_headline = {"cc-report:" + r["envelope_sha256"]: r for r in records}
 
         def evidence(request: Mapping[str, Any]) -> dict[str, Any]:

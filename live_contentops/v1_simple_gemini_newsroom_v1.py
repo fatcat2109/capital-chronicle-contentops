@@ -437,6 +437,7 @@ def _candidate_packet_and_preselection(
     source_route_health: Mapping[str, Any] | None = None,
     attempted_candidate_ids: Sequence[str] = (),
     learning_policy: Mapping[str, Any] | None = None,
+    source_resolvability_first: bool = False,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     attempted = {str(value) for value in attempted_candidate_ids if str(value)}
     unfiltered_universe = _candidate_universe(rolling_input, published_memory)
@@ -472,6 +473,7 @@ def _candidate_packet_and_preselection(
         max_candidates=MAX_SELECTION_CANDIDATES,
         source_route_health=source_route_health,
         learning_policy=learning_policy,
+        source_resolvability_first=source_resolvability_first,
     )
     candidates = [
         _selection_candidate(row)
@@ -539,7 +541,8 @@ def _published_memory_summary(published_memory: Sequence[Any]) -> dict[str, Any]
 
 
 def _validate_selection_text(
-    text: str, *, candidate_ids: set[str], native_plan: bool = False
+    text: str, *, candidate_ids: set[str], native_plan: bool = False, max_admitted=MAX_ADMITTED_CANDIDATES,
+    brief_only=False
 ) -> tuple[bool, str | None, Any, str | None]:
     try:
         value = json.loads(str(text or ""))
@@ -573,7 +576,7 @@ def _validate_selection_text(
         return True, None, dict(value), None
     if status != _SELECTION_STATUS_SELECT:
         return False, "structured_output_schema_invalid", None, "selection_status_invalid"
-    if not 1 <= len(plan) <= MAX_ADMITTED_CANDIDATES:
+    if not 1 <= len(plan) <= max_admitted:
         return False, "structured_output_schema_invalid", None, "ordered_candidate_plan_count_invalid"
     cleaned_plan: list[dict[str, Any]] = []
     seen_ids: set[str] = set()
@@ -597,6 +600,8 @@ def _validate_selection_text(
         mode = raw.get("article_mode")
         if not isinstance(mode, str) or mode not in ARTICLE_MODES:
             return False, "structured_output_schema_invalid", None, "article_mode_scalar_invalid"
+        if brief_only and mode not in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}:
+            return False, "structured_output_schema_invalid", None, "brief_window_requires_news_or_policy_brief"
         rationale = str(raw.get("selection_rationale") or "").strip()
         if len(rationale) < 8:
             return False, "structured_output_schema_invalid", None, "candidate_rationale_required"
@@ -883,10 +888,13 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
             "primary_reader_question": "the concrete audience question this article answers",
             "evidence_plan": "existing tool/source resolution steps; named missing dimensions; code owns arithmetic",
         })
-    return (
+    prompt = (
         "Return exactly one JSON object. Do not use markdown, code fences, commentary, prefixes, or suffixes. "
-        "Use exactly the five top-level keys shown in one OUTPUT_CONTRACT variant and preserve their JSON types. "
-        "Choose one primary genuinely useful current Capital Chronicle story and at most two ordered fallback "
+        "Use exactly the five top-level keys shown in one OUTPUT_CONTRACT variant and preserve their JSON types. " +
+        (f"Choose up to {governed['volume_policy']['max_admitted_candidates']} useful candidates, ranked first by actual source resolvability across Tier 1 assets and macro events. "
+         "Prefer verified free primary routes; do not infer source qualification from a routing hint. A full window may publish at most two useful originals. "
+         "A brief-only window admits NEWS/POLICY briefs only, never analysis relabelled as news. "
+         if governed.get("volume_policy") else "Choose one primary genuinely useful current Capital Chronicle story and at most two ordered fallback ") +
         "stories from GOVERNED_INPUT. Every fallback must be independently worth an article, not filler. "
         "Do not require evidence-ready/sourceability/readiness/media/SEO perfection before selection. "
         "The sourceability_route_hint is deterministic routing-only context, never factual or publication authority. "
@@ -922,6 +930,10 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
         + "\nGOVERNED_INPUT:\n"
         + json.dumps(governed, sort_keys=True, ensure_ascii=False)
     )
+    if governed.get("volume_policy"):
+        prompt = prompt.replace("When stories are independently similarly useful, prefer the one with the shorter governed route and lower known access risk. ",
+            "Order the independently useful admissions by actual source resolvability first, then materiality and reader value. Prefer a verified lawful free primary source over paywall-dependent discovery; preserve route diversity. ")
+    return prompt
 
 
 def _reader_first_worker_prompt(prompt, governed):
@@ -1027,13 +1039,15 @@ def _default_evidence_loader(
     cutoff_utc: str,
     *,
     source_route_health: Mapping[str, Any] | None = None,
+    volume_policy=None,
 ) -> EvidenceLoader:
     rendered_recovery = BrowserOSNeoRenderedSourceRecovery(
         allowed_hosts=REPUTABLE_SECONDARY_HOSTS,
     )
     return SimpleFirstPartyAwareEvidenceResolver(
         evaluation_as_of_utc=cutoff_utc,
-        max_requests=MAX_SOURCE_REQUESTS,
+        max_requests=volume_policy["source_request_limit"] if volume_policy else MAX_SOURCE_REQUESTS,
+        non_chargeable_only=bool(volume_policy and volume_policy["non_chargeable_only"]),
         timeout_seconds=12.0,
         rendered_source_get=rendered_recovery,
         browser_rendered_recovery_config=DEFAULT_BROWSER_RENDERED_RECOVERY_CONFIG,
@@ -1799,6 +1813,8 @@ def _reader_safe_native_article(
             str((epistemic_state or {}).get("report_scope_notice") or ""),
             str(article.get("source_date_notice") or "") if legacy_presentation and not reader_first else "") if s),
     }
+    if article.get("volume_policy"):
+        result.update({k: article[k] for k in ("volume_policy", "volume_policy_cutoff_utc", "visual_editorial_decision")})
     from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
     notices = [text for d in article.get("public_research_descriptors", []) for text in reader_notices(d)]
     if notices:
@@ -2013,6 +2029,8 @@ def _native_preview_bundle(
         return False
 
     for destination, payload in payloads.items():
+        if payload.get("delivery_state") == "SKIPPED_PHOTOLESS_NEWS_POLICY":
+            continue
         visible = visible_text(payload)
         if (label and label.casefold() not in visible.casefold()
                 and not (reader_first and any(name in visible.casefold() for name in attribution_names))):
@@ -2189,6 +2207,7 @@ def _build_simple_publication_lifecycle_plan(
         "accepted_evidence_ids": list(context["accepted_evidence_ids"]),
         "accepted_evidence_sha256": context["accepted_evidence_sha256"],
         "source_provenance_binding_preserved": True,
+        **({"media_asset_count": len(media_assets)} if article.get("volume_policy") else {}),
         "epistemic_state": dict(epistemic_state or {}),
         "publication_window": {"window_identity": run_id},
         "package_identity": package_identity,
@@ -2211,7 +2230,14 @@ def _build_simple_publication_lifecycle_plan(
             V1_REQUIRED_DERIVATIVE_DESTINATIONS
         ),
         "destinations": destinations,
-        "skipped_derivative_destinations": [],
+        "skipped_derivative_destinations": ([{"destination": "instagram_business",
+            "reason": "Source-sufficient NEWS/POLICY brief uses the dated photo-less route.",
+            "disposition": "SKIPPED_PHOTOLESS_NEWS_POLICY",
+            "status": "SKIPPED_PHOTOLESS_NEWS_POLICY"}] if preview_packages.get("instagram_business", {}).get("delivery_state")
+                == "SKIPPED_PHOTOLESS_NEWS_POLICY" else []),
+        **({"volume_policy": article["volume_policy"], "volume_policy_cutoff_utc": article["volume_policy_cutoff_utc"],
+            "photo_less_news_policy": True} if article.get("volume_policy") and
+            preview_packages.get("instagram_business", {}).get("delivery_state") == "SKIPPED_PHOTOLESS_NEWS_POLICY" else {}),
         "pre_substack_blockers": [],
         "transaction_readiness": "CANONICAL_READY_DERIVATIVES_DEFERRED",
         "transport_registry_version": REGISTRY_VERSION,
@@ -2245,6 +2271,8 @@ def run_v1_simple_gemini_newsroom(
     """Run one zero-write V1 opportunity through one bounded Simple-Gemini plan."""
     native = getattr(llm_invoke, "native_desktop_protocol", False)
     audience_learning = getattr(llm_invoke, "audience_learning", None) if native else None
+    volume = getattr(llm_invoke, "volume_policy", None) if native else None
+    inherited = getattr(llm_invoke, "inherited_selection", None) if native else None
 
     def persist(path, value):
         if native:
@@ -2265,6 +2293,28 @@ def run_v1_simple_gemini_newsroom(
                     raise SimpleGeminiNewsroomError("selected_story_context_artifact_changed_again", [path.name])
                 archive.parent.mkdir(parents=True, exist_ok=True)
                 path.replace(archive)
+        if volume and Path(path).name == "simple_gemini_newsroom_receipt_v1.json":
+            value["volume_policy"] = volume
+            value["source_request_limit"] = volume["source_request_limit"]
+            value.setdefault("source_request_count", getattr(llm_invoke, "source_request_count_at_start", 0))
+            if not value.get("qualified_article_count"):
+                from live_contentops.native_desktop_editorial_v1 import PRE_WRITER_OUTCOME_SCHEMA
+                attempts = value.get("candidate_attempt_history", [])
+                value["candidate_outcomes"] = [{"schema_version": PRE_WRITER_OUTCOME_SCHEMA,
+                    "candidate_id": a["candidate_id"], "outcome": "SOURCE_BLOCKED",
+                    "primary_cause": "BUDGET_OR_RETRY_CAP" if "BUDGET_EXHAUSTED" in a["status"] else "SOURCE_MISSING",
+                    "reason": ", ".join(a.get("blockers", [])) or "No admissible exact source was returned by the existing resolver.",
+                    "source_request_count": value["source_request_count"],
+                    "source_request_limit": volume["source_request_limit"], "public_write_performed": False}
+                    for a in attempts if a["status"] != "SOURCE_QUALIFIED"]
+                if not attempts:
+                    value["candidate_outcomes"] = [{"schema_version": PRE_WRITER_OUTCOME_SCHEMA,
+                        "candidate_id": None, "outcome": "NO_STORY", "primary_cause": "NO_MATERIAL_NEWS",
+                        "reason": value.get("exact_next_blocker") or "No useful source-bound story was admitted.",
+                        "source_request_count": value["source_request_count"],
+                        "source_request_limit": volume["source_request_limit"], "public_write_performed": False}]
+                from collections import Counter
+                value["cause_counts"] = dict(Counter(v["primary_cause"] for v in value["candidate_outcomes"]))
         _write_json(path, value)
 
     cutoff_utc = _iso_utc(cutoff_utc)
@@ -2283,6 +2333,7 @@ def run_v1_simple_gemini_newsroom(
         source_route_health=source_route_health,
         attempted_candidate_ids=attempted_candidate_ids,
         learning_policy=(audience_learning or {}).get("policy"),
+        source_resolvability_first=bool(volume),
     )
     sourceability_path = root / "simple_sourceability_preselection_v1.json"
     frozen_request = getattr(llm_invoke, "frozen_request", lambda _stage: None)("select") if native else None
@@ -2290,6 +2341,8 @@ def run_v1_simple_gemini_newsroom(
         # A new source revision cannot rerank an already claimed semantic request.
         candidates = frozen_request["governed_input"]["candidates"]
         sourceability_preselection = json.loads(sourceability_path.read_bytes())
+    elif inherited:
+        candidates = inherited["request"]["governed_input"]["candidates"]
     persist(sourceability_path, sourceability_preselection)
     sourceability_summary = {
         "artifact_path": str(sourceability_path),
@@ -2359,6 +2412,7 @@ def run_v1_simple_gemini_newsroom(
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
         "institutional_edge_mode_guide": _institutional_edge_mode_guide(),
         "native_role_plan_required": native,
+        **({"volume_policy": volume} if volume else {}),
         **({"audience_learning": audience_learning} if audience_learning else {}),
         **({"owner_editorial_request": capital_chronicle_context["owner_editorial_request"]}
            if native and (capital_chronicle_context or {}).get("owner_editorial_request") else {}),
@@ -2374,7 +2428,9 @@ def run_v1_simple_gemini_newsroom(
             prompt=_selection_prompt(selection_governed),
             governed_input=selection_governed,
             validator=lambda text: _validate_selection_text(
-                text, candidate_ids=candidate_ids, native_plan=native
+                text, candidate_ids=candidate_ids, native_plan=native,
+                max_admitted=volume["max_admitted_candidates"] if volume else MAX_ADMITTED_CANDIDATES,
+                brief_only=bool(volume and volume["brief_only"])
             ),
         )
     except SimpleGeminiNewsroomError as exc:
@@ -2445,11 +2501,12 @@ def run_v1_simple_gemini_newsroom(
     loader = evidence_loader or _default_evidence_loader(
         cutoff_utc,
         source_route_health=source_route_health,
+        volume_policy=volume,
     )
     recovery = getattr(llm_invoke, "source_recovery", lambda: None)() if native else None
     offline_recovery = bool(recovery and recovery.get("pre_writer_source_recovery"))
-    request_limit = recovery["source_request_limit"] if offline_recovery else MAX_SOURCE_REQUESTS
-    request_count = recovery["source_request_count"] if offline_recovery else 0
+    request_limit = recovery["source_request_limit"] if offline_recovery else volume["source_request_limit"] if volume else MAX_SOURCE_REQUESTS
+    request_count = recovery["source_request_count"] if offline_recovery else getattr(llm_invoke, "source_request_count_at_start", 0)
     candidate_attempt_history: list[dict[str, Any]] = []
     evidence_attempts: list[dict[str, Any]] = []
     selected: dict[str, Any] | None = None
@@ -2489,6 +2546,9 @@ def run_v1_simple_gemini_newsroom(
             )
             continue
         request["remaining_admitted_candidate_count"] = len(plan) - plan_index
+        if volume:
+            request["non_chargeable_only"] = True
+            request["remaining_window_source_requests"] = request_limit - request_count
         try:
             evidence = dict(loader(request) or {})
         except (OSError, RuntimeError, TypeError, ValueError) as exc:
@@ -2499,6 +2559,8 @@ def run_v1_simple_gemini_newsroom(
                 "provenance": {"request_count_for_call": 0},
             }
         provenance = dict(evidence.get("provenance") or {})
+        if volume and (provenance.get("direct_charge_amount", 0) != 0 or provenance.get("chargeable") is True):
+            raise SimpleGeminiNewsroomError("CHARGEABLE_SOURCE_REQUEST_NOT_AUTHORIZED")
         for_call, request_count = _source_count_after_call(
             provenance, previous_total=request_count
         )
@@ -2905,6 +2967,13 @@ def run_v1_simple_gemini_newsroom(
         "epistemic_state": dict(selected_epistemic_state or {}),
         "public_write_performed": False,
     }
+    if volume:
+        article_manifest.update(volume_policy=volume, volume_policy_cutoff_utc=cutoff_utc)
+        article.update(volume_policy=volume, volume_policy_cutoff_utc=cutoff_utc,
+            resolved_article_mode=selected_plan_entry["article_mode"])
+        from live_contentops.native_newsroom_volume_v1 import photo_less_brief
+        article["photo_less_brief_eligible"] = photo_less_brief(article)
+        article_manifest["photo_less_brief_eligible"] = article["photo_less_brief_eligible"]
     persist(root / "article_manifest_v1.json", article_manifest)
     validation_artifact = {
         **validation,

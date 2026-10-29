@@ -84,6 +84,8 @@ def _prepared_packet(store, binding):
             "media_sha256": {
                 a["asset_id"]: a["sha256"] for a in result.get("media_assets", [])
             },
+            **({"skipped_derivative_destinations": plan["skipped_derivative_destinations"]}
+               if plan.get("photo_less_news_policy") else {}),
             "publication_authority": False,
         },
         plan,
@@ -356,9 +358,15 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
     confirmed = sum(e["reconciliation_status"] == "RECONCILED_CONFIRMED"
         and DurablePublicationCoordinator._confirmed_public_object(e, destination=e["destination"])
         for e in entries)
+    skipped = {s["destination"] for s in bound.get("skipped_derivative_destinations", [])
+               if s.get("status") == "SKIPPED_PHOTOLESS_NEWS_POLICY" and s.get("destination") == "instagram_business"}
+    for entry in entries:
+        if entry["destination"] in skipped and not entry["dispatch_recorded"]:
+            entry.update(status="SKIPPED_PHOTOLESS_NEWS_POLICY", blocker=None)
+    terminal_count = confirmed + len(skipped)
     state = (
         "RECONCILED"
-        if confirmed == len(entries)
+        if terminal_count == len(entries)
         else "PENDING_NATIVE"
         if pending
         else "RECOVERY_REQUIRED"
@@ -382,7 +390,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
     )
     next_operation = (
         "none"
-        if confirmed == len(entries)
+        if terminal_count == len(entries)
         else actionable["next_operation"]
         if actionable
         else "publication-resume"
@@ -398,6 +406,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
         if operation.get("owner_manual_validation")
         else "SCHEDULED",
         "destinations": entries,
+        "skipped_destinations": sorted(skipped),
         "pending_requests": pending,
         "dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED"
         if operation.get("owner_manual_validation")
