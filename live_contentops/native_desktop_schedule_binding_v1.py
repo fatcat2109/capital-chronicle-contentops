@@ -584,7 +584,7 @@ def _close_expired_window(store, rollout, binding, response, *, now=None):
             or response.get("outcome") not in {"LATE", "PROCESS_FAILURE"}
             or not response.get("first_cause") or not response.get("reason")):
         raise ValueError("ACTUAL_STOPPED_WINDOW_DISPOSITION_REQUIRED")
-    if any(x in (response["first_cause"] + response["reason"]).upper() for x in ("QUOTA", "USAGE_LIMIT")):
+    if any(x in response["first_cause"].upper() for x in ("QUOTA", "USAGE_LIMIT")):
         raise ValueError("QUOTA_IS_NOT_TERMINAL_WINDOW_FAILURE")
     turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"])
     pending = turn.frozen_request(evidence.get("pending_stage", ""))

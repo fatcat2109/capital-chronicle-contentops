@@ -87,7 +87,7 @@ def test_expired_stopped_process_saves_real_window_result_without_native_return(
         "pending_request_sha256":request["request_sha256"]}
     path.write_text(json.dumps(evidence))
     response={"artifact_path":str(path),"outcome":"PROCESS_FAILURE","first_cause":"COORDINATOR_STOPPED_WITH_EXECUTABLE_STAGE",
-        "reason":"Controlled completed coordinator left a request unassigned.","startup_result":entry}
+        "reason":"Controlled completed coordinator left a request unassigned. No quota or tool error was recorded.","startup_result":entry}
     with pytest.raises(ValueError,match="EXPIRED_EXACT_LAST_WINDOW_REQUIRED"):
         schedule.close_expired_window(store,rollout,binding,response,now=at("2026-10-29T10:15:00Z"))
     result=schedule.close_expired_window(store,rollout,binding,response,now=at("2026-10-29T13:15:00Z"))
