@@ -11,6 +11,18 @@ not separate Builder chats. Every assignment supplies the current goal/operation
 bounded assignment, exact stage/request hash, existing result path and actual role.
 Use the existing task generator's `native_subagent_completion_prompt`; its historical
 name is retained for compatibility, but it instructs native result collection only.
+Scheduled roles bind the actual automation, window, operation and binding path. A
+separate engineering goal or parent UUID is not required. Build a new assignment
+before spawn; obtain the child's real invocation identity from the returned platform
+context afterward and check it at the unchanged native submit gate. Never invent one.
+Use only the supported canonical task/context identity. Never probe environment,
+credentials, session files or process arguments for it. If the child cannot observe
+it, return the output and exact gap; the coordinator binds the actual spawn result
+before submitting, preserving unknown model/effort fields where unobserved.
+The pending CLI result returns the exact next native call. Execute it in this same
+turn, collect the supported final/artifact, submit, then advance the same binding.
+An initially empty exec result with a live handle must be consumed through that exact
+handle once; it does not justify another advance or a false pending-command report.
 The child saves its real result before returning a concise native final response with
 path/hash, findings, verification, limits and next action. It never sends an ancestor
 chat message. No repeat human-authority verification or notification ledger is required.

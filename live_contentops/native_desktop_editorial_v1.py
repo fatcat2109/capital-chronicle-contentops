@@ -149,7 +149,8 @@ def admit_selected_story_context(turn, binding, response):
                 "new_source_requests": 0, "public_write_performed": False}
     row = turn.store.get_outbox_message("native-current-input-" + sha256_of(turn.run_id))
     frozen = json.loads(row["payload"]) if row else {}
-    if frozen.get("run_id") != turn.run_id or frozen.get("cutoff_utc") != binding["cutoff_utc"]:
+    input_cutoff = binding.get("input_known_at_cutoff_utc", binding["cutoff_utc"])
+    if frozen.get("run_id") != turn.run_id or frozen.get("cutoff_utc") != input_cutoff:
         raise ValueError("EXACT_FROZEN_CURRENT_INPUT_REQUIRED")
     research = RetainedSourceResearch.from_frozen_snapshot(frozen["research"])
     walk = json.loads((turn.root / "simple_gemini_evidence_v1.json").read_bytes())
@@ -165,7 +166,7 @@ def admit_selected_story_context(turn, binding, response):
         record = research.records.get(item_id)
         if not record:
             raise ValueError("CONTEXT_SOURCE_NOT_IN_FROZEN_RESEARCH")
-        if any(_time(record.get(k)) > _time(binding["cutoff_utc"])
+        if any(_time(record.get(k)) > _time(input_cutoff)
                for k in ("source_timestamp_utc", "known_at_utc", "revision_at_utc")):
             raise ValueError("CONTEXT_SOURCE_AFTER_FROZEN_CUTOFF")
         permission = record["source_permissions"]
@@ -184,7 +185,7 @@ def admit_selected_story_context(turn, binding, response):
         "selection_request_sha256": selection["request_sha256"], "visual_request_sha256": visual["request_sha256"],
         "context_amendment_sha256": amendment_sha, "primary_source_pack_sha256": sha256_of(primary),
         "supporting_headline_ids": ids, "context_documents": documents,
-        "research_revision": research.revision, "cutoff_utc": binding["cutoff_utc"],
+        "research_revision": research.revision, "cutoff_utc": input_cutoff,
         "admitted_at_utc": datetime.now(timezone.utc).isoformat(), "new_source_requests": 0,
         "selected_story_context": {"story_identity": candidate, "source_item_ids": ids,
             "relationship": "RELATED_DATED_CONTEXT_NOT_EVENT_CORROBORATION", "reason": reason,

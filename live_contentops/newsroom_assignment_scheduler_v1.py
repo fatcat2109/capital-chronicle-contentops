@@ -288,6 +288,7 @@ def load_rolling_x_headline_sidecars(
     cutoff_utc: datetime | str,
     sidecar_glob: str = DEFAULT_X_SIDECAR_GLOB,
     window_hours: float = 24.0,
+    known_at_cutoff_utc: datetime | str | None = None,
 ) -> dict[str, Any]:
     """Load every uniquely source-timestamped X row in inclusive ``[T-window, T]``.
 
@@ -297,6 +298,7 @@ def load_rolling_x_headline_sidecars(
     if not 0.0 < float(window_hours) <= 168.0:
         raise ValueError("rolling_x_window_hours_invalid")
     cutoff_dt = _normalize_cutoff_utc(cutoff_utc)
+    known_cutoff = _normalize_cutoff_utc(known_at_cutoff_utc) if known_at_cutoff_utc is not None else None
     window_start_dt = cutoff_dt - timedelta(hours=float(window_hours))
     source_paths = [Path(path) for path in sorted(glob.glob(sidecar_glob))]
     source_rows = 0
@@ -345,6 +347,15 @@ def load_rolling_x_headline_sidecars(
             if source_dt > cutoff_dt:
                 reject("future_source_timestamp")
                 continue
+            if known_cutoff is not None:
+                _, known_value = _first_external_value(row, ("known_at_utc", "captured_at_utc"))
+                known_dt = _parse_utc(known_value) if isinstance(known_value, str) else None
+                if known_dt is None:
+                    reject("known_at_timestamp_unavailable")
+                    continue
+                if known_dt > known_cutoff:
+                    reject("known_after_input_cutoff")
+                    continue
 
             text = _first_external_text(row, ("headline_text", "headline", "text", "tweet_text", "content", "body"))
             normalized_text = _normalize_exact_content(text)
