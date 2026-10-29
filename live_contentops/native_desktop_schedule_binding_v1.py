@@ -141,6 +141,14 @@ def _latest_window(store, session, *, opportunity_id=None):
 
 
 def scheduled_binding(rollout, automation_id, *, now=None, continue_after=None):
+    moment = now or datetime.now(timezone.utc)
+    moment = moment.replace(tzinfo=timezone.utc) if moment.tzinfo is None else moment.astimezone(timezone.utc)
+    result = _scheduled_binding(rollout, automation_id, now=moment, continue_after=continue_after)
+    # Callback observation only: issued window/operation/request bytes stay unchanged.
+    return {**result, "actual_entry_utc": result.get("actual_entry_utc", moment.isoformat())}
+
+
+def _scheduled_binding(rollout, automation_id, *, now=None, continue_after=None):
     # This check precedes directory creation, opening/migrating the production store,
     # polling Main, or reading a source. Engineering preparation does not release it.
     if llm_operator_pause_active():
@@ -238,7 +246,12 @@ def _issue_due_slot(store, rollout, automation_id, window, day, memory, continue
         store.register_outbox_message(message_id=key, work_item_id=work, destination=DESTINATION,
             payload=canonical_bytes(checkpoint).decode(), status="EDITORIAL_INTERNAL")
     elif checkpoint["rollout_sha256"] != sha256_of(rollout):
-        raise ValueError("NATIVE_WINDOW_ROLLOUT_CHANGED")
+        compatibility = rollout.get("terminal_reporting_prompt_compatibility", {})
+        routing = {k:v for k,v in rollout.items() if k != "terminal_reporting_prompt_compatibility"}
+        routing["tasks"] = [{k:v for k,v in task.items() if k != "prompt"} for task in routing.get("tasks", [])]
+        if (checkpoint["rollout_sha256"] != compatibility.get("previous_rollout_sha256")
+                or sha256_of(routing) != compatibility.get("unchanged_routing_sha256")):
+            raise ValueError("NATIVE_WINDOW_ROLLOUT_CHANGED")
     issued, attempted = _issued_slots(store, rollout, automation_id, checkpoint)
     ordinal = 1
     if issued:
@@ -268,3 +281,265 @@ def _issue_due_slot(store, rollout, automation_id, window, day, memory, continue
     return {"classification": "NATIVE_WINDOW_SLOT_READY", "binding_path": str(path), "run_id": binding["run_id"],
         "capacity": checkpoint["capacity"], "slot_ordinal": ordinal, "window_id": work,
         "cutoff_utc": binding["cutoff_utc"], "resumed_existing_binding": False, "public_write_performed": False}
+
+
+# Jim's 29 October reporting exception applies to scheduled task chats only.
+# These functions use the existing window/result outbox, never a notification service.
+WINDOW_REPORT_L2 = "01a1657e-f5d0-76a1-b52b-ec6c78b6fe35"
+WINDOW_REPORT_HOST = "local"
+
+
+def _window_result_key(binding):
+    return "scheduled-result-" + sha256_of([binding["automation_id"],
+        newsroom_production_day_id(binding["cutoff_utc"]), binding["window_id"]])
+
+
+def _window_result_path(binding):
+    return Path(binding["output_dir"]).parent / "native_window_result.json"
+
+
+def _save_window_result(store, binding, value):
+    from live_contentops.native_desktop_editorial_v1 import DESTINATION
+    key, path = _window_result_key(binding), _window_result_path(binding)
+    raw = canonical_bytes(value)
+    if store.get_outbox_message(key):
+        store.finalize_outbox_payload_before_dispatch(message_id=key, payload=raw.decode(), status="EDITORIAL_INTERNAL")
+    else:
+        store.register_outbox_message(message_id=key, work_item_id=binding["window_id"],
+            destination=DESTINATION, payload=raw.decode(), status="EDITORIAL_INTERNAL")
+    temporary = path.with_suffix(".json.tmp")
+    temporary.write_bytes(raw)
+    temporary.replace(path)
+
+
+def _unfinished_window_roles(store, issued):
+    """A pending native request cannot be relabelled a completed child."""
+    from live_contentops.native_desktop_editorial_v1 import DESTINATION, NativeDesktopTurn
+    rows = store.list_outbox_messages()
+    for binding, _ in issued:
+        work = "cc-opportunity-" + sha256_of(binding["run_id"])
+        turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"])
+        for row in rows:
+            if row["work_item_id"] != work or row["destination"] != DESTINATION:
+                continue
+            value = json.loads(row["payload"])
+            if not (value.get("stage") and value.get("request_sha256") and "governed_input" in value):
+                continue
+            if turn.frozen_request(value["stage"]) == value and not turn._get(value["stage"], "response"):
+                return True
+    return False
+
+
+def _window_notice(value, artifact):
+    result = value["terminal_result"]
+    return (
+        "Scheduled V1 window result — " + result["finished_at_gmt7"] + "\n"
+        + "Automation: " + result["automation_id"] + "; production day: " + result["production_day_id"] + "\n"
+        + "Window: " + result["window_id"] + "; runs: " + ", ".join(result["run_ids"]) + "\n"
+        + "Outcome: " + result["outcome"] + "; distinct canonical items: " + str(len(result["canonical_items"]))
+        + "; objects: " + json.dumps(result["canonical_items"], separators=(",", ":")) + "\n"
+        + "Channels: " + json.dumps(result["channels"], separators=(",", ":")) + "\n"
+        + "First blocking causes: " + json.dumps(result["first_blocking_causes"], separators=(",", ":")) + "\n"
+        + "Artifact: " + str(artifact) + "\nNext action: " + result["next_action"]
+    )
+
+
+def prepare_window_result(store, rollout, binding, response, *, now=None):
+    owner = "window-result-" + uuid4().hex
+    lease = store.acquire_lease("internal:native-window:" + binding["window_id"], owner, ttl_seconds=60)
+    try:
+        return _prepare_window_result(store, rollout, binding, response, now=now)
+    finally:
+        store.release_lease(lease["lease_id"], owner, lease["fencing_token"])
+
+
+def _prepare_window_result(store, rollout, binding, response, *, now=None):
+    """Save a real whole-window terminal result before offering one native tool send.
+
+    response.startup_result is the exact saved initial `scheduled` result from this
+    task turn. It distinguishes resumed work from stale/duplicate terminal callbacks.
+    A fatal process result may be supplied by exact saved CLI error artifact; a quota
+    stop or unfinished role is never converted into a terminal failure.
+    """
+    from collections import Counter, defaultdict
+    from live_contentops.native_desktop_publication_v1 import publication_projection
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    moment = now or datetime.now(timezone.utc)
+    moment = moment.replace(tzinfo=timezone.utc) if moment.tzinfo is None else moment.astimezone(timezone.utc)
+    entry = response.get("startup_result", {})
+    def suppressed(reason):
+        return {"classification":"WINDOW_NOTICE_SUPPRESSED", "reason":reason, "public_write_performed":False}
+    auto = binding.get("automation_id")
+    if not auto or auto not in automation_sessions() or binding.get("owner_manual_validation"):
+        return suppressed("SCHEDULED_TASK_ONLY")
+    if brief_effective_guard(auto, moment):
+        return suppressed("NOT_YET_EFFECTIVE")
+    allowed = {"NATIVE_WINDOW_SLOT_READY", "NATIVE_WINDOW_REVIEW_REQUIRED", "NATIVE_WINDOW_HANDOFF_REQUIRED",
+        "NATIVE_WINDOW_PUBLICATION_REQUIRED", "NATIVE_WINDOW_OPERATION_COMPLETE"}
+    if entry.get("classification") not in allowed:
+        return suppressed(entry.get("classification") or "EXACT_STARTUP_RESULT_REQUIRED")
+    if entry.get("window_id") != binding.get("window_id") or not entry.get("actual_entry_utc"):
+        return suppressed("STARTUP_WINDOW_IDENTITY_MISSING_OR_CHANGED")
+    prior = store.get_outbox_message(_window_result_key(binding))
+    if prior:
+        value = json.loads(prior["payload"])
+        return {"classification":"WINDOW_NOTICE_SUPPRESSED", "reason":"RESULT_ALREADY_SAVED",
+            "delivery_state":value["notice_delivery"]["state"], "artifact_path":str(_window_result_path(binding))}
+    checkpoint = store.get_outbox_message("native-window-" + sha256_of(binding["window_id"]))
+    if not checkpoint:
+        return suppressed("EXACT_ISSUED_WINDOW_REQUIRED")
+    checkpoint = json.loads(checkpoint["payload"])
+    entered = datetime.fromisoformat(entry["actual_entry_utc"].replace("Z", "+00:00"))
+    start = datetime.fromisoformat(checkpoint["window"]["start_utc"].replace("Z", "+00:00"))
+    end = datetime.fromisoformat(checkpoint["window"]["end_utc"].replace("Z", "+00:00")) + timedelta(hours=1)
+    if not start - timedelta(seconds=EARLY_DELIVERY_TOLERANCE_SECONDS) <= entered <= end or entered > moment:
+        return suppressed("STALE_CALLBACK")
+    issued, _ = _issued_slots(store, rollout, auto, checkpoint)
+    if not issued or binding != issued[-1][0]:
+        return suppressed("EXACT_LAST_ISSUED_RUN_REQUIRED")
+    if (entry["classification"] == "NATIVE_WINDOW_OPERATION_COMPLETE"
+            and entry.get("run_id") == binding["run_id"]):
+        return suppressed("DUPLICATE_OR_UNCHANGED_TERMINAL_CALLBACK")
+    if _unfinished_window_roles(store, issued):
+        return suppressed("UNFINISHED_NATIVE_ROLE")
+    # A historical quota observation is not a permanent bar after genuine resume.
+    for current, _ in issued:
+        final = store.get_outbox_message("cc-editorial-final-" + sha256_of(current["run_id"]))
+        if final:
+            saved = json.loads(final["payload"])
+            semantic = saved.get("simple_result", saved)
+            if any(word in str(semantic.get("classification", "")).upper() for word in ("QUOTA", "INTERRUPTED")):
+                return suppressed("CODEX_QUOTA_STOP_OR_INTERRUPTED_STAGE")
+    states = [_issued_state(store, rollout, checkpoint, b, p)["classification"] for b, p in issued]
+    failure = response.get("terminal_failure")
+    fatal = None
+    if failure:
+        fatal = json.loads(Path(failure["artifact_path"]).read_bytes())
+        error = str(fatal.get("blocker") or fatal.get("error") or "")
+        if (fatal.get("classification") not in {"NATIVE_DESKTOP_BLOCKED", "NATIVE_WINDOW_PROCESS_FAILED"}
+                or fatal.get("run_id") != binding["run_id"]
+                or fatal.get("command") != failure.get("operation")
+                or failure.get("continuation_possible") is not False or not failure.get("why_terminal")
+                or not failure.get("operation") or not error):
+            return suppressed("EXACT_TERMINAL_PROCESS_ERROR_REQUIRED")
+        if any(word in error.upper() for word in ("QUOTA", "USAGE_LIMIT", "TOKEN_LIMIT", "CAPACITY")):
+            return suppressed("CODEX_QUOTA_STOP")
+        fatal = {"operation":failure["operation"], "error":error, "artifact_path":failure["artifact_path"],
+            "why_terminal":failure["why_terminal"], "continuation_possible":False}
+    if not fatal and any(state != "NATIVE_WINDOW_OPERATION_COMPLETE" for state in states):
+        return suppressed("PARTIAL_WINDOW")
+    progress = window_progress(store, issued) if checkpoint.get("volume_policy") else None
+    exhausted = len(issued) >= checkpoint["capacity"] or moment > end
+    if progress:
+        exhausted |= (progress["published_article_count"] >= checkpoint["volume_policy"]["max_articles"]
+            or bool(progress["selection_origin_run_id"] and not set(progress["admitted_candidate_ids"])
+                - set(progress["attempted_candidate_ids"])))
+    if not fatal and not exhausted:
+        return suppressed("ANOTHER_ADMITTED_CANDIDATE_OR_SLOT_ELIGIBLE")
+    canonical, causes = {}, {}
+    channels = {k:defaultdict(set) for k in ("confirmed", "skipped", "failed", "unresolved")}
+    rows, dispatches = store.list_outbox_messages(), store.list_platform_dispatches()
+    final_locators = []
+    for current, _ in issued:
+        run = current["run_id"]
+        final_key = "cc-editorial-final-" + sha256_of(run)
+        final = store.get_outbox_message(final_key)
+        if final:
+            value = json.loads(final["payload"])
+            semantic = value.get("simple_result", value)
+            final_locators.append({"run_id":run, "outbox_message_id":final_key,
+                "artifact_path":str(Path(current["output_dir"])/"native_desktop_result.json")})
+            for outcome in semantic.get("candidate_outcomes", []):
+                causes.setdefault(outcome.get("candidate_id", run), outcome.get("primary_cause") or "UNKNOWN_TERMINAL_CAUSE")
+            for attempt in semantic.get("candidate_attempt_history", []):
+                if attempt.get("status") == "SOURCE_BLOCKED":
+                    causes.setdefault(attempt.get("candidate_id", run), attempt.get("primary_cause")
+                        or next(iter(attempt.get("blockers", [])), "UNKNOWN_TERMINAL_CAUSE"))
+            if not semantic.get("qualified_article_count") and not semantic.get("candidate_outcomes"):
+                if not semantic.get("candidate_attempt_history"):
+                    causes.setdefault(run, semantic.get("first_blocking_cause") or semantic.get("primary_cause")
+                        or "UNKNOWN_TERMINAL_CAUSE")
+        projection = publication_projection(rows, dispatches, store.get_reconciliations_for_work_item(run), run_id=run)
+        for item in projection.get("destinations", []):
+            dest, status = item["destination"], item["status"]
+            if (item.get("reconciliation_status") == "RECONCILED_CONFIRMED"
+                    and DurablePublicationCoordinator._confirmed_public_object(item, destination=dest)):
+                channels["confirmed"][dest].add(str(item["public_object_id"]))
+                if dest == "substack":
+                    canonical[str(item["public_object_id"])] = item.get("public_object_url")
+            elif status.startswith("SKIPPED_"):
+                channels["skipped"][dest].add(run)
+            elif "FAILED" in status or item.get("reconciliation_status") == "RECONCILED_ABSENT_SAFE_TO_RETRY":
+                channels["failed"][dest].add(run)
+            else:
+                channels["unresolved"][dest].add(run)
+    if fatal:
+        causes["terminal_process_failure"] = "SOFTWARE_PROCESS_DEFECT"
+    result = {"automation_id":auto, "production_day_id":checkpoint["production_day_id"],
+        "window_id":binding["window_id"], "run_ids":[b["run_id"] for b, _ in issued],
+        "finished_at_utc":moment.isoformat(),
+        "finished_at_gmt7":moment.astimezone(timezone(timedelta(hours=7))).strftime("%Y-%m-%d %H:%M:%S GMT+7"),
+        "outcome":"TERMINAL_PROCESS_FAILURE" if fatal else "PUBLISHED" if canonical else "NO_ARTICLE",
+        "canonical_items":[{"id":key, "url":url} for key, url in canonical.items()],
+        "channels":{kind:{dest:len(ids) for dest, ids in values.items()} for kind, values in channels.items()},
+        "first_blocking_causes":dict(Counter(causes.values())), "terminal_process_failure":fatal,
+        "slot_results":final_locators, "window_progress":progress,
+        "next_action":("Repair " + fatal["operation"] + ": " + fatal["error"]) if fatal else
+            "Review named unresolved/failed channels through the existing coordinator; no blind retry." if any(
+                channels[k] for k in ("unresolved", "failed")) else "No remaining action in this terminal window."}
+    value = {"schema_version":"contentops.native_scheduled_window_result.v1", "terminal_result":result,
+        "startup_result":entry, "notice_delivery":{"state":"READY", "target_thread_id":WINDOW_REPORT_L2,
+            "target_host_id":WINDOW_REPORT_HOST}, "public_write_performed":False}
+    _save_window_result(store, binding, value)
+    return {"classification":"WINDOW_RESULT_SAVED", "artifact_path":str(_window_result_path(binding)),
+        "notice_state":"READY", "next_operation":"window-notice-begin", "terminal_result":result}
+
+
+def window_notice_delivery(store, binding, *, response=None, begin=False):
+    """One fenced tool attempt; the scheduled chat executes the existing native tool."""
+    key = _window_result_key(binding)
+    lease_owner = "window-notice-" + uuid4().hex
+    lease = store.acquire_lease("internal:native-window:" + binding["window_id"], lease_owner, ttl_seconds=60)
+    try:
+        row = store.get_outbox_message(key)
+        if not row:
+            raise ValueError("SAVED_TERMINAL_WINDOW_RESULT_REQUIRED")
+        value = json.loads(row["payload"])
+        if value["terminal_result"]["run_ids"][-1] != binding["run_id"]:
+            raise ValueError("EXACT_TERMINAL_WINDOW_RUN_REQUIRED")
+        delivery = value["notice_delivery"]
+        if begin:
+            if delivery["state"] != "READY":
+                return {"classification":"WINDOW_NOTICE_SUPPRESSED", "reason":delivery["state"],
+                    "artifact_path":str(_window_result_path(binding))}
+            args = {"threadId":WINDOW_REPORT_L2, "hostId":WINDOW_REPORT_HOST,
+                "prompt":_window_notice(value, _window_result_path(binding))}
+            delivery.update(state="ATTEMPT_STARTED", tool="send_message_to_thread", arguments=args,
+                attempt_started_at_utc=datetime.now(timezone.utc).isoformat())
+            _save_window_result(store, binding, value)
+            return {"classification":"WINDOW_NOTICE_SEND_ONCE", "tool":"send_message_to_thread", "arguments":args,
+                "artifact_path":str(_window_result_path(binding))}
+        if delivery["state"] != "ATTEMPT_STARTED":
+            return {"classification":"WINDOW_NOTICE_SUPPRESSED", "reason":delivery["state"]}
+        tool_result = response or {}
+        def targets(item):
+            if isinstance(item, dict):
+                return [v for k, v in item.items() if k in {"threadId", "thread_id"}] + [
+                    v for child in item.values() for v in targets(child)]
+            if isinstance(item, list):
+                return [v for child in item for v in targets(child)]
+            if isinstance(item, str):
+                try:
+                    return targets(json.loads(item))
+                except (ValueError, TypeError):
+                    return []
+            return []
+        ok = tool_result.get("isError") is False and WINDOW_REPORT_L2 in targets(tool_result)
+        delivery.update(state="DELIVERED" if ok else "FAILED", tool_result=tool_result,
+            recorded_at_utc=datetime.now(timezone.utc).isoformat(),
+            failure=None if ok else "TOOL_FAILED_OR_TARGET_NOT_CONFIRMED_NO_AUTOMATIC_RETRY")
+        _save_window_result(store, binding, value)
+        return {"classification":"WINDOW_NOTICE_" + delivery["state"],
+            "artifact_path":str(_window_result_path(binding)), "retry_allowed":False}
+    finally:
+        store.release_lease(lease["lease_id"], lease_owner, lease["fencing_token"])

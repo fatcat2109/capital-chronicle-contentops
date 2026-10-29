@@ -1,5 +1,24 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Scheduled terminal-window reporting — Jim's approval, 29 October 2026
+
+Each of the seven existing App task chats sends one result notice to L2 ContentOps
+`01a1657e-f5d0-76a1-b52b-ec6c78b6fe35`, host `local`, after saving a genuinely terminal
+whole-window result through the existing window/result outbox. Use the existing native
+send_message_to_thread tool, one fenced attempt and actual success/failure recording.
+Aggregate eligible candidates/slots first; a candidate HOLD alone is not window completion.
+Guarded NOT_YET_EFFECTIVE, stale/duplicate, partial, unfinished-child, unchanged-progress
+and quota-interrupted callbacks send no completion notice. No retry/acknowledgement loop,
+new ledger, notification service, scheduler or watcher is authorized. Report the exact
+identities, outcome, distinct canonicals/channel states, first cause, artifact and next
+action, with Jim-facing times in GMT+7. This reporting-only exception permits necessary
+prompt wording changes while preserving issued bindings, policies, budgets, calendars,
+models, rights, publication semantics and the 30 October brief date guard.
+These scheduled task chats are separate operations; native subagents never message an
+ancestor. Engineering Builders retain their one WHOLE-GOAL completion notice. L2 may
+review material results and fix routine failures; Claude remains Jim-triggered. No L1
+approval round or decision request is needed; the next Tower handoff records application.
+
 ## CO-4 private-use permission and scoped runtime application — 29 October 2026
 
 L1 batch L1-B-20261029-07 supersedes the batch06 no-additional-J7 hold for the existing
