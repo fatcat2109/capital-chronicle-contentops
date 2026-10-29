@@ -55,6 +55,14 @@ retrieval chronology in source notes. A URL reread alone does not warrant a writ
 
 The command returns a binding and the next pending request or a completed result. Handle
 all request, return, source, claim, review and CLI details yourself. Jim gives the question.
+At NATIVE_DESKTOP_INPUT_REQUIRED execute its next_native_call in this same turn, collect
+the supported native final/artifact, submit and advance the same binding. Reuse the same
+MAX writer for final pixels and repairs. A new child's invocation identity comes after
+spawn; a separate goal or parent UUID is not a scheduled-role prerequisite. If exec
+returns a live handle with initially empty output, consume that exact completion once;
+never duplicate advance or report a completed command as pending. Preserve actual quota
+or platform errors as process interruptions. Five-minute early App entry binds its own
+nominal window while freezing admissible input at actual entry, never at a later capture.
 Follow the same `DESKTOP_TASK_PROMPT` in `live_contentops/codex_desktop_newsroom_operator_v1.py`
 that supplies the four prepared task prompts, starting from the manual binding instead of
 `scheduled`. Host schedules and production pause stay unchanged.

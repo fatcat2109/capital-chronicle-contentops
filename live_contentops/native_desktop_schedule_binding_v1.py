@@ -22,9 +22,9 @@ from live_contentops.native_brief_windows_v1 import automation_sessions, brief_e
 from live_contentops.native_newsroom_volume_v1 import volume_policy, window_progress
 
 SCHEMA = "contentops.native_desktop_rollout.v1"
-# App delivery may precede its nominal calendar second by a few seconds. Admit
+# App delivery has been observed almost five minutes before its calendar time. Admit
 # only that same window identity; its nominal cutoff and actual entry stay distinct.
-EARLY_DELIVERY_TOLERANCE_SECONDS = 30
+EARLY_DELIVERY_TOLERANCE_SECONDS = 300
 
 
 def _expected_binding(rollout, automation_id, checkpoint, ordinal, attempted, progress=None):
@@ -38,6 +38,8 @@ def _expected_binding(rollout, automation_id, checkpoint, ordinal, attempted, pr
         "owner_manual_validation": False, "automation_id": automation_id,
         "window_id": window["opportunity_id"], "slot_ordinal": ordinal,
         "attempted_candidate_ids": sorted(set(attempted))}
+    if checkpoint.get("input_known_at_cutoff_utc"):
+        binding["input_known_at_cutoff_utc"] = checkpoint["input_known_at_cutoff_utc"]
     if checkpoint.get("volume_policy"):
         binding.update(volume_policy=checkpoint["volume_policy"], source_request_count_at_start=(progress or {}).get("source_request_count", 0))
         if (progress or {}).get("selection_origin_run_id"):
@@ -241,6 +243,8 @@ def _issue_due_slot(store, rollout, automation_id, window, day, memory, continue
             nominal = datetime.fromisoformat(window["start_utc"].replace("Z", "+00:00"))
             checkpoint.update(actual_entry_utc=now.isoformat(),
                 early_delivery_seconds=max(0, (nominal - now).total_seconds()))
+            if now < nominal:
+                checkpoint["input_known_at_cutoff_utc"] = now.isoformat()
         store.create_work_item(story_id=work, work_item_id=work, title="Native Desktop scheduled window",
                                target_surface="CONTENTOPS_EDITORIAL_ONLY")
         store.register_outbox_message(message_id=key, work_item_id=work, destination=DESTINATION,
@@ -249,7 +253,8 @@ def _issue_due_slot(store, rollout, automation_id, window, day, memory, continue
         compatibility = rollout.get("terminal_reporting_prompt_compatibility", {})
         routing = {k:v for k,v in rollout.items() if k != "terminal_reporting_prompt_compatibility"}
         routing["tasks"] = [{k:v for k,v in task.items() if k != "prompt"} for task in routing.get("tasks", [])]
-        if (checkpoint["rollout_sha256"] != compatibility.get("previous_rollout_sha256")
+        admitted = {compatibility.get("previous_rollout_sha256"), *compatibility.get("previous_rollout_sha256s", [])}
+        if (checkpoint["rollout_sha256"] not in admitted
                 or sha256_of(routing) != compatibility.get("unchanged_routing_sha256")):
             raise ValueError("NATIVE_WINDOW_ROLLOUT_CHANGED")
     issued, attempted = _issued_slots(store, rollout, automation_id, checkpoint)

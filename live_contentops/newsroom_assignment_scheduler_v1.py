@@ -288,6 +288,7 @@ def load_rolling_x_headline_sidecars(
     cutoff_utc: datetime | str,
     sidecar_glob: str = DEFAULT_X_SIDECAR_GLOB,
     window_hours: float = 24.0,
+    known_at_cutoff_utc: datetime | str | None = None,
 ) -> dict[str, Any]:
     """Load every uniquely source-timestamped X row in inclusive ``[T-window, T]``.
 
@@ -297,6 +298,7 @@ def load_rolling_x_headline_sidecars(
     if not 0.0 < float(window_hours) <= 168.0:
         raise ValueError("rolling_x_window_hours_invalid")
     cutoff_dt = _normalize_cutoff_utc(cutoff_utc)
+    known_cutoff = _normalize_cutoff_utc(known_at_cutoff_utc) if known_at_cutoff_utc is not None else None
     window_start_dt = cutoff_dt - timedelta(hours=float(window_hours))
     source_paths = [Path(path) for path in sorted(glob.glob(sidecar_glob))]
     source_rows = 0
@@ -345,6 +347,17 @@ def load_rolling_x_headline_sidecars(
             if source_dt > cutoff_dt:
                 reject("future_source_timestamp")
                 continue
+            if known_cutoff is not None:
+                clock_values = [_first_external_value(row, (key,))[1]
+                    for key in ("known_at_utc", "captured_at_utc", "revision_at_utc")]
+                supplied = [v for v in clock_values if v is not None]
+                clocks = [_parse_utc(v) if isinstance(v, str) else None for v in supplied]
+                if not any(v is not None for v in clock_values[:2]) or any(v is None for v in clocks):
+                    reject("known_at_timestamp_unavailable")
+                    continue
+                if any(clock > known_cutoff for clock in clocks):
+                    reject("known_after_input_cutoff")
+                    continue
 
             text = _first_external_text(row, ("headline_text", "headline", "text", "tweet_text", "content", "body"))
             normalized_text = _normalize_exact_content(text)

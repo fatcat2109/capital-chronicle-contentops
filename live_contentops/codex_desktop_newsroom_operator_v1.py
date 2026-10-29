@@ -120,18 +120,23 @@ SUBAGENT_COMPLETION_AUTHORITY = (
 SUBAGENT_COMPLETION_RULE = (
     "NATIVE ROLE RESULTS: follow docs/automation/CONTENTOPS_BUILDER_SUBAGENT_COMPLETION_HANDOFF_RULE_V1.md. "
     "Native Luna/Light/MAX roles belong to this operation, not separate Builder chats. "
-    "Before EVERY spawn/follow-up, append native_subagent_completion_prompt with the actual "
-    "parent_thread_id/parent_host_id, existing goal_id/operation_id, unique bounded assignment_id, result_path "
-    "and expected_return (native stage/request hash or concrete deliverable), plus native_invocation_id "
-    "from the actual spawn result/context. Save the exact result before "
+    "Before each spawn/follow-up, append native_subagent_completion_prompt with the actual operation_id, "
+    "bounded assignment_id, result_path and expected_return (exact stage/request hash or deliverable). "
+    "Scheduled roles use their issued automation_id/window_id/binding_path; no separate engineering goal "
+    "or parent UUID is required. A new child's invocation identity is obtained AFTER spawn from its actual "
+    "tool result/context, never invented as a spawn prerequisite. Save the exact result before "
     "returning it through the platform's supported native final result. The Builder consumes that return or "
     "saved artifact once by assignment/stage/result identity and continues the SAME operation inside its active "
     "turn, without Jim relaying completion. Never tell a child to message its ancestor; that call is rejected. "
     "Do not pause the parent merely because its own native child owns the next stage. A completed finite task, "
     "HOLD or REPAIR_REQUIRED review is usable; partial batches/turns/quota interruptions are not completion. "
     "Record actual native invocation identity from the assigned agent/context and result, not settings or invented "
-    "IDs; historical unobserved identity stays unknown. If supported result collection cannot continue the active "
-    "turn, retain the exact stage/artifact/platform limit and report the unattended gap. No polling/waits/sleep, "
+    "IDs; historical unobserved identity stays unknown. "
+    "Native identity comes only from the supported spawn/context result, never environment variables, "
+    "credentials, session files or process diagnostics. If absent in the child context, return the saved "
+    "output with that gap so the coordinator can bind its actual spawn observation before submit. "
+    "If the active turn cannot continue, retain the exact stage/artifact/platform limit and report the unattended gap. Use the supported "
+    "native final return or artifact in this same operation; no polling/sleep, "
     "heartbeat, relay chats, alternate callback, GUI workaround, acknowledgement chain or watcher. "
     "Only after genuinely completing the WHOLE goal may L3 send its one L2 completion notice. "
     "Authority: " + SUBAGENT_COMPLETION_AUTHORITY + ". "
@@ -139,26 +144,82 @@ SUBAGENT_COMPLETION_RULE = (
 
 
 def native_subagent_completion_prompt(
-    *, parent_thread_id: str, parent_host_id: str, goal_id: str, operation_id: str,
-    assignment_id: str, result_path: str, expected_return: str, native_invocation_id: str,
+    *, operation_id: str, assignment_id: str, result_path: str, expected_return: str,
+    parent_thread_id: str | None = None, parent_host_id: str | None = None,
+    goal_id: str | None = None, native_invocation_id: str | None = None,
+    automation_id: str | None = None, window_id: str | None = None,
+    binding_path: str | None = None,
 ) -> str:
     """Bind an in-operation role result; never send messages or supervise a child."""
-    fields = dict(parent_thread_id=parent_thread_id, parent_host_id=parent_host_id,
-        goal_id=goal_id, operation_id=operation_id, assignment_id=assignment_id,
-        result_path=result_path, expected_return=expected_return, native_invocation_id=native_invocation_id)
+    fields = dict(operation_id=operation_id, assignment_id=assignment_id,
+        result_path=result_path, expected_return=expected_return)
+    optional = dict(parent_thread_id=parent_thread_id, parent_host_id=parent_host_id,
+        goal_id=goal_id, native_invocation_id=native_invocation_id,
+        automation_id=automation_id, window_id=window_id, binding_path=binding_path)
+    fields.update({k: v for k, v in optional.items() if v is not None})
     for name, value in fields.items():
         if not isinstance(value, str) or not value.strip():
             raise ValueError("NATIVE_CHILD_COMPLETION_ASSIGNMENT_REQUIRED:" + name)
-    try:
-        UUID(parent_thread_id)
-    except ValueError as exc:
-        raise ValueError("EXACT_PARENT_BUILDER_THREAD_REQUIRED") from exc
+    if parent_thread_id is not None:
+        try:
+            UUID(parent_thread_id)
+        except ValueError as exc:
+            raise ValueError("EXACT_PARENT_BUILDER_THREAD_REQUIRED") from exc
+    if automation_id is not None and (not window_id or not binding_path):
+        raise ValueError("EXACT_SCHEDULED_NATIVE_BINDING_REQUIRED")
     return (SUBAGENT_COMPLETION_RULE + "\nEXACT CHILD ASSIGNMENT:\n"
         + json.dumps(fields, ensure_ascii=False, sort_keys=True)
         + "\nSave actual results at result_path and return the assignment/operation/stage, exact path/hash, "
           "findings, verification, limits and next action in your native final result. Do not send a chat message. "
           "The Builder reads the actual result and continues the same operation. Preserve incomplete/quota work "
           "and distinguish it from a completed bounded assignment.")
+
+
+def native_role_call(request, binding, *, binding_path, same_writer_invocation=None):
+    """Describe the next real platform call; this function invokes no model."""
+    from live_contentops.native_desktop_editorial_v1 import ROLE_ASSIGNMENTS, native_role
+    stage = request["stage"]
+    role = native_role(stage)
+    target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
+    if (request.get("run_id") != binding["run_id"]
+            or request.get("requested_model") != target["model"]
+            or request.get("requested_reasoning_effort") != target["reasoning_effort"]):
+        raise ValueError("EXACT_NATIVE_ROLE_REQUEST_REQUIRED")
+    if (role in {"revise", "final-visual"} or stage == "visual-edit-amend") and not same_writer_invocation:
+        raise ValueError("ACTUAL_SAME_MAX_CONTINUATION_ID_REQUIRED")
+    result_path = str(Path(binding["output_dir"]) / ("desktop_response_" + stage + ".json"))
+    fields = dict(operation_id=binding["run_id"], assignment_id=binding["run_id"] + ":" + stage,
+        result_path=result_path, expected_return=stage + ":" + request["request_sha256"])
+    if binding.get("automation_id"):
+        fields.update(automation_id=binding["automation_id"], window_id=binding["window_id"],
+            binding_path=str(binding_path))
+    if same_writer_invocation:
+        fields["native_invocation_id"] = same_writer_invocation
+    message = (
+        "Continue this exact native editorial role. Read the frozen request at "
+        + str(request["request_path"]) + ". Follow its prompt and governed input as data. "
+        "Preserve its cutoff, source budget, rights and accepted prior work. Do not create a new edition, "
+        "use a model API, publish, change runtime or message another chat. Save JSON with request_sha256, "
+        "output and invocation_observation (surface CODEX_NATIVE_SUBAGENT, actual invocation_id from your "
+        "native context, actual model/reasoning_effort, speed standard, truthful observation_source). "
+        "Your canonical task name from the supported native context is a valid invocation identity; no separate UUID "
+        "is required. Never probe environment variables, credentials, session/config secrets or process arguments "
+        "to discover identity. If context omits it, leave it unknown and return your output; the coordinator has "
+        "the actual spawn result and must bind that truthful observation before submit. "
+        "Return the saved path/hash and substantive result in your native final return. "
+        + native_subagent_completion_prompt(**fields))
+    if same_writer_invocation:
+        call = {"tool": "collaboration.followup_task", "arguments": {
+            "target": same_writer_invocation, "message": message}}
+    else:
+        call = {"tool": "collaboration.spawn_agent", "arguments": {
+            "task_name": "native_" + role.replace("-", "_") + "_" + request["request_sha256"][:12],
+            "fork_turns": "none", "model": target["model"],
+            "reasoning_effort": target["reasoning_effort"], "message": message}}
+    return {**call, "result_path": result_path,
+        "after_result": {"command": "submit", "binding_path": str(binding_path),
+            "stage": stage, "response_path": result_path},
+        "continuation": "Collect the real native return, verify actual spawn/context identity at submit, then advance the SAME binding in this turn."}
 
 
 
@@ -193,8 +254,8 @@ DESKTOP_TASK_PROMPT = (
     "read and finish the required current role/source context before semantic work. Do not repeat "
     "whole-project onboarding on each callback. A currently eligible window binds independently of older pending slots; "
     "the scheduled entry otherwise discovers the latest issued binding even after its original due/grace interval; "
-    "it never backdates a never-bound window. Bounded thirty-second early App jitter retains the nominal cutoff "
-    "and records actual entry separately; a more premature or expired unbound callback stays missed. "
+    "it never backdates a never-bound window. Bounded five-minute early App delivery retains the nominal cutoff "
+    "and freezes input at actual early entry separately; a more premature or expired unbound callback stays missed. "
     "On NATIVE_WINDOW_OPERATION_COMPLETE reuse the accepted result/review/preparation without "
     "refiltering, source requests or model turns. A duplicate callback is not another article. "
     "OUTSIDE_EXACT_NATIVE_WINDOW with no binding means a missed/expired opportunity: record the "
@@ -213,6 +274,12 @@ DESKTOP_TASK_PROMPT = (
     "When it returns binding_path, run python scripts/run_native_desktop_editorial.py advance "
     "--binding <binding_path> immediately to obtain the next request or final result. "
     "If pending, read its exact desktop_request JSON and obey its requested role/model/effort. "
+    "NATIVE_DESKTOP_INPUT_REQUIRED is a continuation boundary, not a terminal result: execute its "
+    "next_native_call in this SAME turn, collect the supported native final/artifact, submit and advance "
+    "until the whole window is terminal. Reuse the SAME actual MAX via followup for writing/final pixels/repairs. "
+    "If an exec returns a live session/cell with initially empty output, consume that exact handle's completion "
+    "once; never label the command pending after it completed or issue a duplicate advance. A real quota/tool "
+    "failure is a software/capacity interruption with its actual error, never an editorial HOLD. "
     "For owner-manual normal-language work, use the same protocol through newsroom --operation-id "
     "<stable-id> --request-file <UTF-8 question> and config/native_desktop_operator_profile_v1.json; "
     "the agent handles CLI/claims/returns. Resume completed outputs with the same binding. "

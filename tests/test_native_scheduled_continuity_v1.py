@@ -186,6 +186,7 @@ def test_2300_early_app_delivery_binds_nominal_identity_and_records_actual_clock
     result = schedule.scheduled_binding(rollout, "v1-newsroom-new-york-2300", now=moment)
     binding = json.loads(Path(result["binding_path"]).read_bytes())
     assert binding["cutoff_utc"] == "2026-10-27T16:00:00Z"
+    assert binding["input_known_at_cutoff_utc"] == moment.isoformat()
     store = ContentOpsDurableStore(Path(rollout["store_path"]), auto_migrate=False)
     checkpoint = schedule._latest_window(store, "new_york_2300_bangkok")
     assert checkpoint["actual_entry_utc"] == moment.isoformat()
@@ -195,9 +196,48 @@ def test_2300_early_app_delivery_binds_nominal_identity_and_records_actual_clock
 
 
 def test_delivery_before_bounded_jitter_does_not_manufacture_a_window(rollout, tmp_path):
-    result = schedule.scheduled_binding(rollout, "v1-newsroom-new-york-2300", now=at("2026-10-27T15:59:29Z"))
+    result = schedule.scheduled_binding(rollout, "v1-newsroom-new-york-2300", now=at("2026-10-27T15:54:59Z"))
     assert result["classification"] == "OUTSIDE_EXACT_NATIVE_WINDOW"
     assert not list(tmp_path.iterdir())
+
+
+@pytest.mark.parametrize("auto,old_time,early,nominal", [
+    ("v1-newsroom-london-1700", "2026-10-27T10:00:00Z", "2026-10-29T09:56:57Z", "2026-10-29T10:00:00Z"),
+    ("v1-newsroom-brief-us-1900", "2026-10-30T12:00:00Z", "2026-11-02T11:55:15Z", "2026-11-02T12:00:00Z"),
+])
+def test_observed_five_minute_early_callback_prefers_own_window_over_old_pending(rollout, auto, old_time, early, nominal):
+    old = schedule.scheduled_binding(rollout, auto, now=at(old_time))
+    old_path = Path(old["binding_path"])
+    old_bytes = old_path.read_bytes()
+    result = schedule.scheduled_binding(rollout, auto, now=at(early))
+    binding = json.loads(Path(result["binding_path"]).read_bytes())
+    assert result["resumed_existing_binding"] is False and result["run_id"] != old["run_id"]
+    assert binding["cutoff_utc"] == nominal and binding["input_known_at_cutoff_utc"] == at(early).isoformat()
+    assert result["actual_entry_utc"] == at(early).isoformat()
+    assert old_path.read_bytes() == old_bytes
+    again = schedule.scheduled_binding(rollout, auto, now=at(nominal))
+    assert again["binding_path"] == result["binding_path"]
+    assert json.loads(Path(again["binding_path"]).read_bytes()) == binding
+
+
+def test_early_input_excludes_later_captures_even_when_publication_precedes_cutoff(tmp_path):
+    from live_contentops.newsroom_assignment_scheduler_v1 import load_rolling_x_headline_sidecars
+    path = tmp_path / "sidecar.jsonl"
+    rows = [dict(headline_text="Controlled item " + str(i), tweet_id=str(i),
+        headline_timestamp="2026-10-29T09:50:00Z", **clocks) for i, clocks in enumerate([
+            {"captured_at_utc": "2026-10-29T09:55:00Z"},
+            {"captured_at_utc": "2026-10-29T09:57:00Z"}, {},
+            {"known_at_utc": "2026-10-29T09:58:00Z", "captured_at_utc": "2026-10-29T09:55:00Z"},
+            {"known_at_utc": "2026-10-29T09:55:00Z", "captured_at_utc": "2026-10-29T09:58:00Z"},
+            {"known_at_utc": "2026-10-29T09:55:00Z", "revision_at_utc": "2026-10-29T09:59:00Z"}])]
+    path.write_text("\n".join(json.dumps(r) for r in rows))
+    result = load_rolling_x_headline_sidecars(cutoff_utc="2026-10-29T09:56:57Z",
+        known_at_cutoff_utc="2026-10-29T09:56:57Z", sidecar_glob=str(path))
+    assert len(result["headlines"]) == 1
+    assert result["rejection_counts"]["known_after_input_cutoff"] == 4
+    assert result["rejection_counts"]["known_at_timestamp_unavailable"] == 1
+    unchanged = load_rolling_x_headline_sidecars(cutoff_utc="2026-10-29T09:56:57Z", sidecar_glob=str(path))
+    assert len(unchanged["headlines"]) == 6
 
 
 def test_controlled_next_production_day_all_four_sessions_bind_despite_prior_pending_slots(rollout):

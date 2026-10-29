@@ -100,6 +100,11 @@ def validate_binding(binding, *, read_or_prepare=False):
     for key in ("store_path", "output_dir", "feed_pointer_path", "published_memory_store", "published_memory_output_root"):
         if not Path(binding[key]).is_absolute():
             raise ValueError("ABSOLUTE_OPERATION_PATH_REQUIRED:" + key)
+    if binding.get("input_known_at_cutoff_utc"):
+        nominal = datetime.fromisoformat(binding["cutoff_utc"].replace("Z", "+00:00"))
+        observed = datetime.fromisoformat(binding["input_known_at_cutoff_utc"].replace("Z", "+00:00"))
+        if nominal.tzinfo is None or observed.tzinfo is None or not 0 <= (nominal - observed).total_seconds() <= 300:
+            raise ValueError("NATIVE_INPUT_KNOWN_AT_CUTOFF_INVALID")
     isolated = bool(binding.get("owner_manual_validation"))
     if isolated:
         for key in ("store_path", "output_dir"):
@@ -385,13 +390,16 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
                 from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
                 admitted_research = RetainedSourceResearch.from_frozen_snapshot(research)
         feed = MainReportFeed(LatestReportDeliveryTracker(store), pointer, retained_research=admitted_research)
-        kwargs = {"output_dir": str(root), "cutoff_utc": binding["cutoff_utc"],
+        kwargs = {"output_dir": str(root),
+                  "cutoff_utc": binding.get("input_known_at_cutoff_utc", binding["cutoff_utc"]),
                   "run_id": binding["run_id"], "published_memory": memory, "llm_invoke": turn,
                   "attempted_candidate_ids": binding.get("attempted_candidate_ids", [])}
         if binding.get("editorial_request"):
             kwargs["editorial_request"] = binding["editorial_request"]
         if binding.get("rolling_input_path"):
             kwargs["rolling_input"] = json.loads(Path(binding["rolling_input_path"]).read_bytes())
+        if binding.get("input_known_at_cutoff_utc"):
+            kwargs["known_at_cutoff_utc"] = binding["input_known_at_cutoff_utc"]
         try:
             result = feed.opportunity(**kwargs)
         except DesktopInputRequired as pending:
@@ -412,6 +420,27 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
 
 def operation(binding, **kwargs):
     result = _operation(binding, **kwargs)
+    if result.get("classification") == "NATIVE_DESKTOP_INPUT_REQUIRED":
+        request = json.loads(resolve_workspace_path(result["request_path"]).read_bytes())
+        if request["stage"] != result["stage"] or request["request_sha256"] != result["request_sha256"]:
+            raise ValueError("EXACT_PENDING_NATIVE_REQUEST_REQUIRED")
+        root = resolve_workspace_path(binding["output_dir"])
+        binding_path = root / ("native_operation_binding.json" if binding.get("automation_id") else "binding.json")
+        if not request.get("requested_model"):
+            result["next_command"] = {"command": "media-plan", "binding_path": str(binding_path)}
+        else:
+            from live_contentops.codex_desktop_newsroom_operator_v1 import native_role_call
+            from live_contentops.native_desktop_editorial_v1 import native_role
+            turn = NativeDesktopTurn(ContentOpsDurableStore(binding["store_path"], auto_migrate=False),
+                run_id=binding["run_id"], output_dir=binding["output_dir"],
+                owner_manual_validation=binding.get("owner_manual_validation", False))
+            same_writer = None
+            if native_role(request["stage"]) in {"write", "revise", "final-visual", "visual-edit"}:
+                prior = turn._get("write", "response") or turn.visual_response()
+                if prior:
+                    same_writer = prior["invocation_observation"]["invocation_id"]
+            result["next_native_call"] = native_role_call({**request, "request_path": result["request_path"]},
+                binding, binding_path=binding_path, same_writer_invocation=same_writer)
     from live_contentops.native_newsroom_volume_v1 import bound_volume_policy, persist_native_day_measurement
     if (bound_volume_policy(binding) and binding.get("window_id")
             and kwargs.get("command", "advance") not in {"status", "publication-status", "context"}):

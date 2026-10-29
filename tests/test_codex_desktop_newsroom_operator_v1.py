@@ -859,6 +859,40 @@ def test_child_handoff_rejects_missing_routing_or_result_identity(missing):
         native_subagent_completion_prompt(**{**fields, "parent_thread_id": "Newsroom Builder"})
 
 
+def test_scheduled_role_can_be_bound_before_spawn_without_goal_parent_or_invocation():
+    fields = dict(operation_id="issued-run", assignment_id="issued-run:select",
+        result_path="A:/existing/response.json", expected_return="select:" + "a" * 64,
+        automation_id="v1-newsroom-london-1700", window_id="issued-window",
+        binding_path="A:/existing/native_operation_binding.json")
+    prompt = native_subagent_completion_prompt(**fields)
+    bound, _ = json.JSONDecoder().raw_decode(prompt.split("EXACT CHILD ASSIGNMENT:\n", 1)[1])
+    assert bound == fields
+    assert "AFTER spawn" in prompt
+    with pytest.raises(ValueError, match="EXACT_SCHEDULED_NATIVE_BINDING_REQUIRED"):
+        native_subagent_completion_prompt(**{**fields, "window_id": None})
+
+
+def test_pending_native_call_uses_exact_role_and_same_max_continuation(tmp_path):
+    from live_contentops.codex_desktop_newsroom_operator_v1 import native_role_call
+    binding = dict(run_id="issued-run", output_dir=str(tmp_path), automation_id="v1-newsroom-london-1700",
+        window_id="issued-window")
+    request = dict(stage="filter-" + "a" * 64, run_id="issued-run", request_sha256="b" * 64,
+        request_path=str(tmp_path / "request.json"), requested_model="gpt-6-luna", requested_reasoning_effort="max")
+    first = native_role_call(request, binding, binding_path=tmp_path / "binding.json")
+    assert first["tool"] == "collaboration.spawn_agent"
+    assert first["arguments"]["model"] == "gpt-6-luna" and first["arguments"]["reasoning_effort"] == "max"
+    assert first["after_result"]["stage"] == request["stage"]
+    assert '"native_invocation_id"' not in first["arguments"]["message"]
+    writer = {**request, "stage": "revise", "requested_model": "gpt-6.1-sol"}
+    with pytest.raises(ValueError, match="ACTUAL_SAME_MAX_CONTINUATION_ID_REQUIRED"):
+        native_role_call(writer, binding, binding_path="binding.json")
+    continued = native_role_call(writer, binding, binding_path="binding.json", same_writer_invocation="/root/actual_max")
+    assert continued["tool"] == "collaboration.followup_task"
+    assert continued["arguments"]["target"] == "/root/actual_max"
+    with pytest.raises(ValueError, match="EXACT_NATIVE_ROLE_REQUEST_REQUIRED"):
+        native_role_call({**request, "requested_model": "gpt-6.1-sol"}, binding, binding_path="binding.json")
+
+
 def test_rollout_preserves_exact_four_generated_child_completion_prompts():
     rollout = json.loads((Path(__file__).resolve().parents[1] / "config/native_desktop_rollout_v1.json").read_bytes())
     intended = {t["id"]: t for t in four_task_setup_packet()["tasks"]}

@@ -41,7 +41,6 @@ def test_owner_request_resumes_frozen_binding_and_cannot_redirect(tmp_path):
 
 
 def test_repeated_identical_source_failure_preserves_each_attempt(tmp_path, monkeypatch):
-    from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired
     module = entry()
     profile = {"schema_version": "contentops.native_desktop_operator_profile.v1",
                "editorial_output_root": str(tmp_path / "articles"),
@@ -58,7 +57,9 @@ def test_repeated_identical_source_failure_preserves_each_attempt(tmp_path, monk
             assert retained_research is None  # This controlled operation has no admitted snapshot yet.
 
         def opportunity(self, **kwargs):
-            raise DesktopInputRequired({"stage": "select", "request_path": "controlled", "request_sha256": "controlled"})
+            return kwargs["llm_invoke"](logical_invocation_id="repeat-failure:select",
+                prompt="Controlled pending request", governed_input={},
+                validator=lambda raw: (True, None, json.loads(raw), None))
 
     monkeypatch.setattr(module, "MainReportFeed", PendingFeed)
     monkeypatch.setattr(module, "load_canonical_published_memory_read_only", lambda **kwargs: ([], {}))
@@ -70,6 +71,47 @@ def test_repeated_identical_source_failure_preserves_each_attempt(tmp_path, monk
     history = root / "blocked-attempts"
     assert sorted(p.read_bytes() for p in history.rglob("simple_gemini_evidence_v1.json")) == [b"first empty pack", b"second empty pack"]
     assert [p.read_bytes() for p in history.rglob("simple_gemini_newsroom_receipt_v1.json")] == [receipt, receipt]
+
+
+def test_real_pending_cli_role_exposes_spawn_then_accepts_actual_result_and_advances(tmp_path, monkeypatch):
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    module = entry()
+    profile = {"schema_version": "contentops.native_desktop_operator_profile.v1",
+        "editorial_output_root": str(tmp_path / "articles"),
+        **{k: str(tmp_path / k) for k in ("store_path", "feed_pointer_path", "published_memory_store", "published_memory_output_root")}}
+    Path(profile["feed_pointer_path"]).write_text("{}")
+    _, binding = module.resolve_owner_operation(profile, operation_id="early-control", request="Controlled native seam")
+    binding.update(cutoff_utc="2026-10-29T10:00:00Z", input_known_at_cutoff_utc="2026-10-29T09:56:57+00:00")
+
+    class ControlledFeed:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def opportunity(self, **kwargs):
+            assert kwargs["cutoff_utc"] == kwargs["known_at_cutoff_utc"] == binding["input_known_at_cutoff_utc"]
+            output, _ = kwargs["llm_invoke"](logical_invocation_id="early-control:select",
+                prompt="Controlled exact response", governed_input={"controlled": True},
+                validator=lambda raw: (True, None, json.loads(raw), None))
+            return {"classification": "CONTROLLED_TERMINAL", "qualified_article_count": 0, "controlled_output": output}
+
+    monkeypatch.setattr(module, "MainReportFeed", ControlledFeed)
+    monkeypatch.setattr(module, "load_canonical_published_memory_read_only", lambda **kwargs: ([], {}))
+    pending = module.operation(binding)
+    call = pending["next_native_call"]
+    assert call["tool"] == "collaboration.spawn_agent"
+    assert call["arguments"]["model"] == "gpt-6.1-sol" and call["arguments"]["reasoning_effort"] == "low"
+    request = json.loads(Path(pending["request_path"]).read_bytes())
+    response = {"request_sha256": request["request_sha256"], "output": {"controlled": "done"},
+        "invocation_observation": {"surface": "CODEX_NATIVE_SUBAGENT", "model": "gpt-6.1-sol",
+            "reasoning_effort": "low", "invocation_id": None, "observation_source": "CONTROLLED_TEST_NOT_REAL_SPAWN"}}
+    turn = NativeDesktopTurn(ContentOpsDurableStore(binding["store_path"]), run_id=binding["run_id"], output_dir=binding["output_dir"])
+    with pytest.raises(ValueError, match="INVOCATION_OBSERVATION_REQUIRED"):
+        turn.submit("select", response)
+    response["invocation_observation"]["invocation_id"] = "/root/controlled_native_test"
+    module.operation(binding, command="submit", stage="select", response=response)
+    assert module.operation(binding)["classification"] == "CONTROLLED_TERMINAL"
+    assert binding["cutoff_utc"] == "2026-10-29T10:00:00Z"
 
 
 def test_identical_first_fact_does_not_collapse_distinct_main_reports():

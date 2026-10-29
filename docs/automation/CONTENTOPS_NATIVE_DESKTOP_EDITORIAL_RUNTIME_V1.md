@@ -66,12 +66,21 @@ Keep four existing ACTIVE calendars/project/preferences/native roles. Their prom
 
 Current CO-1 admission correction: a due window takes priority over an older unfinished
 slot of the same session; the older binding remains available for explicit recovery.
-App delivery up to thirty seconds before the nominal calendar second can bind that
+App delivery up to five minutes before the nominal calendar time can bind that
 same window, retaining its nominal cutoff and recording actual entry and early seconds.
-This fixes the observed 23:00 callback jitter; it does not backfill a missed historical
+An early new binding also freezes its input-known-at cutoff at that actual entry;
+later captures and missing capture clocks cannot enter that frozen intake as already known.
+This covers the observed London and US-brief early deliveries; it does not backfill a missed historical
 window, shift a source cutoff or infer future source facts. Later-than-grace and more
 premature unbound callbacks remain ineligible. Prompt updates happen between windows;
 an issued window retains its original rollout hash and frozen native requests.
+At a pending native stage the CLI returns the exact spawn/follow-up call. Execute it,
+collect the real native final/artifact, submit at the unchanged provenance gate and
+advance the same binding in the same turn. New children need no invocation ID before
+spawn, separate engineering goal or fabricated parent UUID. Reuse the same MAX for
+prose, final rendered inspection and repair. Consume an initially empty exec's exact
+live handle to completion once; never issue a duplicate advance or call a completed
+command pending. Quota and platform failures retain their actual process cause.
 Terminal pre-writer outcomes use the existing outbox/final owner, need no media and
 resume idempotently with the same used source budget. Source/rights/editorial/staleness
 and software/process causes stay explicit. A next admitted cached route is retained;

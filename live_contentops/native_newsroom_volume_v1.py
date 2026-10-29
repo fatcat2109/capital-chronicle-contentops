@@ -139,7 +139,7 @@ def configure_volume_turn(turn, binding):
         request, response = native_selection(turn.store, origin)
         if not request or not response or response["request_sha256"] != request["request_sha256"]:
             raise ValueError("EXACT_PRIOR_NATIVE_SELECTION_REQUIRED")
-        if request["governed_input"]["cutoff_utc"] != binding["cutoff_utc"]:
+        if request["governed_input"]["cutoff_utc"] != binding.get("input_known_at_cutoff_utc", binding["cutoff_utc"]):
             raise ValueError("CROSS_WINDOW_SELECTION_REUSE_FORBIDDEN")
         turn.inherited_selection = {"origin_run_id": origin, "request": request, "response": response,
             "excluded_candidate_ids": sorted(set(binding.get("attempted_candidate_ids", [])))}

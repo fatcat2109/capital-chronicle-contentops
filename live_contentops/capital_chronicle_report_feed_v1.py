@@ -508,6 +508,7 @@ class MainReportFeed:
         source_route_health=None,
         attempted_candidate_ids=(),
         editorial_request=None,
+        known_at_cutoff_utc=None,
     ) -> dict[str, Any]:
         """One existing newsroom slot; all reports compete with normal news in one Simple call."""
         input_key = "native-current-input-" + sha256_of(run_id)
@@ -559,6 +560,8 @@ class MainReportFeed:
             b"".join(canonical_bytes(row) + b"\n" for row in export["rows"])
         )
         pending = frozen_input["reports"] if frozen_input else self.pending(include_controlled=llm_invoke is not None)
+        if known_at_cutoff_utc is not None and not frozen_input:
+            pending = [r for r in pending if _time(r["known_at_cutoff_utc"]) <= _time(known_at_cutoff_utc)]
         previous = self.tracker.store.get_outbox_message(
             "cc-editorial-final-" + sha256_of(run_id)
         )
@@ -603,7 +606,8 @@ class MainReportFeed:
                 load_rolling_x_headline_sidecars,
             )
 
-            rolling_input = load_rolling_x_headline_sidecars(cutoff_utc=cutoff_utc)
+            rolling_input = load_rolling_x_headline_sidecars(cutoff_utc=cutoff_utc,
+                **({"known_at_cutoff_utc": known_at_cutoff_utc} if known_at_cutoff_utc is not None else {}))
         if not frozen_input:
             review_ids = self.pointer.get("source_review_ids", [])
             reviews = [json.loads(self.tracker.store.get_outbox_message(k)["payload"]) for k in review_ids]
@@ -614,6 +618,8 @@ class MainReportFeed:
                 "source_review_ids": review_ids,
                 "source_requests_before_writer_freeze": sum(len(s["source_attempts"]) for s in reviews),
                 "public_write_performed": False}
+            if known_at_cutoff_utc is not None:
+                frozen_input["input_known_at_cutoff_utc"] = known_at_cutoff_utc
             _persist(self.tracker.store, input_key, frozen_input, "internal:native-current-input")
         if self.retained_research and not pool:
             from live_contentops.contentops_foundation_library_v1 import library_projection
