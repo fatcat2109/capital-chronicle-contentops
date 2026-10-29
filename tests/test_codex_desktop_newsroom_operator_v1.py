@@ -877,7 +877,8 @@ def test_pending_native_call_uses_exact_role_and_same_max_continuation(tmp_path)
     binding = dict(run_id="issued-run", output_dir=str(tmp_path), automation_id="v1-newsroom-london-1700",
         window_id="issued-window")
     request = dict(stage="filter-" + "a" * 64, run_id="issued-run", request_sha256="b" * 64,
-        request_path=str(tmp_path / "request.json"), requested_model="gpt-6-luna", requested_reasoning_effort="max")
+        request_path=str(tmp_path / "request.json"), requested_model="gpt-6-luna", requested_reasoning_effort="max",
+        prompt="Complete exact relevance decisions\nGOVERNED_INPUT:\nretained full rows",governed_input={"records":[]})
     first = native_role_call(request, binding, binding_path=tmp_path / "binding.json")
     assert first["tool"] == "collaboration.spawn_agent"
     assert first["arguments"]["model"] == "gpt-6-luna" and first["arguments"]["reasoning_effort"] == "max"
@@ -891,6 +892,24 @@ def test_pending_native_call_uses_exact_role_and_same_max_continuation(tmp_path)
     assert continued["arguments"]["target"] == "/root/actual_max"
     with pytest.raises(ValueError, match="EXACT_NATIVE_ROLE_REQUEST_REQUIRED"):
         native_role_call({**request, "requested_model": "gpt-6.1-sol"}, binding, binding_path="binding.json")
+
+
+def test_compact_filter_packet_preserves_complete_headline_and_exact_input_binding(tmp_path):
+    from live_contentops.codex_desktop_newsroom_operator_v1 import native_role_call
+    text="Complete attributed headline "*100
+    original={"headline_id":"exact-headline","source_timestamp_utc":"2026-10-29T10:00:00Z",
+        "correction_of":"prior-headline","external_content":{"headline_text":text,"author_handle":"official",
+            "url_or_source_ref":"https://x.com/official/status/123","canonical_x_list_provenance":{"large":"metadata"*100}}}
+    request={"stage":"filter-"+"a"*64,"run_id":"run","request_sha256":"b"*64,"request_path":"original-request.json",
+        "requested_model":"gpt-6-luna","requested_reasoning_effort":"max","prompt":"Judge every record\nGOVERNED_INPUT:\n"+json.dumps(original),
+        "governed_input":{"records":[{"input_sha256":"c"*64,"original_record":original}]}}
+    native_role_call(request,{"run_id":"run","output_dir":str(tmp_path)},binding_path="binding.json")
+    compact=json.loads(next(tmp_path.glob('native_role_input_*.json')).read_bytes())
+    item=compact["governed_input"]["records"][0]
+    assert item["input_sha256"]=="c"*64 and compact["request_sha256"]=="b"*64
+    assert item["original_record"]["external_content"]["headline_text"]==text
+    assert item["original_record"]["correction_of"]=="prior-headline"
+    assert request["governed_input"]["records"][0]["original_record"]==original
 
 
 def test_rollout_preserves_exact_four_generated_child_completion_prompts():

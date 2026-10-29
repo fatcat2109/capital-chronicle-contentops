@@ -81,7 +81,8 @@ def test_real_pending_cli_role_exposes_spawn_then_accepts_actual_result_and_adva
         "editorial_output_root": str(tmp_path / "articles"),
         **{k: str(tmp_path / k) for k in ("store_path", "feed_pointer_path", "published_memory_store", "published_memory_output_root")}}
     Path(profile["feed_pointer_path"]).write_text("{}")
-    _, binding = module.resolve_owner_operation(profile, operation_id="early-control", request="Controlled native seam")
+    _, binding = module.resolve_owner_operation(profile, operation_id="early-control", request="Controlled native seam",
+        now=datetime(2026,10,29,10,tzinfo=timezone.utc))
     binding.update(cutoff_utc="2026-10-29T10:00:00Z", input_known_at_cutoff_utc="2026-10-29T09:56:57+00:00")
 
     class ControlledFeed:

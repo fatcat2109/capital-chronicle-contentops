@@ -60,6 +60,24 @@ def test_all_backlog_beyond_32_resume_and_correction_only(tmp_path):
     assert corrected["seen"] == 65
 
 
+def test_three_frozen_batches_ready_together_and_all_returns_still_required(tmp_path):
+    turn=_turn(tmp_path)
+    with pytest.raises(DesktopInputRequired) as first:
+        turn.filter_headlines(_rows(97))
+    requests=first.value.request["parallel_requests"]
+    assert len(requests)==3 and first.value.request["filter_progress"]["remaining_unprocessed"]==97
+    for request in reversed(requests):
+        _answer(turn,request)
+    with pytest.raises(DesktopInputRequired) as next_batch:
+        turn.filter_headlines(_rows(97))
+    assert next_batch.value.request["filter_progress"]["accepted_records"]==72
+    assert next_batch.value.request["filter_progress"]["remaining_unprocessed"]==25
+    for request in next_batch.value.request["parallel_requests"]:
+        _answer(turn,request)
+    (_,receipt),requests=_finish(turn,_rows(97))
+    assert requests==[] and receipt["seen"]==97 and receipt["remaining_unprocessed"]==0
+
+
 def test_role_model_effort_fail_closed(tmp_path):
     turn = _turn(tmp_path)
     with pytest.raises(DesktopInputRequired) as pending:

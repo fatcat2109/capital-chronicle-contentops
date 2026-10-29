@@ -66,6 +66,78 @@ def test_candidate_hold_cannot_finish_an_eligible_window(window):
     assert not store.get_outbox_message(schedule._window_result_key(binding))
 
 
+def pending_role(window):
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn,DesktopInputRequired
+    store,_,_,binding=window
+    work="cc-opportunity-"+sha256_of(binding["run_id"])
+    store.create_work_item(story_id=work,work_item_id=work,title="Controlled pending role",target_surface="TEST")
+    turn=NativeDesktopTurn(store,run_id=binding["run_id"],output_dir=binding["output_dir"],owner_manual_validation=True)
+    with pytest.raises(DesktopInputRequired) as pending:
+        turn(logical_invocation_id=binding["run_id"]+":select",prompt="Controlled role",governed_input={},validator=lambda raw:None)
+    return turn,pending.value.request
+
+
+def test_expired_stopped_process_saves_real_window_result_without_native_return(window,tmp_path):
+    store,rollout,entry,binding=window
+    turn,request=pending_role(window)
+    path=tmp_path/"observed-stop.json"
+    evidence={"run_id":binding["run_id"],"turn_status":"completed","active_native_role":False,
+        "source_thread_id":"CONTROLLED_TEST_THREAD","source_turn_id":"CONTROLLED_TEST_TURN",
+        "observation_source":"CONTROLLED_TEST_NOT_LIVE_THREAD","pending_stage":"select",
+        "pending_request_sha256":request["request_sha256"]}
+    path.write_text(json.dumps(evidence))
+    response={"artifact_path":str(path),"outcome":"PROCESS_FAILURE","first_cause":"COORDINATOR_STOPPED_WITH_EXECUTABLE_STAGE",
+        "reason":"Controlled completed coordinator left a request unassigned. No quota or tool error was recorded.","startup_result":entry}
+    with pytest.raises(ValueError,match="EXPIRED_EXACT_LAST_WINDOW_REQUIRED"):
+        schedule.close_expired_window(store,rollout,binding,response,now=at("2026-10-29T10:15:00Z"))
+    result=schedule.close_expired_window(store,rollout,binding,response,now=at("2026-10-29T13:15:00Z"))
+    assert result["classification"]=="WINDOW_RESULT_SAVED"
+    assert result["terminal_result"]["outcome"]=="TERMINAL_PROCESS_FAILURE"
+    assert result["terminal_result"]["canonical_items"]==[]
+    assert turn._get("select","response") is None
+    assert turn.frozen_request("select")["request_sha256"]==request["request_sha256"]
+    assert schedule.close_expired_window(store,rollout,binding,response,now=at("2026-10-29T13:16:00Z"))["reason"]=="RESULT_ALREADY_SAVED"
+
+
+def test_real_blocker_dedupes_in_existing_window_and_records_one_actual_send(window,tmp_path):
+    store,_,_,binding=window
+    turn,request=pending_role(window)
+    path=tmp_path/"failure.json"
+    path.write_text(json.dumps({"run_id":binding["run_id"],"observation_source":"CONTROLLED_TEST"}))
+    response={"stage":"select","request_sha256":request["request_sha256"],"first_cause":"NATIVE_PLATFORM_UNAVAILABLE",
+        "blocker":"Controlled native result transport unavailable","unable_to_continue":True,"active_native_role":False,
+        "smallest_next_action":"Restore the supported native return tool","responsible_owner":"L2 platform owner",
+        "artifact_path":str(path),"delivered":"Input frozen, no model result"}
+    result=schedule.window_blocked_notice(store,binding,response)
+    assert result["classification"]=="WINDOW_BLOCKED_SAVED"
+    assert not schedule._window_result_path(binding).exists()
+    same=schedule.window_blocked_notice(store,binding,{**response,"blocker":"Same blocker with clearer explanation"})
+    assert same["reason"]=="BLOCKER_ALREADY_SAVED"
+    ref={"blocker_id":result["blocker_id"]}
+    started=schedule.window_blocked_notice(store,binding,ref,begin=True)
+    assert started["arguments"]["threadId"]==schedule.WINDOW_REPORT_L2
+    assert "BLOCKED" in started["arguments"]["prompt"] and "not a terminal" in started["arguments"]["prompt"]
+    assert schedule.window_blocked_notice(store,binding,ref,begin=True)["reason"]=="ATTEMPT_STARTED"
+    actual={"isError":False,"content":[{"type":"text","text":json.dumps({"threadId":schedule.WINDOW_REPORT_L2})}]}
+    assert schedule.window_blocked_notice(store,binding,{**ref,"tool_result":actual},record=True)["classification"]=="WINDOW_BLOCKED_DELIVERED"
+    assert schedule.window_blocked_notice(store,binding,ref,begin=True)["reason"]=="DELIVERED"
+    assert turn._get("select","response") is None
+    other=schedule.window_blocked_notice(store,binding,{**response,"first_cause":"OTHER_LANE"})
+    assert other["classification"]=="WINDOW_BLOCKED_SAVED" and other["blocker_id"]!=ref["blocker_id"]
+
+
+@pytest.mark.parametrize("kind",["QUOTA","TURN_END","GUARD","DUPLICATE","EARLY"])
+def test_blocked_owner_suppresses_nonactionable_interruptions(window,kind):
+    store,_,_,binding=window
+    assert schedule.window_blocked_notice(store,binding,{"interruption_kind":kind})["classification"]=="WINDOW_BLOCKED_SUPPRESSED"
+
+
+def test_functioning_pending_child_cannot_become_blocked(window):
+    store,_,_,binding=window
+    with pytest.raises(ValueError,match="GENUINE_BLOCKED_WINDOW_EVIDENCE_REQUIRED"):
+        schedule.window_blocked_notice(store,binding,{"active_native_role":True,"unable_to_continue":False})
+
+
 def test_one_saved_aggregate_precedes_tool_attempt_and_success_deduplicates(window):
     data=finish_window(window)
     store,rollout,entry,binding=data

@@ -1042,6 +1042,11 @@ class DurablePublicationCoordinator:
             not in _PUBLICATION_CONFIRMED_RECONCILIATIONS
         ):
             return False
+        object_id = str(outcome.get("public_object_id") or "")
+        if object_id.lower().startswith(("tweet_", "local_", "synthetic_", "dispatch_")):
+            return False
+        if outcome.get("publication_confirmed") is False or outcome.get("readback_verified") is False:
+            return False
         if destination == "substack":
             return bool(
                 outcome.get("reconciliation_status") == RECONCILED_CONFIRMED

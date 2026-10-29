@@ -64,6 +64,32 @@ Keep four existing ACTIVE calendars/project/preferences/native roles. Their prom
 
 ## Historical pre-live application and mechanics
 
+Jim's30October continuous-work amendment distinguishes a terminal result from a real
+BLOCKED notice. `window-blocked` saves an exact observed inability to continue in the
+existing window record; begin/record fence one native L2/local send per distinct blocker.
+Quota/turn-end/guard/duplicate interruptions and functioning pending children stay silent.
+The original terminal owner is unchanged for genuine completed windows. Expired stopped
+operations use `window-close` with actual turn/stage evidence; pending native requests
+remain unaccepted, historical results survive, and their process failure is counted
+separately from healthy output. No new notification ledger, service or schedule exists.
+
+The observed01:00 stall completed96 of1,535 frozen headlines in four serial batches,
+then ended with an actionable fifth request and no recorded quota/tool failure. Pending
+CLI results now prepare up to three independent24-record Luna batches concurrently,
+with exact compact role views. Complete headline text/source/correction context remains;
+full records and request hashes stay frozen. Reuse every accepted result and continue
+until all records are judged; no four-batch cap or truncation to selected headlines.
+These repairs are not proof of three consecutive days of natural scheduled operation.
+
+Jim's standalone-task handoff instruction also covers current `newsroom`, `follow-up`
+and `editorial-revision` task chats outside L1/L2/L3. Their `task-result` and
+`task-notice-begin/record` commands reuse this same result/outbox/fenced sender. Save
+the actual source chat/session, times, outcome, first cause, evidence and next actor.
+`task-blocked` retains a distinct cause in that existing run record; later terminal
+completion has its own fence. Native children still return inside the operation.
+Daily App run-now remains a deterministic API without a native chat-tool hook, explicitly
+UNSUPPORTED_IN_DETERMINISTIC_API_NO_NATIVE_CHAT_TOOL. No script bridge is installed.
+
 Current CO-1 admission correction: a due window takes priority over an older unfinished
 slot of the same session; the older binding remains available for explicit recovery.
 App delivery up to five minutes before the nominal calendar time can bind that

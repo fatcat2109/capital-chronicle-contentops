@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "result_location": "LOCALAPPDATA/CapitalChronicle/ProviderReadOnly/w1082-contentops/results/release-components.json",
+  "result_file_sha256": "dc23bbb0b477298db49fc02f5ef500ce583fbdd428804f2aa67821e907888548",
+  "provider": "6cd770e468d92bd3a88e788f3b49b16d5d7c837301d4811611f6e8cfa5e49911",
+  "projection": "6d70e1c0f640cc932d98aa0869b320cfac9bc9ee29e3459f5838b2f45ead0c39",
+  "consumer_observed_at_utc": "2026-10-29T20:02:20.946547+00:00"
+}

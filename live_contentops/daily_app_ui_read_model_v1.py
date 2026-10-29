@@ -1886,6 +1886,7 @@ def request_operator_cycle(
         }
     return {
         "status": "NATIVE_DESKTOP_CONVERSATION_REQUIRED",
+        "standalone_handoff_delivery": "UNSUPPORTED_IN_DETERMINISTIC_API_NO_NATIVE_CHAT_TOOL",
         "governed_cycle_requested": False,
         "operating_mode": mode,
         "publication_claimed": False,

@@ -70,15 +70,47 @@ that supplies the four prepared task prompts, starting from the manual binding i
 Only the seven existing scheduled App task chats use Jim's 29 October terminal-window
 reporting exception. Preserve their exact initial `scheduled` result in task memory and
 saved JSON, finish all eligible candidates/slots, then call `window-result` with the last
-binding/rollout and a response containing `startup_result`. After WINDOW_RESULT_SAVED,
+binding/rollout and a response containing `startup_result` and actual `source_context`
+(source thread/session and turn identity when observed; preserve unknowns). Include actual
+entry/finish times, outcome, first cause, evidence and next actor in the handoff. After WINDOW_RESULT_SAVED,
 `window-notice-begin` returns one native send_message_to_thread call to L2 ContentOps
 `01a1657e-f5d0-76a1-b52b-ec6c78b6fe35`, host `local`. Execute once, save the actual tool
 response and pass it to `window-notice-record`; never retry an attempted/failed send.
 The existing result/outbox dedupes it. NOT_YET_EFFECTIVE, stale/duplicate, partial,
 unfinished-child, unchanged-progress and quota callbacks send nothing. A candidate HOLD
 is not a whole-window result while admitted work remains. Keep the brief date guard.
+Under Jim's30October CONTINUOUS WORK amendment, a genuine future-event, other-lane,
+owner-decision or unresolved software/platform blocker uses the existing `window-blocked`
+owner. Save exact run/stage/request/first-cause evidence, delivered work, smallest next
+action and responsible owner; then `window-blocked-begin` fences one native send to the
+same L2/local target and `window-blocked-record` saves its actual tool result. Each
+distinct blocker is deduped inside the existing window checkpoint. This is never a
+terminal completion. Quota, turn-end, guards/early/duplicates and a functioning pending
+child send no blocked notice. Continue all executable work, without a fixed batch count.
+When `next_native_calls` contains independent Luna requests, use at most three concurrent
+roles, collect/submit all real returns, then advance the same binding. Compact role
+packets keep complete headline/source/correction context and exact full-request hashes.
+Do not re-run an expired process-disposed window; `window-close` requires actual stopped
+operation evidence and saves a typed process failure, preserving unanswered requests and
+accepted native history without pretending to have completed their filtering.
 This scheduled-task rule does not apply to manual work or native children; the engineering
 Builder still sends only its genuine whole-goal completion notice. Claude remains Jim-triggered.
+
+For CURRENT standalone triggered task chats outside L1/L2/L3, the `newsroom`, `follow-up`
+and `editorial-revision` entries use the SAME reporting owner through `task-result`.
+Supply the exact binding and a response with `entry_path`, actual `source_context`
+(`source_role:STANDALONE_TASK`, source thread/turn), `actual_entry_gmt7`, `next_action`
+and `next_actor`. A saved terminal result precedes `task-notice-begin`; execute its one
+supported native L2/local send and record the ACTUAL return with `task-notice-record`.
+Genuine blocking uses `task-blocked`, `task-blocked-begin` and `task-blocked-record`.
+The distinct blocked notice never fences a later real terminal handoff. Existing run
+outbox records hold both outcomes; no second notification ledger or retry loop exists.
+This exception does not turn an engineering Builder article slice into goal completion.
+The Daily App run-now API (`daily_app_ui_read_model_v1.request_operator_cycle`) has no
+native conversation/chat tool hook: it returns NATIVE_DESKTOP_CONVERSATION_REQUIRED
+and UNSUPPORTED_IN_DETERMINISTIC_API_NO_NATIVE_CHAT_TOOL. Keep that exact limitation;
+scripts cannot send a chat message by assertion. Retained `news-read`/`news-export`/desk
+views are read-only views, not independent task runs or new notification sources.
 
 Run the actual assigned native roles: only new admissible X records need Luna MAX;
 Sol6.1 low selects the angle/mode and evidence plan; Sol6.1 max writes canonical prose/SEO

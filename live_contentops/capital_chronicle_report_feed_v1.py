@@ -178,6 +178,15 @@ class MainReportFeed:
         if not hasattr(self.source, "refresh") and not 0 < len(pointer.get("bundles", [])) <= 64:
             raise LatestReportConsumerError("MAIN_FEED_BUNDLE_BOUND_INVALID")
 
+    def _attach_official_release_facts(self):
+        if self.retained_research is None:
+            return
+        from live_contentops.contentops_official_release_intake_v1 import attach_official_release_facts
+        try:
+            attach_official_release_facts(self.retained_research)
+        except (OSError,ValueError,KeyError,TypeError) as exc:
+            self.retained_research.gaps.append({"state":"GOVERNED_OFFICIAL_RELEASE_INPUT_UNAVAILABLE","cause":str(exc)})
+
     def refresh_research_library(self, *, cutoff_utc):
         if self.retained_research is None:
             return None
@@ -522,6 +531,7 @@ class MainReportFeed:
             from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
             try:
                 self.retained_research = RetainedSourceResearch(self.pointer["research_root"], editions_root=self.pointer.get("research_editions_root"))
+                self._attach_official_release_facts()
                 self.research_error = None
             except (OSError, ValueError, KeyError, TypeError):
                 # Do not turn an unavailable configured evidence index into a

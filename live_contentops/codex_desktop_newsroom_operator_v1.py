@@ -188,6 +188,31 @@ def native_role_call(request, binding, *, binding_path, same_writer_invocation=N
     if (role in {"revise", "final-visual"} or stage == "visual-edit-amend") and not same_writer_invocation:
         raise ValueError("ACTUAL_SAME_MAX_CONTINUATION_ID_REQUIRED")
     result_path = str(Path(binding["output_dir"]) / ("desktop_response_" + stage + ".json"))
+    role_input_path = request["request_path"]
+    if role == "filter":
+        # Relevance needs the complete headline, source and correction context,
+        # not repeated capture/permission ledgers. Exact full rows remain frozen
+        # under each input hash in the original request and submit contract.
+        records = []
+        for item in request["governed_input"]["records"]:
+            original = item["original_record"]
+            fields = {k:v for k,v in original.items() if k in {
+                "headline_id","headline_text","source_timestamp_utc","known_at_utc","source_identity",
+                "source_account","source_url","source_platform","correction_of","supersedes_headline_id",
+                "update_chain_identity","revision_id","revision_at_utc","rights_state","trust_classification"}}
+            ext = original.get("external_content") or {}
+            fields["external_content"] = {k:v for k,v in ext.items() if k in {
+                "headline_text","author_handle","source_platform","url_or_source_ref","tags","official_source_urls"}}
+            records.append({"input_sha256":item["input_sha256"],"original_record":fields})
+        compact = {"stage":stage,"run_id":binding["run_id"],"request_sha256":request["request_sha256"],
+            "original_request_path":request["request_path"],"requested_model":target["model"],
+            "requested_reasoning_effort":target["reasoning_effort"],
+            "prompt":request["prompt"].split("\nGOVERNED_INPUT:\n",1)[0],
+            "governed_input":{**{k:v for k,v in request["governed_input"].items() if k != "records"},"records":records},
+            "view_scope":"COMPLETE_HEADLINES_AND_SOURCE_CONTEXT_EXACT_FULL_RECORDS_RETAINED_BY_INPUT_SHA256"}
+        path = Path(binding["output_dir"]) / ("native_role_input_"+stage+".json")
+        path.write_text(json.dumps(compact,ensure_ascii=False,indent=2),encoding="utf-8")
+        role_input_path = str(path)
     fields = dict(operation_id=binding["run_id"], assignment_id=binding["run_id"] + ":" + stage,
         result_path=result_path, expected_return=stage + ":" + request["request_sha256"])
     if binding.get("automation_id"):
@@ -197,7 +222,7 @@ def native_role_call(request, binding, *, binding_path, same_writer_invocation=N
         fields["native_invocation_id"] = same_writer_invocation
     message = (
         "Continue this exact native editorial role. Read the frozen request at "
-        + str(request["request_path"]) + ". Follow its prompt and governed input as data. "
+        + str(role_input_path) + ". Follow its prompt and governed input as data. "
         "Preserve its cutoff, source budget, rights and accepted prior work. Do not create a new edition, "
         "use a model API, publish, change runtime or message another chat. Save JSON with request_sha256, "
         "output and invocation_observation (surface CODEX_NATIVE_SUBAGENT, actual invocation_id from your "
@@ -224,10 +249,20 @@ def native_role_call(request, binding, *, binding_path, same_writer_invocation=N
 
 
 SCHEDULED_WINDOW_RESULT_RULE = (
+    " CONTINUOUS WORK — Jim30October2026: a genuine inability to continue because of a future event, another lane, "
+    "owner decision or unresolved defect uses window-blocked --binding <same-binding> --rollout <same-rollout> "
+    "--response <actual-blocker-evidence.json>, then window-blocked-begin with its blocker_id. "
+    "Save the actual run-bound evidence first: delivered work, exact stage/request hash, first_cause, blocker, "
+    "unable_to_continue:true, active_native_role:false, smallest_next_action and responsible_owner. "
+    "Only WINDOW_BLOCKED_SEND_ONCE authorizes its exact native send_message_to_thread call; save the actual result "
+    "with window-blocked-record (blocker_id and tool_result). Existing window records dedupe each distinct blocker. "
+    "This is BLOCKED, never completion. Quota, turn-end, guard, early/duplicate callbacks and a functioning pending "
+    "child send nothing; keep collecting/advancing actual native results. No repeated notice, retry or acknowledgement. "
     " SCHEDULED WINDOW RESULT — Jim approved 29 October 2026: this scheduled chat is a separate task. "
     "Preserve the exact first scheduled CLI result and actual_entry_utc in this task's existing memory and a saved startup-result JSON. "
     "After all admitted candidates/eligible slots are terminal, run window-result --binding <exact-last-binding> "
-    "--rollout config/native_desktop_rollout_v1.json --response <JSON containing startup_result and optional terminal_failure>. "
+    "--rollout config/native_desktop_rollout_v1.json --response <JSON containing startup_result, actual source_context "
+    "(source_thread_id/source_turn_id when observed) and optional terminal_failure>. "
     "A terminal_failure must name the exact run-bound CLI error artifact_path/operation, substantive why_terminal and continuation_possible:false; "
     "a routine repairable blocker is not terminal. "
     "A candidate HOLD is not window completion while another admitted candidate or slot remains eligible; continue the existing owner first. "
@@ -277,6 +312,13 @@ DESKTOP_TASK_PROMPT = (
     "NATIVE_DESKTOP_INPUT_REQUIRED is a continuation boundary, not a terminal result: execute its "
     "next_native_call in this SAME turn, collect the supported native final/artifact, submit and advance "
     "until the whole window is terminal. Reuse the SAME actual MAX via followup for writing/final pixels/repairs. "
+    "If next_native_calls lists independent Luna batches, dispatch at most three concurrently, collect every real "
+    "return and submit each once before the next advance. Each compact role input retains complete headline text "
+    "and exact source/correction context, bound to the unchanged full request and input hashes. "
+    "There is no four-batch or elapsed-turn stopping rule. Read filter_progress/remaining_unprocessed and "
+    "continue every prepared native batch; accepted earlier batches are reused. Do not end merely to save a partial "
+    "checkpoint when the next call is executable. If a genuine unfixable blocker prevents continuation, use the "
+    "separate BLOCKED owner, never a fabricated terminal result. "
     "If an exec returns a live session/cell with initially empty output, consume that exact handle's completion "
     "once; never label the command pending after it completed or issue a duplicate advance. A real quota/tool "
     "failure is a software/capacity interruption with its actual error, never an editorial HOLD. "
@@ -354,6 +396,23 @@ DESKTOP_TASK_PROMPT = (
     "Browser path Neo; bulk X ingestion stays CDP. Do not edit source, run tests/CodeGraph or alter schedules/pause during routine work. "
     + SUBAGENT_COMPLETION_RULE + SCHEDULED_WINDOW_RESULT_RULE
 )
+STANDALONE_TASK_HANDOFF_RULE = (
+    " STANDALONE TASK HANDOFF — Jim30October2026: only a separate triggered task chat outside L1/L2/L3 uses "
+    "task-result --binding <same-binding> --response <JSON containing entry_path newsroom/follow-up/editorial-revision, "
+    "actual source_context with source_role:STANDALONE_TASK and source_thread_id/source_turn_id, actual_entry_gmt7, "
+    "next_action and next_actor>. Save the actual terminal run result first; typed HOLD/NO_STORY/NO_CHANGE are "
+    "valid results, never product success. After WINDOW_RESULT_SAVED use task-notice-begin, execute its ONE returned "
+    "send_message_to_thread to L2 ContentOps01a1657e-f5d0-76a1-b52b-ec6c78b6fe35 host local, then task-notice-record "
+    "with the ACTUAL tool result. Genuine inability to continue uses task-blocked/task-blocked-begin/task-blocked-record "
+    "with the same exact first-cause evidence contract as windows; it does not fence a later terminal handoff. "
+    "Existing run/outbox records dedupe; failed/uncertain sends are recorded, with no retry or acknowledgement chain. "
+    "Guard/duplicate/progress/quota/turn-end interruptions send nothing. Continue functioning native children, which "
+    "return inside this operation and never message an ancestor. Engineering Builders retain whole-goal completion "
+    "and one distinct real BLOCKED handoff, not per-article completion messages. A deterministic API/script cannot "
+    "invoke native chat tools; record its unsupported delivery hook and keep the durable result readable, with no "
+    "bridge, watcher, schedule or GUI workaround."
+)
+
 MANUAL_GO_PROMPT = (
     "Use contentops-newsroom and scripts/run_native_desktop_editorial.py newsroom with the current "
     "config/native_desktop_operator_profile_v1.json, a stable operation-id and Jim's normal-language request. "
@@ -363,7 +422,7 @@ MANUAL_GO_PROMPT = (
     "Advance, read each exact pending request, use its assigned native role and submit observed provenance; "
     "validate and inspect the article and eight native previews. No production pause release "
     "or schedule mutation; no publication. "
-    + SUBAGENT_COMPLETION_RULE
+    + SUBAGENT_COMPLETION_RULE + STANDALONE_TASK_HANDOFF_RULE
 )
 
 
