@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 15259,
+    "edges": 15261,
     "entrypoints": 20,
-    "nodes": 7933,
+    "nodes": 7939,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -24,14 +24,14 @@
       "http_endpoint": 7,
       "instructions": 9,
       "manifest": 21,
-      "python_class": 639,
+      "python_class": 640,
       "python_function": 4320,
       "python_method": 337,
       "python_module": 828,
       "schema": 257,
-      "test": 803,
+      "test": 804,
       "typescript_export": 518,
-      "typescript_or_javascript_module": 113
+      "typescript_or_javascript_module": 117
     }
   },
   "edges": [
@@ -8608,6 +8608,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/contentops_source_research_v1.py::RetainedSourceResearch"
+    },
+    {
+      "from": "live_contentops/contentops_source_research_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/contentops_source_research_v1.py::XListPrivateMainPermission"
     },
     {
       "from": "live_contentops/contentops_source_research_v1.py",
@@ -49726,6 +49732,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/contentops_source_research_v1.py::RetainedSourceResearch"
+    },
+    {
+      "from": "python_symbol:live_contentops/contentops_main_intake_export_v1.py::configured_intake_export",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/contentops_source_research_v1.py::XListPrivateMainPermission"
     },
     {
       "from": "python_symbol:live_contentops/contentops_main_intake_export_v1.py::export_after_intake",
@@ -91729,7 +91741,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-29T06:03:44Z",
+  "generation_timestamp_utc": "2026-10-29T07:03:57Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -91762,7 +91774,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 27195
+      "size_bytes": 28214
     },
     {
       "id": "Install_ContentOps_V1_Daily_App_Runtime.cmd",
@@ -92969,22 +92981,22 @@
     {
       "id": "live_contentops/contentops_main_headline_projection_v1.py",
       "kind": "python_module",
-      "size_bytes": 24096
+      "size_bytes": 26715
     },
     {
       "id": "live_contentops/contentops_main_intake_export_v1.py",
       "kind": "python_module",
-      "size_bytes": 6726
+      "size_bytes": 8584
     },
     {
       "id": "live_contentops/contentops_source_research_v1.py",
       "kind": "python_module",
-      "size_bytes": 47786
+      "size_bytes": 58601
     },
     {
       "id": "live_contentops/continuous_headline_ingest_v1.py",
       "kind": "python_module",
-      "size_bytes": 33635
+      "size_bytes": 33922
     },
     {
       "id": "live_contentops/contract_validation.py",
@@ -102539,14 +102551,14 @@
     {
       "id": "python_symbol:live_contentops/contentops_main_headline_projection_v1.py::MainHeadlineExporter",
       "kind": "python_class",
-      "line": 207,
+      "line": 217,
       "path": "live_contentops/contentops_main_headline_projection_v1.py",
       "symbol": "MainHeadlineExporter"
     },
     {
       "id": "python_symbol:live_contentops/contentops_main_headline_projection_v1.py::permitted_report_headlines",
       "kind": "python_function",
-      "line": 160,
+      "line": 170,
       "path": "live_contentops/contentops_main_headline_projection_v1.py",
       "symbol": "permitted_report_headlines"
     },
@@ -102567,7 +102579,7 @@
     {
       "id": "python_symbol:live_contentops/contentops_main_intake_export_v1.py::configured_intake_export",
       "kind": "python_function",
-      "line": 89,
+      "line": 109,
       "path": "live_contentops/contentops_main_intake_export_v1.py",
       "symbol": "configured_intake_export"
     },
@@ -102581,9 +102593,16 @@
     {
       "id": "python_symbol:live_contentops/contentops_source_research_v1.py::RetainedSourceResearch",
       "kind": "python_class",
-      "line": 101,
+      "line": 262,
       "path": "live_contentops/contentops_source_research_v1.py",
       "symbol": "RetainedSourceResearch"
+    },
+    {
+      "id": "python_symbol:live_contentops/contentops_source_research_v1.py::XListPrivateMainPermission",
+      "kind": "python_class",
+      "line": 101,
+      "path": "live_contentops/contentops_source_research_v1.py",
+      "symbol": "XListPrivateMainPermission"
     },
     {
       "id": "python_symbol:live_contentops/continuous_headline_ingest_v1.py::_attempt_detail_path",
@@ -102644,7 +102663,7 @@
     {
       "id": "python_symbol:live_contentops/continuous_headline_ingest_v1.py::intake_is_stale",
       "kind": "python_function",
-      "line": 713,
+      "line": 716,
       "path": "live_contentops/continuous_headline_ingest_v1.py",
       "symbol": "intake_is_stale"
     },
@@ -102665,7 +102684,7 @@
     {
       "id": "python_symbol:live_contentops/continuous_headline_ingest_v1.py::rolling_24h_unique_headline_count",
       "kind": "python_function",
-      "line": 700,
+      "line": 703,
       "path": "live_contentops/continuous_headline_ingest_v1.py",
       "symbol": "rolling_24h_unique_headline_count"
     },
@@ -138494,6 +138513,11 @@
       "size_bytes": 988
     },
     {
+      "id": "tests/test_x_list_private_main_permission_v1.py",
+      "kind": "test",
+      "size_bytes": 9935
+    },
+    {
       "id": "tests/test_x_manual_approval_export_evidence_v6.py",
       "kind": "test",
       "size_bytes": 1156
@@ -142795,6 +142819,16 @@
       "size_bytes": 66360
     },
     {
+      "id": "ui/contentops_v5/tailwind.config.d.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 1233
+    },
+    {
+      "id": "ui/contentops_v5/tailwind.config.js",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 1884
+    },
+    {
       "id": "ui/contentops_v5/tailwind.config.ts",
       "kind": "typescript_or_javascript_module",
       "size_bytes": 1616
@@ -142803,6 +142837,16 @@
       "id": "ui/contentops_v5/tsconfig.json",
       "kind": "manifest",
       "size_bytes": 651
+    },
+    {
+      "id": "ui/contentops_v5/vite.config.d.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 76
+    },
+    {
+      "id": "ui/contentops_v5/vite.config.js",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 491
     },
     {
       "id": "ui/contentops_v5/vite.config.ts",
@@ -143123,6 +143167,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "d66622a8046a7e81803980fc4279dcddafa04adc",
-  "source_tree_digest": "579ab0b6c9091a275eeddcd9d475b9f8daa9893cab307c7a923338fd7df41ff8"
+  "source_head": "4817a3b37f332356ed6286f25790ce723ed2c4d5",
+  "source_tree_digest": "6d85a939039c5f6c7d05d581adfd9a7fb4e300b2098c58658bfa2bf56e972abe"
 }
