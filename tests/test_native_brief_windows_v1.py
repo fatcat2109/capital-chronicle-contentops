@@ -4,6 +4,7 @@ import json
 from datetime import datetime
 from pathlib import Path
 
+import pytest
 
 import live_contentops.native_desktop_schedule_binding_v1 as schedule
 from live_contentops.native_brief_windows_v1 import BRIEF_WINDOWS, native_opportunities, record_quota_stop
@@ -73,3 +74,24 @@ def test_observed_quota_cuts_only_added_briefs(rollout):
     assert observed_quota_stop(store, cutoff_utc="2026-10-29T08:00:00Z")
     assert observed_quota_stop(store, cutoff_utc="2026-10-30T08:00:00Z") is None
     assert len(four_task_setup_packet()["tasks"]) == 4
+
+
+def test_quota_stop_compares_instants_and_rejects_missing_timezones(rollout):
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.native_brief_windows_v1 import observed_quota_stop
+    store = ContentOpsDurableStore(rollout["store_path"])
+    work = "cc-opportunity-" + sha256_of("quota-offset-controlled")
+    store.create_work_item(work_item_id=work, story_id=work, title="Controlled offset", target_surface="TEST")
+    observation = {"cause": "CODEX_QUOTA_STOP", "lane": "CONTENTOPS_BUILDER",
+        "observed_at_utc": "2026-10-29T03:00:00+07:00", "source_identity": "CONTROLLED_TEST_NOT_LIVE_QUOTA",
+        "observation_source": "CONTROLLED_FIXTURE"}
+    record_quota_stop(store, {"run_id": "quota-offset-controlled"}, observation)
+    assert observed_quota_stop(store, cutoff_utc="2026-10-28T20:00:00Z")["source_identity"] == observation["source_identity"]
+    assert observed_quota_stop(store, cutoff_utc="2026-10-28T19:59:59Z") is None
+    with pytest.raises(ValueError, match="UTC_OFFSET_REQUIRED"):
+        record_quota_stop(store, {"run_id": "quota-offset-controlled"},
+            {**observation, "observed_at_utc": "2026-10-29T03:00:00"})
+    with pytest.raises(ValueError, match="FUTURE_QUOTA"):
+        record_quota_stop(store, {"run_id": "quota-offset-controlled"},
+            {**observation, "observed_at_utc": "2099-01-01T00:00:00Z"})

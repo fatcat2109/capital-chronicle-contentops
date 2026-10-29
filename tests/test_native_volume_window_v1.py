@@ -156,3 +156,27 @@ def test_cross_window_or_unbound_budget_carry_is_rejected(tmp_path):
         configure_volume_turn(turn, {**binding, "cutoff_utc": "2026-10-29T18:00:00Z"})
     with pytest.raises(ValueError, match="BUDGET_CARRY_INVALID"):
         configure_volume_turn(turn, {**binding, "source_request_count_at_start": 11})
+
+
+def test_day_measurement_includes_only_same_day_saved_quota_stops(tmp_path):
+    from live_contentops.newsroom_production_day_v1 import newsroom_production_day_id
+    store = ContentOpsDurableStore(tmp_path / "quota-state.sqlite3")
+    day = newsroom_production_day_id(CUTOFF)
+    root = tmp_path / day / "window" / "run"
+    root.mkdir(parents=True)
+    _, binding = make_turn(store, root, "run", window_id="window")
+    work = "cc-opportunity-" + sha256_of("run")
+    store.register_outbox_message(message_id="native-operation-binding-" + sha256_of("run"),
+        work_item_id=work, destination="internal:native-desktop-editorial",
+        payload=json.dumps(binding), status="EDITORIAL_INTERNAL")
+    for date in ("2026-10-29", "2026-10-30"):
+        event = {"cause": "CODEX_QUOTA_STOP", "lane": "CONTENTOPS_BUILDER", "production_date": date,
+            "observed_at_utc": date + "T09:00:00Z", "source_identity": "CONTROLLED_TEST_NOT_LIVE_QUOTA",
+            "observation_source": "CONTROLLED_FIXTURE"}
+        store.register_outbox_message(message_id="native-quota-stop-" + sha256_of(event),
+            work_item_id=work, destination="internal:native-quota-stop", payload=json.dumps(event), status="EDITORIAL_INTERNAL")
+    path = persist_native_day_measurement(store, binding)
+    measurement = json.loads(Path(path).read_bytes())["native_volume_measurement"]
+    assert len(measurement["quota_stops"]) == 1
+    assert measurement["quota_stops"][0]["production_date"] == "2026-10-30"
+    assert measurement["distinct_canonical_items_published"] == 0

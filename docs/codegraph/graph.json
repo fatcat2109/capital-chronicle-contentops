@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 15239,
+    "edges": 15242,
     "entrypoints": 20,
-    "nodes": 7927,
+    "nodes": 7932,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,13 +25,13 @@
       "instructions": 9,
       "manifest": 21,
       "python_class": 639,
-      "python_function": 4316,
+      "python_function": 4317,
       "python_method": 337,
       "python_module": 827,
       "schema": 257,
       "test": 802,
       "typescript_export": 518,
-      "typescript_or_javascript_module": 113
+      "typescript_or_javascript_module": 117
     }
   },
   "edges": [
@@ -23506,6 +23506,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/native_brief_windows_v1.py::observed_quota_stop"
+    },
+    {
+      "from": "live_contentops/native_brief_windows_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/native_brief_windows_v1.py::quota_stop_observations"
     },
     {
       "from": "live_contentops/native_brief_windows_v1.py",
@@ -60543,6 +60549,12 @@
       "from": "python_symbol:live_contentops/native_brief_windows_v1.py::observed_quota_stop",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/native_brief_windows_v1.py::quota_stop_observations"
+    },
+    {
+      "from": "python_symbol:live_contentops/native_brief_windows_v1.py::observed_quota_stop",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/newsroom_production_day_v1.py::newsroom_production_date"
     },
     {
@@ -61234,6 +61246,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/native_newsroom_volume_v1.py::window_progress"
+    },
+    {
+      "from": "python_symbol:live_contentops/native_newsroom_volume_v1.py::persist_native_day_measurement",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/newsroom_production_day_v1.py::newsroom_production_date"
     },
     {
       "from": "python_symbol:live_contentops/native_newsroom_volume_v1.py::photo_less_brief",
@@ -94049,7 +94067,7 @@
     {
       "id": "live_contentops/native_brief_windows_v1.py",
       "kind": "python_module",
-      "size_bytes": 3360
+      "size_bytes": 3946
     },
     {
       "id": "live_contentops/native_desktop_editorial_v1.py",
@@ -94094,7 +94112,7 @@
     {
       "id": "live_contentops/native_newsroom_volume_v1.py",
       "kind": "python_module",
-      "size_bytes": 15157
+      "size_bytes": 15422
     },
     {
       "id": "live_contentops/neo_destination_handoff_v1.py",
@@ -114279,14 +114297,21 @@
     {
       "id": "python_symbol:live_contentops/native_brief_windows_v1.py::observed_quota_stop",
       "kind": "python_function",
-      "line": 32,
+      "line": 53,
       "path": "live_contentops/native_brief_windows_v1.py",
       "symbol": "observed_quota_stop"
     },
     {
+      "id": "python_symbol:live_contentops/native_brief_windows_v1.py::quota_stop_observations",
+      "kind": "python_function",
+      "line": 39,
+      "path": "live_contentops/native_brief_windows_v1.py",
+      "symbol": "quota_stop_observations"
+    },
+    {
       "id": "python_symbol:live_contentops/native_brief_windows_v1.py::record_quota_stop",
       "kind": "python_function",
-      "line": 46,
+      "line": 60,
       "path": "live_contentops/native_brief_windows_v1.py",
       "symbol": "record_quota_stop"
     },
@@ -136448,7 +136473,7 @@
     {
       "id": "tests/test_native_brief_windows_v1.py",
       "kind": "test",
-      "size_bytes": 4413
+      "size_bytes": 5927
     },
     {
       "id": "tests/test_native_desktop_editorial_v1.py",
@@ -136533,7 +136558,7 @@
     {
       "id": "tests/test_native_volume_window_v1.py",
       "kind": "test",
-      "size_bytes": 9270
+      "size_bytes": 10831
     },
     {
       "id": "tests/test_newsroom_assignment_scheduler_v1.py",
@@ -142637,6 +142662,16 @@
       "size_bytes": 66360
     },
     {
+      "id": "ui/contentops_v5/tailwind.config.d.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 1233
+    },
+    {
+      "id": "ui/contentops_v5/tailwind.config.js",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 1884
+    },
+    {
       "id": "ui/contentops_v5/tailwind.config.ts",
       "kind": "typescript_or_javascript_module",
       "size_bytes": 1616
@@ -142645,6 +142680,16 @@
       "id": "ui/contentops_v5/tsconfig.json",
       "kind": "manifest",
       "size_bytes": 651
+    },
+    {
+      "id": "ui/contentops_v5/vite.config.d.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 76
+    },
+    {
+      "id": "ui/contentops_v5/vite.config.js",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 491
     },
     {
       "id": "ui/contentops_v5/vite.config.ts",
@@ -142966,5 +143011,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "a22441efd7b0bb713bc576069fa3826b1ee89cda",
-  "source_tree_digest": "5404c5c835ebf7ef7e68c7c8b17c3c1f52fb07da528521ead2c706518fb53403"
+  "source_tree_digest": "1832fbfb51f190a76308e82ed9aaa07f541e1d8d3afe64b9ec47038b8b607d5c"
 }

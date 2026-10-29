@@ -28,9 +28,9 @@ Four real internal pre-event preparation packets are saved by the existing story
 Official planned clocks: BoE 5 November 12:00 UTC; Employment Situation 6 November 13:30 UTC; CPI 10 November 13:30 UTC. No universal election result clock or invented consensus.
 Subagents were attempted once: schedule/photo-less remained pending_init, source was not_found at collection. They were interrupted/released; no saved child result or work claim.
 Root implemented the lanes directly, preserving exact prompts. No replacement child, callback bridge or quota-bypass mechanism was created.
-Validation: 184 integrated owner/media/coordinator controls, 25 schedule controls and UI TypeScript/Vite build passed. Subsequent narrow delta checks are in volume-final-delta-tests.xml.
+Validation: 184 integrated controls, 25 schedule controls, 88 delta checks and UI TypeScript/Vite build passed. Final quota/day-measurement correction passed 40 affected controls plus focused Ruff; reports are in co1-application. No global lint or live publication PASS is claimed.
 Dated authority/config/prompts and the existing skill are updated in authoring; the current operating rollout and four full App prompts remain untouched.
-Next: finish exact-head CI/normal integration, then apply source/config/prompts and reconcile X membership at the authorized boundary; activate only the staged brief tasks.
+PR117 includes dated volume behavior and the quota/day-measurement correction; exact final-head CI/normal merge is next. Apply source/config/prompts and reconcile X membership at the authorized boundary, then activate the three staged brief tasks.
 Do not repeat J7, reopen the 6/6 edition, poll windows or manufacture CO-1 acceptance. Read actual existing outcomes once on legitimate resumption.
 Application, four natural CO-1 window outcomes, actual fallback/publication throughput and the third revised-day target remain unproven until observed.
 Pre-event release updates are future work at real T0; background retains exact source/known-at clocks and genuine missing inputs. Database public-safe editions join only when available.

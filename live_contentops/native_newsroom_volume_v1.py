@@ -157,6 +157,7 @@ def persist_native_day_measurement(store, binding):
     from live_contentops.native_desktop_publication_v1 import publication_projection
     from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes
+    from live_contentops.native_brief_windows_v1 import quota_stop_observations
     if not bound_volume_policy(binding) or not binding.get("window_id"):
         return None
     day = newsroom_production_day_id(binding["cutoff_utc"])
@@ -219,13 +220,15 @@ def persist_native_day_measurement(store, binding):
                         - datetime.fromisoformat(entry.replace("Z", "+00:00"))).total_seconds()
                 latencies.append({"run_id": run, "public_object_id": object_id,
                     "window_entry_to_canonical_readback_seconds": seconds})
+    quota_stops = quota_stop_observations(store, production_date=newsroom_production_date(binding["cutoff_utc"]).isoformat())
+    quota_stops.extend(i for i in interventions if i.get("cause") == "CODEX_QUOTA_STOP" and i not in quota_stops)
     measurement = {"observed_at_utc": datetime.now(timezone.utc).isoformat(),
         "policy_id": binding["volume_policy"]["policy_id"], "admitted_items": len(admissions),
         "source_qualified_items": len(qualified), "distinct_canonical_items_published": len(confirmed["substack"]),
         "confirmed_copies_by_channel": {k: len(v) for k, v in confirmed.items()},
         "first_blocking_causes": dict(Counter(first_causes.values())), "windows": windows,
         "time_to_canonical": latencies, "interventions": interventions,
-        "quota_stops": [i for i in interventions if i.get("cause") == "CODEX_QUOTA_STOP"],
+        "quota_stops": quota_stops,
         "reader_counts": readers or None,
         "reader_counts_availability": "OBSERVED" if any(r["availability"] == "OBSERVED" for r in readers) else "UNAVAILABLE",
         "pre_event_preparations_available": [{"event_id": p["event_id"], "known_at_utc": p["known_at_utc"],

@@ -29,18 +29,32 @@ def native_opportunities(policy, **kwargs):
         key=lambda row: (row["start_utc"], row["opportunity_id"]))
 
 
-def observed_quota_stop(store, *, cutoff_utc):
-    """Only saved, actually observed stop evidence cuts added briefs; no lane polling."""
-    for row in reversed(store.list_outbox_messages()):
+def _utc_instant(value):
+    instant = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    if instant.tzinfo is None or instant.utcoffset() is None:
+        raise ValueError("QUOTA_OBSERVATION_UTC_OFFSET_REQUIRED")
+    return instant.astimezone(timezone.utc)
+
+
+def quota_stop_observations(store, *, production_date):
+    """Read actual scoped observations from the same existing outbox."""
+    events = []
+    for row in store.list_outbox_messages():
         if row["destination"] != "internal:native-quota-stop":
             continue
         event = json.loads(row["payload"])
         if (event.get("cause") == "CODEX_QUOTA_STOP" and event.get("lane") in {"CONTENTOPS_BUILDER", "DATABASE"}
                 and event.get("observation_source") and event.get("source_identity")
-                and event.get("observed_at_utc", "") <= cutoff_utc
-                and event.get("production_date") == newsroom_production_date(cutoff_utc).isoformat()):
-            return event
-    return None
+                and event.get("production_date") == production_date):
+            events.append(event)
+    return sorted(events, key=lambda event: _utc_instant(event["observed_at_utc"]))
+
+
+def observed_quota_stop(store, *, cutoff_utc):
+    """Only saved, actually observed stop evidence cuts added briefs; no lane polling."""
+    cutoff = _utc_instant(cutoff_utc)
+    events = quota_stop_observations(store, production_date=newsroom_production_date(cutoff).isoformat())
+    return next((event for event in reversed(events) if _utc_instant(event["observed_at_utc"]) <= cutoff), None)
 
 
 def record_quota_stop(store, binding, observation):
@@ -49,8 +63,8 @@ def record_quota_stop(store, binding, observation):
     if (observation.get("cause") != "CODEX_QUOTA_STOP" or not observation.get("source_identity")
             or not observation.get("observation_source") or observation.get("lane") not in {"CONTENTOPS_BUILDER", "DATABASE"}):
         raise ValueError("ACTUAL_SCOPED_QUOTA_STOP_OBSERVATION_REQUIRED")
-    datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
-    if observation["observed_at_utc"] > datetime.now(timezone.utc).isoformat():
+    observed_at = _utc_instant(observation["observed_at_utc"])
+    if observed_at > datetime.now(timezone.utc):
         raise ValueError("FUTURE_QUOTA_OBSERVATION_FORBIDDEN")
     event = {**observation, "production_date": newsroom_production_date(observation["observed_at_utc"]).isoformat(),
         "public_write_performed": False, "added_briefs_cut_first": True}
