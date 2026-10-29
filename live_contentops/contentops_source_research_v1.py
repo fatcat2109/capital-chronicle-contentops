@@ -98,6 +98,167 @@ def _rendered(raw: bytes, expected_url: str):
     return value
 
 
+class XListPrivateMainPermission:
+    """Jim's private-use source profile; never a publisher licence or global flag."""
+
+    GRANT_ID = "JIM_X_LIST_PRIVATE_MAIN_RESEARCH_USE_20261029"
+    PROHIBITIONS = {"PUBLIC_REPUBLICATION", "SUBSCRIBER_REDISTRIBUTION", "MODEL_TRAINING_OR_FINE_TUNING",
+        "THIRD_PARTY_SHARING", "TREATING_ATTRIBUTED_POST_AS_CONFIRMED_FACT"}
+
+    def __init__(self, profile_path=None, *, capture_root=None, repository_root=None, extractor=None):
+        from live_contentops.headline_data_root_v1 import canonical_headline_data_root
+        source_root = Path(__file__).resolve().parents[1]
+        self.repository_root = Path(repository_root or "A:/Capital Chronicle/ContentOps")
+        self.capture_root = Path(capture_root or canonical_headline_data_root()/"raw_archive/headline_cdp").resolve()
+        self.profile_path = Path(profile_path or source_root/"config/x_list_private_main_permission_v1.json")
+        raw = self.profile_path.read_bytes()
+        self.profile = json.loads(raw)
+        self.revision = _hash(raw)
+        p = self.profile
+        if (p.get("grant_id") != self.GRANT_ID or p.get("authority_basis") != "JIM_OWNER_AUTHORIZATION_PRIVATE_INTERNAL_USE"
+                or p.get("external_licence") is not False
+                or set(p.get("permitted_consumers", [])) != {"internal_research", "narrative_context"}
+                or set(p.get("prohibitions", [])) != self.PROHIBITIONS
+                or any(p.get(k) is not False for k in ("public_republication_authority", "subscriber_redistribution_allowed",
+                    "model_training_allowed", "third_party_sharing_allowed", "underlying_event_truth_granted"))
+                or p["source_profile"].get("source_platform") != "x_cdp_list_latest_tweets_timeline"
+                or p["source_profile"].get("target_list_id") != "1843870469143048642"
+                or p["source_profile"].get("acquisition_route") != "EXISTING_OWNER_ACCOUNT_CDP_9222_LIST_CAPTURE"):
+            raise ValueError("PRIVATE_MAIN_SOURCE_PROFILE_SCOPE_INVALID")
+        authority = Path(p["authority_file"]).read_bytes()
+        if (_hash(authority) != p["authority_file_sha256"] or self.GRANT_ID.encode() not in authority):
+            raise ValueError("PRIVATE_MAIN_GRANT_AUTHORITY_NOT_BOUND")
+        self.extractor, self._captures = extractor, {}
+        self.inventory = {}
+        from datetime import datetime, timezone
+        cohort = datetime.fromisoformat(p["captured_from"])
+        if cohort.utcoffset() is None:
+            raise ValueError("PRIVATE_MAIN_COHORT_TIMEZONE_REQUIRED")
+        self.cohort_start = cohort.astimezone(timezone.utc)
+
+    def covered_paths(self, paths, *, previous_inventory=None):
+        """Recheck changed files in this same sidecar family, retaining metadata in its existing cursor owner."""
+        selected, inventory = [], {}
+        for path in sorted({Path(p).resolve() for p in paths}, key=str):
+            stamp = path.stat()
+            key = sha256_of(str(path))
+            prior = (previous_inventory or {}).get(key, {})
+            if prior.get("size") == stamp.st_size and prior.get("mtime_ns") == stamp.st_mtime_ns:
+                covered = prior["covered"]
+            else:
+                covered = False
+                with path.open(encoding="utf-8-sig") as stream:
+                    for line in stream:
+                        try:
+                            row = json.loads(line)
+                            if _time(row.get("captured_at_utc")) >= self.cohort_start:
+                                covered = True
+                                break
+                        except (ValueError, TypeError, AttributeError):
+                            continue
+            inventory[key] = {"size":stamp.st_size, "mtime_ns":stamp.st_mtime_ns, "covered":covered}
+            if covered:
+                selected.append(path)
+        self.inventory = inventory
+        return selected
+
+    def permission_for(self, row, cutoff):
+        from urllib.parse import parse_qs
+        def gap(reason):
+            return {"permission_gap":reason}
+        if self.profile["status"] != "ACTIVE":
+            return gap("PRIVATE_MAIN_OWNER_GRANT_WITHDRAWN")
+        if row.get("source_platform") != self.profile["source_profile"]["source_platform"]:
+            return gap("PRIVATE_MAIN_ACQUISITION_ROUTE_NOT_COVERED")
+        if any(row.get(k) is True for k in ("deleted", "is_deleted", "source_deleted", "takedown", "withheld")) or str(
+                row.get("source_status", "")).upper() in {"DELETED", "WITHDRAWN", "TAKEDOWN", "WITHHELD"}:
+            return gap("SOURCE_REMOVAL_OR_TAKEDOWN")
+        try:
+            captured = _time(row.get("captured_at_utc"))
+            if captured < self.cohort_start:
+                return gap("PRIVATE_MAIN_CAPTURE_BEFORE_GRANT_COHORT")
+            if _time(self.profile["authority_observed_at_utc"]) > _time(cutoff) or captured > _time(cutoff):
+                return gap("FUTURE_HEADLINE_DEFERRED")
+        except ValueError:
+            return gap("HEADLINE_CLOCK_UNAVAILABLE")
+        author = str(row.get("author_handle") or "").lstrip("@")
+        post_id = str(row.get("tweet_id") or "")
+        url = str(row.get("tweet_url") or row.get("source_url") or "")
+        parsed = urlsplit(url) if url else None
+        if url:
+            match = re.fullmatch(r"/([A-Za-z0-9_]+)/status/([0-9]+)", parsed.path)
+            if (parsed.scheme != "https" or parsed.hostname not in {"x.com", "twitter.com", "www.twitter.com"}
+                    or parsed.username or parsed.password or parsed.query or parsed.fragment or not match
+                    or (post_id and post_id != match[2]) or author.casefold() != match[1].casefold()):
+                return gap("HEADLINE_SOURCE_IDENTITY_UNAVAILABLE")
+            post_id = match[2]
+        if not re.fullmatch(r"[A-Za-z0-9_]+", author) or author.casefold() == "unknown" or not post_id.isdigit():
+            return gap("HEADLINE_SOURCE_IDENTITY_UNAVAILABLE")
+        text = _normalize(str(row.get("headline_text") or ""))
+        text_hash = _hash(text.encode())
+        if not text or row.get("text_sha256") != text_hash:
+            return gap("HEADLINE_TEXT_HASH_MISMATCH")
+        route = urlsplit(str(row.get("source_url_or_ref") or ""))
+        try:
+            variables = json.loads(parse_qs(route.query).get("variables", ["{}"]) [0])
+        except (ValueError, TypeError):
+            variables = {}
+        if (route.hostname not in {"x.com", "twitter.com"} or route.scheme != "https"
+                or not route.path.endswith("/ListLatestTweetsTimeline")
+                or variables.get("listId") != self.profile["source_profile"]["target_list_id"]):
+            return gap("PRIVATE_MAIN_ACQUISITION_ROUTE_NOT_COVERED")
+        capture_hash = str(row.get("raw_payload_sha256") or "")
+        if not re.fullmatch(r"[a-f0-9]{64}", capture_hash):
+            return gap("PRIVATE_MAIN_SOURCE_CAPTURE_UNBOUND")
+        try:
+            reference = str(row.get("raw_payload_ref") or "")
+            anchors = (self.repository_root, self.repository_root/"headline_ingestion", self.capture_root.parents[2])
+            path = next((candidate for base in anchors
+                if (candidate := (base/reference).resolve()).is_relative_to(self.capture_root) and candidate.is_file()), None)
+            if path is None:
+                return gap("PRIVATE_MAIN_SOURCE_CAPTURE_UNAVAILABLE")
+            if capture_hash not in self._captures:
+                raw = path.read_bytes()
+                if _hash(raw) != capture_hash:
+                    return gap("PRIVATE_MAIN_SOURCE_CAPTURE_HASH_MISMATCH")
+                if self.extractor is None:
+                    from live_contentops.x_list_ingest_capture_v1 import load_data_ingestion_module
+                    self.extractor = load_data_ingestion_module().recursive_tweet_extractor
+                tweets = self.extractor(json.loads(raw))
+                self._captures[capture_hash] = {(str(t["tweet_id"]), str(t["author_handle"]).casefold(),
+                    _hash(_normalize(t["text"]).encode())):t.get("timestamp") for t in tweets}
+            post_key = (post_id, author.casefold(), text_hash)
+            if post_key not in self._captures[capture_hash]:
+                return gap("PRIVATE_MAIN_POST_NOT_IN_BOUND_CAPTURE")
+            from datetime import datetime, timezone
+            from live_contentops.daily_x_cdp_headline_capture_packet_v0 import parse_timestamp
+            published = parse_timestamp(str(row.get("headline_timestamp") or row.get("published_at_utc") or ""))
+            original_published = parse_timestamp(str(self._captures[capture_hash][post_key] or ""))
+            if published == datetime.min.replace(tzinfo=timezone.utc) or original_published == datetime.min.replace(tzinfo=timezone.utc):
+                return gap("HEADLINE_CLOCK_UNAVAILABLE")
+            if published != original_published:
+                return gap("HEADLINE_SOURCE_PUBLICATION_CLOCK_MISMATCH")
+        except (OSError, ValueError, KeyError, TypeError):
+            return gap("PRIVATE_MAIN_SOURCE_CAPTURE_UNAVAILABLE")
+        binding = {"grant_id":self.GRANT_ID, "source_profile_sha256":self.revision,
+            "headline_id":row.get("headline_id"), "post_id":post_id, "author":author,
+            "post_url":url or f"https://x.com/{author}/status/{post_id}",
+            "post_url_basis":"RETAINED_URL" if url else "DERIVED_FROM_RETAINED_POST_ID_AND_AUTHOR",
+            "content_sha256":text_hash, "source_capture_sha256":capture_hash,
+            "publication_clock_source":row.get("headline_timestamp") or row.get("published_at_utc"),
+            "captured_at_utc":row["captured_at_utc"], "known_at_utc":row.get("known_at_utc") or row["captured_at_utc"]}
+        return {**binding, "source_identity":author, "source_url":binding["post_url"],
+            "INTERNAL_ANALYSIS_ALLOWED":True, "MODEL_INPUT_ALLOWED":True, "LLM_INPUT_ALLOWED":True, "provider_safe":True,
+            "permitted_consumers":["internal_research", "narrative_context"], "authority":self.profile["authority_basis"],
+            "external_licence":False, "grant_id":self.GRANT_ID, "permission_known_at_utc":self.profile["authority_observed_at_utc"],
+            "rights_evidence_sha256":self.profile["authority_file_sha256"], "source_profile_sha256":self.revision,
+            "prohibitions":sorted(self.PROHIBITIONS), "public_republication_authority":False,
+            "public_expression_reuse_allowed":False, "subscriber_redistribution_allowed":False,
+            "model_training_allowed":False, "third_party_sharing_allowed":False, "underlying_event_truth_granted":False,
+            "model_scope":self.profile["model_scope"], "record_binding":binding,
+            "record_permission_sha256":sha256_of(binding)}
+
+
 class RetainedSourceResearch:
     """Read an explicitly configured evidence root; never follow arbitrary row paths."""
 

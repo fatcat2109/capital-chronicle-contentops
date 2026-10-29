@@ -1,0 +1,45 @@
+{
+  "schema_version": "contentops.source_profile_private_use_permission.v1",
+  "grant_id": "JIM_X_LIST_PRIVATE_MAIN_RESEARCH_USE_20261029",
+  "status": "ACTIVE",
+  "authority_basis": "JIM_OWNER_AUTHORIZATION_PRIVATE_INTERNAL_USE",
+  "external_licence": false,
+  "authority_file": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\dispatch\\20261029_L1_BATCH_07_CONTENTOPS_CO4_DECISIONS.md",
+  "authority_file_sha256": "9dd5cd680dd63f4b19b7ef8d0d8deeee7703e6828193b1b90c4978de93a95c42",
+  "authority_observed_at_utc": "2026-10-29T06:40:43Z",
+  "captured_from": "2026-10-26T00:00:00+07:00",
+  "source_profile": {
+    "source_platform": "x_cdp_list_latest_tweets_timeline",
+    "target_list_id": "1843870469143048642",
+    "acquisition_route": "EXISTING_OWNER_ACCOUNT_CDP_9222_LIST_CAPTURE",
+    "capture_family": "raw_archive/headline_cdp",
+    "owner_binding": "EXISTING_CAPITALCHRONICLEBOT_ACCOUNT_NO_NEW_LOGIN_OR_ROUTE"
+  },
+  "permitted_consumers": [
+    "internal_research",
+    "narrative_context"
+  ],
+  "allowed_fields": [
+    "post_text",
+    "author",
+    "post_id",
+    "post_url",
+    "source_clocks",
+    "private_derived_research_records"
+  ],
+  "model_scope": "CLAUDE_MAIN_PRIVATE_INTAKE_AND_MODELS_ONLY",
+  "prohibitions": [
+    "PUBLIC_REPUBLICATION",
+    "SUBSCRIBER_REDISTRIBUTION",
+    "MODEL_TRAINING_OR_FINE_TUNING",
+    "THIRD_PARTY_SHARING",
+    "TREATING_ATTRIBUTED_POST_AS_CONFIRMED_FACT"
+  ],
+  "public_republication_authority": false,
+  "subscriber_redistribution_allowed": false,
+  "model_training_allowed": false,
+  "third_party_sharing_allowed": false,
+  "underlying_event_truth_granted": false,
+  "revocation_policy": "OWNER_MAY_NARROW_OR_WITHDRAW_RECHECK_ON_EACH_EXPORT",
+  "deletion_takedown_policy": "RETAIN_AND_APPLY_SOURCE_REMOVAL_AND_TAKEDOWN_STATES"
+}

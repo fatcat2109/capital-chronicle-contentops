@@ -332,6 +332,8 @@ def run_ingestion_housekeeping_iteration(
                     cutoff_utc=_utc_now().isoformat().replace('+00:00', 'Z'),
                     intake_identity=result['iteration_at_utc'], intake_observation={
                         'attempt_at_utc':result['iteration_at_utc'], 'outcome_code':outcome_code,
+                        'process_id':os.getpid(), 'entrypoint':'run_ingestion_housekeeping_iteration',
+                        'requested_force':force, 'eligibility_reason':result.get('eligibility_reason'),
                         'capture_state':result.get('capture_state'), 'failure_class':result.get('failure_class'),
                         'new_rows_captured':rows})
             except Exception as exc:  # export cannot invalidate a real capture or its cadence
@@ -405,6 +407,7 @@ def run_ingestion_housekeeping_iteration(
             "cadence_state": result.get("cadence_state"),
             "next_eligible_capture_utc": result.get("next_eligible_capture_utc"),
             "checkpoint_persisted": checkpoint_persisted,
+            "main_headline_projection": result.get("main_headline_projection"),
             "contains_secrets_or_session_material": False,
         }
         try:

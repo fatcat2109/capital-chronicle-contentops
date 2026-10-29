@@ -42,9 +42,11 @@ def project_headline(
     if _private(row):
         return None, "PRIVATE_CONTEXT_EXCLUDED"
     permissions = permission_resolver(row, cutoff_utc) if permission_resolver else None
+    if isinstance(permissions, Mapping) and permissions.get("permission_gap"):
+        return None, permissions["permission_gap"]
     rights = row.get("rights_state")
     # Explicit official-public-domain rows or record-bound internal grants only.
-    source_url = str(row.get("source_url") or row.get("tweet_url") or "")
+    source_url = str(row.get("source_url") or row.get("tweet_url") or (permissions or {}).get("source_url") or "")
     text = " ".join(str(row.get("headline_text") or "").split())
     text_hash = hashlib.sha256(text.encode()).hexdigest()
     scoped = (
@@ -130,7 +132,14 @@ def project_headline(
                 "LLM_INPUT_ALLOWED",
                 "provider_safe",
             )
-        },
+        } | ({"grant_id":permissions["grant_id"], "authority_basis":permissions["authority"],
+            "external_licence":False, "public_republication_authority":False,
+            "subscriber_redistribution_allowed":False, "model_training_allowed":False,
+            "third_party_sharing_allowed":False, "underlying_event_truth_granted":False,
+            "prohibitions":permissions["prohibitions"]} if permissions.get("grant_id") else {}),
+        **({"private_source_profile_permission":permissions,
+            "permission_known_at_utc":permissions["permission_known_at_utc"]}
+           if permissions.get("grant_id") else {}),
         "rights_evidence_sha256": proof,
         "allowed_consumers": sorted(
             {"internal_research", "narrative_context"}.intersection(
@@ -150,7 +159,8 @@ def project_headline(
         "originality": "MAIN_ORIGIN_RECIRCULATION" if row.get("upstream_report_lineage") else "INDEPENDENT_CONTENTOPS_ACQUISITION",
         "correction_of": row.get("correction_of"),
         "research_context": {k: (row.get("research_metadata") or {}).get(k)
-                             for k in ("family", "assets", "context_kind", "source_modified_at_utc")},
+                             for k in ("family", "assets", "context_kind", "source_modified_at_utc")}
+                             | ({"context_kind":"ATTRIBUTED_X_REPORT_PRIVATE_MAIN_RESEARCH"} if permissions.get("grant_id") else {}),
         "revision_clock_basis": row.get("revision_clock_basis", "RETAINED_RECORD_REVISION"),
         "source_permission_record_sha256": sha256_of(permissions),
     }
@@ -205,12 +215,15 @@ def permitted_report_headlines(
 
 
 class MainHeadlineExporter:
-    def __init__(self, store, *, research=None):
+    def __init__(self, store, *, research=None, private_profile=None):
         self.store = store
         self.research = research
+        self.private_profile = private_profile
         self._main_permission_rows = None
 
     def permission_for(self, row, cutoff):
+        if self.private_profile and row.get("source_platform") == "x_cdp_list_latest_tweets_timeline":
+            return self.private_profile.permission_for(row, cutoff)
         if self.research:
             permission = self.research.permission_for(row, cutoff)
             if permission:
@@ -243,11 +256,16 @@ class MainHeadlineExporter:
         authority_revision: str = "retained-record-permissions-v1",
         additional_gaps: Sequence[Mapping[str, Any]] = (),
         cursor_namespace: str = "editorial",
+        source_profile_inventory: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         if not 1 <= max_rows <= 1000 or not 1 <= max_files <= 16:
             raise ValueError("headline_export_bound_invalid")
+        if self.private_profile and cursor_namespace != "continuous-intake":
+            raise ValueError("PRIVATE_MAIN_GRANT_NOT_PUBLIC_EDITORIAL_AUTHORITY")
         authority_revision += ":verified-permission-records-v2:main-native-utf8-seal-v1:undated-foundation-v1:" + (self.research.revision if self.research else "sealed-main-only")
-        identity = "headline-export-" + sha256_of(batch_id)
+        if self.private_profile:
+            authority_revision += ":private-main-source-profile:" + self.private_profile.revision
+        identity = "headline-export-" + sha256_of([batch_id, self.private_profile.revision] if self.private_profile else batch_id)
         previous = self.store.get_outbox_message(identity)
         if previous:
             return json.loads(previous["payload"])
@@ -285,9 +303,11 @@ class MainHeadlineExporter:
             seen = {content_identity(r) for p in own_pages
                 if cursor_namespace == "editorial" or p.get("authority_revision") == authority_revision for r in p["rows"]}
             rows, gaps, scanned, files = [], [*list(self.research.gaps if self.research else []), *additional_gaps], 0, []
+            excluded_headline_ids = []
             candidates = sorted({Path(p).resolve() for p in paths}, key=str)
+            visited = 0
             for path in candidates:
-                if len(files) >= max_files or scanned >= max_rows:
+                if visited >= max_files or scanned >= max_rows:
                     break
                 key = sha256_of(str(path))
                 cursor = cursors.get(
@@ -298,6 +318,10 @@ class MainHeadlineExporter:
                         "line": 0,
                     },
                 )
+                if (path.is_file() and path.stat().st_size == cursor["offset"] and not deferred.get(key)
+                        and path.stat().st_mtime_ns == cursor.get("snapshot_mtime_ns")):
+                    continue
+                visited += 1
                 try:
                     with path.open("rb") as handle:
                         prefix = handle.read(cursor["offset"])
@@ -336,6 +360,7 @@ class MainHeadlineExporter:
                         deferred[key] = deferred_rows
                         handle.seek(cursor["offset"])
                         if handle.tell() == path.stat().st_size:
+                            cursors[key] = {**cursor, "snapshot_mtime_ns":path.stat().st_mtime_ns}
                             files.append({"source_locator_sha256": key, "snapshot_bytes": path.stat().st_size, "committed_offset": cursor["offset"]})
                             continue
                         digest = hashlib.sha256(prefix)
@@ -375,10 +400,13 @@ class MainHeadlineExporter:
                                 seen.add(content_identity(projected))
                             elif reason:
                                 gaps.append({**locator, "state": reason})
+                                if reason == "SOURCE_REMOVAL_OR_TAKEDOWN" and value.get("headline_id"):
+                                    excluded_headline_ids.append(value["headline_id"])
                             cursors[key] = {
                                 "offset": handle.tell(),
                                 "prefix_sha256": digest.hexdigest(),
                                 "line": line,
+                                "snapshot_mtime_ns":path.stat().st_mtime_ns,
                             }
                         files.append(
                             {
@@ -449,6 +477,11 @@ class MainHeadlineExporter:
                 "bulk_capture_mutated": False,
                 "public_write_performed": False,
             }
+            if source_profile_inventory is not None:
+                page["source_profile_inventory"] = dict(source_profile_inventory)
+            if self.private_profile:
+                page["private_source_profile_revision"] = self.private_profile.revision
+                page["excluded_headline_ids"] = sorted(set(excluded_headline_ids))
             page["continuation_required"] = any(
                 path.is_file() and path.stat().st_size > cursors.get(sha256_of(str(path)), {}).get("offset", 0)
                 for path in candidates)
