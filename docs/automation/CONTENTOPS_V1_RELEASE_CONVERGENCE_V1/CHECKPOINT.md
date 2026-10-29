@@ -1,10 +1,10 @@
 # CO-1: native lifecycle, terminal outcomes and scheduled operation
 Goal: CONTENTOPS_V1_CURRENT_EDITION_AND_REPEATABLE_DELIVERY_V1 / CO-1.
-State: unfinished; implementation, application, fixture reconciliation and J7 are verified. Natural four-window acceptance remains.
+State: unfinished; resumed by L2 batch04 volume amendment. Stage revised behavior for production day 30 October onward; tonight's CO-1 acceptance stays pending.
 Owner: Builder 01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
 Execution root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; branch codex/v1-newsroom-release-convergence.
 Operating source: PR116 merged and installed at 374d169e4ba2a6c6bb6fa00c3d783caa506a5d6e in A:/Capital Chronicle/ContentOps.
-Authority: Claude L1 batches 01/02, plan10 CO-1 and J7/J8/J10; Jim's V3 supersedes rejected ancestor callbacks.
+Authority: Claude L1 batches01/02/04 and plan10 volume decision. Batch04 supersedes the former CO-2/CO-3 order and J8/J10 conditions; J7 is spent.
 Native roles return actual results/artifacts within the operation; real Light preparation and MAX terminal result were consumed without Jim relaying completion.
 The historical callback error is retained in the MAX assessment. No callback success or arbitrary paused-goal startup is claimed.
 Frozen operation: v1-current-edition-20261028-a; cutoff 2026-10-28T08:01:00.380227Z remains unchanged.
@@ -16,7 +16,7 @@ The accepted native return and native_desktop_result.json persist NATIVE_PRE_WRI
 Jim-requested same-MAX rerun at 02:25 UTC on 29 October retained BOE HOLD; max-owner-requested-rerun-20261029.json was consumed.
 That actual Sol 6.1/MAX pass preserved seven bound inputs, source cutoff and terminal history, with no acquisition/state/public writes.
 Pre-writer HOLD/SOURCE_BLOCKED/REJECT/NO_STORY require zero media. Decision-stage Instagram media no longer blocks these results.
-Actual publication retains lawful-photo, same-MAX final rendered inspection/direct repair, canonical-first sole publisher and UNKNOWN_WRITE recovery.
+From 30 October, source-sufficient NEWS/POLICY briefs may omit photos and skip Instagram; ANALYSIS keeps photo/chart rules. Same-MAX review and sole publisher stay.
 Schedule repair binds newly due windows independently of older pending slots; bounded 30-second early jitter retains nominal cutoff and actual entry.
 Prior five-binding/four-rollout preservation and 33 installed terminal/schedule tests remain valid. Historical null invocation identities remain unaccepted.
 The same four ACTIVE App prompts were updated between windows; calendars, IDs, models, effort and other fields remain unchanged.
@@ -32,7 +32,7 @@ Actual listener changed 6596 -> 38656; port 8765 and running source 374d169e are
 After J7: pending outbox 0, UNKNOWN_WRITE 0; task action/triggers, publication control and reconciliation counts are unchanged.
 J7 evidence: j7-fresh-before.json, j7-restart-issued.json, j7-fresh-after.json and j7-verified-result.json in co1-application/.
 Remaining CO-1 acceptance: each natural session of production day 29 October must bind and end in an article or typed terminal outcome.
-These windows are 17:00, 21:00, 23:00 on 29 October and 01:00 on 30 October Asia/Bangkok; the first is still future at this checkpoint.
-Resume once real window results are available; no polling, simulated binding, extra schedule, repeat restart or another MAX vote for unchanged BOE evidence.
+Windows: 17:00, 21:00, 23:00 on 29 October and 01:00 on 30 October Asia/Bangkok. At 02:47 UTC on 29 October, none is due yet.
+Next: stage six-candidate source-first admission, shared ten free requests, real fallback, two originals/full window, photo-less briefs and capped App brief windows; activate at the next day boundary.
 Completed oil launch/reader exports remain preserved; see main-news/README.md. No whole-goal completion notice has been sent.
-No owner decision is needed now. CO-2/CO-3 await L2 assignment after CO-1; projection rights remain CO-4. J8/J10 unused; V2/V3 stay paused.
+Measure actual revised days in existing records; target eight useful canonical items by day3, reader counts unknown when unavailable. CO-5 follows volume work; CO-4 separate, V2/V3 paused.
