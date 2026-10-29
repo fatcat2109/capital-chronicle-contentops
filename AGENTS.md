@@ -8,7 +8,9 @@ whole-window result through the existing window/result outbox. Use the existing 
 send_message_to_thread tool, one fenced attempt and actual success/failure recording.
 Aggregate eligible candidates/slots first; a candidate HOLD alone is not window completion.
 Guarded NOT_YET_EFFECTIVE, stale/duplicate, partial, unfinished-child, unchanged-progress
-and quota-interrupted callbacks send no completion notice. No retry/acknowledgement loop,
+and quota-interrupted callbacks send no completion notice.
+A window that cannot reach its terminal result in its turn sends one BLOCKED notice instead, with the stage, the pending request and the first cause.
+No retry/acknowledgement loop,
 new ledger, notification service, scheduler or watcher is authorized. Report the exact
 identities, outcome, distinct canonicals/channel states, first cause, artifact and next
 action, with Jim-facing times in GMT+7. This reporting-only exception permits necessary

@@ -77,7 +77,14 @@ class TelemetryRegistry:
                     line = line.strip()
                     if line:
                         try:
-                            events.append(json.loads(line))
+                            event = json.loads(line)
+                            if event.get("platform_id") == "x" and event.get("action") in {"post","comment","edit"}:
+                                # Transport success in legacy receipts never proved platform readback.
+                                observed = event.get("platform_readback") or {}
+                                confirmed = observed.get("verified") is True and bool(observed.get("observed_public_object_id"))
+                                event = {**event,"publication_state":"PUBLISHED" if confirmed else "UNVERIFIED",
+                                    "publication_confirmed":confirmed}
+                            events.append(event)
                         except Exception:
                             continue
         return events

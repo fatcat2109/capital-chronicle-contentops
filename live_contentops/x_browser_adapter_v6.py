@@ -17,6 +17,17 @@ DEFAULT_PROFILE_SRC = Path(r"A:\Capital Chronicle\operator-browser-profiles\cont
 TEMP_PROFILE_DIR = Path(r"A:\Capital Chronicle\tools\cc-live-contentops\scratch\temp_profile_x")
 
 
+def project_publication_outcome(receipt: dict[str, Any]) -> dict[str, Any]:
+    """Read old transport receipts truthfully without changing their saved bytes."""
+    readback = receipt.get("readback") or {}
+    identity = str(readback.get("observed_public_object_id") or "")
+    if (receipt.get("status") == "SUCCESS" and not (readback.get("verified") is True
+            and readback.get("observation_source") and identity.isdecimal())):
+        return {**receipt,"status":"UNVERIFIED","transport_outcome":"SUCCESS",
+            "publication_confirmed":False,"readback_required":True}
+    return dict(receipt)
+
+
 def _set_first_file_input(page: Any, image_path: str) -> str | None:
     abs_path = str(Path(image_path).resolve())
     try:
@@ -185,10 +196,13 @@ def execute_x_post(
             browser.close()
 
             result = {
-                "status": "SUCCESS",
+                "status": "UNVERIFIED",
+                "transport_outcome": "SUCCESS",
+                "publication_confirmed": False,
+                "readback_required": True,
                 "platform": "x",
                 "action": "post",
-                "id": f"tweet_{payload_hash}",
+                "local_transport_attempt_id": f"tweet_{payload_hash}",
                 "media_upload_status": media_upload_status,
                 "response": {"url": final_url, "media_upload_status": media_upload_status},
             }
@@ -274,7 +288,10 @@ def execute_x_comment(
             browser.close()
 
             result = {
-                "status": "SUCCESS",
+                "status": "UNVERIFIED",
+                "transport_outcome": "SUCCESS",
+                "publication_confirmed": False,
+                "readback_required": True,
                 "platform": "x",
                 "action": "comment",
                 "response": {"target_url": final_url},
@@ -365,7 +382,10 @@ def execute_x_edit(
             browser.close()
 
             result = {
-                "status": "SUCCESS",
+                "status": "UNVERIFIED",
+                "transport_outcome": "SUCCESS",
+                "publication_confirmed": False,
+                "readback_required": True,
                 "platform": "x",
                 "action": "edit",
                 "response": {"target_url": final_url},

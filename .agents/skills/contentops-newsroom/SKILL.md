@@ -77,6 +77,20 @@ response and pass it to `window-notice-record`; never retry an attempted/failed 
 The existing result/outbox dedupes it. NOT_YET_EFFECTIVE, stale/duplicate, partial,
 unfinished-child, unchanged-progress and quota callbacks send nothing. A candidate HOLD
 is not a whole-window result while admitted work remains. Keep the brief date guard.
+Under Jim's30October CONTINUOUS WORK amendment, a genuine future-event, other-lane,
+owner-decision or unresolved software/platform blocker uses the existing `window-blocked`
+owner. Save exact run/stage/request/first-cause evidence, delivered work, smallest next
+action and responsible owner; then `window-blocked-begin` fences one native send to the
+same L2/local target and `window-blocked-record` saves its actual tool result. Each
+distinct blocker is deduped inside the existing window checkpoint. This is never a
+terminal completion. Quota, turn-end, guards/early/duplicates and a functioning pending
+child send no blocked notice. Continue all executable work, without a fixed batch count.
+When `next_native_calls` contains independent Luna requests, use at most three concurrent
+roles, collect/submit all real returns, then advance the same binding. Compact role
+packets keep complete headline/source/correction context and exact full-request hashes.
+Do not re-run an expired process-disposed window; `window-close` requires actual stopped
+operation evidence and saves a typed process failure, preserving unanswered requests and
+accepted native history without pretending to have completed their filtering.
 This scheduled-task rule does not apply to manual work or native children; the engineering
 Builder still sends only its genuine whole-goal completion notice. Claude remains Jim-triggered.
 

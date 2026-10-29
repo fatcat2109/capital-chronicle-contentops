@@ -183,6 +183,8 @@ def persist_native_day_measurement(store, binding):
         if final:
             value = json.loads(final["payload"])
             semantic = value.get("simple_result", value)
+            if semantic.get("first_blocking_cause"):
+                first_causes.setdefault((window,run),semantic["first_blocking_cause"])
             for outcome in semantic.get("candidate_outcomes", []):
                 first_causes.setdefault((window, outcome.get("candidate_id")), outcome["primary_cause"])
             interventions.extend(semantic.get("process_findings", []))

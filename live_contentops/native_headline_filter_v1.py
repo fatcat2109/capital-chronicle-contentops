@@ -107,6 +107,7 @@ def filter_native_headlines(turn, rolling_input):
                 raise ValueError("NATIVE_FILTER_CACHED_BINDING_MISMATCH")
             judgments[key] = value
     missing = [k for k in ordered if k not in judgments]
+    pending_requests = []
     for offset in range(0, len(missing), BATCH_SIZE):
         keys = missing[offset:offset + BATCH_SIZE]
         stage = "filter-" + sha256_of([POLICY, keys])
@@ -129,13 +130,26 @@ def filter_native_headlines(turn, rolling_input):
         frozen = turn.frozen_request(stage)
         if frozen and frozen["governed_input"] == governed:
             prompt = frozen["prompt"]
-        output, provenance = turn(logical_invocation_id=turn.run_id + ":" + stage, prompt=prompt,
-                                  governed_input=governed,
-                                  validator=lambda raw: _validate(raw, {k: exact[k]["headline_id"] for k in keys}))
+        from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired
+        try:
+            output, provenance = turn(logical_invocation_id=turn.run_id + ":" + stage, prompt=prompt,
+                governed_input=governed,validator=lambda raw: _validate(raw, {k: exact[k]["headline_id"] for k in keys}))
+        except DesktopInputRequired as pending:
+            pending_requests.append(pending.request)
+            if len(pending_requests) == 3:
+                break
+            continue
         retain(output, provenance)
         for value in output["decisions"]:
             judgments[value["input_sha256"]] = json.loads(turn.store.get_outbox_message(
                 "native-filter-decision-" + value["input_sha256"])["payload"])
+    if pending_requests:
+        # Independent frozen batches share the existing owner and submit gate. This
+        # reduces serial round trips without truncating intake or changing judgments.
+        progress = {"exact_deduped_x_count":len(ordered),"accepted_records":len(judgments),
+            "remaining_unprocessed":len(ordered)-len(judgments),"ready_batches":len(pending_requests),
+            "batch_size":BATCH_SIZE,"terminal":False}
+        raise DesktopInputRequired({**pending_requests[0],"parallel_requests":pending_requests,"filter_progress":progress})
     counts = Counter(j["decision"] for j in judgments.values())
     receipt = {"schema_version": POLICY, "scope": "ALL_X_RECORDS_IN_FROZEN_GOVERNED_INTAKE",
                "input_record_count": len(rows), "non_x_preserved_count": len(bypass),
