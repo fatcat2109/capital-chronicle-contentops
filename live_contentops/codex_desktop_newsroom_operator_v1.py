@@ -277,6 +277,44 @@ MANUAL_GO_PROMPT = (
 
 
 
+def volume_task_setup_packet() -> dict[str, Any]:
+    """Stage only; App updates are applied at the authorized production boundary."""
+    from live_contentops.native_brief_windows_v1 import BRIEF_WINDOWS
+    from live_contentops.native_newsroom_volume_v1 import CONFIG_PATH
+    policy = json.loads(CONFIG_PATH.read_bytes())
+    packet = four_task_setup_packet()
+    directions = (
+        " NEXT-PRODUCTION-DAY VOLUME: Apply only to new bindings from production day 30 October 2026, boundary 02:00 Asia/Saigon. "
+        "The 01:00 on 30 October belongs to 29 October and retains its old limits. Obey the binding's volume_policy. "
+        "Admit up to six useful full-window candidates ranked first by free source resolvability across Tier 1 assets/macro events. "
+        "Use the SAME original admission plan across fallbacks; HOLD/SOURCE_BLOCKED advances via scheduled --continue-after <completed-run>. "
+        "Carry the existing shared ten non-chargeable source requests across all candidates/slots; never reset after a refusal. "
+        "Full windows may publish at most two distinct useful canonical articles; keep current roles and final MAX rendered review/repair. "
+        "Source-sufficient NEWS/POLICY briefs may omit photos, with Instagram explicitly skipped; ANALYSIS retains photo/charts. "
+        "For a photo-less brief, submit media-plan with assets:[] after actual Light/MAX planning, then write, render/review and publish through the sole coordinator. "
+        "Measure actual funnel/first causes/confirmed canonical IDs/channel copies/time-to-readback/interventions and unknown reader counts in the existing day record. "
+        "If an actual Codex quota stop affects this Builder or an authorized Database observation, record quota-stop with the exact source/time/lane in the same binding. "
+        "Use supported App automation_update to PAUSE the three added brief tasks first, retaining their fields and all four full tasks. "
+        "Do not poll Database or create a replacement child, callback, watcher, fetcher, ledger, timer or model API fallback."
+    )
+    def revised_prompt(prompt):
+        return (prompt.replace("Source limit six shared requests per article; primary plus <=2 useful fallback candidates.",
+            "A full window shares ten non-chargeable requests across up to six candidates and two canonical articles.")
+            .replace("Before a new MAX writer freezes, the mandatory media-plan stage retains one relevant lawful documentary photo.",
+                "Before MAX writing, complete the exact media plan; dated NEWS/POLICY briefs may use assets:[] while ANALYSIS retains its lawful photo.") + directions)
+    tasks = [{**task, "prompt": revised_prompt(task["prompt"])} for task in packet["tasks"]]
+    for task_id, (session, hour) in BRIEF_WINDOWS.items():
+        local_hour = hour + 7
+        tasks.append({"id": task_id, "name": "V1 Newsroom — " + session.replace('_', ' '),
+            "rrule": f"RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR={local_hour};BYMINUTE=0",
+            "status": "PAUSED", "model": "gpt-6.1-sol", "reasoning_effort": "low",
+            "prompt": revised_prompt(DESKTOP_TASK_PROMPT.replace("{automation_id}", task_id)) +
+                " BRIEF-ONLY WINDOW: one useful NEWS/POLICY brief, up to three admissions, same ten free requests. Do not relabel ANALYSIS. If no useful admissible item, retain a typed NO_STORY/HOLD without media."})
+    return {"schema_version": "contentops.native_volume_task_setup.v1", "effective_production_date": policy["effective_production_date"],
+        "activate_not_before_utc": "2026-10-29T19:00:00Z", "application_state": "STAGED_NOT_APPLIED",
+        "tasks": tasks, "additional_brief_tasks": list(BRIEF_WINDOWS), "existing_full_tasks_unchanged_until_boundary": True}
+
+
 def four_task_setup_packet() -> dict[str, Any]:
     """The same four active Light coordinators; actual authority/control guards own sends."""
     from live_contentops.native_desktop_editorial_v1 import ROLE_ASSIGNMENTS

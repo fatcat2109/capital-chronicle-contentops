@@ -485,7 +485,7 @@ export interface ReportWorkspaceData {
   latest_simple_result?: { classification?: string; model_execution_state?: string; draft_count?: number; preview_count?: number; claim_lineage?: Array<Record<string, unknown>> } | null;
   article: null | { title: string; dek: string; substack_body_markdown: string; search_title?: string;
     meta_description?: string; canonical_slug_candidate?: string; source_date_notice?: string; source_notes?: string[];
-    reader_first_version?: string; display_date?: string };
+    reader_first_version?: string; display_date?: string; photo_less_brief_eligible?: boolean };
   previews: Array<{ destination: string; preview_id: string; article_identity: string; payload: Record<string, unknown>; claim_lineage: Array<Record<string, unknown>> }>;
   history: Array<{ report_version: number; state: string; article_identity: string; preview_ids: string[]; superseded_by_version: number }>;
   workspaces?: ReportWorkspaceData[];

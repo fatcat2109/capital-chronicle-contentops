@@ -583,6 +583,8 @@ def build_production_day_snapshot(
     bounded_useful_universe_exhausted: bool = False,
 ) -> NewsroomProductionDaySnapshot:
     day_id = newsroom_production_day_id(reference)
+    from live_contentops.native_newsroom_volume_v1 import volume_policy
+    target_min = 8 if volume_policy(reference) else FINAL_PUBLISHED_TARGET_MIN
     qualified = len(
         load_qualified_article_records(output_root, production_day_id=day_id)
     )
@@ -601,7 +603,7 @@ def build_production_day_snapshot(
     used = min(ROUTINE_OPPORTUNITY_LIMIT, max(0, used))
     remaining = ROUTINE_OPPORTUNITY_LIMIT - used
     deficit = max(0, BUILD_QUALIFIED_FLOOR - qualified)
-    published_deficit = max(0, FINAL_PUBLISHED_TARGET_MIN - published)
+    published_deficit = max(0, target_min - published)
     reason = str(hard_external_block_reason or "").strip() or None
     if published_deficit == 0:
         state = STATE_FLOOR_MET
@@ -617,7 +619,7 @@ def build_production_day_snapshot(
     return NewsroomProductionDaySnapshot(
         newsroom_production_day_id=day_id,
         build_qualified_floor=BUILD_QUALIFIED_FLOOR,
-        final_published_target_min=FINAL_PUBLISHED_TARGET_MIN,
+        final_published_target_min=target_min,
         final_published_target_max=FINAL_PUBLISHED_TARGET_MAX,
         qualified_articles_today=qualified,
         published_articles_today=published,

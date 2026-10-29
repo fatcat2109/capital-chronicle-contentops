@@ -77,8 +77,14 @@ Gemini or paid model fallback. Code owns extraction, arithmetic and validation. 
 the current accepted Main public manifest before waiting for anything newer. Main analysis
 and independent source facts retain separate lineage and authority.
 
-Advance through existing source tools/recovery (<=32 candidates, <=3 admissions, shared
-<=6 source requests), final validation and eight native packages. Use Neo for named public
+Advance through existing source tools/recovery and the binding's frozen dated volume policy.
+Before production day 30 October 2026 retain <=32 candidates, <=3 admissions and the shared
+<=6 source requests. New revised full windows admit up to six with ten shared non-chargeable
+requests and at most two originals; actual SOURCE_BLOCKED/HOLD advances the same admitted
+plan, preserving spent usage. A NEWS/POLICY brief may omit photos and skip Instagram under
+that explicit bound policy; ANALYSIS retains lawful-photo/chart rules. Preserve tonight's
+full windows and old bindings. Follow final validation and eight native destination results,
+including explicit channel-local skips. Use Neo for named public
 source recovery when needed; preserve dates, rights and the exact observation, and record
 real access gaps. Reuse relevant valid media; media binding before review uses the existing
 `media` command with exact article identity, source/rights/hash-bound inspected assets.

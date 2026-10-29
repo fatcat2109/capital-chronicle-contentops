@@ -195,7 +195,7 @@ function MaintainedStories({ stories }: { stories: MaintainedNativeStory[] }) {
         {version.source_dates.map(s => <p key={s.source_id}>{s.publisher} · {s.clock_kind === 'MAIN_REPORT_CUTOFF' ? 'Main report cutoff, not source publication: ' : ''}{retainedSourceDate({ published_at_utc: s.published_at_utc ?? '', published_at_source: s.published_at_source ?? undefined })} · {datedAge(s.age_seconds)}<br />
           {s.url?.startsWith('https://') && <a href={s.url}>Read dated source</a>}</p>)}
         <p>Report attribution and underlying event confirmation remain distinct. A newer check does not change the source's publication date.</p>
-        {!version.media_assets?.length && <p>Media gap: no inspected, rights-cleared image is bound. Text previews remain available.</p>}
+        {!version.media_assets?.length && !version.article.photo_less_brief_eligible && <p>Media gap: no inspected, rights-cleared image is bound. Text previews remain available.</p>}
         {version.media_assets?.map(a => <figure key={a.asset_id}>{a.preview_data_url && <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', height: 'auto' }} />}<figcaption>{a.caption}</figcaption></figure>)}
         <details><summary>Full accepted article and SEO</summary><h4>{version.article.title}</h4><p>{version.article.dek}</p>
           <ArticleParagraphs text={version.article.substack_body_markdown} />
@@ -376,7 +376,7 @@ function FullReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData }) 
           {s.url.startsWith('https://') ? <a href={s.url} target="_blank" rel="noreferrer">Đọc nguồn gốc</a> : 'Bản báo cáo công khai có định danh bất biến'}
         </p>)}</details>
         <p role="status">Release media: {item.release_media?.state ?? 'NOT VERIFIED'}{item.release_media?.blocker ? ` · ${item.release_media.blocker}` : ''}</p>
-        {!item.media_assets?.length && <p role="status">Media gap: no inspected, rights-cleared image is bound to this article. Text previews remain available.</p>}
+        {!item.media_assets?.length && !item.article.photo_less_brief_eligible && <p role="status">Media gap: no inspected, rights-cleared image is bound to this article. Text previews remain available.</p>}
         <h4>{item.previews.length}/8 bản xem trước theo nền tảng</h4>
         {item.publication && <details aria-label="Publication continuation"><summary>Publication: {display(item.publication.state)}</summary>
           <p>Review and preparation create no public post. {item.publication.operation_scope === 'OWNER_MANUAL_ISOLATED'

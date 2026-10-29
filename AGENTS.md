@@ -1,5 +1,9 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Dated V1 volume direction — 29 October 2026
+
+The [next-production-day volume amendment](docs/automation/CONTENTOPS_V1_NEXT_PRODUCTION_DAY_VOLUME_V1.md) is current for new operations from production day 30 October. It supersedes earlier three-admission/six-request/one-article and conditional J8/J10 limits only in that dated scope. Tonight's four full windows, old bindings and exhausted editions stay unchanged. Use six admissions, one shared ten-request non-chargeable cap, actual candidate fallback, two canonical articles per full window, photo-less NEWS/POLICY with Instagram skipped, and capped existing-App brief windows. Same native roles, final MAX review, sole publisher, rights and UNKNOWN_WRITE recovery remain. Stage source now; apply at the day boundary. V2/V3 stay paused.
+
 ## Native role results and terminal outcomes — 29 October 2026
 
 Jim's personal instructions V3 and Claude L1 A1 supersede the rejected ancestor-callback route. Follow [the native result rule](docs/automation/CONTENTOPS_BUILDER_SUBAGENT_COMPLETION_HANDOFF_RULE_V1.md). Luna, Light and MAX are roles inside the same operation: collect their supported native final return or saved artifact and continue the active pipeline. Never instruct a child to message its ancestor, pause merely for an own native role, or build a relay, watcher or schedule around platform limits. Preserve true paused/quota state and report any exact unsupported-return gap.

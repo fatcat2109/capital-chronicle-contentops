@@ -14,6 +14,28 @@ from live_contentops.capital_chronicle_latest_report_consumer_v1 import _private
 SCHEMA = "contentops.editorial_desk_review.v1"
 ENDPOINT = "/api/daily-app/editorial-review"
 SOURCE_REVIEW = "internal:native-story-source-review"
+STORY_PREPARATION = "internal:native-story-preparation"
+
+
+def record_pre_event_preparation(store, packet):
+    """Retain dated background in the existing story outbox, without source admission."""
+    from live_contentops.capital_chronicle_report_feed_v1 import _persist
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    if (_private(packet) or not all(packet.get(k) for k in ("event_id", "title", "known_at_utc",
+            "official_sources", "reader_question", "background", "release_work", "missing_inputs"))
+            or packet.get("released_facts_admitted") is not False or packet.get("publication_authority") is not False):
+        raise ValueError("EXACT_DATED_PRE_EVENT_PREPARATION_REQUIRED")
+    for source in packet["official_sources"]:
+        from pathlib import Path
+        from hashlib import sha256
+        if (not source.get("url", "").startswith("https://") or not source.get("capture_path")
+                or sha256(Path(source["capture_path"]).read_bytes()).hexdigest() != source.get("capture_sha256")):
+            raise ValueError("PREPARATION_OFFICIAL_CAPTURE_BINDING_REQUIRED")
+    value = {"schema_version": "contentops.native_story_preparation.v1", **packet,
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK", "public_write_performed": False}
+    key = "native-story-preparation-" + sha256_of(value)
+    _persist(store, key, value, STORY_PREPARATION)
+    return {"message_id": key, "event_id": packet["event_id"], "source_admission_state": value["source_admission_state"]}
 
 
 def record_owner_edition(store, *, edition_id, title, operation_ids, held_candidates=(), opportunity_outcomes=()):

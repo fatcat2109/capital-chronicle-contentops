@@ -1,5 +1,9 @@
 # Capital Chronicle ContentOps — Final Product Master Plan V3
 
+## Dated V1 volume direction — 29 October 2026
+
+The [next-production-day volume amendment](CONTENTOPS_V1_NEXT_PRODUCTION_DAY_VOLUME_V1.md) is current for new operations from production day 30 October. It supersedes earlier three-admission/six-request/one-article and conditional J8/J10 limits only in that dated scope. Tonight's four full windows, old bindings and exhausted editions stay unchanged. Use six admissions, one shared ten-request non-chargeable cap, actual candidate fallback, two canonical articles per full window, photo-less NEWS/POLICY with Instagram skipped, and capped existing-App brief windows. Same native roles, final MAX review, sole publisher, rights and UNKNOWN_WRITE recovery remain. Stage source now; apply at the day boundary. V2/V3 stay paused.
+
 ## Reader attribution and public time — 28 October 2026
 
 Jim's [reader policy](CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1.md) is current: omit discretionary Sources/References lists, repeated citation links and ritual cutoff footers by default. Retain natural claim/relay attribution and uncertainty, actual mandatory quotation/photo/reuse credit and meaningful chart metric/unit/period/context. Useful exact public times use America/New_York with date-correct EDT/EST, or UTC; omit unnecessary exact-time footers. Internal source/claim/rights/UTC/cutoff history and Asia/Bangkok production calendars stay unchanged. Apply through writer/compiler/read owners; the SAME MAX writer inspects affected revisions before a send or exact-object edit. Historical packages/exports remain immutable; formatting never refreshes a story.

@@ -1,34 +1,37 @@
-# CO-1: native lifecycle, terminal outcomes and scheduled operation
-Goal: CONTENTOPS_V1_CURRENT_EDITION_AND_REPEATABLE_DELIVERY_V1 / CO-1, unfinished. Jim resumed MAX and L2 authorized exact no-write fixture reconciliation; natural-day acceptance remains pending.
-Owner: Builder 01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
-Authoring: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; branch codex/v1-newsroom-release-convergence.
-Source: PR115 merged and installed at 4e5f31a2156405d024475b9050a0cd52d3f1ebc1 in A:/Capital Chronicle/ContentOps.
-Authority: Claude L1 batches 01/02, plan10 CO-1 and J7/J8/J10; Jim's V3 replaces ancestor callbacks. Projection rights remain CO-4.
-Native roles return actual results or saved artifacts within the operation. No ancestor messages, own-child pause, polling or extra service.
-Actual Light preparation was consumed into MAX visual-edit; the real MAX result was consumed into a typed HOLD and final operation continuation without a Jim completion relay.
-Historical ancestor transport failed once; exact error remains in the MAX assessment. No callback success or arbitrary paused-goal restart is claimed.
-Frozen operation: v1-current-edition-20261028-a; cutoff 2026-10-28T08:01:00.380227Z remains unchanged.
-Result folder: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-current-edition-20261028-a/.
-Filtering retained: 54 accepted batches, 1,274 records; 740 KEEP, 413 REJECT, 121 DEFER. No repeated filtering.
-Final disposition: Unilever SOURCE_BLOCKED (SOURCE_MISSING); BOE HOLD (SOURCE_AMBIGUITY); Stellantis SOURCE_BLOCKED (BUDGET_OR_RETRY_CAP).
-Frozen edition result: 0 qualified articles, 0 published, 0 derivative intents; all three admitted candidates have terminal results. Actual source budget remains 6/6.
-BOE also retains reader-value/access/staleness limits. The unsupported callback and late role lifecycle are recorded separately as process findings.
-MAX source assessment: max-visual-editor-assessment-current-edition.json. Its actual native observation and exact saved bytes bind max-pre-writer-hold-native-return.json. Jim-requested same-MAX rerun at 02:25 UTC29October retained SOURCE_AMBIGUITY HOLD; consumed max-owner-requested-rerun-20261029.json, with seven bound inputs unchanged and zero acquisition/state/public writes.
-Existing final owner and native_desktop_result.json contain NATIVE_PRE_WRITER_EDITION_COMPLETE. No fabricated article, photo, new source or new model call.
-Typed HOLD, SOURCE_BLOCKED, REJECT and NO_STORY require zero media. Installed continuation is idempotent and checks the actual admitted evidence cache.
-Decision-stage Instagram media is removed. Lawful-photo and same-MAX final rendered inspection/direct repair still protect actual publication; J8 has not been used.
-Schedule repair admits a newly due window independently of older pending slots; the old operations remain preserved.
-Bounded 30-second App jitter fixes the observed 13-second-early 23:00 callback, keeping nominal cutoff and actual entry distinct. Historical misses are not backfilled.
-Five existing bindings and four issued-window rollout hashes were checked unchanged after application. Historical null native identities remain unknown and unaccepted.
-The same four ACTIVE App prompts were updated through the supported updater between windows. Calendars, project, models, effort and all other fields are unchanged.
-Supported updater removed one trailing space only; source and installed prompt hashes are recorded explicitly. No in-flight window was rebound.
-PR115 verification: exact-head CI40802858411 and installed33 terminal/schedule tests passed. Fixture18 controls pass; legacy tick-fixture failure reproduced on unchanged HEAD. Separate owner regression checks are in progress.
-Application/readback: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/co1-application/installed-outcome-and-automation-readback.json.
-Source installation preserved current WIP and listener6596 without restart; application evidence is installed-source.json in that same folder.
-J7 is POSTPONED: two READY August controlled-fixture rows for Substack/Telegram remain; UNKNOWN_WRITE count is0. They were not cleared to force restart eligibility.
-J7 preflight captured actual PID, start time, command, health and running source7d489537; see j7-preflight-postponed.json. This Builder has performed no restart.
-Fixture repair: existing coordinator now validates exact deterministic no-write lineage, preserves payload/dispatch/history, appends typed clarification and closes only fixture outbox/reconciliation status. Supervisor replay never sends again;18 focused controls pass. Integration/application pending; J7 still requires fresh preflight.
-CO-1 remaining acceptance: each natural session of the next production day must bind and reach an article or typed outcome. No simulated daily-operation proof or polling.
-The completed oil launch, exact edits and historical reader exports remain preserved; see main-news/README.md. No Main or Database files were edited.
-Resume condition: actual four-window results become available, or the pending READY rows receive a legitimate disposition enabling J7. Read once on resumption; no recheck loop. CO-2/CO-3 have not started; V2/V3 stay paused.
-No whole-goal completion notice has been sent; CO-1 remains unfinished pending its natural schedule acceptance and the explicit J7 postponement condition.
+# CO-1 and next-production-day V1 volume amendment
+Goal: SAME unfinished CONTENTOPS_V1_CURRENT_EDITION_AND_REPEATABLE_DELIVERY_V1, amended by L1 batch04 and Jim's subagent authorization.
+State: volume behavior implemented/staged; future boundary application, natural CO-1 windows and measured revised-day output remain unfinished.
+Owner: Builder 01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35. No completion notice sent.
+Root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; branch codex/v1-newsroom-release-convergence. Root is sole integrator.
+Operating source/J7: PR116 at 374d169e; ONE restart at 02:42 UTC on 29 October, listener 6596 -> 38656, port 8765, source 374d169e verified.
+After J7: pending outbox 0, UNKNOWN_WRITE 0; task actions/triggers, publication control and reconciliation unchanged. J7 is spent, no repeat authorized.
+The two August FDA-C fixtures were reconciled by the sole coordinator, idempotently, with original bytes/history retained and 0 provider/public calls.
+PR115/116 focused proof and application remain in C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/co1-application/.
+Frozen v1-current-edition-20261028-a cutoff 2026-10-28T08:01:00.380227Z remains terminal at 6/6: Unilever SOURCE_MISSING, BOE SOURCE_AMBIGUITY HOLD, Stellantis BUDGET_OR_RETRY_CAP.
+The genuine Light/MAX return route and Jim-requested same-MAX rerun were consumed; no ancestor callback success or public article is claimed.
+54 accepted filter batches/1,274 records remain:740 KEEP,413 REJECT,121 DEFER; frozen edition0 articles/0 copies/0 published.
+Tonight's full windows remain 17:00/21:00/23:00 on 29 October and 01:00 on 30 October, Asia/Saigon. The 01:00 belongs to 29 October's production day.
+Four existing App prompt hashes, calendars, models, effort and ACTIVE states match their prior installed readback; no tonight binding/limit/prompt changed.
+Revised policy applies only to NEW bindings from 02:00 on 30 October (2026-10-29T19:00Z); old operations never inherit the higher budget.
+Implemented: up to six useful full-window admissions ranked source-first, shared ten non-chargeable requests, stable original Light selection and actual HOLD/SOURCE_BLOCKED fallback.
+A real isolated source walk proved blockedA3 + heldB2, then next admittedC2 at global7/10 with no new selection invocation or reset. Tests are not live article proof.
+Full-window attempts are bounded independently from the two-confirmed-canonical ceiling; brief windows allow one NEWS/POLICY item and three admissions.
+NEWS/POLICY may omit photos under the bound dated policy, with explicit Instagram skip. ANALYSIS keeps lawful photo/charts. Final MAX desktop/mobile inspection/direct repair remains.
+Compiler/coordinator skip is destination-local; canonical plus seven compatible copies can dispatch in isolated controls without an Instagram call. A skipped copy is never counted confirmed.
+Existing production-day records project admissions, source-qualified items, distinct canonical IDs, copies/channel, first causes, readback latency, interventions/quota and exposed metrics.
+Unknown readers remain UNAVAILABLE/null; known zero is preserved. Target: at least eight useful distinct published items per day by revised day 3; no measured revised-day result exists yet.
+Three App brief tasks 09:00 Asia/15:00 Europe/19:00 US are CREATED PAUSED through the supported App updater; no new scheduler or activation task.
+Observed scoped quota stops use the existing outbox; added briefs are cut first. No Database polling or other-lane mutation is authorized.
+Six primary-site account links verified: Fed,ECB,BoE,BLS,BEA,NVIDIA. Staged config/official_x_source_accounts_v1.json retains the same owned X list and CDP route.
+The owned list shows 23 members and an Edit List control; member bodies did not load. Membership stays unknown; no account/list writes occurred.
+Four real internal pre-event preparation packets are saved by the existing story owner, not source-qualified release facts; see volume-pre-event-preparation.md.
+Official planned clocks: BoE 5 November 12:00 UTC; Employment Situation 6 November 13:30 UTC; CPI 10 November 13:30 UTC. No universal election result clock or invented consensus.
+Subagents were attempted once: schedule/photo-less remained pending_init, source was not_found at collection. They were interrupted/released; no saved child result or work claim.
+Root implemented the lanes directly, preserving exact prompts. No replacement child, callback bridge or quota-bypass mechanism was created.
+Validation: 184 integrated controls, 25 schedule controls, 88 delta checks and UI TypeScript/Vite build passed. Final quota/day-measurement correction passed 40 affected controls plus focused Ruff; reports are in co1-application. No global lint or live publication PASS is claimed.
+Dated authority/config/prompts and the existing skill are updated in authoring; the current operating rollout and four full App prompts remain untouched.
+PR117 includes dated volume behavior and the quota/day-measurement correction; exact final-head CI/normal merge is next. Apply source/config/prompts and reconcile X membership at the authorized boundary, then activate the three staged brief tasks.
+Do not repeat J7, reopen the 6/6 edition, poll windows or manufacture CO-1 acceptance. Read actual existing outcomes once on legitimate resumption.
+Application, four natural CO-1 window outcomes, actual fallback/publication throughput and the third revised-day target remain unproven until observed.
+Pre-event release updates are future work at real T0; background retains exact source/known-at clocks and genuine missing inputs. Database public-safe editions join only when available.
+Unrelated telemetry and operating WIP are preserved. CO-4 projection rights remain separate; no Main/Database files, paid APIs, new publisher or V2/V3 work.

@@ -1,0 +1,62 @@
+{
+  "schema_version": "contentops.official_x_intake_additions.v1",
+  "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+  "existing_list_url": "https://x.com/i/lists/1843870469143048642",
+  "observed_owner": "Capital Chronicle @Capitalnicle",
+  "owned_list_edit_control_observed": true,
+  "existing_member_count_observed": 23,
+  "accounts": [
+    {
+      "handle": "federalreserve",
+      "official_website": "https://www.federalreserve.gov/",
+      "profile_url": "https://x.com/federalreserve",
+      "identity_evidence": "EXACT_LINK_FROM_OFFICIAL_WEBSITE",
+      "membership_state": "NOT_READ_BACK",
+      "activation_not_before_utc": "2026-10-29T19:00:00Z"
+    },
+    {
+      "handle": "ECB",
+      "official_website": "https://www.ecb.europa.eu/services/socialmedia/html/index.en.html",
+      "profile_url": "https://x.com/ECB",
+      "identity_evidence": "EXACT_LINK_FROM_OFFICIAL_WEBSITE",
+      "membership_state": "NOT_READ_BACK",
+      "activation_not_before_utc": "2026-10-29T19:00:00Z"
+    },
+    {
+      "handle": "nvidia",
+      "official_website": "https://nvidianews.nvidia.com/",
+      "profile_url": "https://twitter.com/nvidia",
+      "identity_evidence": "EXACT_LINK_FROM_OFFICIAL_WEBSITE",
+      "membership_state": "NOT_READ_BACK",
+      "activation_not_before_utc": "2026-10-29T19:00:00Z"
+    },
+    {
+      "handle": "bea_news",
+      "official_website": "https://www.bea.gov/",
+      "profile_url": "https://x.com/bea_news",
+      "identity_evidence": "EXACT_LINK_FROM_OFFICIAL_WEBSITE",
+      "membership_state": "NOT_READ_BACK",
+      "activation_not_before_utc": "2026-10-29T19:00:00Z"
+    },
+    {
+      "handle": "BLS_gov",
+      "official_website": "https://www.bls.gov/schedule/news_release/empsit.htm",
+      "profile_url": "https://x.com/BLS_gov",
+      "identity_evidence": "EXACT_LINK_FROM_OFFICIAL_WEBSITE",
+      "membership_state": "NOT_READ_BACK",
+      "activation_not_before_utc": "2026-10-29T19:00:00Z"
+    },
+    {
+      "handle": "bankofengland",
+      "official_website": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/november-2026",
+      "profile_url": "https://x.com/bankofengland",
+      "identity_evidence": "EXACT_LINK_FROM_OFFICIAL_WEBSITE",
+      "membership_state": "NOT_READ_BACK",
+      "activation_not_before_utc": "2026-10-29T19:00:00Z"
+    }
+  ],
+  "application_state": "STAGED_NOT_APPLIED",
+  "reason": "Preserve tonight's intake; exact member body did not load. Reconcile membership before adding at the production boundary.",
+  "no_list_write_performed": true,
+  "existing_high_volume_cdp_route_changed": false
+}
