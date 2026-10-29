@@ -1,5 +1,16 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Compatible early installation — L1 batch 06, 29 October 2026
+
+Batch L1-B-20261029-06 supersedes the earlier requirement to wait until 02:00 to install source.
+Install compatible source now after the focused old-window comparison; preserve tonight's four
+full prompt/calendar/rollout identities, old binding limits and publication semantics. The dated
+policy still starts only with the 30 October production day. Resume the three existing brief App
+entries with the executable NOT_YET_EFFECTIVE guard before any source/model/public work. No extra
+J7 restart or activation watcher is authorized. CO-4 uses the existing intake/export/source-rights
+owners and one stable governed projection; list membership never grants rights. Keep actual
+installed source, running process source, first real brief and live export cadence separate.
+
 ## Dated V1 volume direction — 29 October 2026
 
 The [next-production-day volume amendment](docs/automation/CONTENTOPS_V1_NEXT_PRODUCTION_DAY_VOLUME_V1.md) is current for new operations from production day 30 October. It supersedes earlier three-admission/six-request/one-article and conditional J8/J10 limits only in that dated scope. Tonight's four full windows, old bindings and exhausted editions stay unchanged. Use six admissions, one shared ten-request non-chargeable cap, actual candidate fallback, two canonical articles per full window, photo-less NEWS/POLICY with Instagram skipped, and capped existing-App brief windows. Same native roles, final MAX review, sole publisher, rights and UNKNOWN_WRITE recovery remain. Stage source now; apply at the day boundary. V2/V3 stay paused.

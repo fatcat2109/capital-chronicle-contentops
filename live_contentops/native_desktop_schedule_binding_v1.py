@@ -18,7 +18,7 @@ from live_contentops.newsroom_production_day_v1 import (
 )
 from live_contentops.published_corpus_read_model_v1 import load_canonical_published_memory_read_only
 from live_contentops.v1_simple_gemini_scheduler_v1 import simple_gemini_slot_id
-from live_contentops.native_brief_windows_v1 import automation_sessions, native_opportunities, observed_quota_stop
+from live_contentops.native_brief_windows_v1 import automation_sessions, brief_effective_guard, native_opportunities, observed_quota_stop
 from live_contentops.native_newsroom_volume_v1 import volume_policy, window_progress
 
 SCHEMA = "contentops.native_desktop_rollout.v1"
@@ -149,6 +149,8 @@ def scheduled_binding(rollout, automation_id, *, now=None, continue_after=None):
         raise ValueError("NATIVE_SCHEDULE_BINDING_INVALID")
     now = now or datetime.now(timezone.utc)
     now = now.replace(tzinfo=timezone.utc) if now.tzinfo is None else now.astimezone(timezone.utc)
+    if guarded := brief_effective_guard(automation_id, now):
+        return guarded
     session = automation_sessions()[automation_id]
     rows = native_opportunities(build_bootstrap_editorial_window_policy(),
         reference_utc=now, through_utc=now + timedelta(seconds=EARLY_DELIVERY_TOLERANCE_SECONDS), capacity=12)
