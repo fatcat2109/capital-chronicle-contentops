@@ -344,6 +344,9 @@ def _window_notice(value, artifact):
         "Scheduled V1 window result — " + result["finished_at_gmt7"] + "\n"
         + "Automation: " + result["automation_id"] + "; production day: " + result["production_day_id"] + "\n"
         + "Window: " + result["window_id"] + "; runs: " + ", ".join(result["run_ids"]) + "\n"
+        + "Source chat/session: " + json.dumps(result.get("source_context",{}), separators=(",", ":")) + "\n"
+        + "Nominal window: " + result.get("nominal_window_gmt7","UNOBSERVED")
+        + "; actual entry: " + result.get("actual_entry_gmt7","UNOBSERVED") + "\n"
         + "Outcome: " + result["outcome"] + "; distinct canonical items: " + str(len(result["canonical_items"]))
         + "; objects: " + json.dumps(result["canonical_items"], separators=(",", ":")) + "\n"
         + "Channels: " + json.dumps(result["channels"], separators=(",", ":")) + "\n"
@@ -498,6 +501,11 @@ def _prepare_window_result(store, rollout, binding, response, *, now=None):
         "next_action":("Repair " + fatal["operation"] + ": " + fatal["error"]) if fatal else
             "Review named unresolved/failed channels through the existing coordinator; no blind retry." if any(
                 channels[k] for k in ("unresolved", "failed")) else "No remaining action in this terminal window."}
+    result["source_context"] = response.get("source_context",{})
+    result["nominal_window_gmt7"] = start.astimezone(timezone(timedelta(hours=7))).strftime("%Y-%m-%d %H:%M:%S GMT+7")
+    original_entry = checkpoint.get("actual_entry_utc")
+    result["actual_entry_gmt7"] = (datetime.fromisoformat(original_entry.replace("Z","+00:00"))
+        .astimezone(timezone(timedelta(hours=7))).strftime("%Y-%m-%d %H:%M:%S GMT+7") if original_entry else "UNOBSERVED")
     value = {"schema_version":"contentops.native_scheduled_window_result.v1", "terminal_result":result,
         "startup_result":entry, "notice_delivery":{"state":"READY", "target_thread_id":WINDOW_REPORT_L2,
             "target_host_id":WINDOW_REPORT_HOST}, "public_write_performed":False}
@@ -525,6 +533,19 @@ def window_notice_delivery(store, binding, *, response=None, begin=False):
             if delivery["state"] != "READY":
                 return {"classification":"WINDOW_NOTICE_SUPPRESSED", "reason":delivery["state"],
                     "artifact_path":str(_window_result_path(binding))}
+            if not value["terminal_result"].get("source_context"):
+                disposition_row = store.get_outbox_message("native-window-disposition-"+sha256_of(binding["run_id"]))
+                if disposition_row:
+                    disposition = json.loads(disposition_row["payload"])
+                    evidence = json.loads(Path(disposition["evidence_path"]).read_bytes())
+                    if evidence.get("run_id") != binding["run_id"]:
+                        raise ValueError("EXACT_TERMINAL_SOURCE_CONTEXT_REQUIRED")
+                    result = value["terminal_result"]
+                    result["source_context"] = {k:evidence[k] for k in ("source_thread_id","source_turn_id")}
+                    checkpoint = json.loads(store.get_outbox_message("native-window-"+sha256_of(binding["window_id"]))["payload"])
+                    for source,target in ((checkpoint["window"]["start_utc"],"nominal_window_gmt7"),(checkpoint.get("actual_entry_utc"),"actual_entry_gmt7")):
+                        result[target] = (datetime.fromisoformat(source.replace("Z","+00:00")).astimezone(timezone(timedelta(hours=7)))
+                            .strftime("%Y-%m-%d %H:%M:%S GMT+7") if source else "UNOBSERVED")
             args = {"threadId":WINDOW_REPORT_L2, "hostId":WINDOW_REPORT_HOST,
                 "prompt":_window_notice(value, _window_result_path(binding))}
             delivery.update(state="ATTEMPT_STARTED", tool="send_message_to_thread", arguments=args,
@@ -616,7 +637,8 @@ def _close_expired_window(store, rollout, binding, response, *, now=None):
         "actual_entry_utc":moment.isoformat(),
         "original_actual_entry_utc":checkpoint.get("actual_entry_utc"),
         "observation_source":"CURRENT_EXPIRED_OWNER_CLOSURE_NOT_HISTORICAL_STARTUP_CLI"}
-    return prepare_window_result(store,rollout,binding,{"startup_result":entry},now=moment)
+    return prepare_window_result(store,rollout,binding,{"startup_result":entry,
+        "source_context":{k:evidence[k] for k in ("source_thread_id","source_turn_id")}},now=moment)
 
 
 def window_blocked_notice(store, binding, response, *, begin=False, record=False):
@@ -671,10 +693,11 @@ def window_blocked_notice(store, binding, response, *, begin=False, record=False
                 return {"classification":"WINDOW_BLOCKED_SUPPRESSED","reason":"BLOCKER_ALREADY_SAVED","blocker_id":blocker_id}
             text = ("BLOCKED — scheduled V1 window; " + datetime.now(timezone(timedelta(hours=7))).strftime("%Y-%m-%d %H:%M:%S GMT+7")
                 + "\nWindow: "+binding["window_id"]+"; run: "+binding["run_id"]
+                + "\nSource chat/session: "+str(artifact.get("source_thread_id","UNOBSERVED"))
                 + "\nDelivered: "+response.get("delivered","See saved operation")
                 + "\nStage: "+stage+"; pending request: "+str(request_hash)
                 + "\nFirst cause: "+cause+"; "+response["blocker"]
-                + "\nNext: "+response["smallest_next_action"]+"; owner: "+response["responsible_owner"]
+                + "\nNext/resume condition: "+response["smallest_next_action"]+"; owner: "+response["responsible_owner"]
                 + "\nArtifact: "+response["artifact_path"]+"\nThis is not a terminal-window or engineering completion notice.")
             item = {"blocker_id":blocker_id,"evidence":response,"notice_text":text,
                 "notice_delivery":{"state":"READY"},"terminal_window":False}
