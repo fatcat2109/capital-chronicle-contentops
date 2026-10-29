@@ -1,32 +1,32 @@
-# V1 current edition and repeatable delivery
-Native goal: CONTENTOPS_V1_CURRENT_EDITION_AND_REPEATABLE_DELIVERY_V1; ACTIVE; created28October2026 at07:58:55UTC after get_goal returned none.
-Objective: finish one genuinely current useful edition through native evidence/writing/final MAX repair/publication and exact safe producer availability.
-Owner/integrator: chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
-Authoring: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; branch codex/v1-newsroom-release-convergence; branch source3024ed2d plus dated producer handoff; PR113 merged/applied d027ede0.
-Operating: A:/Capital Chronicle/ContentOps; installed masterd027ede072d0b51dbb378352e8be1170110c47c1; unrelated WIP preserved.
-Current authority/strategic context reused; root AGENTS, native runtime/role policy, source/lane map and28October locked execution refreshed.
-Product synthesis: useful current source-faithful original newsroom output, existing sole coordinator/read producer and observed outcomes; no framework campaign.
-Previous completed launch remains closed; its scoped delivery/notice is in Git148957c7 and main-news/README.md. No original object/review reopened.
-Three27October scheduled bindings retain cutoffs10:00/14:00/18:00UTC and their pending stages; owning automations/children unchanged.
-No active editorial leases at startup; no28October production binding existed. Current canonical intake captured28October07:58:50UTC.
-Authorized owner-manual entry created v1-current-edition-20261028-a with exact current cutoff2026-10-28T08:01:00.380227Z.
-Binding: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-current-edition-20261028-a/binding.json.
-Request: A:/Capital Chronicle/Runtime/ContentOps/current-edition-20261028-request.txt; same normal-language request and operation survive interruption.
-Current filter:17 accepted24-record batches;408records,274KEEP/106REJECT/28DEFER. Saved seventeenth actual Luna return submitted after quota stop.
-Latest exact pending stage is in filter-advance-after-7744efa7d22c94dc73f2fa96b168b358083df2b830a4324972360f1452b98f2a.txt under the same operation.
-Luna stopped once on quota; current host ordinaryUsageAllowed=true at54% primary usage. SAME child resumed once from exact pending batch, with no model/cutoff change.
-Child judges every bounded record, reuses accepted cache, submits exact responses and stops at the next non-filter stage; no source/public action.
-Next role: actual gpt-6.1-sol/low selects/plans within<=32 candidates/<=3admissions; aim2–3distinct supported stories without filler.
-Each admitted story retains<=6source requests and relevant dated event/thesis history; facts, CC hypotheses and measured reaction stay distinct.
-SAME actual gpt-6.1-sol/max writer/editor owns prose, visual choice, finished desktop/mobile inspection and direct affected-output repair.
-Canonical-first publication uses existing configured routine recipients; the launch-only extra LinkedIn company copy is not a new default.
-UNKNOWN_WRITE remains readback-first; source/account/API/verification gaps stay local. No paid fallback or account/product setup is required.
-Oil dated safe producer delivered: main-news/selected-edition-20261028-reader-policy-r1.json (SHA5290d215); original pinned export and other seven records unchanged. Main new adoption unverified.
-Main bridge/skill/pins stay Main-owned; parent pulls exact producer handoff. No peer message or Main/Database edit.
-Current new-edition result:0qualified/0published; SAME Luna child is filtering. This old-article presentation edit is not current-edition throughput.
-Operating observations will use existing production-day/outcome owners; source cutoff, publish/observation clocks and measured duration remain separate.
-Four existing schedules remain independently ACTIVE; no fifth task/new scheduler/store/publisher/reviewer fleet. V2/V3 stay owner-paused.
-Same MAX accepted ten revised pixels; oil revision5ee98176 retains source clocks/rights/photo. Six exact IDs/readbacks: operation oil-reader-policy-r1/confirmed-public-edits-and-producer-r1.json.
-Next: consume SAME Luna terminal next-stage packet, then actual Light/evidence/SAME MAX/current-edition publication and dated producer delivery. Stop parent when only child remains.
-PR113 exact-head CI passed; installed18 contract tests passed; six in-place oil/footer edits CONFIRMED via sole coordinator, zero new posts. Runtime/listener and unrelated WIP preserved.
-No completion notice sent for this successor; only one after whole-goal acceptance. Daily5–8 reliability/SEO/growth remain unproven.
+# CO-1: native lifecycle, terminal outcomes and scheduled operation
+Goal: CONTENTOPS_V1_CURRENT_EDITION_AND_REPEATABLE_DELIVERY_V1, unfinished; native state remains paused. This authorized turn continues the same work.
+Owner: Builder 01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
+Authoring: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence, codex/v1-newsroom-release-convergence, base 66818350.
+Operating: A:/Capital Chronicle/ContentOps, installed 7d489537; existing WIP is preserved.
+Authority: Claude L1 batches 01/02 and plan 10, ContentOps CO-1 and J7/J8/J10; Jim's V3 supersedes ancestor callbacks.
+Scope: finish CO-1 before CO-2 measured days. Projection rights moved to CO-4; no Main or Database edits.
+Native roles return exact results/artifacts inside the operation. No ancestor messages, own-child pause, polling, watcher or extra schedule.
+The genuine Light plan was consumed into MAX visual-edit; MAX's real final result and saved BOE HOLD were received without a Jim completion relay.
+Historical ancestor send failed once; its exact error remains in the saved MAX assessment. No callback success is claimed.
+Frozen operation: v1-current-edition-20261028-a; cutoff 2026-10-28T08:01:00.380227Z is unchanged.
+Binding/result folder: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-current-edition-20261028-a/.
+Filtering is complete: 54 accepted batches, 1,274 records; 740 KEEP, 413 REJECT, 121 DEFER.
+Actual Light selected Unilever, BOE and Stellantis. Unilever has no accepted source; BOE has an ambiguous FT-attributed relay.
+MAX assessment: max-visual-editor-assessment-current-edition.json; source/value HOLD, zero articles/media/previews. Do not repeat the vote.
+Actual source budget is exhausted at 6/6. Frozen research has 33 records and no Stellantis match; no new acquisition or budget reset.
+Typed HOLD, SOURCE_BLOCKED, REJECT and NO_STORY now need zero media. Terminal results retain distinct first causes and resume idempotently.
+Decision-stage Instagram media is removed; lawful-photo and same-MAX final-render protections still apply to actual publication.
+Edition closure and genuine MAX-result consumption must be applied through the existing native owner after protected source integration.
+Schedule repair: a new due window takes priority over an older pending slot; both identities survive.
+The observed 23:00 call was 13 seconds early. Bounded 30-second App jitter now records actual entry while keeping the nominal cutoff.
+Historical missed windows are not backfilled. Issued rollout hashes and pending native request bytes stay frozen.
+Scheduled native roles must return actual invocation identity; historical null/unobserved responses remain unknown and unaccepted.
+Focused native/media/reader/schedule controls: 186 passed plus terminal-operation resume and selection-HOLD controls; exact CI is pending. Tests are not live-window evidence.
+Application is pending the scoped PR, installed prompt update at a quiet window boundary, and exact production outcome readback.
+J7 restart is postponed: two READY outbox items exist for Substack/Telegram under editorial-window-10871b89cb9ade3a0969de8c28d00320; no UNKNOWN_WRITE dispatches.
+J7 requires zero pending/unknown, a fresh process identity and a quiet time at least 30 minutes from windows. No restart has been performed.
+CO-1 natural acceptance still requires every session of the next production day to bind and end in an article or typed outcome; no polling or simulated proof.
+The completed oil launch, six exact edits, historical pinned export and dated reader revision remain preserved; see main-news/README.md.
+Four existing schedules and native model roles remain unchanged. One original store and publisher; V2/V3 remain paused.
+Next: integrate/apply repairs, record the genuine BOE terminal outcome and exact edition causes, then use natural four-window evidence.
+No whole-goal completion notice has been sent. CO-2/CO-3 and conditional J8/J10 are not activated by this slice.

@@ -19,7 +19,7 @@ New artifact SHA256: `5290d215f604f997316024aef1c1182b51da346c0d5c028159f732b7e4
 The original [selected-edition.json](selected-edition.json) remains unchanged at its original export time, with SHA256 `b4a52997745fc86697e404a6d37c22b4230ce2571b837de90d97e3d41588dc7a`.
 That original remains Builder B's historical pin. The default fixed-file reader/CLI continues to read that dated snapshot until the consumer owner explicitly adopts a revision.
 
-Producer code is merged/applied at `d027ede072d0b51dbb378352e8be1170110c47c1` ([PR113](https://github.com/fatcat2109/capital-chronicle-contentops/pull/113)).
+Producer code ([PR113](https://github.com/fatcat2109/capital-chronicle-contentops/pull/113)) and dated export ([PR114](https://github.com/fatcat2109/capital-chronicle-contentops/pull/114)) are merged/applied at `7d48953766c9a4f7154ad9038c9d73d08022b07c`.
 The existing owner projection exposes only confirmed same-object presentation amendments; original article, evidence, sent intents and old exports are retained.
 The same designated native MAX writer accepted all ten changed desktop/mobile views before edits; exact acceptance and public readbacks are in the operation's `oil-reader-policy-r1/` folder.
 The existing producer built this dated artifact in query-only mode. Its schema/allowlists passed; exact article and photo reads returned200 with the new artifact bound in an isolated owner-read process.

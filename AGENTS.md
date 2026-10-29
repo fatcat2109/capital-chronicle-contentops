@@ -1,5 +1,10 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Native role results and terminal outcomes — 29 October 2026
+
+Jim's personal instructions V3 and Claude L1 A1 supersede the rejected ancestor-callback route. Follow [the native result rule](docs/automation/CONTENTOPS_BUILDER_SUBAGENT_COMPLETION_HANDOFF_RULE_V1.md). Luna, Light and MAX are roles inside the same operation: collect their supported native final return or saved artifact and continue the active pipeline. Never instruct a child to message its ancestor, pause merely for an own native role, or build a relay, watcher or schedule around platform limits. Preserve true paused/quota state and report any exact unsupported-return gap.
+Terminal pre-writer HOLD, SOURCE_BLOCKED, REJECT and NO_STORY require zero media and retain their first source/editorial/rights/staleness/process cause. Instagram media readiness belongs to its destination; it cannot block an editorial refusal or an otherwise compatible channel. Articles proceeding to publication retain Jim's lawful-photo policy, same-MAX final rendered review and sole canonical-first publisher. Conditional J8/J10 are not active blanket exceptions. One genuine whole-goal L3-to-L2 completion notice remains authorized under V3.
+
 ## Reader attribution and public time — 28 October 2026
 
 Jim's [reader policy](docs/automation/CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1.md) is current: omit discretionary Sources/References lists, repeated citation links and ritual cutoff footers by default. Retain natural claim/relay attribution and uncertainty, actual mandatory quotation/photo/reuse credit and meaningful chart metric/unit/period/context. Useful exact public times use America/New_York with date-correct EDT/EST, or UTC; omit unnecessary exact-time footers. Internal source/claim/rights/UTC/cutoff history and Asia/Bangkok production calendars stay unchanged. Apply through writer/compiler/read owners; the SAME MAX writer inspects affected revisions before a send or exact-object edit. Historical packages/exports remain immutable; formatting never refreshes a story.

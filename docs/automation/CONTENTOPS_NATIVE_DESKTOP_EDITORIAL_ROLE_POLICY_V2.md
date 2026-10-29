@@ -1,5 +1,19 @@
 # ContentOps native Desktop editorial role policy V2
 
+## Native role returns — 29 October 2026
+
+Apply the [in-operation native result rule](CONTENTOPS_BUILDER_SUBAGENT_COMPLETION_HANDOFF_RULE_V1.md).
+The existing task generator binds each real role to its operation, assignment, exact
+request/return and saved result. Collect the supported native final return or artifact
+and continue the same active production turn without a manual relay. Do not ask a child
+to message its ancestor or pause the goal merely for its own role. Preserve actual model,
+effort and invocation identity; settings and a null historical identity are not proof.
+A completed HOLD or repair-required review is a usable task result, requiring no media
+for a terminal refusal. Do not hide source ambiguity, staleness or process defects.
+If same-turn result collection is unsupported, save the exact stage and platform limit
+and report the unattended gap. No polling, sleeps, watcher, callback service or extra chat.
+Whole-goal L3-to-L2 notices remain separate and authorized by Jim's standing V3 rule.
+
 ## Reader attribution and public time — 28 October 2026
 
 Jim's [reader policy](CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1.md) is current: omit discretionary Sources/References lists, repeated citation links and ritual cutoff footers by default. Retain natural claim/relay attribution and uncertainty, actual mandatory quotation/photo/reuse credit and meaningful chart metric/unit/period/context. Useful exact public times use America/New_York with date-correct EDT/EST, or UTC; omit unnecessary exact-time footers. Internal source/claim/rights/UTC/cutoff history and Asia/Bangkok production calendars stay unchanged. Apply through writer/compiler/read owners; the SAME MAX writer inspects affected revisions before a send or exact-object edit. Historical packages/exports remain immutable; formatting never refreshes a story.

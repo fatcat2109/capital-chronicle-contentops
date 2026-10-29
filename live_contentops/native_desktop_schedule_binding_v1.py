@@ -23,6 +23,9 @@ from live_contentops.published_corpus_read_model_v1 import load_canonical_publis
 from live_contentops.v1_simple_gemini_scheduler_v1 import simple_gemini_slot_id
 
 SCHEMA = "contentops.native_desktop_rollout.v1"
+# App delivery may precede its nominal calendar second by a few seconds. Admit
+# only that same window identity; its nominal cutoff and actual entry stay distinct.
+EARLY_DELIVERY_TOLERANCE_SECONDS = 30
 
 
 def _expected_binding(rollout, automation_id, checkpoint, ordinal, attempted):
@@ -64,6 +67,8 @@ def _issued_slots(store, rollout, automation_id, checkpoint):
                               if r.get("status") == "SOURCE_BLOCKED"]
                 if semantic.get("qualified_article_count") and semantic.get("selected_candidate"):
                     attempted.append(semantic["selected_candidate"]["candidate_id"])
+                attempted += [r["candidate_id"] for r in semantic.get("candidate_outcomes", [])
+                              if r.get("candidate_id") and r.get("outcome") in {"HOLD", "SOURCE_BLOCKED", "REJECT"}]
     return issued, attempted
 
 
@@ -104,7 +109,7 @@ def _issued_state(store, rollout, checkpoint, binding, path):
         "public_write_performed": False}
 
 
-def _latest_window(store, session):
+def _latest_window(store, session, *, opportunity_id=None):
     from live_contentops.native_desktop_editorial_v1 import DESTINATION
     with store.get_read_only_connection() as conn:
         rows = conn.execute("SELECT message_id,payload FROM outbox_messages WHERE destination=? AND message_id LIKE 'native-window-%'",
@@ -112,7 +117,8 @@ def _latest_window(store, session):
     saved = []
     for row in rows:
         value = json.loads(row["payload"])
-        if value["window"]["session"] == session:
+        if (value["window"]["session"] == session
+                and (opportunity_id is None or value["window"]["opportunity_id"] == opportunity_id)):
             if (row["message_id"] != "native-window-" + sha256_of(value["window"]["opportunity_id"])
                     or value["production_day_id"] != newsroom_production_day_id(value["window"]["start_utc"])):
                 raise ValueError("NATIVE_SCHEDULE_WINDOW_BINDING_CHANGED")
@@ -131,14 +137,18 @@ def scheduled_binding(rollout, automation_id, *, now=None, continue_after=None):
     now = now.replace(tzinfo=timezone.utc) if now.tzinfo is None else now.astimezone(timezone.utc)
     session = NATIVE_DESKTOP_AUTOMATION_SESSION_BY_ID[automation_id]
     rows = owner_locked_editorial_opportunities(build_bootstrap_editorial_window_policy(),
-        reference_utc=now, through_utc=now, capacity=12)
+        reference_utc=now, through_utc=now + timedelta(seconds=EARLY_DELIVERY_TOLERANCE_SECONDS), capacity=12)
     due = [r for r in rows if r["session"] == session]
     from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
     # Read issued identities before due/grace gating. No migration, source discovery,
     # new slot, cutoff change or lease is needed for a pending/completed replay.
     store_path = Path(rollout["store_path"])
     store = ContentOpsDurableStore(store_path, auto_migrate=False) if store_path.is_file() else None
-    checkpoint = _latest_window(store, session) if store else None
+    # An older unfinished operation remains resumable by its binding, but it must
+    # not suppress a different currently eligible calendar window of this session.
+    checkpoint = (_latest_window(store, session, opportunity_id=due[0]["opportunity_id"])
+                  if store and len(due) == 1 and not continue_after else
+                  _latest_window(store, session) if store else None)
     issued, _ = _issued_slots(store, rollout, automation_id, checkpoint) if checkpoint else ([], [])
     if issued:
         target = len(issued) - 1
@@ -182,12 +192,12 @@ def scheduled_binding(rollout, automation_id, *, now=None, continue_after=None):
     work = window["opportunity_id"]
     lease = store.acquire_lease("internal:native-window:" + work, owner, ttl_seconds=60)
     try:
-        return _issue_due_slot(store, rollout, automation_id, window, day, memory, continue_after)
+        return _issue_due_slot(store, rollout, automation_id, window, day, memory, continue_after, now=now)
     finally:
         store.release_lease(lease["lease_id"], owner, lease["fencing_token"])
 
 
-def _issue_due_slot(store, rollout, automation_id, window, day, memory, continue_after):
+def _issue_due_slot(store, rollout, automation_id, window, day, memory, continue_after, *, now=None):
     from live_contentops.native_desktop_editorial_v1 import DESTINATION
     work = window["opportunity_id"]
     key = "native-window-" + sha256_of(work)
@@ -198,6 +208,10 @@ def _issue_due_slot(store, rollout, automation_id, window, day, memory, continue
         checkpoint = {"window": window, "production_day_id": day,
             "capacity": bounded_deficit_work_needed(session=window["session"], published_articles_today=count),
             "published_at_window_start": count, "rollout_sha256": sha256_of(rollout)}
+        if now is not None:
+            nominal = datetime.fromisoformat(window["start_utc"].replace("Z", "+00:00"))
+            checkpoint.update(actual_entry_utc=now.isoformat(),
+                early_delivery_seconds=max(0, (nominal - now).total_seconds()))
         store.create_work_item(story_id=work, work_item_id=work, title="Native Desktop scheduled window",
                                target_surface="CONTENTOPS_EDITORIAL_ONLY")
         store.register_outbox_message(message_id=key, work_item_id=work, destination=DESTINATION,

@@ -6,8 +6,10 @@ description: Prepare or resume a ContentOps editorial edition from a normal-lang
 # ContentOps newsroom
 
 For requests such as “Chuẩn bị ấn bản ContentOps”, “Viết bài từ báo cáo công khai mới nhất”
-or “Tiếp tục bài đang làm”, use the configured ContentOps checkout:
-`C:/Users/bullw/.codex/worktrees/latest-report-editorial-bridge/ContentOps`.
+or “Tiếp tục bài đang làm”, resume the existing binding in its current ContentOps checkout.
+The current V1 operating checkout is `A:/Capital Chronicle/ContentOps`; the retained
+`C:/Users/bullw/.codex/worktrees/latest-report-editorial-bridge/ContentOps` is historical
+owner-proof context, not a replacement production store or a route around current state.
 Read its current AGENTS and native role policy; do not apply Main private-owner workflow.
 
 Resolve `config/native_desktop_operator_profile_v1.json` and use
@@ -60,6 +62,16 @@ that supplies the four prepared task prompts, starting from the manual binding i
 Run the actual assigned native roles: only new admissible X records need Luna MAX;
 Sol6.1 low selects the angle/mode and evidence plan; Sol6.1 max writes canonical prose/SEO
 under the exact institutional packet. Native subagents may perform these assigned roles.
+For EVERY spawn/follow-up, apply
+`docs/automation/CONTENTOPS_BUILDER_SUBAGENT_COMPLETION_HANDOFF_RULE_V1.md` and bind the
+operation, assignment, exact native request and saved result with the existing generator.
+Collect the supported native final result or saved artifact and continue the same active
+turn. Never tell a child to message an ancestor or pause merely for its own native role.
+HOLD/SOURCE_BLOCKED/REJECT/NO_STORY are terminal pre-writer results needing zero media;
+retain source, rights, staleness and software/process causes separately. Use the actual
+invocation identity, never settings or an invented call. If a long child cannot return
+through a supported route, record the exact stage/limit and unattended gap. No polling,
+sleep, watcher, callback service, relay chat or scheduler workaround.
 Preserve completed returns; keep one writer for its at most one useful repair. No API/SDK,
 Gemini or paid model fallback. Code owns extraction, arithmetic and validation. Consume
 the current accepted Main public manifest before waiting for anything newer. Main analysis

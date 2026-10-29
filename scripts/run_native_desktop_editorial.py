@@ -219,6 +219,8 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
         return turn.submit(stage, response)
     if command == "status":
         return turn.telemetry()
+    if command in {"advance", "media-plan"} and turn.story_outcomes():
+        return turn.advance_story_outcomes()
     if command == "final-visual-review":
         from live_contentops.native_desktop_editorial_v1 import request_final_visual_review, final_visual_binding
         try:
