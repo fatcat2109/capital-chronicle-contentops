@@ -72,7 +72,7 @@ jobs:
           python -m pytest -q tests/test_newsroom_production_day_v1.py
           python -m pytest -q tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py
           python -m pytest -q tests/test_nine_router_ordered_model_router_v2.py tests/test_nine_router_provider_adapter_and_preflight_v2.py
-          python -m pytest -q tests/test_publication_coordinator_v1.py
+          python -m pytest -q tests/test_publication_coordinator_v1.py tests/test_controlled_no_write_reconciliation_v1.py tests/test_daily_app_kill_switch_housekeeping_v1.py
           python -m pytest -q tests/test_codex_desktop_newsroom_operator_v1.py
           python -m pytest -q tests/test_contentops_emergency_stop_v1.py
 
