@@ -91,10 +91,11 @@ def test_exhausted_budget_closes_only_unqualified_candidates_and_preserves_cause
     assert turn.store.list_platform_dispatches() == []
 
 
-def test_exhausted_budget_does_not_discard_an_already_admitted_cached_pack(tmp_path):
+@pytest.mark.parametrize("source_records", ["candidate_attempt_history", "evidence_attempts"])
+def test_exhausted_budget_does_not_discard_an_already_admitted_cached_pack(tmp_path, source_records):
     turn, request, observation, _ = fixture_turn(tmp_path, candidates=("a", "b"))
     (tmp_path / "simple_gemini_evidence_v1.json").write_text(json.dumps({"request_count": 3,
-        "candidate_attempt_history": [{"candidate_id": "b", "status": "SOURCE_QUALIFIED", "source_pack": [{"document_id": "existing"}]}]}))
+        source_records: [{"candidate_id": "b", "status": "SOURCE_QUALIFIED", "source_pack": [{"document_id": "existing"}]}]}))
     turn.submit("visual-edit", {"request_sha256": request["request_sha256"],
         "output": refusal(), "invocation_observation": observation})
     result = turn.advance_story_outcomes()

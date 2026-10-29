@@ -362,7 +362,8 @@ class NativeDesktopTurn:
                 by_candidate[candidate] = self.record_story_outcome(value, request=selection,
                     provenance={"owner": "EXISTING_SOURCE_RESOLVER", "attempt": attempt})
         pending = [p for p in plan if p["candidate_id"] not in by_candidate]
-        cached = {a["candidate_id"]: a.get("source_pack", []) for a in walk.get("candidate_attempt_history", [])
+        cached = {a["candidate_id"]: a.get("source_pack", [])
+                  for a in walk.get("candidate_attempt_history", []) + walk.get("evidence_attempts", [])
                   if a.get("status") == "SOURCE_QUALIFIED" and a.get("source_pack")}
         for item in pending:
             candidate = item["candidate_id"]
