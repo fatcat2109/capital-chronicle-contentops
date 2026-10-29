@@ -44,7 +44,8 @@ def attach_official_release_facts(research, *, config=None):
         return research
     for release, facts in groups.items():
         first = facts[0]
-        known = max((f["clocks"]["row_known_at_utc"] for f in facts),key=_time)
+        source_known = max((f["clocks"]["row_known_at_utc"] for f in facts),key=_time)
+        known = max((source_known,settings["consumer_observed_at_utc"]),key=_time)
         publication = first["clocks"]["publication"]["utc"]
         identity = "official-release-" + sha256_of([lineage["provider"],projection["content_sha256"],release])
         source_hash = sha256_of(facts)
@@ -75,7 +76,8 @@ def attach_official_release_facts(research, *, config=None):
             "source_account":first["publisher"],"source_url":first["official_url"],"official_source_urls":[first["official_url"]],
             "source_timestamp_utc":publication,"headline_timestamp":publication,"known_at_utc":known,
             "retrieval_time_utc":settings["consumer_observed_at_utc"],"revision_at_utc":known,
-            "revision_clock_basis":"EXACT_PROVIDER_COMPONENT_EDITION_KNOWN_AT_NOT_FIRST_PRINT",
+            "revision_clock_basis":"MAX_PROVIDER_EDITION_AND_ACTUAL_CONSUMER_INTAKE_NOT_OFFICIAL_REVISION",
+            "source_edition_known_at_utc":source_known,
             "source_capture_sha256":source_hash,"rights_evidence_sha256":sha256_of([f["rights"] for f in facts]),
             "source_permissions":rights,"source_permission_record_sha256":sha256_of(rights),
             "rights_state":"GOVERNED_PUBLIC_NUMERIC_FACTS_WITH_ORIGINAL_CONDITIONS",
