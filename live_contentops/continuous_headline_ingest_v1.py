@@ -274,6 +274,7 @@ def run_ingestion_housekeeping_iteration(
     ensure_fn: Optional[Callable[..., Mapping[str, Any]]] = None,
     session_fn: Optional[Callable[..., Mapping[str, Any]]] = None,
     capture_fn: Optional[Callable[..., Mapping[str, Any]]] = None,
+    export_fn: Optional[Callable[..., Mapping[str, Any]]] = None,
 ) -> dict[str, Any]:
     """One cheap single-flight intake iteration. Zero LLM/provider calls. Never kills, clones,
     resets, or substitutes the locked CapitalChronicleBot profile; missing/unproven bindings
@@ -324,6 +325,18 @@ def run_ingestion_housekeeping_iteration(
         consecutive_empty: Optional[int] = None,
         hot_followup_pending: bool = False,
     ) -> dict[str, Any]:
+        if result.get('due'):
+            try:
+                from live_contentops.contentops_main_intake_export_v1 import configured_intake_export
+                result['main_headline_projection'] = (export_fn or configured_intake_export)(store,
+                    cutoff_utc=_utc_now().isoformat().replace('+00:00', 'Z'),
+                    intake_identity=result['iteration_at_utc'], intake_observation={
+                        'attempt_at_utc':result['iteration_at_utc'], 'outcome_code':outcome_code,
+                        'capture_state':result.get('capture_state'), 'failure_class':result.get('failure_class'),
+                        'new_rows_captured':rows})
+            except Exception as exc:  # export cannot invalidate a real capture or its cadence
+                result['main_headline_projection'] = {'state':'EXPORT_PROCESS_DEFECT',
+                    'error_type':type(exc).__name__, 'public_write_performed':False}
         empty_count = checkpoint["consecutive_empty"] if consecutive_empty is None else consecutive_empty
         checkpoint_persisted = True
         try:

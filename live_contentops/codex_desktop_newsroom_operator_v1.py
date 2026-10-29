@@ -308,7 +308,14 @@ def volume_task_setup_packet() -> dict[str, Any]:
         tasks.append({"id": task_id, "name": "V1 Newsroom — " + session.replace('_', ' '),
             "rrule": f"RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR={local_hour};BYMINUTE=0",
             "status": "PAUSED", "model": "gpt-6.1-sol", "reasoning_effort": "low",
-            "prompt": revised_prompt(DESKTOP_TASK_PROMPT.replace("{automation_id}", task_id)) +
+            "prompt": (
+                "BRIEF ENTRY FIRST: run python scripts/run_native_desktop_editorial.py scheduled --automation-id "
+                + task_id + " --rollout config/native_desktop_rollout_v1.json before source acquisition or native role delegation. "
+                "If classification is NOT_YET_EFFECTIVE, record that exact result and actual entry in this task's existing memory, "
+                "then exit immediately with zero source requests and no publication. Do not call advance or allocate a child. "
+                "The executable in-run guard becomes eligible at 02:00 Asia/Saigon on 30 October 2026. "
+                "If a binding is returned, continue that SAME binding through the protocol below. "
+                + revised_prompt(DESKTOP_TASK_PROMPT.replace("{automation_id}", task_id))) +
                 " BRIEF-ONLY WINDOW: one useful NEWS/POLICY brief, up to three admissions, same ten free requests. Do not relabel ANALYSIS. If no useful admissible item, retain a typed NO_STORY/HOLD without media."})
     return {"schema_version": "contentops.native_volume_task_setup.v1", "effective_production_date": policy["effective_production_date"],
         "activate_not_before_utc": "2026-10-29T19:00:00Z", "application_state": "STAGED_NOT_APPLIED",

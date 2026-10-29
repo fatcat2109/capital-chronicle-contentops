@@ -78,6 +78,14 @@ def project_headline(
     known = row.get("known_at_utc") or row.get("captured_at_utc")
     retrieved = row.get("retrieval_time_utc") or row.get("captured_at_utc")
     published = row.get("headline_timestamp") or row.get("published_at_utc")
+    published_source = published
+    if row.get("source_platform") == "x_cdp_list_latest_tweets_timeline" and published:
+        from datetime import datetime, timezone
+        from live_contentops.daily_x_cdp_headline_capture_packet_v0 import parse_timestamp
+        parsed = parse_timestamp(str(published))
+        if parsed == datetime.min.replace(tzinfo=timezone.utc):
+            return None, "HEADLINE_CLOCK_UNAVAILABLE"
+        published = parsed.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
     revision = row.get("revision_at_utc") or known
     undated_background = (published is None
                           and row.get("source_platform") == "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION"
@@ -91,7 +99,7 @@ def project_headline(
             return None, "HEADLINE_CLOCK_ORDER_OR_FUTURE"
     except ValueError:
         return None, "HEADLINE_CLOCK_UNAVAILABLE"
-    identity = row.get("source_identity")
+    identity = row.get("source_identity") or (permissions or {}).get("source_identity")
     url = source_url
     if not text or not identity or not url.startswith("https://"):
         return None, "HEADLINE_SOURCE_IDENTITY_UNAVAILABLE"
@@ -108,6 +116,7 @@ def project_headline(
         "source_url": url,
         "claimed_origins": [url],
         "headline_timestamp": published,
+        **({"published_at_source": published_source} if published_source != published else {}),
         **({"publication_clock_basis": "UNKNOWN_UNDATED_FOUNDATION_NOT_CAPTURE_TIME"} if undated_background else {}),
         "captured_at_utc": known,
         "known_at_utc": known,
@@ -136,7 +145,7 @@ def project_headline(
         "candidate_catalyst_tags": list(row.get("candidate_catalyst_tags") or []),
         "context_only": True,
         "source_record_locator": dict(locator),
-        "source_capture_sha256": row.get("source_capture_sha256"),
+        "source_capture_sha256": row.get("source_capture_sha256") or (permissions or {}).get("source_capture_sha256"),
         "upstream_report_lineage": row.get("upstream_report_lineage"),
         "originality": "MAIN_ORIGIN_RECIRCULATION" if row.get("upstream_report_lineage") else "INDEPENDENT_CONTENTOPS_ACQUISITION",
         "correction_of": row.get("correction_of"),
@@ -206,6 +215,9 @@ class MainHeadlineExporter:
             permission = self.research.permission_for(row, cutoff)
             if permission:
                 return permission
+            inherited = self.research.inherited_x_permission(row, cutoff)
+            if inherited:
+                return inherited
         # Only exact rows reconstructed from accepted durable Main receipts inherit
         # the Main wire contract. A caller's lookalike row cannot grant itself rights.
         if self._main_permission_rows is None:
@@ -230,6 +242,7 @@ class MainHeadlineExporter:
         permitted_rows: Sequence[Mapping[str, Any]] = (),
         authority_revision: str = "retained-record-permissions-v1",
         additional_gaps: Sequence[Mapping[str, Any]] = (),
+        cursor_namespace: str = "editorial",
     ) -> dict[str, Any]:
         if not 1 <= max_rows <= 1000 or not 1 <= max_files <= 16:
             raise ValueError("headline_export_bound_invalid")
@@ -247,12 +260,14 @@ class MainHeadlineExporter:
                 if r["destination"] == DESTINATION
             ]
             last = max(pages, key=lambda p: p["sequence"], default={})
+            own_pages = [p for p in pages if p.get("cursor_namespace", "editorial") == cursor_namespace]
+            cursor_page = max(own_pages, key=lambda p: p["sequence"], default={})
             cursors = (
-                dict(last.get("cursors", {}))
-                if last.get("authority_revision") == authority_revision
+                dict(cursor_page.get("cursors", {}))
+                if cursor_page.get("authority_revision") == authority_revision
                 else {}
             )
-            deferred = dict(last.get("deferred", {})) if last.get("authority_revision") == authority_revision else {}
+            deferred = dict(cursor_page.get("deferred", {})) if cursor_page.get("authority_revision") == authority_revision else {}
 
             def content_identity(r):
                 return sha256_of(
@@ -267,7 +282,8 @@ class MainHeadlineExporter:
                     ]
                 )
 
-            seen = {content_identity(r) for p in pages for r in p["rows"]}
+            seen = {content_identity(r) for p in own_pages
+                if cursor_namespace == "editorial" or p.get("authority_revision") == authority_revision for r in p["rows"]}
             rows, gaps, scanned, files = [], [*list(self.research.gaps if self.research else []), *additional_gaps], 0, []
             candidates = sorted({Path(p).resolve() for p in paths}, key=str)
             for path in candidates:
@@ -412,6 +428,7 @@ class MainHeadlineExporter:
                 "sequence": int(last.get("sequence", 0)) + 1,
                 "parent_page_sha256": last.get("page_sha256"),
                 "authority_revision": authority_revision,
+                "cursor_namespace": cursor_namespace,
                 "batch_id": batch_id,
                 "observed_at_utc": cutoff_utc,
                 "rows": rows,
@@ -432,6 +449,9 @@ class MainHeadlineExporter:
                 "bulk_capture_mutated": False,
                 "public_write_performed": False,
             }
+            page["continuation_required"] = any(
+                path.is_file() and path.stat().st_size > cursors.get(sha256_of(str(path)), {}).get("offset", 0)
+                for path in candidates)
             page["page_sha256"] = sha256_of(page)
             _persist(self.store, identity, page, DESTINATION)
             return page

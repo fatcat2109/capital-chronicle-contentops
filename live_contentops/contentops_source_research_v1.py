@@ -635,6 +635,46 @@ class RetainedSourceResearch:
             return None
         return record["source_permissions"]
 
+    def inherited_x_permission(self, row, cutoff_utc):
+        """Reuse only a previously verified permission for this exact X capture/text.
+
+        The list, handle, row flags and a matching third-party article cannot grant
+        rights. An absent retained X permission is an explicit unresolved input.
+        """
+        if row.get("source_platform") != "x_cdp_list_latest_tweets_timeline":
+            return None
+        url = urlsplit(str(row.get("tweet_url") or row.get("source_url") or ""))
+        match = re.fullmatch(r"/([A-Za-z0-9_]+)/status/([0-9]+)", url.path)
+        if (url.scheme != "https" or url.hostname not in {"x.com", "twitter.com", "www.twitter.com"}
+                or url.username or url.password or url.query or url.fragment or not match
+                or str(row.get("tweet_id")) != match[2]
+                or str(row.get("author_handle", "")).lstrip("@").casefold() != match[1].casefold()):
+            return None
+        text_hash = _hash(_normalize(str(row.get("headline_text") or "")).encode())
+        capture_hash = row.get("raw_payload_sha256")
+        if (row.get("text_sha256") != text_hash or not re.fullmatch(r"[a-f0-9]{64}", str(capture_hash or ""))):
+            return None
+        for record in self.records.values():
+            permission = record["source_permissions"]
+            retained_url = urlsplit(record["source_url"])
+            if (retained_url.hostname not in {"x.com", "twitter.com", "www.twitter.com"}
+                    or retained_url.path.casefold() != url.path.casefold()
+                    or record.get("source_capture_sha256") != capture_hash
+                    or _hash(record["headline_text"].encode()) != text_hash
+                    or permission.get("content_sha256") != text_hash
+                    or not re.fullmatch(r"[a-f0-9]{64}", record.get("rights_evidence_sha256", ""))
+                    or _time(record["revision_at_utc"]) > _time(cutoff_utc)
+                    or not {"internal_research", "narrative_context"}.intersection(permission.get("permitted_consumers", []))):
+                continue
+            return {**permission, "rights_evidence_sha256": record["rights_evidence_sha256"],
+                "source_capture_sha256": capture_hash, "source_url": str(row.get("tweet_url") or row.get("source_url")),
+                "source_identity": match[1], "content_sha256": text_hash,
+                "permitted_consumers": sorted({"internal_research", "narrative_context"}.intersection(permission["permitted_consumers"])),
+                "public_republication_authority": False, "public_expression_reuse_allowed": False,
+                "authority": "EXACT_RETAINED_X_CAPTURE_PERMISSION",
+                "inherited_from_headline_id": record["headline_id"]}
+        return None
+
     def headlines(self, *, cutoff_utc: str) -> list[dict[str, Any]]:
         return [
             {

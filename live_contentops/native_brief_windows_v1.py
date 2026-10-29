@@ -20,6 +20,21 @@ def automation_sessions():
     return {**NATIVE_DESKTOP_AUTOMATION_SESSION_BY_ID, **{k: v[0] for k, v in BRIEF_WINDOWS.items()}}
 
 
+def brief_effective_guard(automation_id, now):
+    """Exit before any store/source/model work until the brief policy is effective."""
+    if automation_id not in BRIEF_WINDOWS or volume_policy(now, brief_only=True):
+        return None
+    from zoneinfo import ZoneInfo
+    from live_contentops.native_newsroom_volume_v1 import CONFIG_PATH
+    config = json.loads(CONFIG_PATH.read_bytes())
+    effective = datetime.fromisoformat(config['effective_production_date']).replace(
+        hour=config['production_day_boundary_hour'], tzinfo=ZoneInfo(config['production_timezone']))
+    return {"classification": "NOT_YET_EFFECTIVE", "automation_id": automation_id,
+        "actual_entry_utc": now.isoformat(), "effective_at_utc": effective.astimezone(timezone.utc).isoformat(),
+        "model_invocations": 0, "source_requests": 0, "public_write_performed": False,
+        "store_opened": False}
+
+
 def native_opportunities(policy, **kwargs):
     full = owner_locked_editorial_opportunities(policy, **kwargs)
     brief_policy = replace(policy, core_windows=tuple(CoreEditorialWindow(start_hour_utc=hour,

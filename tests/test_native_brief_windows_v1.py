@@ -33,12 +33,24 @@ def test_tonight_full_window_identities_and_prompts_are_preserved():
 def test_revised_brief_binds_once_and_cannot_run_before_effective_day(rollout):
     auto = next(iter(BRIEF_WINDOWS))
     early = schedule.scheduled_binding(rollout, auto, now=at("2026-10-29T02:00:00Z"))
-    assert early["classification"] == "OUTSIDE_EXACT_NATIVE_WINDOW"
+    assert early["classification"] == "NOT_YET_EFFECTIVE"
+    assert early["source_requests"] == early["model_invocations"] == 0
+    assert not early["store_opened"] and not Path(rollout["store_path"]).exists()
     current = schedule.scheduled_binding(rollout, auto, now=at("2026-10-30T02:00:00Z"))
     binding = json.loads(Path(current["binding_path"]).read_bytes())
     assert binding["volume_policy"]["brief_only"] and binding["volume_policy"]["max_articles"] == 1
     again = schedule.scheduled_binding(rollout, auto, now=at("2026-10-30T02:00:00Z"))
     assert again["binding_path"] == current["binding_path"]
+
+
+def test_guard_precedes_every_source_and_store_route_for_all_three_briefs(rollout, monkeypatch):
+    monkeypatch.setattr(schedule, "native_opportunities", lambda *_args, **_kwargs: pytest.fail("early brief reached source/window discovery"))
+    monkeypatch.setattr(schedule, "load_canonical_published_memory_read_only", lambda **_kwargs: pytest.fail("early brief opened publication memory"))
+    for task in BRIEF_WINDOWS:
+        value = schedule.scheduled_binding(rollout, task, now=at("2026-10-29T18:59:59Z"))
+        assert value["classification"] == "NOT_YET_EFFECTIVE"
+        assert value["effective_at_utc"] == "2026-10-29T19:00:00+00:00"
+    assert not Path(rollout["store_path"]).exists()
 
 
 def test_full_revised_window_has_two_article_ceiling_and_shared_budget_binding(rollout, monkeypatch):
