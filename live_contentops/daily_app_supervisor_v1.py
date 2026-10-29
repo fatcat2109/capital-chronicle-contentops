@@ -1004,6 +1004,13 @@ class ContentOpsDailyAppSupervisor:
             message_id = ids["message_id"]
             dispatch_id = ids["dispatch_id"]
             reconciliation_id = ids["reconciliation_id"]
+            existing = self._store.get_platform_dispatch(dispatch_id)
+            if existing and existing["status"] in {"DISPATCH_CONFIRMED_NO_WRITE", STATUS_CONTROLLED_NO_WRITE}:
+                from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+                terminal = DurablePublicationCoordinator(store=self._store, transport_runtime=None).reconcile_controlled_no_write_dispatch(dispatch_id)
+                outcome["per_destination"][destination] = {"destination": destination, **terminal,
+                    "resumed_terminal_no_write": True}
+                continue
             # Durable outbox identity (idempotent: same identity never duplicates on restart).
             self._store.register_outbox_message(
                 message_id=message_id,
@@ -1114,6 +1121,7 @@ class ContentOpsDailyAppSupervisor:
                     work_item_id=window_id,
                     status=RECONCILE_CONTROLLED_NO_WRITE,
                 )
+                self._store.set_outbox_status(message_id, STATUS_CONTROLLED_NO_WRITE)
                 outcome["reconciliations"] += 1
                 row["reconciliation_status"] = RECONCILE_CONTROLLED_NO_WRITE
                 outcome["per_destination"][destination] = row

@@ -41,6 +41,8 @@ RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE = (
 DERIVATIVE_EXPIRED_STALE_NO_WRITE = "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
 EXTERNAL_REMOVAL_REPORTED_NO_RETRY = "EXTERNAL_REMOVAL_REPORTED_NO_RETRY"
 OWNER_RETAINED_DRAFT_NO_PUBLISH = "OWNER_RETAINED_DRAFT_NO_PUBLISH"
+CONTROLLED_NO_PUBLIC_WRITE = "CONTROLLED_NO_PUBLIC_WRITE"
+RECONCILED_CONTROLLED_NO_WRITE = "RECONCILED_CONTROLLED_NO_WRITE"
 OWNER_RETIRED_STATUSES = {EXTERNAL_REMOVAL_REPORTED_NO_RETRY, OWNER_RETAINED_DRAFT_NO_PUBLISH}
 DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE = (
     "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE"
@@ -312,6 +314,84 @@ class DurablePublicationCoordinator:
 
     def _recovery_is_quarantined(self, work_item_id: Any) -> bool:
         return str(work_item_id or "") in self._recovery_quarantined_work_item_ids
+
+    def reconcile_controlled_no_write_dispatch(self, dispatch_id: str) -> dict[str, Any]:
+        """Repair an exact terminal fixture chain without a transport or public identity.
+
+        Historical fixture readbacks sometimes said verified:true; that verified the
+        controlled run, not a public object. Keep those original bytes, append the
+        explicit no-write interpretation and repair only lifecycle statuses atomically.
+        """
+        conn = self.store.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            dispatch = conn.execute("SELECT * FROM platform_dispatches WHERE dispatch_id=?", (dispatch_id,)).fetchone()
+            if (not dispatch or dispatch["status"] not in {"DISPATCH_CONFIRMED_NO_WRITE", CONTROLLED_NO_PUBLIC_WRITE}
+                    or dispatch["public_object_id"] or dispatch["public_object_url"]):
+                raise ValueError("EXACT_TERMINAL_CONTROLLED_NO_WRITE_DISPATCH_REQUIRED")
+            message = conn.execute("SELECT * FROM outbox_messages WHERE message_id=?", (dispatch["message_id"],)).fetchone()
+            if not message or message["status"] not in {"READY", "PENDING", CONTROLLED_NO_PUBLIC_WRITE}:
+                raise ValueError("EXACT_CONTROLLED_OUTBOX_REQUIRED")
+            basis = json.loads(message["payload"])
+            if (set(basis) != {"window_id", "destination", "package_identity"}
+                    or basis["window_id"] != message["work_item_id"]
+                    or basis["destination"] != dispatch["platform"]
+                    or basis["destination"] != message["destination"]):
+                raise ValueError("CONTROLLED_NO_WRITE_LIFECYCLE_BINDING_REQUIRED")
+            # The established supervisor hashes the JSON-encoded basis string,
+            # rather than its literal bytes. Retain that exact durable identity.
+            suffix = _hash(_canonical_json(json.dumps(basis, sort_keys=True)))[:32]
+            if dispatch_id != "dispatch_" + suffix or message["message_id"] != "outbox_" + suffix:
+                raise ValueError("CONTROLLED_NO_WRITE_LIFECYCLE_BINDING_REQUIRED")
+            reconciliation_id = "reconciliation_" + suffix
+            reconciliation = conn.execute("SELECT * FROM reconciliations WHERE reconciliation_id=?", (reconciliation_id,)).fetchone()
+            if (not reconciliation or reconciliation["work_item_id"] != message["work_item_id"]
+                    or reconciliation["status"] not in {RECONCILED_CONFIRMED, RECONCILED_CONTROLLED_NO_WRITE}):
+                raise ValueError("EXISTING_TERMINAL_NO_WRITE_RECONCILIATION_REQUIRED")
+            readbacks = conn.execute("SELECT * FROM readbacks WHERE dispatch_id=? ORDER BY read_at,readback_id", (dispatch_id,)).fetchall()
+            matched, originals = False, []
+            controlled_actor = conn.execute("SELECT 1 FROM transition_events WHERE work_item_id=? AND actor_ref LIKE 'controlled-%' LIMIT 1",
+                (message["work_item_id"],)).fetchone()
+            for row in readbacks:
+                value = json.loads(row["readback_data"])
+                if value.get("schema_version") == "contentops.controlled_no_write_reconciliation.v1":
+                    continue
+                if (value.get("public_write_performed") is True or value.get("public_object_id")
+                        or value.get("public_object_url") or (value.get("observed") or {}).get("public_object_id")):
+                    raise ValueError("CONTROLLED_NO_WRITE_CONTRADICTORY_PUBLIC_EVIDENCE")
+                if value.get("dispatch_id") != dispatch_id or value.get("destination") != dispatch["platform"]:
+                    raise ValueError("CONTROLLED_NO_WRITE_READBACK_BINDING_REQUIRED")
+                typed = (value.get("readback_status") == CONTROLLED_NO_PUBLIC_WRITE
+                    and value.get("verified") is False and value.get("public_write_performed") is False)
+                historical_fixture = (dispatch["status"] == "DISPATCH_CONFIRMED_NO_WRITE"
+                    and str(basis["package_identity"]).startswith("controlled-")
+                    and controlled_actor and value.get("verified") is True)
+                matched = matched or typed or bool(historical_fixture)
+                originals.append({"readback_id": row["readback_id"], "sha256": _hash(row["readback_data"])})
+            if not matched:
+                raise ValueError("CONTROLLED_NO_WRITE_ORIGINAL_EVIDENCE_REQUIRED")
+            evidence = {"schema_version": "contentops.controlled_no_write_reconciliation.v1",
+                "dispatch_id": dispatch_id, "destination": dispatch["platform"],
+                "outbox_message_id": message["message_id"], "original_payload_sha256": _hash(message["payload"]),
+                "original_dispatch_status": dispatch["status"], "original_readbacks": originals,
+                "verified": False, "public_write_performed": False, "real_publication": False,
+                "reason": "Terminal controlled no-write dispatch has no public object; retain fixture evidence and close its stale outbox status."}
+            payload = _canonical_json(evidence)
+            readback_id = "readback_controlled_no_write_" + _hash(payload)[:32]
+            conn.execute("INSERT OR IGNORE INTO readbacks(readback_id,dispatch_id,readback_data,read_at) VALUES(?,?,?,?)",
+                (readback_id, dispatch_id, payload, self._clock().isoformat()))
+            conn.execute("UPDATE outbox_messages SET status=? WHERE message_id=?", (CONTROLLED_NO_PUBLIC_WRITE, message["message_id"]))
+            conn.execute("UPDATE reconciliations SET status=? WHERE reconciliation_id=?", (RECONCILED_CONTROLLED_NO_WRITE, reconciliation_id))
+            conn.commit()
+            return {"dispatch_id": dispatch_id, "message_id": message["message_id"],
+                "status": CONTROLLED_NO_PUBLIC_WRITE, "reconciliation_status": RECONCILED_CONTROLLED_NO_WRITE,
+                "readback_id": readback_id, "publish_called": False, "provider_calls": 0,
+                "public_write_performed": False, "real_publication": False}
+        except Exception:
+            conn.rollback()
+            raise
+        finally:
+            conn.close()
 
     def reconcile_owner_removed_object(self, dispatch_id: str, *, disposition: str,
                                        observation: Mapping[str, Any]) -> dict[str, Any]:
