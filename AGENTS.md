@@ -1,13 +1,26 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## CO-4 private-use permission and scoped runtime application — 29 October 2026
+
+L1 batch L1-B-20261029-07 supersedes the batch06 no-additional-J7 hold for the existing
+CapitalChronicle_ContentOps_V1_Daily_App_Runtime only. Necessary restarts use its existing
+task/launcher, fresh process identity, no V1 window within 30 minutes, and zero active work,
+pending outbox or UNKNOWN_WRITE; read back port 8765, actual source and reconciliation.
+The existing rights/export owners apply JIM_X_LIST_PRIVATE_MAIN_RESEARCH_USE_20261029 to
+exact retained X-list CDP records captured from 26 October onward, including future rows,
+for internal_research and narrative_context only. This is owner-authorized private use,
+not an external licence, public/subscriber reuse, training, third-party sharing or event
+confirmation. Preserve original identities/clocks and takedowns; one normal intake must
+prove the stable export refresh. Tonight's windows and the 30 October policy boundary stay.
+
 ## Compatible early installation — L1 batch 06, 29 October 2026
 
 Batch L1-B-20261029-06 supersedes the earlier requirement to wait until 02:00 to install source.
 Install compatible source now after the focused old-window comparison; preserve tonight's four
 full prompt/calendar/rollout identities, old binding limits and publication semantics. The dated
 policy still starts only with the 30 October production day. Resume the three existing brief App
-entries with the executable NOT_YET_EFFECTIVE guard before any source/model/public work. No extra
-J7 restart or activation watcher is authorized. CO-4 uses the existing intake/export/source-rights
+entries with the executable NOT_YET_EFFECTIVE guard before any source/model/public work. Runtime
+application follows the later batch07 scope above; no activation watcher is authorized. CO-4 uses the existing intake/export/source-rights
 owners and one stable governed projection; list membership never grants rights. Keep actual
 installed source, running process source, first real brief and live export cadence separate.
 

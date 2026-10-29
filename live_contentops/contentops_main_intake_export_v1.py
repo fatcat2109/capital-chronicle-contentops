@@ -8,7 +8,7 @@ from uuid import uuid4
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import LatestReportDeliveryTracker, canonical_bytes, sha256_of
 from live_contentops.contentops_main_headline_projection_v1 import DESTINATION, MainHeadlineExporter, permitted_report_headlines
-from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+from live_contentops.contentops_source_research_v1 import RetainedSourceResearch, XListPrivateMainPermission
 from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_dir
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -22,7 +22,8 @@ def _atomic(path, raw):
 
 
 def export_after_intake(store, *, cutoff_utc, intake_identity, paths=None, research=None,
-                        output_root=None, max_pages=32, page_rows=500, additional_gaps=(), intake_observation=None):
+                        output_root=None, max_pages=32, page_rows=500, additional_gaps=(), intake_observation=None,
+                        private_profile=None):
     """Advance durable cursors beyond one page and publish one governed read model.
 
     Repeated calls for the same completed intake reuse the existing pages. A
@@ -32,15 +33,26 @@ def export_after_intake(store, *, cutoff_utc, intake_identity, paths=None, resea
     if not 1 <= max_pages <= 32 or not 1 <= page_rows <= 1000:
         raise ValueError('INTAKE_EXPORT_BOUND_INVALID')
     source_paths = sorted(canonical_headline_sidecar_dir().glob('step1_headline_sidecar_*.jsonl'))[-4:] if paths is None else paths
+    inventory = None
+    if private_profile:
+        prior_pages = [json.loads(row['payload']) for row in store.list_outbox_messages()
+            if row['destination'] == DESTINATION]
+        last_profile = max((p for p in prior_pages if p.get('cursor_namespace') == 'continuous-intake'
+            and p.get('private_source_profile_revision') == private_profile.revision),
+            key=lambda p:p['sequence'], default={})
+        family_paths = list(canonical_headline_sidecar_dir().glob('step1_headline_sidecar_*.jsonl')) if paths is None else paths
+        source_paths = private_profile.covered_paths(family_paths,
+            previous_inventory=last_profile.get('source_profile_inventory'))
+        inventory = private_profile.inventory
     root = Path(output_root or STABLE_EXPORT_ROOT)
-    exporter = MainHeadlineExporter(store, research=research)
+    exporter = MainHeadlineExporter(store, research=research, private_profile=private_profile)
     permitted = permitted_report_headlines(LatestReportDeliveryTracker(store))
     pages, previous_progress = [], None
     for ordinal in range(max_pages):
         page = exporter.export(batch_id='intake-' + sha256_of([intake_identity, ordinal]),
             paths=source_paths, cutoff_utc=cutoff_utc, max_rows=page_rows, max_files=16,
             permitted_rows=permitted, authority_revision='intake-record-permissions-v1', additional_gaps=additional_gaps,
-            cursor_namespace='continuous-intake')
+            cursor_namespace='continuous-intake', source_profile_inventory=inventory)
         pages.append(page)
         progress = {k:v.get('offset') for k,v in page['cursors'].items()}
         if not page.get('continuation_required') or progress == previous_progress:
@@ -57,6 +69,8 @@ def export_after_intake(store, *, cutoff_utc, intake_identity, paths=None, resea
             prior = latest.get(item['headline_id'])
             if prior is None or item['revision_at_utc'] >= prior['revision_at_utc']:
                 latest[item['headline_id']] = item
+        for headline_id in saved.get('excluded_headline_ids', []):
+            latest.pop(headline_id, None)
     gaps = {sha256_of(g):g for page in pages for g in page['gaps']}
     view = {**pages[-1], 'projection_kind':'GOVERNED_CUMULATIVE_READ_MODEL',
         'source_page_sha256':pages[-1]['page_sha256'], 'observed_at_utc':cutoff_utc,
@@ -72,17 +86,23 @@ def export_after_intake(store, *, cutoff_utc, intake_identity, paths=None, resea
         'continuation_pages':[{'sequence':p['sequence'],'page_sha256':p['page_sha256']} for p in pages],
         'intake_identity':intake_identity, 'public_write_performed':False, 'model_calls':0,
         'intake_observation':intake_observation,
+        'private_source_profile_revision':private_profile.revision if private_profile else None,
+        'private_source_profile_grant':private_profile.GRANT_ID if private_profile else None,
         'source_requests':0, 'existing_source_clocks_preserved':True}
     view.pop('page_sha256', None)
     view['page_sha256'] = sha256_of(view)
     root.mkdir(parents=True, exist_ok=True)
     _atomic(root/'main_headline_rows.jsonl', b''.join(canonical_bytes(row)+b'\n' for row in view['rows']))
     _atomic(root/'main_headline_projection.json', canonical_bytes(view))
+    x_count = sum(r['source_platform'] == 'x_cdp_list_latest_tweets_timeline' for r in view['rows'])
     return {'state':'EXPORTED_WITH_BACKLOG' if view['continuation_required'] else 'EXPORTED',
         'projection_path':str(root/'main_headline_projection.json'),
         'rows_path':str(root/'main_headline_rows.jsonl'), 'eligible_rows':view['eligible_rows'],
         'new_eligible_rows':view['new_eligible_rows'], 'source_rows_scanned':view['source_rows_scanned'],
         'missing_rows':view['missing_rows'], 'pages':len(pages), 'continuation_required':view['continuation_required'],
+        'private_grant_id':private_profile.GRANT_ID if private_profile else None,
+        'x_rows':x_count, 'retained_context_rows':len(view['rows'])-x_count,
+        'gap_causes':{state:sum(g['state']==state for g in view['gaps']) for state in {g['state'] for g in view['gaps']}},
         'page_sha256':view['page_sha256'], 'public_write_performed':False, 'source_requests':0, 'model_calls':0}
 
 
@@ -100,5 +120,10 @@ def configured_intake_export(store, *, cutoff_utc, intake_identity, intake_obser
     except (OSError, ValueError, KeyError, TypeError) as exc:
         research = None
         gaps.append({'state':'RESEARCH_PERMISSION_INDEX_UNAVAILABLE','error_type':type(exc).__name__})
+    try:
+        private_profile = XListPrivateMainPermission()
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        private_profile = None
+        gaps.append({'state':'PRIVATE_MAIN_GRANT_UNAVAILABLE','error_type':type(exc).__name__})
     return export_after_intake(store, cutoff_utc=cutoff_utc, intake_identity=intake_identity, research=research,
-        additional_gaps=gaps, intake_observation=intake_observation)
+        additional_gaps=gaps, intake_observation=intake_observation, private_profile=private_profile)

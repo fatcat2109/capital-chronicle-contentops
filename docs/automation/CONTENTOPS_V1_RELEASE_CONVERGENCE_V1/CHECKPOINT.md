@@ -1,36 +1,32 @@
-# CO-1, V1 volume deployment and CO-4 producer repair
-Goal: SAME unfinished CONTENTOPS_V1_CURRENT_EDITION_AND_REPEATABLE_DELIVERY_V1, amended by L1 batch06, 29 October; batch05 was unsent and superseded.
-State: PR117 installed by Option B at05:37:44 UTC; guard/export source passed70 focused controls and Ruff, integration/install next. First real brief, CO-1 and revised-day throughput remain unfinished.
-Owner: Builder01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35. No completion notice sent.
-Root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; codex/v1-newsroom-release-convergence; root is sole integrator and now owns all changed files.
-PR117/a01147e2ca8a40d6d7cfec2a42f0bdb9891cc1c3 installed through the existing scoped switch/three-way installer, preserving seven dirty files and the owned preparation document.
-Compatibility: all four tonight window IDs/capacities/cutoffs, default three admissions/six source requests, role assignments and publication seam are unchanged;39 focused tests passed.
-The operating rollout and all four full App prompt files retain exact original bytes; installed isolated comparison equals before. See pr117-compatibility-result.json and pr117-installed-source.json.
-Frozen edition binding hash matches its recorded baseline; retained6/6 outcomes/history remain unchanged. No source/model/public work occurred during installation.
-Existing UI source epoch rebuilt READY with ensure_current_ui_build; no new server. Running listener38656 is unchanged and retains the earlier PR116 source identity.
-J7 was spent once at02:42 UTC29October (6596 ->38656); no second restart, hot patch, watcher or activation task is authorized or performed.
-The two historical FDA-C fixtures remain reconciled through the sole coordinator, idempotently, with original history and0provider/public calls; PR115/116/J7 evidence is retained.
-Frozen v1-current-edition-20261028-a cutoff2026-10-28T08:01:00.380227Z: Unilever SOURCE_MISSING; BOE HOLD/SOURCE_AMBIGUITY; Stellantis BUDGET_OR_RETRY_CAP.
-54 accepted filter batches/1,274 rows:740KEEP/413REJECT/121DEFER;0articles/0copies/0published. Same actual MAX rerun consumed; no ancestor callback claimed.
-Tonight remains17:00/21:00/23:00 on29October plus01:00 on30October, Asia/Saigon; the01:00 belongs to the prior production day.
-New bound volume policy takes effect automatically from02:00 on30October/19:00UTC29October; old bindings never inherit an increased budget.
-Installed PR117 supports six full-window admissions, shared ten non-chargeable requests, original native selection reuse, actual fallback after HOLD/SOURCE_BLOCKED and at most two confirmed canonicals.
-NEWS/POLICY may omit a photo under the dated bound policy and skip Instagram explicitly; ANALYSIS keeps lawful photo/charts. Same actual MAX final rendered review/direct repair remains.
-The sole DurablePublicationCoordinator and canonical-first/UNKNOWN_WRITE recovery remain; skipped copies never count confirmed. V2/V3 stay paused.
-Three existing09:00/15:00/19:00 brief App entries remain PAUSED until the tested executable guard is installed; each early run must record NOT_YET_EFFECTIVE with0source/model/public work.
-Guard candidate exits before source/window/store discovery; post-boundary routing uses the real brief binding. Full-window prompts/calendars/rollout are not changed.
-CO-4 repair: exact retained X permission inheritance binds URL/author/tweet/content/capture, requires internal_research or narrative_context, and grants no republication or numeric/event truth.
-Current X relay rows have no matching verified permission and remain hash-only SOURCE_RIGHTS_MISSING_NO_GOVERNED_INHERITANCE; list membership/row flags are insufficient.
-Stable projection: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/main-headline-projection/main_headline_projection.json; actual installed export/readback remains next.
-The existing exporter continues500-row pages through its durable cursor/dedup owner; continuous-intake cursor metadata prevents an editorial export from resetting progress; remaining backlog is explicit.
-Existing successful intake/no-new-result hook calls deterministic export without another service/acquisition/model. Old supervisor already cached the intake module; install alone proves no live cadence.
-Exact rights question: does Jim grant Main private model-input/internal_research/narrative_context use of specified retained X text, with exact record bindings and no republication; which accounts/records or source-licence evidence cover it?
-Exact runtime gap: identify a supported authorized application/start path that loads the repaired intake hook without another J7 restart. No cached process is relabeled as new-source operation.
-CO-4 acceptance still requires genuinely permitted X projection rows and actual export cadence; retained official rows cannot substitute for missing X rights.
-Batch06 native CO-4 child stayed pending_init after independent installation work and was interrupted/released; no saved child result, quota bypass or replacement loop. Root implemented directly.
-Four pre-event preparations retain history; three now contain complete prior official BoE/employment/CPI captures with source clocks/spans/readback; not article/forecast admission. See volume-pre-event-preparation.md.
-Official planned releases remain BoE5November12:00UTC, employment6November13:30UTC, CPI10November13:30UTC; future facts/updates and election-specific sources remain T0 work.
-PR117 exact-head CI40819777798 passed; merged tree matched21637b38. Reuse184 integrated/88delta controls and UI build; new focused guard/rights/cursor/cadence reports stay in co1-application.
-No first real30October brief, four natural CO-1 outcomes, daily eight-distinct-canonical result or reader-growth claim is made; unknown readers remain UNAVAILABLE/null.
-Evidence root: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/co1-application/; producer details/decisions: co4-projection-repair.md.
-Next: integrate/install guard and exporter, resume only the three existing briefs through supported App updater, record actual early-exit/task/projection readback, then collect legitimate real entries without polling.
+# CO-1, dated V1 volume and CO-4 private export
+Goal: SAME unfinished CONTENTOPS_V1_CURRENT_EDITION_AND_REPEATABLE_DELIVERY_V1; batch07 resolves CO-4 rights and service restart authority.
+State: PR117/118 installed; first scoped restart verified; private-grant implementation tested, awaiting normal integration/application and real intake proof.
+Owner: Builder 01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35. No whole-goal completion notice sent.
+Execution root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence; branch codex/v1-newsroom-release-convergence; one integrator.
+Operating root: A:/Capital Chronicle/ContentOps at baa234961ea28e49c7db126a0b575fd994af129e; unrelated WIP and original store preserved.
+First batch07 restart: 29 October 13:45 GMT+7; old PID38656 to PID36432; actual running source baa23496, healthy8765, no active/pending/unknown work.
+Existing task actions/triggers, publication controls and reconciliation counts unchanged; fresh identity and quiet-window checks remain mandatory before another restart.
+Runtime evidence: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/co1-application/batch07-restart-1-verified-result.json.
+Private grant: JIM_X_LIST_PRIVATE_MAIN_RESEARCH_USE_20261029; owner authorization, explicitly not an external licence.
+Scope: existing owner-account X-list CDP records captured from 26 October onward and future; internal_research/narrative_context only, including private Claude Main models.
+Per-row bindings preserve post/author/content/capture identity and original publication/capture/known-at clocks. No historical sidecar rewrite.
+Public/subscriber reuse, training, third-party sharing and event confirmation remain prohibited; ordinary public editorial permissions are unchanged.
+Existing cursor owner revisits prior rights-gap pages under the profile revision; actual capture dates select covered files, including old-named files.
+Exact archived capture/path/publication clocks are checked; missing states, takedowns and owner withdrawal remain explicit.
+Read-only real record check at 14:01 GMT+7: 18 covered files, 4205 permitted rows, 291 pre-cohort rows; no new acquisition. This is not live-export evidence.
+Focused changed-behavior run:82 passed; final delta:33 passed, overlapping rather than additive; scoped Ruff passed.
+Tests cover scope, clocks/captures, old500-row rights gaps, >16 files, unchanged public behavior, withdrawal and subsequent takedown.
+Stable handoff: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/main-headline-projection/main_headline_projection.json.
+Acceptance still needs the installed grant source running and ONE non-forced NORMAL_INTERVAL_DUE intake refreshing that export with real lineage/counts/gaps.
+No manual capture/export, ACTIVE flag, test or restart is represented as normal cadence. No watcher, new scheduler/store or Main/Database edit.
+Frozen edition v1-current-edition-20261028-a stays terminal at6/6: Unilever SOURCE_MISSING, BOE HOLD/SOURCE_AMBIGUITY, Stellantis BUDGET_OR_RETRY_CAP;0 articles.
+Jim-requested SAME MAX rerun completed at14:00 GMT+7: HOLD/SOURCE_AMBIGUITY, no changed admissible input; native final and exact saved artifact consumed once.
+MAX return: A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/v1-current-edition-20261028-a/max-owner-requested-native-return-20261029T070047.063832Z.json.
+Tonight17/21/23 and following01 full windows retain exact prompts/calendars/capacities/cutoffs and old3/6 policy; no retroactive budget upgrade.
+Revised new-binding policy starts02:00 GMT+7 on30 October:6 admissions, shared10 free requests, at most2 canonicals/full window; existing three briefs capped3/1.
+Three existing brief App tasks ACTIVE; installed pre-boundary checks returned NOT_YET_EFFECTIVE before store/source/model/public work. First real brief is future/unproven.
+Same actual MAX prose/rendered review/direct repair, sole canonical-first publisher and UNKNOWN_WRITE recovery remain; V2/V3 stay paused.
+CO-1 natural-window conversion, first real brief and eight useful canonicals/day acceptance remain unfinished; CO-4 cannot substitute for them.
+Next: integrate/apply the scoped private grant, restart only under batch07 checks, then consume the existing intake's own result once on resumption.
+Decision needed: none for the scoped CO-4 repair; precise runtime condition failures must be reported if observed.
+Authority: Tower dispatch/20261029_L1_BATCH_07_CONTENTOPS_CO4_DECISIONS.md and plan10 CO-4 decisions; matched once, no authority callback chain.
