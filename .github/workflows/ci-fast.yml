@@ -36,7 +36,7 @@ jobs:
         run: python -m compileall -q live_contentops scripts
 
       - name: Install focused test runner
-        run: python -m pip install --disable-pip-version-check pytest pillow python-dotenv jsonschema matplotlib==3.10.0
+        run: python -m pip install --disable-pip-version-check pytest pillow python-dotenv jsonschema matplotlib==3.10.0 playwright
 
       - name: Run deterministic CodeGraph generator tests
         run: python -m pytest -q tests/test_codex_context_index.py
