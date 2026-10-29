@@ -348,12 +348,14 @@ def load_rolling_x_headline_sidecars(
                 reject("future_source_timestamp")
                 continue
             if known_cutoff is not None:
-                _, known_value = _first_external_value(row, ("known_at_utc", "captured_at_utc"))
-                known_dt = _parse_utc(known_value) if isinstance(known_value, str) else None
-                if known_dt is None:
+                clock_values = [_first_external_value(row, (key,))[1]
+                    for key in ("known_at_utc", "captured_at_utc", "revision_at_utc")]
+                supplied = [v for v in clock_values if v is not None]
+                clocks = [_parse_utc(v) if isinstance(v, str) else None for v in supplied]
+                if not any(v is not None for v in clock_values[:2]) or any(v is None for v in clocks):
                     reject("known_at_timestamp_unavailable")
                     continue
-                if known_dt > known_cutoff:
+                if any(clock > known_cutoff for clock in clocks):
                     reject("known_after_input_cutoff")
                     continue
 

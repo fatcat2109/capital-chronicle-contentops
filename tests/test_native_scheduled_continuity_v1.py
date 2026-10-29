@@ -227,15 +227,17 @@ def test_early_input_excludes_later_captures_even_when_publication_precedes_cuto
         headline_timestamp="2026-10-29T09:50:00Z", **clocks) for i, clocks in enumerate([
             {"captured_at_utc": "2026-10-29T09:55:00Z"},
             {"captured_at_utc": "2026-10-29T09:57:00Z"}, {},
-            {"known_at_utc": "2026-10-29T09:58:00Z", "captured_at_utc": "2026-10-29T09:55:00Z"}])]
+            {"known_at_utc": "2026-10-29T09:58:00Z", "captured_at_utc": "2026-10-29T09:55:00Z"},
+            {"known_at_utc": "2026-10-29T09:55:00Z", "captured_at_utc": "2026-10-29T09:58:00Z"},
+            {"known_at_utc": "2026-10-29T09:55:00Z", "revision_at_utc": "2026-10-29T09:59:00Z"}])]
     path.write_text("\n".join(json.dumps(r) for r in rows))
     result = load_rolling_x_headline_sidecars(cutoff_utc="2026-10-29T09:56:57Z",
         known_at_cutoff_utc="2026-10-29T09:56:57Z", sidecar_glob=str(path))
     assert len(result["headlines"]) == 1
-    assert result["rejection_counts"]["known_after_input_cutoff"] == 2
+    assert result["rejection_counts"]["known_after_input_cutoff"] == 4
     assert result["rejection_counts"]["known_at_timestamp_unavailable"] == 1
     unchanged = load_rolling_x_headline_sidecars(cutoff_utc="2026-10-29T09:56:57Z", sidecar_glob=str(path))
-    assert len(unchanged["headlines"]) == 4
+    assert len(unchanged["headlines"]) == 6
 
 
 def test_controlled_next_production_day_all_four_sessions_bind_despite_prior_pending_slots(rollout):
