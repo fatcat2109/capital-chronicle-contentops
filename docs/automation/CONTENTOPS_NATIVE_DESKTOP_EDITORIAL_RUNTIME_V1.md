@@ -1,5 +1,29 @@
 # Native Codex Desktop editorial runtime V1
 
+## Scheduled window result notice — Jim's approval, 29 October 2026
+
+The seven existing App task chats report one genuinely terminal production window to
+L2 ContentOps `01a1657e-f5d0-76a1-b52b-ec6c78b6fe35`, host `local`. Save the initial
+scheduled entry and its actual clock in existing task memory. Continue all eligible
+admitted candidates/slots, then use `window-result` with the exact last binding/rollout
+and a response containing that saved `startup_result`. An optional terminal process
+failure names the actual operation and run-bound CLI error artifact, `why_terminal` and
+`continuation_possible:false`; a routine repairable blocker or quota is not completion.
+The existing schedule owner saves `native_window_result.json` and its durable outbox
+result before `window-notice-begin` offers one send_message_to_thread call. Execute its
+exact returned arguments once, save the actual tool response, and use
+`window-notice-record` with that response. Existing window identity/result status dedupes
+delivery; an attempted/failed/unknown send is never retried automatically or called success.
+NOT_YET_EFFECTIVE, stale/duplicate callbacks, partial stages, unfinished native roles,
+unchanged progress and quota stops are suppressed. The actual 29 October Europe guard
+stays suppressed. A story HOLD does not terminate a window with eligible work remaining.
+Notices include automation/day/window/runs, canonicals and channel counts, first causes,
+artifact and concrete action; Jim-facing times use GMT+7. Prompt-only compatibility
+preserves exact issued bindings and non-prompt routing. No live test message is needed.
+This separate scheduled-task exception does not allow child-to-ancestor messaging or
+premature engineering whole-goal completion. L2 may review/fix; Claude remains Jim-triggered.
+First real tool delivery and L2 startup require actual future evidence, not test/settings proof.
+
 ## Dated V1 volume direction — 29 October 2026
 
 The [next-production-day volume amendment](CONTENTOPS_V1_NEXT_PRODUCTION_DAY_VOLUME_V1.md) is current for new operations from production day 30 October. It supersedes earlier three-admission/six-request/one-article and conditional J8/J10 limits only in that dated scope. Tonight's four full windows, old bindings and exhausted editions stay unchanged. Use six admissions, one shared ten-request non-chargeable cap, actual candidate fallback, two canonical articles per full window, photo-less NEWS/POLICY with Instagram skipped, and capped existing-App brief windows. Same native roles, final MAX review, sole publisher, rights and UNKNOWN_WRITE recovery remain. Stage source now; apply at the day boundary. V2/V3 stay paused.

@@ -1,5 +1,11 @@
 # V1 activation and first live edition
 
+## Batch07 private grant applied — 29 October 2026
+
+[PR119](https://github.com/fatcat2109/capital-chronicle-contentops/pull/119) passed both required checks at `5139fd31` and merged as `0a3ab71043ed0681d7334a21a2ed7d2c4f770310`, with an identical tree. The existing scoped installer applied it at 14:23 GMT+7, preserving eight WIP paths, full task/rollout bytes, the frozen binding and original store. A manual private export produced 4,222 X rows and 32 retained-context rows, with 291 pre-grant rows and three clock gaps; every X row names Jim's private-use grant and retains its prohibitions. This manual result is not cadence evidence.
+
+The second necessary batch07 restart at 14:24 GMT+7 loaded that source into the existing service. Fresh checks proved a quiet window, browser IDLE, no active/pending/unknown work; listener11448 and healthy port8765 were read back with unchanged task, controls and reconciliation. The first PowerShell listener observation was empty despite a healthy API; the existing canonical inventory resolved it without another restart. One normal private intake remains unproven. Exact evidence and the next readback are in [CHECKPOINT.md](CHECKPOINT.md).
+
 ## Batch07 scoped runtime application — 29 October 2026
 
 The later grant supersedes the batch06 no-additional-J7 hold only for the existing Daily App Runtime, subject to its exact quiet-window, identity and empty-work/reconciliation checks. The first granted restart loaded installed `baa234961ea28e49c7db126a0b575fd994af129e` at 13:45 GMT+7 on 29 October: PID38656 became PID36432, port8765 was healthy and actual runtime source matched. Pending/unknown/active work stayed zero; task actions/triggers, publication controls and reconciliation counts were unchanged. Evidence: `C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/co1-application/batch07-restart-1-verified-result.json`.

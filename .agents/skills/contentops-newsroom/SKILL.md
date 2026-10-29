@@ -59,6 +59,19 @@ Follow the same `DESKTOP_TASK_PROMPT` in `live_contentops/codex_desktop_newsroom
 that supplies the four prepared task prompts, starting from the manual binding instead of
 `scheduled`. Host schedules and production pause stay unchanged.
 
+Only the seven existing scheduled App task chats use Jim's 29 October terminal-window
+reporting exception. Preserve their exact initial `scheduled` result in task memory and
+saved JSON, finish all eligible candidates/slots, then call `window-result` with the last
+binding/rollout and a response containing `startup_result`. After WINDOW_RESULT_SAVED,
+`window-notice-begin` returns one native send_message_to_thread call to L2 ContentOps
+`01a1657e-f5d0-76a1-b52b-ec6c78b6fe35`, host `local`. Execute once, save the actual tool
+response and pass it to `window-notice-record`; never retry an attempted/failed send.
+The existing result/outbox dedupes it. NOT_YET_EFFECTIVE, stale/duplicate, partial,
+unfinished-child, unchanged-progress and quota callbacks send nothing. A candidate HOLD
+is not a whole-window result while admitted work remains. Keep the brief date guard.
+This scheduled-task rule does not apply to manual work or native children; the engineering
+Builder still sends only its genuine whole-goal completion notice. Claude remains Jim-triggered.
+
 Run the actual assigned native roles: only new admissible X records need Luna MAX;
 Sol6.1 low selects the angle/mode and evidence plan; Sol6.1 max writes canonical prose/SEO
 under the exact institutional packet. Native subagents may perform these assigned roles.

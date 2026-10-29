@@ -161,6 +161,30 @@ def native_subagent_completion_prompt(
           "and distinguish it from a completed bounded assignment.")
 
 
+
+SCHEDULED_WINDOW_RESULT_RULE = (
+    " SCHEDULED WINDOW RESULT — Jim approved 29 October 2026: this scheduled chat is a separate task. "
+    "Preserve the exact first scheduled CLI result and actual_entry_utc in this task's existing memory and a saved startup-result JSON. "
+    "After all admitted candidates/eligible slots are terminal, run window-result --binding <exact-last-binding> "
+    "--rollout config/native_desktop_rollout_v1.json --response <JSON containing startup_result and optional terminal_failure>. "
+    "A terminal_failure must name the exact run-bound CLI error artifact_path/operation, substantive why_terminal and continuation_possible:false; "
+    "a routine repairable blocker is not terminal. "
+    "A candidate HOLD is not window completion while another admitted candidate or slot remains eligible; continue the existing owner first. "
+    "The command must save the aggregate terminal result before any notice. If WINDOW_RESULT_SAVED, run window-notice-begin "
+    "with the same binding/rollout; only WINDOW_NOTICE_SEND_ONCE authorizes ONE existing send_message_to_thread tool call "
+    "with its exact returned arguments, threadId 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35 and hostId local. "
+    "Then save the ACTUAL tool result and run window-notice-record --binding <same-binding> --rollout config/native_desktop_rollout_v1.json "
+    "--response <actual-tool-result.json>. Record success only when the returned target and tool success are verified. "
+    "On transport failure, save the actual failure and stop; no retry loop, acknowledgement, new ledger, scheduler, relay or watcher. "
+    "Notice fields: automation/production-day/window/run, actual outcome, distinct canonical items, confirmed/skipped/failed channels, "
+    "first blocking cause, exact durable artifact and concrete next action; Jim-facing times use GMT+7. "
+    "NOT_YET_EFFECTIVE (including the 29 October Europe brief), stale/duplicate callbacks, partial stages, unfinished native children, "
+    "unchanged progress and quota interruptions never send a completion notice. This clause changes reporting only: retain policies, "
+    "budgets, roles, calendars, frozen identities and the 02:00-on-30-October guard. This scheduled-window exception supersedes "
+    "the blanket whole-goal-only wording ONLY for these seven task chats; engineering Builder completion still requires its whole goal. "
+    "Native subagents never message their ancestor. L2 may review material results/repair routine failures; Claude remains Jim-triggered."
+)
+
 DESKTOP_TASK_PROMPT = (
     "STARTUP FIRST: read the current V1 execution override in AGENTS.md and check the existing "
     "LLM_OPERATOR_PAUSED boundary, then promptly run python scripts/run_native_desktop_editorial.py "
@@ -261,7 +285,7 @@ DESKTOP_TASK_PROMPT = (
     "Never publish retained pre-activation examples or owner-removed objects. A claimed uncertain write permits only readback. "
     "Missing access is destination-local; continue available admitted channels. Preserve exact identities and source/media rights. "
     "Browser path Neo; bulk X ingestion stays CDP. Do not edit source, run tests/CodeGraph or alter schedules/pause during routine work. "
-    + SUBAGENT_COMPLETION_RULE
+    + SUBAGENT_COMPLETION_RULE + SCHEDULED_WINDOW_RESULT_RULE
 )
 MANUAL_GO_PROMPT = (
     "Use contentops-newsroom and scripts/run_native_desktop_editorial.py newsroom with the current "

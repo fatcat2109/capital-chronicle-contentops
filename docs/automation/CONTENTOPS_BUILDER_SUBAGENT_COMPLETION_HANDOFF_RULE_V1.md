@@ -28,6 +28,14 @@ ancestor transport, relay chat, schedule, watcher, GUI automation, polling or sl
 Preserve actual paused/usage-limited goals; do not recreate them or fake ACTIVE state.
 Separate L3-to-L2 whole-goal notices stay authorized by Jim's standing V3 instructions.
 
+Jim's later 29 October approval separately allows each of the seven scheduled App task
+chats to send one genuinely terminal whole-window result to assigned L2 ContentOps
+`01a1657e-f5d0-76a1-b52b-ec6c78b6fe35`, host `local`, through the existing native tool.
+They save the aggregate first and use the existing window/result outbox for one attempt
+and actual delivery/failure recording. Guarded, partial, stale/duplicate, unfinished-child
+and quota callbacks are suppressed. This is scheduled-window reporting, not engineering
+goal completion or native-child ancestor messaging; Claude remains Jim-triggered.
+
 ## Actual failure and valid result evidence
 
 The BOE MAX assessment saved a genuine source/value HOLD with no article or media.
