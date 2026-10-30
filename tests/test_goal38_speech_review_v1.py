@@ -6,7 +6,7 @@ from live_contentops import speech_highlight_current_source_v1 as current
 from live_contentops import speech_highlight_review_v1 as review
 from live_contentops import speech_highlight_presentation_v1 as presentation
 from live_contentops import speech_highlight_relay_v1 as relay
-from test_goal37_current_speech_v1 import source, returns
+from test_goal37_current_speech_v1 import source, returns, configured
 
 
 @pytest.fixture
@@ -236,3 +236,20 @@ def test_phone_text_files_keep_lf_to_match_measured_bounds(job, monkeypatch):
     assert (parent / "phone_hook.txt").read_bytes() == b"first line\nsecond line"
     assert "Line one Line two Line three Essential qualifier remains" in measured
     assert commands and commands[0][commands[0].index("-c:a") + 1] == "copy"
+
+
+def test_semantic_revision_accepts_labelled_configured_max_and_keeps_open_audio(job, monkeypatch):
+    root, parent, value, _ = job
+    value["findings"]["CONTEXT"] = dict(value["findings"]["VISUAL"],
+        notes="Controlled context correction")
+    meaning = configured(review.read(parent / "meaning_return.json"))
+    meaning.update(native_turn_id="CONTROLLED_NEW_MAX_TURN", context="Controlled revised context")
+    spec = dict(schema="contentops.signal_clips.revision.v1",
+        parent_binding=value["binding"], review_sha256=current.digest(value),
+        change_kind="SEMANTIC", reason="Controlled source-bound correction", meaning_return=meaning)
+    result = review.revise(parent, root,
+        root / ".task-runtime/speech_highlight_relay_v1/configured-successor", spec, value)
+    assert result["production_eligible"] is False
+    assert result["publication_control"]["public_writes"] == 0
+    saved = review.read(root / ".task-runtime/speech_highlight_relay_v1/configured-successor/meaning_return.json")
+    assert saved["model"] is None and saved["configured_reasoning_effort"] == "max"

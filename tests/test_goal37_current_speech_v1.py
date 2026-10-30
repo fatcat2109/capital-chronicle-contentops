@@ -72,6 +72,40 @@ def returns(packet):
     return select, meaning
 
 
+def configured(value):
+    return dict(value, model=None, reasoning_effort=None,
+        configuration_status="CONFIGURED_NOT_OBSERVED",
+        configured_model=value["model"], configured_reasoning_effort=value["reasoning_effort"],
+        configuration_authority="JIM_DECISIONS_20261030_DECISION_16",
+        actual_configuration_unavailable=True,
+        configuration_source="Controlled exact native task configuration, not observed execution")
+
+
+def test_decision16_configured_return_preserves_null_actuals_and_exact_selection(tmp_path):
+    packet = source(tmp_path)
+    selection, meaning = returns(packet)
+    selection, meaning = configured(selection), configured(meaning)
+    meaning["selection_sha256"] = current.digest(selection)
+    meaning["decision"], meaning["reason"] = "HOLD", "Controlled editorial refusal"
+    out = tmp_path / ".task-runtime/speech_highlight_relay_v1/configured"
+    assert current.prepare(packet, tmp_path, out, selection, meaning)["stage"] == "EDITORIAL_HOLD"
+    saved = json.loads((out / "selection_return.json").read_text())
+    assert saved["model"] is None and saved["reasoning_effort"] is None
+    assert saved["configured_reasoning_effort"] == "low"
+
+
+@pytest.mark.parametrize("change", [
+    {"configuration_status": None}, {"configuration_authority": "unsupported"},
+    {"configuration_source": ""}, {"actual_configuration_unavailable": False},
+    {"configured_reasoning_effort": "max"}, {"configured_model": "other"},
+    {"model": "other"}, {"model": "gpt-6.1-sol", "reasoning_effort": "low"},
+])
+def test_configured_provenance_cannot_hide_wrong_role_or_claim_observation(tmp_path, change):
+    selection, _ = returns(source(tmp_path))
+    with pytest.raises(relay.SpeechRelayError, match="provenance"):
+        current.validate_native_role(dict(configured(selection), **change), "SELECTION", "low")
+
+
 def test_exact_request_resume_uses_completed_stages_and_detects_artifact_drift(
     tmp_path, monkeypatch
 ):

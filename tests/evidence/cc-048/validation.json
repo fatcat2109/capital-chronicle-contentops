@@ -1,0 +1,296 @@
+{
+  "item": "CC-048",
+  "status": "BLOCKED",
+  "acceptance_passed": false,
+  "first_cause": "CAPABLE_ORIGINAL_AUDIO_REVIEW_REQUIRED",
+  "recorded_at_utc": "2026-10-30T09:34:20.315855+00:00",
+  "implemented": "Existing current-source native-role and semantic-revision validators accept Jim decision 16 configured provenance while preserving actual nulls and rejecting wrong/unsupported/stale labels. Retained mode unchanged.",
+  "tests": {
+    "passed": 32,
+    "failed": 0,
+    "files": [
+      "tests/test_goal37_current_speech_v1.py",
+      "tests/test_goal38_speech_review_v1.py",
+      "tests/test_speech_highlight_relay_v1.py"
+    ]
+  },
+  "source": {
+    "source_id": "FED_FOMC_20260916_CC048_EXACT_REUSE",
+    "canonical_source_url": "https://www.federalreserve.gov/monetarypolicy/fomcpresconf20260916.htm",
+    "event_date": "2026-09-16",
+    "original_media_sha256": "7c538b54fcc7a75380791aca95f97010450ec058163058db1947455650473dfa",
+    "transcript_sha256": "e460e87aad826fa619daf7fed06e3c5afebe528e30a9fbe50c3f7e548f5c0fa1",
+    "source_packet_sha256": "8e47b02269ad049dd9700cc402586ece748973d701afbf8021e1bb423f254fb4",
+    "media_reused_from_exact_recorded_artifact": true,
+    "new_media_download": false,
+    "caption_scope": "PARTIAL_CONTEXT_WINDOWS_60_146_SECONDS_NOT_FULL_TRANSCRIPT",
+    "private_processing_basis": "PERMITTED",
+    "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+    "policy_snapshot": {
+      "file": ".task-runtime/speech_highlight_relay_v1/cc048/fed-policy-20261030.md",
+      "sha256": "52eea5a35827e9a2af746449b17fee5a144f050c937a4f1f01c2cf4c665c289e"
+    },
+    "public_release_rights": "NOT_VERIFIED_SEAL_LOGO_AND_THIRD_PARTY_EXCEPTIONS",
+    "policy_effect": "Board website information default public domain with explicit exceptions; no blanket recording/insignia clearance inferred."
+  },
+  "native_role_records": [
+    {
+      "draft": "draft-a",
+      "stage": "selection",
+      "native_turn_id": "/root/cc048_select",
+      "model": null,
+      "reasoning_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "low",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Supported native task request /root/cc048_select from /root, specifying the Light SELECTION role and configured gpt-6.1-sol / low; actual configuration not exposed."
+    },
+    {
+      "draft": "draft-a",
+      "stage": "meaning",
+      "native_turn_id": "/root",
+      "model": null,
+      "reasoning_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Jim decision 16 configured default GPT 6.1 Sol MAX for this active parent conversation. Supported native metadata does not expose actual settings."
+    },
+    {
+      "draft": "draft-a",
+      "stage": "initial_visual",
+      "native_turn_id": "/root",
+      "model": null,
+      "reasoning_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Jim decision 16 configured default for the active parent conversation; no actual settings exposed."
+    },
+    {
+      "draft": "draft-a",
+      "stage": "corrected_visual",
+      "native_turn_id": "/root",
+      "model": null,
+      "reasoning_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Active parent native conversation, Jim-configured default; actual model/effort unavailable."
+    },
+    {
+      "draft": "draft-b",
+      "stage": "selection",
+      "native_turn_id": "/root/cc048_select",
+      "model": null,
+      "reasoning_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "low",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Supported native task request /root/cc048_select from /root, specifying the Light SELECTION role and configured gpt-6.1-sol / low; actual configuration not exposed."
+    },
+    {
+      "draft": "draft-b",
+      "stage": "meaning",
+      "native_turn_id": "/root",
+      "model": null,
+      "reasoning_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Jim decision 16 configured default GPT 6.1 Sol MAX for this active parent conversation. Supported native metadata does not expose actual settings."
+    },
+    {
+      "draft": "draft-b",
+      "stage": "initial_visual",
+      "native_turn_id": "/root",
+      "model": null,
+      "reasoning_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Jim decision 16 configured default for the active parent conversation; no actual settings exposed."
+    },
+    {
+      "draft": "draft-b",
+      "stage": "corrected_visual",
+      "native_turn_id": "/root",
+      "model": null,
+      "reasoning_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Active parent native conversation, Jim-configured default; actual model/effort unavailable."
+    }
+  ],
+  "native_call_boundary": "One actual Light native task supplied two selections; parent MAX meaning and visual-review records carry configured values, not effective-model attestation. Local helper zero-provider counters exclude these native turns and browser source checks.",
+  "drafts": [
+    {
+      "draft": "draft-a",
+      "format": "MOMENT_CONTEXT",
+      "span": {
+        "start_seconds": 63.98600000000001,
+        "end_seconds": 76.10600000000001
+      },
+      "requested_duration_seconds": 12.119999999999997,
+      "binding": {
+        "package_sha256": "d419d92bcc50f0d735166a5955d8002b8ec47a4681cb8e52fe4c0345dbbd7566",
+        "source_sha256": "8e47b02269ad049dd9700cc402586ece748973d701afbf8021e1bb423f254fb4",
+        "original_media_sha256": "7c538b54fcc7a75380791aca95f97010450ec058163058db1947455650473dfa",
+        "transcript_sha256": "e460e87aad826fa619daf7fed06e3c5afebe528e30a9fbe50c3f7e548f5c0fa1",
+        "edit_sha256": "ba83859e2d666de750ed46d9f6e2332eeb5c83d43c28d2b0fd89c212aad82457",
+        "affected_outputs": {
+          "master_vertical_clean_1080x1920.mp4": "15fa650655efcbecafd08b6101b48fc6c5b82b38e4cea811b9be79f646641ca2",
+          "derivative_vertical_captioned_1080x1920.mp4": "0507891e054c6fae40edd04a73f6ae019291da5e1a86424b026d31c2493e22b3",
+          "captions.srt": "ffa6c3c315db8ff9d1f15f6907297b298f8c63270e5e51869fb232e0f7862b6d",
+          "captions.vtt": "c3cdb4e415b808e9ca59e08024108129d5f636381dff71056193ba3aa0f3ba67",
+          "captions.json": "22179668f1816db68e69c5e511457b0d36fff5e62e3ebec589af4e224145118f",
+          "current_source.json": "ab4def29ba2c9547d6f6a89aa5527d100ad209fb08b8a6a63ea712b0a3761366",
+          "selection_request.json": "d1c51f1f3c7b6580e6c8c7178ff2a801b14800ef4e11327f85e7d329ea6c609f",
+          "selection_return.json": "4635f318bb15b71126b358ec7164ca805fe8c4cd9671ec9d12df1a7c2bf93e04",
+          "meaning_request.json": "08131e73c34dde746cbcb1080a23532d356d63a3e4d7bbbd4492c181baaa29d0",
+          "meaning_return.json": "b3c901ee6ae3add1df42c6b1a6287db1400cfd0b7147cdb63ee21befb2921ea5",
+          "extracted_clip.mp4": "6dfd166f4a731dbd3c83f8c85b4094b0878f822819ebbdc13a83a51487453561",
+          "destination_metadata.json": "f6e9677553b0d8433c0b9f33b4b9da75f6f483c429883de6ed6a66852614e7d1",
+          "review_request.json": "6cae74c10c41970937b2b284a001b8a25edceddd22ba9c57ccd2ed2f42140894",
+          "revision.json": "ae6aff67b01b7708980682b5b2bfc01248025d5e7c27b1e1c02aad0eb4b67d0e",
+          "parent_review.json": "84128e6477d4fac9c0206eecfc51f176b435d3953186f5c40dc7cc06849fe139",
+          "presentation.json": "3656f4dd4c57d603106d20c5b11ee5acf997a5c99368e91a536795260a438f28"
+        }
+      },
+      "probes": {
+        "master_vertical_clean_1080x1920.mp4": {
+          "duration_seconds": "12.133333",
+          "video_codec": "h264",
+          "width": 1080,
+          "height": 1920,
+          "audio_codec": "aac",
+          "sample_rate": "48000",
+          "channels": 2
+        },
+        "derivative_vertical_captioned_1080x1920.mp4": {
+          "duration_seconds": "12.133333",
+          "video_codec": "h264",
+          "width": 1080,
+          "height": 1920,
+          "audio_codec": "aac",
+          "sample_rate": "48000",
+          "channels": 2
+        }
+      },
+      "audio_byte_preservation": {
+        "scope": "AAC byte preservation only, not listening proof",
+        "sha256": {
+          "extracted_clip.mp4": "ffc96928d1ab5069fb6ac5cac5fd32b667cf9f0fd29dce15bcd14b2d40c5b13e",
+          "master_vertical_clean_1080x1920.mp4": "ffc96928d1ab5069fb6ac5cac5fd32b667cf9f0fd29dce15bcd14b2d40c5b13e",
+          "derivative_vertical_captioned_1080x1920.mp4": "ffc96928d1ab5069fb6ac5cac5fd32b667cf9f0fd29dce15bcd14b2d40c5b13e"
+        }
+      },
+      "findings": {
+        "VISUAL": "PASS",
+        "CAPTIONS": "PASS",
+        "AUDIO": "NOT_VERIFIED",
+        "TIMING": "NOT_VERIFIED",
+        "CONTEXT": "NOT_VERIFIED",
+        "RIGHTS": "NOT_VERIFIED"
+      },
+      "review_return_sha256": "3e78f3520ed40cfc89d4a94fca4d1555018d5cc96210d9e26e92ee26fa439246",
+      "private_review_surface": ".task-runtime/speech_highlight_relay_v1/cc048/draft-a-r1-reviewed/index.html",
+      "prepared_directory": ".task-runtime/speech_highlight_relay_v1/cc048/draft-a-r1"
+    },
+    {
+      "draft": "draft-b",
+      "format": "MOMENT_CONTEXT",
+      "span": {
+        "start_seconds": 80.88600000000001,
+        "end_seconds": 118.336
+      },
+      "requested_duration_seconds": 37.44999999999999,
+      "binding": {
+        "package_sha256": "904a609067c4cfde7613d8008c114d09b19cb804d9bb587fc16532c1ce338adb",
+        "source_sha256": "8e47b02269ad049dd9700cc402586ece748973d701afbf8021e1bb423f254fb4",
+        "original_media_sha256": "7c538b54fcc7a75380791aca95f97010450ec058163058db1947455650473dfa",
+        "transcript_sha256": "e460e87aad826fa619daf7fed06e3c5afebe528e30a9fbe50c3f7e548f5c0fa1",
+        "edit_sha256": "a94b4cf6a8e60bbb64d7df58804266be78d6a93aeba69348dd386fa5973209a9",
+        "affected_outputs": {
+          "master_vertical_clean_1080x1920.mp4": "f3da094043c0f8dc45ee8c7648569b6b99720eb7602dc8f90fa9e5e280a67282",
+          "derivative_vertical_captioned_1080x1920.mp4": "9d72d580096e9c01099ef652c939cb51e817971f5cdc68e7624c2fc61040ed72",
+          "captions.srt": "190c472c56ed6eb872c47eeaa2389b9a3966a718cfd941b9ea051f9c958e0135",
+          "captions.vtt": "eb93b7bbd169f5d70ef7689301069ba792be8a64d5ae6759615412e8f1fc5000",
+          "captions.json": "be7d194ef818e51be2374550a81fc4a6dbf303c9f9ffd8043dcf55bf119aeb81",
+          "current_source.json": "ab4def29ba2c9547d6f6a89aa5527d100ad209fb08b8a6a63ea712b0a3761366",
+          "selection_request.json": "d1c51f1f3c7b6580e6c8c7178ff2a801b14800ef4e11327f85e7d329ea6c609f",
+          "selection_return.json": "939acbf90fc3fbb590c90cbc7f2d70be500101096d4a1bbd179baab0aad28308",
+          "meaning_request.json": "5572b0a3cdaceea6a644b1bc6d9782161694e774d5caf2dc89edd897be99b8e6",
+          "meaning_return.json": "40b42d085c313c4b02ff4ca3cae60c6775b9088881530efd4b909201b4980643",
+          "extracted_clip.mp4": "d416db4da4c7a6ad61cfec558295d2e305a9018d35d619375040b9c07e78d9ab",
+          "destination_metadata.json": "ddb35996254ab7bdd0fe3706e17a580b2813d6c976a19f9db1d2012b58ed74b1",
+          "review_request.json": "92fddeb92e8eb9712d477d6771f2cb4de3fd0904ae2a26a9d789fbd458f17208",
+          "revision.json": "5b3de9196583bc57da53899ffc945765d1291bdc5a267e08c14f3593ea0fa52b",
+          "parent_review.json": "5cf5bc5266516503713a02e002599d02e8ca12ca7cfebbf864e7e233e1f6bdaa",
+          "presentation.json": "ca92af47412591b0581cfe7e35a501cb93482ddbb19517d1a41602ca494d8a1e"
+        }
+      },
+      "probes": {
+        "master_vertical_clean_1080x1920.mp4": {
+          "duration_seconds": "37.466667",
+          "video_codec": "h264",
+          "width": 1080,
+          "height": 1920,
+          "audio_codec": "aac",
+          "sample_rate": "48000",
+          "channels": 2
+        },
+        "derivative_vertical_captioned_1080x1920.mp4": {
+          "duration_seconds": "37.466667",
+          "video_codec": "h264",
+          "width": 1080,
+          "height": 1920,
+          "audio_codec": "aac",
+          "sample_rate": "48000",
+          "channels": 2
+        }
+      },
+      "audio_byte_preservation": {
+        "scope": "AAC byte preservation only, not listening proof",
+        "sha256": {
+          "extracted_clip.mp4": "d03db8619eed118cfe16652604d4a3beb71cb2dba1fcba25ce265b5c56c444e7",
+          "master_vertical_clean_1080x1920.mp4": "d03db8619eed118cfe16652604d4a3beb71cb2dba1fcba25ce265b5c56c444e7",
+          "derivative_vertical_captioned_1080x1920.mp4": "d03db8619eed118cfe16652604d4a3beb71cb2dba1fcba25ce265b5c56c444e7"
+        }
+      },
+      "findings": {
+        "VISUAL": "PASS",
+        "CAPTIONS": "PASS",
+        "AUDIO": "NOT_VERIFIED",
+        "TIMING": "NOT_VERIFIED",
+        "CONTEXT": "NOT_VERIFIED",
+        "RIGHTS": "NOT_VERIFIED"
+      },
+      "review_return_sha256": "c4f0f3133255ccf5e83feba176f9a6feaaee317ca6659e5b211af7b521b9378f",
+      "private_review_surface": ".task-runtime/speech_highlight_relay_v1/cc048/draft-b-r1-reviewed/index.html",
+      "prepared_directory": ".task-runtime/speech_highlight_relay_v1/cc048/draft-b-r1"
+    }
+  ],
+  "capable_audio_input_tool_available": false,
+  "hearing_claimed": false,
+  "scope_limits": [
+    "Two dated Moment + Context working drafts from the same official recording, not two different formats or the distinct business/CEO category.",
+    "Original audio listening, timing, full-event context and source-specific public release remain NOT_VERIFIED.",
+    "The longer cut includes a room-wide source shot with other attendees; it was preserved and recorded, not hidden by a blind crop.",
+    "Initial renders and valid original media/captions/native returns are preserved; only presentation successors were rendered.",
+    "Raw video, transcripts, native prose, frames, review returns and local pages remain in ignored task storage.",
+    "No production, upload, platform draft, public write, paid model call, schedule, V1 store or runtime change."
+  ],
+  "next_action": "A capable reviewer listens to each original/adjacent passage and final cut, verifies timing/context, and records exact bound findings in the existing review surface. Resolve source-specific insignia/third-party reuse before any upload.",
+  "external_platform_writes": 0,
+  "production_eligible": false
+}

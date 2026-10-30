@@ -266,13 +266,11 @@ def revise(directory, root, output, spec, review):
     if kind != "SEMANTIC" and new_meaning != meaning:
         raise relay.SpeechRelayError("Unexpected semantic mutation")
     if kind == "SEMANTIC":
+        current.validate_native_role(new_meaning, "MEANING", "max")
         if (
             new_meaning == meaning
             or new_meaning.get("source_sha256") != binding["source_sha256"]
             or new_meaning.get("selection_sha256") != current.digest(selection)
-            or new_meaning.get("model") != "gpt-6.1-sol"
-            or new_meaning.get("reasoning_effort") != "max"
-            or new_meaning.get("role") != "MEANING"
             or new_meaning.get("native_turn_id") == meaning.get("native_turn_id")
             or not new_meaning.get("native_turn_id")
             or new_meaning.get("decision") != "KEEP"

@@ -62,6 +62,16 @@ identity with provenance limits, selected format, continuous 5–120 second span
 unchanged complete utterance wording, rationale and surrounding context. The source
 hash alone is not an independent model attestation.
 
+Jim decision 16 (30 October 2026), cited in CC-048, permits supported calls whose actual
+settings are unavailable to retain `model` and `reasoning_effort` as null and separately
+record `configuration_status=CONFIGURED_NOT_OBSERVED`, exact `configured_model` and
+`configured_reasoning_effort`, `configuration_authority=JIM_DECISIONS_20261030_DECISION_16`,
+`actual_configuration_unavailable=true` and a nonempty `configuration_source`. The native
+turn identity remains required. Selection uses the task-requested Sol/low settings;
+the default parent meaning/review call records configured Sol/MAX. Configured values
+are never presented as observed. Wrong actual/configured roles and unsupported labels
+are rejected. Historical accepted returns retain their original bytes and limitations.
+
 The subsequent `gpt-6.1-sol/max` meaning request includes the selected span and its
 digest. Its return binds both source and selection, and separates `speaker_claim`,
 `independent_evidence` and `cc_interpretation` from concise `headline`/`context`.

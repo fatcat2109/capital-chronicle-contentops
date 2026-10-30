@@ -26,6 +26,25 @@ FORMATS = {
 SCHEMA = "contentops.speech_highlight_relay.current_source_private.v1"
 
 
+def validate_native_role(value, role, effort):
+    """Validate reported settings or Jim's explicitly labelled configured fallback."""
+    if value.get("role") != role or not value.get("native_turn_id"):
+        raise relay.SpeechRelayError("Exact native role/source provenance required")
+    actual = (value.get("model"), value.get("reasoning_effort"))
+    target = ("gpt-6.1-sol", effort)
+    status = value.get("configuration_status")
+    if status is None and actual == target:
+        return  # Preserve existing retained native returns and their provenance limits.
+    if (status != "CONFIGURED_NOT_OBSERVED"
+            or actual == target
+            or any(a is not None and a != b for a, b in zip(actual, target))
+            or (value.get("configured_model"), value.get("configured_reasoning_effort")) != target
+            or value.get("configuration_authority") != "JIM_DECISIONS_20261030_DECISION_16"
+            or value.get("actual_configuration_unavailable") is not True
+            or not str(value.get("configuration_source") or "").strip()):
+        raise relay.SpeechRelayError("Exact native role/source provenance required")
+
+
 def digest(value):
     return hashlib.sha256(relay.canonical_json(value)).hexdigest()
 
@@ -216,14 +235,9 @@ def prepare(packet, root, output, selection=None, meaning=None):
     ]:
         if value is None:
             continue
-        if (
-            value.get("source_sha256") != binding
-            or value.get("role") != role
-            or value.get("model") != "gpt-6.1-sol"
-            or value.get("reasoning_effort") != effort
-            or not value.get("native_turn_id")
-        ):
+        if value.get("source_sha256") != binding:
             raise relay.SpeechRelayError("Exact native role/source provenance required")
+        validate_native_role(value, role, effort)
     span = selection["span"]
     a, b = span["start_seconds"], span["end_seconds"]
     if not all(
