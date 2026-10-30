@@ -60,6 +60,18 @@ describe('Main report editorial workspace', () => {
     }
   });
 
+  it('shows the explicit Instagram skip instead of an empty package', () => {
+    const snapshot = ownerData();
+    const preview = snapshot.native_edition![0].previews.find(p => p.destination === 'instagram_business')!;
+    preview.payload = { delivery_state: 'SKIPPED_PHOTOLESS_NEWS_POLICY', media_asset_ids: [],
+      skip_reason: 'Photo-less NEWS/POLICY brief; Instagram requires an image.' };
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" />);
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: 'instagram_business' } });
+    const article = screen.getByRole('article', { name: 'Selected article' });
+    expect(within(article).getByRole('status')).toHaveTextContent('Instagram skipped. This text-only brief has no image.');
+    expect(within(article).queryByRole('img')).not.toBeInTheDocument();
+  });
+
   it('keeps source dates, held scope and real insufficient metrics visible and opens the release guide', () => {
     const snapshot = ownerData();
     snapshot.native_edition![0].media_assets = [{ asset_id: 'controlled-photo', path: 'controlled.jpg', sha256: 'photo-hash',

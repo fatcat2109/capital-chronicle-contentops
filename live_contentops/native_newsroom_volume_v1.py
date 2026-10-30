@@ -47,8 +47,14 @@ def photo_less_brief(result):
     bound_volume_policy({"volume_policy": policy, "cutoff_utc": cutoff})
     decision = article.get("visual_editorial_decision") or result.get("visual_editorial_decision") or {}
     mode = article.get("resolved_article_mode") or article.get("effective_article_mode")
+    desk_news = (mode == "DATA_OR_DOCUMENT_LENS"
+        and decision.get("accepted_article_mode") == mode
+        and decision.get("reader_form") == "NARROW_FACTUAL_NEWS_BRIEF"
+        and decision.get("story_kind") == "NEWS" and decision.get("charts") == []
+        and len(str(decision.get("exception_reason") or "")) >= 80
+        and isinstance(article.get("desk_record_citations"), list) and bool(article["desk_record_citations"]))
     return (policy.get("photo_less_news_policy") is True and decision.get("story_kind") in {"NEWS", "POLICY"}
-        and mode in {None, "BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}
+        and (mode in {None, "BREAKING_BRIEF", "FOLLOW_UP_UPDATE"} or desk_news)
         and not any(a.get("modality") == "documentary_photo" for a in result.get("media_assets", [])))
 
 
@@ -58,7 +64,13 @@ def permitted_photo_less_skip(plan):
     if not bound_volume_policy({"volume_policy": plan.get("volume_policy"), "cutoff_utc": plan.get("volume_policy_cutoff_utc")}):
         return False
     skipped = plan.get("skipped_derivative_destinations") or []
-    return (plan.get("resolved_article_mode") in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}
+    desk = plan.get("photo_less_desk_record_binding")
+    desk_news = bool(isinstance(desk, dict)
+        and plan.get("resolved_article_mode") == "DATA_OR_DOCUMENT_LENS"
+        and desk.get("resolved_article_mode") == plan.get("resolved_article_mode")
+        and photo_less_brief({"article": desk, "volume_policy": plan["volume_policy"],
+            "volume_policy_cutoff_utc": plan.get("volume_policy_cutoff_utc")}))
+    return ((plan.get("resolved_article_mode") in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"} or desk_news)
         and len(skipped) == 1 and skipped[0].get("destination") == "instagram_business"
         and skipped[0].get("status") == PHOTOLESS_INSTAGRAM_SKIP)
 

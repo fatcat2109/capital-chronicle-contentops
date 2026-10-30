@@ -1,0 +1,5 @@
+{
+  "operation": "prepare_native_publication",
+  "result": "REFUSED",
+  "actual_error": "DESK_FIXTURE_PRIVATE_PREVIEW_ONLY"
+}

@@ -1465,6 +1465,8 @@ class DurablePublicationCoordinator:
             return
 
     def register_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
+        if plan.get("fixture_source_context"):
+            raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
         if self.published_content_path is not None:
             from live_contentops.published_content_v1 import article_metadata, read_records
             article_metadata(plan, require_notice=False)
@@ -2349,6 +2351,8 @@ class DurablePublicationCoordinator:
         return result
 
     def _execute_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
+        if plan.get("fixture_source_context"):
+            raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
         if self._recovery_is_quarantined(work_item_id):
             return {
                 "plan_hash": str(plan.get("plan_hash") or _hash(_canonical_json(plan))),

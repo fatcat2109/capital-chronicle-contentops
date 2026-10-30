@@ -1,0 +1,96 @@
+[
+  {
+    "story_identity": "main-desk:asset:USDJPY",
+    "asset_ids": [
+      "USDJPY"
+    ],
+    "event_ids": [
+      "US_ECI_20261030"
+    ],
+    "disposition": "NO_MATERIAL_CHANGE",
+    "publication_state": "UNPUBLISHED_RESEARCH",
+    "current_review": {
+      "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+      "title": "Capital Chronicle's ECI record: a smaller quarterly rise",
+      "stage": "REVIEWED_UNPUBLISHED_ARTICLE",
+      "review_id": "native-article-review-74ab846919fb4515b8588059b44a80ec",
+      "source_revision_current": true,
+      "state": "KEEP",
+      "rationale": "Same designated native MAX writer accepted the exact final PDF-rendered desktop/mobile previews. The fixture article cites the retained ECI event card and USDJPY/gold dossiers, preserves all 20 exact public field bindings and source notices, and remains unpublished."
+    },
+    "package_history": [
+      {
+        "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+        "title": "Capital Chronicle's ECI record: a smaller quarterly rise",
+        "stage": "REVIEWED_UNPUBLISHED_ARTICLE",
+        "review_id": "native-article-review-74ab846919fb4515b8588059b44a80ec",
+        "source_revision_current": true,
+        "state": "KEEP",
+        "rationale": "Same designated native MAX writer accepted the exact final PDF-rendered desktop/mobile previews. The fixture article cites the retained ECI event card and USDJPY/gold dossiers, preserves all 20 exact public field bindings and source notices, and remains unpublished."
+      }
+    ]
+  },
+  {
+    "story_identity": "main-desk:asset:XAUUSD",
+    "asset_ids": [
+      "XAUUSD"
+    ],
+    "event_ids": [
+      "US_ECI_20261030"
+    ],
+    "disposition": "NO_MATERIAL_CHANGE",
+    "publication_state": "UNPUBLISHED_RESEARCH",
+    "current_review": {
+      "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+      "title": "Capital Chronicle's ECI record: a smaller quarterly rise",
+      "stage": "REVIEWED_UNPUBLISHED_ARTICLE",
+      "review_id": "native-article-review-74ab846919fb4515b8588059b44a80ec",
+      "source_revision_current": true,
+      "state": "KEEP",
+      "rationale": "Same designated native MAX writer accepted the exact final PDF-rendered desktop/mobile previews. The fixture article cites the retained ECI event card and USDJPY/gold dossiers, preserves all 20 exact public field bindings and source notices, and remains unpublished."
+    },
+    "package_history": [
+      {
+        "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+        "title": "Capital Chronicle's ECI record: a smaller quarterly rise",
+        "stage": "REVIEWED_UNPUBLISHED_ARTICLE",
+        "review_id": "native-article-review-74ab846919fb4515b8588059b44a80ec",
+        "source_revision_current": true,
+        "state": "KEEP",
+        "rationale": "Same designated native MAX writer accepted the exact final PDF-rendered desktop/mobile previews. The fixture article cites the retained ECI event card and USDJPY/gold dossiers, preserves all 20 exact public field bindings and source notices, and remains unpublished."
+      }
+    ]
+  },
+  {
+    "story_identity": "main-desk:event:US_ECI_20261030",
+    "asset_ids": [
+      "USDJPY",
+      "XAUUSD"
+    ],
+    "event_ids": [
+      "US_ECI_20261030"
+    ],
+    "disposition": "NO_MATERIAL_CHANGE",
+    "publication_state": "UNPUBLISHED_RESEARCH",
+    "current_review": {
+      "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+      "title": "Capital Chronicle's ECI record: a smaller quarterly rise",
+      "stage": "REVIEWED_UNPUBLISHED_ARTICLE",
+      "review_id": "native-article-review-74ab846919fb4515b8588059b44a80ec",
+      "source_revision_current": true,
+      "state": "KEEP",
+      "rationale": "Same designated native MAX writer accepted the exact final PDF-rendered desktop/mobile previews. The fixture article cites the retained ECI event card and USDJPY/gold dossiers, preserves all 20 exact public field bindings and source notices, and remains unpublished."
+    },
+    "package_history": [
+      {
+        "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+        "title": "Capital Chronicle's ECI record: a smaller quarterly rise",
+        "stage": "REVIEWED_UNPUBLISHED_ARTICLE",
+        "review_id": "native-article-review-74ab846919fb4515b8588059b44a80ec",
+        "source_revision_current": true,
+        "state": "KEEP",
+        "rationale": "Same designated native MAX writer accepted the exact final PDF-rendered desktop/mobile previews. The fixture article cites the retained ECI event card and USDJPY/gold dossiers, preserves all 20 exact public field bindings and source notices, and remains unpublished."
+      }
+    ]
+  }
+]
