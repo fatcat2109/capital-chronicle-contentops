@@ -175,9 +175,12 @@ def native_subagent_completion_prompt(
           "and distinguish it from a completed bounded assignment.")
 
 
-def native_role_call(request, binding, *, binding_path, same_writer_invocation=None):
+def native_role_call(request, binding, *, binding_path, same_writer_invocation=None,
+                     same_writer_configuration=None):
     """Describe the next real platform call; this function invokes no model."""
-    from live_contentops.native_desktop_editorial_v1 import ROLE_ASSIGNMENTS, native_role
+    from live_contentops.native_desktop_editorial_v1 import (
+        ROLE_ASSIGNMENTS, native_role, validate_native_role_dispatch,
+    )
     stage = request["stage"]
     role = native_role(stage)
     target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
@@ -231,8 +234,15 @@ def native_role_call(request, binding, *, binding_path, same_writer_invocation=N
         "is required. Never probe environment variables, credentials, session/config secrets or process arguments "
         "to discover identity. If context omits it, leave it unknown and return your output; the coordinator has "
         "the actual spawn result and must bind that truthful observation before submit. "
+        "Jim decision 16 permits a missing actual model/effort: keep model and reasoning_effort null; "
+        "record configuration_status CONFIGURED_NOT_OBSERVED, configuration_authority JIM_DECISIONS_20261030_DECISION_16, "
+        "configured_model and configured_reasoning_effort from this exact task request, actual_configuration_unavailable true, "
+        "and configuration_source describing this supported task request. Never label configured values observed. "
         "Return the saved path/hash and substantive result in your native final return. "
-        + native_subagent_completion_prompt(**fields))
+        "Jim's current V4/host instructions retire the old L1/L2/L3 and relay routes. "
+        "Do not read or message archived chats, send a completion notice, create a goal or schedule. "
+        "The parent collects this role's supported native result in the same operation. "
+        "EXACT NATIVE ASSIGNMENT:\n" + json.dumps(fields, ensure_ascii=False, sort_keys=True))
     if same_writer_invocation:
         call = {"tool": "collaboration.followup_task", "arguments": {
             "target": same_writer_invocation, "message": message}}
@@ -241,10 +251,14 @@ def native_role_call(request, binding, *, binding_path, same_writer_invocation=N
             "task_name": "native_" + role.replace("-", "_") + "_" + request["request_sha256"][:12],
             "fork_turns": "none", "model": target["model"],
             "reasoning_effort": target["reasoning_effort"], "message": message}}
-    return {**call, "result_path": result_path,
+    call = {**call, "native_stage": stage, "result_path": result_path,
         "after_result": {"command": "submit", "binding_path": str(binding_path),
             "stage": stage, "response_path": result_path},
         "continuation": "Collect the real native return, verify actual spawn/context identity at submit, then advance the SAME binding in this turn."}
+    if same_writer_invocation:
+        call["continuation_observation"] = dict(same_writer_configuration or {})
+    validate_native_role_dispatch(call)
+    return call
 
 
 

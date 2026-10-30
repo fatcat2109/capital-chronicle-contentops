@@ -440,17 +440,22 @@ def operation(binding, **kwargs):
                 run_id=binding["run_id"], output_dir=binding["output_dir"],
                 owner_manual_validation=binding.get("owner_manual_validation", False))
             same_writer = None
+            same_writer_configuration = None
             if native_role(request["stage"]) in {"write", "revise", "final-visual", "visual-edit"}:
                 prior = turn._get("write", "response") or turn.visual_response()
                 if prior:
-                    same_writer = prior["invocation_observation"]["invocation_id"]
+                    same_writer_configuration = prior["invocation_observation"]
+                    same_writer = same_writer_configuration["invocation_id"]
             result["next_native_call"] = native_role_call({**request, "request_path": result["request_path"]},
-                binding, binding_path=binding_path, same_writer_invocation=same_writer)
+                binding, binding_path=binding_path, same_writer_invocation=same_writer,
+                same_writer_configuration=same_writer_configuration)
             if result.get("parallel_requests"):
                 result["next_native_calls"] = [native_role_call(r,binding,binding_path=binding_path)
                     for r in result.pop("parallel_requests")]
                 result.pop("next_native_call",None)  # One dispatch list, no duplicate first-child intent.
                 result["continuation_required"] = "Dispatch the bounded independent native filter batches, collect every actual return, submit each once, then advance this SAME binding. No partial final while remaining_unprocessed is nonzero and work is executable."
+        from live_contentops.native_editorial_continuation_v1 import next_editorial_action
+        result["coordinator_action"] = next_editorial_action(result)
     from live_contentops.native_newsroom_volume_v1 import bound_volume_policy, persist_native_day_measurement
     if (bound_volume_policy(binding) and binding.get("window_id")
             and kwargs.get("command", "advance") not in {"status", "publication-status", "context"}):

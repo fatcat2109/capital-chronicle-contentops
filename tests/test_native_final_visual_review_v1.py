@@ -43,7 +43,7 @@ def test_wrong_or_unobserved_model_effort_and_other_writer_rejected(tmp_path, mo
     store, binding, _, result, _ = seeded(tmp_path, monkeypatch, final_visual=False)
     turn, request, response = visual_request_fixture(store, binding, result)
     response["invocation_observation"][field] = value
-    with pytest.raises(ValueError, match="MODEL_MISMATCH|ROLE_EFFORT_MISMATCH|ACTUAL_SAME_SOL61_MAX"):
+    with pytest.raises(ValueError, match="MODEL_MISMATCH|ROLE_EFFORT_MISMATCH|ACTUAL_SAME_SOL61_MAX|ACTUAL_NATIVE_MODEL_AND_EFFORT_REQUIRED"):
         turn.submit(request["stage"], response)
     assert turn._get(request["stage"], "response") is None
 

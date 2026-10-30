@@ -45,7 +45,7 @@ def _finish(turn, rows):
 def test_all_backlog_beyond_32_resume_and_correction_only(tmp_path):
     rows = _rows()
     (filtered, receipt), requests = _finish(_turn(tmp_path), rows)
-    assert [len(r["governed_input"]["records"]) for r in requests] == [24, 24, 17]
+    assert [len(r["governed_input"]["records"]) for r in requests] == [65]
     assert receipt["seen"] == receipt["kept"] == len(filtered["headlines"]) == 65
     assert receipt["remaining_unprocessed"] == 0
     before = len(_turn(tmp_path).store.list_outbox_messages())
@@ -63,19 +63,38 @@ def test_all_backlog_beyond_32_resume_and_correction_only(tmp_path):
 def test_three_frozen_batches_ready_together_and_all_returns_still_required(tmp_path):
     turn=_turn(tmp_path)
     with pytest.raises(DesktopInputRequired) as first:
-        turn.filter_headlines(_rows(97))
+        turn.filter_headlines(_rows(385))
     requests=first.value.request["parallel_requests"]
-    assert len(requests)==3 and first.value.request["filter_progress"]["remaining_unprocessed"]==97
+    assert len(requests)==3 and first.value.request["filter_progress"]["remaining_unprocessed"]==385
     for request in reversed(requests):
         _answer(turn,request)
     with pytest.raises(DesktopInputRequired) as next_batch:
-        turn.filter_headlines(_rows(97))
-    assert next_batch.value.request["filter_progress"]["accepted_records"]==72
-    assert next_batch.value.request["filter_progress"]["remaining_unprocessed"]==25
+        turn.filter_headlines(_rows(385))
+    assert next_batch.value.request["filter_progress"]["accepted_records"]==288
+    assert next_batch.value.request["filter_progress"]["remaining_unprocessed"]==97
     for request in next_batch.value.request["parallel_requests"]:
         _answer(turn,request)
-    (_,receipt),requests=_finish(turn,_rows(97))
-    assert requests==[] and receipt["seen"]==97 and receipt["remaining_unprocessed"]==0
+    (_,receipt),requests=_finish(turn,_rows(385))
+    assert requests==[] and receipt["seen"]==385 and receipt["remaining_unprocessed"]==0
+
+
+def test_increased_batch_default_drains_existing_issued_small_groups_first(tmp_path, monkeypatch):
+    import live_contentops.native_headline_filter_v1 as module
+    turn = _turn(tmp_path)
+    rows = _rows(121)
+    monkeypatch.setattr(module, "BATCH_SIZE", 24)
+    with pytest.raises(DesktopInputRequired) as first:
+        turn.filter_headlines(rows)
+    original = first.value.request["parallel_requests"]
+    monkeypatch.setattr(module, "BATCH_SIZE", 96)
+    with pytest.raises(DesktopInputRequired) as resumed:
+        turn.filter_headlines(rows)
+    assert [r["request_sha256"] for r in resumed.value.request["parallel_requests"]] == [r["request_sha256"] for r in original]
+    for request in original:
+        _answer(turn, request)
+    (_, receipt), requests = _finish(turn, rows)
+    assert [len(r["governed_input"]["records"]) for r in requests] == [49]
+    assert receipt["seen"] == 121 and receipt["remaining_unprocessed"] == 0
 
 
 def test_role_model_effort_fail_closed(tmp_path):
@@ -86,6 +105,10 @@ def test_role_model_effort_fail_closed(tmp_path):
         _answer(turn, pending.value.request, effort="low")
     with pytest.raises(ValueError, match="MODEL_MISMATCH"):
         _answer(turn, pending.value.request, model="gpt-6.1-sol")
+    with pytest.raises(ValueError, match="ACTUAL_NATIVE_MODEL_AND_EFFORT_REQUIRED"):
+        _answer(turn, pending.value.request, model=None)
+    with pytest.raises(ValueError, match="ACTUAL_NATIVE_MODEL_AND_EFFORT_REQUIRED"):
+        _answer(turn, pending.value.request, effort=None)
 
 
 def test_pending_scheduled_filter_resumes_canonical_pool_without_replacing_request(tmp_path, monkeypatch):
