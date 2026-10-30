@@ -1819,6 +1819,12 @@ def _reader_safe_native_article(
     notices = [text for d in article.get("public_research_descriptors", []) for text in reader_notices(d)]
     if notices:
         result["editorial_scope_notice"] += " " + " ".join(notices)
+    # Preserve the writer's explicit public notice in every derivative package.
+    # Older sealed articles without it remain unchanged; no source claim is added.
+    analysis_notice = "Analysis, not financial advice. Readers decide whether to trade."
+    if analysis_notice in raw_body and analysis_notice not in result["editorial_scope_notice"]:
+        result["editorial_scope_notice"] = " ".join(filter(None, (
+            result["editorial_scope_notice"].strip(), analysis_notice)))
     for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):
         if article.get(key):
             result[key] = article[key]
