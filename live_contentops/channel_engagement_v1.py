@@ -71,7 +71,7 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
         dispatch = eligible.get(observation.get("dispatch_id"))
         if (not dispatch or dispatch["platform"] != channel
                 or str(dispatch["public_object_id"]) != str(observation.get("public_object_id"))
-                or not observation.get("learning_eligible")):
+                or observation.get("learning_eligible") not in (True, 1)):
             excluded[(channel, "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT")] += 1
             continue
         key = (channel, str(observation["public_object_id"]))
