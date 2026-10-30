@@ -526,6 +526,10 @@ def run_report_editorial_cycle(
 
         def evidence(request: Mapping[str, Any]) -> dict[str, Any]:
             stage = "source:" + str(request["cluster_id"])
+            # An explicitly versioned retained adapter may repair its resolver
+            # without replacing prior cached failures or changing frozen inputs.
+            if retained_research and getattr(retained_research, "evidence_cache_revision", None):
+                stage += ":adapter:" + sha256_of(retained_research.evidence_cache_revision)
             recovery = llm_invoke.source_recovery() if native else None
             if recovery and recovery.get("pre_writer_context_attachment"):
                 # The selected history joins only after the unchanged current-event

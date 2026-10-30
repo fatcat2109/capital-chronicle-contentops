@@ -57,6 +57,24 @@ def test_replay_missing_source_cannot_fall_through_to_network():
     assert result["provenance"] == {"request_count_for_call": 0, "network_acquisition_on_replay": False}
 
 
+def test_replay_exact_frozen_relay_reuses_governed_admission_with_zero_gets(monkeypatch):
+    from types import SimpleNamespace
+    from scripts.replay_cc041_native_window import FrozenReplayResearch
+    from live_contentops import v1_simple_evidence_resolver_v1 as resolver
+    from live_contentops import v1_simple_epistemic_state_v1 as epistemic
+    retained = SimpleNamespace(revision="frozen", records={}, evidence=lambda *a, **kw: None)
+    monkeypatch.setattr(epistemic, "canonical_x_report_document", lambda request: ({"document_id": "controlled"}, []))
+    monkeypatch.setattr(resolver.SimpleFirstPartyAwareEvidenceResolver, "_accepted_epistemic_route",
+        lambda self, request, value, route: (value["evidence_documents"], {"report_truth_supported": True}, []))
+    # The adapter invokes only existing deterministic admission helpers, never
+    # the resolver __call__ that could initiate a source walk.
+    monkeypatch.setattr(resolver.SimpleFirstPartyAwareEvidenceResolver, "__call__",
+        lambda *a, **kw: pytest.fail("network-capable resolver entry was invoked"))
+    result = FrozenReplayResearch(retained).evidence({"story_context": {"report_provenance": {
+        "explicit_reputable_attribution": True}}}, cutoff_utc="2026-10-29T17:58:43Z")
+    assert result["status"] == "PASS" and result["provenance"]["request_count_for_call"] == 0
+
+
 def test_replay_resumes_canonical_final_and_exposes_its_actual_render_targets(tmp_path, monkeypatch):
     from types import SimpleNamespace
     from scripts.replay_cc041_native_window import resume_frozen_window, editorial_command

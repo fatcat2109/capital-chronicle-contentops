@@ -25,9 +25,31 @@ class FrozenReplayResearch:
         self.retained = retained
         self.revision = retained.revision
         self.records = retained.records
+        self.evidence_cache_revision = "FROZEN_CANONICAL_RELAY_V1"
 
     def evidence(self, request, *, cutoff_utc):
-        return self.retained.evidence(request, cutoff_utc=cutoff_utc) or {
+        retained = self.retained.evidence(request, cutoff_utc=cutoff_utc)
+        if retained:
+            return retained
+        from live_contentops.v1_simple_evidence_resolver_v1 import SimpleFirstPartyAwareEvidenceResolver
+        from live_contentops.v1_simple_epistemic_state_v1 import canonical_x_report_document
+        document, _ = canonical_x_report_document(request)
+        if document is not None:
+            # This is the existing exact captured-word route; no new GET,
+            # publisher-original claim, rights grant or underlying event proof.
+            resolver = SimpleFirstPartyAwareEvidenceResolver(evaluation_as_of_utc=cutoff_utc)
+            profile = (request.get("story_context") or {}).get("report_provenance") or {}
+            route = "TRUSTED_RELAY_ATTRIBUTED_REPORT" if profile.get("explicit_reputable_attribution") else "TRUSTED_MARKET_RUMOR"
+            value = {"status": "PASS", "evidence_documents": [document],
+                "provided_evidence_capabilities": ["attributed_report_provenance"], "blockers": [],
+                "provenance": {"request_count": 0}}
+            accepted, state, blockers = resolver._accepted_epistemic_route(request, value, route=route)
+            if accepted and state is not None:
+                return resolver._normalized_result(request=request, result=value,
+                    route_history=[{"route": route, "status": "PASS", "request_count_for_route": 0,
+                        "accepted_document_count": len(accepted), "blockers": blockers}],
+                    call_start=0, selected_route=route, epistemic_state=state, accepted_documents=accepted)
+        return {
             "status": "BLOCKED", "evidence_documents": [],
             "blockers": ["FROZEN_REPLAY_NO_ADMITTED_SOURCE"],
             "provenance": {"request_count_for_call": 0, "network_acquisition_on_replay": False}}
@@ -68,6 +90,25 @@ def resume_frozen_window(store, binding, args, reports, research):
         _Stages(LatestReportDeliveryTracker(store), "independent-" + sha256_of(binding["run_id"]),
                 binding["run_id"]).put(pool_key, matches[0])
     turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"], owner_manual_validation=True)
+    root = Path(binding["output_dir"])
+    evidence_path = root / "simple_gemini_evidence_v1.json"
+    if evidence_path.is_file() and not turn.frozen_request("write"):
+        old = json.loads(evidence_path.read_bytes())
+        if old.get("status") == "BLOCKED" and any("FROZEN_REPLAY_NO_ADMITTED_SOURCE" in a.get("blockers", [])
+                for a in old.get("candidate_attempt_history", [])):
+            # Preserve failed attempt artifacts before a corrected deterministic
+            # source route can produce different evidence. Accepted native
+            # requests/returns and the original cached failures remain intact.
+            history = root / "blocked-attempts" / sha256_of(old)
+            history.mkdir(parents=True, exist_ok=True)
+            for name in ("simple_gemini_evidence_v1.json", "simple_gemini_newsroom_receipt_v1.json"):
+                source, target = root / name, history / name
+                if source.is_file():
+                    if target.exists():
+                        if target.read_bytes() != source.read_bytes():
+                            raise ValueError("FROZEN_REPLAY_FAILED_HISTORY_CONFLICT")
+                    else:
+                        source.rename(target)
     return run_report_editorial_cycle(LatestReportDeliveryTracker(store),
         receipt_id=reports[0]["receipt_id"] if reports else "independent-" + sha256_of(binding["run_id"]),
         admission=reports[0] if reports else None, additional_reports=reports[1:],
