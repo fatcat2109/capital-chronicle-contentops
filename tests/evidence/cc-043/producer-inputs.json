@@ -1,0 +1,26 @@
+{
+  "producer_repository": "fatcat2109/Headline-Raw-data-json",
+  "producer_commit": "89e59374eda3686271a0df4690e74b2e2d3f996a",
+  "files": {
+    "schemas/publication/CapitalChronicleDeskRecordExportV1.md": {
+      "sha256": "30119463cd0677b5ac7a6b611f1736e6214b046fb3523cdad3901bf03c177ddc",
+      "bytes": 6822
+    },
+    "schemas/publication/CapitalChronicleDeskRecordExportV1.schema.json": {
+      "sha256": "7df0e9f2d8e30d397f1dd1d39a4de1f7d3e044845d0aaf4ad32d3b574d1cb95b",
+      "bytes": 51709
+    },
+    "tests/fixtures/desk_record_export_v1/desk_record_export_v1.fixture.json": {
+      "sha256": "3af9aa4c1fec5617bac4fc0d15f2090fe414cf4b1a5dcf338f67a80a1f080f5a",
+      "bytes": 86907
+    },
+    "tools/product/desk_record_projection_v1.py": {
+      "sha256": "95e36d643705771bfa268833aaca18caa729da75079661e83711da53f5b218d0",
+      "bytes": 10991
+    },
+    "tests/test_desk_record_export_schema_v1.py": {
+      "sha256": "18c8a6d6e7c8c8546657c8d1c14f201ba9fab04239286847cef23f75100b11c2",
+      "bytes": 11526
+    }
+  }
+}
