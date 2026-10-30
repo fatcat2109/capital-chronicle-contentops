@@ -26,6 +26,7 @@ def _result(
     available: tuple[str, ...] = (), interactions: list[dict[str, Any]] | None = None,
     limitation: str,
     missing_metrics: tuple[str, ...] = (),
+    provider_requests: int | None = None,
 ) -> dict[str, Any]:
     return {
         "schema_version": "contentops.destination_performance_observer.v1",
@@ -46,7 +47,8 @@ def _result(
         ),
         "source_identity": f"contentops.{destination}.current_authorized_read_only.v1",
         "limitations": [limitation],
-        "provider_requests": 0 if status in {"AUTH_REQUIRED", "PERMISSION_REQUIRED", "UNSUPPORTED", "NOT_EXPOSED"} else 1,
+        "provider_requests": (provider_requests if provider_requests is not None else
+            0 if status in {"AUTH_REQUIRED", "PERMISSION_REQUIRED", "UNSUPPORTED", "NOT_EXPOSED"} else 1),
         "public_write_performed": False,
         "additional_scope_requested": False,
     }
@@ -68,10 +70,12 @@ def _http_failure(destination: str, error: Exception) -> dict[str, Any]:
         return _result(
             destination, status,
             limitation=f"read_only_provider_http_{error.code}",
+            provider_requests=1,
         )
     return _result(
         destination, "UNAVAILABLE",
         limitation=f"read_only_provider_{type(error).__name__}",
+        provider_requests=1,
     )
 
 

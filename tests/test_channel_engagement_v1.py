@@ -91,3 +91,10 @@ def test_threads_reply_page_is_a_sample_not_an_invented_total(monkeypatch):
     assert value["metrics"] == {"reply_sample_count": 1}
     assert value["availability"]["replies"] == "NOT_EXPOSED"
     assert value["provider_requests"] == 1
+
+
+def test_rejected_provider_read_is_one_actual_request_not_a_missing_binding():
+    from urllib.error import HTTPError
+    value = observer._http_failure("facebook_page", HTTPError("https://example.test/", 403, "Forbidden", {}, None))
+    assert value["status"] == "PERMISSION_REQUIRED"
+    assert value["provider_requests"] == 1 and value["metrics"] == {}
