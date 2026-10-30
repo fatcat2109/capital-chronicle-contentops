@@ -1,0 +1,37 @@
+{
+  "invocation_observation": {
+    "actual_configuration_unavailable": true,
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_source": "Supported explicit spawn request for the frozen CC-043 selection role; configured settings are not observed execution settings.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "invocation_id": "/root/native_select_ffe00efd4fff",
+    "model": null,
+    "observation_source": "Canonical task identity supplied in this supported native subagent invocation; actual model and reasoning effort are unavailable.",
+    "reasoning_effort": null,
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  },
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Fixture, not current data: use the public week-ahead report to distinguish what the scheduled US employment release can answer from what productivity-and-costs evidence can answer, with explicit conditions for revisiting the record after release rather than invented outcomes or market predictions.",
+        "article_mode": "WEEK_AHEAD_OR_WATCH",
+        "candidate_id": "simple-story-4c2385779ce74250a0d08d5b",
+        "evidence_plan": "Resolve only the supplied local governed producer fixture at cutoff 2026-10-30T16:47:36.557119Z: main-desk:report:week-ahead:2026-11-02, source item cc-desk:f034d2e45dc5cfb458a2e306fb3d50f1d2a4a6d06392081a51eb731790212aa2; then the linked public calendar/event records for Employment Situation and Productivity and costs only where the report actually links them. Bind every supported claim to exact record revision and JSON field path. Establish the report text, event identity, scheduled-versus-released status, release date/time/timezone, reference period and any explicit public watch conditions from those fields before prose. The packet supplies titles and identities, not underlying report content; it does not prove that the proposed comparison or any date/time is supported. Code owns arithmetic. No consensus, forecast, causal asset reaction, proprietary decision or advice. Do not upgrade duplicated Main records into independent confirmation. If the locally resolved report contains only dates/titles and no substantive supported distinction or watch condition, stop at INSUFFICIENT_READER_VALUE rather than manufacture a calendar story. Preserve missing fields and rights restrictions. No external acquisition or query execution; query texts below are inert contract metadata. Retain Fixture, not current data in the private preview. Chart/media decisions remain with the actual MAX writer under current rules; selection grants no exception.",
+        "primary_reader_question": "What separate questions should a reader bring to the fixture week's employment and productivity/costs records, and which exact future observations would answer them?",
+        "research_queries": [
+          "Employment Situation payroll employment versus productivity and costs measures",
+          "US productivity costs release employment report reference period interpretation"
+        ],
+        "selection_rationale": "Admit one conditional week-ahead piece for local preparation because interpreting distinct scheduled evidence can help a reader avoid treating different labour-market measures as interchangeable. This is separate from draft A's released ECI comparison and does not repeat its gold/dollar-yen framing. The public report offers an existing editorial object to examine; its unseen substance is not presumed. No other headline warrants an independent fallback on this packet alone."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "One distinct week-ahead admission for exact local evidence preparation, not a validated story or a publication claim. Fixture, not current data. Resolve whether the public report supports a useful employment-versus-productivity evidence distinction; calendar filler must fail closed.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "request_sha256": "ffe00efd4fffd6c4a298dc8ee3f8b8a3cc30df8199776834a768c7ed47572989"
+}

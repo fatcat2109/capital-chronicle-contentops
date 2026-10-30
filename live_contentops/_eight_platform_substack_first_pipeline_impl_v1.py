@@ -183,7 +183,18 @@ _SENTENCE_BOUNDARY_RE = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9])")
 
 def _sentence_units(value: str) -> list[str]:
     normalized = " ".join(str(value or "").split())
-    return [item.strip() for item in _SENTENCE_BOUNDARY_RE.split(normalized) if item.strip()]
+    units: list[str] = []
+    for item in _SENTENCE_BOUNDARY_RE.split(normalized):
+        item = item.strip()
+        if not item:
+            continue
+        # An initialism such as U.S. is part of the following agency name,
+        # not a complete sentence to detach into another paragraph or post.
+        if units and re.search(r"\b(?:[A-Z]\.){2,}$", units[-1]):
+            units[-1] += " " + item
+        else:
+            units.append(item)
+    return units
 
 
 def _punctuate(value: str) -> str:

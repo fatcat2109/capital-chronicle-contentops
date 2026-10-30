@@ -1,0 +1,511 @@
+{
+  "invocation_observation": {
+    "actual_configuration_unavailable": true,
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_source": "supported explicit spawn request",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "invocation_id": "/root/native_visual_edit_860eaa0f453d",
+    "model": null,
+    "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and reasoning effort are not exposed to this role.",
+    "reasoning_effort": null,
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  },
+  "output": {
+    "article": {
+      "cutoff_utc": "2026-10-30T16:11:30.442156Z",
+      "dek": "Capital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.",
+      "desk_record_citations": [
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/release/agency",
+          "display": "U.S. Bureau of Labor Statistics",
+          "value": "U.S. Bureau of Labor Statistics"
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/release/name",
+          "display": "Employment Cost Index",
+          "value": "Employment Cost Index"
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/release/reference_period",
+          "display": "2026-Q3",
+          "value": "2026-Q3"
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/release/scheduled_at_utc",
+          "display": "2026-10-30T12:30:00Z",
+          "value": "2026-10-30T12:30:00Z"
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_3m_sa/label",
+          "display": "Civilian compensation, 3-month change, seasonally adjusted",
+          "value": "Civilian compensation, 3-month change, seasonally adjusted"
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_3m_sa/prior",
+          "decimals": 1,
+          "display": "0.9",
+          "unit": "percent",
+          "value": 0.9
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_3m_sa/actual",
+          "decimals": 1,
+          "display": "0.8",
+          "unit": "percent",
+          "value": 0.8
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_wages_3m_sa/label",
+          "display": "Civilian wages and salaries, 3-month change, seasonally adjusted",
+          "value": "Civilian wages and salaries, 3-month change, seasonally adjusted"
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_wages_3m_sa/prior",
+          "decimals": 1,
+          "display": "0.9",
+          "unit": "percent",
+          "value": 0.9
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_wages_3m_sa/actual",
+          "decimals": 1,
+          "display": "0.7",
+          "unit": "percent",
+          "value": 0.7
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_benefits_3m_sa/label",
+          "display": "Civilian benefits, 3-month change, seasonally adjusted",
+          "value": "Civilian benefits, 3-month change, seasonally adjusted"
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_benefits_3m_sa/prior",
+          "decimals": 1,
+          "display": "1.0",
+          "unit": "percent",
+          "value": 1.0
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_benefits_3m_sa/actual",
+          "decimals": 1,
+          "display": "0.9",
+          "unit": "percent",
+          "value": 0.9
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_12m_nsa/label",
+          "display": "Civilian compensation, 12-month change, not seasonally adjusted",
+          "value": "Civilian compensation, 12-month change, not seasonally adjusted"
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_12m_nsa/prior",
+          "decimals": 1,
+          "display": "3.4",
+          "unit": "percent",
+          "value": 3.4
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_12m_nsa/actual",
+          "decimals": 1,
+          "display": "3.4",
+          "unit": "percent",
+          "value": 3.4
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/post_release_note",
+          "display": "Civilian compensation rose 0.8% in the third quarter after 0.9% in the second, and 3.4% over the year. Wages and salaries rose 0.7%, benefits 0.9%.",
+          "value": "Civilian compensation rose 0.8% in the third quarter after 0.9% in the second, and 3.4% over the year. Wages and salaries rose 0.7%, benefits 0.9%."
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#asset:USDJPY/identity/name",
+          "display": "US dollar / Japanese yen",
+          "value": "US dollar / Japanese yen"
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#asset:USDJPY/headline_analysis",
+          "display": "After the Q3 Employment Cost Index, the research run recorded no directional view on USDJPY.",
+          "value": "After the Q3 Employment Cost Index, the research run recorded no directional view on USDJPY."
+        },
+        {
+          "citation": "fixture-desk-record-export-v1-20261030#asset:XAUUSD/headline_analysis",
+          "display": "After the Q3 Employment Cost Index, the research run recorded no directional view on gold.",
+          "value": "After the Q3 Employment Cost Index, the research run recorded no directional view on gold."
+        }
+      ],
+      "display_date": "30 October 2026",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This import does not independently confirm the underlying event.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "fixture-desk-record-export-v1-20261030",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "DATED CAPITAL CHRONICLE RECORD",
+        "report_proposition": "Capital Chronicle's public desk fields record dated source facts and analysis.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "cc-desk:1a2510fb707f47b79eb57b4f93e4318ee1b0ac89d0aba906ff15218cecf5e2d9",
+          "cc-desk:9604a96e86614473f7be7317a39403381f808f3ac2d5da3478ea102c2e8b2aa2",
+          "cc-desk:e5bdd29bcd0c684f087562318519710e004440983989ac3fdeea5c7b91ad2cc1",
+          "cc-desk:ddf02073aed194c697131f0dd4249db295f2e603618586cc167651e65ccd9d2b"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "fixture": true,
+      "meta_description": "Capital Chronicle's retained ECI record puts quarterly compensation growth at 0.8%, with wages at 0.7%, benefits at 0.9% and annual growth at 3.4%.",
+      "reader_first_version": "DATA_JOURNALISM_V1",
+      "search_title": "Capital Chronicle ECI record: quarterly compensation rise eases",
+      "social_cross_asset_summary": "Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.",
+      "social_hook": "Capital Chronicle's ECI record shows a smaller quarterly rise, with the annual rate unchanged.",
+      "social_mechanism_summary": "Capital Chronicle's retained Employment Cost Index record says civilian compensation rose 0.8% in the third quarter of 2026, after 0.9% in the second.",
+      "social_policy_summary": "The 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.",
+      "substack_body_markdown": "Capital Chronicle's retained Employment Cost Index record says civilian compensation rose 0.8% in the third quarter of 2026, after 0.9% in the second. The record attributes the figures to the U.S. Bureau of Labor Statistics (BLS). Fixture, not current data. [[SOURCE:SOURCE_1]]\n\n## What the release record says\n\nOn the seasonally adjusted, three-month measures, civilian wages and salaries rose 0.7%, while benefits rose 0.9%. Their preceding readings were 0.9% and 1.0%, respectively. [[SOURCE:SOURCE_1]]\n\nThe 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures. [[SOURCE:SOURCE_1]]\n\n## What Capital Chronicle's record does not establish\n\nCapital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index. [[SOURCE:SOURCE_2]] [[SOURCE:SOURCE_3]]\n\nThis preview reports retained records and does not independently confirm the underlying release. [[SOURCE:SOURCE_1]]\n\nCapital Chronicle's source attribution. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. [[SOURCE:SOURCE_1]]\n\nAnalysis, not financial advice. Readers decide whether to trade. [[SOURCE:SOURCE_1]]",
+      "title": "Capital Chronicle's ECI record: a smaller quarterly rise",
+      "visual_editorial_decision": {
+        "accepted_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-7d425ca51f23d91c8b5d92f2",
+        "channel_dispositions": {
+          "instagram_business": {
+            "reason": "No admitted image; the selected narrow NEWS brief uses the bound photo-less policy. No placeholder or invented asset.",
+            "status": "SKIPPED_PHOTOLESS_NEWS_POLICY"
+          }
+        },
+        "channel_media": {
+          "discord": [],
+          "facebook_page": [],
+          "instagram_business": [],
+          "linkedin": [],
+          "telegram": [],
+          "threads": [],
+          "x": [],
+          "youtube": []
+        },
+        "charts": [],
+        "contextual_photo_ids": [],
+        "countercase": "The lower quarterly civilian-compensation figure does not by itself establish a sustained trend or a market consequence. The same retained record has an unchanged 3.4% 12-month figure, on a not-seasonally-adjusted basis that must remain separate from the seasonally adjusted quarterly rates. No expectation or post-release price evidence is admitted, and the adjacent asset dossiers provide no directional view.",
+        "cutoff_utc": "2026-10-30T16:11:30.442156Z",
+        "editorial_thesis": "Report the exact Q3 2026 compensation figures retained in the dated Capital Chronicle fixture: civilian compensation rose 0.8% over the quarter after 0.9%; wages and salaries rose 0.7% and benefits 0.9%; the 12-month compensation rate was 3.4%, unchanged from its supplied prior value. Attribute these as retained BLS release facts in the fixture, not independently verified current data. The document itself is the story; no market or policy conclusion is warranted.",
+        "essential_gaps": [],
+        "exception_reason": "This is a brief factual account of one retained release, with no explanatory macro thesis, forecast, policy prescription, asset-price argument or extended historical analysis. Its useful reader content is the exact aggregate, wages, benefits and annual figures and their stated periods. A few sentences communicate those release facts completely. The valid compensation-history series is optional context and would broaden this compact report; the proposed component visual is barred because its inputs are event-card measures rather than data_series. I choose zero charts for this genuinely narrow NEWS form, without reclassifying substantial analysis or padding the available series. A generic workplace photo would add illustration rather than evidence. The bound 30 October photo-less NEWS policy permits this asset-free treatment, with Instagram skipped.",
+        "external_source_requests_used_this_role": 0,
+        "fixture": true,
+        "implementation_constraint": {
+          "detail": "The current helper restricts photo-less routing to mode None, BREAKING_BRIEF or FOLLOW_UP_UPDATE, while the accepted mode is DATA_OR_DOCUMENT_LENS. The editorial form chosen here is genuinely narrow NEWS. Preserve the accepted mode and address any routing mismatch through the parent item owner; this response does not change source, runtime or mode.",
+          "operation": "native_newsroom_volume_v1.photo_less_brief",
+          "status": "ROUTING_COMPATIBILITY_NOT_EDITED_BY_THIS_ROLE"
+        },
+        "non_blocking_source_limits": [
+          "Fixture, not current data. The public projection proves retained Capital Chronicle report content, not independent confirmation of the underlying event.",
+          "No external fetching is authorized. No source or photograph is independently re-acquired in this role.",
+          "No admitted expectations, market-price observations, causal reaction evidence, forecasts or trading levels. None may be supplied by the writer.",
+          "No photo is admitted; retain that limit if the scope later changes to substantial analysis.",
+          "Historical-series provenance and the latest release endpoint have distinct source clocks. The series is not used in this brief."
+        ],
+        "public_write_attempted": false,
+        "reader_first_version": "DATA_JOURNALISM_V1",
+        "reader_form": "NARROW_FACTUAL_NEWS_BRIEF",
+        "rejected_visuals": [
+          {
+            "disposition": "REJECTED_PRODUCER_RULE",
+            "proposal_id": "eci-components-prior-versus-actual",
+            "reason": "This proposed chart is sourced from event:US_ECI_20261030 measures, whose record type is event_card. Reader rule 7 permits charts only from data_series and requires series_id, series_code and window. Valid public event values remain usable in prose; they are not admitted as chart observations. Light preparation cannot relax this rule."
+          },
+          {
+            "disposition": "VALID_DATA_SOURCE_NOT_SELECTED_FOR_THIS_BRIEF",
+            "proposal_id": "eci-quarterly-history",
+            "reason": "The data_series observations are a valid potential source for one history chart, but an extended historical question is outside the selected compact release brief. Do not split this one series into near-duplicate panels to satisfy the analysis chart minimum. Any future admitted chart must retain series_id, series_code, full window, exact values and endpoint-specific release provenance."
+          },
+          {
+            "disposition": "NO_ADMITTED_ASSET_OPTIONAL_FOR_SELECTED_NEWS_FORM",
+            "proposal_id": "contextual-workplace-photo",
+            "reason": "No authentic image bytes, original page, creator, licence, creation date or inspected revision is admitted. No ID is invented. This absence remains a real media-source gap for any later form requiring a photo; it is not a factual blocker for this permitted photo-less NEWS brief."
+          },
+          {
+            "disposition": "REJECTED_SOURCE_MISSING",
+            "proposal_id": "asset-reaction-or-widget-derived-chart",
+            "reason": "No market-price data_series or observed reaction is supplied. Widget identifiers and no-directional-view dossier text cannot establish a price path or causal market response."
+          },
+          {
+            "disposition": "REJECTED_INCOMPARABLE_PERIODS",
+            "proposal_id": "annual-and-quarterly-comparison-chart",
+            "reason": "The 12-month not-seasonally-adjusted rate and 3-month seasonally adjusted rates cannot be placed on a common-period comparison or annualized."
+          }
+        ],
+        "render_review_status": "NOT_RENDERED_NOT_REVIEWED",
+        "run_id": "cc043-fixture-a-20261030",
+        "slug": "eci-quarterly-compensation-release-brief-fixture",
+        "source_bindings": [
+          {
+            "canonical_content_sha256": "9480a34fe7d2a4f1a2ba4b38ab344e750d4be390f499803dc9430e308e2ab8fc",
+            "export_bytes_sha256": "3af9aa4c1fec5617bac4fc0d15f2090fe414cf4b1a5dcf338f67a80a1f080f5a",
+            "fixture": true,
+            "projection_sha256": "3ffa7600e4adff619baa05dfe1f1b2471e011a5795d2774a0adc09cd3abc2ab2",
+            "record_content_sha256": "44652c5633f81cf8e100fdf38de7a2c549341f291ac6d02b3f6178c34d5d5b87",
+            "record_id": "event:US_ECI_20261030",
+            "source_id": "SOURCE_1"
+          },
+          {
+            "canonical_content_sha256": "166205fa64b331da75abc0215d1ca741477002332e40979cefb9eb8fe4d11ea5",
+            "export_bytes_sha256": "3af9aa4c1fec5617bac4fc0d15f2090fe414cf4b1a5dcf338f67a80a1f080f5a",
+            "fixture": true,
+            "projection_sha256": "3ffa7600e4adff619baa05dfe1f1b2471e011a5795d2774a0adc09cd3abc2ab2",
+            "record_content_sha256": "a2c6c1e3a35c74c18094e008a122b4f6854f0c38c7edf8677071cae8ebbec08e",
+            "record_id": "asset:USDJPY",
+            "source_id": "SOURCE_2"
+          },
+          {
+            "canonical_content_sha256": "d5def774877e3304f3595c638db93b57c44479afc3d44a9d7722b0a85d6108bc",
+            "export_bytes_sha256": "3af9aa4c1fec5617bac4fc0d15f2090fe414cf4b1a5dcf338f67a80a1f080f5a",
+            "fixture": true,
+            "projection_sha256": "3ffa7600e4adff619baa05dfe1f1b2471e011a5795d2774a0adc09cd3abc2ab2",
+            "record_content_sha256": "a78375527f1fec8f034d849da4fc04ea2547c42d4f66daf4771a4697f757523e",
+            "record_id": "asset:XAUUSD",
+            "source_id": "SOURCE_3"
+          },
+          {
+            "canonical_content_sha256": "1d38d0f1551364856ec521624b359ba864ba8644273911bcae5a6f5a6b09ace3",
+            "export_bytes_sha256": "3af9aa4c1fec5617bac4fc0d15f2090fe414cf4b1a5dcf338f67a80a1f080f5a",
+            "fixture": true,
+            "projection_sha256": "3ffa7600e4adff619baa05dfe1f1b2471e011a5795d2774a0adc09cd3abc2ab2",
+            "record_content_sha256": "261cf8cdd921f1290f835a32016dbd42bbd1ec36534153ccf520a66406f77437",
+            "record_id": "series:bls:eci:civilian-compensation-3m",
+            "source_id": "SOURCE_4"
+          }
+        ],
+        "source_request_count": 0,
+        "source_request_limit": 10,
+        "story_kind": "NEWS",
+        "volume_policy": {
+          "brief_only": false,
+          "effective_production_date": "2026-10-30",
+          "max_admitted_candidates": 6,
+          "max_articles": 2,
+          "non_chargeable_only": true,
+          "photo_less_news_policy": true,
+          "policy_id": "L1-B-20261029-04",
+          "source_request_limit": 10,
+          "source_resolvability_first": true
+        },
+        "writer_constraints": {
+          "analysis_notice": "Analysis, not financial advice. Readers decide whether to trade.",
+          "annual_measure": "Civilian compensation, 12-month change, not seasonally adjusted; actual 3.4%, prior 3.4%.",
+          "fixture_label": "Fixture, not current data",
+          "number_precision": "Retain every used field value, display precision and unit. Use 1.0 rather than 1 when that field is shown. Keep percent distinct from percentage points. Do not convert or annualize the quarterly and annual measures.",
+          "proposed_section_headings": [
+            "What the release record says",
+            "What the record does not establish"
+          ],
+          "quarterly_measures": "Civilian compensation, wages and salaries, and benefits: 3-month change, seasonally adjusted. Keep civilian populations distinct from private-industry wages.",
+          "render_review": "The same native visual editor/writer must inspect the exact canonical and all eight derivative desktop/mobile renders, including the explicit Instagram skipped state. This visual plan is not rendered acceptance.",
+          "scope": "Keep a short release report. State source attribution, supplied values, periods and seasonal adjustment. One compact limit sentence may cover the absence of market inference. Do not expand this into substantial analysis under the NEWS label.",
+          "source_disclaimers": [
+            "Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication."
+          ],
+          "source_identity": "Use natural attribution to the retained Capital Chronicle record and its BLS source. Do not describe the fixture as a new live release or imply a fresh independent source check."
+        }
+      }
+    },
+    "cited_sources": [
+      {
+        "published_at_utc": "2026-10-30T13:52:08Z",
+        "publisher": "Capital Chronicle",
+        "source_id": "SOURCE_1",
+        "url": "urn:cc-public-report:desk:db9205d38679432f01b0fe0bfe306bb3f2ad5fa26b7d455e2eb8377d0877a47d"
+      },
+      {
+        "published_at_utc": "2026-10-30T13:52:08Z",
+        "publisher": "Capital Chronicle",
+        "source_id": "SOURCE_2",
+        "url": "urn:cc-public-report:desk:96e4942509a2a68cdde184efee46c8637129f4224e3cc6c2ccc8cf94c3da2ad3"
+      },
+      {
+        "published_at_utc": "2026-10-30T13:52:08Z",
+        "publisher": "Capital Chronicle",
+        "source_id": "SOURCE_3",
+        "url": "urn:cc-public-report:desk:8f5d9b4cfb763f2c60e6d0a2049a968d48fb81c0bea8411618ab5faecef1c7ed"
+      }
+    ],
+    "material_claim_bindings": [
+      {
+        "attribution_required": true,
+        "claim_id": "metadata-title",
+        "claim_kind": "FACT",
+        "claim_text": "Capital Chronicle's ECI record: a smaller quarterly rise",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Civilian compensation rose 0.8% in the third quarter after 0.9% in the second, and 3.4% over the year. Wages and salaries rose 0.7%, benefits 0.9%."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "metadata-dek",
+        "claim_kind": "NUMBER",
+        "claim_text": "Capital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Civilian compensation rose 0.8% in the third quarter after 0.9% in the second, and 3.4% over the year. Wages and salaries rose 0.7%, benefits 0.9%."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "metadata-search_title",
+        "claim_kind": "FACT",
+        "claim_text": "Capital Chronicle ECI record: quarterly compensation rise eases",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Civilian compensation rose 0.8% in the third quarter after 0.9% in the second, and 3.4% over the year. Wages and salaries rose 0.7%, benefits 0.9%."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "metadata-meta_description",
+        "claim_kind": "NUMBER",
+        "claim_text": "Capital Chronicle's retained ECI record puts quarterly compensation growth at 0.8%, with wages at 0.7%, benefits at 0.9% and annual growth at 3.4%.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Civilian compensation rose 0.8% in the third quarter after 0.9% in the second, and 3.4% over the year. Wages and salaries rose 0.7%, benefits 0.9%."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "metadata-social_hook",
+        "claim_kind": "FACT",
+        "claim_text": "Capital Chronicle's ECI record shows a smaller quarterly rise, with the annual rate unchanged.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Civilian compensation rose 0.8% in the third quarter after 0.9% in the second, and 3.4% over the year. Wages and salaries rose 0.7%, benefits 0.9%."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "metadata-dek-annual-comparison",
+        "claim_kind": "NUMBER",
+        "claim_text": "Capital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_12m_nsa/label = Civilian compensation, 12-month change, not seasonally adjusted\nfixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_12m_nsa/prior = 3.4 percent\nfixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_12m_nsa/actual = 3.4 percent"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "metadata-social_hook-annual-comparison",
+        "claim_kind": "NUMBER",
+        "claim_text": "Capital Chronicle's ECI record shows a smaller quarterly rise, with the annual rate unchanged.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_12m_nsa/label = Civilian compensation, 12-month change, not seasonally adjusted\nfixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_12m_nsa/prior = 3.4 percent\nfixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_12m_nsa/actual = 3.4 percent"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "release-name",
+        "claim_kind": "FACT",
+        "claim_text": "Employment Cost Index record",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/release/name = Employment Cost Index"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "lead-quarterly-comparison",
+        "claim_kind": "NUMBER",
+        "claim_text": "Capital Chronicle's retained Employment Cost Index record says civilian compensation rose 0.8% in the third quarter of 2026, after 0.9% in the second.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Civilian compensation rose 0.8% in the third quarter after 0.9% in the second, and 3.4% over the year. Wages and salaries rose 0.7%, benefits 0.9%."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "release-reference-period",
+        "claim_kind": "FACT",
+        "claim_text": "in the third quarter of 2026",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/release/reference_period = 2026-Q3"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "release-agency",
+        "claim_kind": "FACT",
+        "claim_text": "The record attributes the figures to the U.S. Bureau of Labor Statistics (BLS).",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/release/agency = U.S. Bureau of Labor Statistics"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "quarterly-seasonal-basis",
+        "claim_kind": "FACT",
+        "claim_text": "On the seasonally adjusted, three-month measures",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_wages_3m_sa/label = Civilian wages and salaries, 3-month change, seasonally adjusted"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "civilian-wages-current",
+        "claim_kind": "NUMBER",
+        "claim_text": "civilian wages and salaries rose 0.7%",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_wages_3m_sa/label = Civilian wages and salaries, 3-month change, seasonally adjusted\nfixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_wages_3m_sa/prior = 0.9 percent\nfixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_wages_3m_sa/actual = 0.7 percent"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "civilian-benefits-current",
+        "claim_kind": "NUMBER",
+        "claim_text": "benefits rose 0.9%",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_benefits_3m_sa/label = Civilian benefits, 3-month change, seasonally adjusted\nfixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_benefits_3m_sa/prior = 1.0 percent\nfixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_benefits_3m_sa/actual = 0.9 percent"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "civilian-wages-prior",
+        "claim_kind": "NUMBER",
+        "claim_text": "Their preceding readings were 0.9% and 1.0%, respectively.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_wages_3m_sa/label = Civilian wages and salaries, 3-month change, seasonally adjusted\nfixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_wages_3m_sa/prior = 0.9 percent"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "civilian-benefits-prior",
+        "claim_kind": "NUMBER",
+        "claim_text": "Their preceding readings were 0.9% and 1.0%, respectively.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_benefits_3m_sa/label = Civilian benefits, 3-month change, seasonally adjusted\nfixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_benefits_3m_sa/prior = 1.0 percent"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "annual-comparison",
+        "claim_kind": "NUMBER",
+        "claim_text": "The 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_12m_nsa/label = Civilian compensation, 12-month change, not seasonally adjusted\nfixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_12m_nsa/prior = 3.4 percent\nfixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_12m_nsa/actual = 3.4 percent"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "quarterly-comparison-basis",
+        "claim_kind": "FACT",
+        "claim_text": "unlike the quarterly measures",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_compensation_3m_sa/label = Civilian compensation, 3-month change, seasonally adjusted"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "dollar-yen-no-direction",
+        "claim_kind": "FACT",
+        "claim_text": "Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "After the Q3 Employment Cost Index, the research run recorded no directional view on USDJPY."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "dollar-yen-identity",
+        "claim_kind": "FACT",
+        "claim_text": "dollar/yen",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "fixture-desk-record-export-v1-20261030#asset:USDJPY/identity/name = US dollar / Japanese yen"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "gold-no-direction",
+        "claim_kind": "FACT",
+        "claim_text": "Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "After the Q3 Employment Cost Index, the research run recorded no directional view on gold."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_article.v1"
+  },
+  "request_sha256": "7c4745bc95130068c443c8b8b5c2f6cd7b275ad9c9ab301ec1f92e997ce7196a"
+}

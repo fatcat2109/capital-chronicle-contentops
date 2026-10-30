@@ -116,6 +116,9 @@ function ArticleWithMedia({ text, assets = [], originals }: { text: string; asse
   </>;
 }
 function PackagePreview({ payload, assets = [], originals }: { payload: Record<string, unknown>; assets?: EditorialMedia[]; originals?: Record<string, string> }) {
+  if (payload.delivery_state === 'SKIPPED_PHOTOLESS_NEWS_POLICY') {
+    return <p role="status">Instagram skipped. This text-only brief has no image.</p>;
+  }
   const posts = Array.isArray(payload.posts) ? payload.posts as Array<Record<string, unknown>> : [];
   const ids = new Set([...(Array.isArray(payload.media_asset_ids) ? payload.media_asset_ids : []),
     ...posts.flatMap(p => Array.isArray(p.media_asset_ids) ? p.media_asset_ids : [])]);
@@ -230,7 +233,7 @@ function OwnerEditionReview({ data, context }: { data?: ReportWorkspaceData; con
   return <section className="owner-review" aria-label="Private owner review">
     <header className="owner-intro" id="review-top">
       <p className="eyebrow">Capital Chronicle</p><h1>Newsroom</h1>
-      <p className="review-mode" role="status"><strong>Private, read-only preview.</strong></p>
+      <p className="review-mode" role="status"><strong>Private, read-only preview.{item.article.fixture ? " Fixture, not current data." : ""}</strong></p>
       <details><summary>Edition status</summary>
         <p className="review-counts">{edition.ready} ready · {edition.missing} missing · {edition.held} held · {edition.preview_count} channel previews · {undispatched} destination states not dispatched</p>
         <p>Snapshot: {context?.captured_at_utc ?? 'capture time not supplied'}. Source dates remain their original dates; these examples are not a production day.</p>

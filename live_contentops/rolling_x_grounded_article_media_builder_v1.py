@@ -1039,6 +1039,8 @@ def validate_source_value_chart(asset, documents):
 
 def _editorial_data_values(packet, documents):
     """Validate attributed original numbers and explicit computations, never infer missing data."""
+    from live_contentops.capital_chronicle_desk_record_source_v1 import validate_chart_inputs
+    validate_chart_inputs(packet, documents)
     sources = {d.get("document_id"): d for d in documents}
     if packet.get("chart_type") not in {
         "line",
@@ -1096,7 +1098,7 @@ def _editorial_data_values(packet, documents):
                 ):
                     raise ValueError("EDITORIAL_CHART_METRIC_UNIT_PERIOD_HASH_REQUIRED")
                 rights = doc.get("source_reuse_constraints") or {}
-                if not (
+                if not doc.get("desk_record_binding") and not (
                     rights.get("attribution_required")
                     and rights.get("policy_capture_sha256")
                     and rights.get("source_capture_sha256")
@@ -1244,6 +1246,14 @@ def editorial_chart_source_links(packet, documents):
     links = []
     for identity in ids:
         doc = sources.get(identity) or {}
+        desk = doc.get("desk_record_binding")
+        if desk:
+            # Public source links point to the retained official source, never an internal URN.
+            for source in desk["sources"]:
+                link = {"document_id": identity, "url": source["url"], "label": source.get("attribution") or source["provider"]}
+                if link not in links:
+                    links.append(link)
+            continue
         url = doc.get("url") or doc.get("source_url") or ""
         if not url.startswith("https://"):
             raise ValueError("EDITORIAL_CHART_BOUND_SOURCE_LINK_REQUIRED")

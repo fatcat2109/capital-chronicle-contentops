@@ -1,0 +1,199 @@
+[
+  {
+    "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+    "claim_lineage": [],
+    "destination": "telegram",
+    "payload": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nCapital Chronicle's ECI record: a smaller quarterly rise\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\nWhat to watch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-b16af3c7b500a1f2\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade."
+    },
+    "preview_id": "cc-preview-acd99176685444edf925ff54fb6cbb8fa84730acdc7ef53f5225e463cd8aafd0"
+  },
+  {
+    "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+    "claim_lineage": [],
+    "destination": "x",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "Capital Chronicle's ECI record: a smaller quarterly rise\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b16af3c7b500a1f2\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\nWatch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nFixture, not current data.\n\nDerived analysis attributed to the U.S. Bureau of Labor Statistics (BLS).\n\nNo BLS emblem is used, and BLS does not endorse this publication.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "Capital Chronicle's ECI record: a smaller quarterly rise\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b16af3c7b500a1f2"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Capital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%."
+        },
+        {
+          "media_asset_ids": [],
+          "order": 2,
+          "role": "reply",
+          "text": "Watch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nFixture, not current data."
+        },
+        {
+          "media_asset_ids": [],
+          "order": 3,
+          "role": "reply",
+          "text": "Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS).\n\nNo BLS emblem is used, and BLS does not endorse this publication.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.479,
+          0.568,
+          0.679,
+          0.739
+        ],
+        "post_character_counts": [
+          134,
+          159,
+          190,
+          207
+        ],
+        "reply_count": 3,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.647,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Capital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.",
+        "Watch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nFixture, not current data.",
+        "Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS).\n\nNo BLS emblem is used, and BLS does not endorse this publication.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade."
+      ],
+      "root_text": "Capital Chronicle's ECI record: a smaller quarterly rise\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b16af3c7b500a1f2",
+      "text": "Capital Chronicle's ECI record: a smaller quarterly rise\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b16af3c7b500a1f2"
+    },
+    "preview_id": "cc-preview-b7872d9ec8b1222e0dbf0a5ba91e11e95aece9c462b81e4a2e0191208266b6ba"
+  },
+  {
+    "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+    "claim_lineage": [],
+    "destination": "linkedin",
+    "payload": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 3000,
+      "text": "Capital Chronicle's ECI record: a smaller quarterly rise\n\nWhy it matters: Capital Chronicle's retained Employment Cost Index record says civilian compensation rose 0.8% in the third quarter of 2026, after 0.9% in the second.\n\nContext: The 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-b16af3c7b500a1f2\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade."
+    },
+    "preview_id": "cc-preview-1d21ffd83158af1664e31386713cf69b49d494ce7c8c931c748b7875cbc361b9"
+  },
+  {
+    "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+    "claim_lineage": [],
+    "destination": "discord",
+    "payload": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: Capital Chronicle's ECI record: a smaller quarterly rise**\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\n**Context:** The 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-b16af3c7b500a1f2\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade."
+    },
+    "preview_id": "cc-preview-94893d6fb7aef76b031e9dc4eaff3928f2ed0be02d640a95cbb8861dcbb2da0e"
+  },
+  {
+    "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+    "claim_lineage": [],
+    "destination": "facebook_page",
+    "payload": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 63206,
+      "text": "Capital Chronicle's ECI record: a smaller quarterly rise\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\nWhy it matters: Capital Chronicle's retained Employment Cost Index record says civilian compensation rose 0.8% in the third quarter of 2026, after 0.9% in the second.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-b16af3c7b500a1f2\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade."
+    },
+    "preview_id": "cc-preview-539fcef3c3930b983a43e73c49200eb00529e73466f38721a4d7c1cefed4b45e"
+  },
+  {
+    "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+    "claim_lineage": [],
+    "destination": "instagram_business",
+    "payload": {
+      "delivery_state": "SKIPPED_PHOTOLESS_NEWS_POLICY",
+      "destination": "instagram_business",
+      "media_asset_ids": [],
+      "skip_reason": "Photo-less NEWS/POLICY brief; Instagram requires an image."
+    },
+    "preview_id": "cc-preview-7cefa7ea142bc58c20cd3d40e5e925619868bd84226c5146db107a97030d84b3"
+  },
+  {
+    "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+    "claim_lineage": [],
+    "destination": "threads",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "Capital Chronicle's ECI record: a smaller quarterly rise\n\nThe 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b16af3c7b500a1f2\n\nWhat to watch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nFixture, not current data.\n\nDerived analysis attributed to the U.S. Bureau of Labor Statistics (BLS).\n\nNo BLS emblem is used, and BLS does not endorse this publication.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "Capital Chronicle's ECI record: a smaller quarterly rise\n\nThe 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b16af3c7b500a1f2"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nFixture, not current data.\n\nDerived analysis attributed to the U.S. Bureau of Labor Statistics (BLS).\n\nNo BLS emblem is used, and BLS does not endorse this publication.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.576,
+          0.814
+        ],
+        "post_character_counts": [
+          288,
+          407
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.708,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nFixture, not current data.\n\nDerived analysis attributed to the U.S. Bureau of Labor Statistics (BLS).\n\nNo BLS emblem is used, and BLS does not endorse this publication.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade."
+      ],
+      "root_text": "Capital Chronicle's ECI record: a smaller quarterly rise\n\nThe 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b16af3c7b500a1f2",
+      "text": "Capital Chronicle's ECI record: a smaller quarterly rise\n\nThe 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-b16af3c7b500a1f2"
+    },
+    "preview_id": "cc-preview-1f01129557cc68077df4555eabe9999c8d93049020bd85103401332660c6a1db"
+  },
+  {
+    "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+    "claim_lineage": [],
+    "destination": "youtube",
+    "payload": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 1000,
+      "text": "Update: Capital Chronicle's ECI record: a smaller quarterly rise\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\nWhat to watch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-b16af3c7b500a1f2\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade."
+    },
+    "preview_id": "cc-preview-5670cfec1662f878ecd7a72791c3a0998904b69653575fdc682adfcf5e565799"
+  }
+]
