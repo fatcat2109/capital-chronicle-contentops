@@ -17,6 +17,7 @@ METRICS = (
     "comments", "replies", "canonical_article_clicks", "subscriber_conversions",
     "search_impressions", "search_clicks", "search_ctr", "search_query",
     "search_position", "interaction_quality",
+    "reply_sample_count",
 )
 
 
@@ -24,13 +25,14 @@ def _result(
     destination: str, status: str, *, metrics: Mapping[str, Any] | None = None,
     available: tuple[str, ...] = (), interactions: list[dict[str, Any]] | None = None,
     limitation: str,
+    missing_metrics: tuple[str, ...] = (),
 ) -> dict[str, Any]:
     return {
         "schema_version": "contentops.destination_performance_observer.v1",
         "status": status,
         "metrics": dict(metrics or {}),
         "availability": {
-            name: "AVAILABLE" if name in available else (
+            name: "AVAILABLE" if name in available else "NOT_EXPOSED" if name in missing_metrics else (
                 status if status in {"AUTH_REQUIRED", "PERMISSION_REQUIRED", "NOT_EXPOSED"}
                 else "UNSUPPORTED"
             )
@@ -77,6 +79,13 @@ def _meta_token(*names: str) -> str:
     return next((str(os.environ.get(name) or "") for name in names if os.environ.get(name)), "")
 
 
+def _counts(values):
+    # A missing field, bool or malformed counter is not a zero. Keep only an
+    # explicitly supplied nonnegative native integer, including an actual zero.
+    return {name: value for name, value in values.items()
+        if isinstance(value, int) and not isinstance(value, bool) and value >= 0}
+
+
 def _facebook(post_id: str) -> dict[str, Any]:
     token = _meta_token("FACEBOOK_PAGE_ACCESS_TOKEN", "META_ACCESS_TOKEN")
     if not token:
@@ -91,17 +100,18 @@ def _facebook(post_id: str) -> dict[str, Any]:
         )
     except Exception as exc:  # noqa: BLE001
         return _http_failure("facebook_page", exc)
-    likes = int(((value.get("likes") or {}).get("summary") or {}).get("total_count") or 0)
+    likes = ((value.get("likes") or {}).get("summary") or {}).get("total_count")
     comments_edge = value.get("comments") or {}
-    comments = int((comments_edge.get("summary") or {}).get("total_count") or 0)
-    shares = int((value.get("shares") or {}).get("count") or 0)
+    comments = (comments_edge.get("summary") or {}).get("total_count")
+    shares = (value.get("shares") or {}).get("count")
+    metrics = _counts({"likes": likes, "comments": comments, "shares": shares})
     interactions = [
         {"interaction_id": str(row.get("id") or ""), "text": str(row.get("message") or ""), "platform": "facebook_page"}
         for row in (comments_edge.get("data") or []) if isinstance(row, Mapping)
     ]
     return _result(
-        "facebook_page", "COLLECTED", metrics={"likes": likes, "comments": comments, "shares": shares},
-        available=("likes", "comments", "shares"), interactions=interactions,
+        "facebook_page", "COLLECTED", metrics=metrics,
+        available=tuple(metrics), missing_metrics=tuple({"likes", "comments", "shares"} - metrics.keys()), interactions=interactions,
         limitation="one_exact_page_post_graph_read",
     )
 
@@ -121,10 +131,10 @@ def _instagram(media_id: str) -> dict[str, Any]:
         {"interaction_id": str(row.get("id") or ""), "text": str(row.get("text") or ""), "platform": "instagram_business"}
         for row in ((value.get("comments") or {}).get("data") or []) if isinstance(row, Mapping)
     ]
+    metrics = _counts({"likes": value.get("like_count"), "comments": value.get("comments_count")})
     return _result(
         "instagram_business", "COLLECTED",
-        metrics={"likes": int(value.get("like_count") or 0), "comments": int(value.get("comments_count") or 0)},
-        available=("likes", "comments"), interactions=interactions,
+        metrics=metrics, available=tuple(metrics), missing_metrics=tuple({"likes", "comments"} - metrics.keys()), interactions=interactions,
         limitation="one_exact_business_media_graph_read",
     )
 
@@ -144,10 +154,11 @@ def _threads(post_id: str) -> dict[str, Any]:
         {"interaction_id": str(row.get("id") or ""), "text": str(row.get("text") or ""), "platform": "threads"}
         for row in (value.get("data") or []) if isinstance(row, Mapping)
     ]
+    metrics = {"reply_sample_count": len(interactions)} if isinstance(value.get("data"), list) else {}
     return _result(
-        "threads", "COLLECTED", metrics={"replies": len(interactions)},
-        available=("replies",), interactions=interactions,
-        limitation="one_exact_root_replies_edge_read_no_insights_scope_assumed",
+        "threads", "COLLECTED", metrics=metrics,
+        available=tuple(metrics), missing_metrics=("replies",), interactions=interactions,
+        limitation="one_exact_root_replies_page_sample_not_total_replies_no_insights_scope_assumed",
     )
 
 
@@ -164,10 +175,14 @@ def _discord(message_id: str) -> dict[str, Any]:
             value = json.loads(response.read().decode("utf-8"))
     except Exception as exc:  # noqa: BLE001
         return _http_failure("discord", exc)
-    reactions = sum(int(row.get("count") or 0) for row in (value.get("reactions") or []) if isinstance(row, Mapping))
+    rows = value.get("reactions")
+    valid = isinstance(rows, list) and all(isinstance(row, Mapping)
+        and isinstance(row.get("count"), int) and not isinstance(row["count"], bool) and row["count"] >= 0 for row in rows)
+    metrics = {"reactions": sum(row["count"] for row in rows)} if valid else {}
     return _result(
-        "discord", "COLLECTED", metrics={"reactions": reactions},
-        available=("reactions",), limitation="one_exact_webhook_message_read_reaction_summary_only",
+        "discord", "COLLECTED", metrics=metrics,
+        available=tuple(metrics), missing_metrics=("reactions",) if not valid else (),
+        limitation="one_exact_webhook_message_read_reaction_summary_only",
     )
 
 
@@ -183,7 +198,7 @@ def collect_current_authorized_destination_metrics(
         return _threads(public_object_id)
     if destination == "discord":
         return _discord(public_object_id)
-    if destination in {"telegram", "x", "youtube"}:
+    if destination in {"telegram", "x", "youtube", "linkedin_company"}:
         return _result(
             destination, "NOT_EXPOSED",
             limitation="current_authorized_binding_exposes_no_safe_exact_object_metrics_collector",

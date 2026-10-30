@@ -1,0 +1,26 @@
+{
+  "surface": "X_THREAD",
+  "platform": "x",
+  "transport_registry_version": "contentops.destination_transport_registry.v3",
+  "identity_authority_version": "contentops.destination_identity_authority.v2",
+  "transport_type": "BROWSEROS_NEO_MCP",
+  "readiness_state": "READY_AUTHENTICATED",
+  "destination_identity": "@Capitalnicle",
+  "identity_match": true,
+  "write_eligible": true,
+  "probe_kind": "NATIVE_NEO_EXACT_ACCOUNT_OBSERVATION",
+  "probed_at_utc": "2026-10-30T06:54:58.434624Z",
+  "sanitized_detail": {
+    "authenticated": true,
+    "native_executor_bound": true,
+    "proof_fresh": true,
+    "native_observation_sha256": "7be145d2fd79c1d9919864866431d0e7657d5dc723ac3070880212d8e597428c",
+    "owner_action": "Verify Neo account identity and bind supported native executor; no login or post probe here."
+  },
+  "observed_at_utc": "2026-10-30T06:54:44.017Z",
+  "scope": "READ_ONLY_PROBE_ON_COPIED_STORE; production KILL_SWITCH and model pause unchanged",
+  "public_write_performed": false,
+  "public_write_authorized": false,
+  "write_eligible_is_destination_probe_only": true,
+  "production_pause_controls_unchanged": true
+}

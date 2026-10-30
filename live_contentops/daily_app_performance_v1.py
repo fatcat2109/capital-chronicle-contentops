@@ -1363,6 +1363,7 @@ def current_metrics_capability_matrix() -> list[dict[str, Any]]:
         "threads": ("AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ", ["replies"], "AVAILABLE_IF_AUTHORIZED"),
         "discord": ("AVAILABLE_IF_CURRENT_WEBHOOK_BINDING_AUTHORIZES_EXACT_READ", ["reactions"], "NOT_EXPOSED"),
         "linkedin": ("PERMISSION_REQUIRED_RESTRICTED_MEMBER_SOCIAL_READ", ["likes", "comments"], "PERMISSION_REQUIRED"),
+        "linkedin_company": ("NATIVE_NEO_EXACT_COMPANY_POST_OBSERVATION_REQUIRED", ["likes", "comments", "reposts", "impressions"], "NOT_EXPOSED"),
         "telegram": ("NOT_EXPOSED_BY_CURRENT_BOT_BINDING", [], "NOT_EXPOSED"),
         "x": ("NOT_EXPOSED_BY_CURRENT_AUTHORIZED_BINDING", [], "NOT_EXPOSED"),
         "youtube": ("NOT_EXPOSED_BY_CURRENT_AUTHORIZED_BINDING", [], "NOT_EXPOSED"),
@@ -1377,9 +1378,10 @@ def current_metrics_capability_matrix() -> list[dict[str, Any]]:
             "unavailable_is_zero": False,
             "additional_scope_granted": False,
             "max_provider_requests_per_observation": 1,
+            "native_read_only_observation": "EXISTING_AUDIENCE_OBSERVE_EXACT_OBJECT_WHEN_VISIBLE",
         }
         for destination in (
             "substack", "telegram", "x", "discord", "linkedin", "facebook_page",
-            "instagram_business", "threads", "youtube",
+            "instagram_business", "threads", "youtube", "linkedin_company",
         )
     ]

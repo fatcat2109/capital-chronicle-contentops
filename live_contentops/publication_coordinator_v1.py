@@ -3112,8 +3112,9 @@ class CanonicalDestinationTransportRuntimeV1:
         public_object_url_hash: Optional[str],
         observation_window: str,
     ) -> Mapping[str, Any]:
-        if destination in {"substack", "x", "youtube"}:
-            return {"status": "UNSUPPORTED", "reason": "NEO_NATIVE_METRICS_EXECUTOR_NOT_BOUND",
+        if destination in {"substack", "x", "youtube", "linkedin_company"}:
+            return {"status": "NOT_EXPOSED", "reason": "NATIVE_AUDIENCE_OBSERVE_EXACT_OBJECT_REQUIRED",
+                    "metrics": {}, "availability": {name: "NOT_EXPOSED" for name in ("views", "likes", "comments", "shares")},
                     "public_write_performed": False}
         if destination == "linkedin":
             return self._linkedin_transport.collect_metrics(
