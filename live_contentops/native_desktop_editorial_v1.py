@@ -10,6 +10,7 @@ import json
 import re
 from pathlib import Path
 from typing import Any, Mapping
+from uuid import UUID
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of, _private
 from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
@@ -55,6 +56,16 @@ def validate_native_configuration(observation, target, *, required=True):
         # A fully observed return must use its actual configuration instead.
         if model is not None and effort is not None:
             raise ValueError("OBSERVED_CONFIGURATION_MUST_REPLACE_FALLBACK")
+        if observation.get("surface") == "CODEX_DESKTOP_CONVERSATION":
+            # An app default cannot identify a thread created with an override.
+            if observation.get("configuration_source_kind") not in {
+                    "SUPPORTED_THREAD_SETTINGS", "JIM_CONFIRMED_THREAD_SETTINGS",
+                    "JIM_CONFIRMED_PERIOD_DEFAULT"}:
+                raise ValueError("THREAD_SPECIFIC_NATIVE_CONFIGURATION_REQUIRED")
+            try:
+                UUID(observation.get("configuration_thread_id", ""))
+            except (ValueError, TypeError, AttributeError) as exc:
+                raise ValueError("EXACT_NATIVE_CONFIGURATION_THREAD_REQUIRED") from exc
         return
     if required and (model is None or effort is None):
         raise ValueError("ACTUAL_NATIVE_MODEL_AND_EFFORT_REQUIRED")
@@ -72,6 +83,27 @@ def native_role(stage):
     if re.fullmatch(r"filter-[a-f0-9]{64}", stage):
         return "filter"
     raise ValueError("NATIVE_DESKTOP_STAGE_INVALID")
+
+
+def validate_native_role_dispatch(call):
+    """Reject inherited settings before the conversation executes a role call."""
+    role = native_role(call.get("native_stage", ""))
+    target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
+    arguments = call.get("arguments") or {}
+    if call.get("tool") == "collaboration.spawn_agent":
+        if (arguments.get("model") != target["model"]
+                or arguments.get("reasoning_effort") != target["reasoning_effort"]
+                or arguments.get("fork_turns") != "none"):
+            raise ValueError("EXPLICIT_APPROVED_NATIVE_ROLE_REQUIRED")
+    elif call.get("tool") == "collaboration.followup_task":
+        observation = call.get("continuation_observation") or {}
+        if (not arguments.get("target")
+                or observation.get("invocation_id") != arguments["target"]
+                or observation.get("surface") != "CODEX_NATIVE_SUBAGENT"):
+            raise ValueError("EXACT_SAME_WRITER_CONFIGURATION_REQUIRED")
+        validate_native_configuration(observation, target)
+    else:
+        raise ValueError("SUPPORTED_NATIVE_ROLE_DISPATCH_REQUIRED")
 
 
 PRE_WRITER_OUTCOME_SCHEMA = "contentops.native_pre_writer_outcome.v1"

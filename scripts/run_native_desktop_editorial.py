@@ -440,12 +440,15 @@ def operation(binding, **kwargs):
                 run_id=binding["run_id"], output_dir=binding["output_dir"],
                 owner_manual_validation=binding.get("owner_manual_validation", False))
             same_writer = None
+            same_writer_configuration = None
             if native_role(request["stage"]) in {"write", "revise", "final-visual", "visual-edit"}:
                 prior = turn._get("write", "response") or turn.visual_response()
                 if prior:
-                    same_writer = prior["invocation_observation"]["invocation_id"]
+                    same_writer_configuration = prior["invocation_observation"]
+                    same_writer = same_writer_configuration["invocation_id"]
             result["next_native_call"] = native_role_call({**request, "request_path": result["request_path"]},
-                binding, binding_path=binding_path, same_writer_invocation=same_writer)
+                binding, binding_path=binding_path, same_writer_invocation=same_writer,
+                same_writer_configuration=same_writer_configuration)
             if result.get("parallel_requests"):
                 result["next_native_calls"] = [native_role_call(r,binding,binding_path=binding_path)
                     for r in result.pop("parallel_requests")]

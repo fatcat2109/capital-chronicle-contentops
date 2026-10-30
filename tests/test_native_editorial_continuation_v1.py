@@ -7,7 +7,9 @@ from live_contentops.native_editorial_continuation_v1 import consume_advance_res
 
 def pending():
     return {"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "filter_progress": {"remaining_unprocessed": 131},
-            "next_native_calls": [{"tool": "collaboration.spawn_agent", "arguments": {"task_name": "filter-a"}}]}
+            "next_native_calls": [{"tool": "collaboration.spawn_agent", "native_stage": "filter-" + "a" * 64,
+                "arguments": {"task_name": "filter-a", "fork_turns": "none",
+                    "model": "gpt-6-luna", "reasoning_effort": "max"}}]}
 
 
 def test_initial_empty_exec_is_collected_by_its_actual_handle_not_reissued():

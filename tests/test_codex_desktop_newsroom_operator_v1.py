@@ -887,7 +887,9 @@ def test_pending_native_call_uses_exact_role_and_same_max_continuation(tmp_path)
     writer = {**request, "stage": "revise", "requested_model": "gpt-6.1-sol"}
     with pytest.raises(ValueError, match="ACTUAL_SAME_MAX_CONTINUATION_ID_REQUIRED"):
         native_role_call(writer, binding, binding_path="binding.json")
-    continued = native_role_call(writer, binding, binding_path="binding.json", same_writer_invocation="/root/actual_max")
+    continued = native_role_call(writer, binding, binding_path="binding.json", same_writer_invocation="/root/actual_max",
+        same_writer_configuration={"surface": "CODEX_NATIVE_SUBAGENT", "invocation_id": "/root/actual_max",
+            "model": "gpt-6.1-sol", "reasoning_effort": "max"})
     assert continued["tool"] == "collaboration.followup_task"
     assert continued["arguments"]["target"] == "/root/actual_max"
     with pytest.raises(ValueError, match="EXACT_NATIVE_ROLE_REQUEST_REQUIRED"):
