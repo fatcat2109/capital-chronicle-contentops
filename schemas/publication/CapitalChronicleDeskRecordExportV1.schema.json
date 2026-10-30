@@ -1,0 +1,2092 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://capitalchronicle.com/data/CapitalChronicleDeskRecordExportV1.schema.json",
+  "title": "CapitalChronicleDeskRecordExportV1",
+  "description": "CC-014 desk-record export, schema v1 (Ops, 30 Oct 2026). Every value a reader may show is a Field carrying its rights class and visibility. Readers apply tools/product/desk_record_projection_v1.py before showing anything. Unknown keys fail. See CapitalChronicleDeskRecordExportV1.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "schema_version",
+    "export_id",
+    "generated_at_utc",
+    "fixture",
+    "producer",
+    "entitlement_map_version",
+    "sources",
+    "asset_dossiers",
+    "event_cards",
+    "decision_records",
+    "calendar_entries",
+    "reports",
+    "data_series",
+    "integrity"
+  ],
+  "properties": {
+    "schema": {
+      "const": "CapitalChronicleDeskRecordExportV1"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "export_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+    },
+    "generated_at_utc": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+    },
+    "fixture": {
+      "type": "boolean"
+    },
+    "fixture_sentinels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "version",
+        "commit",
+        "inputs"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "commit": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{7,40}$"
+            }
+          ]
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "entitlement_map_version": {
+      "const": "draft_v1"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Source"
+      },
+      "minItems": 1
+    },
+    "asset_dossiers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AssetDossier"
+      }
+    },
+    "event_cards": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/EventCard"
+      }
+    },
+    "decision_records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DecisionRecord"
+      }
+    },
+    "calendar_entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CalendarEntry"
+      }
+    },
+    "reports": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Report"
+      }
+    },
+    "data_series": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DataSeries"
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonicalization",
+        "content_sha256"
+      ],
+      "properties": {
+        "canonicalization": {
+          "const": "JSON_SORTED_KEYS_COMPACT_UTF8_WITHOUT_INTEGRITY"
+        },
+        "content_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "fixture": {
+            "const": false
+          }
+        },
+        "required": [
+          "fixture"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "fixture_sentinels"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "fixture": {
+            "const": true
+          }
+        },
+        "required": [
+          "fixture"
+        ]
+      },
+      "then": {
+        "required": [
+          "fixture_sentinels"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "SourceId": {
+      "type": "string",
+      "pattern": "^src:[a-z0-9][a-z0-9_.:-]*$"
+    },
+    "FieldBase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "rights_class",
+        "visibility",
+        "use_label",
+        "source_ids"
+      ],
+      "properties": {
+        "value": {},
+        "rights_class": {
+          "enum": [
+            "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "BEA_OFFICIAL_PUBLIC_DERIVED",
+            "US_TREASURY_OFFICIAL_PUBLIC_DERIVED",
+            "FED_BOARD_OFFICIAL_PUBLIC_DERIVED",
+            "CFTC_OFFICIAL_PUBLIC_DERIVED",
+            "SEC_OFFICIAL_PUBLIC_DERIVED",
+            "BROKER_PROXY_DERIVED_INTERPRETATION",
+            "CC_OWN_ANALYSIS",
+            "PUBLIC_FACT_IDENTITY",
+            "THIRD_PARTY_WIDGET_DISPLAY_ONLY",
+            "DEMO_DERIVED_PRIVATE",
+            "MARKET_CONSENSUS_PRIVATE_ONLY",
+            "OPTIONS_GEX_PRIVATE_ONLY",
+            "DERIVED_FROM_PRIVATE_ONLY",
+            "RIGHTS_MISSING",
+            "FRED_SOURCE_RIGHTS_BLOCKED",
+            "BROKER_PROXY_RAW_PRIVATE",
+            "INTERNAL_PROVENANCE",
+            "CODEX_DIGEST_INTERNAL",
+            "OFFICIAL_SOURCE_CONTRACT_PENDING"
+          ]
+        },
+        "visibility": {
+          "enum": [
+            "public",
+            "pro",
+            "private"
+          ]
+        },
+        "use_label": {
+          "enum": [
+            "PUBLIC_WITH_ATTRIBUTION",
+            "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+            "PUBLIC_FACT",
+            "DISPLAY_ONLY_WIDGET",
+            "PRO_SUBSCRIBERS_ONLY",
+            "INTERNAL_ONLY",
+            "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SourceId"
+          },
+          "uniqueItems": true
+        },
+        "unit": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "decimals": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "missing_cause": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "rights_class"
+            ],
+            "properties": {
+              "rights_class": {
+                "enum": [
+                  "DEMO_DERIVED_PRIVATE",
+                  "MARKET_CONSENSUS_PRIVATE_ONLY",
+                  "OPTIONS_GEX_PRIVATE_ONLY",
+                  "DERIVED_FROM_PRIVATE_ONLY",
+                  "RIGHTS_MISSING",
+                  "FRED_SOURCE_RIGHTS_BLOCKED",
+                  "BROKER_PROXY_RAW_PRIVATE",
+                  "INTERNAL_PROVENANCE",
+                  "CODEX_DIGEST_INTERNAL",
+                  "OFFICIAL_SOURCE_CONTRACT_PENDING"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "visibility": {
+                "const": "private"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "rights_class"
+            ],
+            "properties": {
+              "rights_class": {
+                "enum": [
+                  "DEMO_DERIVED_PRIVATE",
+                  "MARKET_CONSENSUS_PRIVATE_ONLY",
+                  "OPTIONS_GEX_PRIVATE_ONLY",
+                  "DERIVED_FROM_PRIVATE_ONLY",
+                  "RIGHTS_MISSING"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "use_label": {
+                "const": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "visibility"
+            ],
+            "properties": {
+              "visibility": {
+                "const": "public"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "use_label": {
+                "enum": [
+                  "PUBLIC_WITH_ATTRIBUTION",
+                  "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+                  "PUBLIC_FACT",
+                  "DISPLAY_ONLY_WIDGET"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "visibility"
+            ],
+            "properties": {
+              "visibility": {
+                "const": "pro"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "use_label": {
+                "const": "PRO_SUBSCRIBERS_ONLY"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "visibility"
+            ],
+            "properties": {
+              "visibility": {
+                "const": "private"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "use_label": {
+                "enum": [
+                  "INTERNAL_ONLY",
+                  "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "visibility",
+              "rights_class"
+            ],
+            "properties": {
+              "visibility": {
+                "const": "public"
+              },
+              "rights_class": {
+                "enum": [
+                  "BLS_OFFICIAL_PUBLIC_DERIVED",
+                  "BEA_OFFICIAL_PUBLIC_DERIVED",
+                  "US_TREASURY_OFFICIAL_PUBLIC_DERIVED",
+                  "FED_BOARD_OFFICIAL_PUBLIC_DERIVED",
+                  "CFTC_OFFICIAL_PUBLIC_DERIVED",
+                  "SEC_OFFICIAL_PUBLIC_DERIVED",
+                  "BROKER_PROXY_DERIVED_INTERPRETATION"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "use_label": {
+                "const": "PUBLIC_WITH_ATTRIBUTION"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "visibility",
+              "rights_class"
+            ],
+            "properties": {
+              "visibility": {
+                "const": "public"
+              },
+              "rights_class": {
+                "const": "CC_OWN_ANALYSIS"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "use_label": {
+                "const": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "visibility",
+              "rights_class"
+            ],
+            "properties": {
+              "visibility": {
+                "const": "public"
+              },
+              "rights_class": {
+                "const": "PUBLIC_FACT_IDENTITY"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "use_label": {
+                "const": "PUBLIC_FACT"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "visibility",
+              "rights_class"
+            ],
+            "properties": {
+              "visibility": {
+                "const": "public"
+              },
+              "rights_class": {
+                "const": "THIRD_PARTY_WIDGET_DISPLAY_ONLY"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "use_label": {
+                "const": "DISPLAY_ONLY_WIDGET"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "visibility",
+              "rights_class"
+            ],
+            "properties": {
+              "visibility": {
+                "enum": [
+                  "public",
+                  "pro"
+                ]
+              },
+              "rights_class": {
+                "enum": [
+                  "BLS_OFFICIAL_PUBLIC_DERIVED",
+                  "BEA_OFFICIAL_PUBLIC_DERIVED",
+                  "US_TREASURY_OFFICIAL_PUBLIC_DERIVED",
+                  "FED_BOARD_OFFICIAL_PUBLIC_DERIVED",
+                  "CFTC_OFFICIAL_PUBLIC_DERIVED",
+                  "SEC_OFFICIAL_PUBLIC_DERIVED",
+                  "BROKER_PROXY_DERIVED_INTERPRETATION"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "source_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "rights_class",
+              "value"
+            ],
+            "properties": {
+              "rights_class": {
+                "enum": [
+                  "BLS_OFFICIAL_PUBLIC_DERIVED",
+                  "BEA_OFFICIAL_PUBLIC_DERIVED",
+                  "US_TREASURY_OFFICIAL_PUBLIC_DERIVED",
+                  "FED_BOARD_OFFICIAL_PUBLIC_DERIVED",
+                  "CFTC_OFFICIAL_PUBLIC_DERIVED",
+                  "SEC_OFFICIAL_PUBLIC_DERIVED",
+                  "BROKER_PROXY_DERIVED_INTERPRETATION"
+                ]
+              },
+              "value": {
+                "type": "number"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "decimals"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "value"
+            ],
+            "properties": {
+              "value": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "missing_cause"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "missing_cause"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "Field": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/FieldBase"
+        },
+        {
+          "properties": {
+            "value": {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "null"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "NonPublicField": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Field"
+        },
+        {
+          "properties": {
+            "visibility": {
+              "enum": [
+                "pro",
+                "private"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "PrivateField": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/FieldBase"
+        },
+        {
+          "properties": {
+            "visibility": {
+              "const": "private"
+            }
+          }
+        }
+      ]
+    },
+    "PrivateOnlyField": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/FieldBase"
+        },
+        {
+          "properties": {
+            "rights_class": {
+              "enum": [
+                "DEMO_DERIVED_PRIVATE",
+                "MARKET_CONSENSUS_PRIVATE_ONLY",
+                "OPTIONS_GEX_PRIVATE_ONLY",
+                "DERIVED_FROM_PRIVATE_ONLY",
+                "RIGHTS_MISSING",
+                "FRED_SOURCE_RIGHTS_BLOCKED",
+                "BROKER_PROXY_RAW_PRIVATE",
+                "INTERNAL_PROVENANCE",
+                "CODEX_DIGEST_INTERNAL",
+                "OFFICIAL_SOURCE_CONTRACT_PENDING"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "FilingsField": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/FieldBase"
+        },
+        {
+          "properties": {
+            "rights_class": {
+              "enum": [
+                "SEC_OFFICIAL_PUBLIC_DERIVED",
+                "PUBLIC_FACT_IDENTITY"
+              ]
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "form",
+                      "filed_date",
+                      "report_date",
+                      "accession",
+                      "url"
+                    ],
+                    "properties": {
+                      "form": {
+                        "type": "string",
+                        "pattern": "^[0-9A-Z][0-9A-Z/ -]{0,15}$"
+                      },
+                      "filed_date": {
+                        "type": "string",
+                        "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+                      },
+                      "report_date": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+                          }
+                        ]
+                      },
+                      "accession": {
+                        "type": "string",
+                        "pattern": "^[0-9]{10}-[0-9]{2}-[0-9]{6}$"
+                      },
+                      "url": {
+                        "type": "string",
+                        "pattern": "^https://www\\.sec\\.gov/"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "ObservationsField": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/FieldBase"
+        },
+        {
+          "properties": {
+            "rights_class": {
+              "enum": [
+                "BLS_OFFICIAL_PUBLIC_DERIVED",
+                "BEA_OFFICIAL_PUBLIC_DERIVED",
+                "US_TREASURY_OFFICIAL_PUBLIC_DERIVED",
+                "FED_BOARD_OFFICIAL_PUBLIC_DERIVED",
+                "CFTC_OFFICIAL_PUBLIC_DERIVED",
+                "SEC_OFFICIAL_PUBLIC_DERIVED",
+                "DEMO_DERIVED_PRIVATE",
+                "MARKET_CONSENSUS_PRIVATE_ONLY",
+                "OPTIONS_GEX_PRIVATE_ONLY",
+                "DERIVED_FROM_PRIVATE_ONLY",
+                "RIGHTS_MISSING",
+                "FRED_SOURCE_RIGHTS_BLOCKED",
+                "BROKER_PROXY_RAW_PRIVATE",
+                "INTERNAL_PROVENANCE",
+                "CODEX_DIGEST_INTERNAL",
+                "OFFICIAL_SOURCE_CONTRACT_PENDING"
+              ]
+            },
+            "source_ids": {
+              "minItems": 1
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "period",
+                  "value"
+                ],
+                "properties": {
+                  "period": {
+                    "type": "string",
+                    "pattern": "^[0-9]{4}(-Q[1-4]|-[0-9]{2}(-[0-9]{2})?)?$"
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  }
+                }
+              },
+              "minItems": 1
+            }
+          }
+        }
+      ]
+    },
+    "Source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "provider",
+        "dataset",
+        "title",
+        "url",
+        "retrieved_at_utc",
+        "known_at_utc",
+        "raw_sha256",
+        "rights_class",
+        "attribution",
+        "disclaimer"
+      ],
+      "properties": {
+        "source_id": {
+          "$ref": "#/$defs/SourceId"
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dataset": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^https://"
+            }
+          ]
+        },
+        "retrieved_at_utc": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+            }
+          ]
+        },
+        "known_at_utc": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+            }
+          ]
+        },
+        "clock_missing_cause": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "raw_sha256": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          ]
+        },
+        "rights_class": {
+          "enum": [
+            "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "BEA_OFFICIAL_PUBLIC_DERIVED",
+            "US_TREASURY_OFFICIAL_PUBLIC_DERIVED",
+            "FED_BOARD_OFFICIAL_PUBLIC_DERIVED",
+            "CFTC_OFFICIAL_PUBLIC_DERIVED",
+            "SEC_OFFICIAL_PUBLIC_DERIVED",
+            "BROKER_PROXY_DERIVED_INTERPRETATION",
+            "CC_OWN_ANALYSIS",
+            "PUBLIC_FACT_IDENTITY",
+            "THIRD_PARTY_WIDGET_DISPLAY_ONLY",
+            "DEMO_DERIVED_PRIVATE",
+            "MARKET_CONSENSUS_PRIVATE_ONLY",
+            "OPTIONS_GEX_PRIVATE_ONLY",
+            "DERIVED_FROM_PRIVATE_ONLY",
+            "RIGHTS_MISSING",
+            "FRED_SOURCE_RIGHTS_BLOCKED",
+            "BROKER_PROXY_RAW_PRIVATE",
+            "INTERNAL_PROVENANCE",
+            "CODEX_DIGEST_INTERNAL",
+            "OFFICIAL_SOURCE_CONTRACT_PENDING"
+          ]
+        },
+        "attribution": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "minLength": 1
+            }
+          ]
+        },
+        "disclaimer": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "minLength": 1
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "known_at_utc": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "clock_missing_cause"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "clock_missing_cause"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "Scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenario_id",
+        "label",
+        "description",
+        "probability",
+        "invalidation",
+        "horizon_days",
+        "updated_at_utc"
+      ],
+      "properties": {
+        "scenario_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+        },
+        "label": {
+          "$ref": "#/$defs/NonPublicField"
+        },
+        "description": {
+          "$ref": "#/$defs/NonPublicField"
+        },
+        "probability": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NonPublicField"
+            },
+            {
+              "properties": {
+                "value": {
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "invalidation": {
+          "$ref": "#/$defs/NonPublicField"
+        },
+        "horizon_days": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NonPublicField"
+            },
+            {
+              "properties": {
+                "value": {
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "updated_at_utc": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+        }
+      }
+    },
+    "UpdateEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "update_id",
+        "at_utc",
+        "kind",
+        "summary",
+        "event_id"
+      ],
+      "properties": {
+        "update_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+        },
+        "at_utc": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+        },
+        "kind": {
+          "enum": [
+            "ANALYSIS_UPDATE",
+            "SCENARIO_CHANGE",
+            "EVENT_REACTION",
+            "DATA_UPDATE"
+          ]
+        },
+        "summary": {
+          "$ref": "#/$defs/Field"
+        },
+        "event_id": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+            }
+          ]
+        }
+      }
+    },
+    "Metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric_id",
+        "label",
+        "period",
+        "value",
+        "accession",
+        "fiscal_year",
+        "period_end"
+      ],
+      "properties": {
+        "metric_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+        },
+        "label": {
+          "$ref": "#/$defs/Field"
+        },
+        "period": {
+          "$ref": "#/$defs/Field"
+        },
+        "value": {
+          "$ref": "#/$defs/Field"
+        },
+        "accession": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9]{10}-[0-9]{2}-[0-9]{6}$"
+            }
+          ]
+        },
+        "fiscal_year": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "integer",
+              "minimum": 1900
+            }
+          ]
+        },
+        "period_end": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+            }
+          ]
+        }
+      }
+    },
+    "OpenPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_id",
+        "status",
+        "direction",
+        "entry",
+        "stop_loss",
+        "take_profit",
+        "planned_risk_r",
+        "armed",
+        "frozen_plan_sha256"
+      ],
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+        },
+        "status": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        },
+        "direction": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        },
+        "entry": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        },
+        "stop_loss": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        },
+        "take_profit": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        },
+        "planned_risk_r": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        },
+        "armed": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        },
+        "frozen_plan_sha256": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        }
+      }
+    },
+    "OptionsPositioning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract",
+        "session_date",
+        "regime",
+        "net_gex",
+        "gross_gex",
+        "walls",
+        "flip",
+        "coverage"
+      ],
+      "properties": {
+        "contract": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+        },
+        "session_date": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "regime": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        },
+        "net_gex": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        },
+        "gross_gex": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        },
+        "walls": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        },
+        "flip": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        },
+        "coverage": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        }
+      }
+    },
+    "AssetDossier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_type",
+        "record_id",
+        "asset_id",
+        "updated_at_utc",
+        "known_at_utc",
+        "identity",
+        "headline_analysis",
+        "maintained_analysis",
+        "scenarios",
+        "fundamentals",
+        "filings",
+        "update_log",
+        "event_ids",
+        "decision_ids",
+        "open_plans",
+        "options_positioning"
+      ],
+      "properties": {
+        "record_type": {
+          "const": "asset_dossier"
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^asset:[A-Z0-9._-]+$"
+        },
+        "asset_id": {
+          "type": "string",
+          "pattern": "^[A-Z0-9._-]+$"
+        },
+        "updated_at_utc": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+        },
+        "known_at_utc": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+        },
+        "identity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "symbol",
+            "name",
+            "asset_class",
+            "tier",
+            "tradingview_symbol"
+          ],
+          "properties": {
+            "symbol": {
+              "$ref": "#/$defs/Field"
+            },
+            "name": {
+              "$ref": "#/$defs/Field"
+            },
+            "asset_class": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/Field"
+                },
+                {
+                  "properties": {
+                    "value": {
+                      "enum": [
+                        "EQUITY",
+                        "INDEX",
+                        "FX",
+                        "COMMODITY",
+                        "CRYPTO",
+                        "RATE"
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            "tier": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/Field"
+                },
+                {
+                  "properties": {
+                    "value": {
+                      "enum": [
+                        "T1",
+                        "T2",
+                        "ANCHOR"
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            "tradingview_symbol": {
+              "$ref": "#/$defs/Field"
+            }
+          }
+        },
+        "headline_analysis": {
+          "$ref": "#/$defs/Field"
+        },
+        "maintained_analysis": {
+          "$ref": "#/$defs/NonPublicField"
+        },
+        "scenarios": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Scenario"
+          }
+        },
+        "fundamentals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Metric"
+          }
+        },
+        "filings": {
+          "$ref": "#/$defs/FilingsField"
+        },
+        "update_log": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/UpdateEntry"
+          }
+        },
+        "event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+          },
+          "uniqueItems": true
+        },
+        "decision_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+          },
+          "uniqueItems": true
+        },
+        "open_plans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/OpenPlan"
+          }
+        },
+        "options_positioning": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/OptionsPositioning"
+            }
+          ]
+        }
+      }
+    },
+    "EventMeasure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "measure_id",
+        "label",
+        "unit",
+        "seasonal_adjustment",
+        "prior",
+        "actual",
+        "change_vs_prior",
+        "expectation",
+        "expectation_basis",
+        "surprise_vs_expectation"
+      ],
+      "properties": {
+        "measure_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+        },
+        "label": {
+          "$ref": "#/$defs/Field"
+        },
+        "unit": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "seasonal_adjustment": {
+          "enum": [
+            "SA",
+            "NSA",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "prior": {
+          "$ref": "#/$defs/Field"
+        },
+        "actual": {
+          "$ref": "#/$defs/Field"
+        },
+        "change_vs_prior": {
+          "$ref": "#/$defs/Field"
+        },
+        "expectation": {
+          "$ref": "#/$defs/PrivateField"
+        },
+        "expectation_basis": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/PrivateField"
+            },
+            {
+              "properties": {
+                "value": {
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "enum": [
+                        "CONSENSUS_PROXY",
+                        "PRIOR_PRINT",
+                        "SINGLE_FORECAST"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "surprise_vs_expectation": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        }
+      }
+    },
+    "EventBranch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "branch_id",
+        "label",
+        "condition",
+        "our_read",
+        "invalidation",
+        "matched"
+      ],
+      "properties": {
+        "branch_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+        },
+        "label": {
+          "$ref": "#/$defs/NonPublicField"
+        },
+        "condition": {
+          "$ref": "#/$defs/NonPublicField"
+        },
+        "our_read": {
+          "$ref": "#/$defs/NonPublicField"
+        },
+        "invalidation": {
+          "$ref": "#/$defs/NonPublicField"
+        },
+        "matched": {
+          "$ref": "#/$defs/PrivateField"
+        }
+      }
+    },
+    "EventCard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_type",
+        "record_id",
+        "event_id",
+        "phase",
+        "release",
+        "release_known_at_utc",
+        "known_at_utc",
+        "asset_ids",
+        "measures",
+        "branches",
+        "post_release_note",
+        "decision_outcome"
+      ],
+      "properties": {
+        "record_type": {
+          "const": "event_card"
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^event:[A-Za-z0-9_.:-]+$"
+        },
+        "event_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+        },
+        "phase": {
+          "enum": [
+            "PRE_RELEASE",
+            "RELEASED",
+            "LATE_OR_MISSING"
+          ]
+        },
+        "release": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "agency",
+            "name",
+            "reference_period",
+            "scheduled_at_utc",
+            "official_url"
+          ],
+          "properties": {
+            "agency": {
+              "$ref": "#/$defs/Field"
+            },
+            "name": {
+              "$ref": "#/$defs/Field"
+            },
+            "reference_period": {
+              "$ref": "#/$defs/Field"
+            },
+            "scheduled_at_utc": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/Field"
+                },
+                {
+                  "properties": {
+                    "value": {
+                      "anyOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            "official_url": {
+              "$ref": "#/$defs/Field"
+            }
+          }
+        },
+        "release_known_at_utc": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+            }
+          ]
+        },
+        "known_at_utc": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+        },
+        "asset_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+          },
+          "uniqueItems": true
+        },
+        "measures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EventMeasure"
+          }
+        },
+        "branches": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EventBranch"
+          }
+        },
+        "post_release_note": {
+          "$ref": "#/$defs/Field"
+        },
+        "decision_outcome": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        }
+      }
+    },
+    "DecisionRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_type",
+        "record_id",
+        "decided_at_utc",
+        "known_at_utc",
+        "asset_id",
+        "event_id",
+        "call",
+        "direction",
+        "horizon_days",
+        "summary",
+        "rationale",
+        "invalidation",
+        "first_blocking_cause",
+        "analytical_outcome",
+        "demo",
+        "provenance"
+      ],
+      "properties": {
+        "record_type": {
+          "const": "decision_record"
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^decision:[A-Za-z0-9_.:-]+$"
+        },
+        "decided_at_utc": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+        },
+        "known_at_utc": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+        },
+        "asset_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+        },
+        "event_id": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+            }
+          ]
+        },
+        "call": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Field"
+            },
+            {
+              "properties": {
+                "value": {
+                  "enum": [
+                    "EXPRESS",
+                    "WATCH",
+                    "ABSTAIN",
+                    "HOLD",
+                    "NO_TRADE"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "direction": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Field"
+            },
+            {
+              "properties": {
+                "value": {
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "enum": [
+                        "LONG",
+                        "SHORT",
+                        "NONE"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "horizon_days": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Field"
+            },
+            {
+              "properties": {
+                "value": {
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "summary": {
+          "$ref": "#/$defs/Field"
+        },
+        "rationale": {
+          "$ref": "#/$defs/PrivateOnlyField"
+        },
+        "invalidation": {
+          "$ref": "#/$defs/NonPublicField"
+        },
+        "first_blocking_cause": {
+          "$ref": "#/$defs/PrivateField"
+        },
+        "analytical_outcome": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "scored_at_utc",
+            "horizon_end_utc",
+            "score_basis",
+            "scored_move",
+            "note"
+          ],
+          "properties": {
+            "status": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/Field"
+                },
+                {
+                  "properties": {
+                    "value": {
+                      "enum": [
+                        "PENDING",
+                        "RIGHT",
+                        "WRONG",
+                        "INCONCLUSIVE",
+                        "NOT_SCORED_ABSTAIN"
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            "scored_at_utc": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+                }
+              ]
+            },
+            "horizon_end_utc": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+                }
+              ]
+            },
+            "score_basis": {
+              "$ref": "#/$defs/Field"
+            },
+            "scored_move": {
+              "$ref": "#/$defs/Field"
+            },
+            "note": {
+              "$ref": "#/$defs/Field"
+            }
+          }
+        },
+        "demo": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "order_sent",
+            "result_r"
+          ],
+          "properties": {
+            "order_sent": {
+              "$ref": "#/$defs/PrivateOnlyField"
+            },
+            "result_r": {
+              "$ref": "#/$defs/PrivateOnlyField"
+            }
+          }
+        },
+        "provenance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "model",
+            "effort",
+            "basis",
+            "run_id"
+          ],
+          "properties": {
+            "model": {
+              "$ref": "#/$defs/PrivateField"
+            },
+            "effort": {
+              "$ref": "#/$defs/PrivateField"
+            },
+            "basis": {
+              "$ref": "#/$defs/PrivateField"
+            },
+            "run_id": {
+              "$ref": "#/$defs/PrivateField"
+            }
+          }
+        }
+      }
+    },
+    "CalendarEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_type",
+        "record_id",
+        "event_id",
+        "agency",
+        "name",
+        "scheduled_at_utc",
+        "importance",
+        "official_url",
+        "arming_run"
+      ],
+      "properties": {
+        "record_type": {
+          "const": "calendar_entry"
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^calendar:[A-Za-z0-9_.:-]+$"
+        },
+        "event_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+        },
+        "agency": {
+          "$ref": "#/$defs/Field"
+        },
+        "name": {
+          "$ref": "#/$defs/Field"
+        },
+        "scheduled_at_utc": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Field"
+            },
+            {
+              "properties": {
+                "value": {
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "importance": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Field"
+            },
+            {
+              "properties": {
+                "value": {
+                  "enum": [
+                    "HIGH",
+                    "MEDIUM",
+                    "LOW"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "official_url": {
+          "$ref": "#/$defs/Field"
+        },
+        "arming_run": {
+          "$ref": "#/$defs/PrivateField"
+        }
+      }
+    },
+    "Report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_type",
+        "record_id",
+        "report_type",
+        "for_date",
+        "generated_at_utc",
+        "title",
+        "sections"
+      ],
+      "properties": {
+        "record_type": {
+          "const": "report"
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^report:[A-Za-z0-9_.:-]+$"
+        },
+        "report_type": {
+          "enum": [
+            "WEEK_AHEAD",
+            "WEEKDAY_BRIEF",
+            "POST_RELEASE_NOTE"
+          ]
+        },
+        "for_date": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "generated_at_utc": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+        },
+        "title": {
+          "$ref": "#/$defs/Field"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "section_id",
+              "heading",
+              "body_markdown",
+              "cites"
+            ],
+            "properties": {
+              "section_id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+              },
+              "heading": {
+                "$ref": "#/$defs/Field"
+              },
+              "body_markdown": {
+                "$ref": "#/$defs/Field"
+              },
+              "cites": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+                },
+                "uniqueItems": true
+              }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "DataSeries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_type",
+        "record_id",
+        "series_id",
+        "series_code",
+        "title",
+        "unit",
+        "decimals",
+        "seasonal_adjustment",
+        "frequency",
+        "known_at_utc",
+        "window",
+        "observations"
+      ],
+      "properties": {
+        "record_type": {
+          "const": "data_series"
+        },
+        "record_id": {
+          "type": "string",
+          "pattern": "^series:[A-Za-z0-9_.:-]+$"
+        },
+        "series_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+        },
+        "series_code": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,95}$"
+            }
+          ]
+        },
+        "title": {
+          "$ref": "#/$defs/Field"
+        },
+        "unit": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "decimals": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "seasonal_adjustment": {
+          "enum": [
+            "SA",
+            "NSA",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "frequency": {
+          "enum": [
+            "DAILY",
+            "WEEKLY",
+            "MONTHLY",
+            "QUARTERLY",
+            "ANNUAL"
+          ]
+        },
+        "known_at_utc": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+        },
+        "window": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start",
+            "end"
+          ],
+          "properties": {
+            "start": {
+              "type": "string",
+              "pattern": "^[0-9]{4}(-Q[1-4]|-[0-9]{2}(-[0-9]{2})?)?$"
+            },
+            "end": {
+              "type": "string",
+              "pattern": "^[0-9]{4}(-Q[1-4]|-[0-9]{2}(-[0-9]{2})?)?$"
+            }
+          }
+        },
+        "observations": {
+          "$ref": "#/$defs/ObservationsField"
+        }
+      }
+    }
+  }
+}

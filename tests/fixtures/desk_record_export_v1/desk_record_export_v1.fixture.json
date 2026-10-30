@@ -1,0 +1,2433 @@
+{
+  "schema": "CapitalChronicleDeskRecordExportV1",
+  "schema_version": "1.0.0",
+  "export_id": "fixture-desk-record-export-v1-20261030",
+  "generated_at_utc": "2026-10-30T15:22:05Z",
+  "fixture": true,
+  "fixture_sentinels": [
+    "999.111",
+    "999.222",
+    "999.333",
+    "FIXTURE-SENTINEL-PRIVATE-7Q4"
+  ],
+  "producer": {
+    "name": "ops_cc014_fixture",
+    "version": "1.0.0",
+    "commit": null,
+    "inputs": [
+      "eci:arrival-20261030T1222Z",
+      "bls-api:eci-history@20261030-1000-dossier-eci",
+      "cc-068@4177741d",
+      "cc-038@155eb0bd",
+      "cc-036@5d07a798",
+      "treasury:governed-current-treasury-full-curve@live-20261030-cc005"
+    ]
+  },
+  "entitlement_map_version": "draft_v1",
+  "sources": [
+    {
+      "source_id": "src:bls:eci:2026q3",
+      "provider": "U.S. Bureau of Labor Statistics",
+      "dataset": "bls_eci_news_release",
+      "title": "Employment Cost Index, September 2026 (USDL-26-1620)",
+      "url": "https://www.bls.gov/news.release/eci.nr0.htm",
+      "retrieved_at_utc": "2026-10-30T12:30:21.938Z",
+      "known_at_utc": "2026-10-30T12:30:21.938Z",
+      "raw_sha256": "6ea17525070e9ed56f093a1a95630957a20608688ce127504559d88c5e08e06f",
+      "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+      "attribution": "U.S. Bureau of Labor Statistics (BLS)",
+      "disclaimer": "Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication."
+    },
+    {
+      "source_id": "src:bls:api:eci-history",
+      "provider": "U.S. Bureau of Labor Statistics",
+      "dataset": "bls_api_eci_series",
+      "title": "BLS API, ECI series CIS1010000000000Q and CIU1010000000000A",
+      "url": "https://api.bls.gov/publicAPI/v2/timeseries/data/",
+      "retrieved_at_utc": "2026-10-30T10:01:28Z",
+      "known_at_utc": "2026-10-30T10:01:28Z",
+      "raw_sha256": "9e7decb449267166719db572c080f8ed064a096819c2b6a9d44a93176fec6ee2",
+      "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+      "attribution": "U.S. Bureau of Labor Statistics (BLS)",
+      "disclaimer": "Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication."
+    },
+    {
+      "source_id": "src:bls:schedule:2026",
+      "provider": "U.S. Bureau of Labor Statistics",
+      "dataset": "bls_release_schedule",
+      "title": "BLS release schedule, November 2026 (pinned in tier1_event_window_pin_v1)",
+      "url": "https://www.bls.gov/schedule/2026/11_sched.htm",
+      "retrieved_at_utc": null,
+      "known_at_utc": null,
+      "clock_missing_cause": "SCHEDULE_PINNED_IN_CODE_WITHOUT_RETRIEVAL_CLOCK",
+      "raw_sha256": null,
+      "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+      "attribution": "U.S. Bureau of Labor Statistics (BLS)",
+      "disclaimer": "Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication."
+    },
+    {
+      "source_id": "src:bea:schedule:2026",
+      "provider": "U.S. Bureau of Economic Analysis",
+      "dataset": "bea_release_schedule",
+      "title": "BEA release schedule (pinned in tier1_event_window_pin_v1)",
+      "url": "https://www.bea.gov/news/schedule",
+      "retrieved_at_utc": null,
+      "known_at_utc": null,
+      "clock_missing_cause": "SCHEDULE_PINNED_IN_CODE_WITHOUT_RETRIEVAL_CLOCK",
+      "raw_sha256": null,
+      "rights_class": "BEA_OFFICIAL_PUBLIC_DERIVED",
+      "attribution": "U.S. Bureau of Economic Analysis",
+      "disclaimer": "Derived analysis from official BEA public material."
+    },
+    {
+      "source_id": "src:treasury:par-yield-curve",
+      "provider": "U.S. Department of the Treasury",
+      "dataset": "daily_treasury_par_yield_curve",
+      "title": "Daily Treasury Par Yield Curve Rates (via the live root's governed-current-treasury-full-curve.json)",
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml",
+      "retrieved_at_utc": "2026-08-28T08:37:32Z",
+      "known_at_utc": "2026-08-28T08:37:32Z",
+      "raw_sha256": "2986f0707b05704e320483c009f50dcb6f85419899917569398790c71fe8011a",
+      "rights_class": "US_TREASURY_OFFICIAL_PUBLIC_DERIVED",
+      "attribution": "U.S. Department of the Treasury",
+      "disclaimer": "Derived analysis from official U.S. Treasury public data."
+    },
+    {
+      "source_id": "src:sec:nvda:submissions",
+      "provider": "U.S. Securities and Exchange Commission",
+      "dataset": "sec_edgar_submissions",
+      "title": "EDGAR submissions, NVIDIA Corporation (CIK 0001045810)",
+      "url": "https://data.sec.gov/submissions/CIK0001045810.json",
+      "retrieved_at_utc": null,
+      "known_at_utc": "2026-10-30T06:44:10.706973Z",
+      "raw_sha256": "d0d8527d09b31831022a6367d05bbdd5f2d2b3eda55323fd3383395016b90aaa",
+      "rights_class": "SEC_OFFICIAL_PUBLIC_DERIVED",
+      "attribution": "U.S. Securities and Exchange Commission",
+      "disclaimer": "Derived analysis from official SEC public material."
+    },
+    {
+      "source_id": "src:nvidia:ir:events",
+      "provider": "NVIDIA Corporation",
+      "dataset": "company_ir_events",
+      "title": "NVIDIA events and presentations",
+      "url": "https://investor.nvidia.com/events-and-presentations/events-and-presentations/default.aspx",
+      "retrieved_at_utc": "2026-10-30T06:45:22.166Z",
+      "known_at_utc": "2026-10-30T06:45:22.166Z",
+      "raw_sha256": "c445d0576116796ffed1dee5c8470cae15d07f8d980824dc127f82a6331500cb",
+      "rights_class": "OFFICIAL_SOURCE_CONTRACT_PENDING",
+      "attribution": "NVIDIA Corporation",
+      "disclaimer": null
+    },
+    {
+      "source_id": "src:cc068:nfp-consensus",
+      "provider": "myfxbook (captured by CC-068)",
+      "dataset": "private_release_consensus_v1",
+      "title": "Non-farm payrolls consensus, October 2026",
+      "url": "https://www.myfxbook.com/forex-economic-calendar/united-states/non-farm-payrolls",
+      "retrieved_at_utc": "2026-10-30T11:17:21.319Z",
+      "known_at_utc": "2026-10-30T11:18:39.590947Z",
+      "raw_sha256": "d77fd455a23fb249b05234c57a4032a06f9d2908cdfdde30a60ec2065d2e3b27",
+      "rights_class": "MARKET_CONSENSUS_PRIVATE_ONLY",
+      "attribution": null,
+      "disclaimer": null
+    },
+    {
+      "source_id": "src:cc038:spx-gex",
+      "provider": "Capital Chronicle (CC-038 private GEX cases)",
+      "dataset": "spx_gex_cases_v1",
+      "title": "SPX GEX aggregates from the W1055 history",
+      "url": null,
+      "retrieved_at_utc": null,
+      "known_at_utc": "2026-10-30T09:01:39.631487Z",
+      "raw_sha256": "06ccfe28ebba5ab3a3eaa0891f888a3e3e0cc38edb94a7d6890de02cc43805cf",
+      "rights_class": "OPTIONS_GEX_PRIVATE_ONLY",
+      "attribution": null,
+      "disclaimer": null
+    },
+    {
+      "source_id": "src:cc:eci-arrival-20261030",
+      "provider": "Capital Chronicle (Main event arrival run)",
+      "dataset": "event_arrival_result",
+      "title": "ECI Q3 2026 arrival result",
+      "url": null,
+      "retrieved_at_utc": null,
+      "known_at_utc": "2026-10-30T13:52:08Z",
+      "raw_sha256": "4f733c82057386e23964006723f71bd9ad7f42e6046d6c20e370d48cf8cc6392",
+      "rights_class": "INTERNAL_PROVENANCE",
+      "attribution": null,
+      "disclaimer": null
+    },
+    {
+      "source_id": "src:cc:eci-native-decision",
+      "provider": "Capital Chronicle (Main native research run)",
+      "dataset": "primary_demo_native_hybrid_decision_v1",
+      "title": "ECI Q3 2026 native decision",
+      "url": null,
+      "retrieved_at_utc": null,
+      "known_at_utc": "2026-10-30T13:51:45Z",
+      "raw_sha256": "e301f2c93e4c0021f5c31fb23956e4fe903807b703b9670dbc15497b1f2355c5",
+      "rights_class": "DEMO_DERIVED_PRIVATE",
+      "attribution": null,
+      "disclaimer": null
+    },
+    {
+      "source_id": "src:fixture:sentinel",
+      "provider": "Fixture (synthetic test values, not data)",
+      "dataset": "desk_record_export_v1_fixture_sentinels",
+      "title": "Sentinel values for leak tests",
+      "url": null,
+      "retrieved_at_utc": null,
+      "known_at_utc": null,
+      "clock_missing_cause": "SYNTHETIC_FIXTURE_VALUE",
+      "raw_sha256": null,
+      "rights_class": "DEMO_DERIVED_PRIVATE",
+      "attribution": null,
+      "disclaimer": null
+    }
+  ],
+  "asset_dossiers": [
+    {
+      "record_type": "asset_dossier",
+      "record_id": "asset:NVDA",
+      "asset_id": "NVDA",
+      "updated_at_utc": "2026-10-30T06:47:11.394324Z",
+      "known_at_utc": "2026-10-30T06:47:11.394324Z",
+      "identity": {
+        "symbol": {
+          "value": "NVDA",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "name": {
+          "value": "NVIDIA Corporation",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "asset_class": {
+          "value": "EQUITY",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "tier": {
+          "value": "T1",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "tradingview_symbol": {
+          "value": "NASDAQ:NVDA",
+          "rights_class": "THIRD_PARTY_WIDGET_DISPLAY_ONLY",
+          "visibility": "public",
+          "use_label": "DISPLAY_ONLY_WIDGET",
+          "source_ids": []
+        }
+      },
+      "headline_analysis": {
+        "value": null,
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": [],
+        "missing_cause": "NO_MAINTAINED_ANALYSIS_YET"
+      },
+      "maintained_analysis": {
+        "value": null,
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "pro",
+        "use_label": "PRO_SUBSCRIBERS_ONLY",
+        "source_ids": [],
+        "missing_cause": "NO_MAINTAINED_ANALYSIS_YET"
+      },
+      "scenarios": [],
+      "fundamentals": [
+        {
+          "metric_id": "annual_revenue_usd",
+          "label": {
+            "value": "Revenue, latest fiscal year",
+            "rights_class": "PUBLIC_FACT_IDENTITY",
+            "visibility": "public",
+            "use_label": "PUBLIC_FACT",
+            "source_ids": [
+              "src:sec:nvda:submissions"
+            ]
+          },
+          "period": {
+            "value": null,
+            "rights_class": "SEC_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:sec:nvda:submissions"
+            ],
+            "missing_cause": "LATEST_FISCAL_YEAR_FACT_UNRESOLVED_CC036"
+          },
+          "value": {
+            "value": null,
+            "rights_class": "SEC_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:sec:nvda:submissions"
+            ],
+            "unit": "usd",
+            "missing_cause": "LATEST_FISCAL_YEAR_FACT_UNRESOLVED_CC036"
+          },
+          "accession": null,
+          "fiscal_year": null,
+          "period_end": null
+        }
+      ],
+      "filings": {
+        "value": [
+          {
+            "form": "8-K",
+            "filed_date": "2026-07-02",
+            "report_date": "2026-06-28",
+            "accession": "0001045810-26-000060",
+            "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000060/nvda-20260628.htm"
+          },
+          {
+            "form": "8-K",
+            "filed_date": "2026-08-17",
+            "report_date": "2026-08-17",
+            "accession": "0001045810-26-000069",
+            "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000069/nvda-20260817.htm"
+          },
+          {
+            "form": "8-K",
+            "filed_date": "2026-08-26",
+            "report_date": "2026-08-26",
+            "accession": "0001045810-26-000073",
+            "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/nvda-20260826.htm"
+          },
+          {
+            "form": "10-Q",
+            "filed_date": "2026-08-26",
+            "report_date": "2026-07-26",
+            "accession": "0001045810-26-000075",
+            "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+          },
+          {
+            "form": "8-K",
+            "filed_date": "2026-09-03",
+            "report_date": "2026-09-02",
+            "accession": "0001045810-26-000078",
+            "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm"
+          }
+        ],
+        "rights_class": "SEC_OFFICIAL_PUBLIC_DERIVED",
+        "visibility": "public",
+        "use_label": "PUBLIC_WITH_ATTRIBUTION",
+        "source_ids": [
+          "src:sec:nvda:submissions"
+        ]
+      },
+      "update_log": [
+        {
+          "update_id": "NVDA-sec-filings-20261030",
+          "at_utc": "2026-10-30T06:47:11.394324Z",
+          "kind": "DATA_UPDATE",
+          "event_id": null,
+          "summary": {
+            "value": "SEC filings list refreshed.",
+            "rights_class": "CC_OWN_ANALYSIS",
+            "visibility": "public",
+            "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+            "source_ids": [
+              "src:sec:nvda:submissions"
+            ]
+          }
+        }
+      ],
+      "event_ids": [
+        "NVDA_EARNINGS_20261117"
+      ],
+      "decision_ids": [],
+      "open_plans": [],
+      "options_positioning": null
+    },
+    {
+      "record_type": "asset_dossier",
+      "record_id": "asset:SPX",
+      "asset_id": "SPX",
+      "updated_at_utc": "2026-10-30T09:01:39.631487Z",
+      "known_at_utc": "2026-10-30T09:01:39.631487Z",
+      "identity": {
+        "symbol": {
+          "value": "SPX",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "name": {
+          "value": "S&P 500 index",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "asset_class": {
+          "value": "INDEX",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "tier": {
+          "value": "T1",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "tradingview_symbol": {
+          "value": "SP:SPX",
+          "rights_class": "THIRD_PARTY_WIDGET_DISPLAY_ONLY",
+          "visibility": "public",
+          "use_label": "DISPLAY_ONLY_WIDGET",
+          "source_ids": []
+        }
+      },
+      "headline_analysis": {
+        "value": null,
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": [],
+        "missing_cause": "NO_MAINTAINED_ANALYSIS_YET"
+      },
+      "maintained_analysis": {
+        "value": null,
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "pro",
+        "use_label": "PRO_SUBSCRIBERS_ONLY",
+        "source_ids": [],
+        "missing_cause": "NO_MAINTAINED_ANALYSIS_YET"
+      },
+      "scenarios": [],
+      "fundamentals": [],
+      "filings": {
+        "value": null,
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [],
+        "missing_cause": "NOT_AN_SEC_REGISTRANT"
+      },
+      "update_log": [],
+      "event_ids": [
+        "US_NFP_20261106"
+      ],
+      "decision_ids": [],
+      "open_plans": [],
+      "options_positioning": {
+        "contract": "cc-038:spx_gex_cases_v1",
+        "session_date": "2026-10-23",
+        "regime": {
+          "value": "NEGATIVE",
+          "rights_class": "OPTIONS_GEX_PRIVATE_ONLY",
+          "visibility": "private",
+          "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+          "source_ids": [
+            "src:cc038:spx-gex"
+          ]
+        },
+        "net_gex": {
+          "value": -2243997410.5986485,
+          "rights_class": "OPTIONS_GEX_PRIVATE_ONLY",
+          "visibility": "private",
+          "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+          "source_ids": [
+            "src:cc038:spx-gex"
+          ],
+          "unit": "usd_gamma_per_one_percent_move"
+        },
+        "gross_gex": {
+          "value": 9271447064.264404,
+          "rights_class": "OPTIONS_GEX_PRIVATE_ONLY",
+          "visibility": "private",
+          "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+          "source_ids": [
+            "src:cc038:spx-gex"
+          ],
+          "unit": "usd_gamma_per_one_percent_move"
+        },
+        "walls": {
+          "value": null,
+          "rights_class": "OPTIONS_GEX_PRIVATE_ONLY",
+          "visibility": "private",
+          "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+          "source_ids": [
+            "src:cc038:spx-gex"
+          ],
+          "missing_cause": "STRIKE_LEVEL_RESULTS_NOT_RETAINED"
+        },
+        "flip": {
+          "value": null,
+          "rights_class": "OPTIONS_GEX_PRIVATE_ONLY",
+          "visibility": "private",
+          "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+          "source_ids": [
+            "src:cc038:spx-gex"
+          ],
+          "missing_cause": "STRIKE_LEVEL_RESULTS_NOT_RETAINED"
+        },
+        "coverage": {
+          "value": "SELECTED_PAIRED_SUBSET_NOT_WHOLE_MARKET",
+          "rights_class": "OPTIONS_GEX_PRIVATE_ONLY",
+          "visibility": "private",
+          "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+          "source_ids": [
+            "src:cc038:spx-gex"
+          ]
+        }
+      }
+    },
+    {
+      "record_type": "asset_dossier",
+      "record_id": "asset:USDJPY",
+      "asset_id": "USDJPY",
+      "updated_at_utc": "2026-10-30T13:52:08Z",
+      "known_at_utc": "2026-10-30T13:52:08Z",
+      "identity": {
+        "symbol": {
+          "value": "USDJPY",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "name": {
+          "value": "US dollar / Japanese yen",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "asset_class": {
+          "value": "FX",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "tier": {
+          "value": "T1",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "tradingview_symbol": {
+          "value": "FX:USDJPY",
+          "rights_class": "THIRD_PARTY_WIDGET_DISPLAY_ONLY",
+          "visibility": "public",
+          "use_label": "DISPLAY_ONLY_WIDGET",
+          "source_ids": []
+        }
+      },
+      "headline_analysis": {
+        "value": "After the Q3 Employment Cost Index, the research run recorded no directional view on USDJPY.",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": [
+          "src:bls:eci:2026q3"
+        ]
+      },
+      "maintained_analysis": {
+        "value": "A short USDJPY view is kept only as a hypothesis. It needs post-release US yields and the FOMC statement before it can be tested.",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "pro",
+        "use_label": "PRO_SUBSCRIBERS_ONLY",
+        "source_ids": []
+      },
+      "scenarios": [
+        {
+          "scenario_id": "USDJPY-SHORT-HYPOTHESIS",
+          "label": {
+            "value": "Short hypothesis",
+            "rights_class": "CC_OWN_ANALYSIS",
+            "visibility": "pro",
+            "use_label": "PRO_SUBSCRIBERS_ONLY",
+            "source_ids": []
+          },
+          "description": {
+            "value": "Lower US yields after the release would weigh on the pair; the link is unobserved.",
+            "rights_class": "CC_OWN_ANALYSIS",
+            "visibility": "pro",
+            "use_label": "PRO_SUBSCRIBERS_ONLY",
+            "source_ids": []
+          },
+          "probability": {
+            "value": null,
+            "rights_class": "CC_OWN_ANALYSIS",
+            "visibility": "pro",
+            "use_label": "PRO_SUBSCRIBERS_ONLY",
+            "source_ids": [],
+            "missing_cause": "MODEL_NUMERIC_PROBABILITY_NOT_CREATED"
+          },
+          "invalidation": {
+            "value": "No active WATCH. The retained SHORT hypothesis is void on any of: a completed D1 close above 157.695 (the last completed pre-release close; a further close above 158.349, the 2026-10-28 high, strengthens the reversal); admitted official yields showing the US 5y higher after the release than on 2026-10-29; or an admitted 2026-10-27/28 FOMC statement signalling further tightening. It warrants fresh analysis, never an order, only when all of these hold: the admitted FOMC statement shows no further-tightening signal; Treasury rows show the post-release US 5y below its 2026-10-29 entry; and a completed weekday D1 bar that opens after final review closes below 156.075. That trigger does not discriminate on its own: such a close would be the first since 2026-09-16 and could equally reflect FOMC repricing or de-risking.",
+            "rights_class": "BROKER_PROXY_RAW_PRIVATE",
+            "visibility": "private",
+            "use_label": "INTERNAL_ONLY",
+            "source_ids": [
+              "src:cc:eci-native-decision"
+            ]
+          },
+          "horizon_days": {
+            "value": null,
+            "rights_class": "CC_OWN_ANALYSIS",
+            "visibility": "pro",
+            "use_label": "PRO_SUBSCRIBERS_ONLY",
+            "source_ids": [],
+            "missing_cause": "NO_CURRENT_EXACT_SCOREABLE_HORIZON_AUTHORITY"
+          },
+          "updated_at_utc": "2026-10-30T13:52:08Z"
+        }
+      ],
+      "fundamentals": [],
+      "filings": {
+        "value": null,
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [],
+        "missing_cause": "NOT_AN_SEC_REGISTRANT"
+      },
+      "update_log": [
+        {
+          "update_id": "USDJPY-US_ECI_20261030",
+          "at_utc": "2026-10-30T13:52:08Z",
+          "kind": "EVENT_REACTION",
+          "event_id": "US_ECI_20261030",
+          "summary": {
+            "value": "Q3 Employment Cost Index reviewed; no directional view recorded.",
+            "rights_class": "CC_OWN_ANALYSIS",
+            "visibility": "public",
+            "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ]
+          }
+        }
+      ],
+      "event_ids": [
+        "US_ECI_20261030"
+      ],
+      "decision_ids": [
+        "decision:US_ECI_20261030:USDJPY"
+      ],
+      "open_plans": [
+        {
+          "plan_id": "FIXTURE-SENTINEL-PLAN-1",
+          "status": {
+            "value": "FIXTURE-SENTINEL-PRIVATE-7Q4",
+            "rights_class": "DEMO_DERIVED_PRIVATE",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:fixture:sentinel"
+            ]
+          },
+          "direction": {
+            "value": "SHORT",
+            "rights_class": "DEMO_DERIVED_PRIVATE",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:fixture:sentinel"
+            ]
+          },
+          "entry": {
+            "value": 999.111,
+            "rights_class": "DEMO_DERIVED_PRIVATE",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:fixture:sentinel"
+            ]
+          },
+          "stop_loss": {
+            "value": 999.222,
+            "rights_class": "DEMO_DERIVED_PRIVATE",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:fixture:sentinel"
+            ]
+          },
+          "take_profit": {
+            "value": 999.333,
+            "rights_class": "DEMO_DERIVED_PRIVATE",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:fixture:sentinel"
+            ]
+          },
+          "planned_risk_r": {
+            "value": 1.0,
+            "rights_class": "DEMO_DERIVED_PRIVATE",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:fixture:sentinel"
+            ]
+          },
+          "armed": {
+            "value": false,
+            "rights_class": "DEMO_DERIVED_PRIVATE",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:fixture:sentinel"
+            ]
+          },
+          "frozen_plan_sha256": {
+            "value": null,
+            "rights_class": "DEMO_DERIVED_PRIVATE",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:fixture:sentinel"
+            ],
+            "missing_cause": "SYNTHETIC_FIXTURE_VALUE"
+          }
+        }
+      ],
+      "options_positioning": null
+    },
+    {
+      "record_type": "asset_dossier",
+      "record_id": "asset:XAUUSD",
+      "asset_id": "XAUUSD",
+      "updated_at_utc": "2026-10-30T13:52:08Z",
+      "known_at_utc": "2026-10-30T13:52:08Z",
+      "identity": {
+        "symbol": {
+          "value": "XAUUSD",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "name": {
+          "value": "Gold / US dollar",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "asset_class": {
+          "value": "COMMODITY",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "tier": {
+          "value": "T1",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": []
+        },
+        "tradingview_symbol": {
+          "value": "OANDA:XAUUSD",
+          "rights_class": "THIRD_PARTY_WIDGET_DISPLAY_ONLY",
+          "visibility": "public",
+          "use_label": "DISPLAY_ONLY_WIDGET",
+          "source_ids": []
+        }
+      },
+      "headline_analysis": {
+        "value": "After the Q3 Employment Cost Index, the research run recorded no directional view on gold.",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": [
+          "src:bls:eci:2026q3"
+        ]
+      },
+      "maintained_analysis": {
+        "value": "No admitted evidence supports a gold direction: the real-yield channel is unconfirmed and rival drivers are unobserved.",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "pro",
+        "use_label": "PRO_SUBSCRIBERS_ONLY",
+        "source_ids": []
+      },
+      "scenarios": [],
+      "fundamentals": [],
+      "filings": {
+        "value": null,
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [],
+        "missing_cause": "NOT_AN_SEC_REGISTRANT"
+      },
+      "update_log": [
+        {
+          "update_id": "XAUUSD-US_ECI_20261030",
+          "at_utc": "2026-10-30T13:52:08Z",
+          "kind": "EVENT_REACTION",
+          "event_id": "US_ECI_20261030",
+          "summary": {
+            "value": "Q3 Employment Cost Index reviewed; no directional view recorded.",
+            "rights_class": "CC_OWN_ANALYSIS",
+            "visibility": "public",
+            "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ]
+          }
+        }
+      ],
+      "event_ids": [
+        "US_ECI_20261030"
+      ],
+      "decision_ids": [
+        "decision:US_ECI_20261030:XAUUSD"
+      ],
+      "open_plans": [],
+      "options_positioning": null
+    }
+  ],
+  "event_cards": [
+    {
+      "record_type": "event_card",
+      "record_id": "event:US_ECI_20261030",
+      "event_id": "US_ECI_20261030",
+      "phase": "RELEASED",
+      "release": {
+        "agency": {
+          "value": "U.S. Bureau of Labor Statistics",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": [
+            "src:bls:eci:2026q3"
+          ]
+        },
+        "name": {
+          "value": "Employment Cost Index",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": [
+            "src:bls:eci:2026q3"
+          ]
+        },
+        "reference_period": {
+          "value": "2026-Q3",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": [
+            "src:bls:eci:2026q3"
+          ]
+        },
+        "scheduled_at_utc": {
+          "value": "2026-10-30T12:30:00Z",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": [
+            "src:bls:eci:2026q3"
+          ]
+        },
+        "official_url": {
+          "value": "https://www.bls.gov/news.release/eci.nr0.htm",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": [
+            "src:bls:eci:2026q3"
+          ]
+        }
+      },
+      "release_known_at_utc": "2026-10-30T12:30:21.938Z",
+      "known_at_utc": "2026-10-30T13:52:08Z",
+      "asset_ids": [
+        "USDJPY",
+        "XAUUSD"
+      ],
+      "measures": [
+        {
+          "measure_id": "eci_civilian_compensation_3m_sa",
+          "label": {
+            "value": "Civilian compensation, 3-month change, seasonally adjusted",
+            "rights_class": "PUBLIC_FACT_IDENTITY",
+            "visibility": "public",
+            "use_label": "PUBLIC_FACT",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ]
+          },
+          "unit": "percent",
+          "seasonal_adjustment": "SA",
+          "prior": {
+            "value": 0.9,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percent",
+            "decimals": 1
+          },
+          "actual": {
+            "value": 0.8,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percent",
+            "decimals": 1
+          },
+          "change_vs_prior": {
+            "value": -0.1,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percentage_points",
+            "decimals": 1
+          },
+          "expectation": {
+            "value": 0.8,
+            "rights_class": "MARKET_CONSENSUS_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "unit": "percent"
+          },
+          "expectation_basis": {
+            "value": "SINGLE_FORECAST",
+            "rights_class": "MARKET_CONSENSUS_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ]
+          },
+          "surprise_vs_expectation": {
+            "value": 0.0,
+            "rights_class": "DERIVED_FROM_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "unit": "percentage_points"
+          }
+        },
+        {
+          "measure_id": "eci_civilian_wages_3m_sa",
+          "label": {
+            "value": "Civilian wages and salaries, 3-month change, seasonally adjusted",
+            "rights_class": "PUBLIC_FACT_IDENTITY",
+            "visibility": "public",
+            "use_label": "PUBLIC_FACT",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ]
+          },
+          "unit": "percent",
+          "seasonal_adjustment": "SA",
+          "prior": {
+            "value": 0.9,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percent",
+            "decimals": 1
+          },
+          "actual": {
+            "value": 0.7,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percent",
+            "decimals": 1
+          },
+          "change_vs_prior": {
+            "value": -0.2,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percentage_points",
+            "decimals": 1
+          },
+          "expectation": {
+            "value": null,
+            "rights_class": "MARKET_CONSENSUS_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "missing_cause": "NO_EXPECTATION_FROZEN"
+          },
+          "expectation_basis": {
+            "value": null,
+            "rights_class": "MARKET_CONSENSUS_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "missing_cause": "NO_EXPECTATION_FROZEN"
+          },
+          "surprise_vs_expectation": {
+            "value": null,
+            "rights_class": "DERIVED_FROM_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "missing_cause": "NO_EXPECTATION_FROZEN"
+          }
+        },
+        {
+          "measure_id": "eci_civilian_benefits_3m_sa",
+          "label": {
+            "value": "Civilian benefits, 3-month change, seasonally adjusted",
+            "rights_class": "PUBLIC_FACT_IDENTITY",
+            "visibility": "public",
+            "use_label": "PUBLIC_FACT",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ]
+          },
+          "unit": "percent",
+          "seasonal_adjustment": "SA",
+          "prior": {
+            "value": 1.0,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percent",
+            "decimals": 1
+          },
+          "actual": {
+            "value": 0.9,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percent",
+            "decimals": 1
+          },
+          "change_vs_prior": {
+            "value": -0.1,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percentage_points",
+            "decimals": 1
+          },
+          "expectation": {
+            "value": null,
+            "rights_class": "MARKET_CONSENSUS_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "missing_cause": "NO_EXPECTATION_FROZEN"
+          },
+          "expectation_basis": {
+            "value": null,
+            "rights_class": "MARKET_CONSENSUS_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "missing_cause": "NO_EXPECTATION_FROZEN"
+          },
+          "surprise_vs_expectation": {
+            "value": null,
+            "rights_class": "DERIVED_FROM_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "missing_cause": "NO_EXPECTATION_FROZEN"
+          }
+        },
+        {
+          "measure_id": "eci_private_wages_3m_sa",
+          "label": {
+            "value": "Private industry wages and salaries, 3-month change, seasonally adjusted",
+            "rights_class": "PUBLIC_FACT_IDENTITY",
+            "visibility": "public",
+            "use_label": "PUBLIC_FACT",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ]
+          },
+          "unit": "percent",
+          "seasonal_adjustment": "SA",
+          "prior": {
+            "value": 0.9,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percent",
+            "decimals": 1
+          },
+          "actual": {
+            "value": 0.8,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percent",
+            "decimals": 1
+          },
+          "change_vs_prior": {
+            "value": -0.1,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percentage_points",
+            "decimals": 1
+          },
+          "expectation": {
+            "value": null,
+            "rights_class": "MARKET_CONSENSUS_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "missing_cause": "NO_EXPECTATION_FROZEN"
+          },
+          "expectation_basis": {
+            "value": null,
+            "rights_class": "MARKET_CONSENSUS_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "missing_cause": "NO_EXPECTATION_FROZEN"
+          },
+          "surprise_vs_expectation": {
+            "value": null,
+            "rights_class": "DERIVED_FROM_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "missing_cause": "NO_EXPECTATION_FROZEN"
+          }
+        },
+        {
+          "measure_id": "eci_civilian_compensation_12m_nsa",
+          "label": {
+            "value": "Civilian compensation, 12-month change, not seasonally adjusted",
+            "rights_class": "PUBLIC_FACT_IDENTITY",
+            "visibility": "public",
+            "use_label": "PUBLIC_FACT",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ]
+          },
+          "unit": "percent",
+          "seasonal_adjustment": "NSA",
+          "prior": {
+            "value": 3.4,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percent",
+            "decimals": 1
+          },
+          "actual": {
+            "value": 3.4,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percent",
+            "decimals": 1
+          },
+          "change_vs_prior": {
+            "value": 0.0,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "unit": "percentage_points",
+            "decimals": 1
+          },
+          "expectation": {
+            "value": null,
+            "rights_class": "MARKET_CONSENSUS_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "missing_cause": "NO_EXPECTATION_FROZEN"
+          },
+          "expectation_basis": {
+            "value": null,
+            "rights_class": "MARKET_CONSENSUS_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "missing_cause": "NO_EXPECTATION_FROZEN"
+          },
+          "surprise_vs_expectation": {
+            "value": null,
+            "rights_class": "DERIVED_FROM_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "missing_cause": "NO_EXPECTATION_FROZEN"
+          }
+        }
+      ],
+      "branches": [
+        {
+          "branch_id": "IN_LINE_LOW",
+          "label": {
+            "value": "In line, low",
+            "rights_class": "DERIVED_FROM_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ]
+          },
+          "condition": {
+            "value": "Civilian compensation equal to the single low-reliability forecast of 0.8",
+            "rights_class": "DERIVED_FROM_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ]
+          },
+          "our_read": {
+            "value": "Every leg magnitude S, so no trade.",
+            "rights_class": "DERIVED_FROM_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ]
+          },
+          "invalidation": {
+            "value": null,
+            "rights_class": "DERIVED_FROM_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ],
+            "missing_cause": "NOT_APPLICABLE_TO_IN_LINE"
+          },
+          "matched": {
+            "value": true,
+            "rights_class": "DERIVED_FROM_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc:eci-arrival-20261030"
+            ]
+          }
+        }
+      ],
+      "post_release_note": {
+        "value": "Civilian compensation rose 0.8% in the third quarter after 0.9% in the second, and 3.4% over the year. Wages and salaries rose 0.7%, benefits 0.9%.",
+        "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+        "visibility": "public",
+        "use_label": "PUBLIC_WITH_ATTRIBUTION",
+        "source_ids": [
+          "src:bls:eci:2026q3"
+        ]
+      },
+      "decision_outcome": {
+        "value": "NO_TRADE: USDJPY and XAUUSD ABSTAIN; nothing armed, no order",
+        "rights_class": "DEMO_DERIVED_PRIVATE",
+        "visibility": "private",
+        "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+        "source_ids": [
+          "src:cc:eci-arrival-20261030"
+        ]
+      }
+    },
+    {
+      "record_type": "event_card",
+      "record_id": "event:US_NFP_20261106",
+      "event_id": "US_NFP_20261106",
+      "phase": "PRE_RELEASE",
+      "release": {
+        "agency": {
+          "value": "U.S. Bureau of Labor Statistics",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": [
+            "src:bls:schedule:2026"
+          ]
+        },
+        "name": {
+          "value": "Employment Situation",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": [
+            "src:bls:schedule:2026"
+          ]
+        },
+        "reference_period": {
+          "value": "2026-10",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": [
+            "src:bls:schedule:2026"
+          ]
+        },
+        "scheduled_at_utc": {
+          "value": "2026-11-06T13:30:00Z",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": [
+            "src:bls:schedule:2026"
+          ]
+        },
+        "official_url": {
+          "value": "https://www.bls.gov/news.release/empsit.nr0.htm",
+          "rights_class": "PUBLIC_FACT_IDENTITY",
+          "visibility": "public",
+          "use_label": "PUBLIC_FACT",
+          "source_ids": [
+            "src:bls:schedule:2026"
+          ]
+        }
+      },
+      "release_known_at_utc": null,
+      "known_at_utc": "2026-10-30T11:18:39.590947Z",
+      "asset_ids": [
+        "USDJPY",
+        "XAUUSD",
+        "SPX"
+      ],
+      "measures": [
+        {
+          "measure_id": "nonfarm_payrolls_change_sa",
+          "label": {
+            "value": "Nonfarm payroll employment, monthly change, seasonally adjusted",
+            "rights_class": "PUBLIC_FACT_IDENTITY",
+            "visibility": "public",
+            "use_label": "PUBLIC_FACT",
+            "source_ids": [
+              "src:bls:schedule:2026"
+            ]
+          },
+          "unit": "thousands_of_jobs",
+          "seasonal_adjustment": "SA",
+          "prior": {
+            "value": null,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:schedule:2026"
+            ],
+            "missing_cause": "PRIOR_PRINT_NOT_IN_FIXTURE_INPUTS"
+          },
+          "actual": {
+            "value": null,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:schedule:2026"
+            ],
+            "missing_cause": "NOT_RELEASED"
+          },
+          "change_vs_prior": {
+            "value": null,
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "visibility": "public",
+            "use_label": "PUBLIC_WITH_ATTRIBUTION",
+            "source_ids": [
+              "src:bls:schedule:2026"
+            ],
+            "missing_cause": "NOT_RELEASED"
+          },
+          "expectation": {
+            "value": 40.0,
+            "rights_class": "MARKET_CONSENSUS_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc068:nfp-consensus"
+            ],
+            "unit": "thousands_of_jobs"
+          },
+          "expectation_basis": {
+            "value": "CONSENSUS_PROXY",
+            "rights_class": "MARKET_CONSENSUS_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc068:nfp-consensus"
+            ]
+          },
+          "surprise_vs_expectation": {
+            "value": null,
+            "rights_class": "DERIVED_FROM_PRIVATE_ONLY",
+            "visibility": "private",
+            "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+            "source_ids": [
+              "src:cc068:nfp-consensus"
+            ],
+            "missing_cause": "NOT_RELEASED"
+          }
+        }
+      ],
+      "branches": [],
+      "post_release_note": {
+        "value": null,
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": [],
+        "missing_cause": "NOT_RELEASED"
+      },
+      "decision_outcome": {
+        "value": null,
+        "rights_class": "DEMO_DERIVED_PRIVATE",
+        "visibility": "private",
+        "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+        "source_ids": [],
+        "missing_cause": "NOT_RELEASED"
+      }
+    }
+  ],
+  "decision_records": [
+    {
+      "record_type": "decision_record",
+      "record_id": "decision:US_ECI_20261030:USDJPY",
+      "decided_at_utc": "2026-10-30T13:51:45Z",
+      "known_at_utc": "2026-10-30T13:52:08Z",
+      "asset_id": "USDJPY",
+      "event_id": "US_ECI_20261030",
+      "call": {
+        "value": "ABSTAIN",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": []
+      },
+      "direction": {
+        "value": "NONE",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": []
+      },
+      "horizon_days": {
+        "value": null,
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": [],
+        "missing_cause": "NO_CURRENT_EXACT_SCOREABLE_HORIZON_AUTHORITY"
+      },
+      "summary": {
+        "value": "No admitted evidence picks a USDJPY direction after the ECI.",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": [
+          "src:bls:eci:2026q3"
+        ]
+      },
+      "rationale": {
+        "value": "The Primary proposed a weak conditional SHORT WATCH. The critical review rejected it, and the owner records ABSTAIN with the SHORT kept as an analytical hypothesis and no active WATCH (EARLY_REFUSAL_WITH_ANALYTICAL_HYPOTHESIS_RETAINED). Deterministic record, retained: no contradicting_evidence_ids; supporting evidence ev_primary_3850365a9860a9ab9d89; entry reference 157.695 as of 2026-10-30T00:00:00Z (a reference, not an entry). The roles cite the accepted research (both) and the ECI's private detail (critical) as contradicting. Capability: as written the watch is prose-only (NEEDS_STRUCTURED_REVIEW). It has no expiry, review time or planned exit, and with horizon_options empty an absolute planned_exit_at_utc could only be invented. There is no fresh side-specific SELL bid: the only tick shows bid = ask = 157.076 with last 0.0 and is flagged tick_is_fresh_execution_quote false. It also has no entry bounds and no observation or quote age limits. The yield and FOMC invalidations are not OHLC predicates. Conditions would have to use bars that open after final review, because the 2026-10-30 bar was already in progress, and thin Sunday bars (2026-10-25 tick_volume 5648 versus 96559 on 2026-10-23) could satisfy a completed-bar predicate. Analysis: the ECI-to-lower-US-path link has no measured surprise and no post-release yields. The private detail is firm: 12-month compensation 3.4% from 3.3%, wages flat at 3.1%, benefits 3.9% from 3.8%, health benefits 6.4% from 6.0%. State and local government leads the quarterly slowdown. The productivity argument describes conditions that coexisted with the 2026-09-16 hike. The consumption-squeeze channel is contradicted by Q2 real private domestic final sales growth of 4.6% while real wages were already negative. The owner's deflator arithmetic shows the September real-wage fall is mostly price-side, which in this inflation-focused tightening regime leans against a dovish read. The FX link rests on two partly aligned sessions. On 2026-10-22 (5y 4.95 to 4.78, USDJPY 158.15 to 156.542) a common de-risking would also have lowered the pair; on 2026-10-23 the 5y rose 4bp and USDJPY 0.19%. No US-Japan differential was observed, because JP2Y and JP10Y are DATA_UNAVAILABLE. Strongest competing mechanism: a common cross-asset de-risking or carry unwind. The unobserved 2026-10-27/28 FOMC outcome remains the dominant US input and could favour upside. Verified: closes of 158.15, 156.542, 156.846 and 157.695; the October range 156.075-158.952; the 2026-10-28 high of 158.349; no completed close below 156.075 since the 2026-09-16 close of 156.043; and the 2026-09-24 high of 159.037. Preserved dissent: the Primary's WATCH, and the critical review's view that the rate channel itself is plausible (a 155.288 close on 2026-09-15, 156.043 on the hike day, a 159.037 high on 2026-09-24).",
+        "rights_class": "DEMO_DERIVED_PRIVATE",
+        "visibility": "private",
+        "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+        "source_ids": [
+          "src:cc:eci-native-decision"
+        ]
+      },
+      "invalidation": {
+        "value": "No active WATCH. The retained SHORT hypothesis is void on any of: a completed D1 close above 157.695 (the last completed pre-release close; a further close above 158.349, the 2026-10-28 high, strengthens the reversal); admitted official yields showing the US 5y higher after the release than on 2026-10-29; or an admitted 2026-10-27/28 FOMC statement signalling further tightening. It warrants fresh analysis, never an order, only when all of these hold: the admitted FOMC statement shows no further-tightening signal; Treasury rows show the post-release US 5y below its 2026-10-29 entry; and a completed weekday D1 bar that opens after final review closes below 156.075. That trigger does not discriminate on its own: such a close would be the first since 2026-09-16 and could equally reflect FOMC repricing or de-risking.",
+        "rights_class": "BROKER_PROXY_RAW_PRIVATE",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": [
+          "src:cc:eci-native-decision"
+        ]
+      },
+      "first_blocking_cause": {
+        "value": "ANALYTICAL_NO_ENTRY; no_current_exact_scoreable_horizon_authority",
+        "rights_class": "INTERNAL_PROVENANCE",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": [
+          "src:cc:eci-native-decision"
+        ]
+      },
+      "analytical_outcome": {
+        "status": {
+          "value": "NOT_SCORED_ABSTAIN",
+          "rights_class": "CC_OWN_ANALYSIS",
+          "visibility": "public",
+          "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+          "source_ids": []
+        },
+        "scored_at_utc": null,
+        "horizon_end_utc": null,
+        "score_basis": {
+          "value": null,
+          "rights_class": "CC_OWN_ANALYSIS",
+          "visibility": "public",
+          "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+          "source_ids": [],
+          "missing_cause": "ABSTAIN_IS_NOT_SCORED"
+        },
+        "scored_move": {
+          "value": null,
+          "rights_class": "CC_OWN_ANALYSIS",
+          "visibility": "public",
+          "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+          "source_ids": [],
+          "missing_cause": "ABSTAIN_IS_NOT_SCORED"
+        },
+        "note": {
+          "value": null,
+          "rights_class": "CC_OWN_ANALYSIS",
+          "visibility": "public",
+          "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+          "source_ids": [],
+          "missing_cause": "ABSTAIN_IS_NOT_SCORED"
+        }
+      },
+      "demo": {
+        "order_sent": {
+          "value": false,
+          "rights_class": "DEMO_DERIVED_PRIVATE",
+          "visibility": "private",
+          "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+          "source_ids": [
+            "src:cc:eci-native-decision"
+          ]
+        },
+        "result_r": {
+          "value": null,
+          "rights_class": "DEMO_DERIVED_PRIVATE",
+          "visibility": "private",
+          "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+          "source_ids": [
+            "src:cc:eci-native-decision"
+          ],
+          "missing_cause": "NO_ORDER"
+        }
+      },
+      "provenance": {
+        "model": {
+          "value": "claude-opus-5-5",
+          "rights_class": "INTERNAL_PROVENANCE",
+          "visibility": "private",
+          "use_label": "INTERNAL_ONLY",
+          "source_ids": [
+            "src:cc:eci-native-decision"
+          ]
+        },
+        "effort": {
+          "value": "max",
+          "rights_class": "INTERNAL_PROVENANCE",
+          "visibility": "private",
+          "use_label": "INTERNAL_ONLY",
+          "source_ids": [
+            "src:cc:eci-native-decision"
+          ]
+        },
+        "basis": {
+          "value": "PROVEN_BY_FINISH_STEP",
+          "rights_class": "INTERNAL_PROVENANCE",
+          "visibility": "private",
+          "use_label": "INTERNAL_ONLY",
+          "source_ids": [
+            "src:cc:eci-native-decision"
+          ]
+        },
+        "run_id": {
+          "value": "arrival-20261030T1222Z",
+          "rights_class": "INTERNAL_PROVENANCE",
+          "visibility": "private",
+          "use_label": "INTERNAL_ONLY",
+          "source_ids": [
+            "src:cc:eci-native-decision"
+          ]
+        }
+      }
+    },
+    {
+      "record_type": "decision_record",
+      "record_id": "decision:US_ECI_20261030:XAUUSD",
+      "decided_at_utc": "2026-10-30T13:51:45Z",
+      "known_at_utc": "2026-10-30T13:52:08Z",
+      "asset_id": "XAUUSD",
+      "event_id": "US_ECI_20261030",
+      "call": {
+        "value": "ABSTAIN",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": []
+      },
+      "direction": {
+        "value": "NONE",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": []
+      },
+      "horizon_days": {
+        "value": null,
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": [],
+        "missing_cause": "NO_CURRENT_EXACT_SCOREABLE_HORIZON_AUTHORITY"
+      },
+      "summary": {
+        "value": "No admitted evidence picks a gold direction after the ECI.",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": [
+          "src:bls:eci:2026q3"
+        ]
+      },
+      "rationale": {
+        "value": "The Primary (REJECT), the critical review (REJECT) and the owner agree: no expression and no watch this cycle. Deterministic record, retained: contradicting_evidence_ids current-primary:treasury-nominal and current-primary:treasury-real; supporting evidence ev_primary_d7e0bc54eb984ea60397; entry reference 4025.044 as of 2026-10-30T00:00:00Z (broker_observed_designated_demo_history), which is a reference, not an entry. What changed is only the ECI. It is a modest, mixed slowdown with no consensus, so no surprise can be measured, and the release-window reaction is unobserved. The capture print (3961.338/3961.378) is not a fresh execution quote. Its 1.58% gap below the 4025.044 close of 2026-10-29 built up over about 12.5 hours, mostly before the release, so it cannot be attributed to the ECI. On 2026-10-22, 5y/10y real yields fell from 2.55/2.76 to 2.33/2.64 while the XAUUSD D1 close fell 2.47%. Following the critical review, this shows the opportunity-cost channel unconfirmed in one partly aligned session, not disproven. The rivals (a funding or margin liquidation, a haven or energy-premium unwind, dollar flows) have no flow, funding, USD-index or current positioning evidence. The owner's deflator inference does not give gold a direction either, because faster price growth can lift inflation compensation or keep real yields high. Verified levels: the print sits below the 2026-10-23 low of 3975.465 and about 0.49% above 3942.204 (2026-06-30), which a full scan confirms is the lowest daily low in the supplied 300-bar history. Price has turned near 3942-3990 in late June to early July, mid-July and 23-27 October; that is a technical confound, not a direction. Gold is about 15.7% below the 2026-08-25 high of 4697.172 at the capture bid, or 14.3% at the 4025.044 close (the critical's correction to 'about 16%'). Preserved counter-view: the opportunity-cost channel may still hold over longer windows.",
+        "rights_class": "DEMO_DERIVED_PRIVATE",
+        "visibility": "private",
+        "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+        "source_ids": [
+          "src:cc:eci-native-decision"
+        ]
+      },
+      "invalidation": {
+        "value": "No active view, so nothing is invalidated. Revisit, not reverse automatically, on any of: admitted post-release real yields falling while the same-date completed XAUUSD D1 bar closes higher (conditional long analysis); admitted funding-stress, outflow or positioning evidence that identifies the driver (short analysis); or a completed weekday D1 close below 3942.204 or back above 4025.044, which is regime information for fresh analysis, not an entry. The ABSTAIN itself can change only after a deterministic horizon grant and a fresh side-specific quote.",
+        "rights_class": "BROKER_PROXY_RAW_PRIVATE",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": [
+          "src:cc:eci-native-decision"
+        ]
+      },
+      "first_blocking_cause": {
+        "value": "ANALYTICAL_NO_ENTRY; no_current_exact_scoreable_horizon_authority",
+        "rights_class": "INTERNAL_PROVENANCE",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": [
+          "src:cc:eci-native-decision"
+        ]
+      },
+      "analytical_outcome": {
+        "status": {
+          "value": "NOT_SCORED_ABSTAIN",
+          "rights_class": "CC_OWN_ANALYSIS",
+          "visibility": "public",
+          "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+          "source_ids": []
+        },
+        "scored_at_utc": null,
+        "horizon_end_utc": null,
+        "score_basis": {
+          "value": null,
+          "rights_class": "CC_OWN_ANALYSIS",
+          "visibility": "public",
+          "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+          "source_ids": [],
+          "missing_cause": "ABSTAIN_IS_NOT_SCORED"
+        },
+        "scored_move": {
+          "value": null,
+          "rights_class": "CC_OWN_ANALYSIS",
+          "visibility": "public",
+          "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+          "source_ids": [],
+          "missing_cause": "ABSTAIN_IS_NOT_SCORED"
+        },
+        "note": {
+          "value": null,
+          "rights_class": "CC_OWN_ANALYSIS",
+          "visibility": "public",
+          "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+          "source_ids": [],
+          "missing_cause": "ABSTAIN_IS_NOT_SCORED"
+        }
+      },
+      "demo": {
+        "order_sent": {
+          "value": false,
+          "rights_class": "DEMO_DERIVED_PRIVATE",
+          "visibility": "private",
+          "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+          "source_ids": [
+            "src:cc:eci-native-decision"
+          ]
+        },
+        "result_r": {
+          "value": null,
+          "rights_class": "DEMO_DERIVED_PRIVATE",
+          "visibility": "private",
+          "use_label": "PRIVATE_RESEARCH_AND_DEMO_DECISIONS_ONLY_NEVER_PUBLIC",
+          "source_ids": [
+            "src:cc:eci-native-decision"
+          ],
+          "missing_cause": "NO_ORDER"
+        }
+      },
+      "provenance": {
+        "model": {
+          "value": "claude-opus-5-5",
+          "rights_class": "INTERNAL_PROVENANCE",
+          "visibility": "private",
+          "use_label": "INTERNAL_ONLY",
+          "source_ids": [
+            "src:cc:eci-native-decision"
+          ]
+        },
+        "effort": {
+          "value": "max",
+          "rights_class": "INTERNAL_PROVENANCE",
+          "visibility": "private",
+          "use_label": "INTERNAL_ONLY",
+          "source_ids": [
+            "src:cc:eci-native-decision"
+          ]
+        },
+        "basis": {
+          "value": "PROVEN_BY_FINISH_STEP",
+          "rights_class": "INTERNAL_PROVENANCE",
+          "visibility": "private",
+          "use_label": "INTERNAL_ONLY",
+          "source_ids": [
+            "src:cc:eci-native-decision"
+          ]
+        },
+        "run_id": {
+          "value": "arrival-20261030T1222Z",
+          "rights_class": "INTERNAL_PROVENANCE",
+          "visibility": "private",
+          "use_label": "INTERNAL_ONLY",
+          "source_ids": [
+            "src:cc:eci-native-decision"
+          ]
+        }
+      }
+    }
+  ],
+  "calendar_entries": [
+    {
+      "record_type": "calendar_entry",
+      "record_id": "calendar:US_ECI_20261030",
+      "event_id": "US_ECI_20261030",
+      "agency": {
+        "value": "U.S. Bureau of Labor Statistics",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:eci:2026q3"
+        ]
+      },
+      "name": {
+        "value": "Employment Cost Index, Q3",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:eci:2026q3"
+        ]
+      },
+      "scheduled_at_utc": {
+        "value": "2026-10-30T12:30:00Z",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:eci:2026q3"
+        ]
+      },
+      "importance": {
+        "value": "HIGH",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": []
+      },
+      "official_url": {
+        "value": "https://www.bls.gov/news.release/eci.nr0.htm",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:eci:2026q3"
+        ]
+      },
+      "arming_run": {
+        "value": true,
+        "rights_class": "INTERNAL_PROVENANCE",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": []
+      }
+    },
+    {
+      "record_type": "calendar_entry",
+      "record_id": "calendar:US_TRADE_20261104",
+      "event_id": "US_TRADE_20261104",
+      "agency": {
+        "value": "U.S. Bureau of Economic Analysis",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bea:schedule:2026"
+        ]
+      },
+      "name": {
+        "value": "International trade in goods and services",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bea:schedule:2026"
+        ]
+      },
+      "scheduled_at_utc": {
+        "value": "2026-11-04T13:30:00Z",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bea:schedule:2026"
+        ]
+      },
+      "importance": {
+        "value": "MEDIUM",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": []
+      },
+      "official_url": {
+        "value": "https://www.bea.gov/news/schedule",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bea:schedule:2026"
+        ]
+      },
+      "arming_run": {
+        "value": false,
+        "rights_class": "INTERNAL_PROVENANCE",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": []
+      }
+    },
+    {
+      "record_type": "calendar_entry",
+      "record_id": "calendar:US_PRODUCTIVITY_20261105",
+      "event_id": "US_PRODUCTIVITY_20261105",
+      "agency": {
+        "value": "U.S. Bureau of Labor Statistics",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "name": {
+        "value": "Productivity and costs",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "scheduled_at_utc": {
+        "value": "2026-11-05T13:30:00Z",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "importance": {
+        "value": "MEDIUM",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": []
+      },
+      "official_url": {
+        "value": "https://www.bls.gov/schedule/2026/11_sched.htm",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "arming_run": {
+        "value": false,
+        "rights_class": "INTERNAL_PROVENANCE",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": []
+      }
+    },
+    {
+      "record_type": "calendar_entry",
+      "record_id": "calendar:US_NFP_20261106",
+      "event_id": "US_NFP_20261106",
+      "agency": {
+        "value": "U.S. Bureau of Labor Statistics",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "name": {
+        "value": "Employment Situation",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "scheduled_at_utc": {
+        "value": "2026-11-06T13:30:00Z",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "importance": {
+        "value": "HIGH",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": []
+      },
+      "official_url": {
+        "value": "https://www.bls.gov/news.release/empsit.nr0.htm",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "arming_run": {
+        "value": true,
+        "rights_class": "INTERNAL_PROVENANCE",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": []
+      }
+    },
+    {
+      "record_type": "calendar_entry",
+      "record_id": "calendar:US_CPI_20261110",
+      "event_id": "US_CPI_20261110",
+      "agency": {
+        "value": "U.S. Bureau of Labor Statistics",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "name": {
+        "value": "Consumer Price Index",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "scheduled_at_utc": {
+        "value": "2026-11-10T13:30:00Z",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "importance": {
+        "value": "HIGH",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": []
+      },
+      "official_url": {
+        "value": "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "arming_run": {
+        "value": true,
+        "rights_class": "INTERNAL_PROVENANCE",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": []
+      }
+    },
+    {
+      "record_type": "calendar_entry",
+      "record_id": "calendar:US_PPI_20261113",
+      "event_id": "US_PPI_20261113",
+      "agency": {
+        "value": "U.S. Bureau of Labor Statistics",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "name": {
+        "value": "Producer Price Index",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "scheduled_at_utc": {
+        "value": "2026-11-13T13:30:00Z",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "importance": {
+        "value": "HIGH",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": []
+      },
+      "official_url": {
+        "value": "https://www.bls.gov/news.release/ppi.nr0.htm",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:schedule:2026"
+        ]
+      },
+      "arming_run": {
+        "value": true,
+        "rights_class": "INTERNAL_PROVENANCE",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": []
+      }
+    },
+    {
+      "record_type": "calendar_entry",
+      "record_id": "calendar:NVDA_EARNINGS_20261117",
+      "event_id": "NVDA_EARNINGS_20261117",
+      "agency": {
+        "value": "NVIDIA Corporation",
+        "rights_class": "OFFICIAL_SOURCE_CONTRACT_PENDING",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": [
+          "src:nvidia:ir:events"
+        ]
+      },
+      "name": {
+        "value": "NVIDIA third-quarter fiscal 2027 results",
+        "rights_class": "OFFICIAL_SOURCE_CONTRACT_PENDING",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": [
+          "src:nvidia:ir:events"
+        ]
+      },
+      "scheduled_at_utc": {
+        "value": "2026-11-17T22:00:00Z",
+        "rights_class": "OFFICIAL_SOURCE_CONTRACT_PENDING",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": [
+          "src:nvidia:ir:events"
+        ]
+      },
+      "importance": {
+        "value": "HIGH",
+        "rights_class": "INTERNAL_PROVENANCE",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": []
+      },
+      "official_url": {
+        "value": "https://investor.nvidia.com/events-and-presentations/events-and-presentations/default.aspx",
+        "rights_class": "OFFICIAL_SOURCE_CONTRACT_PENDING",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": [
+          "src:nvidia:ir:events"
+        ]
+      },
+      "arming_run": {
+        "value": false,
+        "rights_class": "INTERNAL_PROVENANCE",
+        "visibility": "private",
+        "use_label": "INTERNAL_ONLY",
+        "source_ids": []
+      }
+    }
+  ],
+  "reports": [
+    {
+      "record_type": "report",
+      "record_id": "report:week-ahead:2026-11-02",
+      "report_type": "WEEK_AHEAD",
+      "for_date": "2026-11-02",
+      "generated_at_utc": "2026-10-30T13:52:08Z",
+      "title": {
+        "value": "Week ahead: US data, 2 to 6 November",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public",
+        "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+        "source_ids": [
+          "src:bls:schedule:2026",
+          "src:bea:schedule:2026"
+        ]
+      },
+      "sections": [
+        {
+          "section_id": "us-data",
+          "heading": {
+            "value": "US data",
+            "rights_class": "CC_OWN_ANALYSIS",
+            "visibility": "public",
+            "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+            "source_ids": [
+              "src:bls:schedule:2026"
+            ]
+          },
+          "body_markdown": {
+            "value": "Trade (Wednesday, BEA), productivity and costs (Thursday, BLS) and the October employment report (Friday, BLS), each at 13:30 UTC.",
+            "rights_class": "CC_OWN_ANALYSIS",
+            "visibility": "public",
+            "use_label": "PUBLIC_OWN_ANALYSIS_NOT_ADVICE",
+            "source_ids": [
+              "src:bls:schedule:2026",
+              "src:bea:schedule:2026"
+            ]
+          },
+          "cites": [
+            "calendar:US_TRADE_20261104",
+            "calendar:US_PRODUCTIVITY_20261105",
+            "calendar:US_NFP_20261106"
+          ]
+        }
+      ]
+    },
+    {
+      "record_type": "report",
+      "record_id": "report:weekday-brief:2026-10-30",
+      "report_type": "WEEKDAY_BRIEF",
+      "for_date": "2026-10-30",
+      "generated_at_utc": "2026-10-30T13:52:08Z",
+      "title": {
+        "value": "Brief, 30 October: the Employment Cost Index",
+        "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "pro",
+        "use_label": "PRO_SUBSCRIBERS_ONLY",
+        "source_ids": []
+      },
+      "sections": [
+        {
+          "section_id": "what-changed",
+          "heading": {
+            "value": "What changed",
+            "rights_class": "CC_OWN_ANALYSIS",
+            "visibility": "pro",
+            "use_label": "PRO_SUBSCRIBERS_ONLY",
+            "source_ids": []
+          },
+          "body_markdown": {
+            "value": "Compensation growth eased to 0.8% in the third quarter. The research run found no admitted evidence for a USDJPY or gold direction and recorded no view.",
+            "rights_class": "CC_OWN_ANALYSIS",
+            "visibility": "pro",
+            "use_label": "PRO_SUBSCRIBERS_ONLY",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ]
+          },
+          "cites": [
+            "event:US_ECI_20261030",
+            "decision:US_ECI_20261030:USDJPY",
+            "decision:US_ECI_20261030:XAUUSD"
+          ]
+        }
+      ]
+    }
+  ],
+  "data_series": [
+    {
+      "record_type": "data_series",
+      "record_id": "series:bls:eci:civilian-compensation-3m",
+      "series_id": "bls:eci:civilian_compensation_3m_sa",
+      "series_code": "CIS1010000000000Q",
+      "title": {
+        "value": "ECI civilian compensation, 3-month change, seasonally adjusted",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:bls:eci:2026q3",
+          "src:bls:api:eci-history"
+        ]
+      },
+      "unit": "percent",
+      "decimals": 1,
+      "seasonal_adjustment": "SA",
+      "frequency": "QUARTERLY",
+      "known_at_utc": "2026-10-30T12:30:21.938Z",
+      "window": {
+        "start": "2024-Q1",
+        "end": "2026-Q3"
+      },
+      "observations": {
+        "value": [
+          {
+            "period": "2024-Q1",
+            "value": 1.0
+          },
+          {
+            "period": "2024-Q2",
+            "value": 0.9
+          },
+          {
+            "period": "2024-Q3",
+            "value": 0.8
+          },
+          {
+            "period": "2024-Q4",
+            "value": 0.9
+          },
+          {
+            "period": "2025-Q1",
+            "value": 0.9
+          },
+          {
+            "period": "2025-Q2",
+            "value": 0.9
+          },
+          {
+            "period": "2025-Q3",
+            "value": 0.8
+          },
+          {
+            "period": "2025-Q4",
+            "value": 0.7
+          },
+          {
+            "period": "2026-Q1",
+            "value": 0.9
+          },
+          {
+            "period": "2026-Q2",
+            "value": 0.9
+          },
+          {
+            "period": "2026-Q3",
+            "value": 0.8
+          }
+        ],
+        "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+        "visibility": "public",
+        "use_label": "PUBLIC_WITH_ATTRIBUTION",
+        "source_ids": [
+          "src:bls:api:eci-history",
+          "src:bls:eci:2026q3"
+        ],
+        "unit": "percent"
+      }
+    },
+    {
+      "record_type": "data_series",
+      "record_id": "series:treasury:par-10y",
+      "series_id": "treasury:par_yield:10y",
+      "series_code": "BC_10YEAR",
+      "title": {
+        "value": "US Treasury 10-year par yield",
+        "rights_class": "PUBLIC_FACT_IDENTITY",
+        "visibility": "public",
+        "use_label": "PUBLIC_FACT",
+        "source_ids": [
+          "src:treasury:par-yield-curve"
+        ]
+      },
+      "unit": "percent",
+      "decimals": 2,
+      "seasonal_adjustment": "NOT_APPLICABLE",
+      "frequency": "DAILY",
+      "known_at_utc": "2026-08-28T08:37:32Z",
+      "window": {
+        "start": "2026-08-14",
+        "end": "2026-08-27"
+      },
+      "observations": {
+        "value": [
+          {
+            "period": "2026-08-14",
+            "value": 4.68
+          },
+          {
+            "period": "2026-08-17",
+            "value": 4.72
+          },
+          {
+            "period": "2026-08-18",
+            "value": 4.71
+          },
+          {
+            "period": "2026-08-19",
+            "value": 4.65
+          },
+          {
+            "period": "2026-08-20",
+            "value": 4.69
+          },
+          {
+            "period": "2026-08-21",
+            "value": 4.74
+          },
+          {
+            "period": "2026-08-24",
+            "value": 4.7
+          },
+          {
+            "period": "2026-08-25",
+            "value": 4.64
+          },
+          {
+            "period": "2026-08-26",
+            "value": 4.66
+          },
+          {
+            "period": "2026-08-27",
+            "value": 4.67
+          }
+        ],
+        "rights_class": "US_TREASURY_OFFICIAL_PUBLIC_DERIVED",
+        "visibility": "public",
+        "use_label": "PUBLIC_WITH_ATTRIBUTION",
+        "source_ids": [
+          "src:treasury:par-yield-curve"
+        ],
+        "unit": "percent"
+      }
+    }
+  ],
+  "integrity": {
+    "canonicalization": "JSON_SORTED_KEYS_COMPACT_UTF8_WITHOUT_INTEGRITY",
+    "content_sha256": "8c5b8f22afec3fbfe2f24892abbfde854b97800e72b93e3014f5f69049da7684"
+  }
+}
