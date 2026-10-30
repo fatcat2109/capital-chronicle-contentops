@@ -15,14 +15,24 @@ CONFIG_PATH = Path(__file__).resolve().parent.parent / "config/native_newsroom_v
 PHOTOLESS_INSTAGRAM_SKIP = "SKIPPED_PHOTOLESS_NEWS_POLICY"
 
 
-def volume_policy(cutoff_utc, *, brief_only=False):
+def _eligible_volume_policies(cutoff_utc, *, brief_only=False):
     config = json.loads(CONFIG_PATH.read_bytes())
     day = newsroom_production_date(cutoff_utc).isoformat()
     if day < config["effective_production_date"]:
-        return None
-    return {k: config[k] for k in ("policy_id", "effective_production_date", "source_request_limit",
+        return []
+    original = {k: config[k] for k in ("policy_id", "effective_production_date", "source_request_limit",
             "non_chargeable_only", "source_resolvability_first", "photo_less_news_policy")} | {
         **config["brief_window" if brief_only else "full_window"], "brief_only": bool(brief_only)}
+    versions = [original]
+    amendment = config.get("source_coverage_amendment")
+    if amendment and day >= amendment["effective_production_date"]:
+        versions.append({**original, **amendment})
+    return versions
+
+
+def volume_policy(cutoff_utc, *, brief_only=False):
+    versions = _eligible_volume_policies(cutoff_utc, brief_only=brief_only)
+    return versions[-1] if versions else None
 
 
 def bound_volume_policy(binding):
@@ -32,8 +42,10 @@ def bound_volume_policy(binding):
         return None
     if not isinstance(policy, dict):
         raise ValueError("NATIVE_VOLUME_POLICY_BINDING_INVALID")
-    expected = volume_policy(binding["cutoff_utc"], brief_only=policy.get("brief_only", False))
-    if expected != policy:
+    # A source-cap amendment selects new bindings only; an already issued
+    # original binding remains valid with its exact frozen ten-request limit.
+    expected = _eligible_volume_policies(binding["cutoff_utc"], brief_only=policy.get("brief_only", False))
+    if policy not in expected:
         raise ValueError("NATIVE_VOLUME_POLICY_BINDING_INVALID")
     return policy
 

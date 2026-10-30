@@ -92,7 +92,7 @@ class SimpleFirstPartyAwareEvidenceResolver:
         | Mapping[str, Any]
         | None = None,
     ) -> None:
-        if int(max_requests) != 6 and not (int(max_requests) == 10 and non_chargeable_only):
+        if int(max_requests) != 6 and not (int(max_requests) in {10, 20} and non_chargeable_only):
             raise ValueError("simple_evidence_global_request_limit_must_equal_six")
         self._evaluation_as_of_utc = str(evaluation_as_of_utc)
         self._max_requests = int(max_requests)

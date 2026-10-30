@@ -12,5 +12,10 @@
   "photo_less_news_policy": true,
   "daily_distinct_canonical_target": 8,
   "target_by_revised_production_day": 3,
-  "reader_counts_missing_state": "UNAVAILABLE"
+  "reader_counts_missing_state": "UNAVAILABLE",
+  "source_coverage_amendment": {
+    "policy_id": "CC-047-20261030",
+    "effective_production_date": "2026-10-31",
+    "source_request_limit": 20
+  }
 }

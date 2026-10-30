@@ -364,7 +364,8 @@ def run_report_editorial_cycle(
             args["capital_chronicle_context"]["owner_editorial_request"] = editorial_request
         args["capital_chronicle_context"]["native_source_reviews"] = list(source_reviews)
         args["source_requests_before_writer_freeze"] = sum(len(s["source_attempts"]) for s in source_reviews)
-        if args["source_requests_before_writer_freeze"] > 6:
+        source_limit = (getattr(llm_invoke, "volume_policy", None) or {}).get("source_request_limit", 6)
+        if args["source_requests_before_writer_freeze"] > source_limit:
             raise ValueError("SHARED_SOURCE_REQUEST_BUDGET_EXCEEDED")
         for headline in args["rolling_input"].get("headlines", []):
             for review in source_reviews:
