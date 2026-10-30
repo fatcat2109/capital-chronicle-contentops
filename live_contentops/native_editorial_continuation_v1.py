@@ -42,6 +42,9 @@ def next_editorial_action(result: Mapping[str, Any]) -> dict[str, Any]:
             raise ValueError("PENDING_NATIVE_ROLE_HAS_NO_DISPATCH")
         if len(calls) > 3 or any(c.get("tool") not in {"collaboration.spawn_agent", "collaboration.followup_task"} for c in calls):
             raise ValueError("BOUNDED_SUPPORTED_NATIVE_CALLS_REQUIRED")
+        from live_contentops.native_desktop_editorial_v1 import validate_native_role_dispatch
+        for call in calls:
+            validate_native_role_dispatch(call)
         return {"action": "EXECUTE_AND_COLLECT_NATIVE_ROLES", "calls": calls,
                 "after_returns": "SUBMIT_EACH_THEN_ADVANCE_SAME_BINDING", "terminal": False,
                 "remaining_unprocessed": result.get("filter_progress", {}).get("remaining_unprocessed")}

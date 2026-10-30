@@ -55,7 +55,7 @@ class FrozenReplayResearch:
             "provenance": {"request_count_for_call": 0, "network_acquisition_on_replay": False}}
 
 
-def pending_result(requests, binding, *, same_writer=None):
+def pending_result(requests, binding, *, same_writer=None, same_writer_configuration=None):
     first = requests[0]
     result = {"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "stage": first["stage"],
               "filter_progress": first.get("filter_progress", {})}
@@ -66,7 +66,8 @@ def pending_result(requests, binding, *, same_writer=None):
     else:
         result["next_native_calls"] = [native_role_call(r, binding,
             binding_path=Path(binding["output_dir"]) / "binding.json",
-            same_writer_invocation=same_writer if r["role"] not in {"filter", "select"} else None)
+            same_writer_invocation=same_writer if r["role"] not in {"filter", "select"} else None,
+            same_writer_configuration=same_writer_configuration)
             for r in requests]
     result["coordinator_action"] = next_editorial_action(result)
     return result
@@ -200,7 +201,8 @@ def main():
             requests = pending.request.get("parallel_requests", [pending.request])
             prior = turn._get("write", "response") or turn.visual_response()
             writer = prior["invocation_observation"]["invocation_id"] if prior else options.same_writer
-            result = pending_result(requests, binding, same_writer=writer)
+            result = pending_result(requests, binding, same_writer=writer,
+                same_writer_configuration=prior["invocation_observation"] if prior else None)
             (root / "pending-calls.json").write_text(json.dumps(result.get("next_native_calls", []), indent=2), encoding="utf-8")
     print(json.dumps(result, ensure_ascii=True, default=str))
 
