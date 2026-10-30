@@ -122,3 +122,38 @@ def test_command_error_preserves_failure_instead_of_editorial_hold():
     assert consume_advance_result({"exit_code": 1, "output": "exception"})["action"] == "REPAIR_COMMAND_ERROR"
     with pytest.raises(ValueError, match="WITHOUT_JSON"):
         consume_advance_result({"exit_code": 0, "output": ""})
+
+
+def test_writer_notice_survives_all_eight_derivatives_and_thread_limits():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle
+    notice = "Analysis, not financial advice. Readers decide whether to trade."
+    article = {
+        "title": "Funding proposal remains subject to final terms",
+        "dek": "The reported proposal does not establish that a financing has closed.",
+        "social_hook": "Investors still need confirmation of commitments and transaction terms.",
+        "social_mechanism_summary": "A proposed transaction valuation does not establish operating performance.",
+        "social_policy_summary": "The retained account describes a proposal rather than a completed financing.",
+        "social_cross_asset_summary": "Confirmation of commitments and final terms would test the reported proposal.",
+        "substack_body_markdown": "A reported proposal remains unconfirmed. [[SOURCE:SOURCE_1]]\n\n" + notice,
+        "reader_first_version": "DATA_JOURNALISM_V1",
+        "visual_editorial_decision": {"channel_media": {d: [] for d in (
+            "telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube")}},
+    }
+    # Use an admitted image ID for Instagram without touching an external transport.
+    article["visual_editorial_decision"]["channel_media"]["instagram_business"] = ["photo"]
+    bundle, _ = _native_preview_bundle(article=article, article_mode="BREAKING_BRIEF",
+        article_identity="a" * 64, media_asset_ids=["photo"])
+    assert len(bundle["packages"]) == 8
+    for payload in bundle["packages"].values():
+        assert notice in " ".join((payload.get("full_text") or payload["text"]).split())
+        if payload.get("posts"):
+            assert notice in " ".join(" ".join(p["text"] for p in payload["posts"]).split())
+            assert all(len(p["text"]) <= payload["platform_limit"] for p in payload["posts"])
+
+
+def test_historical_article_without_writer_notice_is_not_rewritten():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
+    article = {"title": "Historical article", "substack_body_markdown": "Retained exact body."}
+    compiled = _reader_safe_native_article(article, article_mode="BREAKING_BRIEF")
+    assert compiled["substack_body_markdown"] == article["substack_body_markdown"]
+    assert compiled["editorial_scope_notice"] == ""
