@@ -28,6 +28,62 @@ def test_pending_role_without_actual_call_is_a_process_defect():
         next_editorial_action(result)
 
 
+def test_media_preparation_is_a_local_command_before_a_native_request_exists():
+    from scripts.replay_cc041_native_window import pending_result
+    result = pending_result([{"stage": "media-plan"}], {"output_dir": "isolated", "run_id": "same"})
+    assert result["coordinator_action"]["action"] == "EXECUTE_EDITORIAL_COMMAND"
+    assert result["next_command"]["command"] == "media-plan"
+    assert "next_native_calls" not in result
+    assert not result["coordinator_action"]["terminal"]
+
+
+def test_fresh_role_dispatch_has_no_retired_callback_authority(tmp_path):
+    from live_contentops.codex_desktop_newsroom_operator_v1 import native_role_call
+    request = {"stage": "select", "run_id": "run", "requested_model": "gpt-6.1-sol",
+        "requested_reasoning_effort": "low", "request_sha256": "a" * 64, "request_path": "frozen.json"}
+    call = native_role_call(request, {"run_id": "run", "output_dir": str(tmp_path)}, binding_path="binding.json")
+    message = call["arguments"]["message"]
+    assert "EXACT NATIVE ASSIGNMENT:" in message
+    assert "Do not read or message archived chats" in message
+    assert "Only after genuinely completing the WHOLE goal" not in message
+
+
+def test_replay_missing_source_cannot_fall_through_to_network():
+    from types import SimpleNamespace
+    from scripts.replay_cc041_native_window import FrozenReplayResearch
+    retained = SimpleNamespace(revision="frozen", records={}, evidence=lambda *a, **kw: None)
+    result = FrozenReplayResearch(retained).evidence({"headline_ids": ["uncached"]}, cutoff_utc="frozen")
+    assert result["status"] == "BLOCKED"
+    assert result["provenance"] == {"request_count_for_call": 0, "network_acquisition_on_replay": False}
+
+
+def test_replay_resumes_canonical_final_and_exposes_its_actual_render_targets(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    from scripts.replay_cc041_native_window import resume_frozen_window, editorial_command
+    from test_native_desktop_publication_v1 import seeded
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    fixture, binding, _, expected, _ = seeded(tmp_path, monkeypatch, manual=True, final_visual=False)
+    # The transport fixture intentionally uses target_surface=TEST; mirror an
+    # editorial work item in a separate disposable store for this integration.
+    store = ContentOpsDurableStore(tmp_path / "canonical-fixture.sqlite3")
+    binding = {**binding, "store_path": str(store.db_path)}
+    work = "cc-opportunity-" + sha256_of(binding["run_id"])
+    store.create_work_item(story_id=work, work_item_id=work, title="Controlled editorial replay",
+        target_surface="CONTENTOPS_EDITORIAL_ONLY")
+    row = fixture.get_outbox_message("cc-editorial-final-" + sha256_of(binding["run_id"]))
+    store.register_outbox_message(message_id=row["message_id"], work_item_id=work,
+        destination=row["destination"], payload=row["payload"], status=row["status"])
+    research = SimpleNamespace(revision=None, records={})
+    result = resume_frozen_window(store, binding, {}, [], research)
+    assert result["article_identity"] == expected["article_identity"]
+    assert result["qualified_article_count"] == 1
+    targets = editorial_command(store, binding, "final-visual-review")
+    assert targets["classification"] == "FINAL_VISUAL_RENDER_TARGETS"
+    assert targets["article_identity"] == result["article_identity"]
+    assert store.list_platform_dispatches() == []
+
+
 def test_unassigned_population_never_passes_as_a_complete_window():
     with pytest.raises(ValueError, match="UNASSIGNED_FILTER"):
         next_editorial_action({"classification": "NO_PUBLICATION", "filter_progress": {"remaining_unprocessed": 25}})

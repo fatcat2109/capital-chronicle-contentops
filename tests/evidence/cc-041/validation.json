@@ -1,0 +1,56 @@
+{
+  "item": "CC-041",
+  "status": "BLOCKED",
+  "observed_at_utc": "2026-10-30T06:40:00Z",
+  "acceptance_passed": false,
+  "tests": {
+    "passed": 104,
+    "failed": 0,
+    "files": [
+      "tests/test_native_editorial_continuation_v1.py",
+      "tests/test_native_headline_filter_v1.py",
+      "tests/test_native_final_visual_review_v1.py",
+      "tests/test_native_desktop_editorial_v1.py",
+      "tests/test_codex_desktop_newsroom_operator_v1.py"
+    ],
+    "scope": "deterministic continuation, immutable batches, role dispatch, canonical replay result and exact final-review targets; no model or visual acceptance implied"
+  },
+  "replay": {
+    "run_id": "cc-041-copied-window-20261030",
+    "cutoff_utc": "2026-10-29T17:58:43.783043+00:00",
+    "private_root": "tests/evidence/cc-041/private-replay",
+    "copied_store_mode": "SHADOW_ONLY",
+    "retained_filter_counts": {"seen": 1535, "kept": 920, "rejected": 495, "deferred": 120, "remaining_unprocessed": 0},
+    "retained_counts_are_new_invocations": false,
+    "pending_stage": "select",
+    "request_sha256": "ad3d28bcb8e3c6fa447f028e6ed96988619b3ea542cb15a04b39b9b0cfe72979",
+    "actual_invocation_id": "/root/native_select_ad3d28bcb8e3",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "observed_model": null,
+    "observed_reasoning_effort": null,
+    "returned_response_sha256": "58062278ab95b04f8206ced36e94fa77b6fe9215d054a1a158cb732b93c0ac0d",
+    "submission_error": "ACTUAL_NATIVE_MODEL_AND_EFFORT_REQUIRED",
+    "return_submitted": false,
+    "reviewed_article_acceptance": false,
+    "repaired_advance_exit_code": 0,
+    "repaired_advance_artifact": "tests/evidence/cc-041/private-replay/advance-repaired-command.json"
+  },
+  "production_read_only_observations": {
+    "operating_mode": "KILL_SWITCH",
+    "state_version": 39,
+    "llm_operator_pause_marker_present": true,
+    "windows_daily_app_task_enabled": false,
+    "windows_daily_app_task_state": "Running",
+    "note": "Disabled task still reports an existing running instance. No process or task was changed. App schedule states were not re-read."
+  },
+  "limits": [
+    "Native spawn and agent-list results expose the canonical invocation name but no effective model or effort. Requested configuration was not promoted to actual telemetry.",
+    "The whole-window reviewed-article acceptance test remains unfinished. Production activation and publication are not authorized by these tests.",
+    "Copied database, raw captures, native returns and runtime artifacts remain ignored and uncommitted."
+  ],
+  "smallest_next_action": "Obtain supported actual model and effort metadata for the saved native invocation, bind only that verified observation to its exact return, submit and continue the same copied-store window through final review.",
+  "responsible_owner": "Native client/tool metadata provider; Codex Publisher resumes the preserved request once metadata is available",
+  "public_write_performed": false,
+  "production_controls_changed": false
+}

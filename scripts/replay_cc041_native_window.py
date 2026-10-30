@@ -10,7 +10,7 @@ import sqlite3
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, DesktopInputRequired, run_native_desktop_newsroom
+from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, DesktopInputRequired
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.codex_desktop_newsroom_operator_v1 import native_role_call
 from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
@@ -18,9 +18,78 @@ from live_contentops.native_editorial_continuation_v1 import next_editorial_acti
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
 
 
+class FrozenReplayResearch:
+    """Resolve retained evidence; never fall through to a fresh network acquisition."""
+
+    def __init__(self, retained):
+        self.retained = retained
+        self.revision = retained.revision
+        self.records = retained.records
+
+    def evidence(self, request, *, cutoff_utc):
+        return self.retained.evidence(request, cutoff_utc=cutoff_utc) or {
+            "status": "BLOCKED", "evidence_documents": [],
+            "blockers": ["FROZEN_REPLAY_NO_ADMITTED_SOURCE"],
+            "provenance": {"request_count_for_call": 0, "network_acquisition_on_replay": False}}
+
+
+def pending_result(requests, binding, *, same_writer=None):
+    first = requests[0]
+    result = {"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "stage": first["stage"],
+              "filter_progress": first.get("filter_progress", {})}
+    if not first.get("requested_model"):
+        if len(requests) != 1 or first["stage"] != "media-plan":
+            raise ValueError("EXACT_PENDING_EDITORIAL_COMMAND_REQUIRED")
+        result["next_command"] = {"command": "media-plan", "binding_path": str(Path(binding["output_dir"]) / "binding.json")}
+    else:
+        result["next_native_calls"] = [native_role_call(r, binding,
+            binding_path=Path(binding["output_dir"]) / "binding.json",
+            same_writer_invocation=same_writer if r["role"] not in {"filter", "select"} else None)
+            for r in requests]
+    result["coordinator_action"] = next_editorial_action(result)
+    return result
+
+
+def resume_frozen_window(store, binding, args, reports, research):
+    """Use the canonical result owner, including its durable final article record."""
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import LatestReportDeliveryTracker
+    from live_contentops.capital_chronicle_report_editorial_workspace_v1 import run_report_editorial_cycle, _Stages
+    pool_key = "cc-editorial-pool-" + sha256_of(binding["run_id"])
+    if (not store.get_outbox_message(pool_key)
+            and not store.get_outbox_message("cc-editorial-final-" + sha256_of(binding["run_id"]))):
+        # Adopt exactly the original pool, including prepared report inputs and
+        # its research revision. Do not reconstruct a pool from later sources.
+        matches = [json.loads(row["payload"]) for row in store.list_outbox_messages()
+            if row["message_id"].startswith("cc-editorial-pool-")
+            and json.loads(row["payload"]).get("args") == args
+            and json.loads(row["payload"]).get("reports") == reports]
+        if not matches or any(value != matches[0] for value in matches):
+            raise ValueError("EXACT_ORIGINAL_FROZEN_POOL_REQUIRED")
+        _Stages(LatestReportDeliveryTracker(store), "independent-" + sha256_of(binding["run_id"]),
+                binding["run_id"]).put(pool_key, matches[0])
+    turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"], owner_manual_validation=True)
+    return run_report_editorial_cycle(LatestReportDeliveryTracker(store),
+        receipt_id=reports[0]["receipt_id"] if reports else "independent-" + sha256_of(binding["run_id"]),
+        admission=reports[0] if reports else None, additional_reports=reports[1:],
+        output_dir=binding["output_dir"], cutoff_utc=binding["cutoff_utc"],
+        run_id=binding["run_id"], opportunity_id=binding["run_id"], llm_invoke=turn,
+        retained_research=FrozenReplayResearch(research))
+
+
+def editorial_command(store, binding, command, response=None):
+    # Only local editorial commands are exposed. The production CLI supplies
+    # media, final-review and review validation; publication is never routed.
+    from scripts.run_native_desktop_editorial import operation, BINDING_SCHEMA
+    root = Path(binding["output_dir"])
+    local = {**binding, "schema_version": BINDING_SCHEMA,
+        "feed_pointer_path": str(root / "unused-frozen-feed-pointer.json"),
+        "published_memory_store": binding["store_path"], "published_memory_output_root": str(root)}
+    return operation(local, command=command, response=response)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["prepare", "filter", "advance", "submit"])
+    parser.add_argument("command", choices=["prepare", "filter", "advance", "submit", "media-plan", "media", "final-visual-review", "review", "handoff"])
     parser.add_argument("--root", type=Path, required=True)
     parser.add_argument("--response", type=Path)
     parser.add_argument("--stage")
@@ -61,13 +130,19 @@ def main():
         print(json.dumps({"copied_store": str(copy_path), "mode": "SHADOW_ONLY", "live_store_written": False}))
         return
     binding = json.loads((root / "binding.json").read_bytes())
-    if Path(binding["store_path"]).resolve() != root / "copied.sqlite3":
+    if (Path(binding["store_path"]).resolve() != root / "copied.sqlite3"
+            or Path(binding["output_dir"]).resolve() != root or binding.get("owner_manual_validation") is not True):
         raise ValueError("COPIED_STORE_REQUIRED")
     store = ContentOpsDurableStore(root / "copied.sqlite3", auto_migrate=False)
+    if store.get_operating_control()["operating_mode"] != "SHADOW_ONLY":
+        raise ValueError("COPIED_STORE_SHADOW_MODE_REQUIRED")
     turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=root, owner_manual_validation=True)
     args = json.loads((root / "frozen-pool.json").read_bytes())
     if options.command == "submit":
         result = turn.submit(options.stage, json.loads(options.response.read_bytes()))
+    elif options.command in {"media-plan", "media", "final-visual-review", "review", "handoff"}:
+        result = editorial_command(store, binding, options.command,
+            json.loads(options.response.read_bytes()) if options.response else None)
     else:
         try:
             if options.command == "filter":
@@ -76,27 +151,16 @@ def main():
                 result = {"classification": "FILTER_COMPLETE", "seen": receipt["seen"], "remaining_unprocessed": receipt["remaining_unprocessed"]}
             else:
                 research = RetainedSourceResearch(repository / "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/retained_research")
-                from live_contentops.capital_chronicle_report_editorial_workspace_v1 import report_evidence
                 reports = json.loads((root / "frozen-reports.json").read_bytes())
-                by_headline = {"cc-report:" + r["envelope_sha256"]: r for r in reports}
-                def loader(request):
-                    report = next((by_headline[h] for h in request.get("headline_ids", []) if h in by_headline), None)
-                    if report is not None:
-                        return report_evidence(report)
-                    return research.evidence(request, cutoff_utc=args["cutoff_utc"]) or {
-                        "status": "BLOCKED", "evidence_documents": [],
-                        "blockers": ["FROZEN_REPLAY_NO_ADMITTED_SOURCE"],
-                        "provenance": {"request_count_for_call": 0, "network_acquisition_on_replay": False}}
-                allowed = {k:args[k] for k in ("cutoff_utc", "rolling_input", "published_memory", "capital_chronicle_context", "source_route_health", "attempted_candidate_ids") if k in args}
-                result = run_native_desktop_newsroom(output_dir=root, run_id=binding["run_id"], llm_invoke=turn, evidence_loader=loader, **allowed)
+                result = resume_frozen_window(store, binding, args, reports, research)
                 (root / "window-result.json").write_text(json.dumps(result, default=str), encoding="utf-8")
                 result = {k:result.get(k) for k in ("classification", "qualified_article_count", "exact_next_blocker", "article_path")}
         except DesktopInputRequired as pending:
             requests = pending.request.get("parallel_requests", [pending.request])
-            calls = [native_role_call(r, binding, binding_path=root / "binding.json", same_writer_invocation=options.same_writer if r["role"] not in {"filter", "select"} else None) for r in requests]
-            (root / "pending-calls.json").write_text(json.dumps(calls, indent=2), encoding="utf-8")
-            result = {"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "stage": pending.request["stage"], "filter_progress": pending.request.get("filter_progress", {}), "next_native_calls": calls}
-            result["coordinator_action"] = next_editorial_action(result)["action"]
+            prior = turn._get("write", "response") or turn.visual_response()
+            writer = prior["invocation_observation"]["invocation_id"] if prior else options.same_writer
+            result = pending_result(requests, binding, same_writer=writer)
+            (root / "pending-calls.json").write_text(json.dumps(result.get("next_native_calls", []), indent=2), encoding="utf-8")
     print(json.dumps(result, ensure_ascii=True, default=str))
 
 
