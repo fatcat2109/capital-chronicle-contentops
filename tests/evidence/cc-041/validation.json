@@ -1,7 +1,6 @@
 {
   "item": "CC-041",
   "status": "BLOCKED",
-  "observed_at_utc": "2026-10-30T06:40:00Z",
   "acceptance_passed": false,
   "tests": {
     "passed": 104,
@@ -20,7 +19,13 @@
     "cutoff_utc": "2026-10-29T17:58:43.783043+00:00",
     "private_root": "tests/evidence/cc-041/private-replay",
     "copied_store_mode": "SHADOW_ONLY",
-    "retained_filter_counts": {"seen": 1535, "kept": 920, "rejected": 495, "deferred": 120, "remaining_unprocessed": 0},
+    "retained_filter_counts": {
+      "seen": 1535,
+      "kept": 920,
+      "rejected": 495,
+      "deferred": 120,
+      "remaining_unprocessed": 0
+    },
     "retained_counts_are_new_invocations": false,
     "pending_stage": "select",
     "request_sha256": "ad3d28bcb8e3c6fa447f028e6ed96988619b3ea542cb15a04b39b9b0cfe72979",
@@ -52,5 +57,6 @@
   "smallest_next_action": "Obtain supported actual model and effort metadata for the saved native invocation, bind only that verified observation to its exact return, submit and continue the same copied-store window through final review.",
   "responsible_owner": "Native client/tool metadata provider; Codex Publisher resumes the preserved request once metadata is available",
   "public_write_performed": false,
-  "production_controls_changed": false
+  "production_controls_changed": false,
+  "recorded_at_utc": "2026-10-30T06:41:46.488336Z"
 }
