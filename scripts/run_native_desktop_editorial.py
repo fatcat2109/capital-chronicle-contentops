@@ -451,8 +451,8 @@ def operation(binding, **kwargs):
                     for r in result.pop("parallel_requests")]
                 result.pop("next_native_call",None)  # One dispatch list, no duplicate first-child intent.
                 result["continuation_required"] = "Dispatch the bounded independent native filter batches, collect every actual return, submit each once, then advance this SAME binding. No partial final while remaining_unprocessed is nonzero and work is executable."
-            from live_contentops.native_editorial_continuation_v1 import next_editorial_action
-            result["coordinator_action"] = next_editorial_action(result)
+        from live_contentops.native_editorial_continuation_v1 import next_editorial_action
+        result["coordinator_action"] = next_editorial_action(result)
     from live_contentops.native_newsroom_volume_v1 import bound_volume_policy, persist_native_day_measurement
     if (bound_volume_policy(binding) and binding.get("window_id")
             and kwargs.get("command", "advance") not in {"status", "publication-status", "context"}):

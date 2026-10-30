@@ -32,6 +32,11 @@ def consume_advance_result(command: Mapping[str, Any]) -> dict[str, Any]:
 def next_editorial_action(result: Mapping[str, Any]) -> dict[str, Any]:
     """No executable role or unfinished filter population can be a terminal window."""
     if result.get("classification") == "NATIVE_DESKTOP_INPUT_REQUIRED":
+        command = result.get("next_command")
+        if command and not result.get("next_native_call") and not result.get("next_native_calls"):
+            if command.get("command") != "media-plan" or not command.get("binding_path"):
+                raise ValueError("EXACT_PENDING_EDITORIAL_COMMAND_REQUIRED")
+            return {"action": "EXECUTE_EDITORIAL_COMMAND", "command": command, "terminal": False}
         calls = result.get("next_native_calls") or ([result["next_native_call"]] if result.get("next_native_call") else [])
         if not calls:
             raise ValueError("PENDING_NATIVE_ROLE_HAS_NO_DISPATCH")

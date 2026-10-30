@@ -232,7 +232,10 @@ def native_role_call(request, binding, *, binding_path, same_writer_invocation=N
         "to discover identity. If context omits it, leave it unknown and return your output; the coordinator has "
         "the actual spawn result and must bind that truthful observation before submit. "
         "Return the saved path/hash and substantive result in your native final return. "
-        + native_subagent_completion_prompt(**fields))
+        "Jim's current V4/host instructions retire the old L1/L2/L3 and relay routes. "
+        "Do not read or message archived chats, send a completion notice, create a goal or schedule. "
+        "The parent collects this role's supported native result in the same operation. "
+        "EXACT NATIVE ASSIGNMENT:\n" + json.dumps(fields, ensure_ascii=False, sort_keys=True))
     if same_writer_invocation:
         call = {"tool": "collaboration.followup_task", "arguments": {
             "target": same_writer_invocation, "message": message}}
