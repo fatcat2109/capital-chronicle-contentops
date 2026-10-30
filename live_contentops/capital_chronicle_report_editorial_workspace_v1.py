@@ -267,6 +267,7 @@ def run_report_editorial_cycle(
     retained_research=None,
     editorial_request: str | None = None,
     source_reviews=(),
+    desk_records=(),
 ) -> dict[str, Any]:
     """A single bounded manual opportunity; retries replay durable successful stages."""
     if llm_invoke is None and not llm_operator_pause_active():
@@ -363,6 +364,22 @@ def run_report_editorial_cycle(
             # Owner question metadata, never evidence, permission or numeric authority.
             args["capital_chronicle_context"]["owner_editorial_request"] = editorial_request
         args["capital_chronicle_context"]["native_source_reviews"] = list(source_reviews)
+        if desk_records:
+            args["capital_chronicle_context"]["desk_record_sources"] = list(desk_records)
+            from live_contentops.capital_chronicle_desk_record_source_v1 import story_context
+            from live_contentops.contentops_editorial_desk_v1 import read_reviews, selection_story_context
+            desk_stories = story_context(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
+            args["capital_chronicle_context"]["desk_record_story_memory"] = desk_stories
+            for source in desk_records:
+                binding = source["binding"]
+                related = [s for s in desk_stories if s["desk_record_binding"]["record_id"] == binding["record_id"]
+                    or set(s["asset_ids"]) & set(binding["asset_ids"])
+                    or set(s["event_ids"]) & set(binding["event_ids"])]
+                source["headline"]["external_content"]["evolving_story_context"] = [selection_story_context(s) for s in related[:8]]
+            existing_ids = {h["headline_id"] for h in args["rolling_input"].get("headlines", [])}
+            args["rolling_input"]["headlines"] = [
+                *[r["headline"] for r in desk_records if r["headline_id"] not in existing_ids],
+                *args["rolling_input"].get("headlines", [])]
         args["source_requests_before_writer_freeze"] = sum(len(s["source_attempts"]) for s in source_reviews)
         if args["source_requests_before_writer_freeze"] > 6:
             raise ValueError("SHARED_SOURCE_REQUEST_BUDGET_EXCEEDED")
@@ -530,6 +547,11 @@ def run_report_editorial_cycle(
             # without replacing prior cached failures or changing frozen inputs.
             if retained_research and getattr(retained_research, "evidence_cache_revision", None):
                 stage += ":adapter:" + sha256_of(retained_research.evidence_cache_revision)
+            if any(r["headline_id"] in request.get("headline_ids", [])
+                    for r in args["capital_chronicle_context"].get("desk_record_sources", [])):
+                # A source-pack repair joins the exact frozen public fields, retaining
+                # the original pre-writer attempt rather than overwriting its result.
+                stage += ":desk-record-related-fields-v1"
             recovery = llm_invoke.source_recovery() if native else None
             if recovery and recovery.get("pre_writer_context_attachment"):
                 # The selected history joins only after the unchanged current-event
@@ -588,11 +610,13 @@ def run_report_editorial_cycle(
                         request = original
                         break
             report = next((report_by_headline[h] for h in request.get("headline_ids", []) if h in report_by_headline), None)
+            from live_contentops.capital_chronicle_desk_record_source_v1 import desk_evidence
+            desk = desk_evidence(args["capital_chronicle_context"].get("desk_record_sources", []), request)
             return stages.call(
                 stage,
                 request,
                 lambda: (
-                    _join_reviewed_source_editions(report_evidence(report), retained_research, request,
+                    desk if desk is not None else _join_reviewed_source_editions(report_evidence(report), retained_research, request,
                         args["capital_chronicle_context"].get("native_source_reviews", []), cutoff_utc)
                     if report is not None
                     else (retained_research.evidence(request, cutoff_utc=cutoff_utc) if retained_research else None) or default_loader(request)
@@ -623,6 +647,19 @@ def run_report_editorial_cycle(
         }
         if simple.get("qualified_article_count") == 1:
             article = _artifact(root, "article_manifest_v1.json")
+            result["fixture_source_context"] = any(r["binding"]["fixture"]
+                for r in args["capital_chronicle_context"].get("desk_record_sources", []))
+            selected_desk = [r for r in args["capital_chronicle_context"].get("desk_record_sources", [])
+                if r["headline_id"] in simple.get("selected_candidate", {}).get("headline_ids", [simple.get("selected_candidate", {}).get("headline_id")])]
+            if selected_desk:
+                from live_contentops.capital_chronicle_desk_record_source_v1 import validate_article_citations
+                try:
+                    result["desk_record_validation"] = validate_article_citations(article, args["capital_chronicle_context"]["desk_record_sources"])
+                except ValueError as exc:
+                    raise LatestReportConsumerError(str(exc)) from exc
+                cited = {c["citation"].split("/", 1)[0] for c in article["desk_record_citations"]}
+                result["desk_record_source_bindings"] = [r["binding"] for r in args["capital_chronicle_context"]["desk_record_sources"]
+                    if r["binding"]["export_id"] + "#" + r["binding"]["record_id"] in cited]
             previews = _artifact(root, "native_derivative_previews_v1.json")
             validation = _artifact(root, "simple_gemini_validation_v1.json")
             evidence_walk = _artifact(root, "simple_gemini_evidence_v1.json")

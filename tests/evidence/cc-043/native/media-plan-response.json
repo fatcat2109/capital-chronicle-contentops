@@ -1,0 +1,312 @@
+{
+  "invocation_observation": {
+    "actual_configuration_unavailable": true,
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_source": "supported explicit spawn request",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "invocation_id": "/root/native_select_4eed707d16b0",
+    "model": null,
+    "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and effort unavailable.",
+    "reasoning_effort": null,
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  },
+  "output": {
+    "story_plan": {
+      "chart_plan": {
+        "attribution": "U.S. Bureau of Labor Statistics (BLS). Derived analysis; no BLS emblem or endorsement. Fixture, not current data.",
+        "editor_decides": "Same actual MAX editor selects final data, count, forms and placement; Light proposals are not final review or render acceptance.",
+        "gaps": [
+          "Authentic licensed photo missing",
+          "Source observation provenance for historical series versus latest endpoint must remain distinct",
+          "No asset reaction evidence; do not fill it with widget symbols or illustrative invented paths"
+        ],
+        "not_proposed": [
+          "No annual/quarterly mixed-axis chart",
+          "No duplicate latest-value panel to pad count",
+          "No USDJPY/gold reaction chart without admitted prices",
+          "No proprietary or copied chart"
+        ],
+        "proposals": [
+          {
+            "chart_id": "eci-quarterly-history",
+            "citation": "fixture-desk-record-export-v1-20261030#series:bls:eci:civilian-compensation-3m/observations",
+            "currency": null,
+            "field_path": "/observations",
+            "metric": "ECI civilian compensation, 3-month change, seasonally adjusted",
+            "missingness": "Use only supplied observations; no interpolation or extension.",
+            "observation_type": "actual",
+            "observations": [
+              {
+                "period": "2024-Q1",
+                "value": 1.0
+              },
+              {
+                "period": "2024-Q2",
+                "value": 0.9
+              },
+              {
+                "period": "2024-Q3",
+                "value": 0.8
+              },
+              {
+                "period": "2024-Q4",
+                "value": 0.9
+              },
+              {
+                "period": "2025-Q1",
+                "value": 0.9
+              },
+              {
+                "period": "2025-Q2",
+                "value": 0.9
+              },
+              {
+                "period": "2025-Q3",
+                "value": 0.8
+              },
+              {
+                "period": "2025-Q4",
+                "value": 0.7
+              },
+              {
+                "period": "2026-Q1",
+                "value": 0.9
+              },
+              {
+                "period": "2026-Q2",
+                "value": 0.9
+              },
+              {
+                "period": "2026-Q3",
+                "value": 0.8
+              }
+            ],
+            "period_end": "2026-Q3",
+            "period_start": "2024-Q1",
+            "reader_question": "How does the supplied latest quarterly compensation rise compare with its recent history?",
+            "record_id": "series:bls:eci:civilian-compensation-3m",
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "source_ids": [
+              "src:bls:api:eci-history",
+              "src:bls:eci:2026q3"
+            ],
+            "suggested_form": "Quarterly column or line chart, chosen by MAX",
+            "suggested_placement": "Alongside release context",
+            "transformation": "None; code validates periods and renders admitted exact values. Endpoint provenance must bind the release source.",
+            "unit": "percent"
+          },
+          {
+            "change_unit": "percentage_points",
+            "chart_id": "eci-components-prior-versus-actual",
+            "currency": null,
+            "distinct_value": "Component comparison explains composition rather than repeating the aggregate history. Exclude private-industry wages from the civilian comparison because population differs.",
+            "measures": [
+              {
+                "fields": [
+                  {
+                    "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_wages_3m_sa/label",
+                    "display": "Civilian wages and salaries, 3-month change, seasonally adjusted",
+                    "field_path": "/measures/eci_civilian_wages_3m_sa/label",
+                    "rights_class": "PUBLIC_FACT_IDENTITY",
+                    "source_ids": [
+                      "src:bls:eci:2026q3"
+                    ],
+                    "use_label": "PUBLIC_FACT",
+                    "value": "Civilian wages and salaries, 3-month change, seasonally adjusted"
+                  },
+                  {
+                    "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_wages_3m_sa/prior",
+                    "decimals": 1,
+                    "display": "0.9",
+                    "field_path": "/measures/eci_civilian_wages_3m_sa/prior",
+                    "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+                    "source_ids": [
+                      "src:bls:eci:2026q3"
+                    ],
+                    "unit": "percent",
+                    "use_label": "PUBLIC_WITH_ATTRIBUTION",
+                    "value": 0.9
+                  },
+                  {
+                    "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_wages_3m_sa/actual",
+                    "decimals": 1,
+                    "display": "0.7",
+                    "field_path": "/measures/eci_civilian_wages_3m_sa/actual",
+                    "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+                    "source_ids": [
+                      "src:bls:eci:2026q3"
+                    ],
+                    "unit": "percent",
+                    "use_label": "PUBLIC_WITH_ATTRIBUTION",
+                    "value": 0.7
+                  },
+                  {
+                    "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_wages_3m_sa/change_vs_prior",
+                    "decimals": 1,
+                    "display": "-0.2",
+                    "field_path": "/measures/eci_civilian_wages_3m_sa/change_vs_prior",
+                    "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+                    "source_ids": [
+                      "src:bls:eci:2026q3"
+                    ],
+                    "unit": "percentage_points",
+                    "use_label": "PUBLIC_WITH_ATTRIBUTION",
+                    "value": -0.2
+                  }
+                ],
+                "key": "eci_civilian_wages_3m_sa"
+              },
+              {
+                "fields": [
+                  {
+                    "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_benefits_3m_sa/label",
+                    "display": "Civilian benefits, 3-month change, seasonally adjusted",
+                    "field_path": "/measures/eci_civilian_benefits_3m_sa/label",
+                    "rights_class": "PUBLIC_FACT_IDENTITY",
+                    "source_ids": [
+                      "src:bls:eci:2026q3"
+                    ],
+                    "use_label": "PUBLIC_FACT",
+                    "value": "Civilian benefits, 3-month change, seasonally adjusted"
+                  },
+                  {
+                    "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_benefits_3m_sa/prior",
+                    "decimals": 1,
+                    "display": "1.0",
+                    "field_path": "/measures/eci_civilian_benefits_3m_sa/prior",
+                    "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+                    "source_ids": [
+                      "src:bls:eci:2026q3"
+                    ],
+                    "unit": "percent",
+                    "use_label": "PUBLIC_WITH_ATTRIBUTION",
+                    "value": 1.0
+                  },
+                  {
+                    "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_benefits_3m_sa/actual",
+                    "decimals": 1,
+                    "display": "0.9",
+                    "field_path": "/measures/eci_civilian_benefits_3m_sa/actual",
+                    "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+                    "source_ids": [
+                      "src:bls:eci:2026q3"
+                    ],
+                    "unit": "percent",
+                    "use_label": "PUBLIC_WITH_ATTRIBUTION",
+                    "value": 0.9
+                  },
+                  {
+                    "citation": "fixture-desk-record-export-v1-20261030#event:US_ECI_20261030/measures/eci_civilian_benefits_3m_sa/change_vs_prior",
+                    "decimals": 1,
+                    "display": "-0.1",
+                    "field_path": "/measures/eci_civilian_benefits_3m_sa/change_vs_prior",
+                    "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+                    "source_ids": [
+                      "src:bls:eci:2026q3"
+                    ],
+                    "unit": "percentage_points",
+                    "use_label": "PUBLIC_WITH_ATTRIBUTION",
+                    "value": -0.1
+                  }
+                ],
+                "key": "eci_civilian_benefits_3m_sa"
+              }
+            ],
+            "metric": "Civilian wages and salaries; civilian benefits; 3-month change, seasonally adjusted",
+            "missingness": "Only wages and benefits supplied pairs; no synthetic component weights or contributions.",
+            "observation_type": "actual",
+            "period_basis": "Release reference period 2026-Q3 and supplied note identifying prior as Q2; retain exact prior/current field bindings.",
+            "periods": [
+              "2026-Q2 prior",
+              "2026-Q3 actual"
+            ],
+            "reader_question": "Did wages and benefits slow by the same amount in the supplied release?",
+            "record_id": "event:US_ECI_20261030",
+            "rights_class": "BLS_OFFICIAL_PUBLIC_DERIVED",
+            "source_ids": [
+              "src:bls:eci:2026q3"
+            ],
+            "suggested_form": "Paired dots for prior and actual across civilian wages and civilian benefits; MAX chooses form",
+            "suggested_placement": "Alongside composition discussion",
+            "transformation": "Use admitted prior, actual and change_vs_prior fields; code validates differences. Do not add rates or imply weighted contribution.",
+            "unit": "percent"
+          }
+        ],
+        "render_review_status": "NOT_RENDERED_NOT_REVIEWED",
+        "status": "TWO_DISTINCT_DATA_PROPOSALS_NOT_RENDERED"
+      },
+      "photo_plan": {
+        "discovery_allowed_in_this_role": false,
+        "photo_less_exception": "Not proposed for this substantial DATA_OR_DOCUMENT_LENS analysis. Same MAX editor may determine whether a genuinely narrower news/policy treatment warrants its permitted exception; do not relabel analysis to bypass the gap.",
+        "public_write_attempted": false,
+        "reason": "No authentic photo bytes, original source page, creator, licence, date or pixel inspection binding appears in source_pack. BLS data rights do not grant photograph rights. No external discovery authorized.",
+        "required_before_admission": [
+          "Exact original image and byte hash",
+          "Original source URL and creator",
+          "Exact reuse licence and required canonical credit",
+          "Creation date and archive/context caption",
+          "Alt text and inspected image/revision binding"
+        ],
+        "status": "SOURCE_MISSING",
+        "subject_proposal": "Authentic workplace/payroll or employee-compensation context; a dated US workplace archive photograph may illustrate the subject without suggesting it depicts the release or sampled workers."
+      },
+      "thesis": {
+        "angle": "Explain the supplied ECI compensation-cost release through its quarterly history and the different movement of wages and benefits. The linked USDJPY and gold dossiers establish no directional view, price response or causal market inference.",
+        "cutoff_utc": "2026-10-30T16:11:30.442156Z",
+        "evidence_limits": [
+          "All rows are fixture records, not independently confirmed current observations.",
+          "Annual compensation rate is 12-month not seasonally adjusted; quarterly rates are 3-month seasonally adjusted. Do not compare these as a common-period series or annualize.",
+          "Historical source known-at precedes the release; the endpoint 2026-Q3 must retain release-source provenance and cannot be attributed solely to the earlier API capture.",
+          "No market price series, expectations or post-release reaction supplied. Dossier no-directional-view statements remain attributed Main report truth, not independent market evidence."
+        ],
+        "external_source_requests_used_this_role": 0,
+        "fixture_label": "Fixture, not current data",
+        "preparation_only": true,
+        "run_id": "cc043-fixture-a-20261030",
+        "source_bindings": [
+          {
+            "canonical_content_sha256": "9480a34fe7d2a4f1a2ba4b38ab344e750d4be390f499803dc9430e308e2ab8fc",
+            "export_bytes_sha256": "3af9aa4c1fec5617bac4fc0d15f2090fe414cf4b1a5dcf338f67a80a1f080f5a",
+            "fixture": true,
+            "projection_sha256": "3ffa7600e4adff619baa05dfe1f1b2471e011a5795d2774a0adc09cd3abc2ab2",
+            "record_content_sha256": "44652c5633f81cf8e100fdf38de7a2c549341f291ac6d02b3f6178c34d5d5b87",
+            "record_id": "event:US_ECI_20261030",
+            "source_id": "SOURCE_1"
+          },
+          {
+            "canonical_content_sha256": "166205fa64b331da75abc0215d1ca741477002332e40979cefb9eb8fe4d11ea5",
+            "export_bytes_sha256": "3af9aa4c1fec5617bac4fc0d15f2090fe414cf4b1a5dcf338f67a80a1f080f5a",
+            "fixture": true,
+            "projection_sha256": "3ffa7600e4adff619baa05dfe1f1b2471e011a5795d2774a0adc09cd3abc2ab2",
+            "record_content_sha256": "a2c6c1e3a35c74c18094e008a122b4f6854f0c38c7edf8677071cae8ebbec08e",
+            "record_id": "asset:USDJPY",
+            "source_id": "SOURCE_2"
+          },
+          {
+            "canonical_content_sha256": "d5def774877e3304f3595c638db93b57c44479afc3d44a9d7722b0a85d6108bc",
+            "export_bytes_sha256": "3af9aa4c1fec5617bac4fc0d15f2090fe414cf4b1a5dcf338f67a80a1f080f5a",
+            "fixture": true,
+            "projection_sha256": "3ffa7600e4adff619baa05dfe1f1b2471e011a5795d2774a0adc09cd3abc2ab2",
+            "record_content_sha256": "a78375527f1fec8f034d849da4fc04ea2547c42d4f66daf4771a4697f757523e",
+            "record_id": "asset:XAUUSD",
+            "source_id": "SOURCE_3"
+          },
+          {
+            "canonical_content_sha256": "1d38d0f1551364856ec521624b359ba864ba8644273911bcae5a6f5a6b09ace3",
+            "export_bytes_sha256": "3af9aa4c1fec5617bac4fc0d15f2090fe414cf4b1a5dcf338f67a80a1f080f5a",
+            "fixture": true,
+            "projection_sha256": "3ffa7600e4adff619baa05dfe1f1b2471e011a5795d2774a0adc09cd3abc2ab2",
+            "record_content_sha256": "261cf8cdd921f1290f835a32016dbd42bbd1ec36534153ccf520a66406f77437",
+            "record_id": "series:bls:eci:civilian-compensation-3m",
+            "source_id": "SOURCE_4"
+          }
+        ],
+        "source_boundary": "Exact frozen public source-pack fields only. No provider retrieval, current-data assertion, consensus, forecast, trading levels, private analysis or widget extraction. Canonical text SHA256 verified against supplied bindings; underlying producer raw bytes not independently re-acquired."
+      }
+    }
+  },
+  "request_sha256": "4eed707d16b0d8eedd4ecd8c87f1bf1a739340442df1f1fcc151f7b067a32692"
+}

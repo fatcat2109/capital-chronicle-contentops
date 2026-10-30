@@ -254,7 +254,7 @@ def library_projection(rows, review_records=()):
                 "media": sum(len(p.get("media_assets", [])) for p in current_packages)}}
     from live_contentops.contentops_editorial_desk_v1 import desk_projection, story_projection, publication_story_context
     result = desk_projection(result, review_records)
-    result["stories"] = story_projection(result, rows)
+    result["stories"] = story_projection(result, rows, review_records)
     for row in reversed(rows):
         if row["destination"] == "internal:cc-report-editorial-stage":
             frozen_args = json.loads(row["payload"]).get("args")

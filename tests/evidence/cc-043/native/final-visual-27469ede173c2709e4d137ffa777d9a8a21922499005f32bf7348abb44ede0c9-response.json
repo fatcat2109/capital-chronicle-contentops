@@ -1,0 +1,523 @@
+{
+  "invocation_observation": {
+    "actual_configuration_unavailable": true,
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_source": "supported explicit spawn request",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "invocation_id": "/root/native_visual_edit_860eaa0f453d",
+    "model": null,
+    "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and reasoning effort are not exposed to this role.",
+    "reasoning_effort": null,
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  },
+  "output": {
+    "acceptance_scope": "Exact private fixture article revision and the 18 bound r5 PDF-rendered browser-preview PNGs only. This is visual/editorial acceptance for the existing native review owner; no publication, platform delivery, live runtime, activation or daily-throughput proof is claimed.",
+    "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+    "article_revision": "9c63c72e0f017ce39d52707ecd43df0c3ee2df950a9f6b552d49c01330ce84c2",
+    "asset_findings": [],
+    "browser_actions_performed": false,
+    "canonical_link_state": "Pending canonical links are intentionally labelled within this isolated private fixture preview. No real public URL or dispatch readiness is inferred, and the fixture cannot be published.",
+    "code_edits_performed": false,
+    "cutoff_utc": "2026-10-30T16:11:30.442156Z",
+    "decision": "ACCEPT",
+    "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+    "evidence_provenance": "BrowserOS Neo CDP Page.printToPDF with screen media, scale 1 and zero margins; Poppler rasterization of the complete single PDF page at the bound output width. The evidence is browser-rendered PDF pixels, not a GPU screenshot or native desktop capture.",
+    "fixture": true,
+    "media_applicability": {
+      "asset_count": 0,
+      "chart_checks": {
+        "comparisons_stacks_totals_missingness": "NOT_APPLICABLE",
+        "denominator": "NOT_APPLICABLE",
+        "period_year_quarter": "NOT_APPLICABLE",
+        "sign_magnitude": "NOT_APPLICABLE",
+        "source_link_claim": "NOT_APPLICABLE",
+        "transformation_rounding": "NOT_APPLICABLE",
+        "units_currency": "NOT_APPLICABLE",
+        "zero_baseline_scale": "NOT_APPLICABLE"
+      },
+      "chart_count": 0,
+      "photo_checks": {
+        "archive_context": "NOT_APPLICABLE",
+        "caption_credit_alt": "NOT_APPLICABLE",
+        "identity_relevance": "NOT_APPLICABLE",
+        "lawful_reuse": "NOT_APPLICABLE"
+      },
+      "photo_count": 0,
+      "reason": "The same writer selected genuinely narrow factual NEWS under the bound 30 October photo-less rule. No chart or photo is admitted, so none is falsely reviewed. Instagram is explicitly skipped and that skip is readable in both bound views."
+    },
+    "native_contract_validation": "PASS_FOR_ACCEPT; READ_ONLY_VALIDATION; PARENT_MUST_SUBMIT_EXACT_RETURN",
+    "prior_defect_resolution": "The r4 tiling, shifted crops and truncated notice tails are absent in these r5 pixels. U.S. Bureau attribution is intact in X and Threads. Instagram skip is visible at both widths. Earlier REPAIR_REQUIRED returns remain historical evidence and are not relabelled ACCEPT.",
+    "public_write_attempted": false,
+    "render_findings": [
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The Newsroom brief headline, attributed retained-record dek and annual context are complete. The 0.8% versus 0.9% quarterly comparison and 3.4% annual figure match the event fields. The 12-month context explicitly preserves the not-seasonally-adjusted basis. The entire fixture label, BLS attribution/no-endorsement disclaimer and both advice sentences are readable before Sources and dates. The desktop-width PDF-rendered page has one centered selected panel, a readable ordinary font scale and a single header/control set. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-discord-desktop-e255efdec291b646",
+        "sha256": "e255efdec291b6463b0e42118d1197a2407fb25e7a2e11fc6641383c9bd75d04"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The Newsroom brief headline, attributed retained-record dek and annual context are complete. The 0.8% versus 0.9% quarterly comparison and 3.4% annual figure match the event fields. The 12-month context explicitly preserves the not-seasonally-adjusted basis. The entire fixture label, BLS attribution/no-endorsement disclaimer and both advice sentences are readable before Sources and dates. The 390-CSS-pixel PDF-rendered page wraps the complete selected content within its panel at readable scale. Native select text truncation does not truncate the article or any notice. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-discord-mobile-36ff0be284202b2a",
+        "sha256": "36ff0be284202b2a4ad9213c25074d83f3bbabab976053920c342cbff762baf5"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The retained-record title, dek and mechanism paragraph are complete. Quarterly 0.8% after 0.9%, the 2026 period and the 3.4% annual figure remain exact. The copy retains Capital Chronicle attribution without a current-data or market-reaction claim. The full fixture/BLS/advice block, including Readers decide whether to trade., is visible before the closing source disclosure. The desktop-width PDF-rendered page has one centered selected panel, a readable ordinary font scale and a single header/control set. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-facebook_page-desktop-f9cdcd538638774f",
+        "sha256": "f9cdcd538638774fc9161a79968ad05970c302d80d62d555e41ee53f5affa74c"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The retained-record title, dek and mechanism paragraph are complete. Quarterly 0.8% after 0.9%, the 2026 period and the 3.4% annual figure remain exact. The copy retains Capital Chronicle attribution without a current-data or market-reaction claim. The full fixture/BLS/advice block, including Readers decide whether to trade., is visible before the closing source disclosure. The 390-CSS-pixel PDF-rendered page wraps the complete selected content within its panel at readable scale. Native select text truncation does not truncate the article or any notice. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-facebook_page-mobile-8edcc99e674bc914",
+        "sha256": "8edcc99e674bc914594c1613d2751c6429e9b7975d653df32d8c27ef30788528"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The selected Instagram Business panel is complete and visibly states: Instagram skipped. This text-only brief has no image. There is no blank package presented as ready, image placeholder or invented asset. The private fixture banner remains visible above. This is a destination-local skip under the bound photo-less NEWS rule, not an Instagram delivery or a photo review. The desktop-width PDF-rendered page has one centered selected panel, a readable ordinary font scale and a single header/control set. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-instagram_business-desktop-56edbf59122f82a2",
+        "sha256": "56edbf59122f82a2e53d3c9b63044d4a0cb3d219016b7a2d6b2fe09b94feec2c"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The selected Instagram Business panel is complete and visibly states: Instagram skipped. This text-only brief has no image. There is no blank package presented as ready, image placeholder or invented asset. The private fixture banner remains visible above. This is a destination-local skip under the bound photo-less NEWS rule, not an Instagram delivery or a photo review. The 390-CSS-pixel PDF-rendered page wraps the complete selected content within its panel at readable scale. Native select text truncation does not truncate the article or any notice. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-instagram_business-mobile-231613a5d6005a0b",
+        "sha256": "231613a5d6005a0b69aca20e275d19a4a3de226fb4241a1be34c95210f24d8ed"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The retained-record title, quarterly mechanism and annual context are complete and readable. The 0.8% after 0.9% quarter and third-quarter 2026 reference remain exact. The unchanged 12-month 3.4% comparison stays explicitly not seasonally adjusted. The full fixture, BLS attribution/no-endorsement and advice notices are visible, including their final sentence. The desktop-width PDF-rendered page has one centered selected panel, a readable ordinary font scale and a single header/control set. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-linkedin-desktop-32cd997fb49e98f2",
+        "sha256": "32cd997fb49e98f2e38627b4f83404e7a3519809b11e0bd66faa53bb52b9a615"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The retained-record title, quarterly mechanism and annual context are complete and readable. The 0.8% after 0.9% quarter and third-quarter 2026 reference remain exact. The unchanged 12-month 3.4% comparison stays explicitly not seasonally adjusted. The full fixture, BLS attribution/no-endorsement and advice notices are visible, including their final sentence. The 390-CSS-pixel PDF-rendered page wraps the complete selected content within its panel at readable scale. Native select text truncation does not truncate the article or any notice. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-linkedin-mobile-8d3b1f03e214e8c3",
+        "sha256": "8d3b1f03e214e8c3fac78a9bc7b3031a7c3a214ccca5b3bbd6b18ea514cdfc60"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The complete canonical title, dek, dated body and both substantive sections are readable. Civilian compensation is 0.8% after 0.9%; wages and salaries are 0.7% after 0.9%; benefits are 0.9% after 1.0%, including the trailing zero. The three-month rates remain seasonally adjusted. The 12-month 3.4% after 3.4% measure remains not seasonally adjusted. The retained USDJPY/gold no-directional-view passage stays attributed to Capital Chronicle, with no event-confirmation upgrade. Fixture, exact BLS disclaimer and both advice sentences are visible through the panel tail. The desktop-width PDF-rendered page has one centered selected panel, a readable ordinary font scale and a single header/control set. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-substack-desktop-bb2b25fc0bc86dbe",
+        "sha256": "bb2b25fc0bc86dbe8df314d4235f3f76bc98ffe20cc516c3c719dd87f6cd310a"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The complete canonical title, dek, dated body and both substantive sections are readable. Civilian compensation is 0.8% after 0.9%; wages and salaries are 0.7% after 0.9%; benefits are 0.9% after 1.0%, including the trailing zero. The three-month rates remain seasonally adjusted. The 12-month 3.4% after 3.4% measure remains not seasonally adjusted. The retained USDJPY/gold no-directional-view passage stays attributed to Capital Chronicle, with no event-confirmation upgrade. Fixture, exact BLS disclaimer and both advice sentences are visible through the panel tail. The 390-CSS-pixel PDF-rendered page wraps the complete selected content within its panel at readable scale. Native select text truncation does not truncate the article or any notice. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-substack-mobile-e51aba59930641d9",
+        "sha256": "e51aba59930641d94e5e86199cb1290b88939f9a53f45413fb1f042ce45d7585"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The entire Newsroom brief is visible, with retained-record attribution, 0.8% after 0.9%, and 3.4% annual rate. The Capital Chronicle dossier no-directional-view statement remains an attributed report, not an asset response. The full fixture/BLS/advice block is readable through Readers decide whether to trade. No required tail is cut. The desktop-width PDF-rendered page has one centered selected panel, a readable ordinary font scale and a single header/control set. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-telegram-desktop-08b91ea1b853dade",
+        "sha256": "08b91ea1b853dade963b80b963e6b8de1841ba8d5d9eca18053a519d029e1230"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The entire Newsroom brief is visible, with retained-record attribution, 0.8% after 0.9%, and 3.4% annual rate. The Capital Chronicle dossier no-directional-view statement remains an attributed report, not an asset response. The full fixture/BLS/advice block is readable through Readers decide whether to trade. No required tail is cut. The 390-CSS-pixel PDF-rendered page wraps the complete selected content within its panel at readable scale. Native select text truncation does not truncate the article or any notice. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-telegram-mobile-ee9860970ae4b80d",
+        "sha256": "ee9860970ae4b80d0d8ffefdd31ccc4fb4866fb7e5d664a315c744065eb6d0e1"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The root and Reply 1 are complete. The root retains 12-month 3.4% after 3.4% and its not-seasonally-adjusted basis. The reply preserves the attributed no-directional-view dossier passage and fixture label. U.S. Bureau remains one intact attribution sentence; the full no-endorsement disclaimer and both advice sentences, including Readers decide whether to trade., are readable before Sources and dates. The desktop-width PDF-rendered page has one centered selected panel, a readable ordinary font scale and a single header/control set. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-threads-desktop-0cf3790992bcf992",
+        "sha256": "0cf3790992bcf992d60a831f3e5289e888597c997786681094a32ac96db4ec21"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The root and Reply 1 are complete. The root retains 12-month 3.4% after 3.4% and its not-seasonally-adjusted basis. The reply preserves the attributed no-directional-view dossier passage and fixture label. U.S. Bureau remains one intact attribution sentence; the full no-endorsement disclaimer and both advice sentences, including Readers decide whether to trade., are readable before Sources and dates. The 390-CSS-pixel PDF-rendered page wraps the complete selected content within its panel at readable scale. Native select text truncation does not truncate the article or any notice. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-threads-mobile-10cf5863554de466",
+        "sha256": "10cf5863554de466085afe09a8ccf0d2b40de5e8fe6f5613b4f41eacd38c5e74"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The root and all three replies are complete and correctly ordered. Reply 1 retains the 0.8% after 0.9% quarter and 3.4% annual figure. Reply 2 preserves the attributed USDJPY/gold no-directional-view limit and fixture label. Reply 3 contains the intact U.S. Bureau attribution, complete no-endorsement disclaimer and both advice sentences. No text fragment, repeated page header or missing reply tail remains. The desktop-width PDF-rendered page has one centered selected panel, a readable ordinary font scale and a single header/control set. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-x-desktop-d06f9a5af3324d01",
+        "sha256": "d06f9a5af3324d012c5213564bd3d43672e973afb9d17e6926c1654fd0381dd1"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The root and all three replies are complete and correctly ordered. Reply 1 retains the 0.8% after 0.9% quarter and 3.4% annual figure. Reply 2 preserves the attributed USDJPY/gold no-directional-view limit and fixture label. Reply 3 contains the intact U.S. Bureau attribution, complete no-endorsement disclaimer and both advice sentences. No text fragment, repeated page header or missing reply tail remains. The 390-CSS-pixel PDF-rendered page wraps the complete selected content within its panel at readable scale. Native select text truncation does not truncate the article or any notice. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-x-mobile-1d0bdd69448eb0d7",
+        "sha256": "1d0bdd69448eb0d7f26977f241d9b302a0db5d330252d08552cc6aceed1d015a"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The Community brief title, retained-record dek and attributed no-directional-view passage are complete. The 0.8%, 0.9% and 3.4% values remain exact, with no forecast or asset-price assertion. The entire fixture label, BLS attribution/no-endorsement disclaimer and both advice sentences are readable through the final panel tail. The desktop-width PDF-rendered page has one centered selected panel, a readable ordinary font scale and a single header/control set. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-youtube-desktop-aa38165701828dd7",
+        "sha256": "aa38165701828dd7c0bc90ce8964f4b849f3940ee993b4eadd2c564d952c1078"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The Community brief title, retained-record dek and attributed no-directional-view passage are complete. The 0.8%, 0.9% and 3.4% values remain exact, with no forecast or asset-price assertion. The entire fixture label, BLS attribution/no-endorsement disclaimer and both advice sentences are readable through the final panel tail. The 390-CSS-pixel PDF-rendered page wraps the complete selected content within its panel at readable scale. Native select text truncation does not truncate the article or any notice. No visible overlap, material clipping, duplicated page tiles, stretched text, pagination break or cropped selected-panel tail appears. Headings and labels are clear; text contrast and paragraph spacing are adequate.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r5-youtube-mobile-2dacc178b4fe4551",
+        "sha256": "2dacc178b4fe45514eacbf6dd0ab20b20b9c7724815dfeae03b281d28c2b1c8b"
+      }
+    ],
+    "render_provenance": [
+      {
+        "css_width": 1440,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\discord-desktop.pdf",
+        "pdf_sha256": "5418a72f4fc6b76d45c34bf98d835de4a06deb12dc9daa257e05aecf6ba59166",
+        "png_sha256": "e255efdec291b6463b0e42118d1197a2407fb25e7a2e11fc6641383c9bd75d04",
+        "render_id": "cc043-r5-discord-desktop-e255efdec291b646",
+        "variant_sha256": "a82ec631e42a706f74a4ddf2e6db75aac816cf9b85dc7eb4f1a8b481d218554e"
+      },
+      {
+        "css_width": 390,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\discord-mobile.pdf",
+        "pdf_sha256": "c986e7b2ab9219127e0b3f4621d7de704dcf83ecffd8a8de4b50e677a8e5bbeb",
+        "png_sha256": "36ff0be284202b2a4ad9213c25074d83f3bbabab976053920c342cbff762baf5",
+        "render_id": "cc043-r5-discord-mobile-36ff0be284202b2a",
+        "variant_sha256": "a82ec631e42a706f74a4ddf2e6db75aac816cf9b85dc7eb4f1a8b481d218554e"
+      },
+      {
+        "css_width": 1440,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\facebook_page-desktop.pdf",
+        "pdf_sha256": "1fec8f9bd26507edb05646178eb0f84be1ffe174a5a1583b9475ff30cb2a379c",
+        "png_sha256": "f9cdcd538638774fc9161a79968ad05970c302d80d62d555e41ee53f5affa74c",
+        "render_id": "cc043-r5-facebook_page-desktop-f9cdcd538638774f",
+        "variant_sha256": "72126ac56ef4e02af50f401cfdaac716537bc36d9ed8a3024b9dcb393bafa4c9"
+      },
+      {
+        "css_width": 390,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\facebook_page-mobile.pdf",
+        "pdf_sha256": "529a776376432817207b6ecff0a5c65df9ac7dd34ef95641ec374deaa4641658",
+        "png_sha256": "8edcc99e674bc914594c1613d2751c6429e9b7975d653df32d8c27ef30788528",
+        "render_id": "cc043-r5-facebook_page-mobile-8edcc99e674bc914",
+        "variant_sha256": "72126ac56ef4e02af50f401cfdaac716537bc36d9ed8a3024b9dcb393bafa4c9"
+      },
+      {
+        "css_width": 1440,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\instagram_business-desktop.pdf",
+        "pdf_sha256": "7d4200a1d9c77a57abc1c7a5d3ebf809cea47a13e34e57b44ff233efd01a6d3f",
+        "png_sha256": "56edbf59122f82a2e53d3c9b63044d4a0cb3d219016b7a2d6b2fe09b94feec2c",
+        "render_id": "cc043-r5-instagram_business-desktop-56edbf59122f82a2",
+        "variant_sha256": "3387ab5522b1a1bdb36e8cb13c8b091a5ee57c778048be2edb31dbdabeda799a"
+      },
+      {
+        "css_width": 390,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\instagram_business-mobile.pdf",
+        "pdf_sha256": "f9ec09d9453c12288cdc1ef70e73d1703c14f7da41f26870b1af396eda630a5a",
+        "png_sha256": "231613a5d6005a0b69aca20e275d19a4a3de226fb4241a1be34c95210f24d8ed",
+        "render_id": "cc043-r5-instagram_business-mobile-231613a5d6005a0b",
+        "variant_sha256": "3387ab5522b1a1bdb36e8cb13c8b091a5ee57c778048be2edb31dbdabeda799a"
+      },
+      {
+        "css_width": 1440,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\linkedin-desktop.pdf",
+        "pdf_sha256": "9adb1275705a4aa55e9c16b53eb49814d49941a97b7499500e74a3371a3b0e8a",
+        "png_sha256": "32cd997fb49e98f2e38627b4f83404e7a3519809b11e0bd66faa53bb52b9a615",
+        "render_id": "cc043-r5-linkedin-desktop-32cd997fb49e98f2",
+        "variant_sha256": "87bec3c62f07d0d86213daedfb1dfc3ee441168657a2a2f5ad43b41403dc8c2f"
+      },
+      {
+        "css_width": 390,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\linkedin-mobile.pdf",
+        "pdf_sha256": "510f34639d92ed8d7221cdd228afeb08aa6e966a89600d4b50707d6643ae596b",
+        "png_sha256": "8d3b1f03e214e8c3fac78a9bc7b3031a7c3a214ccca5b3bbd6b18ea514cdfc60",
+        "render_id": "cc043-r5-linkedin-mobile-8d3b1f03e214e8c3",
+        "variant_sha256": "87bec3c62f07d0d86213daedfb1dfc3ee441168657a2a2f5ad43b41403dc8c2f"
+      },
+      {
+        "css_width": 1440,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\substack-desktop.pdf",
+        "pdf_sha256": "a1e43780fbe76d03f5d30bd51b0e68f050bb930bc6f76c5f3218aef5f731eab3",
+        "png_sha256": "bb2b25fc0bc86dbe8df314d4235f3f76bc98ffe20cc516c3c719dd87f6cd310a",
+        "render_id": "cc043-r5-substack-desktop-bb2b25fc0bc86dbe",
+        "variant_sha256": "faaba404bfcfbe73098ff53bee943852bc0f5cf199fcb840a2877961d032329e"
+      },
+      {
+        "css_width": 390,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\substack-mobile.pdf",
+        "pdf_sha256": "aead6f3b00c171051fe96b420d0db0c03656f6556ac2b56810f9442ae0542828",
+        "png_sha256": "e51aba59930641d94e5e86199cb1290b88939f9a53f45413fb1f042ce45d7585",
+        "render_id": "cc043-r5-substack-mobile-e51aba59930641d9",
+        "variant_sha256": "faaba404bfcfbe73098ff53bee943852bc0f5cf199fcb840a2877961d032329e"
+      },
+      {
+        "css_width": 1440,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\telegram-desktop.pdf",
+        "pdf_sha256": "8b87aeeabf1a6a2301b678a69f447885c174ea7ac56351077c01921a348c5893",
+        "png_sha256": "08b91ea1b853dade963b80b963e6b8de1841ba8d5d9eca18053a519d029e1230",
+        "render_id": "cc043-r5-telegram-desktop-08b91ea1b853dade",
+        "variant_sha256": "4a500f100dc1c9709a423ba9e8f1d8675f3e6d5f14a8257616057a7efe42dc42"
+      },
+      {
+        "css_width": 390,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\telegram-mobile.pdf",
+        "pdf_sha256": "27da1dc6b918d68457fa79f8cee80f71fc15874b99597ee3918d2e2bfed6b544",
+        "png_sha256": "ee9860970ae4b80d0d8ffefdd31ccc4fb4866fb7e5d664a315c744065eb6d0e1",
+        "render_id": "cc043-r5-telegram-mobile-ee9860970ae4b80d",
+        "variant_sha256": "4a500f100dc1c9709a423ba9e8f1d8675f3e6d5f14a8257616057a7efe42dc42"
+      },
+      {
+        "css_width": 1440,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\threads-desktop.pdf",
+        "pdf_sha256": "8dec232051d893db514a68a062990d20ebba5a4343821982a2b4108b3bd2bec6",
+        "png_sha256": "0cf3790992bcf992d60a831f3e5289e888597c997786681094a32ac96db4ec21",
+        "render_id": "cc043-r5-threads-desktop-0cf3790992bcf992",
+        "variant_sha256": "1487f079f208479a313ad8b5fbdfe851dcdf556b0e2a6dd225aca0eb7a58b79a"
+      },
+      {
+        "css_width": 390,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\threads-mobile.pdf",
+        "pdf_sha256": "520c2e576bf8665fd167c5f49cde7c6a2c41f46d93914b64f67a1de6b4783ea8",
+        "png_sha256": "10cf5863554de466085afe09a8ccf0d2b40de5e8fe6f5613b4f41eacd38c5e74",
+        "render_id": "cc043-r5-threads-mobile-10cf5863554de466",
+        "variant_sha256": "1487f079f208479a313ad8b5fbdfe851dcdf556b0e2a6dd225aca0eb7a58b79a"
+      },
+      {
+        "css_width": 1440,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\x-desktop.pdf",
+        "pdf_sha256": "e2ff2db74068170e4c6a40f7824e630a118c7b8ad9855e00549449e671531b8e",
+        "png_sha256": "d06f9a5af3324d012c5213564bd3d43672e973afb9d17e6926c1654fd0381dd1",
+        "render_id": "cc043-r5-x-desktop-d06f9a5af3324d01",
+        "variant_sha256": "12e40134d058a3342d831546f8580bd7b3a4b631777ee7197fb39242ceef678d"
+      },
+      {
+        "css_width": 390,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\x-mobile.pdf",
+        "pdf_sha256": "86d534fb82e1605b7c598511c4746c5828f155c745a4c953a72f6081a4510035",
+        "png_sha256": "1d0bdd69448eb0d7f26977f241d9b302a0db5d330252d08552cc6aceed1d015a",
+        "render_id": "cc043-r5-x-mobile-1d0bdd69448eb0d7",
+        "variant_sha256": "12e40134d058a3342d831546f8580bd7b3a4b631777ee7197fb39242ceef678d"
+      },
+      {
+        "css_width": 1440,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\youtube-desktop.pdf",
+        "pdf_sha256": "1b757d16f4a30085141daa8e6029f005a6694c1021bdde1dddc501225a36993c",
+        "png_sha256": "aa38165701828dd7c0bc90ce8964f4b849f3940ee993b4eadd2c564d952c1078",
+        "render_id": "cc043-r5-youtube-desktop-aa38165701828dd7",
+        "variant_sha256": "f9b15c5576af3e9078ecd09182383c5cced254c74a75cb7e930c054fb5305a9b"
+      },
+      {
+        "css_width": 390,
+        "html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+        "pdf_pages": 1,
+        "pdf_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\youtube-mobile.pdf",
+        "pdf_sha256": "ffa9cf72f37333b2f93e0bc7400774b20e81492f4bd084e716c7690eeab4cd8e",
+        "png_sha256": "2dacc178b4fe45514eacbf6dd0ab20b20b9c7724815dfeae03b281d28c2b1c8b",
+        "render_id": "cc043-r5-youtube-mobile-2dacc178b4fe4551",
+        "variant_sha256": "f9b15c5576af3e9078ecd09182383c5cced254c74a75cb7e930c054fb5305a9b"
+      }
+    ],
+    "review_method": "Opened every bound PNG individually with view_image at original detail. Inspected the full selected panels, source meaning, notices, line wrapping, text scale, pagination, clipping and capture integrity. Separately verified exact PNG/PDF/HTML hashes, one PDF page per variant and 1440/390 CSS paper widths. PDF text-presence checks were corroborating evidence, not a substitute for pixel inspection.",
+    "source_fidelity": {
+      "canonical_copy_unchanged": true,
+      "checks": {
+        "analysis_not_financial_advice_notice": "PASS",
+        "annual_not_seasonally_adjusted_basis": "PASS",
+        "dossier_no_directional_view_meaning": "PASS",
+        "fixture_notice": "PASS",
+        "mandatory_BLS_attribution_and_disclaimer": "PASS",
+        "population_and_period": "PASS",
+        "precision_including_1_0": "PASS",
+        "quarterly_seasonal_adjustment": "PASS",
+        "report_attribution_and_uncertainty": "PASS",
+        "value_sign_magnitude": "PASS"
+      },
+      "citation_validation": {
+        "citation_count": 20,
+        "citations_sha256": "8ed00704f07c948b742d09e9c1c020d2c046dcbdd8d478e8674eba7ee85e4c1e",
+        "fixture": true,
+        "numeric_authority": "EXACT_PROJECTED_PRODUCER_FIELDS",
+        "required_source_ids": [
+          "src:bls:eci:2026q3"
+        ]
+      },
+      "evidence_notes": "Compared the complete canonical text to exact event-card public fields and both dossier headline_analysis fields. Kept civilian measures distinct from private-industry values, quarterly percent changes distinct from annual percent changes and percentages distinct from percentage points. Used no consensus, GEX, trading level, forecast, price path or post-release asset reaction. No source values were converted or added. All seven text destinations carry complete fixture/BLS/advice notices; canonical numeric precision includes the 1.0% benefits prior.",
+      "exact_field_citations": 20,
+      "source_sha256": "2efc5620f9242e2a0920c2dbf0a0647841d3904d35eba8e94c471a224bb7709c"
+    },
+    "source_request_count": 0,
+    "source_request_limit": 10,
+    "unresolved_findings": []
+  },
+  "request_sha256": "89d167b037c35665f1ad0d5c1689516d7ad8bab064f9347f034b1eaf817f5629"
+}

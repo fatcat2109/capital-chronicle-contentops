@@ -51,6 +51,20 @@ def _normalized_reader_text(payload: dict) -> str:
     return " ".join(str(payload.get("full_text") or payload["text"]).casefold().split())
 
 
+def test_short_thread_preserves_agency_initialism_in_required_attribution():
+    attribution = "Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS)."
+    payload = pipeline._root_and_replies(
+        title="A retained release record",
+        dek="",
+        canonical_url="https://capitalchronicle.substack.com/p/retained-brief",
+        continuation_parts=[attribution + " No BLS emblem is used, and BLS does not endorse this publication."],
+        limit=280,
+    )
+    assert any(attribution in reply for reply in payload["reply_texts"])
+    assert "U.S.\n\nBureau" not in payload["full_text"]
+    assert all(len(post) <= 280 for post in [payload["root_text"], *payload["reply_texts"]])
+
+
 def test_breaking_and_ordinary_briefs_are_native_self_contained_and_undispatched():
     canonical_url = "https://capitalchronicle.substack.com/p/governed-brief"
     accepted_article = {

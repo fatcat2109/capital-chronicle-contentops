@@ -340,7 +340,7 @@ def _source_delta(before, after):
     return changes
 
 
-def story_projection(library, rows):
+def story_projection(library, rows, review_records=()):
     """Evolving-story read model over existing library/package/report outbox identities.
 
     Package history is explicitly unpublished. No independent story ledger, approval,
@@ -427,7 +427,8 @@ def story_projection(library, rows):
                 "scope": "SOURCE_REPORT_NOT_MARKET_IMPACT", "context_kind": i["context_kind"]} for i in after],
             "publication_state": "UNPUBLISHED_RESEARCH", "published_prior": None,
             "independent_confirmation_from_main": False})
-    return stories
+    from live_contentops.capital_chronicle_desk_record_source_v1 import story_context
+    return [*stories, *story_context(rows, review_records)]
 
 
 def publication_story_context(stories, published_memory, *, cutoff_utc):

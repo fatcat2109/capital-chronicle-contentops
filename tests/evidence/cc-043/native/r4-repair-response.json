@@ -1,0 +1,377 @@
+{
+  "invocation_observation": {
+    "actual_configuration_unavailable": true,
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_source": "supported explicit spawn request",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "invocation_id": "/root/native_visual_edit_860eaa0f453d",
+    "model": null,
+    "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and reasoning effort are not exposed to this role.",
+    "reasoning_effort": null,
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  },
+  "output": {
+    "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+    "article_revision": "9c63c72e0f017ce39d52707ecd43df0c3ee2df950a9f6b552d49c01330ce84c2",
+    "asset_findings": [],
+    "browser_actions_performed": false,
+    "cutoff_utc": "2026-10-30T16:11:30.442156Z",
+    "decision": "REPAIR_REQUIRED",
+    "first_cause": "SOFTWARE_PROCESS_DEFECT: CAPTURE_VIEWPORT_TILING_AND_CROP",
+    "fixture": true,
+    "media_applicability": {
+      "asset_count": 0,
+      "charts": 0,
+      "data_asset_checks": {
+        "comparisons_stacks_totals_missingness": "NOT_APPLICABLE",
+        "denominator": "NOT_APPLICABLE",
+        "period_year_quarter": "NOT_APPLICABLE",
+        "sign_magnitude": "NOT_APPLICABLE",
+        "source_link_claim": "NOT_APPLICABLE",
+        "transformation_rounding": "NOT_APPLICABLE",
+        "units_currency": "NOT_APPLICABLE",
+        "zero_baseline_scale": "NOT_APPLICABLE"
+      },
+      "photo_checks": {
+        "archive_context": "NOT_APPLICABLE",
+        "caption_credit_alt": "NOT_APPLICABLE",
+        "identity_relevance": "NOT_APPLICABLE",
+        "lawful_reuse": "NOT_APPLICABLE"
+      },
+      "photos": 0,
+      "reason": "The approved same-writer decision is genuinely narrow factual NEWS under the bound 30 October photo-less policy. No media asset is admitted. Instagram is intentionally skipped. No chart/photo pixel or licence inspection is fabricated."
+    },
+    "native_contract_validation": "PASS_FOR_REPAIR_REQUIRED; READ_ONLY_VALIDATION; NOT_SUBMITTED_BY_THIS_REVIEWER",
+    "old_review_state": "The r2 request and REPAIR_REQUIRED response remain stale history. This fresh request has its own REPAIR_REQUIRED return; no ACCEPT is claimed.",
+    "public_write_attempted": false,
+    "render_findings": [
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened and inspected this exact hash-bound PNG. Visible dark text has adequate contrast, but repeated mobile columns invalidate desktop layout and full-content inspection. Partial retained copy is visible; metadata proving complete payload text is not a substitute for its missing/corrupt rendered pixels.",
+        "findings": [
+          "The 1440-wide PNG is tiled with repeated approximately 390-pixel-wide mobile page columns. Headers, scrollbars, controls and selected copy repeat at x about 0, 390, 780 and 1170; this is not one correct desktop render.",
+          "The image bottom cuts the long narrow copy before the complete mandatory notice/footer tail. Full BLS/advice notice coverage and the expected desktop layout cannot be accepted."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-discord-desktop-5f168bc56050cad1",
+        "sha256": "5f168bc56050cad1c3940b5c9cce2d5c03df630f4f61f159f92a99882fbd2d40"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened and inspected the exact mobile PNG. The narrow right-hand strip shows fragments of the selected discord panel but cuts the ordinary line width at the right image edge. Contrast of the fragments is adequate; source meaning, complete BLS/advice notices and responsive layout are unverified because most text is missing from the image.",
+        "findings": [
+          "The 390-wide PNG shows a roughly 240-pixel blank left area followed by the left edge of a desktop-style page. Text begins near x 245-275 and extends beyond x 390, leaving only a narrow content strip. The full selected panel is horizontally clipped.",
+          "A repeated page header begins again below the selected panel, adding a vertical capture artifact. Complete copy, mandatory notices and destination layout cannot be verified."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-discord-mobile-e4495d29d8ab2aad",
+        "sha256": "e4495d29d8ab2aad0e3961353cdb8383bad717ccd12fad223a268d2977fa3294"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened and inspected this exact hash-bound PNG. Visible dark text has adequate contrast, but repeated mobile columns invalidate desktop layout and full-content inspection. Partial retained copy is visible; metadata proving complete payload text is not a substitute for its missing/corrupt rendered pixels.",
+        "findings": [
+          "The 1440-wide PNG is tiled with repeated approximately 390-pixel-wide mobile page columns. Headers, scrollbars, controls and selected copy repeat at x about 0, 390, 780 and 1170; this is not one correct desktop render.",
+          "The image bottom cuts the long narrow copy before the complete mandatory notice/footer tail. Full BLS/advice notice coverage and the expected desktop layout cannot be accepted."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-facebook_page-desktop-b13213b9ed578e4a",
+        "sha256": "b13213b9ed578e4a3b9bf21eee1d1a1bc8589e53da0ce40a855ef9de56215db9"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened and inspected the exact mobile PNG. The narrow right-hand strip shows fragments of the selected facebook_page panel but cuts the ordinary line width at the right image edge. Contrast of the fragments is adequate; source meaning, complete BLS/advice notices and responsive layout are unverified because most text is missing from the image.",
+        "findings": [
+          "The 390-wide PNG shows a roughly 240-pixel blank left area followed by the left edge of a desktop-style page. Text begins near x 245-275 and extends beyond x 390, leaving only a narrow content strip. The full selected panel is horizontally clipped.",
+          "A repeated page header begins again below the selected panel, adding a vertical capture artifact. Complete copy, mandatory notices and destination layout cannot be verified."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-facebook_page-mobile-4c77538e5a2c02bf",
+        "sha256": "4c77538e5a2c02bff2d487d1118becf312b47c0c2068464244f35cb112df39f9"
+      },
+      {
+        "checks": {
+          "crop_distortion": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "placement": "PASS",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The complete 1440-wide image has one centered desktop page, its private fixture banner, controls, the selected Instagram Business card, and Sources and dates. The card visibly states: Instagram skipped. This text-only brief has no image. Text is readable with adequate contrast, no duplicate tile or material clipping. This validates the explicit skip presentation, not an image, post or public destination write.",
+        "findings": [],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-instagram_business-desktop-44c41abf6ac31e9d",
+        "sha256": "44c41abf6ac31e9de9aae53afbde2f354c1182fd1fe65bf0d08b1497839fc826"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The crop shows only the beginning of the Instagram heading and skip sentence. The full skip disposition is present in the bound payload and passes on the desktop image, but this mobile image cuts it off. No photo is required or claimed; the failure is the shifted/cropped screenshot.",
+        "findings": [
+          "The 390-wide PNG shows a roughly 240-pixel blank left area followed by the left edge of a desktop-style page. Text begins near x 245-275 and extends beyond x 390, leaving only a narrow content strip. The full selected panel is horizontally clipped."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-instagram_business-mobile-0c40b82eeacc8237",
+        "sha256": "0c40b82eeacc82371f17699fd5acf76306dccc64d19053508da9e9ab3d37c055"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened and inspected this exact hash-bound PNG. Visible dark text has adequate contrast, but repeated mobile columns invalidate desktop layout and full-content inspection. Partial retained copy is visible; metadata proving complete payload text is not a substitute for its missing/corrupt rendered pixels.",
+        "findings": [
+          "The 1440-wide PNG is tiled with repeated approximately 390-pixel-wide mobile page columns. Headers, scrollbars, controls and selected copy repeat at x about 0, 390, 780 and 1170; this is not one correct desktop render.",
+          "The image bottom cuts the long narrow copy before the complete mandatory notice/footer tail. Full BLS/advice notice coverage and the expected desktop layout cannot be accepted."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-linkedin-desktop-36b6b57a0eebb12b",
+        "sha256": "36b6b57a0eebb12b2b1919a386566b7e85d956321f3c84e2b5c98656244b06c4"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened and inspected the exact mobile PNG. The narrow right-hand strip shows fragments of the selected linkedin panel but cuts the ordinary line width at the right image edge. Contrast of the fragments is adequate; source meaning, complete BLS/advice notices and responsive layout are unverified because most text is missing from the image.",
+        "findings": [
+          "The 390-wide PNG shows a roughly 240-pixel blank left area followed by the left edge of a desktop-style page. Text begins near x 245-275 and extends beyond x 390, leaving only a narrow content strip. The full selected panel is horizontally clipped.",
+          "A repeated page header begins again below the selected panel, adding a vertical capture artifact. Complete copy, mandatory notices and destination layout cannot be verified."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-linkedin-mobile-e3a15b50488e442b",
+        "sha256": "e3a15b50488e442b3806768ca8499c63b354dbf767c62918a84eb3ec20292c1f"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened and inspected this exact hash-bound PNG. Visible dark text has adequate contrast, but repeated mobile columns invalidate desktop layout and full-content inspection. Partial retained copy is visible; metadata proving complete payload text is not a substitute for its missing/corrupt rendered pixels.",
+        "findings": [
+          "The 1440-wide PNG is tiled with repeated approximately 390-pixel-wide mobile page columns. Headers, scrollbars, controls and selected copy repeat at x about 0, 390, 780 and 1170; this is not one correct desktop render.",
+          "The page header restarts vertically at about y 877 for canonical or y 1327 for X, omitting the remaining full article/reply tail. Complete rights/advice copy and the canonical 1.0% passage cannot be verified from these pixels."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-substack-desktop-a238ebadf945309b",
+        "sha256": "a238ebadf945309bcccb241ff3c3b609705ca519cc37b89565df7e723ef703cb"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "The right-hand strip contains fragments of the canonical title, source date and article paragraphs. Most text, including exact quarterly/annual comparisons, the 1.0% precision, seasonal basis and full notices, is off the right edge. Metadata remains exact, but this image cannot prove their reader-visible rendering.",
+        "findings": [
+          "The 390-wide PNG shows a roughly 240-pixel blank left area followed by the left edge of a desktop-style page. Text begins near x 245-275 and extends beyond x 390, leaving only a narrow content strip. The full selected panel is horizontally clipped.",
+          "A repeated page header begins again below the selected panel, adding a vertical capture artifact. Complete copy, mandatory notices and destination layout cannot be verified."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-substack-mobile-98b05bf8e6ae1f3a",
+        "sha256": "98b05bf8e6ae1f3ac5c8d59429b2d9a1271993bac7f0285ce16879b0e8eaf994"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened and inspected this exact hash-bound PNG. Visible dark text has adequate contrast, but repeated mobile columns invalidate desktop layout and full-content inspection. Partial retained copy is visible; metadata proving complete payload text is not a substitute for its missing/corrupt rendered pixels.",
+        "findings": [
+          "The 1440-wide PNG is tiled with repeated approximately 390-pixel-wide mobile page columns. Headers, scrollbars, controls and selected copy repeat at x about 0, 390, 780 and 1170; this is not one correct desktop render.",
+          "The image bottom cuts the long narrow copy before the complete mandatory notice/footer tail. Full BLS/advice notice coverage and the expected desktop layout cannot be accepted."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-telegram-desktop-8ef00e66d855be70",
+        "sha256": "8ef00e66d855be70d8ac60ba4775cd5dc9309ee628b22764815dbb7a50dc6720"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened and inspected the exact mobile PNG. The narrow right-hand strip shows fragments of the selected telegram panel but cuts the ordinary line width at the right image edge. Contrast of the fragments is adequate; source meaning, complete BLS/advice notices and responsive layout are unverified because most text is missing from the image.",
+        "findings": [
+          "The 390-wide PNG shows a roughly 240-pixel blank left area followed by the left edge of a desktop-style page. Text begins near x 245-275 and extends beyond x 390, leaving only a narrow content strip. The full selected panel is horizontally clipped.",
+          "A repeated page header begins again below the selected panel, adding a vertical capture artifact. Complete copy, mandatory notices and destination layout cannot be verified."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-telegram-mobile-3a7eae16663b1dac",
+        "sha256": "3a7eae16663b1dacd434c6e8b2bee76596ce6cab321fd359a124bf0d515ea3b9"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened and inspected this exact hash-bound PNG. Visible dark text has adequate contrast, but repeated mobile columns invalidate desktop layout and full-content inspection. Partial retained copy is visible; metadata proving complete payload text is not a substitute for its missing/corrupt rendered pixels. The readable narrow column includes the unchanged unadjusted 12-month 3.4% figure, no-directional-view passage, intact U.S. Bureau credit and advice. Its repeated-column desktop capture still fails.",
+        "findings": [
+          "The 1440-wide PNG is tiled with repeated approximately 390-pixel-wide mobile page columns. Headers, scrollbars, controls and selected copy repeat at x about 0, 390, 780 and 1170; this is not one correct desktop render."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-threads-desktop-b310444ff584b947",
+        "sha256": "b310444ff584b947aba5ac7c1ee44ddb148151abfc6782503cd3d2cc41c57572"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "PASS",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened the exact 390-wide PNG. The visible root and reply retain the 12-month 3.4% unchanged rate, its not-seasonally-adjusted basis, the no-directional-view dossier wording, fixture notice and intact BLS agency credit/disclaimer. Contrast and line wrapping in the visible area are readable. The vertically restarted page truncates the last required advice sentence, so complete mobile coverage fails.",
+        "findings": [
+          "The mobile page is readable across its width until approximately y 1353, then a new copy of the header begins. The selected reply is cut after Analysis, not financial advice.; Readers decide whether to trade. and the remaining panel/footer are absent."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-threads-mobile-72ab515380218468",
+        "sha256": "72ab5153802184680f2fa94bc55219abfe14846f75bbfda2c4fe5f4e29b0928c"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened and inspected this exact hash-bound PNG. Visible dark text has adequate contrast, but repeated mobile columns invalidate desktop layout and full-content inspection. Partial retained copy is visible; metadata proving complete payload text is not a substitute for its missing/corrupt rendered pixels. Visible replies retain 0.8%, 0.9%, 3.4%, the dossier limit and the intact U.S. Bureau sentence; the rest of the notice tail is absent after the capture restarts.",
+        "findings": [
+          "The 1440-wide PNG is tiled with repeated approximately 390-pixel-wide mobile page columns. Headers, scrollbars, controls and selected copy repeat at x about 0, 390, 780 and 1170; this is not one correct desktop render.",
+          "The page header restarts vertically at about y 877 for canonical or y 1327 for X, omitting the remaining full article/reply tail. Complete rights/advice copy and the canonical 1.0% passage cannot be verified from these pixels."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-x-desktop-99790fe02ef95114",
+        "sha256": "99790fe02ef95114860284a99f69e878b21b4d5b1302555c46caa45d41e1706e"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened and inspected the exact mobile PNG. The narrow right-hand strip shows fragments of the selected x panel but cuts the ordinary line width at the right image edge. Contrast of the fragments is adequate; source meaning, complete BLS/advice notices and responsive layout are unverified because most text is missing from the image.",
+        "findings": [
+          "The 390-wide PNG shows a roughly 240-pixel blank left area followed by the left edge of a desktop-style page. Text begins near x 245-275 and extends beyond x 390, leaving only a narrow content strip. The full selected panel is horizontally clipped.",
+          "A repeated page header begins again below the selected panel, adding a vertical capture artifact. Complete copy, mandatory notices and destination layout cannot be verified."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-x-mobile-00125fc39bf0d22b",
+        "sha256": "00125fc39bf0d22b97c2ba68598614ef7e8e71d64e1f803f2c1da50905187f76"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened and inspected this exact hash-bound PNG. Visible dark text has adequate contrast, but repeated mobile columns invalidate desktop layout and full-content inspection. Partial retained copy is visible; metadata proving complete payload text is not a substitute for its missing/corrupt rendered pixels.",
+        "findings": [
+          "The 1440-wide PNG is tiled with repeated approximately 390-pixel-wide mobile page columns. Headers, scrollbars, controls and selected copy repeat at x about 0, 390, 780 and 1170; this is not one correct desktop render.",
+          "The image bottom cuts the long narrow copy before the complete mandatory notice/footer tail. Full BLS/advice notice coverage and the expected desktop layout cannot be accepted."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-youtube-desktop-abc9a309e1f1653d",
+        "sha256": "abc9a309e1f1653d793b84b875b61a8b1ad0574e1e2f4c08cb33a4973172367f"
+      },
+      {
+        "checks": {
+          "crop_distortion": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "overlap_clipping": "FAIL",
+          "placement": "FAIL",
+          "text_contrast": "PASS"
+        },
+        "evidence_notes": "Opened and inspected the exact mobile PNG. The narrow right-hand strip shows fragments of the selected youtube panel but cuts the ordinary line width at the right image edge. Contrast of the fragments is adequate; source meaning, complete BLS/advice notices and responsive layout are unverified because most text is missing from the image.",
+        "findings": [
+          "The 390-wide PNG shows a roughly 240-pixel blank left area followed by the left edge of a desktop-style page. Text begins near x 245-275 and extends beyond x 390, leaving only a narrow content strip. The full selected panel is horizontally clipped.",
+          "A repeated page header begins again below the selected panel, adding a vertical capture artifact. Complete copy, mandatory notices and destination layout cannot be verified."
+        ],
+        "pixels_inspected": true,
+        "render_id": "cc043-r4-youtube-mobile-640c3b0be90e474b",
+        "sha256": "640c3b0be90e474b6d7c20394d6a06978d1c9582dcb293de0374e90de6db7566"
+      }
+    ],
+    "repair_next_action": "Parent should preserve this exact request/response and all r4 PNGs, repair only the browser capture path, obtain complete non-tiled desktop/mobile captures, and issue a fresh bound final-review request to the same writer. Keep accepted article, sources, 20 citations, cutoff and source budget. No article rewrite or intake restart is indicated.",
+    "review_method": "Every bound image was opened individually with local view_image at original detail. PNG hashes and dimensions were checked. No source edit, browser action, fetching or image manipulation was performed during this review.",
+    "review_scope": "Private fixture article and all 18 exact newly bound r4 PNGs. Not publication, delivery, runtime or daily-output proof.",
+    "source_fidelity": {
+      "canonical_copy_unchanged": true,
+      "citation_validation": {
+        "citation_count": 20,
+        "citations_sha256": "8ed00704f07c948b742d09e9c1c020d2c046dcbdd8d478e8674eba7ee85e4c1e",
+        "fixture": true,
+        "numeric_authority": "EXACT_PROJECTED_PRODUCER_FIELDS",
+        "required_source_ids": [
+          "src:bls:eci:2026q3"
+        ]
+      },
+      "exact_field_citations": 20,
+      "metadata_result": "The accepted copy and all 20 exact field citations are unchanged. Exact retained event/dossier source hashes were verified. Values retain civilian compensation 0.8% after 0.9%, wages 0.7% after 0.9%, benefits 0.9% after 1.0%, and 12-month compensation 3.4% after 3.4%; quarterly rates stay seasonally adjusted and annual rate stays not seasonally adjusted. USDJPY/gold statements remain the retained research no-directional-view report, not asset reaction or independent event confirmation.",
+      "payload_notices_result": "All seven text destination payloads retain the complete BLS disclaimer, fixture label and exact advice notice. U.S. Bureau is no longer split by a paragraph boundary. Instagram payload preserves SKIPPED_PHOTOLESS_NEWS_POLICY.",
+      "pixel_limit": "These payload and source checks do not establish full reader-visible correctness for the 17 defective captures. The canonical trailing zero and missing notice tails require reliable complete pixels in a later bound request."
+    },
+    "source_files_edited": false,
+    "source_request_count": 0,
+    "source_request_limit": 10,
+    "summary": "Only Instagram desktop has a complete correct capture. The eight other desktop PNGs repeat narrow mobile page columns; eight mobile PNGs show a large blank left area and a clipped right-side page strip; Threads mobile cuts its reply and repeats the page header. These are capture artifacts, not evidence that accepted prose or data changed."
+  },
+  "request_sha256": "19567bbc2f1b1284538dcdf4e6e113a96070b571e954b1dff2961399f1b8774c"
+}

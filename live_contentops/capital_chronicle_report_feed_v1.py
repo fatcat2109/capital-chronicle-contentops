@@ -39,6 +39,8 @@ MAIN_REPOSITORY = "https://github.com/fatcat2109/Headline-Raw-data-json"
 
 
 def _source(pointer):
+    if pointer.get("desk_record_exports") and not pointer.get("bundles") and not pointer.get("public_export_root"):
+        return None
     from live_contentops.capital_chronicle_public_manifest_v1 import CONFIG_SCHEMA, PublicMainFileSource
     return PublicMainFileSource(pointer) if pointer.get("schema_version") == CONFIG_SCHEMA else PinnedMainGitSource(pointer)
 
@@ -175,7 +177,10 @@ class MainReportFeed:
             except (OSError, ValueError, KeyError, TypeError):
                 self.research_error = "CONFIGURED_RESEARCH_INDEX_UNAVAILABLE_OR_INVALID"
         self.retained_research = retained_research
-        if not hasattr(self.source, "refresh") and not 0 < len(pointer.get("bundles", [])) <= 64:
+        if len(pointer.get("desk_record_exports", [])) > 16:
+            raise LatestReportConsumerError("MAIN_DESK_EXPORT_BOUND_INVALID")
+        if (not hasattr(self.source, "refresh") and not 0 < len(pointer.get("bundles", [])) <= 64
+                and not 0 < len(pointer.get("desk_record_exports", [])) <= 16):
             raise LatestReportConsumerError("MAIN_FEED_BUNDLE_BOUND_INVALID")
 
     def _attach_official_release_facts(self):
@@ -229,7 +234,8 @@ class MainReportFeed:
                 try:
                     current = self.pointer_loader()
                     if current != self.pointer:
-                        if not current or (not current.get("public_export_root") and not 0 < len(current.get("bundles", [])) <= 64):
+                        if not current or (not current.get("public_export_root") and not 0 < len(current.get("bundles", [])) <= 64
+                                and not 0 < len(current.get("desk_record_exports", [])) <= 16):
                             raise LatestReportConsumerError(
                                 "MAIN_FEED_BUNDLE_BOUND_INVALID"
                             )
@@ -423,6 +429,16 @@ class MainReportFeed:
                               for r in [received_by_id.get(cached["receipt_id"])]
                               if r and r["receipt_id"] not in seen_receipts)
                 events.sort(key=lambda e: ("WITHDRAW" in e.get("state", ""), e.get("report_version", 10**9), e.get("report_id", "")))
+            from live_contentops.capital_chronicle_desk_record_source_v1 import read_export
+            desk_records = []
+            for spec in self.pointer.get("desk_record_exports", []):
+                try:
+                    desk_records.extend(read_export(spec, cutoff_utc=cutoff_utc))
+                except (OSError, ValueError, KeyError, TypeError) as exc:
+                    cause = str(exc) if isinstance(exc, ValueError) and str(exc).startswith("DESK_") else type(exc).__name__
+                    gaps.append({"state": "MAIN_DESK_EXPORT_UNAVAILABLE_OR_INVALID", "cause": cause})
+            if len(desk_records) > 128:
+                raise LatestReportConsumerError("MAIN_DESK_RECORD_BOUND_EXCEEDED")
             summary = {
                 "schema_version": SCHEMA,
                 "producer_commit": self.pointer.get("producer_commit"),
@@ -430,6 +446,7 @@ class MainReportFeed:
                 "configured_bundle_count": len(specs),
                 "new_events": new,
                 "events": events,
+                **({"desk_record_sources": desk_records} if self.pointer.get("desk_record_exports") else {}),
                 "gaps": gaps,
                 "artifact_cache": artifact_cache,
                 "unchanged_artifact_bundles_reused": reused,
@@ -656,6 +673,7 @@ class MainReportFeed:
             source_route_health=source_route_health,
             attempted_candidate_ids=attempted_candidate_ids,
             retained_research=self.retained_research,
+            desk_records=scan.get("desk_record_sources", []),
             editorial_request=editorial_request,
             source_reviews=[json.loads(self.tracker.store.get_outbox_message(k)["payload"])
                             for k in frozen_input.get("source_review_ids", self.pointer.get("source_review_ids", []))],

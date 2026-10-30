@@ -1078,6 +1078,11 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
         retained_main = (document.get("source_authority_class") == "governed_capital_chronicle_report_only"
                          and document.get("report_lineage")
                          and re.fullmatch(r"urn:cc-public-report:[a-zA-Z0-9_-]{1,100}:[a-f0-9]{64}", url))
+        desk = document.get("desk_record_binding")
+        if (isinstance(desk, Mapping) and document.get("source_authority_class") == "governed_capital_chronicle_report_only"
+                and document.get("retrieval_method") == "MAIN_PUBLIC_DESK_RECORD_PROJECTION"
+                and url == "urn:cc-public-report:desk:" + _hash(desk)):
+            retained_main = True
         if not (url.startswith("https://") or retained_main) or len(text.strip()) < 40:
             continue
         source_id = f"SOURCE_{len(pack) + 1}"
@@ -1123,6 +1128,7 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                    if document.get("underlying_reuse_classification") == "governed_government_public_domain"
                    and document.get("rights_evidence_sha256") else {}),
                 **({"report_lineage": dict(document["report_lineage"])} if document.get("report_lineage") else {}),
+                **({"desk_record_binding": dict(desk)} if isinstance(desk, Mapping) else {}),
             }
         )
     return pack
@@ -1418,11 +1424,19 @@ def _epistemic_copy_blockers(
     article: Mapping[str, Any],
     claims: Sequence[Mapping[str, Any]],
     epistemic_state: Mapping[str, Any] | None,
+    *, source_pack=(),
 ) -> list[str]:
     if not isinstance(epistemic_state, Mapping) or not epistemic_state:
         return []
     blockers = list(validate_epistemic_state(epistemic_state))
-    if epistemic_state.get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT":
+    desk_only = bool(source_pack) and all(d.get("desk_record_binding") for d in source_pack)
+    if desk_only:
+        from live_contentops.capital_chronicle_desk_record_source_v1 import validate_article_citations
+        try:
+            validate_article_citations(article, [{"binding": d["desk_record_binding"]} for d in source_pack])
+        except (ValueError, KeyError, TypeError) as exc:
+            blockers.append(str(exc))
+    if epistemic_state.get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT" and not desk_only:
         notice = str(epistemic_state.get("report_scope_notice") or "")
         if not notice or notice not in str(article.get("substack_body_markdown") or ""):
             blockers.append("report_horizon_proxy_cost_limits_missing")
@@ -1627,7 +1641,7 @@ def _validate_article_against_source_pack(
     blockers.extend(
         _editorial_growth_edge_blockers(article, article_mode=article_mode)
     )
-    blockers.extend(_epistemic_copy_blockers(article, claims, epistemic_state))
+    blockers.extend(_epistemic_copy_blockers(article, claims, epistemic_state, source_pack=source_pack))
     body = _normal(_SOURCE_MARKER_RE.sub("", str(article.get("substack_body_markdown") or "")))
     for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):
         if key in article and (_normal(article[key]) not in body or len(str(article[key])) < 24):
@@ -1815,6 +1829,12 @@ def _reader_safe_native_article(
     }
     if article.get("volume_policy"):
         result.update({k: article[k] for k in ("volume_policy", "volume_policy_cutoff_utc", "visual_editorial_decision")})
+    if article.get("desk_record_citations"):
+        result["desk_record_citations"] = article["desk_record_citations"]
+        if article.get("fixture"):
+            result["editorial_scope_notice"] += " Fixture, not current data."
+        result["editorial_scope_notice"] = " ".join(filter(None, (
+            result["editorial_scope_notice"], *article.get("desk_record_source_notices", []))))
     from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
     notices = [text for d in article.get("public_research_descriptors", []) for text in reader_notices(d)]
     if notices:
@@ -2242,8 +2262,13 @@ def _build_simple_publication_lifecycle_plan(
             "status": "SKIPPED_PHOTOLESS_NEWS_POLICY"}] if preview_packages.get("instagram_business", {}).get("delivery_state")
                 == "SKIPPED_PHOTOLESS_NEWS_POLICY" else []),
         **({"volume_policy": article["volume_policy"], "volume_policy_cutoff_utc": article["volume_policy_cutoff_utc"],
-            "photo_less_news_policy": True} if article.get("volume_policy") and
+            "photo_less_news_policy": True,
+            **({"photo_less_desk_record_binding": {k: article[k] for k in (
+                "resolved_article_mode", "visual_editorial_decision", "desk_record_citations")}}
+                if article.get("resolved_article_mode") == "DATA_OR_DOCUMENT_LENS" and article.get("desk_record_citations") else {})
+            } if article.get("volume_policy") and
             preview_packages.get("instagram_business", {}).get("delivery_state") == "SKIPPED_PHOTOLESS_NEWS_POLICY" else {}),
+        **({"fixture_source_context": True} if article.get("desk_record_citations") and article.get("fixture") else {}),
         "pre_substack_blockers": [],
         "transaction_readiness": "CANONICAL_READY_DERIVATIVES_DEFERRED",
         "transport_registry_version": REGISTRY_VERSION,
@@ -2945,6 +2970,20 @@ def run_v1_simple_gemini_newsroom(
             {c["source_id"] for c in worker_output["material_claim_bindings"]})}
         if writer_governed.get("reader_attribution_policy") == READER_ATTRIBUTION_POLICY:
             article["reader_attribution_policy"] = READER_ATTRIBUTION_POLICY
+    if article.get("desk_record_citations"):
+        from live_contentops.capital_chronicle_desk_record_source_v1 import validate_article_citations
+        desk_records = [{"binding": d["desk_record_binding"]} for d in source_pack if d.get("desk_record_binding")]
+        desk_validation = validate_article_citations(article, desk_records)
+        article["fixture"] = desk_validation["fixture"]
+        required = set(desk_validation["required_source_ids"])
+        notices = []
+        for source in (s for r in desk_records for s in r["binding"]["sources"] if s["source_id"] in required):
+            credit, disclaimer = source.get("attribution"), source.get("disclaimer")
+            if credit and (not disclaimer or credit not in disclaimer):
+                notices.append(credit)
+            if disclaimer:
+                notices.append(disclaimer)
+        article["desk_record_source_notices"] = list(dict.fromkeys(notices))
     native_prior = [c for c in selected.get("evolving_story_context", []) if c.get("source_review_id")]
     article["public_source_bindings"] = [{**{k: d[k] for k in ("source_id", "url", "publisher", "published_at_utc")},
         **({"reader_label": native_source_reader_label(d)}

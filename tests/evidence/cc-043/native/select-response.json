@@ -1,0 +1,37 @@
+{
+  "invocation_observation": {
+    "actual_configuration_unavailable": true,
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_source": "Explicit supported parent task request for the frozen CC-043 selection role and desktop_request_select.json requested_model/requested_reasoning_effort; these are configured settings, not observed execution settings.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "invocation_id": "/root/native_select_e11b24d096c9",
+    "model": null,
+    "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and reasoning effort are not exposed to this role.",
+    "reasoning_effort": null,
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  },
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Fixture, not current data: what the released ECI event can establish about compensation costs, and why the supplied dollar/yen and gold dossiers do not establish a market reaction or trading conclusion.",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-7d425ca51f23d91c8b5d92f2",
+        "evidence_plan": "Use only the existing local governed resolver on the exact producer fixture, preserving cutoff 2026-10-30T16:11:30.442156Z and all source revisions, clocks and rights. Resolve main-desk:event:US_ECI_20261030 (cc-desk:1a2510fb707f47b79eb57b4f93e4318ee1b0ac89d0aba906ff15218cecf5e2d9), and relevant main-desk:asset:USDJPY and main-desk:asset:XAUUSD records by their supplied source-item identities. For every factual statement, retain exact JSON field path, source item and revision. Read release state, actual/prior values, units, period, seasonal adjustment and any supplied comparison fields only where present; never invent a consensus or fill missing observations. Code owns arithmetic and any admitted-data rendering. Distinguish the ECI event from its calendar entry and series, and dossier context from observed post-release prices or causal evidence. The selection packet contains identifiers rather than these underlying fields, so actual values, field paths and usable chart history remain unresolved until preparation. Do not infer source qualification from route hints or duplicate Main records. Keep proprietary decision/forecast fields outside this article. No external fetch, public-source query execution, model API, advice or publication. Retain Fixture, not current data throughout the private preview.",
+        "primary_reader_question": "What does this fixture's released compensation-cost record actually tell us, and what would still be missing before connecting it to gold or dollar/yen?",
+        "research_queries": [
+          "Employment Cost Index civilian compensation quarterly change seasonal adjustment interpretation",
+          "Employment Cost Index release gold dollar yen evidence limits"
+        ],
+        "selection_rationale": "One event-led document piece is independently useful because it can explain a concrete compensation measure while making the limits of adjacent asset context intelligible. The owner identifies the released ECI fixture as the preferred bounded subject; its event and relevant dossiers are explicitly identified in the governed packet. This is an admission for exact local evidence preparation, not a claim that unseen numeric fields, rights or charts have passed review. Other calendar-only and overlapping ECI/asset candidates add no independent article to this one-piece preview. Query texts are contract metadata only and must not be executed under this fixture's no-external-fetch restriction."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select one ECI document-lens piece for the private acceptance preview. Fixture, not current data. Exact event/dossier fields must be resolved locally before factual prose; no supplied headline alone establishes values, market reaction, rights or independent confirmation. Preserve the frozen cutoff and zero publication.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "request_sha256": "e11b24d096c92f2417b947e53d227f2775ffb6063afdb81b71809b7f0e87e78b"
+}

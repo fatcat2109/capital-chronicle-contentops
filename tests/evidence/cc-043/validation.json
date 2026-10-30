@@ -1,0 +1,440 @@
+{
+  "item": "CC-043",
+  "acceptance_passed": true,
+  "recorded_at_utc": "2026-10-30T22:29:31.043788+00:00",
+  "producer_commit": "89e59374eda3686271a0df4690e74b2e2d3f996a",
+  "producer_inputs_manifest": "tests/evidence/cc-043/producer-inputs.json",
+  "public_records": 17,
+  "public_fields": 123,
+  "native_fixture_article": {
+    "run_id": "cc043-fixture-a-20261030",
+    "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+    "cutoff_utc": "2026-10-30T16:11:30.442156+00:00",
+    "title": "Capital Chronicle's ECI record: a smaller quarterly rise",
+    "field_validation": {
+      "citation_count": 20,
+      "citations_sha256": "8ed00704f07c948b742d09e9c1c020d2c046dcbdd8d478e8674eba7ee85e4c1e",
+      "numeric_authority": "EXACT_PROJECTED_PRODUCER_FIELDS",
+      "required_source_ids": [
+        "src:bls:eci:2026q3"
+      ],
+      "fixture": true
+    },
+    "record_ids": [
+      "asset:USDJPY",
+      "asset:XAUUSD",
+      "event:US_ECI_20261030"
+    ],
+    "final_visual_acceptance": {
+      "stage": "final-visual-27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9",
+      "request_sha256": "89d167b037c35665f1ad0d5c1689516d7ad8bab064f9347f034b1eaf817f5629",
+      "response_sha256": "95f1d2b6257fb934cb9e78eede81e9fdbe3d236ad10b41ff2e66897e83819c29",
+      "output_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a",
+      "article_revision": "9c63c72e0f017ce39d52707ecd43df0c3ee2df950a9f6b552d49c01330ce84c2",
+      "render_binding_sha256": "27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "supported explicit spawn request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_visual_edit_860eaa0f453d",
+        "model": null,
+        "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and reasoning effort are not exposed to this role.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    },
+    "review_id": "native-article-review-74ab846919fb4515b8588059b44a80ec",
+    "source_request_count": 0,
+    "render_count": 18,
+    "media_assets": 0,
+    "instagram_state": "SKIPPED_PHOTOLESS_NEWS_POLICY",
+    "publication_state": "UNPUBLISHED_FIXTURE_PRIVATE_PREVIEW"
+  },
+  "native_calls": [
+    {
+      "stage": "select",
+      "request_sha256": "e11b24d096c92f2417b947e53d227f2775ffb6063afdb81b71809b7f0e87e78b",
+      "response_sha256": "e72c3afb278e8d89ca2b61d938b35194e81b8349489a2ce14a6803928e31c555",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Explicit supported parent task request for the frozen CC-043 selection role and desktop_request_select.json requested_model/requested_reasoning_effort; these are configured settings, not observed execution settings.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "invocation_id": "/root/native_select_e11b24d096c9",
+        "model": null,
+        "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and reasoning effort are not exposed to this role.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    },
+    {
+      "stage": "media-plan",
+      "request_sha256": "4eed707d16b0d8eedd4ecd8c87f1bf1a739340442df1f1fcc151f7b067a32692",
+      "response_sha256": "953df3b84466be56828cd9f6e8f29a309f6c80cf0a40be0af89da72b50663c19",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "supported explicit spawn request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "invocation_id": "/root/native_select_4eed707d16b0",
+        "model": null,
+        "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and effort unavailable.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    },
+    {
+      "stage": "visual-edit",
+      "request_sha256": "860eaa0f453d4000dcc08feee13f135b8580840285414e0549ca31534f4ed305",
+      "response_sha256": "ef264cc69fd10d4a45b6dc29b1b13779be31ad32ba21ff345540f0096106e87c",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "supported explicit spawn request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_visual_edit_860eaa0f453d",
+        "model": null,
+        "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and reasoning effort are not exposed to this role.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    },
+    {
+      "stage": "write",
+      "request_sha256": "65b55d622523e51680125145a3e1c8914abc3475e9f206ba0f267476efa43d38",
+      "response_sha256": "2eda621c634ec39e4afa45a3782016308164dad31ab64c6e11ec293ed1cfaf29",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "supported explicit spawn request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_visual_edit_860eaa0f453d",
+        "model": null,
+        "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and reasoning effort are not exposed to this role.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    },
+    {
+      "stage": "revise",
+      "request_sha256": "7c4745bc95130068c443c8b8b5c2f6cd7b275ad9c9ab301ec1f92e997ce7196a",
+      "response_sha256": "dc29baf56dd6e5e939ae21061d8e0c43c04fcbe277876d53f0d4aed5af8f94d9",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "supported explicit spawn request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_visual_edit_860eaa0f453d",
+        "model": null,
+        "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and reasoning effort are not exposed to this role.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    },
+    {
+      "stage": "final-visual-27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9",
+      "request_sha256": "89d167b037c35665f1ad0d5c1689516d7ad8bab064f9347f034b1eaf817f5629",
+      "response_sha256": "95f1d2b6257fb934cb9e78eede81e9fdbe3d236ad10b41ff2e66897e83819c29",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "supported explicit spawn request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_visual_edit_860eaa0f453d",
+        "model": null,
+        "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and reasoning effort are not exposed to this role.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    }
+  ],
+  "luna_filter": "NOT_CALLED_NON_X_FIXTURE_INPUT",
+  "configuration_note": "Explicit configured settings under Jim decision16; actual unexposed model/effort and usage remain unknown. Same MAX invocation across visual-edit/write/revise/final review.",
+  "tests": {
+    "passed": 387,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "duration_seconds": 260.895,
+    "junit": {
+      "path": "tests/evidence/cc-043/tests.junit.xml",
+      "sha256": "cd6336ceede2edc01362b0453424a248c3ce849f0a6618fd2d67b69a7da14e5c",
+      "bytes": 61573
+    },
+    "files": [
+      "tests/test_capital_chronicle_desk_record_source_v1.py",
+      "tests/test_capital_chronicle_report_editorial_workspace_v1.py",
+      "tests/test_capital_chronicle_report_feed_v1.py",
+      "tests/test_contentops_editorial_desk_v1.py",
+      "tests/test_contentops_foundation_library_v1.py",
+      "tests/test_desk_record_export_schema_v1.py",
+      "tests/test_eight_platform_substack_first_pipeline_v1.py",
+      "tests/test_native_desktop_editorial_v1.py",
+      "tests/test_native_desktop_publication_v1.py",
+      "tests/test_native_editorial_media_standard_v1.py",
+      "tests/test_native_final_visual_review_v1.py",
+      "tests/test_native_volume_window_v1.py",
+      "tests/test_publication_coordinator_v1.py",
+      "tests/test_v1_simple_gemini_newsroom_v1.py"
+    ]
+  },
+  "ui": {
+    "passed": 39,
+    "junit": {
+      "path": "tests/evidence/cc-043/ui-tests.junit.xml",
+      "sha256": "07dd4a871abf7e05d44f787280d9b68900fddc23798b3f389d6b66e6c9a6f7ca",
+      "bytes": 10147
+    },
+    "build": "npm.cmd run build: PASS (TypeScript + Vite)"
+  },
+  "story_memory": {
+    "reviewed_links": 3,
+    "current_record_dispositions": "NO_MATERIAL_CHANGE",
+    "publication_state": "UNPUBLISHED_RESEARCH"
+  },
+  "rejected_second_candidate": {
+    "run_id": "cc043-fixture-b-20261030",
+    "outcome": "REJECT",
+    "primary_cause": "INSUFFICIENT_READER_VALUE",
+    "source_requests": 0
+  },
+  "fixture_publication_guard": {
+    "operation": "prepare_native_publication",
+    "result": "REFUSED",
+    "actual_error": "DESK_FIXTURE_PRIVATE_PREVIEW_ONLY"
+  },
+  "dispatch_count": 0,
+  "repairs": {
+    "prose_unchanged_during_render_repairs": true,
+    "compiler": "Keep U.S. agency initialism together in X/Threads sentence units",
+    "ui": "Show actual photo-less Instagram skip",
+    "r2": "stale request/return retained without acceptance",
+    "r4": "Actual REPAIR_REQUIRED accepted; screenshot tiling rejected",
+    "r5": "PDF-rendered browser previews inspected, not screenshots"
+  },
+  "render_artifacts": [
+    {
+      "path": "tests/evidence/cc-043/renders/discord-desktop.pdf",
+      "sha256": "5418a72f4fc6b76d45c34bf98d835de4a06deb12dc9daa257e05aecf6ba59166",
+      "bytes": 55271
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/discord-desktop.png",
+      "sha256": "e255efdec291b6463b0e42118d1197a2407fb25e7a2e11fc6641383c9bd75d04",
+      "bytes": 120957
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/discord-mobile.pdf",
+      "sha256": "c986e7b2ab9219127e0b3f4621d7de704dcf83ecffd8a8de4b50e677a8e5bbeb",
+      "bytes": 55270
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/discord-mobile.png",
+      "sha256": "36ff0be284202b2a4ad9213c25074d83f3bbabab976053920c342cbff762baf5",
+      "bytes": 104524
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/facebook_page-desktop.pdf",
+      "sha256": "1fec8f9bd26507edb05646178eb0f84be1ffe174a5a1583b9475ff30cb2a379c",
+      "bytes": 55053
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/facebook_page-desktop.png",
+      "sha256": "f9cdcd538638774fc9161a79968ad05970c302d80d62d555e41ee53f5affa74c",
+      "bytes": 120775
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/facebook_page-mobile.pdf",
+      "sha256": "529a776376432817207b6ecff0a5c65df9ac7dd34ef95641ec374deaa4641658",
+      "bytes": 55079
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/facebook_page-mobile.png",
+      "sha256": "8edcc99e674bc914594c1613d2751c6429e9b7975d653df32d8c27ef30788528",
+      "bytes": 106804
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/index.html",
+      "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+      "bytes": 296810
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/instagram_business-desktop.pdf",
+      "sha256": "7d4200a1d9c77a57abc1c7a5d3ebf809cea47a13e34e57b44ff233efd01a6d3f",
+      "bytes": 49484
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/instagram_business-desktop.png",
+      "sha256": "56edbf59122f82a2e53d3c9b63044d4a0cb3d219016b7a2d6b2fe09b94feec2c",
+      "bytes": 63967
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/instagram_business-mobile.pdf",
+      "sha256": "f9ec09d9453c12288cdc1ef70e73d1703c14f7da41f26870b1af396eda630a5a",
+      "bytes": 49458
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/instagram_business-mobile.png",
+      "sha256": "231613a5d6005a0b69aca20e275d19a4a3de226fb4241a1be34c95210f24d8ed",
+      "bytes": 51839
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/linkedin-desktop.pdf",
+      "sha256": "9adb1275705a4aa55e9c16b53eb49814d49941a97b7499500e74a3371a3b0e8a",
+      "bytes": 54909
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/linkedin-desktop.png",
+      "sha256": "32cd997fb49e98f2e38627b4f83404e7a3519809b11e0bd66faa53bb52b9a615",
+      "bytes": 117587
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/linkedin-mobile.pdf",
+      "sha256": "510f34639d92ed8d7221cdd228afeb08aa6e966a89600d4b50707d6643ae596b",
+      "bytes": 54954
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/linkedin-mobile.png",
+      "sha256": "8d3b1f03e214e8c3fac78a9bc7b3031a7c3a214ccca5b3bbd6b18ea514cdfc60",
+      "bytes": 102234
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/pdf-content-checks.json",
+      "sha256": "23ec79bb30705f667e1c132c4c74b0e554483c58415aee3f8769c4d228cb6ef6",
+      "bytes": 5386
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/renders.json",
+      "sha256": "b8afe36887552e4294f7b28b4558a8e9db82c525ce55b01a24d270a3b4fbd1d9",
+      "bytes": 45713
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/substack-desktop.pdf",
+      "sha256": "a1e43780fbe76d03f5d30bd51b0e68f050bb930bc6f76c5f3218aef5f731eab3",
+      "bytes": 57803
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/substack-desktop.png",
+      "sha256": "bb2b25fc0bc86dbe8df314d4235f3f76bc98ffe20cc516c3c719dd87f6cd310a",
+      "bytes": 197236
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/substack-mobile.pdf",
+      "sha256": "aead6f3b00c171051fe96b420d0db0c03656f6556ac2b56810f9442ae0542828",
+      "bytes": 58443
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/substack-mobile.png",
+      "sha256": "e51aba59930641d94e5e86199cb1290b88939f9a53f45413fb1f042ce45d7585",
+      "bytes": 185881
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/telegram-desktop.pdf",
+      "sha256": "8b87aeeabf1a6a2301b678a69f447885c174ea7ac56351077c01921a348c5893",
+      "bytes": 54801
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/telegram-desktop.png",
+      "sha256": "08b91ea1b853dade963b80b963e6b8de1841ba8d5d9eca18053a519d029e1230",
+      "bytes": 119325
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/telegram-mobile.pdf",
+      "sha256": "27da1dc6b918d68457fa79f8cee80f71fc15874b99597ee3918d2e2bfed6b544",
+      "bytes": 54882
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/telegram-mobile.png",
+      "sha256": "ee9860970ae4b80d0d8ffefdd31ccc4fb4866fb7e5d664a315c744065eb6d0e1",
+      "bytes": 104431
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/threads-desktop.pdf",
+      "sha256": "8dec232051d893db514a68a062990d20ebba5a4343821982a2b4108b3bd2bec6",
+      "bytes": 55548
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/threads-desktop.png",
+      "sha256": "0cf3790992bcf992d60a831f3e5289e888597c997786681094a32ac96db4ec21",
+      "bytes": 126252
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/threads-mobile.pdf",
+      "sha256": "520c2e576bf8665fd167c5f49cde7c6a2c41f46d93914b64f67a1de6b4783ea8",
+      "bytes": 55612
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/threads-mobile.png",
+      "sha256": "10cf5863554de466085afe09a8ccf0d2b40de5e8fe6f5613b4f41eacd38c5e74",
+      "bytes": 105927
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/x-desktop.pdf",
+      "sha256": "e2ff2db74068170e4c6a40f7824e630a118c7b8ad9855e00549449e671531b8e",
+      "bytes": 56702
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/x-desktop.png",
+      "sha256": "d06f9a5af3324d012c5213564bd3d43672e973afb9d17e6926c1654fd0381dd1",
+      "bytes": 127731
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/x-mobile.pdf",
+      "sha256": "86d534fb82e1605b7c598511c4746c5828f155c745a4c953a72f6081a4510035",
+      "bytes": 56713
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/x-mobile.png",
+      "sha256": "1d0bdd69448eb0d7f26977f241d9b302a0db5d330252d08552cc6aceed1d015a",
+      "bytes": 109210
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/youtube-desktop.pdf",
+      "sha256": "1b757d16f4a30085141daa8e6029f005a6694c1021bdde1dddc501225a36993c",
+      "bytes": 54617
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/youtube-desktop.png",
+      "sha256": "aa38165701828dd7c0bc90ce8964f4b849f3940ee993b4eadd2c564d952c1078",
+      "bytes": 121593
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/youtube-mobile.pdf",
+      "sha256": "ffa9cf72f37333b2f93e0bc7400774b20e81492f4bd084e716c7690eeab4cd8e",
+      "bytes": 54656
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/youtube-mobile.png",
+      "sha256": "2dacc178b4fe45514eacbf6dd0ab20b20b9c7724815dfeae03b281d28c2b1c8b",
+      "bytes": 106523
+    }
+  ],
+  "limits": [
+    "Fixture acceptance only; not current reporting or publication.",
+    "CC-014 recurring export and real-fact-pack rights validation remain producer work.",
+    "No operating-root integration, Main analyzer, production control, public transport, schedule, MT5 or user application lifecycle action."
+  ],
+  "next_owner": "Claude Ops: integrate this branch; producer supplies actual CC-014 export locator/cadence. No integration performed by Publisher."
+}

@@ -1,0 +1,33 @@
+{
+  "review_id": "native-article-review-74ab846919fb4515b8588059b44a80ec",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "cc043-fixture-a-20261030",
+  "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+  "package_revision": "9c63c72e0f017ce39d52707ecd43df0c3ee2df950a9f6b552d49c01330ce84c2",
+  "article_metadata_sha256": "ae30a3cf8fdbb94020eda4b3db8c7ac3d878422435b4841331d5b2bf89750a15",
+  "rationale": "Same designated native MAX writer accepted the exact final PDF-rendered desktop/mobile previews. The fixture article cites the retained ECI event card and USDJPY/gold dossiers, preserves all 20 exact public field bindings and source notices, and remains unpublished.",
+  "publication_authority": false,
+  "final_visual_review": {
+    "stage": "final-visual-27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9",
+    "request_sha256": "89d167b037c35665f1ad0d5c1689516d7ad8bab064f9347f034b1eaf817f5629",
+    "response_sha256": "95f1d2b6257fb934cb9e78eede81e9fdbe3d236ad10b41ff2e66897e83819c29",
+    "output_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a",
+    "article_revision": "9c63c72e0f017ce39d52707ecd43df0c3ee2df950a9f6b552d49c01330ce84c2",
+    "render_binding_sha256": "27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9",
+    "invocation_observation": {
+      "actual_configuration_unavailable": true,
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "supported explicit spawn request",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "invocation_id": "/root/native_visual_edit_860eaa0f453d",
+      "model": null,
+      "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and reasoning effort are not exposed to this role.",
+      "reasoning_effort": null,
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    }
+  }
+}

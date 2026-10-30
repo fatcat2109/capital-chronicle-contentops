@@ -1282,6 +1282,8 @@ class DurablePublicationCoordinator:
             return
 
     def register_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
+        if plan.get("fixture_source_context"):
+            raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
         if str(plan.get("transport_registry_version") or "") != REGISTRY_VERSION:
             raise ValueError("publication_plan_transport_registry_version_mismatch")
         plan_hash = str(plan.get("plan_hash") or _hash(_canonical_json(plan)))
@@ -2131,6 +2133,8 @@ class DurablePublicationCoordinator:
         return result
 
     def _execute_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
+        if plan.get("fixture_source_context"):
+            raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
         if self._recovery_is_quarantined(work_item_id):
             return {
                 "plan_hash": str(plan.get("plan_hash") or _hash(_canonical_json(plan))),

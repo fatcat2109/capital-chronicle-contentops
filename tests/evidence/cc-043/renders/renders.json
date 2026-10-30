@@ -1,0 +1,706 @@
+{
+  "renders": [
+    {
+      "destination": "discord",
+      "viewport": "desktop",
+      "render_id": "cc043-r5-discord-desktop-e255efdec291b646",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\discord-desktop.png",
+      "sha256": "e255efdec291b6463b0e42118d1197a2407fb25e7a2e11fc6641383c9bd75d04",
+      "variant_sha256": "a82ec631e42a706f74a4ddf2e6db75aac816cf9b85dc7eb4f1a8b481d218554e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 1440,
+        "css_paper_height": 1236,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\discord-desktop.pdf",
+          "sha256": "5418a72f4fc6b76d45c34bf98d835de4a06deb12dc9daa257e05aecf6ba59166"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1236,
+          "overflow": false,
+          "selected": "discord",
+          "text": "Discord\n\nNewsroom brief: Capital Chronicle's ECI record: a smaller quarterly rise\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\nContext: The 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.\n\nRead the article: [Canonical link pending]\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade.\n\nSources and dates",
+          "width": 1440
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 1440,
+      "height": 1236
+    },
+    {
+      "destination": "discord",
+      "viewport": "mobile",
+      "render_id": "cc043-r5-discord-mobile-36ff0be284202b2a",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\discord-mobile.png",
+      "sha256": "36ff0be284202b2a4ad9213c25074d83f3bbabab976053920c342cbff762baf5",
+      "variant_sha256": "a82ec631e42a706f74a4ddf2e6db75aac816cf9b85dc7eb4f1a8b481d218554e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 390,
+        "css_paper_height": 1391,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\discord-mobile.pdf",
+          "sha256": "c986e7b2ab9219127e0b3f4621d7de704dcf83ecffd8a8de4b50e677a8e5bbeb"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1391,
+          "overflow": false,
+          "selected": "discord",
+          "text": "Discord\n\nNewsroom brief: Capital Chronicle's ECI record: a smaller quarterly rise\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\nContext: The 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.\n\nRead the article: [Canonical link pending]\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade.\n\nSources and dates",
+          "width": 390
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 390,
+      "height": 1390
+    },
+    {
+      "destination": "facebook_page",
+      "viewport": "desktop",
+      "render_id": "cc043-r5-facebook_page-desktop-f9cdcd538638774f",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\facebook_page-desktop.png",
+      "sha256": "f9cdcd538638774fc9161a79968ad05970c302d80d62d555e41ee53f5affa74c",
+      "variant_sha256": "72126ac56ef4e02af50f401cfdaac716537bc36d9ed8a3024b9dcb393bafa4c9",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 1440,
+        "css_paper_height": 1236,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\facebook_page-desktop.pdf",
+          "sha256": "1fec8f9bd26507edb05646178eb0f84be1ffe174a5a1583b9475ff30cb2a379c"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1236,
+          "overflow": false,
+          "selected": "facebook_page",
+          "text": "Facebook Page\n\nCapital Chronicle's ECI record: a smaller quarterly rise\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\nWhy it matters: Capital Chronicle's retained Employment Cost Index record says civilian compensation rose 0.8% in the third quarter of 2026, after 0.9% in the second.\n\nRead the full brief: [Canonical link pending]\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade.\n\nSources and dates",
+          "width": 1440
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 1440,
+      "height": 1236
+    },
+    {
+      "destination": "facebook_page",
+      "viewport": "mobile",
+      "render_id": "cc043-r5-facebook_page-mobile-8edcc99e674bc914",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\facebook_page-mobile.png",
+      "sha256": "8edcc99e674bc914594c1613d2751c6429e9b7975d653df32d8c27ef30788528",
+      "variant_sha256": "72126ac56ef4e02af50f401cfdaac716537bc36d9ed8a3024b9dcb393bafa4c9",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 390,
+        "css_paper_height": 1391,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\facebook_page-mobile.pdf",
+          "sha256": "529a776376432817207b6ecff0a5c65df9ac7dd34ef95641ec374deaa4641658"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1391,
+          "overflow": false,
+          "selected": "facebook_page",
+          "text": "Facebook Page\n\nCapital Chronicle's ECI record: a smaller quarterly rise\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\nWhy it matters: Capital Chronicle's retained Employment Cost Index record says civilian compensation rose 0.8% in the third quarter of 2026, after 0.9% in the second.\n\nRead the full brief: [Canonical link pending]\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade.\n\nSources and dates",
+          "width": 390
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 390,
+      "height": 1390
+    },
+    {
+      "destination": "instagram_business",
+      "viewport": "desktop",
+      "render_id": "cc043-r5-instagram_business-desktop-56edbf59122f82a2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\instagram_business-desktop.png",
+      "sha256": "56edbf59122f82a2e53d3c9b63044d4a0cb3d219016b7a2d6b2fe09b94feec2c",
+      "variant_sha256": "3387ab5522b1a1bdb36e8cb13c8b091a5ee57c778048be2edb31dbdabeda799a",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 1440,
+        "css_paper_height": 982,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\instagram_business-desktop.pdf",
+          "sha256": "7d4200a1d9c77a57abc1c7a5d3ebf809cea47a13e34e57b44ff233efd01a6d3f"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 982,
+          "overflow": false,
+          "selected": "instagram_business",
+          "text": "Instagram Business\n\nInstagram skipped. This text-only brief has no image.\n\nSources and dates",
+          "width": 1440
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 1440,
+      "height": 983
+    },
+    {
+      "destination": "instagram_business",
+      "viewport": "mobile",
+      "render_id": "cc043-r5-instagram_business-mobile-231613a5d6005a0b",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\instagram_business-mobile.png",
+      "sha256": "231613a5d6005a0b69aca20e275d19a4a3de226fb4241a1be34c95210f24d8ed",
+      "variant_sha256": "3387ab5522b1a1bdb36e8cb13c8b091a5ee57c778048be2edb31dbdabeda799a",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 390,
+        "css_paper_height": 941,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\instagram_business-mobile.pdf",
+          "sha256": "f9ec09d9453c12288cdc1ef70e73d1703c14f7da41f26870b1af396eda630a5a"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 941,
+          "overflow": false,
+          "selected": "instagram_business",
+          "text": "Instagram Business\n\nInstagram skipped. This text-only brief has no image.\n\nSources and dates",
+          "width": 390
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 390,
+      "height": 940
+    },
+    {
+      "destination": "linkedin",
+      "viewport": "desktop",
+      "render_id": "cc043-r5-linkedin-desktop-32cd997fb49e98f2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\linkedin-desktop.png",
+      "sha256": "32cd997fb49e98f2e38627b4f83404e7a3519809b11e0bd66faa53bb52b9a615",
+      "variant_sha256": "87bec3c62f07d0d86213daedfb1dfc3ee441168657a2a2f5ad43b41403dc8c2f",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 1440,
+        "css_paper_height": 1236,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\linkedin-desktop.pdf",
+          "sha256": "9adb1275705a4aa55e9c16b53eb49814d49941a97b7499500e74a3371a3b0e8a"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1236,
+          "overflow": false,
+          "selected": "linkedin",
+          "text": "LinkedIn\n\nCapital Chronicle's ECI record: a smaller quarterly rise\n\nWhy it matters: Capital Chronicle's retained Employment Cost Index record says civilian compensation rose 0.8% in the third quarter of 2026, after 0.9% in the second.\n\nContext: The 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.\n\nRead the full brief: [Canonical link pending]\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade.\n\nSources and dates",
+          "width": 1440
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 1440,
+      "height": 1236
+    },
+    {
+      "destination": "linkedin",
+      "viewport": "mobile",
+      "render_id": "cc043-r5-linkedin-mobile-8d3b1f03e214e8c3",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\linkedin-mobile.png",
+      "sha256": "8d3b1f03e214e8c3fac78a9bc7b3031a7c3a214ccca5b3bbd6b18ea514cdfc60",
+      "variant_sha256": "87bec3c62f07d0d86213daedfb1dfc3ee441168657a2a2f5ad43b41403dc8c2f",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 390,
+        "css_paper_height": 1417,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\linkedin-mobile.pdf",
+          "sha256": "510f34639d92ed8d7221cdd228afeb08aa6e966a89600d4b50707d6643ae596b"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1417,
+          "overflow": false,
+          "selected": "linkedin",
+          "text": "LinkedIn\n\nCapital Chronicle's ECI record: a smaller quarterly rise\n\nWhy it matters: Capital Chronicle's retained Employment Cost Index record says civilian compensation rose 0.8% in the third quarter of 2026, after 0.9% in the second.\n\nContext: The 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.\n\nRead the full brief: [Canonical link pending]\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade.\n\nSources and dates",
+          "width": 390
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 390,
+      "height": 1415
+    },
+    {
+      "destination": "substack",
+      "viewport": "desktop",
+      "render_id": "cc043-r5-substack-desktop-bb2b25fc0bc86dbe",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\substack-desktop.png",
+      "sha256": "bb2b25fc0bc86dbe8df314d4235f3f76bc98ffe20cc516c3c719dd87f6cd310a",
+      "variant_sha256": "faaba404bfcfbe73098ff53bee943852bc0f5cf199fcb840a2877961d032329e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 1440,
+        "css_paper_height": 1642,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\substack-desktop.pdf",
+          "sha256": "a1e43780fbe76d03f5d30bd51b0e68f050bb930bc6f76c5f3218aef5f731eab3"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1642,
+          "overflow": false,
+          "selected": "canonical",
+          "text": "Capital Chronicle's ECI record: a smaller quarterly rise\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\n30 October 2026\n\nCapital Chronicle's retained Employment Cost Index record says civilian compensation rose 0.8% in the third quarter of 2026, after 0.9% in the second. The record attributes the figures to the U.S. Bureau of Labor Statistics (BLS). Fixture, not current data.\n\nWhat the release record says\n\nOn the seasonally adjusted, three-month measures, civilian wages and salaries rose 0.7%, while benefits rose 0.9%. Their preceding readings were 0.9% and 1.0%, respectively.\n\nThe 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.\n\nWhat Capital Chronicle's record does not establish\n\nCapital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nThis preview reports retained records and does not independently confirm the underlying release.\n\nCapital Chronicle's source attribution. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication.\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nSources and dates",
+          "width": 1440
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 1440,
+      "height": 1643
+    },
+    {
+      "destination": "substack",
+      "viewport": "mobile",
+      "render_id": "cc043-r5-substack-mobile-e51aba59930641d9",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\substack-mobile.png",
+      "sha256": "e51aba59930641d94e5e86199cb1290b88939f9a53f45413fb1f042ce45d7585",
+      "variant_sha256": "faaba404bfcfbe73098ff53bee943852bc0f5cf199fcb840a2877961d032329e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 390,
+        "css_paper_height": 2113,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\substack-mobile.pdf",
+          "sha256": "aead6f3b00c171051fe96b420d0db0c03656f6556ac2b56810f9442ae0542828"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 2113,
+          "overflow": false,
+          "selected": "canonical",
+          "text": "Capital Chronicle's ECI record: a smaller quarterly rise\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\n30 October 2026\n\nCapital Chronicle's retained Employment Cost Index record says civilian compensation rose 0.8% in the third quarter of 2026, after 0.9% in the second. The record attributes the figures to the U.S. Bureau of Labor Statistics (BLS). Fixture, not current data.\n\nWhat the release record says\n\nOn the seasonally adjusted, three-month measures, civilian wages and salaries rose 0.7%, while benefits rose 0.9%. Their preceding readings were 0.9% and 1.0%, respectively.\n\nThe 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.\n\nWhat Capital Chronicle's record does not establish\n\nCapital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nThis preview reports retained records and does not independently confirm the underlying release.\n\nCapital Chronicle's source attribution. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication.\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nSources and dates",
+          "width": 390
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 390,
+      "height": 2110
+    },
+    {
+      "destination": "telegram",
+      "viewport": "desktop",
+      "render_id": "cc043-r5-telegram-desktop-08b91ea1b853dade",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\telegram-desktop.png",
+      "sha256": "08b91ea1b853dade963b80b963e6b8de1841ba8d5d9eca18053a519d029e1230",
+      "variant_sha256": "4a500f100dc1c9709a423ba9e8f1d8675f3e6d5f14a8257616057a7efe42dc42",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 1440,
+        "css_paper_height": 1279,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\telegram-desktop.pdf",
+          "sha256": "8b87aeeabf1a6a2301b678a69f447885c174ea7ac56351077c01921a348c5893"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1279,
+          "overflow": false,
+          "selected": "telegram",
+          "text": "Telegram\n\nNEWSROOM BRIEF\n\nCapital Chronicle's ECI record: a smaller quarterly rise\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\nWhat to watch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nFull brief: [Canonical link pending]\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade.\n\nSources and dates",
+          "width": 1440
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 1440,
+      "height": 1280
+    },
+    {
+      "destination": "telegram",
+      "viewport": "mobile",
+      "render_id": "cc043-r5-telegram-mobile-ee9860970ae4b80d",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\telegram-mobile.png",
+      "sha256": "ee9860970ae4b80d0d8ffefdd31ccc4fb4866fb7e5d664a315c744065eb6d0e1",
+      "variant_sha256": "4a500f100dc1c9709a423ba9e8f1d8675f3e6d5f14a8257616057a7efe42dc42",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 390,
+        "css_paper_height": 1457,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\telegram-mobile.pdf",
+          "sha256": "27da1dc6b918d68457fa79f8cee80f71fc15874b99597ee3918d2e2bfed6b544"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1457,
+          "overflow": false,
+          "selected": "telegram",
+          "text": "Telegram\n\nNEWSROOM BRIEF\n\nCapital Chronicle's ECI record: a smaller quarterly rise\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\nWhat to watch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nFull brief: [Canonical link pending]\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade.\n\nSources and dates",
+          "width": 390
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 390,
+      "height": 1455
+    },
+    {
+      "destination": "threads",
+      "viewport": "desktop",
+      "render_id": "cc043-r5-threads-desktop-0cf3790992bcf992",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\threads-desktop.png",
+      "sha256": "0cf3790992bcf992d60a831f3e5289e888597c997786681094a32ac96db4ec21",
+      "variant_sha256": "1487f079f208479a313ad8b5fbdfe851dcdf556b0e2a6dd225aca0eb7a58b79a",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 1440,
+        "css_paper_height": 1463,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\threads-desktop.pdf",
+          "sha256": "8dec232051d893db514a68a062990d20ebba5a4343821982a2b4108b3bd2bec6"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1463,
+          "overflow": false,
+          "selected": "threads",
+          "text": "Threads\n\nRoot post\n\nCapital Chronicle's ECI record: a smaller quarterly rise\n\nThe 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.\n\n[Canonical link pending]\n\nReply 1\n\nWhat to watch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nFixture, not current data.\n\nDerived analysis attributed to the U.S. Bureau of Labor Statistics (BLS).\n\nNo BLS emblem is used, and BLS does not endorse this publication.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nSources and dates",
+          "width": 1440
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 1440,
+      "height": 1464
+    },
+    {
+      "destination": "threads",
+      "viewport": "mobile",
+      "render_id": "cc043-r5-threads-mobile-10cf5863554de466",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\threads-mobile.png",
+      "sha256": "10cf5863554de466085afe09a8ccf0d2b40de5e8fe6f5613b4f41eacd38c5e74",
+      "variant_sha256": "1487f079f208479a313ad8b5fbdfe851dcdf556b0e2a6dd225aca0eb7a58b79a",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 390,
+        "css_paper_height": 1578,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\threads-mobile.pdf",
+          "sha256": "520c2e576bf8665fd167c5f49cde7c6a2c41f46d93914b64f67a1de6b4783ea8"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1578,
+          "overflow": false,
+          "selected": "threads",
+          "text": "Threads\n\nRoot post\n\nCapital Chronicle's ECI record: a smaller quarterly rise\n\nThe 12-month civilian-compensation rate was 3.4%, unchanged from the prior 3.4%. That measure is not seasonally adjusted, unlike the quarterly measures.\n\n[Canonical link pending]\n\nReply 1\n\nWhat to watch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nFixture, not current data.\n\nDerived analysis attributed to the U.S. Bureau of Labor Statistics (BLS).\n\nNo BLS emblem is used, and BLS does not endorse this publication.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nSources and dates",
+          "width": 390
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 390,
+      "height": 1576
+    },
+    {
+      "destination": "x",
+      "viewport": "desktop",
+      "render_id": "cc043-r5-x-desktop-d06f9a5af3324d01",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\x-desktop.png",
+      "sha256": "d06f9a5af3324d012c5213564bd3d43672e973afb9d17e6926c1654fd0381dd1",
+      "variant_sha256": "12e40134d058a3342d831546f8580bd7b3a4b631777ee7197fb39242ceef678d",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 1440,
+        "css_paper_height": 1548,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\x-desktop.pdf",
+          "sha256": "e2ff2db74068170e4c6a40f7824e630a118c7b8ad9855e00549449e671531b8e"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1548,
+          "overflow": false,
+          "selected": "x",
+          "text": "X\n\nRoot post\n\nCapital Chronicle's ECI record: a smaller quarterly rise\n\n[Canonical link pending]\n\nReply 1\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\nReply 2\n\nWatch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nFixture, not current data.\n\nReply 3\n\nDerived analysis attributed to the U.S. Bureau of Labor Statistics (BLS).\n\nNo BLS emblem is used, and BLS does not endorse this publication.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nSources and dates",
+          "width": 1440
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 1440,
+      "height": 1549
+    },
+    {
+      "destination": "x",
+      "viewport": "mobile",
+      "render_id": "cc043-r5-x-mobile-1d0bdd69448eb0d7",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\x-mobile.png",
+      "sha256": "1d0bdd69448eb0d7f26977f241d9b302a0db5d330252d08552cc6aceed1d015a",
+      "variant_sha256": "12e40134d058a3342d831546f8580bd7b3a4b631777ee7197fb39242ceef678d",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 390,
+        "css_paper_height": 1632,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\x-mobile.pdf",
+          "sha256": "86d534fb82e1605b7c598511c4746c5828f155c745a4c953a72f6081a4510035"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1632,
+          "overflow": false,
+          "selected": "x",
+          "text": "X\n\nRoot post\n\nCapital Chronicle's ECI record: a smaller quarterly rise\n\n[Canonical link pending]\n\nReply 1\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\nReply 2\n\nWatch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nFixture, not current data.\n\nReply 3\n\nDerived analysis attributed to the U.S. Bureau of Labor Statistics (BLS).\n\nNo BLS emblem is used, and BLS does not endorse this publication.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nSources and dates",
+          "width": 390
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 390,
+      "height": 1629
+    },
+    {
+      "destination": "youtube",
+      "viewport": "desktop",
+      "render_id": "cc043-r5-youtube-desktop-aa38165701828dd7",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\youtube-desktop.png",
+      "sha256": "aa38165701828dd7c0bc90ce8964f4b849f3940ee993b4eadd2c564d952c1078",
+      "variant_sha256": "f9b15c5576af3e9078ecd09182383c5cced254c74a75cb7e930c054fb5305a9b",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 1440,
+        "css_paper_height": 1236,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\youtube-desktop.pdf",
+          "sha256": "1b757d16f4a30085141daa8e6029f005a6694c1021bdde1dddc501225a36993c"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1236,
+          "overflow": false,
+          "selected": "youtube",
+          "text": "YouTube Community\n\nUpdate: Capital Chronicle's ECI record: a smaller quarterly rise\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\nWhat to watch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nRead the full brief: [Canonical link pending]\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade.\n\nSources and dates",
+          "width": 1440
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 1440,
+      "height": 1236
+    },
+    {
+      "destination": "youtube",
+      "viewport": "mobile",
+      "render_id": "cc043-r5-youtube-mobile-2dacc178b4fe4551",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\youtube-mobile.png",
+      "sha256": "2dacc178b4fe45514eacbf6dd0ab20b20b9c7724815dfeae03b281d28c2b1c8b",
+      "variant_sha256": "f9b15c5576af3e9078ecd09182383c5cced254c74a75cb7e930c054fb5305a9b",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\index.html",
+        "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+      },
+      "browser_capture": {
+        "tool": "BrowserOS Neo CDP Page.printToPDF; Poppler rasterization",
+        "page": 286,
+        "evidence_kind": "PDF_RENDERED_BROWSER_PREVIEW_NOT_SCREENSHOT",
+        "screen_media": true,
+        "css_paper_width": 390,
+        "css_paper_height": 1417,
+        "scale": 1,
+        "margins": 0,
+        "page_ranges": "1",
+        "pdf": {
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5\\youtube-mobile.pdf",
+          "sha256": "ffa9cf72f37333b2f93e0bc7400774b20e81492f4bd084e716c7690eeab4cd8e"
+        },
+        "raster_command": "pdftoppm -f 1 -singlefile -scale-to-x WIDTH -scale-to-y -1 -png INPUT OUTPUT",
+        "metadata": {
+          "fixture": true,
+          "height": 1417,
+          "overflow": false,
+          "selected": "youtube",
+          "text": "YouTube Community\n\nUpdate: Capital Chronicle's ECI record: a smaller quarterly rise\n\nCapital Chronicle's retained Employment Cost Index record shows civilian compensation up 0.8% over the quarter after 0.9%, while the annual rate stays at 3.4%.\n\nWhat to watch: Capital Chronicle's accompanying research records report no directional view on dollar/yen and no directional view on gold after the Employment Cost Index.\n\nRead the full brief: [Canonical link pending]\n\nFixture, not current data. Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication. Analysis, not financial advice. Readers decide whether to trade.\n\nSources and dates",
+          "width": 390
+        },
+        "selected_article_text_complete": true
+      },
+      "width": 390,
+      "height": 1415
+    }
+  ]
+}

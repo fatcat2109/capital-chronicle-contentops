@@ -38,6 +38,8 @@ ARTIFACTS = (
 
 def _prepared_packet(store, binding):
     result, _, review = validated_native_review(store, run_id=binding["run_id"])
+    if result.get("fixture_source_context") or (result.get("desk_record_validation") or {}).get("fixture"):
+        raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
     prepared = [
         json.loads(r["payload"])
         for r in store.list_outbox_messages()
@@ -97,6 +99,8 @@ def prepare_native_publication(store, binding):
     """Seal the exact reviewed packet in the same outbox; no publisher/readiness call."""
     from live_contentops.native_desktop_editorial_v1 import validated_native_review, validate_release_media
     result, _, _ = validated_native_review(store, run_id=binding["run_id"])
+    if result.get("fixture_source_context") or (result.get("desk_record_validation") or {}).get("fixture"):
+        raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
     validate_release_media(result)
     prepare_reviewed_handoff(
         store, run_id=binding["run_id"], output_dir=binding["output_dir"]

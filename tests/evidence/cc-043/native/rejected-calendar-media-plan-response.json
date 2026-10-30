@@ -1,0 +1,27 @@
+{
+  "invocation_observation": {
+    "actual_configuration_unavailable": true,
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_source": "Supported explicit spawn request for the frozen CC-043 selection role; configured settings are not observed execution settings.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "invocation_id": "/root/native_select_ffe00efd4fff",
+    "model": null,
+    "observation_source": "Canonical task identity supplied in this supported native subagent invocation; actual model and reasoning effort are unavailable.",
+    "reasoning_effort": null,
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  },
+  "output": {
+    "candidate_id": "simple-story-4c2385779ce74250a0d08d5b",
+    "outcome": "REJECT",
+    "primary_cause": "INSUFFICIENT_READER_VALUE",
+    "public_write_attempted": false,
+    "reason": "Fixture, not current data. The resolved public report report:week-ahead:2026-11-02 provides only /title, /sections/us-data/heading and /sections/us-data/body_markdown: a calendar sentence listing trade on Wednesday, productivity and costs on Thursday and October employment on Friday, each at 13:30 UTC. It supplies no substantive distinction between employment and productivity measures, supported mechanism, comparison, baseline or conditional watchpoint to answer the selected reader question. Adding generic definitions from release names would introduce unsupported facts; repeating the schedule would be calendar filler. The conditional selection therefore fails its stated reader-value test before writing or media. Source rights and missing retrieval clocks remain recorded but are not substituted for this first editorial cause. No media exception requested, external acquisition performed or article prose generated.",
+    "schema_version": "contentops.native_pre_writer_outcome.v1",
+    "source_request_count": 0,
+    "source_request_limit": 10
+  },
+  "request_sha256": "6ecd4ae9841ff214782f221eeee4ed9bc8891634173356ad2e8d140ff476dad0"
+}

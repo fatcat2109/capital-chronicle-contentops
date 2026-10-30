@@ -1,0 +1,376 @@
+{
+  "status": "REJECTED_STALE_BINDING_NOT_SUBMITTED",
+  "error": "FINAL_VISUAL_REVIEW_REVISION_CHANGED",
+  "actual_response": {
+    "invocation_observation": {
+      "actual_configuration_unavailable": true,
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "supported explicit spawn request",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "invocation_id": "/root/native_visual_edit_860eaa0f453d",
+      "model": null,
+      "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and reasoning effort are not exposed to this role.",
+      "reasoning_effort": null,
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "output": {
+      "article_identity": "b16af3c7b500a1f257aeacae772dfc69f134c6e144f0f68163e99a29e905b264",
+      "article_revision": "08c50ba780a99b41c06631f5601fde8fde2abc9068a0a7e2aa91f251f2ca6008",
+      "asset_findings": [],
+      "decision": "REPAIR_REQUIRED",
+      "media_applicability": {
+        "asset_count": 0,
+        "chart_checks": {
+          "comparisons_stacks_totals_missingness": "NOT_APPLICABLE",
+          "denominator": "NOT_APPLICABLE",
+          "period_year_quarter": "NOT_APPLICABLE",
+          "sign_magnitude": "NOT_APPLICABLE",
+          "source_link_claim": "NOT_APPLICABLE",
+          "transformation_rounding": "NOT_APPLICABLE",
+          "units_currency": "NOT_APPLICABLE",
+          "zero_baseline_scale": "NOT_APPLICABLE"
+        },
+        "chart_count": 0,
+        "photo_checks": {
+          "archive_context": "NOT_APPLICABLE",
+          "caption_credit_alt": "NOT_APPLICABLE",
+          "identity_relevance": "NOT_APPLICABLE",
+          "lawful_reuse": "NOT_APPLICABLE"
+        },
+        "photo_count": 0,
+        "reason": "The same visual editor chose a genuinely narrow factual NEWS brief under the bound 30 October photo-less rule. No chart or photograph is admitted; Instagram is skipped. No photo identity, licence, pixel or chart review is claimed."
+      },
+      "old_request_validation": {
+        "error": "FINAL_VISUAL_REVIEW_REVISION_CHANGED",
+        "old_request_state": "ISSUED_AND_STILL_PENDING_IN_STORE; STALE_AFTER_RENDERER_REPAIR; NO_SUPERSESSION_OR_ACCEPTANCE_WRITTEN",
+        "operation": "validate_final_visual_return",
+        "request_in_store": true,
+        "response_in_store_after_attempt": false,
+        "response_in_store_before_attempt": false,
+        "status": "REJECTED_STALE_BINDING_NOT_SUBMITTED",
+        "submitted": false
+      },
+      "public_write_attempted": false,
+      "remaining_blocker": {
+        "actual_errors": [
+          "run exceeded 30000ms",
+          "screenshot failed: CDP request timed out: Page.captureScreenshot"
+        ],
+        "first_cause": "Corrected full-panel captures are not reliably available. Full-height/clip captures returned stale viewport tiles or wrong crops; fromSurface=false, the BrowserOS screenshot tool, and a bounded ordinary-viewport attempt timed out.",
+        "next_action": "Use the existing targeted media/recompile owner to bind the corrected packages, obtain reliable complete desktop/mobile captures for the remaining affected views, freeze a fresh request with request_final_visual_review, then collect this same writer's exact pixel review. Do not use intermediate captures or the stale old request as acceptance.",
+        "operation": "BrowserOS Neo Page.captureScreenshot"
+      },
+      "render_findings": [
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "PASS",
+            "overlap_clipping": "PASS",
+            "placement": "PASS",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The complete canonical article is visible. It retains 0.8% after 0.9%, civilian wages 0.7% and benefits 0.9%, their preceding 0.9% and 1.0%, and the unchanged 3.4% 12-month figure. Quarterly seasonal adjustment and the annual unadjusted basis remain distinct. The retained no-directional-view dossier wording, fixture notice, exact BLS disclaimer and advice notice are readable. Headings and paragraphs wrap within the article panel. The desktop capture shows the full private preview header, controls and selected panel with no material overlap, clipping or weak contrast.",
+          "findings": [],
+          "pixels_inspected": true,
+          "render_id": "cc043-substack-desktop-23604bede11ce1d5",
+          "sha256": "23604bede11ce1d5ecc387df648b6951909522ed343e76ba2f176f02241ded41"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "PASS",
+            "overlap_clipping": "PASS",
+            "placement": "PASS",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The brief keeps the attributed 0.8% versus 0.9% quarterly comparison and 3.4% annual figure. The no-directional-view dossier passage is retained without an asset reaction claim. Fixture, BLS disclaimer and advice notices are visible. The canonical link is visibly pending in this non-dispatchable private fixture preview; it is not a real published URL. The desktop capture shows the full private preview header, controls and selected panel with no material overlap, clipping or weak contrast.",
+          "findings": [],
+          "pixels_inspected": true,
+          "render_id": "cc043-telegram-desktop-c8cdc6dc2b9e383c",
+          "sha256": "c8cdc6dc2b9e383c71ff04cd97291647a3f87ac2ef6f5c1dda200c4e84f35dc5"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "PASS",
+            "overlap_clipping": "PASS",
+            "placement": "PASS",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The headline, retained-record dek and annual context are readable. The 12-month 3.4% figure remains explicitly not seasonally adjusted and distinct from the quarterly measures. Fixture, BLS disclaimer and advice notices appear in the panel. The pending canonical link is private-preview state. The desktop capture shows the full private preview header, controls and selected panel with no material overlap, clipping or weak contrast.",
+          "findings": [],
+          "pixels_inspected": true,
+          "render_id": "cc043-discord-desktop-823c34201ad73d6e",
+          "sha256": "823c34201ad73d6e8d071abd338cdf87c54f790bb6c70bbf92064073936b7aa7"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "PASS",
+            "overlap_clipping": "PASS",
+            "placement": "FAIL",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The desktop root/reply structure preserves the retained headline, quarter comparison and no-directional-view scope, with a fixture notice and later BLS/advice text. The source attribution is visibly broken into separate paragraphs inside U.S. Bureau. The mobile capture does not contain the full reply chain, so its missing rights/advice text cannot be visually verified there.",
+          "findings": [
+            "The mandatory BLS agency attribution is broken between U.S. and Bureau into separate paragraphs. Keep the initialism and agency name in one sentence unit."
+          ],
+          "pixels_inspected": true,
+          "render_id": "cc043-x-desktop-3f154c86c2b4c218",
+          "sha256": "3f154c86c2b4c21875cf40dd4ebe6835a0fb899788812e5e0687e80d17eedfdf"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "PASS",
+            "overlap_clipping": "PASS",
+            "placement": "PASS",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The desktop panel retains the attributed quarterly 0.8% after 0.9%, the 2026 reference period, and the unchanged unadjusted 12-month 3.4% context. Fixture, BLS and advice notices are visible in desktop. The mobile image is incomplete and repeats the page header after its first viewport. The desktop capture shows the full private preview header, controls and selected panel with no material overlap, clipping or weak contrast.",
+          "findings": [],
+          "pixels_inspected": true,
+          "render_id": "cc043-linkedin-desktop-110de6e22b2dc886",
+          "sha256": "110de6e22b2dc8862a65185c490030d69b58c16711179d6b5981c7ad236fa729"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "PASS",
+            "overlap_clipping": "PASS",
+            "placement": "PASS",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The retained-record headline, dek and quarterly mechanism passage remain source faithful, including 0.8%, 0.9%, 3.4% and the 2026 period. The fixture label, complete BLS disclaimer and advice notice are readable. Text wraps within the panel, with no material clipping. The desktop capture shows the full private preview header, controls and selected panel with no material overlap, clipping or weak contrast.",
+          "findings": [],
+          "pixels_inspected": true,
+          "render_id": "cc043-facebook_page-desktop-021a8079ef05d789",
+          "sha256": "021a8079ef05d789d8510eea028a72f1b972024679dfdb3bbf9962d2f3c0c109"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "FAIL",
+            "overlap_clipping": "PASS",
+            "placement": "FAIL",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "Both PNGs show the Instagram Business heading followed by a blank package area. The bound payload has SKIPPED_PHOTOLESS_NEWS_POLICY, but the pixel view does not show the skip disposition or its reason. This is a presentation defect, not a missing-photo factual blocker; no image is admitted or required for this narrow NEWS form.",
+          "findings": [
+            "Blank Instagram package card hides the actual photo-less-policy skip. Display a clear destination-local skip reason instead of an empty article area."
+          ],
+          "pixels_inspected": true,
+          "render_id": "cc043-instagram_business-desktop-5f3f2923d27641ab",
+          "sha256": "5f3f2923d27641ab9acb2fc616b5f76b37379ca7f8e9788e96cdd25ecf2d0597"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "PASS",
+            "overlap_clipping": "PASS",
+            "placement": "FAIL",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The root preserves the unchanged 3.4% 12-month figure and its non-seasonally-adjusted basis; the reply retains the no-directional-view dossier passage and fixture notice. The BLS attribution appears split into separate paragraphs between U.S. and Bureau, making the required agency credit a broken fragment. Advice remains visible.",
+          "findings": [
+            "The mandatory BLS agency attribution is broken between U.S. and Bureau into separate paragraphs. Keep the initialism and agency name in one sentence unit."
+          ],
+          "pixels_inspected": true,
+          "render_id": "cc043-threads-desktop-1330c06924b214b0",
+          "sha256": "1330c06924b214b030720e99ac6b8fcaab6dec8c25ec505c7b8892025d933259"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "PASS",
+            "overlap_clipping": "PASS",
+            "placement": "PASS",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The Community brief keeps the retained-record dek and no-directional-view passage without an asset-price or policy forecast. The 0.8%, 0.9% and 3.4% figures are unchanged. Fixture, complete BLS disclaimer and advice notices are readable; the pending canonical link remains explicitly private-preview state. The desktop capture shows the full private preview header, controls and selected panel with no material overlap, clipping or weak contrast.",
+          "findings": [],
+          "pixels_inspected": true,
+          "render_id": "cc043-youtube-desktop-3bf72901ed3f5b4c",
+          "sha256": "3bf72901ed3f5b4c2b04b35428bb3a609abdfb559a00e47b2ac4ee09db84da25"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "PASS",
+            "overlap_clipping": "PASS",
+            "placement": "PASS",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The complete canonical article is visible. It retains 0.8% after 0.9%, civilian wages 0.7% and benefits 0.9%, their preceding 0.9% and 1.0%, and the unchanged 3.4% 12-month figure. Quarterly seasonal adjustment and the annual unadjusted basis remain distinct. The retained no-directional-view dossier wording, fixture notice, exact BLS disclaimer and advice notice are readable. Headings and paragraphs wrap within the article panel. The complete 390-CSS-pixel mobile view retains the 1.0% trailing zero and readable paragraph/heading wrapping.",
+          "findings": [],
+          "pixels_inspected": true,
+          "render_id": "cc043-substack-mobile-ef8f1006f11838e9",
+          "sha256": "ef8f1006f11838e9fe311fcd3a6a641a6b465b53c2017a9a1c7ae4b7cb0474b5"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "PASS",
+            "overlap_clipping": "PASS",
+            "placement": "PASS",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The brief keeps the attributed 0.8% versus 0.9% quarterly comparison and 3.4% annual figure. The no-directional-view dossier passage is retained without an asset reaction claim. Fixture, BLS disclaimer and advice notices are visible. The canonical link is visibly pending in this non-dispatchable private fixture preview; it is not a real published URL. The mobile capture shows the full private preview header, controls and selected panel with no material overlap, clipping or weak contrast.",
+          "findings": [],
+          "pixels_inspected": true,
+          "render_id": "cc043-telegram-mobile-645134ae64a3e211",
+          "sha256": "645134ae64a3e2113f3eb6c4dd6b6675b4ccb354fa19a0e9a73fb5f38959976e"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "PASS",
+            "overlap_clipping": "PASS",
+            "placement": "PASS",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The headline, retained-record dek and annual context are readable. The 12-month 3.4% figure remains explicitly not seasonally adjusted and distinct from the quarterly measures. Fixture, BLS disclaimer and advice notices appear in the panel. The pending canonical link is private-preview state. The mobile capture shows the full private preview header, controls and selected panel with no material overlap, clipping or weak contrast.",
+          "findings": [],
+          "pixels_inspected": true,
+          "render_id": "cc043-discord-mobile-96076dab74c378f8",
+          "sha256": "96076dab74c378f85eb59cf87e28e240b71b1fe3545dc22d67a58a0a649b8863"
+        },
+        {
+          "checks": {
+            "crop_distortion": "FAIL",
+            "labels_legend": "PASS",
+            "overlap_clipping": "FAIL",
+            "placement": "FAIL",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The desktop root/reply structure preserves the retained headline, quarter comparison and no-directional-view scope, with a fixture notice and later BLS/advice text. The source attribution is visibly broken into separate paragraphs inside U.S. Bureau. The mobile capture does not contain the full reply chain, so its missing rights/advice text cannot be visually verified there.",
+          "findings": [
+            "Capture cuts at approximately the first 844-pixel viewport and restarts the page header below it. This duplicates controls and omits the remaining article/reply panel; recapture the complete selected view."
+          ],
+          "pixels_inspected": true,
+          "render_id": "cc043-x-mobile-66aecaecb59fdef3",
+          "sha256": "66aecaecb59fdef3f472485095417d0f1d4971adbcbf9cd440bad0b5c6896cbc"
+        },
+        {
+          "checks": {
+            "crop_distortion": "FAIL",
+            "labels_legend": "PASS",
+            "overlap_clipping": "FAIL",
+            "placement": "FAIL",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The desktop panel retains the attributed quarterly 0.8% after 0.9%, the 2026 reference period, and the unchanged unadjusted 12-month 3.4% context. Fixture, BLS and advice notices are visible in desktop. The mobile image is incomplete and repeats the page header after its first viewport.",
+          "findings": [
+            "Capture cuts at approximately the first 844-pixel viewport and restarts the page header below it. This duplicates controls and omits the remaining article/reply panel; recapture the complete selected view."
+          ],
+          "pixels_inspected": true,
+          "render_id": "cc043-linkedin-mobile-886552d2b2148d2c",
+          "sha256": "886552d2b2148d2cc84954d7ca9eda82632e79924a1c5168186da0d7427690ad"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "PASS",
+            "overlap_clipping": "PASS",
+            "placement": "PASS",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The retained-record headline, dek and quarterly mechanism passage remain source faithful, including 0.8%, 0.9%, 3.4% and the 2026 period. The fixture label, complete BLS disclaimer and advice notice are readable. Text wraps within the panel, with no material clipping. The mobile capture shows the full private preview header, controls and selected panel with no material overlap, clipping or weak contrast.",
+          "findings": [],
+          "pixels_inspected": true,
+          "render_id": "cc043-facebook_page-mobile-9e5e5ada0cbcca82",
+          "sha256": "9e5e5ada0cbcca82ada90231554f4673bb33813ee843497603960b370b792688"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "FAIL",
+            "overlap_clipping": "PASS",
+            "placement": "FAIL",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "Both PNGs show the Instagram Business heading followed by a blank package area. The bound payload has SKIPPED_PHOTOLESS_NEWS_POLICY, but the pixel view does not show the skip disposition or its reason. This is a presentation defect, not a missing-photo factual blocker; no image is admitted or required for this narrow NEWS form.",
+          "findings": [
+            "Blank Instagram package card hides the actual photo-less-policy skip. Display a clear destination-local skip reason instead of an empty article area."
+          ],
+          "pixels_inspected": true,
+          "render_id": "cc043-instagram_business-mobile-d570c5200cc7082c",
+          "sha256": "d570c5200cc7082c524d5abceddc7a5265022f1c8047e22691182d02e085a5f7"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "PASS",
+            "overlap_clipping": "PASS",
+            "placement": "FAIL",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The root preserves the unchanged 3.4% 12-month figure and its non-seasonally-adjusted basis; the reply retains the no-directional-view dossier passage and fixture notice. The BLS attribution appears split into separate paragraphs between U.S. and Bureau, making the required agency credit a broken fragment. Advice remains visible.",
+          "findings": [
+            "The mandatory BLS agency attribution is broken between U.S. and Bureau into separate paragraphs. Keep the initialism and agency name in one sentence unit."
+          ],
+          "pixels_inspected": true,
+          "render_id": "cc043-threads-mobile-82884ce46df41937",
+          "sha256": "82884ce46df41937cd3e8a1c413269f1adf72aa760681af69ad509bca0787a95"
+        },
+        {
+          "checks": {
+            "crop_distortion": "PASS",
+            "labels_legend": "PASS",
+            "overlap_clipping": "PASS",
+            "placement": "PASS",
+            "text_contrast": "PASS"
+          },
+          "evidence_notes": "The Community brief keeps the retained-record dek and no-directional-view passage without an asset-price or policy forecast. The 0.8%, 0.9% and 3.4% figures are unchanged. Fixture, complete BLS disclaimer and advice notices are readable; the pending canonical link remains explicitly private-preview state. The mobile capture shows the full private preview header, controls and selected panel with no material overlap, clipping or weak contrast.",
+          "findings": [],
+          "pixels_inspected": true,
+          "render_id": "cc043-youtube-mobile-b60b30d640c43a2a",
+          "sha256": "b60b30d640c43a2a0f218af5b740380d8b209bee95f21ebce396f977d4645f9d"
+        }
+      ],
+      "repair_artifacts": {
+        "capture_metadata": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r3\\capture-metadata.json",
+        "corrected_preview_bundle": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r3\\native_derivative_previews_v1.json",
+        "html": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r3\\index.html",
+        "limits": "Only the three named corrected PNGs have passed direct pixel reinspection. Other r3/r4 captures are corrupt, incomplete or unverified and must not be accepted. No r5 raw capture completed.",
+        "pixel_verified_corrected_images": [
+          "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r3\\linkedin-mobile.png",
+          "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r3\\x-mobile.png",
+          "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r3\\x-desktop.png"
+        ],
+        "unaccepted_intermediate_directories": [
+          "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r3",
+          "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r4",
+          "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r5"
+        ],
+        "workspace": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a\\renders\\r3\\workspace.json"
+      },
+      "repairs": [
+        {
+          "change": "Keep agency initialisms such as U.S. with the following sentence fragment when packing replies. New regression verifies intact BLS attribution within the platform limit.",
+          "files": [
+            "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+            "tests/test_eight_platform_substack_first_pipeline_v1.py"
+          ]
+        },
+        {
+          "change": "Render the existing SKIPPED_PHOTOLESS_NEWS_POLICY payload as an explicit Instagram skip message. New regression verifies the skip message and absence of an image.",
+          "files": [
+            "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx",
+            "ui/contentops_v5/src/test/report_editorial_workspace.test.tsx"
+          ]
+        }
+      ],
+      "scope": "Private CC-043 fixture article only. This is not publication, live-runtime or daily-throughput proof.",
+      "source_fidelity": "Compared readable canonical and channel copy to the exact event-card fields and the USDJPY/gold headline_analysis fields. Numeric precision, population, quarter/year, seasonal adjustment and report attribution are retained. No forecast, consensus, price path or independent event confirmation was added. Full content in the two corrupt mobile captures remains unverified.",
+      "source_request_count": 0,
+      "source_request_limit": 10,
+      "visual_access": "Every one of the 18 exact r2 PNGs was opened and inspected with view_image. Original hashes were read back and preserved."
+    },
+    "request_sha256": "d80a2007f7b983f9d1f981b23ec7ac60579c32849fcc644cdbcad13a9d6f4849"
+  },
+  "meaning": "Historical review found correctable defects. Renderer repair made this exact binding stale; it is not acceptance or a current request."
+}

@@ -126,7 +126,7 @@ def validate_pre_writer_outcome(value, *, max_source_requests=6):
         raise ValueError("PRIVATE_NATIVE_EDITORIAL_INPUT_EXCLUDED")
     if (not isinstance(value, dict) or value.get("schema_version") != PRE_WRITER_OUTCOME_SCHEMA
             or value.get("outcome") not in PRE_WRITER_OUTCOMES
-            or value.get("primary_cause") not in PRE_WRITER_CAUSES
+            or not isinstance(value.get("primary_cause"), str) or value.get("primary_cause") not in PRE_WRITER_CAUSES
             or not isinstance(value.get("reason"), str) or len(value["reason"].strip()) < 20
             or value.get("public_write_attempted") is not False):
         raise ValueError("EXACT_PRE_WRITER_OUTCOME_REQUIRED")
@@ -614,7 +614,8 @@ class NativeDesktopTurn:
         role = native_role(stage)
         target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
         frozen = self.frozen_request(stage)
-        if self.volume_policy and role in {"visual-edit", "write"} and not frozen:
+        if (self.volume_policy and role in {"visual-edit", "write"}
+                and (not frozen or "DATED J8: A source-sufficient" in frozen["prompt"])):
             kwargs["prompt"] += ("\nDATED J8: A source-sufficient genuine NEWS/POLICY brief may use no photo and no assets, "
                 "with Instagram explicitly skipped. Analysis keeps its lawful photo and useful charts. "
                 "Never treat an optional photo gap as a factual gap or relabel analysis. Keep exact final rendered desktop/mobile review.")
@@ -642,6 +643,17 @@ class NativeDesktopTurn:
         public_notice = "Every reader-facing piece must say: Analysis, not financial advice. Readers decide whether to trade."
         if native_guidance and (not frozen or public_notice in frozen["prompt"]):
             native_guidance += "\n" + public_notice + "\n"
+        if (native_guidance and '"desk_record_binding"' in canonical_bytes(kwargs.get("governed_input", {})).decode()
+                and (not frozen or "MAIN_DESK_RECORD_FIELDS" in frozen["prompt"])):
+            native_guidance += (
+                "\nMAIN_DESK_RECORD_FIELDS: Use only retained public fields. Add article.desk_record_citations "
+                "for each used field, copying citation, value, display, decimals and unit exactly from its binding "
+                "(omit an absent key). Preserve all displayed precision, including trailing zeroes. No number may "
+                "come from memory or private data. Cite event cards and dossiers by the supplied export_id#record_id/field "
+                "identities in that metadata; use natural attribution in prose. Include source attribution and each "
+                "required disclaimer. Fixture-derived copy must say 'Fixture, not current data' and stay a private "
+                "preview. Never publish it or state a consensus judgement, trading level, GEX interpretation or private "
+                "derived result. Distinguish Main's reported analysis from independent event confirmation.\n")
         if visual:
             native_guidance = native_guidance.replace(
                 "say it is not supplied in source notes.", "retain that missing clock in internal evidence metadata.")
@@ -935,6 +947,7 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             article_mode=result["article"]["resolved_article_mode"], epistemic_state=result["article"].get("epistemic_state"))
         corrected_article = {**result["article"], **revised}
     allowed = {d["url"] for d in result.get("evidence", [])}
+    allowed.update(s["url"] for d in result.get("evidence", []) for s in d.get("desk_record_binding", {}).get("sources", []))
     for d in result.get("evidence", []):
         allowed.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
     reader_first = corrected_article.get("reader_first_version") == "DATA_JOURNALISM_V1"
