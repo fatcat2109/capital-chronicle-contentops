@@ -1,0 +1,18 @@
+ContentOps weekly engagement — through 2026-10-30 (GMT+7)
+
+Latest cumulative native snapshot per channel/public object collected in this week; not incremental weekly activity. Per-object reach can overlap. Rates are not summed or averaged.
+
+| Channel | Objects with metrics | Observed native counters | Missing metric causes |
+| --- | ---: | --- | --- |
+| substack | 0 | UNAVAILABLE | NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT; UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT |
+| x | 0 | UNAVAILABLE | NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT; UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT |
+| youtube | 0 | UNAVAILABLE | NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT; UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT |
+| linkedin | 0 | UNAVAILABLE | NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT; UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT |
+| linkedin_company | 0 | UNAVAILABLE | NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT; UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT |
+| telegram | 0 | UNAVAILABLE | NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT; UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT |
+| discord | 0 | UNAVAILABLE | NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT; UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT |
+| facebook_page | 0 | UNAVAILABLE | NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT; UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT |
+| instagram_business | 0 | UNAVAILABLE | NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT; UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT |
+| threads | 0 | UNAVAILABLE | NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT; UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT |
+
+Missing metrics remain unavailable. Member and company LinkedIn records are separate. No model or public write was used.

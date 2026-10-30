@@ -1,0 +1,173 @@
+{
+  "schema_version": "contentops.weekly_channel_engagement.v1",
+  "week_ending": "2026-10-30",
+  "timezone": "Asia/Bangkok",
+  "channels": [
+    {
+      "channel": "substack",
+      "status": "UNAVAILABLE",
+      "objects_with_metrics": 0,
+      "objects_with_observations": 0,
+      "eligible_objects_in_store": 0,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+        "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 8
+      },
+      "collection_path": "AVAILABLE_FIRST_PARTY_VISIBLE_POST_STATS",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "x",
+      "status": "UNAVAILABLE",
+      "objects_with_metrics": 0,
+      "objects_with_observations": 0,
+      "eligible_objects_in_store": 0,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+        "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 6
+      },
+      "collection_path": "NOT_EXPOSED_BY_CURRENT_AUTHORIZED_BINDING",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "youtube",
+      "status": "UNAVAILABLE",
+      "objects_with_metrics": 0,
+      "objects_with_observations": 0,
+      "eligible_objects_in_store": 0,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+        "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 8
+      },
+      "collection_path": "NOT_EXPOSED_BY_CURRENT_AUTHORIZED_BINDING",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "linkedin",
+      "status": "UNAVAILABLE",
+      "objects_with_metrics": 0,
+      "objects_with_observations": 0,
+      "eligible_objects_in_store": 0,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+        "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 8
+      },
+      "collection_path": "PERMISSION_REQUIRED_RESTRICTED_MEMBER_SOCIAL_READ",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "linkedin_company",
+      "status": "UNAVAILABLE",
+      "objects_with_metrics": 0,
+      "objects_with_observations": 0,
+      "eligible_objects_in_store": 0,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+        "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 3
+      },
+      "collection_path": "NATIVE_NEO_EXACT_COMPANY_POST_OBSERVATION_REQUIRED",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "telegram",
+      "status": "UNAVAILABLE",
+      "objects_with_metrics": 0,
+      "objects_with_observations": 0,
+      "eligible_objects_in_store": 0,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+        "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 11
+      },
+      "collection_path": "NOT_EXPOSED_BY_CURRENT_BOT_BINDING",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "discord",
+      "status": "UNAVAILABLE",
+      "objects_with_metrics": 0,
+      "objects_with_observations": 0,
+      "eligible_objects_in_store": 0,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+        "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 8
+      },
+      "collection_path": "AVAILABLE_IF_CURRENT_WEBHOOK_BINDING_AUTHORIZES_EXACT_READ",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "facebook_page",
+      "status": "UNAVAILABLE",
+      "objects_with_metrics": 0,
+      "objects_with_observations": 0,
+      "eligible_objects_in_store": 0,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+        "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 8
+      },
+      "collection_path": "AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "instagram_business",
+      "status": "UNAVAILABLE",
+      "objects_with_metrics": 0,
+      "objects_with_observations": 0,
+      "eligible_objects_in_store": 0,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+        "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 8
+      },
+      "collection_path": "AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "threads",
+      "status": "UNAVAILABLE",
+      "objects_with_metrics": 0,
+      "objects_with_observations": 0,
+      "eligible_objects_in_store": 0,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+        "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 7
+      },
+      "collection_path": "AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    }
+  ],
+  "metric_basis": "Latest cumulative native snapshot per channel/public object collected in this week; not incremental weekly activity. Per-object reach can overlap. Rates are not summed or averaged.",
+  "missing_is_zero": false,
+  "public_write_performed": false,
+  "model_calls": 0,
+  "recorded_at_utc": "2026-10-30T06:59:49.679165Z",
+  "input_store_read_only": true
+}

@@ -318,11 +318,11 @@ def test_passive_interactions_are_untrusted_hashed_projection_with_zero_reply_au
     assert injection not in json.dumps(result, sort_keys=True)
 
 
-def test_metrics_capability_matrix_is_nine_surface_and_never_zero_fills_unavailable():
+def test_metrics_capability_matrix_is_ten_channels_and_never_zero_fills_unavailable():
     matrix = perf.current_metrics_capability_matrix()
     assert {row["destination"] for row in matrix} == {
         "substack", "telegram", "x", "discord", "linkedin", "facebook_page",
-        "instagram_business", "threads", "youtube",
+        "instagram_business", "threads", "youtube", "linkedin_company",
     }
     assert all(row["unavailable_is_zero"] is False for row in matrix)
     assert all(row["additional_scope_granted"] is False for row in matrix)
