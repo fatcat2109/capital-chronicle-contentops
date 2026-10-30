@@ -34,6 +34,30 @@ ROLE_ASSIGNMENTS = {
     "revise": {"model": MODEL, "reasoning_effort": "max"},
     "final-visual": {"model": MODEL, "reasoning_effort": "max"},
 }
+CONFIGURED_NOT_OBSERVED = "CONFIGURED_NOT_OBSERVED"
+CONFIGURED_AUTHORITY = "JIM_DECISIONS_20261030_DECISION_16"
+
+
+def validate_native_configuration(observation, target, *, required=True):
+    """Keep actual values separate from Jim's explicitly labelled configured fallback."""
+    model, effort = observation.get("model"), observation.get("reasoning_effort")
+    if model not in {None, target["model"]}:
+        raise ValueError("NATIVE_DESKTOP_MODEL_MISMATCH")
+    if effort not in {None, target["reasoning_effort"]}:
+        raise ValueError("NATIVE_DESKTOP_ROLE_EFFORT_MISMATCH")
+    if observation.get("configuration_status") == CONFIGURED_NOT_OBSERVED:
+        if (observation.get("configuration_authority") != CONFIGURED_AUTHORITY
+                or observation.get("configured_model") != target["model"]
+                or observation.get("configured_reasoning_effort") != target["reasoning_effort"]
+                or not observation.get("configuration_source")
+                or observation.get("actual_configuration_unavailable") is not True):
+            raise ValueError("EXACT_LABELLED_NATIVE_CONFIGURATION_REQUIRED")
+        # A fully observed return must use its actual configuration instead.
+        if model is not None and effort is not None:
+            raise ValueError("OBSERVED_CONFIGURATION_MUST_REPLACE_FALLBACK")
+        return
+    if required and (model is None or effort is None):
+        raise ValueError("ACTUAL_NATIVE_MODEL_AND_EFFORT_REQUIRED")
 
 
 def native_role(stage):
@@ -651,6 +675,8 @@ class NativeDesktopTurn:
         return response["output"], {
             "provider": OWNER, "selected_model": observation.get("model"),
             "reasoning_effort": observation.get("reasoning_effort"),
+            **{k: observation[k] for k in ("configuration_status", "configured_model", "configured_reasoning_effort")
+               if k in observation},
             "role": role, "stage": stage,
             "requested_model": target["model"], "requested_reasoning_effort": target["reasoning_effort"],
             "observation": observation, "request_sha256": request["request_sha256"],
@@ -668,14 +694,7 @@ class NativeDesktopTurn:
             raise ValueError("NATIVE_DESKTOP_SURFACE_REQUIRED")
         role = native_role(stage)
         target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
-        if request.get("actual_role_identity_required") and (
-                observation.get("model") is None or observation.get("reasoning_effort") is None):
-            raise ValueError("ACTUAL_NATIVE_MODEL_AND_EFFORT_REQUIRED")
-        if observation.get("model") not in {None, target["model"]}:
-            raise ValueError("NATIVE_DESKTOP_MODEL_MISMATCH")
-        effort = observation.get("reasoning_effort")
-        if effort not in {None, target["reasoning_effort"]}:
-            raise ValueError("NATIVE_DESKTOP_ROLE_EFFORT_MISMATCH")
+        validate_native_configuration(observation, target, required=bool(request.get("actual_role_identity_required")))
         if not observation.get("invocation_id") or not observation.get("observation_source"):
             raise ValueError("NATIVE_DESKTOP_INVOCATION_OBSERVATION_REQUIRED")
         if observation.get("speed", "standard") != "standard":
@@ -772,6 +791,10 @@ class NativeDesktopTurn:
             "role_assignments": ROLE_ASSIGNMENTS,
             "observed_models": sorted({o["model"] for o in observations if o.get("model")}),
             "observed_efforts": sorted({o["reasoning_effort"] for o in observations if o.get("reasoning_effort")}),
+            "configured_not_observed_count": sum(o.get("configuration_status") == CONFIGURED_NOT_OBSERVED for o in observations),
+            "configured_not_observed_roles": [{k: o.get(k) for k in ("stage", "role", "invocation_id",
+                "configured_model", "configured_reasoning_effort")} for o in observations
+                if o.get("configuration_status") == CONFIGURED_NOT_OBSERVED],
             "native_invocation_count_observed": len(ids) if ids else None,
             "native_invocation_identity_unknown_count": sum(not o.get("invocation_id") for o in observations),
             "semantic_response_count": len(responses),
@@ -1407,9 +1430,8 @@ def validate_final_visual_return(turn, request, response):
     observation, output = response["invocation_observation"], response["output"]
     writer = turn._get("write", "response")
     assignment = ROLE_ASSIGNMENTS["final-visual"]
-    if (not writer or observation.get("model") != assignment["model"]
-            or observation.get("reasoning_effort") != assignment["reasoning_effort"]
-            or observation.get("invocation_id") != writer["invocation_observation"]["invocation_id"]):
+    validate_native_configuration(observation, assignment)
+    if (not writer or observation.get("invocation_id") != writer["invocation_observation"]["invocation_id"]):
         raise ValueError("FINAL_VISUAL_ACTUAL_SAME_SOL61_MAX_REQUIRED")
     row = turn.store.get_outbox_message("cc-editorial-final-" + sha256_of(turn.run_id))
     result = json.loads(row["payload"]) if row else {}
