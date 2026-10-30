@@ -29,7 +29,7 @@ POLICIES = {
     "www.federalreserve.gov": (
         "https://www.federalreserve.gov/disclaimer.htm",
         ("public domain", "copied and distributed without permission", "non-board"),
-        ("/newsevents/pressreleases/monetary", "/releases/h10/"),
+        ("/newsevents/pressreleases/", "/releases/h10/"),
     ),
     "www.sec.gov": (
         "https://www.sec.gov/about/privacy-information",
@@ -39,7 +39,8 @@ POLICIES = {
     "www.cftc.gov": (
         "https://www.cftc.gov/WebPolicy/index.htm",
         ("public domain", "freely distributed and copied", "written permission of the copyright owners"),
-        ("/LearnAndProtect/AdvisoriesAndArticles/",),
+        ("/LearnAndProtect/AdvisoriesAndArticles/", "/PressRoom/PressReleases/",
+         "/MarketReports/CommitmentsofTraders/"),
     ),
     "www.bls.gov": (
         "https://www.bls.gov/bls/linksite.htm",
@@ -48,7 +49,7 @@ POLICIES = {
             "public domain",
             "except for previously copyrighted photographs",
         ),
-        ("/news.release/",),
+        ("/news.release/", "/opub/ted/"),
     ),
     "www.eia.gov": (
         "https://www.eia.gov/about/copyrights_reuse.php",
@@ -57,6 +58,7 @@ POLICIES = {
             "/todayinenergy/detail.php",
             "/naturalgas/weekly/",
             "/petroleum/supply/weekly/",
+            "/outlooks/steo/",
         ),
     ),
     "ir.eia.gov": (

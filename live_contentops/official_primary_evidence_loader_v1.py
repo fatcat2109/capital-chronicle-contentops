@@ -28,6 +28,7 @@ OFFICIAL_HOSTS_BY_FAMILY = {
         "www.whitehouse.gov",
         "www.state.gov",
         "www.uscc.gov",
+        "www.cftc.gov",
     }),
     "company_primary": frozenset({
         "data.sec.gov",
@@ -49,6 +50,7 @@ OFFICIAL_HOSTS_BY_FAMILY = {
         "fiscaldata.treasury.gov",
         "home.treasury.gov",
         "www.eia.gov",
+        "ir.eia.gov",
         "www.philadelphiafed.org",
         "www.imf.org",
         "data-api.ecb.europa.eu",

@@ -1,0 +1,114 @@
+{
+  "schema_version": "contentops.weekly_newsroom_coverage.v1",
+  "week_ending": "2026-10-30",
+  "timezone": "Asia/Bangkok",
+  "production_day_boundary_hour": 2,
+  "status": "PARTIAL",
+  "daily": [
+    {
+      "day": "2026-10-24",
+      "news_articles": 0,
+      "main_articles": 0,
+      "unclassified_canonicals": 0,
+      "luna_headlines_filtered": 0,
+      "source_walks": 0,
+      "source_walks_succeeded": 0,
+      "source_walk_success_rate": null
+    },
+    {
+      "day": "2026-10-25",
+      "news_articles": 0,
+      "main_articles": 0,
+      "unclassified_canonicals": 0,
+      "luna_headlines_filtered": 0,
+      "source_walks": 0,
+      "source_walks_succeeded": 0,
+      "source_walk_success_rate": null
+    },
+    {
+      "day": "2026-10-26",
+      "news_articles": 0,
+      "main_articles": 0,
+      "unclassified_canonicals": 0,
+      "luna_headlines_filtered": 572,
+      "source_walks": 2,
+      "source_walks_succeeded": 1,
+      "source_walk_success_rate": 0.5
+    },
+    {
+      "day": "2026-10-27",
+      "news_articles": 0,
+      "main_articles": 0,
+      "unclassified_canonicals": 0,
+      "luna_headlines_filtered": 625,
+      "source_walks": 2,
+      "source_walks_succeeded": 1,
+      "source_walk_success_rate": 0.5
+    },
+    {
+      "day": "2026-10-28",
+      "news_articles": 0,
+      "main_articles": 0,
+      "unclassified_canonicals": 0,
+      "luna_headlines_filtered": 864,
+      "source_walks": 0,
+      "source_walks_succeeded": 0,
+      "source_walk_success_rate": null
+    },
+    {
+      "day": "2026-10-29",
+      "news_articles": 0,
+      "main_articles": 0,
+      "unclassified_canonicals": 0,
+      "luna_headlines_filtered": 410,
+      "source_walks": 2,
+      "source_walks_succeeded": 1,
+      "source_walk_success_rate": 0.5
+    },
+    {
+      "day": "2026-10-30",
+      "news_articles": 0,
+      "main_articles": 0,
+      "unclassified_canonicals": 0,
+      "luna_headlines_filtered": 0,
+      "source_walks": 0,
+      "source_walks_succeeded": 0,
+      "source_walk_success_rate": null
+    }
+  ],
+  "source_walk_success_rate": 0.5,
+  "source_walks": 6,
+  "source_walks_succeeded": 3,
+  "gaps": [
+    {
+      "record": "native-desktop-cb30224111346265f76d03e4eabf6c02b1b1fa92293f7e4b295af996f76708ca",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "native-desktop-dddb2cbef2da564558c2f1adfb517a1970f60bf0c539aaf8a5e9e076665d2a47",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "native-desktop-ab081fb1643284c388914b7731a9cd9f5fc5cccbcc7b927e652c065d6f9b7112",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "native-desktop-b1f06495fd86c3a6d6b53f2d7b231b47902e3b9169c6ce485af624f59682955b",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "dispatch_224521de0c4112829490447f23a11b38",
+      "cause": "NO_VERIFIED_READBACK"
+    }
+  ],
+  "clock_basis": {
+    "articles": "actual dispatch time; exact confirmation from current snapshot",
+    "luna": "durable native return time",
+    "source_walks": "latest completed durable candidate walk time"
+  },
+  "source_walk_denominator": "Distinct work-item/candidate walks completed in the interval; recovery is one walk; a zero-GET permitted relay can succeed.",
+  "public_write_performed": false,
+  "model_calls": 0,
+  "recorded_at_utc": "2026-10-30T06:50:36.219194Z",
+  "input_store_read_only": true
+}
