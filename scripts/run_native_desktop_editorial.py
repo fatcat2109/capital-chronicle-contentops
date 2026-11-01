@@ -281,7 +281,11 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
                             "This Light proposal is followed by actual same-context MAX visual editing and writing."),
                     governed_input=governed, validator=lambda raw: (True, None, json.loads(raw), None))
                 if not turn.visual_response():
-                    turn.request_visual_decision(source_packet=governed, preparation={
+                    recovery = turn.source_recovery()
+                    source_packet = (json.loads((resolve_workspace_path(binding["output_dir"]) /
+                        "editorial_media_plan_required.json").read_bytes())
+                        if recovery and recovery.get("within_bound_live_budget") else governed)
+                    turn.request_visual_decision(source_packet=source_packet, preparation={
                         "native_plan_run_id": binding["run_id"], "native_plan_stage": "media-plan",
                         "native_plan_request_sha256": turn.frozen_request("media-plan")["request_sha256"],
                         "story_plan": output["story_plan"]})

@@ -1,0 +1,180 @@
+{
+  "item": "CC-042",
+  "run_type": "Existing Codex Publisher daily backlog worker, 1 November 2026",
+  "recorded_at_utc": "2026-11-01T02:28:17.587993+00:00",
+  "source_chat_id": "01a194d1-f331-7342-878d-85a6f58daa53",
+  "actual_entry_utc": null,
+  "actual_entry_status": "Native turn entry clock not exposed; first explicit run UTC observation retained separately. No start time is inferred from the calendar.",
+  "first_explicit_clock_read_utc": "2026-11-01T01:56:59.7527591Z",
+  "starting_commit": "1dae7aa44dc596a425c2d3c825a60bdd16ed2765",
+  "integrated_operating_base": "b90969200771b29fdb8f8aa5b6a953dcb205975d",
+  "branch": "backlog/cc-042-resume-v1",
+  "tests": {
+    "final_expanded": {
+      "total": 452,
+      "passed": 449,
+      "failed": 3,
+      "skipped": 0,
+      "failure_ids": [
+        "tests.test_native_desktop_workspace_v1::test_desk_export_is_offline_read_only_and_preserves_the_existing_store",
+        "tests.test_native_desktop_workspace_v1::test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[False-False]",
+        "tests.test_native_desktop_workspace_v1::test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[True-False]"
+      ]
+    },
+    "required_cc075_regression_set_passed": 363,
+    "new_recovery_checks_passed": 19,
+    "focused_after_changes": {
+      "total": 69,
+      "passed": 69,
+      "failed": 0,
+      "skipped": 0,
+      "failure_ids": []
+    },
+    "baseline": {
+      "total": 3,
+      "passed": 0,
+      "failed": 3,
+      "skipped": 0,
+      "failure_ids": [
+        "tests.test_native_desktop_workspace_v1::test_desk_export_is_offline_read_only_and_preserves_the_existing_store",
+        "tests.test_native_desktop_workspace_v1::test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[False-False]",
+        "tests.test_native_desktop_workspace_v1::test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[True-False]"
+      ]
+    },
+    "baseline_scope": "The three failing tests were rerun with the exact parent CLI bytes injected through the supported Python import boundary, from the lane cwd. Those bytes equal the integrated b9096920 CLI. Other modules remained current.",
+    "baseline_cli_sha256": "5c46139be3ee666400a183c5aa58ed43af8d502592810f7fc3b84f3638d09665",
+    "new_failures": [],
+    "scope": "Isolated controlled stores/model fixtures only; no native invocation, rendered article acceptance, source GET or publication performed by tests."
+  },
+  "source_workspace_bytes": [
+    {
+      "path": "live_contentops/contentops_source_research_v1.py",
+      "sha256": "a3312410303d3ecd7f8dea8791a3a76ed3a58264247e8dc3ca2e068d5736477c",
+      "git_blob_sha256": "e6df8203aeaee3a99f49f0d2aef4ca1df76c848028a3206ded5a1f5ecbb8c4f8"
+    },
+    {
+      "path": "live_contentops/native_desktop_editorial_v1.py",
+      "sha256": "0430d125291d570c6cce79d5c2d499e40d958ef05639066217fa8e6bffcfe67f",
+      "git_blob_sha256": "8cfdb7691a9c34b52bbd6678c2e3cd2ebca208b3dbe826536b350430e7b09687"
+    },
+    {
+      "path": "live_contentops/native_newsroom_volume_v1.py",
+      "sha256": "ee2770f1f6a52f2ccf859084d513719b0ca1dac1507278edb04f8a0677cc5e53",
+      "git_blob_sha256": "75f851d89d6f4d64ed273fa571fdae4af56a21812b9992b3d4bc8331e3939edc"
+    },
+    {
+      "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "sha256": "18b0b40f1d5efc5f3246334d5432f8a4baf7367c7538e599d1c144416526564b",
+      "git_blob_sha256": "8426d5d47ef90ad9fe8fc96935f4db6b1819a28157fe53e9830ee8409270f662"
+    },
+    {
+      "path": "scripts/run_native_desktop_editorial.py",
+      "sha256": "ff711ec777db2c84690ff996b294d7b6e6aaf0b26feb02377552c0c1296eddb7",
+      "git_blob_sha256": "3b6104a9c298a2d3a1711d57969a4ff03d03754a02360619f14a45eb8d1a3b99"
+    },
+    {
+      "path": "tests/test_native_live_source_recovery_v1.py",
+      "sha256": "fe4fdf634e03683f24c4a5d42fb7a15ee8ba228ef5c5c1c7ebe0c40687ebd906",
+      "git_blob_sha256": "fe4fdf634e03683f24c4a5d42fb7a15ee8ba228ef5c5c1c7ebe0c40687ebd906"
+    },
+    {
+      "path": "tests/test_native_volume_window_v1.py",
+      "sha256": "d328892dd8b92b3ddade1321f5f5863d244ad3d317e00f6e9a65edbd362ef8ac",
+      "git_blob_sha256": "333da88b4631ce4a8dd7fb9ffa727ae9a4c5dadeb9580ce094f0de42f9a25504"
+    }
+  ],
+  "production_observation": {
+    "run_id": "cc042-live-resume-20261031-a",
+    "binding_sha256": "0173bb42604453e3d57ca19f74c62dd6ca5a8d89e4a46da8b30fe3f378bb6fd8",
+    "cutoff_utc": "2026-10-30T23:45:33.033578Z",
+    "accepted_returns": 10,
+    "accepted_filter_records": 661,
+    "source_request_count": 5,
+    "source_request_limit": 10,
+    "first_cause": "SOFTWARE_PROCESS_DEFECT",
+    "remaining_admitted_candidates": [
+      "simple-story-0781c5bbca13392eaf34a2a2",
+      "simple-story-8521a12c484b3ea2869280df"
+    ],
+    "whole_edition_complete": false,
+    "canonical_readbacks_20261031": 0,
+    "canonical_readbacks_20261101": 0,
+    "same_writer_article_revision": "NOT_REACHED",
+    "final_render_review": "NOT_REACHED",
+    "new_native_calls": 1,
+    "new_native_role": "visual-edit",
+    "public_dispatches_this_run": 0,
+    "patch_installed_in_production": false,
+    "schedule_control_process_changes": false,
+    "new_operation_created": false
+  },
+  "rights_and_clock_scope": "Exact Bloomberg facts-only reporting under the existing verified policy class; no expression/photo/logo/exhibit reuse or event-confirmation grant. Reuters substitution remains publisher-pin refused. Retrieval on 1 November does not change the 30 October publication/event dates or frozen cutoff. Unknown publisher revision time is not asserted as known.",
+  "prior_committed_artifacts_preserved": 27,
+  "acceptance_passed": false,
+  "blocker": "Ops integration and bounded recovery of the exact partial operation; first-day 3 readbacks/no-process-failure acceptance is not met.",
+  "next_actor": "Claude Ops",
+  "next_action": "Review and integrate the pushed branch, then reconcile the old partial-result/frozen-return boundary before any continuation. Do not rewrite the accepted HOLD, replace the operation, shift its cutoff or invoke the invalid scheduled continuation.",
+  "artifacts": [
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-baseline.xml",
+      "bytes": 3414,
+      "sha256": "531251dce45e20be1e6293c740d91515d0b11f9ff1faae82170ef92d5c76fade"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-focused.xml",
+      "bytes": 11166,
+      "sha256": "3d749de2c7b01c2d31f9dabad879e8ba13001af24d14c7cb24d1c05608a78b42"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-live-result.json",
+      "bytes": 3784,
+      "sha256": "4b268b2754d058c1debf5a1f2fb2aaa1595ee9b6fa158b1a419834f6e66b2b8f"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-max-response.json",
+      "bytes": 2933,
+      "sha256": "2ba4b6bd8310a180c39927ab169952e7191f0f76a0122a96ffeb1035a7d2fdca"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-original-publisher-replay.json",
+      "bytes": 2179,
+      "sha256": "90643815902a4cec7c9d84332464397aad7f48007ccc48c9f6a811e66ec3d4f4"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-reconciliation.json",
+      "bytes": 3111,
+      "sha256": "2b2caab47d085c6b8be10db3cb499d960bd43d8bff30cb3819dade1d556cd7db"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-recovery-guard.json",
+      "bytes": 723,
+      "sha256": "89ef3b37204f97a2362e118e6c80e847033c82f817fb8d22c69acbf47622f7be"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-reuters-pin-refusal.json",
+      "bytes": 668,
+      "sha256": "ab98933e5fd0bbd1c1e09714a823e2d48095f695249208b70ed2b61dff71cd23"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-schedules.json",
+      "bytes": 856,
+      "sha256": "575ea5bb85ed40ccf7283cb4a5e1e4384b73276af24f2a0505fead0605ef4572"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-source-observation.json",
+      "bytes": 5375,
+      "sha256": "4358ac4515787ae6a46a1f74949e8eca1c4de8c4be0842b3c49fa1db9bbb88e9"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-tests.xml",
+      "bytes": 105475,
+      "sha256": "96f73134cf19b295845cbf6794dba7d260e4c7e822f668221421794c80554d26"
+    }
+  ],
+  "test_report_byte_basis": {
+    "raw_final_junit_path": ".task-runtime\\cc-042\\daily-20261101-final-pytest.xml",
+    "raw_final_junit_sha256": "04e1f77b2d423acaf8e3eaa91fee2bff01a4d6aeef741f066e4a560b67f00895",
+    "committed_final_junit_path": "tests/evidence/cc-042/daily-20261101-tests.xml",
+    "formatting_change": "Remove trailing spaces on three traceback location lines only; all case names, outcomes and attributes match the raw report. Raw file remains unchanged."
+  }
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="3.892" timestamp="2026-11-01T09:20:17.587447+07:00" hostname="J-P"><testcase classname="tests.test_native_desktop_workspace_v1" name="test_desk_export_is_offline_read_only_and_preserves_the_existing_store" time="0.671"><failure message="UnboundLocalError: cannot access local variable 'ContentOpsDurableStore' where it is not associated with a value">tests\test_native_desktop_workspace_v1.py:77: in test_desk_export_is_offline_read_only_and_preserves_the_existing_store
+    assert main(["desk", "--profile", str(profile)]) == 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\run_native_desktop_editorial.py:650: in main
+    projection = report_workspace_projection(rows, review_records=reviews, dispatches=dispatches,
+        ^^^^^^^^^^^^^^^^^^^^^^
+E   UnboundLocalError: cannot access local variable 'ContentOpsDurableStore' where it is not associated with a value</failure></testcase><testcase classname="tests.test_native_desktop_workspace_v1" name="test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[False-False]" time="0.747"><failure message="FileNotFoundError: [Errno 2] No such file or directory: 'A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\controlled-request'">tests\test_native_desktop_workspace_v1.py:157: in test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift
+    result = operator.operation(binding)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\run_native_desktop_editorial.py:429: in operation
+    ???
+C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py:625: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py:537: in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   FileNotFoundError: [Errno 2] No such file or directory: 'A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\controlled-request'</failure></testcase><testcase classname="tests.test_native_desktop_workspace_v1" name="test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[True-False]" time="0.792"><failure message="FileNotFoundError: [Errno 2] No such file or directory: 'A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\controlled-request'">tests\test_native_desktop_workspace_v1.py:157: in test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift
+    result = operator.operation(binding)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\run_native_desktop_editorial.py:429: in operation
+    ???
+C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py:625: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py:537: in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   FileNotFoundError: [Errno 2] No such file or directory: 'A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\controlled-request'</failure></testcase></testsuite></testsuites>

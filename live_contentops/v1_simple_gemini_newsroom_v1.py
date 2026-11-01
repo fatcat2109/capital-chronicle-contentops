@@ -2289,8 +2289,8 @@ def run_v1_simple_gemini_newsroom(
                 if Path(path).name == "simple_gemini_newsroom_receipt_v1.json" else None)
             context = getattr(llm_invoke, "source_recovery", lambda: None)()
             path = Path(path)
-            if (context and context.get("pre_writer_context_attachment")
-                    and path.name in {"simple_gemini_evidence_v1.json", "simple_gemini_editorial_edge_v1.json"}
+            if (context and (context.get("pre_writer_context_attachment") or context.get("within_bound_live_budget"))
+                    and path.name in {"simple_gemini_evidence_v1.json", "simple_gemini_editorial_edge_v1.json", "simple_epistemic_state_v1.json"}
                     and path.is_file() and json.loads(path.read_bytes()) != value):
                 # Explicit selected-source revision: retain the original artifact
                 # in the existing recovery history before materializing this one.

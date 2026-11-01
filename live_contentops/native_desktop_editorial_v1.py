@@ -258,6 +258,8 @@ def admit_selected_story_context(turn, binding, response):
 
 def admit_pre_writer_source_recovery(turn, binding, response):
     """Append already acquired facts to the same source-blocked manual opportunity."""
+    if response.get("within_bound_live_budget") is True:
+        return _admit_live_source_recovery(turn, binding, response)
     from datetime import datetime, timezone
     from hashlib import sha256
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import _time
@@ -319,6 +321,120 @@ def admit_pre_writer_source_recovery(turn, binding, response):
         "next_operation": "advance same binding", "public_write_performed": False}
 
 
+def _admit_live_source_recovery(turn, binding, response):
+    """Admit acquired sources before MAX freeze, using the existing live budget.
+
+    This is not the historical six-to-nine request exception. The verified
+    retained-source adapter, recovery outbox and offline continuation are reused.
+    Later retrieval is recorded truthfully; publication must precede the cutoff.
+    """
+    from datetime import datetime, timezone
+    from hashlib import sha256
+    from urllib.parse import urlsplit
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import _time
+    from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+    from live_contentops.native_newsroom_volume_v1 import bound_volume_policy
+
+    turn._check_pause()
+    policy = bound_volume_policy(binding)
+    selection, selected = turn.frozen_request("select"), turn._get("select", "response")
+    if (binding.get("owner_manual_live") is not True or not policy
+            or policy.get("non_chargeable_only") is not True or not selection or not selected
+            or response.get("expected_selection_request_sha256") != selection["request_sha256"]):
+        raise ValueError("EXACT_BOUND_LIVE_SELECTION_REQUIRED")
+    amendment_sha = sha256_of(response)
+    previous = turn.source_recovery()
+    if previous:
+        if previous.get("source_amendment_sha256") != amendment_sha:
+            raise ValueError("RECOVERY_ALREADY_ADMITTED_RESUME_SAME_OPERATION")
+        return previous["admission_result"]
+    if (turn.frozen_request("write") or turn.frozen_request("visual-edit")
+            or turn.story_outcomes()
+            or turn.store.get_outbox_message("cc-editorial-final-" + sha256_of(turn.run_id))):
+        raise ValueError("LIVE_SOURCE_RECOVERY_MUST_PRECEDE_MAX_FREEZE")
+    walk_raw = (turn.root / "simple_gemini_evidence_v1.json").read_bytes()
+    walk = json.loads(walk_raw)
+    candidate = response.get("candidate_id")
+    if (sha256(walk_raw).hexdigest() != response.get("expected_evidence_sha256")
+            or candidate != walk.get("selected_candidate_id")
+            or candidate not in {p["candidate_id"] for p in selected["output"]["ordered_candidate_plan"]}
+            or not walk.get("selected_source_pack")):
+        raise ValueError("EXACT_SELECTED_LIVE_SOURCE_WALK_REQUIRED")
+    source_steps = [json.loads(row["payload"]) for row in turn.store.list_outbox_messages()
+        if row["work_item_id"] == turn.work and row["destination"] == "internal:cc-report-editorial-stage"]
+    completed = {(step["stage"], step["request_sha256"]) for step in source_steps if "result" in step}
+    if any(str(step.get("stage", "")).startswith("source:") and "result" not in step
+            and (step["stage"], step["request_sha256"]) not in completed for step in source_steps):
+        raise ValueError("LIVE_SOURCE_STEP_RESULT_NOT_RECORDED")
+    spent = sum(int(step["result"].get("provenance", {}).get("request_count_for_call") or 0)
+        for step in source_steps if str(step.get("stage", "")).startswith("source:") and "result" in step)
+    frozen_row = turn.store.get_outbox_message("native-current-input-" + sha256_of(turn.run_id))
+    source_reviews = json.loads(frozen_row["payload"]).get("source_requests_before_writer_freeze", 0) if frozen_row else 0
+    used = max(turn.source_request_count_at_start + spent + source_reviews, int(walk.get("request_count", 0)))
+    requests = response.get("additional_source_requests", [])
+    limit = policy["source_request_limit"]
+    if (walk.get("request_limit") != limit or not isinstance(requests, list)
+            or not 1 <= len(requests) <= limit - used):
+        raise ValueError("EXACT_SHARED_LIVE_SOURCE_BUDGET_REQUIRED")
+    now = datetime.now(timezone.utc).isoformat()
+    output_root = turn.root.resolve()
+    source_root = Path(response["research_root"]).resolve()
+    if not source_root.is_relative_to(output_root):
+        raise ValueError("RECOVERY_SOURCE_MUST_STAY_IN_MANUAL_OUTPUT")
+    for request in requests:
+        url = urlsplit(request.get("url", ""))
+        path = Path(request.get("capture_path", "")).resolve()
+        observed = request.get("observed_at_utc")
+        if (url.scheme != "https" or not url.hostname or url.username or url.password
+                or request.get("non_chargeable") is not True or not observed
+                or _time(observed) > _time(now) or not path.is_relative_to(output_root)
+                or not path.is_file() or sha256(path.read_bytes()).hexdigest() != request.get("capture_sha256")):
+            raise ValueError("RECOVERY_ACQUISITION_CAPTURE_INVALID")
+    research = RetainedSourceResearch(source_root)
+    ids = response.get("supporting_headline_ids", [])
+    if (research.gaps or not isinstance(ids, list) or not 1 <= len(ids) <= 3
+            or len(set(ids)) != len(ids) or set(ids) != set(research.records)):
+        raise ValueError("EXACT_VERIFIED_RECOVERY_SOURCE_IDS_REQUIRED")
+    cutoff = binding.get("input_known_at_cutoff_utc", binding["cutoff_utc"])
+    urls = {r["url"] for r in requests}
+    for record in research.records.values():
+        if not any(r["url"] == record["document"]["source_url"]
+                and r["capture_sha256"] == record["source_capture_sha256"] for r in requests):
+            raise ValueError("RECOVERY_SOURCE_ACQUISITION_NOT_BOUND")
+        if (record["document"]["source_url"] not in urls
+                or not record["source_permissions"].get("MODEL_INPUT_ALLOWED")
+                or _time(record["document"]["published_at_utc"]) > _time(cutoff)
+                or _time(record["known_at_utc"]) > _time(now)
+                or _time(record["revision_at_utc"]) > _time(now)):
+            raise ValueError("RECOVERY_PUBLICATION_OR_ADMISSION_CLOCK_INVALID")
+    original_request = next((attempt.get("request") for attempt in walk.get("evidence_attempts", [])
+        if attempt.get("candidate_id") == candidate), None)
+    if not original_request:
+        raise ValueError("EXACT_SELECTED_LIVE_SOURCE_REQUEST_REQUIRED")
+    admitted = research.evidence({**original_request, "headline_ids": ids}, cutoff_utc=now)
+    if not admitted or admitted.get("status") != "PASS":
+        raise ValueError("RECOVERY_SOURCE_PROPOSITION_NOT_ADMITTED:" + ",".join((admitted or {}).get("blockers", [])))
+    value = {"schema_version": "contentops.native_pre_writer_source_recovery.v1",
+        "pre_writer_source_recovery": True, "within_bound_live_budget": True,
+        "source_amendment_sha256": amendment_sha, "candidate_id": candidate,
+        "selection_request_sha256": selection["request_sha256"],
+        "prior_evidence_sha256": sha256(walk_raw).hexdigest(),
+        "supporting_headline_ids": ids, "research_snapshot": research.frozen_snapshot(),
+        "admitted_at_utc": now, "cutoff_utc": cutoff,
+        "source_request_count": used + len(requests), "source_request_limit": limit,
+        "additional_source_requests": requests, "all_acquisition_already_completed": True,
+        "further_acquisition_allowed": False, "public_write_performed": False}
+    value["request_sha256"] = sha256_of(value)
+    result = {"classification": "RETAINED_SOURCE_RECOVERY_PREPARED", "request_sha256": value["request_sha256"],
+        "source_request_count": value["source_request_count"], "source_request_limit": limit,
+        "next_operation": "advance same binding", "public_write_performed": False}
+    value["admission_result"] = result
+    turn.store.register_outbox_message(message_id="native-source-recovery-" + sha256_of(value),
+        work_item_id=turn.work, destination="internal:native-desktop-source-recovery",
+        payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
+    return result
+
+
 class DesktopInputRequired(Exception):
     """A durable pending native request, not a failed provider/network call."""
 
@@ -340,6 +456,7 @@ class NativeDesktopTurn:
         self.work = "cc-opportunity-" + sha256_of(run_id)
         self.owner_manual_validation = owner_manual_validation
         self.volume_policy = None
+        self.scheduled_window = False
         self.source_request_count_at_start = 0
         self.inherited_selection = None
 
@@ -428,7 +545,7 @@ class NativeDesktopTurn:
         pending = [p for p in plan if p["candidate_id"] not in by_candidate]
         # Revised windows resume the next candidate in a stable next article slot.
         # Seal this refusal without rewriting any stage or exhausting later candidates.
-        continue_window = bool(self.volume_policy and pending)
+        continue_window = bool(self.volume_policy and self.scheduled_window and pending)
         cached = {a["candidate_id"]: a.get("source_pack", [])
                   for a in walk.get("candidate_attempt_history", []) + walk.get("evidence_attempts", [])
                   if a.get("status") == "SOURCE_QUALIFIED" and a.get("source_pack")}

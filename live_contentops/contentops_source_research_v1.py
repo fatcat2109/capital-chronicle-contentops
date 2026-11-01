@@ -686,6 +686,7 @@ class RetainedSourceResearch:
         from datetime import datetime
         url = urlsplit(doc["source_url"])
         paths = {"www.reuters.com": ("/business/", "/world/", "/markets/", "/legal/"),
+                 "www.bloomberg.com": ("/news/articles/",),
                  "finance.yahoo.com": ("/news/",), "www.kitco.com": ("/news/off-the-wire/",),
                  "en.yna.co.kr": ("/view/AEN",)}
         if (url.scheme != "https" or url.hostname not in paths or url.username or url.password
@@ -700,7 +701,10 @@ class RetainedSourceResearch:
                 "copyright does not protect facts", "may protect the way these things are expressed")):
             raise ValueError("SOURCE_PERMISSION_TEXT_NOT_VERIFIED")
         capture = json.loads(raw)
-        publisher, identity = ("Yonhap News Agency", "en.yna.co.kr") if url.hostname == "en.yna.co.kr" else ("Reuters", "reuters.com")
+        publisher, identity = {
+            "en.yna.co.kr": ("Yonhap News Agency", "en.yna.co.kr"),
+            "www.bloomberg.com": ("Bloomberg", "bloomberg.com"),
+        }.get(url.hostname, ("Reuters", "reuters.com"))
         if (capture.get("status") != "PASS" or capture.get("url") != doc["source_url"]
                 or capture.get("retrieval_method") != "READ_ONLY_BROWSEROS_NEO_BOUNDED_EXTRACTS"
                 or capture.get("credential_or_session_material_read") is not False

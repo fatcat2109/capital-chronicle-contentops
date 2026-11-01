@@ -126,6 +126,7 @@ def window_progress(store, issued):
 def configure_volume_turn(turn, binding):
     policy = bound_volume_policy(binding)
     turn.volume_policy = policy
+    turn.scheduled_window = bool(binding.get("window_id") or binding.get("automation_id"))
     turn.source_request_count_at_start = int(binding.get("source_request_count_at_start", 0))
     turn.inherited_selection = None
     if not policy:
