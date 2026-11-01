@@ -346,3 +346,57 @@ def test_schema_refuses(name: str) -> None:
 def test_record_lists_are_the_schema_record_lists() -> None:
     schema = _load(SCHEMA_PATH)
     assert set(RECORD_LISTS) <= set(schema["required"])
+
+
+# CC-014 rights filter: private numbers are matched as numbers, not strings (CC-045's check, Ops 31 Oct).
+def _private_value(doc: dict[str, Any], value: Any) -> None:
+    """Make the USDJPY open plan's entry (DEMO_DERIVED_PRIVATE) a given private value."""
+    _dossier(doc, "USDJPY")["open_plans"][0]["entry"]["value"] = value
+
+
+def _public_text(doc: dict[str, Any], text: str) -> list[str]:
+    _dossier(doc, "USDJPY")["headline_analysis"]["value"] = text
+    return [p for p in check_public_text(doc) if "private number" in p]
+
+
+@pytest.mark.parametrize("text", [
+    "The level was 2,412.35 at the close.",  # thousands separator
+    "The level was 2412.4 at the close.",  # rounded to one decimal
+    "The level was 2412.3 at the close.",  # truncated to one decimal
+    "The level was -2412.35 at the close.",  # a sign
+])
+def test_a_reformatted_private_number_is_refused(text: str) -> None:
+    doc = _doc()
+    _private_value(doc, 2412.35)
+    assert _public_text(doc, text), text
+
+
+def test_a_demo_result_in_r_is_refused_at_any_digit_count() -> None:
+    doc = _doc()
+    doc["decision_records"][0]["demo"]["result_r"]["value"] = -0.8
+    assert _public_text(doc, "The trade lost 0.8R after the release.")
+    assert _public_text(doc, "The trade lost 0.8 R after the release.")
+
+
+def test_a_number_written_only_inside_private_prose_is_collected() -> None:
+    doc = _doc()
+    doc["decision_records"][0]["rationale"]["value"] = "Short kept; entry reference 157.695 on the recorded quote."
+    assert _public_text(doc, "USDJPY traded near 157.695 into the release.")
+    assert _public_text(doc, "USDJPY traded near 157.70 into the release.")  # rounded, five significant digits
+
+
+@pytest.mark.parametrize("private,text", [
+    (4.6812, "The 10-year Treasury yield was 4.68% on the day."),  # three significant digits: an ordinary public level
+    (2412.35, "The index ended near 2412 points."),  # a whole number for a decimal private value
+    (2412.35, "The release came out on 2026-10-30 at 12:30 UTC."),  # dates and clocks are not numerals here
+])
+def test_an_official_public_number_sharing_digits_at_a_different_precision_is_not_refused(private: float, text: str) -> None:
+    doc = _doc()
+    _private_value(doc, private)
+    assert _public_text(doc, text) == [], text
+
+
+def test_an_official_print_equal_to_a_short_private_r_value_is_not_refused() -> None:
+    doc = _doc()
+    doc["decision_records"][0]["demo"]["result_r"]["value"] = -0.8
+    assert _public_text(doc, "Civilian compensation rose 0.8% in the third quarter.") == []

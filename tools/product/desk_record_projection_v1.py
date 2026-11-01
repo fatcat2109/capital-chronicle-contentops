@@ -9,6 +9,7 @@ cross-references, so the projection also drops any Field that cites a private-on
 from __future__ import annotations
 
 import re
+from decimal import ROUND_DOWN, ROUND_HALF_UP, Decimal
 from datetime import datetime
 from typing import Any, Iterable, Iterator
 
@@ -236,19 +237,71 @@ def check_clocks(doc: dict[str, Any]) -> list[str]:
     return problems
 
 
-def _private_numbers(doc: dict[str, Any]) -> set[str]:
-    numbers: set[str] = set()
-    for _, field in iter_fields({name: doc[name] for name in RECORD_LISTS}):
+# A numeral in text: thousands separators, a sign and an R suffix (R multiples) are recognised; a year, date, clock or
+# identifier (digits joined to letters, "-", ":" or "/") is not a numeral here.
+_NUMERAL = re.compile(r"(?<![\w.,:/-])[-+\u2212]?((?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?)(?![0-9A-QS-Za-z_,:/-]|\.\d)(\s?R\b)?")
+REFORMATTED_MIN_SIGNIFICANT = 4
+
+
+def _significant(value: Decimal) -> int:
+    digits = format(abs(value), "f").replace(".", "").lstrip("0")
+    return len(digits) or 1
+
+
+def _places(value: Decimal) -> int:
+    return max(0, -value.as_tuple().exponent)
+
+
+def _numerals(text: str) -> Iterator[tuple[Decimal, int, bool]]:
+    """(absolute value, decimal places as written, written as an R multiple) for each numeral in ``text``."""
+    for match in _NUMERAL.finditer(text):
+        raw = match.group(1).replace(",", "")
+        yield abs(Decimal(raw)), _places(Decimal(raw)), bool(match.group(2))
+
+
+def _private_numbers(doc: dict[str, Any]) -> list[tuple[Decimal, bool]]:
+    """Private values to keep out of public text: (absolute value, matched only as an R multiple).
+
+    Numeric private-only Fields of three or more significant digits; DEMO results and R values (keys ending in
+    ``_r`` or naming a result) at any digit count, matched as R multiples below three digits so an official 0.8% is
+    never refused for a -0.8R result; and the decimal numbers of three or more significant digits written inside
+    private-only string Fields (an "entry reference 157.695" in a rationale), which earlier went uncollected."""
+    numbers: list[tuple[Decimal, bool]] = []
+    for path, field in iter_fields({name: doc[name] for name in RECORD_LISTS}):
         value = field["value"]
-        if (
-            field["rights_class"] in PRIVATE_ONLY_RIGHTS
-            and isinstance(value, (int, float))
-            and not isinstance(value, bool)
-        ):
-            digits = re.sub(r"[^0-9]", "", f"{abs(value):.10g}").strip("0")
-            if len(digits) >= 3:
-                numbers.add(f"{abs(value):.10g}")
+        if field["rights_class"] not in PRIVATE_ONLY_RIGHTS:
+            continue
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
+            number = abs(Decimal(repr(value)))
+            key = path.rsplit(".", 1)[-1]
+            r_value = key.endswith("_r") or (field["rights_class"] == "DEMO_DERIVED_PRIVATE" and "result" in key)
+            if _significant(number) >= 3:
+                numbers.append((number, False))
+            elif r_value and number:
+                numbers.append((number, True))
+        elif isinstance(value, str):
+            numbers.extend((number, False) for number, places, _ in _numerals(value)
+                           if places >= 1 and _significant(number) >= 3)
     return numbers
+
+
+def _matches(private: Decimal, r_only: bool, written: Decimal, places: int, as_r: bool) -> bool:
+    """Whether a numeral written in text states a private value.
+
+    Exactly, after separators, sign and suffix are stripped. Reformatted (rounded half-up or truncated to 0-4 decimals),
+    only while it keeps at least REFORMATTED_MIN_SIGNIFICANT significant digits and, for a private value with decimals,
+    at least one decimal: 2412.35 as 2412.4 is refused, while an official 4.68 beside a private 4.6812, or a whole 2412,
+    is not (those shorter forms collide with ordinary public levels). An R value matches only as an R multiple."""
+    if r_only and not as_r:
+        return False
+    if written == private:
+        return True
+    if places > 4 or places >= _places(private):
+        return False
+    if not r_only and (_significant(written) < REFORMATTED_MIN_SIGNIFICANT or (_places(private) and places == 0)):
+        return False
+    step = Decimal(1).scaleb(-places)
+    return written in {private.quantize(step, rounding=ROUND_HALF_UP), private.quantize(step, rounding=ROUND_DOWN)}
 
 
 def check_public_text(
@@ -277,7 +330,7 @@ def check_public_text(
         for provider in providers:
             if provider.split(" ")[0].lower() in text.lower():
                 problems.append(f"{path}: private provider {provider}")
-        for number in numbers:
-            if number in text:
+        for number, r_only in numbers:  # numerals compared as numbers, not strings (CC-045's check, 31 Oct)
+            if any(_matches(number, r_only, written, places, as_r) for written, places, as_r in _numerals(text)):
                 problems.append(f"{path}: private number {number}")
     return problems
