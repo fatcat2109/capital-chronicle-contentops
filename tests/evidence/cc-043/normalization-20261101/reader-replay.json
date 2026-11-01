@@ -1,0 +1,50 @@
+{
+  "public_record_count": 17,
+  "public_records_sha256": "5d85be8fa0d5deeea07f84cbbbaac4469646fe59ad6b767eb56ee16830d9f00c",
+  "public_records_unchanged": true,
+  "exact_field_citation_validation": {
+    "citation_count": 20,
+    "citations_sha256": "8ed00704f07c948b742d09e9c1c020d2c046dcbdd8d478e8674eba7ee85e4c1e",
+    "numeric_authority": "EXACT_PROJECTED_PRODUCER_FIELDS",
+    "required_source_ids": [
+      "src:bls:eci:2026q3"
+    ],
+    "fixture": true
+  },
+  "reader_article_sha256": "79507d86dbe7a1fad81821d0c80276712163f1fa98adc038eba7df26f0028492",
+  "reader_article_unchanged": true,
+  "fixture_publication_preparation_error": "DESK_FIXTURE_PRIVATE_PREVIEW_ONLY",
+  "review_unchanged": true,
+  "retained_native_final_acceptance": {
+    "stage": "final-visual-27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9",
+    "request_sha256": "89d167b037c35665f1ad0d5c1689516d7ad8bab064f9347f034b1eaf817f5629",
+    "response_sha256": "95f1d2b6257fb934cb9e78eede81e9fdbe3d236ad10b41ff2e66897e83819c29",
+    "output_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\draft-a",
+    "article_revision": "9c63c72e0f017ce39d52707ecd43df0c3ee2df950a9f6b552d49c01330ce84c2",
+    "render_binding_sha256": "27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9",
+    "invocation_observation": {
+      "actual_configuration_unavailable": true,
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "supported explicit spawn request",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "invocation_id": "/root/native_visual_edit_860eaa0f453d",
+      "model": null,
+      "observation_source": "Canonical native task identity supplied in this supported subagent invocation; actual model and reasoning effort are not exposed to this role.",
+      "reasoning_effort": null,
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    }
+  },
+  "all_prior_render_artifact_hashes_verified": 39,
+  "rendered_html_sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6",
+  "rendered_html_byte_identical": true,
+  "existing_png_pdf_pairs_reused": 18,
+  "new_pixel_inspection": false,
+  "reason_for_reuse": "Input-admission-only change; exact public records, article/20 citations, reader HTML, rendered assets and existing same-writer review are unchanged. No source/copy/media/UI mutation warrants another creative or pixel-review call.",
+  "new_native_roles": 0,
+  "public_dispatches": 0,
+  "isolated_store_outbox_unchanged": true,
+  "scope": "Existing reviewed fixture checked on a SQLite backup, rendered from exact saved workspace/context using the existing renderer. Original store and accepted artifacts remain unchanged."
+}

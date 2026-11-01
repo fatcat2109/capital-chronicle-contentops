@@ -1,0 +1,136 @@
+{
+  "item": "CC-043",
+  "goal": "G-20261101-1",
+  "recorded_at_utc": "2026-11-01T03:03:42.578118+00:00",
+  "authority": "Jim direct day note G-20261101-1, 1 November 2026, in CC Desk and CC-043 Result",
+  "starting_commit": "8535f48eb437cf715c45edc91d6285f5643684ad",
+  "branch": "backlog/cc-043-main-desk-export",
+  "schema_commit": "89e59374eda3686271a0df4690e74b2e2d3f996a",
+  "normalizer_commit": "09ef90122265b6feb65f5bd85c31e9daf6194d6c",
+  "producer_repository": "fatcat2109/Headline-Raw-data-json",
+  "producer_acquisition": "Both named pushed refs fetched into the existing Publisher-owned .task-runtime/cc-043/producer.git from lane cwd. Their exact heads equal the named commits. No Claude checkout read.",
+  "schema_and_fixture_unchanged": true,
+  "producer_files_ported_exactly": [
+    {
+      "path": "tools/product/desk_record_projection_v1.py",
+      "before_file_sha256": "48c8cb5426117dd2afa5fcc40db664ee7ff19f4f375ed6e30c370dc3b3024a8e",
+      "producer_blob_sha256": "79be7f3e77534fc3af27bf85756dc07c39bc31bbc4b85b0ae383630557d794c3",
+      "bytes": 14215
+    },
+    {
+      "path": "tests/test_desk_record_export_schema_v1.py",
+      "before_file_sha256": "36d92b92033469e589e190ffe15d9ad74ee7326d647802fdb3ed115fe2d71a75",
+      "producer_blob_sha256": "fdcfee0d76c45ddc22cd5655fef1ca82e650802988e391d3497d8e08e4f6035c",
+      "bytes": 14077
+    }
+  ],
+  "baseline_cases_reproduced": 3,
+  "tests": {
+    "focused": {
+      "passed": 117,
+      "failures": 0,
+      "skipped": 0,
+      "files": [
+        "tests.test_capital_chronicle_desk_record_source_v1",
+        "tests.test_cc043_normalized_public_text_v1",
+        "tests.test_desk_record_export_schema_v1"
+      ],
+      "counts_by_module": {
+        "tests.test_capital_chronicle_desk_record_source_v1": 38,
+        "tests.test_cc043_normalized_public_text_v1": 22,
+        "tests.test_desk_record_export_schema_v1": 57
+      }
+    },
+    "affected": {
+      "passed": 173,
+      "failures": 0,
+      "skipped": 0,
+      "files": [
+        "tests.test_capital_chronicle_report_editorial_workspace_v1",
+        "tests.test_capital_chronicle_report_feed_v1",
+        "tests.test_native_desktop_publication_v1",
+        "tests.test_publication_coordinator_v1",
+        "tests.test_v1_simple_gemini_newsroom_v1"
+      ],
+      "counts_by_module": {
+        "tests.test_capital_chronicle_report_editorial_workspace_v1": 24,
+        "tests.test_capital_chronicle_report_feed_v1": 14,
+        "tests.test_native_desktop_publication_v1": 14,
+        "tests.test_publication_coordinator_v1": 81,
+        "tests.test_v1_simple_gemini_newsroom_v1": 40
+      }
+    },
+    "total_passed": 290,
+    "new_consumer_checks": 22,
+    "exact_upstream_tests": 57,
+    "scope": "Isolated deterministic consumer/feed/contract/publication/compiler checks with controlled returns; no production or native editorial invocation."
+  },
+  "reader_checks": {
+    "public_records": 17,
+    "exact_field_citations": 20,
+    "public_record_bytes_semantics_unchanged": true,
+    "article_prose_unchanged": true,
+    "byte_identical_html": true,
+    "retained_render_artifact_hashes_verified": 39,
+    "retained_png_pdf_pairs": 18,
+    "prior_same_writer_final_review_valid": true,
+    "fresh_pixel_inspection": false,
+    "fixture_prepare_error": "DESK_FIXTURE_PRIVATE_PREVIEW_ONLY",
+    "copied_store_outbox_unchanged": true
+  },
+  "preserved_prior_evidence_git_blobs": 69,
+  "new_native_editorial_calls": 0,
+  "model_provenance": "Prior configured-versus-observed role records and render acceptance unchanged; no new creative role required. No configured setting is relabelled as observed.",
+  "public_write_performed": false,
+  "spending": false,
+  "source_acquisition": false,
+  "schedules_or_controls_or_user_apps_changed": false,
+  "production_or_main_integration_or_pin_changed": false,
+  "production_head_observed": "b90969200771b29fdb8f8aa5b6a953dcb205975d",
+  "acceptance_passed": true,
+  "acceptance_scope": "CC-043 original fixture acceptance plus requested normalized-public-text consumer follow-up; not a real recurring producer export, operating-root installation or public article.",
+  "for_ops": "For Ops, Mon 2 Nov: integrate the new pushed branch commit recorded in CC-043 Result; exact upstream normalization and tests, 290 passing consumer/affected checks, unchanged private fixture/reader review. Real producer cadence and real-fact-pack rights admission stay separate.",
+  "next_actor": "CC Desk verifies delivery; Claude Ops integrates at the existing day-note review. No Ops message.",
+  "artifacts": [
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/.gitattributes",
+      "bytes": 101,
+      "sha256": "d774dd6ab69fe6068e410bcd8e3e9c6dcc583d5aa966805147b1c4e959737496"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/affected.xml",
+      "bytes": 28162,
+      "sha256": "d77ed787515448b962067143b8b8b89d7cd11abc96ec9a4fa02dfaa43dca11cb"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/baseline-gap.json",
+      "bytes": 991,
+      "sha256": "2e63a6360ba1a73d50984e1945dcb06e4a2f5ea386217e4e5e5c653eba127032"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/focused.xml",
+      "bytes": 18934,
+      "sha256": "d9f845c88e2d3b677a904206ea855070bd8d7e37bed2cd6cebc913cc51e5c23d"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/port-inputs.json",
+      "bytes": 744,
+      "sha256": "db8d1e5d336e3d7464e6ac25de0ab26c8a0b9577236e0e0d0dd40e0751e9f139"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/prior-evidence-preservation.json",
+      "bytes": 10576,
+      "sha256": "8acc1eb693a42556d9d05e90a3b383aad1243f828bce6a00294c26591d69ca65"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/reader-replay.json",
+      "bytes": 2916,
+      "sha256": "9d9954d08f07644ebeda06dde09990fa4688b0728f0d1872f38bd9cc927f9fc5"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/schema-preservation.json",
+      "bytes": 1023,
+      "sha256": "ab203202ee3fa4dc2553e1dad940dd7ee106cc36868c595acca5f36fb12c1e17"
+    }
+  ]
+}

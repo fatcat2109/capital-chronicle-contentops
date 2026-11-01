@@ -1,0 +1,18 @@
+{
+  "schema_commit": "89e59374eda3686271a0df4690e74b2e2d3f996a",
+  "normalizer_commit": "09ef90122265b6feb65f5bd85c31e9daf6194d6c",
+  "files": [
+    {
+      "path": "tools/product/desk_record_projection_v1.py",
+      "before_file_sha256": "48c8cb5426117dd2afa5fcc40db664ee7ff19f4f375ed6e30c370dc3b3024a8e",
+      "producer_blob_sha256": "79be7f3e77534fc3af27bf85756dc07c39bc31bbc4b85b0ae383630557d794c3",
+      "bytes": 14215
+    },
+    {
+      "path": "tests/test_desk_record_export_schema_v1.py",
+      "before_file_sha256": "36d92b92033469e589e190ffe15d9ad74ee7326d647802fdb3ed115fe2d71a75",
+      "producer_blob_sha256": "fdcfee0d76c45ddc22cd5655fef1ca82e650802988e391d3497d8e08e4f6035c",
+      "bytes": 14077
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "path": "schemas/publication/CapitalChronicleDeskRecordExportV1.md",
+    "upstream_and_existing_git_blob_sha256": "30119463cd0677b5ac7a6b611f1736e6214b046fb3523cdad3901bf03c177ddc",
+    "workspace_bytes_sha256": "0630e801e6dcb14b76869f959db88ce23290f6113e49620f0bad51855e43772c",
+    "workspace_crlf_only": true
+  },
+  {
+    "path": "schemas/publication/CapitalChronicleDeskRecordExportV1.schema.json",
+    "upstream_and_existing_git_blob_sha256": "7df0e9f2d8e30d397f1dd1d39a4de1f7d3e044845d0aaf4ad32d3b574d1cb95b",
+    "workspace_bytes_sha256": "7df0e9f2d8e30d397f1dd1d39a4de1f7d3e044845d0aaf4ad32d3b574d1cb95b",
+    "workspace_crlf_only": false
+  },
+  {
+    "path": "tests/fixtures/desk_record_export_v1/desk_record_export_v1.fixture.json",
+    "upstream_and_existing_git_blob_sha256": "3af9aa4c1fec5617bac4fc0d15f2090fe414cf4b1a5dcf338f67a80a1f080f5a",
+    "workspace_bytes_sha256": "3af9aa4c1fec5617bac4fc0d15f2090fe414cf4b1a5dcf338f67a80a1f080f5a",
+    "workspace_crlf_only": false
+  }
+]
