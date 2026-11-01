@@ -291,6 +291,10 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
                     source_packet = (json.loads((turn.root /
                         "editorial_media_plan_required.json").read_bytes())
                         if recovery and recovery.get("within_bound_live_budget") else governed)
+                    frozen_visual = turn.frozen_request("visual-edit")
+                    if (binding.get("editorial_request") and (not frozen_visual
+                            or "owner_editorial_request" in frozen_visual["governed_input"]["source_packet"])):
+                        source_packet = {**source_packet, "owner_editorial_request": binding["editorial_request"]}
                     turn.request_visual_decision(source_packet=source_packet, preparation={
                         "native_plan_run_id": binding["run_id"], "native_plan_stage": "media-plan",
                         "native_plan_request_sha256": turn.frozen_request("media-plan")["request_sha256"],
@@ -400,15 +404,22 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
         if frozen and (research := json.loads(frozen["payload"]).get("research")):
             from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
             admitted_research = RetainedSourceResearch.from_frozen_snapshot(research)
-    feed = MainReportFeed(LatestReportDeliveryTracker(store), pointer, retained_research=admitted_research)
+    rolling_input = (json.loads(Path(binding["rolling_input_path"]).read_bytes())
+                     if binding.get("rolling_input_path") else None)
+    # An explicitly report-only operation does not need to scan live X sidecars
+    # merely to build an unused headline projection. Ordinary intake is unchanged.
+    report_only = (rolling_input is not None and rolling_input.get("headlines") == []
+        and rolling_input.get("scope") == "REPORT_AND_RETAINED_RESEARCH_ONLY_NO_NEW_X_INTAKE")
+    feed = MainReportFeed(LatestReportDeliveryTracker(store), pointer, retained_research=admitted_research,
+                         **({"headline_paths": []} if report_only else {}))
     kwargs = {"output_dir": str(root),
               "cutoff_utc": binding.get("input_known_at_cutoff_utc", binding["cutoff_utc"]),
               "run_id": binding["run_id"], "published_memory": memory, "llm_invoke": turn,
               "attempted_candidate_ids": binding.get("attempted_candidate_ids", [])}
     if binding.get("editorial_request"):
         kwargs["editorial_request"] = binding["editorial_request"]
-    if binding.get("rolling_input_path"):
-        kwargs["rolling_input"] = json.loads(Path(binding["rolling_input_path"]).read_bytes())
+    if rolling_input is not None:
+        kwargs["rolling_input"] = rolling_input
     if binding.get("input_known_at_cutoff_utc"):
         kwargs["known_at_cutoff_utc"] = binding["input_known_at_cutoff_utc"]
     try:
@@ -538,7 +549,6 @@ def main(argv=None):
         if not args.binding or (not standalone and not args.rollout) or (args.command not in {"window-notice-begin","task-notice-begin"} and not args.response):
             parser.error("window reporting requires --binding, --rollout and --response except for notice-begin")
         from live_contentops.native_desktop_schedule_binding_v1 import prepare_window_result, window_notice_delivery, close_expired_window, window_blocked_notice, prepare_standalone_result
-        from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
         try:
             binding = json.loads(args.binding.read_bytes())
             rollout = json.loads(args.rollout.read_bytes()) if args.rollout else None

@@ -1,0 +1,349 @@
+{
+  "request_sha256": "9f23d68ac1aac3bb76cdc37ec0d4bdfb80b65d2e9cc9466b36e578349fd14071",
+  "output": {
+    "decision": "ACCEPT",
+    "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+    "article_revision": "babd5c02bcedea40f218c7c582c6982e3c4524936b7e649450dcc63aa1505d43",
+    "asset_findings": [
+      {
+        "asset_id": "cc074-archive-warsh-20260522",
+        "asset_sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS",
+          "identity_relevance": "PASS",
+          "archive_context": "PASS",
+          "caption_credit_alt": "PASS",
+          "lawful_reuse": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Exact original JPEG inspected again with view_image. Clear portrait and unchanged aspect ratio. Current canonical desktop and full mobile pixels place it after the opening answer and thesis, with a bounded 360px height. Caption states May 22, 2026 archive context and expressly separates it from the October 28 decision. Daniel Torok/White House, public-domain attribution and reuse link are visible without clipping. Identity/date rely on the retained source metadata and exact rights hashes; photograph supplies context only."
+      },
+      {
+        "asset_id": "cc074-fomc-20261028-vote-direction",
+        "asset_sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS",
+          "sign_magnitude": "PASS",
+          "denominator": "PASS",
+          "period_year_quarter": "PASS",
+          "units_currency": "PASS",
+          "transformation_rounding": "PASS",
+          "source_link_claim": "PASS",
+          "zero_baseline_scale": "PASS",
+          "comparisons_stacks_totals_missingness": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Exact original PNG inspected again with view_image and compared with every current appearance. Two horizontal bars display 10 approvals and 2 preferring an increase; zero-based member axis, October 28 date and Cook/Hammack quarter-point preference are correct. No share/probability denominator or forecast is introduced. Canonical table visibly gives 10 and 2, matching the original computed values. Concise reader caption replaces internal instructions. On mobile the central labels/counts remain visible and complete facts are present in the adjacent caption/table plus descriptive alt text; original-resolution image remains the bound enlargement asset."
+      },
+      {
+        "asset_id": "cc074-fomc-20261028-rate-framework",
+        "asset_sha256": "5b4223d7feee9476decf997e3a788f640ba68a223cd5318999ef52124433d851",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS",
+          "sign_magnitude": "PASS",
+          "denominator": "PASS",
+          "period_year_quarter": "PASS",
+          "units_currency": "PASS",
+          "transformation_rounding": "PASS",
+          "source_link_claim": "PASS",
+          "zero_baseline_scale": "PASS",
+          "comparisons_stacks_totals_missingness": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Exact original PNG inspected again with view_image. Interval is 3.75-4.00 percent; separate points are reserve interest 3.90, overnight reverse repo 3.75, overnight repo 4.00 and existing primary credit 4.00. The labelled local percent axis is a position scale for levels, not a truncated bar comparison or a change series. October 28 announcement and October 29 directive/reserve-interest effect are separate; primary credit is labelled existing. Canonical desktop/mobile tables visibly show 3.75, 4, 3.9, 3.75, 4 and 4 in their correct rows, exactly equivalent to the admitted values. No interpolation, missing series, market observations or future information appears. Current caption is reader-facing and source links retain both exact Fed documents."
+      }
+    ],
+    "render_findings": [
+      {
+        "render_id": "cc074-v2-discord-desktop",
+        "sha256": "3085b146737bb1b67c6ead1ccc8df98e51bd28eb2672c21bba57015289f666ad",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 1440 x 3840 desktop raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Complete brief and countercase followed by the vote and operating-settings graphics, both with corrected captions. No archive portrait is added to this derivative.Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-discord-mobile",
+        "sha256": "722d8b6c03c819774d03b0cc50dbd6b9fab20bef453540cdbfd4047a460d981b",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 390 x 3354 mobile raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Complete brief and countercase followed by the vote and operating-settings graphics, both with corrected captions. No archive portrait is added to this derivative. Body and caption text wrap within the mobile content column. Compact charts retain their complete framing; large original pixels and descriptive data alternatives were separately reviewed. Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-facebook_page-desktop",
+        "sha256": "45971d05283754ea19b6d2baddb87a543b9c623768a1fa6adf5b6e17640b5a8b",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 1440 x 3840 desktop raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Complete mechanism-led brief followed by the two selected graphics and concise captions. Both figures retain their metric, period and announced-setting context.Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-facebook_page-mobile",
+        "sha256": "a721e81e426e3acbf1a92e14c4701e8fb80e795d623035e18fe9e15a18f497eb",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 390 x 3354 mobile raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Complete mechanism-led brief followed by the two selected graphics and concise captions. Both figures retain their metric, period and announced-setting context. Body and caption text wrap within the mobile content column. Compact charts retain their complete framing; large original pixels and descriptive data alternatives were separately reviewed. Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-instagram_business-desktop",
+        "sha256": "f720b7d4f1ba909167a535919347c1d1686b3494ca7627ef6ab1f39c7cbfcfa8",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 1440 x 3936 desktop raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Complete contextual brief, retrospective/non-advice labels and the two selected graphics. Figure bounds and captions are intact; this is a private preview and proves no Instagram upload or native carousel behavior.Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-instagram_business-mobile",
+        "sha256": "c31e91c0093a5e89dc5e7ba33e7acc72aeb1b4e304c9b643f65a66e17321f829",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 390 x 3354 mobile raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Complete contextual brief, retrospective/non-advice labels and the two selected graphics. Figure bounds and captions are intact; this is a private preview and proves no Instagram upload or native carousel behavior. Body and caption text wrap within the mobile content column. Compact charts retain their complete framing; large original pixels and descriptive data alternatives were separately reviewed. Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-linkedin-desktop",
+        "sha256": "e6dfa7be574577fe86e9ab5d52f6c9f7d673d8a9e77ed4559eefe1143d2f2719",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 1440 x 3168 desktop raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Mechanism and countercase appear before the selected operating-settings figure. Its target interval and separate point rows are complete; source/effective-date context is retained.Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-linkedin-mobile",
+        "sha256": "ed7f92a6e13780380ac109d685508dd67d0b76a0b843e27fc24224f18e0245eb",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 390 x 3163 mobile raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Mechanism and countercase appear before the selected operating-settings figure. Its target interval and separate point rows are complete; source/effective-date context is retained. Body and caption text wrap within the mobile content column. Compact charts retain their complete framing; large original pixels and descriptive data alternatives were separately reviewed. Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-substack-desktop",
+        "sha256": "6429359d7bb3342b0945519bfc02be41071f1d9ba1cf72a9e71c7c2859cb7b1f",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 1440 x 6240 desktop raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Full title/dek, writing date, italic retrospective label, opening answer and thesis precede the smaller uncropped archive portrait and full credit. Both exact explanation sections contain their chosen graphics, concise captions and numeric tables. Countercase, announced-setting limits, watch question and italic non-advice sentence are fully visible. Tables match all admitted values; no future rate or market-reaction claim is added.Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-substack-mobile",
+        "sha256": "ccf79dc88f2e1eee02950232fba074197266862cb45d4b67022cc33c0b6dcc62",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 390 x 7091 mobile raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Full title/dek, writing date, italic retrospective label, opening answer and thesis precede the smaller uncropped archive portrait and full credit. Both exact explanation sections contain their chosen graphics, concise captions and numeric tables. Countercase, announced-setting limits, watch question and italic non-advice sentence are fully visible. Tables match all admitted values; no future rate or market-reaction claim is added. Body and caption text wrap within the mobile content column. Compact charts retain their complete framing; large original pixels and descriptive data alternatives were separately reviewed. Four labelled overlapping inspection-only crops at original 390px width were additionally inspected to read every body paragraph, photo credit, count table and six-row percent table without tall-image downscaling. Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-telegram-desktop",
+        "sha256": "d5d776784ed7caab2ef74612023e8d3e435dce1a2654cb338d46bf3c801d7ce9",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 1440 x 3072 desktop raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Complete concise brief and watch question followed by the vote figure. Caption names the dissenters and preference without the former authoring instructions.Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-telegram-mobile",
+        "sha256": "f73411e5a6dd1ac02fc7f8a7e6ac5b8aa08680651da3f5fba530355466535bb8",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 390 x 2875 mobile raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Complete concise brief and watch question followed by the vote figure. Caption names the dissenters and preference without the former authoring instructions. Body and caption text wrap within the mobile content column. Compact charts retain their complete framing; large original pixels and descriptive data alternatives were separately reviewed. Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-threads-desktop",
+        "sha256": "87acd965b00c73157d03c51c36880020a35707c853603d2db7900118cf950366",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 1440 x 3168 desktop raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Root post and one reply are complete in sequence; countercase and watch text remain connected and the selected vote graphic is shown once.Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-threads-mobile",
+        "sha256": "d43e4fd064dadcde5e38579792ebc8872d048c38c2ad7a6864188df6549e985a",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 390 x 3163 mobile raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Root post and one reply are complete in sequence; countercase and watch text remain connected and the selected vote graphic is shown once. Body and caption text wrap within the mobile content column. Compact charts retain their complete framing; large original pixels and descriptive data alternatives were separately reviewed. Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-x-desktop",
+        "sha256": "a8a93d25805bc96714ec010ccb26ef13e29cfe2b0de5b7603314520edd73dbe8",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 1440 x 3168 desktop raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Root post and both replies are visible in sequence, with complete watch/limits passage and the selected vote graphic once. Pending canonical identity remains a private-preview placeholder.Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-x-mobile",
+        "sha256": "1c53d843c49cbf3c25e2e9ff808025243e91c678f0278983e98e44c03ec61f1f",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 390 x 2971 mobile raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Root post and both replies are visible in sequence, with complete watch/limits passage and the selected vote graphic once. Pending canonical identity remains a private-preview placeholder. Body and caption text wrap within the mobile content column. Compact charts retain their complete framing; large original pixels and descriptive data alternatives were separately reviewed. Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-youtube-desktop",
+        "sha256": "62bc92ef7c3d90b26e03e809bd4b1cca9855be89429a2522d5ae3ffcb45305e3",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 1440 x 2976 desktop raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Complete community brief and watch question precede the selected vote graphic. Retrospective writing date and non-advice language remain visible.Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      },
+      {
+        "render_id": "cc074-v2-youtube-mobile",
+        "sha256": "b917574102574090d4d13a55a04b0d6caf954aa552569d0d0e0999db4ed0387d",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Inspected exact 390 x 2875 mobile raster with local view_image, from top navigation through final footer. Continuous page; no repeated viewport strips, horizontal clipping, text collision, distorted image or missing final content. Complete community brief and watch question precede the selected vote graphic. Retrospective writing date and non-advice language remain visible. Body and caption text wrap within the mobile content column. Compact charts retain their complete framing; large original pixels and descriptive data alternatives were separately reviewed. Capture scope is the canonical private React reader, rendered by BrowserOS screen-media print-to-PDF and Poppler raster; it is not a native destination screenshot or publication readback."
+      }
+    ],
+    "summary": "The same actual writer inspected all18 exact corrected private React desktop/mobile renders and all3 original media assets. Prior capture repetition/clipping, pre-answer portrait placement, excessive portrait height, literal emphasis markers and internal reader captions are corrected. Both canonical numeric tables match admitted data. No unresolved material visual or factual defect remains in this exact rendered revision.",
+    "acceptance_scope": "Private canonical React reader and its eight channel-package previews, exact revision only; no native-platform appearance, publication, upload, first-print or throughput claim. V1 failed capture artifacts remain retained.",
+    "source_clock_qualification": "Statement snapshot supplies the 2 p.m. EDT /18:00Z release clock. The companion note carries October28 date and observed-at19:13:00.161Z; its inherited18:00Z admission is not independently timestamped note publication. Both retained snapshots were observed before19:14:31.428086Z. Public prose and graphics use announcement/effective dates and do not assert an exact note release time or first print.",
+    "source_request_count": 0,
+    "source_request_limit": 10,
+    "new_source_requests_performed": 0,
+    "public_write_performed": false
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_visual_edit_266e6978a4ec",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Supported native collaboration context continues the exact visual editor/writer for this final-review assignment. All18 bound PNGs and3 media originals were opened with local view_image; four inspection-only original-width crops supplement the tall canonical mobile PNG. Actual model/effort are not exposed. No environment, process/session, credential or secret-config probing.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Exact frozen desktop_request_final-visual-9081b56508d2e28660859cd387e53330d5e2fb463e5199a9b493849b5abfe5a9.json requested_model/requested_reasoning_effort and supported parent task assignment; configured values are not observed model settings.",
+    "observed_at_utc": "2026-11-01T08:45:01.387005Z"
+  },
+  "reviewed_at_utc": "2026-11-01T08:45:01.387005Z"
+}

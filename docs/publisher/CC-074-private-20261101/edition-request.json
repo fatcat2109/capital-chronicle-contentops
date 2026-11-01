@@ -1,0 +1,25 @@
+{
+  "edition_id": "cc074-private-retrospectives-20261101",
+  "title": "Private retrospective: the October 28 FOMC decision",
+  "operation_ids": [
+    "cc074-retro-fomc-20261028-v1"
+  ],
+  "held_candidates": [
+    {
+      "title": "September 2026 CPI, released 14 October",
+      "reason": "Later retained capture of a mutable current-release URL; no eligible contemporaneous immutable edition and exact Main event packet found in this bounded read. Do not present later/revised contents as the event-time release."
+    },
+    {
+      "title": "Past payroll release",
+      "reason": "Bounded event-history search found the future 6 November prompt, not an eligible past payroll source packet. No outcome or values inferred from that prompt."
+    },
+    {
+      "title": "21 October IBM/Tesla/Meta leads",
+      "reason": "Retained leads are attributed Reuters report captures, not an admitted original issuer earnings packet with the required historical Main association. They are not reclassified as original quarterly evidence."
+    },
+    {
+      "title": "16 September 2026 decision",
+      "reason": "Dated retained official page was captured on 19 October. Last Update alone does not establish its exact event-time bytes. No earlier contemporaneous packet was established in the bounded read."
+    }
+  ]
+}

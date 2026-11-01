@@ -1,0 +1,490 @@
+{
+  "request_sha256": "1e2ab5f609e2a4b568fa3abe74137fb6d96c32028b38b92df5639312415405e8",
+  "output": {
+    "decision": "REPAIR_REQUIRED",
+    "asset_findings": [
+      {
+        "asset_id": "cc074-archive-warsh-20260522",
+        "asset_sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "FAIL",
+          "identity_relevance": "PASS",
+          "archive_context": "PASS",
+          "caption_credit_alt": "PASS",
+          "lawful_reuse": "PASS"
+        },
+        "findings": [
+          {
+            "id": "ARCHIVE_PHOTO_PRECEDES_ANSWER",
+            "severity": "MATERIAL",
+            "repair": "Move this archive portrait after the short opening answer and thesis; constrain its displayed height while preserving full original aspect ratio and credit."
+          }
+        ],
+        "evidence_notes": "Inspected exact 635 x 900 JPEG using local view_image. Clear unmodified portrait, identity/date from the retained White House metadata and PD-USGov rights hashes, not face recognition. May 22 archive context and no event corroboration remain explicit. In canonical desktop preview the portrait starts before the opening body answer and occupies the remainder of each captured first viewport. Placement needs correction; actual original bytes and lawful credit remain valid."
+      },
+      {
+        "asset_id": "cc074-fomc-20261028-vote-direction",
+        "asset_sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "FAIL",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "UNVERIFIED",
+          "sign_magnitude": "PASS",
+          "denominator": "PASS",
+          "period_year_quarter": "PASS",
+          "units_currency": "PASS",
+          "transformation_rounding": "PASS",
+          "source_link_claim": "PASS",
+          "zero_baseline_scale": "PASS",
+          "comparisons_stacks_totals_missingness": "PASS"
+        },
+        "findings": [
+          {
+            "id": "INTERNAL_VISUAL_RATIONALE_IN_READER_CAPTION",
+            "severity": "MATERIAL",
+            "repair": "Replace why_useful and authoring instructions in the asset caption with a concise source-bound reader caption and descriptive data alt text. Preserve numerical pixels and all source/rights/transform bindings."
+          }
+        ],
+        "evidence_notes": "Inspected exact original 1500 x 1300 PNG. Bars show 10 approvals and 2 favoring increase, with member count, zero baseline, October 28 date and Cook/Hammack quarter-point direction. No probability conversion. Data, scale, contrast and original labels pass. Telegram mobile visibly prints the internal caption including Name the two dissenters and do not invent a majority-member roster, and shrinks source/subtitle text below comfortable reading size. Other assembled placements cannot be verified from repeated-top captures."
+      },
+      {
+        "asset_id": "cc074-fomc-20261028-rate-framework",
+        "asset_sha256": "5b4223d7feee9476decf997e3a788f640ba68a223cd5318999ef52124433d851",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "FAIL",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "UNVERIFIED",
+          "sign_magnitude": "PASS",
+          "denominator": "PASS",
+          "period_year_quarter": "PASS",
+          "units_currency": "PASS",
+          "transformation_rounding": "PASS",
+          "source_link_claim": "PASS",
+          "zero_baseline_scale": "PASS",
+          "comparisons_stacks_totals_missingness": "PASS"
+        },
+        "findings": [
+          {
+            "id": "INTERNAL_VISUAL_RATIONALE_IN_READER_CAPTION",
+            "severity": "MATERIAL",
+            "repair": "Replace why_useful and authoring instructions in the asset caption with a concise source-bound reader caption and descriptive data alt text. Preserve numerical pixels and all source/rights/transform bindings."
+          }
+        ],
+        "evidence_notes": "Inspected exact original 1500 x 1300 PNG against SOURCE_1 and retained SOURCE_2: target interval 3.75-4.00 percent; reserve interest 3.90; reverse repo 3.75; repo and existing primary credit 4.00. Exact local rate axis is explicitly labelled, with interval versus points and announced/effective-date qualifications. No observations or interpolations added. Original pixels pass. The bound caption is internal why_useful prose; replace it. Final placement/legibility is unverified because its assembled previews repeat their first viewport and omit this figure."
+      }
+    ],
+    "render_findings": [
+      {
+        "render_id": "cc074-v1-discord-desktop",
+        "sha256": "7c955f2e3cc607e53375a3b047e692f1c1af9d8a3915bdf30da78c1bb95ed52c",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 1425 x 3614 local discord desktop screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-discord-mobile",
+        "sha256": "6e2efa9e86c936a2b015d4efd78119a8014e97f71a599fbbaaf1526f3d07d9a1",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 375 x 3184 local discord mobile screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-facebook_page-desktop",
+        "sha256": "c957dee03994b43f85a40a9a8ea60e0f68bc240d1adcd964dfc320dba84ea1b3",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 1425 x 3614 local facebook_page desktop screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-facebook_page-mobile",
+        "sha256": "c800f38dc00a568841fbcf773d5cdf7c677bc079bf13359e12cb8306c0e4ee6b",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 375 x 3157 local facebook_page mobile screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-instagram_business-desktop",
+        "sha256": "34e9a676d218a10750dbd8dedca8455bddc36ef2862106bac77d5bbaf8156807",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 1425 x 3656 local instagram_business desktop screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-instagram_business-mobile",
+        "sha256": "a0a9bb69777f4deca4f410c6ee8f94bce0858381bab222488a9341be4411a100",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 375 x 3197 local instagram_business mobile screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-linkedin-desktop",
+        "sha256": "3f12318a0502aa6a19fab59ede9ef7627b3327ed7f0197dd86e2836fee3950d1",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 1425 x 2832 local linkedin desktop screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-linkedin-mobile",
+        "sha256": "8db6c48a0006525553fafdf7cb772629d94cde87d00f80101f482505d59eef43",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 375 x 2849 local linkedin mobile screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-substack-desktop",
+        "sha256": "6460dca92a82051a73d0aaeda7b90d6f70f5202c69952c4531b70488e36d1e6f",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "FAIL"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          },
+          {
+            "id": "ARCHIVE_PORTRAIT_PUSHES_OPENING_ANSWER_DOWN",
+            "severity": "MATERIAL",
+            "repair": "Move portrait after introductory body text and cap portrait display size without cropping."
+          }
+        ],
+        "evidence_notes": "Inspected exact 1425 x 5807 local substack desktop screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-substack-mobile",
+        "sha256": "4a237b17e8aab5ddc8b721c081716db2ee21796847344dcb05a14d18470f7c85",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "FAIL"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          },
+          {
+            "id": "ARCHIVE_PORTRAIT_PUSHES_OPENING_ANSWER_DOWN",
+            "severity": "MATERIAL",
+            "repair": "Move portrait after introductory body text and cap portrait display size without cropping."
+          },
+          {
+            "id": "CANONICAL_MOBILE_CAPTURE_HORIZONTAL_CLIP",
+            "severity": "MATERIAL",
+            "repair": "Reset viewport and scroll origin and recapture after responsive layout settles. The screenshot shows a roughly 240px left blank strip with most canonical content clipped off the right edge."
+          }
+        ],
+        "evidence_notes": "Inspected exact 375 x 6180 local substack mobile screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-telegram-desktop",
+        "sha256": "8b1afbe17694516bb416eec16a068d12de338daf76522ce121f32357a8094f7b",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 1425 x 2762 local telegram desktop screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-telegram-mobile",
+        "sha256": "06fb0253bf9bb13013109266b327f7980a3bca27e00c0950cdb71f9f7ebcb760",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "FAIL",
+          "text_contrast": "FAIL",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [
+          {
+            "id": "READER_CAPTION_EXPOSES_AUTHOR_INSTRUCTIONS",
+            "severity": "MATERIAL",
+            "repair": "Replace caption and provide descriptive alt/data text."
+          },
+          {
+            "id": "MOBILE_FIGURE_NEEDS_ACCESSIBLE_ENLARGEMENT",
+            "severity": "MATERIAL",
+            "repair": "Provide a native image link for full-resolution zoom, retain complete data in alt text, and recheck actual mobile pixels."
+          }
+        ],
+        "evidence_notes": "Inspected all pixels of this complete 375 x 2657 local preview. One continuous page; Telegram prose, retrospective/non-advice labels and canonical-link-pending private state are visible. The 330px-wide vote image retains 10 and 2, but subtitle/source labels are tiny. Its following caption repeats internal planning rationale and instructions. No crop distortion or body text overlap. This is a private React preview, not a Telegram-native screen or published object."
+      },
+      {
+        "render_id": "cc074-v1-threads-desktop",
+        "sha256": "f6dbf71bfbdef0019ea3e9ce554511299e61790bc15ce7243d48d54fa603236e",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 1425 x 2918 local threads desktop screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-threads-mobile",
+        "sha256": "769967271a6deac809ef298d831f696418e87b0892afc231f47117a0786e92d0",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 375 x 2909 local threads mobile screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-x-desktop",
+        "sha256": "ea0795ba808da82d617dd63535e1bc714edfebaddd54d243163861a31962e132",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 1425 x 2904 local x desktop screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-x-mobile",
+        "sha256": "6a0620f2ca73a6cda0848371f37a6adf627a8b12b014dadfe1f15cc4aa333328",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 375 x 2764 local x mobile screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-youtube-desktop",
+        "sha256": "605d7a988e386304508a42a06967d8ad1846deb288c0353238f00470d3f0bb13",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 1425 x 2720 local youtube desktop screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      },
+      {
+        "render_id": "cc074-v1-youtube-mobile",
+        "sha256": "8f7de014c0bf26ff4e9ef8ba6bd74256f90dd500667dd4b1f8889d4ea859782d",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "PASS",
+          "crop_distortion": "FAIL",
+          "placement": "UNVERIFIED"
+        },
+        "findings": [
+          {
+            "id": "FULL_PAGE_CAPTURE_REPEATS_FIRST_VIEWPORT",
+            "severity": "MATERIAL",
+            "repair": "Recapture the real browser-rendered page at verified progressing scroll offsets or a reliable full-content method; retain these originals. Inspect the complete new canonical/channel page before acceptance."
+          }
+        ],
+        "evidence_notes": "Inspected exact 375 x 2617 local youtube mobile screenshot. The image repeats the initial Newsroom header, navigation and first article/post content at successive viewport boundaries instead of showing a continuous full page. Lower content, figures and credits are missing, so their legibility and placement remain UNVERIFIED. This is a capture-evidence defect; the pixels alone do not prove the application itself duplicates content. Visible text contrast is adequate. Not a platform-native render or public result."
+      }
+    ],
+    "summary": "All 18 exact renders and 3 assets were inspected. Seventeen renders repeat their first viewport; canonical mobile also clips horizontally. Telegram mobile is continuous and exposes internal chart-caption instructions plus tiny figure text. Source values and original photo/chart bytes are valid; captions, placement, markdown support, accessible zoom and capture coverage require targeted correction. No final acceptance or public action.",
+    "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+    "article_revision": "f072972db94964e72fb14d4babefe71e1c035ec1626e93fdca3186ef5e54da5f",
+    "public_write_performed": false
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_visual_edit_266e6978a4ec",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Same supported native collaboration task and exact final-visual assignment; every named local image opened with view_image. Actual model/effort not exposed; no environment, credential, secret config or process probing.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Exact frozen final-visual request requested_model/requested_reasoning_effort and supported parent assignment. Configured values are not labelled observed.",
+    "observed_at_utc": "2026-11-01T08:29:51.453449Z"
+  },
+  "reviewed_at_utc": "2026-11-01T08:29:51.453449Z"
+}

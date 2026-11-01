@@ -1,0 +1,67 @@
+{
+  "source_page_url": "https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg",
+  "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House%2C_Friday%2C_May_22%2C_2026._%28Cropped%29.jpg",
+  "creator_publisher": "The White House",
+  "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+  "rights_status": "PUBLIC_DOMAIN",
+  "depicted_date": "22 May 2026, 12:12:50",
+  "license_text": "Public domain",
+  "original_sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+  "provider_metadata": {
+    "page": {
+      "title": "File:Federal Reserve Chair Kevin Warsh delivers remarks at his swearing-in ceremony in the East Room of the White House, Friday, May 22, 2026. (Cropped).jpg",
+      "imageinfo": [
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House%2C_Friday%2C_May_22%2C_2026._%28Cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "descriptionurl": "https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg",
+          "width": 635,
+          "height": 900,
+          "mime": "image/jpeg",
+          "extmetadata": {
+            "Artist": {
+              "source": "commons-desc-page",
+              "value": "The White House"
+            },
+            "Copyrighted": {
+              "hidden": "",
+              "source": "commons-desc-page",
+              "value": "False"
+            },
+            "Credit": {
+              "source": "commons-desc-page",
+              "value": "This image has been <b>extracted</b> from another file"
+            },
+            "DateTimeOriginal": {
+              "source": "commons-desc-page",
+              "value": "22 May 2026, 12:12:50"
+            },
+            "ImageDescription": {
+              "source": "commons-desc-page",
+              "value": "Federal Reserve Chair Kevin Warsh delivers remarks at his swearing-in ceremony in the East Room of the White House, Friday, May 22, 2026. (Official White House Photo by Daniel Torok)"
+            },
+            "License": {
+              "hidden": "",
+              "source": "commons-templates",
+              "value": "pd"
+            },
+            "LicenseShortName": {
+              "hidden": "",
+              "source": "commons-desc-page",
+              "value": "Public domain"
+            },
+            "UsageTerms": {
+              "source": "commons-desc-page",
+              "value": "Public domain"
+            }
+          }
+        }
+      ],
+      "license_wikitext": "=={{int:filedesc}}==\n{{Information\n|description={{en|1=Federal Reserve Chair Kevin Warsh delivers remarks at his swearing-in ceremony in the East Room of the White House, Friday, May 22, 2026. (Official White House Photo by Daniel Torok)}}\n|date=22 May 2026, 12:12:50\n|source={{Extracted from|File:Swearing-in ceremony for Federal Reserve Chair Kevin Warsh at the White House, Friday, May 22, 2026 - 9.jpg}}\n|author=The White House\n|permission=\n|other versions=\n}}\n\n=={{int:license-header}}==\n{{PD-USGov}}\n\n[[Category:Federal Reserve Chair Kevin Warsh is sworn-in in the East Room of the White House]]"
+    }
+  },
+  "public_domain_basis": {
+    "policy_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+    "policy_capture_path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\policy\\public-domain-policy.json",
+    "policy_capture_sha256": "912ced1b4aaabbf261558f55ab1cdc25e1bf74cde3c7db6cc0a76d70c5560619"
+  }
+}

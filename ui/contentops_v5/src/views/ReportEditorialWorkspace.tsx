@@ -17,8 +17,9 @@ const sourceDecision: Record<string, string> = {
   REVALIDATE_CHANGED_SUPPORT: 'Kiểm tra lại ảnh theo nguồn đã đổi',
 };
 function InlineCopy({ text }: { text: string }) {
-  return <>{text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\(https:\/\/[^)\s]+\))/g).map((part, i) => {
+  return <>{text.split(/(\*\*[^*]+\*\*|\*[^*\n]+\*|\[[^\]]+\]\(https:\/\/[^)\s]+\))/g).map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) return <strong key={i}>{part.slice(2, -2)}</strong>;
+    if (/^\*[^*\n]+\*$/.test(part)) return <em key={i}>{part.slice(1, -1)}</em>;
     const link = /^\[([^\]]+)\]\((https:\/\/[^)\s]+)\)$/.exec(part);
     return link ? <a key={i} href={link[2]} target="_blank" rel="noreferrer">{link[1]}</a> : part;
   })}</>;
@@ -58,10 +59,12 @@ function MediaFigure({ asset: a, originalHref, readerDetails = true, photoCredit
     ? caption.indexOf(credit) : -1;
   const sources = a.modality === 'source_backed_chart' ? a.source_links ?? [] : [];
   const imageHref = originalHref ?? a.preview_data_url;
-  return <figure data-media-asset={a.asset_id}>
+  return <figure data-media-asset={a.asset_id} style={a.modality === 'documentary_photo' ? { maxWidth: 360 } : undefined}>
     {a.preview_data_url && <a ref={opener} className="media-zoom" href={imageHref} target="_blank" rel="noreferrer" aria-label={`View full-size ${a.alt_text ?? a.caption}`}
       onClick={event => { if (!originalHref || a.modality === 'source_backed_chart') { event.preventDefault(); setExpanded(true); } }}>
-      <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', maxWidth: a.width ?? '100%', height: 'auto' }} />
+      <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={a.modality === 'documentary_photo'
+        ? { display: 'block', width: 'auto', maxWidth: '100%', maxHeight: 360, height: 'auto', objectFit: 'contain' }
+        : { width: '100%', maxWidth: a.width ?? '100%', height: 'auto' }} />
     </a>}
     <figcaption>{embeddedCredit >= 0 ? <>{caption.slice(0, embeddedCredit)}
       <a href={a.source_page_url} target="_blank" rel="noreferrer">{credit}</a>{caption.slice(embeddedCredit + credit!.length)}</> : caption}{sources.length ? <> · {sources.length > 1 ? 'Sources: ' : 'Source: '}
@@ -103,15 +106,18 @@ function MediaFigure({ asset: a, originalHref, readerDetails = true, photoCredit
 function ArticleWithMedia({ text, assets = [], originals }: { text: string; assets?: EditorialMedia[]; originals?: Record<string, string> }) {
   const sections = text.split(/(?=^#{1,6}\s)/m).filter(Boolean);
   const placed = new Set<string>();
+  const contextualPhotos = assets.filter(a => a.modality === 'documentary_photo' && !a.placement_after);
+  const hasIntroduction = !!sections.length && !/^#{1,6}\s/.test(sections[0]);
   const figure = (a: EditorialMedia) => <MediaFigure key={a.asset_id} asset={a} originalHref={originals?.[a.sha256]} />;
   return <>
-    {assets.filter(a => a.modality === 'documentary_photo' && !a.placement_after).map(figure)}
     {sections.map((section, i) => {
       const heading = /^#{1,6}\s+([^\n]+)/.exec(section)?.[1].trim();
       const inline = assets.filter(a => !!heading && a.placement_after === heading);
       inline.forEach(a => placed.add(a.asset_id));
-      return <div key={i}><ArticleParagraphs text={section.trim()} />{inline.map(figure)}</div>;
+      return <div key={i}><ArticleParagraphs text={section.trim()} />
+        {i === 0 && hasIntroduction && contextualPhotos.map(figure)}{inline.map(figure)}</div>;
     })}
+    {!hasIntroduction && contextualPhotos.map(figure)}
     {assets.filter(a => (a.modality !== 'documentary_photo' || a.placement_after) && !placed.has(a.asset_id)).map(figure)}
   </>;
 }

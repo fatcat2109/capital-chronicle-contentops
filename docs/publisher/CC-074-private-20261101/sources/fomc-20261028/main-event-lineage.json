@@ -1,0 +1,11 @@
+{
+  "event_id": "FOMC-20261028",
+  "source_path": "A:\\Capital Chronicle\\ResearchRuns\\main-jim-pr278-private-dashboard-activation-v1\\fomc-event-short-mid-20261029\\fomc-daily-handoff.json",
+  "source_sha256": "7bc2e11942a8e139b292eae221860b246aad74f2868af9ea890f89663a08311b",
+  "decision_cutoff_utc": "2026-10-28T19:14:31.428086Z",
+  "continuity_only": true,
+  "private_analytical_trading_account_fields_copied": false,
+  "public_release_utc": "2026-10-28T18:00:00Z",
+  "snapshot_not_release_minute_replay": true,
+  "first_print_proof": false
+}
