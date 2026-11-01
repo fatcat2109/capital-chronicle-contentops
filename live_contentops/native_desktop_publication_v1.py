@@ -16,6 +16,7 @@ from live_contentops.capital_chronicle_latest_report_consumer_v1 import (
     sha256_of,
 )
 from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
+from live_contentops.native_manual_candidate_v1 import manual_output_root
 from live_contentops.native_desktop_editorial_v1 import (
     prepare_reviewed_handoff,
     validated_native_review,
@@ -48,7 +49,7 @@ def _prepared_packet(store, binding):
         raise ValueError("CURRENT_REVIEWED_HANDOFF_REQUIRED")
     packet = prepared[-1]
     from live_contentops.native_desktop_editorial_v1 import native_review_revision
-    base = resolve_workspace_path(binding["output_dir"]) / "reviewed-handoff"
+    base = manual_output_root(store, binding) / "reviewed-handoff"
     root = resolve_workspace_path(packet["output_dir"])
     if root not in {base, base / native_review_revision(result)}:
         raise ValueError("REVIEWED_HANDOFF_PATH_CHANGED")
@@ -99,7 +100,7 @@ def prepare_native_publication(store, binding):
     result, _, _ = validated_native_review(store, run_id=binding["run_id"])
     validate_release_media(result)
     prepare_reviewed_handoff(
-        store, run_id=binding["run_id"], output_dir=binding["output_dir"]
+        store, run_id=binding["run_id"], output_dir=manual_output_root(store, binding)
     )
     value, _, _ = _prepared_packet(store, binding)
     key = "native-publication-binding-" + sha256_of([binding["run_id"], value])
@@ -513,7 +514,7 @@ class NativeReviewedPublication:
             self.coordinator, self.executor = bind_native_neo_coordinator(
                 self.store,
                 operation_id=self.binding["run_id"],
-                output_dir=resolve_workspace_path(self.binding["output_dir"])
+                output_dir=manual_output_root(self.store, self.binding)
                 / "native-neo",
                 native_invocation_id=self.native_invocation_id,
                 allow_publish=True,

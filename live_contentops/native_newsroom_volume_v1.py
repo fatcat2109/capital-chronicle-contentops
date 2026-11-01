@@ -135,6 +135,23 @@ def configure_volume_turn(turn, binding):
         return
     if not 0 <= turn.source_request_count_at_start <= policy["source_request_limit"]:
         raise ValueError("WINDOW_SOURCE_BUDGET_CARRY_INVALID")
+    if turn.manual_candidate:
+        from hashlib import sha256
+        active = turn.manual_candidate
+        if (turn.scheduled_window or active["binding_sha256"] != sha256_of(binding)
+                or active["cutoff_utc"] != binding.get("input_known_at_cutoff_utc", binding["cutoff_utc"])):
+            raise ValueError("MANUAL_CANDIDATE_BINDING_CHANGED")
+        frozen = turn.store.get_outbox_message("native-current-input-" + sha256_of(turn.run_id))
+        request, response = native_selection(turn.store, turn.run_id)
+        current = {v["candidate_id"]: v for v in turn.story_outcomes()}
+        if (not frozen or sha256_of(json.loads(frozen["payload"])) != active["intent"]["frozen_input_sha256"]
+                or not request or request["request_sha256"] != active["intent"]["selection_request_sha256"]
+                or not response or sha256_of(response) != active["intent"]["selection_response_sha256"]
+                or any(current.get(v["candidate_id"]) != v for v in active["prior_outcomes"])):
+            raise ValueError("MANUAL_CANDIDATE_FROZEN_INPUT_OR_OUTCOMES_CHANGED")
+        if sha256((turn.root / "simple_sourceability_preselection_v1.json").read_bytes()).hexdigest() != active["sourceability_sha256"]:
+            raise ValueError("MANUAL_CANDIDATE_SOURCEABILITY_CHANGED")
+        turn.source_request_count_at_start = active["source_request_count_at_start"]
     origin = binding.get("selection_origin_run_id")
     if origin and origin != turn.run_id:
         request, response = native_selection(turn.store, origin)

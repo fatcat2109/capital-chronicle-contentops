@@ -5,6 +5,8 @@ Legacy fixture review ledgers are not adopted as a second durable owner.
 """
 from __future__ import annotations
 
+from live_contentops.native_manual_candidate_v1 import native_artifact_key
+
 import json
 from datetime import datetime, timezone
 from uuid import uuid4
@@ -75,7 +77,7 @@ def record_story_editorial_revision(store, *, run_id, article_identity, review_o
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, canonical_bytes
     if not isinstance(reason, str) or len(reason.strip()) < 20:
         raise ValueError("SUBSTANTIVE_EDITORIAL_REVISION_REASON_REQUIRED")
-    row = store.get_outbox_message("cc-editorial-final-" + sha256_of(run_id))
+    row = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
     if result.get("article_identity") != article_identity or not result.get("qualified_article_count"):
         raise ValueError("EXACT_EXISTING_STORY_REQUIRED")
@@ -122,7 +124,7 @@ def record_story_source_review(store, *, run_id, article_identity, review_operat
         if value.get("request_sha256", request_sha) != request_sha:
             raise ValueError("SOURCE_REVIEW_INPUT_CHANGED_USE_NEW_IDENTITY")
         return value
-    row = store.get_outbox_message("cc-editorial-final-" + sha256_of(run_id))
+    row = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
     if result.get("article_identity") != article_identity or not result.get("qualified_article_count"):
         raise ValueError("EXACT_EXISTING_STORY_REQUIRED")
@@ -484,7 +486,7 @@ def record_native_article_review(store, *, run_id, article_identity, decision, r
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
     if decision not in {"KEEP", "REVISE", "HOLD"} or not 20 <= len(rationale.strip()) <= 3000 or _private({"rationale": rationale}):
         raise ValueError("REASONED_KEEP_REVISE_HOLD_REQUIRED")
-    key = "cc-editorial-final-" + sha256_of(run_id)
+    key = native_artifact_key(store, run_id, "cc-editorial-final-")
     with store.get_connection() as conn:
         conn.execute("BEGIN IMMEDIATE")
         try:

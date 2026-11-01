@@ -1,0 +1,260 @@
+{
+  "item": "CC-042",
+  "goal": "G-20261101-1",
+  "recorded_at_utc": "2026-11-01T05:00:26.973710+00:00",
+  "authority": "Jim direct 1 Nov day note and branch-only CC-042 follow-up, BACKLOG.md decision 2026-11-01T04:30:45Z",
+  "branch": "backlog/cc-042-resume-v1",
+  "starting_commit": "c6f685e42b83d105f8dbc2efce321e1b82c55f9f",
+  "retained_source_repair_commit": "38da67f99fa6def4e3fbab4bd393cfdab0d0c6ab",
+  "branch_repair_delivered": true,
+  "original_live_acceptance": {
+    "canonical_readbacks": 0,
+    "required": 3,
+    "passed": false
+  },
+  "baseline_reproduced_before_implementation": true,
+  "same_manual_operation_id": "cc042-live-resume-20261031-a",
+  "original_binding_sha256": "0173bb42604453e3d57ca19f74c62dd6ca5a8d89e4a46da8b30fe3f378bb6fd8",
+  "original_cutoff_utc": "2026-10-30T23:45:33.033578Z",
+  "retained_real_copy_replay": {
+    "synthetic_source_results_only": true,
+    "untouched_candidates_reached": 2,
+    "original_copied_files_preserved": 59,
+    "original_copied_outbox_preserved": 688,
+    "accepted_returns_preserved": 10,
+    "cumulative_copy_budget": [
+      5,
+      7,
+      9
+    ],
+    "limit": 10,
+    "new_operation_bindings": 0,
+    "original_live_candidate_outcomes_unchanged": true
+  },
+  "behavior": {
+    "explicit_next_candidate": true,
+    "same_binding_cutoff_selection_frozen_input": true,
+    "candidate_scoped_requests_media_and_results": true,
+    "unchanged_accepted_filter_selection_and_hold": true,
+    "exact_current_intent_replay_is_idempotent": true,
+    "first_untouched_candidate_only": true,
+    "lease_and_atomic_fencing_checked": true,
+    "budget_monotonic": true,
+    "partial_final_not_reportable_as_terminal": true,
+    "qualified_prepared_or_dispatched_article_cannot_be_skipped": true,
+    "scheduled_flow_regressions_included": true,
+    "existing_rights_media_same_writer_and_publication_gates_retained": true
+  },
+  "checks": {
+    "runs": {
+      "expanded": {
+        "tests": 677,
+        "passed": 673,
+        "failures": [
+          "tests.test_native_desktop_workspace_v1::test_desk_export_is_offline_read_only_and_preserves_the_existing_store",
+          "tests.test_native_desktop_workspace_v1::test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[False-False]",
+          "tests.test_native_desktop_workspace_v1::test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[True-False]",
+          "tests.test_native_role_configuration_v1::test_cli_continues_only_the_saved_approved_writer_configuration"
+        ],
+        "skipped": 0
+      },
+      "focused": {
+        "tests": 97,
+        "passed": 97,
+        "failures": [],
+        "skipped": 0
+      },
+      "final-scoped": {
+        "tests": 98,
+        "passed": 98,
+        "failures": [],
+        "skipped": 0
+      },
+      "cli-final": {
+        "tests": 34,
+        "passed": 34,
+        "failures": [],
+        "skipped": 0
+      },
+      "parent-baseline": {
+        "tests": 3,
+        "passed": 0,
+        "failures": [
+          "tests.test_native_desktop_workspace_v1::test_desk_export_is_offline_read_only_and_preserves_the_existing_store",
+          "tests.test_native_desktop_workspace_v1::test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[False-False]",
+          "tests.test_native_desktop_workspace_v1::test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[True-False]"
+        ],
+        "skipped": 0
+      }
+    },
+    "final_distinct_results_after_targeted_reruns": {
+      "tests": 678,
+      "passed": 675,
+      "failures": [
+        "tests.test_native_desktop_workspace_v1::test_desk_export_is_offline_read_only_and_preserves_the_existing_store",
+        "tests.test_native_desktop_workspace_v1::test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[False-False]",
+        "tests.test_native_desktop_workspace_v1::test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[True-False]"
+      ],
+      "skipped": 0
+    },
+    "new_manual_candidate_tests": 35,
+    "parent_cli_sha256": "3b6104a9c298a2d3a1711d57969a4ff03d03754a02360619f14a45eb8d1a3b99",
+    "parent_failure_scope": "Exact parent CLI bytes injected into scripts.run_native_desktop_editorial at its supported module import path. All other modules current; isolated tests only.",
+    "initial_additional_failure": "A role-routing test stub bypassed _operation and supplied no schema/full binding. Because operation now holds its lease before calling the mocked body, the test was corrected to use a valid isolated binding; its existing model and same-writer assertions remain. Final cli-final rerun passes.",
+    "full_suite_pass_claimed": false,
+    "note": "Expanded run was 673 passed/4 failed. Final focused reruns validate constructor/path/CLI changes, the additional scoped writer check and the corrected role control. Replacing only rerun statuses gives 678 distinct checks: 675 passes and the same three parent failures. Duplicate runs are not added together; no full-suite PASS is claimed."
+  },
+  "model_provenance": {
+    "new_native_calls": 0,
+    "new_observed_model_claim": false,
+    "historical_configured_versus_observed_records_unchanged": true,
+    "synthetic_test_invocations_not_model_proof": true
+  },
+  "original_live_preservation": {
+    "files": 59,
+    "outbox_payloads_and_statuses": 688,
+    "new_outbox_rows": 0,
+    "source_budget": "5/10 unchanged",
+    "production_head": "b90969200771b29fdb8f8aa5b6a953dcb205975d"
+  },
+  "public_write_performed": false,
+  "actual_source_acquisition": false,
+  "spending": false,
+  "production_source_process_control_pin_schedule_changed": false,
+  "ops_message_sent": false,
+  "for_ops": "For Ops, Mon 2 Nov: review/integrate exact pushed follow-up commit in CC-042 Result, retaining38da67f9, at existing01:20 review. No integration or live advance performed. Then reviewed real continuation and CC-042 acceptance remain Ops work.",
+  "next_actor": "CC Desk verifies branch delivery; Ops reviews/integrates; original item remains BLOCKED/0-of-3.",
+  "prior_evidence_git_blobs_preserved": 52,
+  "code_and_test_sha256": [
+    {
+      "path": "live_contentops/capital_chronicle_report_editorial_workspace_v1.py",
+      "sha256": "8bcd23fabeb99183b1b82ff32736859a9dee698dbaf3ec43f5aa6af9a5386a13"
+    },
+    {
+      "path": "live_contentops/capital_chronicle_report_feed_v1.py",
+      "sha256": "e936e2ba5b0f29cf4f0b22f30770fc775e701d8d0236fde933320e9a2b1264ed"
+    },
+    {
+      "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
+      "sha256": "4c9c9e04297c53eb2bf8e226a95b1cd5d7b2df461d547bc53c1831d1bd88040b"
+    },
+    {
+      "path": "live_contentops/contentops_editorial_desk_v1.py",
+      "sha256": "3a655ff860e929597a0e0acd94e0b3da58f831469fda350d1c7bf654f516a27d"
+    },
+    {
+      "path": "live_contentops/native_desktop_editorial_v1.py",
+      "sha256": "b18713c418267837e153ef5d609af34aa19f5525c98b016496538b67af8bea06"
+    },
+    {
+      "path": "live_contentops/native_desktop_publication_v1.py",
+      "sha256": "e3853b982b2ac45128608b5be54a3402c33f29da0a81a2ce50ce4f4ed59950f6"
+    },
+    {
+      "path": "live_contentops/native_desktop_schedule_binding_v1.py",
+      "sha256": "af6d2aa2e4e597720fead7beaadda949010dd09054334b87cf83210c775fe15b"
+    },
+    {
+      "path": "live_contentops/native_newsroom_volume_v1.py",
+      "sha256": "5b4628a7147f4a1e4457fac315ff8cd276571c9c031841c417eaf312856679ed"
+    },
+    {
+      "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "sha256": "21b0acfe35c1b38caccb447cc482a2915d0f4e0d1639c8c1ba3118fb10724e42"
+    },
+    {
+      "path": "scripts/run_native_desktop_editorial.py",
+      "sha256": "54d41549420d9c8acebf7ea4e740d0192521434621fe13bddb206545e03ce3b9"
+    },
+    {
+      "path": "tests/test_native_role_configuration_v1.py",
+      "sha256": "b7f470cd1a95ada022e971cb9daa74c850e8f427c23bb1aed5d5b5184dc57db2"
+    },
+    {
+      "path": "live_contentops/native_manual_candidate_v1.py",
+      "sha256": "bba80e6f179f7de99d39c8a1ba4b3d747e0790cf5fdd67c867127dab47d8713c"
+    },
+    {
+      "path": "tests/test_native_manual_candidate_v1.py",
+      "sha256": "9fa2630d2dca1f410e1f483923cd3ce79020e8c05943b21abeecca98c0e7ac29"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/.gitattributes",
+      "bytes": 131,
+      "sha256": "734508a00a751018b26ea0aea9e3d3136dee9eed6e575ae6a504c16309a1ba43"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/baseline.json",
+      "bytes": 829,
+      "sha256": "f48a1a12da77b511099527f8b969ae808a229830e2a301cac7238238b5c40cb7"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/cli-final.txt",
+      "bytes": 101,
+      "sha256": "4fd10ff3fa7e6b6084acf3853862ec6c27f36c5fd32ded710bb323eb7de7a578"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/cli-final.xml",
+      "bytes": 5688,
+      "sha256": "1a4630d099bee1028cab25ece02dbe97cfced1e6140fa33475a68036ddc312a0"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/expanded.txt",
+      "bytes": 35286,
+      "sha256": "d71f539f338cdee7dc344d5333d9e5c7d312f8a953944ce2b2cc02a4f48299b8"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/expanded.xml",
+      "bytes": 143534,
+      "sha256": "201924eb1f8a2ced7a6b396d14db920a12a3cb97c2e2f4fb5539c9a2f8db1f94"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/final-scoped.txt",
+      "bytes": 194,
+      "sha256": "0592898202e39856dad6090c26f7033d4bdd5a92cebfcdcbd5c1accfbcd7cc85"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/final-scoped.xml",
+      "bytes": 16052,
+      "sha256": "592b0b92dbc40ea7fe035855d8c07740b590278b41c22ec735c72d8075f05fa3"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/focused.txt",
+      "bytes": 194,
+      "sha256": "6f095e9161c89aa42ce817e3ed41ab07346fdff962144698ac15771be5aa506b"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/focused.xml",
+      "bytes": 15495,
+      "sha256": "6336c1180614fa96370524860a4678dab0edd8900d898759db652c34935ae694"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/original-preservation.json",
+      "bytes": 11653,
+      "sha256": "bfa8a00d0b494ce840940cb3d79e623c4bf6c18755c05ed8dbf1abb9cbf85ae3"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/parent-baseline.txt",
+      "bytes": 31616,
+      "sha256": "080154a39faa9e892991322a4c4ca3d898c498a9590faa7dd091d1f31aacd5ef"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/parent-baseline.xml",
+      "bytes": 31919,
+      "sha256": "1f986de82068d21d1f3e42fe72abcbb6f20fd78631dcae69af142d152dc82f48"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/prior-evidence-preservation.json",
+      "bytes": 7625,
+      "sha256": "d4f7294220799f024b63725f66ee1b40d5d3457b37ac3b6f150c910b774b2d82"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-continuation-20261101/retained-copy-replay.json",
+      "bytes": 5076,
+      "sha256": "f2c87def2fea3a62e7873494bdee271e83932591d925886f972d5dbcdd52bd1c"
+    }
+  ],
+  "diagnostic_byte_preservation": "Scoped .gitattributes keeps raw pytest/JUnit bytes, including traceback trailing whitespace; no test output sanitized or rewritten."
+}

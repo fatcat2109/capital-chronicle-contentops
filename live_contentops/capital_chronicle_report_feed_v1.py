@@ -572,9 +572,8 @@ class MainReportFeed:
         pending = frozen_input["reports"] if frozen_input else self.pending(include_controlled=llm_invoke is not None)
         if known_at_cutoff_utc is not None and not frozen_input:
             pending = [r for r in pending if _time(r["known_at_cutoff_utc"]) <= _time(known_at_cutoff_utc)]
-        previous = self.tracker.store.get_outbox_message(
-            "cc-editorial-final-" + sha256_of(run_id)
-        )
+        from live_contentops.native_manual_candidate_v1 import native_artifact_key
+        previous = self.tracker.store.get_outbox_message(native_artifact_key(self.tracker.store, run_id, "cc-editorial-final-"))
         if previous and json.loads(previous["payload"]).get("qualified_article_count"):
             cached = json.loads(previous["payload"])
             record = next(

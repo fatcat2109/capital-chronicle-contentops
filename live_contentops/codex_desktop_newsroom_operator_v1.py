@@ -190,7 +190,7 @@ def native_role_call(request, binding, *, binding_path, same_writer_invocation=N
         raise ValueError("EXACT_NATIVE_ROLE_REQUEST_REQUIRED")
     if (role in {"revise", "final-visual"} or stage == "visual-edit-amend") and not same_writer_invocation:
         raise ValueError("ACTUAL_SAME_MAX_CONTINUATION_ID_REQUIRED")
-    result_path = str(Path(binding["output_dir"]) / ("desktop_response_" + stage + ".json"))
+    result_path = str(Path(request["request_path"]).parent / ("desktop_response_" + stage + ".json"))
     role_input_path = request["request_path"]
     if role == "filter":
         # Relevance needs the complete headline, source and correction context,

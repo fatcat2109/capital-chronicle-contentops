@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="2.852" timestamp="2026-11-01T11:52:01.212155+07:00" hostname="J-P"><testcase classname="tests.test_native_desktop_workspace_v1" name="test_desk_export_is_offline_read_only_and_preserves_the_existing_store" time="0.539"><failure message="UnboundLocalError: cannot access local variable 'ContentOpsDurableStore' where it is not associated with a value">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-30627/test_desk_export_is_offline_re0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001682B7329E0&gt;
+capsys = &lt;_pytest.capture.CaptureFixture object at 0x000001682B767620&gt;
+
+    def test_desk_export_is_offline_read_only_and_preserves_the_existing_store(tmp_path, monkeypatch, capsys):
+        """Real exporter over a controlled projection; neither model nor publication proof."""
+        from scripts.run_native_desktop_editorial import main
+        from live_contentops import capital_chronicle_report_editorial_workspace_v1 as workspace
+        from live_contentops import native_newsroom_learning_v1 as learning
+        store = ContentOpsDurableStore(tmp_path / "existing.sqlite3")
+        before = workspace_snapshot(store.db_path)
+        from hashlib import sha256
+        original = tmp_path / "original.png"
+        import base64
+        original.write_bytes(base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j5foAAAAASUVORK5CYII="))
+        media = {"asset_id": "controlled-pixel", "path": str(original), "sha256": sha256(original.read_bytes()).hexdigest(),
+                 "caption": "Controlled engineering pixel; not documentary evidence.", "computed_values": [[4.0]]}
+        article = {"run_id": "selected-control", "article_identity": "a" * 64,
+            "article": {"title": "Controlled owner export", "dek": "Engineering specimen", "substack_body_markdown": "Exact unchanged copy."},
+            "previews": [], "media_assets": [media]}
+        projection = {"owner_edition": {"edition_id": "control", "title": "Control", "operation_ids": [article["run_id"]],
+            "ready": 1, "held": 0, "missing": 0, "preview_count": 0, "held_candidates": []},
+            "native_edition": [article, {**article, "run_id": "unselected", "article_identity": "b" * 64,
+                "article": {**article["article"], "title": "Historical control not selected"}}],
+            "audience_learning": {}, "foundation_library": {"unrelated": "Do not expose broad history"}}
+        monkeypatch.setattr(workspace, "report_workspace_projection", lambda *_args, **_kwargs: projection)
+        monkeypatch.setattr(learning, "learning_context", lambda *_args: {"policy": {"sample_count": 0}})
+        profile = tmp_path / "profile.json"
+        profile.write_text(json.dumps({"store_path": str(store.db_path), "published_memory_store": str(store.db_path),
+                                       "editorial_output_root": str(tmp_path / "existing-previews")}))
+&gt;       assert main(["desk", "--profile", str(profile)]) == 0
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_native_desktop_workspace_v1.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+argv = ['desk', '--profile', 'C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-30627\\test_desk_export_is_offline_re0\\profile.json']
+
+                turn = NativeDesktopTurn(ContentOpsDurableStore(binding["store_path"], auto_migrate=False),
+                    run_id=binding["run_id"], output_dir=binding["output_dir"],
+                    owner_manual_validation=binding.get("owner_manual_validation", False))
+                same_writer = None
+                same_writer_configuration = None
+                if native_role(request["stage"]) in {"write", "revise", "final-visual", "visual-edit"}:
+                    prior = turn._get("write", "response") or turn.visual_response()
+                    if prior:
+                        same_writer_configuration = prior["invocation_observation"]
+                        same_writer = same_writer_configuration["invocation_id"]
+                result["next_native_call"] = native_role_call({**request, "request_path": result["request_path"]},
+                    binding, binding_path=binding_path, same_writer_invocation=same_writer,
+                    same_writer_configuration=same_writer_configuration)
+                if result.get("parallel_requests"):
+                    result["next_native_calls"] = [native_role_call(r,binding,binding_path=binding_path)
+                        for r in result.pop("parallel_requests")]
+                    result.pop("next_native_call",None)  # One dispatch list, no duplicate first-child intent.
+                    result["continuation_required"] = "Dispatch the bounded independent native filter batches, collect every actual return, submit each once, then advance this SAME binding. No partial final while remaining_unprocessed is nonzero and work is executable."
+            from live_contentops.native_editorial_continuation_v1 import next_editorial_action
+            result["coordinator_action"] = next_editorial_action(result)
+        from live_contentops.native_newsroom_volume_v1 import bound_volume_policy, persist_native_day_measurement
+        if (bound_volume_policy(binding) and binding.get("window_id")
+                and kwargs.get("command", "advance") not in {"status", "publication-status", "context"}):
+            persist_native_day_measurement(ContentOpsDurableStore(binding["store_path"], auto_migrate=False), binding)
+        return result
+    
+    
+    def main(argv=None):
+        parser = argparse.ArgumentParser(description=__doc__)
+        parser.add_argument("command", choices=("newsroom", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "next-candidate", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
+            "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
+            "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company", "quota-stop",
+            "window-result", "window-notice-begin", "window-notice-record", "window-close", "window-blocked", "window-blocked-begin", "window-blocked-record",
+            "task-result", "task-notice-begin", "task-notice-record", "task-blocked", "task-blocked-begin", "task-blocked-record",
+            "audience-status", "audience-observe", "audience-tool-begin", "audience-tool-submit", "audience-evaluate", "audience-feedback", "audience-follow-up"))
+        parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE)
+        parser.add_argument("--operation-id")
+        parser.add_argument("--article-id", help="Exact retained News article identity; never a path")
+        parser.add_argument("--asset-id", help="Exact asset belonging to that retained News article")
+        parser.add_argument("--request", help="Owner's ordinary-language editorial question; metadata only")
+        parser.add_argument("--request-file", type=Path, help="UTF-8 ordinary-language request")
+        parser.add_argument("--report-only", action="store_true", help="Explicit Main/research trigger: no new X intake or fabricated filter work")
+        parser.add_argument("--live", action="store_true", help="Explicit authorized owner-manual run in the existing production store; requires --rollout")
+        parser.add_argument("--binding", type=Path)
+        parser.add_argument("--rollout", type=Path)
+        parser.add_argument("--automation-id")
+        parser.add_argument("--continue-after", help="Exact completed scheduled run before deliberately requesting its next bounded slot")
+        parser.add_argument("--candidate-id", help="Exact next untouched admission in the SAME manual operation")
+        parser.add_argument("--native-invocation-id", help="Actual active Desktop conversation/turn identity")
+        parser.add_argument("--request-sha256", help="Exact persisted native Neo request")
+        parser.add_argument("--observation-id", help="Existing due canonical performance observation identity")
+        parser.add_argument("--evaluation-id", help="Stable bounded learning evaluation identity")
+        parser.add_argument("--response", type=Path)
+        parser.add_argument("--stage", help="select/write/revise or exact pending filter-&lt;batch sha256&gt;")
+        parser.add_argument("--source-review-id", action="append", default=[])
+        parser.add_argument("--workspace-root", type=Path, help="Explicit stable destination for authorized manual-workspace relocation")
+        args = parser.parse_args(argv)
+        if args.command == "next-candidate" and (not args.binding or not args.candidate_id or not args.response):
+            parser.error("next-candidate requires --binding, --candidate-id and exact --response preconditions")
+        if args.candidate_id and args.command != "next-candidate":
+            parser.error("--candidate-id is only valid for next-candidate")
+        if args.live and (args.command != "newsroom" or not args.rollout):
+            parser.error("--live requires newsroom and the applied --rollout")
+        if args.command in {"window-result", "window-notice-begin", "window-notice-record", "window-close", "window-blocked", "window-blocked-begin", "window-blocked-record",
+                "task-result", "task-notice-begin", "task-notice-record", "task-blocked", "task-blocked-begin", "task-blocked-record"}:
+            standalone = args.command.startswith("task-")
+            if not args.binding or (not standalone and not args.rollout) or (args.command not in {"window-notice-begin","task-notice-begin"} and not args.response):
+                parser.error("window reporting requires --binding, --rollout and --response except for notice-begin")
+            from live_contentops.native_desktop_schedule_binding_v1 import prepare_window_result, window_notice_delivery, close_expired_window, window_blocked_notice, prepare_standalone_result
+            from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore, LeaseConflictError
+            try:
+                binding = json.loads(args.binding.read_bytes())
+                rollout = json.loads(args.rollout.read_bytes()) if args.rollout else None
+                if not standalone and (binding["store_path"] != rollout["store_path"] or binding.get("owner_manual_validation")):
+                    raise ValueError("EXACT_SCHEDULED_REPORTING_STORE_REQUIRED")
+                store = ContentOpsDurableStore(binding["store_path"], auto_migrate=False)
+                response = json.loads(args.response.read_bytes()) if args.response else None
+                if args.command == "task-result":
+                    result = prepare_standalone_result(store,binding,response)
+                elif args.command.startswith(("window-blocked","task-blocked")):
+                    result = window_blocked_notice(store,binding,response,begin=args.command.endswith("-begin"),record=args.command.endswith("-record"))
+                elif args.command == "window-close":
+                    result = close_expired_window(store,rollout,binding,response)
+                else:
+                    result = (prepare_window_result(store, rollout, binding, response) if args.command == "window-result"
+                        else window_notice_delivery(store, binding, response=response, begin=args.command.endswith("-begin")))
+            except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
+                print(json.dumps({"classification":"WINDOW_REPORTING_FAILED", "error":str(exc)}))
+                return 2
+            print(json.dumps(result))
+            return 0
+        if args.command in {"news-export", "news-read"}:
+            # The shared operator CLI exposes many paths for other owner operations.
+            # None is accepted by this read seam, including its trusted profile override.
+            allowed = {"command", "article_id", "asset_id"}
+            defaults = parser.parse_args([args.command])
+            if any(getattr(args, key) != getattr(defaults, key) for key in vars(args) if key not in allowed):
+                parser.error("News uses its fixed configured edition; path/profile/operation overrides are unsupported")
+            from live_contentops.retained_news_read_v1 import export_selected_news, local_owner_read, ARTIFACT_PATH
+            if args.command == "news-export":
+                if args.article_id or args.asset_id:
+                    parser.error("news-export uses the configured selected edition")
+                result = export_selected_news()
+                renderer = Path(__file__).resolve().parents[1] / "ui/contentops_v5/scripts/render-report-workspace.mjs"
+                subprocess.run(["node", str(renderer), str(ARTIFACT_PATH), str(ARTIFACT_PATH.parent / "reader.html"),
+                                "--retained-news"], check=True)
+            else:
+                if not args.article_id:
+                    parser.error("news-read requires --article-id")
+                result = local_owner_read(args.article_id, asset_id=args.asset_id)
+                if isinstance(result.get("body"), bytes):
+                    import base64
+                    result["body"] = {"content_base64": base64.b64encode(result["body"]).decode("ascii")}
+            print(json.dumps(result, ensure_ascii=True))
+            return 0 if result.get("status", 200) == 200 else 2
+        if args.command == "editorial-revision":
+            if not args.response or not args.operation_id:
+                parser.error("editorial-revision requires exact prior article/reason in --response and stable --operation-id")
+            from live_contentops.contentops_editorial_desk_v1 import record_story_editorial_revision
+            profile = json.loads(args.profile.read_bytes())
+            prior = json.loads(args.response.read_bytes())
+            review = record_story_editorial_revision(ContentOpsDurableStore(profile["store_path"], auto_migrate=False),
+                **prior, review_operation_id=args.operation_id)
+            result = continue_owner_story(profile, source_review_id=review["review_id"], operation_id=args.operation_id,
+                request=("Revise this exact retained article under CONTENTOPS_V1_EDITORIAL_MEDIA_AND_DATA_RELEASE_STANDARD_V1. "
+                         "The financial facts and source dates are unchanged; this is an editorial/media revision, not fresh news. "
+                         "Preserve prior identity/history, attribution, report-only uncertainty and the existing update chain. " + prior["reason"]))
+            print(json.dumps(result, ensure_ascii=True))
+            return 0
+        if args.command == "follow-up":
+            if len(args.source_review_id) != 1:
+                parser.error("follow-up requires one exact --source-review-id")
+            profile = json.loads(args.profile.read_bytes())
+            result = continue_owner_story(profile, source_review_id=args.source_review_id[0],
+                operation_id=args.operation_id, request=args.request_file.read_text(encoding="utf-8") if args.request_file else args.request)
+            print(json.dumps(result, ensure_ascii=True))
+            return 0
+        if args.command.startswith("audience-"):
+            from live_contentops.native_newsroom_learning_v1 import learning_context, NativeAudienceObservation, evaluate_native_learning, feedback_judgment
+            profile = json.loads(args.profile.read_bytes())
+            store = ContentOpsDurableStore(profile["published_memory_store"], auto_migrate=False)
+            try:
+                if args.command == "audience-follow-up":
+                    from live_contentops.native_newsroom_learning_v1 import retain_selection_follow_up
+                    if not args.operation_id or not args.response:
+                        raise ValueError("EXACT_OPERATION_AND_NATIVE_FOLLOW_UP_RETURN_REQUIRED")
+                    result = retain_selection_follow_up(ContentOpsDurableStore(profile["store_path"], auto_migrate=False),
+                        run_id=args.operation_id, response=json.loads(args.response.read_bytes()))
+                elif args.command == "audience-status":
+                    result = {**learning_context(store), "due_observations": [o for o in store.list_performance_observations()
+                        if o["collection_status"] == "SCHEDULED" and o["scheduled_for_utc"] &lt;= datetime.now(timezone.utc).isoformat()],
+                        "next_operation":"audience-observe --observation-id &lt;one-exact-due-id&gt; --native-invocation-id &lt;actual-turn-id&gt;"}
+                elif args.command == "audience-feedback":
+                    result=feedback_judgment(store,observation_id=args.observation_id,
+                        output_dir=Path(profile["editorial_output_root"])/"audience-feedback"/str(args.observation_id),
+                        response=json.loads(args.response.read_bytes()) if args.response else None)
+                elif args.command == "audience-evaluate":
+                    if not args.evaluation_id:
+                        raise ValueError("STABLE_NATIVE_EVALUATION_ID_REQUIRED")
+                    result = evaluate_native_learning(store, evaluation_id=args.evaluation_id)
+                else:
+                    if not args.observation_id or not args.native_invocation_id:
+                        raise ValueError("EXACT_OBSERVATION_AND_NATIVE_INVOCATION_REQUIRED")
+                    observer = NativeAudienceObservation(store, output_dir=Path(profile["editorial_output_root"])/"audience-observations",
+                        invocation_id=args.native_invocation_id)
+                    result = observer.advance(args.observation_id) if args.command == "audience-observe" else observer.tool(
+                        "begin" if args.command == "audience-tool-begin" else "submit", observation_id=args.observation_id,
+                        request_hash=args.request_sha256, response=json.loads(args.response.read_bytes()) if args.response else None)
+            except (ValueError, OSError, KeyError, TypeError) as exc:
+                print(json.dumps({"classification":"NATIVE_AUDIENCE_BLOCKED","blocker":str(exc)}))
+                return 2
+            print(json.dumps(result, ensure_ascii=True))
+            return 0
+        if args.command == "edition":
+            from live_contentops.contentops_editorial_desk_v1 import record_owner_edition
+            if not args.response:
+                parser.error("edition requires the owner's bounded edition grouping")
+            profile = json.loads(args.profile.read_bytes())
+            print(json.dumps(record_owner_edition(ContentOpsDurableStore(profile["store_path"]), **json.loads(args.response.read_bytes()))))
+            return 0
+        if args.command == "relocate-workspace":
+            from live_contentops.native_desktop_workspace_v1 import relocate_owner_workspace
+            if not args.workspace_root:
+                parser.error("relocate-workspace requires --workspace-root")
+&gt;           value = relocate_owner_workspace(args.profile, args.workspace_root)
+                ^^^^^^^^^^^^^^^^^^^^^^
+E           UnboundLocalError: cannot access local variable 'ContentOpsDurableStore' where it is not associated with a value
+
+scripts\run_native_desktop_editorial.py:654: UnboundLocalError</failure></testcase><testcase classname="tests.test_native_desktop_workspace_v1" name="test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[False-False]" time="0.602"><failure message="FileNotFoundError: [Errno 2] No such file or directory: 'A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\controlled-request'">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-30627/test_manual_resume_reuses_admi0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001682B732060&gt;
+tampered = False, compiler_failure = False
+
+    @pytest.mark.parametrize("tampered", [False, True])
+    @pytest.mark.parametrize("compiler_failure", [False, True])
+    def test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift(tmp_path, monkeypatch, tampered, compiler_failure):
+        """Resume cannot re-admit moving source files or silently replace a changed snapshot."""
+        from scripts import run_native_desktop_editorial as operator
+        from live_contentops import native_newsroom_learning_v1 as learning
+        from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
+        from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired, NativeDesktopTurn
+        run = "controlled-frozen-source-resume"
+        store = ContentOpsDurableStore(tmp_path / "manual.sqlite3")
+        work = "cc-opportunity-" + sha256_of(run)
+        store.create_work_item(story_id=work, work_item_id=work, title="Controlled", target_surface="CONTENTOPS_EDITORIAL_ONLY")
+        source = RetainedSourceResearch.__new__(RetainedSourceResearch)
+        source.root, source.revision, source.records, source.gaps = tmp_path / "old-source", "a" * 64, {}, []
+        frozen = source.frozen_snapshot()
+        if tampered:
+            frozen["revision"] = "b" * 64
+        store.register_outbox_message(message_id="native-current-input-" + sha256_of(run), work_item_id=work,
+            destination="internal:native-current-input", payload=canonical_bytes({"research": frozen}).decode(), status="EDITORIAL_INTERNAL")
+        pointer = tmp_path / "pointer.json"
+        pointer.write_text(json.dumps({"research_root": str(tmp_path / "changed-source")}))
+        binding = {"schema_version": operator.BINDING_SCHEMA, "run_id": run, "owner_manual_validation": True,
+            "store_path": str(store.db_path), "output_dir": str(tmp_path / "output"), "feed_pointer_path": str(pointer),
+            "published_memory_store": str(tmp_path / "absent-published.sqlite3"), "published_memory_output_root": str(tmp_path),
+            "cutoff_utc": "2026-10-26T03:59:47Z"}
+        output = tmp_path / "output"
+        if compiler_failure:
+            output.mkdir()
+            failure = {"qualified_article_count": 0, "exact_next_blocker": "NATIVE_DERIVATIVE_COMPILATION_BLOCKED"}
+            (output / "simple_gemini_newsroom_receipt_v1.json").write_text(json.dumps(failure))
+            (output / "qualified_article_record_v1.json").write_text('{"unchanged": true}')
+            (output / "simple_gemini_evidence_v1.json").write_text('{"unchanged": true}')
+            turn = NativeDesktopTurn(store, run_id=run, output_dir=output, owner_manual_validation=True)
+            turn._put("write", "response", {"output": {"article": "unchanged writer"}})
+        monkeypatch.setattr(operator, "load_canonical_published_memory_read_only", lambda **_: ([], {}))
+        monkeypatch.setattr(learning, "freeze_learning", lambda *_a, **_k: None)
+        def forbidden_init(*_a, **_k):
+            pytest.fail("Manual frozen resume must not reread/re-admit the live source closure")
+        monkeypatch.setattr(RetainedSourceResearch, "__init__", forbidden_init)
+        class Feed:
+            def __init__(self, _tracker, _pointer, *, retained_research):
+                assert retained_research.frozen_snapshot() == source.frozen_snapshot()
+            def opportunity(self, **_kwargs):
+                raise DesktopInputRequired({"stage": "select", "request_path": "controlled-request", "request_sha256": "controlled"})
+        monkeypatch.setattr(operator, "MainReportFeed", Feed)
+        if tampered:
+            with pytest.raises(ValueError, match="FROZEN_RESEARCH_SNAPSHOT_CHANGED"):
+                operator.operation(binding)
+        else:
+&gt;           result = operator.operation(binding)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_native_desktop_workspace_v1.py:157: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\run_native_desktop_editorial.py:433: in operation
+    ???
+C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py:625: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('A:/Capital Chronicle/Worktrees/ContentOps/codex-publisher-backlog/controlled-request')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\controlled-request'
+
+C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py:537: FileNotFoundError</failure></testcase><testcase classname="tests.test_native_desktop_workspace_v1" name="test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[True-False]" time="0.587"><failure message="FileNotFoundError: [Errno 2] No such file or directory: 'A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\controlled-request'">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-30627/test_manual_resume_reuses_admi1')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001682B9FB650&gt;
+tampered = False, compiler_failure = True
+
+    @pytest.mark.parametrize("tampered", [False, True])
+    @pytest.mark.parametrize("compiler_failure", [False, True])
+    def test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift(tmp_path, monkeypatch, tampered, compiler_failure):
+        """Resume cannot re-admit moving source files or silently replace a changed snapshot."""
+        from scripts import run_native_desktop_editorial as operator
+        from live_contentops import native_newsroom_learning_v1 as learning
+        from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
+        from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired, NativeDesktopTurn
+        run = "controlled-frozen-source-resume"
+        store = ContentOpsDurableStore(tmp_path / "manual.sqlite3")
+        work = "cc-opportunity-" + sha256_of(run)
+        store.create_work_item(story_id=work, work_item_id=work, title="Controlled", target_surface="CONTENTOPS_EDITORIAL_ONLY")
+        source = RetainedSourceResearch.__new__(RetainedSourceResearch)
+        source.root, source.revision, source.records, source.gaps = tmp_path / "old-source", "a" * 64, {}, []
+        frozen = source.frozen_snapshot()
+        if tampered:
+            frozen["revision"] = "b" * 64
+        store.register_outbox_message(message_id="native-current-input-" + sha256_of(run), work_item_id=work,
+            destination="internal:native-current-input", payload=canonical_bytes({"research": frozen}).decode(), status="EDITORIAL_INTERNAL")
+        pointer = tmp_path / "pointer.json"
+        pointer.write_text(json.dumps({"research_root": str(tmp_path / "changed-source")}))
+        binding = {"schema_version": operator.BINDING_SCHEMA, "run_id": run, "owner_manual_validation": True,
+            "store_path": str(store.db_path), "output_dir": str(tmp_path / "output"), "feed_pointer_path": str(pointer),
+            "published_memory_store": str(tmp_path / "absent-published.sqlite3"), "published_memory_output_root": str(tmp_path),
+            "cutoff_utc": "2026-10-26T03:59:47Z"}
+        output = tmp_path / "output"
+        if compiler_failure:
+            output.mkdir()
+            failure = {"qualified_article_count": 0, "exact_next_blocker": "NATIVE_DERIVATIVE_COMPILATION_BLOCKED"}
+            (output / "simple_gemini_newsroom_receipt_v1.json").write_text(json.dumps(failure))
+            (output / "qualified_article_record_v1.json").write_text('{"unchanged": true}')
+            (output / "simple_gemini_evidence_v1.json").write_text('{"unchanged": true}')
+            turn = NativeDesktopTurn(store, run_id=run, output_dir=output, owner_manual_validation=True)
+            turn._put("write", "response", {"output": {"article": "unchanged writer"}})
+        monkeypatch.setattr(operator, "load_canonical_published_memory_read_only", lambda **_: ([], {}))
+        monkeypatch.setattr(learning, "freeze_learning", lambda *_a, **_k: None)
+        def forbidden_init(*_a, **_k):
+            pytest.fail("Manual frozen resume must not reread/re-admit the live source closure")
+        monkeypatch.setattr(RetainedSourceResearch, "__init__", forbidden_init)
+        class Feed:
+            def __init__(self, _tracker, _pointer, *, retained_research):
+                assert retained_research.frozen_snapshot() == source.frozen_snapshot()
+            def opportunity(self, **_kwargs):
+                raise DesktopInputRequired({"stage": "select", "request_path": "controlled-request", "request_sha256": "controlled"})
+        monkeypatch.setattr(operator, "MainReportFeed", Feed)
+        if tampered:
+            with pytest.raises(ValueError, match="FROZEN_RESEARCH_SNAPSHOT_CHANGED"):
+                operator.operation(binding)
+        else:
+&gt;           result = operator.operation(binding)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_native_desktop_workspace_v1.py:157: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\run_native_desktop_editorial.py:433: in operation
+    ???
+C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py:625: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('A:/Capital Chronicle/Worktrees/ContentOps/codex-publisher-backlog/controlled-request')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\controlled-request'
+
+C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py:537: FileNotFoundError</failure></testcase></testsuite></testsuites>

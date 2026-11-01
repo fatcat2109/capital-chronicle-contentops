@@ -103,7 +103,12 @@ def test_cli_continues_only_the_saved_approved_writer_configuration(tmp_path, mo
     observation = continuation()
     monkeypatch.setattr(module.NativeDesktopTurn, "_get", lambda *a, **kw: {
         "invocation_observation": dict(observation)})
-    local = {**binding(tmp_path), "store_path": str(tmp_path / "isolated.sqlite3")}
+    # The owner now acquires its operation lease before entering the mocked body.
+    # Keep this role-routing control inside a valid isolated operation binding.
+    local = {**binding(tmp_path), "schema_version": module.BINDING_SCHEMA, "owner_manual_validation": True,
+        "store_path": str(tmp_path / "isolated.sqlite3"), "feed_pointer_path": str(tmp_path / "unused-feed.json"),
+        "published_memory_store": str(tmp_path / "unused-memory.sqlite3"),
+        "published_memory_output_root": str(tmp_path / "unused-memory")}
     call = module.operation(local)["next_native_call"]
     assert call["arguments"]["target"] == observation["invocation_id"]
     assert call["continuation_observation"] == observation

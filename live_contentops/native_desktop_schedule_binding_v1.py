@@ -762,11 +762,14 @@ def prepare_standalone_result(store, binding, response):
     saved = json.loads(prior["payload"]) if prior else {}
     if saved.get("terminal_result"):
         return {"classification":"WINDOW_NOTICE_SUPPRESSED","reason":"RESULT_ALREADY_SAVED","artifact_path":str(_window_result_path(binding))}
-    final = store.get_outbox_message("cc-editorial-final-"+sha256_of(binding["run_id"]))
+    from live_contentops.native_manual_candidate_v1 import native_artifact_key, manual_output_root
+    final = store.get_outbox_message(native_artifact_key(store, binding["run_id"], "cc-editorial-final-"))
     if not final or _unfinished_window_roles(store,[(binding,None)]):
         raise ValueError("ACTUAL_TERMINAL_STANDALONE_RESULT_REQUIRED")
     value = json.loads(final["payload"])
     semantic = value.get("simple_result",value)
+    if semantic.get("remaining_candidate_ids") or semantic.get("classification") == "NATIVE_NEXT_CANDIDATE_REQUIRED":
+        raise ValueError("STANDALONE_ADMITTED_CANDIDATES_UNFINISHED")
     if any(s in str(semantic.get("classification","")).upper() for s in ("QUOTA","INTERRUPTED")):
         return {"classification":"WINDOW_BLOCKED_SUPPRESSED","reason":"QUOTA_OR_TURN_END"}
     if semantic.get("qualified_article_count"):
@@ -789,7 +792,7 @@ def prepare_standalone_result(store, binding, response):
         "actual_entry_gmt7":response.get("actual_entry_gmt7","UNOBSERVED"),
         "outcome":"EDITORIAL_ARTIFACT_DELIVERED" if semantic.get("qualified_article_count") else semantic.get("classification","NO_STORY"),
         "canonical_items":[],"channels":{},"first_blocking_causes":dict(causes),
-        "evidence_result_key":final["message_id"],"evidence_path":str(Path(binding["output_dir"])/"native_desktop_result.json"),
+        "evidence_result_key":final["message_id"],"evidence_path":str(manual_output_root(store,binding)/"native_desktop_result.json"),
         "next_action":response.get("next_action","Review the exact dated task result; no automatic public write."),
         "next_actor":response.get("next_actor","L2 ContentOps")}
     from live_contentops.native_desktop_publication_v1 import publication_projection

@@ -1,0 +1,214 @@
+{
+  "original_commit": "c6f685e42b83d105f8dbc2efce321e1b82c55f9f",
+  "unchanged_git_blobs": 52,
+  "files": [
+    {
+      "path": "tests/evidence/cc-042/.gitattributes",
+      "git_blob": "693c25cf4ac034d0cf86203442f153487968d864"
+    },
+    {
+      "path": "tests/evidence/cc-042/activation-readiness.json",
+      "git_blob": "2695342ccf54dd6f0630b37fb097cf5b8ec59bf2"
+    },
+    {
+      "path": "tests/evidence/cc-042/artifact-hashes.json",
+      "git_blob": "ab39556fa368ce984d46cb48c5f347dba129d8e4"
+    },
+    {
+      "path": "tests/evidence/cc-042/calendar-readback.json",
+      "git_blob": "b244611cd789a947325c5e4e65f826f9b80b4957"
+    },
+    {
+      "path": "tests/evidence/cc-042/checkpoint-20261101.json",
+      "git_blob": "bb962b9fdecf32e4138ce33d513095903d163fb2"
+    },
+    {
+      "path": "tests/evidence/cc-042/controls-resumed.json",
+      "git_blob": "b92ba3d48d266c4c3ea9cf569dac8393b96f0088"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-baseline.xml",
+      "git_blob": "ebe50f755d73cd4d6587c7bdc2ec2f7bbf3e07ce"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-focused.xml",
+      "git_blob": "66ed2db487d1368f91e06729d907462d0f057144"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-live-result.json",
+      "git_blob": "eb7c2d2243980ea0ee41a069ea9530111b99ffdd"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-max-response.json",
+      "git_blob": "73c75d2a5553461d8062241d43b0fb2dd3e992ac"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-original-publisher-replay.json",
+      "git_blob": "c8320c9683e1962a8ba87a93b5b06f5f0a1227ed"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-reconciliation.json",
+      "git_blob": "e8a3b22eef2f881bf3f3cb4e29403aa1d0c477f0"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-recovery-guard.json",
+      "git_blob": "9b78fa758a551cfad5ed521466d0b45edd569174"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-reuters-pin-refusal.json",
+      "git_blob": "654e6c7dab742266e0a1079e34fee0bf765b93e7"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-schedules.json",
+      "git_blob": "853bfbfd7b1532379ae349b5793a97a88b77e79b"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-source-observation.json",
+      "git_blob": "d20ad8d40a73157625df640a42aec94dd318023b"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-tests.xml",
+      "git_blob": "f8539a4df7e7d5ff607ce3dc5e86cdc000c53e61"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-20261101-validation.json",
+      "git_blob": "4fd967785977c9c4642ea941b7783b3f5b1071f2"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-filter-complete.json",
+      "git_blob": "2924121e681587ad020537007a631a2e21778e80"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-preservation-baseline.json",
+      "git_blob": "6023e8973d105356ea7dbb1740970b16998ddaf2"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-resume-progress.json",
+      "git_blob": "fd0ec83626ea74df4a9d8c01fffee047ad8cb194"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-resumption.json",
+      "git_blob": "e57eab7d45e48c743d71343d614658a967e5ea35"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-source-comparison.json",
+      "git_blob": "50e4db6992861a0ca697bf49454bab0e50b27725"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-submit-16c54b15de44.json",
+      "git_blob": "9bef69ac3a88d747f474d97ab3bf81f56e885ac1"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-submit-50472312741e.json",
+      "git_blob": "6f6d49d9bfb0f445193f9306c6c68bf61dbbf02b"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-submit-59d2c54b1f8e.json",
+      "git_blob": "d7263b6e6ec844bfba502fd6314c990d13af33ca"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-submit-936b569c6517.json",
+      "git_blob": "17318c5b0212c69b22039f885416d577d72c75e1"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-submit-select.json",
+      "git_blob": "cf007af1cdeec77e3f4f969b18caebb159c2a388"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/advance.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/advance.stdout.json",
+      "git_blob": "8a88c26cec32781e2144ba343e704e89cf862a61"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/artifact-hashes.json",
+      "git_blob": "553cfa2bf9f2797dcee19a150a2f173d7025765d"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/baseline.json",
+      "git_blob": "60772a34142f9632d7e2732e4ea6e6f44ac3e398"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/publication-prepare.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/publication-prepare.stdout.json",
+      "git_blob": "34f5a437ca19327d5bd7ab46099c75a055d0b7ce"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/publication-status.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/publication-status.stdout.json",
+      "git_blob": "85a6ef9eefcd51b8e5644a7d9702e8d99ec1b1fb"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/reconciliation.json",
+      "git_blob": "826018150c61c19ec866e8fda3523f57f51506f9"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/reviewed-owner-calls.json",
+      "git_blob": "9f9223e30072be54ce89890a06734b6f904b7e99"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/status.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/status.stdout.json",
+      "git_blob": "8b73c93525ba032f90ce3f1a8a9007743ca3b44d"
+    },
+    {
+      "path": "tests/evidence/cc-042/filter-progress.json",
+      "git_blob": "4addaae68cc4e78e5340d9258944b0a6b4136e88"
+    },
+    {
+      "path": "tests/evidence/cc-042/live-startup-error.txt",
+      "git_blob": "c7554d853e9062f772282ba9bdd9b7f403a80af7"
+    },
+    {
+      "path": "tests/evidence/cc-042/live-startup-stdout.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-operation-progress.json",
+      "git_blob": "8b88a4fad3bf5efd7724367c4664d24bd7479a6b"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-start-interpreter-interruption.json",
+      "git_blob": "ccc7423dab6c06fdd820f4c196a1cb88d9704217"
+    },
+    {
+      "path": "tests/evidence/cc-042/media-plan-submitted.json",
+      "git_blob": "53c2c9b693ec4a53f9ae856443803ef69f8e0614"
+    },
+    {
+      "path": "tests/evidence/cc-042/native-worker-history.json",
+      "git_blob": "e9dfc0831d61ddea84596cffdeee180cd8e9f359"
+    },
+    {
+      "path": "tests/evidence/cc-042/publication-baseline.json",
+      "git_blob": "c7d30b1dfffdc3c1b0a300ef11263aaf5dc9d722"
+    },
+    {
+      "path": "tests/evidence/cc-042/role-configuration.json",
+      "git_blob": "918c85ebbee0810e34d317d1c4de9badd5318c5e"
+    },
+    {
+      "path": "tests/evidence/cc-042/runtime-preflight.json",
+      "git_blob": "18134fdca509acbf8d0b0b6afebb34b69f3df069"
+    },
+    {
+      "path": "tests/evidence/cc-042/schedule-tool-results.json",
+      "git_blob": "ef6696846c44209493da13f81801e8e837fae0f9"
+    },
+    {
+      "path": "tests/evidence/cc-042/schedules-resumed.json",
+      "git_blob": "43cf90ed2c94617ea5814fa04aac3aa18ccda196"
+    }
+  ]
+}

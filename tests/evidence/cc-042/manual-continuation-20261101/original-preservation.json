@@ -1,0 +1,254 @@
+{
+  "file_manifest": [
+    {
+      "relative_path": "binding.json",
+      "sha256": "0173bb42604453e3d57ca19f74c62dd6ca5a8d89e4a46da8b30fe3f378bb6fd8"
+    },
+    {
+      "relative_path": "desktop_request_filter-18cac9a0131aeea3fe28e05c3ab6c9cc292e580df048558adf50f1b76d15f4ad.json",
+      "sha256": "bb0c4edecf2bc003e2256a8f3a54c6c0567c091069e0ffffb0dbcb5efc28810c"
+    },
+    {
+      "relative_path": "desktop_request_filter-2cf062bd7f9a82e870ba04002ff6effc008e70e08521420155a717457191a983.json",
+      "sha256": "173e6086829671b46aef3ff2184f905b3e305fc550f6f06433d4595102b6da01"
+    },
+    {
+      "relative_path": "desktop_request_filter-4f65b732c8fefcb2284cefdb900dd87cf8478e3d05f91db745354c03cd51ef25.json",
+      "sha256": "ac130b1db21db5867e6fc23f6cd9932d175f60cf3e8044752a298edbb3043c38"
+    },
+    {
+      "relative_path": "desktop_request_filter-558ab154bc51246e146f2ef2a944ceef4a2ccd142b879ccc0bdbed91002816c0.json",
+      "sha256": "f71b8b2d541f78138784700394cc9c4540bbc9c30246ca6194d60a9b84d56010"
+    },
+    {
+      "relative_path": "desktop_request_filter-9c21ae85e47b6ee4661aac5763bc2f40e33f88dcfdbc613302b53c3910363b92.json",
+      "sha256": "2264512c00aae9138840ebf234bda4429a7e8980c0c0c6d96f4a805daa41da07"
+    },
+    {
+      "relative_path": "desktop_request_filter-a6a8c7cc8150d7b5ef105417565515a2b600c5e985c680495d70eccf641bd8ee.json",
+      "sha256": "7fc539edd9351d865b6a312d0d086497daa161ca0b97f89dd93e09692aef2773"
+    },
+    {
+      "relative_path": "desktop_request_filter-d235140d580e954bbdefd473d45c94ca035642f985f947608432aaaab079cdf5.json",
+      "sha256": "a198034b4ceea13104b05fa0d17ed7c59a8c70ec5304813a8c04061620784e9f"
+    },
+    {
+      "relative_path": "desktop_request_media-plan.json",
+      "sha256": "26c11c014f36a2da4d679e95a335c099119a2a67a9807a46c94edf19c1a7e917"
+    },
+    {
+      "relative_path": "desktop_request_select.json",
+      "sha256": "d6b005c1898fb4d1c19d3c212e42ff7474b1b07840f8a48b49a2fd0d735aac3f"
+    },
+    {
+      "relative_path": "desktop_request_visual-edit.json",
+      "sha256": "7642294e5dd1f00214ed3141e46ec1a18e6e570122916fc204753d1a0abff5f1"
+    },
+    {
+      "relative_path": "desktop_response_filter-18cac9a0131aeea3fe28e05c3ab6c9cc292e580df048558adf50f1b76d15f4ad.json",
+      "sha256": "411687990f630234656701416a20a799ecac1276ffa80b8ea3f2de3d21586a4b"
+    },
+    {
+      "relative_path": "desktop_response_filter-2cf062bd7f9a82e870ba04002ff6effc008e70e08521420155a717457191a983.json",
+      "sha256": "db3a1f907ccb6a614c0529ca5084278f0880edaa3ca750886f876c5d80130a62"
+    },
+    {
+      "relative_path": "desktop_response_filter-4f65b732c8fefcb2284cefdb900dd87cf8478e3d05f91db745354c03cd51ef25.json",
+      "sha256": "bf2fd9f98f1bc50eecdbc2b4fd522bf01e8bef0f2bd5f0b4d808e01347e18e4f"
+    },
+    {
+      "relative_path": "desktop_response_filter-558ab154bc51246e146f2ef2a944ceef4a2ccd142b879ccc0bdbed91002816c0.json",
+      "sha256": "292c6ee3a5cb4f84de7179045e20e2be6aa902ae2e4563b227f8212c737fca0f"
+    },
+    {
+      "relative_path": "desktop_response_filter-9c21ae85e47b6ee4661aac5763bc2f40e33f88dcfdbc613302b53c3910363b92.json",
+      "sha256": "f903375e631040906d5090daeca6b3002d607b4fec3a5d38d62a3d986c326139"
+    },
+    {
+      "relative_path": "desktop_response_filter-a6a8c7cc8150d7b5ef105417565515a2b600c5e985c680495d70eccf641bd8ee.json",
+      "sha256": "0fe8412176a1ad8bc989ca2b9e9df03847070a121fc7a70ebf908461069825a0"
+    },
+    {
+      "relative_path": "desktop_response_filter-d235140d580e954bbdefd473d45c94ca035642f985f947608432aaaab079cdf5.json",
+      "sha256": "0399be00e7b8b5e8e16dc4a7e47a8278fb8ceeb449fda90d84581eac01f341b7"
+    },
+    {
+      "relative_path": "desktop_response_media-plan.json",
+      "sha256": "23f1e0c5e54742e5f0ff4ca207491d052109432f1d56f7e31f2edbcbc795a47e"
+    },
+    {
+      "relative_path": "desktop_response_select.json",
+      "sha256": "e195939d39ec85a6bca7267f72c70a864f994c219a97e9074e74bdca12a44435"
+    },
+    {
+      "relative_path": "desktop_response_visual-edit.json",
+      "sha256": "2ba4b6bd8310a180c39927ab169952e7191f0f76a0122a96ffeb1035a7d2fdca"
+    },
+    {
+      "relative_path": "editorial_media_plan_required.json",
+      "sha256": "1e82ee3b37a79d1877d92518ca6d0969e3ef29cb503186683a3cba444095d5e0"
+    },
+    {
+      "relative_path": "main_headline_projection.json",
+      "sha256": "e5346987b9d04abfb0452fb0b3874610e90c66412bf8f201035b37b2442f4a47"
+    },
+    {
+      "relative_path": "main_headline_rows.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "relative_path": "native_desktop_result.json",
+      "sha256": "4b268b2754d058c1debf5a1f2fb2aaa1595ee9b6fa158b1a419834f6e66b2b8f"
+    },
+    {
+      "relative_path": "native_headline_filter_receipt.json",
+      "sha256": "81d80b9ffae8ab48ff2b9b5c84a1042d978c89f4cc65e47e8c4335ba7f72c515"
+    },
+    {
+      "relative_path": "native_role_input_filter-18cac9a0131aeea3fe28e05c3ab6c9cc292e580df048558adf50f1b76d15f4ad.json",
+      "sha256": "f2d4fb7fc1e9432b47926a89c744ee94ede08cf6c0fd04d2f04f80e26e4ce906"
+    },
+    {
+      "relative_path": "native_role_input_filter-2cf062bd7f9a82e870ba04002ff6effc008e70e08521420155a717457191a983.json",
+      "sha256": "2337cc1d54fe39938789abd6cbccfb1c0d4b498fedc26f01a682283eb60a5a67"
+    },
+    {
+      "relative_path": "native_role_input_filter-4f65b732c8fefcb2284cefdb900dd87cf8478e3d05f91db745354c03cd51ef25.json",
+      "sha256": "040d729c6ef259a5d4e9db2bc933aacede82625fe233c8d1a141d44ec146a55a"
+    },
+    {
+      "relative_path": "native_role_input_filter-558ab154bc51246e146f2ef2a944ceef4a2ccd142b879ccc0bdbed91002816c0.json",
+      "sha256": "3e214712acf42917d1bfc1e56fcdfd05a0aa5ed47e05184f06b62c8f7a7479ae"
+    },
+    {
+      "relative_path": "native_role_input_filter-9c21ae85e47b6ee4661aac5763bc2f40e33f88dcfdbc613302b53c3910363b92.json",
+      "sha256": "1c9139654c38ced1b468eb12d7c61c47076bdcd7bef23922c6119c76c90d587a"
+    },
+    {
+      "relative_path": "native_role_input_filter-a6a8c7cc8150d7b5ef105417565515a2b600c5e985c680495d70eccf641bd8ee.json",
+      "sha256": "3ebcb8170754fcd9c8a0946e326975f54398de748e9f0a84f86e15f35e92309e"
+    },
+    {
+      "relative_path": "native_role_input_filter-d235140d580e954bbdefd473d45c94ca035642f985f947608432aaaab079cdf5.json",
+      "sha256": "81d2ed8b7c9403508987742b8ebcd6f28d1508e6ebb9bbf995dcb352f1c276a0"
+    },
+    {
+      "relative_path": "simple_epistemic_state_v1.json",
+      "sha256": "e5e05c02f7d30ba1129b464c4137ce8bb7928c7ee802fe9966494d0f0ff9f529"
+    },
+    {
+      "relative_path": "simple_gemini_editorial_edge_v1.json",
+      "sha256": "e95127b02183a3830fa6dad822b447e774fb0220f03581f74f7341ae3247d765"
+    },
+    {
+      "relative_path": "simple_gemini_evidence_v1.json",
+      "sha256": "633add4a5965c2d914a1f4ca658db8506c2617b2ff53a4d714e36877034b2daf"
+    },
+    {
+      "relative_path": "simple_gemini_selection_v1.json",
+      "sha256": "c6318fe099abb7d42952a7ae012f9acd4099b234b34166597a9fd5279ea8097b"
+    },
+    {
+      "relative_path": "simple_sourceability_preselection_v1.json",
+      "sha256": "f5c519c971998519869c5a0de8e01ab95c24c60494e67e516b1c4bb06b8ae705"
+    },
+    {
+      "relative_path": "metadata-shape-history/daily-rejected-3d3af0f8417b78fcc493204ed7150484c5ea9c0f53762c56fd49b07849ae8c7f.json",
+      "sha256": "3d3af0f8417b78fcc493204ed7150484c5ea9c0f53762c56fd49b07849ae8c7f"
+    },
+    {
+      "relative_path": "metadata-shape-history/daily-rejected-7988b8fa8d356de9961fa7d982e79ebef11bf3be4a9db8bb07ad0d2e7b17c607.json",
+      "sha256": "7988b8fa8d356de9961fa7d982e79ebef11bf3be4a9db8bb07ad0d2e7b17c607"
+    },
+    {
+      "relative_path": "metadata-shape-history/desktop_response_filter-d235140d580e954bbdefd473d45c94ca035642f985f947608432aaaab079cdf5.json",
+      "sha256": "3318c10a7becfd94c2ebcbf2f5f886481772cd9deb812aee84cc0e707781ac76"
+    },
+    {
+      "relative_path": "source-checks-20261101/bloomberg.txt",
+      "sha256": "df36bc0240dadbbafbe4876679b4ab07e066a44c8e5a74bdebff5d2b3bec2e46"
+    },
+    {
+      "relative_path": "source-checks-20261101/observation.json",
+      "sha256": "4358ac4515787ae6a46a1f74949e8eca1c4de8c4be0842b3c49fa1db9bbb88e9"
+    },
+    {
+      "relative_path": "source-checks-20261101/reuters.txt",
+      "sha256": "8c2273b6a0fa037557684aba71f0f7f7baa23d9aeca7aee35484ef0895fa00d8"
+    },
+    {
+      "relative_path": "source-checks-20261101/search-barkin.txt",
+      "sha256": "b86cfa81c8581d0b45326e60100e2fbf25ecbd0ed0c86f8e9a2b802954f3a185"
+    },
+    {
+      "relative_path": "source-checks-20261101/search-richmond.txt",
+      "sha256": "b86cfa81c8581d0b45326e60100e2fbf25ecbd0ed0c86f8e9a2b802954f3a185"
+    },
+    {
+      "relative_path": "source-checks-20261101/yahoo.txt",
+      "sha256": "5f6634518cc0c21a79685a39a42eb31c2cec7b7159c986d078bf40d31e084945"
+    },
+    {
+      "relative_path": "source-checks-20261101/bloomberg-facts/admission.json",
+      "sha256": "0f5b34bb5bfef96427c8559db2f038ebe7ab9235fdc4e0ee63148f8b9df04d1e"
+    },
+    {
+      "relative_path": "source-checks-20261101/bloomberg-facts/capture.json",
+      "sha256": "6ff2b00ef48ecb9c30ad7ecef295cecca0c9ddb3bc53305814a3aa9c88ce0bb7"
+    },
+    {
+      "relative_path": "source-checks-20261101/bloomberg-facts/index.json",
+      "sha256": "83709488eb3e9974f0636a05695a9986e3a57652cbb429007bd5d61c185eee2f"
+    },
+    {
+      "relative_path": "source-checks-20261101/bloomberg-facts/policy.json",
+      "sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809"
+    },
+    {
+      "relative_path": "source-checks-20261101/reuters-facts/admission.json",
+      "sha256": "7d6c63118b9ba15640cdaf490bdad1917060452abf8303281b46c9f76caf93ca"
+    },
+    {
+      "relative_path": "source-checks-20261101/reuters-facts/capture.json",
+      "sha256": "34d0e6d1a1a09b1db7d732ae11ca1689a5b0c11d7e5d7b4553cf4bbc6ec1dfd7"
+    },
+    {
+      "relative_path": "source-checks-20261101/reuters-facts/index.json",
+      "sha256": "f19802914e2c722af76fda63b22b6c4b10ef9c03375a485e58a989bcbc283b77"
+    },
+    {
+      "relative_path": "source-checks-20261101/reuters-facts/policy.json",
+      "sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809"
+    },
+    {
+      "relative_path": "source-checks-20261101/reuters-facts-v2/admission.json",
+      "sha256": "2a5538561291e7a50738e8128106c304e8e092862f3ec1d34921787247dc41a9"
+    },
+    {
+      "relative_path": "source-checks-20261101/reuters-facts-v2/capture.json",
+      "sha256": "477739cfa3c7a8a4bc8e61f300840dca1fc1d7e020f1f3f1345e55997deb2ae0"
+    },
+    {
+      "relative_path": "source-checks-20261101/reuters-facts-v2/index.json",
+      "sha256": "1407fd1f322013564c92a480923f32cbfb9242bc04a88ebd21797567557885f9"
+    },
+    {
+      "relative_path": "source-checks-20261101/reuters-facts-v2/policy.json",
+      "sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809"
+    }
+  ],
+  "new_original_outbox_rows": 0,
+  "original_binding_sha256": "0173bb42604453e3d57ca19f74c62dd6ca5a8d89e4a46da8b30fe3f378bb6fd8",
+  "original_cutoff_utc": "2026-10-30T23:45:33.033578Z",
+  "original_files_preserved": 59,
+  "original_operation_id": "cc042-live-resume-20261031-a",
+  "original_outbox_payloads_statuses_preserved": 688,
+  "original_recursive_file_paths_unchanged": true,
+  "outbox_manifest_sha256": "decc531632b959f2efbf2a7cf9e85ee4c3bc0598107f053a190a5ce6bb284d46",
+  "production_head_unchanged": "b90969200771b29fdb8f8aa5b6a953dcb205975d",
+  "production_or_main_mutation": false,
+  "public_write_performed": false,
+  "recorded_at_utc": "2026-11-01T04:55:02.174814+00:00",
+  "source_request_count": 5,
+  "source_request_limit": 10
+}

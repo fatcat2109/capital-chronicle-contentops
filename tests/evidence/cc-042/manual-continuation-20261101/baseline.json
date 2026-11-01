@@ -1,0 +1,15 @@
+{
+  "baseline_commit": "c6f685e42b83d105f8dbc2efce321e1b82c55f9f",
+  "scope": "Retained real binding/selection/accepted-return topology in a read-only SQLite backup; storage paths and isolated-validation flag rebased only in copy. No live advance.",
+  "original_binding_sha256": "0173bb42604453e3d57ca19f74c62dd6ca5a8d89e4a46da8b30fe3f378bb6fd8",
+  "run_id": "cc042-live-resume-20261031-a",
+  "repeat_advance_stuck": true,
+  "classification": "NATIVE_NEXT_CANDIDATE_REQUIRED",
+  "next_candidate_id": "simple-story-0781c5bbca13392eaf34a2a2",
+  "source_request_count": 5,
+  "source_request_limit": 10,
+  "manual_next_candidate_command_exists": false,
+  "legacy_partial_final_preserved": true,
+  "historical_production_classification": "NATIVE_PRE_WRITER_EDITION_COMPLETE",
+  "historical_invalid_scheduled_hint_not_invoked": true
+}

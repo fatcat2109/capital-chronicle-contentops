@@ -2504,6 +2504,11 @@ def run_v1_simple_gemini_newsroom(
 
     candidate_by_id = {row["candidate_id"]: row for row in candidates}
     plan = list(selection["ordered_candidate_plan"])
+    manual = getattr(llm_invoke, "manual_candidate", None) if native else None
+    if manual:
+        plan = [p for p in plan if p["candidate_id"] == manual["candidate_id"]]
+        if len(plan) != 1:
+            raise SimpleGeminiNewsroomError("EXACT_ACTIVE_MANUAL_CANDIDATE_REQUIRED")
     loader = evidence_loader or _default_evidence_loader(
         cutoff_utc,
         source_route_health=source_route_health,
