@@ -1,0 +1,62 @@
+{
+  "blockers": [],
+  "capital_chronicle_duckdb": {
+    "access_mode": "READ_ONLY",
+    "required": false,
+    "status": "NOT_REQUESTED"
+  },
+  "codex_private_cache_runtime_used": false,
+  "contentops_owned_runtime_expected": true,
+  "edge_attach": {
+    "cdp_port": 9223,
+    "read_only": true,
+    "required": false,
+    "status": "NOT_REQUESTED"
+  },
+  "imports": {
+    "PIL": {
+      "status": "PASS",
+      "version": "11.1.0"
+    },
+    "duckdb": {
+      "status": "PASS",
+      "version": "1.5.4"
+    },
+    "live_contentops": {
+      "status": "PASS",
+      "version": "not_exposed"
+    },
+    "playwright": {
+      "status": "PASS",
+      "version": "not_exposed"
+    },
+    "playwright.async_api": {
+      "status": "PASS",
+      "version": "not_exposed"
+    },
+    "playwright.sync_api": {
+      "status": "PASS",
+      "version": "not_exposed"
+    },
+    "websocket": {
+      "status": "PASS",
+      "version": "1.8.0"
+    }
+  },
+  "ingestion_dependency_closure": {
+    "browser_navigation_performed": false,
+    "capture_entrypoint": "live_contentops.x_list_ingest_capture_v1._run_direct_cdp_capture",
+    "capture_performed": false,
+    "direct_cdp_transport": "websocket-client",
+    "loading_seam": "live_contentops.x_list_ingest_capture_v1.load_data_ingestion_module",
+    "module_name": "contentops_headline_ingestion_data_ingestion",
+    "session_material_read": false,
+    "status": "PASS"
+  },
+  "public_write_performed": false,
+  "python_executable": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v1-runtime\\venv\\Scripts\\python.exe",
+  "python_version": "3.13.4",
+  "schema_version": "contentops.v1_runtime_preflight.v1",
+  "secrets_read": false,
+  "status": "PASS"
+}

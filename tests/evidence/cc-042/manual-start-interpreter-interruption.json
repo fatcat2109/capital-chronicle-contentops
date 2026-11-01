@@ -1,0 +1,13 @@
+{
+  "operation": "newsroom --live cc042-live-resume-20261031-a",
+  "classification": "SOFTWARE_PROCESS_INTERRUPTION_BEFORE_MODEL_OR_SOURCE_WORK",
+  "actual_error": "ModuleNotFoundError: No module named 'jsonschema'",
+  "first_interpreter": "A:/Capital Chronicle/Runtime/ContentOps/v1-runtime/venv/Scripts/python.exe",
+  "supported_prompt_interpreter": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+  "retained_binding": "A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/cc042-live-resume-20261031-a/binding.json",
+  "stderr_sha256": "36c79d3e51df1a1046ff7d4f444ca1f14fab6f67a5a39bceebb652e85c4309f3",
+  "model_invocations": 0,
+  "source_requests": 0,
+  "public_write_performed": false,
+  "recovery": "Resume same binding using normal python, exactly as saved native task prompt; no package/runtime installation or source change"
+}

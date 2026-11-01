@@ -1,0 +1,137 @@
+{
+  "operations": [
+    {
+      "id": "v1-newsroom-brief-asia-0900",
+      "tool": "mcp__codex_app__automation_update",
+      "mode": "update",
+      "status_requested": "ACTIVE",
+      "actual_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Updated automation in the app."
+          },
+          {
+            "type": "text",
+            "text": "{\"automationId\":\"v1-newsroom-brief-asia-0900\",\"mode\":\"update\",\"status\":\"ACTIVE\"}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "id": "v1-newsroom-brief-europe-1500",
+      "tool": "mcp__codex_app__automation_update",
+      "mode": "update",
+      "status_requested": "ACTIVE",
+      "actual_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Updated automation in the app."
+          },
+          {
+            "type": "text",
+            "text": "{\"automationId\":\"v1-newsroom-brief-europe-1500\",\"mode\":\"update\",\"status\":\"ACTIVE\"}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "id": "v1-newsroom-brief-us-1900",
+      "tool": "mcp__codex_app__automation_update",
+      "mode": "update",
+      "status_requested": "ACTIVE",
+      "actual_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Updated automation in the app."
+          },
+          {
+            "type": "text",
+            "text": "{\"automationId\":\"v1-newsroom-brief-us-1900\",\"mode\":\"update\",\"status\":\"ACTIVE\"}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "id": "v1-newsroom-london-1700",
+      "tool": "mcp__codex_app__automation_update",
+      "mode": "update",
+      "status_requested": "ACTIVE",
+      "actual_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Updated automation in the app."
+          },
+          {
+            "type": "text",
+            "text": "{\"automationId\":\"v1-newsroom-london-1700\",\"mode\":\"update\",\"status\":\"ACTIVE\"}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "id": "v1-newsroom-new-york-2100",
+      "tool": "mcp__codex_app__automation_update",
+      "mode": "update",
+      "status_requested": "ACTIVE",
+      "actual_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Updated automation in the app."
+          },
+          {
+            "type": "text",
+            "text": "{\"automationId\":\"v1-newsroom-new-york-2100\",\"mode\":\"update\",\"status\":\"ACTIVE\"}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "id": "v1-newsroom-new-york-2300",
+      "tool": "mcp__codex_app__automation_update",
+      "mode": "update",
+      "status_requested": "ACTIVE",
+      "actual_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Updated automation in the app."
+          },
+          {
+            "type": "text",
+            "text": "{\"automationId\":\"v1-newsroom-new-york-2300\",\"mode\":\"update\",\"status\":\"ACTIVE\"}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "id": "v1-newsroom-new-york-0100",
+      "tool": "mcp__codex_app__automation_update",
+      "mode": "update",
+      "status_requested": "ACTIVE",
+      "actual_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Updated automation in the app."
+          },
+          {
+            "type": "text",
+            "text": "{\"automationId\":\"v1-newsroom-new-york-0100\",\"mode\":\"update\",\"status\":\"ACTIVE\"}"
+          }
+        ],
+        "isError": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "observed_at_utc": "2026-10-31 02:01:05 UTC",
+  "source": "supported read_thread snapshots",
+  "prior_lane_thread": "01a18b78-45a3-73a3-90d1-539b3fc45eae",
+  "prior_lane_latest_turn": {
+    "id": "01a18f8b-3983-79f2-9c70-164e4fd250cb",
+    "status": "failed",
+    "error": "You\u2019ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at Nov 4th, 2026 4:49 PM."
+  },
+  "prior_native_workers": [
+    {
+      "threadId": "01a18f48-5bbc-7cc2-aede-2fb98d0b11dc",
+      "thread": {
+        "id": "01a18f48-5bbc-7cc2-aede-2fb98d0b11dc",
+        "status": {
+          "type": "notLoaded"
+        }
+      },
+      "turns": [
+        {
+          "id": "01a18f48-5c73-7f72-a0a6-9c62d63890a9",
+          "status": "interrupted",
+          "error": null,
+          "startedAt": 1793405246,
+          "completedAt": null,
+          "lastItems": [
+            {
+              "type": "subAgentActivity"
+            },
+            {
+              "type": "reasoning"
+            },
+            {
+              "type": "reasoning"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "threadId": "01a18f48-7426-7412-905e-aea76a37c91a",
+      "thread": {
+        "id": "01a18f48-7426-7412-905e-aea76a37c91a",
+        "status": {
+          "type": "notLoaded"
+        }
+      },
+      "turns": [
+        {
+          "id": "01a18f48-750a-7760-8e03-7a8abf8df245",
+          "status": "interrupted",
+          "error": null,
+          "startedAt": 1793405252,
+          "completedAt": null,
+          "lastItems": [
+            {
+              "type": "reasoning"
+            },
+            {
+              "type": "reasoning"
+            },
+            {
+              "type": "reasoning"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "threadId": "01a18f48-8f46-7362-a312-a2c85c96293c",
+      "thread": {
+        "id": "01a18f48-8f46-7362-a312-a2c85c96293c",
+        "status": {
+          "type": "notLoaded"
+        }
+      },
+      "turns": [
+        {
+          "id": "01a18f48-9001-7ed2-a427-6ba465073225",
+          "status": "interrupted",
+          "error": null,
+          "startedAt": 1793405259,
+          "completedAt": null,
+          "lastItems": [
+            {
+              "type": "reasoning"
+            },
+            {
+              "type": "reasoning"
+            },
+            {
+              "type": "reasoning"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "continuation": "Original responses absent. Only the three exact unanswered filter requests resumed by same-model native roles in this daily run; first three accepted returns preserved.",
+  "new_native_workers": [
+    "/root/cc042_daily_filter_50472312741e",
+    "/root/cc042_daily_filter_936b569c6517",
+    "/root/cc042_daily_filter_16c54b15de44"
+  ],
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "configured_model": "gpt-6-luna",
+  "configured_reasoning_effort": "max",
+  "actual_model": null,
+  "actual_reasoning_effort": null,
+  "native_same_worker_filter_repairs": [
+    {
+      "invocation_id": "/root/cc042_daily_filter_16c54b15de44",
+      "configured_model": "gpt-6-luna",
+      "configured_reasoning_effort": "max",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "actual_model": null,
+      "actual_reasoning_effort": null,
+      "cause": "NATIVE_DESKTOP_RETURN_SCHEMA:filter_group_novelty",
+      "changed_group_key_count": 13,
+      "other_fields_preserved": true
+    },
+    {
+      "invocation_id": "/root/cc042_daily_filter_936b569c6517",
+      "configured_model": "gpt-6-luna",
+      "configured_reasoning_effort": "max",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "actual_model": null,
+      "actual_reasoning_effort": null,
+      "cause": "NATIVE_DESKTOP_RETURN_SCHEMA:filter_group_novelty",
+      "changed_group_key_count": 29,
+      "other_fields_preserved": true
+    }
+  ],
+  "final_filter_assignment": {
+    "invocation_id": "/root/cc042_daily_filter_59d2c54b1f8e",
+    "stage": "filter-4f65b732c8fefcb2284cefdb900dd87cf8478e3d05f91db745354c03cd51ef25",
+    "request_sha256": "59d2c54b1f8e2a97214b3c262ee7324a165e2facf42dfc0e7c5ccff4828d7dc4",
+    "configured_model": "gpt-6-luna",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_model": null,
+    "actual_reasoning_effort": null
+  }
+}

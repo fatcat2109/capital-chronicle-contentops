@@ -1,0 +1,32 @@
+{
+  "role_assignments": {
+    "filter": {
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max"
+    },
+    "select": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low"
+    },
+    "visual-edit": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "max"
+    },
+    "write": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "max"
+    },
+    "revise": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "max"
+    },
+    "final-visual": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "max"
+    }
+  },
+  "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+  "configured_not_observed": true,
+  "actual_configuration_unavailable": true,
+  "observation": "No native model role has returned in this CC-042 operation yet; no invocation or quality is claimed from settings."
+}

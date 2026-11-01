@@ -1,0 +1,55 @@
+{
+  "observed_at_utc": "2026-11-01T01:19:59Z",
+  "source": "supported wait_threads snapshot; earlier supported read_thread verified parent and saved artifact",
+  "meaning": "Historical interrupted role. Jim reset quota on 1 November; no current quota or active-worker failure inferred.",
+  "snapshots": [
+    {
+      "timedOut": false,
+      "wake": {
+        "reason": "inactiveStatus",
+        "threadId": "01a18fbb-f355-70c3-8210-fc2d68a7d3ee",
+        "hostId": "local"
+      },
+      "polls": [
+        {
+          "schemaVersion": 1,
+          "cursor": "1ba5030e-3ce6-4abf-92f4-b6c08148c35a:1",
+          "revision": 1,
+          "changed": true,
+          "thread": {
+            "id": "01a18fbb-f355-70c3-8210-fc2d68a7d3ee",
+            "hostId": "local",
+            "status": {
+              "type": "notLoaded"
+            }
+          },
+          "latestTurn": {
+            "id": "01a18fbb-f36b-70e3-aefc-7e29eb25697a",
+            "status": "failed",
+            "error": {
+              "message": "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at Nov 4th, 2026 3:32 PM."
+            },
+            "startedAt": 1793412821,
+            "completedAt": 1793412870,
+            "durationMs": 48655
+          },
+          "latestAssistantMessageId": "msg_0a95cc4d463aa8ce016ae54ed9d1308191901bd68a2ae7ac1a",
+          "latestAssistantMessage": {
+            "id": "msg_0a95cc4d463aa8ce016ae54ed9d1308191901bd68a2ae7ac1a",
+            "turnId": "01a18fbb-f36b-70e3-aefc-7e29eb25697a",
+            "phase": "commentary",
+            "text": "I’ll read the frozen request, prepare the media plan, and save the response with unresolved source and rights gates kept explicit."
+          },
+          "latestToolMarkerId": "exec-5c369b6d-f18d-4a2c-8794-f151d34d0739",
+          "latestToolMarker": {
+            "id": "exec-5c369b6d-f18d-4a2c-8794-f151d34d0739",
+            "turnId": "01a18fbb-f36b-70e3-aefc-7e29eb25697a",
+            "type": "commandExecution",
+            "name": "commandExecution",
+            "status": "completed"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "observed_at_utc": "2026-10-30T23:45:04.599643+00:00",
+  "native_calendar_opportunities": [
+    {
+      "opportunity_id": "editorial-window-90c02eb3d06f1cbee9d202f61ae29250",
+      "trigger": "SCHEDULED",
+      "policy_id": "contentops.editorial_window_policy.v1",
+      "policy_version": "autonomous_daily_output_four_window.v1",
+      "session": "asia_brief_0900_saigon",
+      "start_utc": "2026-11-02T02:00:00Z",
+      "end_utc": "2026-11-02T03:00:00Z",
+      "capacity": 12,
+      "brief_only": true
+    },
+    {
+      "opportunity_id": "editorial-window-ddbfdc1a6ef4a98d8307a19b28a955ed",
+      "trigger": "SCHEDULED",
+      "policy_id": "contentops.editorial_window_policy.v1",
+      "policy_version": "autonomous_daily_output_four_window.v1",
+      "session": "europe_brief_1500_saigon",
+      "start_utc": "2026-11-02T08:00:00Z",
+      "end_utc": "2026-11-02T09:00:00Z",
+      "capacity": 12,
+      "brief_only": true
+    },
+    {
+      "opportunity_id": "editorial-window-8b48af2ba22c3f0498a49624c4d71e0f",
+      "trigger": "SCHEDULED",
+      "policy_id": "contentops.editorial_window_policy.v1",
+      "policy_version": "autonomous_daily_output_four_window.v1",
+      "session": "london_1700_bangkok",
+      "start_utc": "2026-11-02T10:00:00Z",
+      "end_utc": "2026-11-02T11:00:00Z",
+      "capacity": 12
+    },
+    {
+      "opportunity_id": "editorial-window-af9563b2f19f49894013b4565577443d",
+      "trigger": "SCHEDULED",
+      "policy_id": "contentops.editorial_window_policy.v1",
+      "policy_version": "autonomous_daily_output_four_window.v1",
+      "session": "us_brief_1900_saigon",
+      "start_utc": "2026-11-02T12:00:00Z",
+      "end_utc": "2026-11-02T13:00:00Z",
+      "capacity": 12,
+      "brief_only": true
+    },
+    {
+      "opportunity_id": "editorial-window-4eb992edd9fac458ef63e87b05c14e75",
+      "trigger": "SCHEDULED",
+      "policy_id": "contentops.editorial_window_policy.v1",
+      "policy_version": "autonomous_daily_output_four_window.v1",
+      "session": "new_york_2100_bangkok",
+      "start_utc": "2026-11-02T14:00:00Z",
+      "end_utc": "2026-11-02T15:00:00Z",
+      "capacity": 12
+    },
+    {
+      "opportunity_id": "editorial-window-0e7bef98f5c0cadf0a9d20c7836b992a",
+      "trigger": "SCHEDULED",
+      "policy_id": "contentops.editorial_window_policy.v1",
+      "policy_version": "autonomous_daily_output_four_window.v1",
+      "session": "new_york_2300_bangkok",
+      "start_utc": "2026-11-02T16:00:00Z",
+      "end_utc": "2026-11-02T17:00:00Z",
+      "capacity": 12
+    },
+    {
+      "opportunity_id": "editorial-window-09467bc732e09179a1e9b20ec81e0c2c",
+      "trigger": "SCHEDULED",
+      "policy_id": "contentops.editorial_window_policy.v1",
+      "policy_version": "autonomous_daily_output_four_window.v1",
+      "session": "new_york_0100_bangkok",
+      "start_utc": "2026-11-02T18:00:00Z",
+      "end_utc": "2026-11-02T19:00:00Z",
+      "capacity": 12
+    },
+    {
+      "opportunity_id": "editorial-window-e61b6ca58c1e100dabcf93595988936a",
+      "trigger": "SCHEDULED",
+      "policy_id": "contentops.editorial_window_policy.v1",
+      "policy_version": "autonomous_daily_output_four_window.v1",
+      "session": "asia_brief_0900_saigon",
+      "start_utc": "2026-11-03T02:00:00Z",
+      "end_utc": "2026-11-03T03:00:00Z",
+      "capacity": 12,
+      "brief_only": true
+    },
+    {
+      "opportunity_id": "editorial-window-296371aaaa15a5013ce1b23ccc8e973c",
+      "trigger": "SCHEDULED",
+      "policy_id": "contentops.editorial_window_policy.v1",
+      "policy_version": "autonomous_daily_output_four_window.v1",
+      "session": "europe_brief_1500_saigon",
+      "start_utc": "2026-11-03T08:00:00Z",
+      "end_utc": "2026-11-03T09:00:00Z",
+      "capacity": 12,
+      "brief_only": true
+    },
+    {
+      "opportunity_id": "editorial-window-3d56c37c5d4ceb8e177881d7afe743f8",
+      "trigger": "SCHEDULED",
+      "policy_id": "contentops.editorial_window_policy.v1",
+      "policy_version": "autonomous_daily_output_four_window.v1",
+      "session": "london_1700_bangkok",
+      "start_utc": "2026-11-03T10:00:00Z",
+      "end_utc": "2026-11-03T11:00:00Z",
+      "capacity": 12
+    }
+  ],
+  "currently_due": false,
+  "calendar_unchanged": true
+}

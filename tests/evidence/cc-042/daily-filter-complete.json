@@ -1,0 +1,411 @@
+{
+  "observed_at_utc": "2026-10-31T02:11:48.494567+00:00",
+  "run_id": "cc042-live-resume-20261031-a",
+  "cutoff_utc": "2026-10-30T23:45:33.033578Z",
+  "frozen_x_record_count": 661,
+  "accepted_records": 661,
+  "unique_input_hash_count": 661,
+  "remaining_unprocessed": 0,
+  "decision_counts": {
+    "KEEP": 380,
+    "REJECT": 232,
+    "DEFER": 49
+  },
+  "accepted_batches": [
+    {
+      "stage": "filter-18cac9a0131aeea3fe28e05c3ab6c9cc292e580df048558adf50f1b76d15f4ad",
+      "request_sha256": "16c54b15de44579989cbc50760fff1d0c70ccd7439f70434729a5a6386f0aa75",
+      "response_file_sha256": "411687990f630234656701416a20a799ecac1276ffa80b8ea3f2de3d21586a4b",
+      "invocation_observation": {
+        "invocation_id": "/root/cc042_daily_filter_16c54b15de44",
+        "actual_model": null,
+        "actual_reasoning_effort": null,
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "this explicit native task request",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "speed": "standard",
+        "observation_source": "current canonical native task context; actual model and effort are not exposed by this execution surface"
+      },
+      "record_count": 96,
+      "counts": {
+        "KEEP": 60,
+        "REJECT": 27,
+        "DEFER": 9
+      }
+    },
+    {
+      "stage": "filter-2cf062bd7f9a82e870ba04002ff6effc008e70e08521420155a717457191a983",
+      "request_sha256": "50472312741ed2cad2ea8d9c3025abea4747adacfc05e1e4e5f666841b56ce48",
+      "response_file_sha256": "db3a1f907ccb6a614c0529ca5084278f0880edaa3ca750886f876c5d80130a62",
+      "invocation_observation": {
+        "invocation_id": "/root/cc042_daily_filter_50472312741e",
+        "model": null,
+        "reasoning_effort": null,
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "this explicit native task request",
+        "observation_source": "native task context; runtime model and effort telemetry were unavailable",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "record_count": 96,
+      "counts": {
+        "KEEP": 50,
+        "REJECT": 36,
+        "DEFER": 10
+      }
+    },
+    {
+      "stage": "filter-4f65b732c8fefcb2284cefdb900dd87cf8478e3d05f91db745354c03cd51ef25",
+      "request_sha256": "59d2c54b1f8e2a97214b3c262ee7324a165e2facf42dfc0e7c5ccff4828d7dc4",
+      "response_file_sha256": "bf2fd9f98f1bc50eecdbc2b4fd522bf01e8bef0f2bd5f0b4d808e01347e18e4f",
+      "invocation_observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/cc042_daily_filter_59d2c54b1f8e",
+        "model": null,
+        "reasoning_effort": null,
+        "speed": "standard",
+        "observation_source": "Supported native task context exposes the canonical task identity /root/cc042_daily_filter_59d2c54b1f8e; actual model and reasoning effort were not exposed.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "This explicit native task request supplies gpt-6-luna / max as configured values; it does not expose the actual invocation configuration."
+      },
+      "record_count": 85,
+      "counts": {
+        "KEEP": 25,
+        "REJECT": 51,
+        "DEFER": 9
+      }
+    },
+    {
+      "stage": "filter-558ab154bc51246e146f2ef2a944ceef4a2ccd142b879ccc0bdbed91002816c0",
+      "request_sha256": "26af6b8400541287ea1e9d5c55ac5207992c04e20a2c679b38bbe011bea0312f",
+      "response_file_sha256": "292c6ee3a5cb4f84de7179045e20e2be6aa902ae2e4563b227f8212c737fca0f",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_26af6b840054",
+        "model": null,
+        "reasoning_effort": null,
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "this explicit supported spawn request",
+        "observation_source": "native task context; runtime model and effort telemetry were unavailable",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "record_count": 96,
+      "counts": {
+        "KEEP": 70,
+        "REJECT": 25,
+        "DEFER": 1
+      }
+    },
+    {
+      "stage": "filter-9c21ae85e47b6ee4661aac5763bc2f40e33f88dcfdbc613302b53c3910363b92",
+      "request_sha256": "936b569c6517b0b82ffccbe653c96324b07b18f9b0b5c1af824a3e993a1b47b0",
+      "response_file_sha256": "f903375e631040906d5090daeca6b3002d607b4fec3a5d38d62a3d986c326139",
+      "invocation_observation": {
+        "invocation_id": "/root/cc042_daily_filter_936b569c6517",
+        "invocation_identity_source": "canonical native task name from current subagent context",
+        "actual_model": null,
+        "actual_reasoning_effort": null,
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "this explicit native task request",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "speed": "standard",
+        "observation_source": "current native task context; runtime model and effort telemetry unavailable"
+      },
+      "record_count": 96,
+      "counts": {
+        "KEEP": 58,
+        "REJECT": 32,
+        "DEFER": 6
+      }
+    },
+    {
+      "stage": "filter-a6a8c7cc8150d7b5ef105417565515a2b600c5e985c680495d70eccf641bd8ee",
+      "request_sha256": "e74279a268496bf84db5e16ef0aa33024afce097c62ff9d0fbe7b53c4875991b",
+      "response_file_sha256": "0fe8412176a1ad8bc989ca2b9e9df03847070a121fc7a70ebf908461069825a0",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_e74279a26849",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "this explicit supported spawn request",
+        "observation_source": "native subagent task context; actual model and effort not exposed",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "record_count": 96,
+      "counts": {
+        "KEEP": 60,
+        "REJECT": 32,
+        "DEFER": 4
+      }
+    },
+    {
+      "stage": "filter-d235140d580e954bbdefd473d45c94ca035642f985f947608432aaaab079cdf5",
+      "request_sha256": "2745a51827072c768e80688675df896797c1342f95263b2b1528c821d7a7416d",
+      "response_file_sha256": "0399be00e7b8b5e8e16dc4a7e47a8278fb8ceeb449fda90d84581eac01f341b7",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_2745a5182707",
+        "model": null,
+        "reasoning_effort": null,
+        "observation_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "this explicit supported spawn request",
+        "observation_source": "native subagent task context; actual backend model and effort are not exposed in the available context",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED"
+      },
+      "record_count": 96,
+      "counts": {
+        "KEEP": 57,
+        "REJECT": 29,
+        "DEFER": 10
+      }
+    }
+  ],
+  "native_owner_telemetry": {
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "visual-edit": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "final-visual": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "observed_models": [],
+    "observed_efforts": [],
+    "configured_not_observed_count": 7,
+    "configured_not_observed_roles": [
+      {
+        "stage": "filter-d235140d580e954bbdefd473d45c94ca035642f985f947608432aaaab079cdf5",
+        "role": "filter",
+        "invocation_id": "/root/native_filter_2745a5182707",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max"
+      },
+      {
+        "stage": "filter-558ab154bc51246e146f2ef2a944ceef4a2ccd142b879ccc0bdbed91002816c0",
+        "role": "filter",
+        "invocation_id": "/root/native_filter_26af6b840054",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max"
+      },
+      {
+        "stage": "filter-a6a8c7cc8150d7b5ef105417565515a2b600c5e985c680495d70eccf641bd8ee",
+        "role": "filter",
+        "invocation_id": "/root/native_filter_e74279a26849",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max"
+      },
+      {
+        "stage": "filter-2cf062bd7f9a82e870ba04002ff6effc008e70e08521420155a717457191a983",
+        "role": "filter",
+        "invocation_id": "/root/cc042_daily_filter_50472312741e",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max"
+      },
+      {
+        "stage": "filter-9c21ae85e47b6ee4661aac5763bc2f40e33f88dcfdbc613302b53c3910363b92",
+        "role": "filter",
+        "invocation_id": "/root/cc042_daily_filter_936b569c6517",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max"
+      },
+      {
+        "stage": "filter-18cac9a0131aeea3fe28e05c3ab6c9cc292e580df048558adf50f1b76d15f4ad",
+        "role": "filter",
+        "invocation_id": "/root/cc042_daily_filter_16c54b15de44",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max"
+      },
+      {
+        "stage": "filter-4f65b732c8fefcb2284cefdb900dd87cf8478e3d05f91db745354c03cd51ef25",
+        "role": "filter",
+        "invocation_id": "/root/cc042_daily_filter_59d2c54b1f8e",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max"
+      }
+    ],
+    "native_invocation_count_observed": 7,
+    "native_invocation_identity_unknown_count": 0,
+    "semantic_response_count": 7,
+    "maximum_repair_count": 1,
+    "external_provider_attempt_count": 0,
+    "usage_tokens": null,
+    "cost_usd": null,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "observations": [
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "this explicit supported spawn request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_filter_2745a5182707",
+        "model": null,
+        "observation_source": "native subagent task context; actual backend model and effort are not exposed in the available context",
+        "observation_status": "CONFIGURED_NOT_OBSERVED",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "filter-d235140d580e954bbdefd473d45c94ca035642f985f947608432aaaab079cdf5",
+        "role": "filter"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "this explicit supported spawn request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_filter_26af6b840054",
+        "model": null,
+        "observation_source": "native task context; runtime model and effort telemetry were unavailable",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "filter-558ab154bc51246e146f2ef2a944ceef4a2ccd142b879ccc0bdbed91002816c0",
+        "role": "filter"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "this explicit supported spawn request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_filter_e74279a26849",
+        "model": null,
+        "observation_source": "native subagent task context; actual model and effort not exposed",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "filter-a6a8c7cc8150d7b5ef105417565515a2b600c5e985c680495d70eccf641bd8ee",
+        "role": "filter"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "this explicit native task request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/cc042_daily_filter_50472312741e",
+        "model": null,
+        "observation_source": "native task context; runtime model and effort telemetry were unavailable",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "filter-2cf062bd7f9a82e870ba04002ff6effc008e70e08521420155a717457191a983",
+        "role": "filter"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "actual_model": null,
+        "actual_reasoning_effort": null,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "this explicit native task request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/cc042_daily_filter_936b569c6517",
+        "invocation_identity_source": "canonical native task name from current subagent context",
+        "observation_source": "current native task context; runtime model and effort telemetry unavailable",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "filter-9c21ae85e47b6ee4661aac5763bc2f40e33f88dcfdbc613302b53c3910363b92",
+        "role": "filter"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "actual_model": null,
+        "actual_reasoning_effort": null,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "this explicit native task request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/cc042_daily_filter_16c54b15de44",
+        "observation_source": "current canonical native task context; actual model and effort are not exposed by this execution surface",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "filter-18cac9a0131aeea3fe28e05c3ab6c9cc292e580df048558adf50f1b76d15f4ad",
+        "role": "filter"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "This explicit native task request supplies gpt-6-luna / max as configured values; it does not expose the actual invocation configuration.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/cc042_daily_filter_59d2c54b1f8e",
+        "model": null,
+        "observation_source": "Supported native task context exposes the canonical task identity /root/cc042_daily_filter_59d2c54b1f8e; actual model and reasoning effort were not exposed.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "filter-4f65b732c8fefcb2284cefdb900dd87cf8478e3d05f91db745354c03cd51ef25",
+        "role": "filter"
+      }
+    ]
+  },
+  "selection_request_sha256": "205bccb0b7455d1a42612841cc68fad111164b159f1f17391a7c5c6125257c22",
+  "selection_invocation_id": "/root/cc042_daily_select_205bccb0b745",
+  "selection_configured_model": "gpt-6.1-sol",
+  "selection_configured_effort": "low",
+  "selection_actual_model": null,
+  "selection_actual_effort": null,
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "article_same_worker_revision_round_trip": "NOT_YET_OBSERVED",
+  "public_write_performed_in_daily_run": false
+}

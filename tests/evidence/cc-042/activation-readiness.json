@@ -1,0 +1,218 @@
+{
+  "item": "CC-042",
+  "observed_at_utc": "2026-10-30T23:43:10.955554+00:00",
+  "authority": "CC-051(a), Jim decision6, current CC-042 OPEN entry 31 Oct 05:40 GMT+7",
+  "branch_base": "b90969200771b29fdb8f8aa5b6a953dcb205975d",
+  "operating_head": "b90969200771b29fdb8f8aa5b6a953dcb205975d",
+  "operating_source_hashes": {
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": "518c08027c6b9db03c68d2f525be006bbb1bd1a600039080e7de46078eb0c1c4",
+    "tests/test_rolling_x_newsroom_cycle_v1.py": "8c66760e990bcea242904e804aef40f99a86042973b85a8d1699ee55d25c958c",
+    "live_contentops/native_desktop_editorial_v1.py": "4e7d3e94fa57f7bd01e60f54849a6d6b28d7b9feb8347206f9e3fd206ae88a6d",
+    "live_contentops/native_desktop_publication_v1.py": "0beaa9674985039ff6f7a3d4d3bb2a3e46fe3ab602977d00bdb41bc2c08b60f9",
+    "live_contentops/codex_desktop_newsroom_operator_v1.py": "e5e78e06b1437fef80fe11e189e41095ac4b683d36b566e39af71be360999bbe",
+    "config/native_desktop_rollout_v1.json": "2b7d8f2f911c899d360fdb33f357e7642c7040656baeca431cfecf7ffc7abbd4"
+  },
+  "operating_tracked_code_dirty": false,
+  "prior_exact_source_tests": {
+    "passed": 363,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 178.632,
+    "required_cc067_selection_passed": 271,
+    "newsroom_cycle_passed": 55,
+    "hierarchical_assignment_passed": 37,
+    "files": [
+      "tests/test_native_configured_provenance_v1.py",
+      "tests/test_native_editorial_continuation_v1.py",
+      "tests/test_native_headline_filter_v1.py",
+      "tests/test_native_final_visual_review_v1.py",
+      "tests/test_native_desktop_editorial_v1.py",
+      "tests/test_capital_chronicle_report_editorial_workspace_v1.py",
+      "tests/test_codex_desktop_newsroom_operator_v1.py",
+      "tests/test_v1_simple_gemini_newsroom_v1.py",
+      "tests/test_eight_platform_substack_first_pipeline_v1.py",
+      "tests/test_native_desktop_publication_v1.py",
+      "tests/test_native_role_configuration_v1.py",
+      "tests/test_native_newsroom_owner_operation_v1.py",
+      "tests/test_rolling_x_newsroom_cycle_v1.py",
+      "tests/test_rolling_x_hierarchical_assignment_v1.py"
+    ],
+    "per_module_count": {
+      "test_native_configured_provenance_v1": 9,
+      "test_native_editorial_continuation_v1": 14,
+      "test_native_headline_filter_v1": 8,
+      "test_native_final_visual_review_v1": 16,
+      "test_native_desktop_editorial_v1": 12,
+      "test_capital_chronicle_report_editorial_workspace_v1": 24,
+      "test_codex_desktop_newsroom_operator_v1": 57,
+      "test_v1_simple_gemini_newsroom_v1": 40,
+      "test_eight_platform_substack_first_pipeline_v1": 45,
+      "test_native_desktop_publication_v1": 14,
+      "test_native_role_configuration_v1": 20,
+      "test_native_newsroom_owner_operation_v1": 12,
+      "test_rolling_x_newsroom_cycle_v1": 55,
+      "test_rolling_x_hierarchical_assignment_v1": 37
+    },
+    "junit_private_path": ".task-runtime\\cc-075\\acceptance-tests.xml",
+    "junit_bytes_sha256": "440abc024dd26714334ce7c6df97e3093171709d063923f5b4445e3d437ead48",
+    "scope": "Deterministic regressions with controlled provider/native returns and isolated test stores; no actual model or editorial-quality proof."
+  },
+  "prior_junit_verified": true,
+  "control": {
+    "singleton_id": 1,
+    "operating_mode": "KILL_SWITCH",
+    "state_version": 39,
+    "updated_at_utc": "2026-10-29T22:51:41.134311+00:00",
+    "control_source": "LOCAL_DAILY_APP_UI"
+  },
+  "operator_pause_present": true,
+  "ambiguous_dispatch_count": 0,
+  "pending_reconciliation_count": 0,
+  "active_unexpired_leases": [],
+  "pending_operator_trigger_count": 0,
+  "dispatch_status_counts": [
+    {
+      "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+      "count": 3
+    },
+    {
+      "status": "DISPATCH_CONFIRMED",
+      "count": 10
+    },
+    {
+      "status": "DISPATCH_CONFIRMED_NO_WRITE",
+      "count": 2
+    },
+    {
+      "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+      "count": 52
+    },
+    {
+      "status": "OWNER_RETAINED_DRAFT_NO_PUBLISH",
+      "count": 2
+    }
+  ],
+  "runtime_identity": {
+    "contains_secrets": false,
+    "schema_version": "contentops.daily_app_runtime_identity.v1",
+    "source_sha": "0a3ab71043ed0681d7334a21a2ed7d2c4f770310",
+    "started_at_utc": "2026-10-29T07:24:58Z",
+    "stderr_log": "daily_app.supervisor.stderr.log",
+    "stdout_log": "daily_app.supervisor.stdout.log",
+    "store_identity": "contentops_daily_app_v1.sqlite3",
+    "supervisor_pid": 11448
+  },
+  "runtime_supervisor_launcher_server_store_unchanged_since_start": true,
+  "runtime_identity_live_process_verified": {
+    "pid": 11448,
+    "start_time_utc": "2026-10-29T07:24:54.834085Z",
+    "listener": "127.0.0.1:8765",
+    "process_source_identity": "0a3ab71043ed0681d7334a21a2ed7d2c4f770310",
+    "meaning": "Original runtime identity retained; fresh native CLI imports exact integrated operating source. No restart claimed."
+  },
+  "automations": [
+    {
+      "id": "v1-newsroom-london-1700",
+      "name": "V1 Newsroom \u2014 London 1700",
+      "status": "PAUSED",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=17;BYMINUTE=0",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+      "execution_environment": "local",
+      "prompt_sha256": "b08ddcb0c13f6dfd53afa76e6f904e3803f7c9d62516b3ff7975ba02c60df892",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps"
+      ]
+    },
+    {
+      "id": "v1-newsroom-new-york-2100",
+      "name": "V1 Newsroom \u2014 New York 2100",
+      "status": "PAUSED",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=21;BYMINUTE=0",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+      "execution_environment": "local",
+      "prompt_sha256": "18b0ca6fa884cc1ba22e1e5858fa7aa1f4413a7312a7755526740df8cfef4cb1",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps"
+      ]
+    },
+    {
+      "id": "v1-newsroom-new-york-2300",
+      "name": "V1 Newsroom \u2014 New York 2300",
+      "status": "PAUSED",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=23;BYMINUTE=0",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+      "execution_environment": "local",
+      "prompt_sha256": "e810ddcb89fd95d9644aa406a7b1d47a551e35edfd69c6f4679869f835ed70d0",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps"
+      ]
+    },
+    {
+      "id": "v1-newsroom-new-york-0100",
+      "name": "V1 Newsroom \u2014 New York 0100",
+      "status": "PAUSED",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=TU,WE,TH,FR,SA;BYHOUR=1;BYMINUTE=0",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+      "execution_environment": "local",
+      "prompt_sha256": "838e9f85937dcb5aab4871c97ce3f8730519bdcf7ffb24ce36e1b7ac9e1efc3f",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps"
+      ]
+    },
+    {
+      "id": "v1-newsroom-brief-asia-0900",
+      "name": "v1 newsroom brief asia 0900",
+      "status": "PAUSED",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=9;BYMINUTE=0",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+      "execution_environment": "local",
+      "prompt_sha256": "9604c59795e04e3086b2923cf6cccc600f3544aeee7ce05944f5ea83aeebecaf",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps"
+      ]
+    },
+    {
+      "id": "v1-newsroom-brief-europe-1500",
+      "name": "v1 newsroom brief europe 1500",
+      "status": "PAUSED",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=15;BYMINUTE=0",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+      "execution_environment": "local",
+      "prompt_sha256": "65bdce2a6c8eb5ec4fe0eefb6c493f6f42959ac0f33aa089d029e15680a37c1f",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps"
+      ]
+    },
+    {
+      "id": "v1-newsroom-brief-us-1900",
+      "name": "v1 newsroom brief us 1900",
+      "status": "PAUSED",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=19;BYMINUTE=0",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+      "execution_environment": "local",
+      "prompt_sha256": "498c5595cc44dc4031403c6af7b5a2a8addd4cb8a62ad769f6b788996fe2437b",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps"
+      ]
+    }
+  ],
+  "existing_rollout_live_authority_valid": true,
+  "public_write_performed": false,
+  "secrets_read": false,
+  "acceptance_passed": false,
+  "acceptance_remaining": "At least three genuinely readback-confirmed articles in the first production day; first-window yield and same-worker revision evidence or exact NO_PUBLICATION cause."
+}

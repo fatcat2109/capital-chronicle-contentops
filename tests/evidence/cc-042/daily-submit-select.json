@@ -1,0 +1,27 @@
+{
+  "observed_at_utc": "2026-10-31T02:12:48.776569+00:00",
+  "response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\desktop_response_select.json",
+  "response_file_sha256": "e195939d39ec85a6bca7267f72c70a864f994c219a97e9074e74bdca12a44435",
+  "invocation_observation": {
+    "invocation_id": "/root/cc042_daily_select_205bccb0b745",
+    "task_identity": "/root/cc042_daily_select_205bccb0b745",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "this explicit supported native task request",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "speed": "standard",
+    "observation_source": "Canonical task identity supplied by native collaboration NEW_TASK context; configured model and effort supplied by parent task request; actual runtime model and effort are not exposed to this worker.",
+    "observed_at_utc": "2026-10-31T02:12:30.828557Z"
+  },
+  "exit_code": 0,
+  "submit_result": {
+    "stage": "select",
+    "response_sha256": "06ca0b55a34d40d368f8bd7853a5e051af6230d2c65957b653897552c67f07bd",
+    "public_write_performed": false
+  }
+}

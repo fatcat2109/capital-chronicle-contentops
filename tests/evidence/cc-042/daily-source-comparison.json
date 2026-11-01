@@ -1,0 +1,36 @@
+{
+  "observed_at_utc": "2026-10-31T02:00:29.310908+00:00",
+  "comparisons": [
+    {
+      "path": "scripts/run_native_desktop_editorial.py",
+      "lane_normalized_sha256": "5c46139be3ee666400a183c5aa58ed43af8d502592810f7fc3b84f3638d09665",
+      "operating_normalized_sha256": "5c46139be3ee666400a183c5aa58ed43af8d502592810f7fc3b84f3638d09665",
+      "equal": true
+    },
+    {
+      "path": "live_contentops/native_desktop_editorial_v1.py",
+      "lane_normalized_sha256": "f825bc8faf9ae99902c650f4d32c2a64649e5418c12d79d65a8bec65ca3bf194",
+      "operating_normalized_sha256": "f825bc8faf9ae99902c650f4d32c2a64649e5418c12d79d65a8bec65ca3bf194",
+      "equal": true
+    },
+    {
+      "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
+      "lane_normalized_sha256": "56e7d1ffee3834eb619472c363e4c0fa96bac2273de08ab215cddbe76b1ff6ea",
+      "operating_normalized_sha256": "56e7d1ffee3834eb619472c363e4c0fa96bac2273de08ab215cddbe76b1ff6ea",
+      "equal": true
+    },
+    {
+      "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+      "lane_normalized_sha256": "530a3eaac09c98a5f0f7d84b4275126982624026803105cf50849f39901f3d4c",
+      "operating_normalized_sha256": "530a3eaac09c98a5f0f7d84b4275126982624026803105cf50849f39901f3d4c",
+      "equal": true
+    },
+    {
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "lane_normalized_sha256": "6fc7d7fdd068e493e26bc48c8ba371fa5cd7cd363c893a91cc1dfde675d06be5",
+      "operating_normalized_sha256": "6fc7d7fdd068e493e26bc48c8ba371fa5cd7cd363c893a91cc1dfde675d06be5",
+      "equal": true
+    }
+  ],
+  "normalization": "CRLF to LF for checkout line endings; no source writes"
+}
