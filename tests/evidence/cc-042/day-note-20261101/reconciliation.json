@@ -1,0 +1,128 @@
+{
+  "item": "CC-042",
+  "goal": "G-20261101-1",
+  "authority": "Jim direct day note, 1 November 2026, quoted in G-20261101-1 and CC-042 Result; existing reviewed production path only.",
+  "observed_at_utc": "2026-11-01T02:51:29.406481+00:00",
+  "segment_status": "BLOCKED",
+  "reviewed_production_head": "b90969200771b29fdb8f8aa5b6a953dcb205975d",
+  "reviewed_production_tag": "contentops-live-20261031-cc075",
+  "run_id": "cc042-live-resume-20261031-a",
+  "binding_sha256": "0173bb42604453e3d57ca19f74c62dd6ca5a8d89e4a46da8b30fe3f378bb6fd8",
+  "cutoff_utc": "2026-10-30T23:45:33.033578Z",
+  "accepted_native_requests": 10,
+  "accepted_native_returns": 10,
+  "accepted_hold_preserved": true,
+  "accepted_filter_records": 661,
+  "all_operation_files_preserved": 38,
+  "all_operation_outbox_payloads_preserved": 688,
+  "new_operation_outbox_rows": 0,
+  "source_request_count": 5,
+  "source_request_limit": 10,
+  "new_source_requests": 0,
+  "new_native_roles": 0,
+  "pending_candidates": [
+    {
+      "angle": "Establish what the Nasdaq-100 actually did at the dated session close and explain precisely what a correction label measures, without inferring its cause.",
+      "article_mode": "BREAKING_BRIEF",
+      "candidate_id": "simple-story-0781c5bbca13392eaf34a2a2",
+      "evidence_plan": "Resolve the frozen canonical X item without a new X fetch where the installed route permits, then seek lawful public Nasdaq-100 index history and reputable dated reporting available by the frozen cutoff. Bind peak and observation dates, index identity, price-versus-total-return basis, intraday-versus-close basis, and timezone; code owns drawdown arithmetic. Do not repeat the third-correction claim, price moves, or dollar losses without exact independent evidence. Treat the other Nasdaq X lead as overlapping discovery, not independent confirmation or a separate article. No chart until source-series rights and exact window are established. Use the existing cumulative ten-request budget and preserve the first actual blocker.",
+      "primary_reader_question": "Did the Nasdaq-100 reach a correction on the same price and time basis, and what does that label tell readers?",
+      "research_queries": [
+        "Nasdaq 100 October 30 2026 correction closing index high",
+        "Nasdaq 100 October 30 2026 market selloff public reporting"
+      ],
+      "selection_rationale": "A broad US equity drawdown has immediate reader value if verified. Its narrowly defined measurement is more defensible than an unsupported selloff narrative; the supplied percentage remains unverified.",
+      "source_stage_present": false,
+      "outcome_present": false,
+      "state": "NOT_REACHED_NOT_A_SOURCE_OR_EDITORIAL_REFUSAL"
+    },
+    {
+      "angle": "Separate the reported all-stock structure of a possible Marvell\u2013Lumentum transaction from an announced or completed deal, and explain which terms shareholders still need.",
+      "article_mode": "BREAKING_BRIEF",
+      "candidate_id": "simple-story-8521a12c484b3ea2869280df",
+      "evidence_plan": "Use the canonical X record only as a lead. Resolve the exact CNBC report and check dated issuer announcements or filings through the existing resolver, all bounded to the frozen cutoff. Verify whether discussions, agreement or completion is reported; distinguish attributable reporting from issuer confirmation. Establish any disclosed exchange ratio, conditions and rights before including them; do not invent valuation, synergy, dilution or closing certainty. An issuer filing hosted by SEC does not inherit government-authored rights. If a useful narrow attributable report cannot be lawfully bound, record its true source or rights cause. Keep all requests in the same ten-request ledger.",
+      "primary_reader_question": "What is actually confirmed about the reported transaction, and what would an all-stock structure leave unresolved?",
+      "research_queries": [
+        "CNBC Marvell Lumentum all stock deal October 30 2026",
+        "Marvell Lumentum October 30 2026 transaction announcement"
+      ],
+      "selection_rationale": "Potential consideration structure is a concrete current corporate-finance question with a public-reporting route to test. It is an independent fallback, conditional on exact attribution and rights, rather than filler.",
+      "source_stage_present": false,
+      "outcome_present": false,
+      "state": "NOT_REACHED_NOT_A_SOURCE_OR_EDITORIAL_REFUSAL"
+    }
+  ],
+  "publication_state": {
+    "state": "INVALIDATED",
+    "next_operation": "review-current-packet",
+    "next_command": "Review the current source/article packet; do not begin any prior tool request.",
+    "destinations": [],
+    "blocker": "QUALIFIED_NATIVE_RESULT_REQUIRED"
+  },
+  "publication_prepare": {
+    "classification": "NATIVE_DESKTOP_BLOCKED",
+    "blocker": "QUALIFIED_NATIVE_RESULT_REQUIRED",
+    "run_id": "cc042-live-resume-20261031-a",
+    "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\binding.json",
+    "command": "publication-prepare"
+  },
+  "observed_advance_classification": "NATIVE_PRE_WRITER_EDITION_COMPLETE",
+  "whole_edition_complete": false,
+  "first_cause": "SOFTWARE_PROCESS_DEFECT",
+  "cause_detail": "Reviewed advance/media-plan route short-circuits to the already accepted HOLD. Bound volume policy routes remaining manual candidates to scheduled --continue-after, but binding has no automation/window. That hint is forbidden and was not invoked. There is no new unanswered native request or source-cache result for either remaining candidate. Existing submit stage would conflict with immutable accepted returns. A task-result notice would merely wrap the partial final and cannot establish completion; no such terminal notice was created.",
+  "terminal_no_publication_recorded_for_edition": false,
+  "unattempted_candidates_are_source_refusals": false,
+  "canonical_counts_by_production_day": {
+    "newsroom-production-day-2026-10-27-bangkok": 1
+  },
+  "first_day_20261031_readbacks": 0,
+  "current_day_20261101_readbacks": 0,
+  "canonical_memory_proof": {
+    "schema_version": "contentops.v1_simple_published_memory_access.v1",
+    "corpus_schema_version": "contentops.published_corpus_read_model.v2",
+    "canonical_reconciled_article_count": 1,
+    "canonical_publication_contract": "SUBSTACK_DISPATCH_CONFIRMED_AND_EXACT_RECONCILIATION_CONFIRMED_AND_STABLE_PUBLIC_OBJECT_ID_AND_VALID_CANONICAL_URL_AND_EXACT_URL_HASH_AND_DURABLE_SOURCE_WORK_ITEM_AND_UNIQUE_ARTICLE_IDENTITY",
+    "derived_from_existing_durable_truth": true,
+    "store_access_mode": "SQLITE_MODE_RO_QUERY_ONLY",
+    "auto_migrate": false,
+    "production_store_unchanged_during_projection": true,
+    "second_publication_store_created": false
+  },
+  "operation_dispatches": 0,
+  "ambiguous_dispatches": 0,
+  "pending_reconciliations": 0,
+  "active_unexpired_leases": 0,
+  "seven_schedules_active_unchanged": [
+    "v1-newsroom-london-1700",
+    "v1-newsroom-new-york-2100",
+    "v1-newsroom-new-york-2300",
+    "v1-newsroom-new-york-0100",
+    "v1-newsroom-brief-asia-0900",
+    "v1-newsroom-brief-europe-1500",
+    "v1-newsroom-brief-us-1900"
+  ],
+  "control": "AUTONOMOUS_DEFAULT v40 unchanged",
+  "schedule_or_control_or_runtime_changed": false,
+  "production_source_or_pin_changed": false,
+  "public_write_performed": false,
+  "acceptance_passed": false,
+  "for_ops": {
+    "label": "For Ops, Mon 2 Nov",
+    "commit": "38da67f99fa6def4e3fbab4bd393cfdab0d0c6ab",
+    "scheduled_integration_by_ops_gmt7": "Mon 2 Nov 2026 01:20 GMT+7 per Jim day note; no schedule created by this worker",
+    "checks": {
+      "expanded_passed": 449,
+      "expanded_baseline_failures": 3,
+      "required_regressions_passed": 363,
+      "new_recovery_checks_passed": 19,
+      "focused_passed": 69,
+      "new_artifact_hashes_verified": 11,
+      "prior_artifact_hashes_verified": 27
+    },
+    "patch_applied": false,
+    "required_recovery": "Review exact partial-final and frozen-HOLD boundary before continuing the two remaining candidates. The staged pre-MAX source repair cannot reopen accepted terminal work by itself."
+  },
+  "next_actor": "Claude Ops at scheduled review; CC Desk verifies this segment and may dispatch independent CC-043 next.",
+  "smallest_next_action": "Ops integrates the staged repair and resolves an explicit reviewed continuation/recovery path for the preserved manual binding; do not infer or force terminal NO_PUBLICATION.",
+  "stopped_before_cc043": true
+}
