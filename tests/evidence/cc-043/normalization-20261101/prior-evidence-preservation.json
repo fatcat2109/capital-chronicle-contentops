@@ -1,0 +1,282 @@
+{
+  "source_commit": "8535f48eb437cf715c45edc91d6285f5643684ad",
+  "preserved_original_blob_count": 69,
+  "files": [
+    {
+      "path": "tests/evidence/cc-043/article-evidence.json",
+      "git_blob_oid": "055eaaf7c780f853e7d88184c26fd2fbde0df4ac"
+    },
+    {
+      "path": "tests/evidence/cc-043/article-review.json",
+      "git_blob_oid": "688120140c7c3d26d4b488d141f952260d507576"
+    },
+    {
+      "path": "tests/evidence/cc-043/article.json",
+      "git_blob_oid": "ee7a91670732d5fec783f2873f297ed581dea2a2"
+    },
+    {
+      "path": "tests/evidence/cc-043/article.md",
+      "git_blob_oid": "81a0fa36948459d5dec2adb74658c3b0919b9911"
+    },
+    {
+      "path": "tests/evidence/cc-043/fixture-publication-refusal.json",
+      "git_blob_oid": "6df6c9ba19d2ec173e2e39500844fbec7127f8a3"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/final-visual-27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9-request.json",
+      "git_blob_oid": "0f0a2802705b2a2738e7b2b9f086e0dba6aabf48"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/final-visual-27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9-response.json",
+      "git_blob_oid": "9948194629cf8345f69989800602d4957fe7aa52"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/media-plan-request.json",
+      "git_blob_oid": "df02038a690d96c576134a79899a89add1253cdc"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/media-plan-response.json",
+      "git_blob_oid": "06cae5de1b4330cfc3725a1d604297793df97baa"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/r2-stale-repair-history.json",
+      "git_blob_oid": "89070de857d1e3f76d9589a34839b26d78de79d7"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/r4-repair-response.json",
+      "git_blob_oid": "60700620862f59bff0836ab841d863c2645387c3"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/rejected-calendar-media-plan-request.json",
+      "git_blob_oid": "1e37781134cbf8ddbc6f8694a18079e548415cb5"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/rejected-calendar-media-plan-response.json",
+      "git_blob_oid": "98834fbeb318bb11883a1bea2b56294d6676a08a"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/rejected-calendar-select-request.json",
+      "git_blob_oid": "9d3d000ad9707102341b1eeaba37cabf2eb7fd33"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/rejected-calendar-select-response.json",
+      "git_blob_oid": "1bbaaa1efcbbb269efc2db11a4428e8803151ac9"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/revise-request.json",
+      "git_blob_oid": "df9f05cb35618535e7dbdc0283374cc45898e02e"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/revise-response.json",
+      "git_blob_oid": "fd840c51783c0bd7051accee3bbde63490510570"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/select-request.json",
+      "git_blob_oid": "e30a72b0014f582b0808f28b30905d9664f35913"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/select-response.json",
+      "git_blob_oid": "97e5c74eb68649b7095c5bf345442e234c38ed4f"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/visual-edit-request.json",
+      "git_blob_oid": "5d571a26a23b885d74c0e2edb55efd184d60d022"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/visual-edit-response.json",
+      "git_blob_oid": "e4833398de7c87681836a83ed22d26c34536c3c3"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/write-request.json",
+      "git_blob_oid": "e855a4bc5bedb3938a6ed4dd2545f3471525834c"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/write-response.json",
+      "git_blob_oid": "a4e10e9f83c52be4c2e60ee2cd0f941643749f5e"
+    },
+    {
+      "path": "tests/evidence/cc-043/previews.json",
+      "git_blob_oid": "13f52653935987286cddc442a02a3a7b66192580"
+    },
+    {
+      "path": "tests/evidence/cc-043/producer-inputs.json",
+      "git_blob_oid": "11e578a79f738dcba9e70b52226dec48bcd10b1b"
+    },
+    {
+      "path": "tests/evidence/cc-043/rejected-calendar-candidate.json",
+      "git_blob_oid": "cd34dae989f57258b8bb529e604b5f990ce19d52"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/discord-desktop.pdf",
+      "git_blob_oid": "c1016d5bec54b48526d150d2237bc6c2fe6582b7"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/discord-desktop.png",
+      "git_blob_oid": "c106710f788238bdb9bb8c5ab91519a38aff9fed"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/discord-mobile.pdf",
+      "git_blob_oid": "a84858b587a993de10e0f067720ac99f9b767c2b"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/discord-mobile.png",
+      "git_blob_oid": "ac409e8a05ce4b8c6742757c0ff7c5c1b6f19c08"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/facebook_page-desktop.pdf",
+      "git_blob_oid": "67bc2b807f2292b2da04d146bc40631203997add"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/facebook_page-desktop.png",
+      "git_blob_oid": "57a85f1bba4d788fe57963446e88fb52cdd27dc4"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/facebook_page-mobile.pdf",
+      "git_blob_oid": "573e667ec0258e978629281a03cc9373a611517d"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/facebook_page-mobile.png",
+      "git_blob_oid": "6ba7bc2631ec4b6459802bdfd4642cf85e3805e3"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/index.html",
+      "git_blob_oid": "7ceaf914f2dfcf0e62b69f5216462370176b42b4"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/instagram_business-desktop.pdf",
+      "git_blob_oid": "8d72b47a0a1671771c5c1125f4281096a4ab5b7c"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/instagram_business-desktop.png",
+      "git_blob_oid": "80429636d1f2aaa28b54d1798e7cc50381abb283"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/instagram_business-mobile.pdf",
+      "git_blob_oid": "c67f16ff330465b4df3a48cfa53d375d00aefd4f"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/instagram_business-mobile.png",
+      "git_blob_oid": "4c5f3c597db98ee9a77f7c20ac6c668ac539b275"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/linkedin-desktop.pdf",
+      "git_blob_oid": "4e19205c639ec81007af979f0915e235a4ba03d1"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/linkedin-desktop.png",
+      "git_blob_oid": "1bf55011faca4a3519fb391a84b7f9df1c009044"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/linkedin-mobile.pdf",
+      "git_blob_oid": "2f18a886a2019d36824dd774c7a0c832352bd6ca"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/linkedin-mobile.png",
+      "git_blob_oid": "4c2195b7eea662564ffc3b2e02270b980e974f9e"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/pdf-content-checks.json",
+      "git_blob_oid": "ec998e94b6a17a345b1d69e5f4d805a812503c11"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/renders.json",
+      "git_blob_oid": "52f5d0b4845826111898cc5914c74b166c4b7bd6"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/substack-desktop.pdf",
+      "git_blob_oid": "00a1328fde6556f18d3b95e3cac968aec5beff07"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/substack-desktop.png",
+      "git_blob_oid": "167b2c52914a44f1925b1189267b267674fcd51e"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/substack-mobile.pdf",
+      "git_blob_oid": "75b8c4b43eccb88031e1cad789070baae98077b9"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/substack-mobile.png",
+      "git_blob_oid": "8307144caab5d4373d6fc0c82a94f162b45b041e"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/telegram-desktop.pdf",
+      "git_blob_oid": "80e173e840ddff14e5cc6eacdba999cdd02dc4c8"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/telegram-desktop.png",
+      "git_blob_oid": "a255d94786caad92074a35b298c2e1db3708ebb3"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/telegram-mobile.pdf",
+      "git_blob_oid": "cadd72360e120aa4bdea048eff6b5bb5403b1647"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/telegram-mobile.png",
+      "git_blob_oid": "8df9b3586a978d19383c6fbc9ce90cb626f7a1bc"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/threads-desktop.pdf",
+      "git_blob_oid": "50babc5d8bc06253260c939409d3c609c1e94c91"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/threads-desktop.png",
+      "git_blob_oid": "a73530820708ec0b24f5522a2cbd61d57b4857ce"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/threads-mobile.pdf",
+      "git_blob_oid": "070c1cb1436548f5d9ab9cc5d6a66071f921fde9"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/threads-mobile.png",
+      "git_blob_oid": "64df81194663a6c5664d9cb5bfc6da9ba8337d97"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/x-desktop.pdf",
+      "git_blob_oid": "eb197a7b800c7cac415278ba8c7c2300dd2863c8"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/x-desktop.png",
+      "git_blob_oid": "eea0cb74ad74522bcc60e0cfc222f801517bd3b1"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/x-mobile.pdf",
+      "git_blob_oid": "34bbf21ab7d3c23a390cb788c0e267b1c0acfba1"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/x-mobile.png",
+      "git_blob_oid": "f977b531db4dbed10b22b33bedd27da060acd324"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/youtube-desktop.pdf",
+      "git_blob_oid": "1b6b880e8c090b28764e95609c70c18ae24425da"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/youtube-desktop.png",
+      "git_blob_oid": "97c6c2f5dfdd73e8bd931b035ddfab34f5a22ff6"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/youtube-mobile.pdf",
+      "git_blob_oid": "3e18dcb352b80764e6a752abb76ef0e4a4d5ffbd"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/youtube-mobile.png",
+      "git_blob_oid": "8d8b49db3e07e8211afc52f3dba3b7f6133ad4fb"
+    },
+    {
+      "path": "tests/evidence/cc-043/story-memory.json",
+      "git_blob_oid": "4843a691656279e9eedfbdb8a5a4274bfc94aec6"
+    },
+    {
+      "path": "tests/evidence/cc-043/tests.junit.xml",
+      "git_blob_oid": "b8417241ba1bb034e8f7d9774933ca19fe686848"
+    },
+    {
+      "path": "tests/evidence/cc-043/ui-tests.junit.xml",
+      "git_blob_oid": "a2e99dd450fb7060655ad260f6e2b1857f7615ec"
+    },
+    {
+      "path": "tests/evidence/cc-043/validation.json",
+      "git_blob_oid": "45a00091e8aae3e1c730353c5b5012d72d107ea9"
+    }
+  ]
+}

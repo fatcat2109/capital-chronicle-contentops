@@ -1,0 +1,25 @@
+{
+  "source_commit": "8535f48eb437cf715c45edc91d6285f5643684ad",
+  "original_projection_blob_sha256": "95e36d643705771bfa268833aaca18caa729da75079661e83711da53f5b218d0",
+  "scope": "Exact prior consumer projection loaded into a fresh Python module before importing read_export; synthetic schema-valid exports only, no original evidence mutation.",
+  "cases": [
+    {
+      "case": "rounded_private",
+      "original_consumer_result": "ACCEPTED_LEAKED_PUBLIC_PROSE",
+      "public_records": 17,
+      "controlled_text": "The retained level was 2412.4 at the close."
+    },
+    {
+      "case": "private_prose",
+      "original_consumer_result": "ACCEPTED_LEAKED_PUBLIC_PROSE",
+      "public_records": 17,
+      "controlled_text": "The retained level was near 157.70."
+    },
+    {
+      "case": "demo_r",
+      "original_consumer_result": "ACCEPTED_LEAKED_PUBLIC_PROSE",
+      "public_records": 17,
+      "controlled_text": "The retained trade lost 0.8R."
+    }
+  ]
+}
