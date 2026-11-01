@@ -1,0 +1,26 @@
+{
+  "checked_at_utc": "2026-11-01T09:15:45.252176+00:00",
+  "status": "PASS_FOR_EVIDENCE_INTEGRITY_NOT_NEW_ARTICLE_ELIGIBILITY",
+  "dataset_rows": 1131,
+  "selected_exact_original_jsonl_rows": 7,
+  "release_captures_and_manifest_metadata_match": 2,
+  "gzip_raw_length_and_sha256_match": 2,
+  "release_header_dst_to_utc_matches": 2,
+  "all_seven_explicit_values_match_retained_primary_text_or_tables": true,
+  "unit_and_seasonal_adjustment_checks": "PASS",
+  "freshness_referenced_main_result_hash_matches": true,
+  "original_package_files_byte_identical": 208,
+  "original_sealed_artifact_hashes_match": 207,
+  "source_owner_modules_or_queries_executed": 0,
+  "new_reader_render_or_review_claim": false,
+  "existing_guard_tests": {
+    "command": "python -m pytest tests/test_retrospective_piece_v1.py -q --junitxml=.task-runtime/cc-074/archive-followup-20261101/retrospective-guards.xml",
+    "exit_code": 0,
+    "reported_seconds": 7.1,
+    "tests": 36,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "final_checked_at_utc": "2026-11-01T09:17:38.335924+00:00"
+}
