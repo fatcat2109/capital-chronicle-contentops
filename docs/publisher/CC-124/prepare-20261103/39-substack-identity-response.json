@@ -1,0 +1,16 @@
+{
+  "tool_request_sha256": "ccaed1ccb82a9d2bbc9113d8607385cd883af0c960eb385cd8325cecede0a655",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Actual fresh task-owned Neo page 37 snapshot at the exact Substack domain shows signed-in Capital Chronicle avatar/profile, Edit profile, Dashboard and New post controls. Reobserved after this exact request was begun; no account switch, login or public write.",
+    "observed_at_utc": "2026-11-02T22:45:49Z"
+  },
+  "result": {
+    "request_sha256": "eb5f6a5418f17b700afa8187610ef2d7b774a759dab4d497ddd1e95f1e22622b",
+    "authenticated": true,
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_write_performed": false
+  }
+}

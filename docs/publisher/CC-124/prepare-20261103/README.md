@@ -1,0 +1,54 @@
+# CC-124: September CPI
+
+The article is qualified, reviewed and released to the existing live owner. Its
+canonical publication is still pending. Continue `cc124-prepare-20261103-a` with
+the live binding returned in [the release result](24-release-finished-output.json).
+Do not rerun intake, writing, revision or create another article.
+
+The title is **September CPI: why 0.6% and 3.7% answer different questions**.
+The four retained BLS figures are monthly all-items 0.6% and core 0.3%, seasonally
+adjusted; annual all-items 3.7% and core 2.6%, not seasonally adjusted. Source time
+is 14 October 2026, 12:30 UTC. The original cutoff remains
+`2026-11-02T20:24:15.008803Z`. The independent dated BLS archive browser check
+confirms these figures; its capture remains separate from the admitted rolling
+BLS URL. No later release facts were added.
+
+The approved native Light roles prepared the retained evidence and media plan.
+The same MAX task `/root/native_visual_edit_1f6d9bfd6170` decided the visuals,
+wrote, revised and accepted all 18 exact canonical/channel desktop/mobile renders.
+The exact KEEP review and render acceptance are bound in
+[20-keep-review-output.json](20-keep-review-output.json). The fact checker accepts
+15 material bindings with zero unsupported bindings. There are no media assets;
+decision 39 permits text analysis and the exact Instagram image-required skip.
+
+Model/effort records are **CONFIGURED_NOT_OBSERVED**: `gpt-6.1-sol/low` for Light
+and `gpt-6.1-sol/max` for writing/review. Actual model and effort telemetry remain
+unknown. The resumed top-level launch arguments were also read back as
+`gpt-6.1-sol/max`; see [the launch record](resume-launch-20261103T2214Z.json).
+
+Engineering repairs extend the existing compiler, native continuation and sole
+publisher. Each compatible operating commit was pushed, fast-forwarded and
+tagged under Jim decision 39, with the previous tag retained for rollback and
+unrelated tracked WIP hashes preserved. The task branch's older base is preserved;
+the exact compatible code commits are on `backlog/cc-124-runtime-compiler-repair`.
+No default branch was merged, application restarted, schedule changed or chat
+message sent. Main and MT5 are untouched.
+
+Current focused evidence includes 41 release/promotion checks, 26 native-protocol
+checks and 116 publication/finished-piece checks. The recovery policy's initial
+fixture error and its corrected five-case rerun are retained separately; the
+production source did not change between those two test runs. All tests use
+temporary stores, one pytest process at a time and explicitly named test files.
+
+The older FOMC LinkedIn uncertainty remains an older article's recovery obligation.
+An older FOMC YouTube request surfaced during global recovery and was left
+unclaimed. The scoped repair now defers confirmed older articles' distribution
+before transport, while uncertain canonicals, same-article recovery and unbound
+rows retain their guards.
+
+One fresh identity return was recorded incorrectly after Neo reported an unknown
+tab. [The correction](identity-observation-correction.json) preserves that error
+and disqualifies the return. No public action may use it. Let its existing TTL
+expire, then obtain and submit an actually observed new exact identity return
+before beginning a publish action. A later successful browser view alone is not
+the missing request-bound return. Keep the original immutable records.

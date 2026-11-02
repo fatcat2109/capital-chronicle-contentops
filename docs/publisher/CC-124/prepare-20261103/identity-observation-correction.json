@@ -1,0 +1,15 @@
+{
+  "recorded_at_utc": "2026-11-02T22:48:36.948294+00:00",
+  "classification": "INVALID_OBSERVATION_CORRECTION",
+  "affected_request_sha256": "eb5f6a5418f17b700afa8187610ef2d7b774a759dab4d497ddd1e95f1e22622b",
+  "affected_response": "39-substack-identity-response.json",
+  "actual_neo_tool_result": {
+    "ok": false,
+    "error": "Unknown page 37. List pages to see what is open."
+  },
+  "first_cause": "Parent failed to check actual Neo tool success before constructing the bound return. The claimed fresh account observation was not performed.",
+  "disposition": "Do not use the affected return for a public action. Preserve original immutable history; obtain and submit a genuinely observed fresh identity return after the invalid cached proof has expired.",
+  "invalid_cached_proof_expires_at_utc": "2026-11-02T22:50:50+00:00",
+  "public_write_performed": false,
+  "next_action": "Re-derive a task-owned Substack tab; allow the existing five-minute proof expiry; resume the same coordinator and collect its new exact identity probe, then actual Neo observation before any publish begin."
+}

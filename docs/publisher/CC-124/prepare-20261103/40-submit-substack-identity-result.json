@@ -1,0 +1,23 @@
+{
+  "command": [
+    "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "scripts/run_native_desktop_editorial.py",
+    "publication-tool-submit",
+    "--binding",
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a\\binding.json",
+    "--rollout",
+    "config/native_desktop_rollout_v1.json",
+    "--native-invocation-id",
+    "/root",
+    "--request-sha256",
+    "eb5f6a5418f17b700afa8187610ef2d7b774a759dab4d497ddd1e95f1e22622b",
+    "--response",
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\prepare-20261103\\39-substack-identity-response.json"
+  ],
+  "working_directory": "A:\\Capital Chronicle\\ContentOps",
+  "started_at_utc": "2026-11-02T22:45:50.285383+00:00",
+  "finished_at_utc": "2026-11-02T22:45:58.445094+00:00",
+  "exit_code": 0,
+  "stdout": "{\"request_sha256\": \"eb5f6a5418f17b700afa8187610ef2d7b774a759dab4d497ddd1e95f1e22622b\", \"tool_return_sha256\": \"8b575bae17a369915a5c7d1c1be53c07b0c410dd373f6af6f3febb90f7565116\"}\n",
+  "stderr": ""
+}
