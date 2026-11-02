@@ -231,6 +231,28 @@ def _write_json(path: Path, value: Mapping[str, Any]) -> None:
     path.write_text(payload, encoding="utf-8")
 
 
+def _preserve_unqualified_revision_artifact(path, value, turn):
+    """Retain failed assembly bytes before an accepted same-writer revision."""
+    path = Path(path)
+    if (path.name not in {"article_manifest_v1.json", "simple_gemini_validation_v1.json"}
+            or not path.is_file() or json.loads(path.read_bytes()) == value):
+        return
+    request = getattr(turn, "frozen_request", lambda _: None)("revise")
+    response = getattr(turn, "_get", lambda *_: None)("revise", "response")
+    writer = getattr(turn, "_get", lambda *_: None)("write", "response")
+    if not request or not response or not writer:
+        return  # The ordinary immutable-artifact check remains authoritative.
+    if (response["request_sha256"] != request["request_sha256"]
+            or response["invocation_observation"]["invocation_id"] != writer["invocation_observation"]["invocation_id"]
+            or (path.parent / "qualified_article_record_v1.json").exists()):
+        raise SimpleGeminiNewsroomError("native_revision_artifact_change_refused", [path.name])
+    archive = path.parent / "editorial-revision-history" / request["request_sha256"] / path.name
+    if archive.exists():
+        raise SimpleGeminiNewsroomError("native_revision_artifact_already_preserved", [path.name])
+    archive.parent.mkdir(parents=True, exist_ok=True)
+    path.replace(archive)
+
+
 def _headline_text(row: Mapping[str, Any]) -> str:
     external = row.get("external_content")
     external = external if isinstance(external, Mapping) else {}
@@ -2370,6 +2392,7 @@ def run_v1_simple_gemini_newsroom(
             # Full invocation telemetry belongs only to the terminal receipt.
             normalize_native_receipt(value, llm_invoke.telemetry()
                 if Path(path).name == "simple_gemini_newsroom_receipt_v1.json" else None)
+            _preserve_unqualified_revision_artifact(path, value, llm_invoke)
             context = getattr(llm_invoke, "source_recovery", lambda: None)()
             path = Path(path)
             if (context and (context.get("pre_writer_context_attachment") or context.get("within_bound_live_budget"))

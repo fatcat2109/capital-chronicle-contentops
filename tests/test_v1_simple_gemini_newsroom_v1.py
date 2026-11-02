@@ -91,6 +91,41 @@ def test_image_required_skip_is_local_to_instagram_without_media(monkeypatch, sk
             _native_preview_bundle(**kwargs)
 
 
+@pytest.mark.parametrize("state", ["accepted", "pending", "wrong_writer", "qualified"])
+def test_failed_native_assembly_retains_original_before_exact_revision(tmp_path, state):
+    from types import SimpleNamespace
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _preserve_unqualified_revision_artifact, _write_json
+
+    path = tmp_path / "article_manifest_v1.json"
+    old, new = {"title": "Original failed assembly"}, {"title": "Accepted repaired assembly"}
+    _write_json(path, old)
+    original = path.read_bytes()
+    request = {"request_sha256": "a" * 64}
+    writer = {"invocation_observation": {"invocation_id": "same-native-writer"}}
+    response = {**request, "invocation_observation": {
+        "invocation_id": "other-writer" if state == "wrong_writer" else "same-native-writer"}}
+    turn = SimpleNamespace(frozen_request=lambda _: request,
+        _get=lambda stage, _: writer if stage == "write" else (None if state == "pending" else response))
+    if state == "qualified":
+        (tmp_path / "qualified_article_record_v1.json").write_text("{}", encoding="utf-8")
+    if state == "accepted":
+        _preserve_unqualified_revision_artifact(path, new, turn)
+        archive = tmp_path / "editorial-revision-history" / request["request_sha256"] / path.name
+        assert archive.read_bytes() == original
+        _write_json(path, new)
+        _preserve_unqualified_revision_artifact(path, new, turn)
+        assert json.loads(path.read_bytes()) == new
+        with pytest.raises(SimpleGeminiNewsroomError, match="already_preserved"):
+            _preserve_unqualified_revision_artifact(path, {"title": "Another change"}, turn)
+        assert archive.read_bytes() == original
+    else:
+        with pytest.raises(SimpleGeminiNewsroomError):
+            _preserve_unqualified_revision_artifact(path, new, turn)
+            _write_json(path, new)
+        assert path.read_bytes() == original
+        assert not (tmp_path / "editorial-revision-history").exists()
+
+
 def test_vietnamese_lead_matches_selected_inflation_topic_without_english_padding():
     from live_contentops.v1_simple_gemini_newsroom_v1 import _selected_news_peg_blockers
     candidate = {"headline_text": "Inflation remains elevated while domestic spending is resilient."}
