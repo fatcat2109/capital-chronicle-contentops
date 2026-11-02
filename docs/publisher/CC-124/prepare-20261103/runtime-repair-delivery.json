@@ -1,0 +1,16 @@
+{
+  "base": "672f57e51f7514aa6184c1136e861f6981461fd7",
+  "tree": "0c0636f5d0c72767d1a58653eaaabca183d79810",
+  "patch_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\.task-runtime\\cc124-runtime-repair\\repair.patch",
+  "index_scope": "task-local alternate Git index; operating and item indexes untouched",
+  "changed_paths": [
+    "live_contentops/v1_simple_gemini_newsroom_v1.py",
+    "tests/test_v1_simple_gemini_newsroom_v1.py"
+  ],
+  "observed_at_utc": "2026-11-02T20:53:43.554959+00:00",
+  "integration_branch": "backlog/cc-124-runtime-compiler-repair",
+  "integration_commit": "29086d88d290c35b48ef28b9d709b5016c40bca8",
+  "item_patch_commit": "98cf1d31",
+  "prepared_at_utc": "2026-11-02T20:54:30.944129+00:00",
+  "authority": "BACKLOG CC-124 cites Jim decision 39: Publisher tested ContentOps integration by fast-forward and tag; no default-branch merge"
+}
