@@ -346,6 +346,8 @@ class DurablePublicationCoordinator:
             return confirmations[key]
         intents = []
         for message in messages:
+            if message["destination"] not in {"substack", *V1_REQUIRED_DERIVATIVE_DESTINATIONS}:
+                continue
             try:
                 intent = json.loads(message["payload"])
             except (ValueError, TypeError):
@@ -2498,7 +2500,9 @@ class DurablePublicationCoordinator:
 
     def _defer_prior_distribution_recovery(self, intent, destination):
         scope = self.recovery_scope
-        if not self.allow_prior_confirmed_distribution or not scope:
+        if (not self.allow_prior_confirmed_distribution or not scope
+                or destination not in V1_REQUIRED_DERIVATIVE_DESTINATIONS
+                or intent.get("work_item_id") == scope["work_item_id"]):
             return False
         recovery = {"backlog_remaining": 1, "backlog_remaining_obligations": [
             {"work_item_id": intent.get("work_item_id"), "destination": destination}]}

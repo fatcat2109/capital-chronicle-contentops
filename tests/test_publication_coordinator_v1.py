@@ -1902,3 +1902,27 @@ def test_native_internal_records_never_become_dispatch_destinations(tmp_path):
     assert repeated["derivative_confirmed_count"] == 8
     assert transport.publish_calls == before
     assert len(store.list_platform_dispatches()) == 9
+
+
+def test_prior_distribution_policy_does_not_decode_internal_editorial_payloads(tmp_path, monkeypatch):
+    store = ContentOpsDurableStore(tmp_path / "controlled.sqlite3")
+    store.create_work_item(story_id="internal", work_item_id="internal", title="controlled", target_surface="TEST")
+    raw = json.dumps({"work_item_id": "old", "plan_hash": "old-plan", "marker": "CONTROLLED-internal-editorial"})
+    store.register_outbox_message(message_id="internal", work_item_id="internal",
+        destination="internal:native-desktop-editorial", payload=raw, status="EDITORIAL_INTERNAL")
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None,
+        allow_prior_confirmed_distribution=True)
+    original_loads = json.loads
+    def decode(value, *args, **kwargs):
+        assert value != raw, "Internal editorial payload must not enter public intent policy"
+        return original_loads(value, *args, **kwargs)
+    monkeypatch.setattr(json, "loads", decode)
+    assert coordinator.recovery_blocks_new_publication({"backlog_remaining": 0}, "current",
+        plan={"article_identity": "new"}) is False
+    coordinator.recovery_scope = {"work_item_id": "current", "plan": {"article_identity": "new"}}
+    def unexpected(*args, **kwargs):
+        raise AssertionError("A non-deferable row must not rescan publication history")
+    monkeypatch.setattr(coordinator, "recovery_blocks_new_publication", unexpected)
+    assert not coordinator._defer_prior_distribution_recovery({"work_item_id": "old"}, "internal:native-desktop-editorial")
+    assert not coordinator._defer_prior_distribution_recovery({"work_item_id": "old"}, "substack")
+    assert not coordinator._defer_prior_distribution_recovery({"work_item_id": "current"}, "linkedin")
