@@ -67,7 +67,7 @@
       "whole_suite": false
     }
   ],
-  "implementation_head": "4d83c2ba04450ee68f2ed986a5a3812325bcc585",
+  "implementation_head": "2197c1380897477d91568a701c585ed8e7b2f3fb",
   "integration": {
     "observed_at_utc": "2026-11-02T16:47:26.418950+00:00",
     "previous_head": "71bceaa33b68d55f57e5b035f20093f9433a79d9",
@@ -261,6 +261,19 @@
       "rollback_tag": "contentops-live-20261103-cc123c",
       "integrated_head": "4d83c2ba04450ee68f2ed986a5a3812325bcc585",
       "tag": "contentops-live-20261103-cc123d",
+      "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "uncommitted_entries": 42,
+      "active_window_leases": 0,
+      "mode": "FAST_FORWARD_ONLY",
+      "integration_lease": "Existing shared newsroom lease"
+    },
+    {
+      "observed_at_utc": "2026-11-02T18:16:33.041029+00:00",
+      "previous_head": "4d83c2ba04450ee68f2ed986a5a3812325bcc585",
+      "rollback_tag": "contentops-live-20261103-cc123d",
+      "integrated_head": "2197c1380897477d91568a701c585ed8e7b2f3fb",
+      "tag": "contentops-live-20261103-cc123e",
       "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
       "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
       "uncommitted_entries": 42,
