@@ -63,6 +63,34 @@ def test_cited_subset_keeps_frozen_source_ids():
     assert _validate_worker_text(json.dumps(output))[3] == "cited_source_order_invalid"
 
 
+@pytest.mark.parametrize("skip_destination", ["instagram_business", "telegram"])
+def test_image_required_skip_is_local_to_instagram_without_media(monkeypatch, skip_destination):
+    from live_contentops.eight_platform_substack_first_pipeline_v1 import build_native_derivative_payloads
+    import live_contentops.eight_platform_substack_first_pipeline_v1 as compiler
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle
+
+    def compile_with_skip(**kwargs):
+        payloads = build_native_derivative_payloads(**kwargs)
+        for payload in payloads.values():
+            for key in ("text", "full_text", "root_text"):
+                if key in payload:
+                    payload[key] = "CONFIRMED " + payload[key]
+        payloads[skip_destination] = {"destination": skip_destination,
+            "delivery_state": "SKIPPED_IMAGE_REQUIRED", "media_asset_ids": []}
+        return payloads
+
+    monkeypatch.setattr(compiler, "build_native_derivative_payloads", compile_with_skip)
+    kwargs = dict(article=_article_output()["article"], article_mode="STANDARD_NEWS_ANALYSIS",
+        article_identity="a" * 64, epistemic_state={"reader_visible_epistemic_label": "CONFIRMED"})
+    if skip_destination == "instagram_business":
+        previews, intents = _native_preview_bundle(**kwargs)
+        assert len(intents) == len(previews["packages"]) == 8
+        assert previews["packages"][skip_destination]["delivery_state"] == "SKIPPED_IMAGE_REQUIRED"
+    else:
+        with pytest.raises(SimpleGeminiNewsroomError, match="native_preview_epistemic_state_missing"):
+            _native_preview_bundle(**kwargs)
+
+
 def test_vietnamese_lead_matches_selected_inflation_topic_without_english_padding():
     from live_contentops.v1_simple_gemini_newsroom_v1 import _selected_news_peg_blockers
     candidate = {"headline_text": "Inflation remains elevated while domestic spending is resilient."}

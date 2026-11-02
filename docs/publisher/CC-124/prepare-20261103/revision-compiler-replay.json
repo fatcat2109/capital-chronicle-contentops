@@ -1,0 +1,20 @@
+{
+  "classification": "EXACT_SAME_WRITER_REVISION_COMPILER_REPLAY_PASS",
+  "validation_status": "PASS",
+  "unsupported_material_claim_count": 0,
+  "derivative_intents": 8,
+  "channels": {
+    "telegram": "COMPILED",
+    "x": "COMPILED",
+    "linkedin": "COMPILED",
+    "discord": "COMPILED",
+    "facebook_page": "COMPILED",
+    "instagram_business": "SKIPPED_IMAGE_REQUIRED",
+    "threads": "COMPILED",
+    "youtube": "COMPILED"
+  },
+  "publisher_attribution_preserved": true,
+  "initialism_preserved": true,
+  "source_facts_changed": false,
+  "public_write_performed": false
+}

@@ -1,0 +1,13 @@
+{
+  "base": "b9082e92bc7ffbdf21b141b0d0b02ffb4888dc76",
+  "tree": "fb2fcd50e2c8b9d5b90180e7fad52ec3566fcc06",
+  "patch_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\.task-runtime\\cc124-runtime-repair3\\repair.patch",
+  "changed_paths": [
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+    "live_contentops/v1_simple_gemini_newsroom_v1.py",
+    "tests/test_eight_platform_substack_first_pipeline_v1.py",
+    "tests/test_v1_simple_gemini_newsroom_v1.py"
+  ],
+  "context_adaptation": "The live loop also contains text-first skip handling; insert the identical Instagram-only guard after the exact existing photo-less skip without changing those extra lines.",
+  "observed_at_utc": "2026-11-02T21:25:50.329116+00:00"
+}
