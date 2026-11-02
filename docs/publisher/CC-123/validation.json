@@ -1,6 +1,6 @@
 {
   "schema_version": "contentops.cc123.validation.v1",
-  "observed_at_utc": "2026-11-02T18:01:41.751090+00:00",
+  "observed_at_utc": "2026-11-02T18:16:03.677400+00:00",
   "branch": "backlog/cc-123-publication-path",
   "base_tag": "contentops-live-20261102-d39",
   "dependencies": {
@@ -52,6 +52,16 @@
       "failures": "0",
       "errors": "0",
       "time": "110.172",
+      "processes": 1,
+      "workers": 1,
+      "whole_suite": false
+    },
+    {
+      "junit": "docs/publisher/CC-123/checks/x-media-readback.xml",
+      "tests": "62",
+      "failures": "0",
+      "errors": "0",
+      "time": "86.673",
       "processes": 1,
       "workers": 1,
       "whole_suite": false
@@ -322,7 +332,9 @@
     "scripts/run_native_desktop_editorial.py": "e26025688eff13321c66ee6d9e556669527388b6645c26e63ebf7b9aebcb0699",
     "tests/test_native_finished_publication_v1.py": "cb07ad89008a689c74584c55108a2a7a60c6cbe486e68db73fb7c97470a60590",
     "live_contentops/media_manifest_authority_v1.py": "25710ee9225e8da21c3e6644049767b07bbae51a8aa00fdad73a7afc2e9bf094",
-    "tests/test_media_manifest_authority_v1.py": "b9f12850600d71753249094af33281dbfd0b7926a2610dd7196711a1413bbd85"
+    "tests/test_media_manifest_authority_v1.py": "b9f12850600d71753249094af33281dbfd0b7926a2610dd7196711a1413bbd85",
+    "live_contentops/neo_destination_handoff_v1.py": "da4d810664d5fb505b0c09df7adb777f01e3383e7c30a51d82d28960a69d2def",
+    "tests/test_native_neo_executor_v1.py": "c38d81b80a2d0878e5217fe775768cdd2e387a1fa53aac32857d40e90d3f886e"
   },
   "status": "IMPLEMENTED_TESTED_INTEGRATED_CANONICAL_READBACK_CONFIRMED_DISTRIBUTION_PARTIAL",
   "delivery_media_fix": {
@@ -341,5 +353,57 @@
       "lease_4e429b91c5b9db7f"
     ],
     "no_window_lease_released": true
+  },
+  "x_actual_publication": {
+    "public_object_id": "2117318307866968521",
+    "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521",
+    "observed_thread": [
+      {
+        "public_object_id": "2117318307866968521",
+        "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521",
+        "observed_text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\n\nhttps://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+        "raw_observed_text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\n\nhttps://\ncapitalchronicle.substack.com/p/the-fed-held\n-on-october-28-both-dissenters\n\u2026"
+      },
+      {
+        "public_object_id": "2117318312149275058",
+        "public_object_url": "https://x.com/Capitalnicle/status/2117318312149275058",
+        "observed_text": "Watch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote.",
+        "raw_observed_text": "Watch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote."
+      },
+      {
+        "public_object_id": "2117318315236299015",
+        "public_object_url": "https://x.com/Capitalnicle/status/2117318315236299015",
+        "observed_text": "The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade.",
+        "raw_observed_text": "The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade."
+      }
+    ],
+    "observed_media_sha256": [
+      "52f9272112bd845f2aa375b53d635fdb25ad7be6005eced6c3080d91facfc34e"
+    ],
+    "uploaded_source_media_sha256": [
+      "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789"
+    ],
+    "media_comparisons": [
+      {
+        "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521",
+        "public_image_url": "https://pbs.twimg.com/media/HWI5ZHXWwAAJC6M?format=jpg&name=small",
+        "source_asset_sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789",
+        "platform_sha256": "52f9272112bd845f2aa375b53d635fdb25ad7be6005eced6c3080d91facfc34e",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "visual_similarity": 0.999,
+        "meaning": "Actual source and downloaded public chart visually compared: title, dissenters, counts 10 and 2, zero-based member axis and source credit match; X resized and transcoded PNG to JPEG"
+      }
+    ],
+    "normalization": "Only the X-wrapped displayed canonical link was expanded after actual Neo navigation through its t.co URL reached the exact canonical article; whitespace is normalized by the existing checker",
+    "observed_link_resolutions": [
+      {
+        "displayed_url": "https://t.co/4KmC1Kkww4",
+        "target_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+        "target_verified": true,
+        "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521"
+      }
+    ],
+    "coordinator_readback": "PENDING_NATIVE_READBACK; no repeated write"
   }
 }
