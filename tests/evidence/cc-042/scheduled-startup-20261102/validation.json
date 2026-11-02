@@ -102,5 +102,6 @@
   "main_mt5_or_cua_actions": 0,
   "merged_or_deployed": false,
   "overall_cc042_acceptance": "NOT_MET: no production run in this authorized repair scope; backlog last records 0/3 canonical readbacks.",
-  "next_action": "Claude Ops reviews and integrates the pushed fix for the existing 17:00 London window; no missed-window replay or replacement schedule."
+  "next_action": "Claude Ops reviews and integrates the pushed fix for the existing 17:00 London window; no missed-window replay or replacement schedule.",
+  "raw_failure_capture": "before-fix.xml retains the original pytest failure text byte-for-byte; its local whitespace attribute admits captured blank-line spaces only."
 }
