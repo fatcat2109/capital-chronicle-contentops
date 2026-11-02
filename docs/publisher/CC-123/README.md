@@ -78,13 +78,14 @@ matches the approved prose after Substack smart punctuation normalization. Actua
 mobile vote-chart and desktop rate-chart previews were inspected; this is a
 transport check, not a newly invented same-writer acceptance.
 
-Substack then showed **Check your email / Verification code** after the final
-Publish without buttons action. No canonical URL or published readback has been
-confirmed, and no derivative was sent. Jim must enter the code directly in the
-existing BrowserOS Neo dialog. The retained draft is
-`https://capitalchronicle.substack.com/publish/post/223199520`. Preserve that object
-and the claimed request; read back before any further send. Do not create another
-draft, resend a code or treat the draft's numeric id as a published article.
+Substack showed **Check your email / Verification code** after the final publish
+action. The actual return was saved as UNKNOWN_WRITE, without another send.
+Human verification completed and handed control back. The exact readback then
+confirmed the same object `223199520` at
+[the canonical article](https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters).
+The coordinator records REAL_PUBLISHED and RECONCILED_CONFIRMED. No replacement
+draft or repeated canonical publish was used. Original source clocks and the
+retrospective label are preserved.
 
 The final media-policy sub-step removes the old chart and photo minimum for all
 story kinds. The same MAX editor still chooses the argument, media and placement;
@@ -94,9 +95,10 @@ channel. The final focused process passed 164 tests. An ignored local junction
 reused the existing operating UI dependencies after the isolated checkout's
 missing dependencies were found; no packages were installed.
 
-The actual publish return is durably recorded as UNKNOWN_WRITE. Coordinator
-continuation saved readback request
-`505555cb4d538fcd883c077995f28c4cae261ad182297e56686f7b3d1d59011a`.
-Resume that read-only request before any new publication action. All eight
-derivatives remain NOT_DISPATCHED. Until a real canonical readback is confirmed,
-CC-123's publication acceptance is BLOCKED and CC-124 remains blocked.
+Readback request
+`505555cb4d538fcd883c077995f28c4cae261ad182297e56686f7b3d1d59011a`
+resolved the original canonical uncertainty. Telegram, Discord and Facebook are
+also confirmed and reconciled. LinkedIn remains UNKNOWN_WRITE and readback-only;
+destination-local access and media outcomes are recorded separately in
+`validation.json`. The canonical acceptance is satisfied; full distribution is
+not implied.

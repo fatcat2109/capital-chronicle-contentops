@@ -274,13 +274,18 @@ def validate_delivery_media_object(media: Mapping[str, Any]) -> list[str]:
     """Validate an article chart, admitted documentary photo or delivery-only asset."""
     if str(media.get("media_role") or "") == "primary_chart":
         return validate_chart_media_object(media)
+    if (media.get("media_role") == "editorial_data_journalism"
+            and media.get("modality") == "source_backed_chart"):
+        # Current native charts retain their original editorial role. Reuse the
+        # same byte/dimension checks without rewriting that accepted source role.
+        return validate_chart_media_object({**media, "media_role": "primary_chart"})
     blockers: list[str] = []
     path = Path(str(media.get("absolute_local_source_path") or ""))
     if not path.is_absolute() or not path.is_file():
         blockers.append("absolute_local_source_path_required")
     photo = media.get("media_role") == "contextual_photo" and media.get("modality") == "documentary_photo"
     if photo:
-        if (media.get("rights_status") not in {"OPEN_LICENSED", "PERMISSION_GRANTED", "OWNED"}
+        if (media.get("rights_status") not in {"OPEN_LICENSED", "PERMISSION_GRANTED", "OWNED", "PUBLIC_DOMAIN"}
                 or not media.get("rights_evidence_sha256") or not media.get("source_page_url")
                 or not media.get("license_url") or not media.get("alt_text")):
             blockers.append("documentary_photo_rights_binding_required")
@@ -342,7 +347,8 @@ def build_delivery_media_manifest(
         asset_id = str(source.get("asset_id") or "")
         row = {
             "media_asset_id": asset_id,
-            "media_role": str(source.get("media_role") or ""),
+            "media_role": str(source.get("media_role") or
+                ("contextual_photo" if source.get("modality") == "documentary_photo" else "")),
             **{key: source[key] for key in ("modality", "rights_status", "rights_evidence_sha256",
                 "source_page_url", "license_url") if key in source},
             "absolute_local_source_path": str(source_path),
@@ -375,6 +381,9 @@ def build_delivery_media_manifest(
             blockers.append(f"public_object_hash_match_missing:{asset_id}")
 
     primary = next((asset for asset in assets if asset.get("media_role") == "primary_chart"), None)
+    if primary is None:
+        primary = next((asset for asset in assets if asset.get("media_role") == "editorial_data_journalism"
+                        and asset.get("modality") == "source_backed_chart"), None)
     if primary is None:
         primary = next((asset for asset in assets if asset.get("media_role") == "delivery_only"), None)
     if primary is None:
