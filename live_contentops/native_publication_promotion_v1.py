@@ -164,10 +164,10 @@ def promotion_plan(operation, rollout):
     live_publication_policy(rollout, cutoff_utc=eligible)
     source = operation["binding"]
     store_path = resolve_workspace_path(rollout["store_path"])
-    if store_path in {
-        resolve_workspace_path(source[k])
-        for k in ("store_path", "published_memory_store")
-    }:
+    # Finished pieces may consult live publication history while their own
+    # article/request store remains private. Never import a store into itself.
+    distinct_stores = ("store_path",) if release else ("store_path", "published_memory_store")
+    if store_path in {resolve_workspace_path(source[k]) for k in distinct_stores}:
         raise ValueError("CC074_PROMOTION_REQUIRES_DISTINCT_LIVE_STORE")
     out = (
         resolve_workspace_path(rollout["editorial_output_root"])

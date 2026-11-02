@@ -231,3 +231,21 @@ def test_zero_chart_analysis_can_prepare_with_exact_instagram_skip(tmp_path, mon
     assert permitted_derivative_skips(plan) == {"instagram_business"}
     plan["skipped_derivative_destinations"][0]["destination"] = "telegram"
     assert permitted_derivative_skips(plan) == set()
+
+
+def test_finished_release_can_consult_live_history_from_a_distinct_private_store(ready):
+    source, target, binding, path, rollout = ready
+    binding["published_memory_store"] = str(target.db_path)
+    with source.get_connection() as conn:
+        conn.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?",
+            (canonical_bytes(binding).decode(), "native-operation-binding-" + sha256_of(binding["run_id"])))
+    path.write_bytes(canonical_bytes(binding))
+    before = workspace_snapshot(source.db_path)
+    released = release_finished_piece(path, rollout)
+    assert released["classification"] == "FINISHED_PIECE_READY_FOR_COORDINATOR"
+    assert released["binding"]["store_path"] == str(target.db_path)
+    assert released["binding"]["published_memory_store"] == str(target.db_path)
+    assert released["binding"]["cutoff_utc"] == binding["cutoff_utc"]
+    assert workspace_snapshot(source.db_path) == before
+    assert target.list_platform_dispatches() == []
+    assert release_finished_piece(path, rollout)["binding"] == released["binding"]
