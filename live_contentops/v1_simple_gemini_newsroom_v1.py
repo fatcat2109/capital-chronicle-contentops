@@ -2314,7 +2314,12 @@ def _build_simple_publication_lifecycle_plan(
             "reason": "Source-sufficient NEWS/POLICY brief uses the dated photo-less route.",
             "disposition": "SKIPPED_PHOTOLESS_NEWS_POLICY",
             "status": "SKIPPED_PHOTOLESS_NEWS_POLICY"}] if preview_packages.get("instagram_business", {}).get("delivery_state")
-                == "SKIPPED_PHOTOLESS_NEWS_POLICY" else []),
+                == "SKIPPED_PHOTOLESS_NEWS_POLICY" else [{"destination": "instagram_business",
+                    "reason": "Instagram requires an admitted image; other destinations can proceed.",
+                    "disposition": "SKIPPED_IMAGE_REQUIRED", "status": "SKIPPED_IMAGE_REQUIRED"}]
+                if preview_packages.get("instagram_business", {}).get("delivery_state") == "SKIPPED_IMAGE_REQUIRED" else []),
+        **({"image_optional_policy": "JIM_DECISION_39"}
+            if preview_packages.get("instagram_business", {}).get("delivery_state") == "SKIPPED_IMAGE_REQUIRED" else {}),
         **({"text_first": article["text_first"]} if article.get("text_first") else {}),
         **({"volume_policy": article["volume_policy"], "volume_policy_cutoff_utc": article["volume_policy_cutoff_utc"],
             "photo_less_news_policy": True} if article.get("volume_policy") and

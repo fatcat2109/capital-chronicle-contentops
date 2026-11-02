@@ -257,7 +257,8 @@ def _release_finished_piece(binding_path, rollout, *, own_lease):
     # Existing attempts are projected only. Recovery never rematerializes a sent plan.
     state = NativeReviewedPublication(live_store, live, native_invocation_id=None).projection()
     attempted = any(d.get("dispatch_recorded") for d in state.get("destinations", []))
-    prepared = None if attempted else prepare_native_publication(live_store, live)
+    prepared = (prepare_native_publication(live_store, live)
+                if not attempted and state["state"] in {"REVIEWED_HANDOFF_REQUIRED", "INVALIDATED"} else None)
     return {"classification": "FINISHED_PIECE_READY_FOR_COORDINATOR", "binding": live,
             "binding_path": str(resolve_workspace_path(live["output_dir"]) /
                 ("native_operation_binding.json" if live.get("automation_id") else "binding.json")),

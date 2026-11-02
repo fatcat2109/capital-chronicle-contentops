@@ -151,10 +151,8 @@ def validate_visual_decision(value):
     charts = value.get("charts")
     if not isinstance(charts, list) or len(charts) > 5:
         raise ValueError("BOUNDED_VISUAL_DECISION_REQUIRED")
-    if value["story_kind"] == "ANALYSIS" and not 2 <= len(charts) <= 5:
-        raise ValueError("ANALYSIS_REQUIRES_TWO_TO_FIVE_USEFUL_CHARTS")
-    if len(charts) < 2 and (value["story_kind"] == "ANALYSIS" or not value.get("exception_reason")):
-        raise ValueError("NEWS_POLICY_EXCEPTION_REASON_REQUIRED")
+    # Jim's decision 39 removes the minimum for every story kind. The actual MAX
+    # editor still chooses the argument and useful charts; sources govern values.
     ids, questions = [], []
     for chart in charts:
         if not all(chart.get(k) for k in ("asset_id", "question", "why_useful", "placement_after", "data_spec")):
@@ -781,10 +779,10 @@ class NativeDesktopTurn:
                 "Choose the article's defensible argument, serious countercase and source/data limits from "
                 "the actual Light preparation and admitted sources. Return DATA_JOURNALISM_V1 JSON with "
                 "slug, story_kind ANALYSIS/NEWS/POLICY, editorial_thesis, countercase, charts, channel_media, "
-                "rejected_visuals and essential_gaps. Every analytical article needs 2-5 distinct useful "
-                "charts, each with unique asset_id, question, why_useful, placement_after (exact proposed "
+                "rejected_visuals and essential_gaps. Jim's decision 39 sets no chart minimum and no photo requirement. "
+                "Choose zero to five useful charts supported by the available data, each with unique asset_id, question, why_useful, placement_after (exact proposed "
                 "article section heading), data_spec (exact source series/units/periods/transform/chart form). "
-                "For genuine narrow news/policy, fewer charts need a substantive exception_reason; never "
+                "Publish a source-qualified argument as text when appropriate; never "
                 "relabel analysis, manufacture data or pad panels. Choose contextual_photo_ids and exact "
                 "media subsets for all eight keys telegram,discord,x,linkedin,facebook_page,instagram_business,"
                 "threads,youtube. A decision can leave Instagram media empty; actual delivery readiness is destination-local. "
@@ -1305,18 +1303,16 @@ def validate_release_media(result):
     if not text_first and (result.get("article") or {}).get("reader_first_version") == "DATA_JOURNALISM_V1" and not decision:
         raise ValueError("MAX_VISUAL_DECISION_REQUIRED")
     reader_first = bool(decision)
-    if not text_first and not reader_first and not 2 <= len(assets) <= 3:
-        raise ValueError("RELEASE_REQUIRES_GROUNDED_PHOTO_AND_QUANTITATIVE_CHART")
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]
     charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
+    if len(assets) != len(photos) + len(charts):
+        raise ValueError("RELEASE_UNSUPPORTED_MEDIA")
     if text_first:
         if len(assets) != len(photos) + len(charts):
             raise ValueError("TEXT_FIRST_UNSUPPORTED_MEDIA")
     elif reader_first:
         validate_visual_decision(decision)
-        from live_contentops.native_newsroom_volume_v1 import photo_less_brief
-        minimum_photos = 0 if photo_less_brief(result) else 1
-        if not minimum_photos <= len(photos) <= 2 or len(assets) != len(photos) + len(charts):
+        if len(photos) > 2:
             raise ValueError("RELEASE_REQUIRES_GROUNDED_CONTEXTUAL_PHOTO")
         chosen = {c["asset_id"]: c for c in decision["charts"]}
         if len(charts) != len(chosen) or {c.get("asset_id") for c in charts} != set(chosen):
@@ -1333,8 +1329,6 @@ def validate_release_media(result):
             headings = set(re.findall(r"(?m)^#{1,6}\s+([^\n]+)", article["substack_body_markdown"]))
             if any(c["placement_after"] not in headings for c in decision["charts"]):
                 raise ValueError("RELEASE_CHART_EXPLANATION_SECTION_MISSING")
-    elif not photos or not charts:
-        raise ValueError("RELEASE_REQUIRES_GROUNDED_PHOTO_AND_QUANTITATIVE_CHART")
     for photo in photos:
         validate_contextual_photo(photo)
     for chart in charts:
@@ -1859,11 +1853,12 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     assets = result.get("media_assets", [])
     # A renderer-only acceptance may advance after a public send. Reuse the exact
     # frozen dispatch package and plan; a new plan would duplicate existing objects.
-    bindings = [json.loads(r["payload"]) for r in store.list_outbox_messages()
+    rows = store.list_outbox_messages()
+    bindings = [json.loads(r["payload"]) for r in rows
         if r["destination"] == "internal:native-publication-binding"
         and json.loads(r["payload"]).get("run_id") == run_id]
-    if bindings and any(d["message_id"] in {r["message_id"] for r in store.list_outbox_messages()
-            if r["work_item_id"] == run_id} for d in store.list_platform_dispatches()):
+    message_ids = {r["message_id"] for r in rows if r["work_item_id"] == run_id}
+    if bindings and any(d["message_id"] in message_ids for d in store.list_platform_dispatches()):
         from hashlib import sha256
         binding = bindings[-1]
         prepared = [json.loads(r["payload"]) for r in store.list_outbox_messages()

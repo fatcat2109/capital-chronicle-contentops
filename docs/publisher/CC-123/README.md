@@ -67,3 +67,36 @@ Simulated tests establish mechanics only. Actual publication URLs and readbacks
 are recorded separately after the real coordinator continuation. Dispatch model
 arguments are `gpt-6.1-sol/max`, CONFIGURED_NOT_OBSERVED. Existing accepted editorial
 invocation observations retain their original status; none is reconstructed.
+
+## Actual publication continuation
+
+`release-finished` accepted the exact promoted FOMC piece. Neo verified the
+signed-in Capital Chronicle publisher, created draft `223199520` under the exact
+claimed coordinator request, and placed the approved prose and all three original
+media with captions, rights credit and alt text. A saved transport comparison
+matches the approved prose after Substack smart punctuation normalization. Actual
+mobile vote-chart and desktop rate-chart previews were inspected; this is a
+transport check, not a newly invented same-writer acceptance.
+
+Substack then showed **Check your email / Verification code** after the final
+Publish without buttons action. No canonical URL or published readback has been
+confirmed, and no derivative was sent. Jim must enter the code directly in the
+existing BrowserOS Neo dialog. The retained draft is
+`https://capitalchronicle.substack.com/publish/post/223199520`. Preserve that object
+and the claimed request; read back before any further send. Do not create another
+draft, resend a code or treat the draft's numeric id as a published article.
+
+The final media-policy sub-step removes the old chart and photo minimum for all
+story kinds. The same MAX editor still chooses the argument, media and placement;
+all provided images/charts retain their rights, exact-source and review checks.
+Instagram alone can carry `SKIPPED_IMAGE_REQUIRED`; that marker cannot skip another
+channel. The final focused process passed 164 tests. An ignored local junction
+reused the existing operating UI dependencies after the isolated checkout's
+missing dependencies were found; no packages were installed.
+
+The actual publish return is durably recorded as UNKNOWN_WRITE. Coordinator
+continuation saved readback request
+`505555cb4d538fcd883c077995f28c4cae261ad182297e56686f7b3d1d59011a`.
+Resume that read-only request before any new publication action. All eight
+derivatives remain NOT_DISPATCHED. Until a real canonical readback is confirmed,
+CC-123's publication acceptance is BLOCKED and CC-124 remains blocked.

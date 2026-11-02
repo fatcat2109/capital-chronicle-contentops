@@ -1,6 +1,6 @@
 {
   "schema_version": "contentops.cc123.validation.v1",
-  "observed_at_utc": "2026-11-02T17:05:55.726785+00:00",
+  "observed_at_utc": "2026-11-02T17:46:33.171037+00:00",
   "branch": "backlog/cc-123-publication-path",
   "base_tag": "contentops-live-20261102-d39",
   "dependencies": {
@@ -34,6 +34,17 @@
       "processes": 1,
       "workers": 1,
       "whole_suite": false
+    },
+    {
+      "junit": "docs/publisher/CC-123/checks/media-policy.xml",
+      "tests": "164",
+      "failures": "0",
+      "errors": "0",
+      "time": "190.373",
+      "processes": 1,
+      "workers": 1,
+      "whole_suite": false,
+      "dependencies": "Existing ContentOps node_modules exposed through an ignored junction in this exec checkout; no package install or operating modules write"
     }
   ],
   "implementation_head": "104d802a1b4b0790ca5d07f66975c7ebf9e79338",
@@ -51,7 +62,7 @@
   },
   "publications": [],
   "finished_path": {
-    "status": "TESTED_NOT_YET_INTEGRATED",
+    "status": "INTEGRATED",
     "general_promotion": "Same existing import engine; source snapshots and reviews preserved",
     "standing": "Live owner-manual binding, one operation, shared leases, eight distinct readbacks per day",
     "drip_hours": 3.5,
@@ -64,5 +75,92 @@
     "source_fomc_read_only_check": "PASS",
     "native_editorial_calls": 0,
     "public_writes": 0
+  },
+  "integrations": [
+    {
+      "observed_at_utc": "2026-11-02T16:47:26.418950+00:00",
+      "previous_head": "71bceaa33b68d55f57e5b035f20093f9433a79d9",
+      "rollback_tag": "contentops-live-20261102-d39",
+      "integrated_head": "b018d116c256b52cbab8525c122d672311e4b616",
+      "tag": "contentops-live-20261102-cc123a",
+      "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "uncommitted_entries": 42,
+      "active_leases": 0,
+      "mode": "FAST_FORWARD_ONLY"
+    },
+    {
+      "observed_at_utc": "2026-11-02T17:06:36.033483+00:00",
+      "previous_head": "b018d116c256b52cbab8525c122d672311e4b616",
+      "rollback_tag": "contentops-live-20261102-cc123a",
+      "integrated_head": "bef1da223c3cf0851369bf63df775f6f67f413e8",
+      "tag": "contentops-live-20261103-cc123b",
+      "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "uncommitted_entries": 42,
+      "active_leases": 0,
+      "mode": "FAST_FORWARD_ONLY"
+    }
+  ],
+  "publication_attempt": {
+    "operation_id": "cc074-retro-fomc-20261028-v1",
+    "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+    "plan_hash": "3e3688a80ed0b93c4dde74a61ac992609ce879b9f40ee1223df414c030af267c",
+    "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+    "request_sha256": "291678d489406acd8b12749f6330c1cab34cdf5fd5c8489954e52bf5bdf7eb50",
+    "tool_request_sha256": "e987e4528e6ccfc89e42a1b69f9f26c21eb147a25f9d755040f5a23b83b01283",
+    "publisher_invocation": "/root",
+    "invocation_source": "Supported current native agent task identity, not environment/session files",
+    "platform_draft_id": "223199520",
+    "platform_draft_url": "https://capitalchronicle.substack.com/publish/post/223199520",
+    "approved_copy_transport_check": "PASS; original prose, three original media, captions, credits and alt texts; only smart punctuation normalized",
+    "preview_pixels": "Actual Neo mobile vote chart and desktop operating-rate chart inspected for delivery; retained same-writer acceptance remains original",
+    "publish_ui_observation": "Check your email; Verification code required after Publish without buttons",
+    "first_cause": "SUBSTACK_EMAIL_VERIFICATION_REQUIRED",
+    "canonical_url": null,
+    "canonical_readback_confirmed": false,
+    "derivative_writes": 0,
+    "retry_permitted": false,
+    "human_help": "Requested direct entry in BrowserOS Neo; no email/code access or resend attempted",
+    "observed_at_utc": "2026-11-02T17:39:43.429254+00:00",
+    "local_copy_check_sha256": "c19c81a67708b7856e9068f0d52acac003fc685c1343fadf89521332cc1c9df0",
+    "native_publish_return_sha256": "869913de647983b3198a046d31002e41ee741a0a5d891e3b066ef67b2baab9c3",
+    "native_return_status": "UNKNOWN_WRITE",
+    "dispatch_status": "UNKNOWN_WRITE",
+    "unknown_write_count": 1,
+    "pending_action": "READBACK",
+    "readback_request_sha256": "505555cb4d538fcd883c077995f28c4cae261ad182297e56686f7b3d1d59011a"
+  },
+  "launch_resume": {
+    "process_id": 46332,
+    "exec_resume": true,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "source": "Current Win32_Process ancestry arguments read back; no session files"
+  },
+  "media_policy": {
+    "authority": "JIM_DECISIONS_20261030_DECISION_39",
+    "minimum_charts": 0,
+    "minimum_photos": 0,
+    "instagram_missing_image": "SKIPPED_IMAGE_REQUIRED",
+    "source_lineage_and_rights": "UNCHANGED",
+    "new_visual_decision_prompt": "No minimum for ANALYSIS, NEWS or POLICY; same MAX editor chooses useful source-bound media",
+    "recovery": "Claimed uncertain writes retain readback-first; no new dispatch"
+  },
+  "lint": {
+    "changed_paths": "PASS",
+    "existing_impl_module": "Pre-existing F401 and E731 findings excluded; no unrelated lint repair"
+  },
+  "final_code_sha256": {
+    "live_contentops/native_finished_publication_v1.py": "c0c2c2e0c1d1fafa55568541a30e113fcd81c0c93d0b1f1cf535ecd63a1727e4",
+    "live_contentops/native_publication_promotion_v1.py": "7d1ac7d025cdba5b6933c32ffd71b8bb75907e380af3486ba7a9b0fce3e91619",
+    "live_contentops/native_desktop_publication_v1.py": "5af65d064a27826ed0a80ae5b23175117962d38b7c05a7f672a043209739c71b",
+    "live_contentops/native_desktop_editorial_v1.py": "966272c165941d8f612918672505ef8845a145f269ed1b8d998cc39a39208fd6",
+    "live_contentops/native_newsroom_volume_v1.py": "384703ccdd351c6bccdc0ef682acd7535d36505cc794ad8e8e3331308f076c8c",
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": "b0afd1180c5de4661e3191627cc36836d2b4cf4feb53e403d11e68979dd24162",
+    "live_contentops/v1_simple_gemini_newsroom_v1.py": "24d8c4ec2bed9faa3bc90eb7d982c08947a6836cdfec8f2b6cca940bd2e2ef11",
+    "scripts/run_native_desktop_editorial.py": "e26025688eff13321c66ee6d9e556669527388b6645c26e63ebf7b9aebcb0699",
+    "tests/test_native_finished_publication_v1.py": "cb07ad89008a689c74584c55108a2a7a60c6cbe486e68db73fb7c97470a60590"
   }
 }

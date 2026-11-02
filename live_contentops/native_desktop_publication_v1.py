@@ -86,7 +86,7 @@ def _prepared_packet(store, binding):
                 a["asset_id"]: a["sha256"] for a in result.get("media_assets", [])
             },
             **({"skipped_derivative_destinations": plan["skipped_derivative_destinations"]}
-               if plan.get("photo_less_news_policy") or plan.get("text_first") else {}),
+               if plan.get("photo_less_news_policy") or plan.get("text_first") or plan.get("image_optional_policy") else {}),
             "publication_authority": False,
         },
         plan,

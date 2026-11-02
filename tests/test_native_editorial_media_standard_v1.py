@@ -70,9 +70,10 @@ def test_source_bound_negative_values_and_exact_release_packet(tmp_path):
     validate_contextual_photo(photo)
     validate_source_value_chart(chart, [doc])
     assert validate_release_media({"media_assets": [photo, chart], "evidence": [doc]})["chart_count"] == 1
-    for assets in ([], [chart], [photo], [{"modality": "document_excerpt"}]):
-        with pytest.raises(ValueError, match="PHOTO_AND_QUANTITATIVE_CHART"):
-            validate_release_media({"media_assets": assets, "evidence": [doc]})
+    for assets in ([], [chart], [photo]):
+        validate_release_media({"media_assets": assets, "evidence": [doc]})
+    with pytest.raises(ValueError, match="UNSUPPORTED_MEDIA"):
+        validate_release_media({"media_assets": [{"modality": "document_excerpt"}], "evidence": [doc]})
 
 
 @pytest.mark.parametrize("change", ["unit", "period", "value", "kind", "negative", "rights"])

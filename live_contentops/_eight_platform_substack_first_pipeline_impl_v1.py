@@ -542,11 +542,11 @@ def build_native_derivative_payloads(
             raise ValueError("NATIVE_EDITORIAL_MEDIA_SUBSET_UNBOUND:" + destination)
         if destination == "instagram_business" and not chosen:
             from live_contentops.native_newsroom_volume_v1 import photo_less_brief, PHOTOLESS_INSTAGRAM_SKIP
-            if not photo_less_brief(article):
-                raise ValueError("NATIVE_EDITORIAL_INSTAGRAM_IMAGE_REQUIRED")
+            legacy = photo_less_brief(article)
             payload.clear()
-            payload.update(destination=destination, delivery_state=PHOTOLESS_INSTAGRAM_SKIP,
-                skip_reason="Photo-less NEWS/POLICY brief; Instagram requires an image.", media_asset_ids=[])
+            payload.update(destination=destination,
+                delivery_state=PHOTOLESS_INSTAGRAM_SKIP if legacy else "SKIPPED_IMAGE_REQUIRED",
+                skip_reason="Instagram requires an admitted image; other destinations can proceed.", media_asset_ids=[])
             continue
         payload["media_asset_ids"] = chosen
         source_map = article.get("native_media_sources") or {}
