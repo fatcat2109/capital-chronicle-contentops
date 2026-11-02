@@ -1,0 +1,79 @@
+{
+  "recorded_at_utc": "2026-11-02T14:27:30.894210+00:00",
+  "item": "CC-074",
+  "classification": "FOR_OPS_PROMOTION_READY_NOT_APPLIED_LIVE",
+  "code_commit": "ba89234764eb48a25e0b42315e084cf34c61ef39",
+  "authority": "Jim decision 37 B1; CC-074 Ops 2 Nov 20:46 GMT+7 amendment",
+  "launch": {
+    "pid": 25056,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "observation": "Win32_Process launch arguments only; no supported actual model or effort telemetry"
+  },
+  "actual_model": null,
+  "actual_reasoning_effort": null,
+  "validation": {
+    "test_runs": [
+      {
+        "artifact": "promotion-targeted.xml",
+        "passed": 69,
+        "failed": 0
+      },
+      {
+        "artifact": "promotion-final.xml",
+        "passed": 20,
+        "failed": 0
+      }
+    ],
+    "distinct_passing_tests": 71,
+    "targeted_files_only": true,
+    "one_pytest_process_at_a_time": true,
+    "parallel_pytest": false,
+    "ruff": "PASS",
+    "whitespace": "PASS",
+    "manifest_staged_blob_sha256_exact": true,
+    "accepted_private_archive_and_prior_release_files_unchanged_from_f20ede92": true
+  },
+  "initial_test_correction": "One initial fixture assertion expected preview_count on publication preparation; corrected to the actual preparation contract. Final targeted runs pass.",
+  "retained_replay": {
+    "artifact": "promotion-replay.json",
+    "helper": "replay-retained-promotion.py",
+    "scope": "Disposable stores with original historical JSON labels and hash-checked byte references; process-local Path/Image I/O aliases only. Initial fixture bootstrap, missing reference and recursive stat alias errors were corrected; no production guard was relaxed.",
+    "result": "PASS",
+    "new_native_review": false
+  },
+  "live_read_only_plan": {
+    "artifact": "promotion-dry-run.json",
+    "cli_exit_code": 0,
+    "classification": "CC074_PROMOTION_DRY_RUN",
+    "plan_sha256": "b19c8fd53a4ba27d46f3d514e9b9ce49532f52dbdd026a1c975e00170eff85ad"
+  },
+  "safety": {
+    "live_store_apply_calls": 0,
+    "public_transport_calls": 0,
+    "public_write_performed": false,
+    "model_invocations": 0,
+    "provider_source_requests": 0,
+    "schedule_changes": 0,
+    "chat_messages": 0,
+    "merge_performed": false,
+    "desktop_control_used": false
+  },
+  "first_remaining_cause": "OPS_APPLY_AND_PUBLICATION_READBACK_PENDING",
+  "next_actor": "Claude Ops",
+  "next_action": "Integrate pushed script; run fresh dry-run, apply its exact plan hash, then continue the existing V1 publisher and canonical/social readback with the actual active invocation id. No additional Jim approval is required for this scope.",
+  "limits": [
+    "No production import/publication/readback was executed.",
+    "No new final-render/model acceptance is claimed.",
+    "Only the accepted FOMC article is admitted; further backfill and Web archive remain unfinished."
+  ],
+  "artifact_sha256": {
+    "promotion-dry-run.json": "3ff21d09e2c39257e23a5167d3061aeaee2e1e99594d26260e14ccc19015c599",
+    "promotion-final.xml": "da9b61c3b11c9b84414cfc307c7e5b0a60ec3b528249718027dac8544c9c086b",
+    "promotion-manifest.json": "3297d335b23d7ac64bfd403a301b276f64307bfde52545ebbf635802a202a185",
+    "promotion-replay.json": "7598762e31b949d6a91c1afb7a91be9c2c90859b270324c44f14220f39033bb3",
+    "promotion-targeted.xml": "22de0ad6e4d95ad57f1e9f60f466bddeba403e4e868e48330137805f903e7048",
+    "replay-retained-promotion.py": "c859dcffcba0253aa14f9264156bfc6abf7ada2fdbff0d4577b17b6e33e7e692"
+  }
+}

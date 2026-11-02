@@ -1,0 +1,6 @@
+# Retained source, native return and render hashes refer to exact original bytes.
+** -text whitespace=cr-at-eol
+# Test transcripts and saved patches preserve their original diagnostic whitespace.
+checks/*.txt binary
+checks/*.xml binary
+repairs/v2/*.patch binary

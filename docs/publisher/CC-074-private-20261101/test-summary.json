@@ -1,0 +1,29 @@
+{
+  "unique_cases": 332,
+  "counts": {
+    "PASS": 330,
+    "FAIL": 2,
+    "SKIP": 0
+  },
+  "retained_parent_failures": [
+    {
+      "classname": "tests.test_native_desktop_workspace_v1",
+      "case": "test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[False-False]"
+    },
+    {
+      "classname": "tests.test_native_desktop_workspace_v1",
+      "case": "test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[True-False]"
+    }
+  ],
+  "final_scoped_passes": 162,
+  "scope": "Relevant backend/CLI/store/media/source/newsroom; no full repository suite claim. Two thin mocks still point to nonexistent controlled-request, reproduced on parent; original desk import defect repaired.",
+  "ui_validation": {
+    "focused_tests": 39,
+    "build": "PASS",
+    "evidence": "repairs/v2/repair-result.json",
+    "provenance": "Same native MAX role executed and reported actual focused UI/build commands; raw stdout not separately retained."
+  },
+  "latest_compatibility_passes": 77,
+  "legacy_frozen_visual_metadata_case": "PASS",
+  "final_real_package_and_earlier_source_cases": "5PASS"
+}

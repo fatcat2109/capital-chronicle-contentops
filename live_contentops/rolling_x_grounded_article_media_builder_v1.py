@@ -1054,6 +1054,8 @@ def _editorial_data_values(packet, documents):
         "stacked_columns",
         "horizontal_diverging_bar",
         "paired_dumbbell",
+        "horizontal_count_bar",
+        "horizontal_interval_and_points",
         "QUARTER_CONTRIBUTION_MATRIX_WITH_COMPANY_ANCHOR",
         "MARGIN_LEVEL_TABLE_WITH_DIVERGING_PP_CHANGE",
         "HORIZONTAL_CHANGE_BRIDGE_WITH_REPORTED_LEVELS",
@@ -1115,11 +1117,18 @@ def _editorial_data_values(packet, documents):
                                 or not legal.get("non_affiliation_notice")):
                             raise ValueError("EDITORIAL_CHART_REFERENCE_RATE_NOTICES_REQUIRED")
                 clean = token.replace(",", "").replace("%", "").replace("$", "").strip()
-                number = (
-                    -float(clean[1:-1])
-                    if clean.startswith("(") and clean.endswith(")")
-                    else float(clean)
-                )
+                if operand.get("source_numeric_format") == "EXACT_FRACTION":
+                    from fractions import Fraction
+                    fraction = re.fullmatch(r"(?:(\d+)-)?(\d+)/(\d+)", clean)
+                    if not fraction or int(fraction[3]) == 0:
+                        raise ValueError("EDITORIAL_CHART_EXACT_FRACTION_REQUIRED")
+                    number = float(int(fraction[1] or 0) + Fraction(int(fraction[2]), int(fraction[3])))
+                else:
+                    number = (
+                        -float(clean[1:-1])
+                        if clean.startswith("(") and clean.endswith(")")
+                        else float(clean)
+                    )
                 if conversion := operand.get("source_unit_conversion"):
                     if (
                         conversion.get("source_unit") != "USD billion"
@@ -1217,6 +1226,17 @@ def _editorial_data_values(packet, documents):
         output.append(points)
     if not output or len(output) > 12:
         raise ValueError("EDITORIAL_CHART_SERIES_SCOPE_INVALID")
+    if packet["chart_type"] == "horizontal_count_bar":
+        if (len(output) != 1 or any(v < 0 or v != int(v) for v in output[0])
+                or packet["unit"] != "Members"):
+            raise ValueError("EDITORIAL_COUNT_CHART_NONNEGATIVE_INTEGER_MEMBERS_REQUIRED")
+    if packet["chart_type"] == "horizontal_interval_and_points":
+        if (len(output) < 3 or any(len(row) != 1 for row in output)
+                or len(packet.get("range_series_ids", [])) != 2
+                or packet["range_series_ids"] != [s.get("series_id") for s in packet["series"][:2]]
+                or packet["series"][0]["points"][0]["period"] != packet["series"][1]["points"][0]["period"]
+                or output[0][0] > output[1][0]):
+            raise ValueError("EDITORIAL_INTERVAL_ENDPOINTS_AND_POINT_ROWS_REQUIRED")
     if reference := packet.get("reported_reference_series"):
         levels = _editorial_data_values({**packet,"series":reference,"reported_reference_series":None},documents)
         # Reference levels show the financing quantity removed as positive, while
@@ -1593,7 +1613,41 @@ def _draw_editorial_chart(packet, values, plt, np):
         "SMALL_MULTIPLE_PAIRED_DOT",
         "PAIRED_WATERFALL_TOTALS_AT_START_AND_END",
     }
-    if kind in {"horizontal_diverging_bar", "paired_dumbbell"}:
+    if kind in {"horizontal_count_bar", "horizontal_interval_and_points"}:
+        fig, ax = plt.subplots(figsize=(7.5, 6.5), dpi=200)
+        axes = [ax]
+        if kind == "horizontal_count_bar":
+            nums = values[0]
+            y = np.arange(len(nums))
+            ax.barh(y, nums, height=.48, color=colors[:len(nums)])
+            ax.set_yticks(y, [textwrap.fill(p, 22) for p in periods], fontsize=13)
+            ax.set_xlim(0, max(nums) * 1.25 or 1)
+            ax.set_xticks(range(0, int(max(nums)) + 1, max(1, int(max(nums)) // 5)))
+            for value, row in zip(nums, y):
+                ax.text(value + max(nums) * .025, row, f"{value:g}", va="center", fontsize=15, weight="bold")
+            ax.invert_yaxis()
+        else:
+            low, high = values[0][0], values[1][0]
+            ax.plot([low, high], [0, 0], color=colors[0], linewidth=8, solid_capstyle="butt")
+            ax.scatter([low, high], [0, 0], color=colors[0], marker="|", s=180, zorder=3)
+            ax.text(low, -.22, f"{low:.2f}%", ha="center", fontsize=12)
+            ax.text(high, -.22, f"{high:.2f}%", ha="center", fontsize=12)
+            for row, nums in enumerate(values[2:], start=1):
+                ax.scatter(nums[0], row, color=colors[0], s=95, zorder=3)
+                ax.annotate(f"{nums[0]:.2f}%", (nums[0], row), xytext=(0, -19),
+                            textcoords="offset points", ha="center", fontsize=12)
+            row_labels = [periods[0], *[s["points"][0]["period"] for s in series[2:]]]
+            ax.set_yticks(range(len(row_labels)), [textwrap.fill(p, 24) for p in row_labels], fontsize=11)
+            all_values = [row[0] for row in values]
+            span = max(all_values) - min(all_values) or .1
+            ax.set_xlim(min(all_values) - span * .32, max(all_values) + span * .32)
+            ax.set_ylim(len(row_labels) - .35, -.6)
+            ax.set_xticks(sorted(set(all_values)))
+        ax.set_xlabel(packet["unit"], fontsize=12)
+        ax.grid(axis="x", alpha=.16)
+        ax.tick_params(axis="x", labelsize=11)
+        fig.subplots_adjust(left=.43, right=.94, top=.69, bottom=.23)
+    elif kind in {"horizontal_diverging_bar", "paired_dumbbell"}:
         fig, ax = plt.subplots(figsize=(9, 6.5), dpi=160)
         axes = [ax]
         if kind == "horizontal_diverging_bar":
@@ -1881,8 +1935,38 @@ def _editorial_reader_table(packet):
         "notes": [table[key] for key in ("definition_note", "reconciliation_note", "scope_note") if table.get(key)]}
 
 
-def build_editorial_data_chart(packet, documents, *, output_dir):
+def _retained_chart_documents(documents, binding):
+    """Verify missing historical chart metadata without rewriting frozen packets.
+
+    Older agency packets carry permitted text and the policy hash, but omit the
+    full permission record. Reopen only the exact retained-source verifier and
+    match its text, URL, capture and revision; never infer rights from a hostname.
+    """
+    if binding is None:
+        return documents
+    from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+    research = RetainedSourceResearch(binding["research_root"])
+    if research.gaps or research.revision != binding["research_revision"]:
+        raise ValueError("EDITORIAL_CHART_RETAINED_SOURCE_REVISION_CHANGED")
+    records = {r["document"].get("document_id") or r["headline_id"]: r
+               for r in research.records.values()}
+    bound = []
+    for doc in documents:
+        record = records.get(doc["document_id"])
+        if (not record or record["permitted_source_text"] != doc["canonical_content_text"]
+                or record["document"]["source_url"] != (doc.get("url") or doc.get("source_url"))
+                or doc.get("rights_evidence_sha256") not in {None, record["rights_evidence_sha256"]}
+                or binding["source_capture_hashes"].get(doc["document_id"]) != record["source_capture_sha256"]):
+            raise ValueError("EDITORIAL_CHART_RETAINED_SOURCE_BINDING_CHANGED")
+        bound.append({**doc, "raw_sha256": record["source_capture_sha256"],
+            "known_at_utc": record["known_at_utc"],
+            "source_reuse_constraints": {**record["source_permissions"], "attribution_required": True}})
+    return bound
+
+
+def build_editorial_data_chart(packet, documents, *, output_dir, retained_source_binding=None):
     """Existing media owner renders the actual MAX editor's source-bound visual choice."""
+    documents = _retained_chart_documents(documents, retained_source_binding)
     values = _editorial_data_values(packet, documents)
     source_links = editorial_chart_source_links(packet, documents)
     asset_id = packet["asset_id"]
@@ -1940,6 +2024,7 @@ def build_editorial_data_chart(packet, documents, *, output_dir):
         "destination_subset": packet.get("destination_subset", []),
         "computed_values": values,
         "missingness": packet.get("missingness", "NO_VALUES_FILLED_OR_INTERPOLATED"),
+        **({"retained_source_binding": retained_source_binding} if retained_source_binding is not None else {}),
         **({"reader_table": _editorial_reader_table(packet), "support_caption": packet["support_caption"],
             "distribution_context": packet["derivative_context"]["fallback_when_html_table_absent"]}
            if packet.get("reader_table") else {}),
@@ -1949,6 +2034,7 @@ def build_editorial_data_chart(packet, documents, *, output_dir):
 def validate_editorial_data_chart(asset, documents):
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
 
+    documents = _retained_chart_documents(documents, asset.get("retained_source_binding"))
     packet = asset["editorial_data_packet"]
     values = _editorial_data_values(packet, documents)
     if "source_links" in asset:
@@ -1968,6 +2054,17 @@ def validate_editorial_data_chart(asset, documents):
             or asset.get("support_caption") != packet["support_caption"]
             or asset.get("distribution_context") != packet["derivative_context"]["fallback_when_html_table_absent"]):
         raise ValueError("EDITORIAL_CHART_READER_CONTEXT_CHANGED")
+    # The same MAX editor may add an accessible level table without changing the
+    # immutable quantitative packet or PNG. Its displayed numbers and units must
+    # still match the validated count/interval grammar exactly.
+    if (table := asset.get("reader_table")) and packet["chart_type"] in {
+            "horizontal_count_bar", "horizontal_interval_and_points"}:
+        expected_rows = ([[value] for value in values[0]]
+            if packet["chart_type"] == "horizontal_count_bar" else values)
+        if ([row["values"] for row in table.get("rows", [])] != expected_rows
+                or str(table.get("unit", "")).casefold() != packet["unit"].casefold()
+                or len(table.get("columns", [])) != 1):
+            raise ValueError("EDITORIAL_CHART_ACCESSIBLE_TABLE_VALUES_CHANGED")
 
 
 def _build_third_asset(

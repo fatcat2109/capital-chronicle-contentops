@@ -1,0 +1,11 @@
+{
+  "checked_at_utc": "2026-11-01T09:15:45.252176+00:00",
+  "baseline_commit": "d7968e09655cd4a33132e870cf90faa7bccde235",
+  "package": "docs/publisher/CC-074-private-20261101",
+  "unchanged_exact_git_files": 208,
+  "verified_sealed_artifacts": 207,
+  "original_manifest_sha256": "b2f9d814a96fad68f1755deeb33f4193705684a03b53524e2127c4ed2c21dff6",
+  "article_revision": "babd5c02bcedea40f218c7c582c6982e3c4524936b7e649450dcc63aa1505d43",
+  "new_native_calls": 0,
+  "rewritten_or_rerendered_accepted_articles": 0
+}

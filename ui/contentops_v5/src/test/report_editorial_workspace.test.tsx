@@ -85,6 +85,24 @@ describe('Main report editorial workspace', () => {
     expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
   });
 
+  it('keeps the opening answer before a bounded archive portrait and renders emphasis as text', () => {
+    const snapshot = ownerData();
+    const item = snapshot.native_edition![0];
+    item.article.substack_body_markdown = '*Retrospective analysis.*\n\nThe opening answer.\n\n## Decision\n\nThe explanation.';
+    item.media_assets = [{ asset_id: 'archive', path: 'archive.jpg', sha256: 'archive-hash', modality: 'documentary_photo',
+      caption: 'Archive context; not the decision.', alt_text: 'Archive portrait', width: 635,
+      preview_data_url: 'data:image/jpeg;base64,Y29udHJvbGxlZA==' }];
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" />);
+    const article = screen.getByRole('article', { name: 'Selected article' });
+    const answer = within(article).getByText('The opening answer.');
+    const portrait = within(article).getByRole('img', { name: 'Archive portrait' });
+    expect(answer.compareDocumentPosition(portrait) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(portrait.compareDocumentPosition(within(article).getByRole('heading', { name: 'Decision' })) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(portrait).toHaveStyle({ maxHeight: '360px', width: 'auto', height: 'auto', objectFit: 'contain' });
+    expect(within(article).getByText('Retrospective analysis.').tagName).toBe('EM');
+    expect(article.textContent).not.toContain('*Retrospective analysis.*');
+  });
+
   it('places a chosen chart beside its explanation and keeps workflow details collapsed', () => {
     const snapshot = ownerData();
     const item = snapshot.native_edition![0];
@@ -261,7 +279,7 @@ describe('Main report editorial workspace', () => {
     expect(within(edition).getAllByRole('img', { name: 'Controlled contextual subject' })).toHaveLength(2);
     expect(within(edition).getAllByRole('img')[0]).toHaveAttribute('src', 'data:image/jpeg;base64,Y29udHJvbGxlZA==');
     const preview = edition.querySelector('[data-edition-destination="telegram"]') as HTMLElement;
-    expect(within(preview).getByRole('img', { name: 'Controlled contextual subject', exact: true })).toHaveStyle({ maxWidth: '640px' });
+    expect(within(preview).getByRole('img', { name: 'Controlled contextual subject', exact: true })).toHaveStyle({ maxWidth: '100%', maxHeight: '360px', objectFit: 'contain' });
     expect(within(preview).getByText('Archive context photograph.')).toBeInTheDocument();
     expect(within(preview).queryByText(/Controlled creator/)).not.toBeInTheDocument();
     expect(within(preview).queryByRole('link', { name: 'Reuse terms' })).not.toBeInTheDocument();
