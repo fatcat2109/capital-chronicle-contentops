@@ -1,0 +1,78 @@
+{
+  "classification": "QUALIFIED_SAME_OPERATION_PENDING_FINAL_PIXEL_REVIEW",
+  "observed_at_utc": "2026-11-02T21:38:56.402150+00:00",
+  "operation_id": "cc124-prepare-20261103-a",
+  "article_identity": "e8f9f4ec5cf1fc91133e77d4bb27b45435139db5b121bbf4252c29f75bab1bdd",
+  "title": "September CPI: why 0.6% and 3.7% answer different questions",
+  "canonical_source_check": "PASS",
+  "unsupported_material_claim_count": 0,
+  "qualified_articles": 1,
+  "compiled_channel_records": 8,
+  "instagram_disposition": "SKIPPED_IMAGE_REQUIRED",
+  "actual_browser_render_count": 18,
+  "source_facts_changed": false,
+  "media_assets": 0,
+  "same_max_writer": "/root/native_visual_edit_1f6d9bfd6170",
+  "model_and_effort_status": "CONFIGURED_NOT_OBSERVED",
+  "pending_stage": "final-visual-3fec5e82b21d56c39bc1af1979f2f7f85e1b3e261677c2429a6929c24a77402b",
+  "pending_request_sha256": "83845cf0c6e0fda3827acb8e9ed9f006cb29752e336d2a2221980de0f663fa55",
+  "artifacts": [
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\binding.json",
+      "sha256": "547e63101cbe785c90039f627a3730885178718938b80b85950ce5c9482598ac"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\desktop_request_write.json",
+      "sha256": "6d6fb73966dd53a3629c82509b2e0728d5d05af08d9421bc8b008d950d57a0aa"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\desktop_response_write.json",
+      "sha256": "684a9c4c85194761d6c5318e2cb4235a95680e7a1a5b7b4aea727a7a3014568b"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\desktop_request_revise.json",
+      "sha256": "55e31f0b70c42fdabd8d4f3646f98c261e8ce3844daaa0f6ef4de5abc8116f77"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\desktop_response_revise.json",
+      "sha256": "f926f8640d40b1c87b313a8453e9e24523297d8ab08bcac491b5ca9fb7f21e3a"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\article_manifest_v1.json",
+      "sha256": "368feece85c6abf0d2f1294e50f8a1be39919e28ab7ad2cba2bc0949b24a3d5d"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\qualified_article_record_v1.json",
+      "sha256": "36694508598046f83750266bd8ba1b477d3d8e54340ae597e35c26bad2c9af79"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\native_derivative_previews_v1.json",
+      "sha256": "1cb05d46d9198aa2288427bc4aafa723bb3f453d8cbbef82060ad5ce4654b3d5"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\simple_gemini_validation_v1.json",
+      "sha256": "f975cef5f4cefb88a7ce7a0db043540978fa8002c523b41005c05fd925294bb2"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+      "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\render-manifest.json",
+      "sha256": "98b91451251fea695a8659b26e2b7805be5849d70d5c768d21f745ed456fbba8"
+    }
+  ],
+  "original_unqualified_assembly_preserved": [
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\editorial-revision-history\\ed316ed5f8a5058c574657397020f1c1638b3dc227a9def45bfa0811be94656e\\article_manifest_v1.json",
+      "sha256": "e581f62078ee96f0624a035ab2aa000417426017eb75fe0e138fc9017e1feb7c"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\editorial-revision-history\\ed316ed5f8a5058c574657397020f1c1638b3dc227a9def45bfa0811be94656e\\simple_gemini_validation_v1.json",
+      "sha256": "4564445bafa1c5e0cc9a4a0a2ef0555e5f4ea04bdd9fa3dda085ee62d178fa25"
+    }
+  ],
+  "public_write_performed": false,
+  "chat_messages_sent": false,
+  "schedule_changes": false
+}

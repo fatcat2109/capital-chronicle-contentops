@@ -1,0 +1,385 @@
+{
+  "article_identity": "e8f9f4ec5cf1fc91133e77d4bb27b45435139db5b121bbf4252c29f75bab1bdd",
+  "article_revision": "ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305",
+  "renders": [
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-substack-desktop",
+      "destination": "substack",
+      "viewport": "desktop",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\substack-desktop.png",
+      "sha256": "4dd9f351169f0def9667b3ef7d77f84242dca2bfb5fa04ca0fbcd655ca208f04",
+      "variant_sha256": "a38555ee0cc2625ec6240d9858d1ea742ba1a177e7bf8fe4be9ed65cce77380e",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 1156.40625,
+        "view": "canonical",
+        "width": 944,
+        "x": 248,
+        "y": 623.9375
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-telegram-desktop",
+      "destination": "telegram",
+      "viewport": "desktop",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\telegram-desktop.png",
+      "sha256": "ab61e655ab9cbb3bc8fc8c48b24bc52931dec414d9641740419289fbe3bed30a",
+      "variant_sha256": "fcbf2a99fa94c9484df82a01a120066f3d41d5800c86a35d3d5f62bb1d79faa7",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 594.234375,
+        "scrollWidth": 942,
+        "view": "telegram",
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-telegram-mobile",
+      "destination": "telegram",
+      "viewport": "mobile",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\telegram-mobile.png",
+      "sha256": "2910f52ef6548cf076f49fd36088cb45dfa49ba32bc2f14425cd7046cedde65f",
+      "variant_sha256": "fcbf2a99fa94c9484df82a01a120066f3d41d5800c86a35d3d5f62bb1d79faa7",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 738.796875,
+        "scrollWidth": 364,
+        "view": "telegram",
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-discord-desktop",
+      "destination": "discord",
+      "viewport": "desktop",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\discord-desktop.png",
+      "sha256": "7c2307d80b09c94040fa2b07f8d584eb021cd26db11ba42878d618cfa448c68c",
+      "variant_sha256": "059f8cd58398280d4bb6e0cd68549d0d69d33809bf5dd4bd00c73375d4273603",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 523.703125,
+        "scrollWidth": 942,
+        "view": "discord",
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-discord-mobile",
+      "destination": "discord",
+      "viewport": "mobile",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\discord-mobile.png",
+      "sha256": "b670b440052e031c51f5924bd1bea50818f192f0c5dd3e659831c3e2de931b4a",
+      "variant_sha256": "059f8cd58398280d4bb6e0cd68549d0d69d33809bf5dd4bd00c73375d4273603",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 672.421875,
+        "scrollWidth": 364,
+        "view": "discord",
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-x-desktop",
+      "destination": "x",
+      "viewport": "desktop",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\x-desktop.png",
+      "sha256": "86964f5bfdc577921cb4a6e24a1020fc7c930f9b056663869953d1965336ab9f",
+      "variant_sha256": "7d258bb42f904620c32743e7107c552934e24685fae3ef8c188b95dec3192f74",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 750.5625,
+        "scrollWidth": 942,
+        "view": "x",
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-x-mobile",
+      "destination": "x",
+      "viewport": "mobile",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\x-mobile.png",
+      "sha256": "6b9aeed09e812587d4101c4c370064d49fe94d76fb0db1e92a0b3bc1f8107c5a",
+      "variant_sha256": "7d258bb42f904620c32743e7107c552934e24685fae3ef8c188b95dec3192f74",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 885.9375,
+        "scrollWidth": 364,
+        "view": "x",
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-linkedin-desktop",
+      "destination": "linkedin",
+      "viewport": "desktop",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\linkedin-desktop.png",
+      "sha256": "78c0839a6afef9676bf302ca56664d95c644515e0136833c497b2a45b19cd3c4",
+      "variant_sha256": "70c03488bc2dc24e16979ac78b23a10c0290b3eae02802f656f8ca049e3e5baa",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 551.75,
+        "scrollWidth": 942,
+        "view": "linkedin",
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-linkedin-mobile",
+      "destination": "linkedin",
+      "viewport": "mobile",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\linkedin-mobile.png",
+      "sha256": "745507eb84006871eb5a8bad131bf7583940c627437f3fb90c8ce6730a4ca417",
+      "variant_sha256": "70c03488bc2dc24e16979ac78b23a10c0290b3eae02802f656f8ca049e3e5baa",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 751.59375,
+        "scrollWidth": 364,
+        "view": "linkedin",
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-facebook_page-desktop",
+      "destination": "facebook_page",
+      "viewport": "desktop",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\facebook_page-desktop.png",
+      "sha256": "e37606f98262cc6ed82cd039249638623b569c09ef52eb7dfeb52e2d82ecda29",
+      "variant_sha256": "eccc3965255ffea4e544b67b95a02e752fb2e22e787d2a11b90eaa374fa9535e",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 523.703125,
+        "scrollWidth": 942,
+        "view": "facebook_page",
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-facebook_page-mobile",
+      "destination": "facebook_page",
+      "viewport": "mobile",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\facebook_page-mobile.png",
+      "sha256": "4807c6d3d93496708d85f79bbf127419a6b164e578f42b3d4c804c2aa6785b74",
+      "variant_sha256": "eccc3965255ffea4e544b67b95a02e752fb2e22e787d2a11b90eaa374fa9535e",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 619.640625,
+        "scrollWidth": 364,
+        "view": "facebook_page",
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-instagram_business-desktop",
+      "destination": "instagram_business",
+      "viewport": "desktop",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\instagram_business-desktop.png",
+      "sha256": "8d018fc5c4cc2d7dddbe4d1e91f31689d8085ab8df62d2c4b45d14295f876e3f",
+      "variant_sha256": "94510af5b599debf9c9557dfbbc4739c7abfaecd92bcc062e6a15b3d44fd6422",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 216.359375,
+        "scrollWidth": 942,
+        "view": "instagram_business",
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-instagram_business-mobile",
+      "destination": "instagram_business",
+      "viewport": "mobile",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\instagram_business-mobile.png",
+      "sha256": "37da2aa2993066b17a8383fd54ada4b21607dc34aa4a3c2e8afcdb89f7c8d12b",
+      "variant_sha256": "94510af5b599debf9c9557dfbbc4739c7abfaecd92bcc062e6a15b3d44fd6422",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 175.21875,
+        "scrollWidth": 364,
+        "view": "instagram_business",
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-threads-desktop",
+      "destination": "threads",
+      "viewport": "desktop",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\threads-desktop.png",
+      "sha256": "21396c5625cccfc6cb7385a4717c6e8ab854df216ff8cad2676e8a380cd955df",
+      "variant_sha256": "8d553466eab0e680ef5aaa9c6de713fb7cccb700b6d1872621ceff170a5a3e0e",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 736.125,
+        "scrollWidth": 942,
+        "view": "threads",
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-threads-mobile",
+      "destination": "threads",
+      "viewport": "mobile",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\threads-mobile.png",
+      "sha256": "ac234815acb542ed10f5c54b1d69184e03e5d51cb9a9156142488b2c2c89d582",
+      "variant_sha256": "8d553466eab0e680ef5aaa9c6de713fb7cccb700b6d1872621ceff170a5a3e0e",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 977.90625,
+        "scrollWidth": 364,
+        "view": "threads",
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-youtube-desktop",
+      "destination": "youtube",
+      "viewport": "desktop",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\youtube-desktop.png",
+      "sha256": "723bc9e04241f5c84be7479227080262d645617a655ef15c7c1b447061b35ffc",
+      "variant_sha256": "f26c98baff6d9a882d5e95586531e04419c467428c9d11c97548b5ffa24c5bdc",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 551.75,
+        "scrollWidth": 942,
+        "view": "youtube",
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-youtube-mobile",
+      "destination": "youtube",
+      "viewport": "mobile",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\youtube-mobile.png",
+      "sha256": "d1467278188019458a51f9487761c32e4d82c38e0b581db5ea57e25205aabbea",
+      "variant_sha256": "f26c98baff6d9a882d5e95586531e04419c467428c9d11c97548b5ffa24c5bdc",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 698.8125,
+        "scrollWidth": 364,
+        "view": "youtube",
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    },
+    {
+      "render_id": "cc124-e8f9f4ec5cf1-substack-mobile",
+      "destination": "substack",
+      "viewport": "mobile",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\substack-mobile.png",
+      "sha256": "e28b287ce6b7b0a0290a296710b0545e25cec8a69eb38b0d0697f4e0e1b7c7ec",
+      "variant_sha256": "a38555ee0cc2625ec6240d9858d1ea742ba1a177e7bf8fe4be9ed65cce77380e",
+      "render_source": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\index.html",
+        "sha256": "8c9f25dacd431e3e29a605aa5a0e6f3a448121fb7a115f2419f9fc4de33a799b"
+      },
+      "browser_observed_geometry": {
+        "height": 1898.828125,
+        "scrollWidth": 364,
+        "view": "canonical",
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "capture_surface": "BROWSEROS_NEO_EXACT_REACT_ARTICLE_VIEW"
+    }
+  ],
+  "neo_capture_observations_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\final-review\\neo-capture-observations.json",
+  "public_write_performed": false
+}
