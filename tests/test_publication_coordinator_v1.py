@@ -1075,6 +1075,67 @@ def test_derivative_failure_never_erases_reconciled_substack_truth(
         assert derivative["status"] == DEFINITE_NO_WRITE
 
 
+@pytest.mark.parametrize("condition,allowed", [
+    ("decision39", True), ("legacy", False), ("same_article", False),
+    ("unknown_canonical", False), ("unverified_canonical", False),
+    ("missing_readback", False), ("unbound_obligation", False),
+])
+def test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical(
+    tmp_path, condition, allowed
+):
+    class PriorGap(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            if destination == "linkedin":
+                self.publish_calls.append(destination)
+                raise TimeoutError("CONTROLLED lost derivative return")
+            result = super().publish(destination=destination, intent=intent,
+                                     authorization_context=authorization_context)
+            if destination == "substack":
+                result.update(id="100" if intent["work_item_id"] == "work-1" else "200",
+                    public_url="https://capitalchronicle.substack.com/p/" + intent["work_item_id"])
+            return result
+
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            if destination == "linkedin" or (condition in {"unknown_canonical", "unverified_canonical"}
+                    and destination == "substack" and intent["work_item_id"] == "work-1"):
+                return {"status": "AMBIGUOUS", "verified": False}
+            return super().readback(destination=destination, public_object_id=public_object_id,
+                public_object_url=public_object_url, intent=intent)
+
+    # First prove the old canonical and create one genuinely ambiguous derivative.
+    transport = PriorGap()
+    store, _, coordinator = _coordinator(tmp_path, runtime=transport)
+    original_readback = transport.readback
+    if condition in {"unknown_canonical", "unverified_canonical"}:
+        transport.readback = lambda **kwargs: (FixtureTransport.readback(transport, **kwargs)
+            if kwargs["destination"] == "substack" else original_readback(**kwargs))
+    old_plan = _quality_plan()
+    first = coordinator.execute_plan("work-1", old_plan)
+    assert first["canonical_article_real_published"] is True
+    transport.readback = original_readback
+    old_ids = coordinator._ids("work-1", old_plan["plan_hash"], "substack")
+    if condition == "unknown_canonical":
+        store.set_dispatch_status(old_ids["dispatch_id"], UNKNOWN_WRITE)
+    elif condition == "unverified_canonical":
+        store.set_reconciliation_status(old_ids["reconciliation_id"], RECONCILIATION_PENDING)
+    elif condition == "missing_readback":
+        with store.get_connection() as conn:
+            conn.execute("DELETE FROM readbacks WHERE dispatch_id=?", (old_ids["dispatch_id"],))
+    store.create_work_item(story_id="story-2", work_item_id="work-2", title="Next controlled article",
+                           target_surface="MULTI_PLATFORM")
+    new_plan = _plan("substack")
+    new_plan.update(plan_hash=_sha("new-plan"), article_identity=("article-1" if condition == "same_article" else "article-2"),
+                    story_identity="story-2", package_identity="package-2")
+    coordinator.allow_prior_confirmed_distribution = condition != "legacy"
+    if condition == "unbound_obligation":
+        coordinator.recover_pending = lambda: {"backlog_remaining": 1, "publish_calls": 0}
+    result = coordinator.execute_plan("work-2", new_plan)
+    assert result["canonical_article_real_published"] is allowed
+    assert transport.publish_calls.count("substack") == (2 if allowed else 1)
+    assert transport.publish_calls.count("linkedin") == 1
+    assert store.get_platform_dispatch(coordinator._ids("work-1", old_plan["plan_hash"], "linkedin")["dispatch_id"])["status"] == UNKNOWN_WRITE
+
+
 def test_case_c_crash_before_adapter_safe_resume_once(tmp_path):
     store, transport, coordinator = _coordinator(tmp_path)
     coordinator.register_plan("work-1", _plan("telegram"))

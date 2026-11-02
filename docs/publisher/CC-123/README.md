@@ -55,6 +55,13 @@ identity checks, recovery and derivative continuation do not restart that clock.
 The existing day record includes standing and promoted articles on their actual
 publication day, retaining their original evidence cutoff.
 
+Decision 39's finished/standing path can defer an older article's derivative
+recovery while preparing a distinct article. This requires that older operation's
+exact plan, canonical identity, confirmed reconciliation and verified readback.
+An uncertain canonical, the same article, missing evidence or unbound obligations
+still block. Existing derivative states and readbacks remain intact; UNKNOWN_WRITE
+is never converted into a retry. Frozen operations retain the former backlog rule.
+
 CC-124 chooses one due article in its backlog priority order, runs the approved
 native preparation/writing/review roles, publishes/readbacks it, records the exact
 URL and stops. New source facts, copy or media require their existing fresh review.
@@ -102,3 +109,34 @@ also confirmed and reconciled. LinkedIn remains UNKNOWN_WRITE and readback-only;
 destination-local access and media outcomes are recorded separately in
 `validation.json`. The canonical acceptance is satisfied; full distribution is
 not implied.
+
+The X thread is now also confirmed and reconciled:
+`https://x.com/Capitalnicle/status/2117318307866968521`, with replies
+`2117318312149275058` and `2117318315236299015`. Actual public text, ordered
+conversation, chart and alt text were checked. The canonical link was followed
+through X's redirect to the exact Substack article. X resized and transcoded the
+chart to JPEG; its public hash is recorded separately from the source PNG.
+Both images were inspected and match after resizing.
+
+The repaired delivery manifest is PASS on the live retained operation. All three
+public Substack originals match their source hashes, and the native vote chart
+keeps its editorial role as the selected delivery image.
+
+Four derivatives are reconciled: Telegram, Discord, Facebook and X. Remaining
+distribution is explicit:
+
+- LinkedIn is UNKNOWN_WRITE. Read back and reconcile; do not resend.
+- Instagram is confirmed absent. Its delivery recovery remains held by the
+  existing unknown-write media interlock.
+- Threads is AUTH_INVALID. No reauthorization or send was attempted.
+- YouTube requires one-time account verification for clickable external links.
+  The approved text and chart were prepared and inspected, but Post was never
+  clicked. The composer was cancelled, and the actual native return records
+  DEFINITE_NO_WRITE with `YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED`. The
+  coordinator records absence; verification remains an owner action.
+
+The existing production-day record counts one distinct canonical article and
+four confirmed derivative channels. The first verified canonical readback stays
+`2026-11-02T17:50:08.539332+00:00`; the next canonical is eligible at
+04:20 GMT+7 on 3 November. Rereading has not reset the 3.5-hour interval. No new
+standing article or CC-124 selection was started in this engineering run.

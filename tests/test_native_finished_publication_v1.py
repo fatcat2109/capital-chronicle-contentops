@@ -56,6 +56,7 @@ def test_any_finished_store_releases_without_manifest_and_preserves_source(ready
     assert release_finished_piece(path, rollout)["binding"] == binding
     operation, executor, transports = composed(target, binding, rollout, monkeypatch)
     final, browser_writes = finish(operation, executor)
+    assert operation.coordinator.allow_prior_confirmed_distribution is True
     assert final["publication"]["canonical_article_real_published"] is True
     assert final["publication"]["state"] == "RECONCILED"
     assert set(browser_writes + transports.calls) == {"substack", "telegram", "discord", "x", "linkedin", "threads"}

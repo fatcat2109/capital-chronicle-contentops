@@ -299,11 +299,13 @@ class DurablePublicationCoordinator:
         readiness_refresh_seconds: float = 300.0,
         clock: Optional[Callable[[], datetime]] = None,
         recovery_quarantined_work_item_ids: tuple[str, ...] = (),
+        allow_prior_confirmed_distribution: bool = False,
     ) -> None:
         self.store = store
         self.transport_runtime = transport_runtime
         self.readiness_provider = readiness_provider
         self.readiness_manager = readiness_manager
+        self.allow_prior_confirmed_distribution = allow_prior_confirmed_distribution
         self.readiness_refresh_seconds = max(30.0, float(readiness_refresh_seconds))
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._recovery_quarantined_work_item_ids = frozenset(
@@ -314,6 +316,66 @@ class DurablePublicationCoordinator:
 
     def _recovery_is_quarantined(self, work_item_id: Any) -> bool:
         return str(work_item_id or "") in self._recovery_quarantined_work_item_ids
+
+    def recovery_blocks_new_publication(self, recovery, work_item_id, *, plan):
+        """Decision 39 may defer another confirmed article's derivative gaps only.
+
+        Keep every obligation and its recovery state. Never defer an uncertain
+        canonical, the same article, an unbound row or incomplete recovery evidence.
+        The default/frozen path keeps its original global backlog rule.
+        """
+        remaining = int(recovery.get("backlog_remaining") or 0)
+        if not self.allow_prior_confirmed_distribution:
+            return remaining > 0
+        messages = self.store.list_outbox_messages()
+        confirmations = {}
+        def confirmed(intent):
+            key = (intent["work_item_id"], intent["plan_hash"])
+            if key not in confirmations:
+                ids = self._ids(*key, "substack")
+                dispatch = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
+                proof = False
+                for row in self.store.list_readbacks_for_dispatch(ids["dispatch_id"]):
+                    data = json.loads(row["readback_data"])
+                    observed = data.get("readback", data)
+                    proof |= isinstance(observed, Mapping) and observed.get("verified") is True
+                confirmations[key] = bool(proof and self._confirmed_public_object(
+                    {**dispatch, "reconciliation_status": RECONCILED_CONFIRMED}, destination="substack")
+                    and self._confirmed_canonical_url_for_work_item(key[0], plan_hash=key[1]))
+            return confirmations[key]
+        intents = []
+        for message in messages:
+            try:
+                intent = json.loads(message["payload"])
+            except (ValueError, TypeError):
+                continue
+            run = str(intent.get("work_item_id") or "")
+            if not run or not intent.get("plan_hash") or self._recovery_is_quarantined(run):
+                continue
+            intents.append((message, intent))
+            if message["destination"] == "substack":
+                ids = self._ids(run, intent["plan_hash"], "substack")
+                dispatch = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
+                if dispatch.get("status") in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING}:
+                    return True
+                if dispatch.get("status") == DISPATCH_CONFIRMED and not confirmed(intent):
+                    return True
+        obligations = recovery.get("backlog_remaining_obligations") or []
+        if len(obligations) != remaining:
+            return True
+        for obligation in obligations:
+            run, destination = obligation.get("work_item_id"), obligation.get("destination")
+            if run == work_item_id or destination not in V1_REQUIRED_DERIVATIVE_DESTINATIONS:
+                return True
+            matches = [intent for message, intent in intents
+                       if intent["work_item_id"] == run and message["destination"] == destination]
+            if not matches or not plan.get("article_identity"):
+                return True
+            for intent in matches:
+                if (not intent.get("article_identity") or intent["article_identity"] == plan["article_identity"]
+                        or not confirmed(intent)):
+                    return True
+        return False
 
     def reconcile_controlled_no_write_dispatch(self, dispatch_id: str) -> dict[str, Any]:
         """Repair an exact terminal fixture chain without a transport or public identity.
@@ -2146,7 +2208,9 @@ class DurablePublicationCoordinator:
                 "unknown_write_detected": True,
             }
         recovery_preflight = self.recover_pending()
-        if int(recovery_preflight.get("backlog_remaining") or 0) > 0:
+        blocks = self.recovery_blocks_new_publication(recovery_preflight, work_item_id, plan=plan)
+        recovery_preflight["backlog_blocking_current_article"] = blocks
+        if blocks:
             return {
                 "plan_hash": str(plan.get("plan_hash") or _hash(_canonical_json(plan))),
                 "registered": [],

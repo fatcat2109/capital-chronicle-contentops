@@ -334,8 +334,12 @@ class SimplePublicationHandoffV1:
     ) -> dict[str, Any]:
         """Resume an interrupted handoff without ever re-running the Simple semantic operation."""
         recovery = self.recover_preflight()
-        if int(recovery.get("backlog_remaining") or 0) > 0:
-            plan = self.ensure_plan(slot_id=slot_id, slot_output_dir=slot_output_dir)
+        plan = self.ensure_plan(slot_id=slot_id, slot_output_dir=slot_output_dir)
+        guard = getattr(self.coordinator, "recovery_blocks_new_publication", None)
+        blocks = (guard(recovery, slot_id, plan=plan) if callable(guard)
+                  else int(recovery.get("backlog_remaining") or 0) > 0)
+        recovery["backlog_blocking_current_article"] = blocks
+        if blocks:
             current = self.coordinator.publication_state(slot_id, plan)
             return {
                 "schema_version": SCHEMA_VERSION,
@@ -360,7 +364,6 @@ class SimplePublicationHandoffV1:
                 "bridge_source_get_count": 0,
                 "recovery_preflight": recovery,
             }
-        plan = self.ensure_plan(slot_id=slot_id, slot_output_dir=slot_output_dir)
         self._ensure_work_item(slot_id=slot_id, plan=plan)
         # Complete any crash-interrupted partial outbox registration idempotently. Existing
         # finalized/dispatch rows are never rewritten by ``register_plan``.

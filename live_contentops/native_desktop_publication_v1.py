@@ -537,6 +537,11 @@ class NativeReviewedPublication:
             != resolve_workspace_path(self.binding["store_path"])
         ):
             raise ValueError("EXACT_EXISTING_COORDINATOR_EXECUTOR_BINDING_REQUIRED")
+        release = self.store.get_outbox_message("native-finished-release-" + sha256_of(self.binding["run_id"]))
+        marker = json.loads(release["payload"]) if release else {}
+        self.coordinator.allow_prior_confirmed_distribution = bool(self.binding.get("standing_operation") or (
+            marker.get("authority_ref") == "JIM_DECISIONS_20261030_DECISION_39"
+            and marker.get("binding_sha256") == sha256_of(self.binding)))
 
     def linkedin_recovery(self, action, *, response):
         """Explicit owner recovery over the same bound publication and native executor."""
