@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "scripts/run_native_desktop_editorial.py",
+    "handoff",
+    "--binding",
+    "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\binding.json"
+  ],
+  "working_directory": "A:\\Capital Chronicle\\ContentOps",
+  "started_at_utc": "2026-11-02T22:17:20.288993+00:00",
+  "finished_at_utc": "2026-11-02T22:17:34.838972+00:00",
+  "exit_code": 0,
+  "stdout": "{\"classification\": \"REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH\", \"article_identity\": \"e8f9f4ec5cf1fc91133e77d4bb27b45435139db5b121bbf4252c29f75bab1bdd\", \"review_id\": \"native-article-review-55476c0419554ad7a8d3d0e936467c72\", \"plan_hash\": \"6d532d224360be3852e2ae30921a0b9ffa0addd3c5ee9b8ac525adbfd9f2fe75\", \"output_dir\": \"C:\\\\Users\\\\bullw\\\\AppData\\\\Local\\\\CapitalChronicle\\\\ContentOps\\\\editorial-previews\\\\cc124-prepare-20261103-a\\\\reviewed-handoff\\\\ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305\", \"media_reuse_count\": 0, \"preview_count\": 8, \"new_qualified_articles\": 0, \"model_invocations\": 0, \"source_requests\": 0, \"public_write_performed\": false}\n",
+  "stderr": ""
+}
