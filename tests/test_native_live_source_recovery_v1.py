@@ -54,13 +54,25 @@ def source_fixture(root, *, published="2026-10-30T09:00:00Z", publisher="Reuters
     return url
 
 
-def seeded(tmp_path, monkeypatch, *, used=2, published="2026-10-30T09:00:00Z"):
+def seeded(tmp_path, monkeypatch, *, used=2, published="2026-10-30T09:00:00Z", scheduled=False, needs_sources=False):
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
-    turn, binding = make_turn(store, tmp_path / "output", "live-recovery", owner_manual_live=True)
+    root = tmp_path / "output"
+    if scheduled:
+        from live_contentops.newsroom_production_day_v1 import newsroom_production_day_id
+        root = tmp_path / newsroom_production_day_id(CUTOFF) / "controlled-window" / "live-recovery"
+        root.parent.mkdir(parents=True)
+    turn, binding = make_turn(store, root, "live-recovery", owner_manual_live=True)
     binding.update(schema_version=entry().BINDING_SCHEMA, store_path=str(store.db_path),
         owner_manual_validation=True, feed_pointer_path=str(tmp_path / "feed.json"),
         published_memory_store=str(tmp_path / "memory.sqlite3"), published_memory_output_root=str(tmp_path / "memory"))
+    if scheduled:
+        from live_contentops.native_newsroom_volume_v1 import configure_volume_turn
+        binding.update(owner_manual_validation=False, window_id="controlled-window", automation_id="v1-newsroom-new-york-2100")
+        binding.pop("owner_manual_live")
+        configure_volume_turn(turn, binding)
+        store.register_outbox_message(message_id="native-operation-binding-" + sha256_of(turn.run_id),
+            work_item_id=turn.work, destination="internal:native-desktop-editorial", payload=json.dumps(binding))
     tracker = LatestReportDeliveryTracker(store)
     calls = []
     class Resolver:
@@ -84,7 +96,7 @@ def seeded(tmp_path, monkeypatch, *, used=2, published="2026-10-30T09:00:00Z"):
     request = pending.value.request
     candidate = request["governed_input"]["candidates"][0]["candidate_id"]
     selected = _selection(candidate)
-    selected["ordered_candidate_plan"][0].update(article_mode="BREAKING_BRIEF", angle="Controlled policy question",
+    selected["ordered_candidate_plan"][0].update(article_mode="STANDARD_NEWS_ANALYSIS", angle="Controlled policy question",
         primary_reader_question="What does the report establish?", evidence_plan="Use exact attributed facts.")
     observation = {"surface": "CODEX_NATIVE_SUBAGENT", "model": "gpt-6.1-sol", "reasoning_effort": "low",
         "invocation_id": "/root/CONTROLLED_TEST", "observation_source": "CONTROLLED_TEST_NOT_MODEL_PROOF"}
@@ -95,7 +107,9 @@ def seeded(tmp_path, monkeypatch, *, used=2, published="2026-10-30T09:00:00Z"):
     assert media.value.request["stage"] == "media-plan"
     pending = entry().operation(binding, command="media-plan")
     turn.submit("media-plan", {"request_sha256": pending["request_sha256"],
-        "output": {"story_plan": {"thesis": "Conditional plan pending original source context"}},
+        "output": {"story_plan": {"thesis": "Conditional plan pending original source context",
+            **({"source_requests": [{"url": rolling["headlines"][0]["source_url"],
+                "reason": "Read the full original report before interpreting its policy language."}]} if needs_sources else {})}},
         "invocation_observation": observation})
     source = turn.root / "acquired"
     url = source_fixture(source, published=published)

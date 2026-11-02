@@ -506,6 +506,7 @@ def run_report_editorial_cycle(
             model.admitted_editorial_media = getattr(llm_invoke, "admitted_editorial_media", lambda: [])
             model.audience_learning = getattr(llm_invoke, "audience_learning", None)
             model.volume_policy = getattr(llm_invoke, "volume_policy", None)
+            model.scheduled_window = getattr(llm_invoke, "scheduled_window", False)
             model.source_request_count_at_start = getattr(llm_invoke, "source_request_count_at_start", 0)
             model.inherited_selection = getattr(llm_invoke, "inherited_selection", None)
             model.manual_candidate = getattr(llm_invoke, "manual_candidate", None)

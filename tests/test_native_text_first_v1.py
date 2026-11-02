@@ -19,21 +19,24 @@ from test_v1_simple_gemini_newsroom_v1 import _headlines, _selection, _article_o
 from test_native_desktop_publication_v1 import composed, finish
 
 
-def brief_packet(tmp_path, monkeypatch, *, bad_fact=False, source_missing=False):
+def brief_packet(tmp_path, monkeypatch, *, bad_fact=False, source_missing=False,
+        rolling_override=None, evidence_override=None, writer_output=None, cutoff=CUTOFF):
     store = ContentOpsDurableStore(tmp_path / "CONTROLLED_NOT_PRODUCTION.sqlite3")
     run, window, auto = "controlled-text-first", "controlled-recorded-window", "v1-newsroom-new-york-2100"
     from live_contentops.v1_simple_gemini_scheduler_v1 import simple_gemini_slot_id
-    day = "2026-10-30"
+    day = cutoff[:10]
     run = simple_gemini_slot_id(production_day_id=day, window_id=window, slot_ordinal=1)
     root = tmp_path / "editorial" / day / window / run
     root.parent.mkdir(parents=True)
     turn, binding = make_turn(store, root, run, window_id=window, automation_id=auto, slot_ordinal=1,
         schema_version="contentops.native_desktop_operation_binding.v1", owner_manual_validation=False,
         store_path=str(store.db_path), published_memory_store=str(store.db_path),
-        published_memory_output_root=str(tmp_path / "published"))
+        published_memory_output_root=str(tmp_path / "published"), cutoff_utc=cutoff)
     rolling = _headlines(1)
     for row in rolling["headlines"]:
         row["source_timestamp_utc"] = "2026-10-30T09:00:00Z"
+    if rolling_override is not None:
+        rolling = deepcopy(rolling_override)
     calls = []
     cached_evidence = {}
 
@@ -41,14 +44,15 @@ def brief_packet(tmp_path, monkeypatch, *, bad_fact=False, source_missing=False)
         if request["cluster_id"] in cached_evidence:
             return deepcopy(cached_evidence[request["cluster_id"]])
         calls.append("source")
-        value = _evidence_result(status="BLOCKED" if source_missing else "PASS", blocker="OPTIONAL_PAGE_READ_REFUSED")
+        value = deepcopy(evidence_override) if evidence_override is not None else _evidence_result(
+            status="BLOCKED" if source_missing else "PASS", blocker="OPTIONAL_PAGE_READ_REFUSED")
         cached_evidence[request["cluster_id"]] = deepcopy(value)
         return value
 
     stages = []
     for _ in range(4):
         try:
-            semantic = run_v1_simple_gemini_newsroom(output_dir=root, cutoff_utc=CUTOFF,
+            semantic = run_v1_simple_gemini_newsroom(output_dir=root, cutoff_utc=cutoff,
                 run_id=run, rolling_input=rolling, llm_invoke=turn, evidence_loader=loader)
             break
         except DesktopInputRequired as pending:
@@ -62,7 +66,7 @@ def brief_packet(tmp_path, monkeypatch, *, bad_fact=False, source_missing=False)
                     evidence_plan="Use the exact retained source and preserve the missing timetable.")
             else:
                 assert stage in {"write", "revise"}, stage
-                output = _article_output(bad_excerpt=bad_fact)
+                output = deepcopy(writer_output) if writer_output is not None else _article_output(bad_excerpt=bad_fact)
                 output["article"]["news_item_kind"] = "NEWS"
                 output["article"]["substack_body_markdown"] += (
                     "\n\nAnalysis, not financial advice. Readers decide whether to trade. [[SOURCE:SOURCE_1]]")
