@@ -128,7 +128,7 @@ def test_scheduled_plan_requests_missing_facts_then_uses_existing_admission(tmp_
     assert path.read_bytes() == preserved and turn.store.list_platform_dispatches() == []
 
 
-@pytest.mark.parametrize("fault", ["unregistered", "changed_request", "budget", "different_url", "max_frozen"])
+@pytest.mark.parametrize("fault", ["unregistered", "changed_request", "budget", "different_url", "max_frozen", "tampered_pending"])
 def test_scheduled_source_recovery_rejects_wrong_identity_budget_or_freeze(tmp_path, monkeypatch, fault):
     turn, binding, response, _, _ = seeded(tmp_path, monkeypatch, used=0, scheduled=True, needs_sources=True)
     pending = entry().operation(binding, command="media-plan")
@@ -143,6 +143,11 @@ def test_scheduled_source_recovery_rejects_wrong_identity_budget_or_freeze(tmp_p
         response["additional_source_requests"][0]["url"] += "?other"
     elif fault == "max_frozen":
         turn._put("visual-edit", "request", {"request_sha256": "frozen"})
+    elif fault == "tampered_pending":
+        path = turn.root / "source_preparation_required.json"
+        changed = json.loads(path.read_bytes())
+        changed["source_requests"][0]["url"] += "?changed"
+        path.write_text(json.dumps(changed), encoding="utf-8")
     before = turn.store.list_outbox_messages()
     with pytest.raises(ValueError):
         admit_pre_writer_source_recovery(turn, binding, response)
@@ -164,3 +169,19 @@ def test_actual_source_access_failure_records_first_cause_and_spending(tmp_path,
     assert window_progress(turn.store, [(binding, None)])["source_request_count"] == 1
     assert turn.current_story_outcomes()[0]["provenance"]["actual_attempts"] == response["additional_source_requests"]
     assert turn.store.list_platform_dispatches() == []
+
+
+def test_planned_source_request_survives_initial_empty_resolver_packet(tmp_path, monkeypatch):
+    from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired
+    turn, binding, response, run, calls = seeded(tmp_path, monkeypatch, used=0,
+        scheduled=True, source_missing=True)
+    pending = json.loads((turn.root / "source_preparation_required.json").read_bytes())
+    assert pending["candidate_id"] == response["candidate_id"]
+    assert not json.loads((turn.root / "simple_gemini_evidence_v1.json").read_bytes())["selected_source_pack"]
+    response["expected_source_request_sha256"] = pending["request_sha256"]
+    admitted = entry().operation(binding, command="recover-sources", response=response)
+    assert admitted["source_request_count"] == 1
+    with pytest.raises(DesktopInputRequired) as media:
+        run()
+    assert media.value.request["stage"] == "media-plan"
+    assert len(calls) == 1 and turn.store.list_platform_dispatches() == []

@@ -337,7 +337,7 @@ def validate_source_requests(requests):
         raise ValueError("DUPLICATE_SOURCE_REQUEST")
 
 
-def request_source_preparation(turn, requests):
+def request_source_preparation(turn, requests, *, candidate_id=None):
     """A bounded request to the existing source owners, before any MAX freeze."""
     validate_source_requests(requests)
     if not requests or turn.source_recovery():
@@ -347,11 +347,14 @@ def request_source_preparation(turn, requests):
     selection = turn.frozen_request("select")
     walk_path = turn.root / "simple_gemini_evidence_v1.json"
     walk = json.loads(walk_path.read_bytes())
+    candidate_id = candidate_id or walk["selected_candidate_id"]
+    if candidate_id not in {p["candidate_id"] for p in turn._get("select", "response")["output"]["ordered_candidate_plan"]}:
+        raise ValueError("EXACT_ADMITTED_SOURCE_PREPARATION_CANDIDATE_REQUIRED")
     used = max(turn.source_request_count_at_start, walk["request_count"])
     if used + len(requests) > turn.volume_policy["source_request_limit"]:
         raise ValueError("EXACT_SHARED_LIVE_SOURCE_BUDGET_REQUIRED")
     from hashlib import sha256
-    value = {"stage": "sources", "run_id": turn.run_id, "candidate_id": walk["selected_candidate_id"],
+    value = {"stage": "sources", "run_id": turn.run_id, "candidate_id": candidate_id,
         "expected_selection_request_sha256": selection["request_sha256"],
         "expected_evidence_sha256": sha256(walk_path.read_bytes()).hexdigest(),
         "source_requests": requests, "source_request_count": used,
@@ -365,6 +368,12 @@ def request_source_preparation(turn, requests):
     turn.root.mkdir(parents=True, exist_ok=True)
     path = turn.root / "source_preparation_required.json"
     if path.exists() and json.loads(path.read_bytes()) != value:
+        raise ValueError("SOURCE_PREPARATION_REQUEST_CHANGED")
+    registered = turn.store.register_outbox_message(
+        message_id="native-source-preparation-" + sha256_of([turn.run_id, candidate_id]),
+        work_item_id=turn.work, destination=DESTINATION,
+        payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
+    if json.loads(registered["payload"]) != value:
         raise ValueError("SOURCE_PREPARATION_REQUEST_CHANGED")
     path.write_bytes(canonical_bytes(value))
     raise DesktopInputRequired({**value, "request_path": str(path)})
@@ -410,10 +419,16 @@ def _admit_live_source_recovery(turn, binding, response):
     walk_raw = (turn.root / "simple_gemini_evidence_v1.json").read_bytes()
     walk = json.loads(walk_raw)
     candidate = response.get("candidate_id")
+    preparation = turn.root / "source_preparation_required.json"
+    pending = json.loads(preparation.read_bytes()) if preparation.is_file() else None
+    if pending:
+        registered = turn.store.get_outbox_message("native-source-preparation-" + sha256_of([turn.run_id, candidate]))
+        if not registered or json.loads(registered["payload"]) != pending:
+            raise ValueError("EXACT_PENDING_SOURCE_PREPARATION_REQUIRED")
     if (sha256(walk_raw).hexdigest() != response.get("expected_evidence_sha256")
-            or candidate != walk.get("selected_candidate_id")
+            or candidate != (walk.get("selected_candidate_id") or (pending or {}).get("candidate_id"))
             or candidate not in {p["candidate_id"] for p in selected["output"]["ordered_candidate_plan"]}
-            or not walk.get("selected_source_pack")):
+            or (not walk.get("selected_source_pack") and not pending)):
         raise ValueError("EXACT_SELECTED_LIVE_SOURCE_WALK_REQUIRED")
     source_steps = [json.loads(row["payload"]) for row in turn.store.list_outbox_messages()
         if row["work_item_id"] == turn.work and row["destination"] == "internal:cc-report-editorial-stage"]
@@ -428,9 +443,7 @@ def _admit_live_source_recovery(turn, binding, response):
     source_reviews = json.loads(frozen_row["payload"]).get("source_requests_before_writer_freeze", 0) if frozen_row else 0
     used = max(turn.source_request_count_at_start + spent + (0 if turn.manual_candidate else source_reviews), int(walk.get("request_count", 0)))
     requests = response.get("additional_source_requests", [])
-    preparation = turn.root / "source_preparation_required.json"
-    if preparation.is_file():
-        pending = json.loads(preparation.read_bytes())
+    if pending:
         if (response.get("expected_source_request_sha256") != pending["request_sha256"]
                 or pending["candidate_id"] != candidate
                 or [r.get("url") for r in requests] != [r["url"] for r in pending["source_requests"]]):
@@ -569,6 +582,9 @@ class NativeDesktopTurn:
                 (self.work, "internal:native-desktop-source-recovery")).fetchall()
         return next((v for r in rows if (v := json.loads(r["payload"])) and
             (not self.manual_candidate or v.get("candidate_id") == self.manual_candidate["candidate_id"])), None)
+
+    def prepare_sources(self, requests, *, candidate_id=None):
+        return request_source_preparation(self, requests, candidate_id=candidate_id)
 
     def _get(self, stage: str, kind: str) -> dict[str, Any] | None:
         row = self.store.get_outbox_message(self._key(stage, kind))

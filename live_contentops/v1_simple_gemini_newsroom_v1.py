@@ -504,6 +504,7 @@ def _candidate_packet_and_preselection(
     evidence = dict(ranked["evidence"])
     if freshness_cutoff_utc:
         evidence["freshness_priority_applied_before_packet_cap"] = True
+        evidence["freshness_aware_top_candidate_ids"] = [r["candidate_id"] for r in candidates]
     evidence.update(
         {
             "full_eligible_deduped_universe_count": len(unfiltered_universe),
@@ -613,7 +614,9 @@ def _validate_selection_text(
     if native_plan:
         plan_fields.update({"angle", "primary_reader_question", "evidence_plan"})
     for position, raw in enumerate(plan, start=1):
-        if not isinstance(raw, Mapping) or set(raw) != plan_fields:
+        expected_fields = plan_fields | ({"source_requests"} if native_plan and isinstance(raw, Mapping)
+            and "source_requests" in raw else set())
+        if not isinstance(raw, Mapping) or set(raw) != expected_fields:
             return False, "structured_output_schema_invalid", None, "candidate_plan_entry_fields_invalid"
         candidate_id = str(raw.get("candidate_id") or "")
         if candidate_id not in candidate_ids:
@@ -2770,6 +2773,11 @@ def run_v1_simple_gemini_newsroom(
     }
     persist(root / "simple_gemini_evidence_v1.json", evidence_artifact)
     if selected is None or selected_plan_entry is None or not source_pack:
+        if native and getattr(llm_invoke, "scheduled_window", False):
+            for entry in plan:
+                requests = entry.get("source_requests", [])
+                if requests:
+                    llm_invoke.prepare_sources(requests, candidate_id=entry["candidate_id"])
         receipt = {
             "schema_version": SCHEMA_VERSION,
             "classification": "NO_PUBLICATION",

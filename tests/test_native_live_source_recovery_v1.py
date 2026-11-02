@@ -54,7 +54,8 @@ def source_fixture(root, *, published="2026-10-30T09:00:00Z", publisher="Reuters
     return url
 
 
-def seeded(tmp_path, monkeypatch, *, used=2, published="2026-10-30T09:00:00Z", scheduled=False, needs_sources=False):
+def seeded(tmp_path, monkeypatch, *, used=2, published="2026-10-30T09:00:00Z", scheduled=False, needs_sources=False,
+        source_missing=False):
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     root = tmp_path / "output"
@@ -80,7 +81,7 @@ def seeded(tmp_path, monkeypatch, *, used=2, published="2026-10-30T09:00:00Z", s
             pass
         def __call__(self, request):
             calls.append(request["cluster_id"])
-            return deepcopy(_evidence_result(request_count=used))
+            return deepcopy(_evidence_result(request_count=used, status="BLOCKED" if source_missing else "PASS"))
     monkeypatch.setattr("live_contentops.v1_simple_gemini_newsroom_v1._default_evidence_loader",
         lambda *a, **k: Resolver())
     rolling = _headlines(1)
@@ -98,19 +99,23 @@ def seeded(tmp_path, monkeypatch, *, used=2, published="2026-10-30T09:00:00Z", s
     selected = _selection(candidate)
     selected["ordered_candidate_plan"][0].update(article_mode="STANDARD_NEWS_ANALYSIS", angle="Controlled policy question",
         primary_reader_question="What does the report establish?", evidence_plan="Use exact attributed facts.")
+    if source_missing:
+        selected["ordered_candidate_plan"][0]["source_requests"] = [{"url": rolling["headlines"][0]["source_url"],
+            "reason": "Read the full original report before interpreting its policy language."}]
     observation = {"surface": "CODEX_NATIVE_SUBAGENT", "model": "gpt-6.1-sol", "reasoning_effort": "low",
         "invocation_id": "/root/CONTROLLED_TEST", "observation_source": "CONTROLLED_TEST_NOT_MODEL_PROOF"}
     turn.submit("select", {"request_sha256": request["request_sha256"], "output": selected,
         "invocation_observation": observation})
     with pytest.raises(DesktopInputRequired) as media:
         run()
-    assert media.value.request["stage"] == "media-plan"
-    pending = entry().operation(binding, command="media-plan")
-    turn.submit("media-plan", {"request_sha256": pending["request_sha256"],
-        "output": {"story_plan": {"thesis": "Conditional plan pending original source context",
-            **({"source_requests": [{"url": rolling["headlines"][0]["source_url"],
-                "reason": "Read the full original report before interpreting its policy language."}]} if needs_sources else {})}},
-        "invocation_observation": observation})
+    assert media.value.request["stage"] == ("sources" if source_missing else "media-plan")
+    if not source_missing:
+        pending = entry().operation(binding, command="media-plan")
+        turn.submit("media-plan", {"request_sha256": pending["request_sha256"],
+            "output": {"story_plan": {"thesis": "Conditional plan pending original source context",
+                **({"source_requests": [{"url": rolling["headlines"][0]["source_url"],
+                    "reason": "Read the full original report before interpreting its policy language."}]} if needs_sources else {})}},
+            "invocation_observation": observation})
     source = turn.root / "acquired"
     url = source_fixture(source, published=published)
     capture = source / "capture.json"
