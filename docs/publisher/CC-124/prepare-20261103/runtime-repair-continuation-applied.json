@@ -1,0 +1,20 @@
+{
+  "base": "29086d88d290c35b48ef28b9d709b5016c40bca8",
+  "tree": "07a8e28dc908723d5b0deb117e58db890010bb18",
+  "patch_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\.task-runtime\\cc124-runtime-repair2\\repair.patch",
+  "changed_paths": [
+    "live_contentops/v1_simple_gemini_newsroom_v1.py",
+    "tests/test_v1_simple_gemini_newsroom_v1.py"
+  ],
+  "observed_at_utc": "2026-11-02T21:17:41.184930+00:00",
+  "integration_branch": "backlog/cc-124-runtime-compiler-repair",
+  "integration_commit": "b9082e92bc7ffbdf21b141b0d0b02ffb4888dc76",
+  "operating_head": "b9082e92bc7ffbdf21b141b0d0b02ffb4888dc76",
+  "tag": "contentops-live-20261103-cc124-continuation",
+  "rollback_tag": "contentops-live-20261103-cc124-compiler-repair",
+  "applied_at_utc": "2026-11-02T21:18:15.846747+00:00",
+  "dirty_wip_hashes_preserved": true,
+  "schedule_changes": false,
+  "app_restarts": false,
+  "public_write_performed": false
+}
