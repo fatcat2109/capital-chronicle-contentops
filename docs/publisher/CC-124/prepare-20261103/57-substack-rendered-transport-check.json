@@ -1,0 +1,28 @@
+{
+  "observed_at_utc": "2026-11-02T23:25:06Z",
+  "draft_id": "223246940",
+  "request_sha256": "dc3e7289e2a8ec911137f30f9152ecb6fd4fa7d39f6a62ca7112da089ce376ea",
+  "review_type": "SUPPLEMENTAL_OPERATOR_TRANSPORT_CHECK",
+  "reviewer_native_context": "/root",
+  "actual_pixels_inspected": true,
+  "findings": [],
+  "copy_revision_unchanged": true,
+  "same_max_review": "Existing accepted final-visual-3fec5e82b21d56c39bc1af1979f2f7f85e1b3e261677c2429a6929c24a77402b and KEEP review remain unchanged. This is not a new MAX writer acceptance.",
+  "renders": [
+    {
+      "viewport": "mobile",
+      "path": "C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/editorial-previews/cc124-prepare-20261103-a/substack-transport-review/native-substack-mobile.png",
+      "sha256": "86c2e923194bddc91134c3d60a5f8a58d0dc0c3f8cffd8283a9e24cdaad911fb",
+      "width": 380,
+      "height": 2503
+    },
+    {
+      "viewport": "desktop",
+      "path": "C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/editorial-previews/cc124-prepare-20261103-a/substack-transport-review/native-substack-desktop.png",
+      "sha256": "d8141bf7c32cd0be737d2a99d79cdfac7a72cac39715e5926ea9669067c4b454",
+      "width": 1430,
+      "height": 1919
+    }
+  ],
+  "public_write_performed": false
+}
