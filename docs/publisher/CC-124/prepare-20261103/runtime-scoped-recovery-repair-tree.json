@@ -1,0 +1,11 @@
+{
+  "base": "a5a776bb754a0db3d164e6571421ba7d04f9a6c4",
+  "tree": "62073a6d12763b329b566722a3df37558767db53",
+  "changed_paths": [
+    "live_contentops/native_desktop_publication_v1.py",
+    "live_contentops/publication_coordinator_v1.py",
+    "tests/test_native_finished_publication_v1.py"
+  ],
+  "context_adaptation": "The decision-39 bound native run supplies its exact current plan to recovery; existing confirmed-prior-derivative policy defers those messages before transport while retaining all obligations and states.",
+  "observed_at_utc": "2026-11-02T22:41:39.985407+00:00"
+}
