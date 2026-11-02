@@ -79,6 +79,14 @@ After final assembly the SAME actual designated strongest native editor/writer, 
 Existing native request/return and article-review owners bind actual model/effort/invocation, article/media/render revision and findings. The sole publisher rejects missing/stale/wrong-model acceptance or unresolved material issues before a fresh send; UNKNOWN_WRITE recovery remains readback-first. Planning/settings/tests do not prove inspection. Later approved stronger models may replace the active editorial assignment consistently; the review-and-repair obligation is permanent. V2/V3 remain paused.
 
 
+## Current V1 execution override — 2 November 2026 (Jim's decision 39)
+
+Jim's decision 39 (Tower `docs/project_control_tower/JIM_DECISIONS_20261030.md`, 2 Nov 2026, 23:10 GMT+7) removes newsroom red tape. It adds to the 27 October grant below and wins where they differ.
+- Before this window's own edition, publish the promoted CC-074 FOMC retrospective, operation `cc074-retro-fomc-20261028-v1`, once. Jim authorized its publication (decisions 36, 37 B1 and 39), and Ops integrated and applied its promotion (tag `contentops-live-20261102-cc074`). Run `python scripts/run_native_desktop_editorial.py publication-resume --binding "A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\owner-manual\cc074-retro-fomc-20261028-v1\binding.json" --rollout config/native_desktop_rollout_v1.json --native-invocation-id "<your actual turn id>"`. Complete each native Neo request it returns (publication-tool-begin, the BrowserOS Neo action, publication-tool-submit), then resume again, until the canonical Substack article and its derivatives are read back. Check with `publication-status`. If it is already published, only read back.
+- A confirmed or source-qualified story is never held because it cannot support 2-5 charts or has no image. It goes out with the charts it has, or as text; only a channel that needs an image (Instagram) is skipped.
+- A window never ends with admitted stories, 0 source requests and 0 posts: request the sources it is allowed, or move to the next admitted story.
+- Unchanged: decision 35 (market reactions only, no position calls), the public-output guard, the KILL_SWITCH, identity and readback rules, and UNKNOWN_WRITE recovery.
+
 ## Current V1 execution override — 27 October 2026
 
 Jim's direct operator/owner grant in L2 turn `01a17b6b-6a34-7d72-b76b-2b87223edd69`, human message `01a17b6c-ac16-70d0-bea6-d2a6ca82412b`, authorizes actual V1 publication after cleanup and an immediate native run without waiting until17:00. The human grant and completed cleanup turn `01a17b69-2f65-7612-bb69-5c2277f60843` were read through read_thread. No further Jim review is required for this scope.
