@@ -318,7 +318,7 @@ class DurablePublicationCoordinator:
     def _recovery_is_quarantined(self, work_item_id: Any) -> bool:
         return str(work_item_id or "") in self._recovery_quarantined_work_item_ids
 
-    def recovery_blocks_new_publication(self, recovery, work_item_id, *, plan):
+    def recovery_blocks_new_publication(self, recovery, work_item_id, *, plan, evidence_messages=None):
         """Decision 39 may defer another confirmed article's derivative gaps only.
 
         Keep every obligation and its recovery state. Never defer an uncertain
@@ -328,7 +328,7 @@ class DurablePublicationCoordinator:
         remaining = int(recovery.get("backlog_remaining") or 0)
         if not self.allow_prior_confirmed_distribution:
             return remaining > 0
-        messages = self.store.list_outbox_messages()
+        messages = self.store.list_outbox_messages() if evidence_messages is None else evidence_messages
         confirmations = {}
         def confirmed(intent):
             key = (intent["work_item_id"], intent["plan_hash"])
@@ -2498,7 +2498,7 @@ class DurablePublicationCoordinator:
                 return url
         return None
 
-    def _defer_prior_distribution_recovery(self, intent, destination):
+    def _defer_prior_distribution_recovery(self, intent, destination, *, evidence_messages=None):
         scope = self.recovery_scope
         if (not self.allow_prior_confirmed_distribution or not scope
                 or destination not in V1_REQUIRED_DERIVATIVE_DESTINATIONS
@@ -2507,7 +2507,7 @@ class DurablePublicationCoordinator:
         recovery = {"backlog_remaining": 1, "backlog_remaining_obligations": [
             {"work_item_id": intent.get("work_item_id"), "destination": destination}]}
         return not self.recovery_blocks_new_publication(
-            recovery, scope["work_item_id"], plan=scope["plan"])
+            recovery, scope["work_item_id"], plan=scope["plan"], evidence_messages=evidence_messages)
 
     def recover_pending(self) -> dict[str, Any]:
         """Reconcile every ambiguity, then spend one bounded freshness-safe recovery budget."""
@@ -2539,12 +2539,13 @@ class DurablePublicationCoordinator:
                     )
                 )
                 continue
-            if self._defer_prior_distribution_recovery(intent, str(message["destination"])):
-                summary.setdefault("deferred_prior_distribution", []).append(
-                    {"work_item_id": intent["work_item_id"], "destination": message["destination"]})
-                continue
             dispatch = dispatch_by_message.get(str(message["message_id"]))
             if dispatch and dispatch.get("status") in OWNER_RETIRED_STATUSES:
+                continue
+            if self._defer_prior_distribution_recovery(
+                    intent, str(message["destination"]), evidence_messages=messages):
+                summary.setdefault("deferred_prior_distribution", []).append(
+                    {"work_item_id": intent["work_item_id"], "destination": message["destination"]})
                 continue
             if dispatch is None and str(message["status"]) == "READY":
                 if (

@@ -1926,3 +1926,25 @@ def test_prior_distribution_policy_does_not_decode_internal_editorial_payloads(t
     assert not coordinator._defer_prior_distribution_recovery({"work_item_id": "old"}, "internal:native-desktop-editorial")
     assert not coordinator._defer_prior_distribution_recovery({"work_item_id": "old"}, "substack")
     assert not coordinator._defer_prior_distribution_recovery({"work_item_id": "current"}, "linkedin")
+
+
+def test_recovery_policy_uses_its_supplied_snapshot_without_reloading_store(tmp_path, monkeypatch):
+    store = ContentOpsDurableStore(tmp_path / "controlled.sqlite3")
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None,
+        allow_prior_confirmed_distribution=True)
+    def unexpected():
+        raise AssertionError("The same recovery snapshot must not be reloaded for each row")
+    monkeypatch.setattr(store, "list_outbox_messages", unexpected)
+    snapshot = []
+    assert not coordinator.recovery_blocks_new_publication({"backlog_remaining": 0}, "current",
+        plan={"article_identity": "new"}, evidence_messages=snapshot)
+    coordinator.recovery_scope = {"work_item_id": "current", "plan": {"article_identity": "new"}}
+    calls = []
+    def guard(recovery, work_item_id, *, plan, evidence_messages=None):
+        assert evidence_messages is snapshot
+        calls.append((recovery, work_item_id, plan))
+        return False
+    monkeypatch.setattr(coordinator, "recovery_blocks_new_publication", guard)
+    assert coordinator._defer_prior_distribution_recovery({"work_item_id": "old"}, "linkedin",
+        evidence_messages=snapshot)
+    assert len(calls) == 1
