@@ -1,0 +1,84 @@
+{
+  "checked_at_utc": "2026-11-02T12:20:18.870129+00:00",
+  "item": "CC-109",
+  "branch": "backlog/cc-109-text-first-fast-track",
+  "base_live_tag": "contentops-live-20261102-cc042c",
+  "base_commit": "c2b5aea1ea3420600cb9525a677a7a94d2562a06",
+  "first_pushed_substep": "a7bba1fd8bfae454bb4cdae7ee921757feac0440",
+  "state": "IMPLEMENTED_TESTED_FOR_OPS_NOT_INTEGRATED",
+  "distinct_targeted_passes": 299,
+  "pytest_runs": [
+    {
+      "path": "checks/canonical-regressions.xml",
+      "cases": 162,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "sha256": "16e5e6f0fc13fc2063bf41f6c7fd74bab9a38a44f4f2110545679fbbc4b7c82d"
+    },
+    {
+      "path": "checks/operator-media-regressions.xml",
+      "cases": 104,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "sha256": "6e13b883d3928b11a2d35e2c4779086de0aa5a6eb9aeadb3c17f0849fb761662"
+    },
+    {
+      "path": "checks/text-first.xml",
+      "cases": 17,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "sha256": "e3898b50b917f2ed1a0458c43a66a6341728458d38060621899b5363bbe13d7f"
+    },
+    {
+      "path": "checks/native-handoff-regressions.xml",
+      "cases": 32,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "sha256": "d3e2c3959bdf1e4dc39db607c8d66c958492f6c9479f650d743dcab425381229"
+    }
+  ],
+  "machine_load": "One pytest process at a time, targeted files only, no xdist/shards; 2 Nov outside the named 6/10/13 Nov exclusion dates.",
+  "launch_readback": {
+    "pid": 19828,
+    "created": "2026-11-02T19:00:47.693949+07:00",
+    "observed_at_utc": "2026-11-02T12:16:38.0555018Z",
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort_launch_text": "\\\"max\\\"\"",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_model": null,
+    "actual_effort": null,
+    "configured_reasoning_effort": "max"
+  },
+  "lint": {
+    "touched_python_except_shared_compiler": "PASS",
+    "shared_compiler_existing_findings": 5,
+    "new_findings": 0,
+    "findings_match_base": true,
+    "whitespace": "PASS"
+  },
+  "dry_run": {
+    "snapshot": "recorded-window.json",
+    "result": "recorded-window-dry-run.json",
+    "two_outputs_byte_identical": true,
+    "original_artifacts_hash_unchanged": 6,
+    "recorded_time_gmt7": "2 Nov 2026 17:00 GMT+7",
+    "actual_outcome": "SOURCE_BLOCKED",
+    "primary_cause": "SOURCE_MISSING",
+    "analysis_not_relabelled": true,
+    "new_model_invocations": 0,
+    "new_source_requests": 0,
+    "public_transport_calls": 0
+  },
+  "publication_evidence": "Six reconciled destinations in disposable controlled transports only; no live publication claimed.",
+  "saved_schedules_changed": false,
+  "saved_task_prompts_changed": false,
+  "main_or_mt5_touched": false,
+  "operating_root_modified": false,
+  "public_write_performed": false,
+  "next_actor": "Claude Ops",
+  "next_action": "Review and integrate this branch into the operating root; the exact existing runtime owns subsequent eligible newsroom publication."
+}

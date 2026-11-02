@@ -1529,6 +1529,7 @@ def _validate_article_against_source_pack(
     epistemic_state: Mapping[str, Any] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     article = _strip_duplicate_leading_h1(dict(worker_output.get("article") or {}))
+    article.pop("text_first", None)  # Only the source-validation owner may attach release policy.
     # Only source-bound validation may attach this compiler metadata. A writer's
     # extra article fields cannot self-certify a permitted probability descriptor.
     article.pop("public_research_descriptors", None)
@@ -1813,8 +1814,10 @@ def _reader_safe_native_article(
             str((epistemic_state or {}).get("report_scope_notice") or ""),
             str(article.get("source_date_notice") or "") if legacy_presentation and not reader_first else "") if s),
     }
+    if article.get("text_first"):
+        result.update(text_first=article["text_first"], news_item_kind=article["news_item_kind"])
     if article.get("volume_policy"):
-        result.update({k: article[k] for k in ("volume_policy", "volume_policy_cutoff_utc", "visual_editorial_decision")})
+        result.update({k: article[k] for k in ("volume_policy", "volume_policy_cutoff_utc", "visual_editorial_decision") if k in article})
     from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
     notices = [text for d in article.get("public_research_descriptors", []) for text in reader_notices(d)]
     if notices:
@@ -2204,6 +2207,8 @@ def _build_simple_publication_lifecycle_plan(
             ),
         }
     )
+    from live_contentops.native_text_first_v1 import skipped_destinations
+    text_first_skipped = skipped_destinations(has_image=bool(media_assets))
     plan_core = {
         "schema_version": "contentops.publication_plan.v1",
         "bridge_schema_version": PUBLICATION_BRIDGE_SCHEMA_VERSION,
@@ -2220,7 +2225,7 @@ def _build_simple_publication_lifecycle_plan(
         "accepted_evidence_ids": list(context["accepted_evidence_ids"]),
         "accepted_evidence_sha256": context["accepted_evidence_sha256"],
         "source_provenance_binding_preserved": True,
-        **({"media_asset_count": len(media_assets)} if article.get("volume_policy") else {}),
+        **({"media_asset_count": len(media_assets)} if article.get("volume_policy") or article.get("text_first") else {}),
         "epistemic_state": dict(epistemic_state or {}),
         "publication_window": {"window_identity": run_id},
         "package_identity": package_identity,
@@ -2243,11 +2248,12 @@ def _build_simple_publication_lifecycle_plan(
             V1_REQUIRED_DERIVATIVE_DESTINATIONS
         ),
         "destinations": destinations,
-        "skipped_derivative_destinations": ([{"destination": "instagram_business",
+        "skipped_derivative_destinations": ([dict(v) for v in text_first_skipped] if article.get("text_first") else [{"destination": "instagram_business",
             "reason": "Source-sufficient NEWS/POLICY brief uses the dated photo-less route.",
             "disposition": "SKIPPED_PHOTOLESS_NEWS_POLICY",
             "status": "SKIPPED_PHOTOLESS_NEWS_POLICY"}] if preview_packages.get("instagram_business", {}).get("delivery_state")
                 == "SKIPPED_PHOTOLESS_NEWS_POLICY" else []),
+        **({"text_first": article["text_first"]} if article.get("text_first") else {}),
         **({"volume_policy": article["volume_policy"], "volume_policy_cutoff_utc": article["volume_policy_cutoff_utc"],
             "photo_less_news_policy": True} if article.get("volume_policy") and
             preview_packages.get("instagram_business", {}).get("delivery_state") == "SKIPPED_PHOTOLESS_NEWS_POLICY" else {}),
@@ -2957,6 +2963,11 @@ def run_v1_simple_gemini_newsroom(
             {c["source_id"] for c in worker_output["material_claim_bindings"]})}
         if writer_governed.get("reader_attribution_policy") == READER_ATTRIBUTION_POLICY:
             article["reader_attribution_policy"] = READER_ATTRIBUTION_POLICY
+        from live_contentops.native_text_first_v1 import bind_validated_article
+        article = bind_validated_article(article, request=getattr(llm_invoke, "frozen_request", lambda _: None)("write") or {},
+            source_pack=source_pack, validation=validation,
+            optional_input_gaps=[b for h in candidate_attempt_history if h["status"] == "SOURCE_QUALIFIED"
+                                 for b in h["blockers"]])
     native_prior = [c for c in selected.get("evolving_story_context", []) if c.get("source_review_id")]
     article["public_source_bindings"] = [{**{k: d[k] for k in ("source_id", "url", "publisher", "published_at_utc")},
         **({"reader_label": native_source_reader_label(d)}
@@ -3005,7 +3016,7 @@ def run_v1_simple_gemini_newsroom(
 
     article_identity = _text_hash(str(article["substack_body_markdown"]))
     admitted_media = []
-    if native and article.get("reader_first_version") == "DATA_JOURNALISM_V1":
+    if native and (article.get("reader_first_version") == "DATA_JOURNALISM_V1" or article.get("text_first")):
         admitted_media = llm_invoke.admitted_editorial_media()
         from live_contentops.native_desktop_editorial_v1 import validate_release_media
         validate_release_media({"article": article, "media_assets": admitted_media, "evidence": source_pack})

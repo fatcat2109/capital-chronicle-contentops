@@ -63,6 +63,13 @@ def permitted_photo_less_skip(plan):
         and skipped[0].get("status") == PHOTOLESS_INSTAGRAM_SKIP)
 
 
+def permitted_derivative_skips(plan):
+    from live_contentops.native_text_first_v1 import permitted_skips
+    if plan.get("text_first"):
+        return permitted_skips(plan)
+    return {"instagram_business"} if permitted_photo_less_skip(plan) else set()
+
+
 def native_selection(store, run_id):
     work = "cc-opportunity-" + sha256_of(run_id)
     values = []
