@@ -1,0 +1,10 @@
+{
+  "base": "68d12e7f1947647adb53106b142b53f8f7385d9c",
+  "tree": "ab48ae79a2d8a127689f533f93eda20ac644ba96",
+  "changed_paths": [
+    "live_contentops/v1_simple_gemini_newsroom_v1.py",
+    "tests/test_v1_simple_gemini_newsroom_v1.py"
+  ],
+  "context_adaptation": "Exact helper copied from task source; call inserted after the unique terminal-telemetry normalization anchor, preserving existing live source-recovery artifact logic.",
+  "observed_at_utc": "2026-11-02T21:29:28.565783+00:00"
+}
