@@ -1,0 +1,17 @@
+{
+  "tool_request_sha256": "7c1ac1c48fa0ace1a0972454f2a0e7f04ca84dbff9bf203bb5be33fd862bc81f",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Actual task-owned Neo page 36 snapshot/read at the issued YouTube posts URL. Your channel points to @CapitalChronicleYouTube; Customize channel, Manage videos and the post composer are visible. See 27-youtube-identity-browser.json.",
+    "observed_at_utc": "2026-11-02T22:30:20Z"
+  },
+  "result": {
+    "request_sha256": "71ed6bbf5e55b8445fa50412f7927b25e4cb034ffc2d4d3e2142824020ee48af",
+    "authenticated": true,
+    "observed_identity": "@CapitalChronicleYouTube",
+    "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA",
+    "public_write_performed": false
+  }
+}

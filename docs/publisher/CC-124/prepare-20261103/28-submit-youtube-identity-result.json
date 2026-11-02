@@ -1,0 +1,23 @@
+{
+  "command": [
+    "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "scripts/run_native_desktop_editorial.py",
+    "publication-tool-submit",
+    "--binding",
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a\\binding.json",
+    "--rollout",
+    "config/native_desktop_rollout_v1.json",
+    "--native-invocation-id",
+    "/root",
+    "--request-sha256",
+    "71ed6bbf5e55b8445fa50412f7927b25e4cb034ffc2d4d3e2142824020ee48af",
+    "--response",
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\prepare-20261103\\27-youtube-identity-response.json"
+  ],
+  "working_directory": "A:\\Capital Chronicle\\ContentOps",
+  "started_at_utc": "2026-11-02T22:30:22.009467+00:00",
+  "finished_at_utc": "2026-11-02T22:30:31.490199+00:00",
+  "exit_code": 0,
+  "stdout": "{\"request_sha256\": \"71ed6bbf5e55b8445fa50412f7927b25e4cb034ffc2d4d3e2142824020ee48af\", \"tool_return_sha256\": \"db11a4c0f7d88df19972625b2cb670d3669318aa73bef8aece1853de4742fdf8\"}\n",
+  "stderr": ""
+}
