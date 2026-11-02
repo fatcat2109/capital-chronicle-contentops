@@ -1,0 +1,32 @@
+{
+  "schema_version": "contentops.cc123.validation.v1",
+  "observed_at_utc": "2026-11-02T16:47:07.058158+00:00",
+  "branch": "backlog/cc-123-publication-path",
+  "base_tag": "contentops-live-20261102-d39",
+  "dependencies": {
+    "CC-117": "98b3d40a7772a323f72ce979de2e1c7cd4e8020f",
+    "CC-107": "22f3d2f6"
+  },
+  "launch": {
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "process_id": 25924,
+    "source": "Read-only Win32_Process ancestry argument readback; no session files"
+  },
+  "checks": [
+    {
+      "junit": "docs/publisher/CC-123/checks/dependencies.xml",
+      "tests": "361",
+      "failures": "0",
+      "errors": "0",
+      "time": "190.148",
+      "processes": 1,
+      "workers": 1,
+      "whole_suite": false
+    }
+  ],
+  "implementation_head": "104d802a1b4b0790ca5d07f66975c7ebf9e79338",
+  "integration": null,
+  "publications": []
+}
