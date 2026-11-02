@@ -97,7 +97,7 @@
   "blocker": {
     "cause": "FROZEN_EVENT_INPUTS_NOT_YET_CREATED",
     "operation": "read retained midterm PREVIEW.md and NFP frozen dossier",
-    "actual_error": "FileNotFoundError (errno 2, WinError 3): required frozen event input paths do not exist",
+    "actual_error": "FileNotFoundError (errno 2): required frozen event input paths do not exist",
     "next_actor": "Claude Ops",
     "next_action": "Supply the actual frozen midterm PREVIEW.md/dossier and NFP dossier plus existing public source/rights admissions; resume this branch for native drafting and same-writer rendered review."
   },
