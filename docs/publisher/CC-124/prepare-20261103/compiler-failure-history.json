@@ -1,0 +1,16 @@
+{
+  "observed_at_utc": "2026-11-02T20:57:04.631100+00:00",
+  "classification": "COMPILER_FAILURE_FROZEN_IN_REVISION_REQUEST",
+  "revision_request_sha256": "ed316ed5f8a5058c574657397020f1c1638b3dc227a9def45bfa0811be94656e",
+  "first_cause": [
+    "SOURCE_1",
+    "reader_citation_source_unbound"
+  ],
+  "original_writer_file_sha256": "684a9c4c85194761d6c5318e2cb4235a95680e7a1a5b7b4aea727a7a3014568b",
+  "source_revalidation": "PASS",
+  "unsupported_material_claim_count": 0,
+  "prior_generated_receipt_currently_present": false,
+  "provenance": "The original CLI compilation result is in 12-validate-compile-output.json; its exact cause is frozen into desktop_request_revise.json. Current deterministic replay revalidates the accepted original writer; no missing historical receipt was reconstructed.",
+  "resumed_same_operation": true,
+  "source_facts_changed": false
+}

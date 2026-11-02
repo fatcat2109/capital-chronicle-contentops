@@ -1,0 +1,10 @@
+{
+  "base": "29086d88d290c35b48ef28b9d709b5016c40bca8",
+  "tree": "07a8e28dc908723d5b0deb117e58db890010bb18",
+  "patch_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\.task-runtime\\cc124-runtime-repair2\\repair.patch",
+  "changed_paths": [
+    "live_contentops/v1_simple_gemini_newsroom_v1.py",
+    "tests/test_v1_simple_gemini_newsroom_v1.py"
+  ],
+  "observed_at_utc": "2026-11-02T21:17:41.184930+00:00"
+}

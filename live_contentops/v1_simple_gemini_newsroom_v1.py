@@ -2849,9 +2849,16 @@ def run_v1_simple_gemini_newsroom(
         if native:
             preview_media = (llm_invoke.admitted_editorial_media()
                 if article.get("reader_first_version") == "DATA_JOURNALISM_V1" or article.get("text_first") else [])
+            preview_article = {**article, "public_source_bindings": [
+                {**{k: d[k] for k in ("source_id", "url", "publisher", "published_at_utc")},
+                 **({"reader_label": native_source_reader_label(d)}
+                    if article.get("reader_first_version") == "DATA_JOURNALISM_V1" else {})}
+                for d in source_pack]}
+            if writer_governed.get("reader_attribution_policy") == READER_ATTRIBUTION_POLICY:
+                preview_article["reader_attribution_policy"] = READER_ATTRIBUTION_POLICY
             try:
                 _native_preview_bundle(
-                    article=article, article_mode=str(selected_plan_entry["article_mode"]),
+                    article=preview_article, article_mode=str(selected_plan_entry["article_mode"]),
                     article_identity=_text_hash(str(article["substack_body_markdown"])),
                     epistemic_state=selected_epistemic_state,
                     media_asset_ids=[a["asset_id"] for a in preview_media], media_assets=preview_media,
@@ -2862,17 +2869,22 @@ def run_v1_simple_gemini_newsroom(
     except SimpleGeminiNewsroomError as first_error:
         if first_error.code != "deterministic_article_validation_failed":
             raise
+        revision_prompt = _revision_prompt(writer_governed, worker_output, first_error.details)
+        revision_governed = {**writer_governed, "prior_output_hash": _hash(worker_output),
+            "validation_blockers": first_error.details}
+        frozen_revision = getattr(llm_invoke, "frozen_request", lambda _: None)("revise") if native else None
+        if frozen_revision:
+            original = frozen_revision["governed_input"]
+            if original["prior_output_hash"] != _hash(worker_output) or original["source_pack"] != source_pack:
+                raise SimpleGeminiNewsroomError("native_revision_source_changed_requires_recovery")
+            revision_prompt, revision_governed = frozen_revision["prompt"], original
         try:
             revised_output, revision_receipt = _invoke(
                 llm_invoke=llm_invoke,
                 role_task_id=ROLE_V1_SIMPLE_EDITORIAL_REVISION,
                 logical_invocation_id=f"{run_id}:revise",
-                prompt=_revision_prompt(writer_governed, worker_output, first_error.details),
-                governed_input={
-                    **writer_governed,
-                    "prior_output_hash": _hash(worker_output),
-                    "validation_blockers": first_error.details,
-                },
+                prompt=revision_prompt,
+                governed_input=revision_governed,
                 validator=_validate_worker_text,
             )
         except SimpleGeminiNewsroomError as exc:
