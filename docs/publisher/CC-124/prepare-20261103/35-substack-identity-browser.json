@@ -1,0 +1,18 @@
+{
+  "evidence": [
+    "- heading \"Capital Chronicle\" [level=1]",
+    "- button \"Dashboard\" [ref=e5]",
+    "- button \"Capital Chronicle's avatar\" [collapsed] [ref=e7]",
+    "  - button \"Dashboard\" [ref=e14]",
+    "  - link \"Profile\" [ref=e15] [url=\"https://substack.com/@capitalchronicle\"]",
+    "- link \"@capitalchronicle\" [ref=e19]",
+    "- button \"Edit profile\" [ref=e25]",
+    "- button \"New post\" [ref=e32]",
+    "    - link \"Capital Chronicle's avatar\" [ref=e34] [url=\"https://substack.com/@capitalchronicle?utm_source=substack-feed-item&utm_content=p-223199520\"]",
+    "    - link \"Capital Chronicle\" [ref=e35] [url=\"https://substack.com/@capitalchronicle?utm_source=substack-feed-item&utm_content=p-223199520\"]",
+    "    - link \"Capital Chronicle's avatar\" [ref=e45] [url=\"https://substack.com/@capitalchronicle?utm_source=substack-feed-item&utm_content=p-222368666\"]",
+    "    - link \"Capital Chronicle\" [ref=e46] [url=\"https://substack.com/@capitalchronicle?utm_source=substack-feed-item&utm_content=p-222368666\"]"
+  ],
+  "url": "https://capitalchronicle.substack.com/",
+  "observed_at_utc": "2026-11-02T22:35:36Z"
+}
