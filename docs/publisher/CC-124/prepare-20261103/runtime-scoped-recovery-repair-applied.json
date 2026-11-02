@@ -1,0 +1,21 @@
+{
+  "base": "a5a776bb754a0db3d164e6571421ba7d04f9a6c4",
+  "tree": "62073a6d12763b329b566722a3df37558767db53",
+  "changed_paths": [
+    "live_contentops/native_desktop_publication_v1.py",
+    "live_contentops/publication_coordinator_v1.py",
+    "tests/test_native_finished_publication_v1.py"
+  ],
+  "context_adaptation": "The decision-39 bound native run supplies its exact current plan to recovery; existing confirmed-prior-derivative policy defers those messages before transport while retaining all obligations and states.",
+  "observed_at_utc": "2026-11-02T22:41:39.985407+00:00",
+  "integration_branch": "backlog/cc-124-runtime-compiler-repair",
+  "integration_commit": "c6fb134457babff6ba59ded8d6211244fbb66c42",
+  "operating_head": "c6fb134457babff6ba59ded8d6211244fbb66c42",
+  "tag": "contentops-live-20261103-cc124-scoped-recovery",
+  "rollback_tag": "contentops-live-20261103-cc124-identity-freshness",
+  "applied_at_utc": "2026-11-02T22:44:59.321581+00:00",
+  "dirty_wip_hashes_preserved": true,
+  "schedule_changes": false,
+  "app_restarts": false,
+  "public_write_performed": false
+}
