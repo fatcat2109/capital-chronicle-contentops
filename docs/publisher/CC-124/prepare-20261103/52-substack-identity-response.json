@@ -1,0 +1,16 @@
+{
+  "tool_request_sha256": "a6ab24254e4235dab474ad10e8344b7ad72f810edaa5102f7f33d5cf20c76e76",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Actual successful Neo run re-derived its own current task tab after exact begin. Snapshot confirms Capital Chronicle account/profile and Dashboard, Edit profile, New post at the issued domain. This is a fresh observation for the existing canonical action boundary, without another publication resume.",
+    "observed_at_utc": "2026-11-02T23:12:06Z"
+  },
+  "result": {
+    "request_sha256": "396d17248d2aab3ffd12145c4af2c811190cf858d6cbbd3cc2315f504fe6b61c",
+    "authenticated": true,
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_write_performed": false
+  }
+}
