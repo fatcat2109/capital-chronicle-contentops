@@ -1,0 +1,129 @@
+{
+  "item": "CC-043",
+  "recorded_at_utc": "2026-11-02T02:08:34.300479+00:00",
+  "authority": "BACKLOG.md CC-043 Ops 2 Nov 2026 01:24 GMT+7: branch from contentops-live-20261101-cc042, cherry-pick only449118b6/8535f48e/e0672e68; 363-test set plus290 checks; push for Ops fast-forward.",
+  "branch": "backlog/cc-043-on-cc042",
+  "base_tag": "contentops-live-20261101-cc042",
+  "base_commit": "2ea226893b91bf7b93b3fadd757cc50057cd6228",
+  "tested_code_head": "d88a36a369d6995be52f5bb629effc2ffdcaed04",
+  "commit_mapping": [
+    {
+      "original_commit": "449118b691d2e1bed24ac8c953d6f3879a5cf1f2",
+      "rebased_commit": "1cc1f908b793c36eb5a1c2096eb6641156937f3e",
+      "changed_paths": 6,
+      "differences": []
+    },
+    {
+      "original_commit": "8535f48eb437cf715c45edc91d6285f5643684ad",
+      "rebased_commit": "beba137cc7051755da8ae8b413316c496936cf9b",
+      "changed_paths": 87,
+      "differences": [
+        "docs/publisher/CC-043.md"
+      ]
+    },
+    {
+      "original_commit": "e0672e68d9dfaccd54ad53100a45c39f9b4c21fc",
+      "rebased_commit": "d88a36a369d6995be52f5bb629effc2ffdcaed04",
+      "changed_paths": 13,
+      "differences": []
+    }
+  ],
+  "checks": {
+    "groups": {
+      "required-regressions": {
+        "passed": 364,
+        "failed": 0,
+        "skipped": 0
+      },
+      "cc043-acceptance": {
+        "passed": 290,
+        "failed": 0,
+        "skipped": 0
+      },
+      "manual-continuation": {
+        "passed": 35,
+        "failed": 0,
+        "skipped": 0
+      },
+      "ui-tests": {
+        "passed": 39,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "backend_test_executions": 689,
+    "backend_distinct_tests_passed": 611,
+    "backend_group_overlap": 78,
+    "required_363_test_selection": "All original fourteen files pass364 current cases: CC-043 adds one compiler attribution regression.",
+    "cc043_original_290_selection": "All eight original normalized-text consumer/feed/workspace/publication/compiler files pass290 cases.",
+    "manual_continuation": "35 existing exact-operation continuation cases pass on rebased shared input/context owners.",
+    "ui_typecheck_exit_code": 0,
+    "ui_vite_production_build_exit_code": 0,
+    "full_suite_pass_claimed": false,
+    "new_tests_authored": 0,
+    "new_native_editorial_or_render_inspection": false
+  },
+  "preserved": {
+    "prior_cc043_evidence_files_byte_identical": 78,
+    "base_cc042_evidence_files_git_identical": 69,
+    "schema_fixture_projection_and_producer_tests_exact": true,
+    "prior_ui_component_type_and_test_git_identical": true,
+    "article_citations_previews_render_bytes_and_native_acceptance_unchanged": true,
+    "historical_configured_not_observed_model_records_unchanged": true
+  },
+  "conflicts": {
+    "paths": [
+      "docs/publisher/CC-043.md"
+    ],
+    "resolution": "Retained CC-043 own report as a new file on this base. All other added/deleted lines equal the original three item commits."
+  },
+  "scope": {
+    "new_native_roles": 0,
+    "new_source_acquisitions": 0,
+    "platform_dispatches": 0,
+    "spending": false,
+    "merge_or_operating_root_integration": false,
+    "main_mt5_runtime_pin_controls_accounts_schedules_changed": false,
+    "second_worktree_or_worker_created": false,
+    "secrets_or_session_material_read": false,
+    "shared_backlog_access_denied": false
+  },
+  "for_ops": "For Ops: fast-forward contentops-live-20261101-cc042 to the final pushed CC-043 branch head recorded in BACKLOG Result; no duplicate CC-041/CC-067 history. This is branch delivery only. Real CC-014 export locator/cadence and admitted real-fact-pack rights remain producer work.",
+  "artifacts": [
+    {
+      "path": "tests/evidence/cc-043/rebase-20261102/.gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "path": "tests/evidence/cc-043/rebase-20261102/cc043-acceptance.xml",
+      "bytes": 46854,
+      "sha256": "170499fed90e9ff7e0cbf7b05ce757c504138f62789e49c04eed8900fce9e76a"
+    },
+    {
+      "path": "tests/evidence/cc-043/rebase-20261102/execution.json",
+      "bytes": 8068,
+      "sha256": "8ac6203ec4951049ffcd008adfd07972e567e7c45f4fa1c25f6c0a0fa7bd19a8"
+    },
+    {
+      "path": "tests/evidence/cc-043/rebase-20261102/manual-continuation.xml",
+      "bytes": 6076,
+      "sha256": "195c3979e230305da4d70997a97e1a6cc8b2cd57bb0edef1441a8a9158666966"
+    },
+    {
+      "path": "tests/evidence/cc-043/rebase-20261102/preservation.json",
+      "bytes": 32205,
+      "sha256": "b558394665cc09008f328bd7191e326c5b239356f95966e209155980fbfcd647"
+    },
+    {
+      "path": "tests/evidence/cc-043/rebase-20261102/required-regressions.xml",
+      "bytes": 60056,
+      "sha256": "292a6a99fad2624e420fc59dba25237f03cdf9a5ed724c0cca2264ca0676b844"
+    },
+    {
+      "path": "tests/evidence/cc-043/rebase-20261102/ui-tests.xml",
+      "bytes": 10146,
+      "sha256": "21804cb6c04459e735588da746fa478947652051dd8be0598b1d45c01502aa10"
+    }
+  ]
+}

@@ -1,0 +1,627 @@
+{
+  "recorded_at_utc": "2026-11-02T02:03:01.724343+00:00",
+  "branch": "backlog/cc-043-on-cc042",
+  "base_tag": "contentops-live-20261101-cc042",
+  "base_commit": "2ea226893b91bf7b93b3fadd757cc50057cd6228",
+  "checked_source_head": "d88a36a369d6995be52f5bb629effc2ffdcaed04",
+  "remote_readback": [
+    "e0672e68d9dfaccd54ad53100a45c39f9b4c21fc\trefs/heads/backlog/cc-043-main-desk-export",
+    "0aeb3660d02917f300bd3ad15c2c0a0f54c391ce\trefs/tags/contentops-live-20261101-cc042",
+    "2ea226893b91bf7b93b3fadd757cc50057cd6228\trefs/tags/contentops-live-20261101-cc042^{}"
+  ],
+  "commit_mapping": [
+    {
+      "original_commit": "449118b691d2e1bed24ac8c953d6f3879a5cf1f2",
+      "rebased_commit": "1cc1f908b793c36eb5a1c2096eb6641156937f3e",
+      "changed_paths": 6,
+      "differences": []
+    },
+    {
+      "original_commit": "8535f48eb437cf715c45edc91d6285f5643684ad",
+      "rebased_commit": "beba137cc7051755da8ae8b413316c496936cf9b",
+      "changed_paths": 87,
+      "differences": [
+        "docs/publisher/CC-043.md"
+      ]
+    },
+    {
+      "original_commit": "e0672e68d9dfaccd54ad53100a45c39f9b4c21fc",
+      "rebased_commit": "d88a36a369d6995be52f5bb629effc2ffdcaed04",
+      "changed_paths": 13,
+      "differences": []
+    }
+  ],
+  "conflict_resolution": "Only docs/publisher/CC-043.md was modify/delete; retain original CC-043 report as an added file. Every other added/deleted line equals its original item commit.",
+  "prior_cc043_artifact_count": 78,
+  "prior_cc043_artifacts_exact_git_blobs": {
+    "tests/evidence/cc-043/article-evidence.json": "055eaaf7c780f853e7d88184c26fd2fbde0df4ac",
+    "tests/evidence/cc-043/article-review.json": "688120140c7c3d26d4b488d141f952260d507576",
+    "tests/evidence/cc-043/article.json": "ee7a91670732d5fec783f2873f297ed581dea2a2",
+    "tests/evidence/cc-043/article.md": "81a0fa36948459d5dec2adb74658c3b0919b9911",
+    "tests/evidence/cc-043/fixture-publication-refusal.json": "6df6c9ba19d2ec173e2e39500844fbec7127f8a3",
+    "tests/evidence/cc-043/native/final-visual-27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9-request.json": "0f0a2802705b2a2738e7b2b9f086e0dba6aabf48",
+    "tests/evidence/cc-043/native/final-visual-27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9-response.json": "9948194629cf8345f69989800602d4957fe7aa52",
+    "tests/evidence/cc-043/native/media-plan-request.json": "df02038a690d96c576134a79899a89add1253cdc",
+    "tests/evidence/cc-043/native/media-plan-response.json": "06cae5de1b4330cfc3725a1d604297793df97baa",
+    "tests/evidence/cc-043/native/r2-stale-repair-history.json": "89070de857d1e3f76d9589a34839b26d78de79d7",
+    "tests/evidence/cc-043/native/r4-repair-response.json": "60700620862f59bff0836ab841d863c2645387c3",
+    "tests/evidence/cc-043/native/rejected-calendar-media-plan-request.json": "1e37781134cbf8ddbc6f8694a18079e548415cb5",
+    "tests/evidence/cc-043/native/rejected-calendar-media-plan-response.json": "98834fbeb318bb11883a1bea2b56294d6676a08a",
+    "tests/evidence/cc-043/native/rejected-calendar-select-request.json": "9d3d000ad9707102341b1eeaba37cabf2eb7fd33",
+    "tests/evidence/cc-043/native/rejected-calendar-select-response.json": "1bbaaa1efcbbb269efc2db11a4428e8803151ac9",
+    "tests/evidence/cc-043/native/revise-request.json": "df9f05cb35618535e7dbdc0283374cc45898e02e",
+    "tests/evidence/cc-043/native/revise-response.json": "fd840c51783c0bd7051accee3bbde63490510570",
+    "tests/evidence/cc-043/native/select-request.json": "e30a72b0014f582b0808f28b30905d9664f35913",
+    "tests/evidence/cc-043/native/select-response.json": "97e5c74eb68649b7095c5bf345442e234c38ed4f",
+    "tests/evidence/cc-043/native/visual-edit-request.json": "5d571a26a23b885d74c0e2edb55efd184d60d022",
+    "tests/evidence/cc-043/native/visual-edit-response.json": "e4833398de7c87681836a83ed22d26c34536c3c3",
+    "tests/evidence/cc-043/native/write-request.json": "e855a4bc5bedb3938a6ed4dd2545f3471525834c",
+    "tests/evidence/cc-043/native/write-response.json": "a4e10e9f83c52be4c2e60ee2cd0f941643749f5e",
+    "tests/evidence/cc-043/normalization-20261101/.gitattributes": "d6e090b9400a7dfa2d861bf18ecb8934ecd4eb15",
+    "tests/evidence/cc-043/normalization-20261101/affected.xml": "832d3e485aeaa60661478169cb497cb57aa7be87",
+    "tests/evidence/cc-043/normalization-20261101/baseline-gap.json": "1ac1928b01c9daa87792aed725c51655b99577a6",
+    "tests/evidence/cc-043/normalization-20261101/focused.xml": "08a316f020bb1e6b2583634c5b2e91752ed349c0",
+    "tests/evidence/cc-043/normalization-20261101/port-inputs.json": "a2be17d5b137402fd58839ffde6a2464f3761f15",
+    "tests/evidence/cc-043/normalization-20261101/prior-evidence-preservation.json": "574b64fa278aa770292fa0b6ea44ff56aef934ca",
+    "tests/evidence/cc-043/normalization-20261101/reader-replay.json": "577537c0506412a41ef780cc7a1ec15878168d3a",
+    "tests/evidence/cc-043/normalization-20261101/schema-preservation.json": "fb7b974e3f4ade1b48cdfad42ceb78fb010f25bb",
+    "tests/evidence/cc-043/normalization-20261101/validation.json": "03531c18dcbcc0c603cee8d442e1fc831fe7493d",
+    "tests/evidence/cc-043/previews.json": "13f52653935987286cddc442a02a3a7b66192580",
+    "tests/evidence/cc-043/producer-inputs.json": "11e578a79f738dcba9e70b52226dec48bcd10b1b",
+    "tests/evidence/cc-043/rejected-calendar-candidate.json": "cd34dae989f57258b8bb529e604b5f990ce19d52",
+    "tests/evidence/cc-043/renders/discord-desktop.pdf": "c1016d5bec54b48526d150d2237bc6c2fe6582b7",
+    "tests/evidence/cc-043/renders/discord-desktop.png": "c106710f788238bdb9bb8c5ab91519a38aff9fed",
+    "tests/evidence/cc-043/renders/discord-mobile.pdf": "a84858b587a993de10e0f067720ac99f9b767c2b",
+    "tests/evidence/cc-043/renders/discord-mobile.png": "ac409e8a05ce4b8c6742757c0ff7c5c1b6f19c08",
+    "tests/evidence/cc-043/renders/facebook_page-desktop.pdf": "67bc2b807f2292b2da04d146bc40631203997add",
+    "tests/evidence/cc-043/renders/facebook_page-desktop.png": "57a85f1bba4d788fe57963446e88fb52cdd27dc4",
+    "tests/evidence/cc-043/renders/facebook_page-mobile.pdf": "573e667ec0258e978629281a03cc9373a611517d",
+    "tests/evidence/cc-043/renders/facebook_page-mobile.png": "6ba7bc2631ec4b6459802bdfd4642cf85e3805e3",
+    "tests/evidence/cc-043/renders/index.html": "7ceaf914f2dfcf0e62b69f5216462370176b42b4",
+    "tests/evidence/cc-043/renders/instagram_business-desktop.pdf": "8d72b47a0a1671771c5c1125f4281096a4ab5b7c",
+    "tests/evidence/cc-043/renders/instagram_business-desktop.png": "80429636d1f2aaa28b54d1798e7cc50381abb283",
+    "tests/evidence/cc-043/renders/instagram_business-mobile.pdf": "c67f16ff330465b4df3a48cfa53d375d00aefd4f",
+    "tests/evidence/cc-043/renders/instagram_business-mobile.png": "4c5f3c597db98ee9a77f7c20ac6c668ac539b275",
+    "tests/evidence/cc-043/renders/linkedin-desktop.pdf": "4e19205c639ec81007af979f0915e235a4ba03d1",
+    "tests/evidence/cc-043/renders/linkedin-desktop.png": "1bf55011faca4a3519fb391a84b7f9df1c009044",
+    "tests/evidence/cc-043/renders/linkedin-mobile.pdf": "2f18a886a2019d36824dd774c7a0c832352bd6ca",
+    "tests/evidence/cc-043/renders/linkedin-mobile.png": "4c2195b7eea662564ffc3b2e02270b980e974f9e",
+    "tests/evidence/cc-043/renders/pdf-content-checks.json": "ec998e94b6a17a345b1d69e5f4d805a812503c11",
+    "tests/evidence/cc-043/renders/renders.json": "52f5d0b4845826111898cc5914c74b166c4b7bd6",
+    "tests/evidence/cc-043/renders/substack-desktop.pdf": "00a1328fde6556f18d3b95e3cac968aec5beff07",
+    "tests/evidence/cc-043/renders/substack-desktop.png": "167b2c52914a44f1925b1189267b267674fcd51e",
+    "tests/evidence/cc-043/renders/substack-mobile.pdf": "75b8c4b43eccb88031e1cad789070baae98077b9",
+    "tests/evidence/cc-043/renders/substack-mobile.png": "8307144caab5d4373d6fc0c82a94f162b45b041e",
+    "tests/evidence/cc-043/renders/telegram-desktop.pdf": "80e173e840ddff14e5cc6eacdba999cdd02dc4c8",
+    "tests/evidence/cc-043/renders/telegram-desktop.png": "a255d94786caad92074a35b298c2e1db3708ebb3",
+    "tests/evidence/cc-043/renders/telegram-mobile.pdf": "cadd72360e120aa4bdea048eff6b5bb5403b1647",
+    "tests/evidence/cc-043/renders/telegram-mobile.png": "8df9b3586a978d19383c6fbc9ce90cb626f7a1bc",
+    "tests/evidence/cc-043/renders/threads-desktop.pdf": "50babc5d8bc06253260c939409d3c609c1e94c91",
+    "tests/evidence/cc-043/renders/threads-desktop.png": "a73530820708ec0b24f5522a2cbd61d57b4857ce",
+    "tests/evidence/cc-043/renders/threads-mobile.pdf": "070c1cb1436548f5d9ab9cc5d6a66071f921fde9",
+    "tests/evidence/cc-043/renders/threads-mobile.png": "64df81194663a6c5664d9cb5bfc6da9ba8337d97",
+    "tests/evidence/cc-043/renders/x-desktop.pdf": "eb197a7b800c7cac415278ba8c7c2300dd2863c8",
+    "tests/evidence/cc-043/renders/x-desktop.png": "eea0cb74ad74522bcc60e0cfc222f801517bd3b1",
+    "tests/evidence/cc-043/renders/x-mobile.pdf": "34bbf21ab7d3c23a390cb788c0e267b1c0acfba1",
+    "tests/evidence/cc-043/renders/x-mobile.png": "f977b531db4dbed10b22b33bedd27da060acd324",
+    "tests/evidence/cc-043/renders/youtube-desktop.pdf": "1b6b880e8c090b28764e95609c70c18ae24425da",
+    "tests/evidence/cc-043/renders/youtube-desktop.png": "97c6c2f5dfdd73e8bd931b035ddfab34f5a22ff6",
+    "tests/evidence/cc-043/renders/youtube-mobile.pdf": "3e18dcb352b80764e6a752abb76ef0e4a4d5ffbd",
+    "tests/evidence/cc-043/renders/youtube-mobile.png": "8d8b49db3e07e8211afc52f3dba3b7f6133ad4fb",
+    "tests/evidence/cc-043/story-memory.json": "4843a691656279e9eedfbdb8a5a4274bfc94aec6",
+    "tests/evidence/cc-043/tests.junit.xml": "b8417241ba1bb034e8f7d9774933ca19fe686848",
+    "tests/evidence/cc-043/ui-tests.junit.xml": "a2e99dd450fb7060655ad260f6e2b1857f7615ec",
+    "tests/evidence/cc-043/validation.json": "45a00091e8aae3e1c730353c5b5012d72d107ea9"
+  },
+  "base_cc042_evidence_count": 69,
+  "base_cc042_evidence_unchanged": true,
+  "schema_fixture_projection_test_exact_git_blobs": {
+    "schemas/publication/CapitalChronicleDeskRecordExportV1.md": "905813db3df7e5cf2c55809ea57513a3efae1249",
+    "schemas/publication/CapitalChronicleDeskRecordExportV1.schema.json": "5577dd34a622242607399327da016b32331fe684",
+    "tests/fixtures/desk_record_export_v1/desk_record_export_v1.fixture.json": "669aebe0a9ff1501fcc3a740ff822a6093f5c9d2",
+    "tests/test_desk_record_export_schema_v1.py": "c3672d7e355cf93c3865aee5e55b6c3ff03268a6",
+    "tools/product/desk_record_projection_v1.py": "29cf2c58596297b677de8d545027f68a302f2d29"
+  },
+  "ui_component_type_and_test_equal_original": true,
+  "changed_paths": [
+    ".gitattributes",
+    "docs/publisher/CC-043.md",
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+    "live_contentops/capital_chronicle_desk_record_source_v1.py",
+    "live_contentops/capital_chronicle_report_editorial_workspace_v1.py",
+    "live_contentops/capital_chronicle_report_feed_v1.py",
+    "live_contentops/contentops_editorial_desk_v1.py",
+    "live_contentops/contentops_foundation_library_v1.py",
+    "live_contentops/native_desktop_editorial_v1.py",
+    "live_contentops/native_desktop_publication_v1.py",
+    "live_contentops/native_newsroom_volume_v1.py",
+    "live_contentops/publication_coordinator_v1.py",
+    "live_contentops/rolling_x_grounded_article_media_builder_v1.py",
+    "live_contentops/v1_simple_gemini_newsroom_v1.py",
+    "schemas/publication/CapitalChronicleDeskRecordExportV1.md",
+    "schemas/publication/CapitalChronicleDeskRecordExportV1.schema.json",
+    "tests/evidence/cc-043/article-evidence.json",
+    "tests/evidence/cc-043/article-review.json",
+    "tests/evidence/cc-043/article.json",
+    "tests/evidence/cc-043/article.md",
+    "tests/evidence/cc-043/fixture-publication-refusal.json",
+    "tests/evidence/cc-043/native/final-visual-27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9-request.json",
+    "tests/evidence/cc-043/native/final-visual-27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9-response.json",
+    "tests/evidence/cc-043/native/media-plan-request.json",
+    "tests/evidence/cc-043/native/media-plan-response.json",
+    "tests/evidence/cc-043/native/r2-stale-repair-history.json",
+    "tests/evidence/cc-043/native/r4-repair-response.json",
+    "tests/evidence/cc-043/native/rejected-calendar-media-plan-request.json",
+    "tests/evidence/cc-043/native/rejected-calendar-media-plan-response.json",
+    "tests/evidence/cc-043/native/rejected-calendar-select-request.json",
+    "tests/evidence/cc-043/native/rejected-calendar-select-response.json",
+    "tests/evidence/cc-043/native/revise-request.json",
+    "tests/evidence/cc-043/native/revise-response.json",
+    "tests/evidence/cc-043/native/select-request.json",
+    "tests/evidence/cc-043/native/select-response.json",
+    "tests/evidence/cc-043/native/visual-edit-request.json",
+    "tests/evidence/cc-043/native/visual-edit-response.json",
+    "tests/evidence/cc-043/native/write-request.json",
+    "tests/evidence/cc-043/native/write-response.json",
+    "tests/evidence/cc-043/normalization-20261101/.gitattributes",
+    "tests/evidence/cc-043/normalization-20261101/affected.xml",
+    "tests/evidence/cc-043/normalization-20261101/baseline-gap.json",
+    "tests/evidence/cc-043/normalization-20261101/focused.xml",
+    "tests/evidence/cc-043/normalization-20261101/port-inputs.json",
+    "tests/evidence/cc-043/normalization-20261101/prior-evidence-preservation.json",
+    "tests/evidence/cc-043/normalization-20261101/reader-replay.json",
+    "tests/evidence/cc-043/normalization-20261101/schema-preservation.json",
+    "tests/evidence/cc-043/normalization-20261101/validation.json",
+    "tests/evidence/cc-043/previews.json",
+    "tests/evidence/cc-043/producer-inputs.json",
+    "tests/evidence/cc-043/rejected-calendar-candidate.json",
+    "tests/evidence/cc-043/renders/discord-desktop.pdf",
+    "tests/evidence/cc-043/renders/discord-desktop.png",
+    "tests/evidence/cc-043/renders/discord-mobile.pdf",
+    "tests/evidence/cc-043/renders/discord-mobile.png",
+    "tests/evidence/cc-043/renders/facebook_page-desktop.pdf",
+    "tests/evidence/cc-043/renders/facebook_page-desktop.png",
+    "tests/evidence/cc-043/renders/facebook_page-mobile.pdf",
+    "tests/evidence/cc-043/renders/facebook_page-mobile.png",
+    "tests/evidence/cc-043/renders/index.html",
+    "tests/evidence/cc-043/renders/instagram_business-desktop.pdf",
+    "tests/evidence/cc-043/renders/instagram_business-desktop.png",
+    "tests/evidence/cc-043/renders/instagram_business-mobile.pdf",
+    "tests/evidence/cc-043/renders/instagram_business-mobile.png",
+    "tests/evidence/cc-043/renders/linkedin-desktop.pdf",
+    "tests/evidence/cc-043/renders/linkedin-desktop.png",
+    "tests/evidence/cc-043/renders/linkedin-mobile.pdf",
+    "tests/evidence/cc-043/renders/linkedin-mobile.png",
+    "tests/evidence/cc-043/renders/pdf-content-checks.json",
+    "tests/evidence/cc-043/renders/renders.json",
+    "tests/evidence/cc-043/renders/substack-desktop.pdf",
+    "tests/evidence/cc-043/renders/substack-desktop.png",
+    "tests/evidence/cc-043/renders/substack-mobile.pdf",
+    "tests/evidence/cc-043/renders/substack-mobile.png",
+    "tests/evidence/cc-043/renders/telegram-desktop.pdf",
+    "tests/evidence/cc-043/renders/telegram-desktop.png",
+    "tests/evidence/cc-043/renders/telegram-mobile.pdf",
+    "tests/evidence/cc-043/renders/telegram-mobile.png",
+    "tests/evidence/cc-043/renders/threads-desktop.pdf",
+    "tests/evidence/cc-043/renders/threads-desktop.png",
+    "tests/evidence/cc-043/renders/threads-mobile.pdf",
+    "tests/evidence/cc-043/renders/threads-mobile.png",
+    "tests/evidence/cc-043/renders/x-desktop.pdf",
+    "tests/evidence/cc-043/renders/x-desktop.png",
+    "tests/evidence/cc-043/renders/x-mobile.pdf",
+    "tests/evidence/cc-043/renders/x-mobile.png",
+    "tests/evidence/cc-043/renders/youtube-desktop.pdf",
+    "tests/evidence/cc-043/renders/youtube-desktop.png",
+    "tests/evidence/cc-043/renders/youtube-mobile.pdf",
+    "tests/evidence/cc-043/renders/youtube-mobile.png",
+    "tests/evidence/cc-043/story-memory.json",
+    "tests/evidence/cc-043/tests.junit.xml",
+    "tests/evidence/cc-043/ui-tests.junit.xml",
+    "tests/evidence/cc-043/validation.json",
+    "tests/fixtures/desk_record_export_v1/desk_record_export_v1.fixture.json",
+    "tests/test_capital_chronicle_desk_record_source_v1.py",
+    "tests/test_cc043_normalized_public_text_v1.py",
+    "tests/test_desk_record_export_schema_v1.py",
+    "tests/test_eight_platform_substack_first_pipeline_v1.py",
+    "tools/product/desk_record_projection_v1.py",
+    "ui/contentops_v5/src/dailyAppTypes.ts",
+    "ui/contentops_v5/src/test/report_editorial_workspace.test.tsx",
+    "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx"
+  ],
+  "no_runtime_config_or_script_change": true,
+  "no_new_native_roles_or_pixel_review": true,
+  "new_production_or_public_work": false,
+  "prior_cc043_artifact_disk_bytes_exact": 78,
+  "prior_cc043_artifact_disk_sha256": [
+    {
+      "path": "tests/evidence/cc-043/article-evidence.json",
+      "bytes": 38841,
+      "sha256": "22a323c02f6cc1797580f70fdb511fa449a2ea1e577a759bc0f6fd3dae658ae4"
+    },
+    {
+      "path": "tests/evidence/cc-043/article-review.json",
+      "bytes": 2169,
+      "sha256": "ffd6a6da1ecfceb125f03860e8028ac1beb2fc828aff15724a2ddde1522024ba"
+    },
+    {
+      "path": "tests/evidence/cc-043/article.json",
+      "bytes": 22773,
+      "sha256": "fff4fd0e67d932301707c4696f5e2772efc88ead623d8d08826bbbd338f37088"
+    },
+    {
+      "path": "tests/evidence/cc-043/article.md",
+      "bytes": 1256,
+      "sha256": "39dd5b8c2895acc9d00a3975e4ad10adc20a94d077a4f74e90dce30455460854"
+    },
+    {
+      "path": "tests/evidence/cc-043/fixture-publication-refusal.json",
+      "bytes": 131,
+      "sha256": "52a2e7e381447401eef07372644b0bc3e12a3cbb6921e758cf5036ce31d1b194"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/final-visual-27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9-request.json",
+      "bytes": 244425,
+      "sha256": "64b8b851934f752120e4d8043fc0e957ee1ef49ebad1d6a39bf4301fba16f030"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/final-visual-27469ede173c2709e4d137ffa777d9a8a21922499005f32bf7348abb44ede0c9-response.json",
+      "bytes": 40249,
+      "sha256": "04d1aa9cd5be1385d8101891d5bf8f253d693e97dfc9619d3e0e9c062d09828b"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/media-plan-request.json",
+      "bytes": 45882,
+      "sha256": "0aa40650f8cceb31ba1a98145dcb8a0d8ac50ab4fd9b1fdd2a890f7e7e46a9d8"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/media-plan-response.json",
+      "bytes": 16565,
+      "sha256": "9201688ee7205cdd2c3c633ea1a8e68acda488f63f450144efb9e1a34d6e4af9"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/r2-stale-repair-history.json",
+      "bytes": 25232,
+      "sha256": "726782302b60f191c3ccb65abbf869ebfcf9a046273a350061bb4fc2c460245b"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/r4-repair-response.json",
+      "bytes": 27423,
+      "sha256": "6a79eb5a3da9b98d9f7ead862d89113704c0fccb6ff1e0aa44536f332b01b5e8"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/rejected-calendar-media-plan-request.json",
+      "bytes": 9598,
+      "sha256": "792d837af4b81deddcf482d2a01186323c3b3a5bb6a341484eb69a5fb7dcfe34"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/rejected-calendar-media-plan-response.json",
+      "bytes": 2155,
+      "sha256": "f06ac1b92c19d387b6cfdd7a7f9b71560ce15841ce3052238b88cd2ae1152544"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/rejected-calendar-select-request.json",
+      "bytes": 139948,
+      "sha256": "b8907230c000ea96e751342aa04286fd8853ce3c06272a9c60afbb17de0005d7"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/rejected-calendar-select-response.json",
+      "bytes": 4283,
+      "sha256": "f7a4f3e779971642d3287e54bd16348de507aee56d78749d506eb2d0ace44e99"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/revise-request.json",
+      "bytes": 195646,
+      "sha256": "f7157ce5bf00b744b439f59a3b895ccadb45dab1a23df4d67bccaec0da12d5fc"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/revise-response.json",
+      "bytes": 34058,
+      "sha256": "c870844fb5100fd1c0151977f22ecad34456eebc0fe1ad8f1e12ed62d70abc59"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/select-request.json",
+      "bytes": 139858,
+      "sha256": "8bb1feb6699949df6628167d99b0367af6998ab5b70407a24a4e6e6b399ef1ce"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/select-response.json",
+      "bytes": 4397,
+      "sha256": "8dc5f338380e008b2be12272194b6332e15dd50eaa1fcd8894fb1371bb83aaea"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/visual-edit-request.json",
+      "bytes": 110518,
+      "sha256": "0f1a789911ca32d7e41fc71f94bae149fb8c3644fbf8922a0de8bb5d24e10250"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/visual-edit-response.json",
+      "bytes": 11559,
+      "sha256": "bbf4be76467dafbf0f63bdfff1bcf1aac85f9a878f1ada973bb9361975cb4d16"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/write-request.json",
+      "bytes": 162213,
+      "sha256": "f2ce156218d94e680a51bc068a68edb30c4b1d6e7d9a17a32786cbf29dffbc7c"
+    },
+    {
+      "path": "tests/evidence/cc-043/native/write-response.json",
+      "bytes": 34002,
+      "sha256": "522f4060a29464d8adce67c6b1b19cf48355df163cd84575223b71621abd4021"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/.gitattributes",
+      "bytes": 101,
+      "sha256": "d774dd6ab69fe6068e410bcd8e3e9c6dcc583d5aa966805147b1c4e959737496"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/affected.xml",
+      "bytes": 28162,
+      "sha256": "d77ed787515448b962067143b8b8b89d7cd11abc96ec9a4fa02dfaa43dca11cb"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/baseline-gap.json",
+      "bytes": 991,
+      "sha256": "2e63a6360ba1a73d50984e1945dcb06e4a2f5ea386217e4e5e5c653eba127032"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/focused.xml",
+      "bytes": 18934,
+      "sha256": "d9f845c88e2d3b677a904206ea855070bd8d7e37bed2cd6cebc913cc51e5c23d"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/port-inputs.json",
+      "bytes": 744,
+      "sha256": "db8d1e5d336e3d7464e6ac25de0ab26c8a0b9577236e0e0d0dd40e0751e9f139"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/prior-evidence-preservation.json",
+      "bytes": 10576,
+      "sha256": "8acc1eb693a42556d9d05e90a3b383aad1243f828bce6a00294c26591d69ca65"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/reader-replay.json",
+      "bytes": 2916,
+      "sha256": "9d9954d08f07644ebeda06dde09990fa4688b0728f0d1872f38bd9cc927f9fc5"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/schema-preservation.json",
+      "bytes": 1023,
+      "sha256": "ab203202ee3fa4dc2553e1dad940dd7ee106cc36868c595acca5f36fb12c1e17"
+    },
+    {
+      "path": "tests/evidence/cc-043/normalization-20261101/validation.json",
+      "bytes": 6299,
+      "sha256": "804e5425f4a5436be754bacb88dc046fa3e07f3d2cb3f9fa1ce007e757ef8652"
+    },
+    {
+      "path": "tests/evidence/cc-043/previews.json",
+      "bytes": 14189,
+      "sha256": "113480516b49326ec3df847243f0e800ff13085f399ac077eb945f3c09b02009"
+    },
+    {
+      "path": "tests/evidence/cc-043/producer-inputs.json",
+      "bytes": 1034,
+      "sha256": "bc21bb8f12e0f61fc89b69ad3e22bf9955edddb6db39f32780446ed7a4b11ae6"
+    },
+    {
+      "path": "tests/evidence/cc-043/rejected-calendar-candidate.json",
+      "bytes": 3308,
+      "sha256": "ef215ac084a11895de7d969657f64fc74b461b50895cc03dd4004c67f75a90d3"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/discord-desktop.pdf",
+      "bytes": 55271,
+      "sha256": "5418a72f4fc6b76d45c34bf98d835de4a06deb12dc9daa257e05aecf6ba59166"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/discord-desktop.png",
+      "bytes": 120957,
+      "sha256": "e255efdec291b6463b0e42118d1197a2407fb25e7a2e11fc6641383c9bd75d04"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/discord-mobile.pdf",
+      "bytes": 55270,
+      "sha256": "c986e7b2ab9219127e0b3f4621d7de704dcf83ecffd8a8de4b50e677a8e5bbeb"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/discord-mobile.png",
+      "bytes": 104524,
+      "sha256": "36ff0be284202b2a4ad9213c25074d83f3bbabab976053920c342cbff762baf5"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/facebook_page-desktop.pdf",
+      "bytes": 55053,
+      "sha256": "1fec8f9bd26507edb05646178eb0f84be1ffe174a5a1583b9475ff30cb2a379c"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/facebook_page-desktop.png",
+      "bytes": 120775,
+      "sha256": "f9cdcd538638774fc9161a79968ad05970c302d80d62d555e41ee53f5affa74c"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/facebook_page-mobile.pdf",
+      "bytes": 55079,
+      "sha256": "529a776376432817207b6ecff0a5c65df9ac7dd34ef95641ec374deaa4641658"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/facebook_page-mobile.png",
+      "bytes": 106804,
+      "sha256": "8edcc99e674bc914594c1613d2751c6429e9b7975d653df32d8c27ef30788528"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/index.html",
+      "bytes": 296810,
+      "sha256": "b580c4d6085afa9869ae61acf14aa8e83abf55c13d1da966bc7c53562383cbe6"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/instagram_business-desktop.pdf",
+      "bytes": 49484,
+      "sha256": "7d4200a1d9c77a57abc1c7a5d3ebf809cea47a13e34e57b44ff233efd01a6d3f"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/instagram_business-desktop.png",
+      "bytes": 63967,
+      "sha256": "56edbf59122f82a2e53d3c9b63044d4a0cb3d219016b7a2d6b2fe09b94feec2c"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/instagram_business-mobile.pdf",
+      "bytes": 49458,
+      "sha256": "f9ec09d9453c12288cdc1ef70e73d1703c14f7da41f26870b1af396eda630a5a"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/instagram_business-mobile.png",
+      "bytes": 51839,
+      "sha256": "231613a5d6005a0b69aca20e275d19a4a3de226fb4241a1be34c95210f24d8ed"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/linkedin-desktop.pdf",
+      "bytes": 54909,
+      "sha256": "9adb1275705a4aa55e9c16b53eb49814d49941a97b7499500e74a3371a3b0e8a"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/linkedin-desktop.png",
+      "bytes": 117587,
+      "sha256": "32cd997fb49e98f2e38627b4f83404e7a3519809b11e0bd66faa53bb52b9a615"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/linkedin-mobile.pdf",
+      "bytes": 54954,
+      "sha256": "510f34639d92ed8d7221cdd228afeb08aa6e966a89600d4b50707d6643ae596b"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/linkedin-mobile.png",
+      "bytes": 102234,
+      "sha256": "8d3b1f03e214e8c3fac78a9bc7b3031a7c3a214ccca5b3bbd6b18ea514cdfc60"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/pdf-content-checks.json",
+      "bytes": 5386,
+      "sha256": "23ec79bb30705f667e1c132c4c74b0e554483c58415aee3f8769c4d228cb6ef6"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/renders.json",
+      "bytes": 45713,
+      "sha256": "b8afe36887552e4294f7b28b4558a8e9db82c525ce55b01a24d270a3b4fbd1d9"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/substack-desktop.pdf",
+      "bytes": 57803,
+      "sha256": "a1e43780fbe76d03f5d30bd51b0e68f050bb930bc6f76c5f3218aef5f731eab3"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/substack-desktop.png",
+      "bytes": 197236,
+      "sha256": "bb2b25fc0bc86dbe8df314d4235f3f76bc98ffe20cc516c3c719dd87f6cd310a"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/substack-mobile.pdf",
+      "bytes": 58443,
+      "sha256": "aead6f3b00c171051fe96b420d0db0c03656f6556ac2b56810f9442ae0542828"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/substack-mobile.png",
+      "bytes": 185881,
+      "sha256": "e51aba59930641d94e5e86199cb1290b88939f9a53f45413fb1f042ce45d7585"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/telegram-desktop.pdf",
+      "bytes": 54801,
+      "sha256": "8b87aeeabf1a6a2301b678a69f447885c174ea7ac56351077c01921a348c5893"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/telegram-desktop.png",
+      "bytes": 119325,
+      "sha256": "08b91ea1b853dade963b80b963e6b8de1841ba8d5d9eca18053a519d029e1230"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/telegram-mobile.pdf",
+      "bytes": 54882,
+      "sha256": "27da1dc6b918d68457fa79f8cee80f71fc15874b99597ee3918d2e2bfed6b544"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/telegram-mobile.png",
+      "bytes": 104431,
+      "sha256": "ee9860970ae4b80d0d8ffefdd31ccc4fb4866fb7e5d664a315c744065eb6d0e1"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/threads-desktop.pdf",
+      "bytes": 55548,
+      "sha256": "8dec232051d893db514a68a062990d20ebba5a4343821982a2b4108b3bd2bec6"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/threads-desktop.png",
+      "bytes": 126252,
+      "sha256": "0cf3790992bcf992d60a831f3e5289e888597c997786681094a32ac96db4ec21"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/threads-mobile.pdf",
+      "bytes": 55612,
+      "sha256": "520c2e576bf8665fd167c5f49cde7c6a2c41f46d93914b64f67a1de6b4783ea8"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/threads-mobile.png",
+      "bytes": 105927,
+      "sha256": "10cf5863554de466085afe09a8ccf0d2b40de5e8fe6f5613b4f41eacd38c5e74"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/x-desktop.pdf",
+      "bytes": 56702,
+      "sha256": "e2ff2db74068170e4c6a40f7824e630a118c7b8ad9855e00549449e671531b8e"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/x-desktop.png",
+      "bytes": 127731,
+      "sha256": "d06f9a5af3324d012c5213564bd3d43672e973afb9d17e6926c1654fd0381dd1"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/x-mobile.pdf",
+      "bytes": 56713,
+      "sha256": "86d534fb82e1605b7c598511c4746c5828f155c745a4c953a72f6081a4510035"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/x-mobile.png",
+      "bytes": 109210,
+      "sha256": "1d0bdd69448eb0d7f26977f241d9b302a0db5d330252d08552cc6aceed1d015a"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/youtube-desktop.pdf",
+      "bytes": 54617,
+      "sha256": "1b757d16f4a30085141daa8e6029f005a6694c1021bdde1dddc501225a36993c"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/youtube-desktop.png",
+      "bytes": 121593,
+      "sha256": "aa38165701828dd7c0bc90ce8964f4b849f3940ee993b4eadd2c564d952c1078"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/youtube-mobile.pdf",
+      "bytes": 54656,
+      "sha256": "ffa9cf72f37333b2f93e0bc7400774b20e81492f4bd084e716c7690eeab4cd8e"
+    },
+    {
+      "path": "tests/evidence/cc-043/renders/youtube-mobile.png",
+      "bytes": 106523,
+      "sha256": "2dacc178b4fe45514eacbf6dd0ab20b20b9c7724815dfeae03b281d28c2b1c8b"
+    },
+    {
+      "path": "tests/evidence/cc-043/story-memory.json",
+      "bytes": 4972,
+      "sha256": "778e9ec04e73f4fd5e28641393ed8ac6032ba9b15add8dbf5c34c872bd472fbb"
+    },
+    {
+      "path": "tests/evidence/cc-043/tests.junit.xml",
+      "bytes": 61573,
+      "sha256": "cd6336ceede2edc01362b0453424a248c3ce849f0a6618fd2d67b69a7da14e5c"
+    },
+    {
+      "path": "tests/evidence/cc-043/ui-tests.junit.xml",
+      "bytes": 10147,
+      "sha256": "07dd4a871abf7e05d44f787280d9b68900fddc23798b3f389d6b66e6c9a6f7ca"
+    },
+    {
+      "path": "tests/evidence/cc-043/validation.json",
+      "bytes": 19527,
+      "sha256": "47f30bfedac743da307a43cc6118a14c11e93bd70bfc169d82c9238bd36771f7"
+    }
+  ]
+}

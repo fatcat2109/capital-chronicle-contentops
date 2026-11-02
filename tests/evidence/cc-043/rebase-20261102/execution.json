@@ -1,0 +1,168 @@
+{
+  "commands": [
+    {
+      "label": "required-regressions",
+      "argv": [
+        "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_native_configured_provenance_v1.py",
+        "tests/test_native_editorial_continuation_v1.py",
+        "tests/test_native_headline_filter_v1.py",
+        "tests/test_native_final_visual_review_v1.py",
+        "tests/test_native_desktop_editorial_v1.py",
+        "tests/test_capital_chronicle_report_editorial_workspace_v1.py",
+        "tests/test_codex_desktop_newsroom_operator_v1.py",
+        "tests/test_v1_simple_gemini_newsroom_v1.py",
+        "tests/test_eight_platform_substack_first_pipeline_v1.py",
+        "tests/test_native_desktop_publication_v1.py",
+        "tests/test_native_role_configuration_v1.py",
+        "tests/test_native_newsroom_owner_operation_v1.py",
+        "tests/test_rolling_x_newsroom_cycle_v1.py",
+        "tests/test_rolling_x_hierarchical_assignment_v1.py",
+        "-q",
+        "--tb=short",
+        "--junitxml=A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\on-cc042-20261102\\required-regressions.xml"
+      ],
+      "started_at_utc": "2026-11-02T02:01:03.592274+00:00",
+      "ended_at_utc": "2026-11-02T02:03:34.072609+00:00",
+      "duration_seconds": 150.48,
+      "exit_code": 0,
+      "files": [
+        "tests/test_native_configured_provenance_v1.py",
+        "tests/test_native_editorial_continuation_v1.py",
+        "tests/test_native_headline_filter_v1.py",
+        "tests/test_native_final_visual_review_v1.py",
+        "tests/test_native_desktop_editorial_v1.py",
+        "tests/test_capital_chronicle_report_editorial_workspace_v1.py",
+        "tests/test_codex_desktop_newsroom_operator_v1.py",
+        "tests/test_v1_simple_gemini_newsroom_v1.py",
+        "tests/test_eight_platform_substack_first_pipeline_v1.py",
+        "tests/test_native_desktop_publication_v1.py",
+        "tests/test_native_role_configuration_v1.py",
+        "tests/test_native_newsroom_owner_operation_v1.py",
+        "tests/test_rolling_x_newsroom_cycle_v1.py",
+        "tests/test_rolling_x_hierarchical_assignment_v1.py"
+      ]
+    },
+    {
+      "label": "cc043-acceptance",
+      "argv": [
+        "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_capital_chronicle_desk_record_source_v1.py",
+        "tests/test_cc043_normalized_public_text_v1.py",
+        "tests/test_desk_record_export_schema_v1.py",
+        "tests/test_capital_chronicle_report_editorial_workspace_v1.py",
+        "tests/test_capital_chronicle_report_feed_v1.py",
+        "tests/test_native_desktop_publication_v1.py",
+        "tests/test_publication_coordinator_v1.py",
+        "tests/test_v1_simple_gemini_newsroom_v1.py",
+        "-q",
+        "--tb=short",
+        "--junitxml=A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\on-cc042-20261102\\cc043-acceptance.xml"
+      ],
+      "started_at_utc": "2026-11-02T02:03:34.081053+00:00",
+      "ended_at_utc": "2026-11-02T02:06:35.762640+00:00",
+      "duration_seconds": 181.682,
+      "exit_code": 0,
+      "files": [
+        "tests/test_capital_chronicle_desk_record_source_v1.py",
+        "tests/test_cc043_normalized_public_text_v1.py",
+        "tests/test_desk_record_export_schema_v1.py",
+        "tests/test_capital_chronicle_report_editorial_workspace_v1.py",
+        "tests/test_capital_chronicle_report_feed_v1.py",
+        "tests/test_native_desktop_publication_v1.py",
+        "tests/test_publication_coordinator_v1.py",
+        "tests/test_v1_simple_gemini_newsroom_v1.py"
+      ]
+    },
+    {
+      "label": "manual-continuation",
+      "argv": [
+        "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_native_manual_candidate_v1.py",
+        "-q",
+        "--tb=short",
+        "--junitxml=A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\on-cc042-20261102\\manual-continuation.xml"
+      ],
+      "started_at_utc": "2026-11-02T02:06:26.910314+00:00",
+      "ended_at_utc": "2026-11-02T02:07:29.311265+00:00",
+      "duration_seconds": 62.401,
+      "exit_code": 0,
+      "scope": "Existing exact-operation continuation regressions: rebase changes shared source/context inputs while CC-042 manual continuation must remain intact."
+    },
+    {
+      "label": "ui-tests",
+      "argv": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\ui\\contentops_v5\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "src/test/report_editorial_workspace.test.tsx",
+        "--reporter=default",
+        "--reporter=junit",
+        "--outputFile=A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\on-cc042-20261102\\ui-tests.xml"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\ui\\contentops_v5",
+      "started_at_utc": "2026-11-02T02:02:16.142072+00:00",
+      "ended_at_utc": "2026-11-02T02:02:26.682990+00:00",
+      "duration_seconds": 10.541,
+      "exit_code": 0
+    },
+    {
+      "label": "ui-typecheck",
+      "argv": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\ui\\contentops_v5\\node_modules\\typescript\\bin\\tsc",
+        "-b"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\ui\\contentops_v5",
+      "started_at_utc": "2026-11-02T02:02:26.689663+00:00",
+      "ended_at_utc": "2026-11-02T02:02:36.402135+00:00",
+      "duration_seconds": 9.712,
+      "exit_code": 0
+    },
+    {
+      "label": "ui-build",
+      "argv": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\ui\\contentops_v5\\node_modules\\vite\\bin\\vite.js",
+        "build"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\ui\\contentops_v5",
+      "started_at_utc": "2026-11-02T02:02:36.403112+00:00",
+      "ended_at_utc": "2026-11-02T02:02:41.072273+00:00",
+      "duration_seconds": 4.669,
+      "exit_code": 0
+    }
+  ],
+  "raw_logs": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\on-cc042-20261102\\required-regressions.txt",
+      "sha256": "1767fc8c488931ddaffce75b6d3a7335f188c0a640d196962b1ba552ad761422"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\on-cc042-20261102\\cc043-acceptance.txt",
+      "sha256": "853db8d2ec5ee6725684277fae24ce754bc86f2dcd14eb3d38a8ce9abc691928"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\on-cc042-20261102\\manual-continuation.txt",
+      "sha256": "fd363015158b250d7ad05766b290a03065b66471fe6b285f658949e2146eea06"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\on-cc042-20261102\\ui-tests.txt",
+      "sha256": "60ae631896943b8dcdd3ac5bf599632c62ea3815f41aed002071d9eb9728a0e3"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\on-cc042-20261102\\ui-typecheck.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-043\\on-cc042-20261102\\ui-build.txt",
+      "sha256": "54d117f3db04637a8f77f15457610d2ff92c57e4594241559cf44f2a8b783632"
+    }
+  ]
+}
