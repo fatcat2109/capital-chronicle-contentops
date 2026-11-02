@@ -2,12 +2,44 @@
 
 from copy import deepcopy
 from hashlib import sha256
+from pathlib import Path
 import json
 
 import pytest
 
 from live_contentops.retrospective_piece_v1 import validate_retrospective_piece
 from live_contentops import rolling_x_grounded_article_media_builder_v1 as media
+
+
+RETAINED_ROOT = (
+    Path(__file__).resolve().parents[1] / "docs/publisher/CC-074-private-20261101"
+)
+
+
+def retained_json(name):
+    """Relocate read-only fixture references; preserve every sealed artifact byte."""
+    original = (
+        r"A:\Capital Chronicle\Worktrees\ContentOps\codex-publisher-backlog"
+        r"\docs\publisher\CC-074-private-20261101"
+    )
+
+    def relocate(value):
+        if isinstance(value, dict):
+            return {k: relocate(v) for k, v in value.items()}
+        if isinstance(value, list):
+            return [relocate(v) for v in value]
+        if isinstance(value, str) and value.startswith(original + "\\"):
+            return str(RETAINED_ROOT / Path(value[len(original) + 1 :]))
+        return value
+
+    return relocate(json.loads((RETAINED_ROOT / name).read_bytes()))
+
+
+def test_retained_package_seals_survive_worktree_relocation():
+    for record in retained_json("artifact-sha256.json")["artifacts"]:
+        raw = (RETAINED_ROOT / record["path"]).read_bytes()
+        assert sha256(raw).hexdigest() == record["sha256"], record["path"]
+        assert len(raw) == record["bytes"], record["path"]
 
 
 @pytest.fixture(scope="module")
@@ -296,18 +328,14 @@ def test_explicit_report_only_never_scans_live_x_and_ordinary_input_keeps_route(
 
 def test_real_retained_chart_binding_and_rendered_geometry():
     """Real data are evidence; this re-renders only local deterministic figures."""
-    from pathlib import Path
     import matplotlib
 
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     import numpy as np
 
-    root = (
-        Path(__file__).resolve().parents[1] / "docs/publisher/CC-074-private-20261101"
-    )
-    docs = json.loads((root / "source-packet.json").read_bytes())
-    charts = json.loads((root / "chart-assets.json").read_bytes())
+    docs = retained_json("source-packet.json")
+    charts = retained_json("chart-assets.json")
     for asset in charts:
         media.validate_editorial_data_chart(asset, docs)
         bound = media._retained_chart_documents(docs, asset["retained_source_binding"])
@@ -337,14 +365,10 @@ def test_real_retained_chart_binding_and_rendered_geometry():
     "fault", ["revision", "capture", "policy", "source_text", "fraction"]
 )
 def test_real_chart_cannot_rebind_source_or_rights(tmp_path, fault):
-    from pathlib import Path
     import shutil
 
-    root = (
-        Path(__file__).resolve().parents[1] / "docs/publisher/CC-074-private-20261101"
-    )
-    docs = json.loads((root / "source-packet.json").read_bytes())
-    asset = json.loads((root / "chart-assets.json").read_bytes())[1]
+    docs = retained_json("source-packet.json")
+    asset = retained_json("chart-assets.json")[1]
     binding = asset["retained_source_binding"]
     if fault == "revision":
         binding["research_revision"] = "0" * 64
@@ -413,7 +437,7 @@ def test_real_retrospective_notice_and_bound_fed_attribution_survive_all_preview
     article = json.loads((root / "native/desktop_response_write.json").read_bytes())[
         "output"
     ]["article"]
-    docs = json.loads((root / "source-packet.json").read_bytes())
+    docs = retained_json("source-packet.json")
     article["public_source_bindings"] = [
         {"source_id": d["source_id"], "publisher": d["publisher"], "url": d["url"]}
         for d in docs
@@ -423,7 +447,7 @@ def test_real_retrospective_notice_and_bound_fed_attribution_survive_all_preview
         "event_confirmation_state": "CONFIRMED",
         "primary_reporting_publisher": "Federal Reserve Board",
     }
-    assets = json.loads((root / "chart-assets.json").read_bytes())
+    assets = retained_json("chart-assets.json")
     bundle, _ = _native_preview_bundle(
         article=article,
         article_mode="DATA_OR_DOCUMENT_LENS",
@@ -480,13 +504,9 @@ def test_copied_manual_binding_refuses_publication_before_store_or_transport(tmp
 
 @pytest.mark.parametrize("fault", ["value", "unit", "missing_row"])
 def test_accessible_table_cannot_change_source_values_or_units(fault):
-    from pathlib import Path
 
-    root = (
-        Path(__file__).resolve().parents[1] / "docs/publisher/CC-074-private-20261101"
-    )
-    assets = json.loads((root / "repairs/v2/assets-reader-metadata.json").read_bytes())
-    docs = json.loads((root / "source-packet.json").read_bytes())
+    assets = retained_json("repairs/v2/assets-reader-metadata.json")
+    docs = retained_json("source-packet.json")
     chart = next(a for a in assets if a.get("editorial_data_packet"))
     media.validate_editorial_data_chart(chart, docs)
     if fault == "value":
@@ -509,13 +529,11 @@ def test_actual_private_piece_keeps_original_container_and_native_clock(
     root = (
         Path(__file__).resolve().parents[1] / "docs/publisher/CC-074-private-20261101"
     )
-    piece = json.loads((root / "piece.json").read_bytes())
-    docs = json.loads((root / "chart-source-documents.json").read_bytes())
+    piece = retained_json("piece.json")
+    docs = retained_json("chart-source-documents.json")
     charts = [
         a
-        for a in json.loads(
-            (root / "repairs/v2/assets-reader-metadata.json").read_bytes()
-        )
+        for a in retained_json("repairs/v2/assets-reader-metadata.json")
         if a.get("editorial_data_packet")
     ]
     article = (root / "article.md").read_text(encoding="utf-8")
