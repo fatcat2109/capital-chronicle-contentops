@@ -1,0 +1,16 @@
+{
+  "observed_at_utc": "2026-11-02T23:31:20Z",
+  "draft_id": "223246940",
+  "request_sha256": "dc3e7289e2a8ec911137f30f9152ecb6fd4fa7d39f6a62ca7112da089ce376ea",
+  "actual_tool_result": {
+    "logs": [],
+    "ok": true,
+    "value": {
+      "confirmation": "Publish without buttons; unchanged approved copy",
+      "pageId": 54,
+      "text": "- region \"Notifications\" [ref=e49] [cursor=pointer]\n- dialog \"Add subscribe buttons to your post\"\n  - image\n  - heading \"Add subscribe buttons to your post\" [level=2]\n  - LabelText\n    - checkbox \"Don’t ask again\" [ref=e76]\n      - image\n  - button \"Publish without buttons\" [ref=e77]\n  - button \"Add subscribe buttons\" [ref=e78]",
+      "url": "https://capitalchronicle.substack.com/publish/post/223246940"
+    }
+  },
+  "description": "Substack intercepted the first final send with Add subscribe buttons. Continued that same in-flow confirmation using Publish without buttons; did not restart or repeat the initial send."
+}
