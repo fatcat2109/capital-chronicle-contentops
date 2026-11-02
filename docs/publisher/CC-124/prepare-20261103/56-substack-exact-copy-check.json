@@ -1,0 +1,20 @@
+{
+  "observed_at_utc": "2026-11-02T23:18:34Z",
+  "draft_id": "223246940",
+  "draft_url": "https://capitalchronicle.substack.com/publish/post/223246940",
+  "request_sha256": "dc3e7289e2a8ec911137f30f9152ecb6fd4fa7d39f6a62ca7112da089ce376ea",
+  "title": "September CPI: why 0.6% and 3.7% answer different questions",
+  "copy_comparison": "PASS after stripping markup and normalizing whitespace and Substack smart apostrophes only",
+  "heading_count": 3,
+  "source_link": "https://www.bls.gov/news.release/cpi.htm",
+  "source_link_label": "U.S. Bureau of Labor Statistics release of October 14, 2026",
+  "editor_saved_observed": true,
+  "body_html": "<div contenteditable=\"true\" role=\"textbox\" data-testid=\"editor\" dir=\"auto\" aria-label=\"Start writing...\" aria-multiline=\"true\" translate=\"no\" class=\"tiptap ProseMirror mousetrap ProseMirror-focused\" tabindex=\"0\"><p>In September 2026, all-items CPI rose 0.6% and CPI excluding food and energy rose 0.3%, both seasonally adjusted, according to the <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://www.bls.gov/news.release/cpi.htm\">U.S. Bureau of Labor Statistics release of October 14, 2026</a>. The difference is clear; its cause and persistence are separate questions. This is a retrospective of that release.</p><h2>The September snapshot</h2><p>Over the twelve months ending September, all-items CPI-U increased 3.7%; CPI-U excluding food and energy increased 2.6%. Those annual figures are not seasonally adjusted. They describe a different horizon from the monthly readings.</p><h2>Two horizons, two adjustment bases</h2><p>Monthly and twelve-month readings in the U.S. Bureau of Labor Statistics’ October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions.</p><p>Within the monthly pair, the all-items rise was larger than the rise excluding food and energy. That comparison establishes a difference between the measures. It does not, by itself, identify a component contribution or show whether either rate was speeding up or slowing down.</p><p>The U.S. Bureau of Labor Statistics’ September CPI release of October 14, 2026 showed a lower monthly reading excluding food and energy. Giving that narrower measure more weight is an analytical choice, not proof that the all-items increase was temporary. Giving the headline more weight does not establish persistence either.</p><h2>What these figures leave open</h2><p>Reading the U.S. Bureau of Labor Statistics’ October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show? A claim about reception would need dated price evidence; a surprise claim would need a dated expectation. The CPI readings alone cannot supply either conclusion.</p><p>Analysis, not financial advice. Readers decide whether to trade.</p></div>",
+  "transport_interruption": {
+    "actual_last_prefix": "Reading the U.S. Bureau of Labor Statistics' October",
+    "remaining_chars": 285,
+    "first_cause": "Neo's 30-second call limit interrupted long text input, before any publish click.",
+    "recovery": "Read exact editor HTML and append only the verified missing suffix and final notice."
+  },
+  "public_write_performed": false
+}
