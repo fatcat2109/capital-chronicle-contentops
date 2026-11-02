@@ -1,0 +1,10 @@
+{
+  "base": "c6fb134457babff6ba59ded8d6211244fbb66c42",
+  "tree": "49f60175a90155fba08fbb433104bb53c8e08246",
+  "changed_paths": [
+    "live_contentops/publication_coordinator_v1.py",
+    "tests/test_publication_coordinator_v1.py"
+  ],
+  "context_adaptation": "Exclude internal editorial payloads from public-intent policy parsing and short-circuit rows that the existing policy never defers; no recovery obligation or authority change.",
+  "observed_at_utc": "2026-11-02T22:54:22.004875+00:00"
+}
