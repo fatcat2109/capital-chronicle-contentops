@@ -1,0 +1,86 @@
+diff --git a/live_contentops/native_neo_executor_v1.py b/live_contentops/native_neo_executor_v1.py
+index eddfbcb5..980df624 100644
+--- a/live_contentops/native_neo_executor_v1.py
++++ b/live_contentops/native_neo_executor_v1.py
+@@ -181,6 +181,30 @@ class NativeNeoExecutor:
+         self._put(request_hash, "response", {"result": result}, packet["request"]["work_item_id"])
+         return {"request_sha256": request_hash, "tool_return_sha256": sha256_of(response)}
+ 
++    def _fresh_identity_return(self, destination, surface, expected_identity):
++        # Probe epochs deduplicate requests; actual observation time controls
++        # freshness. Crossing a bucket must not discard a seconds-old proof.
++        for row in reversed(self.store.list_outbox_messages()):
++            if row["destination"] != DESTINATION:
++                continue
++            packet = json.loads(row["payload"])
++            request = packet.get("request") or {}
++            if (packet.get("schema_version") != SCHEMA or packet.get("operation_id") != self.operation_id
++                    or request.get("action") != "VERIFY_IDENTITY" or request.get("destination") != destination
++                    or request.get("surface") != surface or request.get("expected_identity") != expected_identity
++                    or request.get("native_invocation_id") != self.native_invocation_id):
++                continue
++            returned = self._get(request.get("request_sha256"), "response")
++            result = (returned or {}).get("result") or {}
++            observation = result.get("native_tool_observation") or {}
++            if (result.get("authenticated") is not True or result.get("observed_identity") != expected_identity
++                    or observation.get("native_invocation_id") != self.native_invocation_id):
++                continue
++            age = self.clock() - datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
++            if timedelta(0) <= age <= timedelta(minutes=5):
++                return result
++        return None
++
+     def readiness(self, surface):
+         from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
+         from live_contentops.neo_destination_handoff_v1 import IDENTITIES, ROOTS
+@@ -196,7 +220,9 @@ class NativeNeoExecutor:
+                    "entry_url": ROOTS[destination], "work_item_id": work,
+                    "forbidden": ["login", "account_switch", "public_write", "saved_draft", "private_storage"]}
+         request["request_sha256"] = sha256_of(request)
+-        result = self(request)
++        result = self._fresh_identity_return(destination, surface, IDENTITIES[destination])
++        if result is None:
++            result = self(request)
+         observed = result.get("native_tool_observation") or {}
+         age = self.clock() - datetime.fromisoformat(observed["observed_at_utc"].replace("Z", "+00:00"))
+         current = (observed.get("native_invocation_id") == self.native_invocation_id
+diff --git a/tests/test_native_neo_executor_v1.py b/tests/test_native_neo_executor_v1.py
+index 2acc8895..8fd16f4d 100644
+--- a/tests/test_native_neo_executor_v1.py
++++ b/tests/test_native_neo_executor_v1.py
+@@ -283,3 +283,35 @@ def test_readonly_publish_and_unclaimed_or_wrong_return_fail_closed(tmp_path):
+     packet, _, _ = pending_readback(adapter)
+     with pytest.raises(ValueError, match="BINDING"):
+         executor.submit(packet["request"]["request_sha256"], {})
++
++
++@pytest.mark.parametrize("fault", [None, "stale", "invocation", "identity", "unauthenticated"])
++def test_identity_observation_survives_epoch_boundary_only_while_exact_and_fresh(tmp_path, fault):
++    from datetime import timedelta
++    store, executor = setup(tmp_path)
++    now = datetime(2026, 11, 2, 22, 34, 59, tzinfo=timezone.utc)
++    executor.clock = lambda: now
++    with pytest.raises(NativeNeoInputRequired) as pending:
++        executor.readiness("SUBSTACK_ARTICLE")
++    packet = pending.value.request
++    executor.begin(packet["request"]["request_sha256"])
++    observed = {"tool_request_sha256": packet["tool_request_sha256"],
++        "tool_observation": {"tool_name": TOOL, "native_invocation_id": "controlled-test",
++            "surface": "CODEX_NATIVE_SUBAGENT", "observation_source": "CONTROLLED_NOT_BROWSER_PROOF",
++            "observed_at_utc": now.isoformat()},
++        "result": {"request_sha256": packet["request"]["request_sha256"],
++            "authenticated": fault != "unauthenticated",
++            "observed_identity": "WRONG_IDENTITY" if fault == "identity" else "capitalchronicle.substack.com"}}
++    executor.submit(packet["request"]["request_sha256"], observed)
++    before = len(store.list_outbox_messages())
++    now += timedelta(seconds=302 if fault == "stale" else 2)
++    if fault == "invocation":
++        executor.native_invocation_id = "different-native-turn"
++    if fault:
++        with pytest.raises(NativeNeoInputRequired):
++            executor.readiness("SUBSTACK_ARTICLE")
++    else:
++        result = executor.readiness("SUBSTACK_ARTICLE")
++        assert result["authenticated"] and result["proof_fresh"]
++        assert len(store.list_outbox_messages()) == before
++    assert store.list_platform_dispatches() == []

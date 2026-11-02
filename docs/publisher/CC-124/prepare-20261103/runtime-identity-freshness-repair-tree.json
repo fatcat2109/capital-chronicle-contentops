@@ -1,0 +1,10 @@
+{
+  "base": "9320dbdf1e3965ead02bb46192957fd09389eb2a",
+  "tree": "49ed041bad32b1a38ae9de3dd890c003561dac94",
+  "changed_paths": [
+    "live_contentops/native_neo_executor_v1.py",
+    "tests/test_native_neo_executor_v1.py"
+  ],
+  "context_adaptation": "Reuse accepted exact same-invocation identity observations by their actual age across probe epochs; preserve the five-minute TTL, identity and stable-id checks.",
+  "observed_at_utc": "2026-11-02T22:38:18.677413+00:00"
+}
