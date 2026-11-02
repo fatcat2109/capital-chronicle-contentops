@@ -1,0 +1,7 @@
+{
+  "classification": "NATIVE_DESKTOP_BLOCKED",
+  "blocker": "NATIVE_DESKTOP_EXACT_VISUAL_ARGUMENT_REQUIRED",
+  "run_id": "cc124-prepare-20261103-a",
+  "binding_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\binding.json",
+  "command": "submit"
+}
