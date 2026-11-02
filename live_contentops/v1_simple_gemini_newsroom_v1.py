@@ -238,8 +238,9 @@ def _preserve_unqualified_revision_artifact(path, value, turn):
             or not path.is_file() or json.loads(path.read_bytes()) == value):
         return
     request = getattr(turn, "frozen_request", lambda _: None)("revise")
-    response = getattr(turn, "_get", lambda *_: None)("revise", "response")
-    writer = getattr(turn, "_get", lambda *_: None)("write", "response")
+    read_response = getattr(turn, "native_response",
+        lambda stage: getattr(turn, "_get", lambda *_: None)(stage, "response"))
+    response, writer = read_response("revise"), read_response("write")
     if not request or not response or not writer:
         return  # The ordinary immutable-artifact check remains authoritative.
     if (response["request_sha256"] != request["request_sha256"]

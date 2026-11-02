@@ -502,6 +502,7 @@ def run_report_editorial_cycle(
             model.telemetry = llm_invoke.telemetry
             model.filter_headlines = llm_invoke.filter_headlines
             model.frozen_request = llm_invoke.frozen_request
+            model.native_response = lambda stage: llm_invoke._get(stage, "response")
             model.source_recovery = llm_invoke.source_recovery
             model.prepare_sources = llm_invoke.prepare_sources
             model.admitted_editorial_media = getattr(llm_invoke, "admitted_editorial_media", lambda: [])

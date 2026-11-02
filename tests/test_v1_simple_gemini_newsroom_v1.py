@@ -105,7 +105,7 @@ def test_failed_native_assembly_retains_original_before_exact_revision(tmp_path,
     response = {**request, "invocation_observation": {
         "invocation_id": "other-writer" if state == "wrong_writer" else "same-native-writer"}}
     turn = SimpleNamespace(frozen_request=lambda _: request,
-        _get=lambda stage, _: writer if stage == "write" else (None if state == "pending" else response))
+        native_response=lambda stage: writer if stage == "write" else (None if state == "pending" else response))
     if state == "qualified":
         (tmp_path / "qualified_article_record_v1.json").write_text("{}", encoding="utf-8")
     if state == "accepted":
