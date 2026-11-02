@@ -1,0 +1,21 @@
+{
+  "schema_version": "contentops.cc109.recorded_window_dry_run.v1",
+  "run_id": "simple-gemini-slot-baeeb891755470a136647e2f6b994410",
+  "window_id": "editorial-window-8b48af2ba22c3f0498a49624c4d71e0f",
+  "recorded_cutoff_utc": "2026-11-02T10:00:00Z",
+  "snapshot_sha256": "8e6a76057ab3188728b6e10d8eff9a6e6f8472fa489141a2d8211132361adb36",
+  "recorded_article_mode": "DATA_OR_DOCUMENT_LENS",
+  "source_packet_sha256": "96acf4ec006414955444ac2c7dfd120f7743002b2621bdc4792d0df0de837915",
+  "accepted_source_count": 1,
+  "source_requests_used": 0,
+  "text_first_eligible": false,
+  "outcome": "SOURCE_BLOCKED",
+  "primary_cause": "SOURCE_MISSING",
+  "reason": "The selected document-led analysis needs source-bound policy language and a meaningful comparison, but SOURCE_1 contains only a retained October 28 numeric projection: the 3.75 percent lower bound and 4.0 percent upper bound. The full decision language, rationale and prior dated comparison requested by Light are absent. This packet therefore cannot support the proposed explanation of policy versus next-decision inference or two distinct useful analytical charts. A single range restatement would not answer the selected reader question. Refuse before writing; do not manufacture context or relabel this analysis as NEWS/POLICY to bypass the analytical visual standard.",
+  "original_refusal_preserved": true,
+  "new_model_invocations": 0,
+  "new_source_requests": 0,
+  "public_transport_calls": 0,
+  "public_write_performed": false,
+  "scope": "Offline replay of a real recorded window. The selected analysis lacks substantive source text; text-first cannot reclassify it or bypass that hold. Six-destination success is proven separately with disposable controlled transports, not as a live result."
+}

@@ -31,9 +31,12 @@ def _check_copy(article):
             or not 1 <= len(str(article.get("substack_body_markdown") or "").split()) <= MAX_WORDS):
         raise ValueError("TEXT_FIRST_SHORT_NEWS_POLICY_REQUIRED")
     if (_private(article) or re.search(
-            r"\b(?:demo|mt5|guardian|account\s+(?:id|balance)|entry\s+price|stop[- ]loss|take[- ]profit|position\s+size)\b",
+            r"\b(?:demo|mt5|guardian|account\s+(?:id|balance)|entry\s+(?:price|at)|stop[- ]loss|take[- ]profit|position\s+size)\b"
+            r"|\b(?:buy|sell|go\s+long|go\s+short)\s+(?:at|above|below|now)\b",
             copy, re.I)):
         raise ValueError("TEXT_FIRST_PUBLIC_OUTPUT_GUARD")
+    if "Analysis, not financial advice. Readers decide whether to trade." not in copy:
+        raise ValueError("TEXT_FIRST_PUBLIC_ANALYSIS_NOTICE_REQUIRED")
     return copy
 
 

@@ -734,7 +734,9 @@ class NativeDesktopTurn:
             from live_contentops.native_text_first_v1 import writer_policy
             if frozen_writer:
                 text_policy = frozen_writer["governed_input"].get("text_first_policy")
-            elif not visual and not media_plan and not self.frozen_request("media-plan") and not self.frozen_request("visual-edit"):
+            elif (not visual and not media_plan and not self.frozen_request("media-plan")
+                    and not self.frozen_request("visual-edit")
+                    and not (self.root / "editorial_media_plan_required.json").exists()):
                 text_policy = writer_policy(kwargs["governed_input"])
             if text_policy:
                 kwargs["governed_input"] = {**kwargs["governed_input"], "text_first_policy": text_policy}

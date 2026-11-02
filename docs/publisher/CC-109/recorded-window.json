@@ -1,0 +1,287 @@
+{
+  "schema_version": "contentops.cc109.recorded_window_snapshot.v1",
+  "captured_at_utc": "2026-11-02T12:12:53.730702+00:00",
+  "read_mode": "SQLITE_URI_MODE_RO_AND_EXACT_LOCAL_ARTIFACTS",
+  "window": {
+    "actual_entry_utc": "2026-11-02T09:58:49.102266+00:00",
+    "blocked_notices": {
+      "911f73874e2abb64191326effa2d76f399a67cab896fb336de5db56af338d026": {
+        "blocker_id": "911f73874e2abb64191326effa2d76f399a67cab896fb336de5db56af338d026",
+        "evidence": {
+          "active_native_role": false,
+          "actual_error": {
+            "blocker": "CROSS_WINDOW_SELECTION_REUSE_FORBIDDEN",
+            "classification": "NATIVE_DESKTOP_BLOCKED",
+            "command": "advance",
+            "exit_code": 1
+          },
+          "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-8b48af2ba22c3f0498a49624c4d71e0f\\simple-gemini-slot-6f46260adef771e899cb8ead63f8e889\\actual-blocker-evidence.json",
+          "blocker": "CROSS_WINDOW_SELECTION_REUSE_FORBIDDEN",
+          "delivered_work": "Prior selection/media-plan accepted; Fed SOURCE_BLOCKED; fallback allocated then advance exit 1",
+          "first_cause": "UNRESOLVED_PROCESS_DEFECT",
+          "observation_source": "Actual exec_command advance exit 1, captured 2026-11-02",
+          "request_sha256": null,
+          "responsible_owner": "Codex Publisher / Claude Ops",
+          "run_id": "simple-gemini-slot-6f46260adef771e899cb8ead63f8e889",
+          "smallest_next_action": "Repair same-window fallback selection reuse guard and resume this binding",
+          "stage": "advance",
+          "unable_to_continue": true
+        },
+        "notice_delivery": {
+          "arguments": {
+            "hostId": "local",
+            "prompt": "BLOCKED \u2014 scheduled V1 window; 2026-11-02 17:07:42 GMT+7\nWindow: editorial-window-8b48af2ba22c3f0498a49624c4d71e0f; run: simple-gemini-slot-6f46260adef771e899cb8ead63f8e889\nSource chat/session: UNOBSERVED\nDelivered: See saved operation\nStage: advance; pending request: None\nFirst cause: UNRESOLVED_PROCESS_DEFECT; CROSS_WINDOW_SELECTION_REUSE_FORBIDDEN\nNext/resume condition: Repair same-window fallback selection reuse guard and resume this binding; owner: Codex Publisher / Claude Ops\nArtifact: A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-8b48af2ba22c3f0498a49624c4d71e0f\\simple-gemini-slot-6f46260adef771e899cb8ead63f8e889\\actual-blocker-evidence.json\nThis is not a terminal-window or engineering completion notice.",
+            "threadId": "01a1657e-f5d0-76a1-b52b-ec6c78b6fe35"
+          },
+          "state": "DELIVERED",
+          "tool_result": {
+            "content": [
+              {
+                "text": "{\"threadId\":\"01a1657e-f5d0-76a1-b52b-ec6c78b6fe35\"}",
+                "type": "text"
+              }
+            ],
+            "isError": false
+          }
+        },
+        "notice_text": "BLOCKED \u2014 scheduled V1 window; 2026-11-02 17:07:42 GMT+7\nWindow: editorial-window-8b48af2ba22c3f0498a49624c4d71e0f; run: simple-gemini-slot-6f46260adef771e899cb8ead63f8e889\nSource chat/session: UNOBSERVED\nDelivered: See saved operation\nStage: advance; pending request: None\nFirst cause: UNRESOLVED_PROCESS_DEFECT; CROSS_WINDOW_SELECTION_REUSE_FORBIDDEN\nNext/resume condition: Repair same-window fallback selection reuse guard and resume this binding; owner: Codex Publisher / Claude Ops\nArtifact: A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-8b48af2ba22c3f0498a49624c4d71e0f\\simple-gemini-slot-6f46260adef771e899cb8ead63f8e889\\actual-blocker-evidence.json\nThis is not a terminal-window or engineering completion notice.",
+        "terminal_window": false
+      }
+    },
+    "capacity": 6,
+    "early_delivery_seconds": 70.897734,
+    "input_known_at_cutoff_utc": "2026-11-02T09:58:49.102266+00:00",
+    "production_day_id": "newsroom-production-day-2026-11-02-bangkok",
+    "published_at_window_start": 0,
+    "rollout_sha256": "47a16ccd34efdee43e87dc46003fc5163e3392d6cc899c065604f4508d8e0aad",
+    "volume_policy": {
+      "brief_only": false,
+      "effective_production_date": "2026-10-30",
+      "max_admitted_candidates": 6,
+      "max_articles": 2,
+      "non_chargeable_only": true,
+      "photo_less_news_policy": true,
+      "policy_id": "L1-B-20261029-04",
+      "source_request_limit": 10,
+      "source_resolvability_first": true
+    },
+    "window": {
+      "capacity": 12,
+      "end_utc": "2026-11-02T11:00:00Z",
+      "opportunity_id": "editorial-window-8b48af2ba22c3f0498a49624c4d71e0f",
+      "policy_id": "contentops.editorial_window_policy.v1",
+      "policy_version": "autonomous_daily_output_four_window.v1",
+      "session": "london_1700_bangkok",
+      "start_utc": "2026-11-02T10:00:00Z",
+      "trigger": "SCHEDULED"
+    }
+  },
+  "window_outbox_payload_sha256": "902284f8d762aebe9af9a7c78ef7da7a473b8f26bc93290a39b0cdbe04e7e052",
+  "binding": {
+    "run_id": "simple-gemini-slot-baeeb891755470a136647e2f6b994410",
+    "window_id": "editorial-window-8b48af2ba22c3f0498a49624c4d71e0f",
+    "cutoff_utc": "2026-11-02T10:00:00Z",
+    "slot_ordinal": 1,
+    "owner_manual_validation": false
+  },
+  "binding_outbox_payload_sha256": "191669af617eaf5e2015aa771609a9bd7af930927fc49b8c941c27d418eab381",
+  "selected_plan": {
+    "article_mode": "DATA_OR_DOCUMENT_LENS",
+    "angle": "What the dated October Fed target range establishes, and what a policy-rate range cannot tell readers about the next move.",
+    "evidence_plan": "Resolve the exact October 28 official statement and compare only relevant dated prior policy text through existing source owners. Verify retained range, decision language and publication timestamp; check the supplied September statement without assuming a change or hold from matching numbers. Preserve cutoff, source versions and public rights. Missing market expectations, current yields and market reaction prohibit surprise, pricing or causal claims. Code owns numeric comparison. Use exact source-bound document excerpts and let the MAX editor decide useful visuals; do not present the retained release as new.",
+    "selection_rationale": "The most recent supplied official policy document directly matters to rates and cross-asset readers. A bounded distinction between documented policy and inference is independently useful without inventing market reaction.",
+    "candidate_id": "simple-story-3801a6378ce49ae80f8064be",
+    "research_queries": [
+      "Federal Reserve October 28 2026 monetary policy statement target range decision",
+      "Federal Reserve September 16 2026 statement policy comparison"
+    ],
+    "primary_reader_question": "How should readers distinguish a documented Fed policy setting from a forecast of the next decision?"
+  },
+  "selected_source_pack": [
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "ac8df5b858c28c684b837d1463b8beab32403b3b86cab166e74cd678708a901e",
+      "canonical_content_text": "Board of Governors of the Federal Reserve System; retained official release Federal Reserve Board|FED|2026-10-28|2026-10-28. Federal funds target range lower bound: 3.75 percent; basis POLICY_TARGET_RANGE_LOWER_BOUND. Federal funds target range upper bound: 4.0 percent; basis POLICY_TARGET_RANGE_UPPER_BOUND. Reference period: 2026-10-28. Retained vintage; not a new release at intake.",
+      "canonical_resolution_status": "",
+      "document_id": "official-release-b4301a87bf03dd90ee250f3f604fac24119b8963eab5e0713ea226d71c87cd9f",
+      "published_at_source": "",
+      "published_at_utc": "2026-10-28T18:00:00Z",
+      "publisher": "Board of Governors of the Federal Reserve System",
+      "report_truth_only": false,
+      "retrieval_method": "RETAINED_PUBLIC_FACTS_ONLY",
+      "secondary_listing_only": false,
+      "source_authority_class": "official_public_primary_source",
+      "source_id": "SOURCE_1",
+      "source_identity": "Board of Governors of the Federal Reserve System",
+      "source_reuse_constraints": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "authority": "L1_BATCH11_CONTENTOPS_FACTUAL_INTAKE_EXISTING_PUBLIC_FACT_PURPOSE",
+        "conditions": [
+          "Attribute the named publisher and link the retained official source.",
+          "Third-party material, logos, photographs and illustrations are excluded.",
+          "Attribute the named publisher and link the retained official source.",
+          "Third-party material, logos, photographs and illustrations are excluded."
+        ],
+        "content_sha256": "ac8df5b858c28c684b837d1463b8beab32403b3b86cab166e74cd678708a901e",
+        "external_licence_granted": false,
+        "free_source_notices": [],
+        "original_fact_rights": [
+          {
+            "bulk_database_reuse": "NOT_ASSESSED",
+            "conditions": [
+              "Attribute the named publisher and link the retained official source.",
+              "Third-party material, logos, photographs and illustrations are excluded."
+            ],
+            "free_source_notice": null,
+            "model_input": "NO_NEW_PERMISSION",
+            "original_rights_state": "PUBLIC_OFFICIAL_APPROVED",
+            "policy_evidence": {
+              "basis": "RETAINED_PUBLISHER_PUBLIC_DOMAIN_POLICY_NUMERIC_FACTS_ONLY",
+              "capture_at_utc": "2026-09-03T16:21:28.917Z",
+              "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+              "raw_policy_sha256": "eeb4dfc6a7624c83fb95d34214873313c13eea02986594756db483acb186bd1e",
+              "receipt_sha256": "545c420c4179920eb7a431a75fcd714dfd6f68fc59b47b97b3cf9672ae35b43d"
+            },
+            "publication": "SEPARATE_CONTENTOPS_OWNER_DECISION",
+            "purpose": "contentops_factual_source_intake",
+            "raw_text_images": "NOT_EXPORTED_OR_LICENSED_BY_THIS_PROJECTION",
+            "source_public_export_admitted": false,
+            "source_rights_dimensions": {
+              "LLM_input": "PURPOSE_OWNER_ASSESSMENT_REQUIRED",
+              "internal_analysis": "EXISTING_OFFICIAL_SOURCE_CONTEXT_ONLY",
+              "public_derived": "NOT_ADMITTED",
+              "raw": "SOURCE_OWNER_CONTRACT",
+              "redistribution": "NOT_ADMITTED"
+            },
+            "state": "PUBLIC_SAFE_FACT"
+          },
+          {
+            "bulk_database_reuse": "NOT_ASSESSED",
+            "conditions": [
+              "Attribute the named publisher and link the retained official source.",
+              "Third-party material, logos, photographs and illustrations are excluded."
+            ],
+            "free_source_notice": null,
+            "model_input": "NO_NEW_PERMISSION",
+            "original_rights_state": "PUBLIC_OFFICIAL_APPROVED",
+            "policy_evidence": {
+              "basis": "RETAINED_PUBLISHER_PUBLIC_DOMAIN_POLICY_NUMERIC_FACTS_ONLY",
+              "capture_at_utc": "2026-09-03T16:21:28.917Z",
+              "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+              "raw_policy_sha256": "eeb4dfc6a7624c83fb95d34214873313c13eea02986594756db483acb186bd1e",
+              "receipt_sha256": "545c420c4179920eb7a431a75fcd714dfd6f68fc59b47b97b3cf9672ae35b43d"
+            },
+            "publication": "SEPARATE_CONTENTOPS_OWNER_DECISION",
+            "purpose": "contentops_factual_source_intake",
+            "raw_text_images": "NOT_EXPORTED_OR_LICENSED_BY_THIS_PROJECTION",
+            "source_public_export_admitted": false,
+            "source_rights_dimensions": {
+              "LLM_input": "PURPOSE_OWNER_ASSESSMENT_REQUIRED",
+              "internal_analysis": "EXISTING_OFFICIAL_SOURCE_CONTEXT_ONLY",
+              "public_derived": "NOT_ADMITTED",
+              "raw": "SOURCE_OWNER_CONTRACT",
+              "redistribution": "NOT_ADMITTED"
+            },
+            "state": "PUBLIC_SAFE_FACT"
+          }
+        ],
+        "publication": "SEPARATE_CONTENTOPS_OWNER_DECISION",
+        "raw_text_images": "NOT_EXPORTED_OR_LICENSED_BY_THIS_PROJECTION",
+        "scope": "GOVERNED_PUBLIC_NUMERIC_FACTS_ONLY_EXCLUDES_RAW_TEXT_IMAGES",
+        "source_capture_sha256": "18c99371723616db0990597c0792b30ef590ba9e2259b8bd6ee6d843b6b0c8ee"
+      },
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+    }
+  ],
+  "source_requests_used": 0,
+  "source_request_limit": 10,
+  "pre_writer_outcome": {
+    "schema_version": "contentops.native_pre_writer_outcome.v1",
+    "outcome": "SOURCE_BLOCKED",
+    "candidate_id": "simple-story-3801a6378ce49ae80f8064be",
+    "primary_cause": "SOURCE_MISSING",
+    "additional_causes": [
+      "INSUFFICIENT_READER_VALUE"
+    ],
+    "reason": "The selected document-led analysis needs source-bound policy language and a meaningful comparison, but SOURCE_1 contains only a retained October 28 numeric projection: the 3.75 percent lower bound and 4.0 percent upper bound. The full decision language, rationale and prior dated comparison requested by Light are absent. This packet therefore cannot support the proposed explanation of policy versus next-decision inference or two distinct useful analytical charts. A single range restatement would not answer the selected reader question. Refuse before writing; do not manufacture context or relabel this analysis as NEWS/POLICY to bypass the analytical visual standard.",
+    "source_request_count": 0,
+    "source_request_limit": 10,
+    "public_write_attempted": false,
+    "essential_gaps": [
+      "Admit the actual relevant October 28 policy text and prior dated policy text through the existing source owner, preserving source versions and the frozen input cutoff. A numeric projection is not the full statement.",
+      "If the analytical argument survives source recovery, admit sufficient comparable primary data for two to five distinct useful charts. No historical target-range series, observed overnight-rate series or market-expectation data is admitted here.",
+      "Any analytical photo requires exact original bytes, identity, date, lawful reuse and pixel inspection. No licensed asset is bound. This is secondary to the missing substantive evidence and is not the first cause.",
+      "The numeric-fact projection retains SEPARATE_CONTENTOPS_OWNER_DECISION publication status and excludes raw text, photographs, logos and illustrations. This role grants no additional public reuse rights."
+    ],
+    "source_bindings_preserved": [
+      {
+        "source_id": "SOURCE_1",
+        "document_id": "official-release-b4301a87bf03dd90ee250f3f604fac24119b8963eab5e0713ea226d71c87cd9f",
+        "content_sha256": "ac8df5b858c28c684b837d1463b8beab32403b3b86cab166e74cd678708a901e",
+        "reference_period": "2026-10-28",
+        "published_at_utc": "2026-10-28T18:00:00Z",
+        "retrieval_method": "RETAINED_PUBLIC_FACTS_ONLY",
+        "observation_type": "actual policy setting",
+        "unit": "percent",
+        "retained_vintage_not_new_release": true
+      }
+    ],
+    "rejected_visuals": [
+      "A two-bar lower/upper-bound chart or repeated panels would pad one observation without answering a separate analytical question.",
+      "No invented history, interpolated values, model-computed change, yield curve, forecast, probability or market-reaction chart.",
+      "No unbound Federal Reserve building image, logo or illustration inferred to be licensed by numeric-fact rights."
+    ],
+    "charts": [],
+    "contextual_photo_ids": [],
+    "channel_media": {
+      "telegram": [],
+      "discord": [],
+      "x": [],
+      "linkedin": [],
+      "facebook_page": [],
+      "instagram_business": [],
+      "threads": [],
+      "youtube": []
+    },
+    "next_action": "Submit this exact typed candidate refusal and advance the existing binding through its admitted fallback plan with the unchanged shared source ledger. Source recovery, if undertaken by the existing owner, must resolve the named evidence gaps before this candidate is written. No whole-window completion is claimed."
+  },
+  "original_classification": "NATIVE_PRE_WRITER_EDITION_COMPLETE",
+  "original_qualified_article_count": 0,
+  "native_review_configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "original_artifacts": [
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-8b48af2ba22c3f0498a49624c4d71e0f\\simple-gemini-slot-baeeb891755470a136647e2f6b994410\\simple_gemini_evidence_v1.json",
+      "sha256": "5e17394e104c02445d544020690869f6e8102eebc7ba603bb8c715ffde0ee012",
+      "bytes": 25060
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-8b48af2ba22c3f0498a49624c4d71e0f\\simple-gemini-slot-baeeb891755470a136647e2f6b994410\\desktop_request_select.json",
+      "sha256": "65508324482ee7e3d466771ce5ed518c4fd6eeb2bc8363b94fe3fa21297ac0e5",
+      "bytes": 221654
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-8b48af2ba22c3f0498a49624c4d71e0f\\simple-gemini-slot-baeeb891755470a136647e2f6b994410\\desktop_response_select.json",
+      "sha256": "123c8c157fab5fdb0ed6f3b65adb5a612364f6b6fa7d12ab23b7dd3de08ec5af",
+      "bytes": 4505
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-8b48af2ba22c3f0498a49624c4d71e0f\\simple-gemini-slot-baeeb891755470a136647e2f6b994410\\desktop_request_visual-edit.json",
+      "sha256": "a2dda83ef164328c87ad6cbce43e7d09e587de4bbf1de05630774fe27d2d73c5",
+      "bytes": 22456
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-8b48af2ba22c3f0498a49624c4d71e0f\\simple-gemini-slot-baeeb891755470a136647e2f6b994410\\desktop_response_visual-edit.json",
+      "sha256": "523abae3b03e302a8762bd1dc1b5b59a0367ecd606d61b3a77b30f6e37192538",
+      "bytes": 4422
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-8b48af2ba22c3f0498a49624c4d71e0f\\simple-gemini-slot-baeeb891755470a136647e2f6b994410\\native_desktop_result.json",
+      "sha256": "fc1fc9f807bac06b59500eb80c4e186e898096113bde1d3ab4eb194c8e763bb4",
+      "bytes": 5024
+    }
+  ],
+  "snapshot_scope": "Exact recorded-window projection; no new role, rewritten request, source fact or publication. Analysis and missing substantive evidence remain held.",
+  "public_write_performed": false
+}

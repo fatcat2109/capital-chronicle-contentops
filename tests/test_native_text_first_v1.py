@@ -64,6 +64,8 @@ def brief_packet(tmp_path, monkeypatch, *, bad_fact=False, source_missing=False)
                 assert stage in {"write", "revise"}, stage
                 output = _article_output(bad_excerpt=bad_fact)
                 output["article"]["news_item_kind"] = "NEWS"
+                output["article"]["substack_body_markdown"] += (
+                    "\n\nAnalysis, not financial advice. Readers decide whether to trade. [[SOURCE:SOURCE_1]]")
             turn.submit(stage, {"request_sha256": request["request_sha256"], "output": output,
                 "invocation_observation": {"surface": "CODEX_NATIVE_SUBAGENT", "model": "gpt-6.1-sol",
                     "reasoning_effort": "low" if stage == "select" else "max",
@@ -176,10 +178,12 @@ def test_changed_fact_binding_blocks_even_with_a_forged_keep(tmp_path, monkeypat
     assert not store.list_platform_dispatches()
 
 
-@pytest.mark.parametrize("fault", ["analysis", "long", "private", "trade"])
+@pytest.mark.parametrize("fault", ["analysis", "long", "private", "trade", "missing_notice"])
 def test_fast_track_never_relaxes_analysis_length_or_public_output(fault):
     from live_contentops.native_text_first_v1 import writer_policy
     article = {**_article_output()["article"], "news_item_kind": "NEWS"}
+    if fault != "missing_notice":
+        article["substack_body_markdown"] += "\n\nAnalysis, not financial advice. Readers decide whether to trade."
     governed = {"article_mode": "BREAKING_BRIEF", "source_pack": [{"CONTROLLED": True}]}
     if fault == "analysis":
         article["news_item_kind"] = "ANALYSIS"
@@ -187,7 +191,7 @@ def test_fast_track_never_relaxes_analysis_length_or_public_output(fault):
         article["substack_body_markdown"] = "word " * 501
     elif fault == "private":
         article["private_context"] = "CONTROLLED"
-    else:
+    elif fault == "trade":
         article["substack_body_markdown"] += " Entry price 100, stop-loss 90, take-profit 120."
     request = {"request_sha256": "c" * 64, "governed_input": {**governed, "text_first_policy": writer_policy(governed)}}
     with pytest.raises(ValueError):
@@ -204,3 +208,59 @@ def test_skip_policy_cannot_hide_an_extra_destination():
     wrong = deepcopy(plan)
     wrong["skipped_derivative_destinations"].append({"destination": "x", "status": SKIPPED_CHANNEL})
     assert permitted_skips(wrong) == set()
+
+
+def test_text_first_unknown_write_reads_back_the_same_canonical_before_derivatives(tmp_path, monkeypatch):
+    store, binding, rollout, _, _, _ = brief_packet(tmp_path, monkeypatch)
+    prepare_native_publication(store, binding)
+    operation, executor, transport = composed(store, binding, rollout, monkeypatch)
+    plan, _ = operation.validate()
+    operation._authorize_and_bind()
+    from live_contentops.v1_simple_publication_handoff_v1 import SimplePublicationHandoffV1
+    SimplePublicationHandoffV1(store=store, coordinator=None)._ensure_work_item(slot_id=binding["run_id"], plan=plan)
+    operation.coordinator.register_plan(binding["run_id"], plan)
+    ids = operation.coordinator._ids(binding["run_id"], plan["plan_hash"], "substack")
+    from test_native_desktop_publication_v1 import CANONICAL
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="substack", status="UNKNOWN_WRITE", public_object_id="controlled-article", public_object_url=CANONICAL)
+    value, writes = finish(operation, executor)
+    assert value["publication"]["state"] == "RECONCILED"
+    assert "substack" not in writes and set(writes + transport.calls) == DESTINATIONS - {"substack"}
+    assert len(store.list_platform_dispatches()) == 6
+
+
+@pytest.mark.parametrize("bad_value", [False, True])
+def test_optional_chart_still_requires_its_exact_source_values(tmp_path, bad_value):
+    from test_native_editorial_media_standard_v1 import controlled_release_packet
+    from live_contentops.native_desktop_editorial_v1 import validate_release_media
+    document, _, chart = controlled_release_packet(tmp_path)
+    article = {"text_first": {"policy_id": POLICY_ID, "article_mode": "BREAKING_BRIEF", "story_kind": "NEWS"},
+        "resolved_article_mode": "BREAKING_BRIEF"}
+    if bad_value:
+        chart["computed_values"][0][0] = 999999
+        with pytest.raises(ValueError):
+            validate_release_media({"article": article, "media_assets": [chart], "evidence": [document]})
+    else:
+        assert validate_release_media({"article": article, "media_assets": [chart], "evidence": [document]})["chart_count"] == 1
+
+
+def test_already_issued_media_packet_never_gains_a_new_text_writer(tmp_path, monkeypatch):
+    store = ContentOpsDurableStore(tmp_path / "CONTROLLED-legacy.sqlite3")
+    turn, _ = make_turn(store, tmp_path / "legacy", "CONTROLLED-legacy")
+    pending = turn.root / "editorial_media_plan_required.json"
+
+    def invoke():
+        return turn(logical_invocation_id=turn.run_id + ":write", prompt="Controlled old brief, no model call",
+            governed_input={"article_mode": "BREAKING_BRIEF", "source_pack": [{"CONTROLLED": True}],
+                "cutoff_utc": CUTOFF}, validator=lambda text: (True, None, json.loads(text), None))
+
+    with monkeypatch.context() as legacy:
+        legacy.setattr("live_contentops.native_text_first_v1.writer_policy", lambda _: None)
+        with pytest.raises(DesktopInputRequired):
+            invoke()
+    old = pending.read_bytes()
+    with pytest.raises(DesktopInputRequired) as required:
+        invoke()
+    assert required.value.request["stage"] == "media-plan"
+    assert turn.frozen_request("write") is None
+    assert pending.read_bytes() == old
