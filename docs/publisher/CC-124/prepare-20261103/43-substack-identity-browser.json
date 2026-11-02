@@ -1,0 +1,16 @@
+{
+  "evidence": [
+    "- heading \"Capital Chronicle\" [level=1]",
+    "- button \"Dashboard\" [ref=e5]",
+    "- button \"Capital Chronicle's avatar\" [collapsed] [ref=e7]",
+    "  - button \"Dashboard\" [ref=e14]",
+    "  - link \"Profile\" [ref=e15] [url=\"https://substack.com/@capitalchronicle\"]",
+    "- link \"@capitalchronicle\" [ref=e19]",
+    "- button \"Edit profile\" [ref=e25]",
+    "- button \"New post\" [ref=e32]"
+  ],
+  "pageId": 46,
+  "url": "https://capitalchronicle.substack.com/",
+  "actual_tool_ok": true,
+  "observed_at_utc": "2026-11-02T22:57:19Z"
+}

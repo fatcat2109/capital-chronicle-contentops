@@ -1,0 +1,16 @@
+{
+  "tool_request_sha256": "db4053d345d6f6bd5486524e5b4d9c0a0d93b6d18ffd20c95314864202fb1b9c",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Actual successful Neo run re-derived its own current task tab after exact begin. Snapshot confirms the Capital Chronicle avatar/profile, Dashboard, Edit profile and New post at the issued domain. This genuinely observed return supersedes the disqualified, expired 39 response; the original error history remains.",
+    "observed_at_utc": "2026-11-02T22:57:19Z"
+  },
+  "result": {
+    "request_sha256": "485f30faa5ca0a1357d7f12400ae7b2efcecfb4af36b786d18ca93673a4f02e7",
+    "authenticated": true,
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_write_performed": false
+  }
+}
