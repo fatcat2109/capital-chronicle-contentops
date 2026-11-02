@@ -61,7 +61,8 @@ def test_scheduled_cli_starts_and_replays_with_four_saved_dispositions(
     assert binding["automation_id"] == automation_id
     assert binding["cutoff_utc"] == f"2026-11-02T{hour:02d}:00:00Z"
     after_start = store.list_outbox_messages()
-    assert all(row == before[row["message_id"]] for row in after_start if row["message_id"] in before)
+    after_by_id = {row["message_id"]: row for row in after_start}
+    assert all(after_by_id[key] == row for key, row in before.items())
 
     monkeypatch.setattr(schedule, "load_canonical_published_memory_read_only",
         lambda **_: pytest.fail("duplicate startup read fresh source context"))
