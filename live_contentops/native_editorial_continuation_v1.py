@@ -32,6 +32,9 @@ def consume_advance_result(command: Mapping[str, Any]) -> dict[str, Any]:
 def next_editorial_action(result: Mapping[str, Any]) -> dict[str, Any]:
     """No executable role or unfinished filter population can be a terminal window."""
     if result.get("classification") == "NATIVE_DESKTOP_INPUT_REQUIRED":
+        if result.get("next_source_action"):
+            return {"action": "EXECUTE_BOUNDED_SOURCE_REQUESTS", "source_action": result["next_source_action"],
+                "after_returns": "ADMIT_VERIFIED_CAPTURES_THEN_ADVANCE_SAME_BINDING", "terminal": False}
         command = result.get("next_command")
         if command and not result.get("next_native_call") and not result.get("next_native_calls"):
             if command.get("command") != "media-plan" or not command.get("binding_path"):

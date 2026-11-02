@@ -1,0 +1,23 @@
+{
+  "scope": "CONTROLLED_RETROSPECTIVE_TEST_NOT_NATIVE_OR_LIVE_PUBLICATION",
+  "original_run_id": "simple-gemini-slot-9fabdc0f3e4ac2048b07c2c667310d4c",
+  "original_hold_preserved": true,
+  "replayed_state": "RECONCILED",
+  "native_stages": [
+    "select",
+    "write"
+  ],
+  "source_request_count": 0,
+  "external_source_calls": 0,
+  "external_public_writes": 0,
+  "simulated_destinations": [
+    "discord",
+    "linkedin",
+    "substack",
+    "telegram",
+    "threads",
+    "x"
+  ],
+  "source_pack_sha256": "96acf4ec006414955444ac2c7dfd120f7743002b2621bdc4792d0df0de837915",
+  "test_artifact_sha256": "2a0f2793d768f9e5892b9a8f3fa70bec3dd4a76187390a3a77d4de257b3c5486"
+}

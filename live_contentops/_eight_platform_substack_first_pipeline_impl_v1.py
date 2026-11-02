@@ -518,6 +518,13 @@ def build_native_derivative_payloads(
         canonical_url=canonical_url,
         media_asset_ids=media_asset_ids,
     )
+    from live_contentops.native_text_first_v1 import text_first_brief, skipped_destinations
+    if text_first_brief(article):
+        for skipped in skipped_destinations(has_image=bool(media_asset_ids)):
+            destination = skipped["destination"]
+            payloads[destination] = {"destination": destination, "delivery_state": skipped["status"],
+                "skip_reason": skipped["reason"], "media_asset_ids": []}
+        return payloads
     if article.get("reader_first_version") != "DATA_JOURNALISM_V1":
         return payloads
     choices = article.get("native_destination_media")

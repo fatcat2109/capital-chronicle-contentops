@@ -63,6 +63,13 @@ def permitted_photo_less_skip(plan):
         and skipped[0].get("status") == PHOTOLESS_INSTAGRAM_SKIP)
 
 
+def permitted_derivative_skips(plan):
+    from live_contentops.native_text_first_v1 import permitted_skips
+    if plan.get("text_first"):
+        return permitted_skips(plan)
+    return {"instagram_business"} if permitted_photo_less_skip(plan) else set()
+
+
 def native_selection(store, run_id):
     work = "cc-opportunity-" + sha256_of(run_id)
     values = []
@@ -82,6 +89,13 @@ def window_progress(store, issued):
     origin, origin_root = None, None
     for binding, _path in issued:
         run = binding["run_id"]
+        work = "cc-opportunity-" + sha256_of(run)
+        with store.get_read_only_connection() as conn:
+            source_rows = conn.execute("SELECT payload FROM outbox_messages WHERE work_item_id=? "
+                "AND destination IN (?,?)", (work, "internal:native-desktop-source-recovery",
+                    "internal:native-story-outcome")).fetchall()
+        for row in source_rows:
+            used = max(used, int(json.loads(row["payload"]).get("source_request_count", 0)))
         request, response = native_selection(store, run)
         if origin is None and request and response:
             origin, origin_root = run, binding["output_dir"]

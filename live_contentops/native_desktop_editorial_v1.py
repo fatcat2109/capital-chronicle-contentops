@@ -322,6 +322,63 @@ def admit_pre_writer_source_recovery(turn, binding, response):
         "next_operation": "advance same binding", "public_write_performed": False}
 
 
+def validate_source_requests(requests):
+    from urllib.parse import urlsplit
+    if not isinstance(requests, list) or len(requests) > 3:
+        raise ValueError("BOUNDED_SOURCE_REQUESTS_REQUIRED")
+    urls = []
+    for request in requests:
+        url = urlsplit(request.get("url", "")) if isinstance(request, dict) else None
+        if (not url or url.scheme != "https" or not url.hostname or url.username or url.password
+                or not isinstance(request.get("reason"), str) or len(request["reason"].strip()) < 8):
+            raise ValueError("EXACT_SOURCE_URL_AND_FACT_GAP_REQUIRED")
+        urls.append(request["url"])
+    if len(urls) != len(set(urls)):
+        raise ValueError("DUPLICATE_SOURCE_REQUEST")
+
+
+def request_source_preparation(turn, requests, *, candidate_id=None):
+    """A bounded request to the existing source owners, before any MAX freeze."""
+    validate_source_requests(requests)
+    if not requests or turn.source_recovery():
+        return
+    if not turn.volume_policy or turn.frozen_request("write") or turn.frozen_request("visual-edit"):
+        raise ValueError("SOURCE_PREPARATION_MUST_PRECEDE_MAX_FREEZE")
+    selection = turn.frozen_request("select")
+    walk_path = turn.root / "simple_gemini_evidence_v1.json"
+    walk = json.loads(walk_path.read_bytes())
+    candidate_id = candidate_id or walk["selected_candidate_id"]
+    if candidate_id not in {p["candidate_id"] for p in turn._get("select", "response")["output"]["ordered_candidate_plan"]}:
+        raise ValueError("EXACT_ADMITTED_SOURCE_PREPARATION_CANDIDATE_REQUIRED")
+    used = max(turn.source_request_count_at_start, walk["request_count"])
+    if used + len(requests) > turn.volume_policy["source_request_limit"]:
+        raise ValueError("EXACT_SHARED_LIVE_SOURCE_BUDGET_REQUIRED")
+    from hashlib import sha256
+    value = {"stage": "sources", "run_id": turn.run_id, "candidate_id": candidate_id,
+        "expected_selection_request_sha256": selection["request_sha256"],
+        "expected_evidence_sha256": sha256(walk_path.read_bytes()).hexdigest(),
+        "source_requests": requests, "source_request_count": used,
+        "source_request_limit": turn.volume_policy["source_request_limit"],
+        "within_bound_live_budget": True, "public_write_performed": False,
+        "instruction": "Use existing BrowserOS Neo/source capture and RetainedSourceResearch admission owners. "
+            "Execute each exact non-chargeable URL once, retain actual access failures, capture hashes, rights and "
+            "publication/retrieval clocks; no model, public write, retry or budget reset. Then recover-sources "
+            "on this same binding with expected_source_request_sha256 and the verified capture/admission manifest."}
+    value["request_sha256"] = sha256_of(value)
+    turn.root.mkdir(parents=True, exist_ok=True)
+    path = turn.root / "source_preparation_required.json"
+    if path.exists() and json.loads(path.read_bytes()) != value:
+        raise ValueError("SOURCE_PREPARATION_REQUEST_CHANGED")
+    registered = turn.store.register_outbox_message(
+        message_id="native-source-preparation-" + sha256_of([turn.run_id, candidate_id]),
+        work_item_id=turn.work, destination=DESTINATION,
+        payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
+    if json.loads(registered["payload"]) != value:
+        raise ValueError("SOURCE_PREPARATION_REQUEST_CHANGED")
+    path.write_bytes(canonical_bytes(value))
+    raise DesktopInputRequired({**value, "request_path": str(path)})
+
+
 def _admit_live_source_recovery(turn, binding, response):
     """Admit acquired sources before MAX freeze, using the existing live budget.
 
@@ -339,7 +396,13 @@ def _admit_live_source_recovery(turn, binding, response):
     turn._check_pause()
     policy = bound_volume_policy(binding)
     selection, selected = turn.frozen_request("select"), turn._get("select", "response")
-    if (binding.get("owner_manual_live") is not True or not policy
+    scheduled = bool(binding.get("window_id") and binding.get("automation_id"))
+    if scheduled:
+        registered = turn.store.get_outbox_message("native-operation-binding-" + sha256_of(turn.run_id))
+        if (not registered or json.loads(registered["payload"]) != binding
+                or binding.get("owner_manual_validation") is not False):
+            raise ValueError("EXACT_REGISTERED_SCHEDULED_BINDING_REQUIRED")
+    if ((binding.get("owner_manual_live") is not True and not scheduled) or not policy
             or policy.get("non_chargeable_only") is not True or not selection or not selected
             or response.get("expected_selection_request_sha256") != selection["request_sha256"]):
         raise ValueError("EXACT_BOUND_LIVE_SELECTION_REQUIRED")
@@ -356,10 +419,16 @@ def _admit_live_source_recovery(turn, binding, response):
     walk_raw = (turn.root / "simple_gemini_evidence_v1.json").read_bytes()
     walk = json.loads(walk_raw)
     candidate = response.get("candidate_id")
+    preparation = turn.root / "source_preparation_required.json"
+    pending = json.loads(preparation.read_bytes()) if preparation.is_file() else None
+    if pending:
+        registered = turn.store.get_outbox_message("native-source-preparation-" + sha256_of([turn.run_id, candidate]))
+        if not registered or json.loads(registered["payload"]) != pending:
+            raise ValueError("EXACT_PENDING_SOURCE_PREPARATION_REQUIRED")
     if (sha256(walk_raw).hexdigest() != response.get("expected_evidence_sha256")
-            or candidate != walk.get("selected_candidate_id")
+            or candidate != (walk.get("selected_candidate_id") or (pending or {}).get("candidate_id"))
             or candidate not in {p["candidate_id"] for p in selected["output"]["ordered_candidate_plan"]}
-            or not walk.get("selected_source_pack")):
+            or (not walk.get("selected_source_pack") and not pending)):
         raise ValueError("EXACT_SELECTED_LIVE_SOURCE_WALK_REQUIRED")
     source_steps = [json.loads(row["payload"]) for row in turn.store.list_outbox_messages()
         if row["work_item_id"] == turn.work and row["destination"] == "internal:cc-report-editorial-stage"]
@@ -374,6 +443,11 @@ def _admit_live_source_recovery(turn, binding, response):
     source_reviews = json.loads(frozen_row["payload"]).get("source_requests_before_writer_freeze", 0) if frozen_row else 0
     used = max(turn.source_request_count_at_start + spent + (0 if turn.manual_candidate else source_reviews), int(walk.get("request_count", 0)))
     requests = response.get("additional_source_requests", [])
+    if pending:
+        if (response.get("expected_source_request_sha256") != pending["request_sha256"]
+                or pending["candidate_id"] != candidate
+                or [r.get("url") for r in requests] != [r["url"] for r in pending["source_requests"]]):
+            raise ValueError("EXACT_PENDING_SOURCE_PREPARATION_REQUIRED")
     limit = policy["source_request_limit"]
     if (walk.get("request_limit") != limit or not isinstance(requests, list)
             or not 1 <= len(requests) <= limit - used):
@@ -392,6 +466,19 @@ def _admit_live_source_recovery(turn, binding, response):
                 or _time(observed) > _time(now) or not path.is_relative_to(output_root)
                 or not path.is_file() or sha256(path.read_bytes()).hexdigest() != request.get("capture_sha256")):
             raise ValueError("RECOVERY_ACQUISITION_CAPTURE_INVALID")
+    if response.get("source_acquisition_failed") is True:
+        if (not preparation.is_file() or any(r.get("status") not in {"SOURCE_ACCESS_RESTRICTED", "SOURCE_MISSING"}
+                or len(str(r.get("error") or "").strip()) < 8 for r in requests)):
+            raise ValueError("EXACT_FAILED_SOURCE_ATTEMPTS_REQUIRED")
+        outcome = {"schema_version": PRE_WRITER_OUTCOME_SCHEMA, "outcome": "SOURCE_BLOCKED",
+            "candidate_id": candidate, "primary_cause": requests[0]["status"],
+            "reason": requests[0]["error"], "source_request_count": used + len(requests),
+            "source_request_limit": limit, "public_write_attempted": False}
+        turn.record_story_outcome(outcome, request=selection,
+            provenance={"owner": "EXISTING_SOURCE_PREPARATION", "request_sha256": pending["request_sha256"],
+                "actual_attempts": requests})
+        return {"classification": "SOURCE_BLOCKED", **outcome, "public_write_performed": False,
+            "next_operation": "advance same binding to continue its remaining candidates"}
     research = RetainedSourceResearch(source_root)
     ids = response.get("supporting_headline_ids", [])
     if (research.gaps or not isinstance(ids, list) or not 1 <= len(ids) <= 3
@@ -495,6 +582,9 @@ class NativeDesktopTurn:
                 (self.work, "internal:native-desktop-source-recovery")).fetchall()
         return next((v for r in rows if (v := json.loads(r["payload"])) and
             (not self.manual_candidate or v.get("candidate_id") == self.manual_candidate["candidate_id"])), None)
+
+    def prepare_sources(self, requests, *, candidate_id=None):
+        return request_source_preparation(self, requests, candidate_id=candidate_id)
 
     def _get(self, stage: str, kind: str) -> dict[str, Any] | None:
         row = self.store.get_outbox_message(self._key(stage, kind))
@@ -729,13 +819,37 @@ class NativeDesktopTurn:
         media_plan = json.loads(media_row["payload"]) if media_row else None
         frozen_writer = self.frozen_request("write") if stage == "write" else None
         visual = self.visual_response() if stage == "write" else None
+        text_policy = None
+        if stage == "write" and "source_pack" in kwargs["governed_input"]:
+            if self.scheduled_window and not frozen_writer:
+                selected = self._get("select", "response")
+                candidate = kwargs["governed_input"]["selected_candidate"]["candidate_id"]
+                plan = next(p for p in selected["output"]["ordered_candidate_plan"] if p["candidate_id"] == candidate)
+                request_source_preparation(self, plan.get("source_requests", []))
+            from live_contentops.native_text_first_v1 import writer_policy
+            if frozen_writer:
+                text_policy = frozen_writer["governed_input"].get("text_first_policy")
+            elif (not visual and not media_plan and not self.frozen_request("media-plan")
+                    and not self.frozen_request("visual-edit")
+                    and not (self.root / "editorial_media_plan_required.json").exists()):
+                text_policy = writer_policy(kwargs["governed_input"])
+            if text_policy:
+                kwargs["governed_input"] = {**kwargs["governed_input"], "text_first_policy": text_policy}
+                kwargs["prompt"] += ("\nDECISION 37 B2 TEXT_FIRST: Write a complete short NEWS/POLICY item, at most 500 words. "
+                    "Set article.news_item_kind to NEWS or POLICY. Keep every ordinary source, claim, attribution, "
+                    "uncertainty and public-output check. No private numbers, entry/stop/target/size calls or DEMO details. "
+                    "Charts and screenshots are optional; no visual plan or rendered review is required for this route. "
+                    "Do not relabel analysis. If the facts are insufficient, return the existing typed HOLD. "
+                    "Optional unreadable pages cannot expand the established facts. Do not claim inspected pixels.")
+                if frozen_writer:
+                    kwargs["prompt"] = frozen_writer["prompt"]
         if visual:
             decision = validate_visual_decision(visual["output"])
             kwargs["governed_input"] = {**kwargs["governed_input"],
                 "reader_first_version": "DATA_JOURNALISM_V1", "visual_editorial_decision": decision}
             from live_contentops.v1_simple_gemini_newsroom_v1 import _worker_prompt
             kwargs["prompt"] = _worker_prompt(kwargs["governed_input"])
-        if (stage == "write" and "source_pack" in kwargs["governed_input"]
+        if (stage == "write" and not text_policy and "source_pack" in kwargs["governed_input"]
                 and (not frozen_writer or "editorial_media_plan" in frozen_writer["governed_input"])):
             if not media_plan:
                 pending = {"stage": "media-plan", "run_id": self.run_id,
@@ -772,11 +886,11 @@ class NativeDesktopTurn:
         volume_guidance = ("\nDATED J8: A source-sufficient genuine NEWS/POLICY brief may use no photo and no assets, "
             "with Instagram explicitly skipped. Analysis keeps its lawful photo and useful charts. "
             "Never treat an optional photo gap as a factual gap or relabel analysis. Keep exact final rendered desktop/mobile review.")
-        if (self.volume_policy and role in {"visual-edit", "write"}
+        if (self.volume_policy and role in {"visual-edit", "write"} and not text_policy
                 and (not frozen or volume_guidance in frozen["prompt"])
                 and volume_guidance not in kwargs["prompt"]):
-            # Rebuilt writer prompts must retain the issued dated guidance. Never
-            # add it to an older frozen request or append it twice on resume.
+            # Rebuilt writer prompts retain issued guidance without adding it to
+            # an older request or overriding decision 37's text-first policy.
             kwargs["prompt"] += volume_guidance
         date_guidance = (LEGACY_SOURCE_DATE_GUIDANCE
             if frozen and LEGACY_SOURCE_DATE_GUIDANCE in frozen["prompt"] else PUBLIC_SOURCE_DATE_GUIDANCE)
@@ -1185,15 +1299,20 @@ def validate_release_media(result):
     from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
     from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_source_value_chart
     assets = result.get("media_assets") or []
+    from live_contentops.native_text_first_v1 import text_first_brief
+    text_first = text_first_brief(result)
     decision = result.get("visual_editorial_decision") or (result.get("article") or {}).get("visual_editorial_decision")
-    if (result.get("article") or {}).get("reader_first_version") == "DATA_JOURNALISM_V1" and not decision:
+    if not text_first and (result.get("article") or {}).get("reader_first_version") == "DATA_JOURNALISM_V1" and not decision:
         raise ValueError("MAX_VISUAL_DECISION_REQUIRED")
     reader_first = bool(decision)
-    if not reader_first and not 2 <= len(assets) <= 3:
+    if not text_first and not reader_first and not 2 <= len(assets) <= 3:
         raise ValueError("RELEASE_REQUIRES_GROUNDED_PHOTO_AND_QUANTITATIVE_CHART")
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]
     charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
-    if reader_first:
+    if text_first:
+        if len(assets) != len(photos) + len(charts):
+            raise ValueError("TEXT_FIRST_UNSUPPORTED_MEDIA")
+    elif reader_first:
         validate_visual_decision(decision)
         from live_contentops.native_newsroom_volume_v1 import photo_less_brief
         minimum_photos = 0 if photo_less_brief(result) else 1
@@ -1695,6 +1814,9 @@ def final_visual_acceptance(store, *, run_id, result, reference):
 
 def require_current_final_visual_review(store, *, run_id):
     result, _, review = validated_native_review(store, run_id=run_id)
+    from live_contentops.native_text_first_v1 import text_first_brief, fact_checked_acceptance
+    if text_first_brief(result):
+        return fact_checked_acceptance(store, run_id=run_id, result=result)
     note = json.loads(review["notes"])
     acceptance = final_visual_acceptance(store, run_id=run_id, result=result, reference=note.get("final_visual_review"))
     if note["final_visual_review"] != acceptance:

@@ -408,7 +408,7 @@ def _selection_candidate(row: Mapping[str, Any]) -> dict[str, Any]:
     }
     sourceability = row.get("sourceability_work_order")
     candidate.update({k: row[k] for k in (
-        "correction_of", "supersedes_headline_id", "revision_id", "revision_at_utc"
+        "correction_of", "supersedes_headline_id", "revision_id", "revision_at_utc", "editorial_freshness"
     ) if k in row})
     sourceability = sourceability if isinstance(sourceability, Mapping) else {}
     candidate["sourceability_route_hint"] = {
@@ -438,6 +438,7 @@ def _candidate_packet_and_preselection(
     attempted_candidate_ids: Sequence[str] = (),
     learning_policy: Mapping[str, Any] | None = None,
     source_resolvability_first: bool = False,
+    freshness_cutoff_utc: str | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     attempted = {str(value) for value in attempted_candidate_ids if str(value)}
     unfiltered_universe = _candidate_universe(rolling_input, published_memory)
@@ -475,11 +476,35 @@ def _candidate_packet_and_preselection(
         learning_policy=learning_policy,
         source_resolvability_first=source_resolvability_first,
     )
+    ordered = ranked["ranked_candidates"]
+    if freshness_cutoff_utc:
+        for row in ordered:
+            try:
+                age = (datetime.fromisoformat(freshness_cutoff_utc.replace("Z", "+00:00"))
+                    - datetime.fromisoformat(str(row.get("source_timestamp_utc")).replace("Z", "+00:00"))).total_seconds()
+            except (ValueError, TypeError):
+                age = None
+            row["editorial_freshness"] = {
+                "source_timestamp_utc": row.get("source_timestamp_utc"),
+                "cutoff_utc": freshness_cutoff_utc,
+                "age_seconds": age,
+                "disposition": ("CURRENT_WITHIN_24H" if age is not None and 0 <= age <= 86400
+                    else "RETAINED_BACKGROUND" if age is not None and age > 86400
+                    else "SOURCE_CLOCK_UNKNOWN_OR_FUTURE"),
+                "revision_or_intake_refreshes_source": False,
+            }
+        # Apply before the packet cap, retaining the accepted source ordering
+        # within each age group. An old easy route cannot crowd out fresh news.
+        priority = {"CURRENT_WITHIN_24H": 0, "SOURCE_CLOCK_UNKNOWN_OR_FUTURE": 1, "RETAINED_BACKGROUND": 2}
+        ordered = sorted(ordered, key=lambda r: priority[r["editorial_freshness"]["disposition"]])
     candidates = [
         _selection_candidate(row)
-        for row in ranked["ranked_candidates"][:MAX_SELECTION_CANDIDATES]
+        for row in ordered[:MAX_SELECTION_CANDIDATES]
     ]
     evidence = dict(ranked["evidence"])
+    if freshness_cutoff_utc:
+        evidence["freshness_priority_applied_before_packet_cap"] = True
+        evidence["freshness_aware_top_candidate_ids"] = [r["candidate_id"] for r in candidates]
     evidence.update(
         {
             "full_eligible_deduped_universe_count": len(unfiltered_universe),
@@ -589,7 +614,9 @@ def _validate_selection_text(
     if native_plan:
         plan_fields.update({"angle", "primary_reader_question", "evidence_plan"})
     for position, raw in enumerate(plan, start=1):
-        if not isinstance(raw, Mapping) or set(raw) != plan_fields:
+        expected_fields = plan_fields | ({"source_requests"} if native_plan and isinstance(raw, Mapping)
+            and "source_requests" in raw else set())
+        if not isinstance(raw, Mapping) or set(raw) != expected_fields:
             return False, "structured_output_schema_invalid", None, "candidate_plan_entry_fields_invalid"
         candidate_id = str(raw.get("candidate_id") or "")
         if candidate_id not in candidate_ids:
@@ -608,6 +635,12 @@ def _validate_selection_text(
         if native_plan and any(not isinstance(raw.get(k), str) or len(raw[k].strip()) < 8
                                for k in ("angle", "primary_reader_question", "evidence_plan")):
             return False, "structured_output_schema_invalid", None, "native_angle_question_evidence_plan_required"
+        if native_plan and "source_requests" in raw:
+            from live_contentops.native_desktop_editorial_v1 import validate_source_requests
+            try:
+                validate_source_requests(raw["source_requests"])
+            except ValueError as exc:
+                return False, "structured_output_schema_invalid", None, str(exc)
         queries = raw.get("research_queries")
         if not isinstance(queries, list) or not 1 <= len(queries) <= 3:
             return False, "structured_output_schema_invalid", None, "research_query_count_invalid"
@@ -623,6 +656,7 @@ def _validate_selection_text(
                 "plan_position": position,
                 "plan_role": "PRIMARY" if position == 1 else "FALLBACK",
                 **({k: raw[k] for k in ("angle", "primary_reader_question", "evidence_plan")} if native_plan else {}),
+                **({"source_requests": raw["source_requests"]} if native_plan and "source_requests" in raw else {}),
             }
         )
     result = dict(value)
@@ -888,6 +922,22 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
             "primary_reader_question": "the concrete audience question this article answers",
             "evidence_plan": "existing tool/source resolution steps; named missing dimensions; code owns arithmetic",
         })
+    freshness_guidance = (
+        "Prefer today's official releases, current market moves and source-backed previews of scheduled events. "
+        "Use editorial_freshness and the original source date, never the intake/revision clock, to judge age. "
+        "Items older than 24 hours may be chosen only as explicitly labelled background, behind useful current items. "
+        "A complete narrow fact-checked item should use BREAKING_BRIEF or FOLLOW_UP_UPDATE and the text-first route; "
+        "do not choose an analytical argument solely to meet chart counts. Charts are optional for those short items. "
+        "A missing chart is never a missing fact. If the chosen argument needs additional facts, name the exact "
+        "source work through the existing owners and remaining shared budget before considering a source HOLD. "
+    ) if governed.get("freshness_priority") else ""
+    if governed.get("freshness_priority"):
+        select_contract["ordered_candidate_plan"][0]["source_requests"] = [
+            {"url": "exact https source URL supplied in this candidate", "reason": "required missing fact or data"}]
+        freshness_guidance += (
+            "Each entry must include source_requests: [] if the narrow facts are complete, otherwise 1-3 exact "
+            "https URLs from that candidate with a reason naming the required missing fact or data. Code routes "
+            "these through the existing source owners before writing. No requests solely for optional brief charts. ")
     prompt = (
         "Return exactly one JSON object. Do not use markdown, code fences, commentary, prefixes, or suffixes. "
         "Use exactly the five top-level keys shown in one OUTPUT_CONTRACT variant and preserve their JSON types. " +
@@ -895,7 +945,7 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
          "Prefer verified free primary routes; do not infer source qualification from a routing hint. A full window may publish at most two useful originals. "
          "A brief-only window admits NEWS/POLICY briefs only, never analysis relabelled as news. "
          if governed.get("volume_policy") else "Choose one primary genuinely useful current Capital Chronicle story and at most two ordered fallback ") +
-        "stories from GOVERNED_INPUT. Every fallback must be independently worth an article, not filler. "
+        "stories from GOVERNED_INPUT. Every fallback must be independently worth an article, not filler. " + freshness_guidance +
         "Do not require evidence-ready/sourceability/readiness/media/SEO perfection before selection. "
         "The sourceability_route_hint is deterministic routing-only context, never factual or publication authority. "
         "When stories are independently similarly useful, prefer the one with the shorter governed route and lower known access risk. "
@@ -1162,10 +1212,14 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         ],
         "public_write_attempted": False,
     }
+    background_guidance = (
+        "This is retained background older than 24 hours. Start article.title and article.social_hook with 'Background:'. "
+        "State the dated source context in the body; never describe it as today's release or a new market reaction. "
+    ) if governed.get("selected_candidate", {}).get("editorial_freshness", {}).get("disposition") == "RETAINED_BACKGROUND" else ""
     prompt = (
         "Return exactly one JSON object with exactly the five top-level keys shown in OUTPUT_CONTRACT. "
         "Do not use markdown code fences, commentary, prefixes, or suffixes outside the JSON object. "
-        "Write one useful concise Capital Chronicle article from GOVERNED_INPUT and SOURCE_PACK only. "
+        "Write one useful concise Capital Chronicle article from GOVERNED_INPUT and SOURCE_PACK only. " + background_guidance +
         "For GOVERNED_CAPITAL_CHRONICLE_REPORT, SOURCE_PACK is a derived Main report projection, not freshly "
         "acquired source-page bytes. Attribute facts to that report, distinguish OBSERVED_SOURCE_FACT, CC_ANALYSIS "
         "and CONDITIONAL_SCENARIO, keep horizons and proxy/cost limits, and include report_scope_notice verbatim "
@@ -1529,6 +1583,7 @@ def _validate_article_against_source_pack(
     epistemic_state: Mapping[str, Any] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     article = _strip_duplicate_leading_h1(dict(worker_output.get("article") or {}))
+    article.pop("text_first", None)  # Only the source-validation owner may attach release policy.
     # Only source-bound validation may attach this compiler metadata. A writer's
     # extra article fields cannot self-certify a permitted probability descriptor.
     article.pop("public_research_descriptors", None)
@@ -1623,6 +1678,10 @@ def _validate_article_against_source_pack(
         if _normal(article.get(field)) not in bound_claim_texts:
             blockers.append(f"{field}_material_binding_missing")
     blockers.extend(_selected_news_peg_blockers(article, selected_candidate))
+    if (selected_candidate or {}).get("editorial_freshness", {}).get("disposition") == "RETAINED_BACKGROUND":
+        for field in ("title", "social_hook"):
+            if not re.match(r"^Background\s*:", str(article.get(field) or ""), re.I):
+                blockers.append("retained_background_label_required:" + field)
     blockers.extend(_public_copy_integrity_blockers(article, cited_by_id))
     blockers.extend(
         _editorial_growth_edge_blockers(article, article_mode=article_mode)
@@ -1813,8 +1872,10 @@ def _reader_safe_native_article(
             str((epistemic_state or {}).get("report_scope_notice") or ""),
             str(article.get("source_date_notice") or "") if legacy_presentation and not reader_first else "") if s),
     }
+    if article.get("text_first"):
+        result.update(text_first=article["text_first"], news_item_kind=article["news_item_kind"])
     if article.get("volume_policy"):
-        result.update({k: article[k] for k in ("volume_policy", "volume_policy_cutoff_utc", "visual_editorial_decision")})
+        result.update({k: article[k] for k in ("volume_policy", "volume_policy_cutoff_utc", "visual_editorial_decision") if k in article})
     from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
     notices = [text for d in article.get("public_research_descriptors", []) for text in reader_notices(d)]
     if notices:
@@ -2040,9 +2101,13 @@ def _native_preview_bundle(
             return True
         return False
 
+    from live_contentops.native_text_first_v1 import text_first_brief, skipped_destinations
+    text_skips = {s["destination"]: s["status"] for s in skipped_destinations(has_image=bool(media_assets))} if text_first_brief(article) else {}
     for destination, payload in payloads.items():
         if payload.get("delivery_state") == "SKIPPED_PHOTOLESS_NEWS_POLICY":
             continue
+        if destination in text_skips and payload.get("delivery_state") == text_skips[destination]:
+            continue  # A named non-delivery has no reader copy to carry certainty.
         visible = visible_text(payload)
         if (label and label.casefold() not in visible.casefold()
                 and not (reader_first and any(re.search(r"(?<!\w)" + re.escape(name) + r"(?!\w)",
@@ -2204,6 +2269,8 @@ def _build_simple_publication_lifecycle_plan(
             ),
         }
     )
+    from live_contentops.native_text_first_v1 import skipped_destinations
+    text_first_skipped = skipped_destinations(has_image=bool(media_assets))
     plan_core = {
         "schema_version": "contentops.publication_plan.v1",
         "bridge_schema_version": PUBLICATION_BRIDGE_SCHEMA_VERSION,
@@ -2220,7 +2287,7 @@ def _build_simple_publication_lifecycle_plan(
         "accepted_evidence_ids": list(context["accepted_evidence_ids"]),
         "accepted_evidence_sha256": context["accepted_evidence_sha256"],
         "source_provenance_binding_preserved": True,
-        **({"media_asset_count": len(media_assets)} if article.get("volume_policy") else {}),
+        **({"media_asset_count": len(media_assets)} if article.get("volume_policy") or article.get("text_first") else {}),
         "epistemic_state": dict(epistemic_state or {}),
         "publication_window": {"window_identity": run_id},
         "package_identity": package_identity,
@@ -2243,11 +2310,12 @@ def _build_simple_publication_lifecycle_plan(
             V1_REQUIRED_DERIVATIVE_DESTINATIONS
         ),
         "destinations": destinations,
-        "skipped_derivative_destinations": ([{"destination": "instagram_business",
+        "skipped_derivative_destinations": ([dict(v) for v in text_first_skipped] if article.get("text_first") else [{"destination": "instagram_business",
             "reason": "Source-sufficient NEWS/POLICY brief uses the dated photo-less route.",
             "disposition": "SKIPPED_PHOTOLESS_NEWS_POLICY",
             "status": "SKIPPED_PHOTOLESS_NEWS_POLICY"}] if preview_packages.get("instagram_business", {}).get("delivery_state")
                 == "SKIPPED_PHOTOLESS_NEWS_POLICY" else []),
+        **({"text_first": article["text_first"]} if article.get("text_first") else {}),
         **({"volume_policy": article["volume_policy"], "volume_policy_cutoff_utc": article["volume_policy_cutoff_utc"],
             "photo_less_news_policy": True} if article.get("volume_policy") and
             preview_packages.get("instagram_business", {}).get("delivery_state") == "SKIPPED_PHOTOLESS_NEWS_POLICY" else {}),
@@ -2347,6 +2415,7 @@ def run_v1_simple_gemini_newsroom(
         attempted_candidate_ids=attempted_candidate_ids,
         learning_policy=(audience_learning or {}).get("policy"),
         source_resolvability_first=bool(volume),
+        freshness_cutoff_utc=cutoff_utc if native and getattr(llm_invoke, "scheduled_window", False) else None,
     )
     sourceability_path = root / "simple_sourceability_preselection_v1.json"
     frozen_request = getattr(llm_invoke, "frozen_request", lambda _stage: None)("select") if native else None
@@ -2425,6 +2494,7 @@ def run_v1_simple_gemini_newsroom(
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
         "institutional_edge_mode_guide": _institutional_edge_mode_guide(),
         "native_role_plan_required": native,
+        **({"freshness_priority": True} if native and getattr(llm_invoke, "scheduled_window", False) else {}),
         **({"volume_policy": volume} if volume else {}),
         **({"audience_learning": audience_learning} if audience_learning else {}),
         **({"owner_editorial_request": capital_chronicle_context["owner_editorial_request"]}
@@ -2703,6 +2773,11 @@ def run_v1_simple_gemini_newsroom(
     }
     persist(root / "simple_gemini_evidence_v1.json", evidence_artifact)
     if selected is None or selected_plan_entry is None or not source_pack:
+        if native and getattr(llm_invoke, "scheduled_window", False):
+            for entry in plan:
+                requests = entry.get("source_requests", [])
+                if requests:
+                    llm_invoke.prepare_sources(requests, candidate_id=entry["candidate_id"])
         receipt = {
             "schema_version": SCHEMA_VERSION,
             "classification": "NO_PUBLICATION",
@@ -2957,6 +3032,11 @@ def run_v1_simple_gemini_newsroom(
             {c["source_id"] for c in worker_output["material_claim_bindings"]})}
         if writer_governed.get("reader_attribution_policy") == READER_ATTRIBUTION_POLICY:
             article["reader_attribution_policy"] = READER_ATTRIBUTION_POLICY
+        from live_contentops.native_text_first_v1 import bind_validated_article
+        article = bind_validated_article(article, request=getattr(llm_invoke, "frozen_request", lambda _: None)("write") or {},
+            source_pack=source_pack, validation=validation,
+            optional_input_gaps=[b for h in candidate_attempt_history if h["status"] == "SOURCE_QUALIFIED"
+                                 for b in h["blockers"]])
     native_prior = [c for c in selected.get("evolving_story_context", []) if c.get("source_review_id")]
     article["public_source_bindings"] = [{**{k: d[k] for k in ("source_id", "url", "publisher", "published_at_utc")},
         **({"reader_label": native_source_reader_label(d)}
@@ -3005,7 +3085,7 @@ def run_v1_simple_gemini_newsroom(
 
     article_identity = _text_hash(str(article["substack_body_markdown"]))
     admitted_media = []
-    if native and article.get("reader_first_version") == "DATA_JOURNALISM_V1":
+    if native and (article.get("reader_first_version") == "DATA_JOURNALISM_V1" or article.get("text_first")):
         admitted_media = llm_invoke.admitted_editorial_media()
         from live_contentops.native_desktop_editorial_v1 import validate_release_media
         validate_release_media({"article": article, "media_assets": admitted_media, "evidence": source_pack})

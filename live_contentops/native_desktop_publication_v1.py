@@ -86,7 +86,7 @@ def _prepared_packet(store, binding):
                 a["asset_id"]: a["sha256"] for a in result.get("media_assets", [])
             },
             **({"skipped_derivative_destinations": plan["skipped_derivative_destinations"]}
-               if plan.get("photo_less_news_policy") else {}),
+               if plan.get("photo_less_news_policy") or plan.get("text_first") else {}),
             "publication_authority": False,
         },
         plan,
@@ -359,11 +359,12 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
     confirmed = sum(e["reconciliation_status"] == "RECONCILED_CONFIRMED"
         and DurablePublicationCoordinator._confirmed_public_object(e, destination=e["destination"])
         for e in entries)
-    skipped = {s["destination"] for s in bound.get("skipped_derivative_destinations", [])
-               if s.get("status") == "SKIPPED_PHOTOLESS_NEWS_POLICY" and s.get("destination") == "instagram_business"}
+    from live_contentops.native_text_first_v1 import SKIPPED_IMAGE, SKIPPED_CHANNEL
+    skipped = {s["destination"]: s["status"] for s in bound.get("skipped_derivative_destinations", [])
+               if s.get("status") in {"SKIPPED_PHOTOLESS_NEWS_POLICY", SKIPPED_IMAGE, SKIPPED_CHANNEL}}
     for entry in entries:
         if entry["destination"] in skipped and not entry["dispatch_recorded"]:
-            entry.update(status="SKIPPED_PHOTOLESS_NEWS_POLICY", blocker=None)
+            entry.update(status=skipped[entry["destination"]], blocker=None)
     terminal_count = confirmed + len(skipped)
     state = (
         "RECONCILED"

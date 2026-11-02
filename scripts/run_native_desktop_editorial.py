@@ -284,9 +284,16 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
                             "using the exact source_pack. Preserve metric/unit/currency/period, "
                             "actual/estimate/forecast and missingness. No prose, new numbers, forecasts, copied charts or public action. "
                             "Code/tools retrieve exact originals and compute/validate/render admitted values. "
-                            "This Light proposal is followed by actual same-context MAX visual editing and writing."),
+                            "This Light proposal is followed by actual same-context MAX visual editing and writing. "
+                            "Include story_plan.source_requests: [] when the facts and planned data are adequate, "
+                            "otherwise 1-3 {url, reason} entries for exact https primary/source pages needed for "
+                            "missing facts or comparable data. The existing source owner acquires these within "
+                            "the shared budget before MAX. A missing optional chart never holds a complete short item."),
                     governed_input=governed, validator=lambda raw: (True, None, json.loads(raw), None))
                 if not turn.visual_response():
+                    if turn.scheduled_window:
+                        from live_contentops.native_desktop_editorial_v1 import request_source_preparation
+                        request_source_preparation(turn, output["story_plan"].get("source_requests", []))
                     recovery = turn.source_recovery()
                     source_packet = (json.loads((turn.root /
                         "editorial_media_plan_required.json").read_bytes())
@@ -473,7 +480,12 @@ def operation(binding, **kwargs):
             raise ValueError("EXACT_PENDING_NATIVE_REQUEST_REQUIRED")
         root = resolve_workspace_path(binding["output_dir"])
         binding_path = root / ("native_operation_binding.json" if binding.get("automation_id") else "binding.json")
-        if not request.get("requested_model"):
+        if request["stage"] == "sources":
+            result["next_source_action"] = {"request_path": result["request_path"],
+                "request_sha256": request["request_sha256"], "binding_path": str(binding_path),
+                "source_requests": request["source_requests"], "instruction": request["instruction"],
+                "after_admission": "recover-sources then advance same binding"}
+        elif not request.get("requested_model"):
             result["next_command"] = {"command": "media-plan", "binding_path": str(binding_path)}
         else:
             from live_contentops.codex_desktop_newsroom_operator_v1 import native_role_call
