@@ -1,0 +1,61 @@
+{
+  "classification": "VERIFIED_GUARD_REFUSAL",
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-02T19:14:11.520782+00:00",
+  "branch_base": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "worktree": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+  "operating_head": "672f57e51f7514aa6184c1136e861f6981461fd7",
+  "launch_configuration": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "state": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Ancestor codex.exe PID 25296 launch options read back: --model gpt-6.1-sol and -c model_reasoning_effort=max; runtime model/effort telemetry unavailable."
+  },
+  "first_blocking_cause": "STANDING_PUBLICATION_NOT_YET_DUE:2026-11-02T21:20:08.539332+00:00",
+  "next_eligible_utc": "2026-11-02T21:20:08.539332+00:00",
+  "next_eligible_gmt7": "2026-11-03T04:20:08.539332+07:00",
+  "next_action": "The existing Publisher lane runner may resume CC-124 at or after the publication interval; use the standing entry and current guards. No new schedule or waiting loop.",
+  "responsible_owner": "Codex Publisher via existing lane runner",
+  "active_leases_after_guard": [],
+  "operating_controls": [
+    {
+      "singleton_id": 1,
+      "operating_mode": "AUTONOMOUS_DEFAULT",
+      "state_version": 40,
+      "updated_at_utc": "2026-10-30T23:43:49.392869+00:00",
+      "control_source": "JIM_CC051A_CC042_RESUME_20261031"
+    }
+  ],
+  "standing_binding_created": false,
+  "new_article_count": 0,
+  "new_editorial_model_calls": 0,
+  "new_source_requests": 0,
+  "public_write_performed": false,
+  "schedule_changes": false,
+  "chat_messages_sent": false,
+  "targeted_pytest": "NOT_RUN: no implementation change; actual standing CLI and read-only assertions verify the refusal.",
+  "first_cli_result_sha256": "09b69ec805595f1b52285ff70294d2974e11f870ab1d137dff0dbc6e9ee392df",
+  "production_day_record_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\newsroom_production_day_v1.json",
+  "checks": [
+    "Actual standing CLI exit 2 and typed first cause verified",
+    "Actual finish precedes next eligibility",
+    "No new standing binding or pending standing operation created",
+    "Shared newsroom lease released; zero active leases after the call"
+  ],
+  "production_day_observation": {
+    "file_sha256": "34d767ad6f981a9b7de8677a8fd90d9e8f42da27b49656aa60017aa64cbe5952",
+    "record_sha256": "e92d3ee2f10b2dda7e23721b6efb4b8a2fae6c0eaf308bd40f4a5d12a9b6114a",
+    "record_observed_at_utc": "2026-11-02T18:40:15.614248+00:00",
+    "production_day_id": "newsroom-production-day-2026-11-02-bangkok",
+    "admitted_items": 7,
+    "distinct_canonical_items_published": 1,
+    "confirmed_copies_by_channel": {
+      "discord": 1,
+      "facebook_page": 1,
+      "substack": 1,
+      "telegram": 1,
+      "x": 1
+    },
+    "meaning": "Existing production-day observation; this run added no article."
+  }
+}

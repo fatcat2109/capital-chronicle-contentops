@@ -1,0 +1,19 @@
+{
+  "command": [
+    "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "scripts/run_native_desktop_editorial.py",
+    "standing",
+    "--operation-id",
+    "cc124-standing-20261103-a",
+    "--request",
+    "Publish one new, useful article for CC-124 in its backlog priority order: due event previews and reviews, current official releases and market moves, Tier 1 company digests, CFTC positioning, then permitted retrospectives. Use the approved native roles, exact source clocks and public rights, with market reactions only and no private fields. Publish and read back one canonical article and the available text channels, then stop.",
+    "--rollout",
+    "config/native_desktop_rollout_v1.json"
+  ],
+  "working_directory": "A:\\Capital Chronicle\\ContentOps",
+  "started_at_utc": "2026-11-02T19:13:37.562069+00:00",
+  "finished_at_utc": "2026-11-02T19:13:40.617181+00:00",
+  "exit_code": 2,
+  "stdout": "{\"classification\": \"NATIVE_DESKTOP_BLOCKED\", \"blocker\": \"STANDING_PUBLICATION_NOT_YET_DUE:2026-11-02T21:20:08.539332+00:00\"}\n",
+  "stderr": ""
+}
