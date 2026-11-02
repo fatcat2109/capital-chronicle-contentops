@@ -57,7 +57,7 @@
       "whole_suite": false
     }
   ],
-  "implementation_head": "e2dc5c649290d450766995fe95e3d38e94f0f734",
+  "implementation_head": "4d83c2ba04450ee68f2ed986a5a3812325bcc585",
   "integration": {
     "observed_at_utc": "2026-11-02T16:47:26.418950+00:00",
     "previous_head": "71bceaa33b68d55f57e5b035f20093f9433a79d9",
@@ -244,6 +244,19 @@
       "uncommitted_entries": 42,
       "active_leases": 0,
       "mode": "FAST_FORWARD_ONLY"
+    },
+    {
+      "observed_at_utc": "2026-11-02T18:04:38.097565+00:00",
+      "previous_head": "e2dc5c649290d450766995fe95e3d38e94f0f734",
+      "rollback_tag": "contentops-live-20261103-cc123c",
+      "integrated_head": "4d83c2ba04450ee68f2ed986a5a3812325bcc585",
+      "tag": "contentops-live-20261103-cc123d",
+      "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "uncommitted_entries": 42,
+      "active_window_leases": 0,
+      "mode": "FAST_FORWARD_ONLY",
+      "integration_lease": "Existing shared newsroom lease"
     }
   ],
   "publication_attempt": {
@@ -278,7 +291,7 @@
     "canonical_readback_observed_at_utc": "2026-11-02T17:49:27.270640+00:00"
   },
   "launch_resume": {
-    "process_id": 46332,
+    "process_id": 43480,
     "exec_resume": true,
     "configured_model": "gpt-6.1-sol",
     "configured_reasoning_effort": "max",
@@ -317,5 +330,16 @@
     "source_assets_and_reviews": "UNCHANGED",
     "hash_and_rights_checks": "PRESERVED",
     "checks": "44 targeted tests PASS"
+  },
+  "interrupted_lease_recovery": {
+    "observed_at_utc": "2026-11-02T18:04:08.880629+00:00",
+    "cause": "Prior exec interruption stopped the publisher before its finally block",
+    "publisher_processes": 0,
+    "method": "Existing ContentOpsDurableStore.release_lease with exact original owner and fencing token",
+    "released_lease_ids": [
+      "lease_1fc3334a044f9da6",
+      "lease_4e429b91c5b9db7f"
+    ],
+    "no_window_lease_released": true
   }
 }
