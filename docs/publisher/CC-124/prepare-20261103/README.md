@@ -1,7 +1,10 @@
 # CC-124: September CPI
 
 The article is qualified, reviewed and released to the existing live owner. Its
-canonical publication is still pending. Continue `cc124-prepare-20261103-a` with
+single canonical send reached Substack's email verification challenge. The
+public outcome remains `UNKNOWN_WRITE`; there is no verified canonical URL.
+Continue draft `223246940` only, complete its verification, then read back and
+reconcile that exact object. Continue `cc124-prepare-20261103-a` with
 the live binding returned in [the release result](24-release-finished-output.json).
 Do not rerun intake, writing, revision or create another article.
 
@@ -50,5 +53,26 @@ One fresh identity return was recorded incorrectly after Neo reported an unknown
 tab. [The correction](identity-observation-correction.json) preserves that error
 and disqualifies the return. No public action may use it. Let its existing TTL
 expire, then obtain and submit an actually observed new exact identity return
-before beginning a publish action. A later successful browser view alone is not
-the missing request-bound return. Keep the original immutable records.
+before beginning a publish action. This was completed with successful exact
+returns in steps 43-44, 47-48 and 52-53. The final action claim in step 54 used
+the fresh successful return from step 53, after the invalid cache had expired.
+Keep all original immutable records and the explicit correction.
+
+The saved draft copy matches the approved title, subtitle, paragraphs and three
+headings after markup, whitespace and Substack smart-apostrophe normalization.
+Both real Substack desktop/mobile preview captures were inspected as an
+additional transport check; the existing same-MAX review remains unchanged.
+See [the exact copy comparison](56-substack-exact-copy-check.json) and
+[rendered transport check](57-substack-rendered-transport-check.json).
+
+On 3 November at 06:31 GMT+7, the first final send and its existing
+`Publish without buttons` confirmation reached `Check your email` /
+`Verification code`. Scheduling stayed unchecked. The exact native return was
+saved as `UNKNOWN_WRITE` in [62-substack-publish-response.json](62-substack-publish-response.json)
+and accepted in step 63. BrowserOS human help requested completion of this
+account check. There is no authority to resend, create another draft or claim
+publication while the exact-object outcome remains unverified.
+
+The later bounded recovery improvements passed 89 and 90 focused coordinator
+checks respectively. Actual canonical publication and text-channel distribution
+remain separate from all test and render evidence.
