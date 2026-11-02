@@ -1,0 +1,20 @@
+{
+  "base": "65526e26a3adb178187ccf268aff47341255001f",
+  "tree": "656b51b84c881d13210b160c20b90ffc5934c2ba",
+  "changed_paths": [
+    "live_contentops/native_publication_promotion_v1.py",
+    "tests/test_native_finished_publication_v1.py"
+  ],
+  "context_adaptation": "Decision 39 release permits live publication-history reads from a distinct private article store; legacy CC-074 isolation is unchanged.",
+  "observed_at_utc": "2026-11-02T22:19:21.114088+00:00",
+  "integration_branch": "backlog/cc-124-runtime-compiler-repair",
+  "integration_commit": "7950ed6a8f4a837ac3318d39bf15f8dfdfe0a02f",
+  "operating_head": "7950ed6a8f4a837ac3318d39bf15f8dfdfe0a02f",
+  "tag": "contentops-live-20261103-cc124-release-memory",
+  "rollback_tag": "contentops-live-20261103-cc124-wrapper",
+  "applied_at_utc": "2026-11-02T22:21:18.199764+00:00",
+  "dirty_wip_hashes_preserved": true,
+  "schedule_changes": false,
+  "app_restarts": false,
+  "public_write_performed": false
+}
