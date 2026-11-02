@@ -1,0 +1,15 @@
+{
+  "evidence": [
+    "  - link \"Kênh của bạn\" [ref=e37] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]",
+    "    - link \"Kênh của bạn\" [ref=e38]",
+    "  - link \"Video của bạn\" [ref=e47] [url=\"https://studio.youtube.com/channel/UCuSrYOgd4eeudcD2vidafbA/content\"]",
+    "  - link \"Tùy chỉnh kênh\" [ref=e85] [url=\"https://studio.youtube.com/channel/UCuSrYOgd4eeudcD2vidafbA/editing\"]",
+    "  - link \"Quản lý video\" [ref=e86] [url=\"https://studio.youtube.com/channel/UCuSrYOgd4eeudcD2vidafbA/content\"]",
+    "  - link \"Cộng đồng\" [ref=e87] [url=\"https://www.youtube.com/@CapitalChronicleYouTube/community\"]",
+    "  - button \"Đăng\" [disabled] [ref=e97]",
+    "  - link \"Capital Chronicle\" [ref=e103] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]",
+    "  - link \"Capital Chronicle\" [ref=e104] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]"
+  ],
+  "url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+  "observed_at_utc": "2026-11-02T22:33:19Z"
+}

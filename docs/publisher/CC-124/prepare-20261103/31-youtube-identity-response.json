@@ -1,0 +1,17 @@
+{
+  "tool_request_sha256": "40aa69449d156cc0e2afcb29ea311277c2a7e89509c8fadaa23fe454a456c173",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Actual fresh Neo page 36 snapshot confirms Your channel @CapitalChronicleYouTube and Customize/Manage controls. Observed again after the issued current probe was begun; no account switch or public write.",
+    "observed_at_utc": "2026-11-02T22:33:19Z"
+  },
+  "result": {
+    "request_sha256": "f54f4235414e40ce0bc7101bcf69d0268c832c1c7d6c63f38f65705e8e8e7c58",
+    "authenticated": true,
+    "observed_identity": "@CapitalChronicleYouTube",
+    "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA",
+    "public_write_performed": false
+  }
+}

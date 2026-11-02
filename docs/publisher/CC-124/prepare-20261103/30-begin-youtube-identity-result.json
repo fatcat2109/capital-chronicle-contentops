@@ -1,0 +1,21 @@
+{
+  "command": [
+    "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "scripts/run_native_desktop_editorial.py",
+    "publication-tool-begin",
+    "--binding",
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a\\binding.json",
+    "--rollout",
+    "config/native_desktop_rollout_v1.json",
+    "--native-invocation-id",
+    "/root",
+    "--request-sha256",
+    "f54f4235414e40ce0bc7101bcf69d0268c832c1c7d6c63f38f65705e8e8e7c58"
+  ],
+  "working_directory": "A:\\Capital Chronicle\\ContentOps",
+  "started_at_utc": "2026-11-02T22:32:47.097160+00:00",
+  "finished_at_utc": "2026-11-02T22:32:56.517641+00:00",
+  "exit_code": 0,
+  "stdout": "{\"action_boundary\": \"BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR\", \"operation_id\": \"cc124-prepare-20261103-a\", \"public_write_authorized\": false, \"request\": {\"action\": \"VERIFY_IDENTITY\", \"destination\": \"youtube\", \"entry_url\": \"https://www.youtube.com/@CapitalChronicleYouTube/posts\", \"expected_identity\": \"@CapitalChronicleYouTube\", \"forbidden\": [\"login\", \"account_switch\", \"public_write\", \"saved_draft\", \"private_storage\"], \"native_invocation_id\": \"/root\", \"probe_epoch\": 5978862, \"request_sha256\": \"f54f4235414e40ce0bc7101bcf69d0268c832c1c7d6c63f38f65705e8e8e7c58\", \"schema_version\": \"contentops.neo_identity_probe.v1\", \"surface\": \"YOUTUBE_COMMUNITY_POST\", \"work_item_id\": \"native-neo-operation-136c98bd5f14a4c0dd3cfb50d8fe8e44155d90a7ede9a6179484fe7997e72085\"}, \"required_tool\": \"mcp__browseros_neo__run\", \"schema_version\": \"contentops.native_neo_tool_request.v1\", \"tool_request_sha256\": \"40aa69449d156cc0e2afcb29ea311277c2a7e89509c8fadaa23fe454a456c173\"}\n",
+  "stderr": ""
+}
