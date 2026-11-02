@@ -1,0 +1,20 @@
+{
+  "base": "971a5b02854c5499ea2dbf139ab4bbcae87f2c73",
+  "tree": "f9f114c513f4c796fe4a7aeab0c5d11d42405f45",
+  "changed_paths": [
+    "live_contentops/publication_coordinator_v1.py",
+    "tests/test_publication_coordinator_v1.py"
+  ],
+  "context_adaptation": "Pass the current read-only recovery message snapshot through the existing policy; retired objects keep their earlier short-circuit. No policy, TTL, state or authority expansion.",
+  "observed_at_utc": "2026-11-02T23:02:33.704664+00:00",
+  "integration_branch": "backlog/cc-124-runtime-compiler-repair",
+  "integration_commit": "1bfdaf8e717340e7c5ae11ac94513affca8e7b00",
+  "operating_head": "1bfdaf8e717340e7c5ae11ac94513affca8e7b00",
+  "tag": "contentops-live-20261103-cc124-recovery-snapshot",
+  "rollback_tag": "contentops-live-20261103-cc124-recovery-scan",
+  "applied_at_utc": "2026-11-02T23:05:03.591822+00:00",
+  "dirty_wip_hashes_preserved": true,
+  "schedule_changes": false,
+  "app_restarts": false,
+  "public_write_performed": false
+}
