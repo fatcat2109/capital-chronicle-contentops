@@ -1,0 +1,19 @@
+{
+  "command": [
+    "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "scripts/run_native_desktop_editorial.py",
+    "submit",
+    "--binding",
+    "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\binding.json",
+    "--stage",
+    "media-plan",
+    "--response",
+    "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\desktop_response_media-plan.json"
+  ],
+  "working_directory": "A:\\Capital Chronicle\\ContentOps",
+  "started_at_utc": "2026-11-02T20:31:54.578747+00:00",
+  "finished_at_utc": "2026-11-02T20:32:02.028044+00:00",
+  "exit_code": 0,
+  "stdout": "{\"stage\": \"media-plan\", \"response_sha256\": \"a6fb906d5fd90988eeb57f58c6db31bc4139bcff90e79271a829b085be88addd\", \"public_write_performed\": false}\n",
+  "stderr": ""
+}

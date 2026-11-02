@@ -1,0 +1,53 @@
+{
+  "classification": "RETAINED_CPI_FACTS_VERIFIED_AGAINST_DATED_OFFICIAL_ARCHIVE",
+  "operation_id": "cc124-prepare-20261103-a",
+  "source_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+  "published_at_utc": "2026-10-14T12:30:00Z",
+  "source_capture_observed_at_utc": "2026-11-02T20:31:03.544621+00:00",
+  "verified_at_utc": "2026-11-02T20:31:53.068687+00:00",
+  "capture_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\source-verification\\cpi-20261014-archive-browser-capture.md",
+  "capture_sha256": "1eb0e6aee930e7285112f3043f286bdafc17b2aa8b772b7ef06b9b4d612c2f62",
+  "retained_canonical_content_sha256": "bcde8783d34281fb03eef80e8626bcc5bb564dad09c5b4926dcc9096ec82259d",
+  "checks": {
+    "publication_date": true,
+    "reference_period": true,
+    "headline_monthly": true,
+    "headline_annual": true,
+    "core_monthly": true,
+    "core_annual": true
+  },
+  "verified_facts": [
+    {
+      "metric": "CPI-U all items",
+      "period": "2026-09",
+      "value": 0.6,
+      "unit": "percent change month on month",
+      "adjustment": "seasonally adjusted"
+    },
+    {
+      "metric": "CPI-U all items",
+      "period": "12 months ending 2026-09",
+      "value": 3.7,
+      "unit": "percent change year on year",
+      "adjustment": "not seasonally adjusted"
+    },
+    {
+      "metric": "CPI-U all items less food and energy",
+      "period": "2026-09",
+      "value": 0.3,
+      "unit": "percent change month on month",
+      "adjustment": "seasonally adjusted"
+    },
+    {
+      "metric": "CPI-U all items less food and energy",
+      "period": "12 months ending 2026-09",
+      "value": 2.6,
+      "unit": "percent change year on year",
+      "adjustment": "not seasonally adjusted"
+    }
+  ],
+  "scope": "Verification of the four already-admitted retained numeric facts only; no new factual assertion, release driver, market move or chart series is admitted through this receipt. Frozen source pack and cutoff unchanged.",
+  "new_non_chargeable_source_navigations": 1,
+  "new_model_calls": 0,
+  "public_write_performed": false
+}
