@@ -190,19 +190,24 @@ def persist_native_day_measurement(store, binding):
     from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes
     from live_contentops.native_brief_windows_v1 import quota_stop_observations
-    if not bound_volume_policy(binding) or not binding.get("window_id"):
+    if not bound_volume_policy(binding) and not binding.get("owner_manual_live"):
         return None
-    day = newsroom_production_day_id(binding["cutoff_utc"])
+    from live_contentops.native_finished_publication_v1 import confirmed_canonicals
+    day = newsroom_production_day_id(binding["cutoff_utc"] if binding.get("window_id")
+                                    else datetime.now(timezone.utc))
+    confirmed_runs = {p["run_id"] for p in confirmed_canonicals(store)
+                      if newsroom_production_day_id(p["first_readback_utc"]) == day}
     rows, dispatches = store.list_outbox_messages(), store.list_platform_dispatches()
     bindings = [json.loads(row["payload"]) for row in rows if row["message_id"].startswith("native-operation-binding-")]
-    bindings = [b for b in bindings if b.get("volume_policy") and b.get("window_id")
-                and newsroom_production_day_id(b["cutoff_utc"]) == day]
+    bindings = [b for b in bindings if
+        ((b.get("volume_policy") and b.get("window_id")) or b.get("owner_manual_live"))
+        and (newsroom_production_day_id(b["cutoff_utc"]) == day or b["run_id"] in confirmed_runs)]
     admissions, qualified, first_causes, confirmed = set(), set(), {}, defaultdict(set)
     windows, latencies, readers, interventions = {}, [], [], []
     observations = store.list_performance_observations()
     preparations = [json.loads(row["payload"]) for row in rows if row["destination"] == "internal:native-story-preparation"]
     for current in bindings:
-        run, window = current["run_id"], current["window_id"]
+        run, window = current["run_id"], current.get("window_id", "standing")
         request, response = native_selection(store, run)
         if response:
             admissions.update((window, p["candidate_id"]) for p in response["output"].get("ordered_candidate_plan", []))
@@ -222,12 +227,12 @@ def persist_native_day_measurement(store, binding):
             interventions.extend(semantic.get("process_findings", []))
         checkpoint = store.get_outbox_message("native-window-" + sha256_of(window))
         checkpoint = json.loads(checkpoint["payload"]) if checkpoint else {}
-        entry = checkpoint.get("actual_entry_utc")
-        progress = window_progress(store, [(b, None) for b in bindings if b["window_id"] == window])
+        entry = checkpoint.get("actual_entry_utc") or (current.get("cutoff_utc") if current.get("standing_operation") else None)
+        progress = window_progress(store, [(b, None) for b in bindings if b.get("window_id", "standing") == window])
         windows[window] = {"source_request_count": progress["source_request_count"],
             "admitted_count": len(progress["admitted_candidate_ids"]),
             "distinct_canonical_published": progress["published_article_count"],
-            "brief_only": current["volume_policy"]["brief_only"]}
+            "brief_only": (current.get("volume_policy") or {}).get("brief_only", False)}
         projection = publication_projection(rows, dispatches, store.get_reconciliations_for_work_item(run), run_id=run)
         for destination in projection.get("destinations", []):
             channel = destination["destination"]
@@ -257,7 +262,7 @@ def persist_native_day_measurement(store, binding):
     quota_stops = quota_stop_observations(store, production_date=newsroom_production_date(binding["cutoff_utc"]).isoformat())
     quota_stops.extend(i for i in interventions if i.get("cause") == "CODEX_QUOTA_STOP" and i not in quota_stops)
     measurement = {"observed_at_utc": datetime.now(timezone.utc).isoformat(),
-        "policy_id": binding["volume_policy"]["policy_id"], "admitted_items": len(admissions),
+        "policy_id": (binding.get("volume_policy") or {}).get("policy_id", "JIM_DECISION_39"), "admitted_items": len(admissions),
         "source_qualified_items": len(qualified), "distinct_canonical_items_published": len(confirmed["substack"]),
         "confirmed_copies_by_channel": {k: len(v) for k, v in confirmed.items()},
         "first_blocking_causes": dict(Counter(first_causes.values())), "windows": windows,
@@ -270,10 +275,12 @@ def persist_native_day_measurement(store, binding):
         "distinct_daily_target": 8, "target_by_revised_production_day": 3,
         "tests_or_derivatives_are_original_publications": False}
     # Same existing day artifact. Preserve the existing snapshot's other fields.
-    root = Path(binding["output_dir"]).parent.parent
+    root = (Path(binding["output_dir"]).parent.parent if binding.get("window_id")
+            else Path(binding["published_memory_output_root"]) / day)
     if root.name != day:
         raise ValueError("EXACT_NATIVE_PRODUCTION_DAY_OUTPUT_ROOT_REQUIRED")
     path = root / "newsroom_production_day_v1.json"
+    root.mkdir(parents=True, exist_ok=True)
     payload = json.loads(path.read_bytes()) if path.is_file() else {
         "schema_version": "contentops.newsroom_production_day.v1", "newsroom_production_day_id": day}
     payload.update(native_volume_measurement=measurement)

@@ -157,7 +157,14 @@ def scheduled_publication_authority(store, binding, rollout):
     if not registered or json.loads(registered["payload"]) != binding:
         raise ValueError("EXACT_REGISTERED_OPERATION_BINDING_REQUIRED")
     if binding.get("owner_manual_live"):
-        authority = live_publication_policy(rollout, cutoff_utc=binding["cutoff_utc"])
+        cutoff = binding["cutoff_utc"]
+        if binding.get("finished_piece_authority_ref") == "JIM_DECISIONS_20261030_DECISION_39":
+            promoted = store.get_outbox_message("native-retrospective-promotion-" + sha256_of(binding["run_id"]))
+            archived = json.loads(promoted["payload"]) if promoted else {}
+            if archived.get("live_binding") != binding or archived.get("source_check", {}).get("status") != "PASS":
+                raise ValueError("EXACT_FINISHED_PIECE_RELEASE_REQUIRED")
+            cutoff = binding["publication_eligibility_utc"]
+        authority = live_publication_policy(rollout, cutoff_utc=cutoff)
         if (binding.get("live_authority_sha256") != sha256_of(authority)
                 or resolve_workspace_path(binding["store_path"]) != resolve_workspace_path(rollout["store_path"])
                 or resolve_workspace_path(binding["published_memory_store"]) != resolve_workspace_path(rollout["store_path"])
@@ -560,6 +567,16 @@ class NativeReviewedPublication:
     def resume(self):
         plan, root = self.validate()
         self._authorize_and_bind()
+        from live_contentops.native_finished_publication_v1 import publication_due
+        release = self.store.get_outbox_message("native-finished-release-" + sha256_of(self.binding["run_id"]))
+        if release or self.binding.get("standing_operation"):
+            canonical = next((d for d in self.projection().get("destinations", [])
+                              if d["destination"] == "substack"), {})
+            if not canonical.get("dispatch_recorded"):
+                due = publication_due(self.store, run_id=self.binding["run_id"])
+                if not due["due"]:
+                    return {"classification": "NATIVE_PUBLICATION_NOT_YET_DUE", **due,
+                            "publication": self.projection(), "public_write_performed": False}
         try:
             from live_contentops.native_desktop_editorial_v1 import validate_release_media
             result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])

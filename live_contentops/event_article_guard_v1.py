@@ -78,6 +78,19 @@ class PublicOutputError(ValueError):
         super().__init__(cause)
 
 
+def public_execution_copy_forbidden(text: str) -> bool:
+    """Keep position calls private while allowing a central bank's policy target."""
+    if _PRIVATE_TEXT.search(text):
+        return True
+    for match in _INSTRUCTION.finditer(text):
+        before = text[max(0, match.start() - 65):match.start()]
+        policy_target = (match.group().lower().startswith("target") and re.search(
+            r"(?:federal funds|inflation|policy rate|the Fed held its)\s+$", before, re.I))
+        if not policy_target:
+            return True
+    return False
+
+
 def _fail(cause: str, location: str) -> None:
     raise PublicOutputError(cause, location)
 
@@ -219,7 +232,7 @@ def check_public_event_article(article: Mapping[str, Any], *,
         scan = re.sub(r"[`*_]", "", text)
         if not text.strip():
             _fail("EMPTY_EVENT_SECTION", path)
-        if _PRIVATE_TEXT.search(scan) or _INSTRUCTION.search(scan):
+        if public_execution_copy_forbidden(scan):
             _fail("PRIVATE_OR_EXECUTION_COPY_FORBIDDEN", path)
         if re.search(r"<[^>]*>|!\[", scan):
             _fail("UNREVIEWED_EMBEDDED_MEDIA_FORBIDDEN", path)

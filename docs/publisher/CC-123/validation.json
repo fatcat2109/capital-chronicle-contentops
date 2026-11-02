@@ -1,6 +1,6 @@
 {
   "schema_version": "contentops.cc123.validation.v1",
-  "observed_at_utc": "2026-11-02T16:47:07.058158+00:00",
+  "observed_at_utc": "2026-11-02T17:05:55.726785+00:00",
   "branch": "backlog/cc-123-publication-path",
   "base_tag": "contentops-live-20261102-d39",
   "dependencies": {
@@ -24,9 +24,45 @@
       "processes": 1,
       "workers": 1,
       "whole_suite": false
+    },
+    {
+      "junit": "docs/publisher/CC-123/checks/finished-path.xml",
+      "tests": "206",
+      "failures": "0",
+      "errors": "0",
+      "time": "165.291",
+      "processes": 1,
+      "workers": 1,
+      "whole_suite": false
     }
   ],
   "implementation_head": "104d802a1b4b0790ca5d07f66975c7ebf9e79338",
-  "integration": null,
-  "publications": []
+  "integration": {
+    "observed_at_utc": "2026-11-02T16:47:26.418950+00:00",
+    "previous_head": "71bceaa33b68d55f57e5b035f20093f9433a79d9",
+    "rollback_tag": "contentops-live-20261102-d39",
+    "integrated_head": "b018d116c256b52cbab8525c122d672311e4b616",
+    "tag": "contentops-live-20261102-cc123a",
+    "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+    "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+    "uncommitted_entries": 42,
+    "active_leases": 0,
+    "mode": "FAST_FORWARD_ONLY"
+  },
+  "publications": [],
+  "finished_path": {
+    "status": "TESTED_NOT_YET_INTEGRATED",
+    "general_promotion": "Same existing import engine; source snapshots and reviews preserved",
+    "standing": "Live owner-manual binding, one operation, shared leases, eight distinct readbacks per day",
+    "drip_hours": 3.5,
+    "publication_clock": "First verified canonical readback; original source cutoff unchanged",
+    "initial_fixes": [
+      "Completed new fixture feed pointer",
+      "Joined exact reconciliation before counting canonical records",
+      "Read nested native readback proof"
+    ],
+    "source_fomc_read_only_check": "PASS",
+    "native_editorial_calls": 0,
+    "public_writes": 0
+  }
 }

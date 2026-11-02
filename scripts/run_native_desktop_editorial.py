@@ -30,7 +30,7 @@ PRODUCTION_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps")
 DEFAULT_PROFILE = Path(__file__).resolve().parents[1] / "config/native_desktop_operator_profile_v1.json"
 
 
-def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=(), live_rollout=None):
+def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=(), live_rollout=None, standing=False):
     """Resolve one explicit owner operation; frozen binding survives quota/restarts.
 
     This is an entry to the existing outbox/opportunity, not a queue or scheduler.
@@ -66,6 +66,8 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
             if (binding.get("owner_manual_live") is not True
                     or binding.get("live_authority_sha256") != sha256_of(live_rollout["live_authority"])):
                 raise ValueError("OWNER_LIVE_AUTHORITY_BINDING_CHANGED")
+        if standing and not binding.get("standing_operation"):
+            raise ValueError("EXACT_STANDING_OPERATION_BINDING_REQUIRED")
     else:
         if not isinstance(request, str) or not 20 <= len(request.strip()) <= 6000:
             raise ValueError("NORMAL_LANGUAGE_EDITORIAL_REQUEST_REQUIRED")
@@ -77,6 +79,11 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
             live_publication_policy(live_rollout, cutoff_utc=binding["cutoff_utc"])
             binding.update(owner_manual_validation=False, owner_manual_live=True,
                 live_authority_sha256=sha256_of(live_rollout["live_authority"]))
+        if standing:
+            if live_rollout is None:
+                raise ValueError("STANDING_OPERATION_REQUIRES_LIVE_ROLLOUT")
+            binding.update(standing_operation=True,
+                standing_authority_ref="JIM_DECISIONS_20261030_DECISION_39")
         for key in ("research_editions_root", "source_review_ids"):
             if profile.get(key):
                 binding[key] = profile[key]
@@ -458,11 +465,14 @@ def operation(binding, **kwargs):
         validate_binding(binding, read_or_prepare=command == "publication-prepare")
         store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]))
         owner = "native-desktop-" + uuid4().hex
-        lease = store.acquire_lease("internal:native-editorial:" + binding["run_id"], owner, ttl_seconds=900)
-        try:
-            result = _operation(binding, operation_lease=lease, **kwargs)
-        finally:
-            store.release_lease(lease["lease_id"], owner, lease["fencing_token"])
+        from contextlib import nullcontext
+        from live_contentops.native_finished_publication_v1 import newsroom_lease
+        with (newsroom_lease(store) if not binding.get("owner_manual_validation") else nullcontext()):
+            lease = store.acquire_lease("internal:native-editorial:" + binding["run_id"], owner, ttl_seconds=900)
+            try:
+                result = _operation(binding, operation_lease=lease, **kwargs)
+            finally:
+                store.release_lease(lease["lease_id"], owner, lease["fencing_token"])
     if (result.get("classification") == "NATIVE_NEXT_CANDIDATE_REQUIRED" and binding.get("volume_policy")
             and not binding.get("window_id") and not binding.get("automation_id")):
         from live_contentops.native_manual_candidate_v1 import manual_continuation_request
@@ -511,7 +521,7 @@ def operation(binding, **kwargs):
         from live_contentops.native_editorial_continuation_v1 import next_editorial_action
         result["coordinator_action"] = next_editorial_action(result)
     from live_contentops.native_newsroom_volume_v1 import bound_volume_policy, persist_native_day_measurement
-    if (bound_volume_policy(binding) and binding.get("window_id")
+    if ((bound_volume_policy(binding) or binding.get("owner_manual_live"))
             and kwargs.get("command", "advance") not in {"status", "publication-status", "context"}):
         persist_native_day_measurement(ContentOpsDurableStore(binding["store_path"], auto_migrate=False), binding)
     return result
@@ -519,7 +529,7 @@ def operation(binding, **kwargs):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("newsroom", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "next-candidate", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
+    parser.add_argument("command", choices=("newsroom", "standing", "release-finished", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "next-candidate", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
         "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
         "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company", "quota-stop",
         "window-result", "window-notice-begin", "window-notice-record", "window-close", "window-blocked", "window-blocked-begin", "window-blocked-record",
@@ -717,19 +727,38 @@ def main(argv=None):
                           "reopen": "Open the same HTML file in a browser; no preview server is required.",
                           "publication_authority": False}, ensure_ascii=True))
         return 0
-    if args.command == "newsroom":
+    if args.command == "release-finished":
+        if not args.binding or not args.rollout:
+            parser.error("release-finished requires --binding and --rollout")
+        from live_contentops.native_finished_publication_v1 import release_finished_piece
+        try:
+            result = release_finished_piece(args.binding, json.loads(args.rollout.read_bytes()))
+        except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
+            print(json.dumps({"classification": "FINISHED_PIECE_BLOCKED", "blocker": str(exc)}))
+            return 2
+        print(json.dumps(result, ensure_ascii=True))
+        return 0
+    if args.command in {"newsroom", "standing"}:
         try:
             request = args.request_file.read_text(encoding="utf-8") if args.request_file else args.request
-            path, binding = resolve_owner_operation(json.loads(args.profile.read_bytes()),
-                operation_id=args.operation_id, request=request, report_only=args.report_only, source_review_ids=args.source_review_id,
-                live_rollout=json.loads(args.rollout.read_bytes()) if args.live else None)
+            if args.command == "standing":
+                if not args.rollout:
+                    parser.error("standing requires --rollout")
+                from live_contentops.native_finished_publication_v1 import standing_binding
+                path, binding = standing_binding(json.loads(args.profile.read_bytes()),
+                    json.loads(args.rollout.read_bytes()), operation_id=args.operation_id,
+                    request=request, resolver=resolve_owner_operation)
+            else:
+                path, binding = resolve_owner_operation(json.loads(args.profile.read_bytes()),
+                    operation_id=args.operation_id, request=request, report_only=args.report_only, source_review_ids=args.source_review_id,
+                    live_rollout=json.loads(args.rollout.read_bytes()) if args.live else None)
             result = operation(binding)
             print(json.dumps({**result, "binding_path": str(path),
                 "agent_instruction": "Continue assigned native roles, existing source tools, review and previews in this same opportunity. "
                     + ("Use the sole reviewed publication coordinator under the applied live rollout; verify exact objects and never retry UNKNOWN_WRITE."
-                       if args.live else "Prepare only; no dispatch.")}, ensure_ascii=True))
+                       if args.live or args.command == "standing" else "Prepare only; no dispatch.")}, ensure_ascii=True))
             return 0
-        except (ValueError, OSError, KeyError, TypeError) as exc:
+        except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
             print(json.dumps({"classification": "NATIVE_DESKTOP_BLOCKED", "blocker": str(exc)}))
             return 2
     if args.command == "submit" and (not args.response or not args.stage):
