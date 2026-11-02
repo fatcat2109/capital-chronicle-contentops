@@ -1,0 +1,16 @@
+{
+  "tool_request_sha256": "2499e06f834dc25b418997bd72756284b60c52767e1112356502a71115f29a00",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Actual successful Neo run re-derived its own current task tab after exact begin. Snapshot confirms Capital Chronicle account/profile and Dashboard, Edit profile, New post at the issued Substack domain. No account switch, login or public write.",
+    "observed_at_utc": "2026-11-02T23:05:49Z"
+  },
+  "result": {
+    "request_sha256": "69d658f4770defa5bafb89771673bc8f6a5b05a9466299536d6e165bb7361a86",
+    "authenticated": true,
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_write_performed": false
+  }
+}
