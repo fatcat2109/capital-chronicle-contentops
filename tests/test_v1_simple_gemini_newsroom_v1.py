@@ -1095,16 +1095,20 @@ def test_second_validation_failure_abstains_without_fourth_call(tmp_path: Path):
 
 
 @pytest.mark.parametrize("repair_succeeds", [True, False])
-def test_native_derivative_failure_uses_bounded_same_operation_revision(tmp_path, monkeypatch, repair_succeeds):
+@pytest.mark.parametrize("frozen_revision", [True, False])
+def test_native_derivative_failure_uses_bounded_same_operation_revision(tmp_path, monkeypatch, repair_succeeds, frozen_revision):
     import live_contentops.v1_simple_gemini_newsroom_v1 as module
 
     rolling = _headlines(1)
     candidate_id = _candidate_ids(rolling)[0]
     roles, compilations = [], []
     original_compile = module._native_preview_bundle
+    original_governed = {}
 
     def compile_preview(**kwargs):
         compilations.append(kwargs["article_identity"])
+        assert kwargs["article"]["public_source_bindings"][0]["source_id"] == "SOURCE_1"
+        assert kwargs["article"]["public_source_bindings"][0]["url"] == SOURCE_URL
         if len(compilations) == 1 or not repair_succeeds:
             raise SimpleGeminiNewsroomError("native_preview_epistemic_state_missing", ["telegram"])
         return original_compile(**kwargs)
@@ -1116,15 +1120,25 @@ def test_native_derivative_failure_uses_bounded_same_operation_revision(tmp_path
             "selected_model": "gpt-6.1-sol", "reasoning_effort": "max"}
         if role == ROLE_V1_SIMPLE_SELECTION:
             return _selection(candidate_id), receipt
+        if role == ROLE_V1_SIMPLE_ARTICLE_WRITING:
+            original_governed.update(kwargs["governed_input"])
         if role == ROLE_V1_SIMPLE_EDITORIAL_REVISION:
             assert kwargs["logical_invocation_id"] == "native-compile-repair:revise"
-            assert kwargs["governed_input"]["validation_blockers"] == [
-                "native_preview_epistemic_state_missing", "telegram"]
-            assert "native_preview_epistemic_state_missing" in kwargs["prompt"]
+            if frozen_revision:
+                assert kwargs["governed_input"]["validation_blockers"] == ["original_frozen_failure"]
+                assert kwargs["prompt"] == "Original frozen revision prompt"
+            else:
+                assert kwargs["governed_input"]["validation_blockers"] == [
+                    "native_preview_epistemic_state_missing", "telegram"]
+                assert "native_preview_epistemic_state_missing" in kwargs["prompt"]
         return _article_output(), receipt
 
     invoke.native_desktop_protocol = True
     invoke.telemetry = lambda: {"observations": [{"invocation_id": "CONTROLLED_TEST_ONLY"}]}
+    invoke.frozen_request = lambda stage: ({"prompt": "Original frozen revision prompt",
+        "governed_input": {**original_governed, "prior_output_hash": module._hash(_article_output()),
+            "validation_blockers": ["original_frozen_failure"]}}
+        if stage == "revise" and frozen_revision else None)
     monkeypatch.setattr(module, "_native_preview_bundle", compile_preview)
     result = run_v1_simple_gemini_newsroom(
         output_dir=tmp_path, cutoff_utc=CUTOFF, rolling_input=rolling, llm_invoke=invoke,
