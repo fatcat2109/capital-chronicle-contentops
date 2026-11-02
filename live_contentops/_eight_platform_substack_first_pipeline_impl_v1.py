@@ -183,7 +183,15 @@ _SENTENCE_BOUNDARY_RE = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9])")
 
 def _sentence_units(value: str) -> list[str]:
     normalized = " ".join(str(value or "").split())
-    return [item.strip() for item in _SENTENCE_BOUNDARY_RE.split(normalized) if item.strip()]
+    units = []
+    for item in _SENTENCE_BOUNDARY_RE.split(normalized):
+        if not item.strip():
+            continue
+        if units and re.search(r"\b(?:[A-Z]\.){2,}$", units[-1]):
+            units[-1] += " " + item.strip()
+        else:
+            units.append(item.strip())
+    return units
 
 
 def _punctuate(value: str) -> str:
@@ -292,8 +300,11 @@ def _split_complete_chunks(parts: Sequence[str], *, limit: int) -> list[str]:
 
 def _first_complete_sentence(value: str) -> str:
     normalized = " ".join(str(value or "").split())
-    match = re.match(r"^(.+?[.!?])(?:\s|$)", normalized)
-    return match.group(1) if match else normalized
+    for match in re.finditer(r"[.!?](?=\s|$)", normalized):
+        candidate = normalized[:match.end()]
+        if not re.search(r"\b(?:[A-Z]\.){2,}$", candidate):
+            return candidate
+    return normalized
 
 
 _SEMANTIC_DEDUP_STOP_WORDS = frozenset(
