@@ -1,0 +1,11 @@
+{
+  "recorded_at_utc": "2026-11-02T22:20:52.5717818Z",
+  "process_id": 46252,
+  "process_started_at_utc": "2026-11-02T22:14:37.6693310Z",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "model_argument": "--model gpt-6.1-sol",
+  "effort_argument": "-c model_reasoning_effort=\"max\"",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "evidence": "Current matching CC-124 top-level codex exec launch arguments read back through Win32_Process; actual model and effort telemetry unavailable. This is launch configuration only, never an editorial native invocation identity."
+}
