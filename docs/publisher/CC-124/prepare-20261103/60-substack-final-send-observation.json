@@ -1,0 +1,17 @@
+{
+  "observed_at_utc": "2026-11-02T23:31:04Z",
+  "draft_id": "223246940",
+  "request_sha256": "dc3e7289e2a8ec911137f30f9152ecb6fd4fa7d39f6a62ca7112da089ce376ea",
+  "tool": "mcp__browseros_neo__run",
+  "actual_tool_result": {
+    "logs": [],
+    "ok": true,
+    "value": {
+      "final_send_click_performed_once": true,
+      "pageId": 54,
+      "text": "- region \"Notifications\" [ref=e49] [cursor=pointer]\n- dialog \"Publish\"\n  - heading \"Publish\" [level=2]\n  - button \"close\" [ref=e50]\n    - image\n  - form\n    - LabelText\n    - LabelText\n      - generic [ref=e51] [cursor=pointer]\n        - radio \"Everyone\" [ref=e52]\n    - LabelText\n      - generic [ref=e53] [cursor=pointer]\n        - radio \"Subscribers only\" [ref=e54]\n    - LabelText\n      - radio \"Paid subscribers only (Turn on paid subscriptions)\" [disabled] [ref=e55]\n      - link \"(Turn on paid subscriptions)\" [ref=e56] [url=\"https://capitalchronicle.substack.com/publish/settings#payments-settings\"]\n  - form\n    - LabelText\n    - LabelText\n      - generic [ref=e57] [cursor=pointer]\n        - radio \"Everyone\" [ref=e58]\n    - LabelText\n      - generic [ref=e59] [cursor=pointer]\n        - radio \"Subscribers only\" [ref=e60]\n    - LabelText\n      - generic [ref=e61] [cursor=pointer]\n        - radio \"No one (disable comments)\" [ref=e62]\n  - LabelText\n  - combobox \"Select or create tags\" [collapsed] [ref=e63]\n  - button [collapsed] [ref=e64]\n  - LabelText [ref=e65] [cursor=pointer]\n  - button \"Social preview\" [ref=e66]\n    - button \"Edit\" [ref=e67]\n      - image\n  - form\n    - LabelText\n    - LabelText [ref=e68] [cursor=pointer]\n      - checkbox \"Send via email and the Substack app\" [ref=e69]\n        - image\n    - LabelText\n    - LabelText [ref=e70] [cursor=pointer]\n      - checkbox \"Schedule time to email and publish\" [ref=e71]\n        - image\n  - LabelText\n  - button \"Scan for AI text\" [ref=e72]\n    - image\n  - button \"Disable AI detection\" [ref=e73]\n    - image\n  - button \"Cancel\" [disabled] [ref=e74]\n  - button \"indeterminate progress Loading Publishing...\" [disabled] [ref=e75]\n    - progressbar \"Loading\"\n      - image",
+      "url": "https://capitalchronicle.substack.com/publish/post/223246940"
+    }
+  },
+  "disposition": "Final send attempted once; read back this exact object before any further public action. No repeat send authorized by this record."
+}
