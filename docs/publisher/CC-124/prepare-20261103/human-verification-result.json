@@ -1,0 +1,9 @@
+{
+  "actual_tool": "mcp__browseros_neo__await_human_help",
+  "actual_result": {
+    "elapsedSeconds": 672,
+    "requestId": "help-01M6F9PKEE3ZAP7YY9J109DE28",
+    "status": "waiting"
+  },
+  "disposition": "Still awaiting owner account verification. This run stops at the named external blocker; the existing human handoff and exact object remain resumable. No timeout, cancellation, verification success or publication is inferred."
+}

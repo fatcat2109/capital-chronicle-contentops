@@ -76,3 +76,14 @@ publication while the exact-object outcome remains unverified.
 The later bounded recovery improvements passed 89 and 90 focused coordinator
 checks respectively. Actual canonical publication and text-channel distribution
 remain separate from all test and render evidence.
+
+Run closeout: **blocked by Substack email verification, zero new confirmed
+articles**. The standing item returns to OPEN. The human handoff was still
+waiting after 672 seconds; this is not a verification or timeout result. The
+coordinator has recorded `UNKNOWN_WRITE` for object `223246940` and issued exact
+READBACK request `f1ce96ec386446ccd524ced88cc547929401843d2c33d22a32f964f3576210a3`.
+See [validation.json](validation.json), [the human handoff state](human-verification-result.json)
+and [the recovery output](64-publication-recovery-output.json). Jim completes the
+account check; Publisher then collects the real exact-object readback through
+that request and continues the same article's eligible text channels. The
+uncertain send must never be repeated.

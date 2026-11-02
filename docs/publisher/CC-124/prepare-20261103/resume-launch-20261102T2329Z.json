@@ -1,0 +1,11 @@
+{
+  "recorded_at_utc": "2026-11-02T23:42:18.1895835Z",
+  "process_id": 24220,
+  "process_started_at_utc": "2026-11-02T23:29:57.9192980Z",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "model_argument": "--model gpt-6.1-sol",
+  "effort_argument": "-c model_reasoning_effort=\"max\"",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "evidence": "Current resumed top-level CC-124 codex exec launch arguments read back; no supported actual-model or actual-effort telemetry."
+}

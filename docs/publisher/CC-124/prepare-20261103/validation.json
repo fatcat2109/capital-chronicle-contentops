@@ -1,0 +1,158 @@
+{
+  "recorded_at_utc": "2026-11-02T23:43:58.970855+00:00",
+  "item": "CC-124",
+  "run_id": "cc124-prepare-20261103-a",
+  "run_outcome": "BLOCKED_EXTERNAL_VERIFICATION",
+  "standing_item_status": "OPEN",
+  "first_cause": "SUBSTACK_EMAIL_VERIFICATION_REQUIRED",
+  "title": "September CPI: why 0.6% and 3.7% answer different questions",
+  "article_identity": "e8f9f4ec5cf1fc91133e77d4bb27b45435139db5b121bbf4252c29f75bab1bdd",
+  "package_revision": "ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305",
+  "review_id": "native-article-review-55476c0419554ad7a8d3d0e936467c72",
+  "qualified_articles": 1,
+  "new_confirmed_canonical_articles": 0,
+  "new_confirmed_derivatives": 0,
+  "canonical_url": null,
+  "canonical_dispatch_status": "UNKNOWN_WRITE",
+  "draft_id": "223246940",
+  "draft_url": "https://capitalchronicle.substack.com/publish/post/223246940",
+  "final_send_clicks": 1,
+  "inflow_confirmation": "Publish without buttons",
+  "schedule_option": "UNCHECKED",
+  "native_publish_request_sha256": "dc3e7289e2a8ec911137f30f9152ecb6fd4fa7d39f6a62ca7112da089ce376ea",
+  "pending_readback_request_sha256": "f1ce96ec386446ccd524ced88cc547929401843d2c33d22a32f964f3576210a3",
+  "pending_readback_tool_request_sha256": "62b5a183c0b4adc11eaa9abfdbbe7ada7adf51adc4d1630d9d32a8380d8e2272",
+  "live_binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a\\binding.json",
+  "original_cutoff_utc": "2026-11-02T20:24:15.008803Z",
+  "same_native_max_writer": "/root/native_visual_edit_1f6d9bfd6170",
+  "editorial_model_status": "CONFIGURED_NOT_OBSERVED",
+  "render_review": {
+    "same_max_prepared_views": 18,
+    "native_substack_transport_views": 2,
+    "same_max_acceptance_unchanged": true,
+    "copy_comparison": "PASS"
+  },
+  "focused_checks": [
+    {
+      "artifact": "runtime-release-memory-repair-pytest.xml",
+      "tests": 41,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "disposition": "PASS"
+    },
+    {
+      "artifact": "runtime-recovery-policy-repair-pytest-attempt1.xml",
+      "tests": 46,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "disposition": "Superseded fixture-only failure; corrected five-case rerun passes"
+    },
+    {
+      "artifact": "runtime-recovery-policy-repair-pytest.xml",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "disposition": "PASS"
+    },
+    {
+      "artifact": "runtime-identity-freshness-repair-pytest.xml",
+      "tests": 26,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "disposition": "PASS"
+    },
+    {
+      "artifact": "runtime-scoped-recovery-repair-pytest.xml",
+      "tests": 116,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "disposition": "PASS"
+    },
+    {
+      "artifact": "runtime-recovery-performance-repair-pytest.xml",
+      "tests": 89,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "disposition": "PASS"
+    },
+    {
+      "artifact": "runtime-recovery-snapshot-repair-pytest.xml",
+      "tests": 90,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "disposition": "PASS"
+    }
+  ],
+  "operating_head": "1bfdaf8e717340e7c5ae11ac94513affca8e7b00",
+  "operating_tag": "contentops-live-20261103-cc124-recovery-snapshot",
+  "rollback_tag": "contentops-live-20261103-cc124-recovery-scan",
+  "task_branch": "backlog/cc-124-standing-article-production",
+  "code_branch": "backlog/cc-124-runtime-compiler-repair",
+  "no_default_branch_merge": true,
+  "schedule_changes": false,
+  "chat_messages_sent": 0,
+  "app_restarts": 0,
+  "next_action": "Jim completes Substack email verification on draft 223246940; Publisher begins the exact pending READBACK, observes the real canonical object, submits and reconciles it, then continues this article's admitted text destinations. Never repeat the canonical send or create a replacement draft.",
+  "evidence": [
+    {
+      "path": "20-keep-review-output.json",
+      "sha256": "f1fd1df6bad7aad0e47d0e75f1f577f8af6ea988504d59f6dbb2e26dd4b6f70a"
+    },
+    {
+      "path": "24-release-finished-output.json",
+      "sha256": "54859a180fd045016330f5889397bb38dcd57db6ec86b6708aa0d0b9c148dcf4"
+    },
+    {
+      "path": "55-substack-draft-created.json",
+      "sha256": "9cb1012904d740518cdc9cfa63c3b88b181ffd53be108ab6096d2c6c64f0f029"
+    },
+    {
+      "path": "56-substack-exact-copy-check.json",
+      "sha256": "7dffb04073f3d8a14b68e400b43b8afcc9cfe650f44ae5cc91a51b6899211f09"
+    },
+    {
+      "path": "57-substack-rendered-transport-check.json",
+      "sha256": "373f8f681d1f6b7cb3ee0e2a8ae2829283067cefb35265c38b9a35ef85fdc2c9"
+    },
+    {
+      "path": "60-substack-final-send-observation.json",
+      "sha256": "14e1ccbc99f09b48aab9a67f84843c23f9d6490be29db79d5f0c74a7a12acdff"
+    },
+    {
+      "path": "61-substack-inflow-confirmation.json",
+      "sha256": "4ed0553b78b3d3644b5e0d221c15a0e14030c0d76bbe5cf0498f537781379585"
+    },
+    {
+      "path": "62-substack-publish-response.json",
+      "sha256": "ca4cdab6f2d75e0df51628a1d704642545299630df07e38da5544215cd78c86b"
+    },
+    {
+      "path": "63-submit-substack-publish-output.json",
+      "sha256": "bcc1253ec5ba83cb5a4873a3ed8a62dbf998fccba514b5b3dec2733dc1b30942"
+    },
+    {
+      "path": "64-publication-recovery-output.json",
+      "sha256": "bbf305d58f223f5b02bafc3995994b4e0ee38df0d11c82267862d2c077aaaff4"
+    },
+    {
+      "path": "identity-observation-correction.json",
+      "sha256": "ddb96d5fc28d2e32f504d0ec7311ac6d333d1a49a5c920b83ec9c8747d4ca760"
+    }
+  ],
+  "human_help": {
+    "actual_tool": "mcp__browseros_neo__await_human_help",
+    "actual_result": {
+      "elapsedSeconds": 672,
+      "requestId": "help-01M6F9PKEE3ZAP7YY9J109DE28",
+      "status": "waiting"
+    },
+    "disposition": "Still awaiting owner account verification. This run stops at the named external blocker; the existing human handoff and exact object remain resumable. No timeout, cancellation, verification success or publication is inferred."
+  }
+}
