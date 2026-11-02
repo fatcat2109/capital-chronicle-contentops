@@ -7,7 +7,12 @@ DurablePublicationCoordinator remain in use. No schedule or chat is changed.
 The tested CC-117 continuation and CC-107 event templates/guard were integrated
 by fast-forward under `contentops-live-20261102-cc123a`. The operating checkout's
 42 uncommitted entries had identical status hashes before and after. The previous
-rollback tag is `contentops-live-20261102-d39`.
+rollback tag for that first slice is `contentops-live-20261102-d39`.
+
+The final tested source release is `contentops-live-20261103-cc123`
+(`78d14adc`), including the decision 39 distribution guard. Its immediate rollback
+is `contentops-live-20261103-cc123e`. Six passing targeted JUnit reports cover the
+integration; the live canonical and four derivative readbacks are separate proof.
 
 ## Release a finished piece
 

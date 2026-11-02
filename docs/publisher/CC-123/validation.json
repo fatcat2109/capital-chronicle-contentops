@@ -1,6 +1,6 @@
 {
   "schema_version": "contentops.cc123.validation.v1",
-  "observed_at_utc": "2026-11-02T18:59:43.467530+00:00",
+  "observed_at_utc": "2026-11-02T19:00:42.783653+00:00",
   "branch": "backlog/cc-123-publication-path",
   "base_tag": "contentops-live-20261102-d39",
   "dependencies": {
@@ -77,7 +77,7 @@
       "whole_suite": false
     }
   ],
-  "implementation_head": "2197c1380897477d91568a701c585ed8e7b2f3fb",
+  "implementation_head": "78d14adc3dfcf3127e05c8720c0958b0679feeb3",
   "integration": {
     "observed_at_utc": "2026-11-02T16:47:26.418950+00:00",
     "previous_head": "71bceaa33b68d55f57e5b035f20093f9433a79d9",
@@ -290,6 +290,19 @@
       "active_window_leases": 0,
       "mode": "FAST_FORWARD_ONLY",
       "integration_lease": "Existing shared newsroom lease"
+    },
+    {
+      "observed_at_utc": "2026-11-02T19:00:42.752665+00:00",
+      "previous_head": "2197c1380897477d91568a701c585ed8e7b2f3fb",
+      "rollback_tag": "contentops-live-20261103-cc123e",
+      "integrated_head": "78d14adc3dfcf3127e05c8720c0958b0679feeb3",
+      "tag": "contentops-live-20261103-cc123",
+      "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "uncommitted_entries": 42,
+      "active_window_leases": 0,
+      "mode": "FAST_FORWARD_ONLY",
+      "integration_lease": "Existing shared newsroom lease"
     }
   ],
   "publication_attempt": {
@@ -364,7 +377,7 @@
     "live_contentops/v1_simple_publication_handoff_v1.py": "1237e56b14077e1a9c2262f8c12bc61b37e32f3742da41e600f88f7865fa4830",
     "tests/test_publication_coordinator_v1.py": "ff6a16a06e5c589ec31dbe9d2f65d5e8d19cbf0125e8bcec9ee8404d86c7e280"
   },
-  "status": "TESTED_CANONICAL_ACCEPTANCE_CONFIRMED_FINAL_INTEGRATION_PENDING",
+  "status": "DONE_CANONICAL_READBACK_CONFIRMED_DISTRIBUTION_PARTIAL",
   "delivery_media_fix": {
     "cause": "Native editorial_data_journalism and retained public-domain documentary-photo roles were unrecognized by the legacy delivery selector",
     "source_assets_and_reviews": "UNCHANGED",
@@ -555,7 +568,7 @@
     "next_canonical_eligible_utc": "2026-11-02T21:20:08.539332+00:00"
   },
   "prior_distribution_guard": {
-    "status": "TESTED_PENDING_INTEGRATION",
+    "status": "TESTED_AND_INTEGRATED",
     "scope": "Only exact decision 39 finished-release marker or standing binding; frozen/default path unchanged",
     "old_unknown_write": "PRESERVED; no retry authorized by this classification",
     "canonical_or_same_article_ambiguity": "STILL_BLOCKS",
@@ -611,5 +624,13 @@
     "item": "CC-124",
     "required_last_step": "Set OPEN after final checks, push and integration",
     "article_operation_started": false
+  },
+  "acceptance": {
+    "status": "PASS",
+    "targeted_checks": "Six passing serial targeted JUnit reports; no workers or whole suite",
+    "existing_publisher_real_publication_and_readback": true,
+    "finished_and_standing_path": "TESTED_AND_INTEGRATED",
+    "native_roles_source_clocks_rights_public_output_guard_kill_switch": "PRESERVED",
+    "new_article_or_CC124_operation_started": false
   }
 }
