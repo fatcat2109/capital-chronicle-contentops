@@ -1,0 +1,58 @@
+{
+  "scope": "PRIVATE_PREPARATION_UP_TO_FIVE_NOT_FILLER",
+  "new_acquisitions": 0,
+  "eligible_events_so_far": 1,
+  "other_candidates": [
+    {
+      "event_family": "CPI",
+      "candidate": "September 2026 CPI, released 14 October",
+      "state": "HOLD_HISTORICAL_EDITION_AND_MAIN_EVENT_ASSOCIATION_MISSING",
+      "retained_lead": "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/retained_research/goal20-bls-cpi-september-source-rendered.json",
+      "source_url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+      "reason": "Later retained capture of a mutable current-release URL; no eligible contemporaneous immutable edition and exact Main event packet found in this bounded read. Do not present later/revised contents as the event-time release.",
+      "next_actor": "Ops/Data source owner",
+      "next_action": "Supply exact historical edition, publication/observation/revision clocks, rights and Main event association before another native writer.",
+      "retained_lead_sha256": "4330d74ce3e0868f5991ea944f74feff8568309efe7bd6ef10bd2f285f2ee6a3"
+    },
+    {
+      "event_family": "NFP",
+      "candidate": "Past payroll release",
+      "state": "HOLD_REAL_EVENT_PACKET_NOT_FOUND",
+      "reason": "Bounded event-history search found the future 6 November prompt, not an eligible past payroll source packet. No outcome or values inferred from that prompt.",
+      "next_actor": "Ops/Data source owner",
+      "next_action": "Supply a retained past-event Main packet plus primary release edition and exact clocks/rights."
+    },
+    {
+      "event_family": "TIER1_QUARTERLY",
+      "candidate": "21 October IBM/Tesla/Meta leads",
+      "state": "HOLD_PRIMARY_ISSUER_EDITION_AND_MAIN_EVENT_ASSOCIATION_MISSING",
+      "reason": "Retained leads are attributed Reuters report captures, not an admitted original issuer earnings packet with the required historical Main association. They are not reclassified as original quarterly evidence.",
+      "next_actor": "Ops/Data source owner",
+      "next_action": "Supply the eligible issuer primary source edition, date/window/revision and reuse evidence bound to Main event history."
+    },
+    {
+      "event_family": "FOMC",
+      "candidate": "16 September 2026 decision",
+      "state": "HOLD_CONTEMPORANEOUS_EDITION_MISSING",
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+      "reason": "Dated retained official page was captured on 19 October. Last Update alone does not establish its exact event-time bytes. No earlier contemporaneous packet was established in the bounded read.",
+      "next_actor": "Ops/Data source owner",
+      "next_action": "Supply the exact retained event-time edition; do not fetch a newer current copy as a substitute."
+    }
+  ],
+  "public_export_observation": {
+    "pointer_path": "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/provider_resume_binding.json",
+    "pointer_sha256": "9bed8c1bf37e8ba146aa062997962b9d57a25e4ca370b54f7e643aec5c875dc7",
+    "configured_root": "A:/Capital Chronicle/Runtime/MainPublicReports-v1",
+    "manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+    "entries": 15,
+    "assets": [
+      "USOIL",
+      "UKOIL",
+      "XNGUSD"
+    ],
+    "event_packet_not_present": true,
+    "public_authority_not_inferred": true
+  },
+  "CC043_port_decision": "Not needed for the selected retained-source article; no Main/Web schema, normalizer or producer contract changed."
+}

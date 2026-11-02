@@ -1,0 +1,10 @@
+{
+  "schema_version": "contentops.retrospective_piece.v1",
+  "piece_id": "cc074-fomc-20261028-private",
+  "status": "PRIVATE_DATED_RECORD_VALIDATED",
+  "chart_count": 2,
+  "source_count": 2,
+  "first_native_call_record_utc": "2026-11-01T05:19:07+00:00",
+  "public_write_performed": false,
+  "publication_authority": false
+}

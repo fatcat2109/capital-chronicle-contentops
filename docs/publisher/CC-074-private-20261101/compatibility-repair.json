@@ -1,0 +1,15 @@
+{
+  "observed_error": "immutable_runtime_artifact_identity_conflict:simple_gemini_evidence_v1.json",
+  "operation": "cc074-retro-fomc-20261028-v1",
+  "first_cause": "Adding permission metadata to source projection changed an already retained evidence artifact. The immutable guard refused it before writing/model invocation.",
+  "resolution": "Restored source-research/source-pack projection exactly to parent. The existing chart owner now reopens and verifies the exact local retained-source index/capture/policy for old packets without altering their bytes.",
+  "abandoned_projection_files": [
+    "live_contentops/contentops_source_research_v1.py",
+    "live_contentops/v1_simple_gemini_newsroom_v1.py"
+  ],
+  "accepted_requests_replaced": false,
+  "same_binding_resumed": true,
+  "new_source_requests": 0,
+  "public_write_performed": false,
+  "original_evidence_current_sha256": "24fa92da6f499f8d47e2afb3abd1be7447ffdf15086d030240a9c2cbd1b6c5ef"
+}

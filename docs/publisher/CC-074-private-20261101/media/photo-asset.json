@@ -1,0 +1,31 @@
+{
+  "asset_id": "cc074-archive-warsh-20260522",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\media\\archive-warsh-20260522.jpg",
+  "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+  "width": 635,
+  "height": 900,
+  "modality": "documentary_photo",
+  "documentary_generated_classification": "AUTHENTIC_DOCUMENTARY_PHOTOGRAPH",
+  "rights_status": "PUBLIC_DOMAIN",
+  "source_page_url": "https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg",
+  "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House%2C_Friday%2C_May_22%2C_2026._%28Cropped%29.jpg",
+  "creator_publisher": "The White House",
+  "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+  "depicted_date": "22 May 2026, 12:12:50",
+  "attribution": "Official White House photograph by Daniel Torok, May 22, 2026. Public domain (US federal government). Commons crop; no further edits.",
+  "source_reuse_basis": "Exact Commons PD-USGov template, federal authorship and retained public-domain policy",
+  "caption": "Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context; this is not a photograph of the October 28 decision.",
+  "alt_text": "Archive portrait of Kevin Warsh in a navy suit at his May 22, 2026 swearing-in ceremony.",
+  "relevance_rationale": "The retained October 28 FOMC statement and implementation note concern the institution chaired by Kevin Warsh. This earlier official portrait supplies institutional archive context only, not evidence of the meeting or vote.",
+  "context_only": true,
+  "corroborates_article_facts": false,
+  "is_thumbnail": false,
+  "rights_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\media\\photo-rights.json",
+  "rights_evidence_sha256": "a2e719ea883df3930fb136ce679a8e244898f459f2d8bf400de5dd445e05b047",
+  "visual_review": {
+    "asset_sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+    "pixels_inspected": true,
+    "relevant_subject": true,
+    "reviewer": "Parent view_image actual original pixels, 1 November 2026; clear unmodified archive portrait, no event labels. Same MAX review still required."
+  }
+}

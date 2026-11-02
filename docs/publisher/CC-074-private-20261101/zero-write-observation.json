@@ -1,0 +1,60 @@
+{
+  "checked_at_utc": "2026-11-01T08:48:22.269081+00:00",
+  "source_open_mode": "SQLITE_URI_MODE_RO",
+  "baseline": {
+    "baseline_counts": {
+      "outbox_messages": 1002,
+      "platform_dispatches": 0,
+      "reconciliations": 0,
+      "review_records": 71,
+      "work_items": 330
+    },
+    "copied_at_utc": "2026-11-01T05:13:07.617948Z",
+    "copied_store": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-074\\private-20261101\\editorial-copy.sqlite3",
+    "copy_method": "SQLITE_MODE_RO_BACKUP_EXISTING_OWNER_STORE",
+    "no_blank_replacement_store": true,
+    "production_mutated": false,
+    "source_profile_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\config\\native_desktop_operator_profile_v1.json",
+    "source_store": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\owner-newsroom\\editorial-v4.sqlite3"
+  },
+  "original_current_counts": {
+    "outbox_messages": 1002,
+    "platform_dispatches": 0,
+    "reconciliations": 0,
+    "review_records": 71,
+    "work_items": 330
+  },
+  "copy_current_counts": {
+    "outbox_messages": 1040,
+    "platform_dispatches": 0,
+    "reconciliations": 0,
+    "review_records": 72,
+    "work_items": 347
+  },
+  "checks": {
+    "same_prior_outbox_rows": true,
+    "source_new_operation_rows": 0,
+    "copied_dispatches": 0,
+    "copied_reconciliations": 0,
+    "new_external_outbox_rows": []
+  },
+  "new_row_destinations": [
+    "internal:cc-foundation-library",
+    "internal:cc-foundation-revision-request",
+    "internal:cc-report-editorial-stage",
+    "internal:cc-report-feed",
+    "internal:cc-report-opportunity",
+    "internal:cc-report-simple-result",
+    "internal:contentops-main-headline-export",
+    "internal:native-audience-snapshot",
+    "internal:native-current-input",
+    "internal:native-desktop-editorial",
+    "internal:native-editorial-media-plan",
+    "internal:native-editorial-package-history",
+    "internal:native-owner-edition"
+  ],
+  "new_internal_rows": 38,
+  "prior_rows_sha256": "759446f5b93b94cb008f68a3e7e1ec2b4b62a9c14f57554e1fda7f812b9e00cc",
+  "interpretation": "Real copied-store evidence; original owner store has no CC074 operation. No public transport dispatch/reconciliation/new external outbox; static/test evidence is separate.",
+  "original_all_prior_rows_exact": true
+}

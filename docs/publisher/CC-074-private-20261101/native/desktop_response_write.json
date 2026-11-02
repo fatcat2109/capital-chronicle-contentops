@@ -1,0 +1,518 @@
+{
+  "request_sha256": "e9632ef563723758c1c9094c644df0c089db1b0ad4c735da0d5518e4e775b97e",
+  "output": {
+    "article": {
+      "title": "The Fed held on October 28. Both dissenters wanted a hike.",
+      "canonical_editorial_headline": "The Fed held on October 28. Both dissenters wanted a hike.",
+      "dek": "A 10-2 vote kept the federal funds target at 3.75 to 4 percent. The dissenters wanted an increase; the companion note explains the operating settings.",
+      "subtitle": "A 10-2 vote kept the federal funds target at 3.75 to 4 percent. The dissenters wanted an increase; the companion note explains the operating settings.",
+      "search_title": "October 28, 2026 Fed hold: vote and operating rates explained",
+      "seo_title": "October 28, 2026 Fed hold: vote and operating rates explained",
+      "meta_description": "The Fed held its target at 3.75 to 4 percent in a 10-2 vote. Read the direction of dissent separately from the operating rates in its October 28, 2026 note.",
+      "social_hook": "The Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.",
+      "social_lede": "The Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.",
+      "substack_body_markdown": "*Retrospective analysis, written on 1 November 2026 (GMT+7).* [[SOURCE:SOURCE_1]]\n\nAn unchanged rate can still contain a pointed disagreement. On October 28, 2026, the Federal Reserve's policy committee voted 10-2 to keep the federal funds target range at 3.75 to 4 percent, according to its [[CITE:SOURCE_1|October 28 statement]]. Both dissenters wanted a quarter-percentage-point increase. [[SOURCE:SOURCE_1]]\n\nCapital Chronicle's reading is that the decision and its implementation answer different questions. The vote establishes the target range and the direction of disagreement. The companion note sets out the rates and instructions used to implement that stance. A reader needs both documents to distinguish the policy choice from its operating settings. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\n## A hold with dissent in one direction\n\nLisa D. Cook and Beth M. Hammack voted against the action because they preferred to raise the target range by a quarter percentage point at that meeting. That makes the direction of dissent clear: they favored an increase, while the approved action maintained the range. [[SOURCE:SOURCE_1]]\n\nThe statement described economic activity as expanding strongly, domestic spending as resilient and inflation as elevated. It also said accumulating more information would help the Committee determine the stance appropriate for a timely return to its 2 percent inflation goal. That is the Committee's published assessment; it should not be turned into a separate explanation attributed to either dissenter. [[SOURCE:SOURCE_1]]\n\nThe strongest countercase to a looming-hike interpretation is the decision itself: ten members approved keeping the range unchanged. The two dissenters' preference is evidence of disagreement at this meeting, not a forecast of the next vote. Reading the split as a timetable for higher rates would give it a meaning the vote alone cannot establish. [[SOURCE:SOURCE_1]]\n\n## One target range, several operating rates\n\nThe [[CITE:SOURCE_2|companion implementation note]] describes decisions to carry out the October 28 policy stance. The Board of Governors unanimously maintained interest paid on reserve balances at 3.90 percent, effective October 29. The directive to the New York Fed's trading desk, also effective October 29, instructed it to undertake operations as necessary to maintain the federal funds rate within the 3.75 to 4 percent target range. [[SOURCE:SOURCE_2]]\n\nThe same directive set standing overnight repo operations at 4.0 percent and the standing overnight reverse repo offering rate at 3.75 percent. In a related action, the Board unanimously approved the primary credit rate at its existing 4.0 percent level. The note therefore assigns some identical numbers to different instruments; it does not combine those instruments into a single rate. [[SOURCE:SOURCE_2]]\n\nThe 3.90 percent reserve-balances setting is not a substitute label for the 3.75 to 4 percent federal funds target range. One is an individual rate; the other is the interval the desk is instructed to maintain. Likewise, unanimous Board actions on reserve interest and primary credit should not be mistaken for unanimity in the 10-2 FOMC decision. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\nThese are announced settings, not observations of the rates at which market transactions actually took place. The chart compares their stated levels and roles. It should not be read as a record of market repricing or as a measure of how effectively the instruments transmitted the decision. [[SOURCE:SOURCE_2]]\n\n## What to watch in a later decision\n\nThe next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote. The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\n*Analysis, not financial advice. Readers decide whether to trade.* [[SOURCE:SOURCE_1]]",
+      "display_date": "1 November 2026",
+      "reader_first_version": "DATA_JOURNALISM_V1",
+      "visual_editorial_decision": {
+        "channel_media": {
+          "discord": [
+            "cc074-fomc-20261028-vote-direction",
+            "cc074-fomc-20261028-rate-framework"
+          ],
+          "facebook_page": [
+            "cc074-fomc-20261028-vote-direction",
+            "cc074-fomc-20261028-rate-framework"
+          ],
+          "instagram_business": [
+            "cc074-fomc-20261028-vote-direction",
+            "cc074-fomc-20261028-rate-framework"
+          ],
+          "linkedin": [
+            "cc074-fomc-20261028-rate-framework"
+          ],
+          "telegram": [
+            "cc074-fomc-20261028-vote-direction"
+          ],
+          "threads": [
+            "cc074-fomc-20261028-vote-direction"
+          ],
+          "x": [
+            "cc074-fomc-20261028-vote-direction"
+          ],
+          "youtube": [
+            "cc074-fomc-20261028-vote-direction"
+          ]
+        },
+        "channel_media_limits": "Private preview choices only. Each selected figure must retain legible metric, units, period, source and announcement/observation distinction at the destination's displayed size. Do not crop away the dissent direction, effective-date qualification or announced-settings label. No upload, platform draft or send is authorized.",
+        "charts": [
+          {
+            "asset_id": "cc074-fomc-20261028-vote-direction",
+            "data_spec": {
+              "canonical_content_sha256": "97cfd01ed6a111e97f890e3571e16940206827649baa637c876905ffbb3560bc",
+              "chart_form": "Two horizontal bars with a shared zero-based axis labelled Members. Directly label counts and action preferences. Use restrained distinguishable colors and text labels; show the named dissenters in a readable annotation. No pie, gauge, implied probability scale or pictorial heads.",
+              "currency": null,
+              "document_id": "cc074-fomc-20261028-statement",
+              "missingness": "Individual majority names and individual rationales are not supplied. Do not infer them.",
+              "observations": [
+                {
+                  "category": "Approve hold",
+                  "decision": "Maintain the federal funds target range at 3-3/4 to 4 percent",
+                  "votes": 10
+                },
+                {
+                  "category": "Prefer increase",
+                  "named_dissenters": [
+                    "Lisa D. Cook",
+                    "Beth M. Hammack"
+                  ],
+                  "preferred_change_percentage_points": 0.25,
+                  "votes": 2
+                }
+              ],
+              "period": "October 28, 2026 meeting",
+              "rights_evidence_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+              "source_credit": "Source: Federal Reserve Board, October 28, 2026 FOMC statement.",
+              "source_id": "SOURCE_1",
+              "source_series": "October 28, 2026 FOMC statement vote on the announced monetary-policy action; single-meeting categorical counts, not a time series",
+              "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+              "transform": "Code extracts the literal counts and maps the exact 1/4-percentage-point preference to the decimal 0.25 using exact decimal arithmetic. No vote percentages, probability conversion, extrapolation or forecast; do not construct a hypothetical resulting target range.",
+              "unit": "members for vote counts; percentage points for the quoted dissent preference",
+              "value_status": "actual announced vote and explicitly recorded dissent preference"
+            },
+            "placement_after": "A hold with dissent in one direction",
+            "question": "What did the majority approve, and in which direction did the dissenters disagree?",
+            "why_useful": "A two-category vote comparison joins the strength of the majority to the direction of dissent. It prevents an undifferentiated split-vote graphic from suggesting the dissenters wanted a cut or that the committee was evenly divided. Name the two dissenters beside their preference; do not invent a majority-member roster."
+          },
+          {
+            "asset_id": "cc074-fomc-20261028-rate-framework",
+            "data_spec": {
+              "canonical_content_sha256_by_document": {
+                "cc074-fomc-20261028-implementation": "9287c9f882db7a20b4d69242fdad3999e1aaa01d16749e9cadd5806999ad77d0",
+                "cc074-fomc-20261028-statement": "97cfd01ed6a111e97f890e3571e16940206827649baa637c876905ffbb3560bc"
+              },
+              "chart_form": "Horizontal interval-and-dot plot with a separately labelled target-range row and one row per operating setting. Shared percent axis, direct endpoint and point labels; distinguish the band from dots and each instrument by its full label. A clearly labelled local axis is acceptable for point positions; do not use truncated bars or imply rate changes through line connections. State Announced settings, not observed market rates within the figure.",
+              "context_boundary": "SOURCE_2 remains the retained official companion-note context. Attribute its settings to that note within the historical cutoff; do not upgrade it to an independent second confirmation of the FOMC vote or any market outcome.",
+              "currency": null,
+              "document_ids": [
+                "cc074-fomc-20261028-statement",
+                "cc074-fomc-20261028-implementation"
+              ],
+              "missingness": "No effective federal funds rate, utilization, transaction rates, prior-meeting values or transmission outcomes are admitted. Leave all absent. Do not label facilities as hard market floors or ceilings.",
+              "observations": [
+                {
+                  "lower_percent": 3.75,
+                  "representation": "interval",
+                  "series": "Federal funds target range",
+                  "source_id": "SOURCE_1",
+                  "upper_percent": 4.0
+                },
+                {
+                  "representation": "point",
+                  "series": "Interest on reserve balances",
+                  "source_id": "SOURCE_2",
+                  "value_percent": 3.9
+                },
+                {
+                  "representation": "point",
+                  "series": "Standing overnight reverse repo offering rate",
+                  "source_id": "SOURCE_2",
+                  "value_percent": 3.75
+                },
+                {
+                  "representation": "point",
+                  "series": "Standing overnight repo rate",
+                  "source_id": "SOURCE_2",
+                  "value_percent": 4.0
+                },
+                {
+                  "representation": "point",
+                  "series": "Primary credit rate",
+                  "source_id": "SOURCE_2",
+                  "timing_note": "Existing level in related Board action; do not invent a distinct new effective date",
+                  "value_percent": 4.0
+                }
+              ],
+              "period": "Announced October 28, 2026; implementation directive and reserve-balances setting effective October 29, 2026. Primary credit described as existing in the related Board action.",
+              "private_scope": "Use within this private retained-source operation only. The feed's public_republication_authority=false is preserved; this decision creates no public release authority.",
+              "rights_evidence_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+              "source_credit": "Source: Federal Reserve Board, October 28, 2026 FOMC statement and implementation note.",
+              "source_ids": [
+                "SOURCE_1",
+                "SOURCE_2"
+              ],
+              "source_series": "Single announcement's target-range endpoints and instrument-specific implementation settings; an announced cross-section, not realized interest-rate observations",
+              "source_urls": [
+                "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+                "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a1.htm"
+              ],
+              "transform": "Code maps the literal fractional target endpoint to decimal percent and normalizes display precision to two decimal places. Plot exact announced values. No interpolation, averaging, midpoint, inferred spread, yield-curve construction or historical comparison.",
+              "unit": "percent",
+              "value_status": "actual announced policy settings; effective date remains distinct from announcement and historical observation"
+            },
+            "placement_after": "One target range, several operating rates",
+            "question": "Which announced rates define the target band, and which are settings for separate operating instruments?",
+            "why_useful": "A shared-rate-axis comparison makes the target interval visually distinct from the individual administered settings. It prevents the 3.90 percent reserve-balances rate from being mistaken for the federal funds target or an observed market rate, and it shows that equal numeric settings can belong to different instruments."
+          }
+        ],
+        "classification_rationale": "This is a substantive but bounded document-led explanation, so retain ANALYSIS and two useful charts. A historical time series is unnecessary for these categorical and cross-sectional questions. Do not convert it into a NEWS/POLICY exception merely to reduce media requirements. Two charts answer different reader questions; no third chart is justified by the packet.",
+        "contextual_photo_ids": [
+          "cc074-archive-warsh-20260522"
+        ],
+        "countercase": "The majority approved the hold. Two dissenters favoring an increase do not establish an imminent hike, a tightening probability, or the views of the ten supporters beyond this decision. Several implementation settings, including unanimous Board actions, do not make the FOMC vote unanimous or establish a separate change in the policy stance. The retained documents do not explain each member's reasoning.",
+        "editorial_thesis": "Explain two separate dimensions of the retained October 28 documents: the 10-2 decision maintained the federal funds target range while the named dissenters preferred a quarter-percentage-point increase; the companion implementation note specified different settings for distinct instruments. The vote describes the decision and disagreement, while the operating settings describe implementation. Neither document establishes a future rate path, a policy surprise, or a market reaction.",
+        "essential_gaps": [
+          "The original first print is not verified. The article must describe the retained snapshots observed before 2026-10-28T19:14:31.428086Z and must not imply those exact bytes were captured at 18:00Z.",
+          "No market expectations, realized market reaction, economic time series, individual majority reasoning or subsequent events are supplied. These are exclusions from the argument, not permission to acquire sources or infer missing values.",
+          "SOURCE_2 retains its context-only status and private-use boundary. Carry the existing rights evidence and exact retained source spans into the deterministic chart binding; do not silently turn this plan into public source admission.",
+          "Charts still require code-owned extraction, numeric checks, source/transform hashes and actual rendering. This visual plan does not assert their pixels or final article layout have passed review.",
+          "The same actual writer must inspect the exact assembled canonical and all eight previews at desktop and mobile sizes, repair material defects and bind its acceptance to the final revisions. Only the original archive-photo pixels have been inspected at this stage."
+        ],
+        "final_prose_written": false,
+        "historical_data_boundary": {
+          "historical_facts_cutoff_utc": "2026-10-28T19:14:31.428086Z",
+          "implementation_observed_utc": "2026-10-28T19:13:00.161Z",
+          "later_information_allowed": false,
+          "official_publication_utc": "2026-10-28T18:00:00Z",
+          "operation_cutoff_utc": "2026-11-01T05:13:41.397188Z",
+          "required_visible_labels": [
+            "Retrospective analysis, written on 1 November 2026 (GMT+7)",
+            "Analysis, not financial advice. Readers decide whether to trade."
+          ],
+          "statement_observed_utc": "2026-10-28T19:12:15.347Z"
+        },
+        "light_preparation_review": "Preserve the Light stage's source limits, attribution and prohibition on inferred market outcomes. Its zero-chart proposal was reasonable for a statement-only policy brief, but the exact owner request and retained, pre-cutoff implementation note support the distinct comparison below. The implementation capture was observed at 19:13:00.161Z, before the actual 19:14:31.428086Z historical cutoff; its observation after the stated 18:00Z publication is not a cutoff failure and does not prove first-print contents.",
+        "new_source_requests_performed": 0,
+        "photo_binding": {
+          "alt_text": "Archive portrait of Kevin Warsh in a navy suit at his May 22, 2026 swearing-in ceremony.",
+          "asset_id": "cc074-archive-warsh-20260522",
+          "attribution": "Official White House photograph by Daniel Torok, May 22, 2026. Public domain (US federal government). Commons crop; no further edits.",
+          "caption": "Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context; this is not a photograph of the October 28 decision.",
+          "corroborates_article_facts": false,
+          "derivative_use": "Omit the archive portrait from derivatives; use the selected explanatory charts. Preserve the full supplied credit on the canonical private preview.",
+          "inspection_method": "Local view_image of the exact 635 x 900 original JPEG in this native role. Clear portrait, no meeting label or visual claim about October 28. Identity and date are bound to the retained White House/Commons metadata, not inferred from facial recognition.",
+          "pixels_inspected": true,
+          "public_domain_policy_sha256": "912ced1b4aaabbf261558f55ab1cdc25e1bf74cde3c7db6cc0a76d70c5560619",
+          "rights_evidence_sha256": "a2e719ea883df3930fb136ce679a8e244898f459f2d8bf400de5dd445e05b047",
+          "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+          "use": "Canonical contextual photograph, after the short opening explanation; preserve its portrait ratio and use a modest display width so it does not displace the answer on the first screen."
+        },
+        "public_write_performed": false,
+        "reader_first_version": "DATA_JOURNALISM_V1",
+        "reader_question": "How can the Fed hold its target range, record two votes for a hike, and announce several different operating rates without those numbers describing different policy decisions?",
+        "rejected_visuals": [
+          {
+            "reason": "No admitted historical rate path, market prices or expectations; later data would violate the retrospective boundary.",
+            "visual": "Policy-rate history or market-reaction chart"
+          },
+          {
+            "reason": "Vote counts are not probabilities or measured surprise; no such calculation is admitted.",
+            "visual": "Hike/cut probability, surprise gauge or hawkishness score"
+          },
+          {
+            "reason": "Repeats the two selected explanations without adding a distinct reader question.",
+            "visual": "Additional target-range-only panel or vote-percentage doughnut"
+          },
+          {
+            "reason": "Only the inspected May 22 archive portrait is bound; no invented event image or new acquisition.",
+            "visual": "Current or simulated October 28 meeting photograph"
+          },
+          {
+            "reason": "The note's operating instructions supply neither a purchase-amount series nor an outcome measure; they do not support an invented balance-sheet path.",
+            "visual": "Balance-sheet expansion chart or quantified easing interpretation"
+          }
+        ],
+        "slug": "october-28-fed-hold-vote-operating-rates",
+        "source_request_count": 0,
+        "source_request_limit": 10,
+        "story_kind": "ANALYSIS"
+      },
+      "story_kind": "ANALYSIS",
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "slug": "october-28-fed-hold-vote-operating-rates",
+      "canonical_slug_candidate": "october-28-fed-hold-vote-operating-rates",
+      "primary_reader_question": "What did the Fed agree to hold on October 28, where did the two dissenters disagree, and how is that policy choice different from the rates used to implement it?",
+      "secondary_reader_questions": [
+        "Which direction did the two FOMC dissenters favor?",
+        "Why is interest on reserve balances different from the federal funds target range?",
+        "What can the recorded vote establish about a later decision?"
+      ],
+      "entities": [
+        "Federal Reserve Board",
+        "Federal Open Market Committee",
+        "Lisa D. Cook",
+        "Beth M. Hammack",
+        "Federal Reserve Bank of New York"
+      ],
+      "topics": [
+        "October 2026 FOMC decision",
+        "Monetary policy",
+        "Federal funds target range",
+        "Policy implementation"
+      ],
+      "search_freshness_class": "EVERGREEN",
+      "internal_link_candidates": [],
+      "author_identity": "Capital Chronicle",
+      "publisher_identity": "Capital Chronicle",
+      "structured_data_packet": null,
+      "institutional_edge_editorial_packet_sha256": "e257636ad2a27a1c125b22cfaaf32a831e09a94a0726797a13e5e4d38e9c5294",
+      "reader_attribution_policy": "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1",
+      "social_mechanism_summary": "Capital Chronicle's reading is that the decision and its implementation answer different questions. The vote establishes the target range and the direction of disagreement. The companion note sets out the rates and instructions used to implement that stance. A reader needs both documents to distinguish the policy choice from its operating settings.",
+      "social_policy_summary": "The strongest countercase to a looming-hike interpretation is the decision itself: ten members approved keeping the range unchanged. The two dissenters' preference is evidence of disagreement at this meeting, not a forecast of the next vote. Reading the split as a timetable for higher rates would give it a meaning the vote alone cannot establish.",
+      "social_cross_asset_summary": "The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote. The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.",
+      "epistemic_claims": [
+        {
+          "text": "Capital Chronicle's reading is that the decision and its implementation answer different questions. The vote establishes the target range and the direction of disagreement. The companion note sets out the rates and instructions used to implement that stance. A reader needs both documents to distinguish the policy choice from its operating settings.",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "public_treatment": "EXPLICIT_ANALYSIS",
+          "source_ids": [
+            "SOURCE_1",
+            "SOURCE_2"
+          ]
+        },
+        {
+          "text": "The strongest countercase to a looming-hike interpretation is the decision itself: ten members approved keeping the range unchanged. The two dissenters' preference is evidence of disagreement at this meeting, not a forecast of the next vote. Reading the split as a timetable for higher rates would give it a meaning the vote alone cannot establish.",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "public_treatment": "SUPPORTED_SYNTHESIS",
+          "source_ids": [
+            "SOURCE_1"
+          ]
+        },
+        {
+          "text": "The 3.90 percent reserve-balances setting is not a substitute label for the 3.75 to 4 percent federal funds target range. One is an individual rate; the other is the interval the desk is instructed to maintain. Likewise, unanimous Board actions on reserve interest and primary credit should not be mistaken for unanimity in the 10-2 FOMC decision.",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "public_treatment": "SUPPORTED_SYNTHESIS",
+          "source_ids": [
+            "SOURCE_1",
+            "SOURCE_2"
+          ]
+        }
+      ],
+      "photo_credit": "Official White House photograph by Daniel Torok, May 22, 2026. Public domain (US federal government). Commons crop; no further edits.",
+      "media_credits": [
+        {
+          "asset_id": "cc074-archive-warsh-20260522",
+          "caption": "Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context; this is not a photograph of the October 28 decision.",
+          "alt_text": "Archive portrait of Kevin Warsh in a navy suit at his May 22, 2026 swearing-in ceremony.",
+          "attribution": "Official White House photograph by Daniel Torok, May 22, 2026. Public domain (US federal government). Commons crop; no further edits.",
+          "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+          "context_only": true,
+          "corroborates_article_facts": false
+        }
+      ],
+      "source_clock_metadata": {
+        "historical_facts_cutoff_utc": "2026-10-28T19:14:31.428086Z",
+        "official_publication_utc": "2026-10-28T18:00:00Z",
+        "statement_observed_utc": "2026-10-28T19:12:15.347Z",
+        "implementation_observed_utc": "2026-10-28T19:13:00.161Z",
+        "operation_cutoff_utc": "2026-11-01T05:13:41.397188Z",
+        "original_first_print_verified": false,
+        "source_snapshot_status": "RETAINED_BEFORE_HISTORICAL_CUTOFF",
+        "new_factual_evidence_acquired": false
+      }
+    },
+    "cited_sources": [
+      {
+        "published_at_utc": "2026-10-28T18:00:00Z",
+        "publisher": "Federal Reserve Board",
+        "source_id": "SOURCE_1",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+      },
+      {
+        "published_at_utc": "2026-10-28T18:00:00Z",
+        "publisher": "Federal Reserve Board",
+        "source_id": "SOURCE_2",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a1.htm"
+      }
+    ],
+    "material_claim_bindings": [
+      {
+        "claim_id": "cc074-title",
+        "claim_text": "The Fed held on October 28. Both dissenters wanted a hike.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.\n\nHome News & Events Press Releases Press Release PDF October 28, 2026 Federal Reserve issues FOMC statement For release at 2:00 p.m. EDT Share The Federal Open Market Committee approved the following statement for release by a 10 – 2 vote:\n\nThe Committee is continuing its policy of maintaining ample reserves in the banking system. Economic activity is expanding at a strong pace. While uncertainty remains elevated owing, in part, to geopolitical developments, domestic spending has been resilient. Productivity growth is strong, and capital investment is robust. Job gains have kept pace with the workforce, and the unemployment rate has changed little. Inflation remains elevated. The accumulation of more information will help the Committee determine the policy stance appropriate to ensure a timely return of inflation to the Committee's 2 percent goal. The Committee will deliver price stability. Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-dek",
+        "claim_text": "A 10-2 vote kept the federal funds target at 3.75 to 4 percent. The dissenters wanted an increase; the companion note explains the operating settings.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.\n\nHome News & Events Press Releases Press Release PDF October 28, 2026 Federal Reserve issues FOMC statement For release at 2:00 p.m. EDT Share The Federal Open Market Committee approved the following statement for release by a 10 – 2 vote:\n\nThe Committee is continuing its policy of maintaining ample reserves in the banking system. Economic activity is expanding at a strong pace. While uncertainty remains elevated owing, in part, to geopolitical developments, domestic spending has been resilient. Productivity growth is strong, and capital investment is robust. Job gains have kept pace with the workforce, and the unemployment rate has changed little. Inflation remains elevated. The accumulation of more information will help the Committee determine the policy stance appropriate to ensure a timely return of inflation to the Committee's 2 percent goal. The Committee will deliver price stability. Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-search-title",
+        "claim_text": "October 28, 2026 Fed hold: vote and operating rates explained",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.\n\nHome News & Events Press Releases Press Release PDF October 28, 2026 Federal Reserve issues FOMC statement For release at 2:00 p.m. EDT Share The Federal Open Market Committee approved the following statement for release by a 10 – 2 vote:\n\nThe Committee is continuing its policy of maintaining ample reserves in the banking system. Economic activity is expanding at a strong pace. While uncertainty remains elevated owing, in part, to geopolitical developments, domestic spending has been resilient. Productivity growth is strong, and capital investment is robust. Job gains have kept pace with the workforce, and the unemployment rate has changed little. Inflation remains elevated. The accumulation of more information will help the Committee determine the policy stance appropriate to ensure a timely return of inflation to the Committee's 2 percent goal. The Committee will deliver price stability. Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-meta-description",
+        "claim_text": "The Fed held its target at 3.75 to 4 percent in a 10-2 vote. Read the direction of dissent separately from the operating rates in its October 28, 2026 note.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.\n\nHome News & Events Press Releases Press Release PDF October 28, 2026 Federal Reserve issues FOMC statement For release at 2:00 p.m. EDT Share The Federal Open Market Committee approved the following statement for release by a 10 – 2 vote:\n\nThe Committee is continuing its policy of maintaining ample reserves in the banking system. Economic activity is expanding at a strong pace. While uncertainty remains elevated owing, in part, to geopolitical developments, domestic spending has been resilient. Productivity growth is strong, and capital investment is robust. Job gains have kept pace with the workforce, and the unemployment rate has changed little. Inflation remains elevated. The accumulation of more information will help the Committee determine the policy stance appropriate to ensure a timely return of inflation to the Committee's 2 percent goal. The Committee will deliver price stability. Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-social-hook",
+        "claim_text": "The Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.\n\nHome News & Events Press Releases Press Release PDF October 28, 2026 Federal Reserve issues FOMC statement For release at 2:00 p.m. EDT Share The Federal Open Market Committee approved the following statement for release by a 10 – 2 vote:\n\nThe Committee is continuing its policy of maintaining ample reserves in the banking system. Economic activity is expanding at a strong pace. While uncertainty remains elevated owing, in part, to geopolitical developments, domestic spending has been resilient. Productivity growth is strong, and capital investment is robust. Job gains have kept pace with the workforce, and the unemployment rate has changed little. Inflation remains elevated. The accumulation of more information will help the Committee determine the policy stance appropriate to ensure a timely return of inflation to the Committee's 2 percent goal. The Committee will deliver price stability. Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-dek-implementation",
+        "claim_text": "A 10-2 vote kept the federal funds target at 3.75 to 4 percent. The dissenters wanted an increase; the companion note explains the operating settings.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to maintain the interest rate paid on reserve balances at 3.90 percent, effective October 29, 2026.\n\nHome News & Events Press Releases Federal Reserve issues FOMC statement Press Release October 28, 2026 Implementation Note issued October 28, 2026 Decisions Regarding Monetary Policy Implementation The Federal Reserve has made the following decisions to implement the monetary policy stance announced by the Federal Open Market Committee in its statement on October 28, 2026:\n\nAs part of its policy decision, the Federal Open Market Committee voted to direct the Open Market Desk at the Federal Reserve Bank of New York, until instructed otherwise, to execute transactions in the System Open Market Account in accordance with the following domestic policy directive: \"Effective October 29, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day. When appropriate, increase the System Open Market Account holdings of securities through purchases of Treasury bills and, if needed, other Treasury securities with remaining maturities of 3 years or less to maintain an ample level of reserves. Roll over at auction all principal payments from the Federal Reserve's holdings of Treasury securities. Reinvest all principal payments from the Federal Reserve's holdings of agency securities into Treasury bills.\" In a related action, the Board of Governors of the Federal Reserve System voted unanimously to approve the establishment of the primary credit rate at the existing level of 4.0 percent.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-search-title-implementation",
+        "claim_text": "October 28, 2026 Fed hold: vote and operating rates explained",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to maintain the interest rate paid on reserve balances at 3.90 percent, effective October 29, 2026.\n\nHome News & Events Press Releases Federal Reserve issues FOMC statement Press Release October 28, 2026 Implementation Note issued October 28, 2026 Decisions Regarding Monetary Policy Implementation The Federal Reserve has made the following decisions to implement the monetary policy stance announced by the Federal Open Market Committee in its statement on October 28, 2026:\n\nAs part of its policy decision, the Federal Open Market Committee voted to direct the Open Market Desk at the Federal Reserve Bank of New York, until instructed otherwise, to execute transactions in the System Open Market Account in accordance with the following domestic policy directive: \"Effective October 29, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day. When appropriate, increase the System Open Market Account holdings of securities through purchases of Treasury bills and, if needed, other Treasury securities with remaining maturities of 3 years or less to maintain an ample level of reserves. Roll over at auction all principal payments from the Federal Reserve's holdings of Treasury securities. Reinvest all principal payments from the Federal Reserve's holdings of agency securities into Treasury bills.\" In a related action, the Board of Governors of the Federal Reserve System voted unanimously to approve the establishment of the primary credit rate at the existing level of 4.0 percent.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-meta-description-implementation",
+        "claim_text": "The Fed held its target at 3.75 to 4 percent in a 10-2 vote. Read the direction of dissent separately from the operating rates in its October 28, 2026 note.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to maintain the interest rate paid on reserve balances at 3.90 percent, effective October 29, 2026.\n\nHome News & Events Press Releases Federal Reserve issues FOMC statement Press Release October 28, 2026 Implementation Note issued October 28, 2026 Decisions Regarding Monetary Policy Implementation The Federal Reserve has made the following decisions to implement the monetary policy stance announced by the Federal Open Market Committee in its statement on October 28, 2026:\n\nAs part of its policy decision, the Federal Open Market Committee voted to direct the Open Market Desk at the Federal Reserve Bank of New York, until instructed otherwise, to execute transactions in the System Open Market Account in accordance with the following domestic policy directive: \"Effective October 29, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day. When appropriate, increase the System Open Market Account holdings of securities through purchases of Treasury bills and, if needed, other Treasury securities with remaining maturities of 3 years or less to maintain an ample level of reserves. Roll over at auction all principal payments from the Federal Reserve's holdings of Treasury securities. Reinvest all principal payments from the Federal Reserve's holdings of agency securities into Treasury bills.\" In a related action, the Board of Governors of the Federal Reserve System voted unanimously to approve the establishment of the primary credit rate at the existing level of 4.0 percent.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-opening",
+        "claim_text": "An unchanged rate can still contain a pointed disagreement. On October 28, 2026, the Federal Reserve's policy committee voted 10-2 to keep the federal funds target range at 3.75 to 4 percent, according to its [[CITE:SOURCE_1|October 28 statement]]. Both dissenters wanted a quarter-percentage-point increase.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.\n\nHome News & Events Press Releases Press Release PDF October 28, 2026 Federal Reserve issues FOMC statement For release at 2:00 p.m. EDT Share The Federal Open Market Committee approved the following statement for release by a 10 – 2 vote:\n\nThe Committee is continuing its policy of maintaining ample reserves in the banking system. Economic activity is expanding at a strong pace. While uncertainty remains elevated owing, in part, to geopolitical developments, domestic spending has been resilient. Productivity growth is strong, and capital investment is robust. Job gains have kept pace with the workforce, and the unemployment rate has changed little. Inflation remains elevated. The accumulation of more information will help the Committee determine the policy stance appropriate to ensure a timely return of inflation to the Committee's 2 percent goal. The Committee will deliver price stability. Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-decision-implementation-reading-statement",
+        "claim_text": "Capital Chronicle's reading is that the decision and its implementation answer different questions. The vote establishes the target range and the direction of disagreement. The companion note sets out the rates and instructions used to implement that stance. A reader needs both documents to distinguish the policy choice from its operating settings.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-decision-implementation-reading-note",
+        "claim_text": "Capital Chronicle's reading is that the decision and its implementation answer different questions. The vote establishes the target range and the direction of disagreement. The companion note sets out the rates and instructions used to implement that stance. A reader needs both documents to distinguish the policy choice from its operating settings.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "The Federal Reserve has made the following decisions to implement the monetary policy stance announced by the Federal Open Market Committee in its statement on October 28, 2026:",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-dissent-direction",
+        "claim_text": "Lisa D. Cook and Beth M. Hammack voted against the action because they preferred to raise the target range by a quarter percentage point at that meeting. That makes the direction of dissent clear: they favored an increase, while the approved action maintained the range.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-statement-economic-context",
+        "claim_text": "The statement described economic activity as expanding strongly, domestic spending as resilient and inflation as elevated. It also said accumulating more information would help the Committee determine the stance appropriate for a timely return to its 2 percent inflation goal. That is the Committee's published assessment; it should not be turned into a separate explanation attributed to either dissenter.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.\n\nHome News & Events Press Releases Press Release PDF October 28, 2026 Federal Reserve issues FOMC statement For release at 2:00 p.m. EDT Share The Federal Open Market Committee approved the following statement for release by a 10 – 2 vote:\n\nThe Committee is continuing its policy of maintaining ample reserves in the banking system. Economic activity is expanding at a strong pace. While uncertainty remains elevated owing, in part, to geopolitical developments, domestic spending has been resilient. Productivity growth is strong, and capital investment is robust. Job gains have kept pace with the workforce, and the unemployment rate has changed little. Inflation remains elevated. The accumulation of more information will help the Committee determine the policy stance appropriate to ensure a timely return of inflation to the Committee's 2 percent goal. The Committee will deliver price stability. Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-countercase",
+        "claim_text": "The strongest countercase to a looming-hike interpretation is the decision itself: ten members approved keeping the range unchanged. The two dissenters' preference is evidence of disagreement at this meeting, not a forecast of the next vote. Reading the split as a timetable for higher rates would give it a meaning the vote alone cannot establish.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.\n\nHome News & Events Press Releases Press Release PDF October 28, 2026 Federal Reserve issues FOMC statement For release at 2:00 p.m. EDT Share The Federal Open Market Committee approved the following statement for release by a 10 – 2 vote:\n\nThe Committee is continuing its policy of maintaining ample reserves in the banking system. Economic activity is expanding at a strong pace. While uncertainty remains elevated owing, in part, to geopolitical developments, domestic spending has been resilient. Productivity growth is strong, and capital investment is robust. Job gains have kept pace with the workforce, and the unemployment rate has changed little. Inflation remains elevated. The accumulation of more information will help the Committee determine the policy stance appropriate to ensure a timely return of inflation to the Committee's 2 percent goal. The Committee will deliver price stability. Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-implementation-iorb-and-directive",
+        "claim_text": "The [[CITE:SOURCE_2|companion implementation note]] describes decisions to carry out the October 28 policy stance. The Board of Governors unanimously maintained interest paid on reserve balances at 3.90 percent, effective October 29. The directive to the New York Fed's trading desk, also effective October 29, instructed it to undertake operations as necessary to maintain the federal funds rate within the 3.75 to 4 percent target range.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to maintain the interest rate paid on reserve balances at 3.90 percent, effective October 29, 2026.\n\nHome News & Events Press Releases Federal Reserve issues FOMC statement Press Release October 28, 2026 Implementation Note issued October 28, 2026 Decisions Regarding Monetary Policy Implementation The Federal Reserve has made the following decisions to implement the monetary policy stance announced by the Federal Open Market Committee in its statement on October 28, 2026:\n\nAs part of its policy decision, the Federal Open Market Committee voted to direct the Open Market Desk at the Federal Reserve Bank of New York, until instructed otherwise, to execute transactions in the System Open Market Account in accordance with the following domestic policy directive: \"Effective October 29, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day. When appropriate, increase the System Open Market Account holdings of securities through purchases of Treasury bills and, if needed, other Treasury securities with remaining maturities of 3 years or less to maintain an ample level of reserves. Roll over at auction all principal payments from the Federal Reserve's holdings of Treasury securities. Reinvest all principal payments from the Federal Reserve's holdings of agency securities into Treasury bills.\" In a related action, the Board of Governors of the Federal Reserve System voted unanimously to approve the establishment of the primary credit rate at the existing level of 4.0 percent.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-operating-settings",
+        "claim_text": "The same directive set standing overnight repo operations at 4.0 percent and the standing overnight reverse repo offering rate at 3.75 percent. In a related action, the Board unanimously approved the primary credit rate at its existing 4.0 percent level. The note therefore assigns some identical numbers to different instruments; it does not combine those instruments into a single rate.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to maintain the interest rate paid on reserve balances at 3.90 percent, effective October 29, 2026.\n\nHome News & Events Press Releases Federal Reserve issues FOMC statement Press Release October 28, 2026 Implementation Note issued October 28, 2026 Decisions Regarding Monetary Policy Implementation The Federal Reserve has made the following decisions to implement the monetary policy stance announced by the Federal Open Market Committee in its statement on October 28, 2026:\n\nAs part of its policy decision, the Federal Open Market Committee voted to direct the Open Market Desk at the Federal Reserve Bank of New York, until instructed otherwise, to execute transactions in the System Open Market Account in accordance with the following domestic policy directive: \"Effective October 29, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day. When appropriate, increase the System Open Market Account holdings of securities through purchases of Treasury bills and, if needed, other Treasury securities with remaining maturities of 3 years or less to maintain an ample level of reserves. Roll over at auction all principal payments from the Federal Reserve's holdings of Treasury securities. Reinvest all principal payments from the Federal Reserve's holdings of agency securities into Treasury bills.\" In a related action, the Board of Governors of the Federal Reserve System voted unanimously to approve the establishment of the primary credit rate at the existing level of 4.0 percent.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-distinguish-rate-target-votes-statement",
+        "claim_text": "The 3.90 percent reserve-balances setting is not a substitute label for the 3.75 to 4 percent federal funds target range. One is an individual rate; the other is the interval the desk is instructed to maintain. Likewise, unanimous Board actions on reserve interest and primary credit should not be mistaken for unanimity in the 10-2 FOMC decision.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.\n\nHome News & Events Press Releases Press Release PDF October 28, 2026 Federal Reserve issues FOMC statement For release at 2:00 p.m. EDT Share The Federal Open Market Committee approved the following statement for release by a 10 – 2 vote:\n\nThe Committee is continuing its policy of maintaining ample reserves in the banking system. Economic activity is expanding at a strong pace. While uncertainty remains elevated owing, in part, to geopolitical developments, domestic spending has been resilient. Productivity growth is strong, and capital investment is robust. Job gains have kept pace with the workforce, and the unemployment rate has changed little. Inflation remains elevated. The accumulation of more information will help the Committee determine the policy stance appropriate to ensure a timely return of inflation to the Committee's 2 percent goal. The Committee will deliver price stability. Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-distinguish-rate-target-votes-note",
+        "claim_text": "The 3.90 percent reserve-balances setting is not a substitute label for the 3.75 to 4 percent federal funds target range. One is an individual rate; the other is the interval the desk is instructed to maintain. Likewise, unanimous Board actions on reserve interest and primary credit should not be mistaken for unanimity in the 10-2 FOMC decision.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to maintain the interest rate paid on reserve balances at 3.90 percent, effective October 29, 2026.\n\nHome News & Events Press Releases Federal Reserve issues FOMC statement Press Release October 28, 2026 Implementation Note issued October 28, 2026 Decisions Regarding Monetary Policy Implementation The Federal Reserve has made the following decisions to implement the monetary policy stance announced by the Federal Open Market Committee in its statement on October 28, 2026:\n\nAs part of its policy decision, the Federal Open Market Committee voted to direct the Open Market Desk at the Federal Reserve Bank of New York, until instructed otherwise, to execute transactions in the System Open Market Account in accordance with the following domestic policy directive: \"Effective October 29, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day. When appropriate, increase the System Open Market Account holdings of securities through purchases of Treasury bills and, if needed, other Treasury securities with remaining maturities of 3 years or less to maintain an ample level of reserves. Roll over at auction all principal payments from the Federal Reserve's holdings of Treasury securities. Reinvest all principal payments from the Federal Reserve's holdings of agency securities into Treasury bills.\" In a related action, the Board of Governors of the Federal Reserve System voted unanimously to approve the establishment of the primary credit rate at the existing level of 4.0 percent.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-announced-settings-limit",
+        "claim_text": "These are announced settings, not observations of the rates at which market transactions actually took place. The chart compares their stated levels and roles. It should not be read as a record of market repricing or as a measure of how effectively the instruments transmitted the decision.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "The Federal Reserve has made the following decisions to implement the monetary policy stance announced by the Federal Open Market Committee in its statement on October 28, 2026:",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-watch-statement",
+        "claim_text": "The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote. The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.\n\nHome News & Events Press Releases Press Release PDF October 28, 2026 Federal Reserve issues FOMC statement For release at 2:00 p.m. EDT Share The Federal Open Market Committee approved the following statement for release by a 10 – 2 vote:\n\nThe Committee is continuing its policy of maintaining ample reserves in the banking system. Economic activity is expanding at a strong pace. While uncertainty remains elevated owing, in part, to geopolitical developments, domestic spending has been resilient. Productivity growth is strong, and capital investment is robust. Job gains have kept pace with the workforce, and the unemployment rate has changed little. Inflation remains elevated. The accumulation of more information will help the Committee determine the policy stance appropriate to ensure a timely return of inflation to the Committee's 2 percent goal. The Committee will deliver price stability. Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc074-watch-note",
+        "claim_text": "The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote. The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "The Federal Reserve has made the following decisions to implement the monetary policy stance announced by the Federal Open Market Committee in its statement on October 28, 2026:",
+        "attribution_required": true
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_article.v1"
+  },
+  "written_at_utc": "2026-11-01T05:37:56.952296Z",
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_visual_edit_266e6978a4ec",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Supported native collaboration context assigns this canonical task name and continues the same visual editor as writer for exact assignment cc074-retro-fomc-20261028-v1:write. Actual model/effort are not exposed. No environment, credentials, config secrets or process arguments were probed.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Exact frozen desktop_request_write.json requested_model/requested_reasoning_effort and parent native assignment; configured values are not observed execution settings.",
+    "observed_at_utc": "2026-11-01T05:37:56.952296Z"
+  },
+  "first_written_at_utc": "2026-11-01T05:36:40.007450Z"
+}

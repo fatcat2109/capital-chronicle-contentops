@@ -1,0 +1,395 @@
+{
+  "schema_version": "contentops.retrospective_piece.v1",
+  "piece_id": "cc074-fomc-20261028-private",
+  "operation_id": "cc074-retro-fomc-20261028-v1",
+  "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+  "title": "The Fed held on October 28. Both dissenters wanted a hike.",
+  "story_kind": "ANALYSIS",
+  "event": {
+    "event_id": "FOMC-20261028",
+    "published_at_utc": "2026-10-28T18:00:00Z",
+    "knowledge_cutoff_utc": "2026-10-28T19:14:31.428086Z",
+    "main_event_handoff_sha256": "7bc2e11942a8e139b292eae221860b246aad74f2868af9ea890f89663a08311b",
+    "main_event_lineage_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\sources\\fomc-20261028\\main-event-lineage.json",
+    "cutoff_basis": "Real Main event handoff snapshot, not release-minute replay",
+    "publication_clock_scope": "Statement exact release clock; implementation exact release clock not independently verified"
+  },
+  "written_at_utc": "2026-11-01T05:37:56.952296Z",
+  "written_on_gmt7": "2026-11-01",
+  "native_calls": [
+    {
+      "actual_configuration_unavailable": true,
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Exact frozen final-visual request requested_model/requested_reasoning_effort and supported parent assignment. Configured values are not labelled observed.",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "invocation_id": "/root/native_visual_edit_266e6978a4ec",
+      "model": null,
+      "observation_source": "Same supported native collaboration task and exact final-visual assignment; every named local image opened with view_image. Actual model/effort not exposed; no environment, credential, secret config or process probing.",
+      "observed_at_utc": "2026-11-01T08:29:51.453449Z",
+      "reasoning_effort": null,
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "stage": "final-visual-87ee9fb1db653a87a43b339458afefdf9502f9ff3ce3d7f518579dda434c69bd",
+      "request_sha256": "1e2ab5f609e2a4b568fa3abe74137fb6d96c32028b38b92df5639312415405e8",
+      "native_request_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\native\\desktop_request_final-visual-87ee9fb1db653a87a43b339458afefdf9502f9ff3ce3d7f518579dda434c69bd.json",
+      "native_request_file_sha256": "e024732ee3862101870a950fef093ea5843ecb80359c536c403c45dd0c140e98",
+      "native_response_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\native\\desktop_response_final-visual-87ee9fb1db653a87a43b339458afefdf9502f9ff3ce3d7f518579dda434c69bd.json",
+      "native_response_file_sha256": "4dfa8c31827cc0cf212f4dd1bf0e0544e24e1272be1613d8d4f66c4d22b3975c",
+      "accepted_response_sha256": "7f2726d0431cceb1cda0a5db3b4948187f45983fb1e4a2a71271c3ac5b33ef97",
+      "invocation_recorded_at_utc": "2026-11-01T08:29:51.453449Z",
+      "clock_basis": "Actual native review observation; follow-up start precision unexposed"
+    },
+    {
+      "actual_configuration_unavailable": true,
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Exact frozen desktop_request_final-visual-9081b56508d2e28660859cd387e53330d5e2fb463e5199a9b493849b5abfe5a9.json requested_model/requested_reasoning_effort and supported parent task assignment; configured values are not observed model settings.",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "invocation_id": "/root/native_visual_edit_266e6978a4ec",
+      "model": null,
+      "observation_source": "Supported native collaboration context continues the exact visual editor/writer for this final-review assignment. All18 bound PNGs and3 media originals were opened with local view_image; four inspection-only original-width crops supplement the tall canonical mobile PNG. Actual model/effort are not exposed. No environment, process/session, credential or secret-config probing.",
+      "observed_at_utc": "2026-11-01T08:45:01.387005Z",
+      "reasoning_effort": null,
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "stage": "final-visual-9081b56508d2e28660859cd387e53330d5e2fb463e5199a9b493849b5abfe5a9",
+      "request_sha256": "9f23d68ac1aac3bb76cdc37ec0d4bdfb80b65d2e9cc9466b36e578349fd14071",
+      "native_request_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\native\\desktop_request_final-visual-9081b56508d2e28660859cd387e53330d5e2fb463e5199a9b493849b5abfe5a9.json",
+      "native_request_file_sha256": "cc950351e8f4ae77f54764b0878fc3f546835d0ad28fcd6ce05e924d1ba97640",
+      "native_response_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\native\\desktop_response_final-visual-9081b56508d2e28660859cd387e53330d5e2fb463e5199a9b493849b5abfe5a9.json",
+      "native_response_file_sha256": "c2a33b0803c9c8370c42f09ac44325aa2a4a4e86d425b6782ceb500587e4b63c",
+      "accepted_response_sha256": "552e9a593d8758e1e16760c29e7394896f4e46c7015cd9595511c289f3541d42",
+      "invocation_recorded_at_utc": "2026-11-01T08:45:01.387005Z",
+      "clock_basis": "Actual native review observation; follow-up start precision unexposed"
+    },
+    {
+      "actual_configuration_unavailable": true,
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Exact frozen desktop_request_media-plan.json requested_model and requested_reasoning_effort; configured values are not observed execution values.",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "low",
+      "invocation_id": "/root/native_select_a99031b355c8",
+      "model": null,
+      "observation_source": "Supported native task context supplies the canonical task name /root/native_select_a99031b355c8; actual model and reasoning effort are not exposed in this context.",
+      "reasoning_effort": null,
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "stage": "media-plan",
+      "request_sha256": "a99031b355c8e279a7d1229fa67b7349f8355aae6faf4cbf2f9486615f7ade91",
+      "native_request_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\native\\desktop_request_media-plan.json",
+      "native_request_file_sha256": "0a2ce3ca5aeab6241e17c717ad787352b90853713a31592abc2d3a56ee8a19d8",
+      "native_response_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\native\\desktop_response_media-plan.json",
+      "native_response_file_sha256": "50cfe1181bd3c210f24900b62e4d8b464371a987722c4be5a19d3a2a3f9440dc",
+      "accepted_response_sha256": "ed4c5f48f49372a7e463e2f9d590f2ee7da5395d2424fe17549adef07abcf86a",
+      "invocation_recorded_at_utc": "2026-11-01T05:20:28Z",
+      "clock_basis": "Recorded dispatch clock before supported call; exact platform start unexposed"
+    },
+    {
+      "actual_configuration_unavailable": true,
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Exact frozen desktop_request_select.json requested_model and requested_reasoning_effort; configured values are not observed actual values.",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "low",
+      "invocation_id": "/root/native_select_7fce85e14728",
+      "model": null,
+      "observation_source": "Supported native task context supplies canonical task name /root/native_select_7fce85e14728; actual model and effort are not exposed.",
+      "reasoning_effort": null,
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "stage": "select",
+      "request_sha256": "7fce85e14728d1f6cc2ad2a563270f9eaa243954e0410e0851ec184acbcf8fd8",
+      "native_request_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\native\\desktop_request_select.json",
+      "native_request_file_sha256": "fcb51154c4297189060a8a84d7035624b21d82352fe2e10d6dbc0a34ac2d9cde",
+      "native_response_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\native\\desktop_response_select.json",
+      "native_response_file_sha256": "56096a2533cd04588c58654cc4644e249436d796c4a95922827ced2c008ea4aa",
+      "accepted_response_sha256": "0aa6669bdcabccef9c0ec3b571153dd038333184a509c4c785810a41eabc10f9",
+      "invocation_recorded_at_utc": "2026-11-01T05:19:07Z",
+      "clock_basis": "Recorded dispatch clock before supported call; exact platform start unexposed"
+    },
+    {
+      "actual_configuration_unavailable": true,
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Exact frozen desktop_request_visual-edit.json requested_model/requested_reasoning_effort and parent native assignment, request_sha256 266e6978a4ecafa0469f451f68fcf37c48a8456529c20dedc03abf1abb850d1d; these are configured values, not observed execution settings.",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "invocation_id": "/root/native_visual_edit_266e6978a4ec",
+      "model": null,
+      "observation_source": "Supported native collaboration context assigns this canonical task name and the exact assignment cc074-retro-fomc-20261028-v1:visual-edit. No separate session UUID or actual model/effort was exposed to this role. No environment, process arguments, credentials or config secrets were probed.",
+      "observed_at_utc": "2026-11-01T05:25:19Z",
+      "reasoning_effort": null,
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "stage": "visual-edit",
+      "request_sha256": "266e6978a4ecafa0469f451f68fcf37c48a8456529c20dedc03abf1abb850d1d",
+      "native_request_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\native\\desktop_request_visual-edit.json",
+      "native_request_file_sha256": "0e2af659cac377c9bd8a37d33968fc5882589b4dce7105e9812b44f08fcc3eaf",
+      "native_response_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\native\\desktop_response_visual-edit.json",
+      "native_response_file_sha256": "16b26c25a700da9cdd1009c4a0cca10dd0d2b0555d61f172bbf54d1a1326e685",
+      "accepted_response_sha256": "9ca2ffb641cf8d73b25ed45b6ec9ff6af83fa76d48d142f4b1b5fc32985d725f",
+      "invocation_recorded_at_utc": "2026-11-01T05:22:50Z",
+      "clock_basis": "Recorded dispatch clock before supported call; exact platform start unexposed"
+    },
+    {
+      "actual_configuration_unavailable": true,
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Exact frozen desktop_request_write.json requested_model/requested_reasoning_effort and parent native assignment; configured values are not observed execution settings.",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "invocation_id": "/root/native_visual_edit_266e6978a4ec",
+      "model": null,
+      "observation_source": "Supported native collaboration context assigns this canonical task name and continues the same visual editor as writer for exact assignment cc074-retro-fomc-20261028-v1:write. Actual model/effort are not exposed. No environment, credentials, config secrets or process arguments were probed.",
+      "observed_at_utc": "2026-11-01T05:37:56.952296Z",
+      "reasoning_effort": null,
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "stage": "write",
+      "request_sha256": "e9632ef563723758c1c9094c644df0c089db1b0ad4c735da0d5518e4e775b97e",
+      "native_request_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\native\\desktop_request_write.json",
+      "native_request_file_sha256": "b2df400bbc1f971de39c2ea840716690196694d136312654091a495f5439acd3",
+      "native_response_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\native\\desktop_response_write.json",
+      "native_response_file_sha256": "20a0f8f48c40a88bb77dee4c6bbe6196345c75872d15ef9417fa6e4b176e1c0e",
+      "accepted_response_sha256": "66fedb3c31f852534bb8e3c2683a428b5fa95ab9fb3e3a2f78f7b6f7d4b3e2aa",
+      "invocation_recorded_at_utc": "2026-11-01T05:33:09Z",
+      "clock_basis": "Recorded dispatch clock before supported call; exact platform start unexposed"
+    }
+  ],
+  "sources": [
+    {
+      "document_id": "cc074-fomc-20261028-statement",
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+      "original_known_at_utc": "2026-10-28T19:12:15.347Z",
+      "capture_sha256": "91c551a7cbe0a37fbdea08daac999b05b1561a234766727d07d50e09eb20ad0a",
+      "canonical_content_sha256": "97cfd01ed6a111e97f890e3571e16940206827649baa637c876905ffbb3560bc",
+      "edition_basis": "RETAINED_CONTEMPORANEOUS_CAPTURE",
+      "original_capture_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\sources\\fomc-20261028\\fomc-statement-dom.json",
+      "original_capture_sha256": "d9e3e143b9203f00a8c4320e025e259c694d23b1c736be0f06b43ca079f1d04f",
+      "representation_capture_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\sources\\fomc-20261028\\cc074-fomc-20261028-statement-capture.json",
+      "rights_capture_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\sources\\fomc-20261028\\fed-permission.json",
+      "factual_revision_at_utc": null,
+      "factual_revision_timestamp_state": "NOT_INDEPENDENTLY_VERIFIED; original source retained at named knownAt, Last Update date28Oct",
+      "representation_adapted_at_utc": "2026-11-01T05:13:07.617948Z",
+      "publication_clock_state": "EXPLICIT_2PM_EDT_STATEMENT",
+      "first_print_verified": false,
+      "capture_hash_basis": "VERIFIED_RENDERED_MARKDOWN_AND_CONTAINER",
+      "representation_capture_sha256": "18a849b79b81ae9c88eae7fcebb374de98c8e71bce9cf94d78ed1097ae32dd44"
+    },
+    {
+      "document_id": "cc074-fomc-20261028-implementation",
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a1.htm",
+      "original_known_at_utc": "2026-10-28T19:13:00.161Z",
+      "capture_sha256": "cd80d5d474c9a80572ad30cb63552792b69ada3c0374021b848474a4b9ab4014",
+      "canonical_content_sha256": "9287c9f882db7a20b4d69242fdad3999e1aaa01d16749e9cadd5806999ad77d0",
+      "edition_basis": "RETAINED_CONTEMPORANEOUS_CAPTURE",
+      "original_capture_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\sources\\fomc-20261028\\fomc-implementation-dom.json",
+      "original_capture_sha256": "ae9ff7fa413b83ed4fafcb111f5261217854b0d4834573e1589048e6006add63",
+      "representation_capture_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\sources\\fomc-20261028\\cc074-fomc-20261028-implementation-capture.json",
+      "rights_capture_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\sources\\fomc-20261028\\fed-permission.json",
+      "factual_revision_at_utc": null,
+      "factual_revision_timestamp_state": "NOT_INDEPENDENTLY_VERIFIED; original source retained at named knownAt, Last Update date28Oct",
+      "representation_adapted_at_utc": "2026-11-01T05:13:07.617948Z",
+      "publication_clock_state": "DATE_ONLY_IN_ORIGINAL_NOTE; inherited18:00Zadmission basis fromlinkedstatement, exact note release time not verified",
+      "first_print_verified": false,
+      "capture_hash_basis": "VERIFIED_RENDERED_MARKDOWN_AND_CONTAINER",
+      "representation_capture_sha256": "16e3cbed658c6c8daea0cefa976d81c9199e89b789fa265f6de38a87fb6d52d9"
+    }
+  ],
+  "charts": [
+    {
+      "asset_id": "cc074-fomc-20261028-vote-direction",
+      "series_ids": [
+        "FOMC_20261028_VOTE_COUNTS"
+      ],
+      "window_start_utc": "2026-10-28T18:00:00Z",
+      "window_end_utc": "2026-10-28T19:14:31.428086Z",
+      "source_capture_hashes": {
+        "cc074-fomc-20261028-statement": "91c551a7cbe0a37fbdea08daac999b05b1561a234766727d07d50e09eb20ad0a"
+      },
+      "point_times": [
+        {
+          "series_id": "FOMC_20261028_VOTE_COUNTS",
+          "point_index": 0,
+          "as_of_utc": "2026-10-28T19:12:15.347Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        },
+        {
+          "series_id": "FOMC_20261028_VOTE_COUNTS",
+          "point_index": 1,
+          "as_of_utc": "2026-10-28T19:12:15.347Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        }
+      ],
+      "transform_sha256": "73207d07b22bd1792557d7d0fa5625d6dd7e4d9ebdc885cd5412e0e998d1d777",
+      "computed_values": [
+        [
+          10.0,
+          2.0
+        ]
+      ],
+      "image_sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789"
+    },
+    {
+      "asset_id": "cc074-fomc-20261028-rate-framework",
+      "series_ids": [
+        "FOMC_20261028_TARGET_LOWER",
+        "FOMC_20261028_TARGET_UPPER",
+        "FOMC_20261028_IORB",
+        "FOMC_20261028_ON_RRP",
+        "FOMC_20261028_STANDING_REPO",
+        "FOMC_20261028_PRIMARY_CREDIT"
+      ],
+      "window_start_utc": "2026-10-28T18:00:00Z",
+      "window_end_utc": "2026-10-28T19:14:31.428086Z",
+      "source_capture_hashes": {
+        "cc074-fomc-20261028-implementation": "cd80d5d474c9a80572ad30cb63552792b69ada3c0374021b848474a4b9ab4014",
+        "cc074-fomc-20261028-statement": "91c551a7cbe0a37fbdea08daac999b05b1561a234766727d07d50e09eb20ad0a"
+      },
+      "point_times": [
+        {
+          "series_id": "FOMC_20261028_TARGET_LOWER",
+          "point_index": 0,
+          "as_of_utc": "2026-10-28T19:12:15.347Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        },
+        {
+          "series_id": "FOMC_20261028_TARGET_UPPER",
+          "point_index": 0,
+          "as_of_utc": "2026-10-28T19:12:15.347Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        },
+        {
+          "series_id": "FOMC_20261028_IORB",
+          "point_index": 0,
+          "as_of_utc": "2026-10-28T19:13:00.161Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        },
+        {
+          "series_id": "FOMC_20261028_ON_RRP",
+          "point_index": 0,
+          "as_of_utc": "2026-10-28T19:13:00.161Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        },
+        {
+          "series_id": "FOMC_20261028_STANDING_REPO",
+          "point_index": 0,
+          "as_of_utc": "2026-10-28T19:13:00.161Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        },
+        {
+          "series_id": "FOMC_20261028_PRIMARY_CREDIT",
+          "point_index": 0,
+          "as_of_utc": "2026-10-28T19:13:00.161Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        }
+      ],
+      "transform_sha256": "147e223ef9b18d80e47a2cd9f351ac4f6f99957c1e7ae28abe2116fd551bffc6",
+      "computed_values": [
+        [
+          3.75
+        ],
+        [
+          4.0
+        ],
+        [
+          3.9
+        ],
+        [
+          3.75
+        ],
+        [
+          4.0
+        ],
+        [
+          4.0
+        ]
+      ],
+      "image_sha256": "5b4223d7feee9476decf997e3a788f640ba68a223cd5318999ef52124433d851"
+    }
+  ],
+  "private_preparation_state": "SAME_MAX_FINAL_RENDER_ACCEPTED_AND_DESK_KEEP",
+  "public_write_performed": false,
+  "publication_authority": false,
+  "article_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\article.md",
+  "reader_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader.html",
+  "final_visual_review": {
+    "stage": "final-visual-9081b56508d2e28660859cd387e53330d5e2fb463e5199a9b493849b5abfe5a9",
+    "request_sha256": "9f23d68ac1aac3bb76cdc37ec0d4bdfb80b65d2e9cc9466b36e578349fd14071",
+    "response_sha256": "552e9a593d8758e1e16760c29e7394896f4e46c7015cd9595511c289f3541d42",
+    "output_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-074\\private-20261101\\articles\\cc074-retro-fomc-20261028-v1",
+    "article_revision": "babd5c02bcedea40f218c7c582c6982e3c4524936b7e649450dcc63aa1505d43",
+    "render_binding_sha256": "9081b56508d2e28660859cd387e53330d5e2fb463e5199a9b493849b5abfe5a9",
+    "invocation_observation": {
+      "actual_configuration_unavailable": true,
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Exact frozen desktop_request_final-visual-9081b56508d2e28660859cd387e53330d5e2fb463e5199a9b493849b5abfe5a9.json requested_model/requested_reasoning_effort and supported parent task assignment; configured values are not observed model settings.",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "invocation_id": "/root/native_visual_edit_266e6978a4ec",
+      "model": null,
+      "observation_source": "Supported native collaboration context continues the exact visual editor/writer for this final-review assignment. All18 bound PNGs and3 media originals were opened with local view_image; four inspection-only original-width crops supplement the tall canonical mobile PNG. Actual model/effort are not exposed. No environment, process/session, credential or secret-config probing.",
+      "observed_at_utc": "2026-11-01T08:45:01.387005Z",
+      "reasoning_effort": null,
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    }
+  },
+  "review_record": {
+    "review_id": "native-article-review-5196e83dd6924fddbdc0c80945603e04",
+    "decision": "KEEP",
+    "schema_version": "contentops.native_article_review.v1",
+    "run_id": "cc074-retro-fomc-20261028-v1",
+    "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+    "package_revision": "babd5c02bcedea40f218c7c582c6982e3c4524936b7e649450dcc63aa1505d43",
+    "article_metadata_sha256": "87edc37b097915b7dc43c9798e1ff4e2a52c2ac9e91d7c30d39e169e98509610",
+    "rationale": "The same actual native MAX writer accepted all18 exact corrected private React desktop/mobile renders and all3assets for this unchanged article. Two exact Fed same-day snapshots support the bounded vote/operating-rate comparison by the historical Main19:14cutoff; statement publication and note observation remain distinct, originalfirstprint/marketreaction/futurepolicy not asserted. Captions, archivephotoMay22identity/rights and accessible tables inspected; no hindsight or private Main/trading/consensus/GEX facts. Actual model/effort remain null CONFIGURED_NOT_OBSERVED. KEEP is private artifact review only, no publication authority. Other four candidates stay source/edition holds, no filler.",
+    "publication_authority": false,
+    "final_visual_review": {
+      "stage": "final-visual-9081b56508d2e28660859cd387e53330d5e2fb463e5199a9b493849b5abfe5a9",
+      "request_sha256": "9f23d68ac1aac3bb76cdc37ec0d4bdfb80b65d2e9cc9466b36e578349fd14071",
+      "response_sha256": "552e9a593d8758e1e16760c29e7394896f4e46c7015cd9595511c289f3541d42",
+      "output_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-074\\private-20261101\\articles\\cc074-retro-fomc-20261028-v1",
+      "article_revision": "babd5c02bcedea40f218c7c582c6982e3c4524936b7e649450dcc63aa1505d43",
+      "render_binding_sha256": "9081b56508d2e28660859cd387e53330d5e2fb463e5199a9b493849b5abfe5a9",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Exact frozen desktop_request_final-visual-9081b56508d2e28660859cd387e53330d5e2fb463e5199a9b493849b5abfe5a9.json requested_model/requested_reasoning_effort and supported parent task assignment; configured values are not observed model settings.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_visual_edit_266e6978a4ec",
+        "model": null,
+        "observation_source": "Supported native collaboration context continues the exact visual editor/writer for this final-review assignment. All18 bound PNGs and3 media originals were opened with local view_image; four inspection-only original-width crops supplement the tall canonical mobile PNG. Actual model/effort are not exposed. No environment, process/session, credential or secret-config probing.",
+        "observed_at_utc": "2026-11-01T08:45:01.387005Z",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    }
+  },
+  "actual_draft_count": 1,
+  "first_batch_five_met": false
+}

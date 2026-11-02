@@ -1825,6 +1825,11 @@ def _reader_safe_native_article(
     # Preserve the writer's explicit public notice in every derivative package.
     # Older sealed articles without it remain unchanged; no source claim is added.
     analysis_notice = "Analysis, not financial advice. Readers decide whether to trade."
+    retrospective_notice = re.search(
+        r"Retrospective analysis, written on \d{1,2} [A-Z][a-z]+ \d{4} \(GMT\+7\)", raw_body)
+    if retrospective_notice:
+        result["editorial_scope_notice"] = " ".join(filter(None, (
+            result["editorial_scope_notice"].strip(), retrospective_notice.group(0))))
     if analysis_notice in raw_body and analysis_notice not in result["editorial_scope_notice"]:
         result["editorial_scope_notice"] = " ".join(filter(None, (
             result["editorial_scope_notice"].strip(), analysis_notice)))
@@ -1837,6 +1842,7 @@ def _reader_safe_native_article(
         publisher = str((epistemic_state or {}).get("primary_reporting_publisher") or "").strip()
         bound = next((s for s in sources.values() if s.get("publisher", "").casefold() == publisher.casefold()), None)
         names = {("federal reserve bank of new york", "www.newyorkfed.org"): "New York Fed",
+            ("federal reserve board", "www.federalreserve.gov"): "Fed",
             ("u.s. energy information administration", "www.eia.gov"): "EIA",
             ("yonhap news agency", "en.yna.co.kr"): "Yonhap"}
         short_name = names.get((publisher.casefold(), urlsplit(bound["url"]).hostname)) if bound else None
@@ -2042,7 +2048,8 @@ def _native_preview_bundle(
             continue
         visible = visible_text(payload)
         if (label and label.casefold() not in visible.casefold()
-                and not (reader_first and any(name in visible.casefold() for name in attribution_names))):
+                and not (reader_first and any(re.search(r"(?<!\w)" + re.escape(name) + r"(?!\w)",
+                    visible, re.IGNORECASE) for name in attribution_names))):
             raise SimpleGeminiNewsroomError(
                 "native_preview_epistemic_state_missing", [destination]
             )

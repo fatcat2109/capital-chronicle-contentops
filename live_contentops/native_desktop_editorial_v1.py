@@ -788,10 +788,15 @@ class NativeDesktopTurn:
         role = native_role(stage)
         target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
         frozen = self.frozen_request(stage)
-        if self.volume_policy and role in {"visual-edit", "write"} and not frozen and not text_policy:
-            kwargs["prompt"] += ("\nDATED J8: A source-sufficient genuine NEWS/POLICY brief may use no photo and no assets, "
-                "with Instagram explicitly skipped. Analysis keeps its lawful photo and useful charts. "
-                "Never treat an optional photo gap as a factual gap or relabel analysis. Keep exact final rendered desktop/mobile review.")
+        volume_guidance = ("\nDATED J8: A source-sufficient genuine NEWS/POLICY brief may use no photo and no assets, "
+            "with Instagram explicitly skipped. Analysis keeps its lawful photo and useful charts. "
+            "Never treat an optional photo gap as a factual gap or relabel analysis. Keep exact final rendered desktop/mobile review.")
+        if (self.volume_policy and role in {"visual-edit", "write"} and not text_policy
+                and (not frozen or volume_guidance in frozen["prompt"])
+                and volume_guidance not in kwargs["prompt"]):
+            # Rebuilt writer prompts retain issued guidance without adding it to
+            # an older request or overriding decision 37's text-first policy.
+            kwargs["prompt"] += volume_guidance
         date_guidance = (LEGACY_SOURCE_DATE_GUIDANCE
             if frozen and LEGACY_SOURCE_DATE_GUIDANCE in frozen["prompt"] else PUBLIC_SOURCE_DATE_GUIDANCE)
         native_guidance = (

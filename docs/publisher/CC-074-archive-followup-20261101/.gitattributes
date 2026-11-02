@@ -1,0 +1,3 @@
+** -text whitespace=cr-at-eol
+checks/*.txt binary
+checks/*.xml binary

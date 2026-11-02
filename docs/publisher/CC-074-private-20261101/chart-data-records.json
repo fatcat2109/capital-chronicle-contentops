@@ -1,0 +1,130 @@
+{
+  "charts": [
+    {
+      "asset_id": "cc074-fomc-20261028-vote-direction",
+      "series_ids": [
+        "FOMC_20261028_VOTE_COUNTS"
+      ],
+      "window_start_utc": "2026-10-28T18:00:00Z",
+      "window_end_utc": "2026-10-28T19:14:31.428086Z",
+      "source_capture_hashes": {
+        "cc074-fomc-20261028-statement": "91c551a7cbe0a37fbdea08daac999b05b1561a234766727d07d50e09eb20ad0a"
+      },
+      "point_times": [
+        {
+          "series_id": "FOMC_20261028_VOTE_COUNTS",
+          "point_index": 0,
+          "as_of_utc": "2026-10-28T19:12:15.347Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        },
+        {
+          "series_id": "FOMC_20261028_VOTE_COUNTS",
+          "point_index": 1,
+          "as_of_utc": "2026-10-28T19:12:15.347Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        }
+      ],
+      "transform_sha256": "73207d07b22bd1792557d7d0fa5625d6dd7e4d9ebdc885cd5412e0e998d1d777",
+      "computed_values": [
+        [
+          10.0,
+          2.0
+        ]
+      ],
+      "image_sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789"
+    },
+    {
+      "asset_id": "cc074-fomc-20261028-rate-framework",
+      "series_ids": [
+        "FOMC_20261028_TARGET_LOWER",
+        "FOMC_20261028_TARGET_UPPER",
+        "FOMC_20261028_IORB",
+        "FOMC_20261028_ON_RRP",
+        "FOMC_20261028_STANDING_REPO",
+        "FOMC_20261028_PRIMARY_CREDIT"
+      ],
+      "window_start_utc": "2026-10-28T18:00:00Z",
+      "window_end_utc": "2026-10-28T19:14:31.428086Z",
+      "source_capture_hashes": {
+        "cc074-fomc-20261028-implementation": "cd80d5d474c9a80572ad30cb63552792b69ada3c0374021b848474a4b9ab4014",
+        "cc074-fomc-20261028-statement": "91c551a7cbe0a37fbdea08daac999b05b1561a234766727d07d50e09eb20ad0a"
+      },
+      "point_times": [
+        {
+          "series_id": "FOMC_20261028_TARGET_LOWER",
+          "point_index": 0,
+          "as_of_utc": "2026-10-28T19:12:15.347Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        },
+        {
+          "series_id": "FOMC_20261028_TARGET_UPPER",
+          "point_index": 0,
+          "as_of_utc": "2026-10-28T19:12:15.347Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        },
+        {
+          "series_id": "FOMC_20261028_IORB",
+          "point_index": 0,
+          "as_of_utc": "2026-10-28T19:13:00.161Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        },
+        {
+          "series_id": "FOMC_20261028_ON_RRP",
+          "point_index": 0,
+          "as_of_utc": "2026-10-28T19:13:00.161Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        },
+        {
+          "series_id": "FOMC_20261028_STANDING_REPO",
+          "point_index": 0,
+          "as_of_utc": "2026-10-28T19:13:00.161Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        },
+        {
+          "series_id": "FOMC_20261028_PRIMARY_CREDIT",
+          "point_index": 0,
+          "as_of_utc": "2026-10-28T19:13:00.161Z",
+          "period_end_utc": "2026-10-28T19:14:31.428086Z",
+          "period_basis": "SINGLE_ANNOUNCEMENT_WINDOW_NOT_REALIZED_RATE_HISTORY",
+          "effective_date_state": "Announced29Oct for directive/reserveinterest; primarycreditexistinglevel; noexactUTCeffectiveclockinferred"
+        }
+      ],
+      "transform_sha256": "147e223ef9b18d80e47a2cd9f351ac4f6f99957c1e7ae28abe2116fd551bffc6",
+      "computed_values": [
+        [
+          3.75
+        ],
+        [
+          4.0
+        ],
+        [
+          3.9
+        ],
+        [
+          3.75
+        ],
+        [
+          4.0
+        ],
+        [
+          4.0
+        ]
+      ],
+      "image_sha256": "5b4223d7feee9476decf997e3a788f640ba68a223cd5318999ef52124433d851"
+    }
+  ]
+}

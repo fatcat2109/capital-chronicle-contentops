@@ -1,0 +1,73 @@
+{
+  "checked_at_utc": "2026-11-02T11:37:11.848582+00:00",
+  "authority": "JIM_DECISIONS_20261030 decision 37 B1; BACKLOG CC-074 Ops 2 Nov 18:30 GMT+7",
+  "accepted_base": "bade5d93fec8c72ee002bd0c0efbcee4b6e2cf83",
+  "accepted_seals_verified": 207,
+  "source_chart_clock_check": {
+    "schema_version": "contentops.retrospective_piece.v1",
+    "piece_id": "cc074-fomc-20261028-private",
+    "status": "PRIVATE_DATED_RECORD_VALIDATED",
+    "chart_count": 2,
+    "source_count": 2,
+    "first_native_call_record_utc": "2026-11-01T05:19:07+00:00",
+    "public_write_performed": false,
+    "publication_authority": false
+  },
+  "piece_id": "cc074-fomc-20261028-private",
+  "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+  "historical_cutoff_utc": "2026-10-28T19:14:31.428086Z",
+  "series": [
+    {
+      "asset_id": "cc074-fomc-20261028-vote-direction",
+      "series_ids": [
+        "FOMC_20261028_VOTE_COUNTS"
+      ],
+      "png_sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789"
+    },
+    {
+      "asset_id": "cc074-fomc-20261028-rate-framework",
+      "series_ids": [
+        "FOMC_20261028_TARGET_LOWER",
+        "FOMC_20261028_TARGET_UPPER",
+        "FOMC_20261028_IORB",
+        "FOMC_20261028_ON_RRP",
+        "FOMC_20261028_STANDING_REPO",
+        "FOMC_20261028_PRIMARY_CREDIT"
+      ],
+      "png_sha256": "5b4223d7feee9476decf997e3a788f640ba68a223cd5318999ef52124433d851"
+    }
+  ],
+  "fixture_relocation": "In-memory references only to byte-identical sealed package in exec worktree. No historical record rewritten.",
+  "installed_gate_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_publication_v1.py",
+  "installed_gate_sha256": "e3853b982b2ac45128608b5be54a3402c33f29da0a81a2ce50ce4f4ed59950f6",
+  "binding_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-074\\private-20261101\\articles\\cc074-retro-fomc-20261028-v1\\binding.json",
+  "binding_sha256": "86cb5789bc7fa20bcd80714b4151bc7053f3c07ea69d123cd00f41e682cea873",
+  "owner_manual_validation": true,
+  "release_operation": "scheduled_publication_authority(None, exact_retained_binding, installed_rollout)",
+  "release_error": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED",
+  "release_gate_store_calls": 0,
+  "public_transport_calls": 0,
+  "public_write_performed": false,
+  "launch": {
+    "pid": 41780,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "observation": "Win32_Process launch flags, exec --model gpt-6.1-sol -c model_reasoning_effort=max; no supported runtime telemetry"
+  },
+  "next_actor": "Claude Ops",
+  "next_action": "Integrate a scoped promotion of the exact accepted copied-store packet into the existing live owner/store, preserving original binding/reviews and using the sole publisher; then resume the same article. Do not flip owner_manual_validation or publish from the copied store.",
+  "verification": {
+    "retrospective_tests": {
+      "passed": 37,
+      "initial_passed": 25,
+      "initial_failed": 11,
+      "initial_cause": "Missing absolute fixture paths in other worktree; fixed by in-memory test fixture relocation only",
+      "junit": "retrospective-guards.xml"
+    },
+    "ruff": "PASS",
+    "whitespace": "PASS",
+    "charts_opened_and_compared_with_bound_values": 2,
+    "new_final_render_acceptance": false
+  }
+}

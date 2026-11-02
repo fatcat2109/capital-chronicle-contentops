@@ -1,0 +1,55 @@
+{
+  "scope": "ALL_FOLLOWUP_FILES_EXCEPT_THIS_MANIFEST; Git commit binds the manifest itself",
+  "artifacts": [
+    {
+      "path": ".gitattributes",
+      "bytes": 70,
+      "sha256": "faca45222359f537f91b146860e081e635f0e1610073220d94a3a11fe700e909"
+    },
+    {
+      "path": "accepted-draft-preservation.json",
+      "bytes": 514,
+      "sha256": "a0b32c005ef7557ff1c8f50a286978bb0da35e202df1ccbeb982703492bbd833"
+    },
+    {
+      "path": "candidate-gaps.json",
+      "bytes": 2490,
+      "sha256": "bd683b775a14160097a9091c04a954ad08fc66fdcd77cf641dac78e6ec5add17"
+    },
+    {
+      "path": "checks/retrospective-guards.xml",
+      "bytes": 5610,
+      "sha256": "3555c9719ddf1dd46c1fc18658268e54d773f6ae6fb6c9fbe84f0b03730ee1e0"
+    },
+    {
+      "path": "checks/verification.json",
+      "bytes": 1077,
+      "sha256": "920406f19e79d25aaf53b003a6da0bd918bcf7df9c794bd605626377c8bc8893"
+    },
+    {
+      "path": "execution-record.json",
+      "bytes": 1420,
+      "sha256": "c1f5b0106776911331f875425eb51ed96a0fa27fad259128c645e0d8bd9e1802"
+    },
+    {
+      "path": "main-continuity.json",
+      "bytes": 14037,
+      "sha256": "d1084d066ffe604278facf633d440dff5567e869aa38c07f1f21445db8ccd206"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5400,
+      "sha256": "d6cbde64fe97669b9d3bfe2d1849596b59f7377163ac76e5b150c4eb5f9ce927"
+    },
+    {
+      "path": "selected-actuals.jsonl",
+      "bytes": 8942,
+      "sha256": "de6f5d0535f270734996d9749bf6acd5372a50ad54addae839f0ca2b170b37b3"
+    },
+    {
+      "path": "source-provenance.json",
+      "bytes": 9693,
+      "sha256": "8a2c789e5686be027354d552db10e204810eb25247e1211deabaf53d88f94403"
+    }
+  ]
+}

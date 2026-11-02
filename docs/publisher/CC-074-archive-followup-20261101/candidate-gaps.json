@@ -1,0 +1,40 @@
+{
+  "checked_at_utc": "2026-11-01T09:15:45.252176+00:00",
+  "scope": "BOUNDED_FOLLOWUP_SUPPLEMENTS_ORIGINAL_GAPS_WITHOUT_REWRITING_HISTORY",
+  "historical_gap_record": "../CC-074-private-20261101/candidate-gaps.json",
+  "article_count_before": 1,
+  "additional_eligible_drafts": 0,
+  "article_count_after": 1,
+  "maximum_requested": 5,
+  "candidates": [
+    {
+      "event_family": "CPI",
+      "candidate": "September 2026 CPI, released 14 October 2026",
+      "state": "HOLD_QUALIFIED_HISTORICAL_MAIN_EVENT_BINDING_NOT_ESTABLISHED",
+      "resolved": "Dated official archive, four explicit source values, release header, retained capture and gzip/source hashes verified. The prior mutable-URL-only gap is superseded.",
+      "remaining": "Named W1073 CPI result has zero actual/usable records and late current-vintage prior context with no public/model admission. W1091 does not prove historical possession or a never-corrected first print, and no qualified Main event binding to this archive edition was established.",
+      "evidence": [
+        "source-provenance.json",
+        "main-continuity.json"
+      ]
+    },
+    {
+      "event_family": "NFP",
+      "candidate": "September 2026 employment report, released 2 October 2026",
+      "state": "HOLD_EXACT_ARCHIVE_MAIN_BINDING_AND_MODEL_PURPOSE_UNRESOLVED",
+      "resolved": "Dated official archive and three explicit source values verified. The exact freshness-referenced Main saved result exists and contains the same release identity/payroll value with explicit persons-versus-thousands conversion. A past source and Main continuity are no longer claimed absent.",
+      "remaining": "The saved Main record binds a different current-release hash captured 24 October; first_print_pit/historical_pit/public_export remain false and LLM_input requires purpose-owner assessment. Matching release/value is not exact edition adoption. No eligible Main-to-editorial binding for the W1091 archive hash or new purpose admission is established.",
+      "evidence": [
+        "source-provenance.json",
+        "main-continuity.json"
+      ]
+    }
+  ],
+  "other_two_historical_candidates": "UNCHANGED_NOT_RESEARCHED_AGAIN",
+  "no_further_search_or_acquisition_requested": true,
+  "whole_item_remaining": [
+    "First batch of five eligible private pieces",
+    "CC-042 acceptance and 3-5 consecutive clean V1 production days",
+    "Future scoped public release/integration, hosted archive, readback, story memory and drip enforcement"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "candidate_count": 9,
+  "candidate_limit": 32,
+  "candidate_packet_hash": "a7f0530c511c495680a7b9b66121a2a87930fce12c17daa346f77bef70e90b39",
+  "public_write_performed": false,
+  "published_memory_summary": {
+    "article_count": 1,
+    "candidate_filtering_performed_before_model": true,
+    "full_published_corpus_in_prompt": false,
+    "story_identity_count": 1,
+    "story_identity_set_sha256": "63cab33e5231d21a7261401042332c15693bf983733d6133d40706340b4a5a69",
+    "title_set_sha256": "29c991f7be30c2504ddcaa96af8bee0a817cc251fc43b97858794e47a9fa1a46",
+    "unique_title_count": 1,
+    "update_chain_identity_count": 1,
+    "update_chain_identity_set_sha256": "63cab33e5231d21a7261401042332c15693bf983733d6133d40706340b4a5a69"
+  },
+  "router_receipt": {
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "actual_configuration_unavailable": true,
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Exact frozen desktop_request_select.json requested_model and requested_reasoning_effort; configured values are not observed actual values.",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "low",
+      "invocation_id": "/root/native_select_7fce85e14728",
+      "model": null,
+      "observation_source": "Supported native task context supplies canonical task name /root/native_select_7fce85e14728; actual model and effort are not exposed.",
+      "reasoning_effort": null,
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": null,
+    "request_sha256": "7fce85e14728d1f6cc2ad2a563270f9eaa243954e0410e0851ec184acbcf8fd8",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "5819c5eebf104ed1aead49e69afd9fd575bef76670da08f760a0ee700fec8b04",
+    "role": "select",
+    "selected_model": null,
+    "stage": "select"
+  },
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "A hold can conceal disagreement: distinguish the October 28 majority decision from the two dissenters seeking a quarter-point hike, then explain how the target range differs from the rates used to implement it.",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-06edc3ce5772f6cef827854f",
+        "evidence_plan": "Use only retained exact official captures cc074-fomc-20261028-statement and cc074-fomc-20261028-implementation. Verify vote count, dissenters and stated preference against statement spans; bind each operating rate, unit and effective date to implementation spans. Historical facts cutoff is 2026-10-28T19:14:31.428086Z. Preserve publication at 18:00Z separately from statement observation at 19:12:15.347Z and implementation observation at 19:13:00.161Z. No new source acquisition or external queries are authorized. Code owns arithmetic. Propose a vote comparison and a distinct operating-rate framework chart only if exact retained values support both; actual MAX writer decides usefulness and final charts. Do not infer realized market rates, surprise, market causation, future policy or first-print identity. Validate existing archive photo source-specific rights separately; it is not event corroboration. Required visible labels: Retrospective analysis, written on 1 November 2026 (GMT+7); Analysis, not financial advice. Readers decide whether to trade. Private preparation only.",
+        "primary_reader_question": "What did the Fed agree to hold on October 28, where did the two dissenters disagree, and how is that policy choice different from the rates used to implement it?",
+        "research_queries": [
+          "Federal Reserve October 28 2026 statement vote dissenters quarter point hike",
+          "Federal Reserve October 28 2026 implementation note target range reserve balances operating rates"
+        ],
+        "selection_rationale": "One genuine event supports a useful document comparison: a 10-2 hold is not unanimity, and the target band is distinct from implementation settings. Combine the statement and companion note into one retrospective article rather than duplicate the event or select unrelated retained releases."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select one statement-led private retrospective, using its companion implementation capture as supporting evidence. Research query strings are inert proposals and must not trigger acquisition. Exclude unrelated CPI, employment, energy and ECB packets, later observations, private Main analysis and hindsight. Preserve existing source ledger and budget; no requests made by this role.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "sourceability_preselection": {
+    "artifact_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-074\\private-20261101\\articles\\cc074-retro-fomc-20261028-v1\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 9,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  }
+}

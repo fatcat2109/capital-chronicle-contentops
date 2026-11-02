@@ -1,0 +1,73 @@
+{
+  "schema_version": "contentops.cc074.targeted_visual_repair.v1",
+  "created_at_utc": "2026-11-01T08:34:38.281608Z",
+  "operation_id": "cc074-retro-fomc-20261028-v1",
+  "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+  "expected_package_revision": "f072972db94964e72fb14d4babefe71e1c035ec1626e93fdca3186ef5e54da5f",
+  "same_writer_invocation_id": "/root/native_visual_edit_266e6978a4ec",
+  "first_bound_review": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-074\\private-20261101\\articles\\cc074-retro-fomc-20261028-v1\\desktop_response_final-visual-87ee9fb1db653a87a43b339458afefdf9502f9ff3ce3d7f518579dda434c69bd.json",
+    "sha256": "4dfa8c31827cc0cf212f4dd1bf0e0544e24e1272be1613d8d4f66c4d22b3975c",
+    "decision": "REPAIR_REQUIRED",
+    "parent_native_observation": "Parent reports exact CLI submit accepted exit 0 before renderer edits."
+  },
+  "media_cli_response": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\repairs\\v2\\media-repair-response.json",
+    "sha256": "a23d3ab89147e7df4ca8c765f599a8a0b411b30557a5d73ed811857401db4353",
+    "bound_to_store_by_this_role": false
+  },
+  "renderer_changes": {
+    "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx": "272eb74ed80632b78d37d8bdf094162a7acd4f10673b47c7713018d2a82a6cbb",
+    "ui/contentops_v5/src/test/report_editorial_workspace.test.tsx": "5836726d28b8a551e2314f57e75561dddb5d87bd1dc4710a1f991ee0b2c01a65"
+  },
+  "patch": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\repairs\\v2\\contentops-renderer-repair.patch",
+    "sha256": "080e9096b27831fceb104f48baf8f2196128672db5341ebf52a752705bfcec5a"
+  },
+  "asset_identity_checks": [
+    {
+      "asset_id": "cc074-archive-warsh-20260522",
+      "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+      "original_media_bytes_identical": true,
+      "transform_sha256_unchanged": true,
+      "computed_values_unchanged": true,
+      "quantitative_packet_unchanged": true,
+      "reader_caption": "Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context; this is not a photograph of the October 28 decision."
+    },
+    {
+      "asset_id": "cc074-fomc-20261028-vote-direction",
+      "sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789",
+      "original_media_bytes_identical": true,
+      "transform_sha256_unchanged": true,
+      "computed_values_unchanged": true,
+      "quantitative_packet_unchanged": true,
+      "reader_caption": "The October 28 vote: 10 members approved a hold; Lisa D. Cook and Beth M. Hammack preferred a quarter-point increase."
+    },
+    {
+      "asset_id": "cc074-fomc-20261028-rate-framework",
+      "sha256": "5b4223d7feee9476decf997e3a788f640ba68a223cd5318999ef52124433d851",
+      "original_media_bytes_identical": true,
+      "transform_sha256_unchanged": true,
+      "computed_values_unchanged": true,
+      "quantitative_packet_unchanged": true,
+      "reader_caption": "The target range and individual operating settings announced October 28. Reserve interest and the operating directive were effective October 29; primary credit was at its existing level."
+    }
+  ],
+  "validation": {
+    "existing_release_media_validator": "PASS: DATA_JOURNALISM_V1, 1 photo, 2 charts",
+    "focused_ui_test": "PASS: 39/39 tests in report_editorial_workspace.test.tsx, process exit 0",
+    "production_build": "PASS: npm run build, process exit 0",
+    "scoped_git_diff_check": "PASS, exit 0"
+  },
+  "pending": [
+    "Parent bind media-repair-response.json through existing media CLI; no manual store edit.",
+    "Export same operation with updated component; recapture all18 desktop/mobile pages at reliable progressing positions.",
+    "Same actual writer inspect corrected bound images and only then issue final acceptance."
+  ],
+  "new_render_pixels_accepted": false,
+  "new_source_requests": 0,
+  "source_request_count": 0,
+  "source_request_limit": 10,
+  "public_write_performed": false,
+  "article_factual_copy_changed": false
+}
