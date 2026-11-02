@@ -1,6 +1,6 @@
 {
   "item": "CC-107",
-  "recorded_at_utc": "2026-11-02T10:38:54.200940+00:00",
+  "recorded_at_utc": "2026-11-02T10:40:45.228420+00:00",
   "base_tag": "contentops-live-20261102-cc042c",
   "base_commit": "6cf9f73fead0214a3c7efcd5813b98849c19099f",
   "branch": "backlog/cc-107-event-articles",
@@ -15,7 +15,15 @@
     "evidence": "READ_ONLY_PROCESS_ANCESTRY_COMMAND_LINE_MODEL_AND_EFFORT_ARGUMENTS",
     "actual_model": null,
     "actual_reasoning_effort": null,
-    "status": "CONFIGURED_NOT_OBSERVED"
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "verified_argument_tokens": [
+      "exec",
+      "--model",
+      "gpt-6.1-sol",
+      "-c",
+      "model_reasoning_effort=\"max\""
+    ],
+    "argument_verification": "WINDOWS_COMMAND_LINE_TO_ARGV_TOKEN_READBACK"
   },
   "validation": {
     "pytest_command": "python -m pytest -q tests/test_event_article_guard_v1.py --junitxml=tests/evidence/cc-107/guard.junit.xml",
@@ -42,22 +50,46 @@
     {
       "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\PREVIEW.md",
       "exists": false,
-      "sha256": null
+      "sha256": null,
+      "read_error": {
+        "type": "FileNotFoundError",
+        "errno": 2,
+        "winerror": null
+      },
+      "observed_at_utc": "2026-11-02T10:40:45.228551+00:00"
     },
     {
       "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\dossier.json",
       "exists": false,
-      "sha256": null
+      "sha256": null,
+      "read_error": {
+        "type": "FileNotFoundError",
+        "errno": 2,
+        "winerror": null
+      },
+      "observed_at_utc": "2026-11-02T10:40:45.228651+00:00"
     },
     {
       "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1100-dossier-nfp\\DOSSIER.md",
       "exists": false,
-      "sha256": null
+      "sha256": null,
+      "read_error": {
+        "type": "FileNotFoundError",
+        "errno": 2,
+        "winerror": null
+      },
+      "observed_at_utc": "2026-11-02T10:40:45.228751+00:00"
     },
     {
       "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1100-dossier-nfp\\dossier.json",
       "exists": false,
-      "sha256": null
+      "sha256": null,
+      "read_error": {
+        "type": "FileNotFoundError",
+        "errno": 2,
+        "winerror": null
+      },
+      "observed_at_utc": "2026-11-02T10:40:45.228802+00:00"
     }
   ],
   "drafts_completed": 0,
@@ -65,7 +97,7 @@
   "blocker": {
     "cause": "FROZEN_EVENT_INPUTS_NOT_YET_CREATED",
     "operation": "read retained midterm PREVIEW.md and NFP frozen dossier",
-    "actual_error": "FileNotFoundError: the four exact input paths do not exist",
+    "actual_error": "FileNotFoundError (errno 2, WinError 3): required frozen event input paths do not exist",
     "next_actor": "Claude Ops",
     "next_action": "Supply the actual frozen midterm PREVIEW.md/dossier and NFP dossier plus existing public source/rights admissions; resume this branch for native drafting and same-writer rendered review."
   },
@@ -88,5 +120,12 @@
     "operating_root_writes": 0,
     "main_checkout_writes": 0,
     "merges": 0
+  },
+  "status": "BLOCKED_FROZEN_EVENT_INPUTS_NOT_YET_CREATED",
+  "remote_verified_implementation_commit": "d8ac777824c2530b9ad67f1301d126d6489bc8c1",
+  "artifact_readback": {
+    "result": "COMMITTED_FILE_HASHES_MATCH_VALIDATION",
+    "checked_commit": "d8ac777824c2530b9ad67f1301d126d6489bc8c1",
+    "remote_head_matched": true
   }
 }
