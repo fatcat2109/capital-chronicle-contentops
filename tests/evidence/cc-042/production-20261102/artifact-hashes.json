@@ -1,0 +1,54 @@
+{
+  "files": [
+    {
+      "path": "tests/evidence/cc-042/production-20261102/cnbc-focused-final.xml",
+      "bytes": 8507,
+      "sha256": "070188f60d377d838c88fe230fc5c55009a37596a93fd01c65b69f9b9b91ae91"
+    },
+    {
+      "path": "tests/evidence/cc-042/production-20261102/live-reconciliation.json",
+      "bytes": 3503,
+      "sha256": "049b784d014fe07d423d05ab3cd864ed696bf4545d5891d10f58fa014848943e"
+    },
+    {
+      "path": "tests/evidence/cc-042/production-20261102/native-returns.json",
+      "bytes": 6644,
+      "sha256": "216c5976c8fa601be5b1df1439ad18237333c3a78e523784f9d7ede0c0495ca8"
+    },
+    {
+      "path": "tests/evidence/cc-042/production-20261102/private-artifact-hashes.json",
+      "bytes": 23983,
+      "sha256": "1268ae72de6f5b7fe5059df1cb5ed58ae212c44f70644ac3bb8a5c1abe801f82"
+    },
+    {
+      "path": "tests/evidence/cc-042/production-20261102/regression-output.txt",
+      "bytes": 600,
+      "sha256": "c888118ab8f63074913c79a7167bbf44c5c49a315abc17d53b56f0357880d54a"
+    },
+    {
+      "path": "tests/evidence/cc-042/production-20261102/regression-test-files.json",
+      "bytes": 939,
+      "sha256": "6aece48397da1b07f4f5ff407dfea172e5f78c0fb773241bc86bd2fc721a319b"
+    },
+    {
+      "path": "tests/evidence/cc-042/production-20261102/regressions.xml",
+      "bytes": 73990,
+      "sha256": "966bf34d4dd461288a40889158887d1d1e2bff980f770e95b01000f04a4e4c23"
+    },
+    {
+      "path": "tests/evidence/cc-042/production-20261102/schedule-project-readback.json",
+      "bytes": 1360,
+      "sha256": "7b11597989ccbd7281e4e9a5f9cce16e240d5a800fc452f28adc14c1178ad13d"
+    },
+    {
+      "path": "tests/evidence/cc-042/production-20261102/source-admission-replay.json",
+      "bytes": 1005,
+      "sha256": "7d942e2fb28f4545691ae1141095e55fb0102ef18d054a886b81f69283fef8fb"
+    },
+    {
+      "path": "tests/evidence/cc-042/production-20261102/validation.json",
+      "bytes": 3289,
+      "sha256": "bdf40a1b5f9f0453f8d90a114c587ff032cb9c7a8a323d90aa098513eca3960d"
+    }
+  ]
+}

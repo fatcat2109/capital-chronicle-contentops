@@ -687,6 +687,7 @@ class RetainedSourceResearch:
         url = urlsplit(doc["source_url"])
         paths = {"www.reuters.com": ("/business/", "/world/", "/markets/", "/legal/"),
                  "www.bloomberg.com": ("/news/articles/",),
+                 "www.cnbc.com": ("/2026/",),
                  "finance.yahoo.com": ("/news/",), "www.kitco.com": ("/news/off-the-wire/",),
                  "en.yna.co.kr": ("/view/AEN",)}
         if (url.scheme != "https" or url.hostname not in paths or url.username or url.password
@@ -704,6 +705,7 @@ class RetainedSourceResearch:
         publisher, identity = {
             "en.yna.co.kr": ("Yonhap News Agency", "en.yna.co.kr"),
             "www.bloomberg.com": ("Bloomberg", "bloomberg.com"),
+            "www.cnbc.com": ("CNBC", "cnbc.com"),
         }.get(url.hostname, ("Reuters", "reuters.com"))
         if (capture.get("status") != "PASS" or capture.get("url") != doc["source_url"]
                 or capture.get("retrieval_method") != "READ_ONLY_BROWSEROS_NEO_BOUNDED_EXTRACTS"
@@ -742,6 +744,38 @@ class RetainedSourceResearch:
                     or len(page["text"]) != capture["full_text_characters"]
                     or any(page["text"][e["start"]:e["end"]] != e["text"] for e in excerpts)):
                 raise ValueError("PUBLIC_REPORT_ORIGINAL_IDENTITY_OR_SPANS_INVALID")
+        if identity == "cnbc.com":
+            # Bind the individual live entry's clock and original bytes. A later
+            # page-wide update is not the entry's publication time or a new event.
+            from zoneinfo import ZoneInfo
+            original = self._read(spec["original_capture_path"])
+            page = json.loads(original)
+            text = page["text"]
+            span = capture.get("publication_timestamp_span")
+            if (not re.fullmatch(r"/2026/\d{2}/\d{2}/[a-z0-9-]+\.html", url.path)
+                    or _hash(original) != spec["original_capture_sha256"]
+                    or page["url"] != doc["source_url"]
+                    or _hash(text.encode()) != capture["full_text_sha256"]
+                    or len(text) != capture["full_text_characters"]
+                    or any(text[e["start"]:e["end"]] != e["text"] for e in excerpts)
+                    or doc["title"] not in canonical or not capture.get("byline")
+                    or capture["byline"] not in text
+                    or doc.get("canonical_content_sha256") != _hash(canonical.encode())
+                    or not isinstance(span, list) or len(span) != 2
+                    or any(type(n) is not int for n in span)
+                    or not 0 <= span[0] < span[1] <= len(text)
+                    or span[0] != excerpts[0]["start"]
+                    or text[span[0]:span[1]] != doc.get("published_at_source")):
+                raise ValueError("PUBLIC_REPORT_ORIGINAL_IDENTITY_OR_SPANS_INVALID")
+            stamp = text[span[0]:span[1]]
+            match = re.fullmatch(r"(Mon|Tue|Wed|Thu|Fri|Sat|Sun), ([A-Z][a-z]{2}) (\d{1,2}) (2026)\s*(\d{1,2}):(\d{2}) (AM|PM) (EDT|EST)", stamp)
+            if not match:
+                raise ValueError("PUBLIC_REPORT_PUBLICATION_CLOCK_NOT_VERIFIED")
+            weekday, month, day, year, hour, minute, meridiem, abbreviation = match.groups()
+            local = datetime.strptime(f"{month} {day} {year} {hour}:{minute} {meridiem}", "%b %d %Y %I:%M %p").replace(tzinfo=ZoneInfo("America/New_York"))
+            if (local.strftime("%a") != weekday or local.tzname() != abbreviation
+                    or local != datetime.fromisoformat(doc["published_at_utc"].replace("Z", "+00:00"))):
+                raise ValueError("PUBLIC_REPORT_PUBLICATION_CLOCK_NOT_VERIFIED")
         capture_hash = _hash(raw)
         if (capture_hash != spec["source_capture_sha256"] or doc["raw_sha256"] != capture_hash
                 or doc["canonical_content_text"] != canonical):

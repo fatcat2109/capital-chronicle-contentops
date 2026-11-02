@@ -1,0 +1,65 @@
+{
+  "item": "CC-042",
+  "recorded_at_utc": "2026-11-02T04:44:19.257895+00:00",
+  "authority": "Current CC-042 and G-20261102-2; existing CC-051(a) V1 grant; Jim decisions 6, 16, 17, 19.",
+  "branch_base": "2ea226893b91bf7b93b3fadd757cc50057cd6228",
+  "production_tag": "contentops-live-20261101-cc042",
+  "manual_operation_outcome": "NO_PUBLICATION",
+  "first_causes": {
+    "original_barkin": "SOFTWARE_PROCESS_DEFECT (retained accepted HOLD)",
+    "nasdaq_100": "LATE_OR_STALE",
+    "marvell_lumentum": "SOFTWARE_PROCESS_DEFECT: PUBLIC_REPORT_LOCATOR_INVALID"
+  },
+  "new_candidates_reached": 2,
+  "remaining_candidates": 0,
+  "source_requests_before_segment": 5,
+  "source_requests_this_segment": 4,
+  "cumulative_source_requests": 9,
+  "unchanged_request_limit": 10,
+  "qualified_articles": 0,
+  "canonical_readback_confirmed_articles": 0,
+  "cc042_acceptance_passed": false,
+  "first_window_yield": "0 qualified / 3 admitted in retained manual operation; not a scheduled-window proof.",
+  "same_worker_article_revision_round_trip": "NOT_REACHED_PRE_WRITER_REFUSALS",
+  "actual_no_publication_causes_recorded": true,
+  "tests": [
+    {
+      "file": "cnbc-focused-final.xml",
+      "passed": 51,
+      "failed": 0,
+      "skipped": 0,
+      "raw_junit_sha256": "070188f60d377d838c88fe230fc5c55009a37596a93fd01c65b69f9b9b91ae91"
+    },
+    {
+      "file": "regressions.xml",
+      "passed": 449,
+      "failed": 0,
+      "skipped": 0,
+      "raw_junit_sha256": "966bf34d4dd461288a40889158887d1d1e2bff980f770e95b01000f04a4e4c23"
+    }
+  ],
+  "focused_run_is_subset_of_449": true,
+  "required_cc075_selection_passed": 363,
+  "new_cnbc_checks": 11,
+  "full_repository_suite_claimed": false,
+  "expected_parent_regression": {
+    "case": "test_exact_cnbc_entry_preserves_report_truth_and_facts_only_scope",
+    "observed_error": "PUBLIC_REPORT_LOCATOR_INVALID",
+    "run_before_implementation_edit": true
+  },
+  "development_test_correction": "An intermediate test omitted the candidate report-provenance packet; its fixture now supplies the real caller shape. Final 51 and 449 sets pass.",
+  "branch_repair": "Add CNBC to existing bounded reported-facts class with exact original/capture/spans/byline/entry publication-time verification; no event truth, prose/image rights or publication authority.",
+  "integration_required_from": "Claude Ops",
+  "production_code_changed": false,
+  "accepted_terminal_candidates_reopened": false,
+  "new_schedule_or_missed_slot_makeup": false,
+  "unintegrated_code_used_in_production": false,
+  "schedule_routing_observation": "All seven remain ACTIVE/unchanged; configured project is absent from supported current project list. Routing risk only, no direct run-failure cause proven.",
+  "public_write_performed": false,
+  "main_mt5_account_spending_or_cua_action": false,
+  "source_code_sha256": {
+    "live_contentops/contentops_source_research_v1.py": "f6a69f8ebd3febdb45535dcce8230e85792caf29fe59f6296eff4bd39d2a440b",
+    "tests/test_cnbc_retained_report_v1.py": "bc8ffe2d0d5660a320ed8d4a7d02af24263102440b382d713e489cbc60971a16"
+  },
+  "next_action": "Ops reviews/integrates the branch and verifies newsroom project routing. Existing scheduled windows keep independent bindings/calendars. No retry/replacement of this terminal manual operation."
+}

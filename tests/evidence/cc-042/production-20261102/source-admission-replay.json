@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-11-02T04:39:39.568683+00:00",
+  "type": "BRANCH_READ_ONLY_ORIGINAL_SOURCE_REPLAY_NOT_PRODUCTION_ADMISSION",
+  "status": "PASS",
+  "original_runtime_inputs_preserved": true,
+  "publication_time_utc": "2026-10-30T16:25:00Z",
+  "later_global_page_update_substituted": false,
+  "historical_entry_edit_vintage_verified": false,
+  "source_requests": 0,
+  "model_calls": 0,
+  "public_writes": 0,
+  "production_admission": false,
+  "reopens_accepted_terminal_candidate": false,
+  "next_actor": "Ops reviews and integrates branch; future eligible editions use exact current sources and clocks.",
+  "configured_source_publisher": "CNBC",
+  "report_truth_supported": true,
+  "event_truth_supported": false,
+  "source_multiplicity": "SINGLE_SOURCE",
+  "permission_scope": "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+  "expression_reuse_allowed": false,
+  "image_logo_exhibit_reuse_allowed": false,
+  "actual_runtime_admission_error": "PUBLIC_REPORT_LOCATOR_INVALID"
+}

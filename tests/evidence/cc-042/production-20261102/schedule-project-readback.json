@@ -1,0 +1,45 @@
+{
+  "observed_at_utc": "2026-11-02 04:43:24 UTC",
+  "source": "supported list_projects plus read-only exact named automation files",
+  "configured_newsroom_project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+  "configured_project_present": false,
+  "current_projects_for_contentops": [
+    {
+      "projectId": "01a0865c-15c4-73a3-9c33-9ba400bcc77c",
+      "path": "A:\\Capital Chronicle\\ContentOps",
+      "label": "Contentops v2"
+    },
+    {
+      "projectId": "01a18b48-e3a6-79a2-ac52-a790d97a5129",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog",
+      "label": "Codex Publisher"
+    }
+  ],
+  "meaning": "Observed configuration mismatch/routing risk after App reset. No direct automation execution error or definitive missed-run cause inferred; supported view only rendered cards. No settings were changed.",
+  "supported_view_results": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Rendered automation card in the app."
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Rendered automation card in the app."
+          }
+        ],
+        "isError": false
+      }
+    }
+  ]
+}

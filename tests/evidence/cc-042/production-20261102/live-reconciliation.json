@@ -1,0 +1,79 @@
+{
+  "observed_at_utc": "2026-11-02T04:41:04.430435+00:00",
+  "run_id": "cc042-live-resume-20261031-a",
+  "binding_sha256": "0173bb42604453e3d57ca19f74c62dd6ca5a8d89e4a46da8b30fe3f378bb6fd8",
+  "cutoff_utc": "2026-10-30T23:45:33.033578Z",
+  "operating_source": "2ea226893b91bf7b93b3fadd757cc50057cd6228",
+  "manual_result": "NO_PUBLICATION",
+  "native_classification": "NATIVE_PRE_WRITER_EDITION_COMPLETE",
+  "remaining_candidate_ids": [],
+  "candidate_outcomes": [
+    {
+      "candidate_id": "simple-story-516075fe673bf55d27d040d0",
+      "outcome": "HOLD",
+      "primary_cause": "SOFTWARE_PROCESS_DEFECT",
+      "native_stage": "visual-edit",
+      "request_sha256": "6e0652f37dbd348dc318b7f5d3efeaeafc12469404d413e23d5967d60918f976",
+      "source_request_count": 5,
+      "source_request_limit": 10
+    },
+    {
+      "candidate_id": "simple-story-0781c5bbca13392eaf34a2a2",
+      "outcome": "REJECT",
+      "primary_cause": "LATE_OR_STALE",
+      "native_stage": "visual-edit",
+      "request_sha256": "5f2b1b0b5b53929990eaefc68153280b7bd43ff65d7c73590f35af1df551c968",
+      "source_request_count": 7,
+      "source_request_limit": 10
+    },
+    {
+      "candidate_id": "simple-story-8521a12c484b3ea2869280df",
+      "outcome": "SOURCE_BLOCKED",
+      "primary_cause": "SOFTWARE_PROCESS_DEFECT",
+      "native_stage": "visual-edit",
+      "request_sha256": "1fdff9bdc828f5bed0f16806a5500b671b18a1461d3b203e6e1d10d47d25a6d7",
+      "source_request_count": 9,
+      "source_request_limit": 10
+    }
+  ],
+  "source_budget_used": 9,
+  "source_request_limit": 10,
+  "accepted_role_return_count": 14,
+  "issued_request_count": 14,
+  "unanswered_requests": [],
+  "original_file_count_preserved": 59,
+  "original_outbox_rows_preserved": 688,
+  "operating_root_status_preserved": true,
+  "control": {
+    "singleton_id": 1,
+    "operating_mode": "AUTONOMOUS_DEFAULT",
+    "state_version": 40,
+    "updated_at_utc": "2026-10-30T23:43:49.392869+00:00",
+    "control_source": "JIM_CC051A_CC042_RESUME_20261031"
+  },
+  "operation_dispatch_count": 0,
+  "ambiguous_dispatch_count": 0,
+  "pending_reconciliation_count": 0,
+  "active_unexpired_lease_count": 0,
+  "production_day_id": "newsroom-production-day-2026-11-02-bangkok",
+  "strict_readback_confirmed_today_count": 0,
+  "canonical_memory_proof": {
+    "schema_version": "contentops.v1_simple_published_memory_access.v1",
+    "corpus_schema_version": "contentops.published_corpus_read_model.v2",
+    "canonical_reconciled_article_count": 1,
+    "canonical_publication_contract": "SUBSTACK_DISPATCH_CONFIRMED_AND_EXACT_RECONCILIATION_CONFIRMED_AND_STABLE_PUBLIC_OBJECT_ID_AND_VALID_CANONICAL_URL_AND_EXACT_URL_HASH_AND_DURABLE_SOURCE_WORK_ITEM_AND_UNIQUE_ARTICLE_IDENTITY",
+    "derived_from_existing_durable_truth": true,
+    "store_access_mode": "SQLITE_MODE_RO_QUERY_ONLY",
+    "auto_migrate": false,
+    "production_store_unchanged_during_projection": true,
+    "second_publication_store_created": false
+  },
+  "cc042_acceptance_passed": false,
+  "same_worker_article_revision_round_trip": "NOT_REACHED_PRE_WRITER_REFUSALS",
+  "first_window_yield": "0 qualified / 3 admitted candidates in this retained manual operation; not a scheduled-window result.",
+  "new_scheduled_window_or_manual_replacement_created": false,
+  "new_operation_created": false,
+  "clean_day_credited": false,
+  "code_fix_applied_to_production": false,
+  "next": "Ops reviews staged CNBC source-admission fix; each scheduled window owns its own exact edition and source cutoff."
+}

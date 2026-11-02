@@ -1,0 +1,315 @@
+{
+  "purpose": "Pointers and hashes only; raw source/capture/native packets are not committed.",
+  "files": [
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\desktop_request_filter-18cac9a0131aeea3fe28e05c3ab6c9cc292e580df048558adf50f1b76d15f4ad.json",
+      "bytes": 329065,
+      "sha256": "bb0c4edecf2bc003e2256a8f3a54c6c0567c091069e0ffffb0dbcb5efc28810c"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\desktop_request_filter-2cf062bd7f9a82e870ba04002ff6effc008e70e08521420155a717457191a983.json",
+      "bytes": 332533,
+      "sha256": "173e6086829671b46aef3ff2184f905b3e305fc550f6f06433d4595102b6da01"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\desktop_request_filter-4f65b732c8fefcb2284cefdb900dd87cf8478e3d05f91db745354c03cd51ef25.json",
+      "bytes": 306091,
+      "sha256": "ac130b1db21db5867e6fc23f6cd9932d175f60cf3e8044752a298edbb3043c38"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\desktop_request_filter-558ab154bc51246e146f2ef2a944ceef4a2ccd142b879ccc0bdbed91002816c0.json",
+      "bytes": 331892,
+      "sha256": "f71b8b2d541f78138784700394cc9c4540bbc9c30246ca6194d60a9b84d56010"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\desktop_request_filter-9c21ae85e47b6ee4661aac5763bc2f40e33f88dcfdbc613302b53c3910363b92.json",
+      "bytes": 335208,
+      "sha256": "2264512c00aae9138840ebf234bda4429a7e8980c0c0c6d96f4a805daa41da07"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\desktop_request_filter-a6a8c7cc8150d7b5ef105417565515a2b600c5e985c680495d70eccf641bd8ee.json",
+      "bytes": 335340,
+      "sha256": "7fc539edd9351d865b6a312d0d086497daa161ca0b97f89dd93e09692aef2773"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\desktop_request_filter-d235140d580e954bbdefd473d45c94ca035642f985f947608432aaaab079cdf5.json",
+      "bytes": 340666,
+      "sha256": "a198034b4ceea13104b05fa0d17ed7c59a8c70ec5304813a8c04061620784e9f"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\desktop_request_media-plan.json",
+      "bytes": 4731,
+      "sha256": "53f6780a1de6d8ee77341a8f7d39a1a570af91de6bbe5b34dcf7eb8f81b8445a"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\desktop_request_select.json",
+      "bytes": 192126,
+      "sha256": "d6b005c1898fb4d1c19d3c212e42ff7474b1b07840f8a48b49a2fd0d735aac3f"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\desktop_request_visual-edit.json",
+      "bytes": 16513,
+      "sha256": "cadedcbc69ba462b765857585167e805c1ded319ce9a01c7bce7829420c29385"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\desktop_response_media-plan.json",
+      "bytes": 3793,
+      "sha256": "6fb4882045c9e78389ed321d55a6831f073d4c696d62d06a1d58d2791dcf79ce"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\desktop_response_visual-edit.json",
+      "bytes": 2915,
+      "sha256": "315df4eb4f4aaa7b98741da88d2374666c7cc2851902e312dd47c2b93f383a29"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\editorial_media_plan_required.json",
+      "bytes": 2950,
+      "sha256": "b99f62aa060cc3e3d021fa2dd39fe1545b2e02fdee9988f700859f908ccc8718"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\main_headline_projection.json",
+      "bytes": 129911,
+      "sha256": "e5346987b9d04abfb0452fb0b3874610e90c66412bf8f201035b37b2442f4a47"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\main_headline_rows.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\native_headline_filter_receipt.json",
+      "bytes": 743722,
+      "sha256": "81d80b9ffae8ab48ff2b9b5c84a1042d978c89f4cc65e47e8c4335ba7f72c515"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\simple_epistemic_state_v1.json",
+      "bytes": 1392,
+      "sha256": "2720ee9776caa013be74f3b114f35a6616fc6a91350e31bc64f7d3c492ef99e0"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\simple_gemini_editorial_edge_v1.json",
+      "bytes": 3842,
+      "sha256": "7d33d6805d61af979c0e98eadff3608d0d23819a6509e70f13c4f22e2a0d75cb"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\simple_gemini_evidence_v1.json",
+      "bytes": 17210,
+      "sha256": "6206c647448b0f3a9a898d742788c9ae9a28ae25f95544893ff56e9d9eb7a4b6"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\simple_gemini_selection_v1.json",
+      "bytes": 12298,
+      "sha256": "b0be7464d3d83fe3bed3aeef3d55b5926377549f16adc8f2e6bf504a553f9af6"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\simple_sourceability_preselection_v1.json",
+      "bytes": 231197,
+      "sha256": "f5c519c971998519869c5a0de8e01ab95c24c60494e67e516b1c4bb06b8ae705"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\source-recovery-history\\431e9e7726a7d3917898184f6076cf6405845462c1088cb6ead03afaba5b1829\\simple_epistemic_state_v1.json",
+      "bytes": 1484,
+      "sha256": "1d88f199dc2cea13ed72a92d6459284ae89bdcb7d391f87313a506050bcd250f"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\source-recovery-history\\431e9e7726a7d3917898184f6076cf6405845462c1088cb6ead03afaba5b1829\\simple_gemini_editorial_edge_v1.json",
+      "bytes": 3843,
+      "sha256": "e95127b02183a3830fa6dad822b447e774fb0220f03581f74f7341ae3247d765"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\source-recovery-history\\431e9e7726a7d3917898184f6076cf6405845462c1088cb6ead03afaba5b1829\\simple_gemini_evidence_v1.json",
+      "bytes": 15837,
+      "sha256": "2c3e33dc3f91ced7e72027c580bd7f859ef94771f505761fa35b22b36baa57d5"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\source-resolution-20261102\\bloomberg-facts\\admission.json",
+      "bytes": 2007,
+      "sha256": "9e65a170bf019301980f41a10429cef0fed26ef50b96da7c0ca462ec4bcbc94f"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\source-resolution-20261102\\bloomberg-facts\\capture.json",
+      "bytes": 1743,
+      "sha256": "e7e16ec98ecc2cdb409ca35de3acf458658bbc9031cd17fafef5a900e812e863"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\source-resolution-20261102\\bloomberg-facts\\index.json",
+      "bytes": 1208,
+      "sha256": "c972624c8c32d4d9c733dfe64b42e92a6fded227453d6a8d3e0870e85d45bad9"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\source-resolution-20261102\\bloomberg-facts\\policy.json",
+      "bytes": 22379,
+      "sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\source-resolution-20261102\\ndx-bloomberg-browser-capture.json",
+      "bytes": 624,
+      "sha256": "be22f5d1f270d0483480192bc20c9416bbe90be19ae65d7eafda61d96ceeda03"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\source-resolution-20261102\\ndx-bloomberg-loaded-capture.json",
+      "bytes": 5930,
+      "sha256": "9363554d1cc5884ecaf4bd1ddd2c9ecab2b18d3597e8dcd1602283f29ea5feef"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\source-resolution-20261102\\ndx-search-capture.json",
+      "bytes": 5827,
+      "sha256": "8cfa280cb485fafe2ff6762bfc4bc9ab1350de8ced8cae08443281ce1db3aba2"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\667877f0a14f7412e7b3fb256a6a9f6f3f764dbf56e203ca854560b3b37835be\\source-resolution-20261102\\recovery-input.json",
+      "bytes": 2082,
+      "sha256": "0801efc59b2ded249db1659d5b959806910ab7873ddc58caac6feaec495ed1a2"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\desktop_request_filter-18cac9a0131aeea3fe28e05c3ab6c9cc292e580df048558adf50f1b76d15f4ad.json",
+      "bytes": 329065,
+      "sha256": "bb0c4edecf2bc003e2256a8f3a54c6c0567c091069e0ffffb0dbcb5efc28810c"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\desktop_request_filter-2cf062bd7f9a82e870ba04002ff6effc008e70e08521420155a717457191a983.json",
+      "bytes": 332533,
+      "sha256": "173e6086829671b46aef3ff2184f905b3e305fc550f6f06433d4595102b6da01"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\desktop_request_filter-4f65b732c8fefcb2284cefdb900dd87cf8478e3d05f91db745354c03cd51ef25.json",
+      "bytes": 306091,
+      "sha256": "ac130b1db21db5867e6fc23f6cd9932d175f60cf3e8044752a298edbb3043c38"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\desktop_request_filter-558ab154bc51246e146f2ef2a944ceef4a2ccd142b879ccc0bdbed91002816c0.json",
+      "bytes": 331892,
+      "sha256": "f71b8b2d541f78138784700394cc9c4540bbc9c30246ca6194d60a9b84d56010"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\desktop_request_filter-9c21ae85e47b6ee4661aac5763bc2f40e33f88dcfdbc613302b53c3910363b92.json",
+      "bytes": 335208,
+      "sha256": "2264512c00aae9138840ebf234bda4429a7e8980c0c0c6d96f4a805daa41da07"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\desktop_request_filter-a6a8c7cc8150d7b5ef105417565515a2b600c5e985c680495d70eccf641bd8ee.json",
+      "bytes": 335340,
+      "sha256": "7fc539edd9351d865b6a312d0d086497daa161ca0b97f89dd93e09692aef2773"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\desktop_request_filter-d235140d580e954bbdefd473d45c94ca035642f985f947608432aaaab079cdf5.json",
+      "bytes": 340666,
+      "sha256": "a198034b4ceea13104b05fa0d17ed7c59a8c70ec5304813a8c04061620784e9f"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\desktop_request_media-plan.json",
+      "bytes": 4648,
+      "sha256": "c9f526c57ad67bfa13432b1ae5dadedb54c2bbf3ddf44601e9170dc0b7e3bcb8"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\desktop_request_select.json",
+      "bytes": 192126,
+      "sha256": "d6b005c1898fb4d1c19d3c212e42ff7474b1b07840f8a48b49a2fd0d735aac3f"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\desktop_request_visual-edit.json",
+      "bytes": 13761,
+      "sha256": "825f735e0d3f41712ccfc179c8755cfe619c39e944c4fcf5d90fb698b40459a5"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\desktop_response_media-plan.json",
+      "bytes": 3662,
+      "sha256": "65ca3778c43855f926709bc34bbe780c1eb55686832de3bd8f9237e0acd3cad9"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\desktop_response_visual-edit.json",
+      "bytes": 3290,
+      "sha256": "4179b471b734cfc7ae800783d68c33a57f20ce4cc5688253ec6a6050ce23c6b5"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\editorial_media_plan_required.json",
+      "bytes": 1560,
+      "sha256": "8a4093a5e22760e437a267642c4c67f59cd071939f7ec4c8f80148e8d98c3dc8"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\main_headline_projection.json",
+      "bytes": 129911,
+      "sha256": "e5346987b9d04abfb0452fb0b3874610e90c66412bf8f201035b37b2442f4a47"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\main_headline_rows.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\native_desktop_result.json",
+      "bytes": 9748,
+      "sha256": "dc1c302d6ca8bbb783a8e06ebfda1ccbfd0f9a1bfda758a9969dcac26c029143"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\native_headline_filter_receipt.json",
+      "bytes": 743722,
+      "sha256": "81d80b9ffae8ab48ff2b9b5c84a1042d978c89f4cc65e47e8c4335ba7f72c515"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\simple_epistemic_state_v1.json",
+      "bytes": 1324,
+      "sha256": "ded5bee746fd2439a422e9172733e93fed1ee512768d9a8f6a6d36646a18d98f"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\simple_gemini_editorial_edge_v1.json",
+      "bytes": 3843,
+      "sha256": "e95127b02183a3830fa6dad822b447e774fb0220f03581f74f7341ae3247d765"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\simple_gemini_evidence_v1.json",
+      "bytes": 14974,
+      "sha256": "1c417dc77e87e411bd24c9772a1c9304c665c2b9cbb810532cb0eab0c096f870"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\simple_gemini_selection_v1.json",
+      "bytes": 12298,
+      "sha256": "ec4a1269f81cc9b27c7e1366dadfdba34f845bc879903baaacbc4831b7b7dd09"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\simple_sourceability_preselection_v1.json",
+      "bytes": 231197,
+      "sha256": "f5c519c971998519869c5a0de8e01ab95c24c60494e67e516b1c4bb06b8ae705"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\source-resolution-20261102\\cnbc-facts\\admission.json",
+      "bytes": 1975,
+      "sha256": "e075e236404a6066bdfb0a9b1c373a0bbdeed7a5b87e8f5f31c83f5a0b11b626"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\source-resolution-20261102\\cnbc-facts\\capture.json",
+      "bytes": 1751,
+      "sha256": "33ffd617f520a54c640f12c539f55577c361a7e35d627d4748f95af06be048dc"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\source-resolution-20261102\\cnbc-facts\\index.json",
+      "bytes": 1134,
+      "sha256": "2a8ca2625cb34dbb2544c66db4b9f3615ca9b41f89af0e03aaedf47d7eaf0a08"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\source-resolution-20261102\\cnbc-facts\\original.json",
+      "bytes": 43157,
+      "sha256": "12fccf26804b9d3b72437fe1f1b3e676276115dc29551e1ec7b81b0feda9f751"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\source-resolution-20261102\\cnbc-facts\\policy.json",
+      "bytes": 22379,
+      "sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\source-resolution-20261102\\corporate-cnbc-capture-loaded-20261102.json",
+      "bytes": 5745,
+      "sha256": "54e7f50894b7ededf86488a1c840b4ca611e198aa15fe5c5c203d77ba63d0e49"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\source-resolution-20261102\\corporate-source-search-loaded-20261102.json",
+      "bytes": 5758,
+      "sha256": "c023f8f2cd285c952e7950637381a6e7b580b0f4810b79951e9721c6d5449a5f"
+    },
+    {
+      "private_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\candidates\\51b65be9231d72175e30e70b6b3eafdf0109b0c129bbba99fa7c39ec28595942\\source-resolution-20261102\\source-admission-observation.json",
+      "bytes": 2550,
+      "sha256": "f1e5c8d9ecb148853ccc79ce01746bba1ac69e20f7634391dec37fc75a908cc8"
+    }
+  ]
+}
