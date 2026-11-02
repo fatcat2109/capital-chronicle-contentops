@@ -2944,6 +2944,19 @@ def run_v1_simple_gemini_newsroom(
             article_mode=str(selected_plan_entry["article_mode"]),
             epistemic_state=selected_epistemic_state,
         )
+        if native:
+            preview_media = (llm_invoke.admitted_editorial_media()
+                if article.get("reader_first_version") == "DATA_JOURNALISM_V1" or article.get("text_first") else [])
+            try:
+                _native_preview_bundle(
+                    article=article, article_mode=str(selected_plan_entry["article_mode"]),
+                    article_identity=_text_hash(str(article["substack_body_markdown"])),
+                    epistemic_state=selected_epistemic_state,
+                    media_asset_ids=[a["asset_id"] for a in preview_media], media_assets=preview_media,
+                )
+            except SimpleGeminiNewsroomError as compile_error:
+                raise SimpleGeminiNewsroomError("deterministic_article_validation_failed",
+                    [compile_error.code, *compile_error.details]) from compile_error
     except SimpleGeminiNewsroomError as first_error:
         if first_error.code != "deterministic_article_validation_failed":
             raise
