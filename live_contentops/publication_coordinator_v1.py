@@ -275,7 +275,7 @@ def normalize_readback_result(
             )
         )
     )
-    return {
+    normalized = {
         "verified": bool(verified_flag and matching),
         "write_absent": bool(absent),
         "write_exists": bool(raw.get("write_exists") is True and matching),
@@ -284,6 +284,13 @@ def normalize_readback_result(
         "identity_match": matching,
         "source_status": str(raw.get("status") or raw.get("classification") or "") or None,
     }
+    if raw.get("published_at_utc"):
+        from live_contentops.published_content_v1 import utc
+        try:
+            normalized["observed_published_at_utc"] = utc(raw["published_at_utc"]).isoformat()
+        except ValueError:
+            normalized["publication_clock_error"] = "EXPLICIT_UTC_CLOCK_REQUIRED"
+    return normalized
 
 
 class DurablePublicationCoordinator:
@@ -300,6 +307,7 @@ class DurablePublicationCoordinator:
         clock: Optional[Callable[[], datetime]] = None,
         recovery_quarantined_work_item_ids: tuple[str, ...] = (),
         allow_prior_confirmed_distribution: bool = False,
+        published_content_path: str | Path | None = None,
     ) -> None:
         self.store = store
         self.transport_runtime = transport_runtime
@@ -309,6 +317,9 @@ class DurablePublicationCoordinator:
         self.recovery_scope = None
         self.readiness_refresh_seconds = max(30.0, float(readiness_refresh_seconds))
         self._clock = clock or (lambda: datetime.now(timezone.utc))
+        from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE
+        self.published_content_path = (Path(published_content_path) if published_content_path is not None
+            else DEFAULT_FEED if Path(store.db_path).resolve() == PRODUCTION_STORE.resolve() else None)
         self._recovery_quarantined_work_item_ids = frozenset(
             str(value).strip()
             for value in recovery_quarantined_work_item_ids
@@ -1347,6 +1358,11 @@ class DurablePublicationCoordinator:
             return
 
     def register_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
+        if self.published_content_path is not None:
+            from live_contentops.published_content_v1 import article_metadata, read_records
+            article_metadata(plan)
+            if self.published_content_path.exists():
+                read_records(self.published_content_path)
         if str(plan.get("transport_registry_version") or "") != REGISTRY_VERSION:
             raise ValueError("publication_plan_transport_registry_version_mismatch")
         plan_hash = str(plan.get("plan_hash") or _hash(_canonical_json(plan)))
@@ -1417,6 +1433,11 @@ class DurablePublicationCoordinator:
                 "callables_persisted": False,
                 "secrets_persisted": False,
             }
+            if self.published_content_path is not None:
+                # Issued historical intents and native request hashes stay immutable.
+                previous = self.store.get_outbox_message(ids["message_id"])
+                if not previous or json.loads(previous["payload"]).get("published_content_export"):
+                    intent["published_content_export"] = "contentops.published_content.v1"
             payload = _canonical_json(intent)
             expected_hash = str(item.get("payload_hash") or "")
             if item.get("payload") is not None and expected_hash:
@@ -1696,6 +1717,14 @@ class DurablePublicationCoordinator:
         mode = "AUTONOMOUS_DEFAULT" if native_pending_resume else self._mode()
         if mode != "AUTONOMOUS_DEFAULT":
             return {"destination": destination, "status": f"WRITE_BLOCKED_{mode}", "publish_called": False}
+        if self.published_content_path is not None:
+            from live_contentops.published_content_v1 import article_metadata, read_records
+            from live_contentops.event_article_guard_v1 import check_publication_copy
+            metadata = article_metadata(intent)
+            check_publication_copy({"payload": intent.get("payload") or item.get("payload")},
+                conditional_calls=metadata["conditional_calls"], require_notice=False, require_call_text=False)
+            if self.published_content_path.exists():
+                read_records(self.published_content_path)
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
         native = self.store.get_outbox_message("native-operation-binding-" + sha256_of(intent["work_item_id"]))
         if native:
@@ -2193,6 +2222,15 @@ class DurablePublicationCoordinator:
                 current.update({k: result[k] for k in ("distribution_status", "canonical_publication_status",
                     "transaction_classification") if k in result})
             result = {**result, **current}
+        if self.published_content_path is not None and result.get("canonical_article_real_published"):
+            from live_contentops.published_content_v1 import sync_confirmed_piece
+            try:
+                result["published_content_record"] = sync_confirmed_piece(self.store,
+                    self.published_content_path, work_item_id, recorded_at_utc=self._clock().isoformat())
+            except (ValueError, OSError) as exc:
+                # A post-write export failure must never cause another public send.
+                result["published_content_record"] = {"status": "PUBLICATION_RECORD_PENDING",
+                    "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__}
         return result
 
     def _execute_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:

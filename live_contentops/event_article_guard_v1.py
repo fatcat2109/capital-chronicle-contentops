@@ -20,6 +20,8 @@ from typing import Any, Mapping
 SCHEMA = "contentops.event_article.v1"
 EVIDENCE_SCHEMA = "contentops.event_article_evidence.v1"
 DISCLAIMER = "This is general market analysis, not financial advice."
+PUBLIC_NOTICE = "Analysis, not financial advice."
+CONFLICTS_NOTICE = "Capital Chronicle may hold positions in the markets it covers."
 ARTICLE_TYPES = ("EVENT_PREVIEW", "EVENT_REVIEW")
 REACTION_ASSETS = {"rates", "dollar", "gold", "oil", "indices", "sectors"}
 SECTIONS = {
@@ -89,6 +91,77 @@ def public_execution_copy_forbidden(text: str) -> bool:
         if not policy_target:
             return True
     return False
+
+
+def conditional_call_text(call: Mapping[str, Any]) -> str:
+    """Decision 40's general, impersonal form; no numeric computation or advice."""
+    return (f"If {call['condition']}, the desk is {call['direction']} on {call['market']} "
+            f"over {call['horizon']}. Invalidated if {call['invalidation']}.")
+
+
+def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
+                           require_notice: bool = True, require_call_text: bool = True) -> dict[str, Any]:
+    """Shared Substack/feed gate: decision 35 as amended by decision 40.
+
+    Source/number admission remains with the existing evidence owner. Structured
+    calls must appear verbatim in the authored copy; this function never writes one.
+    """
+    calls = [] if conditional_calls is None else conditional_calls
+    if not isinstance(calls, list):
+        _fail("CONDITIONAL_CALLS_ARRAY_REQUIRED", "conditional_calls")
+    _private_keys(copy, "copy")
+    _private_keys(calls, "conditional_calls")
+    texts = []
+
+    def collect(value):
+        if isinstance(value, str):
+            texts.append(re.sub(r"[`*_]", "", _text(value)))
+        elif isinstance(value, Mapping):
+            for child in value.values():
+                collect(child)
+        elif isinstance(value, list):
+            for child in value:
+                collect(child)
+
+    collect(copy)
+    combined = "\n".join(texts)
+    if require_notice and not re.search(r"analysis,?\s+not financial advice", combined, re.I):
+        _fail("PUBLIC_ANALYSIS_NOTICE_REQUIRED", "copy")
+    remainder = combined
+    for call in calls:
+        required = {"condition", "direction", "market", "horizon", "invalidation"}
+        optional = {"call_id", "trigger", "score"}
+        if (not isinstance(call, Mapping) or not required <= set(call)
+                or set(call) - required - optional
+                or any(not isinstance(call[k], str) or not call[k].strip() for k in required)
+                or call["direction"] not in {"bullish", "bearish"}):
+            _fail("CONDITIONAL_CALL_FIELDS_REQUIRED", "conditional_calls")
+        for key in required - {"direction"}:
+            if re.search(r"\b(?:bullish|bearish|buy|sell)\b", call[key], re.I):
+                _fail("CALL_CONDITION_OR_INVALIDATION_INVALID", "conditional_calls")
+        if call["condition"].strip().casefold() in {"always", "true", "none", "n/a", "no condition", "unconditional"}:
+            _fail("CALL_CONDITION_OR_INVALIDATION_INVALID", "conditional_calls")
+        wording = conditional_call_text(call)
+        if require_call_text and wording not in combined:
+            _fail("CONDITIONAL_CALL_NOT_IN_AUTHORED_COPY", "conditional_calls")
+        remainder = remainder.replace(wording, "")
+    if calls and CONFLICTS_NOTICE not in combined:
+        _fail("CONFLICTS_NOTICE_REQUIRED", "copy")
+    if re.search(r"\b(?:bullish|bearish)\b", remainder, re.I):
+        _fail("UNCONDITIONAL_CALL_FORBIDDEN", "copy")
+    for call in calls:
+        collect({k: v for k, v in call.items() if k != "direction"})
+    for text in texts:
+        if public_execution_copy_forbidden(text):
+            _fail("PRIVATE_OR_EXECUTION_COPY_FORBIDDEN", "copy")
+        if re.search(r"(?:PRIVATE[_ ]*ONLY|INTERNAL[_ ]*PROVENANCE|BROKER[_ ]*PROXY[_ ]*RAW[_ ]*PRIVATE|"
+                     r"CODEX[_ ]*DIGEST[_ ]*INTERNAL|DEMO[_ ]*DERIVED[_ ]*PRIVATE)", text, re.I):
+            _fail("PRIVATE_LABEL_IN_PUBLIC_COPY", "copy")
+        for sentence in re.split(r"[\n.!?](?!\d)", text):
+            if (re.search(r"\b(?:Kalshi|Polymarket|prediction.market|market odds)\b", sentence, re.I)
+                    and _NUMBER.search(sentence)):
+                _fail("PREDICTION_MARKET_NUMBER_FORBIDDEN", "copy")
+    return {"status": "PASS", "policy": "JIM_DECISIONS_35_40", "conditional_call_count": len(calls)}
 
 
 def _fail(cause: str, location: str) -> None:
@@ -193,7 +266,8 @@ def check_public_event_article(article: Mapping[str, Any], *,
     if not isinstance(article, Mapping):
         _fail("ARTICLE_OBJECT_REQUIRED", "article")
     _private_keys(article)
-    if set(article) != _ROOT_KEYS or article.get("schema_version") != SCHEMA:
+    if (set(article) - {"conditional_calls"} != _ROOT_KEYS
+            or article.get("schema_version") != SCHEMA):
         _fail("ARTICLE_SCHEMA_INVALID", "article")
     kind = article.get("article_type")
     if kind not in ARTICLE_TYPES:
@@ -226,6 +300,7 @@ def check_public_event_article(article: Mapping[str, Any], *,
             or not all(isinstance(v, str) and v.strip() for v in evidence["private_text"])):
         _fail("PINNED_EVENT_EVIDENCE_REQUIRED", "evidence")
     texts = dict(_strings(copy))
+    check_publication_copy(copy, conditional_calls=article.get("conditional_calls", []))
     for path, value in texts.items():
         text = _text(value)
         # Formatting is not a route around an execution/private-content refusal.

@@ -131,7 +131,7 @@ def standing_binding(profile, rollout, *, operation_id, resolver, request=None, 
 
 def check_finished_piece(store, binding):
     """Recheck the exact writer return, facts, clocks, public text and chart lineage."""
-    from live_contentops.event_article_guard_v1 import public_execution_copy_forbidden, check_public_event_article
+    from live_contentops.event_article_guard_v1 import check_publication_copy, check_public_event_article
     from live_contentops.v1_simple_gemini_newsroom_v1 import (
         _normalize_relay_attribution, _public_copy, _validate_article_against_source_pack,
     )
@@ -171,7 +171,13 @@ def check_finished_piece(store, binding):
         raise ValueError("FINISHED_PIECE_DIFFERS_FROM_FACT_CHECKED_COPY")
     surfaces = [_public_copy(result["article"]), *[json.dumps(p["payload"], ensure_ascii=False)
                  for p in result.get("previews", [])]]
-    if _private(result["article"]) or any(public_execution_copy_forbidden(s) for s in surfaces):
+    check_publication_copy({"body": surfaces[0]},
+        conditional_calls=result["article"].get("conditional_calls", []), require_notice=False)
+    for surface in surfaces[1:]:
+        check_publication_copy({"body": surface},
+            conditional_calls=result["article"].get("conditional_calls", []),
+            require_notice=False, require_call_text=False)
+    if _private(result["article"]):
         raise ValueError("FINISHED_PIECE_PUBLIC_OUTPUT_GUARD")
     if "analysis, not financial advice" not in surfaces[0].casefold():
         raise ValueError("FINISHED_PIECE_ANALYSIS_NOTICE_REQUIRED")

@@ -156,6 +156,12 @@ class NeoDestinationHandoff:
                 "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"],
             "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
             "forbidden": ["login", "reauthorize", "account_switch", "cookies", "storage", "blind_retry", "bulk_x_ingestion"]}
+        if destination == "substack" and action == "READBACK" and intent.get("published_content_export"):
+            value["publication_clock_readback"] = (
+                "Return published_at_utc from the exact post's time datetime or post_date; "
+                "preserve the original timestamp with a UTC offset. Never substitute a dispatch, "
+                "event, retrieval, scheduled or current clock."
+            )
         if destination == "linkedin" and action == "READBACK" and not public_object_id:
             value["owner_absence_context"] = intent.get("owner_absence_context")
         if intent.get("reader_presentation_review"):
