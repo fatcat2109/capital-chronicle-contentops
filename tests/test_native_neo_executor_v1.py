@@ -283,3 +283,35 @@ def test_readonly_publish_and_unclaimed_or_wrong_return_fail_closed(tmp_path):
     packet, _, _ = pending_readback(adapter)
     with pytest.raises(ValueError, match="BINDING"):
         executor.submit(packet["request"]["request_sha256"], {})
+
+
+@pytest.mark.parametrize("fault", [None, "stale", "invocation", "identity", "unauthenticated"])
+def test_identity_observation_survives_epoch_boundary_only_while_exact_and_fresh(tmp_path, fault):
+    from datetime import timedelta
+    store, executor = setup(tmp_path)
+    now = datetime(2026, 11, 2, 22, 34, 59, tzinfo=timezone.utc)
+    executor.clock = lambda: now
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        executor.readiness("SUBSTACK_ARTICLE")
+    packet = pending.value.request
+    executor.begin(packet["request"]["request_sha256"])
+    observed = {"tool_request_sha256": packet["tool_request_sha256"],
+        "tool_observation": {"tool_name": TOOL, "native_invocation_id": "controlled-test",
+            "surface": "CODEX_NATIVE_SUBAGENT", "observation_source": "CONTROLLED_NOT_BROWSER_PROOF",
+            "observed_at_utc": now.isoformat()},
+        "result": {"request_sha256": packet["request"]["request_sha256"],
+            "authenticated": fault != "unauthenticated",
+            "observed_identity": "WRONG_IDENTITY" if fault == "identity" else "capitalchronicle.substack.com"}}
+    executor.submit(packet["request"]["request_sha256"], observed)
+    before = len(store.list_outbox_messages())
+    now += timedelta(seconds=302 if fault == "stale" else 2)
+    if fault == "invocation":
+        executor.native_invocation_id = "different-native-turn"
+    if fault:
+        with pytest.raises(NativeNeoInputRequired):
+            executor.readiness("SUBSTACK_ARTICLE")
+    else:
+        result = executor.readiness("SUBSTACK_ARTICLE")
+        assert result["authenticated"] and result["proof_fresh"]
+        assert len(store.list_outbox_messages()) == before
+    assert store.list_platform_dispatches() == []

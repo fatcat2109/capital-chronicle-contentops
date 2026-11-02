@@ -181,6 +181,30 @@ class NativeNeoExecutor:
         self._put(request_hash, "response", {"result": result}, packet["request"]["work_item_id"])
         return {"request_sha256": request_hash, "tool_return_sha256": sha256_of(response)}
 
+    def _fresh_identity_return(self, destination, surface, expected_identity):
+        # Probe epochs deduplicate requests; actual observation time controls
+        # freshness. Crossing a bucket must not discard a seconds-old proof.
+        for row in reversed(self.store.list_outbox_messages()):
+            if row["destination"] != DESTINATION:
+                continue
+            packet = json.loads(row["payload"])
+            request = packet.get("request") or {}
+            if (packet.get("schema_version") != SCHEMA or packet.get("operation_id") != self.operation_id
+                    or request.get("action") != "VERIFY_IDENTITY" or request.get("destination") != destination
+                    or request.get("surface") != surface or request.get("expected_identity") != expected_identity
+                    or request.get("native_invocation_id") != self.native_invocation_id):
+                continue
+            returned = self._get(request.get("request_sha256"), "response")
+            result = (returned or {}).get("result") or {}
+            observation = result.get("native_tool_observation") or {}
+            if (result.get("authenticated") is not True or result.get("observed_identity") != expected_identity
+                    or observation.get("native_invocation_id") != self.native_invocation_id):
+                continue
+            age = self.clock() - datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
+            if timedelta(0) <= age <= timedelta(minutes=5):
+                return result
+        return None
+
     def readiness(self, surface):
         from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
         from live_contentops.neo_destination_handoff_v1 import IDENTITIES, ROOTS
@@ -196,7 +220,9 @@ class NativeNeoExecutor:
                    "entry_url": ROOTS[destination], "work_item_id": work,
                    "forbidden": ["login", "account_switch", "public_write", "saved_draft", "private_storage"]}
         request["request_sha256"] = sha256_of(request)
-        result = self(request)
+        result = self._fresh_identity_return(destination, surface, IDENTITIES[destination])
+        if result is None:
+            result = self(request)
         observed = result.get("native_tool_observation") or {}
         age = self.clock() - datetime.fromisoformat(observed["observed_at_utc"].replace("Z", "+00:00"))
         current = (observed.get("native_invocation_id") == self.native_invocation_id
