@@ -1,0 +1,11 @@
+{
+  "base": "3c065640ccc80305f80628fb833baf91b2268208",
+  "tree": "ef2e3796a73e809214ad397e3a16d31fe1ddeb7f",
+  "changed_paths": [
+    "live_contentops/capital_chronicle_report_editorial_workspace_v1.py",
+    "live_contentops/v1_simple_gemini_newsroom_v1.py",
+    "tests/test_v1_simple_gemini_newsroom_v1.py"
+  ],
+  "context_adaptation": "Forward only native response reading immediately after the existing frozen_request binding, preserving live-only capability bindings.",
+  "observed_at_utc": "2026-11-02T21:32:51.078274+00:00"
+}
