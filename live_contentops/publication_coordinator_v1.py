@@ -1164,8 +1164,8 @@ class DurablePublicationCoordinator:
             for row in (plan.get("skipped_derivative_destinations") or [])
             if isinstance(row, Mapping) and str(row.get("destination") or "")
         )
-        from live_contentops.native_newsroom_volume_v1 import permitted_photo_less_skip
-        permitted_skips = {"instagram_business"} if permitted_photo_less_skip(plan) else set()
+        from live_contentops.native_newsroom_volume_v1 import permitted_derivative_skips
+        permitted_skips = permitted_derivative_skips(plan)
         structural_blockers = {
             "missing_destinations": sorted(required - observed),
             "unexpected_destinations": sorted(observed - required),
@@ -1286,8 +1286,8 @@ class DurablePublicationCoordinator:
             raise ValueError("publication_plan_transport_registry_version_mismatch")
         plan_hash = str(plan.get("plan_hash") or _hash(_canonical_json(plan)))
         registered = []
-        from live_contentops.native_newsroom_volume_v1 import permitted_photo_less_skip
-        permitted_skips = {"instagram_business"} if permitted_photo_less_skip(plan) else set()
+        from live_contentops.native_newsroom_volume_v1 import permitted_derivative_skips
+        permitted_skips = permitted_derivative_skips(plan)
         for item in sorted(plan.get("destinations") or [], key=lambda row: (
             0 if str(row.get("destination")) == "substack" else 1,
             str(row.get("destination")),
@@ -2223,8 +2223,8 @@ class DurablePublicationCoordinator:
             ):
                 canonical_url = str(outcome["public_object_url"])
         delivery_preparer = getattr(self.transport_runtime, "prepare_delivery_media", None)
-        from live_contentops.native_newsroom_volume_v1 import permitted_photo_less_skip
-        no_media_needed = permitted_photo_less_skip(plan) and plan.get("media_asset_count") == 0
+        from live_contentops.native_newsroom_volume_v1 import permitted_derivative_skips
+        no_media_needed = bool(permitted_derivative_skips(plan)) and plan.get("media_asset_count") == 0
         if canonical_url and callable(delivery_preparer) and quality_preflight is not None and not no_media_needed:
             unknown_write_count = self._active_unknown_write_count()
             delivery_media_preparation = dict(

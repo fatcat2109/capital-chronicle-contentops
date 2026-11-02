@@ -729,13 +729,30 @@ class NativeDesktopTurn:
         media_plan = json.loads(media_row["payload"]) if media_row else None
         frozen_writer = self.frozen_request("write") if stage == "write" else None
         visual = self.visual_response() if stage == "write" else None
+        text_policy = None
+        if stage == "write" and "source_pack" in kwargs["governed_input"]:
+            from live_contentops.native_text_first_v1 import writer_policy
+            if frozen_writer:
+                text_policy = frozen_writer["governed_input"].get("text_first_policy")
+            elif not visual and not media_plan and not self.frozen_request("media-plan") and not self.frozen_request("visual-edit"):
+                text_policy = writer_policy(kwargs["governed_input"])
+            if text_policy:
+                kwargs["governed_input"] = {**kwargs["governed_input"], "text_first_policy": text_policy}
+                kwargs["prompt"] += ("\nDECISION 37 B2 TEXT_FIRST: Write a complete short NEWS/POLICY item, at most 500 words. "
+                    "Set article.news_item_kind to NEWS or POLICY. Keep every ordinary source, claim, attribution, "
+                    "uncertainty and public-output check. No private numbers, entry/stop/target/size calls or DEMO details. "
+                    "Charts and screenshots are optional; no visual plan or rendered review is required for this route. "
+                    "Do not relabel analysis. If the facts are insufficient, return the existing typed HOLD. "
+                    "Optional unreadable pages cannot expand the established facts. Do not claim inspected pixels.")
+                if frozen_writer:
+                    kwargs["prompt"] = frozen_writer["prompt"]
         if visual:
             decision = validate_visual_decision(visual["output"])
             kwargs["governed_input"] = {**kwargs["governed_input"],
                 "reader_first_version": "DATA_JOURNALISM_V1", "visual_editorial_decision": decision}
             from live_contentops.v1_simple_gemini_newsroom_v1 import _worker_prompt
             kwargs["prompt"] = _worker_prompt(kwargs["governed_input"])
-        if (stage == "write" and "source_pack" in kwargs["governed_input"]
+        if (stage == "write" and not text_policy and "source_pack" in kwargs["governed_input"]
                 and (not frozen_writer or "editorial_media_plan" in frozen_writer["governed_input"])):
             if not media_plan:
                 pending = {"stage": "media-plan", "run_id": self.run_id,
@@ -769,7 +786,7 @@ class NativeDesktopTurn:
         role = native_role(stage)
         target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
         frozen = self.frozen_request(stage)
-        if self.volume_policy and role in {"visual-edit", "write"} and not frozen:
+        if self.volume_policy and role in {"visual-edit", "write"} and not frozen and not text_policy:
             kwargs["prompt"] += ("\nDATED J8: A source-sufficient genuine NEWS/POLICY brief may use no photo and no assets, "
                 "with Instagram explicitly skipped. Analysis keeps its lawful photo and useful charts. "
                 "Never treat an optional photo gap as a factual gap or relabel analysis. Keep exact final rendered desktop/mobile review.")
@@ -1180,15 +1197,20 @@ def validate_release_media(result):
     from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
     from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_source_value_chart
     assets = result.get("media_assets") or []
+    from live_contentops.native_text_first_v1 import text_first_brief
+    text_first = text_first_brief(result)
     decision = result.get("visual_editorial_decision") or (result.get("article") or {}).get("visual_editorial_decision")
-    if (result.get("article") or {}).get("reader_first_version") == "DATA_JOURNALISM_V1" and not decision:
+    if not text_first and (result.get("article") or {}).get("reader_first_version") == "DATA_JOURNALISM_V1" and not decision:
         raise ValueError("MAX_VISUAL_DECISION_REQUIRED")
     reader_first = bool(decision)
-    if not reader_first and not 2 <= len(assets) <= 3:
+    if not text_first and not reader_first and not 2 <= len(assets) <= 3:
         raise ValueError("RELEASE_REQUIRES_GROUNDED_PHOTO_AND_QUANTITATIVE_CHART")
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]
     charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
-    if reader_first:
+    if text_first:
+        if len(assets) != len(photos) + len(charts):
+            raise ValueError("TEXT_FIRST_UNSUPPORTED_MEDIA")
+    elif reader_first:
         validate_visual_decision(decision)
         from live_contentops.native_newsroom_volume_v1 import photo_less_brief
         minimum_photos = 0 if photo_less_brief(result) else 1
@@ -1690,6 +1712,9 @@ def final_visual_acceptance(store, *, run_id, result, reference):
 
 def require_current_final_visual_review(store, *, run_id):
     result, _, review = validated_native_review(store, run_id=run_id)
+    from live_contentops.native_text_first_v1 import text_first_brief, fact_checked_acceptance
+    if text_first_brief(result):
+        return fact_checked_acceptance(store, run_id=run_id, result=result)
     note = json.loads(review["notes"])
     acceptance = final_visual_acceptance(store, run_id=run_id, result=result, reference=note.get("final_visual_review"))
     if note["final_visual_review"] != acceptance:
