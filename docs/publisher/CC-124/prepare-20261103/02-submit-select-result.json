@@ -1,0 +1,19 @@
+{
+  "command": [
+    "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "scripts/run_native_desktop_editorial.py",
+    "submit",
+    "--binding",
+    "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\binding.json",
+    "--stage",
+    "select",
+    "--response",
+    "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\desktop_response_select.json"
+  ],
+  "working_directory": "A:\\Capital Chronicle\\ContentOps",
+  "started_at_utc": "2026-11-02T20:27:39.747445+00:00",
+  "finished_at_utc": "2026-11-02T20:27:46.745489+00:00",
+  "exit_code": 0,
+  "stdout": "{\"stage\": \"select\", \"response_sha256\": \"e2fe8545fc1176b8d245bc9f21091303d67056bd8a5257bc6c8cb1f962d47319\", \"public_write_performed\": false}\n",
+  "stderr": ""
+}

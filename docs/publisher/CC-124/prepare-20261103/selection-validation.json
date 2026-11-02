@@ -1,0 +1,49 @@
+{
+  "item": "CC-124",
+  "classification": "SOURCE_ONLY_PREPARATION_SELECTION_ACCEPTED",
+  "observed_at_utc": "2026-11-02T20:28:19.927897+00:00",
+  "operating_head": "672f57e51f7514aa6184c1136e861f6981461fd7",
+  "branch_base": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "launch_configuration": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "state": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Observed ancestor codex.exe PID 47700 has explicit --model gpt-6.1-sol and -c model_reasoning_effort=max; no actual-model telemetry exposed."
+  },
+  "operation_id": "cc124-prepare-20261103-a",
+  "binding_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\binding.json",
+  "binding_sha256": "547e63101cbe785c90039f627a3730885178718938b80b85950ce5c9482598ac",
+  "selection_request_sha256": "571b78274e8f254788c4cb6d6861d7d89cc07cb36ba78ffe0794070654d9c66d",
+  "selection_response_file_sha256": "6e88d185fc06c3ef96bfd3a7ac92048222a185b062d957d618776876a6094b56",
+  "selection_observation": {
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "model": null,
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "configuration_source": "Exact frozen desktop_request_select.json requested_model and requested_reasoning_effort fields, not observed runtime telemetry.",
+    "observation_source": "Supported native task context provides canonical task identity; actual model and reasoning effort are not exposed in this context.",
+    "speed": "standard",
+    "configured_model": "gpt-6.1-sol",
+    "reasoning_effort": null,
+    "configured_reasoning_effort": "low",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "invocation_id": "/root/native_select_571b78274e8f",
+    "actual_configuration_unavailable": true
+  },
+  "publication_due_at_entry": {
+    "due": false,
+    "next_publication_utc": "2026-11-02T21:20:08.539332+00:00",
+    "spacing_hours": 3.5,
+    "clock_basis": "FIRST_VERIFIED_CANONICAL_READBACK"
+  },
+  "scope": "Existing private owner store, existing production newsroom lease held for each CLI command, no dispatch",
+  "new_articles_published": 0,
+  "new_source_requests_at_selection": 0,
+  "schedule_changed": false,
+  "chat_messages_sent": false,
+  "checks": [
+    "Existing clean item branch retained from fresh remote default",
+    "Exact selection request/return hash and supported native task identity verified",
+    "Actual submit CLI exit 0",
+    "Public send due-time guard unchanged"
+  ]
+}
