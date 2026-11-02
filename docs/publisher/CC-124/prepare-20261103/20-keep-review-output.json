@@ -1,0 +1,33 @@
+{
+  "review_id": "native-article-review-55476c0419554ad7a8d3d0e936467c72",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "cc124-prepare-20261103-a",
+  "article_identity": "e8f9f4ec5cf1fc91133e77d4bb27b45435139db5b121bbf4252c29f75bab1bdd",
+  "package_revision": "ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305",
+  "article_metadata_sha256": "066df9eedc190874a0ca752cad205321a0f8bd2d2275d8213897587eeed51163",
+  "rationale": "Same actual MAX writer accepted all 18 exact desktop/mobile canonical and channel renders. All four CPI facts match the retained October 14 release; monthly adjusted and annual unadjusted bases, retrospective dates, BLS attribution, uncertainty and analysis notice remain clear. No unsupported material claim or unresolved rendered finding. The admitted rolling BLS link remains separate from the independently verified dated archive. Instagram explicitly skips for missing image under decision 39.",
+  "publication_authority": false,
+  "final_visual_review": {
+    "stage": "final-visual-3fec5e82b21d56c39bc1af1979f2f7f85e1b3e261677c2429a6929c24a77402b",
+    "request_sha256": "83845cf0c6e0fda3827acb8e9ed9f006cb29752e336d2a2221980de0f663fa55",
+    "response_sha256": "fe001cbe78b64b158574e5caa96b4521856c02c0b75ff84b45f10eccdf197809",
+    "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a",
+    "article_revision": "ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305",
+    "render_binding_sha256": "3fec5e82b21d56c39bc1af1979f2f7f85e1b3e261677c2429a6929c24a77402b",
+    "invocation_observation": {
+      "actual_configuration_unavailable": true,
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "Exact parent assignment and frozen desktop_request_final-visual-3fec5e82b21d56c39bc1af1979f2f7f85e1b3e261677c2429a6929c24a77402b.json request_sha256 83845cf0c6e0fda3827acb8e9ed9f006cb29752e336d2a2221980de0f663fa55 for operation cc124-prepare-20261103-a, requesting gpt-6.1-sol/max at standard speed in /root/native_visual_edit_1f6d9bfd6170. Configuration is not actual runtime observation.",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "invocation_id": "/root/native_visual_edit_1f6d9bfd6170",
+      "model": null,
+      "observation_source": "This final rendered review was performed in the SAME native task /root/native_visual_edit_1f6d9bfd6170 that authored the accepted visual decision, article and revision. All 18 exact local PNGs were actually opened through view_image with original detail; no native desktop screenshot/control or browser automation was used in this role. No supported actual-model or actual-effort telemetry was observed, and no environment, session, process or credential probes were used.",
+      "reasoning_effort": null,
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    }
+  }
+}
