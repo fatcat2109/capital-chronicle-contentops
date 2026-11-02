@@ -82,6 +82,32 @@ def _snapshot(store, run_id):
     return rows, reviews, dict(item)
 
 
+def _prior_distribution_can_wait(rows, operation, binding):
+    """Use the sole coordinator's existing read-only decision-39 policy."""
+    if operation.get("release_authority") != "JIM_DECISIONS_20261030_DECISION_39":
+        return False
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    coordinator = DurablePublicationCoordinator(
+        store=ReadOnlyStore(binding["store_path"]), transport_runtime=None,
+        allow_prior_confirmed_distribution=True)
+    obligations = []
+    for row in rows:
+        try:
+            intent = json.loads(row["payload"])
+            run, plan_hash = intent["work_item_id"], intent["plan_hash"]
+            ids = coordinator._ids(run, plan_hash, row["platform"])
+        except (ValueError, TypeError, KeyError):
+            return False
+        if (row["dispatch_id"] != ids["dispatch_id"] or row["message_id"] != ids["message_id"]
+                or row["destination"] != row["platform"] or row["work_item_id"] != run):
+            return False
+        obligations.append({"work_item_id": run, "destination": row["platform"]})
+    recovery = {"backlog_remaining": len(obligations),
+                "backlog_remaining_obligations": obligations}
+    return not coordinator.recovery_blocks_new_publication(
+        recovery, binding["run_id"], plan={"article_identity": operation["pin"]["article_identity"]})
+
+
 def _target_guards(conn, operation, binding, promotion, *, own_lease=None):
     if conn.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
         raise ValueError("CC074_TARGET_INTEGRITY_FAILED")
@@ -93,18 +119,17 @@ def _target_guards(conn, operation, binding, promotion, *, own_lease=None):
         (datetime.now(timezone.utc).isoformat(), own_lease or "", operation.get("_own_newsroom_lease", "")),
     ).fetchone():
         raise ValueError("CC074_TARGET_HAS_ACTIVE_WORK")
-    if (
-        conn.execute(
-            "SELECT 1 FROM platform_dispatches WHERE "
-            "UPPER(status) LIKE '%UNKNOWN%' OR UPPER(status) LIKE '%AMBIG%' OR "
-            "UPPER(status) LIKE '%STARTED%' OR UPPER(status) LIKE '%PENDING%' OR "
-            "UPPER(status) LIKE '%SENDING%' LIMIT 1"
-        ).fetchone()
-        or conn.execute(
-            "SELECT 1 FROM reconciliations WHERE status IN ('PENDING','STARTED','UNKNOWN_WRITE') "
-            "LIMIT 1"
-        ).fetchone()
-    ):
+    uncertain = conn.execute(
+        "SELECT d.*,o.destination,o.work_item_id,o.payload FROM platform_dispatches d "
+        "LEFT JOIN outbox_messages o USING(message_id) WHERE "
+        "UPPER(d.status) LIKE '%UNKNOWN%' OR UPPER(d.status) LIKE '%AMBIG%' OR "
+        "UPPER(d.status) LIKE '%STARTED%' OR UPPER(d.status) LIKE '%PENDING%' OR "
+        "UPPER(d.status) LIKE '%SENDING%'"
+    ).fetchall()
+    pending_reconciliation = conn.execute(
+        "SELECT 1 FROM reconciliations WHERE status IN ('PENDING','STARTED','UNKNOWN_WRITE') LIMIT 1"
+    ).fetchone()
+    if pending_reconciliation or (uncertain and not _prior_distribution_can_wait(uncertain, operation, binding)):
         raise ValueError("CC074_EXISTING_PUBLICATION_RECOVERY_REQUIRED")
     work = operation["item"]["work_item_id"]
     existing = conn.execute(

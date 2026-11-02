@@ -249,3 +249,34 @@ def test_finished_release_can_consult_live_history_from_a_distinct_private_store
     assert workspace_snapshot(source.db_path) == before
     assert target.list_platform_dispatches() == []
     assert release_finished_piece(path, rollout)["binding"] == released["binding"]
+
+
+@pytest.mark.parametrize("fault", [None, "same_article", "canonical", "unbound", "legacy"])
+def test_finished_import_reuses_coordinator_policy_for_prior_derivative_gap(ready, monkeypatch, fault):
+    from live_contentops.native_publication_promotion_v1 import _target_guards
+    source, target, _, path, rollout = ready
+    released = release_finished_piece(path, rollout)
+    operation, executor, _ = composed(target, released["binding"], rollout, monkeypatch)
+    finish(operation, executor)
+    platform = "substack" if fault == "canonical" else "linkedin"
+    with target.get_connection() as conn:
+        conn.execute("UPDATE platform_dispatches SET status='UNKNOWN_WRITE' WHERE platform=?", (platform,))
+        if fault == "unbound":
+            row = conn.execute("SELECT message_id FROM platform_dispatches WHERE platform=?", (platform,)).fetchone()
+            intent = json.loads(conn.execute("SELECT payload FROM outbox_messages WHERE message_id=?", (row[0],)).fetchone()[0])
+            intent["plan_hash"] = "CONTROLLED-unbound"
+            conn.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?", (canonical_bytes(intent).decode(), row[0]))
+    original = workspace_snapshot(target.db_path)
+    article = released["check"]["article_identity"] if fault == "same_article" else "CONTROLLED-distinct-article"
+    candidate = {"release_authority": "LEGACY" if fault == "legacy" else "JIM_DECISIONS_20261030_DECISION_39",
+        "pin": {"article_identity": article}, "item": {"work_item_id": "CONTROLLED-next-item"},
+        "rows": [], "reviews": []}
+    binding = {"run_id": "CONTROLLED-next-run", "store_path": str(target.db_path)}
+    promotion = {"message_id": "CONTROLLED-next-promotion"}
+    with target.get_read_only_connection() as conn:
+        if fault:
+            with pytest.raises(ValueError, match="EXISTING_PUBLICATION_RECOVERY_REQUIRED"):
+                _target_guards(conn, candidate, binding, promotion)
+        else:
+            assert _target_guards(conn, candidate, binding, promotion) is False
+    assert workspace_snapshot(target.db_path) == original
