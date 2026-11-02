@@ -572,6 +572,9 @@ class NativeReviewedPublication:
     def resume(self):
         plan, root = self.validate()
         self._authorize_and_bind()
+        self.coordinator.recovery_scope = (
+            {"work_item_id": self.binding["run_id"], "plan": plan}
+            if self.coordinator.allow_prior_confirmed_distribution else None)
         from live_contentops.native_finished_publication_v1 import publication_due
         release = self.store.get_outbox_message("native-finished-release-" + sha256_of(self.binding["run_id"]))
         if release or self.binding.get("standing_operation"):

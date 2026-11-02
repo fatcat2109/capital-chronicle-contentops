@@ -306,6 +306,7 @@ class DurablePublicationCoordinator:
         self.readiness_provider = readiness_provider
         self.readiness_manager = readiness_manager
         self.allow_prior_confirmed_distribution = allow_prior_confirmed_distribution
+        self.recovery_scope = None
         self.readiness_refresh_seconds = max(30.0, float(readiness_refresh_seconds))
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._recovery_quarantined_work_item_ids = frozenset(
@@ -2495,6 +2496,15 @@ class DurablePublicationCoordinator:
                 return url
         return None
 
+    def _defer_prior_distribution_recovery(self, intent, destination):
+        scope = self.recovery_scope
+        if not self.allow_prior_confirmed_distribution or not scope:
+            return False
+        recovery = {"backlog_remaining": 1, "backlog_remaining_obligations": [
+            {"work_item_id": intent.get("work_item_id"), "destination": destination}]}
+        return not self.recovery_blocks_new_publication(
+            recovery, scope["work_item_id"], plan=scope["plan"])
+
     def recover_pending(self) -> dict[str, Any]:
         """Reconcile every ambiguity, then spend one bounded freshness-safe recovery budget."""
         summary = {
@@ -2524,6 +2534,10 @@ class DurablePublicationCoordinator:
                         str((dispatch or {}).get("status") or message.get("status") or ""),
                     )
                 )
+                continue
+            if self._defer_prior_distribution_recovery(intent, str(message["destination"])):
+                summary.setdefault("deferred_prior_distribution", []).append(
+                    {"work_item_id": intent["work_item_id"], "destination": message["destination"]})
                 continue
             dispatch = dispatch_by_message.get(str(message["message_id"]))
             if dispatch and dispatch.get("status") in OWNER_RETIRED_STATUSES:

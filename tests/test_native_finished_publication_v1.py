@@ -280,3 +280,30 @@ def test_finished_import_reuses_coordinator_policy_for_prior_derivative_gap(read
         else:
             assert _target_guards(conn, candidate, binding, promotion) is False
     assert workspace_snapshot(target.db_path) == original
+
+
+@pytest.mark.parametrize("status", ["UNKNOWN_WRITE", "NATIVE_NEO_TOOL_PENDING"])
+def test_distinct_finished_run_defers_prior_distribution_before_transport(ready, monkeypatch, status):
+    _, target, _, path, rollout = ready
+    released = release_finished_piece(path, rollout)
+    operation, executor, transports = composed(target, released["binding"], rollout, monkeypatch)
+    finish(operation, executor)
+    with target.get_connection() as conn:
+        conn.execute("UPDATE platform_dispatches SET status=? WHERE platform='linkedin'", (status,))
+    coordinator = operation.coordinator
+    coordinator.recovery_scope = {"work_item_id": "CONTROLLED-next-run",
+        "plan": {"article_identity": "CONTROLLED-distinct-article"}}
+    before, calls = workspace_snapshot(target.db_path), list(transports.calls)
+    summary = coordinator.recover_pending()
+    assert summary["publish_calls"] == 0
+    assert transports.calls == calls
+    assert workspace_snapshot(target.db_path) == before
+    assert {"work_item_id": released["binding"]["run_id"], "destination": "linkedin"} in summary["deferred_prior_distribution"]
+    assert not coordinator.recovery_blocks_new_publication(summary, "CONTROLLED-next-run",
+        plan={"article_identity": "CONTROLLED-distinct-article"})
+    intent = {"work_item_id": released["binding"]["run_id"]}
+    assert not coordinator._defer_prior_distribution_recovery(intent, "substack")
+    coordinator.recovery_scope["plan"]["article_identity"] = released["check"]["article_identity"]
+    assert not coordinator._defer_prior_distribution_recovery(intent, "linkedin")
+    coordinator.recovery_scope = None
+    assert not coordinator._defer_prior_distribution_recovery(intent, "linkedin")
