@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "scripts/run_native_desktop_editorial.py",
+    "release-finished",
+    "--binding",
+    "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a\\binding.json",
+    "--rollout",
+    "config/native_desktop_rollout_v1.json"
+  ],
+  "working_directory": "A:\\Capital Chronicle\\ContentOps",
+  "started_at_utc": "2026-11-02T22:21:28.926861+00:00",
+  "finished_at_utc": "2026-11-02T22:21:39.746591+00:00",
+  "exit_code": 2,
+  "stdout": "{\"classification\": \"FINISHED_PIECE_BLOCKED\", \"blocker\": \"CC074_EXISTING_PUBLICATION_RECOVERY_REQUIRED\"}\n",
+  "stderr": ""
+}

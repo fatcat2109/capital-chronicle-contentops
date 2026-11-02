@@ -1,0 +1,28 @@
+{
+  "observed_at_utc": "2026-11-02T22:23:51.733815+00:00",
+  "uncertain_dispatches": [
+    {
+      "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+      "message_id": "outbox_9b8a57d1a3c6794c5a999966b9bd28c2",
+      "platform": "linkedin",
+      "status": "UNKNOWN_WRITE",
+      "public_object_url": null
+    }
+  ],
+  "confirmed_canonicals": [
+    {
+      "run_id": "v1-live-launch-20261027",
+      "dispatch_id": "dispatch_224521de0c4112829490447f23a11b38",
+      "article_identity": "8885bd9e945f425731c93f73c51ff0fa70463d7148a088f8ee3482937de3069d",
+      "first_readback_utc": "2026-10-27T17:02:42.425060+00:00"
+    },
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+      "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+      "first_readback_utc": "2026-11-02T17:50:08.539332+00:00"
+    }
+  ],
+  "read_only": true,
+  "recovery_changes": false
+}

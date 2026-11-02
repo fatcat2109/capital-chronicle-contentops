@@ -1,0 +1,10 @@
+{
+  "base": "7950ed6a8f4a837ac3318d39bf15f8dfdfe0a02f",
+  "tree": "792f0860849ab71db128b2b66a2d4e1769dc6845",
+  "changed_paths": [
+    "live_contentops/native_publication_promotion_v1.py",
+    "tests/test_native_finished_publication_v1.py"
+  ],
+  "context_adaptation": "Reuse sole coordinator decision-39 predicate for exact prior derivative uncertainty; pending reconciliation, uncertain canonical, same article, unbound rows and legacy behavior still block.",
+  "observed_at_utc": "2026-11-02T22:25:22.222929+00:00"
+}
