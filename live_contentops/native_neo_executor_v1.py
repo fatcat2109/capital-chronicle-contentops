@@ -156,7 +156,23 @@ class NativeNeoExecutor:
                  "begun_at_utc": self.clock().isoformat(), "required_tool": TOOL}
         # The unique immutable outbox key fences simultaneous Desktop claimers too.
         self._put(request_hash, claim_kind, claim, request["work_item_id"])
-        return packet
+        action_packet = dict(packet)
+        if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
+            action_packet["upload_policy"] = {
+                "method": "BROWSEROS_NEO_UPLOAD_OR_FILE_CHOOSER_INTERCEPTION",
+                "source_scope": "ARTICLE_OWN_MEDIA_FOLDER",
+                "bound_media_paths": [a["path"] for a in request.get("content_binding", {}).get("media_manifest", [])],
+                "native_file_dialog": "FORBIDDEN_STOP_WITH_NATIVE_FILE_DIALOG_OPEN"}
+        if request["destination"] == "substack" and request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
+            action_packet["substack_publish_routine"] = {
+                "policy": "JIM_DECISION_54",
+                "window": "Dedicated BrowserOS Neo window; keep the Substack tab open and in front. Never close, reuse or navigate it.",
+                "before_publish": "Two tabs in that same window: Jim's Gmail inbox, open and untouched, and the Substack draft. Agents never read Gmail.",
+                "email_code_dialog": "Record PENDING_JIM_EMAIL_CODE, page_id and URL in the item's Result. Wait on that tab for Jim to type the code. No reload, other input or use of another tab.",
+                "continue_only_after": "The same tab reaches /publish/posts/detail/.../share-center; continue exact readback and dispatch recording.",
+                "pending_is_dispatch": False,
+            }
+        return action_packet
 
     def submit(self, request_hash: str, response: Mapping[str, Any]):
         packet = self._get(request_hash, "request")
@@ -173,6 +189,10 @@ class NativeNeoExecutor:
         begun_at = datetime.fromisoformat(claim["begun_at_utc"])
         if not begun_at <= observed_at <= self.clock() + timedelta(seconds=30):
             raise ValueError("NATIVE_NEO_OBSERVATION_TIME_INVALID")
+        if observation.get("dispatched_at_utc"):
+            dispatched_at = datetime.fromisoformat(observation["dispatched_at_utc"].replace("Z", "+00:00"))
+            if packet["request"]["action"] != "PUBLISH" or not begun_at <= dispatched_at <= observed_at:
+                raise ValueError("NATIVE_NEO_DISPATCH_TIME_INVALID")
         result = dict(response["result"])
         if result.get("request_sha256") != request_hash:
             raise ValueError("NATIVE_NEO_RETURN_REQUEST_MISMATCH")
@@ -180,6 +200,30 @@ class NativeNeoExecutor:
         result["native_tool_return_sha256"] = sha256_of(response)
         self._put(request_hash, "response", {"result": result}, packet["request"]["work_item_id"])
         return {"request_sha256": request_hash, "tool_return_sha256": sha256_of(response)}
+
+    def _fresh_identity_return(self, destination, surface, expected_identity):
+        # Probe epochs deduplicate requests; actual observation time controls
+        # freshness. Crossing a bucket must not discard a seconds-old proof.
+        for row in reversed(self.store.list_outbox_messages()):
+            if row["destination"] != DESTINATION:
+                continue
+            packet = json.loads(row["payload"])
+            request = packet.get("request") or {}
+            if (packet.get("schema_version") != SCHEMA or packet.get("operation_id") != self.operation_id
+                    or request.get("action") != "VERIFY_IDENTITY" or request.get("destination") != destination
+                    or request.get("surface") != surface or request.get("expected_identity") != expected_identity
+                    or request.get("native_invocation_id") != self.native_invocation_id):
+                continue
+            returned = self._get(request.get("request_sha256"), "response")
+            result = (returned or {}).get("result") or {}
+            observation = result.get("native_tool_observation") or {}
+            if (result.get("authenticated") is not True or result.get("observed_identity") != expected_identity
+                    or observation.get("native_invocation_id") != self.native_invocation_id):
+                continue
+            age = self.clock() - datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
+            if timedelta(0) <= age <= timedelta(minutes=5):
+                return result
+        return None
 
     def readiness(self, surface):
         from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
@@ -196,7 +240,9 @@ class NativeNeoExecutor:
                    "entry_url": ROOTS[destination], "work_item_id": work,
                    "forbidden": ["login", "account_switch", "public_write", "saved_draft", "private_storage"]}
         request["request_sha256"] = sha256_of(request)
-        result = self(request)
+        result = self._fresh_identity_return(destination, surface, IDENTITIES[destination])
+        if result is None:
+            result = self(request)
         observed = result.get("native_tool_observation") or {}
         age = self.clock() - datetime.fromisoformat(observed["observed_at_utc"].replace("Z", "+00:00"))
         current = (observed.get("native_invocation_id") == self.native_invocation_id

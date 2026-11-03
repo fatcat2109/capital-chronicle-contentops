@@ -1,0 +1,77 @@
+{
+  "observed_at_utc": "2026-10-31T02:02:03.685786+00:00",
+  "preserved_prior_evidence": [
+    {
+      "path": "tests/evidence/cc-042/activation-readiness.json",
+      "sha256": "366cdb1552ed3d864e78fdac2c2057c0a1d21475a964b64000b7311a2414f44b",
+      "size": 9203
+    },
+    {
+      "path": "tests/evidence/cc-042/calendar-readback.json",
+      "sha256": "228f4cfdca29cc40d2606c9cfa7dd343f447d8dd88ea53a4c606cf4d89740b0e",
+      "size": 4332
+    },
+    {
+      "path": "tests/evidence/cc-042/controls-resumed.json",
+      "sha256": "cd807b2a219f65d26160f29202e4a654acc42b562d130b5804f35b62eedb9f7f",
+      "size": 1337
+    },
+    {
+      "path": "tests/evidence/cc-042/filter-progress.json",
+      "sha256": "8b1cf226d0dbd711f36d8e9b2d135e1de720132f4e79abf60ae5abab62dd09cc",
+      "size": 4115
+    },
+    {
+      "path": "tests/evidence/cc-042/live-startup-error.txt",
+      "sha256": "36c79d3e51df1a1046ff7d4f444ca1f14fab6f67a5a39bceebb652e85c4309f3",
+      "size": 1650
+    },
+    {
+      "path": "tests/evidence/cc-042/live-startup-stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-operation-progress.json",
+      "sha256": "4fb5c7b57bbc2b94c8e68c1f946991f48402cef5f055aa814a7da7bf720ca290",
+      "size": 18749
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-start-interpreter-interruption.json",
+      "sha256": "5f856b21478fb2df9ae65a1ef72b037253119fd1eed33e12f1244394c2158913",
+      "size": 897
+    },
+    {
+      "path": "tests/evidence/cc-042/publication-baseline.json",
+      "sha256": "2069961ce7f5d72dc2fe4512ec9cf44ea662a1f35322f3f9603dd75e61a1349a",
+      "size": 1034
+    },
+    {
+      "path": "tests/evidence/cc-042/role-configuration.json",
+      "sha256": "f450dccf0e74e60cd7b73d5f91fcc5d71379c3a9aa9ef75e102f8b2503311bb3",
+      "size": 863
+    },
+    {
+      "path": "tests/evidence/cc-042/runtime-preflight.json",
+      "sha256": "d0f3e6cc0f2d85596bdd6f6ca6a3f6a465f960fc0d92f3c22acd956a8587a998",
+      "size": 1754
+    },
+    {
+      "path": "tests/evidence/cc-042/schedule-tool-results.json",
+      "sha256": "b949c4a014b037887d1a6896c14cefae1fd79338ddafa03f097033ef39315a10",
+      "size": 3715
+    },
+    {
+      "path": "tests/evidence/cc-042/schedules-resumed.json",
+      "sha256": "b733581feeccdb06bf35908be455bb8560ea44cac5d6d49b98093033c9c0acdb",
+      "size": 4177
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\binding.json",
+      "sha256": "0173bb42604453e3d57ca19f74c62dd6ca5a8d89e4a46da8b30fe3f378bb6fd8",
+      "size": 3275
+    }
+  ],
+  "accepted_prior_response_count": 3,
+  "accepted_prior_response_hashes_match": true
+}

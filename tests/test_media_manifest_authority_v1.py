@@ -97,6 +97,43 @@ def test_square_branding_asset_is_rejected_for_primary_chart(tmp_path: Path):
     assert "square_branding_or_avatar_rejected" in validate_chart_media_object(manifest["assets"][0])
 
 
+def test_native_data_journalism_chart_keeps_its_role_in_delivery(tmp_path):
+    from copy import deepcopy
+    chart = tmp_path / "chart.png"
+    raw = _png(chart, (1500, 1300), "white")
+    url = "https://substack-post-media.s3.amazonaws.com/public/images/chart.png"
+    asset = {"asset_id": "native-chart", "media_role": "editorial_data_journalism",
+        "modality": "source_backed_chart", "path": str(chart), "sha256": sha256_file(chart),
+        "source_page_url": "https://example.org/official", "alt_text": "Controlled native chart."}
+    original = deepcopy(asset)
+    manifest = build_delivery_media_manifest(media_packet={"assets": [asset]}, public_image_urls=[url],
+        run_id="native-role", remote_bytes_by_url={url: raw})
+    assert manifest["status"] == "PASS"
+    delivery = select_primary_delivery_media(manifest)
+    assert delivery["media_role"] == "editorial_data_journalism"
+    assert delivery["sha256"] == asset["sha256"] and asset == original
+    wrong = {**asset, "modality": "branding"}
+    refused = build_delivery_media_manifest(media_packet={"assets": [wrong]}, public_image_urls=[url],
+        run_id="wrong-role", remote_bytes_by_url={url: raw})
+    assert refused["status"] == "BLOCKED"
+
+
+def test_retained_public_domain_photo_without_old_delivery_role_uses_exact_rights(tmp_path):
+    photo = tmp_path / "photo.png"
+    raw = _png(photo, (640, 427), "gray")
+    url = "https://substack-post-media.s3.amazonaws.com/public/images/photo.png"
+    asset = {"asset_id": "photo", "modality": "documentary_photo", "path": str(photo),
+        "sha256": sha256_file(photo), "rights_status": "PUBLIC_DOMAIN",
+        "rights_evidence_sha256": "controlled-existing-admission", "source_page_url": "https://example.org/photo",
+        "license_url": "https://example.org/public-domain", "alt_text": "Controlled documentary photo."}
+    manifest = build_delivery_media_manifest(media_packet={"assets": [asset]}, public_image_urls=[url],
+        run_id="retained-photo", remote_bytes_by_url={url: raw})
+    assert select_primary_delivery_media(manifest)["media_role"] == "contextual_photo"
+    refused = build_delivery_media_manifest(media_packet={"assets": [{**asset, "rights_evidence_sha256": None}]},
+        public_image_urls=[url], run_id="no-rights", remote_bytes_by_url={url: raw})
+    assert "documentary_photo_rights_binding_required" in refused["blockers"]
+
+
 def test_admitted_photo_keeps_its_role_and_rights_when_canonical_bytes_match(tmp_path):
     photo = tmp_path / "controlled-photo.png"
     raw = _png(photo, (640, 427), "gray")

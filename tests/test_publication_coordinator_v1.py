@@ -1075,6 +1075,67 @@ def test_derivative_failure_never_erases_reconciled_substack_truth(
         assert derivative["status"] == DEFINITE_NO_WRITE
 
 
+@pytest.mark.parametrize("condition,allowed", [
+    ("decision39", True), ("legacy", False), ("same_article", False),
+    ("unknown_canonical", False), ("unverified_canonical", False),
+    ("missing_readback", False), ("unbound_obligation", False),
+])
+def test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical(
+    tmp_path, condition, allowed
+):
+    class PriorGap(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            if destination == "linkedin":
+                self.publish_calls.append(destination)
+                raise TimeoutError("CONTROLLED lost derivative return")
+            result = super().publish(destination=destination, intent=intent,
+                                     authorization_context=authorization_context)
+            if destination == "substack":
+                result.update(id="100" if intent["work_item_id"] == "work-1" else "200",
+                    public_url="https://capitalchronicle.substack.com/p/" + intent["work_item_id"])
+            return result
+
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            if destination == "linkedin" or (condition in {"unknown_canonical", "unverified_canonical"}
+                    and destination == "substack" and intent["work_item_id"] == "work-1"):
+                return {"status": "AMBIGUOUS", "verified": False}
+            return super().readback(destination=destination, public_object_id=public_object_id,
+                public_object_url=public_object_url, intent=intent)
+
+    # First prove the old canonical and create one genuinely ambiguous derivative.
+    transport = PriorGap()
+    store, _, coordinator = _coordinator(tmp_path, runtime=transport)
+    original_readback = transport.readback
+    if condition in {"unknown_canonical", "unverified_canonical"}:
+        transport.readback = lambda **kwargs: (FixtureTransport.readback(transport, **kwargs)
+            if kwargs["destination"] == "substack" else original_readback(**kwargs))
+    old_plan = _quality_plan()
+    first = coordinator.execute_plan("work-1", old_plan)
+    assert first["canonical_article_real_published"] is True
+    transport.readback = original_readback
+    old_ids = coordinator._ids("work-1", old_plan["plan_hash"], "substack")
+    if condition == "unknown_canonical":
+        store.set_dispatch_status(old_ids["dispatch_id"], UNKNOWN_WRITE)
+    elif condition == "unverified_canonical":
+        store.set_reconciliation_status(old_ids["reconciliation_id"], RECONCILIATION_PENDING)
+    elif condition == "missing_readback":
+        with store.get_connection() as conn:
+            conn.execute("DELETE FROM readbacks WHERE dispatch_id=?", (old_ids["dispatch_id"],))
+    store.create_work_item(story_id="story-2", work_item_id="work-2", title="Next controlled article",
+                           target_surface="MULTI_PLATFORM")
+    new_plan = _plan("substack")
+    new_plan.update(plan_hash=_sha("new-plan"), article_identity=("article-1" if condition == "same_article" else "article-2"),
+                    story_identity="story-2", package_identity="package-2")
+    coordinator.allow_prior_confirmed_distribution = condition != "legacy"
+    if condition == "unbound_obligation":
+        coordinator.recover_pending = lambda: {"backlog_remaining": 1, "publish_calls": 0}
+    result = coordinator.execute_plan("work-2", new_plan)
+    assert result["canonical_article_real_published"] is allowed
+    assert transport.publish_calls.count("substack") == (2 if allowed else 1)
+    assert transport.publish_calls.count("linkedin") == 1
+    assert store.get_platform_dispatch(coordinator._ids("work-1", old_plan["plan_hash"], "linkedin")["dispatch_id"])["status"] == UNKNOWN_WRITE
+
+
 def test_case_c_crash_before_adapter_safe_resume_once(tmp_path):
     store, transport, coordinator = _coordinator(tmp_path)
     coordinator.register_plan("work-1", _plan("telegram"))
@@ -1304,6 +1365,61 @@ def test_unknown_write_is_read_back_even_when_old_and_never_blindly_retried(tmp_
     assert recovery["publish_calls"] == 0
     assert transport.readback_calls == ["telegram"]
     assert transport.publish_calls == []
+
+
+def _quarantined_derivative_fixture(tmp_path):
+    store, transport, coordinator = _coordinator(tmp_path)
+    _set_mode(store, "AUTONOMOUS_DEFAULT")
+    plan = _plan("substack", "linkedin")
+    coordinator.execute_plan("work-1", plan)
+    ids = coordinator._ids("work-1", plan["plan_hash"], "linkedin")
+    store.set_dispatch_status(ids["dispatch_id"], UNKNOWN_WRITE)
+    store.set_outbox_status(ids["message_id"], UNKNOWN_WRITE)
+    transport.ambiguous = True
+    coordinator.readback_existing_dispatch(ids["dispatch_id"])
+    coordinator.quarantine_unresolved_dispatch(ids["dispatch_id"], cause="READBACK_UNRESOLVED",
+        next_owner="Jim", next_action="Check the exact account activity", evidence_ref="fixture-readback.json")
+    return store, transport, coordinator, ids
+
+
+def test_exact_dispatch_quarantine_survives_restart_and_allows_other_operations(tmp_path):
+    store, transport, coordinator, ids = _quarantined_derivative_fixture(tmp_path)
+    before = store.get_platform_dispatch(ids["dispatch_id"])
+    calls = list(transport.publish_calls)
+    restarted = DurablePublicationCoordinator(store=store, transport_runtime=transport)
+    recovery = restarted.recover_pending()
+    assert recovery["backlog_remaining"] == 0
+    assert recovery["quarantined_dispatches"][0]["readback_owed"] is True
+    assert restarted._active_unknown_write_count() == 0
+    assert store.get_platform_dispatch(ids["dispatch_id"]) == before
+    outcome = restarted._dispatch_message(store.get_outbox_message(ids["message_id"]), canonical_url=None)
+    assert outcome["publish_called"] is False
+    assert outcome["status"] == "QUARANTINED_UNKNOWN_WRITE_READBACK_OWED"
+    transport.ambiguous = False
+    store.create_work_item(story_id="other", title="Other article", target_surface="MULTI_PLATFORM", work_item_id="other")
+    result = restarted.execute_plan("other", _plan("telegram"))
+    assert result["per_destination"]["telegram"]["publish_called"] is True
+    assert transport.publish_calls == calls + ["telegram"]
+    # Explicit readback is still owed and allowed; successful reconciliation ends isolation.
+    restarted.readback_existing_dispatch(ids["dispatch_id"])
+    assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == DISPATCH_CONFIRMED
+    assert restarted._dispatch_quarantine(store.get_platform_dispatch(ids["dispatch_id"])) is None
+
+
+def test_quarantine_does_not_hide_another_unknown_or_allow_canonical_isolation(tmp_path):
+    store, transport, coordinator, ids = _quarantined_derivative_fixture(tmp_path)
+    plan = _plan("discord")
+    other = coordinator.register_plan("work-1", plan)["registered"][0]
+    store.register_platform_dispatch(dispatch_id=other["dispatch_id"], message_id=other["message_id"],
+        platform="discord", status=UNKNOWN_WRITE)
+    store.set_outbox_status(other["message_id"], UNKNOWN_WRITE)
+    assert coordinator._active_unknown_write_count() == 1
+    # Canonical ambiguity cannot be hidden by the derivative-only operation.
+    canonical = next(r for r in store.list_platform_dispatches() if r["platform"] == "substack")
+    store.set_dispatch_status(canonical["dispatch_id"], UNKNOWN_WRITE)
+    with pytest.raises(ValueError, match="EXACT_UNRESOLVED_DERIVATIVE_READBACK_REQUIRED"):
+        coordinator.quarantine_unresolved_dispatch(canonical["dispatch_id"], cause="test", next_owner="Jim",
+            next_action="Read back", evidence_ref="test")
 
 
 def test_new_article_refuses_to_start_while_safe_backlog_remains_after_budget(tmp_path):
@@ -1841,3 +1957,49 @@ def test_native_internal_records_never_become_dispatch_destinations(tmp_path):
     assert repeated["derivative_confirmed_count"] == 8
     assert transport.publish_calls == before
     assert len(store.list_platform_dispatches()) == 9
+
+
+def test_prior_distribution_policy_does_not_decode_internal_editorial_payloads(tmp_path, monkeypatch):
+    store = ContentOpsDurableStore(tmp_path / "controlled.sqlite3")
+    store.create_work_item(story_id="internal", work_item_id="internal", title="controlled", target_surface="TEST")
+    raw = json.dumps({"work_item_id": "old", "plan_hash": "old-plan", "marker": "CONTROLLED-internal-editorial"})
+    store.register_outbox_message(message_id="internal", work_item_id="internal",
+        destination="internal:native-desktop-editorial", payload=raw, status="EDITORIAL_INTERNAL")
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None,
+        allow_prior_confirmed_distribution=True)
+    original_loads = json.loads
+    def decode(value, *args, **kwargs):
+        assert value != raw, "Internal editorial payload must not enter public intent policy"
+        return original_loads(value, *args, **kwargs)
+    monkeypatch.setattr(json, "loads", decode)
+    assert coordinator.recovery_blocks_new_publication({"backlog_remaining": 0}, "current",
+        plan={"article_identity": "new"}) is False
+    coordinator.recovery_scope = {"work_item_id": "current", "plan": {"article_identity": "new"}}
+    def unexpected(*args, **kwargs):
+        raise AssertionError("A non-deferable row must not rescan publication history")
+    monkeypatch.setattr(coordinator, "recovery_blocks_new_publication", unexpected)
+    assert not coordinator._defer_prior_distribution_recovery({"work_item_id": "old"}, "internal:native-desktop-editorial")
+    assert not coordinator._defer_prior_distribution_recovery({"work_item_id": "old"}, "substack")
+    assert not coordinator._defer_prior_distribution_recovery({"work_item_id": "current"}, "linkedin")
+
+
+def test_recovery_policy_uses_its_supplied_snapshot_without_reloading_store(tmp_path, monkeypatch):
+    store = ContentOpsDurableStore(tmp_path / "controlled.sqlite3")
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None,
+        allow_prior_confirmed_distribution=True)
+    def unexpected():
+        raise AssertionError("The same recovery snapshot must not be reloaded for each row")
+    monkeypatch.setattr(store, "list_outbox_messages", unexpected)
+    snapshot = []
+    assert not coordinator.recovery_blocks_new_publication({"backlog_remaining": 0}, "current",
+        plan={"article_identity": "new"}, evidence_messages=snapshot)
+    coordinator.recovery_scope = {"work_item_id": "current", "plan": {"article_identity": "new"}}
+    calls = []
+    def guard(recovery, work_item_id, *, plan, evidence_messages=None):
+        assert evidence_messages is snapshot
+        calls.append((recovery, work_item_id, plan))
+        return False
+    monkeypatch.setattr(coordinator, "recovery_blocks_new_publication", guard)
+    assert coordinator._defer_prior_distribution_recovery({"work_item_id": "old"}, "linkedin",
+        evidence_messages=snapshot)
+    assert len(calls) == 1

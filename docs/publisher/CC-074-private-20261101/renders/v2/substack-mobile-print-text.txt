@@ -1,0 +1,167 @@
+CAPITAL CHRONICLE
+Newsroom
+Private, read-only preview.
+Edition status
+How V1 works Activation boundary
+Story
+1. The Fed held on October 28. Both dissent
+1 of 1
+Reading view
+Canonical article · Substack
+The Fed held on October 28.
+Both dissenters wanted a
+hike.
+A 10-2 vote kept the federal funds
+target at 3.75 to 4 percent. The
+dissenters wanted an increase; the
+companion note explains the operating
+settings.
+1 November 2026
+Retrospective analysis, written on 1 November
+2026 (GMT+7).
+An unchanged rate can still contain a pointed
+disagreement. On October 28, 2026, the
+Federal Reserve's policy committee voted 10-2
+to keep the federal funds target range at 3.75
+to 4 percent, according to its October 28
+statement. Both dissenters wanted a quarter-
+percentage-point increase.
+Capital Chronicle's reading is that the decision
+and its implementation answer different
+questions. The vote establishes the target
+range and the direction of disagreement. The
+companion note sets out the rates and
+instructions used to implement that stance. A
+reader needs both documents to distinguish
+the policy choice from its operating settings.
+Federal Reserve Chair Kevin Warsh at his May 22, 2026
+swearing-in ceremony. Archive context; this is not a
+photograph of the October 28 decision. · Official White
+House photograph by Daniel Torok, May 22, 2026. Public
+domain (US federal government). Commons crop; no
+further edits. · Reuse terms
+A hold with dissent in one direction
+Lisa D. Cook and Beth M. Hammack voted
+against the action because they preferred to
+raise the target range by a quarter percentage
+point at that meeting. That makes the
+direction of dissent clear: they favored an
+increase, while the approved action
+maintained the range.
+The statement described economic activity as
+expanding strongly, domestic spending as
+resilient and inflation as elevated. It also said
+accumulating more information would help
+the Committee determine the stance
+appropriate for a timely return to its 2 percent
+inflation goal. That is the Committee's
+published assessment; it should not be turned
+into a separate explanation attributed to either
+dissenter.
+The strongest countercase to a looming-hike
+interpretation is the decision itself: ten
+members approved keeping the range
+unchanged. The two dissenters' preference is
+evidence of disagreement at this meeting, not
+a forecast of the next vote. Reading the split as
+a timetable for higher rates would give it a
+meaning the vote alone cannot establish.
+The October 28 vote: 10 members approved a hold; Lisa
+D. Cook and Beth M. Hammack preferred a quarter-point
+increase. · Source: Federal Reserve Board
+October 28, 2026 FOMC vote · members
+Measure Votes
+Approve hold 10
+Prefer increase 2
+Lisa D. Cook and Beth M. Hammack preferred a
+quarter-percentage-point increase.
+One target range, several operating rates
+The companion implementation note
+describes decisions to carry out the October
+28 policy stance. The Board of Governors
+unanimously maintained interest paid on
+reserve balances at 3.90 percent, effective
+October 29. The directive to the New York
+Fed's trading desk, also effective October 29,
+instructed it to undertake operations as
+necessary to maintain the federal funds rate
+within the 3.75 to 4 percent target range.
+The same directive set standing overnight
+repo operations at 4.0 percent and the
+standing overnight reverse repo offering rate
+at 3.75 percent. In a related action, the Board
+unanimously approved the primary credit rate
+at its existing 4.0 percent level. The note
+therefore assigns some identical numbers to
+different instruments; it does not combine
+those instruments into a single rate.
+The 3.90 percent reserve-balances setting is
+not a substitute label for the 3.75 to 4 percent
+federal funds target range. One is an individual
+rate; the other is the interval the desk is
+instructed to maintain. Likewise, unanimous
+Board actions on reserve interest and primary
+credit should not be mistaken for unanimity in
+the 10-2 FOMC decision.
+These are announced settings, not
+observations of the rates at which market
+transactions actually took place. The chart
+compares their stated levels and roles. It
+should not be read as a record of market
+repricing or as a measure of how effectively
+the instruments transmitted the decision.
+The target range and individual operating settings
+announced October 28. Reserve interest and the operating
+directive were effective October 29; primary credit was at
+its existing level. · Sources: Federal Reserve Board; Federal
+Reserve Board
+October 28 announced policy settings · percent
+Measure Rate
+Federal funds target:
+lower bound
+3.75
+Federal funds target:
+upper bound
+4
+Interest on reserve
+balances
+3.9
+Standing overnight
+reverse repo
+3.75
+Standing overnight repo 4
+Primary credit (existing) 4
+Announced settings, not observed market rates.
+Reserve interest and the operating directive were
+effective October 29. Primary credit was at its existing
+level.
+What to watch in a later decision
+The next useful question is whether a later
+Committee decision changes the target range
+or the direction of the recorded vote. The
+October 28 documents should be read as that
+meeting's decision and implementation
+instructions, rather than a prediction of what
+comes next.
+Analysis, not financial advice. Readers decide
+whether to trade.
+Sources and dates
+Owner record: review and preparation
+What you are reviewing
+V1 turns admitted public reporting and public-safe
+Capital Chronicle research into a sourced article,
+lawful contextual photography and eight channel-
+specific packages. Substantial analysis uses two to
+five distinct useful charts drawn from primary data.
+A news or policy story may omit charts when no
+defensible useful comparison exists; its editorial
+reason stays in the record.
+How to use the working manual newsroom
+What the release review checks
+Held story, history and measured availability
+Production activation needs Jim's
+decision
+Back to story navigation · Close and reopen this HTML file to
+return; no preview process or local server is required.
+Previous story
+Next story

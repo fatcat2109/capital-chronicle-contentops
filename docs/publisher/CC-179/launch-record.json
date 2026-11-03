@@ -1,0 +1,12 @@
+{
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "high",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_pid": 48256,
+  "native_invocation_id": "01a1a18d-2509-7911-9c8e-90a4a8e11593",
+  "configuration_evidence": "Win32_Process launch arguments read back; no independent runtime telemetry",
+  "base_remote_default_commit": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "live_base_commit": "29c1ec42",
+  "retained_records_commit": "e94d07db",
+  "editorial_roles_changed": false
+}

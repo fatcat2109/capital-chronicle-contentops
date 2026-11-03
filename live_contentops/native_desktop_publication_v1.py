@@ -16,6 +16,7 @@ from live_contentops.capital_chronicle_latest_report_consumer_v1 import (
     sha256_of,
 )
 from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
+from live_contentops.native_manual_candidate_v1 import manual_output_root
 from live_contentops.native_desktop_editorial_v1 import (
     prepare_reviewed_handoff,
     validated_native_review,
@@ -48,10 +49,22 @@ def _prepared_packet(store, binding):
         raise ValueError("CURRENT_REVIEWED_HANDOFF_REQUIRED")
     packet = prepared[-1]
     from live_contentops.native_desktop_editorial_v1 import native_review_revision
-    base = resolve_workspace_path(binding["output_dir"]) / "reviewed-handoff"
+    base = manual_output_root(store, binding) / "reviewed-handoff"
     root = resolve_workspace_path(packet["output_dir"])
     if root not in {base, base / native_review_revision(result)}:
-        raise ValueError("REVIEWED_HANDOFF_PATH_CHANGED")
+        # Current compiler policy may change the review revision without changing
+        # any sent bytes. The existing dispatched packet keeps its original path,
+        # plan and object identity; only exact original seals admit that path.
+        sealed = [json.loads(r["payload"]) for r in store.list_outbox_messages()
+            if r["destination"] == DESTINATION and json.loads(r["payload"]).get("run_id") == binding["run_id"]]
+        dispatched = store.get_dispatches_for_work_item(binding["run_id"])
+        prior = sealed[-1] if sealed else {}
+        if (root.parent != base or not dispatched or prior.get("native_result_sha256") != sha256_of(result)
+                or prior.get("plan_hash") != packet.get("plan_hash")
+                or not all((root / name).is_file() and sha256((root / name).read_bytes()).hexdigest() == digest
+                           for name, digest in prior.get("artifact_sha256", {}).items())
+                or set(prior.get("artifact_sha256", {})) != set(ARTIFACTS)):
+            raise ValueError("REVIEWED_HANDOFF_PATH_CHANGED")
     if not all((root / name).is_file() for name in ARTIFACTS):
         raise ValueError("REVIEWED_HANDOFF_ARTIFACT_MISSING")
     plan = SimplePublicationHandoffV1(store=store, coordinator=None).ensure_plan(
@@ -85,7 +98,7 @@ def _prepared_packet(store, binding):
                 a["asset_id"]: a["sha256"] for a in result.get("media_assets", [])
             },
             **({"skipped_derivative_destinations": plan["skipped_derivative_destinations"]}
-               if plan.get("photo_less_news_policy") else {}),
+               if plan.get("photo_less_news_policy") or plan.get("text_first") or plan.get("image_optional_policy") else {}),
             "publication_authority": False,
         },
         plan,
@@ -97,9 +110,10 @@ def prepare_native_publication(store, binding):
     """Seal the exact reviewed packet in the same outbox; no publisher/readiness call."""
     from live_contentops.native_desktop_editorial_v1 import validated_native_review, validate_release_media
     result, _, _ = validated_native_review(store, run_id=binding["run_id"])
-    validate_release_media(result)
+    from live_contentops.native_publication_latency_v1 import validate_publication_media
+    validate_publication_media(store, run_id=binding["run_id"], result=result)
     prepare_reviewed_handoff(
-        store, run_id=binding["run_id"], output_dir=binding["output_dir"]
+        store, run_id=binding["run_id"], output_dir=manual_output_root(store, binding)
     )
     value, _, _ = _prepared_packet(store, binding)
     key = "native-publication-binding-" + sha256_of([binding["run_id"], value])
@@ -156,7 +170,14 @@ def scheduled_publication_authority(store, binding, rollout):
     if not registered or json.loads(registered["payload"]) != binding:
         raise ValueError("EXACT_REGISTERED_OPERATION_BINDING_REQUIRED")
     if binding.get("owner_manual_live"):
-        authority = live_publication_policy(rollout, cutoff_utc=binding["cutoff_utc"])
+        cutoff = binding["cutoff_utc"]
+        if binding.get("finished_piece_authority_ref") == "JIM_DECISIONS_20261030_DECISION_39":
+            promoted = store.get_outbox_message("native-retrospective-promotion-" + sha256_of(binding["run_id"]))
+            archived = json.loads(promoted["payload"]) if promoted else {}
+            if archived.get("live_binding") != binding or archived.get("source_check", {}).get("status") != "PASS":
+                raise ValueError("EXACT_FINISHED_PIECE_RELEASE_REQUIRED")
+            cutoff = binding["publication_eligibility_utc"]
+        authority = live_publication_policy(rollout, cutoff_utc=cutoff)
         if (binding.get("live_authority_sha256") != sha256_of(authority)
                 or resolve_workspace_path(binding["store_path"]) != resolve_workspace_path(rollout["store_path"])
                 or resolve_workspace_path(binding["published_memory_store"]) != resolve_workspace_path(rollout["store_path"])
@@ -208,7 +229,7 @@ def scheduled_publication_authority(store, binding, rollout):
         raise ValueError("PUBLICATION_OPERATING_MODE_BLOCKED")
 
 
-def publication_projection(rows, dispatches, reconciliations, *, run_id, readiness=(), native_invocation_id=None):
+def publication_projection(rows, dispatches, reconciliations, *, run_id, readiness=(), native_invocation_id=None, reviews=()):
     """Actual records only; no provider probes, configuration-as-login or writes."""
     operation = next(
         (
@@ -243,11 +264,13 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
         and json.loads(r["payload"]).get("run_id") == run_id
     ]
     if not bindings:
+        from live_contentops.native_publication_latency_v1 import publication_timing
         return {
             "state": "REVIEWED_HANDOFF_REQUIRED",
             "next_operation": "publication-prepare",
             "next_command": command("publication-prepare"),
             "destinations": [],
+            "timing": publication_timing(rows, reviews, run_id=run_id, destinations=[]),
         }
     bound = bindings[-1]
     from live_contentops.destination_transport_registry_v1 import (
@@ -358,11 +381,12 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
     confirmed = sum(e["reconciliation_status"] == "RECONCILED_CONFIRMED"
         and DurablePublicationCoordinator._confirmed_public_object(e, destination=e["destination"])
         for e in entries)
-    skipped = {s["destination"] for s in bound.get("skipped_derivative_destinations", [])
-               if s.get("status") == "SKIPPED_PHOTOLESS_NEWS_POLICY" and s.get("destination") == "instagram_business"}
+    from live_contentops.native_text_first_v1 import SKIPPED_IMAGE, SKIPPED_CHANNEL
+    skipped = {s["destination"]: s["status"] for s in bound.get("skipped_derivative_destinations", [])
+               if s.get("status") in {"SKIPPED_PHOTOLESS_NEWS_POLICY", SKIPPED_IMAGE, SKIPPED_CHANNEL}}
     for entry in entries:
         if entry["destination"] in skipped and not entry["dispatch_recorded"]:
-            entry.update(status="SKIPPED_PHOTOLESS_NEWS_POLICY", blocker=None)
+            entry.update(status=skipped[entry["destination"]], blocker=None)
     terminal_count = confirmed + len(skipped)
     state = (
         "RECONCILED"
@@ -398,6 +422,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
     continuation_operation = next_operation
     if operation.get("owner_manual_validation") and next_operation != "none":
         next_operation = "publication-status"
+    from live_contentops.native_publication_latency_v1 import publication_timing
     return {
         **bound,
         **totals,
@@ -406,6 +431,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
         if operation.get("owner_manual_validation")
         else "SCHEDULED",
         "destinations": entries,
+        "timing": publication_timing(rows, reviews, run_id=run_id, destinations=entries),
         "skipped_destinations": sorted(skipped),
         "pending_requests": pending,
         "dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED"
@@ -470,6 +496,7 @@ class NativeReviewedPublication:
         return plan, root
 
     def projection(self):
+        from live_contentops.contentops_editorial_desk_v1 import read_reviews
         value = publication_projection(
             self.store.list_outbox_messages(),
             self.store.list_platform_dispatches(),
@@ -477,6 +504,7 @@ class NativeReviewedPublication:
             run_id=self.binding["run_id"],
             readiness=self.store.list_destination_readiness(),
             native_invocation_id=self.native_invocation_id,
+            reviews=read_reviews(self.store),
         )
         try:
             if value["state"] == "REVIEWED_HANDOFF_REQUIRED":
@@ -513,7 +541,7 @@ class NativeReviewedPublication:
             self.coordinator, self.executor = bind_native_neo_coordinator(
                 self.store,
                 operation_id=self.binding["run_id"],
-                output_dir=resolve_workspace_path(self.binding["output_dir"])
+                output_dir=manual_output_root(self.store, self.binding)
                 / "native-neo",
                 native_invocation_id=self.native_invocation_id,
                 allow_publish=True,
@@ -528,6 +556,10 @@ class NativeReviewedPublication:
             != resolve_workspace_path(self.binding["store_path"])
         ):
             raise ValueError("EXACT_EXISTING_COORDINATOR_EXECUTOR_BINDING_REQUIRED")
+        # The live grant covers scheduled and owner-manual editions alike.
+        # The coordinator still requires a different article and a confirmed
+        # canonical before deferring that article's unfinished derivatives.
+        self.coordinator.allow_prior_confirmed_distribution = True
 
     def linkedin_recovery(self, action, *, response):
         """Explicit owner recovery over the same bound publication and native executor."""
@@ -558,11 +590,28 @@ class NativeReviewedPublication:
     def resume(self):
         plan, root = self.validate()
         self._authorize_and_bind()
+        self.coordinator.recovery_scope = (
+            {"work_item_id": self.binding["run_id"], "plan": plan}
+            if self.coordinator.allow_prior_confirmed_distribution else None)
+        from live_contentops.native_finished_publication_v1 import publication_due
+        release = self.store.get_outbox_message("native-finished-release-" + sha256_of(self.binding["run_id"]))
+        if release or self.binding.get("standing_operation"):
+            projection = self.projection()
+            canonical = next((d for d in projection.get("destinations", [])
+                              if d["destination"] == "substack"), {})
+            # Decision 53: spacing governs starting work, never already-approved text.
+            # Legacy packets without an observed text clock retain their frozen rule.
+            if not canonical.get("dispatch_recorded") and not projection.get("timing", {}).get("text_approved_at_utc"):
+                due = publication_due(self.store, run_id=self.binding["run_id"])
+                if not due["due"]:
+                    return {"classification": "NATIVE_PUBLICATION_NOT_YET_DUE", **due,
+                            "publication": self.projection(), "public_write_performed": False}
         try:
             from live_contentops.native_desktop_editorial_v1 import validate_release_media
             result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
             try:
-                validate_release_media(result)
+                from live_contentops.native_publication_latency_v1 import validate_publication_media
+                validate_publication_media(self.store, run_id=self.binding["run_id"], result=result)
             except (ValueError, OSError) as media_error:
                 # New release requirements cannot erase an existing unknown-write
                 # obligation. Reconcile only exact existing attempts; never send a
@@ -624,7 +673,8 @@ class NativeReviewedPublication:
             if packet and packet["request"]["action"] == "PUBLISH":
                 from live_contentops.native_desktop_editorial_v1 import validate_release_media, require_current_final_visual_review
                 result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
-                validate_release_media(result)
+                from live_contentops.native_publication_latency_v1 import validate_publication_media
+                validate_publication_media(self.store, run_id=self.binding["run_id"], result=result)
                 require_current_final_visual_review(self.store, run_id=self.binding["run_id"])
             try:
                 return self.executor.begin(request_hash)

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="2.720" timestamp="2026-11-02T15:33:28.372317+07:00" hostname="J-P"><testcase classname="tests.test_native_scheduled_checkpoint_selection_v1" name="test_scheduled_cli_starts_and_replays_with_four_saved_dispositions[v1-newsroom-brief-europe-1500-8]" time="0.681"><failure message="AssertionError: {'blocker': &quot;'window'&quot;, 'classification': 'NATIVE_DESKTOP_BLOCKED'}&#10;assert 2 == 0">rollout = {'editorial_output_root': 'C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-30986\\test_scheduled_cli_s...:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-30986\\test_scheduled_cli_starts_and_0\\published', ...}
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x0000022187E86520&gt;
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-30986/test_scheduled_cli_starts_and_0')
+capsys = &lt;_pytest.capture.CaptureFixture object at 0x000002218812BCB0&gt;
+automation_id = 'v1-newsroom-brief-europe-1500', hour = 8
+
+    @pytest.mark.parametrize("automation_id,hour", [
+        ("v1-newsroom-brief-asia-0900", 2),
+        ("v1-newsroom-brief-europe-1500", 8),
+        ("v1-newsroom-london-1700", 10),
+        ("v1-newsroom-brief-us-1900", 12),
+        ("v1-newsroom-new-york-2100", 14),
+        ("v1-newsroom-new-york-2300", 16),
+        ("v1-newsroom-new-york-0100", 18),
+    ])
+    def test_scheduled_cli_starts_and_replays_with_four_saved_dispositions(
+            rollout, monkeypatch, tmp_path, capsys, automation_id, hour):
+        from scripts import run_native_desktop_editorial as cli
+    
+        _, _, old_path = start(rollout)
+        old_bytes = old_path.read_bytes()
+        store = ContentOpsDurableStore(rollout["store_path"], auto_migrate=False)
+        save_dispositions(store)
+        before = {row["message_id"]: row for row in store.list_outbox_messages()}
+        moment = at(f"2026-11-02T{hour:02d}:00:00Z")
+        original = schedule.scheduled_binding
+        monkeypatch.setattr(schedule, "scheduled_binding", lambda *args, **kwargs: original(*args, **kwargs, now=moment))
+        monkeypatch.setattr(cli, "operation", lambda *_args, **_kwargs: pytest.fail("startup advanced editorial work"))
+        config = tmp_path / "rollout.json"
+        config.write_bytes(canonical_bytes(rollout))
+        argv = ["scheduled", "--automation-id", automation_id, "--rollout", str(config)]
+    
+        exit_code = cli.main(argv)
+        first = json.loads(capsys.readouterr().out)
+&gt;       assert exit_code == 0, first
+E       AssertionError: {'blocker': "'window'", 'classification': 'NATIVE_DESKTOP_BLOCKED'}
+E       assert 2 == 0
+
+tests\test_native_scheduled_checkpoint_selection_v1.py:55: AssertionError</failure></testcase></testsuite></testsuites>

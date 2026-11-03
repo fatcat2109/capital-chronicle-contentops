@@ -1,0 +1,141 @@
+{
+  "item": "CC-042",
+  "purpose": "Committed sanitized checkpoint artifacts with exact captured bytes preserved by scoped .gitattributes; raw native source/role content remains in the original Runtime output.",
+  "files": [
+    {
+      "path": "tests/evidence/cc-042/.gitattributes",
+      "bytes": 133,
+      "sha256": "5bd5ba57ceba1342fd6d8af634620d42ac549fdebe86ba348133f1f7121c7c9f"
+    },
+    {
+      "path": "tests/evidence/cc-042/activation-readiness.json",
+      "bytes": 9203,
+      "sha256": "366cdb1552ed3d864e78fdac2c2057c0a1d21475a964b64000b7311a2414f44b"
+    },
+    {
+      "path": "tests/evidence/cc-042/calendar-readback.json",
+      "bytes": 4332,
+      "sha256": "228f4cfdca29cc40d2606c9cfa7dd343f447d8dd88ea53a4c606cf4d89740b0e"
+    },
+    {
+      "path": "tests/evidence/cc-042/checkpoint-20261101.json",
+      "bytes": 14190,
+      "sha256": "5d21fa19d84c8bf2762206dea25744a32e0f73ca449220b27bd351b435132458"
+    },
+    {
+      "path": "tests/evidence/cc-042/controls-resumed.json",
+      "bytes": 1337,
+      "sha256": "cd807b2a219f65d26160f29202e4a654acc42b562d130b5804f35b62eedb9f7f"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-filter-complete.json",
+      "bytes": 18401,
+      "sha256": "8326acb52955553739b53b32ea37a62635502dc9ccb9805753716a252173309d"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-preservation-baseline.json",
+      "bytes": 2859,
+      "sha256": "ec7b4e6f985768d19b0cb2fac4c6426d3acbdc54b3f9a979b59e0485894591c5"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-resume-progress.json",
+      "bytes": 7010,
+      "sha256": "999a5eb49519020a333953fa2f98944caf2577dac14e68dde0823df100beda5f"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-resumption.json",
+      "bytes": 4564,
+      "sha256": "6bba0e223632224515f2ac13c61c65f2d3f96a27681efaff5f61d06a0f8011e7"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-source-comparison.json",
+      "bytes": 1725,
+      "sha256": "755985041e30445fb33f541b2efeb3cc46c8c53579b69c3467cdcea2fcc134f0"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-submit-16c54b15de44.json",
+      "bytes": 3467,
+      "sha256": "d110552ba898e4e579d6decad3839f8f1d647cca99f6572c0bf83c577f98fe2d"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-submit-50472312741e.json",
+      "bytes": 1304,
+      "sha256": "8713a7bcfffb6393ef125506d1a4e85fd04582daa0bb605ad1764461f46c9792"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-submit-59d2c54b1f8e.json",
+      "bytes": 1491,
+      "sha256": "d4a4aecdd69f31964fc884912e81bc3c536d0b89293c0e8746dad6d0f93873cb"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-submit-936b569c6517.json",
+      "bytes": 3601,
+      "sha256": "711fb7f3b30f06b03baa1bc6f8be5f7da08e5621c2d95dff75c8aeb6fdfc805e"
+    },
+    {
+      "path": "tests/evidence/cc-042/daily-submit-select.json",
+      "bytes": 1428,
+      "sha256": "a3de67dac945989da712c8200f075dd356818c96a1165a7869dd67588cd885a2"
+    },
+    {
+      "path": "tests/evidence/cc-042/filter-progress.json",
+      "bytes": 4115,
+      "sha256": "8b1cf226d0dbd711f36d8e9b2d135e1de720132f4e79abf60ae5abab62dd09cc"
+    },
+    {
+      "path": "tests/evidence/cc-042/live-startup-error.txt",
+      "bytes": 1650,
+      "sha256": "36c79d3e51df1a1046ff7d4f444ca1f14fab6f67a5a39bceebb652e85c4309f3"
+    },
+    {
+      "path": "tests/evidence/cc-042/live-startup-stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-operation-progress.json",
+      "bytes": 18749,
+      "sha256": "4fb5c7b57bbc2b94c8e68c1f946991f48402cef5f055aa814a7da7bf720ca290"
+    },
+    {
+      "path": "tests/evidence/cc-042/manual-start-interpreter-interruption.json",
+      "bytes": 897,
+      "sha256": "5f856b21478fb2df9ae65a1ef72b037253119fd1eed33e12f1244394c2158913"
+    },
+    {
+      "path": "tests/evidence/cc-042/media-plan-submitted.json",
+      "bytes": 2278,
+      "sha256": "a6965691340718d0940efc584d1bf2da354e348439a80085f58dd329de645115"
+    },
+    {
+      "path": "tests/evidence/cc-042/native-worker-history.json",
+      "bytes": 2203,
+      "sha256": "9fedb4e161fd5317c118e45661f97ee43dc9b9892d3d39dffb00223f2d2c6377"
+    },
+    {
+      "path": "tests/evidence/cc-042/publication-baseline.json",
+      "bytes": 1034,
+      "sha256": "2069961ce7f5d72dc2fe4512ec9cf44ea662a1f35322f3f9603dd75e61a1349a"
+    },
+    {
+      "path": "tests/evidence/cc-042/role-configuration.json",
+      "bytes": 863,
+      "sha256": "f450dccf0e74e60cd7b73d5f91fcc5d71379c3a9aa9ef75e102f8b2503311bb3"
+    },
+    {
+      "path": "tests/evidence/cc-042/runtime-preflight.json",
+      "bytes": 1754,
+      "sha256": "d0f3e6cc0f2d85596bdd6f6ca6a3f6a465f960fc0d92f3c22acd956a8587a998"
+    },
+    {
+      "path": "tests/evidence/cc-042/schedule-tool-results.json",
+      "bytes": 3715,
+      "sha256": "b949c4a014b037887d1a6896c14cefae1fd79338ddafa03f097033ef39315a10"
+    },
+    {
+      "path": "tests/evidence/cc-042/schedules-resumed.json",
+      "bytes": 4177,
+      "sha256": "b733581feeccdb06bf35908be455bb8560ea44cac5d6d49b98093033c9c0acdb"
+    }
+  ]
+}

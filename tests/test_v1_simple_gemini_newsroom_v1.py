@@ -63,6 +63,69 @@ def test_cited_subset_keeps_frozen_source_ids():
     assert _validate_worker_text(json.dumps(output))[3] == "cited_source_order_invalid"
 
 
+@pytest.mark.parametrize("skip_destination", ["instagram_business", "telegram"])
+def test_image_required_skip_is_local_to_instagram_without_media(monkeypatch, skip_destination):
+    from live_contentops.eight_platform_substack_first_pipeline_v1 import build_native_derivative_payloads
+    import live_contentops.eight_platform_substack_first_pipeline_v1 as compiler
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle
+
+    def compile_with_skip(**kwargs):
+        payloads = build_native_derivative_payloads(**kwargs)
+        for payload in payloads.values():
+            for key in ("text", "full_text", "root_text"):
+                if key in payload:
+                    payload[key] = "CONFIRMED " + payload[key]
+        payloads[skip_destination] = {"destination": skip_destination,
+            "delivery_state": "SKIPPED_IMAGE_REQUIRED", "media_asset_ids": []}
+        return payloads
+
+    monkeypatch.setattr(compiler, "build_native_derivative_payloads", compile_with_skip)
+    kwargs = dict(article=_article_output()["article"], article_mode="STANDARD_NEWS_ANALYSIS",
+        article_identity="a" * 64, epistemic_state={"reader_visible_epistemic_label": "CONFIRMED"})
+    if skip_destination == "instagram_business":
+        previews, intents = _native_preview_bundle(**kwargs)
+        assert len(intents) == len(previews["packages"]) == 8
+        assert previews["packages"][skip_destination]["delivery_state"] == "SKIPPED_IMAGE_REQUIRED"
+    else:
+        with pytest.raises(SimpleGeminiNewsroomError, match="native_preview_epistemic_state_missing"):
+            _native_preview_bundle(**kwargs)
+
+
+@pytest.mark.parametrize("state", ["accepted", "pending", "wrong_writer", "qualified"])
+def test_failed_native_assembly_retains_original_before_exact_revision(tmp_path, state):
+    from types import SimpleNamespace
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _preserve_unqualified_revision_artifact, _write_json
+
+    path = tmp_path / "article_manifest_v1.json"
+    old, new = {"title": "Original failed assembly"}, {"title": "Accepted repaired assembly"}
+    _write_json(path, old)
+    original = path.read_bytes()
+    request = {"request_sha256": "a" * 64}
+    writer = {"invocation_observation": {"invocation_id": "same-native-writer"}}
+    response = {**request, "invocation_observation": {
+        "invocation_id": "other-writer" if state == "wrong_writer" else "same-native-writer"}}
+    turn = SimpleNamespace(frozen_request=lambda _: request,
+        native_response=lambda stage: writer if stage == "write" else (None if state == "pending" else response))
+    if state == "qualified":
+        (tmp_path / "qualified_article_record_v1.json").write_text("{}", encoding="utf-8")
+    if state == "accepted":
+        _preserve_unqualified_revision_artifact(path, new, turn)
+        archive = tmp_path / "editorial-revision-history" / request["request_sha256"] / path.name
+        assert archive.read_bytes() == original
+        _write_json(path, new)
+        _preserve_unqualified_revision_artifact(path, new, turn)
+        assert json.loads(path.read_bytes()) == new
+        with pytest.raises(SimpleGeminiNewsroomError, match="already_preserved"):
+            _preserve_unqualified_revision_artifact(path, {"title": "Another change"}, turn)
+        assert archive.read_bytes() == original
+    else:
+        with pytest.raises(SimpleGeminiNewsroomError):
+            _preserve_unqualified_revision_artifact(path, new, turn)
+            _write_json(path, new)
+        assert path.read_bytes() == original
+        assert not (tmp_path / "editorial-revision-history").exists()
+
+
 def test_vietnamese_lead_matches_selected_inflation_topic_without_english_padding():
     from live_contentops.v1_simple_gemini_newsroom_v1 import _selected_news_peg_blockers
     candidate = {"headline_text": "Inflation remains elevated while domestic spending is resilient."}
@@ -1092,6 +1155,68 @@ def test_second_validation_failure_abstains_without_fourth_call(tmp_path: Path):
     assert result["exact_next_blocker"] == "SINGLE_GEMINI_REVISION_EXHAUSTED"
     assert result["logical_model_invocation_count"] == 3
     assert roles.count(ROLE_V1_SIMPLE_EDITORIAL_REVISION) == 1
+
+
+@pytest.mark.parametrize("repair_succeeds", [True, False])
+@pytest.mark.parametrize("frozen_revision", [True, False])
+def test_native_derivative_failure_uses_bounded_same_operation_revision(tmp_path, monkeypatch, repair_succeeds, frozen_revision):
+    import live_contentops.v1_simple_gemini_newsroom_v1 as module
+
+    rolling = _headlines(1)
+    candidate_id = _candidate_ids(rolling)[0]
+    roles, compilations = [], []
+    original_compile = module._native_preview_bundle
+    original_governed = {}
+
+    def compile_preview(**kwargs):
+        compilations.append(kwargs["article_identity"])
+        assert kwargs["article"]["public_source_bindings"][0]["source_id"] == "SOURCE_1"
+        assert kwargs["article"]["public_source_bindings"][0]["url"] == SOURCE_URL
+        if len(compilations) == 1 or not repair_succeeds:
+            raise SimpleGeminiNewsroomError("native_preview_epistemic_state_missing", ["telegram"])
+        return original_compile(**kwargs)
+
+    def invoke(**kwargs):
+        role = kwargs["role_task_id"]
+        roles.append(role)
+        receipt = {**_receipt(role), "provider": "NATIVE_CODEX_DESKTOP",
+            "selected_model": "gpt-6.1-sol", "reasoning_effort": "max"}
+        if role == ROLE_V1_SIMPLE_SELECTION:
+            return _selection(candidate_id), receipt
+        if role == ROLE_V1_SIMPLE_ARTICLE_WRITING:
+            original_governed.update(kwargs["governed_input"])
+        if role == ROLE_V1_SIMPLE_EDITORIAL_REVISION:
+            assert kwargs["logical_invocation_id"] == "native-compile-repair:revise"
+            if frozen_revision:
+                assert kwargs["governed_input"]["validation_blockers"] == ["original_frozen_failure"]
+                assert kwargs["prompt"] == "Original frozen revision prompt"
+            else:
+                assert kwargs["governed_input"]["validation_blockers"] == [
+                    "native_preview_epistemic_state_missing", "telegram"]
+                assert "native_preview_epistemic_state_missing" in kwargs["prompt"]
+        return _article_output(), receipt
+
+    invoke.native_desktop_protocol = True
+    invoke.telemetry = lambda: {"observations": [{"invocation_id": "CONTROLLED_TEST_ONLY"}]}
+    invoke.frozen_request = lambda stage: ({"prompt": "Original frozen revision prompt",
+        "governed_input": {**original_governed, "prior_output_hash": module._hash(_article_output()),
+            "validation_blockers": ["original_frozen_failure"]}}
+        if stage == "revise" and frozen_revision else None)
+    monkeypatch.setattr(module, "_native_preview_bundle", compile_preview)
+    result = run_v1_simple_gemini_newsroom(
+        output_dir=tmp_path, cutoff_utc=CUTOFF, rolling_input=rolling, llm_invoke=invoke,
+        evidence_loader=lambda _request: _evidence_result(), run_id="native-compile-repair",
+    )
+    assert roles == [ROLE_V1_SIMPLE_SELECTION, ROLE_V1_SIMPLE_ARTICLE_WRITING, ROLE_V1_SIMPLE_EDITORIAL_REVISION]
+    assert len(compilations) == 2
+    assert result["qualified_article_count"] == int(repair_succeeds)
+    assert result["derivative_intent_count"] == (8 if repair_succeeds else 0)
+    assert result["public_write_performed"] is False
+    if repair_succeeds:
+        assert result["revision_performed"] is True
+    else:
+        assert result["exact_next_blocker"] == "NATIVE_DERIVATIVE_COMPILATION_BLOCKED"
+        assert result["validation_blockers"] == ["native_preview_epistemic_state_missing", "telegram"]
 
 
 def test_blocked_selection_persists_safe_per_attempt_diagnostics(tmp_path: Path):

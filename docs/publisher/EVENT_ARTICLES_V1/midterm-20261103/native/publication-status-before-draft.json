@@ -1,0 +1,1 @@
+{"state": "INVALIDATED", "next_operation": "review-current-packet", "next_command": "Review the current source/article packet; do not begin any prior tool request.", "destinations": [], "blocker": "REVISION_BOUND_NATIVE_KEEP_REVIEW_REQUIRED"}

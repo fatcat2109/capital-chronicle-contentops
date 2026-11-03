@@ -1,0 +1,109 @@
+{
+  "observed_at_utc": "2026-10-30T23:43:22.663491+00:00",
+  "operation": "supported automation_update(mode=update,kind=cron)",
+  "readback": "Exact seven named automation.toml files read only; supported view renders card without values",
+  "automations": [
+    {
+      "id": "v1-newsroom-london-1700",
+      "name": "V1 Newsroom \u2014 London 1700",
+      "status": "ACTIVE",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=17;BYMINUTE=0",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+      "execution_environment": "local",
+      "prompt_sha256": "b08ddcb0c13f6dfd53afa76e6f904e3803f7c9d62516b3ff7975ba02c60df892",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps"
+      ]
+    },
+    {
+      "id": "v1-newsroom-new-york-2100",
+      "name": "V1 Newsroom \u2014 New York 2100",
+      "status": "ACTIVE",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=21;BYMINUTE=0",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+      "execution_environment": "local",
+      "prompt_sha256": "18b0ca6fa884cc1ba22e1e5858fa7aa1f4413a7312a7755526740df8cfef4cb1",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps"
+      ]
+    },
+    {
+      "id": "v1-newsroom-new-york-2300",
+      "name": "V1 Newsroom \u2014 New York 2300",
+      "status": "ACTIVE",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=23;BYMINUTE=0",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+      "execution_environment": "local",
+      "prompt_sha256": "e810ddcb89fd95d9644aa406a7b1d47a551e35edfd69c6f4679869f835ed70d0",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps"
+      ]
+    },
+    {
+      "id": "v1-newsroom-new-york-0100",
+      "name": "V1 Newsroom \u2014 New York 0100",
+      "status": "ACTIVE",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=TU,WE,TH,FR,SA;BYHOUR=1;BYMINUTE=0",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+      "execution_environment": "local",
+      "prompt_sha256": "838e9f85937dcb5aab4871c97ce3f8730519bdcf7ffb24ce36e1b7ac9e1efc3f",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps"
+      ]
+    },
+    {
+      "id": "v1-newsroom-brief-asia-0900",
+      "name": "v1 newsroom brief asia 0900",
+      "status": "ACTIVE",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=9;BYMINUTE=0",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+      "execution_environment": "local",
+      "prompt_sha256": "9604c59795e04e3086b2923cf6cccc600f3544aeee7ce05944f5ea83aeebecaf",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps"
+      ]
+    },
+    {
+      "id": "v1-newsroom-brief-europe-1500",
+      "name": "v1 newsroom brief europe 1500",
+      "status": "ACTIVE",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=15;BYMINUTE=0",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+      "execution_environment": "local",
+      "prompt_sha256": "65bdce2a6c8eb5ec4fe0eefb6c493f6f42959ac0f33aa089d029e15680a37c1f",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps"
+      ]
+    },
+    {
+      "id": "v1-newsroom-brief-us-1900",
+      "name": "v1 newsroom brief us 1900",
+      "status": "ACTIVE",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=19;BYMINUTE=0",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "project_id": "ef6e93ca-ea7d-4941-a695-5bef859f9ab6",
+      "execution_environment": "local",
+      "prompt_sha256": "498c5595cc44dc4031403c6af7b5a2a8addd4cb8a62ad769f6b788996fe2437b",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps"
+      ]
+    }
+  ],
+  "changed_fields": [
+    "status: PAUSED -> ACTIVE"
+  ],
+  "prompt_calendar_models_project_preserved": true
+}

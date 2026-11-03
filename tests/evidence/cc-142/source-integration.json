@@ -1,0 +1,48 @@
+{
+  "item": "CC-142",
+  "substep": "official_history_source_and_chart_integration",
+  "tests": [
+    {
+      "artifact": "source-integration.junit.xml",
+      "passed": 207,
+      "seconds": 35.18
+    },
+    {
+      "artifact": "history-final.junit.xml",
+      "passed": 16,
+      "seconds": 2.76
+    }
+  ],
+  "ruff": "PASS",
+  "actual_archive_replay": {
+    "cpi": {
+      "window": [
+        "2024-10",
+        "2026-09"
+      ],
+      "captures": 23,
+      "series": 4,
+      "component_effects_pp": {
+        "Food": 0.006,
+        "Energy": 0.377,
+        "Core": 0.265
+      }
+    },
+    "empsit": {
+      "captures": 23,
+      "series": 3
+    },
+    "ppi": {
+      "captures": 23,
+      "series": 1
+    }
+  },
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "model_status": "CONFIGURED_NOT_OBSERVED",
+  "resumed_launch_pid": 24100,
+  "resume_launch_flags_readback": "--model gpt-6.1-sol; model_reasoning_effort=\"max\"",
+  "observed_at_utc": "2026-11-03T04:30:09.569413+00:00",
+  "public_edit_performed": false,
+  "operating_root_integration_performed": false
+}

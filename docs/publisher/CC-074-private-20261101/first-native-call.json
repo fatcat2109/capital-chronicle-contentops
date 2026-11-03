@@ -1,0 +1,17 @@
+{
+  "stage": "select",
+  "invocation_id": "/root/native_select_7fce85e14728",
+  "request_sha256": "7fce85e14728d1f6cc2ad2a563270f9eaa243954e0410e0851ec184acbcf8fd8",
+  "invocation_recorded_at_utc": "2026-11-01T05:19:07Z",
+  "supported_call_interval_utc": [
+    "2026-11-01T05:18:15Z",
+    "2026-11-01T05:19:07Z"
+  ],
+  "exact_platform_start_utc": null,
+  "clock_basis": "Supported spawn succeeded between two clock tool observations; precise platform start unexposed.",
+  "model": null,
+  "reasoning_effort": null,
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "low"
+}

@@ -1,0 +1,15 @@
+{
+  "tool_request_sha256": "f972bc9cf32726854d8a30945d4518f7cb88d9e97764bc9f1a2e99cba687c4c1",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Fresh actual Neo publisher dashboard readback for the exact retained draft credit repair; Jim’s Substack selector and authenticated Dean avatar on capitalchronicle.substack.com. No login or account change.",
+    "observed_at_utc": "2026-11-03T09:18:36.793Z"
+  },
+  "result": {
+    "request_sha256": "68b2cd6a303d20481c43f575ab81323f5b6f86d895f0349eedcac060e1c44231",
+    "authenticated": true,
+    "observed_identity": "capitalchronicle.substack.com"
+  }
+}

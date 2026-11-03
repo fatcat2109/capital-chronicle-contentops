@@ -1,0 +1,217 @@
+{
+  "checked_at_utc": "2026-11-01T09:15:45.252176+00:00",
+  "scope": "ONE_NAMED_RETAINED_W1091_LEAD_TWO_RELEASES_ONLY",
+  "upstream_commit": "1a4ee74817ab8c9ba640bed0293e018a082bc04d",
+  "upstream_documents": [
+    {
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "commit": "1a4ee74817ab8c9ba640bed0293e018a082bc04d",
+      "path": "local-evidence/work-packets/w1091-event-desk-data/README.md",
+      "git_blob": "7fbee9786b7657ea7433d95bc113be580548678a",
+      "bytes": 5946,
+      "sha256": "860bee0197872d659b625e7d9bb7f09d8941325314af16eccc542baabd59bd83"
+    },
+    {
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "commit": "1a4ee74817ab8c9ba640bed0293e018a082bc04d",
+      "path": "local-evidence/work-packets/w1091-event-desk-data/archive_manifest.json",
+      "git_blob": "35ebd8e0f2d6d0e91c0a2569bb72019c79a08e65",
+      "bytes": 216861,
+      "sha256": "adef6642726902d59a97b8ff0bbe690eaa34e30d728c4ac98f41330d3363bd89"
+    },
+    {
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "commit": "1a4ee74817ab8c9ba640bed0293e018a082bc04d",
+      "path": "local-evidence/work-packets/w1091-event-desk-data/first_release_actuals.jsonl",
+      "git_blob": "25c73e69f60fc9bdf6c44ca726b969296ea3bdf5",
+      "bytes": 1494239,
+      "sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d"
+    },
+    {
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "commit": "1a4ee74817ab8c9ba640bed0293e018a082bc04d",
+      "path": "local-evidence/work-packets/w1091-event-desk-data/main_reader_freshness.json",
+      "git_blob": "f86ff4d7fa26a10dca7732a4396e07d7a834ce99",
+      "bytes": 19252,
+      "sha256": "078df3a6e6c4682aa6af5338dfe47249525bcbacb5857c8d91a2f9b2c7710347"
+    }
+  ],
+  "dataset_row_count_verified": 1131,
+  "selected_row_count": 7,
+  "historical_retrieval_at_release_proven": false,
+  "archive_corrections_possible": true,
+  "sources": [
+    {
+      "event_family": "CPI",
+      "reference_period": "2026-09",
+      "release_datetime_utc": "2026-10-14T12:30:00Z",
+      "release_datetime_gmt7": "2026-10-14T19:30:00+07:00",
+      "release_clock_basis": "DATED_OFFICIAL_EMBARGO_HEADER_NOT_OBSERVED_HISTORICAL_FIRST_PUBLICATION",
+      "source_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+      "capture": {
+        "repository": "fatcat2109/Headline-Raw-data-json",
+        "commit": "1a4ee74817ab8c9ba640bed0293e018a082bc04d",
+        "path": "local-evidence/work-packets/w1091-event-desk-data/captures/0212a829acedbd1772a62187aa316a0a50754c4dd2c246362c0eecfd485e0bef.json",
+        "git_blob": "8253c040ec10a3ec9f89177deaab3837c1853bdd",
+        "bytes": 1131,
+        "sha256": "667bdf6eeaca9de812e983b654e83635606b1ab716fcb3812f822d938215cfb1"
+      },
+      "compressed_raw": {
+        "repository": "fatcat2109/Headline-Raw-data-json",
+        "commit": "1a4ee74817ab8c9ba640bed0293e018a082bc04d",
+        "path": "local-evidence/work-packets/w1091-event-desk-data/raw/b9f981390c08f4a530d839495fce582124015b979bac0398bfcc35ffde0544e4.bin.gz",
+        "git_blob": "3d1f767c5546285f0c36bacd172fde39c3dfc17d",
+        "bytes": 98174,
+        "sha256": "60423332f5e30ba39485bb15e9ebe37a976c4c1e2e1e403817783c563911368d"
+      },
+      "decompressed_source_sha256": "b9f981390c08f4a530d839495fce582124015b979bac0398bfcc35ffde0544e4",
+      "decompressed_source_bytes": 1373525,
+      "retrieved_at_utc": "2026-10-30T01:35:26.713Z",
+      "capture_rights_tag": "US_FEDERAL_OFFICIAL_PUBLIC_DATA",
+      "record_rights_tags": [
+        "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION"
+      ],
+      "dataset_line_numbers_1based": [
+        1127,
+        1128,
+        1129,
+        1130
+      ],
+      "selected_values": [
+        {
+          "series": "CPI_CORE_MOM",
+          "value": 0.3,
+          "unit": "percent",
+          "seasonal_adjustment": "SA"
+        },
+        {
+          "series": "CPI_CORE_YOY",
+          "value": 2.6,
+          "unit": "percent",
+          "seasonal_adjustment": "NSA"
+        },
+        {
+          "series": "CPI_HEADLINE_MOM",
+          "value": 0.6,
+          "unit": "percent",
+          "seasonal_adjustment": "SA"
+        },
+        {
+          "series": "CPI_HEADLINE_YOY",
+          "value": 3.7,
+          "unit": "percent",
+          "seasonal_adjustment": "NSA"
+        }
+      ],
+      "source_table_rows": [
+        [
+          "All items",
+          "0.9",
+          "0.6",
+          "0.5",
+          "-0.4",
+          "0.1",
+          "0.4",
+          "0.6",
+          "3.7"
+        ],
+        [
+          "All items less food and energy",
+          "0.2",
+          "0.4",
+          "0.2",
+          "0.0",
+          "0.2",
+          "0.3",
+          "0.3",
+          "2.6"
+        ]
+      ],
+      "header_excerpt": "Transmission of material in this release is embargoed until 8:30 a.m. (ET) Wednesday, October 14, 2026 USDL-26-1574 Technical information: (202) 691-7000 * cpi_info@bls.gov * www.bls.gov/cpi Media contact: (202) 691-5902 * PressOffice@bls.gov CONSUMER PRICE INDEX - SEPTEMBER 2026 The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment. The index for gasoline rose 9.1 percent in September, accounting for over",
+      "correction_notice_detected_in_retained_source": false,
+      "historical_retrieval_at_release_proven": false,
+      "archive_corrections_possible": true,
+      "never_corrected_archive_proven": false,
+      "contemporaneous_main_adoption_proven": false
+    },
+    {
+      "event_family": "NFP",
+      "reference_period": "2026-09",
+      "release_datetime_utc": "2026-10-02T12:30:00Z",
+      "release_datetime_gmt7": "2026-10-02T19:30:00+07:00",
+      "release_clock_basis": "DATED_OFFICIAL_EMBARGO_HEADER_NOT_OBSERVED_HISTORICAL_FIRST_PUBLICATION",
+      "source_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+      "capture": {
+        "repository": "fatcat2109/Headline-Raw-data-json",
+        "commit": "1a4ee74817ab8c9ba640bed0293e018a082bc04d",
+        "path": "local-evidence/work-packets/w1091-event-desk-data/captures/de315a31c9cd0dd71b1aa3c5609b750481d4f9f7e803194d174a0db4d726d954.json",
+        "git_blob": "fa02ac48d768a666cc0eb30dfb80444f6de5e7db",
+        "bytes": 1137,
+        "sha256": "5049e5d07a9a011bf81d61554c647cd89c4f38314e0ae236cbb0df9fd92814ff"
+      },
+      "compressed_raw": {
+        "repository": "fatcat2109/Headline-Raw-data-json",
+        "commit": "1a4ee74817ab8c9ba640bed0293e018a082bc04d",
+        "path": "local-evidence/work-packets/w1091-event-desk-data/raw/1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe.bin.gz",
+        "git_blob": "5807c9d91b56ec2e94063b84205e31c8f0eb45b5",
+        "bytes": 93258,
+        "sha256": "0059019b4e62ae9c88ddb96be8e721a21140ae9a21f4eb591c780729a6658462"
+      },
+      "decompressed_source_sha256": "1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe",
+      "decompressed_source_bytes": 1064261,
+      "retrieved_at_utc": "2026-10-30T01:34:41.252Z",
+      "capture_rights_tag": "US_FEDERAL_OFFICIAL_PUBLIC_DATA",
+      "record_rights_tags": [
+        "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION"
+      ],
+      "dataset_line_numbers_1based": [
+        1124,
+        1125,
+        1126
+      ],
+      "selected_values": [
+        {
+          "series": "AHE_MOM",
+          "value": 0.1,
+          "unit": "percent",
+          "seasonal_adjustment": "SA"
+        },
+        {
+          "series": "NFP_PAYROLL_CHANGE",
+          "value": 29000.0,
+          "unit": "persons",
+          "seasonal_adjustment": "SA"
+        },
+        {
+          "series": "UNEMPLOYMENT_RATE",
+          "value": 4.2,
+          "unit": "percent",
+          "seasonal_adjustment": "SA"
+        }
+      ],
+      "source_table_rows": [
+        [
+          "Total nonfarm",
+          "158,729",
+          "158,709",
+          "158,905",
+          "159,238",
+          "158,548",
+          "158,882",
+          "159,015",
+          "159,044",
+          "29"
+        ]
+      ],
+      "header_excerpt": "Transmission of material in this news release is embargoed until USDL-26-1549 8:30 a.m. (ET) Friday, October 2, 2026 Technical information: Household data: (202) 691-6378 * cpsinfo@bls.gov * www.bls.gov/cps Establishment data: (202) 691-6555 * cesinfo@bls.gov * www.bls.gov/ces Media contact: (202) 691-5902 * PressOffice@bls.gov THE EMPLOYMENT SITUATION - SEPTEMBER 2026 Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month. This news release presents statistics from two monthly surv",
+      "correction_notice_detected_in_retained_source": false,
+      "historical_retrieval_at_release_proven": false,
+      "archive_corrections_possible": true,
+      "never_corrected_archive_proven": false,
+      "contemporaneous_main_adoption_proven": false
+    }
+  ],
+  "rights_note": "Existing source-owner tags are preserved. This check makes no new model-purpose, public chart, redistribution or historical-admission decision.",
+  "interpretation": "Dated official archives resolve the mutable-URL-only gap. Late retrieval alone is not a blanket rejection of historical research. These bytes do not establish historical possession, an uncorrected first print, or a qualified Main-to-editorial event binding.",
+  "raw_responses_committed": false
+}

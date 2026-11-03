@@ -1,0 +1,29 @@
+{
+  "response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\desktop_response_filter-2cf062bd7f9a82e870ba04002ff6effc008e70e08521420155a717457191a983.json",
+  "invocation_observation": {
+    "invocation_id": "/root/cc042_daily_filter_50472312741e",
+    "model": null,
+    "reasoning_effort": null,
+    "configured_model": "gpt-6-luna",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "this explicit native task request",
+    "observation_source": "native task context; runtime model and effort telemetry were unavailable",
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  },
+  "counts": {
+    "KEEP": 50,
+    "REJECT": 36,
+    "DEFER": 10
+  },
+  "exit_code": 0,
+  "submit_result": {
+    "stage": "filter-2cf062bd7f9a82e870ba04002ff6effc008e70e08521420155a717457191a983",
+    "response_sha256": "105d29dc30cff0f7a96eb540bc3fc754155e1c1b92c48cea08367c1a9c43996a",
+    "public_write_performed": false
+  },
+  "response_file_sha256": "db3a1f907ccb6a614c0529ca5084278f0880edaa3ca750886f876c5d80130a62"
+}

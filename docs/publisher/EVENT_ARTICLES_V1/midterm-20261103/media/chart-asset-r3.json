@@ -1,0 +1,162 @@
+{
+  "asset_id": "cc107-generic-ballot-and-poll-close-card",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\render-r3\\media_assets\\cc107-generic-ballot-and-poll-close-card.png",
+  "sha256": "f230c117cc279bde0718c094aaf70d4b1c8efae377f4ccacb78c222066fac4f1",
+  "media_role": "editorial_data_journalism",
+  "modality": "source_backed_chart",
+  "role": "supporting_fact_context",
+  "caption": "PollCheck's generic-ballot shares, updated 2 November. The figures describe reported voting intentions, not probabilities of controlling Congress. Poll-closing time: 270toWin.",
+  "attribution": "PollCheck (2 November 2026); poll-closing time: 270toWin.",
+  "alt_text": "PollCheck generic-ballot snapshot updated 2 November 2026: Democrats 51.1 percent and Republicans 42.8 percent. These are voting-intention shares, not chamber-control probabilities. First polls close at 23:00 UTC on 3 November.",
+  "source_page_url": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+  "source_links": [
+    {
+      "document_id": "cc107-midterm-preview-20261103",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "label": "Capital Chronicle"
+    }
+  ],
+  "source_lineage": [
+    {
+      "source_url": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "document_id": "cc107-midterm-preview-20261103"
+    }
+  ],
+  "underlying_source_rights_status": "attributed_facts_independent_chart",
+  "source_reuse_basis": "Independent chart of attributed original-source facts; no source expression reused.",
+  "width": 800,
+  "height": 1280,
+  "editorial_data_packet": {
+    "alt_text": "PollCheck generic-ballot snapshot updated 2 November 2026: Democrats 51.1 percent and Republicans 42.8 percent. These are voting-intention shares, not chamber-control probabilities. First polls close at 23:00 UTC on 3 November.",
+    "asset_id": "cc107-generic-ballot-and-poll-close-card",
+    "caption": "PollCheck's generic-ballot shares, updated 2 November. The figures describe reported voting intentions, not probabilities of controlling Congress. Poll-closing time: 270toWin.",
+    "chart_type": "fact_card",
+    "destination_subset": [
+      "telegram",
+      "discord",
+      "x",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "fact_card_footer": "First polls close: 23:00 UTC on 3 November",
+    "fact_card_note": "Voting intentions, not chamber-control probabilities.",
+    "missingness": "Sample size, fieldwork dates, methodology, margin of error, other responses and underlying polling history are not supplied. No zero values, remainder share or uncertainty interval may be invented.",
+    "placement_after": "What is expected",
+    "question": "What does the admitted PollCheck snapshot report, and when do the first polls close?",
+    "series": [
+      {
+        "label": "PollCheck generic-ballot voting-intention share",
+        "points": [
+          {
+            "display_value": "51.1%",
+            "inputs": [
+              {
+                "document_id": "cc107-midterm-preview-20261103",
+                "metric": "PollCheck generic-ballot voting-intention share",
+                "period_basis": {
+                  "source_display": "updated 2 November",
+                  "source_known_at_utc": "2026-11-02T23:35:08Z"
+                },
+                "prepared_period": "2 November 2026",
+                "source_content_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+                "source_period_text": "updated 2 November",
+                "support_excerpt": "Polls point the same way. The Silver Bulletin generic-ballot average gives Democrats an 8.9-point lead (updated 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 November). Some are less sure about the Senate: Wolfe Research's own estimate put Democratic control at 49% (CNBC, 30 October).",
+                "unit": "percent",
+                "value_text": "51.1"
+              }
+            ],
+            "observation_kind": "ESTIMATE",
+            "period": "Democrats",
+            "transform": "IDENTITY",
+            "value": 51.1
+          },
+          {
+            "display_value": "42.8%",
+            "inputs": [
+              {
+                "document_id": "cc107-midterm-preview-20261103",
+                "metric": "PollCheck generic-ballot voting-intention share",
+                "period_basis": {
+                  "source_display": "updated 2 November",
+                  "source_known_at_utc": "2026-11-02T23:35:08Z"
+                },
+                "prepared_period": "2 November 2026",
+                "source_content_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+                "source_period_text": "updated 2 November",
+                "support_excerpt": "Polls point the same way. The Silver Bulletin generic-ballot average gives Democrats an 8.9-point lead (updated 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 November). Some are less sure about the Senate: Wolfe Research's own estimate put Democratic control at 49% (CNBC, 30 October).",
+                "unit": "percent",
+                "value_text": "42.8"
+              }
+            ],
+            "observation_kind": "ESTIMATE",
+            "period": "Republicans",
+            "transform": "IDENTITY",
+            "value": 42.8
+          }
+        ]
+      }
+    ],
+    "source_caption": "PollCheck (2 November 2026); poll-closing time: 270toWin.",
+    "subtitle": "PollCheck | updated 2 November 2026",
+    "title": "Generic-ballot polling snapshot",
+    "unit": "percent"
+  },
+  "transform_sha256": "852b82862b66d1e6445f821030460232f5aaa4f3b9068299b2dcff2b6d808ba7",
+  "placement_after": "What is expected",
+  "destination_subset": [
+    "telegram",
+    "discord",
+    "x",
+    "linkedin",
+    "facebook_page",
+    "instagram_business",
+    "threads",
+    "youtube"
+  ],
+  "computed_values": [
+    [
+      51.1,
+      42.8
+    ]
+  ],
+  "missingness": "Sample size, fieldwork dates, methodology, margin of error, other responses and underlying polling history are not supplied. No zero values, remainder share or uncertainty interval may be invented.",
+  "visual_review": {
+    "asset_sha256": "f230c117cc279bde0718c094aaf70d4b1c8efae377f4ccacb78c222066fac4f1",
+    "pixels_inspected": true,
+    "labels_and_units_legible": true,
+    "reviewer": "/root/native_visual_edit_76437a71362e",
+    "invocation_id": "/root/native_visual_edit_76437a71362e",
+    "inspection_method": "Local view_image, detail original, of exact 800 x 1280 portrait r3 PNG; exact sibling data JSON and frozen source PREVIEW compared.",
+    "source_values_match": true,
+    "visual_meaning_sound": true,
+    "source_findings": "Democrats 51.1% and Republicans 42.8% match the admitted PollCheck figures. Updated 2 November 2026 and first polls close 23:00 UTC on 3 November match the source-owned facts. Separate party labels remain correctly associated with the exact percent values. No computation beyond identity, normalization, remainder, invented interval, history, prediction-market odds or seat projection is shown.",
+    "meaning_findings": "Two vertically separated equal-status numerical blocks state voting intentions, not chamber-control probabilities. The meaning note explicitly makes that distinction. First poll close is a timing fact, not a promised result time. No plotted axes, stacks or proportional areas imply a complete electorate; a zero baseline is not applicable.",
+    "layout_findings": "In the standalone original, the two-line title, wrapped update date, party labels, exact percentages, two-line qualification, two-line first-close text and compact source credit fit within their margins. No clipping, overlap or distortion seen. High contrast dark/teal type on the light background. The portrait arrangement gives the essential labels more space than r2; actual responsive size/crops still require fresh desktop/mobile renders.",
+    "caption_findings": "The exact r3 caption uses natural PollCheck and 270toWin attribution. The phrase via the approved preview is absent from the asset caption and on-image credit.",
+    "findings": [],
+    "review_scope": "STANDALONE_ASSET_ONLY",
+    "final_canonical_channel_desktop_mobile_review_status": "PENDING_NOT_INSPECTED_R3_PRESENTATIONS",
+    "evidence_notes": [
+      "This acceptance binds only the exact inspected r3 original PNG and its source packet.",
+      "The prior final review remains REPAIR_REQUIRED; no old or missing presentation is accepted by this asset review.",
+      "New asset/caption bytes must be admitted through the existing revision owner; frozen r2 originals and prior native returns remain unchanged."
+    ],
+    "invocation_observation": {
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "invocation_id": "/root/native_visual_edit_76437a71362e",
+      "model": null,
+      "reasoning_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "actual_configuration_unavailable": true,
+      "configuration_source": "Supported same-actor native repair assignment for cc107-midterm-preview-20261103-v1 to /root/native_visual_edit_76437a71362e; gpt-6.1-sol/max configured. Actual model/effort remain unavailable through supported runtime observation.",
+      "observation_source": "The executing native context /root/native_visual_edit_76437a71362e inspected exact r3 PNG via local view_image, compared the sibling source JSON and frozen preview, and authored the linkless roots as repair input. This is standalone asset review, not final presentation acceptance.",
+      "speed": "standard"
+    }
+  }
+}

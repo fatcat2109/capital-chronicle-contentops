@@ -1,0 +1,209 @@
+{
+  "operation_id": "cc142-cpi-chart-edit-223246940",
+  "stage": "preliminary-assembly-review-r3",
+  "request_sha256": "53d4c2bd878e2bfa8b674dfae331dcbd225fc88cb07a37da316f2f1c3b080155",
+  "same_writer_task_path": "/root/cpi_max_writer",
+  "decision": "ACCEPT",
+  "acceptance_scope": "EXACT_LOCAL_R3_SUBSTACK_DESKTOP_AND_390PX_MOBILE_ASSEMBLY_ONLY",
+  "status": "PRELIMINARY_ASSEMBLY_ACCEPTED_AWAITING_SEALED_FINAL_VISUAL_REQUEST",
+  "model_provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "native_invocation_id": null,
+    "status": "CONFIGURED_NOT_OBSERVED"
+  },
+  "bindings": {
+    "max_result_sha256": "35ef4410e017b8a7363aae75407ab77a4c5b824749eddacb37cbfe1dca16c63f",
+    "prior_asset_review_sha256": "897fa398480d2da9d679e2bc69ce5fbd25c9940b95f5fecd91ec4e165f168126",
+    "chart_manifest_path": "tests/evidence/cc-142/chart-assets-r3-unreviewed.json",
+    "chart_manifest_sha256": "d6cd66f353678718ff87084080c024fd2dfb8df5e82902d5c5f500f23c23e8b3",
+    "render_observations_path": "tests/evidence/cc-142/render-r3/render-observations.json",
+    "render_observations_sha256": "52091cbd562c5251aa5c8fa2e3a40953b0de2c14f04c0413ae4dd86a382c45e0",
+    "reader_html_path": "tests/evidence/cc-142/render-r3/reader.html",
+    "reader_html_sha256": "7dc7b02b7f962430046ec556f201610feb5aa9d9ef5ce8396bc9c1e08e44bf82",
+    "history_file_sha256": "90372b67b4ccdf058d9a07d3573eba666f3804d41cfc7300c70e81b7384d2bb3",
+    "source_documents_sha256": "611e64734f4017c3194b2bd233620f694abfd2aab207a0a6c1b31b6522b7fcb8",
+    "post_id": "223246940",
+    "canonical_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+    "sealed_final_visual_request_sha256": null
+  },
+  "assets": [
+    {
+      "asset_id": "cpi-annual-history-r3",
+      "path": "tests/evidence/cc-142/render-r3/media_assets/cpi-annual-history-r3.png",
+      "sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "pixels_inspected": true,
+      "inspection": "Exact original standalone PNG and both assembled page views",
+      "usable": true,
+      "decision": "ACCEPT",
+      "checks": {
+        "hash_matches_manifest": true,
+        "computed_values_unchanged_from_reviewed_r2": true,
+        "october_2025_gap_preserved": true,
+        "november_2025_annual_values_preserved": true,
+        "annual_NSA_percent_and_window_correct": true,
+        "scale_path_and_end_labels_correct": true,
+        "distinct_line_styles_and_legend_present": true,
+        "requested_public_footer_repair_complete": true,
+        "placement_caption_and_alt_correct": true,
+        "unresolved_material_defect": false
+      },
+      "findings": [
+        "The requested public footer is now exactly 'Source: BLS dated CPI releases. First readings; October 2025 not published.' The internal CC-010 identifier is gone from the visible figure.",
+        "The 24-month calendar, 23 observed annual values per series, October gap, visible May headline peak, 0-5 scale and final 3.7%/2.6% labels remain correct.",
+        "The figure sits after the matching annual-history paragraph on both pages. Its external caption supplies the unit, NSA basis, vintage and missing-month context at normal text size."
+      ]
+    },
+    {
+      "asset_id": "cpi-monthly-history-r3",
+      "path": "tests/evidence/cc-142/render-r3/media_assets/cpi-monthly-history-r3.png",
+      "sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "pixels_inspected": true,
+      "inspection": "Exact original standalone PNG and both assembled page views",
+      "usable": true,
+      "decision": "ACCEPT",
+      "checks": {
+        "hash_matches_manifest": true,
+        "computed_values_unchanged_from_reviewed_r2": true,
+        "october_and_november_2025_gaps_preserved": true,
+        "two_month_change_not_substituted": true,
+        "june_2026_core_true_zero_visible": true,
+        "negative_headline_changes_and_zero_baseline_correct": true,
+        "monthly_SA_percent_and_window_correct": true,
+        "latest_0_6_and_0_3_labels_correct": true,
+        "requested_public_footer_repair_complete": true,
+        "placement_caption_and_alt_correct": true,
+        "unresolved_material_defect": false
+      },
+      "findings": [
+        "The requested public footer is now exactly 'Source: BLS dated CPI releases. First readings; no one-month data for Oct-Nov 2025.' No internal archive identifier remains in the visible figure.",
+        "Both missing months remain gaps. The June core zero, negative headline points, zero line, separate line styles and latest 0.6%/0.3% labels remain intact.",
+        "The chart follows the monthly comparison paragraph. Its normal text caption explains both missing one-month readings, the two-month November release and the first-release vintage basis."
+      ]
+    },
+    {
+      "asset_id": "cpi-september-effects-r2",
+      "path": "tests/evidence/cc-142/render-r2/media_assets/cpi-september-effects-r2.png",
+      "sha256": "45af728560c668a3aee17a095ef289cc99b7e1e7cb013caa7e5bd3f39311ba99",
+      "pixels_inspected": true,
+      "inspection": "Same exact standalone bytes inspected in asset-review-r2; inspected again in both current assembled page views",
+      "usable": true,
+      "decision": "ACCEPT",
+      "checks": {
+        "hash_matches_prior_inspected_asset": true,
+        "reported_effect_values_and_positive_signs_correct": true,
+        "disjoint_energy_core_food_partition": true,
+        "shared_zero_baseline_and_percentage_point_unit": true,
+        "food_small_positive_effect_visible": true,
+        "source_date_and_Table_6_context_present": true,
+        "placement_caption_and_alt_correct": true,
+        "unresolved_material_defect": false
+      },
+      "findings": [
+        "The valid r2 asset is preserved. Energy +0.377 pp, core +0.265 pp and food +0.006 pp match the source-bound effects and the adjacent prose.",
+        "The chart is placed beside the component explanation. Its caption preserves the three-decimal effects and distinguishes them from the headline's one-decimal monthly rate.",
+        "No nested component, invented residual, forced total or sign change appears."
+      ]
+    },
+    {
+      "asset_id": "cpi-usda-supermarket-archive",
+      "path": "tests/evidence/cc-142/media/usda-michigan-supermarket-20230622.jpg",
+      "sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+      "pixels_inspected": true,
+      "inspection": "Same original photograph inspected in asset-review-r2; inspected again at its actual placement in both current assembled page views",
+      "usable": true,
+      "decision": "ACCEPT_AS_ARCHIVE_CONTEXT",
+      "checks": {
+        "hash_matches_prior_inspected_original": true,
+        "subject_and_visible_frame_consistent": true,
+        "June_2023_archive_context_visible": true,
+        "no_September_2026_price_corroboration_implied": true,
+        "creator_source_public_domain_credit_visible": true,
+        "rights_binding_carried_from_prior_review": true,
+        "proportions_and_mobile_display_correct": true,
+        "unresolved_material_defect": false
+      },
+      "findings": [
+        "The photograph appears near the opening as consumer-basket context. Its June 2023 archive caption and statement that it is not a September 2026 price observation remain visible on both pages.",
+        "The USDAgov / U.S. Department of Agriculture, Wikimedia Commons and public-domain credit is retained. No crop changes the subject or creates a 2026 price claim.",
+        "The accepted original and rights binding are unchanged. This review carries forward the recorded exact-capture-clock uncertainty without adding a clock claim to the public copy."
+      ]
+    }
+  ],
+  "renders": [
+    {
+      "render_id": "cc142-substack-desktop-r3",
+      "destination": "substack",
+      "viewport": "desktop",
+      "path": "tests/evidence/cc-142/render-r3/substack-desktop.png",
+      "sha256": "add44fbbb85ccaaa35e07cdd55659c05c782818ac632878f3344ca1777e4f74a",
+      "width": 1265,
+      "height": 4069,
+      "pixels_inspected": true,
+      "inspection_detail": "Full exact original PNG; source HTML also read and hash-verified",
+      "decision": "ACCEPT",
+      "checks": {
+        "render_hash_and_dimensions_verified": true,
+        "source_HTML_hash_verified": true,
+        "title_and_accepted_prose_preserved": true,
+        "all_three_charts_and_photo_present": true,
+        "chart_placement_matches_writer_anchors": true,
+        "captions_credits_and_disclaimer_visible": true,
+        "no_clipping_or_unintended_overlap": true,
+        "no_internal_work_identifier_visible": true,
+        "dated_BLS_archive_link_preserved": true,
+        "unresolved_material_defect": false
+      },
+      "findings": [
+        "The title, lead, chart argument sequence and full disclaimer are complete. A readback comparison confirms that all 14 heading/paragraph blocks equal the accepted markdown after conversion to HTML.",
+        "The photo and three charts sit beside their intended arguments with readable surrounding prose and captions. The history footers are repaired, chart signs and gaps remain visible, and the food effect is not exaggerated.",
+        "The layout has clean spacing and no clipped title, missing paragraph, overlapping label, broken image or stray workflow text. The single factual source link points to the exact October 14 BLS archive."
+      ]
+    },
+    {
+      "render_id": "cc142-substack-mobile-r3",
+      "destination": "substack",
+      "viewport": "mobile",
+      "path": "tests/evidence/cc-142/render-r3/substack-mobile-390.png",
+      "sha256": "eb6d77a3a1c01ee3a8a7fd40fb42997b87d9e29f9ce37ed4ff0a32e9ee4e726a",
+      "width": 390,
+      "height": 3994,
+      "pixels_inspected": true,
+      "inspection_detail": "Full actual 390-pixel original PNG, emitted at original detail; source HTML also read and hash-verified",
+      "decision": "ACCEPT",
+      "checks": {
+        "render_hash_and_390px_dimensions_verified": true,
+        "actual_mobile_reflow_inspected": true,
+        "title_body_and_captions_readable": true,
+        "no_horizontal_clipping_or_overlap_visible": true,
+        "all_four_images_fit_the_text_column": true,
+        "caption_context_and_key_numbers_available_as_text": true,
+        "full_image_enlargement_anchors_present_in_HTML": true,
+        "disclaimer_complete": true,
+        "unresolved_material_defect": false
+      },
+      "findings": [
+        "This is the 390-pixel mobile page, not the earlier desktop-sized screenshot. The title and headings reflow cleanly; the complete body, captions, photo credit and disclaimer remain within the column.",
+        "At this width the raster chart subtitles, footers and detailed labels are small. The normal text captions and adjoining prose retain the units, vintage, gaps and key values, while each image is wrapped in a link to its full-resolution source. Detailed chart reading can use that natural enlargement.",
+        "The full source chart pixels were separately inspected, and the mobile figures retain their aspect ratios, visible gaps, end values and component ordering. No further asset or prose repair is required for this preliminary local assembly."
+      ],
+      "non_blocking_limit": "The HTML's enlargement links were inspected statically; no browser click or zoom interaction was performed in this review. Acceptance here does not claim that small raster annotations are comfortably readable at their inline size."
+    }
+  ],
+  "overall_findings": [
+    "The two requested footer repairs are complete and the numeric assets are unchanged. Preserve the valid effects chart, original photo, accepted prose and exact source window.",
+    "The local assembled desktop/mobile artifact set is acceptable for sealing into the existing final-visual request. There are no unresolved material copy, data, rights-context or visible layout findings in this bounded review.",
+    "The actual final request hash has not yet been supplied. This preliminary JSON is not the native final response for that request and creates no external-write authority."
+  ],
+  "required_repairs": [],
+  "scope_limits": [
+    "Only the named local Substack desktop and actual 390-pixel mobile renders and their bound source HTML were accepted. No live Substack page, editor upload, sent revision or derivative render was inspected.",
+    "The source HTML uses local file references for images. This review proves those exact local bytes and presentation, not successful hosting, upload, public image URL conversion or a live exact-post edit/readback.",
+    "The declared browser-render capture method comes from the supplied observation record. This writer inspected the resulting files and their bytes; it did not operate a browser or desktop application.",
+    "Final visual-request sealing and its actual request hash remain pending. Any changed prose, image, caption, media byte, layout or render must be rebound and reviewed as affected before that acceptance is carried forward.",
+    "Actual model/effort/invocation telemetry remains unobserved. Only assembly-review-r3.json was saved; no parent file, public object, shared code, test, chat or schedule was changed."
+  ],
+  "next_action": "Parent seals this same exact accepted artifact set into the existing final-visual request and returns its exact request hash to this same writer for the request-bound native final response before any public edit. Preserve the local-vs-public scope distinction and the existing exact-post publisher/readback owner."
+}

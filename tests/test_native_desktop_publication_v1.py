@@ -411,6 +411,30 @@ def test_compiler_change_after_keep_requires_a_new_preview_review(tmp_path, monk
         prepare_native_publication(store, binding)
 
 
+def test_changed_review_policy_retains_only_the_exact_dispatched_packet_path(tmp_path, monkeypatch):
+    store, binding, _, result, _ = seeded(tmp_path, monkeypatch, manual=True)
+    packet, plan, root = _prepared_packet(store, binding)
+    co = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    store.create_work_item(story_id=binding["run_id"], work_item_id=binding["run_id"],
+        title="Controlled existing publication", target_surface="TEST")
+    ids = co.register_plan(binding["run_id"], plan)["registered"][0]
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="substack", status="UNKNOWN_WRITE", public_object_id="controlled-existing")
+    import live_contentops.native_desktop_editorial_v1 as editorial
+    monkeypatch.setattr(editorial, "native_review_revision", lambda *a, **k: "f" * 64)
+    # The renderer/review policy's new hash alone cannot replace the frozen plan.
+    from live_contentops.contentops_editorial_desk_v1 import read_reviews
+    review = next(r for r in read_reviews(store) if r["review_id"] == packet["review_id"])
+    monkeypatch.setattr(editorial, "validated_native_review", lambda *a, **k: (result, None, review))
+    import live_contentops.native_desktop_publication_v1 as publication
+    monkeypatch.setattr(publication, "validated_native_review", editorial.validated_native_review)
+    assert _prepared_packet(store, binding)[1]["plan_hash"] == plan["plan_hash"]
+    manifest = root / "article_manifest_v1.json"
+    manifest.write_bytes(manifest.read_bytes() + b" ")
+    with pytest.raises(ValueError, match="REVIEWED_HANDOFF_PATH_CHANGED"):
+        _prepared_packet(store, binding)
+
+
 def test_canonical_first_real_url_eight_native_packages_restart_dedupe(
     tmp_path, monkeypatch
 ):

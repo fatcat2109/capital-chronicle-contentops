@@ -986,6 +986,115 @@ def test_native_xhigh_exhausted_revision_budget_never_calls_router_rewriter(monk
     assert reviser_calls == []
 
 
+@pytest.mark.parametrize("revision_count", [0, 1])
+def test_native_xhigh_ordinary_reader_value_failure_requests_same_worker_revision(
+    monkeypatch, revision_count,
+):
+    article = {
+        **_article(),
+        "minimum_trustworthy_evidence_packet": {
+            "status": "PASS",
+            "risk_tier": "ORDINARY",
+        },
+    }
+    monkeypatch.setattr(
+        "live_contentops.tier1_editorial_quality_v1.audit_tier1_article",
+        lambda article, media_assets=(): {
+            "classification": "NEEDS_REVISION",
+            "hard_editorial_blockers": ["reader_value_floor"],
+            "reader_value_gate": {
+                "classification": "INSUFFICIENT_READER_VALUE",
+                "blockers": ["mode_appropriate_substance"],
+            },
+        },
+    )
+    monkeypatch.setattr(
+        "live_contentops.tier1_editorial_quality_v1.review_minimum_evidence_news_brief",
+        lambda article: _semantic("PASS"),
+    )
+    route, receipt, validation = _native_xhigh_binding_for_editorial_test(article, revision_count)
+    reviser_calls = []
+
+    result = implementation._run_bounded_rolling_x_editorial_cycle(
+        article=article,
+        media_assets=[],
+        editorial_reviewer=lambda _article: (_ for _ in ()).throw(
+            AssertionError("ordinary story must not require semantic reviewer")
+        ),
+        article_reviser=lambda *args: reviser_calls.append(args),
+        native_xhigh_worker_return=receipt,
+        native_xhigh_worker_validation=validation,
+        native_xhigh_worker_request=route["worker_request"],
+    )
+
+    assert result["status"] == "NO_PUBLICATION"
+    assert result["revision_rounds_completed"] == revision_count
+    if revision_count == 0:
+        assert result["reason_code"] == "SAME_XHIGH_WORKER_REVISION_REQUIRED"
+        contract = result["same_xhigh_worker_revision_contract"]
+        assert contract["same_worker_required"] is True
+        assert contract["router_final_writer_forbidden"] is True
+        assert contract["governed_input_hash"] == route["governed_input_hash"]
+        assert contract["prior_worker_return_hash"] == validation["worker_return_hash"]
+        assert contract["deterministic_blockers"]["reader_value_blockers"] == ["mode_appropriate_substance"]
+    else:
+        assert result["reason_code"] == "EDITORIAL_WORKER_REVISION_BUDGET_EXHAUSTED"
+        assert "same_xhigh_worker_revision_contract" not in result
+    assert result["publication_authority_granted"] is False
+    assert result["mandatory_semantic_review_calls"] == 0
+    assert reviser_calls == []
+
+
+def test_native_xhigh_ordinary_repaired_article_retains_its_revision_count(monkeypatch):
+    article = {**_article(), "minimum_trustworthy_evidence_packet": {"status": "PASS", "risk_tier": "ORDINARY"}}
+    monkeypatch.setattr("live_contentops.tier1_editorial_quality_v1.audit_tier1_article",
+        lambda article, media_assets=(): {"classification": "PASS"})
+    monkeypatch.setattr("live_contentops.tier1_editorial_quality_v1.review_minimum_evidence_news_brief",
+        lambda article: _semantic("PASS"))
+    route, receipt, validation = _native_xhigh_binding_for_editorial_test(article, revision_count=1)
+    result = implementation._run_bounded_rolling_x_editorial_cycle(
+        article=article, media_assets=[],
+        editorial_reviewer=lambda *_: pytest.fail("ordinary story does not need semantic reviewer"),
+        article_reviser=lambda *_: pytest.fail("accepted revision must not be rewritten"),
+        native_xhigh_worker_return=receipt, native_xhigh_worker_validation=validation,
+        native_xhigh_worker_request=route["worker_request"])
+    assert result["status"] == "PASS"
+    assert result["revision_rounds_completed"] == 1
+    assert result["review_history"][0]["revision_rounds_completed"] == 1
+
+
+@pytest.mark.parametrize("binding_failure,error", [
+    ("missing_validation", "native_xhigh_revision_binding_required"),
+    ("missing_request", "native_xhigh_revision_binding_required"),
+    ("changed_context", "same_xhigh_revision_governed_context_hash_mismatch"),
+    ("changed_return", "same_xhigh_revision_prior_return_binding_mismatch"),
+])
+def test_ordinary_native_revision_never_rebinds_changed_evidence(monkeypatch, binding_failure, error):
+    from copy import deepcopy
+    article = {**_article(), "minimum_trustworthy_evidence_packet": {"status": "PASS", "risk_tier": "ORDINARY"}}
+    monkeypatch.setattr("live_contentops.tier1_editorial_quality_v1.audit_tier1_article",
+        lambda article, media_assets=(): {"classification": "NEEDS_REVISION"})
+    monkeypatch.setattr("live_contentops.tier1_editorial_quality_v1.review_minimum_evidence_news_brief",
+        lambda article: _semantic("PASS"))
+    route, receipt, validation = _native_xhigh_binding_for_editorial_test(article)
+    worker_request = deepcopy(route["worker_request"])
+    if binding_failure == "missing_validation":
+        validation = None
+    elif binding_failure == "missing_request":
+        worker_request = None
+    elif binding_failure == "changed_context":
+        worker_request["bounded_governed_context"]["exact_source_handles"] = ["different-source"]
+    else:
+        receipt["article"]["title"] = "Unbound changed article"
+    with pytest.raises(ValueError, match=error):
+        implementation._run_bounded_rolling_x_editorial_cycle(
+            article=article, media_assets=[],
+            editorial_reviewer=lambda *_: pytest.fail("semantic reviewer forbidden"),
+            article_reviser=lambda *_: pytest.fail("fallback author forbidden"),
+            native_xhigh_worker_return=receipt, native_xhigh_worker_validation=validation,
+            native_xhigh_worker_request=worker_request)
+
+
 def test_revision_binding_failure_uses_structured_repair_class(monkeypatch):
     from live_contentops import nine_router_llm_seam_v2 as seam
 
@@ -1952,22 +2061,31 @@ def test_canonical_cycle_fails_closed_on_unknown_or_duplicate_classifier_ids(
         assert result["ranked_viability"]["rank_attempts"] == []
 
 
+@pytest.mark.parametrize("checkpoint_scope", ["leaf", "global", "both"])
 def test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints(
-    monkeypatch, tmp_path: Path
+    monkeypatch, tmp_path: Path, checkpoint_scope
 ):
     intake = {
         "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
         "canonical_input_hash": "frozen-input-hash",
         "cutoff_time_utc": "2026-08-08T09:18:54Z",
         "counts": {"accepted": 1},
+        "headlines": [{"headline_id": "frozen-headline", "headline_text": "Exact frozen official statement"}],
+        "unique_headline_ids": ["frozen-headline"],
     }
-    leaf_checkpoints = {"leaf-1": {"checkpoint": "exact"}}
-    global_checkpoint = {"checkpoint": "exact-global"}
+    leaf_checkpoints = {"leaf-1": {"checkpoint": "exact"}} if checkpoint_scope != "global" else None
+    global_checkpoint = {"checkpoint": "exact-global"} if checkpoint_scope != "leaf" else None
     calls = []
     monkeypatch.setattr(
         "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
         lambda **kwargs: (_ for _ in ()).throw(
             AssertionError("frozen resume must not reload X sidecars")
+        ),
+    )
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.compact_rolling_x_assignment_universe",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("hash-bound resume must not recompact frozen assignment input")
         ),
     )
 
@@ -2003,7 +2121,54 @@ def test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints(
     assert calls[0]["leaf_checkpoints"] is leaf_checkpoints
     assert calls[0]["global_checkpoint"] is global_checkpoint
     assert result["intake"]["canonical_input_hash"] == "frozen-input-hash"
+    assert (
+        result["assignment"]["pre_assignment_compaction"]["reason"]
+        == "HASH_BOUND_SEMANTIC_RESUME_INPUT_REUSED"
+    )
     assert result["classification"] == "NO_PUBLICATION"
+
+
+def test_checkpoint_resume_without_frozen_input_cannot_load_new_headlines(monkeypatch, tmp_path):
+    monkeypatch.setattr("live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
+        lambda **kwargs: pytest.fail("checkpoint resume must not load fresh input"))
+    with pytest.raises(ValueError, match="rolling_x_frozen_resume_input_required"):
+        implementation._run_rolling_x_newsroom_cycle(run_id="missing-frozen-input", output_dir=tmp_path,
+            cutoff_utc="2026-08-08T09:18:54Z", leaf_checkpoints={"exact-leaf": {}},
+            publication_enabled=False)
+
+
+@pytest.mark.parametrize("changed_checkpoint", [False, True])
+def test_canonical_resume_reuses_real_bound_checkpoints_without_provider_calls(monkeypatch, tmp_path, changed_checkpoint):
+    from test_rolling_x_hierarchical_assignment_v1 import (
+        HierarchicalProvider, _build_checkpoint_bundle, _small_input,
+    )
+    intake = _small_input()
+    provider = HierarchicalProvider(no_publication=True)
+    _, leaves, global_checkpoint = _build_checkpoint_bundle(intake, provider)
+    provider.calls.clear()
+    monkeypatch.setattr("live_contentops.preselection_intelligence_v1.compact_rolling_x_assignment_universe",
+        lambda *_a, **_k: pytest.fail("frozen assignment cannot be re-compacted"))
+    monkeypatch.setattr("live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
+        lambda **kwargs: pytest.fail("frozen resume cannot reload source rows"))
+    if changed_checkpoint:
+        global_checkpoint["canonical_input_hash"] = "a" * 64
+        with pytest.raises(ValueError, match="rolling_x_global_checkpoint_input_binding_invalid"):
+            implementation._run_rolling_x_newsroom_cycle(run_id="changed-checkpoint", output_dir=tmp_path,
+                cutoff_utc=intake["cutoff_time_utc"], rolling_input=intake,
+                leaf_checkpoints=leaves, global_checkpoint=global_checkpoint,
+                assignment_provider_call=lambda *_a: pytest.fail("checkpoint mismatch must not call a provider"),
+                publication_enabled=False)
+    else:
+        result = implementation._run_rolling_x_newsroom_cycle(run_id="real-checkpoint-resume", output_dir=tmp_path,
+            cutoff_utc=intake["cutoff_time_utc"], rolling_input=intake,
+            leaf_checkpoints=leaves, global_checkpoint=global_checkpoint,
+            assignment_provider_call=lambda *_a: pytest.fail("accepted checkpoints need zero provider calls"),
+            publication_enabled=False)
+        assert result["classification"] == "NO_PUBLICATION"
+        assert result["intake"] == intake
+        assert result["assignment"]["checkpoint_resume"]["global_checkpoint_reused"] is True
+        assert result["assignment"]["checkpoint_resume"]["called_partition_ids"] == []
+    assert provider.calls == []
 
 
 def test_publication_window_clusters_only_prepared_frontier_before_evidence_walk(

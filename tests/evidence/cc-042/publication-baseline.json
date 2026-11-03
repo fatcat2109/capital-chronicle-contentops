@@ -1,0 +1,21 @@
+{
+  "observed_at_utc": "2026-10-31T00:05:47.442839+00:00",
+  "production_day_id": "newsroom-production-day-2026-10-31-bangkok",
+  "strict_reconciled_published_count": 0,
+  "acceptance_minimum": 3,
+  "memory_proof": {
+    "schema_version": "contentops.v1_simple_published_memory_access.v1",
+    "corpus_schema_version": "contentops.published_corpus_read_model.v2",
+    "canonical_reconciled_article_count": 1,
+    "canonical_publication_contract": "SUBSTACK_DISPATCH_CONFIRMED_AND_EXACT_RECONCILIATION_CONFIRMED_AND_STABLE_PUBLIC_OBJECT_ID_AND_VALID_CANONICAL_URL_AND_EXACT_URL_HASH_AND_DURABLE_SOURCE_WORK_ITEM_AND_UNIQUE_ARTICLE_IDENTITY",
+    "derived_from_existing_durable_truth": true,
+    "store_access_mode": "SQLITE_MODE_RO_QUERY_ONLY",
+    "auto_migrate": false,
+    "production_store_unchanged_during_projection": true,
+    "second_publication_store_created": false
+  },
+  "article_identities": [
+    "8885bd9e945f425731c93f73c51ff0fa70463d7148a088f8ee3482937de3069d"
+  ],
+  "acceptance_passed": false
+}

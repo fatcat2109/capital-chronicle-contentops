@@ -178,6 +178,8 @@ class _Stages:
         return json.loads(row["payload"]) if row else None
 
     def put(self, key: str, value: Mapping[str, Any], destination: str = STAGE) -> None:
+        if self.work.startswith("cc-opportunity-") and getattr(self, "manual_candidate", None) and destination == STAGE:
+            value = {**value, "manual_candidate_id": self.manual_candidate["candidate_id"]}
         if _private(value):
             raise LatestReportConsumerError("PRIVATE_EDITORIAL_STAGE_EXCLUDED")
         raw = canonical_bytes(value)
@@ -281,7 +283,9 @@ def run_report_editorial_cycle(
     record = record or {}
     root = Path(output_dir).resolve()
     stages = _Stages(tracker, receipt_id, opportunity_id)
-    final_id = "cc-editorial-final-" + sha256_of(opportunity_id or receipt_id)
+    from live_contentops.native_manual_candidate_v1 import native_artifact_key
+    stages.manual_candidate = getattr(llm_invoke, "manual_candidate", None)
+    final_id = native_artifact_key(tracker.store, opportunity_id or receipt_id, "cc-editorial-final-")
     previous = stages.get(final_id)
     if previous and previous.get("qualified_article_count"):
         if any(r["destination"] == "internal:cc-report-withdrawal"
@@ -498,12 +502,17 @@ def run_report_editorial_cycle(
             model.telemetry = llm_invoke.telemetry
             model.filter_headlines = llm_invoke.filter_headlines
             model.frozen_request = llm_invoke.frozen_request
+            model.native_response = lambda stage: llm_invoke._get(stage, "response")
             model.source_recovery = llm_invoke.source_recovery
+            model.prepare_sources = llm_invoke.prepare_sources
+            model.release_history_sources = getattr(llm_invoke, "release_history_sources", lambda **kw: kw["source_pack"])
             model.admitted_editorial_media = getattr(llm_invoke, "admitted_editorial_media", lambda: [])
             model.audience_learning = getattr(llm_invoke, "audience_learning", None)
             model.volume_policy = getattr(llm_invoke, "volume_policy", None)
+            model.scheduled_window = getattr(llm_invoke, "scheduled_window", False)
             model.source_request_count_at_start = getattr(llm_invoke, "source_request_count_at_start", 0)
             model.inherited_selection = getattr(llm_invoke, "inherited_selection", None)
+            model.manual_candidate = getattr(llm_invoke, "manual_candidate", None)
 
         default_loader = _default_evidence_loader(cutoff_utc, source_route_health=source_route_health,
             **({"volume_policy": model.volume_policy} if native and model.volume_policy else {}))
@@ -519,13 +528,19 @@ def run_report_editorial_cycle(
             and r["work_item_id"] == stages.work
             and str(json.loads(r["payload"]).get("stage", "")).startswith("source:")
             and "result" in json.loads(r["payload"])
+            and (not native or not model.manual_candidate
+                 or json.loads(r["payload"]).get("manual_candidate_id") == model.manual_candidate["candidate_id"])
         )
-        default_loader.resume_request_count(spent + args.get("source_requests_before_writer_freeze", 0)
+        default_loader.resume_request_count(spent + (0 if native and model.manual_candidate else args.get("source_requests_before_writer_freeze", 0))
             + (model.source_request_count_at_start if native else 0))
         report_by_headline = {"cc-report:" + r["envelope_sha256"]: r for r in records}
 
         def evidence(request: Mapping[str, Any]) -> dict[str, Any]:
             stage = "source:" + str(request["cluster_id"])
+            # An explicitly versioned retained adapter may repair its resolver
+            # without replacing prior cached failures or changing frozen inputs.
+            if retained_research and getattr(retained_research, "evidence_cache_revision", None):
+                stage += ":adapter:" + sha256_of(retained_research.evidence_cache_revision)
             recovery = llm_invoke.source_recovery() if native else None
             if recovery and recovery.get("pre_writer_context_attachment"):
                 # The selected history joins only after the unchanged current-event
@@ -698,6 +713,8 @@ def run_report_editorial_cycle(
                     affected_prior_inputs=record.get("affected_prior_inputs", []),
                 )
         if native:
+            if stages.manual_candidate:
+                result["manual_candidate_id"] = stages.manual_candidate["candidate_id"]
             result["editorial_execution"] = llm_invoke.telemetry()
             result["semantic_response_count"] = simple.get("semantic_response_count", 0)
             result.pop("logical_model_invocation_count", None)
@@ -726,7 +743,10 @@ def run_report_editorial_cycle(
                     if native and article.get("reader_first_version") == "DATA_JOURNALISM_V1"
                     else reused[:1] or result.get("media_assets", []))
                 result["media_reuse_count"] = len(result["media_assets"])
-        stages.put(final_id, result, SIMPLE_RESULT)
+        if stages.manual_candidate and not result.get("qualified_article_count"):
+            stages.put("cc-editorial-blocked-" + sha256_of([final_id, result]), result, SIMPLE_RESULT)
+        else:
+            stages.put(final_id, result, SIMPLE_RESULT)
         return result
     except (LatestReportConsumerError, LLMOperatorPausedError) as exc:
         blocker = str(exc)

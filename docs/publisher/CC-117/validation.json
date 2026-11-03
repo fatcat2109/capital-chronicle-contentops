@@ -1,0 +1,139 @@
+{
+  "schema_version": "contentops.cc117.validation.v1",
+  "observed_at_utc": "2026-11-02T16:35:49.841721+00:00",
+  "status": "PASS_FOR_OPS_INTEGRATION",
+  "branch": "backlog/cc-117-newsroom-publication",
+  "base_tag": "contentops-live-20261102-cc042c",
+  "base_commit": "c2b5aea1ea3420600cb9525a677a7a94d2562a06",
+  "merged_dependencies": {
+    "CC-109": "9a24913c17b1de652c3aa832b0a031a4f0c7eae0",
+    "CC-074": "38b7b7df4ed5ccf2b9037508553a5c6c22c18dc6"
+  },
+  "pushed_substeps": [
+    "eb2dde7374597cdeee87840dab6e86550586a10b",
+    "c7042577",
+    "74427ad6"
+  ],
+  "implementation_commit": "74427ad698326d118ec089b7b0e3b161498e1cd2",
+  "configuration": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Read back codex.exe process 41784 launch arguments through Win32_Process; actual runtime model/effort telemetry unavailable.",
+    "editorial_model_calls_during_repair": 0
+  },
+  "root_causes": {
+    "actual_21h_primary_cause": "SOFTWARE_PROCESS_DEFECT",
+    "actual_cli_error": "EXACT_BOUND_LIVE_SELECTION_REQUIRED",
+    "daily_aggregate_cause": "SOURCE_MISSING",
+    "original_source_request_count": 0,
+    "additional_integration_defect": "Skipped text-first destinations were incorrectly required to contain reader certainty labels.",
+    "age_and_scope": "Five-day-old numeric-only Fed projection was selected for document analysis; complete short copy must remain dated background."
+  },
+  "checks": [
+    {
+      "junit": "docs/publisher/CC-117/checks/dependencies.xml",
+      "tests": 86,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 100.324,
+      "started_at_utc": "2026-11-02T16:05:31.577590+00:00"
+    },
+    {
+      "junit": "docs/publisher/CC-117/checks/targeted.xml",
+      "tests": 216,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 228.516,
+      "started_at_utc": "2026-11-02T16:29:57.445203+00:00"
+    },
+    {
+      "junit": "docs/publisher/CC-117/checks/owner-operation.xml",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 6.354,
+      "started_at_utc": "2026-11-02T16:34:19.023520+00:00"
+    }
+  ],
+  "distinct_final_tests": 228,
+  "test_processes_parallel": false,
+  "pytest_workers": 1,
+  "whole_suite_run": false,
+  "lint": {
+    "changed_production_and_new_test_paths": "PASS",
+    "existing_test_helper": "PASS with E701,E702 excluded; all 13 exclusions pre-exist in the named live base."
+  },
+  "source_file_sha256": {
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": "043bd740e0cb7e71ce2091a0dfb7e39595ad9346123770282a5379f86a5f83a9",
+    "live_contentops/capital_chronicle_report_editorial_workspace_v1.py": "f5d5d6751ca03691fc9aecc2b843db8779fab8d034b78603fb9f9f9fb1a4a6b9",
+    "live_contentops/native_desktop_editorial_v1.py": "1dfa8a03bc7c812e490b0a12252229997902b5c20fda21dff607f4a986ef440c",
+    "live_contentops/native_desktop_publication_v1.py": "e7f14bd04ee81315b9511c862456bf5fb0094444654d270e741593cb7a977b24",
+    "live_contentops/native_editorial_continuation_v1.py": "d14b3edba5c1fbfb1cc64d47f2f23693cdc8f5342dc277a4a5be6cc409451222",
+    "live_contentops/native_newsroom_volume_v1.py": "94aa002d687ad6ee183f4334640feb84f00ad5a78f3c24809d358c17a4d967cb",
+    "live_contentops/native_text_first_v1.py": "2ced5975c7c1256373a5f9ec5e0bdd76037be5f5e8310d31e39a9f1f59084b56",
+    "live_contentops/publication_coordinator_v1.py": "1d1b9b2a9e6e47b79d5789da29adc99c5c1bd84e48304e7fc9e37524687c4098",
+    "live_contentops/retrospective_piece_v1.py": "7a3d6450efd620eb191188fe55b4bb39c74c7e54718f2adc3d1dd469fe1b4da6",
+    "live_contentops/rolling_x_grounded_article_media_builder_v1.py": "39da7dc361d4dfc58679dba254b47f72a396c85a2e89f64f2c23458599491c5e",
+    "live_contentops/v1_simple_gemini_newsroom_v1.py": "48147a7ee8d2b651731652361e897bc75bd92c7a1b5d9bc38fa93c1135ce419d",
+    "scripts/promote_cc074_fomc_for_ops.py": "65b3b1053682ccfdf19e842e3dd93b82d37f1cac005c5f9267c96e258f15ba9f",
+    "scripts/replay_cc109_text_first.py": "bb3123e97fd90d4f1a1e7d6ae4f9ca65377fdb27c966ac4c3fbc5694b7c50a47",
+    "scripts/run_native_desktop_editorial.py": "0f930bad95897e84846e32435b5e584d2e5e108d483a71bfa02de1e1551e226b",
+    "tests/test_cc074_promotion_for_ops.py": "dd9789070fafb15889d56a5a470706439e64a7622ae3b569075024072fc07925",
+    "tests/test_native_live_source_recovery_v1.py": "34e395f3e8e15630f9eb6a569dc79bc169400d3a270341e6882d9dfe1b5d31b6",
+    "tests/test_native_newsroom_publication_recovery_v1.py": "15097f4039acddf645ae08447fc8357242ed112fd7c33e1ddae92264432f51a9",
+    "tests/test_native_text_first_v1.py": "f4a65edc1878803226e5e667ec67f00a5719161b19f7c14a8e5afca4ed28351f",
+    "tests/test_retrospective_piece_v1.py": "b3d0aec3c5146866a6b9c16403df0f14b5b9773d3a55d1fb57e14a15331b75e1"
+  },
+  "incident_snapshot_sha256": "a747c8719153a3c0af612836fbe9e9ac9e80aac910b02007fabfbec1f10ae60f",
+  "replay": {
+    "scope": "CONTROLLED_RETROSPECTIVE_TEST_NOT_NATIVE_OR_LIVE_PUBLICATION",
+    "original_run_id": "simple-gemini-slot-9fabdc0f3e4ac2048b07c2c667310d4c",
+    "original_hold_preserved": true,
+    "replayed_state": "RECONCILED",
+    "native_stages": [
+      "select",
+      "write"
+    ],
+    "source_request_count": 0,
+    "external_source_calls": 0,
+    "external_public_writes": 0,
+    "simulated_destinations": [
+      "discord",
+      "linkedin",
+      "substack",
+      "telegram",
+      "threads",
+      "x"
+    ],
+    "source_pack_sha256": "96acf4ec006414955444ac2c7dfd120f7743002b2621bdc4792d0df0de837915",
+    "test_artifact_sha256": "2a0f2793d768f9e5892b9a8f3fa70bec3dd4a76187390a3a77d4de257b3c5486"
+  },
+  "source_originals_verified_unchanged": true,
+  "scope": {
+    "production_window_runs": 0,
+    "production_store_writes": 0,
+    "promotion_apply": false,
+    "external_source_requests": 0,
+    "external_publication_writes": 0,
+    "schedule_changes": 0,
+    "chat_messages": 0,
+    "native_desktop_control": false,
+    "operating_root_integration": false,
+    "default_branch_merge": false
+  },
+  "for_ops": "docs/publisher/CC-117/README.md",
+  "publication_entry": {
+    "owner": "Claude Ops CC-117 integration-turn FOMC continuation",
+    "command": "python scripts/run_native_desktop_editorial.py publication-resume",
+    "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc074-retro-fomc-20261028-v1\\binding.json",
+    "rollout_path": "A:\\Capital Chronicle\\ContentOps\\config\\native_desktop_rollout_v1.json",
+    "native_invocation_id": "UNKNOWN_UNTIL_ACTUAL_OPS_PUBLISHER_EXECUTES; MUST_USE_SUPPORTED_ACTIVE_CONTEXT"
+  },
+  "limits": [
+    "Controlled source/native/transport fixtures prove mechanics, not actual model returns or public publication.",
+    "Existing frozen operations are unchanged; no historical HOLD is rewritten.",
+    "Ops must integrate, apply the fresh promotion plan and run the named sole-publisher continuation with actual readback.",
+    "Daily publication reliability remains unproven."
+  ]
+}

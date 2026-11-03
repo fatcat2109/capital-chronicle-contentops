@@ -24,6 +24,18 @@ from live_contentops.v1_simple_publication_handoff_v1 import SimplePublicationHa
 CUTOFF = "2026-08-28T10:00:00Z"
 
 
+def test_native_recovery_preserves_exact_pending_request():
+    from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired
+    request = {"request_sha256": "a" * 64, "action": "VERIFY_IDENTITY", "destination": "youtube"}
+    class Coordinator:
+        def recover_pending(self):
+            raise NativeNeoInputRequired(request)
+    handoff = SimplePublicationHandoffV1(store=None, coordinator=Coordinator())
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        handoff.recover_preflight()
+    assert pending.value.request == request
+
+
 def _memory_loader():
     return lambda: (
         [],

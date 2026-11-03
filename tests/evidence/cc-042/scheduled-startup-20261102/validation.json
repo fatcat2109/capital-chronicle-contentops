@@ -1,0 +1,107 @@
+{
+  "item": "CC-042",
+  "recorded_at_utc": "2026-11-02T08:40:28.691690+00:00",
+  "scope": "Ops 2 Nov 15:27 GMT+7: repair scheduled startup only; push and stop for Ops review/integration.",
+  "branch": "backlog/cc-042-scheduled-startup",
+  "base_tag": "contentops-live-20261102-cc042b",
+  "base_commit": "1d3318a4ab406a8dc11b6f420e770b3310608e01",
+  "source_fix_commit": "b10fa20486876ca5e9b0215a67d931a68ac8cfa3",
+  "observed_startup": {
+    "original_path": "C:\\Users\\bullw\\.codex\\automations\\v1-newsroom-brief-europe-1500\\startup-result-20261102.json",
+    "copy": "observed-startup-result.json",
+    "sha256": "17b812a7500013bdaf2883c31e805c0d5d69c8b559ebfa2efd80809239565244",
+    "classification": "NATIVE_DESKTOP_BLOCKED",
+    "blocker": "'window'",
+    "recorded_exit_code": 1,
+    "binding_path": null,
+    "native_roles_started": 0,
+    "publication_actions": 0
+  },
+  "root_cause": "_latest_window selected native-window-disposition-* records as checkpoints because both use native-window-% and the editorial outbox destination; dispositions have no window member.",
+  "repair": "Exclude the existing disposition namespace in the read-only query before JSON decoding; retain session/opportunity, exact message-id hash and production-day checks; reject malformed checkpoint payloads as NATIVE_SCHEDULE_WINDOW_BINDING_CHANGED.",
+  "before_fix_regression": {
+    "file": "before-fix.xml",
+    "tests": 1,
+    "failed": 1,
+    "errors": 0,
+    "skipped": 0,
+    "sha256": "edea9cb17129db9d4ee03abcb711f726919a249548ca181a98c51f6a89553b3f",
+    "expected_failure": true,
+    "fixture": "Four synthetic saved process dispositions plus a valid older checkpoint in a disposable SQLite store.",
+    "observed_cli_exit_code": 2,
+    "observed_cli_blocker": "'window'",
+    "production_startup_wrapper_exit_is_separate": true
+  },
+  "passing_reports": [
+    {
+      "file": "checkpoint-selection.xml",
+      "tests": 21,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "41d8676b92acf68580062afa1142c60a15ef183d3c8dea3f34324844f2caf2a3"
+    },
+    {
+      "file": "schedule-regressions.xml",
+      "tests": 103,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "e9b23005edfccf3668f62e824bfc75cf43a85fb397f6ed1b3ecc333f19452691"
+    }
+  ],
+  "distinct_final_passes": 124,
+  "full_repository_suite_claimed": false,
+  "coverage": [
+    "All seven automation IDs reach scheduled CLI binding and duplicate replay in isolated stores.",
+    "Session/latest/exact-opportunity selection remains read-only; previous outbox rows and binding bytes survive.",
+    "Disposition-only and malformed non-checkpoint payloads are excluded before decoding.",
+    "Twelve checkpoint shape/JSON/time/key/day corruptions fail without replacement.",
+    "Existing continuity, brief, result reporting, volume, standalone handoff, production handoff, publication and live-launch regressions pass."
+  ],
+  "regression_files": [
+    "tests/test_native_scheduled_continuity_v1.py",
+    "tests/test_native_brief_windows_v1.py",
+    "tests/test_native_window_result_reporting_v1.py",
+    "tests/test_native_volume_window_v1.py",
+    "tests/test_native_standalone_handoff_v1.py",
+    "tests/test_native_desktop_production_handoff_v1.py",
+    "tests/test_native_desktop_publication_v1.py",
+    "tests/test_native_live_launch_v1.py"
+  ],
+  "ruff": "PASS on the two changed Python files",
+  "git_diff_check": "PASS",
+  "working_tree_sha256": {
+    "live_contentops/native_desktop_schedule_binding_v1.py": "08508ab642428aa87f30dd88b758769c2605cab1efcf0dd3d93177a39e6e6661",
+    "tests/test_native_scheduled_checkpoint_selection_v1.py": "4a3543dcc14372468a5cc11ec702da427ef7b71cc45188c653d1e2db9893c798"
+  },
+  "launch_configuration": {
+    "source": "Active codex.exe Win32_Process.CommandLine readback",
+    "process_id": 18844,
+    "process_created_at_utc": "2026-11-02T08:27:55.9051020Z",
+    "arguments_read_back": [
+      "--model gpt-6.1-sol",
+      "-c \"model_reasoning_effort=\\\"max\\\"\""
+    ],
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "required_configuration_present": true,
+    "classification": "CONFIGURED_NOT_OBSERVED",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "active_worker_restarted": false
+  },
+  "production_windows_run": 0,
+  "missed_windows_replayed": 0,
+  "editorial_model_calls": 0,
+  "source_acquisitions": 0,
+  "schedule_changes": 0,
+  "chat_messages": 0,
+  "production_store_mutations": 0,
+  "public_writes": 0,
+  "main_mt5_or_cua_actions": 0,
+  "merged_or_deployed": false,
+  "overall_cc042_acceptance": "NOT_MET: no production run in this authorized repair scope; backlog last records 0/3 canonical readbacks.",
+  "next_action": "Claude Ops reviews and integrates the pushed fix for the existing 17:00 London window; no missed-window replay or replacement schedule.",
+  "raw_failure_capture": "before-fix.xml retains the original pytest failure text byte-for-byte; its local whitespace attribute admits captured blank-line spaces only."
+}

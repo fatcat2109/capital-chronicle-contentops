@@ -29,6 +29,7 @@ from live_contentops.destination_transport_registry_v1 import (
     validate_registry,
 )
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired
 from live_contentops.newsroom_production_day_v1 import load_qualified_article_records
 from live_contentops.production_orchestrator_v1 import ContentOpsProductionOrchestrator
 from live_contentops.publication_coordinator_v1 import (
@@ -176,6 +177,10 @@ class SimplePublicationHandoffV1:
         """Run the coordinator's canonical recovery before any fresh semantic opportunity."""
         try:
             result = dict(self.coordinator.recover_pending() or {})
+        except NativeNeoInputRequired:
+            # Preserve the exact supported native continuation. Reclassifying it
+            # as a generic recovery failure loses its request and stalls the caller.
+            raise
         except Exception as exc:  # fail closed; never expose exception text/session material
             return {
                 "schema_version": SCHEMA_VERSION,
@@ -334,8 +339,12 @@ class SimplePublicationHandoffV1:
     ) -> dict[str, Any]:
         """Resume an interrupted handoff without ever re-running the Simple semantic operation."""
         recovery = self.recover_preflight()
-        if int(recovery.get("backlog_remaining") or 0) > 0:
-            plan = self.ensure_plan(slot_id=slot_id, slot_output_dir=slot_output_dir)
+        plan = self.ensure_plan(slot_id=slot_id, slot_output_dir=slot_output_dir)
+        guard = getattr(self.coordinator, "recovery_blocks_new_publication", None)
+        blocks = (guard(recovery, slot_id, plan=plan) if callable(guard)
+                  else int(recovery.get("backlog_remaining") or 0) > 0)
+        recovery["backlog_blocking_current_article"] = blocks
+        if blocks:
             current = self.coordinator.publication_state(slot_id, plan)
             return {
                 "schema_version": SCHEMA_VERSION,
@@ -360,7 +369,6 @@ class SimplePublicationHandoffV1:
                 "bridge_source_get_count": 0,
                 "recovery_preflight": recovery,
             }
-        plan = self.ensure_plan(slot_id=slot_id, slot_output_dir=slot_output_dir)
         self._ensure_work_item(slot_id=slot_id, plan=plan)
         # Complete any crash-interrupted partial outbox registration idempotently. Existing
         # finalized/dispatch rows are never rewritten by ``register_plan``.

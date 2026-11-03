@@ -1,0 +1,276 @@
+{
+  "schema_version": "contentops.cc117.recorded_hold.v1",
+  "scope": "EXACT_RETAINED_FACTS_AND_HOLD; COUNTERFACTUAL_TEST_MUST_NOT_REWRITE_THIS_OPERATION",
+  "run_id": "simple-gemini-slot-9fabdc0f3e4ac2048b07c2c667310d4c",
+  "cutoff_utc": "2026-11-02T14:00:00Z",
+  "original_selected_candidate": {
+    "candidate_id": "simple-story-3801a6378ce49ae80f8064be",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [],
+    "headline_id": "official-release-b4301a87bf03dd90ee250f3f604fac24119b8963eab5e0713ea226d71c87cd9f",
+    "headline_text": "Board of Governors of the Federal Reserve System; retained official release Federal Reserve Board|FED|2026-10-28|2026-10-28. Federal funds target range lower bound: 3.75 percent; basis POLICY_TARGET_RANGE_LOWER_BOUND. Federal funds target range upper bound: 4.0 percent; basis POLICY_TARGET_RANGE_UPPER_BOUND. Reference period: 2026-10-28. Retained vintage; not a new release at intake.",
+    "official_source_urls": [
+      "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+    ],
+    "public_source_urls": [
+      "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+    ],
+    "report_editorial_context": {},
+    "revision_at_utc": "2026-10-29T20:02:20.946547+00:00",
+    "source_account": "Board of Governors of the Federal Reserve System",
+    "source_platform": "",
+    "source_timestamp_utc": "2026-10-28T18:00:00Z",
+    "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+      "known_access_risk": false,
+      "known_official_path": true,
+      "reputable_public_secondary_path": false,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-3801a6378ce49ae80f8064be",
+    "update_chain_identity": "simple-story-3801a6378ce49ae80f8064be"
+  },
+  "original_selection": {
+    "status": "SELECT_CANDIDATE_PLAN",
+    "public_write_attempted": false,
+    "selection_summary": "Two independently useful source-led admissions: a dated Federal Reserve document lens first, then a regulator-based precious-metals explainer. No candidate is represented as breaking news. Older data releases, repeated Main recirculation and stale gas updates do not supply a fresh market development. Official URLs remain unqualified until the existing resolver checks them.",
+    "ordered_candidate_plan": [
+      {
+        "candidate_id": "simple-story-3801a6378ce49ae80f8064be",
+        "selection_rationale": "Rates are a central macro anchor. A narrow document-led explanation can clarify the distinction between a policy setting and expectations without pretending this retained release is fresh news. The identified official source is a resolution route, not yet qualification.",
+        "primary_reader_question": "What does the dated Federal Reserve policy range actually tell us, and what still requires separate evidence?",
+        "evidence_plan": "Resolve the exact retained October 28 Federal Reserve statement through the existing resolver. Keep its date and policy-range basis explicit. Compare with the earlier retained statement only if exact source versions support it. Read the full statement before asserting a change, hold, rationale or outlook. No current market reaction, implied path or proprietary forecast is supplied; omit those claims. Code owns any arithmetic. Use the shared existing ten-request ledger, never reset it.",
+        "angle": "What the October 28 target range establishes, and what a policy-rate level alone cannot tell readers about the next move.",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "research_queries": [
+          "Federal Reserve October 28 2026 monetary policy statement target range",
+          "Federal Reserve policy target range versus future rate path"
+        ]
+      },
+      {
+        "candidate_id": "simple-story-38e4ac4f4603af989e10e2c5",
+        "selection_rationale": "The retained regulator advisory supports a useful durable explanation of a concrete investor misunderstanding. This is an evergreen alternative, not a new regulatory event or a gold-price view.",
+        "primary_reader_question": "When buying financed or stored precious metals, which risks come from the contract and custodian rather than the price?",
+        "evidence_plan": "Resolve the retained CFTC precious-metals fraud advisory through the existing resolver. Bind the advisory wording, publication/version context and public-use rights; distinguish regulator warning patterns from allegations against any named firm. Explain leverage and custody qualitatively. Do not infer current gold prices, a forecast, prevalence or legal findings. Code owns any admitted illustrative arithmetic; do not invent examples or historical data. Preserve the same shared source-request ledger.",
+        "angle": "Why a claim to own precious metal can leave the buyer exposed to financing and custody risks beyond the metal price.",
+        "article_mode": "EVERGREEN_EXPLAINER",
+        "research_queries": [
+          "CFTC precious metals fraud leveraged purchase storage financing warning",
+          "CFTC precious metals independent custodian physical metal location"
+        ]
+      }
+    ],
+    "schema_version": "contentops.v1_simple_gemini_selection.v2"
+  },
+  "original_media_plan": {
+    "story_plan": {
+      "chart_plan": {
+        "admitted_source": "SOURCE_1, official-release-b4301a87bf03dd90ee250f3f604fac24119b8963eab5e0713ea226d71c87cd9f; canonical_content_sha256 ac8df5b858c28c684b837d1463b8beab32403b3b86cab166e74cd678708a901e",
+        "budget": "Use existing shared ledger and remaining non-chargeable budget; this native planning response performs zero source requests and does not reset counts.",
+        "missingness": "Only one dated range is supplied. No comparable policy history, full statement language, projections, yields or market expectations are present.",
+        "ready": false,
+        "proposals": [
+          {
+            "requirements": "Resolve exact comparable official prior decision sources within the frozen cutoff through existing source owners. Preserve dates and lower/upper-bound basis; code validates and renders admitted observations only.",
+            "form": "Range-band timeline only if adequate comparable observations are admitted.",
+            "concept": "Policy range across dated decisions"
+          },
+          {
+            "requirements": "Obtain the complete exact statement and any explicitly admitted official outlook document. A source-bound explanatory visual is useful only if it adds a distinct document finding; do not fabricate a numeric series, market-implied path or probabilities.",
+            "form": "MAX chooses after assessing admitted evidence; no duplicate endpoint bars or decorative panel count.",
+            "concept": "Separate policy setting from evidence about future policy"
+          }
+        ],
+        "unit": "percent",
+        "reference_period": "2026-10-28",
+        "data_status": "Actual policy settings in retained projection; not forecast, effective federal funds rate, market price or newly released intake.",
+        "count_decision": "MAX decides count, type and placement. Current evidence cannot support 2-5 distinct useful analytical charts. Do not pad one range into multiple charts. If source preparation cannot add adequate evidence, hold the analysis for SOURCE_MISSING rather than fabricate or invoke a narrow-news exception.",
+        "metric": "Federal funds target range lower and upper bounds"
+      },
+      "photo_plan": {
+        "ready": false,
+        "subject": "Authentic exterior of the Federal Reserve Board building in Washington, DC.",
+        "inspection": "Existing media owner must inspect original pixels and bind caption, alt text, source and rights before MAX final rendered review.",
+        "discovery": "Existing lawful original-media discovery owner should locate an exact original with creator, source, license, capture date, original bytes and reuse/attribution evidence. The supplied numeric-fact rights expressly exclude photographs and logos, so they grant no photo reuse.",
+        "exception": "No automatic photo-less exception: this selected document-lens analysis is not to be relabelled as fresh NEWS/POLICY to bypass media requirements.",
+        "caption_requirement": "Label archive context and actual capture date where known; preserve unknown capture date rather than invent one.",
+        "purpose": "Institutional archive context only; never visual confirmation of the October 28 decision."
+      },
+      "thesis": "The retained October 28 Federal Reserve projection supplies a dated target-range level only. It does not establish the decision direction, rationale, future path or market reaction. The proposed document lens must remain dated and must obtain the exact statement before interpreting its language; a current update cannot be inferred from intake."
+    }
+  },
+  "original_outcome": {
+    "schema_version": "contentops.native_pre_writer_outcome.v1",
+    "outcome": "HOLD",
+    "candidate_id": "simple-story-3801a6378ce49ae80f8064be",
+    "primary_cause": "SOFTWARE_PROCESS_DEFECT",
+    "additional_causes": [
+      "SOURCE_MISSING",
+      "RIGHTS"
+    ],
+    "reason": "Source preparation cannot currently continue through the supported recovery CLI for this scheduled binding. An actual recover-sources call returned NATIVE_DESKTOP_BLOCKED / EXACT_BOUND_LIVE_SELECTION_REQUIRED (exit 2). The live recovery owner requires binding.owner_manual_live=true; this immutable scheduled binding lacks that flag. Its implementation also forbids recovery after visual-edit freeze. The historical alternative requires an owner-manual binding and exhausted 6/6 budget, while selected-story-context accepts already retained frozen history rather than newly acquired sources. No external source-access restriction has been observed and the 10-request budget is not exhausted. The exact packet contains only one retained October 28 Fed target range; the full statement and comparable observations needed for the selected document-lens analysis remain missing. Photo permission is separately absent because the numeric-fact licence excludes images. Do not relabel the analysis as news, manufacture charts, alter binding flags, reset the budget or perform untracked acquisition. Continue source preparation through an authorized supported route once the process gap is repaired, preserving this operation, source cutoff and accepted Light work.",
+    "source_request_count": 0,
+    "source_request_limit": 10,
+    "public_write_attempted": false,
+    "process_evidence": {
+      "operation": "recover-sources",
+      "classification": "NATIVE_DESKTOP_BLOCKED",
+      "blocker": "EXACT_BOUND_LIVE_SELECTION_REQUIRED",
+      "exit_code": 2,
+      "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-4eb992edd9fac458ef63e87b05c14e75\\simple-gemini-slot-9fabdc0f3e4ac2048b07c2c667310d4c\\source-recovery-route-check-result.json",
+      "network_acquisition_performed": false,
+      "external_source_access": "NOT_OBSERVED"
+    }
+  },
+  "selected_source_pack": [
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "ac8df5b858c28c684b837d1463b8beab32403b3b86cab166e74cd678708a901e",
+      "canonical_content_text": "Board of Governors of the Federal Reserve System; retained official release Federal Reserve Board|FED|2026-10-28|2026-10-28. Federal funds target range lower bound: 3.75 percent; basis POLICY_TARGET_RANGE_LOWER_BOUND. Federal funds target range upper bound: 4.0 percent; basis POLICY_TARGET_RANGE_UPPER_BOUND. Reference period: 2026-10-28. Retained vintage; not a new release at intake.",
+      "canonical_resolution_status": "",
+      "document_id": "official-release-b4301a87bf03dd90ee250f3f604fac24119b8963eab5e0713ea226d71c87cd9f",
+      "published_at_source": "",
+      "published_at_utc": "2026-10-28T18:00:00Z",
+      "publisher": "Board of Governors of the Federal Reserve System",
+      "report_truth_only": false,
+      "retrieval_method": "RETAINED_PUBLIC_FACTS_ONLY",
+      "secondary_listing_only": false,
+      "source_authority_class": "official_public_primary_source",
+      "source_id": "SOURCE_1",
+      "source_identity": "Board of Governors of the Federal Reserve System",
+      "source_reuse_constraints": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "authority": "L1_BATCH11_CONTENTOPS_FACTUAL_INTAKE_EXISTING_PUBLIC_FACT_PURPOSE",
+        "conditions": [
+          "Attribute the named publisher and link the retained official source.",
+          "Third-party material, logos, photographs and illustrations are excluded.",
+          "Attribute the named publisher and link the retained official source.",
+          "Third-party material, logos, photographs and illustrations are excluded."
+        ],
+        "content_sha256": "ac8df5b858c28c684b837d1463b8beab32403b3b86cab166e74cd678708a901e",
+        "external_licence_granted": false,
+        "free_source_notices": [],
+        "original_fact_rights": [
+          {
+            "bulk_database_reuse": "NOT_ASSESSED",
+            "conditions": [
+              "Attribute the named publisher and link the retained official source.",
+              "Third-party material, logos, photographs and illustrations are excluded."
+            ],
+            "free_source_notice": null,
+            "model_input": "NO_NEW_PERMISSION",
+            "original_rights_state": "PUBLIC_OFFICIAL_APPROVED",
+            "policy_evidence": {
+              "basis": "RETAINED_PUBLISHER_PUBLIC_DOMAIN_POLICY_NUMERIC_FACTS_ONLY",
+              "capture_at_utc": "2026-09-03T16:21:28.917Z",
+              "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+              "raw_policy_sha256": "eeb4dfc6a7624c83fb95d34214873313c13eea02986594756db483acb186bd1e",
+              "receipt_sha256": "545c420c4179920eb7a431a75fcd714dfd6f68fc59b47b97b3cf9672ae35b43d"
+            },
+            "publication": "SEPARATE_CONTENTOPS_OWNER_DECISION",
+            "purpose": "contentops_factual_source_intake",
+            "raw_text_images": "NOT_EXPORTED_OR_LICENSED_BY_THIS_PROJECTION",
+            "source_public_export_admitted": false,
+            "source_rights_dimensions": {
+              "LLM_input": "PURPOSE_OWNER_ASSESSMENT_REQUIRED",
+              "internal_analysis": "EXISTING_OFFICIAL_SOURCE_CONTEXT_ONLY",
+              "public_derived": "NOT_ADMITTED",
+              "raw": "SOURCE_OWNER_CONTRACT",
+              "redistribution": "NOT_ADMITTED"
+            },
+            "state": "PUBLIC_SAFE_FACT"
+          },
+          {
+            "bulk_database_reuse": "NOT_ASSESSED",
+            "conditions": [
+              "Attribute the named publisher and link the retained official source.",
+              "Third-party material, logos, photographs and illustrations are excluded."
+            ],
+            "free_source_notice": null,
+            "model_input": "NO_NEW_PERMISSION",
+            "original_rights_state": "PUBLIC_OFFICIAL_APPROVED",
+            "policy_evidence": {
+              "basis": "RETAINED_PUBLISHER_PUBLIC_DOMAIN_POLICY_NUMERIC_FACTS_ONLY",
+              "capture_at_utc": "2026-09-03T16:21:28.917Z",
+              "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+              "raw_policy_sha256": "eeb4dfc6a7624c83fb95d34214873313c13eea02986594756db483acb186bd1e",
+              "receipt_sha256": "545c420c4179920eb7a431a75fcd714dfd6f68fc59b47b97b3cf9672ae35b43d"
+            },
+            "publication": "SEPARATE_CONTENTOPS_OWNER_DECISION",
+            "purpose": "contentops_factual_source_intake",
+            "raw_text_images": "NOT_EXPORTED_OR_LICENSED_BY_THIS_PROJECTION",
+            "source_public_export_admitted": false,
+            "source_rights_dimensions": {
+              "LLM_input": "PURPOSE_OWNER_ASSESSMENT_REQUIRED",
+              "internal_analysis": "EXISTING_OFFICIAL_SOURCE_CONTEXT_ONLY",
+              "public_derived": "NOT_ADMITTED",
+              "raw": "SOURCE_OWNER_CONTRACT",
+              "redistribution": "NOT_ADMITTED"
+            },
+            "state": "PUBLIC_SAFE_FACT"
+          }
+        ],
+        "publication": "SEPARATE_CONTENTOPS_OWNER_DECISION",
+        "raw_text_images": "NOT_EXPORTED_OR_LICENSED_BY_THIS_PROJECTION",
+        "scope": "GOVERNED_PUBLIC_NUMERIC_FACTS_ONLY_EXCLUDES_RAW_TEXT_IMAGES",
+        "source_capture_sha256": "18c99371723616db0990597c0792b30ef590ba9e2259b8bd6ee6d843b6b0c8ee"
+      },
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+    }
+  ],
+  "selected_epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "Board of Governors of the Federal Reserve System; retained official release Federal Reserve Board|FED|2026-10-28|2026-10-28. Federal funds target range lower bound: 3.75 percent; basis POLICY_TARGET_RANGE_LOWER_BOUND. Federal funds target range upper bound: 4.0 percent; basis POLICY_TARGET_RANGE_UPPER_BOUND. Reference period: 2026-10-28. Retained vintage; not a new release at intake",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Board of Governors of the Federal Reserve System",
+    "primary_reporting_source_identity": "Board of Governors of the Federal Reserve System",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "Board of Governors of the Federal Reserve System reports that board of Governors of the Federal Reserve System; retained official release Federal Reserve Board|FED|2026-10-28|2026-10-28. Federal funds target range lower bound: 3.75 percent; basis POLICY_TARGET_RANGE_LOWER_BOUND. Federal funds target range upper bound: 4.0 percent; basis POLICY_TARGET_RANGE_UPPER_BOUND. Reference period: 2026-10-28. Retained vintage; not a new release at intake",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "official-release-b4301a87bf03dd90ee250f3f604fac24119b8963eab5e0713ea226d71c87cd9f"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "original_source_requests": 0,
+  "request_limit": 10,
+  "original_artifacts": [
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-4eb992edd9fac458ef63e87b05c14e75\\simple-gemini-slot-9fabdc0f3e4ac2048b07c2c667310d4c\\desktop_request_select.json",
+      "sha256": "cd0991a698d671ef7daa130430cde742fef37d2f0c5cbc8d80f2045df8aaf6b2"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-4eb992edd9fac458ef63e87b05c14e75\\simple-gemini-slot-9fabdc0f3e4ac2048b07c2c667310d4c\\desktop_response_select.json",
+      "sha256": "e868cd487dae5671aa5c10403f8904f652abf17d9b70f8c386fe85c9d1790bed"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-4eb992edd9fac458ef63e87b05c14e75\\simple-gemini-slot-9fabdc0f3e4ac2048b07c2c667310d4c\\desktop_response_media-plan.json",
+      "sha256": "dff5df14a0183e6d934560fcd571ed343ab716ecc4ab2f5a8ba168735f554d6a"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-4eb992edd9fac458ef63e87b05c14e75\\simple-gemini-slot-9fabdc0f3e4ac2048b07c2c667310d4c\\desktop_response_visual-edit.json",
+      "sha256": "82798095df9cc0bffe63539b425852f728eb6da197d6e3f92f702481ca471e0a"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\editorial-window-4eb992edd9fac458ef63e87b05c14e75\\simple-gemini-slot-9fabdc0f3e4ac2048b07c2c667310d4c\\simple_gemini_evidence_v1.json",
+      "sha256": "b79796db1ad8a96d6afe74e8e556c09c6d330f0797fd5cc224172421381dff56"
+    }
+  ],
+  "public_write_performed": false
+}

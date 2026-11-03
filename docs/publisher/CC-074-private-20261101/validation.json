@@ -1,0 +1,179 @@
+{
+  "schema_version": "contentops.cc074.private_delivery.v1",
+  "checked_at_utc": "2026-11-01T08:55:32.530750+00:00",
+  "scope": "JIM_APPROVED_PRIVATE_PREPARATION_ONLY",
+  "whole_item_status": "BLOCKED",
+  "branch": "backlog/cc-074-private-backfill-drafts",
+  "base_commit": "2ea226893b91bf7b93b3fadd757cc50057cd6228",
+  "article_count": 1,
+  "requested_maximum": 5,
+  "title": "The Fed held on October 28. Both dissenters wanted a hike.",
+  "reader_path": "reader.html",
+  "piece_path": "piece.json",
+  "chart_record_path": "chart-data-records.json",
+  "quality": {
+    "same_actual_MAX_visual_editor_writer_repair_and_final_review": true,
+    "writer_invocation_id": "/root/native_visual_edit_266e6978a4ec",
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "actual_model": null,
+    "actual_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "accepted_final_review": {
+      "stage": "final-visual-9081b56508d2e28660859cd387e53330d5e2fb463e5199a9b493849b5abfe5a9",
+      "request_sha256": "9f23d68ac1aac3bb76cdc37ec0d4bdfb80b65d2e9cc9466b36e578349fd14071",
+      "response_sha256": "552e9a593d8758e1e16760c29e7394896f4e46c7015cd9595511c289f3541d42",
+      "output_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\.task-runtime\\cc-074\\private-20261101\\articles\\cc074-retro-fomc-20261028-v1",
+      "article_revision": "babd5c02bcedea40f218c7c582c6982e3c4524936b7e649450dcc63aa1505d43",
+      "render_binding_sha256": "9081b56508d2e28660859cd387e53330d5e2fb463e5199a9b493849b5abfe5a9",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Exact frozen desktop_request_final-visual-9081b56508d2e28660859cd387e53330d5e2fb463e5199a9b493849b5abfe5a9.json requested_model/requested_reasoning_effort and supported parent task assignment; configured values are not observed model settings.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_visual_edit_266e6978a4ec",
+        "model": null,
+        "observation_source": "Supported native collaboration context continues the exact visual editor/writer for this final-review assignment. All18 bound PNGs and3 media originals were opened with local view_image; four inspection-only original-width crops supplement the tall canonical mobile PNG. Actual model/effort are not exposed. No environment, process/session, credential or secret-config probing.",
+        "observed_at_utc": "2026-11-01T08:45:01.387005Z",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    },
+    "review_id": "native-article-review-5196e83dd6924fddbdc0c80945603e04",
+    "review_decision": "KEEP",
+    "renders": 18,
+    "desktop": 9,
+    "mobile": 9,
+    "channels": 8,
+    "photo_count": 1,
+    "chart_count": 2,
+    "original_failed_review_preserved": true,
+    "render_scope": "Private canonical React workspace; BrowserOS screen-media PDF + Poppler pixels, not native platform screenshots"
+  },
+  "source": {
+    "new_acquisitions": 0,
+    "source_requests_used": 0,
+    "source_request_limit": 10,
+    "official_documents": 2,
+    "historical_cutoff_utc": "2026-10-28T19:14:31.428086Z",
+    "Main_event_hash": "7bc2e11942a8e139b292eae221860b246aad74f2868af9ea890f89663a08311b",
+    "first_print_verified": false,
+    "implementation_exact_release_clock_verified": false,
+    "public_manifest_not_relabelled": true,
+    "private_Main_trading_or_account_truth_used": false,
+    "candidate_gaps_path": "candidate-gaps.json"
+  },
+  "clocks": {
+    "first_native_call_record": "first-native-call.json",
+    "written_at_utc": "2026-11-01T05:37:56.952296Z",
+    "written_on_gmt7": "2026-11-01",
+    "native_request_return_pairs": 6,
+    "native_task_identities": 3
+  },
+  "checks": {
+    "unique_cases": 332,
+    "counts": {
+      "PASS": 330,
+      "FAIL": 2,
+      "SKIP": 0
+    },
+    "retained_parent_failures": [
+      {
+        "classname": "tests.test_native_desktop_workspace_v1",
+        "case": "test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[False-False]"
+      },
+      {
+        "classname": "tests.test_native_desktop_workspace_v1",
+        "case": "test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift[True-False]"
+      }
+    ],
+    "final_scoped_passes": 162,
+    "scope": "Relevant backend/CLI/store/media/source/newsroom; no full repository suite claim. Two thin mocks still point to nonexistent controlled-request, reproduced on parent; original desk import defect repaired.",
+    "ui_validation": {
+      "focused_tests": 39,
+      "build": "PASS",
+      "evidence": "repairs/v2/repair-result.json",
+      "provenance": "Same native MAX role executed and reported actual focused UI/build commands; raw stdout not separately retained."
+    },
+    "latest_compatibility_passes": 77,
+    "legacy_frozen_visual_metadata_case": "PASS",
+    "final_real_package_and_earlier_source_cases": "5PASS"
+  },
+  "zero_write": {
+    "real_readback": "zero-write-observation.json",
+    "source_owner_operation_rows": 0,
+    "source_prior_outbox_rows_exact": 1002,
+    "copy_platform_dispatches": 0,
+    "copy_reconciliations": 0,
+    "new_external_outbox_rows": 0,
+    "copied_existing_owner_store": true,
+    "production_replaced": false
+  },
+  "dependencies": {
+    "CC043_port": "Not needed on selected retained-source route",
+    "Main_Web_contract_changed": false,
+    "current_readers_and_media_owners_reused": true
+  },
+  "code_hashes": [
+    {
+      "path": "live_contentops/native_desktop_editorial_v1.py",
+      "working_tree_sha256": "ed14fb5e8f8096607644864b84791bd41e719b16cac3892242107a00f35811ac",
+      "normalized_lf_sha256": "ed14fb5e8f8096607644864b84791bd41e719b16cac3892242107a00f35811ac",
+      "newline_basis": "RAW_WORKING_TREE_AND_EXPLICIT_LF_NORMALIZATION_NOT_ASSERTED_IDENTICAL"
+    },
+    {
+      "path": "live_contentops/rolling_x_grounded_article_media_builder_v1.py",
+      "working_tree_sha256": "39da7dc361d4dfc58679dba254b47f72a396c85a2e89f64f2c23458599491c5e",
+      "normalized_lf_sha256": "0e15e9b20f72ec72ec04cfad0cb234b9765054c2bc222354853e5e1d5ecbf49a",
+      "newline_basis": "RAW_WORKING_TREE_AND_EXPLICIT_LF_NORMALIZATION_NOT_ASSERTED_IDENTICAL"
+    },
+    {
+      "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "working_tree_sha256": "cd90b5b4e59652195ecf1f24f56f8053a40a2bfdd8a5a791c528a8ee6092b8f4",
+      "normalized_lf_sha256": "d8a891ddca4aebaac789254d1b5bb3a3a8fef23d07dc241d3ab4cbfa15ee05ec",
+      "newline_basis": "RAW_WORKING_TREE_AND_EXPLICIT_LF_NORMALIZATION_NOT_ASSERTED_IDENTICAL"
+    },
+    {
+      "path": "scripts/run_native_desktop_editorial.py",
+      "working_tree_sha256": "fcd4c4b1037e2bbeeba83909fabc34e609ab168d48fbeb1fa420fd1f9714496e",
+      "normalized_lf_sha256": "fcd4c4b1037e2bbeeba83909fabc34e609ab168d48fbeb1fa420fd1f9714496e",
+      "newline_basis": "RAW_WORKING_TREE_AND_EXPLICIT_LF_NORMALIZATION_NOT_ASSERTED_IDENTICAL"
+    },
+    {
+      "path": "live_contentops/retrospective_piece_v1.py",
+      "working_tree_sha256": "e11e98aced5b3c518f6d1efa853ff7c5921f3ad839568be7516c38c9eb0872bb",
+      "normalized_lf_sha256": "e11e98aced5b3c518f6d1efa853ff7c5921f3ad839568be7516c38c9eb0872bb",
+      "newline_basis": "RAW_WORKING_TREE_AND_EXPLICIT_LF_NORMALIZATION_NOT_ASSERTED_IDENTICAL"
+    },
+    {
+      "path": "tests/test_retrospective_piece_v1.py",
+      "working_tree_sha256": "44f807dc792f10b1d3d382a93e9a61d124fc78ba41bdb5a26465eb8649595b18",
+      "normalized_lf_sha256": "44f807dc792f10b1d3d382a93e9a61d124fc78ba41bdb5a26465eb8649595b18",
+      "newline_basis": "RAW_WORKING_TREE_AND_EXPLICIT_LF_NORMALIZATION_NOT_ASSERTED_IDENTICAL"
+    },
+    {
+      "path": "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx",
+      "working_tree_sha256": "272eb74ed80632b78d37d8bdf094162a7acd4f10673b47c7713018d2a82a6cbb",
+      "normalized_lf_sha256": "fe3c00a9f2826853dcc97272946c3b7b58d61cec8aaec42c1eb2ccfa56837fb8",
+      "newline_basis": "RAW_WORKING_TREE_AND_EXPLICIT_LF_NORMALIZATION_NOT_ASSERTED_IDENTICAL"
+    },
+    {
+      "path": "ui/contentops_v5/src/test/report_editorial_workspace.test.tsx",
+      "working_tree_sha256": "5836726d28b8a551e2314f57e75561dddb5d87bd1dc4710a1f991ee0b2c01a65",
+      "normalized_lf_sha256": "42ffc28a31bb15e80eccff0e0364ea61e95f49e464518c1bb7e35a8adcb14732",
+      "newline_basis": "RAW_WORKING_TREE_AND_EXPLICIT_LF_NORMALIZATION_NOT_ASSERTED_IDENTICAL"
+    }
+  ],
+  "original_acceptance_unmet": [
+    "First5-piece batch not met: one eligible event, four precise source/edition holds",
+    "CC042 clean-production-day gate remains0/3; no real V1 advancement here",
+    "Public release, postdating/archive, hostedWebhandoff, socialdrip/readback/storymemory not performed or authorized today"
+  ],
+  "next_actor": "Claude Ops, Mon2Nov, exact pushed commit review/integration only after relevant gates; source owners for missing historical packets",
+  "forbidden_actions_performed": [],
+  "public_write_performed": false,
+  "merge_performed": false
+}

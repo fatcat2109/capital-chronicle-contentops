@@ -2,6 +2,13 @@
 __pycache__/
 *.pyc
 
+# CC-172: keep browser image payloads and transient render captures out of Git.
+*.b64
+*.base64
+docs/publisher/**/captures/
+docs/publisher/**/substack-draft-review/
+tests/evidence/**/captures/
+
 # Build / local output
 outputs/
 

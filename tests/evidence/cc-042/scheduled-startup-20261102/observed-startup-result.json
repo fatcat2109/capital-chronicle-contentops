@@ -1,0 +1,15 @@
+{
+  "recorded_at_utc": "2026-11-02T08:02:17.527329+00:00",
+  "actual_entry_utc": null,
+  "actual_entry_note": "Exact command start timestamp was not emitted or captured; observed completion before 2026-11-02T08:01:56.2206312Z",
+  "automation_id": "v1-newsroom-brief-europe-1500",
+  "startup_result": {
+    "classification": "NATIVE_DESKTOP_BLOCKED",
+    "blocker": "'window'"
+  },
+  "exit_code": 1,
+  "binding_path": null,
+  "operator_pause_active_readback": false,
+  "native_roles_started": 0,
+  "publication_actions": 0
+}

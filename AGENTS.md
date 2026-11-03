@@ -1,5 +1,26 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Publication speed — 3 November 2026 (CC-172; Jim's decisions 53 and 54)
+
+Dispatch every applicable channel within 15 minutes of approved text. Preserve the first
+approval clock for unchanged text; media work never restarts it. Time-sensitive release,
+event and market pieces use writer -> one editor check -> publish. After text approval,
+per-channel screenshots, draft reviews and visual-repair loops are replaced by one automated
+image load/dimension check; log its failures and continue. Long pieces retain their full
+visual work before text approval. At most one visual repair round; drop still-failing
+assets with an internal note and retain passing visuals. Photo credits come from the media
+record at selection. These newer instructions supersede conflicting visual-review wording
+below; source, rights, fact, identity, KILL_SWITCH and UNKNOWN_WRITE checks remain.
+
+Keep screenshots binary; never commit or print image base64. Upload only through Neo's
+upload tool or file-chooser interception, from the article's own media folder. Never open a
+native file dialog; if one opens, record NATIVE_FILE_DIALOG_OPEN and stop that step.
+Before Substack Publish, use a dedicated Neo window with the draft and Jim's untouched Gmail
+inbox. Agents never read Gmail. Keep the draft tab open and in front. On "Check your email",
+record PENDING_JIM_EMAIL_CODE plus page id and URL in the item's Result, and wait on that tab
+for Jim: no reload, other input or other tab use. Continue readback only when the same tab
+reaches /publish/posts/detail/.../share-center. Never close, reuse or navigate the code tab.
+
 ## Scheduled terminal-window reporting — Jim's approval, 29 October 2026
 
 Each of the seven existing App task chats sends one result notice to L2 ContentOps
@@ -78,6 +99,20 @@ Jim's actual messages01a17b8c-11a4-78b0-8686-d3ca0b1bcb6a,01a17b92-5b16-7a02-92d
 After final assembly the SAME actual designated strongest native editor/writer, currently gpt-6.1-sol/max, inspects the exact rendered canonical/channel desktop/mobile pixels and source-bound visual meaning, then directly repairs concrete defects, re-renders affected outputs and checks the correction. Preserve valid article/intake/returns/assets; no discard/restart or arbitrary one-repair ceiling for recoverable defects. Missing external source/rights/access remains an exact resumable affected-article constraint.
 Existing native request/return and article-review owners bind actual model/effort/invocation, article/media/render revision and findings. The sole publisher rejects missing/stale/wrong-model acceptance or unresolved material issues before a fresh send; UNKNOWN_WRITE recovery remains readback-first. Planning/settings/tests do not prove inspection. Later approved stronger models may replace the active editorial assignment consistently; the review-and-repair obligation is permanent. V2/V3 remain paused.
 
+
+## Current V1 execution override — 2 November 2026 (Jim's decision 39)
+
+Jim's decision 39 (Tower `docs/project_control_tower/JIM_DECISIONS_20261030.md`, 2 Nov 2026, 23:10 GMT+7) removes newsroom red tape. It adds to the 27 October grant below and wins where they differ.
+- Before this window's own edition, publish the promoted CC-074 FOMC retrospective, operation `cc074-retro-fomc-20261028-v1`, once. Jim authorized its publication (decisions 36, 37 B1 and 39), and Ops integrated and applied its promotion (tag `contentops-live-20261102-cc074`). Run `python scripts/run_native_desktop_editorial.py publication-resume --binding "A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\owner-manual\cc074-retro-fomc-20261028-v1\binding.json" --rollout config/native_desktop_rollout_v1.json --native-invocation-id "<your actual turn id>"`. Complete each native Neo request it returns (publication-tool-begin, the BrowserOS Neo action, publication-tool-submit), then resume again, until the canonical Substack article and its derivatives are read back. Check with `publication-status`. If it is already published, only read back.
+- A confirmed or source-qualified short news brief is never held because it cannot support 2-5 charts or has no image. It goes out with the charts it has, or as text; only a channel that needs an image (Instagram) is skipped.
+- Jim's decision 41 (3 Nov 2026) narrows that line to briefs. An analysis piece on a data release or policy decision (CPI, NFP, PPI, GDP, PCE, the Fed and the like) carries charts built from official history: the headline and core trend over at least 24 months, the latest month's change, and a component breakdown where the release has one. It also carries a contextual image when a public-domain or licensed one exists. When the history is missing, fetch it from the official publisher (BLS public data is public domain) or from Main's first-print archives. Never cite decision 39 to drop the charts from analysis.
+- Jim's decisions 42 and 44 (3 Nov 2026):
+  - Every post carries a visual: charts, or at least a data card of its own facts, plus a lawful photo when one exists.
+  - Private surveys (ISM, S&P Global PMI, Conference Board, UMich, ADP) appear only as an attributed headline figure, for example "ISM manufacturing PMI 48.7 (ISM)", never as tables, charts or history.
+  - A single consensus figure may be quoted with attribution; there is no systematic consensus display.
+  - Charts use public-domain official series (BLS, BEA, the Fed, Treasury) and the desk's own work.
+- A window never ends with admitted stories, 0 source requests and 0 posts: request the sources it is allowed, or move to the next admitted story.
+- Unchanged: decision 35 (market reactions only, no position calls), the public-output guard, the KILL_SWITCH, identity and readback rules, and UNKNOWN_WRITE recovery.
 
 ## Current V1 execution override — 27 October 2026
 

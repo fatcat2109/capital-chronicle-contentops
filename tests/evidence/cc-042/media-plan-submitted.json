@@ -1,0 +1,45 @@
+{
+  "observed_at_utc": "2026-11-01T01:21:01.061625+00:00",
+  "run_id": "cc042-live-resume-20261031-a",
+  "request_sha256": "7a36dd39b630e50cd2a8aeaa9bbb308413bd4acee775ad040e02eb3952a22217",
+  "response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc042-live-resume-20261031-a\\desktop_response_media-plan.json",
+  "response_file_sha256": "23f1e0c5e54742e5f0ff4ca207491d052109432f1d56f7e31f2edbcbc795a47e",
+  "invocation_observation": {
+    "invocation_id": "/root/cc042_daily_media_plan_7a36dd39b630",
+    "native_task_identity": "/root/cc042_daily_media_plan_7a36dd39b630",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "this explicit supported native task request",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "speed": "standard",
+    "observation_source": "Canonical native task identity supplied in this subagent's NEW_TASK context; configured model and effort supplied by the explicit parent task request. Actual executing model and effort were not exposed to this task.",
+    "public_write_performed": false,
+    "source_requests_performed_this_turn": 0
+  },
+  "native_artifact_origin": {
+    "thread_id": "01a18fbb-f355-70c3-8210-fc2d68a7d3ee",
+    "turn_id": "01a18fbb-f36b-70e3-aefc-7e29eb25697a",
+    "saved_file_command_id": "exec-5c369b6d-f18d-4a2c-8794-f151d34d0739",
+    "saved_file_command_exit_code": 0,
+    "turn_status": "failed",
+    "turn_error": "HISTORICAL_USAGE_LIMIT_AFTER_ARTIFACT_SAVE",
+    "supported_read_thread_checked": true,
+    "native_final_message_claimed": false
+  },
+  "source_binding_matches_frozen_request": true,
+  "factual_source_rights_gates_resolved": false,
+  "publication_authority_from_plan": false,
+  "source_requests_this_submit": 0,
+  "exit_code": 0,
+  "submit_result": {
+    "stage": "media-plan",
+    "response_sha256": "c79123fc625700699faa90481a6853632a5bf0ce74874f3af562d2297638dd2b",
+    "public_write_performed": false
+  },
+  "stderr": ""
+}

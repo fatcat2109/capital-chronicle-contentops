@@ -18,18 +18,19 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import LatestReportDeliveryTracker, canonical_bytes, sha256_of
 from live_contentops.capital_chronicle_report_feed_v1 import MainReportFeed
-from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore, WorkItemNotFoundError
+from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore, WorkItemNotFoundError, LeaseConflictError
 from live_contentops.llm_operator_control_v1 import llm_operator_pause_active
 from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired, NativeDesktopTurn, DESTINATION
 from live_contentops.published_corpus_read_model_v1 import load_canonical_published_memory_read_only
 from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
+from live_contentops.native_manual_candidate_v1 import native_artifact_key
 
 BINDING_SCHEMA = "contentops.native_desktop_operation_binding.v1"
 PRODUCTION_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps")
 DEFAULT_PROFILE = Path(__file__).resolve().parents[1] / "config/native_desktop_operator_profile_v1.json"
 
 
-def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=(), live_rollout=None):
+def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=(), live_rollout=None, standing=False):
     """Resolve one explicit owner operation; frozen binding survives quota/restarts.
 
     This is an entry to the existing outbox/opportunity, not a queue or scheduler.
@@ -65,6 +66,8 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
             if (binding.get("owner_manual_live") is not True
                     or binding.get("live_authority_sha256") != sha256_of(live_rollout["live_authority"])):
                 raise ValueError("OWNER_LIVE_AUTHORITY_BINDING_CHANGED")
+        if standing and not binding.get("standing_operation"):
+            raise ValueError("EXACT_STANDING_OPERATION_BINDING_REQUIRED")
     else:
         if not isinstance(request, str) or not 20 <= len(request.strip()) <= 6000:
             raise ValueError("NORMAL_LANGUAGE_EDITORIAL_REQUEST_REQUIRED")
@@ -76,6 +79,11 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
             live_publication_policy(live_rollout, cutoff_utc=binding["cutoff_utc"])
             binding.update(owner_manual_validation=False, owner_manual_live=True,
                 live_authority_sha256=sha256_of(live_rollout["live_authority"]))
+        if standing:
+            if live_rollout is None:
+                raise ValueError("STANDING_OPERATION_REQUIRES_LIVE_ROLLOUT")
+            binding.update(standing_operation=True,
+                standing_authority_ref="JIM_DECISIONS_20261030_DECISION_39")
         for key in ("research_editions_root", "source_review_ids"):
             if profile.get(key):
                 binding[key] = profile[key]
@@ -182,7 +190,7 @@ def continue_owner_story(profile, *, source_review_id, operation_id=None, reques
 
 
 def _operation(binding, *, command="advance", response=None, stage=None, rollout=None,
-              native_invocation_id=None, request_hash=None):
+              native_invocation_id=None, request_hash=None, candidate_id=None, operation_lease=None):
     validate_binding(binding, read_or_prepare=command in {"publication-prepare", "publication-status"})
     store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]), auto_migrate=command != "publication-status")
     work = "cc-opportunity-" + sha256_of(binding["run_id"])
@@ -233,17 +241,30 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
                              owner_manual_validation=binding.get("owner_manual_validation", False))
     from live_contentops.native_newsroom_volume_v1 import configure_volume_turn
     configure_volume_turn(turn, binding)
+    if command == "next-candidate":
+        from live_contentops.native_manual_candidate_v1 import continue_manual_candidate
+        return continue_manual_candidate(turn, binding, candidate_id=candidate_id, response=response, lease=operation_lease)
     if command == "submit":
         return turn.submit(stage, response)
     if command == "status":
         return turn.telemetry()
     if command in {"advance", "media-plan"} and turn.story_outcomes():
-        return turn.advance_story_outcomes()
+        outcome = turn.advance_story_outcomes()
+        if outcome is not None:
+            return outcome
     if command == "final-visual-review":
         from live_contentops.native_desktop_editorial_v1 import request_final_visual_review, final_visual_binding
+        from live_contentops.native_publication_latency_v1 import uses_short_path
+        row = store.get_outbox_message(native_artifact_key(store, binding["run_id"], "cc-editorial-final-"))
+        result = json.loads(row["payload"]) if row else {}
+        if uses_short_path(store, run_id=binding["run_id"], result=result):
+            from live_contentops.native_desktop_editorial_v1 import require_current_final_visual_review
+            return {"classification": "TIME_SENSITIVE_NO_SCREENSHOT_STAGE",
+                "editor_check": require_current_final_visual_review(store, run_id=binding["run_id"]),
+                "next_operation": "publication-prepare", "public_write_performed": False}
         try:
             if response is None:
-                row = store.get_outbox_message("cc-editorial-final-" + sha256_of(binding["run_id"]))
+                row = store.get_outbox_message(native_artifact_key(store, binding["run_id"], "cc-editorial-final-"))
                 return {"classification": "FINAL_VISUAL_RENDER_TARGETS", **final_visual_binding(json.loads(row["payload"]), renders=None)}
             output, receipt = request_final_visual_review(turn, renders=response["renders"])
             return {"classification": "FINAL_VISUAL_RETURNED", "output": output,
@@ -257,7 +278,7 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
         return record_native_article_review(store, run_id=binding["run_id"], **response)
     if command == "handoff":
         from live_contentops.native_desktop_editorial_v1 import prepare_reviewed_handoff
-        return prepare_reviewed_handoff(store, run_id=binding["run_id"], output_dir=binding["output_dir"])
+        return prepare_reviewed_handoff(store, run_id=binding["run_id"], output_dir=turn.root)
     if command == "media":
         from live_contentops.native_desktop_editorial_v1 import bind_editorial_media
         return bind_editorial_media(store, run_id=binding["run_id"], **response)
@@ -266,22 +287,39 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
         if response is None:
             frozen_plan = turn.frozen_request("media-plan")
             governed = (frozen_plan["governed_input"] if frozen_plan else
-                json.loads((resolve_workspace_path(binding["output_dir"]) / "editorial_media_plan_required.json").read_bytes()))
+                json.loads((turn.root / "editorial_media_plan_required.json").read_bytes()))
             try:
                 output, receipt = turn(logical_invocation_id=binding["run_id"] + ":media-plan",
                     prompt=(frozen_plan["prompt"] if frozen_plan else
                             "Return JSON {story_plan: {thesis, photo_plan, chart_plan}}. Prepare exact comparable "
                             "primary-data series and useful visual proposals; MAX decides the count, chart forms "
-                            "and placement. Substantial analysis needs 2-5 distinct useful charts; genuine narrow "
-                            "news/policy may justify zero internally. Plan relevant authentic "
+                            "and placement. Decision 41 requires charts on data-release and policy-decision analysis: "
+                            "at least 24 months of headline/core history, latest changes and the available component breakdown. "
+                            "Read the admitted CC-010 first-print history; if missing, request exact official BLS public data, "
+                            "BEA, Fed or Treasury history. Only short news briefs may use zero charts. Plan relevant authentic "
                             "photo discovery with subject/archive caption and lawful exact license/source evidence, "
                             "using the exact source_pack. Preserve metric/unit/currency/period, "
                             "actual/estimate/forecast and missingness. No prose, new numbers, forecasts, copied charts or public action. "
                             "Code/tools retrieve exact originals and compute/validate/render admitted values. "
-                            "This Light proposal is followed by actual same-context MAX visual editing and writing."),
+                            "This Light proposal is followed by actual same-context MAX visual editing and writing. "
+                            "Include story_plan.source_requests: [] when the facts and planned data are adequate, "
+                            "otherwise 1-3 {url, reason} entries for exact https primary/source pages needed for "
+                            "missing facts or comparable data. The existing source owner acquires these within "
+                            "the shared budget before MAX. A missing optional chart never holds a complete short item."),
                     governed_input=governed, validator=lambda raw: (True, None, json.loads(raw), None))
-                if not turn.visual_response():
-                    turn.request_visual_decision(source_packet=governed, preparation={
+                if not turn.visual_response() and not governed.get("publication_speed_policy"):
+                    if turn.scheduled_window:
+                        from live_contentops.native_desktop_editorial_v1 import request_source_preparation
+                        request_source_preparation(turn, output["story_plan"].get("source_requests", []))
+                    recovery = turn.source_recovery()
+                    source_packet = (json.loads((turn.root /
+                        "editorial_media_plan_required.json").read_bytes())
+                        if recovery and recovery.get("within_bound_live_budget") else governed)
+                    frozen_visual = turn.frozen_request("visual-edit")
+                    if (binding.get("editorial_request") and (not frozen_visual
+                            or "owner_editorial_request" in frozen_visual["governed_input"]["source_packet"])):
+                        source_packet = {**source_packet, "owner_editorial_request": binding["editorial_request"]}
+                    turn.request_visual_decision(source_packet=source_packet, preparation={
                         "native_plan_run_id": binding["run_id"], "native_plan_stage": "media-plan",
                         "native_plan_request_sha256": turn.frozen_request("media-plan")["request_sha256"],
                         "story_plan": output["story_plan"]})
@@ -303,7 +341,7 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
             return admit_pre_writer_source_recovery(turn, binding, response)
         pending = turn.frozen_request("write")
         if (not pending or pending["request_sha256"] != response.get("expected_request_sha256")
-                or turn._get("write", "response") or (resolve_workspace_path(binding["output_dir"]) / "qualified_article_record_v1.json").exists()):
+                or turn._get("write", "response") or (turn.root / "qualified_article_record_v1.json").exists()):
             raise ValueError("EXACT_UNANSWERED_WRITER_REQUEST_REQUIRED")
         from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
         pointer = json.loads(Path(binding["feed_pointer_path"]).read_bytes())
@@ -316,10 +354,10 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
             raise ValueError("EXACT_ADMITTED_RETAINED_SOURCE_IDS_REQUIRED")
         recovery = {"request_sha256": pending["request_sha256"], "supporting_headline_ids": ids,
             "research_revision": research.revision, "public_write_performed": False}
-        archive = resolve_workspace_path(binding["output_dir"]) / "source-recovery-history" / pending["request_sha256"]
+        archive = turn.root / "source-recovery-history" / pending["request_sha256"]
         archive.mkdir(parents=True, exist_ok=True)
         for name in ("desktop_request_write.json", "simple_gemini_evidence_v1.json", "simple_gemini_editorial_edge_v1.json", "simple_epistemic_state_v1.json"):
-            path = resolve_workspace_path(binding["output_dir"]) / name
+            path = turn.root / name
             if path.exists():
                 path.replace(archive / name)
         store.register_outbox_message(message_id="native-source-recovery-" + sha256_of(recovery),
@@ -327,7 +365,7 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
             payload=canonical_bytes(recovery).decode(), status="EDITORIAL_INTERNAL")
         return {"classification": "RETAINED_SOURCE_RECOVERY_PREPARED", "retained_selection": True,
             "next_operation": "advance same binding", "public_write_performed": False}
-    completed = store.get_outbox_message("cc-editorial-final-" + sha256_of(binding["run_id"]))
+    completed = store.get_outbox_message(native_artifact_key(store, binding["run_id"], "cc-editorial-final-"))
     final = json.loads(completed["payload"]) if completed else {}
     if final.get("qualified_article_count") and final.get("model_execution_state") == "NATIVE_DESKTOP_REQUEST_RETURN":
         return {"classification": "COMPLETED_NATIVE_ARTICLE_REOPENED", "article_identity": final["article_identity"],
@@ -337,7 +375,7 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
     # Retain failed deterministic attempts while resuming the same frozen selection.
     # Source/model outputs are never replaced. A failed compiler receipt can be
     # archived even if compilation reached the qualified file before its final receipt.
-    root = resolve_workspace_path(binding["output_dir"])
+    root = turn.root
     receipt_path = root / "simple_gemini_newsroom_receipt_v1.json"
     if receipt_path.is_file():
         failed = json.loads(receipt_path.read_bytes())
@@ -369,69 +407,105 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
         return {"classification": "RECOVERY_REQUIRED", "dispatch_ids": ambiguous,
                 "next_operation": "Existing DurablePublicationCoordinator readback/reconciliation; do not retry publishing",
                 "public_write_performed": False}
-    owner = "native-desktop-" + uuid4().hex
-    lease = store.acquire_lease("internal:native-editorial:" + binding["run_id"], owner, ttl_seconds=900)
+    memory, memory_proof = load_canonical_published_memory_read_only(
+        store_path=binding["published_memory_store"], output_root=binding["published_memory_output_root"])
+    from live_contentops.native_newsroom_learning_v1 import freeze_learning, compact_briefing
+    snapshot = freeze_learning(store, source_store=(ContentOpsDurableStore(binding["published_memory_store"], auto_migrate=False)
+        if resolve_workspace_path(binding["published_memory_store"]).is_file() else None),
+        run_id=binding["run_id"], published_memory=memory)
+    if snapshot:
+        memory = snapshot["published_memory"]
+        turn.audience_learning = compact_briefing(snapshot)
+        memory_proof = {**memory_proof, "used_memory_sha256":snapshot["published_memory_sha256"],
+            "used_memory_scope":"FROZEN_OPPORTUNITY", "live_read_is_used_memory":False}
+    pointer = json.loads(Path(binding["feed_pointer_path"]).read_bytes())
+    if binding.get("research_editions_root"):
+        pointer["research_editions_root"] = binding["research_editions_root"]
+    pointer["source_review_ids"] = binding.get("source_review_ids", [])
+    admitted_research = None
+    if binding.get("owner_manual_validation") or binding.get("owner_manual_live"):
+        frozen = store.get_outbox_message("native-current-input-" + sha256_of(binding["run_id"]))
+        if frozen and (research := json.loads(frozen["payload"]).get("research")):
+            from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+            admitted_research = RetainedSourceResearch.from_frozen_snapshot(research)
+    rolling_input = (json.loads(Path(binding["rolling_input_path"]).read_bytes())
+                     if binding.get("rolling_input_path") else None)
+    # An explicitly report-only operation does not need to scan live X sidecars
+    # merely to build an unused headline projection. Ordinary intake is unchanged.
+    report_only = (rolling_input is not None and rolling_input.get("headlines") == []
+        and rolling_input.get("scope") == "REPORT_AND_RETAINED_RESEARCH_ONLY_NO_NEW_X_INTAKE")
+    feed = MainReportFeed(LatestReportDeliveryTracker(store), pointer, retained_research=admitted_research,
+                         **({"headline_paths": []} if report_only else {}))
+    kwargs = {"output_dir": str(root),
+              "cutoff_utc": binding.get("input_known_at_cutoff_utc", binding["cutoff_utc"]),
+              "run_id": binding["run_id"], "published_memory": memory, "llm_invoke": turn,
+              "attempted_candidate_ids": binding.get("attempted_candidate_ids", [])}
+    if binding.get("editorial_request"):
+        kwargs["editorial_request"] = binding["editorial_request"]
+    if rolling_input is not None:
+        kwargs["rolling_input"] = rolling_input
+    if binding.get("input_known_at_cutoff_utc"):
+        kwargs["known_at_cutoff_utc"] = binding["input_known_at_cutoff_utc"]
     try:
-        memory, memory_proof = load_canonical_published_memory_read_only(
-            store_path=binding["published_memory_store"], output_root=binding["published_memory_output_root"])
-        from live_contentops.native_newsroom_learning_v1 import freeze_learning, compact_briefing
-        snapshot = freeze_learning(store, source_store=(ContentOpsDurableStore(binding["published_memory_store"], auto_migrate=False)
-            if resolve_workspace_path(binding["published_memory_store"]).is_file() else None),
-            run_id=binding["run_id"], published_memory=memory)
-        if snapshot:
-            memory = snapshot["published_memory"]
-            turn.audience_learning = compact_briefing(snapshot)
-            memory_proof = {**memory_proof, "used_memory_sha256":snapshot["published_memory_sha256"],
-                "used_memory_scope":"FROZEN_OPPORTUNITY", "live_read_is_used_memory":False}
-        pointer = json.loads(Path(binding["feed_pointer_path"]).read_bytes())
-        if binding.get("research_editions_root"):
-            pointer["research_editions_root"] = binding["research_editions_root"]
-        pointer["source_review_ids"] = binding.get("source_review_ids", [])
-        admitted_research = None
-        if binding.get("owner_manual_validation") or binding.get("owner_manual_live"):
-            frozen = store.get_outbox_message("native-current-input-" + sha256_of(binding["run_id"]))
-            if frozen and (research := json.loads(frozen["payload"]).get("research")):
-                from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
-                admitted_research = RetainedSourceResearch.from_frozen_snapshot(research)
-        feed = MainReportFeed(LatestReportDeliveryTracker(store), pointer, retained_research=admitted_research)
-        kwargs = {"output_dir": str(root),
-                  "cutoff_utc": binding.get("input_known_at_cutoff_utc", binding["cutoff_utc"]),
-                  "run_id": binding["run_id"], "published_memory": memory, "llm_invoke": turn,
-                  "attempted_candidate_ids": binding.get("attempted_candidate_ids", [])}
-        if binding.get("editorial_request"):
-            kwargs["editorial_request"] = binding["editorial_request"]
-        if binding.get("rolling_input_path"):
-            kwargs["rolling_input"] = json.loads(Path(binding["rolling_input_path"]).read_bytes())
-        if binding.get("input_known_at_cutoff_utc"):
-            kwargs["known_at_cutoff_utc"] = binding["input_known_at_cutoff_utc"]
-        try:
-            result = feed.opportunity(**kwargs)
-        except DesktopInputRequired as pending:
-            return {"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "stage": pending.request["stage"],
-                    "request_path": pending.request["request_path"],
-                    "request_sha256": pending.request["request_sha256"],
-                    "editorial_execution": turn.telemetry(), "public_write_performed": False,
-                    **{k:pending.request[k] for k in ("parallel_requests","filter_progress") if k in pending.request}}
-        result["native_published_memory_proof"] = memory_proof
-        result["publication_handoff_state"] = "REVIEW_REQUIRED_NO_DISPATCH" if result.get("qualified_article_count") else "NO_QUALIFIED_HANDOFF"
-        root = resolve_workspace_path(binding["output_dir"])
-        root.mkdir(parents=True, exist_ok=True)
-        (root / "native_desktop_result.json").write_bytes(canonical_bytes(result))
-        return {k: result.get(k) for k in ("classification", "qualified_article_count", "derivative_intent_count",
-            "exact_next_blocker", "article_path", "native_derivative_preview_path", "publication_handoff_state", "editorial_execution")}
-    finally:
-        store.release_lease(lease["lease_id"], owner, lease["fencing_token"])
+        result = feed.opportunity(**kwargs)
+    except DesktopInputRequired as pending:
+        return {"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "stage": pending.request["stage"],
+                "request_path": pending.request["request_path"],
+                "request_sha256": pending.request["request_sha256"],
+                "editorial_execution": turn.telemetry(), "public_write_performed": False,
+                **{k:pending.request[k] for k in ("parallel_requests","filter_progress") if k in pending.request}}
+    if turn.manual_candidate and turn.story_outcomes():
+        outcome = turn.advance_story_outcomes()
+        if outcome is not None:
+            return outcome
+    result["native_published_memory_proof"] = memory_proof
+    result["publication_handoff_state"] = "REVIEW_REQUIRED_NO_DISPATCH" if result.get("qualified_article_count") else "NO_QUALIFIED_HANDOFF"
+    root = turn.root
+    root.mkdir(parents=True, exist_ok=True)
+    (root / "native_desktop_result.json").write_bytes(canonical_bytes(result))
+    return {k: result.get(k) for k in ("classification", "qualified_article_count", "derivative_intent_count",
+        "exact_next_blocker", "article_path", "native_derivative_preview_path", "publication_handoff_state", "editorial_execution")}
 
 
 def operation(binding, **kwargs):
-    result = _operation(binding, **kwargs)
+    command = kwargs.get("command", "advance")
+    if command in {"status", "publication-status"}:
+        result = _operation(binding, **kwargs)
+    else:
+        validate_binding(binding, read_or_prepare=command == "publication-prepare")
+        store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]))
+        owner = "native-desktop-" + uuid4().hex
+        from contextlib import nullcontext
+        from live_contentops.native_finished_publication_v1 import newsroom_lease
+        with (newsroom_lease(store) if not binding.get("owner_manual_validation") else nullcontext()):
+            lease = store.acquire_lease("internal:native-editorial:" + binding["run_id"], owner, ttl_seconds=900)
+            try:
+                result = _operation(binding, operation_lease=lease, **kwargs)
+            finally:
+                store.release_lease(lease["lease_id"], owner, lease["fencing_token"])
+    if (result.get("classification") == "NATIVE_NEXT_CANDIDATE_REQUIRED" and binding.get("volume_policy")
+            and not binding.get("window_id") and not binding.get("automation_id")):
+        from live_contentops.native_manual_candidate_v1 import manual_continuation_request
+        turn = NativeDesktopTurn(ContentOpsDurableStore(binding["store_path"], auto_migrate=False),
+            run_id=binding["run_id"], output_dir=binding["output_dir"],
+            owner_manual_validation=binding.get("owner_manual_validation", False))
+        from live_contentops.native_newsroom_volume_v1 import configure_volume_turn
+        configure_volume_turn(turn, binding)
+        result["next_command"] = {"command": "next-candidate", "candidate_id": result["candidate_id"],
+            "binding_path": str(resolve_workspace_path(binding["output_dir"]) / "binding.json"),
+            "response": manual_continuation_request(turn, binding)}
     if result.get("classification") == "NATIVE_DESKTOP_INPUT_REQUIRED":
         request = json.loads(resolve_workspace_path(result["request_path"]).read_bytes())
         if request["stage"] != result["stage"] or request["request_sha256"] != result["request_sha256"]:
             raise ValueError("EXACT_PENDING_NATIVE_REQUEST_REQUIRED")
         root = resolve_workspace_path(binding["output_dir"])
         binding_path = root / ("native_operation_binding.json" if binding.get("automation_id") else "binding.json")
-        if not request.get("requested_model"):
+        if request["stage"] == "sources":
+            result["next_source_action"] = {"request_path": result["request_path"],
+                "request_sha256": request["request_sha256"], "binding_path": str(binding_path),
+                "source_requests": request["source_requests"], "instruction": request["instruction"],
+                "after_admission": "recover-sources then advance same binding"}
+        elif not request.get("requested_model"):
             result["next_command"] = {"command": "media-plan", "binding_path": str(binding_path)}
         else:
             from live_contentops.codex_desktop_newsroom_operator_v1 import native_role_call
@@ -440,19 +514,24 @@ def operation(binding, **kwargs):
                 run_id=binding["run_id"], output_dir=binding["output_dir"],
                 owner_manual_validation=binding.get("owner_manual_validation", False))
             same_writer = None
+            same_writer_configuration = None
             if native_role(request["stage"]) in {"write", "revise", "final-visual", "visual-edit"}:
                 prior = turn._get("write", "response") or turn.visual_response()
                 if prior:
-                    same_writer = prior["invocation_observation"]["invocation_id"]
+                    same_writer_configuration = prior["invocation_observation"]
+                    same_writer = same_writer_configuration["invocation_id"]
             result["next_native_call"] = native_role_call({**request, "request_path": result["request_path"]},
-                binding, binding_path=binding_path, same_writer_invocation=same_writer)
+                binding, binding_path=binding_path, same_writer_invocation=same_writer,
+                same_writer_configuration=same_writer_configuration)
             if result.get("parallel_requests"):
                 result["next_native_calls"] = [native_role_call(r,binding,binding_path=binding_path)
                     for r in result.pop("parallel_requests")]
                 result.pop("next_native_call",None)  # One dispatch list, no duplicate first-child intent.
                 result["continuation_required"] = "Dispatch the bounded independent native filter batches, collect every actual return, submit each once, then advance this SAME binding. No partial final while remaining_unprocessed is nonzero and work is executable."
+        from live_contentops.native_editorial_continuation_v1 import next_editorial_action
+        result["coordinator_action"] = next_editorial_action(result)
     from live_contentops.native_newsroom_volume_v1 import bound_volume_policy, persist_native_day_measurement
-    if (bound_volume_policy(binding) and binding.get("window_id")
+    if ((bound_volume_policy(binding) or binding.get("owner_manual_live"))
             and kwargs.get("command", "advance") not in {"status", "publication-status", "context"}):
         persist_native_day_measurement(ContentOpsDurableStore(binding["store_path"], auto_migrate=False), binding)
     return result
@@ -460,7 +539,7 @@ def operation(binding, **kwargs):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("newsroom", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
+    parser.add_argument("command", choices=("newsroom", "standing", "release-finished", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "next-candidate", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
         "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
         "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company", "quota-stop",
         "window-result", "window-notice-begin", "window-notice-record", "window-close", "window-blocked", "window-blocked-begin", "window-blocked-record",
@@ -478,6 +557,7 @@ def main(argv=None):
     parser.add_argument("--rollout", type=Path)
     parser.add_argument("--automation-id")
     parser.add_argument("--continue-after", help="Exact completed scheduled run before deliberately requesting its next bounded slot")
+    parser.add_argument("--candidate-id", help="Exact next untouched admission in the SAME manual operation")
     parser.add_argument("--native-invocation-id", help="Actual active Desktop conversation/turn identity")
     parser.add_argument("--request-sha256", help="Exact persisted native Neo request")
     parser.add_argument("--observation-id", help="Existing due canonical performance observation identity")
@@ -487,6 +567,12 @@ def main(argv=None):
     parser.add_argument("--source-review-id", action="append", default=[])
     parser.add_argument("--workspace-root", type=Path, help="Explicit stable destination for authorized manual-workspace relocation")
     args = parser.parse_args(argv)
+    if args.command == "next-candidate" and (not args.binding or not args.candidate_id or not args.response):
+        parser.error("next-candidate requires --binding, --candidate-id and exact --response preconditions")
+    if args.command == "next-candidate" and args.continue_after:
+        parser.error("next-candidate uses the same manual binding; --continue-after is scheduled-only")
+    if args.candidate_id and args.command != "next-candidate":
+        parser.error("--candidate-id is only valid for next-candidate")
     if args.live and (args.command != "newsroom" or not args.rollout):
         parser.error("--live requires newsroom and the applied --rollout")
     if args.command in {"window-result", "window-notice-begin", "window-notice-record", "window-close", "window-blocked", "window-blocked-begin", "window-blocked-record",
@@ -495,7 +581,6 @@ def main(argv=None):
         if not args.binding or (not standalone and not args.rollout) or (args.command not in {"window-notice-begin","task-notice-begin"} and not args.response):
             parser.error("window reporting requires --binding, --rollout and --response except for notice-begin")
         from live_contentops.native_desktop_schedule_binding_v1 import prepare_window_result, window_notice_delivery, close_expired_window, window_blocked_notice, prepare_standalone_result
-        from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore, LeaseConflictError
         try:
             binding = json.loads(args.binding.read_bytes())
             rollout = json.loads(args.rollout.read_bytes()) if args.rollout else None
@@ -652,19 +737,38 @@ def main(argv=None):
                           "reopen": "Open the same HTML file in a browser; no preview server is required.",
                           "publication_authority": False}, ensure_ascii=True))
         return 0
-    if args.command == "newsroom":
+    if args.command == "release-finished":
+        if not args.binding or not args.rollout:
+            parser.error("release-finished requires --binding and --rollout")
+        from live_contentops.native_finished_publication_v1 import release_finished_piece
+        try:
+            result = release_finished_piece(args.binding, json.loads(args.rollout.read_bytes()))
+        except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
+            print(json.dumps({"classification": "FINISHED_PIECE_BLOCKED", "blocker": str(exc)}))
+            return 2
+        print(json.dumps(result, ensure_ascii=True))
+        return 0
+    if args.command in {"newsroom", "standing"}:
         try:
             request = args.request_file.read_text(encoding="utf-8") if args.request_file else args.request
-            path, binding = resolve_owner_operation(json.loads(args.profile.read_bytes()),
-                operation_id=args.operation_id, request=request, report_only=args.report_only, source_review_ids=args.source_review_id,
-                live_rollout=json.loads(args.rollout.read_bytes()) if args.live else None)
+            if args.command == "standing":
+                if not args.rollout:
+                    parser.error("standing requires --rollout")
+                from live_contentops.native_finished_publication_v1 import standing_binding
+                path, binding = standing_binding(json.loads(args.profile.read_bytes()),
+                    json.loads(args.rollout.read_bytes()), operation_id=args.operation_id,
+                    request=request, resolver=resolve_owner_operation)
+            else:
+                path, binding = resolve_owner_operation(json.loads(args.profile.read_bytes()),
+                    operation_id=args.operation_id, request=request, report_only=args.report_only, source_review_ids=args.source_review_id,
+                    live_rollout=json.loads(args.rollout.read_bytes()) if args.live else None)
             result = operation(binding)
             print(json.dumps({**result, "binding_path": str(path),
                 "agent_instruction": "Continue assigned native roles, existing source tools, review and previews in this same opportunity. "
                     + ("Use the sole reviewed publication coordinator under the applied live rollout; verify exact objects and never retry UNKNOWN_WRITE."
-                       if args.live else "Prepare only; no dispatch.")}, ensure_ascii=True))
+                       if args.live or args.command == "standing" else "Prepare only; no dispatch.")}, ensure_ascii=True))
             return 0
-        except (ValueError, OSError, KeyError, TypeError) as exc:
+        except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
             print(json.dumps({"classification": "NATIVE_DESKTOP_BLOCKED", "blocker": str(exc)}))
             return 2
     if args.command == "submit" and (not args.response or not args.stage):
@@ -677,7 +781,6 @@ def main(argv=None):
         if not args.rollout or not args.automation_id:
             parser.error("scheduled requires --rollout and --automation-id")
         from live_contentops.native_desktop_schedule_binding_v1 import scheduled_binding
-        from live_contentops.durable_operational_store_v1 import LeaseConflictError
         try:
             result = scheduled_binding(json.loads(args.rollout.read_bytes()), args.automation_id,
                                        continue_after=args.continue_after)
@@ -693,8 +796,8 @@ def main(argv=None):
         result = operation(binding, command=args.command, stage=args.stage,
                            response=json.loads(args.response.read_bytes()) if args.response else None,
                            rollout=json.loads(args.rollout.read_bytes()) if args.rollout else None,
-                           native_invocation_id=args.native_invocation_id, request_hash=args.request_sha256)
-    except (ValueError, OSError, KeyError, TypeError) as exc:
+                           native_invocation_id=args.native_invocation_id, request_hash=args.request_sha256, candidate_id=args.candidate_id)
+    except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
         print(json.dumps({"classification": "NATIVE_DESKTOP_BLOCKED", "blocker": str(exc),
             "run_id":locals().get("binding", {}).get("run_id"), "binding_path":str(args.binding),
             "command":args.command}, ensure_ascii=True))

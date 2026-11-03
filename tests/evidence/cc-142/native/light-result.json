@@ -1,0 +1,1003 @@
+{
+  "operation_id": "cc142-cpi-chart-edit-223246940",
+  "assignment_id": "cc142-media-plan-3b0ec767aa98cec8a573564285b226c3e20de106c4dc5267b0e9101c664c7e83",
+  "stage": "media-plan",
+  "request_sha256": "3b0ec767aa98cec8a573564285b226c3e20de106c4dc5267b0e9101c664c7e83",
+  "status": "COMPLETED_BOUNDED_PREPARATION",
+  "model_provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "native_invocation_id": null,
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "limit": "Child context supplies task path /root/cpi_light_plan but no supported actual model/effort/invocation telemetry. Parent must bind its supported spawn observation."
+  },
+  "canonical": {
+    "post_id": "223246940",
+    "url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+    "readback_path": "tests\\evidence\\cc-142\\canonical-before.json",
+    "readback_sha256": "0428ebc12739c9c98f9d9e57985adee664a778459ea5ac2d0e7844b28d46cd3d"
+  },
+  "data_verification": {
+    "dataset_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+    "request_hash_verified": true,
+    "selected_source_hashes_verified": 23,
+    "selected_rows": 92,
+    "sources": [
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_11132024.htm",
+        "sha256": "ad0279d8d9bf165360affa63a8b640b28dbea9c49c6bfcc6f66f451d9e637769",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\ad0279d8d9bf165360affa63a8b640b28dbea9c49c6bfcc6f66f451d9e637769.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:32.027Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_12112024.htm",
+        "sha256": "415282398015c224606261fb978ec7c61c35647ec5b3438fa3f613111217bb0e",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\415282398015c224606261fb978ec7c61c35647ec5b3438fa3f613111217bb0e.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:31.857Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_01152025.htm",
+        "sha256": "6e90f322584a8e8e776433678ff20e96ca1eb4f3545ecbfb067b9408a92e5abc",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\6e90f322584a8e8e776433678ff20e96ca1eb4f3545ecbfb067b9408a92e5abc.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:31.697Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_02122025.htm",
+        "sha256": "92bf745a006f02fe197e880f81d2d7c56e56f8d297a713a02b0fe5aef4e588e1",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\92bf745a006f02fe197e880f81d2d7c56e56f8d297a713a02b0fe5aef4e588e1.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:31.425Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_03122025.htm",
+        "sha256": "8d76b5e0f06f42521a0d325ed4dfa56985629fab354dde5b3ac52269e487fa53",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\8d76b5e0f06f42521a0d325ed4dfa56985629fab354dde5b3ac52269e487fa53.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:31.367Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_04102025.htm",
+        "sha256": "b40ef03dec713fc7ca0e5e64e4043f2d9fa95e42a0e806b9dc101a64ca9bf424",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\b40ef03dec713fc7ca0e5e64e4043f2d9fa95e42a0e806b9dc101a64ca9bf424.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:31.306Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_05132025.htm",
+        "sha256": "d6b6ade9054d2af5f2de6aa342b8bbc7ba2ca0f5a5b090080ce7fc7dd6b45c10",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\d6b6ade9054d2af5f2de6aa342b8bbc7ba2ca0f5a5b090080ce7fc7dd6b45c10.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:31.636Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_06112025.htm",
+        "sha256": "0250b81ace8d66bb97595624259c8079deb2ad941e23f42dd4ce955b5ea75cf3",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\0250b81ace8d66bb97595624259c8079deb2ad941e23f42dd4ce955b5ea75cf3.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:30.940Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_07152025.htm",
+        "sha256": "a0905a0de50db59be573b829d999a98d32512dc9d4e6f22ed789c64eed4fbcb2",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\a0905a0de50db59be573b829d999a98d32512dc9d4e6f22ed789c64eed4fbcb2.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:30.879Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_08122025.htm",
+        "sha256": "a7651ec9f9870e9efab3f1659639d06aa80c43c2862d009a76ade1d16f941913",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\a7651ec9f9870e9efab3f1659639d06aa80c43c2862d009a76ade1d16f941913.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:30.745Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_09112025.htm",
+        "sha256": "f376b178ee4e16a7cc2ae6810e2164cad96aa8da156900623b2ff780a78f26bf",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\f376b178ee4e16a7cc2ae6810e2164cad96aa8da156900623b2ff780a78f26bf.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:31.003Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_10242025.htm",
+        "sha256": "ab7e0e431246f6f983575529cf4eae509706963fa893b6156576a2c320556397",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\ab7e0e431246f6f983575529cf4eae509706963fa893b6156576a2c320556397.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:30.475Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_12182025.htm",
+        "sha256": "85627e2f11db4d58fbdebc5877b27e71022c0ef17db77ddfb04497c4e33105b5",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\85627e2f11db4d58fbdebc5877b27e71022c0ef17db77ddfb04497c4e33105b5.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:30.380Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_01132026.htm",
+        "sha256": "bbdb2ecf47afdc9e0daad8555b1a3bf38b8a8981eacaf42d08d3d4953ba632fd",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\bbdb2ecf47afdc9e0daad8555b1a3bf38b8a8981eacaf42d08d3d4953ba632fd.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:30.317Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_02132026.htm",
+        "sha256": "e187d5e926bb71670d6b82fad7540c4a4804a9e25ec132a27d8fb701b0d371fc",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\e187d5e926bb71670d6b82fad7540c4a4804a9e25ec132a27d8fb701b0d371fc.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:30.245Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_03112026.htm",
+        "sha256": "11f673e859eccffabc53987c0fb6cb02760c0601a4d24c1f03d62d162774f168",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\11f673e859eccffabc53987c0fb6cb02760c0601a4d24c1f03d62d162774f168.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:30.167Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_04102026.htm",
+        "sha256": "2f00ec5a10c8d2f0e6e879d8ae8762af555cb7ef26805b37b627ad47c93012f0",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\2f00ec5a10c8d2f0e6e879d8ae8762af555cb7ef26805b37b627ad47c93012f0.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:29.865Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_05122026.htm",
+        "sha256": "bfee220ac431aefa8dcd000040996fce59d17c06ea2fe2b297db0f3a6d5b659f",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\bfee220ac431aefa8dcd000040996fce59d17c06ea2fe2b297db0f3a6d5b659f.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:30.067Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_06102026.htm",
+        "sha256": "ba198a462a41b85b997df781558b90d3ab4663d9640efc8cdccca9e81e046a2f",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\ba198a462a41b85b997df781558b90d3ab4663d9640efc8cdccca9e81e046a2f.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:29.933Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_07142026.htm",
+        "sha256": "382f20db3bdeba1f45a7783dacdaebb87e4ca8461ae2e701db803538afdfc790",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\382f20db3bdeba1f45a7783dacdaebb87e4ca8461ae2e701db803538afdfc790.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:30.000Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_08122026.htm",
+        "sha256": "d18471db7736e302e35085e14d746eddf51a4f6d27b954642e3ddec3e85778e5",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\d18471db7736e302e35085e14d746eddf51a4f6d27b954642e3ddec3e85778e5.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:27.017Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_09112026.htm",
+        "sha256": "aee0cdff604c295d784e6302b2ba74130f10f535675a5a0fb7262c936edaaabd",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\aee0cdff604c295d784e6302b2ba74130f10f535675a5a0fb7262c936edaaabd.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:26.772Z"
+      },
+      {
+        "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+        "sha256": "b9f981390c08f4a530d839495fce582124015b979bac0398bfcc35ffde0544e4",
+        "raw_path": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\b9f981390c08f4a530d839495fce582124015b979bac0398bfcc35ffde0544e4.bin.gz",
+        "retrieved_at_utc": "2026-10-30T01:35:26.713Z"
+      }
+    ]
+  },
+  "event_cutoff_utc": "2026-10-14T12:30:00Z",
+  "reference_window": [
+    "2024-10",
+    "2026-09"
+  ],
+  "series": [
+    {
+      "series": "CPI_HEADLINE_MOM",
+      "unit": "percent",
+      "adjustment": "SA",
+      "measure": "one-month change",
+      "geography": "U.S. city average",
+      "population": "CPI-U",
+      "basket": "All items",
+      "observations": [
+        {
+          "reference_period": "2024-10",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_11132024.htm",
+          "source_sha256": "ad0279d8d9bf165360affa63a8b640b28dbea9c49c6bfcc6f66f451d9e637769",
+          "release_datetime_utc": "2024-11-13T13:30:00Z"
+        },
+        {
+          "reference_period": "2024-11",
+          "value": 0.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_12112024.htm",
+          "source_sha256": "415282398015c224606261fb978ec7c61c35647ec5b3438fa3f613111217bb0e",
+          "release_datetime_utc": "2024-12-11T13:30:00Z"
+        },
+        {
+          "reference_period": "2024-12",
+          "value": 0.4,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_01152025.htm",
+          "source_sha256": "6e90f322584a8e8e776433678ff20e96ca1eb4f3545ecbfb067b9408a92e5abc",
+          "release_datetime_utc": "2025-01-15T13:30:00Z"
+        },
+        {
+          "reference_period": "2025-01",
+          "value": 0.5,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_02122025.htm",
+          "source_sha256": "92bf745a006f02fe197e880f81d2d7c56e56f8d297a713a02b0fe5aef4e588e1",
+          "release_datetime_utc": "2025-02-12T13:30:00Z"
+        },
+        {
+          "reference_period": "2025-02",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_03122025.htm",
+          "source_sha256": "8d76b5e0f06f42521a0d325ed4dfa56985629fab354dde5b3ac52269e487fa53",
+          "release_datetime_utc": "2025-03-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-03",
+          "value": -0.1,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_04102025.htm",
+          "source_sha256": "b40ef03dec713fc7ca0e5e64e4043f2d9fa95e42a0e806b9dc101a64ca9bf424",
+          "release_datetime_utc": "2025-04-10T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-04",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_05132025.htm",
+          "source_sha256": "d6b6ade9054d2af5f2de6aa342b8bbc7ba2ca0f5a5b090080ce7fc7dd6b45c10",
+          "release_datetime_utc": "2025-05-13T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-05",
+          "value": 0.1,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_06112025.htm",
+          "source_sha256": "0250b81ace8d66bb97595624259c8079deb2ad941e23f42dd4ce955b5ea75cf3",
+          "release_datetime_utc": "2025-06-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-06",
+          "value": 0.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_07152025.htm",
+          "source_sha256": "a0905a0de50db59be573b829d999a98d32512dc9d4e6f22ed789c64eed4fbcb2",
+          "release_datetime_utc": "2025-07-15T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-07",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_08122025.htm",
+          "source_sha256": "a7651ec9f9870e9efab3f1659639d06aa80c43c2862d009a76ade1d16f941913",
+          "release_datetime_utc": "2025-08-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-08",
+          "value": 0.4,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_09112025.htm",
+          "source_sha256": "f376b178ee4e16a7cc2ae6810e2164cad96aa8da156900623b2ff780a78f26bf",
+          "release_datetime_utc": "2025-09-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-09",
+          "value": 0.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_10242025.htm",
+          "source_sha256": "ab7e0e431246f6f983575529cf4eae509706963fa893b6156576a2c320556397",
+          "release_datetime_utc": "2025-10-24T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-11",
+          "value": null,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_12182025.htm",
+          "source_sha256": "85627e2f11db4d58fbdebc5877b27e71022c0ef17db77ddfb04497c4e33105b5",
+          "release_datetime_utc": "2025-12-18T13:30:00Z"
+        },
+        {
+          "reference_period": "2025-12",
+          "value": 0.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_01132026.htm",
+          "source_sha256": "bbdb2ecf47afdc9e0daad8555b1a3bf38b8a8981eacaf42d08d3d4953ba632fd",
+          "release_datetime_utc": "2026-01-13T13:30:00Z"
+        },
+        {
+          "reference_period": "2026-01",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_02132026.htm",
+          "source_sha256": "e187d5e926bb71670d6b82fad7540c4a4804a9e25ec132a27d8fb701b0d371fc",
+          "release_datetime_utc": "2026-02-13T13:30:00Z"
+        },
+        {
+          "reference_period": "2026-02",
+          "value": 0.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_03112026.htm",
+          "source_sha256": "11f673e859eccffabc53987c0fb6cb02760c0601a4d24c1f03d62d162774f168",
+          "release_datetime_utc": "2026-03-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-03",
+          "value": 0.9,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_04102026.htm",
+          "source_sha256": "2f00ec5a10c8d2f0e6e879d8ae8762af555cb7ef26805b37b627ad47c93012f0",
+          "release_datetime_utc": "2026-04-10T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-04",
+          "value": 0.6,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_05122026.htm",
+          "source_sha256": "bfee220ac431aefa8dcd000040996fce59d17c06ea2fe2b297db0f3a6d5b659f",
+          "release_datetime_utc": "2026-05-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-05",
+          "value": 0.5,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_06102026.htm",
+          "source_sha256": "ba198a462a41b85b997df781558b90d3ab4663d9640efc8cdccca9e81e046a2f",
+          "release_datetime_utc": "2026-06-10T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-06",
+          "value": -0.4,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_07142026.htm",
+          "source_sha256": "382f20db3bdeba1f45a7783dacdaebb87e4ca8461ae2e701db803538afdfc790",
+          "release_datetime_utc": "2026-07-14T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-07",
+          "value": 0.1,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_08122026.htm",
+          "source_sha256": "d18471db7736e302e35085e14d746eddf51a4f6d27b954642e3ddec3e85778e5",
+          "release_datetime_utc": "2026-08-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-08",
+          "value": 0.4,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_09112026.htm",
+          "source_sha256": "aee0cdff604c295d784e6302b2ba74130f10f535675a5a0fb7262c936edaaabd",
+          "release_datetime_utc": "2026-09-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-09",
+          "value": 0.6,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+          "source_sha256": "b9f981390c08f4a530d839495fce582124015b979bac0398bfcc35ffde0544e4",
+          "release_datetime_utc": "2026-10-14T12:30:00Z"
+        }
+      ]
+    },
+    {
+      "series": "CPI_CORE_MOM",
+      "unit": "percent",
+      "adjustment": "SA",
+      "measure": "one-month change",
+      "geography": "U.S. city average",
+      "population": "CPI-U",
+      "basket": "All items less food and energy",
+      "observations": [
+        {
+          "reference_period": "2024-10",
+          "value": 0.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_11132024.htm",
+          "source_sha256": "ad0279d8d9bf165360affa63a8b640b28dbea9c49c6bfcc6f66f451d9e637769",
+          "release_datetime_utc": "2024-11-13T13:30:00Z"
+        },
+        {
+          "reference_period": "2024-11",
+          "value": 0.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_12112024.htm",
+          "source_sha256": "415282398015c224606261fb978ec7c61c35647ec5b3438fa3f613111217bb0e",
+          "release_datetime_utc": "2024-12-11T13:30:00Z"
+        },
+        {
+          "reference_period": "2024-12",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_01152025.htm",
+          "source_sha256": "6e90f322584a8e8e776433678ff20e96ca1eb4f3545ecbfb067b9408a92e5abc",
+          "release_datetime_utc": "2025-01-15T13:30:00Z"
+        },
+        {
+          "reference_period": "2025-01",
+          "value": 0.4,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_02122025.htm",
+          "source_sha256": "92bf745a006f02fe197e880f81d2d7c56e56f8d297a713a02b0fe5aef4e588e1",
+          "release_datetime_utc": "2025-02-12T13:30:00Z"
+        },
+        {
+          "reference_period": "2025-02",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_03122025.htm",
+          "source_sha256": "8d76b5e0f06f42521a0d325ed4dfa56985629fab354dde5b3ac52269e487fa53",
+          "release_datetime_utc": "2025-03-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-03",
+          "value": 0.1,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_04102025.htm",
+          "source_sha256": "b40ef03dec713fc7ca0e5e64e4043f2d9fa95e42a0e806b9dc101a64ca9bf424",
+          "release_datetime_utc": "2025-04-10T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-04",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_05132025.htm",
+          "source_sha256": "d6b6ade9054d2af5f2de6aa342b8bbc7ba2ca0f5a5b090080ce7fc7dd6b45c10",
+          "release_datetime_utc": "2025-05-13T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-05",
+          "value": 0.1,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_06112025.htm",
+          "source_sha256": "0250b81ace8d66bb97595624259c8079deb2ad941e23f42dd4ce955b5ea75cf3",
+          "release_datetime_utc": "2025-06-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-06",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_07152025.htm",
+          "source_sha256": "a0905a0de50db59be573b829d999a98d32512dc9d4e6f22ed789c64eed4fbcb2",
+          "release_datetime_utc": "2025-07-15T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-07",
+          "value": 0.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_08122025.htm",
+          "source_sha256": "a7651ec9f9870e9efab3f1659639d06aa80c43c2862d009a76ade1d16f941913",
+          "release_datetime_utc": "2025-08-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-08",
+          "value": 0.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_09112025.htm",
+          "source_sha256": "f376b178ee4e16a7cc2ae6810e2164cad96aa8da156900623b2ff780a78f26bf",
+          "release_datetime_utc": "2025-09-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-09",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_10242025.htm",
+          "source_sha256": "ab7e0e431246f6f983575529cf4eae509706963fa893b6156576a2c320556397",
+          "release_datetime_utc": "2025-10-24T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-11",
+          "value": null,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_12182025.htm",
+          "source_sha256": "85627e2f11db4d58fbdebc5877b27e71022c0ef17db77ddfb04497c4e33105b5",
+          "release_datetime_utc": "2025-12-18T13:30:00Z"
+        },
+        {
+          "reference_period": "2025-12",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_01132026.htm",
+          "source_sha256": "bbdb2ecf47afdc9e0daad8555b1a3bf38b8a8981eacaf42d08d3d4953ba632fd",
+          "release_datetime_utc": "2026-01-13T13:30:00Z"
+        },
+        {
+          "reference_period": "2026-01",
+          "value": 0.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_02132026.htm",
+          "source_sha256": "e187d5e926bb71670d6b82fad7540c4a4804a9e25ec132a27d8fb701b0d371fc",
+          "release_datetime_utc": "2026-02-13T13:30:00Z"
+        },
+        {
+          "reference_period": "2026-02",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_03112026.htm",
+          "source_sha256": "11f673e859eccffabc53987c0fb6cb02760c0601a4d24c1f03d62d162774f168",
+          "release_datetime_utc": "2026-03-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-03",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_04102026.htm",
+          "source_sha256": "2f00ec5a10c8d2f0e6e879d8ae8762af555cb7ef26805b37b627ad47c93012f0",
+          "release_datetime_utc": "2026-04-10T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-04",
+          "value": 0.4,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_05122026.htm",
+          "source_sha256": "bfee220ac431aefa8dcd000040996fce59d17c06ea2fe2b297db0f3a6d5b659f",
+          "release_datetime_utc": "2026-05-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-05",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_06102026.htm",
+          "source_sha256": "ba198a462a41b85b997df781558b90d3ab4663d9640efc8cdccca9e81e046a2f",
+          "release_datetime_utc": "2026-06-10T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-06",
+          "value": 0.0,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_07142026.htm",
+          "source_sha256": "382f20db3bdeba1f45a7783dacdaebb87e4ca8461ae2e701db803538afdfc790",
+          "release_datetime_utc": "2026-07-14T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-07",
+          "value": 0.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_08122026.htm",
+          "source_sha256": "d18471db7736e302e35085e14d746eddf51a4f6d27b954642e3ddec3e85778e5",
+          "release_datetime_utc": "2026-08-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-08",
+          "value": 0.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_09112026.htm",
+          "source_sha256": "aee0cdff604c295d784e6302b2ba74130f10f535675a5a0fb7262c936edaaabd",
+          "release_datetime_utc": "2026-09-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-09",
+          "value": 0.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+          "source_sha256": "b9f981390c08f4a530d839495fce582124015b979bac0398bfcc35ffde0544e4",
+          "release_datetime_utc": "2026-10-14T12:30:00Z"
+        }
+      ]
+    },
+    {
+      "series": "CPI_HEADLINE_YOY",
+      "unit": "percent",
+      "adjustment": "NSA",
+      "measure": "12-month change",
+      "geography": "U.S. city average",
+      "population": "CPI-U",
+      "basket": "All items",
+      "observations": [
+        {
+          "reference_period": "2024-10",
+          "value": 2.6,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_11132024.htm",
+          "source_sha256": "ad0279d8d9bf165360affa63a8b640b28dbea9c49c6bfcc6f66f451d9e637769",
+          "release_datetime_utc": "2024-11-13T13:30:00Z"
+        },
+        {
+          "reference_period": "2024-11",
+          "value": 2.7,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_12112024.htm",
+          "source_sha256": "415282398015c224606261fb978ec7c61c35647ec5b3438fa3f613111217bb0e",
+          "release_datetime_utc": "2024-12-11T13:30:00Z"
+        },
+        {
+          "reference_period": "2024-12",
+          "value": 2.9,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_01152025.htm",
+          "source_sha256": "6e90f322584a8e8e776433678ff20e96ca1eb4f3545ecbfb067b9408a92e5abc",
+          "release_datetime_utc": "2025-01-15T13:30:00Z"
+        },
+        {
+          "reference_period": "2025-01",
+          "value": 3.0,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_02122025.htm",
+          "source_sha256": "92bf745a006f02fe197e880f81d2d7c56e56f8d297a713a02b0fe5aef4e588e1",
+          "release_datetime_utc": "2025-02-12T13:30:00Z"
+        },
+        {
+          "reference_period": "2025-02",
+          "value": 2.8,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_03122025.htm",
+          "source_sha256": "8d76b5e0f06f42521a0d325ed4dfa56985629fab354dde5b3ac52269e487fa53",
+          "release_datetime_utc": "2025-03-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-03",
+          "value": 2.4,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_04102025.htm",
+          "source_sha256": "b40ef03dec713fc7ca0e5e64e4043f2d9fa95e42a0e806b9dc101a64ca9bf424",
+          "release_datetime_utc": "2025-04-10T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-04",
+          "value": 2.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_05132025.htm",
+          "source_sha256": "d6b6ade9054d2af5f2de6aa342b8bbc7ba2ca0f5a5b090080ce7fc7dd6b45c10",
+          "release_datetime_utc": "2025-05-13T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-05",
+          "value": 2.4,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_06112025.htm",
+          "source_sha256": "0250b81ace8d66bb97595624259c8079deb2ad941e23f42dd4ce955b5ea75cf3",
+          "release_datetime_utc": "2025-06-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-06",
+          "value": 2.7,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_07152025.htm",
+          "source_sha256": "a0905a0de50db59be573b829d999a98d32512dc9d4e6f22ed789c64eed4fbcb2",
+          "release_datetime_utc": "2025-07-15T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-07",
+          "value": 2.7,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_08122025.htm",
+          "source_sha256": "a7651ec9f9870e9efab3f1659639d06aa80c43c2862d009a76ade1d16f941913",
+          "release_datetime_utc": "2025-08-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-08",
+          "value": 2.9,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_09112025.htm",
+          "source_sha256": "f376b178ee4e16a7cc2ae6810e2164cad96aa8da156900623b2ff780a78f26bf",
+          "release_datetime_utc": "2025-09-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-09",
+          "value": 3.0,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_10242025.htm",
+          "source_sha256": "ab7e0e431246f6f983575529cf4eae509706963fa893b6156576a2c320556397",
+          "release_datetime_utc": "2025-10-24T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-11",
+          "value": 2.7,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_12182025.htm",
+          "source_sha256": "85627e2f11db4d58fbdebc5877b27e71022c0ef17db77ddfb04497c4e33105b5",
+          "release_datetime_utc": "2025-12-18T13:30:00Z"
+        },
+        {
+          "reference_period": "2025-12",
+          "value": 2.7,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_01132026.htm",
+          "source_sha256": "bbdb2ecf47afdc9e0daad8555b1a3bf38b8a8981eacaf42d08d3d4953ba632fd",
+          "release_datetime_utc": "2026-01-13T13:30:00Z"
+        },
+        {
+          "reference_period": "2026-01",
+          "value": 2.4,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_02132026.htm",
+          "source_sha256": "e187d5e926bb71670d6b82fad7540c4a4804a9e25ec132a27d8fb701b0d371fc",
+          "release_datetime_utc": "2026-02-13T13:30:00Z"
+        },
+        {
+          "reference_period": "2026-02",
+          "value": 2.4,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_03112026.htm",
+          "source_sha256": "11f673e859eccffabc53987c0fb6cb02760c0601a4d24c1f03d62d162774f168",
+          "release_datetime_utc": "2026-03-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-03",
+          "value": 3.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_04102026.htm",
+          "source_sha256": "2f00ec5a10c8d2f0e6e879d8ae8762af555cb7ef26805b37b627ad47c93012f0",
+          "release_datetime_utc": "2026-04-10T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-04",
+          "value": 3.8,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_05122026.htm",
+          "source_sha256": "bfee220ac431aefa8dcd000040996fce59d17c06ea2fe2b297db0f3a6d5b659f",
+          "release_datetime_utc": "2026-05-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-05",
+          "value": 4.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_06102026.htm",
+          "source_sha256": "ba198a462a41b85b997df781558b90d3ab4663d9640efc8cdccca9e81e046a2f",
+          "release_datetime_utc": "2026-06-10T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-06",
+          "value": 3.5,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_07142026.htm",
+          "source_sha256": "382f20db3bdeba1f45a7783dacdaebb87e4ca8461ae2e701db803538afdfc790",
+          "release_datetime_utc": "2026-07-14T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-07",
+          "value": 3.4,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_08122026.htm",
+          "source_sha256": "d18471db7736e302e35085e14d746eddf51a4f6d27b954642e3ddec3e85778e5",
+          "release_datetime_utc": "2026-08-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-08",
+          "value": 3.4,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_09112026.htm",
+          "source_sha256": "aee0cdff604c295d784e6302b2ba74130f10f535675a5a0fb7262c936edaaabd",
+          "release_datetime_utc": "2026-09-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-09",
+          "value": 3.7,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+          "source_sha256": "b9f981390c08f4a530d839495fce582124015b979bac0398bfcc35ffde0544e4",
+          "release_datetime_utc": "2026-10-14T12:30:00Z"
+        }
+      ]
+    },
+    {
+      "series": "CPI_CORE_YOY",
+      "unit": "percent",
+      "adjustment": "NSA",
+      "measure": "12-month change",
+      "geography": "U.S. city average",
+      "population": "CPI-U",
+      "basket": "All items less food and energy",
+      "observations": [
+        {
+          "reference_period": "2024-10",
+          "value": 3.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_11132024.htm",
+          "source_sha256": "ad0279d8d9bf165360affa63a8b640b28dbea9c49c6bfcc6f66f451d9e637769",
+          "release_datetime_utc": "2024-11-13T13:30:00Z"
+        },
+        {
+          "reference_period": "2024-11",
+          "value": 3.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_12112024.htm",
+          "source_sha256": "415282398015c224606261fb978ec7c61c35647ec5b3438fa3f613111217bb0e",
+          "release_datetime_utc": "2024-12-11T13:30:00Z"
+        },
+        {
+          "reference_period": "2024-12",
+          "value": 3.2,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_01152025.htm",
+          "source_sha256": "6e90f322584a8e8e776433678ff20e96ca1eb4f3545ecbfb067b9408a92e5abc",
+          "release_datetime_utc": "2025-01-15T13:30:00Z"
+        },
+        {
+          "reference_period": "2025-01",
+          "value": 3.3,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_02122025.htm",
+          "source_sha256": "92bf745a006f02fe197e880f81d2d7c56e56f8d297a713a02b0fe5aef4e588e1",
+          "release_datetime_utc": "2025-02-12T13:30:00Z"
+        },
+        {
+          "reference_period": "2025-02",
+          "value": 3.1,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_03122025.htm",
+          "source_sha256": "8d76b5e0f06f42521a0d325ed4dfa56985629fab354dde5b3ac52269e487fa53",
+          "release_datetime_utc": "2025-03-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-03",
+          "value": 2.8,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_04102025.htm",
+          "source_sha256": "b40ef03dec713fc7ca0e5e64e4043f2d9fa95e42a0e806b9dc101a64ca9bf424",
+          "release_datetime_utc": "2025-04-10T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-04",
+          "value": 2.8,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_05132025.htm",
+          "source_sha256": "d6b6ade9054d2af5f2de6aa342b8bbc7ba2ca0f5a5b090080ce7fc7dd6b45c10",
+          "release_datetime_utc": "2025-05-13T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-05",
+          "value": 2.8,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_06112025.htm",
+          "source_sha256": "0250b81ace8d66bb97595624259c8079deb2ad941e23f42dd4ce955b5ea75cf3",
+          "release_datetime_utc": "2025-06-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-06",
+          "value": 2.9,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_07152025.htm",
+          "source_sha256": "a0905a0de50db59be573b829d999a98d32512dc9d4e6f22ed789c64eed4fbcb2",
+          "release_datetime_utc": "2025-07-15T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-07",
+          "value": 3.1,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_08122025.htm",
+          "source_sha256": "a7651ec9f9870e9efab3f1659639d06aa80c43c2862d009a76ade1d16f941913",
+          "release_datetime_utc": "2025-08-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-08",
+          "value": 3.1,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_09112025.htm",
+          "source_sha256": "f376b178ee4e16a7cc2ae6810e2164cad96aa8da156900623b2ff780a78f26bf",
+          "release_datetime_utc": "2025-09-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-09",
+          "value": 3.0,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_10242025.htm",
+          "source_sha256": "ab7e0e431246f6f983575529cf4eae509706963fa893b6156576a2c320556397",
+          "release_datetime_utc": "2025-10-24T12:30:00Z"
+        },
+        {
+          "reference_period": "2025-11",
+          "value": 2.6,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_12182025.htm",
+          "source_sha256": "85627e2f11db4d58fbdebc5877b27e71022c0ef17db77ddfb04497c4e33105b5",
+          "release_datetime_utc": "2025-12-18T13:30:00Z"
+        },
+        {
+          "reference_period": "2025-12",
+          "value": 2.6,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_01132026.htm",
+          "source_sha256": "bbdb2ecf47afdc9e0daad8555b1a3bf38b8a8981eacaf42d08d3d4953ba632fd",
+          "release_datetime_utc": "2026-01-13T13:30:00Z"
+        },
+        {
+          "reference_period": "2026-01",
+          "value": 2.5,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_02132026.htm",
+          "source_sha256": "e187d5e926bb71670d6b82fad7540c4a4804a9e25ec132a27d8fb701b0d371fc",
+          "release_datetime_utc": "2026-02-13T13:30:00Z"
+        },
+        {
+          "reference_period": "2026-02",
+          "value": 2.5,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_03112026.htm",
+          "source_sha256": "11f673e859eccffabc53987c0fb6cb02760c0601a4d24c1f03d62d162774f168",
+          "release_datetime_utc": "2026-03-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-03",
+          "value": 2.6,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_04102026.htm",
+          "source_sha256": "2f00ec5a10c8d2f0e6e879d8ae8762af555cb7ef26805b37b627ad47c93012f0",
+          "release_datetime_utc": "2026-04-10T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-04",
+          "value": 2.8,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_05122026.htm",
+          "source_sha256": "bfee220ac431aefa8dcd000040996fce59d17c06ea2fe2b297db0f3a6d5b659f",
+          "release_datetime_utc": "2026-05-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-05",
+          "value": 2.9,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_06102026.htm",
+          "source_sha256": "ba198a462a41b85b997df781558b90d3ab4663d9640efc8cdccca9e81e046a2f",
+          "release_datetime_utc": "2026-06-10T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-06",
+          "value": 2.6,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_07142026.htm",
+          "source_sha256": "382f20db3bdeba1f45a7783dacdaebb87e4ca8461ae2e701db803538afdfc790",
+          "release_datetime_utc": "2026-07-14T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-07",
+          "value": 2.5,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_08122026.htm",
+          "source_sha256": "d18471db7736e302e35085e14d746eddf51a4f6d27b954642e3ddec3e85778e5",
+          "release_datetime_utc": "2026-08-12T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-08",
+          "value": 2.4,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_09112026.htm",
+          "source_sha256": "aee0cdff604c295d784e6302b2ba74130f10f535675a5a0fb7262c936edaaabd",
+          "release_datetime_utc": "2026-09-11T12:30:00Z"
+        },
+        {
+          "reference_period": "2026-09",
+          "value": 2.6,
+          "source_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+          "source_sha256": "b9f981390c08f4a530d839495fce582124015b979bac0398bfcc35ffde0544e4",
+          "release_datetime_utc": "2026-10-14T12:30:00Z"
+        }
+      ]
+    }
+  ],
+  "missingness": {
+    "calendar_months": 24,
+    "observations_per_series": {
+      "CPI_HEADLINE_MOM": 23,
+      "CPI_CORE_MOM": 23,
+      "CPI_HEADLINE_YOY": 23,
+      "CPI_CORE_YOY": 23
+    },
+    "missing_reference_months": [
+      "2025-10"
+    ],
+    "reason": "NO_REFERENCE_MONTH_RELEASE_OR_VALUE_PUBLISHED",
+    "official_gap_source": "https://www.bls.gov/bls/2025-lapse-revised-release-dates.htm",
+    "render_rule": "Keep October 2025 null and break the line; no interpolation, carry-forward or zero. Audit any additional unavailable monthly change in selected records before render."
+  },
+  "vintage": {
+    "kind": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+    "retrieval_after_event": true,
+    "historical_retrieval_at_release_proven": false,
+    "cutoff_rule": "Only release timestamps at or before 2026-10-14T12:30:00Z. Later retrieval is archival provenance, not contemporaneous possession. Never mix revised current history into this first-print series."
+  },
+  "rights": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+  "component_table": {
+    "source_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+    "source_sha256": "b9f981390c08f4a530d839495fce582124015b979bac0398bfcc35ffde0544e4",
+    "table": "Table 6, September 2026, 1-month analysis",
+    "period": "2026-08 to 2026-09",
+    "effect_unit": "percentage points of all-items monthly change",
+    "reported_rows": [
+      {
+        "category": "All items",
+        "relative_importance_august_percent": "100.000",
+        "september_mom_percent_sa": "0.6",
+        "effect_on_all_items_percentage_points": null
+      },
+      {
+        "category": "Food",
+        "relative_importance_august_percent": "13.507",
+        "september_mom_percent_sa": "0.0",
+        "effect_on_all_items_percentage_points": "0.006"
+      },
+      {
+        "category": "Energy",
+        "relative_importance_august_percent": "7.418",
+        "september_mom_percent_sa": "5.2",
+        "effect_on_all_items_percentage_points": "0.377"
+      },
+      {
+        "category": "Gasoline (all types)",
+        "relative_importance_august_percent": "3.853",
+        "september_mom_percent_sa": "9.1",
+        "effect_on_all_items_percentage_points": "0.337"
+      },
+      {
+        "category": "All items less food and energy",
+        "relative_importance_august_percent": "79.075",
+        "september_mom_percent_sa": "0.3",
+        "effect_on_all_items_percentage_points": "0.265"
+      },
+      {
+        "category": "Commodities less food and energy commodities",
+        "relative_importance_august_percent": "18.835",
+        "september_mom_percent_sa": "0.3",
+        "effect_on_all_items_percentage_points": "0.047"
+      },
+      {
+        "category": "Services less energy services",
+        "relative_importance_august_percent": "60.240",
+        "september_mom_percent_sa": "0.4",
+        "effect_on_all_items_percentage_points": "0.223"
+      },
+      {
+        "category": "Shelter",
+        "relative_importance_august_percent": "35.323",
+        "september_mom_percent_sa": "0.4",
+        "effect_on_all_items_percentage_points": "0.138"
+      }
+    ],
+    "disjoint_partition": [
+      "Food",
+      "Energy",
+      "All items less food and energy"
+    ],
+    "nested_rows_rule": "Gasoline is inside Energy; Shelter and core services/core goods are inside core. Never stack nested rows with their parent.",
+    "rounding": "Reported partition effects sum to 0.648 percentage points; all-items is published to one decimal as 0.6%. Preserve published precision; do not force the bars to 0.600.",
+    "method": "Use reported effects directly, not weight times rounded price change."
+  },
+  "recommended_charts": [
+    {
+      "question": "How have headline and core annual inflation differed over the 24-month window?",
+      "type": "two-line chart",
+      "data": [
+        "CPI_HEADLINE_YOY",
+        "CPI_CORE_YOY"
+      ],
+      "unit": "percent, 12-month change, NSA",
+      "placement": "After The September snapshot",
+      "rule": "October 2025 gap remains visible; label first-print vintage."
+    },
+    {
+      "question": "How does the latest monthly movement compare with recent headline and core prints?",
+      "type": "paired monthly bars or two-line chart with latest point labels",
+      "data": [
+        "CPI_HEADLINE_MOM",
+        "CPI_CORE_MOM"
+      ],
+      "unit": "percent, one-month change, SA",
+      "placement": "After Two horizons, two adjustment bases",
+      "rule": "Keep monthly panel separate from annual scale; latest labels headline 0.6%, core 0.3%."
+    },
+    {
+      "question": "Which broad components contributed to September monthly inflation?",
+      "type": "horizontal effect bars",
+      "data": [
+        "Table 6 Food 0.006",
+        "Table 6 Energy 0.377",
+        "Table 6 All items less food and energy 0.265"
+      ],
+      "unit": "percentage points, seasonally adjusted effect",
+      "placement": "Before What these figures leave open",
+      "rule": "Use only disjoint partition; distinguish component effects from component inflation rates."
+    }
+  ],
+  "image": {
+    "status": "NOT_PREPARED",
+    "recommendation": "Use a relevant authentic public-domain or licensed consumer-price context image only after exact source/license/date/credit/alt binding and pixel inspection.",
+    "limit": "This retained data archive supplies no verified contextual-photo asset; do not invent availability or rights."
+  },
+  "editorial_flags": [
+    "Replace moving cpi.htm citation with the exact archived cpi_10142026.htm release.",
+    "Existing article correctly distinguishes monthly SA and annual NSA; adding Table 6 permits bounded contribution discussion, never a persistence, surprise, policy or market-reaction inference.",
+    "No consensus or contemporaneous market-price evidence prepared.",
+    "MAX chooses final chart count, placement and prose; this result grants no visual acceptance."
+  ],
+  "verification_limits": [
+    "Only retained selected source bytes and supplied canonical readback inspected; no live source or browser fetch.",
+    "No chart rendering or desktop/mobile pixel inspection performed.",
+    "No external write, code edit, test run or schedule change."
+  ],
+  "next_action": "Parent passes verified data and this proposal to designated MAX writer, builds exact source-bound chart assets through existing renderer, obtains contextual image evidence where available, and obtains same-writer rendered review before any exact-object edit."
+}

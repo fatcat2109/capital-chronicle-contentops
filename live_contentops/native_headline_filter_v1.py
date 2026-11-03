@@ -13,7 +13,8 @@ from urllib.parse import urlsplit
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 
 POLICY = "contentops.native_headline_filter.v1"
-BATCH_SIZE = 24
+BATCH_SIZE = 96
+MAX_PARALLEL_BATCHES = 3
 
 
 def _is_x(row):
@@ -69,6 +70,8 @@ def filter_native_headlines(turn, rolling_input):
     ordered = sorted(exact, key=lambda k: (str(exact[k].get("source_timestamp_utc") or ""),
                                             str(exact[k].get("headline_id") or ""), k))
     judgments = {}
+    outbox = turn.store.list_outbox_messages()
+    by_message = {row["message_id"]: row for row in outbox}
 
     def retain(output, provenance):
         for value in output["decisions"]:
@@ -76,15 +79,19 @@ def filter_native_headlines(turn, rolling_input):
             sealed = {**value, "request_sha256": provenance["request_sha256"],
                       "response_sha256": provenance["response_sha256"], "role": "filter",
                       "invocation_observation": provenance["observation"]}
-            persisted = turn.store.register_outbox_message(message_id="native-filter-decision-" + key,
-                work_item_id=turn.work, destination="internal:native-desktop-editorial",
-                payload=canonical_bytes(sealed).decode(), status="EDITORIAL_INTERNAL")
+            message_id = "native-filter-decision-" + key
+            persisted = by_message.get(message_id)
+            if persisted is None:
+                persisted = turn.store.register_outbox_message(message_id=message_id,
+                    work_item_id=turn.work, destination="internal:native-desktop-editorial",
+                    payload=canonical_bytes(sealed).decode(), status="EDITORIAL_INTERNAL")
+                by_message[message_id] = persisted
             if json.loads(persisted["payload"]) != sealed:
                 raise ValueError("NATIVE_FILTER_IMMUTABLE_DECISION_CONFLICT")
 
     # Recover an accepted batch even if interruption occurred between its durable return
     # and per-record materialization. No repeat semantic call or changed batch cursor.
-    for row in turn.store.list_outbox_messages():
+    for row in outbox:
         if row["work_item_id"] != turn.work:
             continue
         request = json.loads(row["payload"])
@@ -100,7 +107,7 @@ def filter_native_headlines(turn, rolling_input):
             validator=lambda raw: _validate(raw, expected))
         retain(output, provenance)
     for key in ordered:
-        persisted = turn.store.get_outbox_message("native-filter-decision-" + key)
+        persisted = by_message.get("native-filter-decision-" + key)
         if persisted:
             value = json.loads(persisted["payload"])
             if value["input_sha256"] != key or value["headline_id"] != exact[key]["headline_id"]:
@@ -108,8 +115,24 @@ def filter_native_headlines(turn, rolling_input):
             judgments[key] = value
     missing = [k for k in ordered if k not in judgments]
     pending_requests = []
-    for offset in range(0, len(missing), BATCH_SIZE):
-        keys = missing[offset:offset + BATCH_SIZE]
+    # A changed default batch size must not orphan an already issued request.
+    # Drain exact frozen groups before forming larger groups from untouched rows.
+    frozen_groups = []
+    reserved = set()
+    for row in outbox:
+        if row["work_item_id"] != turn.work:
+            continue
+        request = json.loads(row["payload"])
+        stage = str(request.get("stage") or "")
+        if not stage.startswith("filter-") or "requested_model" not in request or turn._get(stage, "response"):
+            continue
+        keys = [r["input_sha256"] for r in request["governed_input"]["records"]]
+        if all(k in missing for k in keys):
+            frozen_groups.append(keys)
+            reserved.update(keys)
+    untouched = [k for k in missing if k not in reserved]
+    groups = frozen_groups + [untouched[i:i+BATCH_SIZE] for i in range(0, len(untouched), BATCH_SIZE)]
+    for keys in groups:
         stage = "filter-" + sha256_of([POLICY, keys])
         governed = {"policy": POLICY, "cursor_sha256": sha256_of(keys),
                     "records": [{"input_sha256": k, "original_record": exact[k]} for k in keys],
@@ -136,13 +159,13 @@ def filter_native_headlines(turn, rolling_input):
                 governed_input=governed,validator=lambda raw: _validate(raw, {k: exact[k]["headline_id"] for k in keys}))
         except DesktopInputRequired as pending:
             pending_requests.append(pending.request)
-            if len(pending_requests) == 3:
+            if len(pending_requests) == MAX_PARALLEL_BATCHES:
                 break
             continue
         retain(output, provenance)
         for value in output["decisions"]:
-            judgments[value["input_sha256"]] = json.loads(turn.store.get_outbox_message(
-                "native-filter-decision-" + value["input_sha256"])["payload"])
+            judgments[value["input_sha256"]] = json.loads(by_message[
+                "native-filter-decision-" + value["input_sha256"]]["payload"])
     if pending_requests:
         # Independent frozen batches share the existing owner and submit gate. This
         # reduces serial round trips without truncating intake or changing judgments.

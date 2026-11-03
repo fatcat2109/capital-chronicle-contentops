@@ -1,0 +1,23 @@
+{
+  "source_page_url": "https://commons.wikimedia.org/wiki/File:United_States_Capitol_-_west_front.jpg",
+  "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/United_States_Capitol_-_west_front.jpg",
+  "creator_publisher": "Architect of the Capitol",
+  "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+  "rights_status": "PUBLIC_DOMAIN",
+  "depicted_date": "1997",
+  "asset_id": "cc107-capitol-west-front-archive-1997",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\media\\capitol-west-front-1997.jpg",
+  "sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+  "width": 3000,
+  "height": 1556,
+  "modality": "documentary_photo",
+  "context_only": true,
+  "corroborates_article_facts": false,
+  "attribution": "Architect of the Capitol / Wikimedia Commons. Public domain (17 USC 105).",
+  "caption": "The west front of the US Capitol in 1997. Archive image; it does not depict election night.",
+  "alt_text": "Archive photograph of the west front of the US Capitol, with the reflecting pool and lawn in the foreground.",
+  "relevance_rationale": "Authentic context for control of Congress; no factual corroboration of any current election or market claim.",
+  "source_reuse_basis": "Official-duty work of an Architect of the Capitol employee, public domain in the United States; exact Commons PD-USGov-Congress-AOC declaration retained.",
+  "rights_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\media\\photo-rights.json",
+  "rights_evidence_sha256": "00c937c7ef7c7a60e9f843914dda79c869122abf132594ea65c03bd59c984600"
+}

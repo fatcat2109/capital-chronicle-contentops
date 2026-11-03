@@ -1,0 +1,14 @@
+{
+  "post_id": "223246940",
+  "result": {
+    "changed": true,
+    "contentLength": 14030,
+    "page": 28,
+    "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8317.26\\.browseros\\tool-output\\evaluate_in_page-1793682494495-a95be635-ec89-4e10-a216-d6ab0bb77cf6.txt",
+    "settled": true,
+    "writtenToFile": true
+  },
+  "snapshot": "- generic [ref=e1] [cursor=pointer]\n- textbox \"Add a title...\" [ref=e2]\n- textbox \"Add a description...\" [ref=e3]\n- LabelText [ref=e4] [cursor=pointer]\n- button \"Exit\" [ref=e5]\n- button \"Saved\" [ref=e88]\n- button \"Preview\" [ref=e7]\n- button \"Update\" [ref=e89]\n- toolbar\n  - button \"Undo\" [ref=e67]\n  - button \"Redo\" [disabled] [ref=e10]\n  - button \"Style\" [collapsed] [ref=e11]\n  - button \"Bold\" [ref=e90]\n  - button \"Italic\" [ref=e91]\n  - button \"Strikethrough\" [ref=e92]\n  - button \"Code\" [ref=e93]\n  - button \"Text color\" [collapsed] [ref=e94]\n  - button \"Highlight\" [collapsed] [ref=e95]\n  - button \"Superscript & subscript\" [collapsed] [ref=e96]\n  - button \"Link\" [ref=e19]\n  - button \"Insert im",
+  "observed_at_utc": "2026-11-03T05:08:14.695Z",
+  "public_update_performed": false
+}

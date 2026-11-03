@@ -1,0 +1,45 @@
+{
+  "observed_at_utc": "2026-11-03T13:27:03.062011+00:00",
+  "readback": {
+    "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+    "destination": "linkedin",
+    "reconciliation_status": "RECONCILIATION_PENDING",
+    "public_write_performed": false,
+    "publish_called": false
+  },
+  "quarantine": {
+    "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+    "work_item_id": "cc074-retro-fomc-20261028-v1",
+    "destination": "linkedin",
+    "intent_sha256": "9bcf9979c6d9c4334c0a493dbbf14613696200c6b80c98e8c5c35e456a385c8d",
+    "authority_ref": "BACKLOG_CC179_JIM_20261103",
+    "cause": "RECONCILIATION_PENDING: official member API has no public identity; loaded Neo own activity shows only the older oil post, which is not an exact-attempt absence proof",
+    "next_owner": "Jim",
+    "next_action": "Check JimCC personal activity and Capital Chronicle company page for the FOMC copy; provide its exact URL or confirm absence before Publisher reconciles or retries",
+    "evidence_ref": "docs/publisher/CC-179/linkedin-personal-readback.json; docs/publisher/CC-179/linkedin-company-readback.json",
+    "readback_owed": true,
+    "public_write_performed": false
+  },
+  "before": {
+    "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+    "message_id": "outbox_9b8a57d1a3c6794c5a999966b9bd28c2",
+    "platform": "linkedin",
+    "status": "UNKNOWN_WRITE",
+    "dispatched_at": "2026-11-02T17:50:38.994639+00:00",
+    "public_object_id": null,
+    "public_object_url": null,
+    "public_object_url_hash": null
+  },
+  "after": {
+    "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+    "message_id": "outbox_9b8a57d1a3c6794c5a999966b9bd28c2",
+    "platform": "linkedin",
+    "status": "UNKNOWN_WRITE",
+    "dispatched_at": "2026-11-02T17:50:38.994639+00:00",
+    "public_object_id": null,
+    "public_object_url": null,
+    "public_object_url_hash": null
+  },
+  "quarantine_active": true,
+  "public_write_performed": false
+}

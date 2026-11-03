@@ -1,0 +1,10 @@
+{
+  "item": "CC-042",
+  "operation": "admit_pre_writer_source_recovery on the original live binding, before any branch patch",
+  "actual_error": "EXACT_UNWRITTEN_MANUAL_SELECTION_REQUIRED",
+  "production_mutation_performed": false,
+  "unchanged_recovery_outbox_verified": true,
+  "baseline_commit": "b90969200771b29fdb8f8aa5b6a953dcb205975d",
+  "scope": "Direct existing-library guard observation, not a claimed CLI failure or failed publisher GET. The legacy function requires owner_manual_validation, which the real owner_manual_live binding does not grant.",
+  "next_action": "Ops reviews and integrates the bounded pre-MAX admission repair and reconciles the original already accepted HOLD/partial result."
+}

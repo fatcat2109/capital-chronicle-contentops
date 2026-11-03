@@ -1,0 +1,139 @@
+{
+  "accepted_returns_before_and_after": 10,
+  "cutoff_utc": "2026-10-30T23:45:33.033578Z",
+  "new_operation_bindings": 0,
+  "original_binding_sha256": "0173bb42604453e3d57ca19f74c62dd6ca5a8d89e4a46da8b30fe3f378bb6fd8",
+  "original_copy_files_preserved": 59,
+  "original_outbox_payloads_preserved": 688,
+  "production_acceptance_readbacks": 0,
+  "public_write_performed": false,
+  "replay_scope": "Retained real binding/selection/accepted HOLD topology copied from existing operation, storage paths rebased only in copy; source resolver responses for the two untouched candidates are explicitly SYNTHETIC. No live/native/source/public call; not production candidate outcomes.",
+  "run_id": "cc042-live-resume-20261031-a",
+  "synthetic_source_calls": [
+    {
+      "SYNTHETIC_TEST_ONLY": true,
+      "candidate_id": "simple-story-0781c5bbca13392eaf34a2a2",
+      "remaining": 5
+    },
+    {
+      "SYNTHETIC_TEST_ONLY": true,
+      "candidate_id": "simple-story-8521a12c484b3ea2869280df",
+      "remaining": 3
+    }
+  ],
+  "transitions": [
+    {
+      "candidate_id": "simple-story-0781c5bbca13392eaf34a2a2",
+      "classification": "NATIVE_MANUAL_CANDIDATE_READY",
+      "idempotent_replay": false,
+      "new_binding": false,
+      "new_model_invocations": 0,
+      "new_source_requests": 0,
+      "next_operation": "advance same binding",
+      "public_write_performed": false,
+      "run_id": "cc042-live-resume-20261031-a",
+      "source_request_count": 5,
+      "source_request_limit": 10
+    },
+    {
+      "candidate_id": "simple-story-8521a12c484b3ea2869280df",
+      "classification": "NATIVE_MANUAL_CANDIDATE_READY",
+      "idempotent_replay": false,
+      "new_binding": false,
+      "new_model_invocations": 0,
+      "new_source_requests": 0,
+      "next_operation": "advance same binding",
+      "public_write_performed": false,
+      "run_id": "cc042-live-resume-20261031-a",
+      "source_request_count": 7,
+      "source_request_limit": 10
+    }
+  ],
+  "copy_results": [
+    {
+      "admitted_cached_source_pack": null,
+      "candidate_id": "simple-story-8521a12c484b3ea2869280df",
+      "classification": "NATIVE_NEXT_CANDIDATE_REQUIRED",
+      "next_operation": "Continue only the next admitted candidate using the retained budget/cache; never restart selection or acquisition.",
+      "public_write_performed": false,
+      "run_id": "cc042-live-resume-20261031-a",
+      "source_request_count": 7,
+      "source_request_limit": 10,
+      "outcomes": [
+        {
+          "candidate_id": "simple-story-516075fe673bf55d27d040d0",
+          "outcome": "HOLD",
+          "primary_cause": "SOFTWARE_PROCESS_DEFECT",
+          "source_request_count": 5,
+          "new_outcome_in_this_copy": false
+        },
+        {
+          "candidate_id": "simple-story-0781c5bbca13392eaf34a2a2",
+          "outcome": "SOURCE_BLOCKED",
+          "primary_cause": "SOURCE_MISSING",
+          "source_request_count": 7,
+          "new_outcome_in_this_copy": true
+        }
+      ]
+    },
+    {
+      "cause_counts": {
+        "SOFTWARE_PROCESS_DEFECT": 1,
+        "SOURCE_MISSING": 2
+      },
+      "classification": "NATIVE_PRE_WRITER_EDITION_COMPLETE",
+      "derivative_intent_count": 0,
+      "model_execution_state": "NATIVE_DESKTOP_REQUEST_RETURN",
+      "next_operation": "none",
+      "outcome_counts": {
+        "HOLD": 1,
+        "SOURCE_BLOCKED": 2
+      },
+      "process_findings": [],
+      "public_write_performed": false,
+      "publication_handoff_state": "TERMINAL_EDITORIAL_OUTCOMES_NO_DISPATCH",
+      "qualified_article_count": 0,
+      "remaining_candidate_ids": [],
+      "run_id": "cc042-live-resume-20261031-a",
+      "source_request_count": 9,
+      "source_request_limit": 10,
+      "volume_policy": {
+        "brief_only": false,
+        "effective_production_date": "2026-10-30",
+        "max_admitted_candidates": 6,
+        "max_articles": 2,
+        "non_chargeable_only": true,
+        "photo_less_news_policy": true,
+        "policy_id": "L1-B-20261029-04",
+        "source_request_limit": 10,
+        "source_resolvability_first": true
+      },
+      "outcomes": [
+        {
+          "candidate_id": "simple-story-516075fe673bf55d27d040d0",
+          "outcome": "HOLD",
+          "primary_cause": "SOFTWARE_PROCESS_DEFECT",
+          "source_request_count": 5,
+          "new_outcome_in_this_copy": false
+        },
+        {
+          "candidate_id": "simple-story-0781c5bbca13392eaf34a2a2",
+          "outcome": "SOURCE_BLOCKED",
+          "primary_cause": "SOURCE_MISSING",
+          "source_request_count": 7,
+          "new_outcome_in_this_copy": true
+        },
+        {
+          "candidate_id": "simple-story-8521a12c484b3ea2869280df",
+          "outcome": "SOURCE_BLOCKED",
+          "primary_cause": "SOURCE_MISSING",
+          "source_request_count": 9,
+          "new_outcome_in_this_copy": true
+        }
+      ]
+    }
+  ],
+  "final_code_idempotent_readback": true,
+  "accepted_model_effort_provenance_unchanged": true,
+  "current_original_candidate_statuses": "HOLD and two NOT_REACHED; copy results are synthetic only"
+}

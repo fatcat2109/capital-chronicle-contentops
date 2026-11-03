@@ -1,0 +1,5 @@
+{
+  "classification": "INTERRUPTED_NO_RESULT_RETURNED",
+  "publication_success_not_claimed": true,
+  "retry_requires_current_dispatch_readback": true
+}

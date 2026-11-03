@@ -183,7 +183,15 @@ _SENTENCE_BOUNDARY_RE = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9])")
 
 def _sentence_units(value: str) -> list[str]:
     normalized = " ".join(str(value or "").split())
-    return [item.strip() for item in _SENTENCE_BOUNDARY_RE.split(normalized) if item.strip()]
+    units = []
+    for item in _SENTENCE_BOUNDARY_RE.split(normalized):
+        if not item.strip():
+            continue
+        if units and re.search(r"\b(?:[A-Z]\.){2,}$", units[-1]):
+            units[-1] += " " + item.strip()
+        else:
+            units.append(item.strip())
+    return units
 
 
 def _punctuate(value: str) -> str:
@@ -292,8 +300,11 @@ def _split_complete_chunks(parts: Sequence[str], *, limit: int) -> list[str]:
 
 def _first_complete_sentence(value: str) -> str:
     normalized = " ".join(str(value or "").split())
-    match = re.match(r"^(.+?[.!?])(?:\s|$)", normalized)
-    return match.group(1) if match else normalized
+    for match in re.finditer(r"[.!?](?=\s|$)", normalized):
+        candidate = normalized[:match.end()]
+        if not re.search(r"\b(?:[A-Z]\.){2,}$", candidate):
+            return candidate
+    return normalized
 
 
 _SEMANTIC_DEDUP_STOP_WORDS = frozenset(
@@ -518,6 +529,13 @@ def build_native_derivative_payloads(
         canonical_url=canonical_url,
         media_asset_ids=media_asset_ids,
     )
+    from live_contentops.native_text_first_v1 import text_first_brief, skipped_destinations
+    if text_first_brief(article):
+        for skipped in skipped_destinations(has_image=bool(media_asset_ids)):
+            destination = skipped["destination"]
+            payloads[destination] = {"destination": destination, "delivery_state": skipped["status"],
+                "skip_reason": skipped["reason"], "media_asset_ids": []}
+        return payloads
     if article.get("reader_first_version") != "DATA_JOURNALISM_V1":
         return payloads
     choices = article.get("native_destination_media")
@@ -535,11 +553,11 @@ def build_native_derivative_payloads(
             raise ValueError("NATIVE_EDITORIAL_MEDIA_SUBSET_UNBOUND:" + destination)
         if destination == "instagram_business" and not chosen:
             from live_contentops.native_newsroom_volume_v1 import photo_less_brief, PHOTOLESS_INSTAGRAM_SKIP
-            if not photo_less_brief(article):
-                raise ValueError("NATIVE_EDITORIAL_INSTAGRAM_IMAGE_REQUIRED")
+            legacy = photo_less_brief(article)
             payload.clear()
-            payload.update(destination=destination, delivery_state=PHOTOLESS_INSTAGRAM_SKIP,
-                skip_reason="Photo-less NEWS/POLICY brief; Instagram requires an image.", media_asset_ids=[])
+            payload.update(destination=destination,
+                delivery_state=PHOTOLESS_INSTAGRAM_SKIP if legacy else "SKIPPED_IMAGE_REQUIRED",
+                skip_reason="Instagram requires an admitted image; other destinations can proceed.", media_asset_ids=[])
             continue
         payload["media_asset_ids"] = chosen
         source_map = article.get("native_media_sources") or {}
@@ -2865,9 +2883,10 @@ def _run_bounded_rolling_x_editorial_cycle(
             if canary_gate is not None
             else combined.get("classification") == "PASS"
         )
+        revision_count = int((native_xhigh_worker_return or {}).get("bounded_revision_count") or 0)
         history = [{
             "review_index": 0,
-            "revision_rounds_completed": 0,
+            "revision_rounds_completed": revision_count,
             "article_sha256": _json_sha256(candidate),
             "deterministic_review": deterministic,
             "hard_factual_safety_review": hard_review,
@@ -2879,6 +2898,66 @@ def _run_bounded_rolling_x_editorial_cycle(
             "combined_editorial_gate": combined,
             "mvp_canary_editorial_gate": canary_gate,
         }]
+        if not effective_pass and native_xhigh_worker_return is not None:
+            if revision_count >= max_revision_rounds:
+                history[0]["revision"] = {
+                    "round": 1,
+                    "status": "NOT_ATTEMPTED_NATIVE_XHIGH_BUDGET_EXHAUSTED",
+                    "native_xhigh_article_reviser_forbidden": True,
+                    "prior_bounded_revision_count": revision_count,
+                    "maximum_bounded_revision_count": max_revision_rounds,
+                }
+                return {
+                    "status": "NO_PUBLICATION",
+                    "reason_code": "EDITORIAL_WORKER_REVISION_BUDGET_EXHAUSTED",
+                    "article": candidate,
+                    "revision_rounds_completed": revision_count,
+                    "semantic_review_required": False,
+                    "mandatory_semantic_review_calls": 0,
+                    "review_history": history,
+                    "acceptance_profile": acceptance_profile,
+                    "canary_quality_warnings": list(
+                        (canary_gate or {}).get("quality_warnings") or []
+                    ),
+                    "publication_authority_granted": False,
+                }
+            if (
+                native_xhigh_worker_validation is None
+                or native_xhigh_worker_request is None
+            ):
+                raise ValueError("native_xhigh_revision_binding_required")
+            from live_contentops.codex_desktop_newsroom_operator_v1 import (
+                build_same_xhigh_worker_revision_contract,
+            )
+
+            revision_contract = build_same_xhigh_worker_revision_contract(
+                worker_return=native_xhigh_worker_return,
+                worker_validation=native_xhigh_worker_validation,
+                worker_request=native_xhigh_worker_request,
+                deterministic_review=deterministic,
+                semantic_review=hard_review,
+            )
+            history[0]["revision"] = {
+                "round": 1,
+                "status": "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+                "native_xhigh_article_reviser_forbidden": True,
+                "same_xhigh_worker_revision_contract": revision_contract,
+            }
+            return {
+                "status": "NO_PUBLICATION",
+                "reason_code": "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+                "article": candidate,
+                "revision_rounds_completed": revision_count,
+                "semantic_review_required": False,
+                "mandatory_semantic_review_calls": 0,
+                "review_history": history,
+                "same_xhigh_worker_revision_contract": revision_contract,
+                "acceptance_profile": acceptance_profile,
+                "canary_quality_warnings": list(
+                    (canary_gate or {}).get("quality_warnings") or []
+                ),
+                "publication_authority_granted": False,
+            }
         return {
             "status": "PASS" if effective_pass else "NO_PUBLICATION",
             "reason_code": (
@@ -2892,7 +2971,7 @@ def _run_bounded_rolling_x_editorial_cycle(
                 )
             ),
             "article": candidate,
-            "revision_rounds_completed": 0,
+            "revision_rounds_completed": revision_count,
             "semantic_review_required": False,
             "mandatory_semantic_review_calls": 0,
             "review_history": history,
@@ -4863,6 +4942,8 @@ def _run_rolling_x_newsroom_cycle(
         story_type_by_cluster = dict(
             (prepared_state.get("story_routing") or {}).get("story_type_by_cluster") or {}
         )
+    if (leaf_checkpoints is not None or global_checkpoint is not None) and prepared_state is None and rolling_input is None:
+        raise ValueError("rolling_x_frozen_resume_input_required")
     intake = (
         dict(prepared_state["prepared_input"])
         if prepared_state is not None
@@ -4894,6 +4975,26 @@ def _run_rolling_x_newsroom_cycle(
                 int(prepared_state.get("full_rolling_headline_count") or 0)
                 - len(intake.get("headlines") or []),
             ),
+            "llm_or_provider_calls": 0,
+            "factual_or_numeric_authority_granted": False,
+            "publication_authority_granted": False,
+        }
+    elif leaf_checkpoints is not None or global_checkpoint is not None:
+        # Split-phase COMPLETE must replay the exact frozen assignment input that
+        # produced the hash-bound semantic checkpoints. Recompacting that input can
+        # change partition identities and makes an otherwise valid checkpoint appear
+        # to belong to an unknown partition.
+        assignment_input = intake
+        assignment_compaction = {
+            "schema_version": "contentops.rolling_x_assignment_compaction.v1",
+            "compaction_applied": False,
+            "reason": "HASH_BOUND_SEMANTIC_RESUME_INPUT_REUSED",
+            "full_rolling_headline_count": int(
+                (intake.get("counts") or {}).get("accepted")
+                or len(intake.get("headlines") or [])
+            ),
+            "assignment_headline_count": len(intake.get("headlines") or []),
+            "held_before_semantic_assignment_count": 0,
             "llm_or_provider_calls": 0,
             "factual_or_numeric_authority_granted": False,
             "publication_authority_granted": False,

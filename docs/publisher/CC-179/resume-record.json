@@ -1,0 +1,15 @@
+{
+  "resumed_at_utc": "2026-11-03T13:48:48.015203+00:00",
+  "pushed_head_at_resume": "65fc04a0",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "high",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_pid": 35648,
+  "same_native_thread": "01a1a18d-2509-7911-9c8e-90a4a8e11593",
+  "prior_fomc_continuation": "INTERRUPTED_NO_RESULT_RETURNED",
+  "prior_output_path": "docs/publisher/CC-179/fomc-after-identity-resume.json",
+  "prior_output_bytes": 0,
+  "new_send_not_claimed": true,
+  "working_directory": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+  "launch_configuration_readback": "gpt-6.1-sol/high; PID 35648; recorded without full prompt"
+}

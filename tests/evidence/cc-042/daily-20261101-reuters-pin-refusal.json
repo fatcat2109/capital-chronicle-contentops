@@ -1,0 +1,15 @@
+{
+  "status": "BLOCKED",
+  "blockers": [
+    "epistemic_report_provenance_not_governed"
+  ],
+  "accepted_documents": 0,
+  "epistemic_state": {},
+  "source_policy_scope": "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+  "published_at_utc": "2026-10-30T14:50:00Z",
+  "source_retrieved_at_utc": "2026-11-01T02:01:44.711837+00:00",
+  "revision_at_utc": "2026-11-01T02:16:06.342467+00:00",
+  "public_write_performed": false,
+  "production_admission_performed": false,
+  "scope": "Read-only existing evidence adapter replay of the exact original candidate request against newly captured Reuters facts; no source request or store mutation."
+}

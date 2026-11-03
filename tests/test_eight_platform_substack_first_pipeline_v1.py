@@ -19,6 +19,19 @@ def _article() -> dict:
     return {"title": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues", "subtitle": "FRED's latest reading keeps the policy-transmission question in focus."}
 
 
+def test_thread_sentence_packing_keeps_initialism_bound_to_publisher():
+    attribution = "According to the U.S. Bureau of Labor Statistics, the readings have different bases."
+    assert pipeline._sentence_units(attribution + " Readers should keep those bases visible.") == [
+        attribution, "Readers should keep those bases visible."]
+    copy = attribution + " Readers should keep those bases visible."
+    assert pipeline._first_complete_sentence(copy) == attribution
+    chunks = pipeline._split_complete_chunks([copy], limit=100)
+    assert all(len(chunk) <= 100 for chunk in chunks)
+    assert "U.S. Bureau of Labor Statistics" in "\n\n".join(chunks)
+    assert "U.S.\n\nBureau" not in "\n\n".join(chunks)
+    assert "Readers should keep those bases visible." in chunks
+
+
 def _selection() -> dict:
     return {
         "dek": "FRED's latest effective federal funds reading keeps the policy-transmission question in focus.",

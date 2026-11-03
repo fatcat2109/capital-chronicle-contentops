@@ -54,6 +54,9 @@ def _public_url(destination, url, object_id=None):
 def _text(value):
     # Browser rendering removes common Markdown syntax; it does not change the proposition.
     value = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", str(value or ""))
+    # Substack's smart punctuation changes apostrophe/quote glyphs on the same
+    # published copy. Keep numbers, minus signs, words and order exact.
+    value = value.translate(str.maketrans({"\u2018": "'", "\u2019": "'", "\u201c": '"', "\u201d": '"'}))
     return " ".join(re.sub(r"[#*_`]", "", value).split())
 
 
@@ -156,6 +159,16 @@ class NeoDestinationHandoff:
                 "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"],
             "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
             "forbidden": ["login", "reauthorize", "account_switch", "cookies", "storage", "blind_retry", "bulk_x_ingestion"]}
+        if action == "READBACK":
+            # An earlier failed observation stays immutable. A corrected readback
+            # contract receives a new read-only identity, never a new write.
+            value["reader_text_normalization"] = "MARKDOWN_WHITESPACE_SMART_QUOTES_V1"
+        if destination == "substack" and action == "READBACK" and intent.get("published_content_export"):
+            value["publication_clock_readback"] = (
+                "Return published_at_utc from the exact post's time datetime or post_date; "
+                "preserve the original timestamp with a UTC offset. Never substitute a dispatch, "
+                "event, retrieval, scheduled or current clock."
+            )
         if destination == "linkedin" and action == "READBACK" and not public_object_id:
             value["owner_absence_context"] = intent.get("owner_absence_context")
         if intent.get("reader_presentation_review"):
@@ -220,11 +233,13 @@ class NeoDestinationHandoff:
         expected_media.discard(None)
         media_match = expected_media <= set(result.get("observed_media_sha256") or [])
         reviewed_photo_edit = bool(intent.get("reader_presentation_review")) and destination in {"instagram_business", "youtube"}
-        if (destination in {"linkedin", "linkedin_company"} or reviewed_photo_edit) and not media_match:
+        if (destination in {"linkedin", "linkedin_company", "x"} or reviewed_photo_edit) and not media_match:
             comparisons = result.get("media_comparisons") or []
             def platform_image(url):
                 host = urlsplit(str(url or "")).hostname or ""
                 return ((destination in {"linkedin", "linkedin_company"} and host == "media.licdn.com")
+                    or (destination == "x" and host == "pbs.twimg.com"
+                        and urlsplit(str(url or "")).path.startswith("/media/"))
                     or (destination == "youtube" and host == "yt3.ggpht.com")
                     or (destination == "instagram_business" and (host.endswith(".cdninstagram.com") or host.endswith(".fbcdn.net"))))
             source_matches = {m.get("source_asset_sha256") for m in comparisons

@@ -1,0 +1,16 @@
+{
+  "authority": "JIM_DECISIONS_20261030_DECISION_39_CITED_IN_CC142",
+  "action": "FAST_FORWARD_EXISTING_CONTENTOPS_OPERATING_BRANCH",
+  "status": "NOT_APPLIED",
+  "item_base": "25f6cfddee1280c1527d1d02ba3c5b9f35286cd6",
+  "observed_operating_head": "5c40b113901ccec10d62e5a2230cb1a68862c4d0",
+  "branch_head": "d8fad5e5",
+  "operation": "git -C A:/Capital Chronicle/ContentOps merge --ff-only backlog/cc-142-data-release-charts",
+  "actual_error": "fatal: Not possible to fast-forward, aborting.",
+  "cause": "Operating branch gained a separate AGENTS.md decision 42/44 commit after the item base.",
+  "tracked_wip_modified_by_run": false,
+  "application_restarted": false,
+  "schedule_changed": false,
+  "public_edit_performed": false,
+  "remaining_work": "Continue independent reviewed exact-object edit from tested item branch; integration requires a forward history containing current live decisions without rewriting the pushed item."
+}

@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "A:\Capital Chronicle\Worktrees\ContentOps\codex-publisher-backlog\scripts\run_native_desktop_editorial.py", line 712, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "A:\Capital Chronicle\Worktrees\ContentOps\codex-publisher-backlog\scripts\run_native_desktop_editorial.py", line 666, in main
+    result = operation(binding)
+  File "A:\Capital Chronicle\Worktrees\ContentOps\codex-publisher-backlog\scripts\run_native_desktop_editorial.py", line 427, in operation
+    result = _operation(binding, **kwargs)
+  File "A:\Capital Chronicle\Worktrees\ContentOps\codex-publisher-backlog\scripts\run_native_desktop_editorial.py", line 396, in _operation
+    feed = MainReportFeed(LatestReportDeliveryTracker(store), pointer, retained_research=admitted_research)
+  File "A:\Capital Chronicle\Worktrees\ContentOps\codex-publisher-backlog\live_contentops\capital_chronicle_report_feed_v1.py", line 167, in __init__
+    self.source = source or _source(pointer)
+                            ~~~~~~~^^^^^^^^^
+  File "A:\Capital Chronicle\Worktrees\ContentOps\codex-publisher-backlog\live_contentops\capital_chronicle_report_feed_v1.py", line 43, in _source
+    return PublicMainFileSource(pointer) if pointer.get("schema_version") == CONFIG_SCHEMA else PinnedMainGitSource(pointer)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "A:\Capital Chronicle\Worktrees\ContentOps\codex-publisher-backlog\live_contentops\capital_chronicle_public_manifest_v1.py", line 67, in __init__
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'

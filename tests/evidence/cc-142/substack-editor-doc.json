@@ -1,0 +1,312 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "September 2026's headline CPI rose 0.6% over one month and 3.7% over twelve months, according to the "
+        },
+        {
+          "type": "text",
+          "text": "U.S. Bureau of Labor Statistics release of October 14, 2026",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+                "target": "_blank"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": ". The monthly figure is seasonally adjusted; the annual figure is not. They describe different horizons. This retrospective puts that release alongside the earlier readings and its component breakdown."
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "attrs": {
+            "align": null,
+            "alt": "Bags of dry beans displayed on shelves at a supermarket in Dearborn, Michigan.",
+            "belowTheFold": false,
+            "bytes": 13478102,
+            "fullscreen": null,
+            "height": 905,
+            "href": null,
+            "imageSize": null,
+            "internalRedirect": "https://capitalchronicle.substack.com/i/223246940?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb60973f2-b9d3-45de-b0ba-4c676839f7c4_5364x3334.jpeg",
+            "isProcessing": false,
+            "offset": false,
+            "resizeWidth": null,
+            "src": "https://substack-post-media.s3.amazonaws.com/public/images/b60973f2-b9d3-45de-b0ba-4c676839f7c4_5364x3334.jpeg",
+            "srcNoWatermark": null,
+            "title": "Dry beans at Papaya Supermarket in Dearborn, Michigan, June 2023. Archive context; not a September 2026 price observation.",
+            "topImage": false,
+            "type": "image/jpeg",
+            "width": 1456
+          },
+          "type": "image2"
+        },
+        {
+          "type": "caption",
+          "content": [
+            {
+              "type": "text",
+              "text": "Dry beans at Papaya Supermarket in Dearborn, Michigan, June 2023. Archive context; not a September 2026 price observation."
+            },
+            {
+              "type": "text",
+              "text": " USDAgov / U.S. Department of Agriculture, via Wikimedia Commons. Public domain (17 USC 105).",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://commons.wikimedia.org/wiki/File:WIC_Environments_in_Michigan_(20230621-USDA-FNS-UNK-0020).jpg",
+                    "target": "_blank"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "type": "captionedImage"
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "What the annual history shows"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The dated BLS releases show different paths over the 24-month window. Headline annual inflation was 2.6% in October 2024 and 3.7% in September 2026. Core was 3.3% and 2.6%, respectively. Headline reached 4.2% in May 2026 before the September reading; the path was uneven."
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "attrs": {
+            "align": null,
+            "alt": "Two lines show first-reported annual CPI-U inflation from October 2024 to September 2026, with a gap at October 2025. Headline starts at 2.6%, reaches 4.2% in May 2026 and ends at 3.7%. Core starts at 3.3% and ends at 2.6%.",
+            "belowTheFold": false,
+            "bytes": 100186,
+            "fullscreen": null,
+            "height": 1040,
+            "href": null,
+            "imageSize": null,
+            "internalRedirect": "https://capitalchronicle.substack.com/i/223246940?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fcafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png",
+            "isProcessing": false,
+            "offset": false,
+            "resizeWidth": null,
+            "src": "https://substack-post-media.s3.amazonaws.com/public/images/cafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png",
+            "srcNoWatermark": null,
+            "title": "U.S. CPI-U, twelve-month change, not seasonally adjusted, October 2024-September 2026. Each point uses its first published reading. October 2025 has no published reading. Source: BLS dated CPI releases.",
+            "topImage": false,
+            "type": "image/png",
+            "width": 1440
+          },
+          "type": "image2"
+        },
+        {
+          "type": "caption",
+          "content": [
+            {
+              "type": "text",
+              "text": "U.S. CPI-U, twelve-month change, not seasonally adjusted, October 2024-September 2026. Each point uses its first published reading. October 2025 has no published reading. Source: BLS dated CPI releases."
+            }
+          ]
+        }
+      ],
+      "type": "captionedImage"
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Core excludes food and energy. Its lower annual reading describes that narrower basket. It does not establish how long the pressure in the full basket would last."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "The monthly pace"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "In the October 14 release, September's monthly headline increase was 0.6%, following 0.4% in August. Core rose 0.3% in both months. At the published precision, the latest monthly pace increased in headline CPI while core's pace held steady."
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "attrs": {
+            "align": null,
+            "alt": "Two lines show first-reported monthly, seasonally adjusted CPI-U changes from October 2024 to September 2026. Both lines break at October and November 2025. September 2026 headline inflation is 0.6%, following 0.4% in August; core is 0.3% in both months.",
+            "belowTheFold": false,
+            "bytes": 125404,
+            "fullscreen": null,
+            "height": 1040,
+            "href": null,
+            "imageSize": null,
+            "internalRedirect": "https://capitalchronicle.substack.com/i/223246940?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png",
+            "isProcessing": false,
+            "offset": false,
+            "resizeWidth": null,
+            "src": "https://substack-post-media.s3.amazonaws.com/public/images/a5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png",
+            "srcNoWatermark": null,
+            "title": "U.S. CPI-U, one-month change, seasonally adjusted, October 2024-September 2026. These are first-release vintages. October and November 2025 have no one-month readings; November's release covered two months. Source: BLS dated CPI releases.",
+            "topImage": false,
+            "type": "image/png",
+            "width": 1440
+          },
+          "type": "image2"
+        },
+        {
+          "type": "caption",
+          "content": [
+            {
+              "type": "text",
+              "text": "U.S. CPI-U, one-month change, seasonally adjusted, October 2024-September 2026. These are first-release vintages. October and November 2025 have no one-month readings; November's release covered two months. Source: BLS dated CPI releases."
+            }
+          ]
+        }
+      ],
+      "type": "captionedImage"
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The history charts preserve each month's first reading in its dated BLS release. The monthly chart therefore follows successive release vintages, rather than today's revised seasonally adjusted history. Its breaks preserve the months without published one-month readings."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "What contributed to September's increase"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "BLS Table 6 supplies the component effects that the headline-core gap alone cannot identify. Energy contributed 0.377 percentage points to the all-items monthly change, core contributed 0.265 points and food contributed 0.006 points. Energy was the largest of these broad contributions, while core also added to the increase."
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "attrs": {
+            "align": null,
+            "alt": "Horizontal bars show September 2026 seasonally adjusted effects on all-items monthly CPI-U inflation: energy 0.377 percentage points, core excluding food and energy 0.265 points, and food 0.006 points. Energy has the largest broad contribution.",
+            "belowTheFold": false,
+            "bytes": 69645,
+            "fullscreen": null,
+            "height": 1040,
+            "href": null,
+            "imageSize": null,
+            "internalRedirect": "https://capitalchronicle.substack.com/i/223246940?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb13fb2a5-f023-4c78-8cff-23d99cb05ee5_1440x1040.png",
+            "isProcessing": false,
+            "offset": false,
+            "resizeWidth": null,
+            "src": "https://substack-post-media.s3.amazonaws.com/public/images/b13fb2a5-f023-4c78-8cff-23d99cb05ee5_1440x1040.png",
+            "srcNoWatermark": null,
+            "title": "Reported effects on all-items CPI-U, August-September 2026, seasonally adjusted, in percentage points. The three broad categories do not overlap. Effects retain BLS's three-decimal precision; the headline monthly rate is published as 0.6%. Source: BLS, October 14, 2026 release, Table 6.",
+            "topImage": false,
+            "type": "image/png",
+            "width": 1440
+          },
+          "type": "image2"
+        },
+        {
+          "type": "caption",
+          "content": [
+            {
+              "type": "text",
+              "text": "Reported effects on all-items CPI-U, August-September 2026, seasonally adjusted, in percentage points. The three broad categories do not overlap. Effects retain BLS's three-decimal precision; the headline monthly rate is published as 0.6%. Source: BLS, October 14, 2026 release, Table 6."
+            }
+          ]
+        }
+      ],
+      "type": "captionedImage"
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "A component's inflation rate describes how fast prices changed within that basket. Its percentage-point effect describes how much it added to the all-items change. Keeping those measures separate makes the composition of September's increase clearer."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "What the release leaves open"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The component effects explain September's composition; persistence requires evidence beyond one month's breakdown. A surprise claim requires a dated expectation, and a market-reaction claim requires contemporaneous prices. The CPI figures alone establish neither."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Analysis, not financial advice. Readers decide whether to trade."
+        }
+      ]
+    }
+  ]
+}

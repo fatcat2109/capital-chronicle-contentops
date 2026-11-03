@@ -1,0 +1,39 @@
+{
+  "item": "CC-042",
+  "recorded_at_utc": "2026-10-30T23:43:49.412858+00:00",
+  "authority": "Jim decision6 / CC-051(a) and current CC-042",
+  "before": {
+    "singleton_id": 1,
+    "operating_mode": "KILL_SWITCH",
+    "state_version": 39,
+    "updated_at_utc": "2026-10-29T22:51:41.134311+00:00",
+    "control_source": "LOCAL_DAILY_APP_UI"
+  },
+  "update_result": {
+    "singleton_id": 1,
+    "operating_mode": "AUTONOMOUS_DEFAULT",
+    "state_version": 40,
+    "updated_at_utc": "2026-10-30T23:43:49.392869+00:00",
+    "control_source": "JIM_CC051A_CC042_RESUME_20261031"
+  },
+  "after": {
+    "singleton_id": 1,
+    "operating_mode": "AUTONOMOUS_DEFAULT",
+    "state_version": 40,
+    "updated_at_utc": "2026-10-30T23:43:49.392869+00:00",
+    "control_source": "JIM_CC051A_CC042_RESUME_20261031"
+  },
+  "operator_pause_cleared": true,
+  "operator_pause_present_after": false,
+  "pause_released_last": true,
+  "mechanism": "ContentOpsDurableStore.update_operating_control CAS; resume_llm_operator_execution",
+  "recovery_rechecked_before_change": {
+    "ambiguous_dispatches": 0,
+    "pending_reconciliations": 0,
+    "active_unexpired_leases": 0,
+    "pending_operator_triggers": 0
+  },
+  "public_write_performed": false,
+  "process_started_or_restarted": false,
+  "acceptance_passed": false
+}

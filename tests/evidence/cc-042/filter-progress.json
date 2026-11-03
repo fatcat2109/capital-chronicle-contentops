@@ -1,0 +1,91 @@
+{
+  "observed_at_utc": "2026-10-31T00:07:18.770827+00:00",
+  "run_id": "cc042-live-resume-20261031-a",
+  "cutoff_utc": "2026-10-30T23:45:33.033578Z",
+  "frozen_x_record_count": 661,
+  "accepted_batches": [
+    {
+      "stage": "filter-558ab154bc51246e146f2ef2a944ceef4a2ccd142b879ccc0bdbed91002816c0",
+      "request_sha256": "26af6b8400541287ea1e9d5c55ac5207992c04e20a2c679b38bbe011bea0312f",
+      "response_file_sha256": "292c6ee3a5cb4f84de7179045e20e2be6aa902ae2e4563b227f8212c737fca0f",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_26af6b840054",
+        "model": null,
+        "reasoning_effort": null,
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "this explicit supported spawn request",
+        "observation_source": "native task context; runtime model and effort telemetry were unavailable",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "counts": {
+        "KEEP": 70,
+        "REJECT": 25,
+        "DEFER": 1
+      },
+      "record_count": 96
+    },
+    {
+      "stage": "filter-a6a8c7cc8150d7b5ef105417565515a2b600c5e985c680495d70eccf641bd8ee",
+      "request_sha256": "e74279a268496bf84db5e16ef0aa33024afce097c62ff9d0fbe7b53c4875991b",
+      "response_file_sha256": "0fe8412176a1ad8bc989ca2b9e9df03847070a121fc7a70ebf908461069825a0",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_e74279a26849",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "this explicit supported spawn request",
+        "observation_source": "native subagent task context; actual model and effort not exposed",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "counts": {
+        "KEEP": 60,
+        "REJECT": 32,
+        "DEFER": 4
+      },
+      "record_count": 96
+    },
+    {
+      "stage": "filter-d235140d580e954bbdefd473d45c94ca035642f985f947608432aaaab079cdf5",
+      "request_sha256": "2745a51827072c768e80688675df896797c1342f95263b2b1528c821d7a7416d",
+      "response_file_sha256": "0399be00e7b8b5e8e16dc4a7e47a8278fb8ceeb449fda90d84581eac01f341b7",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_2745a5182707",
+        "model": null,
+        "reasoning_effort": null,
+        "observation_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "this explicit supported spawn request",
+        "observation_source": "native subagent task context; actual backend model and effort are not exposed in the available context",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED"
+      },
+      "counts": {
+        "KEEP": 57,
+        "REJECT": 29,
+        "DEFER": 10
+      },
+      "record_count": 96
+    }
+  ],
+  "accepted_records": 288,
+  "remaining_unprocessed": 373,
+  "native_configuration": "CONFIGURED_NOT_OBSERVED",
+  "metadata_shape_repair": "One return used observation_status instead of configuration_status; exact original retained; only metadata key corrected before submit using supported spawn configuration, semantic output unchanged.",
+  "publication_count": 0,
+  "first_window_yield": "NOT_YET_OBSERVED",
+  "same_worker_revision_round_trip": "NOT_YET_OBSERVED"
+}

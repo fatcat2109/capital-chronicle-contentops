@@ -164,3 +164,23 @@ def test_malformed_optional_native_lineage_fails_closed(field, value):
     native["lineage_sha256"] = sha256_of({k: v for k, v in native.items() if k != "lineage_sha256"})
     with pytest.raises(ValueError, match="PUBLIC_NATIVE_LINEAGE_BINDING_INVALID"):
         interpret_public_native_lineage(row, envelope)
+
+
+@pytest.mark.parametrize("effort", ["high", "max", "low", "unknown", None])
+def test_native_lineage_records_approved_top_level_configuration(effort):
+    from live_contentops.capital_chronicle_public_native_lineage_v1 import interpret_public_native_lineage
+    _, src = source()
+    bundle = src.bundle(src.manifest["latest_by_asset"]["UKOIL"])
+    row = json.loads(bundle["public_export"])["latest_reports"][0]
+    native = row["native_public_lineage"]
+    native["reasoning_effort"] = effort
+    native["lineage_sha256"] = sha256_of({k: v for k, v in native.items() if k != "lineage_sha256"})
+    if effort in {"high", "max"}:
+        result = interpret_public_native_lineage(row, json.loads(bundle["envelope"]))
+        assert result["configured_reasoning_effort"] == effort
+        assert result["configuration_status"] == "CONFIGURED_NOT_OBSERVED"
+        assert result["independent_native_runtime_verified"] is False
+        assert result["publication_authority"] is False
+    else:
+        with pytest.raises(ValueError, match="PUBLIC_NATIVE_LINEAGE_BINDING_INVALID"):
+            interpret_public_native_lineage(row, json.loads(bundle["envelope"]))

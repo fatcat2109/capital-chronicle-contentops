@@ -1,0 +1,61 @@
+{
+  "schema_version": "contentops.cc042.day_note_reconciliation_artifacts.v1",
+  "purpose": "Exact reviewed-production CLI and read-only reconciliation under Jim direct day note G-20261101-1. No new native/source/public activity or production code change.",
+  "files": [
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/advance.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/advance.stdout.json",
+      "bytes": 3887,
+      "sha256": "8e48b1cf50db18c11d170d35284ebdaf301336743c4725695bd4cd66323b0f22"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/baseline.json",
+      "bytes": 232955,
+      "sha256": "997e1ef91b368de48af424dd861a25214ea44c0847f6ecd2ed447316a43c6844"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/publication-prepare.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/publication-prepare.stdout.json",
+      "bytes": 308,
+      "sha256": "9054aff62f90b04d914ca9a335d269c504b7fba5ea0c396e871c77bb7d3c7527"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/publication-status.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/publication-status.stdout.json",
+      "bytes": 234,
+      "sha256": "cb7456a81a403a2f51bc7109ab33d47653a8b55c82841f042ffb4761d32900db"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/reconciliation.json",
+      "bytes": 8649,
+      "sha256": "f5c4b9f20b262e5afcc70218fecbb00a03d6b63ecb75ccddec29b18c9cc95133"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/reviewed-owner-calls.json",
+      "bytes": 7859,
+      "sha256": "02530b4562fd3d6df176981eeaa30ee9c233d4583f1ef342b4b073e58d78fd49"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/status.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/evidence/cc-042/day-note-20261101/status.stdout.json",
+      "bytes": 10602,
+      "sha256": "38a5f713d4a75073497c5fd871552b9b1c3cf9118a9858165af38a40b85b258f"
+    }
+  ]
+}

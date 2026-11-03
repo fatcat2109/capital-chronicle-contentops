@@ -1,0 +1,4 @@
+* -text
+# Keep pytest traceback whitespace and exact raw JUnit bytes in these diagnostics.
+*.txt -whitespace
+*.xml -whitespace

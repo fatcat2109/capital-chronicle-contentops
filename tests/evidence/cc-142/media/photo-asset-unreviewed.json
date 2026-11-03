@@ -1,0 +1,23 @@
+{
+  "source_page_url": "https://commons.wikimedia.org/wiki/File:WIC_Environments_in_Michigan_(20230621-USDA-FNS-UNK-0020).jpg",
+  "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/9/9c/WIC_Environments_in_Michigan_%2820230621-USDA-FNS-UNK-0020%29.jpg",
+  "creator_publisher": "USDAgov / U.S. Department of Agriculture",
+  "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+  "rights_status": "PUBLIC_DOMAIN",
+  "depicted_date": "Taken on\u00a022 June 2023, 10:31:28",
+  "asset_id": "cpi-usda-supermarket-archive",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\media\\usda-michigan-supermarket-20230622.jpg",
+  "sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+  "width": 5364,
+  "height": 3334,
+  "modality": "documentary_photo",
+  "context_only": true,
+  "corroborates_article_facts": false,
+  "attribution": "USDAgov / U.S. Department of Agriculture, via Wikimedia Commons. Public domain (17 USC 105).",
+  "caption": "Dry beans at Papaya Supermarket in Dearborn, Michigan, June 2023. Archive context; not a September 2026 price observation.",
+  "alt_text": "Bags of dry beans displayed on shelves at a supermarket in Dearborn, Michigan.",
+  "relevance_rationale": "Authentic archive context for the consumer basket; it does not corroborate any September CPI value.",
+  "source_reuse_basis": "Work of a USDA employee in official duties; public domain under 17 USC 105. Commons PD-USGov-USDA tag and Public Domain Mark review retained.",
+  "rights_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\media\\usda-photo-rights.json",
+  "rights_evidence_sha256": "0f5af7275a5099b623c66608b44ddfafc37d8ad0593c4fc8af9a9ffa72a113ea"
+}

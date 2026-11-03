@@ -1,0 +1,636 @@
+{
+  "schema_version": "contentops.cc123.validation.v1",
+  "observed_at_utc": "2026-11-02T19:00:42.783653+00:00",
+  "branch": "backlog/cc-123-publication-path",
+  "base_tag": "contentops-live-20261102-d39",
+  "dependencies": {
+    "CC-117": "98b3d40a7772a323f72ce979de2e1c7cd4e8020f",
+    "CC-107": "22f3d2f6"
+  },
+  "launch": {
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "process_id": 25924,
+    "source": "Read-only Win32_Process ancestry argument readback; no session files"
+  },
+  "checks": [
+    {
+      "junit": "docs/publisher/CC-123/checks/dependencies.xml",
+      "tests": "361",
+      "failures": "0",
+      "errors": "0",
+      "time": "190.148",
+      "processes": 1,
+      "workers": 1,
+      "whole_suite": false
+    },
+    {
+      "junit": "docs/publisher/CC-123/checks/finished-path.xml",
+      "tests": "206",
+      "failures": "0",
+      "errors": "0",
+      "time": "165.291",
+      "processes": 1,
+      "workers": 1,
+      "whole_suite": false
+    },
+    {
+      "junit": "docs/publisher/CC-123/checks/media-policy.xml",
+      "tests": "164",
+      "failures": "0",
+      "errors": "0",
+      "time": "190.373",
+      "processes": 1,
+      "workers": 1,
+      "whole_suite": false,
+      "dependencies": "Existing ContentOps node_modules exposed through an ignored junction in this exec checkout; no package install or operating modules write"
+    },
+    {
+      "junit": "docs/publisher/CC-123/checks/delivery-roles.xml",
+      "tests": "44",
+      "failures": "0",
+      "errors": "0",
+      "time": "110.172",
+      "processes": 1,
+      "workers": 1,
+      "whole_suite": false
+    },
+    {
+      "junit": "docs/publisher/CC-123/checks/x-media-readback.xml",
+      "tests": "62",
+      "failures": "0",
+      "errors": "0",
+      "time": "86.673",
+      "processes": 1,
+      "workers": 1,
+      "whole_suite": false
+    },
+    {
+      "junit": "docs/publisher/CC-123/checks/distribution-isolation.xml",
+      "tests": "125",
+      "failures": "0",
+      "errors": "0",
+      "time": "184.558",
+      "processes": 1,
+      "workers": 1,
+      "whole_suite": false
+    }
+  ],
+  "implementation_head": "78d14adc3dfcf3127e05c8720c0958b0679feeb3",
+  "integration": {
+    "observed_at_utc": "2026-11-02T16:47:26.418950+00:00",
+    "previous_head": "71bceaa33b68d55f57e5b035f20093f9433a79d9",
+    "rollback_tag": "contentops-live-20261102-d39",
+    "integrated_head": "b018d116c256b52cbab8525c122d672311e4b616",
+    "tag": "contentops-live-20261102-cc123a",
+    "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+    "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+    "uncommitted_entries": 42,
+    "active_leases": 0,
+    "mode": "FAST_FORWARD_ONLY"
+  },
+  "publications": [
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+      "plan_hash": "3e3688a80ed0b93c4dde74a61ac992609ce879b9f40ee1223df414c030af267c",
+      "canonical_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+      "canonical_article_status": "REAL_PUBLISHED",
+      "canonical_article_real_published": true,
+      "canonical_publication_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+      "derivative_confirmed_count": 4,
+      "unknown_write_count": 1,
+      "destinations": [
+        {
+          "destination": "substack",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "223199520",
+          "public_object_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+          "dispatch_recorded": true,
+          "cached_readiness": "READY_AUTHENTICATED",
+          "blocker": null
+        },
+        {
+          "destination": "telegram",
+          "transport": "BOT_API",
+          "dispatch_id": "dispatch_44015f64ead73e6dba975de3e41879c2",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "73",
+          "public_object_url": "https://t.me/CapitalChronicle/73",
+          "dispatch_recorded": true,
+          "cached_readiness": "READY_NON_BROWSER_BINDING",
+          "blocker": null
+        },
+        {
+          "destination": "discord",
+          "transport": "WEBHOOK_API",
+          "dispatch_id": "dispatch_be8e8109d71a01ca26336982a8aadcf2",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "1566872070753751344",
+          "public_object_url": null,
+          "dispatch_recorded": true,
+          "cached_readiness": "READY_NON_BROWSER_BINDING",
+          "blocker": null
+        },
+        {
+          "destination": "x",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_5a2137e1a148265564399a6f60c6fb27",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "2117318307866968521",
+          "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521",
+          "dispatch_recorded": true,
+          "cached_readiness": "READY_AUTHENTICATED",
+          "blocker": null
+        },
+        {
+          "destination": "linkedin",
+          "transport": "OFFICIAL_MEMBER_API",
+          "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+          "status": "UNKNOWN_WRITE",
+          "reconciliation_status": "RECONCILIATION_PENDING",
+          "public_object_id": null,
+          "public_object_url": null,
+          "dispatch_recorded": true,
+          "cached_readiness": "READY_NON_BROWSER_BINDING",
+          "blocker": "UNKNOWN_WRITE"
+        },
+        {
+          "destination": "facebook_page",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_bb9379a6030ed281b28a7798c7688759",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "106091951705748_1442865088031907",
+          "public_object_url": "https://www.facebook.com/1342369584748125/posts/1442865088031907",
+          "dispatch_recorded": true,
+          "cached_readiness": "READY_NON_BROWSER_BINDING",
+          "blocker": null
+        },
+        {
+          "destination": "instagram_business",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_371115ac151c4db5280d7351ec1429fe",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "public_object_id": null,
+          "public_object_url": null,
+          "dispatch_recorded": true,
+          "cached_readiness": "READY_NON_BROWSER_BINDING",
+          "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+        },
+        {
+          "destination": "threads",
+          "transport": "THREADS_API",
+          "dispatch_id": "dispatch_61b248c425f6f223d5cb8e44cfa8abe8",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "dispatch_recorded": false,
+          "cached_readiness": "AUTH_INVALID",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "youtube",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_b0c56e93220ba413672e6a8110c75cb8",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "public_object_id": null,
+          "public_object_url": null,
+          "dispatch_recorded": true,
+          "cached_readiness": "READY_AUTHENTICATED",
+          "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+        }
+      ]
+    }
+  ],
+  "finished_path": {
+    "status": "INTEGRATED",
+    "general_promotion": "Same existing import engine; source snapshots and reviews preserved",
+    "standing": "Live owner-manual binding, one operation, shared leases, eight distinct readbacks per day",
+    "drip_hours": 3.5,
+    "publication_clock": "First verified canonical readback; original source cutoff unchanged",
+    "initial_fixes": [
+      "Completed new fixture feed pointer",
+      "Joined exact reconciliation before counting canonical records",
+      "Read nested native readback proof"
+    ],
+    "source_fomc_read_only_check": "PASS",
+    "native_editorial_calls": 0,
+    "public_writes": "One canonical and four derivative channels confirmed; remaining destinations retain named recovery states"
+  },
+  "integrations": [
+    {
+      "observed_at_utc": "2026-11-02T16:47:26.418950+00:00",
+      "previous_head": "71bceaa33b68d55f57e5b035f20093f9433a79d9",
+      "rollback_tag": "contentops-live-20261102-d39",
+      "integrated_head": "b018d116c256b52cbab8525c122d672311e4b616",
+      "tag": "contentops-live-20261102-cc123a",
+      "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "uncommitted_entries": 42,
+      "active_leases": 0,
+      "mode": "FAST_FORWARD_ONLY"
+    },
+    {
+      "observed_at_utc": "2026-11-02T17:06:36.033483+00:00",
+      "previous_head": "b018d116c256b52cbab8525c122d672311e4b616",
+      "rollback_tag": "contentops-live-20261102-cc123a",
+      "integrated_head": "bef1da223c3cf0851369bf63df775f6f67f413e8",
+      "tag": "contentops-live-20261103-cc123b",
+      "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "uncommitted_entries": 42,
+      "active_leases": 0,
+      "mode": "FAST_FORWARD_ONLY"
+    },
+    {
+      "observed_at_utc": "2026-11-02T17:46:54.250727+00:00",
+      "previous_head": "bef1da223c3cf0851369bf63df775f6f67f413e8",
+      "rollback_tag": "contentops-live-20261103-cc123b",
+      "integrated_head": "e2dc5c649290d450766995fe95e3d38e94f0f734",
+      "tag": "contentops-live-20261103-cc123c",
+      "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "uncommitted_entries": 42,
+      "active_leases": 0,
+      "mode": "FAST_FORWARD_ONLY"
+    },
+    {
+      "observed_at_utc": "2026-11-02T18:04:38.097565+00:00",
+      "previous_head": "e2dc5c649290d450766995fe95e3d38e94f0f734",
+      "rollback_tag": "contentops-live-20261103-cc123c",
+      "integrated_head": "4d83c2ba04450ee68f2ed986a5a3812325bcc585",
+      "tag": "contentops-live-20261103-cc123d",
+      "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "uncommitted_entries": 42,
+      "active_window_leases": 0,
+      "mode": "FAST_FORWARD_ONLY",
+      "integration_lease": "Existing shared newsroom lease"
+    },
+    {
+      "observed_at_utc": "2026-11-02T18:16:33.041029+00:00",
+      "previous_head": "4d83c2ba04450ee68f2ed986a5a3812325bcc585",
+      "rollback_tag": "contentops-live-20261103-cc123d",
+      "integrated_head": "2197c1380897477d91568a701c585ed8e7b2f3fb",
+      "tag": "contentops-live-20261103-cc123e",
+      "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "uncommitted_entries": 42,
+      "active_window_leases": 0,
+      "mode": "FAST_FORWARD_ONLY",
+      "integration_lease": "Existing shared newsroom lease"
+    },
+    {
+      "observed_at_utc": "2026-11-02T19:00:42.752665+00:00",
+      "previous_head": "2197c1380897477d91568a701c585ed8e7b2f3fb",
+      "rollback_tag": "contentops-live-20261103-cc123e",
+      "integrated_head": "78d14adc3dfcf3127e05c8720c0958b0679feeb3",
+      "tag": "contentops-live-20261103-cc123",
+      "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+      "uncommitted_entries": 42,
+      "active_window_leases": 0,
+      "mode": "FAST_FORWARD_ONLY",
+      "integration_lease": "Existing shared newsroom lease"
+    }
+  ],
+  "publication_attempt": {
+    "operation_id": "cc074-retro-fomc-20261028-v1",
+    "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+    "plan_hash": "3e3688a80ed0b93c4dde74a61ac992609ce879b9f40ee1223df414c030af267c",
+    "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+    "request_sha256": "291678d489406acd8b12749f6330c1cab34cdf5fd5c8489954e52bf5bdf7eb50",
+    "tool_request_sha256": "e987e4528e6ccfc89e42a1b69f9f26c21eb147a25f9d755040f5a23b83b01283",
+    "publisher_invocation": "/root",
+    "invocation_source": "Supported current native agent task identity, not environment/session files",
+    "platform_draft_id": "223199520",
+    "platform_draft_url": "https://capitalchronicle.substack.com/publish/post/223199520",
+    "approved_copy_transport_check": "PASS; original prose, three original media, captions, credits and alt texts; only smart punctuation normalized",
+    "preview_pixels": "Actual Neo mobile vote chart and desktop operating-rate chart inspected for delivery; retained same-writer acceptance remains original",
+    "canonical_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+    "canonical_readback_confirmed": true,
+    "derivative_writes": 4,
+    "retry_permitted": false,
+    "human_help": "Human verification resolved and control returned; no email/code access, resend, duplicate draft or repeated canonical write",
+    "observed_at_utc": "2026-11-02T17:39:43.429254+00:00",
+    "local_copy_check_sha256": "c19c81a67708b7856e9068f0d52acac003fc685c1343fadf89521332cc1c9df0",
+    "native_publish_return_sha256": "869913de647983b3198a046d31002e41ee741a0a5d891e3b066ef67b2baab9c3",
+    "dispatch_status": "DISPATCH_CONFIRMED",
+    "unknown_write_count": 0,
+    "pending_action": "DESTINATION_LOCAL_RECOVERY_ONLY",
+    "readback_request_sha256": "505555cb4d538fcd883c077995f28c4cae261ad182297e56686f7b3d1d59011a",
+    "initial_publish_observation": "Check your email; Verification code required after Publish without buttons",
+    "initial_first_cause": "SUBSTACK_EMAIL_VERIFICATION_REQUIRED",
+    "initial_native_return_status": "UNKNOWN_WRITE",
+    "reconciliation_status": "RECONCILED_CONFIRMED",
+    "canonical_readback_observed_at_utc": "2026-11-02T17:49:27.270640+00:00"
+  },
+  "launch_resume": {
+    "process_id": 43480,
+    "exec_resume": true,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "source": "Current Win32_Process ancestry arguments read back; no session files"
+  },
+  "media_policy": {
+    "authority": "JIM_DECISIONS_20261030_DECISION_39",
+    "minimum_charts": 0,
+    "minimum_photos": 0,
+    "instagram_missing_image": "SKIPPED_IMAGE_REQUIRED",
+    "source_lineage_and_rights": "UNCHANGED",
+    "new_visual_decision_prompt": "No minimum for ANALYSIS, NEWS or POLICY; same MAX editor chooses useful source-bound media",
+    "recovery": "Claimed uncertain writes retain readback-first; no new dispatch"
+  },
+  "lint": {
+    "changed_paths": "PASS",
+    "existing_impl_module": "Pre-existing F401 and E731 findings excluded; no unrelated lint repair",
+    "new_source_changes": "PASS",
+    "coordinator_test_file": "Pre-existing F401/E701 findings remain outside changed lines"
+  },
+  "final_code_sha256": {
+    "live_contentops/native_finished_publication_v1.py": "c0c2c2e0c1d1fafa55568541a30e113fcd81c0c93d0b1f1cf535ecd63a1727e4",
+    "live_contentops/native_publication_promotion_v1.py": "7d1ac7d025cdba5b6933c32ffd71b8bb75907e380af3486ba7a9b0fce3e91619",
+    "live_contentops/native_desktop_publication_v1.py": "075561466531d78d8ac6214e705345fdb2fd3b6f74e5c85c4ea474b11e538d96",
+    "live_contentops/native_desktop_editorial_v1.py": "966272c165941d8f612918672505ef8845a145f269ed1b8d998cc39a39208fd6",
+    "live_contentops/native_newsroom_volume_v1.py": "384703ccdd351c6bccdc0ef682acd7535d36505cc794ad8e8e3331308f076c8c",
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": "b0afd1180c5de4661e3191627cc36836d2b4cf4feb53e403d11e68979dd24162",
+    "live_contentops/v1_simple_gemini_newsroom_v1.py": "24d8c4ec2bed9faa3bc90eb7d982c08947a6836cdfec8f2b6cca940bd2e2ef11",
+    "scripts/run_native_desktop_editorial.py": "e26025688eff13321c66ee6d9e556669527388b6645c26e63ebf7b9aebcb0699",
+    "tests/test_native_finished_publication_v1.py": "60f442ccacb1f30069d97eff116956ace5a6ae949a86c3df8d1c19b08f4e2f86",
+    "live_contentops/media_manifest_authority_v1.py": "25710ee9225e8da21c3e6644049767b07bbae51a8aa00fdad73a7afc2e9bf094",
+    "tests/test_media_manifest_authority_v1.py": "b9f12850600d71753249094af33281dbfd0b7926a2610dd7196711a1413bbd85",
+    "live_contentops/neo_destination_handoff_v1.py": "da4d810664d5fb505b0c09df7adb777f01e3383e7c30a51d82d28960a69d2def",
+    "tests/test_native_neo_executor_v1.py": "c38d81b80a2d0878e5217fe775768cdd2e387a1fa53aac32857d40e90d3f886e",
+    "live_contentops/publication_coordinator_v1.py": "1c83ec6c5982cbdeac582c92b70043c361211e719e423ea5a7a96cb05c133536",
+    "live_contentops/v1_simple_publication_handoff_v1.py": "1237e56b14077e1a9c2262f8c12bc61b37e32f3742da41e600f88f7865fa4830",
+    "tests/test_publication_coordinator_v1.py": "ff6a16a06e5c589ec31dbe9d2f65d5e8d19cbf0125e8bcec9ee8404d86c7e280"
+  },
+  "status": "DONE_CANONICAL_READBACK_CONFIRMED_DISTRIBUTION_PARTIAL",
+  "delivery_media_fix": {
+    "cause": "Native editorial_data_journalism and retained public-domain documentary-photo roles were unrecognized by the legacy delivery selector",
+    "source_assets_and_reviews": "UNCHANGED",
+    "hash_and_rights_checks": "PRESERVED",
+    "checks": "44 targeted tests PASS"
+  },
+  "interrupted_lease_recovery": {
+    "observed_at_utc": "2026-11-02T18:04:08.880629+00:00",
+    "cause": "Prior exec interruption stopped the publisher before its finally block",
+    "publisher_processes": 0,
+    "method": "Existing ContentOpsDurableStore.release_lease with exact original owner and fencing token",
+    "released_lease_ids": [
+      "lease_1fc3334a044f9da6",
+      "lease_4e429b91c5b9db7f"
+    ],
+    "no_window_lease_released": true
+  },
+  "x_actual_publication": {
+    "public_object_id": "2117318307866968521",
+    "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521",
+    "observed_thread": [
+      {
+        "public_object_id": "2117318307866968521",
+        "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521",
+        "observed_text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\n\nhttps://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+        "raw_observed_text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\n\nhttps://\ncapitalchronicle.substack.com/p/the-fed-held\n-on-october-28-both-dissenters\n\u2026"
+      },
+      {
+        "public_object_id": "2117318312149275058",
+        "public_object_url": "https://x.com/Capitalnicle/status/2117318312149275058",
+        "observed_text": "Watch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote.",
+        "raw_observed_text": "Watch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote."
+      },
+      {
+        "public_object_id": "2117318315236299015",
+        "public_object_url": "https://x.com/Capitalnicle/status/2117318315236299015",
+        "observed_text": "The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade.",
+        "raw_observed_text": "The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade."
+      }
+    ],
+    "observed_media_sha256": [
+      "52f9272112bd845f2aa375b53d635fdb25ad7be6005eced6c3080d91facfc34e"
+    ],
+    "uploaded_source_media_sha256": [
+      "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789"
+    ],
+    "media_comparisons": [
+      {
+        "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521",
+        "public_image_url": "https://pbs.twimg.com/media/HWI5ZHXWwAAJC6M?format=jpg&name=small",
+        "source_asset_sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789",
+        "platform_sha256": "52f9272112bd845f2aa375b53d635fdb25ad7be6005eced6c3080d91facfc34e",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "visual_similarity": 0.999,
+        "meaning": "Actual source and downloaded public chart visually compared: title, dissenters, counts 10 and 2, zero-based member axis and source credit match; X resized and transcoded PNG to JPEG"
+      }
+    ],
+    "normalization": "Only the X-wrapped displayed canonical link was expanded after actual Neo navigation through its t.co URL reached the exact canonical article; whitespace is normalized by the existing checker",
+    "observed_link_resolutions": [
+      {
+        "displayed_url": "https://t.co/4KmC1Kkww4",
+        "target_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+        "target_verified": true,
+        "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521"
+      }
+    ],
+    "coordinator_readback": "RECONCILED_CONFIRMED"
+  },
+  "canonical_delivery": {
+    "status": "PASS",
+    "blockers": [],
+    "selected_primary_media_asset_id": "cc074-fomc-20261028-vote-direction",
+    "selected_primary_media_sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789",
+    "assets": [
+      {
+        "media_asset_id": "cc074-archive-warsh-20260522",
+        "media_role": "contextual_photo",
+        "modality": "documentary_photo",
+        "rights_status": "PUBLIC_DOMAIN",
+        "rights_evidence_sha256": "a2e719ea883df3930fb136ce679a8e244898f459f2d8bf400de5dd445e05b047",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg",
+        "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+        "absolute_local_source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\media\\archive-warsh-20260522.jpg",
+        "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+        "declared_sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+        "mime_type": "image/jpeg",
+        "width": 635,
+        "height": 900,
+        "source_provenance": {
+          "status": null,
+          "source_label": null,
+          "source_page_url": "https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg",
+          "caption": "Photo: [The White House](https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg) \u00b7 [Reuse terms](https://commons.wikimedia.org/wiki/Template:PD-USGov). Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context; this is not a photograph of the October 28 decision."
+        },
+        "chart_title": "Photo: [The White House](https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg) \u00b7 [Reuse terms](https://commons.wikimedia.org/wiki/Template:PD-USGov). Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context; this is not a photograph of the October 28 decision.",
+        "alt_text": "Archive portrait of Kevin Warsh in a navy suit at his May 22, 2026 swearing-in ceremony.",
+        "canonical_article_section_association": "cc074-archive-warsh-20260522",
+        "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/b4c81a31-fde0-48c2-a1b7-c963f175745d_635x900.jpeg",
+        "public_delivery_sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+        "local_public_hash_continuity": true
+      },
+      {
+        "media_asset_id": "cc074-fomc-20261028-vote-direction",
+        "media_role": "editorial_data_journalism",
+        "modality": "source_backed_chart",
+        "source_page_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+        "absolute_local_source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\media_assets\\cc074-fomc-20261028-vote-direction.png",
+        "sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789",
+        "declared_sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789",
+        "mime_type": "image/png",
+        "width": 1500,
+        "height": 1300,
+        "source_provenance": {
+          "status": null,
+          "source_label": null,
+          "source_page_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+          "caption": "The October 28 vote: 10 members approved a hold; Lisa D. Cook and Beth M. Hammack preferred a quarter-point increase. Sources: [Federal Reserve Board](https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm)."
+        },
+        "chart_title": "The October 28 vote: 10 members approved a hold; Lisa D. Cook and Beth M. Hammack preferred a quarter-point increase. Sources: [Federal Reserve Board](https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm).",
+        "alt_text": "October 28, 2026 FOMC vote: 10 members approved holding the target range; 2 members, Lisa D. Cook and Beth M. Hammack, preferred a quarter-percentage-point increase. Horizontal member-count axis starts at zero.",
+        "canonical_article_section_association": "cc074-fomc-20261028-vote-direction",
+        "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/7aec59ba-4da6-4e6c-a6b9-767eb96e1798_1500x1300.png",
+        "public_delivery_sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789",
+        "local_public_hash_continuity": true
+      },
+      {
+        "media_asset_id": "cc074-fomc-20261028-rate-framework",
+        "media_role": "editorial_data_journalism",
+        "modality": "source_backed_chart",
+        "source_page_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+        "absolute_local_source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\media_assets\\cc074-fomc-20261028-rate-framework.png",
+        "sha256": "5b4223d7feee9476decf997e3a788f640ba68a223cd5318999ef52124433d851",
+        "declared_sha256": "5b4223d7feee9476decf997e3a788f640ba68a223cd5318999ef52124433d851",
+        "mime_type": "image/png",
+        "width": 1500,
+        "height": 1300,
+        "source_provenance": {
+          "status": null,
+          "source_label": null,
+          "source_page_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+          "caption": "The target range and individual operating settings announced October 28. Reserve interest and the operating directive were effective October 29; primary credit was at its existing level. Sources: [Federal Reserve Board](https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm); [Federal Reserve Board](https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a1.htm)."
+        },
+        "chart_title": "The target range and individual operating settings announced October 28. Reserve interest and the operating directive were effective October 29; primary credit was at its existing level. Sources: [Federal Reserve Board](https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm); [Federal Reserve Board](https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a1.htm).",
+        "alt_text": "Announced October 28, 2026: federal funds target interval 3.75 to 4.00 percent; reserve interest 3.90; standing overnight reverse repo 3.75; standing overnight repo 4.00; existing primary credit 4.00. These are announced settings, not observed market rates. Reserve interest and the operating directive effective October 29.",
+        "canonical_article_section_association": "cc074-fomc-20261028-rate-framework",
+        "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/3eda43e3-d024-4867-8a3e-3d64e98433c5_1500x1300.png",
+        "public_delivery_sha256": "5b4223d7feee9476decf997e3a788f640ba68a223cd5318999ef52124433d851",
+        "local_public_hash_continuity": true
+      }
+    ],
+    "owner_refresh": {
+      "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+      "destination": "substack",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_write_performed": false,
+      "publish_called": false
+    }
+  },
+  "youtube_no_write": {
+    "status": "DEFINITE_NO_WRITE",
+    "definite_no_write": true,
+    "request_sha256": "19e48c17349550d4ea49712472bd17356285ded323bf443d11b96bed374514c3",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "reason_code": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+    "public_write_performed": false,
+    "public_object_id": null,
+    "public_object_url": null
+  },
+  "remaining_distribution": {
+    "linkedin": "UNKNOWN_WRITE; exact readback/reconciliation, never resend",
+    "instagram_business": "RECONCILED_ABSENT_SAFE_TO_RETRY; DELIVERY_MEDIA_RECOVERY_BLOCKED_UNKNOWN_WRITE",
+    "threads": "AUTH_INVALID; no reauthorization attempted",
+    "youtube": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED; Post never clicked; composer cancelled; absence confirmed"
+  },
+  "existing_day_record": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-02-bangkok\\newsroom_production_day_v1.json",
+    "distinct_canonical_items_published": 1,
+    "confirmed_copies_by_channel": {
+      "substack": 1,
+      "telegram": 1,
+      "discord": 1,
+      "x": 1,
+      "facebook_page": 1
+    },
+    "original_evidence_cutoff_utc": "2026-11-01T05:13:41.397188Z",
+    "first_canonical_readback_utc": "2026-11-02T17:50:08.539332+00:00",
+    "next_canonical_eligible_utc": "2026-11-02T21:20:08.539332+00:00"
+  },
+  "prior_distribution_guard": {
+    "status": "TESTED_AND_INTEGRATED",
+    "scope": "Only exact decision 39 finished-release marker or standing binding; frozen/default path unchanged",
+    "old_unknown_write": "PRESERVED; no retry authorized by this classification",
+    "canonical_or_same_article_ambiguity": "STILL_BLOCKS",
+    "read_only_live_predicate": {
+      "observed_at_utc": "2026-11-02T18:49:41.371904+00:00",
+      "kind": "READ_ONLY_ROUTING_PREDICATE_NOT_PUBLICATION_PROOF",
+      "existing_remaining_obligations": [
+        {
+          "work_item_id": "cc074-retro-fomc-20261028-v1",
+          "destination": "instagram_business",
+          "durable_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "blocking_status": "DELIVERY_MEDIA_RECOVERY_BLOCKED_UNKNOWN_WRITE",
+          "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+        },
+        {
+          "work_item_id": "cc074-retro-fomc-20261028-v1",
+          "destination": "linkedin",
+          "durable_status": "UNKNOWN_WRITE",
+          "blocking_status": "UNKNOWN_WRITE",
+          "reconciliation_status": "RECONCILIATION_PENDING"
+        },
+        {
+          "work_item_id": "cc074-retro-fomc-20261028-v1",
+          "destination": "threads",
+          "durable_status": "READY",
+          "blocking_status": "AUTH_INVALID",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc074-retro-fomc-20261028-v1",
+          "destination": "youtube",
+          "durable_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "blocking_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+        }
+      ],
+      "blocks_distinct_future_article": false,
+      "operation_created": false,
+      "public_write_performed": false,
+      "existing_unknown_write_preserved": true
+    },
+    "regression_cases": [
+      "Distinct canonical proceeds without retrying old unknown derivative",
+      "Frozen default blocks prior backlog",
+      "Same article blocked",
+      "Unknown canonical blocked",
+      "Unverified canonical blocked",
+      "Missing readback blocked",
+      "Unbound/incomplete recovery evidence blocked"
+    ]
+  },
+  "next_item": {
+    "item": "CC-124",
+    "required_last_step": "Set OPEN after final checks, push and integration",
+    "article_operation_started": false
+  },
+  "acceptance": {
+    "status": "PASS",
+    "targeted_checks": "Six passing serial targeted JUnit reports; no workers or whole suite",
+    "existing_publisher_real_publication_and_readback": true,
+    "finished_and_standing_path": "TESTED_AND_INTEGRATED",
+    "native_roles_source_clocks_rights_public_output_guard_kill_switch": "PRESERVED",
+    "new_article_or_CC124_operation_started": false
+  }
+}

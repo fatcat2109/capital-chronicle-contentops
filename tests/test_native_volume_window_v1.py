@@ -64,7 +64,7 @@ def make_turn(store, root, run, **extra):
 
 def test_real_source_walk_then_hold_resumes_next_original_admission_without_budget_reset(tmp_path):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
-    first, binding = make_turn(store, tmp_path / "first", "first")
+    first, binding = make_turn(store, tmp_path / "first", "first", window_id="controlled-window")
     rolling = _headlines(6)
     for row in rolling["headlines"]:
         row["source_timestamp_utc"] = "2026-10-30T09:00:00Z"

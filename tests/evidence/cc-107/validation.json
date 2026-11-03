@@ -1,0 +1,131 @@
+{
+  "item": "CC-107",
+  "recorded_at_utc": "2026-11-02T10:40:45.228420+00:00",
+  "base_tag": "contentops-live-20261102-cc042c",
+  "base_commit": "6cf9f73fead0214a3c7efcd5813b98849c19099f",
+  "branch": "backlog/cc-107-event-articles",
+  "implementation": "TWO_WRITER_BRIEFS_AND_OFFLINE_PUBLIC_OUTPUT_GUARD",
+  "launch": {
+    "process_id": 24780,
+    "creation_date_local": "2026-11-02T17:22:54.850038+07:00",
+    "verified_process_name": "codex.exe",
+    "exec_argument_observed": true,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "evidence": "READ_ONLY_PROCESS_ANCESTRY_COMMAND_LINE_MODEL_AND_EFFORT_ARGUMENTS",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "verified_argument_tokens": [
+      "exec",
+      "--model",
+      "gpt-6.1-sol",
+      "-c",
+      "model_reasoning_effort=\"max\""
+    ],
+    "argument_verification": "WINDOWS_COMMAND_LINE_TO_ARGV_TOKEN_READBACK"
+  },
+  "validation": {
+    "pytest_command": "python -m pytest -q tests/test_event_article_guard_v1.py --junitxml=tests/evidence/cc-107/guard.junit.xml",
+    "pytest_processes_started_concurrently": 1,
+    "workers_argument": null,
+    "tests": 133,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit": "tests/evidence/cc-107/guard.junit.xml",
+    "ruff_command": "python -m ruff check live_contentops/event_article_guard_v1.py tests/test_event_article_guard_v1.py",
+    "ruff": "PASS",
+    "git_diff_check": "PASS",
+    "initial_failure_repaired": "An imperative-word pattern also matched buy-side; exact market-language exceptions added and the targeted file rerun."
+  },
+  "file_sha256": {
+    "live_contentops/event_article_guard_v1.py": "d42c42f70a5c153c5496a533c48577d49c8b0d30e7afa49902069aa3c3e0dc79",
+    "tests/test_event_article_guard_v1.py": "7d9a257d99e23e643f7c6371c0c4474d1ce15cf312a077b186806d6410957c02",
+    "docs/publisher/EVENT_ARTICLES_V1/README.md": "a46234ad24762cc2dabdd94ae3d6d3171b653bed75157fe34b2c30c9c4ce526c",
+    "docs/publisher/EVENT_ARTICLES_V1/templates/event_preview.md": "bea8ddcfac06cd316b784abc81b08319f8c2868fa2f61e138308c9f20546d285",
+    "docs/publisher/EVENT_ARTICLES_V1/templates/event_review.md": "2367cc486db825016fe80ac09f66fa3d4a1ff789702f8166c6c1e2c45edc7061"
+  },
+  "draft_inputs": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\PREVIEW.md",
+      "exists": false,
+      "sha256": null,
+      "read_error": {
+        "type": "FileNotFoundError",
+        "errno": 2,
+        "winerror": null
+      },
+      "observed_at_utc": "2026-11-02T10:40:45.228551+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\dossier.json",
+      "exists": false,
+      "sha256": null,
+      "read_error": {
+        "type": "FileNotFoundError",
+        "errno": 2,
+        "winerror": null
+      },
+      "observed_at_utc": "2026-11-02T10:40:45.228651+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1100-dossier-nfp\\DOSSIER.md",
+      "exists": false,
+      "sha256": null,
+      "read_error": {
+        "type": "FileNotFoundError",
+        "errno": 2,
+        "winerror": null
+      },
+      "observed_at_utc": "2026-11-02T10:40:45.228751+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1100-dossier-nfp\\dossier.json",
+      "exists": false,
+      "sha256": null,
+      "read_error": {
+        "type": "FileNotFoundError",
+        "errno": 2,
+        "winerror": null
+      },
+      "observed_at_utc": "2026-11-02T10:40:45.228802+00:00"
+    }
+  ],
+  "drafts_completed": 0,
+  "drafts_required": 2,
+  "blocker": {
+    "cause": "FROZEN_EVENT_INPUTS_NOT_YET_CREATED",
+    "operation": "read retained midterm PREVIEW.md and NFP frozen dossier",
+    "actual_error": "FileNotFoundError (errno 2): required frozen event input paths do not exist",
+    "next_actor": "Claude Ops",
+    "next_action": "Supply the actual frozen midterm PREVIEW.md/dossier and NFP dossier plus existing public source/rights admissions; resume this branch for native drafting and same-writer rendered review."
+  },
+  "limits": [
+    "Synthetic guard fixtures are not real articles or evidence.",
+    "CC-014 live event export and CC-104 public terms check are upstream work.",
+    "No CC-106 score or baseline comparison is invented.",
+    "Guard checks admitted spans and bounded privacy patterns; factual meaning, legal admission and rendered quality remain existing owner/native-review duties.",
+    "New type is not wired into the live native pipeline; a guard PASS never grants publication."
+  ],
+  "actions": {
+    "real_native_editorial_calls": 0,
+    "rendered_reviews": 0,
+    "public_writes": 0,
+    "platform_drafts": 0,
+    "schedules_changed": 0,
+    "chat_messages": 0,
+    "source_acquisitions": 0,
+    "runtime_changes": 0,
+    "operating_root_writes": 0,
+    "main_checkout_writes": 0,
+    "merges": 0
+  },
+  "status": "BLOCKED_FROZEN_EVENT_INPUTS_NOT_YET_CREATED",
+  "remote_verified_implementation_commit": "d8ac777824c2530b9ad67f1301d126d6489bc8c1",
+  "artifact_readback": {
+    "result": "COMMITTED_FILE_HASHES_MATCH_VALIDATION",
+    "checked_commit": "d8ac777824c2530b9ad67f1301d126d6489bc8c1",
+    "remote_head_matched": true
+  }
+}

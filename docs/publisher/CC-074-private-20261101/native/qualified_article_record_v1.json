@@ -1,0 +1,757 @@
+{
+  "accepted_evidence_ids": [
+    "cc074-fomc-20261028-implementation",
+    "cc074-fomc-20261028-statement"
+  ],
+  "accepted_evidence_sha256": "1797e6825c0939abab4b4dca0461d400ec25dac107a3010791884ce8995bd224",
+  "article_body_sha256": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+  "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+  "article_path": null,
+  "attempt_run_id": "cc074-retro-fomc-20261028-v1",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Federal Reserve Board",
+        "primary_reporting_source_identity": "Federal Reserve Board",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Federal Reserve Board reports that the Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "cc074-fomc-20261028-statement"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "cc074-fomc-20261028-vote-direction"
+        ],
+        "media_source_links": {
+          "cc074-fomc-20261028-vote-direction": [
+            {
+              "document_id": "cc074-fomc-20261028-statement",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+            }
+          ]
+        },
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nThe Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\nWhat to watch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote. The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-20a1517c263cdec4\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade."
+      },
+      "payload_sha256": "70c5942feb8c54263403e11e37965a6303a3d6b07b1d50016c75b2f5394f423b",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Federal Reserve Board",
+        "primary_reporting_source_identity": "Federal Reserve Board",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Federal Reserve Board reports that the Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "cc074-fomc-20261028-statement"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-20a1517c263cdec4\n\nWatch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote.\n\nThe October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade.",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "cc074-fomc-20261028-vote-direction"
+        ],
+        "media_source_links": {
+          "cc074-fomc-20261028-vote-direction": [
+            {
+              "document_id": "cc074-fomc-20261028-statement",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+            }
+          ]
+        },
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "cc074-fomc-20261028-vote-direction"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-20a1517c263cdec4"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Watch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote."
+          },
+          {
+            "media_asset_ids": [],
+            "order": 2,
+            "role": "reply",
+            "text": "The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.789,
+            0.475,
+            0.964
+          ],
+          "post_character_counts": [
+            221,
+            133,
+            270
+          ],
+          "reply_count": 2,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.493,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Watch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote.",
+          "The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade."
+        ],
+        "root_text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-20a1517c263cdec4",
+        "text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-20a1517c263cdec4"
+      },
+      "payload_sha256": "b126cabc9be580a6710e4aaf7af43bfc503a5bdd0906250583305f78d93aae48",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Federal Reserve Board",
+        "primary_reporting_source_identity": "Federal Reserve Board",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Federal Reserve Board reports that the Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "cc074-fomc-20261028-statement"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "cc074-fomc-20261028-vote-direction",
+          "cc074-fomc-20261028-rate-framework"
+        ],
+        "media_source_links": {
+          "cc074-fomc-20261028-rate-framework": [
+            {
+              "document_id": "cc074-fomc-20261028-statement",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+            },
+            {
+              "document_id": "cc074-fomc-20261028-implementation",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a1.htm"
+            }
+          ],
+          "cc074-fomc-20261028-vote-direction": [
+            {
+              "document_id": "cc074-fomc-20261028-statement",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+            }
+          ]
+        },
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: The Fed held on October 28. Both dissenters wanted a hike.**\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\n**Context:** The strongest countercase to a looming-hike interpretation is the decision itself: ten members approved keeping the range unchanged. The two dissenters' preference is evidence of disagreement at this meeting, not a forecast of the next vote. Reading the split as a timetable for higher rates would give it a meaning the vote alone cannot establish.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-20a1517c263cdec4\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade."
+      },
+      "payload_sha256": "e3d814eff3cca77ce14928591d40d2d17c11b75d93ea2b816fda8ebd4792fdab",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Federal Reserve Board",
+        "primary_reporting_source_identity": "Federal Reserve Board",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Federal Reserve Board reports that the Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "cc074-fomc-20261028-statement"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "cc074-fomc-20261028-rate-framework"
+        ],
+        "media_source_links": {
+          "cc074-fomc-20261028-rate-framework": [
+            {
+              "document_id": "cc074-fomc-20261028-statement",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+            },
+            {
+              "document_id": "cc074-fomc-20261028-implementation",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a1.htm"
+            }
+          ]
+        },
+        "platform_limit": 3000,
+        "text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nWhy it matters: Capital Chronicle's reading is that the decision and its implementation answer different questions. The vote establishes the target range and the direction of disagreement. The companion note sets out the rates and instructions used to implement that stance. A reader needs both documents to distinguish the policy choice from its operating settings.\n\nContext: The strongest countercase to a looming-hike interpretation is the decision itself: ten members approved keeping the range unchanged. The two dissenters' preference is evidence of disagreement at this meeting, not a forecast of the next vote. Reading the split as a timetable for higher rates would give it a meaning the vote alone cannot establish.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-20a1517c263cdec4\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade."
+      },
+      "payload_sha256": "9bf344c3f722f6c8862fc47c934d4fe40826d8efc82b79adab467b909a9f88db",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Federal Reserve Board",
+        "primary_reporting_source_identity": "Federal Reserve Board",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Federal Reserve Board reports that the Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "cc074-fomc-20261028-statement"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "cc074-fomc-20261028-vote-direction",
+          "cc074-fomc-20261028-rate-framework"
+        ],
+        "media_source_links": {
+          "cc074-fomc-20261028-rate-framework": [
+            {
+              "document_id": "cc074-fomc-20261028-statement",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+            },
+            {
+              "document_id": "cc074-fomc-20261028-implementation",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a1.htm"
+            }
+          ],
+          "cc074-fomc-20261028-vote-direction": [
+            {
+              "document_id": "cc074-fomc-20261028-statement",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+            }
+          ]
+        },
+        "platform_limit": 63206,
+        "text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\nWhy it matters: Capital Chronicle's reading is that the decision and its implementation answer different questions. The vote establishes the target range and the direction of disagreement. The companion note sets out the rates and instructions used to implement that stance. A reader needs both documents to distinguish the policy choice from its operating settings.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-20a1517c263cdec4\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade."
+      },
+      "payload_sha256": "1930785a1c359445fd9725822458b12023b563b78d792ffad1021b146bcb6a03",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Federal Reserve Board",
+        "primary_reporting_source_identity": "Federal Reserve Board",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Federal Reserve Board reports that the Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "cc074-fomc-20261028-statement"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "cc074-fomc-20261028-vote-direction",
+          "cc074-fomc-20261028-rate-framework"
+        ],
+        "media_source_links": {
+          "cc074-fomc-20261028-rate-framework": [
+            {
+              "document_id": "cc074-fomc-20261028-statement",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+            },
+            {
+              "document_id": "cc074-fomc-20261028-implementation",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a1.htm"
+            }
+          ],
+          "cc074-fomc-20261028-vote-direction": [
+            {
+              "document_id": "cc074-fomc-20261028-statement",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+            }
+          ]
+        },
+        "platform_limit": 2200,
+        "text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\nIn focus: The strongest countercase to a looming-hike interpretation is the decision itself: ten members approved keeping the range unchanged. The two dissenters' preference is evidence of disagreement at this meeting, not a forecast of the next vote. Reading the split as a timetable for higher rates would give it a meaning the vote alone cannot establish.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-20a1517c263cdec4\n\n#CapitalChronicle\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade."
+      },
+      "payload_sha256": "56f93140c004b6a5166202be2eb24d30665f043d0fd9209a3f433d62160903c5",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Federal Reserve Board",
+        "primary_reporting_source_identity": "Federal Reserve Board",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Federal Reserve Board reports that the Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "cc074-fomc-20261028-statement"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nThe strongest countercase to a looming-hike interpretation is the decision itself: ten members approved keeping the range unchanged. The two dissenters' preference is evidence of disagreement at this meeting, not a forecast of the next vote. Reading the split as a timetable for higher rates would give it a meaning the vote alone cannot establish.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-20a1517c263cdec4\n\nWhat to watch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote.\n\nThe October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade.",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "cc074-fomc-20261028-vote-direction"
+        ],
+        "media_source_links": {
+          "cc074-fomc-20261028-vote-direction": [
+            {
+              "document_id": "cc074-fomc-20261028-statement",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+            }
+          ]
+        },
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "cc074-fomc-20261028-vote-direction"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nThe strongest countercase to a looming-hike interpretation is the decision itself: ten members approved keeping the range unchanged. The two dissenters' preference is evidence of disagreement at this meeting, not a forecast of the next vote. Reading the split as a timetable for higher rates would give it a meaning the vote alone cannot establish.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-20a1517c263cdec4"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote.\n\nThe October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.972,
+            0.826
+          ],
+          "post_character_counts": [
+            486,
+            413
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.85,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote.\n\nThe October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade."
+        ],
+        "root_text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nThe strongest countercase to a looming-hike interpretation is the decision itself: ten members approved keeping the range unchanged. The two dissenters' preference is evidence of disagreement at this meeting, not a forecast of the next vote. Reading the split as a timetable for higher rates would give it a meaning the vote alone cannot establish.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-20a1517c263cdec4",
+        "text": "The Fed held on October 28. Both dissenters wanted a hike.\n\nThe strongest countercase to a looming-hike interpretation is the decision itself: ten members approved keeping the range unchanged. The two dissenters' preference is evidence of disagreement at this meeting, not a forecast of the next vote. Reading the split as a timetable for higher rates would give it a meaning the vote alone cannot establish.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-20a1517c263cdec4"
+      },
+      "payload_sha256": "b2d14cb83d7b5e58bb959698eb38f8ea06541ccf8f4d7148642572b9799b4a33",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Federal Reserve Board",
+        "primary_reporting_source_identity": "Federal Reserve Board",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Federal Reserve Board reports that the Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "cc074-fomc-20261028-statement"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "cc074-fomc-20261028-vote-direction"
+        ],
+        "media_source_links": {
+          "cc074-fomc-20261028-vote-direction": [
+            {
+              "document_id": "cc074-fomc-20261028-statement",
+              "label": "Federal Reserve Board",
+              "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+            }
+          ]
+        },
+        "platform_limit": 1000,
+        "text": "Update: The Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\nWhat to watch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote. The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-20a1517c263cdec4\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade."
+      },
+      "payload_sha256": "f244e8446bc097efc4eab7cf0834d4b6d145e86ab261a69f265f55613e9086ab",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "UNOBSERVED",
+    "native_execution_observation": {
+      "configured_not_observed_count": 4,
+      "configured_not_observed_roles": [
+        {
+          "configured_model": "gpt-6.1-sol",
+          "configured_reasoning_effort": "low",
+          "invocation_id": "/root/native_select_7fce85e14728",
+          "role": "select",
+          "stage": "select"
+        },
+        {
+          "configured_model": "gpt-6.1-sol",
+          "configured_reasoning_effort": "low",
+          "invocation_id": "/root/native_select_a99031b355c8",
+          "role": "select",
+          "stage": "media-plan"
+        },
+        {
+          "configured_model": "gpt-6.1-sol",
+          "configured_reasoning_effort": "max",
+          "invocation_id": "/root/native_visual_edit_266e6978a4ec",
+          "role": "visual-edit",
+          "stage": "visual-edit"
+        },
+        {
+          "configured_model": "gpt-6.1-sol",
+          "configured_reasoning_effort": "max",
+          "invocation_id": "/root/native_visual_edit_266e6978a4ec",
+          "role": "write",
+          "stage": "write"
+        }
+      ],
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 3,
+      "native_invocation_identity_unknown_count": 0,
+      "observations": [
+        {
+          "actual_configuration_unavailable": true,
+          "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+          "configuration_source": "Exact frozen desktop_request_select.json requested_model and requested_reasoning_effort; configured values are not observed actual values.",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "configured_model": "gpt-6.1-sol",
+          "configured_reasoning_effort": "low",
+          "invocation_id": "/root/native_select_7fce85e14728",
+          "model": null,
+          "observation_source": "Supported native task context supplies canonical task name /root/native_select_7fce85e14728; actual model and effort are not exposed.",
+          "reasoning_effort": null,
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "actual_configuration_unavailable": true,
+          "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+          "configuration_source": "Exact frozen desktop_request_media-plan.json requested_model and requested_reasoning_effort; configured values are not observed execution values.",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "configured_model": "gpt-6.1-sol",
+          "configured_reasoning_effort": "low",
+          "invocation_id": "/root/native_select_a99031b355c8",
+          "model": null,
+          "observation_source": "Supported native task context supplies the canonical task name /root/native_select_a99031b355c8; actual model and reasoning effort are not exposed in this context.",
+          "reasoning_effort": null,
+          "role": "select",
+          "speed": "standard",
+          "stage": "media-plan",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "actual_configuration_unavailable": true,
+          "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+          "configuration_source": "Exact frozen desktop_request_visual-edit.json requested_model/requested_reasoning_effort and parent native assignment, request_sha256 266e6978a4ecafa0469f451f68fcf37c48a8456529c20dedc03abf1abb850d1d; these are configured values, not observed execution settings.",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "configured_model": "gpt-6.1-sol",
+          "configured_reasoning_effort": "max",
+          "invocation_id": "/root/native_visual_edit_266e6978a4ec",
+          "model": null,
+          "observation_source": "Supported native collaboration context assigns this canonical task name and the exact assignment cc074-retro-fomc-20261028-v1:visual-edit. No separate session UUID or actual model/effort was exposed to this role. No environment, process arguments, credentials or config secrets were probed.",
+          "observed_at_utc": "2026-11-01T05:25:19Z",
+          "reasoning_effort": null,
+          "role": "visual-edit",
+          "speed": "standard",
+          "stage": "visual-edit",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "actual_configuration_unavailable": true,
+          "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+          "configuration_source": "Exact frozen desktop_request_write.json requested_model/requested_reasoning_effort and parent native assignment; configured values are not observed execution settings.",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "configured_model": "gpt-6.1-sol",
+          "configured_reasoning_effort": "max",
+          "invocation_id": "/root/native_visual_edit_266e6978a4ec",
+          "model": null,
+          "observation_source": "Supported native collaboration context assigns this canonical task name and continues the same visual editor as writer for exact assignment cc074-retro-fomc-20261028-v1:write. Actual model/effort are not exposed. No environment, credentials, config secrets or process arguments were probed.",
+          "observed_at_utc": "2026-11-01T05:37:56.952296Z",
+          "reasoning_effort": null,
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [],
+      "observed_models": [],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "final-visual": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "visual-edit": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 4,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "UNOBSERVED",
+    "semantic_response_count": 2
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Federal Reserve Board",
+    "primary_reporting_source_identity": "Federal Reserve Board",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "Federal Reserve Board reports that the Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "cc074-fomc-20261028-statement"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-11-01-bangkok",
+  "parent_window_id": "cc074-retro-fomc-20261028-v1",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "184a51e515cc50f7a565235b0c7bf630296ff9efa4211755ff59549920d725b1",
+  "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-06edc3ce5772f6cef827854f",
+  "title": "The Fed held on October 28. Both dissenters wanted a hike.",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-06edc3ce5772f6cef827854f"
+}

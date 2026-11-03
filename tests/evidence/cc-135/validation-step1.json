@@ -1,0 +1,20 @@
+{
+  "item": "CC-135",
+  "base": "1bfdaf8e717340e7c5ae11ac94513affca8e7b00",
+  "launch": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "evidence": "Ancestor codex.exe launch arguments read back; exec PID 33680",
+    "classification": "CONFIGURED_NOT_OBSERVED"
+  },
+  "tests": {
+    "command": "python -m pytest -q tests/test_published_content_v1.py tests/test_event_article_guard_v1.py tests/test_publication_coordinator_v1.py tests/test_native_finished_publication_v1.py --junitxml=tests/evidence/cc-135/publication-regression.junit.xml",
+    "passed": 294,
+    "failed": 0,
+    "seconds": 145.82,
+    "parallel_pytest_workers": 0
+  },
+  "ruff": "PASS on the changed Python files",
+  "backfill_dry_run": {"piece_count": 2, "fomc_confirmed_outlets": 5, "provider_writes": 0},
+  "limits": "Engineering and dry-run evidence only; source integration, actual feed append and new native-publication observation are separate states."
+}

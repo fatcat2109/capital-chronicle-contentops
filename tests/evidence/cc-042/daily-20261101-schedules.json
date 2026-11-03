@@ -1,0 +1,37 @@
+[
+  {
+    "id": "v1-newsroom-london-1700",
+    "status": "ACTIVE",
+    "prompt_calendar_model_unchanged": true
+  },
+  {
+    "id": "v1-newsroom-new-york-2100",
+    "status": "ACTIVE",
+    "prompt_calendar_model_unchanged": true
+  },
+  {
+    "id": "v1-newsroom-new-york-2300",
+    "status": "ACTIVE",
+    "prompt_calendar_model_unchanged": true
+  },
+  {
+    "id": "v1-newsroom-new-york-0100",
+    "status": "ACTIVE",
+    "prompt_calendar_model_unchanged": true
+  },
+  {
+    "id": "v1-newsroom-brief-asia-0900",
+    "status": "ACTIVE",
+    "prompt_calendar_model_unchanged": true
+  },
+  {
+    "id": "v1-newsroom-brief-europe-1500",
+    "status": "ACTIVE",
+    "prompt_calendar_model_unchanged": true
+  },
+  {
+    "id": "v1-newsroom-brief-us-1900",
+    "status": "ACTIVE",
+    "prompt_calendar_model_unchanged": true
+  }
+]

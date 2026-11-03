@@ -129,17 +129,28 @@ def _issued_state(store, rollout, checkpoint, binding, path):
 def _latest_window(store, session, *, opportunity_id=None):
     from live_contentops.native_desktop_editorial_v1 import DESTINATION
     with store.get_read_only_connection() as conn:
-        rows = conn.execute("SELECT message_id,payload FROM outbox_messages WHERE destination=? AND message_id LIKE 'native-window-%'",
+        # Slot dispositions share the prefix, destination and status, but are not
+        # window checkpoints. Exclude their namespace before decoding payloads.
+        rows = conn.execute("SELECT message_id,payload FROM outbox_messages WHERE destination=? "
+            "AND message_id LIKE 'native-window-%' AND message_id NOT LIKE 'native-window-disposition-%'",
             (DESTINATION,)).fetchall()
     saved = []
     for row in rows:
-        value = json.loads(row["payload"])
-        if (value["window"]["session"] == session
-                and (opportunity_id is None or value["window"]["opportunity_id"] == opportunity_id)):
-            if (row["message_id"] != "native-window-" + sha256_of(value["window"]["opportunity_id"])
-                    or value["production_day_id"] != newsroom_production_day_id(value["window"]["start_utc"])):
-                raise ValueError("NATIVE_SCHEDULE_WINDOW_BINDING_CHANGED")
-            saved.append(value)
+        try:
+            value = json.loads(row["payload"])
+            window = value["window"]
+            if not isinstance(window, dict) or any(
+                    not isinstance(window.get(key), str) or not window[key]
+                    for key in ("session", "opportunity_id", "start_utc")):
+                raise ValueError("Malformed window checkpoint")
+            if (window["session"] == session
+                    and (opportunity_id is None or window["opportunity_id"] == opportunity_id)):
+                if (row["message_id"] != "native-window-" + sha256_of(window["opportunity_id"])
+                        or value["production_day_id"] != newsroom_production_day_id(window["start_utc"])):
+                    raise ValueError("Changed window checkpoint identity")
+                saved.append(value)
+        except (KeyError, TypeError, ValueError) as exc:
+            raise ValueError("NATIVE_SCHEDULE_WINDOW_BINDING_CHANGED") from exc
     return max(saved, key=lambda v: v["window"]["start_utc"], default=None)
 
 
@@ -762,11 +773,14 @@ def prepare_standalone_result(store, binding, response):
     saved = json.loads(prior["payload"]) if prior else {}
     if saved.get("terminal_result"):
         return {"classification":"WINDOW_NOTICE_SUPPRESSED","reason":"RESULT_ALREADY_SAVED","artifact_path":str(_window_result_path(binding))}
-    final = store.get_outbox_message("cc-editorial-final-"+sha256_of(binding["run_id"]))
+    from live_contentops.native_manual_candidate_v1 import native_artifact_key, manual_output_root
+    final = store.get_outbox_message(native_artifact_key(store, binding["run_id"], "cc-editorial-final-"))
     if not final or _unfinished_window_roles(store,[(binding,None)]):
         raise ValueError("ACTUAL_TERMINAL_STANDALONE_RESULT_REQUIRED")
     value = json.loads(final["payload"])
     semantic = value.get("simple_result",value)
+    if semantic.get("remaining_candidate_ids") or semantic.get("classification") == "NATIVE_NEXT_CANDIDATE_REQUIRED":
+        raise ValueError("STANDALONE_ADMITTED_CANDIDATES_UNFINISHED")
     if any(s in str(semantic.get("classification","")).upper() for s in ("QUOTA","INTERRUPTED")):
         return {"classification":"WINDOW_BLOCKED_SUPPRESSED","reason":"QUOTA_OR_TURN_END"}
     if semantic.get("qualified_article_count"):
@@ -789,7 +803,7 @@ def prepare_standalone_result(store, binding, response):
         "actual_entry_gmt7":response.get("actual_entry_gmt7","UNOBSERVED"),
         "outcome":"EDITORIAL_ARTIFACT_DELIVERED" if semantic.get("qualified_article_count") else semantic.get("classification","NO_STORY"),
         "canonical_items":[],"channels":{},"first_blocking_causes":dict(causes),
-        "evidence_result_key":final["message_id"],"evidence_path":str(Path(binding["output_dir"])/"native_desktop_result.json"),
+        "evidence_result_key":final["message_id"],"evidence_path":str(manual_output_root(store,binding)/"native_desktop_result.json"),
         "next_action":response.get("next_action","Review the exact dated task result; no automatic public write."),
         "next_actor":response.get("next_actor","L2 ContentOps")}
     from live_contentops.native_desktop_publication_v1 import publication_projection

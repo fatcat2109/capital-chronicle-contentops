@@ -1,0 +1,10 @@
+{
+  "item": "CC-142",
+  "tested_head": "d6a6b5f1",
+  "command": "python -m pytest tests/test_publication_coordinator_v1.py tests/test_v1_simple_gemini_newsroom_v1.py -q --junitxml=tests/evidence/cc-142/canonical-regression.junit.xml",
+  "passed": 140,
+  "seconds": 78.43,
+  "scope": "TARGETED_FILES_ONE_PROCESS_NO_PARALLEL_SHARDS",
+  "canonical_reconciliation": "canonical-coordinator-reconciled.json",
+  "public_edit_performed": false
+}

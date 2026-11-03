@@ -1,0 +1,23 @@
+{
+  "item": "CC-142",
+  "policy": "JIM_DECISION_41_RELEASE_CHART_EDIT",
+  "tests": [
+    {
+      "file": "chart-edit-owner.junit.xml",
+      "passed": 40,
+      "seconds": 23.71
+    },
+    {
+      "file": "revision-regression.junit.xml",
+      "passed": 70,
+      "seconds": 40.28
+    }
+  ],
+  "ruff": "PASS",
+  "canonical_reconciliation": "canonical-coordinator-reconciled.json",
+  "exact_object": "223246940",
+  "public_edit_performed": false,
+  "fresh_write_performed": false,
+  "source_compatibility": "Sent result and intents immutable; same canonical only; revision has separate history, media, writer and exact final review.",
+  "observed_at_utc": "2026-11-03T04:42:01.458463+00:00"
+}

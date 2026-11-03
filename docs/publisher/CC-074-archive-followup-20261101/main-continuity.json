@@ -1,0 +1,319 @@
+{
+  "checked_at_utc": "2026-11-01T09:15:45.252176+00:00",
+  "scope": "NAMED_W1073_RESULTS_AND_ONE_EXACT_W1091_FRESHNESS_RESULT_LOCATOR",
+  "entries": [
+    {
+      "name": "w1073:cpi",
+      "evidence": {
+        "repository": "fatcat2109/Headline-Raw-data-json",
+        "commit": "1a4ee74817ab8c9ba640bed0293e018a082bc04d",
+        "path": "local-evidence/work-packets/w1073-main-readonly-provider/results/cpi.json",
+        "git_blob": "974111d05fde68cd1cf9d9f58b813f009595d381",
+        "bytes": 21308,
+        "sha256": "c173d1837022b1544b2bfebd2b3e5e05d281c1053f29d6f79f2077dc1ee7fb43"
+      },
+      "need_id": "w1072:cpi",
+      "requested_cutoff": "2026-10-29T00:09:09.708204Z",
+      "record_count": 0,
+      "usable_records": 0,
+      "source_resolution": {
+        "status": "UNAVAILABLE",
+        "producer": "SELECTED_CPI_COMMON_VINTAGE",
+        "rights_state": "INTERNAL_ANALYSIS_ONLY",
+        "intended_use": "DATED_RESEARCH_ONLY_NO_CURRENT_OR_MODEL_PROMOTION",
+        "known_at_utc": null,
+        "source_clock": null,
+        "actual_consumers": null
+      },
+      "authority": {
+        "candidate_only": true,
+        "canonical_admission": false,
+        "database_complete": false,
+        "package_credit_delta": 0,
+        "historical_first_print_pit": false,
+        "model_eligible": false,
+        "prospective_credit": false,
+        "causal_effect_claimed": false,
+        "broker_execution_authorized": false,
+        "provider_calls": 0,
+        "broker_calls": 0,
+        "runtime_mutations": 0,
+        "public_writes": 0
+      },
+      "prior_context_only": [
+        {
+          "record_id": "BLS_CUSR0000SA0::2026-09::16dde21e443ecef3",
+          "coordinate": "US_CPI_HEADLINE_SA",
+          "reference_period": "2026-09",
+          "source_hash": "16dde21e443ecef3eedccaf4cc0cdf554e9df9949b806f6d7e6e31bff50e8ab0",
+          "source_known_at_utc": "2026-10-26T02:22:58.318703Z",
+          "known_at_utc": "2026-10-26T02:22:58.318703Z",
+          "retrieved_at_utc": "2026-10-26T02:21:32.060Z",
+          "first_print_pit": false,
+          "historical_pit": false,
+          "public_export": false,
+          "model_eligibility": false,
+          "revision_state": "CURRENT_VINTAGE_LATE_CAPTURE",
+          "rights_dimensions": {
+            "internal_analysis": "BLS_PUBLIC_DOMAIN_ATTRIBUTED_INTERNAL_CONTEXT",
+            "LLM_input": "PURPOSE_OWNER_ASSESSMENT_REQUIRED",
+            "public_derived": "NOT_ADMITTED",
+            "raw": "LOCAL_RETAINED_SOURCE_EVIDENCE",
+            "chart": "NOT_ADMITTED",
+            "redistribution": "NOT_ADMITTED"
+          }
+        },
+        {
+          "record_id": "BLS_CUSR0000SA0::2026-08::9ac0953664a3f0c3",
+          "coordinate": "US_CPI_HEADLINE_SA",
+          "reference_period": "2026-08",
+          "source_hash": "9ac0953664a3f0c3d56cc874941ba5972d695eecf58c487a0824ca00c3ee94ac",
+          "source_known_at_utc": "2026-10-24T00:52:52.633206Z",
+          "known_at_utc": "2026-10-24T00:52:52.633206Z",
+          "retrieved_at_utc": "2026-10-24T00:34:21.471Z",
+          "first_print_pit": false,
+          "historical_pit": false,
+          "public_export": false,
+          "model_eligibility": false,
+          "revision_state": "CURRENT_VINTAGE_REVISABLE",
+          "rights_dimensions": {
+            "internal_analysis": "EXISTING_OFFICIAL_SOURCE_CONTEXT_ONLY",
+            "LLM_input": "PURPOSE_OWNER_ASSESSMENT_REQUIRED",
+            "public_derived": "NOT_ADMITTED",
+            "raw": "LOCAL_RETAINED_SOURCE_EVIDENCE",
+            "chart": "NOT_ADMITTED",
+            "redistribution": "NOT_ADMITTED"
+          }
+        },
+        {
+          "record_id": "BLS_CUSR0000SA0::2026-07::9ac0953664a3f0c3",
+          "coordinate": "US_CPI_HEADLINE_SA",
+          "reference_period": "2026-07",
+          "source_hash": "9ac0953664a3f0c3d56cc874941ba5972d695eecf58c487a0824ca00c3ee94ac",
+          "source_known_at_utc": "2026-10-24T00:52:52.633206Z",
+          "known_at_utc": "2026-10-24T00:52:52.633206Z",
+          "retrieved_at_utc": "2026-10-24T00:34:21.471Z",
+          "first_print_pit": false,
+          "historical_pit": false,
+          "public_export": false,
+          "model_eligibility": false,
+          "revision_state": "CURRENT_VINTAGE_REVISABLE",
+          "rights_dimensions": {
+            "internal_analysis": "EXISTING_OFFICIAL_SOURCE_CONTEXT_ONLY",
+            "LLM_input": "PURPOSE_OWNER_ASSESSMENT_REQUIRED",
+            "public_derived": "NOT_ADMITTED",
+            "raw": "LOCAL_RETAINED_SOURCE_EVIDENCE",
+            "chart": "NOT_ADMITTED",
+            "redistribution": "NOT_ADMITTED"
+          }
+        }
+      ],
+      "eligible_event_binding_to_w1091": false
+    },
+    {
+      "name": "w1073:labour",
+      "evidence": {
+        "repository": "fatcat2109/Headline-Raw-data-json",
+        "commit": "1a4ee74817ab8c9ba640bed0293e018a082bc04d",
+        "path": "local-evidence/work-packets/w1073-main-readonly-provider/results/labour.json",
+        "git_blob": "d0857ae54ac4c5d654b5ca8239868bb000bd197f",
+        "bytes": 29363,
+        "sha256": "93381a07df30459c3aba2ae1b64b6ed6f83f08030e39689d1a26c3e076677954"
+      },
+      "need_id": "w1072:labour",
+      "requested_cutoff": "2026-10-29T00:09:09.708204Z",
+      "record_count": 0,
+      "usable_records": 0,
+      "source_resolution": {
+        "status": "UNAVAILABLE",
+        "producer": "SELECTED_LABOR_HISTORY",
+        "rights_state": "INTERNAL_ANALYSIS_ONLY",
+        "intended_use": "DATED_RESEARCH_ONLY_NO_CURRENT_OR_MODEL_PROMOTION",
+        "known_at_utc": null,
+        "source_clock": null,
+        "actual_consumers": null
+      },
+      "authority": {
+        "candidate_only": true,
+        "canonical_admission": false,
+        "database_complete": false,
+        "package_credit_delta": 0,
+        "historical_first_print_pit": false,
+        "model_eligible": false,
+        "prospective_credit": false,
+        "causal_effect_claimed": false,
+        "broker_execution_authorized": false,
+        "provider_calls": 0,
+        "broker_calls": 0,
+        "runtime_mutations": 0,
+        "public_writes": 0
+      },
+      "prior_context_only": [
+        {
+          "record_id": "W1003_NATIVE::1903f7efb980a56fc20369ef8fe0799a29505638304fedf4f61aeeed9dbbe146",
+          "coordinate": "BLS_CES0000000001",
+          "reference_period": "2026-09",
+          "source_hash": "0e4ce95bd4e454b144604d95e1b1b0967c224ece8f1b7fd2e7db7d3f008a5463",
+          "source_known_at_utc": "2026-10-25T03:25:12.603Z",
+          "known_at_utc": "2026-10-25T03:25:12.603Z",
+          "retrieved_at_utc": null,
+          "first_print_pit": false,
+          "historical_pit": false,
+          "public_export": false,
+          "model_eligibility": false,
+          "revision_state": null,
+          "rights_dimensions": null
+        },
+        {
+          "record_id": "W1003_NATIVE::aa56b94e2ca93e1a8a8fd2f25995fd9a545ad15adb04162360611796fe1f7e5d",
+          "coordinate": "BLS_CES0000000001",
+          "reference_period": "2026-08",
+          "source_hash": "0e4ce95bd4e454b144604d95e1b1b0967c224ece8f1b7fd2e7db7d3f008a5463",
+          "source_known_at_utc": "2026-10-25T03:25:12.603Z",
+          "known_at_utc": "2026-10-25T03:25:12.603Z",
+          "retrieved_at_utc": null,
+          "first_print_pit": false,
+          "historical_pit": false,
+          "public_export": false,
+          "model_eligibility": false,
+          "revision_state": null,
+          "rights_dimensions": null
+        },
+        {
+          "record_id": "W1003_NATIVE::cde990ff14d5740a48a41dc2b30c0e58043318e17f1d46b613e4fd550e9c5ee2",
+          "coordinate": "BLS_CES0000000001",
+          "reference_period": "2026-07",
+          "source_hash": "0e4ce95bd4e454b144604d95e1b1b0967c224ece8f1b7fd2e7db7d3f008a5463",
+          "source_known_at_utc": "2026-10-25T03:25:12.603Z",
+          "known_at_utc": "2026-10-25T03:25:12.603Z",
+          "retrieved_at_utc": null,
+          "first_print_pit": false,
+          "historical_pit": false,
+          "public_export": false,
+          "model_eligibility": false,
+          "revision_state": null,
+          "rights_dimensions": null
+        }
+      ],
+      "eligible_event_binding_to_w1091": false
+    },
+    {
+      "name": "w1091-freshness-exact-referenced-w1075-employment",
+      "evidence": {
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ProviderReadOnly\\w1075-main\\results\\employment.json",
+        "sha256": "a6a80077281322f562c9ec9c36354cbea7fbef4d9662090fb7feda95024bf6fc",
+        "bytes": 146065,
+        "read_mode": "EXACT_EXISTING_SAVED_RESULT_READ_ONLY_NO_QUERY_EXECUTION"
+      },
+      "freshness_row": {
+        "family": "scheduled_releases:employment",
+        "last_observation": "2026-09",
+        "last_observation_period_end": "2026-09-30",
+        "age_days": 30,
+        "oldest_coordinate_latest_observation": "2026-09",
+        "oldest_coordinate_age_days": 30,
+        "coordinate_count": 1,
+        "record_count": 1,
+        "undated_record_count": 0,
+        "future_dated_records": 0,
+        "owner": "Database source owner; Main owns consumer application",
+        "rights_tags": [
+          "\"PUBLIC_OFFICIAL_OWNER_ARTIFACT_WITH_ATTRIBUTION\""
+        ],
+        "rights_missing_records": 0,
+        "rights_inherited_from_query_owner_records": 0,
+        "sources": [
+          "BLS"
+        ],
+        "read_state": "ACTUAL_SAVED_MAIN_ACCEPTANCE_READ_NOT_CONTINUOUS_RUNTIME_PROOF",
+        "evidence": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ProviderReadOnly\\w1075-main\\results\\employment.json",
+        "clock_note": "Age from observation/period end; not from acquisition or publication. Future period-end is flagged, not called fresh.",
+        "evidence_sha256": "a6a80077281322f562c9ec9c36354cbea7fbef4d9662090fb7feda95024bf6fc"
+      },
+      "need_id": "w1075:actual:0",
+      "requested_cutoff": "2026-10-29T05:57:08.734838Z",
+      "record_count": 1,
+      "usable_records": 1,
+      "source_resolution": {
+        "status": "RESOLVED",
+        "producer": "SELECTED_SCHEDULED_RELEASES",
+        "rights_state": "PUBLIC_OFFICIAL_OWNER_ARTIFACT_WITH_ATTRIBUTION",
+        "intended_use": "DATED_RESEARCH_ONLY_NO_CURRENT_OR_MODEL_PROMOTION",
+        "known_at_utc": null,
+        "source_clock": null,
+        "actual_consumers": null,
+        "source_manifest": {
+          "path": "local-evidence/work-packets/w1074-official-release-source-owners/editions/w1074-20261029-scheduled-release-v5/manifest.json",
+          "file_sha256": "32f2045103ad1a158ce49cd12cff4cb2f513747d89c5cf5e03fcffeee5588de0",
+          "edition": "w1074-20261029-scheduled-release-v5",
+          "content_sha256": "14f26ee85d6d9ee2985a6469704e7ac9b37a3451afe6bdb5d63bafe8776ee9d6"
+        }
+      },
+      "authority": {
+        "candidate_only": true,
+        "canonical_admission": false,
+        "database_complete": false,
+        "package_credit_delta": 0,
+        "historical_first_print_pit": false,
+        "model_eligible": false,
+        "prospective_credit": false,
+        "causal_effect_claimed": false,
+        "broker_execution_authorized": false,
+        "provider_calls": 0,
+        "broker_calls": 0,
+        "runtime_mutations": 0,
+        "public_writes": 0
+      },
+      "record": {
+        "record_id": "BLS|EMPLOYMENT|2026-09|2026-10-02|NONFARM_PAYROLL_EMPLOYMENT_CHANGE_MOM_SA_THOUSANDS|bef6b42367b5fb28",
+        "semantic_id": "NONFARM_PAYROLL_EMPLOYMENT_CHANGE_MOM_SA_THOUSANDS",
+        "release_identity": "BLS|EMPLOYMENT|2026-09|2026-10-02",
+        "value": 29.0,
+        "unit": "thousands_of_persons",
+        "native_token": "+29,000",
+        "published_native_value": 29000.0,
+        "published_native_unit": "persons",
+        "derivation": "NATIVE_PERSONS_DIVIDED_BY_1000",
+        "reference_period": "2026-09",
+        "official_url": "https://www.bls.gov/news.release/empsit.htm",
+        "source_hash": "bef6b42367b5fb28a31a274cb4d9e7e7353e081a16fabd7ac55e2c6edf637d86",
+        "known_at_utc": "2026-10-29T01:40:49.536260Z",
+        "source_known_at_utc": "2026-10-24T00:52:52.429673Z",
+        "retrieved_at_utc": "2026-10-24T00:35:26.285Z",
+        "source_clocks": {
+          "publication": {
+            "date": "2026-10-02",
+            "utc": "2026-10-02T12:30:00Z",
+            "precision": "OFFICIAL_PUBLISHER_WALL_CLOCK_WITH_ZONE",
+            "native_date_label": "October 2, 2026",
+            "native_clock_label": "8:30 a.m. (ET)"
+          },
+          "source_retrieved_at_utc": "2026-10-24T00:35:26.285Z",
+          "local_materialization_known_at_utc": "2026-10-29T01:40:49.536260Z",
+          "edition_known_at_utc": "2026-10-29T01:40:49.536260Z"
+        },
+        "revision_state": "CURRENT_OFFICIAL_RELEASE_COPY_NOT_FIRST_PRINT",
+        "first_print_pit": false,
+        "historical_pit": false,
+        "public_export": false,
+        "rights_state": "PUBLIC_OFFICIAL_OWNER_ARTIFACT_WITH_ATTRIBUTION",
+        "rights_dimensions": {
+          "internal_analysis": "EXISTING_OFFICIAL_SOURCE_CONTEXT_ONLY",
+          "LLM_input": "PURPOSE_OWNER_ASSESSMENT_REQUIRED",
+          "public_derived": "NOT_ADMITTED",
+          "raw": "SOURCE_OWNER_CONTRACT",
+          "redistribution": "NOT_ADMITTED"
+        }
+      },
+      "main_saved_read_association_exists": true,
+      "same_release_and_value_with_explicit_units": true,
+      "source_bytes_identical_to_w1091": false,
+      "source_identity_note": "Different recorded hashes and source URLs; semantic release/value agreement does not prove byte or vintage identity.",
+      "eligible_event_binding_to_w1091": false
+    }
+  ],
+  "conclusion": "A saved Main payroll read exists. Neither that late current-release record nor the zero-actual W1073 results establishes an eligible historical editorial binding to the newly identified W1091 archive hashes. Existing purpose and export restrictions remain.",
+  "no_repeat_main_query": true,
+  "no_main_or_source_owner_files_modified": true,
+  "full_saved_main_payloads_committed": false
+}

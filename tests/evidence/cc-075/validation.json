@@ -1,0 +1,127 @@
+{
+  "item": "CC-075",
+  "disposition": "ADOPTED_WITH_CORRECTIONS",
+  "status": "DONE",
+  "acceptance_passed": true,
+  "recorded_at_utc": "2026-10-30T15:48:29.735257+00:00",
+  "branch": "backlog/cc-075-adopt-revision-request",
+  "base": {
+    "tag": "contentops-live-20261030-cc067",
+    "tag_object_id": "44df650289b5169745ee04242e33e449dfc350e9",
+    "commit": "8a59d84194ebec5109adeae157c190fb8264e5ef",
+    "remote_tag_verified": true
+  },
+  "source_review": {
+    "read_at_utc": "2026-10-30T15:33:04.367235+00:00",
+    "source_root": "A:\\Capital Chronicle\\ContentOps",
+    "base_tag": "contentops-live-20261030-cc067",
+    "base_commit": "8a59d84194ebec5109adeae157c190fb8264e5ef",
+    "source_head": "8a59d84194ebec5109adeae157c190fb8264e5ef",
+    "patch_bytes_sha256": "2b778e2d1f580eef8f6a0466c14430aa395a9666089f3ec2cf0cd8612386e6a3",
+    "paths": {
+      "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": {
+        "bytes_sha256": "118e1ccbe0fc442426c38575844ca35ccf87bdc9d8950a854253a4c135442b13"
+      },
+      "tests/test_rolling_x_newsroom_cycle_v1.py": {
+        "bytes_sha256": "e8311e3d8b46b7e02bc50cb2a6ce4390e3b1682e5031535825901d826438cb4b"
+      }
+    },
+    "source_mutated": false,
+    "read_method": "git -C operating-root diff -- the two CC-075 permitted code/test files; exact diff retained only in ignored local task storage",
+    "reviewed_file_hashes_unchanged_at_end": {
+      "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": true,
+      "tests/test_rolling_x_newsroom_cycle_v1.py": true
+    },
+    "operating_root_head_at_end": "8a59d84194ebec5109adeae157c190fb8264e5ef",
+    "operating_root_written": false,
+    "run_evidence_documents_written": false,
+    "runtime_ledgers_written": false,
+    "untracked_operating_files_written": false
+  },
+  "adopted_changes": [
+    "Ordinary deterministic gate failures return the existing same-worker revision contract with unchanged governed input and prior-return hashes; exhausted worker budget stays NO_PUBLICATION.",
+    "Semantic checkpoint continuation reuses exact frozen assignment input without compaction; canonical and checkpoint validators remain in effect."
+  ],
+  "corrections": [
+    "Retain completed worker revision count in a successful ordinary result and its review history.",
+    "Checkpoint continuation without explicit frozen input or a validated prepared state fails before loading fresh sidecars."
+  ],
+  "before_adoption": {
+    "implementation_commit": "8a59d84194ebec5109adeae157c190fb8264e5ef",
+    "purpose": "Reproduce both defects against the named operating tag before applying code; these are expected failing regression cases, not a passing acceptance run.",
+    "test_count": 5,
+    "expected_failed_test_names": [
+      "test_native_xhigh_ordinary_reader_value_failure_requests_same_worker_revision[0]",
+      "test_native_xhigh_ordinary_reader_value_failure_requests_same_worker_revision[1]",
+      "test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints[leaf]",
+      "test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints[global]",
+      "test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints[both]"
+    ],
+    "junit_private_path": ".task-runtime\\cc-075\\before-tests.xml",
+    "junit_bytes_sha256": "e1f6f138cfecfa1a65db849c938392f0d95da6c149f05e8f30c09c664864f44b"
+  },
+  "tests": {
+    "passed": 363,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 178.632,
+    "required_cc067_selection_passed": 271,
+    "newsroom_cycle_passed": 55,
+    "hierarchical_assignment_passed": 37,
+    "files": [
+      "tests/test_native_configured_provenance_v1.py",
+      "tests/test_native_editorial_continuation_v1.py",
+      "tests/test_native_headline_filter_v1.py",
+      "tests/test_native_final_visual_review_v1.py",
+      "tests/test_native_desktop_editorial_v1.py",
+      "tests/test_capital_chronicle_report_editorial_workspace_v1.py",
+      "tests/test_codex_desktop_newsroom_operator_v1.py",
+      "tests/test_v1_simple_gemini_newsroom_v1.py",
+      "tests/test_eight_platform_substack_first_pipeline_v1.py",
+      "tests/test_native_desktop_publication_v1.py",
+      "tests/test_native_role_configuration_v1.py",
+      "tests/test_native_newsroom_owner_operation_v1.py",
+      "tests/test_rolling_x_newsroom_cycle_v1.py",
+      "tests/test_rolling_x_hierarchical_assignment_v1.py"
+    ],
+    "per_module_count": {
+      "test_native_configured_provenance_v1": 9,
+      "test_native_editorial_continuation_v1": 14,
+      "test_native_headline_filter_v1": 8,
+      "test_native_final_visual_review_v1": 16,
+      "test_native_desktop_editorial_v1": 12,
+      "test_capital_chronicle_report_editorial_workspace_v1": 24,
+      "test_codex_desktop_newsroom_operator_v1": 57,
+      "test_v1_simple_gemini_newsroom_v1": 40,
+      "test_eight_platform_substack_first_pipeline_v1": 45,
+      "test_native_desktop_publication_v1": 14,
+      "test_native_role_configuration_v1": 20,
+      "test_native_newsroom_owner_operation_v1": 12,
+      "test_rolling_x_newsroom_cycle_v1": 55,
+      "test_rolling_x_hierarchical_assignment_v1": 37
+    },
+    "junit_private_path": ".task-runtime\\cc-075\\acceptance-tests.xml",
+    "junit_bytes_sha256": "440abc024dd26714334ce7c6df97e3093171709d063923f5b4445e3d437ead48",
+    "scope": "Deterministic regressions with controlled provider/native returns and isolated test stores; no actual model or editorial-quality proof."
+  },
+  "source_worktree_bytes_sha256": {
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": "518c08027c6b9db03c68d2f525be006bbb1bd1a600039080e7de46078eb0c1c4",
+    "tests/test_rolling_x_newsroom_cycle_v1.py": "8c66760e990bcea242904e804aef40f99a86042973b85a8d1699ee55d25c958c",
+    "docs/publisher/CC-075.md": "7afc3f1ec119fca5a7774419c0dc616e5a93f0b6cc36e3df0a840ab562c06129"
+  },
+  "native_model_calls": 0,
+  "external_provider_calls": 0,
+  "public_write_performed": false,
+  "production_controls_changed": false,
+  "schedules_changed": false,
+  "main_or_mt5_touched": false,
+  "spending_performed": false,
+  "operating_integration_performed": false,
+  "merged": false,
+  "limits": [
+    "Adopts existing compatibility mechanics, not activation of legacy routing/model policy.",
+    "Passing branch tests do not prove operating-root integration or live V1 output.",
+    "Run evidence, runtime ledgers and untracked files remain outside this adoption."
+  ],
+  "next_action": "Claude Ops saves the pending live diff, restores the two reviewed code/test files to the operating tag, integrates this pushed change, records committed operating source/tag/checks and sets CC-042 OPEN. Publisher waits for CC Desk's checked next-step dispatch."
+}

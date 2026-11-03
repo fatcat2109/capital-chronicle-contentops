@@ -1,0 +1,292 @@
+{
+  "renders": [
+    {
+      "destination": "discord",
+      "viewport": "desktop",
+      "render_id": "cc074-v1-discord-desktop",
+      "variant_sha256": "573160eccccad5d372569bfb2a2fd255c0603fba7de79b17dbdfa8fba1024fd3",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\discord-desktop.png",
+      "sha256": "7c955f2e3cc607e53375a3b047e692f1c1af9d8a3915bdf30da78c1bb95ed52c",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 1425,
+      "height": 3614,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "discord",
+      "viewport": "mobile",
+      "render_id": "cc074-v1-discord-mobile",
+      "variant_sha256": "573160eccccad5d372569bfb2a2fd255c0603fba7de79b17dbdfa8fba1024fd3",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\discord-mobile.png",
+      "sha256": "6e2efa9e86c936a2b015d4efd78119a8014e97f71a599fbbaaf1526f3d07d9a1",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 375,
+      "height": 3184,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "facebook_page",
+      "viewport": "desktop",
+      "render_id": "cc074-v1-facebook_page-desktop",
+      "variant_sha256": "199f757ad2db6144c739dc5135cef1871205c3e27008a5e3a4ee60ce36b88e73",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\facebook_page-desktop.png",
+      "sha256": "c957dee03994b43f85a40a9a8ea60e0f68bc240d1adcd964dfc320dba84ea1b3",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 1425,
+      "height": 3614,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "facebook_page",
+      "viewport": "mobile",
+      "render_id": "cc074-v1-facebook_page-mobile",
+      "variant_sha256": "199f757ad2db6144c739dc5135cef1871205c3e27008a5e3a4ee60ce36b88e73",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\facebook_page-mobile.png",
+      "sha256": "c800f38dc00a568841fbcf773d5cdf7c677bc079bf13359e12cb8306c0e4ee6b",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 375,
+      "height": 3157,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "instagram_business",
+      "viewport": "desktop",
+      "render_id": "cc074-v1-instagram_business-desktop",
+      "variant_sha256": "086517baa61ed60be99c513040ccfded8a05344fb3918b3b9ee1db39dbe3e823",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\instagram_business-desktop.png",
+      "sha256": "34e9a676d218a10750dbd8dedca8455bddc36ef2862106bac77d5bbaf8156807",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 1425,
+      "height": 3656,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "instagram_business",
+      "viewport": "mobile",
+      "render_id": "cc074-v1-instagram_business-mobile",
+      "variant_sha256": "086517baa61ed60be99c513040ccfded8a05344fb3918b3b9ee1db39dbe3e823",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\instagram_business-mobile.png",
+      "sha256": "a0a9bb69777f4deca4f410c6ee8f94bce0858381bab222488a9341be4411a100",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 375,
+      "height": 3197,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "linkedin",
+      "viewport": "desktop",
+      "render_id": "cc074-v1-linkedin-desktop",
+      "variant_sha256": "58cd20af2e62a230338318b760cd37dd67b2a38cc8415190423e26752c5ba324",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\linkedin-desktop.png",
+      "sha256": "3f12318a0502aa6a19fab59ede9ef7627b3327ed7f0197dd86e2836fee3950d1",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 1425,
+      "height": 2832,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "linkedin",
+      "viewport": "mobile",
+      "render_id": "cc074-v1-linkedin-mobile",
+      "variant_sha256": "58cd20af2e62a230338318b760cd37dd67b2a38cc8415190423e26752c5ba324",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\linkedin-mobile.png",
+      "sha256": "8db6c48a0006525553fafdf7cb772629d94cde87d00f80101f482505d59eef43",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 375,
+      "height": 2849,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "substack",
+      "viewport": "desktop",
+      "render_id": "cc074-v1-substack-desktop",
+      "variant_sha256": "a11f1374730332aca4946cce572b7b1ccde30912cd9de59926ef011bdc3b9f70",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\substack-desktop.png",
+      "sha256": "6460dca92a82051a73d0aaeda7b90d6f70f5202c69952c4531b70488e36d1e6f",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 1425,
+      "height": 5807,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "substack",
+      "viewport": "mobile",
+      "render_id": "cc074-v1-substack-mobile",
+      "variant_sha256": "a11f1374730332aca4946cce572b7b1ccde30912cd9de59926ef011bdc3b9f70",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\substack-mobile.png",
+      "sha256": "4a237b17e8aab5ddc8b721c081716db2ee21796847344dcb05a14d18470f7c85",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 375,
+      "height": 6180,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "telegram",
+      "viewport": "desktop",
+      "render_id": "cc074-v1-telegram-desktop",
+      "variant_sha256": "47012d68f729b782b65e0603ca71733436e0ebaf4ae6224d3b9c36bea43ec4e9",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\telegram-desktop.png",
+      "sha256": "8b1afbe17694516bb416eec16a068d12de338daf76522ce121f32357a8094f7b",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 1425,
+      "height": 2762,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "telegram",
+      "viewport": "mobile",
+      "render_id": "cc074-v1-telegram-mobile",
+      "variant_sha256": "47012d68f729b782b65e0603ca71733436e0ebaf4ae6224d3b9c36bea43ec4e9",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\telegram-mobile.png",
+      "sha256": "06fb0253bf9bb13013109266b327f7980a3bca27e00c0950cdb71f9f7ebcb760",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 375,
+      "height": 2657,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "threads",
+      "viewport": "desktop",
+      "render_id": "cc074-v1-threads-desktop",
+      "variant_sha256": "2d1a874ef4672994d84808742c39320c85e59d84ded89c9d0c96475abb04385f",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\threads-desktop.png",
+      "sha256": "f6dbf71bfbdef0019ea3e9ce554511299e61790bc15ce7243d48d54fa603236e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 1425,
+      "height": 2918,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "threads",
+      "viewport": "mobile",
+      "render_id": "cc074-v1-threads-mobile",
+      "variant_sha256": "2d1a874ef4672994d84808742c39320c85e59d84ded89c9d0c96475abb04385f",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\threads-mobile.png",
+      "sha256": "769967271a6deac809ef298d831f696418e87b0892afc231f47117a0786e92d0",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 375,
+      "height": 2909,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "x",
+      "viewport": "desktop",
+      "render_id": "cc074-v1-x-desktop",
+      "variant_sha256": "b4a8477346c1b46328d0b26d940182d2292df20725b2046d964b5c6bbebc46ef",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\x-desktop.png",
+      "sha256": "ea0795ba808da82d617dd63535e1bc714edfebaddd54d243163861a31962e132",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 1425,
+      "height": 2904,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "x",
+      "viewport": "mobile",
+      "render_id": "cc074-v1-x-mobile",
+      "variant_sha256": "b4a8477346c1b46328d0b26d940182d2292df20725b2046d964b5c6bbebc46ef",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\x-mobile.png",
+      "sha256": "6a0620f2ca73a6cda0848371f37a6adf627a8b12b014dadfe1f15cc4aa333328",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 375,
+      "height": 2764,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "youtube",
+      "viewport": "desktop",
+      "render_id": "cc074-v1-youtube-desktop",
+      "variant_sha256": "e53e471d2a441cf2d07165d86b79f05a93463d57d8f1eed371565a3c640b189f",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\youtube-desktop.png",
+      "sha256": "605d7a988e386304508a42a06967d8ad1846deb288c0353238f00470d3f0bb13",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 1425,
+      "height": 2720,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    },
+    {
+      "destination": "youtube",
+      "viewport": "mobile",
+      "render_id": "cc074-v1-youtube-mobile",
+      "variant_sha256": "e53e471d2a441cf2d07165d86b79f05a93463d57d8f1eed371565a3c640b189f",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\renders\\v1\\youtube-mobile.png",
+      "sha256": "8f7de014c0bf26ff4e9ef8ba6bd74256f90dd500667dd4b1f8889d4ea859782d",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\reader-v1.html",
+        "sha256": "600ea3ff8351568f0127a5f647b13487bf51591072fe73af882342ce21811f51"
+      },
+      "width": 375,
+      "height": 2617,
+      "render_engine": "BROWSEROS_NEO_PAGE_CAPTURE_SCREENSHOT",
+      "not_platform_native_render": true
+    }
+  ]
+}

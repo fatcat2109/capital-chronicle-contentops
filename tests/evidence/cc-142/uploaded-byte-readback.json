@@ -1,0 +1,42 @@
+{
+  "observed_at_utc": "2026-11-03T05:18:16.067687+00:00",
+  "action": "READ_ONLY_EXACT_PUBLIC_UPLOADED_MEDIA",
+  "rows": [
+    {
+      "asset_id": "cpi-annual-history-r3",
+      "url": "https://substack-post-media.s3.amazonaws.com/public/images/cafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png",
+      "status": 200,
+      "bytes": 100186,
+      "expected_sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "observed_sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "exact_bytes": true
+    },
+    {
+      "asset_id": "cpi-monthly-history-r3",
+      "url": "https://substack-post-media.s3.amazonaws.com/public/images/a5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png",
+      "status": 200,
+      "bytes": 125404,
+      "expected_sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "observed_sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "exact_bytes": true
+    },
+    {
+      "asset_id": "cpi-september-effects-r2",
+      "url": "https://substack-post-media.s3.amazonaws.com/public/images/b13fb2a5-f023-4c78-8cff-23d99cb05ee5_1440x1040.png",
+      "status": 200,
+      "bytes": 69645,
+      "expected_sha256": "45af728560c668a3aee17a095ef289cc99b7e1e7cb013caa7e5bd3f39311ba99",
+      "observed_sha256": "45af728560c668a3aee17a095ef289cc99b7e1e7cb013caa7e5bd3f39311ba99",
+      "exact_bytes": true
+    },
+    {
+      "asset_id": "cpi-usda-supermarket-archive",
+      "url": "https://substack-post-media.s3.amazonaws.com/public/images/b60973f2-b9d3-45de-b0ba-4c676839f7c4_5364x3334.jpeg",
+      "status": 200,
+      "bytes": 13478102,
+      "expected_sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+      "observed_sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+      "exact_bytes": true
+    }
+  ]
+}

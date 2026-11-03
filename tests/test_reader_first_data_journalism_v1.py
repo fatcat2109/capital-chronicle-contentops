@@ -112,12 +112,14 @@ def chart_packet():
     }, [doc]
 
 
-def test_analytical_one_chart_holds_and_explicit_news_zero_is_valid():
-    with pytest.raises(ValueError, match="TWO_TO_FIVE"):
-        validate_visual_decision(decision(count=1))
+def test_decision41_requires_analysis_charts_and_preserves_short_news_exception():
+    assert validate_visual_decision(decision(count=1)) == decision(count=1)
+    with pytest.raises(ValueError, match="ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"):
+        validate_visual_decision(decision(count=0))
+    with pytest.raises(ValueError, match="ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"):
+        validate_release_media({"article": {"news_item_kind": "ANALYSIS"}, "media_assets": []})
     news = decision("NEWS", 0)
-    with pytest.raises(ValueError, match="EXCEPTION_REASON"):
-        validate_visual_decision(news)
+    assert validate_visual_decision(news) == news
     news["exception_reason"] = (
         "A narrow attributed announcement has no defensible useful quantitative comparison."
     )
@@ -879,9 +881,10 @@ def test_actual_native_compiler_retains_distinct_subsets_after_canonical_readbac
         )
     empty_instagram = deepcopy(article)
     empty_instagram["native_destination_media"]["instagram_business"] = []
-    with pytest.raises(ValueError, match="INSTAGRAM_IMAGE_REQUIRED"):
-        build_native_derivative_payloads(article=empty_instagram, selection={},
-            canonical_url="https://example.org/actual", media_asset_ids=["chart-a", "chart-b", "chart-c"])
+    payloads = build_native_derivative_payloads(article=empty_instagram, selection={},
+        canonical_url="https://example.org/actual", media_asset_ids=["chart-a", "chart-b", "chart-c"])
+    assert payloads["instagram_business"]["delivery_state"] == "SKIPPED_IMAGE_REQUIRED"
+    assert payloads["telegram"].get("delivery_state") != "SKIPPED_IMAGE_REQUIRED"
 
 
 def test_one_prewrite_visual_amendment_preserves_original_and_same_editor(tmp_path, monkeypatch):

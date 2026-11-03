@@ -5,6 +5,8 @@ Legacy fixture review ledgers are not adopted as a second durable owner.
 """
 from __future__ import annotations
 
+from live_contentops.native_manual_candidate_v1 import native_artifact_key
+
 import json
 from datetime import datetime, timezone
 from uuid import uuid4
@@ -75,7 +77,7 @@ def record_story_editorial_revision(store, *, run_id, article_identity, review_o
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, canonical_bytes
     if not isinstance(reason, str) or len(reason.strip()) < 20:
         raise ValueError("SUBSTANTIVE_EDITORIAL_REVISION_REASON_REQUIRED")
-    row = store.get_outbox_message("cc-editorial-final-" + sha256_of(run_id))
+    row = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
     if result.get("article_identity") != article_identity or not result.get("qualified_article_count"):
         raise ValueError("EXACT_EXISTING_STORY_REQUIRED")
@@ -122,7 +124,7 @@ def record_story_source_review(store, *, run_id, article_identity, review_operat
         if value.get("request_sha256", request_sha) != request_sha:
             raise ValueError("SOURCE_REVIEW_INPUT_CHANGED_USE_NEW_IDENTITY")
         return value
-    row = store.get_outbox_message("cc-editorial-final-" + sha256_of(run_id))
+    row = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
     if result.get("article_identity") != article_identity or not result.get("qualified_article_count"):
         raise ValueError("EXACT_EXISTING_STORY_REQUIRED")
@@ -484,7 +486,7 @@ def record_native_article_review(store, *, run_id, article_identity, decision, r
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
     if decision not in {"KEEP", "REVISE", "HOLD"} or not 20 <= len(rationale.strip()) <= 3000 or _private({"rationale": rationale}):
         raise ValueError("REASONED_KEEP_REVISE_HOLD_REQUIRED")
-    key = "cc-editorial-final-" + sha256_of(run_id)
+    key = native_artifact_key(store, run_id, "cc-editorial-final-")
     with store.get_connection() as conn:
         conn.execute("BEGIN IMMEDIATE")
         try:
@@ -503,18 +505,42 @@ def record_native_article_review(store, *, run_id, article_identity, decision, r
             note = {"schema_version": "contentops.native_article_review.v1", "run_id": run_id,
                 "article_identity": article_identity, "package_revision": revision, "article_metadata_sha256": metadata_sha,
                 "rationale": rationale.strip(), "publication_authority": False}
+            from live_contentops.native_publication_latency_v1 import text_revision, text_approval
+            approved_at = datetime.now(timezone.utc).isoformat()
+            note["text_revision_sha256"] = text_revision(value)
+            if decision == "KEEP":
+                history = [dict(r) for r in conn.execute("SELECT * FROM review_records WHERE work_item_id=? ORDER BY rowid",
+                    (row["work_item_id"],))]
+                note["text_approved_at_utc"] = text_approval(history, run_id=run_id,
+                    article_identity=article_identity, revision=note["text_revision_sha256"]) or approved_at
+                adopted = store.get_outbox_message("native-approved-text-speed-" + sha256_of(run_id))
+                if adopted:
+                    from live_contentops.native_publication_latency_v1 import _approved_text_speed_basis
+                    basis = _approved_text_speed_basis(store, run_id=run_id, result=value)
+                    if basis != json.loads(adopted["payload"]):
+                        raise ValueError("APPROVED_TEXT_POLICY_BINDING_CHANGED")
+                    note["text_approved_at_utc"] = basis["original_approval_clock_utc"]
+                from live_contentops.native_publication_latency_v1 import uses_short_path, automated_media_check, SPEED_POLICY
+                if uses_short_path(store, run_id=run_id, result=value):
+                    note["publication_speed_policy"] = {"policy": SPEED_POLICY, "target_minutes": 15}
+                    previous_check = next((json.loads(r["notes"])["automated_media_check"] for r in reversed(history)
+                        if json.loads(r["notes"]).get("package_revision") == revision
+                        and json.loads(r["notes"]).get("automated_media_check")), None)
+                    note["automated_media_check"] = previous_check or automated_media_check(value)
             if final_visual_review is not None:
                 from live_contentops.native_desktop_editorial_v1 import final_visual_acceptance
                 note["final_visual_review"] = final_visual_acceptance(store, run_id=run_id,
                     result=value, reference=final_visual_review)
             review_id = "native-article-review-" + uuid4().hex
             conn.execute("INSERT INTO review_records VALUES (?,?,?,?,?,?)", (review_id, row["work_item_id"],
-                "NATIVE_DESKTOP_ARTICLE_REVIEW", decision, json.dumps(note, ensure_ascii=False), datetime.now(timezone.utc).isoformat()))
+                "NATIVE_DESKTOP_ARTICLE_REVIEW", decision, json.dumps(note, ensure_ascii=False), approved_at))
             conn.execute("COMMIT")
         except Exception:
             conn.execute("ROLLBACK")
             raise
-    return {"review_id": review_id, "decision": decision, **note}
+    return {"review_id": review_id, "decision": decision, **note,
+        **({"next_operation": "publication-prepare", "publication_priority": "DISPATCH_NOW_WITHIN_15_MINUTES"}
+            if decision == "KEEP" and (final_visual_review or note.get("publication_speed_policy")) else {})}
 
 
 def desk_projection(library, records):

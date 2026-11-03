@@ -1,0 +1,119 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "normalized": [
+      {
+        "from": "File:United_States_Capitol_-_west_front.jpg",
+        "to": "File:United States Capitol - west front.jpg"
+      }
+    ],
+    "pages": {
+      "7531712": {
+        "pageid": 7531712,
+        "ns": 6,
+        "title": "File:United States Capitol - west front.jpg",
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 5435622,
+            "width": 3000,
+            "height": 1556,
+            "url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/United_States_Capitol_-_west_front.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:United_States_Capitol_-_west_front.jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=7531712",
+            "sha1": "7a871bbed9051c34aeeec134030aae431e83988c",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2009-08-11 07:47:32",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "United States Capitol - west front",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "1997 in Washington, D.C.|Exterior of the United States Capitol|Images of the Architect of the Capitol|Images with annotations|Files with derivative versions|Files with coordinates missing SDC location of creation",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "GPSLatitude": {
+                "value": "38.889818",
+                "source": "commons-desc-page"
+              },
+              "GPSLongitude": {
+                "value": "-77.012540",
+                "source": "commons-desc-page"
+              },
+              "GPSMapDatum": {
+                "value": "WGS-84",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "The western front of the <a href=\"https://en.wikipedia.org/wiki/United_States_Capitol\" class=\"extiw\" title=\"en:United States Capitol\">United States Capitol</a>. The <a href=\"https://en.wikipedia.org/wiki/Neoclassical_architecture\" class=\"extiw\" title=\"en:Neoclassical architecture\">Neoclassical style</a> building is in <a href=\"https://en.wikipedia.org/wiki/Washington,_D.C.\" class=\"extiw\" title=\"en:Washington, D.C.\">Washington, D.C.</a>, on <a href=\"https://en.wikipedia.org/wiki/Capitol_Hill,_Washington,_D.C.\" class=\"extiw\" title=\"en:Capitol Hill, Washington, D.C.\">Capitol Hill</a>, at the east end of the <a href=\"https://en.wikipedia.org/wiki/National_Mall\" class=\"extiw\" title=\"en:National Mall\">National Mall</a>. The Capitol was designated a <a href=\"https://en.wikipedia.org/wiki/National_Historic_Landmark\" class=\"extiw\" title=\"en:National Historic Landmark\">National Historic Landmark</a> in 1960.",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "1997",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"http://www.aoc.gov/cc/photo-gallery/upload/72350_hr_1997.jpg\">aoc.gov</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "<a href=\"https://en.wikipedia.org/wiki/Architect_of_the_Capitol\" class=\"extiw\" title=\"w:Architect of the Capitol\">Architect of the Capitol</a>",
+                "source": "commons-desc-page"
+              },
+              "Permission": {
+                "value": "<table class=\"licensetpl\" style=\"display:none\">\n<tbody><tr>\n<td><span class=\"licensetpl_short\">Public domain</span><span class=\"licensetpl_long\">Public domain</span><span class=\"licensetpl_link_req\">false</span><span class=\"licensetpl_attr_req\">false</span>\n</td></tr></tbody></table>\n<table style=\"width: 100%; clear: both; margin: 0.5em auto; background-color: var(--background-color-progressive-subtle, #f7f8ff); color: var(--color-base, #202122); border: var(--border-subtle, 2px solid #8888aa); border-spacing: 8px; padding: 0px;\" dir=\"ltr\" class=\"layouttemplate\" lang=\"en\">\n<tbody><tr>\n<td><span typeof=\"mw:File\"><span title=\"Public domain\"><img alt=\"Public domain\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/PD-icon.svg/120px-PD-icon.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"64\" height=\"64\" class=\"mw-file-element\" srcset=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/PD-icon.svg/250px-PD-icon.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail 2x\" data-file-width=\"196\" data-file-height=\"196\"></span></span>\n</td>\n<td><i>This image is a work of an employee of the <a href=\"https://en.wikipedia.org/wiki/Architect_of_the_Capitol\" class=\"extiw\" title=\"en:Architect of the Capitol\">Architect of the Capitol</a>, taken or made as part of that person's official duties. As a <a href=\"https://en.wikipedia.org/wiki/Work_of_the_United_States_Government\" class=\"extiw\" title=\"w:Work of the United States Government\">work</a> of the <a href=\"https://en.wikipedia.org/wiki/Federal_Government_of_the_United_States\" class=\"extiw\" title=\"w:Federal Government of the United States\">U.S. federal government</a>, all images created or made by the Architect of the Capitol are in the <a href=\"//commons.wikimedia.org/wiki/Public_domain\" class=\"mw-redirect\" title=\"Public domain\">public domain</a> in the United States.</i>\n</td>\n<td><span typeof=\"mw:File\"><span title=\"Architect of the Capitol logo\"><img alt=\"Architect of the Capitol logo\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Logo_of_the_United_States_Architect_of_the_Capitol.svg/120px-Logo_of_the_United_States_Architect_of_the_Capitol.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"64\" height=\"68\" class=\"mw-file-element\" srcset=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Logo_of_the_United_States_Architect_of_the_Capitol.svg/250px-Logo_of_the_United_States_Architect_of_the_Capitol.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail 2x\" data-file-width=\"679\" data-file-height=\"720\"></span></span>\n</td></tr></tbody></table>",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "LicenseShortName": {
+                "value": "Public domain",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Public domain",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "false",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Copyrighted": {
+                "value": "False",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "pd",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

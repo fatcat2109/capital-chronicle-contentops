@@ -19,7 +19,10 @@ def interpret_public_native_lineage(row, envelope):
         and value.get("lineage_sha256") == sha256_of({k: v for k, v in value.items() if k != "lineage_sha256"}))
     require(all(value.get(k) == envelope.get(k) for k in ("report_id", "report_version", "report_sha256")))
     require(envelope.get("asset_ids") == [value.get("asset_id")]
-        and value.get("model") == "gpt-6.1-sol" and value.get("reasoning_effort") == "max"
+        # Decision 56 permits the Publisher's high-effort top-level run. This
+        # attestation records producer configuration; it is not an editorial-role
+        # acceptance check or independent observation of a model invocation.
+        and value.get("model") == "gpt-6.1-sol" and value.get("reasoning_effort") in {"high", "max"}
         and value.get("canonical_model_source_eligible") is False
         and value.get("execution_readiness") == "BLOCKED"
         and value.get("research_eligibility") == "PERMITTED_CLAIMS_ONLY"
@@ -62,4 +65,6 @@ def interpret_public_native_lineage(row, envelope):
     return {"state": "PRODUCER_ATTESTED_NATIVE_PUBLIC_EXCERPTS", "producer_attestation": deepcopy(value),
         "consumer_exact_public_bindings_verified": True, "permitted_excerpt_count": len(excerpts),
         "independent_native_runtime_verified": False, "private_worker_artifacts_read": False,
+        "configured_model": value["model"], "configured_reasoning_effort": value["reasoning_effort"],
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
         "canonical_model_source_eligible": False, "publication_authority": False}

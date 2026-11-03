@@ -1,0 +1,2403 @@
+{
+  "method": "BrowserOS Neo Page.captureScreenshot; 900 px actual viewport; fromSurface true, captureBeyondViewport false; literal pixel band assembly with exact scroll overlaps removed. No scaling or synthetic pixels.",
+  "page": 63,
+  "source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+  "source_sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f",
+  "targets_sha256": "0623ae5a4a0fb34d437906e0ab6e26dec7a4b9d2a379b0d05d4a4150e94296bb",
+  "presentations": [
+    {
+      "destination": "discord",
+      "viewport": "desktop",
+      "render_id": "cc107-discord-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-discord-desktop-r2.png",
+      "sha256": "ed10a7c66d1126e98a2c26bdcc23d6f0bd9bf16a9000c089034cef5fcecbfc0a",
+      "width": 1200,
+      "height": 3207,
+      "variant_sha256": "a5ed3b7c674940cc6ac641872d5980675834ba7363b8b1f055195e0ea0988e3a",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 3207,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 393,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 3207
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 2307,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\discord-desktop-part-0.png",
+          "sha256": "cd978d42a26e1fd4c9a03ce6d18a27bb07be8224eb4a826334a1fa8eb1c45b4a",
+          "observation": {
+            "docHeight": 3207,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\discord-desktop-part-1.png",
+          "sha256": "d9ef03e58d0dad632e49b3e31645a6d3ceafcb2b99c8b85e4305d538ba7a242c",
+          "observation": {
+            "docHeight": 3207,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\discord-desktop-part-2.png",
+          "sha256": "16866e7b40340fb3027f199cdffc4a76a1605cc606da11b1140379b9f6292f4e",
+          "observation": {
+            "docHeight": 3207,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\discord-desktop-part-3.png",
+          "sha256": "43a4762bd4442deee92797430967358b402807c18387b999cb61534be1926733",
+          "observation": {
+            "docHeight": 3207,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 2307
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "discord",
+      "viewport": "mobile",
+      "render_id": "cc107-discord-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-discord-mobile-r2.png",
+      "sha256": "b2ba2da41173ac603bcc9d89a012f4ffd1e1766d0cc6d7600b4d8a366a7cfa91",
+      "width": 390,
+      "height": 2745,
+      "variant_sha256": "a5ed3b7c674940cc6ac641872d5980675834ba7363b8b1f055195e0ea0988e3a",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 2745,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 855,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 2745
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 1845,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\discord-mobile-part-0.png",
+          "sha256": "eafb606c8f95bced9acda681574d1233732e38347ae55cd73cd359b59535da30",
+          "observation": {
+            "docHeight": 2745,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\discord-mobile-part-1.png",
+          "sha256": "a638aa60c90ac50f2b84d20bb96fffdda0cff2f43e97eddaca01a6092cfa0144",
+          "observation": {
+            "docHeight": 2745,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\discord-mobile-part-2.png",
+          "sha256": "a3d8998f739a8d842570f9257c58fc15df3d0ab7ce4e8a26e2a215aa013f79a3",
+          "observation": {
+            "docHeight": 2745,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\discord-mobile-part-3.png",
+          "sha256": "1c963f750709fc5709a1e76ee2187d6be7d8604ba6d00935819df7886196cece",
+          "observation": {
+            "docHeight": 2745,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1845
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "facebook_page",
+      "viewport": "desktop",
+      "render_id": "cc107-facebook_page-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-facebook_page-desktop-r2.png",
+      "sha256": "db3e3ae9ba99c0f9109cf5ecbe6ecb3c01ac68dbc84fb85f3b2931a743eb1b7c",
+      "width": 1200,
+      "height": 3235,
+      "variant_sha256": "6cb8c54e0d38c69bf79734ff0777889a9b90b175358834eb8263f8db1f61ab1a",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 3235,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 365,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 3235
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 2335,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\facebook_page-desktop-part-0.png",
+          "sha256": "7061b61281f29c917ef15500d1847fbdc72ae06491ecc712d3cdaa66b6e32c6b",
+          "observation": {
+            "docHeight": 3235,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\facebook_page-desktop-part-1.png",
+          "sha256": "1350cb8fd194f2cbe2644e4d09f86731de1d13bb9dfdd6f52f78432849dc4a39",
+          "observation": {
+            "docHeight": 3235,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\facebook_page-desktop-part-2.png",
+          "sha256": "207db417be9e46154a793a52a7aa53eea0a82918a77ed934dc35f83408a3bf8b",
+          "observation": {
+            "docHeight": 3235,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\facebook_page-desktop-part-3.png",
+          "sha256": "f18f61859f9affc769a18f5d41fc467bf68da990e7f9caf326ce9448f8f05b87",
+          "observation": {
+            "docHeight": 3235,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 2335
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "facebook_page",
+      "viewport": "mobile",
+      "render_id": "cc107-facebook_page-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-facebook_page-mobile-r2.png",
+      "sha256": "6bfdbf91ff9a856ed930b594a3eb472e88d6505b00c5afc091af2dc94eb672b1",
+      "width": 390,
+      "height": 2798,
+      "variant_sha256": "6cb8c54e0d38c69bf79734ff0777889a9b90b175358834eb8263f8db1f61ab1a",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 2798,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 802,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 2798
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 1898,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\facebook_page-mobile-part-0.png",
+          "sha256": "cca70beb5e22b0c8ca50d279dbe85293bdb9404b1d989d7e9ed0e823d05c43a4",
+          "observation": {
+            "docHeight": 2798,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\facebook_page-mobile-part-1.png",
+          "sha256": "e16a7839a00952a01ffd5f989150768d486e7c47afabbb17f5ffedd538654c3d",
+          "observation": {
+            "docHeight": 2798,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\facebook_page-mobile-part-2.png",
+          "sha256": "8d45f8e3dfe2436ceb11de8ec792e7a6d65d2acedb84606831e5fd8b47ffe50c",
+          "observation": {
+            "docHeight": 2798,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\facebook_page-mobile-part-3.png",
+          "sha256": "f5f8d4655ec2ebaa00523e44396d0ebea60ab3ed7e1c33d966e27a48651caa36",
+          "observation": {
+            "docHeight": 2798,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1898
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "instagram_business",
+      "viewport": "desktop",
+      "render_id": "cc107-instagram_business-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-instagram_business-desktop-r2.png",
+      "sha256": "61df4c74ba928eb4bc2345a3df49f90e5ce28d113e4b56c61831ea77f4a28e7d",
+      "width": 1200,
+      "height": 3249,
+      "variant_sha256": "25357c46ac7dbf9fa1c8dacf97a05217980d00f5a4c8290f5c3b013a10ff7574",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 3249,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 351,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 3249
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 2349,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\instagram_business-desktop-part-0.png",
+          "sha256": "d11af16029e8d05ba19eaa494105cb3dc20e5604503b15fefecefd2bac33aaa2",
+          "observation": {
+            "docHeight": 3249,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\instagram_business-desktop-part-1.png",
+          "sha256": "c85e97e29b39cc70320a72b23972116fc1276493841124b8efa5c6d476c8119b",
+          "observation": {
+            "docHeight": 3249,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\instagram_business-desktop-part-2.png",
+          "sha256": "1b157897e954f0a39982582bbe735b189762f7857ca29d768ef154e76bfec231",
+          "observation": {
+            "docHeight": 3249,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\instagram_business-desktop-part-3.png",
+          "sha256": "2029b43e159d98a73e71698c8229c6ded289c89023544e1d3e325b9cba3ab969",
+          "observation": {
+            "docHeight": 3249,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 2349
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "instagram_business",
+      "viewport": "mobile",
+      "render_id": "cc107-instagram_business-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-instagram_business-mobile-r2.png",
+      "sha256": "efc30ab4a6454e67519889978dd211cc48a2eb9f5e5754eced25a4ca934d6ccf",
+      "width": 390,
+      "height": 2758,
+      "variant_sha256": "25357c46ac7dbf9fa1c8dacf97a05217980d00f5a4c8290f5c3b013a10ff7574",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 2758,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 842,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 2758
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 1858,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\instagram_business-mobile-part-0.png",
+          "sha256": "2a1570b300dfe3143c5857cc3b123e51f610a2e1279cc8268560940bbebeb7d0",
+          "observation": {
+            "docHeight": 2758,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\instagram_business-mobile-part-1.png",
+          "sha256": "ca0609caf27334d02c341550c030487a881c4b663edaa551325f95d550221271",
+          "observation": {
+            "docHeight": 2758,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\instagram_business-mobile-part-2.png",
+          "sha256": "10e8f69ddb54506e54debeee1b2743283ee2e09e1b2cc22a6b1f3a6abd8232c6",
+          "observation": {
+            "docHeight": 2758,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\instagram_business-mobile-part-3.png",
+          "sha256": "c17ff796eec372a5fe2827296524768c7bbd078305cd4f095b1280c56e578954",
+          "observation": {
+            "docHeight": 2758,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1858
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "linkedin",
+      "viewport": "desktop",
+      "render_id": "cc107-linkedin-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-linkedin-desktop-r2.png",
+      "sha256": "be45a56f213fb5d4873f64341b5e6d8bd733760a8d94805ad5b6f179b11b9b34",
+      "width": 1200,
+      "height": 3263,
+      "variant_sha256": "a66e943ed1564233ceb5330c30f6d29fbf56bdfc5a6493ef73515348c6965e4e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 3263,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 337,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 3263
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 2363,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\linkedin-desktop-part-0.png",
+          "sha256": "309ceebc8b4cecd5edc1057e98d1a5fa07e9a6c5e5108fa329d0b4f5c3bbe4c9",
+          "observation": {
+            "docHeight": 3263,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\linkedin-desktop-part-1.png",
+          "sha256": "f4952ebfe7a9a6fc650de1e2fbf93b94ab26d93ae58ae1920049e207a453293c",
+          "observation": {
+            "docHeight": 3263,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\linkedin-desktop-part-2.png",
+          "sha256": "9791baae898f8cba467f36b09875c54432ca317c178769d60fc6b5f3ef9c91cf",
+          "observation": {
+            "docHeight": 3263,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\linkedin-desktop-part-3.png",
+          "sha256": "d0617d4233153b94496bdbe3c49407f56a538070e38bf289d57d36515399fa69",
+          "observation": {
+            "docHeight": 3263,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 2363
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "linkedin",
+      "viewport": "mobile",
+      "render_id": "cc107-linkedin-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-linkedin-mobile-r2.png",
+      "sha256": "35f8e75b00da341c7dd54441de87864c7af81777d50b802c6f1c3a34856d349f",
+      "width": 390,
+      "height": 2850,
+      "variant_sha256": "a66e943ed1564233ceb5330c30f6d29fbf56bdfc5a6493ef73515348c6965e4e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 2850,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 750,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 2850
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 1950,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\linkedin-mobile-part-0.png",
+          "sha256": "c96a48a54d46a8683141c94e97066ea7400fb64f26b3af2417b01525d9875cfa",
+          "observation": {
+            "docHeight": 2850,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\linkedin-mobile-part-1.png",
+          "sha256": "20c84dc3970b8d2bb3a667bdca61273f61a146224d321f88df5c5d1c2838e23c",
+          "observation": {
+            "docHeight": 2850,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\linkedin-mobile-part-2.png",
+          "sha256": "8d740e51b853ef0f9b2284680596ae4bba7d05f5f4ea583d8446ba8a828fb8b8",
+          "observation": {
+            "docHeight": 2850,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\linkedin-mobile-part-3.png",
+          "sha256": "398376ae6c6d869c80752850d986b6e82f65e3e418f653f5a2ed2c78e00b6b68",
+          "observation": {
+            "docHeight": 2850,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1950
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "substack",
+      "viewport": "desktop",
+      "render_id": "cc107-substack-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-substack-desktop-r2.png",
+      "sha256": "2f00aadff63ae1c7f8540e0bbfc3f5c46571b9eb86bbd024d888aa992c7f01d7",
+      "width": 1200,
+      "height": 5751,
+      "variant_sha256": "46084401bb5565714d7eeec057e708d246b37bf2f0dc1432f0597e6bd6bac709",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 5751,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 3600
+          },
+          {
+            "raw_part": 4,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 3600,
+            "document_y_end": 4500
+          },
+          {
+            "raw_part": 5,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 4500,
+            "document_y_end": 5400
+          },
+          {
+            "raw_part": 6,
+            "raw_y_start": 549,
+            "raw_y_end": 900,
+            "document_y_start": 5400,
+            "document_y_end": 5751
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 6,
+            "document_y_start": 4851,
+            "document_y_end": 5400,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-desktop-part-0.png",
+          "sha256": "e00cfd199b1e3ff7d9e04ba99182e170e761f787ddc18f0ccff9aa617bae767c",
+          "observation": {
+            "x": 0,
+            "y": 0,
+            "width": 1200,
+            "height": 900,
+            "docHeight": 5751,
+            "docWidth": 1185
+          },
+          "coordinate_source": "Exact coordinates supplied by parent task handoff: actual y=0,900,1800,2700,3600,4500; 1200 x 900, document height 5751. Raw PNGs retained and content/overlap checked here.",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-desktop-part-1.png",
+          "sha256": "1b225eec5c2fb3045eafec9ed99a8b386d72531037d08ae07f62d4ef2c89adce",
+          "observation": {
+            "x": 0,
+            "y": 900,
+            "width": 1200,
+            "height": 900,
+            "docHeight": 5751,
+            "docWidth": 1185
+          },
+          "coordinate_source": "Exact coordinates supplied by parent task handoff: actual y=0,900,1800,2700,3600,4500; 1200 x 900, document height 5751. Raw PNGs retained and content/overlap checked here.",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-desktop-part-2.png",
+          "sha256": "1671ac48910ae1c136293cc2c14e33d6806829d64d0a0c3bae1243315eebb827",
+          "observation": {
+            "x": 0,
+            "y": 1800,
+            "width": 1200,
+            "height": 900,
+            "docHeight": 5751,
+            "docWidth": 1185
+          },
+          "coordinate_source": "Exact coordinates supplied by parent task handoff: actual y=0,900,1800,2700,3600,4500; 1200 x 900, document height 5751. Raw PNGs retained and content/overlap checked here.",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-desktop-part-3.png",
+          "sha256": "b522ad00e6087fbd144f95aa7c885598f30c50a1ade42a5a9d36686899da3033",
+          "observation": {
+            "x": 0,
+            "y": 2700,
+            "width": 1200,
+            "height": 900,
+            "docHeight": 5751,
+            "docWidth": 1185
+          },
+          "coordinate_source": "Exact coordinates supplied by parent task handoff: actual y=0,900,1800,2700,3600,4500; 1200 x 900, document height 5751. Raw PNGs retained and content/overlap checked here.",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 4,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-desktop-part-4.png",
+          "sha256": "dd2699dbe650e1dbb321c19697553b414be0a8e43d9fb6c7184b058b27d3701a",
+          "observation": {
+            "x": 0,
+            "y": 3600,
+            "width": 1200,
+            "height": 900,
+            "docHeight": 5751,
+            "docWidth": 1185
+          },
+          "coordinate_source": "Exact coordinates supplied by parent task handoff: actual y=0,900,1800,2700,3600,4500; 1200 x 900, document height 5751. Raw PNGs retained and content/overlap checked here.",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 5,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-desktop-part-5.png",
+          "sha256": "591f72a59f0073ccb9854826dc0f906c3c02bfcd21e1fb69bfd8e0226cf89a43",
+          "observation": {
+            "x": 0,
+            "y": 4500,
+            "width": 1200,
+            "height": 900,
+            "docHeight": 5751,
+            "docWidth": 1185
+          },
+          "coordinate_source": "Exact coordinates supplied by parent task handoff: actual y=0,900,1800,2700,3600,4500; 1200 x 900, document height 5751. Raw PNGs retained and content/overlap checked here.",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 6,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-desktop-part-6.png",
+          "sha256": "fe31a2980178d6f74e5c368ab2b5fe4805a05071ac1720432a96d6e3079bff37",
+          "observation": {
+            "docHeight": 5751,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 4851
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "substack",
+      "viewport": "mobile",
+      "render_id": "cc107-substack-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-substack-mobile-r2.png",
+      "sha256": "30478381d68509db17fc19721d66ebfcc990c2a3ecb1d468deb8443cf53db964",
+      "width": 390,
+      "height": 7363,
+      "variant_sha256": "46084401bb5565714d7eeec057e708d246b37bf2f0dc1432f0597e6bd6bac709",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 7363,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 3600
+          },
+          {
+            "raw_part": 4,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 3600,
+            "document_y_end": 4500
+          },
+          {
+            "raw_part": 5,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 4500,
+            "document_y_end": 5400
+          },
+          {
+            "raw_part": 6,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 5400,
+            "document_y_end": 6300
+          },
+          {
+            "raw_part": 7,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 6300,
+            "document_y_end": 7200
+          },
+          {
+            "raw_part": 8,
+            "raw_y_start": 737,
+            "raw_y_end": 900,
+            "document_y_start": 7200,
+            "document_y_end": 7363
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 8,
+            "document_y_start": 6463,
+            "document_y_end": 7200,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-mobile-part-0.png",
+          "sha256": "7be73ce39334d984a81e12054d8a549cc6aed82f78911db224c99200b520868c",
+          "observation": {
+            "docHeight": 7363,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-mobile-part-1.png",
+          "sha256": "379af04560874587a039feabfcb81eb5d5f5c81ded65ee39c41a6b77901f5aa4",
+          "observation": {
+            "docHeight": 7363,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-mobile-part-2.png",
+          "sha256": "ef664e2db7e31a9438291e653ab87e937a531f4f350c1cb18e3fc457e216a1b5",
+          "observation": {
+            "docHeight": 7363,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-mobile-part-3.png",
+          "sha256": "1522f13ee03b3fc94205d7374d3c6c1356f95afb5ca81d9de05025faf59df52a",
+          "observation": {
+            "docHeight": 7363,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 2700
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 4,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-mobile-part-4.png",
+          "sha256": "c50377684d4bbf02c8cb85828bd7777ccb86f0da27251c227995aefbb04fd897",
+          "observation": {
+            "docHeight": 7363,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 3600
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 5,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-mobile-part-5.png",
+          "sha256": "03a6340d026de171be1623d6b688efc1ba608f7ebef8bcbdacf68b399705a257",
+          "observation": {
+            "docHeight": 7363,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 4500
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 6,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-mobile-part-6.png",
+          "sha256": "bfaaee0b2456ce0562b8e7e7ff48a514cb3ba96a2657833a6c06da04ce7396e7",
+          "observation": {
+            "docHeight": 7363,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 5400
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 7,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-mobile-part-7.png",
+          "sha256": "94385317708964e657fe589d3ae72b22133f299e49493cb0edc9bacc2dd9184c",
+          "observation": {
+            "docHeight": 7363,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 6300
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 8,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\substack-mobile-part-8.png",
+          "sha256": "d33ededc26eb18cc0b6f62821072d64593cf9d1974f8185c96f680eb32ceb90e",
+          "observation": {
+            "docHeight": 7363,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 6463
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "telegram",
+      "viewport": "desktop",
+      "render_id": "cc107-telegram-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-telegram-desktop-r2.png",
+      "sha256": "6eb9c623b52d4dd8f93ba457194a74d63428887facc199b59c117a7f08a73a64",
+      "width": 1200,
+      "height": 3249,
+      "variant_sha256": "5f98336b5d35ba4acaaa325910bd3a2a548bcc0579982901eb390c72f090cfa0",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 3249,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 351,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 3249
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 2349,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\telegram-desktop-part-0.png",
+          "sha256": "e913fe922d4aea8dfc5aada0362e03689b5162d324aaeee45e1b6300f4c821a9",
+          "observation": {
+            "docHeight": 3249,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\telegram-desktop-part-1.png",
+          "sha256": "7d125c9f0a24cc39323d2fff75db1ea29819f350a88d30d2ad00f25c0ed5a8cb",
+          "observation": {
+            "docHeight": 3249,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\telegram-desktop-part-2.png",
+          "sha256": "1b157897e954f0a39982582bbe735b189762f7857ca29d768ef154e76bfec231",
+          "observation": {
+            "docHeight": 3249,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\telegram-desktop-part-3.png",
+          "sha256": "2029b43e159d98a73e71698c8229c6ded289c89023544e1d3e325b9cba3ab969",
+          "observation": {
+            "docHeight": 3249,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 2349
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "telegram",
+      "viewport": "mobile",
+      "render_id": "cc107-telegram-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-telegram-mobile-r2.png",
+      "sha256": "3779dfe7f8fad9bd54e6503df82e2226bd86ed926c710d332fc1144845cee933",
+      "width": 390,
+      "height": 2785,
+      "variant_sha256": "5f98336b5d35ba4acaaa325910bd3a2a548bcc0579982901eb390c72f090cfa0",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 2785,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 815,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 2785
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 1885,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\telegram-mobile-part-0.png",
+          "sha256": "36aba505ce1c77796fb68e2ee3a099b6e493ce8dfc353192b36dcfb5a04e2c16",
+          "observation": {
+            "docHeight": 2785,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\telegram-mobile-part-1.png",
+          "sha256": "c535c10c2e39afef62fbec1b350a774d47bd5aa791c9c68bf551627b1662f23f",
+          "observation": {
+            "docHeight": 2785,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\telegram-mobile-part-2.png",
+          "sha256": "0458e13cc64caca341ab059594111e16991033fea716b893e102e60512ee36d2",
+          "observation": {
+            "docHeight": 2785,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\telegram-mobile-part-3.png",
+          "sha256": "142e3017993a1973ef785607ff04cd2f7a2e50bb6987cb2b9ceacd9ebe7db3bd",
+          "observation": {
+            "docHeight": 2785,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1885
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "threads",
+      "viewport": "desktop",
+      "render_id": "cc107-threads-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-threads-desktop-r2.png",
+      "sha256": "286b202147705e0ae3c18feeceedad5c9a119f1bfac4d5e318c1165550e5849d",
+      "width": 1200,
+      "height": 3575,
+      "variant_sha256": "175a65152b26d668708538569767d3f7c2e6a04dd8ac0f15f66a795139b9e4dd",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 3575,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 25,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 3575
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 2675,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\threads-desktop-part-0.png",
+          "sha256": "c4068ca8f326094655eb9f810982353b510c47b48a1b6886d08e6da60f0ce0c4",
+          "observation": {
+            "docHeight": 3575,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\threads-desktop-part-1.png",
+          "sha256": "fc5c601673a1142eebd97e2731c2b1d4e81a1922572d9d368592c74cbae71a71",
+          "observation": {
+            "docHeight": 3575,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\threads-desktop-part-2.png",
+          "sha256": "0b85c06280039a8862abb196d7d330555ab4755175407cca88d0b3c11dabe316",
+          "observation": {
+            "docHeight": 3575,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\threads-desktop-part-3.png",
+          "sha256": "fdf1846d5f7e93e08e6db3bcad4b3c7ff9ec04ebcbe08222cf5088a6cfb9574c",
+          "observation": {
+            "docHeight": 3575,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 2675
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "threads",
+      "viewport": "mobile",
+      "render_id": "cc107-threads-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-threads-mobile-r2.png",
+      "sha256": "ef24f7bc79d12f409e7c44994d10cfb94619f160bde6a34e638b22bb80b74710",
+      "width": 390,
+      "height": 3276,
+      "variant_sha256": "175a65152b26d668708538569767d3f7c2e6a04dd8ac0f15f66a795139b9e4dd",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 3276,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 324,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 3276
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 2376,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\threads-mobile-part-0.png",
+          "sha256": "f3df2e529cb573c3afa3402019190726d04e9cc530843d0e742d758cc72bf4b5",
+          "observation": {
+            "docHeight": 3276,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\threads-mobile-part-1.png",
+          "sha256": "689cfedcddce48a62c5944e6b0e29c71e7a0337cecd6482ed8f14dde499e9986",
+          "observation": {
+            "docHeight": 3276,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\threads-mobile-part-2.png",
+          "sha256": "4047cd0339357a4a481e9b004fa66748486265592472f139395d54f575382ff5",
+          "observation": {
+            "docHeight": 3276,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\threads-mobile-part-3.png",
+          "sha256": "02f7b0e1d9e28c1653a409285de7d764710c79f6cdf5b8715a1b53df2921fb67",
+          "observation": {
+            "docHeight": 3276,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 2376
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "x",
+      "viewport": "desktop",
+      "render_id": "cc107-x-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-x-desktop-r2.png",
+      "sha256": "feb3efdd9beca22338acf755a64a238f068d5f55935f674a95a2b12095122d8b",
+      "width": 1200,
+      "height": 3589,
+      "variant_sha256": "951282725851ba776f5e70fddee8611cc2e60b22992a2769f01736b4290d9043",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 3589,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 11,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 3589
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 2689,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\x-desktop-part-0.png",
+          "sha256": "fe7266e19adcb1fd4acc62292499871a857da6be09a48ed13a7cf6d930272596",
+          "observation": {
+            "docHeight": 3589,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\x-desktop-part-1.png",
+          "sha256": "597bcea2f839eceee352706329b4dba7eb31cd4994b14ed6ae0cf0d7fbe6f075",
+          "observation": {
+            "docHeight": 3589,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\x-desktop-part-2.png",
+          "sha256": "7985d530717c91272893b4ca15e16c316573712563389a651754fdfff5c2e6c7",
+          "observation": {
+            "docHeight": 3589,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\x-desktop-part-3.png",
+          "sha256": "ad1b91b5e12097405c5029137272565a2f4908000b5f18ac41681b33d7077743",
+          "observation": {
+            "docHeight": 3589,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 2689
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "x",
+      "viewport": "mobile",
+      "render_id": "cc107-x-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-x-mobile-r2.png",
+      "sha256": "e73caf37622ca127591c980407d8adf62b38a25110b44dc9427fc88f5401559f",
+      "width": 390,
+      "height": 3131,
+      "variant_sha256": "951282725851ba776f5e70fddee8611cc2e60b22992a2769f01736b4290d9043",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 3131,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 469,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 3131
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 2231,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\x-mobile-part-0.png",
+          "sha256": "615bb775b3b0cf96c9e211fe45d7fb0ad00a1111d76981891835aab25c30ed90",
+          "observation": {
+            "docHeight": 3131,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\x-mobile-part-1.png",
+          "sha256": "91869d12ede48c3080645a67ef4490a6e00c44a0236f8791c85bd8481b5ee702",
+          "observation": {
+            "docHeight": 3131,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\x-mobile-part-2.png",
+          "sha256": "e041adf86c00cafb44b775da898487ed7ca97df99c385860623c9f1fb31763ed",
+          "observation": {
+            "docHeight": 3131,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\x-mobile-part-3.png",
+          "sha256": "d6d0506d79ed9f745cbcf1ebf8e719639e866e0bd194350233318d5218fc5a79",
+          "observation": {
+            "docHeight": 3131,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 2231
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "youtube",
+      "viewport": "desktop",
+      "render_id": "cc107-youtube-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-youtube-desktop-r2.png",
+      "sha256": "d81f5e2d02a93ff949d005b611a07c1d9e2325e87b541724608342cedc93eb5d",
+      "width": 1200,
+      "height": 3207,
+      "variant_sha256": "daad8b0e90b1d093215a151a3f5313afaeabd8d854e69e15f48b207c7b70a1c8",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 3207,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 393,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 3207
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 2307,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\youtube-desktop-part-0.png",
+          "sha256": "bf303c4d16f00d59280b5375e896478bb8a003a3e4d72ee985840d6aa1f82a86",
+          "observation": {
+            "docHeight": 3207,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\youtube-desktop-part-1.png",
+          "sha256": "d306a6e96eb22aa371e51d886583eea971ae58cb44e4354a096407d114fb5915",
+          "observation": {
+            "docHeight": 3207,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\youtube-desktop-part-2.png",
+          "sha256": "16866e7b40340fb3027f199cdffc4a76a1605cc606da11b1140379b9f6292f4e",
+          "observation": {
+            "docHeight": 3207,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\youtube-desktop-part-3.png",
+          "sha256": "43a4762bd4442deee92797430967358b402807c18387b999cb61534be1926733",
+          "observation": {
+            "docHeight": 3207,
+            "docWidth": 1185,
+            "height": 900,
+            "width": 1200,
+            "x": 0,
+            "y": 2307
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 1185
+        }
+      ],
+      "visual_inspection": "PENDING"
+    },
+    {
+      "destination": "youtube",
+      "viewport": "mobile",
+      "render_id": "cc107-youtube-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-youtube-mobile-r2.png",
+      "sha256": "f787d594b5edbff96cb1b30f67f13d96896aec3109b0f201458729348faa9146",
+      "width": 390,
+      "height": 2745,
+      "variant_sha256": "daad8b0e90b1d093215a151a3f5313afaeabd8d854e69e15f48b207c7b70a1c8",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "coverage": {
+        "first_y": 0,
+        "last_y": 2745,
+        "complete": true,
+        "no_synthetic_pixels": true,
+        "bands": [
+          {
+            "raw_part": 0,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 0,
+            "document_y_end": 900
+          },
+          {
+            "raw_part": 1,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 900,
+            "document_y_end": 1800
+          },
+          {
+            "raw_part": 2,
+            "raw_y_start": 0,
+            "raw_y_end": 900,
+            "document_y_start": 1800,
+            "document_y_end": 2700
+          },
+          {
+            "raw_part": 3,
+            "raw_y_start": 855,
+            "raw_y_end": 900,
+            "document_y_start": 2700,
+            "document_y_end": 2745
+          }
+        ],
+        "overlap_checks": [
+          {
+            "part": 3,
+            "document_y_start": 1845,
+            "document_y_end": 2700,
+            "content_pixels_identical": true,
+            "mean_abs_difference_0_255": 0.0,
+            "maximum_abs_channel_difference": 0
+          }
+        ]
+      },
+      "raw_frames": [
+        {
+          "part": 0,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\youtube-mobile-part-0.png",
+          "sha256": "31d240e90c8e2cb7726b699695c4175d1082288390a58c1f3e12089fe0026dd1",
+          "observation": {
+            "docHeight": 2745,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 1,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\youtube-mobile-part-1.png",
+          "sha256": "e3a1cfc687ea433ff735ff6be618f831f92dcded555345fe8f0a11505de9a005",
+          "observation": {
+            "docHeight": 2745,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 900
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 2,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\youtube-mobile-part-2.png",
+          "sha256": "a3d8998f739a8d842570f9257c58fc15df3d0ab7ce4e8a26e2a215aa013f79a3",
+          "observation": {
+            "docHeight": 2745,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1800
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        },
+        {
+          "part": 3,
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\youtube-mobile-part-3.png",
+          "sha256": "1c963f750709fc5709a1e76ee2187d6be7d8604ba6d00935819df7886196cece",
+          "observation": {
+            "docHeight": 2745,
+            "docWidth": 375,
+            "height": 900,
+            "width": 390,
+            "x": 0,
+            "y": 1845
+          },
+          "coordinate_source": "direct supported BrowserOS Neo Runtime.evaluate and CDP metrics",
+          "content_width_excluding_scrollbar": 375
+        }
+      ],
+      "visual_inspection": "PENDING"
+    }
+  ],
+  "excluded_debug": [
+    "substack-desktop-segment-0.png",
+    "substack-desktop-segment-1.png",
+    "substack-desktop-segment-2.png"
+  ]
+}
