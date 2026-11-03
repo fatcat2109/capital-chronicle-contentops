@@ -1,0 +1,30 @@
+{
+  "asset_id": "sec-si-roundtable-event-facts-20261109",
+  "asset_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\media\\sec-si-roundtable-event-facts-20261109.png",
+  "asset_sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+  "width": 1600,
+  "height": 900,
+  "pixels_inspected": true,
+  "inspection_surface": "Local generated PNG viewed with tools.view_image at original resolution; no desktop screenshot or native application automation.",
+  "labels_and_units_legible": true,
+  "source_rows_match": true,
+  "clipping_detected": false,
+  "reviewer": "/root/native_visual_edit_f82b595905d3",
+  "request_sha256": "f82b595905d30ca0bacfa64eae9d2e8ebc10a97efebe20c6a461b02f9e9489df",
+  "source_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+  "decision": "PASS",
+  "repair_required": false,
+  "concrete_findings": [
+    "The Capital Chronicle header, event title, all five labelled rows and both source-footer lines are fully visible. No clipped text, overlap or obscured content is visible.",
+    "Date, time, location, webcast and subject appear in the frozen order. The five displayed values match the admitted source snippets and frozen visual rows exactly.",
+    "The full event date includes 2026. The time visibly retains EST. The footer separately labels the October 19 announcement date, avoiding confusion with the November 9 event date.",
+    "Dark text on the white field and the clear row separation make labels and values legible at the inspected native resolution. The long subject and webcast rows fit without truncation.",
+    "The source footer identifies the SEC. No speakers, agenda sessions, quantitative series, policy outcome, photograph or invented official seal is depicted.",
+    "The large open lower-right area is unused space, with no material readability or factual defect requiring a repair."
+  ],
+  "limits": [
+    "This is a pre-writer inspection of the exact standalone 1600x900 PNG. No article-page layout, responsive mobile display, destination crop or public object was inspected.",
+    "Rights are limited to the admitted packet and its existing evidence binding. This review makes no independent or additional source or media rights claim.",
+    "No text approval, accepted-role rewrite, public action or publication claim is made by this asset review."
+  ]
+}

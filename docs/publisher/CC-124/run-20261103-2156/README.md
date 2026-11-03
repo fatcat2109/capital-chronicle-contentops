@@ -17,3 +17,11 @@ Each pytest process ran serially with a 55-second cap during the decision window
 
 Step 1 is tested repository work. Live integration and article production are
 recorded separately when observed. No publication result is claimed here.
+
+The categorical facts-card extension passed 52 focused checks and is live under
+`contentops-live-20261103-cc124-facts`. It uses exact public-domain source spans,
+retains the existing image renderer/consumer and cannot satisfy quantitative
+analysis history. The same MAX writer inspected the binary card before prose.
+Actual source acquisition records distinguish the admitted announcement request
+from the separate unadmitted agenda discovery read; source/publication/retrieval
+clocks remain distinct. No first text approval or public send is claimed yet.
