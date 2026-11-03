@@ -1,0 +1,17 @@
+{
+  "method": "Actual Neo browser navigation to each uploaded original; Page.getResourceContent binary bytes; browser WebCrypto SHA-256. No cached local byte substitution.",
+  "observations": [
+    {
+      "url": "https://substack-post-media.s3.amazonaws.com/public/images/3f29f865-6e06-4de3-8192-c432409163af_3000x1556.jpeg",
+      "observed_at_utc": "2026-11-03T08:51:40.238Z",
+      "byte_length": 5435622,
+      "sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470"
+    },
+    {
+      "url": "https://substack-post-media.s3.amazonaws.com/public/images/2100fbe6-d2e4-4063-bb0d-dfbb0da31224_800x1280.png",
+      "observed_at_utc": "2026-11-03T08:51:42.868Z",
+      "byte_length": 106345,
+      "sha256": "f230c117cc279bde0718c094aaf70d4b1c8efae377f4ccacb78c222066fac4f1"
+    }
+  ]
+}

@@ -256,7 +256,7 @@
   "draft": {
     "path": "midterm-preview.md",
     "native_response": "native/write-response.json",
-    "status": "NATIVE_QUALIFIED_PRIVATE_ARTICLE_FINAL_PIXEL_REVIEW_ACCEPTED",
+    "status": "SUBSTACK_DRAFT_SAVED_EXACT_TEXT_AND_MEDIA_READBACK_NO_PUBLISH",
     "material_claim_bindings": 46,
     "numeric_spans": 41,
     "native_repair_cause": "report_horizon_proxy_cost_limits_missing was a source-type validation defect, fixed only for exact approved source and guarded copy. No Main report limit waived.",
@@ -333,6 +333,24 @@
       "remote_head_at_entry": "ef4ef737d45d67e7aa936ec396c5cebfe1a71f2f",
       "backlog_status": "IN_PROGRESS",
       "pending_work": "Commit the passed exact native authorship integration repair, then continue the same draft-only handoff."
+    },
+    {
+      "observed_at_utc": "2026-11-03T08:59:16.277011+00:00",
+      "process_id": 43380,
+      "launch_tokens": [
+        "exec",
+        "resume",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"max\""
+      ],
+      "actual_model": null,
+      "actual_reasoning_effort": null,
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "remote_head_at_entry": "1650a1f566d11f73f3b2db1783b06d3f02863408",
+      "backlog_status": "IN_PROGRESS",
+      "pending_work": "Preserve saved/read-back same Substack draft223293057; finish same-writer actual destination visual review; NFP still missing."
     }
   ],
   "lint": {
@@ -371,9 +389,22 @@
   },
   "substack_draft_action": {
     "implementation": "Existing DurablePublicationCoordinator and native Neo request/begin/submit; save_draft only, no Publish/Update",
-    "runtime_state": "NOT_CALLED_FINAL_REVIEW_PENDING",
+    "runtime_state": "SUBSTACK_DRAFT_AWAITING_OWNER",
     "no_public_canonical_or_count": true,
-    "lost_return": "UNKNOWN_WRITE_READBACK_FIRST_NO_RETRY"
+    "lost_return": "UNKNOWN_WRITE_READBACK_FIRST_NO_RETRY",
+    "result_artifact": "native/substack-draft-result.json",
+    "readback_artifact": "native/substack-draft-readback.json",
+    "media_hash_artifact": "native/substack-remote-media-readback.json",
+    "draft_id": "223293057",
+    "draft_editor_url": "https://capitalchronicle.substack.com/publish/post/223293057",
+    "draft_verified": true,
+    "public_write_performed": false,
+    "canonical_confirmed": false,
+    "published_article_count": 0,
+    "publish_or_update_pressed": false,
+    "mailbox_read_or_code_entered": false,
+    "one_draft_only": true,
+    "actual_destination_review": "SAME_WRITER_READ_ONLY_INSPECTION_IN_PROGRESS"
   },
   "draft_transport_verification_history": {
     "early_failures_retained": [
