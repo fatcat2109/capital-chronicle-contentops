@@ -1,0 +1,18 @@
+{
+  "observed_at_utc": "2026-11-03T15:35:50.208486+00:00",
+  "checks": [
+    {
+      "path": "docs\\publisher\\CC-124\\run-20261103-2156\\fact-card-media.junit.xml",
+      "tests": 39,
+      "seconds": 9.903
+    },
+    {
+      "path": "docs\\publisher\\CC-124\\run-20261103-2156\\fact-card-builder-rights.junit.xml",
+      "tests": 13,
+      "seconds": 1.965
+    }
+  ],
+  "scope": "SOURCE_BOUND_CATEGORICAL_FACT_CARD_NOT_QUANTITATIVE_CHART",
+  "behavior": "Existing renderer; exact public-domain source values, spans and policy hash; changed packet/bytes refuse; facts card cannot satisfy required quantitative analysis history",
+  "runtime_applied": false
+}

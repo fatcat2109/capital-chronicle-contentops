@@ -1022,7 +1022,75 @@ def _build_typed_source_value_chart(document, *, rows, title, unit, output_dir):
         "transform_sha256": sha256_of([source_hash, unit, rows, values])}
 
 
+def _source_fact_card_rows(packet, document):
+    """A categorical facts card uses exact source spans, never numeric plotting."""
+    rights, _ = _underlying_source_rights(document)
+    if rights != "public_domain" or not document.get("rights_evidence_sha256"):
+        raise ValueError("FACT_CARD_EXACT_PUBLIC_TEXT_RIGHTS_REQUIRED")
+    text = document.get("canonical_content_text", "")
+    if (packet.get("schema_version") != "contentops.source_fact_card.v1"
+            or packet.get("source_content_sha256") != _sha256_text(text)
+            or packet.get("source_url") != (document.get("url") or document.get("source_url"))
+            or not packet.get("question") or not packet.get("title")
+            or not isinstance(packet.get("rows"), list) or not 1 <= len(packet["rows"]) <= 5):
+        raise ValueError("FACT_CARD_EXACT_SOURCE_PACKET_REQUIRED")
+    rows = []
+    for row in packet["rows"]:
+        label, value, excerpt = row.get("label"), row.get("value"), row.get("support_excerpt")
+        if (not isinstance(label, str) or not 1 <= len(label) <= 36
+                or not isinstance(value, str) or not 1 <= len(value) <= 108
+                or not isinstance(excerpt, str) or not excerpt or excerpt not in text
+                or value not in excerpt or "\n" in label or "\n" in value):
+            raise ValueError("FACT_CARD_EXACT_DISPLAYED_FACT_REQUIRED")
+        rows.append((label, value))
+    return rows
+
+
+def build_source_fact_card(document, *, packet, asset_id, placement_after, output_dir):
+    """Reuse the existing image renderer for source-bound, nonquantitative facts."""
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    rows = _source_fact_card_rows(packet, document)
+    if not re.fullmatch(r"[a-z0-9][a-z0-9_-]{0,79}", asset_id) or not placement_after:
+        raise ValueError("FACT_CARD_ID_AND_PLACEMENT_REQUIRED")
+    path = Path(output_dir) / (asset_id + ".png")
+    _render_text_card(path=path, header="CAPITAL CHRONICLE", title_lines=[packet["title"]],
+        body_lines=rows, footer_lines=["Source: " + document["publisher"],
+            "Announcement: " + str(document.get("published_at_utc") or "date as recorded")[:10]])
+    return {"asset_id": asset_id, "path": str(path.resolve()), "sha256": _sha256_file(path),
+        "width": 1600, "height": 900, "modality": "source_backed_chart",
+        "media_role": "editorial_data_journalism", "visual_type": "SOURCE_FACTS_CARD",
+        "fact_card_packet": packet, "editorial_data_packet": {"question": packet["question"]},
+        "transform_sha256": sha256_of(packet), "placement_after": placement_after,
+        "caption": packet["title"], "alt_text": "; ".join(label + ": " + value for label, value in rows),
+        "source_page_url": packet["source_url"], "source_content_sha256": packet["source_content_sha256"],
+        "source_label": document["publisher"], "source_lineage": [{"source_url": packet["source_url"],
+            "document_id": document.get("document_id")}], "underlying_source_rights_status": "public_domain",
+        "rights_evidence_sha256": document["rights_evidence_sha256"],
+        "source_reuse_basis": "Exact admitted agency-authored public-domain text; original facts-card layout",
+        "quantitative_chart": False}
+
+
+def validate_source_fact_card(asset, documents):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    packet = asset["fact_card_packet"]
+    document = next((d for d in documents if (d.get("url") or d.get("source_url")) == packet.get("source_url")
+        and _sha256_text(d.get("canonical_content_text", "")) == packet.get("source_content_sha256")), None)
+    if not document:
+        raise ValueError("FACT_CARD_EXACT_SOURCE_REQUIRED")
+    _source_fact_card_rows(packet, document)
+    if (asset.get("transform_sha256") != sha256_of(packet)
+            or asset.get("source_content_sha256") != packet["source_content_sha256"]
+            or asset.get("source_page_url") != packet["source_url"]
+            or asset.get("editorial_data_packet") != {"question": packet["question"]}
+            or asset.get("rights_evidence_sha256") != document["rights_evidence_sha256"]
+            or asset.get("quantitative_chart") is not False
+            or _sha256_file(Path(asset["path"])) != asset.get("sha256")):
+        raise ValueError("FACT_CARD_PACKET_OR_BYTES_CHANGED")
+
+
 def validate_source_value_chart(asset, documents):
+    if asset.get("fact_card_packet"):
+        return validate_source_fact_card(asset, documents)
     if asset.get("editorial_data_packet"):
         return validate_editorial_data_chart(asset, documents)
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of

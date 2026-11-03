@@ -1353,11 +1353,14 @@ def validate_release_media(result, *, require_pixel_review=True):
     reader_first = bool(decision)
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]
     charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
+    quantitative_charts = [a for a in charts if not a.get("fact_card_packet")]
     disposition = result.get("visual_repair_disposition") or {}
     dropped = disposition.get("dropped_assets") or []
     dropped_after_repair = (disposition.get("policy") == "CC-172" and disposition.get("repair_rounds") == 1
         and bool(dropped) and not {a["asset_id"] for a in dropped} & {a["asset_id"] for a in assets})
-    if (result.get("article") or {}).get("news_item_kind") == "ANALYSIS" and not charts and not dropped_after_repair:
+    if (((result.get("article") or {}).get("news_item_kind") == "ANALYSIS"
+            or (decision or {}).get("story_kind") == "ANALYSIS")
+            and not quantitative_charts and not dropped_after_repair):
         raise ValueError("ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED")
     if len(assets) != len(photos) + len(charts):
         raise ValueError("RELEASE_UNSUPPORTED_MEDIA")
@@ -1401,7 +1404,8 @@ def validate_release_media(result, *, require_pixel_review=True):
                 or review.get("labels_and_units_legible") is not True or not review.get("reviewer")):
             raise ValueError("CHART_EXACT_RENDER_REVIEW_REQUIRED")
     return {"standard": "DATA_JOURNALISM_V1" if reader_first else "CONTENTOPS_V1_EDITORIAL_MEDIA_AND_DATA_RELEASE_STANDARD_V1",
-            "photo_count": len(photos), "chart_count": len(charts)}
+            "photo_count": len(photos), "chart_count": len(quantitative_charts),
+            "fact_card_count": len(charts) - len(quantitative_charts)}
 
 
 def bind_editorial_media_plan(store, *, run_id, output_dir, plan, assets):
