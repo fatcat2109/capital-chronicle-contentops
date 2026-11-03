@@ -1,0 +1,94 @@
+[
+  {
+    "run": "v1-live-launch-20261027",
+    "plan_hash": "57f020444107795eb9854917776f792aa3d986058abd0798616e90b7e683fa11",
+    "intent_id": "8885bd9e945f425731c93f73c51ff0fa70463d7148a088f8ee3482937de3069d",
+    "dispatch_id": "dispatch_224521de0c4112829490447f23a11b38",
+    "status": "DISPATCH_CONFIRMED",
+    "object_url": "https://capitalchronicle.substack.com/p/firstsquawk-citing-the-wall-street",
+    "reconciliations": [
+      "RECONCILED_CONFIRMED"
+    ],
+    "readbacks": [
+      {
+        "verified": true,
+        "observed_url": null,
+        "read_at": "2026-10-27T17:02:42.425060+00:00"
+      },
+      {
+        "verified": true,
+        "observed_url": "https://capitalchronicle.substack.com/p/firstsquawk-citing-the-wall-street",
+        "read_at": "2026-10-28T09:38:25.597297+00:00"
+      }
+    ]
+  },
+  {
+    "run": "cc074-retro-fomc-20261028-v1",
+    "plan_hash": "3e3688a80ed0b93c4dde74a61ac992609ce879b9f40ee1223df414c030af267c",
+    "intent_id": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+    "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+    "status": "DISPATCH_CONFIRMED",
+    "object_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+    "reconciliations": [
+      "RECONCILED_CONFIRMED"
+    ],
+    "readbacks": [
+      {
+        "verified": true,
+        "observed_url": null,
+        "read_at": "2026-11-02T18:30:57.003263+00:00"
+      },
+      {
+        "verified": null,
+        "observed_url": null,
+        "read_at": "2026-11-03T09:45:30.596310+00:00"
+      }
+    ]
+  },
+  {
+    "run": "cc124-prepare-20261103-a",
+    "plan_hash": "ad144118a61ff4e76a6584f6e42303d96b4611f1de711ef08ef9506b6364309d",
+    "intent_id": "e8f9f4ec5cf1fc91133e77d4bb27b45435139db5b121bbf4252c29f75bab1bdd",
+    "dispatch_id": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+    "status": "DISPATCH_CONFIRMED",
+    "object_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+    "reconciliations": [
+      "RECONCILED_CONFIRMED"
+    ],
+    "readbacks": [
+      {
+        "verified": true,
+        "observed_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+        "read_at": "2026-11-03T05:31:51.865630+00:00"
+      },
+      {
+        "verified": null,
+        "observed_url": null,
+        "read_at": "2026-11-03T09:41:30.353144+00:00"
+      }
+    ]
+  },
+  {
+    "run": "cc107-midterm-preview-20261103-v1",
+    "plan_hash": "04aaf7385f8d1394ffe1f9047fce2964860be5009b075df67e20a667f78ba0ba",
+    "intent_id": "c4368eb9690d8c3b69eadf50a48eef29812520953113646a7e90da7237f1a309",
+    "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+    "status": "DISPATCH_CONFIRMED",
+    "object_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on",
+    "reconciliations": [
+      "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE"
+    ],
+    "readbacks": [
+      {
+        "verified": false,
+        "observed_url": null,
+        "read_at": "2026-11-03T10:28:24.451348+00:00"
+      },
+      {
+        "verified": false,
+        "observed_url": null,
+        "read_at": "2026-11-03T17:10:48.940730+00:00"
+      }
+    ]
+  }
+]

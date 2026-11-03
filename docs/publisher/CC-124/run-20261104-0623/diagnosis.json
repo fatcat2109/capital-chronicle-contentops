@@ -1,0 +1,11 @@
+{
+  "observed_at_utc": "2026-11-03T23:29:27.697541+00:00",
+  "operation_id": "cc124-next-article-20261103-b",
+  "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+  "first_text_approval_utc": "2026-11-03T16:38:46.874923+00:00",
+  "writes": 0,
+  "recovery_publish_calls": 0,
+  "recovery_state": "PUBLICATION_RECOVERY_REQUIRED",
+  "finding": "Foreign midterm canonical is DISPATCH_CONFIRMED with a known public URL and CONTENT_INCOMPLETE reconciliation; recovery_blocks_new_publication globally refuses it before considering the distinct SEC article.",
+  "next_action": "Repair the existing coordinator guard with focused regressions, preserving exact same-article/UNKNOWN_WRITE recovery."
+}
