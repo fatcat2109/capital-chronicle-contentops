@@ -185,7 +185,7 @@ def build_final_daily_app_production_runtime(
         readiness.probe_all(persist=True)
     from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
     transport = CanonicalDestinationTransportRuntimeV1(
-        neo_transport=NeoDestinationHandoff(native_executor=native_neo_executor))
+        neo_transport=NeoDestinationHandoff(native_executor=native_neo_executor, store=store))
     readiness_by_destination = lambda destination: (  # noqa: E731
         next((
             row for row in store.list_destination_readiness()

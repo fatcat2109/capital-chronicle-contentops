@@ -119,8 +119,9 @@ def _payload_binding(intent, destination):
 class NeoDestinationHandoff:
     """Coordinator-injected adapter. Every actual write requires exact authorization."""
 
-    def __init__(self, *, native_executor=None):
+    def __init__(self, *, native_executor=None, store=None):
         self.native_executor = native_executor
+        self.store = store
 
     def request(self, *, destination, action, intent, authorization_context=None,
                 public_object_id=None, public_object_url=None):
@@ -200,6 +201,10 @@ class NeoDestinationHandoff:
             value["pending_owner_screen"] = intent["pending_owner_screen"]
             value["owner_readback_invocation"] = intent.get("owner_readback_invocation")
             value["steps"] = ["Inspect only the same retained code tab. Never reload, navigate, type, read a mailbox or enter a code. If still on the code screen, report unverified and continue other destinations in other task tabs without waiting. Continue exact Substack readback only after this tab reaches /publish/posts/detail/.../share-center."]
+        if destination == "substack" and action == "READBACK":
+            from live_contentops.substack_draft_inventory_v1 import readback_scope, store_draft_ids
+            value["draft_readback_scope"] = readback_scope(store_draft_ids(self.store) if self.store else set())
+            value["steps"].append(value["draft_readback_scope"]["instructions"])
         if destination == "linkedin" and action == "READBACK" and not public_object_id:
             value["owner_absence_context"] = intent.get("owner_absence_context")
         if intent.get("reader_presentation_review"):
@@ -254,6 +259,12 @@ class NeoDestinationHandoff:
     def readback(self, *, destination, intent, public_object_id, public_object_url):
         request = self.request(destination=destination, action="READBACK", intent=intent,
             public_object_id=public_object_id, public_object_url=public_object_url)
+        if destination == "substack":
+            from live_contentops.substack_draft_inventory_v1 import draft_id_from_url
+            draft_id = draft_id_from_url(public_object_url)
+            if draft_id and draft_id not in request["draft_readback_scope"]["referenced_draft_ids"]:
+                return {"status": "SKIPPED", "verified": False, "write_absent": False,
+                        "reason_code": "UNREFERENCED_SUBSTACK_DRAFT_IGNORED", "request": request}
         if self.native_executor is None:
             return {"status": "BLOCKED", "verified": False, "request": request,
                     "reason_code": "NEO_NATIVE_READBACK_EXECUTOR_NOT_BOUND"}
