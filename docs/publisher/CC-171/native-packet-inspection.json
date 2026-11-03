@@ -1,0 +1,31 @@
+{
+  "observed_at_utc": "2026-11-03T09:40:14.684308+00:00",
+  "observations": [
+    {
+      "operation_id": "cc124-prepare-20261103-a",
+      "article_identity": "e8f9f4ec5cf1fc91133e77d4bb27b45435139db5b121bbf4252c29f75bab1bdd",
+      "news_item_kind": null,
+      "asset_modalities": [],
+      "asset_ids": [],
+      "visual_decision": null,
+      "review_id": "native-article-review-55476c0419554ad7a8d3d0e936467c72"
+    },
+    {
+      "operation_id": "cc074-retro-fomc-20261028-v1",
+      "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+      "news_item_kind": null,
+      "asset_modalities": [
+        "documentary_photo",
+        "source_backed_chart",
+        "source_backed_chart"
+      ],
+      "asset_ids": [
+        "cc074-archive-warsh-20260522",
+        "cc074-fomc-20261028-vote-direction",
+        "cc074-fomc-20261028-rate-framework"
+      ],
+      "visual_decision": null,
+      "review_id": "native-article-review-5196e83dd6924fddbdc0c80945603e04"
+    }
+  ]
+}
