@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-11-03T05:19:14.854Z",
+  "post_id": "223246940",
+  "action": "CLICK_UPDATE_NOW_ON_EXISTING_POST_ONCE",
+  "browser_result": {
+    "logs": [],
+    "ok": true,
+    "value": {
+      "snapshot": "- region \"Notifications\" [ref=e49] [cursor=pointer]\n- dialog \"Check your email\"\n  - heading \"Check your email\" [level=2]\n  - button \"close\" [ref=e150]\n  - textbox \"Verification code\" [ref=e151]\n  - link \"Resend code\" [ref=e152]\n  - button \"Cancel\" [ref=e153]",
+      "url": "https://capitalchronicle.substack.com/publish/post/223246940"
+    }
+  }
+}
