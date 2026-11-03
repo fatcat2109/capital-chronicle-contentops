@@ -1,0 +1,16 @@
+{
+  "tool_request_sha256": "26c2236c1f6e90c7c661729862e94acfd1386e67dec585e9d0c105e817fa717b",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a0df-64bc-78d0-beac-0450300b9fcd",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Actual Neo page 113 exact handle and own-channel management links after current identity begin; no public write.",
+    "observed_at_utc": "2026-11-03T10:32:59.715Z"
+  },
+  "result": {
+    "request_sha256": "193f9a268c3aa1bb010cd99a8ee354635f17b7bd51d024b870aa61a666b96c4c",
+    "authenticated": true,
+    "observed_identity": "@CapitalChronicleYouTube",
+    "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA"
+  }
+}

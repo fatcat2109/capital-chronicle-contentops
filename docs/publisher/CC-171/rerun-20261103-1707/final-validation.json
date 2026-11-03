@@ -1,0 +1,19 @@
+{
+  "observed_at_utc": "2026-11-03T11:30:38.570174+00:00",
+  "checks": {
+    "midterm_publicly_read_back": true,
+    "full_credit_read_back": true,
+    "midterm_exact_dispatch_confirmed": true,
+    "strict_limit_preserved": true,
+    "revision_mismatch_exact": true,
+    "fomc_linkedin_unknown_preserved": true,
+    "no_current_draft_in_inventory": true,
+    "historical_drafts_preserved": true,
+    "no_completion_claim": true,
+    "resume_launch_required_configuration": true
+  },
+  "passed": 10,
+  "failed": 0,
+  "test_scope": "actual browser, store and artifact checks only",
+  "timing_target_passed": false
+}

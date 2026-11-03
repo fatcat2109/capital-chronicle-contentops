@@ -1,0 +1,27 @@
+{
+  "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+  "operation_id": "cc074-retro-fomc-20261028-v1",
+  "public_write_authorized": false,
+  "request": {
+    "action": "VERIFY_IDENTITY",
+    "destination": "youtube",
+    "entry_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+    "expected_identity": "@CapitalChronicleYouTube",
+    "forbidden": [
+      "login",
+      "account_switch",
+      "public_write",
+      "saved_draft",
+      "private_storage"
+    ],
+    "native_invocation_id": "01a1a0df-64bc-78d0-beac-0450300b9fcd",
+    "probe_epoch": 5979006,
+    "request_sha256": "193f9a268c3aa1bb010cd99a8ee354635f17b7bd51d024b870aa61a666b96c4c",
+    "schema_version": "contentops.neo_identity_probe.v1",
+    "surface": "YOUTUBE_COMMUNITY_POST",
+    "work_item_id": "native-neo-operation-20d96a06844280c8fb3e2c656ed521c9afe33a8fc408552284f675868700884e"
+  },
+  "required_tool": "mcp__browseros_neo__run",
+  "schema_version": "contentops.native_neo_tool_request.v1",
+  "tool_request_sha256": "26c2236c1f6e90c7c661729862e94acfd1386e67dec585e9d0c105e817fa717b"
+}

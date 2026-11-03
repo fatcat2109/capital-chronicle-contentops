@@ -1,0 +1,62 @@
+{
+  "observed_at_utc": "2026-11-03T11:30:38.562405+00:00",
+  "item_id": "CC-171",
+  "status": "BLOCKED",
+  "first_cause": "NATIVE_REVIEW_REVISION_CHANGED",
+  "canonical": {
+    "public_object_id": "223293057",
+    "public_object_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on",
+    "published_at_utc": "2026-11-03T10:20:18.502Z",
+    "publication_confirmed": true,
+    "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+    "browser_page_on_publish": 98,
+    "publish_window_id": 1698401149,
+    "pending_email_code_now": false
+  },
+  "midterm_derivatives": {
+    "confirmed": 0,
+    "total": 8,
+    "status": "NOT_DISPATCHED",
+    "cause": "NATIVE_REVIEW_REVISION_CHANGED",
+    "current_revision": "cedde3d45a7c5d01be67783617f20afdb39070941f1c924094e61da334a62a89",
+    "review_revision": "3ad7f3d9f7a85ff987baf17d9d4568d930c3b342d862e88bf1c99344a0f408ab",
+    "next_action": "Publisher: review and bind the exact current packet through the existing editorial owner, then resume the same binding. No pipeline code change in CC-171."
+  },
+  "other_distribution": {
+    "fomc": {
+      "confirmed_derivatives": [
+        "telegram",
+        "discord",
+        "x",
+        "facebook_page"
+      ],
+      "linkedin": "UNKNOWN_WRITE",
+      "instagram_business": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "threads": "NOT_DISPATCHED",
+      "youtube": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "linkedin_readback": "RECONCILIATION_PENDING; separate Neo read ERR_CONNECTION_RESET",
+      "youtube_continuation": "Identity returns were submitted. The explicit destination continuation returned publish_called=true and RECONCILED_ABSENT_SAFE_TO_RETRY; no new public object was confirmed. Do not infer a successful public send.",
+      "next_action": "Publisher: reconcile the exact uncertain LinkedIn attempt before retry and use the existing destination recovery owner for the remaining channels."
+    },
+    "cpi": {
+      "canonical_live": true,
+      "frozen_packet_guard": "ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED",
+      "next_action": "Publisher: bind the already reviewed official-history media in the existing CPI packet before social continuation."
+    }
+  },
+  "draft_inventory_now": "Newest-first page begins with September 2026 historical drafts; no current-day finished draft is visible. Midterm 223293057 is absent from this draft list.",
+  "timing": "Thirty-minute target not met; original claim 17:07 GMT+7, interrupted/resumed work remains partial. No throughput claim.",
+  "boundary": {
+    "pipeline_code_changed": false,
+    "new_draft_created": false,
+    "schedule_changed": false,
+    "chat_message_sent": false,
+    "mailbox_read": false,
+    "code_entered_by_agent": false,
+    "native_file_dialog_opened": false,
+    "image_base64_committed": false,
+    "pytest_run": false,
+    "worktree_branch_preserved": "backlog/cc-107-event-articles",
+    "launch_configuration": "gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED"
+  }
+}
