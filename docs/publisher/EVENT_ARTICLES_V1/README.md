@@ -128,10 +128,18 @@ fact card, caption and linkless derivative corrections are applied through the
 existing media owner. The corrected eight reader copies pass the public guard;
 the same actual MAX writer accepted both assets and all 18 corrected desktop/mobile
 renders. The existing owner recorded that exact return and a revision-bound KEEP.
-The existing sole
-coordinator's fenced Substack save-draft path is implemented and tested, but has
-not been called. It forbids Publish, Update, mailbox access and verification codes;
-a saved draft will not count as a public canonical article.
+The existing sole coordinator's fenced Substack save-draft path saved and reopened
+[draft 223293057](https://capitalchronicle.substack.com/publish/post/223293057).
+The title, subtitle and complete prose match the accepted copy; both uploaded
+original images read back with the exact accepted SHA-256 hashes. Captions, credits,
+source links and alt text are retained. The coordinator records
+`SUBSTACK_DRAFT_AWAITING_OWNER`, zero published articles and no public canonical URL.
+Jim publishes the retained draft. No Publish, Update, mailbox or code action occurred.
+
+The actual destination draft receives an additional read-only same-writer visual
+inspection. Its evidence is retained under `midterm-20261103/substack-draft-review/`.
+Site/social delivery belongs to CC-154; this CC-107 dispatch does not claim that
+separate item, deployment or integration.
 
 The first draft preparation stopped before dispatch because the feed expected
 author/publisher fields absent from the frozen native manifest. The feed now uses

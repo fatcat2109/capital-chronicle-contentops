@@ -204,7 +204,7 @@
     }
   ],
   "nfp_input_readback": {
-    "observed_at_utc": "2026-11-03T06:16:22.328298+00:00",
+    "observed_at_utc": "2026-11-03T09:00:03.010925+00:00",
     "expected_root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1100-dossier-nfp",
     "files": {
       "DOSSIER.md": false,
@@ -213,7 +213,7 @@
     },
     "expected_producer_entry_gmt7": "6 Nov 2026 18:00 GMT+7",
     "state": "FROZEN_NFP_INPUT_NOT_YET_AVAILABLE",
-    "next_actor": "Existing Claude Main dossier run; Ops resumes CC-107 after its real frozen input."
+    "next_actor": "Existing Claude Main dossier producer; Claude Ops resumes the same CC-107 branch after the real frozen public-safe input."
   },
   "resume": {
     "observed_at_utc": "2026-11-03T06:35:29Z",
@@ -404,7 +404,8 @@
     "publish_or_update_pressed": false,
     "mailbox_read_or_code_entered": false,
     "one_draft_only": true,
-    "actual_destination_review": "SAME_WRITER_READ_ONLY_INSPECTION_IN_PROGRESS"
+    "actual_destination_review": "SAME_WRITER_READ_ONLY_INSPECTION_IN_PROGRESS",
+    "store_readback": "native/draft-only-store-readback.json"
   },
   "draft_transport_verification_history": {
     "early_failures_retained": [
