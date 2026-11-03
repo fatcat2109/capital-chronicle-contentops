@@ -45,6 +45,46 @@ def test_draft_action_requires_coordinator_and_never_authorizes_publish():
     assert neo.save_draft(intent=intent(), authorization_context=auth())["draft_verified"]
 
 
+def test_draft_readback_requires_both_caption_and_full_attribution():
+    value = intent()
+    value["media_assets"][0].update(caption="Synthetic archive context.",
+                                     attribution="Synthetic creator / archive. Public domain.")
+    def only_caption(request):
+        result = observed(request)
+        result["observed_text"] += " Synthetic archive context."
+        return result
+    assert not NeoDestinationHandoff(native_executor=only_caption).save_draft(
+        intent=value, authorization_context=auth())["draft_verified"]
+    def full_credit(request):
+        result = only_caption(request)
+        result["observed_text"] += " Synthetic creator / archive. Public domain."
+        return result
+    assert NeoDestinationHandoff(native_executor=full_credit).save_draft(
+        intent=value, authorization_context=auth())["draft_verified"]
+
+
+@pytest.mark.parametrize("returned_id", ["123", "124"])
+def test_credit_repair_is_bound_to_one_retained_editor_without_public_authority(returned_id):
+    value, authorization = intent(), auth()
+    target = {"draft_id": "123", "editor_url": "https://capitalchronicle.substack.com/publish/post/123",
+              "purpose": "RESTORE_BOUND_MEDIA_CREDIT"}
+    value["existing_draft_target"] = target
+    authorization["existing_draft_target"] = target
+    def actual(request):
+        result = observed(request)
+        result.update(draft_id=returned_id,
+                      draft_editor_url="https://capitalchronicle.substack.com/publish/post/" + returned_id)
+        return result
+    neo = NeoDestinationHandoff(native_executor=actual)
+    request = neo.request(destination="substack", action="SAVE_DRAFT", intent=value,
+                          authorization_context=authorization)
+    assert "never create or replace" in " ".join(request["steps"])
+    assert neo.save_draft(intent=value, authorization_context=authorization)["draft_verified"] == (returned_id == "123")
+    authorization.pop("existing_draft_target")
+    with pytest.raises(ValueError, match="EXACT_RETAINED_SUBSTACK_DRAFT_REQUIRED"):
+        neo.save_draft(intent=value, authorization_context=authorization)
+
+
 @pytest.mark.parametrize("change", [
     {"published": True}, {"publish_or_update_pressed": True}, {"observed_identity": "wrong"},
     {"draft_editor_url": "https://wrong.invalid/publish/post/123"}, {"observed_media_sha256": []},
@@ -108,6 +148,69 @@ def test_existing_uncertain_canonical_is_not_replaced_by_a_draft(tmp_path, monke
                                      platform="substack", status="UNKNOWN_WRITE")
     assert not co.save_substack_draft("controlled-run", plan)["new_draft_call"]
     assert transport.calls == 0
+
+
+def test_coordinator_credit_repair_uses_one_retained_object_once(tmp_path, monkeypatch):
+    transport = DraftTransport()
+    co, store, plan = coordinator(tmp_path, monkeypatch, transport)
+    co.save_substack_draft("controlled-run", plan)
+    result = co.save_substack_draft("controlled-run", plan, repair_media_credit=True)
+    assert result["media_credit_restored"] and result["draft_id"] == "123"
+    assert not co.save_substack_draft("controlled-run", plan, repair_media_credit=True)["new_draft_call"]
+    assert transport.calls == 2  # one creation, one exact-object repair; no repeated repair
+    assert len(store.list_platform_dispatches()) == 1
+    assert store.list_platform_dispatches()[0]["public_object_url"] is None
+
+
+def test_ambiguous_credit_repair_preserves_the_draft_id_and_refuses_more_writes(tmp_path, monkeypatch):
+    transport = DraftTransport()
+    co, store, plan = coordinator(tmp_path, monkeypatch, transport)
+    co.save_substack_draft("controlled-run", plan)
+    transport.unknown = True
+    result = co.save_substack_draft("controlled-run", plan, repair_media_credit=True)
+    assert result["state"] == "UNKNOWN_WRITE"
+    dispatch = store.list_platform_dispatches()[0]
+    assert dispatch["public_object_id"] == "123" and dispatch["public_object_url"] is None
+    with pytest.raises(ValueError, match="EXACT_RETAINED_SUBSTACK_DRAFT_REQUIRED"):
+        co.save_substack_draft("controlled-run", plan, repair_media_credit=True)
+    assert not co.save_substack_draft("controlled-run", plan)["new_draft_call"]
+    assert transport.calls == 2
+
+
+@pytest.mark.parametrize("draft_id,status", [
+    ("123", OWNER_RETAINED_DRAFT_NO_PUBLISH), ("124", OWNER_RETAINED_DRAFT_NO_PUBLISH),
+    ("123", "UNKNOWN_WRITE"),
+])
+def test_native_credit_repair_claim_requires_the_exact_retained_private_draft(tmp_path, monkeypatch, draft_id, status):
+    import json
+    from live_contentops.native_neo_executor_v1 import NativeNeoExecutor
+    co, store, plan = coordinator(tmp_path, monkeypatch, DraftTransport())
+    co.save_substack_draft("controlled-run", plan)
+    dispatch = store.list_platform_dispatches()[0]
+    store.set_dispatch_status(dispatch["dispatch_id"], status)
+    value = json.loads(store.get_outbox_message(dispatch["message_id"])["payload"])
+    target = {"draft_id": draft_id,
+              "editor_url": "https://capitalchronicle.substack.com/publish/post/" + draft_id,
+              "purpose": "RESTORE_BOUND_MEDIA_CREDIT"}
+    value["existing_draft_target"] = target
+    authorization = {**auth(), "dispatch_attempt_identity": dispatch["dispatch_id"],
+                     "payload_hash": value["destination_plan"]["payload_hash"], "existing_draft_target": target}
+    request = NeoDestinationHandoff().request(destination="substack", action="SAVE_DRAFT",
+        intent=value, authorization_context=authorization)
+    executor = NativeNeoExecutor(store, operation_id="controlled-run", output_dir=tmp_path,
+                                 native_invocation_id="controlled-native", allow_publish=True)
+    monkeypatch.setattr(executor, "readiness", lambda surface: {"authenticated": True, "native_executor_bound": True})
+    with pytest.raises(NativeNeoInputRequired):
+        executor(request)
+    if draft_id == "123" and status == OWNER_RETAINED_DRAFT_NO_PUBLISH:
+        assert executor.begin(request["request_sha256"])["request"]["existing_draft_target"] == target
+        with pytest.raises(ValueError, match="ALREADY_CLAIMED"):
+            executor.begin(request["request_sha256"])
+        assert executor(request)["status"] == "UNKNOWN_WRITE"
+    else:
+        with pytest.raises(ValueError, match="EXACT_RETAINED_SUBSTACK_DRAFT_REQUIRED|EXACT_COORDINATOR_PENDING_DISPATCH"):
+            executor.begin(request["request_sha256"])
+    assert len(store.list_platform_dispatches()) == 1
 
 
 def test_native_draft_requires_current_same_writer_final_review(tmp_path, monkeypatch):

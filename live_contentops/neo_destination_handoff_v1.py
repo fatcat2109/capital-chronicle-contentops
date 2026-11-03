@@ -141,6 +141,14 @@ class NeoDestinationHandoff:
                 or auth.get("action") != "EDIT_EXISTING"):
             raise ValueError("NEO_EXACT_REVIEWED_EXISTING_OBJECT_REQUIRED")
         native_payload, content_binding = _payload_binding(intent, destination)
+        draft_target = intent.get("existing_draft_target")
+        if draft_target is not None:
+            draft_id = str(draft_target.get("draft_id") or "")
+            if (action != "SAVE_DRAFT" or destination != "substack" or not draft_id.isdigit()
+                    or draft_target != auth.get("existing_draft_target")
+                    or draft_target.get("editor_url") != ROOTS["substack"] + "publish/post/" + draft_id
+                    or draft_target.get("purpose") != "RESTORE_BOUND_MEDIA_CREDIT"):
+                raise ValueError("EXACT_RETAINED_SUBSTACK_DRAFT_REQUIRED")
         value = {"schema_version": SCHEMA, "destination": destination, "action": action,
             "expected_identity": IDENTITIES[destination], "entry_url": ROOTS[destination],
             "intent_sha256": sha256_of(intent), "work_item_id": intent.get("work_item_id"),
@@ -168,6 +176,11 @@ class NeoDestinationHandoff:
             # contract receives a new read-only identity, never a new write.
             value["reader_text_normalization"] = "MARKDOWN_WHITESPACE_SMART_QUOTES_V1"
         if action == "SAVE_DRAFT":
+            for asset in content_binding["media_manifest"]:
+                content_binding["expected_text_segments"].extend(
+                    str(asset[k]) for k in ("caption", "attribution") if asset.get(k))
+            if draft_target is not None:
+                value["existing_draft_target"] = draft_target
             value["steps"] = [
                 "Verify capitalchronicle.substack.com and current signed-in publishing identity; no login or account change",
                 "Search drafts for the exact reviewed title before creating one; preserve any existing exact object",
@@ -175,6 +188,11 @@ class NeoDestinationHandoff:
                 "Never press Publish or Update, send email, read a mailbox or enter a code",
                 "Reopen the same draft; read back exact editor URL, draft ID, complete text and exact media; preserve uncertainty",
             ]
+            if draft_target is not None:
+                value["steps"][1:3] = [
+                    "Open ONLY existing_draft_target.editor_url; never create or replace a draft",
+                    "Restore the exact bound media caption/attribution; preserve all reviewed prose, media and identity",
+                ]
             value["forbidden"] += ["publish", "update", "send_email", "read_mailbox", "enter_code"]
             value["draft_only_authority"] = "JIM_DECISIONS_20261030_DECISION_48"
         if destination == "substack" and action == "READBACK" and intent.get("published_content_export"):
@@ -222,6 +240,8 @@ class NeoDestinationHandoff:
             and bool(expected["expected_text_segments"])
             and all(_text(s) in _text(result.get("observed_text")) for s in expected["expected_text_segments"])
             and {a["sha256"] for a in expected["media_manifest"]} <= set(result.get("observed_media_sha256") or []))
+        if request.get("existing_draft_target"):
+            verified = verified and draft_id == request["existing_draft_target"]["draft_id"]
         public_write = (False if verified else
                         True if result.get("published") is True or result.get("publish_or_update_pressed") is True else None)
         return {**result, "draft_verified": bool(verified), "public_write_performed": public_write,

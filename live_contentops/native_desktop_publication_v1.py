@@ -643,7 +643,7 @@ class NativeReviewedPublication:
             "publication": self.projection(),
         }
 
-    def save_draft(self):
+    def save_draft(self, *, repair_media_credit=False):
         plan, _ = self.validate()
         from live_contentops.native_desktop_editorial_v1 import validate_release_media, require_current_final_visual_review
         result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
@@ -651,7 +651,8 @@ class NativeReviewedPublication:
         require_current_final_visual_review(self.store, run_id=self.binding["run_id"])
         self._authorize_and_bind()
         return {"classification": "NATIVE_SUBSTACK_DRAFT_CONTINUATION",
-                "coordinator_result": self.coordinator.save_substack_draft(self.binding["run_id"], plan)}
+                "coordinator_result": self.coordinator.save_substack_draft(
+                    self.binding["run_id"], plan, repair_media_credit=repair_media_credit)}
 
     def tool(self, command, *, request_hash, response=None):
         self.validate()

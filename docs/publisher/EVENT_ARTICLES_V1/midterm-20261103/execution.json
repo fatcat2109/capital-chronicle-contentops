@@ -501,5 +501,14 @@
     "final_review_still_valid": true,
     "coordinator_test_artifact": "tests/evidence/cc-107/native-authorship-coordinator-final.junit.xml",
     "coordinator_test_result": "90 passed"
+  },
+  "destination_draft_review": {
+    "artifact": "substack-draft-review/inspection.json",
+    "status": "REPAIR_REQUIRED_BOUND_MEDIA_CREDIT",
+    "reviewer": "/root/native_visual_edit_76437a71362e",
+    "scope": "11 actual representative editor/desktop/mobile screenshots; not whole-article destination pixel coverage. Native 18 complete views remain accepted.",
+    "finding": "Retain full Architect of the Capitol / Wikimedia Commons. Public domain (17 USC 105). credit from the exact bound media record.",
+    "repair_owner": "Existing coordinator SAVE_DRAFT exact-object repair, never Publish/Update or another draft.",
+    "tests": "tests/evidence/cc-107/draft-credit-fence-final.junit.xml"
   }
 }

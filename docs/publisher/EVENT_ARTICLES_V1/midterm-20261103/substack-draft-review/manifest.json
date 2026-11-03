@@ -1,0 +1,166 @@
+{
+  "operation_id": "cc107-midterm-preview-20261103-v1",
+  "draft_id": "223293057",
+  "observed_draft_url": "https://capitalchronicle.substack.com/publish/post/223293057",
+  "parent_draft_request_sha256": "40d266f199b36cd050f25b034f401dace27d832b99f3db2723a2fb0f59632f2a",
+  "capture_scope": "REPRESENTATIVE_ACTUAL_DESTINATION_EDITOR_AND_DESKTOP_MOBILE_PREVIEW_AREAS; NOT_WHOLE_ARTICLE_PIXEL_COVERAGE",
+  "screenshots": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\editor-saved-desktop.png",
+      "sha256": "5443ecaef291eae6cc20c8cfc23a8614965e7e8736776aefa1e6d689d5c2f1a7",
+      "capture_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\editor-saved-desktop.capture.json",
+      "capture_metadata_sha256": "78a6f55abd745ae8c9354824f8a6cafe0af775310893e99da5d130471574db73",
+      "mode": null,
+      "observed_article_scroll_y": 0,
+      "iframe_width": 1200,
+      "iframe_height": 900,
+      "iframe_document_height": 900,
+      "pixels_inspected": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-desktop-card-bottom.png",
+      "sha256": "c325529fbe0271159dc7e9e449922b30cd98b70075f5ee4e857f95564143b197",
+      "capture_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-desktop-card-bottom.capture.json",
+      "capture_metadata_sha256": "54a583c5da835811e4bd30037230b0ef427487d022230ae784f9339729cd4984",
+      "mode": "desktop",
+      "observed_article_scroll_y": 2300,
+      "iframe_width": 1126,
+      "iframe_height": 696,
+      "iframe_document_height": 5741,
+      "pixels_inspected": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-desktop-card-top.png",
+      "sha256": "b02a9713aa05fd73a5d811b6336542a9db485597d4056557172026dc490586fc",
+      "capture_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-desktop-card-top.capture.json",
+      "capture_metadata_sha256": "a26e5ce38fb55f7ee0352eeaea9e5f3a33b2f333307c761ba058797579d037de",
+      "mode": "desktop",
+      "observed_article_scroll_y": 1665,
+      "iframe_width": 1126,
+      "iframe_height": 696,
+      "iframe_document_height": 5741,
+      "pixels_inspected": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-desktop-notices.png",
+      "sha256": "c8fd1841aa0ed4977335ab77432a8394256373da10cc8aced400018150ee5ef1",
+      "capture_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-desktop-notices.capture.json",
+      "capture_metadata_sha256": "a09965eab18dff534b7bda58113849c5dbccfac78b06b545b366a796e97b5d6b",
+      "mode": "desktop",
+      "observed_article_scroll_y": 4700,
+      "iframe_width": 1126,
+      "iframe_height": 696,
+      "iframe_document_height": 5741,
+      "pixels_inspected": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-desktop-photo.png",
+      "sha256": "126875338186984f77ecdda6624e6b9822ee878caab171eefd01381afc16f5d6",
+      "capture_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-desktop-photo.capture.json",
+      "capture_metadata_sha256": "6affddd321b2a4c0f653fba7e244b0fc4c1bd8fb2869c25cbdd17dbbe02d73b9",
+      "mode": "desktop",
+      "observed_article_scroll_y": 450,
+      "iframe_width": 1126,
+      "iframe_height": 696,
+      "iframe_document_height": 5741,
+      "pixels_inspected": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-desktop-top.png",
+      "sha256": "2c8ee5c9fc8e663149b7dc5b480ce66f8afec5465d4a54f7ebe0019abb6a54f9",
+      "capture_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-desktop-top.capture.json",
+      "capture_metadata_sha256": "071df8b8ede8a7cfe065b0f471fe25555356f5b4d7a7b4b00cc5bd5bc299bbb8",
+      "mode": "DESKTOP_PREVIEW_ACTUAL_IFRAME",
+      "observed_article_scroll_y": 0,
+      "iframe_width": 1126,
+      "iframe_height": 696,
+      "iframe_document_height": 5741,
+      "pixels_inspected": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-mobile-card.png",
+      "sha256": "2a49886cb5237b7ccf54571513adf0eb80489f954dd33e3ff9fa841fd55972e2",
+      "capture_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-mobile-card.capture.json",
+      "capture_metadata_sha256": "ee78f1fee858f496c1a172a09f4618ff4b74ebb9578a440b2a5c2272eb79f78b",
+      "mode": "mobile",
+      "observed_article_scroll_y": 2074,
+      "iframe_width": 375,
+      "iframe_height": 752,
+      "iframe_document_height": 6885,
+      "pixels_inspected": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-mobile-disclosures.png",
+      "sha256": "d599f38947b1139f927cbd519391e9f16c2e76c0c7b057802e5d9eb323b2a577",
+      "capture_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-mobile-disclosures.capture.json",
+      "capture_metadata_sha256": "39d66018f3d0d17fa53687847786fe4b1e6491d2215d16209d82b601709d579d",
+      "mode": "mobile",
+      "observed_article_scroll_y": 6133,
+      "iframe_width": 375,
+      "iframe_height": 752,
+      "iframe_document_height": 6885,
+      "pixels_inspected": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-mobile-notices.png",
+      "sha256": "67a6603ec645217c9e018d969602b7a9658277cb4d9f9a604bf26dc41feff06d",
+      "capture_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-mobile-notices.capture.json",
+      "capture_metadata_sha256": "ec9891db0e9c834914cb5da8c3a63f3c35235400dde8973fae0201cb70beb54c",
+      "mode": "mobile",
+      "observed_article_scroll_y": 5600,
+      "iframe_width": 375,
+      "iframe_height": 752,
+      "iframe_document_height": 6885,
+      "pixels_inspected": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-mobile-photo.png",
+      "sha256": "0df1f3f4e8314844817e88c34d7f609727ef8f3d73daa08fc2f94e5e66e1ac88",
+      "capture_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-mobile-photo.capture.json",
+      "capture_metadata_sha256": "6bb9f54bad288ca1d358ae6bde006f69abe5a5986e4b459d1b8b1d69645bb3ff",
+      "mode": "mobile",
+      "observed_article_scroll_y": 700,
+      "iframe_width": 375,
+      "iframe_height": 752,
+      "iframe_document_height": 6885,
+      "pixels_inspected": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-mobile-top.png",
+      "sha256": "4a77b466b659e2b480596e1c0b14faf353272be00047bc9beecb4e962d224e66",
+      "capture_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-mobile-top.capture.json",
+      "capture_metadata_sha256": "d7fa3bacae0321541dc65fa27dc4b62919a4f2a7430ba6788527090a2a2147e8",
+      "mode": "mobile",
+      "observed_article_scroll_y": 0,
+      "iframe_width": 375,
+      "iframe_height": 752,
+      "iframe_document_height": 6885,
+      "pixels_inspected": true
+    }
+  ],
+  "source_html": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\substack-draft-review\\preview-source.sanitized.html",
+    "sha256": "9f331fdf2b4250b25523a92bf1cc86752a24514a0c060fd074c45137e0692a2d",
+    "kind": "Sanitized exact rendered article DOM serialization from the actual Preview iframe, not a server-source response. Script/style/forms/buttons and non-content attributes removed; no account/session/storage data read or retained. Source facts, visible text, public media URLs, alt text and caption links retained."
+  },
+  "coverage_limits": [
+    "The outer editor document is 900 px tall but the article lives in a scrollable Preview iframe. It is not a one-screen article.",
+    "Desktop Preview iframe observed at 1126 x 696 with document height 5741. Mobile built-in Preview observed at width 375 and nominal height 752 with document height 6885.",
+    "The mobile phone mask clips the nominal iframe to its displayed screen. Raw 1200 x 900 browser screenshots preserve that actual mask and scroll state; no clipped areas were invented, stitched or treated as complete document coverage.",
+    "Screenshots cover title/dek/lead, complete archive photo/caption, complete portrait card/caption across desktop views and one mobile view, and watch/disclosure areas. Intervening prose is retained/read from DOM and already covered by accepted native18 renders, but it was not all re-captured as destination pixels."
+  ],
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_visual_edit_76437a71362e",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Supported exact same-writer assignment to inspect retained Substack draft 223293057 in operation cc107-midterm-preview-20261103-v1, followed by explicit resume of that task. Assignment requests gpt-6.1-sol/max; actual model/effort remain unavailable through supported runtime telemetry.",
+    "observation_source": "The executing native context /root/native_visual_edit_76437a71362e opened the exact retained editor URL in BrowserOS Neo page 78, observed Saved, used only Preview and its Desktop/Mobile tabs, read the real iframe DOM/scroll geometry and visually inspected all 11 retained screenshots via local view_image. No editor text/markup was written and no Continue/Publish/Update/Share action was used.",
+    "speed": "standard"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "operation_id": "cc107-midterm-preview-20261103-v1",
+  "draft_id": "223293057",
+  "draft_url": "https://capitalchronicle.substack.com/publish/post/223293057",
+  "inspected_at_utc": "2026-11-03T09:09:08.266280Z",
+  "review_status": "READ_ONLY_DESTINATION_REVIEW_COMPLETE_ONE_CAPTION_REPAIR_REQUIRED",
+  "underlying_draft_state": "Saved editor observed; parent reports existing coordinator SUBSTACK_DRAFT_AWAITING_OWNER, canonical_confirmed=false, published_count=0. This inspection does not claim publication or new draft creation.",
+  "checks": {
+    "saved_editor_title_dek": "PASS",
+    "authored_body_paragraphs_and_headings_preserved_in_actual_preview_dom": "PASS",
+    "photo_relevant_archive_context": "PASS",
+    "photo_after_lead": "PASS",
+    "photo_source_and_license_links_present": "PASS",
+    "full_accepted_visible_photo_credit": "FAIL",
+    "photo_alt_text": "PASS",
+    "portrait_card_after_expected_outcome_paragraph": "PASS",
+    "card_exact_values_timing_and_meaning": "PASS",
+    "card_caption_and_alt": "PASS",
+    "desktop_changed_area_legibility": "PASS",
+    "mobile_changed_area_legibility": "PASS",
+    "notices_and_conflict_disclosure": "PASS",
+    "no_horizontal_copy_clipping_in_inspected_areas": "PASS",
+    "whole_article_destination_pixel_coverage": "NOT_CLAIMED"
+  },
+  "findings": [
+    {
+      "finding_id": "SUBSTACK_DRAFT_PHOTO_CREDIT_ABBREVIATED",
+      "severity": "PRESENTATION_CONTRACT_REPAIR",
+      "actual_visible_caption": "Photo: Architect of the Capitol · Reuse terms. The west front of the US Capitol in 1997. Archive image; it does not depict election night.",
+      "expected_visible_attribution": "Architect of the Capitol / Wikimedia Commons. Public domain (17 USC 105).",
+      "basis": "Root AGENTS.md Canonical photo attribution — 28 October 2026 requires the full photo creator/source/licence attribution on the canonical article. The accepted media binding carries the expected string; actual draft shortens it. The source page and public-domain reuse links are present, so this is a presentation mismatch rather than missing reuse-rights evidence.",
+      "exact_replacement_caption": "Photo: Architect of the Capitol / Wikimedia Commons. Public domain (17 USC 105). The west front of the US Capitol in 1997. Archive image; it does not depict election night.",
+      "links_to_retain": [
+        {
+          "text": "Architect of the Capitol / Wikimedia Commons",
+          "href": "https://commons.wikimedia.org/wiki/File:United_States_Capitol_-_west_front.jpg"
+        },
+        {
+          "text": "Public domain (17 USC 105)",
+          "href": "https://commons.wikimedia.org/wiki/Template:PD-USGov"
+        }
+      ],
+      "affected_exact_object": "Substack draft 223293057, first photograph figcaption only.",
+      "repair_owner_next_action": "Parent may use its existing same-draft caption editing owner within the retained operation, then read back Saved and return the changed caption in actual desktop/mobile Preview to the same writer. Preserve all valid prose/media/alt/source history; no new draft, Publish, Update or Continue action."
+    }
+  ],
+  "evidence_notes": [
+    "All accepted canonical body paragraphs/headings and title/dek occur in the exact rendered Preview DOM after source markers and ordinary whitespace are removed. Numeric facts, conditional scenarios and required notices remain preserved.",
+    "The complete portrait card shows Democrats 51.1%, Republicans 42.8%, the PollCheck update date, voting-intentions-versus-control-probabilities qualification, and first poll-close time 23:00 UTC on 3 November. Both desktop and mobile pixels are usable; no scientific scale or denominator drift.",
+    "The photo remains clearly archival from 1997 and does not depict election night. The full subject is visible; natural caption and alt identify the Capitol, lawns/flower beds/paths.",
+    "Platform generated JUST NOW / minutes-ago Preview header is not treated as a publication clock or refreshed evidence. The retained article source as-of remains explicit.",
+    "Parent reported S3 original asset hash equality; this run checked actual rendered media/DOM/alt and did not independently download or rehash S3 originals."
+  ],
+  "unresolved_findings": 1,
+  "changes_performed": "None to Substack, source, prose, media bytes, native final review or runtime. Only local screenshots, sanitized rendered source and this inspection record were saved.",
+  "original_native_review": {
+    "request_sha256": "7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a",
+    "decision": "ACCEPT",
+    "status": "PRESERVED_UNCHANGED; this additional destination observation does not rewrite the accepted React/native evidence."
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_visual_edit_76437a71362e",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Supported exact same-writer assignment to inspect retained Substack draft 223293057 in operation cc107-midterm-preview-20261103-v1, followed by explicit resume of that task. Assignment requests gpt-6.1-sol/max; actual model/effort remain unavailable through supported runtime telemetry.",
+    "observation_source": "The executing native context /root/native_visual_edit_76437a71362e opened the exact retained editor URL in BrowserOS Neo page 78, observed Saved, used only Preview and its Desktop/Mobile tabs, read the real iframe DOM/scroll geometry and visually inspected all 11 retained screenshots via local view_image. No editor text/markup was written and no Continue/Publish/Update/Share action was used.",
+    "speed": "standard"
+  }
+}

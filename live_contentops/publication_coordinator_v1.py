@@ -1453,7 +1453,7 @@ class DurablePublicationCoordinator:
             registered.append({"destination": destination, **ids})
         return {"plan_hash": plan_hash, "registered": registered, "outbox_count": len(registered)}
 
-    def save_substack_draft(self, work_item_id, plan):
+    def save_substack_draft(self, work_item_id, plan, *, repair_media_credit=False):
         """Decision 48 draft-only action over the same canonical intent and fence."""
         from live_contentops.llm_operator_control_v1 import assert_llm_operator_execution_enabled
         assert_llm_operator_execution_enabled()
@@ -1474,6 +1474,8 @@ class DurablePublicationCoordinator:
         message = self.store.get_outbox_message(ids["message_id"])
         intent = json.loads(message["payload"])
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
+        if repair_media_credit:
+            return self._repair_substack_draft_credit(work_item_id, intent, existing, ids)
         if existing and existing["status"] != NATIVE_NEO_PENDING:
             return {"state": "SUBSTACK_DRAFT_AWAITING_OWNER" if existing["status"] == OWNER_RETAINED_DRAFT_NO_PUBLISH
                     else existing["status"], "draft_id": existing.get("public_object_id"),
@@ -1518,6 +1520,50 @@ class DurablePublicationCoordinator:
                 "draft_editor_url": result.get("draft_editor_url"), "draft_verified": verified,
                 "canonical_confirmed": False, "published_article_count": 0,
                 "public_write_performed": result.get("public_write_performed"), "new_draft_call": True}
+
+    def _repair_substack_draft_credit(self, work_item_id, intent, existing, ids):
+        """Restore bound credit on one known draft through a fresh exact-object fence."""
+        if (not existing or existing["status"] != OWNER_RETAINED_DRAFT_NO_PUBLISH
+                or not str(existing.get("public_object_id") or "").isdigit()
+                or existing.get("public_object_url") is not None):
+            raise ValueError("EXACT_RETAINED_SUBSTACK_DRAFT_REQUIRED")
+        draft_id = str(existing["public_object_id"])
+        target = {"draft_id": draft_id,
+                  "editor_url": "https://capitalchronicle.substack.com/publish/post/" + draft_id,
+                  "purpose": "RESTORE_BOUND_MEDIA_CREDIT"}
+        intent = {**intent, "existing_draft_target": target}
+        key = "substack-draft-credit-restored-" + _hash(_canonical_json(intent))
+        prior = self.store.get_outbox_message(key)
+        if prior:
+            return {**json.loads(prior["payload"]), "new_draft_call": False}
+        auth = {"schema_version": "contentops.canonical_machine_authorization.v1", "action": "SAVE_DRAFT",
+                "operating_mode": self._mode(), "destination": "substack", "work_item_id": work_item_id,
+                "payload_hash": intent["destination_plan"]["payload_hash"],
+                "dispatch_attempt_identity": ids["dispatch_id"], "existing_draft_target": target,
+                "authority_ref": "JIM_DECISIONS_20261030_DECISION_48"}
+        try:
+            result = self.transport_runtime.save_substack_draft(intent=intent, authorization_context=auth)
+        except NativeNeoInputRequired as pending:
+            # Keep the draft's terminal private state: public continuation must
+            # never interpret this exact-object repair as an unpublished intent.
+            return {"state": NATIVE_NEO_PENDING, "native_tool_request": pending.request,
+                    "draft_id": draft_id, "public_write_performed": False, "new_draft_call": False}
+        except Exception as exc:
+            result = {"status": UNKNOWN_WRITE, "error_class": type(exc).__name__}
+        verified = result.get("draft_verified") is True and str(result.get("draft_id")) == draft_id
+        if not verified:
+            self.store.set_dispatch_status(ids["dispatch_id"], UNKNOWN_WRITE)
+            self.store.set_outbox_status(ids["message_id"], UNKNOWN_WRITE)
+        self.store.register_readback(readback_id="draft-credit-" + _hash(_canonical_json(result)),
+            dispatch_id=ids["dispatch_id"], readback_data=_canonical_json(result))
+        summary = {"state": "SUBSTACK_DRAFT_AWAITING_OWNER" if verified else UNKNOWN_WRITE,
+            "draft_id": draft_id, "draft_editor_url": target["editor_url"], "draft_verified": verified,
+            "media_credit_restored": verified, "canonical_confirmed": False, "published_article_count": 0,
+            "public_write_performed": result.get("public_write_performed"), "new_draft_call": True}
+        if verified:
+            self.store.register_outbox_message(message_id=key, work_item_id=work_item_id,
+                destination="internal:native-draft-result", payload=_canonical_json(summary), status="EDITORIAL_INTERNAL")
+        return summary
 
     def _reconcile(
         self,

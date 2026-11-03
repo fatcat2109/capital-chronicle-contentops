@@ -252,7 +252,9 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
         if command == "publication-resume":
             return continuation.resume()
         if command == "publication-save-draft":
-            return continuation.save_draft()
+            if response is not None and response != {"repair_media_credit": True}:
+                raise ValueError("EXACT_DRAFT_MEDIA_CREDIT_REPAIR_INPUT_REQUIRED")
+            return continuation.save_draft(repair_media_credit=bool(response))
         if command in {"publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company"}:
             return continuation.linkedin_recovery(command.rsplit("-", 1)[-1], response=response)
         if not request_hash:

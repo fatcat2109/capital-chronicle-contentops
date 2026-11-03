@@ -124,6 +124,13 @@ class NativeNeoExecutor:
                 raise ValueError("NATIVE_NEO_PUBLIC_WRITE_NOT_AUTHORIZED")
             dispatch = self.store.get_platform_dispatch(request["dispatch_attempt_identity"])
             expected_status = "DISPATCH_CONFIRMED" if request["action"] == "EDIT_EXISTING" else PENDING
+            draft_target = request.get("existing_draft_target")
+            if request["action"] == "SAVE_DRAFT" and draft_target:
+                from live_contentops.publication_coordinator_v1 import OWNER_RETAINED_DRAFT_NO_PUBLISH
+                expected_status = OWNER_RETAINED_DRAFT_NO_PUBLISH
+                if (not dispatch or dispatch.get("public_object_id") != draft_target["draft_id"]
+                        or dispatch.get("public_object_url") is not None):
+                    raise ValueError("EXACT_RETAINED_SUBSTACK_DRAFT_REQUIRED")
             if not dispatch or dispatch["status"] != expected_status:
                 raise ValueError("NATIVE_NEO_EXACT_COORDINATOR_PENDING_DISPATCH_REQUIRED")
             if request["action"] == "EDIT_EXISTING":
