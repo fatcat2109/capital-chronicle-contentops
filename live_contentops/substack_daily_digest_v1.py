@@ -93,8 +93,10 @@ def digest_status(store, packet):
         returned = observer._get(request["request_sha256"], "response") or {}
         result = returned.get("result", {})
         email_confirmed |= (result.get("email_delivery_confirmed") is True
-            and result.get("email_delivery_evidence_ref") is not None
+            and bool(result.get("email_delivery_evidence_ref"))
+            and result.get("observed_identity") == "capitalchronicle.substack.com"
             and result.get("public_object_id") == dispatch.get("public_object_id")
+            and result.get("public_object_url") == dispatch.get("public_object_url")
             and bool(result.get("native_tool_observation")))
     confirmed = bool(web_confirmed and email_confirmed)
     return {"digest_id": packet["digest_id"], "confirmed": confirmed,

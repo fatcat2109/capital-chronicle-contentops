@@ -43,3 +43,21 @@ fixtures do not prove a live web-only post, digest email, account or process rel
 Live operating-root integration and the two real Substack acceptance readbacks
 remain required. The active task explicitly leaves live integration to Ops;
 no DONE claim is made from a branch delivery.
+
+Final continuation checks: native-loop-tests.xml has 15 passing isolated checks.
+It exercises the actual native identity -> publish -> dashboard readback protocol,
+requires exact account/object/URL email proof, and resumes without another send.
+The actual supervisor tick prepares one packet at 19:00 and repeats it idempotently,
+without invoking an editorial cycle or a browser. A web-only confirmation leaves
+WEB_CONFIRMED_EMAIL_READBACK_REQUIRED until the dashboard confirms the email send.
+
+The tick prepares native work; it cannot invoke BrowserOS MCP from a background
+Python process. The existing Publisher runner/conversation must consume the
+prepared digest through digest-resume. Exact 19:00 email dispatch is NOT proven
+or claimed. No additional timer, automation or schedule was created to hide that
+remaining operating dependency. Persistent processes have not reloaded this code.
+
+Next action belongs to Ops: review/integrate the pushed branch, wire the existing
+Publisher consumer to the due digest continuation, and collect a real web-only
+article readback plus the digest's sent-email dashboard readback. Preserve every
+existing draft/code tab and UNKNOWN_WRITE; no replacement post or draft is allowed.

@@ -71,6 +71,7 @@ def confirm(store, packet, object_id="123", email=True):
                 "surface":"CODEX_DESKTOP_CONVERSATION", "observation_source":"CONTROLLED_TEST_NOT_BROWSER",
                 "observed_at_utc":datetime.now(timezone.utc).isoformat()},
             "result":{"request_sha256":request_hash, "public_object_id":object_id,
+                "public_object_url":url, "observed_identity":"capitalchronicle.substack.com",
                 "email_delivery_confirmed":True, "email_delivery_evidence_ref":"CONTROLLED_TEST_NOT_BROWSER"}})
 
 
@@ -211,3 +212,78 @@ def test_digest_uses_native_identity_request_not_another_publisher(tmp_path, mon
     assert result["state"] == "NATIVE_NEO_TOOL_PENDING"
     assert result["native_tool_request"]["request"]["action"] == "VERIFY_IDENTITY"
     assert store.list_platform_dispatches() == []
+
+
+def test_full_native_digest_restart_loop_and_email_readback(tmp_path, monkeypatch):
+    from live_contentops.native_neo_executor_v1 import TOOL
+    monkeypatch.setattr("live_contentops.native_desktop_publication_v1.live_publication_policy", lambda _: None)
+    monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
+    store, feed = setup(tmp_path, [row()])
+    packet = prepared(store, feed)["packet"]
+    control = store.get_operating_control()
+    store.update_operating_control(operating_mode="AUTONOMOUS_DEFAULT", expected_state_version=control["state_version"], control_source="TEST")
+    args = dict(output_dir=tmp_path / "tools", invocation_id="controlled-native-loop", rollout={"store_path":str(store.db_path)})
+    seen = []
+    public_url = "https://capitalchronicle.substack.com/p/controlled-digest"
+    for _ in range(8):
+        result = continue_daily_digest(store, packet, **args)
+        if result.get("confirmed"):
+            break
+        pending = result.get("native_tool_request")
+        if not pending:
+            pending = next(iter(result.get("pending_requests", [])), None)
+        assert pending, result
+        request = pending["request"]
+        request_hash = request["request_sha256"]
+        action = request["action"]
+        seen.append(action)
+        begun = continue_daily_digest(store, packet, command="begin", request_hash=request_hash, **args)
+        if action == "PUBLISH":
+            assert begun["substack_publish_routine"]["delivery"]["email_send_enabled"] is True
+        returned = {"request_sha256":request_hash, "observed_identity":"capitalchronicle.substack.com", "status":"SUCCESS"}
+        if action == "VERIFY_IDENTITY":
+            returned["authenticated"] = True
+        else:
+            returned.update(public_object_id="123", public_object_url=public_url)
+            if action == "PUBLISH":
+                returned["delivery_observation"] = {"email_send_enabled":True, "web_publish_enabled":True,
+                    "evidence_ref":"CONTROLLED_TEST_NOT_BROWSER"}
+            else:
+                returned.update(content_verified=True,
+                    observed_text=" ".join(request["content_binding"]["expected_text_segments"]),
+                    email_delivery_confirmed=True, email_delivery_evidence_ref="CONTROLLED_TEST_NOT_BROWSER")
+        response = {"tool_request_sha256":pending["tool_request_sha256"],
+            "tool_observation":{"tool_name":TOOL, "native_invocation_id":"controlled-native-loop",
+                "surface":"CODEX_DESKTOP_CONVERSATION", "observation_source":"CONTROLLED_TEST_NOT_BROWSER",
+                "observed_at_utc":datetime.now(timezone.utc).isoformat()}, "result":returned}
+        continue_daily_digest(store, packet, command="submit", request_hash=request_hash, response=response, **args)
+    else:
+        pytest.fail("native digest did not complete in the bounded controlled loop")
+    assert seen == ["VERIFY_IDENTITY", "PUBLISH", "READBACK"]
+    assert result["web_confirmed"] and result["email_confirmed"] and result["confirmed"]
+    assert len(store.list_platform_dispatches()) == 1
+    assert continue_daily_digest(store, packet, **args)["confirmed"]
+    assert len(store.list_platform_dispatches()) == 1
+
+
+def test_existing_host_tick_prepares_due_digest_once_without_browser_or_cycle(tmp_path, monkeypatch):
+    from test_daily_app_supervisor_v1 import _supervisor, SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP
+    import live_contentops.published_content_v1 as published
+    supervisor, calls = _supervisor(tmp_path, scheduled_editorial_owner=SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP)
+    store = supervisor._store
+    control = store.get_operating_control()
+    if control["operating_mode"] != "AUTONOMOUS_DEFAULT":
+        store.update_operating_control(operating_mode="AUTONOMOUS_DEFAULT", expected_state_version=control["state_version"], control_source="TEST")
+    feed = tmp_path / "feed.jsonl"
+    append_record(feed, row())
+    monkeypatch.setattr(published, "PRODUCTION_STORE", store.db_path)
+    monkeypatch.setattr(published, "DEFAULT_FEED", feed)
+    supervisor._intake_housekeeping_override = lambda *args, **kwargs: {}
+    early = supervisor.tick(now=clock("2026-11-03T11:59:59Z"))
+    assert early["daily_email_digest"]["state"] == "NO_CONFIRMED_ARTICLES"
+    due = supervisor.tick(now=clock("2026-11-03T12:00:00Z"))
+    assert due["daily_email_digest"]["state"] == "PREPARED_NATIVE_INPUT_REQUIRED"
+    later = supervisor.tick(now=clock("2026-11-03T12:01:00Z"))
+    assert later["daily_email_digest"]["digest_id"] == due["daily_email_digest"]["digest_id"]
+    assert len(packets(store)) == 1 and store.list_platform_dispatches() == []
+    assert calls == []
