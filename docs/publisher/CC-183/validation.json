@@ -1,0 +1,45 @@
+{
+  "observed_at_utc": "2026-11-03T18:52:57.878190+00:00",
+  "code_commit": "28786cc53f4fba7ae1cfebf427ea86066bbb46b9",
+  "base_commit": "9f254ac769fd9e96cb93905c56855a8540365ce4",
+  "operating_root_commit": "a4d60fe0d10de97a06603a8de6b6c3e88c79edcd",
+  "configuration": {
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "high",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "launch_pid": 36128,
+    "configuration_source": "Read back only model and effort from CC-183 codex.exe launch arguments",
+    "actual_model": null,
+    "actual_reasoning_effort": null
+  },
+  "named_launch_blockers_scanned": [
+    "LAUNCH_EFFORT_MISMATCH",
+    "LAUNCH_CONFIG_MISMATCH",
+    "CODEX_EXEC_CONFIG_MISMATCH",
+    "DISPATCH_CONFIG_MISMATCH"
+  ],
+  "executable_files_scanned": 830,
+  "named_launch_blocker_hits": [],
+  "live_quarantine_method_sha256": {
+    "_dispatch_quarantine": "68d0f21fbf812eef4239672424eb3fe2e635f5716b06b298b00b612cb6a2829d",
+    "editorial_recovery_dispatch_ids": "aa7e58aaed11a9acf956b9e4409d0be5e49ebff38a6a7214a2a02f72729a179e",
+    "quarantine_unresolved_dispatch": "e5ef0dc828075eb7cdd97eb22ff158f3a4238b444572c7329ea6e05ebd8f3b87",
+    "recover_pending": "c113add7cfd34083d6ecc4c7bd9bd82bb4fbbe0ec300527d2aba1b60fcab78fe"
+  },
+  "live_newsroom_entry_uses_quarantine_guard": true,
+  "new_live_runtime_proof": false,
+  "retained_record_branch": "backlog/cc-107-event-articles",
+  "retained_record_remote_commit": "e94d07dbad730ab8ef42f579dc1b720b582b6821",
+  "reopened_items": [
+    "CC-042",
+    "CC-143",
+    "CC-144",
+    "CC-173",
+    "CC-177",
+    "CC-154",
+    "CC-171",
+    "CC-179"
+  ],
+  "public_write_performed": false,
+  "integration_performed": false
+}
