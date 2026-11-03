@@ -35,17 +35,29 @@ market data stays private unless the existing rights owner permits public reuse;
 renaming it as a comparison does not change its rights. If CC-106 or an admitted
 baseline is missing, preserve the internal blocker and avoid a fabricated comparison.
 
-Use natural source attribution, a serious countercase and a useful lesson. Keep
-trading calls, entries, stops, targets, sizes, account details, DEMO positions/results
-and buy/sell instructions out of copy, tables, charts, captions and derivatives.
-Bind every numeric span to the exact admitted source display in the private record.
+Use natural source attribution, a serious countercase and a useful lesson. This
+format permits decision 40's structured, impersonal conditional calls and scores the earlier calls using Main's admitted output. Each
+call carries its condition, direction, horizon and invalidation, "Analysis, not
+financial advice." and "Capital Chronicle may hold positions in the markets it
+covers." Use the optional root `conditional_calls` array and include
+`conditional_call_text(call)` verbatim in authored copy; the event checker applies
+the shared `check_publication_copy` gate. Unconditional calls, sizes, profit
+targets, DEMO, account, order and position details and prediction-market numbers remain excluded on every surface.
+Kalshi odds stay in words only. Bind every numeric span to the exact admitted
+source display in the private record.
 
-Apply the current media standard and the same actual native Sol 6.1 MAX writer's
-edit, final desktop/mobile render inspection and repair. Light prepares; Luna filters
-genuine X input only. Record every actual model call and distinguish configured
+Apply the current media standard: official history for release analysis, a
+fact-bound data card for other posts, and a lawful photo when available. The same
+actual native Sol 6.1 MAX writer edits. Long pieces finish visual work before text
+approval; time-sensitive pieces use one editor check, then dispatch with an
+automated image load/dimension check after approval under the root's 3 November
+speed rule. Light prepares; Luna filters genuine X input only. Record every actual model call and distinguish configured
 from observed model/effort. Reuse the existing source/story, review and media owners.
 
 Run the CC-107 public-output guard on all copy and changed derivatives. A passing
-guard supplies no rights decision, media acceptance or publication grant. Every
-article of this new type needs Jim's explicit yes until a standing yes exists;
-publication then uses the sole existing canonical-first publisher and readback.
+guard supplies no rights decision, media acceptance or publication grant. Decision
+36 supplies standing approval subject to Ops' public-output review. Reuse the
+existing coordinator, site-first distribution and exact-object readback under the
+root's current overrides. Substack is web-only; if it asks for an email code,
+record PENDING_JIM_EMAIL_CODE and wait on that tab for Jim under decision 54.
+Never read a mailbox or enter a code.

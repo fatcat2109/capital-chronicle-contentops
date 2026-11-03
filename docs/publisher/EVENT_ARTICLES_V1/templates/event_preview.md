@@ -35,17 +35,28 @@ prediction-market odds. Missing evidence is an internal resumable constraint, no
 permission to invent a number, recycle consensus, or pad a public gap notice.
 
 Use natural source attribution, a serious countercase and a clear next observation.
-Public copy contains no trading calls, entries, stops, targets, sizes, account details,
-positions, results, raw private fields or workflow labels. Bind each numeric span to
-the exact admitted source display with `numeric_bindings` in the private article record.
+Decision 40 permits structured, impersonal conditional calls: condition, direction,
+horizon and invalidation, with "Analysis, not financial advice." and "Capital Chronicle may
+hold positions in the markets it covers." Use the optional root `conditional_calls`
+array and include `conditional_call_text(call)` verbatim in authored copy; the event
+checker applies the shared `check_publication_copy` gate. Unconditional calls,
+sizes, profit targets, account/order/position details and prediction-market numbers remain
+excluded. Kalshi odds stay in words only. Bind each numeric span to the exact
+admitted source display with `numeric_bindings` in the private article record.
 
 The writer chooses useful charts under the current media standard; code renders only
-admitted data. The same actual MAX writer edits, inspects final canonical/channel
-desktop/mobile renders and repairs them. Record each real model call and actual
-provenance; configuration alone is CONFIGURED_NOT_OBSERVED. Luna filters genuine X
+admitted data. Release analysis uses official history; each other post has at least
+a fact-bound data card, plus a lawful photo when available. The same actual MAX
+writer edits. Long pieces finish visual work before text approval; time-sensitive
+pieces use one editor check, then dispatch with an automated image load/dimension
+check after approval, under the root's 3 November speed rule. Record each real model
+call and actual provenance; configuration alone is CONFIGURED_NOT_OBSERVED. Luna filters genuine X
 input only; this source-led event work does not manufacture an X/filter stage.
 
 Run the CC-107 public-output guard on the complete copy and each changed derivative.
 A passing guard supplies no rights decision, media acceptance or publication grant.
-Every article of this new type needs Jim's explicit yes until a standing yes exists.
-Then reuse the sole existing canonical-first publisher and exact-object readback.
+Decision 36 supplies standing approval subject to Ops' public-output review. Reuse
+the existing coordinator, site-first distribution and exact-object readback under
+the root's current overrides; no extra per-article yes is required. Substack is
+web-only; if it asks for an email code, record PENDING_JIM_EMAIL_CODE and wait on
+that tab for Jim under decision 54. Never read a mailbox or enter a code.
