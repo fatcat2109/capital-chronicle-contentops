@@ -1824,7 +1824,9 @@ def _reader_safe_native_article(
             result[key] = article[key]
     if reader_first:
         result["reader_first_version"] = "DATA_JOURNALISM_V1"
-        result["native_destination_media"] = (article.get("visual_editorial_decision") or {}).get("channel_media", {})
+        result["native_destination_media"] = article.get("post_visual_destination_media") or (article.get("visual_editorial_decision") or {}).get("channel_media", {})
+        if article.get("post_visual_policy"):
+            result["post_visual_policy"] = article["post_visual_policy"]
         publisher = str((epistemic_state or {}).get("primary_reporting_publisher") or "").strip()
         bound = next((s for s in sources.values() if s.get("publisher", "").casefold() == publisher.casefold()), None)
         names = {("federal reserve bank of new york", "www.newyorkfed.org"): "New York Fed",
@@ -2974,7 +2976,6 @@ def run_v1_simple_gemini_newsroom(
         from live_contentops.native_newsroom_volume_v1 import photo_less_brief
         article["photo_less_brief_eligible"] = photo_less_brief(article)
         article_manifest["photo_less_brief_eligible"] = article["photo_less_brief_eligible"]
-    persist(root / "article_manifest_v1.json", article_manifest)
     validation_artifact = {
         **validation,
         "worker_router_receipt": worker_receipt,
@@ -2989,8 +2990,13 @@ def run_v1_simple_gemini_newsroom(
     admitted_media = []
     if native and article.get("reader_first_version") == "DATA_JOURNALISM_V1":
         admitted_media = llm_invoke.admitted_editorial_media()
+        from live_contentops.post_visuals_v1 import complete_post_visuals
+        article, admitted_media = complete_post_visuals(article, worker_output["material_claim_bindings"],
+            source_pack, admitted_media, output_dir=root)
+        article_manifest.update({k: article[k] for k in ("post_visual_policy", "post_visual_destination_media")})
         from live_contentops.native_desktop_editorial_v1 import validate_release_media
         validate_release_media({"article": article, "media_assets": admitted_media, "evidence": source_pack})
+    persist(root / "article_manifest_v1.json", article_manifest)
     try:
         native_previews, intents = _native_preview_bundle(
             article=article,

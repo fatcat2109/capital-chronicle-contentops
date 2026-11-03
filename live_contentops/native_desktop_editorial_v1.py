@@ -558,10 +558,17 @@ class NativeDesktopTurn:
         role = native_role(stage)
         target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
         frozen = self.frozen_request(stage)
-        if self.volume_policy and role in {"visual-edit", "write"} and not frozen:
-            kwargs["prompt"] += ("\nDATED J8: A source-sufficient genuine NEWS/POLICY brief may use no photo and no assets, "
-                "with Instagram explicitly skipped. Analysis keeps its lawful photo and useful charts. "
-                "Never treat an optional photo gap as a factual gap or relabel analysis. Keep exact final rendered desktop/mobile review.")
+        if role in {"visual-edit", "write"} and (not frozen or "CC-144 / Jim decision 42:" in frozen["prompt"]):
+            kwargs["prompt"] += ("\nCC-144 / Jim decision 42: Every post and destination carries an image. "
+                "NEWS/POLICY gets a deterministic data card from this article's admitted claim bindings; "
+                "empty destination media choices use that card, including Instagram. Analysis keeps 2-5 useful charts. "
+                "Search for a lawful relevant photo through BrowserOS Neo (US agency, Commons or free-licence stock) "
+                "and history through the existing desk-data adapter; retain the source/license/attribution result. "
+                "Visual discovery is separate from the per-story factual-source request cap; it never admits new "
+                "factual claims or grants spending. If an admitted public-domain series exists, supply data_card_series "
+                "using the existing editorial chart packet schema and only observations stated in this post. "
+                "Decision 44: private survey figures stay attributed headlines, never data cards, charts or history. "
+                "Do not manufacture data, relabel analysis or claim a missing photo. Keep exact final rendered review.")
         date_guidance = (LEGACY_SOURCE_DATE_GUIDANCE
             if frozen and LEGACY_SOURCE_DATE_GUIDANCE in frozen["prompt"] else PUBLIC_SOURCE_DATE_GUIDANCE)
         native_guidance = (
@@ -871,7 +878,8 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         allowed.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
     reader_first = corrected_article.get("reader_first_version") == "DATA_JOURNALISM_V1"
     from live_contentops.native_newsroom_volume_v1 import photo_less_brief
-    minimum_assets = 0 if photo_less_brief({**result, "article": corrected_article, "media_assets": assets}) else 1
+    minimum_assets = (1 if corrected_article.get("post_visual_policy") else
+        0 if photo_less_brief({**result, "article": corrected_article, "media_assets": assets}) else 1)
     if not minimum_assets <= len(assets) <= (7 if reader_first else 3) or _private(assets):
         raise ValueError("BOUNDED_PUBLIC_MEDIA_REQUIRED")
     # The owned quantitative visual carries the story's evidence into short-form
@@ -959,11 +967,15 @@ def validate_release_media(result):
         raise ValueError("RELEASE_REQUIRES_GROUNDED_PHOTO_AND_QUANTITATIVE_CHART")
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]
     charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
+    cards = [a for a in assets if a.get("modality") == "source_bound_data_card"]
+    article = result.get("article") or {}
+    from live_contentops.post_visuals_v1 import POLICY, validate_post_data_card
+    current_visuals = article.get("post_visual_policy") == POLICY
     if reader_first:
         validate_visual_decision(decision)
         from live_contentops.native_newsroom_volume_v1 import photo_less_brief
-        minimum_photos = 0 if photo_less_brief(result) else 1
-        if not minimum_photos <= len(photos) <= 2 or len(assets) != len(photos) + len(charts):
+        minimum_photos = 0 if current_visuals or photo_less_brief(result) else 1
+        if not minimum_photos <= len(photos) <= 2 or len(assets) != len(photos) + len(charts) + len(cards):
             raise ValueError("RELEASE_REQUIRES_GROUNDED_CONTEXTUAL_PHOTO")
         chosen = {c["asset_id"]: c for c in decision["charts"]}
         if len(charts) != len(chosen) or {c.get("asset_id") for c in charts} != set(chosen):
@@ -990,8 +1002,18 @@ def validate_release_media(result):
         if (review.get("asset_sha256") != chart.get("sha256") or review.get("pixels_inspected") is not True
                 or review.get("labels_and_units_legible") is not True or not review.get("reviewer")):
             raise ValueError("CHART_EXACT_RENDER_REVIEW_REQUIRED")
+    if current_visuals:
+        if not assets or (decision.get("story_kind") != "ANALYSIS" and len(cards) != 1):
+            raise ValueError("EVERY_NON_ANALYSIS_POST_DATA_CARD_REQUIRED")
+        for card in cards:
+            validate_post_data_card(card, article, result.get("evidence") or [])
+        allowed = {a["asset_id"] for a in assets}
+        from live_contentops.post_visuals_v1 import DESTINATIONS
+        choices = article.get("post_visual_destination_media") or {}
+        if set(choices) != set(DESTINATIONS) or any(not ids or not set(ids) <= allowed for ids in choices.values()):
+            raise ValueError("EVERY_DESTINATION_IMAGE_REQUIRED")
     return {"standard": "DATA_JOURNALISM_V1" if reader_first else "CONTENTOPS_V1_EDITORIAL_MEDIA_AND_DATA_RELEASE_STANDARD_V1",
-            "photo_count": len(photos), "chart_count": len(charts)}
+            "photo_count": len(photos), "chart_count": len(charts), "data_card_count": len(cards)}
 
 
 def bind_editorial_media_plan(store, *, run_id, output_dir, plan, assets):

@@ -1,0 +1,167 @@
+{
+  "article": {
+    "title": "A dated policy announcement",
+    "dek": "The agency reported output of 120 units in 2026, compared with 100 units in 2025.",
+    "substack_body_markdown": "## What was announced\n\nThe agency reported output of 120 units in 2026, compared with 100 units in 2025.\n\nThe release leaves the policy timetable open.",
+    "social_hook": "Implementation details determine what changes.",
+    "social_mechanism_summary": "The announcement sets a direction; implementation details remain open.",
+    "social_policy_summary": "The timetable and mechanism still need an exact announced instrument.",
+    "social_cross_asset_summary": "No causal market reaction is established by the announcement alone.",
+    "reader_first_version": "DATA_JOURNALISM_V1",
+    "resolved_article_mode": "BREAKING_BRIEF",
+    "public_source_bindings": [
+      {
+        "source_id": "SOURCE_1",
+        "publisher": "Controlled agency",
+        "url": "https://example.org/release"
+      }
+    ],
+    "visual_editorial_decision": {
+      "reader_first_version": "DATA_JOURNALISM_V1",
+      "story_kind": "POLICY",
+      "editorial_thesis": "Controlled fixture only",
+      "charts": [],
+      "contextual_photo_ids": [],
+      "exception_reason": "A narrow policy notice; no useful quantitative comparison beyond the key facts.",
+      "channel_media": {
+        "telegram": [],
+        "discord": [],
+        "x": [],
+        "linkedin": [],
+        "facebook_page": [],
+        "instagram_business": [],
+        "threads": [],
+        "youtube": []
+      }
+    },
+    "post_visual_policy": "CC144_EVERY_POST_VISUAL_V1",
+    "post_visual_destination_media": {
+      "telegram": [
+        "post-facts-cfa4a25667369008bd19"
+      ],
+      "discord": [
+        "post-facts-cfa4a25667369008bd19"
+      ],
+      "x": [
+        "post-facts-cfa4a25667369008bd19"
+      ],
+      "linkedin": [
+        "post-facts-cfa4a25667369008bd19"
+      ],
+      "facebook_page": [
+        "post-facts-cfa4a25667369008bd19"
+      ],
+      "instagram_business": [
+        "post-facts-cfa4a25667369008bd19"
+      ],
+      "threads": [
+        "post-facts-cfa4a25667369008bd19"
+      ],
+      "youtube": [
+        "post-facts-cfa4a25667369008bd19"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "claim_id": "fact-0",
+      "claim_text": "The agency reported output of 120 units in 2026, compared with 100 units in 2025.",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "The agency reported output of 120 units in 2026, compared with 100 units in 2025."
+    },
+    {
+      "claim_id": "fact-1",
+      "claim_text": "The release leaves the policy timetable open.",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "The release leaves the policy timetable open."
+    }
+  ],
+  "documents": [
+    {
+      "document_id": "controlled-source",
+      "source_id": "SOURCE_1",
+      "publisher": "Controlled agency",
+      "url": "https://example.org/release",
+      "canonical_content_text": "The agency reported output of 120 units in 2026, compared with 100 units in 2025. The release leaves the policy timetable open.",
+      "underlying_reuse_classification": "governed_government_public_domain",
+      "rights_evidence_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "source_reuse_constraints": {
+        "scope": "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+        "attribution_required": true,
+        "policy_capture_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "source_capture_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      }
+    }
+  ],
+  "media_assets": [
+    {
+      "asset_id": "post-facts-cfa4a25667369008bd19",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-144\\media_assets\\post-facts-cfa4a25667369008bd19.png",
+      "sha256": "3a898fb39e9127df0ef4d9e9409897b4523427d6795a01d9c5bf3206996a1f9b",
+      "width": 1080,
+      "height": 1080,
+      "modality": "source_bound_data_card",
+      "role": "supporting_fact_context",
+      "media_role": "post_key_facts",
+      "caption": "Key facts from the article.",
+      "alt_text": "The agency reported output of 120 units in 2026, compared with 100 units in 2025. The release leaves the policy timetable open.",
+      "attribution": "Source: Controlled agency",
+      "source_page_url": "https://example.org/release",
+      "source_links": [
+        {
+          "document_id": "controlled-source",
+          "url": "https://example.org/release",
+          "label": "Controlled agency"
+        },
+        {
+          "document_id": "controlled-source",
+          "url": "https://example.org/release",
+          "label": "Controlled agency"
+        }
+      ],
+      "source_lineage": [
+        {
+          "document_id": "controlled-source",
+          "source_url": "https://example.org/release"
+        },
+        {
+          "document_id": "controlled-source",
+          "source_url": "https://example.org/release"
+        }
+      ],
+      "underlying_source_rights_status": "attributed_facts_independent_chart",
+      "data_card_packet": {
+        "policy": "CC144_EVERY_POST_VISUAL_V1",
+        "facts": [
+          {
+            "claim_id": "fact-0",
+            "text": "The agency reported output of 120 units in 2026, compared with 100 units in 2025.",
+            "source_id": "SOURCE_1",
+            "document_id": "controlled-source",
+            "support_excerpt": "The agency reported output of 120 units in 2026, compared with 100 units in 2025.",
+            "source_content_sha256": "d75d3bb47aeb8db31ace8ddc83adb0c00370575ec6d01d9d902106f2cd1f6317",
+            "rights_class": "public_domain",
+            "rights_binding_sha256": "2fa0598b1bab687f47dfe1ad832a04fdd612df0f552b8a8d9eb97ad3a300267a",
+            "publisher": "Controlled agency",
+            "url": "https://example.org/release"
+          },
+          {
+            "claim_id": "fact-1",
+            "text": "The release leaves the policy timetable open.",
+            "source_id": "SOURCE_1",
+            "document_id": "controlled-source",
+            "support_excerpt": "The release leaves the policy timetable open.",
+            "source_content_sha256": "d75d3bb47aeb8db31ace8ddc83adb0c00370575ec6d01d9d902106f2cd1f6317",
+            "rights_class": "public_domain",
+            "rights_binding_sha256": "2fa0598b1bab687f47dfe1ad832a04fdd612df0f552b8a8d9eb97ad3a300267a",
+            "publisher": "Controlled agency",
+            "url": "https://example.org/release"
+          }
+        ]
+      },
+      "transform_sha256": "cfa4a25667369008bd194e88f7ae205f9963c4e9e855938b383c73ac98b62bc0",
+      "publication_authority": false
+    }
+  ],
+  "synthetic_fixture_only": true
+}
