@@ -1789,6 +1789,7 @@ class DurablePublicationCoordinator:
             "CANONICAL_DISPATCH" if destination == "substack" else "DERIVATIVE_DISPATCH",
             destination=destination,
         )
+        dispatch_call_started_at = datetime.now(timezone.utc).isoformat()
         try:
             activity = (
                 browser_activity(
@@ -1819,6 +1820,10 @@ class DurablePublicationCoordinator:
                 "status": UNKNOWN_WRITE, "public_object_id": None,
                 "public_object_url": None, "safe_error_classification": type(exc).__name__,
             }
+        if registration.transport_type not in {"EDGE_CDP", "BROWSEROS_NEO_MCP"}:
+            from live_contentops.native_publication_latency_v1 import record_api_dispatch
+            record_api_dispatch(self.store, intent=intent, destination=destination, dispatch_id=ids["dispatch_id"],
+                started_at=dispatch_call_started_at, status=result["status"])
         self.store.register_platform_dispatch(
             dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
             platform=destination, status=ATTEMPT_STARTED,

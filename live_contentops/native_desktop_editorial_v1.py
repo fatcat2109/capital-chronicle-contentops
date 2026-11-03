@@ -142,7 +142,7 @@ def validate_pre_writer_outcome(value, *, max_source_requests=6):
     return value
 
 
-def validate_visual_decision(value):
+def validate_visual_decision(value, *, dropped_after_repair=False):
     """Validate the MAX editor's explicit choice, without scoring its judgment."""
     if not isinstance(value, dict) or value.get("reader_first_version") != "DATA_JOURNALISM_V1":
         raise ValueError("MAX_VISUAL_DECISION_REQUIRED")
@@ -153,7 +153,7 @@ def validate_visual_decision(value):
         raise ValueError("BOUNDED_VISUAL_DECISION_REQUIRED")
     # Decision 41 narrows decision 39 to short briefs. Analysis cannot use the
     # optional-photo exception to bypass its source-bound charts.
-    if value["story_kind"] == "ANALYSIS" and not charts:
+    if value["story_kind"] == "ANALYSIS" and not charts and not dropped_after_repair:
         raise ValueError("ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED")
     ids, questions = [], []
     for chart in charts:
@@ -828,6 +828,16 @@ class NativeDesktopTurn:
         media_plan = json.loads(media_row["payload"]) if media_row else None
         frozen_writer = self.frozen_request("write") if stage == "write" else None
         visual = self.visual_response() if stage == "write" else None
+        from live_contentops.native_publication_latency_v1 import speed_policy
+        publication_speed = (frozen_writer["governed_input"].get("publication_speed_policy") if frozen_writer else
+            speed_policy(kwargs["governed_input"])) if stage == "write" else None
+        if publication_speed:
+            kwargs["governed_input"] = {**kwargs["governed_input"], "publication_speed_policy": publication_speed}
+            publication_guidance = ("\nJIM DECISION 53: This time-sensitive story uses writer, ONE editor text check, publish. "
+                "Retain source/rights/clock/claim checks and admitted charts. Attach photo credit from its media record "
+                "at selection. No per-channel screenshot or draft review after text approval. One automated image "
+                "load/size check logs failures without another model or repair loop. Dispatch all channels within 15 "
+                "minutes of approved text. This supersedes older final screenshot instructions for this short path.")
         text_policy = None
         if stage == "write" and "source_pack" in kwargs["governed_input"]:
             if self.scheduled_window and not frozen_writer:
@@ -863,11 +873,13 @@ class NativeDesktopTurn:
             if not media_plan:
                 pending = {"stage": "media-plan", "run_id": self.run_id,
                     "source_pack": kwargs["governed_input"]["source_pack"],
-                    "visual_editorial_decision_required": True,
+                    "visual_editorial_decision_required": not bool(publication_speed),
                     "instruction": "Use existing discovery/chart owners; bind inspected lawful media before freezing the MAX writer. Light proposes; the same MAX visual editor/writer chooses data, count, type and placement. No model/public operation here."}
                 if self.volume_policy:
                     pending.update(volume_policy=self.volume_policy,
                         volume_policy_cutoff_utc=kwargs["governed_input"]["cutoff_utc"])
+                if publication_speed:
+                    pending["publication_speed_policy"] = publication_speed
                 if visual:
                     pending["visual_editorial_decision"] = decision
                     pending["visual_request_sha256"] = visual["request_sha256"]
@@ -879,7 +891,7 @@ class NativeDesktopTurn:
             validate_release_media({"media_assets": media_plan["assets"], "evidence": kwargs["governed_input"]["source_pack"],
                 "visual_editorial_decision": visual["output"] if visual else None,
                 **({"volume_policy": self.volume_policy, "volume_policy_cutoff_utc": kwargs["governed_input"]["cutoff_utc"]}
-                    if self.volume_policy else {})})
+                    if self.volume_policy else {})}, require_pixel_review=not bool(publication_speed))
             kwargs["governed_input"] = {**kwargs["governed_input"], "editorial_media_plan": media_plan}
             prompt_media = media_plan
             if visual:
@@ -929,11 +941,13 @@ class NativeDesktopTurn:
             native_guidance = native_guidance.replace(
                 "say it is not supplied in source notes.", "retain that missing clock in internal evidence metadata.")
         request_prompt = kwargs["prompt"] + native_guidance
+        if publication_speed:
+            request_prompt = frozen_writer["prompt"] if frozen_writer else request_prompt + publication_guidance
         negative_contract = role in {"select", "visual-edit", "write"} and (
             frozen is None or "pre_writer_outcome_contract" in frozen)
         negative_template = {**PRE_WRITER_RETURN_CONTRACT,
             **({"source_request_limit": self.volume_policy["source_request_limit"]} if self.volume_policy else {})}
-        if frozen and kwargs["prompt"] == frozen["prompt"]:
+        if frozen and (kwargs["prompt"] == frozen["prompt"] or publication_speed):
             request_prompt = frozen["prompt"]
         elif negative_contract:
             request_prompt += ("\nA terminal pre-writer refusal is valid without any media or positive article fields. "
@@ -1176,7 +1190,7 @@ def normalize_native_receipt(value: dict[str, Any], telemetry: Mapping[str, Any]
 
 
 def bind_editorial_media(store, *, run_id, article_identity, assets, expected_package_revision=None,
-                         final_visual_repair=None, corrected_worker_output=None):
+                         final_visual_repair=None, corrected_worker_output=None, drop_failed_visuals=False):
     """Seal relevant inspected media before review using the existing final outbox.
 
     Earlier bytes stay history. A reviewed correction needs its exact revision and
@@ -1189,6 +1203,11 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     result = json.loads(row["payload"]) if row else {}
     if result.get("article_identity") != article_identity or not result.get("qualified_article_count"):
         raise ValueError("EXACT_QUALIFIED_NATIVE_ARTICLE_REQUIRED")
+    disposition = result.get("visual_repair_disposition")
+    if drop_failed_visuals and (not final_visual_repair or corrected_worker_output is not None):
+        raise ValueError("DROP_VISUALS_REQUIRES_EXACT_REPAIR_RETURN_UNCHANGED_COPY")
+    if disposition and not final_visual_repair and assets != result.get("media_assets"):
+        raise ValueError("VISUAL_REPAIR_CAP_DROP_FAILED_ASSETS_REQUIRED")
     if final_visual_repair is not None:
         turn = NativeDesktopTurn(store, run_id=run_id, output_dir=final_visual_repair["output_dir"])
         request = turn.frozen_request(final_visual_repair["stage"])
@@ -1202,6 +1221,9 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             raise ValueError("SAME_MAX_TARGETED_VISUAL_REPAIR_REQUIRED")
         for original in result.get("media_assets", []):
             _final_visual_file(original)  # Corrections use new revision paths, never overwrite frozen originals.
+        from live_contentops.native_publication_latency_v1 import visual_repair_disposition
+        assets, disposition = visual_repair_disposition(result, assets, response=response,
+            reference=final_visual_repair, drop_failed=drop_failed_visuals)
     if any(r["work_item_id"] == row["work_item_id"] and r["reviewer_ref"] == "NATIVE_DESKTOP_ARTICLE_REVIEW" for r in read_reviews(store)):
         if expected_package_revision != native_review_revision(result):
             raise ValueError("MEDIA_BINDING_REQUIRES_EXACT_REVIEWED_REVISION")
@@ -1212,6 +1234,18 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         if dispatched:
             raise ValueError("REVIEWED_MEDIA_IMMUTABLE_AFTER_PUBLICATION_DISPATCH")
     corrected_article = result["article"]
+    if drop_failed_visuals:
+        dropped = {a["asset_id"] for a in disposition["dropped_assets"]}
+        decision = corrected_article.get("visual_editorial_decision") or result.get("visual_editorial_decision")
+        if decision:
+            disposition["original_visual_editorial_decision"] = (
+                (result.get("visual_repair_disposition") or {}).get("original_visual_editorial_decision") or decision)
+            decision = {**decision, "charts": [c for c in decision["charts"] if c["asset_id"] not in dropped],
+                "contextual_photo_ids": [i for i in decision.get("contextual_photo_ids", []) if i not in dropped],
+                "channel_media": {d: [i for i in ids if i not in dropped] for d, ids in decision["channel_media"].items()}}
+        corrected_article = {**corrected_article,
+            **({"visual_editorial_decision": decision} if decision else {}),
+            "visual_repair_disposition": {"policy": "CC-172", "repair_rounds": 1, "dropped_asset_ids": sorted(dropped)}}
     if corrected_worker_output is not None:
         if final_visual_repair is None:
             raise ValueError("COPY_CORRECTION_REQUIRES_SAME_MAX_FINAL_REPAIR")
@@ -1228,7 +1262,7 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         allowed.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
     reader_first = corrected_article.get("reader_first_version") == "DATA_JOURNALISM_V1"
     from live_contentops.native_newsroom_volume_v1 import photo_less_brief
-    minimum_assets = 0 if photo_less_brief({**result, "article": corrected_article, "media_assets": assets}) else 1
+    minimum_assets = 0 if drop_failed_visuals or photo_less_brief({**result, "article": corrected_article, "media_assets": assets}) else 1
     if not minimum_assets <= len(assets) <= (7 if reader_first else 3) or _private(assets):
         raise ValueError("BOUNDED_PUBLIC_MEDIA_REQUIRED")
     # The owned quantitative visual carries the story's evidence into short-form
@@ -1237,6 +1271,7 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         assets = sorted(assets, key=lambda a: a.get("modality") != "source_backed_chart")
     else:
         validate_release_media({**result, "article": corrected_article, "media_assets": assets,
+            "visual_repair_disposition": disposition,
             "visual_editorial_decision": corrected_article.get("visual_editorial_decision")})
     for asset in assets:
         if asset.get("modality") == "documentary_photo":
@@ -1267,7 +1302,7 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         "article_identity": article_identity, "claim_lineage": result.get("claim_lineage", [])}
         for k, v in bundle["packages"].items()]
     if (assets == result.get("media_assets") and article == result["article"]
-            and previews == result.get("previews")):
+            and previews == result.get("previews") and final_visual_repair is None):
         return {"classification": "MEDIA_ALREADY_BOUND", "article_identity": article_identity}
     store.register_outbox_message(message_id=key + "-package-history-" + sha256_of(result),
         work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
@@ -1277,6 +1312,8 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
             payload=canonical_bytes({**final_visual_repair, "corrected_worker_output": corrected_worker_output}).decode(), status="EDITORIAL_INTERNAL")
     updated = {**result, "article": article, "article_identity": article_identity, "media_assets": assets, "previews": previews,
+        **({"visual_repair_disposition": disposition} if disposition else {}),
+        **({"visual_editorial_decision": article["visual_editorial_decision"]} if drop_failed_visuals and article.get("visual_editorial_decision") else {}),
         "media_preview_binding_sha256": sha256_of(previews),
         "media_reuse_count": sum(a.get("reuse_state") == "EXACT_BYTES_REUSED_NO_RENDER" for a in assets)}
     if corrected_worker_output is not None:
@@ -1303,7 +1340,7 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     return {"classification": "MEDIA_BOUND_REVIEW_REQUIRED", "article_identity": article_identity, "media_count": len(assets), "public_write_performed": False}
 
 
-def validate_release_media(result):
+def validate_release_media(result, *, require_pixel_review=True):
     """Current release standard; historical evidence stays readable without promotion."""
     from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
     from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_source_value_chart
@@ -1316,7 +1353,11 @@ def validate_release_media(result):
     reader_first = bool(decision)
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]
     charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
-    if (result.get("article") or {}).get("news_item_kind") == "ANALYSIS" and not charts:
+    disposition = result.get("visual_repair_disposition") or {}
+    dropped = disposition.get("dropped_assets") or []
+    dropped_after_repair = (disposition.get("policy") == "CC-172" and disposition.get("repair_rounds") == 1
+        and bool(dropped) and not {a["asset_id"] for a in dropped} & {a["asset_id"] for a in assets})
+    if (result.get("article") or {}).get("news_item_kind") == "ANALYSIS" and not charts and not dropped_after_repair:
         raise ValueError("ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED")
     if len(assets) != len(photos) + len(charts):
         raise ValueError("RELEASE_UNSUPPORTED_MEDIA")
@@ -1324,7 +1365,16 @@ def validate_release_media(result):
         if len(assets) != len(photos) + len(charts):
             raise ValueError("TEXT_FIRST_UNSUPPORTED_MEDIA")
     elif reader_first:
-        validate_visual_decision(decision)
+        if dropped_after_repair:
+            original = disposition.get("original_visual_editorial_decision")
+            validate_visual_decision(original)
+            removed = {a["asset_id"] for a in dropped}
+            expected = {**original, "charts": [c for c in original["charts"] if c["asset_id"] not in removed],
+                "contextual_photo_ids": [i for i in original.get("contextual_photo_ids", []) if i not in removed],
+                "channel_media": {d: [i for i in ids if i not in removed] for d, ids in original["channel_media"].items()}}
+            if decision != expected:
+                raise ValueError("DROPPED_VISUALS_EXACT_ORIGINAL_DECISION_REQUIRED")
+        validate_visual_decision(decision, dropped_after_repair=dropped_after_repair)
         if len(photos) > 2:
             raise ValueError("RELEASE_REQUIRES_GROUNDED_CONTEXTUAL_PHOTO")
         chosen = {c["asset_id"]: c for c in decision["charts"]}
@@ -1343,11 +1393,11 @@ def validate_release_media(result):
             if any(c["placement_after"] not in headings for c in decision["charts"]):
                 raise ValueError("RELEASE_CHART_EXPLANATION_SECTION_MISSING")
     for photo in photos:
-        validate_contextual_photo(photo)
+        validate_contextual_photo(photo, require_pixel_review=require_pixel_review)
     for chart in charts:
         validate_source_value_chart(chart, result.get("evidence") or [])
         review = chart.get("visual_review") or {}
-        if (review.get("asset_sha256") != chart.get("sha256") or review.get("pixels_inspected") is not True
+        if require_pixel_review and (review.get("asset_sha256") != chart.get("sha256") or review.get("pixels_inspected") is not True
                 or review.get("labels_and_units_legible") is not True or not review.get("reviewer")):
             raise ValueError("CHART_EXACT_RENDER_REVIEW_REQUIRED")
     return {"standard": "DATA_JOURNALISM_V1" if reader_first else "CONTENTOPS_V1_EDITORIAL_MEDIA_AND_DATA_RELEASE_STANDARD_V1",
@@ -1378,9 +1428,12 @@ def bind_editorial_media_plan(store, *, run_id, output_dir, plan, assets):
         if (not visual or visual["request_sha256"] != pending["visual_request_sha256"]
                 or visual["output"] != pending["visual_editorial_decision"]):
             raise ValueError("EXACT_COMPLETED_MAX_VISUAL_DECISION_REQUIRED")
+    from live_contentops.native_publication_latency_v1 import attach_photo_credits
+    assets = attach_photo_credits(assets)
     validate_release_media({"media_assets": assets, "evidence": pending["source_pack"],
         "visual_editorial_decision": visual["output"] if visual else None,
-        **{k: pending[k] for k in ("volume_policy", "volume_policy_cutoff_utc") if k in pending}})
+        **{k: pending[k] for k in ("volume_policy", "volume_policy_cutoff_utc") if k in pending}},
+        require_pixel_review=not bool(pending.get("publication_speed_policy")))
     packet = {"run_id": run_id, "source_request_sha256": pending["request_sha256"],
               "plan": plan, "assets": assets, "public_write_performed": False}
     store.register_outbox_message(message_id=native_artifact_key(store, run_id, "native-editorial-media-plan-"),
@@ -1393,6 +1446,8 @@ def native_review_revision(result, *, include_metadata=True):
     """One exact revision identity shared by review, preparation and reader readiness."""
     prior_plan = result["simple_result"]["publication_lifecycle_plan"]
     revision_input = [result["article_identity"], prior_plan["plan_hash"], result.get("claim_lineage"), result.get("media_assets")]
+    if result.get("visual_repair_disposition"):
+        revision_input.append(result["visual_repair_disposition"])
     if include_metadata:
         revision_input.append(sha256_of(result["article"]))
     reader_first = result["article"].get("reader_first_version") == "DATA_JOURNALISM_V1"
@@ -1724,6 +1779,8 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
         destinations=scope)
     stage = "final-visual-" + sha256_of(binding)
     governed = {"binding": binding, "article": result["article"], "previews": result["previews"],
+        "visual_repair_policy": {"policy": "CC-172", "maximum_repair_rounds": 1,
+            "repair_rounds_used": (result.get("visual_repair_disposition") or {}).get("repair_rounds", 0)},
         "evidence": result.get("evidence", []), "writer_invocation_id": writer["invocation_observation"]["invocation_id"],
         "layout_checks": list(FINAL_VISUAL_LAYOUT_CHECKS), "data_checks": list(FINAL_VISUAL_DATA_CHECKS),
         "photo_checks": list(FINAL_VISUAL_PHOTO_CHECKS)}
@@ -1749,8 +1806,15 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
         "If defective, YOU directly repair only affected source-bound copy/media/layout with existing tools, re-render "
         "affected views, inspect and resubmit the same article's corrected revision. Save corrected assets/renders "
         "at new revision paths; retain frozen originals and valid assets/returns. "
-        "never discard the story or rerun intake. No one-repair ceiling for concrete correctable defects, no blind loop "
-        "or repeated votes. External gaps preserve the product and exact pending repair. No public send here.\n"
+        "Never discard the story or rerun intake. CC-172 allows at most ONE visual repair round for this article. "
+        "After that round, explicitly flag any still-failing asset; use the existing media command with "
+        "drop_failed_visuals=true and the exact review reference to remove it, keep passing visuals, re-render once "
+        "and inspect the remaining assembly. Do not start another repair or reintroduce a dropped visual. "
+        "Keep failed-visual notes internally. Publish immediately after acceptance; dispatch all channels within "
+        "15 minutes of text approval. Time-sensitive pieces use decision 53's single editor check and automated "
+        "image check instead of this final screenshot stage. Upload only with BrowserOS Neo upload/file-chooser interception, from this "
+        "article's own media folder; never click a native file-dialog control. NATIVE_FILE_DIALOG_OPEN stops that step. "
+        "Save screenshots as binary image files; never put base64 image text in Git or session output. No public send here.\n"
         "GOVERNED_INPUT:\n" + canonical_bytes(governed).decode())
     frozen = turn.frozen_request(stage)
     return turn(logical_invocation_id=turn.run_id + ":" + stage,
@@ -1833,6 +1897,9 @@ def final_visual_acceptance(store, *, run_id, result, reference):
 
 def require_current_final_visual_review(store, *, run_id):
     result, _, review = validated_native_review(store, run_id=run_id)
+    from live_contentops.native_publication_latency_v1 import uses_short_path, short_path_acceptance
+    if uses_short_path(store, run_id=run_id, result=result):
+        return short_path_acceptance(store, run_id=run_id, result=result, review=review)
     from live_contentops.native_text_first_v1 import text_first_brief, fact_checked_acceptance
     if text_first_brief(result):
         return fact_checked_acceptance(store, run_id=run_id, result=result)

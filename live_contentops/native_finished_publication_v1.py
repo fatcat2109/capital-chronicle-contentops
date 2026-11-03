@@ -136,7 +136,8 @@ def check_finished_piece(store, binding):
         _normalize_relay_attribution, _public_copy, _validate_article_against_source_pack,
     )
     result, _, review = validated_native_review(store, run_id=binding["run_id"])
-    validate_release_media(result)
+    from live_contentops.native_publication_latency_v1 import validate_publication_media
+    validate_publication_media(store, run_id=binding["run_id"], result=result)
     require_current_final_visual_review(store, run_id=binding["run_id"])
     turn = NativeDesktopTurn(store, run_id=binding["run_id"],
         output_dir=binding["output_dir"], owner_manual_validation=True)

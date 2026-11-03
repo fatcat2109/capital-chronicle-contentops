@@ -156,7 +156,23 @@ class NativeNeoExecutor:
                  "begun_at_utc": self.clock().isoformat(), "required_tool": TOOL}
         # The unique immutable outbox key fences simultaneous Desktop claimers too.
         self._put(request_hash, claim_kind, claim, request["work_item_id"])
-        return packet
+        action_packet = dict(packet)
+        if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
+            action_packet["upload_policy"] = {
+                "method": "BROWSEROS_NEO_UPLOAD_OR_FILE_CHOOSER_INTERCEPTION",
+                "source_scope": "ARTICLE_OWN_MEDIA_FOLDER",
+                "bound_media_paths": [a["path"] for a in request.get("content_binding", {}).get("media_manifest", [])],
+                "native_file_dialog": "FORBIDDEN_STOP_WITH_NATIVE_FILE_DIALOG_OPEN"}
+        if request["destination"] == "substack" and request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
+            action_packet["substack_publish_routine"] = {
+                "policy": "JIM_DECISION_54",
+                "window": "Dedicated BrowserOS Neo window; keep the Substack tab open and in front. Never close, reuse or navigate it.",
+                "before_publish": "Two tabs in that same window: Jim's Gmail inbox, open and untouched, and the Substack draft. Agents never read Gmail.",
+                "email_code_dialog": "Record PENDING_JIM_EMAIL_CODE, page_id and URL in the item's Result. Wait on that tab for Jim to type the code. No reload, other input or use of another tab.",
+                "continue_only_after": "The same tab reaches /publish/posts/detail/.../share-center; continue exact readback and dispatch recording.",
+                "pending_is_dispatch": False,
+            }
+        return action_packet
 
     def submit(self, request_hash: str, response: Mapping[str, Any]):
         packet = self._get(request_hash, "request")
@@ -173,6 +189,10 @@ class NativeNeoExecutor:
         begun_at = datetime.fromisoformat(claim["begun_at_utc"])
         if not begun_at <= observed_at <= self.clock() + timedelta(seconds=30):
             raise ValueError("NATIVE_NEO_OBSERVATION_TIME_INVALID")
+        if observation.get("dispatched_at_utc"):
+            dispatched_at = datetime.fromisoformat(observation["dispatched_at_utc"].replace("Z", "+00:00"))
+            if packet["request"]["action"] != "PUBLISH" or not begun_at <= dispatched_at <= observed_at:
+                raise ValueError("NATIVE_NEO_DISPATCH_TIME_INVALID")
         result = dict(response["result"])
         if result.get("request_sha256") != request_hash:
             raise ValueError("NATIVE_NEO_RETURN_REQUEST_MISMATCH")

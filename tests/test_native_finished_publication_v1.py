@@ -185,14 +185,31 @@ def test_standing_daily_cap_counts_distinct_read_back_articles(ready, monkeypatc
     assert not Path(rollout["editorial_output_root"]).exists()
 
 
-def test_drip_prevents_a_new_canonical_attempt(ready, monkeypatch):
+def test_legacy_drip_prevents_a_new_canonical_attempt_without_a_text_clock(ready, monkeypatch):
     _, target, _, path, rollout = ready
     released = release_finished_piece(path, rollout)
     operation, _, transport = composed(target, released["binding"], rollout, monkeypatch)
     monkeypatch.setattr("live_contentops.native_finished_publication_v1.publication_due",
         lambda *a, **k: {"due": False, "next_publication_utc": "CONTROLLED_FUTURE"})
+    original_projection = operation.projection
+    def legacy_projection():
+        value = original_projection()
+        return {**value, "timing": {**value["timing"], "text_approved_at_utc": None}}
+    monkeypatch.setattr(operation, "projection", legacy_projection)
     assert operation.resume()["classification"] == "NATIVE_PUBLICATION_NOT_YET_DUE"
     assert not target.list_platform_dispatches() and not transport.calls
+
+
+def test_approved_text_dispatches_without_waiting_for_old_spacing(ready, monkeypatch):
+    _, target, _, path, rollout = ready
+    released = release_finished_piece(path, rollout)
+    operation, _, _ = composed(target, released["binding"], rollout, monkeypatch)
+    monkeypatch.setattr("live_contentops.native_finished_publication_v1.publication_due",
+        lambda *a, **k: {"due": False, "next_publication_utc": "CONTROLLED_FUTURE"})
+    value = operation.resume()
+    assert value["classification"] != "NATIVE_PUBLICATION_NOT_YET_DUE"
+    assert value["publication"]["timing"]["text_approved_at_utc"]
+    assert any(d["platform"] == "substack" for d in target.list_platform_dispatches())
 
 
 def test_old_source_cutoff_counts_on_actual_publication_day_in_existing_record(ready, monkeypatch):
@@ -211,7 +228,7 @@ def test_old_source_cutoff_counts_on_actual_publication_day_in_existing_record(r
     assert value["native_volume_measurement"]["reader_counts_availability"] == "UNAVAILABLE"
 
 
-def test_zero_chart_analysis_can_prepare_with_exact_instagram_skip(tmp_path, monkeypatch):
+def test_zero_chart_analysis_is_refused_but_brief_keeps_exact_instagram_skip(tmp_path, monkeypatch):
     from test_reader_first_data_journalism_v1 import decision
     from live_contentops.native_desktop_editorial_v1 import validate_release_media
     from live_contentops.native_newsroom_volume_v1 import permitted_derivative_skips
@@ -221,6 +238,10 @@ def test_zero_chart_analysis_can_prepare_with_exact_instagram_skip(tmp_path, mon
         "resolved_article_mode": "DATA_OR_DOCUMENT_LENS", "native_destination_media": visual["channel_media"],
         "title": "Controlled source-qualified analysis", "substack_body_markdown": "Controlled text argument.",
         "social_hook": "Controlled source-qualified analysis", "story_identity": "controlled-analysis"}
+    with pytest.raises(ValueError, match="ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"):
+        validate_release_media({"article": article, "media_assets": []})
+    visual["story_kind"] = "NEWS"
+    article.update(resolved_article_mode="BREAKING_BRIEF", news_item_kind="NEWS")
     assert validate_release_media({"article": article, "media_assets": []})["chart_count"] == 0
     payloads = build_native_derivative_payloads(article=article, selection={},
         canonical_url="https://example.org/actual", media_asset_ids=[])

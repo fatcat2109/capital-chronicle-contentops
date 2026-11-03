@@ -254,6 +254,14 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
             return outcome
     if command == "final-visual-review":
         from live_contentops.native_desktop_editorial_v1 import request_final_visual_review, final_visual_binding
+        from live_contentops.native_publication_latency_v1 import uses_short_path
+        row = store.get_outbox_message(native_artifact_key(store, binding["run_id"], "cc-editorial-final-"))
+        result = json.loads(row["payload"]) if row else {}
+        if uses_short_path(store, run_id=binding["run_id"], result=result):
+            from live_contentops.native_desktop_editorial_v1 import require_current_final_visual_review
+            return {"classification": "TIME_SENSITIVE_NO_SCREENSHOT_STAGE",
+                "editor_check": require_current_final_visual_review(store, run_id=binding["run_id"]),
+                "next_operation": "publication-prepare", "public_write_performed": False}
         try:
             if response is None:
                 row = store.get_outbox_message(native_artifact_key(store, binding["run_id"], "cc-editorial-final-"))
@@ -299,7 +307,7 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
                             "missing facts or comparable data. The existing source owner acquires these within "
                             "the shared budget before MAX. A missing optional chart never holds a complete short item."),
                     governed_input=governed, validator=lambda raw: (True, None, json.loads(raw), None))
-                if not turn.visual_response():
+                if not turn.visual_response() and not governed.get("publication_speed_policy"):
                     if turn.scheduled_window:
                         from live_contentops.native_desktop_editorial_v1 import request_source_preparation
                         request_source_preparation(turn, output["story_plan"].get("source_requests", []))

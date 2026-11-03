@@ -46,7 +46,7 @@ SELECTABLE_RIGHTS = frozenset({
 })
 
 
-def validate_contextual_photo(asset: Mapping[str, Any]) -> None:
+def validate_contextual_photo(asset: Mapping[str, Any], *, require_pixel_review=True) -> None:
     """Check exact delivery pixels and retained license metadata, separately from facts.
 
     The inspected subject/date/relevance judgment remains an editorial observation;
@@ -85,15 +85,16 @@ def validate_contextual_photo(asset: Mapping[str, Any]) -> None:
     else:
         _validate_commons_contextual_rights(asset, receipt, provider, digest)
     review = asset.get("visual_review") or {}
-    if (digest != asset.get("sha256") or review.get("asset_sha256") != digest
+    if require_pixel_review and (digest != asset.get("sha256") or review.get("asset_sha256") != digest
             or review.get("pixels_inspected") is not True
             or review.get("relevant_subject") is not True or not review.get("reviewer")):
         raise ValueError("PHOTO_EXACT_PIXEL_REVIEW_REQUIRED")
-    with Image.open(io.BytesIO(raw)) as im:
-        im.verify()
-    with Image.open(io.BytesIO(raw)) as im:
-        if im.format not in {"JPEG", "PNG", "WEBP"} or im.size != (asset.get("width"), asset.get("height")):
-            raise ValueError("PHOTO_DELIVERY_DIMENSIONS_INVALID")
+    if require_pixel_review:
+        with Image.open(io.BytesIO(raw)) as im:
+            im.verify()
+        with Image.open(io.BytesIO(raw)) as im:
+            if im.format not in {"JPEG", "PNG", "WEBP"} or im.size != (asset.get("width"), asset.get("height")):
+                raise ValueError("PHOTO_DELIVERY_DIMENSIONS_INVALID")
     if asset.get("context_only") is not True or asset.get("corroborates_article_facts") is not False:
         raise ValueError("CONTEXTUAL_PHOTO_IS_NOT_FACTUAL_CORROBORATION")
 

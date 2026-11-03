@@ -505,18 +505,35 @@ def record_native_article_review(store, *, run_id, article_identity, decision, r
             note = {"schema_version": "contentops.native_article_review.v1", "run_id": run_id,
                 "article_identity": article_identity, "package_revision": revision, "article_metadata_sha256": metadata_sha,
                 "rationale": rationale.strip(), "publication_authority": False}
+            from live_contentops.native_publication_latency_v1 import text_revision, text_approval
+            approved_at = datetime.now(timezone.utc).isoformat()
+            note["text_revision_sha256"] = text_revision(value)
+            if decision == "KEEP":
+                history = [dict(r) for r in conn.execute("SELECT * FROM review_records WHERE work_item_id=? ORDER BY rowid",
+                    (row["work_item_id"],))]
+                note["text_approved_at_utc"] = text_approval(history, run_id=run_id,
+                    article_identity=article_identity, revision=note["text_revision_sha256"]) or approved_at
+                from live_contentops.native_publication_latency_v1 import uses_short_path, automated_media_check, SPEED_POLICY
+                if uses_short_path(store, run_id=run_id, result=value):
+                    note["publication_speed_policy"] = {"policy": SPEED_POLICY, "target_minutes": 15}
+                    previous_check = next((json.loads(r["notes"])["automated_media_check"] for r in reversed(history)
+                        if json.loads(r["notes"]).get("package_revision") == revision
+                        and json.loads(r["notes"]).get("automated_media_check")), None)
+                    note["automated_media_check"] = previous_check or automated_media_check(value)
             if final_visual_review is not None:
                 from live_contentops.native_desktop_editorial_v1 import final_visual_acceptance
                 note["final_visual_review"] = final_visual_acceptance(store, run_id=run_id,
                     result=value, reference=final_visual_review)
             review_id = "native-article-review-" + uuid4().hex
             conn.execute("INSERT INTO review_records VALUES (?,?,?,?,?,?)", (review_id, row["work_item_id"],
-                "NATIVE_DESKTOP_ARTICLE_REVIEW", decision, json.dumps(note, ensure_ascii=False), datetime.now(timezone.utc).isoformat()))
+                "NATIVE_DESKTOP_ARTICLE_REVIEW", decision, json.dumps(note, ensure_ascii=False), approved_at))
             conn.execute("COMMIT")
         except Exception:
             conn.execute("ROLLBACK")
             raise
-    return {"review_id": review_id, "decision": decision, **note}
+    return {"review_id": review_id, "decision": decision, **note,
+        **({"next_operation": "publication-prepare", "publication_priority": "DISPATCH_NOW_WITHIN_15_MINUTES"}
+            if decision == "KEEP" and (final_visual_review or note.get("publication_speed_policy")) else {})}
 
 
 def desk_projection(library, records):

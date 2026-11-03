@@ -98,7 +98,8 @@ def prepare_native_publication(store, binding):
     """Seal the exact reviewed packet in the same outbox; no publisher/readiness call."""
     from live_contentops.native_desktop_editorial_v1 import validated_native_review, validate_release_media
     result, _, _ = validated_native_review(store, run_id=binding["run_id"])
-    validate_release_media(result)
+    from live_contentops.native_publication_latency_v1 import validate_publication_media
+    validate_publication_media(store, run_id=binding["run_id"], result=result)
     prepare_reviewed_handoff(
         store, run_id=binding["run_id"], output_dir=manual_output_root(store, binding)
     )
@@ -216,7 +217,7 @@ def scheduled_publication_authority(store, binding, rollout):
         raise ValueError("PUBLICATION_OPERATING_MODE_BLOCKED")
 
 
-def publication_projection(rows, dispatches, reconciliations, *, run_id, readiness=(), native_invocation_id=None):
+def publication_projection(rows, dispatches, reconciliations, *, run_id, readiness=(), native_invocation_id=None, reviews=()):
     """Actual records only; no provider probes, configuration-as-login or writes."""
     operation = next(
         (
@@ -251,11 +252,13 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
         and json.loads(r["payload"]).get("run_id") == run_id
     ]
     if not bindings:
+        from live_contentops.native_publication_latency_v1 import publication_timing
         return {
             "state": "REVIEWED_HANDOFF_REQUIRED",
             "next_operation": "publication-prepare",
             "next_command": command("publication-prepare"),
             "destinations": [],
+            "timing": publication_timing(rows, reviews, run_id=run_id, destinations=[]),
         }
     bound = bindings[-1]
     from live_contentops.destination_transport_registry_v1 import (
@@ -407,6 +410,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
     continuation_operation = next_operation
     if operation.get("owner_manual_validation") and next_operation != "none":
         next_operation = "publication-status"
+    from live_contentops.native_publication_latency_v1 import publication_timing
     return {
         **bound,
         **totals,
@@ -415,6 +419,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
         if operation.get("owner_manual_validation")
         else "SCHEDULED",
         "destinations": entries,
+        "timing": publication_timing(rows, reviews, run_id=run_id, destinations=entries),
         "skipped_destinations": sorted(skipped),
         "pending_requests": pending,
         "dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED"
@@ -479,6 +484,7 @@ class NativeReviewedPublication:
         return plan, root
 
     def projection(self):
+        from live_contentops.contentops_editorial_desk_v1 import read_reviews
         value = publication_projection(
             self.store.list_outbox_messages(),
             self.store.list_platform_dispatches(),
@@ -486,6 +492,7 @@ class NativeReviewedPublication:
             run_id=self.binding["run_id"],
             readiness=self.store.list_destination_readiness(),
             native_invocation_id=self.native_invocation_id,
+            reviews=read_reviews(self.store),
         )
         try:
             if value["state"] == "REVIEWED_HANDOFF_REQUIRED":
@@ -578,9 +585,12 @@ class NativeReviewedPublication:
         from live_contentops.native_finished_publication_v1 import publication_due
         release = self.store.get_outbox_message("native-finished-release-" + sha256_of(self.binding["run_id"]))
         if release or self.binding.get("standing_operation"):
-            canonical = next((d for d in self.projection().get("destinations", [])
+            projection = self.projection()
+            canonical = next((d for d in projection.get("destinations", [])
                               if d["destination"] == "substack"), {})
-            if not canonical.get("dispatch_recorded"):
+            # Decision 53: spacing governs starting work, never already-approved text.
+            # Legacy packets without an observed text clock retain their frozen rule.
+            if not canonical.get("dispatch_recorded") and not projection.get("timing", {}).get("text_approved_at_utc"):
                 due = publication_due(self.store, run_id=self.binding["run_id"])
                 if not due["due"]:
                     return {"classification": "NATIVE_PUBLICATION_NOT_YET_DUE", **due,
@@ -589,7 +599,8 @@ class NativeReviewedPublication:
             from live_contentops.native_desktop_editorial_v1 import validate_release_media
             result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
             try:
-                validate_release_media(result)
+                from live_contentops.native_publication_latency_v1 import validate_publication_media
+                validate_publication_media(self.store, run_id=self.binding["run_id"], result=result)
             except (ValueError, OSError) as media_error:
                 # New release requirements cannot erase an existing unknown-write
                 # obligation. Reconcile only exact existing attempts; never send a
@@ -651,7 +662,8 @@ class NativeReviewedPublication:
             if packet and packet["request"]["action"] == "PUBLISH":
                 from live_contentops.native_desktop_editorial_v1 import validate_release_media, require_current_final_visual_review
                 result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
-                validate_release_media(result)
+                from live_contentops.native_publication_latency_v1 import validate_publication_media
+                validate_publication_media(self.store, run_id=self.binding["run_id"], result=result)
                 require_current_final_visual_review(self.store, run_id=self.binding["run_id"])
             try:
                 return self.executor.begin(request_hash)

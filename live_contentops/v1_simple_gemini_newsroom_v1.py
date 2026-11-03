@@ -1992,6 +1992,7 @@ def _publication_media_metadata(media_assets, *, compact=False):
                     f"[{license_label}]({asset['license_url']}). {reader_photo_caption(asset)}")
                 if asset.get("changes_description") and "unchanged" not in asset["changes_description"].casefold():
                     credit += " " + asset["changes_description"]
+                credit = asset.get("canonical_photo_credit") or credit
             credits.append(credit)
             asset["caption"] = credit
         assets.append(asset)
@@ -2350,7 +2351,7 @@ def _build_simple_publication_lifecycle_plan(
                     "reason": "Instagram requires an admitted image; other destinations can proceed.",
                     "disposition": "SKIPPED_IMAGE_REQUIRED", "status": "SKIPPED_IMAGE_REQUIRED"}]
                 if preview_packages.get("instagram_business", {}).get("delivery_state") == "SKIPPED_IMAGE_REQUIRED" else []),
-        **({"image_optional_policy": "JIM_DECISION_39"}
+        **({"image_optional_policy": "CC-172" if article.get("visual_repair_disposition", {}).get("policy") == "CC-172" else "JIM_DECISION_39"}
             if preview_packages.get("instagram_business", {}).get("delivery_state") == "SKIPPED_IMAGE_REQUIRED" else {}),
         **({"text_first": article["text_first"]} if article.get("text_first") else {}),
         **({"volume_policy": article["volume_policy"], "volume_policy_cutoff_utc": article["volume_policy_cutoff_utc"],
@@ -3154,7 +3155,9 @@ def run_v1_simple_gemini_newsroom(
     if native and (article.get("reader_first_version") == "DATA_JOURNALISM_V1" or article.get("text_first")):
         admitted_media = llm_invoke.admitted_editorial_media()
         from live_contentops.native_desktop_editorial_v1 import validate_release_media
-        validate_release_media({"article": article, "media_assets": admitted_media, "evidence": source_pack})
+        publication_speed = (llm_invoke.frozen_request("write") or {}).get("governed_input", {}).get("publication_speed_policy")
+        validate_release_media({"article": article, "media_assets": admitted_media, "evidence": source_pack},
+            require_pixel_review=not bool(publication_speed))
     try:
         native_previews, intents = _native_preview_bundle(
             article=article,

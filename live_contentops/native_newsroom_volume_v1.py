@@ -65,7 +65,7 @@ def permitted_photo_less_skip(plan):
 
 def permitted_derivative_skips(plan):
     from live_contentops.native_text_first_v1 import permitted_skips
-    if plan.get("image_optional_policy") == "JIM_DECISION_39":
+    if plan.get("image_optional_policy") in {"JIM_DECISION_39", "CC-172"}:
         skipped = plan.get("skipped_derivative_destinations") or []
         if (len(skipped) == 1 and skipped[0].get("destination") == "instagram_business"
                 and skipped[0].get("status") == "SKIPPED_IMAGE_REQUIRED"):

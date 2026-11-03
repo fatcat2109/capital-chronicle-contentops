@@ -1,5 +1,26 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Publication speed — 3 November 2026 (CC-172; Jim's decisions 53 and 54)
+
+Dispatch every applicable channel within 15 minutes of approved text. Preserve the first
+approval clock for unchanged text; media work never restarts it. Time-sensitive release,
+event and market pieces use writer -> one editor check -> publish. After text approval,
+per-channel screenshots, draft reviews and visual-repair loops are replaced by one automated
+image load/dimension check; log its failures and continue. Long pieces retain their full
+visual work before text approval. At most one visual repair round; drop still-failing
+assets with an internal note and retain passing visuals. Photo credits come from the media
+record at selection. These newer instructions supersede conflicting visual-review wording
+below; source, rights, fact, identity, KILL_SWITCH and UNKNOWN_WRITE checks remain.
+
+Keep screenshots binary; never commit or print image base64. Upload only through Neo's
+upload tool or file-chooser interception, from the article's own media folder. Never open a
+native file dialog; if one opens, record NATIVE_FILE_DIALOG_OPEN and stop that step.
+Before Substack Publish, use a dedicated Neo window with the draft and Jim's untouched Gmail
+inbox. Agents never read Gmail. Keep the draft tab open and in front. On "Check your email",
+record PENDING_JIM_EMAIL_CODE plus page id and URL in the item's Result, and wait on that tab
+for Jim: no reload, other input or other tab use. Continue readback only when the same tab
+reaches /publish/posts/detail/.../share-center. Never close, reuse or navigate the code tab.
+
 ## Scheduled terminal-window reporting — Jim's approval, 29 October 2026
 
 Each of the seven existing App task chats sends one result notice to L2 ContentOps

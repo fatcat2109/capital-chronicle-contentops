@@ -35,11 +35,24 @@ jobs:
       - name: Compile canonical Python sources
         run: python -m compileall -q live_contentops scripts
 
+      - name: Reject base64 image evidence in the change
+        env:
+          EVIDENCE_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        shell: bash
+        run: |
+          if ! git cat-file -e "${EVIDENCE_BASE}^{commit}" 2>/dev/null; then
+            EVIDENCE_BASE=HEAD^
+          fi
+          python scripts/check_binary_evidence.py --base "$EVIDENCE_BASE" --head HEAD
+
       - name: Install focused test runner
         run: python -m pip install --disable-pip-version-check pytest pillow python-dotenv jsonschema matplotlib==3.10.0 playwright
 
       - name: Run deterministic CodeGraph generator tests
         run: python -m pytest -q tests/test_codex_context_index.py
+
+      - name: Verify publication repair cap, dispatch clocks and binary evidence
+        run: python -m pytest -q tests/test_native_publication_latency_v1.py tests/test_binary_evidence_v1.py
 
       - name: Run retained Speech Highlight Relay and CLI boundary tests
         run: python -m pytest -q tests/test_speech_highlight_relay_v1.py tests/test_cli.py
