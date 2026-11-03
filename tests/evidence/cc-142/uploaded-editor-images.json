@@ -1,0 +1,119 @@
+{
+  "post_id": "223246940",
+  "nodes": [
+    {
+      "content": [
+        {
+          "attrs": {
+            "align": null,
+            "alt": null,
+            "belowTheFold": false,
+            "bytes": 100186,
+            "fullscreen": null,
+            "height": 1040,
+            "href": null,
+            "imageSize": null,
+            "internalRedirect": "https://capitalchronicle.substack.com/i/223246940?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fcafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png",
+            "isProcessing": false,
+            "offset": false,
+            "resizeWidth": null,
+            "src": "https://substack-post-media.s3.amazonaws.com/public/images/cafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png",
+            "srcNoWatermark": null,
+            "title": null,
+            "topImage": false,
+            "type": "image/png",
+            "width": 1440
+          },
+          "type": "image2"
+        }
+      ],
+      "type": "captionedImage"
+    },
+    {
+      "content": [
+        {
+          "attrs": {
+            "align": null,
+            "alt": null,
+            "belowTheFold": false,
+            "bytes": 125404,
+            "fullscreen": null,
+            "height": 1040,
+            "href": null,
+            "imageSize": null,
+            "internalRedirect": "https://capitalchronicle.substack.com/i/223246940?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png",
+            "isProcessing": false,
+            "offset": false,
+            "resizeWidth": null,
+            "src": "https://substack-post-media.s3.amazonaws.com/public/images/a5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png",
+            "srcNoWatermark": null,
+            "title": null,
+            "topImage": false,
+            "type": "image/png",
+            "width": 1440
+          },
+          "type": "image2"
+        }
+      ],
+      "type": "captionedImage"
+    },
+    {
+      "content": [
+        {
+          "attrs": {
+            "align": null,
+            "alt": null,
+            "belowTheFold": false,
+            "bytes": 69645,
+            "fullscreen": null,
+            "height": 1040,
+            "href": null,
+            "imageSize": null,
+            "internalRedirect": "https://capitalchronicle.substack.com/i/223246940?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb13fb2a5-f023-4c78-8cff-23d99cb05ee5_1440x1040.png",
+            "isProcessing": false,
+            "offset": false,
+            "resizeWidth": null,
+            "src": "https://substack-post-media.s3.amazonaws.com/public/images/b13fb2a5-f023-4c78-8cff-23d99cb05ee5_1440x1040.png",
+            "srcNoWatermark": null,
+            "title": null,
+            "topImage": false,
+            "type": "image/png",
+            "width": 1440
+          },
+          "type": "image2"
+        }
+      ],
+      "type": "captionedImage"
+    },
+    {
+      "content": [
+        {
+          "attrs": {
+            "align": null,
+            "alt": null,
+            "belowTheFold": false,
+            "bytes": 13478102,
+            "fullscreen": null,
+            "height": 905,
+            "href": null,
+            "imageSize": null,
+            "internalRedirect": "https://capitalchronicle.substack.com/i/223246940?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb60973f2-b9d3-45de-b0ba-4c676839f7c4_5364x3334.jpeg",
+            "isProcessing": false,
+            "offset": false,
+            "resizeWidth": null,
+            "src": "https://substack-post-media.s3.amazonaws.com/public/images/b60973f2-b9d3-45de-b0ba-4c676839f7c4_5364x3334.jpeg",
+            "srcNoWatermark": null,
+            "title": null,
+            "topImage": false,
+            "type": "image/jpeg",
+            "width": 1456
+          },
+          "type": "image2"
+        }
+      ],
+      "type": "captionedImage"
+    }
+  ],
+  "observed_at_utc": "2026-11-03T05:07:50.416Z",
+  "public_update_performed": false
+}
