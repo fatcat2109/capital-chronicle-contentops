@@ -1,0 +1,66 @@
+{
+  "item": "CC-124",
+  "recorded_at_utc": "2026-11-03T02:13:18.420325+00:00",
+  "resumed_from_pushed_commit": "d9195b1ce40abbc6208513bc1b1a6e973f322540",
+  "run_id": "cc124-prepare-20261103-a",
+  "article_identity": "e8f9f4ec5cf1fc91133e77d4bb27b45435139db5b121bbf4252c29f75bab1bdd",
+  "draft_id": "223246940",
+  "state": "BLOCKED_EXTERNAL_VERIFICATION",
+  "standing_item_status": "OPEN",
+  "run_result": "+0 confirmed canonical articles",
+  "first_cause": "SUBSTACK_EMAIL_VERIFICATION_REQUIRED",
+  "first_cause_provenance": "Original send/verification artifacts under prepare-20261103 and current Ops CC-124 note at 3 Nov 08:03 GMT+7. This run observed an unchanged Draft and no matching canonical in Published; no new verification challenge was triggered.",
+  "canonical_url": null,
+  "canonical_dispatch_status": "UNKNOWN_WRITE",
+  "pending_readback_preserved": true,
+  "native_return_submitted": false,
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "model_observation_status": "CONFIGURED_NOT_OBSERVED",
+  "checks": {
+    "same_run_article_plan_and_artifact_bindings": true,
+    "original_unknown_substack_dispatch_preserved": true,
+    "original_claimed_unanswered_readback_preserved": true,
+    "exact_editor_title_subtitle_body_unchanged": true,
+    "exact_object_remains_in_selected_drafts_list": true,
+    "exact_object_absent_from_complete_published_list": true,
+    "five_retained_artifact_byte_hashes_match": true,
+    "idle_lease_and_elapsed_publication_interval": true,
+    "zero_confirmed_canonicals_for_current_day": true,
+    "required_launch_model_and_effort_explicit": true
+  },
+  "checks_passed": 10,
+  "pytest_processes_started": 0,
+  "validation_scope": "Read-only exact draft, complete publisher list, binding/request continuity, retained artifact bytes and lease/day/interval observations; no implementation change, fresh source validation or new editorial/render acceptance.",
+  "new_canonical_send_attempts": 0,
+  "new_platform_drafts": 0,
+  "new_confirmed_canonical_articles": 0,
+  "new_confirmed_derivatives": 0,
+  "approved_copy_modified": false,
+  "new_article_operation_started": false,
+  "coordinator_resume_called": false,
+  "schedule_changes": 0,
+  "chat_messages_sent": 0,
+  "app_restarts": 0,
+  "default_branch_merge": false,
+  "next_actor": "Jim, then Codex Publisher",
+  "next_action": "Jim completes Substack email verification for existing draft 223246940. Publisher then reads back that exact object and submits its verified canonical identity through the original request before continuing admitted text channels. No replacement draft or repeat send. The midterm preview comes first once Substack works.",
+  "evidence": [
+    {
+      "path": "01-publication-status.json",
+      "sha256": "ea02906305ced1697c031c63a4381fb39b0f1d566e24fb0404f605ec7043dfe1"
+    },
+    {
+      "path": "02-browser-readback.json",
+      "sha256": "5ff5ebf8f8d8f3f8ed5cd41d9ebae26410bc3a526e521189b4bf80cd2f4b0a1b"
+    },
+    {
+      "path": "03-current-guards.json",
+      "sha256": "04b69c93080772283a9285f9e719acf66fd974d70f8c2318945aeeba925e78de"
+    },
+    {
+      "path": "04-launch-configuration.json",
+      "sha256": "a91047fcb940280a28bf41a39258b8f231103bdfe399666b0c2abe8dd9217524"
+    }
+  ]
+}

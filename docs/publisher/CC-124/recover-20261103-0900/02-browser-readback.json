@@ -1,0 +1,34 @@
+{
+  "observed_at_utc": "2026-11-03T02:12:30.409Z",
+  "browser": "BrowserOS Neo",
+  "public_object_id": "223246940",
+  "editor_url": "https://capitalchronicle.substack.com/publish/post/223246940",
+  "observed_title": "September CPI: why 0.6% and 3.7% answer different questions",
+  "observed_subtitle": "In its October 14 release on September 2026 CPI, the U.S. Bureau of Labor Statistics reported monthly and annual readings with different horizons and adjustment bases.",
+  "draft_editor_text": "File SettingsDoneTitleDescriptionThumbnailWill be cropped to a 3:2 aspect ratioUpload\n\nIn September 2026, all-items CPI rose 0.6% and CPI excluding food and energy rose 0.3%, both seasonally adjusted, according to the [U.S. Bureau of Labor Statistics release of October 14, 2026](https://www.bls.gov/news.release/cpi.htm). The difference is clear; its cause and persistence are separate questions. This is a retrospective of that release.\n\n## The September snapshot\n\nOver the twelve months ending September, all-items CPI-U increased 3.7%; CPI-U excluding food and energy increased 2.6%. Those annual figures are not seasonally adjusted. They describe a different horizon from the monthly readings.\n\n## Two horizons, two adjustment bases\n\nMonthly and twelve-month readings in the U.S. Bureau of Labor Statistics’ October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions.\n\nWithin the monthly pair, the all-items rise was larger than the rise excluding food and energy. That comparison establishes a difference between the measures. It does not, by itself, identify a component contribution or show whether either rate was speeding up or slowing down.\n\nThe U.S. Bureau of Labor Statistics’ September CPI release of October 14, 2026 showed a lower monthly reading excluding food and energy. Giving that narrower measure more weight is an analytical choice, not proof that the all-items increase was temporary. Giving the headline more weight does not establish persistence either.\n\n## What these figures leave open\n\nReading the U.S. Bureau of Labor Statistics’ October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show? A claim about reception would need dated price evidence; a surprise claim would need a dated expectation. The CPI readings alone cannot supply either conclusion.\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+  "draft_editor_title_line": "- textbox \"title\" [ref=e31]: \"September CPI: why 0.6% and 3.7% answer different questions\"",
+  "draft_editor_subtitle_line": "- textbox \"Add a subtitle…\" [ref=e32]: \"In its October 14 release on September 2026 CPI, the U.S. Bureau of Labor Statistics reported monthly and annual readings with different horizons and adjustment bases.\"",
+  "draft_list": {
+    "url": "https://capitalchronicle.substack.com/publish/posts/drafts",
+    "selected_tab": "Drafts 648",
+    "excerpt": "  - tab \"Drafts 648\" [selected] [ref=e25]\n- link \"September CPI: why 0.6% and 3.7% answer different questions Updated 6:31 AM • Capital Chronicle\" [ref=e31] [url=\"https://capitalchronicle.substack.com/publish/post/223246940?back=%2Fpublish%2Fposts%2Fdrafts\"]",
+    "exact_draft_found": true
+  },
+  "published_list": {
+    "url": "https://capitalchronicle.substack.com/publish/posts/published",
+    "selected_tab": "Published 2",
+    "excerpt": "  - tab \"Published 2\" [selected] [ref=e22]\n- link \"The Fed held on October 28. Both dissenters wanted a hike. The Fed held on October 28. Both dissenters wanted a hike. 12:35 AM • Capital Chronicle 0 0 0 Subs 8 Views 33% Opened\" [ref=e31] [url=\"https://capitalchronicle.substack.com/publish/posts/detail/223199520?referrer=%2Fpublish%2Fposts%2Fpublished\"]\n- link \"@firstsquawk, citing The Wall Street Journal: Oil retreats amid US-Iran diplomatic push @firstsquawk, citing The Wall Street Journal: Oil retreats amid US-Iran diplomatic push Oct 27 • Capital Chronicle 0 0 0 Subs 23 Views 67% Opened\" [ref=e35] [url=\"https://capitalchronicle.substack.com/publish/posts/detail/222368666?referrer=%2Fpublish%2Fposts%2Fpublished\"]",
+    "public_object_ids": [
+      "223199520",
+      "222368666"
+    ],
+    "complete_selected_list_count": 2,
+    "exact_draft_in_published_list": false
+  },
+  "first_cause": "SUBSTACK_EMAIL_VERIFICATION_REQUIRED",
+  "first_cause_provenance": "Original send/verification artifacts under prepare-20261103 and current Ops CC-124 note at 3 Nov 08:03 GMT+7. This run observed an unchanged Draft and no matching canonical in Published; no new verification challenge was triggered.",
+  "new_send_clicks": 0,
+  "new_platform_drafts": 0,
+  "approved_copy_modified": false,
+  "observation_scope": "Exact existing object and publisher-list readback only; no fresh source validation, rendered review or editorial acceptance."
+}

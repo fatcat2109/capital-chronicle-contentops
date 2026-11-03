@@ -1,0 +1,31 @@
+{
+  "observed_at_utc": "2026-11-03T02:13:18.420325+00:00",
+  "newsroom_idle": true,
+  "lease_blocker": null,
+  "production_day": "newsroom-production-day-2026-11-03-bangkok",
+  "confirmed_canonicals_for_day": [],
+  "publication_due": {
+    "due": true,
+    "next_publication_utc": "2026-11-02T21:20:08.539332+00:00",
+    "spacing_hours": 3.5,
+    "clock_basis": "FIRST_VERIFIED_CANONICAL_READBACK"
+  },
+  "pending_readback": [
+    {
+      "operation_id": "cc124-prepare-20261103-a",
+      "tool_request_sha256": "62b5a183c0b4adc11eaa9abfdbbe7ada7adf51adc4d1630d9d32a8380d8e2272",
+      "action_claimed": true,
+      "next_operation": "publication-tool-submit",
+      "action": "READBACK",
+      "destination": "substack",
+      "work_item_id": "cc124-prepare-20261103-a",
+      "public_object_id": "223246940",
+      "request_sha256": "f1ce96ec386446ccd524ced88cc547929401843d2c33d22a32f964f3576210a3"
+    }
+  ],
+  "midterm_preview_present": true,
+  "midterm_preview_status": "NOT_ASSESSED; priority after exact existing Substack recovery",
+  "new_operation_started": false,
+  "coordinator_resume_called": false,
+  "guard_checks_are_read_only": true
+}

@@ -1,0 +1,11 @@
+# CC-124: existing draft still awaits email verification
+
+At 09:12 GMT+7 on 3 November 2026, BrowserOS Neo found Substack object `223246940` in the selected Drafts list. Its title, subtitle and body match the previous retained copy. The complete Published list contains only the earlier FOMC and oil articles. The coordinator retains `UNKNOWN_WRITE`, no canonical URL and the original claimed, unanswered readback request. This run confirmed **+0 published articles**.
+
+The first cause remains `SUBSTACK_EMAIL_VERIFICATION_REQUIRED`, recorded by the original send and Ops' CC-124 note at 08:03 GMT+7. This run triggered no new challenge. At 09:13 GMT+7, the newsroom lease was idle, the publication interval had elapsed, and the production-day record contained zero confirmed canonical articles for 3 November. The midterm preview file now exists; its contents were not assessed while the existing publication remained unresolved.
+
+The run resumed the existing branch from pushed commit `d9195b1c`; it preserved the existing base and all earlier evidence. After the interruption, remote readback still confirmed that commit and the item remained IN_PROGRESS. The observed top-level launch explicitly configures `gpt-6.1-sol/max`; actual model and effort remain `CONFIGURED_NOT_OBSERVED`. [validation.json](validation.json) records ten passing read-only checks, including all five retained artifact hashes. Its evidence digests bind the exact UTF-8 LF bytes committed here. No implementation changed and no pytest process was needed.
+
+CC-124 returns to OPEN under its standing-item rule. No new article operation, draft, send, copy edit, native return, coordinator continuation, chat message, schedule change, application restart or merge occurred. The existing binding is `A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\owner-manual\cc124-prepare-20261103-a\binding.json`; continuation must use that verified file rather than the absent filename in the generated next-command text.
+
+Jim completes Substack email verification for existing draft `223246940`. Publisher then reads back that exact object, submits its verified canonical identity through the original request and continues admitted text channels. No replacement draft or repeat send. The midterm preview has priority once Substack works.
