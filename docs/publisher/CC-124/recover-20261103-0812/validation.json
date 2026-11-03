@@ -49,7 +49,7 @@
   "evidence": [
     {
       "path": "01-publication-status.json",
-      "sha256": "cf94e5e351e18dd5c2288b2c228d082fac6446a866ff1d0aa1fe1326f9e614ab"
+      "sha256": "5a85543dbb374524fd7981b655c5acd3ef072928d699b997ceb3e3397b793ed4"
     },
     {
       "path": "02-browser-readback.json",
@@ -57,11 +57,11 @@
     },
     {
       "path": "03-current-guards.json",
-      "sha256": "d866f5076fd2a11d4bdc0bf2e62034121ecfe2e9e1bd660b5be4ca7c8a9f5bcd"
+      "sha256": "569f4e5c46c99c38397d250f58edc87b55a494c4aea2b2ca71195740e5525f2e"
     },
     {
       "path": "04-launch-configuration.json",
-      "sha256": "c50219a11d7751cf77fbdbd25816ffa60a3da1409ba15bd1a1a538c3facacb6a"
+      "sha256": "d078e8cdc3ba5df02cb846e53a727415646899f893276bb703431536f4de1c36"
     }
   ]
 }
