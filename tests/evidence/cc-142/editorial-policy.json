@@ -1,0 +1,22 @@
+{
+  "item": "CC-142",
+  "substep": "decision41_editorial_policy",
+  "base": "contentops-live-20261103-d41",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "model_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_argument_readback": {
+    "codex_pid": 27108,
+    "model_flag": "--model gpt-6.1-sol",
+    "configuration": "model_reasoning_effort=\"max\""
+  },
+  "tests": {
+    "command": "python -m pytest tests/test_reader_first_data_journalism_v1.py tests/test_native_editorial_media_standard_v1.py tests/test_native_text_first_v1.py -q --junitxml=tests/evidence/cc-142/editorial-policy.junit.xml",
+    "passed": 107,
+    "seconds": 33.56
+  },
+  "observed_at_utc": "2026-11-03T04:15:48.159139+00:00",
+  "canonical_readback": "canonical-before.json",
+  "integration_performed": false,
+  "public_edit_performed": false
+}

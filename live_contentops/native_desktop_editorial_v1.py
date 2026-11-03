@@ -151,8 +151,10 @@ def validate_visual_decision(value):
     charts = value.get("charts")
     if not isinstance(charts, list) or len(charts) > 5:
         raise ValueError("BOUNDED_VISUAL_DECISION_REQUIRED")
-    # Jim's decision 39 removes the minimum for every story kind. The actual MAX
-    # editor still chooses the argument and useful charts; sources govern values.
+    # Decision 41 narrows decision 39 to short briefs. Analysis cannot use the
+    # optional-photo exception to bypass its source-bound charts.
+    if value["story_kind"] == "ANALYSIS" and not charts:
+        raise ValueError("ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED")
     ids, questions = [], []
     for chart in charts:
         if not all(chart.get(k) for k in ("asset_id", "question", "why_useful", "placement_after", "data_spec")):
@@ -779,10 +781,15 @@ class NativeDesktopTurn:
                 "Choose the article's defensible argument, serious countercase and source/data limits from "
                 "the actual Light preparation and admitted sources. Return DATA_JOURNALISM_V1 JSON with "
                 "slug, story_kind ANALYSIS/NEWS/POLICY, editorial_thesis, countercase, charts, channel_media, "
-                "rejected_visuals and essential_gaps. Jim's decision 39 sets no chart minimum and no photo requirement. "
-                "Choose zero to five useful charts supported by the available data, each with unique asset_id, question, why_useful, placement_after (exact proposed "
+                "rejected_visuals and essential_gaps. Jim's decision 41 narrows decision 39 to short news briefs. "
+                "Data-release or policy-decision analysis must carry charts from official history: headline/core trends "
+                "over at least 24 months, the latest month's change, and a component breakdown when available. "
+                "If history is missing, request it from BLS public data, BEA, the Fed, Treasury or Main's CC-010 "
+                "first-print archives before writing. No observation or factual revision after a retrospective event is admissible. "
+                "Choose useful charts, at most five, each with unique asset_id, question, why_useful, placement_after (exact proposed "
                 "article section heading), data_spec (exact source series/units/periods/transform/chart form). "
-                "Publish a source-qualified argument as text when appropriate; never "
+                "Only a short news brief may be text-only. A missing optional contextual photo never holds analysis; "
+                "use a relevant public-domain or licensed image when available. Missing analysis charts require source recovery; never "
                 "relabel analysis, manufacture data or pad panels. Choose contextual_photo_ids and exact "
                 "media subsets for all eight keys telegram,discord,x,linkedin,facebook_page,instagram_business,"
                 "threads,youtube. A decision can leave Instagram media empty; actual delivery readiness is destination-local. "
@@ -1305,6 +1312,8 @@ def validate_release_media(result):
     reader_first = bool(decision)
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]
     charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
+    if (result.get("article") or {}).get("news_item_kind") == "ANALYSIS" and not charts:
+        raise ValueError("ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED")
     if len(assets) != len(photos) + len(charts):
         raise ValueError("RELEASE_UNSUPPORTED_MEDIA")
     if text_first:
