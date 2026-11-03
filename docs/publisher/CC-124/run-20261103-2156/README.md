@@ -47,3 +47,20 @@ and reconciliation checks. Targeted coordinator regressions are recorded separat
 All 92 focused coordinator cases passed in 79.10 seconds, one pytest process.
 The read-only benchmark saw 4,343 retained outbox rows / 178,946,349 payload bytes;
 the current canonical lookup selected zero rows before dispatch, in 0.227 seconds.
+
+The canonical-read fix is integrated at 3e281d80 under
+`contentops-live-20261104-cc124-canonical-read`; live tracked WIP bytes and
+status were preserved. The next exact continuation took 28.488 seconds,
+then requested an expired YouTube identity proof again. A fresh owner-channel
+observation was submitted; no public write has occurred at this checkpoint.
+
+Final run outcome: +0 new articles; the reviewed SEC preview remains prepared
+under the original binding. The sole coordinator refuses new dispatch because
+CC-107 canonical 223293057 remains RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE.
+A fresh read-only Neo check confirmed a subtitle mismatch: frozen approval says
+"could change the market response"; the public page says "could alter the market
+response". The full public read, exact native return and sole-owner reconciliation
+are retained here. No public edit, retry, draft, schedule or mailbox action occurred.
+Ops must route CC-107 to its assigned owner for exact revision reconciliation;
+then resume cc124-next-article-20261103-b without replacing its approval clock.
+CC-124 is standing and returns OPEN, with this run blocked in its Result.

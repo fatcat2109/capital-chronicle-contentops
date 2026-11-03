@@ -1,0 +1,28 @@
+{
+  "observed_at_utc": "2026-11-03T17:11:17.269454+00:00",
+  "new_articles_published": 0,
+  "run_result": "BLOCKED_PRIOR_CANONICAL_CONTENT_INCOMPLETE",
+  "standing_item_status": "OPEN",
+  "blocking_work_item": "cc107-midterm-preview-20261103-v1",
+  "blocking_dispatch": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+  "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+  "blocking_public_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on",
+  "observed_mismatch": "Approved subtitle: could change the market response; public subtitle: could alter the market response",
+  "next_owner": "Claude Ops / assigned CC-107 Publisher owner",
+  "next_action": "Reconcile exact CC-107 approved/public revision through existing owner, then resume retained SEC operation",
+  "retained_operation": "cc124-next-article-20261103-b",
+  "first_text_approval_utc": "2026-11-03T16:38:46.874923+00:00",
+  "approval_clock_reset": false,
+  "public_write_performed": false,
+  "schedules_changed": false,
+  "chat_messages_sent": false,
+  "code_live_head": "3e281d803163a696b7854a2cc8f9740e83683d2b",
+  "focused_tests": {
+    "passed": 92,
+    "seconds": 79.1,
+    "parallel": false
+  },
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "high",
+  "model_telemetry": "CONFIGURED_NOT_OBSERVED"
+}

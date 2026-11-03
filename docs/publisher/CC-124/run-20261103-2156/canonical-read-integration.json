@@ -1,0 +1,19 @@
+{
+  "observed_at_utc": "2026-11-03T17:04:40.754051+00:00",
+  "previous_live_head": "d5257cd3b45540090ac5bb81ca19fb7ee27ed6fa",
+  "integrated_head": "3e281d803163a696b7854a2cc8f9740e83683d2b",
+  "tag": "contentops-live-20261104-cc124-canonical-read",
+  "rollback_commit": "d5257cd3b45540090ac5bb81ca19fb7ee27ed6fa",
+  "active_leases": [],
+  "status_sha256": "c1fc4fe4b0029a086d2225f2705ee1c84ef23cd826b1d880aeb08260ad30d009",
+  "tracked_wip_sha256_before_and_after": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "6c62de8c6e8111dcca73fad3d6fdd8084bdd19f62bfe6f71a1fe7de03df7b714",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "653f72f1d969439ff700104cac41dae52af0a1366e6d28b1a42bce7c4117ec63"
+  },
+  "tracked_wip_preserved": true,
+  "checks": "92 targeted coordinator cases PASS; no service restart, schedule or schema change"
+}

@@ -1,0 +1,19 @@
+{
+  "tool_request_sha256": "3ed66a0437125d964198b5fc0563d9f32ab53a4e447761cfa1dd4f396070f6a3",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a1e9-92b1-78c0-b790-696ecd4100e7",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observed_at_utc": "2026-11-03T17:06:08.635961+00:00",
+    "observation_source": "Actual Neo page170 same expected own channel: Capital Chronicle heading, Customize channel/Manage videos own controls, owner community post composer; no login/account switch"
+  },
+  "result": {
+    "request_sha256": "a58208b72a2ea939cf42372b9bcc83af8da394e8dccb1cfcfb7270340de12a60",
+    "authenticated": true,
+    "observed_identity": "@CapitalChronicleYouTube",
+    "status": "PASS",
+    "public_write_performed": false,
+    "page_id": 170,
+    "url": "https://www.youtube.com/@CapitalChronicleYouTube/posts"
+  }
+}
