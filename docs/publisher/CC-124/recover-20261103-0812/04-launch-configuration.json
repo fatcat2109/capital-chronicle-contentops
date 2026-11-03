@@ -1,0 +1,14 @@
+{
+  "recorded_at_utc": "2026-11-03T01:17:14.8828959Z",
+  "native_conversation_id": "01a19ef7-36bf-7c91-9f65-252ee12b46f4",
+  "process_id": 27512,
+  "parent_process_id": 35052,
+  "process_started_at_utc": "2026-11-03T01:12:43.7044700Z",
+  "source": "Win32_Process current codex exec ancestor command line",
+  "model_argument": "--model gpt-6.1-sol",
+  "effort_argument": "-c model_reasoning_effort=\"max\"",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "native_turn_id": null
+}
