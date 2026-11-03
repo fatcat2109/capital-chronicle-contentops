@@ -1,0 +1,128 @@
+{
+  "operation_id": "cc124-prepare-20261103-a",
+  "amendment_operation_id": "cc142-cpi-chart-edit-223246940",
+  "stage": "actual-substack-preview-pixel-review",
+  "post_id": "223246940",
+  "canonical_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+  "decision": "ACCEPT",
+  "acceptance_scope": "EXACT_SAVED_SUBSTACK_PREVIEW_DESKTOP_AND_390PX_MOBILE_PIXELS",
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "actual_native_identity": "/root/cpi_max_writer",
+    "identity_kind": "SUPPORTED_NATIVE_TASK_PATH",
+    "native_task_path": "/root/cpi_max_writer",
+    "separate_provider_invocation_uuid": null,
+    "same_writer_context_continued": true,
+    "observation_source": "This continuing supported native child task context identifies /root/cpi_max_writer. It is the same task that wrote and inspected the accepted CC-142 revision. No separate provider invocation UUID is exposed in this child context.",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_configuration_unavailable": true
+  },
+  "prior_acceptance": {
+    "path": "tests/evidence/cc-142/native/final-visual-response.json",
+    "sha256": "c4eaff885dd772fb25e01e6f1207536121b2f9332d1875b0a86d8df60b2b3d37",
+    "request_sha256": "4022e309d5a8983ec3f1c680efff49e2097023a7f94d94f7987971f1a7748f59",
+    "article_identity": "e8f9f4ec5cf1fc91133e77d4bb27b45435139db5b121bbf4252c29f75bab1bdd",
+    "article_revision": "0f1ff051eba02e0d64708183df07e5bd9c8f63291cb0354a6c67ab3476b8fc18",
+    "reviewed_assets_path": "tests/evidence/cc-142/reviewed-assets.json",
+    "reviewed_assets_sha256": "d19c5c3955aa00aec5844345aa13ef4acaa0941c809afae1c6664aba80059b25",
+    "all_four_source_asset_byte_hashes_reverified": true
+  },
+  "asset_comparison": [
+    {
+      "asset_id": "cpi-annual-history-r3",
+      "source_sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "source_hash_matches_accepted_asset": true,
+      "preview_pixels_inspected": true,
+      "visible_match": "PASS",
+      "evidence_notes": "Both Substack previews show the accepted annual chart with its solid headline and dashed core paths, October 2025 break, shared zero-based 0-5 percent scale, final 3.7% and 2.6% labels, repaired public footer and matching normal-text caption. The figure follows the annual-history paragraph. The visible image has no clipping or distortion. Screenshot comparison establishes visual correspondence, not byte identity of the remotely hosted image."
+    },
+    {
+      "asset_id": "cpi-monthly-history-r3",
+      "source_sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "source_hash_matches_accepted_asset": true,
+      "preview_pixels_inspected": true,
+      "visible_match": "PASS",
+      "evidence_notes": "Both previews preserve the accepted monthly chart: the October-November 2025 gap, negative headline changes, June 2026 core point on zero, visible zero baseline, final 0.6%/0.3% labels and SA percent context. The caption explains the two absent one-month readings and the first-release vintage. The figure sits after the accepted monthly-pace paragraph with no visible clipping or sign change."
+    },
+    {
+      "asset_id": "cpi-september-effects-r2",
+      "source_sha256": "45af728560c668a3aee17a095ef289cc99b7e1e7cb013caa7e5bd3f39311ba99",
+      "source_hash_matches_accepted_asset": true,
+      "preview_pixels_inspected": true,
+      "visible_match": "PASS",
+      "evidence_notes": "Both previews show the accepted three disjoint component bars at +0.377 pp energy, +0.265 pp core and +0.006 pp food on a common zero baseline. The source date, Table 6 context, percentage-point unit and three-decimal precision remain visible in the chart and caption. The small positive food effect is preserved; no nested category, forced total or invented residual appears."
+    },
+    {
+      "asset_id": "cpi-usda-supermarket-archive",
+      "source_sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+      "source_hash_matches_accepted_asset": true,
+      "preview_pixels_inspected": true,
+      "visible_match": "PASS",
+      "evidence_notes": "The authentic supermarket photograph matches the accepted scene and frame. Both previews retain its June 2023 archive context, the explicit statement that it is not a September 2026 price observation, and the USDAgov / U.S. Department of Agriculture via Wikimedia Commons public-domain credit. The photo keeps its proportions and opening placement and introduces no visible 2026 price claim. Existing rights acceptance is carried from the exact reviewed asset; this screenshot review does not independently re-acquire rights evidence."
+    }
+  ],
+  "render_findings": [
+    {
+      "render_id": "cc142-actual-substack-preview-desktop",
+      "path": "tests/evidence/cc-142/substack-preview-desktop.jpg",
+      "sha256": "182a4bfe8c0bcc75655803c3438a015c67c7cb430ccb467257c302965bd9da6e",
+      "width": 1200,
+      "height": 5661,
+      "pixels_inspected": true,
+      "inspection_method": "view_image of exact saved JPEG at original detail, entire page",
+      "decision": "ACCEPT",
+      "checks": {
+        "accepted_title_and_visible_prose": "PASS",
+        "all_three_charts_and_photo_present": "PASS",
+        "data_signs_gaps_zero_and_units": "PASS",
+        "overlap_clipping": "PASS",
+        "labels_legend": "PASS",
+        "text_contrast": "PASS",
+        "crop_distortion": "PASS",
+        "placement": "PASS",
+        "archive_photo_caption_and_credit": "PASS",
+        "retrospective_scope_and_disclaimer": "PASS"
+      },
+      "findings": [],
+      "evidence_notes": "The actual Substack interface surrounds the complete accepted article. Its exact published title and retained dek are visible, followed by the accepted lead, the archive photo, annual history, monthly pace, component effects and the final uncertainty paragraph and disclaimer. The three chart placements and all visible values, source captions and repaired footers correspond to the accepted revision. Substack's type and centered figure captions differ from the local prototype but remain readable; the image frames are neither distorted nor clipped. No missing section, overlapping label, internal workflow identifier or material copy/visual defect is visible. Platform recommendations and comments below the article are not incorporated into the retrospective's evidence."
+    },
+    {
+      "render_id": "cc142-actual-substack-preview-mobile-390",
+      "path": "tests/evidence/cc-142/substack-preview-mobile-390.jpg",
+      "sha256": "53b00931dbd1646d20b1dd237d7daa75aabe5e59cabcf2c538ef46b2f553e45c",
+      "width": 390,
+      "height": 5637,
+      "pixels_inspected": true,
+      "inspection_method": "view_image of exact saved 390-pixel JPEG at original detail, entire page",
+      "decision": "ACCEPT",
+      "checks": {
+        "accepted_title_and_visible_prose": "PASS",
+        "all_three_charts_and_photo_present": "PASS",
+        "data_signs_gaps_zero_and_units": "PASS",
+        "overlap_clipping": "PASS",
+        "labels_legend": "PASS",
+        "text_contrast": "PASS",
+        "crop_distortion": "PASS",
+        "placement": "PASS",
+        "archive_photo_caption_and_credit": "PASS",
+        "retrospective_scope_and_disclaimer": "PASS"
+      },
+      "findings": [],
+      "evidence_notes": "Inspected the actual 390-pixel Substack preview, not a desktop duplicate. Title, dek, headings, body paragraphs, captions and disclaimer wrap within the column with no visible horizontal clipping or overlap. All four images fit and retain their aspect ratios and intended positions. Detailed raster chart annotations are small at inline mobile width, as in the accepted revision; the body and normal-text captions retain the key numbers, units, gap months, vintage and component explanation. The true zero, negative headline point, final labels and small food bar remain visually consistent with the accepted source charts. Archive context and photo credit remain visible. No new material mobile presentation defect is visible. Image enlargement, link targets and alt attributes cannot be established from the screenshot and were not interacted with."
+    }
+  ],
+  "required_repairs": [],
+  "scope_limits": [
+    "This acceptance covers only the two exact saved Substack preview screenshots. Their capture provenance is supplied by the parent; this writer inspected local image files and did not operate a browser or desktop application.",
+    "Visible preview content matches the accepted revision. JPEG screenshots cannot establish exact DOM text, hyperlink destinations, alt attributes, uploaded image byte identity, image enlargement behavior, saved server revision or successful publication/readback.",
+    "Publication status and chronology are not inferred from engagement, the interface's relative-time label, or the presence of Substack chrome. The existing sole publisher and exact-post readback owner retain those checks.",
+    "No derivative preview was inspected. Actual provider model and effort are not observed; configured gpt-6.1-sol/max remains CONFIGURED_NOT_OBSERVED, with the supported native task identity recorded separately.",
+    "Only substack-preview-review.json was saved. No copy, asset, public object, chat or schedule was mutated."
+  ],
+  "public_action_performed": false,
+  "next_action": "Parent may carry this bounded visual acceptance into the existing exact-post amendment flow. Retain the separate publication identity, save and readback checks; re-review any later material copy/media/render change."
+}
