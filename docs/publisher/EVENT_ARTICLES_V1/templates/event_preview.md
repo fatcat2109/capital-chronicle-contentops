@@ -35,8 +35,10 @@ prediction-market odds. Missing evidence is an internal resumable constraint, no
 permission to invent a number, recycle consensus, or pad a public gap notice.
 
 Use natural source attribution, a serious countercase and a clear next observation.
-Public copy contains no trading calls, entries, stops, targets, sizes, account details,
-positions, results, raw private fields or workflow labels. Bind each numeric span to
+Decision 40 permits only general conditional bullish/bearish calls with their condition,
+market, horizon and invalidation, the analysis notice and conflicts line. Keep
+unconditional calls, execution instructions, sizes, profit targets, account details,
+DEMO positions/results and prediction-market numbers private. Bind each numeric span to
 the exact admitted source display with `numeric_bindings` in the private article record.
 
 The writer chooses useful charts under the current media standard; code renders only
@@ -47,5 +49,5 @@ input only; this source-led event work does not manufacture an X/filter stage.
 
 Run the CC-107 public-output guard on the complete copy and each changed derivative.
 A passing guard supplies no rights decision, media acceptance or publication grant.
-Every article of this new type needs Jim's explicit yes until a standing yes exists.
-Then reuse the sole existing canonical-first publisher and exact-object readback.
+Decision 36 supplies the standing yes after Ops review. Decision 42 requires web-only
+delivery and a factual visual. Reuse the sole canonical-first publisher and exact readback.

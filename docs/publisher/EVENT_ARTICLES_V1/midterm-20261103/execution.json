@@ -1,0 +1,35 @@
+{
+  "item": "CC-107",
+  "recorded_at_utc": "2026-11-03T05:49:14.399561+00:00",
+  "base_tag": "contentops-live-20261103-cc142",
+  "base_commit": "21fa56344ee6d0ddf18fbe3392c375d7ba48848b",
+  "source": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\PREVIEW.md",
+  "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+  "approval_source": "BACKLOG.md CC-107 Ops 3 Nov 08:03 and 11:36 GMT+7",
+  "approval_sha256": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+  "launch": {
+    "process_id": 39788,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "verified_argument_tokens": [
+      "exec",
+      "--model",
+      "gpt-6.1-sol",
+      "-c",
+      "model_reasoning_effort=\"max\""
+    ],
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "status": "CONFIGURED_NOT_OBSERVED"
+  },
+  "public_write_performed": false,
+  "validation": {
+    "pytest_command": "python -m pytest -q tests/test_event_preview_source_v1.py tests/test_event_article_guard_v1.py tests/test_contentops_source_research_v1.py --junitxml=tests/evidence/cc-107/preview-input.junit.xml",
+    "tests": 164,
+    "failures": 0,
+    "errors": 0,
+    "pytest_processes_started_concurrently": 1,
+    "ruff": "PASS",
+    "git_diff_check": "PASS"
+  }
+}

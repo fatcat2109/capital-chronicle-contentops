@@ -1,14 +1,15 @@
 # Event preview and review articles
 
-CC-107 adds two writer briefs and an offline public-copy guard. The real midterm and
-NFP drafts are blocked on their future frozen inputs. No real article, native writer
-call, rendered review, live integration or publication is claimed by these templates.
+CC-107 adds two writer briefs, the public-copy guard and a narrow retained-source
+adapter for the exact Ops-reviewed midterm PREVIEW.md. The frozen public preview is
+available on 3 November; the NFP dossier is still due on 6 November. Templates and
+input admission alone prove no native writing, rendered review or publication.
 
-Jim's decision 35, 2 November 2026, permits scenarios and market reactions in these
-types. Trading calls, entries, stops, targets, sizes and DEMO positions/results stay
-private. Every article needs Jim's explicit yes until he grants a standing yes. This
-item's narrower approval requirement governs these new types despite V1's general
-routine-publication grant.
+Jim's decision 36 supplies a standing publication yes after Ops review. Decision 40
+allows general conditional bullish/bearish calls with condition, market, horizon,
+invalidation, the analysis notice and conflicts line. Unconditional calls, execution
+instructions, sizes, profit targets, DEMO details and prediction-market numbers remain
+refused. Decision 42 requires web-only Substack delivery and a factual visual.
 
 The [preview brief](templates/event_preview.md) covers scenarios, sourced odds,
 conditional reactions across all six required market groups, and view changes. The
@@ -22,6 +23,12 @@ retain their roles. Do not use the older subscriber Event Card or Saturday Ledge
 permission as this item's rights or account-data policy. CC-043's public export adapter
 is delivered separately and is not in this item's operating-tag base. No duplicate
 projection, rights classifier, scorer, state store, scheduler or publisher is added.
+
+`event_preview_source_v1` admits only the hash-bound public PREVIEW.md, verified
+against its frozen manifest and separately pinned Ops review. It never reads the
+private dossier or promotes its odds, execution fields or account records. The
+existing retained-research snapshot and source resolver carry the admitted preview
+as conditional Capital Chronicle analysis, never official event confirmation.
 
 ## Public-output guard
 

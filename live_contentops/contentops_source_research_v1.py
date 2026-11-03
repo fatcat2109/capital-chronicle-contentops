@@ -319,6 +319,9 @@ class RetainedSourceResearch:
         return target.read_bytes()
 
     def _verify(self, spec: Mapping[str, Any]) -> dict[str, Any]:
+        if spec.get("authorship_class") == "CAPITAL_CHRONICLE_OPS_APPROVED_EVENT_PREVIEW":
+            from live_contentops.event_preview_source_v1 import approved_preview_record
+            return approved_preview_record(spec, read=self._read)
         raw = self._read(spec["capture_path"])
         policy = self._read(spec["policy_capture_path"])
         loader = json.loads(self._read(spec["loader_result_path"]))
@@ -895,6 +898,11 @@ class RetainedSourceResearch:
         ]
         if not found:
             return None
+        if all(r["document"].get("source_adapter_family") == "ops_approved_event_preview" for r in found):
+            from live_contentops.event_preview_source_v1 import approved_preview_evidence
+            if cutoff_utc:
+                found = [r for r in found if _time(r["revision_at_utc"]) <= _time(cutoff_utc)]
+            return approved_preview_evidence(found, request, revision=self.revision) if found else None
         support_ids = list(
             dict.fromkeys(h for r in found for h in r["supporting_headline_ids"])
         )

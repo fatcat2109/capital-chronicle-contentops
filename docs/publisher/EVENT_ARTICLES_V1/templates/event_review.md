@@ -36,8 +36,11 @@ renaming it as a comparison does not change its rights. If CC-106 or an admitted
 baseline is missing, preserve the internal blocker and avoid a fabricated comparison.
 
 Use natural source attribution, a serious countercase and a useful lesson. Keep
-trading calls, entries, stops, targets, sizes, account details, DEMO positions/results
-and buy/sell instructions out of copy, tables, charts, captions and derivatives.
+unconditional calls, execution instructions, sizes, profit targets, account details,
+DEMO positions/results and prediction-market numbers out of all output. Decision 40
+permits general conditional bullish/bearish calls with condition, market, horizon,
+invalidation, analysis notice and conflicts line. Score earlier calls against their
+frozen conditions using Main/CC-106 results, never a model's invented score.
 Bind every numeric span to the exact admitted source display in the private record.
 
 Apply the current media standard and the same actual native Sol 6.1 MAX writer's
@@ -47,5 +50,5 @@ from observed model/effort. Reuse the existing source/story, review and media ow
 
 Run the CC-107 public-output guard on all copy and changed derivatives. A passing
 guard supplies no rights decision, media acceptance or publication grant. Every
-article of this new type needs Jim's explicit yes until a standing yes exists;
-publication then uses the sole existing canonical-first publisher and readback.
+article receives Ops review under decision 36's standing yes. Decision 42 requires
+web-only delivery and a factual visual. Use the sole canonical-first publisher/readback.
