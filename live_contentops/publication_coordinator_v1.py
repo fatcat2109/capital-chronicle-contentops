@@ -1907,9 +1907,13 @@ class DurablePublicationCoordinator:
                 else:
                     intent["canonical_url"] = canonical_url
                 finalized_payload = _canonical_json(intent)
-                self.store.finalize_outbox_payload_before_dispatch(
-                    message_id=ids["message_id"], payload=finalized_payload, status="READY",
-                )
+                if not intent.get("reader_presentation_review"):
+                    self.store.finalize_outbox_payload_before_dispatch(
+                        message_id=ids["message_id"], payload=finalized_payload, status="READY",
+                    )
+                # Reviewed amendments are append-only overlays. Their bound note
+                # retains the original intent hash; finalizing transport bytes
+                # must not rewrite that original or invalidate other destinations.
             item = dict(intent["destination_plan"])
         # Re-read durable mode immediately before every new adapter write.
         mode = "AUTONOMOUS_DEFAULT" if native_pending_resume else self._mode()

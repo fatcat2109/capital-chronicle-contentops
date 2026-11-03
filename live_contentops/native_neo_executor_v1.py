@@ -196,7 +196,7 @@ class NativeNeoExecutor:
             raise ValueError("NATIVE_NEO_TOOL_RETURN_BINDING_REQUIRED")
         if (observation.get("tool_name") != TOOL
                 or observation.get("native_invocation_id") != claim["native_invocation_id"]
-                or observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT"}
+                or observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT", "CODEX_EXEC"}
                 or not observation.get("observation_source") or not observation.get("observed_at_utc")):
             raise ValueError("NATIVE_NEO_ACTUAL_TOOL_OBSERVATION_REQUIRED")
         observed_at = datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))

@@ -146,9 +146,13 @@ def derivative_revision_view(store, *, run_id, result, revision):
     canonical_intent["canonical_url"] = parent["objects"]["substack"]["public_object_url"]
     if revision.get("plan_hash") != canonical_intent["plan_hash"]:
         raise ValueError("DERIVATIVE_REVISION_ORIGINAL_PLAN_REQUIRED")
-    base_payloads = derivative_base_payloads(store, run_id=run_id, accepted=accepted, canonical_intent=canonical_intent)
+    base_payloads = derivative_base_payloads(store, run_id=run_id, accepted=accepted,
+        canonical_intent=canonical_intent, exclude_destinations=revision.get("missing_intents", {}))
     assets = {a["asset_id"]: a for a in accepted["media_assets"]}
     view = deepcopy(accepted)
+    view["visual_editorial_decision"] = {**accepted["visual_editorial_decision"],
+        "channel_media": deepcopy(revision["channel_media"])}
+    view["article"]["visual_editorial_decision"] = deepcopy(view["visual_editorial_decision"])
     for preview in view["previews"]:
         destination = preview["destination"]
         identity = revision["objects"][destination]
@@ -164,7 +168,8 @@ def derivative_revision_view(store, *, run_id, result, revision):
             expected = derivative_missing_intent(canonical_intent, destination, base_payloads[destination])
             if revision.get("missing_intents", {}).get(destination) != expected:
                 raise ValueError("DERIVATIVE_REVISION_MISSING_INTENT_UNBOUND")
-            if original and json.loads(original["payload"]) != expected:
+            if (original and json.loads(original["payload"]) != expected
+                    and not _exact_finalized_derivative(store, original, expected, revision, view, destination)):
                 raise ValueError("DERIVATIVE_REVISION_ORIGINAL_INTENT_CHANGED")
         elif not original or sha256_of(json.loads(original["payload"])) != expected_hash:
             raise ValueError("DERIVATIVE_REVISION_ORIGINAL_INTENT_CHANGED")
@@ -184,11 +189,38 @@ def derivative_revision_view(store, *, run_id, result, revision):
         if revision.get("payloads", {}).get(destination) != payload:
             raise ValueError("DERIVATIVE_REVISION_UNCHANGED_COPY_REQUIRED")
         preview["payload"] = payload
-    view["visual_editorial_decision"] = {**accepted["visual_editorial_decision"],
-        "channel_media": deepcopy(revision["channel_media"])}
-    view["article"]["visual_editorial_decision"] = deepcopy(view["visual_editorial_decision"])
     _writer(revision)
     return view
+
+
+def _exact_finalized_derivative(store, original, expected, revision, view, destination):
+    """Recognize the old coordinator's exact pre-dispatch finalization, never undo it.
+
+    Early CC-179 sends finalized the reviewed overlay into the outbox. Its
+    existing amendment note and retained missing-intent bytes bind the origin.
+    Accept only that precise transformation; source, copy, media and target
+    changes still fail. New dispatches retain original bytes instead.
+    """
+    import re
+    row = store.get_outbox_message("native-reader-presentation-" + sha256_of(original["message_id"]))
+    if not row or row.get("status") != "PRESENTATION_MEDIA_BOUND":
+        return False
+    note = json.loads(row["payload"])
+    if (note.get("original_intent_sha256") != sha256_of(expected)
+            or note.get("run_id") != revision["run_id"]
+            or note.get("public_message_id") != original["message_id"]
+            or note.get("destination") != destination or not note.get("review_reference")):
+        return False
+    payload = deepcopy(revision["payloads"][destination])
+    finalized = deepcopy(expected)
+    finalized.update(native_payload=payload, payload=payload["text"], media_assets=view["media_assets"],
+        reader_presentation_article=view["article"], reader_presentation_review=note["review_reference"],
+        removed_reader_text=[m[0] for m in re.finditer(r"Reporting as of [^\n]+?\d{4}\.", revision["body_before"])],
+        canonical_url=revision["objects"]["substack"]["public_object_url"],
+        rematerialization_model_call_count=0, rematerialization_source_get_count=0)
+    finalized["destination_plan"].update(payload_hash=sha256_of(payload),
+        payload_hash_kind="FINAL_CANONICAL_URL_BOUND_BYTES", canonical_url_state="RECONCILED_CANONICAL_URL_BOUND")
+    return json.loads(original["payload"]) == finalized
 
 
 def derivative_missing_intent(canonical_intent, destination, payload):
@@ -215,7 +247,7 @@ def derivative_missing_intent(canonical_intent, destination, payload):
     return value
 
 
-def derivative_base_payloads(store, *, run_id, accepted, canonical_intent):
+def derivative_base_payloads(store, *, run_id, accepted, canonical_intent, exclude_destinations=()):
     """Use final canonical-bound copy; a private placeholder can never reach a send."""
     import re
     from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
@@ -234,6 +266,8 @@ def derivative_base_payloads(store, *, run_id, accepted, canonical_intent):
     payloads = {p["destination"]: replace(deepcopy(p["payload"])) for p in accepted["previews"]}
     co = DurablePublicationCoordinator(store=store, transport_runtime=None)
     for destination in SOCIAL_DESTINATIONS:
+        if destination in exclude_destinations:
+            continue
         ids = co._ids(run_id, canonical_intent["plan_hash"], destination)
         original = store.get_outbox_message(ids["message_id"])
         if original:

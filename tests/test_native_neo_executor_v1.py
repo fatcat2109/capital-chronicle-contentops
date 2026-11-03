@@ -53,7 +53,8 @@ def pending_readback(adapter, destination="substack", value=None):
 
 
 @pytest.mark.parametrize("destination", ["substack", "x", "youtube"])
-def test_exact_readback_restart_immutable_and_no_public_action(tmp_path, destination):
+@pytest.mark.parametrize("surface", ["CODEX_NATIVE_SUBAGENT", "CODEX_EXEC"])
+def test_exact_readback_restart_immutable_and_no_public_action(tmp_path, destination, surface):
     store, executor = setup(tmp_path)
     adapter = NeoDestinationHandoff(native_executor=executor)
     packet, object_id, url = pending_readback(adapter, destination)
@@ -61,6 +62,7 @@ def test_exact_readback_restart_immutable_and_no_public_action(tmp_path, destina
                 "public_object_id": object_id, "public_object_url": url,
                 "observed_text": "Exact supported proposition.", "content_verified": True}
     result = response(executor, packet, observed)
+    result["tool_observation"]["surface"] = surface
     executor.submit(packet["request"]["request_sha256"], result)
     restarted = NativeNeoExecutor(store, operation_id="same-op", output_dir=tmp_path,
                                    native_invocation_id="controlled-test")

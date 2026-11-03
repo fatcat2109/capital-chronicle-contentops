@@ -284,3 +284,55 @@ def test_reviewed_markdown_social_copy_needs_no_legacy_structured_prose(tmp_path
     assert resolved["article"] == accepted_article and resolved["selection"] == {}
     assert resolved["local_media"] == str(chart)
     assert intent == before
+
+
+def test_actual_dispatch_keeps_original_intent_and_does_not_retry_absence(social, monkeypatch):
+    from live_contentops.publication_coordinator_v1 import CanonicalDestinationTransportRuntimeV1
+    store, run, _, revision, _ = social
+    co, ref = continuation(social, monkeypatch)
+    runtime = CanonicalDestinationTransportRuntimeV1(linkedin_transport=SimpleNamespace(), neo_transport=SimpleNamespace())
+    calls = []
+    runtime.publish = lambda **kw: calls.append(kw) or {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True}
+    co.transport_runtime = runtime
+    monkeypatch.setattr(co, "_readiness", lambda *a: "READY_AUTHENTICATED")
+    identity = revision["objects"]["instagram_business"]
+    expected = deepcopy(revision["missing_intents"]["instagram_business"])
+    co.continue_reader_derivative(work_item_id=run, destination="instagram_business", review_reference=ref)
+    assert len(calls) == 1 and calls[0]["intent"]["native_payload"] == revision["payloads"]["instagram_business"]
+    assert json.loads(store.get_outbox_message(identity["message_id"])["payload"]) == expected
+    out = co.continue_reader_derivative(work_item_id=run, destination="instagram_business", review_reference=ref)
+    assert out["publish_called"] is False and len(calls) == 1
+
+
+@pytest.mark.parametrize("fault", [None, "copy", "media", "target", "origin"])
+def test_exact_older_finalization_replays_without_accepting_changed_bytes(social, monkeypatch, fault):
+    import live_contentops.native_desktop_editorial_v1 as editorial
+    from live_contentops.publication_coordinator_v1 import CanonicalDestinationTransportRuntimeV1
+    store, run, result, revision, _ = social
+    parent_acceptance = editorial.reader_presentation_acceptance
+    co, ref = continuation(social, monkeypatch)
+    monkeypatch.setattr(co, "_dispatch_message", lambda *a, **kw: {"publish_called": False})
+    co.continue_reader_derivative(work_item_id=run, destination="instagram_business", review_reference=ref)
+    identity = revision["objects"]["instagram_business"]
+    message = store.get_outbox_message(identity["message_id"])
+    runtime = CanonicalDestinationTransportRuntimeV1(linkedin_transport=SimpleNamespace(), neo_transport=SimpleNamespace())
+    finalized = runtime.finalize_intent(destination="instagram_business",
+        intent=json.loads(co._effective_message(message)["payload"]),
+        canonical_url=revision["objects"]["substack"]["public_object_url"])
+    if fault == "copy":
+        finalized["native_payload"]["text"] += " Unsupported sentence."
+    elif fault == "media":
+        finalized["media_assets"][0]["sha256"] = "f" * 64
+    elif fault == "target":
+        finalized["destination_plan"]["surface"] = "OTHER_ACCOUNT"
+    elif fault == "origin":
+        finalized["reader_presentation_review"] = {"stage": "UNBOUND"}
+    store.finalize_outbox_payload_before_dispatch(message_id=identity["message_id"], payload=json.dumps(finalized))
+    monkeypatch.setattr(editorial, "reader_presentation_acceptance", parent_acceptance)
+    if fault:
+        with pytest.raises(ValueError, match="ORIGINAL_INTENT_CHANGED"):
+            reader_presentation_revision_view(store, run_id=run, result=result, revision=revision)
+    else:
+        view = reader_presentation_revision_view(store, run_id=run, result=result, revision=revision)
+        assert view["article"]["substack_body_markdown"] == revision["article"]["substack_body_markdown"]
+        assert view["article"]["visual_editorial_decision"]["channel_media"] == revision["channel_media"]
