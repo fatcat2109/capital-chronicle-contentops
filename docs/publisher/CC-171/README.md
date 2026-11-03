@@ -21,6 +21,15 @@ three official-data charts and a photo, but the original reviewed operation
 still contains no media assets. Updating that packet needs its existing
 editorial/publication owner; CC-171 explicitly forbids pipeline code changes.
 
+The FOMC continuation completed with `PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED`.
+Telegram, Discord, X and Facebook remain confirmed. LinkedIn remains
+`UNKNOWN_WRITE`; no retry was made. Instagram and YouTube remain
+`RECONCILED_ABSENT_SAFE_TO_RETRY`; Threads remains undispatched. The returned
+YouTube identity request was begun, observed through Neo and submitted using
+the current invocation. No additional social post was confirmed in this run.
+The current states are in `fomc-recovery-summary.json` and the existing store's
+canonical dispatch readback history. Destination recovery remains unfinished.
+
 `midterm-pending-email-code.json` preserves the actual browser result and next
 action. Its identical observation was appended to the existing draft dispatch's
 readback history as `cc171-email-code-b0492ab2ee5df3ecb9ef8de626df506b` in the
@@ -38,3 +47,8 @@ The evidence branch starts at fresh `origin/master`,
 Git index so the dirty CC-107 worktree and its existing branch stay untouched.
 No source integration or new runtime was required for these publication
 actions. Pending authentication and delivery are not reported as DONE.
+
+The final browser check at 16:46 GMT+7 still showed the verification dialog
+in tab 78 and the same post in the draft list. `validation.json` records ten
+passing evidence/store checks. The branch is delivered; public completion and
+the remaining derivative dispatches are blocked as described above.
