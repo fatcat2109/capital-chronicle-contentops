@@ -1641,23 +1641,26 @@ def _draw_editorial_chart(packet, values, plt, np):
     series = packet["series"]
     if kind == "fact_card":
         # Equal-sized callouts encode no area, probability or unreported total.
-        fig, ax = plt.subplots(figsize=(10, 6), dpi=160)
+        fig, ax = plt.subplots(figsize=(5, 8), dpi=160)
         fig.set_facecolor("#f7f5ef")
         ax.set_axis_off()
-        fig.text(.07, .90, "CAPITAL CHRONICLE", fontsize=11, color="#12666a", weight="bold")
-        fig.text(.07, .82, packet["title"], fontsize=24, color="#172d32", weight="bold")
-        fig.text(.07, .75, packet.get("subtitle", ""), fontsize=13, color="#526467")
+        fig.text(.07, .96, "CAPITAL CHRONICLE", fontsize=11, color="#12666a", weight="bold")
+        fig.text(.07, .90, textwrap.fill(packet["title"], 27), fontsize=23,
+                 color="#172d32", weight="bold", va="top")
+        fig.text(.07, .79, textwrap.fill(packet.get("subtitle", ""), 30), fontsize=18,
+                 color="#526467", va="top")
         points = series[0]["points"]
         for index, point in enumerate(points):
-            x = .07 + index * .86 / len(points)
-            fig.text(x, .60, point["period"], fontsize=17, color="#172d32", weight="bold")
-            fig.text(x, .45, point["display_value"], fontsize=43, color="#12666a", weight="bold")
-        fig.text(.07, .31, textwrap.fill(packet.get("fact_card_note", ""), 90),
-                 fontsize=13, color="#526467", va="top")
-        fig.text(.07, .18, packet.get("fact_card_footer", ""), fontsize=15,
-                 color="#172d32", weight="bold")
-        fig.text(.07, .08, textwrap.fill(packet.get("source_caption", ""), 105),
-                 fontsize=10, color="#526467", va="top")
+            x = .07 if len(points) <= 2 else .07 + (index % 2) * .45
+            y = .68 - (index if len(points) <= 2 else index // 2) * .22
+            fig.text(x, y, point["period"], fontsize=22, color="#172d32", weight="bold")
+            fig.text(x, y - .09, point["display_value"], fontsize=43, color="#12666a", weight="bold")
+        fig.text(.07, .29, textwrap.fill(packet.get("fact_card_note", ""), 31),
+                 fontsize=18, color="#526467", va="top")
+        fig.text(.07, .17, textwrap.fill(packet.get("fact_card_footer", ""), 29), fontsize=18,
+                 color="#172d32", weight="bold", va="top")
+        fig.text(.07, .055, textwrap.fill(packet.get("source_caption", ""), 48),
+                 fontsize=12, color="#526467", va="top")
         return fig
     if kind == "SIGNED_CASH_CONTRIBUTIONS_WITH_SEPARATE_REPORTED_RESULT":
         return _draw_signed_cash_contributions(packet, values, plt)

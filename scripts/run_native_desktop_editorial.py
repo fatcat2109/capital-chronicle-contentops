@@ -251,6 +251,8 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
             raise ValueError("NATIVE_NEO_ACTIVE_INVOCATION_REQUIRED")
         if command == "publication-resume":
             return continuation.resume()
+        if command == "publication-save-draft":
+            return continuation.save_draft()
         if command in {"publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company"}:
             return continuation.linkedin_recovery(command.rsplit("-", 1)[-1], response=response)
         if not request_hash:
@@ -551,7 +553,7 @@ def operation(binding, **kwargs):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("newsroom", "standing", "release-finished", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "next-candidate", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
-        "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
+        "publication-prepare", "publication-status", "publication-resume", "publication-save-draft", "publication-tool-begin", "publication-tool-submit",
         "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company", "quota-stop",
         "window-result", "window-notice-begin", "window-notice-record", "window-close", "window-blocked", "window-blocked-begin", "window-blocked-record",
         "task-result", "task-notice-begin", "task-notice-record", "task-blocked", "task-blocked-begin", "task-blocked-record",

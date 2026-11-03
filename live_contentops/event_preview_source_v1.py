@@ -200,6 +200,18 @@ def validate_native_event_preview(governed, output):
         "social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary",
     )}
     visible["body"] = body
+    roots = article.get("event_preview_root_copy", {})
+    if article.get("event_preview_linkless"):
+        from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE
+        if set(roots) != {"x", "threads"}:
+            raise ValueError("EVENT_PREVIEW_EXACT_NATIVE_ROOTS_REQUIRED")
+        for destination, limit in (("x", 280), ("threads", 500)):
+            text = roots[destination]
+            if (not isinstance(text, str) or len(text) > limit or "http" in text
+                    or "Capital Chronicle" not in text or PUBLIC_NOTICE not in text
+                    or CONFLICTS_NOTICE not in text or "Readers decide whether to trade." not in text):
+                raise ValueError("EVENT_PREVIEW_ROOT_NOTICE_OR_SCOPE_INVALID")
+            visible[destination + "_root"] = text
     check_publication_copy(visible, conditional_calls=event.get("conditional_calls", []))
     allowed = {_display_text(f["display"]) for f in evidence["facts"].values()}
     for text in visible.values():

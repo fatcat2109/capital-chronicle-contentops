@@ -491,11 +491,11 @@ def _root_and_replies(
     continuation_parts: Sequence[str],
     limit: int,
 ) -> dict[str, Any]:
-    root_parts = [title, canonical_url]
+    root_parts = [part for part in (title, canonical_url) if part]
     root = "\n\n".join(root_parts)
     remaining = list(continuation_parts)
     if dek:
-        with_dek = "\n\n".join([title, dek, canonical_url])
+        with_dek = "\n\n".join(part for part in (title, dek, canonical_url) if part)
         if len(with_dek) <= limit:
             root = with_dek
         else:
@@ -681,12 +681,14 @@ def _build_native_derivative_payloads(
             if not watch_point:
                 return ""
             return watch_point if re.match(r"^(?:what to )?watch\b", watch_point, re.IGNORECASE) else f"{label}: {watch_point}"
-        def brief_layout(*, detail: str, continuation: str, limit: int) -> dict[str, Any]:
+        def brief_layout(*, detail: str, continuation: str, limit: int, platform: str) -> dict[str, Any]:
+            override = (article.get("native_event_root_copy") or {}).get(platform) if not canonical_url else None
             layout = _root_and_replies(
-                title=title,
-                dek=detail,
+                title=override or title,
+                dek="" if override else detail,
                 canonical_url=canonical_url,
-                continuation_parts=tuple(p for p in (continuation, media_attribution, scope_notice) if p),
+                continuation_parts=tuple(p for p in (detail if override else "", continuation,
+                                                     media_attribution, scope_notice) if p),
                 limit=limit,
             )
             posts = [
@@ -715,11 +717,13 @@ def _build_native_derivative_payloads(
             detail=brief_dek,
             continuation=watch_passage("Watch"),
             limit=280,
+            platform="x",
         )
         threads_brief = brief_layout(
             detail=context or brief_dek,
             continuation=watch_passage("What to watch"),
             limit=500,
+            platform="threads",
         )
         return {
             "telegram": {
@@ -729,7 +733,7 @@ def _build_native_derivative_payloads(
                     title,
                     brief_dek,
                     watch_passage("What to watch"),
-                    f"Full brief: {canonical_url}",
+                    f"Full brief: {canonical_url}" if canonical_url else "",
                     limit=1024,
                     platform="telegram",
                 ),
@@ -745,7 +749,7 @@ def _build_native_derivative_payloads(
                     title,
                     f"Why it matters: {mechanism}" if mechanism else "",
                     f"Context: {context}" if context else "",
-                    f"Read the full brief: {canonical_url}",
+                    f"Read the full brief: {canonical_url}" if canonical_url else "",
                     limit=3_000,
                     platform="linkedin",
                 ),
@@ -759,7 +763,7 @@ def _build_native_derivative_payloads(
                     f"**Newsroom brief: {title}**",
                     brief_dek,
                     f"**Context:** {context}" if context else "",
-                    f"Read the article: {canonical_url}",
+                    f"Read the article: {canonical_url}" if canonical_url else "",
                     limit=2_000,
                     platform="discord",
                 ),
@@ -773,7 +777,7 @@ def _build_native_derivative_payloads(
                     title,
                     brief_dek,
                     f"Why it matters: {mechanism}" if mechanism else "",
-                    f"Read the full brief: {canonical_url}",
+                    f"Read the full brief: {canonical_url}" if canonical_url else "",
                     limit=63_206,
                     platform="facebook_page",
                 ),
@@ -787,7 +791,7 @@ def _build_native_derivative_payloads(
                     title,
                     brief_dek,
                     f"In focus: {context}" if context else "",
-                    f"Full brief: {canonical_url}",
+                    f"Full brief: {canonical_url}" if canonical_url else "",
                     "#CapitalChronicle",
                     limit=2_200,
                     platform="instagram_business",
@@ -803,7 +807,7 @@ def _build_native_derivative_payloads(
                     f"Update: {title}",
                     brief_dek,
                     watch_passage("What to watch"),
-                    f"Read the full brief: {canonical_url}",
+                    f"Read the full brief: {canonical_url}" if canonical_url else "",
                     limit=1_000,
                     platform="youtube",
                 ),

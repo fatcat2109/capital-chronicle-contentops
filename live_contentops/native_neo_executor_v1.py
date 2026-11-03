@@ -77,7 +77,7 @@ class NativeNeoExecutor:
         request_hash = request.get("request_sha256")
         if request_hash != sha256_of({k: v for k, v in request.items() if k != "request_sha256"}):
             raise ValueError("NATIVE_NEO_REQUEST_HASH_INVALID")
-        if request["action"] in {"PUBLISH", "EDIT_EXISTING"} and not self.allow_publish:
+        if request["action"] in {"PUBLISH", "EDIT_EXISTING", "SAVE_DRAFT"} and not self.allow_publish:
             return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
                     "request_sha256": request_hash, "observed_identity": request["expected_identity"],
                     "reason_code": "NATIVE_NEO_OPERATION_READ_ONLY", "public_write_performed": False}
@@ -86,13 +86,15 @@ class NativeNeoExecutor:
                   "required_tool": TOOL, "request": request,
                   "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
                   "public_write_authorized": request["action"] in {"PUBLISH", "EDIT_EXISTING"} and self.allow_publish}
+        if request["action"] == "SAVE_DRAFT":
+            packet["external_draft_write_authorized"] = self.allow_publish
         packet["tool_request_sha256"] = sha256_of(packet)
         self._put(request_hash, "request", packet, work)
         response = self._get(request_hash, "response")
         if response:
             return dict(response["result"])
         started = self._get(request_hash, "started")
-        if started and request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
+        if started and request["action"] in {"PUBLISH", "EDIT_EXISTING", "SAVE_DRAFT"}:
             return {"status": "UNKNOWN_WRITE", "request_sha256": request_hash,
                     "observed_identity": request["expected_identity"],
                     "reason_code": "NATIVE_NEO_CLAIMED_ACTION_WITHOUT_RETURN", "retry_permitted": False}
@@ -115,7 +117,7 @@ class NativeNeoExecutor:
             if request["action"] not in {"READBACK", "VERIFY_IDENTITY"} or self._claim(request_hash, self.native_invocation_id):
                 raise ValueError("NATIVE_NEO_ACTION_ALREADY_CLAIMED_READBACK_ONLY")
             claim_kind = "started-readonly-" + sha256_of(self.native_invocation_id)
-        if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
+        if request["action"] in {"PUBLISH", "EDIT_EXISTING", "SAVE_DRAFT"}:
             from live_contentops.llm_operator_control_v1 import assert_llm_operator_execution_enabled
             assert_llm_operator_execution_enabled()
             if not self.allow_publish or self.store.get_operating_control()["operating_mode"] != "AUTONOMOUS_DEFAULT":

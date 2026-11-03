@@ -1939,6 +1939,13 @@ def _reader_safe_native_article(
     if analysis_notice in raw_body and analysis_notice not in result["editorial_scope_notice"]:
         result["editorial_scope_notice"] = " ".join(filter(None, (
             result["editorial_scope_notice"].strip(), analysis_notice)))
+    conflict_notice = "Capital Chronicle may hold positions in the markets it covers."
+    if (article.get("event_preview_linkless") is True and conflict_notice in raw_body
+            and conflict_notice not in result["editorial_scope_notice"]):
+        result["editorial_scope_notice"] = " ".join(filter(None, (
+            result["editorial_scope_notice"].strip(), conflict_notice)))
+    if article.get("event_preview_linkless") is True and article.get("article_type") == "EVENT_PREVIEW":
+        result["native_event_root_copy"] = article.get("event_preview_root_copy", {})
     for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):
         if article.get(key):
             result[key] = article[key]
@@ -2072,6 +2079,8 @@ def _native_preview_bundle(
         "https://capitalchronicle.substack.com/p/pending-publication-"
         + article_identity[:16]
     )
+    if article.get("event_preview_linkless") is True and article.get("article_type") == "EVENT_PREVIEW":
+        pending_url = ""
     compiler_article = _reader_safe_native_article(
         article,
         article_mode=article_mode,

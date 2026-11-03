@@ -116,20 +116,24 @@ class NeoDestinationHandoff:
 
     def request(self, *, destination, action, intent, authorization_context=None,
                 public_object_id=None, public_object_url=None):
-        if destination not in IDENTITIES or action not in {"PUBLISH", "READBACK", "EDIT_EXISTING"}:
+        if destination not in IDENTITIES or action not in {"PUBLISH", "READBACK", "EDIT_EXISTING", "SAVE_DRAFT"}:
             raise ValueError("NEO_DESTINATION_ACTION_UNSUPPORTED")
+        if action == "SAVE_DRAFT" and destination != "substack":
+            raise ValueError("SUBSTACK_ONLY_DRAFT_ACTION_REQUIRED")
         if destination == "instagram_business" and action == "PUBLISH":
             raise ValueError("INSTAGRAM_ROUTINE_API_TRANSPORT_UNCHANGED")
         if _private(intent):
             raise ValueError("PRIVATE_NEO_INTENT_EXCLUDED")
         auth = dict(authorization_context or {})
-        if action in {"PUBLISH", "EDIT_EXISTING"}:
+        if action in {"PUBLISH", "EDIT_EXISTING", "SAVE_DRAFT"}:
             if (auth.get("schema_version") != "contentops.canonical_machine_authorization.v1"
                     or auth.get("operating_mode") != "AUTONOMOUS_DEFAULT"
                     or auth.get("destination") != destination or not auth.get("dispatch_attempt_identity")
                     or auth.get("work_item_id") != intent.get("work_item_id")
                     or auth.get("payload_hash") != intent.get("destination_plan", {}).get("payload_hash")):
                 raise ValueError("SOLE_COORDINATOR_AUTHORIZATION_REQUIRED")
+            if action == "SAVE_DRAFT" and auth.get("action") != "SAVE_DRAFT":
+                raise ValueError("SOLE_COORDINATOR_DRAFT_AUTHORIZATION_REQUIRED")
             if destination != "substack" and not _canonical(intent.get("canonical_url")):
                 raise ValueError("RECONCILED_SUBSTACK_URL_REQUIRED")
         if action == "EDIT_EXISTING" and (not intent.get("reader_presentation_review")
@@ -163,6 +167,16 @@ class NeoDestinationHandoff:
             # An earlier failed observation stays immutable. A corrected readback
             # contract receives a new read-only identity, never a new write.
             value["reader_text_normalization"] = "MARKDOWN_WHITESPACE_SMART_QUOTES_V1"
+        if action == "SAVE_DRAFT":
+            value["steps"] = [
+                "Verify capitalchronicle.substack.com and current signed-in publishing identity; no login or account change",
+                "Search drafts for the exact reviewed title before creating one; preserve any existing exact object",
+                "Save the complete exact title, subtitle, body and all bound visuals as one draft only",
+                "Never press Publish or Update, send email, read a mailbox or enter a code",
+                "Reopen the same draft; read back exact editor URL, draft ID, complete text and exact media; preserve uncertainty",
+            ]
+            value["forbidden"] += ["publish", "update", "send_email", "read_mailbox", "enter_code"]
+            value["draft_only_authority"] = "JIM_DECISIONS_20261030_DECISION_48"
         if destination == "substack" and action == "READBACK" and intent.get("published_content_export"):
             value["publication_clock_readback"] = (
                 "Return published_at_utc from the exact post's time datetime or post_date; "
@@ -189,6 +203,29 @@ class NeoDestinationHandoff:
             return {"status": "UNKNOWN_WRITE", "reason_code": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"}
         # Identity/readback ambiguity is left to the sole coordinator. Never retry here.
         return result
+
+    def save_draft(self, *, intent, authorization_context):
+        """Private Substack draft, with no public identity or publication assertion."""
+        request = self.request(destination="substack", action="SAVE_DRAFT", intent=intent,
+                               authorization_context=authorization_context)
+        if self.native_executor is None:
+            return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True}
+        result = dict(self.native_executor(request))
+        draft_id = str(result.get("draft_id") or "")
+        editor = str(result.get("draft_editor_url") or "")
+        expected = request["content_binding"]
+        verified = (result.get("request_sha256") == request["request_sha256"]
+            and result.get("observed_identity") == IDENTITIES["substack"]
+            and draft_id.isdigit() and editor == ROOTS["substack"] + "publish/post/" + draft_id
+            and result.get("draft_saved") is True and result.get("published") is False
+            and result.get("publish_or_update_pressed") is False
+            and bool(expected["expected_text_segments"])
+            and all(_text(s) in _text(result.get("observed_text")) for s in expected["expected_text_segments"])
+            and {a["sha256"] for a in expected["media_manifest"]} <= set(result.get("observed_media_sha256") or []))
+        public_write = (False if verified else
+                        True if result.get("published") is True or result.get("publish_or_update_pressed") is True else None)
+        return {**result, "draft_verified": bool(verified), "public_write_performed": public_write,
+                "status": "SUBSTACK_DRAFT_AWAITING_OWNER" if verified else "UNKNOWN_WRITE"}
 
     def amend_existing(self, *, destination, intent, public_object_id, public_object_url, authorization_context):
         request = self.request(destination=destination, action="EDIT_EXISTING", intent=intent,

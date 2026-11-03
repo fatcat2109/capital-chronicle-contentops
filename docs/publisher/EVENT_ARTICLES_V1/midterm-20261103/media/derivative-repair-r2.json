@@ -1,0 +1,64 @@
+{
+  "operation_id": "cc107-midterm-preview-20261103-v1",
+  "writer_invocation_id": "/root/native_visual_edit_76437a71362e",
+  "repair_of_review_request_sha256": "cd9a7356010ec444376cb58bbd6324ff244c58efbb1fe56ddef0a1b660cd4834",
+  "status": "AUTHORED_REPAIR_INPUT_NOT_COMPILED_OR_DISPATCHED",
+  "authority_context": "Latest exact CC-107 assignment permits linkless summaries while the site article page is not live. Substack remains drafts only. This artifact performs no delivery or external action.",
+  "source_binding": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\source\\PREVIEW.md",
+    "sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+    "as_of": "23:20 UTC on 2 November 2026",
+    "source_is_frozen_public_preview": true,
+    "exact_support_excerpts": [
+      "**Democratic sweep (the expected result).**",
+      "Since this result is widely expected, moves may be modest",
+      "**Republican sweep.** The biggest surprise on offer.",
+      "**A delayed or contested result.** A slow count would keep uncertainty priced for longer.",
+      "The Middle East and oil, the jobs report on 6 November and inflation data on 10 November, any of which could outweigh the election in rates and the dollar."
+    ]
+  },
+  "required_root_notice": "Analysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+  "roots": [
+    {
+      "destination": "x",
+      "root_text": "Capital Chronicle's 2 November midterm preview: a Democratic sweep leads expectations. A Republican surprise or slow count could move markets.\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+      "character_count": 271,
+      "character_limit": 280,
+      "linkless": true,
+      "independently_usable": true,
+      "media_asset_ids": [
+        "cc107-generic-ballot-and-poll-close-card"
+      ],
+      "editorial_findings": "Names the dated Capital Chronicle preview, preserves expected/conditional wording and makes no result, position or numerical prediction-market claim. All three required notice sentences are present in the root. No URL, placeholder, or guessed destination appears. Existing compiler must retain the exact root and rebuild any replies/limits; final actual rendering remains pending."
+    },
+    {
+      "destination": "threads",
+      "root_text": "Capital Chronicle's 2 November midterm preview: a Democratic sweep leads expectations, so moves may be modest. Republican control of both chambers would be a bigger surprise; a slow Senate count could prolong uncertainty. Oil, jobs and inflation could outweigh the vote in rates and the dollar.\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+      "character_count": 423,
+      "character_limit": 500,
+      "linkless": true,
+      "independently_usable": true,
+      "media_asset_ids": [
+        "cc107-generic-ballot-and-poll-close-card"
+      ],
+      "editorial_findings": "Names the dated Capital Chronicle preview, preserves expected/conditional wording and makes no result, position or numerical prediction-market claim. All three required notice sentences are present in the root. No URL, placeholder, or guessed destination appears. Existing compiler must retain the exact root and rebuild any replies/limits; final actual rendering remains pending."
+    }
+  ],
+  "preserve": "Canonical article, all supported conditional scenarios, claims, source facts and source clock are unchanged. These short roots do not add an election result or trading call and do not replace the full six-market-group article.",
+  "existing_owner_next_action": "Apply these exact linkless roots through the existing compiler/revision owner. Remove unresolved canonical links from every affected linkless package through its existing owner, retain full source/rights bindings internally, add the exact conflict notice to the remaining derivatives as already authored, bind the reviewed r3 card and recapture all affected canonical/channel desktop/mobile presentations for the same writer. Do not mutate frozen returns or accept old renders.",
+  "final_visual_acceptance": false,
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_visual_edit_76437a71362e",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Supported same-actor native repair assignment for cc107-midterm-preview-20261103-v1 to /root/native_visual_edit_76437a71362e; gpt-6.1-sol/max configured. Actual model/effort remain unavailable through supported runtime observation.",
+    "observation_source": "The executing native context /root/native_visual_edit_76437a71362e inspected exact r3 PNG via local view_image, compared the sibling source JSON and frozen preview, and authored the linkless roots as repair input. This is standalone asset review, not final presentation acceptance.",
+    "speed": "standard"
+  }
+}

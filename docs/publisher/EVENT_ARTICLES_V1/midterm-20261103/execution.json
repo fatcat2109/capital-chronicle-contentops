@@ -90,6 +90,19 @@
     "event-source-scope.junit.xml": {
       "tests": 69,
       "failures": []
+    },
+    "repair-and-draft-regression.junit.xml": {
+      "tests": 131,
+      "failures": [],
+      "scope": "New draft action, canonical coordinator, native Neo executor and event derivatives; one pytest process."
+    },
+    "visual-repair-final.junit.xml": {
+      "tests": 87,
+      "failures": []
+    },
+    "draft-and-portrait-final.junit.xml": {
+      "tests": 19,
+      "failures": []
     }
   },
   "preexisting_failures": [
@@ -257,11 +270,71 @@
     "renders": "review/renders.json",
     "coverage": 18,
     "same_reviewer": "/root/native_visual_edit_76437a71362e",
-    "status": "PENDING_ACTUAL_NATIVE_RETURN"
+    "status": "REPAIR_REQUIRED_RECORDED"
   },
   "derivative_public_copy_check": {
     "checked": 8,
     "status": "PASS",
     "artifact": "review/derivative-public-guard.json"
+  },
+  "resumptions": [
+    {
+      "observed_at_utc": "2026-11-03T07:20:25Z",
+      "process_id": 44712,
+      "launch_tokens": [
+        "exec",
+        "resume",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"max\""
+      ],
+      "actual_model": null,
+      "actual_reasoning_effort": null,
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "remote_head_at_entry": "3960ea9b34cc72b3950052196acacf265543ad4f",
+      "backlog_status": "IN_PROGRESS",
+      "pending_same_writer_request": "cd9a7356010ec444376cb58bbd6324ff244c58efbb1fe56ddef0a1b660cd4834"
+    }
+  ],
+  "lint": {
+    "changed_files": "PASS",
+    "canonical_pipeline_baseline": [
+      [
+        "F401",
+        "`live_contentops.cloudinary_delivery_media_v1.NOT_REQUIRED` imported but unused"
+      ],
+      [
+        "F401",
+        "`live_contentops.media_manifest_authority_v1.select_primary_delivery_media` imported but unused"
+      ],
+      [
+        "F401",
+        "`live_contentops.facebook_page_adapter_v6.execute_facebook_photo` imported but unused"
+      ],
+      [
+        "F401",
+        "`live_contentops.instagram_adapter_v6.execute_instagram_post` imported but unused"
+      ],
+      [
+        "E731",
+        "Do not assign a `lambda` expression, use a `def`"
+      ]
+    ],
+    "new_diagnostics": 0
+  },
+  "visual_repair": {
+    "artifact": "media/final-visual-repair-r1.json",
+    "status": "APPLIED_EXISTING_MEDIA_OWNER_NEW_REVIEW_REQUIRED",
+    "card_sha256": "f230c117cc279bde0718c094aaf70d4b1c8efae377f4ccacb78c222066fac4f1",
+    "linkless_roots": "media/derivative-repair-r2.json",
+    "canonical_prose": "UNCHANGED",
+    "public_write_performed": false
+  },
+  "substack_draft_action": {
+    "implementation": "Existing DurablePublicationCoordinator and native Neo request/begin/submit; save_draft only, no Publish/Update",
+    "runtime_state": "NOT_CALLED_FINAL_REVIEW_PENDING",
+    "no_public_canonical_or_count": true,
+    "lost_return": "UNKNOWN_WRITE_READBACK_FIRST_NO_RETRY"
   }
 }

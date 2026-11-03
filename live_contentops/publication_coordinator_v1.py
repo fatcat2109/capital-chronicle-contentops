@@ -1453,6 +1453,72 @@ class DurablePublicationCoordinator:
             registered.append({"destination": destination, **ids})
         return {"plan_hash": plan_hash, "registered": registered, "outbox_count": len(registered)}
 
+    def save_substack_draft(self, work_item_id, plan):
+        """Decision 48 draft-only action over the same canonical intent and fence."""
+        from live_contentops.llm_operator_control_v1 import assert_llm_operator_execution_enabled
+        assert_llm_operator_execution_enabled()
+        if self._mode() != "AUTONOMOUS_DEFAULT":
+            raise ValueError("SUBSTACK_DRAFT_OPERATING_MODE_BLOCKED")
+        canonical = [p for p in plan["destinations"] if p["destination"] == "substack"]
+        if len(canonical) != 1:
+            raise ValueError("EXACT_SUBSTACK_DRAFT_DESTINATION_REQUIRED")
+        from live_contentops.durable_operational_store_v1 import WorkItemNotFoundError
+        try:
+            self.store.get_work_item(work_item_id)
+        except WorkItemNotFoundError:
+            self.store.create_work_item(story_id=work_item_id, work_item_id=work_item_id,
+                                        title="Reviewed Substack draft", target_surface="SUBSTACK_DRAFT")
+        # Preparing a private draft must not enqueue public derivative sends.
+        self.register_plan(work_item_id, {**plan, "destinations": canonical})
+        ids = self._ids(work_item_id, plan["plan_hash"], "substack")
+        message = self.store.get_outbox_message(ids["message_id"])
+        intent = json.loads(message["payload"])
+        existing = self.store.get_platform_dispatch(ids["dispatch_id"])
+        if existing and existing["status"] != NATIVE_NEO_PENDING:
+            return {"state": "SUBSTACK_DRAFT_AWAITING_OWNER" if existing["status"] == OWNER_RETAINED_DRAFT_NO_PUBLISH
+                    else existing["status"], "draft_id": existing.get("public_object_id"),
+                    "dispatch_id": ids["dispatch_id"], "new_draft_call": False,
+                    "next_action": "Read back the exact retained object; never create a replacement."}
+        if existing:
+            pending = [json.loads(row["payload"]).get("request", {}) for row in self.store.list_outbox_messages()
+                       if row["destination"] == "internal:native-neo-tool"]
+            exact = [r for r in pending if r.get("dispatch_attempt_identity") == ids["dispatch_id"]]
+            if not exact or any(r.get("action") != "SAVE_DRAFT" for r in exact):
+                return {"state": "UNKNOWN_WRITE", "new_draft_call": False,
+                        "reason_code": "EXISTING_CANONICAL_ATTEMPT_REQUIRES_READBACK"}
+        if not self.store.claim_platform_dispatch_attempt(dispatch_id=ids["dispatch_id"],
+                message_id=ids["message_id"], platform="substack",
+                expected_status=existing["status"] if existing else None):
+            return {"state": "UNKNOWN_WRITE", "new_draft_call": False}
+        auth = {"schema_version": "contentops.canonical_machine_authorization.v1",
+                "action": "SAVE_DRAFT", "operating_mode": self._mode(), "destination": "substack",
+                "work_item_id": work_item_id, "payload_hash": intent["destination_plan"]["payload_hash"],
+                "dispatch_attempt_identity": ids["dispatch_id"],
+                "authority_ref": "JIM_DECISIONS_20261030_DECISION_48"}
+        try:
+            result = self.transport_runtime.save_substack_draft(intent=intent, authorization_context=auth)
+        except NativeNeoInputRequired as pending:
+            self.store.set_dispatch_status(ids["dispatch_id"], NATIVE_NEO_PENDING)
+            self.store.set_outbox_status(ids["message_id"], NATIVE_NEO_PENDING)
+            return {"state": NATIVE_NEO_PENDING, "native_tool_request": pending.request,
+                    "new_draft_call": False, "public_write_performed": False}
+        except Exception as exc:
+            result = {"status": UNKNOWN_WRITE, "error_class": type(exc).__name__}
+        verified = result.get("draft_verified") is True
+        status = OWNER_RETAINED_DRAFT_NO_PUBLISH if verified else UNKNOWN_WRITE
+        self.store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+            platform="substack", public_object_id=result.get("draft_id") if verified else None)
+        self.store.set_dispatch_status(ids["dispatch_id"], status)
+        self.store.set_outbox_status(ids["message_id"], status)
+        self.store.register_readback(readback_id="draft-" + _hash(_canonical_json(result)),
+            dispatch_id=ids["dispatch_id"], readback_data=_canonical_json(result))
+        # An editor URL is retained only as draft evidence, never a public canonical URL.
+        return {"state": "SUBSTACK_DRAFT_AWAITING_OWNER" if verified else UNKNOWN_WRITE,
+                "dispatch_id": ids["dispatch_id"], "draft_id": result.get("draft_id"),
+                "draft_editor_url": result.get("draft_editor_url"), "draft_verified": verified,
+                "canonical_confirmed": False, "published_article_count": 0,
+                "public_write_performed": result.get("public_write_performed"), "new_draft_call": True}
+
     def _reconcile(
         self,
         dispatch: Mapping[str, Any],
@@ -3045,6 +3111,9 @@ class CanonicalDestinationTransportRuntimeV1:
             from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
             neo_transport = NeoDestinationHandoff()
         self._neo_transport = neo_transport
+
+    def save_substack_draft(self, *, intent, authorization_context):
+        return self._neo_transport.save_draft(intent=intent, authorization_context=authorization_context)
 
     def amend_reader_presentation(self, *, destination, intent, public_object_id, public_object_url,
                                   authorization_context):

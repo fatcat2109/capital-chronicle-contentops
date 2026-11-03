@@ -1,0 +1,414 @@
+{
+  "request_sha256": "cd9a7356010ec444376cb58bbd6324ff244c58efbb1fe56ddef0a1b660cd4834",
+  "output": {
+    "decision": "REPAIR_REQUIRED",
+    "asset_findings": [
+      {
+        "asset_id": "cc107-generic-ballot-and-poll-close-card",
+        "asset_sha256": "28e9ffba3191fc9d6645e7fe571b6ede6ed8237fa2627b93817b526cc3ae9d64",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "FAIL",
+          "text_contrast": "FAIL",
+          "crop_distortion": "PASS",
+          "placement": "FAIL",
+          "sign_magnitude": "PASS",
+          "denominator": "PASS",
+          "period_year_quarter": "PASS",
+          "units_currency": "PASS",
+          "transformation_rounding": "PASS",
+          "source_link_claim": "PASS",
+          "zero_baseline_scale": "NOT_APPLICABLE",
+          "comparisons_stacks_totals_missingness": "PASS"
+        },
+        "findings": [
+          "The exact isolated raster is readable and source-correct, but its labels, meaning qualification and source/timing notes become too small in the intact 390 px channel presentations. A mobile-readable layout is required.",
+          "The bound caption contains via the approved preview. This internal approval phrase is visibly exposed beneath the figure in canonical/channel previews; use the exact corrected caption in the repair input."
+        ],
+        "evidence_notes": "Inspected the exact 1600 x 960 PNG through local view_image and compared its adjacent JSON and frozen PREVIEW SHA256 407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349. Democrats 51.1%, Republicans 42.8%, update 2 November 2026 and first close 23:00 UTC on 3 November are exact admitted facts. No signs, magnitudes, units, denominator, transformation, forecast or probability drift. Separate equal-status numbers imply no complete total; there is no plotted scale requiring a zero baseline. Final mobile typography and natural caption require repair."
+      },
+      {
+        "asset_id": "cc107-capitol-west-front-archive-1997",
+        "asset_sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "UNVERIFIED",
+          "identity_relevance": "PASS",
+          "archive_context": "PASS",
+          "caption_credit_alt": "PASS",
+          "lawful_reuse": "PASS"
+        },
+        "findings": [
+          "The original photo remains accepted context, but the incomplete/tiled canonical renders do not establish its final complete responsive placement. Recheck placement with the corrected canonical capture; do not reacquire or replace this valid photo."
+        ],
+        "evidence_notes": "Inspected the exact archive original through local view_image. Visible Capitol west front, dome and wings, lawn, flower beds and paths match the corrected alt text. The 1997 date is retained source metadata, not inferred from pixels. The explicit archive caption avoids election-night corroboration; Architect of the Capitol / Wikimedia Commons and public-domain terms remain bound to rights receipt SHA256 00c937c7ef7c7a60e9f843914dda79c869122abf132594ea65c03bd59c984600. No current-event claim is supported by the photograph."
+      }
+    ],
+    "render_findings": [
+      {
+        "render_id": "cc107-discord-desktop-r1",
+        "sha256": "8f16fbd58f0f58bd9dfe7a3ce60ea4689b07ef02718e57735cf3fae6c00cd032",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "UNVERIFIED",
+          "crop_distortion": "FAIL",
+          "placement": "FAIL"
+        },
+        "findings": [
+          "The bound desktop PNG repeats the same narrow page side by side instead of one 1200 px reading view. Capture corruption prevents complete desktop layout/placement acceptance; correct dimensions do not cure the repeated pixels.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package."
+        ],
+        "evidence_notes": "Inspected this exact bound desktop PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery. Visible capture defects are a rendering/evidence problem; the existing article facts must be preserved."
+      },
+      {
+        "render_id": "cc107-discord-mobile-r1",
+        "sha256": "336956ebe5d045c38520138f906d59b0ff978f682829f82c2d4706edab10c950",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "FAIL",
+          "text_contrast": "UNVERIFIED",
+          "crop_distortion": "FAIL",
+          "placement": "FAIL"
+        },
+        "findings": [
+          "The bound mobile PNG cuts off the right side of the page/card, including the Republican share, and repeats the page lower on the canvas. It does not show a complete usable 390 px responsive view.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package."
+        ],
+        "evidence_notes": "Inspected this exact bound mobile PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery. Visible capture defects are a rendering/evidence problem; the existing article facts must be preserved."
+      },
+      {
+        "render_id": "cc107-facebook_page-desktop-r1",
+        "sha256": "891bc91d2e800784615f5bce0c546c7351905e1a329ce8a529d0b55bfbb6c83c",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "UNVERIFIED",
+          "crop_distortion": "FAIL",
+          "placement": "FAIL"
+        },
+        "findings": [
+          "The bound desktop PNG repeats the same narrow page side by side instead of one 1200 px reading view. Capture corruption prevents complete desktop layout/placement acceptance; correct dimensions do not cure the repeated pixels.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package."
+        ],
+        "evidence_notes": "Inspected this exact bound desktop PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery. Visible capture defects are a rendering/evidence problem; the existing article facts must be preserved."
+      },
+      {
+        "render_id": "cc107-facebook_page-mobile-r1",
+        "sha256": "a406f47a6c7c400ca5f16a6829eb7987944d344862c293fcfc8ad204faff51ee",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "FAIL",
+          "text_contrast": "FAIL",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [
+          "This is an intact mobile page without the observed repeated-panel defect, but the landscape card is reduced so far that party/date, meaning qualification, timing and credit text are much smaller than the surrounding body copy. Redesign the card for normal mobile reading.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package."
+        ],
+        "evidence_notes": "Inspected this exact bound mobile PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery."
+      },
+      {
+        "render_id": "cc107-instagram_business-desktop-r1",
+        "sha256": "8f5cb99a5d94296e213b4c0499c3e379cbbe3778384342e46e3145ea566c18fb",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "UNVERIFIED",
+          "crop_distortion": "FAIL",
+          "placement": "FAIL"
+        },
+        "findings": [
+          "The bound desktop PNG repeats the same narrow page side by side instead of one 1200 px reading view. Capture corruption prevents complete desktop layout/placement acceptance; correct dimensions do not cure the repeated pixels.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package."
+        ],
+        "evidence_notes": "Inspected this exact bound desktop PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery. Visible capture defects are a rendering/evidence problem; the existing article facts must be preserved."
+      },
+      {
+        "render_id": "cc107-instagram_business-mobile-r1",
+        "sha256": "9c9f716a23c33f9a4c1aaed799d273d0255c25a69834cad19824377a13e03068",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "FAIL",
+          "text_contrast": "UNVERIFIED",
+          "crop_distortion": "FAIL",
+          "placement": "FAIL"
+        },
+        "findings": [
+          "The bound mobile PNG cuts off the right side of the page/card, including the Republican share, and repeats the page lower on the canvas. It does not show a complete usable 390 px responsive view.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package."
+        ],
+        "evidence_notes": "Inspected this exact bound mobile PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery. Visible capture defects are a rendering/evidence problem; the existing article facts must be preserved."
+      },
+      {
+        "render_id": "cc107-linkedin-desktop-r1",
+        "sha256": "9b2f5783b1f632e37c9e9b8e6d38f12103fdc2f83cb998eb4449b759d6205ad6",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package."
+        ],
+        "evidence_notes": "Inspected this exact bound desktop PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery."
+      },
+      {
+        "render_id": "cc107-linkedin-mobile-r1",
+        "sha256": "086f177ee7def2a221e717ec2a5e1671132c7044549d137d68f5d6129d8fa904",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "FAIL",
+          "text_contrast": "UNVERIFIED",
+          "crop_distortion": "FAIL",
+          "placement": "FAIL"
+        },
+        "findings": [
+          "The bound mobile PNG cuts off the right side of the page/card, including the Republican share, and repeats the page lower on the canvas. It does not show a complete usable 390 px responsive view.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package."
+        ],
+        "evidence_notes": "Inspected this exact bound mobile PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery. Visible capture defects are a rendering/evidence problem; the existing article facts must be preserved."
+      },
+      {
+        "render_id": "cc107-substack-desktop-r1",
+        "sha256": "3374c9548a679247f273d636f93c9bd1f036a13ac52bef5ee4aa91cd9ffb0b2b",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "UNVERIFIED",
+          "crop_distortion": "FAIL",
+          "placement": "FAIL"
+        },
+        "findings": [
+          "The bound desktop PNG repeats the same narrow page side by side instead of one 1200 px reading view. Capture corruption prevents complete desktop layout/placement acceptance; correct dimensions do not cure the repeated pixels.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input."
+        ],
+        "evidence_notes": "The archived photo and card are placed in the expected opening/What is expected context in the visible portions. The bound canonical capture is incomplete/corrupt, so complete article pixel verification remains pending. Exact authored copy and source-bound metadata retain the pre-event clock, conditional outcomes, all six market groups, no numeric prediction-market odds, serious countercases and both notices. No new factual/source or wholesale prose revision is called for. Visible capture defects are a rendering/evidence problem; the existing article facts must be preserved."
+      },
+      {
+        "render_id": "cc107-substack-mobile-r1",
+        "sha256": "dc2a1d10c800d101317568d7510513479ec409f452ff3d99973dede85c07e86c",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "FAIL",
+          "text_contrast": "UNVERIFIED",
+          "crop_distortion": "FAIL",
+          "placement": "FAIL"
+        },
+        "findings": [
+          "The bound mobile PNG cuts off the right side of the page/card, including the Republican share, and repeats the page lower on the canvas. It does not show a complete usable 390 px responsive view.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input."
+        ],
+        "evidence_notes": "The archived photo and card are placed in the expected opening/What is expected context in the visible portions. The bound canonical capture is incomplete/corrupt, so complete article pixel verification remains pending. Exact authored copy and source-bound metadata retain the pre-event clock, conditional outcomes, all six market groups, no numeric prediction-market odds, serious countercases and both notices. No new factual/source or wholesale prose revision is called for. Visible capture defects are a rendering/evidence problem; the existing article facts must be preserved."
+      },
+      {
+        "render_id": "cc107-telegram-desktop-r1",
+        "sha256": "a202251c33760c97f0d576373b0a84266f306896425a4b5a079b5fffb2c772bb",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "UNVERIFIED",
+          "crop_distortion": "FAIL",
+          "placement": "FAIL"
+        },
+        "findings": [
+          "The bound desktop PNG repeats the same narrow page side by side instead of one 1200 px reading view. Capture corruption prevents complete desktop layout/placement acceptance; correct dimensions do not cure the repeated pixels.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package."
+        ],
+        "evidence_notes": "Inspected this exact bound desktop PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery. Visible capture defects are a rendering/evidence problem; the existing article facts must be preserved."
+      },
+      {
+        "render_id": "cc107-telegram-mobile-r1",
+        "sha256": "f9e6155005785103550be30c91df7b6e852f0b4e2da33abe27e76a09e774b95f",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "FAIL",
+          "text_contrast": "FAIL",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [
+          "This is an intact mobile page without the observed repeated-panel defect, but the landscape card is reduced so far that party/date, meaning qualification, timing and credit text are much smaller than the surrounding body copy. Redesign the card for normal mobile reading.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package."
+        ],
+        "evidence_notes": "Inspected this exact bound mobile PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery."
+      },
+      {
+        "render_id": "cc107-threads-desktop-r1",
+        "sha256": "ff14b57ada92439911eb0893eb1db1664377dc68a91846f8eaa670f02b1206c2",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package.",
+          "The analysis notice is present only in the final reply. The independently shareable root lacks it; the saved repair input supplies a root carrying the required notices, subject to existing compiler limits after real-link resolution."
+        ],
+        "evidence_notes": "Inspected this exact bound desktop PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery."
+      },
+      {
+        "render_id": "cc107-threads-mobile-r1",
+        "sha256": "888821a2102917afab5a2f982e171f7c7459b26bcb68f89d306441b64415fbec",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "FAIL",
+          "text_contrast": "UNVERIFIED",
+          "crop_distortion": "FAIL",
+          "placement": "FAIL"
+        },
+        "findings": [
+          "The bound mobile PNG cuts off the right side of the page/card, including the Republican share, and repeats the page lower on the canvas. It does not show a complete usable 390 px responsive view.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package.",
+          "The analysis notice is present only in the final reply. The independently shareable root lacks it; the saved repair input supplies a root carrying the required notices, subject to existing compiler limits after real-link resolution."
+        ],
+        "evidence_notes": "Inspected this exact bound mobile PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery. Visible capture defects are a rendering/evidence problem; the existing article facts must be preserved."
+      },
+      {
+        "render_id": "cc107-x-desktop-r2",
+        "sha256": "0254dd6ce155a7b8b46f2e6bb74673b50142ce2c49af48412f4c61f0313aa4c4",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "UNVERIFIED",
+          "text_contrast": "UNVERIFIED",
+          "crop_distortion": "FAIL",
+          "placement": "FAIL"
+        },
+        "findings": [
+          "The bound desktop PNG repeats the same narrow page side by side instead of one 1200 px reading view. Capture corruption prevents complete desktop layout/placement acceptance; correct dimensions do not cure the repeated pixels.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package.",
+          "The analysis notice is present only in the final reply. The independently shareable root lacks it; the saved repair input supplies a root carrying the required notices, subject to existing compiler limits after real-link resolution."
+        ],
+        "evidence_notes": "Inspected this exact bound desktop PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery. Visible capture defects are a rendering/evidence problem; the existing article facts must be preserved."
+      },
+      {
+        "render_id": "cc107-x-mobile-r1",
+        "sha256": "50623d00b070908a45024723b018be925e43ee419e6e65d508c72f12c06c720a",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "FAIL",
+          "text_contrast": "FAIL",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [
+          "This is an intact mobile page without the observed repeated-panel defect, but the landscape card is reduced so far that party/date, meaning qualification, timing and credit text are much smaller than the surrounding body copy. Redesign the card for normal mobile reading.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package.",
+          "The analysis notice is present only in the final reply. The independently shareable root lacks it; the saved repair input supplies a root carrying the required notices, subject to existing compiler limits after real-link resolution."
+        ],
+        "evidence_notes": "Inspected this exact bound mobile PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery."
+      },
+      {
+        "render_id": "cc107-youtube-desktop-r1",
+        "sha256": "f5993ad2b38b1ee5069873a3b19c652eef6e5591d30508eae596d36adf882c39",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package."
+        ],
+        "evidence_notes": "Inspected this exact bound desktop PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery."
+      },
+      {
+        "render_id": "cc107-youtube-mobile-r1",
+        "sha256": "b529d247441bb767d58d1ec43ba363f0772a0a75b912e8a84b7d21890449dc1e",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "FAIL",
+          "labels_legend": "FAIL",
+          "text_contrast": "UNVERIFIED",
+          "crop_distortion": "FAIL",
+          "placement": "FAIL"
+        },
+        "findings": [
+          "The bound mobile PNG cuts off the right side of the page/card, including the Republican share, and repeats the page lower on the canvas. It does not show a complete usable 390 px responsive view.",
+          "The visible figure caption includes internal wording via the approved preview; replace it with the source-faithful natural caption in the saved repair input.",
+          "The preview still shows Canonical link pending and its exact payload contains a pending-publication URL. Delivery URL must be resolved through the existing independent site/social owner before public distribution; Substack remains drafts only.",
+          "The compiled derivative omits the requested sentence Capital Chronicle may hold positions in the markets it covers. Retain the exact supplied conflict notice alongside the analysis notice in the corrected destination package."
+        ],
+        "evidence_notes": "Inspected this exact bound mobile PNG through local view_image. Compared its source-bound destination payload with the frozen canonical article. Visible scenario copy retains could/may/expected/preview qualification; no election result or position call is asserted. Analysis, not financial advice and the reader-choice notice are present in the package, with the root-post limitation explicitly noted where relevant. On-image shares match the accepted source wherever both sides are captured. This private preview does not prove actual platform formatting or delivery. Visible capture defects are a rendering/evidence problem; the existing article facts must be preserved."
+      }
+    ],
+    "repair_artifact": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\media\\final-visual-repair-r1.json",
+      "sha256": "e78fc8ef775f79ffac41fcef181e477facca078dba1336c58bb869e63074a45d"
+    },
+    "summary": "Two asset originals and all 18 bound desktop/mobile renders inspected. Source values and original archive-photo rights are sound. Twelve render captures remain repeated/clipped; all presentations need the clean caption and mobile-readable card, and derivative notices/links need existing-owner repair. Exact corrective copy, fact packet and render instructions are saved. Frozen originals and valid canonical prose are preserved; no corrected render is accepted.",
+    "changes_performed": "Saved corrected caption, exact fact packet and destination-notice repair inputs in a new revision artifact. No frozen request, accepted return, source, media bytes, canonical article or runtime/publication state was mutated. Parent applies these inputs through the existing media/revision/compiler owners and regenerates affected outputs."
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_visual_edit_76437a71362e",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Supported exact SAME-writer native final-visual assignment for request cd9a7356010ec444376cb58bbd6324ff244c58efbb1fe56ddef0a1b660cd4834 to /root/native_visual_edit_76437a71362e, configured gpt-6.1-sol/max. No supported runtime telemetry exposes actual model or effort.",
+    "observation_source": "The executing native context is /root/native_visual_edit_76437a71362e, the same actual visual editor and writer. It inspected both assets and all 18 exact bound screenshots through local view_image before interruption, then verified no response had been saved and every bound hash was unchanged. This response preserves the completed inspection without duplicating it.",
+    "speed": "standard"
+  }
+}

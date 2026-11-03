@@ -1237,6 +1237,9 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         ok, _, _, reason = _validate_worker_text(json.dumps(corrected_worker_output))
         if not ok:
             raise ValueError("TARGETED_COPY_REPAIR_SCHEMA:" + str(reason))
+        from live_contentops.event_preview_source_v1 import validate_native_event_preview
+        original_write = turn.frozen_request("write")
+        validate_native_event_preview((original_write or {}).get("governed_input", {}), corrected_worker_output)
         revised, _ = _validate_article_against_source_pack(corrected_worker_output, result["evidence"],
             selected_candidate=result["simple_result"]["selected_candidate"],
             article_mode=result["article"]["resolved_article_mode"], epistemic_state=result["article"].get("epistemic_state"))

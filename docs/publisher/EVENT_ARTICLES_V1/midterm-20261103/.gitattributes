@@ -3,3 +3,4 @@ source/* -text
 media/* -text
 media/commons-rights-page.md -diff
 *.json -text
+*.html -text
