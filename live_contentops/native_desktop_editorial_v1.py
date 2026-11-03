@@ -486,7 +486,7 @@ class NativeDesktopTurn:
                 "For genuine narrow news/policy, fewer charts need a substantive exception_reason; never "
                 "relabel analysis, manufacture data or pad panels. Choose contextual_photo_ids and exact "
                 "media subsets for all eight keys telegram,discord,x,linkedin,facebook_page,instagram_business,"
-                "threads,youtube. A decision can leave Instagram media empty; actual delivery readiness is destination-local. "
+            "threads,youtube. Empty choices receive the deterministic post data card before final review, including Instagram. "
                 "A terminal editorial refusal requires no photo or chart. If evidence or photo identity is "
                 "missing, retain the gap for retrieval; do not invent an ID or claim acceptance. Preserve "
                 "actual/estimate/forecast, missingness, provenance, dates, rights and Core boundaries. "
@@ -531,6 +531,12 @@ class NativeDesktopTurn:
                     "source_pack": kwargs["governed_input"]["source_pack"],
                     "visual_editorial_decision_required": True,
                     "instruction": "Use existing discovery/chart owners; bind inspected lawful media before freezing the MAX writer. Light proposes; the same MAX visual editor/writer chooses data, count, type and placement. No model/public operation here."}
+                pending["visual_research"] = {
+                    "photo_search": {"browser": "BrowserOS Neo", "sources": ["US federal agencies", "Wikimedia Commons", "Unsplash", "Pexels"],
+                        "retain": ["source_url", "license", "attribution", "identity", "depicted_date", "search_outcome"]},
+                    "history_search": {"owner": "CC-145 read-only desk-data adapter", "public_rights_only": True},
+                    "charged_to_factual_source_request_cap": False,
+                    "new_factual_claims_admitted": False, "spending_authority": False}
                 if self.volume_policy:
                     pending.update(volume_policy=self.volume_policy,
                         volume_policy_cutoff_utc=kwargs["governed_input"]["cutoff_utc"])
@@ -545,7 +551,7 @@ class NativeDesktopTurn:
             validate_release_media({"media_assets": media_plan["assets"], "evidence": kwargs["governed_input"]["source_pack"],
                 "visual_editorial_decision": visual["output"] if visual else None,
                 **({"volume_policy": self.volume_policy, "volume_policy_cutoff_utc": kwargs["governed_input"]["cutoff_utc"]}
-                    if self.volume_policy else {})})
+                    if self.volume_policy else {})}, prewriter=True)
             kwargs["governed_input"] = {**kwargs["governed_input"], "editorial_media_plan": media_plan}
             prompt_media = media_plan
             if visual:
@@ -558,7 +564,8 @@ class NativeDesktopTurn:
         role = native_role(stage)
         target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
         frozen = self.frozen_request(stage)
-        if role in {"visual-edit", "write"} and (not frozen or "CC-144 / Jim decision 42:" in frozen["prompt"]):
+        if (role in {"visual-edit", "write"} and (not frozen or "CC-144 / Jim decision 42:" in frozen["prompt"])
+                and "CC-144 / Jim decision 42:" not in kwargs["prompt"]):
             kwargs["prompt"] += ("\nCC-144 / Jim decision 42: Every post and destination carries an image. "
                 "NEWS/POLICY gets a deterministic data card from this article's admitted claim bindings; "
                 "empty destination media choices use that card, including Instagram. Analysis keeps 2-5 useful charts. "
@@ -880,7 +887,7 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     from live_contentops.native_newsroom_volume_v1 import photo_less_brief
     minimum_assets = (1 if corrected_article.get("post_visual_policy") else
         0 if photo_less_brief({**result, "article": corrected_article, "media_assets": assets}) else 1)
-    if not minimum_assets <= len(assets) <= (7 if reader_first else 3) or _private(assets):
+    if not minimum_assets <= len(assets) <= (8 if reader_first else 3) or _private(assets):
         raise ValueError("BOUNDED_PUBLIC_MEDIA_REQUIRED")
     # The owned quantitative visual carries the story's evidence into short-form
     # channels; canonical rendering still places the contextual hero by its role.
@@ -954,7 +961,7 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     return {"classification": "MEDIA_BOUND_REVIEW_REQUIRED", "article_identity": article_identity, "media_count": len(assets), "public_write_performed": False}
 
 
-def validate_release_media(result):
+def validate_release_media(result, *, prewriter=False):
     """Current release standard; historical evidence stays readable without promotion."""
     from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
     from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_source_value_chart
@@ -974,7 +981,7 @@ def validate_release_media(result):
     if reader_first:
         validate_visual_decision(decision)
         from live_contentops.native_newsroom_volume_v1 import photo_less_brief
-        minimum_photos = 0 if current_visuals or photo_less_brief(result) else 1
+        minimum_photos = 0 if prewriter or current_visuals or photo_less_brief(result) else 1
         if not minimum_photos <= len(photos) <= 2 or len(assets) != len(photos) + len(charts) + len(cards):
             raise ValueError("RELEASE_REQUIRES_GROUNDED_CONTEXTUAL_PHOTO")
         chosen = {c["asset_id"]: c for c in decision["charts"]}
@@ -1042,7 +1049,7 @@ def bind_editorial_media_plan(store, *, run_id, output_dir, plan, assets):
             raise ValueError("EXACT_COMPLETED_MAX_VISUAL_DECISION_REQUIRED")
     validate_release_media({"media_assets": assets, "evidence": pending["source_pack"],
         "visual_editorial_decision": visual["output"] if visual else None,
-        **{k: pending[k] for k in ("volume_policy", "volume_policy_cutoff_utc") if k in pending}})
+        **{k: pending[k] for k in ("volume_policy", "volume_policy_cutoff_utc") if k in pending}}, prewriter=True)
     packet = {"run_id": run_id, "source_request_sha256": pending["request_sha256"],
               "plan": plan, "assets": assets, "public_write_performed": False}
     store.register_outbox_message(message_id="native-editorial-media-plan-" + sha256_of(run_id),

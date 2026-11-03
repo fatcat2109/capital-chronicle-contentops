@@ -3920,6 +3920,13 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
                           if isinstance(post, Mapping) for asset_id in post.get("media_asset_ids") or [])
             media_assets = [asset for asset in media_assets if asset.get("asset_id") in chosen]
     if destination and destination != "substack":
+        # The selected card/chart must reach both local-upload and URL transports.
+        selected_payload = payloads.get(destination) or {}
+        if "media_asset_ids" in selected_payload:
+            selected_ids = set(selected_payload["media_asset_ids"])
+            selected_ids.update(asset_id for post in selected_payload.get("posts") or []
+                for asset_id in post.get("media_asset_ids") or [])
+            media_assets = [asset for asset in media_assets if asset.get("asset_id") in selected_ids]
         from live_contentops.v1_simple_gemini_newsroom_v1 import canonical_photo_attribution_payload
         payloads[destination] = canonical_photo_attribution_payload(payloads[destination], article=article,
             media_assets=media_assets, canonical_url=canonical_url)
@@ -3935,7 +3942,8 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         (
             row
             for row in delivery_assets
-            if str(row.get("verified_public_delivery_url") or "").startswith("https://")
+            if row.get("sha256") in {asset.get("sha256") for asset in media_assets}
+            and str(row.get("verified_public_delivery_url") or "").startswith("https://")
             and row.get("local_public_hash_continuity") is True
             and str(row.get("sha256") or "")
             == str(row.get("public_delivery_sha256") or "")

@@ -1,0 +1,91 @@
+{
+  "item": "CC-144",
+  "recorded_at_utc": "2026-11-03T23:22:35.484359+00:00",
+  "branch": "backlog/cc-144-universal-post-visuals",
+  "base_sha": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "launch": {
+    "readback_pid": 4312,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "high",
+    "runtime_model": null,
+    "runtime_effort": null,
+    "state": "CONFIGURED_NOT_OBSERVED"
+  },
+  "editorial_model_calls": 0,
+  "public_writes": 0,
+  "integration_performed": false,
+  "schedule_changes": 0,
+  "chat_messages_sent": 0,
+  "five_post_acceptance": {
+    "observed_posts": 0,
+    "required_posts": 5,
+    "state": "PENDING_LIVE_INTEGRATION_AND_POSTS"
+  },
+  "inspections": [
+    {
+      "path": "docs/publisher/CC-144/media_assets/post-facts-cfa4a25667369008bd19.png",
+      "sha256": "3a898fb39e9127df0ef4d9e9409897b4523427d6795a01d9c5bf3206996a1f9b",
+      "size_bytes": 49789,
+      "width": 1080,
+      "height": 1080,
+      "local_engineering_pixels_inspected": true,
+      "max_editorial_acceptance": false
+    },
+    {
+      "path": "docs/publisher/CC-144/media_assets/post-facts-ad4f59a976d9816fd598.png",
+      "sha256": "f333cbec9ab3cb74575b17f4d6e0481bd57b83d36a942f5b31b226bbf1d70a6f",
+      "size_bytes": 88210,
+      "width": 1080,
+      "height": 1187,
+      "local_engineering_pixels_inspected": true,
+      "max_editorial_acceptance": false
+    }
+  ],
+  "source_sha256": {
+    "live_contentops/post_visuals_v1.py": "61627f96e53ebb4e47568d19589aca958c5f1e18d1fb9538686de65747a736c7",
+    "live_contentops/native_desktop_editorial_v1.py": "b413e09c355dd8c7199109ba72ad6888a5da407fd90436c486737d0ead692982",
+    "live_contentops/v1_simple_gemini_newsroom_v1.py": "7075fbb7846bc6b6c871a494c42e3d498c147ceee29f88cd151469e43c0098d2",
+    "live_contentops/capital_chronicle_report_editorial_workspace_v1.py": "fa2c2fdf45ec7dde0601d2de4f40e844bd547e24b0cc6862936795430a735e7d",
+    "live_contentops/rolling_x_grounded_article_media_builder_v1.py": "c2c7b68e8a1a82361c5f5ed7351994a4f3df247156e92ebabf60e1c19574d41b",
+    "live_contentops/publication_coordinator_v1.py": "d02adb5dce1cac0e69565cfb4cd950f8f38f09564d3ab2999321dcb0310b1b48",
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": "83984f8e5ad1a597549c56f1b312bf29a76039f529c73ecd75ae5565fd26f848",
+    "tests/test_post_visuals_v1.py": "0f0704dc1eacacbb9c377825bfabbd2dc2140ef9db1b73a41a475acfd3a86d06"
+  },
+  "tests": [
+    {
+      "path": "docs/publisher/CC-144/assembly-recovery-regressions.junit.xml",
+      "tests": 93,
+      "failures": 0,
+      "errors": 0,
+      "overlap_with_other_selections": true
+    },
+    {
+      "path": "docs/publisher/CC-144/consumer-bridge-regressions.junit.xml",
+      "tests": 67,
+      "failures": 0,
+      "errors": 0,
+      "overlap_with_other_selections": true
+    },
+    {
+      "path": "docs/publisher/CC-144/final-card-contracts.junit.xml",
+      "tests": 46,
+      "failures": 0,
+      "errors": 0,
+      "overlap_with_other_selections": true
+    },
+    {
+      "path": "docs/publisher/CC-144/media-contracts.junit.xml",
+      "tests": 136,
+      "failures": 0,
+      "errors": 0,
+      "overlap_with_other_selections": true
+    },
+    {
+      "path": "docs/publisher/CC-144/publication-regressions.junit.xml",
+      "tests": 111,
+      "failures": 0,
+      "errors": 0,
+      "overlap_with_other_selections": true
+    }
+  ]
+}

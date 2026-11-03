@@ -13,6 +13,8 @@ figures cannot enter cards or either existing numeric-chart validator (decision 
 Analysis retains its two-to-five-chart editorial contract. Lawful photos remain
 subject to the existing exact rights and pixel checks.
 
+Cards use readable type and a bounded square/portrait layout. Long packets retain
+fewer complete claims rather than clipping text or reducing it to tiny type.
 Empty destination media selections now receive the card (or an analysis asset),
 including Instagram. All new sends through the shared transport router require an
 exact, decodable selected image before calling Neo or an API. A failure is definite
@@ -26,15 +28,39 @@ existing final-result owner, just as report-led articles already do. Cards enter
 existing canonical/eight-preview revision and desktop/mobile final-review binding.
 Engineering inspection does not count as the required actual MAX publication review.
 
-The first serial targeted run passed **124 tests** in 15.33 seconds:
-[JUnit](media-contracts.junit.xml). The [controlled packet](controlled-packet.json)
+Serial targeted runs passed; selections overlap:
+
+| Selection | Result | Evidence |
+| --- | --- | --- |
+| Cards, native assembly, MAX media contracts, reader-first charts | 136 passed | [JUnit](media-contracts.junit.xml) |
+| Coordinator, native publication, native request/return, historical photo-less recovery | 111 passed | [JUnit](publication-regressions.junit.xml) |
+| Cards, final visual binding, routine/recovery handoff | 93 passed | [JUnit](assembly-recovery-regressions.junit.xml) |
+| Cards, report workspace consumer and durable bridge | 67 passed | [JUnit](consumer-bridge-regressions.junit.xml) |
+| Final card contracts on the delivered source | 46 passed | [JUnit](final-card-contracts.junit.xml) |
+
+The real native semantic assembly is exercised with a synthetic native double:
+it persists the card before eight previews and the canonical-first handoff, with
+zero skipped destinations. Re-entering a frozen visual request preserves its
+exact prompt. Private surveys relayed by a wire service remain excluded from
+visuals. Delivery lookup and pre-send checks bind URL-based destinations to their
+selected asset hash; another image or a text fallback cannot satisfy the check.
+
+The [controlled packet](controlled-packet.json)
 and binary [card](media_assets/post-facts-cfa4a25667369008bd19.png) are synthetic
-fixtures, not articles or publication evidence. The card was visually inspected
-through the local image reader; no desktop control or screenshot was used.
+fixtures, not articles or publication evidence. The
+[small-chart card](media_assets/post-facts-ad4f59a976d9816fd598.png) and its
+[packet](controlled-series-packet.json) exercise the existing series renderer.
+Both cards were visually inspected through the local image reader: labels, units,
+source credit, bars and body text are legible, with no clipping. The small chart
+has a zero baseline and preserves the fixture's two source values. No desktop
+control or screenshot was used. These are engineering observations, not MAX reviews.
 
 Launch readback: PID 4312 configured `gpt-6.1-sol/high`:
 `CONFIGURED_NOT_OBSERVED`. Actual model/effort telemetry is unavailable. This
 engineering run has made zero editorial model calls.
+
+[Validation](validation.json) records exact source hashes, inspection artifact
+hashes, launch configuration, test results and the remaining live acceptance.
 
 Pending acceptance: integration into the live consumer; actual source-stage Neo
 and CC-145 desk-data use; exact final MAX review; and the **next five real posts**
