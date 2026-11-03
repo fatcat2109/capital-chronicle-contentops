@@ -574,8 +574,13 @@ class NativeReviewedPublication:
                     owner_authority_ref=response.get("owner_authority_ref"), request_hash=response.get("request_sha256"))
             elif action == "personal":
                 message = self.coordinator._ids(self.binding["run_id"], plan["plan_hash"], "linkedin")["message_id"]
-                outcome = self.coordinator.complete_dated_distribution_recovery(message,
-                    review_reference=response["review_reference"])
+                if response.get("owner_authority_ref"):
+                    dispatch = self.coordinator._ids(self.binding["run_id"], plan["plan_hash"], "linkedin")["dispatch_id"]
+                    outcome = self.coordinator.retry_owner_confirmed_linkedin_absence(dispatch,
+                        owner_authority_ref=response["owner_authority_ref"])
+                else:
+                    outcome = self.coordinator.complete_dated_distribution_recovery(message,
+                        review_reference=response["review_reference"])
             elif action == "company":
                 outcome = self.coordinator.publish_reviewed_linkedin_company_copy(run_id=self.binding["run_id"],
                     review_reference=response["review_reference"])

@@ -881,6 +881,40 @@ class DurablePublicationCoordinator:
         return {"status": RECONCILED_ABSENT_SAFE_TO_RETRY, "publish_called": False,
             "dispatch_id": dispatch_id, "absence_basis": "OWNER_REPORT_AND_FRESH_LOADED_OWN_ACTIVITY"}
 
+    def retry_owner_confirmed_linkedin_absence(self, dispatch_id, *, owner_authority_ref):
+        """CC-179: one explicit retry of unchanged copy after Jim and Neo prove absence."""
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        dispatch = self.store.get_platform_dispatch(dispatch_id) or {}
+        message = self.store.get_outbox_message(dispatch.get("message_id", ""))
+        if (not message or message["destination"] != "linkedin" or dispatch.get("public_object_id")
+                or dispatch.get("public_object_url") or dispatch.get("status") not in {
+                    RECONCILED_ABSENT_SAFE_TO_RETRY, DERIVATIVE_EXPIRED_STALE_NO_WRITE}):
+            return {"status": "LINKEDIN_OWNER_RETRY_EXISTING_OR_UNKNOWN_READBACK_ONLY", "publish_called": False}
+        intent = json.loads(message["payload"])
+        proof = False
+        for row in self.store.list_readbacks_for_dispatch(dispatch_id):
+            value = json.loads(row["readback_data"])
+            context = value.get("owner_context", {})
+            if (value.get("absence_basis") == "OWNER_REPORT_AND_FRESH_LOADED_OWN_ACTIVITY"
+                    and context.get("owner_authority_ref") == owner_authority_ref
+                    and context.get("owner_reported_absent") is True
+                    and context.get("original_intent_sha256") == sha256_of(intent)
+                    and value.get("readback", {}).get("write_absent") is True):
+                proof = True
+        canonical = self._confirmed_canonical_url_for_work_item(message["work_item_id"], plan_hash=intent["plan_hash"])
+        if not proof or canonical != intent.get("canonical_url"):
+            raise ValueError("LINKEDIN_EXACT_OWNER_ABSENCE_AND_CANONICAL_REQUIRED")
+        if self._retry_already_attempted(dispatch_id):
+            return {"status": "LINKEDIN_OWNER_RETRY_ALREADY_ATTEMPTED_READBACK_ONLY", "publish_called": False}
+        # A generic recovery may have expired this dated retrospective. Jim's
+        # explicit retry resumes its proven-absent status; it changes no copy,
+        # account, transport, frozen cutoff or original approval clock.
+        self.store.set_dispatch_status(dispatch_id, RECONCILED_ABSENT_SAFE_TO_RETRY)
+        outcome = self._dispatch_message(message, canonical_url=canonical, explicit_reconciled_absent_retry=True)
+        if outcome.get("publish_called") is True:
+            self._record_retry_attempt(dispatch_id, message["work_item_id"])
+        return outcome
+
     def publish_reviewed_linkedin_company_copy(self, *, run_id, review_reference):
         """One explicitly selected company copy of the same reviewed LinkedIn payload."""
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of

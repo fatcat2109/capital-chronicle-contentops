@@ -106,6 +106,34 @@ def test_dated_linkedin_requires_exact_same_writer_review_and_absence(tmp_path, 
     assert runtime.publish_calls == ["linkedin"]
 
 
+@pytest.mark.parametrize("fault", [None, "owner", "intent", "unknown", "already_attempted"])
+def test_explicit_owner_absence_retry_is_exact_once_and_keeps_original_copy(tmp_path, monkeypatch, fault):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    store, binding, _, co, runtime, _, ids = linkedin_recovery(tmp_path, monkeypatch)
+    message = store.get_outbox_message(ids["message_id"])
+    before = message["payload"]
+    intent = json.loads(before)
+    authority = "human:CONTROLLED_EXPLICIT_OWNER_RETRY"
+    store.register_readback(readback_id="controlled-owner-absence", dispatch_id=ids["dispatch_id"],
+        readback_data=json.dumps({"absence_basis": "OWNER_REPORT_AND_FRESH_LOADED_OWN_ACTIVITY",
+            "owner_context": {"owner_authority_ref": authority, "owner_reported_absent": True,
+                "original_intent_sha256": "0"*64 if fault == "intent" else sha256_of(intent)},
+            "readback": {"write_absent": True}}))
+    store.register_reconciliation(reconciliation_id=ids["reconciliation_id"], work_item_id=binding["run_id"],
+        status="RECONCILED_ABSENT_SAFE_TO_RETRY")
+    store.set_dispatch_status(ids["dispatch_id"], "UNKNOWN_WRITE" if fault == "unknown" else "DERIVATIVE_EXPIRED_STALE_NO_WRITE")
+    if fault == "already_attempted": co._record_retry_attempt(ids["dispatch_id"], binding["run_id"])
+    kwargs = {"owner_authority_ref": authority + "-wrong" if fault == "owner" else authority}
+    if fault in {"owner", "intent"}:
+        with pytest.raises(ValueError, match="EXACT_OWNER_ABSENCE"):
+            co.retry_owner_confirmed_linkedin_absence(ids["dispatch_id"], **kwargs)
+    else:
+        co.retry_owner_confirmed_linkedin_absence(ids["dispatch_id"], **kwargs)
+        co.retry_owner_confirmed_linkedin_absence(ids["dispatch_id"], **kwargs)
+    assert runtime.publish_calls == (["linkedin"] if fault is None else [])
+    assert store.get_outbox_message(ids["message_id"])["payload"] == before
+
+
 def test_company_copy_is_distinct_once_and_does_not_retry_personal_unknown(tmp_path, monkeypatch):
     store, binding, result, co, runtime, recovery, personal = linkedin_recovery(tmp_path, monkeypatch)
     ref = accepted_recovery(store, binding, result, recovery, tmp_path)
