@@ -1,0 +1,10 @@
+{
+  "request_sha256": "30d7fb14b9c15e4063776494f03e5e988282e6ef7ce55b6a5cd338240a20dec6",
+  "tool_return_sha256": "acd019f3587039ac1da78b53573508026d5bea443cb0d7ee3fac17129417abf9",
+  "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+  "dispatch_after": {
+    "status": "DISPATCH_CONFIRMED",
+    "public_object_id": "223293057",
+    "public_object_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on"
+  }
+}
