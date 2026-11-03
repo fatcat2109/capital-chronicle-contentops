@@ -1,0 +1,25 @@
+{
+  "observed_at_utc": "2026-11-03T15:37:18.976403+00:00",
+  "operation_id": "cc124-next-article-20261103-b",
+  "native_stages": {
+    "select": "ACCEPTED",
+    "media-plan": "ACCEPTED",
+    "visual-edit": "SUPPORTED_NATIVE_RESULT_RETURNED_REFINEMENT_BEFORE_SUBMIT"
+  },
+  "first_text_approval": null,
+  "admitted_source_requests": 1,
+  "source_request_limit": 10,
+  "additional_bounded_discovery_reads": [
+    {
+      "url": "https://www.sec.gov/newsroom/meetings-events/machine-understandable-data-age-super-intelligence-si",
+      "state": "NOT_ADMITTED_SOURCE_REUSE_POLICY_NOT_SUPPORTED",
+      "page_id": 158
+    }
+  ],
+  "public_write_performed": false,
+  "same_operation_cutoff_preserved": true,
+  "live_tags": [
+    "contentops-live-20261103-cc124-entry",
+    "contentops-live-20261103-cc124-facts"
+  ]
+}
