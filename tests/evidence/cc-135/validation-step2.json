@@ -1,0 +1,16 @@
+{
+  "item": "CC-135",
+  "tests": {
+    "command": "python -m pytest -q tests/test_published_content_v1.py tests/test_native_neo_executor_v1.py tests/test_event_article_guard_v1.py --junitxml=tests/evidence/cc-135/backfill-native.junit.xml",
+    "passed": 215,
+    "failed": 0,
+    "seconds": 20.86,
+    "parallel_pytest_workers": 0
+  },
+  "ruff": "PASS on all changed Python files",
+  "initial_failure": "One private-label formatting bypass was reproduced and fixed before the passing runs; initial-failure.junit.xml retains that evidence.",
+  "copied_backfill_and_consumer": "copied-backfill-compatibility.json: two exact public records, five FOMC outlets, original dates, append/repeat byte stability, source copy unchanged and CC-136 d646f03e8 consuming both seals as public reports.",
+  "consumer_isolation": "CC-136's five exact code/schema files were extracted from its pinned Git commit into this worktree's ignored task scratch. No Main working file was read as current implementation or edited.",
+  "limits": "Source integration and the live feed append remain separate from this copied-store validation; no new publication or running-service restart is claimed.",
+  "model": "gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED"
+}

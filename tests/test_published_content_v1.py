@@ -11,6 +11,7 @@ from live_contentops.event_article_guard_v1 import (
 )
 from live_contentops.published_content_v1 import (
     SCHEMA, PublishedContentError, append_record, canonical, read_records, sync_confirmed_piece,
+    article_metadata, record_from_corpus, _locked_feed,
 )
 from live_contentops.publication_coordinator_v1 import normalize_readback_result
 from test_event_article_guard_v1 import packet
@@ -242,3 +243,120 @@ def test_reviewed_artifact_cannot_change_before_publication(tmp_path):
     with pytest.raises(PublishedContentError, match="EXACT_REVIEWED_ARTICLE_HASH_REQUIRED"):
         coordinator.execute_plan("work-1", plan)
     assert not transport.publish_calls
+
+
+def test_one_identity_cannot_be_reused_for_a_different_canonical(tmp_path):
+    feed = tmp_path / "feed.jsonl"
+    append_record(feed, sealed())
+    before = feed.read_bytes()
+    with pytest.raises(PublishedContentError, match="IDENTITY_CONFLICT"):
+        append_record(feed, sealed(outlets=[{"name": "substack",
+            "url": "https://capitalchronicle.substack.com/p/another"}]))
+    assert feed.read_bytes() == before
+
+
+def test_competing_feed_lock_fails_without_a_second_append_or_wait_loop(tmp_path):
+    feed = tmp_path / "feed.jsonl"
+    with _locked_feed(feed):
+        with pytest.raises(PublishedContentError, match="PUBLISHED_FEED_BUSY"):
+            append_record(feed, sealed())
+    assert feed.read_bytes() == b""
+    append_record(feed, sealed())
+    assert len(read_records(feed)) == 1
+
+
+@pytest.mark.parametrize("condition", ["always", "none", "unconditional", "true", "no condition", "n/a"])
+def test_a_placeholder_condition_does_not_waive_the_unconditional_call_rule(condition):
+    c = {**call(), "condition": condition}
+    with pytest.raises(PublicOutputError):
+        check_publication_copy({"body": conditional_call_text(c) + " " + PUBLIC_NOTICE + " " + CONFLICTS_NOTICE},
+                               conditional_calls=[c])
+
+
+def test_backfill_on_a_copied_store_is_read_only_once_and_keeps_the_original_date(tmp_path):
+    import sqlite3
+    from scripts.backfill_published_content_v1 import backfill
+    store, _, _, _, _ = publish_with_original_clock(tmp_path)
+    copied = tmp_path / "copied.sqlite3"
+    with store.get_read_only_connection() as source, sqlite3.connect(copied) as target:
+        source.backup(target)
+    before = copied.read_bytes()
+    observations = [{"canonical_url": "https://capitalchronicle.substack.com/p/fixture-article-1",
+        "public_object_id": "substack-object-1", "published_at_utc": ORIGINAL,
+        "observation_recorded_at_utc": NOW, "observation_source": "BROWSEROS_NEO_EXACT_PUBLIC_PAGE"}]
+    output = tmp_path / "backfill.jsonl"
+    dry = backfill(copied, output, observations, now=NOW)
+    assert dry["piece_count"] == 1 and not output.exists()
+    result = backfill(copied, output, observations, now=NOW, apply=True)
+    assert result["pieces"][0]["outlet_count"] == 5
+    raw = output.read_bytes()
+    assert read_records(output)[0]["published_at_utc"] == ORIGINAL
+    assert backfill(copied, output, observations, now=NOW, apply=True)["pieces"][0]["status"] == "ALREADY_RECORDED"
+    assert copied.read_bytes() == before and output.read_bytes() == raw
+    for bad in ([{**observations[0], "public_object_id": "other"}], [],
+                [{**observations[0], "published_at_utc": "2027-01-01T00:00:00Z"}]):
+        untouched = tmp_path / "invalid.jsonl"
+        with pytest.raises(ValueError):
+            backfill(copied, untouched, bad, now=NOW, apply=True)
+        assert not untouched.exists()
+
+
+def test_discord_url_enrichment_requires_the_existing_channel_and_exact_message(tmp_path):
+    from dataclasses import replace
+    from live_contentops.published_corpus_read_model_v1 import load_published_corpus
+    store, _, _, plan, _ = publish_with_original_clock(tmp_path)
+    article = load_published_corpus(store)["articles"][0]
+    objects = tuple({**o, "public_object_url": None, "public_object_id": "333"}
+                    if o["destination"] == "discord" else o for o in article.derivative_public_objects)
+    article = replace(article, derivative_public_objects=objects)
+    metadata = article_metadata(plan)
+    row = record_from_corpus(article, metadata, published_at_utc=ORIGINAL, recorded_at_utc=NOW)
+    discord = next(o for o in row["outlets"] if o["name"] == "discord")
+    assert discord["url"] == "https://discord.com/channels/1519310996030750782/1519311669216673802/333"
+    with pytest.raises(PublishedContentError, match="URL_IDENTITY_MISMATCH"):
+        record_from_corpus(article, metadata, published_at_utc=ORIGINAL, recorded_at_utc=NOW,
+                          outlet_urls={"discord": discord["url"][:-3] + "999"})
+
+
+def test_new_native_requests_ask_for_original_time_and_historical_hashes_stay_unchanged():
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    from test_native_neo_executor_v1 import intent
+    adapter = NeoDestinationHandoff()
+    value = intent()
+    def request(v):
+        return adapter.request(destination="substack", action="READBACK", intent=v,
+            public_object_id="123", public_object_url="https://capitalchronicle.substack.com/p/test")
+    before = request(value)
+    after = request({**value, "published_content_export": SCHEMA})
+    assert "publication_clock_readback" not in before
+    assert "published_at_utc" in after["publication_clock_readback"]
+    assert request(value) == before
+
+
+def test_historical_intents_and_published_copy_remain_readback_only_without_a_new_notice(tmp_path):
+    _, transport, coordinator, plan, _, _ = lifecycle(tmp_path, body="Historical general analysis.")
+    coordinator.published_content_path = None
+    coordinator.execute_plan("work-1", plan)
+    before = [r["payload"] for r in coordinator.store.list_outbox_messages()]
+    calls = list(transport.publish_calls)
+    coordinator.published_content_path = tmp_path / "legacy-feed.jsonl"
+    coordinator.execute_plan("work-1", plan)
+    assert [r["payload"] for r in coordinator.store.list_outbox_messages()] == before
+    assert transport.publish_calls == calls
+
+
+def test_postwrite_export_error_is_reported_without_another_public_send(tmp_path, monkeypatch):
+    import live_contentops.published_content_v1 as feed_module
+    _, transport, coordinator, plan, _ = publish_with_original_clock(tmp_path)
+    coordinator.published_content_path.unlink()
+    calls = list(transport.publish_calls)
+    with monkeypatch.context() as patch:
+        def no_space(*_args):
+            raise OSError("private path must not be printed")
+        patch.setattr(feed_module, "append_record", no_space)
+        result = coordinator.execute_plan("work-1", plan)
+        assert result["published_content_record"] == {"status": "PUBLICATION_RECORD_PENDING", "cause": "OSError"}
+    assert transport.publish_calls == calls
+    repaired = coordinator.execute_plan("work-1", plan)
+    assert repaired["published_content_record"]["status"] == "APPENDED"
+    assert transport.publish_calls == calls

@@ -12,6 +12,7 @@ Each compact UTF-8 JSON line contains `content_id`, `type`, `title`, `standfirst
 notice and any required conflicts notice. Types are ARTICLE, EVENT_PREVIEW,
 EVENT_REVIEW and DESK_NOTE. A missing explicit event identity remains null;
 titles never invent one. The original retrospective FOMC piece remains ARTICLE.
+The export's analysis notice is metadata; backfill does not edit historical posts.
 
 `content_sha256` is the SHA-256 of all other fields serialized with sorted keys,
 compact separators, UTF-8, `ensure_ascii=False`, and `allow_nan=False`. This is

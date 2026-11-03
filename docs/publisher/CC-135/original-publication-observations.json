@@ -3,7 +3,8 @@
     "canonical_url": "https://capitalchronicle.substack.com/p/firstsquawk-citing-the-wall-street",
     "public_object_id": "222368666",
     "published_at_utc": "2026-10-27T16:58:34.114Z",
-    "observed_at_utc": "2026-11-02T23:56:05Z",
+    "observation_recorded_at_utc": "2026-11-02T23:56:05Z",
+    "observation_clock_basis": "Recorded after the tool return; exact browser-call clock was not supplied.",
     "observation_source": "BROWSEROS_NEO_EXACT_PUBLIC_PAGE",
     "clock_surface": "time[datetime], corroborated by public NewsArticle datePublished",
     "outlet_urls": {
@@ -15,7 +16,8 @@
     "canonical_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
     "public_object_id": "223199520",
     "published_at_utc": "2026-11-02T17:35:07.590Z",
-    "observed_at_utc": "2026-11-02T23:56:05Z",
+    "observation_recorded_at_utc": "2026-11-02T23:56:05Z",
+    "observation_clock_basis": "Recorded after the tool return; exact browser-call clock was not supplied.",
     "observation_source": "BROWSEROS_NEO_EXACT_PUBLIC_PAGE",
     "clock_surface": "time[datetime], public post_date, corroborated by public NewsArticle datePublished",
     "outlet_urls": {

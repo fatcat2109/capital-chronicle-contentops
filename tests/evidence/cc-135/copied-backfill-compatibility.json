@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "copied_store_sha256": "20b0e5597f7b272b5682bd3d2834520364380532b46aeb0b5cc45c84d1dedc80",
+  "copied_store_unchanged": true,
+  "feed_sha256": "f3fd8e43cfaa80dd79a60798a9f83294cb66c812f1708df900bc6f56f8cc7b25",
+  "record_count": 2,
+  "first": {
+    "status": "BACKFILL_APPLIED",
+    "pieces": [
+      {
+        "status": "APPENDED",
+        "content_id": "substack:222368666",
+        "content_sha256": "5c69337121f4e2d011ba6245ef820d6ba9bae3cbce151cf2f5d575bf749bc8fe",
+        "outlet_count": 10
+      },
+      {
+        "status": "APPENDED",
+        "content_id": "substack:223199520",
+        "content_sha256": "04ab68f850a177bfbeab89e44c16fcec2877e08bcc8fbf4f77703d6dc671c7e2",
+        "outlet_count": 5
+      }
+    ],
+    "piece_count": 2,
+    "feed_sha256": "f3fd8e43cfaa80dd79a60798a9f83294cb66c812f1708df900bc6f56f8cc7b25",
+    "source_store_access": "SQLITE_MODE_RO_QUERY_ONLY",
+    "provider_writes": 0,
+    "recorded_at_utc": "2026-11-03T00:04:47.456113+00:00"
+  },
+  "repeat": {
+    "status": "BACKFILL_APPLIED",
+    "pieces": [
+      {
+        "status": "ALREADY_RECORDED",
+        "content_id": "substack:222368666",
+        "content_sha256": "5c69337121f4e2d011ba6245ef820d6ba9bae3cbce151cf2f5d575bf749bc8fe",
+        "outlet_count": 10
+      },
+      {
+        "status": "ALREADY_RECORDED",
+        "content_id": "substack:223199520",
+        "content_sha256": "04ab68f850a177bfbeab89e44c16fcec2877e08bcc8fbf4f77703d6dc671c7e2",
+        "outlet_count": 5
+      }
+    ],
+    "piece_count": 2,
+    "feed_sha256": "f3fd8e43cfaa80dd79a60798a9f83294cb66c812f1708df900bc6f56f8cc7b25",
+    "source_store_access": "SQLITE_MODE_RO_QUERY_ONLY",
+    "provider_writes": 0,
+    "recorded_at_utc": "2026-11-03T00:04:47.636951+00:00"
+  },
+  "consumer_commit": "d646f03e80915c5f4ade921d4d29870757b39204",
+  "consumer_files_sha256": {
+    "tools/product/desk_record_published_reports_v1.py": "32744e14faadfa4378de25eaf182bfb98b4b98d347a03d56bf6d21d3c9f5ca66",
+    "tools/product/desk_record_export_v1.py": "824cdb8bdb1cd1777c47b84043ec907e0b0c08a1f73698358a48594a9d939947",
+    "tools/product/desk_record_projection_v1.py": "79be7f3e77534fc3af27bf85756dc07c39bc31bbc4b85b0ae383630557d794c3",
+    "schemas/publication/CapitalChronicleDeskRecordExportV1.schema.json": "7df0e9f2d8e30d397f1dd1d39a4de1f7d3e044845d0aaf4ad32d3b574d1cb95b",
+    "schemas/publication/CapitalChronicleDeskRecordExportV1_1.schema.json": "1b01ac7cb4c0cc60e195c6c8031356350efba497cc1f49c0ba438435918dd918"
+  },
+  "consumer_public_reports": 2,
+  "fomc_confirmed_outlet_count": 5,
+  "live_store_access": "SQLITE_MODE_RO_QUERY_ONLY",
+  "provider_writes": 0,
+  "live_feed_written": false,
+  "checked_at_utc": "2026-11-03T00:04:48.340877+00:00"
+}

@@ -25,6 +25,9 @@ PRODUCTION_STORE = RUNTIME_ROOT / "contentops_daily_app_v1.sqlite3"
 DEFAULT_FEED = RUNTIME_ROOT / "published_content_v1.jsonl"
 TYPES = frozenset({"ARTICLE", "EVENT_PREVIEW", "EVENT_REVIEW", "DESK_NOTE"})
 PUBLIC_RIGHTS = frozenset({"CC_OWN_ANALYSIS", "PUBLIC_FACT_IDENTITY"})
+# Public link metadata observed through the existing webhook GET on 3 Nov 2026.
+# The registry still owns the channel identity; a changed channel fails closed.
+DISCORD_LINK_PREFIX = "https://discord.com/channels/1519310996030750782/1519311669216673802/"
 KEYS = {"schema_version", "content_id", "type", "title", "standfirst", "published_at_utc",
         "recorded_at_utc", "outlets", "event_id", "conditional_calls", "rights_class",
         "visibility", "disclaimer", "conflicts_notice", "content_sha256"}
@@ -79,7 +82,8 @@ def _https(value):
 
 def validate_record(row):
     if (not isinstance(row, dict) or set(row) != KEYS
-            or row.get("schema_version") != SCHEMA or row.get("type") not in TYPES):
+            or row.get("schema_version") != SCHEMA or not isinstance(row.get("type"), str)
+            or row["type"] not in TYPES):
         raise PublishedContentError("PUBLICATION_RECORD_SCHEMA_INVALID")
     for key in ("content_id", "title", "standfirst", "rights_class"):
         if not isinstance(row[key], str) or not row[key].strip():
@@ -174,7 +178,7 @@ def append_record(path, row):
                 # Outlets are a first-recording snapshot. Later recovery never
                 # rewrites it, or pretends a new outlet was in the original seal.
                 ignore = {"outlets", "recorded_at_utc", "content_sha256"}
-                if {k: v for k, v in prior.items() if k not in ignore} != {
+                if prior_url != url or {k: v for k, v in prior.items() if k not in ignore} != {
                         k: v for k, v in row.items() if k not in ignore}:
                     raise PublishedContentError("SEALED_PUBLICATION_IDENTITY_CONFLICT")
                 return {"status": "ALREADY_RECORDED", "content_id": prior["content_id"],
@@ -193,13 +197,14 @@ def article_metadata(plan, *, require_notice=True):
     """Use the exact reviewed compiler artifact, never a model-authored export."""
     root = Path(plan.get("output_dir") or "")
     article = load_json((root / "article_manifest_v1.json").read_bytes())
+    event = article.get("event_article_packet") or {}
+    calls = article.get("conditional_calls", event.get("conditional_calls", []))
     from live_contentops.v1_simple_gemini_newsroom_v1 import _public_copy
     if sha256(_public_copy(article).encode()).hexdigest() != plan.get("article_content_sha256"):
         raise PublishedContentError("EXACT_REVIEWED_ARTICLE_HASH_REQUIRED")
     check_publication_copy({"title": article.get("title"), "standfirst": article.get("dek"),
                             "body": article.get("substack_body_markdown")},
-                           conditional_calls=article.get("conditional_calls", []), require_notice=require_notice)
-    event = article.get("event_article_packet") or {}
+                           conditional_calls=calls, require_notice=require_notice)
     kind = article.get("article_type") or event.get("article_type") or "ARTICLE"
     if kind not in TYPES:
         raise PublishedContentError("PUBLICATION_TYPE_INVALID")
@@ -207,13 +212,13 @@ def article_metadata(plan, *, require_notice=True):
     if rights is None and article.get("author_identity") == article.get("publisher_identity") == "Capital Chronicle":
         # Rights to CC's original prose, not a new licence to any source series.
         rights = "CC_OWN_ANALYSIS"
-    if rights not in PUBLIC_RIGHTS:
+    if not isinstance(rights, str) or rights not in PUBLIC_RIGHTS:
         raise PublishedContentError("PUBLIC_REUSE_RIGHTS_NOT_ADMITTED")
     from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE
     return {"type": kind, "title": article["title"], "standfirst": article.get("dek") or article.get("subtitle"),
             "event_id": article.get("event_id") or event.get("event_id"),
-            "conditional_calls": article.get("conditional_calls", []), "rights_class": rights,
-            "disclaimer": PUBLIC_NOTICE, "conflicts_notice": CONFLICTS_NOTICE if article.get("conditional_calls") else None}
+            "conditional_calls": calls, "rights_class": rights,
+            "disclaimer": PUBLIC_NOTICE, "conflicts_notice": CONFLICTS_NOTICE if calls else None}
 
 
 def record_from_corpus(article, metadata, *, published_at_utc, recorded_at_utc, outlet_urls=None):
@@ -225,6 +230,14 @@ def record_from_corpus(article, metadata, *, published_at_utc, recorded_at_utc, 
     for obj in article.derivative_public_objects:
         name = obj["destination"]
         url = obj["public_object_url"] or (outlet_urls or {}).get(name)
+        if not obj["public_object_url"] and name == "discord":
+            from live_contentops.destination_transport_registry_v1 import registration_for_destination
+            channel = registration_for_destination("discord").expected_stable_id
+            prefix = DISCORD_LINK_PREFIX if f"/{channel}/" in DISCORD_LINK_PREFIX else None
+            expected = prefix + obj["public_object_id"] if prefix and str(obj["public_object_id"]).isdigit() else None
+            if url and url != expected:
+                raise PublishedContentError("CONFIRMED_OUTLET_URL_IDENTITY_MISMATCH")
+            url = expected
         if not url:
             raise PublishedContentError("CONFIRMED_OUTLET_URL_REQUIRED:" + name)
         outlets.append({"name": name, "url": url})

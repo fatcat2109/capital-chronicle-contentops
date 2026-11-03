@@ -1360,7 +1360,7 @@ class DurablePublicationCoordinator:
     def register_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         if self.published_content_path is not None:
             from live_contentops.published_content_v1 import article_metadata, read_records
-            article_metadata(plan)
+            article_metadata(plan, require_notice=False)
             if self.published_content_path.exists():
                 read_records(self.published_content_path)
         if str(plan.get("transport_registry_version") or "") != REGISTRY_VERSION:
@@ -2227,7 +2227,7 @@ class DurablePublicationCoordinator:
             try:
                 result["published_content_record"] = sync_confirmed_piece(self.store,
                     self.published_content_path, work_item_id, recorded_at_utc=self._clock().isoformat())
-            except (ValueError, OSError) as exc:
+            except (ValueError, OSError, KeyError, TypeError) as exc:
                 # A post-write export failure must never cause another public send.
                 result["published_content_record"] = {"status": "PUBLICATION_RECORD_PENDING",
                     "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__}
