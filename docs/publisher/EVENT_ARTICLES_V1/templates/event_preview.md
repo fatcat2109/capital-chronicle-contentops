@@ -49,5 +49,7 @@ input only; this source-led event work does not manufacture an X/filter stage.
 
 Run the CC-107 public-output guard on the complete copy and each changed derivative.
 A passing guard supplies no rights decision, media acceptance or publication grant.
-Decision 36 supplies the standing yes after Ops review. Decision 42 requires web-only
-delivery and a factual visual. Reuse the sole canonical-first publisher and exact readback.
+Decision 36 supplies the standing yes after Ops review. Decision 42 requires a factual
+visual. Later decision 48 and Ops's 3 November 13:04 GMT+7 instruction make Substack
+drafts only, with no Publish or Update, mailbox access or code entry. Site and social
+delivery proceeds independently through the existing publication owner.

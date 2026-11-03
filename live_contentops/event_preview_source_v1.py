@@ -167,3 +167,43 @@ def public_preview_chart_rights_bound(document):
     raw = FROZEN_PREVIEW.read_bytes()
     return (rights.get("source_capture_sha256") == sha256(raw).hexdigest()
             and document.get("canonical_content_text") == raw.decode("utf-8"))
+
+
+def validate_native_event_preview(governed, output):
+    """Bind the guarded event packet to the canonical copy before native acceptance."""
+    evidence = governed.get("public_event_evidence")
+    if evidence is None:
+        return None
+    from live_contentops.event_article_guard_v1 import (
+        _NUMBER, _display_text, _strings, check_public_event_article, check_publication_copy,
+    )
+    article = output.get("article", {})
+    event = article.get("event_article")
+    if not isinstance(event, dict) or article.get("article_type") != "EVENT_PREVIEW":
+        raise ValueError("NATIVE_EVENT_PREVIEW_PACKET_REQUIRED")
+    if (event.get("event_time_utc") != "2026-11-03T23:00:00Z"
+            or event.get("cutoff_utc") != governed["cutoff_utc"]
+            or event.get("article_type") != "EVENT_PREVIEW"):
+        raise ValueError("NATIVE_EVENT_PREVIEW_FROZEN_CLOCK_REQUIRED")
+    checked = check_public_event_article(event, evidence=evidence)
+    copy = event["copy"]
+    if copy["headline"] != article.get("title") or copy["dek"] != article.get("dek"):
+        raise ValueError("NATIVE_EVENT_CANONICAL_COPY_CHANGED")
+    body = re.sub(r"\[\[SOURCE:SOURCE_\d+\]\]", "", article.get("substack_body_markdown", ""))
+    def compact(text):
+        return re.sub(r"\s+", " ", text).strip()
+    for path, text in _strings(copy):
+        if path not in {"copy.headline", "copy.dek"} and compact(text) not in compact(body):
+            raise ValueError("NATIVE_EVENT_CANONICAL_SECTION_MISSING")
+    visible = {key: article.get(key, "") for key in (
+        "title", "dek", "search_title", "meta_description", "social_hook",
+        "social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary",
+    )}
+    visible["body"] = body
+    check_publication_copy(visible, conditional_calls=event.get("conditional_calls", []))
+    allowed = {_display_text(f["display"]) for f in evidence["facts"].values()}
+    for text in visible.values():
+        for match in _NUMBER.finditer(text):
+            if _display_text(match.group()) not in allowed:
+                raise ValueError("NATIVE_EVENT_CANONICAL_NUMBER_UNBOUND")
+    return checked

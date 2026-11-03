@@ -59,6 +59,9 @@ open a store or contact a model, browser, account or platform. Exit zero means t
 bounded copy guard passed. Exit two means refusal. PASS always has
 `publication_authority: false`, `jim_approval_required: true` and
 `final_native_render_review_required: true`. No input can waive those boundaries.
+The legacy `jim_approval_required` field means the checker cannot grant authority;
+decision 36 already supplies the standing yes after Ops review. It does not require
+another per-article question to Jim.
 
 The article has `schema_version: contentops.event_article.v1`, `article_type`,
 `event_id`, `event_time_utc`, `cutoff_utc`, `written_at_utc`, `copy` and
@@ -106,9 +109,10 @@ The caller and final native review still own factual meaning, source selection,
 uncertainty, complete scenario coverage and correct attribution. A deterministic
 privacy/span guard does not certify arbitrary prose semantics, chart quality, or an
 actual source's legal terms. Re-run it on changed copy and derivatives with their
-own exact spans. When this type is wired into the live native path, Ops must connect
-the same guard and Jim's exact approval at the existing review/publisher boundary;
-this isolated engineering utility is not already that deployment.
+own exact spans. The exact midterm native write/repair submit gate now validates
+`article.event_article` against the request's code-owned evidence, binds its sections
+to the canonical text, and refuses unsupported extra canonical numbers or private
+copy before storing an accepted return. The checker itself never supplies authority.
 
 ## Draft inputs and continuation
 

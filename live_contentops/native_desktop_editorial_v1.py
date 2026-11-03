@@ -1100,6 +1100,10 @@ class NativeDesktopTurn:
         else:
             from live_contentops.v1_simple_gemini_newsroom_v1 import _validate_worker_text
             ok, _, _, reason = _validate_worker_text(json.dumps(response["output"]))
+            if ok and stage in {"write", "revise"}:
+                from live_contentops.event_preview_source_v1 import validate_native_event_preview
+                original = self._get("write", "request") if stage == "revise" else request
+                validate_native_event_preview(original["governed_input"], response["output"])
         if not ok:
             raise ValueError("NATIVE_DESKTOP_RETURN_SCHEMA:" + str(reason))
         value = {
