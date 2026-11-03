@@ -1,0 +1,1537 @@
+{
+  "schema_version": "contentops.event_article_evidence.v1",
+  "event_id": "US_MIDTERMS_20261103",
+  "facts": {
+    "preview-number-0": {
+      "display": "23",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        86,
+        88
+      ],
+      "source_excerpt": "# US midterms: what markets and polls expect, and what each result could mean\n\n*As of 23:20 UTC on 2 November 2026 (6:20 p.m. ET). This is general market analysis, not personal investment "
+    },
+    "preview-number-1": {
+      "display": "20",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        89,
+        91
+      ],
+      "source_excerpt": "# US midterms: what markets and polls expect, and what each result could mean\n\n*As of 23:20 UTC on 2 November 2026 (6:20 p.m. ET). This is general market analysis, not personal investment adv"
+    },
+    "preview-number-2": {
+      "display": "20",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        89,
+        92
+      ],
+      "source_excerpt": "# US midterms: what markets and polls expect, and what each result could mean\n\n*As of 23:20 UTC on 2 November 2026 (6:20 p.m. ET). This is general market analysis, not personal investment advi"
+    },
+    "preview-number-3": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        99,
+        100
+      ],
+      "source_excerpt": "# US midterms: what markets and polls expect, and what each result could mean\n\n*As of 23:20 UTC on 2 November 2026 (6:20 p.m. ET). This is general market analysis, not personal investment advice.*\n\nAm"
+    },
+    "preview-number-4": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        99,
+        101
+      ],
+      "source_excerpt": "# US midterms: what markets and polls expect, and what each result could mean\n\n*As of 23:20 UTC on 2 November 2026 (6:20 p.m. ET). This is general market analysis, not personal investment advice.*\n\nAme"
+    },
+    "preview-number-5": {
+      "display": "2026",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        110,
+        114
+      ],
+      "source_excerpt": "rms: what markets and polls expect, and what each result could mean\n\n*As of 23:20 UTC on 2 November 2026 (6:20 p.m. ET). This is general market analysis, not personal investment advice.*\n\nAmericans vote o"
+    },
+    "preview-number-6": {
+      "display": "2026",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        110,
+        115
+      ],
+      "source_excerpt": "rms: what markets and polls expect, and what each result could mean\n\n*As of 23:20 UTC on 2 November 2026 (6:20 p.m. ET). This is general market analysis, not personal investment advice.*\n\nAmericans vote on"
+    },
+    "preview-number-7": {
+      "display": "6",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        116,
+        117
+      ],
+      "source_excerpt": "hat markets and polls expect, and what each result could mean\n\n*As of 23:20 UTC on 2 November 2026 (6:20 p.m. ET). This is general market analysis, not personal investment advice.*\n\nAmericans vote on T"
+    },
+    "preview-number-8": {
+      "display": "20",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        118,
+        120
+      ],
+      "source_excerpt": "t markets and polls expect, and what each result could mean\n\n*As of 23:20 UTC on 2 November 2026 (6:20 p.m. ET). This is general market analysis, not personal investment advice.*\n\nAmericans vote on Tues"
+    },
+    "preview-number-9": {
+      "display": "20",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        118,
+        121
+      ],
+      "source_excerpt": "t markets and polls expect, and what each result could mean\n\n*As of 23:20 UTC on 2 November 2026 (6:20 p.m. ET). This is general market analysis, not personal investment advice.*\n\nAmericans vote on Tuesd"
+    },
+    "preview-number-10": {
+      "display": "3",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        224,
+        225
+      ],
+      "source_excerpt": ". ET). This is general market analysis, not personal investment advice.*\n\nAmericans vote on Tuesday 3 November for all 435 House seats, 35 Senate seats and most governors. Republicans hold both chamber"
+    },
+    "preview-number-11": {
+      "display": "3",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        224,
+        226
+      ],
+      "source_excerpt": ". ET). This is general market analysis, not personal investment advice.*\n\nAmericans vote on Tuesday 3 November for all 435 House seats, 35 Senate seats and most governors. Republicans hold both chambers"
+    },
+    "preview-number-12": {
+      "display": "435",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        243,
+        246
+      ],
+      "source_excerpt": "ral market analysis, not personal investment advice.*\n\nAmericans vote on Tuesday 3 November for all 435 House seats, 35 Senate seats and most governors. Republicans hold both chambers: Democrats need a n"
+    },
+    "preview-number-13": {
+      "display": "435",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        243,
+        247
+      ],
+      "source_excerpt": "ral market analysis, not personal investment advice.*\n\nAmericans vote on Tuesday 3 November for all 435 House seats, 35 Senate seats and most governors. Republicans hold both chambers: Democrats need a ne"
+    },
+    "preview-number-14": {
+      "display": "35",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        260,
+        262
+      ],
+      "source_excerpt": "is, not personal investment advice.*\n\nAmericans vote on Tuesday 3 November for all 435 House seats, 35 Senate seats and most governors. Republicans hold both chambers: Democrats need a net gain of four "
+    },
+    "preview-number-15": {
+      "display": "35",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        260,
+        263
+      ],
+      "source_excerpt": "is, not personal investment advice.*\n\nAmericans vote on Tuesday 3 November for all 435 House seats, 35 Senate seats and most governors. Republicans hold both chambers: Democrats need a net gain of four S"
+    },
+    "preview-number-16": {
+      "display": "53",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        389,
+        391
+      ],
+      "source_excerpt": "rnors. Republicans hold both chambers: Democrats need a net gain of four Senate seats (the split is 53-47) and three House seats (Election Central, 2 November).\n\n## What is expected\n\nPrediction markets "
+    },
+    "preview-number-17": {
+      "display": "-47",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        391,
+        394
+      ],
+      "source_excerpt": "ors. Republicans hold both chambers: Democrats need a net gain of four Senate seats (the split is 53-47) and three House seats (Election Central, 2 November).\n\n## What is expected\n\nPrediction markets str"
+    },
+    "preview-number-18": {
+      "display": "47",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        392,
+        394
+      ],
+      "source_excerpt": "rs. Republicans hold both chambers: Democrats need a net gain of four Senate seats (the split is 53-47) and three House seats (Election Central, 2 November).\n\n## What is expected\n\nPrediction markets str"
+    },
+    "preview-number-19": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        437,
+        438
+      ],
+      "source_excerpt": " need a net gain of four Senate seats (the split is 53-47) and three House seats (Election Central, 2 November).\n\n## What is expected\n\nPrediction markets strongly favour Democrats to win the House. The"
+    },
+    "preview-number-20": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        437,
+        439
+      ],
+      "source_excerpt": " need a net gain of four Senate seats (the split is 53-47) and three House seats (Election Central, 2 November).\n\n## What is expected\n\nPrediction markets strongly favour Democrats to win the House. They"
+    },
+    "preview-number-21": {
+      "display": "8.9",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1044,
+        1047
+      ],
+      "source_excerpt": "inal days.\n\nPolls point the same way. The Silver Bulletin generic-ballot average gives Democrats an 8.9-point lead (updated 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-"
+    },
+    "preview-number-22": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1068,
+        1069
+      ],
+      "source_excerpt": "the same way. The Silver Bulletin generic-ballot average gives Democrats an 8.9-point lead (updated 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 "
+    },
+    "preview-number-23": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1068,
+        1070
+      ],
+      "source_excerpt": "the same way. The Silver Bulletin generic-ballot average gives Democrats an 8.9-point lead (updated 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 N"
+    },
+    "preview-number-24": {
+      "display": "51.1%",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1108,
+        1113
+      ],
+      "source_excerpt": "c-ballot average gives Democrats an 8.9-point lead (updated 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 November). Some are less sure about the Sena"
+    },
+    "preview-number-25": {
+      "display": "42.8%",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1133,
+        1138
+      ],
+      "source_excerpt": "mocrats an 8.9-point lead (updated 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 November). Some are less sure about the Senate: Wolfe Research's own "
+    },
+    "preview-number-26": {
+      "display": "8.3",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1143,
+        1146
+      ],
+      "source_excerpt": " 8.9-point lead (updated 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 November). Some are less sure about the Senate: Wolfe Research's own estimate"
+    },
+    "preview-number-27": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1167,
+        1168
+      ],
+      "source_excerpt": " 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 November). Some are less sure about the Senate: Wolfe Research's own estimate put Democratic contro"
+    },
+    "preview-number-28": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1167,
+        1169
+      ],
+      "source_excerpt": " 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 November). Some are less sure about the Senate: Wolfe Research's own estimate put Democratic control"
+    },
+    "preview-number-29": {
+      "display": "49%",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1273,
+        1276
+      ],
+      "source_excerpt": "mber). Some are less sure about the Senate: Wolfe Research's own estimate put Democratic control at 49% (CNBC, 30 October).\n\n## When we will know\n\nThe first polls close at 23:00 UTC (6 p.m. ET). Most Sen"
+    },
+    "preview-number-30": {
+      "display": "30",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1284,
+        1286
+      ],
+      "source_excerpt": " are less sure about the Senate: Wolfe Research's own estimate put Democratic control at 49% (CNBC, 30 October).\n\n## When we will know\n\nThe first polls close at 23:00 UTC (6 p.m. ET). Most Senate battle"
+    },
+    "preview-number-31": {
+      "display": "30",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1284,
+        1287
+      ],
+      "source_excerpt": " are less sure about the Senate: Wolfe Research's own estimate put Democratic control at 49% (CNBC, 30 October).\n\n## When we will know\n\nThe first polls close at 23:00 UTC (6 p.m. ET). Most Senate battleg"
+    },
+    "preview-number-32": {
+      "display": "23",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1345,
+        1347
+      ],
+      "source_excerpt": "e put Democratic control at 49% (CNBC, 30 October).\n\n## When we will know\n\nThe first polls close at 23:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:0"
+    },
+    "preview-number-33": {
+      "display": "00",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1348,
+        1350
+      ],
+      "source_excerpt": "ut Democratic control at 49% (CNBC, 30 October).\n\n## When we will know\n\nThe first polls close at 23:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 U"
+    },
+    "preview-number-34": {
+      "display": "00",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1348,
+        1351
+      ],
+      "source_excerpt": "ut Democratic control at 49% (CNBC, 30 October).\n\n## When we will know\n\nThe first polls close at 23:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UT"
+    },
+    "preview-number-35": {
+      "display": "6",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1356,
+        1357
+      ],
+      "source_excerpt": "ratic control at 49% (CNBC, 30 October).\n\n## When we will know\n\nThe first polls close at 23:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and "
+    },
+    "preview-number-36": {
+      "display": "6",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1356,
+        1358
+      ],
+      "source_excerpt": "ratic control at 49% (CNBC, 30 October).\n\n## When we will know\n\nThe first polls close at 23:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and t"
+    },
+    "preview-number-37": {
+      "display": "00",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1408,
+        1410
+      ],
+      "source_excerpt": " will know\n\nThe first polls close at 23:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, "
+    },
+    "preview-number-38": {
+      "display": "30",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1411,
+        1413
+      ],
+      "source_excerpt": "ll know\n\nThe first polls close at 23:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, net"
+    },
+    "preview-number-39": {
+      "display": "30",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1411,
+        1414
+      ],
+      "source_excerpt": "ll know\n\nThe first polls close at 23:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, netw"
+    },
+    "preview-number-40": {
+      "display": "02",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1418,
+        1420
+      ],
+      "source_excerpt": "\n\nThe first polls close at 23:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, networks c"
+    },
+    "preview-number-41": {
+      "display": "00",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1421,
+        1423
+      ],
+      "source_excerpt": "he first polls close at 23:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, networks call"
+    },
+    "preview-number-42": {
+      "display": "00",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1421,
+        1424
+      ],
+      "source_excerpt": "he first polls close at 23:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, networks calle"
+    },
+    "preview-number-43": {
+      "display": "04",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1443,
+        1445
+      ],
+      "source_excerpt": "t 23:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, networks called the House at roughl"
+    },
+    "preview-number-44": {
+      "display": "00",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1446,
+        1448
+      ],
+      "source_excerpt": "3:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, networks called the House at roughly 1"
+    },
+    "preview-number-45": {
+      "display": "00",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1446,
+        1449
+      ],
+      "source_excerpt": "3:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, networks called the House at roughly 10"
+    },
+    "preview-number-46": {
+      "display": "06",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1479,
+        1481
+      ],
+      "source_excerpt": " battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, networks called the House at roughly 10 p.m. ET. Some races could take "
+    },
+    "preview-number-47": {
+      "display": "00",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1482,
+        1484
+      ],
+      "source_excerpt": "ttlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, networks called the House at roughly 10 p.m. ET. Some races could take far"
+    },
+    "preview-number-48": {
+      "display": "00",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1482,
+        1485
+      ],
+      "source_excerpt": "ttlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, networks called the House at roughly 10 p.m. ET. Some races could take far "
+    },
+    "preview-number-49": {
+      "display": "270",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1490,
+        1493
+      ],
+      "source_excerpt": "nds close between 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, networks called the House at roughly 10 p.m. ET. Some races could take far longer: "
+    },
+    "preview-number-50": {
+      "display": "2018",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1504,
+        1508
+      ],
+      "source_excerpt": "een 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, networks called the House at roughly 10 p.m. ET. Some races could take far longer: Alaska expects "
+    },
+    "preview-number-51": {
+      "display": "10",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1547,
+        1549
+      ],
+      "source_excerpt": "0 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, networks called the House at roughly 10 p.m. ET. Some races could take far longer: Alaska expects final ranked-choice results by 18 Novembe"
+    },
+    "preview-number-52": {
+      "display": "10",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1547,
+        1550
+      ],
+      "source_excerpt": "0 UTC and the last of Alaska at 06:00 UTC (270toWin). In 2018, networks called the House at roughly 10 p.m. ET. Some races could take far longer: Alaska expects final ranked-choice results by 18 November"
+    },
+    "preview-number-53": {
+      "display": "18",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1639,
+        1641
+      ],
+      "source_excerpt": "roughly 10 p.m. ET. Some races could take far longer: Alaska expects final ranked-choice results by 18 November (Newsweek), Maine has usually known a ranked-choice result the week after, and California "
+    },
+    "preview-number-54": {
+      "display": "18",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1639,
+        1642
+      ],
+      "source_excerpt": "roughly 10 p.m. ET. Some races could take far longer: Alaska expects final ranked-choice results by 18 November (Newsweek), Maine has usually known a ranked-choice result the week after, and California c"
+    },
+    "preview-number-55": {
+      "display": "29",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1966,
+        1968
+      ],
+      "source_excerpt": "ol could stay unknown for days.\n\n## How much the vote is priced\n\nNot much, by options standards. On 29 October, S&P 500 options priced a move of about 1.3% in either direction by Wednesday's close, whic"
+    },
+    "preview-number-56": {
+      "display": "29",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1966,
+        1969
+      ],
+      "source_excerpt": "ol could stay unknown for days.\n\n## How much the vote is priced\n\nNot much, by options standards. On 29 October, S&P 500 options priced a move of about 1.3% in either direction by Wednesday's close, which"
+    },
+    "preview-number-57": {
+      "display": "500",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1982,
+        1985
+      ],
+      "source_excerpt": "known for days.\n\n## How much the vote is priced\n\nNot much, by options standards. On 29 October, S&P 500 options priced a move of about 1.3% in either direction by Wednesday's close, which Saxo described "
+    },
+    "preview-number-58": {
+      "display": "500",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        1982,
+        1986
+      ],
+      "source_excerpt": "known for days.\n\n## How much the vote is priced\n\nNot much, by options standards. On 29 October, S&P 500 options priced a move of about 1.3% in either direction by Wednesday's close, which Saxo described a"
+    },
+    "preview-number-59": {
+      "display": "1.3%",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2017,
+        2021
+      ],
+      "source_excerpt": "te is priced\n\nNot much, by options standards. On 29 October, S&P 500 options priced a move of about 1.3% in either direction by Wednesday's close, which Saxo described as little more than an ordinary day."
+    },
+    "preview-number-60": {
+      "display": "1990",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2128,
+        2132
+      ],
+      "source_excerpt": "her direction by Wednesday's close, which Saxo described as little more than an ordinary day. Since 1990 the index has usually moved less than 1% the day after a midterm, but about 2% after both 2018 and "
+    },
+    "preview-number-61": {
+      "display": "1990",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2128,
+        2133
+      ],
+      "source_excerpt": "her direction by Wednesday's close, which Saxo described as little more than an ordinary day. Since 1990 the index has usually moved less than 1% the day after a midterm, but about 2% after both 2018 and 2"
+    },
+    "preview-number-62": {
+      "display": "1%",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2171,
+        2173
+      ],
+      "source_excerpt": "axo described as little more than an ordinary day. Since 1990 the index has usually moved less than 1% the day after a midterm, but about 2% after both 2018 and 2022 (Saxo, 30 October).\n\nThe backdrop ma"
+    },
+    "preview-number-63": {
+      "display": "2%",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2209,
+        2211
+      ],
+      "source_excerpt": "rdinary day. Since 1990 the index has usually moved less than 1% the day after a midterm, but about 2% after both 2018 and 2022 (Saxo, 30 October).\n\nThe backdrop may matter as much as the vote. The Fede"
+    },
+    "preview-number-64": {
+      "display": "2018",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2223,
+        2227
+      ],
+      "source_excerpt": "ince 1990 the index has usually moved less than 1% the day after a midterm, but about 2% after both 2018 and 2022 (Saxo, 30 October).\n\nThe backdrop may matter as much as the vote. The Federal Reserve held"
+    },
+    "preview-number-65": {
+      "display": "2018",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2223,
+        2228
+      ],
+      "source_excerpt": "ince 1990 the index has usually moved less than 1% the day after a midterm, but about 2% after both 2018 and 2022 (Saxo, 30 October).\n\nThe backdrop may matter as much as the vote. The Federal Reserve held "
+    },
+    "preview-number-66": {
+      "display": "2022",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2232,
+        2236
+      ],
+      "source_excerpt": " the index has usually moved less than 1% the day after a midterm, but about 2% after both 2018 and 2022 (Saxo, 30 October).\n\nThe backdrop may matter as much as the vote. The Federal Reserve held rates at"
+    },
+    "preview-number-67": {
+      "display": "2022",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2232,
+        2237
+      ],
+      "source_excerpt": " the index has usually moved less than 1% the day after a midterm, but about 2% after both 2018 and 2022 (Saxo, 30 October).\n\nThe backdrop may matter as much as the vote. The Federal Reserve held rates at "
+    },
+    "preview-number-68": {
+      "display": "30",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2244,
+        2246
+      ],
+      "source_excerpt": "as usually moved less than 1% the day after a midterm, but about 2% after both 2018 and 2022 (Saxo, 30 October).\n\nThe backdrop may matter as much as the vote. The Federal Reserve held rates at 3.75-4.00"
+    },
+    "preview-number-69": {
+      "display": "30",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2244,
+        2247
+      ],
+      "source_excerpt": "as usually moved less than 1% the day after a midterm, but about 2% after both 2018 and 2022 (Saxo, 30 October).\n\nThe backdrop may matter as much as the vote. The Federal Reserve held rates at 3.75-4.00%"
+    },
+    "preview-number-70": {
+      "display": "3.75",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2337,
+        2341
+      ],
+      "source_excerpt": "(Saxo, 30 October).\n\nThe backdrop may matter as much as the vote. The Federal Reserve held rates at 3.75-4.00% on 28 October, with two officials wanting a hike. Futures lean towards a December rise (Yahoo"
+    },
+    "preview-number-71": {
+      "display": "-4.00%",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2341,
+        2347
+      ],
+      "source_excerpt": "o, 30 October).\n\nThe backdrop may matter as much as the vote. The Federal Reserve held rates at 3.75-4.00% on 28 October, with two officials wanting a hike. Futures lean towards a December rise (Yahoo Finan"
+    },
+    "preview-number-72": {
+      "display": "4.00%",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2342,
+        2347
+      ],
+      "source_excerpt": ", 30 October).\n\nThe backdrop may matter as much as the vote. The Federal Reserve held rates at 3.75-4.00% on 28 October, with two officials wanting a hike. Futures lean towards a December rise (Yahoo Finan"
+    },
+    "preview-number-73": {
+      "display": "28",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2351,
+        2353
+      ],
+      "source_excerpt": "ber).\n\nThe backdrop may matter as much as the vote. The Federal Reserve held rates at 3.75-4.00% on 28 October, with two officials wanting a hike. Futures lean towards a December rise (Yahoo Finance liv"
+    },
+    "preview-number-74": {
+      "display": "28",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2351,
+        2354
+      ],
+      "source_excerpt": "ber).\n\nThe backdrop may matter as much as the vote. The Federal Reserve held rates at 3.75-4.00% on 28 October, with two officials wanting a hike. Futures lean towards a December rise (Yahoo Finance live"
+    },
+    "preview-number-75": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2465,
+        2466
+      ],
+      "source_excerpt": "th two officials wanting a hike. Futures lean towards a December rise (Yahoo Finance live coverage, 2 November). The 2-year Treasury yield closed 2 November at 4.59% and the 10-year at 4.91% (US Treasu"
+    },
+    "preview-number-76": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2465,
+        2467
+      ],
+      "source_excerpt": "th two officials wanting a hike. Futures lean towards a December rise (Yahoo Finance live coverage, 2 November). The 2-year Treasury yield closed 2 November at 4.59% and the 10-year at 4.91% (US Treasur"
+    },
+    "preview-number-77": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2482,
+        2483
+      ],
+      "source_excerpt": "wanting a hike. Futures lean towards a December rise (Yahoo Finance live coverage, 2 November). The 2-year Treasury yield closed 2 November at 4.59% and the 10-year at 4.91% (US Treasury). Oil fell sha"
+    },
+    "preview-number-78": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2511,
+        2512
+      ],
+      "source_excerpt": "towards a December rise (Yahoo Finance live coverage, 2 November). The 2-year Treasury yield closed 2 November at 4.59% and the 10-year at 4.91% (US Treasury). Oil fell sharply on 2 November on hopes o"
+    },
+    "preview-number-79": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2511,
+        2513
+      ],
+      "source_excerpt": "towards a December rise (Yahoo Finance live coverage, 2 November). The 2-year Treasury yield closed 2 November at 4.59% and the 10-year at 4.91% (US Treasury). Oil fell sharply on 2 November on hopes of"
+    },
+    "preview-number-80": {
+      "display": "4.59%",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2525,
+        2530
+      ],
+      "source_excerpt": "mber rise (Yahoo Finance live coverage, 2 November). The 2-year Treasury yield closed 2 November at 4.59% and the 10-year at 4.91% (US Treasury). Oil fell sharply on 2 November on hopes of Middle East dipl"
+    },
+    "preview-number-81": {
+      "display": "10",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2539,
+        2541
+      ],
+      "source_excerpt": "oo Finance live coverage, 2 November). The 2-year Treasury yield closed 2 November at 4.59% and the 10-year at 4.91% (US Treasury). Oil fell sharply on 2 November on hopes of Middle East diplomacy.\n\n## "
+    },
+    "preview-number-82": {
+      "display": "4.91%",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2550,
+        2555
+      ],
+      "source_excerpt": "live coverage, 2 November). The 2-year Treasury yield closed 2 November at 4.59% and the 10-year at 4.91% (US Treasury). Oil fell sharply on 2 November on hopes of Middle East diplomacy.\n\n## What each outc"
+    },
+    "preview-number-83": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2591,
+        2592
+      ],
+      "source_excerpt": "easury yield closed 2 November at 4.59% and the 10-year at 4.91% (US Treasury). Oil fell sharply on 2 November on hopes of Middle East diplomacy.\n\n## What each outcome could mean\n\n**Democratic sweep (t"
+    },
+    "preview-number-84": {
+      "display": "2",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2591,
+        2593
+      ],
+      "source_excerpt": "easury yield closed 2 November at 4.59% and the 10-year at 4.91% (US Treasury). Oil fell sharply on 2 November on hopes of Middle East diplomacy.\n\n## What each outcome could mean\n\n**Democratic sweep (th"
+    },
+    "preview-number-85": {
+      "display": "11",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2844,
+        2846
+      ],
+      "source_excerpt": "x and tariff policy is unlikely to change. Expect more oversight, a harder funding fight before the 11 December deadline, and a debt-limit standoff in 2027. Since this result is widely expected, moves m"
+    },
+    "preview-number-86": {
+      "display": "11",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2844,
+        2847
+      ],
+      "source_excerpt": "x and tariff policy is unlikely to change. Expect more oversight, a harder funding fight before the 11 December deadline, and a debt-limit standoff in 2027. Since this result is widely expected, moves ma"
+    },
+    "preview-number-87": {
+      "display": "2027",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        2895,
+        2899
+      ],
+      "source_excerpt": "ore oversight, a harder funding fight before the 11 December deadline, and a debt-limit standoff in 2027. Since this result is widely expected, moves may be modest, and strategists disagree on stocks: Ed "
+    },
+    "preview-number-88": {
+      "display": "2024",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        4325,
+        4329
+      ],
+      "source_excerpt": " hospitals that rely on public health programmes, and clean energy, would face headwinds. After the 2024 presidential result the dollar and yields jumped and gold fell: a reference point, not a forecast.\n"
+    },
+    "preview-number-89": {
+      "display": "2024",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        4325,
+        4330
+      ],
+      "source_excerpt": " hospitals that rely on public health programmes, and clean energy, would face headwinds. After the 2024 presidential result the dollar and yields jumped and gold fell: a reference point, not a forecast.\n\n"
+    },
+    "preview-number-90": {
+      "display": "00",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        4826,
+        4828
+      ],
+      "source_excerpt": "What would change the view\n\n- Early results in Virginia, Georgia, North Carolina, Ohio and Florida (00:00-00:30 UTC), compared with the polls.\n- The Senate tipping points: Texas, Maine, Ohio and Alaska,"
+    },
+    "preview-number-91": {
+      "display": "00",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        4829,
+        4831
+      ],
+      "source_excerpt": "t would change the view\n\n- Early results in Virginia, Georgia, North Carolina, Ohio and Florida (00:00-00:30 UTC), compared with the polls.\n- The Senate tipping points: Texas, Maine, Ohio and Alaska, wi"
+    },
+    "preview-number-92": {
+      "display": "-00",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        4831,
+        4834
+      ],
+      "source_excerpt": "would change the view\n\n- Early results in Virginia, Georgia, North Carolina, Ohio and Florida (00:00-00:30 UTC), compared with the polls.\n- The Senate tipping points: Texas, Maine, Ohio and Alaska, with "
+    },
+    "preview-number-93": {
+      "display": "00",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        4832,
+        4834
+      ],
+      "source_excerpt": "ould change the view\n\n- Early results in Virginia, Georgia, North Carolina, Ohio and Florida (00:00-00:30 UTC), compared with the polls.\n- The Senate tipping points: Texas, Maine, Ohio and Alaska, with "
+    },
+    "preview-number-94": {
+      "display": "30",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        4835,
+        4837
+      ],
+      "source_excerpt": "d change the view\n\n- Early results in Virginia, Georgia, North Carolina, Ohio and Florida (00:00-00:30 UTC), compared with the polls.\n- The Senate tipping points: Texas, Maine, Ohio and Alaska, with Kan"
+    },
+    "preview-number-95": {
+      "display": "30",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        4835,
+        4838
+      ],
+      "source_excerpt": "d change the view\n\n- Early results in Virginia, Georgia, North Carolina, Ohio and Florida (00:00-00:30 UTC), compared with the polls.\n- The Senate tipping points: Texas, Maine, Ohio and Alaska, with Kans"
+    },
+    "preview-number-96": {
+      "display": "1.3%",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        5031,
+        5035
+      ],
+      "source_excerpt": "th Kansas and Iowa as Democrats' extra chances.\n- Whether stocks move by much more than the roughly 1.3% that options priced, which would mean the result surprised.\n- The Middle East and oil, the jobs rep"
+    },
+    "preview-number-97": {
+      "display": "6",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        5142,
+        5143
+      ],
+      "source_excerpt": "ptions priced, which would mean the result surprised.\n- The Middle East and oil, the jobs report on 6 November and inflation data on 10 November, any of which could outweigh the election in rates and t"
+    },
+    "preview-number-98": {
+      "display": "6",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        5142,
+        5144
+      ],
+      "source_excerpt": "ptions priced, which would mean the result surprised.\n- The Middle East and oil, the jobs report on 6 November and inflation data on 10 November, any of which could outweigh the election in rates and th"
+    },
+    "preview-number-99": {
+      "display": "10",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        5175,
+        5177
+      ],
+      "source_excerpt": "he result surprised.\n- The Middle East and oil, the jobs report on 6 November and inflation data on 10 November, any of which could outweigh the election in rates and the dollar.\n\n*Sources: Election Cen"
+    },
+    "preview-number-100": {
+      "display": "10",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        5175,
+        5178
+      ],
+      "source_excerpt": "he result surprised.\n- The Middle East and oil, the jobs report on 6 November and inflation data on 10 November, any of which could outweigh the election in rates and the dollar.\n\n*Sources: Election Cent"
+    },
+    "preview-number-101": {
+      "display": "270",
+      "source_ref": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+      "public_use_allowed": true,
+      "rights_evidence_ref": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+      "source_span": [
+        5317,
+        5320
+      ],
+      "source_excerpt": "he election in rates and the dollar.\n\n*Sources: Election Central; Silver Bulletin; PollCheck; CNBC; 270toWin; Newsweek; PolitiFact/PBS; Saxo; Benzinga/Yahoo Finance; Federal Reserve; US Treasury. Predict"
+    }
+  },
+  "private_text": []
+}

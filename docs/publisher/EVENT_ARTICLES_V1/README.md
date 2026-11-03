@@ -9,7 +9,11 @@ Jim's decision 36 supplies a standing publication yes after Ops review. Decision
 allows general conditional bullish/bearish calls with condition, market, horizon,
 invalidation, the analysis notice and conflicts line. Unconditional calls, execution
 instructions, sizes, profit targets, DEMO details and prediction-market numbers remain
-refused. Decision 42 requires web-only Substack delivery and a factual visual.
+refused. Decision 42 requires a factual visual. The later decision 48 and Ops's
+3 November 13:04 GMT+7 instruction make Substack drafts only: never press Publish
+or Update, read a mailbox or enter a code. Site and social delivery proceeds
+independently, using the read-back site link when available and linkless summaries
+while the article site is not live.
 
 The [preview brief](templates/event_preview.md) covers scenarios, sourced odds,
 conditional reactions across all six required market groups, and view changes. The

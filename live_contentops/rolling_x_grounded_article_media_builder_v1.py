@@ -1041,6 +1041,7 @@ def _editorial_data_values(packet, documents):
     """Validate attributed original numbers and explicit computations, never infer missing data."""
     sources = {d.get("document_id"): d for d in documents}
     if packet.get("chart_type") not in {
+        "fact_card",
         "line",
         "grouped_bar",
         "stacked_bar",
@@ -1243,6 +1244,28 @@ def _editorial_data_values(packet, documents):
         output.append(points)
     if not output or len(output) > 12:
         raise ValueError("EDITORIAL_CHART_SERIES_SCOPE_INVALID")
+    if packet["chart_type"] == "fact_card":
+        from live_contentops.event_article_guard_v1 import check_publication_copy
+        if len(packet["series"]) != 1 or not 1 <= len(output[0]) <= 4:
+            raise ValueError("FACT_CARD_BOUNDED_CALLOUTS_REQUIRED")
+        authored = {k: packet.get(k, "") for k in ("title", "subtitle", "fact_card_footer", "fact_card_note", "source_caption")}
+        source_text = "\n".join(d.get("canonical_content_text", "") for d in documents)
+        for point in packet["series"][0]["points"]:
+            authored[point["period"]] = point["period"]
+            operand = point["inputs"][0] if len(point["inputs"]) == 1 else {}
+            token = operand.get("value_text", "")
+            display = point.get("display_value")
+            exact_display = (display == token or (display == token + "%" and packet["unit"] in {"percent", "%"}
+                                                  and display in operand.get("support_excerpt", "")))
+            if (point.get("transform", "IDENTITY") != "IDENTITY" or point.get("scale", 1) != 1
+                    or len(point["inputs"]) != 1
+                    or not exact_display):
+                raise ValueError("FACT_CARD_EXACT_SOURCE_DISPLAY_REQUIRED")
+        check_publication_copy(authored, require_notice=False)
+        for text in authored.values():
+            for token in re.findall(r"\d+(?:\.\d+)?%?", text):
+                if not re.search(r"(?<![\d.,])" + re.escape(token) + r"(?![\d.,])", source_text):
+                    raise ValueError("FACT_CARD_TEXT_NUMBER_UNBOUND")
     if packet["chart_type"] == "horizontal_count_bar":
         if (len(output) != 1 or any(v < 0 or v != int(v) for v in output[0])
                 or packet["unit"] != "Members"):
@@ -1616,6 +1639,26 @@ def _draw_editorial_chart(packet, values, plt, np):
     colors = ["#12666a", "#b96b37", "#718e8a", "#7c6296", "#c39838", "#6b788a"]
     kind = packet["chart_type"]
     series = packet["series"]
+    if kind == "fact_card":
+        # Equal-sized callouts encode no area, probability or unreported total.
+        fig, ax = plt.subplots(figsize=(10, 6), dpi=160)
+        fig.set_facecolor("#f7f5ef")
+        ax.set_axis_off()
+        fig.text(.07, .90, "CAPITAL CHRONICLE", fontsize=11, color="#12666a", weight="bold")
+        fig.text(.07, .82, packet["title"], fontsize=24, color="#172d32", weight="bold")
+        fig.text(.07, .75, packet.get("subtitle", ""), fontsize=13, color="#526467")
+        points = series[0]["points"]
+        for index, point in enumerate(points):
+            x = .07 + index * .86 / len(points)
+            fig.text(x, .60, point["period"], fontsize=17, color="#172d32", weight="bold")
+            fig.text(x, .45, point["display_value"], fontsize=43, color="#12666a", weight="bold")
+        fig.text(.07, .31, textwrap.fill(packet.get("fact_card_note", ""), 90),
+                 fontsize=13, color="#526467", va="top")
+        fig.text(.07, .18, packet.get("fact_card_footer", ""), fontsize=15,
+                 color="#172d32", weight="bold")
+        fig.text(.07, .08, textwrap.fill(packet.get("source_caption", ""), 105),
+                 fontsize=10, color="#526467", va="top")
+        return fig
     if kind == "SIGNED_CASH_CONTRIBUTIONS_WITH_SEPARATE_REPORTED_RESULT":
         return _draw_signed_cash_contributions(packet, values, plt)
     if kind == "SIGNED_CASH_CHANGE_COMPARISON_WITH_SEPARATE_SAME_SCALE_REPORTED_RESULT":

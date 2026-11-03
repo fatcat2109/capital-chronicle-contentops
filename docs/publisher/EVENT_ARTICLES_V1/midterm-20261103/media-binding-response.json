@@ -1,0 +1,271 @@
+{
+  "plan": {
+    "native_plan_run_id": "cc107-midterm-preview-20261103-v1",
+    "native_plan_stage": "media-plan",
+    "native_plan_request_sha256": "d08262e276cdd8a33f50c119483fb3590e85c0fee563ab3ff96dbba2606e52ba",
+    "story_plan": {
+      "thesis": "Election scenario preview: distinguish the expected Democratic sweep from alternative congressional outcomes and a delayed count, explaining conditional reactions across bonds/rates, major FX, commodities, US equity indices, US equity sectors and Bitcoin. Polling describes voting intentions, not control probabilities or election results; market scenarios remain conditional, with no position calls.",
+      "photo_plan": {
+        "proposal": "Use the retained contextual Capitol archive photograph, subject to the same MAX writer/editor inspecting the actual pixels, crop, caption and final desktop/mobile renders before acceptance.",
+        "asset_manifest": "docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/media/photo-asset-unreviewed.json",
+        "asset_id": "cc107-capitol-west-front-archive-1997",
+        "sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:United_States_Capitol_-_west_front.jpg",
+        "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/United_States_Capitol_-_west_front.jpg",
+        "creator": "Architect of the Capitol",
+        "rights_status": "PUBLIC_DOMAIN",
+        "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+        "rights_evidence_path": "docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/media/photo-rights.json",
+        "rights_evidence_sha256": "00c937c7ef7c7a60e9f843914dda79c869122abf132594ea65c03bd59c984600",
+        "caption": "The west front of the US Capitol in 1997. Archive image; it does not depict election night.",
+        "attribution": "Architect of the Capitol / Wikimedia Commons. Public domain (17 USC 105).",
+        "alt_text": "Archive photograph of the west front of the US Capitol, with the reflecting pool and lawn in the foreground.",
+        "context_only": true,
+        "corroborates_article_facts": false,
+        "visual_inspection_status": "NOT_INSPECTED_BY_LIGHT"
+      },
+      "chart_plan": {
+        "proposal": "One attributed generic-ballot fact/data card with two separate values. Prefer a simple side-by-side card over a pie or stacked bar; do not imply the two shares sum to the full electorate.",
+        "title": "Generic-ballot polling snapshot",
+        "metric": "PollCheck generic-ballot share",
+        "unit": "percent",
+        "currency": null,
+        "period": "Updated 2 November 2026; exact intraday observation time unavailable",
+        "data": [
+          {
+            "label": "Democrats",
+            "value": 51.1
+          },
+          {
+            "label": "Republicans",
+            "value": 42.8
+          }
+        ],
+        "value_type": "Reported polling estimates, not actual votes, forecasts of seats or probabilities of chamber control",
+        "source": "PollCheck, as attributed in the exact approved PREVIEW",
+        "source_id": "SOURCE_1",
+        "source_capture_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+        "source_url": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+        "transformations": "None. Display the two admitted values verbatim; do not normalize, infer the remainder or add history.",
+        "missingness": "Sample, fieldwork dates, methodology, margin of error, other responses and underlying polling history are not supplied; do not invent them.",
+        "placement_proposal": "After the polling expectations paragraph, before the timing and conditional scenario sections; MAX chooses final form and placement.",
+        "exclusions": "No Kalshi or other prediction-market numbers or charts. No private survey history, consensus panel, invented monthly series or numeric scenario forecast. This is an election scenario preview, not a data-release or policy-decision history analysis.",
+        "scenario_integrity": "Retain all six market reaction groups in the article. Preserve weak/qualified language where the preview provides no direction; especially oil remains Middle East-led, and the remote split and delayed/contested cases have no invented market template.",
+        "final_decision_owner": "Same actual MAX visual editor/writer; proposal only, not render acceptance"
+      },
+      "source_requests": []
+    }
+  },
+  "assets": [
+    {
+      "asset_id": "cc107-generic-ballot-and-poll-close-card",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\render-r2\\media_assets\\cc107-generic-ballot-and-poll-close-card.png",
+      "sha256": "28e9ffba3191fc9d6645e7fe571b6ede6ed8237fa2627b93817b526cc3ae9d64",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "role": "supporting_fact_context",
+      "caption": "PollCheck's generic-ballot shares, updated 2 November. The figures describe reported voting intentions, not probabilities of controlling Congress. Timing: 270toWin, via the approved preview.",
+      "attribution": "PollCheck (2 November 2026); poll-closing time: 270toWin.",
+      "alt_text": "PollCheck generic-ballot snapshot updated 2 November 2026: Democrats 51.1 percent and Republicans 42.8 percent. These are voting-intention shares, not chamber-control probabilities. First polls close at 23:00 UTC on 3 November.",
+      "source_page_url": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+      "source_links": [
+        {
+          "document_id": "cc107-midterm-preview-20261103",
+          "url": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+          "label": "Capital Chronicle"
+        }
+      ],
+      "source_lineage": [
+        {
+          "source_url": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+          "document_id": "cc107-midterm-preview-20261103"
+        }
+      ],
+      "underlying_source_rights_status": "attributed_facts_independent_chart",
+      "source_reuse_basis": "Independent chart of attributed original-source facts; no source expression reused.",
+      "width": 1600,
+      "height": 960,
+      "editorial_data_packet": {
+        "asset_id": "cc107-generic-ballot-and-poll-close-card",
+        "chart_type": "fact_card",
+        "question": "What does the admitted PollCheck snapshot report, and when do the first polls close?",
+        "title": "Generic-ballot polling snapshot",
+        "subtitle": "PollCheck | updated 2 November 2026",
+        "unit": "percent",
+        "series": [
+          {
+            "label": "PollCheck generic-ballot voting-intention share",
+            "points": [
+              {
+                "period": "Democrats",
+                "value": 51.1,
+                "display_value": "51.1%",
+                "observation_kind": "ESTIMATE",
+                "transform": "IDENTITY",
+                "inputs": [
+                  {
+                    "document_id": "cc107-midterm-preview-20261103",
+                    "support_excerpt": "Polls point the same way. The Silver Bulletin generic-ballot average gives Democrats an 8.9-point lead (updated 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 November). Some are less sure about the Senate: Wolfe Research's own estimate put Democratic control at 49% (CNBC, 30 October).",
+                    "value_text": "51.1",
+                    "source_period_text": "updated 2 November",
+                    "source_content_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+                    "metric": "PollCheck generic-ballot voting-intention share",
+                    "unit": "percent",
+                    "prepared_period": "2 November 2026",
+                    "period_basis": {
+                      "source_display": "updated 2 November",
+                      "source_known_at_utc": "2026-11-02T23:35:08Z"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "Republicans",
+                "value": 42.8,
+                "display_value": "42.8%",
+                "observation_kind": "ESTIMATE",
+                "transform": "IDENTITY",
+                "inputs": [
+                  {
+                    "document_id": "cc107-midterm-preview-20261103",
+                    "support_excerpt": "Polls point the same way. The Silver Bulletin generic-ballot average gives Democrats an 8.9-point lead (updated 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 November). Some are less sure about the Senate: Wolfe Research's own estimate put Democratic control at 49% (CNBC, 30 October).",
+                    "value_text": "42.8",
+                    "source_period_text": "updated 2 November",
+                    "source_content_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+                    "metric": "PollCheck generic-ballot voting-intention share",
+                    "unit": "percent",
+                    "prepared_period": "2 November 2026",
+                    "period_basis": {
+                      "source_display": "updated 2 November",
+                      "source_known_at_utc": "2026-11-02T23:35:08Z"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "fact_card_note": "Voting intentions, not chamber-control probabilities.",
+        "fact_card_footer": "First polls close: 23:00 UTC on 3 November",
+        "source_caption": "PollCheck (2 November 2026); poll-closing time: 270toWin.",
+        "caption": "PollCheck's generic-ballot shares, updated 2 November. The figures describe reported voting intentions, not probabilities of controlling Congress. Timing: 270toWin, via the approved preview.",
+        "alt_text": "PollCheck generic-ballot snapshot updated 2 November 2026: Democrats 51.1 percent and Republicans 42.8 percent. These are voting-intention shares, not chamber-control probabilities. First polls close at 23:00 UTC on 3 November.",
+        "placement_after": "What is expected",
+        "destination_subset": [
+          "telegram",
+          "discord",
+          "x",
+          "linkedin",
+          "facebook_page",
+          "instagram_business",
+          "threads",
+          "youtube"
+        ],
+        "missingness": "Sample size, fieldwork dates, methodology, margin of error, other responses and underlying polling history are not supplied. No zero values, remainder share or uncertainty interval may be invented."
+      },
+      "transform_sha256": "9db9e1da675ba544b5136e07b1a3a86ebe9bd3276a786a53ccb14df59d3d127a",
+      "placement_after": "What is expected",
+      "destination_subset": [
+        "telegram",
+        "discord",
+        "x",
+        "linkedin",
+        "facebook_page",
+        "instagram_business",
+        "threads",
+        "youtube"
+      ],
+      "computed_values": [
+        [
+          51.1,
+          42.8
+        ]
+      ],
+      "missingness": "Sample size, fieldwork dates, methodology, margin of error, other responses and underlying polling history are not supplied. No zero values, remainder share or uncertainty interval may be invented.",
+      "visual_review": {
+        "asset_sha256": "28e9ffba3191fc9d6645e7fe571b6ede6ed8237fa2627b93817b526cc3ae9d64",
+        "pixels_inspected": true,
+        "labels_and_units_legible": true,
+        "reviewer": "/root/native_visual_edit_76437a71362e",
+        "invocation_id": "/root/native_visual_edit_76437a71362e",
+        "inspection_method": "Local view_image, detail original, of the exact 1600 x 960 r2 PNG; compared with its exact sibling JSON and frozen source/PREVIEW.md.",
+        "source_values_match": true,
+        "visual_meaning_sound": true,
+        "source_findings": "Democrats 51.1% and Republicans 42.8% match the PollCheck figures attributed in the approved PREVIEW and sibling data JSON. The subtitle accurately says updated 2 November 2026. First polls close at 23:00 UTC on 3 November matches the PREVIEW timing attributed to 270toWin. Identity transformation only; no invented remainder, normalization, history, intervals, seat forecast or prediction-market odds are displayed.",
+        "meaning_findings": "The two parties have separate equal-status numerical callouts. The card explicitly labels the figures as voting intentions, not chamber-control probabilities. It makes no result claim and does not promise that chamber control will be known at first poll close. As a fact card it has no plotted axis or proportional area; an axis baseline is not applicable.",
+        "layout_findings": "Title, party labels, percent signs, date, meaning note, poll-close footer and source credit are legible against the light background. Adequate margins and separation; no clipping, overlap, hidden labels or mismatched associations seen in the inspected original. Same restrained colour treatment for both values. The r2 on-image source credit contains PollCheck and 270toWin attribution without workflow wording.",
+        "findings": [],
+        "evidence_notes": [
+          "Inspected asset only; final canonical/channel desktop/mobile presentation and media crop review remain pending.",
+          "Existing accepted archive-photo review remains unchanged.",
+          "No source facts or accepted visual decision were modified."
+        ],
+        "invocation_observation": {
+          "surface": "CODEX_NATIVE_SUBAGENT",
+          "invocation_id": "/root/native_visual_edit_76437a71362e",
+          "model": null,
+          "reasoning_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+          "configured_model": "gpt-6.1-sol",
+          "configured_reasoning_effort": "max",
+          "actual_configuration_unavailable": true,
+          "configuration_source": "Supported exact native role assignment cc107-midterm-preview-20261103-v1:visual-edit to /root/native_visual_edit_76437a71362e; requested gpt-6.1-sol/max. Actual model and effort are not exposed by a supported observation in this context.",
+          "observation_source": "This executing native subagent context identifies its canonical task name as /root/native_visual_edit_76437a71362e and received the exact visual-edit assignment/request hash through its supported native task input.",
+          "speed": "standard"
+        }
+      }
+    },
+    {
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:United_States_Capitol_-_west_front.jpg",
+      "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/United_States_Capitol_-_west_front.jpg",
+      "creator_publisher": "Architect of the Capitol",
+      "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+      "rights_status": "PUBLIC_DOMAIN",
+      "depicted_date": "1997",
+      "asset_id": "cc107-capitol-west-front-archive-1997",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\media\\capitol-west-front-1997.jpg",
+      "sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+      "width": 3000,
+      "height": 1556,
+      "modality": "documentary_photo",
+      "context_only": true,
+      "corroborates_article_facts": false,
+      "attribution": "Architect of the Capitol / Wikimedia Commons. Public domain (17 USC 105).",
+      "caption": "The west front of the US Capitol in 1997. Archive image; it does not depict election night.",
+      "alt_text": "Archive photograph of the west front of the US Capitol, with lawn, flower beds and paths in the foreground.",
+      "relevance_rationale": "Authentic context for control of Congress; no factual corroboration of any current election or market claim.",
+      "source_reuse_basis": "Official-duty work of an Architect of the Capitol employee, public domain in the United States; exact Commons PD-USGov-Congress-AOC declaration retained.",
+      "rights_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\media\\photo-rights.json",
+      "rights_evidence_sha256": "00c937c7ef7c7a60e9f843914dda79c869122abf132594ea65c03bd59c984600",
+      "visual_review": {
+        "asset_sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+        "pixels_inspected": true,
+        "relevant_subject": true,
+        "reviewer": "/root/native_visual_edit_76437a71362e",
+        "invocation_id": "/root/native_visual_edit_76437a71362e",
+        "inspection_method": "view_image of the exact local original JPEG, detail original; no native desktop control.",
+        "subject_findings": "Visible daylight exterior of the west front of the US Capitol, with its dome, wings, terraces, lawns, flower beds, paths and small visitors. Clear institutional context for congressional control. No election-night scene or election-result evidence is depicted.",
+        "date_findings": "The retained source/rights record dates the photograph to 1997. The date comes from exact source metadata, not a claim that pixels alone prove the year. The archive caption is retained verbatim; the image is context only and corroborates no current-event claim.",
+        "crop_findings": "The full wide original is suitable for canonical context. Keep the dome and both wings visible; do not crop or relabel it as a present election-night photograph. Final desktop/mobile placement still requires the same writer review.",
+        "caption_findings": "Retain: The west front of the US Capitol in 1997. Archive image; it does not depict election night.",
+        "alt_text_correction": "Removed the unobserved reflecting pool from the proposed alt text. The inspected foreground shows lawn, flower beds and paths.",
+        "findings": [],
+        "invocation_observation": {
+          "surface": "CODEX_NATIVE_SUBAGENT",
+          "invocation_id": "/root/native_visual_edit_76437a71362e",
+          "model": null,
+          "reasoning_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+          "configured_model": "gpt-6.1-sol",
+          "configured_reasoning_effort": "max",
+          "actual_configuration_unavailable": true,
+          "configuration_source": "Supported exact native role assignment cc107-midterm-preview-20261103-v1:visual-edit to /root/native_visual_edit_76437a71362e; requested gpt-6.1-sol/max. Actual model and effort are not exposed by a supported observation in this context.",
+          "observation_source": "This executing native subagent context identifies its canonical task name as /root/native_visual_edit_76437a71362e and received the exact visual-edit assignment/request hash through its supported native task input.",
+          "speed": "standard"
+        }
+      }
+    }
+  ]
+}

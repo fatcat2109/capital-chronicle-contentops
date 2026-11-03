@@ -74,6 +74,13 @@
       "deselected": 1,
       "deselected_test": "test_signed_horizontal_percent_labels_keep_the_declared_unit",
       "reason": "Recorded baseline defect; renderer code unchanged apart from the exact approved-preview rights adapter."
+    },
+    "event-visual-final.junit.xml": {
+      "tests": 77,
+      "failures": [],
+      "deselected": 1,
+      "deselected_test": "test_signed_horizontal_percent_labels_keep_the_declared_unit",
+      "reason": "Previously recorded baseline; fact-card path independently covered."
     }
   },
   "preexisting_failures": [
@@ -118,6 +125,67 @@
         "native_assignment": "cc107-midterm-preview-20261103-v1:media-plan",
         "expected_return": "media-plan:d08262e276cdd8a33f50c119483fb3590e85c0fee563ab3ff96dbba2606e52ba"
       }
+    },
+    {
+      "stage": "visual-edit",
+      "request_sha256": "76437a71362ed5464186480d96b846e40c116f202a4c50af243dfb40a99009bf",
+      "observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/native_visual_edit_76437a71362e",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "Supported exact native role assignment cc107-midterm-preview-20261103-v1:visual-edit to /root/native_visual_edit_76437a71362e; requested gpt-6.1-sol/max. Actual model and effort are not exposed by a supported observation in this context.",
+        "observation_source": "This executing native subagent context identifies its canonical task name as /root/native_visual_edit_76437a71362e and received the exact visual-edit assignment/request hash through its supported native task input.",
+        "speed": "standard"
+      }
     }
-  ]
+  ],
+  "nfp_input_readback": {
+    "observed_at_utc": "2026-11-03T06:16:22.328298+00:00",
+    "expected_root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1100-dossier-nfp",
+    "files": {
+      "DOSSIER.md": false,
+      "dossier.json": false,
+      "MANIFEST.sha256": false
+    },
+    "expected_producer_entry_gmt7": "6 Nov 2026 18:00 GMT+7",
+    "state": "FROZEN_NFP_INPUT_NOT_YET_AVAILABLE",
+    "next_actor": "Existing Claude Main dossier run; Ops resumes CC-107 after its real frozen input."
+  },
+  "resume": {
+    "observed_at_utc": "2026-11-03T06:35:29Z",
+    "process_id": 4716,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "verified_argument_tokens": [
+      "exec",
+      "resume",
+      "--model",
+      "gpt-6.1-sol",
+      "-c",
+      "model_reasoning_effort=\"max\""
+    ],
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "existing_pushed_head": "debaa6c102fb459ab4599556f663ae6ec930499a",
+    "backlog_status_at_entry": "IN_PROGRESS"
+  },
+  "current_distribution_authority": {
+    "source": "BACKLOG.md CC-107, Ops 3 Nov 12:53 and 13:04 GMT+7; Jim decision 48",
+    "substack": "DRAFTS_ONLY_NO_PUBLISH_OR_UPDATE",
+    "site_social": "Independent of Substack; site readback URL when available, linkless summaries allowed while article site not live",
+    "mailbox_or_code": "NEVER_READ_OR_ENTER"
+  },
+  "asset_review": {
+    "artifact": "media/asset-review-r2.json",
+    "reviewer": "/root/native_visual_edit_76437a71362e",
+    "status": "ACCEPT_ASSET_ONLY",
+    "final_article_review": "PENDING"
+  }
 }
