@@ -1,0 +1,20 @@
+{
+  "status": "RECONCILED_CONFIRMED",
+  "dispatch": {
+    "dispatch_id": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+    "message_id": "outbox_61e1c3551501afee92efad2c69c2b1d1",
+    "platform": "substack",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-02T23:08:33.902972+00:00",
+    "public_object_id": "223246940",
+    "public_object_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+    "public_object_url_hash": "7cb21614a3dc615eeaf2552ae07dd8d41ce1887912b0702b67e2015e2d11ab42"
+  },
+  "pending": [
+    {
+      "action": "PUBLISH",
+      "request_sha256": "19e48c17349550d4ea49712472bd17356285ded323bf443d11b96bed374514c3"
+    }
+  ],
+  "new_public_write": false
+}
