@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-11-03T00:14:29.176695+00:00",
+  "newsroom_idle": "NEWSROOM_LEASE_ACTIVE:internal:native-editorial:newsroom",
+  "production_day": "newsroom-production-day-2026-11-03-bangkok",
+  "current_day_confirmed_canonicals": [],
+  "publication_due": {
+    "due": true,
+    "next_publication_utc": "2026-11-02T21:20:08.539332+00:00",
+    "spacing_hours": 3.5,
+    "clock_basis": "FIRST_VERIFIED_CANONICAL_READBACK"
+  },
+  "canonical_unknown_cannot_be_deferred": true
+}

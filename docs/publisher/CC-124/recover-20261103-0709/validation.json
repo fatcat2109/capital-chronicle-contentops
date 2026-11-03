@@ -4,7 +4,7 @@
   "canonical_article_status": "NOT_CONFIRMED",
   "canonical_url": null,
   "unknown_write_detected": true,
-  "state": "READBACK_IN_PROGRESS",
+  "state": "BLOCKED_EXTERNAL_VERIFICATION",
   "pending_readback": [
     {
       "request_sha256": "f1ce96ec386446ccd524ced88cc547929401843d2c33d22a32f964f3576210a3",
@@ -13,7 +13,7 @@
       "public_object_id": "223246940"
     }
   ],
-  "recorded_at_utc": "2026-11-03T00:12:17.742443+00:00",
+  "recorded_at_utc": "2026-11-03T00:18:06.776757+00:00",
   "item": "CC-124",
   "resume_prior_commit": "ceff7a10",
   "native_conversation_id": "01a19ebd-5f2c-7be0-bde6-96453cb0d4b9",
@@ -29,5 +29,76 @@
   "operating_source_head": "a22c260bc1a737036ea2ac93a238974938c63512",
   "new_canonical_send_attempts": 0,
   "schedule_changes": false,
-  "chat_messages_sent": 0
+  "chat_messages_sent": 0,
+  "standing_item_status": "OPEN",
+  "run_outcome": "+0; existing exact canonical send remains unresolved",
+  "first_cause": "SUBSTACK_EMAIL_VERIFICATION_REQUIRED",
+  "first_cause_provenance": "Retained original send attempt; current browser readback confirms DRAFT and no published CPI object. No new verification challenge was triggered.",
+  "title": "September CPI: why 0.6% and 3.7% answer different questions",
+  "draft_id": "223246940",
+  "draft_url": "https://capitalchronicle.substack.com/publish/post/223246940",
+  "canonical_dispatch_status": "UNKNOWN_WRITE",
+  "new_confirmed_canonical_articles": 0,
+  "new_confirmed_derivatives": 0,
+  "new_platform_drafts": 0,
+  "approved_copy_modified": false,
+  "native_return_submitted": false,
+  "checks_passed": 8,
+  "pytest_processes_started": 0,
+  "test_scope": "Eight artifact/request checks only; no implementation change or new pytest run.",
+  "coordinator_result": "PUBLICATION_RECOVERY_REQUIRED",
+  "coordinator_exit_code": 0,
+  "newsroom_idle_after_coordinator_exit": true,
+  "pending_readback_request_preserved": true,
+  "fresh_operation_forbidden_reason": "Existing uncertain canonical cannot be deferred to start a different article.",
+  "app_restarts": 0,
+  "default_branch_merge": false,
+  "source_or_runtime_code_modified": false,
+  "next_action": "Jim completes the existing Substack verification for draft 223246940; Publisher then reads back the exact canonical object, submits and reconciles its identity, and continues the admitted text channels. Never create a replacement draft or blindly repeat the original send.",
+  "evidence": [
+    {
+      "path": "01-publication-status.json",
+      "sha256": "fb82775ac0f538d16cd621df9eb2684997ea4844e4738e8c9ba1d99575b44f01"
+    },
+    {
+      "path": "02-readback-begin.json",
+      "sha256": "48a50b814567736c044ee9712fde81b6d7cd648b306910d854c10845017e4a1c"
+    },
+    {
+      "path": "03-draft-readback-tool.json",
+      "sha256": "3fb22abba98f4299cd6b5194bf9c26849b892ce332e65516595b127ad46abcf0"
+    },
+    {
+      "path": "04-public-archive-tool.json",
+      "sha256": "06692f340ffa00f68ba477cdca6c70240e3fbfd37d925912a0ac47f7a9c263dc"
+    },
+    {
+      "path": "05-publisher-home-tool.json",
+      "sha256": "4b85fb208dbe79eb4e4d7df3b5904b6c3c465d662d2dbb17d85289424d643a58"
+    },
+    {
+      "path": "06-published-list-tool.json",
+      "sha256": "22193795ffa683a98f1692ba3b448435cd64aa5835a5df66deeec4c537a82bdf"
+    },
+    {
+      "path": "07-publication-resume.json",
+      "sha256": "66b01ba9fe13f803da64a1b33b09738bf41abc4e31c76c397c148187877d8bf0"
+    },
+    {
+      "path": "08-current-guards.json",
+      "sha256": "533c7dd62b63dee7708896f696d2195fa65a35f0951ff5aba72b36b04a5db6b9"
+    },
+    {
+      "path": "09-readback-observation.json",
+      "sha256": "1270a24b577870c63b13c795f514d79a7bb5c2c45f6405aca7fef2d32d828e39"
+    },
+    {
+      "path": "10-final-lease-observation.json",
+      "sha256": "238702e1fe7e9b454d7fbfdc2e28ee62c360002ead5992752ca23e93d7d9682e"
+    },
+    {
+      "path": "README.md",
+      "sha256": "0c52b91afc8100717d7994c9a5ebbd300e6bfbb38b0d220c6448e20f4a788c26"
+    }
+  ]
 }

@@ -1,0 +1,11 @@
+# CC-124 exact CPI publication readback
+
+This run resumed `backlog/cc-124-standing-article-production` at `ceff7a10` and the original live binding `cc124-prepare-20261103-a`. The Ops launch arguments were read from the ancestor process: `--model gpt-6.1-sol` and `-c model_reasoning_effort="max"`, CONFIGURED_NOT_OBSERVED. The actual conversation identifier is recorded in validation.json; no actual turn identifier was exposed.
+
+BrowserOS Neo read the existing draft `223246940`, the publisher dashboard, the complete two-item Published list, and the public archive. The CPI article remains explicitly labelled Draft. The only published articles in those views are the October 28 FOMC retrospective and the October 27 oil report. There is no CPI canonical URL. Eight focused artifact and request-binding checks pass in `09-readback-observation.json`; these are readback checks, not new source validation or editorial review.
+
+The original final send remains UNKNOWN_WRITE. Its retained first cause is SUBSTACK_EMAIL_VERIFICATION_REQUIRED. This run did not trigger or complete a new verification challenge, click a publish button, create a replacement draft, edit the approved copy, or send a derivative. The original exact READBACK request remains unanswered in the native outbox so a valid canonical return can be submitted after the owner completes verification. A current draft label is recorded without inventing a public readback or clearing coordinator uncertainty.
+
+The existing coordinator continuation was invoked once through the operating checkout at `a22c260bc1a737036ea2ac93a238974938c63512`; its exact result is `07-publication-resume.json`. The initial guard observation overlaps this run's own coordinator lease, rather than establishing another lane's activity. Final validation records the lease after that invocation ends. No new article operation can bypass this uncertain canonical.
+
+CC-124 stays OPEN because it is a standing item. The run produced +0 confirmed canonical articles. Jim must complete the pending Substack verification for the existing draft; Publisher then reads back that exact object, submits and reconciles its real canonical identity, and continues its admitted text channels. No new source cutoff, replacement operation, schedule change, chat message, app restart, deployment or default-branch merge is part of this run.
