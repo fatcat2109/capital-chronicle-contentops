@@ -1529,6 +1529,10 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
     from live_contentops.v1_simple_gemini_newsroom_v1 import READER_ATTRIBUTION_POLICY
     row = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
+    from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, build_revision
+    if proposal.get("policy") == CHART_REVISION_POLICY:
+        return build_revision(store, run_id=run_id, proposal=proposal,
+            owner_authority_ref=owner_authority_ref, result=result)
     if (not str(owner_authority_ref).startswith("human:") or not result.get("qualified_article_count")
             or proposal.get("run_id") != run_id or proposal.get("article_identity") != result.get("article_identity")):
         raise ValueError("READER_REVISION_EXACT_EXISTING_ARTICLE_AND_AUTHORITY_REQUIRED")
@@ -1579,6 +1583,9 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
 def reader_presentation_revision_view(store, *, run_id, result, revision):
     from copy import deepcopy
     from live_contentops.v1_simple_gemini_newsroom_v1 import READER_ATTRIBUTION_POLICY
+    from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, revision_view
+    if revision.get("policy") == CHART_REVISION_POLICY:
+        return revision_view(store, run_id=run_id, result=result, revision=revision)
     if (revision.get("policy") != READER_ATTRIBUTION_POLICY or revision.get("run_id") != run_id
             or not str(revision.get("owner_authority_ref")).startswith("human:")
             or revision["base_result_sha256"] != sha256_of(result)
@@ -1641,6 +1648,7 @@ def final_visual_binding(result, *, renders, destinations=None):
     scope = FINAL_VISUAL_CHANNELS if destinations is None else set(destinations)
     if destinations is not None and scope not in (
             DATED_DISTRIBUTION_DESTINATIONS, LINKEDIN_DATED_DISTRIBUTION_DESTINATIONS,
+            {"substack"},
             {"substack", "facebook_page", "instagram_business", "youtube", "linkedin"}):
         raise ValueError("FINAL_VISUAL_DATED_DISTRIBUTION_SCOPE_REQUIRED")
     variants = {}
@@ -1707,6 +1715,8 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
             raise ValueError("FINAL_VISUAL_SINGLE_REVISION_REQUIRED")
         result = reader_presentation_revision_view(turn.store, run_id=turn.run_id, result=result,
             revision=reader_presentation_revision)
+        from live_contentops.release_chart_revision_v1 import amendment_writer
+        writer = amendment_writer(reader_presentation_revision) or writer
     scope = ({"linkedin" if d == "linkedin_company" else d for d in reader_presentation_revision["objects"]}
         if reader_presentation_revision is not None else dated_distribution_destinations(distribution_recovery)
         if distribution_recovery is not None else None)
@@ -1753,6 +1763,8 @@ def validate_final_visual_return(turn, request, response):
     binding = request["governed_input"]["binding"]
     observation, output = response["invocation_observation"], response["output"]
     writer = turn._get("write", "response")
+    from live_contentops.release_chart_revision_v1 import amendment_writer
+    writer = amendment_writer(request["governed_input"].get("reader_presentation_revision")) or writer
     assignment = ROLE_ASSIGNMENTS["final-visual"]
     validate_native_configuration(observation, assignment)
     if (not writer or observation.get("invocation_id") != writer["invocation_observation"]["invocation_id"]):

@@ -1674,10 +1674,18 @@ def _draw_editorial_chart(packet, values, plt, np):
             ax.set_yticks(y, [textwrap.fill(p, 22) for p in periods], fontsize=10)
             ax.invert_yaxis()
             low, high, span = _signed_horizontal_domain(nums)
+            if packet.get("zero_based"):
+                if any(n < 0 for n in nums):
+                    raise ValueError("EDITORIAL_ZERO_BASED_NONNEGATIVE_DATA_REQUIRED")
+                low, high = 0, max(nums) * 1.22 or 1
             ax.set_xlim(low, high)
-            suffix = "%" if str(packet["unit"]).casefold().startswith(("%", "percent")) else ""
+            unit = str(packet["unit"]).casefold()
+            suffix = " pp" if unit == "percentage points" else "%" if unit in {"%", "percent"} else ""
+            decimals = packet.get("value_label_decimals", 1)
+            if type(decimals) is not int or not 0 <= decimals <= 6:
+                raise ValueError("EDITORIAL_EXPLICIT_LABEL_PRECISION_REQUIRED")
             for x, yy in zip(nums,y):
-                ax.text(x+span*.025 if x>=0 else span*.025,yy,f"{x:+.1f}{suffix}",va="center",ha="left",fontsize=11)
+                ax.text(x+span*.025 if x>=0 else span*.025,yy,f"{x:+.{decimals}f}{suffix}",va="center",ha="left",fontsize=11)
             ax.axvline(0,color="#6d807b",linewidth=.8)
         else:
             for i,(label,nums) in enumerate(zip(labels,values)):
@@ -1810,7 +1818,11 @@ def _draw_editorial_chart(packet, values, plt, np):
                 # None remains JSON null in the lineage; NaN exists only inside
                 # matplotlib so an unavailable month breaks the line visibly.
                 plotted = [float("nan") if n is None else n for n in nums]
-                ax.plot(x, plotted, marker="o", color=color, label=label, linewidth=2.5)
+                ax.plot(x, plotted, marker="o", color=color, label=label, linewidth=2.5,
+                    linestyle="--" if packet.get("history_lineage") and i else "-")
+                if packet.get("history_lineage"):
+                    ax.annotate(f"{nums[-1]:g}%", (x[-1], nums[-1]), xytext=(8,0),
+                        textcoords="offset points", color=color, fontsize=11)
                 if kind == "direct_labelled_two_line":
                     ax.annotate(
                         f"{nums[-1]:g}%",
@@ -1876,6 +1888,13 @@ def _draw_editorial_chart(packet, values, plt, np):
             ha="right" if len(periods) > 6 and not any("\n" in p for p in periods) else "center",
         )
         ax.set_ylabel(packet["unit"])
+        if limits := packet.get("history_axis_limits"):
+            actual = [v for row in values for v in row if v is not None]
+            if (len(limits) != 2 or not limits[0] < limits[1]
+                    or min(actual) < limits[0] or max(actual) > limits[1]):
+                raise ValueError("EDITORIAL_HISTORY_AXIS_CLIPS_OBSERVATIONS")
+            ax.set_ylim(*limits)
+            ax.axhline(0, color="#83938e", linewidth=.8)
         if kind not in {"line", "direct_labelled_two_line"}:
             ax.axhline(0, color="#83938e", linewidth=0.7)
         ax.legend(
