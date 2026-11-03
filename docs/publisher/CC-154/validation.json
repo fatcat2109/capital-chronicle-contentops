@@ -1,0 +1,58 @@
+{
+  "item": "CC-154",
+  "recorded_at_utc": "2026-11-03T21:52:21.287231+00:00",
+  "status": "BLOCKED",
+  "first_external_cause": "NEWSROOM_CANONICAL_REQUIRED",
+  "implementation_delivery": "PUSHED_UNMERGED",
+  "live_consumer_wired": false,
+  "live_site_and_social_window_acceptance": "NOT_PROVEN",
+  "consumer_proof": "consumer-compatibility.json",
+  "checks": {
+    "final-regression.xml": {
+      "tests": "123",
+      "failures": "0",
+      "errors": "0",
+      "time": "124.398",
+      "sha256": "2fa6d238627fc3508e1ef5015828efe3d2820b2ebb2afe7da85018846b1cc73e"
+    },
+    "site-final.xml": {
+      "tests": "16",
+      "failures": "0",
+      "errors": "0",
+      "time": "11.017",
+      "sha256": "3ceec1405950e4b356de30d071093ae6b17b46d9113c7eefdbe9c5582a79f04d"
+    },
+    "site-and-native.xml": {
+      "tests": "39",
+      "failures": "0",
+      "errors": "0",
+      "time": "16.150",
+      "sha256": "4c1a84ab9831aef932f04134c0a6460479e0f7ef5bc5f2bdb73ee79b026c14f1"
+    },
+    "native-compatibility.xml": {
+      "tests": "26",
+      "failures": "0",
+      "errors": "0",
+      "time": "55.122",
+      "sha256": "294130e9dc3af555d9db0ca27f11d4fea31b26723d80f21ba78487108146b12b"
+    },
+    "compatibility-initial-failure.xml": {
+      "tests": "113",
+      "failures": "6",
+      "errors": "0",
+      "time": "97.327",
+      "sha256": "f5132b53e361f4af110036f282a076aac6455fa29166cc9c3cae092a10a6a466"
+    }
+  },
+  "ruff": "PASS: eight changed source/test files",
+  "after_final_regression": "Removed three unused imports only; ruff and whitespace checks passed afterwards.",
+  "public_writes": 0,
+  "schedule_changes": 0,
+  "messages_sent": 0,
+  "editorial_calls": 0,
+  "next_owner": "Claude Ops / Codex Web",
+  "next_action": "Adapt the CC-146/149 consumer to the exact reviewed site candidate and its stable article URL; integrate Publisher; prove one next article on the live site and social within its window.",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "high",
+  "provenance": "CONFIGURED_NOT_OBSERVED"
+}

@@ -1,6 +1,6 @@
 # CC-154 — site-first Publisher delivery
 
-Publisher now exports the exact reviewed article package as `site_publication_candidate_v1.json`. A bound native readback of its exact site URL and admitted public-copy hash unlocks social dispatch. Social uses the site URL and runs before Substack; pending social browser work defers Substack so its code tab cannot park unfinished social actions.
+This branch exports the exact reviewed article package as `site_publication_candidate_v1.json`. A bound native readback of its exact site URL and admitted public-copy hash unlocks social dispatch. Social uses the site URL and runs before Substack; pending social browser work defers Substack so its code tab cannot park unfinished social actions.
 
 The existing durable coordinator, store, outbox, dispatch identities, native begin/submit protocol, JIT identity checks, rights/public-copy guard, KILL_SWITCH and UNKNOWN_WRITE recovery remain the owners. No scheduler, second publisher, mailbox read, email-code entry or automated human-help wait was added. Historical sealed plans retain their policy. New lifecycle plans use `SITE_FIRST_V1`.
 
@@ -14,8 +14,10 @@ Codex Web must consume the reviewed candidate without inventing a confirmed Subs
 
 ## Evidence
 
+Final regression: **123 passed** in one pytest process, covering the canonical coordinator, retained native continuation and site-first behavior. See [final-regression.xml](final-regression.xml). The separate native-executor selection passed 39 checks. Ruff passes on all eight changed source/test files.
+
 - [execution.json](execution.json): actual launch configuration, deployed-source base and external consumer identity. Model/effort: gpt-6.1-sol/high, CONFIGURED_NOT_OBSERVED; no editorial model calls.
-- `site-and-native.xml`: focused site/native checks, including actual native observation binding in isolated test stores.
+- `site-and-native.xml`: focused site/native checks, including synthetic native observation binding in isolated test stores.
 - `native-compatibility.xml`: retained October native publication/recovery tests plus site cases, 26 passed before the final follow-up checks.
 - `compatibility-initial-failure.xml`: first compatibility run, 107 passed / six historical-fixture failures; fixtures were then explicitly pinned to their retained Substack-first epoch.
 

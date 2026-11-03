@@ -108,7 +108,7 @@ def _prepared_packet(store, binding):
 
 def prepare_native_publication(store, binding):
     """Seal the exact reviewed packet in the same outbox; no publisher/readiness call."""
-    from live_contentops.native_desktop_editorial_v1 import validated_native_review, validate_release_media
+    from live_contentops.native_desktop_editorial_v1 import validated_native_review
     result, _, _ = validated_native_review(store, run_id=binding["run_id"])
     from live_contentops.native_publication_latency_v1 import validate_publication_media
     validate_publication_media(store, run_id=binding["run_id"], result=result)
@@ -625,7 +625,6 @@ class NativeReviewedPublication:
                     return {"classification": "NATIVE_PUBLICATION_NOT_YET_DUE", **due,
                             "publication": self.projection(), "public_write_performed": False}
         try:
-            from live_contentops.native_desktop_editorial_v1 import validate_release_media
             result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
             try:
                 from live_contentops.native_publication_latency_v1 import validate_publication_media
@@ -696,7 +695,7 @@ class NativeReviewedPublication:
         if command == "begin":
             packet = self.executor._get(request_hash, "request")
             if packet and packet["request"]["action"] == "PUBLISH":
-                from live_contentops.native_desktop_editorial_v1 import validate_release_media, require_current_final_visual_review
+                from live_contentops.native_desktop_editorial_v1 import require_current_final_visual_review
                 result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
                 from live_contentops.native_publication_latency_v1 import validate_publication_media
                 validate_publication_media(self.store, run_id=self.binding["run_id"], result=result)
