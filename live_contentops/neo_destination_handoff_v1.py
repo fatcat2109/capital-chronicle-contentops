@@ -54,6 +54,9 @@ def _public_url(destination, url, object_id=None):
 def _text(value):
     # Browser rendering removes common Markdown syntax; it does not change the proposition.
     value = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", str(value or ""))
+    # Substack's smart punctuation changes apostrophe/quote glyphs on the same
+    # published copy. Keep numbers, minus signs, words and order exact.
+    value = value.translate(str.maketrans({"\u2018": "'", "\u2019": "'", "\u201c": '"', "\u201d": '"'}))
     return " ".join(re.sub(r"[#*_`]", "", value).split())
 
 
@@ -156,6 +159,10 @@ class NeoDestinationHandoff:
                 "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"],
             "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
             "forbidden": ["login", "reauthorize", "account_switch", "cookies", "storage", "blind_retry", "bulk_x_ingestion"]}
+        if action == "READBACK":
+            # An earlier failed observation stays immutable. A corrected readback
+            # contract receives a new read-only identity, never a new write.
+            value["reader_text_normalization"] = "MARKDOWN_WHITESPACE_SMART_QUOTES_V1"
         if destination == "substack" and action == "READBACK" and intent.get("published_content_export"):
             value["publication_clock_readback"] = (
                 "Return published_at_utc from the exact post's time datetime or post_date; "
