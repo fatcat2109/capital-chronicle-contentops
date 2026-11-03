@@ -89,7 +89,8 @@ names them. These were outside the changed continuation path and were not
 reported as a whole-suite pass. No parallel pytest process or shard was used.
 
 [validation.json](validation.json) binds artifact paths, sizes and hashes and
-checks complete distinct-destination coverage. Screenshots remain binary; the
+checks complete distinct-destination coverage. Scoped Git attributes preserve
+the recorded artifact bytes across Windows line endings. Screenshots remain binary; the
 run artifacts contain no embedded image payload. No chat message, schedule
 change, native desktop control, file dialog, account switch, confirmed-object
 repost or operating-root integration occurred.

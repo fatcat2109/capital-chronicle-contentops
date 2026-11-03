@@ -12,6 +12,11 @@
   },
   "artifacts": [
     {
+      "path": ".gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
       "path": "bind_canonical_delivery.py",
       "bytes": 3146,
       "sha256": "5c5cbf25a52f824e8ff7411a59ec939513c060168bba562ca58285e9a9676db3"
@@ -403,8 +408,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5979,
-      "sha256": "5491a4c0e873094607f180a3826440f0dd90a1c63a6834cf8684973dcd9d3d73"
+      "bytes": 6067,
+      "sha256": "b89a09b3bec076907ab9cccc669664393587e2c02580693adaca87aa72e736d6"
     },
     {
       "path": "recovery-regressions.junit.xml",
@@ -453,5 +458,6 @@
     }
   ],
   "image_bytes_printed_or_committed": false,
-  "validated_at_utc": "2026-11-03T19:21:56.618233+00:00"
+  "validated_at_utc": "2026-11-03T19:22:33.305588+00:00",
+  "git_artifact_bytes_preserved": true
 }
