@@ -304,6 +304,29 @@ def test_actual_dispatch_keeps_original_intent_and_does_not_retry_absence(social
     assert out["publish_called"] is False and len(calls) == 1
 
 
+@pytest.mark.parametrize("selected_delivered", [False, True])
+def test_delivery_uses_only_the_exact_reviewed_channel_asset(tmp_path, selected_delivered):
+    from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+    selected = tmp_path / "selected.png"
+    selected.write_bytes(b"CONTROLLED_SELECTED")
+    digest = sha256(selected.read_bytes()).hexdigest()
+    (tmp_path / "run_context_v1.json").write_text(json.dumps({"article": {}, "media": {"assets": []}}))
+    other = {"media_asset_id": "other", "sha256": "a" * 64, "public_delivery_sha256": "a" * 64,
+        "local_public_hash_continuity": True, "verified_public_delivery_url": "https://example.org/other.png"}
+    matching = {"media_asset_id": "selected", "sha256": digest, "public_delivery_sha256": digest,
+        "local_public_hash_continuity": True, "verified_public_delivery_url": "https://example.org/selected.png"}
+    (tmp_path / "delivery_media_manifest_v1.json").write_text(json.dumps({
+        "assets": [other] + ([matching] if selected_delivered else [])}))
+    intent = {"output_dir": str(tmp_path), "canonical_url": "https://capitalchronicle.substack.com/p/controlled",
+        "destination_plan": {"destination": "threads"}, "reader_presentation_review": {"stage": "CONTROLLED"},
+        "reader_presentation_article": {"title": "Unchanged"},
+        "media_assets": [{"asset_id": "selected", "modality": "source_backed_chart", "sha256": digest, "path": str(selected)}],
+        "native_payload": {"text": "Reviewed copy.", "media_asset_ids": ["selected"]}}
+    resolved = _durable_intent_inputs(intent)
+    assert resolved["public_image_url"] == (matching["verified_public_delivery_url"] if selected_delivered else "")
+    assert resolved["primary_media"] == (matching if selected_delivered else {})
+
+
 @pytest.mark.parametrize("fault", [None, "copy", "media", "target", "origin"])
 def test_exact_older_finalization_replays_without_accepting_changed_bytes(social, monkeypatch, fault):
     import live_contentops.native_desktop_editorial_v1 as editorial

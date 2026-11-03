@@ -4021,6 +4021,9 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
     delivery_path = output_dir / "delivery_media_manifest_v1.json"
     delivery = _read_json(delivery_path) if delivery_path.is_file() else {}
     delivery_assets = [dict(row) for row in (delivery.get("assets") or []) if isinstance(row, Mapping)]
+    if intent.get("reader_presentation_review"):
+        selected_hashes = {asset.get("sha256") for asset in media_assets if asset.get("sha256")}
+        delivery_assets = [asset for asset in delivery_assets if asset.get("sha256") in selected_hashes]
     primary = next(
         (
             row
