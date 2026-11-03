@@ -1,0 +1,21 @@
+{
+  "source_commit": "90e387c385757b8655ed6b788d86a528e5aafd1d",
+  "source_path": "docs/publisher/CC-171/resume-20261104-0224/final-run-summary.json",
+  "source_sha256": "f8e3fac2965155e6e9fe7798ca7d13c66f2c6d8b29e170a2db1d6ba535fb69d7",
+  "observed_at_utc": "2026-11-03T19:39:37.576789+00:00",
+  "first_blocking_cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+  "midterm_rights": {
+    "actual_error": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+    "asset_id": "cc107-generic-ballot-and-poll-close-card",
+    "source_document": "cc107-midterm-preview-20261103",
+    "source_capture_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+    "approved_expression_capture_sha256": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+    "missing_bound_fields": [
+      "attribution_required",
+      "policy_capture_sha256"
+    ],
+    "underlying_polling_reuse_evidence_found": false,
+    "required_action": "Source-rights owner supplies an exact lawful polling-data reuse binding; Publisher then prepares the same operation and resumes its eight unfinished socials. Do not invent rights fields."
+  },
+  "fresh_preparation_attempt_in_this_run": false
+}

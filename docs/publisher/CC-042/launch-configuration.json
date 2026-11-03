@@ -1,0 +1,12 @@
+{
+  "observed_at_utc": "2026-11-03T22:09:27.0764747Z",
+  "process_id": 25100,
+  "process_created_at_utc": "2026-11-03T22:05:24.6963170Z",
+  "source": "Win32_Process launch arguments; only selected values retained",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "high",
+  "classification": "CONFIGURED_NOT_OBSERVED",
+  "actual_model": null,
+  "actual_reasoning_effort": null,
+  "worker_restarted": false
+}

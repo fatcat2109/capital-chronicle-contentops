@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "three_exact_target_ids": true,
+    "strict_target_count_is_two": true,
+    "midterm_not_counted": true,
+    "midterm_content_incomplete": true,
+    "unrelated_oil_not_used": true,
+    "startup_repair_live": true,
+    "live_code_matches": true,
+    "production_main_file_unchanged": true,
+    "all_url_hashes_match": true,
+    "three_public_pages_verified": true,
+    "browser_urls_match_store": true,
+    "rights_failure_has_existing_source": true
+  },
+  "all_passed": true,
+  "evidence_files": [
+    {
+      "path": "docs\\publisher\\CC-042\\browser-readback.json",
+      "bytes": 2239,
+      "sha256": "671f3548490be98c77b4e2128e940a35dba6ddb694053e127a666259792685ae"
+    },
+    {
+      "path": "docs\\publisher\\CC-042\\launch-configuration.json",
+      "bytes": 441,
+      "sha256": "acc40d325ada08d21cfd9479f29d40bca05668623f2c5f14653857bd8e680de6"
+    },
+    {
+      "path": "docs\\publisher\\CC-042\\live-store-readback.json",
+      "bytes": 17789,
+      "sha256": "041b624f92f79a9d4a0a3f776159082ede54b7cfd3cf7a232334a92e14cd5c99"
+    },
+    {
+      "path": "docs\\publisher\\CC-042\\midterm-publication-status.json",
+      "bytes": 4786,
+      "sha256": "598f3313d3c30ea6ddcba9243a5ea1301bdab854b44b247814f1b00f027c8e44"
+    },
+    {
+      "path": "docs\\publisher\\CC-042\\README.md",
+      "bytes": 4082,
+      "sha256": "8c715f76161236611bcd521619b3764e6af957a6d2d1600ec25b067a67c0cb82"
+    },
+    {
+      "path": "docs\\publisher\\CC-042\\rights-continuation-readback.json",
+      "bytes": 1205,
+      "sha256": "213986c50c4828b0845dfdebb695a7bc9c456dce260c7ed4a48e6134cc3b1d24"
+    }
+  ],
+  "pytest_runs": 0,
+  "reason_no_pytest": "Evidence-only acceptance readback; no product code change. Existing strict live reader executed against production in read-only mode.",
+  "acceptance": "NOT_MET: 2/3 strict target canonicals; midterm reconciliation incomplete.",
+  "public_writes": 0,
+  "schedules_changed": 0,
+  "chats_messaged": 0
+}

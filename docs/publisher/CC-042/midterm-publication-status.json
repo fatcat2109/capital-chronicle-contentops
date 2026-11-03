@@ -1,0 +1,120 @@
+{
+  "run_id": "cc107-midterm-preview-20261103-v1",
+  "state": "INVALIDATED",
+  "blocker": "CURRENT_REVIEWED_HANDOFF_REQUIRED",
+  "next_operation": "review-current-packet",
+  "canonical_article_status": "NOT_CONFIRMED",
+  "canonical_publication_status": "CANONICAL_NOT_CONFIRMED",
+  "destinations": [
+    {
+      "destination": "substack",
+      "transport": "BROWSEROS_NEO_MCP",
+      "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+      "public_object_id": "223293057",
+      "public_object_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on",
+      "dispatch_recorded": true,
+      "cached_readiness": "READY_AUTHENTICATED",
+      "blocker": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "transport": "BOT_API",
+      "dispatch_id": "dispatch_57be00ea99fae340d6ac92bc5714e3d8",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatch_recorded": false,
+      "cached_readiness": "READY_NON_BROWSER_BINDING",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "discord",
+      "transport": "WEBHOOK_API",
+      "dispatch_id": "dispatch_944244b693642feff7a2cf45301cbee9",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatch_recorded": false,
+      "cached_readiness": "READY_NON_BROWSER_BINDING",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "x",
+      "transport": "BROWSEROS_NEO_MCP",
+      "dispatch_id": "dispatch_9217fcfc8602f04c9824eacc1b28f57d",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatch_recorded": false,
+      "cached_readiness": "READY_AUTHENTICATED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "linkedin",
+      "transport": "OFFICIAL_MEMBER_API",
+      "dispatch_id": "dispatch_0707794bb075bb735f87ed0bd11980dc",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatch_recorded": false,
+      "cached_readiness": "READY_NON_BROWSER_BINDING",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "facebook_page",
+      "transport": "META_GRAPH_API",
+      "dispatch_id": "dispatch_d074747b7e7fa2107b3582866e8ba42d",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatch_recorded": false,
+      "cached_readiness": "READY_NON_BROWSER_BINDING",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "instagram_business",
+      "transport": "META_GRAPH_API",
+      "dispatch_id": "dispatch_7d5a5ce926905cc84cc64d245a184288",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatch_recorded": false,
+      "cached_readiness": "READY_NON_BROWSER_BINDING",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "threads",
+      "transport": "THREADS_API",
+      "dispatch_id": "dispatch_2ec92cde947257577cd05891b4a9fce7",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatch_recorded": false,
+      "cached_readiness": "AUTH_INVALID",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "youtube",
+      "transport": "BROWSEROS_NEO_MCP",
+      "dispatch_id": "dispatch_eb003a655bed3c37245c046f030a70bc",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatch_recorded": false,
+      "cached_readiness": "READY_AUTHENTICATED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    }
+  ],
+  "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+  "limitation": "INVALIDATED packet-level summary says not confirmed; exact canonical dispatch exists publicly and remains content-incomplete in its reconciliation. No duplicate publish is authorized."
+}

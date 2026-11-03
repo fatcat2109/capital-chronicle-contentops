@@ -1,0 +1,394 @@
+{
+  "observed_at_utc": "2026-11-03T22:09:26.848314+00:00",
+  "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "store_access": "SQLITE_MODE_RO_QUERY_ONLY",
+  "projection_proof": {
+    "schema_version": "contentops.v1_simple_published_memory_access.v1",
+    "corpus_schema_version": "contentops.published_corpus_read_model.v2",
+    "canonical_reconciled_article_count": 3,
+    "canonical_publication_contract": "SUBSTACK_DISPATCH_CONFIRMED_AND_EXACT_RECONCILIATION_CONFIRMED_AND_STABLE_PUBLIC_OBJECT_ID_AND_VALID_CANONICAL_URL_AND_EXACT_URL_HASH_AND_DURABLE_SOURCE_WORK_ITEM_AND_UNIQUE_ARTICLE_IDENTITY",
+    "derived_from_existing_durable_truth": true,
+    "store_access_mode": "SQLITE_MODE_RO_QUERY_ONLY",
+    "auto_migrate": false,
+    "production_store_unchanged_during_projection": true,
+    "second_publication_store_created": false
+  },
+  "operating_head": "f7169bc049e48378de83c7032bae30ac855dd9f6",
+  "startup_fix_c2b5aea1_in_operating_ancestry": true,
+  "live_modules": {
+    "live_contentops/native_desktop_schedule_binding_v1.py": {
+      "live_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_schedule_binding_v1.py",
+      "sha256": "08508ab642428aa87f30dd88b758769c2605cab1efcf0dd3d93177a39e6e6661",
+      "matches_review_worktree": true
+    },
+    "live_contentops/published_corpus_read_model_v1.py": {
+      "live_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\published_corpus_read_model_v1.py",
+      "sha256": "a6f89fefce23f36b918ae3a792b19904688f50883b19f3375f1e071e7082320e",
+      "matches_review_worktree": true
+    },
+    "live_contentops/publication_coordinator_v1.py": {
+      "live_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+      "sha256": "bbb5cf3cc6fe536f2f83409f776228e76ecf058745cf81ff3d7b0f8d713c4dc8",
+      "matches_review_worktree": true
+    }
+  },
+  "operating_controls": [
+    {
+      "singleton_id": 1,
+      "operating_mode": "AUTONOMOUS_DEFAULT",
+      "state_version": 40,
+      "updated_at_utc": "2026-10-30T23:43:49.392869+00:00",
+      "control_source": "JIM_CC051A_CC042_RESUME_20261031"
+    }
+  ],
+  "rollout_public_write_authority": true,
+  "target_articles": [
+    {
+      "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+      "message_id": "outbox_84fe2cb9b504ae27c7d7383f402dcd91",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-02T17:13:36.215695+00:00",
+      "public_object_id": "223199520",
+      "public_object_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+      "public_object_url_hash": "8306ada5b78dfe0cf5f1180be3a643b2799211763ffa1a2cee6208f9d1b966cc",
+      "work_item_id": "cc074-retro-fomc-20261028-v1",
+      "article_identity": "20a1517c263cdec4aca92c0894333f07a775793b8f530f6bc2ace1e74dad04e1",
+      "strict_corpus_included": true,
+      "reconciliation": {
+        "reconciliation_id": "reconciliation_84fe2cb9b504ae27c7d7383f402dcd91",
+        "work_item_id": "cc074-retro-fomc-20261028-v1",
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-02T17:50:08.600903+00:00"
+      },
+      "recorded_dispatch_gmt7": "2026-11-03T00:13:36.215695+07:00",
+      "dispatch_clock_is_publication_clock": false,
+      "production_day_from_recorded_dispatch": "newsroom-production-day-2026-11-02-bangkok",
+      "url_hash_matches": true,
+      "readbacks": [
+        {
+          "readback_id": "readback_c115ef764fe91ef38d6eac7f3b05b34d",
+          "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+          "read_at": "2026-11-02T17:50:08.539332+00:00",
+          "readback_data_sha256": "c115ef764fe91ef38d6eac7f3b05b34d2dac0b5b447c68b1233048e020150ed8",
+          "flags": {
+            "verified": true,
+            "write_exists": false,
+            "write_absent": false,
+            "identity_match": true,
+            "canonical_url_valid": true,
+            "source_status": "SUCCESS",
+            "observed_public_object_id": "223199520",
+            "observed_public_object_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters"
+          }
+        },
+        {
+          "readback_id": "readback_948ad3faa4b24fa427ba01575465d001",
+          "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+          "read_at": "2026-11-02T18:30:57.003263+00:00",
+          "readback_data_sha256": "948ad3faa4b24fa427ba01575465d0015b7753f49fe706a95fae876cea0a2940",
+          "flags": {
+            "verified": true,
+            "write_exists": true,
+            "write_absent": false,
+            "identity_match": true,
+            "canonical_url_valid": true,
+            "source_status": "SUCCESS",
+            "observed_public_object_id": "223199520",
+            "observed_public_object_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters"
+          }
+        },
+        {
+          "readback_id": "cc171-fomc-social-recovery-required",
+          "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+          "read_at": "2026-11-03T09:45:30.596310+00:00",
+          "readback_data_sha256": "bdfe3858fced3b2e0641ad4e6fb1e744f5a215cc230bb82d8fa5b2d67db52fd5",
+          "flags": {}
+        }
+      ],
+      "destinations": [
+        {
+          "platform": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "223199520",
+          "public_object_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters"
+        },
+        {
+          "platform": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "1566872070753751344",
+          "public_object_url": null
+        },
+        {
+          "platform": "facebook_page",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "106091951705748_1442865088031907",
+          "public_object_url": "https://www.facebook.com/1342369584748125/posts/1442865088031907"
+        },
+        {
+          "platform": "instagram_business",
+          "status": "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "platform": "linkedin",
+          "status": "UNKNOWN_WRITE",
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "platform": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "73",
+          "public_object_url": "https://t.me/CapitalChronicle/73"
+        },
+        {
+          "platform": "x",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "2117318307866968521",
+          "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521"
+        },
+        {
+          "platform": "youtube",
+          "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+          "public_object_id": null,
+          "public_object_url": null
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+      "message_id": "outbox_61e1c3551501afee92efad2c69c2b1d1",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-02T23:08:33.902972+00:00",
+      "public_object_id": "223246940",
+      "public_object_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+      "public_object_url_hash": "7cb21614a3dc615eeaf2552ae07dd8d41ce1887912b0702b67e2015e2d11ab42",
+      "work_item_id": "cc124-prepare-20261103-a",
+      "article_identity": "e8f9f4ec5cf1fc91133e77d4bb27b45435139db5b121bbf4252c29f75bab1bdd",
+      "strict_corpus_included": true,
+      "reconciliation": {
+        "reconciliation_id": "reconciliation_61e1c3551501afee92efad2c69c2b1d1",
+        "work_item_id": "cc124-prepare-20261103-a",
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-03T04:36:40.270390+00:00"
+      },
+      "recorded_dispatch_gmt7": "2026-11-03T06:08:33.902972+07:00",
+      "dispatch_clock_is_publication_clock": false,
+      "production_day_from_recorded_dispatch": "newsroom-production-day-2026-11-03-bangkok",
+      "url_hash_matches": true,
+      "readbacks": [
+        {
+          "readback_id": "readback_02695d7c7665bedf1337c1f30de54ca7",
+          "dispatch_id": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+          "read_at": "2026-11-03T04:36:40.240327+00:00",
+          "readback_data_sha256": "02695d7c7665bedf1337c1f30de54ca7cf9625e6af8c759910769e385f292114",
+          "flags": {
+            "verified": true,
+            "write_exists": false,
+            "write_absent": false,
+            "identity_match": true,
+            "canonical_url_valid": true,
+            "source_status": "SUCCESS",
+            "observed_public_object_id": "223246940",
+            "observed_public_object_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer"
+          }
+        },
+        {
+          "readback_id": "native-reader-presentation-341588899a944fb0da20d3cab33ce4edcaada0504b4a36fc2e9339228aacf584-observed-c1983458b183695e136df0f96335f69d0642a3a89171a0fa976ad485e46f0b97",
+          "dispatch_id": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+          "read_at": "2026-11-03T05:31:51.865630+00:00",
+          "readback_data_sha256": "a2888f0289055425913b8486cdd2c51b09bc022b4d3401924f9fd0776b26ddd4",
+          "flags": {
+            "verified": true,
+            "write_exists": true,
+            "write_absent": false
+          }
+        },
+        {
+          "readback_id": "cc171-cpi-social-continuation-blocked",
+          "dispatch_id": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+          "read_at": "2026-11-03T09:41:30.353144+00:00",
+          "readback_data_sha256": "3ec88977276560758eb4f363ac4329b521fd16a45282ea8d51297dc01114fcac",
+          "flags": {}
+        }
+      ],
+      "destinations": [
+        {
+          "platform": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "223246940",
+          "public_object_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer"
+        },
+        {
+          "platform": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "1567217600877039648",
+          "public_object_url": null
+        },
+        {
+          "platform": "facebook_page",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "106091951705748_1443815231270226",
+          "public_object_url": "https://www.facebook.com/1342369584748125/posts/1443815231270226"
+        },
+        {
+          "platform": "linkedin",
+          "status": "UNKNOWN_WRITE",
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "platform": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "74",
+          "public_object_url": "https://t.me/CapitalChronicle/74"
+        },
+        {
+          "platform": "x",
+          "status": "NATIVE_NEO_TOOL_PENDING",
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "platform": "youtube",
+          "status": "NATIVE_NEO_TOOL_PENDING",
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "platform": "instagram_business",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "public_object_id": null,
+          "public_object_url": null
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+      "message_id": "outbox_b2dd871bf6a9e8c9b741aa6a37f476ac",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-03T08:36:46.408614+00:00",
+      "public_object_id": "223293057",
+      "public_object_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on",
+      "public_object_url_hash": "1e5beb16375142392ab6c4b540b52a8b7508f9f5398980b4af9de1e9eb8fa97b",
+      "work_item_id": "cc107-midterm-preview-20261103-v1",
+      "article_identity": "c4368eb9690d8c3b69eadf50a48eef29812520953113646a7e90da7237f1a309",
+      "strict_corpus_included": false,
+      "reconciliation": {
+        "reconciliation_id": "reconciliation_b2dd871bf6a9e8c9b741aa6a37f476ac",
+        "work_item_id": "cc107-midterm-preview-20261103-v1",
+        "status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+        "reconciled_at": "2026-11-03T10:28:24.476682+00:00"
+      },
+      "recorded_dispatch_gmt7": "2026-11-03T15:36:46.408614+07:00",
+      "dispatch_clock_is_publication_clock": false,
+      "production_day_from_recorded_dispatch": "newsroom-production-day-2026-11-03-bangkok",
+      "url_hash_matches": true,
+      "readbacks": [
+        {
+          "readback_id": "draft-c0b12638f3f95df6ae24d8b8a716c8eb4f0fb838510204dd995d5d006814f0a0",
+          "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+          "read_at": "2026-11-03T08:55:02.426591+00:00",
+          "readback_data_sha256": "c0b12638f3f95df6ae24d8b8a716c8eb4f0fb838510204dd995d5d006814f0a0",
+          "flags": {}
+        },
+        {
+          "readback_id": "draft-credit-7c8cfd663cf4cb6bc70c7d31e4ccda03de8fc94a2b798c6f8e10e9091e976d32",
+          "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+          "read_at": "2026-11-03T09:22:16.781590+00:00",
+          "readback_data_sha256": "7c8cfd663cf4cb6bc70c7d31e4ccda03de8fc94a2b798c6f8e10e9091e976d32",
+          "flags": {}
+        },
+        {
+          "readback_id": "cc171-email-code-b0492ab2ee5df3ecb9ef8de626df506b",
+          "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+          "read_at": "2026-11-03T09:35:10.981307+00:00",
+          "readback_data_sha256": "25035f2f971bacfb58b35f18ea09079571072d71400e7141ab67b77f39b35f24",
+          "flags": {}
+        },
+        {
+          "readback_id": "cc171-email-code-f9c1ec37347574d885bbfaddddbc8ae4",
+          "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+          "read_at": "2026-11-03T10:11:41.575692+00:00",
+          "readback_data_sha256": "f3c85d173736b4a3a129ff6dd558cd0ab612dbc230cafd559e8b4a4704bb157e",
+          "flags": {}
+        },
+        {
+          "readback_id": "cc171-email-final-1a19a7cc44fb62acc5cf3f765ab368ae",
+          "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+          "read_at": "2026-11-03T10:17:09.985520+00:00",
+          "readback_data_sha256": "67fc3a28cdb117db7c636a06524054852492d9a6d970dbcafcd5841941c57d66",
+          "flags": {}
+        },
+        {
+          "readback_id": "cc171-midterm-live-223293057-20261103",
+          "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+          "read_at": "2026-11-03T10:25:24.984395+00:00",
+          "readback_data_sha256": "cf3565e2d3e49de87db8778f843e74474da846ae6ae16d6aea0e452366e8cc4b",
+          "flags": {}
+        },
+        {
+          "readback_id": "readback_c71c97e53662d7cff8a0cac534500eeb",
+          "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+          "read_at": "2026-11-03T10:28:24.451348+00:00",
+          "readback_data_sha256": "c71c97e53662d7cff8a0cac534500eebb1014bcd5a58b2b550e88c251aac1bfb",
+          "flags": {
+            "verified": false,
+            "write_exists": true,
+            "write_absent": false,
+            "identity_match": true,
+            "canonical_url_valid": true,
+            "source_status": "BLOCKED",
+            "observed_public_object_id": "223293057",
+            "observed_public_object_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on",
+            "observed_published_at_utc": "2026-11-03T10:20:18.502000+00:00"
+          }
+        },
+        {
+          "readback_id": "readback_79ed1d4f9a161c27d5f47eb1f7c67c95",
+          "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+          "read_at": "2026-11-03T17:10:48.940730+00:00",
+          "readback_data_sha256": "79ed1d4f9a161c27d5f47eb1f7c67c95e95330533c13471437f2afd4dd6d9fcc",
+          "flags": {
+            "verified": false,
+            "write_exists": true,
+            "write_absent": false,
+            "identity_match": true,
+            "canonical_url_valid": true,
+            "source_status": "BLOCKED",
+            "observed_public_object_id": "223293057",
+            "observed_public_object_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on"
+          }
+        }
+      ],
+      "destinations": [
+        {
+          "platform": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "223293057",
+          "public_object_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on"
+        }
+      ]
+    }
+  ],
+  "target_count": 3,
+  "strict_target_count": 2,
+  "unrelated_oil_article_excluded_from_acceptance": true,
+  "target_production_days": {
+    "newsroom-production-day-2026-11-02-bangkok": 1,
+    "newsroom-production-day-2026-11-03-bangkok": 2
+  },
+  "three_articles_in_one_production_day_claimed": false,
+  "process_failure_free_day_claimed": false,
+  "daily_5_to_8_reliability_claimed": false,
+  "production_store_main_file_unchanged": true,
+  "new_public_writes": 0,
+  "schedule_changes": 0,
+  "chat_messages": 0,
+  "editorial_model_calls": 0,
+  "code_changes": 0
+}
