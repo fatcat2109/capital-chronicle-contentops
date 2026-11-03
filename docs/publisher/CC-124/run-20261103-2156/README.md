@@ -25,3 +25,14 @@ analysis history. The same MAX writer inspected the binary card before prose.
 Actual source acquisition records distinguish the admitted announcement request
 from the separate unadmitted agenda discovery read; source/publication/retrieval
 clocks remain distinct. No first text approval or public send is claimed yet.
+
+The same MAX writer returned a 253-word preview. One bounded revision changed
+only the headline publisher attribution; its body, sources and visual decision
+remained unchanged. The compiler now qualifies one article and eight channel
+states, with Instagram explicitly skipped. The same MAX editor returned KEEP;
+the existing review owner records first text approval at 2026-11-03T16:38:46.874923Z.
+The current policy is bound to the accepted same-writer revision, without a
+second editor check or a reset of the clock. The original publication resume
+is running; no browser publish request or confirmed public object is recorded
+in this checkpoint. The dedicated Neo window is 1698401302 with Gmail page 164
+open and unread. Publication/readback remain outstanding.
