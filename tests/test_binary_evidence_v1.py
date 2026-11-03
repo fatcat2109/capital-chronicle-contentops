@@ -26,6 +26,17 @@ def test_binary_screenshot_and_metadata_allowed_base64_sidecars_and_embeds_rejec
     }
 
 
+def test_image_extension_cannot_hide_base64_text(tmp_path):
+    git(tmp_path, "init", "-q")
+    (tmp_path / "fake.png").write_text("iVBORw0KGgo" + "A" * 200)
+    (tmp_path / "fake.webp").write_text("image text is not a binary WebP")
+    git(tmp_path, "add", "fake.png", "fake.webp")
+    assert set(check(tmp_path)) == {
+        ("fake.png", "BINARY_IMAGE_MAGIC_REQUIRED"),
+        ("fake.webp", "BINARY_IMAGE_MAGIC_REQUIRED"),
+    }
+
+
 def test_root_git_rules_hide_transient_captures_and_mark_images_binary():
     root = Path(__file__).resolve().parents[1]
     paths = ["docs/publisher/CC-172/captures/page.png", "tests/evidence/cc-172/captures/page.png",
