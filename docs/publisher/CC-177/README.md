@@ -62,3 +62,30 @@ Main consumers are wired. CC-177 cannot truthfully become DONE while those
 external dependencies remain. Publisher will install all its tested code and
 report the exact external causes, rather than mark a branch delivery as live
 end-to-end completion.
+
+## Operating installation and result
+
+Installed code: `4da97a28d0defbb2d8e86e7ef9d8449f203717a3` by fast-forward.
+The served frontend was rebuilt successfully in the operating root. All six
+tracked WIP files retain their hashes, and all 36 original untracked groups and
+the exact original status entries remain. No app was opened, closed or restarted.
+Fresh Python imports from the operating root and real read-only function execution
+prove the installed desk/engagement/coverage/feed modules are callable. This does
+not claim a persistent process reloaded modules, an autonomous collection occurred,
+or Main consumed the output. See `live-consumer-readback.json` and `integration.json`.
+
+The live publication feed validates three sealed records; the FOMC record still
+has its five confirmed outlets. The new-binding source cap resolves to 20. Both
+current editorial pointers have zero `desk_record_exports` entries, so no real
+CC-014 desk export is claimed to reach editorial selection yet.
+
+Tag: `contentops-live-20261104-cc177` (final code/evidence commit).
+Rollback source: `contentops-rollback-20261104-cc177` at the prior operating head.
+These identify the source boundary; the old WIP remains outside those commits.
+
+**CC-177: BLOCKED by external Main consumer bindings.** Publisher source integration
+is complete; CC-043 awaits the CC-014 producer/binding after NFP; CC-044/047 await
+weekly reader/rendering in Main's existing CC-122 digest; CC-135 awaits Ops' reviewed
+CC-136 integration and CC-014/site binding. Ops/Codex Main must finish those existing
+consumers, then Publisher can verify them and close the four retained items.
+No default-branch merge, Main code edit, new schedule, message or public send occurred.

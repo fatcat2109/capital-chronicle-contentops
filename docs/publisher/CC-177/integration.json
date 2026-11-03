@@ -1,0 +1,16 @@
+{
+  "installed_source": "4da97a28d0defbb2d8e86e7ef9d8449f203717a3",
+  "previous_live": "a4d60fe0d10de97a06603a8de6b6c3e88c79edcd",
+  "rollback_tag": "contentops-rollback-20261104-cc177",
+  "live_tag": "contentops-live-20261104-cc177",
+  "tracked_wip_preserved": 6,
+  "all_original_porcelain_entries_preserved": true,
+  "live_frontend_build": "PASS",
+  "built_ui_index_sha256": "1498d84d3599b0148f841cd700918894b26b05dc3a7bdcbfc7f15f6a4917fc92",
+  "limits": [
+    "No app restart or long-running process reload claimed. Fresh native CLI consumers use the installed source.",
+    "CC-014 recurring export is not bound to either configured editorial pointer.",
+    "Main CC-122 has no weekly coverage/engagement reader.",
+    "CC-136 helper refused GIT_CHECKOUT_CONTROL_CHANGED; intended CC-014/site consumer remains outside Publisher."
+  ]
+}

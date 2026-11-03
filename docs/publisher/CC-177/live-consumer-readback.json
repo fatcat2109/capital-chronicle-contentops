@@ -1,0 +1,64 @@
+{
+  "observed_at_utc": "2026-11-03T22:03:47.714461+00:00",
+  "operating_head": "4da97a28d0defbb2d8e86e7ef9d8449f203717a3",
+  "modules": {
+    "live_contentops.capital_chronicle_report_feed_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\capital_chronicle_report_feed_v1.py",
+      "sha256": "079171ef5ec85a8c7e6fb9ee4a0b93ae6ffa37d1a20ef9049487b0942d972624"
+    },
+    "live_contentops.channel_engagement_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\channel_engagement_v1.py",
+      "sha256": "6de4ea9b660cd2c3c5ffd52a108edf121588dda832687cf2ef5174dc9c5bf678"
+    },
+    "live_contentops.newsroom_coverage_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\newsroom_coverage_v1.py",
+      "sha256": "e6c86c46ce82ea89ef87459a9d209586efe509fa9e95949dd313c9342d6ff471"
+    },
+    "live_contentops.published_content_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\published_content_v1.py",
+      "sha256": "7b166ab81db3361b205ac03edb87990535a9306107867de50beee18d76e594e7"
+    },
+    "live_contentops.local_subscriber_markdown_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\local_subscriber_markdown_v1.py",
+      "sha256": "f42e57b493c7004401a7e9bf8a744a8d7146a3a6cea44e9607843c28f9ded2fd"
+    }
+  },
+  "live_function_readback": {
+    "engagement_channels": 10,
+    "engagement_statuses": {
+      "substack": "UNAVAILABLE",
+      "x": "UNAVAILABLE",
+      "youtube": "UNAVAILABLE",
+      "linkedin": "UNAVAILABLE",
+      "linkedin_company": "UNAVAILABLE",
+      "telegram": "UNAVAILABLE",
+      "discord": "UNAVAILABLE",
+      "facebook_page": "UNAVAILABLE",
+      "instagram_business": "UNAVAILABLE",
+      "threads": "UNAVAILABLE"
+    },
+    "source_walks": 12,
+    "source_walks_succeeded": 11,
+    "coverage_status": "PARTIAL",
+    "valid_sealed_feed_lines": 3,
+    "fomc_outlets": 5,
+    "new_binding_request_limit": 20
+  },
+  "desk_feed_configurations": [
+    {
+      "config": "config/native_desktop_rollout_v1.json",
+      "feed_pointer": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal23\\provider_resume_binding.json",
+      "pointer_exists": true,
+      "desk_record_exports": 0
+    },
+    {
+      "config": "config/native_desktop_operator_profile_v1.json",
+      "feed_pointer": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal29\\provider_resume_binding.json",
+      "pointer_exists": true,
+      "desk_record_exports": 0
+    }
+  ],
+  "provider_calls": 0,
+  "public_writes": 0,
+  "query_only": true
+}
