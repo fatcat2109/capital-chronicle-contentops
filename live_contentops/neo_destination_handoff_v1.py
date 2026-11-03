@@ -181,6 +181,7 @@ class NeoDestinationHandoff:
             )
         if destination == "substack" and action == "READBACK" and intent.get("pending_owner_screen"):
             value["pending_owner_screen"] = intent["pending_owner_screen"]
+            value["owner_readback_invocation"] = intent.get("owner_readback_invocation")
             value["steps"] = ["Inspect only the same retained code tab. Never reload, navigate, type, read a mailbox, enter a code or use another tab. If still on the code screen, report unverified. Continue exact readback only after this tab reaches /publish/posts/detail/.../share-center."]
         if destination == "linkedin" and action == "READBACK" and not public_object_id:
             value["owner_absence_context"] = intent.get("owner_absence_context")

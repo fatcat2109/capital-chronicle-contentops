@@ -1582,6 +1582,9 @@ class DurablePublicationCoordinator:
             screen = self.store.get_outbox_message("substack-owner-screen-" + dispatch_id)
             if screen:
                 intent = {**intent, "pending_owner_screen": json.loads(screen["payload"])}
+                executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
+                if executor:
+                    intent["owner_readback_invocation"] = executor.native_invocation_id
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         ids["reconciliation_id"] = "reconciliation_" + dispatch_id.removeprefix("dispatch_")
         registration = self._intent_registration(destination, intent)
@@ -2450,12 +2453,24 @@ class DurablePublicationCoordinator:
                 if pending_social:
                     outcomes["substack"] = {"status": "SUBSTACK_AFTER_SOCIAL_PASS", "publish_called": False}
                 else:
+                    dispatch = self.store.get_platform_dispatch(self._ids(work_item_id, plan["plan_hash"], "substack")["dispatch_id"])
+                    if dispatch and dispatch["status"] == "SUBSTACK_DRAFT_AWAITING_OWNER":
+                        self.readback_existing_dispatch(dispatch["dispatch_id"])
                     outcomes["substack"] = self._dispatch_message(message, canonical_url=None)
         finally:
             self._site_social_pass_complete = False
         result = {**registration, "delivery_media_preparation": delivery, "per_destination": outcomes, **self.publication_totals(
             outcomes, full_v1=self._full_v1_distribution_required(plan))}
-        return self._site_publication_state(work_item_id, plan, result)
+        result = self._site_publication_state(work_item_id, plan, result)
+        if self.published_content_path is not None and result["substack_publication_confirmed"]:
+            from live_contentops.published_content_v1 import sync_confirmed_piece
+            try:
+                result["published_content_record"] = sync_confirmed_piece(self.store,
+                    self.published_content_path, work_item_id, recorded_at_utc=self._clock().isoformat())
+            except (ValueError, OSError, KeyError, TypeError) as exc:
+                result["published_content_record"] = {"status": "PUBLICATION_RECORD_PENDING",
+                    "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__}
+        return result
 
     def _site_publication_state(self, work_item_id, plan, result):
         from live_contentops.site_first_publication_v1 import confirmed_site

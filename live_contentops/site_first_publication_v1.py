@@ -24,7 +24,7 @@ def site_url(plan):
     return SITE + "articles/" + sha256_of(plan["article_identity"])[:32] + "/"
 
 
-def request_for_site(work_item_id, plan):
+def request_for_site(work_item_id, plan, native_invocation_id=None):
     request = {
         "action": "READBACK", "destination": "site", "surface": "PUBLIC_ARTICLE_SITE",
         "work_item_id": work_item_id, "plan_hash": plan["plan_hash"],
@@ -33,6 +33,8 @@ def request_for_site(work_item_id, plan):
         "article_content_sha256": plan["article_content_sha256"],
         "instructions": "Read the exact live article and its public copy hash. A homepage, deployment receipt, missing article or stale copy is not confirmation. No writes.",
     }
+    if native_invocation_id:
+        request["native_invocation_id"] = native_invocation_id
     request["request_sha256"] = sha256_of(request)
     return request
 
@@ -56,7 +58,8 @@ def candidate(work_item_id, plan):
 
 def confirm_site(store, work_item_id, plan, executor):
     """Only a bound native tool observation can unlock the site's URL."""
-    request = request_for_site(work_item_id, plan)
+    identity = request_for_site(work_item_id, plan)
+    request = request_for_site(work_item_id, plan, executor.native_invocation_id)
     result = executor(request)
     observation = result.get("native_tool_observation") or {}
     try:
@@ -72,8 +75,8 @@ def confirm_site(store, work_item_id, plan, executor):
         raise ValueError("EXACT_LIVE_SITE_ARTICLE_READBACK_REQUIRED")
     value = {"schema_version": "contentops.site_publication_readback.v1",
              "work_item_id": work_item_id, "plan_hash": plan["plan_hash"],
-             "request_sha256": request["request_sha256"], "result": result}
-    store.register_outbox_message(message_id="site-readback-" + request["request_sha256"],
+             "request_sha256": identity["request_sha256"], "result": result}
+    store.register_outbox_message(message_id="site-readback-" + identity["request_sha256"],
         work_item_id=work_item_id, destination=DESTINATION,
         payload=json.dumps(value, sort_keys=True), status="SITE_READBACK_CONFIRMED")
     return site_url(plan)

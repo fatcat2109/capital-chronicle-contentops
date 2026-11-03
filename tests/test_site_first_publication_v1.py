@@ -24,7 +24,7 @@ def setup(tmp_path):
 
 
 def observe(store, plan, executor, **changes):
-    request = request_for_site("work-1", plan)
+    request = request_for_site("work-1", plan, executor.native_invocation_id)
     with pytest.raises(NativeNeoInputRequired) as pending:
         executor(request)
     packet = pending.value.request
@@ -173,3 +173,49 @@ def test_native_social_request_accepts_only_exact_preview_article_scope():
     for wrong in ("https://example.com/articles/test/", "https://fatcat2109.github.io/other/articles/" + "a" * 32 + "/"):
         with pytest.raises(ValueError, match="RECONCILED_CANONICAL_URL_REQUIRED"):
             adapter.request(destination="x", action="PUBLISH", intent={**intent, "canonical_url": wrong}, authorization_context=auth)
+
+
+def test_new_invocation_can_recheck_site_after_external_deployment(tmp_path):
+    store, _, _, plan, executor, root = setup(tmp_path)
+    with pytest.raises(ValueError, match="EXACT_LIVE_SITE_ARTICLE_READBACK_REQUIRED"):
+        observe(store, plan, executor, verified=False)
+    restarted = NativeNeoExecutor(store, operation_id="work-1", output_dir=root / "neo",
+        native_invocation_id="later-exec", allow_publish=True)
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        confirm_site(store, "work-1", plan, restarted)
+    assert pending.value.request["request"]["native_invocation_id"] == "later-exec"
+
+
+def test_full_distribution_substack_unavailable_never_vetoes_social(tmp_path):
+    store, transport, coordinator, plan, executor, _ = setup(tmp_path)
+    from test_publication_coordinator_v1 import _quality_plan
+    from live_contentops.destination_transport_registry_v1 import registration_for_destination
+    plan.update(_quality_plan())
+    observe(store, plan, executor)
+    executor.readiness = lambda surface: {"authenticated": True, "native_executor_bound": True,
+        "proof_fresh": True, "public_handle": registration_for_destination("linkedin").expected_public_handle}
+    provider = coordinator.readiness_provider
+    coordinator.readiness_provider = lambda destination: {"readiness_state": "SESSION_UNAVAILABLE"} if destination == "substack" else provider(destination)
+    result = coordinator.execute_plan("work-1", plan)
+    assert "substack" not in transport.publish_calls
+    assert len(transport.publish_calls) == 8
+    assert result["site_publication_confirmed"]
+    assert not result["substack_publication_confirmed"]
+
+
+def test_unknown_social_preserves_readback_before_retry_and_defers_substack(tmp_path):
+    store, transport, coordinator, plan, executor, _ = setup(tmp_path)
+    observe(store, plan, executor)
+    publish = transport.publish
+    def uncertain(**kwargs):
+        if kwargs["destination"] == "x":
+            raise TimeoutError("synthetic lost response")
+        return publish(**kwargs)
+    transport.publish = uncertain
+    readback = transport.readback
+    transport.readback = lambda **kwargs: {"verified": False} if kwargs["destination"] == "x" else readback(**kwargs)
+    result = coordinator.execute_plan("work-1", plan)
+    assert result["per_destination"]["x"]["status"] == UNKNOWN_WRITE
+    assert result["per_destination"]["substack"]["status"] == "SUBSTACK_AFTER_SOCIAL_PASS"
+    assert "substack" not in transport.publish_calls
+    assert set(transport.publish_calls) == {"telegram", "discord", "facebook_page"}

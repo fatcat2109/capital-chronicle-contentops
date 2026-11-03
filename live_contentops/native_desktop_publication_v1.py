@@ -542,8 +542,10 @@ class NativeReviewedPublication:
                 "site_url", "site_publication_confirmed", "substack_publication_confirmed", "distribution_status")})
             if any(d["status"] == "SUBSTACK_DRAFT_AWAITING_OWNER" for d in value.get("destinations", [])):
                 value["state"] = "SUBSTACK_DRAFT_AWAITING_OWNER"
-                value["next_operation"] = "publication-status"
-                value["next_command"] = "Leave the retained Substack code tab untouched for Jim; no automatic wait or new publish. Later use exact readback after owner confirmation."
+                if not any(p["request"]["action"] == "READBACK" and p["request"]["destination"] == "substack"
+                        for p in value.get("pending_requests", [])):
+                    value["next_operation"] = "publication-status"
+                    value["next_command"] = "Leave the retained Substack code tab untouched for Jim; no automatic wait or new publish. Later use exact readback after owner confirmation."
         return value
 
     def _authorize_and_bind(self):
