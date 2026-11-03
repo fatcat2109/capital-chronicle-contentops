@@ -244,7 +244,7 @@
     "artifact": "media/asset-review-r2.json",
     "reviewer": "/root/native_visual_edit_76437a71362e",
     "status": "ACCEPT_ASSET_ONLY",
-    "final_article_review": "PENDING"
+    "final_article_review": "ACCEPT_SAME_WRITER_18_RENDERED_VIEWS"
   },
   "native_event_acceptance": {
     "packet_location": "article.event_article",
@@ -256,7 +256,7 @@
   "draft": {
     "path": "midterm-preview.md",
     "native_response": "native/write-response.json",
-    "status": "NATIVE_QUALIFIED_PRIVATE_ARTICLE_FINAL_PIXEL_REVIEW_PENDING",
+    "status": "NATIVE_QUALIFIED_PRIVATE_ARTICLE_FINAL_PIXEL_REVIEW_ACCEPTED",
     "material_claim_bindings": 46,
     "numeric_spans": 41,
     "native_repair_cause": "report_horizon_proxy_cost_limits_missing was a source-type validation defect, fixed only for exact approved source and guarded copy. No Main report limit waived.",
@@ -392,15 +392,49 @@
     "coverage": "canonical and exactly eight derivatives, desktop/mobile",
     "inspection_artifact": "review-r2/capture-inspection-r2.json",
     "same_actual_reviewer": "/root/native_visual_edit_76437a71362e",
-    "status": "CAPTURED_INSPECTED_BOUND_FINAL_RESPONSE_PENDING",
+    "status": "ACCEPTED_EXACT_FINAL_RENDERED_REVISION",
     "original_failed_captures": "Preserved under review/; corrected source frames and literal overlap assembly evidence retained under review-r2/."
   },
   "final_render_request_r2": {
     "stage": "final-visual-8569dcae160d57e0c2da8f5f4af571e1168629064d3e613b7d36677d92d61a6a",
     "request_sha256": "7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a",
     "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc107-midterm-preview-20261103-v1\\desktop_request_final-visual-8569dcae160d57e0c2da8f5f4af571e1168629064d3e613b7d36677d92d61a6a.json",
-    "status": "NATIVE_SAME_WRITER_RESPONSE_PENDING",
+    "status": "ACCEPTED_SAME_ACTUAL_WRITER",
     "renders": "review-r2/renders.json",
-    "original_repair_request_unchanged": true
+    "original_repair_request_unchanged": true,
+    "response_artifact": "native/final-visual-response-r2.json",
+    "response_file_sha256": "362948db5acc4f2fb6c5dbd289cdc775629578d85ad890bc44afc8b7588ba158",
+    "acceptance": {
+      "stage": "final-visual-8569dcae160d57e0c2da8f5f4af571e1168629064d3e613b7d36677d92d61a6a",
+      "request_sha256": "7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a",
+      "response_sha256": "b0364e4cee2ba73e0e14810da9760a71e1c9887dd20fc3936393442f2e8e0ff7",
+      "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc107-midterm-preview-20261103-v1",
+      "article_revision": "3ad7f3d9f7a85ff987baf17d9d4568d930c3b342d862e88bf1c99344a0f408ab",
+      "render_binding_sha256": "8569dcae160d57e0c2da8f5f4af571e1168629064d3e613b7d36677d92d61a6a",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Supported exact same-actor native final-visual task assignment for operation cc107-midterm-preview-20261103-v1, stage final-visual-8569dcae160d57e0c2da8f5f4af571e1168629064d3e613b7d36677d92d61a6a, request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a to /root/native_visual_edit_76437a71362e. The task explicitly requests gpt-6.1-sol/max. Actual model and effort are not available through supported runtime telemetry; settings and assignment are not reported as observed values.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_visual_edit_76437a71362e",
+        "model": null,
+        "observation_source": "The executing native context /root/native_visual_edit_76437a71362e is the same actual visual editor and writer. It inspected both assets, directly performed the bounded BrowserOS Neo viewport capture repair and inspected all 18 corrected assembled images plus original detailed raw frames. The exact saved inspection evidence is review-r2/capture-inspection-r2.json SHA256 18e76d123ea5aecda2ce6df9ddb6836648cb08128810a9b7f6111a15252ca6ab. This fresh turn read the full frozen request, checked that its article matches the captured source and that every asset/render/source hash remains identical, and binds those actual inspections to the current request. Historical REPAIR_REQUIRED response is preserved unchanged.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    }
+  },
+  "current_review": {
+    "artifact": "native/review-result-r2.json",
+    "review_id": "native-article-review-a04565b6578340a2a66241882446edd7",
+    "decision": "KEEP"
+  },
+  "publication_preparation": {
+    "artifact": "native/publication-prepare-r2.json",
+    "state": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+    "public_write_performed": false
   }
 }

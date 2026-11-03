@@ -1,0 +1,11 @@
+{
+  "article_identity": "c4368eb9690d8c3b69eadf50a48eef29812520953113646a7e90da7237f1a309",
+  "decision": "KEEP",
+  "rationale": "The same actual native MAX writer accepted both source-bound assets and all 18 exact corrected desktop/mobile renders with no unresolved findings. The article preserves the frozen Ops-reviewed event preview, uncertainty, natural attribution and required analysis/conflicts notices; corrected reader copy passes the public guard for all eight derivatives. Substack delivery is draft only under the 3 November 13:04 GMT+7 instruction.",
+  "expected_review_id": null,
+  "final_visual_review": {
+    "stage": "final-visual-8569dcae160d57e0c2da8f5f4af571e1168629064d3e613b7d36677d92d61a6a",
+    "request_sha256": "7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a",
+    "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc107-midterm-preview-20261103-v1"
+  }
+}

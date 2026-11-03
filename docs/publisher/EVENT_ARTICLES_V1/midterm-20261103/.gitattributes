@@ -4,3 +4,4 @@ media/* -text
 media/commons-rights-page.md -diff
 *.json -text
 *.html -text
+*.b64 -text

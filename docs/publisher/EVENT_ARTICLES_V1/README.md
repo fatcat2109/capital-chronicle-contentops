@@ -126,7 +126,9 @@ are in [execution.json](midterm-20261103/execution.json).
 The same MAX editor required repairs to the first assembled renders. The portrait
 fact card, caption and linkless derivative corrections are applied through the
 existing media owner. The corrected eight reader copies pass the public guard;
-final desktop/mobile pixel acceptance remains pending. The existing sole
+the same actual MAX writer accepted both assets and all 18 corrected desktop/mobile
+renders. The existing owner recorded that exact return and a revision-bound KEEP.
+The existing sole
 coordinator's fenced Substack save-draft path is implemented and tested, but has
 not been called. It forbids Publish, Update, mailbox access and verification codes;
 a saved draft will not count as a public canonical article.

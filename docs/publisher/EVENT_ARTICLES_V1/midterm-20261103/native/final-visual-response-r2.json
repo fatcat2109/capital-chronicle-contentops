@@ -1,0 +1,316 @@
+{
+  "request_sha256": "7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a",
+  "output": {
+    "decision": "ACCEPT",
+    "asset_findings": [
+      {
+        "asset_id": "cc107-generic-ballot-and-poll-close-card",
+        "asset_sha256": "f230c117cc279bde0718c094aaf70d4b1c8efae377f4ccacb78c222066fac4f1",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS",
+          "sign_magnitude": "PASS",
+          "denominator": "PASS",
+          "period_year_quarter": "PASS",
+          "units_currency": "PASS",
+          "transformation_rounding": "PASS",
+          "source_link_claim": "PASS",
+          "zero_baseline_scale": "NOT_APPLICABLE",
+          "comparisons_stacks_totals_missingness": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actually inspected the exact portrait r3 PNG f230c117cc279bde0718c094aaf70d4b1c8efae377f4ccacb78c222066fac4f1 through local view_image and compared its exact sibling data JSON and frozen PREVIEW source 407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349. Democrats 51.1% and Republicans 42.8%, updated 2 November 2026, are source-reported generic-ballot voting-intention estimates. The separate labelled values neither imply a complete electorate total nor probabilities of chamber control; the qualification is explicit. First polls close at 23:00 UTC on 3 November agrees with the admitted preview timing attributed to 270toWin. No changed sign/magnitude, denominator, precision, units, arithmetic, interpolation, invented remainder, uncertainty interval, history, seat projection or prediction-market odds is present. There are no plotted axes, stacks or proportional areas requiring a zero baseline. The same actual reviewer inspected every corrected 1200 px desktop and 390 px mobile canonical/channel presentation, including original raw mobile frames: direct party labels, both percentages, update date, meaning note and first-close text are readable together, with compact but usable source credit. No clipping, overlap, distorted crop or misleading colour association is visible. Placement follows What is expected beside the polling argument. The natural caption removes via the approved preview and retains PollCheck/270toWin attribution; alt text states the exact figures and meaning. Original repair findings are resolved for these exact bytes and presentations."
+      },
+      {
+        "asset_id": "cc107-capitol-west-front-archive-1997",
+        "asset_sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS",
+          "identity_relevance": "PASS",
+          "archive_context": "PASS",
+          "caption_credit_alt": "PASS",
+          "lawful_reuse": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actually inspected the exact original Capitol JPEG 19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470 through local view_image and its corrected canonical desktop/mobile placement in the fresh review-r2 renders. The west front, dome, both wings, terraces, lawns, flower beds and paths are visible without misleading crop or distortion. It supplies relevant institutional context, not corroboration of election-night facts. The 1997 date comes from the retained source metadata and is clearly labelled as archive context; no current scene is implied. The caption explicitly states that it does not depict election night. Architect of the Capitol / Wikimedia Commons attribution, public-domain terms and accessible reuse link remain attached, with exact provider/licence evidence in the unchanged rights receipt 00c937c7ef7c7a60e9f843914dda79c869122abf132594ea65c03bd59c984600. Corrected alt text names visible lawn, flower beds and paths and does not invent a reflecting pool. Final placement near the opening is relevant, legible and complete at both widths."
+      }
+    ],
+    "render_findings": [
+      {
+        "render_id": "cc107-discord-desktop-r2",
+        "sha256": "ed10a7c66d1126e98a2c26bdcc23d6f0bd9bf16a9000c089034cef5fcecbfc0a",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-discord-mobile-r2",
+        "sha256": "b2ba2da41173ac603bcc9d89a012f4ffd1e1766d0cc6d7600b4d8a366a7cfa91",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-facebook_page-desktop-r2",
+        "sha256": "db3e3ae9ba99c0f9109cf5ecbe6ecb3c01ac68dbc84fb85f3b2931a743eb1b7c",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-facebook_page-mobile-r2",
+        "sha256": "6bfdbf91ff9a856ed930b594a3eb472e88d6505b00c5afc091af2dc94eb672b1",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-instagram_business-desktop-r2",
+        "sha256": "61df4c74ba928eb4bc2345a3df49f90e5ce28d113e4b56c61831ea77f4a28e7d",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-instagram_business-mobile-r2",
+        "sha256": "efc30ab4a6454e67519889978dd211cc48a2eb9f5e5754eced25a4ca934d6ccf",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-linkedin-desktop-r2",
+        "sha256": "be45a56f213fb5d4873f64341b5e6d8bd733760a8d94805ad5b6f179b11b9b34",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-linkedin-mobile-r2",
+        "sha256": "35f8e75b00da341c7dd54441de87864c7af81777d50b802c6f1c3a34856d349f",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-substack-desktop-r2",
+        "sha256": "2f00aadff63ae1c7f8540e0bbfc3f5c46571b9eb86bbd024d888aa992c7f01d7",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The dated opening, archive photo/caption/credit, polling explanation and portrait card, all supported conditional scenarios, six market groups, countercases, watch conditions, financial-advice and conflict notices are present in their correct order. Detailed raw desktop and mobile frames were also inspected at original size for body and card legibility. Canonical prose remains unchanged. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback. The source as-of time remains 23:20 UTC on 2 November 2026; displayed date does not refresh the evidence. Numbers, signs, rates, source dates, polling versus probabilities and conditional market mechanisms are preserved. Remote-split and slow/contested cases receive no invented directional template, and the countercase/other drivers remain clear."
+      },
+      {
+        "render_id": "cc107-substack-mobile-r2",
+        "sha256": "30478381d68509db17fc19721d66ebfcc990c2a3ecb1d468deb8443cf53db964",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The dated opening, archive photo/caption/credit, polling explanation and portrait card, all supported conditional scenarios, six market groups, countercases, watch conditions, financial-advice and conflict notices are present in their correct order. Detailed raw desktop and mobile frames were also inspected at original size for body and card legibility. Canonical prose remains unchanged. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback. The source as-of time remains 23:20 UTC on 2 November 2026; displayed date does not refresh the evidence. Numbers, signs, rates, source dates, polling versus probabilities and conditional market mechanisms are preserved. Remote-split and slow/contested cases receive no invented directional template, and the countercase/other drivers remain clear."
+      },
+      {
+        "render_id": "cc107-telegram-desktop-r2",
+        "sha256": "6eb9c623b52d4dd8f93ba457194a74d63428887facc199b59c117a7f08a73a64",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-telegram-mobile-r2",
+        "sha256": "3779dfe7f8fad9bd54e6503df82e2226bd86ed926c710d332fc1144845cee933",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-threads-desktop-r2",
+        "sha256": "286b202147705e0ae3c18feeceedad5c9a119f1bfac4d5e318c1165550e5849d",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. The independently shareable linkless root visibly carries the dated source qualification and all three required notice sentences, with the coherent ordered replies retained. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-threads-mobile-r2",
+        "sha256": "ef24f7bc79d12f409e7c44994d10cfb94619f160bde6a34e638b22bb80b74710",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. The independently shareable linkless root visibly carries the dated source qualification and all three required notice sentences, with the coherent ordered replies retained. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-x-desktop-r2",
+        "sha256": "feb3efdd9beca22338acf755a64a238f068d5f55935f674a95a2b12095122d8b",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. The independently shareable linkless root visibly carries the dated source qualification and all three required notice sentences, with the coherent ordered replies retained. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-x-mobile-r2",
+        "sha256": "e73caf37622ca127591c980407d8adf62b38a25110b44dc9427fc88f5401559f",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. The independently shareable linkless root visibly carries the dated source qualification and all three required notice sentences, with the coherent ordered replies retained. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-youtube-desktop-r2",
+        "sha256": "d81f5e2d02a93ff949d005b611a07c1d9e2325e87b541724608342cedc93eb5d",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      },
+      {
+        "render_id": "cc107-youtube-mobile-r2",
+        "sha256": "f787d594b5edbff96cb1b30f67f13d96896aec3109b0f201458729348faa9146",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect. These exact render bytes, variant hash and source HTML were read back unchanged against fresh request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a. Actual prior pixel inspection is reused for this identical revision, not inferred from tests or settings. The visible private review notice and working controls are outside the authored reader copy. Review scope is the existing React presentation; it does not assert actual platform UI fidelity or a delivery/readback."
+      }
+    ]
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_visual_edit_76437a71362e",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Supported exact same-actor native final-visual task assignment for operation cc107-midterm-preview-20261103-v1, stage final-visual-8569dcae160d57e0c2da8f5f4af571e1168629064d3e613b7d36677d92d61a6a, request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a to /root/native_visual_edit_76437a71362e. The task explicitly requests gpt-6.1-sol/max. Actual model and effort are not available through supported runtime telemetry; settings and assignment are not reported as observed values.",
+    "observation_source": "The executing native context /root/native_visual_edit_76437a71362e is the same actual visual editor and writer. It inspected both assets, directly performed the bounded BrowserOS Neo viewport capture repair and inspected all 18 corrected assembled images plus original detailed raw frames. The exact saved inspection evidence is review-r2/capture-inspection-r2.json SHA256 18e76d123ea5aecda2ce6df9ddb6836648cb08128810a9b7f6111a15252ca6ab. This fresh turn read the full frozen request, checked that its article matches the captured source and that every asset/render/source hash remains identical, and binds those actual inspections to the current request. Historical REPAIR_REQUIRED response is preserved unchanged.",
+    "speed": "standard"
+  }
+}
