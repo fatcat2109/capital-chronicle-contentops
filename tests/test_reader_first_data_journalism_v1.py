@@ -112,9 +112,12 @@ def chart_packet():
     }, [doc]
 
 
-def test_decision39_no_chart_minimum_and_source_bound_choices_stay_required():
+def test_decision41_requires_analysis_charts_and_preserves_short_news_exception():
     assert validate_visual_decision(decision(count=1)) == decision(count=1)
-    assert validate_visual_decision(decision(count=0)) == decision(count=0)
+    with pytest.raises(ValueError, match="ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"):
+        validate_visual_decision(decision(count=0))
+    with pytest.raises(ValueError, match="ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"):
+        validate_release_media({"article": {"news_item_kind": "ANALYSIS"}, "media_assets": []})
     news = decision("NEWS", 0)
     assert validate_visual_decision(news) == news
     news["exception_reason"] = (
