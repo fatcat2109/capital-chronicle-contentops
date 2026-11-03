@@ -1,0 +1,11 @@
+{
+  "observed_at_utc": "2026-11-03T16:34:43.017686+00:00",
+  "previous_live_head": "91100578e729acee0d03eb3614a482b7bccbdf56",
+  "integrated_head": "dd6e2fe8960485cb916a3b9a75d9e963793772c8",
+  "tag": "contentops-live-20261103-cc124-compiler",
+  "rollback_commit": "91100578e729acee0d03eb3614a482b7bccbdf56",
+  "active_leases": [],
+  "status_sha256": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+  "tracked_wip_preserved": true,
+  "checks": "20 skip/text cases and 8 speed cases PASS"
+}
