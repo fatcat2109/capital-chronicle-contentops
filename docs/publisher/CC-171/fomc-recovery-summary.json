@@ -1,0 +1,76 @@
+{
+  "observed_at_utc": "2026-11-03T09:45:30.591087+00:00",
+  "operation_id": "cc074-retro-fomc-20261028-v1",
+  "canonical_already_live": true,
+  "canonical_id": "223199520",
+  "canonical_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+  "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+  "destinations": [
+    {
+      "destination": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "223199520",
+      "public_object_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+      "blocker": null
+    },
+    {
+      "destination": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "73",
+      "public_object_url": "https://t.me/CapitalChronicle/73",
+      "blocker": null
+    },
+    {
+      "destination": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1566872070753751344",
+      "public_object_url": null,
+      "blocker": null
+    },
+    {
+      "destination": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2117318307866968521",
+      "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521",
+      "blocker": null
+    },
+    {
+      "destination": "linkedin",
+      "status": "UNKNOWN_WRITE",
+      "public_object_id": null,
+      "public_object_url": null,
+      "blocker": "UNKNOWN_WRITE"
+    },
+    {
+      "destination": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "106091951705748_1442865088031907",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1442865088031907",
+      "blocker": null
+    },
+    {
+      "destination": "instagram_business",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null,
+      "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+    },
+    {
+      "destination": "threads",
+      "status": "NOT_DISPATCHED",
+      "public_object_id": null,
+      "public_object_url": null,
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "youtube",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null,
+      "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+    }
+  ],
+  "first_unsafe_retry_cause": "linkedin UNKNOWN_WRITE",
+  "next_action": "Publisher: reconcile the exact uncertain LinkedIn attempt by readback before any retry; complete destination-local Instagram/YouTube/Threads recovery under their existing owners. Never duplicate confirmed posts.",
+  "public_write_performed_in_this_run": false
+}

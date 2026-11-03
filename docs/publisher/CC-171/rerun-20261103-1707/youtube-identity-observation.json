@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-11-03T10:25:23.532Z",
+  "page": 111,
+  "url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+  "evidence_lines": [
+    "  - link \"Kênh của bạn\" [ref=e37] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]",
+    "    - link \"Kênh của bạn\" [ref=e38]",
+    "  - link \"Video của bạn\" [ref=e47] [url=\"https://studio.youtube.com/channel/UCuSrYOgd4eeudcD2vidafbA/content\"]",
+    "  - heading \"Capital Chronicle\" [level=1]",
+    "    - button \"Nội dung mô tả. Welcome to Capital Chronicle, your trusted source for data-d...nhấn để xem thêm.\" [ref=e84]",
+    "  - link \"Tùy chỉnh kênh\" [ref=e85] [url=\"https://studio.youtube.com/channel/UCuSrYOgd4eeudcD2vidafbA/editing\"]",
+    "  - link \"Quản lý video\" [ref=e86] [url=\"https://studio.youtube.com/channel/UCuSrYOgd4eeudcD2vidafbA/content\"]",
+    "  - link \"Cộng đồng\" [ref=e87] [url=\"https://www.youtube.com/@CapitalChronicleYouTube/community\"]",
+    "  - image \"Capital Chronicle\"",
+    "  - generic \"Capital Chronicle\"",
+    "  - link \"Capital Chronicle\" [ref=e103] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]",
+    "    - image \"Capital Chronicle\"",
+    "  - link \"Capital Chronicle\" [ref=e104] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]"
+  ],
+  "authenticated": true,
+  "observed_identity": "@CapitalChronicleYouTube",
+  "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA"
+}

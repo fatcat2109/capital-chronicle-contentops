@@ -1,0 +1,16 @@
+{
+  "tool_request_sha256": "998bedeaee4d718deee17e622219f54b5c14bf28c6563cba2848c09d3ff2bfb3",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a0be-53f0-7953-a4f6-f5520491c636",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Actual BrowserOS Neo tab 92 channel/posts readback after publication-tool-begin: exact @CapitalChronicleYouTube, Your channel link to the same handle, Customize channel and Manage videos links to channel UCuSrYOgd4eeudcD2vidafbA. No sign-in, account change or public write.",
+    "observed_at_utc": "2026-11-03T09:44:30Z"
+  },
+  "result": {
+    "request_sha256": "91a3336632a8358912e8af3d45dba4c7d677f6d9dbe91f716abe87d363664844",
+    "authenticated": true,
+    "observed_identity": "@CapitalChronicleYouTube",
+    "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA"
+  }
+}

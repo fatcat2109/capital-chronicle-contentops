@@ -1,0 +1,11 @@
+{
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "native_invocation_id": "01a1a0be-53f0-7953-a4f6-f5520491c636",
+  "launch_pid": 36324,
+  "configuration_evidence": "Read back the exact running Ops-dispatched top-level codex exec command line, including --model gpt-6.1-sol and model_reasoning_effort=max. Configuration does not establish actual runtime telemetry.",
+  "base_remote_default_commit": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "branch": "backlog/cc-171-publish-finished-drafts",
+  "worktree_preservation": "Pre-existing uncommitted CC-107 files remain untouched. The CC-171 branch is built with an isolated temporary index without switching the dirty worktree."
+}

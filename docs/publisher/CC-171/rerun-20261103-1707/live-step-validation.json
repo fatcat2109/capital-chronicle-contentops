@@ -1,0 +1,12 @@
+{
+  "observed_at_utc": "2026-11-03T10:29:33.585437+00:00",
+  "checks": {
+    "exact_public_object_confirmed": true,
+    "real_canonical_url_saved": true,
+    "strict_content_limit_preserved": true,
+    "social_guard_named": true
+  },
+  "passed": 4,
+  "failed": 0,
+  "supersedes_pending_code_as_current_state": true
+}

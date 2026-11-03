@@ -1,0 +1,17 @@
+{
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "native_invocation_id": "01a1a0df-64bc-78d0-beac-0450300b9fcd",
+  "launch_pid": 49672,
+  "model_argument": "--model gpt-6.1-sol",
+  "effort_argument": "-c model_reasoning_effort=\"max\"",
+  "configuration_evidence": "Read the live parent codex.exe launch arguments with Win32_Process; no Codex session file read.",
+  "preserved_worktree_branch": "backlog/cc-107-event-articles",
+  "continued_branch": "backlog/cc-171-publish-finished-drafts",
+  "base_remote_default_commit": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "prior_pushed_commit": "c9257ffa",
+  "publication_window_id": 1698401149,
+  "publication_page_id": 98,
+  "publication_editor_url": "https://capitalchronicle.substack.com/publish/post/223293057"
+}

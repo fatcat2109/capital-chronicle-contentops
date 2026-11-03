@@ -1,0 +1,17 @@
+{
+  "observed_at_utc": "2026-11-03T09:46:35.425835+00:00",
+  "checks": {
+    "one_midterm_dispatch": true,
+    "same_draft": true,
+    "canonical_not_claimed": true,
+    "pending_email_code_recorded": true,
+    "email_not_selected": true,
+    "cpi_block_recorded": true,
+    "fomc_block_recorded": true,
+    "original_branch_preserved": true,
+    "evidence_only_branch": true,
+    "all_json_parses": true
+  },
+  "all_pass": true,
+  "scope": "Operational evidence and store checks only; not publication success or a pytest/CI claim."
+}

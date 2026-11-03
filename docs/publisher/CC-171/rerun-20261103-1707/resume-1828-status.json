@@ -1,0 +1,341 @@
+{
+  "observed_at_utc": "2026-11-03T11:28:23.569633+00:00",
+  "operations": [
+    {
+      "operation_id": "cc107-midterm-preview-20261103-v1",
+      "work_item_id": "cc107-midterm-preview-20261103-v1",
+      "state": "INVALIDATED",
+      "blocker": "NATIVE_REVIEW_REVISION_CHANGED",
+      "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+      "canonical_url": null,
+      "canonical_article_real_published": false,
+      "distribution_status": "CANONICAL_NOT_CONFIRMED",
+      "next_operation": "review-current-packet",
+      "destinations": [
+        {
+          "destination": "substack",
+          "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+          "public_object_id": "223293057",
+          "public_object_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on",
+          "blocker": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_57be00ea99fae340d6ac92bc5714e3d8",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "discord",
+          "dispatch_id": "dispatch_944244b693642feff7a2cf45301cbee9",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "x",
+          "dispatch_id": "dispatch_9217fcfc8602f04c9824eacc1b28f57d",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "linkedin",
+          "dispatch_id": "dispatch_0707794bb075bb735f87ed0bd11980dc",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "facebook_page",
+          "dispatch_id": "dispatch_d074747b7e7fa2107b3582866e8ba42d",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "instagram_business",
+          "dispatch_id": "dispatch_7d5a5ce926905cc84cc64d245a184288",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "threads",
+          "dispatch_id": "dispatch_2ec92cde947257577cd05891b4a9fce7",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "youtube",
+          "dispatch_id": "dispatch_eb003a655bed3c37245c046f030a70bc",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        }
+      ],
+      "pending_requests": [
+        {
+          "action": "VERIFY_IDENTITY",
+          "destination": "youtube",
+          "request_sha256": "374f8a970bb616d48761ca41bd5d0a99e79fb98970c9ca5a0c19e88768308ace",
+          "public_object_id": null,
+          "public_object_url": null,
+          "native_invocation_id": "01a1a0be-53f0-7953-a4f6-f5520491c636"
+        },
+        {
+          "action": "READBACK",
+          "destination": "substack",
+          "request_sha256": "fae15578390a5e10d343fbdec5b60cfd9d5223f51749dc84f11dd966cdb8afbe",
+          "public_object_id": "223293057",
+          "public_object_url": null,
+          "native_invocation_id": null
+        }
+      ]
+    },
+    {
+      "operation_id": "cc074-retro-fomc-20261028-v1",
+      "work_item_id": "cc074-retro-fomc-20261028-v1",
+      "state": "PENDING_NATIVE",
+      "blocker": null,
+      "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+      "canonical_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+      "canonical_article_real_published": true,
+      "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+      "next_operation": "publication-tool-begin",
+      "destinations": [
+        {
+          "destination": "substack",
+          "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "223199520",
+          "public_object_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+          "blocker": null
+        },
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_44015f64ead73e6dba975de3e41879c2",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "73",
+          "public_object_url": "https://t.me/CapitalChronicle/73",
+          "blocker": null
+        },
+        {
+          "destination": "discord",
+          "dispatch_id": "dispatch_be8e8109d71a01ca26336982a8aadcf2",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "1566872070753751344",
+          "public_object_url": null,
+          "blocker": null
+        },
+        {
+          "destination": "x",
+          "dispatch_id": "dispatch_5a2137e1a148265564399a6f60c6fb27",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "2117318307866968521",
+          "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521",
+          "blocker": null
+        },
+        {
+          "destination": "linkedin",
+          "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+          "status": "UNKNOWN_WRITE",
+          "reconciliation_status": "RECONCILIATION_PENDING",
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "UNKNOWN_WRITE"
+        },
+        {
+          "destination": "facebook_page",
+          "dispatch_id": "dispatch_bb9379a6030ed281b28a7798c7688759",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "106091951705748_1442865088031907",
+          "public_object_url": "https://www.facebook.com/1342369584748125/posts/1442865088031907",
+          "blocker": null
+        },
+        {
+          "destination": "instagram_business",
+          "dispatch_id": "dispatch_371115ac151c4db5280d7351ec1429fe",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+        },
+        {
+          "destination": "threads",
+          "dispatch_id": "dispatch_61b248c425f6f223d5cb8e44cfa8abe8",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "youtube",
+          "dispatch_id": "dispatch_b0c56e93220ba413672e6a8110c75cb8",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+        }
+      ],
+      "pending_requests": [
+        {
+          "action": "VERIFY_IDENTITY",
+          "destination": "substack",
+          "request_sha256": "7587fcdda6972b8d10b3517698a70fb46014668669805466d369536479f85b90",
+          "public_object_id": null,
+          "public_object_url": null,
+          "native_invocation_id": "claude-code-desktop:local_62d94b0c-30a6-4c18-9944-04ba320f202d:20261102T1620Z"
+        },
+        {
+          "action": "VERIFY_IDENTITY",
+          "destination": "youtube",
+          "request_sha256": "3282de53794de943d2955e95b2a12e5e18915a9be82b6a3d73c680e41fd165f8",
+          "public_object_id": null,
+          "public_object_url": null,
+          "native_invocation_id": "/root"
+        },
+        {
+          "action": "VERIFY_IDENTITY",
+          "destination": "youtube",
+          "request_sha256": "8cd89a791e6c129254958b2113eac427a201b5bf573768522fb9bc92f1a51ee8",
+          "public_object_id": null,
+          "public_object_url": null,
+          "native_invocation_id": "/root"
+        }
+      ]
+    },
+    {
+      "operation_id": "cc124-prepare-20261103-a",
+      "work_item_id": "cc124-prepare-20261103-a",
+      "state": "PENDING_NATIVE",
+      "blocker": null,
+      "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+      "canonical_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+      "canonical_article_real_published": true,
+      "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+      "next_operation": "publication-tool-begin",
+      "destinations": [
+        {
+          "destination": "substack",
+          "dispatch_id": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "223246940",
+          "public_object_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+          "blocker": null
+        },
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_7bbccd8674d2f91b218f479f2fcb365b",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "discord",
+          "dispatch_id": "dispatch_a9b27f630a1668016431a3d96c8f303f",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "x",
+          "dispatch_id": "dispatch_b1da9b28bd75180cac137744fd6f5710",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "linkedin",
+          "dispatch_id": "dispatch_7dd24a91b8afec20ed3dc0206f59cb73",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "facebook_page",
+          "dispatch_id": "dispatch_acff70bcc90bd0a1846cfdb47ea6bd26",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "instagram_business",
+          "dispatch_id": "dispatch_d01bbafa38b1b14dba9ee60b7ef9f93b",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "threads",
+          "dispatch_id": "dispatch_f73b4f34a3701c1b63cab1e186e96b02",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "youtube",
+          "dispatch_id": "dispatch_f90f612216f7dda5848dcfc5ddd4ad55",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        }
+      ],
+      "pending_requests": [
+        {
+          "action": "PUBLISH",
+          "destination": "youtube",
+          "request_sha256": "19e48c17349550d4ea49712472bd17356285ded323bf443d11b96bed374514c3",
+          "public_object_id": null,
+          "public_object_url": null,
+          "native_invocation_id": null
+        }
+      ]
+    }
+  ]
+}

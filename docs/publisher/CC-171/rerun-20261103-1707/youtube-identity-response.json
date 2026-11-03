@@ -1,0 +1,16 @@
+{
+  "tool_request_sha256": "0892a03eceb9ce0c26a2fda9f83e77648c67aa1558254e031adad27ee0f54799",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a0df-64bc-78d0-beac-0450300b9fcd",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Actual Neo page 111 after publication-tool-begin. The exact Your channel handle, Customize channel and Manage videos links identify @CapitalChronicleYouTube / UCuSrYOgd4eeudcD2vidafbA. No login, account switch or public write.",
+    "observed_at_utc": "2026-11-03T10:25:23.532Z"
+  },
+  "result": {
+    "request_sha256": "4bbc26c798e4cd94495f1866fb0a4f80c6b2bde0dc0efeb336abb650fa734261",
+    "authenticated": true,
+    "observed_identity": "@CapitalChronicleYouTube",
+    "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA"
+  }
+}

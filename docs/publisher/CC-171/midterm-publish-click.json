@@ -1,0 +1,8 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "page": 78,
+    "snapshot": "- region \"Notifications\" [ref=e5] [cursor=pointer]\n- dialog \"Publish\"\n  - heading \"Publish\" [level=2]\n  - button \"close\" [ref=e177]\n  - form\n    - LabelText\n      - generic [ref=e195] [cursor=pointer]\n        - radio \"Everyone\" [ref=e178]\n    - LabelText\n      - generic [ref=e196] [cursor=pointer]\n        - radio \"Subscribers only\" [ref=e179]\n    - LabelText\n      - radio \"Paid subscribers only (Turn on paid subscriptions)\" [disabled] [ref=e180]\n      - link \"(Turn on paid subscriptions)\" [ref=e181] [url=\"https://capitalchronicle.substack.com/publish/settings#payments-settings\"]\n  - form\n    - LabelText\n      - generic [ref=e197] [cursor=pointer]\n        - radio \"Everyone\" [ref=e182]\n    - LabelText\n      - generic [ref=e198] [cursor=pointer]\n        - radio \"Subscribers only\" [ref=e183]\n    - LabelText\n      - generic [ref=e199] [cursor=pointer]\n        - radio \"No one (disable comments)\" [ref=e184]\n  - combobox \"Select or create tags\" [collapsed] [ref=e185]\n  - button [collapsed] [ref=e186]\n  - LabelText [ref=e200] [cursor=pointer]\n  - button \"Social preview\" [ref=e187]\n    - button \"Edit\" [ref=e188]\n  - form\n    - LabelText [ref=e201] [cursor=pointer]\n      - checkbox \"Send via email and the Substack app\" [ref=e189]\n    - LabelText [ref=e202] [cursor=pointer]\n      - checkbox \"Schedule time to publish\" [ref=e190]\n  - button \"Scan for AI text\" [ref=e191]\n  - button \"Disable AI detection\" [ref=e192]\n  - button \"Cancel\" [disabled] [ref=e193]\n  - button \"indeterminate progress Loading Publishing...\" [disabled] [ref=e194]"
+  }
+}

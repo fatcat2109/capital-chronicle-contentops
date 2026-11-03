@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-03T10:13:34.228380+00:00",
+  "checks": {
+    "exact_existing_draft": true,
+    "dedicated_page_and_window": true,
+    "web_only": true,
+    "verification_screen_observed": true,
+    "no_new_draft": true,
+    "store_observation_exists": true,
+    "not_falsely_confirmed": true
+  },
+  "passed": 7,
+  "failed": 0
+}

@@ -1,0 +1,37 @@
+{
+  "kind": "photo",
+  "mode": "desktop",
+  "observation": {
+    "caption": "Photo: Architect of the Capitol · Reuse terms. The west front of the US Capitol in 1997. Archive image; it does not depict election night.",
+    "caption_links": [
+      {
+        "href": "https://commons.wikimedia.org/wiki/File:United_States_Capitol_-_west_front.jpg",
+        "text": "Architect of the Capitol"
+      },
+      {
+        "href": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+        "text": "Reuse terms"
+      }
+    ],
+    "credit_box": {
+      "height": 30.40625,
+      "top": 219.765625
+    },
+    "credit_location": "adjacent article paragraph",
+    "credit_occurrences": 1,
+    "credit_text": "Architect of the Capitol / Wikimedia Commons. Public domain (17 USC 105).",
+    "docHeight": 5822,
+    "frame": {
+      "height": 696,
+      "width": 1126,
+      "x": 37,
+      "y": 167
+    },
+    "height": 696,
+    "image_alt": "Archive photograph of the west front of the US Capitol, with lawn, flower beds and paths in the foreground.",
+    "image_loaded": true,
+    "width": 1126,
+    "x": 0,
+    "y": 786
+  }
+}

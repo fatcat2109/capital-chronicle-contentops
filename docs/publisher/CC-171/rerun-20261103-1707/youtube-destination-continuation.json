@@ -1,0 +1,14 @@
+{
+  "identity_return": {
+    "request_sha256": "193f9a268c3aa1bb010cd99a8ee354635f17b7bd51d024b870aa61a666b96c4c",
+    "tool_return_sha256": "fa262edc9992417f0f4d9efee633c6234a7be03a80d7cb8859507efde5673d94"
+  },
+  "destination_continuation": {
+    "destination": "youtube",
+    "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+    "publish_called": true,
+    "public_object_id": null,
+    "public_object_url": null,
+    "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "observed_at_utc": "2026-11-03T09:34:45Z",
+  "state": "PENDING_JIM_EMAIL_CODE",
+  "operation_id": "cc107-midterm-preview-20261103-v1",
+  "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+  "draft_id": "223293057",
+  "draft_url": "https://capitalchronicle.substack.com/publish/post/223293057",
+  "tab": 78,
+  "email_delivery_selected": false,
+  "new_draft_created": false,
+  "publication_confirmed": false,
+  "tool_result": {
+    "logs": [],
+    "ok": true,
+    "value": {
+      "page": 78,
+      "snapshot": "- region \"Notifications\" [ref=e5] [cursor=pointer]\n- dialog \"Check your email\"\n  - heading \"Check your email\" [level=2]\n  - button \"close\" [ref=e206]\n  - textbox \"Verification code\" [ref=e207]\n  - link \"Resend code\" [ref=e208]\n  - button \"Cancel\" [ref=e209]",
+      "url": "https://capitalchronicle.substack.com/publish/post/223293057"
+    }
+  },
+  "next_action": "Jim enters Substack email code in BrowserOS Neo tab 78; read back exact existing post, never create another draft."
+}

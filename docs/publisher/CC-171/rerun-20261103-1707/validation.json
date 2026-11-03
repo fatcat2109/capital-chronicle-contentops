@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-11-03T10:17:10.024665+00:00",
+  "kind": "operational_evidence_and_store_checks",
+  "checks": {
+    "seven_publish_step_checks_passed": true,
+    "code_page_preserved": true,
+    "code_screen_still_present": true,
+    "draft_still_unpublished": true,
+    "code_page_front": true,
+    "exact_pending_record_in_store": true,
+    "linkedin_no_retry": true,
+    "linkedin_ambiguity_preserved": true,
+    "linkedin_browser_network_cause_recorded": true,
+    "lease_contention_recorded": true,
+    "cpi_packet_cause_verified": true,
+    "no_canonical_republish": true,
+    "all_new_artifacts_small_text": true
+  },
+  "passed": 13,
+  "failed": 0,
+  "final_store_readback_id": "cc171-email-final-1a19a7cc44fb62acc5cf3f765ab368ae",
+  "pytest_run": false
+}
