@@ -1,0 +1,9 @@
+{
+  "observed_at_utc": "2026-11-03T17:50:22.044317+00:00",
+  "pid": 11804,
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "high",
+  "telemetry": "CONFIGURED_NOT_OBSERVED",
+  "thread_id": "01a1a287-44b3-73d3-891b-84f59e866118",
+  "branch": "backlog/cc-124-article-20261104"
+}

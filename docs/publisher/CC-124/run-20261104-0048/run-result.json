@@ -1,0 +1,60 @@
+{
+  "observed_at_utc": "2026-11-03T17:59:51.609362+00:00",
+  "item": "CC-124",
+  "standing_item_status": "OPEN",
+  "run_result": "BLOCKED_PRIOR_ARTICLE_LINKEDIN_UNKNOWN_WRITE",
+  "new_articles_published": 0,
+  "retained_operation": "cc124-next-article-20261103-b",
+  "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+  "first_text_approval_utc": "2026-11-03T16:38:46.874923+00:00",
+  "approval_clock_reset": false,
+  "coordinator_state": "PUBLICATION_RECOVERY_REQUIRED",
+  "blocking_work_item": "cc124-prepare-20261103-a",
+  "first_blocking_destination": "linkedin",
+  "first_blocking_status": "UNKNOWN_WRITE",
+  "reconciliation_status": "RECONCILIATION_PENDING",
+  "remaining_obligations": [
+    {
+      "work_item_id": "cc124-prepare-20261103-a",
+      "destination": "linkedin",
+      "durable_status": "UNKNOWN_WRITE",
+      "blocking_status": "UNKNOWN_WRITE",
+      "reconciliation_status": "RECONCILIATION_PENDING"
+    },
+    {
+      "work_item_id": "cc124-prepare-20261103-a",
+      "destination": "threads",
+      "durable_status": "READY",
+      "blocking_status": "AUTH_INVALID",
+      "reconciliation_status": ""
+    },
+    {
+      "work_item_id": "cc124-prepare-20261103-a",
+      "destination": "x",
+      "durable_status": "NATIVE_NEO_TOOL_PENDING",
+      "blocking_status": "NATIVE_NEO_TOOL_PENDING",
+      "reconciliation_status": ""
+    },
+    {
+      "work_item_id": "cc124-prepare-20261103-a",
+      "destination": "youtube",
+      "durable_status": "NATIVE_NEO_TOOL_PENDING",
+      "blocking_status": "NATIVE_NEO_TOOL_PENDING",
+      "reconciliation_status": ""
+    }
+  ],
+  "next_owner": "Claude Ops / CC-179 recovery owner; Jim if exact LinkedIn identity or absence cannot be established",
+  "next_action": "Read back and reconcile the existing CPI LinkedIn attempt through CC-179, then complete its remaining destination-local recovery and resume this unchanged SEC binding. Never blindly resend or replace the article.",
+  "provider_publication_writes": 0,
+  "recovery_publish_calls": 0,
+  "recovery_readbacks": 1,
+  "chat_messages_sent": 0,
+  "schedule_changes": 0,
+  "tests_run": 0,
+  "validation": "Parsed actual coordinator return; asserted zero writes and exact durable UNKNOWN_WRITE obligation; no code change.",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "high",
+  "model_telemetry": "CONFIGURED_NOT_OBSERVED",
+  "branch_base": "origin/master@5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "limits": "Evidence branch only; no live integration or article publication claimed. Other retained untracked files preserved."
+}
