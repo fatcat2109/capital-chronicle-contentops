@@ -1,0 +1,13 @@
+{
+  "state": "PASS_BOUNDED_EVIDENCE_CHECK",
+  "observed_at_utc": "2026-11-03T14:01:49.436107+00:00",
+  "intended_destinations": 27,
+  "each_has_identity_absence_or_cause_owner_action": true,
+  "quarantine_readback_still_owed": true,
+  "all_seven_focused_test_reports_pass": true,
+  "rights_patch_not_live": true,
+  "unexpired_editorial_leases": 0,
+  "whole_suite_run": false,
+  "schedule_changed": false,
+  "new_confirmed_objects": 0
+}
