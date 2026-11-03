@@ -1183,15 +1183,20 @@ class ContentOpsDurableStore:
 
     def list_outbox_messages(self, *, status: Optional[str] = None) -> List[Dict[str, Any]]:
         with self.get_connection() as conn:
+            # Sort small row identities, not retained payloads (which may include
+            # large historical media). Keep both reads in one SQLite snapshot.
+            conn.execute("BEGIN")
             if status is None:
-                rows = conn.execute(
-                    "SELECT * FROM outbox_messages ORDER BY created_at, message_id"
+                identities = conn.execute(
+                    "SELECT rowid FROM outbox_messages ORDER BY created_at, message_id"
                 ).fetchall()
             else:
-                rows = conn.execute(
-                    "SELECT * FROM outbox_messages WHERE status=? ORDER BY created_at, message_id",
+                identities = conn.execute(
+                    "SELECT rowid FROM outbox_messages WHERE status=? ORDER BY created_at, message_id",
                     (status,),
                 ).fetchall()
+            rows = [conn.execute("SELECT * FROM outbox_messages WHERE rowid=?", (row[0],)).fetchone()
+                    for row in identities]
             return [dict(row) for row in rows]
 
     def get_platform_dispatch(self, dispatch_id: str) -> Optional[Dict[str, Any]]:

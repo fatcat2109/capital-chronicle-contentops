@@ -1,0 +1,20 @@
+{
+  "page_id": 165,
+  "url": "https://x.com/Capitalnicle",
+  "observed_at_utc": "2026-11-03 16:46:19 UTC",
+  "evidence": [
+    "    - link \"Profile\" [ref=e20] [url=\"https://x.com/Capitalnicle\"]",
+    "  - button \"Account menu\" [ref=e23]",
+    "    - generic \"Capital Chronicle\"",
+    "      - image \"Capital Chronicle\"",
+    "      - heading \"Capital Chronicle\" [level=2]",
+    "    - link \"Edit profile\" [ref=e29] [url=\"https://x.com/settings/profile\"]",
+    "    - region \"Capital Chronicle’s posts\"",
+    "      - heading \"Capital Chronicle’s posts\" [level=1]",
+    "      - generic \"Timeline: Capital Chronicle’s posts\"",
+    "        - article \"Capital Chronicle @Capitalnicle 22 hours ago The Fed held on October 28. Both dissenters wanted a hike. The Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates. capitalchronicle.substack.com/p/the-fed-held October 28, 2026 FOMC vote: 10 members approved holding the target range; 2 members, Lisa D. Cook and Beth M. Hammack, preferred a quarter-percentage-point increase. Horizontal member-count axis starts at zero. ALT 1 reply, 79 views\" [ref=e42] [cursor=pointer]"
+  ],
+  "authenticated": true,
+  "observed_identity": "@Capitalnicle",
+  "public_write_performed": false
+}

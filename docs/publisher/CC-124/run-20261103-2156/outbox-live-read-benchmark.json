@@ -1,0 +1,16 @@
+{
+  "observed_at_utc": "2026-11-03T16:48:00.181001+00:00",
+  "scope": "One existing production outbox read, no migration or state mutation",
+  "rows": 4338,
+  "payload_bytes": 178934549,
+  "elapsed_seconds": 0.440343500005838,
+  "io_delta": {
+    "read_operations": 89457,
+    "write_operations": 0,
+    "other_operations": 12,
+    "read_bytes": 366351948,
+    "write_bytes": 0,
+    "other_bytes": 76
+  },
+  "query_shape": "Sort rowid only, read exact payloads under same SQLite snapshot"
+}
