@@ -1,0 +1,33 @@
+{
+  "run_id": "cc124-prepare-20261103-a",
+  "article_identity": "e8f9f4ec5cf1fc91133e77d4bb27b45435139db5b121bbf4252c29f75bab1bdd",
+  "canonical_article_status": "NOT_CONFIRMED",
+  "canonical_url": null,
+  "unknown_write_detected": true,
+  "state": "READBACK_IN_PROGRESS",
+  "pending_readback": [
+    {
+      "request_sha256": "f1ce96ec386446ccd524ced88cc547929401843d2c33d22a32f964f3576210a3",
+      "tool_request_sha256": "62b5a183c0b4adc11eaa9abfdbbe7ada7adf51adc4d1630d9d32a8380d8e2272",
+      "action": "READBACK",
+      "public_object_id": "223246940"
+    }
+  ],
+  "recorded_at_utc": "2026-11-03T00:12:17.742443+00:00",
+  "item": "CC-124",
+  "resume_prior_commit": "ceff7a10",
+  "native_conversation_id": "01a19ebd-5f2c-7be0-bde6-96453cb0d4b9",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "model_observation_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_arguments_readback": {
+    "process_id": 27416,
+    "model_argument": "--model gpt-6.1-sol",
+    "effort_argument": "-c model_reasoning_effort=\"max\"",
+    "source": "Win32_Process ancestor command line"
+  },
+  "operating_source_head": "a22c260bc1a737036ea2ac93a238974938c63512",
+  "new_canonical_send_attempts": 0,
+  "schedule_changes": false,
+  "chat_messages_sent": 0
+}
