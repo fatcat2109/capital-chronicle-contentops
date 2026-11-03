@@ -1,0 +1,328 @@
+{
+  "renders": [
+    {
+      "destination": "discord",
+      "viewport": "desktop",
+      "render_id": "cc107-discord-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-discord-desktop-r2.png",
+      "sha256": "ed10a7c66d1126e98a2c26bdcc23d6f0bd9bf16a9000c089034cef5fcecbfc0a",
+      "width": 1200,
+      "height": 3207,
+      "variant_sha256": "a5ed3b7c674940cc6ac641872d5980675834ba7363b8b1f055195e0ea0988e3a",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "discord",
+      "viewport": "mobile",
+      "render_id": "cc107-discord-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-discord-mobile-r2.png",
+      "sha256": "b2ba2da41173ac603bcc9d89a012f4ffd1e1766d0cc6d7600b4d8a366a7cfa91",
+      "width": 390,
+      "height": 2745,
+      "variant_sha256": "a5ed3b7c674940cc6ac641872d5980675834ba7363b8b1f055195e0ea0988e3a",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "facebook_page",
+      "viewport": "desktop",
+      "render_id": "cc107-facebook_page-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-facebook_page-desktop-r2.png",
+      "sha256": "db3e3ae9ba99c0f9109cf5ecbe6ecb3c01ac68dbc84fb85f3b2931a743eb1b7c",
+      "width": 1200,
+      "height": 3235,
+      "variant_sha256": "6cb8c54e0d38c69bf79734ff0777889a9b90b175358834eb8263f8db1f61ab1a",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "facebook_page",
+      "viewport": "mobile",
+      "render_id": "cc107-facebook_page-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-facebook_page-mobile-r2.png",
+      "sha256": "6bfdbf91ff9a856ed930b594a3eb472e88d6505b00c5afc091af2dc94eb672b1",
+      "width": 390,
+      "height": 2798,
+      "variant_sha256": "6cb8c54e0d38c69bf79734ff0777889a9b90b175358834eb8263f8db1f61ab1a",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "instagram_business",
+      "viewport": "desktop",
+      "render_id": "cc107-instagram_business-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-instagram_business-desktop-r2.png",
+      "sha256": "61df4c74ba928eb4bc2345a3df49f90e5ce28d113e4b56c61831ea77f4a28e7d",
+      "width": 1200,
+      "height": 3249,
+      "variant_sha256": "25357c46ac7dbf9fa1c8dacf97a05217980d00f5a4c8290f5c3b013a10ff7574",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "instagram_business",
+      "viewport": "mobile",
+      "render_id": "cc107-instagram_business-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-instagram_business-mobile-r2.png",
+      "sha256": "efc30ab4a6454e67519889978dd211cc48a2eb9f5e5754eced25a4ca934d6ccf",
+      "width": 390,
+      "height": 2758,
+      "variant_sha256": "25357c46ac7dbf9fa1c8dacf97a05217980d00f5a4c8290f5c3b013a10ff7574",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "linkedin",
+      "viewport": "desktop",
+      "render_id": "cc107-linkedin-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-linkedin-desktop-r2.png",
+      "sha256": "be45a56f213fb5d4873f64341b5e6d8bd733760a8d94805ad5b6f179b11b9b34",
+      "width": 1200,
+      "height": 3263,
+      "variant_sha256": "a66e943ed1564233ceb5330c30f6d29fbf56bdfc5a6493ef73515348c6965e4e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "linkedin",
+      "viewport": "mobile",
+      "render_id": "cc107-linkedin-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-linkedin-mobile-r2.png",
+      "sha256": "35f8e75b00da341c7dd54441de87864c7af81777d50b802c6f1c3a34856d349f",
+      "width": 390,
+      "height": 2850,
+      "variant_sha256": "a66e943ed1564233ceb5330c30f6d29fbf56bdfc5a6493ef73515348c6965e4e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "substack",
+      "viewport": "desktop",
+      "render_id": "cc107-substack-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-substack-desktop-r2.png",
+      "sha256": "2f00aadff63ae1c7f8540e0bbfc3f5c46571b9eb86bbd024d888aa992c7f01d7",
+      "width": 1200,
+      "height": 5751,
+      "variant_sha256": "46084401bb5565714d7eeec057e708d246b37bf2f0dc1432f0597e6bd6bac709",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "substack",
+      "viewport": "mobile",
+      "render_id": "cc107-substack-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-substack-mobile-r2.png",
+      "sha256": "30478381d68509db17fc19721d66ebfcc990c2a3ecb1d468deb8443cf53db964",
+      "width": 390,
+      "height": 7363,
+      "variant_sha256": "46084401bb5565714d7eeec057e708d246b37bf2f0dc1432f0597e6bd6bac709",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "telegram",
+      "viewport": "desktop",
+      "render_id": "cc107-telegram-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-telegram-desktop-r2.png",
+      "sha256": "6eb9c623b52d4dd8f93ba457194a74d63428887facc199b59c117a7f08a73a64",
+      "width": 1200,
+      "height": 3249,
+      "variant_sha256": "5f98336b5d35ba4acaaa325910bd3a2a548bcc0579982901eb390c72f090cfa0",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "telegram",
+      "viewport": "mobile",
+      "render_id": "cc107-telegram-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-telegram-mobile-r2.png",
+      "sha256": "3779dfe7f8fad9bd54e6503df82e2226bd86ed926c710d332fc1144845cee933",
+      "width": 390,
+      "height": 2785,
+      "variant_sha256": "5f98336b5d35ba4acaaa325910bd3a2a548bcc0579982901eb390c72f090cfa0",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "threads",
+      "viewport": "desktop",
+      "render_id": "cc107-threads-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-threads-desktop-r2.png",
+      "sha256": "286b202147705e0ae3c18feeceedad5c9a119f1bfac4d5e318c1165550e5849d",
+      "width": 1200,
+      "height": 3575,
+      "variant_sha256": "175a65152b26d668708538569767d3f7c2e6a04dd8ac0f15f66a795139b9e4dd",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "threads",
+      "viewport": "mobile",
+      "render_id": "cc107-threads-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-threads-mobile-r2.png",
+      "sha256": "ef24f7bc79d12f409e7c44994d10cfb94619f160bde6a34e638b22bb80b74710",
+      "width": 390,
+      "height": 3276,
+      "variant_sha256": "175a65152b26d668708538569767d3f7c2e6a04dd8ac0f15f66a795139b9e4dd",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "x",
+      "viewport": "desktop",
+      "render_id": "cc107-x-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-x-desktop-r2.png",
+      "sha256": "feb3efdd9beca22338acf755a64a238f068d5f55935f674a95a2b12095122d8b",
+      "width": 1200,
+      "height": 3589,
+      "variant_sha256": "951282725851ba776f5e70fddee8611cc2e60b22992a2769f01736b4290d9043",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "x",
+      "viewport": "mobile",
+      "render_id": "cc107-x-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-x-mobile-r2.png",
+      "sha256": "e73caf37622ca127591c980407d8adf62b38a25110b44dc9427fc88f5401559f",
+      "width": 390,
+      "height": 3131,
+      "variant_sha256": "951282725851ba776f5e70fddee8611cc2e60b22992a2769f01736b4290d9043",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "youtube",
+      "viewport": "desktop",
+      "render_id": "cc107-youtube-desktop-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-youtube-desktop-r2.png",
+      "sha256": "d81f5e2d02a93ff949d005b611a07c1d9e2325e87b541724608342cedc93eb5d",
+      "width": 1200,
+      "height": 3207,
+      "variant_sha256": "daad8b0e90b1d093215a151a3f5313afaeabd8d854e69e15f48b207c7b70a1c8",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    },
+    {
+      "destination": "youtube",
+      "viewport": "mobile",
+      "render_id": "cc107-youtube-mobile-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\final-youtube-mobile-r2.png",
+      "sha256": "f787d594b5edbff96cb1b30f67f13d96896aec3109b0f201458729348faa9146",
+      "width": 390,
+      "height": 2745,
+      "variant_sha256": "daad8b0e90b1d093215a151a3f5313afaeabd8d854e69e15f48b207c7b70a1c8",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\index.html",
+        "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+      },
+      "capture_evidence": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+        "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+      }
+    }
+  ]
+}

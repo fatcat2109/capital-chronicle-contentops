@@ -383,5 +383,24 @@
       }
     ],
     "test_process_policy": "One pytest process at a time, targeted files only; no -n or parallel shards; no additional tests on this evidence-only resumption."
+  },
+  "corrected_render_capture": {
+    "artifact": "review-r2/renders.json",
+    "sha256": "0057a72358fb62f42b95cc57d76d508070cf144f2eb3a9e22ac15569d6268148",
+    "render_count": 18,
+    "retained_viewport_frames": 80,
+    "coverage": "canonical and exactly eight derivatives, desktop/mobile",
+    "inspection_artifact": "review-r2/capture-inspection-r2.json",
+    "same_actual_reviewer": "/root/native_visual_edit_76437a71362e",
+    "status": "CAPTURED_INSPECTED_BOUND_FINAL_RESPONSE_PENDING",
+    "original_failed_captures": "Preserved under review/; corrected source frames and literal overlap assembly evidence retained under review-r2/."
+  },
+  "final_render_request_r2": {
+    "stage": "final-visual-8569dcae160d57e0c2da8f5f4af571e1168629064d3e613b7d36677d92d61a6a",
+    "request_sha256": "7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a",
+    "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc107-midterm-preview-20261103-v1\\desktop_request_final-visual-8569dcae160d57e0c2da8f5f4af571e1168629064d3e613b7d36677d92d61a6a.json",
+    "status": "NATIVE_SAME_WRITER_RESPONSE_PENDING",
+    "renders": "review-r2/renders.json",
+    "original_repair_request_unchanged": true
   }
 }
