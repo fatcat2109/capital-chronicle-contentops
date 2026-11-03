@@ -1,0 +1,12 @@
+{
+  "observed_at_utc": "2026-11-03T10:14:38.152Z",
+  "tool_result": {
+    "logs": [],
+    "ok": true,
+    "value": {
+      "page": 98,
+      "snapshot": "- region \"Notifications\" [ref=e75] [cursor=pointer]\n- dialog \"Check your email\"\n  - image\n  - heading \"Check your email\" [level=2]\n  - button \"close\" [ref=e105]\n    - image\n  - textbox \"Verification code\" [ref=e106]\n  - link \"Resend code\" [ref=e107]\n  - button \"Cancel\" [ref=e108]",
+      "url": "https://capitalchronicle.substack.com/publish/post/223293057"
+    }
+  }
+}

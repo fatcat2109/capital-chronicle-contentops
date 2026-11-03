@@ -1,0 +1,17 @@
+{
+  "observed_at_utc": "2026-11-03T10:11:41.591547+00:00",
+  "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+  "public_write_performed": false,
+  "readback": {
+    "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+    "destination": "linkedin",
+    "reconciliation_status": "RECONCILIATION_PENDING",
+    "public_write_performed": false,
+    "publish_called": false
+  },
+  "dispatch_after": {
+    "status": "UNKNOWN_WRITE",
+    "public_object_id": null,
+    "public_object_url": null
+  }
+}

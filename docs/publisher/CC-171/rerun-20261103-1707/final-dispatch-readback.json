@@ -1,0 +1,85 @@
+{
+  "observed_at_utc": "2026-11-03T10:16:37.686643+00:00",
+  "dispatches": [
+    {
+      "operation_id": "cc074-retro-fomc-20261028-v1",
+      "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "223199520",
+      "public_object_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters"
+    },
+    {
+      "operation_id": "cc074-retro-fomc-20261028-v1",
+      "dispatch_id": "dispatch_be8e8109d71a01ca26336982a8aadcf2",
+      "platform": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1566872070753751344",
+      "public_object_url": null
+    },
+    {
+      "operation_id": "cc074-retro-fomc-20261028-v1",
+      "dispatch_id": "dispatch_bb9379a6030ed281b28a7798c7688759",
+      "platform": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "106091951705748_1442865088031907",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1442865088031907"
+    },
+    {
+      "operation_id": "cc074-retro-fomc-20261028-v1",
+      "dispatch_id": "dispatch_371115ac151c4db5280d7351ec1429fe",
+      "platform": "instagram_business",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    {
+      "operation_id": "cc074-retro-fomc-20261028-v1",
+      "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+      "platform": "linkedin",
+      "status": "UNKNOWN_WRITE",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    {
+      "operation_id": "cc074-retro-fomc-20261028-v1",
+      "dispatch_id": "dispatch_44015f64ead73e6dba975de3e41879c2",
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "73",
+      "public_object_url": "https://t.me/CapitalChronicle/73"
+    },
+    {
+      "operation_id": "cc074-retro-fomc-20261028-v1",
+      "dispatch_id": "dispatch_5a2137e1a148265564399a6f60c6fb27",
+      "platform": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2117318307866968521",
+      "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521"
+    },
+    {
+      "operation_id": "cc074-retro-fomc-20261028-v1",
+      "dispatch_id": "dispatch_b0c56e93220ba413672e6a8110c75cb8",
+      "platform": "youtube",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    {
+      "operation_id": "cc124-prepare-20261103-a",
+      "dispatch_id": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "223246940",
+      "public_object_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer"
+    },
+    {
+      "operation_id": "cc107-midterm-preview-20261103-v1",
+      "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+      "platform": "substack",
+      "status": "OWNER_RETAINED_DRAFT_NO_PUBLISH",
+      "public_object_id": "223293057",
+      "public_object_url": null
+    }
+  ]
+}
