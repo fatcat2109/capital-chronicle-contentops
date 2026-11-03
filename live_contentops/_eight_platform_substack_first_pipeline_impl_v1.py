@@ -3986,14 +3986,20 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         if isinstance(row, Mapping)
     ]
     canonical_url = str(intent.get("canonical_url") or "")
-    payloads = build_native_derivative_payloads(
-        article=article,
-        selection=selection,
-        canonical_url=canonical_url or "https://capitalchronicle.substack.com/p/pending-publication",
-        media_asset_ids=[str(row.get("asset_id") or "") for row in media_assets],
-    )
     destination = str((intent.get("destination_plan") or {}).get("destination") or "")
     frozen_payload = intent.get("native_payload")
+    if intent.get("reader_presentation_review") and destination and isinstance(frozen_payload, Mapping):
+        # An accepted presentation amendment already supplies exact destination
+        # copy. Its canonical Markdown need not retain the old compiler's
+        # structured prose fields, and recompiling it would create new copy.
+        payloads = {destination: dict(frozen_payload)}
+    else:
+        payloads = build_native_derivative_payloads(
+            article=article,
+            selection=selection,
+            canonical_url=canonical_url or "https://capitalchronicle.substack.com/p/pending-publication",
+            media_asset_ids=[str(row.get("asset_id") or "") for row in media_assets],
+        )
     if destination and isinstance(frozen_payload, Mapping):
         # The canonical-first owner already froze the reviewed destination bytes.
         # Rebuilding here can lose photo credits, handles or per-post media choices.

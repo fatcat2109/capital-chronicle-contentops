@@ -261,3 +261,26 @@ def test_transport_resolves_current_reviewed_bytes_instead_of_old_context(tmp_pa
     data = impl._durable_intent_inputs(intent)
     assert data["article"]["title"] == "Accepted correction"
     assert data["local_media"] == str(new) and [a["asset_id"] for a in data["media_assets"]] == ["new"]
+
+
+@pytest.mark.parametrize("destination", ["instagram_business", "threads"])
+def test_reviewed_markdown_social_copy_needs_no_legacy_structured_prose(tmp_path, destination):
+    from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+    chart = tmp_path / "accepted-chart.png"
+    chart.write_bytes(b"CONTROLLED_REVIEWED_CHART")
+    (tmp_path / "run_context_v1.json").write_text(json.dumps({
+        "article": {"title": "Original article"}, "selection": {}, "media": {"assets": []}}))
+    payload = {"text": "Reviewed dated CPI copy. https://capitalchronicle.substack.com/p/controlled",
+        "media_asset_ids": ["accepted-chart"]}
+    accepted_article = {"title": "Accepted correction", "substack_body_markdown": "Unchanged accepted facts."}
+    intent = {"output_dir": str(tmp_path), "canonical_url": "https://capitalchronicle.substack.com/p/controlled",
+        "destination_plan": {"destination": destination}, "reader_presentation_review": {"stage": "CONTROLLED"},
+        "reader_presentation_article": accepted_article,
+        "media_assets": [{"asset_id": "accepted-chart", "modality": "source_backed_chart", "path": str(chart)}],
+        "native_payload": payload}
+    before = deepcopy(intent)
+    resolved = _durable_intent_inputs(intent)
+    assert resolved["payloads"][destination] == payload
+    assert resolved["article"] == accepted_article and resolved["selection"] == {}
+    assert resolved["local_media"] == str(chart)
+    assert intent == before
