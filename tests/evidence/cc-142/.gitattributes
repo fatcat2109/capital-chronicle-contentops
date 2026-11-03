@@ -3,3 +3,4 @@
 *.txt -text whitespace=cr-at-eol
 *.png binary
 *.jpg binary
+native/*-assignment.txt -whitespace
