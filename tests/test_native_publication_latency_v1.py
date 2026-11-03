@@ -135,6 +135,15 @@ def test_legacy_or_different_text_cannot_backdate_approval_and_hold_revokes_timi
     assert timing["text_approved_at_utc"] is None and timing["state"] == "TEXT_APPROVAL_NOT_OBSERVED"
 
 
+def test_review_clock_fallback_uses_the_existing_stores_reviewed_at_field():
+    row = {"reviewer_ref": "NATIVE_DESKTOP_ARTICLE_REVIEW", "decision": "KEEP",
+        "reviewed_at": "2026-11-03T08:00:00Z", "notes": json.dumps({"run_id": "run", "article_identity": "article",
+            "text_revision_sha256": "copy"})}
+    assert text_approval([row], run_id="run", article_identity="article", revision="copy") == row["reviewed_at"]
+    row.pop("reviewed_at")
+    assert text_approval([row], run_id="run", article_identity="article", revision="copy") is None
+
+
 def test_photo_credit_attached_at_selection_from_bound_media_record(tmp_path):
     from test_native_editorial_media_standard_v1 import controlled_release_packet
     _, photo, chart = controlled_release_packet(tmp_path)

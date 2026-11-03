@@ -132,8 +132,9 @@ def text_approval(reviews, *, run_id, article_identity, revision=None):
             continue
         if revision and note.get("text_revision_sha256") != revision:
             continue
-        clock = note.get("text_approved_at_utc") or row["created_at"]
-        candidates.append(clock)
+        clock = note.get("text_approved_at_utc") or row.get("reviewed_at")
+        if clock:
+            candidates.append(clock)
     return min(candidates, key=_utc) if candidates else None
 
 
