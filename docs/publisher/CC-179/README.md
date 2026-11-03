@@ -1,5 +1,15 @@
 # CC-179 Publisher recovery
 
+## Current continuation — 4 November 2026, 02:21 GMT+7
+
+**BUILT_UNMERGED.** [Current evidence](resume-20261104-0155/README.md) records
+the pushed source repairs and actual continuation. All 27 destinations have
+retained public identities, confirmed absences, or named unresolved causes:
+10 identities, three absences, four readbacks, eight rights holds and two
+authorization holds. The CPI MAX amendment and two exact public chart originals
+are bound. No new public post is confirmed. The operating root remains unchanged;
+Ops integration is next. The earlier runs below remain historical evidence.
+
 ## Resume — 4 November 2026, 00:40 GMT+7
 
 **BLOCKED.** [Current evidence](resume-20261104-0012/README.md) supersedes the

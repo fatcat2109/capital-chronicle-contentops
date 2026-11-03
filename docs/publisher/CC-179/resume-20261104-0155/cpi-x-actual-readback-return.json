@@ -1,0 +1,24 @@
+{
+  "tool_request_sha256": "0875b712f1cd8f6f7712562fd0192b79914d0b5ab30ee2e3935828b9fff9b6b8",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a2c2-fe19-76f2-af75-f61b8c26b60d",
+    "surface": "CODEX_EXEC",
+    "observation_source": "Actual BrowserOS Neo run; cpi-actual-neo-readback.json; authenticated owned profile, no exact CPI object identity established.",
+    "observed_at_utc": "2026-11-03T19:09:58+00:00"
+  },
+  "result": {
+    "request_sha256": "e7dc3f430f33056dd4fe89d6a882b0c0b90b06a5a8d6b82449eda7b1ef9e7bed",
+    "status": "READBACK_INCONCLUSIVE_NO_PUBLIC_ID",
+    "observed_identity": "@Capitalnicle",
+    "observed_text": "The Fed held on October 28. Both dissenters wanted a hike.\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\ncapitalchronicle.substack.com/p/the-fed-held\n@firstsquawk\n, citing The Wall Street Journal: Oil retreats amid US-Iran diplomatic push\ncapitalchronicle.substack.com/p/firstsquawk-",
+    "public_object_id": null,
+    "public_object_url": null,
+    "content_verified": false,
+    "write_absent": false,
+    "write_exists": false,
+    "reason_code": "UNIDENTIFIED_ATTEMPT_NO_EXACT_OBJECT_IN_LOADED_PROFILE",
+    "profile_url": "https://x.com/Capitalnicle",
+    "public_write_performed": false
+  }
+}

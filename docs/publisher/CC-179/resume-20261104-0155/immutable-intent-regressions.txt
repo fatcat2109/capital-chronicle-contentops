@@ -1,0 +1,51 @@
+......................F................................................. [ 60%]
+...............................................                          [100%]
+================================== FAILURES ===================================
+_ test_exact_older_finalization_replays_without_accepting_changed_bytes[None] _
+
+social = (<live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x0000024FBC343BB0>, 'controlled-reade...'request_sha256': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'stage': 'CONTROLLED_CANONICAL'})
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000024F9825DC50>
+fault = None
+
+    @pytest.mark.parametrize("fault", [None, "copy", "media", "target", "origin"])
+    def test_exact_older_finalization_replays_without_accepting_changed_bytes(social, monkeypatch, fault):
+        import live_contentops.native_desktop_editorial_v1 as editorial
+        from live_contentops.publication_coordinator_v1 import CanonicalDestinationTransportRuntimeV1
+        store, run, result, revision, _ = social
+        parent_acceptance = editorial.reader_presentation_acceptance
+        co, ref = continuation(social, monkeypatch)
+        monkeypatch.setattr(co, "_dispatch_message", lambda *a, **kw: {"publish_called": False})
+        co.continue_reader_derivative(work_item_id=run, destination="instagram_business", review_reference=ref)
+        identity = revision["objects"]["instagram_business"]
+        message = store.get_outbox_message(identity["message_id"])
+        runtime = CanonicalDestinationTransportRuntimeV1(linkedin_transport=SimpleNamespace(), neo_transport=SimpleNamespace())
+        finalized = runtime.finalize_intent(destination="instagram_business",
+            intent=json.loads(co._effective_message(message)["payload"]),
+            canonical_url=revision["objects"]["substack"]["public_object_url"])
+        if fault == "copy":
+            finalized["native_payload"]["text"] += " Unsupported sentence."
+        elif fault == "media":
+            finalized["media_assets"][0]["sha256"] = "f" * 64
+        elif fault == "target":
+            finalized["destination_plan"]["surface"] = "OTHER_ACCOUNT"
+        elif fault == "origin":
+            finalized["reader_presentation_review"] = {"stage": "UNBOUND"}
+        store.finalize_outbox_payload_before_dispatch(message_id=identity["message_id"], payload=json.dumps(finalized))
+        monkeypatch.setattr(editorial, "reader_presentation_acceptance", parent_acceptance)
+        if fault:
+            with pytest.raises(ValueError, match="ORIGINAL_INTENT_CHANGED"):
+                reader_presentation_revision_view(store, run_id=run, result=result, revision=revision)
+        else:
+            view = reader_presentation_revision_view(store, run_id=run, result=result, revision=revision)
+>           assert view["article"] == revision["article"]
+E           AssertionError: assert {'dek': 'Unco...olled'}], ...} == {'dek': 'Unco...olled'}], ...}
+E             
+E             Omitting 7 identical items, use -vv to show
+E             Differing items:
+E             {'visual_editorial_decision': {'channel_media': {'discord': ['controlled-cpi-0'], 'facebook_page': ['controlled-cpi-0'...ion': 'Controlled effect', ...}], 'editorial_thesis': 'Controlled', 'reader_first_version': 'DATA_JOURNALISM_V1', ...}} != {'visual_editorial_decision': {'channel_media': {'discord': [], 'facebook_page': [], 'instagram_business': [], 'linked...ion': 'Controlled effect', ...}], 'editorial_thesis': 'Controlled', 'reader_first_version': 'DATA_JOURNALISM_V1', ...}}
+E             Use -v to get more diff
+
+tests\test_cpi_derivative_media_revision_v1.py:337: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_cpi_derivative_media_revision_v1.py::test_exact_older_finalization_replays_without_accepting_changed_bytes[None]
+1 failed, 118 passed in 105.31s (0:01:45)

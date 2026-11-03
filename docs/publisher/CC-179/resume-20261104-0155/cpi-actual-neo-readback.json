@@ -1,0 +1,31 @@
+{
+  "observed_at_utc": "2026-11-03 19:09:58 UTC",
+  "result": [
+    {
+      "destination": "x",
+      "matched_expected_cpi": false,
+      "observed_public_post_lines": [
+        "The Fed held on October 28. Both dissenters wanted a hike.",
+        "The Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.",
+        "capitalchronicle.substack.com/p/the-fed-held",
+        "@firstsquawk",
+        ", citing The Wall Street Journal: Oil retreats amid US-Iran diplomatic push",
+        "capitalchronicle.substack.com/p/firstsquawk-"
+      ],
+      "profile_url": "https://x.com/Capitalnicle",
+      "scope": "Loaded authenticated profile only; no exact CPI public identity or conclusive absence."
+    },
+    {
+      "destination": "youtube",
+      "matched_expected_cpi": false,
+      "observed_public_post_lines": [
+        "27 October 2026",
+        "Update: @firstsquawk, citing The Wall Street Journal: Oil retreats amid US-Iran diplomatic push",
+        "@firstsquawk cites WSJ on oil and US-Iran diplomacy. A renewed push leaves direct talks and supply relief unresolved.",
+        "Read the full brief: https://capitalchronicle.substack.com/p/firstsquawk-citing-the-wall-street"
+      ],
+      "profile_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+      "scope": "Loaded authenticated profile only; no exact CPI public identity or conclusive absence."
+    }
+  ]
+}

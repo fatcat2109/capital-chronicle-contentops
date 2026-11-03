@@ -1,0 +1,81 @@
+{
+  "schema_version": "contentops.delivery_media_manifest.v1",
+  "run_id": "cc124-prepare-20261103-a",
+  "authority": "approved_media_manifest_hash_binding_not_substack_dom_selection",
+  "status": "PASS",
+  "blockers": [],
+  "minimum_chart_dimensions": {
+    "width": 800,
+    "height": 400
+  },
+  "assets": [
+    {
+      "media_asset_id": "cpi-annual-history-r3",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "source_page_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r3\\media_assets\\cpi-annual-history-r3.png",
+      "sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "declared_sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+        "caption": "U.S. CPI-U, twelve-month change, not seasonally adjusted, October 2024-September 2026. Each point uses its first published reading. October 2025 has no published reading. Source: BLS dated CPI releases."
+      },
+      "chart_title": "U.S. CPI-U, twelve-month change, not seasonally adjusted, October 2024-September 2026. Each point uses its first published reading. October 2025 has no published reading. Source: BLS dated CPI releases.",
+      "alt_text": "Two lines show first-reported annual CPI-U inflation from October 2024 to September 2026, with a gap at October 2025. Headline starts at 2.6%, reaches 4.2% in May 2026 and ends at 3.7%. Core starts at 3.3% and ends at 2.6%.",
+      "canonical_article_section_association": "cpi-annual-history-r3",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/cafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png",
+      "public_delivery_sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "local_public_hash_continuity": true
+    },
+    {
+      "media_asset_id": "cpi-monthly-history-r3",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "source_page_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r3\\media_assets\\cpi-monthly-history-r3.png",
+      "sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "declared_sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+        "caption": "U.S. CPI-U, one-month change, seasonally adjusted, October 2024-September 2026. These are first-release vintages. October and November 2025 have no one-month readings; November's release covered two months. Source: BLS dated CPI releases."
+      },
+      "chart_title": "U.S. CPI-U, one-month change, seasonally adjusted, October 2024-September 2026. These are first-release vintages. October and November 2025 have no one-month readings; November's release covered two months. Source: BLS dated CPI releases.",
+      "alt_text": "Two lines show first-reported monthly, seasonally adjusted CPI-U changes from October 2024 to September 2026. Both lines break at October and November 2025. September 2026 headline inflation is 0.6%, following 0.4% in August; core is 0.3% in both months.",
+      "canonical_article_section_association": "cpi-monthly-history-r3",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/a5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png",
+      "public_delivery_sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "local_public_hash_continuity": true
+    }
+  ],
+  "selected_primary_media_asset_id": "cpi-annual-history-r3",
+  "selected_primary_media_sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+  "remote_objects_audited": [
+    {
+      "supplied_url": "https://substack-post-media.s3.amazonaws.com/public/images/cafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/cafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png",
+      "sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040
+    },
+    {
+      "supplied_url": "https://substack-post-media.s3.amazonaws.com/public/images/a5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/a5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png",
+      "sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040
+    }
+  ]
+}

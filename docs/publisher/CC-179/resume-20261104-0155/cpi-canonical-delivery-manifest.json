@@ -1,0 +1,174 @@
+{
+  "schema_version": "contentops.delivery_media_manifest.v1",
+  "run_id": "cc124-prepare-20261103-a",
+  "authority": "approved_media_manifest_hash_binding_not_substack_dom_selection",
+  "status": "BLOCKED",
+  "blockers": [
+    "public_object_hash_match_missing:cpi-september-effects-r2"
+  ],
+  "minimum_chart_dimensions": {
+    "width": 800,
+    "height": 400
+  },
+  "assets": [
+    {
+      "media_asset_id": "cpi-annual-history-r3",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "source_page_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r3\\media_assets\\cpi-annual-history-r3.png",
+      "sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "declared_sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+        "caption": "U.S. CPI-U, twelve-month change, not seasonally adjusted, October 2024-September 2026. Each point uses its first published reading. October 2025 has no published reading. Source: BLS dated CPI releases."
+      },
+      "chart_title": "U.S. CPI-U, twelve-month change, not seasonally adjusted, October 2024-September 2026. Each point uses its first published reading. October 2025 has no published reading. Source: BLS dated CPI releases.",
+      "alt_text": "Two lines show first-reported annual CPI-U inflation from October 2024 to September 2026, with a gap at October 2025. Headline starts at 2.6%, reaches 4.2% in May 2026 and ends at 3.7%. Core starts at 3.3% and ends at 2.6%.",
+      "canonical_article_section_association": "cpi-annual-history-r3",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/cafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png",
+      "public_delivery_sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "local_public_hash_continuity": true
+    },
+    {
+      "media_asset_id": "cpi-monthly-history-r3",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "source_page_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r3\\media_assets\\cpi-monthly-history-r3.png",
+      "sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "declared_sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+        "caption": "U.S. CPI-U, one-month change, seasonally adjusted, October 2024-September 2026. These are first-release vintages. October and November 2025 have no one-month readings; November's release covered two months. Source: BLS dated CPI releases."
+      },
+      "chart_title": "U.S. CPI-U, one-month change, seasonally adjusted, October 2024-September 2026. These are first-release vintages. October and November 2025 have no one-month readings; November's release covered two months. Source: BLS dated CPI releases.",
+      "alt_text": "Two lines show first-reported monthly, seasonally adjusted CPI-U changes from October 2024 to September 2026. Both lines break at October and November 2025. September 2026 headline inflation is 0.6%, following 0.4% in August; core is 0.3% in both months.",
+      "canonical_article_section_association": "cpi-monthly-history-r3",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/a5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png",
+      "public_delivery_sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "local_public_hash_continuity": true
+    },
+    {
+      "media_asset_id": "cpi-september-effects-r2",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "source_page_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm#cpipress6",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r2\\media_assets\\cpi-september-effects-r2.png",
+      "sha256": "45af728560c668a3aee17a095ef289cc99b7e1e7cb013caa7e5bd3f39311ba99",
+      "declared_sha256": "45af728560c668a3aee17a095ef289cc99b7e1e7cb013caa7e5bd3f39311ba99",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm#cpipress6",
+        "caption": "Reported effects on all-items CPI-U, August-September 2026, seasonally adjusted, in percentage points. The three broad categories do not overlap. Effects retain BLS's three-decimal precision; the headline monthly rate is published as 0.6%. Source: BLS, October 14, 2026 release, Table 6."
+      },
+      "chart_title": "Reported effects on all-items CPI-U, August-September 2026, seasonally adjusted, in percentage points. The three broad categories do not overlap. Effects retain BLS's three-decimal precision; the headline monthly rate is published as 0.6%. Source: BLS, October 14, 2026 release, Table 6.",
+      "alt_text": "Horizontal bars show September 2026 seasonally adjusted effects on all-items monthly CPI-U inflation: energy 0.377 percentage points, core excluding food and energy 0.265 points, and food 0.006 points. Energy has the largest broad contribution.",
+      "canonical_article_section_association": "cpi-september-effects-r2",
+      "verified_public_delivery_url": null,
+      "public_delivery_sha256": null,
+      "local_public_hash_continuity": false
+    },
+    {
+      "media_asset_id": "cpi-usda-supermarket-archive",
+      "media_role": "contextual_photo",
+      "modality": "documentary_photo",
+      "rights_status": "PUBLIC_DOMAIN",
+      "rights_evidence_sha256": "1605252e4b8994df38b67642141902d3565a169059f5aef1870cbb0170fd93cd",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:WIC_Environments_in_Michigan_(20230621-USDA-FNS-UNK-0020).jpg",
+      "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\media\\usda-michigan-supermarket-20230622.jpg",
+      "sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+      "declared_sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+      "mime_type": "image/jpeg",
+      "width": 5364,
+      "height": 3334,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:WIC_Environments_in_Michigan_(20230621-USDA-FNS-UNK-0020).jpg",
+        "caption": "Dry beans at Papaya Supermarket in Dearborn, Michigan, June 2023. Archive context; not a September 2026 price observation."
+      },
+      "chart_title": "Dry beans at Papaya Supermarket in Dearborn, Michigan, June 2023. Archive context; not a September 2026 price observation.",
+      "alt_text": "Bags of dry beans displayed on shelves at a supermarket in Dearborn, Michigan.",
+      "canonical_article_section_association": "cpi-usda-supermarket-archive",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/b60973f2-b9d3-45de-b0ba-4c676839f7c4_5364x3334.jpeg",
+      "public_delivery_sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+      "local_public_hash_continuity": true
+    }
+  ],
+  "selected_primary_media_asset_id": "cpi-annual-history-r3",
+  "selected_primary_media_sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+  "remote_objects_audited": [
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!iKBy!,w_36,h_36,c_fill,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F04cbd7b0-a045-4e65-b1ad-2ccd89cb110b_2500x2500.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/04cbd7b0-a045-4e65-b1ad-2ccd89cb110b_2500x2500.png",
+      "sha256": "61705ea9f6527e0ef1b450cbabd87f9210092babbde1788d3e4110da5e17fa67",
+      "mime_type": "image/png",
+      "width": 2500,
+      "height": 2500
+    },
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!G8nN!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb60973f2-b9d3-45de-b0ba-4c676839f7c4_5364x3334.jpeg",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/b60973f2-b9d3-45de-b0ba-4c676839f7c4_5364x3334.jpeg",
+      "sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+      "mime_type": "image/jpeg",
+      "width": 5364,
+      "height": 3334
+    },
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!G8nN!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb60973f2-b9d3-45de-b0ba-4c676839f7c4_5364x3334.jpeg",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/b60973f2-b9d3-45de-b0ba-4c676839f7c4_5364x3334.jpeg",
+      "sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+      "mime_type": "image/jpeg",
+      "width": 5364,
+      "height": 3334
+    },
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!t6Lv!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fcafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/cafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png",
+      "sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040
+    },
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!t6Lv!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fcafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/cafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png",
+      "sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040
+    },
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!Baoy!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/a5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png",
+      "sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040
+    },
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!Baoy!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/a5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png",
+      "sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040
+    }
+  ]
+}
