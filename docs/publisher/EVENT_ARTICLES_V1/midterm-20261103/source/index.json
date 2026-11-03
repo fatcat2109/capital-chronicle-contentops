@@ -1,0 +1,17 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authorship_class": "CAPITAL_CHRONICLE_OPS_APPROVED_EVENT_PREVIEW",
+      "headline_id": "cc107-midterm-preview-20261103",
+      "capture_path": "PREVIEW.md",
+      "source_capture_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "frozen_manifest_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\MANIFEST.sha256",
+      "approval_capture_path": "ops-review.txt",
+      "approval_capture_sha256": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+      "known_at_utc": "2026-11-02T23:35:08Z",
+      "revision_at_utc": "2026-11-03T05:49:14.399561+00:00",
+      "source_url": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md"
+    }
+  ]
+}

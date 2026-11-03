@@ -1,0 +1,11 @@
+CC-107
+- Ops, 3 Nov 08:03 GMT+7: the midterm dossier froze `A:\Capital Chronicle\ResearchRuns\claude-main-events-20261029\20261103-midterm-dossier\PREVIEW.md` (MANIFEST present, status FROZEN, 23:32Z).
+  - Ops reviewed it against decisions 35 and 40 and the public-output rules. There are no calls, entries, stops, sizes or DEMO details; prediction-market odds are in words only; polls and the options-implied move are cited with their sources; the general-analysis notice is present. It passes.
+  - It is CC-124's first priority, so the standing run writes and publishes it, with no separate CC-107 run (that would duplicate it). Deadline: before the first polls close at 23:00Z.
+  - Substack publication is blocked: at 23:08Z the September CPI retrospective (draft 223246940) stopped at SUBSTACK_EMAIL_VERIFICATION_REQUIRED and is a draft with UNKNOWN_WRITE. Jim completes Substack's email verification for that draft. Publisher then reads it back and continues; it never makes a replacement draft or repeats the send.
+- Ops, 3 Nov 11:36 GMT+7: the midterm preview goes first, as its own run, so it does not wait behind CC-142 to CC-144.
+  - Publish it web-only (decision 42), with a data card of its key facts (decision 42) and its notices.
+  - Prediction-market odds stay in words only.
+  - Deadline: before the first polls close at 23:00Z (06:00 GMT+7 Wed).
+  - Record whether Substack asks for a code on this web-only publish, with the observed screen.
+  - CC-124 must not publish it a second time.

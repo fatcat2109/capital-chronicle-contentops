@@ -1,0 +1,23 @@
+{
+  "mode": "desktop",
+  "name": "preview-desktop-notices",
+  "observation": {
+    "docHeight": 5741,
+    "docWidth": 1116,
+    "frame": {
+      "height": 696,
+      "width": 1126,
+      "x": 37,
+      "y": 167
+    },
+    "height": 696,
+    "outer": {
+      "height": 900,
+      "width": 1200
+    },
+    "width": 1126,
+    "x": 0,
+    "y": 4700
+  },
+  "requested_y": 4700
+}

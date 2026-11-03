@@ -1,0 +1,213 @@
+{
+  "operation_id": "cc107-midterm-preview-20261103-v1",
+  "review_request_sha256": "cd9a7356010ec444376cb58bbd6324ff244c58efbb1fe56ddef0a1b660cd4834",
+  "writer_invocation_id": "/root/native_visual_edit_76437a71362e",
+  "original_binding": {
+    "article_identity": "c4368eb9690d8c3b69eadf50a48eef29812520953113646a7e90da7237f1a309",
+    "article_revision": "3c8b12b23c56663d26efd3dddd00d0cefd7db2e9e4cb7dc9ee83abf8ba82bf04",
+    "source_sha256": "0960fbc3311888b6d6388b430899a9a19ba76647cfbfb4fe5b6dfc192e69e26b"
+  },
+  "status": "REPAIR_REQUIRED_NOT_APPLIED_TO_FROZEN_STATE",
+  "preserved": "Frozen source, cutoffs, reviewed numeric values, valid canonical prose/claim bindings, photo original/rights, accepted visual-edit/write/revise returns and all original review artifacts remain unchanged.",
+  "caption_repair": {
+    "asset_id": "cc107-generic-ballot-and-poll-close-card",
+    "original_asset_sha256": "28e9ffba3191fc9d6645e7fe571b6ede6ed8237fa2627b93817b526cc3ae9d64",
+    "existing_caption": "PollCheck's generic-ballot shares, updated 2 November. The figures describe reported voting intentions, not probabilities of controlling Congress. Timing: 270toWin, via the approved preview.",
+    "replacement_caption": "PollCheck's generic-ballot shares, updated 2 November. The figures describe reported voting intentions, not probabilities of controlling Congress. Poll-closing time: 270toWin.",
+    "apply_to": [
+      "new revision of admitted asset caption",
+      "new revision of editorial_data_packet.caption",
+      "all actual canonical/derivative figure captions"
+    ],
+    "reason": "The rendered phrase via the approved preview exposes internal approval workflow. Keep concise natural source attribution instead."
+  },
+  "corrected_editorial_data_packet": {
+    "alt_text": "PollCheck generic-ballot snapshot updated 2 November 2026: Democrats 51.1 percent and Republicans 42.8 percent. These are voting-intention shares, not chamber-control probabilities. First polls close at 23:00 UTC on 3 November.",
+    "asset_id": "cc107-generic-ballot-and-poll-close-card",
+    "caption": "PollCheck's generic-ballot shares, updated 2 November. The figures describe reported voting intentions, not probabilities of controlling Congress. Poll-closing time: 270toWin.",
+    "chart_type": "fact_card",
+    "destination_subset": [
+      "telegram",
+      "discord",
+      "x",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "fact_card_footer": "First polls close: 23:00 UTC on 3 November",
+    "fact_card_note": "Voting intentions, not chamber-control probabilities.",
+    "missingness": "Sample size, fieldwork dates, methodology, margin of error, other responses and underlying polling history are not supplied. No zero values, remainder share or uncertainty interval may be invented.",
+    "placement_after": "What is expected",
+    "question": "What does the admitted PollCheck snapshot report, and when do the first polls close?",
+    "series": [
+      {
+        "label": "PollCheck generic-ballot voting-intention share",
+        "points": [
+          {
+            "display_value": "51.1%",
+            "inputs": [
+              {
+                "document_id": "cc107-midterm-preview-20261103",
+                "metric": "PollCheck generic-ballot voting-intention share",
+                "period_basis": {
+                  "source_display": "updated 2 November",
+                  "source_known_at_utc": "2026-11-02T23:35:08Z"
+                },
+                "prepared_period": "2 November 2026",
+                "source_content_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+                "source_period_text": "updated 2 November",
+                "support_excerpt": "Polls point the same way. The Silver Bulletin generic-ballot average gives Democrats an 8.9-point lead (updated 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 November). Some are less sure about the Senate: Wolfe Research's own estimate put Democratic control at 49% (CNBC, 30 October).",
+                "unit": "percent",
+                "value_text": "51.1"
+              }
+            ],
+            "observation_kind": "ESTIMATE",
+            "period": "Democrats",
+            "transform": "IDENTITY",
+            "value": 51.1
+          },
+          {
+            "display_value": "42.8%",
+            "inputs": [
+              {
+                "document_id": "cc107-midterm-preview-20261103",
+                "metric": "PollCheck generic-ballot voting-intention share",
+                "period_basis": {
+                  "source_display": "updated 2 November",
+                  "source_known_at_utc": "2026-11-02T23:35:08Z"
+                },
+                "prepared_period": "2 November 2026",
+                "source_content_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+                "source_period_text": "updated 2 November",
+                "support_excerpt": "Polls point the same way. The Silver Bulletin generic-ballot average gives Democrats an 8.9-point lead (updated 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 November). Some are less sure about the Senate: Wolfe Research's own estimate put Democratic control at 49% (CNBC, 30 October).",
+                "unit": "percent",
+                "value_text": "42.8"
+              }
+            ],
+            "observation_kind": "ESTIMATE",
+            "period": "Republicans",
+            "transform": "IDENTITY",
+            "value": 42.8
+          }
+        ]
+      }
+    ],
+    "source_caption": "PollCheck (2 November 2026); poll-closing time: 270toWin.",
+    "subtitle": "PollCheck | updated 2 November 2026",
+    "title": "Generic-ballot polling snapshot",
+    "unit": "percent"
+  },
+  "card_render_requirements": {
+    "owner": "existing source-backed chart renderer and admitted-media/revision owner",
+    "asset_id": "cc107-generic-ballot-and-poll-close-card",
+    "factual_content_changes": false,
+    "form": "One mobile-readable fact card. Prefer a portrait or square arrangement with the two direct party labels and exact shares stacked vertically or placed in large, equal-status blocks. This changes presentation, not the fact set or chart count.",
+    "exact_values": [
+      {
+        "label": "Democrats",
+        "display_value": "51.1%"
+      },
+      {
+        "label": "Republicans",
+        "display_value": "42.8%"
+      }
+    ],
+    "title": "Generic-ballot polling snapshot",
+    "subtitle": "PollCheck | updated 2 November 2026",
+    "meaning_note": "Voting intentions, not chamber-control probabilities.",
+    "timing": "First polls close: 23:00 UTC on 3 November",
+    "credit": "PollCheck (2 November 2026); poll-closing time: 270toWin.",
+    "mobile_acceptance": "At the actual 390 px reader viewport and normal zoom, direct party labels, both percentages, update date, meaning qualification and poll-closing date/time must be readable together. Essential labels should be at least the surrounding body-text size, with the compact credit still readable. Do not merely shrink the existing 1600 px landscape raster into a roughly 320 px figure.",
+    "source_and_meaning_constraints": "No bars, pie, inferred remainder, normalization, seat projections, prediction-market numbers, new history or changed source clock. Use the same exact source lineage and facts. Keep the existing alt text and corrected natural caption."
+  },
+  "derivative_notice_repairs": [
+    {
+      "destination": "discord",
+      "existing_text": "**Newsroom brief: US midterms: Capital Chronicle on the result that could surprise markets**\n\nCapital Chronicle's midterm preview: an expected Democratic sweep may move prices less than a Republican surprise. A slow Senate count could matter too.\n\n**Context:** With a Democratic sweep, the President's veto could limit changes to tax and tariff policy. The preview instead anticipates more oversight, a harder funding fight before the 11 December deadline and a debt-limit standoff in 2027.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "replacement_text": "**Newsroom brief: US midterms: Capital Chronicle on the result that could surprise markets**\n\nCapital Chronicle's midterm preview: an expected Democratic sweep may move prices less than a Republican surprise. A slow Senate count could matter too.\n\n**Context:** With a Democratic sweep, the President's veto could limit changes to tax and tariff policy. The preview instead anticipates more oversight, a harder funding fight before the 11 December deadline and a debt-limit standoff in 2027.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+      "requirement": "Existing compiler must retain this exact requested conflict notice and rebuild/review the destination packet. Resolve the real permitted destination URL before any public send."
+    },
+    {
+      "destination": "facebook_page",
+      "existing_text": "US midterms: Capital Chronicle on the result that could surprise markets\n\nCapital Chronicle's midterm preview: an expected Democratic sweep may move prices less than a Republican surprise. A slow Senate count could matter too.\n\nWhy it matters: Capital Chronicle's pre-election preview treats a Democratic sweep as the expected result and Republicans keeping both chambers as the biggest surprise. That difference could matter more to prices than the political headline: an outcome investors already expect may produce modest moves. This is a preview of possible outcomes, not an election result.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "replacement_text": "US midterms: Capital Chronicle on the result that could surprise markets\n\nCapital Chronicle's midterm preview: an expected Democratic sweep may move prices less than a Republican surprise. A slow Senate count could matter too.\n\nWhy it matters: Capital Chronicle's pre-election preview treats a Democratic sweep as the expected result and Republicans keeping both chambers as the biggest surprise. That difference could matter more to prices than the political headline: an outcome investors already expect may produce modest moves. This is a preview of possible outcomes, not an election result.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+      "requirement": "Existing compiler must retain this exact requested conflict notice and rebuild/review the destination packet. Resolve the real permitted destination URL before any public send."
+    },
+    {
+      "destination": "instagram_business",
+      "existing_text": "US midterms: Capital Chronicle on the result that could surprise markets\n\nCapital Chronicle's midterm preview: an expected Democratic sweep may move prices less than a Republican surprise. A slow Senate count could matter too.\n\nIn focus: With a Democratic sweep, the President's veto could limit changes to tax and tariff policy. The preview instead anticipates more oversight, a harder funding fight before the 11 December deadline and a debt-limit standoff in 2027.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b\n\n#CapitalChronicle\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "replacement_text": "US midterms: Capital Chronicle on the result that could surprise markets\n\nCapital Chronicle's midterm preview: an expected Democratic sweep may move prices less than a Republican surprise. A slow Senate count could matter too.\n\nIn focus: With a Democratic sweep, the President's veto could limit changes to tax and tariff policy. The preview instead anticipates more oversight, a harder funding fight before the 11 December deadline and a debt-limit standoff in 2027.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b\n\n#CapitalChronicle\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+      "requirement": "Existing compiler must retain this exact requested conflict notice and rebuild/review the destination packet. Resolve the real permitted destination URL before any public send."
+    },
+    {
+      "destination": "linkedin",
+      "existing_text": "US midterms: Capital Chronicle on the result that could surprise markets\n\nWhy it matters: Capital Chronicle's pre-election preview treats a Democratic sweep as the expected result and Republicans keeping both chambers as the biggest surprise. That difference could matter more to prices than the political headline: an outcome investors already expect may produce modest moves. This is a preview of possible outcomes, not an election result.\n\nContext: With a Democratic sweep, the President's veto could limit changes to tax and tariff policy. The preview instead anticipates more oversight, a harder funding fight before the 11 December deadline and a debt-limit standoff in 2027.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "replacement_text": "US midterms: Capital Chronicle on the result that could surprise markets\n\nWhy it matters: Capital Chronicle's pre-election preview treats a Democratic sweep as the expected result and Republicans keeping both chambers as the biggest surprise. That difference could matter more to prices than the political headline: an outcome investors already expect may produce modest moves. This is a preview of possible outcomes, not an election result.\n\nContext: With a Democratic sweep, the President's veto could limit changes to tax and tariff policy. The preview instead anticipates more oversight, a harder funding fight before the 11 December deadline and a debt-limit standoff in 2027.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+      "requirement": "Existing compiler must retain this exact requested conflict notice and rebuild/review the destination packet. Resolve the real permitted destination URL before any public send."
+    },
+    {
+      "destination": "telegram",
+      "existing_text": "NEWSROOM BRIEF\n\nUS midterms: Capital Chronicle on the result that could surprise markets\n\nCapital Chronicle's midterm preview: an expected Democratic sweep may move prices less than a Republican surprise. A slow Senate count could matter too.\n\nWhat to watch: The Middle East and oil, the jobs report on 6 November and inflation data on 10 November could outweigh the election in rates and the dollar. Would a large market move reflect the congressional result, or a change in those competing drivers?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "replacement_text": "NEWSROOM BRIEF\n\nUS midterms: Capital Chronicle on the result that could surprise markets\n\nCapital Chronicle's midterm preview: an expected Democratic sweep may move prices less than a Republican surprise. A slow Senate count could matter too.\n\nWhat to watch: The Middle East and oil, the jobs report on 6 November and inflation data on 10 November could outweigh the election in rates and the dollar. Would a large market move reflect the congressional result, or a change in those competing drivers?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+      "requirement": "Existing compiler must retain this exact requested conflict notice and rebuild/review the destination packet. Resolve the real permitted destination URL before any public send."
+    },
+    {
+      "destination": "threads",
+      "existing_root_text": "US midterms: Capital Chronicle on the result that could surprise markets\n\nWith a Democratic sweep, the President's veto could limit changes to tax and tariff policy. The preview instead anticipates more oversight, a harder funding fight before the 11 December deadline and a debt-limit standoff in 2027.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b",
+      "replacement_root_text": "US midterms: Capital Chronicle on the result that could surprise markets\n\nWith a Democratic sweep, the President's veto could limit changes to tax and tariff policy. The preview instead anticipates more oversight, a harder funding fight before the 11 December deadline and a debt-limit standoff in 2027.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+      "requirement": "Use the existing native compiler/packager to rebuild the ordered chain from the same article and a real permitted destination URL. Preserve complete sentences, conditions and reply order; retain the analysis notice in the chain and place the requested notices in its independently shareable root. Recompute character counts after URL resolution.",
+      "note": "This authored replacement is a repair input, not an accepted or dispatched package; the retained pending URL is deliberately unresolved until its existing owner supplies an exact valid destination."
+    },
+    {
+      "destination": "x",
+      "existing_root_text": "US midterms: Capital Chronicle on the result that could surprise markets\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b",
+      "replacement_root_text": "US midterms: Capital Chronicle on the result that could surprise markets\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+      "requirement": "Use the existing native compiler/packager to rebuild the ordered chain from the same article and a real permitted destination URL. Preserve complete sentences, conditions and reply order; retain the analysis notice in the chain and place the requested notices in its independently shareable root. Recompute character counts after URL resolution.",
+      "note": "This authored replacement is a repair input, not an accepted or dispatched package; the retained pending URL is deliberately unresolved until its existing owner supplies an exact valid destination."
+    },
+    {
+      "destination": "youtube",
+      "existing_text": "Update: US midterms: Capital Chronicle on the result that could surprise markets\n\nCapital Chronicle's midterm preview: an expected Democratic sweep may move prices less than a Republican surprise. A slow Senate count could matter too.\n\nWhat to watch: The Middle East and oil, the jobs report on 6 November and inflation data on 10 November could outweigh the election in rates and the dollar. Would a large market move reflect the congressional result, or a change in those competing drivers?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "replacement_text": "Update: US midterms: Capital Chronicle on the result that could surprise markets\n\nCapital Chronicle's midterm preview: an expected Democratic sweep may move prices less than a Republican surprise. A slow Senate count could matter too.\n\nWhat to watch: The Middle East and oil, the jobs report on 6 November and inflation data on 10 November could outweigh the election in rates and the dollar. Would a large market move reflect the congressional result, or a change in those competing drivers?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+      "requirement": "Existing compiler must retain this exact requested conflict notice and rebuild/review the destination packet. Resolve the real permitted destination URL before any public send."
+    }
+  ],
+  "destination_link_requirement": {
+    "affected_destinations": [
+      "discord",
+      "facebook_page",
+      "instagram_business",
+      "linkedin",
+      "telegram",
+      "threads",
+      "x",
+      "youtube"
+    ],
+    "current_state": "All eight payloads contain https://capitalchronicle.substack.com/p/pending-publication-c4368eb9690d8c3b; screenshots show Canonical link pending.",
+    "repair": "Do not turn the placeholder into a public URL or publish Substack to create one. Substack remains drafts only. The existing delivery owner must supply a real authorised site/article URL under the independent site/social path, or use an explicitly supported link-free destination form. Rematerialize and review affected packages with exact final links; no guessed URL."
+  },
+  "render_capture_repairs": {
+    "desktop_repeated_panel_destinations": [
+      "discord",
+      "facebook_page",
+      "instagram_business",
+      "substack",
+      "telegram",
+      "x"
+    ],
+    "mobile_clipped_and_repeated_destinations": [
+      "discord",
+      "instagram_business",
+      "linkedin",
+      "substack",
+      "threads",
+      "youtube"
+    ],
+    "actual_evidence": "All 18 bound screenshot PNGs and both original asset files were visually inspected before the interruption. Their exact hashes were read back unchanged on resume. Six desktop files visibly repeat the same narrow page horizontally; six mobile files cut off the right-hand content and repeat the page down the tall canvas. Read-only pixel comparison found exact horizontal repetition every 390 pixels in the inspected Discord and Substack desktop upper regions. Correct PNG dimensions alone do not prove a correct responsive capture.",
+    "smallest_next_action": "Use the existing BrowserOS Neo capture owner to capture one correctly laid out viewport per bound destination at 1200 and 390 px width after the actual layout/compositor has settled. Inspect the capture pixels, not just dimensions. If tall single-view capture still tiles or clips, use a bounded sequence of actual viewport screenshots with exact coverage and unique render IDs through the same owner; do not synthesize missing sections or resize tiled screenshots as proof.",
+    "reinspection_scope": "The caption/notice/card changes affect all nine presentations, so regenerate exact canonical and eight channel desktop/mobile renders and their fresh binding. Return corrected asset plus every affected render to this same writer. Preserve the old request and this REPAIR_REQUIRED response."
+  },
+  "review_limits": "These are private React previews, not platform screens, Substack draft creation, live site delivery or public readbacks. No publication or external action was performed."
+}

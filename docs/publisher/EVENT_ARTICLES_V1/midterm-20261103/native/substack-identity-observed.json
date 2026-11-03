@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-11-03T08:39:22.453Z",
+  "url": "https://capitalchronicle.substack.com/publish/posts/drafts",
+  "identity_lines": [
+    "- navigation \"Publisher dashboard\"",
+    "  - button \"Jim’s Substack\" [ref=e1]",
+    "    - image \"Jim’s Substack\"",
+    "  - link \"Home\" [ref=e2] [url=\"https://capitalchronicle.substack.com/publish/home\"]",
+    "- button \"Dean's avatar\" [collapsed] [ref=e21]",
+    "  - image \"Dean's avatar\"",
+    "  - tab \"Drafts 639\" [selected] [ref=e24]"
+  ],
+  "authenticated_dashboard": true,
+  "no_login_or_account_change": true
+}

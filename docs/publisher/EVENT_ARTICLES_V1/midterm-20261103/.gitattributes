@@ -1,0 +1,7 @@
+* whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+source/* -text
+media/* -text
+media/commons-rights-page.md -diff
+*.json -text
+*.html -text
+*.b64 -text

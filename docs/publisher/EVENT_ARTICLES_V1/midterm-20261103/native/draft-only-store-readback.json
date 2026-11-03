@@ -1,0 +1,19 @@
+{
+  "observed_at_utc": "2026-11-03T09:00:03.010925+00:00",
+  "operation_id": "cc107-midterm-preview-20261103-v1",
+  "dispatches": [
+    {
+      "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+      "platform": "substack",
+      "status": "OWNER_RETAINED_DRAFT_NO_PUBLISH",
+      "public_object_id": "223293057",
+      "public_object_url": null
+    }
+  ],
+  "social_dispatches": 0,
+  "canonical_confirmed": false,
+  "published_article_count": 0,
+  "schedule_changed": false,
+  "substack_publish_or_update_pressed": false,
+  "next_publication_actor": "Jim publishes the retained Substack draft. Site/social owner remains CC-154, outside this dispatch."
+}

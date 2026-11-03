@@ -1,0 +1,521 @@
+{
+  "item": "CC-107",
+  "recorded_at_utc": "2026-11-03T05:49:14.399561+00:00",
+  "base_tag": "contentops-live-20261103-cc142",
+  "base_commit": "21fa56344ee6d0ddf18fbe3392c375d7ba48848b",
+  "source": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\PREVIEW.md",
+  "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+  "approval_source": "BACKLOG.md CC-107 Ops 3 Nov 08:03 and 11:36 GMT+7",
+  "approval_sha256": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+  "launch": {
+    "process_id": 39788,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "verified_argument_tokens": [
+      "exec",
+      "--model",
+      "gpt-6.1-sol",
+      "-c",
+      "model_reasoning_effort=\"max\""
+    ],
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "status": "CONFIGURED_NOT_OBSERVED"
+  },
+  "public_write_performed": false,
+  "validation": {
+    "pytest_command": "python -m pytest -q tests/test_event_preview_source_v1.py tests/test_event_article_guard_v1.py tests/test_contentops_source_research_v1.py --junitxml=tests/evidence/cc-107/preview-input.junit.xml",
+    "tests": 164,
+    "failures": 0,
+    "errors": 0,
+    "pytest_processes_started_concurrently": 1,
+    "ruff": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "preparation_recovery": {
+    "prior_run": "cc074-retro-fomc-20261028-v1",
+    "canonical_confirmed": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+    "remaining_ambiguity": "LINKEDIN_UNKNOWN_WRITE",
+    "policy": "Existing decision-39 coordinator deferral for a different confirmed article; unresolved canonical and same-operation ambiguity still block.",
+    "recovery_attempt_public_writes": 0,
+    "artifact": "fomc-recovery-resume.json"
+  },
+  "checks": {
+    "preview-native.junit.xml": {
+      "tests": 38,
+      "failures": []
+    },
+    "preview-focused-final.junit.xml": {
+      "tests": 49,
+      "failures": []
+    },
+    "preview-native-media.junit.xml": {
+      "tests": 98,
+      "failures": [
+        {
+          "test": "test_signed_horizontal_percent_labels_keep_the_declared_unit",
+          "message": "AssertionError: assert ['-3.2', '+21.2'] == ['-3.2%', '+21.2%']\n  \n  At index 0 diff: '-3.2' != '-3.2%'\n  Use -v to get more diff"
+        }
+      ]
+    },
+    "preview-recovery.junit.xml": {
+      "tests": 53,
+      "failures": [
+        {
+          "test": "test_zero_chart_analysis_can_prepare_with_exact_instagram_skip",
+          "message": "ValueError: ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"
+        }
+      ]
+    },
+    "preview-chart-rights.junit.xml": {
+      "tests": 72,
+      "failures": [],
+      "deselected": 1,
+      "deselected_test": "test_signed_horizontal_percent_labels_keep_the_declared_unit",
+      "reason": "Recorded baseline defect; renderer code unchanged apart from the exact approved-preview rights adapter."
+    },
+    "event-visual-final.junit.xml": {
+      "tests": 77,
+      "failures": [],
+      "deselected": 1,
+      "deselected_test": "test_signed_horizontal_percent_labels_keep_the_declared_unit",
+      "reason": "Previously recorded baseline; fact-card path independently covered."
+    },
+    "event-native-guard.junit.xml": {
+      "tests": 154,
+      "failures": [],
+      "command": "python -m pytest -q tests/test_event_preview_native_v1.py tests/test_event_article_guard_v1.py tests/test_native_desktop_editorial_v1.py --junitxml=tests/evidence/cc-107/event-native-guard.junit.xml"
+    },
+    "event-source-scope.junit.xml": {
+      "tests": 69,
+      "failures": []
+    },
+    "repair-and-draft-regression.junit.xml": {
+      "tests": 131,
+      "failures": [],
+      "scope": "New draft action, canonical coordinator, native Neo executor and event derivatives; one pytest process."
+    },
+    "visual-repair-final.junit.xml": {
+      "tests": 87,
+      "failures": []
+    },
+    "draft-and-portrait-final.junit.xml": {
+      "tests": 19,
+      "failures": []
+    }
+  },
+  "preexisting_failures": [
+    "test_native_finished_publication_v1.py::test_zero_chart_analysis_can_prepare_with_exact_instagram_skip contradicts decision 41; native visual validation unchanged from live tag.",
+    "test_reader_first_data_journalism_v1.py::test_signed_horizontal_percent_labels_keep_the_declared_unit expects percent suffix for an extended unit label; chart renderer unchanged from live tag in this run."
+  ],
+  "native_calls": [
+    {
+      "stage": "select",
+      "request_sha256": "c1639b5e4bd85b1a8a118ec23290105eb4630556de348cf4f816a99bff6375c9",
+      "observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/native_select_c1639b5e4bd8",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "Exact supported spawn task /root/native_select_c1639b5e4bd8 assigned ContentOps Light select for cc107-midterm-preview-20261103-v1; request specifies gpt-6.1-sol/low. No supported runtime model or effort telemetry was exposed.",
+        "speed": "standard",
+        "observation_source": "Supported native subagent task identity provided in NEW_TASK; model and effort are request configuration only, not observed runtime values."
+      }
+    },
+    {
+      "stage": "media-plan",
+      "request_sha256": "d08262e276cdd8a33f50c119483fb3590e85c0fee563ab3ff96dbba2606e52ba",
+      "observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/native_select_d08262e276cd",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "Exact supported parent spawn request for cc107-midterm-preview-20261103-v1:media-plan, request d08262e276cdd8a33f50c119483fb3590e85c0fee563ab3ff96dbba2606e52ba",
+        "speed": "standard",
+        "observation_source": "Native subagent task identity and assignment are visible in this turn; actual runtime model and reasoning effort are not exposed. No environment, session, credential or process-argument probing performed.",
+        "native_assignment": "cc107-midterm-preview-20261103-v1:media-plan",
+        "expected_return": "media-plan:d08262e276cdd8a33f50c119483fb3590e85c0fee563ab3ff96dbba2606e52ba"
+      }
+    },
+    {
+      "stage": "visual-edit",
+      "request_sha256": "76437a71362ed5464186480d96b846e40c116f202a4c50af243dfb40a99009bf",
+      "observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/native_visual_edit_76437a71362e",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "Supported exact native role assignment cc107-midterm-preview-20261103-v1:visual-edit to /root/native_visual_edit_76437a71362e; requested gpt-6.1-sol/max. Actual model and effort are not exposed by a supported observation in this context.",
+        "observation_source": "This executing native subagent context identifies its canonical task name as /root/native_visual_edit_76437a71362e and received the exact visual-edit assignment/request hash through its supported native task input.",
+        "speed": "standard"
+      }
+    },
+    {
+      "stage": "write",
+      "request_sha256": "666ec00d5f925f9ef15b52a8549a72485655b2733ef6053b847dd1421c7c32ca",
+      "observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/native_visual_edit_76437a71362e",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "Supported exact native write assignment cc107-midterm-preview-20261103-v1:write, request 666ec00d5f925f9ef15b52a8549a72485655b2733ef6053b847dd1421c7c32ca, to the same /root/native_visual_edit_76437a71362e context; configured gpt-6.1-sol/max. Actual values are not exposed by supported runtime observation.",
+        "observation_source": "This executing native subagent context is /root/native_visual_edit_76437a71362e; the supported follow-up assignment reuses the exact visual-editor identity for actual writing. Same request-bound local artifact is the native return.",
+        "speed": "standard"
+      }
+    },
+    {
+      "stage": "revise",
+      "request_sha256": "8318293a33502e5e6f602a44aec9a91f8a64a2db236d19978f3abab63338c496",
+      "observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/native_visual_edit_76437a71362e",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "Supported exact native revise assignment cc107-midterm-preview-20261103-v1:revise, request 8318293a33502e5e6f602a44aec9a91f8a64a2db236d19978f3abab63338c496, to the same /root/native_visual_edit_76437a71362e context; configured gpt-6.1-sol/max. Actual values remain unavailable through supported runtime observation.",
+        "observation_source": "This executing native subagent context is /root/native_visual_edit_76437a71362e, the actual visual editor and writer. It assessed the single code-cause blocker against the frozen prior output and current source-type handling; the strict output is unchanged.",
+        "speed": "standard"
+      }
+    }
+  ],
+  "nfp_input_readback": {
+    "observed_at_utc": "2026-11-03T09:00:03.010925+00:00",
+    "expected_root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1100-dossier-nfp",
+    "files": {
+      "DOSSIER.md": false,
+      "dossier.json": false,
+      "MANIFEST.sha256": false
+    },
+    "expected_producer_entry_gmt7": "6 Nov 2026 18:00 GMT+7",
+    "state": "FROZEN_NFP_INPUT_NOT_YET_AVAILABLE",
+    "next_actor": "Existing Claude Main dossier producer; Claude Ops resumes the same CC-107 branch after the real frozen public-safe input."
+  },
+  "resume": {
+    "observed_at_utc": "2026-11-03T06:35:29Z",
+    "process_id": 4716,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "verified_argument_tokens": [
+      "exec",
+      "resume",
+      "--model",
+      "gpt-6.1-sol",
+      "-c",
+      "model_reasoning_effort=\"max\""
+    ],
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "existing_pushed_head": "debaa6c102fb459ab4599556f663ae6ec930499a",
+    "backlog_status_at_entry": "IN_PROGRESS"
+  },
+  "current_distribution_authority": {
+    "source": "BACKLOG.md CC-107, Ops 3 Nov 12:53 and 13:04 GMT+7; Jim decision 48",
+    "substack": "DRAFTS_ONLY_NO_PUBLISH_OR_UPDATE",
+    "site_social": "Independent of Substack; site readback URL when available, linkless summaries allowed while article site not live",
+    "mailbox_or_code": "NEVER_READ_OR_ENTER"
+  },
+  "asset_review": {
+    "artifact": "media/asset-review-r2.json",
+    "reviewer": "/root/native_visual_edit_76437a71362e",
+    "status": "ACCEPT_ASSET_ONLY",
+    "final_article_review": "ACCEPT_SAME_WRITER_18_RENDERED_VIEWS"
+  },
+  "native_event_acceptance": {
+    "packet_location": "article.event_article",
+    "canonical_text_bound": true,
+    "unknown_canonical_numbers_refused": true,
+    "guard_before_immutable_native_return": true,
+    "publication_claim": false
+  },
+  "draft": {
+    "path": "midterm-preview.md",
+    "native_response": "native/write-response.json",
+    "status": "SUBSTACK_DRAFT_SAVED_EXACT_TEXT_AND_MEDIA_READBACK_NO_PUBLISH",
+    "material_claim_bindings": 46,
+    "numeric_spans": 41,
+    "native_repair_cause": "report_horizon_proxy_cost_limits_missing was a source-type validation defect, fixed only for exact approved source and guarded copy. No Main report limit waived.",
+    "canonical_manifest": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc107-midterm-preview-20261103-v1\\article_manifest_v1.json",
+    "derivative_intent_count": 8,
+    "revision_copy_change": false
+  },
+  "final_render_request": {
+    "stage": "final-visual-f1550f55a9daaecf3c359191c53d29e79890de2fa0fb1a469c6745190d62126f",
+    "request_sha256": "cd9a7356010ec444376cb58bbd6324ff244c58efbb1fe56ddef0a1b660cd4834",
+    "renders": "review/renders.json",
+    "coverage": 18,
+    "same_reviewer": "/root/native_visual_edit_76437a71362e",
+    "status": "REPAIR_REQUIRED_RECORDED"
+  },
+  "derivative_public_copy_check": {
+    "checked": 8,
+    "status": "PASS",
+    "artifact": "review/derivative-public-guard.json"
+  },
+  "resumptions": [
+    {
+      "observed_at_utc": "2026-11-03T07:20:25Z",
+      "process_id": 44712,
+      "launch_tokens": [
+        "exec",
+        "resume",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"max\""
+      ],
+      "actual_model": null,
+      "actual_reasoning_effort": null,
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "remote_head_at_entry": "3960ea9b34cc72b3950052196acacf265543ad4f",
+      "backlog_status": "IN_PROGRESS",
+      "pending_same_writer_request": "cd9a7356010ec444376cb58bbd6324ff244c58efbb1fe56ddef0a1b660cd4834"
+    },
+    {
+      "observed_at_utc": "2026-11-03T08:08:08.464401+00:00",
+      "process_id": 47552,
+      "created_at_utc": "2026-11-03T08:02:18.359759Z",
+      "launch_tokens": [
+        "exec",
+        "resume",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"max\""
+      ],
+      "actual_model": null,
+      "actual_reasoning_effort": null,
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "remote_head_at_entry": "32744f1701afb9ac2fa29605a2b191052a52200f",
+      "backlog_status": "IN_PROGRESS",
+      "pending_same_writer_work": "Corrected review-r2 capture and new revision-bound final rendered-media request",
+      "prior_usage_limit": "Previous native writer quota interruption; user resumed after account switch or transient recovery; not a current quota conclusion."
+    },
+    {
+      "observed_at_utc": "2026-11-03T08:34:45.825476+00:00",
+      "process_id": 46088,
+      "launch_tokens": [
+        "exec",
+        "resume",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"max\""
+      ],
+      "actual_model": null,
+      "actual_reasoning_effort": null,
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "remote_head_at_entry": "ef4ef737d45d67e7aa936ec396c5cebfe1a71f2f",
+      "backlog_status": "IN_PROGRESS",
+      "pending_work": "Commit the passed exact native authorship integration repair, then continue the same draft-only handoff."
+    },
+    {
+      "observed_at_utc": "2026-11-03T08:59:16.277011+00:00",
+      "process_id": 43380,
+      "launch_tokens": [
+        "exec",
+        "resume",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"max\""
+      ],
+      "actual_model": null,
+      "actual_reasoning_effort": null,
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "remote_head_at_entry": "1650a1f566d11f73f3b2db1783b06d3f02863408",
+      "backlog_status": "IN_PROGRESS",
+      "pending_work": "Preserve saved/read-back same Substack draft223293057; finish same-writer actual destination visual review; NFP still missing."
+    }
+  ],
+  "lint": {
+    "changed_files": "PASS",
+    "canonical_pipeline_baseline": [
+      [
+        "F401",
+        "`live_contentops.cloudinary_delivery_media_v1.NOT_REQUIRED` imported but unused"
+      ],
+      [
+        "F401",
+        "`live_contentops.media_manifest_authority_v1.select_primary_delivery_media` imported but unused"
+      ],
+      [
+        "F401",
+        "`live_contentops.facebook_page_adapter_v6.execute_facebook_photo` imported but unused"
+      ],
+      [
+        "F401",
+        "`live_contentops.instagram_adapter_v6.execute_instagram_post` imported but unused"
+      ],
+      [
+        "E731",
+        "Do not assign a `lambda` expression, use a `def`"
+      ]
+    ],
+    "new_diagnostics": 0
+  },
+  "visual_repair": {
+    "artifact": "media/final-visual-repair-r1.json",
+    "status": "APPLIED_EXISTING_MEDIA_OWNER_NEW_REVIEW_REQUIRED",
+    "card_sha256": "f230c117cc279bde0718c094aaf70d4b1c8efae377f4ccacb78c222066fac4f1",
+    "linkless_roots": "media/derivative-repair-r2.json",
+    "canonical_prose": "UNCHANGED",
+    "public_write_performed": false
+  },
+  "substack_draft_action": {
+    "implementation": "Existing DurablePublicationCoordinator and native Neo request/begin/submit; save_draft only, no Publish/Update",
+    "runtime_state": "SUBSTACK_DRAFT_AWAITING_OWNER",
+    "no_public_canonical_or_count": true,
+    "lost_return": "UNKNOWN_WRITE_READBACK_FIRST_NO_RETRY",
+    "result_artifact": "native/substack-draft-result.json",
+    "readback_artifact": "native/substack-draft-readback.json",
+    "media_hash_artifact": "native/substack-remote-media-readback.json",
+    "draft_id": "223293057",
+    "draft_editor_url": "https://capitalchronicle.substack.com/publish/post/223293057",
+    "draft_verified": true,
+    "public_write_performed": false,
+    "canonical_confirmed": false,
+    "published_article_count": 0,
+    "publish_or_update_pressed": false,
+    "mailbox_read_or_code_entered": false,
+    "one_draft_only": true,
+    "actual_destination_review": "CHANGED_CREDIT_REINSPECTION_PENDING",
+    "store_readback": "native/draft-only-store-readback.json",
+    "media_credit_restored": true,
+    "credit_repair_created_new_draft": false,
+    "credit_repair_public_write_performed": false
+  },
+  "draft_transport_verification_history": {
+    "early_failures_retained": [
+      {
+        "artifact": "tests/evidence/cc-107/draft-only.junit.xml",
+        "result": "2 failures / 129 tests; initial implementation and fixtures corrected before 32744f17"
+      },
+      {
+        "artifact": "tests/evidence/cc-107/draft-only-final.junit.xml",
+        "result": "1 failure / 28 tests; test expectation corrected before 32744f17"
+      }
+    ],
+    "passing_checks": [
+      {
+        "artifact": "tests/evidence/cc-107/repair-and-draft-regression.junit.xml",
+        "result": "131 passed"
+      },
+      {
+        "artifact": "tests/evidence/cc-107/visual-repair-final.junit.xml",
+        "result": "87 passed"
+      },
+      {
+        "artifact": "tests/evidence/cc-107/draft-and-portrait-final.junit.xml",
+        "result": "19 passed"
+      }
+    ],
+    "test_process_policy": "One pytest process at a time, targeted files only; no -n or parallel shards; no additional tests on this evidence-only resumption."
+  },
+  "corrected_render_capture": {
+    "artifact": "review-r2/renders.json",
+    "sha256": "0057a72358fb62f42b95cc57d76d508070cf144f2eb3a9e22ac15569d6268148",
+    "render_count": 18,
+    "retained_viewport_frames": 80,
+    "coverage": "canonical and exactly eight derivatives, desktop/mobile",
+    "inspection_artifact": "review-r2/capture-inspection-r2.json",
+    "same_actual_reviewer": "/root/native_visual_edit_76437a71362e",
+    "status": "ACCEPTED_EXACT_FINAL_RENDERED_REVISION",
+    "original_failed_captures": "Preserved under review/; corrected source frames and literal overlap assembly evidence retained under review-r2/."
+  },
+  "final_render_request_r2": {
+    "stage": "final-visual-8569dcae160d57e0c2da8f5f4af571e1168629064d3e613b7d36677d92d61a6a",
+    "request_sha256": "7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a",
+    "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc107-midterm-preview-20261103-v1\\desktop_request_final-visual-8569dcae160d57e0c2da8f5f4af571e1168629064d3e613b7d36677d92d61a6a.json",
+    "status": "ACCEPTED_SAME_ACTUAL_WRITER",
+    "renders": "review-r2/renders.json",
+    "original_repair_request_unchanged": true,
+    "response_artifact": "native/final-visual-response-r2.json",
+    "response_file_sha256": "362948db5acc4f2fb6c5dbd289cdc775629578d85ad890bc44afc8b7588ba158",
+    "acceptance": {
+      "stage": "final-visual-8569dcae160d57e0c2da8f5f4af571e1168629064d3e613b7d36677d92d61a6a",
+      "request_sha256": "7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a",
+      "response_sha256": "b0364e4cee2ba73e0e14810da9760a71e1c9887dd20fc3936393442f2e8e0ff7",
+      "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc107-midterm-preview-20261103-v1",
+      "article_revision": "3ad7f3d9f7a85ff987baf17d9d4568d930c3b342d862e88bf1c99344a0f408ab",
+      "render_binding_sha256": "8569dcae160d57e0c2da8f5f4af571e1168629064d3e613b7d36677d92d61a6a",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Supported exact same-actor native final-visual task assignment for operation cc107-midterm-preview-20261103-v1, stage final-visual-8569dcae160d57e0c2da8f5f4af571e1168629064d3e613b7d36677d92d61a6a, request 7a27bc88c4ae72700219e5368f3ced8df39794aa0a8056b8b0547feec477e76a to /root/native_visual_edit_76437a71362e. The task explicitly requests gpt-6.1-sol/max. Actual model and effort are not available through supported runtime telemetry; settings and assignment are not reported as observed values.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_visual_edit_76437a71362e",
+        "model": null,
+        "observation_source": "The executing native context /root/native_visual_edit_76437a71362e is the same actual visual editor and writer. It inspected both assets, directly performed the bounded BrowserOS Neo viewport capture repair and inspected all 18 corrected assembled images plus original detailed raw frames. The exact saved inspection evidence is review-r2/capture-inspection-r2.json SHA256 18e76d123ea5aecda2ce6df9ddb6836648cb08128810a9b7f6111a15252ca6ab. This fresh turn read the full frozen request, checked that its article matches the captured source and that every asset/render/source hash remains identical, and binds those actual inspections to the current request. Historical REPAIR_REQUIRED response is preserved unchanged.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    }
+  },
+  "current_review": {
+    "artifact": "native/review-result-r2.json",
+    "review_id": "native-article-review-a04565b6578340a2a66241882446edd7",
+    "decision": "KEEP"
+  },
+  "publication_preparation": {
+    "artifact": "native/publication-prepare-r2.json",
+    "state": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+    "public_write_performed": false
+  },
+  "native_authorship_metadata_repair": {
+    "first_attempt_artifact": "native/substack-draft-start.json",
+    "first_cause": "PUBLIC_REUSE_RIGHTS_NOT_ADMITTED",
+    "external_write_started": false,
+    "cause": "Native article manifest predates author_identity and publisher_identity; no rights_class supplied.",
+    "change": "Existing publication feed owner resolves CC original prose rights only through current revision-bound native KEEP and exact manifest equality. Explicit denied rights, changed metadata, absent native binding and non-KEEP remain refused. Separate source/media gates unchanged.",
+    "failed_test_artifact": "tests/evidence/cc-107/native-authorship-draft-regression.junit.xml",
+    "failed_test_result": "4 constructor-fixture errors, 70 passed; fixed native_invocation_id=None before final run.",
+    "passed_test_artifact": "tests/evidence/cc-107/native-authorship-draft-final.junit.xml",
+    "passed_test_result": "76 passed",
+    "source_or_copy_change": false,
+    "final_review_still_valid": true,
+    "coordinator_test_artifact": "tests/evidence/cc-107/native-authorship-coordinator-final.junit.xml",
+    "coordinator_test_result": "90 passed"
+  },
+  "destination_draft_review": {
+    "artifact": "substack-draft-review/inspection.json",
+    "status": "CREDIT_RESTORED_EXACT_READBACK_SAME_WRITER_RECHECK_PENDING",
+    "reviewer": "/root/native_visual_edit_76437a71362e",
+    "scope": "11 actual representative editor/desktop/mobile screenshots; not whole-article destination pixel coverage. Native 18 complete views remain accepted.",
+    "finding": "Retain full Architect of the Capitol / Wikimedia Commons. Public domain (17 USC 105). credit from the exact bound media record.",
+    "repair_owner": "Existing coordinator SAVE_DRAFT exact-object repair, never Publish/Update or another draft.",
+    "tests": "tests/evidence/cc-107/draft-credit-fence-final.junit.xml",
+    "repair_result": "native/draft-credit-result.json",
+    "repair_readback": "native/draft-credit-readback.json",
+    "repair_fence_request_sha256": "fffd16c02ef2605890315dd1cd9058717c5e092665c987118fade22238611fc8",
+    "repair_test_result": "48 targeted draft/Neo tests PASS; tests/evidence/cc-107/draft-credit-fence-final.junit.xml"
+  }
+}

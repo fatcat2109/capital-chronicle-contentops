@@ -1,0 +1,29 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "normalized": [
+      {
+        "from": "File:United_States_Capitol_-_west_front.jpg",
+        "to": "File:United States Capitol - west front.jpg"
+      }
+    ],
+    "pages": {
+      "7531712": {
+        "pageid": 7531712,
+        "ns": 6,
+        "title": "File:United States Capitol - west front.jpg",
+        "revisions": [
+          {
+            "slots": {
+              "main": {
+                "contentmodel": "wikitext",
+                "contentformat": "text/x-wiki",
+                "*": "{{Information\n|Description={{en|The western front of the [[:en:United States Capitol|United States Capitol]]. The [[:en:Neoclassical architecture|Neoclassical style]] building is in [[:en:Washington, D.C.|Washington, D.C.]], on [[:en:Capitol Hill, Washington, D.C.|Capitol Hill]], at the east end of the [[:en:National Mall|National Mall]]. The Capitol was designated a [[:en:National Historic Landmark|National Historic Landmark]] in 1960.}}\n|Source=[http://www.aoc.gov/cc/photo-gallery/upload/72350_hr_1997.jpg aoc.gov]\n|Date=1997\n|Author=[[:w:Architect of the Capitol|Architect of the Capitol]]\n|Permission={{PD-USGov-Congress-AOC}}\n|other_versions={{DerivativeVersions|United States Capitol - west front tilt correct.jpg}}\n\n}}\n{{Location|38.889818|-77.01254}}\n{{ImageNote|id=1|x=289|y=784|w=581|h=270|dimx=3000|dimy=1556|style=2}}\n{{see also cat|United States Capitol - Senate Chamber}}\n{{de|1=[[:de:United_States_Senate|Senat der Vereinigten Staaten]]\n{{en|1=[[:en:United States Senate Chamber|US Senate Chamber]]}}}}\n{{ImageNoteEnd|id=1}}\n{{ImageNote|id=2|x=555|y=652|w=94|h=120|dimx=3000|dimy=1556|style=2}}\nAppreciate [[:en:United_States_Capitol#Flags|the flag flying over]] [[United_States_Senate|the Senate]]; this indicates that the Senate is: '''in session'''.\n{{ImageNoteEnd|id=2}}\n{{ImageNote|id=3|x=2198|y=810|w=510|h=225|dimx=3000|dimy=1556|style=2}}\n{{see also cat|United States Capitol - House Chamber}}\n{{de|1=[[:de:Repräsentantenhaus_der_Vereinigten_Staaten|Repräsentantenhaus der Vereinigten Staaten]]\n{{en|1=[[:en:United_States_House_of_Representatives |United States House of Representatives]]}}}}\n{{ImageNoteEnd|id=3}}\n{{ImageNote|id=4|x=1466|y=210|w=75|h=124|dimx=3000|dimy=1556|style=2}}\n{{see also cat|Statue of Freedom (United States Capitol)}}\n{{ar|1=[[:ar:تمثال_الحرية_(كابيتول_الولايات_المتحدة)|تمثال الحرية (كابيتول الولايات المتحدة)\n]]}}\n{{de|1=[[:de:Statue_of_Freedom|Statue of Freedom]]}}\n{{en|1=[[:en:Statue_of_Freedom|Statue of Freedom]]}}\n{{eo|1=[[:eo:Statuo_de_Armita_Libereco|Statuo de Armita Libereco]]}}\n{{fa|1=[[:fa:تندیس_آزادی_(کنگره)]]}}\n{{fr|1=[[:fr:Statue_de_la_Liberté_(Washington,_D.C.)|Statue de la Liberté]]}}\n{{he|1=[[:he:פסל_החופש|פסל החופש]]}}\n{{it|1=[[:it:Statua_della_Libertà_(Washington)|Statua della Libertà]]}}\n{{pt|1= [[:pt:Estátua_da_Liberdade_(Capitólio)|Statue of Liberty]]}}\n{{simple|1=[[:simple:Statue_of_Freedom|Statute of Freedom]]}}\n{{ImageNoteEnd|id=4}}\n{{ImageNote|id=5|x=2344|y=637|w=120|h=187|dimx=3000|dimy=1556|style=2}}\nAppreciate that the [[:en:United_States_Capitol#Flags|flag '''is not''' flying]] over the [[United_States_House_of_Representatives|House of Representatives]]; this indicates that the House is '''not''' in session.\n{{ImageNoteEnd|id=5}}\n\n[[Category:Exterior of the United States Capitol]]\n[[Category:1997 in Washington, D.C.]]"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

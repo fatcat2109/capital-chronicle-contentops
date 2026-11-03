@@ -1,0 +1,15 @@
+{
+  "tool_request_sha256": "2231d8e32f568541e9a9cb2f6825dc81bbf9a776aa9fa9bf24c566619baef5ae",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Actual BrowserOS Neo run returned capitalchronicle.substack.com publisher dashboard, Jim’s Substack publication selector and Dean avatar; observation artifact substack-identity-observed.json.",
+    "observed_at_utc": "2026-11-03T08:39:22.453Z"
+  },
+  "result": {
+    "request_sha256": "7d5a22be7b6988856b2ef9622121d7e0e03930c2eb5cd4a329a5ff9a88f6acc9",
+    "authenticated": true,
+    "observed_identity": "capitalchronicle.substack.com"
+  }
+}

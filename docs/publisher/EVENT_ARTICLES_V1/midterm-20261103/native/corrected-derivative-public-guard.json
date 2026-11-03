@@ -1,0 +1,78 @@
+{
+  "observed_at_utc": "2026-11-03T08:10:47.624158+00:00",
+  "source_final_result_sha256": "ed32e4286e2dbad56afef0e3d795be5c362d3d45413999c71252847f830783af",
+  "article_identity": "c4368eb9690d8c3b69eadf50a48eef29812520953113646a7e90da7237f1a309",
+  "checks": [
+    {
+      "destination": "telegram",
+      "status": "PASS",
+      "conditional_call_count": 0,
+      "reader_copy_sha256": "6ca6a174b920238b3b4a4b992c684a8d5371618027c899f5b6e147fa706581ac",
+      "conflicts_notice_present": true,
+      "placeholder_link_absent": true
+    },
+    {
+      "destination": "x",
+      "status": "PASS",
+      "conditional_call_count": 0,
+      "reader_copy_sha256": "fb223fc863adc976df26535cde1d5ea1fc2c3feb2863f4d65d42fab1c5720545",
+      "conflicts_notice_present": true,
+      "placeholder_link_absent": true,
+      "root_length": 271,
+      "platform_limit": 280
+    },
+    {
+      "destination": "linkedin",
+      "status": "PASS",
+      "conditional_call_count": 0,
+      "reader_copy_sha256": "1e329945fd576be920527b6d346c9a5d48e998c1d7dce905e6dc3b7a40692abd",
+      "conflicts_notice_present": true,
+      "placeholder_link_absent": true
+    },
+    {
+      "destination": "discord",
+      "status": "PASS",
+      "conditional_call_count": 0,
+      "reader_copy_sha256": "c501663af29742bfe82656bd50a078fd19f9f70d3a36979d4698287a0ff2cd88",
+      "conflicts_notice_present": true,
+      "placeholder_link_absent": true
+    },
+    {
+      "destination": "facebook_page",
+      "status": "PASS",
+      "conditional_call_count": 0,
+      "reader_copy_sha256": "a0c2aa5e14ba5a84642834f02a4249462a0b398274c7848842a6342775789bae",
+      "conflicts_notice_present": true,
+      "placeholder_link_absent": true
+    },
+    {
+      "destination": "instagram_business",
+      "status": "PASS",
+      "conditional_call_count": 0,
+      "reader_copy_sha256": "d7ca2ea16f6cb30981441c9af12bab1f8e80d15a8fa1ef3c5c2d15298094aae0",
+      "conflicts_notice_present": true,
+      "placeholder_link_absent": true
+    },
+    {
+      "destination": "threads",
+      "status": "PASS",
+      "conditional_call_count": 0,
+      "reader_copy_sha256": "07b50f25857b1838872af1e8a52113c37080c08ae68085759b6980d6d6b902b3",
+      "conflicts_notice_present": true,
+      "placeholder_link_absent": true,
+      "root_length": 423,
+      "platform_limit": 500
+    },
+    {
+      "destination": "youtube",
+      "status": "PASS",
+      "conditional_call_count": 0,
+      "reader_copy_sha256": "174734dc1783054c6aed793020d56a7b2ec6a200aa4f13b14690c6ecd319225a",
+      "conflicts_notice_present": true,
+      "placeholder_link_absent": true
+    }
+  ],
+  "status": "PASS",
+  "final_pixel_acceptance": false,
+  "public_write_performed": false
+}

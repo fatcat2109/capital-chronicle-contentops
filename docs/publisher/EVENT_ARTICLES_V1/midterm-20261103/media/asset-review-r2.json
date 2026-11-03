@@ -1,0 +1,48 @@
+{
+  "operation_id": "cc107-midterm-preview-20261103-v1",
+  "visual_request_sha256": "76437a71362ed5464186480d96b846e40c116f202a4c50af243dfb40a99009bf",
+  "asset_id": "cc107-generic-ballot-and-poll-close-card",
+  "asset_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\render-r2\\media_assets\\cc107-generic-ballot-and-poll-close-card.png",
+  "asset_sha256": "28e9ffba3191fc9d6645e7fe571b6ede6ed8237fa2627b93817b526cc3ae9d64",
+  "data_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\render-r2\\media_assets\\cc107-generic-ballot-and-poll-close-card.json",
+  "data_sha256": "9db9e1da675ba544b5136e07b1a3a86ebe9bd3276a786a53ccb14df59d3d127a",
+  "source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\source\\PREVIEW.md",
+  "source_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+  "media_binding_response_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\media-binding-response.json",
+  "media_binding_response_sha256": "f6464dc8512b42d1a835420cdf722eedeca663d081b80a8977d748e7b0e76b50",
+  "status": "ASSET_ACCEPTED",
+  "final_canonical_channel_review_status": "PENDING_NOT_INSPECTED",
+  "visual_review": {
+    "asset_sha256": "28e9ffba3191fc9d6645e7fe571b6ede6ed8237fa2627b93817b526cc3ae9d64",
+    "pixels_inspected": true,
+    "labels_and_units_legible": true,
+    "reviewer": "/root/native_visual_edit_76437a71362e",
+    "invocation_id": "/root/native_visual_edit_76437a71362e",
+    "inspection_method": "Local view_image, detail original, of the exact 1600 x 960 r2 PNG; compared with its exact sibling JSON and frozen source/PREVIEW.md.",
+    "source_values_match": true,
+    "visual_meaning_sound": true,
+    "source_findings": "Democrats 51.1% and Republicans 42.8% match the PollCheck figures attributed in the approved PREVIEW and sibling data JSON. The subtitle accurately says updated 2 November 2026. First polls close at 23:00 UTC on 3 November matches the PREVIEW timing attributed to 270toWin. Identity transformation only; no invented remainder, normalization, history, intervals, seat forecast or prediction-market odds are displayed.",
+    "meaning_findings": "The two parties have separate equal-status numerical callouts. The card explicitly labels the figures as voting intentions, not chamber-control probabilities. It makes no result claim and does not promise that chamber control will be known at first poll close. As a fact card it has no plotted axis or proportional area; an axis baseline is not applicable.",
+    "layout_findings": "Title, party labels, percent signs, date, meaning note, poll-close footer and source credit are legible against the light background. Adequate margins and separation; no clipping, overlap, hidden labels or mismatched associations seen in the inspected original. Same restrained colour treatment for both values. The r2 on-image source credit contains PollCheck and 270toWin attribution without workflow wording.",
+    "findings": [],
+    "evidence_notes": [
+      "Inspected asset only; final canonical/channel desktop/mobile presentation and media crop review remain pending.",
+      "Existing accepted archive-photo review remains unchanged.",
+      "No source facts or accepted visual decision were modified."
+    ],
+    "invocation_observation": {
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "invocation_id": "/root/native_visual_edit_76437a71362e",
+      "model": null,
+      "reasoning_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "actual_configuration_unavailable": true,
+      "configuration_source": "Supported exact native role assignment cc107-midterm-preview-20261103-v1:visual-edit to /root/native_visual_edit_76437a71362e; requested gpt-6.1-sol/max. Actual model and effort are not exposed by a supported observation in this context.",
+      "observation_source": "This executing native subagent context identifies its canonical task name as /root/native_visual_edit_76437a71362e and received the exact visual-edit assignment/request hash through its supported native task input.",
+      "speed": "standard"
+    }
+  }
+}

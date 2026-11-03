@@ -1,0 +1,20 @@
+{
+  "action": "Created one Article draft only; no Publish or Update.",
+  "info": {
+    "browserProfileId": "AE5BBDC417C5C94D312789F609F796DC",
+    "groupId": "CAA0C9E9A1B3F85D41F77A9EA6905F4A",
+    "index": 14,
+    "isActive": false,
+    "isLoading": false,
+    "isPinned": false,
+    "loadProgress": 0,
+    "pageId": 72,
+    "tabId": 1698401091,
+    "targetId": "0A137EBDF4E4882327731A8F9112D16B",
+    "title": "Editing newsletter - Substack",
+    "url": "https://capitalchronicle.substack.com/publish/post?type=newsletter",
+    "windowId": 1698400956
+  },
+  "observed_at_utc": "2026-11-03T08:42:19.288Z",
+  "snapshot": "- generic [ref=e1] [cursor=pointer]\n- textbox \"Add a title...\" [ref=e2]\n- textbox \"Add a description...\" [ref=e3]\n- LabelText [ref=e4] [cursor=pointer]\n  - image\n- button \"Exit\" [ref=e5]\n  - image\n- button \"Saved\" [ref=e6]\n- button \"Preview\" [ref=e7]\n- button \"Continue\" [ref=e8]\n- toolbar\n  - button \"Undo\" [disabled] [ref=e9]\n    - image\n  - button \"Redo\" [disabled] [ref=e10]\n    - image\n  - separator\n  - button \"Style\" [collapsed] [ref=e11]\n  - separator\n  - button \"Bold\" [ref=e12]\n    - image\n  - button \"Italic\" [ref=e13]\n    - image\n  - button \"Strikethrough\" [ref=e14]\n    - image\n  - button \"Code\" [ref=e15]\n    - image\n  - button \"Text color\" [collapsed] [ref=e16]\n    - image\n  - button \"Highlight\" [collapsed] [ref=e17]\n    - image\n  - button \"Superscript & subscript\" [collapsed] [ref=e18]\n    - image\n  - separator\n  - button \"Link\" [ref=e19]\n    - image\n  - button \"Insert image\" [collapsed] [ref=e20]\n    - image\n  - button \"Insert audio\" [ref=e21]\n    - image\n  - button \"Insert video\" [ref=e22]\n    - image\n  - button \"Insert quote\" [collapsed] [ref=e23]\n    - image\n  - separator\n  - button \"Bulleted list\" [ref=e24]\n    - image\n  - button \"Numbered list\" [ref=e25]\n    - image\n  - button [collapsed] [ref=e26]\n    - image\n  - separator\n  - button \"Button\" [collapsed] [ref=e27]\n  - separator\n  - button \"Template\" [collapsed] [ref=e28]\n  - separator\n  - button \"More\" [collapsed] [ref=e29]\n- button \"Email header / footer\" [ref=e30]\n  - image\n- textbox \"title\" [ref=e31]\n- textbox \"Add a subtitle…\" [ref=e32]\n- button \"Dean\" [ref=e33]\n- button [collapsed] [ref=e34]\n  - image\n- textbox \"Start writing...\" [ref=e35]: \"\\n\"\n  - paragraph [ref=e36] [cursor=pointer]\n- button \"Version history\" [ref=e37]\n  - image\n- button [ref=e38]\n  - image\n- button \"Settings\" [ref=e39]\n  - image\n- region \"Notifications\" [ref=e40] [cursor=pointer]"
+}

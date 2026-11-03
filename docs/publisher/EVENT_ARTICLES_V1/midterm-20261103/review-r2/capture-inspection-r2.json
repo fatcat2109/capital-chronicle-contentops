@@ -1,0 +1,160 @@
+{
+  "operation_id": "cc107-midterm-preview-20261103-v1",
+  "article_identity": "c4368eb9690d8c3b69eadf50a48eef29812520953113646a7e90da7237f1a309",
+  "article_revision": "3ad7f3d9f7a85ff987baf17d9d4568d930c3b342d862e88bf1c99344a0f408ab",
+  "reviewer": "/root/native_visual_edit_76437a71362e",
+  "reviewed_at_utc": "2026-11-03T08:15:00.390327Z",
+  "readiness": "READY_FOR_FRESH_REVISION_BOUND_FINAL_VISUAL_REQUEST",
+  "renders_inspected": 18,
+  "render_observations": [
+    {
+      "render_id": "cc107-discord-desktop-r2",
+      "sha256": "ed10a7c66d1126e98a2c26bdcc23d6f0bd9bf16a9000c089034cef5fcecbfc0a",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent."
+    },
+    {
+      "render_id": "cc107-discord-mobile-r2",
+      "sha256": "b2ba2da41173ac603bcc9d89a012f4ffd1e1766d0cc6d7600b4d8a366a7cfa91",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect."
+    },
+    {
+      "render_id": "cc107-facebook_page-desktop-r2",
+      "sha256": "db3e3ae9ba99c0f9109cf5ecbe6ecb3c01ac68dbc84fb85f3b2931a743eb1b7c",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent."
+    },
+    {
+      "render_id": "cc107-facebook_page-mobile-r2",
+      "sha256": "6bfdbf91ff9a856ed930b594a3eb472e88d6505b00c5afc091af2dc94eb672b1",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect."
+    },
+    {
+      "render_id": "cc107-instagram_business-desktop-r2",
+      "sha256": "61df4c74ba928eb4bc2345a3df49f90e5ce28d113e4b56c61831ea77f4a28e7d",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent."
+    },
+    {
+      "render_id": "cc107-instagram_business-mobile-r2",
+      "sha256": "efc30ab4a6454e67519889978dd211cc48a2eb9f5e5754eced25a4ca934d6ccf",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect."
+    },
+    {
+      "render_id": "cc107-linkedin-desktop-r2",
+      "sha256": "be45a56f213fb5d4873f64341b5e6d8bd733760a8d94805ad5b6f179b11b9b34",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent."
+    },
+    {
+      "render_id": "cc107-linkedin-mobile-r2",
+      "sha256": "35f8e75b00da341c7dd54441de87864c7af81777d50b802c6f1c3a34856d349f",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect."
+    },
+    {
+      "render_id": "cc107-substack-desktop-r2",
+      "sha256": "2f00aadff63ae1c7f8540e0bbfc3f5c46571b9eb86bbd024d888aa992c7f01d7",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The dated opening, archive photo/caption/credit, polling explanation and portrait card, all supported conditional scenarios, six market groups, countercases, watch conditions, financial-advice and conflict notices are present in their correct order. Detailed raw desktop and mobile frames were also inspected at original size for body and card legibility. Canonical prose remains unchanged."
+    },
+    {
+      "render_id": "cc107-substack-mobile-r2",
+      "sha256": "30478381d68509db17fc19721d66ebfcc990c2a3ecb1d468deb8443cf53db964",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The dated opening, archive photo/caption/credit, polling explanation and portrait card, all supported conditional scenarios, six market groups, countercases, watch conditions, financial-advice and conflict notices are present in their correct order. Detailed raw desktop and mobile frames were also inspected at original size for body and card legibility. Canonical prose remains unchanged. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect."
+    },
+    {
+      "render_id": "cc107-telegram-desktop-r2",
+      "sha256": "6eb9c623b52d4dd8f93ba457194a74d63428887facc199b59c117a7f08a73a64",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent."
+    },
+    {
+      "render_id": "cc107-telegram-mobile-r2",
+      "sha256": "3779dfe7f8fad9bd54e6503df82e2226bd86ed926c710d332fc1144845cee933",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect."
+    },
+    {
+      "render_id": "cc107-threads-desktop-r2",
+      "sha256": "286b202147705e0ae3c18feeceedad5c9a119f1bfac4d5e318c1165550e5849d",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. The independently shareable linkless root visibly carries the dated source qualification and all three required notice sentences, with the coherent ordered replies retained."
+    },
+    {
+      "render_id": "cc107-threads-mobile-r2",
+      "sha256": "ef24f7bc79d12f409e7c44994d10cfb94619f160bde6a34e638b22bb80b74710",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. The independently shareable linkless root visibly carries the dated source qualification and all three required notice sentences, with the coherent ordered replies retained. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect."
+    },
+    {
+      "render_id": "cc107-x-desktop-r2",
+      "sha256": "feb3efdd9beca22338acf755a64a238f068d5f55935f674a95a2b12095122d8b",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. The independently shareable linkless root visibly carries the dated source qualification and all three required notice sentences, with the coherent ordered replies retained."
+    },
+    {
+      "render_id": "cc107-x-mobile-r2",
+      "sha256": "e73caf37622ca127591c980407d8adf62b38a25110b44dc9427fc88f5401559f",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. The independently shareable linkless root visibly carries the dated source qualification and all three required notice sentences, with the coherent ordered replies retained. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect."
+    },
+    {
+      "render_id": "cc107-youtube-desktop-r2",
+      "sha256": "d81f5e2d02a93ff949d005b611a07c1d9e2325e87b541724608342cedc93eb5d",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent."
+    },
+    {
+      "render_id": "cc107-youtube-mobile-r2",
+      "sha256": "f787d594b5edbff96cb1b30f67f13d96896aec3109b0f201458729348faa9146",
+      "pixels_inspected": true,
+      "findings": [],
+      "evidence_notes": "Full continuous literal-pixel assembled presentation inspected through local view_image. No repeated page panels, missing document bands, clipped right-side content, overlap or aspect distortion. Exact original 900 px viewport frames and coordinates remain retained; complete literal overlap matches are recorded. Scrollbar thumb discontinuities at capture seams are retained raw browser chrome, not repeated article content. The channel retains conditional preview language, readable portrait card and corrected natural caption. Analysis notice, reader-choice sentence and conflict disclosure are visible. Pending canonical link and placeholder text are absent. At actual 390 px viewport width, both party labels and percent values, PollCheck update date, voting-intentions qualification, first-poll-close time/date and compact source credit are usable without horizontal scrolling or crop. This corrects the r2 landscape readability defect."
+    }
+  ],
+  "capture_coverage": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\review-r2\\capture-coverage-r2.json",
+    "sha256": "011a75c82ad08b379802c4010c1d9167fcf4f90e4af5a139b83e89bc411bc0be"
+  },
+  "limits": [
+    "Private React preview inspection only; no platform screens, draft creation, live delivery or public readback.",
+    "Historical exact final request cd9a7356010ec444376cb58bbd6324ff244c58efbb1fe56ddef0a1b660cd4834 remains REPAIR_REQUIRED. A fresh exact request must bind current rendered files before final native acceptance.",
+    "Substack remains drafts only. No public or account action occurred."
+  ],
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_visual_edit_76437a71362e",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Same-actor supported repair assignment for cc107-midterm-preview-20261103-v1 to /root/native_visual_edit_76437a71362e; configured gpt-6.1-sol/max, actual model/effort unavailable via supported runtime telemetry.",
+    "observation_source": "The same actual native visual editor/writer captured current BrowserOS Neo viewport frames, assembled literal bands with full coverage and exact overlap checks, and visually inspected all 18 resulting images plus detailed original raw frames. This prepares evidence for a fresh final-review request; it does not amend the historical REPAIR_REQUIRED return.",
+    "speed": "standard"
+  }
+}

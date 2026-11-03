@@ -1,0 +1,58 @@
+[
+  {
+    "destination": "discord",
+    "status": "PASS",
+    "policy": "JIM_DECISIONS_35_40",
+    "conditional_call_count": 0,
+    "scope": "Actual reader copy; transport metadata such as post order is not trading order data."
+  },
+  {
+    "destination": "facebook_page",
+    "status": "PASS",
+    "policy": "JIM_DECISIONS_35_40",
+    "conditional_call_count": 0,
+    "scope": "Actual reader copy; transport metadata such as post order is not trading order data."
+  },
+  {
+    "destination": "instagram_business",
+    "status": "PASS",
+    "policy": "JIM_DECISIONS_35_40",
+    "conditional_call_count": 0,
+    "scope": "Actual reader copy; transport metadata such as post order is not trading order data."
+  },
+  {
+    "destination": "linkedin",
+    "status": "PASS",
+    "policy": "JIM_DECISIONS_35_40",
+    "conditional_call_count": 0,
+    "scope": "Actual reader copy; transport metadata such as post order is not trading order data."
+  },
+  {
+    "destination": "telegram",
+    "status": "PASS",
+    "policy": "JIM_DECISIONS_35_40",
+    "conditional_call_count": 0,
+    "scope": "Actual reader copy; transport metadata such as post order is not trading order data."
+  },
+  {
+    "destination": "threads",
+    "status": "PASS",
+    "policy": "JIM_DECISIONS_35_40",
+    "conditional_call_count": 0,
+    "scope": "Actual reader copy; transport metadata such as post order is not trading order data."
+  },
+  {
+    "destination": "x",
+    "status": "PASS",
+    "policy": "JIM_DECISIONS_35_40",
+    "conditional_call_count": 0,
+    "scope": "Actual reader copy; transport metadata such as post order is not trading order data."
+  },
+  {
+    "destination": "youtube",
+    "status": "PASS",
+    "policy": "JIM_DECISIONS_35_40",
+    "conditional_call_count": 0,
+    "scope": "Actual reader copy; transport metadata such as post order is not trading order data."
+  }
+]

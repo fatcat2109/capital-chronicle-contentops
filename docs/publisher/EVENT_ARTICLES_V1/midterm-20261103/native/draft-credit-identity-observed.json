@@ -1,0 +1,12 @@
+{
+  "identity_lines": [
+    "- navigation \"Publisher dashboard\"",
+    "  - button \"Jim’s Substack\" [ref=e1]",
+    "    - image \"Jim’s Substack\"",
+    "  - link \"Home\" [ref=e2] [url=\"https://capitalchronicle.substack.com/publish/home\"]",
+    "- button \"Dean's avatar\" [collapsed] [ref=e21]",
+    "  - image \"Dean's avatar\""
+  ],
+  "observed_at_utc": "2026-11-03T09:18:36.793Z",
+  "url": "https://capitalchronicle.substack.com/publish/posts/drafts"
+}

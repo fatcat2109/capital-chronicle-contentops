@@ -1,0 +1,51 @@
+{
+  "excluded": [
+    {
+      "name": "substack-desktop.png",
+      "sha256": "e92803387185ae29759cdb68ff072d5728433fbb1fbde6e4e7699cd27b6d8dc2",
+      "disposition": "Excluded unbound debug capture; wrong viewport or repeated tiles. Removed generated duplicate after corrected revision passed dimension validation."
+    },
+    {
+      "name": "substack-mobile.png",
+      "sha256": "e92803387185ae29759cdb68ff072d5728433fbb1fbde6e4e7699cd27b6d8dc2",
+      "disposition": "Excluded unbound debug capture; wrong viewport or repeated tiles. Removed generated duplicate after corrected revision passed dimension validation."
+    },
+    {
+      "name": "telegram-desktop.png",
+      "sha256": "236362b4748f378d1761a8c8b82becc03856605848e88f442fd1378cc4b8c3b1",
+      "disposition": "Excluded unbound debug capture; wrong viewport or repeated tiles. Removed generated duplicate after corrected revision passed dimension validation."
+    },
+    {
+      "name": "telegram-mobile.png",
+      "sha256": "9b8b79ef3255913138c3875fa9554fdcea0af6fb65d22f64155e10183117f4f7",
+      "disposition": "Excluded unbound debug capture; wrong viewport or repeated tiles. Removed generated duplicate after corrected revision passed dimension validation."
+    },
+    {
+      "name": "discord-desktop.png",
+      "sha256": "669172a6437a298239945505cc4ea1afc504112b91f26d67d755ae26ed8d970c",
+      "disposition": "Excluded unbound debug capture; wrong viewport or repeated tiles. Removed generated duplicate after corrected revision passed dimension validation."
+    },
+    {
+      "name": "discord-mobile.png",
+      "sha256": "cf783231dbb2ec0728c3cf5eb1c154562eca5cd8dbebf2e43d0ec74f8b313b74",
+      "disposition": "Excluded unbound debug capture; wrong viewport or repeated tiles. Removed generated duplicate after corrected revision passed dimension validation."
+    },
+    {
+      "name": "discord-mobile-actual.png",
+      "sha256": "c05f67595eee7b2d64b5345b6154c282e205e090b6b788902cdbe838203b59ba",
+      "disposition": "Excluded unbound debug capture; wrong viewport or repeated tiles. Removed generated duplicate after corrected revision passed dimension validation."
+    },
+    {
+      "name": "discord-mobile-tall.png",
+      "sha256": "d887f9566c955e4809b2c5f20aab081129fb23b63bc483b48f1069b597103aac",
+      "disposition": "Excluded unbound debug capture; wrong viewport or repeated tiles. Removed generated duplicate after corrected revision passed dimension validation."
+    },
+    {
+      "name": "final-x-desktop.png",
+      "sha256": "50623d00b070908a45024723b018be925e43ee419e6e65d508c72f12c06c720a",
+      "disposition": "Excluded unbound debug capture; wrong viewport or repeated tiles. Removed generated duplicate after corrected revision passed dimension validation."
+    }
+  ],
+  "actual_capture": "The native fullPage helper ignored mobile emulation, and beyond-viewport CDP capture repeated the viewport. Final files use tall single viewports; all 18 PNG dimensions independently verified. X desktop was recaptured after a compositor paint signal.",
+  "review_scope": "Private rendered article/channel previews, not platform screens or publication readback."
+}

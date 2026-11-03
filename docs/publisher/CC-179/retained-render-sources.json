@@ -1,0 +1,29 @@
+{
+  "source_commit": "e94d07db",
+  "base64_render_sources_preserved_outside_git": [
+    {
+      "original_path": "docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/review-r2/index.html",
+      "preserved_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc179-publisher-recovery\\retained-render-sources\\review-r2\\index.html",
+      "size": 629070,
+      "sha256": "7200d4436a6b15621a5a80cbf1b18985f41ab97c826771875c5f5240151a981f"
+    },
+    {
+      "original_path": "docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/review-r2/workspace.json",
+      "preserved_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc179-publisher-recovery\\retained-render-sources\\review-r2\\workspace.json",
+      "size": 407646,
+      "sha256": "6f6222667a945017609a323d973555716f7aba0f1ec20cd4c8c24c1f6fdb5ee1"
+    },
+    {
+      "original_path": "docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/review/index.html",
+      "preserved_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc179-publisher-recovery\\retained-render-sources\\review\\index.html",
+      "size": 763129,
+      "sha256": "5b64d0812a415d2dc4b77d647f00e83a1307f2ce3135d1454c336ced5e029275"
+    },
+    {
+      "original_path": "docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/review/workspace.json",
+      "preserved_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc179-publisher-recovery\\retained-render-sources\\review\\workspace.json",
+      "size": 541705,
+      "sha256": "9a1f071aa9a5d8bfea1b60852e01bee2da3add57e69b712bde1e1c21ae4d70c0"
+    }
+  ]
+}
