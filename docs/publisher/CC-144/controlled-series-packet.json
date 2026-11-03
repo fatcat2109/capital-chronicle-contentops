@@ -1,0 +1,188 @@
+{
+  "article": {
+    "substack_body_markdown": "Comparable 2025 revenue 100 USD million; 2026 revenue 120 USD million."
+  },
+  "claims": [
+    {
+      "claim_id": "revenue",
+      "source_id": "SOURCE_1",
+      "claim_text": "Comparable 2025 revenue 100 USD million; 2026 revenue 120 USD million.",
+      "support_excerpt": "Comparable 2025 revenue 100 USD million; 2026 revenue 120 USD million."
+    }
+  ],
+  "documents": [
+    {
+      "document_id": "controlled",
+      "url": "https://example.org/source",
+      "publisher": "Controlled fixture",
+      "canonical_content_text": "Comparable 2025 revenue 100 USD million; 2026 revenue 120 USD million.",
+      "source_reuse_constraints": {
+        "attribution_required": true,
+        "policy_capture_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "source_capture_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "source_id": "SOURCE_1",
+      "underlying_reuse_classification": "governed_government_public_domain",
+      "rights_evidence_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    }
+  ],
+  "media_assets": [
+    {
+      "asset_id": "post-facts-ad4f59a976d9816fd598",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-144\\media_assets\\post-facts-ad4f59a976d9816fd598.png",
+      "sha256": "f333cbec9ab3cb74575b17f4d6e0481bd57b83d36a942f5b31b226bbf1d70a6f",
+      "width": 1080,
+      "height": 1187,
+      "modality": "source_bound_data_card",
+      "role": "supporting_fact_context",
+      "media_role": "post_key_facts",
+      "caption": "Key facts from the article.",
+      "alt_text": "Comparable 2025 revenue 100 USD million; 2026 revenue 120 USD million.",
+      "attribution": "Source: Controlled fixture",
+      "source_page_url": "https://example.org/source",
+      "source_links": [
+        {
+          "document_id": "controlled",
+          "url": "https://example.org/source",
+          "label": "Controlled fixture"
+        }
+      ],
+      "source_lineage": [
+        {
+          "document_id": "controlled",
+          "source_url": "https://example.org/source"
+        }
+      ],
+      "underlying_source_rights_status": "attributed_facts_independent_chart",
+      "data_card_packet": {
+        "policy": "CC144_EVERY_POST_VISUAL_V1",
+        "facts": [
+          {
+            "claim_id": "revenue",
+            "text": "Comparable 2025 revenue 100 USD million; 2026 revenue 120 USD million.",
+            "source_id": "SOURCE_1",
+            "document_id": "controlled",
+            "support_excerpt": "Comparable 2025 revenue 100 USD million; 2026 revenue 120 USD million.",
+            "source_content_sha256": "6a3a9e0afc8f354ecfe9249ceb1ee267bec5812c9680a1c5c9af75b3998e119c",
+            "rights_class": "public_domain",
+            "rights_binding_sha256": "aafe839207f76df84d36787e6ed3b9420fadab0fa02da15f0fbb373f7f9092a3",
+            "publisher": "Controlled fixture",
+            "url": "https://example.org/source"
+          }
+        ],
+        "series_asset": {
+          "asset_id": "controlled-dj-chart-r1",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-144\\media_assets\\controlled-dj-chart-r1.png",
+          "sha256": "e167c51ce7066fb9c9cc25ba3d12a66406ffe3a4aaab616cd14304ed7d35d5ca",
+          "media_role": "editorial_data_journalism",
+          "modality": "source_backed_chart",
+          "role": "supporting_fact_context",
+          "caption": "Controlled persistence question",
+          "attribution": "Source: controlled fixture, not real data.",
+          "alt_text": "Controlled persistence question",
+          "source_page_url": "https://example.org/source",
+          "source_links": [
+            {
+              "document_id": "controlled",
+              "url": "https://example.org/source",
+              "label": "Controlled fixture"
+            }
+          ],
+          "source_lineage": [
+            {
+              "source_url": "https://example.org/source",
+              "document_id": "controlled"
+            }
+          ],
+          "underlying_source_rights_status": "attributed_facts_independent_chart",
+          "source_reuse_basis": "Independent chart of attributed original-source facts; no source expression reused.",
+          "width": 1440,
+          "height": 1040,
+          "editorial_data_packet": {
+            "asset_id": "controlled-dj-chart-r1",
+            "chart_type": "grouped_bar",
+            "question": "Controlled persistence question",
+            "title": "Controlled fixture, no editorial acceptance",
+            "unit": "USD million",
+            "series": [
+              {
+                "name": "Revenue",
+                "points": [
+                  {
+                    "period": "2025",
+                    "value": 100,
+                    "observation_kind": "REPORTED_ACTUAL",
+                    "inputs": [
+                      {
+                        "document_id": "controlled",
+                        "support_excerpt": "Comparable 2025 revenue 100 USD million; 2026 revenue 120 USD million.",
+                        "value_text": "100",
+                        "source_period_text": "2025",
+                        "source_content_sha256": "6a3a9e0afc8f354ecfe9249ceb1ee267bec5812c9680a1c5c9af75b3998e119c",
+                        "metric": "Revenue",
+                        "unit": "USD million",
+                        "prepared_period": "2025",
+                        "binding_basis": "ACTUAL_LIGHT_EXACT_SERIES_AND_PERIOD_INDEX",
+                        "period_basis": {
+                          "series_periods": [
+                            "2025",
+                            "2026"
+                          ],
+                          "period_index": 0,
+                          "prepared_value": 100,
+                          "series_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "period": "2026",
+                    "value": 120,
+                    "observation_kind": "REPORTED_ACTUAL",
+                    "inputs": [
+                      {
+                        "document_id": "controlled",
+                        "support_excerpt": "Comparable 2025 revenue 100 USD million; 2026 revenue 120 USD million.",
+                        "value_text": "120",
+                        "source_period_text": "2026",
+                        "source_content_sha256": "6a3a9e0afc8f354ecfe9249ceb1ee267bec5812c9680a1c5c9af75b3998e119c",
+                        "metric": "Revenue",
+                        "unit": "USD million",
+                        "prepared_period": "2026",
+                        "binding_basis": "ACTUAL_LIGHT_EXACT_SERIES_AND_PERIOD_INDEX",
+                        "period_basis": {
+                          "series_periods": [
+                            "2025",
+                            "2026"
+                          ],
+                          "period_index": 1,
+                          "prepared_value": 120,
+                          "series_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "source_caption": "Source: controlled fixture, not real data.",
+            "missingness": []
+          },
+          "transform_sha256": "c1e3f7f59247592c5fcc34c7f4a19eaa29af4e856599b472034aa95ba801a15c",
+          "placement_after": null,
+          "destination_subset": [],
+          "computed_values": [
+            [
+              100.0,
+              120.0
+            ]
+          ],
+          "missingness": []
+        }
+      },
+      "transform_sha256": "ad4f59a976d9816fd5981c35114f36026533ce10330b44c17fc4b2fb2af95005",
+      "publication_authority": false
+    }
+  ],
+  "synthetic_fixture_only": true
+}

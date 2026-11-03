@@ -15,18 +15,18 @@ POLICY = "CC144_EVERY_POST_VISUAL_V1"
 DESTINATIONS = ("telegram", "discord", "x", "linkedin", "facebook_page",
                 "instagram_business", "threads", "youtube")
 _NUMBERS = re.compile(r"(?<!\w)[+-]?\d[\d,]*(?:\.\d+)?%?")
-_SURVEYS = re.compile(r"\b(?:ism|s&p global|pmi|conference board|umich|university of michigan|adp)\b", re.I)
+_SURVEYS = re.compile(r"\b(?:ism|ismworld|s&p global|spglobal|pmi|conference[ -]board|umich|university of michigan|adp)\b", re.I)
 
 
 def _normal(value):
     return " ".join(str(value or "").split())
 
 
-def reject_private_survey_visual(document):
+def reject_private_survey_visual(document, context=""):
     """Decision 44 applies even when another receipt admits factual paraphrase."""
     identity = " ".join(str(document.get(k) or "") for k in (
         "publisher", "source_url", "url", "source_adapter_family", "title"))
-    if _SURVEYS.search(identity) or document.get("private_survey") is True:
+    if _SURVEYS.search(identity + " " + context) or document.get("private_survey") is True:
         raise ValueError("PRIVATE_SURVEY_HEADLINE_ONLY_NO_VISUAL")
 
 
@@ -51,8 +51,9 @@ def _bound_fact(claim, article, documents):
         raise ValueError("DATA_CARD_FACT_SOURCE_REQUIRED")
     rights = public_visual_source(source)
     text, excerpt = _normal(claim.get("claim_text")), _normal(claim.get("support_excerpt"))
+    reject_private_survey_visual(source, text + " " + excerpt)
     body = _normal(" ".join(str(article.get(k) or "") for k in (
-        "title", "dek", "substack_body_markdown", "social_hook", "seo_title", "meta_description")))
+        "title", "dek", "substack_body_markdown", "social_hook", "search_title", "seo_title", "meta_description")))
     canonical = str(source.get("canonical_content_text") or "")
     if (not text or not excerpt or text not in body or excerpt not in _normal(canonical)
             or not set(_NUMBERS.findall(text)) <= set(_NUMBERS.findall(excerpt))):
@@ -105,12 +106,15 @@ def _render_card(packet, path, mini_chart=None):
             y += 35
         y += 32
     if mini_chart:
+        available = min(680, 1350 - y - 130)
+        if available < 420:
+            raise ValueError("DATA_CARD_CONTENT_EXCEEDS_READABLE_LAYOUT")
         with Image.open(mini_chart) as original:
             image = original.convert("RGB")
-            image.thumbnail((952, 680), Image.Resampling.LANCZOS)
+            image.thumbnail((952, available), Image.Resampling.LANCZOS)
             canvas.paste(image, ((1080 - image.width) // 2, y))
             y += image.height + 30
-    if y > 2250:
+    if y > 1250:
         raise ValueError("DATA_CARD_CONTENT_EXCEEDS_READABLE_LAYOUT")
     draw.line((64, y, 1016, y), fill="#b4c4bf", width=2)
     draw.text((64, y + 24), "Analysis, not financial advice.", font=small, fill="#4e666b")
@@ -118,6 +122,20 @@ def _render_card(packet, path, mini_chart=None):
     path.parent.mkdir(parents=True, exist_ok=True)
     canvas.save(path, format="PNG")
     return canvas.size
+
+
+def _validate_card_series(packet, article, documents):
+    ids = {v["document_id"] for s in packet["series"] for p in s["points"] for v in p["inputs"]}
+    if not ids <= {d.get("document_id") for d in documents}:
+        raise ValueError("DATA_CARD_SERIES_SOURCE_REQUIRED")
+    for document in documents:
+        if document.get("document_id") in ids and public_visual_source(document) != "public_domain":
+            raise ValueError("DATA_CARD_HISTORY_REQUIRES_PUBLIC_DOMAIN_SERIES")
+    body_numbers = set(_NUMBERS.findall(_normal(article.get("substack_body_markdown"))))
+    for series in packet["series"]:
+        for point in series["points"]:
+            if not set(_NUMBERS.findall(str(point["value"]))) <= body_numbers:
+                raise ValueError("DATA_CARD_SERIES_NUMBER_NOT_IN_POST")
 
 
 def build_post_data_card(article, claims, documents, *, output_dir, series_packet=None):
@@ -135,7 +153,7 @@ def build_post_data_card(article, claims, documents, *, output_dir, series_packe
             raise
         facts.append(fact)
         seen.add(text)
-        if len(facts) == 3:
+        if len(facts) == (1 if series_packet else 3):
             break
     if not facts:
         raise ValueError("DATA_CARD_NO_ADMITTED_PUBLIC_VISUAL_FACTS")
@@ -143,23 +161,20 @@ def build_post_data_card(article, claims, documents, *, output_dir, series_packe
     mini = None
     if series_packet:
         from live_contentops.rolling_x_grounded_article_media_builder_v1 import build_editorial_data_chart
-        ids = {v["document_id"] for s in series_packet["series"] for p in s["points"] for v in p["inputs"]}
-        for document in documents:
-            if document.get("document_id") in ids:
-                if public_visual_source(document) != "public_domain":
-                    raise ValueError("DATA_CARD_HISTORY_REQUIRES_PUBLIC_DOMAIN_SERIES")
-        # All mini-chart observations must be this post's admitted numbers, too.
-        body_numbers = set(_NUMBERS.findall(_normal(article.get("substack_body_markdown"))))
-        for series in series_packet["series"]:
-            for point in series["points"]:
-                if not set(_NUMBERS.findall(str(point["value"]))) <= body_numbers:
-                    raise ValueError("DATA_CARD_SERIES_NUMBER_NOT_IN_POST")
+        _validate_card_series(series_packet, article, documents)
         mini = build_editorial_data_chart(series_packet, documents, output_dir=output_dir)
         packet["series_asset"] = mini
-    digest = sha256_of(packet)
-    asset_id = "post-facts-" + digest[:20]
-    path = Path(output_dir).resolve() / "media_assets" / (asset_id + ".png")
-    width, height = _render_card(packet, path, mini["path"] if mini else None)
+    while True:
+        digest = sha256_of(packet)
+        asset_id = "post-facts-" + digest[:20]
+        path = Path(output_dir).resolve() / "media_assets" / (asset_id + ".png")
+        try:
+            width, height = _render_card(packet, path, mini["path"] if mini else None)
+            break
+        except ValueError as exc:
+            if str(exc) != "DATA_CARD_CONTENT_EXCEEDS_READABLE_LAYOUT" or len(facts) == 1:
+                raise
+            facts.pop()  # Keep complete claims and readable type inside Instagram's 4:5 limit.
     path.with_suffix(".json").write_bytes(canonical_bytes(packet))
     return {"asset_id": asset_id, "path": str(path), "sha256": sha256(path.read_bytes()).hexdigest(),
         "width": width, "height": height, "modality": "source_bound_data_card",
@@ -185,6 +200,7 @@ def validate_post_data_card(asset, article, documents):
             raise ValueError("DATA_CARD_SOURCE_OR_RIGHTS_CHANGED")
     if packet.get("series_asset"):
         from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_editorial_data_chart
+        _validate_card_series(packet["series_asset"]["editorial_data_packet"], article, documents)
         validate_editorial_data_chart(packet["series_asset"], documents)
     if (sha256_of(packet) != asset.get("transform_sha256")
             or sha256(Path(asset["path"]).read_bytes()).hexdigest() != asset.get("sha256")):
@@ -228,3 +244,10 @@ def require_publication_image(destination, data):
             if pixels.format not in {"PNG", "JPEG", "WEBP"}:
                 raise ValueError("PUBLICATION_IMAGE_FORMAT_UNSUPPORTED:" + destination)
             pixels.verify()
+    if destination in {"discord", "facebook_page", "instagram_business", "threads"}:
+        primary = data.get("primary_media") or {}
+        if (not str(data.get("public_image_url") or "").startswith("https://")
+                or primary.get("sha256") not in {a["sha256"] for a in assets}
+                or primary.get("local_public_hash_continuity") is not True
+                or primary.get("public_delivery_sha256") != primary.get("sha256")):
+            raise ValueError("SELECTED_IMAGE_PUBLIC_DELIVERY_REQUIRED:" + destination)

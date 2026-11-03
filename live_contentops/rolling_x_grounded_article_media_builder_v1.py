@@ -896,7 +896,7 @@ def _typed_chart_values(document, rows, unit):
     """Validate reported facts, including signed observations and forecast ranges."""
     import math
     from live_contentops.post_visuals_v1 import reject_private_survey_visual
-    reject_private_survey_visual(document)
+    reject_private_survey_visual(document, " ".join(str(row.get("support_excerpt") or "") for row in rows))
     units = {"USD billion": ("$", "billion"), "USD/barrel": ("$", "barrel"),
              "USD/share": ("$", "per share"), "%": ("%",)}
     text = " ".join(str(document.get("canonical_content_text") or "").split())
@@ -1261,7 +1261,10 @@ def _editorial_data_values(packet, documents):
         for point in series.get("points", []) for operand in point.get("inputs", [])}
     for source_id in used_sources:
         if source_id in sources:
-            reject_private_survey_visual(sources[source_id])
+            context = " ".join(str(operand.get("support_excerpt") or "") for series in packet.get("series", [])
+                for point in series.get("points", []) for operand in point.get("inputs", [])
+                if operand.get("document_id") == source_id)
+            reject_private_survey_visual(sources[source_id], context)
     if packet.get("chart_type") not in {
         "line",
         "grouped_bar",
