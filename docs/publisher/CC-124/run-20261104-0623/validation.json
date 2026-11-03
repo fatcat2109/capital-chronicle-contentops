@@ -1,0 +1,26 @@
+{
+  "recorded_at_utc": "2026-11-03T23:40:35.480213+00:00",
+  "targeted_tests": {
+    "pytest-final.xml": {
+      "tests": 127,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "pytest-final-guard.xml": {
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "pytest_processes_parallel": false,
+  "source_sha256": {
+    "live_contentops\\publication_coordinator_v1.py": "33fb429cc87021cf610196cca0795a406368b4d5097e90e77f1da83ce677c4bb",
+    "tests\\test_publication_coordinator_v1.py": "f90579790b07582ec4c1e3ab8aca045cef0ef09427f6022eab1488ae82397ee6"
+  },
+  "code_base_tag": "contentops-live-20261104-cc177",
+  "code_base_sha": "f7169bc049e48378de83c7032bae30ac855dd9f6",
+  "live_application": "NOT_APPLIED",
+  "runtime_model_and_effort": "CONFIGURED_NOT_OBSERVED"
+}

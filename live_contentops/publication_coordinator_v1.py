@@ -387,10 +387,11 @@ class DurablePublicationCoordinator:
         return value
 
     def recovery_blocks_new_publication(self, recovery, work_item_id, *, plan, evidence_messages=None):
-        """Decision 39 may defer another confirmed article's derivative gaps only.
+        """Decision 39 keeps a known prior article's recovery local.
 
-        Keep every obligation and its recovery state. Never defer an uncertain
-        canonical, the same article, an unbound row or incomplete recovery evidence.
+        Keep every obligation and its recovery state. Exact public identity may
+        be known while content still needs repair. Uncertain identity, the same
+        article and unbound recovery evidence continue to block publication.
         The default/frozen path keeps its original global backlog rule.
         """
         remaining = int(recovery.get("backlog_remaining") or 0)
@@ -398,12 +399,13 @@ class DurablePublicationCoordinator:
             return remaining > 0
         messages = self.store.list_outbox_messages() if evidence_messages is None else evidence_messages
         confirmations = {}
-        def confirmed(intent):
+        def canonical_resolved(intent):
             key = (intent["work_item_id"], intent["plan_hash"])
             if key not in confirmations:
                 ids = self._ids(*key, "substack")
                 dispatch = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
                 proof = False
+                observed = {}
                 for row in self.store.list_readbacks_for_dispatch(ids["dispatch_id"]):
                     data = json.loads(row["readback_data"])
                     observed = data.get("readback", data)
@@ -411,6 +413,25 @@ class DurablePublicationCoordinator:
                 confirmations[key] = bool(proof and self._confirmed_public_object(
                     {**dispatch, "reconciliation_status": RECONCILED_CONFIRMED}, destination="substack")
                     and self._confirmed_canonical_url_for_work_item(key[0], plan_hash=key[1]))
+                if not confirmations[key]:
+                    reconciliation = next((row for row in self.store.get_reconciliations_for_work_item(key[0])
+                        if row["reconciliation_id"] == ids["reconciliation_id"]), {})
+                    confirmations[key] = bool(
+                        key[0] != work_item_id
+                        and intent.get("article_identity")
+                        and plan.get("article_identity")
+                        and intent["article_identity"] != plan["article_identity"]
+                        and dispatch.get("status") == DISPATCH_CONFIRMED
+                        and reconciliation.get("status") == RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE
+                        and _valid_substack_canonical_url(dispatch.get("public_object_url"))
+                        and dispatch.get("public_object_id")
+                        and isinstance(observed, Mapping)
+                        and observed.get("write_exists") is True
+                        and observed.get("identity_match") is True
+                        and observed.get("canonical_url_valid") is True
+                        and observed.get("observed_public_object_id") == dispatch["public_object_id"]
+                        and observed.get("observed_public_object_url") == dispatch["public_object_url"]
+                    )
             return confirmations[key]
         intents = []
         for message in messages:
@@ -429,7 +450,7 @@ class DurablePublicationCoordinator:
                 dispatch = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
                 if dispatch.get("status") in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING}:
                     return True
-                if dispatch.get("status") == DISPATCH_CONFIRMED and not confirmed(intent):
+                if dispatch.get("status") == DISPATCH_CONFIRMED and not canonical_resolved(intent):
                     return True
         obligations = recovery.get("backlog_remaining_obligations") or []
         if len(obligations) != remaining:
@@ -444,7 +465,7 @@ class DurablePublicationCoordinator:
                 return True
             for intent in matches:
                 if (not intent.get("article_identity") or intent["article_identity"] == plan["article_identity"]
-                        or not confirmed(intent)):
+                        or not canonical_resolved(intent)):
                     return True
         return False
 
