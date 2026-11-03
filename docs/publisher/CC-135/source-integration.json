@@ -1,0 +1,45 @@
+{
+  "status": "SOURCE_FAST_FORWARD_VERIFIED",
+  "authority": "BACKLOG CC-135 cites Jim decision 39",
+  "tag": "contentops-live-20261103-cc135",
+  "source_commit": "a22c260bc1a737036ea2ac93a238974938c63512",
+  "rollback_tag": "contentops-live-20261103-cc124-recovery-snapshot",
+  "before": {
+    "head": "1bfdaf8e717340e7c5ae11ac94513affca8e7b00",
+    "branch": "codex/contentops-local-publisher-20261030",
+    "status_sha256": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+    "status_entry_count": 42,
+    "unstaged_diff_sha256": "88631621ef1b35de6f617e6b6389344aa47f1c53f0b32b4334eb0831e5b5f7bc",
+    "staged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirty_file_sha256": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "f11ada93e83ebea26a4b9e0a01b137a9c9bbb181a2f982885e53b78b273e9ae5",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "d441486d11096f00d4a81438e63d7f84615aecf3ea9a38814e8d16a46a59e80e"
+    }
+  },
+  "after": {
+    "head": "a22c260bc1a737036ea2ac93a238974938c63512",
+    "branch": "codex/contentops-local-publisher-20261030",
+    "status_sha256": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+    "status_entry_count": 42,
+    "unstaged_diff_sha256": "88631621ef1b35de6f617e6b6389344aa47f1c53f0b32b4334eb0831e5b5f7bc",
+    "staged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirty_file_sha256": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "f11ada93e83ebea26a4b9e0a01b137a9c9bbb181a2f982885e53b78b273e9ae5",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "d441486d11096f00d4a81438e63d7f84615aecf3ea9a38814e8d16a46a59e80e"
+    }
+  },
+  "unrelated_wip_preserved": true,
+  "default_branch_merged": false,
+  "processes_restarted": false,
+  "schedules_changed": false,
+  "running_service_loaded_source": "NOT_OBSERVED; existing processes were not restarted",
+  "applied_at_utc": "2026-11-03T00:06:27.050685+00:00"
+}

@@ -1,0 +1,98 @@
+{
+  "status": "LIVE_BACKFILL_VERIFIED",
+  "source_commit": "a22c260bc1a737036ea2ac93a238974938c63512",
+  "source_tag": "contentops-live-20261103-cc135",
+  "feed_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+  "feed_sha256": "5ac009993ee75fc96b9c4f12805adfb4c8c20df485de207ccb1a290f203c894e",
+  "feed_sha256_before": null,
+  "record_count": 2,
+  "first_run": {
+    "feed_sha256": "5ac009993ee75fc96b9c4f12805adfb4c8c20df485de207ccb1a290f203c894e",
+    "piece_count": 2,
+    "pieces": [
+      {
+        "content_id": "substack:222368666",
+        "content_sha256": "b9474f982e235228d4256849ff70f5288d57a1a9b43f444637cefb32d2d18f6f",
+        "outlet_count": 10,
+        "status": "APPENDED"
+      },
+      {
+        "content_id": "substack:223199520",
+        "content_sha256": "f3ab3acc84ae6dbc0d8c81101c72e0623d286689724d136032a5df84b27f6e96",
+        "outlet_count": 5,
+        "status": "APPENDED"
+      }
+    ],
+    "provider_writes": 0,
+    "recorded_at_utc": "2026-11-03T00:07:21.811904+00:00",
+    "source_store_access": "SQLITE_MODE_RO_QUERY_ONLY",
+    "status": "BACKFILL_APPLIED"
+  },
+  "idempotent_repeat": {
+    "feed_sha256": "5ac009993ee75fc96b9c4f12805adfb4c8c20df485de207ccb1a290f203c894e",
+    "piece_count": 2,
+    "pieces": [
+      {
+        "content_id": "substack:222368666",
+        "content_sha256": "b9474f982e235228d4256849ff70f5288d57a1a9b43f444637cefb32d2d18f6f",
+        "outlet_count": 10,
+        "status": "ALREADY_RECORDED"
+      },
+      {
+        "content_id": "substack:223199520",
+        "content_sha256": "f3ab3acc84ae6dbc0d8c81101c72e0623d286689724d136032a5df84b27f6e96",
+        "outlet_count": 5,
+        "status": "ALREADY_RECORDED"
+      }
+    ],
+    "provider_writes": 0,
+    "recorded_at_utc": "2026-11-03T00:07:22.954541+00:00",
+    "source_store_access": "SQLITE_MODE_RO_QUERY_ONLY",
+    "status": "BACKFILL_APPLIED"
+  },
+  "fomc_record": {
+    "conditional_calls": [],
+    "conflicts_notice": null,
+    "content_id": "substack:223199520",
+    "content_sha256": "f3ab3acc84ae6dbc0d8c81101c72e0623d286689724d136032a5df84b27f6e96",
+    "disclaimer": "Analysis, not financial advice.",
+    "event_id": null,
+    "outlets": [
+      {
+        "name": "substack",
+        "url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters"
+      },
+      {
+        "name": "discord",
+        "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1566872070753751344"
+      },
+      {
+        "name": "facebook_page",
+        "url": "https://www.facebook.com/1342369584748125/posts/1442865088031907"
+      },
+      {
+        "name": "telegram",
+        "url": "https://t.me/CapitalChronicle/73"
+      },
+      {
+        "name": "x",
+        "url": "https://x.com/Capitalnicle/status/2117318307866968521"
+      }
+    ],
+    "published_at_utc": "2026-11-02T17:35:07.590Z",
+    "recorded_at_utc": "2026-11-03T00:07:21.811904+00:00",
+    "rights_class": "CC_OWN_ANALYSIS",
+    "schema_version": "contentops.published_content.v1",
+    "standfirst": "A 10-2 vote kept the federal funds target at 3.75 to 4 percent. The dissenters wanted an increase; the companion note explains the operating settings.",
+    "title": "The Fed held on October 28. Both dissenters wanted a hike.",
+    "type": "ARTICLE",
+    "visibility": "public"
+  },
+  "source_store_size_and_mtime_unchanged": true,
+  "source_store_access": "SQLITE_MODE_RO_QUERY_ONLY",
+  "provider_writes": 0,
+  "schedules_changed": false,
+  "processes_restarted": false,
+  "verified_at_utc": "2026-11-03T00:07:23.184608+00:00",
+  "limit": "Sealed outlets are first-recording snapshots. No new native publication or running-service code reload is claimed."
+}

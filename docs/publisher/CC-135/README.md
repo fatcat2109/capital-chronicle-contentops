@@ -69,3 +69,27 @@ Engineering launch: explicit `--model gpt-6.1-sol` and
 `contentops-live-20261103-cc124-recovery-snapshot` (`1bfdaf8e717340e7c5ae11ac94513affca8e7b00`).
 CC-135 cites decision 39 for Publisher's own tested operating-root fast-forward;
 the default branch is never merged and unrelated operating-root WIP is preserved.
+
+## Verified delivery
+
+- Source `a22c260bc1a737036ea2ac93a238974938c63512` fast-forwarded the same
+  operating branch under `contentops-live-20261103-cc135`. All 42 prior WIP
+  entries, tracked dirty-file hashes and staged/unstaged diffs were unchanged.
+  [Source integration evidence](source-integration.json).
+- The operating-root backfill appended two records. FOMC has exactly Substack,
+  Telegram, Discord, Facebook and X; its original publication clock is preserved.
+  The earlier oil piece has ten confirmed outlets, including the owner-selected
+  LinkedIn company copy. Removed posts and the pending CPI draft were excluded.
+- A second actual invocation returned ALREADY_RECORDED for both pieces and left
+  the live feed's SHA-256 unchanged. The source database's size and modification
+  clock were unchanged. [Live backfill evidence](live-backfill-result.json).
+- 294 targeted guard/coordinator/finished-publication regression checks passed;
+  215 subsequent feed/backfill/native-protocol/guard checks passed. These are
+  overlapping selections, not 509 distinct tests. The exact CC-136 consumer
+  at `d646f03e8` read both sealed records from a copied feed as public reports.
+  [Copied-store compatibility](../../../tests/evidence/cc-135/copied-backfill-compatibility.json).
+
+No new public article, provider send, Main edit, schedule change, process restart
+or running-service code reload is claimed. Future native publication through this
+source has deterministic test coverage, not a new observed live send. CC-014/site
+live integration remains with its existing owners.
