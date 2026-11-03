@@ -1,0 +1,25 @@
+{
+  "item": "CC-172",
+  "observed_at_utc": "2026-11-03T11:46:41.568280+00:00",
+  "top_level_process_id": 46096,
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_argument_readback": [
+    "exec",
+    "--model",
+    "gpt-6.1-sol",
+    "-c",
+    "model_reasoning_effort=\"max\""
+  ],
+  "runtime_model_observed": false,
+  "runtime_effort_observed": false,
+  "assigned_worktree": "A:/Capital Chronicle/Worktrees/ContentOps/codex-publisher-exec",
+  "resumed_existing_worktree": "A:/Capital Chronicle/Worktrees/ContentOps/codex-publisher-cc172",
+  "reason": "The assigned worktree retains CC-171 artifacts; the existing CC-172 branch and its pending implementation were preserved and resumed.",
+  "branch": "backlog/cc-172-publish-latency",
+  "original_live_base": "21fa56344ee6d0ddf18fbe3392c375d7ba48848b",
+  "first_pushed_substep": "d5a00d89a4516c95c16da3440352ff702daafc9e",
+  "binary_hardening_commit": "e7804531",
+  "live_dispatch_within_15_minutes": "NOT_OBSERVED"
+}

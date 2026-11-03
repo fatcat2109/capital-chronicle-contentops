@@ -1,0 +1,34 @@
+{
+  "item": "CC-172",
+  "observed_at_utc": "2026-11-03T12:03:43.239737+00:00",
+  "store_access": "SQLITE_MODE_RO",
+  "review_clock_field": "reviewed_at",
+  "recent_article_reviews": [
+    {
+      "work_item_id": "cc-opportunity-31de87f57816a4cb3f9770af9a9c0589604fe275588a072c6bb23a270c242d26",
+      "decision": "KEEP",
+      "review_recorded_at_utc": "2026-11-03T08:20:42.407583+00:00",
+      "text_approved_at_utc": null,
+      "speed_policy": null
+    },
+    {
+      "work_item_id": "cc-opportunity-136c98bd5f14a4c0dd3cfb50d8fe8e44155d90a7ede9a6179484fe7997e72085",
+      "decision": "KEEP",
+      "review_recorded_at_utc": "2026-11-02T22:17:04.569581+00:00",
+      "text_approved_at_utc": null,
+      "speed_policy": null
+    },
+    {
+      "work_item_id": "cc-opportunity-20d96a06844280c8fb3e2c656ed521c9afe33a8fc408552284f675868700884e",
+      "decision": "KEEP",
+      "review_recorded_at_utc": "2026-11-01T08:45:39.422110+00:00",
+      "text_approved_at_utc": null,
+      "speed_policy": null
+    }
+  ],
+  "decision_53_approval_count": 0,
+  "live_dispatch_within_15_minutes": "NOT_OBSERVED",
+  "publication_performed_by_this_engineering_run": false,
+  "next_action": "Publisher observes the next naturally approved article through publication-status and records actual canonical and channel dispatch times. No replacement article, backdated approval or schedule change.",
+  "current_consumer_listener_8765": "NO_LISTENER_OBSERVED; no restart performed"
+}
