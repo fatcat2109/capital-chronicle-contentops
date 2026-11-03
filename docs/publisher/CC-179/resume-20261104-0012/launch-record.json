@@ -1,0 +1,15 @@
+{
+  "live_base": "3e281d803163a696b7854a2cc8f9740e83683d2b",
+  "configured_model": "gpt-6.1-sol",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "editorial_roles_changed": false,
+  "launch_pid": 47288,
+  "native_invocation_id": "01a1a265-7901-7870-8dd2-30a01ce2b6a2",
+  "observed_at_utc": "2026-11-03T17:14:00.5550665Z",
+  "previous_branch": "backlog/cc-124-article-20261103",
+  "configuration_evidence": "Read back Win32_Process command line: exec --model gpt-6.1-sol -c model_reasoning_effort=high; no independent runtime telemetry",
+  "configured_reasoning_effort": "high",
+  "rights_patch": "d67533ecf411fad16b255c2c082e5dd91798a31b",
+  "resumed_branch": "backlog/cc-179-publisher-recovery",
+  "rights_ops_approval": "CC-179 Ops 3 Nov 22:48 GMT+7"
+}
