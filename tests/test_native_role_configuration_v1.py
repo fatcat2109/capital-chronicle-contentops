@@ -91,10 +91,13 @@ def test_parent_app_default_requires_a_scoped_owner_confirmation(source_kind):
         validate_native_configuration(observation, target)
 
 
-def test_cli_continues_only_the_saved_approved_writer_configuration(tmp_path, monkeypatch):
+@pytest.mark.parametrize("dated_social_review", [False, True])
+def test_cli_continues_only_the_saved_approved_writer_configuration(tmp_path, monkeypatch, dated_social_review):
     from test_native_newsroom_owner_operation_v1 import entry
     module = entry()
-    frozen = request("write")
+    frozen = request("final-visual-" + "a" * 64 if dated_social_review else "write")
+    if dated_social_review:
+        frozen["governed_input"]["distribution_recovery"] = {"policy": "CONTROLLED_TEST"}
     path = tmp_path / "request.json"
     path.write_text(json.dumps(frozen), encoding="utf-8")
     pending = {"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "request_path": str(path),
@@ -110,8 +113,17 @@ def test_cli_continues_only_the_saved_approved_writer_configuration(tmp_path, mo
         "published_memory_store": str(tmp_path / "unused-memory.sqlite3"),
         "published_memory_output_root": str(tmp_path / "unused-memory")}
     call = module.operation(local)["next_native_call"]
-    assert call["arguments"]["target"] == observation["invocation_id"]
-    assert call["continuation_observation"] == observation
+    if dated_social_review:
+        assert call["tool"] == "collaboration.spawn_agent"
+        assert call["arguments"]["model"] == "gpt-6.1-sol"
+        assert call["arguments"]["reasoning_effort"] == "max"
+        assert "continuation_observation" not in call
+    else:
+        assert call["arguments"]["target"] == observation["invocation_id"]
+        assert call["continuation_observation"] == observation
     observation.update(configured_model="gpt-6-astra", configured_reasoning_effort="ultra")
-    with pytest.raises(ValueError, match="EXACT_LABELLED_NATIVE_CONFIGURATION_REQUIRED"):
-        module.operation(local)
+    if dated_social_review:
+        assert module.operation(local)["next_native_call"]["tool"] == "collaboration.spawn_agent"
+    else:
+        with pytest.raises(ValueError, match="EXACT_LABELLED_NATIVE_CONFIGURATION_REQUIRED"):
+            module.operation(local)

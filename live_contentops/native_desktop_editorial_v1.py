@@ -1759,7 +1759,7 @@ def final_visual_binding(result, *, renders, destinations=None):
 
 
 def request_final_visual_review(turn, *, renders, distribution_recovery=None, reader_presentation_revision=None):
-    """Same writer reviews final assembly; changed revisions receive their own immutable request."""
+    """Review exact assembly, with a current MAX editor for dated social recovery."""
     row = turn.store.get_outbox_message(native_artifact_key(turn.store, turn.run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
     if not result.get("qualified_article_count"):
@@ -1792,8 +1792,12 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
         governed["distribution_recovery"] = distribution_recovery
     if reader_presentation_revision is not None:
         governed["reader_presentation_revision"] = reader_presentation_revision
-    prompt = (
-        "You are the SAME actual native gpt-6.1-sol/max visual editor/writer. Inspect the FINISHED article, "
+    reviewer = ("You are this run's native gpt-6.1-sol/max editor for the published article's dated social copies. "
+        "Complete their review in this run. The original writer identity is retained provenance. "
+        if distribution_recovery is not None else
+        "You are the SAME actual native gpt-6.1-sol/max visual editor/writer. ")
+    prompt = (reviewer +
+        "Inspect the FINISHED article, "
         "every visual and all bound canonical/channel desktop/mobile rendered pixels with local image or Neo tools. "
         "Settings, plans, prose or deterministic tests are not visual inspection. Compare each chart to exact admitted "
         "source values: sign/magnitude, denominator, period/year/quarter, units/currency, transformations/rounding, "
@@ -1835,11 +1839,12 @@ def validate_final_visual_return(turn, request, response):
     writer = amendment_writer(request["governed_input"].get("reader_presentation_revision")) or writer
     assignment = ROLE_ASSIGNMENTS["final-visual"]
     validate_native_configuration(observation, assignment)
-    if (not writer or observation.get("invocation_id") != writer["invocation_observation"]["invocation_id"]):
+    recovery = request["governed_input"].get("distribution_recovery")
+    if (recovery is None and
+            (not writer or observation.get("invocation_id") != writer["invocation_observation"]["invocation_id"])):
         raise ValueError("FINAL_VISUAL_ACTUAL_SAME_SOL61_MAX_REQUIRED")
     row = turn.store.get_outbox_message(native_artifact_key(turn.store, turn.run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
-    recovery = request["governed_input"].get("distribution_recovery")
     if recovery is not None:
         result = dated_distribution_recovery_view(turn.store, run_id=turn.run_id, result=result, recovery=recovery)
     revision = request["governed_input"].get("reader_presentation_revision")

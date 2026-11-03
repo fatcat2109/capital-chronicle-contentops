@@ -167,16 +167,19 @@ def test_malformed_optional_native_lineage_fails_closed(field, value):
 
 
 @pytest.mark.parametrize("effort", ["high", "max", "low", "unknown", None])
-def test_native_lineage_records_top_level_configuration_without_dispatch_gate(effort):
+@pytest.mark.parametrize("model", ["gpt-6.1-sol", "gpt-6-astra", None])
+def test_native_lineage_records_top_level_configuration_without_dispatch_gate(effort, model):
     from live_contentops.capital_chronicle_public_native_lineage_v1 import interpret_public_native_lineage
     _, src = source()
     bundle = src.bundle(src.manifest["latest_by_asset"]["UKOIL"])
     row = json.loads(bundle["public_export"])["latest_reports"][0]
     native = row["native_public_lineage"]
+    native["model"] = model
     native["reasoning_effort"] = effort
     native["lineage_sha256"] = sha256_of({k: v for k, v in native.items() if k != "lineage_sha256"})
     result = interpret_public_native_lineage(row, json.loads(bundle["envelope"]))
     assert result["configured_reasoning_effort"] == effort
+    assert result["configured_model"] == model
     assert result["configuration_status"] == "CONFIGURED_NOT_OBSERVED"
     assert result["independent_native_runtime_verified"] is False
     assert result["publication_authority"] is False

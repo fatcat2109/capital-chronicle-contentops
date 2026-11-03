@@ -531,7 +531,10 @@ def operation(binding, **kwargs):
                 owner_manual_validation=binding.get("owner_manual_validation", False))
             same_writer = None
             same_writer_configuration = None
-            if native_role(request["stage"]) in {"write", "revise", "final-visual", "visual-edit"}:
+            dated_social_review = (native_role(request["stage"]) == "final-visual"
+                and request.get("governed_input", {}).get("distribution_recovery") is not None)
+            if (native_role(request["stage"]) in {"write", "revise", "final-visual", "visual-edit"}
+                    and not dated_social_review):
                 prior = turn._get("write", "response") or turn.visual_response()
                 if prior:
                     same_writer_configuration = prior["invocation_observation"]

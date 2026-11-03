@@ -71,7 +71,8 @@ def setup_recovery(tmp_path, monkeypatch):
     return store, binding, result, co, runtime, recovery
 
 
-def accepted_recovery(store, binding, result, recovery, tmp_path, *, model=None, missing_render=False):
+def accepted_recovery(store, binding, result, recovery, tmp_path, *, model=None, missing_render=False,
+                      reviewer=None, effort=None):
     view = dated_distribution_recovery_view(store, run_id=binding["run_id"], result=result, recovery=recovery)
     variants = final_visual_binding(view, renders=None, destinations=dated_distribution_destinations(recovery))["variants"]
     markup = tmp_path / "CONTROLLED_NOT_REAL_RENDER.html"
@@ -93,6 +94,10 @@ def accepted_recovery(store, binding, result, recovery, tmp_path, *, model=None,
     request = pending.value.request
     bound = request["governed_input"]["binding"]
     observation = copy.deepcopy(turn._get("write", "response")["invocation_observation"])
+    if reviewer:
+        observation.update(surface="CODEX_EXEC", invocation_id=reviewer)
+    if effort:
+        observation["reasoning_effort"] = effort
     if model:
         observation["model"] = model
     output = {"decision": "ACCEPT", "asset_findings": [], "render_findings": []}
@@ -174,6 +179,25 @@ def test_wrong_model_cannot_accept_dated_recovery(tmp_path, monkeypatch):
     store, binding, result, _, runtime, recovery = setup_recovery(tmp_path, monkeypatch)
     with pytest.raises(ValueError, match="MODEL_MISMATCH|ACTUAL_SAME_SOL61_MAX"):
         accepted_recovery(store, binding, result, recovery, tmp_path, model="gpt-6-luna")
+    assert runtime.publish_calls == []
+
+
+def test_dated_social_review_uses_current_max_run(tmp_path, monkeypatch):
+    store, binding, result, _, runtime, recovery = setup_recovery(tmp_path, monkeypatch)
+    reference = accepted_recovery(store, binding, result, recovery, tmp_path,
+        reviewer="/root/current_max_run")
+    turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"],
+        owner_manual_validation=True)
+    assert turn._get(reference["stage"], "response")["invocation_observation"]["invocation_id"] == "/root/current_max_run"
+    assert turn._get("write", "response")["invocation_observation"]["invocation_id"] != "/root/current_max_run"
+    assert runtime.publish_calls == []
+
+
+def test_current_social_reviewer_still_requires_max(tmp_path, monkeypatch):
+    store, binding, result, _, runtime, recovery = setup_recovery(tmp_path, monkeypatch)
+    with pytest.raises(ValueError, match="NATIVE_DESKTOP_ROLE_EFFORT_MISMATCH"):
+        accepted_recovery(store, binding, result, recovery, tmp_path,
+            reviewer="/root/current_run", effort="high")
     assert runtime.publish_calls == []
 
 
