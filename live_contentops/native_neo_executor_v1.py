@@ -171,6 +171,9 @@ class NativeNeoExecutor:
                 "email_code_dialog": "Record PENDING_JIM_EMAIL_CODE, page_id and URL in the item's Result. Wait on that tab for Jim to type the code. No reload, other input or use of another tab.",
                 "continue_only_after": "The same tab reaches /publish/posts/detail/.../share-center; continue exact readback and dispatch recording.",
                 "pending_is_dispatch": False,
+                "email_code_return": {"status": "PENDING_JIM_EMAIL_CODE", "required_fields": ["draft_id", "page_id", "page_url"],
+                    "pipeline_state": "SUBSTACK_DRAFT_AWAITING_OWNER", "automatic_wait": False,
+                    "tab_policy": "Leave this tab open and untouched for Jim under decision 54; no human-help tool wait."},
             }
         return action_packet
 
@@ -182,7 +185,7 @@ class NativeNeoExecutor:
             raise ValueError("NATIVE_NEO_TOOL_RETURN_BINDING_REQUIRED")
         if (observation.get("tool_name") != TOOL
                 or observation.get("native_invocation_id") != claim["native_invocation_id"]
-                or observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT"}
+                or observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT", "CODEX_EXEC"}
                 or not observation.get("observation_source") or not observation.get("observed_at_utc")):
             raise ValueError("NATIVE_NEO_ACTUAL_TOOL_OBSERVATION_REQUIRED")
         observed_at = datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))

@@ -506,11 +506,12 @@ class NativeReviewedPublication:
             native_invocation_id=self.native_invocation_id,
             reviews=read_reviews(self.store),
         )
+        plan = None
         try:
             if value["state"] == "REVIEWED_HANDOFF_REQUIRED":
                 validated_native_review(self.store, run_id=self.binding["run_id"])
             else:
-                self.validate()
+                plan, _ = self.validate()
         except (ValueError, OSError) as exc:
             return {
                 **value,
@@ -533,6 +534,16 @@ class NativeReviewedPublication:
                         + str(resolve_workspace_path(self.binding["output_dir"]) /
                               ("binding.json" if self.binding.get("owner_manual_live") else "native_operation_binding.json")) + '"',
                     "resume_condition": "Same designated MAX editor corrects findings, re-renders affected views and records current final acceptance; preserve this operation."}
+        if plan and plan.get("distribution_policy") == "SITE_FIRST_V1":
+            from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+            coordinator = self.coordinator or DurablePublicationCoordinator(store=self.store, transport_runtime=None)
+            state = coordinator.publication_state(self.binding["run_id"], plan)
+            value.update({k: state[k] for k in ("canonical_url", "canonical_article_real_published",
+                "site_url", "site_publication_confirmed", "substack_publication_confirmed", "distribution_status")})
+            if any(d["status"] == "SUBSTACK_DRAFT_AWAITING_OWNER" for d in value.get("destinations", [])):
+                value["state"] = "SUBSTACK_DRAFT_AWAITING_OWNER"
+                value["next_operation"] = "publication-status"
+                value["next_command"] = "Leave the retained Substack code tab untouched for Jim; no automatic wait or new publish. Later use exact readback after owner confirmation."
         return value
 
     def _authorize_and_bind(self):
@@ -643,9 +654,16 @@ class NativeReviewedPublication:
                     "new_publish_calls": 0}
                 return {"classification": "NATIVE_PUBLICATION_CONTINUATION", "coordinator_result": summary,
                         "publication": self.projection()}
-            summary = SimplePublicationHandoffV1(
-                store=self.store, coordinator=self.coordinator
-            ).resume(slot_id=self.binding["run_id"], slot_output_dir=root)
+            if plan.get("distribution_policy") == "SITE_FIRST_V1":
+                # The existing handoff's legacy recovery preflight assumes Substack-first.
+                # The same coordinator now owns the site's exact readback and social pass.
+                SimplePublicationHandoffV1(store=self.store, coordinator=self.coordinator)._ensure_work_item(
+                    slot_id=self.binding["run_id"], plan=plan)
+                summary = self.coordinator.execute_plan(self.binding["run_id"], plan)
+            else:
+                summary = SimplePublicationHandoffV1(
+                    store=self.store, coordinator=self.coordinator
+                ).resume(slot_id=self.binding["run_id"], slot_output_dir=root)
             company = self.coordinator._ids(self.binding["run_id"], plan["plan_hash"], "linkedin_company")
             dispatch = self.store.get_platform_dispatch(company["dispatch_id"])
             message = self.store.get_outbox_message(company["message_id"])
