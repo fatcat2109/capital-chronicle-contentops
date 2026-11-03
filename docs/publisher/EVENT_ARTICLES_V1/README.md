@@ -116,17 +116,27 @@ copy before storing an accepted return. The checker itself never supplies author
 
 ## Draft inputs and continuation
 
-The source read on 2 November found these files absent:
+The 3 November midterm PREVIEW.md and frozen manifest are now available. The exact
+Ops-reviewed public preview entered the existing native operation
+`cc107-midterm-preview-20261103-v1`; its accepted Light and same MAX returns are
+retained. The [private midterm draft](midterm-20261103/midterm-preview.md) uses only
+that preview. Source admission, role provenance, focused checks and current limits
+are in [execution.json](midterm-20261103/execution.json).
 
-- Midterms: `A:/Capital Chronicle/ResearchRuns/claude-main-events-20261029/20261103-midterm-dossier/PREVIEW.md` and `dossier.json`.
-- NFP: `A:/Capital Chronicle/ResearchRuns/claude-main-events-20261029/20261106-1100-dossier-nfp/DOSSIER.md` and `dossier.json`.
+The same MAX editor required repairs to the first assembled renders. The portrait
+fact card, caption and linkless derivative corrections are applied through the
+existing media owner. The corrected eight reader copies pass the public guard;
+final desktop/mobile pixel acceptance remains pending. The existing sole
+coordinator's fenced Substack save-draft path is implemented and tested, but has
+not been called. It forbids Publish, Update, mailbox access and verification codes;
+a saved draft will not count as a public canonical article.
 
-The retained prompts locate the future runs: midterms at 06:00 GMT+7 on 3 November;
-NFP at 18:00 GMT+7 on 6 November. A prompt or calendar is not a frozen dossier.
-No placeholder file is counted as a private draft. Claude Ops must supply the actual
-frozen inputs and existing source/rights admission, then resume this same branch for
-approved native preparation, writing and rendered review. Do not start a test run
-in the 18:30–22:30 GMT+7 event freezes on 6, 10 or 13 November.
+The NFP input remains absent at the recorded 3 November readback:
+`A:/Capital Chronicle/ResearchRuns/claude-main-events-20261029/20261106-1100-dossier-nfp/`.
+Its existing producer is due at 18:00 GMT+7 on 6 November. A prompt or calendar is
+not a frozen dossier, and no placeholder is counted as a private draft. Ops resumes
+this same branch after the actual frozen input and source/rights admission arrive.
+Do not start a test run in the 18:30–22:30 GMT+7 event freezes on 6, 10 or 13 November.
 
 Focused verification:
 
