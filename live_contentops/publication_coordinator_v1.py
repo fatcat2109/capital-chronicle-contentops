@@ -2581,7 +2581,13 @@ class DurablePublicationCoordinator:
     def _confirmed_canonical_url_for_work_item(
         self, work_item_id: str, *, plan_hash: str | None = None
     ) -> Optional[str]:
-        for message in self.store.list_outbox_messages():
+        # Recovery asks this for many intents. Read only this article's canonical
+        # rows; repeatedly loading all retained editorial/media history is unrelated.
+        with self.store.get_read_only_connection() as conn:
+            messages = [dict(row) for row in conn.execute(
+                "SELECT * FROM outbox_messages WHERE work_item_id=? AND destination=? "
+                "ORDER BY created_at,message_id", (work_item_id, "substack"))]
+        for message in messages:
             if str(message.get("work_item_id") or "") != work_item_id or str(
                 message.get("destination") or ""
             ) != "substack":

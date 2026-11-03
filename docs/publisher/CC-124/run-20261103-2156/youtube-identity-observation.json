@@ -1,0 +1,17 @@
+{
+  "page_id": 166,
+  "url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+  "evidence": [
+    "  - heading \"Capital Chronicle\" [level=1]",
+    "    - button \"Nội dung mô tả. Welcome to Capital Chronicle, your trusted source for data-d...nhấn để xem thêm.\" [ref=e14]",
+    "  - link \"Tùy chỉnh kênh\" [ref=e15] [url=\"https://studio.youtube.com/channel/UCuSrYOgd4eeudcD2vidafbA/editing\"]",
+    "  - link \"Quản lý video\" [ref=e16] [url=\"https://studio.youtube.com/channel/UCuSrYOgd4eeudcD2vidafbA/content\"]",
+    "  - generic \"Capital Chronicle\"",
+    "  - button \"Hãy đăng thông tin cập nhật dành cho người hâm mộ của bạn\" [ref=e21]",
+    "  - button \"Đăng\" [disabled] [ref=e27]",
+    "  - link \"Capital Chronicle\" [ref=e34] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]"
+  ],
+  "authenticated": true,
+  "observed_identity": "@CapitalChronicleYouTube",
+  "public_write_performed": false
+}

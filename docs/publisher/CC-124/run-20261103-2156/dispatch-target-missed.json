@@ -1,0 +1,9 @@
+{
+  "observed_at_utc": "2026-11-03T16:54:13.592102+00:00",
+  "first_text_approval_utc": "2026-11-03T16:38:46.874923+00:00",
+  "dispatch_deadline_utc": "2026-11-03T16:53:46.874923+00:00",
+  "state": "MISSED_15_MINUTE_TARGET_BEFORE_FIRST_PUBLIC_ATTEMPT",
+  "cause": "Coordinator preflight repeated full retained outbox scans; original resume process observed about96GB reads/63GB writes; sort fix removed large writes, canonical lookup fanout remains under repair",
+  "public_write_performed": false,
+  "approval_clock_reset": false
+}

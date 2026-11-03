@@ -36,3 +36,14 @@ second editor check or a reset of the clock. The original publication resume
 is running; no browser publish request or confirmed public object is recorded
 in this checkpoint. The dedicated Neo window is 1698401302 with Gmail page 164
 open and unread. Publication/readback remain outstanding.
+
+The 15-minute target was missed without a public write. First approval remains
+16:38:46.874923Z; no clock was reset. Exact X and YouTube owner-identity
+observations were submitted through the existing coordinator. Canonical recovery
+was repeatedly loading the whole retained outbox, so its confirmed-URL lookup
+now reads only the same article's Substack rows, preserving existing dispatch
+and reconciliation checks. Targeted coordinator regressions are recorded separately.
+
+All 92 focused coordinator cases passed in 79.10 seconds, one pytest process.
+The read-only benchmark saw 4,343 retained outbox rows / 178,946,349 payload bytes;
+the current canonical lookup selected zero rows before dispatch, in 0.227 seconds.
