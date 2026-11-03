@@ -1,0 +1,10 @@
+{
+  "status": "PASS_PREPARED_RETURN_MATCHES_CURRENT_OWNER_VALIDATOR",
+  "observed_at_utc": "2026-11-03T18:33:50.566124+00:00",
+  "stage": "final-visual-c97c3fb0dc475bf50cd0804a3bf83d549f152f5edbf6374d9fc1d897edb36352",
+  "binding_sha256": "c97c3fb0dc475bf50cd0804a3bf83d549f152f5edbf6374d9fc1d897edb36352",
+  "native_invocation_id": "01a1a294-d2fa-7e73-8a46-f9148992b216",
+  "production_request_or_return_written": false,
+  "publication_performed": false,
+  "request_capture": "Read-only __call__ capture; actual frozen request still must be persisted after integration."
+}

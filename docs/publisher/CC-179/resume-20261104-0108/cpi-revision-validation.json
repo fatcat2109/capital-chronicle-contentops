@@ -1,0 +1,30 @@
+{
+  "observed_at_utc": "2026-11-03T18:16:41.964923+00:00",
+  "state": "VALIDATED_REVIEW_INPUT_NOT_BOUND_OR_DISPATCHED",
+  "run_id": "cc124-prepare-20261103-a",
+  "canonical_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+  "eight_payloads": 8,
+  "channel_media": {
+    "telegram": [],
+    "discord": [],
+    "facebook_page": [],
+    "x": [
+      "cpi-annual-history-r3"
+    ],
+    "linkedin": [
+      "cpi-annual-history-r3"
+    ],
+    "instagram_business": [
+      "cpi-annual-history-r3"
+    ],
+    "threads": [
+      "cpi-monthly-history-r3"
+    ],
+    "youtube": [
+      "cpi-annual-history-r3"
+    ]
+  },
+  "public_write_performed": false,
+  "production_store_written": false,
+  "invocation_id": "01a1a294-d2fa-7e73-8a46-f9148992b216"
+}

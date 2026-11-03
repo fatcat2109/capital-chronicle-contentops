@@ -1,0 +1,617 @@
+{
+  "observed_at_utc": "2026-11-03T18:30:24.341131+00:00",
+  "code_commit": "848f20daa4fcbaa5ea62f52ccaf0bb86c9abfc6c",
+  "status": "BUILT_UNMERGED",
+  "operating_root_head": "a4d60fe0d10de97a06603a8de6b6c3e88c79edcd",
+  "new_confirmed_posts": 0,
+  "public_write_performed": false,
+  "prepared_cpi_review_bound": false,
+  "destinations": [
+    {
+      "destination": "substack",
+      "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "223199520",
+      "public_object_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "outcome": "EXISTING_CONFIRMED_IDENTITY",
+      "next_owner": null,
+      "next_action": null
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_44015f64ead73e6dba975de3e41879c2",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "73",
+      "public_object_url": "https://t.me/CapitalChronicle/73",
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "outcome": "EXISTING_CONFIRMED_IDENTITY",
+      "next_owner": null,
+      "next_action": null
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_be8e8109d71a01ca26336982a8aadcf2",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "1566872070753751344",
+      "public_object_url": null,
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "outcome": "EXISTING_CONFIRMED_IDENTITY",
+      "next_owner": null,
+      "next_action": null
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_5a2137e1a148265564399a6f60c6fb27",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "2117318307866968521",
+      "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521",
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "outcome": "EXISTING_CONFIRMED_IDENTITY",
+      "next_owner": null,
+      "next_action": null
+    },
+    {
+      "destination": "linkedin",
+      "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+      "status": "UNKNOWN_WRITE",
+      "reconciliation_status": "RECONCILIATION_PENDING",
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "outcome": "EXACT_ATTEMPT_READBACK_UNRESOLVED",
+      "cause": "PUBLIC_OBJECT_ID_UNAVAILABLE_RECONCILIATION_PENDING",
+      "next_owner": "Jim and Publisher reconciliation",
+      "next_action": "Supply latest-attempt URL/ID or a fresh exact absence report; reconcile the existing attempt. The earlier FOMC retry budget is spent."
+    },
+    {
+      "destination": "facebook_page",
+      "dispatch_id": "dispatch_bb9379a6030ed281b28a7798c7688759",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "106091951705748_1442865088031907",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1442865088031907",
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "outcome": "EXISTING_CONFIRMED_IDENTITY",
+      "next_owner": null,
+      "next_action": null
+    },
+    {
+      "destination": "instagram_business",
+      "dispatch_id": "dispatch_371115ac151c4db5280d7351ec1429fe",
+      "status": "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
+      "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "outcome": "CONFIRMED_ABSENCE_RETAINED",
+      "cause": "DATED_DISTRIBUTION_REVIEW_REQUIRED",
+      "next_owner": "Publisher existing dated-distribution owner",
+      "next_action": "Retain exact absence; use the existing reviewed dated copy before an explicitly authorized bounded attempt."
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_61b248c425f6f223d5cb8e44cfa8abe8",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "outcome": "NOT_DISPATCHED_EXACT_CAUSE",
+      "cause": "THREADS_AUTH_INVALID",
+      "next_owner": "Jim for account authorization; Publisher for destination validation",
+      "next_action": "Restore the same destination authorization and verify the pinned identity."
+    },
+    {
+      "destination": "youtube",
+      "dispatch_id": "dispatch_b0c56e93220ba413672e6a8110c75cb8",
+      "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+      "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "outcome": "CONFIRMED_ABSENCE_RETAINED",
+      "cause": "DATED_DISTRIBUTION_REVIEW_REQUIRED",
+      "next_owner": "Publisher existing dated-distribution owner",
+      "next_action": "Retain exact absence; use the existing reviewed dated copy before an explicitly authorized bounded attempt."
+    },
+    {
+      "destination": "substack",
+      "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+      "public_object_id": "223293057",
+      "public_object_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on",
+      "run_id": "cc107-midterm-preview-20261103-v1",
+      "outcome": "EXISTING_CONFIRMED_IDENTITY",
+      "next_owner": "Publisher",
+      "next_action": "Read and correct the exact object; never repost.",
+      "cause": "EXISTING_CONTENT_READBACK_INCOMPLETE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_57be00ea99fae340d6ac92bc5714e3d8",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc107-midterm-preview-20261103-v1",
+      "outcome": "NOT_DISPATCHED_RIGHTS_CAUSE",
+      "cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+      "next_owner": "Original-source rights owner and Jim",
+      "next_action": "Resolve exact chart-fact reuse rights or an authorized lawful alternative, then Publisher reviews and resumes this operation."
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_944244b693642feff7a2cf45301cbee9",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc107-midterm-preview-20261103-v1",
+      "outcome": "NOT_DISPATCHED_RIGHTS_CAUSE",
+      "cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+      "next_owner": "Original-source rights owner and Jim",
+      "next_action": "Resolve exact chart-fact reuse rights or an authorized lawful alternative, then Publisher reviews and resumes this operation."
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_9217fcfc8602f04c9824eacc1b28f57d",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc107-midterm-preview-20261103-v1",
+      "outcome": "NOT_DISPATCHED_RIGHTS_CAUSE",
+      "cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+      "next_owner": "Original-source rights owner and Jim",
+      "next_action": "Resolve exact chart-fact reuse rights or an authorized lawful alternative, then Publisher reviews and resumes this operation."
+    },
+    {
+      "destination": "linkedin",
+      "dispatch_id": "dispatch_0707794bb075bb735f87ed0bd11980dc",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc107-midterm-preview-20261103-v1",
+      "outcome": "NOT_DISPATCHED_RIGHTS_CAUSE",
+      "cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+      "next_owner": "Original-source rights owner and Jim",
+      "next_action": "Resolve exact chart-fact reuse rights or an authorized lawful alternative, then Publisher reviews and resumes this operation."
+    },
+    {
+      "destination": "facebook_page",
+      "dispatch_id": "dispatch_d074747b7e7fa2107b3582866e8ba42d",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc107-midterm-preview-20261103-v1",
+      "outcome": "NOT_DISPATCHED_RIGHTS_CAUSE",
+      "cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+      "next_owner": "Original-source rights owner and Jim",
+      "next_action": "Resolve exact chart-fact reuse rights or an authorized lawful alternative, then Publisher reviews and resumes this operation."
+    },
+    {
+      "destination": "instagram_business",
+      "dispatch_id": "dispatch_7d5a5ce926905cc84cc64d245a184288",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc107-midterm-preview-20261103-v1",
+      "outcome": "NOT_DISPATCHED_RIGHTS_CAUSE",
+      "cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+      "next_owner": "Original-source rights owner and Jim",
+      "next_action": "Resolve exact chart-fact reuse rights or an authorized lawful alternative, then Publisher reviews and resumes this operation."
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_2ec92cde947257577cd05891b4a9fce7",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc107-midterm-preview-20261103-v1",
+      "outcome": "NOT_DISPATCHED_RIGHTS_CAUSE",
+      "cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+      "next_owner": "Original-source rights owner and Jim",
+      "next_action": "Resolve exact chart-fact reuse rights or an authorized lawful alternative, then Publisher reviews and resumes this operation."
+    },
+    {
+      "destination": "youtube",
+      "dispatch_id": "dispatch_eb003a655bed3c37245c046f030a70bc",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc107-midterm-preview-20261103-v1",
+      "outcome": "NOT_DISPATCHED_RIGHTS_CAUSE",
+      "cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+      "next_owner": "Original-source rights owner and Jim",
+      "next_action": "Resolve exact chart-fact reuse rights or an authorized lawful alternative, then Publisher reviews and resumes this operation."
+    },
+    {
+      "destination": "substack",
+      "dispatch_id": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "223246940",
+      "public_object_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+      "run_id": "cc124-prepare-20261103-a",
+      "outcome": "EXISTING_CONFIRMED_IDENTITY",
+      "next_owner": null,
+      "next_action": null
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_7bbccd8674d2f91b218f479f2fcb365b",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "74",
+      "public_object_url": "https://t.me/CapitalChronicle/74",
+      "run_id": "cc124-prepare-20261103-a",
+      "outcome": "EXISTING_CONFIRMED_IDENTITY",
+      "next_owner": null,
+      "next_action": null
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_a9b27f630a1668016431a3d96c8f303f",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "1567217600877039648",
+      "public_object_url": null,
+      "run_id": "cc124-prepare-20261103-a",
+      "outcome": "EXISTING_CONFIRMED_IDENTITY",
+      "next_owner": null,
+      "next_action": null
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_b1da9b28bd75180cac137744fd6f5710",
+      "status": "NATIVE_NEO_TOOL_PENDING",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc124-prepare-20261103-a",
+      "outcome": "PREPARED_AMENDMENT_AWAITING_INTEGRATION",
+      "cause": "DELIVERED_SOURCE_NOT_INTEGRATED",
+      "next_owner": "Integrator, then Publisher",
+      "next_action": "Integrate the pushed branch; bind the retained current-run MAX review with bind_reviewed_cpi_amendment.py; continue each original destination through publication-reader-derivative. Retain confirmed text copies; read back uncertain attempts; supersede only unclaimed old requests."
+    },
+    {
+      "destination": "linkedin",
+      "dispatch_id": "dispatch_7dd24a91b8afec20ed3dc0206f59cb73",
+      "status": "UNKNOWN_WRITE",
+      "reconciliation_status": "RECONCILIATION_PENDING",
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc124-prepare-20261103-a",
+      "outcome": "EXACT_ATTEMPT_READBACK_UNRESOLVED",
+      "cause": "PUBLIC_OBJECT_ID_UNAVAILABLE_RECONCILIATION_PENDING",
+      "next_owner": "Jim and Publisher reconciliation",
+      "next_action": "Supply latest-attempt URL/ID or a fresh exact absence report; reconcile the existing attempt. The earlier FOMC retry budget is spent."
+    },
+    {
+      "destination": "facebook_page",
+      "dispatch_id": "dispatch_acff70bcc90bd0a1846cfdb47ea6bd26",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "106091951705748_1443815231270226",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1443815231270226",
+      "run_id": "cc124-prepare-20261103-a",
+      "outcome": "EXISTING_CONFIRMED_IDENTITY",
+      "next_owner": null,
+      "next_action": null
+    },
+    {
+      "destination": "instagram_business",
+      "dispatch_id": "dispatch_d01bbafa38b1b14dba9ee60b7ef9f93b",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc124-prepare-20261103-a",
+      "outcome": "PREPARED_AMENDMENT_AWAITING_INTEGRATION",
+      "cause": "DELIVERED_SOURCE_NOT_INTEGRATED",
+      "next_owner": "Integrator, then Publisher",
+      "next_action": "Integrate the pushed branch; bind the retained current-run MAX review with bind_reviewed_cpi_amendment.py; continue each original destination through publication-reader-derivative. Retain confirmed text copies; read back uncertain attempts; supersede only unclaimed old requests."
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_f73b4f34a3701c1b63cab1e186e96b02",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc124-prepare-20261103-a",
+      "outcome": "PREPARED_AMENDMENT_AWAITING_INTEGRATION",
+      "cause": "DELIVERED_SOURCE_NOT_INTEGRATED",
+      "next_owner": "Integrator, then Publisher",
+      "next_action": "Integrate the pushed branch; bind the retained current-run MAX review with bind_reviewed_cpi_amendment.py; continue each original destination through publication-reader-derivative. Retain confirmed text copies; read back uncertain attempts; supersede only unclaimed old requests."
+    },
+    {
+      "destination": "youtube",
+      "dispatch_id": "dispatch_f90f612216f7dda5848dcfc5ddd4ad55",
+      "status": "NATIVE_NEO_TOOL_PENDING",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "run_id": "cc124-prepare-20261103-a",
+      "outcome": "PREPARED_AMENDMENT_AWAITING_INTEGRATION",
+      "cause": "DELIVERED_SOURCE_NOT_INTEGRATED",
+      "next_owner": "Integrator, then Publisher",
+      "next_action": "Integrate the pushed branch; bind the retained current-run MAX review with bind_reviewed_cpi_amendment.py; continue each original destination through publication-reader-derivative. Retain confirmed text copies; read back uncertain attempts; supersede only unclaimed old requests."
+    }
+  ],
+  "clocks": [
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "destination": "instagram_business",
+      "dispatch_id": "dispatch_371115ac151c4db5280d7351ec1429fe",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-02T17:50:30.008854+00:00"
+      },
+      "native_attempt_clocks": [
+        {
+          "attempted_at_utc": "2026-11-03T13:31:42.730293+00:00",
+          "destination": "instagram_business",
+          "dispatch_id": "dispatch_371115ac151c4db5280d7351ec1429fe",
+          "dispatched_at_utc": null,
+          "policy": "CC-172",
+          "returned_at_utc": "2026-11-03T13:31:45.793718+00:00",
+          "run_id": "cc074-retro-fomc-20261028-v1",
+          "status": "UNKNOWN_WRITE",
+          "timing_basis": "API_TRANSPORT_CALL"
+        }
+      ],
+      "latest_readback_record_utc": "2026-11-02T17:50:36.121094+00:00",
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "destination": "telegram",
+      "dispatch_id": "dispatch_44015f64ead73e6dba975de3e41879c2",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-02T17:50:43.065097+00:00"
+      },
+      "native_attempt_clocks": [],
+      "latest_readback_record_utc": "2026-11-02T17:50:45.492934+00:00",
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "destination": "x",
+      "dispatch_id": "dispatch_5a2137e1a148265564399a6f60c6fb27",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-02T17:54:15.410492+00:00"
+      },
+      "native_attempt_clocks": [],
+      "latest_readback_record_utc": "2026-11-02T18:23:51.461294+00:00",
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "destination": "substack",
+      "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-02T17:13:36.215695+00:00"
+      },
+      "native_attempt_clocks": [],
+      "latest_readback_record_utc": "2026-11-03T09:45:30.596310+00:00",
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "destination": "linkedin",
+      "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-02T17:50:38.994639+00:00"
+      },
+      "native_attempt_clocks": [
+        {
+          "attempted_at_utc": "2026-11-03T17:30:01.776595+00:00",
+          "destination": "linkedin",
+          "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+          "dispatched_at_utc": null,
+          "policy": "CC-172",
+          "returned_at_utc": "2026-11-03T17:30:01.892030+00:00",
+          "run_id": "cc074-retro-fomc-20261028-v1",
+          "status": "UNKNOWN_WRITE",
+          "timing_basis": "API_TRANSPORT_CALL"
+        }
+      ],
+      "latest_readback_record_utc": "2026-11-03T17:25:25.974901+00:00",
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "destination": "youtube",
+      "dispatch_id": "dispatch_b0c56e93220ba413672e6a8110c75cb8",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-02T18:32:44.951024+00:00"
+      },
+      "native_attempt_clocks": [],
+      "latest_readback_record_utc": null,
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "destination": "facebook_page",
+      "dispatch_id": "dispatch_bb9379a6030ed281b28a7798c7688759",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-02T17:50:17.369737+00:00"
+      },
+      "native_attempt_clocks": [],
+      "latest_readback_record_utc": "2026-11-02T17:50:24.577978+00:00",
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "destination": "discord",
+      "dispatch_id": "dispatch_be8e8109d71a01ca26336982a8aadcf2",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-02T17:50:12.137599+00:00"
+      },
+      "native_attempt_clocks": [],
+      "latest_readback_record_utc": "2026-11-02T17:50:13.180011+00:00",
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc107-midterm-preview-20261103-v1",
+      "destination": "substack",
+      "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-03T08:36:46.408614+00:00"
+      },
+      "native_attempt_clocks": [],
+      "latest_readback_record_utc": "2026-11-03T17:10:48.940730+00:00",
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc124-prepare-20261103-a",
+      "destination": "substack",
+      "dispatch_id": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-02T23:08:33.902972+00:00"
+      },
+      "native_attempt_clocks": [],
+      "latest_readback_record_utc": "2026-11-03T09:41:30.353144+00:00",
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc124-prepare-20261103-a",
+      "destination": "telegram",
+      "dispatch_id": "dispatch_7bbccd8674d2f91b218f479f2fcb365b",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-03T16:43:33.611799+00:00"
+      },
+      "native_attempt_clocks": [
+        {
+          "attempted_at_utc": "2026-11-03T16:43:33.622587+00:00",
+          "destination": "telegram",
+          "dispatch_id": "dispatch_7bbccd8674d2f91b218f479f2fcb365b",
+          "dispatched_at_utc": "2026-11-03T16:43:33.622587+00:00",
+          "policy": "CC-172",
+          "returned_at_utc": "2026-11-03T16:43:34.771343+00:00",
+          "run_id": "cc124-prepare-20261103-a",
+          "status": "DISPATCH_CONFIRMED",
+          "timing_basis": "API_TRANSPORT_CALL"
+        }
+      ],
+      "latest_readback_record_utc": "2026-11-03T16:43:34.831595+00:00",
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc124-prepare-20261103-a",
+      "destination": "linkedin",
+      "dispatch_id": "dispatch_7dd24a91b8afec20ed3dc0206f59cb73",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-03T16:43:28.734965+00:00"
+      },
+      "native_attempt_clocks": [
+        {
+          "attempted_at_utc": "2026-11-03T16:43:28.745418+00:00",
+          "destination": "linkedin",
+          "dispatch_id": "dispatch_7dd24a91b8afec20ed3dc0206f59cb73",
+          "dispatched_at_utc": null,
+          "policy": "CC-172",
+          "returned_at_utc": "2026-11-03T16:43:28.832384+00:00",
+          "run_id": "cc124-prepare-20261103-a",
+          "status": "UNKNOWN_WRITE",
+          "timing_basis": "API_TRANSPORT_CALL"
+        }
+      ],
+      "latest_readback_record_utc": "2026-11-03T16:43:28.891134+00:00",
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc124-prepare-20261103-a",
+      "destination": "discord",
+      "dispatch_id": "dispatch_a9b27f630a1668016431a3d96c8f303f",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-03T16:43:13.131573+00:00"
+      },
+      "native_attempt_clocks": [
+        {
+          "attempted_at_utc": "2026-11-03T16:43:13.146378+00:00",
+          "destination": "discord",
+          "dispatch_id": "dispatch_a9b27f630a1668016431a3d96c8f303f",
+          "dispatched_at_utc": "2026-11-03T16:43:13.146378+00:00",
+          "policy": "CC-172",
+          "returned_at_utc": "2026-11-03T16:43:13.760045+00:00",
+          "run_id": "cc124-prepare-20261103-a",
+          "status": "DISPATCH_CONFIRMED",
+          "timing_basis": "API_TRANSPORT_CALL"
+        }
+      ],
+      "latest_readback_record_utc": "2026-11-03T16:43:13.842544+00:00",
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc124-prepare-20261103-a",
+      "destination": "facebook_page",
+      "dispatch_id": "dispatch_acff70bcc90bd0a1846cfdb47ea6bd26",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-03T16:43:17.978845+00:00"
+      },
+      "native_attempt_clocks": [
+        {
+          "attempted_at_utc": "2026-11-03T16:43:17.990369+00:00",
+          "destination": "facebook_page",
+          "dispatch_id": "dispatch_acff70bcc90bd0a1846cfdb47ea6bd26",
+          "dispatched_at_utc": "2026-11-03T16:43:17.990369+00:00",
+          "policy": "CC-172",
+          "returned_at_utc": "2026-11-03T16:43:25.522505+00:00",
+          "run_id": "cc124-prepare-20261103-a",
+          "status": "DISPATCH_CONFIRMED",
+          "timing_basis": "API_TRANSPORT_CALL"
+        }
+      ],
+      "latest_readback_record_utc": "2026-11-03T16:43:25.580860+00:00",
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc124-prepare-20261103-a",
+      "destination": "x",
+      "dispatch_id": "dispatch_b1da9b28bd75180cac137744fd6f5710",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-03T16:51:18.649152+00:00"
+      },
+      "native_attempt_clocks": [],
+      "latest_readback_record_utc": null,
+      "new_publication_at_utc": null
+    },
+    {
+      "run_id": "cc124-prepare-20261103-a",
+      "destination": "youtube",
+      "dispatch_id": "dispatch_f90f612216f7dda5848dcfc5ddd4ad55",
+      "dispatch_record_clocks": {
+        "dispatched_at": "2026-11-03T17:06:50.517663+00:00"
+      },
+      "native_attempt_clocks": [],
+      "latest_readback_record_utc": null,
+      "new_publication_at_utc": null
+    }
+  ],
+  "outcome_counts": {
+    "EXISTING_CONFIRMED_IDENTITY": 10,
+    "EXACT_ATTEMPT_READBACK_UNRESOLVED": 2,
+    "CONFIRMED_ABSENCE_RETAINED": 2,
+    "NOT_DISPATCHED_EXACT_CAUSE": 1,
+    "NOT_DISPATCHED_RIGHTS_CAUSE": 8,
+    "PREPARED_AMENDMENT_AWAITING_INTEGRATION": 4
+  },
+  "scope_limits": [
+    "No branch merge or operating-root change under the latest never-merge instruction.",
+    "The retained CPI review is prepared but has not been submitted to the native outbox.",
+    "Exact LinkedIn absence is not established by a loaded activity page without the target post.",
+    "Configured gpt-6.1-sol/max is not observed runtime telemetry."
+  ]
+}

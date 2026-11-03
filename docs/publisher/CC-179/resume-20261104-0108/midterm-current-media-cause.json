@@ -1,0 +1,11 @@
+{
+  "observed_at_utc": "2026-11-03T18:20:32.362642+00:00",
+  "run_id": "cc107-midterm-preview-20261103-v1",
+  "public_write_performed": false,
+  "production_store_written": false,
+  "state": "SOURCE_RIGHTS_UNRESOLVED",
+  "cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+  "error_class": "ValueError",
+  "next_owner": "Source rights owner and Jim",
+  "next_action": "Provide an exact permitted chart-fact reuse basis or an authorized lawful alternative for the retained source; keep the existing canonical and photo."
+}

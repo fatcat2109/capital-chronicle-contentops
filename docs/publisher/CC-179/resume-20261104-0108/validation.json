@@ -1,0 +1,323 @@
+{
+  "status": "PASS",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "size": 188,
+      "sha256": "8117f30356fff0283c26d03668c2fa22c4169794944c0b9fcc2a154cccf5be3c"
+    },
+    {
+      "path": "bind_reviewed_cpi_amendment.py",
+      "size": 3027,
+      "sha256": "1a73e71dd4a0f10ed9476551dfbf150a737436754fdead6bd1ffc3c1ac3dc8cb"
+    },
+    {
+      "path": "cc074-retro-fomc-20261028-v1-final-projection.json",
+      "size": 15215,
+      "sha256": "88d80483d2a4ca6c8b3ac45c6cf331bc5bc016e57011eaf4ba5e3fb97ce5e7d0"
+    },
+    {
+      "path": "cc107-midterm-preview-20261103-v1-final-projection.json",
+      "size": 30404,
+      "sha256": "fa2e568688fcda6f06bbaf3ff6b3dbeb37f0ebe4c8580ff3df30a4133910dcf1"
+    },
+    {
+      "path": "cc124-prepare-20261103-a-final-projection.json",
+      "size": 18359,
+      "sha256": "3c4c54dacb0d4710e859e1a0483408bbe35c0ef78f7d94e0ae3b91327755d86b"
+    },
+    {
+      "path": "continuation-regressions.junit.xml",
+      "size": 5199,
+      "sha256": "b21fd57ccc0a1f042817f97851f0a8752b91dd6ab51a9296cbff58cc7b9fd99e"
+    },
+    {
+      "path": "cpi-amendment-review-request.json",
+      "size": 20104,
+      "sha256": "ad169a580212c1b5487ad0adc12b8dbb03b61141ed262a0873c090bde3a77137"
+    },
+    {
+      "path": "cpi-amendment-review-response.json",
+      "size": 4844,
+      "sha256": "cf38498a84c3494164612423ec7afaf54e718d141c19c38f34980692e839fdda"
+    },
+    {
+      "path": "cpi-derivative-revision.json",
+      "size": 54267,
+      "sha256": "7f9295db015b0c962101b2bf9b843419aaa17cb10870a10bda2c1b51f08d7c65"
+    },
+    {
+      "path": "cpi-derivative-view.json",
+      "size": 2523141,
+      "sha256": "f9e8dab8c1c8f6665f9cc85800a35be01c70cf690c7858993932ababefbba722"
+    },
+    {
+      "path": "cpi-derivatives.junit.xml",
+      "size": 2440,
+      "sha256": "b342c66c2a8f269e27420843ab941caba4a579103eb1c5a4c1ad60f06f997366"
+    },
+    {
+      "path": "cpi-final-render-binding.json",
+      "size": 339002,
+      "sha256": "1633c91f7bf791eb85fc41140a7587d6a5268bfc68e6f53c61292bd0ffdd3766"
+    },
+    {
+      "path": "cpi-final-review-response.json",
+      "size": 18735,
+      "sha256": "84e5145128124e85bd3db9184d7226ea19824964a330a792f8bdcd27acd1cb2f"
+    },
+    {
+      "path": "cpi-revision-validation.json",
+      "size": 778,
+      "sha256": "7fcf4e521cc408329a34f4c0eab7f2c19faef3354219f81f5ac9187ab5444c56"
+    },
+    {
+      "path": "dispatch_7dd24a91b8afec20ed3dc0206f59cb73-readback.json",
+      "size": 216,
+      "sha256": "765f287aec6a0218dd2b0373a33181dc9cf4f8bdecd4cc93150f731ef2f377f6"
+    },
+    {
+      "path": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2-readback.json",
+      "size": 216,
+      "sha256": "5fc4b5ef627d8041f8e5fb51294cf58b8015bd7581ae37efbf540692da1787c6"
+    },
+    {
+      "path": "final-regressions.junit.xml",
+      "size": 27147,
+      "sha256": "d03ab90852a89c4d5f9564fc495c337c5f7859153dabdc68d0b53168daefe980"
+    },
+    {
+      "path": "final-run-summary.json",
+      "size": 26325,
+      "sha256": "4bf92c76801d48c9ef0fe4176b99c3e83321e5f0c5dbaad226c6168d809470c4"
+    },
+    {
+      "path": "launch-record.json",
+      "size": 479,
+      "sha256": "235b9f8d25526e438c0dd4a0dd93bcb6dac67e60eca473cde33ea0411697680b"
+    },
+    {
+      "path": "linkedin-activity-observation.json",
+      "size": 2229,
+      "sha256": "ab74e6c551c6e646eaa9335b07707f950bdf7d521edccdda48fe500ccf0c0b4d"
+    },
+    {
+      "path": "midterm-current-media-cause.json",
+      "size": 529,
+      "sha256": "f2701f22522ddfe4ba89f9ac62741d4beafff960333aca308935405c20443a87"
+    },
+    {
+      "path": "native-cli-regressions.junit.xml",
+      "size": 4237,
+      "sha256": "6332d486afe780878e77488967c5d89eb41440ef5487fa3cfb0a83f29a01cf59"
+    },
+    {
+      "path": "native-resume-idempotence.junit.xml",
+      "size": 3191,
+      "sha256": "917c034daf00a4dcf48f2e08efb83478e9e2b3ed2c68f5b5183a6dc9ec6f76a1"
+    },
+    {
+      "path": "prepare_cpi_review.py",
+      "size": 6642,
+      "sha256": "7e031ebf7e20eb6e7b10cad464121b74b9ac3eccaf820e90453bdc1e60387b9d"
+    },
+    {
+      "path": "prepared-return-validation.json",
+      "size": 584,
+      "sha256": "701fb1a7a9c07036f46e28e93b4c159fcbf8c14be9ad369f6ded8b227096c6b7"
+    },
+    {
+      "path": "readback_exact.py",
+      "size": 1716,
+      "sha256": "040600b0a05b10f0e2046ec82ba6a4f1054eaa2f969a7bf01d0cc8319bc82383"
+    },
+    {
+      "path": "reader-regressions.junit.xml",
+      "size": 4944,
+      "sha256": "21d10dbf8465d3c5d36990319fb586b1329420167d06617bd8bcdd4639c48766"
+    },
+    {
+      "path": "README.md",
+      "size": 6153,
+      "sha256": "2311bf0dbebaef5078e8549200026b049294ef0fe4e6777b1995bbbf2058acdd"
+    },
+    {
+      "path": "render/discord-desktop.png",
+      "size": 36779,
+      "sha256": "243b35eacb2b3c74658c73dae5c4f42e0a59622493d651156bc6ff7b82db6e95"
+    },
+    {
+      "path": "render/discord-mobile.png",
+      "size": 32258,
+      "sha256": "c2549261be5b7f002d749ce8eb9d24168380f9b0b36086509479373c62c8547e"
+    },
+    {
+      "path": "render/facebook_page-desktop.png",
+      "size": 35852,
+      "sha256": "6c95db3db535a64d82abbe6dbf72cf85c19040b47fbd53fd0b5987b7bb13b385"
+    },
+    {
+      "path": "render/facebook_page-mobile.png",
+      "size": 31409,
+      "sha256": "b9bab16569d8437a17a73c78d7cb18b02707809d5d8eceab99b534f57678efc0"
+    },
+    {
+      "path": "render/instagram_business-desktop.png",
+      "size": 122500,
+      "sha256": "e1399d81390873e6aa20dd50354a1f116e13aff87fd413d30663a5064825b0fe"
+    },
+    {
+      "path": "render/instagram_business-mobile.png",
+      "size": 68095,
+      "sha256": "5c0e91778d2cc183adb5a300ea10a4bbe9c087fbb58d34b9c0a3a894363e3e71"
+    },
+    {
+      "path": "render/linkedin-desktop.png",
+      "size": 127602,
+      "sha256": "2d766885b72a90c9af64836fac25527a748edcb1bf93b56cd99b8dc901583440"
+    },
+    {
+      "path": "render/linkedin-mobile.png",
+      "size": 73805,
+      "sha256": "714b47d226a01e00f1a53d63fc0ba25e13424099779d373fb44f654ef35dbcbd"
+    },
+    {
+      "path": "render/reader.html",
+      "size": 2056035,
+      "sha256": "a0cce0d7c591aaf3db4827a6e1fec8d8ed7d1a91c00017b36f746e32e10a90e9"
+    },
+    {
+      "path": "render/social-desktop-1.png",
+      "size": 230318,
+      "sha256": "782c549599c70466ae2d1e5a8415cba48bbc9cfc5654695cd6060b3769b6d160"
+    },
+    {
+      "path": "render/social-desktop-2.png",
+      "size": 305459,
+      "sha256": "e0a2c12fcc6a89b83ba0a37fa89d89299e0a8c50450a7f908c48d9f35703cc99"
+    },
+    {
+      "path": "render/social-mobile-1.png",
+      "size": 194891,
+      "sha256": "7b321dce419b6287484a453abeca3cd54a39b3015a4269a18f04a698b0801e79"
+    },
+    {
+      "path": "render/social-mobile-2.png",
+      "size": 274002,
+      "sha256": "c6d843eeaba19014f023db781893f2147f20f1ae8030640ed023f6637efe3269"
+    },
+    {
+      "path": "render/substack-desktop.png",
+      "size": 570046,
+      "sha256": "2afa6ebb7aba582384893e3441ada7fa85369f5c9575a9ad68679f124a9c2dc8"
+    },
+    {
+      "path": "render/substack-mobile.png",
+      "size": 367215,
+      "sha256": "7af223d43766407b95b17e109bad53447b6a33ed33ab2370511c3701dce894d7"
+    },
+    {
+      "path": "render/telegram-desktop.png",
+      "size": 39178,
+      "sha256": "c785c7ed95245a9f563fdadb3a06c03618a20390cfde3f59324afbd4c86b78f6"
+    },
+    {
+      "path": "render/telegram-mobile.png",
+      "size": 33183,
+      "sha256": "671e603f7dbb71154a795ac8d88933caad04513e288d4b55051c7501e9b550c9"
+    },
+    {
+      "path": "render/threads-desktop.png",
+      "size": 149075,
+      "sha256": "230377a618b7caec843a28da546c8278e4fb76ea5670cff0485ed07eb83b1351"
+    },
+    {
+      "path": "render/threads-mobile.png",
+      "size": 83352,
+      "sha256": "ec5a7ecede98d22e04da12a42fecc0ce3847e3e8be7182dbd0acaa4358e984bb"
+    },
+    {
+      "path": "render/workspace.json",
+      "size": 1886343,
+      "sha256": "a72b00eccd922c66ecefc45337546586f76bea0a3f86535945ebbf6a8e1bcafa"
+    },
+    {
+      "path": "render/x-desktop.png",
+      "size": 127077,
+      "sha256": "507a0cb1ee51a4e4cc2d305737cf18caf2a859b48621698bbef62250fb2c833d"
+    },
+    {
+      "path": "render/x-mobile.png",
+      "size": 71572,
+      "sha256": "85f106157f5d4a50d3e7b92266baa5c97d4ebeb8223805e0c07f6227c10ba80a"
+    },
+    {
+      "path": "render/youtube-desktop.png",
+      "size": 125843,
+      "sha256": "e29dce781ca36a6a106fbbe1daaed3dc406661f200a3532bdd0fe02445338d45"
+    },
+    {
+      "path": "render/youtube-mobile.png",
+      "size": 70759,
+      "sha256": "c1730897ed79ff7343f67ebe4d89e6a083536b3dae82f4b2f59b984b25425d6e"
+    },
+    {
+      "path": "render_cpi_review.py",
+      "size": 4492,
+      "sha256": "1f638c7f5cf4580c6e5045cbc70ad8aa1cfdda853291de8a52d38a15b6c20b45"
+    }
+  ],
+  "total_size": 10237451,
+  "embedded_image_text": false,
+  "staged_exact_byte_artifacts": [
+    "cc074-retro-fomc-20261028-v1-final-projection.json",
+    "cc107-midterm-preview-20261103-v1-final-projection.json",
+    "cc124-prepare-20261103-a-final-projection.json",
+    "continuation-regressions.junit.xml",
+    "cpi-amendment-review-request.json",
+    "cpi-amendment-review-response.json",
+    "cpi-derivative-revision.json",
+    "cpi-derivative-view.json",
+    "cpi-derivatives.junit.xml",
+    "cpi-final-render-binding.json",
+    "cpi-final-review-response.json",
+    "cpi-revision-validation.json",
+    "dispatch_7dd24a91b8afec20ed3dc0206f59cb73-readback.json",
+    "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2-readback.json",
+    "final-regressions.junit.xml",
+    "final-run-summary.json",
+    "launch-record.json",
+    "linkedin-activity-observation.json",
+    "midterm-current-media-cause.json",
+    "native-cli-regressions.junit.xml",
+    "native-resume-idempotence.junit.xml",
+    "prepared-return-validation.json",
+    "reader-regressions.junit.xml",
+    "render/discord-desktop.png",
+    "render/discord-mobile.png",
+    "render/facebook_page-desktop.png",
+    "render/facebook_page-mobile.png",
+    "render/instagram_business-desktop.png",
+    "render/instagram_business-mobile.png",
+    "render/linkedin-desktop.png",
+    "render/linkedin-mobile.png",
+    "render/reader.html",
+    "render/social-desktop-1.png",
+    "render/social-desktop-2.png",
+    "render/social-mobile-1.png",
+    "render/social-mobile-2.png",
+    "render/substack-desktop.png",
+    "render/substack-mobile.png",
+    "render/telegram-desktop.png",
+    "render/telegram-mobile.png",
+    "render/threads-desktop.png",
+    "render/threads-mobile.png",
+    "render/workspace.json",
+    "render/x-desktop.png",
+    "render/x-mobile.png",
+    "render/youtube-desktop.png",
+    "render/youtube-mobile.png",
+    "validation.json"
+  ],
+  "public_write_performed": false
+}

@@ -1,0 +1,755 @@
+{
+  "policy": "JIM_CC179_REVIEWED_CPI_DERIVATIVE_MEDIA",
+  "run_id": "cc124-prepare-20261103-a",
+  "article_identity": "e8f9f4ec5cf1fc91133e77d4bb27b45435139db5b121bbf4252c29f75bab1bdd",
+  "canonical_review_reference": {
+    "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a",
+    "request_sha256": "4022e309d5a8983ec3f1c680efff49e2097023a7f94d94f7987971f1a7748f59",
+    "stage": "final-visual-85c6297b122dfcec9c629167bab2d103db5af298ffa126558e5c3edaa964cc97"
+  },
+  "accepted_canonical_revision": "0f1ff051eba02e0d64708183df07e5bd9c8f63291cb0354a6c67ab3476b8fc18",
+  "article": {
+    "article_mode": "DATA_OR_DOCUMENT_LENS",
+    "audience_learning_binding": {
+      "policy_version": "policy_c3e1de30fca9eace0112b384",
+      "preference_only": true,
+      "snapshot_sha256": "cc9fe427fd50057767baf6f98e2e334e684b04b1383f9d1b352ad9daf9da41f0"
+    },
+    "author_identity": "Capital Chronicle",
+    "canonical_editorial_headline": "September CPI: why 0.6% and 3.7% answer different questions",
+    "canonical_slug_candidate": "september-2026-cpi-monthly-annual-retrospective",
+    "dek": "In its October 14 release on September 2026 CPI, the U.S. Bureau of Labor Statistics reported monthly and annual readings with different horizons and adjustment bases.",
+    "display_date": "Written November 2, 2026 (New York) · September CPI retrospective",
+    "entities": [
+      "U.S. Bureau of Labor Statistics",
+      "CPI-U"
+    ],
+    "epistemic_claims": [
+      {
+        "layer": "OBSERVED_FACT",
+        "public_treatment": "ADJACENT_ATTRIBUTION",
+        "source_ids": [
+          "official-release-1bf47be5baa0580dac729e6e799f0b420f5336e5faf81f3c5146ba828a941e82"
+        ],
+        "text": "In September 2026, all-items CPI rose 0.6% and CPI excluding food and energy rose 0.3%, both seasonally adjusted"
+      },
+      {
+        "layer": "OBSERVED_FACT",
+        "public_treatment": "ADJACENT_ATTRIBUTION",
+        "source_ids": [
+          "official-release-1bf47be5baa0580dac729e6e799f0b420f5336e5faf81f3c5146ba828a941e82"
+        ],
+        "text": "Over the twelve months ending September, all-items CPI-U increased 3.7%; CPI-U excluding food and energy increased 2.6%. Those annual figures are not seasonally adjusted."
+      },
+      {
+        "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+        "public_treatment": "SUPPORTED_SYNTHESIS",
+        "source_ids": [
+          "official-release-1bf47be5baa0580dac729e6e799f0b420f5336e5faf81f3c5146ba828a941e82"
+        ],
+        "text": "The difference is clear; its cause and persistence are separate questions."
+      },
+      {
+        "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+        "public_treatment": "SUPPORTED_SYNTHESIS",
+        "source_ids": [
+          "official-release-1bf47be5baa0580dac729e6e799f0b420f5336e5faf81f3c5146ba828a941e82"
+        ],
+        "text": "Monthly and twelve-month readings in the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions."
+      },
+      {
+        "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+        "public_treatment": "SUPPORTED_SYNTHESIS",
+        "source_ids": [
+          "official-release-1bf47be5baa0580dac729e6e799f0b420f5336e5faf81f3c5146ba828a941e82"
+        ],
+        "text": "Within the monthly pair, the all-items rise was larger than the rise excluding food and energy. That comparison establishes a difference between the measures. It does not, by itself, identify a component contribution or show whether either rate was speeding up or slowing down."
+      },
+      {
+        "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+        "public_treatment": "SUPPORTED_SYNTHESIS",
+        "source_ids": [
+          "official-release-1bf47be5baa0580dac729e6e799f0b420f5336e5faf81f3c5146ba828a941e82"
+        ],
+        "text": "The U.S. Bureau of Labor Statistics' September CPI release of October 14, 2026 showed a lower monthly reading excluding food and energy. Giving that narrower measure more weight is an analytical choice, not proof that the all-items increase was temporary. Giving the headline more weight does not establish persistence either."
+      },
+      {
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "public_treatment": "CONDITIONAL",
+        "source_ids": [
+          "official-release-1bf47be5baa0580dac729e6e799f0b420f5336e5faf81f3c5146ba828a941e82"
+        ],
+        "text": "Reading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show? A claim about reception would need dated price evidence; a surprise claim would need a dated expectation. The CPI readings alone cannot supply either conclusion."
+      }
+    ],
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": false,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "CONFIRMED",
+      "event_proposition": "U.S. Bureau of Labor Statistics; retained official release BLS|CPI|2026-09|2026-10-14. CPI all items monthly change: 0.6 percent_change_mom; basis MONTH_ON_MONTH_SEASONALLY_ADJUSTED. CPI less food and energy monthly change: 0.3 percent_change_mom; basis MONTH_ON_MONTH_SEASONALLY_ADJUSTED. CPI-U all items annual change, U.S. city average: 3.7 percent_change; basis TWELVE_MONTH_PUBLISHED_PERCENT_CHANGE_NOT_SEASONALLY_ADJUSTED. CPI-U less food and energy annual change, U.S. city average: 2.6 percent_change; basis TWELVE_MONTH_PUBLISHED_PERCENT_CHANGE_NOT_SEASONALLY_ADJUSTED. Reference period: 2026-09. Retained vintage; not a new release at intake",
+      "event_truth_support_status": "SUPPORTED_PRIMARY",
+      "event_truth_supported": true,
+      "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+      "origin_character": "ON_RECORD",
+      "primary_reporting_publisher": "U.S. Bureau of Labor Statistics",
+      "primary_reporting_source_identity": "U.S. Bureau of Labor Statistics",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "CONFIRMED",
+      "relay_source_identity": null,
+      "report_proposition": "U.S. Bureau of Labor Statistics reports that U.S. Bureau of Labor Statistics; retained official release BLS|CPI|2026-09|2026-10-14. CPI all items monthly change: 0.6 percent_change_mom; basis MONTH_ON_MONTH_SEASONALLY_ADJUSTED. CPI less food and energy monthly change: 0.3 percent_change_mom; basis MONTH_ON_MONTH_SEASONALLY_ADJUSTED. CPI-U all items annual change, U.S. city average: 3.7 percent_change; basis TWELVE_MONTH_PUBLISHED_PERCENT_CHANGE_NOT_SEASONALLY_ADJUSTED. CPI-U less food and energy annual change, U.S. city average: 2.6 percent_change; basis TWELVE_MONTH_PUBLISHED_PERCENT_CHANGE_NOT_SEASONALLY_ADJUSTED. Reference period: 2026-09. Retained vintage; not a new release at intake",
+      "report_truth_support_status": "SUPPORTED_PRIMARY",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "OFFICIAL_PRIMARY",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "official-release-1bf47be5baa0580dac729e6e799f0b420f5336e5faf81f3c5146ba828a941e82"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": true
+    },
+    "evidence_metadata": {
+      "additional_source_requests": 0,
+      "event_release_at_utc": "2026-10-14T12:30:00Z",
+      "frozen_cutoff_utc": "2026-11-02T20:24:15.008803Z",
+      "public_source_url_rule": "cited_sources preserves the exact frozen SOURCE_PACK URL. The dated verification locator is retained separately and does not silently replace the frozen source.",
+      "reference_period": "2026-09",
+      "retained_source_content_sha256": "bcde8783d34281fb03eef80e8626bcc5bb564dad09c5b4926dcc9096ec82259d",
+      "source_capture_observed_at_utc": "2026-11-03T03:31:03.544621+07:00",
+      "source_request_count": 1,
+      "source_request_limit": 10,
+      "source_verification_scope": "Four already-admitted retained numeric facts only. Later retrieval verifies the original release without changing source_pack or cutoff, admitting archive components or drivers, or creating a fresh-news claim.",
+      "verification_receipt_sha256": "15c499521f80e6118f99f05e2ea6dabb1102c989977f3e95d897742da2b82d53",
+      "verified_archive_locator": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+      "writing_clock_observed_at_utc": "2026-11-02T20:42:48Z",
+      "writing_date_america_new_york": "2026-11-02",
+      "writing_date_asia_bangkok": "2026-11-03"
+    },
+    "humor_lines": [],
+    "institutional_edge_editorial_packet_sha256": "e257636ad2a27a1c125b22cfaaf32a831e09a94a0726797a13e5e4d38e9c5294",
+    "internal_link_candidates": [],
+    "meta_description": "September 2026 CPI showed different monthly and annual inflation readings. Read the four figures with their periods and adjustment bases intact.",
+    "news_item_kind": "ANALYSIS",
+    "photo_less_brief_eligible": false,
+    "primary_reader_question": "What did September 2026 CPI show, and why do its monthly and annual readings answer different questions?",
+    "public_source_bindings": [
+      {
+        "published_at_utc": "2026-10-14T12:30:00Z",
+        "publisher": "U.S. Bureau of Labor Statistics",
+        "reader_label": "U.S. Bureau of Labor Statistics · 2026-10-14",
+        "source_id": "SOURCE_1",
+        "url": "https://www.bls.gov/news.release/cpi.htm"
+      }
+    ],
+    "public_write_performed": false,
+    "publisher_identity": "Capital Chronicle",
+    "quote_source_records": [],
+    "reader_attribution_policy": "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1",
+    "reader_first_version": "DATA_JOURNALISM_V1",
+    "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+    "schema_version": "contentops.v1_simple_article_manifest.v1",
+    "search_freshness_class": "EVERGREEN",
+    "search_title": "September 2026 CPI: monthly and annual readings explained",
+    "secondary_reader_questions": [
+      "Which September CPI readings are seasonally adjusted?",
+      "What can the difference between the all-items measure and the measure excluding food and energy establish?",
+      "What further evidence would a claim about release-day market reception need?"
+    ],
+    "seo_title": "September 2026 CPI: monthly and annual readings explained",
+    "slug": "september-2026-cpi-monthly-annual-retrospective",
+    "social_cross_asset_summary": "Reading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show? A claim about reception would need dated price evidence; a surprise claim would need a dated expectation. The CPI readings alone cannot supply either conclusion.",
+    "social_hook": "September CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.",
+    "social_lede": "September CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.",
+    "social_mechanism_summary": "Monthly and twelve-month readings in the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions.",
+    "social_policy_summary": "The U.S. Bureau of Labor Statistics' September CPI release of October 14, 2026 showed a lower monthly reading excluding food and energy. Giving that narrower measure more weight is an analytical choice, not proof that the all-items increase was temporary. Giving the headline more weight does not establish persistence either.",
+    "source_date_notice": "Source date: 2026-10-14. Interpretation remains analysis.",
+    "source_document_ids": [
+      "official-release-1bf47be5baa0580dac729e6e799f0b420f5336e5faf81f3c5146ba828a941e82"
+    ],
+    "story_identity": "simple-story-954ba0aea14777f65c7e95bc",
+    "story_kind": "ANALYSIS",
+    "structured_data_packet": null,
+    "substack_body_markdown": "September 2026's headline CPI rose 0.6% over one month and 3.7% over twelve months, according to the [U.S. Bureau of Labor Statistics release of October 14, 2026](https://www.bls.gov/news.release/archives/cpi_10142026.htm). The monthly figure is seasonally adjusted; the annual figure is not. They describe different horizons. This retrospective puts that release alongside the earlier readings and its component breakdown.\n\n## What the annual history shows\n\nThe dated BLS releases show different paths over the 24-month window. Headline annual inflation was 2.6% in October 2024 and 3.7% in September 2026. Core was 3.3% and 2.6%, respectively. Headline reached 4.2% in May 2026 before the September reading; the path was uneven.\n\nCore excludes food and energy. Its lower annual reading describes that narrower basket. It does not establish how long the pressure in the full basket would last.\n\n## The monthly pace\n\nIn the October 14 release, September's monthly headline increase was 0.6%, following 0.4% in August. Core rose 0.3% in both months. At the published precision, the latest monthly pace increased in headline CPI while core's pace held steady.\n\nThe history charts preserve each month's first reading in its dated BLS release. The monthly chart therefore follows successive release vintages, rather than today's revised seasonally adjusted history. Its breaks preserve the months without published one-month readings.\n\n## What contributed to September's increase\n\nBLS Table 6 supplies the component effects that the headline-core gap alone cannot identify. Energy contributed 0.377 percentage points to the all-items monthly change, core contributed 0.265 points and food contributed 0.006 points. Energy was the largest of these broad contributions, while core also added to the increase.\n\nA component's inflation rate describes how fast prices changed within that basket. Its percentage-point effect describes how much it added to the all-items change. Keeping those measures separate makes the composition of September's increase clearer.\n\n## What the release leaves open\n\nThe component effects explain September's composition; persistence requires evidence beyond one month's breakdown. A surprise claim requires a dated expectation, and a market-reaction claim requires contemporaneous prices. The CPI figures alone establish neither.\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+    "subtitle": "In its October 14 release on September 2026 CPI, the U.S. Bureau of Labor Statistics reported monthly and annual readings with different horizons and adjustment bases.",
+    "title": "September CPI: why 0.6% and 3.7% answer different questions",
+    "topics": [
+      "U.S. inflation",
+      "Consumer prices",
+      "Economic data interpretation"
+    ],
+    "update_chain_identity": "simple-story-954ba0aea14777f65c7e95bc",
+    "visual_editorial_decision": {
+      "channel_media": {
+        "discord": [],
+        "facebook_page": [],
+        "instagram_business": [],
+        "linkedin": [],
+        "telegram": [],
+        "threads": [],
+        "x": [],
+        "youtube": []
+      },
+      "charts": [
+        {
+          "asset_id": "cpi-annual-history-r3",
+          "data_spec": {
+            "alt": "Two lines show first-reported annual CPI-U inflation from October 2024 to September 2026, with a gap at October 2025. Headline starts at 2.6%, reaches 4.2% in May 2026 and ends at 3.7%. Core starts at 3.3% and ends at 2.6%.",
+            "axis_guidance": "Use a shared 0% to 5% scale with restrained gridlines and readable calendar labels. Preserve the actual first-print path, including May 2026 headline 4.2%.",
+            "caption": "U.S. CPI-U, twelve-month change, not seasonally adjusted, October 2024-September 2026. Each point uses its first published reading. October 2025 has no published reading. Source: BLS dated CPI releases.",
+            "chart_id": "cpi_annual_history",
+            "latest_labels": {
+              "Core": "2.6%",
+              "Headline": "3.7%"
+            },
+            "metric": "CPI-U, U.S. city average, twelve-month percentage change",
+            "missing_reference_months": [
+              "2025-10"
+            ],
+            "missingness_rule": "Break both lines at October 2025. Retain November 2025's published annual values, 2.7% headline and 2.6% core. Never bridge the gap.",
+            "observations_per_series": 23,
+            "order": 1,
+            "placement": {
+              "after_paragraph": "The dated BLS releases show different paths over the 24-month window. Headline annual inflation was 2.6% in October 2024 and 3.7% in September 2026. Core was 3.3% and 2.6%, respectively. Headline reached 4.2% in May 2026 before the September reading; the path was uneven.",
+              "section": "What the annual history shows"
+            },
+            "question": "How did the headline and core annual readings move across the 24-month window?",
+            "seasonal_adjustment": "NSA",
+            "series": [
+              "CPI_HEADLINE_YOY",
+              "CPI_CORE_YOY"
+            ],
+            "series_display_names": [
+              "Headline",
+              "Core: excluding food and energy"
+            ],
+            "source_document_ids": [
+              "official-history-6d0daa291d097900bc41f218",
+              "official-history-064cd8192f8acf9c5ef5fe6a"
+            ],
+            "title": "Annual inflation: headline and core diverged",
+            "type": "two-line time series with point markers and direct latest labels",
+            "unit": "percent",
+            "window": [
+              "2024-10",
+              "2026-09"
+            ]
+          },
+          "placement_after": "What the annual history shows",
+          "question": "How did the headline and core annual readings move across the 24-month window?",
+          "why_useful": "How did the headline and core annual readings move across the 24-month window?"
+        },
+        {
+          "asset_id": "cpi-monthly-history-r3",
+          "data_spec": {
+            "alt": "Two lines show first-reported monthly, seasonally adjusted CPI-U changes from October 2024 to September 2026. Both lines break at October and November 2025. September 2026 headline inflation is 0.6%, following 0.4% in August; core is 0.3% in both months.",
+            "axis_guidance": "Use a shared scale containing -0.5% through 1.0%, a visible zero baseline and the same calendar spacing as the annual chart. Clearly plot the June 2026 core zero.",
+            "caption": "U.S. CPI-U, one-month change, seasonally adjusted, October 2024-September 2026. These are first-release vintages. October and November 2025 have no one-month readings; November's release covered two months. Source: BLS dated CPI releases.",
+            "chart_id": "cpi_monthly_history",
+            "latest_labels": {
+              "Core": "0.3%",
+              "Headline": "0.6%"
+            },
+            "metric": "CPI-U, U.S. city average, one-month percentage change",
+            "missing_reference_months": [
+              "2025-10",
+              "2025-11"
+            ],
+            "missingness_rule": "Break both lines across October and November 2025. The December 18, 2025 release reports September-to-November changes of 0.2% for both series; neither is a one-month observation. Do not split, divide or plot those figures as monthly values.",
+            "observations_per_series": 22,
+            "order": 2,
+            "placement": {
+              "after_paragraph": "In the October 14 release, September's monthly headline increase was 0.6%, following 0.4% in August. Core rose 0.3% in both months. At the published precision, the latest monthly pace increased in headline CPI while core's pace held steady.",
+              "section": "The monthly pace"
+            },
+            "question": "How does September's one-month pace compare with the earlier first readings?",
+            "seasonal_adjustment": "SA",
+            "series": [
+              "CPI_HEADLINE_MOM",
+              "CPI_CORE_MOM"
+            ],
+            "series_display_names": [
+              "Headline",
+              "Core: excluding food and energy"
+            ],
+            "source_document_ids": [
+              "official-history-7e3f323984002c820283691b",
+              "official-history-164e29b01080d44f13efe5ff"
+            ],
+            "title": "Monthly inflation: 0.6% headline, 0.3% core",
+            "type": "two-line time series with point markers and direct latest labels",
+            "unit": "percent",
+            "window": [
+              "2024-10",
+              "2026-09"
+            ]
+          },
+          "placement_after": "The monthly pace",
+          "question": "How does September's one-month pace compare with the earlier first readings?",
+          "why_useful": "How does September's one-month pace compare with the earlier first readings?"
+        },
+        {
+          "asset_id": "cpi-september-effects-r2",
+          "data_spec": {
+            "aggregation_rule": "Use the three disjoint broad categories and their BLS-reported effects directly. Do not compute weights times rounded rates, normalize to 0.600, or add gasoline, shelter, core goods or core services alongside their parent categories.",
+            "alt": "Horizontal bars show September 2026 seasonally adjusted effects on all-items monthly CPI-U inflation: energy 0.377 percentage points, core excluding food and energy 0.265 points, and food 0.006 points. Energy has the largest broad contribution.",
+            "axis_guidance": "Use a common zero-based percentage-point axis that includes 0.400. Place exact values outside the bar ends; ensure the small positive food bar remains visible without exaggerating its length. Wrap the long core label cleanly on mobile.",
+            "bars": [
+              {
+                "display_name": "Energy",
+                "label": "0.377 pp",
+                "source_name": "Energy",
+                "value": 0.377
+              },
+              {
+                "display_name": "Core (excluding food and energy)",
+                "label": "0.265 pp",
+                "source_name": "All items less food and energy",
+                "value": 0.265
+              },
+              {
+                "display_name": "Food",
+                "label": "0.006 pp",
+                "source_name": "Food",
+                "value": 0.006
+              }
+            ],
+            "caption": "Reported effects on all-items CPI-U, August-September 2026, seasonally adjusted, in percentage points. The three broad categories do not overlap. Effects retain BLS's three-decimal precision; the headline monthly rate is published as 0.6%. Source: BLS, October 14, 2026 release, Table 6.",
+            "chart_id": "cpi_september_effects",
+            "metric": "BLS Table 6 seasonally adjusted effect on all-items CPI-U, August-September 2026",
+            "order": 3,
+            "period": "2026-09",
+            "placement": {
+              "after_paragraph": "BLS Table 6 supplies the component effects that the headline-core gap alone cannot identify. Energy contributed 0.377 percentage points to the all-items monthly change, core contributed 0.265 points and food contributed 0.006 points. Energy was the largest of these broad contributions, while core also added to the increase.",
+              "section": "What contributed to September's increase"
+            },
+            "precision_rule": "Retain three-decimal reported effects. Their deterministic decimal sum is 0.648 percentage points; the published headline rate is rounded to one decimal, 0.6%. Do not manufacture a residual or total effect row.",
+            "question": "How much did energy, core and food contribute to September's all-items monthly change?",
+            "seasonal_adjustment": "SA",
+            "source_capture_sha256": "b9f981390c08f4a530d839495fce582124015b979bac0398bfcc35ffde0544e4",
+            "source_document_ids": [
+              "official-components-b9f981390c08f4a530d83949"
+            ],
+            "source_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm#cpipress6",
+            "title": "Energy made the largest broad contribution",
+            "type": "three independent horizontal bars from a zero baseline",
+            "unit": "percentage points"
+          },
+          "placement_after": "What contributed to September's increase",
+          "question": "How much did energy, core and food contribute to September's all-items monthly change?",
+          "why_useful": "How much did energy, core and food contribute to September's all-items monthly change?"
+        }
+      ],
+      "contextual_photo_ids": [
+        "cpi-usda-supermarket-archive"
+      ],
+      "editorial_thesis": "The annual history answers the horizon question; the monthly history shows the latest pace in context; the reported effects identify the broad composition of September's monthly increase. Each chart performs a separate explanatory job.",
+      "reader_first_version": "DATA_JOURNALISM_V1",
+      "story_kind": "ANALYSIS"
+    },
+    "volume_policy": {
+      "brief_only": false,
+      "effective_production_date": "2026-10-30",
+      "max_admitted_candidates": 6,
+      "max_articles": 2,
+      "non_chargeable_only": true,
+      "photo_less_news_policy": true,
+      "policy_id": "L1-B-20261029-04",
+      "source_request_limit": 10,
+      "source_resolvability_first": true
+    },
+    "volume_policy_cutoff_utc": "2026-11-02T20:24:15.008803Z"
+  },
+  "plan_hash": "ad144118a61ff4e76a6584f6e42303d96b4611f1de711ef08ef9506b6364309d",
+  "objects": {
+    "substack": {
+      "dispatch_id": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+      "message_id": "outbox_61e1c3551501afee92efad2c69c2b1d1",
+      "platform": "substack",
+      "public_object_id": "223246940",
+      "public_object_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer"
+    },
+    "discord": {
+      "message_id": "outbox_a9b27f630a1668016431a3d96c8f303f",
+      "dispatch_id": "dispatch_a9b27f630a1668016431a3d96c8f303f",
+      "platform": "discord",
+      "public_object_id": "1567217600877039648",
+      "public_object_url": null
+    },
+    "facebook_page": {
+      "message_id": "outbox_acff70bcc90bd0a1846cfdb47ea6bd26",
+      "dispatch_id": "dispatch_acff70bcc90bd0a1846cfdb47ea6bd26",
+      "platform": "facebook_page",
+      "public_object_id": "106091951705748_1443815231270226",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1443815231270226"
+    },
+    "instagram_business": {
+      "message_id": "outbox_d01bbafa38b1b14dba9ee60b7ef9f93b",
+      "dispatch_id": "dispatch_d01bbafa38b1b14dba9ee60b7ef9f93b",
+      "platform": "instagram_business",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    "linkedin": {
+      "message_id": "outbox_7dd24a91b8afec20ed3dc0206f59cb73",
+      "dispatch_id": "dispatch_7dd24a91b8afec20ed3dc0206f59cb73",
+      "platform": "linkedin",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    "telegram": {
+      "message_id": "outbox_7bbccd8674d2f91b218f479f2fcb365b",
+      "dispatch_id": "dispatch_7bbccd8674d2f91b218f479f2fcb365b",
+      "platform": "telegram",
+      "public_object_id": "74",
+      "public_object_url": "https://t.me/CapitalChronicle/74"
+    },
+    "threads": {
+      "message_id": "outbox_f73b4f34a3701c1b63cab1e186e96b02",
+      "dispatch_id": "dispatch_f73b4f34a3701c1b63cab1e186e96b02",
+      "platform": "threads",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    "x": {
+      "message_id": "outbox_b1da9b28bd75180cac137744fd6f5710",
+      "dispatch_id": "dispatch_b1da9b28bd75180cac137744fd6f5710",
+      "platform": "x",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    "youtube": {
+      "message_id": "outbox_f90f612216f7dda5848dcfc5ddd4ad55",
+      "dispatch_id": "dispatch_f90f612216f7dda5848dcfc5ddd4ad55",
+      "platform": "youtube",
+      "public_object_id": null,
+      "public_object_url": null
+    }
+  },
+  "original_intent_sha256": {
+    "discord": "d9da963d16da739613ed3d4578b725c588ba96012b290d983bbb8efd40d2b91a",
+    "facebook_page": "a06514821e42799ffc785a74adf8e72456fd52a15d8192364abbf39f55f4e561",
+    "instagram_business": null,
+    "linkedin": "ee013d23395df77bde5c2a8e4adb374889c67a21e8ce097a91e2484d5f6350ab",
+    "telegram": "b729f7634e2518541f0b4524f0d433db30b291ef008856951e4000500bd3a670",
+    "threads": "41f7f3b9dbf3d21a06e651546da4e6a5ca43f6e518f45e04054e99d9dfb9a6fe",
+    "x": "7c79dc120b3d38a6f37760ef66b578b8537204639da5d27b12a36d91801467c3",
+    "youtube": "f5f5a3a2a991b25d05d2d55deb60072feec58640913622ce525543e6644fcb1a"
+  },
+  "missing_intents": {
+    "instagram_business": {
+      "accepted_evidence_ids": [
+        "official-release-1bf47be5baa0580dac729e6e799f0b420f5336e5faf81f3c5146ba828a941e82"
+      ],
+      "accepted_evidence_sha256": "67a4d1f612104f8f7e6186719bfad18396769210d3a127e94cec43e7d595179d",
+      "article_content_sha256": "18aa76a14325adb3c1c5657a1af7c6671c46fa7dc3f134d7dda8bba6dd8b50b9",
+      "article_identity": "e8f9f4ec5cf1fc91133e77d4bb27b45435139db5b121bbf4252c29f75bab1bdd",
+      "artifact_refs": {
+        "article_manifest": "article_manifest_v1.json",
+        "derivative_intents": "derivative_intents_v1.json",
+        "epistemic_state": "simple_epistemic_state_v1.json",
+        "native_derivative_previews": "native_derivative_previews_v1.json",
+        "qualified_article_record": "qualified_article_record_v1.json"
+      },
+      "attempt_identity": "dispatch_d01bbafa38b1b14dba9ee60b7ef9f93b",
+      "bridge_model_call_count": 0,
+      "bridge_schema_version": "contentops.v1_simple_publication_bridge.v1",
+      "bridge_source_get_count": 0,
+      "callables_persisted": false,
+      "canonical_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+      "compiler_input_sha256": "0109b506bbacb61b8f164dfd2c6e466aae0d5c195e7b0e0e3bfdce9f031e8155",
+      "destination_plan": {
+        "adapter": "instagram_adapter_v6.execute_instagram_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": true,
+        "destination": "instagram_business",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "d85f22b7de67490545ae2c740042783b178673aecaa41332a6c6ff6cd8140662",
+        "payload_hash_kind": "NATIVE_REVIEWED_PAYLOAD",
+        "platform": "instagram_business",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "INSTAGRAM_BUSINESS_POST",
+        "text_only_supported": false,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      "editorial_classification": "QUALIFIED_NATIVE_DESKTOP_ARTICLE",
+      "editorial_features": {},
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "U.S. Bureau of Labor Statistics; retained official release BLS|CPI|2026-09|2026-10-14. CPI all items monthly change: 0.6 percent_change_mom; basis MONTH_ON_MONTH_SEASONALLY_ADJUSTED. CPI less food and energy monthly change: 0.3 percent_change_mom; basis MONTH_ON_MONTH_SEASONALLY_ADJUSTED. CPI-U all items annual change, U.S. city average: 3.7 percent_change; basis TWELVE_MONTH_PUBLISHED_PERCENT_CHANGE_NOT_SEASONALLY_ADJUSTED. CPI-U less food and energy annual change, U.S. city average: 2.6 percent_change; basis TWELVE_MONTH_PUBLISHED_PERCENT_CHANGE_NOT_SEASONALLY_ADJUSTED. Reference period: 2026-09. Retained vintage; not a new release at intake",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Bureau of Labor Statistics",
+        "primary_reporting_source_identity": "U.S. Bureau of Labor Statistics",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Bureau of Labor Statistics reports that U.S. Bureau of Labor Statistics; retained official release BLS|CPI|2026-09|2026-10-14. CPI all items monthly change: 0.6 percent_change_mom; basis MONTH_ON_MONTH_SEASONALLY_ADJUSTED. CPI less food and energy monthly change: 0.3 percent_change_mom; basis MONTH_ON_MONTH_SEASONALLY_ADJUSTED. CPI-U all items annual change, U.S. city average: 3.7 percent_change; basis TWELVE_MONTH_PUBLISHED_PERCENT_CHANGE_NOT_SEASONALLY_ADJUSTED. CPI-U less food and energy annual change, U.S. city average: 2.6 percent_change; basis TWELVE_MONTH_PUBLISHED_PERCENT_CHANGE_NOT_SEASONALLY_ADJUSTED. Reference period: 2026-09. Retained vintage; not a new release at intake",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "official-release-1bf47be5baa0580dac729e6e799f0b420f5336e5faf81f3c5146ba828a941e82"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "full_v1_distribution_required": true,
+      "learning_policy_version": null,
+      "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a\\reviewed-handoff\\ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305",
+      "package_identity": "536ccf3d8877e29245061d171d67c43fcc2fdb1dfd54928ca08b3266dbcfba25",
+      "payload": "September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nWhy it matters: Monthly and twelve-month readings in the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "plan_hash": "ad144118a61ff4e76a6584f6e42303d96b4611f1de711ef08ef9506b6364309d",
+      "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+      "publication_window": {
+        "window_identity": "cc124-prepare-20261103-a"
+      },
+      "quality_probation_policy_id": "QUALITY_PROBATION_FOUR_WINDOW_V1",
+      "required_derivative_destinations": [
+        "telegram",
+        "x",
+        "discord",
+        "linkedin",
+        "facebook_page",
+        "instagram_business",
+        "threads",
+        "youtube"
+      ],
+      "required_publication_destinations": [
+        "substack",
+        "telegram",
+        "x",
+        "discord",
+        "linkedin",
+        "facebook_page",
+        "instagram_business",
+        "threads",
+        "youtube"
+      ],
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "schema_version": "contentops.prewrite_intent.v1",
+      "secrets_persisted": false,
+      "source_provenance_binding_preserved": true,
+      "story_identity": "simple-story-954ba0aea14777f65c7e95bc",
+      "transport_registry_version": "contentops.destination_transport_registry.v3",
+      "update_chain_identity": "simple-story-954ba0aea14777f65c7e95bc",
+      "work_item_id": "cc124-prepare-20261103-a",
+      "native_payload": {
+        "text": "September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nWhy it matters: Monthly and twelve-month readings in the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+        "format": "CAPTION",
+        "platform_limit": 2200,
+        "hard_truncation_used": false,
+        "media_asset_ids": []
+      }
+    }
+  },
+  "channel_media": {
+    "telegram": [],
+    "discord": [],
+    "facebook_page": [],
+    "x": [
+      "cpi-annual-history-r3"
+    ],
+    "linkedin": [
+      "cpi-annual-history-r3"
+    ],
+    "instagram_business": [
+      "cpi-annual-history-r3"
+    ],
+    "threads": [
+      "cpi-monthly-history-r3"
+    ],
+    "youtube": [
+      "cpi-annual-history-r3"
+    ]
+  },
+  "payloads": {
+    "discord": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: September CPI: why 0.6% and 3.7% answer different questions**\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\n**Context:** The U.S. Bureau of Labor Statistics' September CPI release of October 14, 2026 showed a lower monthly reading excluding food and energy. Giving that narrower measure more weight is an analytical choice, not proof that the all-items increase was temporary. Giving the headline more weight does not establish persistence either.\n\nRead the article: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade."
+    },
+    "facebook_page": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 63206,
+      "text": "September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nWhy it matters: Monthly and twelve-month readings in the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade."
+    },
+    "instagram_business": {
+      "text": "September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nWhy it matters: Monthly and twelve-month readings in the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "format": "CAPTION",
+      "platform_limit": 2200,
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "cpi-annual-history-r3"
+      ]
+    },
+    "linkedin": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "cpi-annual-history-r3"
+      ],
+      "platform_limit": 3000,
+      "text": "September CPI: why 0.6% and 3.7% answer different questions\n\nWhy it matters: Monthly and twelve-month readings in the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions.\n\nContext: The U.S. Bureau of Labor Statistics' September CPI release of October 14, 2026 showed a lower monthly reading excluding food and energy. Giving that narrower measure more weight is an analytical choice, not proof that the all-items increase was temporary. Giving the headline more weight does not establish persistence either.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade."
+    },
+    "telegram": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nSeptember CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nWhat to watch: Reading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show? A claim about reception would need dated price evidence; a surprise claim would need a dated expectation. The CPI readings alone cannot supply either conclusion.\n\nFull brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade."
+    },
+    "threads": {
+      "format": "text_brief",
+      "full_text": "September CPI: why 0.6% and 3.7% answer different questions\n\nThe U.S. Bureau of Labor Statistics' September CPI release of October 14, 2026 showed a lower monthly reading excluding food and energy. Giving that narrower measure more weight is an analytical choice, not proof that the all-items increase was temporary. Giving the headline more weight does not establish persistence either.\n\nhttps://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nWhat to watch: Reading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show?\n\nA claim about reception would need dated price evidence; a surprise claim would need a dated expectation.\n\nThe CPI readings alone cannot supply either conclusion.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "cpi-monthly-history-r3"
+      ],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "cpi-monthly-history-r3"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "September CPI: why 0.6% and 3.7% answer different questions\n\nThe U.S. Bureau of Labor Statistics' September CPI release of October 14, 2026 showed a lower monthly reading excluding food and energy. Giving that narrower measure more weight is an analytical choice, not proof that the all-items increase was temporary. Giving the headline more weight does not establish persistence either.\n\nhttps://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: Reading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show?\n\nA claim about reception would need dated price evidence; a surprise claim would need a dated expectation.\n\nThe CPI readings alone cannot supply either conclusion.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.926,
+          0.842
+        ],
+        "post_character_counts": [
+          463,
+          421
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.909,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: Reading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show?\n\nA claim about reception would need dated price evidence; a surprise claim would need a dated expectation.\n\nThe CPI readings alone cannot supply either conclusion.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade."
+      ],
+      "root_text": "September CPI: why 0.6% and 3.7% answer different questions\n\nThe U.S. Bureau of Labor Statistics' September CPI release of October 14, 2026 showed a lower monthly reading excluding food and energy. Giving that narrower measure more weight is an analytical choice, not proof that the all-items increase was temporary. Giving the headline more weight does not establish persistence either.\n\nhttps://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+      "text": "September CPI: why 0.6% and 3.7% answer different questions\n\nThe U.S. Bureau of Labor Statistics' September CPI release of October 14, 2026 showed a lower monthly reading excluding food and energy. Giving that narrower measure more weight is an analytical choice, not proof that the all-items increase was temporary. Giving the headline more weight does not establish persistence either.\n\nhttps://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer"
+    },
+    "x": {
+      "format": "text_brief",
+      "full_text": "September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nhttps://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nWatch: Reading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show?\n\nA claim about reception would need dated price evidence; a surprise claim would need a dated expectation.\n\nThe CPI readings alone cannot supply either conclusion.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "cpi-annual-history-r3"
+      ],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "cpi-annual-history-r3"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nhttps://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Watch: Reading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show?"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 2,
+          "role": "reply",
+          "text": "A claim about reception would need dated price evidence; a surprise claim would need a dated expectation.\n\nThe CPI readings alone cannot supply either conclusion.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.929,
+          0.65,
+          0.818
+        ],
+        "post_character_counts": [
+          260,
+          182,
+          229
+        ],
+        "reply_count": 2,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.7,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Watch: Reading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show?",
+        "A claim about reception would need dated price evidence; a surprise claim would need a dated expectation.\n\nThe CPI readings alone cannot supply either conclusion.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade."
+      ],
+      "root_text": "September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nhttps://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+      "text": "September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nhttps://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer"
+    },
+    "youtube": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "cpi-annual-history-r3"
+      ],
+      "platform_limit": 1000,
+      "text": "Update: September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nWhat to watch: Reading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show? A claim about reception would need dated price evidence; a surprise claim would need a dated expectation. The CPI readings alone cannot supply either conclusion.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade."
+    }
+  },
+  "amendment_writer": {
+    "request_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-179\\resume-20261104-0108\\cpi-amendment-review-request.json",
+    "request_sha256": "ad169a580212c1b5487ad0adc12b8dbb03b61141ed262a0873c090bde3a77137",
+    "response_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-179\\resume-20261104-0108\\cpi-amendment-review-response.json",
+    "response_sha256": "cf38498a84c3494164612423ec7afaf54e718d141c19c38f34980692e839fdda",
+    "invocation_observation": {
+      "surface": "CODEX_EXEC",
+      "invocation_id": "01a1a294-d2fa-7e73-8a46-f9148992b216",
+      "model": null,
+      "reasoning_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "configuration_source": "Observed codex.exe PID 46120 launch arguments; launch-record.json",
+      "actual_configuration_unavailable": true
+    }
+  },
+  "owner_authority_ref": "human:BACKLOG_CC179",
+  "base_result_sha256": "0da7e33fed441d84e40f891e844fe3e0b631f3498dd8a4a8393e914229f39c91",
+  "source_sha256": "453f654eb6cc6995d7dabfefac66f4bfdd2dce56414a86c0bec4ed1c96cbb3a2",
+  "prior_revision": "ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305",
+  "body_before": "In September 2026, all-items CPI rose 0.6% and CPI excluding food and energy rose 0.3%, both seasonally adjusted, according to the [[CITE:SOURCE_1|U.S. Bureau of Labor Statistics release of October 14, 2026]]. The difference is clear; its cause and persistence are separate questions. This is a retrospective of that release. [[SOURCE:SOURCE_1]]\n\n## The September snapshot\n\nOver the twelve months ending September, all-items CPI-U increased 3.7%; CPI-U excluding food and energy increased 2.6%. Those annual figures are not seasonally adjusted. They describe a different horizon from the monthly readings. [[SOURCE:SOURCE_1]]\n\n## Two horizons, two adjustment bases\n\nMonthly and twelve-month readings in the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions. [[SOURCE:SOURCE_1]]\n\nWithin the monthly pair, the all-items rise was larger than the rise excluding food and energy. That comparison establishes a difference between the measures. It does not, by itself, identify a component contribution or show whether either rate was speeding up or slowing down. [[SOURCE:SOURCE_1]]\n\nThe U.S. Bureau of Labor Statistics' September CPI release of October 14, 2026 showed a lower monthly reading excluding food and energy. Giving that narrower measure more weight is an analytical choice, not proof that the all-items increase was temporary. Giving the headline more weight does not establish persistence either. [[SOURCE:SOURCE_1]]\n\n## What these figures leave open\n\nReading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show? A claim about reception would need dated price evidence; a surprise claim would need a dated expectation. The CPI readings alone cannot supply either conclusion. [[SOURCE:SOURCE_1]]\n\nAnalysis, not financial advice. Readers decide whether to trade. [[SOURCE:SOURCE_1]]"
+}

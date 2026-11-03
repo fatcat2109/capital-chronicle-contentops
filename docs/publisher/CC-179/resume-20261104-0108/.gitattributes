@@ -1,0 +1,7 @@
+*.json -text -diff
+*.xml -text -diff
+render/*.png binary
+render/reader.html -text -diff
+render/workspace.json -text -diff
+cpi-derivative-view.json -diff
+cpi-derivative-revision.json -diff
