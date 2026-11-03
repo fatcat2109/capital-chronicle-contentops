@@ -329,6 +329,56 @@ class DurablePublicationCoordinator:
     def _recovery_is_quarantined(self, work_item_id: Any) -> bool:
         return str(work_item_id or "") in self._recovery_quarantined_work_item_ids
 
+    def _dispatch_quarantine(self, dispatch):
+        """Keep an exact unresolved derivative out of automatic sends, not out of history."""
+        if not dispatch or dispatch.get("status") != UNKNOWN_WRITE:
+            return None
+        row = self.store.get_outbox_message("publication-recovery-quarantine-" + dispatch["dispatch_id"])
+        if not row:
+            return None
+        value = json.loads(row["payload"])
+        message = self.store.get_outbox_message(dispatch["message_id"])
+        if not message:
+            return None
+        intent = json.loads(message["payload"])
+        if (value.get("dispatch_id") != dispatch["dispatch_id"]
+                or value.get("intent_sha256") != _hash(_canonical_json(intent))
+                or value.get("work_item_id") != message["work_item_id"]
+                or value.get("destination") != message["destination"]
+                or message["destination"] not in V1_REQUIRED_DERIVATIVE_DESTINATIONS
+                or value.get("authority_ref") != "BACKLOG_CC179_JIM_20261103"
+                or value.get("readback_owed") is not True
+                or not all(value.get(k) for k in ("cause", "next_owner", "next_action", "evidence_ref"))):
+            return None
+        return value
+
+    def quarantine_unresolved_dispatch(self, dispatch_id, *, cause, next_owner, next_action, evidence_ref):
+        """CC-179: isolate one failed readback under the caller's existing newsroom lease.
+
+        No absence, confirmation, retry authority or publication clock is created.
+        Explicit readback remains available and a resolved dispatch leaves quarantine.
+        """
+        dispatch = self.store.get_platform_dispatch(dispatch_id) or {}
+        message = self.store.get_outbox_message(dispatch.get("message_id", ""))
+        if (not message or dispatch.get("status") != UNKNOWN_WRITE
+                or message["destination"] not in V1_REQUIRED_DERIVATIVE_DESTINATIONS
+                or not self.store.list_readbacks_for_dispatch(dispatch_id)
+                or not all(isinstance(v, str) and v.strip() for v in (cause, next_owner, next_action, evidence_ref))):
+            raise ValueError("EXACT_UNRESOLVED_DERIVATIVE_READBACK_REQUIRED")
+        intent = json.loads(message["payload"])
+        if (dispatch_id != self._ids(message["work_item_id"], intent["plan_hash"], message["destination"])["dispatch_id"]
+                or not self._confirmed_canonical_url_for_work_item(message["work_item_id"], plan_hash=intent["plan_hash"])):
+            raise ValueError("QUARANTINE_CONFIRMED_CANONICAL_AND_EXACT_INTENT_REQUIRED")
+        value = {"dispatch_id": dispatch_id, "work_item_id": message["work_item_id"],
+            "destination": message["destination"], "intent_sha256": _hash(_canonical_json(intent)),
+            "authority_ref": "BACKLOG_CC179_JIM_20261103", "cause": cause,
+            "next_owner": next_owner, "next_action": next_action, "evidence_ref": evidence_ref,
+            "readback_owed": True, "public_write_performed": False}
+        self.store.register_outbox_message(message_id="publication-recovery-quarantine-" + dispatch_id,
+            work_item_id=message["work_item_id"], destination="internal:publication-recovery-quarantine",
+            payload=_canonical_json(value), status="EDITORIAL_INTERNAL")
+        return value
+
     def recovery_blocks_new_publication(self, recovery, work_item_id, *, plan, evidence_messages=None):
         """Decision 39 may defer another confirmed article's derivative gaps only.
 
@@ -958,6 +1008,8 @@ class DurablePublicationCoordinator:
         count = 0
         for dispatch in self.store.list_platform_dispatches():
             if str(dispatch.get("status") or "") != UNKNOWN_WRITE:
+                continue
+            if self._dispatch_quarantine(dispatch):
                 continue
             message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
             if message is not None and self._recovery_is_quarantined(
@@ -1606,6 +1658,9 @@ class DurablePublicationCoordinator:
         registration = self._intent_registration(destination, intent)
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
+        if self._dispatch_quarantine(existing):
+            return {"destination": destination, "status": "QUARANTINED_UNKNOWN_WRITE_READBACK_OWED",
+                    "dispatch_id": ids["dispatch_id"], "publish_called": False}
         native_pending_resume = bool(existing and existing.get("status") == NATIVE_NEO_PENDING
             and registration.transport_type == "BROWSEROS_NEO_MCP")
         if native_pending_resume:
@@ -2585,6 +2640,10 @@ class DurablePublicationCoordinator:
                 )
                 continue
             dispatch = dispatch_by_message.get(str(message["message_id"]))
+            quarantine = self._dispatch_quarantine(dispatch)
+            if quarantine:
+                summary.setdefault("quarantined_dispatches", []).append(quarantine)
+                continue
             if dispatch and dispatch.get("status") in OWNER_RETIRED_STATUSES:
                 continue
             if self._defer_prior_distribution_recovery(
@@ -2819,6 +2878,8 @@ class DurablePublicationCoordinator:
             if self._recovery_is_quarantined(intent.get("work_item_id")):
                 continue
             dispatch = refreshed_dispatches.get(str(message["message_id"]))
+            if self._dispatch_quarantine(dispatch):
+                continue
             if dispatch and dispatch.get("status") in OWNER_RETIRED_STATUSES:
                 continue
             destination = str(message["destination"])

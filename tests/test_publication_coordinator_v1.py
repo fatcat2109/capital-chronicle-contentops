@@ -1367,6 +1367,61 @@ def test_unknown_write_is_read_back_even_when_old_and_never_blindly_retried(tmp_
     assert transport.publish_calls == []
 
 
+def _quarantined_derivative_fixture(tmp_path):
+    store, transport, coordinator = _coordinator(tmp_path)
+    _set_mode(store, "AUTONOMOUS_DEFAULT")
+    plan = _plan("substack", "linkedin")
+    coordinator.execute_plan("work-1", plan)
+    ids = coordinator._ids("work-1", plan["plan_hash"], "linkedin")
+    store.set_dispatch_status(ids["dispatch_id"], UNKNOWN_WRITE)
+    store.set_outbox_status(ids["message_id"], UNKNOWN_WRITE)
+    transport.ambiguous = True
+    coordinator.readback_existing_dispatch(ids["dispatch_id"])
+    coordinator.quarantine_unresolved_dispatch(ids["dispatch_id"], cause="READBACK_UNRESOLVED",
+        next_owner="Jim", next_action="Check the exact account activity", evidence_ref="fixture-readback.json")
+    return store, transport, coordinator, ids
+
+
+def test_exact_dispatch_quarantine_survives_restart_and_allows_other_operations(tmp_path):
+    store, transport, coordinator, ids = _quarantined_derivative_fixture(tmp_path)
+    before = store.get_platform_dispatch(ids["dispatch_id"])
+    calls = list(transport.publish_calls)
+    restarted = DurablePublicationCoordinator(store=store, transport_runtime=transport)
+    recovery = restarted.recover_pending()
+    assert recovery["backlog_remaining"] == 0
+    assert recovery["quarantined_dispatches"][0]["readback_owed"] is True
+    assert restarted._active_unknown_write_count() == 0
+    assert store.get_platform_dispatch(ids["dispatch_id"]) == before
+    outcome = restarted._dispatch_message(store.get_outbox_message(ids["message_id"]), canonical_url=None)
+    assert outcome["publish_called"] is False
+    assert outcome["status"] == "QUARANTINED_UNKNOWN_WRITE_READBACK_OWED"
+    transport.ambiguous = False
+    store.create_work_item(story_id="other", title="Other article", target_surface="MULTI_PLATFORM", work_item_id="other")
+    result = restarted.execute_plan("other", _plan("telegram"))
+    assert result["per_destination"]["telegram"]["publish_called"] is True
+    assert transport.publish_calls == calls + ["telegram"]
+    # Explicit readback is still owed and allowed; successful reconciliation ends isolation.
+    restarted.readback_existing_dispatch(ids["dispatch_id"])
+    assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == DISPATCH_CONFIRMED
+    assert restarted._dispatch_quarantine(store.get_platform_dispatch(ids["dispatch_id"])) is None
+
+
+def test_quarantine_does_not_hide_another_unknown_or_allow_canonical_isolation(tmp_path):
+    store, transport, coordinator, ids = _quarantined_derivative_fixture(tmp_path)
+    plan = _plan("discord")
+    other = coordinator.register_plan("work-1", plan)["registered"][0]
+    store.register_platform_dispatch(dispatch_id=other["dispatch_id"], message_id=other["message_id"],
+        platform="discord", status=UNKNOWN_WRITE)
+    store.set_outbox_status(other["message_id"], UNKNOWN_WRITE)
+    assert coordinator._active_unknown_write_count() == 1
+    # Canonical ambiguity cannot be hidden by the derivative-only operation.
+    canonical = next(r for r in store.list_platform_dispatches() if r["platform"] == "substack")
+    store.set_dispatch_status(canonical["dispatch_id"], UNKNOWN_WRITE)
+    with pytest.raises(ValueError, match="EXACT_UNRESOLVED_DERIVATIVE_READBACK_REQUIRED"):
+        coordinator.quarantine_unresolved_dispatch(canonical["dispatch_id"], cause="test", next_owner="Jim",
+            next_action="Read back", evidence_ref="test")
+
+
 def test_new_article_refuses_to_start_while_safe_backlog_remains_after_budget(tmp_path):
     store, transport, coordinator = _coordinator(tmp_path)
     for index in range(20):
