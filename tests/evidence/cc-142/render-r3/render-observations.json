@@ -1,0 +1,30 @@
+[
+  {
+    "render_id": "cc142-substack-desktop-r3",
+    "destination": "substack",
+    "viewport": "desktop",
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r3\\substack-desktop.png",
+    "sha256": "add44fbbb85ccaaa35e07cdd55659c05c782818ac632878f3344ca1777e4f74a",
+    "width": 1265,
+    "height": 4069,
+    "render_source": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r3\\reader.html",
+      "sha256": "7dc7b02b7f962430046ec556f201610feb5aa9d9ef5ce8396bc9c1e08e44bf82"
+    },
+    "method": "BROWSEROS_NEO_BROWSER_RENDERED_LOCAL_EXACT_REVISED_PAYLOAD"
+  },
+  {
+    "render_id": "cc142-substack-mobile-r3",
+    "destination": "substack",
+    "viewport": "mobile",
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r3\\substack-mobile-390.png",
+    "sha256": "eb6d77a3a1c01ee3a8a7fd40fb42997b87d9e29f9ce37ed4ff0a32e9ee4e726a",
+    "width": 390,
+    "height": 3994,
+    "render_source": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r3\\reader.html",
+      "sha256": "7dc7b02b7f962430046ec556f201610feb5aa9d9ef5ce8396bc9c1e08e44bf82"
+    },
+    "method": "BROWSEROS_NEO_BROWSER_RENDERED_LOCAL_EXACT_REVISED_PAYLOAD"
+  }
+]

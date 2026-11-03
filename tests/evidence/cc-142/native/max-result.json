@@ -1,0 +1,177 @@
+{
+  "operation_id": "cc142-cpi-chart-edit-223246940",
+  "assignment_id": "cc142-visual-write-53d4c2bd878e2bfa8b674dfae331dcbd225fc88cb07a37da316f2f1c3b080155",
+  "stage": "visual-edit-and-write",
+  "request_sha256": "53d4c2bd878e2bfa8b674dfae331dcbd225fc88cb07a37da316f2f1c3b080155",
+  "status": "COMPLETED_BOUNDED_WRITING_PENDING_RENDERED_REVIEW",
+  "model_provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "native_invocation_id": null,
+    "native_task_path": "/root/cpi_max_writer",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "limit": "The supported child context identifies this task path but supplies no actual model, effort or invocation telemetry. The parent must bind its supported spawn observation; requested settings are not observed runtime values."
+  },
+  "canonical": {
+    "post_id": "223246940",
+    "url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+    "title": "September CPI: why 0.6% and 3.7% answer different questions",
+    "preserve_post_identity": true,
+    "preserve_title_exactly": true,
+    "revision_kind": "EDITORIAL_REVISION_OF_EXISTING_PUBLISHED_POST",
+    "readback_path": "tests/evidence/cc-142/canonical-before.json",
+    "readback_sha256": "0428ebc12739c9c98f9d9e57985adee664a778459ea5ac2d0e7844b28d46cd3d",
+    "public_action_performed": false
+  },
+  "input_verification": {
+    "request_hash_verified": true,
+    "light_result_path": "tests/evidence/cc-142/native/light-result.json",
+    "light_result_sha256": "29719c1df367e7789e1565bf21dfed08f5a510428568b6e0ee11db94baa84b98",
+    "history_path": "tests/evidence/cc-142/cpi-first-print-history.json",
+    "history_file_sha256": "90372b67b4ccdf058d9a07d3573eba666f3804d41cfc7300c70e81b7384d2bb3",
+    "history_dataset_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+    "source_documents_path": "tests/evidence/cc-142/cpi-chart-source-documents.json",
+    "source_documents_file_sha256": "611e64734f4017c3194b2bd233620f694abfd2aab207a0a6c1b31b6522b7fcb8",
+    "source_projection_content_hashes_verified": 5,
+    "source_projection_series_and_components_equal_history": true,
+    "decompressed_retained_capture_hashes_verified": 23,
+    "cutoff_utc": "2026-10-14T12:30:00Z",
+    "all_source_release_timestamps_within_cutoff": true,
+    "historical_possession_proven": false,
+    "new_source_requests": 0,
+    "rights": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+    "observed_counts": {
+      "CPI_HEADLINE_MOM": 22,
+      "CPI_CORE_MOM": 22,
+      "CPI_HEADLINE_YOY": 23,
+      "CPI_CORE_YOY": 23
+    },
+    "light_preparation_correction": "The retained history has 90 observed values, not 92: November 2025 has a source record but no one-month headline or core value. The two-month figures in its release must never be plotted as monthly observations. Annual November 2025 observations remain valid. No input file was changed."
+  },
+  "visual_decision": {
+    "decision": "THREE_DISTINCT_SOURCE_BOUND_CHARTS",
+    "rationale": "The annual history answers the horizon question; the monthly history shows the latest pace in context; the reported effects identify the broad composition of September's monthly increase. Each chart performs a separate explanatory job.",
+    "data_window": ["2024-10", "2026-09"],
+    "calendar_months": 24,
+    "vintage": "Each observed history point is the first reference-month reading in its own dated BLS release. This is a sequence of release vintages, not the current revised seasonally adjusted series. Later archival retrieval does not prove possession at the event.",
+    "common_render_rules": [
+      "Use only the exact series and component values in the verified history and projections. No interpolation, carry-forward, replacement release, smoothing, annualization or invented precision.",
+      "Use consistent contrasting headline/core colors and labeled line styles across the history charts; do not rely on color alone. Label the last observed points directly.",
+      "Keep monthly and twelve-month changes in separate charts, each with its own explicit unit and seasonal-adjustment label. Use a true calendar axis that preserves missing months.",
+      "Keep genuine numeric zero visible. In the monthly chart, the June 2026 core observation is 0.0%, not a missing value.",
+      "Use legible desktop and mobile labels, adequate plot margins and compact source/context captions. Do not place workflow labels, internal identifiers or a gap-warning banner in the article.",
+      "The article markdown contains no provisional image URLs or public placeholders. Insert the actual rendered assets at the exact placement anchors below, with their accepted captions and alt text."
+    ],
+    "charts": [
+      {
+        "chart_id": "cpi_annual_history",
+        "order": 1,
+        "title": "Annual inflation: headline and core diverged",
+        "question": "How did the headline and core annual readings move across the 24-month window?",
+        "type": "two-line time series with point markers and direct latest labels",
+        "series": ["CPI_HEADLINE_YOY", "CPI_CORE_YOY"],
+        "series_display_names": ["Headline", "Core: excluding food and energy"],
+        "source_document_ids": ["official-history-6d0daa291d097900bc41f218", "official-history-064cd8192f8acf9c5ef5fe6a"],
+        "metric": "CPI-U, U.S. city average, twelve-month percentage change",
+        "unit": "percent",
+        "seasonal_adjustment": "NSA",
+        "window": ["2024-10", "2026-09"],
+        "observations_per_series": 23,
+        "missing_reference_months": ["2025-10"],
+        "missingness_rule": "Break both lines at October 2025. Retain November 2025's published annual values, 2.7% headline and 2.6% core. Never bridge the gap.",
+        "axis_guidance": "Use a shared 0% to 5% scale with restrained gridlines and readable calendar labels. Preserve the actual first-print path, including May 2026 headline 4.2%.",
+        "latest_labels": {"Headline": "3.7%", "Core": "2.6%"},
+        "placement": {
+          "section": "What the annual history shows",
+          "after_paragraph": "The dated BLS releases show different paths over the 24-month window. Headline annual inflation was 2.6% in October 2024 and 3.7% in September 2026. Core was 3.3% and 2.6%, respectively. Headline reached 4.2% in May 2026 before the September reading; the path was uneven."
+        },
+        "caption": "U.S. CPI-U, twelve-month change, not seasonally adjusted, October 2024-September 2026. Each point uses its first published reading. October 2025 has no published reading. Source: BLS dated CPI releases.",
+        "alt": "Two lines show first-reported annual CPI-U inflation from October 2024 to September 2026, with a gap at October 2025. Headline starts at 2.6%, reaches 4.2% in May 2026 and ends at 3.7%. Core starts at 3.3% and ends at 2.6%."
+      },
+      {
+        "chart_id": "cpi_monthly_history",
+        "order": 2,
+        "title": "Monthly inflation: 0.6% headline, 0.3% core",
+        "question": "How does September's one-month pace compare with the earlier first readings?",
+        "type": "two-line time series with point markers and direct latest labels",
+        "series": ["CPI_HEADLINE_MOM", "CPI_CORE_MOM"],
+        "series_display_names": ["Headline", "Core: excluding food and energy"],
+        "source_document_ids": ["official-history-7e3f323984002c820283691b", "official-history-164e29b01080d44f13efe5ff"],
+        "metric": "CPI-U, U.S. city average, one-month percentage change",
+        "unit": "percent",
+        "seasonal_adjustment": "SA",
+        "window": ["2024-10", "2026-09"],
+        "observations_per_series": 22,
+        "missing_reference_months": ["2025-10", "2025-11"],
+        "missingness_rule": "Break both lines across October and November 2025. The December 18, 2025 release reports September-to-November changes of 0.2% for both series; neither is a one-month observation. Do not split, divide or plot those figures as monthly values.",
+        "axis_guidance": "Use a shared scale containing -0.5% through 1.0%, a visible zero baseline and the same calendar spacing as the annual chart. Clearly plot the June 2026 core zero.",
+        "latest_labels": {"Headline": "0.6%", "Core": "0.3%"},
+        "placement": {
+          "section": "The monthly pace",
+          "after_paragraph": "In the October 14 release, September's monthly headline increase was 0.6%, following 0.4% in August. Core rose 0.3% in both months. At the published precision, the latest monthly pace increased in headline CPI while core's pace held steady."
+        },
+        "caption": "U.S. CPI-U, one-month change, seasonally adjusted, October 2024-September 2026. These are first-release vintages. October and November 2025 have no one-month readings; November's release covered two months. Source: BLS dated CPI releases.",
+        "alt": "Two lines show first-reported monthly, seasonally adjusted CPI-U changes from October 2024 to September 2026. Both lines break at October and November 2025. September 2026 headline inflation is 0.6%, following 0.4% in August; core is 0.3% in both months."
+      },
+      {
+        "chart_id": "cpi_september_effects",
+        "order": 3,
+        "title": "Energy made the largest broad contribution",
+        "question": "How much did energy, core and food contribute to September's all-items monthly change?",
+        "type": "three independent horizontal bars from a zero baseline",
+        "source_document_ids": ["official-components-b9f981390c08f4a530d83949"],
+        "source_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm#cpipress6",
+        "source_capture_sha256": "b9f981390c08f4a530d839495fce582124015b979bac0398bfcc35ffde0544e4",
+        "metric": "BLS Table 6 seasonally adjusted effect on all-items CPI-U, August-September 2026",
+        "unit": "percentage points",
+        "seasonal_adjustment": "SA",
+        "period": "2026-09",
+        "bars": [
+          {"source_name": "Energy", "display_name": "Energy", "value": 0.377, "label": "0.377 pp"},
+          {"source_name": "All items less food and energy", "display_name": "Core (excluding food and energy)", "value": 0.265, "label": "0.265 pp"},
+          {"source_name": "Food", "display_name": "Food", "value": 0.006, "label": "0.006 pp"}
+        ],
+        "aggregation_rule": "Use the three disjoint broad categories and their BLS-reported effects directly. Do not compute weights times rounded rates, normalize to 0.600, or add gasoline, shelter, core goods or core services alongside their parent categories.",
+        "precision_rule": "Retain three-decimal reported effects. Their deterministic decimal sum is 0.648 percentage points; the published headline rate is rounded to one decimal, 0.6%. Do not manufacture a residual or total effect row.",
+        "axis_guidance": "Use a common zero-based percentage-point axis that includes 0.400. Place exact values outside the bar ends; ensure the small positive food bar remains visible without exaggerating its length. Wrap the long core label cleanly on mobile.",
+        "placement": {
+          "section": "What contributed to September's increase",
+          "after_paragraph": "BLS Table 6 supplies the component effects that the headline-core gap alone cannot identify. Energy contributed 0.377 percentage points to the all-items monthly change, core contributed 0.265 points and food contributed 0.006 points. Energy was the largest of these broad contributions, while core also added to the increase."
+        },
+        "caption": "Reported effects on all-items CPI-U, August-September 2026, seasonally adjusted, in percentage points. The three broad categories do not overlap. Effects retain BLS's three-decimal precision; the headline monthly rate is published as 0.6%. Source: BLS, October 14, 2026 release, Table 6.",
+        "alt": "Horizontal bars show September 2026 seasonally adjusted effects on all-items monthly CPI-U inflation: energy 0.377 percentage points, core excluding food and energy 0.265 points, and food 0.006 points. Energy has the largest broad contribution."
+      }
+    ],
+    "contextual_image": {
+      "decision": "NO_IMAGE_SELECTED_FROM_SUPPLIED_EVIDENCE",
+      "status": "NOT_PREPARED",
+      "reason": "No verified authentic photo, source/license/date binding or inspected image was supplied. Do not invent image availability or use a synthetic image as factual context. The exact assignment permits this revision to proceed with its charts when an optional photo is missing.",
+      "hold_due_to_missing_optional_photo": false,
+      "if_parent_supplies_an_image": "Return the exact image and its source, creator, license, date, credit, caption and alt binding to this same writer for actual pixel/context review before use. An archive image must be labeled as archive context and must not imply that it depicts September 2026."
+    },
+    "rendered_review": {
+      "status": "PENDING_SAME_WRITER_RENDERED_REVIEW",
+      "pixels_inspected": false,
+      "acceptance_granted": false,
+      "required_next_view": "Exact revised canonical desktop and mobile renders, all three full chart assets, and any affected derivative renders, with article/media/render hashes. Return them to this same writer for inspection and direct repair."
+    }
+  },
+  "revised_article_markdown": "# September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember 2026's headline CPI rose 0.6% over one month and 3.7% over twelve months, according to the [U.S. Bureau of Labor Statistics release of October 14, 2026](https://www.bls.gov/news.release/archives/cpi_10142026.htm). The monthly figure is seasonally adjusted; the annual figure is not. They describe different horizons. This retrospective puts that release alongside the earlier readings and its component breakdown.\n\n## What the annual history shows\n\nThe dated BLS releases show different paths over the 24-month window. Headline annual inflation was 2.6% in October 2024 and 3.7% in September 2026. Core was 3.3% and 2.6%, respectively. Headline reached 4.2% in May 2026 before the September reading; the path was uneven.\n\nCore excludes food and energy. Its lower annual reading describes that narrower basket. It does not establish how long the pressure in the full basket would last.\n\n## The monthly pace\n\nIn the October 14 release, September's monthly headline increase was 0.6%, following 0.4% in August. Core rose 0.3% in both months. At the published precision, the latest monthly pace increased in headline CPI while core's pace held steady.\n\nThe history charts preserve each month's first reading in its dated BLS release. The monthly chart therefore follows successive release vintages, rather than today's revised seasonally adjusted history. Its breaks preserve the months without published one-month readings.\n\n## What contributed to September's increase\n\nBLS Table 6 supplies the component effects that the headline-core gap alone cannot identify. Energy contributed 0.377 percentage points to the all-items monthly change, core contributed 0.265 points and food contributed 0.006 points. Energy was the largest of these broad contributions, while core also added to the increase.\n\nA component's inflation rate describes how fast prices changed within that basket. Its percentage-point effect describes how much it added to the all-items change. Keeping those measures separate makes the composition of September's increase clearer.\n\n## What the release leaves open\n\nThe component effects explain September's composition; persistence requires evidence beyond one month's breakdown. A surprise claim requires a dated expectation, and a market-reaction claim requires contemporaneous prices. The CPI figures alone establish neither.\n\nAnalysis, not financial advice. Readers decide whether to trade.\n",
+  "editorial_findings": [
+    "Preserved the exact published title, post identity, September 2026 retrospective and October 14 source date. Replaced the moving cpi.htm link with the dated BLS archive.",
+    "The revision adds separate annual, monthly and component arguments without treating a lower core reading as proof of transitory headline inflation.",
+    "Used 24 calendar months with real gaps: annual series omit October 2025; monthly series omit October and November 2025. Kept the real June 2026 core zero.",
+    "Used only the reported Food/Energy/Core partition in Table 6. No nested component stacking, weight-times-rounded-rate estimate or invented contribution.",
+    "No consensus, surprise magnitude, market response, policy prediction, position call or after-event observation was introduced.",
+    "No discretionary Sources list, repeated inline source links, internal workflow labels or provisional media placeholder appears in the article. The mandatory financial-advice boundary remains."
+  ],
+  "verification_limits": [
+    "This return completes only the bounded visual decision and prose assignment. No chart or assembled canonical/channel pixels were supplied or inspected; it is not rendered acceptance or publication readiness.",
+    "Source verification used the retained local captures and supplied projections. There was no live source fetch or browser action, and archival retrieval on October 30 does not prove the archive was possessed on October 14.",
+    "No verified contextual photo was supplied. Actual model, effort and invocation telemetry are unobserved in this child context.",
+    "Only max-result.json was saved. No code, input evidence, test, commit, backlog, browser/public object, chat or schedule was changed."
+  ],
+  "next_action": "Parent renders the three specified charts from the exact verified history, inserts the actual assets and captions at the paragraph anchors, and assembles the revised exact-post preview. Continue this same MAX writer with exact desktop/mobile canonical and affected derivative pixels plus revision hashes for review and direct repairs. Do not use this initial return as rendered acceptance."
+}

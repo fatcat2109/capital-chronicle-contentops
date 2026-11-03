@@ -1,0 +1,14 @@
+{
+  "assignment": "Decide three useful chart arguments (24-month headline/core annual NSA and monthly SA histories with missing-month gaps, plus exact Table 6 Food/Energy/Core effects). Specify titles, questions, placements, captions and alt text. Author a concise reviewed revision of the exact existing CPI article in English. Preserve title, retrospective scope, source dates and no trade calls; correct moving source links to the dated BLS archive. No after-event information, invented source, consensus, market reaction or imputed value. Explain that first-release history is vintage-specific, not a current revised SA history. Keep gaps meaningful without a workflow banner. Mandatory Analysis, not financial advice. Readers decide whether to trade. Natural claim attribution, no Sources list. A missing optional photo is no hold. No public action or rendered acceptance yet. Return JSON with visual_decision and revised_article_markdown; remain the same MAX writer for exact rendered review/repair.",
+  "canonical_before": "tests/evidence/cc-142/canonical-before.json",
+  "cutoff_utc": "2026-10-14T12:30:00Z",
+  "history": "tests/evidence/cc-142/cpi-first-print-history.json",
+  "light_result": "tests/evidence/cc-142/native/light-result.json",
+  "light_result_sha256": "29719c1df367e7789e1565bf21dfed08f5a510428568b6e0ee11db94baa84b98",
+  "operation_id": "cc142-cpi-chart-edit-223246940",
+  "post_id": "223246940",
+  "requested_model": "gpt-6.1-sol",
+  "requested_reasoning_effort": "max",
+  "source_documents": "tests/evidence/cc-142/cpi-chart-source-documents.json",
+  "stage": "visual-edit-and-write"
+}
