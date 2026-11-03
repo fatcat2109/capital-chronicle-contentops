@@ -1,0 +1,194 @@
+{
+  "item": "CC-171",
+  "status": "PASS_EVIDENCE_VALIDATION",
+  "validated_at_utc": "2026-11-03T19:40:20.041967+00:00",
+  "checks": {
+    "27_distinct_destinations": true,
+    "3_live_canonical_ids_preserved": true,
+    "10_retained_confirmed_identities": true,
+    "new_public_publish_calls_zero": true,
+    "own_scope_only": true,
+    "x_actual_native_return_hash_matches": true,
+    "x_no_false_absence_claim": true,
+    "youtube_actual_native_return_hash_matches": true,
+    "youtube_no_false_absence_claim": true,
+    ".gitattributes_no_image_payload": true,
+    "canonical-readback.json_no_image_payload": true,
+    "cc074-retro-fomc-20261028-v1-final-status.json_no_image_payload": true,
+    "cc074-retro-fomc-20261028-v1-initial-status.json_no_image_payload": true,
+    "cc074-retro-fomc-20261028-v1-publication-resume.json_no_image_payload": true,
+    "cc107-midterm-preview-20261103-v1-final-status.json_no_image_payload": true,
+    "cc107-midterm-preview-20261103-v1-initial-status.json_no_image_payload": true,
+    "cc107-midterm-preview-20261103-v1-publication-prepare.json_no_image_payload": true,
+    "cc124-prepare-20261103-a-final-status.json_no_image_payload": true,
+    "cc124-prepare-20261103-a-initial-status.json_no_image_payload": true,
+    "cc124-prepare-20261103-a-publication-resume.json_no_image_payload": true,
+    "cpi-threads-after-readback.json_no_image_payload": true,
+    "cpi-x-after-readback.json_no_image_payload": true,
+    "cpi-x-continuation.json_no_image_payload": true,
+    "cpi-x-readback-begin.json_no_image_payload": true,
+    "cpi-x-readback-return.json_no_image_payload": true,
+    "cpi-x-readback-submit.json_no_image_payload": true,
+    "cpi-youtube-after-readback.json_no_image_payload": true,
+    "cpi-youtube-continuation.json_no_image_payload": true,
+    "cpi-youtube-readback-begin.json_no_image_payload": true,
+    "cpi-youtube-readback-return.json_no_image_payload": true,
+    "cpi-youtube-readback-submit.json_no_image_payload": true,
+    "final-run-summary.json_no_image_payload": true,
+    "launch-record.json_no_image_payload": true,
+    "linkedin-loaded-content.json_no_image_payload": true,
+    "neo-social-readback.json_no_image_payload": true,
+    "README.md_no_image_payload": true
+  },
+  "native_outbox_returns": [
+    {
+      "destination": "x",
+      "request_sha256": "57d35d7420302df6e00ece4a0f78daf71b838ef3bd1063f39003a05f3d269a8e",
+      "tool_return_sha256": "e1315fe83e45132817bb352362e05cddb6b51abe7f346307ad247532225f2851"
+    },
+    {
+      "destination": "youtube",
+      "request_sha256": "ebf2e2c754ea547359c44859d18ec43aea3e4118b19d2368b4f43b6fc7e3cb80",
+      "tool_return_sha256": "34f0cc2af7fbdd82cc7f5e184d27ec3167e55659ad4db7af70b03fa92a3bf5fc"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\.gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\canonical-readback.json",
+      "bytes": 4643,
+      "sha256": "f8da950ac2e1eedae52812bc07878de7189922992c6e2e3be2e7b9efbe86d189"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cc074-retro-fomc-20261028-v1-final-status.json",
+      "bytes": 15215,
+      "sha256": "88d80483d2a4ca6c8b3ac45c6cf331bc5bc016e57011eaf4ba5e3fb97ce5e7d0"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cc074-retro-fomc-20261028-v1-initial-status.json",
+      "bytes": 15215,
+      "sha256": "88d80483d2a4ca6c8b3ac45c6cf331bc5bc016e57011eaf4ba5e3fb97ce5e7d0"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cc074-retro-fomc-20261028-v1-publication-resume.json",
+      "bytes": 21603,
+      "sha256": "5029514c5103e3d3c5e48e569cc6ea9cbb7bcc3e1647a7b70946c80bcd9d1a7d"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cc107-midterm-preview-20261103-v1-final-status.json",
+      "bytes": 30404,
+      "sha256": "fa2e568688fcda6f06bbaf3ff6b3dbeb37f0ebe4c8580ff3df30a4133910dcf1"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cc107-midterm-preview-20261103-v1-initial-status.json",
+      "bytes": 30404,
+      "sha256": "fa2e568688fcda6f06bbaf3ff6b3dbeb37f0ebe4c8580ff3df30a4133910dcf1"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cc107-midterm-preview-20261103-v1-publication-prepare.json",
+      "bytes": 161,
+      "sha256": "c58b8d57ed7a09d5baca0b7dc61d9d22fc32e8a350521afe04c67d91b29c4fb0"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cc124-prepare-20261103-a-final-status.json",
+      "bytes": 18580,
+      "sha256": "eb104cb2d201b33c7838d2f3b60a20af3573320cf028dce52b812c4e321a0dbf"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cc124-prepare-20261103-a-initial-status.json",
+      "bytes": 18580,
+      "sha256": "eb104cb2d201b33c7838d2f3b60a20af3573320cf028dce52b812c4e321a0dbf"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cc124-prepare-20261103-a-publication-resume.json",
+      "bytes": 19841,
+      "sha256": "f588209a5701ea4345f6a59b17bd0f26d063623097a4d8414a11643f1e1ade41"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cpi-threads-after-readback.json",
+      "bytes": 19521,
+      "sha256": "84e64b5a37ece462e68a59b1f873e270f50e8177f8aa64d42223164ac69dd3b0"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cpi-x-after-readback.json",
+      "bytes": 19674,
+      "sha256": "6b7771145d99c59b3a54bb647104ecd23f443c5cb90f8510cf3d34b52f066d87"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cpi-x-continuation.json",
+      "bytes": 29226,
+      "sha256": "b98f72b7a065c9c12be59e8f5844689063614159329a0c5d51738181cfcd5108"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cpi-x-readback-begin.json",
+      "bytes": 8726,
+      "sha256": "17caaef9b62bd88c55903a2a0f9ff82fb23c375357068f6d9696df2a4a1926ea"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cpi-x-readback-return.json",
+      "bytes": 3634,
+      "sha256": "e741b45f675df7ba73f572dd5db04cf2964d63cefc0d5b68b5990529232eb439"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cpi-x-readback-submit.json",
+      "bytes": 187,
+      "sha256": "5e3045d411277245c0cccbf067a1143977ba3535f341267b8e8a18b61d95e440"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cpi-youtube-after-readback.json",
+      "bytes": 19680,
+      "sha256": "66015e40a9daa95c3b1d436a75421fc03e765dba497c9bb30ffc897885e638b4"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cpi-youtube-continuation.json",
+      "bytes": 35244,
+      "sha256": "09c6fa2440bbb1a989e5dba07b3dadcb74600f782b2b53cb5cef6e993d3509a5"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cpi-youtube-readback-begin.json",
+      "bytes": 5510,
+      "sha256": "dc5bcd142e27185237e800b7fb76616ddacfda724f8a30e055dbc45b60176df0"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cpi-youtube-readback-return.json",
+      "bytes": 6854,
+      "sha256": "71db5bb7ba35c76231621c755de1a631b80153db99ad87a158240a1de783732d"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\cpi-youtube-readback-submit.json",
+      "bytes": 187,
+      "sha256": "f864a6f4781774b448a3fa1c26ade4ac6e674df2e068bfb321ea95f1733edca5"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\final-run-summary.json",
+      "bytes": 40012,
+      "sha256": "f8e3fac2965155e6e9fe7798ca7d13c66f2c6d8b29e170a2db1d6ba535fb69d7"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\launch-record.json",
+      "bytes": 785,
+      "sha256": "41a87ff0d9346725ae6c206b996caea20d4ae16e00636b205e99cab5716990d9"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\linkedin-loaded-content.json",
+      "bytes": 4445,
+      "sha256": "b3ef118f0b89fb54f42bbeb065ce5f50ab3a43b49eb3774c6a93f2c33b806207"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\neo-social-readback.json",
+      "bytes": 13514,
+      "sha256": "706b9f0382d6034fd736280c9344711e2c0f0150e49f94303e82f921abc52c60"
+    },
+    {
+      "path": "docs\\publisher\\CC-171\\resume-20261104-0224\\README.md",
+      "bytes": 3046,
+      "sha256": "9bbc42d659a7644c7f17c18eca97cf9b5e4e99935e73739d6ae9162794c95be7"
+    }
+  ],
+  "pytest_runs": 0,
+  "validation_limit": "Validates retained identity and actual readback accounting; does not establish missing rights, auth, external object absence, new publication or integration."
+}
