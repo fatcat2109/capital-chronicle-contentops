@@ -91,5 +91,19 @@
     "docs/publisher/EVENT_ARTICLES_V1/templates/event_preview.md": "bb8d36b426806d47c74bdb71f4d8f1e1074dc18259b87dc8c0c62706db40f94b",
     "docs/publisher/EVENT_ARTICLES_V1/templates/event_review.md": "d891fddb71cbce39f7cc3dd85f930fb7209778d1155f27e36f69e66a5b7579d3",
     "live_contentops/event_article_guard_v1.py": "48c8108f908e59dc7ddd064a85b040b0c2ad9a730e20c5e6468c7f175c98a8e4"
+  },
+  "file_sha256_scope": "Working-tree bytes at observation, including Windows line endings.",
+  "committed_file_sha256": {
+    "docs/publisher/EVENT_ARTICLES_V1/README.md": "df08645d3a1d9728dc94ef521b9790f05d824477f0297ea0cafdaf8325d2e818",
+    "docs/publisher/EVENT_ARTICLES_V1/templates/event_preview.md": "4616815f42106a563975be5144bbdadf569086d7c4959369d23a260e12a68806",
+    "docs/publisher/EVENT_ARTICLES_V1/templates/event_review.md": "02cdbed505974bb6c909d12c557e5b8346890b1211233fb069b28f560f72509c",
+    "live_contentops/event_article_guard_v1.py": "8f306e98ccb618b9b5f4ab65444df1c6e7e400761f04eceef7737852417a1f87"
+  },
+  "delivery_readback": {
+    "checked_commit": "4267b77be934a08137cf61b58d642279b2b3b2e1",
+    "remote_head_matched": true,
+    "committed_file_hashes_verified": true,
+    "merged": false,
+    "live_consumer_wiring_changed": false
   }
 }
