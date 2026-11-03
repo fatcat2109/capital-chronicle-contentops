@@ -1,0 +1,85 @@
+{
+  "item": "CC-173",
+  "inventory_observed_at_utc": "2026-11-03T22:31:56.452Z",
+  "inventory_capture_end_utc": "2026-11-03T22:33:02.168Z",
+  "inventory_rechecked_at_utc": "2026-11-03T22:36:41.790Z",
+  "inventory_rechecked_total": 639,
+  "launch": {
+    "pid": 49192,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "observation": "CONFIGURED_NOT_OBSERVED"
+  },
+  "summary": {
+    "total_drafts": 639,
+    "store_referenced": 2,
+    "old_unreferenced": 637,
+    "csv_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\backlog\\cc173-20261104\\substack-drafts.csv",
+    "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "store_reference_ids": [
+      "210796285",
+      "210865567",
+      "210915784",
+      "211677374",
+      "212337344",
+      "213355736",
+      "213459905",
+      "213682262",
+      "213728600",
+      "222368666",
+      "223199520",
+      "223246940",
+      "223293057"
+    ],
+    "missing_created_at": 1,
+    "missing_last_edited_at": 0,
+    "draft_mutations": 0
+  },
+  "artifacts": [
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\backlog\\cc173-20261104\\substack-drafts.csv",
+      "bytes": 55223,
+      "sha256": "99abd79a505d1e5b1b124523317c48c992f87ad5945a5762e802e84cedaeec5b"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\backlog\\cc173-20261104\\draft-batch-000.json",
+      "bytes": 26223,
+      "sha256": "b54e9bc62d4fea33a73d4354f91f58d4789a968804b1f22fedf8fe24b0c7b021"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\backlog\\cc173-20261104\\draft-batch-001.json",
+      "bytes": 26228,
+      "sha256": "9c2a9477ca85b4a9a73ae42e97dd2253211bcc20248a4d3bfdbadd5888a60827"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\backlog\\cc173-20261104\\draft-batch-002.json",
+      "bytes": 26304,
+      "sha256": "8c2e77d84c5a421de56958fabe0bd99b1096e764bc7cdad3a19bb2543de2854e"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\backlog\\cc173-20261104\\draft-batch-003.json",
+      "bytes": 26228,
+      "sha256": "730c1b8f7a46ec2f61d8597223466ee6d21d5f6ec15e256b4e926311dce1b45e"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\backlog\\cc173-20261104\\draft-batch-004.json",
+      "bytes": 29958,
+      "sha256": "1d2038aec9233a0cecce6df96ce7fa05928fbe1cb213b11cfccc570e4350323f"
+    }
+  ],
+  "integration_state": "BUILT_UNMERGED",
+  "operating_root_observed_head": "f7169bc049e48378de83c7032bae30ac855dd9f6",
+  "missing_created_at_draft_ids": [
+    "166444043"
+  ],
+  "capture_method": "BrowserOS Neo read-only same-origin GET of the observed post_management/drafts endpoint, 26 pages, 25 per page, uncapped, constant total, 639 unique ids",
+  "recorded_at_utc": "2026-11-03T22:59:30.272431+00:00",
+  "capture_clock_basis": "BrowserOS Neo tool-output filenames, epoch milliseconds, for first and last batch capture",
+  "tests": {
+    "command": "python -m pytest tests/test_substack_draft_inventory_v1.py tests/test_native_neo_executor_v1.py tests/test_publication_coordinator_v1.py tests/test_native_desktop_publication_v1.py -q --junitxml=docs/publisher/CC-173/targeted-tests.junit.xml",
+    "passed": 119,
+    "failed": 0,
+    "elapsed_seconds": 115.53,
+    "parallel_workers": 0
+  }
+}
