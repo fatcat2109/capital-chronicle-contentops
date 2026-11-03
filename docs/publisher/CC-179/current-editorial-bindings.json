@@ -1,0 +1,62 @@
+[
+  {
+    "observed_at_utc": "2026-11-03T13:38:20.123343+00:00",
+    "run_id": "cc107-midterm-preview-20261103-v1",
+    "current_revision": "cedde3d45a7c5d01be67783617f20afdb39070941f1c924094e61da334a62a89",
+    "review_revision": "3ad7f3d9f7a85ff987baf17d9d4568d930c3b342d862e88bf1c99344a0f408ab",
+    "review_id": "native-article-review-a04565b6578340a2a66241882446edd7",
+    "public_write_performed": false,
+    "base_review_current": false,
+    "base_review_error": "NATIVE_REVIEW_REVISION_CHANGED",
+    "final_visual_current": false,
+    "final_visual_error": "FINAL_VISUAL_ARTIFACT_BYTES_CHANGED",
+    "required_native_actor": "/root/native_visual_edit_76437a71362e",
+    "actor_available_in_this_run": false,
+    "next_owner": "Publisher through the original MAX editorial owner",
+    "next_action": "Re-render the exact current packet and collect the original writer final-visual return; bind KEEP and prepare the same dispatch plan. Original actor is not among the supported live agents in this run; no substitute identity used."
+  },
+  {
+    "observed_at_utc": "2026-11-03T13:38:21.992835+00:00",
+    "run_id": "cc124-prepare-20261103-a",
+    "current_revision": "ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305",
+    "review_revision": "ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305",
+    "review_id": "native-article-review-55476c0419554ad7a8d3d0e936467c72",
+    "public_write_performed": false,
+    "base_review_current": true,
+    "accepted_canonical_revision": "0f1ff051eba02e0d64708183df07e5bd9c8f63291cb0354a6c67ab3476b8fc18",
+    "accepted_assets": [
+      {
+        "asset_id": "cpi-annual-history-r3",
+        "sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc"
+      },
+      {
+        "asset_id": "cpi-monthly-history-r3",
+        "sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6"
+      },
+      {
+        "asset_id": "cpi-september-effects-r2",
+        "sha256": "45af728560c668a3aee17a095ef289cc99b7e1e7cb013caa7e5bd3f39311ba99"
+      },
+      {
+        "asset_id": "cpi-usda-supermarket-archive",
+        "sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d"
+      }
+    ],
+    "canonical_review_scope": [
+      "substack"
+    ],
+    "derivative_render_inspected": false,
+    "channel_media": {
+      "discord": [],
+      "facebook_page": [],
+      "instagram_business": [],
+      "linkedin": [],
+      "telegram": [],
+      "threads": [],
+      "x": [],
+      "youtube": []
+    },
+    "next_owner": "Publisher through the existing MAX amendment owner",
+    "next_action": "Extend the existing reviewed CPI correction to the unfinished social packet with source-bound channel visuals; preserve the already confirmed canonical and frozen original intents."
+  }
+]

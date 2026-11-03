@@ -1,0 +1,16 @@
+{
+  "tool_request_sha256": "d95c868c4532bf6b860a98dd135d67c52543ce57f05b187fdf9ebfff0985231d",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a18d-2509-7911-9c8e-90a4a8e11593",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Actual Neo page 133 read after exact request begin; own-channel controls and stable channel links observed; no public write. docs/publisher/CC-179/youtube-identity-observation.json.",
+    "observed_at_utc": "2026-11-03T13:37:13.899Z"
+  },
+  "result": {
+    "request_sha256": "14d570b24408e711f014fabb75b134f39bd53905764beb70ed9e60d168ce90d6",
+    "authenticated": true,
+    "observed_identity": "@CapitalChronicleYouTube",
+    "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA"
+  }
+}
