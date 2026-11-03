@@ -1,0 +1,17 @@
+{
+  "native_editor_check_sha256": "77711f2a4b0bfb8d1c58961e29c80b70886a89b8b2439cb923fa12f2ad949c2f",
+  "native_writer": "/root/native_visual_edit_f82b595905d3",
+  "review": {
+    "review_id": "native-article-review-46eedfdfeb9d4b9f84b0a3a29135569d",
+    "decision": "KEEP",
+    "schema_version": "contentops.native_article_review.v1",
+    "run_id": "cc124-next-article-20261103-b",
+    "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+    "package_revision": "5692377ae23398763a31865c1f5892fd0b079d6bb12846ae0b5e225a13a11ba3",
+    "article_metadata_sha256": "8e73a108676db265fc07af2fd51af2ac9327ed0e5a9ed9257c042f104d8ee073",
+    "rationale": "KEEP as a concise upcoming-event NEWS preview. It gives readers the SEC's announced date, time, venue and public-access route, explains the stated use/risks/costs discussion, and supplies concrete watch questions without inventing agenda sessions, SI capabilities or a policy outcome. The October 19 source date is distinct from the November 9 event. The countercase and uncertainty remain clear. The seven compatible derivative packages preserve that meaning; Instagram has an explicit destination-local non-send. The same exact source-bound facts card passed my earlier pre-writer pixel inspection. No material factual, rights, attribution or private-data issue was found.",
+    "publication_authority": false,
+    "text_revision_sha256": "7de851b001c7e0daa2cecd16cbfe19323912d696009d11194e1726257d3b8f7a",
+    "text_approved_at_utc": "2026-11-03T16:38:46.874923+00:00"
+  }
+}

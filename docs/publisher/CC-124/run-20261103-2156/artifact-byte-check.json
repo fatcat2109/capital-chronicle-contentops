@@ -1,0 +1,8 @@
+{
+  "observed_at_utc": "2026-11-03T16:36:43.533920+00:00",
+  "git_working_byte_mismatches": [
+    "docs/publisher/CC-124/run-20261103-2156/article-draft.md"
+  ],
+  "image_bytes_base64_printed": false,
+  "screenshots_committed_as_base64": false
+}

@@ -140,9 +140,10 @@ def test_standing_binding_is_live_resumable_and_refuses_a_second_pending_operati
     profile = {"schema_version": "contentops.native_desktop_operator_profile.v1"}
     request = "Select one useful admitted article, then use the existing publisher and readback."
     path, binding = standing_binding(profile, rollout, operation_id="controlled-standing",
-        resolver=resolve_owner_operation, request=request)
+        resolver=resolve_owner_operation, request=request, report_only=True)
     assert binding["standing_operation"] and binding["owner_manual_live"]
     assert binding["owner_manual_validation"] is False
+    assert Path(binding["rolling_input_path"]).name == "native_desktop_report_only_input_v1.json"
     assert binding["store_path"] == str(target.db_path)
     assert standing_binding(profile, rollout, operation_id=binding["run_id"], resolver=resolve_owner_operation)[0] == path
     target.create_work_item(story_id="controlled", work_item_id="controlled", title="controlled", target_surface="TEST")

@@ -1,0 +1,89 @@
+{
+  "policy_application": {
+    "policy": "JIM_DECISION_53",
+    "run_id": "cc124-next-article-20261103-b",
+    "base_result_sha256": "12032f78d601aa10545d2158cdf5f77f6baaa144233c1602a40794866b34db22",
+    "article_metadata_sha256": "8e73a108676db265fc07af2fd51af2ac9327ed0e5a9ed9257c042f104d8ee073",
+    "text_revision_sha256": "7de851b001c7e0daa2cecd16cbfe19323912d696009d11194e1726257d3b8f7a",
+    "original_approval_clock_utc": "2026-11-03T16:38:46.874923+00:00",
+    "source_sha256": "59b9cbffc1a626c17ab7688d5c22f1e927bf1af58950b02d2d8f5e0ceaf22ce8",
+    "native_writer_response_sha256": "99928827a7258d5f5b41bb1d5b57499ac53d9be384b9da513cd97a946235ed07",
+    "public_write_performed": false
+  },
+  "review": {
+    "review_id": "native-article-review-c0faad47e3974ab6a02aadc40f4fbbd0",
+    "decision": "KEEP",
+    "schema_version": "contentops.native_article_review.v1",
+    "run_id": "cc124-next-article-20261103-b",
+    "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+    "package_revision": "5692377ae23398763a31865c1f5892fd0b079d6bb12846ae0b5e225a13a11ba3",
+    "article_metadata_sha256": "8e73a108676db265fc07af2fd51af2ac9327ed0e5a9ed9257c042f104d8ee073",
+    "rationale": "KEEP as a concise upcoming-event NEWS preview. It gives readers the SEC's announced date, time, venue and public-access route, explains the stated use/risks/costs discussion, and supplies concrete watch questions without inventing agenda sessions, SI capabilities or a policy outcome. The October 19 source date is distinct from the November 9 event. The countercase and uncertainty remain clear. The seven compatible derivative packages preserve that meaning; Instagram has an explicit destination-local non-send. The same exact source-bound facts card passed my earlier pre-writer pixel inspection. No material factual, rights, attribution or private-data issue was found. Current decision 53 applies to this exact same short event preview; this machine policy binding adds no editor check or new factual/visual claim and preserves its first text approval clock.",
+    "publication_authority": false,
+    "text_revision_sha256": "7de851b001c7e0daa2cecd16cbfe19323912d696009d11194e1726257d3b8f7a",
+    "text_approved_at_utc": "2026-11-03T16:38:46.874923+00:00",
+    "publication_speed_policy": {
+      "policy": "JIM_DECISION_53",
+      "target_minutes": 15
+    },
+    "automated_media_check": {
+      "policy": "JIM_DECISION_53",
+      "check": "IMAGE_LOAD_AND_SIZE_ONCE",
+      "findings": [
+        {
+          "asset_id": "sec-si-roundtable-event-facts-20261109",
+          "sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+          "pixels_inspected": false,
+          "loads": true,
+          "width": 1600,
+          "height": 900,
+          "expected_dimensions": [
+            1600,
+            900
+          ],
+          "right_size": true,
+          "status": "PASS"
+        }
+      ],
+      "failures_logged_no_repair_loop": 0,
+      "blocks_publication": false
+    },
+    "next_operation": "publication-prepare",
+    "publication_priority": "DISPATCH_NOW_WITHIN_15_MINUTES"
+  },
+  "packet": {
+    "classification": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+    "schema_version": "contentops.native_publication_binding.v1",
+    "run_id": "cc124-next-article-20261103-b",
+    "work_item_id": "cc124-next-article-20261103-b",
+    "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+    "review_id": "native-article-review-c0faad47e3974ab6a02aadc40f4fbbd0",
+    "review_notes_sha256": "ada14ce3a65397c3e71de7d95169a29f163473a33328138758ecd52e24553d5b",
+    "prepared_handoff_sha256": "7459edbd84fbc7f4f10c3e7f7dac8c080f1f0b2994f9bc10c143fdbda07a7329",
+    "plan_hash": "f86187c2098e35bb0bf1ec9000fd41c6e0d23f6676c8b11be71099cf68bd6426",
+    "binding_sha256": "0a7e3b7238be1f798e8c3ba4e7a2694b178fae775abd8c408d3e32ffd739bedf",
+    "accepted_evidence_sha256": "b937d577ab7182a8b9fdb9f7d145b206c6675c1ab2b3e64b7925766169c0026a",
+    "native_result_sha256": "12032f78d601aa10545d2158cdf5f77f6baaa144233c1602a40794866b34db22",
+    "artifact_sha256": {
+      "article_manifest_v1.json": "8e73a108676db265fc07af2fd51af2ac9327ed0e5a9ed9257c042f104d8ee073",
+      "qualified_article_record_v1.json": "3ca584a6513979254989fdde42bdd32c57a59664c24fa6232192b569a1796d90",
+      "native_derivative_previews_v1.json": "96e24dcd92c45cdcb80d60c46c4a3e3a5e55f51932e823f2f24a97abb7347aa7",
+      "publication_lifecycle_plan_v1.json": "c0610e3a543d3a17ad970ecdf161ff44a3998bcd41f5674bb4408fd90f9078b0",
+      "run_context_v1.json": "26c4233ced1207b782e7cc6d552f9bf7c62a093eeb8f2c62439a94d12cce4dd4"
+    },
+    "media_sha256": {
+      "sec-si-roundtable-event-facts-20261109": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe"
+    },
+    "skipped_derivative_destinations": [
+      {
+        "destination": "instagram_business",
+        "disposition": "SKIPPED_IMAGE_REQUIRED",
+        "reason": "Instagram requires an admitted image; other destinations can proceed.",
+        "status": "SKIPPED_IMAGE_REQUIRED"
+      }
+    ],
+    "publication_authority": false,
+    "next_operation": "publication-status",
+    "public_write_performed": false
+  }
+}

@@ -352,6 +352,13 @@ class DurablePublicationCoordinator:
             return None
         return value
 
+    def editorial_recovery_dispatch_ids(self):
+        """Read-only entry guard; exact quarantines retain their readback obligation."""
+        return [dispatch["dispatch_id"] for dispatch in self.store.list_platform_dispatches()
+                if any(status in str(dispatch.get("status", "")).upper()
+                       for status in ("UNKNOWN", "AMBIGUOUS", "STARTED", "PENDING"))
+                and not self._dispatch_quarantine(dispatch)]
+
     def quarantine_unresolved_dispatch(self, dispatch_id, *, cause, next_owner, next_action, evidence_ref):
         """CC-179: isolate one failed readback under the caller's existing newsroom lease.
 
@@ -2574,7 +2581,13 @@ class DurablePublicationCoordinator:
     def _confirmed_canonical_url_for_work_item(
         self, work_item_id: str, *, plan_hash: str | None = None
     ) -> Optional[str]:
-        for message in self.store.list_outbox_messages():
+        # Recovery asks this for many intents. Read only this article's canonical
+        # rows; repeatedly loading all retained editorial/media history is unrelated.
+        with self.store.get_read_only_connection() as conn:
+            messages = [dict(row) for row in conn.execute(
+                "SELECT * FROM outbox_messages WHERE work_item_id=? AND destination=? "
+                "ORDER BY created_at,message_id", (work_item_id, "substack"))]
+        for message in messages:
             if str(message.get("work_item_id") or "") != work_item_id or str(
                 message.get("destination") or ""
             ) != "substack":

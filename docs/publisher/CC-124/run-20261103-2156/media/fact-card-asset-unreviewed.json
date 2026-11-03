@@ -1,0 +1,64 @@
+{
+  "asset_id": "sec-si-roundtable-event-facts-20261109",
+  "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\media\\sec-si-roundtable-event-facts-20261109.png",
+  "sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+  "width": 1600,
+  "height": 900,
+  "modality": "source_backed_chart",
+  "media_role": "editorial_data_journalism",
+  "visual_type": "SOURCE_FACTS_CARD",
+  "fact_card_packet": {
+    "schema_version": "contentops.source_fact_card.v1",
+    "title": "SEC roundtable: November 9",
+    "question": "When is the announced roundtable, how can readers follow it, and what is its stated subject?",
+    "source_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+    "source_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+    "rows": [
+      {
+        "label": "Scheduled date",
+        "value": "November 9, 2026",
+        "support_excerpt": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs."
+      },
+      {
+        "label": "Overall time",
+        "value": "9 a.m. to 3:30 p.m. EST",
+        "support_excerpt": "from 9 a.m. to 3:30 p.m. EST."
+      },
+      {
+        "label": "Location",
+        "value": "100 F Street, N.E., Washington, D.C.",
+        "support_excerpt": "100 F Street, N.E., Washington, D.C."
+      },
+      {
+        "label": "Webcast",
+        "value": "The discussion will be streamed live on SEC.gov",
+        "support_excerpt": "The discussion will be streamed live on SEC.gov, and a recording will be available at a later date."
+      },
+      {
+        "label": "Subject",
+        "value": "machine-understandable data and Super Intelligence (SI)",
+        "support_excerpt": "to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs."
+      }
+    ]
+  },
+  "editorial_data_packet": {
+    "question": "When is the announced roundtable, how can readers follow it, and what is its stated subject?"
+  },
+  "transform_sha256": "762d14f6bbd8b431afc45ae6b879c2226922aa8185fd6757ad1b7b7668bdc9b2",
+  "placement_after": "What the SEC has announced",
+  "caption": "The SEC's October 19 announcement schedules a public roundtable for November 9. The stated discussion concerns machine-understandable data, Super Intelligence and associated risks and costs.",
+  "alt_text": "SEC roundtable facts: November 9, 2026, 9 a.m. to 3:30 p.m. EST, at SEC headquarters in Washington, D.C., with public access and a live stream on SEC.gov. The announced topic is machine-understandable data, Super Intelligence, and related risks and costs.",
+  "source_page_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+  "source_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+  "source_label": "U.S. Securities and Exchange Commission",
+  "source_lineage": [
+    {
+      "source_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+      "document_id": "cc124-sec-announcement-context"
+    }
+  ],
+  "underlying_source_rights_status": "public_domain",
+  "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+  "source_reuse_basis": "Exact admitted agency-authored public-domain text; original facts-card layout",
+  "quantitative_chart": false
+}

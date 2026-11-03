@@ -2136,7 +2136,7 @@ def _native_preview_bundle(
     for destination, payload in payloads.items():
         if payload.get("delivery_state") == "SKIPPED_PHOTOLESS_NEWS_POLICY":
             continue
-        if (destination == "instagram_business" and not media_assets and not media_asset_ids
+        if (destination == "instagram_business" and not payload.get("media_asset_ids")
                 and payload.get("delivery_state") == "SKIPPED_IMAGE_REQUIRED"):
             continue  # A destination-local non-send has no reader copy to carry attribution.
         if destination in text_skips and payload.get("delivery_state") == text_skips[destination]:

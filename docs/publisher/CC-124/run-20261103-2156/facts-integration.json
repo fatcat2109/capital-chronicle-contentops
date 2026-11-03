@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-11-03T15:36:11.161721+00:00",
+  "previous_live_head": "0c70c6b8868dc3d9b8d768681118408d3c420330",
+  "integrated_head": "2670f911481cdd02c153c5848172f6dfcd15774a",
+  "tag": "contentops-live-20261103-cc124-facts",
+  "rollback_commit": "0c70c6b8868dc3d9b8d768681118408d3c420330",
+  "active_leases": [],
+  "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+  "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+  "tracked_wip_preserved": true,
+  "mode": "FAST_FORWARD_ONLY",
+  "live_consumer": "native editorial media binding imports updated canonical renderer and validator; fresh CLI only; no service restart"
+}

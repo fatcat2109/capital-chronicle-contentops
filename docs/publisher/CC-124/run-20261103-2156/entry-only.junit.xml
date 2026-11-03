@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="8" time="8.983" timestamp="2026-11-03T22:06:17.785122+07:00" hostname="J-P"><testcase classname="tests.test_standing_editorial_entry_recovery_v1" name="test_exact_quarantine_reaches_report_only_selection_and_preserves_binding" time="1.154" /><testcase classname="tests.test_standing_editorial_entry_recovery_v1" name="test_invalid_or_inapplicable_quarantine_still_blocks_before_any_feed[changed_intent]" time="0.879" /><testcase classname="tests.test_standing_editorial_entry_recovery_v1" name="test_invalid_or_inapplicable_quarantine_still_blocks_before_any_feed[changed_authority]" time="0.908" /><testcase classname="tests.test_standing_editorial_entry_recovery_v1" name="test_invalid_or_inapplicable_quarantine_still_blocks_before_any_feed[readback_not_owed]" time="0.846" /><testcase classname="tests.test_standing_editorial_entry_recovery_v1" name="test_invalid_or_inapplicable_quarantine_still_blocks_before_any_feed[ATTEMPT_STARTED]" time="0.919" /><testcase classname="tests.test_standing_editorial_entry_recovery_v1" name="test_invalid_or_inapplicable_quarantine_still_blocks_before_any_feed[PENDING]" time="0.826" /><testcase classname="tests.test_standing_editorial_entry_recovery_v1" name="test_invalid_or_inapplicable_quarantine_still_blocks_before_any_feed[AMBIGUOUS]" time="0.846" /><testcase classname="tests.test_standing_editorial_entry_recovery_v1" name="test_report_only_refuses_existing_frozen_x_without_rewriting_it" time="0.890"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'REPORT_ONLY_FROZEN_OR_BOUND_INPUT_CONFLICT'&#10;  Actual message: 'Conflicting recreation'">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-31791/test_report_only_refuses_exist0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000229FC465F40&gt;
+
+    def test_report_only_refuses_existing_frozen_x_without_rewriting_it(tmp_path, monkeypatch):
+        store, _, _, _ = _quarantined_derivative_fixture(tmp_path)
+        module = entry()
+        path, binding = isolated_binding(module, tmp_path, store)
+        original = path.read_bytes()
+        work = "cc-opportunity-" + sha256_of(binding["run_id"])
+        store.create_work_item(story_id=work, work_item_id=work, title="Fixture", target_surface="TEST")
+        key = "native-current-input-" + sha256_of(binding["run_id"])
+        frozen = canonical_bytes({"rolling_input": {"headlines": [{"id": "existing-x"}]}}).decode()
+        store.register_outbox_message(message_id=key, work_item_id=work,
+            destination="internal:native-current-input", status="EDITORIAL_INTERNAL", payload=frozen)
+        monkeypatch.setattr(module, "load_canonical_published_memory_read_only", lambda **kwargs: ([], {}))
+        monkeypatch.setattr(module, "MainReportFeed", lambda *a, **kw: pytest.fail("feed must not run"))
+        with pytest.raises(ValueError, match="REPORT_ONLY_FROZEN_OR_BOUND_INPUT_CONFLICT"):
+&gt;           module.operation(binding, report_only=True)
+
+tests\test_standing_editorial_entry_recovery_v1.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\run_native_desktop_editorial.py:497: in operation
+    result = _operation(binding, operation_lease=lease, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\run_native_desktop_editorial.py:215: in _operation
+    store.create_work_item(story_id=work, title=previous_work["title"] if previous_work else "Main-enriched newsroom opportunity",
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x00000229FC2BDDD0&gt;
+
+    def create_work_item(self, *, story_id: str, title: str, target_surface: str, work_item_id: Optional[str] = None,
+                         actor_ref: str = "producer_ref", correlation_id: Optional[str] = None,
+                         input_artifact_ids: Optional[List[str]] = None) -&gt; Dict[str, Any]:
+        now = self._get_now_iso(); item_id = work_item_id or f"wi_{compute_sha256(story_id+title+now)[:16]}"; ids = input_artifact_ids or []
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            existing = conn.execute("SELECT * FROM work_items WHERE work_item_id=?", (item_id,)).fetchone()
+            if existing:
+&gt;               if (existing["story_id"], existing["title"], existing["target_surface"]) != (story_id, title, target_surface): raise ValueError("Conflicting recreation")
+                                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               ValueError: Conflicting recreation
+
+live_contentops\durable_operational_store_v1.py:853: ValueError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-31791/test_report_only_refuses_exist0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000229FC465F40&gt;
+
+    def test_report_only_refuses_existing_frozen_x_without_rewriting_it(tmp_path, monkeypatch):
+        store, _, _, _ = _quarantined_derivative_fixture(tmp_path)
+        module = entry()
+        path, binding = isolated_binding(module, tmp_path, store)
+        original = path.read_bytes()
+        work = "cc-opportunity-" + sha256_of(binding["run_id"])
+        store.create_work_item(story_id=work, work_item_id=work, title="Fixture", target_surface="TEST")
+        key = "native-current-input-" + sha256_of(binding["run_id"])
+        frozen = canonical_bytes({"rolling_input": {"headlines": [{"id": "existing-x"}]}}).decode()
+        store.register_outbox_message(message_id=key, work_item_id=work,
+            destination="internal:native-current-input", status="EDITORIAL_INTERNAL", payload=frozen)
+        monkeypatch.setattr(module, "load_canonical_published_memory_read_only", lambda **kwargs: ([], {}))
+        monkeypatch.setattr(module, "MainReportFeed", lambda *a, **kw: pytest.fail("feed must not run"))
+&gt;       with pytest.raises(ValueError, match="REPORT_ONLY_FROZEN_OR_BOUND_INPUT_CONFLICT"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'REPORT_ONLY_FROZEN_OR_BOUND_INPUT_CONFLICT'
+E         Actual message: 'Conflicting recreation'
+
+tests\test_standing_editorial_entry_recovery_v1.py:106: AssertionError</failure></testcase></testsuite></testsuites>

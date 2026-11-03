@@ -1,0 +1,70 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-03T14:15:26.632422+00:00",
+  "result": "BLOCKED_RECOVERY_REQUIRED",
+  "standing_status": "OPEN",
+  "new_published_articles": 0,
+  "new_model_invocations": 0,
+  "new_source_requests_in_operation": 0,
+  "operation_id": "cc124-next-article-20261103-b",
+  "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\binding.json",
+  "binding_sha256": "0a7e3b7238be1f798e8c3ba4e7a2694b178fae775abd8c408d3e32ffd739bedf",
+  "retained_cli_result": {
+    "classification": "RECOVERY_REQUIRED",
+    "dispatch_ids": [
+      "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2"
+    ],
+    "next_operation": "Existing DurablePublicationCoordinator readback/reconciliation; do not retry publishing",
+    "public_write_performed": false
+  },
+  "retained_cli_result_evidence": "A:/Capital Chronicle/ResearchRuns/claude-ops-integrations/codex-exec/publisher-cc-124-20261103T1402/stderr.txt",
+  "dispatch_status": "UNKNOWN_WRITE",
+  "coordinator_validates_exact_quarantine": true,
+  "quarantine": {
+    "authority_ref": "BACKLOG_CC179_JIM_20261103",
+    "cause": "RECONCILIATION_PENDING: official member API has no public identity; loaded Neo own activity shows only the older oil post, which is not an exact-attempt absence proof",
+    "destination": "linkedin",
+    "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+    "evidence_ref": "docs/publisher/CC-179/linkedin-personal-readback.json; docs/publisher/CC-179/linkedin-company-readback.json",
+    "intent_sha256": "9bcf9979c6d9c4334c0a493dbbf14613696200c6b80c98e8c5c35e456a385c8d",
+    "next_action": "Check JimCC personal activity and Capital Chronicle company page for the FOMC copy; provide its exact URL or confirm absence before Publisher reconciles or retries",
+    "next_owner": "Jim",
+    "public_write_performed": false,
+    "readback_owed": true,
+    "work_item_id": "cc074-retro-fomc-20261028-v1"
+  },
+  "entry_guard_path": "A:\\Capital Chronicle\\ContentOps\\scripts\\run_native_desktop_editorial.py",
+  "entry_guard_source_sha256": "1fdd1033a447bbbe0967211a0691fd1129484ade90a35673202a142004897c75",
+  "entry_guard_lines": {
+    "start": 403,
+    "end": 409,
+    "text": [
+      "    # Recover through the existing coordinator BEFORE another semantic/public intent.",
+      "    ambiguous = [d[\"dispatch_id\"] for d in store.list_platform_dispatches()",
+      "                 if any(s in str(d.get(\"status\", \"\")).upper() for s in (\"UNKNOWN\", \"AMBIGUOUS\", \"STARTED\", \"PENDING\"))]",
+      "    if ambiguous:",
+      "        return {\"classification\": \"RECOVERY_REQUIRED\", \"dispatch_ids\": ambiguous,",
+      "                \"next_operation\": \"Existing DurablePublicationCoordinator readback/reconciliation; do not retry publishing\",",
+      "                \"public_write_performed\": False}"
+    ]
+  },
+  "second_observed_defect": "standing accepts --report-only but does not pass report_only to its resolver; saved binding has no rolling_input_path. No input freeze or X role occurred before the recovery guard.",
+  "operation_outbox_rows": [
+    {
+      "message_id": "native-operation-binding-1df94cca7073af40c6dc6fc6f38b7cc33fb155219f4d489732e660b7a356d0e6",
+      "destination": "internal:native-desktop-editorial",
+      "payload_bytes": 4438
+    }
+  ],
+  "unexpired_leases": [],
+  "runtime_source": "5a60db1a80f2dcc2345d04bc07636a3784371a30",
+  "configured_resume": {
+    "pid": 35068,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "provenance": "CONFIGURED_NOT_OBSERVED"
+  },
+  "scope_limit": "No CC-179 rights-filter/integration work, no confirmed-object resend, no quarantine bypass, no schedule or chat action.",
+  "smallest_next_action": "Publisher repair the standing/editorial entry guard to honor the existing coordinator-validated exact dispatch quarantine and forward report-only before resuming this same binding; retain the FOMC LinkedIn readback obligation.",
+  "next_owner": "Codex Publisher; Jim remains owner of the quarantined LinkedIn exact-object readback."
+}

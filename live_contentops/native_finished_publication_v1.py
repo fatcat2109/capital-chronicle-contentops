@@ -97,7 +97,7 @@ def publication_due(store, *, run_id=None, now=None):
             "spacing_hours": DRIP_HOURS, "clock_basis": "FIRST_VERIFIED_CANONICAL_READBACK"}
 
 
-def standing_binding(profile, rollout, *, operation_id, resolver, request=None, now=None):
+def standing_binding(profile, rollout, *, operation_id, resolver, request=None, now=None, report_only=False):
     """Reuse the live owner-manual entry; no schedule, queue or second store."""
     from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
     from live_contentops.native_desktop_publication_v1 import live_publication_policy
@@ -126,7 +126,7 @@ def standing_binding(profile, rollout, *, operation_id, resolver, request=None, 
         if not due["due"] and operation_id not in completed:
             raise ValueError("STANDING_PUBLICATION_NOT_YET_DUE:" + due["next_publication_utc"])
         return resolver(profile, operation_id=operation_id, request=request, now=now,
-                        live_rollout=rollout, standing=True)
+                        live_rollout=rollout, standing=True, report_only=report_only)
 
 
 def check_finished_piece(store, binding):

@@ -1,0 +1,108 @@
+{
+  "request_sha256": "f82b595905d30ca0bacfa64eae9d2e8ebc10a97efebe20c6a461b02f9e9489df",
+  "output": {
+    "reader_first_version": "DATA_JOURNALISM_V1",
+    "slug": "sec-machine-understandable-data-roundtable-november-9-preview",
+    "story_kind": "NEWS",
+    "reader_question": "What will the SEC's November 9 roundtable discuss, how can the public follow it, and what would still be needed before treating it as a policy signal?",
+    "editorial_thesis": "A concise upcoming-event preview can give readers a concrete way to follow the SEC's discussion of machine-understandable data and Super Intelligence: the announced date, public access and stated focus on use, risks and costs. The useful watchpoint is whether the discussion supplies concrete evidence about those questions. The October 19 announcement itself supplies no policy change, measured benefit, quantified cost or market-reaction evidence.",
+    "countercase": "A roundtable announcement may be only a calendar item. Seeking feedback does not establish an adopted SEC position, impending rulemaking, reliable SI capabilities or a tradable catalyst. Keep this a short factual preview, with the absence of findings doing real work in the argument; do not inflate it into an investment thesis or a broad account of AI regulation.",
+    "story_kind_reason": "This is a narrow preview of an announced public roundtable, not analysis of an economic release or policy decision. It reports the announcement and identifies questions for the forthcoming discussion. No quantitative release, adopted rule or historical series has been admitted. A facts card is the useful visual; quantitative charts would manufacture substance.",
+    "proposed_section_headings": [
+      "What the SEC has announced",
+      "What to listen for",
+      "What this does not establish"
+    ],
+    "charts": [
+      {
+        "asset_id": "sec-si-roundtable-event-facts-20261109",
+        "question": "When is the announced roundtable, how can readers follow it, and what is its stated subject?",
+        "why_useful": "Puts the source-supported practical information and discussion scope in one readable card. It lets readers follow the event without mistaking an announcement for results or a policy decision.",
+        "placement_after": "What the SEC has announced",
+        "data_spec": {
+          "chart_form": "EVENT_FACTS_CARD",
+          "quantitative_chart": false,
+          "title": "SEC roundtable: November 9",
+          "subtitle": "Machine-understandable data and Super Intelligence (SI)",
+          "source_ids": ["SOURCE_1"],
+          "source_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+          "source_document_id": "cc124-sec-announcement-context",
+          "source_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "rights_class": "governed_government_public_domain",
+          "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+          "series": [],
+          "units": "Text facts, calendar date and scheduled Eastern Standard Time; no measured quantities",
+          "periods": {
+            "announcement_date": "2026-10-19",
+            "scheduled_event_date": "2026-11-09",
+            "source_cutoff_utc": "2026-11-03T14:09:21.184658Z"
+          },
+          "rows": [
+            {"label": "When", "value": "November 9, 2026 | 9 a.m. to 3:30 p.m. EST", "source_id": "SOURCE_1"},
+            {"label": "Host", "value": "U.S. Securities and Exchange Commission", "source_id": "SOURCE_1"},
+            {"label": "Where", "value": "SEC headquarters, 100 F Street, N.E., Washington, D.C.", "source_id": "SOURCE_1"},
+            {"label": "Access", "value": "Open to the public; streamed live on SEC.gov", "source_id": "SOURCE_1"},
+            {"label": "Discussion", "value": "Public use of machine-understandable data and SI; associated risks and costs", "source_id": "SOURCE_1"}
+          ],
+          "access_note": "In-person capacity may be limited and visitors are subject to security checks. The SEC says a recording will be available later.",
+          "status_label": "Announced roundtable | Discussion ahead",
+          "source_note": "Source: SEC announcement, October 19, 2026",
+          "transform": "Literal extraction and concise paraphrase of the admitted announcement only. Preserve the scheduled time and EST label. No inferred agenda, timezone conversion, numerical series, interpolation, calculations or outcome claim.",
+          "actual_estimate_forecast": "Scheduled event information, not economic actuals, estimates or forecasts",
+          "missingness": "No admitted agenda, speakers, findings, quantified benefits or costs, adopted policy, implementation timetable or later schedule confirmation.",
+          "layout_constraints": "One compact facts card with legible text at mobile width. Use the title, subtitle, five labelled rows, access note and source note. No numerical axes, data-like bars, official seal, invented logo or decorative chart. Keep the source date distinct from the event date; do not label the event completed.",
+          "caption": "The SEC's October 19 announcement schedules a public roundtable for November 9. The stated discussion concerns machine-understandable data, Super Intelligence and associated risks and costs.",
+          "alt_text": "SEC roundtable facts: November 9, 2026, 9 a.m. to 3:30 p.m. EST, at SEC headquarters in Washington, D.C., with public access and a live stream on SEC.gov. The announced topic is machine-understandable data, Super Intelligence, and related risks and costs."
+        }
+      }
+    ],
+    "contextual_photo_ids": [],
+    "channel_media": {
+      "telegram": ["sec-si-roundtable-event-facts-20261109"],
+      "discord": ["sec-si-roundtable-event-facts-20261109"],
+      "x": ["sec-si-roundtable-event-facts-20261109"],
+      "linkedin": ["sec-si-roundtable-event-facts-20261109"],
+      "facebook_page": ["sec-si-roundtable-event-facts-20261109"],
+      "instagram_business": [],
+      "threads": ["sec-si-roundtable-event-facts-20261109"],
+      "youtube": ["sec-si-roundtable-event-facts-20261109"]
+    },
+    "channel_media_reasons": {
+      "instagram_business": "Explicitly skipped for this photo-less NEWS preview under the binding's dated photo-less NEWS/POLICY policy. This does not block the canonical article or compatible destinations."
+    },
+    "rejected_visuals": [
+      {"visual": "Quantitative AI adoption, data-quality, productivity, market-price or cost charts", "reason": "No such series or measurements are admitted. A numeric axis would falsely imply evidence. The event announcement cannot substitute for official release history."},
+      {"visual": "Detailed agenda, speakers or session timetable", "reason": "The linked meeting/event page is SOURCE_REUSE_POLICY_NOT_SUPPORTED and is not admitted. Only the announced overall date and time may be used."},
+      {"visual": "Photograph of an SEC building or a roundtable", "reason": "No exact photo identity, original bytes, creator, capture date, license or inspected media record is supplied. Do not invent an asset or present archival imagery as the future event."},
+      {"visual": "AI-generated documentary scene or official-looking SEC seal", "reason": "Neither would document this event; an invented scene or identity cue would mislead readers."}
+    ],
+    "essential_gaps": [
+      "Nonblocking scope limit: detailed agenda, speakers and session-level claims are not admitted. Do not retrieve or import the unsupported event page in this role.",
+      "Nonblocking scope limit: SOURCE_1 is an October 19 announcement. It supports what was announced, not a separately verified November 3 schedule update. Attribute the schedule to that announcement and preserve its publication date separately from retrieval and the frozen cutoff.",
+      "Nonblocking optional-media limit: no lawful contextual photo is bound. Proceed with the source-bound facts card; photo selection, if later available, must use an exact inspected existing media record and must not restart the first text-approval clock.",
+      "No pre-writer factual gap for the narrow preview. The parent reports one of ten shared source requests used; this role makes zero additional source requests and does not reset or independently certify the ledger.",
+      "Rendering and source-bound visual validation remain downstream. This decision does not claim that a card, final article or public object has been rendered, inspected, accepted or published."
+    ],
+    "writer_constraints": [
+      "Use only SOURCE_1 for facts; no agenda, speakers, adopted requirements, agency policy endorsement, SI capability claim, cost estimate, investment recommendation or market reaction may be inferred.",
+      "Keep the piece brief. In What to listen for, frame concrete use, risks and costs as questions for the forthcoming discussion, not promised agenda sessions or outcomes.",
+      "Explain the serious countercase plainly: the announcement invites discussion and feedback, and by itself demonstrates no rule change or commercial result.",
+      "Use natural SEC attribution and a useful announcement date. Do not expose request IDs, ledger usage, workflow labels or internal gap wording in reader copy. Include the required analysis-not-financial-advice notice.",
+      "Preserve the operation, source cutoff and first text-approval clock. Later prose, editor check and any required review must return to this same native writer context."
+    ]
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_visual_edit_f82b595905d3",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Supported task request for assignment visual-edit:f82b595905d30ca0bacfa64eae9d2e8ebc10a97efebe20c6a461b02f9e9489df and exact frozen request requested_model/requested_reasoning_effort fields.",
+    "observation_source": "Canonical native task name /root/native_visual_edit_f82b595905d3 supplied in this subagent's supported context. No supported runtime model or effort telemetry is available; configured values are labelled and no environment, process, session or configuration probe was used."
+  }
+}

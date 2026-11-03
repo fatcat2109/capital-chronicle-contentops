@@ -1,0 +1,10 @@
+{
+  "observed_at_utc": "2026-11-03T15:29:34.632793+00:00",
+  "resume_pid": 45044,
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "high",
+  "status": "CONFIGURED_NOT_OBSERVED",
+  "sec_agenda_observation": "Neo page158; last reviewed Oct20; SOURCE_REUSE_POLICY_NOT_SUPPORTED for current retained adapter; not admitted",
+  "admitted_alternative": "Full exact Oct19 SEC press release, same existing adapter and rights capture; fuller permitted context includes public access, time and venue; no agenda panel claims",
+  "failed_attempt": "RECOVERY_SOURCE_ACQUISITION_NOT_BOUND: request hash bound JSON wrapper instead of rendered text; original read retained; request now binds actual rendered-page bytes"
+}

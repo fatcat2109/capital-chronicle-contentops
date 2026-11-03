@@ -1,0 +1,16 @@
+{
+  "observed_at_utc": "2026-11-03T15:19:01.870476+00:00",
+  "operation_id": "cc124-next-article-20261103-b",
+  "classification": "NATIVE_DESKTOP_INPUT_REQUIRED",
+  "stage": "select",
+  "request_sha256": "5a59b710b1c69c3da2b7fb868a6bae4ab29ec10058ef227966444f7d8075e63c",
+  "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\desktop_request_select.json",
+  "binding_preserved": true,
+  "native_role": {
+    "task_name": "/root/native_select_5a59b710b1c6",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "status": "CONFIGURED_NOT_OBSERVED"
+  },
+  "new_public_writes": 0
+}

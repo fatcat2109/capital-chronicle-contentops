@@ -1,0 +1,14 @@
+{
+  "item": "CC-124",
+  "started_at_utc": "2026-11-03T14:02:00Z",
+  "observed_at_utc": "2026-11-03T14:09:06.789219+00:00",
+  "pid": 38120,
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "provenance": "CONFIGURED_NOT_OBSERVED",
+  "authority": "JIM_DECISIONS_20261030_DECISION_56",
+  "branch": "backlog/cc-124-article-20261103",
+  "base": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "runtime_source": "5a60db1a80f2dcc2345d04bc07636a3784371a30",
+  "no_new_publication_claimed": true
+}

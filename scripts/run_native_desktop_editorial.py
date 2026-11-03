@@ -190,7 +190,8 @@ def continue_owner_story(profile, *, source_review_id, operation_id=None, reques
 
 
 def _operation(binding, *, command="advance", response=None, stage=None, rollout=None,
-              native_invocation_id=None, request_hash=None, candidate_id=None, operation_lease=None):
+              native_invocation_id=None, request_hash=None, candidate_id=None, operation_lease=None,
+              report_only=False):
     validate_binding(binding, read_or_prepare=command in {"publication-prepare", "publication-status"})
     store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]), auto_migrate=command != "publication-status")
     work = "cc-opportunity-" + sha256_of(binding["run_id"])
@@ -401,8 +402,9 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
                     if not target.exists():
                         source.replace(target)
     # Recover through the existing coordinator BEFORE another semantic/public intent.
-    ambiguous = [d["dispatch_id"] for d in store.list_platform_dispatches()
-                 if any(s in str(d.get("status", "")).upper() for s in ("UNKNOWN", "AMBIGUOUS", "STARTED", "PENDING"))]
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    ambiguous = DurablePublicationCoordinator(
+        store=store, transport_runtime=None).editorial_recovery_dispatch_ids()
     if ambiguous:
         return {"classification": "RECOVERY_REQUIRED", "dispatch_ids": ambiguous,
                 "next_operation": "Existing DurablePublicationCoordinator readback/reconciliation; do not retry publishing",
@@ -423,13 +425,25 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
         pointer["research_editions_root"] = binding["research_editions_root"]
     pointer["source_review_ids"] = binding.get("source_review_ids", [])
     admitted_research = None
+    frozen_input = None
     if binding.get("owner_manual_validation") or binding.get("owner_manual_live"):
         frozen = store.get_outbox_message("native-current-input-" + sha256_of(binding["run_id"]))
-        if frozen and (research := json.loads(frozen["payload"]).get("research")):
+        frozen_input = json.loads(frozen["payload"]) if frozen else None
+        if frozen_input and (research := frozen_input.get("research")):
             from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
             admitted_research = RetainedSourceResearch.from_frozen_snapshot(research)
     rolling_input = (json.loads(Path(binding["rolling_input_path"]).read_bytes())
                      if binding.get("rolling_input_path") else None)
+    if frozen_input:
+        rolling_input = frozen_input["rolling_input"]
+    elif report_only and rolling_input is None:
+        # Recover the old standing entry's dropped flag BEFORE its first input
+        # freeze, preserving the original binding, request and cutoff bytes.
+        rolling_input = json.loads(DEFAULT_PROFILE.with_name(
+            "native_desktop_report_only_input_v1.json").read_bytes())
+    if report_only and not (rolling_input is not None and rolling_input.get("headlines") == []
+            and rolling_input.get("scope") == "REPORT_AND_RETAINED_RESEARCH_ONLY_NO_NEW_X_INTAKE"):
+        raise ValueError("REPORT_ONLY_FROZEN_OR_BOUND_INPUT_CONFLICT")
     # An explicitly report-only operation does not need to scan live X sidecars
     # merely to build an unused headline projection. Ordinary intake is unchanged.
     report_only = (rolling_input is not None and rolling_input.get("headlines") == []
@@ -757,12 +771,12 @@ def main(argv=None):
                 from live_contentops.native_finished_publication_v1 import standing_binding
                 path, binding = standing_binding(json.loads(args.profile.read_bytes()),
                     json.loads(args.rollout.read_bytes()), operation_id=args.operation_id,
-                    request=request, resolver=resolve_owner_operation)
+                    request=request, resolver=resolve_owner_operation, report_only=args.report_only)
             else:
                 path, binding = resolve_owner_operation(json.loads(args.profile.read_bytes()),
                     operation_id=args.operation_id, request=request, report_only=args.report_only, source_review_ids=args.source_review_id,
                     live_rollout=json.loads(args.rollout.read_bytes()) if args.live else None)
-            result = operation(binding)
+            result = operation(binding, report_only=args.report_only)
             print(json.dumps({**result, "binding_path": str(path),
                 "agent_instruction": "Continue assigned native roles, existing source tools, review and previews in this same opportunity. "
                     + ("Use the sole reviewed publication coordinator under the applied live rollout; verify exact objects and never retry UNKNOWN_WRITE."
@@ -796,7 +810,8 @@ def main(argv=None):
         result = operation(binding, command=args.command, stage=args.stage,
                            response=json.loads(args.response.read_bytes()) if args.response else None,
                            rollout=json.loads(args.rollout.read_bytes()) if args.rollout else None,
-                           native_invocation_id=args.native_invocation_id, request_hash=args.request_sha256, candidate_id=args.candidate_id)
+                           native_invocation_id=args.native_invocation_id, request_hash=args.request_sha256,
+                           candidate_id=args.candidate_id, report_only=args.report_only)
     except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
         print(json.dumps({"classification": "NATIVE_DESKTOP_BLOCKED", "blocker": str(exc),
             "run_id":locals().get("binding", {}).get("run_id"), "binding_path":str(args.binding),

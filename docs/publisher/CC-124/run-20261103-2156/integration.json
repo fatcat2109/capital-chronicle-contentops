@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-03T15:16:35.249684+00:00",
+  "authority": "Jim decision 39; CC-124 standing article",
+  "previous_live_head": "5a60db1a80f2dcc2345d04bc07636a3784371a30",
+  "rollback_commit": "5a60db1a80f2dcc2345d04bc07636a3784371a30",
+  "integrated_head": "0c70c6b8868dc3d9b8d768681118408d3c420330",
+  "tag": "contentops-live-20261103-cc124-entry",
+  "status_sha256_before": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+  "status_sha256_after": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+  "tracked_wip_preserved": true,
+  "active_leases": [],
+  "mode": "FAST_FORWARD_ONLY",
+  "live_consumer": "scripts/run_native_desktop_editorial.py imports canonical coordinator and standing binding; next CLI starts fresh, no application restart"
+}

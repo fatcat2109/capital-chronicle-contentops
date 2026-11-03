@@ -71,20 +71,45 @@ def test_editor_keep_preserves_original_text_clock_across_media_review(tmp_path,
     assert next_review["text_approved_at_utc"] == first
 
 
-def test_current_policy_adopts_unchanged_legacy_text_without_rewriting_native_history(tmp_path, monkeypatch):
+@pytest.mark.parametrize("short_preview", [False, True, "revised_preview", "analysis", "long"])
+def test_current_policy_adopts_unchanged_legacy_text_without_rewriting_native_history(tmp_path, monkeypatch, short_preview):
     from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
     from live_contentops.native_publication_latency_v1 import adopt_approved_text_speed_policy, uses_short_path
     store, binding, _, result, review = seeded(tmp_path, monkeypatch, final_visual=False)
     run = binding["run_id"]
+    if short_preview:
+        result["article"]["news_item_kind"] = "NEWS"
+        result["article"]["substack_body_markdown"] = "Controlled short upcoming-event preview."
+        if short_preview == "long":
+            result["article"]["substack_body_markdown"] = " ".join(["Controlled"] * 501)
+        if short_preview == "revised_preview":
+            result["simple_result"]["revision_performed"] = True
+        with store.get_connection() as conn:
+            conn.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?",
+                (canonical_bytes(result).decode(), "cc-editorial-final-" + sha256_of(run)))
+        review = record_native_article_review(store, run_id=run, article_identity=result["article_identity"],
+            decision="KEEP", expected_review_id=review["review_id"], rationale="Controlled short upcoming-event news preview.")
     turn = NativeDesktopTurn(store, run_id=run, output_dir=binding["output_dir"], owner_manual_validation=True)
     request = {"request_sha256": "controlled-legacy-request", "governed_input": {
-        "article_mode": "STANDARD_NEWS_ANALYSIS", "source_pack": result["evidence"]}}
+        "article_mode": "WEEK_AHEAD_OR_WATCH" if short_preview else "STANDARD_NEWS_ANALYSIS",
+        "visual_editorial_decision": {"story_kind": "ANALYSIS" if short_preview == "analysis" else "NEWS"} if short_preview else {},
+        "source_pack": result["evidence"]}}
     response = {"request_sha256": request["request_sha256"], "output": {"article": result["article"]},
         "invocation_observation": {"surface": "CODEX_NATIVE_SUBAGENT", "model": "gpt-6.1-sol",
             "reasoning_effort": "max", "invocation_id": "controlled-original-writer",
             "observation_source": "CONTROLLED_FIXTURE_NOT_RUNTIME_PROOF"}}
     turn._put("write", "request", request)
     turn._put("write", "response", response)
+    if short_preview == "revised_preview":
+        revised_request = {**request, "request_sha256": "controlled-revision-request"}
+        revised_response = {**response, "request_sha256": revised_request["request_sha256"]}
+        turn._put("revise", "request", revised_request)
+        turn._put("revise", "response", revised_response)
+    if short_preview in {"analysis", "long"}:
+        with pytest.raises(ValueError, match="APPROVED_TEXT_SOURCE_OR_COPY_CHANGED"):
+            adopt_approved_text_speed_policy(store, run_id=run)
+        assert turn._get("write", "request") == request and turn._get("write", "response") == response
+        return
     basis = adopt_approved_text_speed_policy(store, run_id=run)
     assert uses_short_path(store, run_id=run, result=result)
     kept = record_native_article_review(store, run_id=run, article_identity=result["article_identity"],

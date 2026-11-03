@@ -1,0 +1,11 @@
+{
+  "observed_at_utc": "2026-11-03T16:30:04.045081+00:00",
+  "previous_live_head": "2670f911481cdd02c153c5848172f6dfcd15774a",
+  "integrated_head": "91100578e729acee0d03eb3614a482b7bccbdf56",
+  "tag": "contentops-live-20261103-cc124-speed",
+  "rollback_commit": "2670f911481cdd02c153c5848172f6dfcd15774a",
+  "active_leases": [],
+  "status_sha256": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+  "tracked_wip_preserved": true,
+  "checks": "7 focused publication-speed cases PASS; short upcoming NEWS preview accepted, ANALYSIS and >500 words refused; native history/approval clock retained"
+}

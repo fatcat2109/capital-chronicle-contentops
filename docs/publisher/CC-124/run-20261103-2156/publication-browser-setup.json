@@ -1,0 +1,12 @@
+{
+  "observed_at_utc": "2026-11-03T16:37:19.679080+00:00",
+  "window_id": 1698401302,
+  "profile_id": "AE5BBDC417C5C94D312789F609F796DC",
+  "dedicated_window": true,
+  "gmail_tab_page_id": 164,
+  "gmail_url": "https://mail.google.com/mail/u/2/#inbox",
+  "gmail_content_read": false,
+  "new_window_initial_blank_tab_closed": 163,
+  "draft_tab": "Not created until exact coordinator request",
+  "code_routine": "Jim types code; preserve same tab; no reload, input or other tab use while waiting"
+}
