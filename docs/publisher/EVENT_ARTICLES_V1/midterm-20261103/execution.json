@@ -404,8 +404,11 @@
     "publish_or_update_pressed": false,
     "mailbox_read_or_code_entered": false,
     "one_draft_only": true,
-    "actual_destination_review": "SAME_WRITER_READ_ONLY_INSPECTION_IN_PROGRESS",
-    "store_readback": "native/draft-only-store-readback.json"
+    "actual_destination_review": "CHANGED_CREDIT_REINSPECTION_PENDING",
+    "store_readback": "native/draft-only-store-readback.json",
+    "media_credit_restored": true,
+    "credit_repair_created_new_draft": false,
+    "credit_repair_public_write_performed": false
   },
   "draft_transport_verification_history": {
     "early_failures_retained": [
@@ -504,11 +507,15 @@
   },
   "destination_draft_review": {
     "artifact": "substack-draft-review/inspection.json",
-    "status": "REPAIR_REQUIRED_BOUND_MEDIA_CREDIT",
+    "status": "CREDIT_RESTORED_EXACT_READBACK_SAME_WRITER_RECHECK_PENDING",
     "reviewer": "/root/native_visual_edit_76437a71362e",
     "scope": "11 actual representative editor/desktop/mobile screenshots; not whole-article destination pixel coverage. Native 18 complete views remain accepted.",
     "finding": "Retain full Architect of the Capitol / Wikimedia Commons. Public domain (17 USC 105). credit from the exact bound media record.",
     "repair_owner": "Existing coordinator SAVE_DRAFT exact-object repair, never Publish/Update or another draft.",
-    "tests": "tests/evidence/cc-107/draft-credit-fence-final.junit.xml"
+    "tests": "tests/evidence/cc-107/draft-credit-fence-final.junit.xml",
+    "repair_result": "native/draft-credit-result.json",
+    "repair_readback": "native/draft-credit-readback.json",
+    "repair_fence_request_sha256": "fffd16c02ef2605890315dd1cd9058717c5e092665c987118fade22238611fc8",
+    "repair_test_result": "48 targeted draft/Neo tests PASS; tests/evidence/cc-107/draft-credit-fence-final.junit.xml"
   }
 }
