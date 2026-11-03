@@ -189,8 +189,14 @@ def append_record(path, row):
             raise PublishedContentError("FEED_APPEND_INCOMPLETE_READBACK_REQUIRED")
         handle.flush()
         os.fsync(handle.fileno())
+    try:
+        from live_contentops.preview_article_hook_v1 import launch_preview_mirror
+        preview = launch_preview_mirror(path)
+    except Exception:
+        preview = {"status": "NOT_STARTED", "cause": "PREVIEW_HOOK_UNAVAILABLE"}
     return {"status": "APPENDED", "content_id": row["content_id"],
-            "content_sha256": row["content_sha256"], "outlet_count": len(row["outlets"])}
+            "content_sha256": row["content_sha256"], "outlet_count": len(row["outlets"]),
+            "preview_mirror": preview}
 
 
 def article_metadata(plan, *, require_notice=True):
