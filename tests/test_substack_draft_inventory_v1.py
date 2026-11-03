@@ -78,14 +78,16 @@ def test_pending_native_results_and_readbacks_count_as_references_without_cross_
     store.register_readback(readback_id="rb", dispatch_id="dispatch", readback_data=json.dumps({
         "readback": {"draft_id": "124", "url": "https://capitalchronicle.substack.com/publish/post/125"}}))
     for number, value in enumerate([
-        {"request": {"destination": "substack", "public_object_id": "126"}, "tool_request_sha256": "h"},
+        {"request": {"destination": "substack", "public_object_id": "126", "request_sha256": "req"},
+         "tool_request_sha256": "h"},
         {"result": {"observed_identity": "capitalchronicle.substack.com", "draft_id": "127"}},
+        {"result": {"request_sha256": "req", "draft_id": "128"}},
         {"request": {"destination": "x", "public_object_id": "999"}},
         {"result": {"observed_identity": "@Capitalnicle", "public_object_id": "998"}},
     ]):
         store.register_outbox_message(message_id=f"native-{number}", work_item_id="work",
             destination="internal:native-neo-tool", payload=json.dumps(value))
-    assert store_draft_ids(store) == {"123", "124", "125", "126", "127"}
+    assert store_draft_ids(store) == {"123", "124", "125", "126", "127", "128"}
     assert draft_id_from_url("https://other.substack.com/publish/post/999") is None
 
 

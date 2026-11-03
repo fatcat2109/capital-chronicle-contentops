@@ -65,8 +65,11 @@ def referenced_draft_ids(connection):
     native = [json.loads(row[0]) for row in connection.execute(
         "SELECT payload FROM outbox_messages WHERE destination='internal:native-neo-tool'"
     )]
-    substack_requests = {row.get("tool_request_sha256") for row in native
-                         if row.get("request", {}).get("destination") == "substack"}
+    substack_requests = set()
+    for row in native:
+        request = row.get("request", {})
+        if request.get("destination") == "substack":
+            substack_requests.update({row.get("tool_request_sha256"), request.get("request_sha256")})
     substack_requests.discard(None)
     for row in native:
         request = row.get("request", {})
@@ -74,7 +77,8 @@ def referenced_draft_ids(connection):
         if request.get("destination") == "substack":
             result.update(_ids(request))
         if (response.get("observed_identity") == HOST
-                or row.get("tool_request_sha256") in substack_requests):
+                or row.get("tool_request_sha256") in substack_requests
+                or response.get("request_sha256") in substack_requests):
             result.update(_ids(row))
     return result
 
