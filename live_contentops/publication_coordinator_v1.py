@@ -631,6 +631,8 @@ class DurablePublicationCoordinator:
         intent = json.loads(self._dated_distribution_message(message)["payload"])
         from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
         retained_media = _durable_intent_inputs(intent).get("media_assets", [])
+        if revision.get("policy") == "JIM_DECISION_41_RELEASE_CHART_EDIT":
+            retained_media = view.get("media_assets", [])
         if destination == "substack":
             from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
             article = _reader_safe_native_article(view["article"], article_mode=view["article"].get("resolved_article_mode", ""))
@@ -640,7 +642,7 @@ class DurablePublicationCoordinator:
         intent.update(native_payload=payload, payload=payload.get("text") or payload["body_markdown"],
             media_assets=retained_media,
             reader_presentation_review=reference, removed_reader_text=[
-                re.search(r"Reporting as of [^\n]+?\d{4}\.", revision["body_before"])[0]])
+                m[0] for m in re.finditer(r"Reporting as of [^\n]+?\d{4}\.", revision["body_before"])])
         intent["destination_plan"] = {**intent["destination_plan"], "payload_hash": sha256_of(payload),
             "payload_hash_kind": "SAME_MAX_REVIEWED_PRESENTATION"}
         return intent, revision, view, acceptance
