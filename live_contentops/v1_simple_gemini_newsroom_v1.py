@@ -1501,13 +1501,32 @@ def _epistemic_copy_blockers(
     article: Mapping[str, Any],
     claims: Sequence[Mapping[str, Any]],
     epistemic_state: Mapping[str, Any] | None,
+    *, source_pack=(),
 ) -> list[str]:
     if not isinstance(epistemic_state, Mapping) or not epistemic_state:
         return []
     blockers = list(validate_epistemic_state(epistemic_state))
     if epistemic_state.get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT":
         notice = str(epistemic_state.get("report_scope_notice") or "")
-        if not notice or notice not in str(article.get("substack_body_markdown") or ""):
+        # CC-107's exact public authored preview is not a Main report projection.
+        # Only its separately admitted bytes and guarded canonical copy establish
+        # this distinction; writer metadata alone cannot waive a Main notice.
+        public_preview = False
+        if not notice and len(source_pack) == 1:
+            from live_contentops.event_preview_source_v1 import (
+                public_preview_chart_rights_bound, public_preview_event_evidence,
+                validate_native_event_preview,
+            )
+            if public_preview_chart_rights_bound(source_pack[0]):
+                try:
+                    validate_native_event_preview({
+                        "public_event_evidence": public_preview_event_evidence(source_pack),
+                        "cutoff_utc": article.get("event_article", {}).get("cutoff_utc"),
+                    }, {"article": article})
+                    public_preview = True
+                except ValueError:
+                    pass
+        if not public_preview and (not notice or notice not in str(article.get("substack_body_markdown") or "")):
             blockers.append("report_horizon_proxy_cost_limits_missing")
     if blockers:
         return blockers
@@ -1715,7 +1734,7 @@ def _validate_article_against_source_pack(
     blockers.extend(
         _editorial_growth_edge_blockers(article, article_mode=article_mode)
     )
-    blockers.extend(_epistemic_copy_blockers(article, claims, epistemic_state))
+    blockers.extend(_epistemic_copy_blockers(article, claims, epistemic_state, source_pack=source_pack))
     body = _normal(_SOURCE_MARKER_RE.sub("", str(article.get("substack_body_markdown") or "")))
     for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):
         if key in article and (_normal(article[key]) not in body or len(str(article[key])) < 24):

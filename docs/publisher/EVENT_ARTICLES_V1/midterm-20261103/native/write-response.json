@@ -1,0 +1,847 @@
+{
+  "request_sha256": "666ec00d5f925f9ef15b52a8549a72485655b2733ef6053b847dd1421c7c32ca",
+  "output": {
+    "schema_version": "contentops.v1_simple_gemini_article.v1",
+    "article": {
+      "title": "US midterms: Capital Chronicle on the result that could surprise markets",
+      "dek": "A Democratic sweep leads expectations in Capital Chronicle's dated preview. Republican control, a split Congress or a slow count could change the market response.",
+      "search_title": "US midterm election preview: Capital Chronicle's market scenarios",
+      "meta_description": "Capital Chronicle's dated US midterm preview weighs the expected Democratic sweep, alternative results and conditional reactions across major markets.",
+      "social_hook": "Capital Chronicle's midterm preview: an expected Democratic sweep may move prices less than a Republican surprise. A slow Senate count could matter too.",
+      "substack_body_markdown": "Capital Chronicle's pre-election preview treats a Democratic sweep as the expected result and Republicans keeping both chambers as the biggest surprise. That difference could matter more to prices than the political headline: an outcome investors already expect may produce modest moves. This is a preview of possible outcomes, not an election result. [[SOURCE:SOURCE_1]]\n\n## The vote and the clock\n\nAs of 23:20 UTC on 2 November 2026, the preview cites Election Central's count: all 435 House seats and 35 Senate seats are contested on 3 November, with Democrats needing net gains of four Senate seats and three House seats. The first polls close at 23:00 UTC, according to 270toWin as cited in the preview. Most Senate battlegrounds close between 00:30 and 02:00 UTC. Some results may take days; Alaska expects final ranked-choice results by 18 November, according to Newsweek as cited in the preview. A close Senate may remain unresolved if it hinges on Alaska or Maine. [[SOURCE:SOURCE_1]]\n\n## What is expected\n\nPrediction markets in the preview strongly favour a Democratic House and also favour a Democratic Senate, though less decisively. A Democratic House with a Republican Senate is the main alternative; Republicans keeping both is an outside chance, and a Republican House with a Democratic Senate is remote. Polls measure a different thing: the Silver Bulletin generic-ballot average showed an 8.9-point Democratic lead, while PollCheck put Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead, both updated 2 November. These are reported voting-intention estimates, not probabilities of chamber control. The preview also cites CNBC's 30 October report of Wolfe Research's more cautious Senate assessment. [[SOURCE:SOURCE_1]]\n\n## What each outcome could mean\n\nWith a Democratic sweep, the President's veto could limit changes to tax and tariff policy. The preview instead anticipates more oversight, a harder funding fight before the 11 December deadline and a debt-limit standoff in 2027. A Democratic House and Republican Senate would mean gridlock while leaving Senate confirmation powers intact, including at the Fed. Republican control of both chambers could reopen tax and spending legislation and easier permits for energy and data centres. The remote Republican House/Democratic Senate combination has no clear market template. A slow count could prolong uncertainty; a formal dispute over a chamber-deciding result is a separate risk outside these scenarios. [[SOURCE:SOURCE_1]]\n\n## Bonds and rates\n\nThe rates backdrop already had its own driver. The preview cites the Fed's 28 October hold at 3.75-4.00%, with two officials preferring a hike, and 2 November futures leaning towards a December rise. Treasury figures in the preview put the 2-year yield at 4.59% and the 10-year at 4.91% at the 2 November close. Against that background, less fiscal expansion under a Democratic sweep could ease long-term yields. The main split outcome could lift them slightly; a Republican sweep and larger deficits would probably push them higher. [[SOURCE:SOURCE_1]]\n\n## Major FX: the dollar\n\nThe dollar could soften a little under a Democratic sweep, edge up with a Democratic House and Republican Senate, or rise more firmly under a Republican sweep if larger deficits lift long-term yields. The preview cites the rise in the dollar and yields after the 2024 presidential result as a reference point, not a forecast that the same pattern must repeat. [[SOURCE:SOURCE_1]]\n\n## Commodities: gold and oil\n\nGold could benefit at the margin from softer yields and a weaker dollar under a Democratic sweep. A Republican sweep, with higher yields and a stronger dollar, could put it under pressure. The preview supplies no separate gold template for the remote split or a contested result. [[SOURCE:SOURCE_1]]\n\nOil would take its cue from the Middle East rather than Congress in the Democratic-sweep scenario. The preview notes that oil fell sharply on 2 November on hopes of diplomacy. That competing driver makes a simple election-based oil call hard to defend. [[SOURCE:SOURCE_1]]\n\n## US equity indices\n\nThe preview does not support one stock-market verdict. Under a Democratic sweep, Ed Yardeni warns of a \"very cold shower\", while Morgan Stanley's Mike Wilson sees a possible clearing event. The main split outcome could firm stocks; a Republican sweep could produce a rally. For scale, Saxo's 30 October account, as cited in the preview, said S&P 500 options on 29 October priced a move of about 1.3% in either direction by Wednesday's close, little more than an ordinary day. Those are dated expectations, not a limit on the eventual move. [[SOURCE:SOURCE_1]]\n\n## US equity sectors and Bitcoin\n\nThe sector effects could be more distinct than the index response. In the Democratic-sweep case, the preview cites Man Group and Saxo favouring healthcare, retail and parts of clean energy, with banks and brokers, defence and AI data-centre builders under more pressure. Some of those preferences could partly reverse with a Democratic House and Republican Senate. Under a Republican sweep, financials, energy, defence and AI infrastructure could lead a rally, while insurers and hospitals reliant on public health programmes, and clean energy, could face headwinds. Bitcoin would likely benefit from a crypto-friendly Congress in that Republican-sweep scenario; the preview gives no equivalent directional claim for the other outcomes. [[SOURCE:SOURCE_1]]\n\n## What would change the view\n\nWatch early results in Virginia, Georgia, North Carolina, Ohio and Florida against the polls, then the Senate tipping points in Texas, Maine, Ohio and Alaska, with Kansas and Iowa as Democrats' extra chances. A stock move much larger than the roughly 1.3% priced by options would challenge the modest-move expectation. The Middle East and oil, the jobs report on 6 November and inflation data on 10 November could outweigh the election in rates and the dollar. Would a large market move reflect the congressional result, or a change in those competing drivers? [[SOURCE:SOURCE_1]]\n\nThis is general market analysis, not financial advice. [[SOURCE:SOURCE_1]]\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers. [[SOURCE:SOURCE_1]]",
+      "reader_first_version": "DATA_JOURNALISM_V1",
+      "visual_editorial_decision": {
+        "analysis_scope": "Frozen event scenario preview, as of 23:20 UTC on 2 November 2026. This is not analysis of a statistical data release or a policy decision. The specific CC-107 decision-42 instruction calls for a factual polling/first-poll-close card; no historical series are invented or newly acquired.",
+        "channel_media": {
+          "discord": [
+            "cc107-generic-ballot-and-poll-close-card"
+          ],
+          "facebook_page": [
+            "cc107-generic-ballot-and-poll-close-card"
+          ],
+          "instagram_business": [
+            "cc107-generic-ballot-and-poll-close-card"
+          ],
+          "linkedin": [
+            "cc107-generic-ballot-and-poll-close-card"
+          ],
+          "telegram": [
+            "cc107-generic-ballot-and-poll-close-card"
+          ],
+          "threads": [
+            "cc107-generic-ballot-and-poll-close-card"
+          ],
+          "x": [
+            "cc107-generic-ballot-and-poll-close-card"
+          ],
+          "youtube": [
+            "cc107-generic-ballot-and-poll-close-card"
+          ]
+        },
+        "channel_media_rationale": "All eight derivatives use the same factual polling/timing card. The canonical article additionally uses the inspected archive Capitol photo. Avoid a generic archive building photograph displacing the informative card in compact social previews. Destination-specific media readiness and final crops remain subject to actual rendering/review.",
+        "charts": [
+          {
+            "asset_id": "cc107-generic-ballot-and-poll-close-card",
+            "data_spec": {
+              "alt_text": "PollCheck generic-ballot snapshot updated 2 November 2026: Democrats 51.1 percent and Republicans 42.8 percent. These are voting-intention shares, not chamber-control probabilities. First polls close at 23:00 UTC on 3 November.",
+              "caption": "PollCheck's generic-ballot shares, updated 2 November. The figures describe reported voting intentions, not probabilities of controlling Congress. Timing: 270toWin, via the approved preview.",
+              "chart_form": "fact_card",
+              "currency": null,
+              "data": [
+                {
+                  "label": "Democrats",
+                  "value": 51.1
+                },
+                {
+                  "label": "Republicans",
+                  "value": 42.8
+                }
+              ],
+              "design": "Two equally sized, separately labelled numerical callouts with percent signs. Use restrained neutral styling and direct party labels. No pie, stacked bar, probability gauge, area encoding or scale implying a complete electorate. Include the compact first-poll-close footer and an on-card note: Voting intentions, not chamber-control probabilities.",
+              "event_timing": {
+                "date": "2026-11-03",
+                "display": "First polls close: 23:00 UTC on 3 November",
+                "label": "First polls close",
+                "meaning_limit": "First poll close is not a promised result or chamber-control call.",
+                "source_attribution": "270toWin, via the approved PREVIEW",
+                "time_utc": "23:00"
+              },
+              "metric": "PollCheck generic-ballot voting-intention share",
+              "missingness": "Sample size, fieldwork dates, methodology, margin of error, other responses and underlying polling history are not supplied. No zero values, remainder share or uncertainty interval may be invented.",
+              "period": "Updated 2 November 2026; exact intraday observation and fieldwork dates are not supplied.",
+              "render_acceptance": "Pending exact asset and desktop/mobile canonical/channel pixel inspection by this same writer/editor.",
+              "rights_scope": "Exact Ops-approved public PREVIEW facts only; no underlying proprietary survey history, chart reproduction or prediction-market numbers.",
+              "source_attribution": "PollCheck and 270toWin, as attributed in the exact Ops-approved Capital Chronicle PREVIEW.",
+              "source_capture_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+              "source_id": "SOURCE_1",
+              "source_url": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+              "subtitle": "PollCheck | updated 2 November 2026",
+              "title": "Generic-ballot polling snapshot",
+              "transformations": "None. Display the two admitted shares verbatim. Do not normalize, calculate or show the unreported remainder, interpolate history, estimate seats, or convert the shares into control probabilities.",
+              "unit": "percent",
+              "value_type": "Reported polling estimates. Not actual votes, seat forecasts or probabilities of chamber control."
+            },
+            "placement_after": "What is expected",
+            "question": "What does the admitted PollCheck snapshot report, and when do the first polls close?",
+            "why_useful": "One compact fact card anchors the expectation and timing sections in the preview's exact facts. Separate numerical callouts prevent vote-intention shares being mistaken for a complete electorate breakdown or probabilities of congressional control. A short timing footer tells readers when the first information may arrive without implying that chamber control will be known then."
+          }
+        ],
+        "contextual_photo_ids": [
+          "cc107-capitol-west-front-archive-1997"
+        ],
+        "contextual_photo_placement": "Canonical contextual image near the opening, preserving the full archive caption, creator/source/licence attribution and corrected alt text. The polling fact card is the primary derivative visual.",
+        "countercase": "An expected sweep may produce modest moves; the preview records serious disagreement over equities. Fed expectations, Middle East developments and oil, and the next jobs and inflation releases can outweigh the election. The remote split has no clear market template; a slow count and a formal contested result are different risks. None receives an invented directional template or numerical forecast.",
+        "editorial_thesis": "The market response depends on the gap between an expected Democratic sweep and the outcome that arrives, with the timing of a Senate result also material. Explain conditional mechanisms across bonds/rates, major FX, commodities, US equity indices, US equity sectors and Bitcoin. Keep polling intentions separate from chamber-control expectations and never turn these scenarios into position calls.",
+        "essential_gaps": [
+          {
+            "disposition": "Non-blocking for the narrowly attributed snapshot. Do not infer precision, completeness or independent verification.",
+            "gap": "Polling methodology, sample, fieldwork dates, margin of error and other responses are not retained in the approved preview."
+          },
+          {
+            "disposition": "Retain the 2 November as-of clock, source-qualified attribution and conditional scenarios. No new election facts or private dossier input.",
+            "gap": "The source is the exact Ops-approved public preview, not newly corroborated underlying election evidence."
+          },
+          {
+            "disposition": "Parent code renders the selected facts; return this same context for writing, useful repairs and exact final pixel review. This decision is not render or publication acceptance.",
+            "gap": "Selected card and final canonical/channel desktop/mobile renders do not yet exist for this visual decision."
+          }
+        ],
+        "reader_first_version": "DATA_JOURNALISM_V1",
+        "rejected_visuals": [
+          {
+            "proposal": "Additional 2-year/10-year Treasury yield snapshot",
+            "reason": "Two single-date levels are available in the preview but add little explanatory value to the election-surprise argument. Keep them as attributed backdrop in prose; a second point-comparison panel would pad this finite preview and suggest no supported election-rate trajectory."
+          },
+          {
+            "proposal": "Generic-ballot pie, 100-percent stack or inferred remainder",
+            "reason": "The admitted two figures are not a complete electorate breakdown; no remainder or normalization is authorised."
+          },
+          {
+            "proposal": "Prediction-market odds chart, seat-probability chart or scenario heatmap with numerical outcomes",
+            "reason": "Prediction-market odds are authorised in words only. Vote shares cannot establish chamber-control probabilities, seat projections or quantitative market forecasts."
+          },
+          {
+            "proposal": "Historical polling, election or Treasury trend series",
+            "reason": "No such series is admitted for this frozen election preview. Do not invent history or acquire later observations to manufacture an analysis-chart count."
+          }
+        ],
+        "required_market_groups": [
+          "Bonds and rates",
+          "Major FX",
+          "Commodities including gold and oil",
+          "US equity indices",
+          "US equity sectors",
+          "Bitcoin"
+        ],
+        "scenario_integrity": "Preserve all six market groups across the conditional discussion. Oil remains Middle East-led. Do not add directions for assets absent from an individual scenario, especially the remote Republican House/Democratic Senate and delayed/contested cases. Prediction-market expectations stay in words only.",
+        "slug": "us-midterms-2026-what-markets-expect",
+        "story_kind": "ANALYSIS"
+      },
+      "article_type": "EVENT_PREVIEW",
+      "event_article": {
+        "schema_version": "contentops.event_article.v1",
+        "article_type": "EVENT_PREVIEW",
+        "event_id": "US_MIDTERMS_20261103",
+        "event_time_utc": "2026-11-03T23:00:00Z",
+        "cutoff_utc": "2026-11-03T05:50:07.627993Z",
+        "written_at_utc": "2026-11-03T06:46:55.303164Z",
+        "copy": {
+          "headline": "US midterms: Capital Chronicle on the result that could surprise markets",
+          "dek": "A Democratic sweep leads expectations in Capital Chronicle's dated preview. Republican control, a split Congress or a slow count could change the market response.",
+          "context": "As of 23:20 UTC on 2 November 2026, the preview cites Election Central's count: all 435 House seats and 35 Senate seats are contested on 3 November, with Democrats needing net gains of four Senate seats and three House seats. The first polls close at 23:00 UTC, according to 270toWin as cited in the preview. Most Senate battlegrounds close between 00:30 and 02:00 UTC. Some results may take days; Alaska expects final ranked-choice results by 18 November, according to Newsweek as cited in the preview. A close Senate may remain unresolved if it hinges on Alaska or Maine.",
+          "scenarios": "With a Democratic sweep, the President's veto could limit changes to tax and tariff policy. The preview instead anticipates more oversight, a harder funding fight before the 11 December deadline and a debt-limit standoff in 2027. A Democratic House and Republican Senate would mean gridlock while leaving Senate confirmation powers intact, including at the Fed. Republican control of both chambers could reopen tax and spending legislation and easier permits for energy and data centres. The remote Republican House/Democratic Senate combination has no clear market template. A slow count could prolong uncertainty; a formal dispute over a chamber-deciding result is a separate risk outside these scenarios.",
+          "probability_basis": "Prediction markets in the preview strongly favour a Democratic House and also favour a Democratic Senate, though less decisively. A Democratic House with a Republican Senate is the main alternative; Republicans keeping both is an outside chance, and a Republican House with a Democratic Senate is remote. Polls measure a different thing: the Silver Bulletin generic-ballot average showed an 8.9-point Democratic lead, while PollCheck put Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead, both updated 2 November. These are reported voting-intention estimates, not probabilities of chamber control. The preview also cites CNBC's 30 October report of Wolfe Research's more cautious Senate assessment.",
+          "market_reactions": {
+            "rates": "The rates backdrop already had its own driver. The preview cites the Fed's 28 October hold at 3.75-4.00%, with two officials preferring a hike, and 2 November futures leaning towards a December rise. Treasury figures in the preview put the 2-year yield at 4.59% and the 10-year at 4.91% at the 2 November close. Against that background, less fiscal expansion under a Democratic sweep could ease long-term yields. The main split outcome could lift them slightly; a Republican sweep and larger deficits would probably push them higher.",
+            "dollar": "The dollar could soften a little under a Democratic sweep, edge up with a Democratic House and Republican Senate, or rise more firmly under a Republican sweep if larger deficits lift long-term yields. The preview cites the rise in the dollar and yields after the 2024 presidential result as a reference point, not a forecast that the same pattern must repeat.",
+            "gold": "Gold could benefit at the margin from softer yields and a weaker dollar under a Democratic sweep. A Republican sweep, with higher yields and a stronger dollar, could put it under pressure. The preview supplies no separate gold template for the remote split or a contested result.",
+            "oil": "Oil would take its cue from the Middle East rather than Congress in the Democratic-sweep scenario. The preview notes that oil fell sharply on 2 November on hopes of diplomacy. That competing driver makes a simple election-based oil call hard to defend.",
+            "indices": "The preview does not support one stock-market verdict. Under a Democratic sweep, Ed Yardeni warns of a \"very cold shower\", while Morgan Stanley's Mike Wilson sees a possible clearing event. The main split outcome could firm stocks; a Republican sweep could produce a rally. For scale, Saxo's 30 October account, as cited in the preview, said S&P 500 options on 29 October priced a move of about 1.3% in either direction by Wednesday's close, little more than an ordinary day. Those are dated expectations, not a limit on the eventual move.",
+            "sectors": "The sector effects could be more distinct than the index response. In the Democratic-sweep case, the preview cites Man Group and Saxo favouring healthcare, retail and parts of clean energy, with banks and brokers, defence and AI data-centre builders under more pressure. Some of those preferences could partly reverse with a Democratic House and Republican Senate. Under a Republican sweep, financials, energy, defence and AI infrastructure could lead a rally, while insurers and hospitals reliant on public health programmes, and clean energy, could face headwinds. Bitcoin would likely benefit from a crypto-friendly Congress in that Republican-sweep scenario; the preview gives no equivalent directional claim for the other outcomes."
+          },
+          "view_changes": "Watch early results in Virginia, Georgia, North Carolina, Ohio and Florida against the polls, then the Senate tipping points in Texas, Maine, Ohio and Alaska, with Kansas and Iowa as Democrats' extra chances. A stock move much larger than the roughly 1.3% priced by options would challenge the modest-move expectation. The Middle East and oil, the jobs report on 6 November and inflation data on 10 November could outweigh the election in rates and the dollar. Would a large market move reflect the congressional result, or a change in those competing drivers?",
+          "disclaimer": "This is general market analysis, not financial advice."
+        },
+        "numeric_bindings": [
+          {
+            "copy_path": "copy.context",
+            "start": 6,
+            "end": 8,
+            "evidence_ref": "preview-number-0"
+          },
+          {
+            "copy_path": "copy.context",
+            "start": 9,
+            "end": 11,
+            "evidence_ref": "preview-number-1"
+          },
+          {
+            "copy_path": "copy.context",
+            "start": 19,
+            "end": 20,
+            "evidence_ref": "preview-number-3"
+          },
+          {
+            "copy_path": "copy.context",
+            "start": 30,
+            "end": 34,
+            "evidence_ref": "preview-number-5"
+          },
+          {
+            "copy_path": "copy.context",
+            "start": 84,
+            "end": 87,
+            "evidence_ref": "preview-number-12"
+          },
+          {
+            "copy_path": "copy.context",
+            "start": 104,
+            "end": 106,
+            "evidence_ref": "preview-number-14"
+          },
+          {
+            "copy_path": "copy.context",
+            "start": 137,
+            "end": 138,
+            "evidence_ref": "preview-number-10"
+          },
+          {
+            "copy_path": "copy.context",
+            "start": 251,
+            "end": 253,
+            "evidence_ref": "preview-number-32"
+          },
+          {
+            "copy_path": "copy.context",
+            "start": 254,
+            "end": 256,
+            "evidence_ref": "preview-number-33"
+          },
+          {
+            "copy_path": "copy.context",
+            "start": 275,
+            "end": 278,
+            "evidence_ref": "preview-number-49"
+          },
+          {
+            "copy_path": "copy.context",
+            "start": 349,
+            "end": 351,
+            "evidence_ref": "preview-number-37"
+          },
+          {
+            "copy_path": "copy.context",
+            "start": 352,
+            "end": 354,
+            "evidence_ref": "preview-number-38"
+          },
+          {
+            "copy_path": "copy.context",
+            "start": 359,
+            "end": 361,
+            "evidence_ref": "preview-number-40"
+          },
+          {
+            "copy_path": "copy.context",
+            "start": 362,
+            "end": 364,
+            "evidence_ref": "preview-number-41"
+          },
+          {
+            "copy_path": "copy.context",
+            "start": 444,
+            "end": 446,
+            "evidence_ref": "preview-number-53"
+          },
+          {
+            "copy_path": "copy.scenarios",
+            "start": 174,
+            "end": 176,
+            "evidence_ref": "preview-number-85"
+          },
+          {
+            "copy_path": "copy.scenarios",
+            "start": 224,
+            "end": 228,
+            "evidence_ref": "preview-number-87"
+          },
+          {
+            "copy_path": "copy.probability_basis",
+            "start": 391,
+            "end": 394,
+            "evidence_ref": "preview-number-21"
+          },
+          {
+            "copy_path": "copy.probability_basis",
+            "start": 451,
+            "end": 456,
+            "evidence_ref": "preview-number-24"
+          },
+          {
+            "copy_path": "copy.probability_basis",
+            "start": 476,
+            "end": 481,
+            "evidence_ref": "preview-number-25"
+          },
+          {
+            "copy_path": "copy.probability_basis",
+            "start": 486,
+            "end": 489,
+            "evidence_ref": "preview-number-26"
+          },
+          {
+            "copy_path": "copy.probability_basis",
+            "start": 515,
+            "end": 516,
+            "evidence_ref": "preview-number-22"
+          },
+          {
+            "copy_path": "copy.probability_basis",
+            "start": 642,
+            "end": 644,
+            "evidence_ref": "preview-number-30"
+          },
+          {
+            "copy_path": "copy.market_reactions.rates",
+            "start": 75,
+            "end": 77,
+            "evidence_ref": "preview-number-73"
+          },
+          {
+            "copy_path": "copy.market_reactions.rates",
+            "start": 94,
+            "end": 98,
+            "evidence_ref": "preview-number-70"
+          },
+          {
+            "copy_path": "copy.market_reactions.rates",
+            "start": 98,
+            "end": 104,
+            "evidence_ref": "preview-number-71"
+          },
+          {
+            "copy_path": "copy.market_reactions.rates",
+            "start": 148,
+            "end": 149,
+            "evidence_ref": "preview-number-75"
+          },
+          {
+            "copy_path": "copy.market_reactions.rates",
+            "start": 240,
+            "end": 241,
+            "evidence_ref": "preview-number-77"
+          },
+          {
+            "copy_path": "copy.market_reactions.rates",
+            "start": 256,
+            "end": 261,
+            "evidence_ref": "preview-number-80"
+          },
+          {
+            "copy_path": "copy.market_reactions.rates",
+            "start": 270,
+            "end": 272,
+            "evidence_ref": "preview-number-81"
+          },
+          {
+            "copy_path": "copy.market_reactions.rates",
+            "start": 281,
+            "end": 286,
+            "evidence_ref": "preview-number-82"
+          },
+          {
+            "copy_path": "copy.market_reactions.rates",
+            "start": 294,
+            "end": 295,
+            "evidence_ref": "preview-number-78"
+          },
+          {
+            "copy_path": "copy.market_reactions.dollar",
+            "start": 263,
+            "end": 267,
+            "evidence_ref": "preview-number-88"
+          },
+          {
+            "copy_path": "copy.market_reactions.oil",
+            "start": 142,
+            "end": 143,
+            "evidence_ref": "preview-number-83"
+          },
+          {
+            "copy_path": "copy.market_reactions.indices",
+            "start": 292,
+            "end": 294,
+            "evidence_ref": "preview-number-68"
+          },
+          {
+            "copy_path": "copy.market_reactions.indices",
+            "start": 346,
+            "end": 349,
+            "evidence_ref": "preview-number-57"
+          },
+          {
+            "copy_path": "copy.market_reactions.indices",
+            "start": 361,
+            "end": 363,
+            "evidence_ref": "preview-number-55"
+          },
+          {
+            "copy_path": "copy.market_reactions.indices",
+            "start": 395,
+            "end": 399,
+            "evidence_ref": "preview-number-59"
+          },
+          {
+            "copy_path": "copy.view_changes",
+            "start": 251,
+            "end": 255,
+            "evidence_ref": "preview-number-96"
+          },
+          {
+            "copy_path": "copy.view_changes",
+            "start": 363,
+            "end": 364,
+            "evidence_ref": "preview-number-97"
+          },
+          {
+            "copy_path": "copy.view_changes",
+            "start": 396,
+            "end": 398,
+            "evidence_ref": "preview-number-99"
+          }
+        ]
+      },
+      "display_date": "3 November 2026",
+      "source_as_of_text": "As of 23:20 UTC on 2 November 2026",
+      "social_mechanism_summary": "Capital Chronicle's pre-election preview treats a Democratic sweep as the expected result and Republicans keeping both chambers as the biggest surprise. That difference could matter more to prices than the political headline: an outcome investors already expect may produce modest moves. This is a preview of possible outcomes, not an election result.",
+      "social_policy_summary": "With a Democratic sweep, the President's veto could limit changes to tax and tariff policy. The preview instead anticipates more oversight, a harder funding fight before the 11 December deadline and a debt-limit standoff in 2027.",
+      "social_cross_asset_summary": "The Middle East and oil, the jobs report on 6 November and inflation data on 10 November could outweigh the election in rates and the dollar. Would a large market move reflect the congressional result, or a change in those competing drivers?",
+      "canonical_slug_candidate": "us-midterms-2026-what-markets-expect",
+      "primary_reader_question": "What do the dated polls and market expectations actually establish before voting concludes, and how could each outcome affect the six market groups if its transmission mechanism holds—or fails?",
+      "secondary_reader_questions": [
+        "What do generic-ballot polls establish, and what do they leave unknown?",
+        "Which congressional outcome would differ most from expectations?",
+        "Which market reactions depend on fiscal policy, and which could be overtaken by other drivers?",
+        "When could Senate control remain unresolved?"
+      ],
+      "entities": [
+        "United States Congress",
+        "Democratic Party",
+        "Republican Party",
+        "Federal Reserve",
+        "US Treasury",
+        "PollCheck",
+        "Silver Bulletin",
+        "Saxo",
+        "Man Group",
+        "Bitcoin"
+      ],
+      "topics": [
+        "US midterm elections",
+        "Congress",
+        "Treasury yields",
+        "US dollar",
+        "Gold",
+        "Oil",
+        "US equities",
+        "Bitcoin"
+      ],
+      "search_freshness_class": "DATED_EVENT_PREVIEW",
+      "internal_link_candidates": [],
+      "structured_data_packet": null
+    },
+    "cited_sources": [
+      {
+        "source_id": "SOURCE_1",
+        "url": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md",
+        "publisher": "Capital Chronicle",
+        "published_at_utc": "2026-11-02T23:35:08Z"
+      }
+    ],
+    "material_claim_bindings": [
+      {
+        "claim_id": "cc107-title",
+        "claim_text": "US midterms: Capital Chronicle on the result that could surprise markets",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "**Republican sweep.** The biggest surprise on offer. It would reopen the door to tax and spending legislation and easier permits for energy and data centres. Stocks could rally, led by financials, energy, defence and AI infrastructure. Larger deficits would probably lift long-term yields and the dollar, and gold could come under pressure. Bitcoin would likely benefit from a crypto-friendly Congress, while insurers and hospitals that rely on public health programmes, and clean energy, would face headwinds. After the 2024 presidential result the dollar and yields jumped and gold fell: a reference point, not a forecast.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-dek",
+        "claim_text": "A Democratic sweep leads expectations in Capital Chronicle's dated preview. Republican control, a split Congress or a slow count could change the market response.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Prediction markets strongly favour Democrats to win the House. They also clearly favour Democrats to take the Senate, though less decisively. Among the four possible combinations, a Democratic sweep of both chambers leads by a wide margin. A Democratic House with a Republican Senate is the main alternative. Republicans keeping both chambers is an outside chance, and a Republican House with a Democratic Senate is remote. Markets moved further towards Democrats in the final days.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-search-title",
+        "claim_text": "US midterm election preview: Capital Chronicle's market scenarios",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Prediction markets strongly favour Democrats to win the House. They also clearly favour Democrats to take the Senate, though less decisively. Among the four possible combinations, a Democratic sweep of both chambers leads by a wide margin. A Democratic House with a Republican Senate is the main alternative. Republicans keeping both chambers is an outside chance, and a Republican House with a Democratic Senate is remote. Markets moved further towards Democrats in the final days.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-meta-description",
+        "claim_text": "Capital Chronicle's dated US midterm preview weighs the expected Democratic sweep, alternative results and conditional reactions across major markets.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Prediction markets strongly favour Democrats to win the House. They also clearly favour Democrats to take the Senate, though less decisively. Among the four possible combinations, a Democratic sweep of both chambers leads by a wide margin. A Democratic House with a Republican Senate is the main alternative. Republicans keeping both chambers is an outside chance, and a Republican House with a Democratic Senate is remote. Markets moved further towards Democrats in the final days.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-social-hook",
+        "claim_text": "Capital Chronicle's midterm preview: an expected Democratic sweep may move prices less than a Republican surprise. A slow Senate count could matter too.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "**Republican sweep.** The biggest surprise on offer. It would reopen the door to tax and spending legislation and easier permits for energy and data centres. Stocks could rally, led by financials, energy, defence and AI infrastructure. Larger deficits would probably lift long-term yields and the dollar, and gold could come under pressure. Bitcoin would likely benefit from a crypto-friendly Congress, while insurers and hospitals that rely on public health programmes, and clean energy, would face headwinds. After the 2024 presidential result the dollar and yields jumped and gold fell: a reference point, not a forecast.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-expected-result",
+        "claim_text": "treats a Democratic sweep as the expected result",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "**Democratic sweep (the expected result).**",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-biggest-surprise",
+        "claim_text": "Republicans keeping both chambers as the biggest surprise.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "**Republican sweep.** The biggest surprise on offer.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-priced-expectation",
+        "claim_text": "an outcome investors already expect may produce modest moves.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Since this result is widely expected, moves may be modest, and strategists disagree on stocks: Ed Yardeni warns of a \"very cold shower\", while Morgan Stanley's Mike Wilson sees a possible clearing event.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-as-of",
+        "claim_text": "As of 23:20 UTC on 2 November 2026",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "As of 23:20 UTC on 2 November 2026",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-contest-context",
+        "claim_text": "the preview cites Election Central's count: all 435 House seats and 35 Senate seats are contested on 3 November, with Democrats needing net gains of four Senate seats and three House seats.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Americans vote on Tuesday 3 November for all 435 House seats, 35 Senate seats and most governors. Republicans hold both chambers: Democrats need a net gain of four Senate seats (the split is 53-47) and three House seats (Election Central, 2 November).",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-first-close",
+        "claim_text": "The first polls close at 23:00 UTC, according to 270toWin as cited in the preview.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The first polls close at 23:00 UTC (6 p.m. ET). Most Senate battlegrounds close between 00:30 and 02:00 UTC, California at 04:00 UTC and the last of Alaska at 06:00 UTC (270toWin).",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-battleground-closes",
+        "claim_text": "Most Senate battlegrounds close between 00:30 and 02:00 UTC.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Most Senate battlegrounds close between 00:30 and 02:00 UTC",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-counting-delay",
+        "claim_text": "Some results may take days; Alaska expects final ranked-choice results by 18 November, according to Newsweek as cited in the preview. A close Senate may remain unresolved if it hinges on Alaska or Maine.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Some races could take far longer: Alaska expects final ranked-choice results by 18 November (Newsweek), Maine has usually known a ranked-choice result the week after, and California counties have about two weeks to report most ballots (PolitiFact via PBS). If the Senate comes down to Alaska or Maine, control could stay unknown for days.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-market-expectations",
+        "claim_text": "Prediction markets in the preview strongly favour a Democratic House and also favour a Democratic Senate, though less decisively. A Democratic House with a Republican Senate is the main alternative; Republicans keeping both is an outside chance, and a Republican House with a Democratic Senate is remote.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Prediction markets strongly favour Democrats to win the House. They also clearly favour Democrats to take the Senate, though less decisively. Among the four possible combinations, a Democratic sweep of both chambers leads by a wide margin. A Democratic House with a Republican Senate is the main alternative. Republicans keeping both chambers is an outside chance, and a Republican House with a Democratic Senate is remote. Markets moved further towards Democrats in the final days.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-polling-snapshot",
+        "claim_text": "the Silver Bulletin generic-ballot average showed an 8.9-point Democratic lead, while PollCheck put Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead, both updated 2 November.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Silver Bulletin generic-ballot average gives Democrats an 8.9-point lead (updated 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 November).",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-polling-measure",
+        "claim_text": "These are reported voting-intention estimates, not probabilities of chamber control.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Silver Bulletin generic-ballot average gives Democrats an 8.9-point lead (updated 2 November). PollCheck has Democrats at 51.1% and Republicans at 42.8%, an 8.3-point lead (updated 2 November).",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-senate-countercase",
+        "claim_text": "The preview also cites CNBC's 30 October report of Wolfe Research's more cautious Senate assessment.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Some are less sure about the Senate: Wolfe Research's own estimate put Democratic control at 49% (CNBC, 30 October).",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-veto-and-funding",
+        "claim_text": "With a Democratic sweep, the President's veto could limit changes to tax and tariff policy. The preview instead anticipates more oversight, a harder funding fight before the 11 December deadline and a debt-limit standoff in 2027.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The President's veto means tax and tariff policy is unlikely to change. Expect more oversight, a harder funding fight before the 11 December deadline, and a debt-limit standoff in 2027.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-split-powers",
+        "claim_text": "A Democratic House and Republican Senate would mean gridlock while leaving Senate confirmation powers intact, including at the Fed.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "**Democratic House, Republican Senate.** Gridlock, which markets have often welcomed. The Senate would keep its power to confirm nominees, including at the Fed. Against an expected sweep, this is a modest surprise. Stocks could firm, the dollar could edge up and long-term yields could rise slightly, while the sector winners and losers of a sweep partly swap places.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-republican-legislation",
+        "claim_text": "Republican control of both chambers could reopen tax and spending legislation and easier permits for energy and data centres.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "It would reopen the door to tax and spending legislation and easier permits for energy and data centres.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-remote-split",
+        "claim_text": "The remote Republican House/Democratic Senate combination has no clear market template.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "**Republican House, Democratic Senate.** Remote, with no clear market template.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-delay-and-dispute",
+        "claim_text": "A slow count could prolong uncertainty; a formal dispute over a chamber-deciding result is a separate risk outside these scenarios.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "**A delayed or contested result.** A slow count would keep uncertainty priced for longer. A formal dispute over a chamber-deciding result would be a different kind of risk, one the scenarios above do not cover.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-fed-backdrop",
+        "claim_text": "The preview cites the Fed's 28 October hold at 3.75-4.00%, with two officials preferring a hike, and 2 November futures leaning towards a December rise.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Federal Reserve held rates at 3.75-4.00% on 28 October, with two officials wanting a hike. Futures lean towards a December rise (Yahoo Finance live coverage, 2 November).",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-treasury-backdrop",
+        "claim_text": "Treasury figures in the preview put the 2-year yield at 4.59% and the 10-year at 4.91% at the 2 November close.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The 2-year Treasury yield closed 2 November at 4.59% and the 10-year at 4.91% (US Treasury).",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-democratic-rates",
+        "claim_text": "less fiscal expansion under a Democratic sweep could ease long-term yields.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Less fiscal expansion could ease long-term yields and soften the dollar a little, helping gold at the margin.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-split-rates",
+        "claim_text": "The main split outcome could lift them slightly;",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "long-term yields could rise slightly",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-republican-rates",
+        "claim_text": "a Republican sweep and larger deficits would probably push them higher.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Larger deficits would probably lift long-term yields and the dollar, and gold could come under pressure.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-dollar-democratic",
+        "claim_text": "The dollar could soften a little under a Democratic sweep,",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Less fiscal expansion could ease long-term yields and soften the dollar a little, helping gold at the margin.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-dollar-split",
+        "claim_text": "edge up with a Democratic House and Republican Senate,",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Stocks could firm, the dollar could edge up and long-term yields could rise slightly",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-dollar-republican",
+        "claim_text": "or rise more firmly under a Republican sweep if larger deficits lift long-term yields.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Larger deficits would probably lift long-term yields and the dollar, and gold could come under pressure.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-historical-reference",
+        "claim_text": "The preview cites the rise in the dollar and yields after the 2024 presidential result as a reference point, not a forecast that the same pattern must repeat.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "After the 2024 presidential result the dollar and yields jumped and gold fell: a reference point, not a forecast.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-gold-democratic",
+        "claim_text": "Gold could benefit at the margin from softer yields and a weaker dollar under a Democratic sweep.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Less fiscal expansion could ease long-term yields and soften the dollar a little, helping gold at the margin.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-gold-republican",
+        "claim_text": "A Republican sweep, with higher yields and a stronger dollar, could put it under pressure.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Larger deficits would probably lift long-term yields and the dollar, and gold could come under pressure.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-oil-driver",
+        "claim_text": "Oil would take its cue from the Middle East rather than Congress in the Democratic-sweep scenario.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Oil would take its cue from the Middle East, not Congress.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-oil-observation",
+        "claim_text": "The preview notes that oil fell sharply on 2 November on hopes of diplomacy.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Oil fell sharply on 2 November on hopes of Middle East diplomacy.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-stock-countercase",
+        "claim_text": "Under a Democratic sweep, Ed Yardeni warns of a \"very cold shower\", while Morgan Stanley's Mike Wilson sees a possible clearing event.",
+        "claim_kind": "QUOTE",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "strategists disagree on stocks: Ed Yardeni warns of a \"very cold shower\", while Morgan Stanley's Mike Wilson sees a possible clearing event.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-split-stocks",
+        "claim_text": "The main split outcome could firm stocks;",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Stocks could firm, the dollar could edge up and long-term yields could rise slightly",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-republican-stocks",
+        "claim_text": "a Republican sweep could produce a rally.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Stocks could rally, led by financials, energy, defence and AI infrastructure.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-options-context",
+        "claim_text": "For scale, Saxo's 30 October account, as cited in the preview, said S&P 500 options on 29 October priced a move of about 1.3% in either direction by Wednesday's close, little more than an ordinary day.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Not much, by options standards. On 29 October, S&P 500 options priced a move of about 1.3% in either direction by Wednesday's close, which Saxo described as little more than an ordinary day. Since 1990 the index has usually moved less than 1% the day after a midterm, but about 2% after both 2018 and 2022 (Saxo, 30 October).",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-democratic-sectors",
+        "claim_text": "In the Democratic-sweep case, the preview cites Man Group and Saxo favouring healthcare, retail and parts of clean energy, with banks and brokers, defence and AI data-centre builders under more pressure.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Man Group and Saxo see healthcare, retail and parts of clean energy benefiting, and banks and brokers, defence and AI data-centre builders under more pressure.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-split-sectors",
+        "claim_text": "Some of those preferences could partly reverse with a Democratic House and Republican Senate.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "while the sector winners and losers of a sweep partly swap places.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-republican-sectors",
+        "claim_text": "Under a Republican sweep, financials, energy, defence and AI infrastructure could lead a rally, while insurers and hospitals reliant on public health programmes, and clean energy, could face headwinds.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Stocks could rally, led by financials, energy, defence and AI infrastructure. Larger deficits would probably lift long-term yields and the dollar, and gold could come under pressure. Bitcoin would likely benefit from a crypto-friendly Congress, while insurers and hospitals that rely on public health programmes, and clean energy, would face headwinds.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-bitcoin",
+        "claim_text": "Bitcoin would likely benefit from a crypto-friendly Congress in that Republican-sweep scenario; the preview gives no equivalent directional claim for the other outcomes.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Bitcoin would likely benefit from a crypto-friendly Congress",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-result-watch",
+        "claim_text": "Watch early results in Virginia, Georgia, North Carolina, Ohio and Florida against the polls, then the Senate tipping points in Texas, Maine, Ohio and Alaska, with Kansas and Iowa as Democrats' extra chances.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "- Early results in Virginia, Georgia, North Carolina, Ohio and Florida (00:00-00:30 UTC), compared with the polls.\n- The Senate tipping points: Texas, Maine, Ohio and Alaska, with Kansas and Iowa as Democrats' extra chances.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-options-surprise-watch",
+        "claim_text": "A stock move much larger than the roughly 1.3% priced by options would challenge the modest-move expectation.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Whether stocks move by much more than the roughly 1.3% that options priced, which would mean the result surprised.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "cc107-competing-drivers",
+        "claim_text": "The Middle East and oil, the jobs report on 6 November and inflation data on 10 November could outweigh the election in rates and the dollar.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Middle East and oil, the jobs report on 6 November and inflation data on 10 November, any of which could outweigh the election in rates and the dollar.",
+        "attribution_required": true
+      }
+    ],
+    "public_write_attempted": false
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_visual_edit_76437a71362e",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Supported exact native write assignment cc107-midterm-preview-20261103-v1:write, request 666ec00d5f925f9ef15b52a8549a72485655b2733ef6053b847dd1421c7c32ca, to the same /root/native_visual_edit_76437a71362e context; configured gpt-6.1-sol/max. Actual values are not exposed by supported runtime observation.",
+    "observation_source": "This executing native subagent context is /root/native_visual_edit_76437a71362e; the supported follow-up assignment reuses the exact visual-editor identity for actual writing. Same request-bound local artifact is the native return.",
+    "speed": "standard"
+  }
+}

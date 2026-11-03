@@ -1,5 +1,6 @@
 """The native acceptance gate binds real public copy, not a detached safe packet."""
 from copy import deepcopy
+from hashlib import sha256
 
 import pytest
 
@@ -89,3 +90,34 @@ def test_native_submit_refuses_unbound_packet_before_sealing_return(tmp_path):
     response["output"] = output
     turn.submit("write", response)
     assert turn._get("write", "response")["output"] == output
+
+
+def test_public_preview_is_not_forced_to_invent_a_main_report_notice(tmp_path, monkeypatch):
+    import live_contentops.event_preview_source_v1 as adapter
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _epistemic_copy_blockers
+    _, output = controlled_packet()
+    article = output["article"]
+    raw = b"Controlled synthetic polling figure: 51.1%."
+    path = tmp_path / "PREVIEW.md"
+    path.write_bytes(raw)
+    monkeypatch.setattr(adapter, "FROZEN_PREVIEW", path)
+    doc = {"document_id": "controlled", "source_identity": "controlled",
+           "url": "https://source.invalid/test", "canonical_content_text": raw.decode(),
+           "canonical_content_sha256": sha256(raw).hexdigest(), "source_reuse_constraints": {
+           "scope": "EXACT_OPS_REVIEWED_CAPITAL_CHRONICLE_PUBLIC_PREVIEW_ONLY",
+           "public_expression_reuse_allowed": True, "source_capture_sha256": sha256(raw).hexdigest(),
+           "approval_capture_sha256": "c" * 64}}
+    state = adapter.approved_preview_evidence([{"document": doc}], {}, revision="test")["epistemic_state"]
+    facts = adapter.public_preview_event_evidence([doc])["facts"]
+    article["event_article"]["numeric_bindings"][0]["evidence_ref"] = next(
+        key for key, fact in facts.items() if fact["display"] == "51.1%")
+    assert "report_horizon_proxy_cost_limits_missing" not in _epistemic_copy_blockers(
+        article, [], state, source_pack=[doc])
+    # A writer's event label alone cannot exempt an ordinary or changed Main source.
+    changed = deepcopy(doc)
+    changed["canonical_content_text"] = "Unrelated Main projection"
+    assert "report_horizon_proxy_cost_limits_missing" in _epistemic_copy_blockers(
+        article, [], state, source_pack=[changed])
+    assert "report_horizon_proxy_cost_limits_missing" in _epistemic_copy_blockers(article, [], state)
+    assert "report_horizon_proxy_cost_limits_missing" in _epistemic_copy_blockers(
+        article, [], {**state, "report_scope_notice": "Actual Main limits must survive."}, source_pack=[doc])
