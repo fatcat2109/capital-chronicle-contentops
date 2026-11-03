@@ -112,6 +112,15 @@ def chart_packet():
     }, [doc]
 
 
+def test_numeric_fact_card_keeps_exact_source_values():
+    packet, documents = chart_packet()
+    packet["chart_type"] = "fact_card"
+    assert _editorial_data_values(packet, documents) == [[100.0, 120.0]]
+    packet["series"][0]["points"][0]["value"] = 101
+    with pytest.raises(ValueError, match="COMPUTED_VALUE_CHANGED"):
+        _editorial_data_values(packet, documents)
+
+
 def test_decision41_requires_analysis_charts_and_preserves_short_news_exception():
     assert validate_visual_decision(decision(count=1)) == decision(count=1)
     with pytest.raises(ValueError, match="ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"):

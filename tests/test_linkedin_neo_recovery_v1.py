@@ -247,7 +247,8 @@ def test_native_projection_keeps_selected_company_copy_pending_without_changing_
     assert final["additional_confirmed_count"] == 1
 
 
-@pytest.mark.parametrize("invalid", [None, "identity", "profile", "not_loaded", "not_empty", "unrelated_text", "stale"])
+@pytest.mark.parametrize("invalid", [None, "identity", "profile", "not_loaded", "not_empty", "unrelated_text", "stale",
+    "owner_target_absent", "target_url_present", "target_title_present"])
 def test_unknown_absence_needs_owner_report_and_fresh_loaded_own_activity(tmp_path, monkeypatch, invalid):
     store, binding, _, co, runtime, _, ids = linkedin_recovery(tmp_path, monkeypatch)
     fixed = datetime(2026, 10, 28, 4, 4, 59, tzinfo=timezone.utc)
@@ -268,6 +269,14 @@ def test_unknown_absence_needs_owner_report_and_fresh_loaded_own_activity(tmp_pa
         "profile": {"observed_profile_url": ROOTS["linkedin_company"]}, "not_loaded": {"activity_feed_loaded": False},
         "not_empty": {"activity_feed_empty": False}, "unrelated_text": {"observed_text": "An empty search result"}}
     result.update(changes.get(invalid, {}))
+    if invalid in {"owner_target_absent", "target_url_present", "target_title_present"}:
+        intent = json.loads(before)
+        text = "Own activity: one unrelated older oil report."
+        if invalid == "target_url_present": text += " " + intent["canonical_url"]
+        if invalid == "target_title_present":
+            from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+            text += " " + _durable_intent_inputs(intent)["payloads"]["linkedin"]["text"].split("\n", 1)[0]
+        result.update(activity_feed_empty=False, target_post_absent=True, observed_text=text)
     executor.submit(request_hash, {"tool_request_sha256": packet["tool_request_sha256"],
         "tool_observation": {"tool_name": "mcp__browseros_neo__run", "native_invocation_id": executor.native_invocation_id,
             "surface": "CODEX_DESKTOP_CONVERSATION", "observation_source": "SYNTHETIC_PROTOCOL_FIXTURE_NOT_BROWSER_PROOF",
@@ -276,8 +285,9 @@ def test_unknown_absence_needs_owner_report_and_fresh_loaded_own_activity(tmp_pa
     fixed += timedelta(seconds=301 if invalid == "stale" else 2)
     observed = co.reconcile_owner_confirmed_linkedin_absence(ids["dispatch_id"],
         owner_authority_ref="human:CONTROLLED_OWNER_ABSENCE", request_hash=request_hash)
-    assert (observed["status"] == "RECONCILED_ABSENT_SAFE_TO_RETRY") == (invalid is None)
-    assert (store.get_platform_dispatch(ids["dispatch_id"])["status"] == "UNKNOWN_WRITE") == (invalid is not None)
+    accepted = invalid in {None, "owner_target_absent"}
+    assert (observed["status"] == "RECONCILED_ABSENT_SAFE_TO_RETRY") == accepted
+    assert (store.get_platform_dispatch(ids["dispatch_id"])["status"] == "UNKNOWN_WRITE") == (not accepted)
     assert store.get_outbox_message(ids["message_id"])["payload"] == before
     assert runtime.publish_calls == []
     assert not executor.pending()

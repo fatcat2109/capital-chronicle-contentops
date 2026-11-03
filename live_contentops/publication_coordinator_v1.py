@@ -848,12 +848,22 @@ class DurablePublicationCoordinator:
         observation = result.get("native_tool_observation") or {}
         observed = _parse_utc(observation.get("observed_at_utc"))
         age = (self._clock() - observed).total_seconds() if observed else -1
+        text = str(result.get("observed_text") or "")
+        empty_feed = (result.get("activity_feed_empty") is True and "Nothing to see for now" in text)
+        # Jim's exact-object absence report does not require his entire profile
+        # to be empty. Preserve the fresh own-profile check and reject a return
+        # that actually contains this post's canonical URL or full headline.
+        from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+        payload = original.get("native_payload") or _durable_intent_inputs(original)["payloads"].get("linkedin", {})
+        title = payload.get("text", "").split("\n", 1)[0]
+        target_absent = (result.get("target_post_absent") is True and bool(text.strip())
+            and bool(original.get("canonical_url")) and original["canonical_url"] not in text
+            and bool(title.strip()) and title not in text)
         if (result.get("request_sha256") != request["request_sha256"]
                 or result.get("observed_identity") != "linkedin:jimcc"
                 or result.get("observed_profile_url") != ROOTS["linkedin"]
                 or result.get("authenticated") is not True or result.get("activity_feed_loaded") is not True
-                or result.get("activity_feed_empty") is not True
-                or "Nothing to see for now" not in str(result.get("observed_text") or "")
+                or not (empty_feed or target_absent)
                 or observation.get("tool_name") != "mcp__browseros_neo__run"
                 or observation.get("native_invocation_id") != executor.native_invocation_id
                 or not result.get("native_tool_return_sha256") or not 0 <= age <= 300):

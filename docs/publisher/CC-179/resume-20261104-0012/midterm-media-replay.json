@@ -1,0 +1,6 @@
+{
+  "state": "BLOCKED",
+  "error_class": "ValueError",
+  "cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+  "public_write_performed": false
+}

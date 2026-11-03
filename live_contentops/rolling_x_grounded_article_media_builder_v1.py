@@ -1124,6 +1124,9 @@ def _editorial_data_values(packet, documents):
         "paired_dumbbell",
         "horizontal_count_bar",
         "horizontal_interval_and_points",
+        # Retained numeric cards use the same exact source/metric/unit/period
+        # grammar as charts. Their already reviewed PNG remains hash-bound.
+        "fact_card",
         "QUARTER_CONTRIBUTION_MATRIX_WITH_COMPANY_ANCHOR",
         "MARGIN_LEVEL_TABLE_WITH_DIVERGING_PP_CHANGE",
         "HORIZONTAL_CHANGE_BRIDGE_WITH_REPORTED_LEVELS",
