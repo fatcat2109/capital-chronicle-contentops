@@ -295,6 +295,26 @@
       "remote_head_at_entry": "3960ea9b34cc72b3950052196acacf265543ad4f",
       "backlog_status": "IN_PROGRESS",
       "pending_same_writer_request": "cd9a7356010ec444376cb58bbd6324ff244c58efbb1fe56ddef0a1b660cd4834"
+    },
+    {
+      "observed_at_utc": "2026-11-03T08:08:08.464401+00:00",
+      "process_id": 47552,
+      "created_at_utc": "2026-11-03T08:02:18.359759Z",
+      "launch_tokens": [
+        "exec",
+        "resume",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"max\""
+      ],
+      "actual_model": null,
+      "actual_reasoning_effort": null,
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "remote_head_at_entry": "32744f1701afb9ac2fa29605a2b191052a52200f",
+      "backlog_status": "IN_PROGRESS",
+      "pending_same_writer_work": "Corrected review-r2 capture and new revision-bound final rendered-media request",
+      "prior_usage_limit": "Previous native writer quota interruption; user resumed after account switch or transient recovery; not a current quota conclusion."
     }
   ],
   "lint": {
