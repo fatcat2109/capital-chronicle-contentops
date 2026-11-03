@@ -330,6 +330,16 @@ def test_unknown_with_object_identity_is_never_owner_absence_retried(tmp_path, m
     assert runtime.publish_calls == []
 
 
+def test_old_owner_absence_report_cannot_reconcile_a_later_retry(tmp_path, monkeypatch):
+    _, binding, _, co, runtime, _, ids = linkedin_recovery(tmp_path, monkeypatch)
+    co._record_retry_attempt(ids["dispatch_id"], binding["run_id"])
+    result = co.reconcile_owner_confirmed_linkedin_absence(ids["dispatch_id"],
+        owner_authority_ref="human:CONTROLLED_OLDER_OWNER_ABSENCE")
+    assert result["status"] == "LINKEDIN_OWNER_REPORT_PREDATES_RETRY_READBACK_REQUIRED"
+    assert result["publish_called"] is False
+    assert runtime.publish_calls == []
+
+
 def test_company_public_readback_requires_actor_text_and_real_media_observation():
     url = "https://www.linkedin.com/feed/update/urn:li:activity:123/"
     intent = {"work_item_id": "fixture", "native_payload": {"text": "Dated report. " + CANONICAL,

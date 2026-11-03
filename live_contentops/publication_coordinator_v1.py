@@ -824,6 +824,8 @@ class DurablePublicationCoordinator:
                 or dispatch.get("public_object_url") or dispatch.get("status") != UNKNOWN_WRITE
                 or not str(owner_authority_ref).startswith("human:")):
             raise ValueError("LINKEDIN_EXACT_UNIDENTIFIED_UNKNOWN_AND_OWNER_REPORT_REQUIRED")
+        if self._retry_already_attempted(dispatch_id):
+            return {"status": "LINKEDIN_OWNER_REPORT_PREDATES_RETRY_READBACK_REQUIRED", "publish_called": False}
         original = json.loads(message["payload"])
         context = {"dispatch_id": dispatch_id, "original_intent_sha256": sha256_of(original),
             "owner_authority_ref": owner_authority_ref, "owner_reported_absent": True,
