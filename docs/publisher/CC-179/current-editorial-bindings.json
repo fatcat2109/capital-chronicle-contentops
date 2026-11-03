@@ -9,11 +9,12 @@
     "base_review_current": false,
     "base_review_error": "NATIVE_REVIEW_REVISION_CHANGED",
     "final_visual_current": false,
-    "final_visual_error": "FINAL_VISUAL_ARTIFACT_BYTES_CHANGED",
+    "final_visual_error": "FINAL_VISUAL_REVIEW_REVISION_CHANGED",
     "required_native_actor": "/root/native_visual_edit_76437a71362e",
     "actor_available_in_this_run": false,
     "next_owner": "Publisher through the original MAX editorial owner",
-    "next_action": "Re-render the exact current packet and collect the original writer final-visual return; bind KEEP and prepare the same dispatch plan. Original actor is not among the supported live agents in this run; no substitute identity used."
+    "next_action": "Re-render the exact current packet and collect the original writer final-visual return; bind KEEP and prepare the same dispatch plan. Original actor is not among the supported live agents in this run; no substitute identity used.",
+    "mismatched_review_artifacts": []
   },
   {
     "observed_at_utc": "2026-11-03T13:38:21.992835+00:00",

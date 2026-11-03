@@ -42,10 +42,64 @@ def uses_short_path(store, *, run_id, result):
     binding = json.loads(row["payload"]) if row else {}
     if not binding:
         return False
+    adopted = store.get_outbox_message("native-approved-text-speed-" + sha256_of(run_id))
+    if adopted:
+        return _approved_text_speed_basis(store, run_id=run_id, result=result) == json.loads(adopted["payload"])
     turn = NativeDesktopTurn(store, run_id=run_id, output_dir=binding["output_dir"], owner_manual_validation=True)
     request = turn.frozen_request("write") or {}
     policy = request.get("governed_input", {}).get("publication_speed_policy")
     return bool(policy and policy == speed_policy(request["governed_input"]))
+
+
+def _approved_text_speed_basis(store, *, run_id, result):
+    """Apply the current policy to unchanged, previously accepted native text.
+
+    Frozen writer requests and returns stay untouched. This is not new writing,
+    a source refresh, or permission to accept a changed article under an old KEEP.
+    """
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, validate_native_configuration, ROLE_ASSIGNMENTS
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _public_copy
+    from live_contentops.contentops_editorial_desk_v1 import read_reviews
+    binding_row = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
+    binding = json.loads(binding_row["payload"]) if binding_row else {}
+    turn = NativeDesktopTurn(store, run_id=run_id, output_dir=binding["output_dir"], owner_manual_validation=True)
+    request, response = turn.frozen_request("write"), turn._get("write", "response")
+    if not request or not response or response["request_sha256"] != request["request_sha256"]:
+        raise ValueError("APPROVED_TEXT_EXACT_NATIVE_WRITER_REQUIRED")
+    validate_native_configuration(response["invocation_observation"], ROLE_ASSIGNMENTS["write"])
+    governed = request["governed_input"]
+    event = result["article"].get("event_article")
+    if (governed.get("article_mode") not in TIME_SENSITIVE_MODES and not event
+            or sha256_of(result["evidence"]) != sha256_of(governed["source_pack"])
+            or _public_copy(response["output"]["article"]) != _public_copy(result["article"])
+            or any(result["article"].get(k) != v for k, v in response["output"]["article"].items()
+                   if k.startswith("social_"))):
+        raise ValueError("APPROVED_TEXT_SOURCE_OR_COPY_CHANGED")
+    rows = read_reviews(store)
+    approved = [r for r in rows if r["reviewer_ref"] == "NATIVE_DESKTOP_ARTICLE_REVIEW"
+        and (n := json.loads(r["notes"])).get("run_id") == run_id]
+    if not approved or approved[-1]["decision"] != "KEEP":
+        raise ValueError("APPROVED_TEXT_EXISTING_KEEP_REQUIRED")
+    exact = [r for r in approved if r["decision"] == "KEEP"
+        and json.loads(r["notes"]).get("article_metadata_sha256") == sha256_of(result["article"])]
+    if not exact:
+        raise ValueError("APPROVED_TEXT_EXISTING_EXACT_COPY_REQUIRED")
+    return {"policy": SPEED_POLICY, "run_id": run_id, "base_result_sha256": sha256_of(result),
+        "article_metadata_sha256": sha256_of(result["article"]), "text_revision_sha256": text_revision(result),
+        "original_approval_clock_utc": min(r["reviewed_at"] for r in exact),
+        "source_sha256": sha256_of(result["evidence"]), "native_writer_response_sha256": sha256_of(response),
+        "public_write_performed": False}
+
+
+def adopt_approved_text_speed_policy(store, *, run_id):
+    from live_contentops.native_desktop_editorial_v1 import native_artifact_key
+    row = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
+    result = json.loads(row["payload"]) if row else {}
+    value = _approved_text_speed_basis(store, run_id=run_id, result=result)
+    store.register_outbox_message(message_id="native-approved-text-speed-" + sha256_of(run_id),
+        work_item_id=row["work_item_id"], destination="internal:native-publication-policy",
+        payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
+    return value
 
 
 def automated_media_check(result):
@@ -77,6 +131,14 @@ def short_path_acceptance(store, *, run_id, result, review):
     note = json.loads(review["notes"])
     if note.get("publication_speed_policy", {}).get("policy") != SPEED_POLICY or not note.get("automated_media_check"):
         raise ValueError("ONE_EDITOR_CHECK_REQUIRED")
+    adopted = store.get_outbox_message("native-approved-text-speed-" + sha256_of(run_id))
+    if adopted:
+        basis = _approved_text_speed_basis(store, run_id=run_id, result=result)
+        if basis != json.loads(adopted["payload"]):
+            raise ValueError("APPROVED_TEXT_POLICY_BINDING_CHANGED")
+        return {"review_type": "WRITER_ONE_EDITOR_CHECK_PUBLISH", "policy_id": SPEED_POLICY,
+            "review_id": review["review_id"], "text_approved_at_utc": basis["original_approval_clock_utc"],
+            "automated_media_check": note["automated_media_check"], "pixels_inspected": False}
     from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, validate_native_configuration, ROLE_ASSIGNMENTS
     from live_contentops.v1_simple_gemini_newsroom_v1 import (
         _normalize_relay_attribution, _validate_article_against_source_pack, _public_copy,

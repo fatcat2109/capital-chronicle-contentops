@@ -1,0 +1,6 @@
+# Exact historical render sources are retained locally and in the CC-179 runtime archive.
+# Their embedded base64 images must not be committed; binary captures are tracked separately.
+/review/index.html
+/review/workspace.json
+/review-r2/index.html
+/review-r2/workspace.json

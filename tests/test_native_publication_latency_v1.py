@@ -71,6 +71,38 @@ def test_editor_keep_preserves_original_text_clock_across_media_review(tmp_path,
     assert next_review["text_approved_at_utc"] == first
 
 
+def test_current_policy_adopts_unchanged_legacy_text_without_rewriting_native_history(tmp_path, monkeypatch):
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
+    from live_contentops.native_publication_latency_v1 import adopt_approved_text_speed_policy, uses_short_path
+    store, binding, _, result, review = seeded(tmp_path, monkeypatch, final_visual=False)
+    run = binding["run_id"]
+    turn = NativeDesktopTurn(store, run_id=run, output_dir=binding["output_dir"], owner_manual_validation=True)
+    request = {"request_sha256": "controlled-legacy-request", "governed_input": {
+        "article_mode": "STANDARD_NEWS_ANALYSIS", "source_pack": result["evidence"]}}
+    response = {"request_sha256": request["request_sha256"], "output": {"article": result["article"]},
+        "invocation_observation": {"surface": "CODEX_NATIVE_SUBAGENT", "model": "gpt-6.1-sol",
+            "reasoning_effort": "max", "invocation_id": "controlled-original-writer",
+            "observation_source": "CONTROLLED_FIXTURE_NOT_RUNTIME_PROOF"}}
+    turn._put("write", "request", request)
+    turn._put("write", "response", response)
+    basis = adopt_approved_text_speed_policy(store, run_id=run)
+    assert uses_short_path(store, run_id=run, result=result)
+    kept = record_native_article_review(store, run_id=run, article_identity=result["article_identity"],
+        decision="KEEP", expected_review_id=review["review_id"],
+        rationale="Current policy applies to the exact unchanged source-bound native article.")
+    assert kept["text_approved_at_utc"] == basis["original_approval_clock_utc"]
+    assert require_current_final_visual_review(store, run_id=run)["pixels_inspected"] is False
+    assert turn._get("write", "request") == request and turn._get("write", "response") == response
+    changed = copy.deepcopy(result)
+    changed["article"]["substack_body_markdown"] += " Unreviewed copy."
+    with pytest.raises(ValueError, match="APPROVED_TEXT_SOURCE_OR_COPY_CHANGED"):
+        uses_short_path(store, run_id=run, result=changed)
+    changed = copy.deepcopy(result)
+    changed["evidence"].append({"unreviewed": True})
+    with pytest.raises(ValueError, match="APPROVED_TEXT_SOURCE_OR_COPY_CHANGED"):
+        uses_short_path(store, run_id=run, result=changed)
+
+
 def test_text_clock_excludes_visual_metadata_but_binds_every_copy_change():
     original = {"article_identity": "article", "article": {"title": "Approved text", "substack_body_markdown": "Body",
         "social_policy_summary": "Bound social passage", "visual_editorial_decision": {"charts": []}}}

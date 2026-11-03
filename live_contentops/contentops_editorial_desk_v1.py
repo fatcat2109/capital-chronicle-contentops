@@ -513,6 +513,13 @@ def record_native_article_review(store, *, run_id, article_identity, decision, r
                     (row["work_item_id"],))]
                 note["text_approved_at_utc"] = text_approval(history, run_id=run_id,
                     article_identity=article_identity, revision=note["text_revision_sha256"]) or approved_at
+                adopted = store.get_outbox_message("native-approved-text-speed-" + sha256_of(run_id))
+                if adopted:
+                    from live_contentops.native_publication_latency_v1 import _approved_text_speed_basis
+                    basis = _approved_text_speed_basis(store, run_id=run_id, result=value)
+                    if basis != json.loads(adopted["payload"]):
+                        raise ValueError("APPROVED_TEXT_POLICY_BINDING_CHANGED")
+                    note["text_approved_at_utc"] = basis["original_approval_clock_utc"]
                 from live_contentops.native_publication_latency_v1 import uses_short_path, automated_media_check, SPEED_POLICY
                 if uses_short_path(store, run_id=run_id, result=value):
                     note["publication_speed_policy"] = {"policy": SPEED_POLICY, "target_minutes": 15}
