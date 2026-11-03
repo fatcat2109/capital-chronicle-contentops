@@ -599,6 +599,11 @@ class BoundedOfficialPrimaryEvidenceLoader:
             self._shared_request_budget["used"] = used + 1
         self._request_count += 1
 
+    def acquire_release_history(self, request):
+        """Exact official data through this owner's existing shared request cap."""
+        from live_contentops.official_release_history_v1 import acquire_official_history
+        return acquire_official_history(self, request)
+
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
         requested_families = [
             str(value) for value in (request.get("source_adapter_families") or [])

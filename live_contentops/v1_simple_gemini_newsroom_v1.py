@@ -2792,6 +2792,9 @@ def run_v1_simple_gemini_newsroom(
                                      for i, d in enumerate(contextual)]]
         selected = {**selected, "evolving_story_context": [*selected.get("evolving_story_context", []),
                                                         selected_context["selected_story_context"]]}
+    if selected is not None and selected_plan_entry is not None and native and getattr(llm_invoke, "release_history_sources", None):
+        source_pack = llm_invoke.release_history_sources(source_pack=source_pack,
+            article_mode=selected_plan_entry["article_mode"], cutoff_utc=cutoff_utc)
     evidence_artifact = {
         "schema_version": "contentops.v1_simple_candidate_source_walk.v1",
         "status": "PASS" if selected is not None else "BLOCKED",

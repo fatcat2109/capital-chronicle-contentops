@@ -505,6 +505,7 @@ def run_report_editorial_cycle(
             model.native_response = lambda stage: llm_invoke._get(stage, "response")
             model.source_recovery = llm_invoke.source_recovery
             model.prepare_sources = llm_invoke.prepare_sources
+            model.release_history_sources = getattr(llm_invoke, "release_history_sources", lambda **kw: kw["source_pack"])
             model.admitted_editorial_media = getattr(llm_invoke, "admitted_editorial_media", lambda: [])
             model.audience_learning = getattr(llm_invoke, "audience_learning", None)
             model.volume_policy = getattr(llm_invoke, "volume_policy", None)
