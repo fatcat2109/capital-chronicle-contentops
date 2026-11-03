@@ -52,7 +52,19 @@ def _prepared_packet(store, binding):
     base = manual_output_root(store, binding) / "reviewed-handoff"
     root = resolve_workspace_path(packet["output_dir"])
     if root not in {base, base / native_review_revision(result)}:
-        raise ValueError("REVIEWED_HANDOFF_PATH_CHANGED")
+        # Current compiler policy may change the review revision without changing
+        # any sent bytes. The existing dispatched packet keeps its original path,
+        # plan and object identity; only exact original seals admit that path.
+        sealed = [json.loads(r["payload"]) for r in store.list_outbox_messages()
+            if r["destination"] == DESTINATION and json.loads(r["payload"]).get("run_id") == binding["run_id"]]
+        dispatched = store.get_dispatches_for_work_item(binding["run_id"])
+        prior = sealed[-1] if sealed else {}
+        if (root.parent != base or not dispatched or prior.get("native_result_sha256") != sha256_of(result)
+                or prior.get("plan_hash") != packet.get("plan_hash")
+                or not all((root / name).is_file() and sha256((root / name).read_bytes()).hexdigest() == digest
+                           for name, digest in prior.get("artifact_sha256", {}).items())
+                or set(prior.get("artifact_sha256", {})) != set(ARTIFACTS)):
+            raise ValueError("REVIEWED_HANDOFF_PATH_CHANGED")
     if not all((root / name).is_file() for name in ARTIFACTS):
         raise ValueError("REVIEWED_HANDOFF_ARTIFACT_MISSING")
     plan = SimplePublicationHandoffV1(store=store, coordinator=None).ensure_plan(

@@ -9,5 +9,7 @@
   "prior_fomc_continuation": "INTERRUPTED_NO_RESULT_RETURNED",
   "prior_output_path": "docs/publisher/CC-179/fomc-after-identity-resume.json",
   "prior_output_bytes": 0,
-  "new_send_not_claimed": true
+  "new_send_not_claimed": true,
+  "working_directory": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+  "launch_configuration_readback": "gpt-6.1-sol/high; PID 35648; recorded without full prompt"
 }
