@@ -193,11 +193,11 @@ def append_record(path, row):
             "content_sha256": row["content_sha256"], "outlet_count": len(row["outlets"])}
 
 
-def article_metadata(plan, *, require_notice=True):
+def article_metadata(plan, *, require_notice=True, store=None, run_id=None):
     """Use the exact reviewed compiler artifact, never a model-authored export."""
     root = Path(plan.get("output_dir") or "")
     article = load_json((root / "article_manifest_v1.json").read_bytes())
-    event = article.get("event_article_packet") or {}
+    event = article.get("event_article_packet") or article.get("event_article") or {}
     calls = article.get("conditional_calls", event.get("conditional_calls", []))
     from live_contentops.v1_simple_gemini_newsroom_v1 import _public_copy
     if sha256(_public_copy(article).encode()).hexdigest() != plan.get("article_content_sha256"):
@@ -212,6 +212,19 @@ def article_metadata(plan, *, require_notice=True):
     if rights is None and article.get("author_identity") == article.get("publisher_identity") == "Capital Chronicle":
         # Rights to CC's original prose, not a new licence to any source series.
         rights = "CC_OWN_ANALYSIS"
+    if (rights is None and store is not None and run_id
+            and all(article.get(k) is None for k in ("author_identity", "publisher_identity"))):
+        # Native articles predate those two manifest fields. The existing owner's
+        # current KEEP proves authorship only for its exact frozen article; a
+        # caller flag or a matching public-text hash cannot supply that proof.
+        # Source and media reuse remain subject to their separate native gates.
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        if store.get_outbox_message("native-operation-binding-" + sha256_of(run_id)):
+            from live_contentops.native_desktop_editorial_v1 import validated_native_review
+            native, _, _ = validated_native_review(store, run_id=run_id)
+            if native["article"] != article:
+                raise PublishedContentError("EXACT_REVIEWED_NATIVE_ARTICLE_REQUIRED")
+            rights = "CC_OWN_ANALYSIS"
     if not isinstance(rights, str) or rights not in PUBLIC_RIGHTS:
         raise PublishedContentError("PUBLIC_REUSE_RIGHTS_NOT_ADMITTED")
     from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE
@@ -262,7 +275,7 @@ def sync_confirmed_piece(store, path, work_item_id, *, recorded_at_utc=None, ori
         intent = load_json(row["payload"])
         readbacks = conn.execute("SELECT readback_data FROM readbacks WHERE dispatch_id=? ORDER BY read_at",
                                  (row["dispatch_id"],)).fetchall()
-    metadata = article_metadata(intent, require_notice=False)
+    metadata = article_metadata(intent, require_notice=False, store=store, run_id=work_item_id)
     if Path(path).is_file():
         for prior in read_records(path):
             if prior["content_id"] == "substack:" + article.public_object_id:

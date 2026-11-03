@@ -1362,7 +1362,7 @@ class DurablePublicationCoordinator:
     def register_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         if self.published_content_path is not None:
             from live_contentops.published_content_v1 import article_metadata, read_records
-            article_metadata(plan, require_notice=False)
+            article_metadata(plan, require_notice=False, store=self.store, run_id=work_item_id)
             if self.published_content_path.exists():
                 read_records(self.published_content_path)
         if str(plan.get("transport_registry_version") or "") != REGISTRY_VERSION:
@@ -1788,7 +1788,7 @@ class DurablePublicationCoordinator:
         if self.published_content_path is not None:
             from live_contentops.published_content_v1 import article_metadata, read_records
             from live_contentops.event_article_guard_v1 import check_publication_copy
-            metadata = article_metadata(intent)
+            metadata = article_metadata(intent, store=self.store, run_id=intent["work_item_id"])
             check_publication_copy({"payload": intent.get("payload") or item.get("payload")},
                 conditional_calls=metadata["conditional_calls"], require_notice=False, require_call_text=False)
             if self.published_content_path.exists():

@@ -133,6 +133,13 @@ coordinator's fenced Substack save-draft path is implemented and tested, but has
 not been called. It forbids Publish, Update, mailbox access and verification codes;
 a saved draft will not count as a public canonical article.
 
+The first draft preparation stopped before dispatch because the feed expected
+author/publisher fields absent from the frozen native manifest. The feed now uses
+the existing native owner's current KEEP and exact manifest equality to establish
+rights to Capital Chronicle's original prose. It still refuses explicit denied
+rights, changed metadata and an absent/currently held native review. This does not
+grant rights to underlying source data or media, and it changes no reviewed copy.
+
 The NFP input remains absent at the recorded 3 November readback:
 `A:/Capital Chronicle/ResearchRuns/claude-main-events-20261029/20261106-1100-dossier-nfp/`.
 Its existing producer is due at 18:00 GMT+7 on 6 November. A prompt or calendar is

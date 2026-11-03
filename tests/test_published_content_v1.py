@@ -139,6 +139,63 @@ def test_invalid_rights_clocks_and_identities_create_no_feed(tmp_path, change):
     assert not feed.exists()
 
 
+def test_native_authorship_uses_the_exact_current_review_without_changing_the_manifest(tmp_path, monkeypatch):
+    from test_native_desktop_publication_v1 import seeded
+    from live_contentops.native_desktop_publication_v1 import NativeReviewedPublication
+    store, binding, rollout, result, _ = seeded(tmp_path, monkeypatch)
+    plan, root = NativeReviewedPublication(store, binding, rollout=rollout, native_invocation_id=None).validate()
+    path = root / "article_manifest_v1.json"
+    before = path.read_bytes()
+    assert result["article"].get("author_identity") is None
+    with pytest.raises(PublishedContentError, match="PUBLIC_REUSE_RIGHTS_NOT_ADMITTED"):
+        article_metadata(plan, require_notice=False)
+    metadata = article_metadata(plan, require_notice=False, store=store, run_id=binding["run_id"])
+    assert metadata["rights_class"] == "CC_OWN_ANALYSIS"
+    assert path.read_bytes() == before
+
+
+@pytest.mark.parametrize("change", [{"display_date": "Changed metadata"}, {"rights_class": "PRIVATE_ONLY"}])
+def test_native_review_never_admits_changed_metadata_or_explicit_private_rights(tmp_path, monkeypatch, change):
+    from test_native_desktop_publication_v1 import seeded
+    from live_contentops.native_desktop_publication_v1 import NativeReviewedPublication
+    store, binding, rollout, result, _ = seeded(tmp_path, monkeypatch)
+    plan, root = NativeReviewedPublication(store, binding, rollout=rollout, native_invocation_id=None).validate()
+    article = {**result["article"], **change}
+    (root / "article_manifest_v1.json").write_bytes(canonical(article))
+    with pytest.raises(PublishedContentError, match="EXACT_REVIEWED_NATIVE_ARTICLE_REQUIRED|PUBLIC_REUSE_RIGHTS_NOT_ADMITTED"):
+        article_metadata(plan, require_notice=False, store=store, run_id=binding["run_id"])
+
+
+def test_native_authorship_requires_a_current_keep(tmp_path, monkeypatch):
+    from test_native_desktop_publication_v1 import seeded
+    from live_contentops.contentops_editorial_desk_v1 import record_native_article_review
+    from live_contentops.native_desktop_publication_v1 import NativeReviewedPublication
+    store, binding, rollout, result, review = seeded(tmp_path, monkeypatch)
+    plan, _ = NativeReviewedPublication(store, binding, rollout=rollout, native_invocation_id=None).validate()
+    record_native_article_review(store, run_id=binding["run_id"], article_identity=result["article_identity"],
+        decision="HOLD", rationale="Controlled current source/rights review remains unresolved.",
+        expected_review_id=review["review_id"])
+    with pytest.raises(ValueError, match="REVISION_BOUND_NATIVE_KEEP_REVIEW_REQUIRED"):
+        article_metadata(plan, require_notice=False, store=store, run_id=binding["run_id"])
+
+
+def test_missing_authorship_on_a_non_native_article_stays_unadmitted(tmp_path):
+    store, _, _, plan, article, root = lifecycle(tmp_path)
+    article.pop("author_identity")
+    article.pop("publisher_identity")
+    (root / "article_manifest_v1.json").write_bytes(canonical(article))
+    with pytest.raises(PublishedContentError, match="PUBLIC_REUSE_RIGHTS_NOT_ADMITTED"):
+        article_metadata(plan, store=store, run_id="work-1")
+
+
+def test_native_event_packet_preserves_its_event_identity(tmp_path):
+    _, _, _, plan, article, root = lifecycle(tmp_path)
+    article["event_article"] = {"article_type": "EVENT_PREVIEW", "event_id": "CONTROLLED_EVENT"}
+    (root / "article_manifest_v1.json").write_bytes(canonical(article))
+    metadata = article_metadata(plan)
+    assert metadata["type"] == "EVENT_PREVIEW" and metadata["event_id"] == "CONTROLLED_EVENT"
+
+
 def test_all_four_report_types_and_event_id_are_preserved(tmp_path):
     for index, kind in enumerate(("ARTICLE", "EVENT_PREVIEW", "EVENT_REVIEW", "DESK_NOTE")):
         row = sealed(type=kind, event_id="synthetic-event", content_id=str(index), outlets=[{

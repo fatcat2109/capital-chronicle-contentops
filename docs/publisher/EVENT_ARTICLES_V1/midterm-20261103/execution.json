@@ -315,6 +315,24 @@
       "backlog_status": "IN_PROGRESS",
       "pending_same_writer_work": "Corrected review-r2 capture and new revision-bound final rendered-media request",
       "prior_usage_limit": "Previous native writer quota interruption; user resumed after account switch or transient recovery; not a current quota conclusion."
+    },
+    {
+      "observed_at_utc": "2026-11-03T08:34:45.825476+00:00",
+      "process_id": 46088,
+      "launch_tokens": [
+        "exec",
+        "resume",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"max\""
+      ],
+      "actual_model": null,
+      "actual_reasoning_effort": null,
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "remote_head_at_entry": "ef4ef737d45d67e7aa936ec396c5cebfe1a71f2f",
+      "backlog_status": "IN_PROGRESS",
+      "pending_work": "Commit the passed exact native authorship integration repair, then continue the same draft-only handoff."
     }
   ],
   "lint": {
@@ -436,5 +454,20 @@
     "artifact": "native/publication-prepare-r2.json",
     "state": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
     "public_write_performed": false
+  },
+  "native_authorship_metadata_repair": {
+    "first_attempt_artifact": "native/substack-draft-start.json",
+    "first_cause": "PUBLIC_REUSE_RIGHTS_NOT_ADMITTED",
+    "external_write_started": false,
+    "cause": "Native article manifest predates author_identity and publisher_identity; no rights_class supplied.",
+    "change": "Existing publication feed owner resolves CC original prose rights only through current revision-bound native KEEP and exact manifest equality. Explicit denied rights, changed metadata, absent native binding and non-KEEP remain refused. Separate source/media gates unchanged.",
+    "failed_test_artifact": "tests/evidence/cc-107/native-authorship-draft-regression.junit.xml",
+    "failed_test_result": "4 constructor-fixture errors, 70 passed; fixed native_invocation_id=None before final run.",
+    "passed_test_artifact": "tests/evidence/cc-107/native-authorship-draft-final.junit.xml",
+    "passed_test_result": "76 passed",
+    "source_or_copy_change": false,
+    "final_review_still_valid": true,
+    "coordinator_test_artifact": "tests/evidence/cc-107/native-authorship-coordinator-final.junit.xml",
+    "coordinator_test_result": "90 passed"
   }
 }
