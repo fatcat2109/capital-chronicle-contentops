@@ -1,0 +1,45 @@
+{
+  "item": "CC-171",
+  "observed_at_utc": "2026-11-03T19:30:53.394Z",
+  "browser": "BrowserOS Neo",
+  "action": "READBACK_ONLY",
+  "canonicals": [
+    {
+      "page_id": 186,
+      "url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on",
+      "title": [
+        "heading \"US midterms: Capital Chronicle on the result that could surprise markets\" [level=1]"
+      ],
+      "observed_article": true,
+      "observed_photo_attribution": true,
+      "excerpt": "- iframe\n- link [ref=e1] [url=\"https://substack.com/?utm_content=island-substack-logo\"]\n- heading \"Capital Chronicle\" [level=1]\n  - link \"Capital Chronicle\" [ref=e2] [url=\"https://capitalchronicle.substack.com/\"]\n- button [ref=e3]\n- button \"View chats\" [collapsed] [ref=e4]\n- button \"View activity\" [collapsed] [ref=e5]\n- button \"Dashboard\" [ref=e6]\n- button \"Dean's avatar\" [collapsed] [ref=e7]\n- main \"Post\"\n  - article\n    - region \"Post header\"\n      - heading \"US midterms: Capital Chronicle on the result that could surprise markets\" [level=1]\n      - heading \"A Democratic sweep leads expectations in Capital Chronicle's dated preview. Republican control, a split Congress or a slow count could alter the market response.\" [level=3]\n      - region \"Post UFI\"\n        - link \"View Dean's profile\" [ref=e8] [url=\"https://substack.com/@deancapitalchronicle\"]\n          - generic [ref=e9] [cursor=pointer]\n        - link \"DEAN\" [ref=e10] [url=\"https://substack.com/@deancapitalchronicle\"]\n        "
+    },
+    {
+      "page_id": 187,
+      "url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+      "title": [
+        "heading \"The Fed held on October 28. Both dissenters wanted a hike.\" [level=1]"
+      ],
+      "observed_article": true,
+      "observed_photo_attribution": true,
+      "excerpt": "- iframe\n- link [ref=e1] [url=\"https://substack.com/?utm_content=island-substack-logo\"]\n- heading \"Capital Chronicle\" [level=1]\n  - link \"Capital Chronicle\" [ref=e2] [url=\"https://capitalchronicle.substack.com/\"]\n- button [ref=e3]\n- button \"View chats\" [collapsed] [ref=e4]\n- button \"View activity\" [collapsed] [ref=e5]\n- button \"Dashboard\" [ref=e6]\n- button \"Dean's avatar\" [collapsed] [ref=e7]\n- main \"Post\"\n  - article\n    - region \"Post header\"\n      - heading \"The Fed held on October 28. Both dissenters wanted a hike.\" [level=1]\n      - heading \"A 10-2 vote kept the federal funds target at 3.75 to 4 percent. The dissenters wanted an increase; the companion note explains the operating settings.\" [level=3]\n      - region \"Post UFI\"\n        - link \"View Capital Chronicle's profile\" [ref=e8] [url=\"https://substack.com/@capitalchronicle\"]\n          - generic [ref=e9] [cursor=pointer]\n        - link \"CAPITAL CHRONICLE\" [ref=e10] [url=\"https://substack.com/@capitalchronicle\"]\n        - gener"
+    },
+    {
+      "page_id": 182,
+      "url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+      "title": [
+        "heading \"September CPI: why 0.6% and 3.7% answer different questions\" [level=1]"
+      ],
+      "observed_article": true,
+      "observed_photo_attribution": true,
+      "excerpt": "- iframe\n- link [ref=e1] [url=\"https://substack.com/?utm_content=island-substack-logo\"]\n- heading \"Capital Chronicle\" [level=1]\n  - link \"Capital Chronicle\" [ref=e2] [url=\"https://capitalchronicle.substack.com/\"]\n- button [ref=e3]\n- button \"View chats\" [collapsed] [ref=e4]\n- button \"View activity\" [collapsed] [ref=e5]\n- button \"Dashboard\" [ref=e6]\n- button \"Dean's avatar\" [collapsed] [ref=e7]\n- main \"Post\"\n  - article\n    - region \"Post header\"\n      - heading \"September CPI: why 0.6% and 3.7% answer different questions\" [level=1]\n      - heading \"In its October 14 release on September 2026 CPI, the U.S. Bureau of Labor Statistics reported monthly and annual readings with different horizons and adjustment bases.\" [level=3]\n      - region \"Post UFI\"\n        - link \"View Capital Chronicle's profile\" [ref=e8] [url=\"https://substack.com/@capitalchronicle\"]\n          - generic [ref=e9] [cursor=pointer]\n        - link \"CAPITAL CHRONICLE\" [ref=e10] [url=\"https://substack.com/@capitalchronicle"
+    }
+  ],
+  "existing_midterm_share_center": {
+    "page_id": 41,
+    "url": "https://capitalchronicle.substack.com/publish/posts/detail/223293057/share-center?alreadyPublished=true",
+    "observed_after_manual_authentication": true,
+    "authentication_performed_by_agent": false
+  },
+  "new_publish_actions": 0
+}

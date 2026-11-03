@@ -1,0 +1,17 @@
+{
+  "item": "CC-171",
+  "started_at_utc": "2026-11-03T19:24:00Z",
+  "native_invocation_id": "01a1a2de-544b-7593-bad2-582e0768ae7f",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_pid": 38284,
+  "actual_model": null,
+  "actual_reasoning_effort": null,
+  "base_commit": "c21c70601edf12e410ef044f68e89c5f4337e4b7",
+  "base_reason": "Continue exact retained CC-179 recovery and consumer fixes; remote master predates the applied ContentOps source. No merge or operating-root switch.",
+  "remote_default_commit": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "operating_root_commit": "a4d60fe0d10de97a06603a8de6b6c3e88c79edcd",
+  "messages_to_chats": 0,
+  "schedule_changes": 0
+}
