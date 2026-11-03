@@ -77,6 +77,17 @@ def test_continuation_cannot_route_another_writer_or_the_parent(tmp_path, change
             same_writer_invocation="/root/designated_writer", same_writer_configuration={**continuation(), **change})
 
 
+def test_dated_social_review_does_not_follow_a_retained_writer(tmp_path):
+    frozen = request("final-visual-" + "a" * 64)
+    frozen["governed_input"]["distribution_recovery"] = {"policy": "CONTROLLED_TEST"}
+    call = native_role_call(frozen, binding(tmp_path), binding_path="binding.json",
+        same_writer_invocation="/root/unavailable_old_writer", same_writer_configuration={})
+    assert call["tool"] == "collaboration.spawn_agent"
+    assert call["arguments"]["model"] == "gpt-6.1-sol"
+    assert call["arguments"]["reasoning_effort"] == "max"
+    assert "continuation_observation" not in call
+
+
 @pytest.mark.parametrize("source_kind", ["JIM_CONFIRMED_THREAD_SETTINGS", "JIM_CONFIRMED_PERIOD_DEFAULT"])
 def test_parent_app_default_requires_a_scoped_owner_confirmation(source_kind):
     observation = {**configured(effort="max"), "surface": "CODEX_DESKTOP_CONVERSATION"}

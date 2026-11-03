@@ -189,6 +189,9 @@ def native_role_call(request, binding, *, binding_path, same_writer_invocation=N
             or request.get("requested_reasoning_effort") != target["reasoning_effort"]):
         raise ValueError("EXACT_NATIVE_ROLE_REQUEST_REQUIRED")
     dated_social_review = role == "final-visual" and request.get("governed_input", {}).get("distribution_recovery") is not None
+    if dated_social_review:
+        same_writer_invocation = None
+        same_writer_configuration = None
     if ((role in {"revise", "final-visual"} or stage == "visual-edit-amend")
             and not dated_social_review and not same_writer_invocation):
         raise ValueError("ACTUAL_SAME_MAX_CONTINUATION_ID_REQUIRED")
