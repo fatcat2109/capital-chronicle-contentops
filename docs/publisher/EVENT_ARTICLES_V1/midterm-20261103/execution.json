@@ -356,5 +356,32 @@
     "runtime_state": "NOT_CALLED_FINAL_REVIEW_PENDING",
     "no_public_canonical_or_count": true,
     "lost_return": "UNKNOWN_WRITE_READBACK_FIRST_NO_RETRY"
+  },
+  "draft_transport_verification_history": {
+    "early_failures_retained": [
+      {
+        "artifact": "tests/evidence/cc-107/draft-only.junit.xml",
+        "result": "2 failures / 129 tests; initial implementation and fixtures corrected before 32744f17"
+      },
+      {
+        "artifact": "tests/evidence/cc-107/draft-only-final.junit.xml",
+        "result": "1 failure / 28 tests; test expectation corrected before 32744f17"
+      }
+    ],
+    "passing_checks": [
+      {
+        "artifact": "tests/evidence/cc-107/repair-and-draft-regression.junit.xml",
+        "result": "131 passed"
+      },
+      {
+        "artifact": "tests/evidence/cc-107/visual-repair-final.junit.xml",
+        "result": "87 passed"
+      },
+      {
+        "artifact": "tests/evidence/cc-107/draft-and-portrait-final.junit.xml",
+        "result": "19 passed"
+      }
+    ],
+    "test_process_policy": "One pytest process at a time, targeted files only; no -n or parallel shards; no additional tests on this evidence-only resumption."
   }
 }

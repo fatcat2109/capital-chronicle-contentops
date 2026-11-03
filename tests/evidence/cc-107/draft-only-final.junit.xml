@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="28" time="79.998" timestamp="2026-11-03T14:29:55.404858+07:00" hostname="J-P"><testcase classname="tests.test_native_substack_draft_v1" name="test_draft_action_requires_coordinator_and_never_authorizes_publish" time="0.007" /><testcase classname="tests.test_native_substack_draft_v1" name="test_partial_or_wrong_object_never_becomes_a_saved_complete_draft[change0]" time="0.003" /><testcase classname="tests.test_native_substack_draft_v1" name="test_partial_or_wrong_object_never_becomes_a_saved_complete_draft[change1]" time="0.002" /><testcase classname="tests.test_native_substack_draft_v1" name="test_partial_or_wrong_object_never_becomes_a_saved_complete_draft[change2]" time="0.002" /><testcase classname="tests.test_native_substack_draft_v1" name="test_partial_or_wrong_object_never_becomes_a_saved_complete_draft[change3]" time="0.002" /><testcase classname="tests.test_native_substack_draft_v1" name="test_partial_or_wrong_object_never_becomes_a_saved_complete_draft[change4]" time="0.002" /><testcase classname="tests.test_native_substack_draft_v1" name="test_partial_or_wrong_object_never_becomes_a_saved_complete_draft[change5]" time="0.002" /><testcase classname="tests.test_native_substack_draft_v1" name="test_partial_or_wrong_object_never_becomes_a_saved_complete_draft[change6]" time="0.002" /><testcase classname="tests.test_native_substack_draft_v1" name="test_partial_or_wrong_object_never_becomes_a_saved_complete_draft[change7]" time="0.003" /><testcase classname="tests.test_native_substack_draft_v1" name="test_draft_is_once_only_and_never_counted_as_public_or_retried[False]" time="0.469" /><testcase classname="tests.test_native_substack_draft_v1" name="test_draft_is_once_only_and_never_counted_as_public_or_retried[True]" time="0.455" /><testcase classname="tests.test_native_substack_draft_v1" name="test_existing_uncertain_canonical_is_not_replaced_by_a_draft" time="0.431" /><testcase classname="tests.test_native_substack_draft_v1" name="test_native_draft_requires_current_same_writer_final_review" time="2.372"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'FINAL_VISUAL'&#10;  Actual message: 'ACTUAL_FINAL_MAX_VISUAL_REVIEW_REQUIRED'">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-31593/test_native_draft_requires_cur0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x0000025BFDD044D0&gt;
+
+    def test_native_draft_requires_current_same_writer_final_review(tmp_path, monkeypatch):
+        from test_native_desktop_publication_v1 import seeded
+        from live_contentops.native_desktop_publication_v1 import NativeReviewedPublication
+        store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch, final_visual=False)
+        continuation = NativeReviewedPublication(store, binding, rollout=rollout,
+                                                native_invocation_id="controlled-native")
+        with pytest.raises(ValueError, match="FINAL_VISUAL"):
+&gt;           continuation.save_draft()
+
+tests\test_native_substack_draft_v1.py:119: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+live_contentops\native_desktop_publication_v1.py:651: in save_draft
+    require_current_final_visual_review(self.store, run_id=self.binding["run_id"])
+live_contentops\native_desktop_editorial_v1.py:1858: in require_current_final_visual_review
+    acceptance = final_visual_acceptance(store, run_id=run_id, result=result, reference=note.get("final_visual_review"))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = &lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x0000025BFDEB15B0&gt;
+
+    def final_visual_acceptance(store, *, run_id, result, reference):
+        if not isinstance(reference, dict) or not reference.get("stage"):
+&gt;           raise ValueError("ACTUAL_FINAL_MAX_VISUAL_REVIEW_REQUIRED")
+E           ValueError: ACTUAL_FINAL_MAX_VISUAL_REVIEW_REQUIRED
+
+live_contentops\native_desktop_editorial_v1.py:1834: ValueError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-31593/test_native_draft_requires_cur0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x0000025BFDD044D0&gt;
+
+    def test_native_draft_requires_current_same_writer_final_review(tmp_path, monkeypatch):
+        from test_native_desktop_publication_v1 import seeded
+        from live_contentops.native_desktop_publication_v1 import NativeReviewedPublication
+        store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch, final_visual=False)
+        continuation = NativeReviewedPublication(store, binding, rollout=rollout,
+                                                native_invocation_id="controlled-native")
+&gt;       with pytest.raises(ValueError, match="FINAL_VISUAL"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'FINAL_VISUAL'
+E         Actual message: 'ACTUAL_FINAL_MAX_VISUAL_REVIEW_REQUIRED'
+
+tests\test_native_substack_draft_v1.py:118: AssertionError</failure></testcase><testcase classname="tests.test_native_substack_draft_v1" name="test_native_claimed_draft_lost_return_cannot_create_a_second_draft" time="0.735" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_real_packet_preparation_manual_isolation_and_seals" time="2.404" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_renderer_only_review_reuses_dispatched_plan_and_immutable_artifacts" time="2.629" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_compiler_change_after_keep_requires_a_new_preview_review" time="1.660" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_canonical_first_real_url_eight_native_packages_restart_dedupe" time="17.359" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_claimed_lost_publish_readback_before_retry_and_local_failure" time="15.614" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_lost_readback_projects_new_turn_begin_but_never_a_second_publish" time="6.448" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_source_and_artifact_changes_revoke_continuation_before_tool" time="5.364" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_false_activation_and_forged_binding_do_not_dispatch" time="2.655" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_artifact_seal_and_pause_rechecked_at_continuation" time="5.309" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_real_scheduler_retains_reviewed_slot_until_exact_handoff_exists[True]" time="1.104" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_real_scheduler_retains_reviewed_slot_until_exact_handoff_exists[False]" time="1.439" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_exact_prepared_slot_replays_or_retains_the_existing_publisher_boundary[True]" time="3.118" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_exact_prepared_slot_replays_or_retains_the_existing_publisher_boundary[False]" time="2.824" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_current_identity_request_and_runtime_reuse" time="5.699" /></testsuite></testsuites>
