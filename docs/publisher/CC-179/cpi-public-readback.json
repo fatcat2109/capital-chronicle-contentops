@@ -1,0 +1,31 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "chart_sections": [
+      {
+        "title": "What the annual history shows",
+        "visible": true
+      },
+      {
+        "title": "The monthly pace",
+        "visible": true
+      },
+      {
+        "title": "What contributed to September’s increase",
+        "visible": false
+      }
+    ],
+    "image_links": [
+      "[](https://substackcdn.com/image/fetch/$s_!G8nN!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb60973f2-b9d3-45de-b0ba-4c676839f7c4_5364x3334.jpeg)",
+      "[](https://substackcdn.com/image/fetch/$s_!t6Lv!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fcafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png)",
+      "[](https://substackcdn.com/image/fetch/$s_!Baoy!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png)",
+      "[](https://substackcdn.com/image/fetch/$s_!VdUh!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb13fb2a5-f023-4c78-8cff-23d99cb05ee5_1440x1040.png)"
+    ],
+    "observed_at_utc": "2026-11-03T13:52:30.302Z",
+    "page": 127,
+    "scope": "Exact public page read; prior canonical correction preserved. No social dispatch or new visual-review claim.",
+    "title_visible": true,
+    "url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer"
+  }
+}

@@ -177,11 +177,21 @@ def _contextual_license_url(receipt, provider, meta):
         return _normalise_license_url(meta["LicenseUrl"]["value"].replace("http://", "https://", 1))
     basis = receipt.get("public_domain_basis") or {}
     policy_url = "https://commons.wikimedia.org/wiki/Template:PD-USGov"
+    wikitext = provider["page"].get("license_wikitext", "")
+    templates = ("{{PD-USGov}}", "{{PD-USGov-USDA}}")
+    aoc = "{{PD-USGov-Congress-AOC}}" in wikitext
+    if aoc:
+        # An exact federal-work subtype, not a generic free-image fallback.
+        # The retained source identifies the agency, official duties and terms.
+        terms = str(receipt.get("license_text") or "")
+        if (receipt.get("creator_publisher") != "Architect of the Capitol"
+                or not all(t in terms for t in ("Architect of the Capitol", "official duties",
+                                                "public domain in the United States"))):
+            raise ValueError("PHOTO_AOC_EXACT_FEDERAL_WORK_REQUIRED")
     if (meta.get("License", {}).get("value") != "pd"
             or meta.get("LicenseShortName", {}).get("value") != "Public domain"
             or meta.get("Copyrighted", {}).get("value") != "False"
-            or not any(template in provider["page"].get("license_wikitext", "")
-                for template in ("{{PD-USGov}}", "{{PD-USGov-USDA}}"))
+            or not (aoc or any(template in wikitext for template in templates))
             or basis.get("policy_url") != policy_url):
         raise ValueError("PHOTO_PUBLIC_DOMAIN_BASIS_REQUIRED")
     raw = Path(basis["policy_capture_path"]).read_bytes()

@@ -1,0 +1,68 @@
+{
+  "policy_application": {
+    "policy": "JIM_DECISION_53",
+    "run_id": "cc107-midterm-preview-20261103-v1",
+    "base_result_sha256": "ed32e4286e2dbad56afef0e3d795be5c362d3d45413999c71252847f830783af",
+    "article_metadata_sha256": "46b6351c4a1a55ef2ccf636d7fa6124e3bf3c215305138dfa0aa22599b327b79",
+    "text_revision_sha256": "e853edb596bb8139098a58faf4d4f0fb8c7a0dba6f91c30ec069488278fbff46",
+    "original_approval_clock_utc": "2026-11-03T08:20:42.407583+00:00",
+    "source_sha256": "0960fbc3311888b6d6388b430899a9a19ba76647cfbfb4fe5b6dfc192e69e26b",
+    "native_writer_response_sha256": "94f8b80a2815d353c1e0cc77d57001d75b3c12a91955c021ee1bf3ad0ce896ce",
+    "public_write_performed": false
+  },
+  "review": {
+    "review_id": "native-article-review-247ded939e9d43c2b93f506ff03677ec",
+    "decision": "KEEP",
+    "schema_version": "contentops.native_article_review.v1",
+    "run_id": "cc107-midterm-preview-20261103-v1",
+    "article_identity": "c4368eb9690d8c3b69eadf50a48eef29812520953113646a7e90da7237f1a309",
+    "package_revision": "cedde3d45a7c5d01be67783617f20afdb39070941f1c924094e61da334a62a89",
+    "article_metadata_sha256": "46b6351c4a1a55ef2ccf636d7fa6124e3bf3c215305138dfa0aa22599b327b79",
+    "rationale": "Current decision 53 policy applies to this event preview. Accepted native MAX text and all social prose are exactly unchanged; sources match its frozen writer request and lawful media credits remain bound. Record one automated load/dimension check and preserve the first approval clock, canonical and original plan. No new factual or rendered-inspection claim.",
+    "publication_authority": false,
+    "text_revision_sha256": "e853edb596bb8139098a58faf4d4f0fb8c7a0dba6f91c30ec069488278fbff46",
+    "text_approved_at_utc": "2026-11-03T08:20:42.407583+00:00",
+    "publication_speed_policy": {
+      "policy": "JIM_DECISION_53",
+      "target_minutes": 15
+    },
+    "automated_media_check": {
+      "policy": "JIM_DECISION_53",
+      "check": "IMAGE_LOAD_AND_SIZE_ONCE",
+      "findings": [
+        {
+          "asset_id": "cc107-generic-ballot-and-poll-close-card",
+          "sha256": "f230c117cc279bde0718c094aaf70d4b1c8efae377f4ccacb78c222066fac4f1",
+          "pixels_inspected": false,
+          "loads": true,
+          "width": 800,
+          "height": 1280,
+          "expected_dimensions": [
+            800,
+            1280
+          ],
+          "right_size": true,
+          "status": "PASS"
+        },
+        {
+          "asset_id": "cc107-capitol-west-front-archive-1997",
+          "sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+          "pixels_inspected": false,
+          "loads": true,
+          "width": 3000,
+          "height": 1556,
+          "expected_dimensions": [
+            3000,
+            1556
+          ],
+          "right_size": true,
+          "status": "PASS"
+        }
+      ],
+      "failures_logged_no_repair_loop": 0,
+      "blocks_publication": false
+    },
+    "next_operation": "publication-prepare",
+    "publication_priority": "DISPATCH_NOW_WITHIN_15_MINUTES"
+  }
+}

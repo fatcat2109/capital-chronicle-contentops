@@ -1,0 +1,5 @@
+{
+  "error_class": "ValueError",
+  "cause": "PHOTO_PUBLIC_DOMAIN_BASIS_REQUIRED",
+  "public_write_performed": false
+}

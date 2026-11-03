@@ -1,0 +1,14 @@
+{
+  "cause": "REVIEWED_MEDIA_IMMUTABLE_AFTER_PUBLICATION_DISPATCH",
+  "error_class": "ValueError",
+  "public_write_performed": false,
+  "accepted_reference": {
+    "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a",
+    "request_sha256": "4022e309d5a8983ec3f1c680efff49e2097023a7f94d94f7987971f1a7748f59",
+    "stage": "final-visual-85c6297b122dfcec9c629167bab2d103db5af298ffa126558e5c3edaa964cc97"
+  },
+  "canonical_media_accepted_revision": "0f1ff051eba02e0d64708183df07e5bd9c8f63291cb0354a6c67ab3476b8fc18",
+  "exact_original_revision_preserved": "ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305",
+  "next_owner": "Publisher engineering, through the existing reader-presentation and publication owners",
+  "next_action": "Extend the accepted canonical history amendment to the still-undispatched social packet without mutating original dispatched artifacts; preserve original plan and canonical identity. The existing media binder rejects post-dispatch replacement."
+}

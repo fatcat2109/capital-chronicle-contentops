@@ -114,3 +114,30 @@ def test_usda_public_domain_subtype_requires_the_same_exact_policy_and_metadata(
     provider["page"]["license_wikitext"] = "{{UNKNOWN_FREE_IMAGE}}"
     with pytest.raises(ValueError, match="PUBLIC_DOMAIN_BASIS_REQUIRED"):
         _contextual_license_url(receipt, provider, meta)
+
+
+def test_aoc_federal_photo_subtype_retains_policy_metadata_and_exact_agency_checks(tmp_path):
+    p = tmp_path / "CONTROLLED_AOC_POLICY.json"
+    url = "https://commons.wikimedia.org/wiki/Template:PD-USGov"
+    p.write_text(json.dumps({"status": "PASS", "final_url": url,
+        "retrieval_method": "READ_ONLY_BROWSEROS_NEO_PUBLIC_LICENSE",
+        "canonical_content_text": "Public domain United States Federal Government official duties Section 105",
+        "credential_or_session_material_read": False, "public_write_performed": False}))
+    receipt = {"creator_publisher": "Architect of the Capitol",
+        "license_text": "Architect of the Capitol official duties public domain in the United States",
+        "public_domain_basis": {"policy_url": url, "policy_capture_path": str(p),
+            "policy_capture_sha256": sha256(p.read_bytes()).hexdigest()}}
+    meta = {"License": {"value": "pd"}, "LicenseShortName": {"value": "Public domain"}, "Copyrighted": {"value": "False"}}
+    provider = {"page": {"license_wikitext": "{{PD-USGov-Congress-AOC}}"}}
+    assert _contextual_license_url(receipt, provider, meta) == url
+    receipt["creator_publisher"] = "Unknown photographer"
+    with pytest.raises(ValueError, match="AOC_EXACT_FEDERAL_WORK_REQUIRED"):
+        _contextual_license_url(receipt, provider, meta)
+    receipt["creator_publisher"] = "Architect of the Capitol"
+    meta["Copyrighted"]["value"] = "True"
+    with pytest.raises(ValueError, match="PUBLIC_DOMAIN_BASIS_REQUIRED"):
+        _contextual_license_url(receipt, provider, meta)
+    meta["Copyrighted"]["value"] = "False"
+    p.write_text("changed policy")
+    with pytest.raises((ValueError, json.JSONDecodeError)):
+        _contextual_license_url(receipt, provider, meta)
