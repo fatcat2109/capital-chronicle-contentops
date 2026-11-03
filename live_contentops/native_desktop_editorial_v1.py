@@ -1022,7 +1022,7 @@ class NativeDesktopTurn:
         if not request or response.get("request_sha256") != request["request_sha256"]:
             raise ValueError("NATIVE_DESKTOP_REQUEST_BINDING_REQUIRED")
         observation = dict(response.get("invocation_observation") or {})
-        if observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT"}:
+        if observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT", "CODEX_EXEC"}:
             raise ValueError("NATIVE_DESKTOP_SURFACE_REQUIRED")
         role = native_role(stage)
         target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
@@ -1588,8 +1588,8 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
     from live_contentops.v1_simple_gemini_newsroom_v1 import READER_ATTRIBUTION_POLICY
     row = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
-    from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, build_revision
-    if proposal.get("policy") == CHART_REVISION_POLICY:
+    from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, DERIVATIVE_POLICY, build_revision
+    if proposal.get("policy") in {CHART_REVISION_POLICY, DERIVATIVE_POLICY}:
         return build_revision(store, run_id=run_id, proposal=proposal,
             owner_authority_ref=owner_authority_ref, result=result)
     if (not str(owner_authority_ref).startswith("human:") or not result.get("qualified_article_count")
@@ -1642,8 +1642,8 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
 def reader_presentation_revision_view(store, *, run_id, result, revision):
     from copy import deepcopy
     from live_contentops.v1_simple_gemini_newsroom_v1 import READER_ATTRIBUTION_POLICY
-    from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, revision_view
-    if revision.get("policy") == CHART_REVISION_POLICY:
+    from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, DERIVATIVE_POLICY, revision_view
+    if revision.get("policy") in {CHART_REVISION_POLICY, DERIVATIVE_POLICY}:
         return revision_view(store, run_id=run_id, result=result, revision=revision)
     if (revision.get("policy") != READER_ATTRIBUTION_POLICY or revision.get("run_id") != run_id
             or not str(revision.get("owner_authority_ref")).startswith("human:")
@@ -1707,7 +1707,7 @@ def final_visual_binding(result, *, renders, destinations=None):
     scope = FINAL_VISUAL_CHANNELS if destinations is None else set(destinations)
     if destinations is not None and scope not in (
             DATED_DISTRIBUTION_DESTINATIONS, LINKEDIN_DATED_DISTRIBUTION_DESTINATIONS,
-            {"substack"},
+            {"substack"}, FINAL_VISUAL_CHANNELS,
             {"substack", "facebook_page", "instagram_business", "youtube", "linkedin"}):
         raise ValueError("FINAL_VISUAL_DATED_DISTRIBUTION_SCOPE_REQUIRED")
     variants = {}

@@ -1,0 +1,12 @@
+{
+  "observed_at_utc": "2026-11-03T18:08:14.092117+00:00",
+  "invocation_id": "01a1a294-d2fa-7e73-8a46-f9148992b216",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_evidence": "Live codex.exe process 46120 arguments: --model gpt-6.1-sol -c model_reasoning_effort=max",
+  "actual_model": null,
+  "actual_effort": null,
+  "item": "CC-179",
+  "public_write_performed": false
+}

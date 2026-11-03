@@ -103,6 +103,9 @@ class NativeNeoExecutor:
 
     def begin(self, request_hash: str):
         """Claim once before a platform action; a restart never repeats a claimed write."""
+        row = self.store.get_outbox_message(self._key(request_hash, "request"))
+        if row and row["status"] == "NATIVE_NEO_SUPERSEDED":
+            raise ValueError("NATIVE_NEO_STALE_PUBLISH_REVISION_SUPERSEDED")
         packet = self._get(request_hash, "request")
         if not packet:
             raise ValueError("NATIVE_NEO_REQUEST_NOT_FOUND")
@@ -139,6 +142,17 @@ class NativeNeoExecutor:
                 if (request.get("native_payload") != expected_payload or request.get("content_binding") != expected_content
                         or request.get("payload_hash") != sha256_of(expected_payload)):
                     raise ValueError("NATIVE_NEO_EXACT_REVIEWED_EDIT_PAYLOAD_REQUIRED")
+            elif request["action"] == "PUBLISH":
+                from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+                from live_contentops.neo_destination_handoff_v1 import _payload_binding
+                message = self.store.get_outbox_message(dispatch["message_id"])
+                if message:
+                    effective = DurablePublicationCoordinator(store=self.store, transport_runtime=None)._effective_message(message)
+                    intent = json.loads(effective["payload"])
+                    if intent.get("reader_presentation_review"):
+                        expected_payload, expected_content = _payload_binding(intent, request["destination"])
+                        if request.get("native_payload") != expected_payload or request.get("content_binding") != expected_content:
+                            raise ValueError("NATIVE_NEO_STALE_PUBLISH_REVISION_SUPERSEDED")
             content = request.get("content_binding") or {}
             if not content.get("expected_text_segments"):
                 raise ValueError("NATIVE_NEO_EXACT_PAYLOAD_REQUIRED")
@@ -260,6 +274,8 @@ class NativeNeoExecutor:
         rows = []
         for row in self.store.list_outbox_messages():
             if row["destination"] != DESTINATION:
+                continue
+            if row["status"] == "NATIVE_NEO_SUPERSEDED":
                 continue
             payload = json.loads(row["payload"])
             if payload.get("schema_version") != SCHEMA or payload.get("operation_id") != self.operation_id:

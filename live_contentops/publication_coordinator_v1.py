@@ -688,7 +688,7 @@ class DurablePublicationCoordinator:
         intent = json.loads(self._dated_distribution_message(message)["payload"])
         from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
         retained_media = _durable_intent_inputs(intent).get("media_assets", [])
-        if revision.get("policy") == "JIM_DECISION_41_RELEASE_CHART_EDIT":
+        if revision.get("policy") in {"JIM_DECISION_41_RELEASE_CHART_EDIT", "JIM_CC179_REVIEWED_CPI_DERIVATIVE_MEDIA"}:
             retained_media = view.get("media_assets", [])
         if destination == "substack":
             from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
@@ -698,6 +698,7 @@ class DurablePublicationCoordinator:
             payload = revision["payloads"][destination]
         intent.update(native_payload=payload, payload=payload.get("text") or payload["body_markdown"],
             media_assets=retained_media,
+            reader_presentation_article=view["article"],
             reader_presentation_review=reference, removed_reader_text=[
                 m[0] for m in re.finditer(r"Reporting as of [^\n]+?\d{4}\.", revision["body_before"])])
         intent["destination_plan"] = {**intent["destination_plan"], "payload_hash": sha256_of(payload),
@@ -707,11 +708,98 @@ class DurablePublicationCoordinator:
     def _effective_message(self, message):
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
         row = self.store.get_outbox_message("native-reader-presentation-" + sha256_of(message["message_id"]))
-        if not row or row["status"] != "PRESENTATION_EDIT_CONFIRMED":
+        if not row or row["status"] not in {"PRESENTATION_EDIT_CONFIRMED", "PRESENTATION_MEDIA_BOUND"}:
             return self._dated_distribution_message(message)
         edit = json.loads(row["payload"])
         intent, _, _, _ = self._reader_presentation_intent(message, edit["review_reference"])
         return {**message, "payload": _canonical_json(intent)}
+
+    def continue_reader_derivative(self, *, work_item_id, destination, review_reference):
+        """Continue one exact amended social obligation through this coordinator.
+
+        Confirmed objects are edited, uncertain attempts are read back against their
+        original bytes, and only a never-attempted message can make a first send.
+        Caller retains the existing newsroom lease and native executor binding.
+        """
+        from live_contentops.native_desktop_editorial_v1 import reader_presentation_acceptance
+        from live_contentops.release_chart_revision_v1 import DERIVATIVE_POLICY, SOCIAL_DESTINATIONS
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        if destination not in SOCIAL_DESTINATIONS or self._mode() != "AUTONOMOUS_DEFAULT":
+            raise ValueError("DERIVATIVE_REVISION_LIVE_SOCIAL_SCOPE_REQUIRED")
+        revision, _, acceptance = reader_presentation_acceptance(self.store,
+            run_id=work_item_id, reference=review_reference)
+        if revision.get("policy") != DERIVATIVE_POLICY:
+            raise ValueError("DERIVATIVE_REVISION_EXACT_MEDIA_REVIEW_REQUIRED")
+        canonical_id = revision["objects"]["substack"]["message_id"]
+        canonical_note = self.store.get_outbox_message("native-reader-presentation-" + sha256_of(canonical_id)) or {}
+        parent_note = json.loads(canonical_note.get("payload") or "{}")
+        if (canonical_note.get("status") != "PRESENTATION_EDIT_CONFIRMED"
+                or parent_note.get("review_reference") != revision["canonical_review_reference"]):
+            raise ValueError("DERIVATIVE_REVISION_CANONICAL_EDIT_READBACK_REQUIRED")
+        ids = self._ids(work_item_id, revision["plan_hash"], destination)
+        dispatch = self.store.get_platform_dispatch(ids["dispatch_id"])
+        superseded = []
+        native_pending_resume = False
+        if dispatch and dispatch.get("status") == NATIVE_NEO_PENDING:
+            executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
+            pending = [p for p in executor.pending() if p["request"].get("action") == "PUBLISH"
+                and p["request"].get("dispatch_attempt_identity") == ids["dispatch_id"]] if executor else []
+            if (not pending or any(p["action_claimed"] for p in pending)):
+                return {**self.readback_existing_dispatch(ids["dispatch_id"]), "amendment_bound": False}
+            from live_contentops.neo_destination_handoff_v1 import _payload_binding
+            message = self.store.get_outbox_message(ids["message_id"])
+            current_intent, _, _, _ = self._reader_presentation_intent(message, review_reference)
+            current_payload, current_content = _payload_binding(current_intent, destination)
+            native_pending_resume = True
+            superseded = [executor._key(p["request"]["request_sha256"], "request") for p in pending
+                if p["request"].get("native_payload") != current_payload
+                or p["request"].get("content_binding") != current_content]
+        if dispatch and dispatch.get("status") in {UNKNOWN_WRITE, ATTEMPT_STARTED}:
+            # Do not overlay amended content onto an unresolved original attempt.
+            return {**self.readback_existing_dispatch(ids["dispatch_id"]), "amendment_bound": False}
+        key = "native-reader-presentation-" + sha256_of(ids["message_id"])
+        bound = self.store.get_outbox_message(key)
+        if dispatch and dispatch.get("status") == DISPATCH_CONFIRMED:
+            if bound and bound.get("status") == "PRESENTATION_MEDIA_BOUND":
+                # It was first-sent with this amendment, so never send/edit twice.
+                if json.loads(bound["payload"]).get("review_reference") != review_reference:
+                    raise ValueError("DERIVATIVE_REVISION_EXISTING_BINDING_CHANGED")
+                return {"status": DISPATCH_CONFIRMED, "publish_called": False,
+                    "edit_called": False, "new_post_calls": 0, "dispatch_id": ids["dispatch_id"]}
+            original = self.store.get_outbox_message(ids["message_id"])
+            from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+            original_payload = _durable_intent_inputs(json.loads(self._dated_distribution_message(original)["payload"]))["payloads"][destination]
+            if revision["payloads"][destination] == original_payload:
+                return {**self.readback_existing_dispatch(ids["dispatch_id"]),
+                    "edit_called": False, "new_post_calls": 0, "unchanged_reviewed_copy_retained": True}
+            return self.amend_reader_presentation(ids["dispatch_id"], review_reference=review_reference)
+        if dispatch and not native_pending_resume:
+            return {"status": "DERIVATIVE_REVISION_PRIOR_ATTEMPT_REQUIRES_EXPLICIT_RECOVERY",
+                "prior_status": dispatch["status"], "publish_called": False,
+                "dispatch_id": ids["dispatch_id"]}
+        message = self.store.get_outbox_message(ids["message_id"])
+        if not message:
+            intent = revision.get("missing_intents", {}).get(destination)
+            if not intent:
+                raise ValueError("DERIVATIVE_REVISION_ORIGINAL_INTENT_REQUIRED")
+            self.store.register_outbox_message(message_id=ids["message_id"], work_item_id=work_item_id,
+                destination=destination, payload=_canonical_json(intent), status="READY")
+            message = self.store.get_outbox_message(ids["message_id"])
+        note = {"run_id": work_item_id, "destination": destination, "public_message_id": ids["message_id"],
+            "original_intent_sha256": sha256_of(json.loads(message["payload"])),
+            "review_reference": review_reference, "acceptance": acceptance}
+        if bound and json.loads(bound["payload"]) != note:
+            raise ValueError("DERIVATIVE_REVISION_EXISTING_BINDING_CHANGED")
+        if not bound:
+            self.store.register_outbox_message(message_id=key, work_item_id=work_item_id,
+                destination="internal:native-reader-presentation", payload=_canonical_json(note),
+                status="PRESENTATION_MEDIA_BOUND")
+        for request_key in superseded:
+            # Same newsroom lease: cancel only unclaimed old-revision requests.
+            # Retain their bytes; begin() rejects them even if an old tool id leaks.
+            self.store.set_outbox_status(request_key, "NATIVE_NEO_SUPERSEDED")
+        canonical_url = revision["objects"]["substack"]["public_object_url"]
+        return self._dispatch_message(message, canonical_url=canonical_url)
 
     def amend_reader_presentation(self, dispatch_id, *, review_reference):
         """Edit the reviewed existing object once; all uncertain outcomes are readback-only."""
@@ -3061,7 +3149,7 @@ class DurablePublicationCoordinator:
         native Desktop readback tool request is pending.
         """
         dispatch = self.store.get_platform_dispatch(dispatch_id)
-        if not dispatch or dispatch.get("status") not in {DISPATCH_CONFIRMED, UNKNOWN_WRITE, ATTEMPT_STARTED}:
+        if not dispatch or dispatch.get("status") not in {DISPATCH_CONFIRMED, UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING}:
             raise ValueError("EXISTING_PUBLIC_OR_AMBIGUOUS_DISPATCH_REQUIRED")
         message = self.store.get_outbox_message(dispatch["message_id"])
         message = self._effective_message(message) if message else None
