@@ -1,0 +1,6 @@
+{
+  "error_class": "ValueError",
+  "cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+  "command": "publication-prepare",
+  "public_write_performed": false
+}
