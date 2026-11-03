@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-03T05:38:58.9683162Z",
+  "process_id": 12856,
+  "parent_process_id": 8188,
+  "source": "Current tool shell ancestor codex.exe launch arguments; only required flags retained",
+  "model_argument": "--model gpt-6.1-sol",
+  "effort_argument": "-c \"model_reasoning_effort=\\\"max\\\"\"",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "actual_model": null,
+  "actual_reasoning_effort": null,
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "runtime_telemetry_available": false
+}

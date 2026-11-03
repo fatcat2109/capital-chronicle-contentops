@@ -1,0 +1,27 @@
+{
+  "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+  "operation_id": "cc124-prepare-20261103-a",
+  "public_write_authorized": false,
+  "request": {
+    "action": "VERIFY_IDENTITY",
+    "destination": "substack",
+    "entry_url": "https://capitalchronicle.substack.com/",
+    "expected_identity": "capitalchronicle.substack.com",
+    "forbidden": [
+      "login",
+      "account_switch",
+      "public_write",
+      "saved_draft",
+      "private_storage"
+    ],
+    "native_invocation_id": "/root",
+    "probe_epoch": 5978945,
+    "request_sha256": "b214275b7ec38405478e258aa0aa972708efdc446ced6913becb4f630fbed52f",
+    "schema_version": "contentops.neo_identity_probe.v1",
+    "surface": "SUBSTACK_ARTICLE",
+    "work_item_id": "native-neo-operation-136c98bd5f14a4c0dd3cfb50d8fe8e44155d90a7ede9a6179484fe7997e72085"
+  },
+  "required_tool": "mcp__browseros_neo__run",
+  "schema_version": "contentops.native_neo_tool_request.v1",
+  "tool_request_sha256": "d80f3e4e97e538a3f9d66c31fe069756993b0ad4e0a670c10ee4c57e65acb9ba"
+}

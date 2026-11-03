@@ -1,0 +1,26 @@
+{
+  "observed_at_utc": "2026-11-03T05:31:09.021Z",
+  "browser_result": {
+    "logs": [],
+    "ok": true,
+    "value": {
+      "changed": false,
+      "page": 30,
+      "settled": false,
+      "value": {
+        "canonical": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+        "observed_text": "September CPI: why 0.6% and 3.7% answer different questions\n\nIn its October 14 release on September 2026 CPI, the U.S. Bureau of Labor Statistics reported monthly and annual readings with different horizons and adjustment bases.\n\nSeptember 2026's headline CPI rose 0.6% over one month and 3.7% over twelve months, according to the U.S. Bureau of Labor Statistics release of October 14, 2026. The monthly figure is seasonally adjusted; the annual figure is not. They describe different horizons. This retrospective puts that release alongside the earlier readings and its component breakdown.\n\nWhat the annual history shows\n\nThe dated BLS releases show different paths over the 24-month window. Headline annual inflation was 2.6% in October 2024 and 3.7% in September 2026. Core was 3.3% and 2.6%, respectively. Headline reached 4.2% in May 2026 before the September reading; the path was uneven.\n\nCore excludes food and energy. Its lower annual reading describes that narrower basket. It does not establish how long the pressure in the full basket would last.\n\nThe monthly pace\n\nIn the October 14 release, September's monthly headline increase was 0.6%, following 0.4% in August. Core rose 0.3% in both months. At the published precision, the latest monthly pace increased in headline CPI while core's pace held steady.\n\nThe history charts preserve each month's first reading in its dated BLS release. The monthly chart therefore follows successive release vintages, rather than today's revised seasonally adjusted history. Its breaks preserve the months without published one-month readings.\n\nWhat contributed to September's increase\n\nBLS Table 6 supplies the component effects that the headline-core gap alone cannot identify. Energy contributed 0.377 percentage points to the all-items monthly change, core contributed 0.265 points and food contributed 0.006 points. Energy was the largest of these broad contributions, while core also added to the increase.\n\nA component's inflation rate describes how fast prices changed within that basket. Its percentage-point effect describes how much it added to the all-items change. Keeping those measures separate makes the composition of September's increase clearer.\n\nWhat the release leaves open\n\nThe component effects explain September's composition; persistence requires evidence beyond one month's breakdown. A surprise claim requires a dated expectation, and a market-reaction claim requires contemporaneous prices. The CPI figures alone establish neither.\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+        "public_image_urls": [
+          "https://substack-post-media.s3.amazonaws.com/public/images/b60973f2-b9d3-45de-b0ba-4c676839f7c4_5364x3334.jpeg",
+          "https://commons.wikimedia.org/wiki/File:WIC_Environments_in_Michigan_(20230621-USDA-FNS-UNK-0020).jpg",
+          "https://substack-post-media.s3.amazonaws.com/public/images/cafc7b1b-e673-40ed-a16f-5024435e8fa8_1440x1040.png",
+          "https://substack-post-media.s3.amazonaws.com/public/images/a5db3290-9d38-4eb3-9b3c-19508af49720_1440x1040.png",
+          "https://substack-post-media.s3.amazonaws.com/public/images/b13fb2a5-f023-4c78-8cff-23d99cb05ee5_1440x1040.png"
+        ],
+        "published_at_utc": "2026-11-03T03:49:41.895Z"
+      }
+    }
+  },
+  "text_extraction": "Actual title/subtitle and full paragraph/heading nodes; captions separately retained in canonical-after-readback.json.",
+  "media_byte_verification_reused": "uploaded-byte-readback.json; exact same four immutable upload URLs now observed on the public canonical."
+}

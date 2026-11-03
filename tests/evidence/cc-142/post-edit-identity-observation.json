@@ -1,0 +1,24 @@
+{
+  "observed_at_utc": "2026-11-03T05:30:13.377Z",
+  "tool": "mcp__browseros_neo__run",
+  "result": {
+    "logs": [],
+    "ok": true,
+    "value": {
+      "identity": {
+        "changed": false,
+        "page": 28,
+        "settled": false,
+        "value": {
+          "host": "capitalchronicle.substack.com",
+          "path": "/publish/post/223246940",
+          "publication_author_button": [
+            "Capital Chronicle"
+          ],
+          "title": "September CPI: why 0.6% and 3.7% answer different questions"
+        }
+      },
+      "snapshot": "- generic [ref=e1] [cursor=pointer]\n- textbox \"Add a title...\" [ref=e2]\n- textbox \"Add a description...\" [ref=e3]\n- LabelText [ref=e4] [cursor=pointer]\n- button \"Exit\" [ref=e5]\n- button \"Saved\" [ref=e154]\n- button \"Preview\" [ref=e7]\n- button \"Update\" [ref=e155]\n- toolbar\n  - button \"Undo\" [ref=e67]\n  - button \"Redo\" [disabled] [ref=e10]\n  - button \"Style\" [collapsed] [ref=e11]\n  - button \"Bold\" [ref=e90]\n  - button \"Italic\" [ref=e91]\n  - button \"Strikethrough\" [ref=e92]\n  - button \"Code\" [ref=e93]\n  - button \"Text color\" [collapsed] [ref=e94]\n  - button \"Highlight\" [collapsed] [ref=e95]\n  - button \"Superscript & subscript\" [collapsed] [ref=e9"
+    }
+  }
+}

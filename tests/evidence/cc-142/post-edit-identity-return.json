@@ -1,0 +1,17 @@
+{
+  "tool_request_sha256": "d80f3e4e97e538a3f9d66c31fe069756993b0ad4e0a670c10ee4c57e65acb9ba",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "EXACT_SIGNED_IN_POST_EDITOR_HOST_AND_CAPITAL_CHRONICLE_AUTHOR_BUTTON",
+    "observed_at_utc": "2026-11-03T05:30:13.377Z"
+  },
+  "result": {
+    "request_sha256": "b214275b7ec38405478e258aa0aa972708efdc446ced6913becb4f630fbed52f",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "authenticated": true,
+    "public_write_performed": false
+  }
+}

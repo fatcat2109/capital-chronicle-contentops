@@ -1,0 +1,147 @@
+{
+  "assignment_id": "cc142-public-pixels-223246940-20261103",
+  "operation_id": "cc124-prepare-20261103-a",
+  "amendment_operation_id": "cc142-cpi-chart-edit-223246940",
+  "stage": "actual-substack-public-pixel-review",
+  "post_id": "223246940",
+  "canonical_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+  "decision": "REPAIR_REQUIRED",
+  "status": "DESKTOP_ACCEPTED_MOBILE_CAPTURE_OR_REFLOW_DEFECT_UNRESOLVED",
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/cpi_max_writer",
+    "identity_kind": "SUPPORTED_NATIVE_TASK_PATH_BOUND_IN_GENERATED_ASSIGNMENT",
+    "native_task_path": "/root/cpi_max_writer",
+    "same_writer_context_continued": true,
+    "separate_provider_invocation_uuid": null,
+    "observation_source": "The continuing supported native child context and the exact generated assignment both identify /root/cpi_max_writer. This is the same writer and review context as the accepted revision and actual-preview review. A separate provider invocation UUID is not exposed.",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_configuration_unavailable": true
+  },
+  "bindings": {
+    "assignment_path": "tests/evidence/cc-142/native/substack-public-assignment.txt",
+    "assignment_sha256": "1a80bfd6f8e3ab31e032c078c0f248d292baf060ce40a5116d0d82be1662b28a",
+    "accepted_request_sha256": "4022e309d5a8983ec3f1c680efff49e2097023a7f94d94f7987971f1a7748f59",
+    "accepted_final_visual_response_sha256": "c4eaff885dd772fb25e01e6f1207536121b2f9332d1875b0a86d8df60b2b3d37",
+    "accepted_preview_review_sha256": "f2c1af2f3dfa5e452e4afba6eba8bebe59789869d02f47627c16315d285a9ba5",
+    "reviewed_assets_sha256": "d19c5c3955aa00aec5844345aa13ef4acaa0941c809afae1c6664aba80059b25",
+    "all_four_source_asset_hashes_reverified": true,
+    "both_supplied_public_image_hashes_match_assignment": true
+  },
+  "asset_comparison": [
+    {
+      "asset_id": "cpi-annual-history-r3",
+      "asset_sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "local_source_hash_matches_accepted_asset": true,
+      "public_desktop_visual_match": "PASS",
+      "public_mobile_full_visual_match": "UNVERIFIED",
+      "evidence_notes": "The complete public desktop image shows the accepted annual paths, October 2025 break, 0-5 percent scale, final 3.7% headline and 2.6% core labels, repaired public footer and caption. Its placement follows the accepted annual-history paragraph. The source asset hash still matches the accepted bytes. The supplied mobile image exposes only the left portion of this desktop-sized chart, so its full chart meaning and labels cannot be accepted in that view."
+    },
+    {
+      "asset_id": "cpi-monthly-history-r3",
+      "asset_sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "local_source_hash_matches_accepted_asset": true,
+      "public_desktop_visual_match": "PASS",
+      "public_mobile_full_visual_match": "UNVERIFIED",
+      "evidence_notes": "The complete desktop chart preserves October-November 2025 gaps, negative headline values, June core's true zero, the zero baseline, 0.6%/0.3% final labels and SA percent context. The caption retains first-release vintage and missing one-month readings. Source bytes remain unchanged. The mobile capture cuts off the right side, including the latest data, preventing a complete mobile visual check."
+    },
+    {
+      "asset_id": "cpi-september-effects-r2",
+      "asset_sha256": "45af728560c668a3aee17a095ef289cc99b7e1e7cb013caa7e5bd3f39311ba99",
+      "local_source_hash_matches_accepted_asset": true,
+      "public_desktop_visual_match": "PASS",
+      "public_mobile_full_visual_match": "UNVERIFIED",
+      "evidence_notes": "The desktop shows the correct three positive disjoint effects: energy +0.377 pp, core +0.265 pp and food +0.006 pp on a common zero baseline. The period, Table 6 source, percentage-point unit, precision and placement match acceptance; no nested component or manufactured residual appears. The mobile image crops out most of the bars and their values. The valid accepted source chart itself needs no data repair."
+    },
+    {
+      "asset_id": "cpi-usda-supermarket-archive",
+      "asset_sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+      "local_source_hash_matches_accepted_asset": true,
+      "public_desktop_visual_match": "PASS",
+      "public_mobile_full_visual_match": "UNVERIFIED",
+      "evidence_notes": "The complete desktop photo matches the accepted authentic supermarket frame, June 2023 archive caption and USDAgov / U.S. Department of Agriculture via Wikimedia Commons public-domain credit. The source bytes are unchanged and it remains context only. In the supplied mobile screenshot only the left portion of the desktop-sized image is visible, with much of the caption and credit outside the right edge. This is a viewport/capture presentation issue, not evidence of a changed photo or rights defect."
+    }
+  ],
+  "render_findings": [
+    {
+      "render_id": "cc142-substack-public-desktop",
+      "path": "tests/evidence/cc-142/substack-public-desktop.jpg",
+      "sha256": "2e1a6e2de199e8e165d498fcd1c3d962a5ee86b6e068f7afbd5f1db89e7de82b",
+      "width": 1200,
+      "height": 5436,
+      "pixels_inspected": true,
+      "inspection_method": "view_image, exact original JPEG, complete page",
+      "decision": "ACCEPT",
+      "checks": {
+        "accepted_title_and_visible_copy": "PASS",
+        "all_three_charts_and_photo_present": "PASS",
+        "source_bound_values_gaps_zero_and_units": "PASS",
+        "overlap_clipping": "PASS",
+        "labels_legend": "PASS",
+        "text_contrast": "PASS",
+        "crop_distortion": "PASS",
+        "placement": "PASS",
+        "photo_archive_context_credit": "PASS",
+        "retrospective_scope_and_disclaimer": "PASS"
+      },
+      "findings": [],
+      "evidence_notes": "The saved public desktop pixels show the complete accepted title and retained dek, accepted body sequence, all three source-bound charts, authentic USDA archive photograph and full Analysis, not financial advice disclaimer. Compared with the accepted actual preview, the article's visible substantive content, figure positions, captions and repaired footers are preserved. Text and figures have no visible clipping, overlap, distortion or missing section. Source-bound sign, scale, monthly-vs-annual basis, missing months, true zero and component precision remain correct. The supplied screenshot is accepted for desktop visual quality only; URL/publication identity and actor attribution remain separate parent readback facts."
+    },
+    {
+      "render_id": "cc142-substack-public-mobile-390",
+      "path": "tests/evidence/cc-142/substack-public-mobile-390.jpg",
+      "sha256": "6a9384492166b1222d8c3f0f94fc127c46804be715c54051a65167baaba00775",
+      "width": 390,
+      "height": 5412,
+      "pixels_inspected": true,
+      "inspection_method": "view_image, exact original 390-pixel JPEG, complete supplied image",
+      "decision": "REPAIR_REQUIRED",
+      "checks": {
+        "accepted_title_and_visible_copy": "UNVERIFIED",
+        "all_three_charts_and_photo_present": "UNVERIFIED",
+        "source_bound_values_gaps_zero_and_units": "UNVERIFIED",
+        "overlap_clipping": "FAIL",
+        "labels_legend": "UNVERIFIED",
+        "text_contrast": "PASS",
+        "crop_distortion": "FAIL",
+        "placement": "FAIL",
+        "photo_archive_context_credit": "UNVERIFIED",
+        "retrospective_scope_and_disclaimer": "UNVERIFIED"
+      },
+      "findings": [
+        {
+          "finding_id": "CC142_PUBLIC_MOBILE_DESKTOP_LAYOUT_CROPPED",
+          "severity": "MATERIAL",
+          "first_cause": "The supplied 390-pixel image shows a desktop-like layout clipped at the right edge instead of a complete mobile reflow.",
+          "observed_pixels": "The article begins near x=236, the same horizontal position as the desktop page, leaving about 154 pixels of article visible. The title, lead, all headings, images, chart labels, captions and disclaimer continue beyond the image's right boundary. The desktop-sized chart geometry and vertical positions are retained rather than fitting the mobile column.",
+          "impact": "Most article text and source-bound visual meaning are outside the supplied mobile image. It cannot establish an acceptable actual mobile article, and the previously accepted mobile preview does not cure this new public-capture gap.",
+          "cause_certainty": "The clipping is directly observed. Whether it arose from the screenshot/viewport procedure, a transient stale layout or the actual public page's responsive behavior is not established by these files.",
+          "smallest_repair": "Preserve the accepted copy and four assets. Re-capture the exact canonical public page at a real 390-pixel viewport after responsive layout has settled, with the whole article column visible and no horizontal clipping. Save a successor image rather than overwriting this evidence and return its actual hash to the same writer. If the complete real 390-pixel page still overflows, diagnose that exact view/layout fault before changing content."
+        }
+      ],
+      "evidence_notes": "Unlike the accepted substack-preview-mobile-390.jpg, the new public mobile file shows only the leftmost strip of a desktop-width page. The title starts around x=236 and cuts off, and the photograph and history charts retain their desktop horizontal position and size. A bounded read-only pixel comparison at identical coordinates finds mean absolute RGB differences of about 0.90/255 for the article lead, 0.40/255 for the annual-chart region and 0.51/255 for the monthly-chart region versus the left 390 pixels of the public desktop capture. This supports the observed desktop-like crop but does not prove how it was produced. No full mobile visual acceptance is given for this file."
+    }
+  ],
+  "required_repairs": [
+    {
+      "affected_artifact": "tests/evidence/cc-142/substack-public-mobile-390.jpg",
+      "owner": "Parent's existing Neo readback/capture path",
+      "action": "Produce one fresh, complete actual 390-pixel canonical public render with responsive reflow, retain the current faulty capture, and return the successor bytes/hash for same-writer inspection.",
+      "copy_or_source_asset_changes_required": false,
+      "do_not_infer": "Do not claim that clipping proves the public content, chart data or Substack stylesheet is defective before checking the actual responsive capture."
+    }
+  ],
+  "scope_limits": [
+    "This writer inspected only the exact supplied public-page JPEGs and retained accepted artifacts. The parent supplies the canonical URL and live Neo readback provenance; the screenshots themselves expose no address bar or complete DOM identity.",
+    "The desktop visual comparison passes. The actual public mobile surface remains unaccepted because the supplied image is materially clipped. A fresh actual responsive capture is the smallest next action.",
+    "Screenshots cannot establish hosted image byte identity, link targets, alt attributes, image enlargement behavior, the updating actor or save chronology. Source file hashes were reverified separately and match their accepted versions.",
+    "No derivative was reviewed. Actual model/effort remain CONFIGURED_NOT_OBSERVED; the generated assignment and supported context bind the same native task identity.",
+    "Only substack-public-review.json was saved. No browser/public action, copy change, asset change, chat message, test, shared code change or schedule change occurred."
+  ],
+  "public_action_performed": false,
+  "next_action": "Parent recaptures the canonical page with a complete actual mobile reflow and returns that successor to the same writer. Preserve the accepted desktop result, valid copy/assets, prior reviews and exact current public-object identity."
+}

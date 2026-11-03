@@ -1,0 +1,191 @@
+{
+  "item": "CC-142",
+  "recorded_at_utc": "2026-11-03T05:39:43.910080+00:00",
+  "status": "BLOCKED",
+  "first_remaining_cause": "NEXT_DATA_ANALYSIS_READBACK_PENDING",
+  "engineering_and_cpi_acceptance": "PASS",
+  "next_nfp_publication_acceptance": "NOT_OBSERVED",
+  "next_action": "Publisher publishes and reads back the next NFP preview or review with official-history charts through the normal article run, then resumes CC-142 acceptance. CC-107 currently puts the midterm preview first as its own run.",
+  "next_actor": "Codex Publisher",
+  "evidence_head_at_validation": "1241996825d6586dad3f184d65b2ba278f8a113f",
+  "operating_source_head": "21fa56344ee6d0ddf18fbe3392c375d7ba48848b",
+  "operating_tag": "contentops-live-20261103-cc142",
+  "rollback_tag": "contentops-before-cc142-20261103",
+  "integration_branch": "backlog/cc-142-data-release-charts-integration",
+  "implementation_equivalence": "Integration candidate differs from original tested item branch only in the newer AGENTS instructions.",
+  "lineage": {
+    "window": [
+      "2024-10",
+      "2026-09"
+    ],
+    "calendar_months": 24,
+    "series": 4,
+    "numeric_observations": 90,
+    "capture_count": 23,
+    "all_release_clocks_at_or_before_event": true,
+    "historical_possession_proven": false,
+    "dataset_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+    "components": [
+      {
+        "name": "Food",
+        "native_value": "0.006",
+        "official_series_id": "CUSR0000SAF1",
+        "period": "2026-09",
+        "seasonal_adjustment": "SA",
+        "source_row": "Food | 13.507 | 0.0 | 0.006 | 0.08 | S-Mar. 2026 | 0.0",
+        "unit": "percentage points",
+        "value": 0.006
+      },
+      {
+        "name": "Energy",
+        "native_value": "0.377",
+        "official_series_id": "CUSR0000SA0E",
+        "period": "2026-09",
+        "seasonal_adjustment": "SA",
+        "source_row": "Energy | 7.418 | 5.2 | 0.377 | 0.14 | L-Mar. 2026 | 10.9",
+        "unit": "percentage points",
+        "value": 0.377
+      },
+      {
+        "name": "All items less food and energy",
+        "native_value": "0.265",
+        "official_series_id": "CUSR0000SA0L1E",
+        "period": "2026-09",
+        "seasonal_adjustment": "SA",
+        "source_row": "All items less food and energy | 79.075 | 0.3 | 0.265 | 0.05 | - | -",
+        "unit": "percentage points",
+        "value": 0.265
+      }
+    ]
+  },
+  "canonical": {
+    "public_object_id": "223246940",
+    "url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+    "status": "PRESENTATION_EDIT_CONFIRMED",
+    "charts": 3,
+    "photos": 1,
+    "new_post_calls": 0,
+    "completion_actor": "JIM_REPORTED_UPDATE_FROM_ANOTHER_TAB",
+    "codex_attempt": "EMAIL_CODE_REQUIRED_THEN_CANCELLED_AFTER_EXTERNAL_UPDATE",
+    "original_published_at_utc": "2026-11-03T03:49:41.895Z",
+    "exact_text_and_media_readback": "amended-readback-return.json",
+    "coordinator_result": "cpi-edit-reconciled.json",
+    "same_max_public_review": "native/substack-public-review-r2.json",
+    "rejected_mobile_capture_retained": true,
+    "public_record": {
+      "status": "APPENDED",
+      "content_id": "substack:223246940",
+      "content_sha256": "a4582871bb7ae45895c727e6610ecfadd6cf12d9f4113b402816d53234549ff4",
+      "outlet_count": 1
+    }
+  },
+  "targeted_test_runs": [
+    {
+      "artifact": "canonical-regression.junit.xml",
+      "tests": 140,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "74ad6a9ff8fdb7d62edaec5030d9518d6e6df0d9b1270ec9ea7f468a0519e897"
+    },
+    {
+      "artifact": "chart-edit-owner.junit.xml",
+      "tests": 40,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "874c80d4fa0f36ff1fbfecc5594e050ca989d38ca4c39fe79f44d49c6c101385"
+    },
+    {
+      "artifact": "editorial-policy.junit.xml",
+      "tests": 107,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "f64665ec60f954a85fe92a94a9790f958951eb82f33344fac12ce3c6927195f7"
+    },
+    {
+      "artifact": "history-final.junit.xml",
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "d20fc324b5b9dc761804f91ff583b36a3b68009cc81efca0cc4356325ae99db6"
+    },
+    {
+      "artifact": "official-history.junit.xml",
+      "tests": 93,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "1d498d4c6c31bc289d19c3c367bd30b191a89e2af4a7f388a1f98ba7d761798d"
+    },
+    {
+      "artifact": "readback-typography.junit.xml",
+      "tests": 28,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "506fb08ddfbf80a7a7876212970a84ca4a581ac85e83e8a50ebb8d8462113c93"
+    },
+    {
+      "artifact": "revision-regression.junit.xml",
+      "tests": 70,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "dff1f55c218a072843c8c810e4aafe5bf6e3423dd6406dc928d6db840f670af3"
+    },
+    {
+      "artifact": "source-integration.junit.xml",
+      "tests": 207,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "df8d0c0f6016ec3a8b06d53c7fa2d0bb0510554be149b468b03d46fc9bc22a3c"
+    }
+  ],
+  "test_scope": "Targeted files only; overlapping selections are not a full suite or a unique-test total. One pytest process at a time; no new pytest run in this resumed closeout.",
+  "launch_configuration": {
+    "observed_at_utc": "2026-11-03T05:38:58.9683162Z",
+    "process_id": 12856,
+    "parent_process_id": 8188,
+    "source": "Current tool shell ancestor codex.exe launch arguments; only required flags retained",
+    "model_argument": "--model gpt-6.1-sol",
+    "effort_argument": "-c \"model_reasoning_effort=\\\"max\\\"\"",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "runtime_telemetry_available": false
+  },
+  "native_roles": {
+    "light": "gpt-6.1-sol/low",
+    "writer_and_same_writer_reviews": "gpt-6.1-sol/max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_model_and_effort": null
+  },
+  "next_data_analysis_observation": {
+    "current_export_content_ids": [
+      "substack:222368666",
+      "substack:223199520",
+      "substack:223246940"
+    ],
+    "nfp_readback_in_this_item": null
+  },
+  "schedules_changed": false,
+  "chat_messages_sent": false,
+  "application_restarted": false,
+  "default_branch_merged": false,
+  "tracked_operating_wip_unchanged": true,
+  "evidence_sha256": {
+    "amended-readback-return.json": "40977f73515bdb6ff5d62551c4656f3e5e6c6e361a30e91dba5bec1f5e99ae4a",
+    "cpi-edit-reconciled.json": "fc0ca61b8e36e920a265e4273360c43b7ce26f06e56bb013a64f28e21f1d4930",
+    "native/substack-public-review-r2.json": "fc548112470dd08c3f1da760fcded0b9e81856b8977308c568a8aa77b5c367fb",
+    "substack-public-desktop.jpg": "2e1a6e2de199e8e165d498fcd1c3d962a5ee86b6e068f7afbd5f1db89e7de82b",
+    "substack-public-mobile-390-r2.jpg": "90255e922bb0e38401aded474d92dfbbd244ff55d234ee22e9cd4d11531d7e8a",
+    "reviewed-assets.json": "d19c5c3955aa00aec5844345aa13ef4acaa0941c809afae1c6664aba80059b25",
+    "integration.json": "99fd2847d305952e19010c74892d90e13d04aa87e16b1f93aa34d88339484478"
+  }
+}

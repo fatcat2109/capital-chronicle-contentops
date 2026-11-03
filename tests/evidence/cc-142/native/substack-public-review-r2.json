@@ -1,0 +1,140 @@
+{
+  "assignment_id": "cc142-public-mobile-r2-223246940",
+  "operation_id": "cc124-prepare-20261103-a",
+  "amendment_operation_id": "cc142-cpi-chart-edit-223246940",
+  "stage": "actual-substack-public-pixel-review-r2",
+  "post_id": "223246940",
+  "canonical_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+  "decision": "ACCEPT",
+  "status": "PUBLIC_DESKTOP_AND_CORRECTED_MOBILE_VISUALS_ACCEPTED",
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/cpi_max_writer",
+    "identity_kind": "SUPPORTED_NATIVE_TASK_PATH_BOUND_IN_GENERATED_ASSIGNMENT",
+    "native_task_path": "/root/cpi_max_writer",
+    "same_writer_context_continued": true,
+    "separate_provider_invocation_uuid": null,
+    "observation_source": "The continuing supported native child context and exact generated assignment identify /root/cpi_max_writer. This same context wrote and inspected the accepted revision, actual preview and first public capture. No separate provider invocation UUID is exposed.",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_configuration_unavailable": true
+  },
+  "bindings": {
+    "assignment_path": "tests/evidence/cc-142/native/substack-public-r2-assignment.txt",
+    "assignment_sha256": "4bdbb3427fcaa1770620133457e635b6506d533aa0bf786b9dcb2f830dbfd691",
+    "accepted_request_sha256": "4022e309d5a8983ec3f1c680efff49e2097023a7f94d94f7987971f1a7748f59",
+    "accepted_final_visual_response_sha256": "c4eaff885dd772fb25e01e6f1207536121b2f9332d1875b0a86d8df60b2b3d37",
+    "accepted_actual_preview_review_sha256": "f2c1af2f3dfa5e452e4afba6eba8bebe59789869d02f47627c16315d285a9ba5",
+    "reviewed_assets_sha256": "d19c5c3955aa00aec5844345aa13ef4acaa0941c809afae1c6664aba80059b25",
+    "earlier_public_review_path": "tests/evidence/cc-142/native/substack-public-review.json",
+    "earlier_public_review_sha256": "7905f63503108475e39511c84566bb117e60a42415c2dbe46e6cf1c647549b50",
+    "earlier_clipped_mobile_sha256": "6a9384492166b1222d8c3f0f94fc127c46804be715c54051a65167baaba00775",
+    "earlier_repair_required_artifact_preserved": true,
+    "public_copy_and_assets_changed_in_this_review": false
+  },
+  "asset_findings": [
+    {
+      "asset_id": "cpi-annual-history-r3",
+      "asset_sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "pixels_inspected": true,
+      "decision": "ACCEPT",
+      "findings": [],
+      "evidence_notes": "The accepted source chart, previously accepted public desktop and corrected full mobile view agree. The annual CPI-U paths cover October 2024-September 2026, retain the October 2025 gap and valid November annual observations, use a zero-based 0-5 percent scale and finish at 3.7% headline and 2.6% core. The latest labels, distinct line styles, repaired source footer, external caption, NSA basis and first-print vintage remain intact. In the corrected mobile page the whole figure fits the column without cropping."
+    },
+    {
+      "asset_id": "cpi-monthly-history-r3",
+      "asset_sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "pixels_inspected": true,
+      "decision": "ACCEPT",
+      "findings": [],
+      "evidence_notes": "The complete monthly chart is now visible on the public mobile page as well as desktop. Its October-November 2025 gaps, June 2026 core true zero, negative headline points, zero baseline, final 0.6% and 0.3% readings and SA percent context match the accepted source-bound chart. The first-release and missing one-month-reading caption remains complete. No two-month value, imputation, sign change or after-event history appears."
+    },
+    {
+      "asset_id": "cpi-september-effects-r2",
+      "asset_sha256": "45af728560c668a3aee17a095ef289cc99b7e1e7cb013caa7e5bd3f39311ba99",
+      "pixels_inspected": true,
+      "decision": "ACCEPT",
+      "findings": [],
+      "evidence_notes": "The complete component figure fits the corrected mobile column. Energy +0.377 pp, core +0.265 pp and food +0.006 pp remain separate disjoint broad-category bars on the shared zero baseline, with source date, Table 6 context, three-decimal effects and the percentage-point unit. The small positive food effect and long core label retain their intended meaning. The adjacent text and caption distinguish component effects from price-change rates; no nested stacking or forced total appears."
+    },
+    {
+      "asset_id": "cpi-usda-supermarket-archive",
+      "asset_sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+      "pixels_inspected": true,
+      "decision": "ACCEPT_AS_ARCHIVE_CONTEXT",
+      "findings": [],
+      "evidence_notes": "The accepted authentic supermarket photograph is complete, proportionate and correctly placed on the corrected mobile page. Its June 2023 archive caption and statement that it is not a September 2026 price observation remain readable, together with the USDAgov / U.S. Department of Agriculture via Wikimedia Commons public-domain credit. Its subject and frame match the accepted image and desktop. The prior exact rights acceptance is retained; the photo supplies context only and does not corroborate CPI values."
+    }
+  ],
+  "render_findings": [
+    {
+      "render_id": "cc142-substack-public-desktop",
+      "path": "tests/evidence/cc-142/substack-public-desktop.jpg",
+      "sha256": "2e1a6e2de199e8e165d498fcd1c3d962a5ee86b6e068f7afbd5f1db89e7de82b",
+      "width": 1200,
+      "height": 5436,
+      "pixels_inspected": true,
+      "inspection_basis": "Exact unchanged public desktop JPEG inspected at original detail in the preceding same-writer review; its hash is reverified in this continuation.",
+      "decision": "ACCEPT",
+      "checks": {
+        "accepted_title_and_visible_copy": "PASS",
+        "all_three_charts_and_photo_present": "PASS",
+        "source_bound_values_gaps_zero_and_units": "PASS",
+        "overlap_clipping": "PASS",
+        "labels_legend": "PASS",
+        "text_contrast": "PASS",
+        "crop_distortion": "PASS",
+        "placement": "PASS",
+        "photo_archive_context_credit": "PASS",
+        "retrospective_scope_and_disclaimer": "PASS"
+      },
+      "findings": [],
+      "evidence_notes": "The desktop acceptance from the prior exact public review is retained unchanged. It covers the complete accepted title/dek, body, source-bound three-chart argument, authentic archive photo, captions, credits and final disclaimer, with no visible clipping, overlap, distortion, missing section or material difference from the accepted preview. The unchanged desktop hash matches both generated assignments."
+    },
+    {
+      "render_id": "cc142-substack-public-mobile-390-r2",
+      "path": "tests/evidence/cc-142/substack-public-mobile-390-r2.jpg",
+      "sha256": "90255e922bb0e38401aded474d92dfbbd244ff55d234ee22e9cd4d11531d7e8a",
+      "width": 390,
+      "height": 5412,
+      "pixels_inspected": true,
+      "inspection_method": "view_image of the complete exact corrected JPEG at original detail",
+      "decision": "ACCEPT",
+      "checks": {
+        "accepted_title_and_visible_copy": "PASS",
+        "all_three_charts_and_photo_present": "PASS",
+        "source_bound_values_gaps_zero_and_units": "PASS",
+        "overlap_clipping": "PASS",
+        "labels_legend": "PASS",
+        "text_contrast": "PASS",
+        "crop_distortion": "PASS",
+        "placement": "PASS",
+        "photo_archive_context_credit": "PASS",
+        "retrospective_scope_and_disclaimer": "PASS"
+      },
+      "findings": [],
+      "evidence_notes": "This successor image now shows an actual mobile reflow: the complete title, dek, lead and body start near x=16 and fit a roughly 358-pixel column. All sections, three complete charts, the full photo frame and credits, external figure captions and final Analysis, not financial advice disclaimer remain visible within the 390-pixel capture. The prior right-edge clipping is absent. Headings and text wrap cleanly without overlap; images keep their aspect ratios and intended argument placements. The visible prose and visual content match the accepted revision and actual-preview review. Detailed raster annotations are small at inline mobile width, while the normal-text captions and adjoining prose retain the essential values, units, dates, vintage and missingness. No new material defect is visible."
+    }
+  ],
+  "repair_resolution": {
+    "finding_id": "CC142_PUBLIC_MOBILE_DESKTOP_LAYOUT_CROPPED",
+    "resolution": "RESOLVED_IN_CORRECTED_CAPTURE",
+    "proof": "The exact r2 screenshot shows the complete responsive article column and all previously clipped text and figures. Its hash matches the generated successor assignment.",
+    "original_faulty_capture_and_review_retained": true,
+    "content_or_asset_repair_performed_by_writer": false,
+    "capture_process_note": "The parent reports reloading under 390-pixel metrics and capturing after two animation frames. This writer independently verifies the resulting pixels and hash, not the browser operation sequence."
+  },
+  "required_repairs": [],
+  "scope_limits": [
+    "Acceptance covers the exact unchanged public desktop JPEG and corrected public mobile JPEG named here. Canonical URL, browser readback and updating actor provenance are supplied by the parent; this child inspected local captured files.",
+    "The earlier REPAIR_REQUIRED report remains truthful history for its clipped image. It is not rewritten as a pass; this successor resolves that specific capture defect without changing accepted copy or assets.",
+    "Pixels establish visible presentation, not exact DOM text, hyperlink destinations, alt attributes, hosted image byte identity, enlargement behavior, save chronology or the publishing actor. Existing exact-post reconciliation/readback remains with its owner.",
+    "No derivative is included in this review. Actual provider model and effort are unobserved; configured gpt-6.1-sol/max remains CONFIGURED_NOT_OBSERVED with the same supported native task identity.",
+    "Only substack-public-review-r2.json was saved. No public action, copy/asset mutation, browser setting change, chat message, test or schedule change occurred."
+  ],
+  "public_action_performed": false,
+  "next_action": "Parent records this final same-writer public desktop/mobile visual acceptance in the existing CC-142 result and completes its separate exact-post reconciliation and closeout. No further visual repair is required for these exact bytes."
+}

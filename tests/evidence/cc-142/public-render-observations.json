@@ -1,0 +1,32 @@
+{
+  "observed_at_utc": "2026-11-03T05:34:14.221Z",
+  "canonical": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+  "desktop": {
+    "path": "substack-public-desktop.jpg",
+    "width": 1200,
+    "height": 5436
+  },
+  "mobile_rejected": {
+    "path": "substack-public-mobile-390.jpg",
+    "finding": "Stale desktop composition clipped at 390px; same-MAX REPAIR_REQUIRED, never an accepted mobile proof."
+  },
+  "mobile_r2": {
+    "path": "substack-public-mobile-390-r2.jpg",
+    "width": 390,
+    "height": 5412,
+    "geometry": {
+      "changed": false,
+      "page": 30,
+      "settled": false,
+      "value": {
+        "height": 5412,
+        "titleWidth": 358,
+        "titleX": 16,
+        "width": 390
+      }
+    },
+    "method": "Reload under mobile metrics; await two animation frames and capture in the same Neo run.",
+    "public_content_changed": false
+  },
+  "application_restarted": false
+}
