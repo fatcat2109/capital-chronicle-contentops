@@ -1,0 +1,22 @@
+{
+  "observed_at_utc": "2026-11-03T15:07:33.958538+00:00",
+  "previous_live_head": "5a60db1a80f2dcc2345d04bc07636a3784371a30",
+  "status_sha256": "1b76235980e187d1c0d392ee3ec505c0f22a937d5485931bd3e7f36a3aacd3ba",
+  "tracked_wip_hashes": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "f11ada93e83ebea26a4b9e0a01b137a9c9bbb181a2f982885e53b78b273e9ae5",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "d441486d11096f00d4a81438e63d7f84615aecf3ea9a38814e8d16a46a59e80e"
+  },
+  "active_leases": [],
+  "resume": {
+    "pid": 48364,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "high",
+    "provenance": "CONFIGURED_NOT_OBSERVED",
+    "launch_arguments_read_back": true
+  },
+  "binding_sha256": "0a7e3b7238be1f798e8c3ba4e7a2694b178fae775abd8c408d3e32ffd739bedf"
+}

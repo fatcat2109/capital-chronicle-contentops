@@ -1,0 +1,37 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-03T15:16:08.795082+00:00",
+  "checks": [
+    {
+      "path": "docs\\publisher\\CC-124\\run-20261103-2156\\entry-owner.junit.xml",
+      "tests": 21,
+      "seconds": 13.146
+    },
+    {
+      "path": "docs\\publisher\\CC-124\\run-20261103-2156\\standing-binding.junit.xml",
+      "tests": 1,
+      "seconds": 2.9
+    },
+    {
+      "path": "docs\\publisher\\CC-124\\run-20261103-2156\\coordinator-quarantine.junit.xml",
+      "tests": 4,
+      "seconds": 5.58
+    }
+  ],
+  "passing_checks": 26,
+  "scope": "DISPOSABLE_STORES_NO_NATIVE_ROLE_OR_PUBLIC_ACTION",
+  "prior_attempts": {
+    "entry-only.junit.xml": "fixture surface mismatch, corrected; superseded by entry-owner.junit.xml",
+    "entry-regressions.txt": "55-second load guard stopped grouped run; not a PASS",
+    "coordinator.txt": "55-second load guard stopped full file; targeted quarantine cases PASS"
+  },
+  "resume": {
+    "pid": 24812,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "high",
+    "provenance": "CONFIGURED_NOT_OBSERVED",
+    "launch_arguments_read_back": true
+  },
+  "binding_preservation": "Original binding and cutoff stay byte-identical; missing report-only input routed only before first input freeze; incompatible frozen input refuses",
+  "quarantine": "Existing exact coordinator validator; original UNKNOWN_WRITE and readback obligation preserved"
+}

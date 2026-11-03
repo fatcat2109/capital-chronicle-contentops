@@ -352,6 +352,13 @@ class DurablePublicationCoordinator:
             return None
         return value
 
+    def editorial_recovery_dispatch_ids(self):
+        """Read-only entry guard; exact quarantines retain their readback obligation."""
+        return [dispatch["dispatch_id"] for dispatch in self.store.list_platform_dispatches()
+                if any(status in str(dispatch.get("status", "")).upper()
+                       for status in ("UNKNOWN", "AMBIGUOUS", "STARTED", "PENDING"))
+                and not self._dispatch_quarantine(dispatch)]
+
     def quarantine_unresolved_dispatch(self, dispatch_id, *, cause, next_owner, next_action, evidence_ref):
         """CC-179: isolate one failed readback under the caller's existing newsroom lease.
 
