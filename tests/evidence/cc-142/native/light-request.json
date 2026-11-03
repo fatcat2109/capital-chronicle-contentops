@@ -1,0 +1,22 @@
+{
+  "archive_dataset_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+  "assignment": "Prepare exact source/series identities, units, adjustment bases, month gaps and component-effect table for MAX. No prose, public write, new fact, code edit, model subagent or schedule. Verify retained source hashes. Use Table 6 reported effects rather than infer contributions from weights. Return compact JSON with recommended chart questions/data/placement, missingness and exact original sources; no visual acceptance.",
+  "canonical_before": "tests/evidence/cc-142/canonical-before.json",
+  "event_cutoff_utc": "2026-10-14T12:30:00Z",
+  "operation_id": "cc142-cpi-chart-edit-223246940",
+  "reference_window": [
+    "2024-10",
+    "2026-09"
+  ],
+  "requested_model": "gpt-6.1-sol",
+  "requested_reasoning_effort": "low",
+  "series": [
+    "CPI_HEADLINE_MOM",
+    "CPI_CORE_MOM",
+    "CPI_HEADLINE_YOY",
+    "CPI_CORE_YOY"
+  ],
+  "source_archive": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data",
+  "source_release": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+  "stage": "media-plan"
+}

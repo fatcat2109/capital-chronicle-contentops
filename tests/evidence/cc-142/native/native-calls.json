@@ -1,0 +1,38 @@
+[
+  {
+    "operation_id": "cc142-cpi-chart-edit-223246940",
+    "stage": "media-plan",
+    "supported_native_task_path": "/root/cpi_light_plan",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "request_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\native\\light-request.json",
+    "request_sha256": "3b0ec767aa98cec8a573564285b226c3e20de106c4dc5267b0e9101c664c7e83",
+    "response_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\native\\light-result.json",
+    "response_sha256": "29719c1df367e7789e1565bf21dfed08f5a510428568b6e0ee11db94baa84b98",
+    "observation_source": "SUPPORTED_COLLABORATION_SPAWN_AGENT_RETURN_AND_EXPLICIT_ARGUMENTS; native final saved artifact collected",
+    "external_model_api_calls": 0
+  },
+  {
+    "operation_id": "cc142-cpi-chart-edit-223246940",
+    "stage": "visual-edit/write",
+    "supported_native_task_path": "/root/cpi_max_writer",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "request_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\native\\max-request.json",
+    "request_sha256": "53d4c2bd878e2bfa8b674dfae331dcbd225fc88cb07a37da316f2f1c3b080155",
+    "response_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\native\\max-result.json",
+    "response_sha256": "35ef4410e017b8a7363aae75407ab77a4c5b824749eddacb37cbfe1dca16c63f",
+    "observation_source": "SUPPORTED_COLLABORATION_SPAWN_AGENT_RETURN_AND_EXPLICIT_ARGUMENTS; native final saved artifact collected",
+    "external_model_api_calls": 0
+  }
+]

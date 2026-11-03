@@ -1,0 +1,198 @@
+{
+  "operation_id": "cc142-cpi-chart-edit-223246940",
+  "stage": "asset-review-before-final-assembly-r2",
+  "request_sha256": "53d4c2bd878e2bfa8b674dfae331dcbd225fc88cb07a37da316f2f1c3b080155",
+  "max_result_sha256": "35ef4410e017b8a7363aae75407ab77a4c5b824749eddacb37cbfe1dca16c63f",
+  "same_writer_task_path": "/root/cpi_max_writer",
+  "status": "REPAIR_REQUIRED_ON_TWO_PUBLIC_CHART_FOOTERS",
+  "model_provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "native_invocation_id": null,
+    "status": "CONFIGURED_NOT_OBSERVED"
+  },
+  "input_manifests": {
+    "chart_assets_path": "tests/evidence/cc-142/chart-assets-unreviewed.json",
+    "chart_assets_sha256": "89da069e10c79942a787bd069886800d0446d92f592377cbc41d92fe88d80599",
+    "photo_asset_path": "tests/evidence/cc-142/media/photo-asset-unreviewed.json",
+    "photo_asset_sha256": "e89f7a48146c76c7d14e191303ee0cb40c09c2a3c523ba248c8557d3471292c7",
+    "photo_rights_path": "tests/evidence/cc-142/media/usda-photo-rights.json",
+    "photo_rights_sha256": "0f5af7275a5099b623c66608b44ddfafc37d8ad0593c4fc8af9a9ffa72a113ea",
+    "public_domain_policy_sha256": "199f8d0cfbd1dfc4dbc95b2a020d3df09a76a1f0ed4b5d5528172d769506adca"
+  },
+  "scope": {
+    "exact_standalone_assets_viewed": 4,
+    "method": "view_image of each exact local asset, plus byte-hash, source-value and retained rights/metadata readback",
+    "assembled_article_pixels_inspected": false,
+    "mobile_assembled_pixels_inspected": false,
+    "final_assembled_acceptance": false,
+    "public_action_performed": false
+  },
+  "assets": [
+    {
+      "asset_id": "cpi-annual-history-r2",
+      "path": "tests/evidence/cc-142/render-r2/media_assets/cpi-annual-history-r2.png",
+      "sha256": "afec515b09d15bdf97c479370774d96722d9a5651d808d8e5618da13ccf5ce5d",
+      "pixels_inspected": true,
+      "inspection_detail": "original, 1440 by 1040",
+      "checks": {
+        "file_hash": "PASS",
+        "computed_values_equal_verified_history": "PASS",
+        "24_calendar_months_23_annual_observations_per_series": "PASS",
+        "october_2025_gap_and_november_annual_observations": "PASS",
+        "annual_NSA_percent_units_and_date_window": "PASS",
+        "sign_scale_and_latest_labels": "PASS",
+        "color_independent_series_distinction": "PASS",
+        "caption_and_alt_meaning": "PASS",
+        "public_source_footer": "REPAIR_REQUIRED",
+        "placement_proposal": "PASS_FOR_ASSEMBLY",
+        "intrinsic_asset_legibility": "PASS",
+        "assembled_mobile_legibility": "PENDING_RENDERED_ASSEMBLY"
+      },
+      "findings": [
+        "The image visibly breaks both lines at October 2025 and resumes with the valid November annual observations. It does not bridge or replace the gap.",
+        "The first points, May 2026 headline peak of 4.2%, final 3.7% and 2.6% labels, and shared 0-5 percent scale agree with the chosen history. Headline is solid teal and core dashed orange, with a clear legend.",
+        "The public raster footer contains '(CC-010 archive)', an internal work identifier excluded by the writing assignment. This is a presentation defect; the source values and geometry remain valid."
+      ],
+      "evidence_notes": [
+        "Compared the manifest computed_values arrays with CPI_HEADLINE_YOY and CPI_CORE_YOY in cpi-first-print-history.json; exact equality.",
+        "Original-size pixel inspection shows no clipped title, legend, end labels or core path. The intended placement after the first paragraph of 'What the annual history shows' supports that paragraph.",
+        "Mobile placement has not been rendered. Its small raster subtitle/footer must not be the only readable source, adjustment or gap context; preserve the normal text caption and natural image enlargement."
+      ],
+      "usable_before_final_assembly": false,
+      "decision": "REPAIR_PUBLIC_FOOTER_THEN_REVIEW_SUCCESSOR",
+      "repair": {
+        "change": "Replace the public raster footer and public-facing attribution with the text below. Preserve all data, gaps, geometry, title, legend, caption and alt text.",
+        "public_footer": "Source: BLS dated CPI releases. First readings; October 2025 not published.",
+        "public_source_link_label": "U.S. Bureau of Labor Statistics - 14 Oct 2026",
+        "retain_internal_provenance": true
+      }
+    },
+    {
+      "asset_id": "cpi-monthly-history-r2",
+      "path": "tests/evidence/cc-142/render-r2/media_assets/cpi-monthly-history-r2.png",
+      "sha256": "6f28436703c53c171ee526e4b3827dbdb2938e9daeaf82d957dc61ac73f675e5",
+      "pixels_inspected": true,
+      "inspection_detail": "original, 1440 by 1040",
+      "checks": {
+        "file_hash": "PASS",
+        "computed_values_equal_verified_history": "PASS",
+        "24_calendar_months_22_monthly_observations_per_series": "PASS",
+        "october_and_november_2025_gaps": "PASS",
+        "two_month_figures_excluded": "PASS",
+        "june_2026_core_true_zero_visible": "PASS",
+        "negative_headline_changes_and_zero_baseline": "PASS",
+        "monthly_SA_percent_units_and_date_window": "PASS",
+        "latest_labels_and_series_distinction": "PASS",
+        "caption_and_alt_meaning": "PASS",
+        "public_source_footer": "REPAIR_REQUIRED",
+        "placement_proposal": "PASS_FOR_ASSEMBLY",
+        "intrinsic_asset_legibility": "PASS",
+        "assembled_mobile_legibility": "PENDING_RENDERED_ASSEMBLY"
+      },
+      "findings": [
+        "Both lines visibly stop across October and November 2025; no two-month figure is substituted for a missing one-month value.",
+        "June 2026 core's orange point lies on the zero baseline; headline's June -0.4% and March 2025 -0.1% are below it. September's direct labels are headline 0.6% and core 0.3%.",
+        "The public raster footer again contains '(CC-010 archive)'. Remove that internal identifier before assembly; no numeric repair is required."
+      ],
+      "evidence_notes": [
+        "Compared the manifest computed_values arrays with CPI_HEADLINE_MOM and CPI_CORE_MOM in cpi-first-print-history.json; exact equality, including both missing months and the genuine 0.0 value.",
+        "Original-size pixel inspection confirms visible negative values, a zero line, separate line styles, readable end labels and no label clipping. Placement after the first paragraph of 'The monthly pace' is appropriate.",
+        "The shared calendar axis and caption preserve the difference from annual NSA data. Final mobile readability remains unverified until the assembled render and its normal text caption are inspected."
+      ],
+      "usable_before_final_assembly": false,
+      "decision": "REPAIR_PUBLIC_FOOTER_THEN_REVIEW_SUCCESSOR",
+      "repair": {
+        "change": "Replace the public raster footer and public-facing attribution with the text below. Preserve every plotted value, null, point, axis and direct label.",
+        "public_footer": "Source: BLS dated CPI releases. First readings; no one-month data for Oct-Nov 2025.",
+        "public_source_link_label": "U.S. Bureau of Labor Statistics - 14 Oct 2026",
+        "retain_internal_provenance": true
+      }
+    },
+    {
+      "asset_id": "cpi-september-effects-r2",
+      "path": "tests/evidence/cc-142/render-r2/media_assets/cpi-september-effects-r2.png",
+      "sha256": "45af728560c668a3aee17a095ef289cc99b7e1e7cb013caa7e5bd3f39311ba99",
+      "pixels_inspected": true,
+      "inspection_detail": "original, 1440 by 1040",
+      "checks": {
+        "file_hash": "PASS",
+        "reported_effects_and_precision": "PASS",
+        "disjoint_energy_core_food_partition": "PASS",
+        "all_positive_signs_and_shared_zero_baseline": "PASS",
+        "percentage_point_unit_separate_from_price_change_rates": "PASS",
+        "small_food_effect_visible_without_exaggeration": "PASS",
+        "source_table_date_and_seasonal_context": "PASS",
+        "caption_and_alt_meaning": "PASS",
+        "placement_proposal": "PASS_FOR_ASSEMBLY",
+        "intrinsic_asset_legibility": "PASS",
+        "assembled_mobile_legibility": "PENDING_RENDERED_ASSEMBLY"
+      },
+      "findings": [
+        "The three separate bars correctly show energy +0.377 pp, core +0.265 pp and food +0.006 pp on one zero-based axis. The food effect is a small positive bar, not zero or an enlarged decorative mark.",
+        "The long core label wraps cleanly. Exact value labels, positive signs, date, SA context and percentage-point axis are visible. No gasoline, shelter or other nested category is added to its parent.",
+        "The source footer names BLS, the release date and Table 6 without an internal identifier. No rendering repair is required at this stage."
+      ],
+      "evidence_notes": [
+        "The manifest values exactly equal the BLS-reported effects in the verified component projection; no weight-times-rounded-rate computation or forced total was used.",
+        "Placement after the first paragraph of 'What contributed to September's increase' keeps the chart beside its explicit composition argument.",
+        "The chart is usable as an asset. This does not yet establish readability in the assembled mobile article; preserve readable external caption text and natural image enlargement."
+      ],
+      "usable_before_final_assembly": true,
+      "decision": "USABLE_FOR_ASSEMBLY_PENDING_FINAL_REVIEW",
+      "repair": null
+    },
+    {
+      "asset_id": "cpi-usda-supermarket-archive",
+      "path": "tests/evidence/cc-142/media/usda-michigan-supermarket-20230622.jpg",
+      "sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+      "pixels_inspected": true,
+      "inspection_detail": "exact original file viewed at high detail; intrinsic file dimensions 5364 by 3334, viewer output resized",
+      "checks": {
+        "original_hash_and_dimensions": "PASS",
+        "rights_record_hash": "PASS",
+        "public_domain_policy_capture_hash": "PASS",
+        "provider_author_and_license_binding": "PASS_RETAINED_EVIDENCE",
+        "depicted_archive_month": "PASS_JUNE_2023",
+        "subject_and_caption": "PASS",
+        "creator_source_license_credit": "PASS",
+        "context_only_no_CPI_corroboration": "PASS",
+        "photographic_quality": "PASS",
+        "actual_assembled_crop_and_mobile_display": "PENDING_RENDERED_ASSEMBLY"
+      },
+      "findings": [
+        "The pixels show supermarket shelves of packaged beans, lentils and other dried staples. The scene fits the retained source description of Papaya Supermarket in Dearborn, Michigan. There are no depicted people or implied interview subjects.",
+        "The retained Commons record identifies USDAgov, a USDA source Flickr page, a passed Public Domain Mark review and the PD-USGov-USDA tag. The original JPEG, rights record and retained public-domain policy hashes all match their supplied bindings.",
+        "The provider's depicted date and the JPEG's nested DateTimeOriginal both identify June 22, 2023. The filename contains June 21; it is an object identifier, not authority to change the depicted date. Public captioning at June 2023 is appropriate.",
+        "The existing caption clearly marks archive context and excludes a September 2026 price observation. Its credit identifies USDAgov / U.S. Department of Agriculture, Wikimedia Commons and public-domain status. Keep that canonical credit and the source/license links.",
+        "The photo illustrates a consumer-basket setting only. It neither establishes a 2026 price level nor corroborates any CPI figure or energy contribution."
+      ],
+      "evidence_notes": [
+        "JPEG DateTimeOriginal is 2023:06:22 10:31:28. Its separate file DateTime is 2023:08:28 08:46:44; the latter is not the depicted date.",
+        "The embedded OffsetTimeOriginal is -08:00 while the retained Commons date representation uses Z. This review does not reconcile an exact capture clock. The public month-level archive caption is unchanged and does not depend on that offset.",
+        "A slightly broader alt text would describe the visible range of staples more fully; this is an optional copy refinement, not a rights or image blocker.",
+        "Use the supplied full frame or a source-faithful crop near the opening with a visible archive caption. Do not use shelf labels as September 2026 price evidence. The exact assembled crop remains to be inspected."
+      ],
+      "accepted_caption": "Dry beans at Papaya Supermarket in Dearborn, Michigan, June 2023. Archive context; not a September 2026 price observation.",
+      "accepted_credit": "USDAgov / U.S. Department of Agriculture, via Wikimedia Commons. Public domain (17 USC 105).",
+      "optional_alt_text_refinement": "Bags of beans, lentils and other dried staples displayed on shelves at a supermarket in Dearborn, Michigan.",
+      "usable_before_final_assembly": true,
+      "decision": "USABLE_AS_DATED_ARCHIVE_CONTEXT_PENDING_FINAL_REVIEW",
+      "repair": null
+    }
+  ],
+  "repair_instruction": {
+    "affected_assets": ["cpi-annual-history-r2", "cpi-monthly-history-r2"],
+    "bounded_action": "Render successor PNGs with the two approved public footer strings. Update any public display labels that expose 'CC-010'; keep the original source records, archive identifiers, hashes and lineage intact internally. Return the exact successor bytes/hashes to this same writer. No data, prose or geometry change is requested.",
+    "unaffected_assets": ["cpi-september-effects-r2", "cpi-usda-supermarket-archive"],
+    "final_mobile_requirement": "At assembly retain normal readable figure captions and accessible image enlargement. Return exact desktop/mobile article and affected derivative pixels; standalone original-size inspection is not mobile or final assembled acceptance."
+  },
+  "verification_limits": [
+    "This is an exact standalone asset review. No assembled canonical/channel desktop or mobile render was supplied, so no final article acceptance is granted.",
+    "Photo provenance and rights were evaluated from the retained public metadata and policy capture; no new browser/source request was made. No unrecorded individual photographer or capture-clock conversion was invented.",
+    "Model/effort/invocation telemetry remains unobserved in this child context. Only asset-review-r2.json was saved; no parent file, shared code, input asset, test, public object, chat or schedule was changed."
+  ],
+  "next_action": "Parent repairs the two public history-chart footers, retains the valid effects chart and dated USDA image, and returns exact successor asset hashes for review. Then bind inspected assets to the assembled exact-post desktop/mobile and affected derivative renders and continue this same writer for final review and any direct repair."
+}

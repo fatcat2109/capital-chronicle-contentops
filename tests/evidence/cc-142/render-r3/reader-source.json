@@ -1,0 +1,12 @@
+{
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r3\\reader.html",
+  "sha256": "7dc7b02b7f962430046ec556f201610feb5aa9d9ef5ce8396bc9c1e08e44bf82",
+  "writer_result_sha256": "35ef4410e017b8a7363aae75407ab77a4c5b824749eddacb37cbfe1dca16c63f",
+  "asset_sha256": [
+    "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+    "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+    "45af728560c668a3aee17a095ef289cc99b7e1e7cb013caa7e5bd3f39311ba99",
+    "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d"
+  ],
+  "public_write_performed": false
+}
