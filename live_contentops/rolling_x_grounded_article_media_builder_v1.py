@@ -1118,7 +1118,9 @@ def _editorial_data_values(packet, documents):
                     and rights.get("policy_capture_sha256")
                     and rights.get("source_capture_sha256")
                 ):
-                    raise ValueError("EDITORIAL_CHART_FACT_RIGHTS_UNBOUND")
+                    from live_contentops.event_preview_source_v1 import public_preview_chart_rights_bound
+                    if not public_preview_chart_rights_bound(doc):
+                        raise ValueError("EDITORIAL_CHART_FACT_RIGHTS_UNBOUND")
                 terms = rights.get("data_terms") or {}
                 if terms.get("required_attribution"):
                     legal = packet.get("required_attribution") or {}

@@ -137,7 +137,13 @@ def test_event_numeric_admission_is_code_owned_and_source_exact(tmp_path):
     for fact in context["facts"].values():
         a, b = fact["source_span"]
         assert text[a:b].strip() == fact["display"]
+    assert adapter.public_preview_chart_rights_bound(pack[0])
+    rights = pack[0]["source_reuse_constraints"]
+    rights["public_expression_reuse_allowed"] = False
+    assert not adapter.public_preview_chart_rights_bound(pack[0])
+    rights["public_expression_reuse_allowed"] = True
     pack[0]["canonical_content_text"] = "Changed writer context"
+    assert not adapter.public_preview_chart_rights_bound(pack[0])
     with pytest.raises(ValueError, match="EVENT_PREVIEW_WRITER_SOURCE_CHANGED"):
         adapter.public_preview_event_evidence(pack)
     assert adapter.public_preview_event_evidence([]) is None

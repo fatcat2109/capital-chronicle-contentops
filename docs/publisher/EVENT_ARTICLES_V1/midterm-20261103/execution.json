@@ -67,6 +67,13 @@
           "message": "ValueError: ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"
         }
       ]
+    },
+    "preview-chart-rights.junit.xml": {
+      "tests": 72,
+      "failures": [],
+      "deselected": 1,
+      "deselected_test": "test_signed_horizontal_percent_labels_keep_the_declared_unit",
+      "reason": "Recorded baseline defect; renderer code unchanged apart from the exact approved-preview rights adapter."
     }
   },
   "preexisting_failures": [

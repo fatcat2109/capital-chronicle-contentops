@@ -155,3 +155,15 @@ def public_preview_event_evidence(source_pack):
         }
     return {"schema_version": "contentops.event_article_evidence.v1",
             "event_id": "US_MIDTERMS_20261103", "facts": facts, "private_text": []}
+
+
+def public_preview_chart_rights_bound(document):
+    """The exact CC-owned preview uses its Ops approval, not an external licence."""
+    rights = document.get("source_reuse_constraints") or {}
+    if (rights.get("scope") != "EXACT_OPS_REVIEWED_CAPITAL_CHRONICLE_PUBLIC_PREVIEW_ONLY"
+            or rights.get("public_expression_reuse_allowed") is not True
+            or not re.fullmatch(r"[a-f0-9]{64}", rights.get("approval_capture_sha256", ""))):
+        return False
+    raw = FROZEN_PREVIEW.read_bytes()
+    return (rights.get("source_capture_sha256") == sha256(raw).hexdigest()
+            and document.get("canonical_content_text") == raw.decode("utf-8"))
