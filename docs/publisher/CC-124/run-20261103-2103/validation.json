@@ -1,0 +1,36 @@
+{
+  "result": "PASS_EVIDENCE_ONLY",
+  "files": {
+    "request.txt": {
+      "bytes": 2091,
+      "sha256": "54dade7233297a641f8b28d2f80e0fc7de38fe318f353435686aaeb6cc56abb2"
+    },
+    "launch-record.json": {
+      "bytes": 509,
+      "sha256": "119cbd9710714430fee1c9c49921bda591c10fb022cae7bb60b3cf7315c246e4"
+    },
+    "binding.json": {
+      "bytes": 4438,
+      "sha256": "0a7e3b7238be1f798e8c3ba4e7a2694b178fae775abd8c408d3e32ffd739bedf"
+    },
+    "jolts-current-read.json": {
+      "bytes": 4228,
+      "sha256": "b94562135c77b45d6bedf9d1ed12bc11b86ce178097ded5e8a34c5fb5d80504a"
+    },
+    "jolts-archive-read.json": {
+      "bytes": 4272,
+      "sha256": "acb7f96075a0c5bbd5e822e8a5bfd9a0490bc923410f000a40ca79eab3c973e9"
+    },
+    "result.json": {
+      "bytes": 4168,
+      "sha256": "dc8b5d5fa4a97951e43c851448a98ec10da5c179e1dfabf547c3bbad26a12e7e"
+    },
+    "README.md": {
+      "bytes": 2658,
+      "sha256": "83ce2645e855b7c418be8ebed5f677aa3df2a66b2fc5e1ef1b0f1e883cec9bc7"
+    }
+  },
+  "tests_run": 0,
+  "new_publications": 0,
+  "limits": "No editorial or publication acceptance; entry guard blocked before selection."
+}
