@@ -12,6 +12,9 @@ import re
 from live_contentops.event_article_guard_v1 import check_publication_copy
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import _time, sha256_of
 
+HOST_BACKLOG = Path(r"A:\Capital Chronicle\control-tower-reporting-closeout-20261018\docs\project_control_tower\BACKLOG.md")
+FROZEN_PREVIEW = Path(r"A:\Capital Chronicle\ResearchRuns\claude-main-events-20261029\20261103-midterm-dossier\PREVIEW.md")
+
 
 def approved_preview_record(spec, *, read):
     raw = read(spec["capture_path"])
@@ -26,11 +29,16 @@ def approved_preview_record(spec, *, read):
         raise ValueError("EVENT_PREVIEW_APPROVAL_CHANGED")
     # The configured owner pins an actual backlog review, separately from copy.
     # Keep this route narrow until Main's public event export is wired.
-    review = approval.decode("utf-8")
+    review = approval.decode("utf-8").replace("\r\n", "\n")
     required = ("CC-107", "Ops reviewed it against decisions 35 and 40",
                 "It passes.", "Publish it web-only (decision 42)")
     if not all(value in review for value in required):
         raise ValueError("EVENT_PREVIEW_EXACT_OPS_REVIEW_REQUIRED")
+    if review.split("\n", 1)[1].strip() not in HOST_BACKLOG.read_text(encoding="utf-8"):
+        raise ValueError("EVENT_PREVIEW_REVIEW_NOT_IN_HOST_BACKLOG")
+    if (Path(spec["frozen_manifest_path"]).resolve() != FROZEN_PREVIEW.with_name("MANIFEST.sha256").resolve()
+            or sha256(FROZEN_PREVIEW.read_bytes()).hexdigest() != digest):
+        raise ValueError("EVENT_PREVIEW_HOST_ORIGIN_MISMATCH")
     text = raw.decode("utf-8")
     check_publication_copy({"text": text}, require_notice=False)
     title = text.splitlines()[0].removeprefix("# ").strip()
@@ -111,3 +119,39 @@ def approved_preview_evidence(records, request, *, revision):
                        "retained_research_revision": revision,
                        "retrieval_method": "READ_ONLY_FROZEN_OPS_APPROVED_PUBLIC_PREVIEW"},
     }
+
+
+def public_preview_event_evidence(source_pack):
+    """Code binds exact numeric displays from the admitted preview before writing."""
+    from live_contentops.event_article_guard_v1 import _NUMBER
+    selected = [d for d in source_pack if (d.get("source_reuse_constraints") or {}).get("scope")
+                == "EXACT_OPS_REVIEWED_CAPITAL_CHRONICLE_PUBLIC_PREVIEW_ONLY"]
+    if not selected:
+        return None
+    if len(selected) != 1:
+        raise ValueError("ONE_EXACT_PUBLIC_EVENT_PREVIEW_REQUIRED")
+    doc = selected[0]
+    raw = FROZEN_PREVIEW.read_bytes()
+    text = raw.decode("utf-8")
+    if (doc["canonical_content_sha256"] != sha256(raw).hexdigest()
+            or doc["canonical_content_text"] != text):
+        raise ValueError("EVENT_PREVIEW_WRITER_SOURCE_CHANGED")
+    facts = {}
+    spans = {(m.start(), m.end()) for m in _NUMBER.finditer(text)}
+    # A range separator is not an arithmetic negative. Both literal displays
+    # remain source-owned, with exact spans; no conversion or rounding occurs.
+    spans.update((m.start(), m.end()) for m in re.finditer(r"\d+(?:\.\d+)?%?", text))
+    for index, (start, end) in enumerate(sorted(spans)):
+        facts[f"preview-number-{index}"] = {
+            "display": text[start:end].strip(), "source_ref": doc["url"],
+            "source_sha256": sha256(raw).hexdigest(),
+            "known_at_utc": "2026-11-02T23:35:08Z",
+            "rights_class": "CC_OWNED_PUBLIC_PREVIEW_OPS_APPROVED",
+            "public_use_allowed": True,
+            "rights_evidence_ref": doc["source_reuse_constraints"]["approval_capture_sha256"],
+            "use_label": "PUBLIC_CC_AUTHORED_PREVIEW",
+            "source_span": [start, end],
+            "source_excerpt": text[max(0, start - 100):min(len(text), end + 100)],
+        }
+    return {"schema_version": "contentops.event_article_evidence.v1",
+            "event_id": "US_MIDTERMS_20261103", "facts": facts, "private_text": []}

@@ -1,10 +1,18 @@
 """Frozen public preview admission, privacy and existing-owner resume boundaries."""
 from hashlib import sha256
 import json
+from pathlib import Path
 
 import pytest
 
 from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+from live_contentops import event_preview_source_v1 as adapter
+
+
+@pytest.fixture(autouse=True)
+def host_paths(tmp_path, monkeypatch):
+    monkeypatch.setattr(adapter, "HOST_BACKLOG", tmp_path / "authority.txt")
+    monkeypatch.setattr(adapter, "FROZEN_PREVIEW", tmp_path / "PREVIEW.md")
 
 
 def fixture(tmp_path, text=None):
@@ -14,6 +22,7 @@ def fixture(tmp_path, text=None):
     approval = ("CC-107\nOps reviewed it against decisions 35 and 40. It passes.\n"
                 "Publish it web-only (decision 42)").encode()
     (tmp_path / "approval.txt").write_bytes(approval)
+    (tmp_path / "authority.txt").write_bytes(approval)
     digest = sha256(raw).hexdigest()
     (tmp_path / "MANIFEST.sha256").write_text(digest + "  PREVIEW.md\n", encoding="utf-8")
     spec = {"authorship_class": "CAPITAL_CHRONICLE_OPS_APPROVED_EVENT_PREVIEW",
@@ -93,3 +102,57 @@ def test_future_admission_stays_out_of_frozen_opportunity(tmp_path):
     cutoff = "2026-11-03T00:00:00Z"
     assert research.headlines(cutoff_utc=cutoff) == []
     assert research.evidence({"headline_ids": ["controlled-event-preview"]}, cutoff_utc=cutoff) is None
+
+
+def test_matching_approval_words_cannot_replace_actual_host_review(tmp_path):
+    fixture(tmp_path)
+    (tmp_path / "authority.txt").write_text("No host approval exists", encoding="utf-8")
+    research = RetainedSourceResearch(tmp_path)
+    assert not research.records
+    assert research.gaps[0]["state"] == "EVENT_PREVIEW_REVIEW_NOT_IN_HOST_BACKLOG"
+
+
+def test_caller_cannot_substitute_another_frozen_manifest(tmp_path):
+    spec = fixture(tmp_path)
+    other = tmp_path / "other-manifest.sha256"
+    other.write_bytes((tmp_path / "MANIFEST.sha256").read_bytes())
+    spec["frozen_manifest_path"] = str(other)
+    write_index(tmp_path, spec)
+    research = RetainedSourceResearch(tmp_path)
+    assert not research.records
+    assert research.gaps[0]["state"] == "EVENT_PREVIEW_HOST_ORIGIN_MISMATCH"
+
+
+def test_event_numeric_admission_is_code_owned_and_source_exact(tmp_path):
+    fixture(tmp_path, "# Controlled preview\n\nThe poll reports 51.1% and 42.8%. First polls close at 23:00 UTC.\n")
+    record = next(iter(RetainedSourceResearch(tmp_path).records.values()))
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import _private
+    pack = _source_pack([record["document"]])
+    context = adapter.public_preview_event_evidence(pack)
+    assert context["event_id"] == "US_MIDTERMS_20261103"
+    assert not _private(context)
+    assert {"51.1%", "42.8%", "23", "00"} <= {f["display"] for f in context["facts"].values()}
+    text = record["permitted_source_text"]
+    for fact in context["facts"].values():
+        a, b = fact["source_span"]
+        assert text[a:b].strip() == fact["display"]
+    pack[0]["canonical_content_text"] = "Changed writer context"
+    with pytest.raises(ValueError, match="EVENT_PREVIEW_WRITER_SOURCE_CHANGED"):
+        adapter.public_preview_event_evidence(pack)
+    assert adapter.public_preview_event_evidence([]) is None
+
+
+def test_retained_capitol_photo_requires_the_exact_federal_authorship_record():
+    from copy import deepcopy
+    from live_contentops.visual_asset_discovery_v1 import _validate_commons_contextual_rights
+    root = Path(__file__).resolve().parents[1] / "docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/media"
+    asset = json.loads((root / "photo-asset-unreviewed.json").read_bytes())
+    receipt = json.loads((root / "photo-rights.json").read_bytes())
+    receipt["public_domain_basis"]["policy_capture_path"] = str(root / "pd-usgov-policy.json")
+    digest = sha256((root / "capitol-west-front-1997.jpg").read_bytes()).hexdigest()
+    _validate_commons_contextual_rights(asset, receipt, receipt["provider_metadata"], digest)
+    changed = deepcopy(receipt)
+    changed["provider_metadata"]["page"]["license_wikitext"] = "No retained federal authorship declaration"
+    with pytest.raises(ValueError, match="PHOTO_PUBLIC_DOMAIN_BASIS_REQUIRED"):
+        _validate_commons_contextual_rights(asset, changed, changed["provider_metadata"], digest)

@@ -189,6 +189,26 @@ def continue_owner_story(profile, *, source_review_id, operation_id=None, reques
     return operation(binding)
 
 
+def editorial_recovery_blockers(store, binding):
+    """Keep uncertain canonicals global and confirmed older distribution local."""
+    ambiguous = [d["dispatch_id"] for d in store.list_platform_dispatches()
+                 if any(s in str(d.get("status", "")).upper() for s in ("UNKNOWN", "AMBIGUOUS", "STARTED", "PENDING"))]
+    if not ambiguous or not binding.get("owner_manual_live"):
+        return ambiguous
+    # This stage only prepares private copy. The final publisher checks the real
+    # article identity, including duplicate/same-article recovery, before a send.
+    from live_contentops.native_publication_promotion_v1 import _prior_distribution_can_wait
+    with store.get_read_only_connection() as conn:
+        rows = conn.execute(
+            "SELECT d.*,o.destination,o.work_item_id,o.payload FROM platform_dispatches d "
+            "LEFT JOIN outbox_messages o USING(message_id) WHERE d.dispatch_id IN ("
+            + ",".join("?" for _ in ambiguous) + ")", ambiguous).fetchall()
+    can_wait = _prior_distribution_can_wait(rows,
+        {"release_authority": "JIM_DECISIONS_20261030_DECISION_39",
+         "pin": {"article_identity": "UNWRITTEN_EDITORIAL_SCOPE:" + binding["run_id"]}}, binding)
+    return [] if can_wait else ambiguous
+
+
 def _operation(binding, *, command="advance", response=None, stage=None, rollout=None,
               native_invocation_id=None, request_hash=None, candidate_id=None, operation_lease=None):
     validate_binding(binding, read_or_prepare=command in {"publication-prepare", "publication-status"})
@@ -393,8 +413,7 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
                     if not target.exists():
                         source.replace(target)
     # Recover through the existing coordinator BEFORE another semantic/public intent.
-    ambiguous = [d["dispatch_id"] for d in store.list_platform_dispatches()
-                 if any(s in str(d.get("status", "")).upper() for s in ("UNKNOWN", "AMBIGUOUS", "STARTED", "PENDING"))]
+    ambiguous = editorial_recovery_blockers(store, binding)
     if ambiguous:
         return {"classification": "RECOVERY_REQUIRED", "dispatch_ids": ambiguous,
                 "next_operation": "Existing DurablePublicationCoordinator readback/reconciliation; do not retry publishing",

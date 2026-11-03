@@ -31,5 +31,86 @@
     "pytest_processes_started_concurrently": 1,
     "ruff": "PASS",
     "git_diff_check": "PASS"
-  }
+  },
+  "preparation_recovery": {
+    "prior_run": "cc074-retro-fomc-20261028-v1",
+    "canonical_confirmed": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+    "remaining_ambiguity": "LINKEDIN_UNKNOWN_WRITE",
+    "policy": "Existing decision-39 coordinator deferral for a different confirmed article; unresolved canonical and same-operation ambiguity still block.",
+    "recovery_attempt_public_writes": 0,
+    "artifact": "fomc-recovery-resume.json"
+  },
+  "checks": {
+    "preview-native.junit.xml": {
+      "tests": 38,
+      "failures": []
+    },
+    "preview-focused-final.junit.xml": {
+      "tests": 49,
+      "failures": []
+    },
+    "preview-native-media.junit.xml": {
+      "tests": 98,
+      "failures": [
+        {
+          "test": "test_signed_horizontal_percent_labels_keep_the_declared_unit",
+          "message": "AssertionError: assert ['-3.2', '+21.2'] == ['-3.2%', '+21.2%']\n  \n  At index 0 diff: '-3.2' != '-3.2%'\n  Use -v to get more diff"
+        }
+      ]
+    },
+    "preview-recovery.junit.xml": {
+      "tests": 53,
+      "failures": [
+        {
+          "test": "test_zero_chart_analysis_can_prepare_with_exact_instagram_skip",
+          "message": "ValueError: ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"
+        }
+      ]
+    }
+  },
+  "preexisting_failures": [
+    "test_native_finished_publication_v1.py::test_zero_chart_analysis_can_prepare_with_exact_instagram_skip contradicts decision 41; native visual validation unchanged from live tag.",
+    "test_reader_first_data_journalism_v1.py::test_signed_horizontal_percent_labels_keep_the_declared_unit expects percent suffix for an extended unit label; chart renderer unchanged from live tag in this run."
+  ],
+  "native_calls": [
+    {
+      "stage": "select",
+      "request_sha256": "c1639b5e4bd85b1a8a118ec23290105eb4630556de348cf4f816a99bff6375c9",
+      "observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/native_select_c1639b5e4bd8",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "Exact supported spawn task /root/native_select_c1639b5e4bd8 assigned ContentOps Light select for cc107-midterm-preview-20261103-v1; request specifies gpt-6.1-sol/low. No supported runtime model or effort telemetry was exposed.",
+        "speed": "standard",
+        "observation_source": "Supported native subagent task identity provided in NEW_TASK; model and effort are request configuration only, not observed runtime values."
+      }
+    },
+    {
+      "stage": "media-plan",
+      "request_sha256": "d08262e276cdd8a33f50c119483fb3590e85c0fee563ab3ff96dbba2606e52ba",
+      "observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/native_select_d08262e276cd",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "Exact supported parent spawn request for cc107-midterm-preview-20261103-v1:media-plan, request d08262e276cdd8a33f50c119483fb3590e85c0fee563ab3ff96dbba2606e52ba",
+        "speed": "standard",
+        "observation_source": "Native subagent task identity and assignment are visible in this turn; actual runtime model and reasoning effort are not exposed. No environment, session, credential or process-argument probing performed.",
+        "native_assignment": "cc107-midterm-preview-20261103-v1:media-plan",
+        "expected_return": "media-plan:d08262e276cdd8a33f50c119483fb3590e85c0fee563ab3ff96dbba2606e52ba"
+      }
+    }
+  ]
 }

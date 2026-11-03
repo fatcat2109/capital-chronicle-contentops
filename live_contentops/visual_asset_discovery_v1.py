@@ -180,7 +180,7 @@ def _contextual_license_url(receipt, provider, meta):
             or meta.get("LicenseShortName", {}).get("value") != "Public domain"
             or meta.get("Copyrighted", {}).get("value") != "False"
             or not any(template in provider["page"].get("license_wikitext", "")
-                for template in ("{{PD-USGov}}", "{{PD-USGov-USDA}}"))
+                for template in ("{{PD-USGov}}", "{{PD-USGov-USDA}}", "{{PD-USGov-Congress-AOC}}"))
             or basis.get("policy_url") != policy_url):
         raise ValueError("PHOTO_PUBLIC_DOMAIN_BASIS_REQUIRED")
     raw = Path(basis["policy_capture_path"]).read_bytes()

@@ -829,7 +829,20 @@ class NativeDesktopTurn:
         frozen_writer = self.frozen_request("write") if stage == "write" else None
         visual = self.visual_response() if stage == "write" else None
         text_policy = None
+        event_guidance = ""
         if stage == "write" and "source_pack" in kwargs["governed_input"]:
+            from live_contentops.event_preview_source_v1 import public_preview_event_evidence
+            event_evidence = (frozen_writer["governed_input"].get("public_event_evidence") if frozen_writer
+                              else public_preview_event_evidence(kwargs["governed_input"]["source_pack"]))
+            if event_evidence:
+                kwargs["governed_input"] = {**kwargs["governed_input"], "public_event_evidence": event_evidence}
+                event_guidance = ("\nCC-107 EVENT_PREVIEW: return event_article alongside the ordinary article. "
+                    "Use contentops.event_article.v1 with event_id US_MIDTERMS_20261103 and event_time_utc "
+                    "2026-11-03T23:00:00Z. Use the preview brief's exact copy sections and bind every numeric span "
+                    "to public_event_evidence. Every section's exact text must appear in the authored canonical "
+                    "copy (headline in title; dek in dek). Set article.article_type=EVENT_PREVIEW. Keep the "
+                    "general-analysis disclaimer and Analysis, not financial advice. Prediction markets stay "
+                    "in words only. This code-supplied evidence cannot be authored or expanded by the writer.")
             if self.scheduled_window and not frozen_writer:
                 selected = self._get("select", "response")
                 candidate = kwargs["governed_input"]["selected_candidate"]["candidate_id"]
@@ -858,6 +871,7 @@ class NativeDesktopTurn:
                 "reader_first_version": "DATA_JOURNALISM_V1", "visual_editorial_decision": decision}
             from live_contentops.v1_simple_gemini_newsroom_v1 import _worker_prompt
             kwargs["prompt"] = _worker_prompt(kwargs["governed_input"])
+        kwargs["prompt"] += event_guidance
         if (stage == "write" and not text_policy and "source_pack" in kwargs["governed_input"]
                 and (not frozen_writer or "editorial_media_plan" in frozen_writer["governed_input"])):
             if not media_plan:
