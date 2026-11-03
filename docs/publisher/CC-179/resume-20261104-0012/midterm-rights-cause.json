@@ -1,0 +1,31 @@
+{
+  "observed_at_utc": "2026-11-03T17:38:14.879755+00:00",
+  "first_cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+  "sources": [
+    {
+      "publisher": "Capital Chronicle",
+      "document_id": "cc107-midterm-preview-20261103",
+      "source_reuse_constraints": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "approval_capture_sha256": "744ac9373eae4547571b55a5e20496bb97b5e594d74eca7ebaca21c2490c80b5",
+        "images_logos_exhibits_reuse_allowed": false,
+        "provider_safe": true,
+        "public_expression_reuse_allowed": true,
+        "scope": "EXACT_OPS_REVIEWED_CAPITAL_CHRONICLE_PUBLIC_PREVIEW_ONLY",
+        "source_capture_sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+        "underlying_event_truth_granted": false
+      },
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/blob/beac56ae80f7c91f84cb40c940a2b009cb559c3f/docs/publisher/EVENT_ARTICLES_V1/midterm-20261103/source/PREVIEW.md"
+    }
+  ],
+  "asset_ids": [
+    "cc107-generic-ballot-and-poll-close-card",
+    "cc107-capitol-west-front-archive-1997"
+  ],
+  "source_or_rights_fields_added": false,
+  "public_write_performed": false,
+  "next_owner": "Claude Ops and Publisher through the existing source/media owner",
+  "next_action": "Resolve the exact original-source fact-reuse scope and bind genuine attribution/policy capture evidence; retain the separate AOC photo approval. Do not invent missing rights fields."
+}

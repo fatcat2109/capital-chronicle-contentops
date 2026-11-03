@@ -1,5 +1,24 @@
 # CC-179 Publisher recovery
 
+## Resume — 4 November 2026, 00:40 GMT+7
+
+**BLOCKED.** [Current evidence](resume-20261104-0012/README.md) supersedes the
+operational conclusions below, which remain historical evidence. The approved
+AOC photo fix and tested recovery changes are live at `eeab4631`. Jim's FOMC
+LinkedIn absence report was reconciled, and his one authorized retry was made.
+It returned an unidentified UNKNOWN_WRITE; subsequent exact coordinator readback
+remains pending. No further retry is authorized. The old absence report cannot
+reconcile the later attempt.
+
+The 27 current destinations comprise 10 confirmed existing identities, two
+confirmed absences, two unresolved readbacks and 13 undispatched copies. No new
+publication is confirmed. Midterm now stops at `EDITORIAL_CHART_FACT_RIGHTS_UNBOUND`.
+CPI's accepted canonical correction has four assets; its eight-destination
+amendment input is prepared but has no actual same-writer social selection or
+review, and is not bound to the live social consumer. No completion is claimed.
+
+## Previous run — retained history
+
 The recovery repairs are live at `5a60db1a`, tag
 `contentops-live-20261103-cc179-packet-seal`. The branch contains an additional
 tested rights-filter fix at `d67533ec` that is **BUILT_UNMERGED** pending Ops review.

@@ -1,0 +1,167 @@
+{
+  "state": "REVIEW_INPUT_ONLY_NOT_ACCEPTED_OR_BOUND",
+  "observed_at_utc": "2026-11-03T17:37:30.635116+00:00",
+  "run_id": "cc124-prepare-20261103-a",
+  "canonical_identity": {
+    "dispatch_id": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+    "message_id": "outbox_61e1c3551501afee92efad2c69c2b1d1",
+    "platform": "substack",
+    "public_object_id": "223246940",
+    "public_object_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer"
+  },
+  "canonical_review_reference": {
+    "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a",
+    "request_sha256": "4022e309d5a8983ec3f1c680efff49e2097023a7f94d94f7987971f1a7748f59",
+    "stage": "final-visual-85c6297b122dfcec9c629167bab2d103db5af298ffa126558e5c3edaa964cc97"
+  },
+  "accepted_canonical_article_revision": "0f1ff051eba02e0d64708183df07e5bd9c8f63291cb0354a6c67ab3476b8fc18",
+  "required_native_writer": "/root/cpi_max_writer",
+  "required_model": "gpt-6.1-sol",
+  "required_effort": "max",
+  "same_writer_available_in_current_run": false,
+  "media_assets": [
+    {
+      "asset_id": "cpi-annual-history-r3",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r3\\media_assets\\cpi-annual-history-r3.png",
+      "sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "modality": "source_backed_chart",
+      "placement_after": "What the annual history shows",
+      "source_page_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+    },
+    {
+      "asset_id": "cpi-monthly-history-r3",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r3\\media_assets\\cpi-monthly-history-r3.png",
+      "sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+      "modality": "source_backed_chart",
+      "placement_after": "The monthly pace",
+      "source_page_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+    },
+    {
+      "asset_id": "cpi-september-effects-r2",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r2\\media_assets\\cpi-september-effects-r2.png",
+      "sha256": "45af728560c668a3aee17a095ef289cc99b7e1e7cb013caa7e5bd3f39311ba99",
+      "modality": "source_backed_chart",
+      "placement_after": "What contributed to September's increase",
+      "source_page_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm#cpipress6"
+    },
+    {
+      "asset_id": "cpi-usda-supermarket-archive",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\media\\usda-michigan-supermarket-20230622.jpg",
+      "sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+      "modality": "documentary_photo",
+      "placement_after": null,
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:WIC_Environments_in_Michigan_(20230621-USDA-FNS-UNK-0020).jpg"
+    }
+  ],
+  "official_history": {
+    "dataset_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+    "cutoff_utc": "2026-10-14T12:30:00Z",
+    "window": [
+      "2024-10",
+      "2026-09"
+    ]
+  },
+  "destinations": [
+    {
+      "destination": "discord",
+      "message_id": "outbox_a9b27f630a1668016431a3d96c8f303f",
+      "original_intent_sha256": "d9da963d16da739613ed3d4578b725c588ba96012b290d983bbb8efd40d2b91a",
+      "original_payload_sha256": "c5af988041f5914e997feb6fa4f2ccfac68602e4bfc6c9ab51126ed42f29fe04",
+      "plan_hash": "ad144118a61ff4e76a6584f6e42303d96b4611f1de711ef08ef9506b6364309d",
+      "current_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1567217600877039648",
+      "public_object_url": null,
+      "required_action": "EXACT_EXISTING_OBJECT_EDIT_AFTER_SAME_MAX_REVIEW",
+      "proposed_channel_media": null
+    },
+    {
+      "destination": "facebook_page",
+      "message_id": "outbox_acff70bcc90bd0a1846cfdb47ea6bd26",
+      "original_intent_sha256": "a06514821e42799ffc785a74adf8e72456fd52a15d8192364abbf39f55f4e561",
+      "original_payload_sha256": "d26982877b8f8849b957d11244fe643384aa31fa8cdfe0b5017929ed7b287913",
+      "plan_hash": "ad144118a61ff4e76a6584f6e42303d96b4611f1de711ef08ef9506b6364309d",
+      "current_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "106091951705748_1443815231270226",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1443815231270226",
+      "required_action": "EXACT_EXISTING_OBJECT_EDIT_AFTER_SAME_MAX_REVIEW",
+      "proposed_channel_media": null
+    },
+    {
+      "destination": "instagram_business",
+      "message_id": "outbox_d01bbafa38b1b14dba9ee60b7ef9f93b",
+      "original_intent_sha256": null,
+      "original_intent_state": "NOT_CREATED",
+      "original_payload_sha256": "55768640320f729dbfd57b2ea7271ef17842f6e477127b0f194859b5f7ab5f5d",
+      "plan_hash": "ad144118a61ff4e76a6584f6e42303d96b4611f1de711ef08ef9506b6364309d",
+      "current_status": "NOT_DISPATCHED",
+      "public_object_id": null,
+      "public_object_url": null,
+      "required_action": "CREATE_FROM_EXISTING_PLAN_ONLY_AFTER_SAME_MAX_REVIEW",
+      "proposed_channel_media": null
+    },
+    {
+      "destination": "linkedin",
+      "message_id": "outbox_7dd24a91b8afec20ed3dc0206f59cb73",
+      "original_intent_sha256": "ee013d23395df77bde5c2a8e4adb374889c67a21e8ce097a91e2484d5f6350ab",
+      "original_payload_sha256": "83367397276f21f03ec343a980784ba71ad92f04f9b3a5681fea53e08c298f89",
+      "plan_hash": "ad144118a61ff4e76a6584f6e42303d96b4611f1de711ef08ef9506b6364309d",
+      "current_status": "UNKNOWN_WRITE",
+      "public_object_id": null,
+      "public_object_url": null,
+      "required_action": "READBACK_ONLY_BEFORE_AMENDMENT",
+      "proposed_channel_media": null
+    },
+    {
+      "destination": "telegram",
+      "message_id": "outbox_7bbccd8674d2f91b218f479f2fcb365b",
+      "original_intent_sha256": "b729f7634e2518541f0b4524f0d433db30b291ef008856951e4000500bd3a670",
+      "original_payload_sha256": "7f89aac9a7149fae64d121a21d2e8e0775bed5341f6fa00fb4eb854e22b19286",
+      "plan_hash": "ad144118a61ff4e76a6584f6e42303d96b4611f1de711ef08ef9506b6364309d",
+      "current_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "74",
+      "public_object_url": "https://t.me/CapitalChronicle/74",
+      "required_action": "EXACT_EXISTING_OBJECT_EDIT_AFTER_SAME_MAX_REVIEW",
+      "proposed_channel_media": null
+    },
+    {
+      "destination": "threads",
+      "message_id": "outbox_f73b4f34a3701c1b63cab1e186e96b02",
+      "original_intent_sha256": "41f7f3b9dbf3d21a06e651546da4e6a5ca43f6e518f45e04054e99d9dfb9a6fe",
+      "original_payload_sha256": "c92be2501a4a1421fe80577640ed0710fdb63fa3415e63af6865ad861baaf85e",
+      "plan_hash": "ad144118a61ff4e76a6584f6e42303d96b4611f1de711ef08ef9506b6364309d",
+      "current_status": "READY",
+      "public_object_id": null,
+      "public_object_url": null,
+      "required_action": "REJECT_OLD_REVISION_REQUEST_AND_BIND_REVIEWED_AMENDMENT_BEFORE_FIRST_SEND",
+      "proposed_channel_media": null
+    },
+    {
+      "destination": "x",
+      "message_id": "outbox_b1da9b28bd75180cac137744fd6f5710",
+      "original_intent_sha256": "7c79dc120b3d38a6f37760ef66b578b8537204639da5d27b12a36d91801467c3",
+      "original_payload_sha256": "c836369d914d400de81aba1bbafd99a5db548e85e2308d941cdb4c44ce249116",
+      "plan_hash": "ad144118a61ff4e76a6584f6e42303d96b4611f1de711ef08ef9506b6364309d",
+      "current_status": "NATIVE_NEO_TOOL_PENDING",
+      "public_object_id": null,
+      "public_object_url": null,
+      "required_action": "REJECT_OLD_REVISION_REQUEST_AND_BIND_REVIEWED_AMENDMENT_BEFORE_FIRST_SEND",
+      "proposed_channel_media": null
+    },
+    {
+      "destination": "youtube",
+      "message_id": "outbox_f90f612216f7dda5848dcfc5ddd4ad55",
+      "original_intent_sha256": "f5f5a3a2a991b25d05d2d55deb60072feec58640913622ce525543e6644fcb1a",
+      "original_payload_sha256": "338918e63589e2977e56dd177c7f7b7c7fa7fd824bd5a6862d6059a5ea66cccf",
+      "plan_hash": "ad144118a61ff4e76a6584f6e42303d96b4611f1de711ef08ef9506b6364309d",
+      "current_status": "NATIVE_NEO_TOOL_PENDING",
+      "public_object_id": null,
+      "public_object_url": null,
+      "required_action": "REJECT_OLD_REVISION_REQUEST_AND_BIND_REVIEWED_AMENDMENT_BEFORE_FIRST_SEND",
+      "proposed_channel_media": null
+    }
+  ],
+  "blocker": "SAME_MAX_DERIVATIVE_SELECTION_AND_REVIEW_REQUIRED",
+  "engineering_limit": "Current reader amendment is canonical-only; extend it for exact destination media after the designated writer supplies channel selections. Do not mutate the dispatched base packet.",
+  "public_write_performed": false,
+  "frozen_packet_changed": false
+}
