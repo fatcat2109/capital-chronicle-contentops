@@ -69,7 +69,13 @@ def _approved_text_speed_basis(store, *, run_id, result):
     validate_native_configuration(response["invocation_observation"], ROLE_ASSIGNMENTS["write"])
     governed = request["governed_input"]
     event = result["article"].get("event_article")
-    if (governed.get("article_mode") not in TIME_SENSITIVE_MODES and not event
+    # A short upcoming-event NEWS preview may use the current event path without
+    # rewriting its already-issued WEEK_AHEAD_OR_WATCH request or original KEEP.
+    short_event_preview = (governed.get("article_mode") == "WEEK_AHEAD_OR_WATCH"
+        and (governed.get("visual_editorial_decision") or {}).get("story_kind") == "NEWS"
+        and result["article"].get("news_item_kind") == "NEWS"
+        and len(result["article"].get("substack_body_markdown", "").split()) <= 500)
+    if (governed.get("article_mode") not in TIME_SENSITIVE_MODES and not event and not short_event_preview
             or sha256_of(result["evidence"]) != sha256_of(governed["source_pack"])
             or _public_copy(response["output"]["article"]) != _public_copy(result["article"])
             or any(result["article"].get(k) != v for k, v in response["output"]["article"].items()
