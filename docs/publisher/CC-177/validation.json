@@ -1,0 +1,50 @@
+{
+  "base": "a4d60fe0d10de97a06603a8de6b6c3e88c79edcd",
+  "launch": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "observation": "CONFIGURED_NOT_OBSERVED"
+  },
+  "results": {
+    "cc043-tests.xml": {
+      "tests": 117,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "consumer-regressions.xml": {
+      "tests": 310,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "coverage-engagement-tests.xml": {
+      "tests": 110,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "ui-tests.xml": {
+      "tests": 40,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "workspace-current-policy.xml": {
+      "tests": 24,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "backend_distinct_final_passes": 537,
+  "ui_passes": 40,
+  "typescript_vite_build": "PASS",
+  "initial_failure": "One baseline-reproduced stale workspace-count assertion; corrected to current release policy, then all 24 file tests passed.",
+  "full_suite_run": false,
+  "base64_image_additions": 0,
+  "public_writes": 0,
+  "editorial_model_calls": 0,
+  "schedules_changed": false,
+  "apps_restarted": false
+}

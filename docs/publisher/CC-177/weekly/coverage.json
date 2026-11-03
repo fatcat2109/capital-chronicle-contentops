@@ -1,0 +1,146 @@
+{
+  "schema_version": "contentops.weekly_newsroom_coverage.v1",
+  "week_ending": "2026-11-03",
+  "timezone": "Asia/Bangkok",
+  "production_day_boundary_hour": 2,
+  "status": "PARTIAL",
+  "daily": [
+    {
+      "day": "2026-10-28",
+      "news_articles": 0,
+      "main_articles": 0,
+      "unclassified_canonicals": 0,
+      "luna_headlines_filtered": 864,
+      "source_walks": 0,
+      "source_walks_succeeded": 0,
+      "source_walk_success_rate": null
+    },
+    {
+      "day": "2026-10-29",
+      "news_articles": 0,
+      "main_articles": 0,
+      "unclassified_canonicals": 0,
+      "luna_headlines_filtered": 410,
+      "source_walks": 2,
+      "source_walks_succeeded": 1,
+      "source_walk_success_rate": 0.5
+    },
+    {
+      "day": "2026-10-30",
+      "news_articles": 0,
+      "main_articles": 0,
+      "unclassified_canonicals": 0,
+      "luna_headlines_filtered": 0,
+      "source_walks": 0,
+      "source_walks_succeeded": 0,
+      "source_walk_success_rate": null
+    },
+    {
+      "day": "2026-10-31",
+      "news_articles": 0,
+      "main_articles": 0,
+      "unclassified_canonicals": 0,
+      "luna_headlines_filtered": 0,
+      "source_walks": 1,
+      "source_walks_succeeded": 1,
+      "source_walk_success_rate": 1.0
+    },
+    {
+      "day": "2026-11-01",
+      "news_articles": 0,
+      "main_articles": 0,
+      "unclassified_canonicals": 0,
+      "luna_headlines_filtered": 0,
+      "source_walks": 1,
+      "source_walks_succeeded": 1,
+      "source_walk_success_rate": 1.0
+    },
+    {
+      "day": "2026-11-02",
+      "news_articles": 0,
+      "main_articles": 0,
+      "unclassified_canonicals": 0,
+      "luna_headlines_filtered": 0,
+      "source_walks": 5,
+      "source_walks_succeeded": 5,
+      "source_walk_success_rate": 1.0
+    },
+    {
+      "day": "2026-11-03",
+      "news_articles": 0,
+      "main_articles": 0,
+      "unclassified_canonicals": 0,
+      "luna_headlines_filtered": 0,
+      "source_walks": 3,
+      "source_walks_succeeded": 3,
+      "source_walk_success_rate": 1.0
+    }
+  ],
+  "source_walk_success_rate": 0.9166666666666666,
+  "source_walks": 12,
+  "source_walks_succeeded": 11,
+  "gaps": [
+    {
+      "record": "native-desktop-cb30224111346265f76d03e4eabf6c02b1b1fa92293f7e4b295af996f76708ca",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "native-desktop-dddb2cbef2da564558c2f1adfb517a1970f60bf0c539aaf8a5e9e076665d2a47",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "native-desktop-ab081fb1643284c388914b7731a9cd9f5fc5cccbcc7b927e652c065d6f9b7112",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "native-desktop-b1f06495fd86c3a6d6b53f2d7b231b47902e3b9169c6ce485af624f59682955b",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "native-desktop-172859149e14d5f21a24992314ed9e7345b3bd19f21fceacdb16f59cece078f4",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "native-desktop-2797699020a683467cef98ad74689f46bf66feb0c675d2a1813a08686f49581b",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "native-desktop-9a30aae83819d43d3741ccf778de00d79a9313ac4c11fd704ca157fa78c28679",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "native-desktop-a7d1073b43a2f05fed9b4f5a7834b7327e735a0430fca791bd392da932058d0b",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "native-desktop-95cb7f7ab4ae4b2a49244bada7936c9dbcc165245cdc75c846ee9925f3125104",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "native-desktop-133ab27a8245ab3306fe7bf7dbd62a5a2f95e8cfa99334f3baf95abca4ed8412",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "native-desktop-d77723a78bca6e49e94e805c93fa799b6dffcbd710f0d3b4d60ad422e292c679",
+      "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    },
+    {
+      "record": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+      "cause": "NO_VERIFIED_READBACK"
+    },
+    {
+      "record": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+      "cause": "NO_VERIFIED_READBACK"
+    }
+  ],
+  "clock_basis": {
+    "articles": "actual dispatch time; exact confirmation from current snapshot",
+    "luna": "durable native return time",
+    "source_walks": "latest completed durable candidate walk time"
+  },
+  "source_walk_denominator": "Distinct work-item/candidate walks completed in the interval; recovery is one walk; a zero-GET permitted relay can succeed.",
+  "public_write_performed": false,
+  "model_calls": 0,
+  "recorded_at_utc": "2026-11-03T21:59:55.017169Z",
+  "input_store_read_only": true
+}

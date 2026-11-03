@@ -1,0 +1,6 @@
+{
+  "baseline": "a4d60fe0",
+  "test": "test_current_edition_survives_history_limit_and_counts_only_current_reviews",
+  "result": "SAME_ASSERTION_FAILURE",
+  "reason": "Current CC-172 release-media projection reports READY for the controlled retained row; older test expects a media hold."
+}

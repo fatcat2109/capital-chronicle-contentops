@@ -1,0 +1,30 @@
+{
+  "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+  "bytes": 3647,
+  "sha256": "0be57c40ba138b34c591070aaac06d96d64e24ef598476c6eedf38283a9b6eed",
+  "seals_valid": true,
+  "pieces": [
+    {
+      "content_id": "substack:222368666",
+      "title": "@firstsquawk, citing The Wall Street Journal: Oil retreats amid US-Iran diplomatic push",
+      "published_at_utc": "2026-10-27T16:58:34.114Z",
+      "confirmed_outlets": 10,
+      "content_sha256": "b9474f982e235228d4256849ff70f5288d57a1a9b43f444637cefb32d2d18f6f"
+    },
+    {
+      "content_id": "substack:223199520",
+      "title": "The Fed held on October 28. Both dissenters wanted a hike.",
+      "published_at_utc": "2026-11-02T17:35:07.590Z",
+      "confirmed_outlets": 5,
+      "content_sha256": "f3ab3acc84ae6dbc0d8c81101c72e0623d286689724d136032a5df84b27f6e96"
+    },
+    {
+      "content_id": "substack:223246940",
+      "title": "September CPI: why 0.6% and 3.7% answer different questions",
+      "published_at_utc": "2026-11-03T03:49:41.895Z",
+      "confirmed_outlets": 1,
+      "content_sha256": "a4582871bb7ae45895c727e6610ecfadd6cf12d9f4113b402816d53234549ff4"
+    }
+  ],
+  "new_public_writes": 0
+}

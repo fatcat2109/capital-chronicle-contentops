@@ -46,7 +46,8 @@ def test_current_edition_survives_history_limit_and_counts_only_current_reviews(
     assert {e["run_id"] for e in result["native_edition"]} >= {"current", "held"}
     assert len(result["native_edition"]) == 18  # Two current articles plus sixteen historical.
     assert {k: result["owner_edition"][k] for k in ("ready", "held", "missing", "preview_count")} == {
-        "ready": 0, "held": 3, "missing": 1, "preview_count": 0}  # Controlled rows have no release media.
+        "ready": 1, "held": 2, "missing": 1, "preview_count": 8}  # Current media policy admits this controlled row.
+    assert next(e for e in result["native_edition"] if e["run_id"] == "current")["release_media"]["state"] == "READY"
     assert result["owner_edition"]["opportunity_counts"] == {
         "new": 0, "update": 0, "keep": 1, "hold": 1, "source_blocked": 1}
     unbound = [{**r, "notes": json.dumps({"article_identity": r["review_id"]})} for r in reviews]

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="40" failures="0" errors="0" time="7.801">
+    <testsuite name="src/test/report_editorial_workspace.test.tsx" timestamp="2026-11-03T22:01:53.959Z" hostname="J-P" tests="40" failures="0" errors="0" skipped="0" time="0.8979246">
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; navigates the exact selected owner edition and resets channel selection without exposing history actions" time="0.1420149">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; renders all eight actual native packages with pending canonical links in the read-only owner mode" time="0.0512755">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows the explicit Instagram skip instead of an empty package" time="0.0190256">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps source dates, held scope and real insufficient metrics visible and opens the release guide" time="0.0281692">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; fails visibly when the owner edition has no exact selected record" time="0.0023767">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps the opening answer before a bounded archive portrait and renders emphasis as text" time="0.0141836">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; places a chosen chart beside its explanation and keeps workflow details collapsed" time="0.0166518">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; honors an exact photo section choice and links its embedded credit once without changing the package" time="0.0149841">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps photo rights on canonical and archive context once on telegram for full-credit without changing its package" time="0.0222165">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps photo rights on canonical and archive context once on telegram for canonical-linked-caption without changing its package" time="0.0185013">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps photo rights on canonical and archive context once on discord for full-credit without changing its package" time="0.0181049">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps photo rights on canonical and archive context once on discord for canonical-linked-caption without changing its package" time="0.0171046">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps photo rights on canonical and archive context once on linkedin for full-credit without changing its package" time="0.0173065">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps photo rights on canonical and archive context once on linkedin for canonical-linked-caption without changing its package" time="0.0190114">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps photo rights on canonical and archive context once on facebook_page for full-credit without changing its package" time="0.0167904">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps photo rights on canonical and archive context once on facebook_page for canonical-linked-caption without changing its package" time="0.0180443">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps photo rights on canonical and archive context once on instagram_business for full-credit without changing its package" time="0.016771">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps photo rights on canonical and archive context once on instagram_business for canonical-linked-caption without changing its package" time="0.0170931">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps photo rights on canonical and archive context once on youtube for full-credit without changing its package" time="0.0326141">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps photo rights on canonical and archive context once on youtube for canonical-linked-caption without changing its package" time="0.0174672">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; preserves standalone photo attribution and uncertainty for missing-image" time="0.0100655">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; preserves standalone photo attribution and uncertainty for unbound-image" time="0.0105972">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; preserves standalone photo attribution and uncertainty for changed-credit" time="0.011931">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; matches only the exact compiler photo credit and retains archive context without derivative source links" time="0.0123858">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; uses a native modal for full-size media and returns keyboard focus on close" time="0.022342">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps aligned source-bound year columns in the article and compiled context in channel copy" time="0.0576905">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows photo pixels, credits and exact license/source links with release readiness" time="0.0277785">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps exact single and multiple chart sources in the article and selected channel" time="0.0167983">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; opens exact maintained versions and keeps partial coverage, dates and preparation distinct" time="0.052671">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps dated audience HOLD separate from research questions and frozen opportunities" time="0.0094659">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows actual continuation states and destination-local blockers without claiming login" time="0.0083426">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows latest admitted public lineage as producer attestation" time="0.0083118">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; leads with the current edition and keeps prior full copy in history" time="0.0213497">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows edition angle, dated sources, revision review and every native preview" time="0.0235569">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; renders an exact minimal editorial revision source record without inventing missing metadata" time="0.0129985">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps independent evidence, recirculation, controlled conversion and media visible" time="0.0170213">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows multi-asset feed coverage, lifecycle and exact headline permission gaps" time="0.0176158">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows canonical copy, eight native previews and lineage with controlled-output label" time="0.0187425">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows the exact pause blocker and zero created previews without claiming a draft" time="0.0063849">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; withdraws current copy while retaining historical identities" time="0.0101416">
+        </testcase>
+    </testsuite>
+</testsuites>
