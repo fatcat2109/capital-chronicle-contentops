@@ -1,0 +1,55 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.sec.gov/about/privacy-information",
+      "policy_capture_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:26.010Z",
+      "headline_id": "cc124-sec-announcement-context",
+      "headline_text": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs.",
+      "capture_path": "announcement-capture.json",
+      "source_capture_sha256": "ac2aeec0d7df1137c46700bd1336cc581f91fb72b22e7eabfdc43475504a0ea6",
+      "loader_result_path": "admission.json",
+      "policy_capture_path": "policy.json",
+      "revision_at_utc": "2026-11-03T15:21:04.899Z",
+      "proposition_span": [
+        736,
+        949
+      ],
+      "context_spans": [
+        [
+          949,
+          1854
+        ]
+      ],
+      "candidate_catalyst_tags": [
+        "company_sec"
+      ],
+      "research_metadata": {
+        "family": "COMPANY_SEC",
+        "assets": [
+          "PUBLIC_COMPANY_DISCLOSURE",
+          "FINANCIAL_DATA"
+        ],
+        "context_kind": "DATED_EVENT_ANNOUNCEMENT_NOT_RULE_OR_MEASURED_OUTCOME",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": "2026-10-19T00:00:00Z",
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "What must a reader still verify when a machine can ingest company disclosures?",
+        "authorship_scope": "SEC_AUTHORED_NARRATIVE_AND_ATTRIBUTED_SEC_OFFICIAL_STATEMENT_NO_THIRD_PARTY",
+        "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+        "observation_date": "2026-10-19",
+        "release_date": "2026-10-19"
+      },
+      "supporting_headline_ids": [
+        "goal31-sec-machine-data"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "within_bound_live_budget": true,
+  "expected_selection_request_sha256": "5a59b710b1c69c3da2b7fb868a6bae4ab29ec10058ef227966444f7d8075e63c",
+  "candidate_id": "simple-story-182cbc812476b1abee25b1c8",
+  "research_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\source-recovery-sec",
+  "supporting_headline_ids": [
+    "cc124-sec-announcement-context"
+  ],
+  "expected_evidence_sha256": "cfb1fbb4a912eb36099753f803f853c38b142ad40cec784b938558bc57fe68e3",
+  "additional_source_requests": [
+    {
+      "url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-03T15:21:04.899Z",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\source-recovery-sec\\announcement-rendered-text.txt",
+      "capture_sha256": "ac2aeec0d7df1137c46700bd1336cc581f91fb72b22e7eabfdc43475504a0ea6"
+    }
+  ]
+}
