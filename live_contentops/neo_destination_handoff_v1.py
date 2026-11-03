@@ -108,8 +108,9 @@ def _payload_binding(intent, destination):
 class NeoDestinationHandoff:
     """Coordinator-injected adapter. Every actual write requires exact authorization."""
 
-    def __init__(self, *, native_executor=None):
+    def __init__(self, *, native_executor=None, store=None):
         self.native_executor = native_executor
+        self.store = store
 
     def request(self, *, destination, action, intent, authorization_context=None,
                 public_object_id=None, public_object_url=None):
@@ -156,6 +157,10 @@ class NeoDestinationHandoff:
                 "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"],
             "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
             "forbidden": ["login", "reauthorize", "account_switch", "cookies", "storage", "blind_retry", "bulk_x_ingestion"]}
+        if destination == "substack" and action == "READBACK":
+            from live_contentops.substack_draft_inventory_v1 import readback_scope, store_draft_ids
+            value["draft_readback_scope"] = readback_scope(store_draft_ids(self.store) if self.store else set())
+            value["steps"].append(value["draft_readback_scope"]["instructions"])
         if destination == "linkedin" and action == "READBACK" and not public_object_id:
             value["owner_absence_context"] = intent.get("owner_absence_context")
         if intent.get("reader_presentation_review"):
@@ -194,6 +199,12 @@ class NeoDestinationHandoff:
     def readback(self, *, destination, intent, public_object_id, public_object_url):
         request = self.request(destination=destination, action="READBACK", intent=intent,
             public_object_id=public_object_id, public_object_url=public_object_url)
+        if destination == "substack":
+            from live_contentops.substack_draft_inventory_v1 import draft_id_from_url
+            draft_id = draft_id_from_url(public_object_url)
+            if draft_id and draft_id not in request["draft_readback_scope"]["referenced_draft_ids"]:
+                return {"status": "SKIPPED", "verified": False, "write_absent": False,
+                        "reason_code": "UNREFERENCED_SUBSTACK_DRAFT_IGNORED", "request": request}
         if self.native_executor is None:
             return {"status": "BLOCKED", "verified": False, "request": request,
                     "reason_code": "NEO_NATIVE_READBACK_EXECUTOR_NOT_BOUND"}

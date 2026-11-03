@@ -244,7 +244,7 @@ def bind_native_neo_coordinator(store, *, operation_id, output_dir, native_invoc
     )
     executor = NativeNeoExecutor(store, operation_id=operation_id, output_dir=output_dir,
                                  native_invocation_id=native_invocation_id, allow_publish=allow_publish)
-    runtime = CanonicalDestinationTransportRuntimeV1(neo_transport=NeoDestinationHandoff(native_executor=executor))
+    runtime = CanonicalDestinationTransportRuntimeV1(neo_transport=NeoDestinationHandoff(native_executor=executor, store=store))
     readiness = DestinationReadinessManager(store=store, neo_readiness_provider=executor.readiness)
     coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime, readiness_manager=readiness)
     return coordinator, executor
