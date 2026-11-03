@@ -285,8 +285,10 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
                     prompt=(frozen_plan["prompt"] if frozen_plan else
                             "Return JSON {story_plan: {thesis, photo_plan, chart_plan}}. Prepare exact comparable "
                             "primary-data series and useful visual proposals; MAX decides the count, chart forms "
-                            "and placement. Substantial analysis needs 2-5 distinct useful charts; genuine narrow "
-                            "news/policy may justify zero internally. Plan relevant authentic "
+                            "and placement. Decision 41 requires charts on data-release and policy-decision analysis: "
+                            "at least 24 months of headline/core history, latest changes and the available component breakdown. "
+                            "Read the admitted CC-010 first-print history; if missing, request exact official BLS public data, "
+                            "BEA, Fed or Treasury history. Only short news briefs may use zero charts. Plan relevant authentic "
                             "photo discovery with subject/archive caption and lawful exact license/source evidence, "
                             "using the exact source_pack. Preserve metric/unit/currency/period, "
                             "actual/estimate/forecast and missingness. No prose, new numbers, forecasts, copied charts or public action. "

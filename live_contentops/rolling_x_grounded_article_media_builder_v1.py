@@ -1069,6 +1069,21 @@ def _editorial_data_values(packet, documents):
     for series in packet.get("series", []):
         points = []
         for point in series.get("points", []):
+            if point.get("value") is None:
+                missing = point.get("missing_binding") or {}
+                doc = sources.get(missing.get("document_id")) or {}
+                history = doc.get("official_release_history") or {}
+                observed = next((o for o in history.get("series", {}).get("observations", [])
+                    if o["period"] == point.get("period")), None)
+                if (packet.get("chart_type") != "line" or point.get("observation_kind") != "MISSING"
+                        or point.get("inputs") or not point.get("missing_reason")
+                        or not observed or observed["value"] is not None
+                        or observed.get("missing_reason") != point["missing_reason"]
+                        or missing.get("source_content_sha256") != hashlib.sha256(
+                            doc.get("canonical_content_text", "").encode()).hexdigest()):
+                    raise ValueError("EDITORIAL_CHART_MISSING_POINT_UNBOUND")
+                points.append(None)
+                continue
             bound = []
             for operand in point.get("inputs", []):
                 doc = sources.get(operand.get("document_id"))
@@ -1792,7 +1807,10 @@ def _draw_editorial_chart(packet, values, plt, np):
                 or kind == "grouped_columns_with_operating_cash_reference_line"
                 and i == len(series) - 1
             ):
-                ax.plot(x, nums, marker="o", color=color, label=label, linewidth=2.5)
+                # None remains JSON null in the lineage; NaN exists only inside
+                # matplotlib so an unavailable month breaks the line visibly.
+                plotted = [float("nan") if n is None else n for n in nums]
+                ax.plot(x, plotted, marker="o", color=color, label=label, linewidth=2.5)
                 if kind == "direct_labelled_two_line":
                     ax.annotate(
                         f"{nums[-1]:g}%",
