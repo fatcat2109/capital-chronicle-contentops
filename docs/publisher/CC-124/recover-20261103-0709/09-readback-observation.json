@@ -1,0 +1,29 @@
+{
+  "recorded_at_utc": "2026-11-03T00:15:13.952394+00:00",
+  "action": "READBACK_ONLY",
+  "request_sha256": "f1ce96ec386446ccd524ced88cc547929401843d2c33d22a32f964f3576210a3",
+  "tool_request_sha256": "62b5a183c0b4adc11eaa9abfdbbe7ada7adf51adc4d1630d9d32a8380d8e2272",
+  "public_object_id": "223246940",
+  "publisher_state": "DRAFT",
+  "public_canonical_url": null,
+  "publication_confirmed": false,
+  "original_dispatch_status": "UNKNOWN_WRITE",
+  "retained_first_cause": "SUBSTACK_EMAIL_VERIFICATION_REQUIRED",
+  "current_limit": "Publisher dashboard lists the exact object as Draft. The two-item Published list and public archive show no CPI article. No new verification challenge was triggered or completed in this run.",
+  "native_return_submitted": false,
+  "reason_return_remains_pending": "No canonical public object is available for the strict exact-object readback; preserve the unanswered original request for completion after the owner resolves verification.",
+  "new_public_send_clicks": 0,
+  "new_platform_drafts": 0,
+  "checks": {
+    "request_is_original_readback": true,
+    "exact_draft_id": true,
+    "approved_title_in_draft": true,
+    "publisher_labels_exact_object_draft": true,
+    "published_list_two_other_articles": true,
+    "canonical_not_confirmed": true,
+    "no_new_send": true,
+    "original_send_count_preserved": true
+  },
+  "checks_passed": 8,
+  "next_action": "Jim completes the pending Substack verification for draft 223246940. Publisher then reads back the same object and submits its verified canonical identity before any derivative continuation. No replacement draft or blind retry."
+}
