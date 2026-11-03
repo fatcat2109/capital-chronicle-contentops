@@ -1,0 +1,974 @@
+[
+  {
+    "destination": "substack",
+    "viewport": "desktop",
+    "metrics": {
+      "contentSize": {
+        "height": 6500,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 6500,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 6500,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 6500,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 6500,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 6500,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"Canonical article \u00c2\u00b7 Substack\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "substack",
+    "viewport": "mobile",
+    "metrics": {
+      "contentSize": {
+        "height": 10000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 10000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 10000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 10000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 10000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 10000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"Canonical article \u00c2\u00b7 Substack\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "telegram",
+    "viewport": "desktop",
+    "metrics": {
+      "contentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"Telegram\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "telegram",
+    "viewport": "mobile",
+    "metrics": {
+      "contentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"Telegram\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "discord",
+    "viewport": "desktop",
+    "metrics": {
+      "contentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"Discord\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "discord",
+    "viewport": "mobile",
+    "metrics": {
+      "contentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"Discord\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "x",
+    "viewport": "desktop",
+    "metrics": {
+      "contentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"X\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching; recaptured r2 after document.fonts.ready and two animation frames (local offline paint readiness; snapshot calls reset emulation)."
+  },
+  {
+    "destination": "x",
+    "viewport": "mobile",
+    "metrics": {
+      "contentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"X\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "linkedin",
+    "viewport": "desktop",
+    "metrics": {
+      "contentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"LinkedIn\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "linkedin",
+    "viewport": "mobile",
+    "metrics": {
+      "contentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"LinkedIn\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "facebook_page",
+    "viewport": "desktop",
+    "metrics": {
+      "contentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"Facebook Page\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "facebook_page",
+    "viewport": "mobile",
+    "metrics": {
+      "contentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"Facebook Page\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "instagram_business",
+    "viewport": "desktop",
+    "metrics": {
+      "contentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"Instagram Business\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "instagram_business",
+    "viewport": "mobile",
+    "metrics": {
+      "contentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"Instagram Business\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "threads",
+    "viewport": "desktop",
+    "metrics": {
+      "contentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"Threads\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "threads",
+    "viewport": "mobile",
+    "metrics": {
+      "contentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"Threads\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "youtube",
+    "viewport": "desktop",
+    "metrics": {
+      "contentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 4000,
+        "width": 1200,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 4000,
+        "clientWidth": 1200,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"YouTube Community\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  },
+  {
+    "destination": "youtube",
+    "viewport": "mobile",
+    "metrics": {
+      "contentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssContentSize": {
+        "height": 5000,
+        "width": 390,
+        "x": 0,
+        "y": 0
+      },
+      "cssLayoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "cssVisualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      },
+      "layoutViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "pageX": 0,
+        "pageY": 0
+      },
+      "visualViewport": {
+        "clientHeight": 5000,
+        "clientWidth": 390,
+        "offsetX": 0,
+        "offsetY": 0,
+        "pageX": 0,
+        "pageY": 0,
+        "scale": 1,
+        "zoom": 1
+      }
+    },
+    "selection": [
+      "      - combobox \"Choose reading view\" [collapsed] [ref=e8]: \"YouTube Community\""
+    ],
+    "method": "BrowserOS Neo CDP; responsive CSS width; tall single viewport; no full-page stitching"
+  }
+]

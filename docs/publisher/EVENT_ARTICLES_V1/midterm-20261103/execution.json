@@ -170,6 +170,24 @@
         "observation_source": "This executing native subagent context is /root/native_visual_edit_76437a71362e; the supported follow-up assignment reuses the exact visual-editor identity for actual writing. Same request-bound local artifact is the native return.",
         "speed": "standard"
       }
+    },
+    {
+      "stage": "revise",
+      "request_sha256": "8318293a33502e5e6f602a44aec9a91f8a64a2db236d19978f3abab63338c496",
+      "observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/native_visual_edit_76437a71362e",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "Supported exact native revise assignment cc107-midterm-preview-20261103-v1:revise, request 8318293a33502e5e6f602a44aec9a91f8a64a2db236d19978f3abab63338c496, to the same /root/native_visual_edit_76437a71362e context; configured gpt-6.1-sol/max. Actual values remain unavailable through supported runtime observation.",
+        "observation_source": "This executing native subagent context is /root/native_visual_edit_76437a71362e, the actual visual editor and writer. It assessed the single code-cause blocker against the frozen prior output and current source-type handling; the strict output is unchanged.",
+        "speed": "standard"
+      }
     }
   ],
   "nfp_input_readback": {
@@ -225,9 +243,25 @@
   "draft": {
     "path": "midterm-preview.md",
     "native_response": "native/write-response.json",
-    "status": "NATIVE_DRAFT_COPY_ACCEPTED_FINAL_RENDER_REVIEW_PENDING",
+    "status": "NATIVE_QUALIFIED_PRIVATE_ARTICLE_FINAL_PIXEL_REVIEW_PENDING",
     "material_claim_bindings": 46,
     "numeric_spans": 41,
-    "native_repair_cause": "report_horizon_proxy_cost_limits_missing was a source-type validation defect, fixed only for exact approved source and guarded copy. No Main report limit waived."
+    "native_repair_cause": "report_horizon_proxy_cost_limits_missing was a source-type validation defect, fixed only for exact approved source and guarded copy. No Main report limit waived.",
+    "canonical_manifest": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc107-midterm-preview-20261103-v1\\article_manifest_v1.json",
+    "derivative_intent_count": 8,
+    "revision_copy_change": false
+  },
+  "final_render_request": {
+    "stage": "final-visual-f1550f55a9daaecf3c359191c53d29e79890de2fa0fb1a469c6745190d62126f",
+    "request_sha256": "cd9a7356010ec444376cb58bbd6324ff244c58efbb1fe56ddef0a1b660cd4834",
+    "renders": "review/renders.json",
+    "coverage": 18,
+    "same_reviewer": "/root/native_visual_edit_76437a71362e",
+    "status": "PENDING_ACTUAL_NATIVE_RETURN"
+  },
+  "derivative_public_copy_check": {
+    "checked": 8,
+    "status": "PASS",
+    "artifact": "review/derivative-public-guard.json"
   }
 }
