@@ -63,10 +63,16 @@ def _approved_text_speed_basis(store, *, run_id, result):
     binding_row = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
     binding = json.loads(binding_row["payload"]) if binding_row else {}
     turn = NativeDesktopTurn(store, run_id=run_id, output_dir=binding["output_dir"], owner_manual_validation=True)
-    request, response = turn.frozen_request("write"), turn._get("write", "response")
+    stage = "revise" if result.get("simple_result", {}).get("revision_performed") else "write"
+    request, response = turn.frozen_request(stage), turn._get(stage, "response")
     if not request or not response or response["request_sha256"] != request["request_sha256"]:
         raise ValueError("APPROVED_TEXT_EXACT_NATIVE_WRITER_REQUIRED")
     validate_native_configuration(response["invocation_observation"], ROLE_ASSIGNMENTS["write"])
+    if stage == "revise":
+        writer = turn._get("write", "response")
+        if (not writer or writer["invocation_observation"].get("invocation_id")
+                != response["invocation_observation"].get("invocation_id")):
+            raise ValueError("APPROVED_TEXT_SAME_NATIVE_WRITER_REQUIRED")
     governed = request["governed_input"]
     event = result["article"].get("event_article")
     # A short upcoming-event NEWS preview may use the current event path without

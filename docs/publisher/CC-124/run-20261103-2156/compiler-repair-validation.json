@@ -1,0 +1,18 @@
+{
+  "observed_at_utc": "2026-11-03T16:34:12.942452+00:00",
+  "checks": [
+    {
+      "path": "docs\\publisher\\CC-124\\run-20261103-2156\\destination-skip.junit.xml",
+      "tests": 20,
+      "seconds": 17.372
+    },
+    {
+      "path": "docs\\publisher\\CC-124\\run-20261103-2156\\event-preview-speed.junit.xml",
+      "tests": 8,
+      "seconds": 14.22
+    }
+  ],
+  "scope": "Instagram destination-local image skip; policy bound to latest accepted same-writer revision; no new rights or certainty",
+  "prior_test_failures": "Synthetic preview fixture initially exceeded 500 words; corrected controlled fixture; final reports supersede failures",
+  "evidence_bytes": "Task directory uses -text to retain exact JSON/capture bytes and binary media; tracked files renormalized under that binding"
+}

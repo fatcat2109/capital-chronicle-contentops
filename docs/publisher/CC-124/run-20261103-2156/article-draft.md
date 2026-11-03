@@ -1,4 +1,4 @@
-# SEC's November 9 data roundtable: uses, risks and costs
+# U.S. Securities and Exchange Commission plans November 9 data roundtable
 
 The SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change. [[SOURCE:SOURCE_1]]
 
