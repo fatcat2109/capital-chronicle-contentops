@@ -895,6 +895,8 @@ def build_source_value_comparison_chart(
 def _typed_chart_values(document, rows, unit):
     """Validate reported facts, including signed observations and forecast ranges."""
     import math
+    from live_contentops.post_visuals_v1 import reject_private_survey_visual
+    reject_private_survey_visual(document)
     units = {"USD billion": ("$", "billion"), "USD/barrel": ("$", "barrel"),
              "USD/share": ("$", "per share"), "%": ("%",)}
     text = " ".join(str(document.get("canonical_content_text") or "").split())
@@ -1254,6 +1256,12 @@ def _editorial_data_values(packet, documents):
     from live_contentops.capital_chronicle_desk_record_source_v1 import validate_chart_inputs
     validate_chart_inputs(packet, documents)
     sources = {d.get("document_id"): d for d in documents}
+    from live_contentops.post_visuals_v1 import reject_private_survey_visual
+    used_sources = {operand.get("document_id") for series in packet.get("series", [])
+        for point in series.get("points", []) for operand in point.get("inputs", [])}
+    for source_id in used_sources:
+        if source_id in sources:
+            reject_private_survey_visual(sources[source_id])
     if packet.get("chart_type") not in {
         "line",
         "grouped_bar",

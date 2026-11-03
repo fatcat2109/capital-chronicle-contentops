@@ -907,11 +907,22 @@ class NativeDesktopTurn:
             "with Instagram explicitly skipped. Analysis keeps its lawful photo and useful charts. "
             "Never treat an optional photo gap as a factual gap or relabel analysis. Keep exact final rendered desktop/mobile review.")
         if (self.volume_policy and role in {"visual-edit", "write"} and not text_policy
-                and (not frozen or volume_guidance in frozen["prompt"])
+                and frozen and volume_guidance in frozen["prompt"]
                 and volume_guidance not in kwargs["prompt"]):
             # Rebuilt writer prompts retain issued guidance without adding it to
             # an older request or overriding decision 37's text-first policy.
             kwargs["prompt"] += volume_guidance
+        if role in {"visual-edit", "write"} and (not frozen or "CC-144 / Jim decision 42:" in frozen["prompt"]):
+            kwargs["prompt"] += ("\nCC-144 / Jim decision 42: Every post and destination carries an image. "
+                "NEWS/POLICY gets a deterministic data card from this article's admitted claim bindings; "
+                "empty destination media choices use that card, including Instagram. Analysis keeps 2-5 useful charts. "
+                "Search for a lawful relevant photo through BrowserOS Neo (US agency, Commons or free-licence stock) "
+                "and history through the existing desk-data adapter; retain the source/license/attribution result. "
+                "Visual discovery is separate from the per-story factual-source request cap; it never admits new "
+                "factual claims or grants spending. If an admitted public-domain series exists, supply data_card_series "
+                "using the existing editorial chart packet schema and only observations stated in this post. "
+                "Decision 44: private survey figures stay attributed headlines, never data cards, charts or history. "
+                "Do not manufacture data, relabel analysis or claim a missing photo. Keep exact final rendered review.")
         date_guidance = (LEGACY_SOURCE_DATE_GUIDANCE
             if frozen and LEGACY_SOURCE_DATE_GUIDANCE in frozen["prompt"] else PUBLIC_SOURCE_DATE_GUIDANCE)
         native_guidance = (
@@ -1364,6 +1375,10 @@ def validate_release_media(result, *, require_pixel_review=True):
     reader_first = bool(decision)
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]
     charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
+    cards = [a for a in assets if a.get("modality") == "source_bound_data_card"]
+    article = result.get("article") or {}
+    from live_contentops.post_visuals_v1 import POLICY, validate_post_data_card
+    current_visuals = article.get("post_visual_policy") == POLICY
     quantitative_charts = [a for a in charts if not a.get("fact_card_packet") and not a.get("post_card_binding")]
     disposition = result.get("visual_repair_disposition") or {}
     dropped = disposition.get("dropped_assets") or []
@@ -1373,10 +1388,10 @@ def validate_release_media(result, *, require_pixel_review=True):
             or (decision or {}).get("story_kind") == "ANALYSIS")
             and not quantitative_charts and not dropped_after_repair):
         raise ValueError("ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED")
-    if len(assets) != len(photos) + len(charts):
+    if len(assets) != len(photos) + len(charts) + len(cards):
         raise ValueError("RELEASE_UNSUPPORTED_MEDIA")
     if text_first:
-        if len(assets) != len(photos) + len(charts):
+        if len(assets) != len(photos) + len(charts) + len(cards):
             raise ValueError("TEXT_FIRST_UNSUPPORTED_MEDIA")
     elif reader_first:
         if dropped_after_repair:
@@ -1420,9 +1435,19 @@ def validate_release_media(result, *, require_pixel_review=True):
         if require_pixel_review and (review.get("asset_sha256") != chart.get("sha256") or review.get("pixels_inspected") is not True
                 or review.get("labels_and_units_legible") is not True or not review.get("reviewer")):
             raise ValueError("CHART_EXACT_RENDER_REVIEW_REQUIRED")
+    if current_visuals:
+        if not assets or (decision.get("story_kind") != "ANALYSIS" and len(cards) != 1):
+            raise ValueError("EVERY_NON_ANALYSIS_POST_DATA_CARD_REQUIRED")
+        for card in cards:
+            validate_post_data_card(card, article, result.get("evidence") or [])
+        allowed = {a["asset_id"] for a in assets}
+        from live_contentops.post_visuals_v1 import DESTINATIONS
+        choices = article.get("post_visual_destination_media") or {}
+        if set(choices) != set(DESTINATIONS) or any(not ids or not set(ids) <= allowed for ids in choices.values()):
+            raise ValueError("EVERY_DESTINATION_IMAGE_REQUIRED")
     return {"standard": "DATA_JOURNALISM_V1" if reader_first else "CONTENTOPS_V1_EDITORIAL_MEDIA_AND_DATA_RELEASE_STANDARD_V1",
             "photo_count": len(photos), "chart_count": len(quantitative_charts),
-            "fact_card_count": len(charts) - len(quantitative_charts)}
+            "fact_card_count": len(charts) - len(quantitative_charts), "data_card_count": len(cards)}
 
 
 def bind_editorial_media_plan(store, *, run_id, output_dir, plan, assets):

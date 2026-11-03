@@ -781,6 +781,8 @@ def run_report_editorial_cycle(
                     if native and article.get("reader_first_version") == "DATA_JOURNALISM_V1"
                     else reused[:1] or result.get("media_assets", []))
                 result["media_reuse_count"] = len(result["media_assets"])
+        if native and simple.get("qualified_article_count") == 1:
+            result["media_assets"] = simple.get("media_assets", [])
         if stages.manual_candidate and not result.get("qualified_article_count"):
             stages.put("cc-editorial-blocked-" + sha256_of([final_id, result]), result, SIMPLE_RESULT)
         else:
