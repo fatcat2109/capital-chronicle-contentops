@@ -1,0 +1,24 @@
+{
+  "classification": "ISOLATED_PREPARATION_NOT_PRODUCTION",
+  "source_feed": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+  "digest_id": "cc143-digest-2026-11-03",
+  "cutoff_utc": "2026-11-03T12:00:00+00:00",
+  "articles": [
+    {
+      "content_id": "substack:223199520",
+      "title": "The Fed held on October 28. Both dissenters wanted a hike.",
+      "published_at_utc": "2026-11-02T17:35:07.590Z",
+      "content_sha256": "f3ab3acc84ae6dbc0d8c81101c72e0623d286689724d136032a5df84b27f6e96",
+      "url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters"
+    },
+    {
+      "content_id": "substack:223246940",
+      "title": "September CPI: why 0.6% and 3.7% answer different questions",
+      "published_at_utc": "2026-11-03T03:49:41.895Z",
+      "content_sha256": "a4582871bb7ae45895c727e6610ecfadd6cf12d9f4113b402816d53234549ff4",
+      "url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer"
+    }
+  ],
+  "public_write_performed": false,
+  "production_store_written": false
+}

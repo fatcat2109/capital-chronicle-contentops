@@ -172,6 +172,8 @@ class NativeNeoExecutor:
                 "continue_only_after": "The same tab reaches /publish/posts/detail/.../share-center; continue exact readback and dispatch recording.",
                 "pending_is_dispatch": False,
             }
+            if request.get("substack_delivery_policy"):
+                action_packet["substack_publish_routine"]["delivery"] = request["substack_delivery_policy"]
         return action_packet
 
     def submit(self, request_hash: str, response: Mapping[str, Any]):

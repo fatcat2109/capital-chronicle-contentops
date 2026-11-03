@@ -163,6 +163,15 @@ class NeoDestinationHandoff:
             # An earlier failed observation stays immutable. A corrected readback
             # contract receives a new read-only identity, never a new write.
             value["reader_text_normalization"] = "MARKDOWN_WHITESPACE_SMART_QUOTES_V1"
+        mode = intent.get("destination_plan", {}).get("substack_delivery_mode")
+        if destination == "substack" and mode and action == "PUBLISH":
+            from live_contentops.substack_daily_digest_v1 import delivery_policy
+            value["substack_delivery_policy"] = delivery_policy(mode)
+        if destination == "substack" and intent.get("daily_digest") and action == "READBACK":
+            value["digest_email_readback"] = {
+                "instruction": "Read this exact post's publisher dashboard delivery status; return email_delivery_confirmed=true only for an observed sent email, with email_delivery_evidence_ref. Never read a mailbox. A public page alone does not prove email delivery.",
+                "observation_hour": int(datetime.now(timezone.utc).timestamp()) // 3600,
+            }
         if destination == "substack" and action == "READBACK" and intent.get("published_content_export"):
             value["publication_clock_readback"] = (
                 "Return published_at_utc from the exact post's time datetime or post_date; "
@@ -187,6 +196,14 @@ class NeoDestinationHandoff:
         if (result.get("request_sha256") != request["request_sha256"]
                 or result.get("observed_identity") != IDENTITIES[destination]):
             return {"status": "UNKNOWN_WRITE", "reason_code": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"}
+        policy = request.get("substack_delivery_policy")
+        if policy and str(result.get("status", "")).upper() in {"SUCCESS", "PUBLISHED", "DISPATCH_CONFIRMED"}:
+            observed = result.get("delivery_observation") or {}
+            if (observed.get("email_send_enabled") is not policy["email_send_enabled"]
+                    or observed.get("web_publish_enabled") is not True
+                    or not observed.get("evidence_ref")):
+                return {**result, "status": "UNKNOWN_WRITE",
+                        "reason_code": "SUBSTACK_DELIVERY_MODE_NOT_VERIFIED", "retry_permitted": False}
         # Identity/readback ambiguity is left to the sole coordinator. Never retry here.
         return result
 

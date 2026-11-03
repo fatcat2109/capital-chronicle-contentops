@@ -1,0 +1,213 @@
+"""CC-143 isolated checks. No browser, provider or production writes."""
+import json
+from datetime import datetime, timezone
+from hashlib import sha256
+
+import pytest
+
+from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.published_content_v1 import canonical, append_record, SCHEMA
+from live_contentops.event_article_guard_v1 import PUBLIC_NOTICE
+from live_contentops.substack_daily_digest_v1 import (
+    prepare_daily_digest, packets, digest_status, validate_digest_plan, delivery_mode_for_plan,
+    delivery_policy, WEB_ONLY, EMAIL_DIGEST, continue_daily_digest,
+)
+from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+from test_publication_coordinator_v1 import _plan, FixtureTransport
+
+
+def clock(s):
+    return datetime.fromisoformat(s.replace("Z", "+00:00"))
+
+
+def row(identity="one", published="2026-11-03T03:00:00Z", recorded=None):
+    value = dict(schema_version=SCHEMA, content_id=identity, type="ARTICLE",
+        title="Public title " + identity, standfirst="An attributed public report.",
+        published_at_utc=published, recorded_at_utc=recorded or published,
+        outlets=[{"name":"substack", "url":"https://capitalchronicle.substack.com/p/"+identity}],
+        event_id=None, conditional_calls=[], rights_class="CC_OWN_ANALYSIS", visibility="public",
+        disclaimer=PUBLIC_NOTICE, conflicts_notice=None)
+    value["content_sha256"] = sha256(canonical(value)).hexdigest()
+    return value
+
+
+def setup(tmp_path, rows=()):
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    feed = tmp_path / "published.jsonl"
+    feed.touch()
+    for r in rows:
+        append_record(feed, r)
+    return store, feed
+
+
+def prepared(store, feed, now="2026-11-03T12:00:00Z"):
+    return prepare_daily_digest(store, feed, now=clock(now))
+
+
+def confirm(store, packet, object_id="123", email=True):
+    ids = DurablePublicationCoordinator._ids(packet["digest_id"], packet["plan"]["plan_hash"], "substack")
+    store.register_outbox_message(message_id=ids["message_id"], work_item_id=packet["digest_id"],
+        destination="substack", payload="{}", status="DISPATCH_CONFIRMED")
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="substack", status="DISPATCH_CONFIRMED", public_object_id=object_id,
+        public_object_url="https://capitalchronicle.substack.com/p/digest-"+object_id)
+    store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+        work_item_id=packet["digest_id"], status="RECONCILED_CONFIRMED")
+    if email:
+        from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, NativeNeoInputRequired, TOOL
+        executor = NativeNeoExecutor(store, operation_id=packet["digest_id"], output_dir=store.db_path.parent / "tools", native_invocation_id="controlled-email-test")
+        adapter = NeoDestinationHandoff(native_executor=executor)
+        value = {"work_item_id":packet["digest_id"], "daily_digest":packet["digest_id"],
+                 "native_payload":packet["native_payload"], "destination_plan":{}}
+        url = "https://capitalchronicle.substack.com/p/digest-"+object_id
+        with pytest.raises(NativeNeoInputRequired) as pending:
+            adapter.readback(destination="substack", intent=value, public_object_id=object_id, public_object_url=url)
+        request = pending.value.request
+        request_hash = request["request"]["request_sha256"]
+        executor.begin(request_hash)
+        executor.submit(request_hash, {"tool_request_sha256":request["tool_request_sha256"],
+            "tool_observation":{"tool_name":TOOL, "native_invocation_id":"controlled-email-test",
+                "surface":"CODEX_DESKTOP_CONVERSATION", "observation_source":"CONTROLLED_TEST_NOT_BROWSER",
+                "observed_at_utc":datetime.now(timezone.utc).isoformat()},
+            "result":{"request_sha256":request_hash, "public_object_id":object_id,
+                "email_delivery_confirmed":True, "email_delivery_evidence_ref":"CONTROLLED_TEST_NOT_BROWSER"}})
+
+
+def test_1900_cutoff_and_late_articles(tmp_path):
+    store, feed = setup(tmp_path, [row(), row("later", "2026-11-03T12:00:01Z")])
+    assert prepared(store, feed, "2026-11-03T11:59:59Z")["state"] == "NO_CONFIRMED_ARTICLES"
+    first = prepared(store, feed)["packet"]
+    assert [a["content_id"] for a in first["articles"]] == ["one"]
+    assert first["cutoff_utc"] == "2026-11-03T12:00:00+00:00"
+    assert first["native_payload"]["body_markdown"].count("/p/one") == 1
+    confirm(store, first)
+    second = prepared(store, feed, "2026-11-04T12:00:00Z")["packet"]
+    assert [a["content_id"] for a in second["articles"]] == ["later"]
+
+
+def test_restart_and_missing_code_reuse_exact_unsent_digest(tmp_path):
+    store, feed = setup(tmp_path, [row()])
+    first = prepared(store, feed)["packet"]
+    append_record(feed, row("next", "2026-11-04T03:00:00Z"))
+    restarted = ContentOpsDurableStore(store.db_path, auto_migrate=False)
+    later = prepared(restarted, feed, "2026-11-05T12:00:00Z")
+    assert later["packet"] == first and len(packets(restarted)) == 1
+    assert not later["confirmed"] and not later["public_write_performed"]
+    confirm(store, first)
+    next_packet = prepared(store, feed, "2026-11-05T12:00:00Z")["packet"]
+    assert [a["content_id"] for a in next_packet["articles"]] == ["next"]
+
+
+def test_public_page_confirmation_is_not_a_new_digest(tmp_path):
+    store, feed = setup(tmp_path, [row()])
+    first = prepared(store, feed)["packet"]
+    confirm(store, first, email=False)
+    status = digest_status(store, first)
+    assert status["web_confirmed"] and not status["email_confirmed"] and not status["confirmed"]
+    assert status["state"] == "WEB_CONFIRMED_EMAIL_READBACK_REQUIRED"
+    assert prepared(store, feed)["digest_id"] == first["digest_id"]
+    assert len(packets(store)) == 1
+
+
+def test_feed_rights_and_seal_fail_closed_and_no_empty_digest(tmp_path):
+    store, feed = setup(tmp_path)
+    assert prepared(store, feed)["state"] == "NO_CONFIRMED_ARTICLES"
+    assert packets(store) == []
+    bad = row()
+    bad["rights_class"] = "PRIVATE"
+    feed.write_text(json.dumps(bad)+"\n")
+    with pytest.raises(ValueError, match="RIGHTS"):
+        prepared(store, feed)
+    assert packets(store) == []
+
+
+def test_future_publication_and_recording_not_included(tmp_path):
+    store, feed = setup(tmp_path, [row("future", "2026-11-04T12:00:00Z"),
+        row("late", recorded="2026-11-04T12:00:00Z")])
+    assert prepared(store, feed)["state"] == "NO_CONFIRMED_ARTICLES"
+
+
+def test_article_mode_forced_web_and_digest_requires_frozen_packet(tmp_path):
+    store, feed = setup(tmp_path, [row()])
+    p = _plan("substack")
+    p["destinations"][0]["substack_delivery_mode"] = EMAIL_DIGEST
+    store.create_work_item(work_item_id="work", story_id="story", title="Test", target_surface="test")
+    c = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    c.register_plan("work", p)
+    message = next(r for r in store.list_outbox_messages() if r["destination"] == "substack")
+    assert json.loads(message["payload"])["destination_plan"]["substack_delivery_mode"] == WEB_ONLY
+    assert c.register_plan("work", p)["outbox_count"] == 1
+    frozen = prepared(store, feed)["packet"]
+    assert delivery_mode_for_plan(store, frozen["digest_id"], frozen["plan"]) == EMAIL_DIGEST
+    forged = {**frozen["plan"], "daily_digest": "other"}
+    with pytest.raises(ValueError, match="FROZEN"):
+        c.register_plan("other", forged)
+
+
+def test_issued_historical_intent_unchanged(tmp_path):
+    store, feed = setup(tmp_path)
+    store.create_work_item(work_item_id="work", story_id="story", title="Test", target_surface="test")
+    p = _plan("substack")
+    c = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    c.register_plan("work", p)
+    ids = c._ids("work", p["plan_hash"], "substack")
+    current = store.get_outbox_message(ids["message_id"])
+    # Simulate the exact historical pre-mode intent in a separate disposable store.
+    old = json.loads(current["payload"])
+    old["destination_plan"].pop("substack_delivery_mode")
+    other = ContentOpsDurableStore(tmp_path / "old.sqlite3")
+    other.create_work_item(work_item_id="work", story_id="story", title="Test", target_surface="test")
+    other.register_outbox_message(message_id=ids["message_id"], work_item_id="work",
+        destination="substack", payload=json.dumps(old, sort_keys=True, separators=(",", ":")), status="READY")
+    before = other.get_outbox_message(ids["message_id"])["payload"]
+    DurablePublicationCoordinator(store=other, transport_runtime=None).register_plan("work", p)
+    assert other.get_outbox_message(ids["message_id"])["payload"] == before
+
+
+def test_digest_uses_only_substack_through_existing_coordinator(tmp_path, monkeypatch):
+    monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
+    store, feed = setup(tmp_path, [row()])
+    packet = prepared(store, feed)["packet"]
+    control = store.get_operating_control()
+    store.update_operating_control(operating_mode="AUTONOMOUS_DEFAULT", expected_state_version=control["state_version"], control_source="TEST")
+    runtime = FixtureTransport()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
+        readiness_provider=lambda _: {"readiness_state":"READY_AUTHENTICATED"})
+    result = coordinator.publish_plan(packet["digest_id"], packet["plan"])
+    assert runtime.publish_calls == ["substack"]
+    assert result["canonical_article_real_published"]
+    coordinator.publish_plan(packet["digest_id"], packet["plan"])
+    assert runtime.publish_calls == ["substack"]
+    status = digest_status(store, packet)
+    assert status["web_confirmed"] and not status["email_confirmed"]
+
+
+@pytest.mark.parametrize("mode", [WEB_ONLY, EMAIL_DIGEST])
+@pytest.mark.parametrize("matches", [True, False])
+def test_success_requires_observed_delivery_controls(mode, matches):
+    value = {"work_item_id":"work", "payload":"Reviewed exact copy.",
+             "destination_plan":{"payload_hash":"hash", "substack_delivery_mode":mode}}
+    auth = {"schema_version":"contentops.canonical_machine_authorization.v1", "operating_mode":"AUTONOMOUS_DEFAULT",
+            "destination":"substack", "dispatch_attempt_identity":"dispatch", "work_item_id":"work", "payload_hash":"hash"}
+    def executor(request):
+        assert request["substack_delivery_policy"]["mode"] == mode
+        return {"request_sha256":request["request_sha256"], "observed_identity":"capitalchronicle.substack.com",
+                "status":"SUCCESS", "public_object_id":"123", "delivery_observation":{
+                    "email_send_enabled": (mode == EMAIL_DIGEST) if matches else (mode != EMAIL_DIGEST),
+                    "web_publish_enabled":True, "evidence_ref":"CONTROLLED_TEST_NOT_BROWSER"}}
+    result = NeoDestinationHandoff(native_executor=executor).publish(destination="substack", intent=value, authorization_context=auth)
+    assert result["status"] == ("SUCCESS" if matches else "UNKNOWN_WRITE")
+
+
+def test_digest_uses_native_identity_request_not_another_publisher(tmp_path, monkeypatch):
+    monkeypatch.setattr("live_contentops.native_desktop_publication_v1.live_publication_policy", lambda _: None)
+    monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
+    store, feed = setup(tmp_path, [row()])
+    packet = prepared(store, feed)["packet"]
+    control = store.get_operating_control()
+    store.update_operating_control(operating_mode="AUTONOMOUS_DEFAULT", expected_state_version=control["state_version"], control_source="TEST")
+    result = continue_daily_digest(store, packet, output_dir=tmp_path / "tools", invocation_id="controlled-test", rollout={"store_path":str(store.db_path)})
+    assert result["state"] == "NATIVE_NEO_TOOL_PENDING"
+    assert result["native_tool_request"]["request"]["action"] == "VERIFY_IDENTITY"
+    assert store.list_platform_dispatches() == []

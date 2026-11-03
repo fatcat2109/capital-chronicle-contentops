@@ -554,6 +554,7 @@ def operation(binding, **kwargs):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("newsroom", "standing", "release-finished", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "next-candidate", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
+        "digest", "digest-resume", "digest-tool-begin", "digest-tool-submit",
         "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
         "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company", "quota-stop",
         "window-result", "window-notice-begin", "window-notice-record", "window-close", "window-blocked", "window-blocked-begin", "window-blocked-record",
@@ -581,6 +582,34 @@ def main(argv=None):
     parser.add_argument("--source-review-id", action="append", default=[])
     parser.add_argument("--workspace-root", type=Path, help="Explicit stable destination for authorized manual-workspace relocation")
     args = parser.parse_args(argv)
+    if args.command.startswith("digest"):
+        if not args.rollout:
+            parser.error("digest requires the applied --rollout")
+        from live_contentops.substack_daily_digest_v1 import prepare_daily_digest, continue_daily_digest
+        from live_contentops.native_desktop_publication_v1 import live_publication_policy
+        from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE
+        try:
+            rollout = json.loads(args.rollout.read_bytes())
+            live_publication_policy(rollout)
+            if Path(rollout["store_path"]).resolve() != PRODUCTION_STORE.resolve():
+                raise ValueError("EXACT_PRODUCTION_DIGEST_STORE_REQUIRED")
+            store = ContentOpsDurableStore(rollout["store_path"], auto_migrate=False)
+            result = prepare_daily_digest(store, DEFAULT_FEED)
+            if args.command != "digest" and result.get("packet"):
+                if not args.native_invocation_id:
+                    raise ValueError("ACTIVE_NATIVE_INVOCATION_REQUIRED")
+                packet = result["packet"]
+                result = continue_daily_digest(store, packet,
+                    output_dir=Path(rollout["editorial_output_root"]) / "owner-manual" / packet["digest_id"] / "native-tools",
+                    invocation_id=args.native_invocation_id, rollout=rollout,
+                    command={"digest-resume": "resume", "digest-tool-begin": "begin", "digest-tool-submit": "submit"}[args.command],
+                    request_hash=args.request_sha256,
+                    response=json.loads(args.response.read_bytes()) if args.response else None)
+        except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
+            print(json.dumps({"classification": "DAILY_DIGEST_FAILED", "cause": str(exc)}))
+            return 2
+        print(json.dumps(result, ensure_ascii=True))
+        return 0
     if args.command == "next-candidate" and (not args.binding or not args.candidate_id or not args.response):
         parser.error("next-candidate requires --binding, --candidate-id and exact --response preconditions")
     if args.command == "next-candidate" and args.continue_after:
