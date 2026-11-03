@@ -1,0 +1,61 @@
+{
+  "item": "CC-124",
+  "recorded_at_utc": "2026-11-03T03:01:00.010916+00:00",
+  "continued_branch": "backlog/cc-124-standing-article-production",
+  "resumed_from_pushed_commit": "3829002795906ade5c004498f092020f6d4d9e81",
+  "fresh_origin_master": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "run_result": "+0 confirmed canonical articles",
+  "state": "BLOCKED_EXTERNAL_VERIFICATION",
+  "standing_item_status": "OPEN",
+  "first_cause": "SUBSTACK_EMAIL_VERIFICATION_REQUIRED",
+  "first_cause_provenance": "Original send at 2026-11-02T23:08Z and CC-124 Ops note at 3 Nov 08:03 GMT+7; this run did not trigger another verification challenge.",
+  "checks": {
+    "required_launch_model_and_effort_explicit": true,
+    "same_operation_article_review_plan": true,
+    "original_unknown_substack_dispatch": true,
+    "original_claimed_unanswered_readback_preserved": true,
+    "exact_draft_in_selected_drafts": true,
+    "exact_title_subtitle_body_unchanged": true,
+    "exact_object_absent_from_complete_published_list": true,
+    "original_binding_and_five_artifact_hashes_match": true,
+    "newsroom_idle_and_interval_elapsed": true,
+    "no_current_day_canonical_count_or_url": true
+  },
+  "checks_passed": 10,
+  "actual_retained_artifact_sha256": {
+    "article_manifest_v1.json": "066df9eedc190874a0ca752cad205321a0f8bd2d2275d8213897587eeed51163",
+    "native_derivative_previews_v1.json": "4cf1cc355d5b329c05d785df037887925be962a6a1b9a532891963361b89f7b9",
+    "publication_lifecycle_plan_v1.json": "f99bc1c9c5ce20f4a20865a57e5c857ad5e08d0f847b0dd7b922886d20b052fb",
+    "qualified_article_record_v1.json": "36694508598046f83750266bd8ba1b477d3d8e54340ae597e35c26bad2c9af79",
+    "run_context_v1.json": "f5d04269fd24e831b7f4f72396de9819e588cf6c707cca35550dee2a12f0c7ef"
+  },
+  "model_observation_status": "CONFIGURED_NOT_OBSERVED",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "pytest_processes_started": 0,
+  "validation_scope": "Read-only draft/editor, complete publisher list, original request/binding, current retained bytes and lease/day/interval checks. No implementation change or fresh source/editorial/render acceptance.",
+  "new_send_attempts": 0,
+  "new_platform_drafts": 0,
+  "new_article_operations": 0,
+  "native_returns_submitted": 0,
+  "chat_messages_sent": 0,
+  "schedule_changes": 0,
+  "app_restarts": 0,
+  "merges": 0,
+  "next_actor": "Jim, then Codex Publisher",
+  "next_action": "Jim completes Substack email verification for draft 223246940. Publisher then reads back that exact object and continues through the original request; no replacement draft or repeat send. The midterm preview comes first once Substack works.",
+  "evidence": [
+    {
+      "path": "browser-readback.json",
+      "sha256": "b67c93a91ed330c537e1b32b466108d5a5bf87efd25e657e9c95407a52ac2f74"
+    },
+    {
+      "path": "current-state.json",
+      "sha256": "45f02d3a29897ed1b49cc8db8c2414f809fb8e0b26d696f8955043e019cd92c7"
+    },
+    {
+      "path": "launch-configuration.json",
+      "sha256": "8134bfc169f8b9177e565adb1ef4b28524f85d9973899aa88704fc3dde6cda1b"
+    }
+  ]
+}
