@@ -1,0 +1,20 @@
+{
+  "observed_at_utc": "2026-11-04T10:16:59.005Z",
+  "page": 275,
+  "images": [
+    {
+      "alt": "View image",
+      "height": 346,
+      "loads": true,
+      "src": "https://media.licdn.com/dms/image/v2/D5622AQHuczZfF814dw/feedshare-shrink_480/B56aGmDs32HsAg-/0/1793787350767?e=1795651200&v=beta&t=fQDe4Co5ff3PjQcmUOMkkNtwjWVY1Sn8VFPoDbor2cc",
+      "width": 480
+    },
+    {
+      "alt": "View image",
+      "height": 346,
+      "loads": true,
+      "src": "https://media.licdn.com/dms/image/v2/D5622AQGWwRwDFWh0Gg/feedshare-shrink_480/B56aGmDs6KG0Ag-/0/1793787350894?e=1795651200&v=beta&t=KBBcxbDkKi3WQHirfbRmboRNV9BchiYEYz4YI4WFfNU",
+      "width": 480
+    }
+  ]
+}

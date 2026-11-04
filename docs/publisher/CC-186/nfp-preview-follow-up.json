@@ -1,0 +1,11 @@
+{
+  "item": "CC-186",
+  "checked_at_utc": "2026-11-04T10:23:44.107094+00:00",
+  "upstream_item": "CC-107",
+  "upstream_status": "BLOCKED (until 6 Nov 2026 18:00 GMT+7: FROZEN_NFP_INPUTS_NOT_YET_CREATED)",
+  "source_owner": "Main/Ops",
+  "source_root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029",
+  "matching_nfp_directories": [],
+  "publication_claimed": false,
+  "next_action": "Use the existing CC-107 NFP preview once its frozen admitted inputs are supplied; image policy is installed in its ordinary live handoff."
+}

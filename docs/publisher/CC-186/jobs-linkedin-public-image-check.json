@@ -1,0 +1,26 @@
+{
+  "observed_at_utc": "2026-11-04T10:17:36.984971+00:00",
+  "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523689467564490752/",
+  "images": [
+    {
+      "asset_id": "payroll_first_print_trend",
+      "local_sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+      "public_bytes_sha256": "2b8351a3c4f235a864148a17a9fe1319f4d6301efca52ea6a9750ac413f4a5c5",
+      "public_image_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-186\\linkedin-public-payroll_first_print_trend.jpg",
+      "source_image_url": "https://media.licdn.com/dms/image/v2/D5622AQHuczZfF814dw/feedshare-shrink_480/B56aGmDs32HsAg-/0/1793787350767?e=1795651200&v=beta&t=fQDe4Co5ff3PjQcmUOMkkNtwjWVY1Sn8VFPoDbor2cc",
+      "visual_similarity": 0.998,
+      "threshold": 0.93,
+      "source_bound_visual_match": true
+    },
+    {
+      "asset_id": "september_sector_breakdown",
+      "local_sha256": "9c3edc1443778895f6884781458ffd28d92e7823700ab4539e4b2ea74e26c12b",
+      "public_bytes_sha256": "e8893bb485d6de6244f2b38e37c5768511e3a0521fd1e4bb1c1bf18dce718dc7",
+      "public_image_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-186\\linkedin-public-september_sector_breakdown.jpg",
+      "source_image_url": "https://media.licdn.com/dms/image/v2/D5622AQGWwRwDFWh0Gg/feedshare-shrink_480/B56aGmDs6KG0Ag-/0/1793787350894?e=1795651200&v=beta&t=KBBcxbDkKi3WQHirfbRmboRNV9BchiYEYz4YI4WFfNU",
+      "visual_similarity": 0.9985,
+      "threshold": 0.93,
+      "source_bound_visual_match": true
+    }
+  ]
+}

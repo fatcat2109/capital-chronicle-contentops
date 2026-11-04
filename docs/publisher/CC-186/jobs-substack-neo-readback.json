@@ -1,0 +1,25 @@
+{
+  "images": {
+    "changed": false,
+    "page": 277,
+    "settled": false,
+    "value": [
+      {
+        "alt": "Monthly nonfarm payroll change, seasonally adjusted. BLS initial estimates; October 2024–September 2026. First prints, without later revisions.",
+        "height": 1657,
+        "loads": true,
+        "url": "https://substackcdn.com/image/fetch/$s_!4JJz!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc1c9c8fc-ecab-4445-8b7d-4cd9d647ec42_1440x1040.png",
+        "width": 2294
+      },
+      {
+        "alt": "September payroll change in thousands: goods-producing +18; private service-providing +28; government -17. Total nonfarm +29.",
+        "height": 1657,
+        "loads": true,
+        "url": "https://substackcdn.com/image/fetch/$s_!boL_!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8bbd3f69-2234-43f2-875b-4e8c03f9c9b4_1440x1040.png",
+        "width": 2294
+      }
+    ]
+  },
+  "observed_at_utc": "2026-11-04T10:19:27.474Z",
+  "url": "https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains"
+}

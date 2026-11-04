@@ -1,0 +1,18 @@
+{
+  "item": "CC-186",
+  "operation_id": "cc124-next-article-20261104-a",
+  "recorded_at_utc": "2026-11-04T10:23:44.107094+00:00",
+  "destination": "linkedin",
+  "status": "DISPATCH_CONFIRMED",
+  "reconciliation_status": "RECONCILED_CONFIRMED",
+  "public_object_id": "urn:li:ugcPost:7523689467564490752",
+  "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523689467564490752/",
+  "image_attached": true,
+  "evidence_files": [
+    "jobs-linkedin-final-reconciliation.json",
+    "jobs-linkedin-final-return.json",
+    "jobs-linkedin-public-image-check.json"
+  ],
+  "new_write_this_run": true,
+  "canonical_url": "https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains"
+}

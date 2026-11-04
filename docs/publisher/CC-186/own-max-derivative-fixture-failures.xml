@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="14.434" timestamp="2026-11-04T16:51:04.616722+07:00" hostname="J-P"><testcase classname="tests.test_post_image_derivative_editor_v1" name="test_current_editor_uses_one_check_and_image_consumer_without_named_writer_or_screenshots" time="12.720"><failure message="KeyError: 'media_assets'">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-32243/test_current_editor_uses_one_c0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x0000017C70711220&gt;
+
+    def test_current_editor_uses_one_check_and_image_consumer_without_named_writer_or_screenshots(tmp_path, monkeypatch):
+        store, binding, result, coordinator, runtime, recovery, ids = linkedin_recovery(tmp_path, monkeypatch)
+        monkeypatch.setattr("live_contentops.native_publication_latency_v1.uses_short_path",
+            lambda *a, **k: any(p["destination"] == "linkedin" and
+                p["payload"].get("text", "").startswith(recovery["date_label"])
+                for p in k["result"].get("previews", [])))
+        turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"], owner_manual_validation=True)
+        with pytest.raises(DesktopInputRequired) as pending:
+            request_final_visual_review(turn, renders=None, distribution_recovery=recovery)
+        request = pending.value.request
+        assert request["governed_input"]["binding"]["renders"] == []
+        observation = deepcopy(turn._get("write", "response")["invocation_observation"])
+        observation.update(surface="CODEX_EXEC", invocation_id="current-max-editor-not-the-historical-writer")
+        turn.submit(request["stage"], {"request_sha256": request["request_sha256"],
+            "invocation_observation": observation, "output": {"decision": "ACCEPT",
+                "rationale": "Fixture editor checks unchanged source facts, dated copy, exact canonical and admitted image selection."}})
+        ref = {"stage": request["stage"], "request_sha256": request["request_sha256"], "output_dir": binding["output_dir"]}
+        accepted, acceptance = dated_distribution_recovery_acceptance(store, run_id=binding["run_id"], reference=ref)
+        assert acceptance["pixels_inspected"] is False
+        assert acceptance["automated_media_check"]["findings"]
+        store.set_dispatch_status(ids["dispatch_id"], "RECONCILED_ABSENT_SAFE_TO_RETRY")
+        store.register_reconciliation(reconciliation_id=ids["reconciliation_id"], work_item_id=binding["run_id"],
+            status="RECONCILED_ABSENT_SAFE_TO_RETRY")
+        from types import SimpleNamespace
+        runtime._neo_transport = SimpleNamespace(native_executor=SimpleNamespace(native_neo_protocol=True,
+            readiness=lambda _: {"authenticated": True, "native_executor_bound": True,
+                "proof_fresh": True, "public_handle": "linkedin:jimcc"}))
+        coordinator.complete_dated_distribution_recovery(ids["message_id"], review_reference=ref)
+        assert runtime.publish_calls == ["linkedin"]
+        assert runtime.sent[0]["native_payload"] == accepted["payloads"]["linkedin"]
+&gt;       assert runtime.sent[0]["media_assets"] == result["media_assets"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'media_assets'
+
+tests\test_post_image_derivative_editor_v1.py:43: KeyError</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,29 @@
+{
+  "observed_at_utc": "2026-11-04T10:21:37.442705+00:00",
+  "destination": {
+    "destination": "threads",
+    "transport": "THREADS_API",
+    "dispatch_id": "dispatch_70ed7ed4a366cd9235455b99d59b9236",
+    "status": "NOT_DISPATCHED",
+    "reconciliation_status": null,
+    "public_object_id": null,
+    "public_object_url": null,
+    "dispatch_recorded": false,
+    "cached_readiness": "AUTH_INVALID",
+    "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+  },
+  "readiness": [
+    {
+      "surface": "THREADS_POST",
+      "platform": "threads",
+      "transport_registry_version": "contentops.destination_transport_registry.v3",
+      "transport_type": "THREADS_API",
+      "readiness_state": "AUTH_INVALID",
+      "destination_identity": null,
+      "identity_match": 0,
+      "probe_kind": "OFFICIAL_API_IDENTITY",
+      "probed_at_utc": "2026-11-04T09:35:34.098130Z",
+      "sanitized_detail_json": "{\"error_class\":\"HTTPError\",\"http_status\":400,\"jit_attempt_identity\":\"dispatch_70ed7ed4a366cd9235455b99d59b9236\"}"
+    }
+  ]
+}

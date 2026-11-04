@@ -1,0 +1,18 @@
+{
+  "tool_request_sha256": "d4bf7872ed0db994b07d429dd32f3e9e929acd58118f342e724fa33379846187",
+  "tool_observation": {
+    "native_invocation_id": "01a1a5d9-b742-78a2-921c-44ae9bcbf17d",
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "observed_at_utc": "2026-11-04T10:11:17.721Z",
+    "observation_source": "Actual loaded own LinkedIn profile Jim Pham / jimcc with You marker, in task-owned Neo tab 275"
+  },
+  "result": {
+    "request_sha256": "845a18202d8fac79c8f96db167ea2b643b462d255ea80357f6936f1d485a25fc",
+    "status": "SUCCESS",
+    "observed_identity": "linkedin:jimcc",
+    "authenticated": true,
+    "observed_profile_url": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
+    "public_write_performed": false
+  }
+}

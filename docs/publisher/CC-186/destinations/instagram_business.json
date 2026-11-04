@@ -1,0 +1,16 @@
+{
+  "item": "CC-186",
+  "operation_id": "cc124-next-article-20261104-a",
+  "recorded_at_utc": "2026-11-04T10:23:44.107094+00:00",
+  "destination": "instagram_business",
+  "status": "DISPATCH_CONFIRMED",
+  "reconciliation_status": "RECONCILED_CONFIRMED",
+  "public_object_id": "18120907216762181",
+  "public_object_url": "https://www.instagram.com/p/DfTyJF7gR4t/",
+  "image_attached": true,
+  "evidence_files": [
+    "jobs-instagram-image-readback.json"
+  ],
+  "new_write_this_run": false,
+  "canonical_url": "https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains"
+}
