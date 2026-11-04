@@ -39,6 +39,18 @@ What the code now guarantees (4 Nov fixes):
   canonicals as well as the feed), a one-line standfirst each, a titles card at the top;
   a web-confirmed digest never holds the next day's.
 
+## 1b. Cards (CC-245, live at contentops-live-20261104-cc245-fact-cards)
+
+Every typographic card (source facts, post facts, Instagram delivery card at 1080x1350,
+digest) renders through `live_contentops/fact_card_design_v1.py` in the site design: name
+large, the key date or figure largest (always text from an admitted fact), verbatim facts,
+and a footer with the source's own date labelled plus the piece's date. Sent files are
+never overwritten. SEC's new card is in its run at
+`media/sec-si-roundtable-event-facts-20261109-cc245.png` (record `media/fact-card-asset-cc245.json`):
+send SEC only through the reviewed amendment path with this card; a reviewed LinkedIn
+company copy supersedes the unsent routine one, which still holds the old card.
+CC-144's source-bound data cards (`post_visuals_v1._render_card`) still use their own layout.
+
 ## 2. What proves it
 
 For each destination, `publication-status` shows `DISPATCH_CONFIRMED` with
