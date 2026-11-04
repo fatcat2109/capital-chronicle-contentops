@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-11-04T15:29:53.659700+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "previous_head": "986a6e882531b2857a5821d8ca543c2d67660667",
+  "integrated_head": "832cc113ddd7331bf929070e92b130ee1f32714c",
+  "integration": "git merge --ff-only --no-stat",
+  "lane_authority": "Jim decision 39; CC-171 only",
+  "pipeline_code_changed": false,
+  "three_new_public_dispatches_reconciled": true,
+  "live_store_consumer_verified": "final-verification.json",
+  "unrelated_dirty_file_count": 6,
+  "unrelated_dirty_hashes_preserved": true,
+  "schedules_changed": false,
+  "application_restart": false
+}
