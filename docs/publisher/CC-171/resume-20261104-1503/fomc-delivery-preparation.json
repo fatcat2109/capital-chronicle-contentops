@@ -1,0 +1,14 @@
+{
+  "status": "CLOUDINARY_DELIVERY_MEDIA_READY",
+  "credential_presence": {
+    "CLOUDINARY_CLOUD_NAME": true,
+    "CLOUDINARY_API_KEY": true,
+    "CLOUDINARY_API_SECRET": true
+  },
+  "provider_calls": 2,
+  "reused_asset_count": 0,
+  "verified_asset_count": 2,
+  "public_write_performed": false,
+  "canonical_publication_attempted": false,
+  "delivery_manifest_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc074-retro-fomc-20261028-v1\\reviewed-handoff\\babd5c02bcedea40f218c7c582c6982e3c4524936b7e649450dcc63aa1505d43\\delivery_media_manifest_v1.json"
+}

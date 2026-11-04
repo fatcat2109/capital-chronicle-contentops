@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-11-04T15:28:34.198396+00:00",
+  "run_id": "cc107-midterm-preview-20261103-v1",
+  "operation": "midterm unsent social distribution",
+  "first_external_cause": "MIDTERM_PREVIEW_DEADLINE_EXPIRED",
+  "fixed_deadline_utc": "2026-11-03T23:00:00Z",
+  "deadline_source": "docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\request.txt",
+  "deadline_source_sha256": "2b4139eb2d0891ac0c54e7ed3672a60108d38c641c9c2a54cb0439aa8a711fc8",
+  "additional_public_rights_cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+  "restriction_reason": "No-red-tape 2a: PollCheck public redistribution permission is not bound to the chart; original preview deadline is an explicit source request requirement under decisions 36,40,42.",
+  "live_canonical_id": "223293057",
+  "live_canonical_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on",
+  "next_owner": "Claude Ops/source-rights owner",
+  "next_action": "Close the expired preview social obligation or authorize a separately dated post-event piece; supply public reuse evidence before using the polling chart."
+}

@@ -1,0 +1,167 @@
+{
+  "observed_at_utc": "2026-11-04T15:28:34.199078+00:00",
+  "consumer": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_publication_v1.py NativeReviewedPublication.projection over production store",
+  "live_consumer_uses_new_dispatches": true,
+  "checks": [
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "destination": "substack",
+      "prior_public_object_preserved": true
+    },
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "destination": "telegram",
+      "prior_public_object_preserved": true
+    },
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "destination": "discord",
+      "prior_public_object_preserved": true
+    },
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "destination": "x",
+      "prior_public_object_preserved": true
+    },
+    {
+      "run_id": "cc074-retro-fomc-20261028-v1",
+      "destination": "facebook_page",
+      "prior_public_object_preserved": true
+    },
+    {
+      "run_id": "cc124-next-article-20261104-a",
+      "destination": "substack",
+      "prior_public_object_preserved": true
+    },
+    {
+      "run_id": "cc124-next-article-20261104-a",
+      "destination": "telegram",
+      "prior_public_object_preserved": true
+    },
+    {
+      "run_id": "cc124-next-article-20261104-a",
+      "destination": "discord",
+      "prior_public_object_preserved": true
+    },
+    {
+      "run_id": "cc124-next-article-20261104-a",
+      "destination": "x",
+      "prior_public_object_preserved": true
+    },
+    {
+      "run_id": "cc124-next-article-20261104-a",
+      "destination": "linkedin",
+      "prior_public_object_preserved": true
+    },
+    {
+      "run_id": "cc124-next-article-20261104-a",
+      "destination": "facebook_page",
+      "prior_public_object_preserved": true
+    },
+    {
+      "run_id": "cc124-next-article-20261104-a",
+      "destination": "instagram_business",
+      "prior_public_object_preserved": true
+    },
+    {
+      "run_id": "cc124-next-article-20261104-a",
+      "destination": "youtube",
+      "prior_public_object_preserved": true
+    },
+    {
+      "run_id": "cc124-next-article-20261104-a",
+      "destination": "linkedin_company",
+      "prior_public_object_preserved": true
+    }
+  ],
+  "operations": {
+    "cc074-retro-fomc-20261028-v1": {
+      "canonical_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+      "confirmed_destinations": [
+        "substack",
+        "telegram",
+        "discord",
+        "x",
+        "facebook_page",
+        "instagram_business",
+        "threads"
+      ],
+      "remaining": [
+        {
+          "destination": "linkedin",
+          "state": "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
+          "reconciliation": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+        },
+        {
+          "destination": "youtube",
+          "state": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+          "reconciliation": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+        }
+      ]
+    },
+    "cc124-next-article-20261104-a": {
+      "canonical_url": "https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains",
+      "confirmed_destinations": [
+        "substack",
+        "telegram",
+        "discord",
+        "x",
+        "linkedin",
+        "facebook_page",
+        "instagram_business",
+        "threads",
+        "youtube",
+        "linkedin_company"
+      ],
+      "remaining": []
+    }
+  },
+  "new_public_objects": [
+    {
+      "destination": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "publish_called": true,
+      "public_object_id": "18377871493214723",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfUwigun0Yi",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "publish_called": true,
+      "public_object_id": "18640795297005650",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfUw3gsH11N",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "destination": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "publish_called": true,
+      "public_object_id": "18248334526314041",
+      "public_object_url": "https://www.instagram.com/p/DfUxsztgc3v/",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    }
+  ],
+  "midterm": {
+    "observed_at_utc": "2026-11-04T15:28:34.198396+00:00",
+    "run_id": "cc107-midterm-preview-20261103-v1",
+    "operation": "midterm unsent social distribution",
+    "first_external_cause": "MIDTERM_PREVIEW_DEADLINE_EXPIRED",
+    "fixed_deadline_utc": "2026-11-03T23:00:00Z",
+    "deadline_source": "docs\\publisher\\EVENT_ARTICLES_V1\\midterm-20261103\\request.txt",
+    "deadline_source_sha256": "2b4139eb2d0891ac0c54e7ed3672a60108d38c641c9c2a54cb0439aa8a711fc8",
+    "additional_public_rights_cause": "EDITORIAL_CHART_FACT_RIGHTS_UNBOUND",
+    "restriction_reason": "No-red-tape 2a: PollCheck public redistribution permission is not bound to the chart; original preview deadline is an explicit source request requirement under decisions 36,40,42.",
+    "live_canonical_id": "223293057",
+    "live_canonical_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on",
+    "next_owner": "Claude Ops/source-rights owner",
+    "next_action": "Close the expired preview social obligation or authorize a separately dated post-event piece; supply public reuse evidence before using the polling chart."
+  },
+  "pytest_run": false,
+  "validation_kind": "production-store assertions, exact public Neo readbacks, actual browser image inspection; no pipeline code changed",
+  "cpi_sec_repair_owner": "CC-247",
+  "original_text_approval_clocks_preserved": true,
+  "schedules_changed": false,
+  "chat_messages_sent": false,
+  "new_windows_created": false
+}

@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-04T15:27:12.846026+00:00",
+  "authorization": "CC-171 current user instruction",
+  "fresh_absence_evidence": "fomc-instagram-absence.json",
+  "dated_editorial_review": "fomc-current-distribution-review.json",
+  "outcome": {
+    "destination": "instagram_business",
+    "status": "DISPATCH_CONFIRMED",
+    "publish_called": true,
+    "public_object_id": "18248334526314041",
+    "public_object_url": "https://www.instagram.com/p/DfUxsztgc3v/",
+    "reconciliation_status": "RECONCILED_CONFIRMED"
+  }
+}
