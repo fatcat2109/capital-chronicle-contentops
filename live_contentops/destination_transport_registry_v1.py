@@ -653,7 +653,7 @@ class DestinationReadinessManager:
             {},
         )
 
-    def passive_surface(self, surface: str, *, persist: bool = True) -> dict[str, Any]:
+    def passive_surface(self, surface: str, *, persist: bool = False) -> dict[str, Any]:
         """Local/process/cached-metadata readiness only; never opens or navigates a page."""
 
         registration = SURFACE_REGISTRY[surface]
@@ -835,7 +835,7 @@ class DestinationReadinessManager:
         }
 
     def probe_all(self, *, surfaces: Sequence[str] = TIER1_SURFACES,
-                   persist: bool = True) -> dict[str, Any]:
+                   persist: bool = False) -> dict[str, Any]:
         """Compatibility name for a passive snapshot; global active social probing is forbidden."""
         if BROWSER_INTERACTION_BUDGET_V1.edge_global_social_probe_allowed:
             raise RuntimeError("browser_budget_invalid_global_social_probe_enabled")
