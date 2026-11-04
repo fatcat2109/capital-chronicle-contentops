@@ -12,7 +12,9 @@ Two deterministic parts, with no model call:
   minute would add about 1 GB of disk a day (470 KB per response, measured 31 Oct).
 - ``build_feed`` / ``write_feed``: one stable JSON export, newest first. Each row has handle,
   text, url, tweet_id, posted_utc (the post id's own millisecond clock), ingested_utc (when the
-  capture saw it) and lag_seconds (ingested minus posted).
+  capture saw it) and lag_seconds (ingested minus posted). Beside it, ``x_list_shock_flags_v1.json``
+  holds the fast squawks' posts of the last 15 minutes in the shape CC-087's shock trigger takes
+  as ``--headlines`` flags.
 
 Use: private and internal, under JIM_X_LIST_PRIVATE_MAIN_RESEARCH_USE_20261029. The feed is
 context. Main's market-context sweep reads it first, a burst may start a shock analysis pass
@@ -47,6 +49,10 @@ INTERVAL_SECONDS = 60.0
 RELAUNCH_AFTER_SECONDS = 1800.0
 OWNER_RECHECK_SECONDS = 1800.0
 SCROLL_WHEN_NEW_AT_LEAST = 15
+FLAGS_NAME = "x_list_shock_flags_v1.json"
+FAST_SQUAWKS = ("FirstSquawk", "financialjuice", "DeItaone", "wallstengine", "zerohedge")
+FLAG_WINDOW_MINUTES = 15.0
+FLAG_MAX = 40
 X_EPOCH_MS = 1288834974657
 GMT7 = timezone(timedelta(hours=7))
 CAPTURE_ROUTE = "x_list_feed_v1_minute"
@@ -245,10 +251,40 @@ def render_feed(feed: Mapping[str, Any]) -> bytes:
     return ("\n".join(lines) + "\n").encode("utf-8")
 
 
+def shock_flags(feed: Mapping[str, Any], *, now: datetime, handles: Iterable[str] = FAST_SQUAWKS,
+                minutes: float = FLAG_WINDOW_MINUTES, limit: int = FLAG_MAX) -> list[dict[str, Any]]:
+    """CC-087's ``--headlines`` input: the fast squawks' own posts of the last minutes, newest first.
+
+    The shock trigger attaches these as flags; under its C7 rule they never fire or arm by themselves.
+    """
+    cutoff = now - timedelta(minutes=minutes)
+    wanted = {handle.lower() for handle in handles}
+    flags: list[dict[str, Any]] = []
+    for row in feed.get("rows") or []:
+        posted = _parse_utc(row["posted_utc"])
+        if posted is None or posted < cutoff:
+            break
+        if row["handle"].lower() in wanted and not row["is_retweet"]:
+            flags.append({"title": row["text"], "source": f"X list @{row['handle']}",
+                          "at_utc": row["posted_utc"], "url": row["url"], "tags": row["tags"]})
+            if len(flags) >= limit:
+                break
+    return flags
+
+
+def render_flags(flags: list[Mapping[str, Any]]) -> bytes:
+    if not flags:
+        return b"[]\n"
+    return ("[\n" + ",\n".join(json.dumps(flag, ensure_ascii=False) for flag in flags) + "\n]\n").encode("utf-8")
+
+
 def write_feed(path: Path, feed: Mapping[str, Any], *, attempts: int = 5) -> bool:
     """Atomic replace; a reader holding the file open only delays this minute's write."""
+    return _atomic_write(path, render_feed(feed), attempts=attempts)
+
+
+def _atomic_write(path: Path, payload: bytes, *, attempts: int = 5) -> bool:
     path.parent.mkdir(parents=True, exist_ok=True)
-    payload = render_feed(feed)
     for attempt in range(attempts):
         fd, temporary = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=path.parent)
         try:
@@ -498,10 +534,14 @@ class FeedRunner:
         else:
             captured = {"state": "BROWSER_NOT_READY", "attempted_utc": _iso(self.now_fn()),
                         "new_rows": 0, "browser": browser.get("browser"), "detail": browser.get("detail")}
-        feed = build_feed(now=self.now_fn(), capture=captured, tail=self.tail, sidecar_dir=self.sidecar_dir)
+        moment = self.now_fn()
+        feed = build_feed(now=moment, capture=captured, tail=self.tail, sidecar_dir=self.sidecar_dir)
         written = write_feed(self.feed_path, feed)
+        flags = shock_flags(feed, now=moment)
+        flags_written = _atomic_write(self.feed_path.with_name(FLAGS_NAME), render_flags(flags))
         record = {"at_utc": feed["generated_at_utc"], "capture": captured, "rows": feed["row_count"],
-                  "newest_age_seconds": feed["newest_age_seconds"], "feed_written": written}
+                  "newest_age_seconds": feed["newest_age_seconds"], "feed_written": written,
+                  "flags": len(flags), "flags_written": flags_written}
         _log(self.log_path, record)
         return record
 

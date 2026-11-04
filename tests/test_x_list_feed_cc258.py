@@ -76,6 +76,23 @@ def test_feed_is_newest_first_deduplicated_windowed_and_line_readable(tmp_path):
     assert json.loads(lines[1].rstrip(","))["handle"] == "financialjuice"
 
 
+def test_shock_flags_are_recent_fast_squawk_posts_in_the_trigger_shape(tmp_path):
+    side = tmp_path / "sidecars"
+    rows = [
+        _sidecar_row("financialjuice", "US ISM services 54.5", NOW - timedelta(minutes=1), NOW),
+        _sidecar_row("MikeZaccardi", "chart of the day", NOW - timedelta(minutes=2), NOW),
+        _sidecar_row("FirstSquawk", "Fed speaker headline", NOW - timedelta(minutes=10), NOW),
+        _sidecar_row("DeItaone", "older than the window", NOW - timedelta(minutes=20), NOW),
+    ]
+    retweet = _sidecar_row("zerohedge", "a retweet", NOW - timedelta(minutes=3), NOW)
+    retweet["is_retweet"] = True
+    _write_sidecar(side, "2026_11_05", rows + [retweet])
+    flags = feed.shock_flags(feed.build_feed(now=NOW, sidecar_dir=side), now=NOW)
+    assert [f["source"] for f in flags] == ["X list @financialjuice", "X list @FirstSquawk"]
+    assert set(flags[0]) >= {"title", "source", "at_utc"} and flags[0]["title"] == "US ISM services 54.5"
+    assert json.loads(feed.render_flags(flags)) == flags and json.loads(feed.render_flags([])) == []
+
+
 def test_tail_reads_only_complete_appended_lines(tmp_path):
     side = tmp_path / "sidecars"
     posted = NOW - timedelta(minutes=1)
@@ -234,6 +251,7 @@ def test_runner_writes_the_feed_while_the_browser_is_down_and_launches_once_per_
     assert bootstrap.launches == 2
     written = json.loads((tmp_path / "feed.json").read_text(encoding="utf-8"))
     assert written["capture"]["state"] == "BROWSER_NOT_READY" and written["rows"] == []
+    assert json.loads((tmp_path / feed.FLAGS_NAME).read_text(encoding="utf-8")) == []
     assert len((tmp_path / "runner.log").read_text().splitlines()) == 3
 
 
@@ -258,6 +276,8 @@ def test_runner_captures_through_a_ready_browser(tmp_path):
     runner.iterate()
     written = json.loads((tmp_path / "feed.json").read_text(encoding="utf-8"))
     assert written["capture"]["state"] == "CAPTURED" and written["row_count"] == 2
+    flags = json.loads((tmp_path / feed.FLAGS_NAME).read_text(encoding="utf-8"))
+    assert [f["source"] for f in flags] == ["X list @financialjuice", "X list @FirstSquawk"]
 
 
 def test_run_forever_honours_the_stop_file_and_runs_one_instance(tmp_path):
