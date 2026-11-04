@@ -1,0 +1,84 @@
+{
+  "observed_at_utc": "2026-11-04T01:18:03.689410+00:00",
+  "x_readback": {
+    "dispatch_id": "dispatch_c0fcacf4cb0cd0313dcd656f2978368e",
+    "destination": "x",
+    "reconciliation_status": "RECONCILED_CONFIRMED",
+    "public_write_performed": false,
+    "publish_called": false
+  },
+  "published_content_export": {
+    "status": "APPENDED",
+    "content_id": "substack:223408612",
+    "content_sha256": "aff5c0d4b8db5510633658be638f30914ed7d97734b781fab82e21ce9223fdce",
+    "outlet_count": 6
+  },
+  "published_content_feed": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+  "published_content_record": [
+    {
+      "conditional_calls": [],
+      "conflicts_notice": null,
+      "content_id": "substack:223408612",
+      "content_sha256": "aff5c0d4b8db5510633658be638f30914ed7d97734b781fab82e21ce9223fdce",
+      "disclaimer": "Analysis, not financial advice.",
+      "event_id": null,
+      "outlets": [
+        {
+          "name": "substack",
+          "url": "https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission"
+        },
+        {
+          "name": "discord",
+          "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1567341152611467389"
+        },
+        {
+          "name": "facebook_page",
+          "url": "https://www.facebook.com/1342369584748125/posts/1444133184571764"
+        },
+        {
+          "name": "telegram",
+          "url": "https://t.me/CapitalChronicle/75"
+        },
+        {
+          "name": "x",
+          "url": "https://x.com/Capitalnicle/status/2117784321562124568"
+        },
+        {
+          "name": "youtube",
+          "url": "https://www.youtube.com/post/UgkxpL7C_qPEDgq4_M3esrHD9Hpfseas5Fu_"
+        }
+      ],
+      "published_at_utc": "2026-11-04T00:50:53.619000+00:00",
+      "recorded_at_utc": "2026-11-04T01:18:02.085722+00:00",
+      "rights_class": "CC_OWN_ANALYSIS",
+      "schema_version": "contentops.published_content.v1",
+      "standfirst": "The SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.",
+      "title": "U.S. Securities and Exchange Commission plans November 9 data roundtable",
+      "type": "ARTICLE",
+      "visibility": "public"
+    }
+  ],
+  "production_day_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-04-bangkok\\newsroom_production_day_v1.json",
+  "production_day_id": "newsroom-production-day-2026-11-04-bangkok",
+  "distinct_canonical_items_published": 1,
+  "confirmed_copies_by_channel": {
+    "discord": 1,
+    "facebook_page": 1,
+    "substack": 1,
+    "telegram": 1,
+    "x": 1,
+    "youtube": 1
+  },
+  "publication_due": {
+    "due": true,
+    "next_publication_utc": "2026-11-03T08:06:40.240327+00:00",
+    "spacing_hours": 3.5,
+    "clock_basis": "FIRST_VERIFIED_CANONICAL_READBACK"
+  },
+  "next_new_article_due": {
+    "due": false,
+    "next_publication_utc": "2026-11-04T04:24:08.500363+00:00",
+    "spacing_hours": 3.5,
+    "clock_basis": "FIRST_VERIFIED_CANONICAL_READBACK"
+  }
+}

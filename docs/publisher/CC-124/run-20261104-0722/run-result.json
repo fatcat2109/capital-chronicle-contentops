@@ -1,0 +1,132 @@
+{
+  "item": "CC-124",
+  "standing_status": "OPEN",
+  "run_outcome": "PLUS_ONE_CANONICAL_WITH_FIVE_CONFIRMED_DERIVATIVES",
+  "recorded_at_utc": "2026-11-04T01:19:31.618063+00:00",
+  "launch_configuration": {
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "model_telemetry": "CONFIGURED_NOT_OBSERVED",
+    "native_invocation_id": "01a1a3ef-752d-7220-9694-c2f8db376808"
+  },
+  "branch": "backlog/cc-124-independent-publication",
+  "live_code": {
+    "applied_at_utc": "2026-11-04T01:15:46.328372+00:00",
+    "authority": "JIM_DECISIONS_20261030_DECISION_39",
+    "live_sha": "d210d8e2bfea9a8a5fe37d15a4c6429c05ccd69f",
+    "live_tag": "contentops-live-20261104-cc124-thread-readback",
+    "rollback_tag": "contentops-live-20261104-cc124-youtube-media",
+    "rollback_sha": "4938b7acd6e9ce3049d65ab3432c011ebbc78d77",
+    "unrelated_tracked_dirty_paths_preserved": true,
+    "consumer": "existing NativeReviewedPublication and NeoDestinationHandoff readback through operating CLI",
+    "runtime_restart_performed": false
+  },
+  "operation_id": "cc124-next-article-20261103-b",
+  "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+  "canonical_public_object_id": "223408612",
+  "canonical_url": "https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission",
+  "published_at_utc": "2026-11-04T00:50:53.619Z",
+  "first_text_approval_utc": "2026-11-03T16:38:46.874923+00:00",
+  "approval_clock_reset": false,
+  "within_15_minute_target": false,
+  "substack_publication_mode": "WEB_ONLY",
+  "email_verification_prompt_observed": false,
+  "confirmed_destinations": [
+    {
+      "destination": "substack",
+      "dispatch_id": "dispatch_27fa5f84bd333d9cc480ceba5d8c4f9c",
+      "public_object_id": "223408612",
+      "public_object_url": "https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_6f08856c1f557ccba894a0c58e6e633d",
+      "public_object_id": "75",
+      "public_object_url": "https://t.me/CapitalChronicle/75",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_e824878e1a1f05ad6488e6f15aa6d099",
+      "public_object_id": "1567341152611467389",
+      "public_object_url": null,
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_c0fcacf4cb0cd0313dcd656f2978368e",
+      "public_object_id": "2117784321562124568",
+      "public_object_url": "https://x.com/Capitalnicle/status/2117784321562124568",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "destination": "facebook_page",
+      "dispatch_id": "dispatch_9c4df1abf9421b1e987136fbad3b160a",
+      "public_object_id": "106091951705748_1444133184571764",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1444133184571764",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "destination": "youtube",
+      "dispatch_id": "dispatch_e2266182add291a84aa8feb637643c3a",
+      "public_object_id": "UgkxpL7C_qPEDgq4_M3esrHD9Hpfseas5Fu_",
+      "public_object_url": "https://www.youtube.com/post/UgkxpL7C_qPEDgq4_M3esrHD9Hpfseas5Fu_",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    }
+  ],
+  "x_thread_public_ids": [
+    "2117784321562124568",
+    "2117784324355608985",
+    "2117784326561829067"
+  ],
+  "remaining_destinations": [
+    {
+      "destination": "linkedin",
+      "status": "UNKNOWN_WRITE",
+      "dispatch_id": "dispatch_73a8a3ab22cc3d3b67e4c8c159ba0e42",
+      "cause": "Official member API attempt has no returned public identity and limited readback capability. Bounded Neo profile readback showed no SEC post.",
+      "next_actor": "Jim",
+      "next_action": "Confirm the exact post URL or its absence before retrying the retained dispatch."
+    },
+    {
+      "destination": "threads",
+      "status": "AUTH_INVALID",
+      "cause": "Official API identity probe returned HTTP 400. No send was made.",
+      "next_actor": "Jim",
+      "next_action": "Renew the existing Threads authorization, then continue the retained intent."
+    },
+    {
+      "destination": "instagram_business",
+      "status": "SKIPPED_IMAGE_REQUIRED",
+      "cause": "The exact retained publication plan explicitly skips this destination.",
+      "next_actor": null,
+      "next_action": null
+    }
+  ],
+  "production_day_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-04-bangkok\\newsroom_production_day_v1.json",
+  "distinct_daily_count": 1,
+  "published_content_feed": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+  "feed_content_id": "substack:223408612",
+  "feed_outlet_count": 6,
+  "next_new_article_due_utc": "2026-11-04T04:24:08.500363+00:00",
+  "status_display_next_due_gmt7": "2026-11-04T11:25:00+07:00",
+  "tests": {
+    "coordinator_and_finished_publication": 127,
+    "published_content_export": 69,
+    "final_native_protocol": 36
+  },
+  "active_newsroom_leases_at_finish": [],
+  "limits": [
+    "The retained 15-minute dispatch target was missed.",
+    "The Substack card has blank public alt text. The source-bound alt text remains retained internally.",
+    "YouTube displays the canonical URL as text and requests a one-time channel verification for clickable external links.",
+    "Neo automatically returned an inbox snapshot when the required Gmail tab was opened. Mailbox content was excluded from saved artifacts and not used.",
+    "The next 07:00 digest has not run since this article was published."
+  ],
+  "x_recovery_note": "A premature coordinator resume marked the still-open original composer claim UNKNOWN_WRITE. The profile and composer were read back before the original Post all action completed once. Final root and both replies are reconciled.",
+  "schedule_changes": 0,
+  "chat_messages_sent": 0,
+  "new_editorial_model_calls": 0,
+  "new_bindings_created": 0
+}

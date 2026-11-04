@@ -1,0 +1,11 @@
+{
+  "applied_at_utc": "2026-11-04T01:15:46.328372+00:00",
+  "authority": "JIM_DECISIONS_20261030_DECISION_39",
+  "live_sha": "d210d8e2bfea9a8a5fe37d15a4c6429c05ccd69f",
+  "live_tag": "contentops-live-20261104-cc124-thread-readback",
+  "rollback_tag": "contentops-live-20261104-cc124-youtube-media",
+  "rollback_sha": "4938b7acd6e9ce3049d65ab3432c011ebbc78d77",
+  "unrelated_tracked_dirty_paths_preserved": true,
+  "consumer": "existing NativeReviewedPublication and NeoDestinationHandoff readback through operating CLI",
+  "runtime_restart_performed": false
+}

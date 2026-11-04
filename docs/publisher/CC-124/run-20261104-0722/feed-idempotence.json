@@ -1,0 +1,9 @@
+{
+  "status": "ALREADY_RECORDED",
+  "content_id": "substack:223408612",
+  "content_sha256": "aff5c0d4b8db5510633658be638f30914ed7d97734b781fab82e21ce9223fdce",
+  "outlet_count": 6,
+  "feed_sha256_before": "3c41044d96aac863a4bda7aa9ae5f1af7ba165b2ce2ff47c10730f1b3781fcf8",
+  "feed_sha256_after": "3c41044d96aac863a4bda7aa9ae5f1af7ba165b2ce2ff47c10730f1b3781fcf8",
+  "exactly_once": true
+}
