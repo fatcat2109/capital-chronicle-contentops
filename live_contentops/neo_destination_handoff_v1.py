@@ -276,6 +276,17 @@ class NeoDestinationHandoff:
                     comparison_text = comparison_text.replace(_text(short), _text(canonical))
         text_match = (bool(segments) and all(_text(s) in comparison_text for s in segments)
             and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
+        if destination == "substack" and intent.get("daily_digest"):
+            # A native editor may render this structured link index as paragraphs
+            # or a list. Markdown list punctuation adds no reader-facing fact.
+            digest_segments = [re.sub(r"(?m)^-\s+(?=\[)", "", s) for s in segments]
+            text_match = bool(segments) and all(_text(s) in comparison_text for s in digest_segments)
+            from live_contentops.substack_daily_digest_v1 import validate_digest_intent
+            packet = validate_digest_intent(self.native_executor.store, intent)
+            expected_links = [(_text(a["title"]), a["url"]) for a in packet["articles"]]
+            observed_links = [(_text(a.get("text")), a.get("url"))
+                              for a in result.get("observed_links", [])]
+            text_match = text_match and observed_links == expected_links
         expected_media = {a.get("public_delivery_sha256") or a.get("sha256") for a in binding["media_manifest"]}
         expected_media.discard(None)
         media_match = expected_media <= set(result.get("observed_media_sha256") or [])

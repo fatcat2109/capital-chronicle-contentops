@@ -255,6 +255,7 @@ def test_full_native_digest_restart_loop_and_email_readback(tmp_path, monkeypatc
             else:
                 returned.update(content_verified=True,
                     observed_text=" ".join(request["content_binding"]["expected_text_segments"]),
+                    observed_links=[{"text": a["title"], "url": a["url"]} for a in packet["articles"]],
                     observed_media_sha256=[a["sha256"] for a in packet["media_assets"]],
                     email_delivery_confirmed=True, email_delivery_evidence_ref="CONTROLLED_TEST_NOT_BROWSER")
         response = {"tool_request_sha256":pending["tool_request_sha256"],
@@ -269,6 +270,35 @@ def test_full_native_digest_restart_loop_and_email_readback(tmp_path, monkeypatc
     assert len(store.list_platform_dispatches()) == 1
     assert continue_daily_digest(store, packet, **args)["confirmed"]
     assert len(store.list_platform_dispatches()) == 1
+
+
+@pytest.mark.parametrize("link_state", ["exact", "duplicate", "wrong", "missing"])
+def test_digest_paragraph_render_checks_exact_links_once(tmp_path, link_state):
+    store, feed = setup(tmp_path, [row()])
+    packet = prepared(store, feed)["packet"]
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    coordinator.register_plan(packet["digest_id"], packet["plan"])
+    message = next(r for r in store.list_outbox_messages() if r["destination"] == "substack")
+    intent = json.loads(message["payload"])
+    observed = [{"text": a["title"], "url": a["url"]} for a in packet["articles"]]
+    if link_state == "duplicate":
+        observed += observed
+    elif link_state == "wrong":
+        observed[0]["url"] = "https://capitalchronicle.substack.com/p/wrong"
+    elif link_state == "missing":
+        observed = []
+    class Observation:
+        def __init__(self):
+            self.store = store
+        def __call__(self, request):
+            return {"request_sha256": request["request_sha256"], "observed_identity": "capitalchronicle.substack.com",
+                "public_object_id": "123", "public_object_url": "https://capitalchronicle.substack.com/p/digest",
+                "content_verified": True, "observed_text": packet["native_payload"]["title"] + " "
+                    + packet["native_payload"]["subtitle"] + " " + packet["articles"][0]["title"] + " " + PUBLIC_NOTICE,
+                "observed_links": observed, "observed_media_sha256": [a["sha256"] for a in packet["media_assets"]]}
+    result = NeoDestinationHandoff(native_executor=Observation()).readback(destination="substack", intent=intent,
+        public_object_id="123", public_object_url="https://capitalchronicle.substack.com/p/digest")
+    assert result["verified"] is (link_state == "exact")
 
 
 def test_existing_host_tick_prepares_due_digest_once_without_browser_or_cycle(tmp_path, monkeypatch):
