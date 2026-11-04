@@ -415,3 +415,15 @@ These tests failed only because the task documents they check were deleted in 41
 | `tests/test_dispatch_outbox_candidate_contract.py` | `dispatch_outbox_candidate_contract` | The same: the only reference is the code-graph index. It read the ledger, challenge and 0174WY_WZ_XA artifacts the same way. |
 
 Their policy tests (`test_dispatch_gate_policy`, `test_dispatch_outbox_policy`) stay; they write to tmp and pass.
+
+## Tests of the retired Edge CDP identity probe
+
+No surface uses EDGE_CDP any more: Substack, X and YouTube community posts moved to BROWSEROS_NEO_MCP on 20 and 28 Oct. The Neo account checks are tested in the native Neo executor tests. These tests drove the Edge CDP probe on those surfaces:
+
+- `tests/test_destination_identity_pinning_v1.py`:
+  - `test_cases_a_b_substack_requires_exact_publication`;
+  - `test_cases_i_j_wrong_authenticated_browser_account_is_mismatch` (its only case was X_THREAD);
+  - `test_case_k_wrong_authenticated_youtube_channel_is_mismatch`;
+  - `test_youtube_public_handle_page_cannot_self_authorize_wrong_studio_channel`.
+
+The same file's routing test now expects the current routing (BROWSEROS_NEO_MCP, no CDP port) and passes.
