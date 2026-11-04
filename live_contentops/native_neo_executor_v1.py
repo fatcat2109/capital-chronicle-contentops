@@ -220,12 +220,19 @@ class NativeNeoExecutor:
         result = dict(response["result"])
         if result.get("request_sha256") != request_hash:
             raise ValueError("NATIVE_NEO_RETURN_REQUEST_MISMATCH")
+        expected_stable_id = packet["request"].get("expected_stable_id")
+        if (packet["request"]["action"] == "VERIFY_IDENTITY" and expected_stable_id
+                and result.get("authenticated") is True
+                and result.get("observed_stable_id") != expected_stable_id):
+            # Reject an incomplete observation before the immutable return is saved,
+            # so the caller can correct it on the same claimed read-only request.
+            raise ValueError("NATIVE_NEO_STABLE_IDENTITY_OBSERVATION_REQUIRED")
         result["native_tool_observation"] = observation
         result["native_tool_return_sha256"] = sha256_of(response)
         self._put(request_hash, "response", {"result": result}, packet["request"]["work_item_id"])
         return {"request_sha256": request_hash, "tool_return_sha256": sha256_of(response)}
 
-    def _fresh_identity_return(self, destination, surface, expected_identity):
+    def _fresh_identity_return(self, destination, surface, expected_identity, *, expected_stable_id=None):
         # Probe epochs deduplicate requests; actual observation time controls
         # freshness. Crossing a bucket must not discard a seconds-old proof.
         for row in reversed(self.store.list_outbox_messages(destination=DESTINATION)):
@@ -242,6 +249,7 @@ class NativeNeoExecutor:
             result = (returned or {}).get("result") or {}
             observation = result.get("native_tool_observation") or {}
             if (result.get("authenticated") is not True or result.get("observed_identity") != expected_identity
+                    or (expected_stable_id and result.get("observed_stable_id") != expected_stable_id)
                     or observation.get("native_invocation_id") != self.native_invocation_id):
                 continue
             age = self.clock() - datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
@@ -263,8 +271,11 @@ class NativeNeoExecutor:
                    "action": "VERIFY_IDENTITY", "surface": surface, "expected_identity": IDENTITIES[destination],
                    "entry_url": ROOTS[destination], "work_item_id": work,
                    "forbidden": ["login", "account_switch", "public_write", "saved_draft", "private_storage"]}
+        if registration.expected_stable_id:
+            request["expected_stable_id"] = registration.expected_stable_id
         request["request_sha256"] = sha256_of(request)
-        result = self._fresh_identity_return(destination, surface, IDENTITIES[destination])
+        result = self._fresh_identity_return(destination, surface, IDENTITIES[destination],
+            expected_stable_id=registration.expected_stable_id)
         if result is None:
             result = self(request)
         observed = result.get("native_tool_observation") or {}

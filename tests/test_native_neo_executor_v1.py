@@ -76,6 +76,51 @@ def test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes(tmp_p
     assert store.list_platform_dispatches() == []
 
 
+@pytest.mark.parametrize("observed_stable_id", [None, "wrong-company"])
+def test_company_probe_names_required_id_and_accepts_corrected_observation(tmp_path, observed_stable_id):
+    store, executor = setup(tmp_path)
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        executor.readiness("LINKEDIN_COMPANY_POST")
+    packet = pending.value.request
+    assert packet["request"]["expected_stable_id"] == "143198922"
+    observed = response(executor, packet, {"authenticated": True,
+        "observed_identity": "linkedin:company:143198922", "observed_stable_id": observed_stable_id})
+    request_hash = packet["request"]["request_sha256"]
+    with pytest.raises(ValueError, match="STABLE_IDENTITY_OBSERVATION_REQUIRED"):
+        executor.submit(request_hash, observed)
+    assert executor._get(request_hash, "response") is None
+    observed["result"]["observed_stable_id"] = "143198922"
+    executor.submit(request_hash, observed)
+    proof = executor.readiness("LINKEDIN_COMPANY_POST")
+    assert proof["authenticated"] and proof["proof_fresh"]
+    assert proof["stable_id"] == "143198922"
+    assert store.list_platform_dispatches() == []
+
+
+def test_legacy_company_probe_without_numeric_id_does_not_hold_new_probe(tmp_path):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+
+    store, executor = setup(tmp_path)
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        executor.readiness("LINKEDIN_COMPANY_POST")
+    legacy_request = dict(pending.value.request["request"])
+    legacy_request.pop("expected_stable_id")
+    legacy_request.pop("request_sha256")
+    legacy_request["request_sha256"] = sha256_of(legacy_request)
+    with pytest.raises(NativeNeoInputRequired) as legacy_pending:
+        executor(legacy_request)
+    legacy_packet = legacy_pending.value.request
+    observed = response(executor, legacy_packet, {"authenticated": True,
+        "observed_identity": "linkedin:company:143198922"})
+    executor.submit(legacy_request["request_sha256"], observed)
+    with pytest.raises(NativeNeoInputRequired) as fresh:
+        executor.readiness("LINKEDIN_COMPANY_POST")
+    assert fresh.value.request["request"]["expected_stable_id"] == "143198922"
+    assert fresh.value.request["request"]["request_sha256"] != legacy_request["request_sha256"]
+    assert executor._get(legacy_request["request_sha256"], "response")["result"]["authenticated"] is True
+    assert store.list_platform_dispatches() == []
+
+
 def test_unidentified_linkedin_api_attempt_reaches_existing_neo_readback():
     from types import SimpleNamespace
     calls = []
