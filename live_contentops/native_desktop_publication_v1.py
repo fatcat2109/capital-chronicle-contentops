@@ -674,6 +674,19 @@ class NativeReviewedPublication:
             "publication": self.projection(),
         }
 
+    def reader_derivative(self, *, response):
+        """Resume one reviewed derivative amendment on this existing operation."""
+        self.validate()
+        self._authorize_and_bind()
+        try:
+            result = self.coordinator.continue_reader_derivative(
+                work_item_id=self.binding["run_id"], destination=response["destination"],
+                review_reference=response["review_reference"])
+        except NativeNeoInputRequired as pending:
+            result = {"state": "PENDING_NATIVE", "native_tool_request": pending.request}
+        return {"classification": "NATIVE_READER_DERIVATIVE_CONTINUATION", "coordinator_result": result,
+            "publication": self.projection()}
+
     def tool(self, command, *, request_hash, response=None):
         self.validate()
         self._authorize_and_bind()

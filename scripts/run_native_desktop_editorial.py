@@ -232,6 +232,8 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
             raise ValueError("NATIVE_NEO_ACTIVE_INVOCATION_REQUIRED")
         if command == "publication-resume":
             return continuation.resume()
+        if command == "publication-reader-derivative":
+            return continuation.reader_derivative(response=response)
         if command in {"publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company"}:
             return continuation.linkedin_recovery(command.rsplit("-", 1)[-1], response=response)
         if not request_hash:
@@ -530,7 +532,10 @@ def operation(binding, **kwargs):
                 owner_manual_validation=binding.get("owner_manual_validation", False))
             same_writer = None
             same_writer_configuration = None
-            if native_role(request["stage"]) in {"write", "revise", "final-visual", "visual-edit"}:
+            dated_social_review = (native_role(request["stage"]) == "final-visual"
+                and request.get("governed_input", {}).get("distribution_recovery") is not None)
+            if (native_role(request["stage"]) in {"write", "revise", "final-visual", "visual-edit"}
+                    and not dated_social_review):
                 prior = turn._get("write", "response") or turn.visual_response()
                 if prior:
                     same_writer_configuration = prior["invocation_observation"]
@@ -555,7 +560,7 @@ def operation(binding, **kwargs):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("newsroom", "standing", "release-finished", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "next-candidate", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
-        "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
+        "publication-prepare", "publication-status", "publication-resume", "publication-reader-derivative", "publication-tool-begin", "publication-tool-submit",
         "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company", "quota-stop",
         "window-result", "window-notice-begin", "window-notice-record", "window-close", "window-blocked", "window-blocked-begin", "window-blocked-record",
         "task-result", "task-notice-begin", "task-notice-record", "task-blocked", "task-blocked-begin", "task-blocked-record",

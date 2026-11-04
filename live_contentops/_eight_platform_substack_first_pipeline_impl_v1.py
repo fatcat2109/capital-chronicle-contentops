@@ -3976,6 +3976,11 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
     selection = dict(context.get("selection") or {})
     media = dict(context.get("media") or {})
     media_assets = [dict(row) for row in (media.get("assets") or []) if isinstance(row, Mapping)]
+    if intent.get("reader_presentation_review"):
+        # The sole coordinator resolved the accepted immutable amendment above.
+        # Transport must use those media bytes, rather than the pre-amendment packet.
+        media_assets = [dict(row) for row in intent.get("media_assets", []) if isinstance(row, Mapping)]
+        article = dict(intent.get("reader_presentation_article") or article)
     delivery_only_assets = [
         dict(row) for row in (media.get("delivery_only_assets") or [])
         if isinstance(row, Mapping)
