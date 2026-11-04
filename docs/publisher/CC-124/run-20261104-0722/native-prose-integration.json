@@ -1,0 +1,11 @@
+{
+  "applied_at_utc": "2026-11-04T00:35:21.072500+00:00",
+  "authority": "JIM_DECISIONS_20261030_DECISION_39",
+  "live_sha": "99b43b412e0c2ec3c86f69a7afc1c5b35b9a97ca",
+  "live_tag": "contentops-live-20261104-cc124-native-prose",
+  "rollback_tag": "contentops-live-20261104-cc124-independent",
+  "rollback_sha": "53c6302dfdca6b44f7a5f1bfe7d9fc0cc21babb7",
+  "unrelated_tracked_dirty_paths_preserved": true,
+  "consumer": "existing publication-resume CLI in the ContentOps operating root",
+  "runtime_restart_performed": false
+}

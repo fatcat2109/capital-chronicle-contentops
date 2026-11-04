@@ -1,0 +1,22 @@
+{
+  "status": "SUCCESS",
+  "platform": "instagram_business",
+  "media_id": "18120907216762181",
+  "public_url": "https://www.instagram.com/p/DfTyJF7gR4t/",
+  "destination_identity": "official.capitalchronicle",
+  "account_identity_verified": true,
+  "visible_body_text": "September 2026 jobs: private gains beneath a weak headline September 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses. In focus: Private payrolls still grew, unemployment was 4.2 percent, and the U.S. Bureau of Labor Statistics described major-industry changes as small. That is the strongest countercase to a broad deterioration story: a weak headline could reflect a temporary mix of gains and losses, rather than persistent weakness. Full brief: https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains #CapitalChronicle Analysis, not financial advice. Readers decide whether to trade.",
+  "body_text_visible": true,
+  "substack_url_visible": true,
+  "canonical_url_text_visible": true,
+  "canonical_url_exact": true,
+  "caption_link_clickable": false,
+  "caption_link_clickable_required": false,
+  "profile_bio_link_verified": null,
+  "story_link_sticker_available": null,
+  "cta_mode": "canonical_url_text",
+  "link_semantics_classification": "PASS_FEED_CAPTION_URL_TEXT",
+  "meaningful_media_visible": true,
+  "expected_chart_visual_similarity": 0.9967,
+  "media_type": "IMAGE"
+}

@@ -1,0 +1,20 @@
+{
+  "within_bound_live_budget": true,
+  "expected_selection_request_sha256": "ac22adaa27018f98ed5844260791d5aba638299dca02c47978451454f24f7b5c",
+  "expected_evidence_sha256": "62554be1baf821e893ed3eb8b51e693a7578cc7896984642e8a908508bc940a3",
+  "candidate_id": "simple-story-4f7a8b2ea1d8351e03c5d6ab",
+  "research_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\source-recovery-september-employment",
+  "supporting_headline_ids": [
+    "cc124-bls-september-employment-original"
+  ],
+  "additional_source_requests": [
+    {
+      "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-10-30T01:34:41.252Z",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\source-recovery-september-employment\\release.html",
+      "capture_sha256": "1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe",
+      "retrieval_method": "REUSE_RETAINED_CC010_SOURCE_NO_NEW_NETWORK_REQUEST"
+    }
+  ]
+}

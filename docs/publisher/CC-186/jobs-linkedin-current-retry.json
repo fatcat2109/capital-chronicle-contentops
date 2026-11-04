@@ -1,0 +1,31 @@
+{
+  "status": "NATIVE_NEO_TOOL_PENDING",
+  "pending": {
+    "schema_version": "contentops.native_neo_tool_request.v1",
+    "operation_id": "cc124-next-article-20261104-a",
+    "required_tool": "mcp__browseros_neo__run",
+    "request": {
+      "schema_version": "contentops.neo_identity_probe.v1",
+      "destination": "linkedin",
+      "probe_epoch": 5979290,
+      "native_invocation_id": "01a1a5d9-b742-78a2-921c-44ae9bcbf17d",
+      "action": "VERIFY_IDENTITY",
+      "surface": "LINKEDIN_POST",
+      "expected_identity": "linkedin:jimcc",
+      "entry_url": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
+      "work_item_id": "native-neo-operation-9c137e07ce5607918a3bcf719927d6dc8e9910ffb893fd22bb3436c59b21511a",
+      "forbidden": [
+        "login",
+        "account_switch",
+        "public_write",
+        "saved_draft",
+        "private_storage"
+      ],
+      "request_sha256": "845a18202d8fac79c8f96db167ea2b643b462d255ea80357f6936f1d485a25fc"
+    },
+    "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+    "public_write_authorized": false,
+    "tool_request_sha256": "d4bf7872ed0db994b07d429dd32f3e9e929acd58118f342e724fa33379846187",
+    "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\native-neo\\845a18202d8fac79c8f96db167ea2b643b462d255ea80357f6936f1d485a25fc.request.json"
+  }
+}

@@ -1,0 +1,513 @@
+{
+  "request_sha256": "90483a1ee054384c706327d4f265991849e3f3f7fad4c622ac4350b3bd07bbee",
+  "output": {
+    "schema_version": "contentops.v1_simple_gemini_article.v1",
+    "article": {
+      "title": "September 2026 jobs: private gains beneath a weak headline",
+      "dek": "The U.S. Bureau of Labor Statistics initially reported 29,000 more September payroll jobs. Private gains offset government losses; earnings growth softened.",
+      "search_title": "September 2026 jobs report: payrolls rose 29,000",
+      "meta_description": "September 2026 payrolls rose 29,000 in the initial BLS report. Private employers added jobs as government payrolls fell. Read the sector breakdown.",
+      "social_hook": "September 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.",
+      "substack_body_markdown": "September's weak jobs total came with positive private hiring. In its October 2, 2026 release, the U.S. Bureau of Labor Statistics estimated that payrolls rose by 29,000. Private employers added jobs while government employment fell. Capital Chronicle's reading is that the composition matters to the diagnosis: a small net gain can coexist with continued private hiring. [[SOURCE:SOURCE_1]]\n\n### A small gain in a volatile hiring record\n\nSeptember's initial 29,000 increase was much smaller than August's initial 162,000 gain. The comparison is between first published estimates: the chart keeps each month's initial number, without replacing older observations with later revisions. [[SOURCE:SOURCE_2]]\n\nThe record also resists a simple story of uninterrupted decline. July's first estimate showed a loss of 23,000 jobs, followed by August's gain and September's smaller increase. For readers assessing hiring momentum, that volatility argues against letting one month's total carry the whole conclusion. [[SOURCE:SOURCE_2]]\n\n### Private gains, government losses\n\nThe sector split explains the arithmetic. Goods-producing payrolls rose by 18,000 and private service-providing payrolls by 28,000. Total private employment increased by 46,000, while government payrolls fell by 17,000, leaving the overall gain at 29,000. These are seasonally adjusted changes from the same BLS release. [[SOURCE:SOURCE_1]]\n\nGovernment losses weakened the headline without turning the private-sector total negative. Capital Chronicle's inference is that the composition deserves attention before the small overall gain is read as broad private retrenchment. BLS described employment in all major industries as little changed. [[SOURCE:SOURCE_1]]\n\n### Unemployment adds a separate test\n\nThe establishment payroll count and the household unemployment rate need separate readings. The 29,000 figure is a monthly change in payroll employment; the 4.2 percent figure is an unemployment rate. They are different measures, not competing versions of the same number. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]]\n\nSeptember's unemployment rate was above August's first-reported 4.1 percent, but below the first-reported 4.6 percent for November 2025. That wider context gives a check on the payroll headline. October 2025 is unavailable in this unemployment history, so the chart leaves a gap rather than drawing a line across it. [[SOURCE:SOURCE_3]]\n\n### Pay growth softened in September\n\nAverage hourly earnings for all private nonfarm employees rose by 0.1 percent in September, compared with 0.3 percent in August's first release. This is nominal monthly pay growth, not an inflation-adjusted measure of purchasing power. [[SOURCE:SOURCE_4]]\n\nThe softer September pay reading adds context to the smaller payroll gain, but does not identify its cause. The earnings chart also distinguishes the October 2025 and July 2026 rates calculated from published levels and rounded to one decimal from rates explicitly reported in the releases. [[SOURCE:SOURCE_4]] [[SOURCE:SOURCE_2]]\n\n### What this report can establish\n\nPrivate payrolls still grew, unemployment was 4.2 percent, and the U.S. Bureau of Labor Statistics described major-industry changes as small. That is the strongest countercase to a broad deterioration story: a weak headline could reflect a temporary mix of gains and losses, rather than persistent weakness. [[SOURCE:SOURCE_1]]\n\nFrom the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate. That combination would challenge the sector-mix explanation; stronger private gains would support it. This retrospective makes no claim about subsequent outcomes. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]]\n\nAnalysis, not financial advice. Readers decide whether to trade. [[SOURCE:SOURCE_1]]",
+      "reader_first_version": "DATA_JOURNALISM_V1",
+      "visual_editorial_decision": {
+        "channel_media": {
+          "discord": [
+            "payroll_first_print_trend",
+            "september_sector_breakdown"
+          ],
+          "facebook_page": [
+            "payroll_first_print_trend"
+          ],
+          "instagram_business": [
+            "payroll_first_print_trend",
+            "september_sector_breakdown",
+            "unemployment_first_print_trend",
+            "earnings_first_print_trend"
+          ],
+          "linkedin": [
+            "payroll_first_print_trend",
+            "september_sector_breakdown"
+          ],
+          "telegram": [
+            "payroll_first_print_trend",
+            "september_sector_breakdown"
+          ],
+          "threads": [
+            "payroll_first_print_trend"
+          ],
+          "x": [
+            "payroll_first_print_trend"
+          ],
+          "youtube": [
+            "payroll_first_print_trend"
+          ]
+        },
+        "channel_media_notes": "Use only readable complete chart variants accepted by each existing destination transport. Instagram may use the four charts as a carousel if the destination supports their exact variants; otherwise skip that destination locally. Do not crop away axes, source/date captions, the unemployment gap or the derived-rate note. Other channels use compact subsets tied to the same argument.",
+        "charts": [
+          {
+            "asset_id": "payroll_first_print_trend",
+            "data_spec": {
+              "axis_label": "Monthly change in payroll jobs (persons)",
+              "caption": "Monthly nonfarm payroll change, seasonally adjusted. BLS initial estimates; October 2024–September 2026. First prints, without later revisions.",
+              "chart_form": "Vertical monthly columns with a clear zero baseline, negative bars below zero, and September 2026 highlighted. Give the latest bar an explicit +29,000 label. Use comma-separated integer tick labels; no hidden scaling.",
+              "estimate_status": "Official initial estimates, not a forecast.",
+              "latest_value": 29000,
+              "measure": "Seasonally adjusted monthly net change in total nonfarm payroll employment",
+              "missingness": "Use every supplied observation; no smoothing, interpolation, annualization or missing-to-zero conversion.",
+              "observations": 24,
+              "official_series_id": "CES0000000001",
+              "period_end": "2026-09",
+              "period_start": "2024-10",
+              "series": "NFP_PAYROLL_CHANGE",
+              "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+              "source_ids": [
+                "SOURCE_2"
+              ],
+              "transform": "Identity: render the admitted monthly-change values in persons. They are already differences; do not difference again. No thousands label unless the renderer separately binds and applies division by 1000.",
+              "unit": "persons",
+              "vintage": "BLS first-reference-month estimates from each dated release, October 2024 through September 2026; not a single revised series. Use only release observations available by October 2, 2026. Later retrieval does not establish historical possession."
+            },
+            "placement_after": "A small gain in a volatile hiring record",
+            "question": "How does September's 29,000 payroll gain compare with the preceding two years of initial monthly estimates?",
+            "why_useful": "Shows the scale and volatility of net hiring, including negative months, so the latest weak positive print is not presented as an isolated record or a smooth trend."
+          },
+          {
+            "asset_id": "september_sector_breakdown",
+            "data_spec": {
+              "axis_label": "September payroll change (thousands of persons)",
+              "caption": "September 2026 payroll change by broad group, seasonally adjusted; thousands of persons. Source: BLS, October 2, 2026, Table B-1. The three groups sum to total nonfarm +29,000.",
+              "chart_form": "Three diverging horizontal bars from a shared, visible zero; positive bars to the right and government negative to the left. Print +18, +28 and −17 at their bar ends. Show total nonfarm +29 in a separate small reference label, not as another component. Preserve full group names and signed geometry.",
+              "estimate_status": "September initial estimate and same-release August comparator; no later revisions.",
+              "period_end": "2026-09",
+              "period_start": "2026-08",
+              "published_at_utc": "2026-10-02T12:30:00Z",
+              "rows": [
+                {
+                  "label": "Goods-producing",
+                  "value": 18
+                },
+                {
+                  "label": "Private service-providing",
+                  "value": 28
+                },
+                {
+                  "label": "Government",
+                  "value": -17
+                }
+              ],
+              "series": "Table B-1 mutually exclusive broad employment groups",
+              "source_content_sha256": "786e4868ee3bdb3ded8a6f5a3484c027781f77c07e9a21a033a8e33359cc1ee3",
+              "source_ids": [
+                "SOURCE_1"
+              ],
+              "source_raw_sha256": "1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe",
+              "source_table": "Table B-1, seasonally adjusted; explicit August 2026 to September 2026 change column in the October 2, 2026 release",
+              "source_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+              "total_nonfarm_reference": 29,
+              "transform": "Identity: use the three explicitly printed monthly changes in thousands. Deterministic reconciliation: 18 + 28 - 17 = 29. Total private +46 is a parent subtotal and must not be added as a fourth component. If recalculating from levels, use August and September levels from this same release, never an August first-print history point.",
+              "unit": "thousands of persons"
+            },
+            "placement_after": "Private gains, government losses",
+            "question": "Which broad parts of the payroll total added jobs, and which offset those gains in September?",
+            "why_useful": "Decomposes the 29,000 total into exhaustive, disjoint broad groups and shows that a government decline offset positive private hiring. It cannot establish detailed industry breadth or statistical significance."
+          },
+          {
+            "asset_id": "unemployment_first_print_trend",
+            "data_spec": {
+              "axis_label": "Unemployment rate (%)",
+              "calendar_months": 24,
+              "caption": "Civilian unemployment rate, seasonally adjusted, October 2024–September 2026. BLS first prints. October 2025 is unavailable in this series and is left unconnected.",
+              "chart_form": "Single line with small observation markers and a September 2026 endpoint label of 4.2%. Keep the October 2025 calendar position blank; break the line on both sides and never connect September to November 2025. Use a clearly labelled percent scale with readable ticks and no axis break; a full 0–5% scale is preferred to avoid overstating small moves.",
+              "estimate_status": "Official survey estimates, not a forecast.",
+              "latest_value": 4.2,
+              "measure": "Seasonally adjusted civilian unemployment rate",
+              "missingness": {
+                "period": "2025-10",
+                "render": "Unconnected gap; never impute or zero-fill.",
+                "status": "NOT_PUBLISHED_OR_NOT_AVAILABLE_AT_EVENT",
+                "value": null
+              },
+              "observed_values": 23,
+              "official_series_id": "LNS14000000",
+              "period_end": "2026-09",
+              "period_start": "2024-10",
+              "series": "UNEMPLOYMENT_RATE",
+              "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+              "source_ids": [
+                "SOURCE_3"
+              ],
+              "transform": "Identity: use supplied rate levels. Any adjacent monthly difference is computed in percentage points, not percent. Do not transform payroll jobs into unemployment rates or combine the two surveys on one axis.",
+              "unit": "percent",
+              "vintage": "BLS first-reference-month estimates from each dated release, October 2024 through September 2026; not a single revised series. Use only release observations available by October 2, 2026. Later retrieval does not establish historical possession."
+            },
+            "placement_after": "Unemployment adds a separate test",
+            "question": "Did the household-survey unemployment rate show the same degree of weakness as the payroll headline?",
+            "why_useful": "Adds a distinct measure from a different survey and prevents a weak payroll gain from being equated with a measured surge in unemployment."
+          },
+          {
+            "asset_id": "earnings_first_print_trend",
+            "data_spec": {
+              "axis_label": "Average hourly earnings change (% month on month)",
+              "caption": "Average hourly earnings, monthly change, seasonally adjusted, October 2024–September 2026. BLS first releases; October 2025 and July 2026 rates are calculated from published levels and rounded to one decimal. Nominal pay, without inflation adjustment.",
+              "chart_form": "Monthly columns with a zero baseline, labelled percent ticks and September 2026 highlighted at +0.1%. Distinguish October 2025 and July 2026 with a small visible derived-point marker and a concise note; do not rely on color alone.",
+              "derived_points": [
+                {
+                  "period": "2025-10",
+                  "status": "DERIVED_FROM_FIRST_RELEASE_LEVELS_NOT_EXPLICIT_PERCENT",
+                  "value": 0.4
+                },
+                {
+                  "period": "2026-07",
+                  "status": "DERIVED_FROM_FIRST_RELEASE_LEVELS_NOT_EXPLICIT_PERCENT",
+                  "value": 0.1
+                }
+              ],
+              "estimate_status": "Official initial estimates with two explicitly marked deterministic derived rates.",
+              "latest_value": 0.1,
+              "measure": "Seasonally adjusted monthly percentage change in average hourly earnings of all private nonfarm employees",
+              "observations": 24,
+              "official_series_id": "CES0500000003",
+              "period_end": "2026-09",
+              "period_start": "2024-10",
+              "series": "AHE_MOM",
+              "source_content_sha256": "0c3440d34c489d32c2469a45061242bdb73af266e5bdfc4c3a758fa29be95608",
+              "source_ids": [
+                "SOURCE_4"
+              ],
+              "transform": "Use admitted monthly percentage changes directly; do not calculate a percentage change of these rates. The two supplied DERIVED values use (current level / prior level - 1) * 100, HALF_UP_TO_ONE_DECIMAL, from the levels in their own first releases. Preserve the supplied rounded results; no annualization or inflation adjustment.",
+              "unit": "percent month on month",
+              "vintage": "BLS first-reference-month estimates from each dated release, October 2024 through September 2026; not a single revised series. Use only release observations available by October 2, 2026. Later retrieval does not establish historical possession."
+            },
+            "placement_after": "Pay growth softened in September",
+            "question": "Was the weak hiring print accompanied by softer monthly nominal wage growth?",
+            "why_useful": "Tests pay momentum separately from job creation, using a directly comparable monthly rate rather than an unsupported real-wage or inflation forecast."
+          }
+        ],
+        "contextual_photo_decision": "No admitted contextual photo identity is supplied. Use the four original official-data charts; do not create a photo ID, infer rights or delay this supported analysis to acquire optional media.",
+        "contextual_photo_ids": [],
+        "countercase": "Private payrolls still increased, unemployment was 4.2%, and BLS described the major-industry changes as small. One initial monthly estimate is subject to revision; payrolls count jobs while the household survey measures people. Monthly average earnings can also reflect workforce composition. The packet establishes neither a recession, broad layoffs, a policy decision nor an asset-price response.",
+        "economic_information_cutoff_utc": "2026-10-02T12:30:00Z",
+        "editorial_thesis": "September 2026 added only 29,000 nonfarm payroll jobs in the October 2 first release, but the composition matters: private employers added 46,000 while government lost 17,000. Read with 4.2% unemployment and 0.1% monthly nominal earnings growth, the report supports a cautious account of weak net hiring, rather than a claim of economy-wide job losses or a measured market reaction. This is a dated retrospective of the October 2 release.",
+        "essential_gaps": [],
+        "proposed_sections": [
+          "A small gain in a volatile hiring record",
+          "Private gains, government losses",
+          "Unemployment adds a separate test",
+          "Pay growth softened in September",
+          "What this report can establish"
+        ],
+        "reader_first_version": "DATA_JOURNALISM_V1",
+        "rejected_visuals": [
+          {
+            "proposal": "Additional general facts card",
+            "reason": "The selected charts already carry the central facts. A fifth summary panel would repeat them, and the proposed hours, participation and annual-earnings fields are not in this frozen source packet."
+          },
+          {
+            "proposal": "Smooth or connected unemployment series through October 2025",
+            "reason": "Would invent continuity across the supplied missing observation."
+          },
+          {
+            "proposal": "Detailed-industry breadth or contribution chart",
+            "reason": "The frozen exact source spans bind three broad disjoint groups, not a detailed industry distribution. Use the available honest decomposition."
+          },
+          {
+            "proposal": "Dual-axis payroll/unemployment overlay, annualized wage rate or market-reaction graphic",
+            "reason": "Unlike units or unsupported transformation/market observations would imply a relationship the sources do not measure."
+          },
+          {
+            "proposal": "Unbound workplace photograph",
+            "reason": "No exact admitted media identity and individual rights record is in the packet. Optional photo absence does not reduce the usefulness of the supplied official charts."
+          }
+        ],
+        "slug": "september-2026-jobs-report-slow-hiring-private-government",
+        "source_and_argument_limits": [
+          "Retrospective information boundary is the October 2, 2026 release. No later economic observation, revised value, election outcome or market price enters the analysis.",
+          "The history combines first-reference-month prints, not a continuous revised vintage. It does not prove the newsroom possessed each release at the original release time.",
+          "All central values are BLS factual estimates. The qualitative interpretation is editorial analysis; no proprietary probability, forecast, regime or position recommendation is introduced.",
+          "The four charts are selected here, not yet rendered or visually accepted. Preserve exact source/series/window/rights bindings through deterministic rendering and the existing editorial check."
+        ],
+        "story_kind": "ANALYSIS"
+      },
+      "display_date": "4 November 2026 · September jobs retrospective",
+      "social_mechanism_summary": "Government losses weakened the headline without turning the private-sector total negative. Capital Chronicle's inference is that the composition deserves attention before the small overall gain is read as broad private retrenchment. BLS described employment in all major industries as little changed.",
+      "social_policy_summary": "Private payrolls still grew, unemployment was 4.2 percent, and the U.S. Bureau of Labor Statistics described major-industry changes as small. That is the strongest countercase to a broad deterioration story: a weak headline could reflect a temporary mix of gains and losses, rather than persistent weakness.",
+      "social_cross_asset_summary": "From the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate. That combination would challenge the sector-mix explanation; stronger private gains would support it. This retrospective makes no claim about subsequent outcomes.",
+      "canonical_editorial_headline": "September 2026 jobs: private gains beneath a weak headline",
+      "subtitle": "The U.S. Bureau of Labor Statistics initially reported 29,000 more September payroll jobs. Private gains offset government losses; earnings growth softened.",
+      "seo_title": "September 2026 jobs report: payrolls rose 29,000",
+      "social_lede": "September 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.",
+      "slug": "september-2026-jobs-report-slow-hiring-private-government",
+      "canonical_slug_candidate": "september-2026-jobs-report-slow-hiring-private-government",
+      "primary_reader_question": "What did September 2026 payroll growth reveal once private hiring, government losses, unemployment and pay were separated?",
+      "secondary_reader_questions": [
+        "How did private payroll gains and government losses combine into the headline total?",
+        "How did September compare with earlier first-reported hiring estimates?",
+        "What would challenge the composition-based countercase?"
+      ],
+      "entities": [
+        "U.S. Bureau of Labor Statistics",
+        "United States"
+      ],
+      "topics": [
+        "September 2026 employment report",
+        "Nonfarm payrolls",
+        "Unemployment",
+        "Average hourly earnings"
+      ],
+      "search_freshness_class": "EVERGREEN",
+      "internal_link_candidates": [],
+      "structured_data_packet": null,
+      "author_identity": "Capital Chronicle",
+      "publisher_identity": "Capital Chronicle",
+      "institutional_edge_editorial_packet_sha256": "fd79fd5306838146cc6e4ba3f0c68d4fa95960d2c388010151162541c7f6d77d",
+      "humor_lines": [],
+      "epistemic_claims": [
+        {
+          "text": "Capital Chronicle's reading is that the composition matters to the diagnosis: a small net gain can coexist with continued private hiring.",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "public_treatment": "EXPLICIT_ANALYSIS",
+          "source_ids": [
+            "SOURCE_1"
+          ]
+        },
+        {
+          "text": "Government losses weakened the headline without turning the private-sector total negative. Capital Chronicle's inference is that the composition deserves attention before the small overall gain is read as broad private retrenchment. BLS described employment in all major industries as little changed.",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "public_treatment": "EXPLICIT_ANALYSIS",
+          "source_ids": [
+            "SOURCE_1"
+          ]
+        },
+        {
+          "text": "Private payrolls still grew, unemployment was 4.2 percent, and the U.S. Bureau of Labor Statistics described major-industry changes as small. That is the strongest countercase to a broad deterioration story: a weak headline could reflect a temporary mix of gains and losses, rather than persistent weakness.",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "public_treatment": "SUPPORTED_SYNTHESIS",
+          "source_ids": [
+            "SOURCE_1"
+          ]
+        },
+        {
+          "text": "From the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate. That combination would challenge the sector-mix explanation; stronger private gains would support it. This retrospective makes no claim about subsequent outcomes.",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "public_treatment": "CONDITIONAL",
+          "source_ids": [
+            "SOURCE_1",
+            "SOURCE_3"
+          ]
+        }
+      ]
+    },
+    "cited_sources": [
+      {
+        "source_id": "SOURCE_1",
+        "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+        "publisher": "U.S. Bureau of Labor Statistics",
+        "published_at_utc": "2026-10-02T12:30:00Z"
+      },
+      {
+        "source_id": "SOURCE_2",
+        "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+        "publisher": "U.S. Bureau of Labor Statistics (CC-010 first-print projection)",
+        "published_at_utc": "2026-10-02T12:30:00Z"
+      },
+      {
+        "source_id": "SOURCE_3",
+        "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+        "publisher": "U.S. Bureau of Labor Statistics (CC-010 first-print projection)",
+        "published_at_utc": "2026-10-02T12:30:00Z"
+      },
+      {
+        "source_id": "SOURCE_4",
+        "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+        "publisher": "U.S. Bureau of Labor Statistics (CC-010 first-print projection)",
+        "published_at_utc": "2026-10-02T12:30:00Z"
+      }
+    ],
+    "material_claim_bindings": [
+      {
+        "claim_id": "metadata-title",
+        "claim_text": "September 2026 jobs: private gains beneath a weak headline",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.\n\nTable B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28\n\nGovernment 23,568 22,138 22,499 23,355 23,543 23,300 23,344 23,327 -17",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "metadata-dek",
+        "claim_text": "The U.S. Bureau of Labor Statistics initially reported 29,000 more September payroll jobs. Private gains offset government losses; earnings growth softened.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.\n\nTable B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28\n\nGovernment 23,568 22,138 22,499 23,355 23,543 23,300 23,344 23,327 -17",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "metadata-search_title",
+        "claim_text": "September 2026 jobs report: payrolls rose 29,000",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.\n\nTable B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28\n\nGovernment 23,568 22,138 22,499 23,355 23,543 23,300 23,344 23,327 -17",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "metadata-meta_description",
+        "claim_text": "September 2026 payrolls rose 29,000 in the initial BLS report. Private employers added jobs as government payrolls fell. Read the sector breakdown.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.\n\nTable B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28\n\nGovernment 23,568 22,138 22,499 23,355 23,543 23,300 23,344 23,327 -17",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "metadata-social_hook",
+        "claim_text": "September 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.\n\nTable B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28\n\nGovernment 23,568 22,138 22,499 23,355 23,543 23,300 23,344 23,327 -17",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "metadata-dek-earnings",
+        "claim_text": "The U.S. Bureau of Labor Statistics initially reported 29,000 more September payroll jobs. Private gains offset government losses; earnings growth softened.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_4",
+        "support_excerpt": "BLS CES0500000003 AHE_MOM; 2026-08; 0.3 percent; SA; OBSERVED; release 2026-09-04T12:30:00Z\nBLS CES0500000003 AHE_MOM; 2026-09; 0.1 percent; SA; OBSERVED; release 2026-10-02T12:30:00Z",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "lead-payroll-composition",
+        "claim_text": "September's weak jobs total came with positive private hiring. In its October 2, 2026 release, the U.S. Bureau of Labor Statistics estimated that payrolls rose by 29,000. Private employers added jobs while government employment fell. Capital Chronicle's reading is that the composition matters to the diagnosis: a small net gain can coexist with continued private hiring.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.\n\nTable B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28\n\nGovernment 23,568 22,138 22,499 23,355 23,543 23,300 23,344 23,327 -17",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "initial-august-september",
+        "claim_text": "September's initial 29,000 increase was much smaller than August's initial 162,000 gain. The comparison is between first published estimates: the chart keeps each month's initial number, without replacing older observations with later revisions.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-08; 162000 persons; SA; OBSERVED; release 2026-09-04T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-09; 29000 persons; SA; OBSERVED; release 2026-10-02T12:30:00Z",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "july-august-september",
+        "claim_text": "The record also resists a simple story of uninterrupted decline. July's first estimate showed a loss of 23,000 jobs, followed by August's gain and September's smaller increase. For readers assessing hiring momentum, that volatility argues against letting one month's total carry the whole conclusion.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-07; -23000 persons; SA; OBSERVED; release 2026-08-07T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-08; 162000 persons; SA; OBSERVED; release 2026-09-04T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-09; 29000 persons; SA; OBSERVED; release 2026-10-02T12:30:00Z",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "sector-components",
+        "claim_text": "The sector split explains the arithmetic. Goods-producing payrolls rose by 18,000 and private service-providing payrolls by 28,000. Total private employment increased by 46,000, while government payrolls fell by 17,000, leaving the overall gain at 29,000. These are seasonally adjusted changes from the same BLS release.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.\n\nTable B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28\n\nGovernment 23,568 22,138 22,499 23,355 23,543 23,300 23,344 23,327 -17",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "composition-inference",
+        "claim_text": "Government losses weakened the headline without turning the private-sector total negative. Capital Chronicle's inference is that the composition deserves attention before the small overall gain is read as broad private retrenchment. BLS described employment in all major industries as little changed.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.\n\nTable B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28\n\nGovernment 23,568 22,138 22,499 23,355 23,543 23,300 23,344 23,327 -17",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "different-measurements",
+        "claim_text": "The establishment payroll count and the household unemployment rate need separate readings. The 29,000 figure is a monthly change in payroll employment; the 4.2 percent figure is an unemployment rate. They are different measures, not competing versions of the same number.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "unemployment-august-september",
+        "claim_text": "September's unemployment rate was above August's first-reported 4.1 percent, but below the first-reported 4.6 percent for November 2025. That wider context gives a check on the payroll headline. October 2025 is unavailable in this unemployment history, so the chart leaves a gap rather than drawing a line across it.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2026-08; 4.1 percent; SA; OBSERVED; release 2026-09-04T12:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2026-09; 4.2 percent; SA; OBSERVED; release 2026-10-02T12:30:00Z",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "unemployment-november",
+        "claim_text": "September's unemployment rate was above August's first-reported 4.1 percent, but below the first-reported 4.6 percent for November 2025. That wider context gives a check on the payroll headline. October 2025 is unavailable in this unemployment history, so the chart leaves a gap rather than drawing a line across it.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2025-11; 4.6 percent; SA; OBSERVED; release 2025-12-16T13:30:00Z",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "unemployment-history-gap",
+        "claim_text": "September's unemployment rate was above August's first-reported 4.1 percent, but below the first-reported 4.6 percent for November 2025. That wider context gives a check on the payroll headline. October 2025 is unavailable in this unemployment history, so the chart leaves a gap rather than drawing a line across it.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2025-09; 4.4 percent; SA; OBSERVED; release 2025-11-20T13:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2025-11; 4.6 percent; SA; OBSERVED; release 2025-12-16T13:30:00Z",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "earnings-august-september",
+        "claim_text": "Average hourly earnings for all private nonfarm employees rose by 0.1 percent in September, compared with 0.3 percent in August's first release. This is nominal monthly pay growth, not an inflation-adjusted measure of purchasing power.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_4",
+        "support_excerpt": "BLS CES0500000003 AHE_MOM; 2026-08; 0.3 percent; SA; OBSERVED; release 2026-09-04T12:30:00Z\nBLS CES0500000003 AHE_MOM; 2026-09; 0.1 percent; SA; OBSERVED; release 2026-10-02T12:30:00Z",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "earnings-derived-october",
+        "claim_text": "The softer September pay reading adds context to the smaller payroll gain, but does not identify its cause. The earnings chart also distinguishes the October 2025 and July 2026 rates calculated from published levels and rounded to one decimal from rates explicitly reported in the releases.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_4",
+        "support_excerpt": "BLS CES0500000003 AHE_MOM; 2025-10; 0.4 percent; SA; DERIVED; release 2025-12-16T13:30:00Z",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "earnings-derived-july",
+        "claim_text": "The softer September pay reading adds context to the smaller payroll gain, but does not identify its cause. The earnings chart also distinguishes the October 2025 and July 2026 rates calculated from published levels and rounded to one decimal from rates explicitly reported in the releases.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_4",
+        "support_excerpt": "BLS CES0500000003 AHE_MOM; 2026-07; 0.1 percent; SA; DERIVED; release 2026-08-07T12:30:00Z",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "countercase",
+        "claim_text": "Private payrolls still grew, unemployment was 4.2 percent, and the U.S. Bureau of Labor Statistics described major-industry changes as small. That is the strongest countercase to a broad deterioration story: a weak headline could reflect a temporary mix of gains and losses, rather than persistent weakness.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.\n\nTable B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28\n\nGovernment 23,568 22,138 22,499 23,355 23,543 23,300 23,344 23,327 -17",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "next-test-private",
+        "claim_text": "From the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate. That combination would challenge the sector-mix explanation; stronger private gains would support it. This retrospective makes no claim about subsequent outcomes.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.\n\nTable B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28\n\nGovernment 23,568 22,138 22,499 23,355 23,543 23,300 23,344 23,327 -17",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "next-test-unemployment",
+        "claim_text": "From the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate. That combination would challenge the sector-mix explanation; stronger private gains would support it. This retrospective makes no claim about subsequent outcomes.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2026-09; 4.2 percent; SA; OBSERVED; release 2026-10-02T12:30:00Z",
+        "attribution_required": true
+      }
+    ],
+    "public_write_attempted": false
+  },
+  "invocation_observation": {
+    "invocation_id": "/root/native_writer_e23ec03f83eb",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "speed": "standard",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Exact native task assignment cc124-next-article-20261104-a:write and frozen request 90483a1ee054384c706327d4f265991849e3f3f7fad4c622ac4350b3bd07bbee.",
+    "observation_source": "Canonical task name /root/native_writer_e23ec03f83eb is supplied by the supported NEW_TASK context. Actual model and effort runtime telemetry are not exposed in this native role turn."
+  }
+}

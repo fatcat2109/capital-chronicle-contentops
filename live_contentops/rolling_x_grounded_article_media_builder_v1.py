@@ -1089,6 +1089,8 @@ def validate_source_fact_card(asset, documents):
 
 
 def validate_source_value_chart(asset, documents):
+    if asset.get("post_card_binding"):
+        return validate_post_image_card(asset)
     if asset.get("fact_card_packet"):
         return validate_source_fact_card(asset, documents)
     if asset.get("editorial_data_packet"):
@@ -1103,6 +1105,120 @@ def validate_source_value_chart(asset, documents):
     if (asset.get("transform_sha256") != expected or asset.get("computed_values") != values
             or _sha256_file(Path(asset["path"])) != asset.get("sha256")):
         raise ValueError("CHART_DATA_OR_BYTES_CHANGED")
+
+
+POST_IMAGE_POLICY = "JIM_DECISION_61_POST_IMAGES"
+
+
+def build_post_image_card(article, *, output_dir, accepted_evidence_sha256):
+    """Render the post's admitted headline facts, adding no numbers or source expression.
+
+    The original prose remains the factual authority. This is a typographic card,
+    never a history, private-survey table, forecast or invented illustration.
+    """
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.event_article_guard_v1 import check_publication_copy
+    title, subtitle = str(article.get("title") or ""), str(article.get("subtitle") or "")
+    if (not title.strip() or not article.get("substack_body_markdown")
+            or not re.fullmatch(r"[0-9a-f]{64}", str(accepted_evidence_sha256 or ""))):
+        raise ValueError("POST_CARD_ADMITTED_ARTICLE_AND_EVIDENCE_REQUIRED")
+    check_publication_copy({"title": title, "subtitle": subtitle}, require_notice=False)
+    binding = {"policy": POST_IMAGE_POLICY, "title": title, "subtitle": subtitle,
+               "article_body_sha256": _sha256_text(article["substack_body_markdown"]),
+               "accepted_evidence_sha256": accepted_evidence_sha256}
+    path = Path(output_dir) / ("post-card-" + sha256_of(binding)[:20] + ".png")
+    # Reuse the existing deterministic renderer; facts stay verbatim and hash-bound.
+    import textwrap
+    _render_text_card(path=path, header="CAPITAL CHRONICLE",
+        title_lines=textwrap.wrap(title, width=80),
+        body_lines=[("", subtitle)] if subtitle else [],
+        footer_lines=["Analysis, not financial advice. Readers decide whether to trade."], wrap_body=True)
+    return {"asset_id": "post-card-" + sha256_of(binding)[:20], "path": str(path.resolve()),
+        "sha256": _sha256_file(path), "width": 1600, "height": 900,
+        "modality": "source_backed_chart", "media_role": "editorial_data_journalism",
+        "visual_type": "ADMITTED_HEADLINE_FACTS_CARD", "post_card_binding": binding,
+        "transform_sha256": sha256_of(binding), "quantitative_chart": False,
+        "caption": title, "alt_text": title + (". " + subtitle if subtitle else ""),
+        "source_page_url": "https://capitalchronicle.substack.com/",
+        "source_label": "Capital Chronicle", "source_reuse_basis": "Own admitted headline and deck; original layout",
+        "underlying_source_rights_status": "attributed_facts_independent_chart", "render_rights_status": OWN_RENDER_RIGHTS_STATE,
+        "provenance_status": "VERIFIED_ADMITTED_POST_FACTS", "placement_after": "introduction",
+        "editorial_data_packet": {"question": "What does this post report?"}}
+
+
+def validate_post_image_card(asset, *, article=None, accepted_evidence_sha256=None):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.event_article_guard_v1 import check_publication_copy
+    binding = asset["post_card_binding"]
+    check_publication_copy({k: binding.get(k, "") for k in ("title", "subtitle")}, require_notice=False)
+    if (binding.get("policy") != POST_IMAGE_POLICY
+            or not re.fullmatch(r"[0-9a-f]{64}", str(binding.get("accepted_evidence_sha256") or ""))
+            or asset.get("transform_sha256") != sha256_of(binding)
+            or _sha256_file(Path(asset["path"])) != asset.get("sha256")):
+        raise ValueError("POST_CARD_ADMISSION_OR_BYTES_CHANGED")
+    if article is not None and any(binding[k] != value for k, value in {
+            "title": str(article.get("title") or ""), "subtitle": str(article.get("subtitle") or ""),
+            "article_body_sha256": _sha256_text(article["substack_body_markdown"])}.items()):
+        raise ValueError("POST_CARD_ADMITTED_COPY_CHANGED")
+    if accepted_evidence_sha256 is not None and binding["accepted_evidence_sha256"] != accepted_evidence_sha256:
+        raise ValueError("POST_CARD_ADMITTED_EVIDENCE_CHANGED")
+
+
+def post_image_view(result, *, output_dir):
+    """Choose usable optional assets, then supply an owned card to every destination.
+
+    A caller still enforces required official-history charts for release analysis.
+    Exclusion reasons remain internal; no licence is inferred for excluded media.
+    """
+    from copy import deepcopy
+    from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
+    view = deepcopy(result)
+    article, documents = view["article"], view.get("evidence", [])
+    evidence_hash = (view.get("accepted_evidence_sha256") or
+                     view.get("simple_result", {}).get("accepted_evidence_sha256") or
+                     view.get("simple_result", {}).get("publication_lifecycle_plan", {}).get("accepted_evidence_sha256"))
+    usable, excluded = [], []
+    for asset in view.get("media_assets", []):
+        try:
+            if asset.get("modality") == "documentary_photo":
+                validate_contextual_photo(asset, require_pixel_review=False)
+            elif asset.get("post_card_binding"):
+                validate_post_image_card(asset, article=article, accepted_evidence_sha256=evidence_hash)
+            else:
+                validate_source_value_chart(asset, documents)
+            if _sha256_file(Path(asset["path"])) != asset.get("sha256"):
+                raise ValueError("MEDIA_BYTES_CHANGED")
+            usable.append(asset)
+        except (ValueError, OSError, KeyError) as exc:
+            excluded.append({"asset_id": asset.get("asset_id"), "sha256": asset.get("sha256"),
+                             "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__})
+    charts = [a for a in usable if a.get("modality") == "source_backed_chart"]
+    if not charts:
+        charts = [build_post_image_card(article, output_dir=output_dir, accepted_evidence_sha256=evidence_hash)]
+        usable.insert(0, charts[0])
+    allowed = {a["asset_id"] for a in usable}
+    default = charts[0]["asset_id"]
+    from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    decision = view.get("visual_editorial_decision") or article.get("visual_editorial_decision")
+    choices = article.get("native_destination_media") or (decision or {}).get("channel_media") or {}
+    choices = {d: [i for i in choices.get(d, []) if i in allowed] or [default]
+               for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
+    article["native_destination_media"] = choices
+    if decision:
+        original_charts = {c["asset_id"]: c for c in decision.get("charts", [])}
+        decision = {**decision, "charts": [{**original_charts.get(a["asset_id"], {}), "asset_id": a["asset_id"],
+            "question": a.get("editorial_data_packet", {}).get("question") or a.get("fact_card_packet", {}).get("question"),
+            "why_useful": original_charts.get(a["asset_id"], {}).get("why_useful") or "Shows the post's admitted headline facts.",
+            "data_spec": original_charts.get(a["asset_id"], {}).get("data_spec") or a.get("post_card_binding"),
+            "placement_after": a.get("placement_after", "introduction")} for a in charts],
+            "contextual_photo_ids": [a["asset_id"] for a in usable if a.get("modality") == "documentary_photo"],
+            "channel_media": choices}
+        article["visual_editorial_decision"] = decision
+        view["visual_editorial_decision"] = decision
+    view["media_assets"] = usable
+    view["post_image_policy"] = {"policy": POST_IMAGE_POLICY, "default_asset_id": default,
+        "excluded_optional_assets": excluded, "channel_media": choices}
+    return view
 
 
 def _editorial_data_values(packet, documents):
@@ -2068,8 +2184,16 @@ def _retained_chart_documents(documents, binding):
         raise ValueError("EDITORIAL_CHART_RETAINED_SOURCE_REVISION_CHANGED")
     records = {r["document"].get("document_id") or r["headline_id"]: r
                for r in research.records.values()}
+    selected_ids = set(binding["source_capture_hashes"])
+    if not selected_ids or not selected_ids <= {d["document_id"] for d in documents}:
+        raise ValueError("EDITORIAL_CHART_RETAINED_SOURCE_BINDING_CHANGED")
     bound = []
     for doc in documents:
+        # Typed history keeps its own independently verified rights and lineage.
+        # Reopen only the exact source documents named by this retained binding.
+        if doc["document_id"] not in selected_ids:
+            bound.append(doc)
+            continue
         record = records.get(doc["document_id"])
         if (not record or record["permitted_source_text"] != doc["canonical_content_text"]
                 or record["document"]["source_url"] != (doc.get("url") or doc.get("source_url"))
@@ -2088,7 +2212,7 @@ def build_editorial_data_chart(packet, documents, *, output_dir, retained_source
     values = _editorial_data_values(packet, documents)
     source_links = editorial_chart_source_links(packet, documents)
     asset_id = packet["asset_id"]
-    if not re.fullmatch(r"[a-z][a-z0-9-]{2,90}", asset_id):
+    if not re.fullmatch(r"[a-z][a-z0-9_-]{2,90}", asset_id):
         raise ValueError("EDITORIAL_CHART_DISTINCT_ID_REQUIRED")
     path = Path(output_dir) / "media_assets" / (asset_id + ".png")
     data_path = path.with_suffix(".json")

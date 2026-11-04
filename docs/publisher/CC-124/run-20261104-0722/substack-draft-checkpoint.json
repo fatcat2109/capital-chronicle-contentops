@@ -1,0 +1,14 @@
+{
+  "operation_id": "cc124-next-article-20261103-b",
+  "dispatch_attempt_identity": "dispatch_27fa5f84bd333d9cc480ceba5d8c4f9c",
+  "draft_id": "223408612",
+  "draft_url": "https://capitalchronicle.substack.com/publish/post/223408612",
+  "page_id": 206,
+  "window_id": 1698401400,
+  "untouched_gmail_page_id": 207,
+  "publication_confirmed": false,
+  "request_sha256": "1d401c11f58feef98308c60dc5a9d205f67df32b6fc190ef451e6a7bffa80e44",
+  "prior_editor_page_id": 205,
+  "reopened_same_draft": true,
+  "observed_at_utc": "2026-11-04T00:44:43.968480+00:00"
+}

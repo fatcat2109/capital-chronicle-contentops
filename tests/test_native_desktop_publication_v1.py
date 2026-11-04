@@ -32,8 +32,20 @@ PROOF = ROOT / "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018"
 CANONICAL = "https://capitalchronicle.substack.com/p/controlled-goal32"
 
 
-def seeded(tmp_path, monkeypatch, *, manual=False, final_visual=True):
+def seeded(tmp_path, monkeypatch, *, manual=False, final_visual=True, site_first=False):
     """Retain exact Goal31 prose/evidence/media bytes; relocate only this test packet."""
+    if not site_first:
+        # These cases exercise recovery of the retained October Substack-first epoch.
+        # New site-first behavior is covered with current public-copy fixtures separately.
+        import live_contentops.v1_simple_gemini_newsroom_v1 as newsroom
+        build = newsroom._build_simple_publication_lifecycle_plan
+        def historical_plan(**kwargs):
+            plan = build(**kwargs)
+            plan.pop("distribution_policy", None)
+            plan["substack_first_dependency"] = True
+            plan["plan_hash"] = newsroom._hash({k: v for k, v in plan.items() if k != "plan_hash"})
+            return plan
+        monkeypatch.setattr(newsroom, "_build_simple_publication_lifecycle_plan", historical_plan)
     fixture = json.loads(
         gzip.decompress((PROOF / "goal32/retained_goal31_packet.json.gz").read_bytes())
     )

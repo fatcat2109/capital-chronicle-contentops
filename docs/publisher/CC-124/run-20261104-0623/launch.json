@@ -1,0 +1,12 @@
+{
+  "item": "CC-124",
+  "actual_entry_utc": "2026-11-03T23:23:52Z",
+  "recorded_at_utc": "2026-11-03T23:27:16.029558+00:00",
+  "pid": 21792,
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "telemetry": "CONFIGURED_NOT_OBSERVED",
+  "thread_id": "01a1a3b9-e880-7561-b8a6-434099f77ccc",
+  "branch": "backlog/cc-124-article-20261104",
+  "operating_source": "f7169bc049e48378de83c7032bae30ac855dd9f6"
+}

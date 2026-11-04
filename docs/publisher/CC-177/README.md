@@ -89,3 +89,11 @@ weekly reader/rendering in Main's existing CC-122 digest; CC-135 awaits Ops' rev
 CC-136 integration and CC-014/site binding. Ops/Codex Main must finish those existing
 consumers, then Publisher can verify them and close the four retained items.
 No default-branch merge, Main code edit, new schedule, message or public send occurred.
+
+## 4 November 2026, 17:35 GMT+7 continuation
+
+The current readback is [resume-20261104-1735/README.md](resume-20261104-1735/README.md).
+The weekly exporters now deliver to the runtime folder (18 focused and 125 installed
+consumer checks pass); five sealed pieces validate. CC-014 code is live, but its
+recurring binding, Main weekly digest readers and CC-136/site integration remain
+external consumer work. These readbacks supersede the earlier counts above.

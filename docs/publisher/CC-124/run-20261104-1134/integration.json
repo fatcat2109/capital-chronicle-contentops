@@ -1,0 +1,24 @@
+{
+  "authority": "Jim current V4 Publisher own-item operating-root integration route, received in this run",
+  "applied_at_utc": "2026-11-04T04:43:31.005341+00:00",
+  "source_commit": "6f4db9858f7de7a8d1b8f8ef65bf7ce5f30cc451",
+  "live_before": "d210d8e2bfea9a8a5fe37d15a4c6429c05ccd69f",
+  "live_sha": "8e4120fc95e744c1c1bd72c4a0ae66fd7ae14ed0",
+  "live_tag": "contentops-live-20261104-cc124-editorial-entry",
+  "rollback_tag": "contentops-live-20261104-cc124-thread-readback",
+  "owned_blob_matches": {
+    "scripts/run_native_desktop_editorial.py": true,
+    "tests/test_native_newsroom_owner_operation_v1.py": true,
+    "tests/test_standing_editorial_entry_recovery_v1.py": true
+  },
+  "unrelated_tracked_dirty_files_preserved": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "74f29bd2de41f025451189cece73046236ff04088415d98e85ffbbfca8074d87",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "397ad8fc028baa5b8432dcc454ec98f50143c297ac51eae5f75a70f652833d78"
+  },
+  "inherited_cc186_commit_integrated": false,
+  "runtime_restart_performed": false
+}

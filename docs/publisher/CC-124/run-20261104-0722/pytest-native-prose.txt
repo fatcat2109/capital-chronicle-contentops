@@ -1,0 +1,49 @@
+F....................................................................    [100%]
+================================== FAILURES ===================================
+_ test_retained_native_original_prose_publishes_and_exports_without_rewriting_its_artifacts _
+
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-32032/test_retained_native_original_0')
+
+    def test_retained_native_original_prose_publishes_and_exports_without_rewriting_its_artifacts(tmp_path):
+        _, transport, coordinator, plan, _, root = native_lifecycle(tmp_path)
+        before = {path.name: path.read_bytes() for path in root.iterdir()}
+        original_readback = transport.readback
+    
+        def readback(**kwargs):
+            return {**original_readback(**kwargs), "published_at_utc": ORIGINAL}
+    
+        transport.readback = readback
+        result = coordinator.execute_plan("work-1", plan)
+        assert result["canonical_article_real_published"] is True
+>       assert read_records(coordinator.published_content_path)[0]["rights_class"] == "CC_OWN_ANALYSIS"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_published_content_v1.py:109: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+live_contentops\published_content_v1.py:141: in read_records
+    return _records(Path(path).read_bytes())
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py:625: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-32032/test_retained_native_original_0/published.jsonl')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-32032\\test_retained_native_original_0\\published.jsonl'
+
+C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py:537: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/test_published_content_v1.py::test_retained_native_original_prose_publishes_and_exports_without_rewriting_its_artifacts
+1 failed, 68 passed in 16.67s

@@ -1079,6 +1079,10 @@ def test_derivative_failure_never_erases_reconciled_substack_truth(
     ("decision39", True), ("legacy", False), ("same_article", False),
     ("unknown_canonical", False), ("unverified_canonical", False),
     ("missing_readback", False), ("unbound_obligation", False),
+    ("incomplete", True), ("incomplete_same_article", False),
+    ("incomplete_wrong_id", False), ("incomplete_missing_url", False),
+    ("incomplete_missing_proof", False),
+    ("incomplete_legacy", False),
 ])
 def test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical(
     tmp_path, condition, allowed
@@ -1096,6 +1100,11 @@ def test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distin
             return result
 
         def readback(self, *, destination, public_object_id, public_object_url, intent):
+            if condition.startswith("incomplete") and destination == "substack" and intent["work_item_id"] == "work-1":
+                return {"status": "BLOCKED", "verified": False,
+                    "write_exists": condition != "incomplete_missing_proof",
+                    "public_object_id": "wrong" if condition == "incomplete_wrong_id" else public_object_id,
+                    "public_object_url": None if condition == "incomplete_missing_url" else public_object_url}
             if destination == "linkedin" or (condition in {"unknown_canonical", "unverified_canonical"}
                     and destination == "substack" and intent["work_item_id"] == "work-1"):
                 return {"status": "AMBIGUOUS", "verified": False}
@@ -1106,7 +1115,7 @@ def test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distin
     transport = PriorGap()
     store, _, coordinator = _coordinator(tmp_path, runtime=transport)
     original_readback = transport.readback
-    if condition in {"unknown_canonical", "unverified_canonical"}:
+    if condition in {"unknown_canonical", "unverified_canonical"} or condition.startswith("incomplete"):
         transport.readback = lambda **kwargs: (FixtureTransport.readback(transport, **kwargs)
             if kwargs["destination"] == "substack" else original_readback(**kwargs))
     old_plan = _quality_plan()
@@ -1114,6 +1123,8 @@ def test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distin
     assert first["canonical_article_real_published"] is True
     transport.readback = original_readback
     old_ids = coordinator._ids("work-1", old_plan["plan_hash"], "substack")
+    if condition.startswith("incomplete"):
+        coordinator.readback_existing_dispatch(old_ids["dispatch_id"])
     if condition == "unknown_canonical":
         store.set_dispatch_status(old_ids["dispatch_id"], UNKNOWN_WRITE)
     elif condition == "unverified_canonical":
@@ -1124,9 +1135,10 @@ def test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distin
     store.create_work_item(story_id="story-2", work_item_id="work-2", title="Next controlled article",
                            target_surface="MULTI_PLATFORM")
     new_plan = _plan("substack")
-    new_plan.update(plan_hash=_sha("new-plan"), article_identity=("article-1" if condition == "same_article" else "article-2"),
+    new_plan.update(plan_hash=_sha("new-plan"), article_identity=("article-1"
+                    if condition in {"same_article", "incomplete_same_article"} else "article-2"),
                     story_identity="story-2", package_identity="package-2")
-    coordinator.allow_prior_confirmed_distribution = condition != "legacy"
+    coordinator.allow_prior_confirmed_distribution = condition not in {"legacy", "incomplete_legacy"}
     if condition == "unbound_obligation":
         coordinator.recover_pending = lambda: {"backlog_remaining": 1, "publish_calls": 0}
     result = coordinator.execute_plan("work-2", new_plan)
@@ -1134,6 +1146,10 @@ def test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distin
     assert transport.publish_calls.count("substack") == (2 if allowed else 1)
     assert transport.publish_calls.count("linkedin") == 1
     assert store.get_platform_dispatch(coordinator._ids("work-1", old_plan["plan_hash"], "linkedin")["dispatch_id"])["status"] == UNKNOWN_WRITE
+    if condition == "incomplete":
+        reconciliation = next(row for row in store.get_reconciliations_for_work_item("work-1")
+            if row["reconciliation_id"] == old_ids["reconciliation_id"])
+        assert reconciliation["status"] == RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE
 
 
 def test_case_c_crash_before_adapter_safe_resume_once(tmp_path):

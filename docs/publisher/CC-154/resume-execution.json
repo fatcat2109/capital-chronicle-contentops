@@ -1,0 +1,18 @@
+{
+  "item": "CC-154",
+  "recorded_at_utc": "2026-11-04T09:13:14.289860+00:00",
+  "launch_record": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-154-20261104T0903\\launch.json",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "high",
+  "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_arguments_read_back": true,
+  "implementation_base": "5a47b0bed8d5ea01b7ddaa2a26365e5586a09249",
+  "base_reason": "Publisher operating root contains integrated fixes newer than origin/master.",
+  "remote_default": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "retained_delivery": "596c9831a87f147169bd83ea8b49d1913f6db57e",
+  "wip_preserved_unstaged": true,
+  "public_writes": 0,
+  "schedule_changes": 0,
+  "messages_sent": 0,
+  "editorial_calls": 0
+}

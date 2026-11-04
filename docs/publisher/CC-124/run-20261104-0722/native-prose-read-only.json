@@ -1,0 +1,23 @@
+{
+  "checked_at_utc": "2026-11-04T00:33:43.047750+00:00",
+  "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\reviewed-handoff\\5692377ae23398763a31865c1f5892fd0b079d6bb12846ae0b5e225a13a11ba3",
+  "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+  "editorial_classification": "QUALIFIED_NATIVE_DESKTOP_ARTICLE",
+  "source_provenance_binding_preserved": true,
+  "metadata": {
+    "type": "ARTICLE",
+    "title": "U.S. Securities and Exchange Commission plans November 9 data roundtable",
+    "standfirst": "The SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.",
+    "event_id": null,
+    "conditional_calls": [],
+    "rights_class": "CC_OWN_ANALYSIS",
+    "disclaimer": "Analysis, not financial advice.",
+    "conflicts_notice": null
+  },
+  "artifact_sha256": {
+    "article_manifest_v1.json": "8e73a108676db265fc07af2fd51af2ac9327ed0e5a9ed9257c042f104d8ee073",
+    "run_context_v1.json": "26c4233ced1207b782e7cc6d552f9bf7c62a093eeb8f2c62439a94d12cce4dd4",
+    "qualified_article_record_v1.json": "3ca584a6513979254989fdde42bdd32c57a59664c24fa6232192b569a1796d90"
+  },
+  "frozen_artifacts_unchanged": true
+}

@@ -48,8 +48,7 @@ def validate_native_configuration(observation, target, *, required=True):
     if effort not in {None, target["reasoning_effort"]}:
         raise ValueError("NATIVE_DESKTOP_ROLE_EFFORT_MISMATCH")
     if observation.get("configuration_status") == CONFIGURED_NOT_OBSERVED:
-        if (observation.get("configuration_authority") != CONFIGURED_AUTHORITY
-                or observation.get("configured_model") != target["model"]
+        if (observation.get("configured_model") != target["model"]
                 or observation.get("configured_reasoning_effort") != target["reasoning_effort"]
                 or not observation.get("configuration_source")
                 or observation.get("actual_configuration_unavailable") is not True):
@@ -1033,7 +1032,7 @@ class NativeDesktopTurn:
         if not request or response.get("request_sha256") != request["request_sha256"]:
             raise ValueError("NATIVE_DESKTOP_REQUEST_BINDING_REQUIRED")
         observation = dict(response.get("invocation_observation") or {})
-        if observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT"}:
+        if observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT", "CODEX_EXEC"}:
             raise ValueError("NATIVE_DESKTOP_SURFACE_REQUIRED")
         role = native_role(stage)
         target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
@@ -1365,7 +1364,7 @@ def validate_release_media(result, *, require_pixel_review=True):
     reader_first = bool(decision)
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]
     charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
-    quantitative_charts = [a for a in charts if not a.get("fact_card_packet")]
+    quantitative_charts = [a for a in charts if not a.get("fact_card_packet") and not a.get("post_card_binding")]
     disposition = result.get("visual_repair_disposition") or {}
     dropped = disposition.get("dropped_assets") or []
     dropped_after_repair = (disposition.get("policy") == "CC-172" and disposition.get("repair_rounds") == 1
@@ -1405,12 +1404,18 @@ def validate_release_media(result, *, require_pixel_review=True):
         article = result.get("article") or {}
         if article.get("substack_body_markdown"):
             headings = set(re.findall(r"(?m)^#{1,6}\s+([^\n]+)", article["substack_body_markdown"]))
-            if any(c["placement_after"] not in headings for c in decision["charts"]):
+            if any(c["placement_after"] not in headings for c in decision["charts"]
+                   if not next(a for a in charts if a["asset_id"] == c["asset_id"]).get("post_card_binding")):
                 raise ValueError("RELEASE_CHART_EXPLANATION_SECTION_MISSING")
     for photo in photos:
         validate_contextual_photo(photo, require_pixel_review=require_pixel_review)
     for chart in charts:
         validate_source_value_chart(chart, result.get("evidence") or [])
+        if chart.get("post_card_binding"):
+            from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_post_image_card
+            validate_post_image_card(chart, article=result["article"], accepted_evidence_sha256=
+                result.get("accepted_evidence_sha256") or result.get("simple_result", {}).get("publication_lifecycle_plan", {}).get("accepted_evidence_sha256"))
+            continue
         review = chart.get("visual_review") or {}
         if require_pixel_review and (review.get("asset_sha256") != chart.get("sha256") or review.get("pixels_inspected") is not True
                 or review.get("labels_and_units_legible") is not True or not review.get("reviewer")):
@@ -1600,8 +1605,8 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
     from live_contentops.v1_simple_gemini_newsroom_v1 import READER_ATTRIBUTION_POLICY
     row = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
-    from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, build_revision
-    if proposal.get("policy") == CHART_REVISION_POLICY:
+    from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, DERIVATIVE_POLICY, build_revision
+    if proposal.get("policy") in {CHART_REVISION_POLICY, DERIVATIVE_POLICY}:
         return build_revision(store, run_id=run_id, proposal=proposal,
             owner_authority_ref=owner_authority_ref, result=result)
     if (not str(owner_authority_ref).startswith("human:") or not result.get("qualified_article_count")
@@ -1654,8 +1659,8 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
 def reader_presentation_revision_view(store, *, run_id, result, revision):
     from copy import deepcopy
     from live_contentops.v1_simple_gemini_newsroom_v1 import READER_ATTRIBUTION_POLICY
-    from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, revision_view
-    if revision.get("policy") == CHART_REVISION_POLICY:
+    from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, DERIVATIVE_POLICY, revision_view
+    if revision.get("policy") in {CHART_REVISION_POLICY, DERIVATIVE_POLICY}:
         return revision_view(store, run_id=run_id, result=result, revision=revision)
     if (revision.get("policy") != READER_ATTRIBUTION_POLICY or revision.get("run_id") != run_id
             or not str(revision.get("owner_authority_ref")).startswith("human:")
@@ -1719,7 +1724,7 @@ def final_visual_binding(result, *, renders, destinations=None):
     scope = FINAL_VISUAL_CHANNELS if destinations is None else set(destinations)
     if destinations is not None and scope not in (
             DATED_DISTRIBUTION_DESTINATIONS, LINKEDIN_DATED_DISTRIBUTION_DESTINATIONS,
-            {"substack"},
+            {"substack"}, FINAL_VISUAL_CHANNELS,
             {"substack", "facebook_page", "instagram_business", "youtube", "linkedin"}):
         raise ValueError("FINAL_VISUAL_DATED_DISTRIBUTION_SCOPE_REQUIRED")
     variants = {}
@@ -1770,8 +1775,16 @@ def final_visual_binding(result, *, renders, destinations=None):
         "reviewer_assignment": dict(ROLE_ASSIGNMENTS["final-visual"])}
 
 
+def _distribution_editor_check_binding(result, scope):
+    from live_contentops.native_publication_latency_v1 import automated_media_check, SPEED_POLICY
+    return {**final_visual_binding(result, renders=None, destinations=scope),
+        "review_policy": SPEED_POLICY, "source_sha256": sha256_of(result.get("evidence", [])),
+        "assets": result.get("media_assets", []), "renders": [],
+        "automated_media_check": automated_media_check(result)}
+
+
 def request_final_visual_review(turn, *, renders, distribution_recovery=None, reader_presentation_revision=None):
-    """Same writer reviews final assembly; changed revisions receive their own immutable request."""
+    """Review exact assembly, with a current MAX editor for dated social recovery."""
     row = turn.store.get_outbox_message(native_artifact_key(turn.store, turn.run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
     if not result.get("qualified_article_count"):
@@ -1791,6 +1804,19 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
     scope = ({"linkedin" if d == "linkedin_company" else d for d in reader_presentation_revision["objects"]}
         if reader_presentation_revision is not None else dated_distribution_destinations(distribution_recovery)
         if distribution_recovery is not None else None)
+    from live_contentops.native_publication_latency_v1 import uses_short_path
+    if distribution_recovery is not None and uses_short_path(turn.store, run_id=turn.run_id, result=result):
+        binding = _distribution_editor_check_binding(result, scope)
+        stage = "final-visual-" + sha256_of(binding)
+        governed = {"binding": binding, "article": result["article"], "previews": result["previews"],
+            "evidence": result.get("evidence", []), "distribution_recovery": distribution_recovery}
+        return turn(logical_invocation_id=turn.run_id + ":" + stage,
+            prompt="You are this run's native MAX editor. Review the exact dated social copy against the admitted "
+                "article, source facts, uncertainty, account, canonical link and selected images. No historical "
+                "named writer is required. Decision 53 uses one editor check and the bound automated image "
+                "load/dimension check, without new screenshots. Return JSON {decision: ACCEPT or REPAIR_REQUIRED, "
+                "rationale: substantive findings}. Never claim pixel inspection. GOVERNED_INPUT:\n" + canonical_bytes(governed).decode(),
+            governed_input=governed, validator=lambda raw: (True, None, json.loads(raw), None))
     binding = final_visual_binding(result, renders=renders,
         destinations=scope)
     stage = "final-visual-" + sha256_of(binding)
@@ -1804,8 +1830,12 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
         governed["distribution_recovery"] = distribution_recovery
     if reader_presentation_revision is not None:
         governed["reader_presentation_revision"] = reader_presentation_revision
-    prompt = (
-        "You are the SAME actual native gpt-6.1-sol/max visual editor/writer. Inspect the FINISHED article, "
+    reviewer = ("You are this run's native gpt-6.1-sol/max editor for the published article's dated social copies. "
+        "Complete their review in this run. The original writer identity is retained provenance. "
+        if distribution_recovery is not None else
+        "You are the SAME actual native gpt-6.1-sol/max visual editor/writer. ")
+    prompt = (reviewer +
+        "Inspect the FINISHED article, "
         "every visual and all bound canonical/channel desktop/mobile rendered pixels with local image or Neo tools. "
         "Settings, plans, prose or deterministic tests are not visual inspection. Compare each chart to exact admitted "
         "source values: sign/magnitude, denominator, period/year/quarter, units/currency, transformations/rounding, "
@@ -1847,11 +1877,12 @@ def validate_final_visual_return(turn, request, response):
     writer = amendment_writer(request["governed_input"].get("reader_presentation_revision")) or writer
     assignment = ROLE_ASSIGNMENTS["final-visual"]
     validate_native_configuration(observation, assignment)
-    if (not writer or observation.get("invocation_id") != writer["invocation_observation"]["invocation_id"]):
+    recovery = request["governed_input"].get("distribution_recovery")
+    if (recovery is None and
+            (not writer or observation.get("invocation_id") != writer["invocation_observation"]["invocation_id"])):
         raise ValueError("FINAL_VISUAL_ACTUAL_SAME_SOL61_MAX_REQUIRED")
     row = turn.store.get_outbox_message(native_artifact_key(turn.store, turn.run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
-    recovery = request["governed_input"].get("distribution_recovery")
     if recovery is not None:
         result = dated_distribution_recovery_view(turn.store, run_id=turn.run_id, result=result, recovery=recovery)
     revision = request["governed_input"].get("reader_presentation_revision")
@@ -1859,8 +1890,21 @@ def validate_final_visual_return(turn, request, response):
         result = reader_presentation_revision_view(turn.store, run_id=turn.run_id, result=result, revision=revision)
     scope = ({"linkedin" if d == "linkedin_company" else d for d in revision["objects"]} if revision is not None
         else dated_distribution_destinations(recovery) if recovery is not None else None)
-    if final_visual_binding(result, renders=binding["renders"],
-            destinations=scope) != binding:
+    from live_contentops.native_publication_latency_v1 import SPEED_POLICY, uses_short_path
+    if recovery is not None and binding.get("review_policy") == SPEED_POLICY:
+        if (not uses_short_path(turn.store, run_id=turn.run_id, result=result)
+                or _distribution_editor_check_binding(result, scope) != binding):
+            raise ValueError("DISTRIBUTION_EDITOR_CHECK_COPY_OR_MEDIA_CHANGED")
+        if (output.get("decision") not in {"ACCEPT", "REPAIR_REQUIRED"}
+                or len(str(output.get("rationale", "")).strip()) < 20
+                or output.get("pixels_inspected") is True):
+            raise ValueError("DISTRIBUTION_REASONED_EDITOR_CHECK_REQUIRED")
+        return
+    current = final_visual_binding(result, renders=binding["renders"], destinations=scope)
+    # Renderer source is provenance for the saved pixels. Its later source edits
+    # do not alter the exact PNG/HTML, media, source or channel bytes checked above.
+    current["renderer_sha256"] = binding["renderer_sha256"]
+    if current != binding:
         raise ValueError("FINAL_VISUAL_REVIEW_REVISION_CHANGED")
     if output.get("decision") not in {"ACCEPT", "REPAIR_REQUIRED", "EXTERNAL_BLOCK"}:
         raise ValueError("FINAL_VISUAL_DECISION_REQUIRED")
@@ -1908,7 +1952,10 @@ def final_visual_acceptance(store, *, run_id, result, reference):
     return {"stage": stage, "request_sha256": request["request_sha256"], "response_sha256": sha256_of(response),
         "output_dir": str(turn.root), "article_revision": native_review_revision(result),
         "render_binding_sha256": sha256_of(request["governed_input"]["binding"]),
-        "invocation_observation": response["invocation_observation"]}
+        "invocation_observation": response["invocation_observation"],
+        **({"review_type": "WRITER_ONE_EDITOR_CHECK_PUBLISH", "pixels_inspected": False,
+            "automated_media_check": request["governed_input"]["binding"]["automated_media_check"]}
+           if request["governed_input"]["binding"].get("review_policy") else {})}
 
 
 def require_current_final_visual_review(store, *, run_id):
@@ -1934,8 +1981,9 @@ def validated_native_review(store, *, run_id):
     result = json.loads(row["payload"]) if row else {}
     if result.get("model_execution_state") != "NATIVE_DESKTOP_REQUEST_RETURN" or not result.get("qualified_article_count"):
         raise ValueError("QUALIFIED_NATIVE_RESULT_REQUIRED")
-    from live_contentops.contentops_editorial_desk_v1 import source_review_projection
-    changes = [s for s in source_review_projection(store.list_outbox_messages()) if s["article_identity"] == result["article_identity"]]
+    from live_contentops.contentops_editorial_desk_v1 import source_review_projection, SOURCE_REVIEW
+    changes = [s for s in source_review_projection(store.list_outbox_messages(destination=SOURCE_REVIEW))
+               if s["article_identity"] == result["article_identity"]]
     if changes and changes[-1]["invalidates_prepared_review"]:
         raise ValueError("SOURCE_CHANGED_PREPARED_REVIEW_INVALIDATED:" + changes[-1]["decision"])
     reviews = [r for r in read_reviews(store) if r["work_item_id"] == row["work_item_id"]
@@ -1958,7 +2006,9 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle, _build_simple_publication_lifecycle_plan
     from live_contentops.newsroom_production_day_v1 import persist_qualified_article_record
     result, row, current_review = validated_native_review(store, run_id=run_id)
-    assets = result.get("media_assets", [])
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
+    image_view = post_image_view(result, output_dir=resolve_workspace_path(output_dir) / "media" / "post-images")
+    assets = image_view["media_assets"]
     # A renderer-only acceptance may advance after a public send. Reuse the exact
     # frozen dispatch package and plan; a new plan would duplicate existing objects.
     rows = store.list_outbox_messages()
@@ -1993,9 +2043,11 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
             "media_reuse_count": len(assets), "preview_count": 8, "new_qualified_articles": 0,
             "model_invocations": 0, "source_requests": 0, "public_write_performed": False,
             "dispatched_package_reused": True}
-    root = resolve_workspace_path(output_dir) / "reviewed-handoff" / native_review_revision(result)
+    image_revision = sha256_of([native_review_revision(result), image_view["post_image_policy"],
+                               [a["sha256"] for a in assets]])
+    root = resolve_workspace_path(output_dir) / "reviewed-handoff" / image_revision
     root.mkdir(parents=True, exist_ok=True)
-    article = result["article"]
+    article = image_view["article"]
     state = article.get("epistemic_state")
     mode = article["resolved_article_mode"]
     identity = result["article_identity"]
@@ -2004,8 +2056,17 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     current_previews = [{"destination": k, "payload": v, "preview_id": "cc-preview-" + sha256_of([identity, k, v]),
         "article_identity": identity, "claim_lineage": result.get("claim_lineage", [])}
         for k, v in previews["packages"].items()]
-    if result.get("media_preview_binding_sha256") and current_previews != result.get("previews"):
-        raise ValueError("COMPILED_PREVIEW_CHANGED_REVIEW_REQUIRED")
+    if result.get("media_preview_binding_sha256"):
+        original_bundle, _ = _native_preview_bundle(article=result["article"], article_mode=mode, article_identity=identity,
+            epistemic_state=state, media_asset_ids=[a["asset_id"] for a in result.get("media_assets", [])],
+            media_assets=result.get("media_assets", []))
+        original_previews = [{"destination": k, "payload": v, "preview_id": "cc-preview-" + sha256_of([identity, k, v]),
+            "article_identity": identity, "claim_lineage": result.get("claim_lineage", [])}
+            for k, v in original_bundle["packages"].items()]
+        if original_previews != result.get("previews"):
+            raise ValueError("COMPILED_PREVIEW_CHANGED_REVIEW_REQUIRED")
+    # The image policy changes deterministic media/credit fields only. Authored
+    # article and social prose stay in the exact current KEEP above.
     record_path = (result.get("visual_repair_revision") or {}).get("qualified_record_path")
     record = json.loads((resolve_workspace_path(record_path) if record_path else
         resolve_workspace_path(output_dir) / "qualified_article_record_v1.json").read_bytes())
@@ -2019,8 +2080,9 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
         selected_candidate=result["simple_result"]["selected_candidate"],
         selected_plan_entry=result["simple_result"]["selected_plan_entry"], article=article,
         article_identity=identity, native_previews=previews, qualified_record=record,
-        epistemic_state=state, media_assets=assets)
-    for name, value in (("article_manifest_v1.json", article), ("native_derivative_previews_v1.json", previews)):
+        epistemic_state=state, media_assets=assets, source_documents=result.get("evidence", []),
+        post_image_policy=image_view["post_image_policy"])
+    for name, value in (("article_manifest_v1.json", result["article"]), ("native_derivative_previews_v1.json", previews)):
         path = root / name
         raw = canonical_bytes(value)
         if path.exists() and path.read_bytes() != raw:

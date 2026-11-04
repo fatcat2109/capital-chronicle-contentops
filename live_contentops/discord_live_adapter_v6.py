@@ -12,6 +12,8 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import uuid
+from pathlib import Path
 from typing import Any, Mapping
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_DISCORD_AND_TELEGRAM_V0"
@@ -30,6 +32,7 @@ def execute_discord_post(
     webhook_url: str | None = None,
     embeds: list[dict[str, Any]] | None = None,
     dry_run: bool = False,
+    image_path: str | None = None,
 ) -> dict[str, Any]:
     """Publishes a message or announcement to a Discord channel via Webhook."""
     target_webhook = webhook_url or _get_default_webhook_url()
@@ -44,6 +47,7 @@ def execute_discord_post(
                 "message": message,
                 "embeds_count": len(embeds) if embeds else 0,
                 "webhook_url": "<redacted>",
+                "image_attached": bool(image_path),
             },
             "response": {
                 "id": f"discord_mock_msg_{payload_hash}",
@@ -71,9 +75,37 @@ def execute_discord_post(
     if embeds:
         payload["embeds"] = embeds
 
-    data = json.dumps(payload).encode("utf-8")
+    content_type = "application/json"
+    if image_path:
+        from PIL import Image
+
+        path = Path(image_path)
+        try:
+            with Image.open(path) as image:
+                image.verify()
+                image_format = image.format
+            mime, extension = {"PNG": ("image/png", "png"), "JPEG": ("image/jpeg", "jpg")}[image_format]
+            image_bytes = path.read_bytes()
+        except (OSError, ValueError, KeyError):
+            return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                    "reason_code": "DISCORD_IMAGE_FILE_INVALID", "platform": "discord"}
+        filename = "article-image." + extension
+        payload["attachments"] = [{"id": 0, "filename": filename}]
+        # A real attachment travels with the message; it needs no hosted URL.
+        if embeds:
+            payload["embeds"] = [{**embed, "image": {"url": "attachment://" + filename}}
+                                  if index == 0 else dict(embed) for index, embed in enumerate(embeds)]
+        boundary = "cc-discord-" + uuid.uuid4().hex
+        data = (f"--{boundary}\r\nContent-Disposition: form-data; name=\"payload_json\"\r\n"
+                "Content-Type: application/json\r\n\r\n").encode() + json.dumps(payload).encode("utf-8")
+        data += (f"\r\n--{boundary}\r\nContent-Disposition: form-data; name=\"files[0]\"; "
+                 f"filename=\"{filename}\"\r\nContent-Type: {mime}\r\n\r\n").encode()
+        data += image_bytes + f"\r\n--{boundary}--\r\n".encode()
+        content_type = "multipart/form-data; boundary=" + boundary
+    else:
+        data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(post_url, data=data, method="POST")
-    req.add_header("Content-Type", "application/json")
+    req.add_header("Content-Type", content_type)
     req.add_header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36")
 
     try:
@@ -125,6 +157,7 @@ def readback_discord_post(
     expected_text: str,
     canonical_url: str,
     webhook_url: str | None = None,
+    expected_image_sha256: str | None = None,
 ) -> dict[str, Any]:
     """Read one exact webhook message without exposing the webhook credential."""
     target_webhook = webhook_url or _get_default_webhook_url()
@@ -158,6 +191,25 @@ def readback_discord_post(
         for row in embeds
         if isinstance(row, Mapping)
     )
+    attachments = [a for a in payload.get("attachments", []) if isinstance(a, Mapping)
+                   and str(a.get("content_type") or "").startswith("image/") and a.get("url")]
+    media_verified = media_verified or bool(attachments)
+    image_hash_match = None
+    if expected_image_sha256:
+        image_hash_match = False
+        for attachment in attachments:
+            parsed = urllib.parse.urlsplit(str(attachment["url"]))
+            if parsed.scheme != "https" or parsed.hostname not in {"cdn.discordapp.com", "media.discordapp.net"}:
+                continue
+            try:
+                with urllib.request.urlopen(str(attachment["url"]), timeout=15) as image_response:
+                    data = image_response.read(25 * 1024 * 1024 + 1)
+                if len(data) <= 25 * 1024 * 1024 and hashlib.sha256(data).hexdigest() == expected_image_sha256:
+                    image_hash_match = True
+                    break
+            except (OSError, ValueError):
+                continue
+        media_verified = image_hash_match
     verified = bool(exact_identity and text_verified and canonical_verified and media_verified)
     public_url = (
         f"https://discord.com/channels/{guild_id}/{channel_id}/{message_id}"
@@ -173,6 +225,8 @@ def readback_discord_post(
         "body_text_visible": text_verified,
         "substack_url_visible": canonical_verified,
         "meaningful_media_visible": media_verified,
+        "attached_article_visual": bool(attachments),
+        "image_sha256_match": image_hash_match,
     }
 
 

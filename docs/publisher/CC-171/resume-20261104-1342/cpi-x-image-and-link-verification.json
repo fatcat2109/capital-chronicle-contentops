@@ -1,0 +1,15 @@
+{
+  "image": {
+    "bytes": 29841,
+    "observed_at_utc": "2026-11-04T07:57:14.974Z",
+    "platform_sha256": "38e6ac54a6d73cb590eadd3ebe7c5036e1618ee5a1d1af9645389bd492018dc4",
+    "public_image_url": "https://pbs.twimg.com/media/HWRAKE_aAAAbsR9?format=jpg&name=small"
+  },
+  "link": {
+    "displayed_url": "https://t.co/sJFoYeYtX9",
+    "observed_at_utc": "2026-11-04T07:59:51.301Z",
+    "pageId": 239,
+    "title": "- iframe\n- link [ref=e1] [url=\"https://substack.com/?utm_content=island-substack-logo\"]\n- heading \"Capital Chronicle\" [level=1]\n  - link \"Capital Chronicle\" [ref=e2] [url=\"https://capitalchronicle.substack.com/\"]\n- button [ref=e3]\n- button \"View chats\" [collapsed] [ref=e4]\n- button \"View activity\" [collapsed] [ref=e5]\n- button \"Dashboard\" [ref=e6]\n- button \"Dean's avatar\" [collapsed] [ref=e7]\n- main \"Post\"\n  - article\n    - region \"Post header\"\n      - heading \"September CPI: why 0.6% and 3.7% answer different questions\" [level=1]\n      - heading \"In its October 14 release on September 2026 CPI, the U.S. Bureau of Labor Statistics reported monthly and annual readings with different horizons and adjustment bases.\" [level=3]\n      - region \"Post UFI\"\n    - button \"Table of Contents\" [collapsed] [ref=e18]\n    - paragraph\n      - link \"U.S. Bureau of Labor Statistics release of October 14, 2026\" [ref=e19] [url=\"https://www.bls.gov/news.release/archives/cpi_10142026.htm\"]\n    - figure\n      - link \"Bags of dry beans displayed on shelves at a supermarket in Dearborn, Michigan.\" [ref=e20] [url=\"https://substackcdn.com/image/fetch/$s_!G8nN!,f_auto,q_auto:good,fl_progressive:steep/https%3A%",
+    "url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer"
+  }
+}

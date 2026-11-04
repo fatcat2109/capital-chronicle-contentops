@@ -1,0 +1,96 @@
+{
+  "stage": "final-visual-5dfc4599f77a88ccfb3810db6f4c0a4d60c46c6a4d85144002eb51ecb9b56224",
+  "request_sha256": "a99c3711e6f51b28a9cd61f8f7baa3db023e23f1285d3b1270665cea7c3ad7af",
+  "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\desktop_request_final-visual-5dfc4599f77a88ccfb3810db6f4c0a4d60c46c6a4d85144002eb51ecb9b56224.json",
+  "article_identity": "8bf80a8dc58d374bdadec97d5adc3298ea0541654343ab681e1a599ddb39f9b4",
+  "article_revision": "c10664ac7489c33a6dc10bddfa2e634fa07d710ca3024034243a73315dc366d2",
+  "review_policy": "JIM_DECISION_53",
+  "source_sha256": "c6f7c2c6de8a58ee06e0de048b46d2521b5e5935fdc300e1247db38d22c12c00",
+  "media": [
+    {
+      "asset_id": "payroll_first_print_trend",
+      "sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\payroll_first_print_trend.png"
+    },
+    {
+      "asset_id": "september_sector_breakdown",
+      "sha256": "9c3edc1443778895f6884781458ffd28d92e7823700ab4539e4b2ea74e26c12b",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\september_sector_breakdown.png"
+    },
+    {
+      "asset_id": "unemployment_first_print_trend",
+      "sha256": "8f5f4ba6cc1ea167aa0773f505460e056078ac3bbb5c5ad19f0e797c58c3a53f",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\unemployment_first_print_trend.png"
+    },
+    {
+      "asset_id": "earnings_first_print_trend",
+      "sha256": "5924ccd31418cb17d66a43319277f239b3d8514b10cbdff00d177f4277ea6801",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\earnings_first_print_trend.png"
+    }
+  ],
+  "automated_media_check": {
+    "policy": "JIM_DECISION_53",
+    "check": "IMAGE_LOAD_AND_SIZE_ONCE",
+    "findings": [
+      {
+        "asset_id": "payroll_first_print_trend",
+        "sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+        "pixels_inspected": false,
+        "loads": true,
+        "width": 1440,
+        "height": 1040,
+        "expected_dimensions": [
+          1440,
+          1040
+        ],
+        "right_size": true,
+        "status": "PASS"
+      },
+      {
+        "asset_id": "september_sector_breakdown",
+        "sha256": "9c3edc1443778895f6884781458ffd28d92e7823700ab4539e4b2ea74e26c12b",
+        "pixels_inspected": false,
+        "loads": true,
+        "width": 1440,
+        "height": 1040,
+        "expected_dimensions": [
+          1440,
+          1040
+        ],
+        "right_size": true,
+        "status": "PASS"
+      },
+      {
+        "asset_id": "unemployment_first_print_trend",
+        "sha256": "8f5f4ba6cc1ea167aa0773f505460e056078ac3bbb5c5ad19f0e797c58c3a53f",
+        "pixels_inspected": false,
+        "loads": true,
+        "width": 1440,
+        "height": 1040,
+        "expected_dimensions": [
+          1440,
+          1040
+        ],
+        "right_size": true,
+        "status": "PASS"
+      },
+      {
+        "asset_id": "earnings_first_print_trend",
+        "sha256": "5924ccd31418cb17d66a43319277f239b3d8514b10cbdff00d177f4277ea6801",
+        "pixels_inspected": false,
+        "loads": true,
+        "width": 1440,
+        "height": 1040,
+        "expected_dimensions": [
+          1440,
+          1040
+        ],
+        "right_size": true,
+        "status": "PASS"
+      }
+    ],
+    "failures_logged_no_repair_loop": 0,
+    "blocks_publication": false
+  },
+  "reviewed_text": "Reporting as of 23:37 EST on 3 November 2026.\n\nSeptember 2026 jobs: private gains beneath a weak headline\n\nWhy it matters: Government losses weakened the headline without turning the private-sector total negative. Capital Chronicle's inference is that the composition deserves attention before the small overall gain is read as broad private retrenchment. BLS described employment in all major industries as little changed.\n\nContext: Private payrolls still grew, unemployment was 4.2 percent, and the U.S. Bureau of Labor Statistics described major-industry changes as small. That is the strongest countercase to a broad deterioration story: a weak headline could reflect a temporary mix of gains and losses, rather than persistent weakness.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains\n\nAnalysis, not financial advice. Readers decide whether to trade."
+}

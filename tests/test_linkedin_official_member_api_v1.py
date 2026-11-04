@@ -80,6 +80,41 @@ def _metadata(*, expires_at: datetime, scopes=None):
     }
 
 
+@pytest.mark.parametrize("image_permitted", [True, False])
+def test_official_member_image_upload_or_exact_pre_post_text_fallback(tmp_path, image_permitted):
+    from PIL import Image
+    image = tmp_path / "post.png"
+    Image.new("RGB", (100, 100), "navy").save(image)
+    token_store = _test_store(tmp_path / "auth")
+    token_store.write({"access_token": "private", "refresh_token": None},
+                      _metadata(expires_at=datetime.now(timezone.utc) + timedelta(days=30)))
+    requests = []
+
+    def provider(request, **_):
+        requests.append(request)
+        if "registerUpload" in request.full_url:
+            if not image_permitted:
+                raise urllib.error.HTTPError(request.full_url, 403, "Forbidden", {}, None)
+            return _Response(200, {"value": {"asset": "urn:li:digitalmediaAsset:card",
+                "uploadMechanism": {"com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest": {
+                    "uploadUrl": "https://api.linkedin.com/mediaUpload/card"}}}})
+        if "/mediaUpload/" in request.full_url:
+            assert request.data == image.read_bytes() and request.method == "POST"
+            return _Response(201)
+        assert request.full_url.endswith("/ugcPosts")
+        share = json.loads(request.data)["specificContent"]["com.linkedin.ugc.ShareContent"]
+        assert share["shareMediaCategory"] == ("IMAGE" if image_permitted else "NONE")
+        return _Response(201, headers={"X-RestLi-Id": "urn:li:share:123"})
+
+    transport = LinkedInOfficialMemberApiTransportV1(token_store=token_store, opener=provider)
+    result = transport.publish(intent={"payload": "Reviewed https://capitalchronicle.substack.com/p/exact",
+        "media_assets": [{"path": str(image)}]}, authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT"})
+    assert result["image_delivery"] == ("IMAGE_ATTACHED" if image_permitted else "TEXT_FALLBACK")
+    assert result["image_delivery_cause"] == (None if image_permitted else "PERMISSION_MISSING_HTTP_403")
+    assert sum(r.full_url.endswith("/ugcPosts") for r in requests) == 1
+    assert "private" not in json.dumps(result)
+
+
 def test_authorization_url_is_official_and_never_contains_client_secret():
     url = build_authorization_url(client_id="public-id", state="cryptographic-state")
     parsed = urllib.parse.urlsplit(url)

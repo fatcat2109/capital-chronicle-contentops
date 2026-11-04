@@ -1,0 +1,16 @@
+{
+  "tool_request_sha256": "9281f244b61a156b7102e362cf38980003a999b187b939c6218f0416a1639c2e",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a3ef-752d-7220-9694-c2f8db376808",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "BrowserOS Neo page 213 at x.com/Capitalnicle, Profile link and Edit profile prove the signed-in publishing account.",
+    "observed_at_utc": "2026-11-04T00:55:49.034Z"
+  },
+  "result": {
+    "request_sha256": "adcba664f757990ab9e017977b39dcb32e9808ae4d3cf8feb6883811f30a187d",
+    "status": "READY_AUTHENTICATED",
+    "authenticated": true,
+    "observed_identity": "@Capitalnicle"
+  }
+}

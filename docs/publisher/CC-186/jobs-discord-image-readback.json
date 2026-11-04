@@ -1,0 +1,16 @@
+{
+  "observed_at_utc": "2026-11-04T09:58:08.097737+00:00",
+  "result": {
+    "status": "SUCCESS",
+    "verified": true,
+    "write_exists": true,
+    "message_id": "1567414794468986923",
+    "public_url": null,
+    "body_text_visible": true,
+    "substack_url_visible": true,
+    "meaningful_media_visible": true,
+    "attached_article_visual": false,
+    "image_sha256_match": null,
+    "public_object_id": "1567414794468986923"
+  }
+}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="41" time="215.338" timestamp="2026-11-04T16:52:07.109790+07:00" hostname="J-P"><testcase classname="tests.test_post_image_derivative_editor_v1" name="test_current_editor_uses_one_check_and_image_consumer_without_named_writer_or_screenshots" time="11.043" /><testcase classname="tests.test_dated_distribution_recovery_v1" name="test_new_recovery_uses_eastern_time_and_replays_historical_bangkok_bytes" time="3.604" /><testcase classname="tests.test_dated_distribution_recovery_v1" name="test_dated_amendment_retains_original_bytes_and_one_exact_send[facebook_page]" time="8.980" /><testcase classname="tests.test_dated_distribution_recovery_v1" name="test_dated_amendment_retains_original_bytes_and_one_exact_send[instagram_business]" time="9.638" /><testcase classname="tests.test_dated_distribution_recovery_v1" name="test_dated_amendment_retains_original_bytes_and_one_exact_send[youtube]" time="8.682" /><testcase classname="tests.test_dated_distribution_recovery_v1" name="test_unknown_destination_never_retries_under_dated_approval" time="5.021" /><testcase classname="tests.test_dated_distribution_recovery_v1" name="test_changed_dates_or_channel_copy_fail_closed" time="3.353" /><testcase classname="tests.test_dated_distribution_recovery_v1" name="test_six_affected_viewports_are_required" time="4.951" /><testcase classname="tests.test_dated_distribution_recovery_v1" name="test_wrong_model_cannot_accept_dated_recovery" time="4.653" /><testcase classname="tests.test_dated_distribution_recovery_v1" name="test_dated_social_review_uses_current_max_run" time="5.134" /><testcase classname="tests.test_dated_distribution_recovery_v1" name="test_current_social_reviewer_still_requires_max" time="8.681" /><testcase classname="tests.test_dated_distribution_recovery_v1" name="test_missing_review_or_other_destination_cannot_send" time="4.262" /><testcase classname="tests.test_dated_distribution_recovery_v1" name="test_completed_native_write_survives_stale_marker_without_another_publish[None]" time="4.284" /><testcase classname="tests.test_dated_distribution_recovery_v1" name="test_completed_native_write_survives_stale_marker_without_another_publish[missing_return]" time="3.321" /><testcase classname="tests.test_dated_distribution_recovery_v1" name="test_completed_native_write_survives_stale_marker_without_another_publish[different_intent]" time="3.514" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_linkedin_scope_keeps_eight_routine_destinations_and_old_review" time="3.613" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_neo_recovery_keeps_personal_api_setup_and_company_identity_separate" time="0.005" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_optional_company_copy_does_not_enter_routine_readiness_or_publication_plan" time="0.004" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_dated_linkedin_requires_exact_same_writer_review_and_absence[RECONCILED_ABSENT_SAFE_TO_RETRY]" time="7.921" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_dated_linkedin_requires_exact_same_writer_review_and_absence[DERIVATIVE_EXPIRED_STALE_NO_WRITE]" time="8.135" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_explicit_owner_absence_retry_is_exact_once_and_keeps_original_copy[None]" time="3.802" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_explicit_owner_absence_retry_is_exact_once_and_keeps_original_copy[owner]" time="4.633" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_explicit_owner_absence_retry_is_exact_once_and_keeps_original_copy[intent]" time="5.605" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_explicit_owner_absence_retry_is_exact_once_and_keeps_original_copy[unknown]" time="3.980" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_explicit_owner_absence_retry_is_exact_once_and_keeps_original_copy[already_attempted]" time="4.257" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_company_copy_is_distinct_once_and_does_not_retry_personal_unknown" time="8.135" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_old_three_channel_review_cannot_authorize_company_copy" time="3.829" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_completed_native_personal_write_supersedes_prior_absence_while_readback_waits" time="8.309" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_company_pending_restart_and_claimed_action_never_create_again" time="10.301" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_company_queued_copy_cannot_change_after_its_review" time="6.580" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_company_queue_preserves_reviewed_copy_and_repairs_only_known_unclaimed_empty_package[empty_unclaimed]" time="5.685" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_company_queue_preserves_reviewed_copy_and_repairs_only_known_unclaimed_empty_package[wrong_text]" time="4.671" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_company_queue_preserves_reviewed_copy_and_repairs_only_known_unclaimed_empty_package[dispatch_marker]" time="4.630" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_native_projection_keeps_selected_company_copy_pending_without_changing_routine_count" time="0.008" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_unknown_absence_needs_owner_report_and_fresh_loaded_own_activity[None]" time="3.346" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_unknown_absence_needs_owner_report_and_fresh_loaded_own_activity[identity]" time="3.435" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_unknown_absence_needs_owner_report_and_fresh_loaded_own_activity[profile]" time="3.245" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_unknown_absence_needs_owner_report_and_fresh_loaded_own_activity[not_loaded]" time="3.770" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_unknown_absence_needs_owner_report_and_fresh_loaded_own_activity[not_empty]" time="4.036" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_unknown_absence_needs_owner_report_and_fresh_loaded_own_activity[unrelated_text]" time="5.254" /><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_unknown_absence_needs_owner_report_and_fresh_loaded_own_activity[stale]" time="6.202"><failure message="ValueError: LINKEDIN_EXACT_PRIOR_ABSENCE_REQUEST_REQUIRED">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-32247/test_unknown_absence_needs_own6')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000002356C4DBCB0&gt;
+invalid = 'stale'
+
+    @pytest.mark.parametrize("invalid", [None, "identity", "profile", "not_loaded", "not_empty", "unrelated_text", "stale",
+        "owner_target_absent", "target_url_present", "target_title_present"])
+    def test_unknown_absence_needs_owner_report_and_fresh_loaded_own_activity(tmp_path, monkeypatch, invalid):
+        store, binding, _, co, runtime, _, ids = linkedin_recovery(tmp_path, monkeypatch)
+        fixed = datetime(2026, 10, 28, 4, 4, 59, tzinfo=timezone.utc)
+        co._clock = lambda: fixed
+        executor = NativeNeoExecutor(store, operation_id=binding["run_id"], output_dir=tmp_path/"neo",
+            native_invocation_id="CONTROLLED_NATIVE_READONLY", clock=lambda: fixed)
+        runtime._neo_transport = NeoDestinationHandoff(native_executor=executor)
+        before = store.get_outbox_message(ids["message_id"])["payload"]
+        with pytest.raises(NativeNeoInputRequired) as pending:
+            co.reconcile_owner_confirmed_linkedin_absence(ids["dispatch_id"], owner_authority_ref="human:CONTROLLED_OWNER_ABSENCE")
+        packet = pending.value.request
+        request_hash = packet["request"]["request_sha256"]
+        executor.begin(request_hash)
+        result = {"request_sha256": request_hash, "observed_identity": IDENTITIES["linkedin"],
+            "observed_profile_url": ROOTS["linkedin"], "authenticated": True, "activity_feed_loaded": True,
+            "activity_feed_empty": True, "observed_text": "Activity. Nothing to see for now."}
+        changes = {"identity": {"observed_identity": IDENTITIES["linkedin_company"]},
+            "profile": {"observed_profile_url": ROOTS["linkedin_company"]}, "not_loaded": {"activity_feed_loaded": False},
+            "not_empty": {"activity_feed_empty": False}, "unrelated_text": {"observed_text": "An empty search result"}}
+        result.update(changes.get(invalid, {}))
+        if invalid in {"owner_target_absent", "target_url_present", "target_title_present"}:
+            intent = json.loads(before)
+            text = "Own activity: one unrelated older oil report."
+            if invalid == "target_url_present": text += " " + intent["canonical_url"]
+            if invalid == "target_title_present":
+                from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+                text += " " + _durable_intent_inputs(intent)["payloads"]["linkedin"]["text"].split("\n", 1)[0]
+            result.update(activity_feed_empty=False, target_post_absent=True, observed_text=text)
+        executor.submit(request_hash, {"tool_request_sha256": packet["tool_request_sha256"],
+            "tool_observation": {"tool_name": "mcp__browseros_neo__run", "native_invocation_id": executor.native_invocation_id,
+                "surface": "CODEX_DESKTOP_CONVERSATION", "observation_source": "SYNTHETIC_PROTOCOL_FIXTURE_NOT_BROWSER_PROOF",
+                "observed_at_utc": fixed.isoformat()}, "result": result})
+        from datetime import timedelta
+        fixed += timedelta(seconds=301 if invalid == "stale" else 2)
+&gt;       observed = co.reconcile_owner_confirmed_linkedin_absence(ids["dispatch_id"],
+            owner_authority_ref="human:CONTROLLED_OWNER_ABSENCE", request_hash=request_hash)
+
+tests\test_linkedin_neo_recovery_v1.py:314: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;live_contentops.publication_coordinator_v1.DurablePublicationCoordinator object at 0x000002356DF75D10&gt;
+dispatch_id = 'dispatch_665cf3f317a062dadd83a0dd04737d6c'
+
+    def reconcile_owner_confirmed_linkedin_absence(self, dispatch_id, *, owner_authority_ref, request_hash=None):
+        """Combine Jim's absence report with a fresh, loaded own-profile Neo readback."""
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        from live_contentops.neo_destination_handoff_v1 import ROOTS
+        dispatch = self.store.get_platform_dispatch(dispatch_id) or {}
+        message = self.store.get_outbox_message(dispatch.get("message_id", ""))
+        if (not message or message["destination"] != "linkedin" or dispatch.get("public_object_id")
+                or dispatch.get("public_object_url") or dispatch.get("status") != UNKNOWN_WRITE
+                or not str(owner_authority_ref).startswith("human:")):
+            raise ValueError("LINKEDIN_EXACT_UNIDENTIFIED_UNKNOWN_AND_OWNER_REPORT_REQUIRED")
+        if self._retry_already_attempted(dispatch_id):
+            return {"status": "LINKEDIN_OWNER_REPORT_PREDATES_RETRY_READBACK_REQUIRED", "publish_called": False}
+        original = json.loads(message["payload"])
+        context = {"dispatch_id": dispatch_id, "original_intent_sha256": sha256_of(original),
+            "owner_authority_ref": owner_authority_ref, "owner_reported_absent": True,
+            "profile_url": ROOTS["linkedin"], "observation_epoch": int(self._clock().timestamp()) // 300}
+        transport = getattr(self.transport_runtime, "_neo_transport", None)
+        executor = getattr(transport, "native_executor", None)
+        if not getattr(executor, "native_neo_protocol", False) or executor.operation_id != message["work_item_id"]:
+            raise ValueError("LINKEDIN_EXACT_NATIVE_READBACK_EXECUTOR_REQUIRED")
+        if request_hash:
+            packet = executor._get(request_hash, "request") or {}
+            previous_context = packet.get("request", {}).get("owner_absence_context") or {}
+            if (packet.get("operation_id") != message["work_item_id"]
+                    or {k: v for k, v in previous_context.items() if k != "observation_epoch"}
+                    != {k: v for k, v in context.items() if k != "observation_epoch"}):
+                raise ValueError("LINKEDIN_EXACT_PRIOR_ABSENCE_REQUEST_REQUIRED")
+            context = previous_context
+        request = transport.request(destination="linkedin", action="READBACK",
+            intent={**original, "owner_absence_context": context})
+        if request_hash and request["request_sha256"] != request_hash:
+&gt;           raise ValueError("LINKEDIN_EXACT_PRIOR_ABSENCE_REQUEST_REQUIRED")
+E           ValueError: LINKEDIN_EXACT_PRIOR_ABSENCE_REQUEST_REQUIRED
+
+live_contentops\publication_coordinator_v1.py:961: ValueError</failure></testcase></testsuite></testsuites>

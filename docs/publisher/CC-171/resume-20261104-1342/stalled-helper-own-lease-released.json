@@ -1,0 +1,11 @@
+{
+  "lease_id": "lease_4e429b91c5b9db7f",
+  "lease_key": "internal:native-editorial:newsroom",
+  "work_item_id": null,
+  "owner_ref": "native-newsroom-31ee3e3455cd40d1871039e717dfafd8",
+  "fencing_token": 394,
+  "acquired_at": "2026-11-04T08:36:04.634761+00:00",
+  "renewed_at": "2026-11-04T08:36:04.634761+00:00",
+  "expires_at": "2026-11-04T08:51:04.634761+00:00",
+  "status": "ACTIVE"
+}

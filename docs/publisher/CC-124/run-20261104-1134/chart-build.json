@@ -1,0 +1,125 @@
+{
+  "assets": [
+    {
+      "asset_id": "payroll_first_print_trend",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\payroll_first_print_trend.png",
+      "sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+      "width": 1440,
+      "height": 1040,
+      "computed_values": [
+        [
+          12000.0,
+          227000.0,
+          256000.0,
+          143000.0,
+          151000.0,
+          228000.0,
+          177000.0,
+          139000.0,
+          147000.0,
+          73000.0,
+          22000.0,
+          119000.0,
+          -105000.0,
+          64000.0,
+          50000.0,
+          130000.0,
+          -92000.0,
+          178000.0,
+          115000.0,
+          172000.0,
+          57000.0,
+          -23000.0,
+          162000.0,
+          29000.0
+        ]
+      ]
+    },
+    {
+      "asset_id": "september_sector_breakdown",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\september_sector_breakdown.png",
+      "sha256": "9c3edc1443778895f6884781458ffd28d92e7823700ab4539e4b2ea74e26c12b",
+      "width": 1440,
+      "height": 1040,
+      "computed_values": [
+        [
+          18.0,
+          28.0,
+          -17.0
+        ]
+      ]
+    },
+    {
+      "asset_id": "unemployment_first_print_trend",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\unemployment_first_print_trend.png",
+      "sha256": "8f5f4ba6cc1ea167aa0773f505460e056078ac3bbb5c5ad19f0e797c58c3a53f",
+      "width": 1440,
+      "height": 1040,
+      "computed_values": [
+        [
+          4.1,
+          4.2,
+          4.1,
+          4.0,
+          4.1,
+          4.2,
+          4.2,
+          4.2,
+          4.1,
+          4.2,
+          4.3,
+          4.4,
+          null,
+          4.6,
+          4.4,
+          4.3,
+          4.4,
+          4.3,
+          4.3,
+          4.3,
+          4.2,
+          4.1,
+          4.1,
+          4.2
+        ]
+      ]
+    },
+    {
+      "asset_id": "earnings_first_print_trend",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\earnings_first_print_trend.png",
+      "sha256": "5924ccd31418cb17d66a43319277f239b3d8514b10cbdff00d177f4277ea6801",
+      "width": 1440,
+      "height": 1040,
+      "computed_values": [
+        [
+          0.4,
+          0.4,
+          0.3,
+          0.5,
+          0.3,
+          0.3,
+          0.2,
+          0.4,
+          0.2,
+          0.3,
+          0.3,
+          0.2,
+          0.4,
+          0.1,
+          0.3,
+          0.4,
+          0.4,
+          0.2,
+          0.2,
+          0.3,
+          0.3,
+          0.1,
+          0.3,
+          0.1
+        ]
+      ]
+    }
+  ],
+  "validators": "validate_source_value_chart passed for all four",
+  "new_network_requests": 0
+}

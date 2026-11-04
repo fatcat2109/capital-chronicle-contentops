@@ -1,0 +1,66 @@
+{
+  "item": "CC-154",
+  "recorded_at_utc": "2026-11-04T09:17:06.945922+00:00",
+  "status": "BLOCKED",
+  "first_external_cause": "NEWSROOM_CANONICAL_REQUIRED",
+  "owner": "Codex Web / Claude Ops",
+  "publisher_source_integration": "FAST_FORWARDED_INTO_OPERATING_ROOT",
+  "integrated_source_commit": "ced03eabbf246e2719b606a40d8da80c5025a571",
+  "branch": "backlog/cc-154-site-first-live",
+  "source_files_match": true,
+  "publisher_live_consumer_entry": "NativeReviewedPublication.resume -> DurablePublicationCoordinator.execute_plan -> _execute_site_first_plan",
+  "downstream_site_consumer_wired": false,
+  "next_article_site_and_social_window_acceptance": "INCOMPLETE_WEB_CONSUMER_REJECTS_SITE_ONLY_RECORD",
+  "consumer_proof": "resume-consumer-compatibility.json",
+  "checks": {
+    "operating-root-tests.xml": {
+      "tests": "158",
+      "failures": "0",
+      "errors": "0",
+      "time": "147.613",
+      "sha256": "b425105e998697f6413b2e5a0ac83c1261040e5338ff72a1170ff8e9d557b84b"
+    },
+    "resume-site-tests.xml": {
+      "tests": "16",
+      "failures": "0",
+      "errors": "0",
+      "time": "19.469",
+      "sha256": "3983523033f308e33bccb21c7ed980de40255b5b96547cfab92741b734a30283"
+    },
+    "resume-native-tests.xml": {
+      "tests": "58",
+      "failures": "0",
+      "errors": "0",
+      "time": "111.120",
+      "sha256": "614bd325794037259f050ebed7aa1bc5d7582df961446305014bdd2441b2c81d"
+    },
+    "resume-live-consumer-tests.xml": {
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "time": "2.101",
+      "sha256": "aef2876072871538d646d640dba62dadefb21c41614a56e398609931a0b4e552"
+    },
+    "resume-site-and-consumer.xml": {
+      "tests": "18",
+      "failures": "1",
+      "errors": "0",
+      "time": "18.135",
+      "sha256": "1c85e3b5fee864e042dc1059fb71b29d1bd36b261b37dc8657e08b18a133ce24"
+    }
+  },
+  "ruff": "PASS: nine changed source/test files in operating root",
+  "retained_wip": "All nine pre-existing modified files remain unstaged, 303 additions / 21 deletions; CC-186 untracked files preserved.",
+  "public_writes": 0,
+  "schedule_changes": 0,
+  "messages_sent": 0,
+  "editorial_calls": 0,
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "high",
+  "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+  "smallest_next_action": "Web/Ops adapt and integrate CC-146/149 to consume the exact reviewed site candidate, deploy expected_site_url and expose article_content_sha256; then Publisher completes one next article within its window.",
+  "limitations": [
+    "Operating-root code integration and tests are verified; no new article or timed live distribution is claimed.",
+    "No runtime process restart or application control was performed."
+  ]
+}

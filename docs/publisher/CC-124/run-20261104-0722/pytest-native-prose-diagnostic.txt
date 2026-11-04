@@ -1,0 +1,28 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_ test_retained_native_original_prose_publishes_and_exports_without_rewriting_its_artifacts _
+
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-32033/test_retained_native_original_0')
+
+    def test_retained_native_original_prose_publishes_and_exports_without_rewriting_its_artifacts(tmp_path):
+        _, transport, coordinator, plan, _, root = native_lifecycle(tmp_path)
+        before = {path.name: path.read_bytes() for path in root.iterdir()}
+        original_readback = transport.readback
+    
+        def readback(**kwargs):
+            return {**original_readback(**kwargs), "published_at_utc": ORIGINAL}
+    
+        transport.readback = readback
+        result = coordinator.execute_plan("work-1", plan)
+        assert result["canonical_article_real_published"] is True
+>       assert result.get("published_content_record", {}).get("status") == "APPENDED", result.get("published_content_record")
+E       AssertionError: {'cause': 'CONFIRMED_OUTLET_URL_REQUIRED:discord', 'status': 'PUBLICATION_RECORD_PENDING'}
+E       assert 'PUBLICATION_RECORD_PENDING' == 'APPENDED'
+E         
+E         - APPENDED
+E         + PUBLICATION_RECORD_PENDING
+
+tests\test_published_content_v1.py:109: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_published_content_v1.py::test_retained_native_original_prose_publishes_and_exports_without_rewriting_its_artifacts
+1 failed, 68 deselected in 2.77s

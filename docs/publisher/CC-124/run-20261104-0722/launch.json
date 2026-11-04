@@ -1,0 +1,13 @@
+{
+  "item": "CC-124",
+  "recorded_at_utc": "2026-11-04T00:24:44.376570+00:00",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "model_telemetry": "CONFIGURED_NOT_OBSERVED",
+  "native_invocation_id": "01a1a3ef-752d-7220-9694-c2f8db376808",
+  "base_tag": "contentops-live-20261104-cc177",
+  "base_sha": "f7169bc049e48378de83c7032bae30ac855dd9f6",
+  "resumed_branch": "backlog/cc-124-independent-publication",
+  "first_cli_readback_utc": "2026-11-04T00:22:32Z",
+  "process_started_utc": "2026-11-04T00:22:21Z"
+}

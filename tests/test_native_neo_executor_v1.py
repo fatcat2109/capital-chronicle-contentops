@@ -1,6 +1,6 @@
 """Controlled protocol checks only; these fixtures do not prove a browser action."""
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 import pytest
 
@@ -52,6 +52,68 @@ def pending_readback(adapter, destination="substack", value=None):
     return pending.value.request, ids[destination], urls[destination]
 
 
+@pytest.mark.parametrize("age,identity,loaded,absent", [
+    (1200, "@Capitalnicle", True, True), (599, "@Capitalnicle", True, False),
+    (1200, "@OTHER_ACCOUNT", True, False), (1200, "@Capitalnicle", False, False)])
+def test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes(tmp_path, monkeypatch, age, identity, loaded, absent):
+    store, executor = setup(tmp_path)
+    monkeypatch.setattr(store, "get_platform_dispatch", lambda key: {"status": "UNKNOWN_WRITE",
+        "dispatched_at": (datetime.now(timezone.utc) - timedelta(seconds=age)).isoformat()})
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    def read():
+        return adapter.readback(destination="x", intent=intent("x"), public_object_id=None, public_object_url=None)
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        read()
+    packet = pending.value.request
+    observed = response(executor, packet, {"observed_identity": identity,
+        "observed_profile_url": "https://x.com/Capitalnicle", "authenticated": True,
+        "activity_feed_loaded": loaded, "target_post_absent": True,
+        "observed_text": "Own profile is loaded through older posts; the requested title and link are absent."})
+    observed["tool_observation"]["surface"] = "CODEX_EXEC"
+    executor.submit(packet["request"]["request_sha256"], observed)
+    actual = read()
+    assert actual["write_absent"] is absent
+    assert store.list_platform_dispatches() == []
+
+
+def test_unidentified_linkedin_api_attempt_reaches_existing_neo_readback():
+    from types import SimpleNamespace
+    calls = []
+    def cannot_read_unidentified(**kwargs):
+        raise AssertionError("A missing post ID cannot be resolved by API token refresh")
+    api = SimpleNamespace(readback=cannot_read_unidentified)
+    neo = SimpleNamespace(readback=lambda **kw: calls.append(kw) or {"readback_source": "CONTROLLED_NEO"})
+    runtime = CanonicalDestinationTransportRuntimeV1(linkedin_transport=api, neo_transport=neo)
+    result = runtime.readback(destination="linkedin", public_object_id=None, public_object_url=None, intent=intent())
+    assert result["readback_source"] == "CONTROLLED_NEO"
+    assert len(calls) == 1 and calls[0]["public_object_id"] is None
+
+
+def test_same_turn_gets_later_ten_minute_readback_without_another_send(tmp_path):
+    store, executor = setup(tmp_path)
+    now = [datetime(2026, 11, 4, 8, 0, tzinfo=timezone.utc)]
+    executor.clock = lambda: now[0]
+    first, _, _ = pending_readback(NeoDestinationHandoff(native_executor=executor), "x")
+    now[0] += timedelta(minutes=10)
+    later, _, _ = pending_readback(NeoDestinationHandoff(native_executor=executor), "x")
+    assert later["request"]["request_sha256"] != first["request"]["request_sha256"]
+    assert later["request"]["native_invocation_id"] == first["request"]["native_invocation_id"]
+    assert store.list_platform_dispatches() == []
+
+
+def test_later_native_turn_obtains_fresh_readback_without_repeating_a_write(tmp_path):
+    store, executor = setup(tmp_path)
+    first, object_id, url = pending_readback(NeoDestinationHandoff(native_executor=executor), "x")
+    failed = response(executor, first, {"status": "BLOCKED", "observed_text": "Network unavailable"})
+    executor.submit(first["request"]["request_sha256"], failed)
+    later = NativeNeoExecutor(store, operation_id="same-op", output_dir=tmp_path,
+        native_invocation_id="later-controlled-turn")
+    fresh, _, _ = pending_readback(NeoDestinationHandoff(native_executor=later), "x")
+    assert fresh["request"]["request_sha256"] != first["request"]["request_sha256"]
+    assert executor._get(first["request"]["request_sha256"], "response")["result"]["status"] == "BLOCKED"
+    assert store.list_platform_dispatches() == []
+
+
 @pytest.mark.parametrize("destination", ["substack", "x", "youtube"])
 def test_exact_readback_restart_immutable_and_no_public_action(tmp_path, destination):
     store, executor = setup(tmp_path)
@@ -72,7 +134,8 @@ def test_exact_readback_restart_immutable_and_no_public_action(tmp_path, destina
         executor.submit(packet["request"]["request_sha256"], {**result, "result": {**result["result"], "observed_text": "changed"}})
 
 
-def test_readback_requires_exact_text_url_media_and_thread(tmp_path):
+@pytest.mark.parametrize("thread_field", ["observed_thread", "thread_posts"])
+def test_readback_requires_exact_text_url_media_and_thread(tmp_path, thread_field):
     _, executor = setup(tmp_path)
     adapter = NeoDestinationHandoff(native_executor=executor)
     value = intent("x", native_payload={"posts": [{"text": "First source-bound post."}, {"text": "Second useful post."}]},
@@ -81,7 +144,7 @@ def test_readback_requires_exact_text_url_media_and_thread(tmp_path):
     result = response(executor, packet, {"status": "SUCCESS", "observed_identity": "@Capitalnicle",
         "public_object_id": object_id, "public_object_url": url, "content_verified": True,
         "observed_text": "First source-bound post. Second useful post.",
-        "observed_media_sha256": ["media-hash"], "observed_thread": [
+        "observed_media_sha256": ["media-hash"], thread_field: [
             {"public_object_id": "123", "public_object_url": url, "observed_text": "First source-bound post."},
             {"public_object_id": "124", "public_object_url": "https://x.com/Capitalnicle/status/124", "observed_text": "Second useful post."}]})
     executor.submit(packet["request"]["request_sha256"], result)
@@ -91,8 +154,15 @@ def test_readback_requires_exact_text_url_media_and_thread(tmp_path):
     bad = NeoDestinationHandoff(native_executor=lambda req: {**result["result"], "request_sha256": req["request_sha256"],
                                                             "observed_media_sha256": []})
     assert bad.readback(destination="x", intent=value, public_object_id=object_id, public_object_url=url)["verified"] is False
+    thread = result["result"][thread_field]
+    for invalid_thread in (list(reversed(thread)), thread[:1], [thread[0], thread[0]]):
+        invalid = NeoDestinationHandoff(native_executor=lambda req: {**result["result"],
+            "request_sha256": req["request_sha256"], thread_field: invalid_thread})
+        assert invalid.readback(destination="x", intent=value,
+            public_object_id=object_id, public_object_url=url)["verified"] is False
 
 
+@pytest.mark.parametrize("destination", ["x", "youtube"])
 @pytest.mark.parametrize("changed,verified", [
     ({}, True),
     ({"source_asset_sha256": "c" * 64}, False),
@@ -104,19 +174,22 @@ def test_readback_requires_exact_text_url_media_and_thread(tmp_path):
     ({"pixels_inspected": False}, False),
     ({"source_pixels_match": False}, False),
 ])
-def test_x_transcoded_chart_needs_exact_public_object_and_pixel_inspection(changed, verified):
+def test_transcoded_chart_needs_exact_public_object_and_pixel_inspection(destination, changed, verified):
     source_hash = "a" * 64
-    url = "https://x.com/Capitalnicle/status/123"
-    value = intent("x", media_assets=[{"asset_id": "card", "sha256": source_hash}])
+    url = "https://x.com/Capitalnicle/status/123" if destination == "x" else "https://www.youtube.com/post/123"
+    identity = "@Capitalnicle" if destination == "x" else "@CapitalChronicleYouTube"
+    image = ("https://pbs.twimg.com/media/chart?format=jpg&name=small" if destination == "x"
+             else "https://yt3.ggpht.com/chart=s640-rw-nd-v1")
+    value = intent(destination, media_assets=[{"asset_id": "card", "sha256": source_hash}])
     comparison = {"source_asset_sha256": source_hash, "platform_sha256": "b" * 64,
-        "public_image_url": "https://pbs.twimg.com/media/chart?format=jpg&name=small",
+        "public_image_url": image,
         "public_object_url": url, "pixels_inspected": True, "source_pixels_match": True, **changed}
     def observed(request):
-        return {"request_sha256": request["request_sha256"], "observed_identity": "@Capitalnicle",
+        return {"request_sha256": request["request_sha256"], "observed_identity": identity,
             "status": "SUCCESS", "public_object_id": "123", "public_object_url": url,
             "observed_text": "Exact supported proposition.", "content_verified": True,
             "observed_media_sha256": ["b" * 64], "media_comparisons": [comparison]}
-    result = NeoDestinationHandoff(native_executor=observed).readback(destination="x", intent=value,
+    result = NeoDestinationHandoff(native_executor=observed).readback(destination=destination, intent=value,
         public_object_id="123", public_object_url=url)
     assert result["verified"] is verified
 
@@ -189,7 +262,12 @@ def test_coordinator_pending_publish_and_claimed_loss_enters_readback_only(tmp_p
     packet = executor.pending()[0]
     # Controlled boundary fixture; actual identity observations are separately proven in Neo.
     monkeypatch.setattr(executor, "readiness", lambda surface: {"authenticated": True, "native_executor_bound": True})
-    executor.begin(packet["request"]["request_sha256"])
+    action = executor.begin(packet["request"]["request_sha256"])
+    routine = action["substack_publish_routine"]
+    assert routine["policy"] == "JIM_DECISIONS_48_52_63"
+    assert "one existing" in routine["window"]
+    assert "continue other destinations" in routine["email_code_dialog"]
+    assert routine["email_code_return"]["automatic_wait"] is False
     with pytest.raises(ValueError, match="ALREADY_CLAIMED"):
         executor.begin(packet["request"]["request_sha256"])
     restarted = NativeNeoExecutor(store, operation_id="work", output_dir=tmp_path / "resume",

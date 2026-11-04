@@ -1,0 +1,95 @@
+{
+  "reference": {
+    "stage": "final-visual-5dfc4599f77a88ccfb3810db6f4c0a4d60c46c6a4d85144002eb51ecb9b56224",
+    "request_sha256": "a99c3711e6f51b28a9cd61f8f7baa3db023e23f1285d3b1270665cea7c3ad7af",
+    "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a"
+  },
+  "acceptance": {
+    "stage": "final-visual-5dfc4599f77a88ccfb3810db6f4c0a4d60c46c6a4d85144002eb51ecb9b56224",
+    "request_sha256": "a99c3711e6f51b28a9cd61f8f7baa3db023e23f1285d3b1270665cea7c3ad7af",
+    "response_sha256": "4a92a624ba453d9db467088df97f1dae6b983fba54205c18dc58c00bb5f98a38",
+    "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a",
+    "article_revision": "c10664ac7489c33a6dc10bddfa2e634fa07d710ca3024034243a73315dc366d2",
+    "render_binding_sha256": "5dfc4599f77a88ccfb3810db6f4c0a4d60c46c6a4d85144002eb51ecb9b56224",
+    "invocation_observation": {
+      "actual_configuration_unavailable": true,
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_61",
+      "configuration_source": "Observed top-level Codex exec launch arguments for CC-186; actual runtime telemetry is unavailable.",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "invocation_id": "01a1a5d9-b742-78a2-921c-44ae9bcbf17d",
+      "model": null,
+      "observation_source": "This active run reviewed the exact dated LinkedIn copy against the retained article, admitted BLS source facts and bound chart selection.",
+      "reasoning_effort": null,
+      "speed": "standard",
+      "surface": "CODEX_EXEC"
+    },
+    "review_type": "WRITER_ONE_EDITOR_CHECK_PUBLISH",
+    "pixels_inspected": false,
+    "automated_media_check": {
+      "blocks_publication": false,
+      "check": "IMAGE_LOAD_AND_SIZE_ONCE",
+      "failures_logged_no_repair_loop": 0,
+      "findings": [
+        {
+          "asset_id": "payroll_first_print_trend",
+          "expected_dimensions": [
+            1440,
+            1040
+          ],
+          "height": 1040,
+          "loads": true,
+          "pixels_inspected": false,
+          "right_size": true,
+          "sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+          "status": "PASS",
+          "width": 1440
+        },
+        {
+          "asset_id": "september_sector_breakdown",
+          "expected_dimensions": [
+            1440,
+            1040
+          ],
+          "height": 1040,
+          "loads": true,
+          "pixels_inspected": false,
+          "right_size": true,
+          "sha256": "9c3edc1443778895f6884781458ffd28d92e7823700ab4539e4b2ea74e26c12b",
+          "status": "PASS",
+          "width": 1440
+        },
+        {
+          "asset_id": "unemployment_first_print_trend",
+          "expected_dimensions": [
+            1440,
+            1040
+          ],
+          "height": 1040,
+          "loads": true,
+          "pixels_inspected": false,
+          "right_size": true,
+          "sha256": "8f5f4ba6cc1ea167aa0773f505460e056078ac3bbb5c5ad19f0e797c58c3a53f",
+          "status": "PASS",
+          "width": 1440
+        },
+        {
+          "asset_id": "earnings_first_print_trend",
+          "expected_dimensions": [
+            1440,
+            1040
+          ],
+          "height": 1040,
+          "loads": true,
+          "pixels_inspected": false,
+          "right_size": true,
+          "sha256": "5924ccd31418cb17d66a43319277f239b3d8514b10cbdff00d177f4277ea6801",
+          "status": "PASS",
+          "width": 1440
+        }
+      ],
+      "policy": "JIM_DECISION_53"
+    }
+  }
+}

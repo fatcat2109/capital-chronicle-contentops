@@ -1,0 +1,78 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "inspection": {
+      "changed": true,
+      "page": 206,
+      "settled": true,
+      "value": {
+        "body": "The SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change.\n\nWhat the SEC has announced\n\nIn its October 19 announcement, the Securities and Exchange Commission scheduled the roundtable for November 9, 2026, from 9 a.m. to 3:30 p.m. EST at its headquarters, 100 F Street, N.E., Washington, D.C.\n\nThe event will be open to the public, although in-person capacity may be limited and visitors will face security checks. The SEC says the discussion will be streamed live on SEC.gov, with a recording available later.\n\nWhat to listen for\n\nThe SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.\n\nListen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.\n\nWhat this does not establish\n\nThe countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.\n\nThe SEC’s chief economist, Joshua White, put high-quality information at the center of the announcement. Whether the discussion produces useful evidence on that subject remains to be seen.\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+        "images": [
+          {
+            "alt": "",
+            "height": 937,
+            "loads": true,
+            "src": "https://substackcdn.com/image/fetch/$s_!6ii_!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3b8cabb5-55dd-4022-aaaa-cf39c147b322_1600x900.png",
+            "width": 1667
+          }
+        ],
+        "paragraphs": [
+          {
+            "tag": "DIV",
+            "text": ""
+          },
+          {
+            "tag": "P",
+            "text": "The SEC has announced a November 9 public roundtable on machine-unders"
+          },
+          {
+            "tag": "H2",
+            "text": "What the SEC has announced"
+          },
+          {
+            "tag": "P",
+            "text": "In its October 19 announcement, the Securities and Exchange Commission"
+          },
+          {
+            "tag": "P",
+            "text": "The event will be open to the public, although in-person capacity may "
+          },
+          {
+            "tag": "H2",
+            "text": "What to listen for"
+          },
+          {
+            "tag": "P",
+            "text": "The SEC says feedback will help staff understand how the market and in"
+          },
+          {
+            "tag": "P",
+            "text": "Listen for concrete examples of use, a clear account of risks and cost"
+          },
+          {
+            "tag": "H2",
+            "text": "What this does not establish"
+          },
+          {
+            "tag": "P",
+            "text": "The countercase is that this may remain a listening exercise. The anno"
+          },
+          {
+            "tag": "P",
+            "text": "The SEC’s chief economist, Joshua White, put high-quality information "
+          },
+          {
+            "tag": "P",
+            "text": "Analysis, not financial advice. Readers decide whether to trade."
+          }
+        ]
+      }
+    },
+    "pageId": 206,
+    "ready": {
+      "matched": true
+    },
+    "snapshot": "- generic [ref=e5] [cursor=pointer]\n- textbox \"Add a title...\" [ref=e6]\n- textbox \"Add a description...\" [ref=e7]\n- LabelText [ref=e8] [cursor=pointer]\n- button \"Exit\" [ref=e9]\n- button \"Saved\" [ref=e103]\n- button \"Preview\" [ref=e11]\n- button \"Continue\" [ref=e104]\n- toolbar\n  - button \"Undo\" [ref=e47]\n  - button \"Redo\" [disabled] [ref=e14]\n  - button \"Style\" [collapsed] [ref=e15]\n  - button \"Bold\" [ref=e16]\n  - button \"Italic\" [ref=e17]\n  - button \"Strikethrough\" [ref=e18]\n  - button \"Code\" [ref=e19]\n  - button \"Text color\" [collapsed] [ref=e20]\n  - button \"Highlight\" [collapsed] [ref=e21]\n  - button \"Superscript & subscript\" [collapsed] [ref=e22]\n  - button \"Link\" [ref=e23]\n  - button \"Insert image\" [collapsed] [ref=e24]\n  - button \"Insert audio\" [ref=e25]\n  - button \"Insert video\" [ref=e26]\n  - button \"Insert quote\" [collapsed] [ref=e27]\n  - button \"Bulleted list\" [ref=e83]\n  - button \"Numbered list\" [ref=e84]\n  - button [collapsed] [ref=e30]\n  - button \"Button\" [collapsed] [ref=e31]\n  - button \"Template\" [collapsed] [ref=e32]\n  - button \"More\" [collapsed] [ref=e33]\n- button \"Email header / footer\" [ref=e34]\n- textbox \"title\" [ref=e35]: \"U.S. Securities and Exchange Commission plans November 9 data roundtable\"\n- textbox \"Add a subtitle…\" [ref=e36]: \"The SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.\"\n- button \"Capital Chronicle\" [ref=e37]\n- button [collapsed] [ref=e38]\n- textbox \"Start writing...\" [ref=e39]: \"The SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change.\\n\\nWhat the SEC has announced\\n\\nIn its October 19 announcement, the Securities and Exchange Commission scheduled the roundtable for November 9, 2026, from 9 a.m. to 3:30 p.m. EST at its headquarters, 100 F Street, N.E., Washington, D.C.\\n\\nThe event will be open to the public, although in-person capacity may be limited and visitors will face security checks. The SEC says the discussion will be streamed live on SEC.gov, with a recording available later.\\n\\nWhat to listen for\\n\\nThe SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.\\n\\nListen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.\\n\\nWhat this does not establish\\n\\nThe countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.\\n\\nThe SEC’s chief economist, Joshua White, put high-quality information at the center of the announcement. Whether the discussion produces useful evidence on that subject remains to be seen.\\n\\nAnalysis, not financial advice. Readers decide whether to trade.\"\n  - figure\n    - link [ref=e105] [url=\"https://substackcdn.com/image/fetch/$s_!6ii_!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3b8cabb5-55dd-4022-aaaa-cf39c147b322_1600x900.png\"]\n  - paragraph [ref=e49] [cursor=pointer]\n  - heading \"What the SEC has announced\" [level=2] [ref=e72] [cursor=pointer]\n  - paragraph [ref=e73] [cursor=pointer]\n  - paragraph [ref=e74] [cursor=pointer]\n  - heading \"What to listen for\" [level=2] [ref=e75] [cursor=pointer]\n  - paragraph [ref=e76] [cursor=pointer]\n  - paragraph [ref=e80] [cursor=pointer]\n  - heading \"What this does not establish\" [level=2] [ref=e81] [cursor=pointer]\n  - paragraph [ref=e85] [cursor=pointer]\n  - paragraph [ref=e86] [cursor=pointer]\n  - paragraph [ref=e87] [cursor=pointer]\n- button \"Version history\" [ref=e41]\n- button [ref=e42]\n- button \"Settings\" [ref=e43]\n- region \"Notifications\" [ref=e44] [cursor=pointer]\n- button \"Test lấy mã\" [ref=e45]"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "tool_request_sha256": "16762cae33537761079835ebf1a381a0cff7cc6999e2f1d2af86bd46fa46b348",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a3ef-752d-7220-9694-c2f8db376808",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Fresh exact channel ownership readback from existing Neo page 214.",
+    "observed_at_utc": "2026-11-04T01:05:43.889Z"
+  },
+  "result": {
+    "request_sha256": "0011224992cf642eefa7a5e40d871e628d9f1620b029d38ef8fe551ade8b0c9e",
+    "status": "READY_AUTHENTICATED",
+    "authenticated": true,
+    "observed_identity": "@CapitalChronicleYouTube",
+    "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA"
+  }
+}

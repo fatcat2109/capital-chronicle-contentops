@@ -1,0 +1,29 @@
+{
+  "item": "CC-186",
+  "operation_id": "cc124-next-article-20261104-a",
+  "recorded_at_utc": "2026-11-04T10:23:44.107094+00:00",
+  "destination": "x",
+  "status": "DISPATCH_CONFIRMED",
+  "reconciliation_status": "RECONCILED_CONFIRMED",
+  "public_object_id": "2117857511042904348",
+  "public_object_url": "https://x.com/Capitalnicle/status/2117857511042904348",
+  "image_attached": true,
+  "evidence_files": [
+    "jobs-x-neo-readback.json",
+    "jobs-public-image-comparisons.json"
+  ],
+  "new_write_this_run": false,
+  "canonical_url": "https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains",
+  "source_image_check": {
+    "destination": "x",
+    "public_object_url": "https://x.com/Capitalnicle/status/2117857511042904348",
+    "public_image_url": "https://pbs.twimg.com/media/HWQkAZea4AAOROe?format=png&name=small",
+    "local_asset_id": "payroll_first_print_trend",
+    "local_sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+    "public_image_sha256": "df570e6731d11caeb85b031f15757562d0881f645c08eee37353ea903a51c5d8",
+    "public_image_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-186\\x-public-payroll.png",
+    "visual_similarity": 0.9982,
+    "threshold": 0.93,
+    "image_matches_source": true
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "observed_at_utc": "2026-11-04T09:58:08.879613+00:00",
+  "result": {
+    "status": "SUCCESS",
+    "platform": "facebook_page",
+    "post_id": "106091951705748_1444330794552003",
+    "public_url": "https://www.facebook.com/1342369584748125/posts/1444330794552003",
+    "destination_identity": "Capital Chronicle",
+    "page_identity_verified": true,
+    "visible_body_text": "September 2026 jobs: private gains beneath a weak headline September 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses. Why it matters: Government losses weakened the headline without turning the private-sector total negative. Capital Chronicle's inference is that the composition deserves attention before the small overall gain is read as broad private retrenchment. BLS described employment in all major industries as little changed. Read the full brief: https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains Analysis, not financial advice. Readers decide whether to trade.",
+    "body_text_visible": true,
+    "substack_url_visible": true,
+    "meaningful_media_visible": true,
+    "media_expected": true,
+    "expected_chart_visual_similarity": 0.9962,
+    "public_image_url_present": true,
+    "verified": true,
+    "public_object_id": "106091951705748_1444330794552003"
+  }
+}

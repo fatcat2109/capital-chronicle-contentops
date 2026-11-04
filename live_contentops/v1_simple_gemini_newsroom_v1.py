@@ -2224,6 +2224,8 @@ def _build_simple_publication_lifecycle_plan(
     qualified_record: Mapping[str, Any],
     epistemic_state: Mapping[str, Any] | None,
     media_assets: Sequence[Mapping[str, Any]] = (),
+    source_documents: Sequence[Mapping[str, Any]] = (),
+    post_image_policy: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Adapt one qualified Simple result to the existing durable coordinator contract.
 
@@ -2267,6 +2269,8 @@ def _build_simple_publication_lifecycle_plan(
             qualified_record.get("accepted_evidence_sha256") or ""
         ),
         "public_write_performed": False,
+        **({"post_image_policy": dict(post_image_policy), "source_documents": list(source_documents)}
+           if post_image_policy else {}),
     }
     _write_json(output_dir / "run_context_v1.json", context)
 
@@ -2326,6 +2330,7 @@ def _build_simple_publication_lifecycle_plan(
     text_first_skipped = skipped_destinations(has_image=bool(media_assets))
     plan_core = {
         "schema_version": "contentops.publication_plan.v1",
+        **({"post_image_policy": dict(post_image_policy)} if post_image_policy else {}),
         "bridge_schema_version": PUBLICATION_BRIDGE_SCHEMA_VERSION,
         "run_id": run_id,
         "story_identity": str(selected_candidate.get("story_identity") or ""),
@@ -2386,7 +2391,8 @@ def _build_simple_publication_lifecycle_plan(
         "transaction_readiness": "CANONICAL_READY_DERIVATIVES_DEFERRED",
         "transport_registry_version": REGISTRY_VERSION,
         "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
-        "substack_first_dependency": True,
+        "distribution_policy": "SITE_FIRST_V1",
+        "substack_first_dependency": False,
         "canonical_url_before_state": "PENDING_NON_DISPATCHABLE",
         "derivative_rematerialization_owner": (
             "CanonicalDestinationTransportRuntimeV1.finalize_intent"
@@ -3261,7 +3267,7 @@ def run_v1_simple_gemini_newsroom(
             "source_url": row["url"],
             "canonical_content_sha256": row["canonical_content_sha256"],
             "published_at_utc": row["published_at_utc"],
-            "published_at_source": row["published_at_source"],
+            "published_at_source": row.get("published_at_source"),
         }
         for row in source_pack
     ]

@@ -1,0 +1,41 @@
+{
+  "observed_at_utc": "2026-11-04T10:22:07.566471+00:00",
+  "comparisons": [
+    {
+      "destination": "x",
+      "public_object_url": "https://x.com/Capitalnicle/status/2117857511042904348",
+      "public_image_url": "https://pbs.twimg.com/media/HWQkAZea4AAOROe?format=png&name=small",
+      "local_asset_id": "payroll_first_print_trend",
+      "local_sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+      "public_image_sha256": "df570e6731d11caeb85b031f15757562d0881f645c08eee37353ea903a51c5d8",
+      "public_image_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-186\\x-public-payroll.png",
+      "visual_similarity": 0.9982,
+      "threshold": 0.93,
+      "image_matches_source": true
+    },
+    {
+      "destination": "youtube",
+      "public_object_url": "https://www.youtube.com/post/UgkxHzB5SS25WhvXZ09CYjMqgn34e9eKJ-_t",
+      "public_image_url": "https://yt3.ggpht.com/DWzjmW8ayjZnSGEyUJmWBURoxRS4vtmpOV8z-e-oFoAxqaotyB2bqsn8yu56ZXF0mYPZVlNVWM1I=s640-rw-nd-v1",
+      "local_asset_id": "payroll_first_print_trend",
+      "local_sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+      "public_image_sha256": "bf5fc1758efc59966483be9881d1d021023a69bdb5398585b77d2bb8cad9ee3e",
+      "public_image_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-186\\youtube-public-payroll.png",
+      "visual_similarity": 0.994,
+      "threshold": 0.93,
+      "image_matches_source": true
+    },
+    {
+      "destination": "telegram",
+      "public_object_url": "https://t.me/CapitalChronicle/76",
+      "public_image_url": "https://cdn5.telesco.pe/file/p11Zyvu_u8fXzDt2-rwtX8ZGVD7KsIqL9JDT_EeHcVbgLtcudTq0Ipa0kwJYvLVVlmhnThwp9i9NWy1p3HPwrZM-dygkDjAdBCygMLy1UhcFmq4Zt-GMZS1NC49oq-vCKYwbBcuxKxpuqa2LXZxNd2JwRbOf_0o70lBG5UuCpsknTB98DnBNtj0Iq_tmpHoeU-KY-I2jleaRKzxItjukP3tZ8lYMsAzKuPsGKcu8XzcxdcA_EFGpArO05VjI6aPzHVEz3XJcv2NmIFSx_GfVNn2zwJnqxmnp0Cj7h__SOx081sMJ_tYDO5NImC1nm88NnxwAFIKrg-cKXvLxMoMYlA.jpg",
+      "local_asset_id": "payroll_first_print_trend",
+      "local_sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+      "public_image_sha256": "d7118f7091618f28e498517ce3b317d61a5ac6b91289a3bae9a086afd8183052",
+      "public_image_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-186\\telegram-public-payroll.png",
+      "visual_similarity": 0.9951,
+      "threshold": 0.93,
+      "image_matches_source": true
+    }
+  ]
+}

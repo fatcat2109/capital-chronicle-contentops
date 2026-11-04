@@ -1,0 +1,50 @@
+{
+  "schema_version": "contentops.delivery_media_manifest.v1",
+  "run_id": "cc124-next-article-20261103-b",
+  "authority": "approved_media_manifest_hash_binding_not_substack_dom_selection",
+  "status": "PASS",
+  "blockers": [],
+  "minimum_chart_dimensions": {
+    "width": 800,
+    "height": 400
+  },
+  "assets": [
+    {
+      "media_asset_id": "sec-si-roundtable-event-facts-20261109",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "source_page_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\media\\sec-si-roundtable-event-facts-20261109.png",
+      "sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+      "declared_sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+      "mime_type": "image/png",
+      "width": 1600,
+      "height": 900,
+      "source_provenance": {
+        "status": null,
+        "source_label": "U.S. Securities and Exchange Commission",
+        "source_page_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+        "caption": "The SEC's October 19 announcement schedules a public roundtable for November 9. The stated discussion concerns machine-understandable data, Super Intelligence and associated risks and costs."
+      },
+      "chart_title": "The SEC's October 19 announcement schedules a public roundtable for November 9. The stated discussion concerns machine-understandable data, Super Intelligence and associated risks and costs.",
+      "alt_text": "SEC roundtable facts: November 9, 2026, 9 a.m. to 3:30 p.m. EST, at SEC headquarters in Washington, D.C., with public access and a live stream on SEC.gov. The announced topic is machine-understandable data, Super Intelligence, and related risks and costs.",
+      "canonical_article_section_association": "sec-si-roundtable-event-facts-20261109",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/3b8cabb5-55dd-4022-aaaa-cf39c147b322_1600x900.png",
+      "public_delivery_sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+      "local_public_hash_continuity": true
+    }
+  ],
+  "selected_primary_media_asset_id": "sec-si-roundtable-event-facts-20261109",
+  "selected_primary_media_sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+  "remote_objects_audited": [
+    {
+      "supplied_url": "https://substack-post-media.s3.amazonaws.com/public/images/3b8cabb5-55dd-4022-aaaa-cf39c147b322_1600x900.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/3b8cabb5-55dd-4022-aaaa-cf39c147b322_1600x900.png",
+      "sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+      "mime_type": "image/png",
+      "width": 1600,
+      "height": 900
+    }
+  ]
+}

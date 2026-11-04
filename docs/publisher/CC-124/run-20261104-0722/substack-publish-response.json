@@ -1,0 +1,20 @@
+{
+  "tool_request_sha256": "e7f2adc9e0d861624ea0e32bddf3cc0a0251669f451c11af13109d42638bc93b",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a3ef-752d-7220-9694-c2f8db376808",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "BrowserOS Neo publish reached share-center at page 206 and exact public article readback at page 208. Evidence substack-public-readback.json.",
+    "observed_at_utc": "2026-11-04T00:52:11.141Z"
+  },
+  "result": {
+    "request_sha256": "1d401c11f58feef98308c60dc5a9d205f67df32b6fc190ef451e6a7bffa80e44",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "223408612",
+    "public_object_url": "https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission",
+    "published_at_utc": "2026-11-04T00:50:53.619Z",
+    "email_sent": false,
+    "email_verification_required": false
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "item": "CC-186",
+  "operation_id": "cc124-next-article-20261104-a",
+  "recorded_at_utc": "2026-11-04T10:23:44.107094+00:00",
+  "destination": "threads",
+  "status": "NOT_DISPATCHED",
+  "reconciliation_status": null,
+  "public_object_id": null,
+  "public_object_url": null,
+  "image_attached": false,
+  "evidence_files": [
+    "jobs-threads-fresh-identity.json"
+  ],
+  "new_write_this_run": false,
+  "canonical_url": "https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains",
+  "exact_external_cause": {
+    "surface": "THREADS_POST",
+    "platform": "threads",
+    "transport_registry_version": "contentops.destination_transport_registry.v3",
+    "identity_authority_version": "contentops.destination_identity_authority.v2",
+    "transport_type": "THREADS_API",
+    "readiness_state": "AUTH_INVALID",
+    "destination_identity": null,
+    "identity_match": false,
+    "write_eligible": false,
+    "probe_kind": "OFFICIAL_API_IDENTITY",
+    "probed_at_utc": "2026-11-04T10:22:26.751919Z",
+    "sanitized_detail": {
+      "error_class": "HTTPError",
+      "http_status": 400,
+      "jit_attempt_identity": "dispatch_70ed7ed4a366cd9235455b99d59b9236"
+    }
+  },
+  "next_action": "Jim restores Threads authorization; Publisher resumes this same operation once restored."
+}

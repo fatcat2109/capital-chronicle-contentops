@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="2.208" timestamp="2026-11-04T15:53:38.270943+07:00" hostname="J-P"><testcase classname="tests.test_durable_operational_store_v1" name="test_outbox_filters_preserve_default_order_and_exact_payloads" time="0.549"><failure message="TypeError: ContentOpsDurableStore.create_work_item() got an unexpected keyword argument 'work_type'">temp_db = &lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x000002478586A660&gt;
+
+    def test_outbox_filters_preserve_default_order_and_exact_payloads(temp_db):
+        for work in ("w-a", "w-b"):
+&gt;           temp_db.create_work_item(work_item_id=work, work_type="test", initial_state="NEW")
+E           TypeError: ContentOpsDurableStore.create_work_item() got an unexpected keyword argument 'work_type'
+
+tests\test_durable_operational_store_v1.py:1859: TypeError</failure></testcase></testsuite></testsuites>

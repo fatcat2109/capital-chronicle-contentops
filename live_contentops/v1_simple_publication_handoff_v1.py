@@ -346,9 +346,14 @@ class SimplePublicationHandoffV1:
         recovery["backlog_blocking_current_article"] = blocks
         if blocks:
             current = self.coordinator.publication_state(slot_id, plan)
+            export = {}
+            sync = getattr(self.coordinator, "sync_published_content", None)
+            if current["canonical_article_real_published"] and callable(sync):
+                export["published_content_record"] = sync(slot_id)
             return {
                 "schema_version": SCHEMA_VERSION,
                 "state": "PUBLICATION_RECOVERY_REQUIRED",
+                **export,
                 "work_item_id": slot_id,
                 "plan_hash": str(plan.get("plan_hash") or ""),
                 "article_identity": str(plan.get("article_identity") or ""),

@@ -32,6 +32,14 @@ def _canonical(url):
     return p.scheme == "https" and p.hostname == IDENTITIES["substack"] and p.path.startswith("/p/") and not p.query and not p.fragment
 
 
+def _social_canonical(url):
+    """The preview site's exact article path is also a permitted social target."""
+    p = urlsplit(str(url or ""))
+    return _canonical(url) or bool(p.scheme == "https" and p.hostname == "fatcat2109.github.io"
+        and not p.username and not p.password and not p.query and not p.fragment
+        and re.fullmatch(r"/capital-chronicle-preview/articles/[0-9a-f]{32}/", p.path))
+
+
 def _public_url(destination, url, object_id=None):
     p = urlsplit(str(url or ""))
     if p.scheme != "https" or p.query or p.fragment:
@@ -130,8 +138,10 @@ class NeoDestinationHandoff:
                     or auth.get("work_item_id") != intent.get("work_item_id")
                     or auth.get("payload_hash") != intent.get("destination_plan", {}).get("payload_hash")):
                 raise ValueError("SOLE_COORDINATOR_AUTHORIZATION_REQUIRED")
-            if destination != "substack" and not _canonical(intent.get("canonical_url")):
-                raise ValueError("RECONCILED_SUBSTACK_URL_REQUIRED")
+            valid_canonical = (_social_canonical(intent.get("canonical_url"))
+                if intent.get("distribution_policy") == "SITE_FIRST_V1" else _canonical(intent.get("canonical_url")))
+            if destination != "substack" and not valid_canonical:
+                raise ValueError("RECONCILED_CANONICAL_URL_REQUIRED")
         if action == "EDIT_EXISTING" and (not intent.get("reader_presentation_review")
                 or not public_object_id or not _public_url(destination, public_object_url, public_object_id)
                 or auth.get("action") != "EDIT_EXISTING"):
@@ -163,6 +173,14 @@ class NeoDestinationHandoff:
             # An earlier failed observation stays immutable. A corrected readback
             # contract receives a new read-only identity, never a new write.
             value["reader_text_normalization"] = "MARKDOWN_WHITESPACE_SMART_QUOTES_V1"
+            # A failed observation is immutable, but the same native turn may
+            # obtain the later readback required after the ten-minute interval.
+            clock = getattr(self.native_executor, "clock", None)
+            now = clock() if callable(clock) else datetime.now(timezone.utc)
+            value["observation_epoch"] = int(now.timestamp()) // 600
+            invocation = getattr(self.native_executor, "native_invocation_id", None)
+            if invocation:
+                value["native_invocation_id"] = invocation
         mode = intent.get("destination_plan", {}).get("substack_delivery_mode")
         if destination == "substack" and mode and action == "PUBLISH":
             from live_contentops.substack_daily_digest_v1 import delivery_policy
@@ -178,10 +196,22 @@ class NeoDestinationHandoff:
                 "preserve the original timestamp with a UTC offset. Never substitute a dispatch, "
                 "event, retrieval, scheduled or current clock."
             )
+        if destination == "substack" and action == "READBACK" and intent.get("pending_owner_screen"):
+            value["pending_owner_screen"] = intent["pending_owner_screen"]
+            value["owner_readback_invocation"] = intent.get("owner_readback_invocation")
+            value["steps"] = ["Inspect only the same retained code tab. Never reload, navigate, type, read a mailbox or enter a code. If still on the code screen, report unverified and continue other destinations in other task tabs without waiting. Continue exact Substack readback only after this tab reaches /publish/posts/detail/.../share-center."]
         if destination == "linkedin" and action == "READBACK" and not public_object_id:
             value["owner_absence_context"] = intent.get("owner_absence_context")
         if intent.get("reader_presentation_review"):
             value["reader_presentation_review"] = intent["reader_presentation_review"]
+        if action == "READBACK":
+            resumed = getattr(self.native_executor, "readback_request_invocations", {})
+            identity = sha256_of({k: v for k, v in value.items() if k != "native_invocation_id"})
+            if identity in resumed:
+                if resumed[identity] is None:
+                    value.pop("native_invocation_id", None)
+                else:
+                    value["native_invocation_id"] = resumed[identity]
         value["request_sha256"] = sha256_of(value)
         return value
 
@@ -242,7 +272,7 @@ class NeoDestinationHandoff:
                         and short in str(result.get("observed_text") or "")
                         and link.get("target_verified") is True
                         and link.get("public_object_url") == public_object_url
-                        and link.get("target_url") == canonical and _canonical(canonical)):
+                        and link.get("target_url") == canonical and _social_canonical(canonical)):
                     comparison_text = comparison_text.replace(_text(short), _text(canonical))
         text_match = (bool(segments) and all(_text(s) in comparison_text for s in segments)
             and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
@@ -250,7 +280,7 @@ class NeoDestinationHandoff:
         expected_media.discard(None)
         media_match = expected_media <= set(result.get("observed_media_sha256") or [])
         reviewed_photo_edit = bool(intent.get("reader_presentation_review")) and destination in {"instagram_business", "youtube"}
-        if (destination in {"linkedin", "linkedin_company", "x"} or reviewed_photo_edit) and not media_match:
+        if (destination in {"linkedin", "linkedin_company", "x", "youtube"} or reviewed_photo_edit) and not media_match:
             comparisons = result.get("media_comparisons") or []
             def platform_image(url):
                 host = urlsplit(str(url or "")).hostname or ""
@@ -266,7 +296,7 @@ class NeoDestinationHandoff:
                 and urlsplit(str(m.get("public_image_url") or "")).scheme == "https"
                 and platform_image(m.get("public_image_url"))}
             media_match = expected_media <= source_matches
-        thread = result.get("observed_thread") or []
+        thread = result.get("observed_thread") or result.get("thread_posts") or []
         thread_match = (binding["thread_post_count"] <= 1 or (
             len(thread) == binding["thread_post_count"]
             and all(_text(text) in _text(post.get("observed_text"))
@@ -285,8 +315,27 @@ class NeoDestinationHandoff:
             and result.get("public_object_url") == public_object_url
             and _public_url(destination, public_object_url, public_object_id)
             and bool(observed_text))
+        absent = False
+        if not public_object_id and not public_object_url and result.get("target_post_absent") is True:
+            from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+            ids = DurablePublicationCoordinator._ids(intent["work_item_id"], intent["plan_hash"], destination)
+            dispatch = self.native_executor.store.get_platform_dispatch(ids["dispatch_id"]) or {}
+            observation = result.get("native_tool_observation") or {}
+            try:
+                observed_at = datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
+                attempted_at = datetime.fromisoformat(dispatch["dispatched_at"].replace("Z", "+00:00"))
+                elapsed = (observed_at - attempted_at).total_seconds()
+            except (KeyError, ValueError, TypeError):
+                elapsed = -1
+            absent = (elapsed >= 600 and result.get("authenticated") is True
+                and result.get("activity_feed_loaded") is True and bool(observed_text)
+                and result.get("observed_profile_url") == ROOTS[destination]
+                and result.get("observed_identity") == IDENTITIES[destination]
+                and result.get("request_sha256") == request["request_sha256"]
+                and dispatch.get("status") in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING"}
+                and not any(_text(s) in comparison_text for s in segments if len(_text(s)) >= 30))
         return {**result, "verified": bool(verified), "status": "SUCCESS" if verified else "BLOCKED",
-                "write_exists": bool(identity_exists), "write_absent": False,
+                "write_exists": bool(identity_exists), "write_absent": bool(absent),
                 "content_binding_checks": {"text_match": text_match, "media_match": media_match, "thread_match": thread_match}}
 
 

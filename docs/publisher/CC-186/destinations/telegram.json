@@ -1,0 +1,29 @@
+{
+  "item": "CC-186",
+  "operation_id": "cc124-next-article-20261104-a",
+  "recorded_at_utc": "2026-11-04T10:23:44.107094+00:00",
+  "destination": "telegram",
+  "status": "DISPATCH_CONFIRMED",
+  "reconciliation_status": "RECONCILED_CONFIRMED",
+  "public_object_id": "76",
+  "public_object_url": "https://t.me/CapitalChronicle/76",
+  "image_attached": true,
+  "evidence_files": [
+    "jobs-telegram-neo-readback.json",
+    "jobs-public-image-comparisons.json"
+  ],
+  "new_write_this_run": false,
+  "canonical_url": "https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains",
+  "source_image_check": {
+    "destination": "telegram",
+    "public_object_url": "https://t.me/CapitalChronicle/76",
+    "public_image_url": "https://cdn5.telesco.pe/file/p11Zyvu_u8fXzDt2-rwtX8ZGVD7KsIqL9JDT_EeHcVbgLtcudTq0Ipa0kwJYvLVVlmhnThwp9i9NWy1p3HPwrZM-dygkDjAdBCygMLy1UhcFmq4Zt-GMZS1NC49oq-vCKYwbBcuxKxpuqa2LXZxNd2JwRbOf_0o70lBG5UuCpsknTB98DnBNtj0Iq_tmpHoeU-KY-I2jleaRKzxItjukP3tZ8lYMsAzKuPsGKcu8XzcxdcA_EFGpArO05VjI6aPzHVEz3XJcv2NmIFSx_GfVNn2zwJnqxmnp0Cj7h__SOx081sMJ_tYDO5NImC1nm88NnxwAFIKrg-cKXvLxMoMYlA.jpg",
+    "local_asset_id": "payroll_first_print_trend",
+    "local_sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+    "public_image_sha256": "d7118f7091618f28e498517ce3b317d61a5ac6b91289a3bae9a086afd8183052",
+    "public_image_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-186\\telegram-public-payroll.png",
+    "visual_similarity": 0.9951,
+    "threshold": 0.93,
+    "image_matches_source": true
+  }
+}

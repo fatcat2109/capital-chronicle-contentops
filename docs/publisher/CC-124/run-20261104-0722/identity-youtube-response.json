@@ -1,0 +1,17 @@
+{
+  "tool_request_sha256": "737e9174a6580a27d7da4b7bc83b9c98b67c461158ac0e00205e93bc460729ee",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a3ef-752d-7220-9694-c2f8db376808",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "BrowserOS Neo page 214 at the exact channel, with Customize Channel and Manage Videos links and the channel's own post composer.",
+    "observed_at_utc": "2026-11-04T00:58:27.668Z"
+  },
+  "result": {
+    "request_sha256": "8671c3ce612b58d9a40f730eec2d1dc2b8276de4c947e7623373a17c011f2cb6",
+    "status": "READY_AUTHENTICATED",
+    "authenticated": true,
+    "observed_identity": "@CapitalChronicleYouTube",
+    "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA"
+  }
+}

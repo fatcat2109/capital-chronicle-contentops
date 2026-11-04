@@ -1,0 +1,25 @@
+{
+  "item": "CC-154",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "high",
+  "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_pid": 46144,
+  "launch_record": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-154-20261103T2131",
+  "remote_default": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "implementation_base": "a4d60fe0d10de97a06603a8de6b6c3e88c79edcd",
+  "base_reason": "Preserve deployed Publisher fixes; default branch predates CC-135 publication export. Branch initially created at fresh origin/master and rebased onto the deployed live-root ancestor before edits.",
+  "external_consumer": "A:\\Capital Chronicle\\Worktrees\\codex-web-cc149\\tools\\product\\public_newsroom_articles_v1.py",
+  "consumer_sha256": "50c00db1ebf436442b0bee42449e549838f1873d4578eca648e5c24e796fcf5d",
+  "first_external_cause": "NEWSROOM_CANONICAL_REQUIRED",
+  "other_consumer_constraints": [
+    "NEWSROOM_PACKAGE_LOOKUP_UNSUPPORTED for non-substack content_id",
+    "detail.slug derived from Substack /p/ URL"
+  ],
+  "owner": "Codex Web / Claude Ops integration",
+  "required_change": "Consume exact site_publication_candidate_v1.json without inventing a confirmed Substack outlet; render the stable expected_site_url and expose its admitted article copy hash.",
+  "live_acceptance": "NOT_ATTEMPTED_DEPENDENT_CONSUMER_NOT_WIRED",
+  "public_writes": 0,
+  "schedules_changed": 0,
+  "messages_sent": 0,
+  "editorial_model_calls": 0
+}

@@ -1,0 +1,22 @@
+{
+  "request_sha256": "a99c3711e6f51b28a9cd61f8f7baa3db023e23f1285d3b1270665cea7c3ad7af",
+  "invocation_observation": {
+    "surface": "CODEX_EXEC",
+    "invocation_id": "01a1a5d9-b742-78a2-921c-44ae9bcbf17d",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_61",
+    "configuration_source": "Observed top-level Codex exec launch arguments for CC-186; actual runtime telemetry is unavailable.",
+    "observation_source": "This active run reviewed the exact dated LinkedIn copy against the retained article, admitted BLS source facts and bound chart selection."
+  },
+  "output": {
+    "decision": "ACCEPT",
+    "pixels_inspected": false,
+    "rationale": "The dated copy preserves the reviewed September 2026 retrospective and its exact canonical link. Private hiring and government losses remain the admitted BLS facts; the composition explanation is explicitly Capital Chronicle's inference, and the countercase remains. The 4.2 percent unemployment rate is separate from the payroll change. No November outcome, surprise, trade call or new forecast is added. The selected payroll first-print history and sector breakdown are the article's admitted official-data charts. All four retained images pass the bound decode and dimension check. This is the current run's one editor check under decision 53, with no new screenshot or pixel-inspection claim."
+  }
+}

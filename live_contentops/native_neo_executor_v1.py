@@ -44,6 +44,7 @@ class NativeNeoExecutor:
         self.native_invocation_id = native_invocation_id
         self.allow_publish = allow_publish
         self.clock = clock or (lambda: datetime.now(timezone.utc))
+        self.readback_request_invocations = {}
 
     def _key(self, request_hash, kind):
         return "native-neo-" + sha256_of([self.operation_id, request_hash, kind])
@@ -103,6 +104,9 @@ class NativeNeoExecutor:
 
     def begin(self, request_hash: str):
         """Claim once before a platform action; a restart never repeats a claimed write."""
+        row = self.store.get_outbox_message(self._key(request_hash, "request"))
+        if row and row["status"] == "NATIVE_NEO_SUPERSEDED":
+            raise ValueError("NATIVE_NEO_STALE_PUBLISH_REVISION_SUPERSEDED")
         packet = self._get(request_hash, "request")
         if not packet:
             raise ValueError("NATIVE_NEO_REQUEST_NOT_FOUND")
@@ -139,6 +143,17 @@ class NativeNeoExecutor:
                 if (request.get("native_payload") != expected_payload or request.get("content_binding") != expected_content
                         or request.get("payload_hash") != sha256_of(expected_payload)):
                     raise ValueError("NATIVE_NEO_EXACT_REVIEWED_EDIT_PAYLOAD_REQUIRED")
+            elif request["action"] == "PUBLISH":
+                from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+                from live_contentops.neo_destination_handoff_v1 import _payload_binding
+                message = self.store.get_outbox_message(dispatch["message_id"])
+                if message:
+                    effective = DurablePublicationCoordinator(store=self.store, transport_runtime=None)._effective_message(message)
+                    intent = json.loads(effective["payload"])
+                    if intent.get("reader_presentation_review"):
+                        expected_payload, expected_content = _payload_binding(intent, request["destination"])
+                        if request.get("native_payload") != expected_payload or request.get("content_binding") != expected_content:
+                            raise ValueError("NATIVE_NEO_STALE_PUBLISH_REVISION_SUPERSEDED")
             content = request.get("content_binding") or {}
             if not content.get("expected_text_segments"):
                 raise ValueError("NATIVE_NEO_EXACT_PAYLOAD_REQUIRED")
@@ -156,6 +171,10 @@ class NativeNeoExecutor:
                  "begun_at_utc": self.clock().isoformat(), "required_tool": TOOL}
         # The unique immutable outbox key fences simultaneous Desktop claimers too.
         self._put(request_hash, claim_kind, claim, request["work_item_id"])
+        if request["action"] == "READBACK":
+            identity = sha256_of({k: v for k, v in request.items()
+                if k not in {"request_sha256", "native_invocation_id"}})
+            self.readback_request_invocations[identity] = request.get("native_invocation_id")
         action_packet = dict(packet)
         if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
             action_packet["upload_policy"] = {
@@ -165,12 +184,15 @@ class NativeNeoExecutor:
                 "native_file_dialog": "FORBIDDEN_STOP_WITH_NATIVE_FILE_DIALOG_OPEN"}
         if request["destination"] == "substack" and request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
             action_packet["substack_publish_routine"] = {
-                "policy": "JIM_DECISION_54",
-                "window": "Dedicated BrowserOS Neo window; keep the Substack tab open and in front. Never close, reuse or navigate it.",
-                "before_publish": "Two tabs in that same window: Jim's Gmail inbox, open and untouched, and the Substack draft. Agents never read Gmail.",
-                "email_code_dialog": "Record PENDING_JIM_EMAIL_CODE, page_id and URL in the item's Result. Wait on that tab for Jim to type the code. No reload, other input or use of another tab.",
+                "policy": "JIM_DECISIONS_48_52_63",
+                "window": "Use the one existing BrowserOS Neo window and this task's tab group. Never create another window. Leave Jim's tabs untouched.",
+                "before_publish": "Use the finished Substack draft in this task's tab group. Never read a mailbox or enter an email code.",
+                "email_code_dialog": "Record PENDING_JIM_EMAIL_CODE, draft_id, page_id and URL. Leave that tab open and untouched for Jim; continue other destinations in other task tabs. No automatic wait, reload, navigation or input on the code tab.",
                 "continue_only_after": "The same tab reaches /publish/posts/detail/.../share-center; continue exact readback and dispatch recording.",
                 "pending_is_dispatch": False,
+                "email_code_return": {"status": "PENDING_JIM_EMAIL_CODE", "required_fields": ["draft_id", "page_id", "page_url"],
+                    "pipeline_state": "SUBSTACK_DRAFT_AWAITING_OWNER", "automatic_wait": False,
+                    "tab_policy": "Leave this tab open and untouched for Jim under decision 52; continue in other task tabs without a human-help tool wait."},
             }
             if request.get("substack_delivery_policy"):
                 action_packet["substack_publish_routine"]["delivery"] = request["substack_delivery_policy"]
@@ -184,7 +206,7 @@ class NativeNeoExecutor:
             raise ValueError("NATIVE_NEO_TOOL_RETURN_BINDING_REQUIRED")
         if (observation.get("tool_name") != TOOL
                 or observation.get("native_invocation_id") != claim["native_invocation_id"]
-                or observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT"}
+                or observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT", "CODEX_EXEC"}
                 or not observation.get("observation_source") or not observation.get("observed_at_utc")):
             raise ValueError("NATIVE_NEO_ACTUAL_TOOL_OBSERVATION_REQUIRED")
         observed_at = datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
@@ -206,7 +228,7 @@ class NativeNeoExecutor:
     def _fresh_identity_return(self, destination, surface, expected_identity):
         # Probe epochs deduplicate requests; actual observation time controls
         # freshness. Crossing a bucket must not discard a seconds-old proof.
-        for row in reversed(self.store.list_outbox_messages()):
+        for row in reversed(self.store.list_outbox_messages(destination=DESTINATION)):
             if row["destination"] != DESTINATION:
                 continue
             packet = json.loads(row["payload"])
@@ -260,8 +282,10 @@ class NativeNeoExecutor:
 
     def pending(self):
         rows = []
-        for row in self.store.list_outbox_messages():
+        for row in self.store.list_outbox_messages(destination=DESTINATION):
             if row["destination"] != DESTINATION:
+                continue
+            if row["status"] == "NATIVE_NEO_SUPERSEDED":
                 continue
             payload = json.loads(row["payload"])
             if payload.get("schema_version") != SCHEMA or payload.get("operation_id") != self.operation_id:

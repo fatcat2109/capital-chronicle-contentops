@@ -188,7 +188,14 @@ def short_path_acceptance(store, *, run_id, result, review):
 
 def validate_publication_media(store, *, run_id, result):
     from live_contentops.native_desktop_editorial_v1 import validate_release_media
-    return validate_release_media(result, require_pixel_review=not uses_short_path(store, run_id=run_id, result=result))
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
+    from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
+    short_path = uses_short_path(store, run_id=run_id, result=result)
+    row = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
+    binding = json.loads(row["payload"]) if row else {}
+    if binding.get("output_dir"):
+        result = post_image_view(result, output_dir=resolve_workspace_path(binding["output_dir"]) / "media" / "post-images")
+    return validate_release_media(result, require_pixel_review=not short_path)
 
 
 def attach_photo_credits(assets):

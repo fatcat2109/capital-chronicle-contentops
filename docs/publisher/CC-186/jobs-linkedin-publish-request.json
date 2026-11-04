@@ -1,0 +1,116 @@
+{
+  "destination": "linkedin",
+  "status": "NATIVE_NEO_TOOL_PENDING",
+  "publish_called": false,
+  "native_tool_request": {
+    "schema_version": "contentops.native_neo_tool_request.v1",
+    "operation_id": "cc124-next-article-20261104-a",
+    "required_tool": "mcp__browseros_neo__run",
+    "request": {
+      "schema_version": "contentops.neo_destination_handoff.v1",
+      "destination": "linkedin",
+      "action": "PUBLISH",
+      "expected_identity": "linkedin:jimcc",
+      "entry_url": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
+      "intent_sha256": "a3d71d159756aecee49234e4c152ddcc9f818883b38e4f134a190f121854bab2",
+      "work_item_id": "cc124-next-article-20261104-a",
+      "package_identity": "3507c2985f5a86a49da93990743caf03ca62fcfd65fe6ae07eef9648f2eee8a7",
+      "payload_hash": "c5c75eb59fa9a86145aa47b2636ff64f41b8debf6aa3d62e4ceb44a5687d3dfc",
+      "dispatch_attempt_identity": "dispatch_b8fc362c07c56b308d0ddfd04618772b",
+      "canonical_url": "https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains",
+      "public_object_id": null,
+      "public_object_url": null,
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "payroll_first_print_trend",
+          "september_sector_breakdown"
+        ],
+        "media_source_links": {
+          "payroll_first_print_trend": [
+            {
+              "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+              "label": "U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 02 Oct 2026",
+              "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+            }
+          ],
+          "september_sector_breakdown": [
+            {
+              "document_id": "cc124-bls-september-employment-original",
+              "label": "U.S. Bureau of Labor Statistics",
+              "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+            }
+          ]
+        },
+        "platform_limit": 3000,
+        "text": "Reporting as of 23:37 EST on 3 November 2026.\n\nSeptember 2026 jobs: private gains beneath a weak headline\n\nWhy it matters: Government losses weakened the headline without turning the private-sector total negative. Capital Chronicle's inference is that the composition deserves attention before the small overall gain is read as broad private retrenchment. BLS described employment in all major industries as little changed.\n\nContext: Private payrolls still grew, unemployment was 4.2 percent, and the U.S. Bureau of Labor Statistics described major-industry changes as small. That is the strongest countercase to a broad deterioration story: a weak headline could reflect a temporary mix of gains and losses, rather than persistent weakness.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains\n\nAnalysis, not financial advice. Readers decide whether to trade."
+      },
+      "payload": "Reporting as of 23:37 EST on 3 November 2026.\n\nSeptember 2026 jobs: private gains beneath a weak headline\n\nWhy it matters: Government losses weakened the headline without turning the private-sector total negative. Capital Chronicle's inference is that the composition deserves attention before the small overall gain is read as broad private retrenchment. BLS described employment in all major industries as little changed.\n\nContext: Private payrolls still grew, unemployment was 4.2 percent, and the U.S. Bureau of Labor Statistics described major-industry changes as small. That is the strongest countercase to a broad deterioration story: a weak headline could reflect a temporary mix of gains and losses, rather than persistent weakness.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "content_binding": {
+        "expected_text_segments": [
+          "Reporting as of 23:37 EST on 3 November 2026.\n\nSeptember 2026 jobs: private gains beneath a weak headline\n\nWhy it matters: Government losses weakened the headline without turning the private-sector total negative. Capital Chronicle's inference is that the composition deserves attention before the small overall gain is read as broad private retrenchment. BLS described employment in all major industries as little changed.\n\nContext: Private payrolls still grew, unemployment was 4.2 percent, and the U.S. Bureau of Labor Statistics described major-industry changes as small. That is the strongest countercase to a broad deterioration story: a weak headline could reflect a temporary mix of gains and losses, rather than persistent weakness.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains\n\nAnalysis, not financial advice. Readers decide whether to trade."
+        ],
+        "expected_thread_texts": [],
+        "thread_post_count": 0,
+        "media_manifest": [
+          {
+            "asset_id": "payroll_first_print_trend",
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\payroll_first_print_trend.png",
+            "sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+            "caption": "Monthly nonfarm payroll change, seasonally adjusted. BLS initial estimates; October 2024\u2013September 2026. First prints, without later revisions. Sources: [U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 02 Oct 2026](https://www.bls.gov/news.release/archives/empsit_10022026.htm).",
+            "alt_text": "Monthly nonfarm payroll change, seasonally adjusted. BLS initial estimates; October 2024\u2013September 2026. First prints, without later revisions.",
+            "attribution": "Source: BLS dated first releases. October 2024\u2013September 2026; each month retains its first print.",
+            "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+            "modality": "source_backed_chart"
+          },
+          {
+            "asset_id": "september_sector_breakdown",
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\september_sector_breakdown.png",
+            "sha256": "9c3edc1443778895f6884781458ffd28d92e7823700ab4539e4b2ea74e26c12b",
+            "caption": "September 2026 payroll change by broad group, seasonally adjusted; thousands of persons. Source: BLS, October 2, 2026, Table B-1. The three groups sum to total nonfarm +29,000. Sources: [U.S. Bureau of Labor Statistics](https://www.bls.gov/news.release/archives/empsit_10022026.htm).",
+            "alt_text": "September payroll change in thousands: goods-producing +18; private service-providing +28; government -17. Total nonfarm +29.",
+            "attribution": "Source: BLS, October 2, 2026, Table B-1. Seasonally adjusted initial estimates. Disjoint groups: 18 + 28 - 17 = 29 thousand.",
+            "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+            "modality": "source_backed_chart"
+          }
+        ],
+        "artifact_manifest": [
+          {
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\reviewed-handoff\\87fd21cb3cf659f8bcb6bf112c675535196d2e2c74a5d9ce43c5884195c9cf37\\run_context_v1.json",
+            "sha256": "5b7a5829bec8705d18ebcbbece7d3c218ee7fd7c2147fad3ffc7c33cd55a4463"
+          },
+          {
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\reviewed-handoff\\87fd21cb3cf659f8bcb6bf112c675535196d2e2c74a5d9ce43c5884195c9cf37\\delivery_media_manifest_v1.json",
+            "sha256": "64fb515218d2aa4f7f215a8240adea4972dd2c16945d1b46e5528b9c31331449"
+          }
+        ]
+      },
+      "surface": "LINKEDIN_POST",
+      "steps": [
+        "name_session; list tabs, open a task-owned tab",
+        "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+        "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+        "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+        "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+      ],
+      "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+      "forbidden": [
+        "login",
+        "reauthorize",
+        "account_switch",
+        "cookies",
+        "storage",
+        "blind_retry",
+        "bulk_x_ingestion"
+      ],
+      "request_sha256": "c64b38d1ed0ff0b14ae505362a94204fef93cd4f5aed12e9c497ae621bec8544"
+    },
+    "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+    "public_write_authorized": true,
+    "tool_request_sha256": "45d169b1b83006ea31b828b4e348bac8c4721b89547b9f0ac61c553785277197",
+    "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\native-neo\\c64b38d1ed0ff0b14ae505362a94204fef93cd4f5aed12e9c497ae621bec8544.request.json"
+  },
+  "reconciliation_status": null,
+  "public_write_performed": false
+}

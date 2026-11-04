@@ -1181,20 +1181,20 @@ class ContentOpsDurableStore:
         finally:
             conn.close()
 
-    def list_outbox_messages(self, *, status: Optional[str] = None) -> List[Dict[str, Any]]:
+    def list_outbox_messages(self, *, status: Optional[str] = None,
+                            destination: Optional[str] = None,
+                            work_item_id: Optional[str] = None) -> List[Dict[str, Any]]:
         with self.get_connection() as conn:
             # Sort small row identities, not retained payloads (which may include
             # large historical media). Keep both reads in one SQLite snapshot.
             conn.execute("BEGIN")
-            if status is None:
-                identities = conn.execute(
-                    "SELECT rowid FROM outbox_messages ORDER BY created_at, message_id"
-                ).fetchall()
-            else:
-                identities = conn.execute(
-                    "SELECT rowid FROM outbox_messages WHERE status=? ORDER BY created_at, message_id",
-                    (status,),
-                ).fetchall()
+            filters = {"status": status, "destination": destination, "work_item_id": work_item_id}
+            supplied = [(key, value) for key, value in filters.items() if value is not None]
+            where = " WHERE " + " AND ".join(key + "=?" for key, _ in supplied) if supplied else ""
+            identities = conn.execute(
+                "SELECT rowid FROM outbox_messages" + where + " ORDER BY created_at, message_id",
+                tuple(value for _, value in supplied),
+            ).fetchall()
             rows = [conn.execute("SELECT * FROM outbox_messages WHERE rowid=?", (row[0],)).fetchone()
                     for row in identities]
             return [dict(row) for row in rows]

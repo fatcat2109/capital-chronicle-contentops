@@ -1,0 +1,245 @@
+{
+  "schema_version": "contentops.writer_editor_text_check.v1",
+  "operation_id": "cc124-next-article-20261104-a",
+  "assignment": "cc124-next-article-20261104-a:write",
+  "request_sha256": "90483a1ee054384c706327d4f265991849e3f3f7fad4c622ac4350b3bd07bbee",
+  "reviewer_invocation_id": "/root/native_writer_e23ec03f83eb",
+  "review_method": "SAME_NATIVE_WRITER_ONE_CONCRETE_EDITOR_TEXT_CHECK",
+  "decision": "PASS",
+  "checked_at_utc": "2026-11-04T05:15:04.302635Z",
+  "text_approved_at_utc": "2026-11-04T05:15:04.302635Z",
+  "text_approved_at_gmt7": "2026-11-04 12:15:04 GMT+7",
+  "approval_clock_basis": "Actual completion of this editorial check of the final saved text; preserve this first approval clock for unchanged text.",
+  "response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\desktop_response_write.json",
+  "response_file_sha256": "4895eee4b5c38b32d68a060cd9f96737808c66a1cf2a8d5affd6a8577db82e28",
+  "worker_output_sha256": "90924fbefdb80659a6d51250819bb959fb26c161d075528c860490c9c93a5021",
+  "article_identity": "8bf80a8dc58d374bdadec97d5adc3298ea0541654343ab681e1a599ddb39f9b4",
+  "canonical_public_copy_sha256": "7506ae1e9e457d41d552599a21c4f1208d84fb49c5075af28ba69f609f374577",
+  "canonical_body_sha256": "8bf80a8dc58d374bdadec97d5adc3298ea0541654343ab681e1a599ddb39f9b4",
+  "preview_package_count": 8,
+  "preview_packages_sha256": "7434fac242178a1601b62e039ceeecdbf09effc8efda9144a8a8c699a8bb49d8",
+  "canonical_findings": [
+    "Read the exact title, dek, search title, meta description, social hook and all body paragraphs. They share the weak-total/positive-private-hiring proposition and clearly identify the September 2026 retrospective.",
+    "The October 2 BLS release supplies the central 29,000 payroll gain, 46,000 private increase and 17,000 government decline. Goods-producing +18,000 and private services +28,000 remain disjoint. All are reported estimates; no claim of exact economic truth is introduced.",
+    "The initial-estimate comparisons preserve the first-print vintage: August 162,000, July -23,000, September 29,000; unemployment August 4.1 percent and September 4.2 percent; earnings August 0.3 percent and September 0.1 percent. No later revision enters.",
+    "The establishment payroll measure and household unemployment measure are read separately. The unemployment gap and both calculated earnings periods are disclosed without internal owner labels or invented observations.",
+    "The countercase is substantive: positive private hiring, 4.2 percent unemployment and small major-industry changes. Interpretation remains explicitly Capital Chronicle analysis; the next discriminating evidence is conditional and does not assume the subsequent outcome.",
+    "The exact four accepted chart IDs and placement headings are preserved. Chart pixels were inspected in asset-inspection.json; this text check makes no article-page pixel claim.",
+    "No unsupported hours, participation, annual wage growth, portfolio, GEX, consensus, asset-price reaction, monetary-policy forecast or trading levels appear. The required analysis notice is present.",
+    "No discretionary Sources/References list, repeated public citation link, microsecond clock, workflow label or fabricated internal link is added. Native source markers remain internal and every body paragraph retains one."
+  ],
+  "single_check_repairs_completed": [
+    "Expanded the shared countercase passage to spell out the source name so LinkedIn and Threads retain clear attribution.",
+    "Changed the conditional watch passage to private gains weakening or strengthening, avoiding an implication that private hiring had already stopped."
+  ],
+  "unresolved_material_issues": [],
+  "deterministic_checks": {
+    "worker_schema": "PASS",
+    "source_claim_validation": "PASS",
+    "verified_material_claim_bindings": 21,
+    "institutional_editorial_seo": "PASS",
+    "institutional_soft_warnings": [],
+    "exact_eight_native_previews": 8,
+    "proposition_metadata_review": "PASS"
+  },
+  "previews": [
+    {
+      "destination": "telegram",
+      "decision": "PASS",
+      "payload_sha256": "318eab0bcd36cfa08399e8fba1bdd3b647f7bf478b036f13c5ab760c9119bb80",
+      "visible_text_sha256": "081b1984e7312ae46e3cececbdfa9e23462fc3ac5fc352e95c6e1a8550e66a93",
+      "text_snapshot": "NEWSROOM BRIEF\n\nSeptember 2026 jobs: private gains beneath a weak headline\n\nSeptember 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.\n\nWhat to watch: From the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate. That combination would challenge the sector-mix explanation; stronger private gains would support it. This retrospective makes no claim about subsequent outcomes.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-8bf80a8dc58d374b\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "media_asset_ids": [
+        "payroll_first_print_trend",
+        "september_sector_breakdown"
+      ],
+      "quality_metrics": null,
+      "findings": [
+        "Same dated September 2026 proposition as the canonical article; no new number, current-release implication, forecast or market-reaction claim.",
+        "Full source attribution and required analysis notice survive compression.",
+        "The watch condition is explicitly framed from the October 2 vantage point and keeps subsequent outcomes unstated."
+      ]
+    },
+    {
+      "destination": "x",
+      "decision": "PASS",
+      "payload_sha256": "5cd21a615a870b1122c009b8454d9a4e06d7254e0cbf38c24d550b251d1205be",
+      "visible_text_sha256": "3522fbfadfa23ba602f5c1fe3e1c61a212cfc59419848de1900f6bb092029910",
+      "text_snapshot": "September 2026 jobs: private gains beneath a weak headline\n\nhttps://capitalchronicle.substack.com/p/pending-publication-8bf80a8dc58d374b\n\nSeptember 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.\n\nWatch: From the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate.\n\nThat combination would challenge the sector-mix explanation; stronger private gains would support it.\n\nThis retrospective makes no claim about subsequent outcomes.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.",
+      "media_asset_ids": [
+        "payroll_first_print_trend"
+      ],
+      "quality_metrics": {
+        "reply_count": 3,
+        "post_character_counts": [
+          136,
+          145,
+          147,
+          230
+        ],
+        "per_post_character_utilization": [
+          0.486,
+          0.518,
+          0.525,
+          0.821
+        ],
+        "shortest_longest_reply_ratio": 0.591,
+        "sentence_boundary_pass": true,
+        "orphan_fragment_count": 0,
+        "visual_distribution_pass": true,
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false
+      },
+      "findings": [
+        "Same dated September 2026 proposition as the canonical article; no new number, current-release implication, forecast or market-reaction claim.",
+        "Full source attribution and required analysis notice survive compression.",
+        "The watch condition is explicitly framed from the October 2 vantage point and keeps subsequent outcomes unstated.",
+        "Read complete root/reply prose: sentence boundaries pass, no orphan fragments or hard slicing, and all post lengths fit the destination limit."
+      ]
+    },
+    {
+      "destination": "linkedin",
+      "decision": "PASS",
+      "payload_sha256": "2ff8d73af3e34cb602bef0b1921bb37b89cd3cdd300cbfd59909d88fc5236857",
+      "visible_text_sha256": "7bc35ec758b1d83b1327d60a8221c9fcc50268cf3b52a2091bbcbe0b0e42269e",
+      "text_snapshot": "September 2026 jobs: private gains beneath a weak headline\n\nWhy it matters: Government losses weakened the headline without turning the private-sector total negative. Capital Chronicle's inference is that the composition deserves attention before the small overall gain is read as broad private retrenchment. BLS described employment in all major industries as little changed.\n\nContext: Private payrolls still grew, unemployment was 4.2 percent, and the U.S. Bureau of Labor Statistics described major-industry changes as small. That is the strongest countercase to a broad deterioration story: a weak headline could reflect a temporary mix of gains and losses, rather than persistent weakness.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-8bf80a8dc58d374b\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "media_asset_ids": [
+        "payroll_first_print_trend",
+        "september_sector_breakdown"
+      ],
+      "quality_metrics": null,
+      "findings": [
+        "Same dated September 2026 proposition as the canonical article; no new number, current-release implication, forecast or market-reaction claim.",
+        "Full source attribution and required analysis notice survive compression.",
+        "The private-hiring/unemployment countercase is retained rather than replaced by generic boilerplate."
+      ]
+    },
+    {
+      "destination": "discord",
+      "decision": "PASS",
+      "payload_sha256": "a3bfdd59285d56115d3d0f5edf95ced100bf4e0d1ca9414453209fde9ee6c6ff",
+      "visible_text_sha256": "d1fca5b1fc110ce0bf6f687f65ba5a024b29470cb2a41ca8ad2f79d651e8f4d2",
+      "text_snapshot": "**Newsroom brief: September 2026 jobs: private gains beneath a weak headline**\n\nSeptember 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.\n\n**Context:** Private payrolls still grew, unemployment was 4.2 percent, and the U.S. Bureau of Labor Statistics described major-industry changes as small. That is the strongest countercase to a broad deterioration story: a weak headline could reflect a temporary mix of gains and losses, rather than persistent weakness.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-8bf80a8dc58d374b\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "media_asset_ids": [
+        "payroll_first_print_trend",
+        "september_sector_breakdown"
+      ],
+      "quality_metrics": null,
+      "findings": [
+        "Same dated September 2026 proposition as the canonical article; no new number, current-release implication, forecast or market-reaction claim.",
+        "Full source attribution and required analysis notice survive compression.",
+        "The private-hiring/unemployment countercase is retained rather than replaced by generic boilerplate."
+      ]
+    },
+    {
+      "destination": "facebook_page",
+      "decision": "PASS",
+      "payload_sha256": "82c1c34e6a8c70be0bbb467e3529c67222cfc4cbad109bf993a89e74d7711697",
+      "visible_text_sha256": "e653662b3c88832253f654f9b137ecd2d939de398072d2f4fd79157bcedb969e",
+      "text_snapshot": "September 2026 jobs: private gains beneath a weak headline\n\nSeptember 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.\n\nWhy it matters: Government losses weakened the headline without turning the private-sector total negative. Capital Chronicle's inference is that the composition deserves attention before the small overall gain is read as broad private retrenchment. BLS described employment in all major industries as little changed.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-8bf80a8dc58d374b\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "media_asset_ids": [
+        "payroll_first_print_trend"
+      ],
+      "quality_metrics": null,
+      "findings": [
+        "Same dated September 2026 proposition as the canonical article; no new number, current-release implication, forecast or market-reaction claim.",
+        "Full source attribution and required analysis notice survive compression."
+      ]
+    },
+    {
+      "destination": "instagram_business",
+      "decision": "PASS",
+      "payload_sha256": "40c52fcd9b872fee312a9e3d43f476d9a55c0edc12260c97385d9f334fc1581f",
+      "visible_text_sha256": "752d3da0e4f9f84f6289e40a1d51936da21050cba01856107c38b97a8a25fd7e",
+      "text_snapshot": "September 2026 jobs: private gains beneath a weak headline\n\nSeptember 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.\n\nIn focus: Private payrolls still grew, unemployment was 4.2 percent, and the U.S. Bureau of Labor Statistics described major-industry changes as small. That is the strongest countercase to a broad deterioration story: a weak headline could reflect a temporary mix of gains and losses, rather than persistent weakness.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-8bf80a8dc58d374b\n\n#CapitalChronicle\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "media_asset_ids": [
+        "payroll_first_print_trend",
+        "september_sector_breakdown",
+        "unemployment_first_print_trend",
+        "earnings_first_print_trend"
+      ],
+      "quality_metrics": null,
+      "findings": [
+        "Same dated September 2026 proposition as the canonical article; no new number, current-release implication, forecast or market-reaction claim.",
+        "Full source attribution and required analysis notice survive compression.",
+        "The private-hiring/unemployment countercase is retained rather than replaced by generic boilerplate."
+      ]
+    },
+    {
+      "destination": "threads",
+      "decision": "PASS",
+      "payload_sha256": "f803ad435dd55e17ff03e8cfda206b39577fd8552f4f94b37ff91f6949cec560",
+      "visible_text_sha256": "4591015dcea6dc70a255d9b9bf968f3215e3a4de042b80c56b62511a48a98ffe",
+      "text_snapshot": "September 2026 jobs: private gains beneath a weak headline\n\nPrivate payrolls still grew, unemployment was 4.2 percent, and the U.S. Bureau of Labor Statistics described major-industry changes as small. That is the strongest countercase to a broad deterioration story: a weak headline could reflect a temporary mix of gains and losses, rather than persistent weakness.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-8bf80a8dc58d374b\n\nWhat to watch: From the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate.\n\nThat combination would challenge the sector-mix explanation; stronger private gains would support it.\n\nThis retrospective makes no claim about subsequent outcomes.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.",
+      "media_asset_ids": [
+        "payroll_first_print_trend"
+      ],
+      "quality_metrics": {
+        "reply_count": 1,
+        "post_character_counts": [
+          445,
+          387
+        ],
+        "per_post_character_utilization": [
+          0.89,
+          0.774
+        ],
+        "shortest_longest_reply_ratio": 0.87,
+        "sentence_boundary_pass": true,
+        "orphan_fragment_count": 0,
+        "visual_distribution_pass": true,
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false
+      },
+      "findings": [
+        "Same dated September 2026 proposition as the canonical article; no new number, current-release implication, forecast or market-reaction claim.",
+        "Full source attribution and required analysis notice survive compression.",
+        "The private-hiring/unemployment countercase is retained rather than replaced by generic boilerplate.",
+        "Read complete root/reply prose: sentence boundaries pass, no orphan fragments or hard slicing, and all post lengths fit the destination limit."
+      ]
+    },
+    {
+      "destination": "youtube",
+      "decision": "PASS",
+      "payload_sha256": "36def562d8ddc12097d2060a56edd753fd9bea579809c1555527b234f2b45d0b",
+      "visible_text_sha256": "6b882680477b4db015d1f8443d61d09cdcf6f6f819f84cc845a953f4b8a395a7",
+      "text_snapshot": "Update: September 2026 jobs: private gains beneath a weak headline\n\nSeptember 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.\n\nWhat to watch: From the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate. That combination would challenge the sector-mix explanation; stronger private gains would support it. This retrospective makes no claim about subsequent outcomes.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-8bf80a8dc58d374b\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "media_asset_ids": [
+        "payroll_first_print_trend"
+      ],
+      "quality_metrics": null,
+      "findings": [
+        "Same dated September 2026 proposition as the canonical article; no new number, current-release implication, forecast or market-reaction claim.",
+        "Full source attribution and required analysis notice survive compression.",
+        "The watch condition is explicitly framed from the October 2 vantage point and keeps subsequent outcomes unstated."
+      ]
+    }
+  ],
+  "canonical_url_state": "PENDING_NON_DISPATCHABLE; sole coordinator must bind the real reconciled Substack URL before derivative sends.",
+  "publication_speed_policy": {
+    "dispatch_target_minutes": 15,
+    "path": "WRITER_ONE_EDITOR_CHECK_PUBLISH",
+    "policy": "JIM_DECISION_53",
+    "post_text_visual_review": "AUTOMATED_LOAD_SIZE_LOG_ONCE"
+  },
+  "desktop_article_pixels_inspected": false,
+  "mobile_article_pixels_inspected": false,
+  "post_approval_screenshot_review_performed": false,
+  "public_write_performed": false,
+  "invocation_observation": {
+    "invocation_id": "/root/native_writer_e23ec03f83eb",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "speed": "standard",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Exact native task assignment cc124-next-article-20261104-a:write and frozen request 90483a1ee054384c706327d4f265991849e3f3f7fad4c622ac4350b3bd07bbee.",
+    "observation_source": "Canonical task name /root/native_writer_e23ec03f83eb is supplied by the supported NEW_TASK context. Actual model and effort runtime telemetry are not exposed in this native role turn."
+  }
+}

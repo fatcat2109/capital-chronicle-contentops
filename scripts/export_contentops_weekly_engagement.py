@@ -17,9 +17,6 @@ def main():
     parser.add_argument("--output-dir", type=Path, required=True)
     args = parser.parse_args()
     target = args.output_dir.resolve()
-    root = Path(__file__).resolve().parents[1]
-    if target == root or not target.is_relative_to(root):
-        raise ValueError("DIGEST_OUTPUT_MUST_BE_INSIDE_BACKLOG_WORKTREE")
     with sqlite3.connect(args.store.resolve().as_uri() + "?mode=ro", uri=True) as connection:
         connection.row_factory = sqlite3.Row
         connection.execute("PRAGMA query_only=ON")

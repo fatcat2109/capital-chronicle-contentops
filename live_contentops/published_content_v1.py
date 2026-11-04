@@ -193,6 +193,35 @@ def append_record(path, row):
             "content_sha256": row["content_sha256"], "outlet_count": len(row["outlets"])}
 
 
+def _native_original_prose(plan, article, root):
+    """Recognize retained native compiler output with its existing qualification seal."""
+    if (article.get("schema_version") != "contentops.v1_simple_article_manifest.v1"
+            or plan.get("editorial_classification") != "QUALIFIED_NATIVE_DESKTOP_ARTICLE"
+            or plan.get("source_provenance_binding_preserved") is not True
+            or article.get("author_identity") is not None
+            or article.get("publisher_identity") is not None):
+        return False
+    from live_contentops.v1_simple_publication_handoff_v1 import (
+        SimplePublicationHandoffError, _validated_qualified_record,
+    )
+    try:
+        context = load_json((root / "run_context_v1.json").read_bytes())
+        record = _validated_qualified_record(root, context["run_id"])
+    except (OSError, ValueError, KeyError, TypeError, SimplePublicationHandoffError):
+        return False
+    return bool(
+        context.get("schema_version") == "contentops.simple_durable_run_context.v1"
+        and isinstance(record.get("editorial_worker"), dict)
+        and record.get("editorial_worker", {}).get("provider") == "NATIVE_CODEX_DESKTOP"
+        and record["article_identity"] == context.get("article_identity") == plan.get("article_identity")
+        and record.get("article_body_sha256") == sha256(article["substack_body_markdown"].encode()).hexdigest()
+        and record.get("accepted_evidence_sha256") == plan.get("accepted_evidence_sha256")
+        and all(re.fullmatch(r"[0-9a-f]{64}", str(plan.get(key, "")))
+                and context.get(key) == plan[key]
+                for key in ("article_content_sha256", "compiler_input_sha256", "accepted_evidence_sha256"))
+    )
+
+
 def article_metadata(plan, *, require_notice=True):
     """Use the exact reviewed compiler artifact, never a model-authored export."""
     root = Path(plan.get("output_dir") or "")
@@ -211,6 +240,11 @@ def article_metadata(plan, *, require_notice=True):
     rights = article.get("rights_class")
     if rights is None and article.get("author_identity") == article.get("publisher_identity") == "Capital Chronicle":
         # Rights to CC's original prose, not a new licence to any source series.
+        rights = "CC_OWN_ANALYSIS"
+    if rights is None and _native_original_prose(plan, article, root):
+        # Older native manifests omitted author fields. Their exact qualified
+        # compiler binding establishes original CC prose. Source/media rights
+        # remain enforced by the existing native publication owners.
         rights = "CC_OWN_ANALYSIS"
     if not isinstance(rights, str) or rights not in PUBLIC_RIGHTS:
         raise PublishedContentError("PUBLIC_REUSE_RIGHTS_NOT_ADMITTED")

@@ -1,0 +1,16 @@
+{
+  "tool_request_sha256": "0095c0de67764c6481c1e011014a8d84a5304b75e70c4c6428b1e388dddc3fdd",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a3ef-752d-7220-9694-c2f8db376808",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "BrowserOS Neo publisher dashboard at page 205, https://capitalchronicle.substack.com/publish/home. Snapshot saved in identity-substack-tool.json.",
+    "observed_at_utc": "2026-11-04T00:37:24.264Z"
+  },
+  "result": {
+    "request_sha256": "9628ec29a397989b10f9bcc6332beab3c5e83b794f56c3f18c2e0e2033192bf7",
+    "authenticated": true,
+    "observed_identity": "capitalchronicle.substack.com",
+    "status": "READY_AUTHENTICATED"
+  }
+}

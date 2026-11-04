@@ -43,7 +43,7 @@ def _prepared_packet(store, binding):
         raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
     prepared = [
         json.loads(r["payload"])
-        for r in store.list_outbox_messages()
+        for r in store.list_outbox_messages(destination="internal:native-prepared-handoff")
         if r["destination"] == "internal:native-prepared-handoff"
         and json.loads(r["payload"]).get("run_id") == binding["run_id"]
     ]
@@ -53,11 +53,15 @@ def _prepared_packet(store, binding):
     from live_contentops.native_desktop_editorial_v1 import native_review_revision
     base = manual_output_root(store, binding) / "reviewed-handoff"
     root = resolve_workspace_path(packet["output_dir"])
-    if root not in {base, base / native_review_revision(result)}:
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
+    image_view = post_image_view(result, output_dir=base.parent / "media" / "post-images")
+    image_revision = sha256_of([native_review_revision(result), image_view["post_image_policy"],
+                               [a["sha256"] for a in image_view["media_assets"]]])
+    if root not in {base, base / native_review_revision(result), base / image_revision}:
         # Current compiler policy may change the review revision without changing
         # any sent bytes. The existing dispatched packet keeps its original path,
         # plan and object identity; only exact original seals admit that path.
-        sealed = [json.loads(r["payload"]) for r in store.list_outbox_messages()
+        sealed = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=DESTINATION)
             if r["destination"] == DESTINATION and json.loads(r["payload"]).get("run_id") == binding["run_id"]]
         dispatched = store.get_dispatches_for_work_item(binding["run_id"])
         prior = sealed[-1] if sealed else {}
@@ -110,7 +114,7 @@ def _prepared_packet(store, binding):
 
 def prepare_native_publication(store, binding):
     """Seal the exact reviewed packet in the same outbox; no publisher/readiness call."""
-    from live_contentops.native_desktop_editorial_v1 import validated_native_review, validate_release_media
+    from live_contentops.native_desktop_editorial_v1 import validated_native_review
     result, _, _ = validated_native_review(store, run_id=binding["run_id"])
     if result.get("fixture_source_context") or (result.get("desk_record_validation") or {}).get("fixture"):
         raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
@@ -489,7 +493,7 @@ class NativeReviewedPublication:
         value, plan, root = _prepared_packet(self.store, self.binding)
         recorded = [
             json.loads(r["payload"])
-            for r in self.store.list_outbox_messages()
+            for r in self.store.list_outbox_messages(destination=DESTINATION)
             if r["destination"] == DESTINATION
             and json.loads(r["payload"]).get("run_id") == self.binding["run_id"]
         ]
@@ -510,11 +514,12 @@ class NativeReviewedPublication:
             native_invocation_id=self.native_invocation_id,
             reviews=read_reviews(self.store),
         )
+        plan = None
         try:
             if value["state"] == "REVIEWED_HANDOFF_REQUIRED":
                 validated_native_review(self.store, run_id=self.binding["run_id"])
             else:
-                self.validate()
+                plan, _ = self.validate()
         except (ValueError, OSError) as exc:
             return {
                 **value,
@@ -537,6 +542,18 @@ class NativeReviewedPublication:
                         + str(resolve_workspace_path(self.binding["output_dir"]) /
                               ("binding.json" if self.binding.get("owner_manual_live") else "native_operation_binding.json")) + '"',
                     "resume_condition": "Same designated MAX editor corrects findings, re-renders affected views and records current final acceptance; preserve this operation."}
+        if plan and plan.get("distribution_policy") == "SITE_FIRST_V1":
+            from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+            coordinator = self.coordinator or DurablePublicationCoordinator(store=self.store, transport_runtime=None)
+            state = coordinator.publication_state(self.binding["run_id"], plan)
+            value.update({k: state[k] for k in ("canonical_url", "canonical_article_real_published",
+                "site_url", "site_publication_confirmed", "substack_publication_confirmed", "distribution_status")})
+            if any(d["status"] == "SUBSTACK_DRAFT_AWAITING_OWNER" for d in value.get("destinations", [])):
+                value["state"] = "SUBSTACK_DRAFT_AWAITING_OWNER"
+                if not any(p["request"]["action"] == "READBACK" and p["request"]["destination"] == "substack"
+                        for p in value.get("pending_requests", [])):
+                    value["next_operation"] = "publication-status"
+                    value["next_command"] = "Leave the retained Substack code tab untouched for Jim; no automatic wait or new publish. Later use exact readback after owner confirmation."
         return value
 
     def _authorize_and_bind(self):
@@ -616,7 +633,6 @@ class NativeReviewedPublication:
                     return {"classification": "NATIVE_PUBLICATION_NOT_YET_DUE", **due,
                             "publication": self.projection(), "public_write_performed": False}
         try:
-            from live_contentops.native_desktop_editorial_v1 import validate_release_media
             result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
             try:
                 from live_contentops.native_publication_latency_v1 import validate_publication_media
@@ -647,9 +663,16 @@ class NativeReviewedPublication:
                     "new_publish_calls": 0}
                 return {"classification": "NATIVE_PUBLICATION_CONTINUATION", "coordinator_result": summary,
                         "publication": self.projection()}
-            summary = SimplePublicationHandoffV1(
-                store=self.store, coordinator=self.coordinator
-            ).resume(slot_id=self.binding["run_id"], slot_output_dir=root)
+            if plan.get("distribution_policy") == "SITE_FIRST_V1":
+                # The existing handoff's legacy recovery preflight assumes Substack-first.
+                # The same coordinator now owns the site's exact readback and social pass.
+                SimplePublicationHandoffV1(store=self.store, coordinator=self.coordinator)._ensure_work_item(
+                    slot_id=self.binding["run_id"], plan=plan)
+                summary = self.coordinator.execute_plan(self.binding["run_id"], plan)
+            else:
+                summary = SimplePublicationHandoffV1(
+                    store=self.store, coordinator=self.coordinator
+                ).resume(slot_id=self.binding["run_id"], slot_output_dir=root)
             company = self.coordinator._ids(self.binding["run_id"], plan["plan_hash"], "linkedin_company")
             dispatch = self.store.get_platform_dispatch(company["dispatch_id"])
             message = self.store.get_outbox_message(company["message_id"])
@@ -674,6 +697,19 @@ class NativeReviewedPublication:
             "publication": self.projection(),
         }
 
+    def reader_derivative(self, *, response):
+        """Resume one reviewed derivative amendment on this existing operation."""
+        self.validate()
+        self._authorize_and_bind()
+        try:
+            result = self.coordinator.continue_reader_derivative(
+                work_item_id=self.binding["run_id"], destination=response["destination"],
+                review_reference=response["review_reference"])
+        except NativeNeoInputRequired as pending:
+            result = {"state": "PENDING_NATIVE", "native_tool_request": pending.request}
+        return {"classification": "NATIVE_READER_DERIVATIVE_CONTINUATION", "coordinator_result": result,
+            "publication": self.projection()}
+
     def tool(self, command, *, request_hash, response=None):
         self.validate()
         self._authorize_and_bind()
@@ -681,10 +717,17 @@ class NativeReviewedPublication:
             packet = self.executor._get(request_hash, "request")
             if packet and packet["request"]["action"] == "PUBLISH":
                 from live_contentops.native_desktop_editorial_v1 import validate_release_media, require_current_final_visual_review
-                result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
-                from live_contentops.native_publication_latency_v1 import validate_publication_media
-                validate_publication_media(self.store, run_id=self.binding["run_id"], result=result)
-                require_current_final_visual_review(self.store, run_id=self.binding["run_id"])
+                reference = packet["request"].get("reader_presentation_review")
+                if reference:
+                    from live_contentops.native_desktop_editorial_v1 import reader_presentation_acceptance
+                    _, result, _ = reader_presentation_acceptance(self.store,
+                        run_id=self.binding["run_id"], reference=reference)
+                    validate_release_media(result)
+                else:
+                    result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
+                    from live_contentops.native_publication_latency_v1 import validate_publication_media
+                    validate_publication_media(self.store, run_id=self.binding["run_id"], result=result)
+                    require_current_final_visual_review(self.store, run_id=self.binding["run_id"])
             try:
                 return self.executor.begin(request_hash)
             except NativeNeoInputRequired as pending:

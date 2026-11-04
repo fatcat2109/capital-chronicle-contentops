@@ -1,0 +1,9 @@
+[
+  {
+    "pid": 47632,
+    "parent": 2760,
+    "name": "codex.exe",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+  }
+]

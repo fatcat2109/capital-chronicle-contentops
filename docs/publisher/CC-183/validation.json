@@ -1,0 +1,113 @@
+{
+  "observed_at_utc": "2026-11-03T18:52:57.878190+00:00",
+  "code_commit": "28786cc53f4fba7ae1cfebf427ea86066bbb46b9",
+  "base_commit": "9f254ac769fd9e96cb93905c56855a8540365ce4",
+  "operating_root_commit": "a4d60fe0d10de97a06603a8de6b6c3e88c79edcd",
+  "configuration": {
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "high",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "launch_pid": 36128,
+    "configuration_source": "Read back only model and effort from CC-183 codex.exe launch arguments",
+    "actual_model": null,
+    "actual_reasoning_effort": null
+  },
+  "named_launch_blockers_scanned": [
+    "LAUNCH_EFFORT_MISMATCH",
+    "LAUNCH_CONFIG_MISMATCH",
+    "CODEX_EXEC_CONFIG_MISMATCH",
+    "DISPATCH_CONFIG_MISMATCH"
+  ],
+  "executable_files_scanned": 830,
+  "named_launch_blocker_hits": [],
+  "live_quarantine_method_sha256": {
+    "_dispatch_quarantine": "68d0f21fbf812eef4239672424eb3fe2e635f5716b06b298b00b612cb6a2829d",
+    "editorial_recovery_dispatch_ids": "aa7e58aaed11a9acf956b9e4409d0be5e49ebff38a6a7214a2a02f72729a179e",
+    "quarantine_unresolved_dispatch": "e5ef0dc828075eb7cdd97eb22ff158f3a4238b444572c7329ea6e05ebd8f3b87",
+    "recover_pending": "c113add7cfd34083d6ecc4c7bd9bd82bb4fbbe0ec300527d2aba1b60fcab78fe"
+  },
+  "live_newsroom_entry_uses_quarantine_guard": true,
+  "new_live_runtime_proof": false,
+  "retained_record_branch": "backlog/cc-107-event-articles",
+  "retained_record_remote_commit": "e94d07dbad730ab8ef42f579dc1b720b582b6821",
+  "reopened_items": [
+    "CC-042",
+    "CC-143",
+    "CC-144",
+    "CC-173",
+    "CC-177",
+    "CC-154",
+    "CC-171",
+    "CC-179"
+  ],
+  "public_write_performed": false,
+  "integration_performed": false,
+  "integration_resume": {
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "high",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "launch_pid": 42380,
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "base_commit": "68b8926f1fbd9addaebe1a98b41c0951979d2cf3",
+    "branch": "backlog/cc-183-live-integration",
+    "retained_wip_files": 9,
+    "retained_record_remote_commit_verified": "e94d07dbad730ab8ef42f579dc1b720b582b6821",
+    "public_write_performed": false,
+    "schedule_changed": false,
+    "chat_message_sent": false,
+    "development_pretransport_tests": {
+      "passed": 216,
+      "failed": 1,
+      "first_cause": "Transport used pre-amendment context; five-line reviewed-media selection hunk restored",
+      "evidence": "development-pretransport-regressions.junit.xml"
+    },
+    "operating_root_retained_wip_sha256": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "2916ec69804bb63a60013c73648802605e2d683d138455f7a863c209e31b7547",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "7172fbd560a130db5a0df9dba7db1ae5676d3cc469a1156c6b13ac0b8e7decd3"
+    },
+    "observed_at_utc": "2026-11-04T06:39:58.082102+00:00",
+    "code_commit": "68750207a6df750e51580322d792c490175ee2b6",
+    "operating_root_code_sha256": {
+      "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": "811de0bd346f9dec3ebfb09e357e1b784f56d9d4f8e116b5f1b93336e770364f",
+      "live_contentops/capital_chronicle_public_native_lineage_v1.py": "7c4edc9b66389d710590e9ace6a31d838a59af4f558b0074dbc383782eccd744",
+      "live_contentops/codex_desktop_newsroom_operator_v1.py": "024619b61e4010b639592d67dbc10956984baea0a9000c19b677f9999691fba0",
+      "live_contentops/native_desktop_editorial_v1.py": "53d735c6fec176d270389ca92899dffead34ed3f13357bbc55ed7abae90bea00",
+      "live_contentops/native_desktop_publication_v1.py": "ef30d48199baf1e4d3a406a0507520a4aef3fb89413218e2940cd864e73f0b0c",
+      "live_contentops/native_neo_executor_v1.py": "7b4617e00cb13f433a1195e3b8eb57009fa73794961b4ea5767b0367445a758b",
+      "live_contentops/publication_coordinator_v1.py": "56de5e3a3c0b5c87a430007a59270e2afdb252c6e7cb850d41b00deca9162524",
+      "live_contentops/release_chart_revision_v1.py": "9927bff2b631d101e942e915e7663714364fc6f2cc6bd81fcd5fbedcf977dc26",
+      "scripts/run_native_desktop_editorial.py": "2ed47ffb1b38ea1ed2a7b4f0f3ba08a4132283d4c8ca735a2ce9898e24e7a8ee"
+    },
+    "root_source_match": true,
+    "named_launch_blocker_hits": [],
+    "operating_root_wip_preserved": true,
+    "source_files_scanned": 820,
+    "consumer_entry": "scripts/run_native_desktop_editorial.py publication-reader-derivative -> NativeReviewedPublication.reader_derivative -> DurablePublicationCoordinator.continue_reader_derivative -> _durable_intent_inputs",
+    "source_integration_performed": true,
+    "new_publication_performed": false,
+    "runtime_process_restarted": false,
+    "live_consumer_module_paths": {
+      "live_contentops.native_desktop_publication_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_publication_v1.py",
+      "live_contentops.publication_coordinator_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+      "live_contentops._eight_platform_substack_first_pipeline_impl_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\_eight_platform_substack_first_pipeline_impl_v1.py"
+    },
+    "operating_root_tests": {
+      "passed": 43,
+      "failed": 0,
+      "duration_seconds": 42.53,
+      "evidence": "operating-root-regressions.junit.xml",
+      "production_implementation": true,
+      "data": "disposable stores; no external sends"
+    },
+    "transport_correction_tests": {
+      "passed": 19,
+      "failed": 0,
+      "evidence": "transport-correction-regressions.junit.xml"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "source_sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+  "platform_sha256": "ccf310b36f33f5b4361d508aa122a1d0f7eb0d35c3fbcef3e7bd4afa68d5b47e",
+  "public_image_url": "https://pbs.twimg.com/media/HWPgncTaUAAjZo2?format=jpg&name=small",
+  "platform_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261104-0722\\x-public-card.jpg",
+  "platform_dimensions": [
+    680,
+    383
+  ],
+  "mean_channel_rms_0_255": 3.4566677951559384,
+  "source_dimensions": [
+    1600,
+    900
+  ],
+  "resampling": "LANCZOS",
+  "decoded_pixel_comparison_performed": true
+}

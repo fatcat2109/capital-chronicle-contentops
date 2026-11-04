@@ -1,0 +1,16 @@
+{
+  "observed_at_utc": "2026-11-03T23:36:21.726988+00:00",
+  "method": "DurablePublicationCoordinator.recovery_blocks_new_publication",
+  "existing_runtime_snapshot": "publication-resume-01.json",
+  "existing_operation_id": "cc124-next-article-20261103-b",
+  "old_runtime_blocked": true,
+  "patched_policy_blocked": false,
+  "coordinator_transport_runtime": null,
+  "public_writes": 0,
+  "model_calls": 0,
+  "source_calls": 0,
+  "state_before_sha256": "1726712036a99be819125edf7a4bedad42362d5dd52859435f47cfaa0893eec5",
+  "state_after_sha256": "1726712036a99be819125edf7a4bedad42362d5dd52859435f47cfaa0893eec5",
+  "dispatches_reconciliations_readbacks_outbox_unchanged": true,
+  "proof_scope": "Read-only evaluation of the retained recovery obligations. The live consumer still uses f7169bc0."
+}

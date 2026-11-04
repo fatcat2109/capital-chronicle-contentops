@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="2.512" timestamp="2026-11-04T07:33:59.520524+07:00" hostname="J-P"><testcase classname="tests.test_published_content_v1" name="test_retained_native_original_prose_publishes_and_exports_without_rewriting_its_artifacts" time="1.424"><failure message="AssertionError: {'cause': 'CONFIRMED_OUTLET_URL_REQUIRED:discord', 'status': 'PUBLICATION_RECORD_PENDING'}&#10;assert 'PUBLICATION_RECORD_PENDING' == 'APPENDED'&#10;  &#10;  - APPENDED&#10;  + PUBLICATION_RECORD_PENDING">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-32033/test_retained_native_original_0')
+
+    def test_retained_native_original_prose_publishes_and_exports_without_rewriting_its_artifacts(tmp_path):
+        _, transport, coordinator, plan, _, root = native_lifecycle(tmp_path)
+        before = {path.name: path.read_bytes() for path in root.iterdir()}
+        original_readback = transport.readback
+    
+        def readback(**kwargs):
+            return {**original_readback(**kwargs), "published_at_utc": ORIGINAL}
+    
+        transport.readback = readback
+        result = coordinator.execute_plan("work-1", plan)
+        assert result["canonical_article_real_published"] is True
+&gt;       assert result.get("published_content_record", {}).get("status") == "APPENDED", result.get("published_content_record")
+E       AssertionError: {'cause': 'CONFIRMED_OUTLET_URL_REQUIRED:discord', 'status': 'PUBLICATION_RECORD_PENDING'}
+E       assert 'PUBLICATION_RECORD_PENDING' == 'APPENDED'
+E         
+E         - APPENDED
+E         + PUBLICATION_RECORD_PENDING
+
+tests\test_published_content_v1.py:109: AssertionError</failure></testcase></testsuite></testsuites>

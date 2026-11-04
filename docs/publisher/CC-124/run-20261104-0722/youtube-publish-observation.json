@@ -1,0 +1,39 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "media": {
+      "changed": false,
+      "page": 214,
+      "settled": false,
+      "value": [
+        {
+          "height": 900,
+          "loaded": true,
+          "src": "DATA_URL_OMITTED",
+          "width": 1600
+        },
+        {
+          "height": 900,
+          "loaded": true,
+          "src": "DATA_URL_OMITTED",
+          "width": 1600
+        },
+        {
+          "height": 900,
+          "loaded": true,
+          "src": "DATA_URL_OMITTED",
+          "width": 1600
+        },
+        {
+          "height": 900,
+          "loaded": true,
+          "src": "DATA_URL_OMITTED",
+          "width": 1600
+        }
+      ]
+    },
+    "pageId": 214,
+    "snapshot": "- banner\n  - button \"Hướng dẫn\" [ref=e1]\n  - link \"Trang chủ YouTube\" [ref=e2] [url=\"https://www.youtube.com/\"]\n  - button \"Bỏ qua điều hướng\" [ref=e3]\n  - search\n    - form\n      - combobox \"Tìm kiếm\" [expanded] [ref=e4]\n    - button [ref=e5]\n    - button \"Search\" [ref=e6]\n  - button \"Tìm kiếm bằng giọng nói\" [ref=e7]\n  - button \"Tạo\" [ref=e8]\n  - button \"Thông báo\" [ref=e9]\n  - button \"Trình đơn tài khoản\" [ref=e10]\n- navigation\n  - generic [ref=e11] [cursor=pointer]\n  - link \"Trang chủ\" [ref=e12] [url=\"https://www.youtube.com/\"]\n    - link \"Trang chủ\" [ref=e13]\n  - link \"Shorts\" [ref=e14]\n    - link \"Shorts\" [ref=e15]\n  - link \"Kênh đăng ký\" [ref=e16] [url=\"https://www.youtube.com/feed/subscriptions\"]\n    - link \"Kênh đăng ký\" [ref=e17]\n  - link \"Steve Le Chứng Khoán Mỹ. Đã có nội dung mới.\" [ref=e18] [url=\"https://www.youtube.com/@realstevele\"]\n    - link \"Steve Le Chứng Khoán Mỹ. Đã có nội dung mới.\" [ref=e19]\n  - link \"Steve Le Tin Nhanh. Đã có nội dung mới.\" [ref=e20] [url=\"https://www.youtube.com/@steveleshorts\"]\n    - link \"Steve Le Tin Nhanh. Đã có nội dung mới.\" [ref=e21]\n  - link \"Greg Isenberg. Đã có nội dung mới.\" [ref=e22] [url=\"https://www.youtube.com/@GregIsenberg\"]\n    - link \"Greg Isenberg. Đã có nội dung mới.\" [ref=e23]\n  - link \"Reuters. Đã có nội dung mới.\" [ref=e24] [url=\"https://www.youtube.com/@Reuters\"]\n    - link \"Reuters. Đã có nội dung mới.\" [ref=e25]\n  - link \"Yahoo Finance. Đang phát trực tiếp.\" [ref=e26] [url=\"https://www.youtube.com/@YahooFinance\"]\n    - link \"Yahoo Finance. Đang phát trực tiếp.\" [ref=e27]\n  - link \"Bloomberg Originals. Đang phát trực tiếp.\" [ref=e28] [url=\"https://www.youtube.com/@business\"]\n    - link \"Bloomberg Originals. Đang phát trực tiếp.\" [ref=e29]\n  - link \"CNBC. Đang phát trực tiếp.\" [ref=e30] [url=\"https://www.youtube.com/@CNBC\"]\n    - link \"CNBC. Đang phát trực tiếp.\" [ref=e31]\n  - button \"Thêm\" [ref=e32]\n    - link \"Thêm\" [ref=e33]\n      - link \"Thêm\" [ref=e34]\n  - link \"Bạn\" [ref=e77] [url=\"https://www.youtube.com/feed/you\"]\n    - link \"Bạn\" [ref=e78]\n  - link \"Kênh của bạn\" [ref=e79] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]\n    - link \"Kênh của bạn\" [ref=e80]\n  - link \"Video đã xem\" [ref=e81] [url=\"https://www.youtube.com/feed/history\"]\n    - link \"Video đã xem\" [ref=e82]\n  - link \"Danh sách phát\" [ref=e83] [url=\"https://www.youtube.com/feed/playlists\"]\n    - link \"Danh sách phát\" [ref=e84]\n  - link \"Xem sau\" [ref=e85] [url=\"https://www.youtube.com/playlist?list=WL\"]\n    - link \"Xem sau\" [ref=e86]\n  - link \"Video đã thích\" [ref=e87] [url=\"https://www.youtube.com/playlist?list=LL\"]\n    - link \"Video đã thích\" [ref=e88]\n  - link \"Video của bạn\" [ref=e89] [url=\"https://studio.youtube.com/channel/UCuSrYOgd4eeudcD2vidafbA/content\"]\n    - link \"Video của bạn\" [ref=e90]\n  - link \"Nội dung tải xuống\" [ref=e91] [url=\"https://www.youtube.com/feed/downloads\"]\n    - link \"Nội dung tải xuống\" [ref=e92]\n  - heading \"Dịch vụ khác của YouTube\" [level=3]\n  - link \"YouTube Premium\" [ref=e93] [url=\"https://www.youtube.com/premium\"]\n    - link \"YouTube Premium\" [ref=e94]\n  - link \"YouTube Music\" [ref=e95] [url=\"https://music.youtube.com/\"]\n    - link \"YouTube Music\" [ref=e96]\n  - link \"YouTube Kids\" [ref=e97] [url=\"https://www.youtubekids.com/?source=youtube_web\"]\n    - link \"YouTube Kids\" [ref=e98]\n  - link \"YouTube Labs\" [ref=e99] [url=\"https://www.youtube.com/labs\"]\n    - link \"YouTube Labs\" [ref=e100]\n  - heading \"Khám phá\" [level=3]\n  - link \"Âm nhạc\" [ref=e101] [url=\"https://www.youtube.com/channel/UC-9-kyTW8ZkZNDHQJ6FgpwQ\"]\n    - link \"Âm nhạc\" [ref=e102]\n  - link \"Trò chơi\" [ref=e103] [url=\"https://www.youtube.com/gaming\"]\n    - link \"Trò chơi\" [ref=e104]\n  - link \"Chơi game\" [ref=e105] [url=\"https://www.youtube.com/playables\"]\n    - link \"Chơi game\" [ref=e106]\n  - button \"Thêm\" [ref=e107]\n    - link \"Thêm\" [ref=e108]\n      - link \"Thêm\" [ref=e109]\n  - link \"Nhật ký báo cáo\" [ref=e110] [url=\"https://www.youtube.com/reporthistory\"]\n    - link \"Nhật ký báo cáo\" [ref=e111]\n  - link \"Giới thiệu\" [ref=e35] [url=\"https://www.youtube.com/about/\"]\n  - link \"Báo chí\" [ref=e36] [url=\"https://www.youtube.com/about/press/\"]\n  - link \"Bản quyền\" [ref=e37] [url=\"https://www.youtube.com/about/copyright/\"]\n  - link \"Liên hệ với chúng tôi\" [ref=e38] [url=\"https://www.youtube.com/t/contact_us/\"]\n  - link \"Người sáng tạo\" [ref=e39] [url=\"https://www.youtube.com/creators/\"]\n  - link \"Quảng cáo\" [ref=e40] [url=\"https://www.youtube.com/ads/\"]\n  - link \"Nhà phát triển\" [ref=e41] [url=\"https://developers.google.com/youtube\"]\n  - link \"Điều khoản\" [ref=e42] [url=\"https://www.youtube.com/t/terms\"]\n  - link \"Quyền riêng tư\" [ref=e43] [url=\"https://www.youtube.com/t/privacy\"]\n  - link \"Chính sách và an toàn\" [ref=e44] [url=\"https://www.youtube.com/about/policies/\"]\n  - link \"Cách YouTube hoạt động\" [ref=e45] [url=\"https://www.youtube.com/howyoutubeworks?utm_campaign=ytgen&utm_source=ythp&utm_medium=LeftNav&utm_content=txt&u=https%3A%2F%2Fwww.youtube.com%2Fhowyoutubeworks%3Futm_source%3Dythp%26utm_medium%3DLeftNav%26utm_campaign%3Dytgen\"]\n  - link \"Thử các tính năng mới\" [ref=e46] [url=\"https://www.youtube.com/new\"]\n- main\n  - button \"Cập nhật ảnh hồ sơ\" [ref=e47]\n  - heading \"Capital Chronicle\" [level=1]\n  - generic [ref=e48] [cursor=pointer]\n    - button \"Nội dung mô tả. Welcome to Capital Chronicle, your trusted source for data-d...nhấn để xem thêm.\" [ref=e49]\n  - link \"Tùy chỉnh kênh\" [ref=e50] [url=\"https://studio.youtube.com/channel/UCuSrYOgd4eeudcD2vidafbA/editing\"]\n  - link \"Quản lý video\" [ref=e51] [url=\"https://studio.youtube.com/channel/UCuSrYOgd4eeudcD2vidafbA/content\"]\n  - link \"Cộng đồng\" [ref=e52] [url=\"https://www.youtube.com/@CapitalChronicleYouTube/community\"]\n  - tablist [ref=e53] [cursor=pointer]\n    - tablist\n      - tab \"Trang chủ\" [ref=e54]\n      - tab \"Bài đăng\" [selected] [ref=e55]\n  - tablist [ref=e64] [cursor=pointer]\n    - tab \"ĐÃ ĐĂNG\" [selected] [ref=e65]\n    - tab \"ĐÃ LÊN LỊCH\" [ref=e66]\n    - tab \"ĐÃ LƯU TRỮ\" [ref=e67]\n  - link \"Capital Chronicle\" [ref=e68] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]\n  - link \"Capital Chronicle\" [ref=e69] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]\n  - link \"6 ngày trước (đã chỉnh sửa)\" [ref=e70] [url=\"https://www.youtube.com/post/UgkxEg96KptmQofovRB2_c84CvIqPJqMGwe2\"]\n  - button \"Đọc thêm\" [collapsed] [ref=e71]\n  - link \"Chuyển đến chi tiết bài đăng\" [ref=e72] [url=\"https://www.youtube.com/post/UgkxEg96KptmQofovRB2_c84CvIqPJqMGwe2\"]\n  - button \"Thích bài đăng này cùng với 1 người khác\" [ref=e73]\n  - button \"Chia sẻ\" [ref=e74]\n  - link \"Bình luận\" [ref=e75] [url=\"https://www.youtube.com/post/UgkxEg96KptmQofovRB2_c84CvIqPJqMGwe2\"]\n  - button \"Menu tác vụ\" [ref=e76]"
+  }
+}

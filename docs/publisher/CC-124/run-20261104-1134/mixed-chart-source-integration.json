@@ -1,0 +1,15 @@
+{
+  "applied_at_utc": "2026-11-04T04:59:09.189635+00:00",
+  "source_commit": "981c5c6db2027b4f45dc8f0bc94add8e9c495abc",
+  "live_before": "8e4120fc95e744c1c1bd72c4a0ae66fd7ae14ed0",
+  "live_sha": "7f1e798e4eaf1a50a7962eb3f92f9d983d9857d7",
+  "live_tag": "contentops-live-20261104-cc124-mixed-chart-sources",
+  "rollback_tag": "contentops-live-20261104-cc124-editorial-entry",
+  "consumer": "Existing native media-plan/source-value chart renderer and validator",
+  "unrelated_tracked_dirty_files_preserved": true,
+  "runtime_restart": false,
+  "tests": {
+    "mixed_source": 4,
+    "existing_media_owner": 83
+  }
+}
