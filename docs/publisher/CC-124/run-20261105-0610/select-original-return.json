@@ -1,0 +1,36 @@
+{
+  "request_sha256": "ead0eecf66b4a6951a02cc9391350c860e39d49c72a4565dca6b72af0dadf691",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "September producer inflation: separate the final-demand jump from the narrower underlying measure, using the original September release as a dated retrospective rather than fresh news.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-fada8125f8a912aa78b0ffe2",
+        "evidence_plan": "Resolve the retained September PPI first-print dossier and original dated BLS release, preserving the 2026-10-15 release clock and 2026-11-04T23:13:17.809656Z cutoff. Confirm headline, underlying definition, component contributions, units and seasonal adjustment against original bytes. Use at least 24 months of comparable official history available by the event, the latest monthly change and official component breakdown; code owns arithmetic. Do not substitute the rolling PPI URL current vintage. Locate a lawful contextual photo and use source-bound charts or facts cards. Retained candidate is not source qualification. Preserve the existing shared source ledger, non-chargeable limit 20 and original source clocks. No prediction-market numbers, raw restricted series or proprietary forecasts. MAX supplies interpretation, countercase and review after source preparation.",
+        "primary_reader_question": "What did September producer prices actually show about broad cost pressure once the headline increase is separated from the narrower underlying measure?",
+        "research_queries": [
+          "BLS September 2026 producer price index October 15 2026 original release final demand",
+          "BLS September 2026 PPI final demand less foods energy trade services components historical series"
+        ],
+        "selection_rationale": "Explicit owner-approved dated fallback; distinct from the published FOMC, CPI, jobs, midterm and SEC stories and separate from reserved CC-216 future-release backgrounds. The supplied packet contains no due-event frozen dossier, current official release, current market move or CFTC positioning. The available company filing is from June 2025, and the October 21 Reuters headlines are not a current filing. The PPI candidate has a precise original release identity and a useful headline-versus-underlying tension without treating old data as current news."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select one September PPI retrospective under the owner fallback. The ECB packet identifies September 10, not the requested October ECB vintage. Do not promote it as October. Source resolution must establish original PPI bytes and event-bounded chart history; selection consumes zero source requests and never resets the existing ledger.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "invocation_id": "/root/native_select_ead0eecf66b4",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "speed": "standard",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "this exact supported assignment"
+  }
+}
