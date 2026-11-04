@@ -29,6 +29,8 @@ SERIES = {
     "UNEMPLOYMENT_RATE": ("LNS14000000", "percent", "SA", "LEVEL"),
     "AHE_MOM": ("CES0500000003", "percent", "SA", "MONTH_ON_MONTH"),
     "PPI_FINAL_DEMAND_MOM": ("WPSFD4", "percent", "SA", "MONTH_ON_MONTH"),
+    "PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM": (
+        "BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES", "percent", "SA", "MONTH_ON_MONTH"),
 }
 FAMILIES = {
     "cpi": tuple(k for k in SERIES if k.startswith("CPI_")),

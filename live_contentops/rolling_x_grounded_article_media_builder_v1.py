@@ -1324,7 +1324,7 @@ def _editorial_data_values(packet, documents):
                 history = doc.get("official_release_history") or {}
                 observed = next((o for o in history.get("series", {}).get("observations", [])
                     if o["period"] == point.get("period")), None)
-                if (packet.get("chart_type") != "line" or point.get("observation_kind") != "MISSING"
+                if (packet.get("chart_type") not in {"line", "grouped_bar"} or point.get("observation_kind") != "MISSING"
                         or point.get("inputs") or not point.get("missing_reason")
                         or not observed or observed["value"] is not None
                         or observed.get("missing_reason") != point["missing_reason"]
@@ -2131,7 +2131,7 @@ def _draw_editorial_chart(packet, values, plt, np):
                 width = 0.8 / count
                 ax.bar(
                     x - 0.4 + width * (i + 0.5),
-                    nums,
+                    np.asarray(nums, dtype=float),
                     width=width,
                     color=color,
                     label=label,

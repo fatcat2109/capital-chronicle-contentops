@@ -180,7 +180,8 @@ def test_exact_official_history_fetch_reuses_shared_budget_without_retry(url):
     assert len(calls) == 1
 
 
-def test_missing_month_is_rendered_as_a_gap_and_cannot_be_filled(archive, tmp_path):
+@pytest.mark.parametrize("chart_type", ["line", "grouped_bar"])
+def test_missing_month_is_rendered_as_a_gap_and_cannot_be_filled(archive, tmp_path, chart_type):
     history = load(archive)
     doc = history_documents(history)[0]
     points = []
@@ -196,7 +197,7 @@ def test_missing_month_is_rendered_as_a_gap_and_cannot_be_filled(archive, tmp_pa
                     "source_period_text": obs["period"], "source_content_sha256": doc["canonical_content_sha256"],
                     "metric": "CPI_HEADLINE_MOM", "unit": "percent", "prepared_period": obs["period"],
                     "period_basis": {"basis": "CONTROLLED_CC010_OBSERVATION"}}]})
-    packet = {"asset_id": "controlled-history-gap", "chart_type": "line", "title": "Controlled fixture",
+    packet = {"asset_id": "controlled-history-gap", "chart_type": chart_type, "title": "Controlled fixture",
         "question": "Does the missing month remain a gap?", "unit": "percent", "source_caption": "BLS controlled fixture",
         "series": [{"name": "Controlled", "points": points}], "missingness": ["2025-10", "2025-11"]}
     assert _editorial_data_values(packet, [doc])[0][12:14] == [None, None]
