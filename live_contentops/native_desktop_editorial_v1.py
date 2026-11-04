@@ -1108,6 +1108,11 @@ class NativeDesktopTurn:
             if observation["invocation_id"] != visual["invocation_observation"]["invocation_id"]:
                 raise ValueError("NATIVE_DESKTOP_SAME_VISUAL_EDITOR_WRITER_REQUIRED")
             article = response.get("output", {}).get("article", {})
+            # The accepted visual decision is owned by this exact native
+            # operation. Attach omitted representation metadata deterministically
+            # rather than paying for another writer call to copy the same JSON.
+            article.setdefault("reader_first_version", "DATA_JOURNALISM_V1")
+            article.setdefault("visual_editorial_decision", visual["output"])
             if (article.get("reader_first_version") != "DATA_JOURNALISM_V1"
                     or article.get("visual_editorial_decision") != visual["output"]):
                 raise ValueError("NATIVE_DESKTOP_EXACT_VISUAL_ARGUMENT_REQUIRED")
