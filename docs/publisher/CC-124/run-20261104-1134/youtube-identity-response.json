@@ -1,0 +1,16 @@
+{
+  "tool_request_sha256": "5df9d0b1100c4fba1cbb6640b2f4206bd301dcb224faf50793e4cecec27a5e69",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a4d5-297b-7a72-bf56-c0af786aba7c",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Neo page228 /@CapitalChronicleYouTube/posts: Your channel link exact handle, customize channel and manage videos links for UCuSrYOgd4eeudcD2vidafbA, own post composer. No login or account switch.",
+    "observed_at_utc": "2026-11-04T05:55:07.931786+00:00"
+  },
+  "result": {
+    "request_sha256": "81bc5f3d28b139b56e80a2e1589831e3a43bc9945e1e2214ddc2c33fed4c2162",
+    "authenticated": true,
+    "observed_identity": "@CapitalChronicleYouTube",
+    "status": "READY_AUTHENTICATED"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+  "operation_id": "cc124-next-article-20261104-a",
+  "public_write_authorized": false,
+  "request": {
+    "action": "READBACK",
+    "canonical_url": "https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains",
+    "content_binding": {
+      "artifact_manifest": [
+        {
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\reviewed-handoff\\87fd21cb3cf659f8bcb6bf112c675535196d2e2c74a5d9ce43c5884195c9cf37\\run_context_v1.json",
+          "sha256": "5b7a5829bec8705d18ebcbbece7d3c218ee7fd7c2147fad3ffc7c33cd55a4463"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\reviewed-handoff\\87fd21cb3cf659f8bcb6bf112c675535196d2e2c74a5d9ce43c5884195c9cf37\\delivery_media_manifest_v1.json",
+          "sha256": "64fb515218d2aa4f7f215a8240adea4972dd2c16945d1b46e5528b9c31331449"
+        }
+      ],
+      "expected_text_segments": [
+        "Update: September 2026 jobs: private gains beneath a weak headline\n\nSeptember 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.\n\nWhat to watch: From the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate. That combination would challenge the sector-mix explanation; stronger private gains would support it. This retrospective makes no claim about subsequent outcomes.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains\n\nAnalysis, not financial advice. Readers decide whether to trade."
+      ],
+      "expected_thread_texts": [],
+      "media_manifest": [
+        {
+          "alt_text": "Monthly nonfarm payroll change, seasonally adjusted. BLS initial estimates; October 2024\u2013September 2026. First prints, without later revisions.",
+          "asset_id": "payroll_first_print_trend",
+          "attribution": "Source: BLS dated first releases. October 2024\u2013September 2026; each month retains its first print.",
+          "caption": "Monthly nonfarm payroll change, seasonally adjusted. BLS initial estimates; October 2024\u2013September 2026. First prints, without later revisions. Sources: [U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 02 Oct 2026](https://www.bls.gov/news.release/archives/empsit_10022026.htm).",
+          "modality": "source_backed_chart",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\payroll_first_print_trend.png",
+          "sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+          "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+        }
+      ],
+      "thread_post_count": 0
+    },
+    "destination": "youtube",
+    "dispatch_attempt_identity": null,
+    "entry_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+    "expected_identity": "@CapitalChronicleYouTube",
+    "forbidden": [
+      "login",
+      "reauthorize",
+      "account_switch",
+      "cookies",
+      "storage",
+      "blind_retry",
+      "bulk_x_ingestion"
+    ],
+    "intent_sha256": "2148a308a9a720d8417749140dfe00eea75b6d1eb9db9e0af78090b9e85dbb63",
+    "native_payload": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "payroll_first_print_trend"
+      ],
+      "media_source_links": {
+        "payroll_first_print_trend": [
+          {
+            "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+            "label": "U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 02 Oct 2026",
+            "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+          }
+        ]
+      },
+      "platform_limit": 1000,
+      "text": "Update: September 2026 jobs: private gains beneath a weak headline\n\nSeptember 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.\n\nWhat to watch: From the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate. That combination would challenge the sector-mix explanation; stronger private gains would support it. This retrospective makes no claim about subsequent outcomes.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains\n\nAnalysis, not financial advice. Readers decide whether to trade."
+    },
+    "package_identity": "3507c2985f5a86a49da93990743caf03ca62fcfd65fe6ae07eef9648f2eee8a7",
+    "payload": "Update: September 2026 jobs: private gains beneath a weak headline\n\nSeptember 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.\n\nWhat to watch: From the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate. That combination would challenge the sector-mix explanation; stronger private gains would support it. This retrospective makes no claim about subsequent outcomes.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+    "payload_hash": "aee5ecdff63bdaf08ecff1463f304a624282791408dc7d4e47414186f91a6e03",
+    "public_object_id": "UgkxHzB5SS25WhvXZ09CYjMqgn34e9eKJ-_t",
+    "public_object_url": "https://www.youtube.com/post/UgkxHzB5SS25WhvXZ09CYjMqgn34e9eKJ-_t",
+    "reader_text_normalization": "MARKDOWN_WHITESPACE_SMART_QUOTES_V1",
+    "request_sha256": "93f53d167dfaa527c77f98fb9d69404d218836e653a7bc03e5c706d52382e02c",
+    "schema_version": "contentops.neo_destination_handoff.v1",
+    "steps": [
+      "name_session; list tabs, open a task-owned tab",
+      "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+      "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+      "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+      "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+    ],
+    "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+    "surface": "YOUTUBE_COMMUNITY_POST",
+    "work_item_id": "cc124-next-article-20261104-a"
+  },
+  "required_tool": "mcp__browseros_neo__run",
+  "schema_version": "contentops.native_neo_tool_request.v1",
+  "tool_request_sha256": "b00ea4ffb550e6772a4b2d08e12563f2d931bc30281c11109278a36d852ebb65"
+}

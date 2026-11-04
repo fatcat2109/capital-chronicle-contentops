@@ -23,7 +23,5 @@
   },
   "required_tool": "mcp__browseros_neo__run",
   "schema_version": "contentops.native_neo_tool_request.v1",
-  "tool_request_sha256": "5df9d0b1100c4fba1cbb6640b2f4206bd301dcb224faf50793e4cecec27a5e69",
-  "action_claimed": false,
-  "next_operation": "publication-tool-begin"
+  "tool_request_sha256": "5df9d0b1100c4fba1cbb6640b2f4206bd301dcb224faf50793e4cecec27a5e69"
 }

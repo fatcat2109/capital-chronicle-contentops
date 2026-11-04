@@ -1,0 +1,20 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "changed": false,
+    "page": 228,
+    "settled": false,
+    "value": {
+      "composerText": "Update: September 2026 jobs: private gains beneath a weak headline\n\n\nSeptember 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.\n\n\nWhat to watch: From the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate. That combination would challenge the sector-mix explanation; stronger private gains would support it. This retrospective makes no claim about subsequent outcomes.\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains\n\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "images": [],
+      "nativeChooserPrevented": true,
+      "uploadFiles": [
+        {
+          "name": "payroll_first_print_trend.png",
+          "size": 88605
+        }
+      ]
+    }
+  }
+}

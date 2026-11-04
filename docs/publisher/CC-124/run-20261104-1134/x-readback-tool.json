@@ -1,0 +1,39 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "content": {
+      "changed": false,
+      "page": 227,
+      "settled": false,
+      "value": {
+        "posts": [
+          {
+            "images": [
+              {
+                "alt": "Monthly nonfarm payroll change, seasonally adjusted. BLS initial estimates; October 2024–September 2026. First prints, without later revisions.",
+                "complete": true,
+                "height": 491,
+                "src": "https://pbs.twimg.com/media/HWQkAZea4AAOROe?format=png&name=small",
+                "width": 680
+              }
+            ],
+            "text": "September 2026 jobs: private gains beneath a weak headline\n\nSeptember 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.\n\nhttps://capitalchronicle.substack.com/p/september-2026-jobs-private-gains…",
+            "url": "https://x.com/Capitalnicle/status/2117857511042904348"
+          },
+          {
+            "images": [],
+            "text": "Watch: From the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate.",
+            "url": "https://x.com/Capitalnicle/status/2117857513794318786"
+          },
+          {
+            "images": [],
+            "text": "That combination would challenge the sector-mix explanation; stronger private gains would support it.\n\nThis retrospective makes no claim about subsequent outcomes.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.",
+            "url": "https://x.com/Capitalnicle/status/2117857515841237307"
+          }
+        ]
+      }
+    },
+    "url": "https://x.com/Capitalnicle/status/2117857511042904348"
+  }
+}

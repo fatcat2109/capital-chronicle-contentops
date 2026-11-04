@@ -1,0 +1,30 @@
+{
+  "tool_request_sha256": "b00ea4ffb550e6772a4b2d08e12563f2d931bc30281c11109278a36d852ebb65",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a4d5-297b-7a72-bf56-c0af786aba7c",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Fresh exact-object readback on Neo page228 after readback begin; youtube-readback-tool.json, exact approved copy and loaded chart. Original public pixels equal reviewed source.",
+    "observed_at_utc": "2026-11-04T06:07:40.523338+00:00"
+  },
+  "result": {
+    "request_sha256": "93f53d167dfaa527c77f98fb9d69404d218836e653a7bc03e5c706d52382e02c",
+    "status": "SUCCESS",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "UgkxHzB5SS25WhvXZ09CYjMqgn34e9eKJ-_t",
+    "public_object_url": "https://www.youtube.com/post/UgkxHzB5SS25WhvXZ09CYjMqgn34e9eKJ-_t",
+    "content_verified": true,
+    "observed_text": "Update: September 2026 jobs: private gains beneath a weak headline\n\nSeptember 2026 retrospective: the U.S. Bureau of Labor Statistics reported a 29,000 payroll gain, with private gains offset by government losses.\n\nWhat to watch: From the October 2 vantage point, the next useful test would be whether private payroll gains weakened alongside a rising unemployment rate. That combination would challenge the sector-mix explanation; stronger private gains would support it. This retrospective makes no claim about subsequent outcomes.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+        "platform_sha256": "440762d1c584ff3b8eca24f3f079af1c999983a71071cd0d67c7f5872bd1c040",
+        "public_image_url": "https://yt3.ggpht.com/DWzjmW8ayjZnSGEyUJmWBURoxRS4vtmpOV8z-e-oFoAxqaotyB2bqsn8yu56ZXF0mYPZVlNVWM1I=s0",
+        "public_object_url": "https://www.youtube.com/post/UgkxHzB5SS25WhvXZ09CYjMqgn34e9eKJ-_t",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "comparison_method": "Exact all-pixel RGB equality at original 1440x1040 dimensions with the approved source already inspected by MAX."
+      }
+    ]
+  }
+}
