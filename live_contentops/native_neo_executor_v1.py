@@ -223,7 +223,7 @@ class NativeNeoExecutor:
     def _fresh_identity_return(self, destination, surface, expected_identity):
         # Probe epochs deduplicate requests; actual observation time controls
         # freshness. Crossing a bucket must not discard a seconds-old proof.
-        for row in reversed(self.store.list_outbox_messages()):
+        for row in reversed(self.store.list_outbox_messages(destination=DESTINATION)):
             if row["destination"] != DESTINATION:
                 continue
             packet = json.loads(row["payload"])
@@ -277,7 +277,7 @@ class NativeNeoExecutor:
 
     def pending(self):
         rows = []
-        for row in self.store.list_outbox_messages():
+        for row in self.store.list_outbox_messages(destination=DESTINATION):
             if row["destination"] != DESTINATION:
                 continue
             if row["status"] == "NATIVE_NEO_SUPERSEDED":

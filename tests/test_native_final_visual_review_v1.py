@@ -117,6 +117,21 @@ def test_same_max_targeted_media_edit_keeps_the_article_and_invalidates_only_old
     assert any(m["destination"] == "internal:native-editorial-package-history" for m in store.list_outbox_messages())
 
 
+def test_packet_validation_reads_only_required_outbox_destinations(tmp_path, monkeypatch):
+    store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
+    original = store.list_outbox_messages
+    seen = []
+    def scoped(**kwargs):
+        assert kwargs.get("destination"), "Packet validation must not load unrelated historical payloads"
+        seen.append(kwargs["destination"])
+        return original(**kwargs)
+    monkeypatch.setattr(store, "list_outbox_messages", scoped)
+    pub, _, _ = composed(store, binding, rollout, monkeypatch)
+    plan, _ = pub.validate()
+    assert plan["plan_hash"]
+    assert "internal:native-prepared-handoff" in seen
+
+
 def test_matching_current_acceptance_allows_existing_continuation(tmp_path, monkeypatch):
     store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
     require_current_final_visual_review(store, run_id=binding["run_id"])

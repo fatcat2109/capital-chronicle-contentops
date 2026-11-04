@@ -1852,3 +1852,24 @@ def test_external_sqlite_writer_adversarial_threat_model_suite(temp_db):
 
     # 8. Store replay passes for hash-valid, projection-matched external write
     assert temp_db.replay_work_item_events("wi_adv_1")["verification_status"] == "PASS"
+
+
+def test_outbox_filters_preserve_default_order_and_exact_payloads(temp_db):
+    for work in ("w-a", "w-b"):
+        temp_db.create_work_item(work_item_id=work, story_id=work, title=work, target_surface="internal")
+    rows = [
+        ("a", "w-a", "internal:review", "PENDING"),
+        ("b", "w-a", "internal:neo", "READY"),
+        ("c", "w-b", "internal:review", "READY"),
+    ]
+    for message, work, destination, status in rows:
+        temp_db.register_outbox_message(message_id=message, work_item_id=work,
+            destination=destination, status=status, payload=json.dumps({"exact": message}))
+    all_rows = temp_db.list_outbox_messages()
+    assert [r["message_id"] for r in all_rows] == ["a", "b", "c"]
+    for filters in ({"destination": "internal:review"}, {"work_item_id": "w-a"},
+                    {"status": "READY"},
+                    {"destination": "internal:review", "work_item_id": "w-b", "status": "READY"},
+                    {"destination": "unknown' OR 1=1 --"}):
+        expected = [r for r in all_rows if all(r[k] == v for k, v in filters.items())]
+        assert temp_db.list_outbox_messages(**filters) == expected

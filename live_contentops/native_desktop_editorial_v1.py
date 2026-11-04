@@ -1942,8 +1942,9 @@ def validated_native_review(store, *, run_id):
     result = json.loads(row["payload"]) if row else {}
     if result.get("model_execution_state") != "NATIVE_DESKTOP_REQUEST_RETURN" or not result.get("qualified_article_count"):
         raise ValueError("QUALIFIED_NATIVE_RESULT_REQUIRED")
-    from live_contentops.contentops_editorial_desk_v1 import source_review_projection
-    changes = [s for s in source_review_projection(store.list_outbox_messages()) if s["article_identity"] == result["article_identity"]]
+    from live_contentops.contentops_editorial_desk_v1 import source_review_projection, SOURCE_REVIEW
+    changes = [s for s in source_review_projection(store.list_outbox_messages(destination=SOURCE_REVIEW))
+               if s["article_identity"] == result["article_identity"]]
     if changes and changes[-1]["invalidates_prepared_review"]:
         raise ValueError("SOURCE_CHANGED_PREPARED_REVIEW_INVALIDATED:" + changes[-1]["decision"])
     reviews = [r for r in read_reviews(store) if r["work_item_id"] == row["work_item_id"]

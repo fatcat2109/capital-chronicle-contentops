@@ -43,7 +43,7 @@ def _prepared_packet(store, binding):
         raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
     prepared = [
         json.loads(r["payload"])
-        for r in store.list_outbox_messages()
+        for r in store.list_outbox_messages(destination="internal:native-prepared-handoff")
         if r["destination"] == "internal:native-prepared-handoff"
         and json.loads(r["payload"]).get("run_id") == binding["run_id"]
     ]
@@ -57,7 +57,7 @@ def _prepared_packet(store, binding):
         # Current compiler policy may change the review revision without changing
         # any sent bytes. The existing dispatched packet keeps its original path,
         # plan and object identity; only exact original seals admit that path.
-        sealed = [json.loads(r["payload"]) for r in store.list_outbox_messages()
+        sealed = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=DESTINATION)
             if r["destination"] == DESTINATION and json.loads(r["payload"]).get("run_id") == binding["run_id"]]
         dispatched = store.get_dispatches_for_work_item(binding["run_id"])
         prior = sealed[-1] if sealed else {}
@@ -489,7 +489,7 @@ class NativeReviewedPublication:
         value, plan, root = _prepared_packet(self.store, self.binding)
         recorded = [
             json.loads(r["payload"])
-            for r in self.store.list_outbox_messages()
+            for r in self.store.list_outbox_messages(destination=DESTINATION)
             if r["destination"] == DESTINATION
             and json.loads(r["payload"]).get("run_id") == self.binding["run_id"]
         ]
