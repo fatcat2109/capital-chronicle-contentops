@@ -1,0 +1,126 @@
+{
+  "request_sha256": "71e0526bda257180e64f1061103bd43ef05d81e2d5828fe8a21b33c1a29fcf55",
+  "output": {
+    "story_plan": {
+      "thesis": "Use the September 2026 first-release labor report to test how much a weak payroll increase says about labor demand when unemployment, wages, hours and participation are read together. This is a dated retrospective of information published October 2, not fresh news, a forecast or a position call.",
+      "photo_plan": {
+        "subject": "Authentic U.S. workplace or workers in an economically relevant setting, preferably a documented federal-government original photograph with individual creator and public-domain provenance.",
+        "discovery_owner": "Existing media discovery and admission owner; inspect the retained lawful library first, then bounded free discovery if needed. SOURCE_1 through SOURCE_4 license factual data and do not themselves license photographs.",
+        "binding_requirements": [
+          "Exact original file and source page, photographer/agency, individual license or public-domain statement, capture date if known, retrieval date, original-byte hash, caption, alt text and reuse conditions.",
+          "Caption an older or generic workplace image as contextual or archival; never imply it depicts September employment conditions or corroborates payroll measurements.",
+          "Use the actual media record for canonical attribution; do not infer photo rights from a .gov host, data rights or an agency logo.",
+          "Inspect the selected original through the existing admitted-image owner before assembly; MAX chooses relevance and placement. No native desktop automation is requested."
+        ],
+        "fallback": "Use the admitted charts and source-bound facts card while the existing owner resolves an available lawful relevant photograph; never invent an image, license or credit."
+      },
+      "chart_plan": {
+        "editorial_status": "Light proposes these four distinct charts; MAX decides final forms, count and placement before text approval.",
+        "common_rules": [
+          "Use exact admitted source values and clocks. History is a stitched sequence of first-reference-month prints from dated BLS releases, not a single revised time series as of October 2.",
+          "Reference window October 2024 through September 2026; economic information cutoff October 2, 2026 at 12:30 UTC for this retrospective, within the operation cutoff November 4, 2026 at 04:37:23.779989 UTC. Retrieval on October 30 does not establish possession at each historical release.",
+          "Preserve observed versus derived status, published rounding, seasonal adjustment, source identity, series and transformations. No interpolation, missing-to-zero conversion, annualization or later revisions.",
+          "Use original data graphics, readable units and separate axes or panels for different units; no dual-axis suggestion that unlike measures are directly comparable.",
+          "Code owns extraction, arithmetic, scaling and validation; actual values and transformations must remain traceable to admitted source records and hashes."
+        ],
+        "charts": [
+          {
+            "id": "payroll_first_print_trend",
+            "purpose": "Put the latest weak hiring print in its two-year first-release context.",
+            "proposed_form": "Monthly columns with zero baseline; highlight September 2026, retaining negative months.",
+            "source_ids": [
+              "SOURCE_2"
+            ],
+            "series": "NFP_PAYROLL_CHANGE / CES0000000001",
+            "metric": "Seasonally adjusted monthly change in total nonfarm payroll employment",
+            "unit": "Thousands of persons; deterministic conversion from admitted persons divided by 1000",
+            "period": "2024-10 through 2026-09, 24 monthly observations",
+            "latest_change": "Display September's admitted monthly change directly; do not difference an already differenced series.",
+            "vintage_caption": "BLS initial monthly payroll estimates, first prints from each dated release; historical values have not been replaced with later revisions.",
+            "placement_proposal": "After the opening thesis"
+          },
+          {
+            "id": "unemployment_first_print_trend",
+            "purpose": "Show the household-survey measure alongside payroll hiring without treating the surveys as interchangeable.",
+            "proposed_form": "Single line with a visible break at missing October 2025; highlight September 2026.",
+            "source_ids": [
+              "SOURCE_3"
+            ],
+            "series": "UNEMPLOYMENT_RATE",
+            "metric": "Seasonally adjusted civilian unemployment rate",
+            "unit": "Percent",
+            "period": "2024-10 through 2026-09, 24-month calendar window",
+            "missingness": "October 2025 is null, NOT_PUBLISHED_OR_NOT_AVAILABLE_AT_EVENT; preserve the gap and do not connect across it or imply 24 observed values.",
+            "latest_change": "Latest level from the source; calculate any month-to-month difference only from admitted adjacent observations, in percentage points.",
+            "placement_proposal": "At the distinction between establishment and household evidence"
+          },
+          {
+            "id": "earnings_first_print_trend",
+            "purpose": "Test wage momentum separately from the payroll count.",
+            "proposed_form": "Monthly columns or dots for average hourly earnings monthly percentage changes, zero baseline.",
+            "source_ids": [
+              "SOURCE_4"
+            ],
+            "series": "AHE_MOM / CES0500000003",
+            "metric": "Seasonally adjusted monthly percentage change in average hourly earnings of all private nonfarm employees",
+            "unit": "Percent month on month",
+            "period": "2024-10 through 2026-09, 24 months",
+            "derived_point": "July 2026 is DERIVED_FROM_FIRST_RELEASE_LEVELS_NOT_EXPLICIT_PERCENT. Retain that status and supplied HALF_UP_TO_ONE_DECIMAL rule; distinguish it in the chart note rather than calling every point an explicitly published rate.",
+            "latest_change": "Use the admitted September monthly rate. Do not infer annual inflation-adjusted wages from this nominal series.",
+            "placement_proposal": "Within the wages and hours mechanism section"
+          },
+          {
+            "id": "september_sector_breakdown",
+            "purpose": "Identify which industries added or lost jobs in the same September first release and whether gains were concentrated.",
+            "proposed_form": "Diverging horizontal bars for mutually exclusive broad industry monthly payroll changes; total nonfarm shown separately as reference.",
+            "source_ids": [
+              "SOURCE_1",
+              "SOURCE_2"
+            ],
+            "source_resolution": "Existing CC-010 archive owner extracts seasonally adjusted September versus August industry changes from Table B-1 of the October 2 release, using both levels from that same dated table or explicitly printed monthly changes. Bind resulting admitted numeric source rows before MAX writes sector claims.",
+            "unit": "Thousands of persons, seasonally adjusted monthly change",
+            "period": "September 2026 change as published October 2, 2026",
+            "validation": "Use exhaustive mutually exclusive broad industry rows where available; never sum parent and child industries together. Reconcile the sum to total nonfarm within published rounding and preserve residuals explicitly. Do not substitute first-print August levels from SOURCE_2 for the August level printed in this release.",
+            "values": "Not yet extracted into this packet; no sector values are invented.",
+            "placement_proposal": "After headline versus breadth discussion"
+          }
+        ],
+        "facts_card": {
+          "purpose": "Compact own-facts reference and compatible derivative visual",
+          "source_ids": [
+            "SOURCE_1"
+          ],
+          "fields": [
+            "September nonfarm payroll monthly change, in thousands of persons",
+            "Unemployment rate, percent",
+            "Average hourly earnings monthly change, percent",
+            "Average hourly earnings annual change, percent",
+            "Average weekly hours, hours",
+            "Labor-force participation rate, percent"
+          ],
+          "rules": "Use only supplied and source-bound September values; keep levels versus changes distinct, survey populations and seasonal adjustment correct. Do not put unlike units on a shared quantitative axis. Label September 2026 and October 2 release vintage; the card supplements the analytical charts."
+        }
+      },
+      "source_requests": [
+        {
+          "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+          "reason": "Admit the September sector breakdown and exact same-release August/September Table B-1 rows via the existing CC-010 source owner. Reuse the retained successful October 30 capture raw/1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe.bin.gz and archive_manifest.json first; no duplicate GET is needed when retained bytes suffice. Preserve its hash, source clock and public-domain factual attribution. Extract exact household/establishment context and confirm the source-bound facts card, within the existing shared ledger. No new request is needed for the already admitted 24-month histories."
+        }
+      ]
+    }
+  },
+  "invocation_observation": {
+    "invocation_id": "/root/native_select_ac22adaa2701",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "speed": "standard",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "this exact native task assignment",
+    "observation_source": "Supported canonical task name in NEW_TASK context; model and reasoning effort runtime telemetry are not exposed in this native role turn."
+  }
+}

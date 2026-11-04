@@ -2068,8 +2068,16 @@ def _retained_chart_documents(documents, binding):
         raise ValueError("EDITORIAL_CHART_RETAINED_SOURCE_REVISION_CHANGED")
     records = {r["document"].get("document_id") or r["headline_id"]: r
                for r in research.records.values()}
+    selected_ids = set(binding["source_capture_hashes"])
+    if not selected_ids or not selected_ids <= {d["document_id"] for d in documents}:
+        raise ValueError("EDITORIAL_CHART_RETAINED_SOURCE_BINDING_CHANGED")
     bound = []
     for doc in documents:
+        # Typed history keeps its own independently verified rights and lineage.
+        # Reopen only the exact source documents named by this retained binding.
+        if doc["document_id"] not in selected_ids:
+            bound.append(doc)
+            continue
         record = records.get(doc["document_id"])
         if (not record or record["permitted_source_text"] != doc["canonical_content_text"]
                 or record["document"]["source_url"] != (doc.get("url") or doc.get("source_url"))

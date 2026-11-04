@@ -1,0 +1,14 @@
+{
+  "operation_id": "cc124-next-article-20261104-a",
+  "failure": "EDITORIAL_CHART_RETAINED_SOURCE_BINDING_CHANGED",
+  "cause": "The chart owner requires one retained-source binding to cover unrelated typed CC-010 history documents. The exact selected BLS original passes its own verifier.",
+  "retained_source_ids": [
+    "cc124-bls-september-employment-original"
+  ],
+  "other_source_ids": [
+    "official-history-1660fee0f509bbb4afddb7d7",
+    "official-history-c3527e60cf6b66f4f7b44bd4",
+    "official-history-843f76a60b18948f30fd1775"
+  ],
+  "public_writes": 0
+}

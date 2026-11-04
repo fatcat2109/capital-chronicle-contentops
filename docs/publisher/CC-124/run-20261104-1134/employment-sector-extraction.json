@@ -1,0 +1,96 @@
+{
+  "source_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+  "source_capture_sha256": "1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe",
+  "archive_capture_at_utc": "2026-10-30T01:34:41.252Z",
+  "extracted_at_utc": "2026-11-04T04:49:23.004114+00:00",
+  "table": "B-1",
+  "reference_period": "2026-09",
+  "unit": "thousands of persons",
+  "seasonal_adjustment": "SA",
+  "measure": "reported August to September monthly payroll changes",
+  "rows": {
+    "Total nonfarm": {
+      "cells": [
+        "Total nonfarm",
+        "158,729",
+        "158,709",
+        "158,905",
+        "159,238",
+        "158,548",
+        "158,882",
+        "159,015",
+        "159,044",
+        "29"
+      ],
+      "value": 29.0,
+      "exact_row": "Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29"
+    },
+    "Total private": {
+      "cells": [
+        "Total private",
+        "135,161",
+        "136,571",
+        "136,406",
+        "135,883",
+        "135,005",
+        "135,582",
+        "135,671",
+        "135,717",
+        "46"
+      ],
+      "value": 46.0,
+      "exact_row": "Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46"
+    },
+    "Goods-producing": {
+      "cells": [
+        "Goods-producing",
+        "21,633",
+        "21,855",
+        "21,880",
+        "21,783",
+        "21,472",
+        "21,571",
+        "21,605",
+        "21,623",
+        "18"
+      ],
+      "value": 18.0,
+      "exact_row": "Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18"
+    },
+    "Private service-providing": {
+      "cells": [
+        "Private service-providing",
+        "113,528",
+        "114,716",
+        "114,526",
+        "114,100",
+        "113,533",
+        "114,011",
+        "114,066",
+        "114,094",
+        "28"
+      ],
+      "value": 28.0,
+      "exact_row": "Private service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28"
+    },
+    "Government": {
+      "cells": [
+        "Government",
+        "23,568",
+        "22,138",
+        "22,499",
+        "23,355",
+        "23,543",
+        "23,300",
+        "23,344",
+        "23,327",
+        "-17"
+      ],
+      "value": -17.0,
+      "exact_row": "Government 23,568 22,138 22,499 23,355 23,543 23,300 23,344 23,327 -17"
+    }
+  },
+  "sum_disjoint_sectors": 29.0,
+  "public_domain_policy_sha256": "07e57e3372791ba042aa02b5c5abf60da3241ea67c0dddacbe88a501062ac465",
+  "network_requests": 0
+}
