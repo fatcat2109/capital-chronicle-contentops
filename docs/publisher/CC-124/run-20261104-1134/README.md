@@ -45,3 +45,15 @@ A usage limit interrupted the first MAX visual-editor attempt without producing
 an accepted return. Jim cleared it and requested continuation. The same pending
 request and native role were resumed; Light returns and admitted sources were
 not repeated. The exact resume is in `resume-20261104-1158.json`.
+
+
+All four selected PNGs passed the actual same-MAX pre-text inspection, with no
+repair. Their exact hashes are bound to the existing media plan, and the same
+MAX context has the frozen writer request. The safe asset-name grammar now also
+accepts underscores; four focused checks pass and the live renderer built the
+four exact selected IDs. Live source is `7feb89e6`, tag
+`contentops-live-20261104-cc124-chart-identities`.
+
+The Substack window is prepared with an untouched Gmail tab and a separate draft
+editor tab. No mailbox content or mailbox screenshot was requested. No draft or
+public write has been made for this operation yet.

@@ -1,0 +1,30 @@
+[
+  {
+    "url": "https://substack-post-media.s3.amazonaws.com/public/images/d437d270-4ed0-44e6-872b-947a7848ba36_1440x1040.png",
+    "path": "docs\\publisher\\CC-124\\run-20261104-1134\\d437d270-4ed0-44e6-872b-947a7848ba36.png",
+    "bytes": 83535,
+    "sha256": "8f5f4ba6cc1ea167aa0773f505460e056078ac3bbb5c5ad19f0e797c58c3a53f",
+    "asset_id": "unemployment_first_print_trend"
+  },
+  {
+    "url": "https://substack-post-media.s3.amazonaws.com/public/images/c1c9c8fc-ecab-4445-8b7d-4cd9d647ec42_1440x1040.png",
+    "path": "docs\\publisher\\CC-124\\run-20261104-1134\\c1c9c8fc-ecab-4445-8b7d-4cd9d647ec42.png",
+    "bytes": 88605,
+    "sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+    "asset_id": "payroll_first_print_trend"
+  },
+  {
+    "url": "https://substack-post-media.s3.amazonaws.com/public/images/8bbd3f69-2234-43f2-875b-4e8c03f9c9b4_1440x1040.png",
+    "path": "docs\\publisher\\CC-124\\run-20261104-1134\\8bbd3f69-2234-43f2-875b-4e8c03f9c9b4.png",
+    "bytes": 76218,
+    "sha256": "9c3edc1443778895f6884781458ffd28d92e7823700ab4539e4b2ea74e26c12b",
+    "asset_id": "september_sector_breakdown"
+  },
+  {
+    "url": "https://substack-post-media.s3.amazonaws.com/public/images/6389ed32-3e90-4b35-b607-2dcb9be8451a_1440x1040.png",
+    "path": "docs\\publisher\\CC-124\\run-20261104-1134\\6389ed32-3e90-4b35-b607-2dcb9be8451a.png",
+    "bytes": 86211,
+    "sha256": "5924ccd31418cb17d66a43319277f239b3d8514b10cbdff00d177f4277ea6801",
+    "asset_id": "earnings_first_print_trend"
+  }
+]

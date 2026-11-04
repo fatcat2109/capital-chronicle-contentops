@@ -1,0 +1,20 @@
+{
+  "operation_id": "cc124-next-article-20261104-a",
+  "canonical_public_object_id": "223429113",
+  "canonical_url": "https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains",
+  "published_at_utc": "2026-11-04T05:42:26.165Z",
+  "first_text_approval_utc": "2026-11-04T05:15:04.302635Z",
+  "coordinator_review_record_clock_utc": "2026-11-04T05:18:31.938589+00:00",
+  "clock_note": "The real MAX editorial approval precedes the later deterministic review record. Report latency from the first approval; never reset it.",
+  "elapsed_seconds_to_canonical": 1641.862365,
+  "within_15_minutes": false,
+  "email_sent": false,
+  "email_code_required": false,
+  "gmail_read": false,
+  "native_file_dialog_opened": false,
+  "charts": 4,
+  "original_uploads_sha256_matched": true,
+  "coordinator_submit_in_progress": true,
+  "new_article_bindings": 1,
+  "replacement_drafts": 0
+}

@@ -1,0 +1,21 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "ok\nreturn: {\n  \"changed\": true,\n  \"contentLength\": 5862,\n  \"page\": 226,\n  \"path\": \"\\\\\\\\?\\\\C:\\\\Users\\\\bullw\\\\AppData\\\\Local\\\\BrowserClaw\\\\Application\\\\155.0.8317.26\\\\.browseros\\\\tool-output\\\\evaluate_in_page-1793771019505-d3df0181-73fa-4dc3-9f2e-eb36ab0b0169.txt\",\n  \"settled\": true,\n  \"writtenToFile\": true\n}"
+    }
+  ],
+  "structuredContent": {
+    "logs": [],
+    "ok": true,
+    "value": {
+      "changed": true,
+      "contentLength": 5862,
+      "page": 226,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8317.26\\.browseros\\tool-output\\evaluate_in_page-1793771019505-d3df0181-73fa-4dc3-9f2e-eb36ab0b0169.txt",
+      "settled": true,
+      "writtenToFile": true
+    }
+  },
+  "isError": false
+}

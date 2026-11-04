@@ -1,0 +1,20 @@
+{
+  "tool_request_sha256": "eddc3b03595393ec35d9fa8bbd04be628d37748952b412a440b3225bbc22b4ca",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a4d5-297b-7a72-bf56-c0af786aba7c",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Original draft223429113 published web-only on Neo page224; same tab reached share-center with no email-code prompt; exact public readback page226 in substack-public-readback.json.",
+    "observed_at_utc": "2026-11-04T05:43:29.547489+00:00"
+  },
+  "result": {
+    "request_sha256": "ee40fde84082e33f0d12ff4ef26427c67c8b5ccc691374d76c5fe729dc08026f",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "223429113",
+    "public_object_url": "https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains",
+    "published_at_utc": "2026-11-04T05:42:26.165Z",
+    "email_sent": false,
+    "email_verification_required": false
+  }
+}

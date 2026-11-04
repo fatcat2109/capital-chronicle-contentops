@@ -1,0 +1,8 @@
+{
+  "source_commit": "9aa6da698336ba7fcde9952bcfbdc048df2eccbf",
+  "live_sha": "bbfac875e02d8186bafe6ff971986083125c5e2f",
+  "live_before": "7feb89e6160ff80026aef89842b720c322e7d840",
+  "tag": "contentops-live-20261104-cc124-source-clock",
+  "applied_at_utc": "2026-11-04T05:18:04.834717+00:00",
+  "runtime_restart": false
+}

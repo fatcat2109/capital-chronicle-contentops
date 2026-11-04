@@ -1,0 +1,11 @@
+{
+  "recorded_at_utc": "2026-11-04T05:23:05.854542+00:00",
+  "page_id": 224,
+  "draft_id": "223429113",
+  "draft_url": "https://capitalchronicle.substack.com/publish/post/223429113",
+  "write_request_sha256": "ee40fde84082e33f0d12ff4ef26427c67c8b5ccc691374d76c5fe729dc08026f",
+  "title_and_body_inserted": true,
+  "public_publish_attempted": false,
+  "file_dialog_opened": false,
+  "file_chooser_interception_result": "Page.setInterceptFileChooserDialog unsupported by target-scoped Neo; no upload control clicked."
+}
