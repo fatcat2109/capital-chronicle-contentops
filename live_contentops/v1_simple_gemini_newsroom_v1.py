@@ -3261,7 +3261,7 @@ def run_v1_simple_gemini_newsroom(
             "source_url": row["url"],
             "canonical_content_sha256": row["canonical_content_sha256"],
             "published_at_utc": row["published_at_utc"],
-            "published_at_source": row["published_at_source"],
+            "published_at_source": row.get("published_at_source"),
         }
         for row in source_pack
     ]
