@@ -358,3 +358,33 @@ Whole files removed: 24. Files with some tests removed: 67. Test functions remov
 | `tests/test_substack_manual_export_article_studio_v6.py` | `test_committed_sample_matches_builder` | `docs/automation/V6_SUBSTACK_MANUAL_EXPORT_ARTICLE_STUDIO/sample_substack_manual_export_article_studio_packet.json` | 41af570a |
 | `tests/test_substack_publication_audit_review_metrics_summary_v6.py` | `test_committed_sample_matches_builder` | `docs/automation/V6_SUBSTACK_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY/sample_substack_publication_audit_review_metrics_summary_packet.json` | 41af570a |
 | `tests/test_v1_simple_durable_publication_bridge_v1.py` | `test_simple_plan_enters_existing_canonical_first_coordinator_and_rematerializes_exactly_eight` | `C:/Users/bullw/AppData/Local/Temp/claude/00ea073e99648066/7e6d9e4c-70b1-4f8d-a990-2f964934227e/scratchpad/cc268-baseline/tmp/test_simple_plan_enters_existi0/artifacts/article_manifest_v1.json` | never |
+
+## Dead controls removed (Ops Product, decision A, 5 Nov)
+
+These test files test modules that no live code imports and nothing runs by name. The check covered:
+- every non-test file in the repository (code, scripts, config, the current runbook, AGENTS.md, .agents, ui/contentops_v5);
+- Main's prompts and the Tower's docs;
+- the Task Scheduler actions (read only).
+
+The only references are listed per file; none runs the module. The modules stay in place (decision 62: dead
+controls of the retired v6 approval, evidence and dispatch gates and the 0174 contract packets).
+
+| Test file | Module(s) | References found (none runs it) |
+|---|---|---|
+| `tests/test_approval_challenge_candidate_contract.py` | `approval_challenge_candidate_contract` | code-graph index |
+| `tests/test_canonical_draft_final_review_to_platform_variant_preview_v6.py` | `canonical_draft_final_review_to_platform_variant_preview_v6` | code-graph index; v6-era document |
+| `tests/test_cockpit_ui_shell_contract.py` | `cockpit_ui_shell_contract` | code-graph index |
+| `tests/test_dispatch_audit_dry_run_contract.py` | `dispatch_audit_dry_run_contract` | code-graph index |
+| `tests/test_explicit_live_scope_source_intake_parser_v6.py` | `explicit_live_scope_source_intake_parser_v6` | code-graph index; v6-era document |
+| `tests/test_manual_evidence_refresh_orchestrator_v6.py` | `manual_evidence_refresh_orchestrator_v6` | another dead v6 module (manual_evidence_source_submission_refresh_v6); code-graph index |
+| `tests/test_manual_evidence_source_submission_refresh_v6.py` | `manual_evidence_source_submission_refresh_v6` | code-graph index |
+| `tests/test_operator_approval_gate_lane_v6.py` | `operator_approval_gate_v6`, `project_sources_upload_bundle_v6` | Tower audit note; another dead v6 module (manual_evidence_refresh_orchestrator_v6); code-graph index |
+| `tests/test_operator_evidence_console_v6.py` | `operator_evidence_console_v6` | another dead v6 module (manual_evidence_refresh_orchestrator_v6); code-graph index |
+| `tests/test_operator_evidence_fixture_lifecycle_v6.py` | `operator_evidence_fixture_lifecycle_v6` | another dead v6 module (manual_evidence_refresh_orchestrator_v6); code-graph index |
+| `tests/test_operator_evidence_intake_studio_v6.py` | `operator_evidence_intake_studio_v6` | another dead v6 module (manual_evidence_refresh_orchestrator_v6); code-graph index |
+| `tests/test_operator_recovery_to_explicit_live_scope_gate_source_candidate_v6.py` | `operator_recovery_to_explicit_live_scope_gate_source_candidate_v6` | code-graph index; v6-era document |
+| `tests/test_platform_adapter_policy_matrix_reconciliation_v6.py` | `platform_adapter_policy_matrix_reconciliation_v6` | code-graph index |
+| `tests/test_platform_adapter_selection_policy_v6.py` | `platform_adapter_selection_policy_v6` | code-graph index |
+| `tests/test_scoped_network_policy_v6.py` | `scoped_network_policy_v6` | another dead v6 module (manual_evidence_refresh_orchestrator_v6); another dead v6 module (project_sources_upload_bundle_v6); code-graph index; docs/archive/_repo_cleanup_2026-07-03-pass3/docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_hash_inputs_redacted.json; docs/archive/_repo_cleanup_2026-07-03-pass3/docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_exact_review.json; v6-era document |
+| `tests/test_static_cockpit_surface_contract.py` | `static_cockpit_surface_contract` | code-graph index |
+| `tests/test_v6_post_release_operator_governance.py` | `v6_post_release_operator_governance` | code-graph index |
