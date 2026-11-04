@@ -96,7 +96,7 @@ def test_current_policy_adopts_unchanged_legacy_text_without_rewriting_native_hi
         "source_pack": result["evidence"]}}
     response = {"request_sha256": request["request_sha256"], "output": {"article": result["article"]},
         "invocation_observation": {"surface": "CODEX_NATIVE_SUBAGENT", "model": "gpt-6.1-sol",
-            "reasoning_effort": "max", "invocation_id": "controlled-original-writer",
+            "reasoning_effort": "high", "invocation_id": "controlled-original-writer",
             "observation_source": "CONTROLLED_FIXTURE_NOT_RUNTIME_PROOF"}}
     turn._put("write", "request", request)
     turn._put("write", "response", response)
@@ -144,8 +144,23 @@ def test_text_clock_excludes_visual_metadata_but_binds_every_copy_change():
         assert text_revision(changed) != text_revision(original)
 
 
-def test_time_sensitive_writer_one_editor_publishes_without_screenshot_review(tmp_path, monkeypatch):
+@pytest.mark.parametrize("saved_configuration", [None,
+    {"model": "controlled-observed-model", "reasoning_effort": "high"},
+    {"model": None, "reasoning_effort": None, "configuration_status": "CONFIGURED_NOT_OBSERVED"}])
+def test_time_sensitive_writer_one_editor_publishes_without_screenshot_review(tmp_path, monkeypatch, saved_configuration):
     store, binding, rollout, result, _, _ = brief_packet(tmp_path, monkeypatch)
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, ROLE_ASSIGNMENTS
+    turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"], owner_manual_validation=True)
+    stage = "revise" if result.get("simple_result", {}).get("revision_performed") else "write"
+    response = turn._get(stage, "response")
+    if saved_configuration is not None:
+        # Simulate actual telemetry on an already saved, approved return. Role
+        # dispatch still requests Jim's settings; labels never park publication.
+        response["invocation_observation"].update(saved_configuration)
+        with store.get_connection() as conn:
+            conn.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?",
+                (canonical_bytes(response).decode(), turn._key(stage, "response")))
+    assert ROLE_ASSIGNMENTS["write"] == {"model": "gpt-6.1-sol", "reasoning_effort": "max"}
     accepted = require_current_final_visual_review(store, run_id=binding["run_id"])
     assert accepted["policy_id"] == SPEED_POLICY and accepted["pixels_inspected"] is False
     assert accepted["automated_media_check"]["blocks_publication"] is False
@@ -172,6 +187,7 @@ def test_time_sensitive_writer_one_editor_publishes_without_screenshot_review(tm
     assert all(c["within_target"] is True for c in timing["channels"]
                if not c["skipped"] and c["destination"] != "substack"), timing["channels"]
     assert not any("final-visual" in json.loads(r["payload"]).get("stage", "") for r in store.list_outbox_messages())
+    assert turn._get(stage, "response") == response
 
 
 def test_load_and_size_failure_is_logged_once_without_claiming_pixel_review(tmp_path):

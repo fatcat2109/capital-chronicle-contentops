@@ -742,7 +742,17 @@ class NativeReviewedPublication:
     def tool(self, command, *, request_hash, response=None):
         self._authorize_and_bind()
         packet = self.executor._get(request_hash, "request")
-        if packet and packet["request"]["action"] == "READBACK":
+        if (packet and packet["request"]["action"] == "READBACK"
+                and packet["request"]["destination"] == "site"):
+            # Site-first readback precedes every dispatch. Bind it to the
+            # reviewed plan instead of demanding an existing social dispatch.
+            from live_contentops.site_first_publication_v1 import POLICY, request_for_site
+            plan, _ = self.validate()
+            request = packet["request"]
+            if (plan.get("distribution_policy") != POLICY or request != request_for_site(
+                    self.binding["run_id"], plan, request.get("native_invocation_id"))):
+                raise ValueError("NATIVE_NEO_EXACT_SITE_READBACK_REQUIRED")
+        elif packet and packet["request"]["action"] == "READBACK":
             # A changed editorial packet must stop a new send, not erase the
             # obligation to observe an exact object that was already attempted.
             request = packet["request"]

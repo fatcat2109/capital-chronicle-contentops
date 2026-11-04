@@ -66,7 +66,7 @@ def _approved_text_speed_basis(store, *, run_id, result):
     Frozen writer requests and returns stay untouched. This is not new writing,
     a source refresh, or permission to accept a changed article under an old KEEP.
     """
-    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, validate_native_configuration, ROLE_ASSIGNMENTS
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
     from live_contentops.v1_simple_gemini_newsroom_v1 import _public_copy
     from live_contentops.contentops_editorial_desk_v1 import read_reviews
     binding_row = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
@@ -76,7 +76,8 @@ def _approved_text_speed_basis(store, *, run_id, result):
     request, response = turn.frozen_request(stage), turn._get(stage, "response")
     if not request or not response or response["request_sha256"] != request["request_sha256"]:
         raise ValueError("APPROVED_TEXT_EXACT_NATIVE_WRITER_REQUIRED")
-    validate_native_configuration(response["invocation_observation"], ROLE_ASSIGNMENTS["write"])
+    # The saved native response retains the actual model and effort. Rechecking
+    # their labels here cannot improve already-approved facts (decision 60).
     if stage == "revise":
         writer = turn._get("write", "response")
         if (not writer or writer["invocation_observation"].get("invocation_id")
@@ -160,7 +161,7 @@ def short_path_acceptance(store, *, run_id, result, review):
         return {"review_type": "WRITER_ONE_EDITOR_CHECK_PUBLISH", "policy_id": SPEED_POLICY,
             "review_id": review["review_id"], "text_approved_at_utc": basis["original_approval_clock_utc"],
             "automated_media_check": note["automated_media_check"], "pixels_inspected": False}
-    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, validate_native_configuration, ROLE_ASSIGNMENTS
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
     from live_contentops.v1_simple_gemini_newsroom_v1 import (
         _normalize_relay_attribution, _validate_article_against_source_pack, _public_copy,
         SimpleGeminiNewsroomError,
@@ -173,7 +174,8 @@ def short_path_acceptance(store, *, run_id, result, review):
     response, exact = turn._get(stage, "response"), turn.frozen_request(stage)
     if not request or not exact or not response or response["request_sha256"] != exact["request_sha256"]:
         raise ValueError("SHORT_PATH_EXACT_NATIVE_WRITER_REQUIRED")
-    validate_native_configuration(response["invocation_observation"], ROLE_ASSIGNMENTS["write"])
+    # Role settings belong to dispatch; publication consumes the saved return
+    # and checks its copy and sources, without a second model/effort label gate.
     governed = request["governed_input"]
     if sha256_of(result["evidence"]) != sha256_of(governed["source_pack"]):
         raise ValueError("SHORT_PATH_FACT_SOURCE_CHANGED")
