@@ -12,10 +12,27 @@ import re
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 
 POLICY = "CC144_EVERY_POST_VISUAL_V1"
+# CC-267: the one card of a NEWS/POLICY post that has no admitted public fact to show.
+TITLE_CARD = "CC267_TITLE_ONLY_NO_PUBLIC_FACT_V1"
 DESTINATIONS = ("telegram", "discord", "x", "linkedin", "facebook_page",
                 "instagram_business", "threads", "youtube")
 _NUMBERS = re.compile(r"(?<!\w)[+-]?\d+(?:,\d{3})*(?:\.\d+)?%?")
 _SURVEYS = re.compile(r"\b(?:ism|ismworld|s&p global|spglobal|pmi|conference[ -]board|umich|university of michigan|adp)\b", re.I)
+# A title card shows no figures (decision 44 keeps private-survey figures off cards). Dates,
+# period labels, maturities, times, ordinals and names that carry a number are not figures.
+_MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December"
+_TITLE_KEEP = re.compile(
+    r"\b(?:" + _MONTHS + r")(?:\s+\d{1,2}(?:st|nd|rd|th)?)?(?:,?\s+(?:19|20)\d{2})?(?!\w)"
+    r"|\b(?:in|since|of|for|from|to|by|until|through|before|after)\s+(?:19|20)\d{2}(?![\w,.%])"
+    r"|\b[QH][1-4](?:\s+(?:19|20)\d{2})?(?!\w)|\b\d{1,2}-(?:year|month|week|day)s?\b"
+    r"|\b\d{1,2}:\d{2}(?:\s?[ap]\.?m\.?)?|\b\d+(?:st|nd|rd|th)\b|\b[A-Za-z]+-\d+\b"
+    r"|\b(?:S&P|Nasdaq|Russell|FTSE|DAX|Nikkei|Stoxx|CAC|Hang Seng|ASX|KOSPI|Sensex|Nifty|Section|Title"
+    r"|Article|Chapter|Rule|Form|Regulation|Executive Order)\s+\d+\b", re.I)
+_TITLE_FIGURE = re.compile(
+    r"(?:\b(?:to|at|by|from|of|near|around|about|above|below|over|under|than|vs\.?|versus)\s+)?"
+    r"(?<![\w.])[-+−]?[$€£¥]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?:bn|mn|tn|bps?|pp|pts?|[kmbx])?(?!\w)"
+    r"(?:\s?(?:%|percent(?:age)?(?:\s+points?)?|pp|bps?|basis\s+points?|points?|pts|million|billion"
+    r"|trillion|thousand)(?!\w))?", re.I)
 
 
 def _normal(value):
@@ -163,8 +180,86 @@ def build_post_data_card(article, claims, documents, *, output_dir, series_packe
         "publication_authority": False}
 
 
+def card_title_without_figures(text):
+    """CC-267: the published title without its figures; dates and named numbers stay.
+
+    'ISM services index rises to 52.4 as prices paid climb' becomes 'ISM services index
+    rises as prices paid climb'. A figure goes with the preposition before it and the unit after it.
+    """
+    kept = []
+
+    def keep(match):
+        kept.append(match.group(0))
+        return chr(0xE000 + len(kept) - 1)
+
+    value = _TITLE_KEEP.sub(keep, _normal(text))
+    value = _TITLE_FIGURE.sub("", value)
+    value = re.sub(r"\(\s*(?:expected|forecast|consensus|est\.?|estimate|prior|previous)?\s*\)", "", value, flags=re.I)
+    value = re.sub(r"\s+([,.;:!?])", r"\1", value)
+    value = re.sub(r"([,;:])(?=\s*(?:[,;:.!?]|$))", "", value)
+    value = re.sub(r"\s{2,}", " ", value).strip(" ,;:-–—")
+    value = re.sub(r"(?:\s+(?:to|at|by|from|of|and|or|vs\.?|versus|with|than|as))+$", "", value, flags=re.I)
+    for index, original in enumerate(kept):
+        value = value.replace(chr(0xE000 + index), original)
+    value = value.strip(" ,;:-–—")
+    return value[:1].upper() + value[1:]
+
+
+def title_card_packet(article):
+    """The packet a title card renders: the title without figures and the piece's date only."""
+    from live_contentops.fact_card_design_v1 import DESIGN, piece_dated_line
+    title = card_title_without_figures(article.get("title"))
+    if len(title.split()) < 3:
+        dek = card_title_without_figures(article.get("dek"))
+        title = dek if len(dek.split()) >= 3 else "Capital Chronicle news brief"
+    return {"policy": POLICY, "kind": TITLE_CARD, "facts": [], "design": DESIGN, "title": title,
+            "dated_line": piece_dated_line(article)}
+
+
+def build_post_title_card(article, claims, documents, *, output_dir, reason=""):
+    """CC-267: a NEWS/POLICY post with no admitted public fact still carries one card.
+
+    The CC-245 design with the piece's title, figures removed, and its dated line. It draws
+    no fact, figure or source text, so decisions 42 (an image on every post) and 44 (no
+    private-survey figure on a card) both hold. The lineage names the post's own sources.
+    """
+    from live_contentops.fact_card_design_v1 import CardSpec, INSTAGRAM_SIZE, render_fact_card
+    packet = title_card_packet(article)
+    digest = sha256_of(packet)
+    asset_id = "post-title-" + digest[:20]
+    path = Path(output_dir).resolve() / "media_assets" / (asset_id + ".png")
+    render_fact_card(path, CardSpec(title=packet["title"], dated_line=packet["dated_line"]), size=INSTAGRAM_SIZE)
+    path.with_suffix(".json").write_bytes(canonical_bytes(packet))
+    cited = {c.get("source_id") for c in claims or []}
+    sources = [d for d in documents or [] if str(d.get("url") or d.get("source_url") or "").startswith("https://")]
+    sources = [d for d in sources if d.get("source_id") in cited] or sources
+    lineage = [{"document_id": d.get("document_id"), "source_url": d.get("url") or d.get("source_url")}
+               for d in sources]
+    width, height = INSTAGRAM_SIZE
+    return {"asset_id": asset_id, "path": str(path), "sha256": sha256(path.read_bytes()).hexdigest(),
+        "width": width, "height": height, "modality": "source_bound_data_card", "card_kind": "TITLE_ONLY",
+        "role": "supporting_fact_context", "media_role": "post_key_facts", "caption": packet["title"],
+        "alt_text": packet["title"] + ". " + packet["dated_line"], "attribution": "Capital Chronicle",
+        "source_page_url": (lineage[0]["source_url"] if lineage
+                            else str(article.get("canonical_url") or "https://capitalchronicle.substack.com/")),
+        "source_links": [], "source_lineage": lineage,
+        "underlying_source_rights_status": "attributed_facts_independent_chart",
+        "data_card_packet": packet, "transform_sha256": digest, "title_card_reason": str(reason or ""),
+        "publication_authority": False}
+
+
 def validate_post_data_card(asset, article, documents):
     packet = asset.get("data_card_packet") or {}
+    if packet.get("kind") == TITLE_CARD:
+        # CC-267: no fact to recheck; the card must show this article's title, figure-free.
+        expected = title_card_packet(article)
+        if ({k: v for k, v in packet.items() if k != "dated_line"} != {k: v for k, v in expected.items() if k != "dated_line"}
+                or not str(packet.get("dated_line") or "").startswith("Capital Chronicle")):
+            raise ValueError("DATA_CARD_TITLE_CARD_CHANGED")
+        if (sha256_of(packet) != asset.get("transform_sha256")
+                or sha256(Path(asset["path"]).read_bytes()).hexdigest() != asset.get("sha256")):
+            raise ValueError("DATA_CARD_PACKET_OR_BYTES_CHANGED")
+        return
     if packet.get("policy") != POLICY or not 1 <= len(packet.get("facts", [])) <= 3:
         raise ValueError("DATA_CARD_PACKET_REQUIRED")
     for fact in packet["facts"]:
@@ -187,8 +282,21 @@ def complete_post_visuals(article, claims, documents, assets, *, output_dir):
     assets = list(assets)
     decision = article.get("visual_editorial_decision") or {}
     if decision.get("story_kind") != "ANALYSIS":
-        card = build_post_data_card(article, claims, documents, output_dir=output_dir,
-            series_packet=decision.get("data_card_series"))
+        series = decision.get("data_card_series")
+        try:
+            card = build_post_data_card(article, claims, documents, output_dir=output_dir, series_packet=series)
+        except ValueError as exc:
+            # CC-267: a missing card never stops the run. A rejected series falls back to the
+            # facts alone; no admitted public fact (e.g. private surveys) gives the title card.
+            card = None
+            if series:
+                try:
+                    card = build_post_data_card(article, claims, documents, output_dir=output_dir)
+                    card["series_dropped_reason"] = str(exc)
+                except ValueError:
+                    card = None
+            if card is None:
+                card = build_post_title_card(article, claims, documents, output_dir=output_dir, reason=str(exc))
         assets.append(card)
     if not assets:
         raise ValueError("EVERY_POST_IMAGE_REQUIRED")
