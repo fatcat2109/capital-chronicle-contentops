@@ -4,6 +4,15 @@ import pathlib
 import pytest
 
 
+
+@pytest.fixture(autouse=True)
+def _contract_artifacts_to_tmp(tmp_path, monkeypatch):
+    # CC-268: contract artifacts go to tmp, never docs/automation/0174* in the repository.
+    import importlib
+    monkeypatch.setattr(importlib.import_module("live_contentops.dispatch_gate_policy"), "DOC_REL_DIR", str(tmp_path / "0174XT_XU_XV"))
+
+
+
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
