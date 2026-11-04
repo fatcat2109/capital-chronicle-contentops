@@ -130,11 +130,15 @@ def test_already_held_verified_context_can_join_before_writer_freeze(tmp_path, m
     turn, binding, response, _ = seeded(tmp_path, monkeypatch)
     frozen = json.loads(turn.store.get_outbox_message("native-current-input-" + sha256_of(turn.run_id))["payload"])
     research = RetainedSourceResearch.from_frozen_snapshot(frozen["research"])
-    record = research.records["prior-context"]
+    record = deepcopy(research.records["prior-context"])
+    record["document"].pop("public_claim_allowed")
     def verified_init(self, root, **kwargs):
         assert root == "CONTROLLED_ALREADY_HELD_SOURCE"
         self.root, self.records, self.revision, self.gaps = research.root, {"other-held-context": record}, research.revision, []
     monkeypatch.setattr(RetainedSourceResearch, "__init__", verified_init)
+    monkeypatch.setattr(RetainedSourceResearch, "evidence", lambda self, request, **kwargs:
+        {"status": "PASS", "evidence_documents": [{**record["document"],
+            "document_id": "other-held-context", "public_claim_allowed": True}]})
     response["retained_research_root"] = "CONTROLLED_ALREADY_HELD_SOURCE"
     response["supporting_headline_ids"] = ["other-held-context"]
     result = entry().operation(binding, command="recover-sources", response=response)

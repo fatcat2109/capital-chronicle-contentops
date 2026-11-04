@@ -209,6 +209,7 @@ def admit_selected_story_context(turn, binding, response):
     if frozen.get("run_id") != turn.run_id or frozen.get("cutoff_utc") != input_cutoff:
         raise ValueError("EXACT_FROZEN_CURRENT_INPUT_REQUIRED")
     research = RetainedSourceResearch.from_frozen_snapshot(frozen["research"])
+    verified_context = {}
     if response.get("retained_research_root"):
         # Already held, governed sources remain usable before writer freeze.
         # The normal adapter verifies capture/policy bytes; clocks below still
@@ -216,6 +217,10 @@ def admit_selected_story_context(turn, binding, response):
         additional = RetainedSourceResearch(response["retained_research_root"])
         if additional.gaps or set(ids) - set(additional.records):
             raise ValueError("EXACT_VERIFIED_RETAINED_CONTEXT_REQUIRED")
+        admitted = additional.evidence({"headline_ids": ids}, cutoff_utc=input_cutoff)
+        if not admitted or admitted.get("status") != "PASS":
+            raise ValueError("RETAINED_CONTEXT_SOURCE_ADMISSION_REQUIRED")
+        verified_context = {d["document_id"]: d for d in admitted.get("evidence_documents", [])}
         research = additional
     walk = json.loads((turn.root / "simple_gemini_evidence_v1.json").read_bytes())
     primary = visual["governed_input"]["source_packet"]["source_pack"]
@@ -236,10 +241,11 @@ def admit_selected_story_context(turn, binding, response):
                for k in ("source_timestamp_utc", "known_at_utc", "revision_at_utc")):
             raise ValueError("CONTEXT_SOURCE_AFTER_FROZEN_CUTOFF")
         permission = record["source_permissions"]
-        if not permission.get("MODEL_INPUT_ALLOWED") or not record["document"].get("public_claim_allowed"):
+        document = verified_context.get(item_id, record["document"])
+        if not permission.get("MODEL_INPUT_ALLOWED") or not document.get("public_claim_allowed"):
             raise ValueError("CONTEXT_SOURCE_PERMISSION_REQUIRED")
         text = record["permitted_source_text"]
-        documents.append({**record["document"], "document_id": item_id,
+        documents.append({**document, "document_id": item_id,
             "source_identity": record["source_identity"], "canonical_content_text": text,
             "canonical_content_sha256": sha256(text.encode()).hexdigest(),
             "known_at_utc": record["known_at_utc"], "retrieval_time_utc": record["retrieval_time_utc"],
