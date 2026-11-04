@@ -109,26 +109,35 @@ def brief_packet(tmp_path, monkeypatch, *, bad_fact=False, source_missing=False,
     return store, binding, rollout, result, stages, calls
 
 
-def test_text_only_publishes_through_existing_native_owner_with_named_skips(tmp_path, monkeypatch):
+@pytest.fixture
+def substack_first(monkeypatch):
+    # Retained Substack-first semantics; site-first continuation has separate tests.
+    import live_contentops.v1_simple_gemini_newsroom_v1 as newsroom
+    build = newsroom._build_simple_publication_lifecycle_plan
+    def historical_plan(**kwargs):
+        plan = build(**kwargs)
+        plan.pop("distribution_policy", None)
+        plan["substack_first_dependency"] = True
+        plan["plan_hash"] = newsroom._hash({k: v for k, v in plan.items() if k != "plan_hash"})
+        return plan
+    monkeypatch.setattr(newsroom, "_build_simple_publication_lifecycle_plan", historical_plan)
+
+
+def test_text_first_publishes_through_existing_native_owner_to_every_destination(tmp_path, monkeypatch, substack_first):
     store, binding, rollout, result, stages, calls = brief_packet(tmp_path, monkeypatch)
     assert stages == ["select", "write"] and calls == ["source"]
     assert text_first_brief(result) and result["media_assets"] == []
     assert result["article"]["text_first"]["optional_input_gaps"] == ["OPTIONAL_PAGE_READ_REFUSED"]
     assert require_current_final_visual_review(store, run_id=binding["run_id"])["pixels_inspected"] is False
     prepared = prepare_native_publication(store, binding)
-    assert len(prepared["skipped_derivative_destinations"]) == 3
+    assert prepared["skipped_derivative_destinations"] == []
     operation, executor, transport = composed(store, binding, rollout, monkeypatch)
     value, writes = finish(operation, executor)
     assert value["publication"]["state"] == "RECONCILED"
-    assert set(writes + transport.calls) == DESTINATIONS
+    assert set(writes + transport.calls) == DESTINATIONS | {"linkedin_company"}
     states = {d["destination"]: d for d in value["publication"]["destinations"]}
-    assert states["instagram_business"]["status"] == SKIPPED_IMAGE
-    assert states["facebook_page"]["status"] == states["youtube"]["status"] == SKIPPED_CHANNEL
     assert all(states[d]["reconciliation_status"] == "RECONCILED_CONFIRMED" for d in DESTINATIONS)
-    assert not any(s in writes + transport.calls for s in {"instagram_business", "facebook_page", "youtube"})
-    assert len(store.list_platform_dispatches()) == 6
-    assert not any(m["destination"] in {"instagram_business", "facebook_page", "youtube"}
-                   for m in store.list_outbox_messages())
+    assert len(store.list_platform_dispatches()) == 10
     prior = len(store.list_platform_dispatches())
     assert operation.resume()["publication"]["state"] == "RECONCILED"
     assert len(store.list_platform_dispatches()) == prior
@@ -204,17 +213,18 @@ def test_fast_track_never_relaxes_analysis_length_or_public_output(fault):
 
 
 def test_skip_policy_cannot_hide_an_extra_destination():
-    from live_contentops.native_text_first_v1 import skipped_destinations
+    from live_contentops.native_text_first_v1 import _legacy_skipped_destinations, skipped_destinations
     plan = {"text_first": {"policy_id": POLICY_ID, "article_mode": "BREAKING_BRIEF", "story_kind": "NEWS"},
         "resolved_article_mode": "BREAKING_BRIEF", "media_asset_count": 0,
-        "skipped_derivative_destinations": skipped_destinations()}
+        "skipped_derivative_destinations": _legacy_skipped_destinations()}
+    assert skipped_destinations() == []
     assert permitted_skips(plan) == {"instagram_business", "facebook_page", "youtube"}
     wrong = deepcopy(plan)
     wrong["skipped_derivative_destinations"].append({"destination": "x", "status": SKIPPED_CHANNEL})
     assert permitted_skips(wrong) == set()
 
 
-def test_text_first_unknown_write_reads_back_the_same_canonical_before_derivatives(tmp_path, monkeypatch):
+def test_text_first_unknown_write_reads_back_the_same_canonical_before_derivatives(tmp_path, monkeypatch, substack_first):
     store, binding, rollout, _, _, _ = brief_packet(tmp_path, monkeypatch)
     prepare_native_publication(store, binding)
     operation, executor, transport = composed(store, binding, rollout, monkeypatch)
@@ -229,8 +239,8 @@ def test_text_first_unknown_write_reads_back_the_same_canonical_before_derivativ
         platform="substack", status="UNKNOWN_WRITE", public_object_id="controlled-article", public_object_url=CANONICAL)
     value, writes = finish(operation, executor)
     assert value["publication"]["state"] == "RECONCILED"
-    assert "substack" not in writes and set(writes + transport.calls) == DESTINATIONS - {"substack"}
-    assert len(store.list_platform_dispatches()) == 6
+    assert "substack" not in writes and set(writes + transport.calls) == (DESTINATIONS - {"substack"}) | {"linkedin_company"}
+    assert len(store.list_platform_dispatches()) == 10
 
 
 @pytest.mark.parametrize("bad_value", [False, True])
