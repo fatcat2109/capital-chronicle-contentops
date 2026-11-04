@@ -10,4 +10,6 @@ Live deletion observations are in deletions-first.json and deletions-second.json
 
 The shared HTML preview changed after CPI acceptance; exact approved PNGs, assets, payloads and source bindings did not. Existing acceptance now retains the original HTML hash as provenance while still checking exact accepted PNG and media bytes. Fresh assemblies still verify their actual HTML source.
 
-Public recovery remains in progress. DONE requires live destination readbacks.
+The integrated recovery produced six confirmed public objects. LIVE_READBACKS.md lists exact URLs, five observed owner removals, two still-live originals, Discord's actual webhook failures and the retained browser requests. Focused tests include compiler continuity, exactly-once first-copy recovery, wrong-operation unclaimed request replacement, claimed-action readback fencing, and avoiding repeated full database/day scans. XML files record each targeted run; no whole-suite result is claimed.
+
+CC-247 remains incomplete: two original deletions are still pending, both Discord edits failed exact-message readback, and the browser work requires Jim's file-picker check before continuation. No default-branch merge, schedule change, chat message or native desktop control occurred. Earlier telemetry WIP was preserved; live adapters appended this run's records to the existing telemetry/freeze files without replacing them.

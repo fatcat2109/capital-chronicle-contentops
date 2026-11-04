@@ -1,0 +1,17 @@
+{
+  "tool_request_sha256": "b00bcb5516e7b882206867a8fcc1a4f508d0d2269bbd74bc5fb532d18901947e",
+  "result": {
+    "status": "SUCCESS",
+    "request_sha256": "e8ad820e2257171c0a58d8491b461ccf767353e8cba14b2ca06425dff048ecd2",
+    "authenticated": true,
+    "observed_identity": "capitalchronicle.substack.com",
+    "evidence": "BrowserOS Neo page 350: Capital Chronicle header and publication domain, authenticated Dashboard button. No account switch."
+  },
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "surface": "CODEX_EXEC",
+    "native_invocation_id": "01a1a740-b336-7272-b067-9617c34dfd55",
+    "observed_at_utc": "2026-11-04T16:30:31.510505+00:00",
+    "observation_source": "Actual BrowserOS Neo return; A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-247\\sec-substack-identity-observation.json"
+  }
+}

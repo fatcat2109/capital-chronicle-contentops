@@ -1,0 +1,622 @@
+{
+  "classification": "NATIVE_READER_DERIVATIVE_CONTINUATION",
+  "coordinator_result": {
+    "destination": "threads",
+    "status": "DISPATCH_CONFIRMED",
+    "publish_called": true,
+    "public_object_id": "18145086415612549",
+    "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfU6w2jHx39",
+    "reconciliation_status": "RECONCILIATION_PENDING"
+  },
+  "publication": {
+    "accepted_evidence_sha256": "67a4d1f612104f8f7e6186719bfad18396769210d3a127e94cec43e7d595179d",
+    "article_identity": "e8f9f4ec5cf1fc91133e77d4bb27b45435139db5b121bbf4252c29f75bab1bdd",
+    "artifact_sha256": {
+      "article_manifest_v1.json": "066df9eedc190874a0ca752cad205321a0f8bd2d2275d8213897587eeed51163",
+      "native_derivative_previews_v1.json": "4cf1cc355d5b329c05d785df037887925be962a6a1b9a532891963361b89f7b9",
+      "publication_lifecycle_plan_v1.json": "f99bc1c9c5ce20f4a20865a57e5c857ad5e08d0f847b0dd7b922886d20b052fb",
+      "qualified_article_record_v1.json": "36694508598046f83750266bd8ba1b477d3d8e54340ae597e35c26bad2c9af79",
+      "run_context_v1.json": "f5d04269fd24e831b7f4f72396de9819e588cf6c707cca35550dee2a12f0c7ef"
+    },
+    "binding_sha256": "391b9ea79bf2cdca7b92c3bc4207efd927b6763d440fefea82a10a9f6e570b77",
+    "media_sha256": {},
+    "native_result_sha256": "0da7e33fed441d84e40f891e844fe3e0b631f3498dd8a4a8393e914229f39c91",
+    "plan_hash": "ad144118a61ff4e76a6584f6e42303d96b4611f1de711ef08ef9506b6364309d",
+    "prepared_handoff_sha256": "7869185fb55b53c3c2183b40f7b98bb39c4e08ca96ce6ddeae40a358e409839f",
+    "publication_authority": false,
+    "review_id": "native-article-review-55476c0419554ad7a8d3d0e936467c72",
+    "review_notes_sha256": "a369e08683dbe737a0810447d30083da7045046bdbe5f4ef060a6d9bf524d7bc",
+    "run_id": "cc124-prepare-20261103-a",
+    "schema_version": "contentops.native_publication_binding.v1",
+    "skipped_derivative_destinations": [
+      {
+        "destination": "instagram_business",
+        "disposition": "SKIPPED_IMAGE_REQUIRED",
+        "reason": "Instagram requires an admitted image; other destinations can proceed.",
+        "status": "SKIPPED_IMAGE_REQUIRED"
+      }
+    ],
+    "work_item_id": "cc124-prepare-20261103-a",
+    "canonical_article_status": "REAL_PUBLISHED",
+    "canonical_article_real_published": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+    "canonical_publication_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "transaction_classification": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "derivative_confirmed_count": 4,
+    "derivative_attempted_count": 8,
+    "derivative_unknown_count": 0,
+    "derivative_absent_safe_to_retry_count": 1,
+    "derivative_failed_count": 1,
+    "derivative_never_attempted_count": 0,
+    "recovery_required_destinations": [
+      "instagram_business",
+      "linkedin",
+      "telegram",
+      "threads"
+    ],
+    "readback_limitation_destinations": [
+      "discord"
+    ],
+    "unknown_write_detected": false,
+    "unknown_write_count": 0,
+    "additional_destinations": {
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_e0e1b5677693936c834afde0a79780ab",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+      }
+    },
+    "additional_confirmed_count": 0,
+    "additional_recovery_required_destinations": [
+      "linkedin_company"
+    ],
+    "state": "PENDING_NATIVE",
+    "operation_scope": "OWNER_MANUAL_LIVE",
+    "destinations": [
+      {
+        "destination": "substack",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "223246940",
+        "public_object_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      },
+      {
+        "destination": "telegram",
+        "transport": "BOT_API",
+        "dispatch_id": "dispatch_7bbccd8674d2f91b218f479f2fcb365b",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILIATION_PENDING",
+        "public_object_id": "74",
+        "public_object_url": "https://t.me/CapitalChronicle/74",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "discord",
+        "transport": "WEBHOOK_API",
+        "dispatch_id": "dispatch_a9b27f630a1668016431a3d96c8f303f",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+        "public_object_id": "1567217600877039648",
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "x",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_b1da9b28bd75180cac137744fd6f5710",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "2117888404067356960",
+        "public_object_url": "https://x.com/Capitalnicle/status/2117888404067356960",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      },
+      {
+        "destination": "linkedin",
+        "transport": "OFFICIAL_MEMBER_API",
+        "dispatch_id": "dispatch_7dd24a91b8afec20ed3dc0206f59cb73",
+        "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+      },
+      {
+        "destination": "facebook_page",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_acff70bcc90bd0a1846cfdb47ea6bd26",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "106091951705748_1443815231270226",
+        "public_object_url": "https://www.facebook.com/1342369584748125/posts/1443815231270226",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "instagram_business",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_d01bbafa38b1b14dba9ee60b7ef9f93b",
+        "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+        "reconciliation_status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+        "public_object_id": "18140916916727008",
+        "public_object_url": "https://www.instagram.com/p/DfUAKIzgfPH/",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY"
+      },
+      {
+        "destination": "threads",
+        "transport": "THREADS_API",
+        "dispatch_id": "dispatch_f73b4f34a3701c1b63cab1e186e96b02",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILIATION_PENDING",
+        "public_object_id": "18145086415612549",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfU6w2jHx39",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "youtube",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_f90f612216f7dda5848dcfc5ddd4ad55",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "UgkxfoYYb9nQIhzXGyir9S2DmN458SseAdvq",
+        "public_object_url": "https://www.youtube.com/post/UgkxfoYYb9nQIhzXGyir9S2DmN458SseAdvq",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      },
+      {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_e0e1b5677693936c834afde0a79780ab",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+      }
+    ],
+    "timing": {
+      "policy": "JIM_DECISION_53",
+      "target_minutes": 15,
+      "text_approved_at_utc": null,
+      "dispatch_deadline_utc": null,
+      "channels": [
+        {
+          "destination": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-02T23:12:30.098933+00:00",
+          "dispatched_at_utc": null,
+          "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-03T16:43:33.622587+00:00",
+          "dispatched_at_utc": "2026-11-03T16:43:33.622587+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-03T16:43:13.146378+00:00",
+          "dispatched_at_utc": "2026-11-03T16:43:13.146378+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "x",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-04T07:54:23.962086+00:00",
+          "dispatched_at_utc": "2026-11-04T07:55:18.159Z",
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin",
+          "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+          "attempted_at_utc": "2026-11-04T08:15:44.748066+00:00",
+          "dispatched_at_utc": null,
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "facebook_page",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-03T16:43:17.990369+00:00",
+          "dispatched_at_utc": "2026-11-03T16:43:17.990369+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "instagram_business",
+          "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+          "attempted_at_utc": "2026-11-04T08:14:03.691408+00:00",
+          "dispatched_at_utc": "2026-11-04T08:14:03.691408+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-04T16:46:10.954713+00:00",
+          "dispatched_at_utc": "2026-11-04T16:46:10.954713+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "youtube",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-04T08:05:28.955861+00:00",
+          "dispatched_at_utc": "2026-11-04T08:10:02.898Z",
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin_company",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        }
+      ],
+      "all_channels_dispatched_within_target": false,
+      "state": "TEXT_APPROVAL_NOT_OBSERVED"
+    },
+    "skipped_destinations": [],
+    "pending_requests": [
+      {
+        "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+        "operation_id": "cc124-prepare-20261103-a",
+        "public_write_authorized": true,
+        "request": {
+          "action": "PUBLISH",
+          "canonical_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+          "content_binding": {
+            "artifact_manifest": [
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc074-retro-fomc-20261028-v1\\reviewed-handoff\\babd5c02bcedea40f218c7c582c6982e3c4524936b7e649450dcc63aa1505d43\\run_context_v1.json",
+                "sha256": "c41b993eed4eb9e4e36add6d17c037149dfd2db7864665db98c586d964398f60"
+              },
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc074-retro-fomc-20261028-v1\\reviewed-handoff\\babd5c02bcedea40f218c7c582c6982e3c4524936b7e649450dcc63aa1505d43\\delivery_media_manifest_v1.json",
+                "sha256": "a47ecf08eaa17d805956d5b150274db65ff4dff2267fd79f61a2eb7dc9ce5981"
+              }
+            ],
+            "expected_text_segments": [
+              "Update: The Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\nWhat to watch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote. The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nRead the full brief: https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade."
+            ],
+            "expected_thread_texts": [],
+            "media_manifest": [
+              {
+                "alt_text": "October 28, 2026 FOMC vote: 10 members approved holding the target range; 2 members, Lisa D. Cook and Beth M. Hammack, preferred a quarter-percentage-point increase. Horizontal member-count axis starts at zero.",
+                "asset_id": "cc074-fomc-20261028-vote-direction",
+                "attribution": "Source: Federal Reserve Board, October 28, 2026 FOMC statement.",
+                "caption": "The October 28 vote: 10 members approved a hold; Lisa D. Cook and Beth M. Hammack preferred a quarter-point increase. Sources: [Federal Reserve Board](https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm).",
+                "modality": "source_backed_chart",
+                "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-backlog\\docs\\publisher\\CC-074-private-20261101\\media_assets\\cc074-fomc-20261028-vote-direction.png",
+                "sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789",
+                "source_page_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+              }
+            ],
+            "thread_post_count": 0
+          },
+          "destination": "youtube",
+          "dispatch_attempt_identity": "dispatch_b0c56e93220ba413672e6a8110c75cb8",
+          "entry_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+          "expected_identity": "@CapitalChronicleYouTube",
+          "forbidden": [
+            "login",
+            "reauthorize",
+            "account_switch",
+            "cookies",
+            "storage",
+            "blind_retry",
+            "bulk_x_ingestion"
+          ],
+          "intent_sha256": "a114a21f810fc0cb3d28dab5481e38bf97bbd77f836e24ee968c9417a31f3dba",
+          "native_payload": {
+            "format": "community_brief",
+            "hard_truncation_used": false,
+            "media_asset_ids": [
+              "cc074-fomc-20261028-vote-direction"
+            ],
+            "media_source_links": {
+              "cc074-fomc-20261028-vote-direction": [
+                {
+                  "document_id": "cc074-fomc-20261028-statement",
+                  "label": "Federal Reserve Board",
+                  "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+                }
+              ]
+            },
+            "platform_limit": 1000,
+            "text": "Update: The Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\nWhat to watch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote. The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nRead the full brief: https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade."
+          },
+          "package_identity": "853d6f5a2e4ccbea29ffe1eeea8eab22e42470240088afd5730ed84c491fa835",
+          "payload": "Update: The Fed held on October 28. Both dissenters wanted a hike.\n\nThe Fed's October 28 hold was a 10-2 decision. Both dissenters wanted higher rates.\n\nWhat to watch: The next useful question is whether a later Committee decision changes the target range or the direction of the recorded vote. The October 28 documents should be read as that meeting's decision and implementation instructions, rather than a prediction of what comes next.\n\nRead the full brief: https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters\n\nRetrospective analysis, written on 1 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade.",
+          "payload_hash": "f1f94a3ac43f3a302795efcc01e37604d66104f606373e3acc9fa8000a62ba9b",
+          "public_object_id": null,
+          "public_object_url": null,
+          "request_sha256": "19e48c17349550d4ea49712472bd17356285ded323bf443d11b96bed374514c3",
+          "schema_version": "contentops.neo_destination_handoff.v1",
+          "steps": [
+            "name_session; list tabs, open a task-owned tab",
+            "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+            "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+            "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+            "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+          ],
+          "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+          "surface": "YOUTUBE_COMMUNITY_POST",
+          "work_item_id": "cc074-retro-fomc-20261028-v1"
+        },
+        "required_tool": "mcp__browseros_neo__run",
+        "schema_version": "contentops.native_neo_tool_request.v1",
+        "tool_request_sha256": "d7b87547c960a7b3603dafd0bed97cc4c6cee87da3d4508c50d982ba624f401f",
+        "action_claimed": false,
+        "next_operation": "publication-tool-begin"
+      },
+      {
+        "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+        "operation_id": "cc124-prepare-20261103-a",
+        "public_write_authorized": true,
+        "request": {
+          "action": "PUBLISH",
+          "canonical_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+          "content_binding": {
+            "artifact_manifest": [
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a\\reviewed-handoff\\ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305\\run_context_v1.json",
+                "sha256": "f5d04269fd24e831b7f4f72396de9819e588cf6c707cca35550dee2a12f0c7ef"
+              },
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a\\reviewed-handoff\\ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305\\delivery_media_manifest_v1.json",
+                "sha256": "042f887ef6f7e8f89fa090d8692641fee5cdae5aecc9e7222b3455813542a3fd"
+              }
+            ],
+            "expected_text_segments": [
+              "Update: September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nWhat to watch: Reading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show? A claim about reception would need dated price evidence; a surprise claim would need a dated expectation. The CPI readings alone cannot supply either conclusion.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade."
+            ],
+            "expected_thread_texts": [],
+            "media_manifest": [],
+            "thread_post_count": 0
+          },
+          "destination": "youtube",
+          "dispatch_attempt_identity": "dispatch_f90f612216f7dda5848dcfc5ddd4ad55",
+          "entry_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+          "expected_identity": "@CapitalChronicleYouTube",
+          "forbidden": [
+            "login",
+            "reauthorize",
+            "account_switch",
+            "cookies",
+            "storage",
+            "blind_retry",
+            "bulk_x_ingestion"
+          ],
+          "intent_sha256": "f5f5a3a2a991b25d05d2d55deb60072feec58640913622ce525543e6644fcb1a",
+          "native_payload": {
+            "format": "community_brief",
+            "hard_truncation_used": false,
+            "media_asset_ids": [],
+            "platform_limit": 1000,
+            "text": "Update: September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nWhat to watch: Reading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show? A claim about reception would need dated price evidence; a surprise claim would need a dated expectation. The CPI readings alone cannot supply either conclusion.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade."
+          },
+          "package_identity": "536ccf3d8877e29245061d171d67c43fcc2fdb1dfd54928ca08b3266dbcfba25",
+          "payload": "Update: September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nWhat to watch: Reading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show? A claim about reception would need dated price evidence; a surprise claim would need a dated expectation. The CPI readings alone cannot supply either conclusion.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+          "payload_hash": "338918e63589e2977e56dd177c7f7b7c7fa7fd824bd5a6862d6059a5ea66cccf",
+          "public_object_id": null,
+          "public_object_url": null,
+          "request_sha256": "5da0a47db8d6e8c35f205528a0b593b63780240be83a271053978ae08db772f6",
+          "schema_version": "contentops.neo_destination_handoff.v1",
+          "steps": [
+            "name_session; list tabs, open a task-owned tab",
+            "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+            "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+            "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+            "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+          ],
+          "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+          "surface": "YOUTUBE_COMMUNITY_POST",
+          "work_item_id": "cc124-prepare-20261103-a"
+        },
+        "required_tool": "mcp__browseros_neo__run",
+        "schema_version": "contentops.native_neo_tool_request.v1",
+        "tool_request_sha256": "ce661d8ce82a039e5f717483cb9bf106401eea4c2688c1ed9325dd30190c318f",
+        "action_claimed": false,
+        "next_operation": "publication-tool-begin"
+      },
+      {
+        "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+        "operation_id": "cc124-prepare-20261103-a",
+        "public_write_authorized": false,
+        "request": {
+          "action": "READBACK",
+          "canonical_url": "https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer",
+          "content_binding": {
+            "artifact_manifest": [],
+            "excluded_text_segments": [],
+            "expected_text_segments": [
+              "September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nWhy it matters: Monthly and twelve-month readings in the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade."
+            ],
+            "expected_thread_texts": [],
+            "media_manifest": [
+              {
+                "alt_text": "Two lines show first-reported annual CPI-U inflation from October 2024 to September 2026, with a gap at October 2025. Headline starts at 2.6%, reaches 4.2% in May 2026 and ends at 3.7%. Core starts at 3.3% and ends at 2.6%.",
+                "asset_id": "cpi-annual-history-r3",
+                "attribution": "Source: BLS dated CPI releases. First readings; October 2025 not published.",
+                "caption": "U.S. CPI-U, twelve-month change, not seasonally adjusted, October 2024-September 2026. Each point uses its first published reading. October 2025 has no published reading. Source: BLS dated CPI releases.",
+                "modality": "source_backed_chart",
+                "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r3\\media_assets\\cpi-annual-history-r3.png",
+                "placement_after": "What the annual history shows",
+                "sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+                "source_page_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+              }
+            ],
+            "thread_post_count": 0
+          },
+          "destination": "instagram_business",
+          "dispatch_attempt_identity": null,
+          "entry_url": "https://www.instagram.com/official.capitalchronicle/",
+          "expected_identity": "official.capitalchronicle",
+          "forbidden": [
+            "login",
+            "reauthorize",
+            "account_switch",
+            "cookies",
+            "storage",
+            "blind_retry",
+            "bulk_x_ingestion"
+          ],
+          "intent_sha256": "1622e9c759d524bc98d9513b4965ef224f11e0cec30dd1b88c26431a955931eb",
+          "native_invocation_id": "01a1a740-b336-7272-b067-9617c34dfd55",
+          "native_payload": {
+            "format": "CAPTION",
+            "hard_truncation_used": false,
+            "media_asset_ids": [
+              "cpi-annual-history-r3"
+            ],
+            "platform_limit": 2200,
+            "text": "September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nWhy it matters: Monthly and twelve-month readings in the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade."
+          },
+          "observation_epoch": 2989684,
+          "package_identity": "536ccf3d8877e29245061d171d67c43fcc2fdb1dfd54928ca08b3266dbcfba25",
+          "payload": "September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nWhy it matters: Monthly and twelve-month readings in the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+          "payload_hash": "fa4ab1c2ed64e5431e54d126ad3d56a056363cd05d900d405fab6d25ca334ba7",
+          "public_object_id": "18158156986570123",
+          "public_object_url": "https://www.instagram.com/p/DfU6KQyASlv/",
+          "reader_presentation_review": {
+            "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a",
+            "request_sha256": "fd55a43e8d4541c4ff8c6a430050054ca871873481a6912f0372fd1a8f3d85e9",
+            "stage": "final-visual-26523bfab774458447c1090daa4c6bc0183b24ed88f6ef65806c548a4f7e19f3"
+          },
+          "reader_text_normalization": "MARKDOWN_WHITESPACE_SMART_QUOTES_V1",
+          "request_sha256": "2bfbdb154ef2a2ad9db350da14fe53ca3793dd75af6f99902cd3680da9a7267c",
+          "schema_version": "contentops.neo_destination_handoff.v1",
+          "steps": [
+            "name_session; list tabs, open a task-owned tab",
+            "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+            "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+            "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+            "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+          ],
+          "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+          "surface": "INSTAGRAM_BUSINESS_POST",
+          "work_item_id": "cc124-prepare-20261103-a"
+        },
+        "required_tool": "mcp__browseros_neo__run",
+        "schema_version": "contentops.native_neo_tool_request.v1",
+        "tool_request_sha256": "3b533e37403ba0a4af8d998b1f001ae95443fb71a1deb767d097e0b7d9482916",
+        "action_claimed": false,
+        "next_operation": "publication-tool-begin"
+      },
+      {
+        "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+        "operation_id": "cc124-prepare-20261103-a",
+        "public_write_authorized": false,
+        "request": {
+          "action": "VERIFY_IDENTITY",
+          "destination": "linkedin_company",
+          "entry_url": "https://www.linkedin.com/company/143198922/admin/page-posts/published/",
+          "expected_identity": "linkedin:company:143198922",
+          "expected_stable_id": "143198922",
+          "forbidden": [
+            "login",
+            "account_switch",
+            "public_write",
+            "saved_draft",
+            "private_storage"
+          ],
+          "native_invocation_id": "01a1a740-b336-7272-b067-9617c34dfd55",
+          "probe_epoch": 5979368,
+          "request_sha256": "bbe696469f64a9e77ead68a9f5dcebad1d91f5a909adadb0d7dfa719effd48a9",
+          "schema_version": "contentops.neo_identity_probe.v1",
+          "surface": "LINKEDIN_COMPANY_POST",
+          "work_item_id": "native-neo-operation-136c98bd5f14a4c0dd3cfb50d8fe8e44155d90a7ede9a6179484fe7997e72085"
+        },
+        "required_tool": "mcp__browseros_neo__run",
+        "schema_version": "contentops.native_neo_tool_request.v1",
+        "tool_request_sha256": "e9483cfc7ea08ce1ace46f425e60836c137d44a59871d728cea8b39e75779237",
+        "action_claimed": false,
+        "next_operation": "publication-tool-begin"
+      }
+    ],
+    "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+    "next_operation": "publication-tool-begin",
+    "dispatch_continuation_operation": "publication-tool-begin",
+    "next_command": "python scripts/run_native_desktop_editorial.py publication-tool-begin --binding \"A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a\\native_operation_binding.json\" --request-sha256 bbe696469f64a9e77ead68a9f5dcebad1d91f5a909adadb0d7dfa719effd48a9 --native-invocation-id <actual-turn-id> --rollout config/native_desktop_rollout_v1.json",
+    "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale.",
+    "final_visual_acceptance": {
+      "stage": "final-visual-3fec5e82b21d56c39bc1af1979f2f7f85e1b3e261677c2429a6929c24a77402b",
+      "request_sha256": "83845cf0c6e0fda3827acb8e9ed9f006cb29752e336d2a2221980de0f663fa55",
+      "response_sha256": "fe001cbe78b64b158574e5caa96b4521856c02c0b75ff84b45f10eccdf197809",
+      "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc124-prepare-20261103-a",
+      "article_revision": "ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305",
+      "render_binding_sha256": "3fec5e82b21d56c39bc1af1979f2f7f85e1b3e261677c2429a6929c24a77402b",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Exact parent assignment and frozen desktop_request_final-visual-3fec5e82b21d56c39bc1af1979f2f7f85e1b3e261677c2429a6929c24a77402b.json request_sha256 83845cf0c6e0fda3827acb8e9ed9f006cb29752e336d2a2221980de0f663fa55 for operation cc124-prepare-20261103-a, requesting gpt-6.1-sol/max at standard speed in /root/native_visual_edit_1f6d9bfd6170. Configuration is not actual runtime observation.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_visual_edit_1f6d9bfd6170",
+        "model": null,
+        "observation_source": "This final rendered review was performed in the SAME native task /root/native_visual_edit_1f6d9bfd6170 that authored the accepted visual decision, article and revision. All 18 exact local PNGs were actually opened through view_image with original detail; no native desktop screenshot/control or browser automation was used in this role. No supported actual-model or actual-effort telemetry was observed, and no environment, session, process or credential probes were used.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    }
+  }
+}

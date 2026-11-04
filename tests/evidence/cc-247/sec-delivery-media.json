@@ -1,0 +1,11 @@
+{
+  "status": "CLOUDINARY_DELIVERY_MEDIA_READY",
+  "credential_presence": {
+    "CLOUDINARY_CLOUD_NAME": true,
+    "CLOUDINARY_API_KEY": true,
+    "CLOUDINARY_API_SECRET": true
+  },
+  "provider_calls": 1,
+  "reused_asset_count": 0,
+  "verified_asset_count": 1
+}
