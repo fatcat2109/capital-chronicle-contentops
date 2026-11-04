@@ -468,6 +468,16 @@ class DurablePublicationCoordinator:
             return True
         for obligation in obligations:
             run, destination = obligation.get("work_item_id"), obligation.get("destination")
+            if run == work_item_id and destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS:
+                # CC-199 CLD-C1: once this article's canonical is confirmed, one
+                # destination's recovery (Threads AUTH_INVALID, a LinkedIn
+                # UNKNOWN_WRITE) never holds its other destinations. Existing
+                # dispatches are never resent without their own readback.
+                canonicals = [intent for message, intent in intents
+                              if intent["work_item_id"] == run and message["destination"] == "substack"]
+                if canonicals and all(canonical_resolved(intent) for intent in canonicals):
+                    continue
+                return True
             if run == work_item_id or destination not in V1_REQUIRED_DERIVATIVE_DESTINATIONS:
                 return True
             matches = [intent for message, intent in intents

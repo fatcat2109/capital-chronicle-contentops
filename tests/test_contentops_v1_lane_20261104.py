@@ -239,3 +239,34 @@ def test_copy_without_image_takes_the_reviewed_chart_not_a_new_card(imageless_co
     data = pipeline._durable_intent_inputs(finalized)
     assert [a["asset_id"] for a in data["media_assets"]] == ["reviewed-chart"]
     assert _payload_media_ids(finalized["native_payload"]) == ["reviewed-chart"]
+
+
+# ---- CLD-C1: one destination's recovery never holds the article's others ----
+
+@pytest.mark.parametrize("canonical_verified", [True, False])
+def test_same_article_derivative_recovery_does_not_hold_other_destinations(tmp_path, canonical_verified):
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    store.create_work_item(work_item_id="sec", story_id="sec", title="SEC", target_surface="test")
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None,
+                                                allow_prior_confirmed_distribution=True)
+    plan = {"plan_hash": "plan-sec", "article_identity": "article-sec"}
+    url = "https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission"
+    canonical = coordinator._ids("sec", "plan-sec", "substack")
+    store.register_outbox_message(message_id=canonical["message_id"], work_item_id="sec", destination="substack",
+        payload=json.dumps({"work_item_id": "sec", "plan_hash": "plan-sec", "article_identity": "article-sec"}),
+        status="DISPATCH_CONFIRMED")
+    store.register_platform_dispatch(dispatch_id=canonical["dispatch_id"], message_id=canonical["message_id"],
+        platform="substack", status="DISPATCH_CONFIRMED", public_object_id="223408612", public_object_url=url)
+    store.register_reconciliation(reconciliation_id=canonical["reconciliation_id"], work_item_id="sec",
+        status="RECONCILED_CONFIRMED")
+    store.register_readback(readback_id="r1", dispatch_id=canonical["dispatch_id"], readback_data=json.dumps(
+        {"readback": {"verified": canonical_verified}}))
+    threads = coordinator._ids("sec", "plan-sec", "threads")
+    store.register_outbox_message(message_id=threads["message_id"], work_item_id="sec", destination="threads",
+        payload=json.dumps({"work_item_id": "sec", "plan_hash": "plan-sec", "article_identity": "article-sec"}),
+        status="READY")
+    recovery = {"backlog_remaining": 1,
+                "backlog_remaining_obligations": [{"work_item_id": "sec", "destination": "threads"}]}
+    # Threads' AUTH_INVALID row held SEC's Instagram and LinkedIn company copies on 4 Nov.
+    assert coordinator.recovery_blocks_new_publication(recovery, "sec", plan=plan) is (not canonical_verified)
