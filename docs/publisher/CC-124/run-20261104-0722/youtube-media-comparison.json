@@ -1,0 +1,17 @@
+{
+  "source_sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+  "platform_sha256": "8175581e1a1bcab190de51bb7865609984667a9de208df852e2360c5e909b7cc",
+  "public_image_url": "https://yt3.ggpht.com/VfX1l0Xy91_jwq6dq3GKekEE9GuXWQuWuTnteZR4RMk6xoUkHgGrU8sCXgenALwyGv_t3cfsXIwchQ=s640-rw-nd-v1",
+  "platform_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261104-0722\\youtube-public-card.webp",
+  "platform_dimensions": [
+    640,
+    360
+  ],
+  "mean_channel_rms_0_255": 7.078234310296306,
+  "source_dimensions": [
+    1600,
+    900
+  ],
+  "resampling": "LANCZOS",
+  "decoded_pixel_comparison_performed": true
+}

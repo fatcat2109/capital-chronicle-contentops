@@ -233,7 +233,7 @@ class NeoDestinationHandoff:
         expected_media.discard(None)
         media_match = expected_media <= set(result.get("observed_media_sha256") or [])
         reviewed_photo_edit = bool(intent.get("reader_presentation_review")) and destination in {"instagram_business", "youtube"}
-        if (destination in {"linkedin", "linkedin_company", "x"} or reviewed_photo_edit) and not media_match:
+        if (destination in {"linkedin", "linkedin_company", "x", "youtube"} or reviewed_photo_edit) and not media_match:
             comparisons = result.get("media_comparisons") or []
             def platform_image(url):
                 host = urlsplit(str(url or "")).hostname or ""

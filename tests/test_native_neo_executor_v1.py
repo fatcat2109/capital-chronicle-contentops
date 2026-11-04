@@ -93,6 +93,7 @@ def test_readback_requires_exact_text_url_media_and_thread(tmp_path):
     assert bad.readback(destination="x", intent=value, public_object_id=object_id, public_object_url=url)["verified"] is False
 
 
+@pytest.mark.parametrize("destination", ["x", "youtube"])
 @pytest.mark.parametrize("changed,verified", [
     ({}, True),
     ({"source_asset_sha256": "c" * 64}, False),
@@ -104,19 +105,22 @@ def test_readback_requires_exact_text_url_media_and_thread(tmp_path):
     ({"pixels_inspected": False}, False),
     ({"source_pixels_match": False}, False),
 ])
-def test_x_transcoded_chart_needs_exact_public_object_and_pixel_inspection(changed, verified):
+def test_transcoded_chart_needs_exact_public_object_and_pixel_inspection(destination, changed, verified):
     source_hash = "a" * 64
-    url = "https://x.com/Capitalnicle/status/123"
-    value = intent("x", media_assets=[{"asset_id": "card", "sha256": source_hash}])
+    url = "https://x.com/Capitalnicle/status/123" if destination == "x" else "https://www.youtube.com/post/123"
+    identity = "@Capitalnicle" if destination == "x" else "@CapitalChronicleYouTube"
+    image = ("https://pbs.twimg.com/media/chart?format=jpg&name=small" if destination == "x"
+             else "https://yt3.ggpht.com/chart=s640-rw-nd-v1")
+    value = intent(destination, media_assets=[{"asset_id": "card", "sha256": source_hash}])
     comparison = {"source_asset_sha256": source_hash, "platform_sha256": "b" * 64,
-        "public_image_url": "https://pbs.twimg.com/media/chart?format=jpg&name=small",
+        "public_image_url": image,
         "public_object_url": url, "pixels_inspected": True, "source_pixels_match": True, **changed}
     def observed(request):
-        return {"request_sha256": request["request_sha256"], "observed_identity": "@Capitalnicle",
+        return {"request_sha256": request["request_sha256"], "observed_identity": identity,
             "status": "SUCCESS", "public_object_id": "123", "public_object_url": url,
             "observed_text": "Exact supported proposition.", "content_verified": True,
             "observed_media_sha256": ["b" * 64], "media_comparisons": [comparison]}
-    result = NeoDestinationHandoff(native_executor=observed).readback(destination="x", intent=value,
+    result = NeoDestinationHandoff(native_executor=observed).readback(destination=destination, intent=value,
         public_object_id="123", public_object_url=url)
     assert result["verified"] is verified
 
