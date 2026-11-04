@@ -2136,6 +2136,20 @@ def _draw_editorial_chart(packet, values, plt, np):
                     color=color,
                     label=label,
                 )
+                for mark in packet.get("history_point_labels", []):
+                    if mark.get("series_index") != i:
+                        continue
+                    if mark.get("period") not in periods:
+                        raise ValueError("EDITORIAL_HISTORY_POINT_LABEL_UNBOUND")
+                    j = periods.index(mark["period"])
+                    decimals = mark.get("decimals", 1)
+                    if nums[j] is None or type(decimals) is not int or not 0 <= decimals <= 6:
+                        raise ValueError("EDITORIAL_HISTORY_POINT_LABEL_UNBOUND")
+                    ax.annotate(f"{label}: {nums[j]:.{decimals}f}%",
+                        (x[j] - .4 + width * (i + .5), nums[j]),
+                        xytext=(mark.get("dx", 0), mark.get("dy", 12)),
+                        textcoords="offset points", ha="center", fontsize=9, color=color,
+                        arrowprops={"arrowstyle": "-", "color": color, "lw": .6})
         ticks = list(range(0, len(periods), max(1, math.ceil(len(periods) / 6))))
         if len(periods) - 1 not in ticks:
             ticks.append(len(periods) - 1)

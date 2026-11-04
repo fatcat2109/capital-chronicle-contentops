@@ -203,6 +203,14 @@ def test_missing_month_is_rendered_as_a_gap_and_cannot_be_filled(archive, tmp_pa
     assert _editorial_data_values(packet, [doc])[0][12:14] == [None, None]
     asset = build_editorial_data_chart(packet, [doc], output_dir=tmp_path / "render")
     assert asset["computed_values"][0][12:14] == [None, None]
+    if chart_type == "grouped_bar":
+        packet["history_point_labels"] = [{"series_index": 0, "period": "2026-09", "decimals": 1}]
+        labelled = build_editorial_data_chart(packet, [doc], output_dir=tmp_path / "labelled")
+        assert labelled["computed_values"] == asset["computed_values"]
+        packet["history_point_labels"] = [{"series_index": 0, "period": "2025-10"}]
+        with pytest.raises(ValueError, match="POINT_LABEL_UNBOUND"):
+            build_editorial_data_chart(packet, [doc], output_dir=tmp_path / "invalid-label")
+        packet.pop("history_point_labels")
     bad = deepcopy(packet)
     bad["series"][0]["points"][12]["missing_reason"] = "invented gap"
     with pytest.raises(ValueError, match="MISSING_POINT_UNBOUND"):

@@ -1,0 +1,39 @@
+{
+  "operation_id": "cc216-cpi-background-20261105-v1",
+  "assets": [
+    {
+      "asset_id": "cc216-cpi-annual-headline-core",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-cpi-background-20261105-v1\\media\\cc216-cpi-annual-headline-core.png",
+      "sha256": "d5501bf62d11b59258b00008ad199037a53257a8c36fb3d44d1d4eed7cdd6b9e",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart"
+    },
+    {
+      "asset_id": "cc216-cpi-monthly-headline-core",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-cpi-background-20261105-v1\\media\\cc216-cpi-monthly-headline-core.png",
+      "sha256": "7ba20cce7cdfe591a8d594e14a40d7d4b4efa6c36898105bc6b5e532c0085fad",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart"
+    },
+    {
+      "asset_id": "cc216-cpi-september-component-effects",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-cpi-background-20261105-v1\\media\\cc216-cpi-september-component-effects.png",
+      "sha256": "e656b4344c19ae3ae416ba3886d34022c5766e5b844616f2e6a55b7431949010",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart"
+    },
+    {
+      "asset_id": "cpi-usda-supermarket-archive",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-cpi-background-20261105-v1\\media\\cpi-usda-supermarket-archive.jpg",
+      "sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+      "width": 5364,
+      "height": 3334,
+      "modality": "documentary_photo"
+    }
+  ],
+  "source_value_validators": "PASS",
+  "pixels_reviewed_this_run": false
+}

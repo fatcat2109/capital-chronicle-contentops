@@ -1,0 +1,47 @@
+{
+  "operation_id": "cc216-nfp-background-20261105-v1",
+  "assets": [
+    {
+      "asset_id": "payroll_first_print_trend",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\payroll_first_print_trend.png",
+      "sha256": "7fe6e76c02335e7e35785dca841f1c59d7981ccff7dd398c1ba8e3fb4311c0dd",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart"
+    },
+    {
+      "asset_id": "september_sector_breakdown",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\september_sector_breakdown.png",
+      "sha256": "2bb1bd99db2b1c6b3f2060ed05d71355ddeb237db4a6f85829ca6b33b6de027a",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart"
+    },
+    {
+      "asset_id": "unemployment_first_print_trend",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\unemployment_first_print_trend.png",
+      "sha256": "2f3e7f4eeb884b33bb0641c14696073108c0d47c7cb96345535776789dd9d21b",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart"
+    },
+    {
+      "asset_id": "earnings_first_print_trend",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\earnings_first_print_trend.png",
+      "sha256": "d3a1baa52c3d61801f319a59989c1979485ee69daa677fba035872cc1d99c385",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart"
+    },
+    {
+      "asset_id": "cc074-archive-warsh-20260522",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\cc074-archive-warsh-20260522.jpg",
+      "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+      "width": 635,
+      "height": 900,
+      "modality": "documentary_photo"
+    }
+  ],
+  "source_value_validators": "PASS",
+  "pixels_reviewed_this_run": false
+}
