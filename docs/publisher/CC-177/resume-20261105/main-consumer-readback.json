@@ -1,0 +1,18 @@
+{
+  "source_ref": "live-20261104-cand14",
+  "commit": "bde79937cc9674afba162310f2fca06529814d4a",
+  "files": {
+    "tools/product/contentops_digest_v1.py": {
+      "present": true,
+      "sha256": "7f7f08b10d5645e841384559bf39f41b3f70a8c43fa3580d8a73d7c8cd80eb67",
+      "weekly_coverage_references": false,
+      "weekly_engagement_references": false
+    },
+    "tools/product/main_daily_digest_v1.py": {
+      "present": true,
+      "sha256": "86ea50a2b9af9afcd674578d93c332d366dc15fe67a0379b9145e39d64600f35",
+      "weekly_coverage_references": false,
+      "weekly_engagement_references": false
+    }
+  }
+}

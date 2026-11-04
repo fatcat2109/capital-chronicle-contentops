@@ -1,0 +1,286 @@
+{
+  "runtime_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\weekly\\2026-11-05",
+  "week_ending": "2026-11-05",
+  "receipts": {
+    "coverage": {
+      "status": "PARTIAL",
+      "digest": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\weekly\\2026-11-05\\coverage.md",
+      "source_walks": 11
+    },
+    "engagement": {
+      "channels": 10,
+      "digest": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\weekly\\2026-11-05\\engagement.md"
+    }
+  },
+  "coverage": {
+    "status": "COMPLETE_RECORD_PROJECTION",
+    "source_walks": 11,
+    "source_walks_succeeded": 11,
+    "source_walk_success_rate": 1.0,
+    "daily": [
+      {
+        "day": "2026-10-30",
+        "news_articles": 0,
+        "main_articles": 0,
+        "unclassified_canonicals": 0,
+        "luna_headlines_filtered": 0,
+        "source_walks": 0,
+        "source_walks_succeeded": 0,
+        "source_walk_success_rate": null
+      },
+      {
+        "day": "2026-10-31",
+        "news_articles": 0,
+        "main_articles": 0,
+        "unclassified_canonicals": 0,
+        "luna_headlines_filtered": 661,
+        "source_walks": 1,
+        "source_walks_succeeded": 1,
+        "source_walk_success_rate": 1.0
+      },
+      {
+        "day": "2026-11-01",
+        "news_articles": 0,
+        "main_articles": 0,
+        "unclassified_canonicals": 0,
+        "luna_headlines_filtered": 0,
+        "source_walks": 1,
+        "source_walks_succeeded": 1,
+        "source_walk_success_rate": 1.0
+      },
+      {
+        "day": "2026-11-02",
+        "news_articles": 1,
+        "main_articles": 0,
+        "unclassified_canonicals": 0,
+        "luna_headlines_filtered": 0,
+        "source_walks": 5,
+        "source_walks_succeeded": 5,
+        "source_walk_success_rate": 1.0
+      },
+      {
+        "day": "2026-11-03",
+        "news_articles": 1,
+        "main_articles": 0,
+        "unclassified_canonicals": 0,
+        "luna_headlines_filtered": 0,
+        "source_walks": 3,
+        "source_walks_succeeded": 3,
+        "source_walk_success_rate": 1.0
+      },
+      {
+        "day": "2026-11-04",
+        "news_articles": 2,
+        "main_articles": 0,
+        "unclassified_canonicals": 1,
+        "luna_headlines_filtered": 0,
+        "source_walks": 1,
+        "source_walks_succeeded": 1,
+        "source_walk_success_rate": 1.0
+      },
+      {
+        "day": "2026-11-05",
+        "news_articles": 0,
+        "main_articles": 0,
+        "unclassified_canonicals": 0,
+        "luna_headlines_filtered": 0,
+        "source_walks": 0,
+        "source_walks_succeeded": 0,
+        "source_walk_success_rate": null
+      }
+    ],
+    "filter_invocations": [
+      {
+        "record": "native-desktop-172859149e14d5f21a24992314ed9e7345b3bd19f21fceacdb16f59cece078f4",
+        "observation": {
+          "model": null,
+          "reasoning_effort": null,
+          "configured_model": "gpt-6-luna",
+          "configured_reasoning_effort": "max",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED"
+        }
+      },
+      {
+        "record": "native-desktop-2797699020a683467cef98ad74689f46bf66feb0c675d2a1813a08686f49581b",
+        "observation": {
+          "model": null,
+          "reasoning_effort": null,
+          "configured_model": "gpt-6-luna",
+          "configured_reasoning_effort": "max",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED"
+        }
+      },
+      {
+        "record": "native-desktop-9a30aae83819d43d3741ccf778de00d79a9313ac4c11fd704ca157fa78c28679",
+        "observation": {
+          "model": null,
+          "reasoning_effort": null,
+          "configured_model": "gpt-6-luna",
+          "configured_reasoning_effort": "max",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED"
+        }
+      },
+      {
+        "record": "native-desktop-a7d1073b43a2f05fed9b4f5a7834b7327e735a0430fca791bd392da932058d0b",
+        "observation": {
+          "model": null,
+          "reasoning_effort": null,
+          "configured_model": "gpt-6-luna",
+          "configured_reasoning_effort": "max",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED"
+        }
+      },
+      {
+        "record": "native-desktop-95cb7f7ab4ae4b2a49244bada7936c9dbcc165245cdc75c846ee9925f3125104",
+        "observation": {
+          "model": null,
+          "reasoning_effort": null,
+          "configured_model": "gpt-6-luna",
+          "configured_reasoning_effort": "max",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED"
+        }
+      },
+      {
+        "record": "native-desktop-133ab27a8245ab3306fe7bf7dbd62a5a2f95e8cfa99334f3baf95abca4ed8412",
+        "observation": {
+          "model": null,
+          "reasoning_effort": null,
+          "configured_model": "gpt-6-luna",
+          "configured_reasoning_effort": "max",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED"
+        }
+      },
+      {
+        "record": "native-desktop-d77723a78bca6e49e94e805c93fa799b6dffcbd710f0d3b4d60ad422e292c679",
+        "observation": {
+          "model": null,
+          "reasoning_effort": null,
+          "configured_model": "gpt-6-luna",
+          "configured_reasoning_effort": "max",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED"
+        }
+      }
+    ],
+    "filter_count_basis": "Distinct accepted input hashes, first retained return. Luna is the configured role; actual model/effort observations are recorded, never a counting gate.",
+    "gaps": []
+  },
+  "engagement": {
+    "channel_count": 10,
+    "x": {
+      "channel": "x",
+      "status": "OBSERVED",
+      "objects_with_metrics": 5,
+      "objects_with_observations": 5,
+      "eligible_objects_in_store": 5,
+      "native_counter_sums": {
+        "likes": 0,
+        "replies": 5,
+        "reposts": 0,
+        "views": 464
+      },
+      "support_per_metric": {
+        "likes": 5,
+        "replies": 5,
+        "reposts": 5,
+        "views": 5
+      },
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "UNSUPPORTED": 5
+      },
+      "collection_path": "NOT_EXPOSED_BY_CURRENT_AUTHORIZED_BINDING",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    "channel_states": [
+      {
+        "channel": "substack",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_COLLECTED_OBSERVATION_IN_WEEK": 1
+        }
+      },
+      {
+        "channel": "x",
+        "status": "OBSERVED",
+        "missing_causes": {
+          "UNSUPPORTED": 5
+        }
+      },
+      {
+        "channel": "youtube",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_COLLECTED_OBSERVATION_IN_WEEK": 1
+        }
+      },
+      {
+        "channel": "linkedin",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_COLLECTED_OBSERVATION_IN_WEEK": 1
+        }
+      },
+      {
+        "channel": "linkedin_company",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_COLLECTED_OBSERVATION_IN_WEEK": 1
+        }
+      },
+      {
+        "channel": "telegram",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_COLLECTED_OBSERVATION_IN_WEEK": 1
+        }
+      },
+      {
+        "channel": "discord",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_COLLECTED_OBSERVATION_IN_WEEK": 1
+        }
+      },
+      {
+        "channel": "facebook_page",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_COLLECTED_OBSERVATION_IN_WEEK": 1
+        }
+      },
+      {
+        "channel": "instagram_business",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_COLLECTED_OBSERVATION_IN_WEEK": 1
+        }
+      },
+      {
+        "channel": "threads",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_COLLECTED_OBSERVATION_IN_WEEK": 1
+        }
+      }
+    ]
+  },
+  "files": {
+    "coverage.json": {
+      "bytes": 5473,
+      "sha256": "123d3603671ef8163973f30f0cd3ccfaed05c89d586ac5078b64fe23da6b1fe1"
+    },
+    "coverage.md": {
+      "bytes": 1171,
+      "sha256": "58757992453de572e45688b9dffaf3761d03c484e3ae7cb3bc31f93819c74b67"
+    },
+    "engagement.json": {
+      "bytes": 6522,
+      "sha256": "54a043409227b577d26c64d0a749f242262c97706bf70c8099915faaded62676"
+    },
+    "engagement.md": {
+      "bytes": 1225,
+      "sha256": "5357e140f395c4d8ff0b3261e1cd34a4578db17051a0f0b108640e0ea831879b"
+    }
+  },
+  "main_weekly_digest_reader": "ABSENT; existing Main consumer does not read either output"
+}

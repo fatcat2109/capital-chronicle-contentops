@@ -1,0 +1,8 @@
+{
+  "previous_head": "336824d160954e02afc3129c80f512e907968edc",
+  "installed_head": "d6116e8670efb6a0d80d502be8075a32072db2b1",
+  "rollback_tag": "contentops-rollback-20261105-cc177-desk-binding",
+  "method": "existing operating branch git merge --ff-only",
+  "tracked_wip_hashes_unchanged": true,
+  "all_original_status_entries_unchanged": true
+}

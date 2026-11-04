@@ -61,3 +61,48 @@ labels; actual and configured model/effort values remain alongside the count.
 The Markdown explains that Luna names the configured role. This changes no
 editorial role assignment. Twenty-nine weekly checks pass, including unknown and
 mismatched observed labels, exact deduplication and unchanged publication checks.
+
+
+## Final installed result
+
+The production feed consumed 82 public records from the retained CC-014 export
+and saved them through its existing outbox, with no feed-scan gaps. The original
+generated-at clock and source age remain. This is a live consumer read. Ops/Main
+still owns the recurring finished-run export after NFP.
+
+Five confirmed X objects now have native counters in the existing observation
+store, consumed by the installed weekly exporter: 464 cumulative views, 5 native
+reply counts, 0 likes and 0 reposts. These are snapshots at their actual capture
+time, not weekly increments or substantive-interaction scores. The due-window
+captures were late; no historical capture clock or future observation was
+invented. The other nine channels retain their actual collection causes.
+
+The current seven-production-day coverage export reports four news articles,
+one unclassified canonical and eleven successful candidate walks out of eleven.
+661 distinct accepted filter inputs and actual model observations are in validation.json and
+weekly-runtime-export.json. No whole-day throughput conclusion is inferred.
+Both weekly JSON/Markdown outputs are in Runtime/ContentOps/daily_app_outputs/
+weekly/2026-11-05. Main's existing digest code still reads neither output.
+
+| Item | Disposition | Remaining action |
+| --- | --- | --- |
+| CC-043 | Retained desk input consumed live; versions 1.0-1.3 readable | Ops/Main bind the recurring finished-run export after NFP. |
+| CC-044 | X READY_AUTHENTICATED; five native-counter objects consumed | Main add the weekly engagement digest reader. |
+| CC-047 | Expanded sources/cap and real weekly coverage live | Main add the weekly coverage digest reader. |
+| CC-015 | SUPERSEDED by CC-043 projection and native MAX/compiler | Existing renderer and historical tag remain intact. |
+| CC-135 | Five valid sealed pieces; FOMC has five confirmed outlets | Ops/Main integrate CC-136 and bind CC-014/site. |
+
+CC-177 remains BLOCKED by those outside consumer dependencies. The four
+incomplete child items retain BUILT_UNMERGED. CC-136 remains blocked by
+GIT_CHECKOUT_CONTROL_CHANGED in its own item. Publisher did not edit Main code
+or run its integration helper. Ops/Main's next action is to wire the existing
+weekly outputs, recurring export and CC-136/site consumers.
+
+Code commits d6116e86, 78363aa5 and 66041b29 are pushed and installed.
+Live tag: contentops-live-20261105-cc177. Rollback:
+contentops-rollback-20261105-cc177-desk-binding (336824d1).
+Checks: 104 schema/desk, 96 initial installed consumers and 29 final installed
+weekly checks pass. All original operating-root status entries and both
+checkouts' unrelated tracked WIP hashes are unchanged. No public send, Main
+write, schedule change, app restart, desktop control or chat message occurred.
+See validation.json, live-consumer-readback.json and weekly-runtime-export.json.

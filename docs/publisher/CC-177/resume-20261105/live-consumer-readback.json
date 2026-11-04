@@ -1,0 +1,81 @@
+{
+  "observed_at_utc": "2026-11-04T19:24:57.635865+00:00",
+  "desk_feed": {
+    "pointer_path": "A:/Capital Chronicle/ContentOps/config/native_desktop_main_feed_binding_v1.json",
+    "desk_exports": [
+      {
+        "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\main-cc-014-20261103T1938\\desk-record-cand9-smoke.json",
+        "sha256": "a7c272ef3e215b6186d137c5abef45e53edb64e34b7937d276cef87e0de0b6c1"
+      }
+    ],
+    "public_records_consumed": 82,
+    "production_outbox_message_id": "cc-feed-scan-7245bf4856898c81600d171c758217202b5d7910622b9c30d83b37cbaaa400e9",
+    "feed_scan_observed_at_utc": "2026-11-04T19:20:35.529192Z",
+    "export_generated_at_utc": "2026-10-30T15:22:05Z",
+    "source_age_hours": 124.04795440694446,
+    "feed_gaps": [],
+    "recurring_producer_binding": "Ops/Main after NFP; not changed"
+  },
+  "x_metrics": {
+    "status": "READY_AUTHENTICATED",
+    "captured_snapshots": [
+      {
+        "observation_id": "obs_257d1a289669e26cb43cc64582b3682b",
+        "public_object_id": "2117888404067356960",
+        "observation_window": "DAILY",
+        "scheduled_for_utc": "2026-11-04T16:51:18.649152Z",
+        "collected_at_utc": "2026-11-04T19:19:07Z",
+        "collection_status": "COLLECTED",
+        "metrics_native_json": "{\"likes\": 0, \"replies\": 1, \"reposts\": 0, \"views\": 50}"
+      },
+      {
+        "observation_id": "obs_309976ba66b04c63a79265cbe888bb7a",
+        "public_object_id": "2117857511042904348",
+        "observation_window": "INTERMEDIATE",
+        "scheduled_for_utc": "2026-11-04T07:48:33.970421Z",
+        "collected_at_utc": "2026-11-04T19:19:07Z",
+        "collection_status": "COLLECTED",
+        "metrics_native_json": "{\"likes\": 0, \"replies\": 1, \"reposts\": 0, \"views\": 63}"
+      },
+      {
+        "observation_id": "obs_e6f72ba863997b5810f9f3440ab61443",
+        "public_object_id": "2117784321562124568",
+        "observation_window": "INTERMEDIATE",
+        "scheduled_for_utc": "2026-11-04T02:56:09.016658Z",
+        "collected_at_utc": "2026-11-04T19:19:07Z",
+        "collection_status": "COLLECTED",
+        "metrics_native_json": "{\"likes\": 0, \"replies\": 1, \"reposts\": 0, \"views\": 67}"
+      },
+      {
+        "observation_id": "obs_3fd0bebc113779af14ff59a8c5777944",
+        "public_object_id": "2117318307866968521",
+        "observation_window": "DAILY",
+        "scheduled_for_utc": "2026-11-03T17:54:15.410492Z",
+        "collected_at_utc": "2026-11-04T19:19:07Z",
+        "collection_status": "COLLECTED",
+        "metrics_native_json": "{\"likes\": 0, \"replies\": 1, \"reposts\": 0, \"views\": 94}"
+      },
+      {
+        "observation_id": "obs_ce9d734a4db400624faef1dd5a1afc0d",
+        "public_object_id": "2115185068423758099",
+        "observation_window": "LONG_TAIL",
+        "scheduled_for_utc": "2026-11-03T17:57:10.338904Z",
+        "collected_at_utc": "2026-11-04T19:19:07Z",
+        "collection_status": "COLLECTED",
+        "metrics_native_json": "{\"likes\": 0, \"replies\": 1, \"reposts\": 0, \"views\": 190}"
+      }
+    ],
+    "basis": "Cumulative native counters read at collected_at_utc; due windows were captured late, not historical snapshots at scheduled_for_utc. No future observation rows registered."
+  },
+  "published_feed": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "sha256": "6b0954c2a9b4780197f2b2d9abee3b18c64a49b07be698dfdf981e068e158fc0",
+    "valid_sealed_pieces": 5,
+    "fomc_outlets": 5
+  },
+  "public_writes": 0,
+  "schedules_changed": false,
+  "apps_restarted": false,
+  "chats_messaged": false,
+  "editorial_calls": 0
+}

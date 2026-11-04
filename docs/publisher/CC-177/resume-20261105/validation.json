@@ -1,0 +1,91 @@
+{
+  "status": "BLOCKED",
+  "recorded_at_utc": "2026-11-04T19:29:46.101721+00:00",
+  "first_external_cause": "MAIN_WEEKLY_DIGEST_READERS_ABSENT",
+  "remaining_dependencies": [
+    "Ops/Main recurring finished-run CC-014 desk export binding after NFP",
+    "Main weekly coverage and engagement reader/rendering",
+    "Ops/Main CC-136 integration: GIT_CHECKOUT_CONTROL_CHANGED; then CC-014/site consumers"
+  ],
+  "code_commits": [
+    "d6116e8670efb6a0d80d502be8075a32072db2b1",
+    "78363aa518e6b10bfdfc9650c312e485bad9fc50",
+    "66041b29a802ea9c19459c67cdd5d506dc924ba2"
+  ],
+  "installed_code_head": "66041b29a802ea9c19459c67cdd5d506dc924ba2",
+  "live_tag": "contentops-live-20261105-cc177",
+  "checks": {
+    "schema-consumer.xml": {
+      "tests": 104,
+      "failures": 0,
+      "errors": 0
+    },
+    "operating-consumers.xml": {
+      "tests": 96,
+      "failures": 0,
+      "errors": 0
+    },
+    "weekly-readback-fix.xml": {
+      "tests": 27,
+      "failures": 0,
+      "errors": 0
+    },
+    "operating-weekly-readbacks.xml": {
+      "tests": 27,
+      "failures": 0,
+      "errors": 0
+    },
+    "weekly-telemetry.xml": {
+      "tests": 29,
+      "failures": 0,
+      "errors": 0
+    },
+    "operating-weekly-telemetry.xml": {
+      "tests": 29,
+      "failures": 0,
+      "errors": 0
+    }
+  },
+  "installed_file_sha256": {
+    "live_contentops/capital_chronicle_desk_record_source_v1.py": "173b3c8dc33d320b47c0bc6aee7be228ca24382f46acc81c49575abf620f6b9b",
+    "live_contentops/channel_engagement_v1.py": "5fb16dcec30f13cb413a6aa164258e0eda42a7a719e998307ddb76c8eb84e40e",
+    "live_contentops/newsroom_coverage_v1.py": "947a097405bc6cd6172bba67c5711ddab18d9e408e5cc89a6325a9e0d3bbe9cf",
+    "config/native_desktop_rollout_v1.json": "309e1720b565deedcdd94e91bd1b7043e62970fa4dd1e981dc95957a7d4d2999",
+    "config/native_desktop_operator_profile_v1.json": "4d86bbc1da89015a619024f8079e5e4da9e858226f27c3a179c648cae02264bf",
+    "config/native_desktop_main_feed_binding_v1.json": "a73547e01a5003d7128f96fbd15cebf0bc4d2041c384af7507bba4400da2cb7f",
+    "config/native_desktop_operator_main_feed_binding_v1.json": "29ffd1cc832b289e641a42935c89b1e5f23306eafd073a2a1b1fee3a42fcb8b8"
+  },
+  "wip_preserved": {
+    "exec": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+    },
+    "operating": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": true,
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": true,
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": true,
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": true,
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+    }
+  },
+  "original_operating_status_unchanged": true,
+  "runtime_source_consumed": {
+    "desk_public_records": 82,
+    "x_objects_with_native_metrics": 5,
+    "x_cumulative_views": 464,
+    "news_articles": 4,
+    "unclassified_canonicals": 1,
+    "accepted_filter_inputs": 661,
+    "source_walks": 11,
+    "source_walks_succeeded": 11
+  },
+  "public_writes": 0,
+  "schedules_changed": false,
+  "apps_restarted": false,
+  "chats_messaged": false,
+  "editorial_calls": 0,
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "high",
+  "model_telemetry": "CONFIGURED_NOT_OBSERVED"
+}
