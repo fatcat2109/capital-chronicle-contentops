@@ -87,3 +87,37 @@ def test_current_editor_channel_choices_survive_image_selection(tmp_path):
     }
     view = post_image_view(result, output_dir=tmp_path)
     assert all(ids == [second["asset_id"]] for ids in view["article"]["native_destination_media"].values())
+
+
+def test_fact_card_renders_admitted_periods_units_and_real_source(tmp_path, monkeypatch):
+    from pathlib import Path
+    import json
+    from live_contentops import rolling_x_grounded_article_media_builder_v1 as builder
+    article = json.loads((Path(__file__).parent / "evidence/cc-142/reader-chart-revision.json").read_text(encoding="utf-8"))["article"]
+    actual_render = builder._render_text_card
+    captured = {}
+    def render(**kwargs):
+        captured.update(kwargs)
+        actual_render(**kwargs)
+    monkeypatch.setattr(builder, "_render_text_card", render)
+    card = build_post_image_card(article, output_dir=tmp_path, accepted_evidence_sha256="a" * 64)
+    observed = [c["text"] for c in article["epistemic_claims"] if c["layer"] == "OBSERVED_FACT"][:2]
+    assert [text for _, text in captured["body_lines"]] == observed
+    assert "0.6%" in captured["body_lines"][0][1] and "seasonally adjusted" in captured["body_lines"][0][1]
+    assert "3.7%" in captured["body_lines"][1][1] and "not seasonally adjusted" in captured["body_lines"][1][1]
+    assert captured["footer_lines"][0] == "Source: U.S. Bureau of Labor Statistics"
+    assert card["source_label"] == "U.S. Bureau of Labor Statistics"
+    validate_post_image_card(card, article=article, accepted_evidence_sha256="a" * 64)
+    changed = deepcopy(article)
+    changed["epistemic_claims"][0]["text"] = "A changed admitted fact"
+    with pytest.raises(ValueError, match="ADMITTED_FACTS_OR_SOURCE_CHANGED"):
+        validate_post_image_card(card, article=changed)
+
+
+def test_article_without_numbers_still_supplies_its_admitted_context(tmp_path):
+    result = packet()
+    result["article"]["subtitle"] = ""
+    result["article"]["substack_body_markdown"] = "The agency announced a scheduled hearing.\n\nAnalysis, not financial advice."
+    card = build_post_image_card(result["article"], output_dir=tmp_path, accepted_evidence_sha256="a" * 64)
+    assert card["post_card_binding"]["display_content"]["body_lines"] == [
+        ["What happened", "The agency announced a scheduled hearing."]]

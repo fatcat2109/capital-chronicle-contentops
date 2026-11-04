@@ -1,0 +1,45 @@
+{
+  "observed_at_utc": "2026-11-04T10:58:52.088485+00:00",
+  "base_commit": "5150b4b01da742094dabd1ce3c65fbb597003071",
+  "branch": "backlog/cc-186-instagram-visual-fix",
+  "delivery_state": "BUILT_UNMERGED",
+  "source_sha256": {
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": "d4fd028d00cec1c0b5f49d211d09976f4cfc768ea758e649c978a5adafd0d24e",
+    "live_contentops/media_manifest_authority_v1.py": "2330f551cda048202a25a4e7cdcf0476b21462994a63cc20ed0515f7c468a3e3",
+    "live_contentops/rolling_x_grounded_article_media_builder_v1.py": "f9e4ddc0baf11fe8029a15cee503f884475d7ef0b8a731380a97d7e8ed022676"
+  },
+  "tests": {
+    "focused-tests.xml": {
+      "tests": 42,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "adjacent-regressions.xml": {
+      "tests": 33,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "visual_review": {
+    "surfaces": [
+      "post-card admitted CPI facts",
+      "delivery facts card"
+    ],
+    "reviewers": [
+      "Publisher builder",
+      "CC Desk parent"
+    ],
+    "result": "Readable two fact paragraphs, monthly/annual bases and BLS source; no clipping or footer overlap. Delivery card original source date14October2026.",
+    "fixture_admission_token": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "fixture_is_not_production_approval": true
+  },
+  "public_requests": 0,
+  "production_store_writes": 0,
+  "backlog_changed": false,
+  "public_object_changed": false,
+  "existing_public_object_url": "https://www.instagram.com/p/DfUAKIzgfPH/",
+  "existing_public_object_id": "18140916916727008",
+  "integration_pending_parent_coordination": true
+}

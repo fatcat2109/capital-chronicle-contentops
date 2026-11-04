@@ -1110,10 +1110,33 @@ def validate_source_value_chart(asset, documents):
 POST_IMAGE_POLICY = "JIM_DECISION_61_POST_IMAGES"
 
 
-def build_post_image_card(article, *, output_dir, accepted_evidence_sha256):
-    """Render the post's admitted headline facts, adding no numbers or source expression.
+def admitted_post_card_content(article):
+    """Display already-admitted public copy verbatim, preserving periods and units."""
+    facts = [str(row.get("text") or "").strip()
+             for row in article.get("epistemic_claims", []) if isinstance(row, Mapping)
+             and row.get("layer") == "OBSERVED_FACT"
+             and row.get("public_treatment") in {"ADJACENT_ATTRIBUTION", "SUPPORTED_SYNTHESIS"}
+             and row.get("source_ids") and str(row.get("text") or "").strip()]
+    facts = list(dict.fromkeys(facts))[:2]
+    context = str(article.get("subtitle") or article.get("dek") or article.get("social_lede") or "").strip()
+    if not facts and not context:
+        context = next((p.strip() for p in str(article.get("substack_body_markdown") or "").split("\n\n")
+                        if p.strip() and not p.lstrip().startswith(("#", "![", "[[VISUAL:"))), "")
+    sources = [row for row in article.get("public_source_bindings", []) if isinstance(row, Mapping)]
+    source = sources[0] if sources else {}
+    epistemic = article.get("epistemic_state") or {}
+    return {
+        "body_lines": [["Reported fact", value] for value in facts] or ([["What happened", context]] if context else []),
+        "source_label": str(source.get("publisher") or epistemic.get("primary_reporting_publisher") or "Capital Chronicle"),
+        "source_page_url": str(source.get("url") or article.get("canonical_url") or "https://capitalchronicle.substack.com/"),
+        "source_published_at": str(source.get("published_at_utc") or ""),
+    }
 
-    The original prose remains the factual authority. This is a typographic card,
+
+def build_post_image_card(article, *, output_dir, accepted_evidence_sha256):
+    """Render the post's admitted public facts, adding no numbers or source expression.
+
+    The original prose and public fact records remain the factual authority. This is a typographic card,
     never a history, private-survey table, forecast or invented illustration.
     """
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
@@ -1122,25 +1145,28 @@ def build_post_image_card(article, *, output_dir, accepted_evidence_sha256):
     if (not title.strip() or not article.get("substack_body_markdown")
             or not re.fullmatch(r"[0-9a-f]{64}", str(accepted_evidence_sha256 or ""))):
         raise ValueError("POST_CARD_ADMITTED_ARTICLE_AND_EVIDENCE_REQUIRED")
-    check_publication_copy({"title": title, "subtitle": subtitle}, require_notice=False)
+    display_content = admitted_post_card_content(article)
+    check_publication_copy({"title": title, "subtitle": subtitle,
+        "body": "\n".join(value for _, value in display_content["body_lines"])}, require_notice=False)
     binding = {"policy": POST_IMAGE_POLICY, "title": title, "subtitle": subtitle,
                "article_body_sha256": _sha256_text(article["substack_body_markdown"]),
-               "accepted_evidence_sha256": accepted_evidence_sha256}
+                "accepted_evidence_sha256": accepted_evidence_sha256, "display_content": display_content}
     path = Path(output_dir) / ("post-card-" + sha256_of(binding)[:20] + ".png")
     # Reuse the existing deterministic renderer; facts stay verbatim and hash-bound.
     import textwrap
     _render_text_card(path=path, header="CAPITAL CHRONICLE",
         title_lines=textwrap.wrap(title, width=80),
-        body_lines=[("", subtitle)] if subtitle else [],
-        footer_lines=["Analysis, not financial advice. Readers decide whether to trade."], wrap_body=True)
+        body_lines=display_content["body_lines"],
+        footer_lines=["Source: " + display_content["source_label"],
+            "Analysis, not financial advice. Readers decide whether to trade."], wrap_body=True)
     return {"asset_id": "post-card-" + sha256_of(binding)[:20], "path": str(path.resolve()),
         "sha256": _sha256_file(path), "width": 1600, "height": 900,
         "modality": "source_backed_chart", "media_role": "editorial_data_journalism",
         "visual_type": "ADMITTED_HEADLINE_FACTS_CARD", "post_card_binding": binding,
         "transform_sha256": sha256_of(binding), "quantitative_chart": False,
-        "caption": title, "alt_text": title + (". " + subtitle if subtitle else ""),
-        "source_page_url": "https://capitalchronicle.substack.com/",
-        "source_label": "Capital Chronicle", "source_reuse_basis": "Own admitted headline and deck; original layout",
+        "caption": title, "alt_text": title + ". " + " ".join(value for _, value in display_content["body_lines"]),
+        "source_page_url": display_content["source_page_url"],
+        "source_label": display_content["source_label"], "source_reuse_basis": "Own admitted public article facts; original layout",
         "underlying_source_rights_status": "attributed_facts_independent_chart", "render_rights_status": OWN_RENDER_RIGHTS_STATE,
         "provenance_status": "VERIFIED_ADMITTED_POST_FACTS", "placement_after": "introduction",
         "editorial_data_packet": {"question": "What does this post report?"}}
@@ -1160,6 +1186,8 @@ def validate_post_image_card(asset, *, article=None, accepted_evidence_sha256=No
             "title": str(article.get("title") or ""), "subtitle": str(article.get("subtitle") or ""),
             "article_body_sha256": _sha256_text(article["substack_body_markdown"])}.items()):
         raise ValueError("POST_CARD_ADMITTED_COPY_CHANGED")
+    if article is not None and "display_content" in binding and binding["display_content"] != admitted_post_card_content(article):
+        raise ValueError("POST_CARD_ADMITTED_FACTS_OR_SOURCE_CHANGED")
     if accepted_evidence_sha256 is not None and binding["accepted_evidence_sha256"] != accepted_evidence_sha256:
         raise ValueError("POST_CARD_ADMITTED_EVIDENCE_CHANGED")
 

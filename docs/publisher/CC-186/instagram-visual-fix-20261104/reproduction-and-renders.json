@@ -1,0 +1,123 @@
+{
+  "base_commit": "5150b4b01da742094dabd1ce3c65fbb597003071",
+  "baseline_function_sha256": "177f52c0b50badc16eb8d493d0b545bf66af602248bb79c2ec8dd05c27220e5a",
+  "reproduction": [
+    {
+      "case": "reviewed_order",
+      "expected": "reviewed-chart",
+      "before": "old-card",
+      "after": "reviewed-chart",
+      "before_pass": false,
+      "after_pass": true
+    },
+    {
+      "case": "unresolved_selected_id",
+      "expected": "no transport with unrelated old card",
+      "before": "old-card",
+      "after": "reviewed_delivery_media_asset_unavailable:unresolved-reviewed-chart",
+      "before_pass": false,
+      "after_pass": true
+    }
+  ],
+  "public_requests": 0,
+  "production_store_writes": 0,
+  "retained_article_path": "tests\\evidence\\cc-142\\reader-chart-revision.json",
+  "retained_article_file_sha256": "4edb03a01fd2c6ca309b0a9c00a5e45521b4e195392babc09d6b8025164155de",
+  "local_render_scope": "Local formatting check from retained admitted article. Repeated a-hash is a fixture admission token, not a production approval.",
+  "post_card": {
+    "asset_id": "post-card-9454462efd1b5d0f9afb",
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\cc-186-instagram-fix-20261104\\docs\\publisher\\CC-186\\instagram-visual-fix-20261104\\render\\post-card-9454462efd1b5d0f9afb.png",
+    "sha256": "7b2df9b70ed4b3d32c0a7ab2300da98c83f166ca6932ee133dd2c4814bde77a8",
+    "width": 1600,
+    "height": 900,
+    "modality": "source_backed_chart",
+    "media_role": "editorial_data_journalism",
+    "visual_type": "ADMITTED_HEADLINE_FACTS_CARD",
+    "post_card_binding": {
+      "policy": "JIM_DECISION_61_POST_IMAGES",
+      "title": "September CPI: why 0.6% and 3.7% answer different questions",
+      "subtitle": "In its October 14 release on September 2026 CPI, the U.S. Bureau of Labor Statistics reported monthly and annual readings with different horizons and adjustment bases.",
+      "article_body_sha256": "020e168260189c9ef5e3cf4ad3ab45cb6fa60bbdc7763bbe1a8eeba0659af330",
+      "accepted_evidence_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "display_content": {
+        "body_lines": [
+          [
+            "Reported fact",
+            "In September 2026, all-items CPI rose 0.6% and CPI excluding food and energy rose 0.3%, both seasonally adjusted"
+          ],
+          [
+            "Reported fact",
+            "Over the twelve months ending September, all-items CPI-U increased 3.7%; CPI-U excluding food and energy increased 2.6%. Those annual figures are not seasonally adjusted."
+          ]
+        ],
+        "source_label": "U.S. Bureau of Labor Statistics",
+        "source_page_url": "https://www.bls.gov/news.release/cpi.htm",
+        "source_published_at": "2026-10-14T12:30:00Z"
+      }
+    },
+    "transform_sha256": "9454462efd1b5d0f9afb6fbb3c9e78e650635f92163e0cf5165c69146540eeed",
+    "quantitative_chart": false,
+    "caption": "September CPI: why 0.6% and 3.7% answer different questions",
+    "alt_text": "September CPI: why 0.6% and 3.7% answer different questions. In September 2026, all-items CPI rose 0.6% and CPI excluding food and energy rose 0.3%, both seasonally adjusted Over the twelve months ending September, all-items CPI-U increased 3.7%; CPI-U excluding food and energy increased 2.6%. Those annual figures are not seasonally adjusted.",
+    "source_page_url": "https://www.bls.gov/news.release/cpi.htm",
+    "source_label": "U.S. Bureau of Labor Statistics",
+    "source_reuse_basis": "Own admitted public article facts; original layout",
+    "underlying_source_rights_status": "attributed_facts_independent_chart",
+    "render_rights_status": "capital_chronicle_owned",
+    "provenance_status": "VERIFIED_ADMITTED_POST_FACTS",
+    "placement_after": "introduction",
+    "editorial_data_packet": {
+      "question": "What does this post report?"
+    }
+  },
+  "delivery_card": {
+    "asset_id": "delivery_only_editorial_card",
+    "media_role": "delivery_only",
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\cc-186-instagram-fix-20261104\\docs\\publisher\\CC-186\\instagram-visual-fix-20261104\\render\\delivery-facts-card-facts-49e09abafca32dd12c1a.png",
+    "local_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\cc-186-instagram-fix-20261104\\docs\\publisher\\CC-186\\instagram-visual-fix-20261104\\render\\delivery-facts-card-facts-49e09abafca32dd12c1a.png",
+    "absolute_local_source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\cc-186-instagram-fix-20261104\\docs\\publisher\\CC-186\\instagram-visual-fix-20261104\\render\\delivery-facts-card-facts-49e09abafca32dd12c1a.png",
+    "sha256": "879b6b0343b26983e5590e328ed4f753b01f294fb253a35a06e668a45cfc6cb0",
+    "caption": "Capital Chronicle admitted facts card.",
+    "alt_text": "Capital Chronicle newsroom brief: September CPI: why 0.6% and 3.7% answer different questions. In September 2026, all-items CPI rose 0.6% and CPI excluding food and energy rose 0.3%, both seasonally adjusted Over the twelve months ending September, all-items CPI-U increased 3.7%; CPI-U excluding food and energy increased 2.6%. Those annual figures are not seasonally adjusted.",
+    "source_title": "September CPI: why 0.6% and 3.7% answer different questions",
+    "display_title": "September CPI: why 0.6% and 3.7% answer different questions",
+    "display_font_identity": "C:/Windows/Fonts/arial.ttf",
+    "unicode_font_loaded": true,
+    "display_fallback_applied": false,
+    "display_replacement_glyph_present": false,
+    "source_label": "U.S. Bureau of Labor Statistics",
+    "source_page_url": "https://www.bls.gov/news.release/cpi.htm",
+    "source_published_at": "2026-10-14T12:30:00Z",
+    "reader_facing_source_date": "October 14, 2026",
+    "display_content": {
+      "body_lines": [
+        [
+          "Reported fact",
+          "In September 2026, all-items CPI rose 0.6% and CPI excluding food and energy rose 0.3%, both seasonally adjusted"
+        ],
+        [
+          "Reported fact",
+          "Over the twelve months ending September, all-items CPI-U increased 3.7%; CPI-U excluding food and energy increased 2.6%. Those annual figures are not seasonally adjusted."
+        ]
+      ],
+      "source_label": "U.S. Bureau of Labor Statistics",
+      "source_page_url": "https://www.bls.gov/news.release/cpi.htm",
+      "source_published_at": "2026-10-14T12:30:00Z"
+    },
+    "reader_facing_cta": null,
+    "provenance_status": "VERIFIED_ADMITTED_ARTICLE_FACTS_CONTENTOPS_RENDER",
+    "rights_basis": "CONTENTOPS_OWNED_LAYOUT_ADMITTED_PUBLIC_ARTICLE_COPY",
+    "article_inclusion": false,
+    "canonical_article_media": false,
+    "delivery_only": true,
+    "generated_documentary_imagery": false,
+    "mime_type": "image/png",
+    "width": 1600,
+    "height": 900
+  },
+  "existing_public_object": {
+    "url": "https://www.instagram.com/p/DfUAKIzgfPH/",
+    "id": "18140916916727008",
+    "changed": false
+  }
+}
