@@ -3980,7 +3980,9 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         # The sole coordinator resolved the accepted immutable amendment above.
         # Transport must use those media bytes, rather than the pre-amendment packet.
         media_assets = [dict(row) for row in intent.get("media_assets", []) if isinstance(row, Mapping)]
-        article = dict(intent.get("reader_presentation_article") or article)
+        # A presentation amendment carries the reviewed visible fields. Keep the
+        # sealed source-bound metadata required by the existing channel compiler.
+        article.update(intent.get("reader_presentation_article") or {})
     delivery_only_assets = [
         dict(row) for row in (media.get("delivery_only_assets") or [])
         if isinstance(row, Mapping)
