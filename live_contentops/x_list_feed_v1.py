@@ -16,11 +16,14 @@ Two deterministic parts, with no model call:
   holds the fast squawks' posts of the last 15 minutes in the shape CC-087's shock trigger takes
   as ``--headlines`` flags.
 
-Use: private and internal, under JIM_X_LIST_PRIVATE_MAIN_RESEARCH_USE_20261029. The feed is
-context. Main's market-context sweep reads it first, a burst may start a shock analysis pass
-(CC-087), the newsroom takes leads from it and Codex Data keeps its rows. It never arms or
-admits an order (global C7), its post text is never republished, and a post is never treated
-as a confirmed fact.
+Use (decision 62; Jim, 5 Nov 2026: Main needs these headlines for trading ideas and ContentOps
+for article ideas): the feed serves every internal decision with no review step. Main's
+market-context sweep reads it first, a burst may start a shock analysis pass (CC-087), the
+newsroom takes leads from it and Codex Data keeps its rows. Two restrictions remain, each with
+its reason. A post never arms an order by itself (global C7: an admitted official fact or a
+fresh-quote rule arms). Post text is third-party content and is not republished in public
+output (decision 44); public posts keep their own rights check. A post is a lead until its own
+source confirms it.
 """
 from __future__ import annotations
 
@@ -58,21 +61,14 @@ GMT7 = timezone(timedelta(hours=7))
 CAPTURE_ROUTE = "x_list_feed_v1_minute"
 GRANT = "JIM_X_LIST_PRIVATE_MAIN_RESEARCH_USE_20261029"
 USE = {
-    "grant": GRANT,
-    "consumers": ["internal_research", "narrative_context"],
-    "may": [
-        "Main market-context sweep: read this feed first, then search the web",
-        "start a shock analysis pass on a burst (CC-087)",
-        "newsroom leads, checked against primary sources before publication",
-        "Codex Data keeps the rows with their clocks",
-    ],
-    "never": [
-        "arm, admit or size an order (global C7)",
-        "republish or quote post text in public or subscriber output",
-        "model training",
-        "share with third parties",
-        "treat a post as a confirmed fact",
-    ],
+    "private": "every internal decision, no review step: Main trading ideas and shock passes, "
+               "ContentOps article ideas, Codex Data rows (decision 62; Jim, 5 Nov 2026)",
+    "arming": "a post never arms an order by itself (global C7: an admitted official fact or a "
+              "fresh-quote rule arms)",
+    "public": "post text is third-party content, not republished in public output (decision 44); "
+              "public posts keep their own rights check",
+    "confirmation": "a post is a lead until its own source confirms it",
+    "source_grant": GRANT,
 }
 
 
