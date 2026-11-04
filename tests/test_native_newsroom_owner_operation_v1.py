@@ -55,6 +55,17 @@ def test_preview_event_is_bound_once_and_restored_on_resume(tmp_path):
         module.resolve_owner_operation(profile, operation_id="early-nfp-preview", preview_event_id="bls-cpi-20261110")
 
 
+def test_bound_editorial_resume_checks_schema_without_full_store_scan(tmp_path, monkeypatch):
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore, SCHEMA_VERSION
+    store = ContentOpsDurableStore(tmp_path / "already-initialized.sqlite3")
+    def forbidden(*args, **kwargs):
+        pytest.fail("An existing current-schema editorial continuation must not rescan the whole store")
+    monkeypatch.setattr(ContentOpsDurableStore, "run_migrations", forbidden)
+    resumed = entry()._bound_store({"store_path": str(store.db_path)}, "media-plan")
+    assert resumed.get_current_schema_version() == SCHEMA_VERSION
+    assert resumed.verify_applied_migrations()
+
+
 def test_repeated_identical_source_failure_preserves_each_attempt(tmp_path, monkeypatch):
     module = entry()
     profile = {"schema_version": "contentops.native_desktop_operator_profile.v1",

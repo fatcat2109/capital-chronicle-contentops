@@ -196,15 +196,13 @@ def continue_owner_story(profile, *, source_review_id, operation_id=None, reques
 
 
 def _bound_store(binding, command):
-    """A publication continuation opens its existing schema without a full DB scan."""
-    store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]),
-        auto_migrate=not command.startswith("publication-"))
-    if command.startswith("publication-"):
-        from live_contentops.durable_operational_store_v1 import SCHEMA_VERSION
-        if store.get_current_schema_version() != SCHEMA_VERSION:
-            store.run_migrations()
-        else:
-            store.verify_applied_migrations()
+    """Resume the existing schema without rescanning the whole production store."""
+    store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]), auto_migrate=False)
+    from live_contentops.durable_operational_store_v1 import SCHEMA_VERSION
+    if store.get_current_schema_version() != SCHEMA_VERSION:
+        store.run_migrations()
+    else:
+        store.verify_applied_migrations()
     return store
 
 
