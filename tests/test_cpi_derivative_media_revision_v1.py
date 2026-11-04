@@ -206,6 +206,20 @@ def test_unchanged_confirmed_text_is_read_back_without_an_edit(social, monkeypat
     assert actions == ["readback"] and out["edit_called"] is False
 
 
+def test_auth_failure_does_not_overwrite_reviewed_original_intent(social, monkeypatch):
+    store, run, _, revision, _ = social
+    co, ref = continuation(social, monkeypatch)
+    key = revision["objects"]["threads"]["message_id"]
+    original = store.get_outbox_message(key)["payload"]
+    monkeypatch.setattr(co, "_mode", lambda: "AUTONOMOUS_DEFAULT")
+    monkeypatch.setattr(co, "_readiness", lambda *args: "AUTH_INVALID")
+    co.transport_runtime = SimpleNamespace(finalize_intent=lambda **kw: {
+        **kw["intent"], "canonical_url": kw["canonical_url"], "rematerialization_model_call_count": 0})
+    result = co.continue_reader_derivative(work_item_id=run, destination="threads", review_reference=ref)
+    assert result["publish_called"] is False
+    assert store.get_outbox_message(key)["payload"] == original
+
+
 def test_new_current_review_updates_unsent_selection_and_reaches_consumer(social, monkeypatch):
     store, run, _, revision, _ = social
     co, ref = continuation(social, monkeypatch)
