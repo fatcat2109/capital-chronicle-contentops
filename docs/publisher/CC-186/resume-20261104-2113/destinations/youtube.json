@@ -1,0 +1,17 @@
+{
+  "item": "CC-186",
+  "operation_id": "cc124-next-article-20261104-a",
+  "destination": "youtube",
+  "store_observed_at_utc": "2026-11-04T14:56:18.047288+00:00",
+  "status": "DISPATCH_CONFIRMED",
+  "reconciliation_status": "RECONCILED_CONFIRMED",
+  "dispatch_id": "dispatch_02d9edf597163931720467a305467f06",
+  "public_object_id": "UgkxHzB5SS25WhvXZ09CYjMqgn34e9eKJ-_t",
+  "public_object_url": "https://www.youtube.com/post/UgkxHzB5SS25WhvXZ09CYjMqgn34e9eKJ-_t",
+  "dispatch_recorded_at_utc": "2026-11-04T05:55:30.706054+00:00",
+  "new_write_this_run": false,
+  "image_attached": true,
+  "previous_image_evidence": "../../destinations/youtube.json",
+  "previous_image_evidence_recorded_at_utc": "2026-11-04T10:23:44.107094+00:00",
+  "image_readback_this_run": false
+}

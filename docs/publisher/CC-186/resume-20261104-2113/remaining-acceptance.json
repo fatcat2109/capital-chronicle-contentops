@@ -1,0 +1,38 @@
+{
+  "item": "CC-186",
+  "tests_use_isolated_fixtures": true,
+  "combined_test_run": {
+    "files": [
+      "tests/test_native_neo_executor_v1.py",
+      "tests/test_native_desktop_publication_v1.py"
+    ],
+    "status": "INTERRUPTED_NO_PASS_CLAIM",
+    "cause": "Decision-window test duration limit; stopped only the exact own pytest process."
+  },
+  "followup_timeout_seconds": 45,
+  "threads": {
+    "surface": "THREADS_POST",
+    "platform": "threads",
+    "transport_registry_version": "contentops.destination_transport_registry.v3",
+    "identity_authority_version": "contentops.destination_identity_authority.v2",
+    "transport_type": "THREADS_API",
+    "readiness_state": "AUTH_INVALID",
+    "destination_identity": null,
+    "identity_match": false,
+    "write_eligible": false,
+    "probe_kind": "OFFICIAL_API_IDENTITY",
+    "probed_at_utc": "2026-11-04T14:47:15.417064Z",
+    "sanitized_detail": {
+      "error_class": "HTTPError",
+      "http_status": 400
+    }
+  },
+  "nfp_acceptance": {
+    "upstream_item": "CC-107",
+    "due_gmt7": "6 Nov 2026 18:00 GMT+7",
+    "current_backlog_status": "BLOCKED (until 6 Nov 2026 18:00 GMT+7: FROZEN_NFP_INPUTS_NOT_YET_CREATED)",
+    "publication_claimed": false
+  },
+  "sec_cpi_owner": "ContentOps V1 lane; preserved the 4 Nov 21:13 GMT+7 hold and ownership",
+  "only_new_public_post_this_run": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523755015203774464/"
+}

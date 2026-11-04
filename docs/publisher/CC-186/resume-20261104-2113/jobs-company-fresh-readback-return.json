@@ -1,0 +1,60 @@
+{
+  "tool_request_sha256": "eb29db1f7cc4984134ff9b1bb76e6c0b16139d6f8815a6135f253e682ba3d9db",
+  "tool_observation": {
+    "native_invocation_id": "01a1a6e8-44bf-75f0-baf9-8d1f66eca3d8",
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "observed_at_utc": "2026-11-04T14:59:24.628Z",
+    "observation_source": "Fresh exact company-post copy and both chart byte hashes read in Neo tab 335; same public hashes as the actually inspected 14:44 UTC screenshot and original local PNGs. Original short-link resolution retained. No public write."
+  },
+  "result": {
+    "request_sha256": "d3f6d193766c33299f85222a0eb971367bf29826e7a0dc1bc32a489464299639",
+    "status": "SUCCESS",
+    "observed_identity": "linkedin:company:143198922",
+    "observed_stable_id": "143198922",
+    "public_object_id": "urn:li:ugcPost:7523755015203774464",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523755015203774464/",
+    "observed_text": "Reporting as of 23:37 EST on 3 November 2026.\n\nSeptember 2026 jobs: private gains beneath a weak headline\n\nWhy it matters: Government losses weakened the headline without turning the private-sector total negative. Capital Chronicle's inference is that the composition deserves attention before the small overall gain is read as broad private retrenchment. BLS described employment in all major industries as little changed.\n\nContext: Private payrolls still grew, unemployment was 4.2 percent, and the U.S. Bureau of Labor Statistics described major-industry changes as small. That is the strongest countercase to a broad deterioration story: a weak headline could reflect a temporary mix of gains and losses, rather than persistent weakness.\n\nRead the full brief: https://lnkd.in/gxgVQ5zN\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+    "content_verified": true,
+    "observed_media_sha256": [
+      "2b8351a3c4f235a864148a17a9fe1319f4d6301efca52ea6a9750ac413f4a5c5",
+      "e8893bb485d6de6244f2b38e37c5768511e3a0521fd1e4bb1c1bf18dce718dc7"
+    ],
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+        "platform_sha256": "2b8351a3c4f235a864148a17a9fe1319f4d6301efca52ea6a9750ac413f4a5c5",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQEr5RL63mpEcQ/feedshare-shrink_480/B56aGm_UN7GsAg-/0/1793802978440?e=1795651200&v=beta&t=R2m-u3o5THhlL23ZFFLeh8vOFKJJQJbJWlSG45uTwfg",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523755015203774464/",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "width": 480,
+        "height": 346,
+        "byte_length": 20275,
+        "alt": "Monthly nonfarm payroll change, seasonally adjusted. BLS initial estimates; October 2024–September 2026. First prints, without later revisions."
+      },
+      {
+        "source_asset_sha256": "9c3edc1443778895f6884781458ffd28d92e7823700ab4539e4b2ea74e26c12b",
+        "platform_sha256": "e8893bb485d6de6244f2b38e37c5768511e3a0521fd1e4bb1c1bf18dce718dc7",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQF3FFDk-XHkjQ/feedshare-shrink_480/B56aGm_UPZIsAg-/0/1793802978558?e=1795651200&v=beta&t=7mu78xf4DPNJ-STsoF3Jd8xt8PuwmCmn5n5UusFnGvs",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523755015203774464/",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "width": 480,
+        "height": 346,
+        "byte_length": 14600,
+        "alt": "September payroll change in thousands: goods-producing +18; private service-providing +28; government -17. Total nonfarm +29."
+      }
+    ],
+    "observed_link_resolutions": [
+      {
+        "displayed_url": "https://lnkd.in/gxgVQ5zN",
+        "target_url": "https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains",
+        "target_verified": true,
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523755015203774464/"
+      }
+    ],
+    "page_id": 335,
+    "public_write_performed": false
+  }
+}

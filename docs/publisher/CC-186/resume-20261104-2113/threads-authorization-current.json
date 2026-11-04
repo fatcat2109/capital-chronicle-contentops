@@ -1,0 +1,17 @@
+{
+  "surface": "THREADS_POST",
+  "platform": "threads",
+  "transport_registry_version": "contentops.destination_transport_registry.v3",
+  "identity_authority_version": "contentops.destination_identity_authority.v2",
+  "transport_type": "THREADS_API",
+  "readiness_state": "AUTH_INVALID",
+  "destination_identity": null,
+  "identity_match": false,
+  "write_eligible": false,
+  "probe_kind": "OFFICIAL_API_IDENTITY",
+  "probed_at_utc": "2026-11-04T14:47:15.417064Z",
+  "sanitized_detail": {
+    "error_class": "HTTPError",
+    "http_status": 400
+  }
+}

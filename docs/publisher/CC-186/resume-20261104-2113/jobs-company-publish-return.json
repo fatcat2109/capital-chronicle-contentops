@@ -1,0 +1,34 @@
+{
+  "tool_request_sha256": "01d181d06e4c99eda014c7fb560a7d42d0107134cae31b88255ff5384a8a67b3",
+  "tool_observation": {
+    "native_invocation_id": "01a1a6e8-44bf-75f0-baf9-8d1f66eca3d8",
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "observed_at_utc": "2026-11-04T14:36:21.242Z",
+    "dispatched_at_utc": "2026-11-04T14:36:16.403Z",
+    "observation_source": "One Post click on task-owned Neo tab 325 after official Neo upload of both bound article PNGs through an intercepted file input; Post successful returned the company-specific permalink."
+  },
+  "result": {
+    "request_sha256": "39087029c1f7fe79ff8a61e89dd0238ed975b1b0dc1944df68e51082487ab7c9",
+    "status": "SUCCESS",
+    "observed_identity": "linkedin:company:143198922",
+    "observed_stable_id": "143198922",
+    "public_object_id": "urn:li:ugcPost:7523755015203774464",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523755015203774464/",
+    "public_write_performed": true,
+    "uploaded_media": [
+      {
+        "asset_id": "payroll_first_print_trend",
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\payroll_first_print_trend.png",
+        "sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922"
+      },
+      {
+        "asset_id": "september_sector_breakdown",
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\september_sector_breakdown.png",
+        "sha256": "9c3edc1443778895f6884781458ffd28d92e7823700ab4539e4b2ea74e26c12b"
+      }
+    ],
+    "page_id": 325,
+    "success_toast": "- region \"Toast message\"\n  - sectionheader\n    - heading \"0 notifications total\" [level=2]\n- dialog \"Post successful\"\n  - button \"Dismiss\" [ref=e189]\n  - link \"View post\" [ref=e190] [url=\"https://www.linkedin.com/feed/update/urn:li:ugcPost:7523755015203774464?actorCompanyId=143198922\"]\n  - heading \"Auto-invite people to follow your Page when they engage with your posts\" [level=3]\n  - button \"No thanks\" [ref=e191]\n  - link \"Redeem 1 month for ₫0\" [ref=e192] [url=\"http://www.linkedin.com/premium/products/?upsellOrderOrigin=Tracking%3Av1%3Apremium_page_admin_post_nba%3ACompany+Pages+SKU%3AIn-Product&referenceId=SZqbk7pcSrqvTtyo3xT2Yg%3D%3D&companyUrn=urn%3Ali%3Afsd_company%3A143198922&isSS=false&upsellSlotId=PREMIUM_PAGE_ADMIN_POST_NBA\"]"
+  }
+}

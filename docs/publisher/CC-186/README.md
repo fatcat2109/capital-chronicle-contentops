@@ -1,5 +1,11 @@
 # CC-186: images on every destination
 
+Latest continuation: [4 November, 21:13 GMT+7](resume-20261104-2113/README.md).
+The jobs company-page copy is now reconciled with both reviewed charts. Company
+identity correction and fresh exact-readback fixes are pushed and installed.
+Full acceptance still awaits Threads authorization and CC-107's 6 November NFP
+preview. The earlier run evidence below retains its original clocks.
+
 The image policy is built, pushed and integrated into the operating root on
 `backlog/cc-186-image-every-destination`. The item remains **BLOCKED: THREADS_AUTH_INVALID**
 for full destination acceptance. Jim restores Threads authorization. NFP preview

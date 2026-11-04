@@ -1,0 +1,23 @@
+{
+  "item": "CC-186",
+  "operation_id": "cc124-next-article-20261104-a",
+  "destination": "linkedin_company",
+  "store_observed_at_utc": "2026-11-04T14:56:18.047288+00:00",
+  "status": "DISPATCH_CONFIRMED",
+  "reconciliation_status": "RECONCILED_CONFIRMED",
+  "dispatch_id": "dispatch_8912ce2f3b6629bb2a6ead8ac135a70b",
+  "public_object_id": "urn:li:ugcPost:7523755015203774464",
+  "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523755015203774464/",
+  "dispatch_recorded_at_utc": "2026-11-04T14:29:48.764478+00:00",
+  "new_write_this_run": true,
+  "image_attached": true,
+  "previous_image_evidence": null,
+  "previous_image_evidence_recorded_at_utc": null,
+  "image_readback_this_run": true,
+  "evidence_files": [
+    "../jobs-company-publish-return.json",
+    "../jobs-company-fresh-readback-return.json",
+    "../jobs-company-final-reconciliation.json"
+  ],
+  "actual_readback_observed_at_utc": "2026-11-04T14:59:24.628Z"
+}

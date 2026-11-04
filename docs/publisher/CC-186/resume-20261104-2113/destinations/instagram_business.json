@@ -1,0 +1,17 @@
+{
+  "item": "CC-186",
+  "operation_id": "cc124-next-article-20261104-a",
+  "destination": "instagram_business",
+  "store_observed_at_utc": "2026-11-04T14:56:18.047288+00:00",
+  "status": "DISPATCH_CONFIRMED",
+  "reconciliation_status": "RECONCILED_CONFIRMED",
+  "dispatch_id": "dispatch_08460f89ddd7928ef43fa99e76695f76",
+  "public_object_id": "18120907216762181",
+  "public_object_url": "https://www.instagram.com/p/DfTyJF7gR4t/",
+  "dispatch_recorded_at_utc": "2026-11-04T06:11:33.192880+00:00",
+  "new_write_this_run": false,
+  "image_attached": true,
+  "previous_image_evidence": "../../destinations/instagram_business.json",
+  "previous_image_evidence_recorded_at_utc": "2026-11-04T10:23:44.107094+00:00",
+  "image_readback_this_run": false
+}

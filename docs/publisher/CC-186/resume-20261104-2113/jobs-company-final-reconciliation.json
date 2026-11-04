@@ -1,0 +1,9 @@
+{
+  "dispatch_id": "dispatch_8912ce2f3b6629bb2a6ead8ac135a70b",
+  "destination": "linkedin_company",
+  "reconciliation_status": "RECONCILED_CONFIRMED",
+  "public_write_performed": false,
+  "publish_called": false,
+  "tool_return_sha256": "3c9207421935f1ad4d620ad55237a9b0494e8c30fa2e36de8c2447601bdb756a",
+  "pending_readbacks": []
+}

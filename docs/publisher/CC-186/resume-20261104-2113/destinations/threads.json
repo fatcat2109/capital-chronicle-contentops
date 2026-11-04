@@ -1,0 +1,15 @@
+{
+  "item": "CC-186",
+  "operation_id": "cc124-next-article-20261104-a",
+  "destination": "threads",
+  "status": "NOT_DISPATCHED",
+  "readiness_state": "AUTH_INVALID",
+  "observed_at_utc": "2026-11-04T14:47:15.417064Z",
+  "http_status": 400,
+  "new_write_this_run": false,
+  "image_attached": false,
+  "evidence_files": [
+    "../threads-authorization-current.json"
+  ],
+  "next_action": "Jim restores the existing Threads authorization; resume the same operation and read back its image post."
+}
