@@ -40,6 +40,8 @@ SCHEMA_VERSION = "6.0.0"
 DEFAULT_ARTICLE_PACKET = Path("docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json")
 DEFAULT_OUTPUT_DIR = Path("docs/automation/V6_PLATFORM_NATIVE_VARIANTS")
 DEFAULT_PACKET_OUTPUT = DEFAULT_OUTPUT_DIR / "platform_variant_packet.json"
+# The local branded fallback card's folder (a module constant so tests can point it at tmp; CC-268).
+FALLBACK_IMAGE_DIR = Path("docs/automation/V6_MEDIA_SYSTEM/downloads")
 DEFAULT_DRY_RUN_MEDIA_FIXTURE_DIR = Path("docs/automation/V6_MEDIA_SYSTEM/downloads")
 
 
@@ -652,7 +654,7 @@ def generate_live_platform_variants(
     if not image_path:
         print("[Info] No audited visual available. Generating local branded fallback card and blocking dispatch until reviewed...")
         fallback_filename = f"fallback_{hashlib.md5(title.encode('utf-8')).hexdigest()[:12]}.png"
-        local_fallback_path = Path("docs/automation/V6_MEDIA_SYSTEM/downloads") / fallback_filename
+        local_fallback_path = FALLBACK_IMAGE_DIR / fallback_filename
         if create_branded_fallback_image(title, local_fallback_path):
             image_path = str(local_fallback_path)
             public_image_url = None
