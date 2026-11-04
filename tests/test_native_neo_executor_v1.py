@@ -87,6 +87,18 @@ def test_unidentified_linkedin_api_attempt_reaches_existing_neo_readback():
     assert len(calls) == 1 and calls[0]["public_object_id"] is None
 
 
+def test_same_turn_gets_later_ten_minute_readback_without_another_send(tmp_path):
+    store, executor = setup(tmp_path)
+    now = [datetime(2026, 11, 4, 8, 0, tzinfo=timezone.utc)]
+    executor.clock = lambda: now[0]
+    first, _, _ = pending_readback(NeoDestinationHandoff(native_executor=executor), "x")
+    now[0] += timedelta(minutes=10)
+    later, _, _ = pending_readback(NeoDestinationHandoff(native_executor=executor), "x")
+    assert later["request"]["request_sha256"] != first["request"]["request_sha256"]
+    assert later["request"]["native_invocation_id"] == first["request"]["native_invocation_id"]
+    assert store.list_platform_dispatches() == []
+
+
 def test_later_native_turn_obtains_fresh_readback_without_repeating_a_write(tmp_path):
     store, executor = setup(tmp_path)
     first, object_id, url = pending_readback(NeoDestinationHandoff(native_executor=executor), "x")

@@ -163,6 +163,11 @@ class NeoDestinationHandoff:
             # An earlier failed observation stays immutable. A corrected readback
             # contract receives a new read-only identity, never a new write.
             value["reader_text_normalization"] = "MARKDOWN_WHITESPACE_SMART_QUOTES_V1"
+            # A failed observation is immutable, but the same native turn may
+            # obtain the later readback required after the ten-minute interval.
+            clock = getattr(self.native_executor, "clock", None)
+            now = clock() if callable(clock) else datetime.now(timezone.utc)
+            value["observation_epoch"] = int(now.timestamp()) // 600
             invocation = getattr(self.native_executor, "native_invocation_id", None)
             if invocation:
                 value["native_invocation_id"] = invocation

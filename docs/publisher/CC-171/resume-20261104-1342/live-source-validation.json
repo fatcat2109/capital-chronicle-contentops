@@ -1,0 +1,41 @@
+{
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "code_commit": "945d1319b72626d64f7ec91bdc82808e46532271",
+  "consumer_files": [
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_editorial_v1.py",
+      "sha256": "738db6c5acd9f179c907d106e6688a06543bf47ef81332937a2f9f3997b401f3",
+      "tracked_source_matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\_eight_platform_substack_first_pipeline_impl_v1.py",
+      "sha256": "c14f192d3e2f22d905322ea6c79a9500e2f93c6af374bb7fb6815bdbadcf7449",
+      "tracked_source_matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+      "sha256": "81d044193c84e7a66e9734f21801da46d13b4194cfb7fc45a3a1cf0ae9c6d45a",
+      "tracked_source_matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_publication_v1.py",
+      "sha256": "e61ce86f0dfb99c19a54ce22148e2831ba41dec32c131a32415d52fb5fce20ff",
+      "tracked_source_matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_neo_executor_v1.py",
+      "sha256": "51e45e958eb47f7f89d5d929f6d1503c0169ec338c2494ff8a427ddbe9f292ae",
+      "tracked_source_matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\neo_destination_handoff_v1.py",
+      "sha256": "cda7edf4b227aa3cbbb1bcd298058d3a34c657e927acf7b939c9a1e8dfbc3968",
+      "tracked_source_matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\release_chart_revision_v1.py",
+      "sha256": "1e50f02f54fb88703fd11dd54c877dc9f25ff05940086ea9da026bf38ab3b497",
+      "tracked_source_matches": true
+    }
+  ]
+}
