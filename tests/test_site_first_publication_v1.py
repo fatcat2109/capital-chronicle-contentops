@@ -210,7 +210,9 @@ def test_new_invocation_can_recheck_site_after_external_deployment(tmp_path):
 def test_full_distribution_substack_unavailable_never_vetoes_social(tmp_path):
     store, transport, coordinator, plan, executor, _ = setup(tmp_path)
     from test_publication_coordinator_v1 import _quality_plan
-    from live_contentops.destination_transport_registry_v1 import registration_for_destination
+    from live_contentops.destination_transport_registry_v1 import (
+        V1_REQUIRED_DERIVATIVE_DESTINATIONS, registration_for_destination,
+    )
     plan.update(_quality_plan())
     observe(store, plan, executor)
     executor.readiness = lambda surface: {"authenticated": True, "native_executor_bound": True,
@@ -219,9 +221,17 @@ def test_full_distribution_substack_unavailable_never_vetoes_social(tmp_path):
     coordinator.readiness_provider = lambda destination: {"readiness_state": "SESSION_UNAVAILABLE"} if destination == "substack" else provider(destination)
     result = coordinator.execute_plan("work-1", plan)
     assert "substack" not in transport.publish_calls
-    assert len(transport.publish_calls) == 8
+    # The full route also mirrors LinkedIn to Capital Chronicle's company page.
+    expected = set(V1_REQUIRED_DERIVATIVE_DESTINATIONS) | {"linkedin_company"}
+    assert set(transport.publish_calls) == expected
+    assert all(transport.publish_calls.count(d) == 1 for d in expected)
+    assert all(result["per_destination"][d]["status"] == "DISPATCH_CONFIRMED" for d in expected)
+    assert result["canonical_url"] == site_url(plan)
     assert result["site_publication_confirmed"]
     assert not result["substack_publication_confirmed"]
+    calls = list(transport.publish_calls)
+    coordinator.execute_plan("work-1", plan)
+    assert transport.publish_calls == calls
 
 
 def test_unknown_social_preserves_readback_before_retry_and_defers_substack(tmp_path):

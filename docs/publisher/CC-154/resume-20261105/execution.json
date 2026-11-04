@@ -1,0 +1,41 @@
+{
+  "item": "CC-154",
+  "observed_at_utc": "2026-11-04T18:37:38.149156+00:00",
+  "launch_record": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-154-20261104T1833\\launch.json",
+  "launch_arguments_read_back": true,
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "high",
+  "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+  "base": "ff2ecc21591b05a223c78261b15a89ec1e97743c",
+  "base_reason": "Current Publisher operating-root HEAD; remote master predates integrated Publisher changes.",
+  "operating_root_source": [
+    {
+      "path": "live_contentops/site_first_publication_v1.py",
+      "worktree_sha256": "b81f5afb6ba2c99b7f2fb67429344e1084c09627d70987efdd91f6359701c654",
+      "operating_root_sha256": "b81f5afb6ba2c99b7f2fb67429344e1084c09627d70987efdd91f6359701c654",
+      "equal": true
+    },
+    {
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "worktree_sha256": "67355153cfc5dac446c9a2af88ec85bade9734645e6ba56ae68c37ae80e001c0",
+      "operating_root_sha256": "67355153cfc5dac446c9a2af88ec85bade9734645e6ba56ae68c37ae80e001c0",
+      "equal": true
+    },
+    {
+      "path": "live_contentops/neo_destination_handoff_v1.py",
+      "worktree_sha256": "9cc80b9060a5016f23576f9c066c157291f1c3abb842057b653a2aadf195a4ef",
+      "operating_root_sha256": "9cc80b9060a5016f23576f9c066c157291f1c3abb842057b653a2aadf195a4ef",
+      "equal": true
+    },
+    {
+      "path": "tests/test_site_first_publication_v1.py",
+      "worktree_sha256": "995f1a1c347a082ef732b3f81c2454140991ffa4c772294bfc8b35a45d5bb0ba",
+      "operating_root_sha256": "995f1a1c347a082ef732b3f81c2454140991ffa4c772294bfc8b35a45d5bb0ba",
+      "equal": true
+    }
+  ],
+  "public_writes": 0,
+  "schedule_changes": 0,
+  "messages_sent": 0,
+  "editorial_calls": 0
+}

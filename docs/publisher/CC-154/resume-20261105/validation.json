@@ -1,0 +1,61 @@
+{
+  "item": "CC-154",
+  "recorded_at_utc": "2026-11-04T18:39:30.916990+00:00",
+  "status": "BLOCKED",
+  "first_external_cause": "NEWSROOM_CANONICAL_REQUIRED",
+  "next_owner": "Codex Web / Claude Ops",
+  "publisher_live_entry": "NativeReviewedPublication.resume -> DurablePublicationCoordinator.execute_plan -> _execute_site_first_plan",
+  "publisher_base": "ff2ecc21591b05a223c78261b15a89ec1e97743c",
+  "production_behavior_changed": false,
+  "test_change": "Check all eight derivative destinations plus LinkedIn company, confirmed site URL and no duplicate on resume when Substack is unavailable.",
+  "checks": {
+    "publisher-tests.xml": {
+      "tests": "184",
+      "failures": "1",
+      "errors": "0",
+      "time": "132.695",
+      "sha256": "aa8375cc67f26a39d4431e2bb68de0516f041e0c7df6a0c329925f827be5fcf3"
+    },
+    "site-first-tests.xml": {
+      "tests": "17",
+      "failures": "0",
+      "errors": "0",
+      "time": "15.185",
+      "sha256": "35634e23214544dd8564fe726c36b7f7c544eee1a419bbea30171233f78b07e2"
+    }
+  },
+  "ruff": "PASS tests/test_site_first_publication_v1.py",
+  "git_diff_check": "PASS",
+  "downstream_site_consumer_wired": false,
+  "next_article_site_and_social_window_acceptance": "INCOMPLETE_WEB_CONSUMER_REQUIRES_SUBSTACK",
+  "consumer_proof": "consumer-compatibility.json",
+  "public_writes": 0,
+  "runtime_store_writes": 0,
+  "schedule_changes": 0,
+  "messages_sent": 0,
+  "editorial_calls": 0,
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "high",
+  "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+  "wip_preserved": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "72af9ad9e32baa429e52cd8d4a275cec6cd7726078e8778516f663b6f03fba56",
+      "bytes": 934509,
+      "included_in_commit": false
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "29b205409ba1817489c146e29e7497aa900b73cef8022b662a9c0fd166545164",
+      "bytes": 5584,
+      "included_in_commit": false
+    },
+    {
+      "path": "tests/evidence/cc-172-resume-20261104/latency-diagnosis.txt",
+      "sha256": "43aa6195f6177b317f5c76e056a1864529dbc556d1aee6b95057228ac37dd949",
+      "bytes": 4723,
+      "included_in_commit": false
+    }
+  ],
+  "smallest_next_action": "Web/Ops implement reviewed site-candidate deployment independent of Substack; Publisher then completes the next eligible article in its window."
+}
