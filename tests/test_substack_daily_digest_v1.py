@@ -326,3 +326,39 @@ def test_publisher_entry_consumes_due_digest_and_reuses_packet(tmp_path, monkeyp
     assert len(packets(store)) == 1
     packet = packets(store)[0]
     assert packet["articles"][0]["url"] in packet["native_payload"]["body_markdown"]
+
+
+def test_digest_uses_live_recovery_scope_with_prior_unknown_social(tmp_path, monkeypatch):
+    monkeypatch.setattr("live_contentops.native_desktop_publication_v1.live_publication_policy", lambda _: None)
+    monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
+    store, feed = setup(tmp_path, [row()])
+    control = store.get_operating_control()
+    store.update_operating_control(operating_mode="AUTONOMOUS_DEFAULT",
+        expected_state_version=control["state_version"], control_source="TEST")
+    store.create_work_item(story_id="prior", work_item_id="prior", title="Prior article", target_surface="MULTI_PLATFORM")
+
+    class PriorSocialGap(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            if destination == "linkedin":
+                raise TimeoutError("CONTROLLED lost prior social return")
+            return super().publish(destination=destination, intent=intent, authorization_context=authorization_context)
+
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            if destination == "linkedin":
+                return {"status": "AMBIGUOUS", "verified": False}
+            return super().readback(destination=destination, public_object_id=public_object_id,
+                public_object_url=public_object_url, intent=intent)
+
+    old_plan = _plan("substack", "linkedin")
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=PriorSocialGap(),
+        readiness_provider=lambda _: {"readiness_state": "READY_AUTHENTICATED"})
+    assert coordinator.publish_plan("prior", old_plan)["canonical_article_real_published"]
+    old_dispatch = coordinator._ids("prior", old_plan["plan_hash"], "linkedin")["dispatch_id"]
+    assert store.get_platform_dispatch(old_dispatch)["status"] == "UNKNOWN_WRITE"
+    packet = prepared(store, feed)["packet"]
+    result = continue_daily_digest(store, packet, output_dir=tmp_path / "tools", invocation_id="controlled-digest",
+        rollout={"store_path": str(store.db_path)})
+    assert result["state"] == "NATIVE_NEO_TOOL_PENDING"
+    request = result["native_tool_request"]["request"]
+    assert request["action"] == "VERIFY_IDENTITY" and request["destination"] == "substack"
+    assert store.get_platform_dispatch(old_dispatch)["status"] == "UNKNOWN_WRITE"
