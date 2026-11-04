@@ -949,7 +949,9 @@ class DurablePublicationCoordinator:
                 destination="internal:native-reader-presentation", payload=_canonical_json(note), status="PRESENTATION_EDIT_PENDING")
         if self.readiness_manager is not None:
             ready = self.readiness_manager.verify_destination_jit(destination, reason="PUBLICATION", persist=True)
-            if ready.get("readiness_state") not in READY_STATES or ready.get("identity_match") is False:
+            if ready.get("readiness_state") not in READY_STATES or (ready.get("identity_match") is False
+                    # CC-283: the composed run checks the account at the action; none was observed yet.
+                    and ready.get("readiness_state") != "READY_IDENTITY_AT_ACTION"):
                 return {"status": "READER_REVISION_IDENTITY_NOT_READY", "edit_called": False}
         authorization = {"schema_version": "contentops.canonical_machine_authorization.v1",
             "operating_mode": self._mode(), "work_item_id": intent["work_item_id"], "destination": destination,
@@ -2891,7 +2893,9 @@ class DurablePublicationCoordinator:
             return {"status": "PHOTO_ATTRIBUTION_ALREADY_ATTEMPTED_READBACK_ONLY", "edit_called": False}
         if self.readiness_manager is not None:
             ready = self.readiness_manager.verify_destination_jit(destination, reason="PUBLICATION", persist=True)
-            if ready.get("readiness_state") not in READY_STATES or ready.get("identity_match") is False:
+            if ready.get("readiness_state") not in READY_STATES or (ready.get("identity_match") is False
+                    # CC-283: the composed run checks the account at the action; none was observed yet.
+                    and ready.get("readiness_state") != "READY_IDENTITY_AT_ACTION"):
                 return {"status": "PHOTO_ATTRIBUTION_IDENTITY_NOT_READY", "edit_called": False}
         self.store.register_readback(readback_id=edit_key, dispatch_id=dispatch_id,
             readback_data=_canonical_json({"action": "EDIT_EXISTING_PHOTO_ATTRIBUTION", "status": "STARTED",
