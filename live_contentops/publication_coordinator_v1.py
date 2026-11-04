@@ -2368,15 +2368,21 @@ class DurablePublicationCoordinator:
                     "transaction_classification") if k in result})
             result = {**result, **current}
         if self.published_content_path is not None and result.get("canonical_article_real_published"):
-            from live_contentops.published_content_v1 import sync_confirmed_piece
-            try:
-                result["published_content_record"] = sync_confirmed_piece(self.store,
-                    self.published_content_path, work_item_id, recorded_at_utc=self._clock().isoformat())
-            except (ValueError, OSError, KeyError, TypeError) as exc:
-                # A post-write export failure must never cause another public send.
-                result["published_content_record"] = {"status": "PUBLICATION_RECORD_PENDING",
-                    "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__}
+            result["published_content_record"] = self.sync_published_content(work_item_id)
         return result
+
+    def sync_published_content(self, work_item_id):
+        """Feed the existing reader after confirmation, including interrupted resumes."""
+        if self.published_content_path is None:
+            return {"status": "PUBLICATION_RECORD_EXPORT_NOT_CONFIGURED"}
+        from live_contentops.published_content_v1 import sync_confirmed_piece
+        try:
+            return sync_confirmed_piece(self.store, self.published_content_path, work_item_id,
+                                        recorded_at_utc=self._clock().isoformat())
+        except (ValueError, OSError, KeyError, TypeError) as exc:
+            # A post-write export failure must never cause another public send.
+            return {"status": "PUBLICATION_RECORD_PENDING",
+                    "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__}
 
     def _execute_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         if plan.get("fixture_source_context"):
