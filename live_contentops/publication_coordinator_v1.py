@@ -411,6 +411,27 @@ class DurablePublicationCoordinator:
         messages = self.store.list_outbox_messages() if evidence_messages is None else evidence_messages
         confirmations = {}
         def canonical_resolved(intent):
+            if intent.get("repost_of_dispatch_id"):
+                # A replacement has its own dispatch plan, but keeps the original
+                # article's canonical. Resolve that recorded parent instead of
+                # waiting for a second canonical under the replacement plan.
+                parent = self.store.get_platform_dispatch(intent["repost_of_dispatch_id"]) or {}
+                message = self.store.get_outbox_message(parent.get("message_id", ""))
+                record = self.store.get_outbox_message(intent.get("repost_record", ""))
+                if not message or not record:
+                    return False
+                original, replacement = json.loads(message["payload"]), json.loads(record["payload"])
+                ids = self._ids(intent["work_item_id"], intent["plan_hash"], message["destination"])
+                if (parent.get("status") != EXTERNAL_REMOVAL_REPORTED_NO_RETRY
+                        or original.get("work_item_id") != intent["work_item_id"]
+                        or original.get("article_identity") != intent.get("article_identity")
+                        or original.get("canonical_url") != intent.get("canonical_url")
+                        or replacement.get("original_dispatch_id") != parent["dispatch_id"]
+                        or replacement.get("original_intent_sha256") != _hash(_canonical_json(original))
+                        or replacement.get("repost_dispatch_id") != ids["dispatch_id"]
+                        or replacement.get("repost_message_id") != ids["message_id"]):
+                    return False
+                intent = original
             key = (intent["work_item_id"], intent["plan_hash"])
             if key not in confirmations:
                 ids = self._ids(*key, "substack")

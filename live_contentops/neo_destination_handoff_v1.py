@@ -185,6 +185,7 @@ class NeoDestinationHandoff:
                 "substack": "SUBSTACK_ARTICLE", "x": "X_THREAD" if content_binding["thread_post_count"] > 1 else "X_POST",
                 "linkedin": "LINKEDIN_POST", "linkedin_company": "LINKEDIN_COMPANY_POST",
                  "instagram_business": "INSTAGRAM_BUSINESS_POST",
+                "telegram": "TELEGRAM_CHANNEL_POST", "threads": "THREADS_POST",
                 "youtube": "YOUTUBE_COMMUNITY_POST"}[destination],
             "steps": ["name_session; list tabs, open a task-owned tab",
                 "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
