@@ -3631,7 +3631,11 @@ class CanonicalDestinationTransportRuntimeV1:
                 and intent.get("destination_plan", {}).get("transport_type") == "BROWSEROS_NEO_MCP"):
             result = self._neo_transport.readback(destination=destination, intent=intent,
                 public_object_id=public_object_id, public_object_url=public_object_url)
-            if destination == "substack" and result.get("verified") is True and result.get("public_image_urls"):
+            if (destination == "substack" and result.get("verified") is True
+                    and result.get("public_image_urls") and not intent.get("daily_digest")):
+                # Ordinary articles prepare downstream derivative media here.
+                # The frozen digest has no derivative plan or article workspace;
+                # Neo has already checked its bound original card hash.
                 from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
                 from live_contentops.media_manifest_authority_v1 import build_delivery_media_manifest
                 data = _durable_intent_inputs(intent)

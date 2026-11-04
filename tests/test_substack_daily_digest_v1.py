@@ -257,6 +257,7 @@ def test_full_native_digest_restart_loop_and_email_readback(tmp_path, monkeypatc
                     observed_text=" ".join(request["content_binding"]["expected_text_segments"]),
                     observed_links=[{"text": a["title"], "url": a["url"]} for a in packet["articles"]],
                     observed_media_sha256=[a["sha256"] for a in packet["media_assets"]],
+                    public_image_urls=["https://substack-post-media.s3.amazonaws.com/public/images/controlled-digest.png"],
                     email_delivery_confirmed=True, email_delivery_evidence_ref="CONTROLLED_TEST_NOT_BROWSER")
         response = {"tool_request_sha256":pending["tool_request_sha256"],
             "tool_observation":{"tool_name":TOOL, "native_invocation_id":"controlled-native-loop",
