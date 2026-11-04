@@ -298,6 +298,13 @@ class NeoDestinationHandoff:
         segments = binding["expected_text_segments"]
         observed_text = _text(result.get("observed_text"))
         comparison_text = observed_text
+        if destination == "substack" and intent.get("reader_presentation_review"):
+            # The accepted body remains contiguous after removing only its exact
+            # reviewed figure captions, which the renderer inserts between blocks.
+            for asset in binding["media_manifest"]:
+                caption = _text(asset.get("caption"))
+                if caption:
+                    comparison_text = _text(comparison_text.replace(caption, " "))
         if destination in {"linkedin", "linkedin_company"}:
             # LinkedIn rewrites displayed links. Keep raw observed copy and only
             # expand an actually verified target on this exact public object.

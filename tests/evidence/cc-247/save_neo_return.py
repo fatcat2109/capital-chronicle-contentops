@@ -5,6 +5,7 @@ import os, json, sys
 here = Path(__file__).resolve().parent
 prefix, destination, observation = sys.argv[1:4]
 packet = json.loads((here / (prefix + "-" + destination + "-publication-tool-begin.json")).read_bytes())
+packet = packet.get("native_tool_request", packet)
 result = json.loads(Path(observation).read_bytes())
 response = {"tool_request_sha256": packet["tool_request_sha256"], "result": result,
     "tool_observation": {"tool_name": "mcp__browseros_neo__run", "surface": "CODEX_EXEC",
