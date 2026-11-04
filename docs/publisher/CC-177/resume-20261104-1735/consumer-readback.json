@@ -1,0 +1,158 @@
+{
+  "observed_at_utc": "2026-11-04T10:33:23.251496Z",
+  "operating_head": "3d125a2e8d103f72ec9b347b98985092494d5e14",
+  "launch": {
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "state": "CONFIGURED_NOT_OBSERVED",
+    "ancestor_pid": 47632
+  },
+  "real_retained_desk_export": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\main-cc-014-20261103T1938\\desk-record-cand9-smoke.json",
+    "sha256": "a7c272ef3e215b6186d137c5abef45e53edb64e34b7937d276cef87e0de0b6c1",
+    "records_used_by_current_public_projection": 82,
+    "generated_at_utc": "2026-10-30T15:22:05Z",
+    "recurring_binding": false
+  },
+  "editorial_pointers": [
+    {
+      "configuration": "config/native_desktop_rollout_v1.json",
+      "pointer_path": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal23\\provider_resume_binding.json",
+      "pointer_sha256": "9bed8c1bf37e8ba146aa062997962b9d57a25e4ca370b54f7e643aec5c875dc7",
+      "desk_record_exports": 0
+    },
+    {
+      "configuration": "config/native_desktop_operator_profile_v1.json",
+      "pointer_path": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal29\\provider_resume_binding.json",
+      "pointer_sha256": "84b65439a48f29853535ad44757ecc7f22d20a88d12cec18294d5ec20b9fe304",
+      "desk_record_exports": 0
+    }
+  ],
+  "weekly_runtime_exports": {
+    "root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\weekly\\2026-11-04",
+    "coverage_status": "PARTIAL",
+    "source_walks": 13,
+    "source_walks_succeeded": 12,
+    "channel_count": 10,
+    "channels": [
+      {
+        "channel": "substack",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+          "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 1
+        }
+      },
+      {
+        "channel": "x",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+          "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 1
+        }
+      },
+      {
+        "channel": "youtube",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+          "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 1
+        }
+      },
+      {
+        "channel": "linkedin",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+          "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 1
+        }
+      },
+      {
+        "channel": "linkedin_company",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+          "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 1
+        }
+      },
+      {
+        "channel": "telegram",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+          "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 2
+        }
+      },
+      {
+        "channel": "discord",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+          "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 1
+        }
+      },
+      {
+        "channel": "facebook_page",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+          "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 1
+        }
+      },
+      {
+        "channel": "instagram_business",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+          "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 1
+        }
+      },
+      {
+        "channel": "threads",
+        "status": "UNAVAILABLE",
+        "missing_causes": {
+          "NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT": 1,
+          "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT": 1
+        }
+      }
+    ],
+    "files": {
+      "coverage.json": {
+        "bytes": 5121,
+        "sha256": "63b122a353d1a67a6aebaccbe8b9daa6ad59ebd9293425c9930d0ead519521b2"
+      },
+      "coverage.md": {
+        "bytes": 972,
+        "sha256": "d66492a26c530b125334d225b84f1a3499ce87a076ad3ccd05e297a2e6c075f7"
+      },
+      "engagement.json": {
+        "bytes": 6936,
+        "sha256": "3279eba76a1125ab8929da324ca34d557b2518e91e629f227d8158a793473d43"
+      },
+      "engagement.md": {
+        "bytes": 1609,
+        "sha256": "9aba447f9a6cbee9408bd1f7aba9b7042ec21dfedd2f3b5a1224a953489b5d44"
+      }
+    }
+  },
+  "main_digest": {
+    "source_ref": "origin/backlog/cc-122-live-20261104",
+    "commit": "e8f565d8f8a617c10b992253a49a6d8fc31a92b8",
+    "source_sha256": "7f7f08b10d5645e841384559bf39f41b3f70a8c43fa3580d8a73d7c8cd80eb67",
+    "reads_weekly_engagement": false,
+    "reads_weekly_coverage": false
+  },
+  "published_feed": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "sha256": "6b0954c2a9b4780197f2b2d9abee3b18c64a49b07be698dfdf981e068e158fc0",
+    "valid_sealed_pieces": 5,
+    "fomc_outlets": 5
+  },
+  "tests": {
+    "operating_root_passed": 125,
+    "engineering_passed": 18
+  },
+  "public_writes": 0,
+  "schedules_changed": false,
+  "apps_restarted": false
+}
