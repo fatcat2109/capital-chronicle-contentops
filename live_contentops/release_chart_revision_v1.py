@@ -238,7 +238,11 @@ def derivative_base_payloads(store, *, run_id, accepted, canonical_intent):
         original = store.get_outbox_message(ids["message_id"])
         if original:
             effective = json.loads(co._dated_distribution_message(original)["payload"])
-            payloads[destination] = replace(_durable_intent_inputs(effective)["payloads"][destination])
+            frozen = effective.get("native_payload")
+            # The coordinator froze this copy before dispatch. Delivery rendering
+            # may select media later; that cannot rewrite the original intent.
+            payloads[destination] = replace(deepcopy(frozen) if isinstance(frozen, dict)
+                else _durable_intent_inputs(effective)["payloads"][destination])
     if not payloads["instagram_business"].get("text"):
         # Reuse exact reviewed Facebook prose, with no new factual sentence.
         payloads["instagram_business"] = {"text": payloads["facebook_page"]["text"],
