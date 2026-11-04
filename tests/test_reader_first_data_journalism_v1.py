@@ -892,8 +892,16 @@ def test_actual_native_compiler_retains_distinct_subsets_after_canonical_readbac
     empty_instagram["native_destination_media"]["instagram_business"] = []
     payloads = build_native_derivative_payloads(article=empty_instagram, selection={},
         canonical_url="https://example.org/actual", media_asset_ids=["chart-a", "chart-b", "chart-c"])
-    assert payloads["instagram_business"]["delivery_state"] == "SKIPPED_IMAGE_REQUIRED"
+    # Jim's decision 61 (4 Nov SEC post): an empty choice takes the first reviewed
+    # image; Instagram is skipped only when the piece has no image at all.
+    assert payloads["instagram_business"].get("delivery_state") is None
+    assert payloads["instagram_business"]["media_asset_ids"] == ["chart-a"]
     assert payloads["telegram"].get("delivery_state") != "SKIPPED_IMAGE_REQUIRED"
+    imageless = deepcopy(article)
+    imageless["native_destination_media"] = {d: [] for d in destinations}
+    no_image = build_native_derivative_payloads(article=imageless, selection={},
+        canonical_url="https://example.org/actual", media_asset_ids=[])
+    assert no_image["instagram_business"]["delivery_state"] == "SKIPPED_IMAGE_REQUIRED"
 
 
 def test_one_prewrite_visual_amendment_preserves_original_and_same_editor(tmp_path, monkeypatch):

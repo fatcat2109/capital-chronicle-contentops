@@ -469,8 +469,9 @@ def test_canonical_first_real_url_eight_native_packages_restart_dedupe(
     value, writes = finish(restarted, executor)
     assert value["publication"]["state"] == "RECONCILED", (value, transport.calls)
     assert writes == ["substack", "x", "youtube"]
-    assert len(transport.calls) == 6 and len(set(transport.calls)) == 6
-    assert len(transport.finalized) == 8
+    # Six API sends plus the routine LinkedIn company-page copy (4 Nov).
+    assert len(transport.calls) == 7 and len(set(transport.calls)) == 7
+    assert len(transport.finalized) == 9  # eight derivatives plus the company-page copy
     for intent in transport.finalized.values():
         assert intent["canonical_url"] == CANONICAL
         assert "pending-publication" not in json.dumps(intent["native_payload"])
@@ -535,7 +536,7 @@ def test_claimed_lost_publish_readback_before_retry_and_local_failure(
         writes += more
     assert value["publication"]["state"] == "RECONCILED"
     assert transport.calls.count("telegram") == 2
-    assert len(store.list_platform_dispatches()) == 9
+    assert len(store.list_platform_dispatches()) == 10  # plus the company-page copy
 
 
 def test_lost_readback_projects_new_turn_begin_but_never_a_second_publish(tmp_path, monkeypatch):

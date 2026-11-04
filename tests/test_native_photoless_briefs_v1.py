@@ -47,7 +47,9 @@ def test_unbound_old_and_analysis_articles_keep_the_photo_rule():
         validate_release_media({"article": analytical, "media_assets": []})
 
 
-def test_coordinator_never_registers_or_dispatches_skipped_instagram(tmp_path):
+def test_coordinator_registers_and_dispatches_instagram_for_photoless_brief(tmp_path):
+    # Jim's decision 61 (CC-144/CC-186, 4 Nov): finalization supplies an image, so
+    # a photo-less brief's plan stays valid but Instagram is no longer left out.
     store, transport, owner = _coordinator(tmp_path)
     _set_mode(store, "AUTONOMOUS_DEFAULT")
     plan = _quality_plan()
@@ -58,11 +60,9 @@ def test_coordinator_never_registers_or_dispatches_skipped_instagram(tmp_path):
     assert permitted_photo_less_skip(plan)
     result = owner.execute_plan("work-1", plan)
     assert result["canonical_article_real_published"] is True
-    assert "instagram_business" not in transport.publish_calls
-    assert len(transport.publish_calls) == 8
-    assert all(row["destination"] != "instagram_business" for row in store.list_outbox_messages())
-    assert not result["per_destination"]["instagram_business"]["publish_called"]
-    assert result["per_destination"]["instagram_business"]["reconciliation_status"] is None
+    assert "instagram_business" in transport.publish_calls
+    assert any(row["destination"] == "instagram_business" for row in store.list_outbox_messages())
+    assert result["per_destination"]["instagram_business"]["publish_called"]
 
 
 def test_text_brief_still_requires_all_desktop_mobile_rendered_targets():

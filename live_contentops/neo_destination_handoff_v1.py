@@ -72,12 +72,13 @@ def _payload_binding(intent, destination):
     payload = intent.get("native_payload") or intent.get("payload")
     assets = list(intent.get("media_assets") or [])
     artifacts = []
+    article = {}
     root = Path(str(intent.get("output_dir") or ""))
     if intent.get("output_dir") and not intent.get("reader_presentation_review"):
         from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
         resolved = _durable_intent_inputs(intent)
+        article = dict(resolved.get("article") or {})
         if destination == "substack":
-            article = resolved["article"]
             payload = {"title": article.get("title"), "subtitle": article.get("subtitle"),
                        "body_markdown": article.get("substack_body_markdown")}
         else:
@@ -107,8 +108,19 @@ def _payload_binding(intent, destination):
         assets = [a for a in assets if a.get("asset_id") in media_ids]
     media = [{k: a[k] for k in ("asset_id", "path", "sha256", "rights", "rights_status", "caption", "alt_text",
               "attribution", "license_url", "source_page_url", "changes_description", "article_section",
-              "canonical_article_section_association", "modality", "public_delivery_sha256", "verified_public_delivery_url") if k in a}
+              "canonical_article_section_association", "placement_after", "modality", "public_delivery_sha256",
+              "verified_public_delivery_url") if k in a}
              for a in assets if isinstance(a, dict)]
+    if destination == "substack":
+        # 4 Nov SEC post: the image went above the first paragraph with no caption
+        # or alt text, because the request carried neither the reviewed section
+        # nor the caption. The editorial decision's placement is bound here.
+        placements = {str(c.get("asset_id")): c.get("placement_after")
+                      for c in ((article.get("visual_editorial_decision") or {}).get("charts") or [])
+                      if isinstance(c, dict) and c.get("placement_after")}
+        for row in media:
+            if not row.get("placement_after") and placements.get(str(row.get("asset_id"))):
+                row["placement_after"] = placements[str(row["asset_id"])]
     binding = {"expected_text_segments": texts, "expected_thread_texts": thread_texts, "thread_post_count": len(posts),
                "media_manifest": media, "artifact_manifest": artifacts}
     if intent.get("reader_presentation_review"):
@@ -170,6 +182,14 @@ class NeoDestinationHandoff:
                 "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"],
             "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
             "forbidden": ["login", "reauthorize", "account_switch", "cookies", "storage", "blind_retry", "bulk_x_ingestion"]}
+        if destination == "substack" and action in {"PUBLISH", "EDIT_EXISTING"} and content_binding["media_manifest"]:
+            value["substack_media_placement"] = (
+                "Place each media_manifest image in the body where its placement_after names: after the "
+                "paragraphs under the heading with that text ('introduction' or 'lead' means after the first "
+                "paragraph). Never put an image above the first paragraph unless placement_after says so. Set "
+                "its alt text to alt_text and its caption to caption (with the credit when attribution is "
+                "present). Return public_alt_text_present and public_caption_present for each image.")
+            value["steps"].insert(3, value["substack_media_placement"])
         if action == "READBACK":
             # An earlier failed observation stays immutable. A corrected readback
             # contract receives a new read-only identity, never a new write.

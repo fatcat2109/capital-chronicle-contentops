@@ -676,6 +676,8 @@ class NativeReviewedPublication:
             company = self.coordinator._ids(self.binding["run_id"], plan["plan_hash"], "linkedin_company")
             dispatch = self.store.get_platform_dispatch(company["dispatch_id"])
             message = self.store.get_outbox_message(company["message_id"])
+            if message and json.loads(message["payload"]).get("routine_company_copy") is True:
+                message = None  # The routine company-page copy goes with the main send pass.
             if message:
                 # Selected company copies use their existing intent; generic continuation
                 # may consume a return or read back, never select another company send.

@@ -542,6 +542,8 @@ def build_native_derivative_payloads(
     if not isinstance(choices, Mapping) or set(choices) != set(payloads):
         raise ValueError("EXACT_EIGHT_MAX_DESTINATION_MEDIA_CHOICES_REQUIRED")
     allowed = set(media_asset_ids)
+    # Reviewed order: the first admitted asset is the post's default image.
+    default_media = [asset_id for asset_id in media_asset_ids if asset_id][:1]
     for destination, payload in payloads.items():
         chosen = choices[destination]
         if (
@@ -551,6 +553,10 @@ def build_native_derivative_payloads(
             or not set(chosen) <= allowed
         ):
             raise ValueError("NATIVE_EDITORIAL_MEDIA_SUBSET_UNBOUND:" + destination)
+        if not chosen and default_media:
+            # Jim's decision 61: an empty editor choice never sends a bare post
+            # (CPI, 3 Nov) or skips Instagram (SEC, 4 Nov) while an image exists.
+            chosen = list(default_media)
         if destination == "instagram_business" and not chosen:
             from live_contentops.native_newsroom_volume_v1 import photo_less_brief, PHOTOLESS_INSTAGRAM_SKIP
             legacy = photo_less_brief(article)
@@ -4006,7 +4012,14 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         # sealed source-bound metadata required by the existing channel compiler.
         article.update(intent.get("reader_presentation_article") or {})
     image_selection = None
-    if intent.get("post_image_policy") and not context.get("post_image_policy"):
+    frozen_for_media = intent.get("native_payload")
+    media_destination = str((intent.get("destination_plan") or {}).get("destination") or "")
+    frozen_without_media = (media_destination not in {"", "substack"} and isinstance(frozen_for_media, Mapping)
+        and not [*(frozen_for_media.get("media_asset_ids") or []),
+                 *(asset_id for post in frozen_for_media.get("posts") or []
+                   if isinstance(post, Mapping) for asset_id in post.get("media_asset_ids") or [])])
+    if intent.get("post_image_policy") and (not context.get("post_image_policy") or frozen_without_media):
+        # Decision 61: a finalized copy with no selected image gets one here too.
         from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
         image_selection = post_image_view({"article": article, "media_assets": media_assets,
             "evidence": context.get("source_documents", []),
@@ -4025,6 +4038,11 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         media_asset_ids=[str(row.get("asset_id") or "") for row in media_assets],
     )
     destination = str((intent.get("destination_plan") or {}).get("destination") or "")
+    if destination == "linkedin_company" and "linkedin" in payloads and "linkedin_company" not in payloads:
+        # The routine company-page post is the same reviewed LinkedIn copy (4 Nov:
+        # finalization found no ninth compiled package and froze an empty copy).
+        from copy import deepcopy
+        payloads["linkedin_company"] = deepcopy(payloads["linkedin"])
     frozen_payload = intent.get("native_payload")
     if destination and isinstance(frozen_payload, Mapping):
         # The canonical-first owner already froze the reviewed destination bytes.
@@ -4033,7 +4051,10 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         if image_selection:
             from copy import deepcopy
             payloads[destination] = deepcopy(frozen_payload)
-            selected_ids = article["native_destination_media"][destination]
+            channel_media = article.get("native_destination_media") or {}
+            selected_ids = (channel_media.get(destination)
+                or channel_media.get("linkedin" if destination == "linkedin_company" else destination)
+                or [image_selection["post_image_policy"]["default_asset_id"]])
             payloads[destination]["media_asset_ids"] = selected_ids
             for index, post in enumerate(payloads[destination].get("posts") or []):
                 post["media_asset_ids"] = selected_ids if index == 0 else []
