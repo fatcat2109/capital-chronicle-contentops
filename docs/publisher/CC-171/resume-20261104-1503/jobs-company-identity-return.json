@@ -1,0 +1,20 @@
+{
+  "tool_request_sha256": "fe2a8ef2fda3d5320490d08648aeb1443b7a7dbc048122d8e9f591bccf0ee57f",
+  "tool_observation": {
+    "native_invocation_id": "01a1a716-5476-7a73-ab64-bc8ae37806eb",
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "observed_at_utc": "2026-11-04T15:09:28.629Z",
+    "observation_source": "Actual task-owned Neo tab 341: Capital Chronicle company 143198922 admin Page posts with Start a post."
+  },
+  "result": {
+    "request_sha256": "45c560a505a5758be2cd705a80934ae819f3f7da8a9e897516d23bc25c492274",
+    "status": "SUCCESS",
+    "authenticated": true,
+    "observed_identity": "linkedin:company:143198922",
+    "observed_stable_id": "143198922",
+    "observed_profile_url": "https://www.linkedin.com/company/143198922/admin/page-posts/published/",
+    "page_id": 341,
+    "evidence": "    - heading \"Capital Chronicle\" [level=1]\n  - heading \"Page posts\" [level=2]\n      - link \"Published\" [ref=e33] [url=\"https://www.linkedin.com/company/143198922/admin/page-posts/published\"]\n      - link \"Page ads\" [ref=e34] [url=\"https://www.linkedin.com/company/143198922/admin/page-posts/page-ads\"]\n  - button \"Start a post\" [ref=e35]\n  - link \"Write an article on LinkedIn\" [ref=e38] [url=\"https://www.linkedin.com/article/new/?author=urn%3Ali%3Afs_normalized_company%3A143198922\"]\n    - link \"Capital Chronicle, graphic.\" [ref=e44] [url=\"https://www.linkedin.com/company/capitalchronicle/posts\"]\n    - link \"View: Capital Chronicle 0 followers\" [ref=e45] [url=\"https://www.linkedin.com/company/capitalchronicle/posts\"]\n  - link \"Boost\" [ref=e62] [url=\"https://www.linkedin.com/ad-beta/boost/campaigns/new/details?content=urn%3Ali%3Ashare%3A7521112280063868928&organization=143198922&origin=organizationAdminFeed\"]\n    - link \"Capital Chronicle, graphic.\" [ref=e66] [url=\"https://www.linkedin.com/company/capitalchronicle/posts\"]\n    - link \"View: Capital Chronicle 0 followers\" [ref=e67] [url=\"https://www.linkedin.com/company/capitalchronicle/posts\"]\n  - link \"Capital Chronicle picture Capital Chronicle\" [ref=e100] [url=\"https://www.linkedin.com/company/143198922/admin/inbox\"]"
+  }
+}

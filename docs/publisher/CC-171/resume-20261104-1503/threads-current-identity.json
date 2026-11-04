@@ -1,0 +1,25 @@
+{
+  "observed_at_utc": "2026-11-04T15:15:06.030740+00:00",
+  "operation": "existing DestinationReadinessManager.verify_destination_jit",
+  "result": {
+    "surface": "THREADS_POST",
+    "platform": "threads",
+    "transport_registry_version": "contentops.destination_transport_registry.v3",
+    "identity_authority_version": "contentops.destination_identity_authority.v2",
+    "transport_type": "THREADS_API",
+    "readiness_state": "READY_NON_BROWSER_BINDING",
+    "destination_identity": "official.capitalchronicle",
+    "identity_match": true,
+    "write_eligible": true,
+    "probe_kind": "OFFICIAL_API_IDENTITY",
+    "probed_at_utc": "2026-11-04T15:15:05.965060Z",
+    "sanitized_detail": {
+      "object_id_matches_owner_pin": null,
+      "identity_field_present": true,
+      "owner_pin_match": {
+        "public_handle_match": true
+      }
+    }
+  },
+  "secret_values_exposed": false
+}
