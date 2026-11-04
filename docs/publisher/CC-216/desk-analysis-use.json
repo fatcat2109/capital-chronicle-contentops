@@ -1,0 +1,19 @@
+{
+  "read_at_utc": "2026-11-04T20:54:45.275129+00:00",
+  "daily_digest": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\main-daily-digest\\digest-20261104.md",
+    "sha256": "00e8b8da92a42599c1a71b6145bee5369170ff6f862b4c2f387da0129d3d2f1b",
+    "forecast_section": "Evidence: MISSING; saved forecasts, separate from trade outcomes."
+  },
+  "latest_accepted_research_context": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d76f8099aa98eb40\\accepted-research-context.json",
+    "accepted_at_utc": "2026-10-24T01:21:31.691351Z",
+    "original_research_cutoff": "2026-10-24T01:09:15.119785Z",
+    "use": "Considered competing rates, dollar and gold mechanisms; this dated research cannot establish present pricing or a reaction to the future release."
+  },
+  "latest_accepted_public_manifest": {
+    "path": "A:\\Capital Chronicle\\Runtime\\MainPublicReports-v1\\manifests\\c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2.json",
+    "emitted_at_utc": "2026-10-20T22:43:00.880869Z"
+  },
+  "source_policy": "Use dated held analysis as context and exact official facts for the background; CC-107 adds the future frozen dossier. No current-priced-in claim or account detail is exported."
+}

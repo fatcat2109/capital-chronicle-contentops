@@ -1,0 +1,77 @@
+[
+  {
+    "event": "nfp",
+    "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\binding.json",
+    "response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\desktop_response_select.json",
+    "response_sha256": "609a39ac70d59971043590aba66912f7d50c969e1f8cc9f3cf3a8e572402b905",
+    "invocation_observation": {
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "invocation_id": "/root/native_select_3a01f8f5dfce",
+      "speed": "standard",
+      "model": null,
+      "reasoning_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "low",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "actual_configuration_unavailable": true,
+      "configuration_source": "Parent native role assignment and frozen request requested_model/requested_reasoning_effort; actual runtime model and effort telemetry unavailable.",
+      "observation_source": "Native task context identifies canonical task /root/native_select_3a01f8f5dfce; no environment, session secrets or process arguments inspected.",
+      "operation_id": "cc216-nfp-background-20261105-v1",
+      "assignment_id": "cc216-nfp-background-20261105-v1:select",
+      "expected_return": "select:3a01f8f5dfce5da0a4ec85e1e5cfa503bced303879cd8f9bec0989ba418223cc"
+    },
+    "selected_candidate_id": "simple-story-d062ccf311327a0bd3882c64",
+    "article_mode": "WEEK_AHEAD_OR_WATCH"
+  },
+  {
+    "event": "cpi",
+    "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-cpi-background-20261105-v1\\binding.json",
+    "response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-cpi-background-20261105-v1\\desktop_response_select.json",
+    "response_sha256": "8d986066e41d51d10e53eb698a0950bfe468c39ca2daaaac2a4bfaed728b6192",
+    "invocation_observation": {
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "invocation_id": "/root/native_select_3a01f8f5dfce",
+      "model": null,
+      "reasoning_effort": null,
+      "speed": "standard",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "low",
+      "actual_configuration_unavailable": true,
+      "configuration_source": "Exact CPI frozen role request and parent follow-up assignment retaining configured gpt-6.1-sol/low; actual telemetry unavailable.",
+      "observation_source": "Supported native context canonical task /root/native_select_3a01f8f5dfce reused by parent follow-up for independent CPI assignment. No identity discovery through environment, secrets or process arguments.",
+      "operation_id": "cc216-cpi-background-20261105-v1",
+      "assignment_id": "cc216-cpi-background-20261105-v1:select",
+      "expected_return": "select:988c222c6b1a7da1b1a3fb0e2d1d063c9f3d70dd0b1a3383edbc9ebec1ccb448"
+    },
+    "selected_candidate_id": "simple-story-217599eb47302d738f8ef60b",
+    "article_mode": "WEEK_AHEAD_OR_WATCH"
+  },
+  {
+    "event": "ppi",
+    "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-ppi-background-20261105-v1\\binding.json",
+    "response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-ppi-background-20261105-v1\\desktop_response_select.json",
+    "response_sha256": "f22d1527da69e464682dc40cea54ac074fbfe29408091dce0e49e4dbabff5c08",
+    "invocation_observation": {
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "invocation_id": "/root/native_select_3a01f8f5dfce",
+      "model": null,
+      "reasoning_effort": null,
+      "speed": "standard",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "low",
+      "actual_configuration_unavailable": true,
+      "configuration_source": "Exact frozen PPI role request and parent follow-up retaining configured gpt-6.1-sol/low; actual runtime telemetry unavailable.",
+      "observation_source": "Supported native context canonical task /root/native_select_3a01f8f5dfce reused by parent follow-up for the independent PPI assignment. No environment, credentials, session secrets or process arguments inspected.",
+      "operation_id": "cc216-ppi-background-20261105-v1",
+      "assignment_id": "cc216-ppi-background-20261105-v1:select",
+      "expected_return": "select:9e83729bc50e63c2cf6e3a3dda41d1df82bad5c16c6666812981e2cf701e6e2d"
+    },
+    "selected_candidate_id": "simple-story-ece840d08b015718ec3f800a",
+    "article_mode": "WEEK_AHEAD_OR_WATCH"
+  }
+]

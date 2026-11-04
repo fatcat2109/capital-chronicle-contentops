@@ -1,0 +1,50 @@
+{
+  "phase": "HELD_INPUTS_AND_LIGHT_SELECTION_COMPLETED",
+  "files": [
+    {
+      "path": "docs\\publisher\\CC-216\\held-inputs\\bls-cpi-20261110-admitted-preparation.json",
+      "bytes": 10814,
+      "sha256": "9fe00ae30e7f6b6d8f4dc5e8745158b446561a292f8a4c0b547c0fdd96fef46e"
+    },
+    {
+      "path": "docs\\publisher\\CC-216\\held-inputs\\bls-cpi-20261110-preparation.json",
+      "bytes": 10236,
+      "sha256": "1dfac85a546c205c1c8bdf0f59f5c5518608d73ff46725f66043d9de06cb3cc9"
+    },
+    {
+      "path": "docs\\publisher\\CC-216\\held-inputs\\bls-emsit-20261106-admitted-preparation.json",
+      "bytes": 13827,
+      "sha256": "4dc2dc3cf965c7de9554c4aae8ae5cb662b3955e4834162b9e37c7ec2207153b"
+    },
+    {
+      "path": "docs\\publisher\\CC-216\\held-inputs\\bls-emsit-20261106-preparation.json",
+      "bytes": 13247,
+      "sha256": "066b762cf8f2800db66943820c2b23241803d0ef746d22c134c47a8b9557805d"
+    },
+    {
+      "path": "docs\\publisher\\CC-216\\held-inputs\\bls-ppi-20261113-admitted-preparation.json",
+      "bytes": 4321,
+      "sha256": "eada92c5f1b77b5dc22f13114b3dd601b41873604d55d03b0c123c5b0274a656"
+    },
+    {
+      "path": "docs\\publisher\\CC-216\\held-inputs\\cpi-history.json",
+      "bytes": 174684,
+      "sha256": "678d12e2d20bc245d977e207dfecba1865cd197a7e65f1ca8226b62da05b4199"
+    },
+    {
+      "path": "docs\\publisher\\CC-216\\held-inputs\\empsit-history.json",
+      "bytes": 142108,
+      "sha256": "4149fa016ca569262024e8c9d4fc9072f6d3ccb326b9b3351356fb635ec3ec7e"
+    },
+    {
+      "path": "docs\\publisher\\CC-216\\held-inputs\\ppi-history.json",
+      "bytes": 54785,
+      "sha256": "b43916b3eb5ed6f663bb7b2dc707adbcf264ef2145295d92fb64873bd4db60cf"
+    },
+    {
+      "path": "docs\\publisher\\CC-216\\sources\\ppi-prior-official.html",
+      "bytes": 1607485,
+      "sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5"
+    }
+  ]
+}

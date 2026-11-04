@@ -1,0 +1,40 @@
+{
+  "prepared_at_utc": "2026-11-04T20:45:25.292075+00:00",
+  "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "records": [
+    {
+      "event_id": "bls-emsit-20261106",
+      "receipt": {
+        "message_id": "native-story-preparation-9df78549eb16de198b3be6a390a077a164a7012e74058d266dfdabaeeed42d76",
+        "event_id": "bls-emsit-20261106",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      "packet_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-216\\held-inputs\\bls-emsit-20261106-admitted-preparation.json",
+      "history_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-216\\held-inputs\\empsit-history.json",
+      "cutoff_utc": "2026-11-04T20:45:25.292075+00:00"
+    },
+    {
+      "event_id": "bls-cpi-20261110",
+      "receipt": {
+        "message_id": "native-story-preparation-9afc01b6f89fad0c54f3196e925337746cfbbf3074316737acff7c07090f5084",
+        "event_id": "bls-cpi-20261110",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      "packet_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-216\\held-inputs\\bls-cpi-20261110-admitted-preparation.json",
+      "history_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-216\\held-inputs\\cpi-history.json",
+      "cutoff_utc": "2026-11-04T20:45:25.292075+00:00"
+    },
+    {
+      "event_id": "bls-ppi-20261113",
+      "receipt": {
+        "message_id": "native-story-preparation-42837545a09b161559d8b05c3a273e942b7c51cad2255ec251f982ab64fef4ae",
+        "event_id": "bls-ppi-20261113",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      "packet_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-216\\held-inputs\\bls-ppi-20261113-admitted-preparation.json",
+      "history_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-216\\held-inputs\\ppi-history.json",
+      "cutoff_utc": "2026-11-04T20:45:25.292075+00:00"
+    }
+  ],
+  "public_write_performed": false
+}
