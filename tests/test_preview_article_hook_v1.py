@@ -41,7 +41,9 @@ def binding(tmp_path, monkeypatch):
 def test_new_confirmed_append_detaches_hidden_pythonw_after_feed_unlock(binding):
     feed, root, _, _, calls = binding
     result = append_record(feed, sealed())
-    assert result["status"] == "APPENDED" and result["preview_mirror"] == {"status": "STARTED", "pid": 456}
+    assert result["status"] == "APPENDED" and result["preview_mirror"]["status"] == "STARTED"
+    assert result["preview_mirror"]["pid"] == 456
+    assert result["preview_mirror"]["consumer_module_sha256"] == sha256(b"synthetic consumer").hexdigest()
     command, kwargs = calls[0]
     assert Path(command[0]).name == "pythonw.exe" and command[1:4] == ["-E", "-m", "tools.product.republish_preview_articles_v1"]
     assert command[4:] == ["--execute", "--record", str(feed)]
@@ -73,11 +75,11 @@ def test_hook_failure_never_blocks_the_confirmed_feed_or_retries_publication(bin
     assert append_record(feed, sealed())["status"] == "ALREADY_RECORDED"
 
 
-@pytest.mark.parametrize("bad", ["changed_module", "missing_config", "invalid_binding", "missing_pythonw"])
+@pytest.mark.parametrize("bad", ["missing_module", "missing_config", "invalid_binding", "missing_pythonw"])
 def test_unavailable_binding_is_destination_local_and_never_starts(binding, bad):
     feed, _, module, config, calls = binding
-    if bad == "changed_module":
-        module.write_bytes(b"unreviewed")
+    if bad == "missing_module":
+        module.unlink()
     elif bad == "missing_config":
         config.unlink()
     elif bad == "invalid_binding":
@@ -86,6 +88,15 @@ def test_unavailable_binding_is_destination_local_and_never_starts(binding, bad)
         Path(hook.sys.executable).with_name("pythonw.exe").unlink()
     assert append_record(feed, sealed())["preview_mirror"]["status"] == "NOT_STARTED"
     assert not calls and len(read_records(feed)) == 1
+
+
+def test_source_hash_drift_is_recorded_without_a_launch_gate(binding):
+    feed, _, module, _, calls = binding
+    module.write_bytes(b"repaired consumer with exact-folder guard")
+    result = append_record(feed, sealed())["preview_mirror"]
+    assert result["status"] == "STARTED" and len(calls) == 1
+    assert result["consumer_module_sha256"] == sha256(module.read_bytes()).hexdigest()
+    assert result["configured_consumer_module_sha256"] != result["consumer_module_sha256"]
 
 
 def test_nonproduction_feed_cannot_launch_from_tests_or_backfill(binding):

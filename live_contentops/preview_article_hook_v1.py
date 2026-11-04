@@ -26,8 +26,10 @@ def launch_preview_mirror(feed):
         if not root.is_absolute():
             return {"status": "NOT_STARTED", "cause": "BINDING_INVALID"}
         module = root / "tools/product/republish_preview_articles_v1.py"
-        if sha256(module.read_bytes()).hexdigest() != config["consumer_module_sha256"]:
-            return {"status": "NOT_STARTED", "cause": "CONSUMER_SOURCE_CHANGED"}
+        actual_hash = sha256(module.read_bytes()).hexdigest()
+        # Record code/config drift; a launch label cannot suppress publication
+        # (Jim decision 60). The consumer still guards the exact upload folder,
+        # repository/account, rights, ten-minute interval and unknown ref writes.
         pythonw = Path(sys.executable).with_name("pythonw.exe")
         if os.name != "nt" or not pythonw.is_file():
             return {"status": "NOT_STARTED", "cause": "PYTHONW_REQUIRED"}
@@ -39,7 +41,9 @@ def launch_preview_mirror(feed):
                                          | subprocess.CREATE_NEW_PROCESS_GROUP
                                          | subprocess.CREATE_NO_WINDOW),
         )
-        return {"status": "STARTED", "pid": child.pid}
+        return {"status": "STARTED", "pid": child.pid,
+                "consumer_module_sha256": actual_hash,
+                "configured_consumer_module_sha256": config["consumer_module_sha256"]}
     except Exception:
         # Do not print config, paths, environments or subprocess error bodies.
         return {"status": "NOT_STARTED", "cause": "PREVIEW_HOOK_UNAVAILABLE"}
