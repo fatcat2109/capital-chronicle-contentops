@@ -214,7 +214,18 @@ def test_reviewed_background_reaches_next_preview_writer_without_rewriting_prior
         "article": {"title": "Controlled reviewed employment preview", "substack_body_markdown":
             "The reviewed background compares the two surveys without a future release value."},
         "simple_result": {"publication_lifecycle_plan": {"plan_hash": "controlled-plan"}},
-        "evidence": [], "media_assets": []}
+        "evidence": [{"source_id": "SOURCE_6", "document_id": "controlled-retained-component-source",
+            "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+            "publisher": "U.S. Bureau of Labor Statistics", "published_at_utc": "2026-10-02T12:30:00Z",
+            "canonical_content_text": "The controlled retained component text remains available to the later preview writer.",
+            "canonical_content_sha256": "controlled-component-content-hash"}], "media_assets": []}
+    # A dossier is additive. Seven retained source spans must not be silently
+    # cut back to the older six-document original-facts allowance.
+    component_source = result["evidence"][0]
+    result["evidence"] = [{**component_source, "document_id": component_source["document_id"] + str(i),
+        "url": component_source["url"] + "?part=" + str(i),
+        "source_reuse_constraints": {"scope": "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"}}
+        for i in range(7)]
     key = "cc-editorial-final-" + sha256_of(run)
     _persist(f.tracker.store, key, result, "internal:controlled-native-result")
     row = f.tracker.store.get_outbox_message(key)
@@ -250,3 +261,8 @@ def test_reviewed_background_reaches_next_preview_writer_without_rewriting_prior
     assert backgrounds[0]["article_revision"] == native_review_revision(result)
     assert backgrounds[0]["review_id"] == "controlled-background-review"
     assert backgrounds[0]["dossier_scenarios_added"] is False
+    component = next(d for d in observed if d["document_id"] == "controlled-retained-component-source0")
+    assert component["canonical_content_text"] == result["evidence"][0]["canonical_content_text"]
+    assert component["url"] == result["evidence"][0]["url"]
+    assert component["source_id"].startswith("SOURCE_")
+    assert len([d for d in observed if d["document_id"].startswith("controlled-retained-component-source")]) == 7

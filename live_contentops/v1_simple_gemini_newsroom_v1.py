@@ -1141,11 +1141,27 @@ def _updated_source_route_health(loader: Any) -> dict[str, Any]:
 
 def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
     pack: list[dict[str, Any]] = []
+    # The early MAX background carries its already admitted source pack. Reuse
+    # those exact facts as ordinary citable sources for the later dossier edit,
+    # rather than giving the writer the prose while omitting its source spans.
+    held = [source for document in documents
+        for source in (document.get("preview_preparation", {}).get("reviewed_background", {})
+                       .get("original_source_pack", []))]
+    if held:
+        expanded, seen = [], set()
+        for document in [*documents, *held]:
+            key = (document.get("source_url") or document.get("url"), document.get("canonical_content_sha256"))
+            if key in seen:
+                continue
+            seen.add(key)
+            expanded.append({**document, "source_url": document.get("source_url") or document.get("url", "")})
+        documents = expanded
     # Comparable original releases need distinct documents; historical briefs keep
     # their existing limit. No new retrieval or model operation is implied.
     original_facts = any((d.get("source_reuse_constraints") or {}).get("scope") ==
         "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" for d in documents)
-    for document in documents[:6 if original_facts else MAX_SOURCE_DOCUMENTS]:
+    document_limit = 10 if held else 6 if original_facts else MAX_SOURCE_DOCUMENTS
+    for document in documents[:document_limit]:
         url = str(document.get("reader_source_url") or document.get("source_url") or "")
         text = str(document.get("canonical_content_text") or "")
         retained_main = (document.get("source_authority_class") == "governed_capital_chronicle_report_only"
