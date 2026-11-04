@@ -570,7 +570,8 @@ def operation(binding, **kwargs):
         result["coordinator_action"] = next_editorial_action(result)
     from live_contentops.native_newsroom_volume_v1 import bound_volume_policy, persist_native_day_measurement
     if ((bound_volume_policy(binding) or binding.get("owner_manual_live"))
-            and kwargs.get("command", "advance") not in {"status", "publication-status", "context"}):
+            and kwargs.get("command", "advance") not in {"status", "publication-status", "context"}
+            and not kwargs.get("command", "advance").startswith("publication-")):
         persist_native_day_measurement(ContentOpsDurableStore(binding["store_path"], auto_migrate=False), binding)
     return result
 
