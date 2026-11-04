@@ -1,0 +1,18 @@
+{
+  "tool_request_sha256": "2f98462a71880a53e04027070aefbd3a0c8e900c3ae2a7e138be000757d79cba",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a3ef-752d-7220-9694-c2f8db376808",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "BrowserOS Neo page 214 showed the newly published SEC Community post at its exact /post/ identity after one click on Post.",
+    "observed_at_utc": "2026-11-04T01:08:42.505Z"
+  },
+  "result": {
+    "request_sha256": "46e59c5ba272e5e341e65c9e9b64f8e27f003e2d6c154f9da6065334a29741d7",
+    "status": "SUCCESS",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "UgkxpL7C_qPEDgq4_M3esrHD9Hpfseas5Fu_",
+    "public_object_url": "https://www.youtube.com/post/UgkxpL7C_qPEDgq4_M3esrHD9Hpfseas5Fu_",
+    "external_link_verification_notice_present": true
+  }
+}

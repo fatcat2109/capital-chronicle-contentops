@@ -1,0 +1,57 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "changed": false,
+    "page": 213,
+    "settled": false,
+    "value": [
+      {
+        "images": [
+          {
+            "alt": "SEC roundtable facts: November 9, 2026, 9 a.m. to 3:30 p.m. EST, at SEC headquarters in Washington, D.C., with public access and a live stream on SEC.gov. The announced topic is machine-understandable data, Super Intelligence, and related risks and costs.",
+            "src": "https://pbs.twimg.com/media/HWPgncTaUAAjZo2?format=jpg&name=small"
+          }
+        ],
+        "links": [
+          {
+            "href": "https://t.co/ZHYbDFsq9V",
+            "text": "https://\ncapitalchronicle.substack.com/p/us-securitie\ns-and-exchange-commission\n…",
+            "title": ""
+          },
+          {
+            "href": "https://x.com/Capitalnicle/status/2117784321562124568",
+            "text": "8:01 AM · Nov 4, 2026",
+            "title": ""
+          }
+        ],
+        "publishedAt": "2026-11-04T01:01:43.000Z",
+        "text": "U.S. Securities and Exchange Commission plans November 9 data roundtable\n\n\nhttps://\ncapitalchronicle.substack.com/p/us-securitie\ns-and-exchange-commission\n…"
+      },
+      {
+        "images": [],
+        "links": [
+          {
+            "href": "https://x.com/Capitalnicle/status/2117784324355608985",
+            "text": "25s",
+            "title": ""
+          }
+        ],
+        "publishedAt": "2026-11-04T01:01:44.000Z",
+        "text": "The SEC wants feedback on machine-understandable data and Super Intelligence.\n\nNovember 9 is a discussion to follow, not a rule change to assume.\n\nWatch: Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps."
+      },
+      {
+        "images": [],
+        "links": [
+          {
+            "href": "https://x.com/Capitalnicle/status/2117784326561829067",
+            "text": "25s",
+            "title": ""
+          }
+        ],
+        "publishedAt": "2026-11-04T01:01:44.000Z",
+        "text": "These are watchpoints for the discussion, not promised agenda items or conclusions.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade."
+      }
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "tool_request_sha256": "2b529338dc9996082fdd44ae336191ecc2f54048597c2c01f8931a0970ba811a",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a3ef-752d-7220-9694-c2f8db376808",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Original Post all action on page 213 returned Your posts were sent. Exact root and both replies were read from the resulting thread. The original claim was completed once following saved pre-send profile readback.",
+    "observed_at_utc": "2026-11-04T01:02:50.569Z"
+  },
+  "result": {
+    "request_sha256": "01bf0e44bb0a44c4833e3e39688b83bf4e3eff2bed285f8c36ca5c0c3caef964",
+    "status": "SUCCESS",
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2117784321562124568",
+    "public_object_url": "https://x.com/Capitalnicle/status/2117784321562124568",
+    "published_at_utc": "2026-11-04T01:01:43.000Z",
+    "thread_posts": [
+      {
+        "public_object_id": "2117784321562124568",
+        "public_object_url": "https://x.com/Capitalnicle/status/2117784321562124568",
+        "observed_text": "U.S. Securities and Exchange Commission plans November 9 data roundtable\n\n\nhttps://\ncapitalchronicle.substack.com/p/us-securitie\ns-and-exchange-commission\n…",
+        "published_at_utc": "2026-11-04T01:01:43.000Z"
+      },
+      {
+        "public_object_id": "2117784324355608985",
+        "public_object_url": "https://x.com/Capitalnicle/status/2117784324355608985",
+        "observed_text": "The SEC wants feedback on machine-understandable data and Super Intelligence.\n\nNovember 9 is a discussion to follow, not a rule change to assume.\n\nWatch: Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps.",
+        "published_at_utc": "2026-11-04T01:01:44.000Z"
+      },
+      {
+        "public_object_id": "2117784326561829067",
+        "public_object_url": "https://x.com/Capitalnicle/status/2117784326561829067",
+        "observed_text": "These are watchpoints for the discussion, not promised agenda items or conclusions.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.",
+        "published_at_utc": "2026-11-04T01:01:44.000Z"
+      }
+    ]
+  }
+}
