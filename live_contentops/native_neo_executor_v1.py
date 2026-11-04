@@ -257,6 +257,31 @@ class NativeNeoExecutor:
                 return result
         return None
 
+    def fresh_readback_request(self, request):
+        """Keep an exact successful observation across a ten-minute bucket change."""
+        ignored = {"request_sha256", "observation_epoch", "native_invocation_id"}
+        expected = {k: v for k, v in request.items() if k not in ignored}
+        for row in reversed(self.store.list_outbox_messages(destination=DESTINATION)):
+            packet = json.loads(row["payload"])
+            prior = packet.get("request") or {}
+            if (packet.get("schema_version") != SCHEMA or packet.get("operation_id") != self.operation_id
+                    or prior.get("action") != "READBACK"
+                    or {k: v for k, v in prior.items() if k not in ignored} != expected):
+                continue
+            result = (self._get(prior["request_sha256"], "response") or {}).get("result") or {}
+            observation = result.get("native_tool_observation") or {}
+            if (result.get("status") != "SUCCESS" or result.get("content_verified") is not True
+                    or result.get("observed_identity") != request.get("expected_identity")
+                    or not result.get("public_object_id") or not result.get("public_object_url")
+                    or (request.get("public_object_id") and result["public_object_id"] != request["public_object_id"])
+                    or (request.get("public_object_url") and result["public_object_url"] != request["public_object_url"])
+                    or observation.get("native_invocation_id") != self.native_invocation_id):
+                continue
+            age = self.clock() - datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
+            if timedelta(0) <= age <= timedelta(minutes=10):
+                return dict(prior)
+        return None
+
     def readiness(self, surface):
         from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
         from live_contentops.neo_destination_handoff_v1 import IDENTITIES, ROOTS

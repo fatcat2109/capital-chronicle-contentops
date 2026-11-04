@@ -285,6 +285,46 @@ def test_new_turn_gets_its_own_identity_probe_even_in_same_five_minute_epoch(tmp
     assert store.list_platform_dispatches() == []
 
 
+@pytest.mark.parametrize("fault", [None, "stale", "invocation", "identity", "object", "unverified", "content", "media"])
+def test_successful_exact_readback_survives_bucket_change_by_observation_time(tmp_path, fault):
+    store, executor = setup(tmp_path)
+    now = datetime(2026, 11, 4, 14, 39, 59, tzinfo=timezone.utc)
+    executor.clock = lambda: now
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    packet, object_id, url = pending_readback(adapter)
+    request_hash = packet["request"]["request_sha256"]
+    executor.begin(request_hash)
+    now += timedelta(seconds=2)
+    executor.submit(request_hash, {
+        "tool_request_sha256": packet["tool_request_sha256"],
+        "tool_observation": {"tool_name": TOOL, "native_invocation_id": "controlled-test",
+            "surface": "CODEX_EXEC", "observation_source": "CONTROLLED_TEST_NOT_BROWSER_PROOF",
+            "observed_at_utc": now.isoformat()},
+        "result": {"request_sha256": request_hash, "status": "SUCCESS",
+            "observed_identity": "wrong-account" if fault == "identity" else "capitalchronicle.substack.com",
+            "public_object_id": "wrong-object" if fault == "object" else object_id, "public_object_url": url,
+            "observed_text": "Exact supported proposition.", "content_verified": fault != "unverified"}})
+    now += timedelta(seconds=601 if fault == "stale" else 1)
+    if fault == "invocation":
+        executor.native_invocation_id = "another-turn"
+    value = intent()
+    if fault == "content":
+        value["payload"] = "A changed proposition."
+    if fault == "media":
+        value["media_assets"] = [{"asset_id": "different-chart", "sha256": "d" * 64}]
+    before = len(store.list_outbox_messages())
+    if fault:
+        with pytest.raises(NativeNeoInputRequired):
+            adapter.readback(destination="substack", intent=value,
+                public_object_id=object_id, public_object_url=url)
+    else:
+        result = adapter.readback(destination="substack", intent=value,
+            public_object_id=object_id, public_object_url=url)
+        assert result["verified"] is True
+        assert len(store.list_outbox_messages()) == before
+    assert store.list_platform_dispatches() == []
+
+
 def test_coordinator_pending_publish_and_claimed_loss_enters_readback_only(tmp_path, monkeypatch):
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
     store, executor = setup(tmp_path, allow_publish=True)

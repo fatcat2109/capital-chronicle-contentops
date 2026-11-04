@@ -237,6 +237,11 @@ class NeoDestinationHandoff:
                     value.pop("native_invocation_id", None)
                 else:
                     value["native_invocation_id"] = resumed[identity]
+            fresh_readback = getattr(self.native_executor, "fresh_readback_request", None)
+            if callable(fresh_readback):
+                previous = fresh_readback(value)
+                if previous:
+                    return previous
         value["request_sha256"] = sha256_of(value)
         return value
 
