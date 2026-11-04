@@ -1,5 +1,15 @@
 # CC-154 — site-first Publisher delivery
 
+## Current continuation — 5 November 2026
+
+Publisher's site-first route and its LinkedIn company-page regression pass in the
+operating root. Fresh checks against both CC-246 and CC-254 Web consumers still
+return `NEWSROOM_CANONICAL_REQUIRED` for site-only input while accepting the
+Substack control. Web/Ops must deploy the reviewed site candidate independently
+of Substack before the next-article/window acceptance can finish. See
+[current evidence and next action](resume-20261105/README.md) and
+[validation](resume-20261105/validation.json).
+
 ## Current continuation — 4 November 2026
 
 The retained implementation is resumed on `backlog/cc-154-site-first-live` from

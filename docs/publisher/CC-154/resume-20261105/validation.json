@@ -22,6 +22,13 @@
       "errors": "0",
       "time": "15.185",
       "sha256": "35634e23214544dd8564fe726c36b7f7c544eee1a419bbea30171233f78b07e2"
+    },
+    "operating-root-tests.xml": {
+      "tests": "17",
+      "failures": "0",
+      "errors": "0",
+      "time": "13.639",
+      "sha256": "98253b744a17c2c676436ee83306a5e41b739bef47c0aa1d8ec55f22eb3a0d00"
     }
   },
   "ruff": "PASS tests/test_site_first_publication_v1.py",
@@ -42,20 +49,29 @@
       "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
       "sha256": "72af9ad9e32baa429e52cd8d4a275cec6cd7726078e8778516f663b6f03fba56",
       "bytes": 934509,
-      "included_in_commit": false
+      "included_in_commit": false,
+      "unchanged_after_tests_and_integration": true
     },
     {
       "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
       "sha256": "29b205409ba1817489c146e29e7497aa900b73cef8022b662a9c0fd166545164",
       "bytes": 5584,
-      "included_in_commit": false
+      "included_in_commit": false,
+      "unchanged_after_tests_and_integration": true
     },
     {
       "path": "tests/evidence/cc-172-resume-20261104/latency-diagnosis.txt",
       "sha256": "43aa6195f6177b317f5c76e056a1864529dbc556d1aee6b95057228ac37dd949",
       "bytes": 4723,
-      "included_in_commit": false
+      "included_in_commit": false,
+      "unchanged_after_tests_and_integration": true
     }
   ],
-  "smallest_next_action": "Web/Ops implement reviewed site-candidate deployment independent of Substack; Publisher then completes the next eligible article in its window."
+  "smallest_next_action": "Web/Ops implement reviewed site-candidate deployment independent of Substack; Publisher then completes the next eligible article in its window.",
+  "publisher_integration": {
+    "status": "FAST_FORWARDED_AND_VERIFIED",
+    "commit": "5bb480d76563908c1e87080543bd4761047da37e",
+    "observed_at_utc": "2026-11-04T18:40:21.170632+00:00",
+    "test_file_matches_operating_root": true
+  }
 }
