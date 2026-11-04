@@ -1212,6 +1212,9 @@ def post_image_view(result, *, output_dir):
         try:
             if asset.get("modality") == "documentary_photo":
                 validate_contextual_photo(asset, require_pixel_review=False)
+            elif asset.get("modality") == "source_bound_data_card":
+                from live_contentops.post_visuals_v1 import validate_post_data_card
+                validate_post_data_card(asset, article, documents)
             elif asset.get("post_card_binding"):
                 validate_post_image_card(asset, article=article, accepted_evidence_sha256=evidence_hash)
             else:
@@ -1223,14 +1226,16 @@ def post_image_view(result, *, output_dir):
             excluded.append({"asset_id": asset.get("asset_id"), "sha256": asset.get("sha256"),
                              "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__})
     charts = [a for a in usable if a.get("modality") == "source_backed_chart"]
-    if not charts:
+    cards = [a for a in usable if a.get("modality") == "source_bound_data_card"]
+    if not charts and not cards:
         charts = [build_post_image_card(article, output_dir=output_dir, accepted_evidence_sha256=evidence_hash)]
         usable.insert(0, charts[0])
     allowed = {a["asset_id"] for a in usable}
-    default = charts[0]["asset_id"]
+    default = (cards or charts)[0]["asset_id"]
     from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
     decision = view.get("visual_editorial_decision") or article.get("visual_editorial_decision")
-    choices = article.get("native_destination_media") or (decision or {}).get("channel_media") or {}
+    choices = (article.get("post_visual_destination_media") or article.get("native_destination_media")
+               or (decision or {}).get("channel_media") or {})
     choices = {d: [i for i in choices.get(d, []) if i in allowed] or [default]
                for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
     article["native_destination_media"] = choices

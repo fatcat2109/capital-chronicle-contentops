@@ -3198,7 +3198,7 @@ def run_v1_simple_gemini_newsroom(
 
     article_identity = _text_hash(str(article["substack_body_markdown"]))
     admitted_media = []
-    if native and (article.get("reader_first_version") == "DATA_JOURNALISM_V1" or article.get("text_first")):
+    if native and article.get("reader_first_version") == "DATA_JOURNALISM_V1":
         admitted_media = llm_invoke.admitted_editorial_media()
         from live_contentops.post_visuals_v1 import complete_post_visuals
         article, admitted_media = complete_post_visuals(article, worker_output["material_claim_bindings"],

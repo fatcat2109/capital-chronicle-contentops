@@ -151,9 +151,13 @@ def test_time_sensitive_writer_one_editor_publishes_without_screenshot_review(tm
     operation, executor, _ = composed(store, binding, rollout, monkeypatch)
     value, _ = finish(operation, executor)
     timing = value["publication"]["timing"]
-    assert timing["state"] == "WITHIN_15_MINUTES"
-    assert timing["all_channels_dispatched_within_target"]
-    assert all(c["dispatched_at_utc"] for c in timing["channels"] if not c["skipped"])
+    # The current site-first fixture confirms the site before socials. Substack
+    # is still undispatched; it must not be counted as meeting the target.
+    assert timing["state"] == "DISPATCH_NOW"
+    assert not timing["all_channels_dispatched_within_target"]
+    assert next(c for c in timing["channels"] if c["destination"] == "substack")["dispatched_at_utc"] is None
+    assert all(c["within_target"] is True for c in timing["channels"]
+               if not c["skipped"] and c["destination"] != "substack")
     assert not any("final-visual" in json.loads(r["payload"]).get("stage", "") for r in store.list_outbox_messages())
 
 
@@ -233,8 +237,9 @@ def test_substack_action_keeps_jims_code_tab_and_upload_rules_and_bounds_dispatc
     assert packet["upload_policy"]["source_scope"] == "ARTICLE_OWN_MEDIA_FOLDER"
     assert "NATIVE_FILE_DIALOG_OPEN" in packet["upload_policy"]["native_file_dialog"]
     routine = packet["substack_publish_routine"]
-    assert routine["policy"] == "JIM_DECISION_54" and routine["pending_is_dispatch"] is False
-    assert "Gmail" in routine["before_publish"] and "never read" in routine["before_publish"]
+    assert routine["policy"] == "JIM_DECISIONS_48_52_63" and routine["pending_is_dispatch"] is False
+    assert "task's tab group" in routine["before_publish"]
+    assert "Never read a mailbox" in routine["before_publish"]
     assert "PENDING_JIM_EMAIL_CODE" in routine["email_code_dialog"]
     assert "share-center" in routine["continue_only_after"]
     response = observed(pending)

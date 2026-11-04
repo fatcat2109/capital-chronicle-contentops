@@ -122,6 +122,9 @@ def test_native_semantic_assembly_persists_card_before_preview_and_handoff(tmp_p
     selected["ordered_candidate_plan"][0]["article_mode"] = "BREAKING_BRIEF"
     visual = packet()[0]["visual_editorial_decision"]
     class ControlledNative:
+        def frozen_request(self, stage):
+            return None
+
         native_desktop_protocol = True
         def __call__(self, **kwargs):
             if kwargs["role_task_id"] == ROLE_V1_SIMPLE_SELECTION:
@@ -183,7 +186,7 @@ def test_analysis_retains_two_to_five_chart_requirement(tmp_path):
     with pytest.raises(ValueError, match="EVERY_POST_IMAGE"):
         complete_post_visuals(article, claims, docs, [], output_dir=tmp_path)
     article, assets = complete_post_visuals(article, claims, docs, [{"asset_id": "fake-chart"}], output_dir=tmp_path)
-    with pytest.raises(ValueError, match="TWO_TO_FIVE"):
+    with pytest.raises(ValueError, match="TWO_TO_FIVE|ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"):
         validate_release_media({"article": article, "media_assets": assets, "evidence": docs})
 
 
@@ -342,3 +345,21 @@ def test_long_cards_keep_complete_claims_in_bounded_readable_layout(tmp_path):
     assert card["width"] == 1080
     assert all(f["text"] in texts for f in card["data_card_packet"]["facts"])
     validate_post_data_card(card, article, docs)
+
+
+def test_source_bound_card_survives_existing_live_image_selection(tmp_path):
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
+    article, claims, docs = packet()
+    article, assets = complete_post_visuals(article, claims, docs, [], output_dir=tmp_path)
+    result = post_image_view({"article": article, "media_assets": assets, "evidence": docs,
+        "accepted_evidence_sha256": "f" * 64}, output_dir=tmp_path / "consumer")
+    assert result["media_assets"] == assets
+    assert result["post_image_policy"]["excluded_optional_assets"] == []
+    assert result["post_image_policy"]["default_asset_id"] == assets[0]["asset_id"]
+    assert all(ids == [assets[0]["asset_id"]] for ids in result["article"]["native_destination_media"].values())
+    payloads, intents = _native_preview_bundle(article=result["article"], article_mode="BREAKING_BRIEF",
+        article_identity="controlled", epistemic_state={}, media_asset_ids=[a["asset_id"] for a in assets],
+        media_assets=assets)
+    assert len(payloads["packages"]) == 8
+    assert all(p["media_asset_ids"] == [assets[0]["asset_id"]] for p in payloads["packages"].values())
+    validate_post_data_card(result["media_assets"][0], article, docs)

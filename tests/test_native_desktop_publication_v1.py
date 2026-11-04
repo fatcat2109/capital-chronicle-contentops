@@ -272,6 +272,29 @@ def composed(store, binding, rollout, monkeypatch):
 def observed(packet):
     r = packet["request"]
     d = r["destination"]
+    if r["action"] == "IDENTITY":
+        return {
+            "tool_request_sha256": packet["tool_request_sha256"],
+            "tool_observation": {
+                "tool_name": TOOL, "native_invocation_id": "CONTROLLED",
+                "surface": "CODEX_NATIVE_SUBAGENT", "observation_source": "CONTROLLED_TEST_NOT_BROWSER_PROOF",
+                "observed_at_utc": datetime.now(timezone.utc).isoformat(),
+            },
+            "result": {"request_sha256": r["request_sha256"], "status": "SUCCESS",
+                       "observed_identity": r["expected_identity"]},
+        }
+    if d == "site":
+        return {
+            "tool_request_sha256": packet["tool_request_sha256"],
+            "tool_observation": {
+                "tool_name": TOOL, "native_invocation_id": "CONTROLLED",
+                "surface": "CODEX_NATIVE_SUBAGENT", "observation_source": "CONTROLLED_TEST_NOT_BROWSER_PROOF",
+                "observed_at_utc": datetime.now(timezone.utc).isoformat(),
+            },
+            "result": {"request_sha256": r["request_sha256"], "verified": True,
+                **{key: r[key] for key in ("public_object_url", "article_identity", "article_content_sha256")},
+                "observed_identity": r["expected_identity"]},
+        }
     b = r["content_binding"]
     object_id = {
         "substack": "controlled-article",

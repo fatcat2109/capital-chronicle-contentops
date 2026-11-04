@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="6.238" timestamp="2026-11-04T18:48:21.108334+07:00" hostname="J-P"><testcase classname="tests.test_native_publication_latency_v1" name="test_time_sensitive_writer_one_editor_publishes_without_screenshot_review" time="5.483"><failure message="AssertionError: assert 'DISPATCH_NOW' == 'WITHIN_15_MINUTES'&#10;  &#10;  - WITHIN_15_MINUTES&#10;  + DISPATCH_NOW">tests\test_native_publication_latency_v1.py:154: in test_time_sensitive_writer_one_editor_publishes_without_screenshot_review
+    assert timing["state"] == "WITHIN_15_MINUTES"
+E   AssertionError: assert 'DISPATCH_NOW' == 'WITHIN_15_MINUTES'
+E     
+E     - WITHIN_15_MINUTES
+E     + DISPATCH_NOW</failure></testcase></testsuite></testsuites>

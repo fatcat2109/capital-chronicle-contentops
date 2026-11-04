@@ -4085,7 +4085,7 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         (
             row
             for row in delivery_assets
-            if row.get("sha256") in {asset.get("sha256") for asset in media_assets}
+            if ((not media_assets and not selected_media_explicit) or row.get("sha256") == local_sha256)
             and str(row.get("verified_public_delivery_url") or "").startswith("https://")
             and row.get("local_public_hash_continuity") is True
             and str(row.get("sha256") or "")
