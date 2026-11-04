@@ -206,6 +206,24 @@ def test_unchanged_confirmed_text_is_read_back_without_an_edit(social, monkeypat
     assert actions == ["readback"] and out["edit_called"] is False
 
 
+def test_native_publish_begin_uses_current_accepted_media(social, monkeypatch):
+    from live_contentops.native_desktop_publication_v1 import NativeReviewedPublication
+    import live_contentops.native_desktop_editorial_v1 as editorial
+    store, run, _, revision, _ = social
+    co, ref = continuation(social, monkeypatch)
+    _, accepted, _ = editorial.reader_presentation_acceptance(store, run_id=run, reference=ref)
+    pub = NativeReviewedPublication.__new__(NativeReviewedPublication)
+    pub.store, pub.binding = store, {"run_id": run}
+    monkeypatch.setattr(pub, "validate", lambda: None)
+    monkeypatch.setattr(pub, "_authorize_and_bind", lambda: None)
+    pub.executor = SimpleNamespace(_get=lambda *args: {"request": {
+        "action": "PUBLISH", "reader_presentation_review": ref}}, begin=lambda key: {"begun": key})
+    seen = []
+    monkeypatch.setattr(editorial, "validate_release_media", lambda result: seen.append(result))
+    assert pub.tool("begin", request_hash="CONTROLLED_CURRENT_MEDIA") == {"begun": "CONTROLLED_CURRENT_MEDIA"}
+    assert seen == [accepted]
+
+
 def test_auth_failure_does_not_overwrite_reviewed_original_intent(social, monkeypatch):
     store, run, _, revision, _ = social
     co, ref = continuation(social, monkeypatch)

@@ -694,10 +694,17 @@ class NativeReviewedPublication:
             packet = self.executor._get(request_hash, "request")
             if packet and packet["request"]["action"] == "PUBLISH":
                 from live_contentops.native_desktop_editorial_v1 import validate_release_media, require_current_final_visual_review
-                result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
-                from live_contentops.native_publication_latency_v1 import validate_publication_media
-                validate_publication_media(self.store, run_id=self.binding["run_id"], result=result)
-                require_current_final_visual_review(self.store, run_id=self.binding["run_id"])
+                reference = packet["request"].get("reader_presentation_review")
+                if reference:
+                    from live_contentops.native_desktop_editorial_v1 import reader_presentation_acceptance
+                    _, result, _ = reader_presentation_acceptance(self.store,
+                        run_id=self.binding["run_id"], reference=reference)
+                    validate_release_media(result)
+                else:
+                    result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
+                    from live_contentops.native_publication_latency_v1 import validate_publication_media
+                    validate_publication_media(self.store, run_id=self.binding["run_id"], result=result)
+                    require_current_final_visual_review(self.store, run_id=self.binding["run_id"])
             try:
                 return self.executor.begin(request_hash)
             except NativeNeoInputRequired as pending:
