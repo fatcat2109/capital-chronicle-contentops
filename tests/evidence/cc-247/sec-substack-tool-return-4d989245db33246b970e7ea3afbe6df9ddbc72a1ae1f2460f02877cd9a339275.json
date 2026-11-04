@@ -1,0 +1,17 @@
+{
+  "tool_request_sha256": "bcbeed3e46dab0bd18d558352bf7b7d87202e898689202f54cbcbcc01fee7368",
+  "result": {
+    "status": "SUCCESS",
+    "request_sha256": "4d989245db33246b970e7ea3afbe6df9ddbc72a1ae1f2460f02877cd9a339275",
+    "authenticated": true,
+    "observed_identity": "capitalchronicle.substack.com",
+    "evidence": "Actual Neo page352 exact canonical Capital Chronicle article, authenticated Dean avatar and Dashboard. Existing object 223408612; updated image loaded."
+  },
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "surface": "CODEX_EXEC",
+    "native_invocation_id": "01a1a740-b336-7272-b067-9617c34dfd55",
+    "observed_at_utc": "2026-11-04T17:14:07.854919+00:00",
+    "observation_source": "Actual BrowserOS Neo return; A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-247\\sec-substack-identity-observation.json"
+  }
+}

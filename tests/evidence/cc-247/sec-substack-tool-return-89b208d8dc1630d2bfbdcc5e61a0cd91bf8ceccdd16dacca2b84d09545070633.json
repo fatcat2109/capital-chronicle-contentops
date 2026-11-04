@@ -1,0 +1,18 @@
+{
+  "tool_request_sha256": "52317adfb091b719c3cfd16e842dfb50c316fac016d9c73dede6467e6287914e",
+  "result": {
+    "status": "SUCCESS",
+    "request_sha256": "89b208d8dc1630d2bfbdcc5e61a0cd91bf8ceccdd16dacca2b84d09545070633",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "223408612",
+    "public_object_url": "https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission",
+    "evidence": "BrowserOS Neo page352: existing article updated with one new CC245 image after What the SEC has announced and exact caption/alt; original prose unchanged. Uploaded original bytes verified sha256 869a7af9a3d8a9ad2f1bd3497ad3c3ec7ad3b9032b588c55076d0dbe3f71b204; image loaded. Update now completed and page reached existing-object share center. No email or schedule selected; no native dialog opened."
+  },
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "surface": "CODEX_EXEC",
+    "native_invocation_id": "01a1a740-b336-7272-b067-9617c34dfd55",
+    "observed_at_utc": "2026-11-04T17:13:16.995589+00:00",
+    "observation_source": "Actual BrowserOS Neo return; A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-247\\sec-substack-edit-observation.json"
+  }
+}

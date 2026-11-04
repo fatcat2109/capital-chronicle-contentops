@@ -1,0 +1,18 @@
+{
+  "tool_request_sha256": "dacedc07dd37369fe65fe2b001d449adecf5fe366508f713cfbe82bf863925f0",
+  "result": {
+    "status": "SUCCESS",
+    "request_sha256": "3c11c65345a54e65ed580bbfd20bf4c5ef6c24947d8453542a15f43abe4248e0",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7523796524670025729/",
+    "evidence": "Actual Neo page351: single Post click completed, View post resolved exact new activity; Jim Pham author and approved CPI copy visible. Approved annual chart uploaded through intercepted file input via Neo upload from article own media folder.",
+    "public_object_id": "urn:li:activity:7523796524670025729",
+    "observed_identity": "linkedin:jimcc"
+  },
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "surface": "CODEX_EXEC",
+    "native_invocation_id": "01a1a740-b336-7272-b067-9617c34dfd55",
+    "observed_at_utc": "2026-11-04T17:21:41.210565+00:00",
+    "observation_source": "Actual BrowserOS Neo return; A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-247\\cpi-linkedin-publish-observation.json"
+  }
+}
