@@ -238,6 +238,8 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
             return continuation.reader_derivative(response=response)
         if command in {"publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company"}:
             return continuation.linkedin_recovery(command.rsplit("-", 1)[-1], response=response)
+        if command == "publication-repost-after-removal":
+            return continuation.repost_after_removal(response=response)
         if not request_hash:
             raise ValueError("EXACT_NATIVE_NEO_REQUEST_REQUIRED")
         return continuation.tool("begin" if command == "publication-tool-begin" else "submit",
@@ -577,7 +579,8 @@ def main(argv=None):
     parser.add_argument("command", choices=("newsroom", "standing", "release-finished", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "next-candidate", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
         "digest", "digest-resume", "digest-tool-begin", "digest-tool-submit",
         "publication-prepare", "publication-status", "publication-resume", "publication-reader-derivative", "publication-tool-begin", "publication-tool-submit",
-        "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company", "quota-stop",
+        "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company",
+        "publication-repost-after-removal", "quota-stop",
         "window-result", "window-notice-begin", "window-notice-record", "window-close", "window-blocked", "window-blocked-begin", "window-blocked-record",
         "task-result", "task-notice-begin", "task-notice-record", "task-blocked", "task-blocked-begin", "task-blocked-record",
         "audience-status", "audience-observe", "audience-tool-begin", "audience-tool-submit", "audience-evaluate", "audience-feedback", "audience-follow-up"))

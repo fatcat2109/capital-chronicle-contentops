@@ -613,6 +613,21 @@ class NativeReviewedPublication:
         return {"classification": "NATIVE_LINKEDIN_RECOVERY", "coordinator_result": outcome,
             "publication": self.projection()}
 
+    def repost_after_removal(self, *, response):
+        """CC-247: repost one X, Telegram or Discord post Jim deleted, over the same bound executor."""
+        plan, _ = self.validate()
+        self._authorize_and_bind()
+        if not isinstance(response, dict) or not response.get("destination") or not response.get("review_reference"):
+            raise ValueError("REPOST_DESTINATION_AND_REVIEW_REFERENCE_REQUIRED")
+        message = self.coordinator._ids(self.binding["run_id"], plan["plan_hash"], response["destination"])["message_id"]
+        try:
+            outcome = self.coordinator.repost_after_owner_removal(message, review_reference=response["review_reference"])
+        except NativeNeoInputRequired as pending:
+            outcome = {"status": "NATIVE_NEO_TOOL_PENDING", "native_tool_request": pending.request,
+                "public_write_performed": False}
+        return {"classification": "NATIVE_REPOST_AFTER_OWNER_REMOVAL", "coordinator_result": outcome,
+            "publication": self.projection()}
+
     def resume(self):
         plan, root = self.validate()
         self._authorize_and_bind()

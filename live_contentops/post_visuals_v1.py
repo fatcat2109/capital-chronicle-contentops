@@ -70,58 +70,24 @@ def _bound_fact(claim, article, documents):
 
 
 def _render_card(packet, path, mini_chart=None):
-    from PIL import Image, ImageDraw, ImageFont
-    from matplotlib.font_manager import findfont, FontProperties
-    font_path = findfont(FontProperties(family="DejaVu Sans"))
-    regular = ImageFont.truetype(font_path, 35)
-    small = ImageFont.truetype(font_path, 25)
-    heading = ImageFont.truetype(font_path, 52)
-    canvas = Image.new("RGB", (1080, 2400), "#f5f2eb")
-    draw = ImageDraw.Draw(canvas)
+    """CC-245: the data card in the site design, Instagram's 1080x1350 portrait size.
 
-    def wrap(text, font, width):
-        lines, current = [], ""
-        for word in text.split():
-            if draw.textlength(word, font=font) > width:
-                raise ValueError("DATA_CARD_UNBREAKABLE_TEXT_TOO_WIDE")
-            candidate = (current + " " + word).strip()
-            if current and draw.textlength(candidate, font=font) > width:
-                lines.append(current)
-                current = word
-            else:
-                current = candidate
-        return lines + ([current] if current else [])
-
-    draw.rectangle((0, 0, 1080, 16), fill="#12685a")
-    draw.text((64, 58), "CAPITAL CHRONICLE", font=small, fill="#12685a")
-    draw.text((64, 106), "Key facts", font=heading, fill="#142d33")
-    y = 200
-    for fact in packet["facts"]:
-        for line in wrap(fact["text"], regular, 952):
-            draw.text((64, y), line, font=regular, fill="#142d33")
-            y += 49
-        y += 12
-        for line in wrap(fact["publisher"], small, 952):
-            draw.text((64, y), line, font=small, fill="#4e666b")
-            y += 35
-        y += 32
-    if mini_chart:
-        available = min(680, 1350 - y - 130)
-        if available < 420:
-            raise ValueError("DATA_CARD_CONTENT_EXCEEDS_READABLE_LAYOUT")
-        with Image.open(mini_chart) as original:
-            image = original.convert("RGB")
-            image.thumbnail((952, available), Image.Resampling.LANCZOS)
-            canvas.paste(image, ((1080 - image.width) // 2, y))
-            y += image.height + 30
-    if y > 1250:
+    The facts stay verbatim with their publishers; the key figure is an exact substring
+    of a fact. A card that cannot show every fact whole raises the layout error, so the
+    builder drops the last fact and renders again (no cut claim is ever posted).
+    """
+    from live_contentops.fact_card_design_v1 import CardSpec, INSTAGRAM_SIZE, key_from_facts, render_fact_card
+    facts = [("Reported fact", fact["text"]) for fact in packet["facts"]]
+    publishers = list(dict.fromkeys(fact["publisher"] for fact in packet["facts"]))
+    key_label, key_value = ("", "") if mini_chart else key_from_facts(facts)
+    spec = CardSpec(title=packet.get("title") or "Key facts", facts=facts, kicker=" · ".join(publishers),
+        key_label=key_label, key_value=key_value, source_line="Source: " + ", ".join(publishers),
+        dated_line=packet.get("dated_line") or "Capital Chronicle", image_path=str(mini_chart or ""))
+    result = render_fact_card(path, spec, size=INSTAGRAM_SIZE)
+    # Readable on a phone: every fact whole, at 28px or more on the 1080px card.
+    if result["facts_shown"] < result["facts_given"] or (result["facts_size"] or 0) < 28:
         raise ValueError("DATA_CARD_CONTENT_EXCEEDS_READABLE_LAYOUT")
-    draw.line((64, y, 1016, y), fill="#b4c4bf", width=2)
-    draw.text((64, y + 24), "Analysis, not financial advice.", font=small, fill="#4e666b")
-    canvas = canvas.crop((0, 0, 1080, max(1080, y + 100)))
-    path.parent.mkdir(parents=True, exist_ok=True)
-    canvas.save(path, format="PNG")
-    return canvas.size
+    return INSTAGRAM_SIZE
 
 
 def _validate_card_series(packet, article, documents):
@@ -161,7 +127,11 @@ def build_post_data_card(article, claims, documents, *, output_dir, series_packe
     facts = (body_facts or facts)[:1 if series_packet else 3]
     if not facts:
         raise ValueError("DATA_CARD_NO_ADMITTED_PUBLIC_VISUAL_FACTS")
-    packet = {"policy": POLICY, "facts": facts}
+    from live_contentops.fact_card_design_v1 import DESIGN, piece_dated_line
+    # The design, title and piece date are part of the packet, so a new render never
+    # reuses the path of a card already sent in the older layout.
+    packet = {"policy": POLICY, "facts": facts, "design": DESIGN,
+              "title": str(article.get("title") or "Key facts"), "dated_line": piece_dated_line(article)}
     mini = None
     if series_packet:
         from live_contentops.rolling_x_grounded_article_media_builder_v1 import build_editorial_data_chart
