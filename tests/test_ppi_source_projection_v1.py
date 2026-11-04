@@ -1,11 +1,13 @@
 """Measured unchanged-month extraction failures are repaired from held bytes."""
 from hashlib import sha256
 import gzip
+import json
+from types import SimpleNamespace
 
 import pytest
 
 from live_contentops.official_release_history_v1 import (
-    _ppi_sentence_change, history_documents, reconcile_ppi_history,
+    _ppi_sentence_change, history_documents, preserve_prewrite_history_correction, reconcile_ppi_history,
 )
 
 
@@ -52,3 +54,19 @@ def test_unknown_or_mismatched_source_hash_is_not_reconciled(tmp_path):
             "source_relative_artifact": "source.gz", "source_sha256": "f" * 64}}]}]}
     with pytest.raises(ValueError, match="SOURCE_CAPTURE_HASH_CHANGED"):
         reconcile_ppi_history(history)
+
+
+def test_prewrite_correction_retains_old_evidence_without_replacing_native_requests(tmp_path):
+    old = {"selected_source_pack": [{"document_id": "old-ppi-projection", "canonical_content_sha256": "a" * 64,
+        "source_authority_class": "official_release_history_from_cc010"}]}
+    raw = json.dumps(old).encode()
+    (tmp_path / "simple_gemini_evidence_v1.json").write_bytes(raw)
+    (tmp_path / "editorial_media_plan_required.json").write_bytes(b'{"old":"media"}')
+    (tmp_path / "desktop_request_media-plan.json").write_bytes(b'{"frozen":"native"}')
+    turn = SimpleNamespace(root=tmp_path, frozen_request=lambda stage: None)
+    history = {"projection_corrections": [{"period": "2026-07", "reported_value": 0}]}
+    docs = [{"document_id": "correct-ppi-projection", "canonical_content_sha256": "b" * 64}]
+    preserve_prewrite_history_correction(turn, history, docs)
+    assert not (tmp_path / "simple_gemini_evidence_v1.json").exists()
+    assert next((tmp_path / "source-recovery-history").rglob('simple_gemini_evidence_v1.json')).read_bytes() == raw
+    assert (tmp_path / "desktop_request_media-plan.json").read_bytes() == b'{"frozen":"native"}'

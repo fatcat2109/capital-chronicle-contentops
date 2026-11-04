@@ -393,6 +393,30 @@ def newsroom_desk_projection(history, *, archive_root, config_path=None):
         "module_sha256": _digest(module_path.read_bytes()), "catalog_path": str(catalog), "data": value}
 
 
+def preserve_prewrite_history_correction(turn, history, documents):
+    """Keep the old evidence bytes when an exact source correction precedes writing."""
+    path = turn.root / "simple_gemini_evidence_v1.json"
+    if not history.get("projection_corrections") or not path.exists() or turn.frozen_request("write"):
+        return
+    prior = json.loads(path.read_bytes())
+    previous = {d["document_id"]: d["canonical_content_sha256"] for d in prior.get("selected_source_pack", [])
+        if d.get("source_authority_class") == "official_release_history_from_cc010"}
+    expected = {d["document_id"]: d["canonical_content_sha256"] for d in documents}
+    if not previous or previous == expected:
+        return
+    archive = turn.root / "source-recovery-history" / ("ppi-held-source-correction-" + sha256_of(history["projection_corrections"]))
+    archive.mkdir(parents=True, exist_ok=True)
+    for name in ("simple_gemini_evidence_v1.json", "editorial_media_plan_required.json"):
+        current, retained = turn.root / name, archive / name
+        if current.exists():
+            if retained.exists():
+                if retained.read_bytes() != current.read_bytes():
+                    raise ValueError("HISTORY_PREWRITE_CORRECTION_ARCHIVE_CONFLICT")
+                current.unlink()
+            else:
+                current.rename(retained)
+
+
 def enrich_source_pack(turn, *, source_pack, article_mode, cutoff_utc, archive_root=None):
     """Join public history before the existing evidence artifact/writer is frozen."""
     if article_mode in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}:
@@ -438,6 +462,7 @@ def enrich_source_pack(turn, *, source_pack, article_mode, cutoff_utc, archive_r
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(canonical_bytes(history))
     docs = history_documents(history)
+    preserve_prewrite_history_correction(turn, history, docs)
     if projection := history.get("newsroom_desk_projection"):
         for doc in docs:
             name = doc.get("official_release_history", {}).get("series", {}).get("name")
