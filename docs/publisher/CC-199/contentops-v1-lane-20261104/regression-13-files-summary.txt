@@ -1,0 +1,22 @@
+.......F....................................................F........... [ 75%]
+.F....F..FF.....F..........FF..FFFFFFF.................................. [ 94%]
+...................                                                      [100%]
+=========================== short test summary info ===========================
+FAILED tests/test_reader_first_data_journalism_v1.py::test_signed_horizontal_percent_labels_keep_the_declared_unit
+FAILED tests/test_reader_first_data_journalism_v1.py::test_channel_photo_preview_keeps_archive_context_without_dropping_unknown_rights
+FAILED tests/test_native_text_first_v1.py::test_text_only_publishes_through_existing_native_owner_with_named_skips
+FAILED tests/test_native_text_first_v1.py::test_text_first_unknown_write_reads_back_the_same_canonical_before_derivatives
+FAILED tests/test_native_photoless_briefs_v1.py::test_unbound_old_and_analysis_articles_keep_the_photo_rule
+FAILED tests/test_native_finished_publication_v1.py::test_any_finished_store_releases_without_manifest_and_preserves_source
+FAILED tests/test_native_finished_publication_v1.py::test_live_piece_reuses_binding_and_never_imports_or_rewrites_attempts
+FAILED tests/test_native_finished_publication_v1.py::test_drip_uses_first_confirmed_canonical_readback_and_does_not_delay_derivatives
+FAILED tests/test_native_finished_publication_v1.py::test_approved_text_dispatches_without_waiting_for_old_spacing
+FAILED tests/test_native_finished_publication_v1.py::test_old_source_cutoff_counts_on_actual_publication_day_in_existing_record
+FAILED tests/test_native_finished_publication_v1.py::test_finished_import_reuses_coordinator_policy_for_prior_derivative_gap[None]
+FAILED tests/test_native_finished_publication_v1.py::test_finished_import_reuses_coordinator_policy_for_prior_derivative_gap[same_article]
+FAILED tests/test_native_finished_publication_v1.py::test_finished_import_reuses_coordinator_policy_for_prior_derivative_gap[canonical]
+FAILED tests/test_native_finished_publication_v1.py::test_finished_import_reuses_coordinator_policy_for_prior_derivative_gap[unbound]
+FAILED tests/test_native_finished_publication_v1.py::test_finished_import_reuses_coordinator_policy_for_prior_derivative_gap[legacy]
+FAILED tests/test_native_finished_publication_v1.py::test_distinct_finished_run_defers_prior_distribution_before_transport[UNKNOWN_WRITE]
+FAILED tests/test_native_finished_publication_v1.py::test_distinct_finished_run_defers_prior_distribution_before_transport[NATIVE_NEO_TOOL_PENDING]
+17 failed, 362 passed in 258.23s (0:04:18)

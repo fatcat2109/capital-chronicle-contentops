@@ -9,6 +9,7 @@ from __future__ import annotations
 from datetime import datetime, time, timedelta, timezone
 from hashlib import sha256
 import json
+from pathlib import Path
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 from live_contentops.destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
@@ -112,6 +113,82 @@ def _link_title(title):
     return title.replace("\\", "\\\\").replace("[", "\\[").replace("]", "\\]").replace("\n", " ")
 
 
+def day_label(day):
+    """Reader date without a zero-padded day: "November 3, 2026"."""
+    return f"{day:%B} {day.day}, {day.year}"
+
+
+def _plain(text):
+    return " ".join(str(text or "").replace("\n", " ").split())
+
+
+def _utc_text(value):
+    return utc(str(value).replace("Z", "+00:00")).isoformat()
+
+
+def live_canonicals(store):
+    """Confirmed Substack articles in the store, with title and standfirst.
+
+    The feed (CC-135) omits a live article whose canonical readback was held
+    content-incomplete after a credit edit (the 3 Nov midterm preview), so the
+    digest also reads the store's confirmed canonical dispatches.
+    """
+    from pathlib import Path
+    rows = []
+    with store.get_read_only_connection() as conn:
+        found = conn.execute(
+            "SELECT d.public_object_id, d.public_object_url, d.dispatched_at, m.work_item_id, m.payload "
+            "FROM platform_dispatches d JOIN outbox_messages m ON m.message_id=d.message_id "
+            "WHERE d.platform='substack' AND d.status='DISPATCH_CONFIRMED' AND d.public_object_url IS NOT NULL "
+            "ORDER BY d.dispatched_at").fetchall()
+        for public_id, url, dispatched_at, work_item_id, payload in found:
+            intent = json.loads(payload)
+            if intent.get("daily_digest") or not intent.get("output_dir"):
+                continue
+            manifest = Path(intent["output_dir"]) / "article_manifest_v1.json"
+            if not manifest.is_file():
+                continue
+            article = json.loads(manifest.read_bytes())
+            published = None
+            for (data,) in conn.execute("SELECT readback_data FROM readbacks WHERE dispatch_id IN "
+                    "(SELECT dispatch_id FROM platform_dispatches WHERE message_id IN "
+                    "(SELECT message_id FROM outbox_messages WHERE work_item_id=?) AND platform='substack') "
+                    "ORDER BY read_at", (work_item_id,)):
+                observed = (json.loads(data).get("readback") or {}).get("observed_published_at_utc")
+                if observed:
+                    published = observed
+                    break
+            rows.append({"content_id": "substack:" + str(public_id), "url": url,
+                         "title": _plain(article.get("title")),
+                         "standfirst": _plain(article.get("dek") or article.get("subtitle")),
+                         "published_at_utc": published or dispatched_at})
+    return [r for r in rows if r["title"]]
+
+
+def _titles_card(day, articles, *, output_dir, evidence_sha256):
+    """A card naming the day's pieces, instead of an empty "N articles" card."""
+    from pathlib import Path
+    import textwrap
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _render_text_card, _sha256_file
+    binding = {"digest_day": day.isoformat(), "titles": [a["title"] for a in articles],
+               "accepted_evidence_sha256": evidence_sha256}
+    path = Path(output_dir) / ("digest-card-" + sha256_of(binding)[:20] + ".png")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lines = [("", a["title"]) for a in articles[:4]]
+    if len(articles) > 4:
+        lines.append(("", f"and {len(articles) - 4} more"))
+    _render_text_card(path=path, header="CAPITAL CHRONICLE",
+        title_lines=["Daily digest, " + day_label(day)], body_lines=lines,
+        footer_lines=["Capital Chronicle's own articles", PUBLIC_NOTICE], wrap_body=True)
+    title = "Capital Chronicle daily digest, " + day_label(day)
+    return {"asset_id": "digest-card-" + sha256_of(binding)[:20], "path": str(path.resolve()),
+            "sha256": _sha256_file(path), "width": 1600, "height": 900, "modality": "source_backed_chart",
+            "visual_type": "DIGEST_TITLES_CARD", "digest_card_binding": binding, "quantitative_chart": False,
+            "caption": title, "alt_text": title + ": " + "; ".join(a["title"] for a in articles),
+            "placement_after": "lead", "rights_status": "OWNED_ORIGINAL",
+            "rights": "Capital Chronicle original publication index and layout"}
+
+
 def prepare_daily_digest(store, feed_path, *, now=None):
     """Freeze once per 19:00 GMT+7 cutoff; resume an unsent draft before a new day.
 
@@ -134,7 +211,10 @@ def prepare_daily_digest(store, feed_path, *, now=None):
         prior = sorted(packets(store), key=lambda p: p["cutoff_utc"])
         for packet in prior:
             status = digest_status(store, packet)
-            if not status["confirmed"] or packet["digest_id"] == digest_id:
+            # A live digest page is done for sequencing. Its email readback stays
+            # recorded, but it never holds the next day's digest (4 Nov: the 3 Nov
+            # digest's unobservable email would have held every later one).
+            if not (status["confirmed"] or status["web_confirmed"]) or packet["digest_id"] == digest_id:
                 return {**status, "packet": packet, "public_write_performed": False}
         if prior:
             # Delayed code entry or a late confirmed-feed append must not lose
@@ -142,27 +222,37 @@ def prepare_daily_digest(store, feed_path, *, now=None):
             start = utc(prior[0]["plan"]["publication_window"]["start_utc"])
         used_ids = {a["content_id"] for p in prior for a in p["articles"]}
         used_urls = {a["url"] for p in prior for a in p["articles"]}
+        candidates = []
+        feed_rows = read_records(feed_path) if feed_path and Path(feed_path).is_file() else []
+        for row in feed_rows:
+            if utc(row["recorded_at_utc"]) <= now:
+                candidates.append({"content_id": row["content_id"], "title": row["title"],
+                    "standfirst": row["standfirst"], "published_at_utc": row["published_at_utc"],
+                    "url": next(o["url"] for o in row["outlets"] if o["name"] == "substack")})
+        # A live Substack article the feed lacks is still the day's piece.
+        candidates.extend(live_canonicals(store))
         articles = []
-        for row in sorted(read_records(feed_path), key=lambda r: (r["published_at_utc"], r["content_id"])):
-            url = next(o["url"] for o in row["outlets"] if o["name"] == "substack")
-            if (start < utc(row["published_at_utc"]) <= end and utc(row["recorded_at_utc"]) <= now
-                    and row["content_id"] not in used_ids and url not in used_urls):
-                articles.append({k: row[k] for k in ("content_id", "title", "published_at_utc", "content_sha256")})
-                articles[-1]["url"] = url
+        for row in sorted(candidates, key=lambda r: (utc(_utc_text(r["published_at_utc"])), r["content_id"])):
+            if (start < utc(_utc_text(row["published_at_utc"])) <= end
+                    and row["content_id"] not in used_ids and row["url"] not in used_urls):
+                articles.append({"content_id": row["content_id"], "title": row["title"],
+                    "standfirst": row.get("standfirst") or "",
+                    "published_at_utc": _utc_text(row["published_at_utc"]), "url": row["url"]})
+                articles[-1]["content_sha256"] = sha256_of({k: articles[-1][k] for k in ("content_id", "title", "url")})
                 used_ids.add(row["content_id"])
-                used_urls.add(url)
+                used_urls.add(row["url"])
         if not articles:
             return {"digest_id": digest_id, "state": "NO_CONFIRMED_ARTICLES", "public_write_performed": False}
-        payload = {"title": "Capital Chronicle daily digest — " + day.strftime("%B %d, %Y"),
-                   "subtitle": f"{len(articles)} articles",
-                   "body_markdown": "\n\n".join([*(f'- [{_link_title(a["title"])}]({a["url"]})' for a in articles), PUBLIC_NOTICE])}
-        from pathlib import Path
-        from live_contentops.rolling_x_grounded_article_media_builder_v1 import build_post_image_card
-        card = build_post_image_card(
-            {**payload, "substack_body_markdown": payload["body_markdown"]},
+        titles = "; ".join(a["title"] for a in articles)
+        subtitle = titles if len(titles) <= 240 else titles[:237].rsplit(" ", 1)[0] + "..."
+        entries = [f'**[{_link_title(a["title"])}]({a["url"]})**' + (f'\n\n{a["standfirst"]}' if a["standfirst"] else "")
+                   for a in articles]
+        payload = {"title": "Capital Chronicle daily digest — " + day_label(day),
+                   "subtitle": subtitle,
+                   "body_markdown": "\n\n".join([*entries, PUBLIC_NOTICE])}
+        card = _titles_card(day, articles,
             output_dir=Path(store.db_path).parent / "daily_app_outputs" / "owner-manual" / digest_id / "media",
-            accepted_evidence_sha256=sha256_of(articles))
-        card.update(rights_status="OWNED_ORIGINAL", rights="Capital Chronicle original publication index and layout")
+            evidence_sha256=sha256_of(articles))
         registration = registration_for_destination("substack")
         body = payload["body_markdown"]
         plan = {"schema_version": "contentops.publication_plan.v1", "daily_digest": digest_id,

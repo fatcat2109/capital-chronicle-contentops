@@ -80,6 +80,17 @@ _SUBSTACK_POST_WRITE_REASONS = frozenset(
 )
 
 
+def _payload_media_ids(payload: Any) -> list[str]:
+    """Media a frozen destination payload selected, root post included."""
+    if not isinstance(payload, Mapping):
+        return []
+    ids = list(payload.get("media_asset_ids") or [])
+    for post in payload.get("posts") or []:
+        if isinstance(post, Mapping):
+            ids.extend(post.get("media_asset_ids") or [])
+    return [str(i) for i in dict.fromkeys(ids) if i]
+
+
 def _canonical_json(value: Any) -> str:
     return json.dumps(value, ensure_ascii=True, separators=(",", ":"), sort_keys=True, default=str)
 
@@ -457,6 +468,16 @@ class DurablePublicationCoordinator:
             return True
         for obligation in obligations:
             run, destination = obligation.get("work_item_id"), obligation.get("destination")
+            if run == work_item_id and destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS:
+                # CC-199 CLD-C1: once this article's canonical is confirmed, one
+                # destination's recovery (Threads AUTH_INVALID, a LinkedIn
+                # UNKNOWN_WRITE) never holds its other destinations. Existing
+                # dispatches are never resent without their own readback.
+                canonicals = [intent for message, intent in intents
+                              if intent["work_item_id"] == run and message["destination"] == "substack"]
+                if canonicals and all(canonical_resolved(intent) for intent in canonicals):
+                    continue
+                return True
             if run == work_item_id or destination not in V1_REQUIRED_DERIVATIVE_DESTINATIONS:
                 return True
             matches = [intent for message, intent in intents
@@ -886,6 +907,11 @@ class DurablePublicationCoordinator:
 
     def _intent_registration(self, destination, intent):
         registration = registration_for_destination(destination)
+        if (destination == "linkedin_company" and intent.get("routine_company_copy") is True
+                and not intent.get("dated_distribution_recovery")
+                and intent.get("company_copy_of_message_id") == self._ids(
+                    intent.get("work_item_id"), intent.get("plan_hash"), "linkedin")["message_id"]):
+            return registration  # Same plan's reviewed LinkedIn copy (routine company page).
         if destination == "linkedin_company":
             from live_contentops.native_desktop_editorial_v1 import dated_distribution_recovery_acceptance
             reference = intent.get("dated_distribution_recovery")
@@ -1609,8 +1635,8 @@ class DurablePublicationCoordinator:
             raise ValueError("publication_plan_transport_registry_version_mismatch")
         plan_hash = str(plan.get("plan_hash") or _hash(_canonical_json(plan)))
         registered = []
-        from live_contentops.native_newsroom_volume_v1 import permitted_derivative_skips
-        permitted_skips = permitted_derivative_skips(plan)
+        from live_contentops.native_newsroom_volume_v1 import registration_skips
+        permitted_skips = registration_skips(plan)
         for item in sorted(plan.get("destinations") or [], key=lambda row: (
             0 if str(row.get("destination")) == "substack" else 1,
             str(row.get("destination")),
@@ -1712,7 +1738,28 @@ class DurablePublicationCoordinator:
                 destination=destination, payload=payload, status="READY",
             )
             registered.append({"destination": destination, **ids})
+            if destination == "linkedin" and plan.get("full_v1_distribution_required") is True:
+                registered.append(self._register_routine_company_copy(work_item_id, plan_hash, intent, ids))
         return {"plan_hash": plan_hash, "registered": registered, "outbox_count": len(registered)}
+
+    def _register_routine_company_copy(self, work_item_id, plan_hash, member_intent, member_ids):
+        """The Capital Chronicle company page gets the same reviewed LinkedIn copy.
+
+        4 Nov: routine LinkedIn posts went only to Jim's member profile, so the
+        company page showed nothing after 27 Oct. Same copy, same image, via Neo.
+        """
+        registration = registration_for_destination("linkedin_company")
+        ids = self._ids(work_item_id, plan_hash, "linkedin_company")
+        intent = {**member_intent, "routine_company_copy": True,
+                  "company_copy_of_message_id": member_ids["message_id"],
+                  "attempt_identity": ids["dispatch_id"],
+                  "destination_plan": {**member_intent["destination_plan"], "destination": "linkedin_company",
+                      "surface": registration.surface, "transport_type": registration.transport_type,
+                      "adapter": registration.adapter, "expected_destination_identity": registration.expected_identity}}
+        if not self.store.get_outbox_message(ids["message_id"]):
+            self.store.register_outbox_message(message_id=ids["message_id"], work_item_id=work_item_id,
+                destination="linkedin_company", payload=_canonical_json(intent), status="READY")
+        return {"destination": "linkedin_company", **ids}
 
     def _reconcile(
         self,
@@ -2189,7 +2236,9 @@ class DurablePublicationCoordinator:
         if str(message.get("destination") or "") == "substack":
             return "NOT_DERIVATIVE"
         intent = json.loads(str(message["payload"]))
-        if intent.get("canonical_url") == canonical_url:
+        if intent.get("canonical_url") == canonical_url and (
+                intent.get("post_image_policy") or not intent.get("native_payload")
+                or _payload_media_ids(intent.get("native_payload"))):
             return "READY"
         destination = str(message["destination"])
         try:
@@ -2730,7 +2779,9 @@ class DurablePublicationCoordinator:
         }
         canonical_url: Optional[str] = None
         messages = [m for m in self.store.list_outbox_messages() if m["work_item_id"] == work_item_id
-            and m["destination"] in V1_REQUIRED_PUBLICATION_DESTINATIONS
+            and (m["destination"] in V1_REQUIRED_PUBLICATION_DESTINATIONS
+                 or (m["destination"] == "linkedin_company"
+                     and json.loads(str(m["payload"])).get("routine_company_copy") is True))
             and json.loads(str(m["payload"])).get("plan_hash") == plan.get("plan_hash")]
         messages.sort(key=lambda m: (0 if m["destination"] == "substack" else 1, m["destination"]))
         canonical_message = next(
@@ -2747,8 +2798,8 @@ class DurablePublicationCoordinator:
             ):
                 canonical_url = str(outcome["public_object_url"])
         delivery_preparer = getattr(self.transport_runtime, "prepare_delivery_media", None)
-        from live_contentops.native_newsroom_volume_v1 import permitted_derivative_skips
-        no_media_needed = bool(permitted_derivative_skips(plan)) and plan.get("media_asset_count") == 0
+        from live_contentops.native_newsroom_volume_v1 import registration_skips
+        no_media_needed = bool(registration_skips(plan)) and plan.get("media_asset_count") == 0
         if canonical_url and callable(delivery_preparer) and quality_preflight is not None and not no_media_needed:
             unknown_write_count = self._active_unknown_write_count(
                 work_item_id=work_item_id,
@@ -3611,10 +3662,25 @@ class CanonicalDestinationTransportRuntimeV1:
                     or not intent.get("native_payload")):
                 raise ValueError("LINKEDIN_COMPANY_EXACT_REVIEWED_COPY_REQUIRED")
             return finalized
-        if not finalized.get("native_payload"):
+        floor_added = False
+        if not finalized.get("native_payload") or not _payload_media_ids(finalized.get("native_payload")):
+            # Jim's decision 61: a derivative frozen with no image (CPI's seven
+            # copies, 3 Nov) gets the reviewed visual or the owned card here,
+            # before its final bytes are hashed, so readback binds that image.
             from live_contentops.rolling_x_grounded_article_media_builder_v1 import POST_IMAGE_POLICY
-            finalized["post_image_policy"] = {"policy": POST_IMAGE_POLICY}
-        data = _durable_intent_inputs(finalized)
+            floor_added = not finalized.get("post_image_policy")
+            finalized["post_image_policy"] = ({"policy": POST_IMAGE_POLICY, "floor": "REVIEWED_RENDER_FIRST"}
+                if floor_added else finalized["post_image_policy"])
+        try:
+            data = _durable_intent_inputs(finalized)
+        except (ValueError, KeyError, OSError) as exc:
+            if not floor_added:
+                raise
+            # CC-186 point 3: the image never decides whether the post goes. The
+            # exact cause is kept on the intent and the copy goes with its link.
+            finalized.pop("post_image_policy", None)
+            finalized["post_image_floor_failure"] = (type(exc).__name__ + ":" + str(exc))[:300]
+            data = _durable_intent_inputs(finalized)
         native_payload = dict(data["payloads"].get(destination) or {})
         payload = str(native_payload.get("text") or "")
         destination_plan = dict(finalized["destination_plan"])

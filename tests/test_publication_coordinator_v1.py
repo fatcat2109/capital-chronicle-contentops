@@ -297,11 +297,11 @@ def test_quality_probation_derivative_readiness_hold_does_not_veto_canonical(
     assert result["per_destination"]["threads"]["status"] == "AUTH_INVALID"
     assert result["per_destination"]["threads"]["publish_called"] is False
     assert result["registered"]
-    assert result["outbox_count"] == 9
+    assert result["outbox_count"] == 10  # nine V1 surfaces plus the LinkedIn company-page copy
     assert transport.publish_calls[0] == "substack"
     assert "threads" not in transport.publish_calls
-    assert len(transport.publish_calls) == 8
-    assert len(store.list_outbox_messages()) == 9
+    assert len(transport.publish_calls) == 9  # plus the LinkedIn company-page copy
+    assert len(store.list_outbox_messages()) == 10
 
 
 def test_delivery_media_preparation_is_after_canonical_readback_and_before_derivatives(
@@ -373,7 +373,7 @@ def test_delivery_media_preparation_failure_is_destination_local_after_canonical
     assert result["canonical_article_status"] == "REAL_PUBLISHED"
     assert result["canonical_article_real_published"] is True
     assert result["registered"]
-    assert result["outbox_count"] == 9
+    assert result["outbox_count"] == 10  # nine V1 surfaces plus the LinkedIn company-page copy
     assert result["recovery_required_destinations"] == ["instagram_business"]
     assert result["per_destination"]["instagram_business"][
         "destination_local_hold"
@@ -381,7 +381,7 @@ def test_delivery_media_preparation_failure_is_destination_local_after_canonical
     assert result["per_destination"]["instagram_business"]["publish_called"] is False
     assert transport.publish_calls[0] == "substack"
     assert "instagram_business" not in transport.publish_calls
-    assert len(store.list_outbox_messages()) == 9
+    assert len(store.list_outbox_messages()) == 10  # plus the LinkedIn company-page copy
 
     recovery = coordinator.recover_pending()
     assert recovery["backlog_remaining"] == 0
@@ -402,7 +402,8 @@ def test_quality_probation_full_nine_surface_confirmation(tmp_path):
     assert result["derivative_confirmed_count"] == 8
     assert result["recovery_required_destinations"] == []
     assert transport.publish_calls[0] == "substack"
-    assert set(transport.publish_calls[1:]) == set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+    # The LinkedIn company-page copy goes with the eight derivatives (4 Nov).
+    assert set(transport.publish_calls[1:]) == set(V1_REQUIRED_DERIVATIVE_DESTINATIONS) | {"linkedin_company"}
 
 
 def test_quality_probation_postcanonical_failure_preserves_canonical_and_continues(
@@ -431,8 +432,8 @@ def test_quality_probation_postcanonical_failure_preserves_canonical_and_continu
     assert result["per_destination"]["linkedin"]["reconciliation_status"] == (
         RECONCILED_ABSENT_SAFE_TO_RETRY
     )
-    assert set(transport.publish_calls) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS)
-    assert len(store.list_platform_dispatches()) == 9
+    assert set(transport.publish_calls) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) | {"linkedin_company"}
+    assert len(store.list_platform_dispatches()) == 10  # plus the company-page copy
 
 
 def test_unresolved_quality_distribution_obligation_blocks_new_canonical(tmp_path):
@@ -568,7 +569,7 @@ def test_owner_quarantined_legacy_unknown_is_untouched_and_does_not_block_fresh_
 
     assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
     assert recovery["backlog_remaining"] == 0
-    assert recovery["recovery_quarantined_obligation_count"] == 9
+    assert recovery["recovery_quarantined_obligation_count"] == 10  # plus the company-page copy
     assert recovery["legacy_noncanonical_rows_skipped"] == 1
     assert transport.prepare_calls[0]["preconditions"]["unknown_write_count"] == 0
     assert legacy_work_item not in transport.readback_work_items
@@ -662,7 +663,7 @@ def test_recovery_delivery_media_ignores_only_owner_quarantined_unknown(tmp_path
     recovery = coordinator.recover_pending()
 
     assert recovery["backlog_remaining"] == 0
-    assert recovery["publish_calls"] == 8
+    assert recovery["publish_calls"] == 9  # eight derivatives plus the company-page copy
     assert len(transport.prepare_calls) == 1
     assert transport.prepare_calls[0]["preconditions"]["unknown_write_count"] == 0
     assert store.get_platform_dispatch(legacy["dispatch_id"])["status"] == UNKNOWN_WRITE
@@ -1968,11 +1969,11 @@ def test_native_internal_records_never_become_dispatch_destinations(tmp_path):
     result = coordinator.execute_plan("work-1", plan)
     before = list(transport.publish_calls)
     assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
-    assert set(result["per_destination"]) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS)
+    assert set(result["per_destination"]) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) | {"linkedin_company"}
     repeated = coordinator.execute_plan("work-1", plan)
     assert repeated["derivative_confirmed_count"] == 8
     assert transport.publish_calls == before
-    assert len(store.list_platform_dispatches()) == 9
+    assert len(store.list_platform_dispatches()) == 10  # plus the company-page copy
 
 
 def test_prior_distribution_policy_does_not_decode_internal_editorial_payloads(tmp_path, monkeypatch):

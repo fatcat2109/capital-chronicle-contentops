@@ -80,9 +80,11 @@ def test_1900_cutoff_and_late_articles(tmp_path):
     assert prepared(store, feed, "2026-11-03T11:59:59Z")["state"] == "NO_CONFIRMED_ARTICLES"
     first = prepared(store, feed)["packet"]
     assert [a["content_id"] for a in first["articles"]] == ["one"]
-    from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_post_image_card
-    validate_post_image_card(first["media_assets"][0],
-        accepted_evidence_sha256=first["plan"]["accepted_evidence_sha256"])
+    # 4 Nov: the card names the day's pieces instead of an empty "N articles" card.
+    card = first["media_assets"][0]
+    assert card["visual_type"] == "DIGEST_TITLES_CARD"
+    assert card["digest_card_binding"]["titles"] == ["Public title one"]
+    assert card["digest_card_binding"]["accepted_evidence_sha256"] == first["plan"]["accepted_evidence_sha256"]
     assert first["cutoff_utc"] == "2026-11-03T12:00:00+00:00"
     assert first["native_payload"]["body_markdown"].count("/p/one") == 1
     confirm(store, first)
@@ -295,7 +297,8 @@ def test_digest_paragraph_render_checks_exact_links_once(tmp_path, link_state):
             return {"request_sha256": request["request_sha256"], "observed_identity": "capitalchronicle.substack.com",
                 "public_object_id": "123", "public_object_url": "https://capitalchronicle.substack.com/p/digest",
                 "content_verified": True, "observed_text": packet["native_payload"]["title"] + " "
-                    + packet["native_payload"]["subtitle"] + " " + packet["articles"][0]["title"] + " " + PUBLIC_NOTICE,
+                    + packet["native_payload"]["subtitle"] + " " + packet["articles"][0]["title"] + " "
+                    + packet["articles"][0]["standfirst"] + " " + PUBLIC_NOTICE,
                 "observed_links": observed, "observed_media_sha256": [a["sha256"] for a in packet["media_assets"]]}
     result = NeoDestinationHandoff(native_executor=Observation()).readback(destination="substack", intent=intent,
         public_object_id="123", public_object_url="https://capitalchronicle.substack.com/p/digest")
