@@ -124,3 +124,17 @@ def test_dated_route_reposts_verified_removed_object_with_reviewed_media(tmp_pat
     again = co.complete_dated_distribution_recovery(original["message_id"],
         review_reference={"request_sha256": "a" * 64})
     assert again["publish_called"] is False and transport.publish_calls == [destination]
+
+
+def test_reviewed_first_copy_can_leave_expired_no_write_state_once(tmp_path):
+    store, co, transport, original = _setup(tmp_path, "linkedin", removed=False)
+    with store.get_connection() as conn:
+        conn.execute("UPDATE platform_dispatches SET status='DERIVATIVE_EXPIRED_STALE_NO_WRITE', public_object_id=NULL, public_object_url=NULL WHERE dispatch_id=?",
+            (original["dispatch_id"],))
+    message = store.get_outbox_message(original["message_id"])
+    intent, *_ = co._reader_presentation_intent(message, {"request_sha256": "a" * 64})
+    message = {**message, "payload": json.dumps(intent)}
+    result = co._dispatch_message(message, canonical_url=CANONICAL, explicit_transport_correction_retry=True)
+    assert result["publish_called"] is True and transport.publish_calls == ["linkedin"]
+    again = co._dispatch_message(message, canonical_url=CANONICAL, explicit_transport_correction_retry=True)
+    assert again["publish_called"] is False and transport.publish_calls == ["linkedin"]

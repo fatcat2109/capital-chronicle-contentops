@@ -99,3 +99,41 @@ def test_media_only_social_copy_uses_confirmed_canonical_while_its_image_edit_is
     assert outcome["publish_called"] is True
     assert seen[0]["native_payload"] == revision["payloads"]["discord"]
     assert seen[0]["media_assets"] == view["media_assets"]
+
+
+@pytest.mark.parametrize("claimed", [False, True])
+def test_company_replaces_only_unclaimed_exact_dispatch_from_prior_operation(repair, monkeypatch, tmp_path, claimed):
+    import json
+    from types import SimpleNamespace
+    from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, DESTINATION, SCHEMA
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    store, run, result, revision = repair
+    view = reader_presentation_revision_view(store, run_id=run, result=result, revision=revision)
+    monkeypatch.setattr("live_contentops.native_desktop_editorial_v1.reader_presentation_acceptance",
+        lambda *a, **kw: (revision, view, {}))
+    co = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    source = store.get_outbox_message(revision["objects"]["linkedin"]["message_id"])
+    ids = co._ids(run, revision["plan_hash"], "linkedin_company")
+    store.register_outbox_message(message_id=ids["message_id"], work_item_id=run, destination="linkedin_company",
+        payload=json.dumps({**json.loads(source["payload"]), "routine_company_copy": True,
+            "company_copy_of_message_id": source["message_id"]}), status="NATIVE_NEO_TOOL_PENDING")
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="linkedin_company", status="NATIVE_NEO_TOOL_PENDING")
+    old = NativeNeoExecutor(store, operation_id="prior-routine-operation", output_dir=tmp_path, native_invocation_id="prior")
+    current = NativeNeoExecutor(store, operation_id=run, output_dir=tmp_path, native_invocation_id="current")
+    monkeypatch.setattr(current, "pending", lambda: [])
+    request_hash = "d" * 64
+    key = old._key(request_hash, "request")
+    store.register_outbox_message(message_id=key, work_item_id=run, destination=DESTINATION,
+        payload=json.dumps({"schema_version": SCHEMA, "operation_id": old.operation_id,
+            "request": {"action": "PUBLISH", "request_sha256": request_hash,
+                "dispatch_attempt_identity": ids["dispatch_id"], "native_payload": {"old": True}}}), status="NATIVE_NEO_INTERNAL")
+    if claimed:
+        old._put(request_hash, "started", {"native_invocation_id": "prior"}, run)
+    co.transport_runtime = SimpleNamespace(_neo_transport=SimpleNamespace(native_executor=current))
+    actions = []
+    monkeypatch.setattr(co, "_dispatch_message", lambda *a, **kw: actions.append("reviewed-send") or {})
+    monkeypatch.setattr(co, "readback_existing_dispatch", lambda *a: actions.append("readback") or {})
+    co.publish_reviewed_linkedin_company_copy(run_id=run, review_reference={"request_sha256": "a" * 64})
+    assert actions == (["readback"] if claimed else ["reviewed-send"])
+    assert store.get_outbox_message(key)["status"] == ("NATIVE_NEO_INTERNAL" if claimed else "NATIVE_NEO_SUPERSEDED")

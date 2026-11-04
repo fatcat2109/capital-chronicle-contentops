@@ -905,7 +905,7 @@ class DurablePublicationCoordinator:
         attempted = any(r["readback_id"] == key + "-api-started" for r in self.store.list_readbacks_for_dispatch(dispatch_id))
         raw = {"status": "READBACK_ONLY_AFTER_EDIT_ATTEMPT"}
         if not attempted:
-            if destination == "facebook_page":
+            if destination in {"facebook_page", "discord"}:
                 self.store.register_readback(readback_id=key + "-api-started", dispatch_id=dispatch_id,
                     readback_data=_canonical_json({"action": "EDIT_EXISTING", "public_object_id": dispatch["public_object_id"]}))
             raw = self.transport_runtime.amend_reader_presentation(destination=destination, intent=intent,
@@ -1134,6 +1134,23 @@ class DurablePublicationCoordinator:
             executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
             pending = [p for p in executor.pending() if p["request"].get("dispatch_attempt_identity") == ids["dispatch_id"]
                 and p["request"].get("action") == "PUBLISH"] if executor else []
+            if dispatch and dispatch["status"] == NATIVE_NEO_PENDING and executor and not pending:
+                # A prior routine company request was bound to another operation.
+                # Resolve only this exact dispatch; a claimed action stays readback-only.
+                from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, DESTINATION
+                for row in self.store.list_outbox_messages(destination=DESTINATION):
+                    if row["status"] == "NATIVE_NEO_SUPERSEDED":
+                        continue
+                    packet = json.loads(row["payload"])
+                    request = packet.get("request", {})
+                    if (request.get("action") != "PUBLISH"
+                            or request.get("dispatch_attempt_identity") != ids["dispatch_id"]):
+                        continue
+                    prior_executor = NativeNeoExecutor(self.store, operation_id=packet["operation_id"],
+                        output_dir=executor.root, native_invocation_id=executor.native_invocation_id, allow_publish=False)
+                    if prior_executor._get(request["request_sha256"], "response") is None:
+                        pending.append({**packet, "request_key": row["message_id"],
+                            "action_claimed": prior_executor._get(request["request_sha256"], "started") is not None})
             if dispatch and (not pending or any(p["action_claimed"] for p in pending)):
                 return self.readback_existing_dispatch(ids["dispatch_id"])
             key = "native-reader-presentation-" + sha256_of(ids["message_id"])
@@ -1149,7 +1166,7 @@ class DurablePublicationCoordinator:
                 destination="internal:native-reader-presentation", payload=_canonical_json(note), status="PRESENTATION_MEDIA_BOUND")
             for p in pending:
                 if p["request"].get("native_payload") != payload:
-                    self.store.set_outbox_status(executor._key(p["request"]["request_sha256"], "request"), "NATIVE_NEO_SUPERSEDED")
+                    self.store.set_outbox_status(p.get("request_key") or executor._key(p["request"]["request_sha256"], "request"), "NATIVE_NEO_SUPERSEDED")
             return self._dispatch_message(prior, canonical_url=reviewed["canonical_url"])
         recovery, _ = dated_distribution_recovery_acceptance(self.store, run_id=run_id, reference=review_reference)
         if recovery.get("recipients", {}).get("linkedin_company") != "linkedin:company:143198922":
@@ -1232,7 +1249,10 @@ class DurablePublicationCoordinator:
                 "review_reference": review_reference, "acceptance": acceptance}
             prior = self.store.get_outbox_message(key)
             if prior and json.loads(prior["payload"]) != note:
-                raise ValueError("DATED_DISTRIBUTION_IMMUTABLE_REVIEW_CONFLICT")
+                if dispatch and dispatch["status"] == NATIVE_NEO_PENDING:
+                    raise ValueError("DATED_DISTRIBUTION_IMMUTABLE_REVIEW_CONFLICT")
+                self.store.finalize_outbox_payload_before_dispatch(message_id=key,
+                    payload=_canonical_json(note), status="PRESENTATION_MEDIA_BOUND")
             self.store.register_outbox_message(message_id=key, work_item_id=message["work_item_id"],
                 destination="internal:native-reader-presentation", payload=_canonical_json(note), status="PRESENTATION_MEDIA_BOUND")
             return self._dispatch_message(message, canonical_url=canonical,
@@ -2201,6 +2221,10 @@ class DurablePublicationCoordinator:
                     )
                 )
             )
+            correction_retry_eligible = correction_retry_eligible or bool(
+                explicit_transport_correction_retry and intent.get("reader_presentation_review")
+                and existing.get("status") == DERIVATIVE_EXPIRED_STALE_NO_WRITE
+                and not existing.get("public_object_id"))
             if not (retry_eligible or correction_retry_eligible or native_pending_resume):
                 return {
                     "destination": destination,
