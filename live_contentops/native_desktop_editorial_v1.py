@@ -1776,6 +1776,14 @@ def final_visual_binding(result, *, renders, destinations=None):
         "reviewer_assignment": dict(ROLE_ASSIGNMENTS["final-visual"])}
 
 
+def _distribution_editor_check_binding(result, scope):
+    from live_contentops.native_publication_latency_v1 import automated_media_check, SPEED_POLICY
+    return {**final_visual_binding(result, renders=None, destinations=scope),
+        "review_policy": SPEED_POLICY, "source_sha256": sha256_of(result.get("evidence", [])),
+        "assets": result.get("media_assets", []), "renders": [],
+        "automated_media_check": automated_media_check(result)}
+
+
 def request_final_visual_review(turn, *, renders, distribution_recovery=None, reader_presentation_revision=None):
     """Review exact assembly, with a current MAX editor for dated social recovery."""
     row = turn.store.get_outbox_message(native_artifact_key(turn.store, turn.run_id, "cc-editorial-final-"))
@@ -1797,6 +1805,19 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
     scope = ({"linkedin" if d == "linkedin_company" else d for d in reader_presentation_revision["objects"]}
         if reader_presentation_revision is not None else dated_distribution_destinations(distribution_recovery)
         if distribution_recovery is not None else None)
+    from live_contentops.native_publication_latency_v1 import uses_short_path
+    if distribution_recovery is not None and uses_short_path(turn.store, run_id=turn.run_id, result=result):
+        binding = _distribution_editor_check_binding(result, scope)
+        stage = "final-visual-" + sha256_of(binding)
+        governed = {"binding": binding, "article": result["article"], "previews": result["previews"],
+            "evidence": result.get("evidence", []), "distribution_recovery": distribution_recovery}
+        return turn(logical_invocation_id=turn.run_id + ":" + stage,
+            prompt="You are this run's native MAX editor. Review the exact dated social copy against the admitted "
+                "article, source facts, uncertainty, account, canonical link and selected images. No historical "
+                "named writer is required. Decision 53 uses one editor check and the bound automated image "
+                "load/dimension check, without new screenshots. Return JSON {decision: ACCEPT or REPAIR_REQUIRED, "
+                "rationale: substantive findings}. Never claim pixel inspection. GOVERNED_INPUT:\n" + canonical_bytes(governed).decode(),
+            governed_input=governed, validator=lambda raw: (True, None, json.loads(raw), None))
     binding = final_visual_binding(result, renders=renders,
         destinations=scope)
     stage = "final-visual-" + sha256_of(binding)
@@ -1870,6 +1891,16 @@ def validate_final_visual_return(turn, request, response):
         result = reader_presentation_revision_view(turn.store, run_id=turn.run_id, result=result, revision=revision)
     scope = ({"linkedin" if d == "linkedin_company" else d for d in revision["objects"]} if revision is not None
         else dated_distribution_destinations(recovery) if recovery is not None else None)
+    from live_contentops.native_publication_latency_v1 import SPEED_POLICY, uses_short_path
+    if recovery is not None and binding.get("review_policy") == SPEED_POLICY:
+        if (not uses_short_path(turn.store, run_id=turn.run_id, result=result)
+                or _distribution_editor_check_binding(result, scope) != binding):
+            raise ValueError("DISTRIBUTION_EDITOR_CHECK_COPY_OR_MEDIA_CHANGED")
+        if (output.get("decision") not in {"ACCEPT", "REPAIR_REQUIRED"}
+                or len(str(output.get("rationale", "")).strip()) < 20
+                or output.get("pixels_inspected") is True):
+            raise ValueError("DISTRIBUTION_REASONED_EDITOR_CHECK_REQUIRED")
+        return
     current = final_visual_binding(result, renders=binding["renders"], destinations=scope)
     # Renderer source is provenance for the saved pixels. Its later source edits
     # do not alter the exact PNG/HTML, media, source or channel bytes checked above.
@@ -1922,7 +1953,10 @@ def final_visual_acceptance(store, *, run_id, result, reference):
     return {"stage": stage, "request_sha256": request["request_sha256"], "response_sha256": sha256_of(response),
         "output_dir": str(turn.root), "article_revision": native_review_revision(result),
         "render_binding_sha256": sha256_of(request["governed_input"]["binding"]),
-        "invocation_observation": response["invocation_observation"]}
+        "invocation_observation": response["invocation_observation"],
+        **({"review_type": "WRITER_ONE_EDITOR_CHECK_PUBLISH", "pixels_inspected": False,
+            "automated_media_check": request["governed_input"]["binding"]["automated_media_check"]}
+           if request["governed_input"]["binding"].get("review_policy") else {})}
 
 
 def require_current_final_visual_review(store, *, run_id):

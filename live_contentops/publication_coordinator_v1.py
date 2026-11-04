@@ -957,8 +957,15 @@ class DurablePublicationCoordinator:
             context = previous_context
         request = transport.request(destination="linkedin", action="READBACK",
             intent={**original, "owner_absence_context": context})
-        if request_hash and request["request_sha256"] != request_hash:
-            raise ValueError("LINKEDIN_EXACT_PRIOR_ABSENCE_REQUEST_REQUIRED")
+        if request_hash:
+            prior_request = packet["request"]
+            # Consume the exact saved read-only return across a clock bucket.
+            # Actual observation age below still decides whether absence is fresh.
+            ignored = {"request_sha256", "observation_epoch", "native_invocation_id"}
+            if ({k: v for k, v in request.items() if k not in ignored}
+                    != {k: v for k, v in prior_request.items() if k not in ignored}):
+                raise ValueError("LINKEDIN_EXACT_PRIOR_ABSENCE_REQUEST_REQUIRED")
+            request = prior_request
         result = executor(request)
         observation = result.get("native_tool_observation") or {}
         observed = _parse_utc(observation.get("observed_at_utc"))
