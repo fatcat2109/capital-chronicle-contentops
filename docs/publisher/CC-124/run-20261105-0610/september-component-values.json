@@ -1,0 +1,122 @@
+[
+  {
+    "label": "Final demand",
+    "value": 1.3,
+    "value_text": "1.3",
+    "support_excerpt": "The Producer Price Index for final demand increased 1.3 percent in September, seasonally adjusted, the U.",
+    "document_id": "cc124-bls-september-ppi-original",
+    "source_content_sha256": "80efaa48b57e619cc0e982662022c2d337d3a0dc9ef22bf731e3406c936dc4bb",
+    "source_capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+    "unit": "percent",
+    "reference_period": "2026-09",
+    "seasonal_adjustment": "SA"
+  },
+  {
+    "label": "Goods",
+    "value": 2.6,
+    "value_text": "2.6",
+    "support_excerpt": "Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009.",
+    "document_id": "cc124-bls-september-ppi-original",
+    "source_content_sha256": "80efaa48b57e619cc0e982662022c2d337d3a0dc9ef22bf731e3406c936dc4bb",
+    "source_capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+    "unit": "percent",
+    "reference_period": "2026-09",
+    "seasonal_adjustment": "SA"
+  },
+  {
+    "label": "Services",
+    "value": 0.8,
+    "value_text": "0.8",
+    "support_excerpt": "Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.",
+    "document_id": "cc124-bls-september-ppi-original",
+    "source_content_sha256": "80efaa48b57e619cc0e982662022c2d337d3a0dc9ef22bf731e3406c936dc4bb",
+    "source_capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+    "unit": "percent",
+    "reference_period": "2026-09",
+    "seasonal_adjustment": "SA"
+  },
+  {
+    "label": "Less foods, energy and trade",
+    "value": 0.5,
+    "value_text": "0.5",
+    "support_excerpt": "Prices for final demand less foods, energy, and trade services moved up 0.5 percent in September after increasing 0.",
+    "document_id": "cc124-bls-september-ppi-original",
+    "source_content_sha256": "80efaa48b57e619cc0e982662022c2d337d3a0dc9ef22bf731e3406c936dc4bb",
+    "source_capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+    "unit": "percent",
+    "reference_period": "2026-09",
+    "seasonal_adjustment": "SA"
+  },
+  {
+    "label": "Goods: energy",
+    "value": 10.8,
+    "value_text": "10.8",
+    "support_excerpt": "Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent.",
+    "document_id": "cc124-bls-september-ppi-original",
+    "source_content_sha256": "80efaa48b57e619cc0e982662022c2d337d3a0dc9ef22bf731e3406c936dc4bb",
+    "source_capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+    "unit": "percent",
+    "reference_period": "2026-09",
+    "seasonal_adjustment": "SA"
+  },
+  {
+    "label": "Goods: foods",
+    "value": 1.2,
+    "value_text": "1.2",
+    "support_excerpt": "Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively.",
+    "document_id": "cc124-bls-september-ppi-original",
+    "source_content_sha256": "80efaa48b57e619cc0e982662022c2d337d3a0dc9ef22bf731e3406c936dc4bb",
+    "source_capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+    "unit": "percent",
+    "reference_period": "2026-09",
+    "seasonal_adjustment": "SA"
+  },
+  {
+    "label": "Goods: less foods and energy",
+    "value": 0.3,
+    "value_text": "0.3",
+    "support_excerpt": "Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively.",
+    "document_id": "cc124-bls-september-ppi-original",
+    "source_content_sha256": "80efaa48b57e619cc0e982662022c2d337d3a0dc9ef22bf731e3406c936dc4bb",
+    "source_capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+    "unit": "percent",
+    "reference_period": "2026-09",
+    "seasonal_adjustment": "SA"
+  },
+  {
+    "label": "Services: trade",
+    "value": 1.4,
+    "value_text": "1.4",
+    "support_excerpt": "Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services.",
+    "document_id": "cc124-bls-september-ppi-original",
+    "source_content_sha256": "80efaa48b57e619cc0e982662022c2d337d3a0dc9ef22bf731e3406c936dc4bb",
+    "source_capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+    "unit": "percent",
+    "reference_period": "2026-09",
+    "seasonal_adjustment": "SA"
+  },
+  {
+    "label": "Services: transportation and warehousing",
+    "value": 3.4,
+    "value_text": "3.4",
+    "support_excerpt": "The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively.",
+    "document_id": "cc124-bls-september-ppi-original",
+    "source_content_sha256": "80efaa48b57e619cc0e982662022c2d337d3a0dc9ef22bf731e3406c936dc4bb",
+    "source_capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+    "unit": "percent",
+    "reference_period": "2026-09",
+    "seasonal_adjustment": "SA"
+  },
+  {
+    "label": "Services: other",
+    "value": 0.3,
+    "value_text": "0.3",
+    "support_excerpt": "The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively.",
+    "document_id": "cc124-bls-september-ppi-original",
+    "source_content_sha256": "80efaa48b57e619cc0e982662022c2d337d3a0dc9ef22bf731e3406c936dc4bb",
+    "source_capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+    "unit": "percent",
+    "reference_period": "2026-09",
+    "seasonal_adjustment": "SA"
+  }
+]
