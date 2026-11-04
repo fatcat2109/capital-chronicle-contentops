@@ -148,10 +148,21 @@ def test_already_held_verified_context_can_join_before_writer_freeze(tmp_path, m
 
 
 def test_governed_history_does_not_exhaust_the_primary_context_source_bound(tmp_path, monkeypatch):
-    turn, binding, response, _ = seeded(tmp_path, monkeypatch, history_docs=3)
+    turn, binding, response, args = seeded(tmp_path, monkeypatch, history_docs=3)
     result = entry().operation(binding, command="recover-sources", response=response)
     assert result["classification"] == "SELECTED_STORY_CONTEXT_ATTACHED"
     assert len(turn.source_recovery()["context_documents"]) == 1
+    primary = turn.frozen_request("visual-edit")["governed_input"]["source_packet"]["source_pack"]
+    monkeypatch.setattr(turn, "release_history_sources", lambda **kwargs: [*kwargs["source_pack"], *primary[1:]])
+    _, photo, _ = controlled_release_packet(tmp_path / "controlled-history-media")
+    turn.store.register_outbox_message(message_id="native-editorial-media-plan-" + sha256_of(turn.run_id),
+        work_item_id=turn.work, destination="internal:controlled-media", status="EDITORIAL_INTERNAL",
+        payload=canonical_bytes({"source_request_sha256": "controlled", "assets": [photo]}).decode())
+    with pytest.raises(DesktopInputRequired) as pending:
+        run_v1_simple_gemini_newsroom(**args)
+    assert pending.value.request["stage"] == "write"
+    assert len(pending.value.request["governed_input"]["source_pack"]) == 5
+    assert pending.value.request["governed_input"]["source_pack"][-1]["context_only"]
 
 
 def test_cli_routes_prewrite_visual_amendment_to_existing_max(tmp_path, monkeypatch):

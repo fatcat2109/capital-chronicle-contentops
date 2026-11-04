@@ -2813,6 +2813,9 @@ def run_v1_simple_gemini_newsroom(
             selected_epistemic_state = candidate_epistemic_state or None
             source_pack = candidate_source_pack
             break
+    if selected is not None and selected_plan_entry is not None and native and getattr(llm_invoke, "release_history_sources", None):
+        source_pack = llm_invoke.release_history_sources(source_pack=source_pack,
+            article_mode=selected_plan_entry["article_mode"], cutoff_utc=cutoff_utc)
     selected_context = recovery if recovery and recovery.get("pre_writer_context_attachment") else None
     if selected is not None and selected_context:
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
@@ -2827,9 +2830,6 @@ def run_v1_simple_gemini_newsroom(
                                      for i, d in enumerate(contextual)]]
         selected = {**selected, "evolving_story_context": [*selected.get("evolving_story_context", []),
                                                         selected_context["selected_story_context"]]}
-    if selected is not None and selected_plan_entry is not None and native and getattr(llm_invoke, "release_history_sources", None):
-        source_pack = llm_invoke.release_history_sources(source_pack=source_pack,
-            article_mode=selected_plan_entry["article_mode"], cutoff_utc=cutoff_utc)
     evidence_artifact = {
         "schema_version": "contentops.v1_simple_candidate_source_walk.v1",
         "status": "PASS" if selected is not None else "BLOCKED",
