@@ -4,8 +4,8 @@ from live_contentops import operator_approval_gate_v6 as approval
 from live_contentops import project_sources_upload_bundle_v6 as upload
 
 
-def test_committed_approval_packet_properties(tmp_path):
-    out_dir = tmp_path / "V6_OPERATOR_APPROVAL_GATE"
+def test_committed_approval_packet_properties():
+    out_dir = Path("docs/automation/V6_OPERATOR_APPROVAL_GATE")
     approval.main(["--output-dir", str(out_dir)])
     
     packet_file = out_dir / "operator_approval_gate_packet.json"
@@ -30,8 +30,8 @@ def test_committed_approval_packet_properties(tmp_path):
     assert data["kill_switch_active"] is True
 
 
-def test_signature_template_is_inert(tmp_path):
-    out_dir = tmp_path / "V6_OPERATOR_APPROVAL_GATE"
+def test_signature_template_is_inert():
+    out_dir = Path("docs/automation/V6_OPERATOR_APPROVAL_GATE")
     approval.main(["--output-dir", str(out_dir)])
     
     sig_file = out_dir / "operator_approval_signature_template.json"
@@ -46,8 +46,8 @@ def test_signature_template_is_inert(tmp_path):
     assert data["revoked"] is False
 
 
-def test_no_raw_fixture_body_in_approval_reports(tmp_path):
-    out_dir = tmp_path / "V6_OPERATOR_APPROVAL_GATE"
+def test_no_raw_fixture_body_in_approval_reports():
+    out_dir = Path("docs/automation/V6_OPERATOR_APPROVAL_GATE")
     approval.main(["--output-dir", str(out_dir)])
     
     files = [
@@ -125,8 +125,8 @@ def test_module_contains_no_forbidden_behavior():
     assert "environ" not in attrs
 
 
-def test_operator_approval_runbook_dispatch_validity_boundary(tmp_path):
-    out_dir = tmp_path / "V6_OPERATOR_APPROVAL_GATE"
+def test_operator_approval_runbook_dispatch_validity_boundary():
+    out_dir = Path("docs/automation/V6_OPERATOR_APPROVAL_GATE")
     approval.main(["--output-dir", str(out_dir)])
     
     runbook_file = out_dir / "operator_approval_runbook.md"
@@ -142,8 +142,8 @@ def test_operator_approval_runbook_dispatch_validity_boundary(tmp_path):
     assert "task_contentops_v6_operator_approval_signature_binding_lane_heavy_batch_v0" in content.lower()
 
 
-def test_operator_approval_review_packet_keeps_safety_boundaries(tmp_path):
-    out_dir = tmp_path / "V6_OPERATOR_APPROVAL_GATE"
+def test_operator_approval_review_packet_keeps_safety_boundaries():
+    out_dir = Path("docs/automation/V6_OPERATOR_APPROVAL_GATE")
     approval.main(["--output-dir", str(out_dir)])
     
     review_file = out_dir / "operator_approval_review_packet.json"

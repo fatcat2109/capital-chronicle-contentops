@@ -3,8 +3,8 @@ from pathlib import Path
 from live_contentops import manual_evidence_refresh_orchestrator_v6 as orchestrator
 
 
-def test_committed_orchestrator_packet_is_blocked(tmp_path):
-    out_dir = tmp_path / "V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR"
+def test_committed_orchestrator_packet_is_blocked():
+    out_dir = Path("docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR")
     orchestrator.main(["--output-dir", str(out_dir)])
     
     packet_file = out_dir / "manual_evidence_refresh_orchestrator_packet.json"
@@ -21,8 +21,8 @@ def test_committed_orchestrator_packet_is_blocked(tmp_path):
 
 
 
-def test_execution_order_includes_all_required_lanes(tmp_path):
-    out_dir = tmp_path / "V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR"
+def test_execution_order_includes_all_required_lanes():
+    out_dir = Path("docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR")
     orchestrator.main(["--output-dir", str(out_dir)])
     
     order_file = out_dir / "manual_evidence_refresh_execution_order.json"
@@ -112,8 +112,8 @@ def test_dry_run_with_valid_synthetic_fixture_shows_success(tmp_path):
     assert data["kill_switch_active"] is True
 
 
-def test_no_sensitive_values_in_artifacts(tmp_path):
-    out_dir = tmp_path / "V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR"
+def test_no_sensitive_values_in_artifacts():
+    out_dir = Path("docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR")
     orchestrator.main(["--output-dir", str(out_dir)])
     
     files = [

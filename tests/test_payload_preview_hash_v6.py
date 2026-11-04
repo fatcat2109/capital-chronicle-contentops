@@ -58,8 +58,8 @@ def _write_committed_inputs(base_dir: Path, *, placeholder: bool = False, missin
     (delegated_dir / "delegated_evidence_refresh_result.json").write_text(json.dumps(refresh), encoding="utf-8")
 
 
-def test_committed_preview_hash_packet_properties(tmp_path):
-    out_dir = tmp_path / "V6_PAYLOAD_PREVIEW_HASH"
+def test_committed_preview_hash_packet_properties():
+    out_dir = Path("docs/automation/V6_PAYLOAD_PREVIEW_HASH")
     preview_hash.main(["--output-dir", str(out_dir)])
 
     packet_file = out_dir / "payload_preview_hash_packet.json"
@@ -84,8 +84,8 @@ def test_committed_preview_hash_packet_properties(tmp_path):
     assert data["next_recommended_task"] == "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0"
 
 
-def test_payload_preview_is_review_only_and_grounded(tmp_path):
-    out_dir = tmp_path / "V6_PAYLOAD_PREVIEW_HASH"
+def test_payload_preview_is_review_only_and_grounded():
+    out_dir = Path("docs/automation/V6_PAYLOAD_PREVIEW_HASH")
     preview_hash.main(["--output-dir", str(out_dir)])
 
     preview_file = out_dir / "payload_preview_exact_review.json"
@@ -150,8 +150,8 @@ def test_placeholder_tainted_committed_summary_blocks_hash_creation(tmp_path):
     assert "exact safe payload unavailable" in preview["title"].lower()
 
 
-def test_no_sensitive_values_in_artifacts(tmp_path):
-    out_dir = tmp_path / "V6_PAYLOAD_PREVIEW_HASH"
+def test_no_sensitive_values_in_artifacts():
+    out_dir = Path("docs/automation/V6_PAYLOAD_PREVIEW_HASH")
     preview_hash.main(["--output-dir", str(out_dir)])
 
     files = [

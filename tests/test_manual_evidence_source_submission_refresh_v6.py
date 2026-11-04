@@ -15,8 +15,8 @@ REQUIRED_STAGES = [
 ]
 
 
-def test_committed_refresh_packet_is_blocked(tmp_path):
-    out_dir = tmp_path / "V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH"
+def test_committed_refresh_packet_is_blocked():
+    out_dir = Path("docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH")
     refresh.main(["--output-dir", str(out_dir)])
     
     packet_file = out_dir / "manual_evidence_source_submission_refresh_packet.json"
@@ -33,8 +33,8 @@ def test_committed_refresh_packet_is_blocked(tmp_path):
     assert data["next_recommended_task"] == "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_V0"
 
 
-def test_stage_matrix_includes_all_required_stages(tmp_path):
-    out_dir = tmp_path / "V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH"
+def test_stage_matrix_includes_all_required_stages():
+    out_dir = Path("docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH")
     refresh.main(["--output-dir", str(out_dir)])
     
     matrix_file = out_dir / "manual_evidence_source_submission_stage_matrix.json"
@@ -138,8 +138,8 @@ def test_dry_run_with_valid_synthetic_fixture_shows_success(tmp_path):
     assert data["kill_switch_active"] is True
 
 
-def test_no_sensitive_values_in_artifacts(tmp_path):
-    out_dir = tmp_path / "V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH"
+def test_no_sensitive_values_in_artifacts():
+    out_dir = Path("docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH")
     refresh.main(["--output-dir", str(out_dir)])
     
     files = [
