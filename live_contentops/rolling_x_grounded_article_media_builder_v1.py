@@ -1921,7 +1921,8 @@ def _draw_editorial_chart(packet, values, plt, np):
                 low, high = 0, max(nums) * 1.22 or 1
             ax.set_xlim(low, high)
             unit = str(packet["unit"]).casefold()
-            suffix = " pp" if unit == "percentage points" else "%" if unit in {"%", "percent"} else ""
+            suffix = (" pp" if unit == "percentage points" else "%"
+                      if unit in {"%", "percent"} or unit.startswith(("% ", "percent ")) else "")
             decimals = packet.get("value_label_decimals", 1)
             if type(decimals) is not int or not 0 <= decimals <= 6:
                 raise ValueError("EDITORIAL_EXPLICIT_LABEL_PRECISION_REQUIRED")
