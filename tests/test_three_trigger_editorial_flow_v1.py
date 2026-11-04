@@ -146,7 +146,7 @@ def test_latest_intelligence_binds_sidecar_interval_and_existing_simple_owner():
         "ADMITTED_OFFICIAL_FILING_PROVIDER",
         "EXISTING_MARKET_READ_MODEL",
     ]
-    assert result["simple_gemini_handoff"]["editorial_owner"] == "SIMPLE_GEMINI_RUNTIME"
+    assert result["simple_gemini_handoff"]["editorial_owner"] == "NATIVE_CODEX_DESKTOP"  # decision 39 writer
     assert result["simple_gemini_handoff"]["invoked"] is False
     assert result["editorial_packet"]["creates_scheduler"] is False
     assert result["editorial_packet"]["creates_store"] is False
