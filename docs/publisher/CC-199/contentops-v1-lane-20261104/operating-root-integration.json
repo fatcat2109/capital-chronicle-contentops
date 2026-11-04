@@ -20,6 +20,13 @@
    "previous_head": "a415445bbd05bda71bc64ba95bc02a6167084393",
    "integrated_commit": "a23cc3b11eff71d6b7c4fd65ba8aca9c09a18154",
    "tag": "contentops-live-20261104-cc199-v1-lane-c"
+  },
+  {
+   "at_utc": "2026-11-04T13:56:00Z",
+   "previous_head": "a23cc3b11eff71d6b7c4fd65ba8aca9c09a18154",
+   "integrated_commit": "701e18af0ac9c2950bd4ba8d5bfd9d6322581635",
+   "tag": null,
+   "content": "runbook and evidence only"
   }
  ],
  "rollback_tag": "contentops-live-20261104-cc173-draft-scope",
@@ -33,7 +40,7 @@
   "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "dd8063123a083f85e5fd03f8ae92454a2de060ecb1152d52cadb136580d45223",
   "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "7172fbd560a130db5a0df9dba7db1ae5676d3cc469a1156c6b13ac0b8e7decd3"
  },
- "dirty_files_unchanged_after_each_integration": true,
+ "dirty_files_unchanged_after_each_integration": "true for the five other dirty files; the telemetry ledger changed only by the runtime append above",
  "public_objects_changed": [
   "instagram_business https://www.instagram.com/p/DfUm_VegXht/ (SEC piece, new post, reviewed SEC card, DISPATCH_CONFIRMED + RECONCILED_CONFIRMED)"
  ],
@@ -41,5 +48,8 @@
   "linkedin_company VERIFY_IDENTITY then PUBLISH for the SEC piece (registered 4 Nov 13:53Z)"
  ],
  "schedules_changed": false,
- "apps_restarted": false
+ "apps_restarted": false,
+ "runtime_ledger_appends": {
+  "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "append-only runtime ledger; grew from the 13:53Z SEC Instagram send (event tel_c6b2eacafabb489fb1231100503a20ab); not touched by any integration; never revert"
+ }
 }
