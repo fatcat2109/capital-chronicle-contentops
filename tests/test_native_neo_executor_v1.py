@@ -52,6 +52,20 @@ def pending_readback(adapter, destination="substack", value=None):
     return pending.value.request, ids[destination], urls[destination]
 
 
+@pytest.mark.parametrize("destination", ["substack", "x", "youtube"])
+def test_readback_action_uses_existing_window_and_task_group_without_changing_request(tmp_path, destination):
+    _, executor = setup(tmp_path)
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    packet, _, _ = pending_readback(adapter, destination=destination)
+    action = executor.begin(packet["request"]["request_sha256"])
+    assert action["request"] == packet["request"]
+    workspace = action["browser_workspace"]
+    assert workspace["policy"] == "JIM_DECISION_63"
+    assert "one existing" in workspace["window"]
+    assert "only if none exists" in workspace["window"]
+    assert "tabs action=new" in workspace["tabs"] and "groupId" in workspace["tabs"]
+
+
 @pytest.mark.parametrize("age,identity,loaded,absent", [
     (1200, "@Capitalnicle", True, True), (599, "@Capitalnicle", True, False),
     (1200, "@OTHER_ACCOUNT", True, False), (1200, "@Capitalnicle", False, False)])
@@ -380,6 +394,7 @@ def test_coordinator_pending_publish_and_claimed_loss_enters_readback_only(tmp_p
     monkeypatch.setattr(executor, "readiness", lambda surface: {"authenticated": True, "native_executor_bound": True})
     action = executor.begin(packet["request"]["request_sha256"])
     routine = action["substack_publish_routine"]
+    assert action["browser_workspace"]["policy"] == "JIM_DECISION_63"
     assert routine["policy"] == "JIM_DECISIONS_48_52_63"
     assert "one existing" in routine["window"]
     assert "continue other destinations" in routine["email_code_dialog"]

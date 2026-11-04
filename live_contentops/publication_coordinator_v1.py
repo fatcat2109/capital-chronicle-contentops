@@ -198,6 +198,30 @@ def _bounded_substack_provider_outcome(
     }
 
 
+def _safe_dispatch_error(raw: Mapping[str, Any]) -> Optional[str]:
+    """Keep actionable adapter codes, never provider messages or request material."""
+    codes = []
+    for key in ("error_class", "reason_code"):
+        value = str(raw.get(key) or "")
+        if re.fullmatch(r"[A-Za-z0-9_.:-]{1,160}", value):
+            codes.append(value)
+    for key in ("validation_failures", "missing"):
+        values = raw.get(key) or []
+        if isinstance(values, list):
+            codes.extend(f"{key}:{v}" for v in values[:16]
+                         if isinstance(v, str) and re.fullmatch(r"[A-Za-z0-9_.:-]{1,160}", v))
+    response = raw.get("error_response")
+    error = response.get("error") if isinstance(response, Mapping) else None
+    if isinstance(error, Mapping):
+        for key in ("code", "error_subcode"):
+            value = error.get(key)
+            if isinstance(value, int):
+                codes.append(f"provider_{key}:{value}")
+    if isinstance(raw.get("error_code"), int):
+        codes.append(f"http_status:{raw['error_code']}")
+    return ";".join(dict.fromkeys(codes)) or None
+
+
 def normalize_dispatch_result(
     result: Mapping[str, Any], *, destination: str, surface: str, transport_type: str
 ) -> dict[str, Any]:
@@ -217,7 +241,7 @@ def normalize_dispatch_result(
     status_text = str(raw.get("status") or raw.get("classification") or "").upper()
     explicit_no_write = bool(raw.get("definite_no_write")) or status_text in {
         "DEFINITE_NO_WRITE", "FAILED_BEFORE_WRITE", "CONTROLLED_NO_PUBLIC_WRITE",
-        "DISPATCH_CONFIRMED_NO_WRITE",
+        "DISPATCH_CONFIRMED_NO_WRITE", "VALIDATION_FAILED", "SKIPPED_IMAGE_REQUIRED",
     }
     explicit_success = (
         raw.get("ok") is True
@@ -241,7 +265,7 @@ def normalize_dispatch_result(
         "public_object_id": object_id,
         "public_object_url": object_url,
         "write_outcome_certainty": certainty,
-        "safe_error_classification": str(raw.get("error_class") or raw.get("reason_code") or "") or None,
+        "safe_error_classification": _safe_dispatch_error(raw),
         "provider_metadata": {
             "source_status": status_text or None,
             "stable_provider_identity_present": bool(object_id),
@@ -259,7 +283,7 @@ def normalize_dispatch_result(
 
 
 def normalize_readback_result(
-    result: Mapping[str, Any], *, public_object_id: Optional[str]
+    result: Mapping[str, Any], *, public_object_id: Optional[str], destination: Optional[str] = None
 ) -> dict[str, Any]:
     raw = dict(result or {})
     observed_id = next((str(raw.get(k)) for k in (
@@ -295,6 +319,14 @@ def normalize_readback_result(
         "identity_match": matching,
         "source_status": str(raw.get("status") or raw.get("classification") or "") or None,
     }
+    if (destination == "substack" and matching and raw.get("write_exists") is True
+            and raw.get("canonical_publication_verified") is True):
+        normalized["strict_content_verified"] = normalized["verified"]
+        normalized["verified"] = True
+        normalized["canonical_publication_verified"] = True
+        if not normalized["strict_content_verified"]:
+            normalized["content_readback_limitation"] = "CANONICAL_PRESENT_TITLE_AND_PUBLIC_NOTICE_VERIFIED_COPY_CHANGED"
+            normalized["content_binding_checks"] = dict(raw.get("content_binding_checks") or {})
     if raw.get("published_at_utc"):
         from live_contentops.published_content_v1 import utc
         try:
@@ -1482,11 +1514,33 @@ class DurablePublicationCoordinator:
             return timedelta(hours=6)
         if "FOLLOW_UP" in mode or "UPDATE" in mode:
             return timedelta(hours=24)
-        if "DEEP_DIVE" in mode:
-            return timedelta(hours=72)
-        if "EVERGREEN" in mode:
+        if any(kind in mode for kind in ("EVERGREEN", "ANALYSIS", "DATA_OR_DOCUMENT_LENS",
+                                        "RETROSPECTIVE", "DEEP_DIVE", "EXPLAINER")):
             return timedelta(days=7)
         return timedelta(hours=24)
+
+    def _canonical_publication_clock(self, intent: Mapping[str, Any]) -> Optional[datetime]:
+        """Original public clock, or the first exact verified canonical observation.
+
+        Read append-only observations, never the mutable dispatch time or the
+        latest readback; editing/rechecking a post cannot refresh its age.
+        """
+        ids = self._ids(str(intent.get("work_item_id") or ""), str(intent.get("plan_hash") or ""), "substack")
+        dispatch = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
+        if dispatch.get("status") != DISPATCH_CONFIRMED or not _valid_substack_canonical_url(dispatch.get("public_object_url")):
+            return None
+        for row in self.store.list_readbacks_for_dispatch(ids["dispatch_id"]):
+            proof = json.loads(row["readback_data"]).get("readback", {})
+            if proof.get("verified") is not True:
+                continue
+            if proof.get("observed_public_object_id", dispatch.get("public_object_id")) != dispatch.get("public_object_id"):
+                continue
+            if proof.get("observed_public_object_url", dispatch.get("public_object_url")) != dispatch.get("public_object_url"):
+                continue
+            observed = _parse_utc(row.get("read_at"))
+            published = _parse_utc(proof.get("observed_published_at_utc"))
+            return published if published and observed and published <= observed else observed
+        return None
 
     def _message_is_stale(
         self, message: Mapping[str, Any], intent: Mapping[str, Any]
@@ -1499,7 +1553,19 @@ class DurablePublicationCoordinator:
             )
             if explicit_expiry is not None:
                 return self._clock().astimezone(timezone.utc) >= explicit_expiry
-        created = _parse_utc(message.get("created_at"))
+        canonical = self._ids(str(intent.get("work_item_id") or ""), str(intent.get("plan_hash") or ""), "substack")
+        has_canonical = self.store.get_outbox_message(canonical["message_id"]) is not None
+        created = self._canonical_publication_clock(intent) if has_canonical else _parse_utc(message.get("created_at"))
+        if intent.get("distribution_policy") == "SITE_FIRST_V1":
+            # Site-first uses its exact confirmed canonical, even while Substack
+            # remains a draft. Its outbox observation already binds the plan.
+            from live_contentops.site_first_publication_v1 import confirmed_site, request_for_site
+            if confirmed_site(self.store, intent["work_item_id"], intent):
+                request = request_for_site(intent["work_item_id"], intent)
+                row = self.store.get_outbox_message("site-readback-" + request["request_sha256"])
+                created = _parse_utc(row["created_at"])
+            else:
+                created = None
         return bool(
             created is not None
             and self._clock().astimezone(timezone.utc)
@@ -1512,10 +1578,17 @@ class DurablePublicationCoordinator:
     def _retry_already_attempted(self, dispatch_id: str) -> bool:
         try:
             with self.store.get_read_only_connection() as conn:
-                return conn.execute(
+                attempted = conn.execute(
                     "SELECT 1 FROM incidents WHERE incident_id=?",
                     (self._retry_incident_id(dispatch_id),),
                 ).fetchone() is not None
+                last = conn.execute(
+                    "SELECT description FROM incidents WHERE incident_id LIKE ? ORDER BY created_at DESC, rowid DESC LIMIT 1",
+                    ("incident_dispatch_outcome_" + _hash(dispatch_id)[:24] + "_%",),
+                ).fetchone()
+                # Validation/container/connection failures cannot consume the
+                # one retry reserved for an actually ambiguous public write.
+                return attempted and not (last and json.loads(last[0]).get("status") == DEFINITE_NO_WRITE)
         except Exception:
             return True
 
@@ -1524,7 +1597,7 @@ class DurablePublicationCoordinator:
             incident_id=self._retry_incident_id(dispatch_id),
             work_item_id=work_item_id,
             severity="RECOVERY_AUDIT",
-            description="One bounded absence-safe derivative retry crossed the write boundary.",
+            description="One bounded absence-safe derivative retry was started.",
         )
 
     def _transport_correction_incident_id(
@@ -2060,7 +2133,7 @@ class DurablePublicationCoordinator:
                     public_object_url=str(dispatch.get("public_object_url") or "") or None,
                     intent=intent,
                 )
-            normalized = normalize_readback_result(raw or {}, public_object_id=object_id)
+            normalized = normalize_readback_result(raw or {}, public_object_id=object_id, destination=destination)
         except NativeNeoInputRequired:
             # Waiting for the active Desktop tool is not an observed readback failure.
             # Keep all existing public identity and reconciliation evidence intact.
@@ -2435,6 +2508,16 @@ class DurablePublicationCoordinator:
             from live_contentops.native_publication_latency_v1 import record_api_dispatch
             record_api_dispatch(self.store, intent=intent, destination=destination, dispatch_id=ids["dispatch_id"],
                 started_at=dispatch_call_started_at, status=result["status"])
+        if result["status"] in {DEFINITE_NO_WRITE, UNKNOWN_WRITE}:
+            detail = {"dispatch_id": ids["dispatch_id"], "destination": destination,
+                      "status": result["status"], "attempt_started_at_utc": dispatch_call_started_at,
+                      "safe_error_classification": result.get("safe_error_classification"),
+                      "write_outcome_certainty": result.get("write_outcome_certainty")}
+            self.store.register_incident(
+                incident_id="incident_dispatch_outcome_" + _hash(ids["dispatch_id"])[:24]
+                + "_" + _hash(_canonical_json(detail))[:24],
+                work_item_id=intent["work_item_id"], severity="DISPATCH_FAILURE",
+                description=_canonical_json(detail))
         self.store.register_platform_dispatch(
             dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
             platform=destination, status=ATTEMPT_STARTED,
@@ -2481,6 +2564,7 @@ class DurablePublicationCoordinator:
             "public_object_id": persisted.get("public_object_id") or result.get("public_object_id"),
             "public_object_url": persisted.get("public_object_url") or result.get("public_object_url"),
             "reconciliation_status": reconciliation,
+            "safe_error_classification": result.get("safe_error_classification"),
         }
 
     def _finalize_derivative_intent(
@@ -3406,17 +3490,22 @@ class DurablePublicationCoordinator:
                     str(entry[0]["destination"]),
                 )
             )
-            canonical_urls: dict[str, str] = {}
+            canonical_urls: dict[tuple[str, str], str] = {}
             delivery_media_by_work_item: dict[str, dict[str, Any]] = {}
             for message, explicit_retry in ready_messages[:RECOVERY_ATTEMPT_BUDGET]:
                 work_item_id = str(message.get("work_item_id") or "")
                 intent = json.loads(str(message["payload"]))
                 destination = str(message["destination"])
-                canonical_url = canonical_urls.get(work_item_id) or str(
-                    intent.get("canonical_url") or ""
-                )
-                if not canonical_url:
-                    canonical_url = self._confirmed_canonical_url_for_work_item(work_item_id) or ""
+                canonical_key = (work_item_id, str(intent["plan_hash"]))
+                canonical_ids = self._ids(*canonical_key, "substack")
+                if self.store.get_outbox_message(canonical_ids["message_id"]):
+                    # An intent's old URL cannot substitute for this plan's
+                    # unresolved canonical readback, even during recovery.
+                    canonical_url = canonical_urls.get(canonical_key) or self._confirmed_canonical_url_for_work_item(
+                        work_item_id, plan_hash=canonical_key[1]) or ""
+                else:
+                    canonical_url = str(intent.get("canonical_url") or "") or self._confirmed_canonical_url_for_work_item(
+                        work_item_id) or ""
                 if destination != "substack" and not canonical_url:
                     summary["per_destination"][destination] = {
                         "status": "WAITING_CANONICAL_URL",
@@ -3537,7 +3626,7 @@ class DurablePublicationCoordinator:
                     and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED
                     and _valid_substack_canonical_url(outcome.get("public_object_url"))
                 ):
-                    canonical_urls[work_item_id] = str(outcome["public_object_url"])
+                    canonical_urls[canonical_key] = str(outcome["public_object_url"])
         remaining_destinations: list[str] = []
         remaining_obligations: list[dict[str, str]] = []
         refreshed_dispatches = {

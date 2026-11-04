@@ -176,6 +176,11 @@ class NativeNeoExecutor:
                 if k not in {"request_sha256", "native_invocation_id"}})
             self.readback_request_invocations[identity] = request.get("native_invocation_id")
         action_packet = dict(packet)
+        action_packet["browser_workspace"] = {
+            "policy": "JIM_DECISION_63",
+            "window": "Use the one existing BrowserOS Neo window. Create one only if none exists.",
+            "tabs": "Open tabs with tabs action=new and groupId in this task's group, titled Capital Chronicle/<task>. Leave Jim's and other agents' tabs untouched.",
+        }
         if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
             action_packet["upload_policy"] = {
                 "method": "BROWSEROS_NEO_UPLOAD_OR_FILE_CHOOSER_INTERCEPTION",

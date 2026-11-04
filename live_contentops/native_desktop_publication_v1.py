@@ -641,19 +641,6 @@ class NativeReviewedPublication:
         self.coordinator.recovery_scope = (
             {"work_item_id": self.binding["run_id"], "plan": plan}
             if self.coordinator.allow_prior_confirmed_distribution else None)
-        from live_contentops.native_finished_publication_v1 import publication_due
-        release = self.store.get_outbox_message("native-finished-release-" + sha256_of(self.binding["run_id"]))
-        if release or self.binding.get("standing_operation"):
-            projection = self.projection()
-            canonical = next((d for d in projection.get("destinations", [])
-                              if d["destination"] == "substack"), {})
-            # Decision 53: spacing governs starting work, never already-approved text.
-            # Legacy packets without an observed text clock retain their frozen rule.
-            if not canonical.get("dispatch_recorded") and not projection.get("timing", {}).get("text_approved_at_utc"):
-                due = publication_due(self.store, run_id=self.binding["run_id"])
-                if not due["due"]:
-                    return {"classification": "NATIVE_PUBLICATION_NOT_YET_DUE", **due,
-                            "publication": self.projection(), "public_write_performed": False}
         try:
             result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
             try:

@@ -222,13 +222,15 @@ def execute_instagram_post(
     from .live_telemetry_v6 import classify_and_record_dispatch
 
     t0 = time.perf_counter()
+    public_write_started = False
     create_payload["access_token"] = access_token
     payload_size = len(urllib.parse.urlencode(create_payload).encode("utf-8"))
     try:
         response, payload_size = _post_form(create_url, create_payload)
         container_id = response.get("id")
         if not container_id:
-            result = {"status": "FAILED", "error": "No container ID returned in Step 1", "response": response}
+            result = {"status": "FAILED", "reason_code": "INSTAGRAM_CONTAINER_ID_MISSING",
+                      "error": "No container ID returned in Step 1", "response": response}
         else:
             processing = _wait_for_instagram_container(
                 container_id=str(container_id), access_token=access_token
@@ -241,6 +243,7 @@ def execute_instagram_post(
             else:
                 publish_url = f"https://graph.facebook.com/{GRAPH_VERSION}/{ig_id}/media_publish"
                 publish_payload = {"creation_id": container_id, "access_token": access_token}
+                public_write_started = True
                 publish_response, publish_size = _post_form(publish_url, publish_payload)
                 payload_size += publish_size
                 result = {"status": "SUCCESS", "id": publish_response.get("id"), "container_id": container_id, "response": publish_response}
@@ -255,6 +258,10 @@ def execute_instagram_post(
         if "container_id" in locals():
             result["container_id"] = container_id
 
+    result["public_write_started"] = public_write_started
+    if not public_write_started:
+        # Creating/processing a container cannot create a public Instagram post.
+        result["definite_no_write"] = True
     classify_and_record_dispatch("instagram", "post", result, (time.perf_counter() - t0) * 1000.0, payload_size)
     return result
 

@@ -383,6 +383,16 @@ class NeoDestinationHandoff:
             and result.get("public_object_url") == public_object_url
             and _public_url(destination, public_object_url, public_object_id)
             and bool(observed_text))
+        # Publication and exact copy equality are separate observations. A
+        # later credit/caption edit cannot unpublish an otherwise identified
+        # canonical or invalidate unchanged derivative copies (CC-199 CLD-C7).
+        from live_contentops.event_article_guard_v1 import PUBLIC_NOTICE
+        payload = request.get("native_payload") or {}
+        title = _text(payload.get("title")) if isinstance(payload, dict) else ""
+        canonical_present = bool(destination == "substack" and not intent.get("daily_digest")
+            and identity_exists and title and title in observed_text
+            and _text(PUBLIC_NOTICE) in observed_text
+            and any(_text(PUBLIC_NOTICE) in _text(s) for s in segments))
         absent = False
         if not public_object_id and not public_object_url and result.get("target_post_absent") is True:
             from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
@@ -403,10 +413,11 @@ class NeoDestinationHandoff:
                 and dispatch.get("status") in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING"}
                 and not any(_text(s) in comparison_text for s in segments if len(_text(s)) >= 30))
         complete_readback = getattr(self.native_executor, "complete_readback_request", None)
-        if verified and callable(complete_readback):
+        if (verified or canonical_present) and callable(complete_readback):
             complete_readback(request)
         return {**result, "verified": bool(verified), "status": "SUCCESS" if verified else "BLOCKED",
                 "write_exists": bool(identity_exists), "write_absent": bool(absent),
+                "canonical_publication_verified": canonical_present,
                 "content_binding_checks": {"text_match": text_match, "media_match": media_match, "thread_match": thread_match}}
 
 
