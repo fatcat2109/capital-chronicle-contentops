@@ -79,7 +79,9 @@ def test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes(tmp_p
 def test_unidentified_linkedin_api_attempt_reaches_existing_neo_readback():
     from types import SimpleNamespace
     calls = []
-    api = SimpleNamespace(readback=lambda **kw: {"verified": False, "write_absent": False})
+    def cannot_read_unidentified(**kwargs):
+        raise AssertionError("A missing post ID cannot be resolved by API token refresh")
+    api = SimpleNamespace(readback=cannot_read_unidentified)
     neo = SimpleNamespace(readback=lambda **kw: calls.append(kw) or {"readback_source": "CONTROLLED_NEO"})
     runtime = CanonicalDestinationTransportRuntimeV1(linkedin_transport=api, neo_transport=neo)
     result = runtime.readback(destination="linkedin", public_object_id=None, public_object_url=None, intent=intent())

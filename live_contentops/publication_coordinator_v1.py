@@ -3466,6 +3466,11 @@ class CanonicalDestinationTransportRuntimeV1:
                 path.write_text(_canonical_json(delivery), encoding="utf-8")
             return result
         if destination == "linkedin":
+            if not public_object_id:
+                # The API cannot read an unidentified attempt. Use its existing
+                # own-profile Neo readback without an unrelated token refresh.
+                return self._neo_transport.readback(destination=destination, intent=intent,
+                    public_object_id=None, public_object_url=public_object_url)
             observed = self._linkedin_transport.readback(
                 public_object_id=public_object_id,
                 public_object_url=public_object_url,
