@@ -28,6 +28,29 @@ def _clock(value):
     return clock
 
 
+def verified_dispatch_readback(row, dispatch):
+    """Read the coordinator's envelope and the older flat observation format."""
+    if row.get("dispatch_id") != dispatch["dispatch_id"]:
+        return False
+    try:
+        payload = _json(row["readback_data"])
+        if not isinstance(payload, dict):
+            return False
+        observed = payload.get("readback", payload)
+        if not isinstance(observed, dict) or observed.get("verified") is not True:
+            return False
+        if "readback" in payload:
+            if (payload.get("dispatch_id") != dispatch["dispatch_id"]
+                    or payload.get("destination") != dispatch["platform"]
+                    or observed.get("identity_match") is not True
+                    or str(observed.get("observed_public_object_id")) != str(dispatch["public_object_id"])
+                    or observed.get("observed_public_object_url") != dispatch.get("public_object_url")):
+                return False
+        return True
+    except (ValueError, TypeError, KeyError):
+        return False
+
+
 def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observations, week_ending):
     ending = date.fromisoformat(week_ending)
     start = datetime.combine(ending - timedelta(days=6), time(), ZoneInfo("Asia/Bangkok"))
@@ -44,14 +67,7 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
         if not DurablePublicationCoordinator._confirmed_public_object(
                 {**dispatch, "reconciliation_status": reconciliation["status"]}, destination=channel):
             continue
-        verified = False
-        for readback in readbacks:
-            if readback["dispatch_id"] != dispatch["dispatch_id"]:
-                continue
-            try:
-                verified |= _json(readback["readback_data"]).get("verified") is True
-            except (ValueError, TypeError, AttributeError):
-                pass
+        verified = any(verified_dispatch_readback(row, dispatch) for row in readbacks)
         if verified:
             eligible[dispatch["dispatch_id"]] = dispatch
 

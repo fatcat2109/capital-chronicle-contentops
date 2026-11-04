@@ -10,6 +10,7 @@ from zoneinfo import ZoneInfo
 
 from live_contentops.newsroom_production_day_v1 import newsroom_production_date
 from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+from live_contentops.channel_engagement_v1 import verified_dispatch_readback
 
 ZONE = ZoneInfo("Asia/Bangkok")
 
@@ -103,8 +104,7 @@ def weekly_newsroom_coverage(*, outbox, dispatches, reconciliations, readbacks, 
         day = in_week(dispatch.get("dispatched_at"), dispatch["dispatch_id"])
         if not day:
             continue
-        exact_reads = [r for r in readbacks if r["dispatch_id"] == dispatch["dispatch_id"]
-            and json.loads(r["readback_data"]).get("verified") is True]
+        exact_reads = [r for r in readbacks if verified_dispatch_readback(r, dispatch)]
         if not exact_reads:
             gaps.append({"record": dispatch["dispatch_id"], "cause": "NO_VERIFIED_READBACK"})
             continue

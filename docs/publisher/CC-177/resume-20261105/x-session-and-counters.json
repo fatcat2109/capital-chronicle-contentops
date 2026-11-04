@@ -1,0 +1,105 @@
+{
+  "groupId": "F6B6A6EA6BD502CA93C11F631D5DE3AB",
+  "identity_evidence": [
+    "Own profile Edit profile control",
+    "Account menu",
+    "Capital Chronicle @Capitalnicle"
+  ],
+  "page": 404,
+  "posts": [
+    {
+      "metrics": {
+        "likes": 0,
+        "replies": 1,
+        "reposts": 0,
+        "views": 50
+      },
+      "public_object_id": "2117888404067356960",
+      "url": "https://x.com/Capitalnicle/status/2117888404067356960"
+    },
+    {
+      "metrics": {
+        "likes": 0,
+        "replies": 1,
+        "reposts": 0,
+        "views": 8
+      },
+      "public_object_id": "2117888406961418493",
+      "url": "https://x.com/Capitalnicle/status/2117888406961418493"
+    },
+    {
+      "metrics": {
+        "likes": 0,
+        "replies": 1,
+        "reposts": 0,
+        "views": 63
+      },
+      "public_object_id": "2117857511042904348",
+      "url": "https://x.com/Capitalnicle/status/2117857511042904348"
+    },
+    {
+      "metrics": {
+        "likes": 0,
+        "replies": 1,
+        "reposts": 0,
+        "views": 11
+      },
+      "public_object_id": "2117857513794318786",
+      "url": "https://x.com/Capitalnicle/status/2117857513794318786"
+    },
+    {
+      "metrics": {
+        "likes": 0,
+        "replies": 1,
+        "reposts": 0,
+        "views": 67
+      },
+      "public_object_id": "2117784321562124568",
+      "url": "https://x.com/Capitalnicle/status/2117784321562124568"
+    },
+    {
+      "metrics": {
+        "likes": 0,
+        "replies": 1,
+        "reposts": 0,
+        "views": 12
+      },
+      "public_object_id": "2117784324355608985",
+      "url": "https://x.com/Capitalnicle/status/2117784324355608985"
+    },
+    {
+      "metrics": {
+        "likes": 0,
+        "replies": 1,
+        "reposts": 0,
+        "views": 94
+      },
+      "public_object_id": "2117318307866968521",
+      "url": "https://x.com/Capitalnicle/status/2117318307866968521"
+    },
+    {
+      "metrics": {
+        "likes": 0,
+        "replies": 1,
+        "reposts": 0,
+        "views": 19
+      },
+      "public_object_id": "2117318312149275058",
+      "url": "https://x.com/Capitalnicle/status/2117318312149275058"
+    },
+    {
+      "metrics": {
+        "likes": 0,
+        "replies": 1,
+        "reposts": 0,
+        "views": 190
+      },
+      "public_object_id": "2115185068423758099",
+      "url": "https://x.com/Capitalnicle/status/2115185068423758099"
+    }
+  ],
+  "status": "READY_AUTHENTICATED",
+  "url": "https://x.com/Capitalnicle",
+  "windowId": 1698400956,
+  "observed_at_utc": "2026-11-04T19:19:07Z"
+}

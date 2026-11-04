@@ -25,3 +25,30 @@ Main weekly digest readers, CC-136 integration and the recurring finished-run
 export are still separate Main/Ops work. Final installed readback and dispositions
 are recorded below after integration. No editorial models or public sends were
 invoked. Launch: gpt-6.1-sol/high, CONFIGURED_NOT_OBSERVED.
+
+
+The change is installed in the existing ContentOps operating branch at d6116e86.
+The installed five-file consumer test selection passes 96 checks (one pytest
+process). The engineering schema/desk selection passes 104 checks. The operating
+root retained every original status entry and every tracked WIP hash.
+
+The X session probe is READY_AUTHENTICATED: Neo shows Edit profile and the account
+menu on Capital Chronicle @Capitalnicle. Its native visible counters were captured
+in the existing single window, task group codex/cc177-integration, page 404. No
+post, account change or native desktop control was used. Source counter evidence
+is in x-session-and-counters.json. Counters are cumulative at their actual capture
+time, not weekly increments or evidence of substantive engagement.
+
+The previously failed remote tag push is resolved: the exact existing tag
+contentops-live-20261104-cc177-weekly-export is now present remotely at
+9b2b2212047912ddfe3b1fd0b5f16657b6b779ff. No tag was replaced.
+
+
+A live store check found a second Publisher defect: both weekly consumers read
+`verified` only at the top level, while real coordinator rows wrap the observation
+inside `readback`. Confirmed publications therefore became NO_VERIFIED_READBACK
+or NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT. Both consumers now share the exact-envelope
+reader: dispatch, destination, observed object id, observed URL, identity match and
+verification must agree. The older flat format is still readable. Twenty-seven
+focused checks pass, including actual nested envelopes and mismatched/malformed
+controls. No reconciliation or dispatch state is rewritten to make a metric pass.
