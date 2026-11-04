@@ -3466,11 +3466,15 @@ class CanonicalDestinationTransportRuntimeV1:
                 path.write_text(_canonical_json(delivery), encoding="utf-8")
             return result
         if destination == "linkedin":
-            return self._linkedin_transport.readback(
+            observed = self._linkedin_transport.readback(
                 public_object_id=public_object_id,
                 public_object_url=public_object_url,
                 intent=intent,
             )
+            if not observed.get("verified") and not observed.get("write_absent"):
+                return self._neo_transport.readback(destination=destination, intent=intent,
+                    public_object_id=public_object_id, public_object_url=public_object_url)
+            return observed
         cached = self._strict_publish_readbacks.get((destination, str(public_object_id or "")))
         if cached is not None:
             return {
