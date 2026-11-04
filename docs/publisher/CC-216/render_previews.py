@@ -43,6 +43,23 @@ def main(name, repair=False):
             packet.update(title=spec["title"], question=selected["question"],
                 placement_after=selected["placement_after"], caption=spec["caption"])
             binding = json.loads((donor / "sector-chart-source-binding.json").read_bytes())
+        elif name == "ppi" and "component" in aid:
+            doc = sources[0]
+            points = [{"period": row["label"], "value": row["value"], "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [{"document_id": doc["document_id"], "support_excerpt": doc["canonical_content_text"],
+                    "value_text": str(row["value"]), "source_period_text": "September",
+                    "source_content_sha256": doc["canonical_content_sha256"],
+                    "metric": row["metric"], "unit": "percent", "prepared_period": "2026-09",
+                    "period_basis": {"basis": "BLS_PRIOR_SEPTEMBER_PPI_EXACT_REPORTED_MONTHLY_RATE",
+                        "capture_sha256": spec["source_capture_sha256"], "reference_period": "2026-09"}}]}
+                for row in spec["series"]]
+            packet = {"asset_id": aid, "chart_type": "horizontal_diverging_bar",
+                "title": spec["title"], "subtitle": spec["subtitle"], "question": selected["question"],
+                "placement_after": selected["placement_after"], "unit": "percent", "zero_based": True,
+                "series": [{"name": "September monthly rate", "points": points}], "value_label_decimals": 1,
+                "source_caption": "Source: BLS, September 2026 PPI, October 15 release. Separate monthly rates, not contributions.",
+                "caption": spec["caption"], "alt_text": "September monthly PPI rates: final demand 1.3%, goods 2.6%, services 0.8%, less foods, energy and trade services 0.5%."}
+            binding = None
         elif name == "cpi" and "component" in aid:
             doc = next(d for d in sources if d["document_id"].startswith("official-components-"))
             effects = history["components"]
@@ -69,7 +86,7 @@ def main(name, repair=False):
             binding = None
         else:
             raw_names = spec.get("series")
-            names = [s["series_id"] for s in raw_names] if isinstance(raw_names, list) else [raw_names]
+            names = [s.get("series_id") or s["series_name"] for s in raw_names] if isinstance(raw_names, list) else [raw_names]
             if name == "ppi" and not names[0]:
                 names = ["PPI_FINAL_DEMAND_MOM", "PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM"]
             packet = history_chart_packet(history, series_names=names, asset_id=aid,
@@ -112,6 +129,12 @@ def main(name, repair=False):
                     packet["source_caption"] += " October 2025 is absent from the retained series; no interpolation."
                     for gap in packet["missingness"]:
                         gap["reader_note"] = "NO_SAVED_OBSERVATION_FOR_PERIOD; absent from retained series"
+            elif name == "ppi":
+                packet["chart_type"] = "line"
+                packet["subtitle"] = spec["subtitle"]
+                for series, proposed in zip(packet["series"], spec["series"]):
+                    series["name"] = proposed["label"]
+                packet["source_caption"] = "Source: BLS dated first releases. Monthly SA changes, October 2024–September 2026."
             binding = None
         packet["destination_subset"] = [d for d, ids in choice["channel_media"].items() if aid in ids]
         asset = build_editorial_data_chart(packet, sources, output_dir=root / "visual-repair-r1" if repair else root,
@@ -124,6 +147,7 @@ def main(name, repair=False):
     photo_records = {
         "cc074-archive-warsh-20260522": HERE.parent / "CC-074-private-20261101/media/photo-asset.json",
         "cpi-usda-supermarket-archive": HERE.parents[2] / "tests/evidence/cc-142/media/photo-asset-canonical-date.json",
+        "documentary_oil": HERE.parents[1] / "automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/release-photo-asset.json",
     }
     for aid in choice.get("contextual_photo_ids", []):
         record_path = photo_records[aid]
@@ -140,7 +164,8 @@ def main(name, repair=False):
             shutil.copyfile(rights, rights_target)
         asset.update(path=str(target), rights_evidence_path=str(rights_target),
             caption=("Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context for monetary policy; not an image of the forthcoming release."
-                if name == "nfp" else "Dry beans at Papaya Supermarket in Dearborn, Michigan, June 2023. Archive context; not an observation of October 2026 prices."))
+                if name == "nfp" else "Fawley Oil Refinery, June 2017. Archive context for producer input prices; not a photograph of October 2026 production or prices."
+                if name == "ppi" else "Dry beans at Papaya Supermarket in Dearborn, Michigan, June 2023. Archive context; not an observation of October 2026 prices."))
         if name == "nfp":
             asset["relevance_rationale"] = "Archive portrait of the Federal Reserve chair supplies institutional context for the preview's conditional transmission from labor data to monetary policy; it does not corroborate the forthcoming report."
         assets.append(asset)

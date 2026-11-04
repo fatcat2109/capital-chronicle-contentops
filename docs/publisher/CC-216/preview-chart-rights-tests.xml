@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.636" timestamp="2026-11-05T05:07:58.863184+07:00" hostname="J-P"><testcase classname="tests.test_pre_event_preview_v1" name="test_exact_bls_preview_grant_feeds_the_chart_consumer" time="1.029" /></testsuite></testsuites>

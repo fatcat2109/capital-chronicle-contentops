@@ -101,6 +101,36 @@ def test_source_hashes_spans_rights_and_clocks_stay_enforced(tmp_path):
         preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc=NOW)
 
 
+def test_exact_bls_preview_grant_feeds_the_chart_consumer(tmp_path):
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _editorial_data_values
+    f = feed(tmp_path)
+    capture = tmp_path / "controlled-prior.txt"
+    text = "September final demand increased 1.3 percent."
+    capture.write_text(text, encoding="utf-8")
+    digest = sha256(capture.read_bytes()).hexdigest()
+    # Reuse the regular preparation recorder, then bind the numerical span.
+    _, packet, _ = prepare(f.tracker.store, tmp_path)
+    capture.write_text(text, encoding="utf-8")
+    packet["known_at_utc"] = "2026-10-18T16:00:00Z"
+    packet["official_sources"][0]["capture_sha256"] = digest
+    packet["prior_fact_spans"] = [{"capture_sha256": digest, "exact_source_span": text, "metric": "Final demand"}]
+    record_pre_event_preparation(f.tracker.store, packet)
+    research = preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc=NOW)
+    result = research.evidence({"headline_ids": list(research.records)}, cutoff_utc=NOW)
+    doc = result["evidence_documents"][0]
+    packet = {"title": "Controlled PPI", "question": "What was the prior monthly rate?", "chart_type": "horizontal_diverging_bar",
+        "unit": "percent", "series": [{"name": "Final demand", "points": [{"period": "Final demand", "value": 1.3,
+            "observation_kind": "REPORTED_ACTUAL", "inputs": [{"document_id": doc["document_id"],
+                "support_excerpt": text, "value_text": "1.3", "source_period_text": "September",
+                "source_content_sha256": doc["canonical_content_sha256"], "metric": "Final demand", "unit": "percent",
+                "prepared_period": "2026-09", "period_basis": {"basis": "EXACT_REPORTED_PRIOR_PERIOD"}}]}]}]}
+    assert _editorial_data_values(packet, [doc]) == [[1.3]]
+    doc["source_url"] = "https://third-party.example/report"
+    doc["url"] = doc["source_url"]
+    with pytest.raises(ValueError, match="FACT_RIGHTS_UNBOUND"):
+        _editorial_data_values(packet, [doc])
+
+
 @pytest.mark.parametrize("fault,expected", [
     ("span", "SPAN_CHANGED"), ("rights", "PUBLIC_BLS_TEXT_RIGHTS"),
     ("clock", "SOURCE_CLOCK"), ("no-facts", "NO_CAPTURED_PRIOR_FACTS"),

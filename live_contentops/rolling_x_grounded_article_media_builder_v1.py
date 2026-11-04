@@ -1362,9 +1362,16 @@ def _editorial_data_values(packet, documents):
                 ):
                     raise ValueError("EDITORIAL_CHART_METRIC_UNIT_PERIOD_HASH_REQUIRED")
                 rights = doc.get("source_reuse_constraints") or {}
+                preview = doc.get("preview_preparation") or {}
+                preview_bls_grant = (
+                    rights.get("scope") == "BLS_AGENCY_AUTHORED_PUBLIC_DOMAIN_TEXT_PREVIEW_BACKGROUND"
+                    and rights.get("authority_ref") == "JIM_DECISION_41_AND_BACKLOG_CC216"
+                    and rights.get("article_types") == ["EVENT_PREVIEW"]
+                    and preview.get("message_id") and preview.get("event_id")
+                    and urlsplit(doc.get("url") or doc.get("source_url") or "").netloc == "www.bls.gov")
                 if not doc.get("desk_record_binding") and not (
                     rights.get("attribution_required")
-                    and rights.get("policy_capture_sha256")
+                    and (rights.get("policy_capture_sha256") or preview_bls_grant)
                     and rights.get("source_capture_sha256")
                 ):
                     raise ValueError("EDITORIAL_CHART_FACT_RIGHTS_UNBOUND")
