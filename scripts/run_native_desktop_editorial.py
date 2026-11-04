@@ -16,6 +16,8 @@ from uuid import uuid4
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from live_contentops.tool_output_v1 import safe_print as print
+
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import LatestReportDeliveryTracker, canonical_bytes, sha256_of
 from live_contentops.capital_chronicle_report_feed_v1 import MainReportFeed
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore, WorkItemNotFoundError, LeaseConflictError

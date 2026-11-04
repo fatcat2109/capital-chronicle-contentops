@@ -157,7 +157,7 @@ def test_time_sensitive_writer_one_editor_publishes_without_screenshot_review(tm
     assert not timing["all_channels_dispatched_within_target"]
     assert next(c for c in timing["channels"] if c["destination"] == "substack")["dispatched_at_utc"] is None
     assert all(c["within_target"] is True for c in timing["channels"]
-               if not c["skipped"] and c["destination"] != "substack")
+               if not c["skipped"] and c["destination"] != "substack"), timing["channels"]
     assert not any("final-visual" in json.loads(r["payload"]).get("stage", "") for r in store.list_outbox_messages())
 
 

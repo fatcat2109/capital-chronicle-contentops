@@ -199,7 +199,7 @@ class ControlledTransport(CanonicalDestinationTransportRuntimeV1):
         return value
 
     def publish(self, *, destination, intent, authorization_context):
-        if destination in {"substack", "x", "youtube"}:
+        if destination in {"substack", "x", "youtube", "linkedin_company"}:
             return super().publish(
                 destination=destination,
                 intent=intent,
@@ -220,7 +220,7 @@ class ControlledTransport(CanonicalDestinationTransportRuntimeV1):
         }
 
     def readback(self, *, destination, intent, public_object_id, public_object_url):
-        if destination in {"substack", "x", "youtube"}:
+        if destination in {"substack", "x", "youtube", "linkedin_company"}:
             return super().readback(
                 destination=destination,
                 intent=intent,
@@ -300,11 +300,13 @@ def observed(packet):
         "substack": "controlled-article",
         "x": "123456789",
         "youtube": "UgControlled",
+        "linkedin_company": "urn:li:share:123456789",
     }[d]
     url = {
         "substack": CANONICAL,
         "x": "https://x.com/Capitalnicle/status/123456789",
         "youtube": "https://www.youtube.com/post/UgControlled",
+        "linkedin_company": "https://www.linkedin.com/feed/update/urn:li:share:123456789/",
     }[d]
     return {
         "tool_request_sha256": packet["tool_request_sha256"],

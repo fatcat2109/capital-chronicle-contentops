@@ -3,6 +3,7 @@ import sys
 import json
 from pathlib import Path
 from typing import Any
+from .tool_output_v1 import safe_print as print
 
 from .live_entrypoint_registry_v1 import (
     LEGACY_AUTOMATION_QUARANTINED,

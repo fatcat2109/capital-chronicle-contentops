@@ -13,6 +13,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from live_contentops.tool_output_v1 import safe_print as print
+
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired, bind_native_neo_coordinator

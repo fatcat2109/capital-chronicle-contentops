@@ -15,8 +15,8 @@ below; source, rights, fact, identity, KILL_SWITCH and UNKNOWN_WRITE checks rema
 Keep screenshots binary; never commit or print image base64. Upload only through Neo's
 upload tool or file-chooser interception, from the article's own media folder. Never open a
 native file dialog; if one opens, record NATIVE_FILE_DIALOG_OPEN and stop that step.
-Before Substack Publish, use a dedicated Neo window with the draft and Jim's untouched Gmail
-inbox. Agents never read Gmail. Keep the draft tab open and in front. On "Check your email",
+Before Substack Publish, use the one existing Neo window and the task's tab group
+(Jim's decision 63), with the draft and Jim's untouched Gmail inbox. Agents never read Gmail. Keep the draft tab open and in front. On "Check your email",
 record PENDING_JIM_EMAIL_CODE plus page id and URL in the item's Result, and wait on that tab
 for Jim: no reload, other input or other tab use. Continue readback only when the same tab
 reaches /publish/posts/detail/.../share-center. Never close, reuse or navigate the code tab.
