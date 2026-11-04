@@ -564,6 +564,52 @@ def test_claimed_lost_publish_readback_before_retry_and_local_failure(
     assert len(store.list_platform_dispatches()) == 10  # plus the company-page copy
 
 
+def test_exact_readback_survives_changed_review_while_new_send_stays_blocked(tmp_path, monkeypatch):
+    store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
+    operation, executor, transport = composed(store, binding, rollout, monkeypatch)
+    operation.resume()
+    publish = executor.pending()[0]
+    operation.tool("begin", request_hash=publish["request"]["request_sha256"])
+    operation.resume()
+    readback = next(p for p in executor.pending() if p["request"]["action"] == "READBACK")
+    _, root = operation.validate()
+    manifest = root / "article_manifest_v1.json"
+    manifest.write_bytes(manifest.read_bytes() + b" ")
+    with pytest.raises(ValueError, match="NATIVE_PUBLICATION_REVIEW_OR_PACKET_CHANGED_PREPARE_AGAIN"):
+        operation.tool("begin", request_hash=publish["request"]["request_sha256"])
+    calls = list(transport.calls)
+    operation.tool("begin", request_hash=readback["request"]["request_sha256"])
+    operation.tool("submit", request_hash=readback["request"]["request_sha256"], response=observed(readback))
+    outcome = operation.coordinator.readback_existing_dispatch(publish["request"]["dispatch_attempt_identity"])
+    assert outcome["reconciliation_status"] == "RECONCILED_CONFIRMED"
+    assert outcome["publish_called"] is False
+    assert transport.calls == calls
+
+
+@pytest.mark.parametrize("fault", ["operation", "destination"])
+def test_readback_still_requires_exact_existing_operation_and_destination(tmp_path, monkeypatch, fault):
+    store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
+    operation, executor, _ = composed(store, binding, rollout, monkeypatch)
+    operation.resume()
+    publish = executor.pending()[0]
+    operation.tool("begin", request_hash=publish["request"]["request_sha256"])
+    operation.resume()
+    readback = next(p for p in executor.pending() if p["request"]["action"] == "READBACK")
+    dispatch = store.get_platform_dispatch(publish["request"]["dispatch_attempt_identity"])
+    if fault == "operation":
+        store.create_work_item(story_id="another-operation", work_item_id="another-operation",
+                               title="Other controlled operation", target_surface="TEST")
+    with store.get_connection() as conn:
+        if fault == "operation":
+            conn.execute("UPDATE outbox_messages SET work_item_id=? WHERE message_id=?",
+                         ("another-operation", dispatch["message_id"]))
+        else:
+            conn.execute("UPDATE platform_dispatches SET platform=? WHERE dispatch_id=?",
+                         ("x", dispatch["dispatch_id"]))
+    with pytest.raises(ValueError, match="NATIVE_NEO_EXACT_EXISTING_READBACK_REQUIRED"):
+        operation.tool("begin", request_hash=readback["request"]["request_sha256"])
+
+
 def test_lost_readback_projects_new_turn_begin_but_never_a_second_publish(tmp_path, monkeypatch):
     store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
     operation, executor, _ = composed(store, binding, rollout, monkeypatch)

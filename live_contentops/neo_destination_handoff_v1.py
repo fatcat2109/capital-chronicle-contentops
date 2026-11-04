@@ -19,12 +19,15 @@ from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_o
 SCHEMA = "contentops.neo_destination_handoff.v1"
 IDENTITIES = {"substack": "capitalchronicle.substack.com", "x": "@Capitalnicle",
               "youtube": "@CapitalChronicleYouTube", "linkedin": "linkedin:jimcc",
-              "linkedin_company": "linkedin:company:143198922", "instagram_business": "official.capitalchronicle"}
+              "linkedin_company": "linkedin:company:143198922", "instagram_business": "official.capitalchronicle",
+              "telegram": "@CapitalChronicle", "threads": "official.capitalchronicle"}
 ROOTS = {"substack": "https://capitalchronicle.substack.com/", "x": "https://x.com/Capitalnicle",
          "youtube": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
          "linkedin": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
           "linkedin_company": "https://www.linkedin.com/company/143198922/admin/page-posts/published/",
-          "instagram_business": "https://www.instagram.com/official.capitalchronicle/"}
+          "instagram_business": "https://www.instagram.com/official.capitalchronicle/",
+          "telegram": "https://t.me/CapitalChronicle",
+          "threads": "https://www.threads.com/@official.capitalchronicle"}
 
 
 def _canonical(url):
@@ -55,6 +58,12 @@ def _public_url(destination, url, object_id=None):
             and (not object_id or match[1] == str(object_id)))
     if destination == "instagram_business":
         return p.hostname == "www.instagram.com" and bool(re.fullmatch(r"/p/[A-Za-z0-9_-]+/", p.path))
+    if destination == "telegram":
+        return (p.hostname == "t.me" and bool(re.fullmatch(r"/CapitalChronicle/\d+", p.path))
+                and (not object_id or p.path.rsplit("/", 1)[-1] == str(object_id)))
+    if destination == "threads":
+        return (p.hostname in {"www.threads.com", "www.threads.net"}
+                and bool(re.fullmatch(r"/@official\.capitalchronicle/post/[A-Za-z0-9_-]+/?", p.path)))
     return (p.hostname == "www.youtube.com" and p.path.startswith("/post/")
             and (not object_id or p.path.rsplit("/", 1)[-1] == str(object_id)))
 
@@ -139,6 +148,8 @@ class NeoDestinationHandoff:
                 public_object_id=None, public_object_url=None):
         if destination not in IDENTITIES or action not in {"PUBLISH", "READBACK", "EDIT_EXISTING"}:
             raise ValueError("NEO_DESTINATION_ACTION_UNSUPPORTED")
+        if destination in {"telegram", "threads"} and action != "READBACK":
+            raise ValueError("SOCIAL_NEO_READBACK_ONLY_API_WRITES_UNCHANGED")
         if destination == "instagram_business" and action == "PUBLISH":
             raise ValueError("INSTAGRAM_ROUTINE_API_TRANSPORT_UNCHANGED")
         if _private(intent):
@@ -334,7 +345,7 @@ class NeoDestinationHandoff:
         expected_media.discard(None)
         media_match = expected_media <= set(result.get("observed_media_sha256") or [])
         reviewed_photo_edit = bool(intent.get("reader_presentation_review")) and destination in {"instagram_business", "youtube"}
-        if (destination in {"linkedin", "linkedin_company", "x", "youtube"} or reviewed_photo_edit) and not media_match:
+        if (destination in {"linkedin", "linkedin_company", "x", "youtube", "threads", "telegram"} or reviewed_photo_edit) and not media_match:
             comparisons = result.get("media_comparisons") or []
             def platform_image(url):
                 host = urlsplit(str(url or "")).hostname or ""
@@ -342,6 +353,8 @@ class NeoDestinationHandoff:
                     or (destination == "x" and host == "pbs.twimg.com"
                         and urlsplit(str(url or "")).path.startswith("/media/"))
                     or (destination == "youtube" and host == "yt3.ggpht.com")
+                    or (destination == "threads" and (host.endswith(".cdninstagram.com") or host.endswith(".fbcdn.net")))
+                    or (destination == "telegram" and host.endswith(".telegram-cdn.org"))
                     or (destination == "instagram_business" and (host.endswith(".cdninstagram.com") or host.endswith(".fbcdn.net"))))
             source_matches = {m.get("source_asset_sha256") for m in comparisons
                 if m.get("pixels_inspected") is True and m.get("source_pixels_match") is True
@@ -354,7 +367,7 @@ class NeoDestinationHandoff:
         thread_match = (binding["thread_post_count"] <= 1 or (
             len(thread) == binding["thread_post_count"]
             and all(_text(text) in _text(post.get("observed_text"))
-                    and _public_url("x", post.get("public_object_url"), post.get("public_object_id"))
+                    and _public_url(destination, post.get("public_object_url"), post.get("public_object_id"))
                     for text, post in zip(binding["expected_thread_texts"], thread))
             and len({p.get("public_object_id") for p in thread}) == len(thread)))
         verified = (result.get("request_sha256") == request["request_sha256"]

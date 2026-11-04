@@ -1,0 +1,7 @@
+{
+  "classification": "NATIVE_DESKTOP_BLOCKED",
+  "blocker": "CURRENT_REVIEWED_HANDOFF_REQUIRED",
+  "run_id": "cc107-midterm-preview-20261103-v1",
+  "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc107-midterm-preview-20261103-v1\\binding.json",
+  "command": "publication-resume"
+}

@@ -740,10 +740,33 @@ class NativeReviewedPublication:
             "publication": self.projection()}
 
     def tool(self, command, *, request_hash, response=None):
-        self.validate()
         self._authorize_and_bind()
+        packet = self.executor._get(request_hash, "request")
+        if packet and packet["request"]["action"] == "READBACK":
+            # A changed editorial packet must stop a new send, not erase the
+            # obligation to observe an exact object that was already attempted.
+            request = packet["request"]
+            matches = []
+            for dispatch in self.store.get_dispatches_for_work_item(self.binding["run_id"]):
+                if dispatch["platform"] != request["destination"]:
+                    continue
+                if (request.get("public_object_id")
+                        and dispatch.get("public_object_id") != request["public_object_id"]):
+                    continue
+                message = self.store.get_outbox_message(dispatch["message_id"])
+                if (not message or message["work_item_id"] != self.binding["run_id"]
+                        or message["destination"] != request["destination"]):
+                    continue
+                intent = json.loads(message["payload"])
+                if sha256_of(intent) != request["intent_sha256"]:
+                    intent = json.loads(self.coordinator._effective_message(message)["payload"])
+                if sha256_of(intent) == request["intent_sha256"]:
+                    matches.append(dispatch)
+            if request.get("work_item_id") != self.binding["run_id"] or len(matches) != 1:
+                raise ValueError("NATIVE_NEO_EXACT_EXISTING_READBACK_REQUIRED")
+        else:
+            self.validate()
         if command == "begin":
-            packet = self.executor._get(request_hash, "request")
             if packet and packet["request"]["action"] == "PUBLISH":
                 from live_contentops.native_desktop_editorial_v1 import validate_release_media, require_current_final_visual_review
                 reference = packet["request"].get("reader_presentation_review")

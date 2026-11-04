@@ -3988,10 +3988,17 @@ class CanonicalDestinationTransportRuntimeV1:
         from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import (
             _readback_one_destination_from_durable_intent,
         )
-        return _readback_one_destination_from_durable_intent(
+        observed = _readback_one_destination_from_durable_intent(
             destination=destination, public_object_id=public_object_id,
             public_object_url=public_object_url, intent=intent,
         )
+        if (destination == "telegram" and not observed.get("verified")
+                and not observed.get("write_absent")):
+            # Telegram's Bot API cannot fetch an old message. Observe that exact
+            # public object through the existing native return protocol instead.
+            return self._neo_transport.readback(destination=destination, intent=intent,
+                public_object_id=public_object_id, public_object_url=public_object_url)
+        return observed
 
     def collect_metrics(
         self,
