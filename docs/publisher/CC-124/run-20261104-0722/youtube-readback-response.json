@@ -1,0 +1,35 @@
+{
+  "tool_request_sha256": "bd3a706ddc2114f7afc4af8829022bde47b979d27e94bf3fb28f2829f340e454",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a3ef-752d-7220-9694-c2f8db376808",
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "observation_source": "Exact YouTube post page 214. Original public card at 640x360 was downloaded, inspected and compared with the source PNG, youtube-media-comparison.json.",
+    "observed_at_utc": "2026-11-04T01:12:51.479Z"
+  },
+  "result": {
+    "request_sha256": "1f7900b83a7c8cb60552ea02aef3341334b538c12f854dfab1e3bc5abf507761",
+    "status": "SUCCESS",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "UgkxpL7C_qPEDgq4_M3esrHD9Hpfseas5Fu_",
+    "public_object_url": "https://www.youtube.com/post/UgkxpL7C_qPEDgq4_M3esrHD9Hpfseas5Fu_",
+    "content_verified": true,
+    "observed_text": "Capital Chronicle\n1 phút trước\nUpdate: U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nThe SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.\n\nWhat to watch: Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission\n\nAnalysis, not financial advice. Readers decide whether to trade.\nĐọc thêm",
+    "observed_media_sha256": [
+      "8175581e1a1bcab190de51bb7865609984667a9de208df852e2360c5e909b7cc"
+    ],
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+        "platform_sha256": "8175581e1a1bcab190de51bb7865609984667a9de208df852e2360c5e909b7cc",
+        "public_object_url": "https://www.youtube.com/post/UgkxpL7C_qPEDgq4_M3esrHD9Hpfseas5Fu_",
+        "public_image_url": "https://yt3.ggpht.com/VfX1l0Xy91_jwq6dq3GKekEE9GuXWQuWuTnteZR4RMk6xoUkHgGrU8sCXgenALwyGv_t3cfsXIwchQ=s640-rw-nd-v1",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "comparison_method": "Decoded resized RGB RMS 7.08/255 plus inspection of downloaded image content"
+      }
+    ],
+    "external_links_clickable": false,
+    "external_link_verification_required": true
+  }
+}

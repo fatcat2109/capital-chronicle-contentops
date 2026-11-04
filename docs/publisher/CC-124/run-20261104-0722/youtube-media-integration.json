@@ -1,0 +1,19 @@
+{
+  "applied_at_utc": "2026-11-04T01:12:51.323473+00:00",
+  "authority": "JIM_DECISIONS_20261030_DECISION_39",
+  "live_sha": "4938b7acd6e9ce3049d65ab3432c011ebbc78d77",
+  "live_tag": "contentops-live-20261104-cc124-youtube-media",
+  "rollback_tag": "contentops-live-20261104-cc124-native-prose",
+  "rollback_sha": "99b43b412e0c2ec3c86f69a7afc1c5b35b9a97ca",
+  "unrelated_tracked_dirty_sha256_before": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "74f29bd2de41f025451189cece73046236ff04088415d98e85ffbbfca8074d87",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "397ad8fc028baa5b8432dcc454ec98f50143c297ac51eae5f75a70f652833d78"
+  },
+  "unrelated_tracked_dirty_paths_preserved": true,
+  "consumer": "existing NativeReviewedPublication and NeoDestinationHandoff readback through operating CLI",
+  "runtime_restart_performed": false
+}

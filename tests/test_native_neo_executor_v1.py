@@ -72,7 +72,8 @@ def test_exact_readback_restart_immutable_and_no_public_action(tmp_path, destina
         executor.submit(packet["request"]["request_sha256"], {**result, "result": {**result["result"], "observed_text": "changed"}})
 
 
-def test_readback_requires_exact_text_url_media_and_thread(tmp_path):
+@pytest.mark.parametrize("thread_field", ["observed_thread", "thread_posts"])
+def test_readback_requires_exact_text_url_media_and_thread(tmp_path, thread_field):
     _, executor = setup(tmp_path)
     adapter = NeoDestinationHandoff(native_executor=executor)
     value = intent("x", native_payload={"posts": [{"text": "First source-bound post."}, {"text": "Second useful post."}]},
@@ -81,7 +82,7 @@ def test_readback_requires_exact_text_url_media_and_thread(tmp_path):
     result = response(executor, packet, {"status": "SUCCESS", "observed_identity": "@Capitalnicle",
         "public_object_id": object_id, "public_object_url": url, "content_verified": True,
         "observed_text": "First source-bound post. Second useful post.",
-        "observed_media_sha256": ["media-hash"], "observed_thread": [
+        "observed_media_sha256": ["media-hash"], thread_field: [
             {"public_object_id": "123", "public_object_url": url, "observed_text": "First source-bound post."},
             {"public_object_id": "124", "public_object_url": "https://x.com/Capitalnicle/status/124", "observed_text": "Second useful post."}]})
     executor.submit(packet["request"]["request_sha256"], result)
@@ -91,6 +92,12 @@ def test_readback_requires_exact_text_url_media_and_thread(tmp_path):
     bad = NeoDestinationHandoff(native_executor=lambda req: {**result["result"], "request_sha256": req["request_sha256"],
                                                             "observed_media_sha256": []})
     assert bad.readback(destination="x", intent=value, public_object_id=object_id, public_object_url=url)["verified"] is False
+    thread = result["result"][thread_field]
+    for invalid_thread in (list(reversed(thread)), thread[:1], [thread[0], thread[0]]):
+        invalid = NeoDestinationHandoff(native_executor=lambda req: {**result["result"],
+            "request_sha256": req["request_sha256"], thread_field: invalid_thread})
+        assert invalid.readback(destination="x", intent=value,
+            public_object_id=object_id, public_object_url=url)["verified"] is False
 
 
 @pytest.mark.parametrize("destination", ["x", "youtube"])

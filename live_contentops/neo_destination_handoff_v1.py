@@ -249,7 +249,7 @@ class NeoDestinationHandoff:
                 and urlsplit(str(m.get("public_image_url") or "")).scheme == "https"
                 and platform_image(m.get("public_image_url"))}
             media_match = expected_media <= source_matches
-        thread = result.get("observed_thread") or []
+        thread = result.get("observed_thread") or result.get("thread_posts") or []
         thread_match = (binding["thread_post_count"] <= 1 or (
             len(thread) == binding["thread_post_count"]
             and all(_text(text) in _text(post.get("observed_text"))
