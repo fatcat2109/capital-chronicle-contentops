@@ -265,6 +265,13 @@ class NeoDestinationHandoff:
                     "reason_code": "NEO_NATIVE_EXECUTOR_NOT_BOUND", "request": request,
                     "public_write_performed": False}
         result = dict(self.native_executor(request))
+        if (result.get("request_sha256") == request["request_sha256"] and result.get("composed_identity") is not None
+                and result.get("definite_no_write") is True and str(result.get("status")) == "FAILED_BEFORE_WRITE"
+                and result.get("public_write_performed") is False
+                and not (result.get("native_tool_observation") or {}).get("dispatched_at_utc")):
+            # CC-283: the composed run stopped before the publish click (for example an account
+            # mismatch); a definite no-write that releases the claim for a retry.
+            return result
         if (result.get("request_sha256") != request["request_sha256"]
                 or result.get("observed_identity") != IDENTITIES[destination]):
             return {"status": "UNKNOWN_WRITE", "reason_code": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"}
