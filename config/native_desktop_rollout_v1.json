@@ -28,7 +28,7 @@
       "reasoning_effort": "max"
     }
   },
-  "feed_pointer_path": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal23\\provider_resume_binding.json",
+  "feed_pointer_path": "A:/Capital Chronicle/ContentOps/config/native_desktop_main_feed_binding_v1.json",
   "legacy_scheduler_target": "DISABLED",
   "live_authority": {
     "cleanup_thread_id": "01a17a57-785f-7f63-a78a-c734a9ba93cd",

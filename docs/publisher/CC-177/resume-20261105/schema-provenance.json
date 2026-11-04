@@ -1,0 +1,17 @@
+{
+  "schemas/publication/CapitalChronicleDeskRecordExportV1_1.schema.json": {
+    "source_commit": "98150b81de28ce4aa9922f30cb93242acea8c9ef",
+    "bytes": 55823,
+    "sha256": "1b01ac7cb4c0cc60e195c6c8031356350efba497cc1f49c0ba438435918dd918"
+  },
+  "schemas/publication/CapitalChronicleDeskRecordExportV1_2.schema.json": {
+    "source_commit": "98150b81de28ce4aa9922f30cb93242acea8c9ef",
+    "bytes": 57641,
+    "sha256": "ea67f1464541337a57099c0292dbbe788617da947aa198d590c3ab85534fb62a"
+  },
+  "schemas/publication/CapitalChronicleDeskRecordExportV1_3.schema.json": {
+    "source_commit": "98150b81de28ce4aa9922f30cb93242acea8c9ef",
+    "bytes": 57643,
+    "sha256": "bcaab19814efce6bf7fa1d99c0bae8dea0c417f453a9b4731b32ee802ca024ed"
+  }
+}

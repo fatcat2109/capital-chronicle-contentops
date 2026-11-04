@@ -16,6 +16,12 @@ from tools.product.desk_record_projection_v1 import (
 
 PRODUCER_COMMIT = "89e59374eda3686271a0df4690e74b2e2d3f996a"
 SCHEMA_PATH = Path(__file__).resolve().parents[1] / "schemas/publication/CapitalChronicleDeskRecordExportV1.schema.json"
+SCHEMA_PATHS = {
+    "1.0.0": SCHEMA_PATH,
+    "1.1.0": SCHEMA_PATH.with_name("CapitalChronicleDeskRecordExportV1_1.schema.json"),
+    "1.2.0": SCHEMA_PATH.with_name("CapitalChronicleDeskRecordExportV1_2.schema.json"),
+    "1.3.0": SCHEMA_PATH.with_name("CapitalChronicleDeskRecordExportV1_3.schema.json"),
+}
 FIXTURE_NOTICE = "Fixture, not current data. Private acceptance preview; never publish."
 
 
@@ -66,7 +72,10 @@ def read_export(spec, *, cutoff_utc):
     if digest != spec.get("sha256"):
         raise ValueError("DESK_EXPORT_BYTES_MISMATCH")
     doc = _load(raw)
-    schema = json.loads(SCHEMA_PATH.read_bytes())
+    schema_path = SCHEMA_PATHS.get(doc.get("schema_version"))
+    if schema_path is None:
+        raise ValueError("DESK_EXPORT_SCHEMA_VERSION_UNSUPPORTED")
+    schema = json.loads(schema_path.read_bytes())
     if next(Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(doc), None):
         raise ValueError("DESK_EXPORT_SCHEMA_INVALID")
     if sha256_of({k: v for k, v in doc.items() if k != "integrity"}) != doc["integrity"]["content_sha256"]:
@@ -94,7 +103,11 @@ def read_export(spec, *, cutoff_utc):
             ids = sorted({sid for f in fields for sid in f["source_ids"]})
             assets = record.get("asset_ids") or ([record["asset_id"]] if record.get("asset_id") else [])
             clock = record.get("known_at_utc") or record.get("generated_at_utc") or public["generated_at_utc"]
-            events = record.get("event_ids") or ([record["event_id"]] if record.get("event_id") else [])
+            event_id = record.get("event_id")
+            # Published reports (schema 1.1+) carry this id as a projected Field.
+            if isinstance(event_id, dict):
+                event_id = event_id.get("value")
+            events = record.get("event_ids") or ([event_id] if event_id else [])
             # No names/labels are inferred from structure. Fields alone supply readable text.
             title = next((f["display"] for f in fields if f["field_path"] in {"/release/name", "/identity/name", "/title", "/name"}), fields[0]["display"])
             identity = "cc-desk:" + sha256_of([public["export_id"], record["record_id"], fields])

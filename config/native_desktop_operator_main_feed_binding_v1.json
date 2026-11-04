@@ -1,0 +1,15 @@
+{
+  "schema_version": "contentops.main_public_export_binding.v1",
+  "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+  "producer_commit": "effe788bb2ab92781ff71e38498cff7a24adf567",
+  "export_root_id": "capital-chronicle-public-analysis-reports-v1",
+  "public_export_root": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal29\\main_public_handoff\\public-handoff",
+  "research_root": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal23\\retained_research",
+  "legacy_parent_recovery": "GOAL29_TWO_PARENT_UNICODE_V1",
+  "desk_record_exports": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\main-cc-014-20261103T1938\\desk-record-cand9-smoke.json",
+      "sha256": "a7c272ef3e215b6186d137c5abef45e53edb64e34b7937d276cef87e0de0b6c1"
+    }
+  ]
+}

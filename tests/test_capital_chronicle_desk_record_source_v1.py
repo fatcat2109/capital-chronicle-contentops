@@ -285,7 +285,7 @@ def test_dated_new_desk_writer_resumes_exact_prompt_but_refuses_changed_prompt(t
     with pytest.raises(DesktopInputRequired) as first: turn(**args)
     with pytest.raises(DesktopInputRequired) as resumed: turn(**args)
     assert first.value.request == resumed.value.request
-    assert "DATED J8:" in resumed.value.request["prompt"]
+    assert "CC-144 / Jim decision 42: Every post and destination carries an image." in resumed.value.request["prompt"]
     with pytest.raises(ValueError, match="CONFLICT"): turn(**{**args, "prompt": "Changed controlled request"})
 
 
