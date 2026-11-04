@@ -363,3 +363,21 @@ def test_source_bound_card_survives_existing_live_image_selection(tmp_path):
     assert len(payloads["packages"]) == 8
     assert all(p["media_asset_ids"] == [assets[0]["asset_id"]] for p in payloads["packages"].values())
     validate_post_data_card(result["media_assets"][0], article, docs)
+
+
+def test_date_punctuation_is_not_part_of_the_admitted_number(tmp_path):
+    article, claims, docs = packet()
+    claim = "The agency will hold its November 9 roundtable."
+    excerpt = "The agency will hold its November 9, 2026, roundtable."
+    article["substack_body_markdown"] = claim
+    article["title"] = "A scheduled agency roundtable"
+    article["dek"] = claim
+    docs[0]["canonical_content_text"] = excerpt
+    claims = [{"claim_id": "date", "source_id": "SOURCE_1", "claim_text": claim, "support_excerpt": excerpt}]
+    card = build_post_data_card(article, claims, docs, output_dir=tmp_path)
+    assert card["data_card_packet"]["facts"][0]["text"] == claim
+    validate_post_data_card(card, article, docs)
+    claims[0]["claim_text"] = claim.replace("November 9", "November 19")
+    article["substack_body_markdown"] = article["dek"] = claims[0]["claim_text"]
+    with pytest.raises(ValueError, match="NUMBER_NOT_IN_POST_AND_SOURCE"):
+        build_post_data_card(article, claims, docs, output_dir=tmp_path)

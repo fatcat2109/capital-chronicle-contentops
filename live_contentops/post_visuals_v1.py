@@ -14,7 +14,7 @@ from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonica
 POLICY = "CC144_EVERY_POST_VISUAL_V1"
 DESTINATIONS = ("telegram", "discord", "x", "linkedin", "facebook_page",
                 "instagram_business", "threads", "youtube")
-_NUMBERS = re.compile(r"(?<!\w)[+-]?\d[\d,]*(?:\.\d+)?%?")
+_NUMBERS = re.compile(r"(?<!\w)[+-]?\d+(?:,\d{3})*(?:\.\d+)?%?")
 _SURVEYS = re.compile(r"\b(?:ism|ismworld|s&p global|spglobal|pmi|conference[ -]board|umich|university of michigan|adp)\b", re.I)
 
 
