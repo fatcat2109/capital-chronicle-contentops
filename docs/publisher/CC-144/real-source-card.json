@@ -1,18 +1,18 @@
 {
-  "recorded_at_utc": "2026-11-04T11:57:11.268616+00:00",
+  "recorded_at_utc": "2026-11-04T12:04:01.354747+00:00",
   "run_id": "cc124-next-article-20261103-b",
   "source_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b",
   "card": {
-    "asset_id": "post-facts-552f2935fd08455618e5",
-    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\backlog\\cc144-20261104\\sec-source-card\\media_assets\\post-facts-552f2935fd08455618e5.png",
-    "sha256": "d1026a0e5e41d77983289440bbb8ea4a68ce3db6d4ae8fce3ced3913711dcc6c",
+    "asset_id": "post-facts-edddfed7ec240fe522d7",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\backlog\\cc144-20261104\\sec-source-card\\media_assets\\post-facts-edddfed7ec240fe522d7.png",
+    "sha256": "d8069df7f3e91814855262412d5b889ef4398fde0d5582468222fbbbb8afbaca",
     "width": 1080,
-    "height": 1080,
+    "height": 1272,
     "modality": "source_bound_data_card",
     "role": "supporting_fact_context",
     "media_role": "post_key_facts",
     "caption": "Key facts from the article.",
-    "alt_text": "U.S. Securities and Exchange Commission plans November 9 data roundtable The SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs. SEC November 9 roundtable on machine-understandable data",
+    "alt_text": "The SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change. The event will be open to the public, although in-person capacity may be limited and visitors will face security checks. The SEC says the discussion will be streamed live on SEC.gov, with a recording available later. The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.",
     "attribution": "Source: U.S. Securities and Exchange Commission",
     "source_page_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
     "source_links": [
@@ -51,20 +51,8 @@
       "policy": "CC144_EVERY_POST_VISUAL_V1",
       "facts": [
         {
-          "claim_id": "metadata-title",
-          "text": "U.S. Securities and Exchange Commission plans November 9 data roundtable",
-          "source_id": "SOURCE_1",
-          "document_id": "cc124-sec-announcement-context",
-          "support_excerpt": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs.",
-          "source_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
-          "rights_class": "public_domain",
-          "rights_binding_sha256": "b0cd1640e40d3511da0bb1e520db7f7194166db7f2ff342e6c7c222eaf0babef",
-          "publisher": "U.S. Securities and Exchange Commission",
-          "url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
-        },
-        {
-          "claim_id": "metadata-dek",
-          "text": "The SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.",
+          "claim_id": "lead-event-and-reader-distinction",
+          "text": "The SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change.",
           "source_id": "SOURCE_1",
           "document_id": "cc124-sec-announcement-context",
           "support_excerpt": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs.\n\n\u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d The roundtable will be open to the public and held at the SEC\u2019s headquarters at 100 F Street, N.E., Washington, D.C. from 9 a.m. to 3:30 p.m. EST. Please note that the number of in-person participants may be limited and visitors will be subject to security checks. The discussion will be streamed live on SEC.gov, and a recording will be available at a later date.",
@@ -75,11 +63,23 @@
           "url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
         },
         {
-          "claim_id": "metadata-search-title",
-          "text": "SEC November 9 roundtable on machine-understandable data",
+          "claim_id": "public-access-and-webcast",
+          "text": "The event will be open to the public, although in-person capacity may be limited and visitors will face security checks. The SEC says the discussion will be streamed live on SEC.gov, with a recording available later.",
           "source_id": "SOURCE_1",
           "document_id": "cc124-sec-announcement-context",
-          "support_excerpt": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs.",
+          "support_excerpt": "The roundtable will be open to the public and held at the SEC\u2019s headquarters at 100 F Street, N.E., Washington, D.C. from 9 a.m. to 3:30 p.m. EST. Please note that the number of in-person participants may be limited and visitors will be subject to security checks. The discussion will be streamed live on SEC.gov, and a recording will be available at a later date.",
+          "source_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "rights_class": "public_domain",
+          "rights_binding_sha256": "b0cd1640e40d3511da0bb1e520db7f7194166db7f2ff342e6c7c222eaf0babef",
+          "publisher": "U.S. Securities and Exchange Commission",
+          "url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+        },
+        {
+          "claim_id": "feedback-purpose",
+          "text": "The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.",
+          "source_id": "SOURCE_1",
+          "document_id": "cc124-sec-announcement-context",
+          "support_excerpt": "Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.",
           "source_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
           "rights_class": "public_domain",
           "rights_binding_sha256": "b0cd1640e40d3511da0bb1e520db7f7194166db7f2ff342e6c7c222eaf0babef",
@@ -88,7 +88,7 @@
         }
       ]
     },
-    "transform_sha256": "552f2935fd08455618e5939fa47ede66504da6dd65032fd6952dc6fd72fe4c5d",
+    "transform_sha256": "edddfed7ec240fe522d71173ab7d0e2903a5e8ec81cded5e92482b219960ae6a",
     "publication_authority": false
   },
   "public_writes": 0,

@@ -96,8 +96,9 @@ def test_unknown_rights_excluded_and_no_number_is_inferred(tmp_path):
     article, claims, docs = packet()
     claims[0]["claim_text"] += " Growth was 20%."
     article["substack_body_markdown"] += " Growth was 20%."
-    with pytest.raises(ValueError, match="FACT_OR_NUMBER"):
-        build_post_data_card(article, claims, docs, output_dir=tmp_path)
+    card = build_post_data_card(article, claims, docs, output_dir=tmp_path)
+    assert all("20%" not in f["text"] for f in card["data_card_packet"]["facts"])
+    assert card["data_card_packet"]["facts"][0]["claim_id"] == "fact-1"
 
 
 def test_relay_does_not_hide_private_survey_origin(tmp_path):
@@ -216,7 +217,7 @@ def test_card_small_chart_uses_existing_admitted_series_owner(tmp_path):
     bad_article = {"substack_body_markdown": text.replace("120", "121")}
     bad_claims = [{**claims[0], "claim_text": bad_article["substack_body_markdown"],
         "support_excerpt": bad_article["substack_body_markdown"]}]
-    with pytest.raises(ValueError, match="FACT_OR_NUMBER"):
+    with pytest.raises(ValueError, match="NO_ADMITTED_PUBLIC_VISUAL_FACTS"):
         build_post_data_card(bad_article, bad_claims, docs, output_dir=tmp_path, series_packet=series)
 
 
@@ -379,5 +380,29 @@ def test_date_punctuation_is_not_part_of_the_admitted_number(tmp_path):
     validate_post_data_card(card, article, docs)
     claims[0]["claim_text"] = claim.replace("November 9", "November 19")
     article["substack_body_markdown"] = article["dek"] = claims[0]["claim_text"]
-    with pytest.raises(ValueError, match="NUMBER_NOT_IN_POST_AND_SOURCE"):
+    with pytest.raises(ValueError, match="NO_ADMITTED_PUBLIC_VISUAL_FACTS"):
+        build_post_data_card(article, claims, docs, output_dir=tmp_path)
+
+
+def test_key_facts_prefer_article_body_to_repeated_metadata(tmp_path):
+    article, claims, docs = packet()
+    metadata = "The agency reported output."
+    article["search_title"] = metadata
+    docs[0]["canonical_content_text"] += " " + metadata
+    claims.insert(0, {"claim_id": "metadata", "claim_text": metadata, "source_id": "SOURCE_1", "support_excerpt": metadata})
+    card = build_post_data_card(article, claims, docs, output_dir=tmp_path)
+    assert [f["claim_id"] for f in card["data_card_packet"]["facts"]] == ["fact-0", "fact-1"]
+
+
+def test_admitted_claim_can_include_date_context_elsewhere_in_same_exact_source(tmp_path):
+    article, claims, docs = packet()
+    claim = "In its October 19 announcement, the agency scheduled a November 9 roundtable."
+    excerpt = "The roundtable will take place on November 9."
+    docs[0]["canonical_content_text"] = "Published October 19, 2026. " + excerpt
+    article["substack_body_markdown"] = article["dek"] = claim
+    claims = [{"claim_id": "dated", "source_id": "SOURCE_1", "claim_text": claim, "support_excerpt": excerpt}]
+    card = build_post_data_card(article, claims, docs, output_dir=tmp_path)
+    validate_post_data_card(card, article, docs)
+    claims[0]["claim_text"] = article["substack_body_markdown"] = claim.replace("October 19", "October 29")
+    with pytest.raises(ValueError, match="NO_ADMITTED_PUBLIC_VISUAL_FACTS"):
         build_post_data_card(article, claims, docs, output_dir=tmp_path)

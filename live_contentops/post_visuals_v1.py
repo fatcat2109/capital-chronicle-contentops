@@ -56,7 +56,7 @@ def _bound_fact(claim, article, documents):
         "title", "dek", "substack_body_markdown", "social_hook", "search_title", "seo_title", "meta_description")))
     canonical = str(source.get("canonical_content_text") or "")
     if (not text or not excerpt or text not in body or excerpt not in _normal(canonical)
-            or not set(_NUMBERS.findall(text)) <= set(_NUMBERS.findall(excerpt))):
+            or not set(_NUMBERS.findall(text)) <= set(_NUMBERS.findall(_normal(canonical)))):
         raise ValueError("DATA_CARD_FACT_OR_NUMBER_NOT_IN_POST_AND_SOURCE")
     url = source.get("url") or source.get("source_url")
     if not str(url or "").startswith("https://") or not source.get("publisher"):
@@ -141,6 +141,7 @@ def _validate_card_series(packet, article, documents):
 def build_post_data_card(article, claims, documents, *, output_dir, series_packet=None):
     """Render only admitted claims present in this post. No number extraction guesses."""
     facts, seen = [], set()
+    body = _normal(article.get("substack_body_markdown"))
     for claim in claims:
         text = _normal(claim.get("claim_text"))
         if not text or text in seen or len(text) > 280:
@@ -148,13 +149,16 @@ def build_post_data_card(article, claims, documents, *, output_dir, series_packe
         try:
             fact = _bound_fact(claim, article, documents)
         except ValueError as exc:
-            if str(exc) in {"PRIVATE_SURVEY_HEADLINE_ONLY_NO_VISUAL", "DATA_CARD_PUBLIC_RIGHTS_REQUIRED"}:
+            if str(exc) in {"PRIVATE_SURVEY_HEADLINE_ONLY_NO_VISUAL", "DATA_CARD_PUBLIC_RIGHTS_REQUIRED",
+                    "DATA_CARD_FACT_OR_NUMBER_NOT_IN_POST_AND_SOURCE"}:
                 continue
             raise
         facts.append(fact)
         seen.add(text)
-        if len(facts) == (1 if series_packet else 3):
-            break
+    # Validate every candidate before selection. Prefer the article's actual
+    # paragraphs to SEO/title variants that would repeat the same fact.
+    body_facts = [f for f in facts if f["text"] in body]
+    facts = (body_facts or facts)[:1 if series_packet else 3]
     if not facts:
         raise ValueError("DATA_CARD_NO_ADMITTED_PUBLIC_VISUAL_FACTS")
     packet = {"policy": POLICY, "facts": facts}
