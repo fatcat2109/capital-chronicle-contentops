@@ -53,6 +53,7 @@ class CardSpec:
     source_line: str = ""
     dated_line: str = ""
     notice: str = "Analysis, not financial advice."
+    image_path: str = ""   # an admitted chart image (e.g. a CC-144 series mini chart)
     extra: dict = field(default_factory=dict)
 
 
@@ -293,6 +294,16 @@ def render_fact_card(path: str | Path, spec: CardSpec, *, size: tuple[int, int] 
             y = box[3] + int(30 * (scale if not portrait else 1.0))
 
     fill_ratio = None
+    image_box = None
+    if spec.image_path:
+        # The chart takes the lower part of the free area; facts keep the upper part.
+        if key_box and not portrait:
+            ix0 = key_box[2] + int(44 * scale)
+        else:
+            ix0 = margin
+        top_for_image = y + (int((available_bottom - y) * 0.42) if facts else 0)
+        image_box = (ix0, top_for_image, width - margin, available_bottom)
+        available_bottom = top_for_image - int(16 * unit) if facts else available_bottom
     if facts:
         if key_box and not portrait:
             fx, fw = key_box[2] + int(44 * scale), width - margin - (key_box[2] + int(44 * scale))
@@ -314,8 +325,16 @@ def render_fact_card(path: str | Path, spec: CardSpec, *, size: tuple[int, int] 
             fy += value_size * 0.40
         fill_ratio = round(needed / max(1, fh), 3)
 
+    if image_box:
+        from PIL import Image as _Image
+        with _Image.open(spec.image_path) as original:
+            chart = original.convert("RGB")
+        box_w, box_h = image_box[2] - image_box[0], image_box[3] - image_box[1]
+        chart.thumbnail((box_w, box_h), _Image.Resampling.LANCZOS)
+        image.paste(chart, (image_box[0] + (box_w - chart.width) // 2, image_box[1] + (box_h - chart.height) // 2))
     Path(path).parent.mkdir(parents=True, exist_ok=True)
     image.save(path, format="PNG", optimize=True)
     return {"size": list(size), "title_size": title_size, "key_box": list(key_box) if key_box else None,
             "facts_shown": len(blocks) if facts else 0, "facts_given": len(facts),
+            "facts_size": value_size if facts else None,
             "facts_fill_ratio": fill_ratio, "design": DESIGN}

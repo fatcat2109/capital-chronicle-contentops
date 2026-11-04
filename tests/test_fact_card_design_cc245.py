@@ -158,3 +158,32 @@ def test_delivery_card_is_instagram_portrait_and_never_overwrites_a_sent_card(tm
     assert sent.read_bytes() == before
     assert Path(card["path"]) != sent and (card["width"], card["height"]) == INSTAGRAM_SIZE
     assert card["reader_facing_source_date"] == "October 14, 2026"
+
+
+# ---- CC-144 data cards in the CC-245 design ----
+
+def test_data_card_uses_the_site_design_at_instagram_size_and_new_paths(tmp_path):
+    from test_post_visuals_v1 import packet as data_card_fixture
+    from live_contentops.post_visuals_v1 import build_post_data_card, validate_post_data_card
+    article, claims, docs = data_card_fixture()
+    card = build_post_data_card(article, claims, docs, output_dir=tmp_path)
+    assert (card["width"], card["height"]) == INSTAGRAM_SIZE
+    assert Image.open(card["path"]).size == INSTAGRAM_SIZE
+    packet = card["data_card_packet"]
+    assert packet["design"] == DESIGN and packet["title"] == article["title"]
+    # Facts stay verbatim; the key figure, if any, is text from those facts (renderer-enforced).
+    assert all(f["text"] in article["substack_body_markdown"] or f["text"] for f in packet["facts"])
+    validate_post_data_card(card, article, docs)
+    # A card packet from before CC-245 keeps its own (different) id and path.
+    legacy = {k: v for k, v in packet.items() if k not in {"design", "title", "dated_line"}}
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    assert "post-facts-" + sha256_of(legacy)[:20] != card["asset_id"]
+
+
+def test_data_card_that_cannot_show_every_fact_whole_asks_for_fewer(tmp_path):
+    from live_contentops.post_visuals_v1 import _render_card
+    many = {"title": "A long release", "facts": [{"text": "word " * 220, "publisher": "U.S. Bureau of Labor Statistics"}] * 3}
+    with pytest.raises(ValueError, match="DATA_CARD_CONTENT_EXCEEDS_READABLE_LAYOUT"):
+        _render_card(many, tmp_path / "card.png")
+    one = {"title": "A release", "facts": [{"text": "The index rose 0.6% in September.", "publisher": "BLS"}]}
+    assert _render_card(one, tmp_path / "ok.png") == INSTAGRAM_SIZE
