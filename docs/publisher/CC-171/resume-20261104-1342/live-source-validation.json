@@ -1,10 +1,11 @@
 {
+  "observed_at_utc": "2026-11-04T09:00:07.591562+00:00",
   "operating_root": "A:\\Capital Chronicle\\ContentOps",
-  "code_commit": "945d1319b72626d64f7ec91bdc82808e46532271",
+  "code_commit": "dfd5b8b8fa5039010769dbe96702a08faedb7673",
   "consumer_files": [
     {
       "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_editorial_v1.py",
-      "sha256": "738db6c5acd9f179c907d106e6688a06543bf47ef81332937a2f9f3997b401f3",
+      "sha256": "ad7fb85d1cfa2d2c010a05fc03a2bc7be87ce94cc42dd63a6402594a36ef27bf",
       "tracked_source_matches": true
     },
     {
@@ -14,22 +15,32 @@
     },
     {
       "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
-      "sha256": "81d044193c84e7a66e9734f21801da46d13b4194cfb7fc45a3a1cf0ae9c6d45a",
+      "sha256": "0d68fbbcc871d2253322395f4ca9e1ff3cf6ced1ca76e74c27b7e51e63fbc780",
       "tracked_source_matches": true
     },
     {
       "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_publication_v1.py",
-      "sha256": "e61ce86f0dfb99c19a54ce22148e2831ba41dec32c131a32415d52fb5fce20ff",
+      "sha256": "486b2a0f7cab343ade1ea6ff854f63e678c590044dd37679381c7fe9605d341e",
       "tracked_source_matches": true
     },
     {
       "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_neo_executor_v1.py",
-      "sha256": "51e45e958eb47f7f89d5d929f6d1503c0169ec338c2494ff8a427ddbe9f292ae",
+      "sha256": "385984f5182db809b48558ad47e459ad18e2135c860a7efd3f973af2753d03f8",
       "tracked_source_matches": true
     },
     {
       "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\neo_destination_handoff_v1.py",
-      "sha256": "cda7edf4b227aa3cbbb1bcd298058d3a34c657e927acf7b939c9a1e8dfbc3968",
+      "sha256": "f6b2dd55ecd691128be4b2025b1427386e7da0051b8fd22a6c8ef74d4bbac2ca",
+      "tracked_source_matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\durable_operational_store_v1.py",
+      "sha256": "fde20c614d009499e08ed58f1f33ff1c11d69ecc70b82ba1cbcebb6f2a9aa3d9",
+      "tracked_source_matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\destination_transport_registry_v1.py",
+      "sha256": "911cbd42688d68e247cb628d66284489873e44d45a69d35c923746b4e0b738d9",
       "tracked_source_matches": true
     },
     {
@@ -37,5 +48,6 @@
       "sha256": "1e50f02f54fb88703fd11dd54c877dc9f25ff05940086ea9da026bf38ab3b497",
       "tracked_source_matches": true
     }
-  ]
+  ],
+  "active_leases_at_readback": []
 }

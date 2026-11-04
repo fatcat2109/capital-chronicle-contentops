@@ -11,7 +11,7 @@ the confirmed object was preserved.
 | X | [Root and two replies](https://x.com/Capitalnicle/status/2117888404067356960), posted 4 November at 14:55 GMT+7; exact copy, canonical link and chart verified. |
 | YouTube | [Community post](https://www.youtube.com/post/UgkxfoYYb9nQIhzXGyir9S2DmN458SseAdvq), posted 4 November at 15:10 GMT+7; exact copy and chart verified. |
 | Instagram | [Existing public object](https://www.instagram.com/p/DfUAKIzgfPH/), id `18140916916727008`; copy matches, media differs. No repost. |
-| LinkedIn | The previous CPI/FOMC attempts were read back and reconciled absent. CPI's one subsequent API retry returned no stable identity. Its exact attempt remains readback-only and isolated from other operations. |
+| LinkedIn | The previous CPI/FOMC attempts were reconciled absent. CPI's one subsequent API retry returned no stable identity. A fresh own-profile readback at 15:56 GMT+7 found it absent; the coordinator recorded `RECONCILED_ABSENT_SAFE_TO_RETRY`. The one-retry limit is reached; no second retry was made. |
 | Threads | The actual existing transport returned `AUTH_INVALID`; Jim restores authorization. |
 
 The midterm preview remains the original published object `223293057`. Its release
@@ -29,10 +29,16 @@ reviewed artifact bytes across renderer source changes, retain compiler metadata
 and frozen intents, refresh native readback per turn, admit the current accepted
 media at publish, and route unidentified LinkedIn attempts to Neo. Rights,
 identity, exact-object, original MAX review and duplicate-send checks remain.
+The final readback exposed a full-outbox payload scan. Required destinations are
+now filtered in SQL before payload loading; seven focused checks passed in the
+operating root, including exact payload/order preservation and real packet use.
 
 [Operating-root regressions](operating-root-acceptance.xml): 64 passed.
 [The current media publish boundary](operating-root-current-media-boundary.xml):
 1 passed. Earlier failed tests and corrected results are retained separately.
+[The final outbox consumer checks](operating-root-scoped-outbox.xml): 7 passed.
+The [live source readback](live-source-validation.json) verifies nine consumer
+files against code commit `dfd5b8b8fa5039010769dbe96702a08faedb7673`.
 Actual model telemetry is unavailable; the observed launch configured
 `gpt-6.1-sol/max`, recorded as `CONFIGURED_NOT_OBSERVED`. The current native MAX
 review preserves the CPI copy, facts and media selection.
@@ -43,8 +49,9 @@ change or application restart was performed. Retained CC-186 changes remain
 uncommitted and outside this item's commits. Browser work after Jim's decision 63
 uses the existing window and task group.
 
-Next: Publisher finishes the exact LinkedIn readback after its ten-minute interval
-and fixes the Instagram delivery selection under the existing CC-186 image work.
+CC-171 remains `BLOCKED: THREADS_AUTH_INVALID`; Jim restores Threads authorization.
+LinkedIn's retry has a confirmed absence and no further retry allowance. Publisher
+fixes the Instagram delivery selection under the existing CC-186 image work.
 The current Instagram object's image differs; it must not be reported as matching
-the reviewed chart. Jim restores Threads authorization. The BACKLOG Result line
-is the continuation record.
+the reviewed chart. No deletion or repost was performed. The BACKLOG Result line
+is the continuation record. Final readback: 4 November at 16:00 GMT+7.

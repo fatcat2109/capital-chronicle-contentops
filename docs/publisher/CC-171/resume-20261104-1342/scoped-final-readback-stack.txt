@@ -1,0 +1,18 @@
+Timeout (0:00:25)!
+Thread 0x00003544 (most recent call first):
+  File "C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\gzip.py", line 634 in decompress
+  File "A:\Capital Chronicle\ContentOps\live_contentops\official_release_history_v1.py", line 67 in _source_bytes
+  File "A:\Capital Chronicle\ContentOps\live_contentops\official_release_history_v1.py", line 113 in load_cc010_history
+  File "A:\Capital Chronicle\ContentOps\live_contentops\release_chart_revision_v1.py", line 84 in revision_view
+  File "A:\Capital Chronicle\ContentOps\live_contentops\native_desktop_editorial_v1.py", line 1659 in reader_presentation_revision_view
+  File "A:\Capital Chronicle\ContentOps\live_contentops\native_desktop_editorial_v1.py", line 1706 in reader_presentation_acceptance
+  File "A:\Capital Chronicle\ContentOps\live_contentops\release_chart_revision_v1.py", line 138 in derivative_revision_view
+  File "A:\Capital Chronicle\ContentOps\live_contentops\release_chart_revision_v1.py", line 62 in revision_view
+  File "A:\Capital Chronicle\ContentOps\live_contentops\native_desktop_editorial_v1.py", line 1659 in reader_presentation_revision_view
+  File "A:\Capital Chronicle\ContentOps\live_contentops\native_desktop_editorial_v1.py", line 1864 in validate_final_visual_return
+  File "A:\Capital Chronicle\ContentOps\live_contentops\native_desktop_editorial_v1.py", line 1912 in final_visual_acceptance
+  File "A:\Capital Chronicle\ContentOps\live_contentops\native_desktop_editorial_v1.py", line 1707 in reader_presentation_acceptance
+  File "A:\Capital Chronicle\ContentOps\live_contentops\publication_coordinator_v1.py", line 703 in _reader_presentation_intent
+  File "A:\Capital Chronicle\ContentOps\live_contentops\publication_coordinator_v1.py", line 735 in _effective_message
+  File "A:\Capital Chronicle\ContentOps\live_contentops\publication_coordinator_v1.py", line 3204 in readback_existing_dispatch
+  File "<stdin>", line 15 in <module>

@@ -1,0 +1,8 @@
+{
+  "pid": 9532,
+  "parent_pid": 32136,
+  "process_start_gmt7": "2026-11-04 15:35:32",
+  "stopped_at_utc": "2026-11-04T08:42:39.773948+00:00",
+  "action": "readback_existing_dispatch only; no publish call",
+  "cause": "Unidentified attempt entered API authorization/token refresh; later code routes directly to Neo. Exact task-created helper was stopped; user applications untouched."
+}

@@ -1,6 +1,6 @@
 {
   "item": "CC-171",
-  "observed_at_utc": "2026-11-04T08:22:59.454870+00:00",
+  "observed_at_utc": "2026-11-04T09:00:07.591562+00:00",
   "operations": {
     "cc074-retro-fomc-20261028-v1": {
       "canonical_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
@@ -270,13 +270,17 @@
           "destination": "linkedin",
           "transport": "OFFICIAL_MEMBER_API",
           "dispatch_id": "dispatch_7dd24a91b8afec20ed3dc0206f59cb73",
-          "status": "UNKNOWN_WRITE",
-          "reconciliation_status": "RECONCILIATION_PENDING",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
           "public_object_id": null,
           "public_object_url": null,
           "dispatch_recorded": true,
           "cached_readiness": "READY_NON_BROWSER_BINDING",
-          "blocker": "UNKNOWN_WRITE"
+          "blocker": "ABSENT_AFTER_SINGLE_RETRY; retry limit reached",
+          "absence_observed_at_utc": "2026-11-04T08:56:56.804Z",
+          "retry_result_saved_at_utc": "2026-11-04T08:15:54.667366+00:00",
+          "retry_clock_basis": "Saved actual API return upper bound, separate from original dispatch clock",
+          "additional_publish_calls": 0
         },
         {
           "destination": "facebook_page",
@@ -651,15 +655,84 @@
     ],
     "new_public_identity_media_incomplete": [
       "instagram_business"
-    ]
+    ],
+    "prior_public_id_checks": [
+      {
+        "operation": "cc074-retro-fomc-20261028-v1",
+        "destination": "substack",
+        "public_object_id": "223199520"
+      },
+      {
+        "operation": "cc074-retro-fomc-20261028-v1",
+        "destination": "telegram",
+        "public_object_id": "73"
+      },
+      {
+        "operation": "cc074-retro-fomc-20261028-v1",
+        "destination": "discord",
+        "public_object_id": "1566872070753751344"
+      },
+      {
+        "operation": "cc074-retro-fomc-20261028-v1",
+        "destination": "x",
+        "public_object_id": "2117318307866968521"
+      },
+      {
+        "operation": "cc074-retro-fomc-20261028-v1",
+        "destination": "facebook_page",
+        "public_object_id": "106091951705748_1442865088031907"
+      },
+      {
+        "operation": "cc124-prepare-20261103-a",
+        "destination": "substack",
+        "public_object_id": "223246940"
+      },
+      {
+        "operation": "cc124-prepare-20261103-a",
+        "destination": "telegram",
+        "public_object_id": "74"
+      },
+      {
+        "operation": "cc124-prepare-20261103-a",
+        "destination": "discord",
+        "public_object_id": "1567217600877039648"
+      },
+      {
+        "operation": "cc124-prepare-20261103-a",
+        "destination": "x",
+        "public_object_id": "2117888404067356960"
+      },
+      {
+        "operation": "cc124-prepare-20261103-a",
+        "destination": "facebook_page",
+        "public_object_id": "106091951705748_1443815231270226"
+      },
+      {
+        "operation": "cc124-prepare-20261103-a",
+        "destination": "instagram_business",
+        "public_object_id": "18140916916727008"
+      },
+      {
+        "operation": "cc124-prepare-20261103-a",
+        "destination": "youtube",
+        "public_object_id": "UgkxfoYYb9nQIhzXGyir9S2DmN458SseAdvq"
+      },
+      {
+        "operation": "cc107-midterm-preview-20261103-v1",
+        "destination": "substack",
+        "public_object_id": "223293057"
+      }
+    ],
+    "linkedin_single_retry_readback": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+    "live_source_matches_commit": true
   },
   "pipeline_fixes_live": true,
   "source_root": "A:\\Capital Chronicle\\ContentOps",
   "limits": [
     "THREADS_AUTH_INVALID",
-    "LINKEDIN_UNKNOWN_WRITE_AFTER_SINGLE_RECONCILED_RETRY",
     "INSTAGRAM_LEGACY_CARD_INSTEAD_OF_REVIEWED_CHART",
-    "MIDTERM_PREVIEW_RELEASE_DEADLINE_EXPIRED_AND_POLLING_REUSE_UNBOUND"
+    "MIDTERM_PREVIEW_RELEASE_DEADLINE_EXPIRED_AND_POLLING_REUSE_UNBOUND",
+    "LINKEDIN_CONFIRMED_ABSENT_AFTER_SINGLE_RETRY; NO_SECOND_RETRY"
   ],
   "tests": {
     "operating_root_acceptance": {
@@ -669,21 +742,49 @@
     "operating_root_current_media_publish_boundary": {
       "passed": 1,
       "file": "operating-root-current-media-boundary.xml"
+    },
+    "operating_root_scoped_outbox": {
+      "passed": 7,
+      "file": "operating-root-scoped-outbox.xml"
     }
   },
-  "source_commit": "916d50bf59f2632f8e537d7641dfcba59f7a98c9",
+  "source_commit": "dfd5b8b8fa5039010769dbe96702a08faedb7673",
   "consumer_imports": {
     "live_contentops.native_desktop_editorial_v1": {
       "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_editorial_v1.py",
-      "sha256": "738db6c5acd9f179c907d106e6688a06543bf47ef81332937a2f9f3997b401f3"
+      "sha256": "ad7fb85d1cfa2d2c010a05fc03a2bc7be87ce94cc42dd63a6402594a36ef27bf"
+    },
+    "live_contentops._eight_platform_substack_first_pipeline_impl_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\_eight_platform_substack_first_pipeline_impl_v1.py",
+      "sha256": "c14f192d3e2f22d905322ea6c79a9500e2f93c6af374bb7fb6815bdbadcf7449"
     },
     "live_contentops.publication_coordinator_v1": {
       "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
-      "sha256": "81d044193c84e7a66e9734f21801da46d13b4194cfb7fc45a3a1cf0ae9c6d45a"
+      "sha256": "0d68fbbcc871d2253322395f4ca9e1ff3cf6ced1ca76e74c27b7e51e63fbc780"
     },
     "live_contentops.native_desktop_publication_v1": {
       "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_publication_v1.py",
-      "sha256": "e61ce86f0dfb99c19a54ce22148e2831ba41dec32c131a32415d52fb5fce20ff"
+      "sha256": "486b2a0f7cab343ade1ea6ff854f63e678c590044dd37679381c7fe9605d341e"
+    },
+    "live_contentops.native_neo_executor_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_neo_executor_v1.py",
+      "sha256": "385984f5182db809b48558ad47e459ad18e2135c860a7efd3f973af2753d03f8"
+    },
+    "live_contentops.neo_destination_handoff_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\neo_destination_handoff_v1.py",
+      "sha256": "f6b2dd55ecd691128be4b2025b1427386e7da0051b8fd22a6c8ef74d4bbac2ca"
+    },
+    "live_contentops.durable_operational_store_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\durable_operational_store_v1.py",
+      "sha256": "fde20c614d009499e08ed58f1f33ff1c11d69ecc70b82ba1cbcebb6f2a9aa3d9"
+    },
+    "live_contentops.destination_transport_registry_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\destination_transport_registry_v1.py",
+      "sha256": "911cbd42688d68e247cb628d66284489873e44d45a69d35c923746b4e0b738d9"
+    },
+    "live_contentops.release_chart_revision_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\release_chart_revision_v1.py",
+      "sha256": "1e50f02f54fb88703fd11dd54c877dc9f25ff05940086ea9da026bf38ab3b497"
     }
   },
   "linkedin_retry_result_saved_at_utc": "2026-11-04T08:15:54.667366+00:00"

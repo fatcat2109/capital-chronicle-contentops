@@ -1,0 +1,15 @@
+{
+  "helper_pid": 1660,
+  "lease": {
+    "lease_id": "lease_4e429b91c5b9db7f",
+    "lease_key": "internal:native-editorial:newsroom",
+    "work_item_id": null,
+    "owner_ref": "native-newsroom-986f12b8bcc54547a0c2b18421f6b223",
+    "fencing_token": 395,
+    "acquired_at": "2026-11-04T08:43:54.290675+00:00",
+    "renewed_at": "2026-11-04T08:43:54.290675+00:00",
+    "expires_at": "2026-11-04T08:58:54.290675+00:00",
+    "status": "ACTIVE"
+  },
+  "public_write": false
+}
