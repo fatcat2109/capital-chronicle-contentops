@@ -1,0 +1,24 @@
+{
+  "operation_id": "cc143-digest-2026-11-03",
+  "public_object_id": "223456283",
+  "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november",
+  "public_send_utc": "2026-11-04T11:11:42.931Z",
+  "native_code_request_observed": false,
+  "original_card_sha256": "5767e87f663799e6d242c2a6bde246807e75a533f4e499d2dfc54347fb04642f",
+  "public_card_original_bytes_match": true,
+  "live_root_code": "dc03c1d0c3432db9446031ab4b503e810829b8f9",
+  "last_verified_remote": "dc03c1d0c3432db9446031ab4b503e810829b8f9",
+  "push_error": "GitHub remote Internal Server Error; request 5D17:9322E:15E2F4F:207E79A:6AEB1428 at 2026-11-04T11:16:58Z",
+  "provider_incident": "https://www.githubstatus.com/incidents/smtdswd1h2w4",
+  "existing_runtime_task_state": "Disabled",
+  "schedule_change_performed": false,
+  "outside_actions": [
+    "Ops must supply the existing daily 19:00 native execution route; the existing runtime task is Disabled and this run cannot change a schedule.",
+    "Substack must expose the exact digest email-send/delivery readback; Jim alone handles any agreement needed for recipient details."
+  ],
+  "email_readback": "No recipients or delivery result displayed after the stated processing interval; recipient-details panel requires Jim to accept the publisher agreement and privacy policy. The agent did not accept terms.",
+  "web_confirmed": true,
+  "email_confirmed": false,
+  "state": "WEB_CONFIRMED_EMAIL_READBACK_REQUIRED",
+  "push_error_recovered": true
+}
