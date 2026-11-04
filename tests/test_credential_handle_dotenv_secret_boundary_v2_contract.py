@@ -7,6 +7,13 @@ from live_contentops import platform_account_binding_registry_v2_contract as bin
 from live_contentops import redacted_immutable_audit_ledger_v2_contract as audit
 
 
+@pytest.fixture(autouse=True)
+def _contract_artifacts_to_tmp(tmp_path, monkeypatch):
+    # CC-268: the artifacts go to tmp (keeping the docs/automation/0174UH suffix the tests check).
+    monkeypatch.setattr(boundary, "DOC_REL_DIR", tmp_path / "docs" / "automation" / "0174UH")
+
+
+
 EXPECTED_PLATFORMS = {
     "x",
     "telegram_remote_operator",
