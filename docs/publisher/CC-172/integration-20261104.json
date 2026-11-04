@@ -1,0 +1,33 @@
+{
+  "item": "CC-172",
+  "at_utc": "2026-11-04T15:48:29.557459+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "previous_head": "0efcde304b5a419815f4a67d8ad69cfb29ca3dfd",
+  "integrated_commit": "cfc0353ae378e12a62fae6f581299fb14d1fa0f0",
+  "method": "git merge --ff-only; existing operating branch retained",
+  "live_tag": "contentops-live-20261104-cc172-output-guard",
+  "dirty_files_sha256": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "3f8d72da06b9f971a23ac16e0ad1a824e302f50b651f038d73bec67794460742",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "7172fbd560a130db5a0df9dba7db1ae5676d3cc469a1156c6b13ac0b8e7decd3"
+  },
+  "all_six_dirty_files_unchanged": true,
+  "exec_telemetry_unchanged": true,
+  "live_consumer_verification": {
+    "pytest_exit_code": 0,
+    "report": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-172-resume-20261104\\operating-root-output-check.xml",
+    "entrypoints": [
+      "scripts/run_native_desktop_editorial.py",
+      "scripts/run_native_neo_executor.py",
+      "live_contentops/cli.py"
+    ],
+    "public_writes": 0
+  },
+  "remaining_acceptance": "A subsequent ordinary article dispatches every applicable channel within 15 minutes of its first unchanged-text approval; retained samples missed the target.",
+  "schedules_changed": false,
+  "apps_restarted": false,
+  "chats_messaged": false
+}

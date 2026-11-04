@@ -1,0 +1,31 @@
+.................F.........                                              [100%]
+================================== FAILURES ===================================
+__ test_time_sensitive_writer_one_editor_publishes_without_screenshot_review __
+
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-32479/test_time_sensitive_writer_one0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002B2EE891BD0>
+
+    def test_time_sensitive_writer_one_editor_publishes_without_screenshot_review(tmp_path, monkeypatch):
+        store, binding, rollout, result, _, _ = brief_packet(tmp_path, monkeypatch)
+        accepted = require_current_final_visual_review(store, run_id=binding["run_id"])
+        assert accepted["policy_id"] == SPEED_POLICY and accepted["pixels_inspected"] is False
+        assert accepted["automated_media_check"]["blocks_publication"] is False
+        from live_contentops.native_desktop_publication_v1 import prepare_native_publication
+        prepare_native_publication(store, binding)
+        operation, executor, _ = composed(store, binding, rollout, monkeypatch)
+        value, _ = finish(operation, executor)
+        timing = value["publication"]["timing"]
+        # The current site-first fixture confirms the site before socials. Substack
+        # is still undispatched; it must not be counted as meeting the target.
+        assert timing["state"] == "DISPATCH_NOW"
+        assert not timing["all_channels_dispatched_within_target"]
+        assert next(c for c in timing["channels"] if c["destination"] == "substack")["dispatched_at_utc"] is None
+>       assert all(c["within_target"] is True for c in timing["channels"]
+                   if not c["skipped"] and c["destination"] != "substack")
+E       assert False
+E        +  where False = all(<generator object test_time_sensitive_writer_one_editor_publishes_without_screenshot_review.<locals>.<genexpr> at 0x000002B2925269B0>)
+
+tests\test_native_publication_latency_v1.py:159: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_native_publication_latency_v1.py::test_time_sensitive_writer_one_editor_publishes_without_screenshot_review
+1 failed, 26 passed in 44.94s

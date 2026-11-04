@@ -1,6 +1,8 @@
-# CC-172 publication latency — 4 November continuation
+# CC-172 publication latency â€” 4 November continuation
 
-The 10 KB tool-output amendment is implemented in the native editorial CLI,
+The 10 KB tool-output amendment is integrated in `A:\Capital Chronicle\ContentOps`
+at `cfc0353ae378e12a62fae6f581299fb14d1fa0f0`, tag
+`contentops-live-20261104-cc172-output-guard`. It is implemented in the native editorial CLI,
 native Neo CLI and canonical CLI. Image bytes and large base64 fields are saved
 as binary files. Large text/JSON results are saved intact and returned by path,
 size and SHA-256; image references also carry dimensions when decodable. Small
@@ -36,6 +38,8 @@ Publisher article supplies that remaining acceptance evidence.
 
 - The output/binary/repair/latency/CLI selection passed 28 tests. A subsequent
   output-consumer and CLI selection passed 8 tests; the selections overlap.
+- Final affected publication checks passed 2 tests. In the operating root,
+  output/binary/CLI checks passed 11 tests. All selections overlap.
 - The real CLI output consumer test verifies that its returned file contains
   the exact original image bytes. The existing image-magic/base64 Git guard
   passes the changed paths.
