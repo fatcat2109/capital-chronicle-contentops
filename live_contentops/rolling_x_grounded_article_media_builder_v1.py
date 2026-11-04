@@ -473,36 +473,30 @@ def _render_text_card(
     footer_lines: Sequence[str],
     accent: str = "#11263d",
     wrap_body: bool = False,
+    kicker: str | None = None,
+    key: tuple[str, str] | None = None,
+    dated_line: str | None = None,
+    size: tuple[int, int] | None = None,
 ) -> None:
-    from PIL import Image, ImageDraw
+    """Every typographic card renders in the CC-245 site design (fact_card_design_v1).
 
-    title_font, heading_font, body_font, small_font = _load_fonts()
-    image = Image.new("RGB", (1600, 900), "white")
-    draw = ImageDraw.Draw(image)
-    draw.rectangle((0, 0, 1600, 110), fill=accent)
-    draw.text((64, 30), _bounded_text(header, maximum=90), font=title_font, fill="white")
-    y = 158
-    for line in title_lines[:3]:
-        draw.text((64, y), _bounded_text(line, maximum=96), font=heading_font, fill="#17212b")
-        y += 40
-    y += 26
-    for label, value in body_lines[:8]:
-        draw.rectangle((64, y, 72, y + 54), fill=accent)
-        draw.text((88, y), _bounded_text(label, maximum=36), font=heading_font, fill="#37424e")
-        if wrap_body:
-            import textwrap
-            value_lines = textwrap.wrap(value, width=100)[:5]
-            for index, value_line in enumerate(value_lines):
-                draw.text((88, y + 30 + index * 30), value_line, font=body_font, fill="#101820")
-            y += 52 + len(value_lines) * 30
-        else:
-            draw.text((88, y + 30), _bounded_text(value, maximum=108), font=body_font, fill="#101820")
-            y += 82
-    footer_y = 800
-    for index, line in enumerate(footer_lines[:2]):
-        draw.text((64, footer_y + index * 26), _bounded_text(line, maximum=140), font=small_font, fill="#4a5560")
+    Callers keep passing verbatim admitted text; the key value is chosen from those
+    facts (or passed explicitly) and must be an exact substring of them.
+    """
+    from live_contentops.fact_card_design_v1 import CardSpec, X_SIZE, key_from_facts, render_fact_card
+    facts = [(str(label or ""), str(value or "")) for label, value in body_lines]
+    title = " ".join(str(line) for line in title_lines if line).strip() or str(header or "")
+    footers = [str(line) for line in footer_lines if line]
+    notice_lines = [line for line in footers if line.startswith("Analysis, not financial advice")]
+    others = [line for line in footers if not line.startswith("Analysis, not financial advice")]
+    key_label, key_value = key if key is not None else key_from_facts(facts)
+    spec = CardSpec(title=title, facts=facts,
+        kicker=kicker if kicker is not None else ("" if str(header).upper() == "CAPITAL CHRONICLE" else str(header)),
+        key_label=key_label, key_value=key_value, source_line=others[0] if others else "",
+        dated_line=dated_line if dated_line is not None else " · ".join(others[1:]),
+        notice="Analysis, not financial advice." if notice_lines or not others else "")
     path.parent.mkdir(parents=True, exist_ok=True)
-    image.save(path, format="PNG")
+    render_fact_card(path, spec, size=size or X_SIZE)
 
 
 def _document_host(document: Mapping[str, Any]) -> str:
@@ -1048,16 +1042,33 @@ def _source_fact_card_rows(packet, document):
     return rows
 
 
-def build_source_fact_card(document, *, packet, asset_id, placement_after, output_dir):
+def build_source_fact_card(document, *, packet, asset_id, placement_after, output_dir, dated_line=None):
     """Reuse the existing image renderer for source-bound, nonquantitative facts."""
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
     rows = _source_fact_card_rows(packet, document)
     if not re.fullmatch(r"[a-z0-9][a-z0-9_-]{0,79}", asset_id) or not placement_after:
         raise ValueError("FACT_CARD_ID_AND_PLACEMENT_REQUIRED")
     path = Path(output_dir) / (asset_id + ".png")
+    final_path = path
+    if path.exists():
+        # A sent card's bytes stay intact (CC-245): render beside it, then keep
+        # the new file under a hash-suffixed name only if its bytes differ.
+        path = path.with_name(asset_id + ".rendering.png")
+    from live_contentops.fact_card_design_v1 import reader_date
+    announced = reader_date(document.get("published_at_utc"))
+    # CC-245: the source date is labelled as the source's own; the card's date is the piece's.
     _render_text_card(path=path, header="CAPITAL CHRONICLE", title_lines=[packet["title"]],
-        body_lines=rows, footer_lines=["Source: " + document["publisher"],
-            "Announcement: " + str(document.get("published_at_utc") or "date as recorded")[:10]])
+        body_lines=rows, kicker=document["publisher"], dated_line=dated_line or "Capital Chronicle",
+        footer_lines=["Source: " + document["publisher"] + (", announced " + announced if announced else ""),
+            "Analysis, not financial advice."])
+    if path != final_path:
+        if _sha256_file(path) == _sha256_file(final_path):
+            path.unlink()
+            path = final_path
+        else:
+            renamed = final_path.with_name(asset_id + "-" + _sha256_file(path)[:12] + ".png")
+            path.replace(renamed)
+            path = renamed
     return {"asset_id": asset_id, "path": str(path.resolve()), "sha256": _sha256_file(path),
         "width": 1600, "height": 900, "modality": "source_backed_chart",
         "media_role": "editorial_data_journalism", "visual_type": "SOURCE_FACTS_CARD",
@@ -1150,16 +1161,21 @@ def build_post_image_card(article, *, output_dir, accepted_evidence_sha256):
     display_content = admitted_post_card_content(article)
     check_publication_copy({"title": title, "subtitle": subtitle,
         "body": "\n".join(value for _, value in display_content["body_lines"])}, require_notice=False)
+    from live_contentops.fact_card_design_v1 import DESIGN, piece_dated_line, reader_date
+    # CC-245: the card shows the piece's own date; the source date is labelled as the source's.
+    dated_line = piece_dated_line(article)
     binding = {"policy": POST_IMAGE_POLICY, "title": title, "subtitle": subtitle,
                "article_body_sha256": _sha256_text(article["substack_body_markdown"]),
-                "accepted_evidence_sha256": accepted_evidence_sha256, "display_content": display_content}
+                "accepted_evidence_sha256": accepted_evidence_sha256, "display_content": display_content,
+                "design": DESIGN, "dated_line": dated_line}
     path = Path(output_dir) / ("post-card-" + sha256_of(binding)[:20] + ".png")
     # Reuse the existing deterministic renderer; facts stay verbatim and hash-bound.
-    import textwrap
-    _render_text_card(path=path, header="CAPITAL CHRONICLE",
-        title_lines=textwrap.wrap(title, width=80),
+    source_date = reader_date(display_content.get("source_published_at"))
+    label = display_content["source_label"]
+    _render_text_card(path=path, header="CAPITAL CHRONICLE", title_lines=[title],
         body_lines=display_content["body_lines"],
-        footer_lines=["Source: " + display_content["source_label"],
+        kicker="" if label == "Capital Chronicle" else label, dated_line=dated_line,
+        footer_lines=["Source: " + label + (", " + source_date if source_date else ""),
             "Analysis, not financial advice. Readers decide whether to trade."], wrap_body=True)
     return {"asset_id": "post-card-" + sha256_of(binding)[:20], "path": str(path.resolve()),
         "sha256": _sha256_file(path), "width": 1600, "height": 900,

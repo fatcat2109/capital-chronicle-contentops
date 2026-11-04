@@ -166,21 +166,21 @@ def live_canonicals(store):
 
 
 def _titles_card(day, articles, *, output_dir, evidence_sha256):
-    """A card naming the day's pieces, instead of an empty "N articles" card."""
-    from pathlib import Path
-    import textwrap
-    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _render_text_card, _sha256_file
+    """A card naming the day's pieces, in the CC-245 site design, not an empty "N articles" card."""
+    from live_contentops.fact_card_design_v1 import CardSpec, DESIGN, render_fact_card
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _sha256_file
     binding = {"digest_day": day.isoformat(), "titles": [a["title"] for a in articles],
-               "accepted_evidence_sha256": evidence_sha256}
+               "accepted_evidence_sha256": evidence_sha256, "design": DESIGN}
     path = Path(output_dir) / ("digest-card-" + sha256_of(binding)[:20] + ".png")
     path.parent.mkdir(parents=True, exist_ok=True)
-    lines = [("", a["title"]) for a in articles[:4]]
-    if len(articles) > 4:
-        lines.append(("", f"and {len(articles) - 4} more"))
-    _render_text_card(path=path, header="CAPITAL CHRONICLE",
-        title_lines=["Daily digest, " + day_label(day)], body_lines=lines,
-        footer_lines=["Capital Chronicle's own articles", PUBLIC_NOTICE], wrap_body=True)
-    title = "Capital Chronicle daily digest, " + day_label(day)
+    label = day_label(day)
+    facts = [("Edition", label), *(("", a["title"]) for a in articles[:5])]
+    if len(articles) > 5:
+        facts.append(("", f"and {len(articles) - 5} more"))
+    render_fact_card(path, CardSpec(title="Capital Chronicle daily digest", facts=facts, kicker="Daily digest",
+        key_label="Edition", key_value=label, source_line="Capital Chronicle's own articles",
+        dated_line="Capital Chronicle · " + label))
+    title = "Capital Chronicle daily digest, " + label
     return {"asset_id": "digest-card-" + sha256_of(binding)[:20], "path": str(path.resolve()),
             "sha256": _sha256_file(path), "width": 1600, "height": 900, "modality": "source_backed_chart",
             "visual_type": "DIGEST_TITLES_CARD", "digest_card_binding": binding, "quantitative_chart": False,

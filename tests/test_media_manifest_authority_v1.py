@@ -272,19 +272,23 @@ def test_delivery_fallback_uses_admitted_facts_and_publisher_not_epistemic_state
     assert card["source_label"] == "Federal agency"
     assert card["source_page_url"] == "https://example.org/release"
     assert rendered["body_lines"] == [["What happened", article["subtitle"]]]
-    assert rendered["footer_lines"][0] == "Source: Federal agency | November 4, 2026"
-    assert card["width"] == 1600 and card["height"] == 900
+    assert rendered["footer_lines"][0] == "Source: Federal agency, November 4, 2026"
+    # CC-245: the delivery card is Instagram's portrait size in the site design.
+    assert card["width"] == 1080 and card["height"] == 1350
 
 
 def test_enriched_fallback_preserves_legacy_dispatched_image_bytes(tmp_path: Path):
+    from PIL import Image
     target = tmp_path / "delivery_only_editorial_card.png"
-    legacy = build_delivery_only_editorial_card(output_path=target, title="Retained title",
-        source_label="Federal agency", source_page_url="https://example.org/release")
+    Image.new("RGB", (1350, 1080), "#07111f").save(target)  # a legacy card already sent
     before = target.read_bytes()
+    plain = build_delivery_only_editorial_card(output_path=target, title="Retained title",
+        source_label="Federal agency", source_page_url="https://example.org/release")
     fresh = build_delivery_only_editorial_card(output_path=target, title="Retained title",
         source_label="Federal agency", source_page_url="https://example.org/release",
         article={"title": "Retained title", "subtitle": "The agency published the retained facts."})
-    assert Path(fresh["path"]) != target
+    # CC-245: every new rendering takes a content-bound name; sent bytes never change.
+    assert target not in {Path(plain["path"]), Path(fresh["path"])}
+    assert Path(plain["path"]) != Path(fresh["path"])
     assert target.read_bytes() == before
-    assert sha256_file(target) == legacy["sha256"]
     assert Path(fresh["path"]).read_bytes() != before

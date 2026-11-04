@@ -105,7 +105,8 @@ def test_fact_card_renders_admitted_periods_units_and_real_source(tmp_path, monk
     assert [text for _, text in captured["body_lines"]] == observed
     assert "0.6%" in captured["body_lines"][0][1] and "seasonally adjusted" in captured["body_lines"][0][1]
     assert "3.7%" in captured["body_lines"][1][1] and "not seasonally adjusted" in captured["body_lines"][1][1]
-    assert captured["footer_lines"][0] == "Source: U.S. Bureau of Labor Statistics"
+    # CC-245: the source date is labelled as the source's own.
+    assert captured["footer_lines"][0].startswith("Source: U.S. Bureau of Labor Statistics")
     assert card["source_label"] == "U.S. Bureau of Labor Statistics"
     validate_post_image_card(card, article=article, accepted_evidence_sha256="a" * 64)
     changed = deepcopy(article)

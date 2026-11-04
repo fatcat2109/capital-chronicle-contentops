@@ -158,67 +158,40 @@ def build_delivery_only_editorial_card(
     units and attribution. Metadata-only callers retain their historical format.
     Capital Chronicle owns the layout, not the attributed underlying source.
     """
-    from PIL import Image, ImageDraw
+    import json
+    from live_contentops.fact_card_design_v1 import DESIGN, INSTAGRAM_SIZE, piece_dated_line
 
     target = Path(output_path).resolve()
     display_content = None
     if article:
-        import json
         from live_contentops.rolling_x_grounded_article_media_builder_v1 import admitted_post_card_content
         display_content = admitted_post_card_content(article)
         if display_content["source_label"] != "Capital Chronicle":
             source_label = display_content["source_label"]
             source_page_url = display_content["source_page_url"]
         published_at = published_at or display_content["source_published_at"]
-        # A new rendering must not overwrite a legacy file referenced by sent objects.
-        binding = [title, source_label, source_page_url, published_at, display_content]
-        identity = sha256_bytes(json.dumps(binding, sort_keys=True, ensure_ascii=True).encode())[:20]
-        target = target.with_name(target.stem + "-facts-" + identity + target.suffix)
+    # CC-245: a new design never overwrites a file referenced by sent objects, so
+    # every rendering takes a content-bound name beside the legacy path.
+    binding = [title, source_label, source_page_url, published_at, display_content, DESIGN]
+    identity = sha256_bytes(json.dumps(binding, sort_keys=True, ensure_ascii=True).encode())[:20]
+    target = target.with_name(target.stem + ("-facts-" if display_content else "-card-") + identity + target.suffix)
     target.parent.mkdir(parents=True, exist_ok=True)
-    image = Image.new("RGB", (1350, 1080), "#07111f")
-    draw = ImageDraw.Draw(image)
-    font, small, font_identity, unicode_font_loaded = _delivery_card_fonts()
+    _font, _small, font_identity, unicode_font_loaded = _delivery_card_fonts()
     source_title = " ".join(str(title or "").split())
     display_title = _glyph_safe_display_text(
         source_title, unicode_font_loaded=unicode_font_loaded
     )
-
-    def lines(value: str, width: int) -> list[str]:
-        words = " ".join(str(value or "").split()).split()
-        rows: list[str] = []
-        current = ""
-        for word in words:
-            candidate = f"{current} {word}".strip()
-            if len(candidate) > width and current:
-                rows.append(current)
-                current = word
-            else:
-                current = candidate
-        if current:
-            rows.append(current)
-        return rows
-
-    draw.rectangle((72, 72, 1278, 1008), outline="#e0b85a", width=4)
-    draw.text((110, 118), "CAPITAL CHRONICLE", fill="#e0b85a", font=small)
-    draw.text((110, 174), "NEWSROOM BRIEF", fill="#94a3b8", font=small)
-    y = 280
-    for row in lines(display_title, 50)[:7]:
-        draw.text((110, y), row, fill="#f8fafc", font=font)
-        y += 58
     source_date = _reader_facing_source_date(published_at)
     source_text = f"Source: {source_label}"
     if source_date:
-        source_text += f" | {source_date}"
-    draw.text((110, 875), source_text[:92], fill="#cbd5e1", font=small)
-    draw.text((110, 930), "Read the full brief on Capital Chronicle", fill="#e0b85a", font=small)
-    if display_content and display_content["body_lines"]:
-        import textwrap
-        from live_contentops.rolling_x_grounded_article_media_builder_v1 import _render_text_card
-        _render_text_card(path=target, header="CAPITAL CHRONICLE",
-            title_lines=textwrap.wrap(display_title, width=80), body_lines=display_content["body_lines"],
-            footer_lines=[source_text, "Analysis, not financial advice. Readers decide whether to trade."], wrap_body=True)
-    else:
-        image.save(target, format="PNG", optimize=True)
+        source_text += f", {source_date}"
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _render_text_card
+    # Instagram's portrait feed size, in the site design (Jim, 4 Nov: the SEC image).
+    _render_text_card(path=target, header="CAPITAL CHRONICLE", title_lines=[display_title],
+        body_lines=display_content["body_lines"] if display_content else [],
+        kicker="Newsroom brief", dated_line=piece_dated_line(article) if article else "Capital Chronicle",
+        footer_lines=[source_text, "Analysis, not financial advice. Readers decide whether to trade."],
+        wrap_body=True, size=INSTAGRAM_SIZE)
     metadata = image_metadata_from_file(target)
     return {
         "asset_id": "delivery_only_editorial_card",

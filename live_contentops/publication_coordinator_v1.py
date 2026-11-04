@@ -1094,7 +1094,10 @@ class DurablePublicationCoordinator:
             empty = {**intent, "native_payload": {}, "payload": "",
                 "destination_plan": {**intent["destination_plan"], "payload_hash": sha256_of({}),
                     "payload_hash_kind": "FINAL_CANONICAL_URL_BOUND_BYTES"}}
-            if (json.loads(prior["payload"]) != empty
+            # An unsent routine company copy (4 Nov) gives way to this reviewed copy,
+            # e.g. SEC's repost with the CC-245 card instead of the old one.
+            routine_unsent = json.loads(prior["payload"]).get("routine_company_copy") is True
+            if ((json.loads(prior["payload"]) != empty and not routine_unsent)
                     or self.store.get_platform_dispatch(ids["dispatch_id"])):
                 raise ValueError("LINKEDIN_COMPANY_IMMUTABLE_COPY_CONFLICT")
             self.store.finalize_outbox_payload_before_dispatch(message_id=ids["message_id"],

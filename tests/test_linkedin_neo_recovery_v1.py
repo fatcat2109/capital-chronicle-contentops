@@ -148,6 +148,19 @@ def test_company_copy_is_distinct_once_and_does_not_retry_personal_unknown(tmp_p
     assert runtime.publish_calls == ["linkedin_company"]
 
 
+def test_reviewed_company_copy_supersedes_an_unsent_routine_copy(tmp_path, monkeypatch):
+    # 4 Nov: SEC's routine company copy (old card) waits unsent; the reviewed copy takes its slot.
+    store, binding, result, co, runtime, recovery, personal = linkedin_recovery(tmp_path, monkeypatch)
+    ref = accepted_recovery(store, binding, result, recovery, tmp_path)
+    member = json.loads(store.get_outbox_message(personal["message_id"])["payload"])
+    co._register_routine_company_copy(binding["run_id"], recovery["plan_hash"], member, personal)
+    first = co.publish_reviewed_linkedin_company_copy(run_id=binding["run_id"], review_reference=ref)
+    assert first["publish_called"] is True and runtime.publish_calls == ["linkedin_company"]
+    assert runtime.sent[0]["native_payload"] == recovery["payloads"]["linkedin"]
+    company = co._ids(binding["run_id"], recovery["plan_hash"], "linkedin_company")
+    assert json.loads(store.get_outbox_message(company["message_id"])["payload"]).get("routine_company_copy") is None
+
+
 def test_old_three_channel_review_cannot_authorize_company_copy(tmp_path, monkeypatch):
     store, binding, result, co, runtime, recovery = setup_recovery(tmp_path, monkeypatch)
     ref = accepted_recovery(store, binding, result, recovery, tmp_path)
