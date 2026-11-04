@@ -221,31 +221,29 @@ def test_card_small_chart_uses_existing_admitted_series_owner(tmp_path):
         build_post_data_card(bad_article, bad_claims, docs, output_dir=tmp_path, series_packet=series)
 
 
-def test_invalid_image_never_reaches_transport(tmp_path, monkeypatch):
-    import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
+def test_invalid_image_is_rejected_by_image_validator(tmp_path):
     article, claims, docs = packet()
     card = build_post_data_card(article, claims, docs, output_dir=tmp_path)
     Path(card["path"]).write_bytes(b"not an image")
     card["sha256"] = sha256(Path(card["path"]).read_bytes()).hexdigest()
-    monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda intent: {"media_assets": [card]})
-    class NeverPublish:
-        def publish(self, **kwargs):
-            pytest.fail("external transport called with invalid image")
-    owner = CanonicalDestinationTransportRuntimeV1(neo_transport=NeverPublish(), linkedin_transport=NeverPublish())
-    assert owner.publish(destination="substack", intent={}, authorization_context={})["definite_no_write"] is True
+    with pytest.raises(OSError):
+        require_publication_image("substack", {"media_assets": [card]})
 
 
 @pytest.mark.parametrize("destination", ["substack", *DESTINATIONS, "linkedin_company"])
-def test_all_shared_transport_paths_refuse_missing_images_before_external_call(monkeypatch, destination):
+def test_shared_transport_preserves_installed_image_failure_fallback(monkeypatch, destination):
     import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
-    monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda intent: {"media_assets": []})
-    class NeverPublish:
+    class Transport:
         def publish(self, **kwargs):
-            pytest.fail("external transport called with no image")
-    owner = CanonicalDestinationTransportRuntimeV1(neo_transport=NeverPublish(), linkedin_transport=NeverPublish())
+            return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                    "safe_error_classification": "CONTROLLED_TRANSPORT_REACHED"}
+    monkeypatch.setattr(pipeline, "_publish_one_destination_from_durable_intent",
+        lambda **kwargs: {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                         "reason_code": "CONTROLLED_TRANSPORT_REACHED"})
+    owner = CanonicalDestinationTransportRuntimeV1(neo_transport=Transport(), linkedin_transport=Transport())
     outcome = owner.publish(destination=destination, intent={}, authorization_context={})
-    assert outcome["definite_no_write"] is True
-    assert outcome["safe_error_classification"] == "EVERY_POST_IMAGE_REQUIRED:" + destination
+    assert "EVERY_POST_IMAGE_REQUIRED" not in str(outcome)
+    assert "CONTROLLED_TRANSPORT_REACHED" in str(outcome)
 
 
 @pytest.mark.parametrize("destination", ["substack", *DESTINATIONS])

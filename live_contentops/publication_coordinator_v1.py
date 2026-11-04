@@ -3614,13 +3614,6 @@ class CanonicalDestinationTransportRuntimeV1:
 
     def publish(self, *, destination: str, intent: Mapping[str, Any],
                 authorization_context: Mapping[str, Any]) -> Mapping[str, Any]:
-        from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
-        from live_contentops.post_visuals_v1 import require_publication_image
-        try:
-            require_publication_image(destination, _durable_intent_inputs(intent))
-        except (ValueError, OSError) as exc:
-            return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True,
-                "safe_error_classification": str(exc)}
         if destination in {"substack", "x", "youtube", "linkedin_company"} or (destination == "linkedin"
                 and intent.get("dated_distribution_recovery")
                 and intent.get("destination_plan", {}).get("transport_type") == "BROWSEROS_NEO_MCP"):
