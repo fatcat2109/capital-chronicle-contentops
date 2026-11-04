@@ -129,3 +129,66 @@ def test_shared_node_dependencies_never_run_a_public_write_worker(binding, monke
     result = append_record(feed, sealed())["preview_mirror"]
     assert result == {"status": "NOT_STARTED", "cause": "CONSUMER_NODE_DEPENDENCIES_SHARED"}
     assert not calls
+
+
+def _fake_python(folder, *, pythonw=True):
+    folder.mkdir(parents=True, exist_ok=True)
+    python = folder / "python.exe"
+    python.write_bytes(b"synthetic executable, never run")
+    if pythonw:
+        python.with_name("pythonw.exe").write_bytes(b"synthetic executable, never run")
+    return python
+
+
+def _probe(ok):
+    """subprocess.run stand-in: jsonschema imports only for interpreters named in ok."""
+    seen = []
+
+    def run(command, **kwargs):
+        seen.append(command[0])
+        return SimpleNamespace(returncode=0 if command[0] in ok else 1)
+    return run, seen
+
+
+def test_venv_without_jsonschema_falls_back_to_checked_system_python(binding, monkeypatch, tmp_path):
+    # CC-248 (Ops Product, 5 Nov): the ContentOps runtime venv has no jsonschema; nothing is
+    # installed there. The worker runs with the runbook's system Python found on PATH instead.
+    feed, _, _, _, calls = binding
+    system = _fake_python(tmp_path / "Python313")
+    monkeypatch.setattr(hook.shutil, "which", lambda name: str(system) if name == "python" else None)
+    run, seen = _probe({str(system)})
+    monkeypatch.setattr(hook.subprocess, "run", run)
+    result = append_record(feed, sealed())["preview_mirror"]
+    assert result["status"] == "STARTED" and result["worker_python_fallback"] == str(system)
+    assert seen == [hook.sys.executable, str(system)]
+    assert calls[0][0][0] == str(system.with_name("pythonw.exe"))
+
+
+def test_configured_worker_python_is_checked_before_it_is_used(binding, monkeypatch, tmp_path):
+    feed, _, _, config, calls = binding
+    no_pythonw = _fake_python(tmp_path / "configured", pythonw=False)
+    on_path = _fake_python(tmp_path / "onpath")
+    value = json.loads(config.read_text())
+    config.write_text(json.dumps({**value, "worker_python": str(no_pythonw)}))
+    monkeypatch.setattr(hook.shutil, "which", lambda name: str(on_path))
+    run, seen = _probe({str(no_pythonw), str(on_path)})
+    monkeypatch.setattr(hook.subprocess, "run", run)
+    result = append_record(feed, sealed())["preview_mirror"]
+    # The configured interpreter has no pythonw beside it, so it is never probed or run.
+    assert result["worker_python_fallback"] == str(on_path) and str(no_pythonw) not in seen
+    assert calls[0][0][0] == str(on_path.with_name("pythonw.exe"))
+
+
+def test_no_interpreter_with_jsonschema_keeps_the_named_cause(binding, monkeypatch, tmp_path):
+    feed, _, _, _, calls = binding
+    store_alias = tmp_path / "WindowsApps" / "python.exe"
+    _fake_python(store_alias.parent)
+    system = _fake_python(tmp_path / "Python313")
+    for found in (None, str(store_alias), str(system)):
+        monkeypatch.setattr(hook.shutil, "which", lambda name, found=found: found)
+        run, seen = _probe(set())
+        monkeypatch.setattr(hook.subprocess, "run", run)
+        result = hook.launch_preview_mirror(feed)
+        assert result == {"status": "NOT_STARTED", "cause": "CONSUMER_PYTHON_DEPENDENCY_MISSING:jsonschema"}
+        assert str(store_alias) not in seen  # a Store alias never runs
+    assert not calls
