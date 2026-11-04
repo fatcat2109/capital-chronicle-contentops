@@ -11,6 +11,8 @@ from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_o
 
 POLICY = "JIM_DECISION_41_RELEASE_CHART_EDIT"
 DERIVATIVE_POLICY = "JIM_CC179_REVIEWED_CPI_DERIVATIVE_MEDIA"
+MEDIA_REPAIR_POLICY = "JIM_CC247_REVIEWED_MEDIA_REPAIR"
+MEDIA_REPAIR_RUN_IDS = frozenset({"cc124-prepare-20261103-a", "cc124-next-article-20261103-b"})
 SOCIAL_DESTINATIONS = {"telegram", "discord", "x", "linkedin", "facebook_page",
                        "instagram_business", "threads", "youtube"}
 
@@ -28,7 +30,7 @@ def _writer(revision):
             or output["revised_article_markdown"].split("\n\n", 1)[-1].strip()
                 != revision["article"]["substack_body_markdown"].strip()):
         raise ValueError("CHART_REVISION_EXACT_NATIVE_COPY_REQUIRED")
-    if revision.get("policy") == DERIVATIVE_POLICY and output.get("channel_media") != revision.get("channel_media"):
+    if revision.get("policy") in {DERIVATIVE_POLICY, MEDIA_REPAIR_POLICY} and output.get("channel_media") != revision.get("channel_media"):
         raise ValueError("DERIVATIVE_REVISION_NATIVE_MEDIA_SELECTION_REQUIRED")
     observation = record["invocation_observation"]
     validate_native_configuration(observation, ROLE_ASSIGNMENTS["write"])
@@ -39,11 +41,11 @@ def _writer(revision):
 
 def build_revision(store, *, run_id, proposal, owner_authority_ref, result):
     from live_contentops.native_desktop_editorial_v1 import native_review_revision
-    if proposal.get("policy") == DERIVATIVE_POLICY:
+    if proposal.get("policy") in {DERIVATIVE_POLICY, MEDIA_REPAIR_POLICY}:
         revision = {**proposal, "owner_authority_ref": owner_authority_ref,
             "base_result_sha256": sha256_of(result), "source_sha256": sha256_of(result.get("evidence", [])),
             "prior_revision": native_review_revision(result), "body_before": result["article"]["substack_body_markdown"]}
-        derivative_revision_view(store, run_id=run_id, result=result, revision=revision)
+        revision_view(store, run_id=run_id, result=result, revision=revision)
         return revision
     if (owner_authority_ref != "human:JIM_DECISIONS_20261030_DECISION_41_CC142"
             or proposal.get("run_id") != run_id or proposal.get("article_identity") != result.get("article_identity")
@@ -58,6 +60,8 @@ def build_revision(store, *, run_id, proposal, owner_authority_ref, result):
 
 
 def revision_view(store, *, run_id, result, revision):
+    if revision.get("policy") == MEDIA_REPAIR_POLICY:
+        return media_repair_view(store, run_id=run_id, result=result, revision=revision)
     if revision.get("policy") == DERIVATIVE_POLICY:
         return derivative_revision_view(store, run_id=run_id, result=result, revision=revision)
     from live_contentops.native_desktop_editorial_v1 import native_review_revision, validate_release_media
@@ -114,7 +118,86 @@ def revision_view(store, *, run_id, result, revision):
 
 
 def amendment_writer(revision):
-    return _writer(revision) if revision and revision.get("policy") in {POLICY, DERIVATIVE_POLICY} else None
+    return _writer(revision) if revision and revision.get("policy") in {POLICY, DERIVATIVE_POLICY, MEDIA_REPAIR_POLICY} else None
+
+
+def media_repair_view(store, *, run_id, result, revision):
+    """CC-247: unchanged facts/copy with source-identical media and an exact native review."""
+    from live_contentops.native_desktop_editorial_v1 import native_review_revision, reader_presentation_acceptance, validate_release_media
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    if (_private(revision) or revision.get("owner_authority_ref") != "human:BACKLOG_CC247"
+            or run_id not in MEDIA_REPAIR_RUN_IDS
+            or revision.get("run_id") != run_id or revision.get("article_identity") != result.get("article_identity")
+            or revision.get("base_result_sha256") != sha256_of(result)
+            or revision.get("source_sha256") != sha256_of(result.get("evidence", []))
+            or revision.get("prior_revision") != native_review_revision(result)
+            or set(revision.get("objects", {})) != SOCIAL_DESTINATIONS | {"substack"}
+            or set(revision.get("channel_media", {})) != SOCIAL_DESTINATIONS):
+        raise ValueError("MEDIA_REPAIR_EXACT_CC247_SCOPE_REQUIRED")
+    base = result
+    if revision.get("canonical_review_reference"):
+        _parent, base, _acceptance = reader_presentation_acceptance(store, run_id=run_id,
+            reference=revision["canonical_review_reference"])
+    canonical_id = revision["objects"]["substack"]
+    canonical = store.get_platform_dispatch(canonical_id["dispatch_id"]) or {}
+    if (canonical.get("status") != "DISPATCH_CONFIRMED" or any(canonical.get(k) != canonical_id.get(k)
+            for k in ("message_id", "platform", "public_object_id", "public_object_url"))):
+        raise ValueError("MEDIA_REPAIR_CONFIRMED_CANONICAL_REQUIRED")
+    view = deepcopy(base)
+    assets = revision.get("media_assets", [])
+    originals = {a["asset_id"]: a for a in base.get("media_assets", [])}
+    replaced = {}
+    for asset in assets:
+        if asset == originals.get(asset["asset_id"]):
+            replaced[asset["asset_id"]] = asset["asset_id"]
+            continue
+        old = originals.get(asset.get("supersedes_asset_id"), {})
+        if (not old or asset.get("supersedes_sha256") != old.get("sha256")
+                or not old.get("fact_card_packet") or asset.get("fact_card_packet") != old["fact_card_packet"]
+                or any(asset.get(k) != old.get(k) for k in
+                    ("source_content_sha256", "source_page_url", "underlying_source_rights_status"))):
+            raise ValueError("MEDIA_REPAIR_SOURCE_IDENTICAL_ASSET_REQUIRED")
+        replaced[old["asset_id"]] = asset["asset_id"]
+    if set(replaced) != set(originals) or len(assets) != len(originals):
+        raise ValueError("MEDIA_REPAIR_EXACT_EXISTING_ASSET_SET_REQUIRED")
+    decision = deepcopy(base["visual_editorial_decision"])
+    for chart in decision.get("charts", []):
+        chart["asset_id"] = replaced[chart["asset_id"]]
+    decision["channel_media"] = deepcopy(revision["channel_media"])
+    article = {**base["article"], "visual_editorial_decision": decision}
+    if revision.get("article") != article:
+        raise ValueError("MEDIA_REPAIR_UNCHANGED_ARTICLE_REQUIRED")
+    canonical_intent = json.loads(store.get_outbox_message(canonical_id["message_id"])["payload"])
+    canonical_intent["canonical_url"] = canonical_id["public_object_url"]
+    if revision.get("plan_hash") != canonical_intent["plan_hash"]:
+        raise ValueError("MEDIA_REPAIR_ORIGINAL_PLAN_REQUIRED")
+    payloads = derivative_base_payloads(store, run_id=run_id, accepted=base, canonical_intent=canonical_intent)
+    for preview in view["previews"]:
+        d = preview["destination"]
+        ids = DurablePublicationCoordinator._ids(run_id, canonical_intent["plan_hash"], d)
+        target = revision["objects"][d]
+        message = store.get_outbox_message(ids["message_id"])
+        if (not message or revision["original_intent_sha256"].get(d) != sha256_of(json.loads(message["payload"]))
+                or any(target.get(k) != v for k,v in {"message_id": ids["message_id"],
+                    "dispatch_id": ids["dispatch_id"], "platform": d}.items())):
+            raise ValueError("MEDIA_REPAIR_ORIGINAL_INTENT_AND_TARGET_REQUIRED")
+        dispatch = store.get_platform_dispatch(ids["dispatch_id"]) or {}
+        if target.get("public_object_id") and any(dispatch.get(k) != target.get(k)
+                for k in ("message_id", "platform", "public_object_id", "public_object_url")):
+            raise ValueError("MEDIA_REPAIR_PUBLIC_IDENTITY_CHANGED")
+        chosen = revision["channel_media"][d]
+        if not chosen or len(chosen) != len(set(chosen)) or not set(chosen) <= {a["asset_id"] for a in assets}:
+            raise ValueError("MEDIA_REPAIR_BOUND_VISUAL_REQUIRED")
+        payload = deepcopy(payloads[d]); payload["media_asset_ids"] = chosen
+        for i, post in enumerate(payload.get("posts", [])):
+            if isinstance(post, dict): post["media_asset_ids"] = chosen if i == 0 else []
+        if revision["payloads"].get(d) != payload:
+            raise ValueError("MEDIA_REPAIR_UNCHANGED_SOCIAL_COPY_REQUIRED")
+        preview["payload"] = payload
+    view.update(article=article, media_assets=deepcopy(assets), visual_editorial_decision=decision)
+    validate_release_media(view)
+    _writer(revision)
+    return view
 
 
 def derivative_revision_view(store, *, run_id, result, revision):
@@ -170,7 +253,11 @@ def derivative_revision_view(store, *, run_id, result, revision):
             raise ValueError("DERIVATIVE_REVISION_ORIGINAL_INTENT_CHANGED")
         if identity.get("public_object_id"):
             dispatch = store.get_platform_dispatch(ids["dispatch_id"]) or {}
-            if (dispatch.get("status") != "DISPATCH_CONFIRMED" or any(dispatch.get(k) != identity.get(k)
+            removed = (dispatch.get("status") == "EXTERNAL_REMOVAL_REPORTED_NO_RETRY" and any(
+                r["readback_id"].startswith("owner-removal-")
+                and json.loads(r["readback_data"]).get("exact_object_absence_independently_verified") is True
+                for r in store.list_readbacks_for_dispatch(ids["dispatch_id"])))
+            if ((dispatch.get("status") != "DISPATCH_CONFIRMED" and not removed) or any(dispatch.get(k) != identity.get(k)
                     for k in ("message_id", "platform", "public_object_id", "public_object_url"))):
                 raise ValueError("DERIVATIVE_REVISION_EXISTING_OBJECT_CHANGED")
         chosen = revision["channel_media"][destination]

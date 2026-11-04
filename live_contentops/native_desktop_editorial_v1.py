@@ -1637,8 +1637,8 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
     from live_contentops.v1_simple_gemini_newsroom_v1 import READER_ATTRIBUTION_POLICY
     row = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
-    from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, DERIVATIVE_POLICY, build_revision
-    if proposal.get("policy") in {CHART_REVISION_POLICY, DERIVATIVE_POLICY}:
+    from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, DERIVATIVE_POLICY, MEDIA_REPAIR_POLICY, build_revision
+    if proposal.get("policy") in {CHART_REVISION_POLICY, DERIVATIVE_POLICY, MEDIA_REPAIR_POLICY}:
         return build_revision(store, run_id=run_id, proposal=proposal,
             owner_authority_ref=owner_authority_ref, result=result)
     if (not str(owner_authority_ref).startswith("human:") or not result.get("qualified_article_count")
@@ -1691,8 +1691,8 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
 def reader_presentation_revision_view(store, *, run_id, result, revision):
     from copy import deepcopy
     from live_contentops.v1_simple_gemini_newsroom_v1 import READER_ATTRIBUTION_POLICY
-    from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, DERIVATIVE_POLICY, revision_view
-    if revision.get("policy") in {CHART_REVISION_POLICY, DERIVATIVE_POLICY}:
+    from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, DERIVATIVE_POLICY, MEDIA_REPAIR_POLICY, revision_view
+    if revision.get("policy") in {CHART_REVISION_POLICY, DERIVATIVE_POLICY, MEDIA_REPAIR_POLICY}:
         return revision_view(store, run_id=run_id, result=result, revision=revision)
     if (revision.get("policy") != READER_ATTRIBUTION_POLICY or revision.get("run_id") != run_id
             or not str(revision.get("owner_authority_ref")).startswith("human:")
@@ -1744,7 +1744,7 @@ def reader_presentation_acceptance(store, *, run_id, reference):
     return revision, view, final_visual_acceptance(store, run_id=run_id, result=view, reference=reference)
 
 
-def final_visual_binding(result, *, renders, destinations=None):
+def final_visual_binding(result, *, renders, destinations=None, verify_render_sources=True):
     """Bind exact final pixels and view payloads; this does not judge those pixels."""
     assets = result.get("media_assets", [])
     for asset in assets:
@@ -1784,7 +1784,10 @@ def final_visual_binding(result, *, renders, destinations=None):
             raise ValueError("FINAL_VISUAL_RENDER_VARIANT_UNBOUND")
         seen.add(key)
         image = _final_visual_file(render)
-        html = _final_visual_file(render["render_source"])
+        # Once accepted, the exact PNG and payload remain the product evidence.
+        # Regenerating a shared HTML preview cannot invalidate those unchanged pixels.
+        html = (_final_visual_file(render["render_source"]) if verify_render_sources
+                else dict(render["render_source"]))
         with Image.open(image["path"]) as pixels:
             width, height = pixels.size
             pixels.verify()
@@ -1837,11 +1840,15 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
         if reader_presentation_revision is not None else dated_distribution_destinations(distribution_recovery)
         if distribution_recovery is not None else None)
     from live_contentops.native_publication_latency_v1 import uses_short_path
-    if distribution_recovery is not None and uses_short_path(turn.store, run_id=turn.run_id, result=result):
+    if (distribution_recovery is not None or (reader_presentation_revision or {}).get("policy") == "JIM_CC247_REVIEWED_MEDIA_REPAIR") and uses_short_path(turn.store, run_id=turn.run_id, result=result):
         binding = _distribution_editor_check_binding(result, scope)
         stage = "final-visual-" + sha256_of(binding)
         governed = {"binding": binding, "article": result["article"], "previews": result["previews"],
-            "evidence": result.get("evidence", []), "distribution_recovery": distribution_recovery}
+            "evidence": result.get("evidence", [])}
+        if distribution_recovery is not None:
+            governed["distribution_recovery"] = distribution_recovery
+        if reader_presentation_revision is not None:
+            governed["reader_presentation_revision"] = reader_presentation_revision
         return turn(logical_invocation_id=turn.run_id + ":" + stage,
             prompt="You are this run's native MAX editor. Review the exact dated social copy against the admitted "
                 "article, source facts, uncertainty, account, canonical link and selected images. No historical "
@@ -1923,7 +1930,7 @@ def validate_final_visual_return(turn, request, response):
     scope = ({"linkedin" if d == "linkedin_company" else d for d in revision["objects"]} if revision is not None
         else dated_distribution_destinations(recovery) if recovery is not None else None)
     from live_contentops.native_publication_latency_v1 import SPEED_POLICY, uses_short_path
-    if recovery is not None and binding.get("review_policy") == SPEED_POLICY:
+    if (recovery is not None or (revision or {}).get("policy") == "JIM_CC247_REVIEWED_MEDIA_REPAIR") and binding.get("review_policy") == SPEED_POLICY:
         if (not uses_short_path(turn.store, run_id=turn.run_id, result=result)
                 or _distribution_editor_check_binding(result, scope) != binding):
             raise ValueError("DISTRIBUTION_EDITOR_CHECK_COPY_OR_MEDIA_CHANGED")
@@ -1932,7 +1939,8 @@ def validate_final_visual_return(turn, request, response):
                 or output.get("pixels_inspected") is True):
             raise ValueError("DISTRIBUTION_REASONED_EDITOR_CHECK_REQUIRED")
         return
-    current = final_visual_binding(result, renders=binding["renders"], destinations=scope)
+    current = final_visual_binding(result, renders=binding["renders"], destinations=scope,
+        verify_render_sources=False)
     # Renderer source is provenance for the saved pixels. Its later source edits
     # do not alter the exact PNG/HTML, media, source or channel bytes checked above.
     current["renderer_sha256"] = binding["renderer_sha256"]

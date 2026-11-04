@@ -73,7 +73,7 @@ def test_material_sign_label_rounding_findings_require_same_product_correction(t
     assert turn._get(request["stage"], "response")["output"]["decision"] == "REPAIR_REQUIRED"
 
 
-@pytest.mark.parametrize("change", ["render", "render_source", "asset", "preview"])
+@pytest.mark.parametrize("change", ["render", "asset", "preview"])
 def test_changed_render_media_or_variant_invalidates_acceptance(tmp_path, monkeypatch, change):
     store, binding, _, result, review = seeded(tmp_path, monkeypatch)
     reference = review["final_visual_review"]
@@ -82,8 +82,6 @@ def test_changed_render_media_or_variant_invalidates_acceptance(tmp_path, monkey
     rendered = turn.frozen_request(reference["stage"])["governed_input"]["binding"]["renders"][0]
     if change == "render":
         Path(rendered["path"]).write_bytes(b"changed pixels")
-    elif change == "render_source":
-        Path(rendered["render_source"]["path"]).write_text("changed layout")
     elif change == "asset":
         Path(result["media_assets"][0]["path"]).write_bytes(b"changed asset")
     else:
@@ -93,6 +91,19 @@ def test_changed_render_media_or_variant_invalidates_acceptance(tmp_path, monkey
             payload=json.dumps(changed), status="EDITORIAL_INTERNAL")
     with pytest.raises(ValueError, match="CHANGED|UNBOUND"):
         require_current_final_visual_review(store, run_id=binding["run_id"])
+
+
+def test_accepted_pixels_survive_shared_html_preview_regeneration(tmp_path, monkeypatch):
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, final_visual_binding
+    store, binding, _, result, review = seeded(tmp_path, monkeypatch)
+    turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"], owner_manual_validation=True)
+    saved = turn.frozen_request(review["final_visual_review"]["stage"])["governed_input"]["binding"]
+    Path(saved["renders"][0]["render_source"]["path"]).write_text("Later preview; saved PNG unchanged")
+    accepted = require_current_final_visual_review(store, run_id=binding["run_id"])
+    assert accepted["article_revision"] == saved["article_revision"]
+    # A fresh assembly still binds and verifies the source it actually renders.
+    with pytest.raises(ValueError, match="ARTIFACT_BYTES_CHANGED"):
+        final_visual_binding(result, renders=saved["renders"])
 
 
 def test_same_max_targeted_media_edit_keeps_the_article_and_invalidates_only_old_review(tmp_path, monkeypatch):

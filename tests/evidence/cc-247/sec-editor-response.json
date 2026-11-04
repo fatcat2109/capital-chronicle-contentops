@@ -1,0 +1,85 @@
+{
+  "schema_version": "contentops.native_media_editor_response.v1",
+  "task": "CC-247 SEC media-only amendment",
+  "run_id": "cc124-next-article-20261103-b",
+  "request_sha256": "f48a099d89b900c389501e86db58182bdda86c0dcca675593e1bb919ad189c78",
+  "decision": "ACCEPT",
+  "rationale": "Accept the CC-245 replacement facts card. The exact inspected 1600x900 PNG has no clipped or overlapping content. Its five displayed facts match the prior reviewed fact_card_packet exactly and are supported by the retained SEC announcement. The source date, scheduled event date and retained November 3 article display date remain distinct. This is a media-only replacement; the article prose and social claims remain unchanged. The requested replacement asset is selected for all eight channel mappings. One editor check and successful automated PNG loading complete this review under decision 53.",
+  "revised_article_markdown": "# U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nThe SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change. [[SOURCE:SOURCE_1]]\n\n## What the SEC has announced\n\nIn its October 19 announcement, the Securities and Exchange Commission scheduled the roundtable for November 9, 2026, from 9 a.m. to 3:30 p.m. EST at its headquarters, 100 F Street, N.E., Washington, D.C. [[SOURCE:SOURCE_1]]\n\nThe event will be open to the public, although in-person capacity may be limited and visitors will face security checks. The SEC says the discussion will be streamed live on SEC.gov, with a recording available later. [[SOURCE:SOURCE_1]]\n\n## What to listen for\n\nThe SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI. [[SOURCE:SOURCE_1]]\n\nListen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions. [[SOURCE:SOURCE_1]]\n\n## What this does not establish\n\nThe countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy. [[SOURCE:SOURCE_1]]\n\nThe SEC's chief economist, Joshua White, put high-quality information at the center of the announcement. Whether the discussion produces useful evidence on that subject remains to be seen. [[SOURCE:SOURCE_1]]\n\nAnalysis, not financial advice. Readers decide whether to trade. [[SOURCE:SOURCE_1]]",
+  "channel_media": {
+    "telegram": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ],
+    "discord": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ],
+    "x": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ],
+    "linkedin": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ],
+    "facebook_page": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ],
+    "instagram_business": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ],
+    "threads": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ],
+    "youtube": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ]
+  },
+  "article_prose_changed": false,
+  "social_claims_changed": false,
+  "asset_findings": [
+    {
+      "asset_id": "sec-si-roundtable-event-facts-20261109-cc245",
+      "asset_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\media\\sec-si-roundtable-event-facts-20261109-cc245.png",
+      "asset_sha256": "869a7af9a3d8a9ad2f1bd3497ad3c3ec7ad3b9032b588c55076d0dbe3f71b204",
+      "width": 1600,
+      "height": 900,
+      "pixels_inspected": true,
+      "inspection_surface": "Exact local PNG inspected with tools.view_image at original resolution; no native desktop screenshot or browser action.",
+      "automated_image_load": "PASS: PIL decoded and loaded the complete 1600x900 PNG; actual file hash matches the request.",
+      "decision": "PASS",
+      "repair_required": false,
+      "clipping_detected": false,
+      "labels_and_units_legible": true,
+      "source_rows_match": true,
+      "prior_fact_card_packet_exact_match": true,
+      "source_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+      "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "legibility_findings": [
+        "The Capital Chronicle header, SEC attribution, title, date panel, four right-hand fields and both footer lines are fully visible. No text overlaps another field or crosses the image boundary.",
+        "White and yellow text on the dark date panel and dark text on the light field have clear contrast. The location, webcast and wrapped subject fit within their fields.",
+        "The full scheduled date includes 2026, the time retains EST, and the source footer explicitly identifies the October 19 announcement. The November 3 Capital Chronicle display date is separately shown."
+      ],
+      "source_findings": [
+        "The scheduled date is November 9, 2026; the overall time is 9 a.m. to 3:30 p.m. EST; the location is 100 F Street, N.E., Washington, D.C.; the discussion will be streamed live on SEC.gov; the stated subject is machine-understandable data and Super Intelligence (SI). All five literal values match the prior fact_card_packet.",
+        "Each supporting excerpt is present in the retained canonical SEC text. The source-content hash and unchanged transformation binding match the prior asset.",
+        "The card depicts an announced future roundtable. It introduces no agenda sessions, speakers, numerical series, policy result, quantified benefit or cost, market reaction, or completed-event claim. Related risks and costs remain in the unchanged caption and article."
+      ],
+      "rights_findings": [
+        "The retained source is agency-authored SEC text with governed_government_public_domain classification. The replacement retains rights evidence 89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280.",
+        "The card uses an original Capital Chronicle text layout and visible SEC source attribution. It contains no photograph, official seal, third-party chart, copied proprietary series or new asset requiring a different reuse basis.",
+        "This review relies on the supplied retained rights record and adds no new licence claim."
+      ],
+      "limits": [
+        "The standalone replacement PNG was inspected. No new per-channel screenshot or public object was inspected or required for this decision-53 media replacement check.",
+        "The retained October 19 announcement supports the announced schedule; this media-only review makes no new schedule-confirmation or source-refresh claim."
+      ]
+    }
+  ],
+  "native_invocation_id": "/root/media_editor",
+  "invocation_identity_evidence": "The native task identity /root/media_editor is observed in collaboration.list_agents. No separate opaque invocation token is exposed to this role.",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "model_effort_evidence_status": "CONFIGURED_NOT_OBSERVED",
+  "model_effort_basis": "Assigned ContentOps C4 MAX editorial role. Supported runtime telemetry for actual model and effort is unavailable in this child context.",
+  "actual_model": null,
+  "actual_effort": null,
+  "reviewed_at_utc": "2026-11-04T15:59:23.614822Z"
+}

@@ -110,3 +110,17 @@ def test_repost_refuses_a_changed_canonical(tmp_path):
     with pytest.raises(ValueError, match="CANONICAL_IDENTITY_CHANGED"):
         co.repost_after_owner_removal(original["message_id"], review_reference={"request_sha256": "a" * 64})
     assert transport.publish_calls == []
+
+
+@pytest.mark.parametrize("destination", ["facebook_page", "instagram_business", "youtube", "linkedin"])
+def test_dated_route_reposts_verified_removed_object_with_reviewed_media(tmp_path, destination):
+    store, co, transport, original = _setup(tmp_path, destination)
+    outcome = co.complete_dated_distribution_recovery(original["message_id"],
+        review_reference={"request_sha256": "a" * 64})
+    assert outcome["publish_called"] is True
+    assert outcome["repost_dispatch_id"] != original["dispatch_id"]
+    assert transport.sent[0]["native_payload"]["media_asset_ids"] == ["sec-card-cc245"]
+    assert store.get_platform_dispatch(outcome["repost_dispatch_id"])["status"] == "DISPATCH_CONFIRMED"
+    again = co.complete_dated_distribution_recovery(original["message_id"],
+        review_reference={"request_sha256": "a" * 64})
+    assert again["publish_called"] is False and transport.publish_calls == [destination]

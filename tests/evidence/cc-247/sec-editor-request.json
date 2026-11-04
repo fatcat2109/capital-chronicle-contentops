@@ -1,0 +1,1633 @@
+{
+  "task": "CC-247 SEC media-only amendment; preserve all exact source facts and copy; select the CC-245 replacement card on each channel. Inspect the image with view_image. Decision 53 uses one editor check plus automated image loading, no per-channel screenshot cycle. No public action.",
+  "run_id": "cc124-next-article-20261103-b",
+  "article": {
+    "audience_learning_binding": {
+      "policy_version": "policy_c3e1de30fca9eace0112b384",
+      "preference_only": true,
+      "snapshot_sha256": "9e05390929919e6b074ccf0d1f7ed726e3f0d6c4bd7f3040dff8d697cc94b521"
+    },
+    "canonical_slug_candidate": "sec-machine-understandable-data-roundtable-november-9-preview",
+    "dek": "The SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.",
+    "display_date": "November 3, 2026",
+    "entities": [
+      "U.S. Securities and Exchange Commission",
+      "Joshua White"
+    ],
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": false,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "CONFIRMED",
+      "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+      "event_truth_support_status": "SUPPORTED_PRIMARY",
+      "event_truth_supported": true,
+      "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+      "origin_character": "ON_RECORD",
+      "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+      "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "CONFIRMED",
+      "relay_source_identity": null,
+      "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+      "report_truth_support_status": "SUPPORTED_PRIMARY",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "OFFICIAL_PRIMARY",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "cc124-sec-announcement-context"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": true
+    },
+    "internal_link_candidates": [],
+    "meta_description": "Preview the SEC's November 9, 2026 roundtable on machine-understandable data and Super Intelligence: the stated scope, public access and limits.",
+    "news_item_kind": "NEWS",
+    "photo_less_brief_eligible": false,
+    "primary_reader_question": "What will the SEC's November 9 roundtable discuss, how can the public follow it, and what would still be needed before treating it as a policy signal?",
+    "public_source_bindings": [
+      {
+        "published_at_utc": "2026-10-19T00:00:00Z",
+        "publisher": "U.S. Securities and Exchange Commission",
+        "reader_label": "U.S. Securities and Exchange Commission \u00b7 2026-10-19",
+        "source_id": "SOURCE_1",
+        "url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+      }
+    ],
+    "public_write_performed": false,
+    "reader_attribution_policy": "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1",
+    "reader_first_version": "DATA_JOURNALISM_V1",
+    "resolved_article_mode": "WEEK_AHEAD_OR_WATCH",
+    "schema_version": "contentops.v1_simple_article_manifest.v1",
+    "search_freshness_class": "UPCOMING_EVENT_PREVIEW",
+    "search_title": "SEC November 9 roundtable on machine-understandable data",
+    "secondary_reader_questions": [
+      "When and where is the announced roundtable, and how can the public follow it?",
+      "What uses, risks and costs does the SEC say it wants to discuss?",
+      "What does the announcement leave unresolved?"
+    ],
+    "social_cross_asset_summary": "Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.",
+    "social_hook": "The SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.",
+    "social_mechanism_summary": "The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.",
+    "social_policy_summary": "The countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.",
+    "source_date_notice": "Source date: 2026-10-19. Interpretation remains analysis.",
+    "source_document_ids": [
+      "cc124-sec-announcement-context"
+    ],
+    "story_identity": "simple-story-182cbc812476b1abee25b1c8",
+    "structured_data_packet": null,
+    "substack_body_markdown": "The SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change. [[SOURCE:SOURCE_1]]\n\n## What the SEC has announced\n\nIn its October 19 announcement, the Securities and Exchange Commission scheduled the roundtable for November 9, 2026, from 9 a.m. to 3:30 p.m. EST at its headquarters, 100 F Street, N.E., Washington, D.C. [[SOURCE:SOURCE_1]]\n\nThe event will be open to the public, although in-person capacity may be limited and visitors will face security checks. The SEC says the discussion will be streamed live on SEC.gov, with a recording available later. [[SOURCE:SOURCE_1]]\n\n## What to listen for\n\nThe SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI. [[SOURCE:SOURCE_1]]\n\nListen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions. [[SOURCE:SOURCE_1]]\n\n## What this does not establish\n\nThe countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy. [[SOURCE:SOURCE_1]]\n\nThe SEC's chief economist, Joshua White, put high-quality information at the center of the announcement. Whether the discussion produces useful evidence on that subject remains to be seen. [[SOURCE:SOURCE_1]]\n\nAnalysis, not financial advice. Readers decide whether to trade. [[SOURCE:SOURCE_1]]",
+    "title": "U.S. Securities and Exchange Commission plans November 9 data roundtable",
+    "topics": [
+      "Machine-understandable data",
+      "Super Intelligence",
+      "SEC roundtable"
+    ],
+    "update_chain_identity": "simple-story-182cbc812476b1abee25b1c8",
+    "visual_editorial_decision": {
+      "channel_media": {
+        "discord": [
+          "sec-si-roundtable-event-facts-20261109"
+        ],
+        "facebook_page": [
+          "sec-si-roundtable-event-facts-20261109"
+        ],
+        "instagram_business": [],
+        "linkedin": [
+          "sec-si-roundtable-event-facts-20261109"
+        ],
+        "telegram": [
+          "sec-si-roundtable-event-facts-20261109"
+        ],
+        "threads": [
+          "sec-si-roundtable-event-facts-20261109"
+        ],
+        "x": [
+          "sec-si-roundtable-event-facts-20261109"
+        ],
+        "youtube": [
+          "sec-si-roundtable-event-facts-20261109"
+        ]
+      },
+      "channel_media_reasons": {
+        "instagram_business": "Explicitly skipped for this photo-less NEWS preview under the binding's dated photo-less NEWS/POLICY policy. This does not block the canonical article or compatible destinations."
+      },
+      "charts": [
+        {
+          "asset_id": "sec-si-roundtable-event-facts-20261109",
+          "data_spec": {
+            "access_note": "In-person capacity may be limited and visitors are subject to security checks. The SEC says a recording will be available later.",
+            "actual_estimate_forecast": "Scheduled event information, not economic actuals, estimates or forecasts",
+            "alt_text": "SEC roundtable facts: November 9, 2026, 9 a.m. to 3:30 p.m. EST, at SEC headquarters in Washington, D.C., with public access and a live stream on SEC.gov. The announced topic is machine-understandable data, Super Intelligence, and related risks and costs.",
+            "caption": "The SEC's October 19 announcement schedules a public roundtable for November 9. The stated discussion concerns machine-understandable data, Super Intelligence and associated risks and costs.",
+            "chart_form": "EVENT_FACTS_CARD",
+            "layout_constraints": "One compact facts card with legible text at mobile width. Use the title, subtitle, five labelled rows, access note and source note. No numerical axes, data-like bars, official seal, invented logo or decorative chart. Keep the source date distinct from the event date; do not label the event completed.",
+            "missingness": "No admitted agenda, speakers, findings, quantified benefits or costs, adopted policy, implementation timetable or later schedule confirmation.",
+            "periods": {
+              "announcement_date": "2026-10-19",
+              "scheduled_event_date": "2026-11-09",
+              "source_cutoff_utc": "2026-11-03T14:09:21.184658Z"
+            },
+            "quantitative_chart": false,
+            "rights_class": "governed_government_public_domain",
+            "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+            "rows": [
+              {
+                "label": "Scheduled date",
+                "source_id": "SOURCE_1",
+                "support_excerpt": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs.",
+                "value": "November 9, 2026"
+              },
+              {
+                "label": "Overall time",
+                "source_id": "SOURCE_1",
+                "support_excerpt": "from 9 a.m. to 3:30 p.m. EST.",
+                "value": "9 a.m. to 3:30 p.m. EST"
+              },
+              {
+                "label": "Location",
+                "source_id": "SOURCE_1",
+                "support_excerpt": "100 F Street, N.E., Washington, D.C.",
+                "value": "100 F Street, N.E., Washington, D.C."
+              },
+              {
+                "label": "Webcast",
+                "source_id": "SOURCE_1",
+                "support_excerpt": "The discussion will be streamed live on SEC.gov, and a recording will be available at a later date.",
+                "value": "The discussion will be streamed live on SEC.gov"
+              },
+              {
+                "label": "Subject",
+                "source_id": "SOURCE_1",
+                "support_excerpt": "to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs.",
+                "value": "machine-understandable data and Super Intelligence (SI)"
+              }
+            ],
+            "series": [],
+            "source_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+            "source_document_id": "cc124-sec-announcement-context",
+            "source_ids": [
+              "SOURCE_1"
+            ],
+            "source_note": "Source: SEC announcement, October 19, 2026",
+            "source_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+            "status_label": "Announced roundtable | Discussion ahead",
+            "subtitle": "Machine-understandable data and Super Intelligence (SI)",
+            "title": "SEC roundtable: November 9",
+            "transform": "Literal extraction and concise paraphrase of the admitted announcement only. Preserve the scheduled time and EST label. No inferred agenda, timezone conversion, numerical series, interpolation, calculations or outcome claim.",
+            "units": "Text facts, calendar date and scheduled Eastern Standard Time; no measured quantities"
+          },
+          "placement_after": "What the SEC has announced",
+          "question": "When is the announced roundtable, how can readers follow it, and what is its stated subject?",
+          "why_useful": "Puts the source-supported practical information and discussion scope in one readable card. It lets readers follow the event without mistaking an announcement for results or a policy decision."
+        }
+      ],
+      "contextual_photo_ids": [],
+      "countercase": "A roundtable announcement may be only a calendar item. Seeking feedback does not establish an adopted SEC position, impending rulemaking, reliable SI capabilities or a tradable catalyst. Keep this a short factual preview, with the absence of findings doing real work in the argument; do not inflate it into an investment thesis or a broad account of AI regulation.",
+      "editorial_thesis": "A concise upcoming-event preview can give readers a concrete way to follow the SEC's discussion of machine-understandable data and Super Intelligence: the announced date, public access and stated focus on use, risks and costs. The useful watchpoint is whether the discussion supplies concrete evidence about those questions. The October 19 announcement itself supplies no policy change, measured benefit, quantified cost or market-reaction evidence.",
+      "essential_gaps": [
+        "Nonblocking scope limit: detailed agenda, speakers and session-level claims are not admitted. Do not retrieve or import the unsupported event page in this role.",
+        "Nonblocking scope limit: SOURCE_1 is an October 19 announcement. It supports what was announced, not a separately verified November 3 schedule update. Attribute the schedule to that announcement and preserve its publication date separately from retrieval and the frozen cutoff.",
+        "Nonblocking optional-media limit: no lawful contextual photo is bound. Proceed with the source-bound facts card; photo selection, if later available, must use an exact inspected existing media record and must not restart the first text-approval clock.",
+        "No pre-writer factual gap for the narrow preview. The parent reports one of ten shared source requests used; this role makes zero additional source requests and does not reset or independently certify the ledger.",
+        "Rendering and source-bound visual validation remain downstream. This decision does not claim that a card, final article or public object has been rendered, inspected, accepted or published."
+      ],
+      "proposed_section_headings": [
+        "What the SEC has announced",
+        "What to listen for",
+        "What this does not establish"
+      ],
+      "reader_first_version": "DATA_JOURNALISM_V1",
+      "reader_question": "What will the SEC's November 9 roundtable discuss, how can the public follow it, and what would still be needed before treating it as a policy signal?",
+      "rejected_visuals": [
+        {
+          "reason": "No such series or measurements are admitted. A numeric axis would falsely imply evidence. The event announcement cannot substitute for official release history.",
+          "visual": "Quantitative AI adoption, data-quality, productivity, market-price or cost charts"
+        },
+        {
+          "reason": "The linked meeting/event page is SOURCE_REUSE_POLICY_NOT_SUPPORTED and is not admitted. Only the announced overall date and time may be used.",
+          "visual": "Detailed agenda, speakers or session timetable"
+        },
+        {
+          "reason": "No exact photo identity, original bytes, creator, capture date, license or inspected media record is supplied. Do not invent an asset or present archival imagery as the future event.",
+          "visual": "Photograph of an SEC building or a roundtable"
+        },
+        {
+          "reason": "Neither would document this event; an invented scene or identity cue would mislead readers.",
+          "visual": "AI-generated documentary scene or official-looking SEC seal"
+        }
+      ],
+      "slug": "sec-machine-understandable-data-roundtable-november-9-preview",
+      "story_kind": "NEWS",
+      "story_kind_reason": "This is a narrow preview of an announced public roundtable, not analysis of an economic release or policy decision. It reports the announcement and identifies questions for the forthcoming discussion. No quantitative release, adopted rule or historical series has been admitted. A facts card is the useful visual; quantitative charts would manufacture substance.",
+      "writer_constraints": [
+        "Use only SOURCE_1 for facts; no agenda, speakers, adopted requirements, agency policy endorsement, SI capability claim, cost estimate, investment recommendation or market reaction may be inferred.",
+        "Keep the piece brief. In What to listen for, frame concrete use, risks and costs as questions for the forthcoming discussion, not promised agenda sessions or outcomes.",
+        "Explain the serious countercase plainly: the announcement invites discussion and feedback, and by itself demonstrates no rule change or commercial result.",
+        "Use natural SEC attribution and a useful announcement date. Do not expose request IDs, ledger usage, workflow labels or internal gap wording in reader copy. Include the required analysis-not-financial-advice notice.",
+        "Preserve the operation, source cutoff and first text-approval clock. Later prose, editor check and any required review must return to this same native writer context."
+      ]
+    },
+    "volume_policy": {
+      "brief_only": false,
+      "effective_production_date": "2026-10-30",
+      "max_admitted_candidates": 6,
+      "max_articles": 2,
+      "non_chargeable_only": true,
+      "photo_less_news_policy": true,
+      "policy_id": "L1-B-20261029-04",
+      "source_request_limit": 10,
+      "source_resolvability_first": true
+    },
+    "volume_policy_cutoff_utc": "2026-11-03T14:09:21.184658Z"
+  },
+  "evidence": [
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+      "canonical_content_text": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs.\n\n\u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d The roundtable will be open to the public and held at the SEC\u2019s headquarters at 100 F Street, N.E., Washington, D.C. from 9 a.m. to 3:30 p.m. EST. Please note that the number of in-person participants may be limited and visitors will be subject to security checks. The discussion will be streamed live on SEC.gov, and a recording will be available at a later date.",
+      "canonical_resolution_status": "",
+      "document_id": "cc124-sec-announcement-context",
+      "published_at_source": "VISIBLE_RELEASE_DATE",
+      "published_at_utc": "2026-10-19T00:00:00Z",
+      "publisher": "U.S. Securities and Exchange Commission",
+      "report_truth_only": false,
+      "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_TEXT_SPANS",
+      "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "secondary_listing_only": false,
+      "source_authority_class": "official_public_primary_source",
+      "source_id": "SOURCE_1",
+      "source_identity": "U.S. Securities and Exchange Commission",
+      "underlying_reuse_classification": "governed_government_public_domain",
+      "url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+    }
+  ],
+  "previews": [
+    {
+      "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+      "claim_lineage": [
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-title",
+          "claim_kind": "FACT",
+          "claim_text": "U.S. Securities and Exchange Commission plans November 9 data roundtable",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-dek",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-search-title",
+          "claim_kind": "FACT",
+          "claim_text": "SEC November 9 roundtable on machine-understandable data",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-meta-description",
+          "claim_kind": "FACT",
+          "claim_text": "Preview the SEC's November 9, 2026 roundtable on machine-understandable data and Super Intelligence: the stated scope, public access and limits.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-social-hook",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "lead-event-and-reader-distinction",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announced-date-time-location",
+          "claim_kind": "NUMBER",
+          "claim_text": "In its October 19 announcement, the Securities and Exchange Commission scheduled the roundtable for November 9, 2026, from 9 a.m. to 3:30 p.m. EST at its headquarters, 100 F Street, N.E., Washington, D.C.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "public-access-and-webcast",
+          "claim_kind": "FACT",
+          "claim_text": "The event will be open to the public, although in-person capacity may be limited and visitors will face security checks. The SEC says the discussion will be streamed live on SEC.gov, with a recording available later.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "feedback-purpose",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "b5cf5361197172154940073f81e53ca424ffda5d8ebceaa4607c6749bd851f90",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "editorial-watchpoints-not-agenda",
+          "claim_kind": "FACT",
+          "claim_text": "Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announcement-limits-and-countercase",
+          "claim_kind": "FACT",
+          "claim_text": "The countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "information-quality-and-uncertainty",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC's chief economist, Joshua White, put high-quality information at the center of the announcement. Whether the discussion produces useful evidence on that subject remains to be seen.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "c1a126a2622f8acc8befbffd730b9a2648ee5ec8ca60c2f55a00b4aacb9f9a50",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        }
+      ],
+      "destination": "discord",
+      "payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "sec-si-roundtable-event-facts-20261109"
+        ],
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: U.S. Securities and Exchange Commission plans November 9 data roundtable**\n\nThe SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.\n\n**Context:** The countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-1bab80f5cec3150a\n\nAnalysis, not financial advice. Readers decide whether to trade."
+      },
+      "preview_id": "cc-preview-421978f0a0b03531f4e56d7dbdd6ec90685255be4cc3e4d79527a4a245ad9315"
+    },
+    {
+      "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+      "claim_lineage": [
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-title",
+          "claim_kind": "FACT",
+          "claim_text": "U.S. Securities and Exchange Commission plans November 9 data roundtable",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-dek",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-search-title",
+          "claim_kind": "FACT",
+          "claim_text": "SEC November 9 roundtable on machine-understandable data",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-meta-description",
+          "claim_kind": "FACT",
+          "claim_text": "Preview the SEC's November 9, 2026 roundtable on machine-understandable data and Super Intelligence: the stated scope, public access and limits.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-social-hook",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "lead-event-and-reader-distinction",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announced-date-time-location",
+          "claim_kind": "NUMBER",
+          "claim_text": "In its October 19 announcement, the Securities and Exchange Commission scheduled the roundtable for November 9, 2026, from 9 a.m. to 3:30 p.m. EST at its headquarters, 100 F Street, N.E., Washington, D.C.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "public-access-and-webcast",
+          "claim_kind": "FACT",
+          "claim_text": "The event will be open to the public, although in-person capacity may be limited and visitors will face security checks. The SEC says the discussion will be streamed live on SEC.gov, with a recording available later.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "feedback-purpose",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "b5cf5361197172154940073f81e53ca424ffda5d8ebceaa4607c6749bd851f90",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "editorial-watchpoints-not-agenda",
+          "claim_kind": "FACT",
+          "claim_text": "Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announcement-limits-and-countercase",
+          "claim_kind": "FACT",
+          "claim_text": "The countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "information-quality-and-uncertainty",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC's chief economist, Joshua White, put high-quality information at the center of the announcement. Whether the discussion produces useful evidence on that subject remains to be seen.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "c1a126a2622f8acc8befbffd730b9a2648ee5ec8ca60c2f55a00b4aacb9f9a50",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        }
+      ],
+      "destination": "facebook_page",
+      "payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "sec-si-roundtable-event-facts-20261109"
+        ],
+        "platform_limit": 63206,
+        "text": "U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nThe SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.\n\nWhy it matters: The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-1bab80f5cec3150a\n\nAnalysis, not financial advice. Readers decide whether to trade."
+      },
+      "preview_id": "cc-preview-bfee8c77339f70165e9423107283bd781fa79a9cbda98d67254ac8f2c8c1e48d"
+    },
+    {
+      "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+      "claim_lineage": [
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-title",
+          "claim_kind": "FACT",
+          "claim_text": "U.S. Securities and Exchange Commission plans November 9 data roundtable",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-dek",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-search-title",
+          "claim_kind": "FACT",
+          "claim_text": "SEC November 9 roundtable on machine-understandable data",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-meta-description",
+          "claim_kind": "FACT",
+          "claim_text": "Preview the SEC's November 9, 2026 roundtable on machine-understandable data and Super Intelligence: the stated scope, public access and limits.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-social-hook",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "lead-event-and-reader-distinction",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announced-date-time-location",
+          "claim_kind": "NUMBER",
+          "claim_text": "In its October 19 announcement, the Securities and Exchange Commission scheduled the roundtable for November 9, 2026, from 9 a.m. to 3:30 p.m. EST at its headquarters, 100 F Street, N.E., Washington, D.C.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "public-access-and-webcast",
+          "claim_kind": "FACT",
+          "claim_text": "The event will be open to the public, although in-person capacity may be limited and visitors will face security checks. The SEC says the discussion will be streamed live on SEC.gov, with a recording available later.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "feedback-purpose",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "b5cf5361197172154940073f81e53ca424ffda5d8ebceaa4607c6749bd851f90",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "editorial-watchpoints-not-agenda",
+          "claim_kind": "FACT",
+          "claim_text": "Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announcement-limits-and-countercase",
+          "claim_kind": "FACT",
+          "claim_text": "The countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "information-quality-and-uncertainty",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC's chief economist, Joshua White, put high-quality information at the center of the announcement. Whether the discussion produces useful evidence on that subject remains to be seen.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "c1a126a2622f8acc8befbffd730b9a2648ee5ec8ca60c2f55a00b4aacb9f9a50",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        }
+      ],
+      "destination": "instagram_business",
+      "payload": {
+        "delivery_state": "SKIPPED_IMAGE_REQUIRED",
+        "destination": "instagram_business",
+        "media_asset_ids": [],
+        "skip_reason": "Instagram requires an admitted image; other destinations can proceed."
+      },
+      "preview_id": "cc-preview-27781ae67d872fb183cdbf51ca61dd682cbe94042aae778a0f581d387cdab968"
+    },
+    {
+      "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+      "claim_lineage": [
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-title",
+          "claim_kind": "FACT",
+          "claim_text": "U.S. Securities and Exchange Commission plans November 9 data roundtable",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-dek",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-search-title",
+          "claim_kind": "FACT",
+          "claim_text": "SEC November 9 roundtable on machine-understandable data",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-meta-description",
+          "claim_kind": "FACT",
+          "claim_text": "Preview the SEC's November 9, 2026 roundtable on machine-understandable data and Super Intelligence: the stated scope, public access and limits.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-social-hook",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "lead-event-and-reader-distinction",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announced-date-time-location",
+          "claim_kind": "NUMBER",
+          "claim_text": "In its October 19 announcement, the Securities and Exchange Commission scheduled the roundtable for November 9, 2026, from 9 a.m. to 3:30 p.m. EST at its headquarters, 100 F Street, N.E., Washington, D.C.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "public-access-and-webcast",
+          "claim_kind": "FACT",
+          "claim_text": "The event will be open to the public, although in-person capacity may be limited and visitors will face security checks. The SEC says the discussion will be streamed live on SEC.gov, with a recording available later.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "feedback-purpose",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "b5cf5361197172154940073f81e53ca424ffda5d8ebceaa4607c6749bd851f90",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "editorial-watchpoints-not-agenda",
+          "claim_kind": "FACT",
+          "claim_text": "Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announcement-limits-and-countercase",
+          "claim_kind": "FACT",
+          "claim_text": "The countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "information-quality-and-uncertainty",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC's chief economist, Joshua White, put high-quality information at the center of the announcement. Whether the discussion produces useful evidence on that subject remains to be seen.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "c1a126a2622f8acc8befbffd730b9a2648ee5ec8ca60c2f55a00b4aacb9f9a50",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        }
+      ],
+      "destination": "linkedin",
+      "payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "sec-si-roundtable-event-facts-20261109"
+        ],
+        "platform_limit": 3000,
+        "text": "U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nWhy it matters: The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.\n\nContext: The countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-1bab80f5cec3150a\n\nAnalysis, not financial advice. Readers decide whether to trade."
+      },
+      "preview_id": "cc-preview-7ad3cbdf89e19db8d1838a0f1ee9a132f1bea03e44615933454e2453d509b271"
+    },
+    {
+      "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+      "claim_lineage": [
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-title",
+          "claim_kind": "FACT",
+          "claim_text": "U.S. Securities and Exchange Commission plans November 9 data roundtable",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-dek",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-search-title",
+          "claim_kind": "FACT",
+          "claim_text": "SEC November 9 roundtable on machine-understandable data",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-meta-description",
+          "claim_kind": "FACT",
+          "claim_text": "Preview the SEC's November 9, 2026 roundtable on machine-understandable data and Super Intelligence: the stated scope, public access and limits.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-social-hook",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "lead-event-and-reader-distinction",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announced-date-time-location",
+          "claim_kind": "NUMBER",
+          "claim_text": "In its October 19 announcement, the Securities and Exchange Commission scheduled the roundtable for November 9, 2026, from 9 a.m. to 3:30 p.m. EST at its headquarters, 100 F Street, N.E., Washington, D.C.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "public-access-and-webcast",
+          "claim_kind": "FACT",
+          "claim_text": "The event will be open to the public, although in-person capacity may be limited and visitors will face security checks. The SEC says the discussion will be streamed live on SEC.gov, with a recording available later.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "feedback-purpose",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "b5cf5361197172154940073f81e53ca424ffda5d8ebceaa4607c6749bd851f90",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "editorial-watchpoints-not-agenda",
+          "claim_kind": "FACT",
+          "claim_text": "Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announcement-limits-and-countercase",
+          "claim_kind": "FACT",
+          "claim_text": "The countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "information-quality-and-uncertainty",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC's chief economist, Joshua White, put high-quality information at the center of the announcement. Whether the discussion produces useful evidence on that subject remains to be seen.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "c1a126a2622f8acc8befbffd730b9a2648ee5ec8ca60c2f55a00b4aacb9f9a50",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        }
+      ],
+      "destination": "telegram",
+      "payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "sec-si-roundtable-event-facts-20261109"
+        ],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nU.S. Securities and Exchange Commission plans November 9 data roundtable\n\nThe SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.\n\nWhat to watch: Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-1bab80f5cec3150a\n\nAnalysis, not financial advice. Readers decide whether to trade."
+      },
+      "preview_id": "cc-preview-13cd182c25c9c439f1f363db19fbaf15fe43c56c19751048da80eb838b186613"
+    },
+    {
+      "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+      "claim_lineage": [
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-title",
+          "claim_kind": "FACT",
+          "claim_text": "U.S. Securities and Exchange Commission plans November 9 data roundtable",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-dek",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-search-title",
+          "claim_kind": "FACT",
+          "claim_text": "SEC November 9 roundtable on machine-understandable data",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-meta-description",
+          "claim_kind": "FACT",
+          "claim_text": "Preview the SEC's November 9, 2026 roundtable on machine-understandable data and Super Intelligence: the stated scope, public access and limits.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-social-hook",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "lead-event-and-reader-distinction",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announced-date-time-location",
+          "claim_kind": "NUMBER",
+          "claim_text": "In its October 19 announcement, the Securities and Exchange Commission scheduled the roundtable for November 9, 2026, from 9 a.m. to 3:30 p.m. EST at its headquarters, 100 F Street, N.E., Washington, D.C.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "public-access-and-webcast",
+          "claim_kind": "FACT",
+          "claim_text": "The event will be open to the public, although in-person capacity may be limited and visitors will face security checks. The SEC says the discussion will be streamed live on SEC.gov, with a recording available later.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "feedback-purpose",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "b5cf5361197172154940073f81e53ca424ffda5d8ebceaa4607c6749bd851f90",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "editorial-watchpoints-not-agenda",
+          "claim_kind": "FACT",
+          "claim_text": "Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announcement-limits-and-countercase",
+          "claim_kind": "FACT",
+          "claim_text": "The countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "information-quality-and-uncertainty",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC's chief economist, Joshua White, put high-quality information at the center of the announcement. Whether the discussion produces useful evidence on that subject remains to be seen.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "c1a126a2622f8acc8befbffd730b9a2648ee5ec8ca60c2f55a00b4aacb9f9a50",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        }
+      ],
+      "destination": "threads",
+      "payload": {
+        "format": "text_brief",
+        "full_text": "U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nThe countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-1bab80f5cec3150a\n\nWhat to watch: Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps.\n\nThese are watchpoints for the discussion, not promised agenda items or conclusions.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "sec-si-roundtable-event-facts-20261109"
+        ],
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "sec-si-roundtable-event-facts-20261109"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nThe countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-1bab80f5cec3150a"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps.\n\nThese are watchpoints for the discussion, not promised agenda items or conclusions.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.702,
+            0.532
+          ],
+          "post_character_counts": [
+            351,
+            266
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.758,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps.\n\nThese are watchpoints for the discussion, not promised agenda items or conclusions.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade."
+        ],
+        "root_text": "U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nThe countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-1bab80f5cec3150a",
+        "text": "U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nThe countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-1bab80f5cec3150a"
+      },
+      "preview_id": "cc-preview-91975cef6317e740a5a99d4c10d7dc77e9a5f90bc4380ff5443477e4e5c14175"
+    },
+    {
+      "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+      "claim_lineage": [
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-title",
+          "claim_kind": "FACT",
+          "claim_text": "U.S. Securities and Exchange Commission plans November 9 data roundtable",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-dek",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-search-title",
+          "claim_kind": "FACT",
+          "claim_text": "SEC November 9 roundtable on machine-understandable data",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-meta-description",
+          "claim_kind": "FACT",
+          "claim_text": "Preview the SEC's November 9, 2026 roundtable on machine-understandable data and Super Intelligence: the stated scope, public access and limits.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-social-hook",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "lead-event-and-reader-distinction",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announced-date-time-location",
+          "claim_kind": "NUMBER",
+          "claim_text": "In its October 19 announcement, the Securities and Exchange Commission scheduled the roundtable for November 9, 2026, from 9 a.m. to 3:30 p.m. EST at its headquarters, 100 F Street, N.E., Washington, D.C.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "public-access-and-webcast",
+          "claim_kind": "FACT",
+          "claim_text": "The event will be open to the public, although in-person capacity may be limited and visitors will face security checks. The SEC says the discussion will be streamed live on SEC.gov, with a recording available later.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "feedback-purpose",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "b5cf5361197172154940073f81e53ca424ffda5d8ebceaa4607c6749bd851f90",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "editorial-watchpoints-not-agenda",
+          "claim_kind": "FACT",
+          "claim_text": "Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announcement-limits-and-countercase",
+          "claim_kind": "FACT",
+          "claim_text": "The countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "information-quality-and-uncertainty",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC's chief economist, Joshua White, put high-quality information at the center of the announcement. Whether the discussion produces useful evidence on that subject remains to be seen.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "c1a126a2622f8acc8befbffd730b9a2648ee5ec8ca60c2f55a00b4aacb9f9a50",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        }
+      ],
+      "destination": "x",
+      "payload": {
+        "format": "text_brief",
+        "full_text": "U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nhttps://capitalchronicle.substack.com/p/pending-publication-1bab80f5cec3150a\n\nThe SEC wants feedback on machine-understandable data and Super Intelligence.\n\nNovember 9 is a discussion to follow, not a rule change to assume.\n\nWatch: Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps.\n\nThese are watchpoints for the discussion, not promised agenda items or conclusions.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "sec-si-roundtable-event-facts-20261109"
+        ],
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "sec-si-roundtable-event-facts-20261109"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nhttps://capitalchronicle.substack.com/p/pending-publication-1bab80f5cec3150a"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "The SEC wants feedback on machine-understandable data and Super Intelligence.\n\nNovember 9 is a discussion to follow, not a rule change to assume.\n\nWatch: Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps."
+          },
+          {
+            "media_asset_ids": [],
+            "order": 2,
+            "role": "reply",
+            "text": "These are watchpoints for the discussion, not promised agenda items or conclusions.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.536,
+            0.904,
+            0.536
+          ],
+          "post_character_counts": [
+            150,
+            253,
+            150
+          ],
+          "reply_count": 2,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.593,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "The SEC wants feedback on machine-understandable data and Super Intelligence.\n\nNovember 9 is a discussion to follow, not a rule change to assume.\n\nWatch: Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps.",
+          "These are watchpoints for the discussion, not promised agenda items or conclusions.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade."
+        ],
+        "root_text": "U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nhttps://capitalchronicle.substack.com/p/pending-publication-1bab80f5cec3150a",
+        "text": "U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nhttps://capitalchronicle.substack.com/p/pending-publication-1bab80f5cec3150a"
+      },
+      "preview_id": "cc-preview-7302fd184437faac886a0c5928932ecfc8423b74ff8ede3b0d7f95e6d4a525a0"
+    },
+    {
+      "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+      "claim_lineage": [
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-title",
+          "claim_kind": "FACT",
+          "claim_text": "U.S. Securities and Exchange Commission plans November 9 data roundtable",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-dek",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-search-title",
+          "claim_kind": "FACT",
+          "claim_text": "SEC November 9 roundtable on machine-understandable data",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "5bf16f442669ed369bee37f0843fc731faeaa70f0be766eeb0b891cf4c791035",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-meta-description",
+          "claim_kind": "FACT",
+          "claim_text": "Preview the SEC's November 9, 2026 roundtable on machine-understandable data and Super Intelligence: the stated scope, public access and limits.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "metadata-social-hook",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "lead-event-and-reader-distinction",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC has announced a November 9 public roundtable on machine-understandable data and Super Intelligence (SI), including their uses, risks and costs. For readers, the distinction is between hearing evidence about those uses and assuming a discussion amounts to a policy change.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announced-date-time-location",
+          "claim_kind": "NUMBER",
+          "claim_text": "In its October 19 announcement, the Securities and Exchange Commission scheduled the roundtable for November 9, 2026, from 9 a.m. to 3:30 p.m. EST at its headquarters, 100 F Street, N.E., Washington, D.C.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "public-access-and-webcast",
+          "claim_kind": "FACT",
+          "claim_text": "The event will be open to the public, although in-person capacity may be limited and visitors will face security checks. The SEC says the discussion will be streamed live on SEC.gov, with a recording available later.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "90ac573b1be62dead91d4d24cac27cad9c9bed5b5e04d04c471f6115a546d15b",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "feedback-purpose",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "b5cf5361197172154940073f81e53ca424ffda5d8ebceaa4607c6749bd851f90",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "editorial-watchpoints-not-agenda",
+          "claim_kind": "FACT",
+          "claim_text": "Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "announcement-limits-and-countercase",
+          "claim_kind": "FACT",
+          "claim_text": "The countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "information-quality-and-uncertainty",
+          "claim_kind": "FACT",
+          "claim_text": "The SEC's chief economist, Joshua White, put high-quality information at the center of the announcement. Whether the discussion produces useful evidence on that subject remains to be seen.",
+          "document_id": "cc124-sec-announcement-context",
+          "source_id": "SOURCE_1",
+          "support_excerpt_sha256": "c1a126a2622f8acc8befbffd730b9a2648ee5ec8ca60c2f55a00b4aacb9f9a50",
+          "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+        }
+      ],
+      "destination": "youtube",
+      "payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "sec-si-roundtable-event-facts-20261109"
+        ],
+        "platform_limit": 1000,
+        "text": "Update: U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nThe SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.\n\nWhat to watch: Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-1bab80f5cec3150a\n\nAnalysis, not financial advice. Readers decide whether to trade."
+      },
+      "preview_id": "cc-preview-6d0fa65e8b1e8e6128978303a754fe308a909e5cd74e7894cc2e3f487e8edb47"
+    }
+  ],
+  "prior_assets": [
+    {
+      "alt_text": "SEC roundtable facts: November 9, 2026, 9 a.m. to 3:30 p.m. EST, at SEC headquarters in Washington, D.C., with public access and a live stream on SEC.gov. The announced topic is machine-understandable data, Super Intelligence, and related risks and costs.",
+      "asset_id": "sec-si-roundtable-event-facts-20261109",
+      "caption": "The SEC's October 19 announcement schedules a public roundtable for November 9. The stated discussion concerns machine-understandable data, Super Intelligence and associated risks and costs.",
+      "editorial_data_packet": {
+        "question": "When is the announced roundtable, how can readers follow it, and what is its stated subject?"
+      },
+      "fact_card_packet": {
+        "question": "When is the announced roundtable, how can readers follow it, and what is its stated subject?",
+        "rows": [
+          {
+            "label": "Scheduled date",
+            "support_excerpt": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs.",
+            "value": "November 9, 2026"
+          },
+          {
+            "label": "Overall time",
+            "support_excerpt": "from 9 a.m. to 3:30 p.m. EST.",
+            "value": "9 a.m. to 3:30 p.m. EST"
+          },
+          {
+            "label": "Location",
+            "support_excerpt": "100 F Street, N.E., Washington, D.C.",
+            "value": "100 F Street, N.E., Washington, D.C."
+          },
+          {
+            "label": "Webcast",
+            "support_excerpt": "The discussion will be streamed live on SEC.gov, and a recording will be available at a later date.",
+            "value": "The discussion will be streamed live on SEC.gov"
+          },
+          {
+            "label": "Subject",
+            "support_excerpt": "to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs.",
+            "value": "machine-understandable data and Super Intelligence (SI)"
+          }
+        ],
+        "schema_version": "contentops.source_fact_card.v1",
+        "source_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+        "source_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+        "title": "SEC roundtable: November 9"
+      },
+      "height": 900,
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\media\\sec-si-roundtable-event-facts-20261109.png",
+      "placement_after": "What the SEC has announced",
+      "quantitative_chart": false,
+      "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+      "source_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+      "source_label": "U.S. Securities and Exchange Commission",
+      "source_lineage": [
+        {
+          "document_id": "cc124-sec-announcement-context",
+          "source_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+        }
+      ],
+      "source_page_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+      "source_reuse_basis": "Exact admitted agency-authored public-domain text; original facts-card layout",
+      "transform_sha256": "762d14f6bbd8b431afc45ae6b879c2226922aa8185fd6757ad1b7b7668bdc9b2",
+      "underlying_source_rights_status": "public_domain",
+      "visual_review": {
+        "asset_id": "sec-si-roundtable-event-facts-20261109",
+        "asset_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\media\\sec-si-roundtable-event-facts-20261109.png",
+        "asset_sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+        "clipping_detected": false,
+        "concrete_findings": [
+          "The Capital Chronicle header, event title, all five labelled rows and both source-footer lines are fully visible. No clipped text, overlap or obscured content is visible.",
+          "Date, time, location, webcast and subject appear in the frozen order. The five displayed values match the admitted source snippets and frozen visual rows exactly.",
+          "The full event date includes 2026. The time visibly retains EST. The footer separately labels the October 19 announcement date, avoiding confusion with the November 9 event date.",
+          "Dark text on the white field and the clear row separation make labels and values legible at the inspected native resolution. The long subject and webcast rows fit without truncation.",
+          "The source footer identifies the SEC. No speakers, agenda sessions, quantitative series, policy outcome, photograph or invented official seal is depicted.",
+          "The large open lower-right area is unused space, with no material readability or factual defect requiring a repair."
+        ],
+        "decision": "PASS",
+        "height": 900,
+        "inspection_surface": "Local generated PNG viewed with tools.view_image at original resolution; no desktop screenshot or native application automation.",
+        "labels_and_units_legible": true,
+        "limits": [
+          "This is a pre-writer inspection of the exact standalone 1600x900 PNG. No article-page layout, responsive mobile display, destination crop or public object was inspected.",
+          "Rights are limited to the admitted packet and its existing evidence binding. This review makes no independent or additional source or media rights claim.",
+          "No text approval, accepted-role rewrite, public action or publication claim is made by this asset review."
+        ],
+        "pixels_inspected": true,
+        "repair_required": false,
+        "request_sha256": "f82b595905d30ca0bacfa64eae9d2e8ebc10a97efebe20c6a461b02f9e9489df",
+        "reviewer": "/root/native_visual_edit_f82b595905d3",
+        "source_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+        "source_rows_match": true,
+        "width": 1600
+      },
+      "visual_type": "SOURCE_FACTS_CARD",
+      "width": 1600
+    }
+  ],
+  "replacement_asset": {
+    "asset_id": "sec-si-roundtable-event-facts-20261109-cc245",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\media\\sec-si-roundtable-event-facts-20261109-cc245.png",
+    "sha256": "869a7af9a3d8a9ad2f1bd3497ad3c3ec7ad3b9032b588c55076d0dbe3f71b204",
+    "width": 1600,
+    "height": 900,
+    "modality": "source_backed_chart",
+    "media_role": "editorial_data_journalism",
+    "visual_type": "SOURCE_FACTS_CARD",
+    "fact_card_packet": {
+      "schema_version": "contentops.source_fact_card.v1",
+      "title": "SEC roundtable: November 9",
+      "question": "When is the announced roundtable, how can readers follow it, and what is its stated subject?",
+      "source_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+      "source_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+      "rows": [
+        {
+          "label": "Scheduled date",
+          "value": "November 9, 2026",
+          "support_excerpt": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs."
+        },
+        {
+          "label": "Overall time",
+          "value": "9 a.m. to 3:30 p.m. EST",
+          "support_excerpt": "from 9 a.m. to 3:30 p.m. EST."
+        },
+        {
+          "label": "Location",
+          "value": "100 F Street, N.E., Washington, D.C.",
+          "support_excerpt": "100 F Street, N.E., Washington, D.C."
+        },
+        {
+          "label": "Webcast",
+          "value": "The discussion will be streamed live on SEC.gov",
+          "support_excerpt": "The discussion will be streamed live on SEC.gov, and a recording will be available at a later date."
+        },
+        {
+          "label": "Subject",
+          "value": "machine-understandable data and Super Intelligence (SI)",
+          "support_excerpt": "to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs."
+        }
+      ]
+    },
+    "editorial_data_packet": {
+      "question": "When is the announced roundtable, how can readers follow it, and what is its stated subject?"
+    },
+    "transform_sha256": "762d14f6bbd8b431afc45ae6b879c2226922aa8185fd6757ad1b7b7668bdc9b2",
+    "placement_after": "What the SEC has announced",
+    "caption": "The SEC's October 19 announcement schedules a public roundtable for November 9. The stated discussion concerns machine-understandable data, Super Intelligence and associated risks and costs.",
+    "alt_text": "SEC roundtable facts: November 9, 2026, 9 a.m. to 3:30 p.m. EST, at SEC headquarters in Washington, D.C., with public access and a live stream on SEC.gov. The announced topic is machine-understandable data, Super Intelligence, and related risks and costs.",
+    "source_page_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+    "source_content_sha256": "be6a9b07dde2a28f48acf9bc92a2bb74e740959c273e72a658ecc3e16e890f1a",
+    "source_label": "U.S. Securities and Exchange Commission",
+    "source_lineage": [
+      {
+        "source_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+        "document_id": "cc124-sec-announcement-context"
+      }
+    ],
+    "underlying_source_rights_status": "public_domain",
+    "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+    "source_reuse_basis": "Exact admitted agency-authored public-domain text; original facts-card layout",
+    "quantitative_chart": false,
+    "design": "CC245_SITE_FACT_CARD_V1",
+    "supersedes_asset_id": "sec-si-roundtable-event-facts-20261109",
+    "supersedes_sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+    "same_reviewed_packet_sha256_as": "762d14f6bbd8b431afc45ae6b879c2226922aa8185fd6757ad1b7b7668bdc9b2",
+    "note": "CC-245 re-render of the approved SEC facts packet in the site design (Jim, 4 Nov). Not yet bound into the run's reviewed media; Codex binds it through its reviewed amendment path before any SEC send."
+  },
+  "visual_editorial_decision": null,
+  "channel_media": {
+    "telegram": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ],
+    "discord": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ],
+    "x": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ],
+    "linkedin": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ],
+    "facebook_page": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ],
+    "instagram_business": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ],
+    "threads": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ],
+    "youtube": [
+      "sec-si-roundtable-event-facts-20261109-cc245"
+    ]
+  }
+}

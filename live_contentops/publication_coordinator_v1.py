@@ -730,7 +730,7 @@ class DurablePublicationCoordinator:
         intent = json.loads(self._dated_distribution_message(message)["payload"])
         from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
         retained_media = _durable_intent_inputs(intent).get("media_assets", [])
-        if revision.get("policy") in {"JIM_DECISION_41_RELEASE_CHART_EDIT", "JIM_CC179_REVIEWED_CPI_DERIVATIVE_MEDIA"}:
+        if revision.get("policy") in {"JIM_DECISION_41_RELEASE_CHART_EDIT", "JIM_CC179_REVIEWED_CPI_DERIVATIVE_MEDIA", "JIM_CC247_REVIEWED_MEDIA_REPAIR"}:
             retained_media = view.get("media_assets", [])
         if destination == "substack":
             from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
@@ -1114,6 +1114,46 @@ class DurablePublicationCoordinator:
         message = self.store.get_outbox_message(message_id)
         if not message or message["destination"] not in {"facebook_page", "instagram_business", "youtube", "linkedin"}:
             raise ValueError("DATED_DISTRIBUTION_EXACT_ORIGINAL_DESTINATION_REQUIRED")
+        intent = json.loads(message["payload"])
+        ids = self._ids(message["work_item_id"], intent["plan_hash"], message["destination"])
+        dispatch = self.store.get_platform_dispatch(ids["dispatch_id"])
+        if dispatch and dispatch["status"] == EXTERNAL_REMOVAL_REPORTED_NO_RETRY:
+            return self._repost_after_verified_removal(message, review_reference=review_reference)
+        # CC-247 reuses the accepted media amendment for a missing first copy.
+        # A dated-copy review remains supported by the original path below.
+        from live_contentops.native_desktop_editorial_v1 import reader_presentation_acceptance
+        try:
+            revision, _view, acceptance = reader_presentation_acceptance(self.store,
+                run_id=message["work_item_id"], reference=review_reference)
+        except ValueError as exc:
+            if str(exc) != "READER_REVISION_EXACT_NATIVE_REVIEW_REQUIRED":
+                raise
+        else:
+            if dispatch and dispatch["status"] not in {DERIVATIVE_EXPIRED_STALE_NO_WRITE,
+                    RECONCILED_ABSENT_SAFE_TO_RETRY, DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE, NATIVE_NEO_PENDING}:
+                return {"status": "DATED_DISTRIBUTION_EXISTING_OR_AMBIGUOUS_OBJECT_READBACK_ONLY", "publish_called": False}
+            if dispatch and dispatch.get("public_object_id"):
+                return {"status": "DATED_DISTRIBUTION_EXISTING_OR_AMBIGUOUS_OBJECT_READBACK_ONLY", "publish_called": False}
+            if dispatch and dispatch["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY and not any(
+                    r["reconciliation_id"] == ids["reconciliation_id"] and r["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+                    for r in self.store.get_reconciliations_for_work_item(message["work_item_id"])):
+                raise ValueError("DATED_DISTRIBUTION_EXACT_ABSENCE_REQUIRED")
+            reviewed, _, _, _ = self._reader_presentation_intent(message, review_reference)
+            canonical = self._confirmed_canonical_url_for_work_item(message["work_item_id"], plan_hash=intent["plan_hash"])
+            if not canonical or canonical != reviewed.get("canonical_url"):
+                raise ValueError("DATED_DISTRIBUTION_CANONICAL_IDENTITY_CHANGED")
+            key = "native-reader-presentation-" + sha256_of(message_id)
+            note = {"run_id": message["work_item_id"], "destination": message["destination"],
+                "public_message_id": message_id, "original_intent_sha256": sha256_of(intent),
+                "review_reference": review_reference, "acceptance": acceptance}
+            prior = self.store.get_outbox_message(key)
+            if prior and json.loads(prior["payload"]) != note:
+                raise ValueError("DATED_DISTRIBUTION_IMMUTABLE_REVIEW_CONFLICT")
+            self.store.register_outbox_message(message_id=key, work_item_id=message["work_item_id"],
+                destination="internal:native-reader-presentation", payload=_canonical_json(note), status="PRESENTATION_MEDIA_BOUND")
+            return self._dispatch_message(message, canonical_url=canonical,
+                explicit_transport_correction_retry=True,
+                explicit_reconciled_absent_retry=bool(dispatch and dispatch["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY))
         recovery, _ = dated_distribution_recovery_acceptance(self.store,
             run_id=message["work_item_id"], reference=review_reference)
         if message["destination"] not in recovery["payloads"]:
@@ -1165,6 +1205,11 @@ class DurablePublicationCoordinator:
         message = self.store.get_outbox_message(message_id)
         if not message or message["destination"] not in self.REPOST_AFTER_REMOVAL_DESTINATIONS:
             raise ValueError("REPOST_EXACT_ORIGINAL_DESTINATION_REQUIRED")
+        return self._repost_after_verified_removal(message, review_reference=review_reference)
+
+    def _repost_after_verified_removal(self, message, *, review_reference):
+        """Shared exactly-once mechanics for the existing dated and repost routes."""
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
         destination = message["destination"]
         original_intent = json.loads(message["payload"])
         original_ids = self._ids(message["work_item_id"], original_intent["plan_hash"], destination)

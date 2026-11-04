@@ -84,6 +84,25 @@ def test_social_revision_preserves_sources_canonical_copy_and_original_intents(s
     assert original_rows == {r["message_id"]: r["payload"] for r in store.list_outbox_messages()}
 
 
+def test_accepted_media_survives_verified_owner_removal_of_exact_original(social):
+    from datetime import datetime, timezone
+    store, run, result, revision, _ = social
+    target = revision["objects"]["telegram"]
+    target.update(public_object_id="75", public_object_url="https://t.me/CapitalChronicle/75")
+    store.register_platform_dispatch(**target, status="DISPATCH_CONFIRMED")
+    co = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    co.reconcile_owner_removed_object(target["dispatch_id"], disposition="EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+        observation={"destination": "telegram", "public_object_id": "75", "authority_ref": "Jim CC-247",
+            "observation_ref": "fixture", "observed_at_utc": datetime.now(timezone.utc).isoformat(),
+            "observation_basis": "Post not found", "exact_object_absence_verified": True})
+    view = reader_presentation_revision_view(store, run_id=run, result=result, revision=revision)
+    assert view["previews"][0] and view["media_assets"]
+    # Retiring an object never permits selecting a different original identity.
+    target["public_object_id"] = "OTHER"
+    with pytest.raises(ValueError, match="EXISTING_OBJECT_CHANGED"):
+        reader_presentation_revision_view(store, run_id=run, result=result, revision=revision)
+
+
 @pytest.mark.parametrize("fault", ["copy", "media", "target", "parent", "intent", "missing_transport", "writer"])
 def test_social_revision_rejects_stale_or_unbound_material(social, fault):
     store, run, result, revision, _ = social
