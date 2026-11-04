@@ -1,0 +1,1081 @@
+{
+  "request_sha256": "f71c9f0f2933e61afce3a86fdc3830dc569a2954f216a230bae366954d7236ff",
+  "output": {
+    "article": {
+      "title": "September PPI: energy drove the goods surge as services rose",
+      "dek": "The BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services. The component detail separates the energy shock from wider monthly gains.",
+      "search_title": "September 2026 PPI: energy, services and underlying inflation",
+      "meta_description": "September 2026 PPI rose 1.3%. Examine energy, services and underlying gains in the 15 October BLS release, with two years of first-reported changes.",
+      "social_hook": "September 2026 PPI retrospective: energy drove the goods surge, while services and the underlying measure rose too.",
+      "substack_body_markdown": "The September 2026 Producer Price Index combined a 1.3% monthly headline increase with a 0.5% rise excluding foods, energy and trade services, according to the U.S. Bureau of Labor Statistics release of 15 October 2026. Energy dominated the increase in goods prices, while services rose too. The question is how much of that pressure extended beyond the biggest commodity move. [[SOURCE:SOURCE_1]]\n\nOur reading is that the component mix deserves as much attention as the headline. September showed positive price changes across several categories, but the size of the energy jump makes it especially important to separate a one-month shock from evidence of persistence. [[SOURCE:SOURCE_1]]\n\n## September's jump was broad, but uneven\n\nFinal demand goods rose 2.6% in September and services rose 0.8%. The measure excluding foods, energy and trade services increased 0.5%, following 0.3% in August as stated in the September release. All these monthly rates are seasonally adjusted. [[SOURCE:SOURCE_1]]\n\nThe underlying measure is a separate view of the same price system, with those categories excluded. It overlaps the goods and services aggregates; its rate is not an extra contribution to add to them. The comparison shows both the goods surge and the smaller gains that remained after the exclusions. [[SOURCE:SOURCE_1]]\n\n## How September compares with two years of first releases\n\nThe history chart follows the monthly changes as first reported in dated BLS releases, from October 2024 through September 2026. On that basis, September's 1.3% headline increase was below April 2026's 1.4%. The underlying measure also varied across the period: its September increase of 0.5% was below May 2026's first-reported 0.8%. [[SOURCE:SOURCE_2]] [[SOURCE:SOURCE_3]]\n\nThat history differs from a chart rewritten with later revisions. August headline PPI was first reported at 0.4%; the September release revised it to 0.5%. July was initially unchanged and stood at 0.2% in the September release. Thus the September-release comparison is 1.3% after 0.5%, while the first-release chart preserves the earlier observations. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\n## Energy and trade margins explain the split\n\nIn the September 2026 release, BLS attributed over 80% of the goods increase to energy, which rose 10.8%. Services prices also rose 0.8%. [[SOURCE:SOURCE_1]]\n\nWithin goods, foods rose 1.2% and the index excluding foods and energy rose 0.3%. Those figures explain why a strong goods total need not mean similarly large price increases in every goods category. The energy share cited by BLS describes the goods increase, not the entire final-demand increase. [[SOURCE:SOURCE_1]]\n\nServices had their own composition. Trade-service margins rose 1.4%, accounting for nearly half of the services increase, according to BLS. Transportation and warehousing services rose 3.4%, while services excluding trade, transportation and warehousing rose 0.3%. Trade services here refer to margins, a distinction that matters when interpreting that category. [[SOURCE:SOURCE_1]]\n\nThe component chart compares each category's own monthly rate. It is not a contribution waterfall: adding these rates, or treating the energy rate as a percentage-point contribution to headline inflation, would misread the figures. The services detail provides a separate check on the idea that September was exclusively an energy story. [[SOURCE:SOURCE_1]]\n\n## The limits of a one-month signal\n\nThe September 2026 countercase is concentration: goods excluding foods and energy rose 0.3%, and services excluding trade, transportation and warehousing also rose 0.3%. [[SOURCE:SOURCE_1]]\n\nThose narrower gains were positive, yet much smaller than the energy increase. That is the strongest reason to resist treating the headline pace as representative of every component or extrapolating it as a continuing monthly rate. The release supports a distinction between concentrated strength and the smaller increases elsewhere. [[SOURCE:SOURCE_1]]\n\nA lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it. [[SOURCE:SOURCE_1]]\n\nThat is a test for an interpretation, rather than a forecast supplied by this release. These producer-price observations alone do not establish a consumer-inflation outcome or an automatic Federal Reserve response. The unresolved issue is whether pressure beyond energy persists, not whether the largest monthly number can stand in for the whole report. [[SOURCE:SOURCE_1]]\n\nRetrospective analysis, written on 5 November 2026 (GMT+7). This article examines the September PPI release of 15 October 2026 and earlier dated releases. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]] [[SOURCE:SOURCE_3]]\n\nAnalysis, not financial advice. Readers decide whether to trade. [[SOURCE:SOURCE_1]]",
+      "reader_first_version": "DATA_JOURNALISM_V1",
+      "reader_attribution_policy": "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1",
+      "visual_editorial_decision": {
+        "channel_media": {
+          "discord": [
+            "ppi_september_component_rates",
+            "ppi_september_nested_rates"
+          ],
+          "facebook_page": [
+            "ppi_september_component_rates",
+            "ppi_september_nested_rates"
+          ],
+          "instagram_business": [
+            "ppi_september_component_rates",
+            "ppi_september_nested_rates",
+            "ppi_headline_core_24m"
+          ],
+          "linkedin": [
+            "ppi_headline_core_24m",
+            "ppi_september_component_rates"
+          ],
+          "telegram": [
+            "ppi_september_component_rates",
+            "ppi_headline_core_24m"
+          ],
+          "threads": [
+            "ppi_september_component_rates"
+          ],
+          "x": [
+            "ppi_september_component_rates"
+          ],
+          "youtube": [
+            "ppi_september_component_rates"
+          ]
+        },
+        "charts": [
+          {
+            "asset_id": "ppi_headline_core_24m",
+            "data_spec": {
+              "chart_form": "Two distinctly styled lines on one common percent axis, with observation markers, a visible zero line and direct September endpoint labels. No smoothing or second axis.",
+              "definition_note": "Underlying means final demand less foods, energy and trade services. It is not the distinct index excluding food and energy alone.",
+              "period_end": "2026-09",
+              "period_start": "2024-10",
+              "points_per_series": 24,
+              "reuse_decision": "The held matching PNG may be adapted or reused after exact data/hash verification. Retain an unambiguous first-reported vintage label and never replace July/August first prints with the September release revisions.",
+              "series": [
+                {
+                  "canonical_content_sha256": "58a6a1731973ff57b99a68a7e2d15dfa2f2450a0ad57b5e546c0c4415352f5a3",
+                  "dataset_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                  "label": "Final demand",
+                  "measure": "MONTH_ON_MONTH",
+                  "name": "PPI_FINAL_DEMAND_MOM",
+                  "observations": [
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2024-10",
+                      "release_datetime_utc": "2024-11-14T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:46.210Z",
+                      "source_sha256": "715c1119b567e5524b2340307fe467460665ae91ebd708531a1e787262c9c1bc",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_11142024.htm",
+                      "value": 0.2
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2024-11",
+                      "release_datetime_utc": "2024-12-12T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:45.801Z",
+                      "source_sha256": "6c2fb724a9e65e43a8c89d294a063c9e20e16a19776987b154fdaf2927ad8006",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_12122024.htm",
+                      "value": 0.4
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2024-12",
+                      "release_datetime_utc": "2025-01-14T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:46.133Z",
+                      "source_sha256": "5d8a717bd162a72c4d16fc90a4a7deeb436328766689f44d0d6b5958a0981976",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_01142025.htm",
+                      "value": 0.2
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-01",
+                      "release_datetime_utc": "2025-02-13T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:45.706Z",
+                      "source_sha256": "dd5a8fbd118a1249b2bc3464457a8a2535718f8122b4ebfad373c8024ef5b40e",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_02132025.htm",
+                      "value": 0.4
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-02",
+                      "release_datetime_utc": "2025-03-13T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:45.902Z",
+                      "source_sha256": "c48e2c4f056cc3789a9f83175cb2e408f3b2b15672f7238797c95314dae2cd3f",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_03132025.htm",
+                      "value": 0.0
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-03",
+                      "release_datetime_utc": "2025-04-11T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:45.309Z",
+                      "source_sha256": "eabe0334f070c48b8e146b7161d0e712e5678573b583ef6937cb5363c8a32012",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_04112025.htm",
+                      "value": -0.4
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-04",
+                      "release_datetime_utc": "2025-05-15T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:44.959Z",
+                      "source_sha256": "d56682f2a4a3a0262706f43c38a907bb3106a5be4700f3eac78527daeb5f763e",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_05152025.htm",
+                      "value": -0.5
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-05",
+                      "release_datetime_utc": "2025-06-12T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:45.030Z",
+                      "source_sha256": "52fcf60571d55ac3f73b7bd6bce40da86438416bb7889692b64a0912034c2b42",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_06122025.htm",
+                      "value": 0.1
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-06",
+                      "release_datetime_utc": "2025-07-16T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:44.895Z",
+                      "source_sha256": "907af94fe33c833c51b00cc31dbbdb38aa89c72c1b99efa4096314bf7973e8db",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_07162025.htm",
+                      "value": 0.0
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-07",
+                      "release_datetime_utc": "2025-08-14T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:44.477Z",
+                      "source_sha256": "06de511966a5185a15dd0b42a721d77006abb22b05c1fb5a7014be9ebbe20abf",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_08142025.htm",
+                      "value": 0.9
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-08",
+                      "release_datetime_utc": "2025-09-10T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:44.540Z",
+                      "source_sha256": "cac91092039b8d9a8044b0079ee1e316a275478bb6f3032e82f388224548f1f9",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_09102025.htm",
+                      "value": -0.1
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-09",
+                      "release_datetime_utc": "2025-11-25T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:44.244Z",
+                      "source_sha256": "d0259c1f33c32d2f243340a36db875b8b1551ff7e2af4a712c8dfda5cc1f23f0",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_11252025.htm",
+                      "value": 0.3
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-10",
+                      "release_datetime_utc": "2026-01-14T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:43.975Z",
+                      "source_sha256": "9cebf1f7c67bd4c3252660f491f8f4e8e359b216c2d8e33c362c4de7c55c82ec",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_01142026.htm",
+                      "value": 0.1
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-11",
+                      "release_datetime_utc": "2026-01-14T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:43.975Z",
+                      "source_sha256": "9cebf1f7c67bd4c3252660f491f8f4e8e359b216c2d8e33c362c4de7c55c82ec",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_01142026.htm",
+                      "value": 0.2
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-12",
+                      "release_datetime_utc": "2026-01-30T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:43.727Z",
+                      "source_sha256": "28cea967ed73dcba67c7453a4b159bb163867b7680e9c1f097efb6e1ee1c6034",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_01302026.htm",
+                      "value": 0.5
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-01",
+                      "release_datetime_utc": "2026-02-27T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:43.878Z",
+                      "source_sha256": "613f268d70d54e76983fd414d7b01e754a5b71670b4b1e5a682f126f8cac252e",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_02272026.htm",
+                      "value": 0.5
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-02",
+                      "release_datetime_utc": "2026-03-18T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:43.806Z",
+                      "source_sha256": "f22bec6f6785bafccba6e1d75fd9479c0f21c2fa0882036eb139caaacd601124",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_03182026.htm",
+                      "value": 0.7
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-03",
+                      "release_datetime_utc": "2026-04-14T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:43.640Z",
+                      "source_sha256": "3e1e49241869570e2393f7bfb431e09791d877c919b989a8a06ff3c04d61b8fb",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_04142026.htm",
+                      "value": 0.5
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-04",
+                      "release_datetime_utc": "2026-05-13T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:40.689Z",
+                      "source_sha256": "eeae23b5089da2a2dacbeb98f20a7d5f4ef7a395ce3856fef40c6fb570c492c1",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_05132026.htm",
+                      "value": 1.4
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-05",
+                      "release_datetime_utc": "2026-06-11T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:40.591Z",
+                      "source_sha256": "d11359f4ca0a4687eb4a9e6059eaa80da5d56cdfa447c057d8fed393c3106be0",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_06112026.htm",
+                      "value": 1.1
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-06",
+                      "release_datetime_utc": "2026-07-15T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:40.496Z",
+                      "source_sha256": "735ff0d2ad24c55257cae7fd3b8a47e092b3977c913a948140ceffa49558ba74",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_07152026.htm",
+                      "value": -0.3
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-07",
+                      "release_datetime_utc": "2026-08-13T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:40.415Z",
+                      "source_sha256": "6236dedb9fedb13f9ce0a859ebecb5adac2a5d88337a34fb0e7fadb3f777f8a6",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_08132026.htm",
+                      "value": 0.0
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-08",
+                      "release_datetime_utc": "2026-09-10T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:40.271Z",
+                      "source_sha256": "83ae7140e78eba6d72de705955e4867a95791d59e487ad973d962f02c6827457",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_09102026.htm",
+                      "value": 0.4
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-09",
+                      "release_datetime_utc": "2026-10-15T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:40.150Z",
+                      "source_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+                      "value": 1.3
+                    }
+                  ],
+                  "official_series_id": "WPSFD4",
+                  "seasonal_adjustment": "SA",
+                  "source_id": "SOURCE_2",
+                  "unit": "percent",
+                  "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                },
+                {
+                  "canonical_content_sha256": "6bc0ab4374bf20f0feaca7ae9678ccb4442717848274ae89c1f6d94888eafb6c",
+                  "dataset_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                  "label": "Less foods, energy and trade services",
+                  "measure": "MONTH_ON_MONTH",
+                  "name": "PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM",
+                  "observations": [
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2024-10",
+                      "release_datetime_utc": "2024-11-14T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:46.210Z",
+                      "source_sha256": "715c1119b567e5524b2340307fe467460665ae91ebd708531a1e787262c9c1bc",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_11142024.htm",
+                      "value": 0.3
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2024-11",
+                      "release_datetime_utc": "2024-12-12T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:45.801Z",
+                      "source_sha256": "6c2fb724a9e65e43a8c89d294a063c9e20e16a19776987b154fdaf2927ad8006",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_12122024.htm",
+                      "value": 0.1
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2024-12",
+                      "release_datetime_utc": "2025-01-14T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:46.133Z",
+                      "source_sha256": "5d8a717bd162a72c4d16fc90a4a7deeb436328766689f44d0d6b5958a0981976",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_01142025.htm",
+                      "value": 0.1
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-01",
+                      "release_datetime_utc": "2025-02-13T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:45.706Z",
+                      "source_sha256": "dd5a8fbd118a1249b2bc3464457a8a2535718f8122b4ebfad373c8024ef5b40e",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_02132025.htm",
+                      "value": 0.3
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-02",
+                      "release_datetime_utc": "2025-03-13T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:45.902Z",
+                      "source_sha256": "c48e2c4f056cc3789a9f83175cb2e408f3b2b15672f7238797c95314dae2cd3f",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_03132025.htm",
+                      "value": 0.2
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-03",
+                      "release_datetime_utc": "2025-04-11T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:45.309Z",
+                      "source_sha256": "eabe0334f070c48b8e146b7161d0e712e5678573b583ef6937cb5363c8a32012",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_04112025.htm",
+                      "value": 0.1
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-04",
+                      "release_datetime_utc": "2025-05-15T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:44.959Z",
+                      "source_sha256": "d56682f2a4a3a0262706f43c38a907bb3106a5be4700f3eac78527daeb5f763e",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_05152025.htm",
+                      "value": -0.1
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-05",
+                      "release_datetime_utc": "2025-06-12T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:45.030Z",
+                      "source_sha256": "52fcf60571d55ac3f73b7bd6bce40da86438416bb7889692b64a0912034c2b42",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_06122025.htm",
+                      "value": 0.1
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-06",
+                      "release_datetime_utc": "2025-07-16T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:44.895Z",
+                      "source_sha256": "907af94fe33c833c51b00cc31dbbdb38aa89c72c1b99efa4096314bf7973e8db",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_07162025.htm",
+                      "value": 0.0
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-07",
+                      "release_datetime_utc": "2025-08-14T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:44.477Z",
+                      "source_sha256": "06de511966a5185a15dd0b42a721d77006abb22b05c1fb5a7014be9ebbe20abf",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_08142025.htm",
+                      "value": 0.6
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-08",
+                      "release_datetime_utc": "2025-09-10T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:44.540Z",
+                      "source_sha256": "cac91092039b8d9a8044b0079ee1e316a275478bb6f3032e82f388224548f1f9",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_09102025.htm",
+                      "value": 0.3
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-09",
+                      "release_datetime_utc": "2025-11-25T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:44.244Z",
+                      "source_sha256": "d0259c1f33c32d2f243340a36db875b8b1551ff7e2af4a712c8dfda5cc1f23f0",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_11252025.htm",
+                      "value": 0.1
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-10",
+                      "release_datetime_utc": "2026-01-14T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:43.975Z",
+                      "source_sha256": "9cebf1f7c67bd4c3252660f491f8f4e8e359b216c2d8e33c362c4de7c55c82ec",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_01142026.htm",
+                      "value": 0.7
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-11",
+                      "release_datetime_utc": "2026-01-14T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:43.975Z",
+                      "source_sha256": "9cebf1f7c67bd4c3252660f491f8f4e8e359b216c2d8e33c362c4de7c55c82ec",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_01142026.htm",
+                      "value": 0.2
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2025-12",
+                      "release_datetime_utc": "2026-01-30T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:43.727Z",
+                      "source_sha256": "28cea967ed73dcba67c7453a4b159bb163867b7680e9c1f097efb6e1ee1c6034",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_01302026.htm",
+                      "value": 0.4
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-01",
+                      "release_datetime_utc": "2026-02-27T13:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:43.878Z",
+                      "source_sha256": "613f268d70d54e76983fd414d7b01e754a5b71670b4b1e5a682f126f8cac252e",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_02272026.htm",
+                      "value": 0.3
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-02",
+                      "release_datetime_utc": "2026-03-18T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:43.806Z",
+                      "source_sha256": "f22bec6f6785bafccba6e1d75fd9479c0f21c2fa0882036eb139caaacd601124",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_03182026.htm",
+                      "value": 0.5
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-03",
+                      "release_datetime_utc": "2026-04-14T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:43.640Z",
+                      "source_sha256": "3e1e49241869570e2393f7bfb431e09791d877c919b989a8a06ff3c04d61b8fb",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_04142026.htm",
+                      "value": 0.2
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-04",
+                      "release_datetime_utc": "2026-05-13T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:40.689Z",
+                      "source_sha256": "eeae23b5089da2a2dacbeb98f20a7d5f4ef7a395ce3856fef40c6fb570c492c1",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_05132026.htm",
+                      "value": 0.6
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-05",
+                      "release_datetime_utc": "2026-06-11T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:40.591Z",
+                      "source_sha256": "d11359f4ca0a4687eb4a9e6059eaa80da5d56cdfa447c057d8fed393c3106be0",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_06112026.htm",
+                      "value": 0.8
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-06",
+                      "release_datetime_utc": "2026-07-15T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:40.496Z",
+                      "source_sha256": "735ff0d2ad24c55257cae7fd3b8a47e092b3977c913a948140ceffa49558ba74",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_07152026.htm",
+                      "value": 0.1
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-07",
+                      "release_datetime_utc": "2026-08-13T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:40.415Z",
+                      "source_sha256": "6236dedb9fedb13f9ce0a859ebecb5adac2a5d88337a34fb0e7fadb3f777f8a6",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_08132026.htm",
+                      "value": 0.4
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-08",
+                      "release_datetime_utc": "2026-09-10T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:40.271Z",
+                      "source_sha256": "83ae7140e78eba6d72de705955e4867a95791d59e487ad973d962f02c6827457",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_09102026.htm",
+                      "value": 0.3
+                    },
+                    {
+                      "availability": "OBSERVED",
+                      "period": "2026-09",
+                      "release_datetime_utc": "2026-10-15T12:30:00Z",
+                      "retrieved_at_utc": "2026-10-30T01:36:40.150Z",
+                      "source_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+                      "source_url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+                      "value": 0.5
+                    }
+                  ],
+                  "official_series_id": "BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES",
+                  "seasonal_adjustment": "SA",
+                  "source_id": "SOURCE_3",
+                  "unit": "percent",
+                  "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                }
+              ],
+              "source_note": "BLS dated first releases; monthly change, seasonally adjusted; October 2024-September 2026. Each point retains its original dated-release source.",
+              "transform": "Identity only: plot each admitted monthly percent change without compounding, annualizing, rebasing, interpolation, imputation or subsequent revision.",
+              "unit": "Percent change from previous month, seasonally adjusted",
+              "validation": {
+                "august_2026_headline_first_print": 0.4,
+                "august_2026_underlying_first_print": 0.3,
+                "complete_period_grid_required": true,
+                "cutoff_utc": "2026-10-15T12:30:00Z",
+                "july_2026_headline_first_print": 0.0,
+                "july_2026_underlying_first_print": 0.4,
+                "missing_values": "Leave a visible gap if any verified source point becomes unavailable; never fill it.",
+                "september_2026_headline_first_print": 1.3,
+                "september_2026_underlying_first_print": 0.5
+              },
+              "vintage_label": "As first reported in retained BLS releases"
+            },
+            "placement_after": "How September compares with two years of first releases",
+            "question": "How unusual was the September monthly rise relative to the preceding two years of first-reported headline and underlying PPI changes?",
+            "title": "Producer prices: headline surge, underlying gains",
+            "why_useful": "Supplies the full 24-month context and prevents a single large headline reading from being presented as a new record or a persistent trend. The explicitly defined underlying measure adds information beyond a second headline chart."
+          },
+          {
+            "asset_id": "ppi_september_component_rates",
+            "data_spec": {
+              "chart_form": "Four horizontal bars from a common zero baseline; direct signed percent labels; total, goods, services and underlying in that order; no stacked bars or contribution waterfall.",
+              "observations": [
+                {
+                  "label": "Final demand",
+                  "table_row_label": "Total final demand",
+                  "value": 1.3
+                },
+                {
+                  "label": "Goods",
+                  "table_row_label": "Final demand goods: Total",
+                  "value": 2.6
+                },
+                {
+                  "label": "Services",
+                  "table_row_label": "Final demand services: Total",
+                  "value": 0.8
+                },
+                {
+                  "label": "Less foods, energy and trade services",
+                  "table_row_label": "Final demand less foods, energy, and trade",
+                  "value": 0.5
+                }
+              ],
+              "period": "2026-09",
+              "reuse_decision": "The matching held PNG was inspected and has the four correct September values. It can be reused after copying exact bytes to this article media folder and binding its source/value record.",
+              "source": {
+                "canonical_content_sha256": "80efaa48b57e619cc0e982662022c2d337d3a0dc9ef22bf731e3406c936dc4bb",
+                "document_id": "cc124-bls-september-ppi-original",
+                "published_at_utc": "2026-10-15T12:30:00Z",
+                "raw_release_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+                "rights": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                "source_id": "SOURCE_1",
+                "source_url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+                "table": "BLS PPI Table A, September 2026 row",
+                "vintage": "September 2026 release published 15 October 2026; no subsequent revision"
+              },
+              "source_note": "BLS, September 2026 PPI, 15 October 2026 release; monthly SA changes. Rates, not contributions.",
+              "transform": "Identity only; four observed September monthly rates. Underlying overlaps the headline, goods and services; these are not additive contributions.",
+              "unit": "Percent change from previous month, seasonally adjusted"
+            },
+            "placement_after": "September's jump was broad, but uneven",
+            "question": "What did the headline, goods, services and explicitly defined underlying measures each report for September?",
+            "title": "September's price increases extended beyond goods",
+            "why_useful": "Makes the latest-month result immediately legible and distinguishes a very large goods move from the simultaneous services and underlying gains. These overlapping rates are compared, never added."
+          },
+          {
+            "asset_id": "ppi_september_nested_rates",
+            "data_spec": {
+              "allowed_prose_context": "Attribute directly to BLS: energy accounted for over 80% of the goods increase, and nearly half of the services increase was attributed to trade margins. Those qualitative shares refer to their own goods/services aggregates, never the total final-demand increase.",
+              "chart_form": "Two clearly titled horizontal-bar groups, Goods categories and Services categories, using the same visible percent scale and zero baseline. Direct label every value. Give long labels enough room and retain group titles in mobile output.",
+              "groups": [
+                {
+                  "label": "Goods categories",
+                  "observations": [
+                    {
+                      "label": "Foods",
+                      "table_row_label": "Final demand goods: Foods",
+                      "value": 1.2
+                    },
+                    {
+                      "label": "Energy",
+                      "table_row_label": "Final demand goods: Energy",
+                      "value": 10.8
+                    },
+                    {
+                      "label": "Goods less foods and energy",
+                      "table_row_label": "Final demand goods: Less foods and energy",
+                      "value": 0.3
+                    }
+                  ]
+                },
+                {
+                  "label": "Services categories",
+                  "observations": [
+                    {
+                      "label": "Trade services (margins)",
+                      "table_row_label": "Final demand services: Trade",
+                      "value": 1.4
+                    },
+                    {
+                      "label": "Transportation and warehousing",
+                      "table_row_label": "Final demand services: Transportation and warehousing",
+                      "value": 3.4
+                    },
+                    {
+                      "label": "Services less trade, transportation and warehousing",
+                      "table_row_label": "Final demand services: Other",
+                      "value": 0.3
+                    }
+                  ]
+                }
+              ],
+              "period": "2026-09",
+              "source": {
+                "canonical_content_sha256": "80efaa48b57e619cc0e982662022c2d337d3a0dc9ef22bf731e3406c936dc4bb",
+                "document_id": "cc124-bls-september-ppi-original",
+                "published_at_utc": "2026-10-15T12:30:00Z",
+                "raw_release_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+                "rights": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                "source_id": "SOURCE_1",
+                "source_url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+                "table": "BLS PPI Table A, September 2026 row",
+                "vintage": "September 2026 release published 15 October 2026; no subsequent revision"
+              },
+              "source_note": "BLS, September 2026 PPI, 15 October 2026 release; monthly SA rates, not contributions. Trade services measure margins.",
+              "transform": "Identity only. Show nested category inflation rates, not percentage-point contributions or weights. Do not add categories, infer weights, or calculate an energy contribution from these rates.",
+              "unit": "Percent change from previous month, seasonally adjusted",
+              "validation": "Match all six rates to the original September Table A row and narrative. Keep energy 10.8 separate from gasoline 20.3; gasoline is not selected for this chart."
+            },
+            "placement_after": "Energy and trade margins explain the split",
+            "question": "Which goods and service categories explain the contrast between the energy shock and broader September price gains?",
+            "title": "Energy led the goods jump; service categories rose too",
+            "why_useful": "Shows the actual goods concentration and the composition of service pressure. It tests the energy-only countercase with categories absent from the overview, rather than duplicating the headline series."
+          }
+        ],
+        "contextual_photo_decisions": [
+          {
+            "alt_text": "Archive aerial view of Fawley Oil Refinery in the United Kingdom, with storage tanks, industrial structures and surrounding fields.",
+            "asset_id": "documentary_oil",
+            "canonical_photo_credit": "Photo: Chris / Wikimedia Commons / Creative Commons Attribution-Share Alike 2.0. Link the source page and licence.",
+            "caption": "Archive: Fawley Oil Refinery, United Kingdom, 16 June 2017.",
+            "changes_description": "Unchanged original; display resizing only. Preserve its aspect ratio, creator, source and licence links. If an adaptation is later necessary, record it and preserve share-alike terms.",
+            "context_only": true,
+            "corroborates_article_facts": false,
+            "creator_publisher": "Chris",
+            "depicted_date": "2017-06-16",
+            "depicted_location": "Fawley Oil Refinery, United Kingdom",
+            "license": "Creative Commons Attribution-Share Alike 2.0",
+            "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-ppi-background-20261105-v1\\media\\documentary_oil.jpg",
+            "placement": "After the dated opening explanation, as modest industrial context before the first chart. Do not crop the low-resolution original for a full-bleed hero.",
+            "reuse_instruction": "Copy these exact original photo and rights bytes into this article own media folder before binding or upload. Do not overwrite or modify the prior article assets.",
+            "rights_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-ppi-background-20261105-v1\\media\\documentary_oil-rights.json",
+            "rights_evidence_sha256": "f9046e511ed2a142d7226ffd2f65d1ba6d002c668218882b3db95b2c377dde93",
+            "rights_status": "OPEN_LICENSED",
+            "sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+            "source_page_url": "https://commons.wikimedia.org/wiki/File:Fawley_Oil_Refinery,_aerial_2017_-_geograph.org.uk_-_5439355.jpg",
+            "supports_headline": false,
+            "visual_review": {
+              "asset_sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+              "dimensions": {
+                "height": 427,
+                "width": 640
+              },
+              "findings": "Exact local original inspected with view_image: a documentary aerial industrial refinery scene. The UK/2017 identification comes from the retained source/rights record. Suitable for archive context; it provides no evidence about the U.S. September price release.",
+              "pixels_inspected": true,
+              "reviewer": "/root/ppi_max_writer",
+              "scope": "Standalone source-bound photo meaning only. This is not a completed article/render review."
+            }
+          }
+        ],
+        "contextual_photo_ids": [
+          "documentary_oil"
+        ],
+        "countercase": "Energy rose 10.8%, while goods excluding foods and energy and services excluding trade, transportation and warehousing each rose 0.3%. The goods shock was highly concentrated, and one positive underlying monthly reading cannot establish persistence. Trade-service prices measure margins. The 24-month first-release history also shows volatility: September's 1.3% headline first print was below April 2026's 1.4%, so do not call it the largest rise in that window.",
+        "editorial_thesis": "The September release combined a 1.3% monthly headline PPI rise with a 2.6% increase in goods, a 0.8% rise in services and a 0.5% rise excluding foods, energy and trade services. Energy dominated the goods increase, according to BLS, while the services and underlying measures show why an energy-only reading is incomplete. This is a dated analysis of the 15 October 2026 release; the visual argument does not extrapolate one month into a consumer-inflation or Federal Reserve forecast.",
+        "essential_gaps": [],
+        "proposed_title": "September's PPI surge: energy-heavy goods gains, with services rising too",
+        "reader_first_version": "DATA_JOURNALISM_V1",
+        "rejected_visuals": [
+          {
+            "reason": "The admitted component rates do not supply the necessary contribution weights; adding them would manufacture a decomposition.",
+            "visual": "Energy contribution waterfall"
+          },
+          {
+            "reason": "Jim decision 19 b: this retrospective must not include later observations or revisions.",
+            "visual": "Current-vintage or post-15-October PPI history"
+          },
+          {
+            "reason": "Would silently mix first-print and revised-release vintages. Revised values may be discussed separately with their September-release vintage stated.",
+            "visual": "Replacing July/August first prints with September-release revised comparators in the history chart"
+          },
+          {
+            "reason": "Duplicates the chosen comparison or creates an unnecessary transform; it does not improve the distinct reader questions.",
+            "visual": "A second headline-only trend panel or a synthetic cumulative price index"
+          },
+          {
+            "reason": "The retained image is a 640x427 UK archive photograph from 2017.",
+            "visual": "A current U.S. event interpretation or full-bleed crop of the refinery photo"
+          }
+        ],
+        "render_preparation": {
+          "after_text_approval": "Follow Jim decision 53: one automated load/dimension check per destination; preserve the first approval clock for unchanged text.",
+          "chart_count": 3,
+          "first_two_chart_reuse": "Source-verified existing matching charts may be reused or adapted; retain exact data/vintage meaning and article-owned file paths.",
+          "new_chart_required": "ppi_september_nested_rates",
+          "review_sequence": "Render all selected charts, bind the copied lawful photo and exact source lineage, then return the exact media to this SAME /root/ppi_max_writer for writing and final rendered review before text approval."
+        },
+        "retrospective_scope": {
+          "as_of_basis": "Observations and release vintages available by this release only; archive retrieval after the event is recorded separately.",
+          "distinction": "This is the September release retrospective. The future October release preview is a separate article.",
+          "event_release_utc": "2026-10-15T12:30:00Z",
+          "reader_date_label": "September 2026 PPI, released 15 October 2026",
+          "reference_period": "2026-09"
+        },
+        "section_outline": [
+          "September's jump was broad, but uneven",
+          "How September compares with two years of first releases",
+          "Energy and trade margins explain the split",
+          "The limits of a one-month signal"
+        ],
+        "slug": "september-2026-ppi-energy-services-retrospective",
+        "source_and_data_limits": [
+          "The 24-month history is a reconstruction from retained dated releases. Retrieval occurred after the event; historical possession by Capital Chronicle at each release is not established.",
+          "July/August headline first prints are 0.0%/0.4%; the September-release Table A revised values are 0.2%/0.5%. July underlying first print is 0.4%, versus 0.5% revised in the September release. August underlying remains 0.3%. Keep those vintages separate in every comparator.",
+          "Every selected figure is an observed monthly seasonally adjusted percent change. None is an index level, annual rate, forecast, contribution or consensus figure.",
+          "No later economic data, market-price reaction, pass-through coefficient or Federal Reserve path is admitted by this packet.",
+          "Code renders and validates the three selected chart packets. Full chart and assembled desktop/mobile inspection must occur before text approval in this analysis operation; a plan and inspected source PNGs do not assert final-layout acceptance.",
+          "The existing source count and cap of 20 are preserved; this decision requests no additional factual source call."
+        ],
+        "story_kind": "ANALYSIS"
+      },
+      "display_date": "5 November 2026 | September PPI retrospective",
+      "social_mechanism_summary": "In the September 2026 release, BLS attributed over 80% of the goods increase to energy, which rose 10.8%. Services prices also rose 0.8%.",
+      "social_policy_summary": "The September 2026 countercase is concentration: goods excluding foods and energy rose 0.3%, and services excluding trade, transportation and warehousing also rose 0.3%.",
+      "social_cross_asset_summary": "A lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it.",
+      "canonical_slug_candidate": "september-2026-ppi-energy-services-retrospective",
+      "primary_reader_question": "What did September producer prices actually show about broad cost pressure once the headline increase is separated from the narrower underlying measure?",
+      "secondary_reader_questions": [
+        "How much of the September goods increase did BLS attribute to energy?",
+        "What did services and the measure excluding foods, energy and trade services report?",
+        "How does the September result compare with two years of first-reported monthly changes?",
+        "How do September-release revisions differ from the earlier first prints?"
+      ],
+      "entities": [
+        "U.S. Bureau of Labor Statistics",
+        "U.S. Producer Price Index",
+        "United States"
+      ],
+      "topics": [
+        "U.S. producer prices",
+        "Energy prices",
+        "Services prices",
+        "Inflation data"
+      ],
+      "search_freshness_class": "DATED_RETROSPECTIVE",
+      "internal_link_candidates": [],
+      "structured_data_packet": null,
+      "source_clock_metadata": [
+        {
+          "source_id": "SOURCE_1",
+          "published_at_utc": "2026-10-15T12:30:00Z",
+          "published_at_source": "8:30 a.m. (ET) Thursday, October 15, 2026",
+          "source_url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+          "canonical_content_sha256": "80efaa48b57e619cc0e982662022c2d337d3a0dc9ef22bf731e3406c936dc4bb"
+        },
+        {
+          "source_id": "SOURCE_2",
+          "published_at_utc": "2026-10-15T12:30:00Z",
+          "published_at_source": null,
+          "source_url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+          "canonical_content_sha256": "58a6a1731973ff57b99a68a7e2d15dfa2f2450a0ad57b5e546c0c4415352f5a3"
+        },
+        {
+          "source_id": "SOURCE_3",
+          "published_at_utc": "2026-10-15T12:30:00Z",
+          "published_at_source": null,
+          "source_url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+          "canonical_content_sha256": "6bc0ab4374bf20f0feaca7ae9678ccb4442717848274ae89c1f6d94888eafb6c"
+        }
+      ],
+      "canonical_photo_credit": "Photo: [Chris](https://commons.wikimedia.org/wiki/File:Fawley_Oil_Refinery,_aerial_2017_-_geograph.org.uk_-_5439355.jpg) / Wikimedia Commons / [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0).",
+      "media_credits": [
+        {
+          "asset_id": "documentary_oil",
+          "caption": "Archive: Fawley Oil Refinery, United Kingdom, 16 June 2017.",
+          "attribution": "Chris / Wikimedia Commons / Creative Commons Attribution-Share Alike 2.0",
+          "creator_publisher": "Chris ",
+          "source_page_url": "https://commons.wikimedia.org/wiki/File:Fawley_Oil_Refinery,_aerial_2017_-_geograph.org.uk_-_5439355.jpg",
+          "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+          "depicted_date": "2017-06-16",
+          "changes_description": "Unchanged original; display resizing only. Preserve its aspect ratio, creator, source and licence links. If an adaptation is later necessary, record it and preserve share-alike terms.",
+          "context_only": true
+        }
+      ]
+    },
+    "cited_sources": [
+      {
+        "published_at_utc": "2026-10-15T12:30:00Z",
+        "publisher": "U.S. Bureau of Labor Statistics",
+        "source_id": "SOURCE_1",
+        "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+      },
+      {
+        "published_at_utc": "2026-10-15T12:30:00Z",
+        "publisher": "U.S. Bureau of Labor Statistics (CC-010 first-print projection)",
+        "source_id": "SOURCE_2",
+        "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+      },
+      {
+        "published_at_utc": "2026-10-15T12:30:00Z",
+        "publisher": "U.S. Bureau of Labor Statistics (CC-010 first-print projection)",
+        "source_id": "SOURCE_3",
+        "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+      }
+    ],
+    "material_claim_bindings": [
+      {
+        "claim_id": "PPI-META-TITLE",
+        "claim_text": "September PPI: energy drove the goods surge as services rose",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand goods: Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009. Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent. Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively. Product detail: Half of the September increase in the index for final demand goods can be traced to prices for gasoline, which jumped 20.3 percent. The indexes for diesel fuel, fresh and dry vegetables, jet fuel, residential electric power, and crude petroleum also rose. In contrast, prices for chicken eggs dropped 39.7 percent. The indexes for thermoplastic resins and materials and for commercial electric power also declined. (See table 2.) Final demand services: Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.8 percent in April. Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services. The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively. ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-META-DEK",
+        "claim_text": "The BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services. The component detail separates the energy shock from wider monthly gains.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand goods: Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009. Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent. Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively. Product detail: Half of the September increase in the index for final demand goods can be traced to prices for gasoline, which jumped 20.3 percent. The indexes for diesel fuel, fresh and dry vegetables, jet fuel, residential electric power, and crude petroleum also rose. In contrast, prices for chicken eggs dropped 39.7 percent. The indexes for thermoplastic resins and materials and for commercial electric power also declined. (See table 2.) Final demand services: Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.8 percent in April. Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services. The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively. ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-META-DEK-HEADLINE",
+        "claim_text": "The BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services. The component detail separates the energy shock from wider monthly gains.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Producer Price Index for final demand increased 1.3 percent in September, seasonally adjusted, the U.S. Bureau of Labor Statistics reported today.\n\nPrices for final demand less foods, energy, and trade services moved up 0.5 percent in September after increasing 0.3 percent in August.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-META-SEARCH_TITLE",
+        "claim_text": "September 2026 PPI: energy, services and underlying inflation",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand goods: Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009. Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent. Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively. Product detail: Half of the September increase in the index for final demand goods can be traced to prices for gasoline, which jumped 20.3 percent. The indexes for diesel fuel, fresh and dry vegetables, jet fuel, residential electric power, and crude petroleum also rose. In contrast, prices for chicken eggs dropped 39.7 percent. The indexes for thermoplastic resins and materials and for commercial electric power also declined. (See table 2.) Final demand services: Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.8 percent in April. Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services. The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively. ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-META-META_DESCRIPTION",
+        "claim_text": "September 2026 PPI rose 1.3%. Examine energy, services and underlying gains in the 15 October BLS release, with two years of first-reported changes.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand goods: Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009. Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent. Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively. Product detail: Half of the September increase in the index for final demand goods can be traced to prices for gasoline, which jumped 20.3 percent. The indexes for diesel fuel, fresh and dry vegetables, jet fuel, residential electric power, and crude petroleum also rose. In contrast, prices for chicken eggs dropped 39.7 percent. The indexes for thermoplastic resins and materials and for commercial electric power also declined. (See table 2.) Final demand services: Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.8 percent in April. Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services. The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively. ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-META-META_DESCRIPTION-HEADLINE",
+        "claim_text": "September 2026 PPI rose 1.3%. Examine energy, services and underlying gains in the 15 October BLS release, with two years of first-reported changes.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Producer Price Index for final demand increased 1.3 percent in September, seasonally adjusted, the U.S. Bureau of Labor Statistics reported today.\n\nPrices for final demand less foods, energy, and trade services moved up 0.5 percent in September after increasing 0.3 percent in August.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-META-HISTORY",
+        "claim_text": "September 2026 PPI rose 1.3%. Examine energy, services and underlying gains in the 15 October BLS release, with two years of first-reported changes.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "BLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2024-10; 0.2 percent; SA; OBSERVED; release 2024-11-14T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2024-11; 0.4 percent; SA; OBSERVED; release 2024-12-12T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2024-12; 0.2 percent; SA; OBSERVED; release 2025-01-14T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-01; 0.4 percent; SA; OBSERVED; release 2025-02-13T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-02; 0 percent; SA; OBSERVED; release 2025-03-13T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-03; -0.4 percent; SA; OBSERVED; release 2025-04-11T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-04; -0.5 percent; SA; OBSERVED; release 2025-05-15T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-05; 0.1 percent; SA; OBSERVED; release 2025-06-12T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-06; 0 percent; SA; OBSERVED; release 2025-07-16T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-07; 0.9 percent; SA; OBSERVED; release 2025-08-14T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-08; -0.1 percent; SA; OBSERVED; release 2025-09-10T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-09; 0.3 percent; SA; OBSERVED; release 2025-11-25T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-10; 0.1 percent; SA; OBSERVED; release 2026-01-14T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-11; 0.2 percent; SA; OBSERVED; release 2026-01-14T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-12; 0.5 percent; SA; OBSERVED; release 2026-01-30T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-01; 0.5 percent; SA; OBSERVED; release 2026-02-27T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-02; 0.7 percent; SA; OBSERVED; release 2026-03-18T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-03; 0.5 percent; SA; OBSERVED; release 2026-04-14T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-04; 1.4 percent; SA; OBSERVED; release 2026-05-13T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-05; 1.1 percent; SA; OBSERVED; release 2026-06-11T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-06; -0.3 percent; SA; OBSERVED; release 2026-07-15T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-07; 0 percent; SA; OBSERVED; release 2026-08-13T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-08; 0.4 percent; SA; OBSERVED; release 2026-09-10T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-09; 1.3 percent; SA; OBSERVED; release 2026-10-15T12:30:00Z",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-META-SOCIAL_HOOK",
+        "claim_text": "September 2026 PPI retrospective: energy drove the goods surge, while services and the underlying measure rose too.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand goods: Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009. Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent. Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively. Product detail: Half of the September increase in the index for final demand goods can be traced to prices for gasoline, which jumped 20.3 percent. The indexes for diesel fuel, fresh and dry vegetables, jet fuel, residential electric power, and crude petroleum also rose. In contrast, prices for chicken eggs dropped 39.7 percent. The indexes for thermoplastic resins and materials and for commercial electric power also declined. (See table 2.) Final demand services: Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.8 percent in April. Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services. The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively. ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-LEDE-HEADLINE",
+        "claim_text": "The September 2026 Producer Price Index combined a 1.3% monthly headline increase with a 0.5% rise excluding foods, energy and trade services, according to the U.S. Bureau of Labor Statistics release of 15 October 2026. Energy dominated the increase in goods prices, while services rose too. The question is how much of that pressure extended beyond the biggest commodity move.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Producer Price Index for final demand increased 1.3 percent in September, seasonally adjusted, the U.S. Bureau of Labor Statistics reported today.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-LEDE-UNDERLYING",
+        "claim_text": "The September 2026 Producer Price Index combined a 1.3% monthly headline increase with a 0.5% rise excluding foods, energy and trade services, according to the U.S. Bureau of Labor Statistics release of 15 October 2026. Energy dominated the increase in goods prices, while services rose too. The question is how much of that pressure extended beyond the biggest commodity move.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Prices for final demand less foods, energy, and trade services moved up 0.5 percent in September after increasing 0.3 percent in August.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-LEDE-COMPOSITION",
+        "claim_text": "The September 2026 Producer Price Index combined a 1.3% monthly headline increase with a 0.5% rise excluding foods, energy and trade services, according to the U.S. Bureau of Labor Statistics release of 15 October 2026. Energy dominated the increase in goods prices, while services rose too. The question is how much of that pressure extended beyond the biggest commodity move.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand goods: Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009. Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent. Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively. Product detail: Half of the September increase in the index for final demand goods can be traced to prices for gasoline, which jumped 20.3 percent. The indexes for diesel fuel, fresh and dry vegetables, jet fuel, residential electric power, and crude petroleum also rose. In contrast, prices for chicken eggs dropped 39.7 percent. The indexes for thermoplastic resins and materials and for commercial electric power also declined. (See table 2.) Final demand services: Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.8 percent in April. Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services. The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively. ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-THESIS",
+        "claim_text": "Our reading is that the component mix deserves as much attention as the headline. September showed positive price changes across several categories, but the size of the energy jump makes it especially important to separate a one-month shock from evidence of persistence.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand goods: Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009. Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent. Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively. Product detail: Half of the September increase in the index for final demand goods can be traced to prices for gasoline, which jumped 20.3 percent. The indexes for diesel fuel, fresh and dry vegetables, jet fuel, residential electric power, and crude petroleum also rose. In contrast, prices for chicken eggs dropped 39.7 percent. The indexes for thermoplastic resins and materials and for commercial electric power also declined. (See table 2.) Final demand services: Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.8 percent in April. Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services. The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively. ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-LATEST-GOODS",
+        "claim_text": "Final demand goods rose 2.6% in September and services rose 0.8%. The measure excluding foods, energy and trade services increased 0.5%, following 0.3% in August as stated in the September release. All these monthly rates are seasonally adjusted.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand goods: Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009. Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent. Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-LATEST-SERVICES",
+        "claim_text": "Final demand goods rose 2.6% in September and services rose 0.8%. The measure excluding foods, energy and trade services increased 0.5%, following 0.3% in August as stated in the September release. All these monthly rates are seasonally adjusted.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand services: Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.8 percent in April. Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services. The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-LATEST-UNDERLYING",
+        "claim_text": "Final demand goods rose 2.6% in September and services rose 0.8%. The measure excluding foods, energy and trade services increased 0.5%, following 0.3% in August as stated in the September release. All these monthly rates are seasonally adjusted.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Prices for final demand less foods, energy, and trade services moved up 0.5 percent in September after increasing 0.3 percent in August.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-OVERLAP",
+        "claim_text": "The underlying measure is a separate view of the same price system, with those categories excluded. It overlaps the goods and services aggregates; its rate is not an extra contribution to add to them. The comparison shows both the goods surge and the smaller gains that remained after the exclusions.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Prices for final demand less foods, energy, and trade services moved up 0.5 percent in September after increasing 0.3 percent in August. For the 12 months ended in September, the index for final demand less foods, energy, and trade services rose 5.0 percent.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-VINTAGE-REVISIONS",
+        "claim_text": "That history differs from a chart rewritten with later revisions. August headline PPI was first reported at 0.4%; the September release revised it to 0.5%. July was initially unchanged and stood at 0.2% in the September release. Thus the September-release comparison is 1.3% after 0.5%, while the first-release chart preserves the earlier observations.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "July ( 1 ) 0.2 0.5 -0.4 -1.0 -1.7 0.2 0.3 -0.2 -1.1 0.7 4.9 4.9 Aug. ( 1 ) 0.5 0.3 1.1 -0.3 4.5 0.4 0.2 0.2 2.2 0.0 5.6 4.8 Sept. 1.3 0.5 2.6 1.2 10.8 0.3 0.8 1.4 3.4 0.3 6.3 5.0",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-GOODS-ENERGY-MECHANISM",
+        "claim_text": "In the September 2026 release, BLS attributed over 80% of the goods increase to energy, which rose 10.8%. Services prices also rose 0.8%.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand goods: Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009. Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent. Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively. Product detail: Half of the September increase in the index for final demand goods can be traced to prices for gasoline, which jumped 20.3 percent. The indexes for diesel fuel, fresh and dry vegetables, jet fuel, residential electric power, and crude petroleum also rose. In contrast, prices for chicken eggs dropped 39.7 percent. The indexes for thermoplastic resins and materials and for commercial electric power also declined. (See table 2.) Final demand services: Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.8 percent in April. Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services. The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively. ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-GOODS-CATEGORIES",
+        "claim_text": "Within goods, foods rose 1.2% and the index excluding foods and energy rose 0.3%. Those figures explain why a strong goods total need not mean similarly large price increases in every goods category. The energy share cited by BLS describes the goods increase, not the entire final-demand increase.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand goods: Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009. Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent. Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-SERVICES-CATEGORIES",
+        "claim_text": "Services had their own composition. Trade-service margins rose 1.4%, accounting for nearly half of the services increase, according to BLS. Transportation and warehousing services rose 3.4%, while services excluding trade, transportation and warehousing rose 0.3%. Trade services here refer to margins, a distinction that matters when interpreting that category.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand services: Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.8 percent in April. Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services. The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-RATES-NOT-CONTRIBUTIONS",
+        "claim_text": "The component chart compares each category's own monthly rate. It is not a contribution waterfall: adding these rates, or treating the energy rate as a percentage-point contribution to headline inflation, would misread the figures. The services detail provides a separate check on the idea that September was exclusively an energy story.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand goods: Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009. Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent. Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively. Product detail: Half of the September increase in the index for final demand goods can be traced to prices for gasoline, which jumped 20.3 percent. The indexes for diesel fuel, fresh and dry vegetables, jet fuel, residential electric power, and crude petroleum also rose. In contrast, prices for chicken eggs dropped 39.7 percent. The indexes for thermoplastic resins and materials and for commercial electric power also declined. (See table 2.) Final demand services: Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.8 percent in April. Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services. The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively. ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-COUNTERCASE",
+        "claim_text": "The September 2026 countercase is concentration: goods excluding foods and energy rose 0.3%, and services excluding trade, transportation and warehousing also rose 0.3%.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand goods: Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009. Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent. Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively. Product detail: Half of the September increase in the index for final demand goods can be traced to prices for gasoline, which jumped 20.3 percent. The indexes for diesel fuel, fresh and dry vegetables, jet fuel, residential electric power, and crude petroleum also rose. In contrast, prices for chicken eggs dropped 39.7 percent. The indexes for thermoplastic resins and materials and for commercial electric power also declined. (See table 2.) Final demand services: Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.8 percent in April. Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services. The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively. ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-CONCENTRATION-INFERENCE",
+        "claim_text": "Those narrower gains were positive, yet much smaller than the energy increase. That is the strongest reason to resist treating the headline pace as representative of every component or extrapolating it as a continuing monthly rate. The release supports a distinction between concentrated strength and the smaller increases elsewhere.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand goods: Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009. Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent. Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively. Product detail: Half of the September increase in the index for final demand goods can be traced to prices for gasoline, which jumped 20.3 percent. The indexes for diesel fuel, fresh and dry vegetables, jet fuel, residential electric power, and crude petroleum also rose. In contrast, prices for chicken eggs dropped 39.7 percent. The indexes for thermoplastic resins and materials and for commercial electric power also declined. (See table 2.) Final demand services: Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.8 percent in April. Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services. The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively. ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-PERSISTENCE-TEST",
+        "claim_text": "A lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Final demand goods: Prices for final demand goods advanced 2.6 percent in September, the largest increase since data were first calculated in December 2009. Over 80 percent of the broad-based rise in September is attributable to the index for final demand energy, which jumped 10.8 percent. Prices for final demand foods and for final demand goods less foods and energy advanced 1.2 percent and 0.3 percent, respectively. Product detail: Half of the September increase in the index for final demand goods can be traced to prices for gasoline, which jumped 20.3 percent. The indexes for diesel fuel, fresh and dry vegetables, jet fuel, residential electric power, and crude petroleum also rose. In contrast, prices for chicken eggs dropped 39.7 percent. The indexes for thermoplastic resins and materials and for commercial electric power also declined. (See table 2.) Final demand services: Prices for final demand services moved up 0.8 percent in September, the largest rise since advancing 0.8 percent in April. Nearly half of the broad-based September increase can be attributed to a 1.4-percent rise in margins for final demand trade services. The indexes for final demand transportation and warehousing services and for final demand services less trade, transportation, and warehousing also advanced, 3.4 percent and 0.3 percent, respectively. ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-RELEASE-LIMITS",
+        "claim_text": "That is a test for an interpretation, rather than a forecast supplied by this release. These producer-price observations alone do not establish a consumer-inflation outcome or an automatic Federal Reserve response. The unresolved issue is whether pressure beyond energy persists, not whether the largest monthly number can stand in for the whole report.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Producer Price Index for final demand increased 1.3 percent in September, seasonally adjusted, the U.S. Bureau of Labor Statistics reported today.\n\nPrices for final demand less foods, energy, and trade services moved up 0.5 percent in September after increasing 0.3 percent in August.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-FIRST-RELEASE-HEADLINE-HISTORY",
+        "claim_text": "The history chart follows the monthly changes as first reported in dated BLS releases, from October 2024 through September 2026. On that basis, September's 1.3% headline increase was below April 2026's 1.4%. The underlying measure also varied across the period: its September increase of 0.5% was below May 2026's first-reported 0.8%.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "BLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2024-10; 0.2 percent; SA; OBSERVED; release 2024-11-14T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2024-11; 0.4 percent; SA; OBSERVED; release 2024-12-12T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2024-12; 0.2 percent; SA; OBSERVED; release 2025-01-14T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-01; 0.4 percent; SA; OBSERVED; release 2025-02-13T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-02; 0 percent; SA; OBSERVED; release 2025-03-13T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-03; -0.4 percent; SA; OBSERVED; release 2025-04-11T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-04; -0.5 percent; SA; OBSERVED; release 2025-05-15T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-05; 0.1 percent; SA; OBSERVED; release 2025-06-12T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-06; 0 percent; SA; OBSERVED; release 2025-07-16T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-07; 0.9 percent; SA; OBSERVED; release 2025-08-14T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-08; -0.1 percent; SA; OBSERVED; release 2025-09-10T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-09; 0.3 percent; SA; OBSERVED; release 2025-11-25T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-10; 0.1 percent; SA; OBSERVED; release 2026-01-14T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-11; 0.2 percent; SA; OBSERVED; release 2026-01-14T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2025-12; 0.5 percent; SA; OBSERVED; release 2026-01-30T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-01; 0.5 percent; SA; OBSERVED; release 2026-02-27T13:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-02; 0.7 percent; SA; OBSERVED; release 2026-03-18T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-03; 0.5 percent; SA; OBSERVED; release 2026-04-14T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-04; 1.4 percent; SA; OBSERVED; release 2026-05-13T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-05; 1.1 percent; SA; OBSERVED; release 2026-06-11T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-06; -0.3 percent; SA; OBSERVED; release 2026-07-15T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-07; 0 percent; SA; OBSERVED; release 2026-08-13T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-08; 0.4 percent; SA; OBSERVED; release 2026-09-10T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-09; 1.3 percent; SA; OBSERVED; release 2026-10-15T12:30:00Z",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-FIRST-RELEASE-UNDERLYING-HISTORY",
+        "claim_text": "The history chart follows the monthly changes as first reported in dated BLS releases, from October 2024 through September 2026. On that basis, September's 1.3% headline increase was below April 2026's 1.4%. The underlying measure also varied across the period: its September increase of 0.5% was below May 2026's first-reported 0.8%.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "BLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2024-10; 0.3 percent; SA; OBSERVED; release 2024-11-14T13:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2024-11; 0.1 percent; SA; OBSERVED; release 2024-12-12T13:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2024-12; 0.1 percent; SA; OBSERVED; release 2025-01-14T13:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2025-01; 0.3 percent; SA; OBSERVED; release 2025-02-13T13:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2025-02; 0.2 percent; SA; OBSERVED; release 2025-03-13T12:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2025-03; 0.1 percent; SA; OBSERVED; release 2025-04-11T12:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2025-04; -0.1 percent; SA; OBSERVED; release 2025-05-15T12:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2025-05; 0.1 percent; SA; OBSERVED; release 2025-06-12T12:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2025-06; 0 percent; SA; OBSERVED; release 2025-07-16T12:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2025-07; 0.6 percent; SA; OBSERVED; release 2025-08-14T12:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2025-08; 0.3 percent; SA; OBSERVED; release 2025-09-10T12:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2025-09; 0.1 percent; SA; OBSERVED; release 2025-11-25T13:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2025-10; 0.7 percent; SA; OBSERVED; release 2026-01-14T13:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2025-11; 0.2 percent; SA; OBSERVED; release 2026-01-14T13:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2025-12; 0.4 percent; SA; OBSERVED; release 2026-01-30T13:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2026-01; 0.3 percent; SA; OBSERVED; release 2026-02-27T13:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2026-02; 0.5 percent; SA; OBSERVED; release 2026-03-18T12:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2026-03; 0.2 percent; SA; OBSERVED; release 2026-04-14T12:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2026-04; 0.6 percent; SA; OBSERVED; release 2026-05-13T12:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2026-05; 0.8 percent; SA; OBSERVED; release 2026-06-11T12:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2026-06; 0.1 percent; SA; OBSERVED; release 2026-07-15T12:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2026-07; 0.4 percent; SA; OBSERVED; release 2026-08-13T12:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2026-08; 0.3 percent; SA; OBSERVED; release 2026-09-10T12:30:00Z\nBLS BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM; 2026-09; 0.5 percent; SA; OBSERVED; release 2026-10-15T12:30:00Z",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "PPI-FIRST-PRINT-JULY-AUGUST",
+        "claim_text": "That history differs from a chart rewritten with later revisions. August headline PPI was first reported at 0.4%; the September release revised it to 0.5%. July was initially unchanged and stood at 0.2% in the September release. Thus the September-release comparison is 1.3% after 0.5%, while the first-release chart preserves the earlier observations.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "BLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-07; 0 percent; SA; OBSERVED; release 2026-08-13T12:30:00Z\nBLS WPSFD4 PPI_FINAL_DEMAND_MOM; 2026-08; 0.4 percent; SA; OBSERVED; release 2026-09-10T12:30:00Z",
+        "attribution_required": true
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_article.v1"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/ppi_max_writer",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Supported native task context /root/ppi_max_writer exposes canonical task identity; actual runtime model and reasoning-effort telemetry is unavailable.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Exact desktop_request_write.json requested_model/requested_reasoning_effort and supported parent followup_task assignment to the SAME /root/ppi_max_writer."
+  }
+}
