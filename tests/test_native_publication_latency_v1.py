@@ -80,6 +80,8 @@ def test_pre_writer_repair_counts_and_failed_asset_drops_with_source_bound_copy_
         message_id="cc-editorial-final-" + sha256_of(binding["run_id"]),
         payload=canonical_bytes(result).decode(), status="EDITORIAL_INTERNAL")
     repair = failed_review(store, binding, result, "prewriter-one-repair")
+    passing_chart = next(a["asset_id"] for a in result["media_assets"] if a["modality"] == "source_backed_chart")
+    repair["channel_media_after_drop"] = {p["destination"]: [passing_chart] for p in result["previews"]}
     worker = json.loads((Path(__file__).resolve().parents[1] /
         "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/goal31-company-machine-reading-write-output.json").read_bytes())
     original_dek = worker["article"]["dek"]
@@ -96,6 +98,7 @@ def test_pre_writer_repair_counts_and_failed_asset_drops_with_source_bound_copy_
     assert updated["visual_repair_disposition"]["repair_rounds"] == 1
     assert [a["modality"] for a in updated["media_assets"]] == ["source_backed_chart"]
     assert len(updated["previews"]) == 8
+    assert updated["article"]["post_visual_destination_media"] == repair["channel_media_after_drop"]
     assert all(not {a["asset_id"] for a in updated["visual_repair_disposition"]["dropped_assets"]}
         & set(p["payload"].get("media_asset_ids", [])) for p in updated["previews"])
     assert Path(updated["visual_repair_revision"]["qualified_record_path"]).is_file()

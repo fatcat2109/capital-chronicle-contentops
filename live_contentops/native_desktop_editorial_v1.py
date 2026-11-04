@@ -1305,6 +1305,8 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
                 "channel_media": {d: [i for i in ids if i not in dropped] for d, ids in decision["channel_media"].items()}}
         corrected_article = {**corrected_article,
             **({"visual_editorial_decision": decision} if decision else {}),
+            **({"post_visual_destination_media": final_visual_repair["channel_media_after_drop"]}
+               if final_visual_repair.get("channel_media_after_drop") else {}),
             "visual_repair_disposition": {"policy": "CC-172", "repair_rounds": 1, "dropped_asset_ids": sorted(dropped)}}
     allowed = {d["url"] for d in result.get("evidence", [])}
     allowed.update(s["url"] for d in result.get("evidence", []) for s in d.get("desk_record_binding", {}).get("sources", []))
