@@ -64,13 +64,24 @@ def test_referenced_draft_and_exact_public_readback_remain_available(tmp_path):
     assert "UNKNOWN_WRITE" in scope["instructions"]
 
 
-def test_existing_native_composition_passes_store_to_scan_scope(tmp_path):
+@pytest.mark.parametrize("composition", ["native", "production"])
+def test_existing_composition_passes_store_to_scan_scope(tmp_path, composition):
     store = store_with_draft(tmp_path)
-    coordinator, _ = bind_native_neo_coordinator(store, operation_id="op", output_dir=tmp_path,
-                                                native_invocation_id="test")
+    if composition == "native":
+        coordinator, _ = bind_native_neo_coordinator(store, operation_id="op", output_dir=tmp_path,
+                                                    native_invocation_id="test")
+    else:
+        from live_contentops.production_runtime_v1 import build_final_daily_app_production_runtime
+        runtime = build_final_daily_app_production_runtime(
+            store_path=store.db_path, output_root=tmp_path / "outputs")
+        coordinator = runtime.publication_coordinator
     adapter = coordinator.transport_runtime._neo_transport
     request = adapter.request(destination="substack", action="READBACK", intent=intent())
     assert request["draft_readback_scope"]["referenced_draft_ids"] == ["123"]
+    result = adapter.readback(destination="substack", intent=intent(), public_object_id="999",
+        public_object_url="https://capitalchronicle.substack.com/publish/post/999")
+    assert result["reason_code"] == "UNREFERENCED_SUBSTACK_DRAFT_IGNORED"
+    assert result["write_absent"] is False
 
 
 def test_pending_native_results_and_readbacks_count_as_references_without_cross_channel_ids(tmp_path):

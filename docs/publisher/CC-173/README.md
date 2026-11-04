@@ -34,5 +34,16 @@ The launch arguments configured `gpt-6.1-sol/high`, read from PID 49192, and are
 recorded as `CONFIGURED_NOT_OBSERVED`. This engineering run used zero editorial
 model calls.
 
-The branch is delivered as `BUILT_UNMERGED`. Ops integration and activation of the
-live consumer remain pending under this run's branch-delivery instruction.
+The original delivery above was `BUILT_UNMERGED`. The 4 November continuation
+integrates it into the current operating root under Jim's decision 39. It retains
+the captured Substack inventory rather than treating a later store comparison as
+a new browser capture. The current read-only store comparison still finds two
+referenced drafts and 637 old drafts; there are now 16 total store references,
+including public objects absent from that captured draft list.
+
+The continuation launch is configured `gpt-6.1-sol/high`, read from PID 18132,
+labelled `CONFIGURED_NOT_OBSERVED`; no editorial model call is needed. The current
+readback normalization, ten-minute recovery observations, digest email evidence,
+publication clocks and pending code-tab protections survive the integration.
+See [integration.json](integration.json) for installed consumer verification and
+[integration-tests.junit.xml](integration-tests.junit.xml) for the targeted run.
