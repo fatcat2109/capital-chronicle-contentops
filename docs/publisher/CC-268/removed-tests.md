@@ -388,3 +388,15 @@ controls of the retired v6 approval, evidence and dispatch gates and the 0174 co
 | `tests/test_scoped_network_policy_v6.py` | `scoped_network_policy_v6` | another dead v6 module (manual_evidence_refresh_orchestrator_v6); another dead v6 module (project_sources_upload_bundle_v6); code-graph index; docs/archive/_repo_cleanup_2026-07-03-pass3/docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_hash_inputs_redacted.json; docs/archive/_repo_cleanup_2026-07-03-pass3/docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_exact_review.json; v6-era document |
 | `tests/test_static_cockpit_surface_contract.py` | `static_cockpit_surface_contract` | code-graph index |
 | `tests/test_v6_post_release_operator_governance.py` | `v6_post_release_operator_governance` | code-graph index |
+
+## Tests of task documents deleted on 5 Jul
+
+These tests failed only because the task documents they check were deleted in 41af570a (5 Jul 2026), the same commit that removed the fixtures above. That date was confirmed from git history for each document.
+
+| Test | Missing document |
+|---|---|
+| `tests/test_live_pilot_no_go.py` (whole file, 2 tests) | `docs/TELEGRAM_STAGING_LIVE_BLOCKER_MATRIX_V1.json`, `docs/TELEGRAM_STAGING_LIVE_PILOT_NO_GO_REINFORCEMENT.md` |
+| `tests/test_ide_cli_document_bundle.py`: `test_all_0074_docs_exist`, `test_recommended_doc_paths_exact_and_unique`, `test_bundle_validation_passes` | `docs/TASK_CONTENTOPS_0074_LOCAL_IDE_CLI_DOCUMENT_BUNDLE_FOR_ALPHA_WAIT_STATE_V0.md` |
+| `tests/test_next_phase_selection.py`: `test_refreshed_0069_docs_exist`, `test_recommended_upload_paths_exist_and_unique` | `docs/TASK_CONTENTOPS_0069_LOCAL_BUNDLE_REFRESH_AND_NEXT_PHASE_SELECTION_V0.md` |
+| `tests/test_pipeline_trace.py`: `test_refreshed_0072_bundle_docs_exist` | `docs/TASK_CONTENTOPS_0072_EXTREME_LOCAL_REAL_ARTIFACT_PIPELINE_TRACE_REVIEW_PACKET_AND_BUNDLE...` |
+| `tests/test_review_bundle_manifest.py`: `test_recommended_upload_paths_exist_and_unique` | `docs/TASK_CONTENTOPS_0068_LOCAL_REVIEW_PACKET_BUNDLE_MANIFEST_AND_PROJECT_SOURCE_EXPORT_V0...` |

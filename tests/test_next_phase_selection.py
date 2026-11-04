@@ -7,33 +7,10 @@ from live_contentops import next_phase_selection as nps
 REPO_DOCS = os.path.join(os.path.dirname(__file__), "..", "docs")
 
 
-def test_refreshed_0069_docs_exist():
-    for name in ("NEW_CHAT_CONTINUATION_AFTER_0069.md",
-                 "UPLOAD_BUNDLE_MANIFEST_AFTER_0069.md",
-                 "PROJECT_SOURCE_EXPORT_AFTER_0069.md",
-                 "TASK_CONTENTOPS_0069_LOCAL_BUNDLE_REFRESH_AND_NEXT_PHASE_SELECTION_V0.md"):
-        path = os.path.join(REPO_DOCS, name)
-        if not os.path.isfile(path):
-            path = os.path.join(REPO_DOCS, "archive", "stale_prelaunch_reset_0174CG", name)
-        assert os.path.isfile(path), f"missing doc: {name}"
-
-
 def test_bundle_supersedes_0068_and_older():
     b = nps.build_refresh_bundle()
     assert b["supersedes_0068_bundle"] is True
     assert b["supersedes_older_source_bundles"] is True
-
-
-def test_recommended_upload_paths_exist_and_unique():
-    b = nps.build_refresh_bundle()
-    paths = [f["path"] for f in b["included_files"] if f.get("upload_recommended")]
-    assert len(paths) == len(set(paths))
-    repo_root = os.path.join(os.path.dirname(__file__), "..")
-    for p in paths:
-        path = os.path.join(repo_root, p)
-        if not os.path.isfile(path):
-            path = os.path.join(repo_root, "docs", "archive", "stale_prelaunch_reset_0174CG", os.path.basename(p))
-        assert os.path.isfile(path), f"missing doc: {p}"
 
 
 def test_unsafe_categories_remain_excluded():
