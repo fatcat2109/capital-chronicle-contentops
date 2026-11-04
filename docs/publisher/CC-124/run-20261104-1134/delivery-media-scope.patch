@@ -1,0 +1,56 @@
+diff --git a/live_contentops/publication_coordinator_v1.py b/live_contentops/publication_coordinator_v1.py
+index adbd0927..491cba65 100644
+--- a/live_contentops/publication_coordinator_v1.py
++++ b/live_contentops/publication_coordinator_v1.py
+@@ -1072,12 +1072,14 @@ class DurablePublicationCoordinator:
+             "public_object_id": current["public_object_id"], "public_object_url": current["public_object_url"],
+             "reconciliation_status": status, "publish_called": False, "public_write_performed": False}
+ 
+-    def _active_unknown_write_count(self) -> int:
++    def _active_unknown_write_count(self, *, work_item_id=None, destinations=None) -> int:
+         """Count UNKNOWN writes that are allowed to participate in current recovery.
+ 
+         An explicitly quarantined historical lifecycle remains byte-for-byte durable evidence,
+         but it cannot poison delivery-media preconditions for a distinct fresh work item. Missing
+         message ownership remains fail-closed and is counted as active UNKNOWN.
++        Media preparation can scope this count to its exact article/destination;
++        other posts retain their own readback obligations and cannot block it.
+         """
+         count = 0
+         for dispatch in self.store.list_platform_dispatches():
+@@ -1086,6 +1088,11 @@ class DurablePublicationCoordinator:
+             if self._dispatch_quarantine(dispatch):
+                 continue
+             message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
++            if message is not None:
++                if work_item_id is not None and message.get("work_item_id") != work_item_id:
++                    continue
++                if destinations is not None and message.get("destination") not in destinations:
++                    continue
+             if message is not None and self._recovery_is_quarantined(
+                 message.get("work_item_id")
+             ):
+@@ -2471,7 +2479,11 @@ class DurablePublicationCoordinator:
+         from live_contentops.native_newsroom_volume_v1 import permitted_derivative_skips
+         no_media_needed = bool(permitted_derivative_skips(plan)) and plan.get("media_asset_count") == 0
+         if canonical_url and callable(delivery_preparer) and quality_preflight is not None and not no_media_needed:
+-            unknown_write_count = self._active_unknown_write_count()
++            unknown_write_count = self._active_unknown_write_count(
++                work_item_id=work_item_id,
++                destinations={row["destination"] for row in plan["destinations"]
++                              if row.get("delivery_media_required") is True},
++            )
+             delivery_media_preparation = dict(
+                 delivery_preparer(
+                     work_item_id=work_item_id,
+@@ -2872,7 +2884,9 @@ class DurablePublicationCoordinator:
+                                     "skipped_derivative_destinations": [],
+                                     "pre_substack_blockers": [],
+                                 }
+-                                unknown_count = self._active_unknown_write_count()
++                                unknown_count = self._active_unknown_write_count(
++                                    work_item_id=work_item_id, destinations={destination},
++                                )
+                                 if unknown_count:
+                                     delivery = {
+                                         "status": "DELIVERY_MEDIA_RECOVERY_BLOCKED_UNKNOWN_WRITE",
