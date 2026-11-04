@@ -406,3 +406,12 @@ These tests failed only because the task documents they check were deleted in 41
 | Test file | Why |
 |---|---|
 | `tests/test_server.py` (5 tests) | It tests `live_contentops.server._run_id_from_stdout`, `_read_dispatch_audit` and `_trim_tasks`, all removed on 3 Aug 2026 in 7300517c ("quarantine legacy live entrypoints"). |
+
+## Two more dead controls (the same rule, 6 Nov)
+
+| Test file | Module | Why |
+|---|---|---|
+| `tests/test_dispatch_gate_matrix_contract.py` | `dispatch_gate_matrix_contract` | Nothing runs it by name. The only references are a 3 Jul cleanup archive, the code-graph index and a Tower audit note. It read upstream 0174 artifacts (outbox, ledger and 0174WY_WZ_XA, which is not tracked) that other tests used to write into the repository, so it passed only through test order. |
+| `tests/test_dispatch_outbox_candidate_contract.py` | `dispatch_outbox_candidate_contract` | The same: the only reference is the code-graph index. It read the ledger, challenge and 0174WY_WZ_XA artifacts the same way. |
+
+Their policy tests (`test_dispatch_gate_policy`, `test_dispatch_outbox_policy`) stay; they write to tmp and pass.
