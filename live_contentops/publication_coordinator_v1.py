@@ -810,7 +810,11 @@ class DurablePublicationCoordinator:
             "original_intent_sha256": sha256_of(json.loads(message["payload"])),
             "review_reference": review_reference, "acceptance": acceptance}
         if bound and json.loads(bound["payload"]) != note:
-            raise ValueError("DERIVATIVE_REVISION_EXISTING_BINDING_CHANGED")
+            # A newly accepted review can replace the internal selection before
+            # its first send. Claimed/uncertain and confirmed sends returned above;
+            # original intents and both immutable review returns remain retained.
+            self.store.finalize_outbox_payload_before_dispatch(message_id=key,
+                payload=_canonical_json(note), status="PRESENTATION_MEDIA_BOUND")
         if not bound:
             self.store.register_outbox_message(message_id=key, work_item_id=work_item_id,
                 destination="internal:native-reader-presentation", payload=_canonical_json(note),

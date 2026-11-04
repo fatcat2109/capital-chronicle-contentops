@@ -163,6 +163,9 @@ class NeoDestinationHandoff:
             # An earlier failed observation stays immutable. A corrected readback
             # contract receives a new read-only identity, never a new write.
             value["reader_text_normalization"] = "MARKDOWN_WHITESPACE_SMART_QUOTES_V1"
+            invocation = getattr(self.native_executor, "native_invocation_id", None)
+            if invocation:
+                value["native_invocation_id"] = invocation
         if destination == "substack" and action == "READBACK" and intent.get("published_content_export"):
             value["publication_clock_readback"] = (
                 "Return published_at_utc from the exact post's time datetime or post_date; "

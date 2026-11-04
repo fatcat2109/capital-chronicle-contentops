@@ -206,6 +206,20 @@ def test_unchanged_confirmed_text_is_read_back_without_an_edit(social, monkeypat
     assert actions == ["readback"] and out["edit_called"] is False
 
 
+def test_new_current_review_updates_unsent_selection_and_reaches_consumer(social, monkeypatch):
+    store, run, _, revision, _ = social
+    co, ref = continuation(social, monkeypatch)
+    calls = []
+    monkeypatch.setattr(co, "_dispatch_message", lambda message, **kw:
+        calls.append(message["message_id"]) or {"publish_called": False})
+    co.continue_reader_derivative(work_item_id=run, destination="threads", review_reference=ref)
+    current = {**ref, "request_sha256": "e" * 64}
+    co.continue_reader_derivative(work_item_id=run, destination="threads", review_reference=current)
+    key = "native-reader-presentation-" + sha256_of(revision["objects"]["threads"]["message_id"])
+    assert json.loads(store.get_outbox_message(key)["payload"])["review_reference"] == current
+    assert len(calls) == 2
+
+
 def test_lost_or_changed_review_cannot_bind_or_dispatch(social, monkeypatch):
     store, run, _, _, _ = social
     co, ref = continuation(social, monkeypatch)

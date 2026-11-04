@@ -52,6 +52,19 @@ def pending_readback(adapter, destination="substack", value=None):
     return pending.value.request, ids[destination], urls[destination]
 
 
+def test_later_native_turn_obtains_fresh_readback_without_repeating_a_write(tmp_path):
+    store, executor = setup(tmp_path)
+    first, object_id, url = pending_readback(NeoDestinationHandoff(native_executor=executor), "x")
+    failed = response(executor, first, {"status": "BLOCKED", "observed_text": "Network unavailable"})
+    executor.submit(first["request"]["request_sha256"], failed)
+    later = NativeNeoExecutor(store, operation_id="same-op", output_dir=tmp_path,
+        native_invocation_id="later-controlled-turn")
+    fresh, _, _ = pending_readback(NeoDestinationHandoff(native_executor=later), "x")
+    assert fresh["request"]["request_sha256"] != first["request"]["request_sha256"]
+    assert executor._get(first["request"]["request_sha256"], "response")["result"]["status"] == "BLOCKED"
+    assert store.list_platform_dispatches() == []
+
+
 @pytest.mark.parametrize("destination", ["substack", "x", "youtube"])
 def test_exact_readback_restart_immutable_and_no_public_action(tmp_path, destination):
     store, executor = setup(tmp_path)
