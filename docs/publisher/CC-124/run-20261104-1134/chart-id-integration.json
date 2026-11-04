@@ -1,0 +1,10 @@
+{
+  "source_commit": "88a44d47c4115b6d630c5bc2af85b64ce70b4822",
+  "live_before": "7f1e798e4eaf1a50a7962eb3f92f9d983d9857d7",
+  "live_sha": "7feb89e6160ff80026aef89842b720c322e7d840",
+  "live_tag": "contentops-live-20261104-cc124-chart-identities",
+  "rollback_tag": "contentops-live-20261104-cc124-mixed-chart-sources",
+  "applied_at_utc": "2026-11-04T05:04:58.112657+00:00",
+  "unrelated_work_preserved": true,
+  "runtime_restart": false
+}

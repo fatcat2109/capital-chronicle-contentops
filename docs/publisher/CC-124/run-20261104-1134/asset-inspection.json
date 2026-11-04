@@ -1,0 +1,102 @@
+{
+  "schema_version": "contentops.pre_text_asset_inspection.v1",
+  "operation_id": "cc124-next-article-20261104-a",
+  "assignment": "cc124-next-article-20261104-a:visual-edit",
+  "request_sha256": "e23ec03f83eb5fc58454b90caae97e532aa773478353c0c0bd869b9ad9aa46b9",
+  "visual_response_sha256": "9c0645b1f29ff7b88b639849b2ed14a6e17d35570a1bf12296f195c92936cf90",
+  "rendered_assets_manifest_sha256": "9598cba7e54d25d364ca02e968e5d48f2a552ea2c57a3eba93e5e69f76645bbe",
+  "inspected_at_utc": "2026-11-04T05:05:38.418186Z",
+  "review_scope": "Four exact local PNG assets before text approval. Individual source semantics, signs, zero baselines, units, missingness, derived-rate disclosure and full-image legibility.",
+  "decision": "PASS",
+  "assets": [
+    {
+      "asset_id": "payroll_first_print_trend",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\payroll_first_print_trend.png",
+      "sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+      "width": 1440,
+      "height": 1040,
+      "reviewer_invocation_id": "/root/native_writer_e23ec03f83eb",
+      "inspection_method": "LOCAL_PNG_VIEW_IMAGE",
+      "decision": "PASS",
+      "findings": [
+        "Actual PNG inspected. Twenty-four monthly columns preserve the admitted first-print values and calendar order; negative months extend below the visible zero baseline.",
+        "The unit is persons, matching native source values. The 29,000 September value appears prominently in the title, and the last period is labelled September 2026. No silent thousand scaling or later revision is shown.",
+        "Title, legend, period labels, numeric ticks and first-release source note are legible without material clipping. Integer tick labels lack thousands separators, but their magnitudes and unit are unambiguous.",
+        "The final bar has no separate highlight. The explicit title value and terminal date identify the latest observation adequately; this is a nonmaterial difference from the proposed styling."
+      ],
+      "required_repairs": []
+    },
+    {
+      "asset_id": "september_sector_breakdown",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\september_sector_breakdown.png",
+      "sha256": "9c3edc1443778895f6884781458ffd28d92e7823700ab4539e4b2ea74e26c12b",
+      "width": 1440,
+      "height": 1040,
+      "reviewer_invocation_id": "/root/native_writer_e23ec03f83eb",
+      "inspection_method": "LOCAL_PNG_VIEW_IMAGE",
+      "decision": "PASS",
+      "findings": [
+        "Actual PNG inspected. Goods-producing +18 and private services +28 extend right of zero; government -17 extends left of zero. Signed labels and a thousands-of-persons axis preserve direction and units.",
+        "Only the three exhaustive disjoint broad groups are plotted. Total private +46 and total nonfarm +29,000 appear in the subtitle as context, not as overlapping additional components. The source note states the 18 + 28 - 17 = 29 thousand reconciliation.",
+        "Full broad-sector labels, axes, subtitle and two-line source note fit the image. Government label -17 sits near the origin rather than at the negative bar end, but the visible minus sign and leftward bar make its meaning clear.",
+        "The chart identifies the October 2, 2026 Table B-1 source and seasonally adjusted initial estimates. These are published estimates, not a claim of exact economic measurement."
+      ],
+      "required_repairs": []
+    },
+    {
+      "asset_id": "unemployment_first_print_trend",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\unemployment_first_print_trend.png",
+      "sha256": "8f5f4ba6cc1ea167aa0773f505460e056078ac3bbb5c5ad19f0e797c58c3a53f",
+      "width": 1440,
+      "height": 1040,
+      "reviewer_invocation_id": "/root/native_writer_e23ec03f83eb",
+      "inspection_method": "LOCAL_PNG_VIEW_IMAGE",
+      "decision": "PASS",
+      "findings": [
+        "Actual PNG inspected. A visible gap remains at October 2025; the line does not connect the observations on either side. Metadata preserves the null month among twenty-four calendar positions and twenty-three observed values.",
+        "A zero-to-five percent scale, observation markers and September 4.2% endpoint label preserve the small scale of the movement without a truncated-axis exaggeration.",
+        "The title/subtitle and source note identify the civilian unemployment rate, seasonal adjustment, first prints and missing October 2025 observation. Critical labels and source text are legible and uncropped."
+      ],
+      "required_repairs": []
+    },
+    {
+      "asset_id": "earnings_first_print_trend",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\media_assets\\earnings_first_print_trend.png",
+      "sha256": "5924ccd31418cb17d66a43319277f239b3d8514b10cbdff00d177f4277ea6801",
+      "width": 1440,
+      "height": 1040,
+      "reviewer_invocation_id": "/root/native_writer_e23ec03f83eb",
+      "inspection_method": "LOCAL_PNG_VIEW_IMAGE",
+      "decision": "PASS",
+      "findings": [
+        "Actual PNG inspected. Monthly nominal earnings growth columns begin at zero and match all twenty-four admitted monthly values. The title states the latest 0.1% rate; subtitle and legend identify average hourly earnings for private nonfarm employees and monthly change.",
+        "The source note visibly names both October 2025 and July 2026 as rates calculated from published levels and rounded to one decimal. It does not describe every rate as explicitly published.",
+        "Derived bars have no separate marker, but naming both dates in the legible source note gives adequate disclosure for this series. No new number, annualization or inflation adjustment is introduced.",
+        "Title, units, period labels and both lines of source text fit inside the image. The note and period window establish the first-release vintage."
+      ],
+      "required_repairs": []
+    }
+  ],
+  "semantic_verification": "The three history chart packets were compared by code with the frozen request sources: every period and value matches. Sector changes are the exact reported Table B-1 changes in the admitted source spans and reconcile deterministically. Actual plotted geometry, gap and visible notes were also inspected.",
+  "style_judgment": "Latest-value titles/subtitles and explicit source notes are materially sufficient. Separate last-bar color, a derived-point marker and thousands separators are optional presentation improvements; none warrants a repair before the supported story can proceed.",
+  "required_repairs": [],
+  "prose_review_performed": false,
+  "desktop_article_inspection_performed": false,
+  "mobile_article_inspection_performed": false,
+  "public_write_performed": false,
+  "invocation_observation": {
+    "invocation_id": "/root/native_writer_e23ec03f83eb",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "speed": "standard",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Exact native task assignment cc124-next-article-20261104-a:visual-edit and frozen request e23ec03f83eb5fc58454b90caae97e532aa773478353c0c0bd869b9ad9aa46b9.",
+    "observation_source": "Canonical task name /root/native_writer_e23ec03f83eb is supplied by the supported NEW_TASK context. Actual model and effort runtime telemetry are not exposed in this native role turn."
+  },
+  "next_action": "Bind these exact assets through the existing media owner, then provide the frozen write request to this same designated native writer."
+}

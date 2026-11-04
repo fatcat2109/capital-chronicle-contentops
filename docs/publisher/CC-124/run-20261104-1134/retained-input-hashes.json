@@ -1,0 +1,46 @@
+{
+  "captured_at_utc": "2026-11-04T05:05:32.438711+00:00",
+  "operation_id": "cc124-next-article-20261104-a",
+  "files": [
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\binding.json",
+      "bytes": 3952,
+      "sha256": "6c25fcca29b35ce2019a3d1cb07680104c4c92da63611c338e8adf9b9228dde4"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\desktop_request_select.json",
+      "bytes": 265212,
+      "sha256": "a82db6974f0c597f12f64b30bc0003e8fc0d2f6d1e4dce85c5033d55bcdc762f"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\desktop_response_select.json",
+      "bytes": 5686,
+      "sha256": "41527ac5fd8a2ada8d3faeed1cc4a43d09890d53632952dc50ab6f9ba2ec49d9"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\desktop_request_media-plan.json",
+      "bytes": 125857,
+      "sha256": "0d9bf06b78f3ea05187cf1a110d7f74bb458167d169e130fd1326c834d7432ab"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\desktop_response_media-plan.json",
+      "bytes": 10365,
+      "sha256": "dad98dd3d4e0bec099840f7b140f5340f2528fd21a234edbb834965821e825a3"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\desktop_request_visual-edit.json",
+      "bytes": 262761,
+      "sha256": "a94a985229c87f4cb153269a28297f6bf4cd55d1ab6986ef33d135ff99009961"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\desktop_response_visual-edit.json",
+      "bytes": 16182,
+      "sha256": "9c0645b1f29ff7b88b639849b2ed14a6e17d35570a1bf12296f195c92936cf90"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\official_release_history_v1.json",
+      "bytes": 108209,
+      "sha256": "dec9572226e23fb2a0cb62084aa254867ca17e8c220cc3df6695fbeb91fa217a"
+    }
+  ]
+}
