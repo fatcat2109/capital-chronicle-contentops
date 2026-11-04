@@ -389,7 +389,8 @@ def authorize_interactively(
     }
 
 
-def build_linkedin_ugc_post_payload(intent: Mapping[str, Any], *, person_urn: str) -> dict[str, Any]:
+def build_linkedin_ugc_post_payload(intent: Mapping[str, Any], *, person_urn: str,
+                                    image_urn: str | None = None) -> dict[str, Any]:
     if not person_urn.startswith("urn:li:person:"):
         raise LinkedInOfficialApiError("MEMBER_IDENTITY_INVALID")
     text = str(intent.get("payload") or "")
@@ -399,13 +400,16 @@ def build_linkedin_ugc_post_payload(intent: Mapping[str, Any], *, person_urn: st
             text = str(destination_plan.get("payload") or "")
     if not text or len(text) > 3000:
         raise LinkedInOfficialApiError("LINKEDIN_NATIVE_PACKAGE_INVALID")
+    if image_urn and not image_urn.startswith("urn:li:digitalmediaAsset:"):
+        raise LinkedInOfficialApiError("LINKEDIN_IMAGE_ASSET_INVALID")
     return {
         "author": person_urn,
         "lifecycleState": "PUBLISHED",
         "specificContent": {
             "com.linkedin.ugc.ShareContent": {
                 "shareCommentary": {"text": text},
-                "shareMediaCategory": "NONE",
+                "shareMediaCategory": "IMAGE" if image_urn else "NONE",
+                **({"media": [{"status": "READY", "media": image_urn}]} if image_urn else {}),
             }
         },
         "visibility": {"com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"},
@@ -474,12 +478,59 @@ class LinkedInOfficialMemberApiTransportV1:
             )
         return self.token_store.read_credentials(), self.token_store.read_metadata()
 
+    def _upload_image(self, *, path, person_urn, access_token):
+        """Official register/upload sequence; no public post is made here."""
+        from PIL import Image
+        path = Path(path)
+        try:
+            with Image.open(path) as image:
+                image.verify()
+                mime = {"PNG": "image/png", "JPEG": "image/jpeg"}[image.format]
+            binary = path.read_bytes()
+        except (OSError, ValueError, KeyError) as exc:
+            raise LinkedInOfficialApiError("LINKEDIN_IMAGE_FILE_INVALID") from exc
+        headers = {"Authorization": "Bearer " + access_token, "X-Restli-Protocol-Version": "2.0.0"}
+        registration = {"registerUploadRequest": {"recipes": ["urn:li:digitalmediaRecipe:feedshare-image"],
+            "owner": person_urn, "serviceRelationships": [{"relationshipType": "OWNER",
+                                                          "identifier": "urn:li:userGeneratedContent"}]}}
+        request = urllib.request.Request("https://api.linkedin.com/v2/assets?action=registerUpload",
+            data=json.dumps(registration).encode(), method="POST", headers={**headers, "Content-Type": "application/json"})
+        status, response, _ = _request_json(request, timeout_seconds=20, opener=self.opener)
+        value = response.get("value") or {}
+        upload_url = value.get("uploadMechanism", {}).get("com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest", {}).get("uploadUrl", "")
+        parsed = urllib.parse.urlsplit(upload_url)
+        asset = str(value.get("asset") or "")
+        if (status not in {200, 201} or parsed.scheme != "https" or parsed.hostname != "api.linkedin.com"
+                or not parsed.path.startswith("/mediaUpload/") or not asset.startswith("urn:li:digitalmediaAsset:")):
+            raise LinkedInOfficialApiError("LINKEDIN_IMAGE_UPLOAD_REGISTRATION_INVALID")
+        upload = urllib.request.Request(upload_url, data=binary, method="POST", headers={**headers, "Content-Type": mime})
+        status, _, _ = _request_json(upload, timeout_seconds=30, opener=self.opener)
+        if status not in {200, 201, 202}:
+            raise LinkedInOfficialApiError("LINKEDIN_IMAGE_UPLOAD_FAILED", http_status=status)
+        return asset
+
     def publish(self, *, intent: Mapping[str, Any], authorization_context: Mapping[str, Any]) -> dict[str, Any]:
         if str(authorization_context.get("operating_mode") or "") != "AUTONOMOUS_DEFAULT":
             raise LinkedInOfficialApiError("CANONICAL_MACHINE_AUTHORIZATION_INVALID")
         credentials, metadata = self._authorized()
         identity = metadata.get("member_identity") if isinstance(metadata.get("member_identity"), Mapping) else {}
-        payload = build_linkedin_ugc_post_payload(intent, person_urn=str(identity.get("person_urn") or ""))
+        person_urn = str(identity.get("person_urn") or "")
+        image_urn, image_cause = None, None
+        image_path = ""
+        if intent.get("output_dir"):
+            from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+            image_path = _durable_intent_inputs(intent)["local_media"]
+        elif intent.get("media_assets"):
+            image_path = str(intent["media_assets"][0].get("path") or "")
+        if image_path:
+            try:
+                image_urn = self._upload_image(path=image_path, person_urn=person_urn,
+                                               access_token=str(credentials["access_token"]))
+            except LinkedInOfficialApiError as exc:
+                # An image-upload failure cannot have created a public post.
+                # Send the reviewed linked text once, recording the precise cause.
+                image_cause = exc.classification + ("_HTTP_" + str(exc.http_status) if exc.http_status else "")
+        payload = build_linkedin_ugc_post_payload(intent, person_urn=person_urn, image_urn=image_urn)
         request = urllib.request.Request(
             UGC_POSTS_ENDPOINT,
             data=json.dumps(payload, ensure_ascii=True, separators=(",", ":")).encode("utf-8"),
@@ -508,6 +559,9 @@ class LinkedInOfficialMemberApiTransportV1:
             "public_object_url": _public_url_for_urn(object_id),
             "adapter_version": TRANSPORT_VERSION,
             "official_response_identity_present": True,
+            "image_delivery": "IMAGE_ATTACHED" if image_urn else "TEXT_FALLBACK" if image_cause else "TEXT_ONLY",
+            "image_delivery_cause": image_cause,
+            "image_asset_urn": image_urn,
         }
 
     def readback(

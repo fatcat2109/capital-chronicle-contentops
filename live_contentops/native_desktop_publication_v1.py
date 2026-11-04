@@ -53,7 +53,11 @@ def _prepared_packet(store, binding):
     from live_contentops.native_desktop_editorial_v1 import native_review_revision
     base = manual_output_root(store, binding) / "reviewed-handoff"
     root = resolve_workspace_path(packet["output_dir"])
-    if root not in {base, base / native_review_revision(result)}:
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
+    image_view = post_image_view(result, output_dir=base.parent / "media" / "post-images")
+    image_revision = sha256_of([native_review_revision(result), image_view["post_image_policy"],
+                               [a["sha256"] for a in image_view["media_assets"]]])
+    if root not in {base, base / native_review_revision(result), base / image_revision}:
         # Current compiler policy may change the review revision without changing
         # any sent bytes. The existing dispatched packet keeps its original path,
         # plan and object identity; only exact original seals admit that path.

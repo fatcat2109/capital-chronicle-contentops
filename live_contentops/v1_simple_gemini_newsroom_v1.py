@@ -2224,6 +2224,8 @@ def _build_simple_publication_lifecycle_plan(
     qualified_record: Mapping[str, Any],
     epistemic_state: Mapping[str, Any] | None,
     media_assets: Sequence[Mapping[str, Any]] = (),
+    source_documents: Sequence[Mapping[str, Any]] = (),
+    post_image_policy: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Adapt one qualified Simple result to the existing durable coordinator contract.
 
@@ -2267,6 +2269,8 @@ def _build_simple_publication_lifecycle_plan(
             qualified_record.get("accepted_evidence_sha256") or ""
         ),
         "public_write_performed": False,
+        **({"post_image_policy": dict(post_image_policy), "source_documents": list(source_documents)}
+           if post_image_policy else {}),
     }
     _write_json(output_dir / "run_context_v1.json", context)
 
@@ -2326,6 +2330,7 @@ def _build_simple_publication_lifecycle_plan(
     text_first_skipped = skipped_destinations(has_image=bool(media_assets))
     plan_core = {
         "schema_version": "contentops.publication_plan.v1",
+        **({"post_image_policy": dict(post_image_policy)} if post_image_policy else {}),
         "bridge_schema_version": PUBLICATION_BRIDGE_SCHEMA_VERSION,
         "run_id": run_id,
         "story_identity": str(selected_candidate.get("story_identity") or ""),

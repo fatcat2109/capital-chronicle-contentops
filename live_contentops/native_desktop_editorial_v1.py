@@ -1365,7 +1365,7 @@ def validate_release_media(result, *, require_pixel_review=True):
     reader_first = bool(decision)
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]
     charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
-    quantitative_charts = [a for a in charts if not a.get("fact_card_packet")]
+    quantitative_charts = [a for a in charts if not a.get("fact_card_packet") and not a.get("post_card_binding")]
     disposition = result.get("visual_repair_disposition") or {}
     dropped = disposition.get("dropped_assets") or []
     dropped_after_repair = (disposition.get("policy") == "CC-172" and disposition.get("repair_rounds") == 1
@@ -1405,12 +1405,18 @@ def validate_release_media(result, *, require_pixel_review=True):
         article = result.get("article") or {}
         if article.get("substack_body_markdown"):
             headings = set(re.findall(r"(?m)^#{1,6}\s+([^\n]+)", article["substack_body_markdown"]))
-            if any(c["placement_after"] not in headings for c in decision["charts"]):
+            if any(c["placement_after"] not in headings for c in decision["charts"]
+                   if not next(a for a in charts if a["asset_id"] == c["asset_id"]).get("post_card_binding")):
                 raise ValueError("RELEASE_CHART_EXPLANATION_SECTION_MISSING")
     for photo in photos:
         validate_contextual_photo(photo, require_pixel_review=require_pixel_review)
     for chart in charts:
         validate_source_value_chart(chart, result.get("evidence") or [])
+        if chart.get("post_card_binding"):
+            from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_post_image_card
+            validate_post_image_card(chart, article=result["article"], accepted_evidence_sha256=
+                result.get("accepted_evidence_sha256") or result.get("simple_result", {}).get("publication_lifecycle_plan", {}).get("accepted_evidence_sha256"))
+            continue
         review = chart.get("visual_review") or {}
         if require_pixel_review and (review.get("asset_sha256") != chart.get("sha256") or review.get("pixels_inspected") is not True
                 or review.get("labels_and_units_legible") is not True or not review.get("reviewer")):
@@ -1967,7 +1973,9 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle, _build_simple_publication_lifecycle_plan
     from live_contentops.newsroom_production_day_v1 import persist_qualified_article_record
     result, row, current_review = validated_native_review(store, run_id=run_id)
-    assets = result.get("media_assets", [])
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
+    image_view = post_image_view(result, output_dir=resolve_workspace_path(output_dir) / "media" / "post-images")
+    assets = image_view["media_assets"]
     # A renderer-only acceptance may advance after a public send. Reuse the exact
     # frozen dispatch package and plan; a new plan would duplicate existing objects.
     rows = store.list_outbox_messages()
@@ -2002,9 +2010,11 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
             "media_reuse_count": len(assets), "preview_count": 8, "new_qualified_articles": 0,
             "model_invocations": 0, "source_requests": 0, "public_write_performed": False,
             "dispatched_package_reused": True}
-    root = resolve_workspace_path(output_dir) / "reviewed-handoff" / native_review_revision(result)
+    image_revision = sha256_of([native_review_revision(result), image_view["post_image_policy"],
+                               [a["sha256"] for a in assets]])
+    root = resolve_workspace_path(output_dir) / "reviewed-handoff" / image_revision
     root.mkdir(parents=True, exist_ok=True)
-    article = result["article"]
+    article = image_view["article"]
     state = article.get("epistemic_state")
     mode = article["resolved_article_mode"]
     identity = result["article_identity"]
@@ -2013,8 +2023,17 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     current_previews = [{"destination": k, "payload": v, "preview_id": "cc-preview-" + sha256_of([identity, k, v]),
         "article_identity": identity, "claim_lineage": result.get("claim_lineage", [])}
         for k, v in previews["packages"].items()]
-    if result.get("media_preview_binding_sha256") and current_previews != result.get("previews"):
-        raise ValueError("COMPILED_PREVIEW_CHANGED_REVIEW_REQUIRED")
+    if result.get("media_preview_binding_sha256"):
+        original_bundle, _ = _native_preview_bundle(article=result["article"], article_mode=mode, article_identity=identity,
+            epistemic_state=state, media_asset_ids=[a["asset_id"] for a in result.get("media_assets", [])],
+            media_assets=result.get("media_assets", []))
+        original_previews = [{"destination": k, "payload": v, "preview_id": "cc-preview-" + sha256_of([identity, k, v]),
+            "article_identity": identity, "claim_lineage": result.get("claim_lineage", [])}
+            for k, v in original_bundle["packages"].items()]
+        if original_previews != result.get("previews"):
+            raise ValueError("COMPILED_PREVIEW_CHANGED_REVIEW_REQUIRED")
+    # The image policy changes deterministic media/credit fields only. Authored
+    # article and social prose stay in the exact current KEEP above.
     record_path = (result.get("visual_repair_revision") or {}).get("qualified_record_path")
     record = json.loads((resolve_workspace_path(record_path) if record_path else
         resolve_workspace_path(output_dir) / "qualified_article_record_v1.json").read_bytes())
@@ -2028,8 +2047,9 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
         selected_candidate=result["simple_result"]["selected_candidate"],
         selected_plan_entry=result["simple_result"]["selected_plan_entry"], article=article,
         article_identity=identity, native_previews=previews, qualified_record=record,
-        epistemic_state=state, media_assets=assets)
-    for name, value in (("article_manifest_v1.json", article), ("native_derivative_previews_v1.json", previews)):
+        epistemic_state=state, media_assets=assets, source_documents=result.get("evidence", []),
+        post_image_policy=image_view["post_image_policy"])
+    for name, value in (("article_manifest_v1.json", result["article"]), ("native_derivative_previews_v1.json", previews)):
         path = root / name
         raw = canonical_bytes(value)
         if path.exists() and path.read_bytes() != raw:

@@ -1234,13 +1234,15 @@ def _publish_telegram_text_verified(
     }
 
 
-def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str | None, title: str) -> dict[str, Any]:
-    from live_contentops.discord_live_adapter_v6 import execute_discord_post
+def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str | None, title: str,
+                              image_path: str | None = None) -> dict[str, Any]:
+    from live_contentops.discord_live_adapter_v6 import execute_discord_post, readback_discord_post
 
     embeds = [{"title": title, "url": canonical_url}]
     if image_url:
         embeds[0]["image"] = {"url": image_url}
-    raw = execute_discord_post(message=text, embeds=embeds, dry_run=False)
+    raw = execute_discord_post(message=text, embeds=embeds, dry_run=False,
+                               **({"image_path": image_path} if image_path else {}))
     response = raw.get("response") if isinstance(raw.get("response"), Mapping) else {}
     message_id = str(raw.get("id") or response.get("id") or "")
     channel_id = str(response.get("channel_id") or "")
@@ -1257,6 +1259,12 @@ def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str |
         raw.get("status") == "SUCCESS" and message_id and canonical_url in content
         and (embed_image if image_url else True)
     )
+    if image_path and raw.get("status") == "SUCCESS" and message_id:
+        observed = readback_discord_post(message_id=message_id, expected_text=text,
+            canonical_url=canonical_url, expected_image_sha256=_sha256_file(image_path))
+        return {**raw, "status": "SUCCESS" if observed.get("verified") else "FAILED_DISCORD_STRICT_READBACK",
+                "public_url": observed.get("public_url"), "destination_identity": f"discord_channel:{channel_id}",
+                "provider_readback_verified": bool(observed.get("verified")), "readback": observed}
     public_url = f"https://discord.com/channels/{guild_id}/{channel_id}/{message_id}" if guild_id and channel_id and message_id else None
     return {
         "status": "SUCCESS" if verified else (
@@ -3916,6 +3924,13 @@ def _prepare_cloudinary_delivery_media_for_plan(
         for row in (media.get("assets") or [])
         if isinstance(row, Mapping)
     ]
+    if context.get("accepted_evidence_sha256") and context.get("article", {}).get("substack_body_markdown"):
+        from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
+        selected = post_image_view({"article": context["article"], "media_assets": article_assets,
+            "evidence": context.get("source_documents", []),
+            "accepted_evidence_sha256": context["accepted_evidence_sha256"]},
+            output_dir=output_dir / "media" / "post-images")
+        article_assets = selected["media_assets"]
     if not article_assets and not delivery_only_assets:
         # Simple's text-first qualified article intentionally has no in-body media. Reuse the
         # accepted deterministic delivery-only card seam so Instagram can receive media without
@@ -3950,8 +3965,14 @@ def _prepare_cloudinary_delivery_media_for_plan(
         work_item_id=work_item_id,
         delivery_only_assets=delivery_only_assets,
         existing_manifest=existing_manifest,
+        article_assets=article_assets,
     )
     if str(prepared.get("status") or "") == CLOUDINARY_DELIVERY_MEDIA_READY:
+        # Retained public objects keep their original delivery bindings.
+        current = prepared["manifest"]["assets"]
+        current_hashes = {row["sha256"] for row in current}
+        current.extend(row for row in existing_manifest.get("assets", [])
+                       if row.get("sha256") not in current_hashes and row.get("local_public_hash_continuity") is True)
         _write_json(manifest_path, dict(prepared["manifest"]))
     return {
         key: value
@@ -3983,6 +4004,14 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         # A presentation amendment carries the reviewed visible fields. Keep the
         # sealed source-bound metadata required by the existing channel compiler.
         article.update(intent.get("reader_presentation_article") or {})
+    image_selection = None
+    if intent.get("post_image_policy") and not context.get("post_image_policy"):
+        from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
+        image_selection = post_image_view({"article": article, "media_assets": media_assets,
+            "evidence": context.get("source_documents", []),
+            "accepted_evidence_sha256": context.get("accepted_evidence_sha256")},
+            output_dir=output_dir / "media" / "post-images")
+        article, media_assets = image_selection["article"], image_selection["media_assets"]
     delivery_only_assets = [
         dict(row) for row in (media.get("delivery_only_assets") or [])
         if isinstance(row, Mapping)
@@ -4000,6 +4029,14 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         # The canonical-first owner already froze the reviewed destination bytes.
         # Rebuilding here can lose photo credits, handles or per-post media choices.
         payloads[destination] = dict(frozen_payload)
+        if image_selection:
+            from copy import deepcopy
+            payloads[destination] = deepcopy(frozen_payload)
+            selected_ids = article["native_destination_media"][destination]
+            payloads[destination]["media_asset_ids"] = selected_ids
+            for index, post in enumerate(payloads[destination].get("posts") or []):
+                post["media_asset_ids"] = selected_ids if index == 0 else []
+            frozen_payload = payloads[destination]
         if "media_asset_ids" in frozen_payload:
             chosen = set(frozen_payload.get("media_asset_ids") or [])
             chosen.update(asset_id for post in frozen_payload.get("posts") or []
@@ -4021,7 +4058,8 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         (
             row
             for row in delivery_assets
-            if str(row.get("verified_public_delivery_url") or "").startswith("https://")
+            if (not media_assets or row.get("sha256") in {a.get("sha256") for a in media_assets})
+            and str(row.get("verified_public_delivery_url") or "").startswith("https://")
             and row.get("local_public_hash_continuity") is True
             and str(row.get("sha256") or "")
             == str(row.get("public_delivery_sha256") or "")
@@ -4040,6 +4078,7 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         "public_image_url": str(primary.get("verified_public_delivery_url") or ""),
         "primary_media": primary,
         "canonical_url": canonical_url,
+        **({"post_image_policy": image_selection["post_image_policy"]} if image_selection else {}),
     }
 
 
@@ -4323,13 +4362,11 @@ def _publish_one_destination_from_durable_intent(
             text=text, canonical_url=canonical_url, image_path=image_path,
         )
     if destination == "discord":
-        if image_path and not public_image_url:
-            return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True,
-                    "reason_code": "VERIFIED_DELIVERY_MEDIA_UNAVAILABLE"}
         return _publish_discord_verified(
             text=text, canonical_url=canonical_url,
             image_url=public_image_url if image_path else None,
             title=str(article.get("title") or ""),
+            image_path=image_path or None,
         )
     if destination == "facebook_page":
         if not image_path:

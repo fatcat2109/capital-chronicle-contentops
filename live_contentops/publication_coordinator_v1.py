@@ -1645,6 +1645,7 @@ class DurablePublicationCoordinator:
                 "plan_hash": plan_hash,
                 "output_dir": plan.get("output_dir"),
                 "artifact_refs": plan.get("artifact_refs") or {},
+                **({"post_image_policy": plan["post_image_policy"]} if plan.get("post_image_policy") else {}),
                 "editorial_features": plan.get("editorial_features") or {},
                 "learning_policy_version": plan.get("learning_policy_version"),
                 "quality_probation_policy_id": plan.get("quality_probation_policy_id"),
@@ -3571,6 +3572,9 @@ class CanonicalDestinationTransportRuntimeV1:
                     or not intent.get("native_payload")):
                 raise ValueError("LINKEDIN_COMPANY_EXACT_REVIEWED_COPY_REQUIRED")
             return finalized
+        if not finalized.get("native_payload"):
+            from live_contentops.rolling_x_grounded_article_media_builder_v1 import POST_IMAGE_POLICY
+            finalized["post_image_policy"] = {"policy": POST_IMAGE_POLICY}
         data = _durable_intent_inputs(finalized)
         native_payload = dict(data["payloads"].get(destination) or {})
         payload = str(native_payload.get("text") or "")
