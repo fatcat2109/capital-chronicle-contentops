@@ -282,6 +282,21 @@ class NativeNeoExecutor:
                 return dict(prior)
         return None
 
+    def complete_readback_request(self, request):
+        """Retire unclaimed equivalent reads after the adapter verifies exact content."""
+        ignored = {"request_sha256", "observation_epoch", "native_invocation_id"}
+        expected = {k: v for k, v in request.items() if k not in ignored}
+        for row in self.store.list_outbox_messages(destination=DESTINATION):
+            packet = json.loads(row["payload"])
+            prior = packet.get("request") or {}
+            request_hash = prior.get("request_sha256")
+            if (packet.get("schema_version") != SCHEMA or packet.get("operation_id") != self.operation_id
+                    or prior.get("action") != "READBACK" or request_hash == request["request_sha256"]
+                    or {k: v for k, v in prior.items() if k not in ignored} != expected
+                    or self._get(request_hash, "response") or self._get(request_hash, "started")):
+                continue
+            self.store.set_outbox_status(row["message_id"], "NATIVE_NEO_SUPERSEDED")
+
     def readiness(self, surface):
         from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
         from live_contentops.neo_destination_handoff_v1 import IDENTITIES, ROOTS
@@ -334,9 +349,6 @@ class NativeNeoExecutor:
             if (payload["request"]["action"] == "VERIFY_IDENTITY"
                     and payload["request"].get("native_invocation_id") not in {None, self.native_invocation_id}):
                 continue
-            if (payload["request"]["action"] == "READBACK"
-                    and self.fresh_readback_request(payload["request"])):
-                continue  # A late exact return already satisfies this read-only request.
             request_hash = payload["request"]["request_sha256"]
             if self._get(request_hash, "response") is None:
                 claim = (self._get(request_hash, "started") if payload["request"]["action"] in {"PUBLISH", "EDIT_EXISTING"}

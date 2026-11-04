@@ -309,6 +309,10 @@ def test_late_exact_readback_satisfies_a_new_bucket_request_without_another_acti
         public_object_id=object_id, public_object_url=url)["verified"] is True
     assert executor.pending() == []
     assert executor._get(later["request"]["request_sha256"], "request") is not None
+    retired = store.get_outbox_message(executor._key(later["request"]["request_sha256"], "request"))
+    assert retired["status"] == "NATIVE_NEO_SUPERSEDED"
+    now += timedelta(seconds=601)
+    assert executor.pending() == []
     assert store.list_platform_dispatches() == []
 
 
