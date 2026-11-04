@@ -68,8 +68,11 @@ def test_feed_is_newest_first_deduplicated_windowed_and_line_readable(tmp_path):
     assert first["lag_seconds"] == pytest.approx(20.0, abs=0.001)
     assert first["posted_utc"].endswith("Z") and first["url"].startswith("https://x.com/financialjuice/")
     assert out["row_count"] == 2 and out["newest_age_seconds"] == pytest.approx(40.0, abs=0.01)
-    assert out["use"]["grant"] == "JIM_X_LIST_PRIVATE_MAIN_RESEARCH_USE_20261029"
-    assert any("C7" in rule for rule in out["use"]["never"])
+    # Private use carries no consumer list or review step (decision 62); only C7 and public rights restrict.
+    assert "every internal decision" in out["use"]["private"]
+    assert "C7" in out["use"]["arming"] and "decision 44" in out["use"]["public"]
+    assert "consumers" not in out["use"] and "never" not in out["use"]
+    assert out["use"]["source_grant"] == "JIM_X_LIST_PRIVATE_MAIN_RESEARCH_USE_20261029"
     rendered = feed.render_feed(out)
     assert json.loads(rendered)["rows"] == out["rows"]
     lines = rendered.decode("utf-8").splitlines()
