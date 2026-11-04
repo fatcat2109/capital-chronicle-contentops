@@ -1,0 +1,18 @@
+{
+  "live_head": "06b1052dce85e2f5748e2e1a4bafdddd18a54bfe",
+  "operation_id": "cc124-next-article-20261104-a",
+  "before": "DELIVERY_MEDIA_RECOVERY_BLOCKED_UNKNOWN_WRITE",
+  "after": {
+    "destination": "instagram_business",
+    "dispatch_id": "dispatch_08460f89ddd7928ef43fa99e76695f76",
+    "dispatch_recorded": true,
+    "status": "DISPATCH_CONFIRMED",
+    "reconciliation_status": "RECONCILED_CONFIRMED",
+    "public_object_id": "18120907216762181",
+    "public_object_url": "https://www.instagram.com/p/DfTyJF7gR4t/",
+    "publish_called": false
+  },
+  "unrelated_linkedin_unknown_preserved": true,
+  "consumer": "DurablePublicationCoordinator -> existing delivery-media owner -> Instagram API transport -> exact-object readback",
+  "source": "publication-resume-08.json"
+}
