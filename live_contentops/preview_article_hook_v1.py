@@ -7,6 +7,7 @@ from hashlib import sha256
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 
@@ -19,7 +20,8 @@ def launch_preview_mirror(feed):
         if Path(feed).resolve() != FEED.resolve():
             return {"status": "SKIPPED", "cause": "NONPRODUCTION_FEED"}
         config = json.loads(CONFIG.read_bytes())
-        if (set(config) != {"schema", "consumer_root", "consumer_module_sha256"}
+        required = {"schema", "consumer_root", "consumer_module_sha256"}
+        if (not required <= set(config) <= required | {"worker_python"}
                 or config["schema"] != "contentops.preview_mirror_binding.v1"):
             return {"status": "NOT_STARTED", "cause": "BINDING_INVALID"}
         root = Path(config["consumer_root"])
@@ -42,11 +44,34 @@ def launch_preview_mirror(feed):
             return {"status": "NOT_STARTED", "cause": "PYTHONW_REQUIRED"}
         # Probe the appending interpreter with the child's -E flag and cwd.
         # A missing dependency must be a named result, not a silent child exit.
-        probe = subprocess.run([str(sys.executable), "-E", "-c", "import jsonschema"],
-                               cwd=root, shell=False, capture_output=True, timeout=10,
-                               creationflags=subprocess.CREATE_NO_WINDOW)
-        if probe.returncode:
-            return {"status": "NOT_STARTED", "cause": "CONSUMER_PYTHON_DEPENDENCY_MISSING:jsonschema"}
+        def has_jsonschema(python):
+            probe = subprocess.run([str(python), "-E", "-c", "import jsonschema"],
+                                   cwd=root, shell=False, capture_output=True, timeout=10,
+                                   creationflags=subprocess.CREATE_NO_WINDOW)
+            return probe.returncode == 0
+
+        fallback = None
+        if not has_jsonschema(sys.executable):
+            # The ContentOps runtime venv has no jsonschema (Ops Product, 5 Nov: install nothing
+            # there). Use the runbook's system Python instead: the configured one, else `python`
+            # on PATH. Each candidate is checked (python and pythonw present, jsonschema imports);
+            # Store aliases never run.
+            seen = {str(Path(sys.executable).resolve()).casefold()}
+            for candidate in (config.get("worker_python"), shutil.which("python")):
+                if not candidate:
+                    continue
+                python = Path(candidate)
+                key = str(python.resolve()).casefold()
+                if key in seen or "\\windowsapps\\" in key:
+                    continue
+                seen.add(key)
+                if (python.is_file() and python.with_name("pythonw.exe").is_file()
+                        and has_jsonschema(python)):
+                    fallback = python
+                    break
+            if fallback is None:
+                return {"status": "NOT_STARTED", "cause": "CONSUMER_PYTHON_DEPENDENCY_MISSING:jsonschema"}
+            pythonw = fallback.with_name("pythonw.exe")
         with FEED.with_name("preview_article_worker.log").open("ab") as log:
             child = subprocess.Popen(
             [str(pythonw), "-E", "-m", "tools.product.republish_preview_articles_v1",
@@ -58,7 +83,8 @@ def launch_preview_mirror(feed):
             )
         return {"status": "STARTED", "pid": child.pid,
                 "consumer_module_sha256": actual_hash,
-                "configured_consumer_module_sha256": config["consumer_module_sha256"]}
+                "configured_consumer_module_sha256": config["consumer_module_sha256"],
+                **({"worker_python_fallback": str(fallback)} if fallback else {})}
     except Exception:
         # Do not print config, paths, environments or subprocess error bodies.
         return {"status": "NOT_STARTED", "cause": "PREVIEW_HOOK_UNAVAILABLE"}
