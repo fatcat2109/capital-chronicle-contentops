@@ -52,8 +52,13 @@ def point(fact, label):
 
 
 assets = []
+repair_nested = "--repair-nested" in sys.argv
+previous = {a["asset_id"]: a for a in json.loads((ROOT / "rendered-assets.json").read_bytes())} if repair_nested else {}
 for selected in decision["charts"]:
     aid, spec = selected["asset_id"], selected["data_spec"]
+    if repair_nested and aid != "ppi_september_nested_rates":
+        assets.append(previous[aid])
+        continue
     base = {"asset_id": aid, "title": selected["title"], "question": selected["question"],
         "placement_after": selected["placement_after"], "unit": "percent",
         "subtitle": "September 2026 monthly change, seasonally adjusted",
@@ -86,7 +91,7 @@ for selected in decision["charts"]:
         goods = [facts[5], facts[4], facts[6]]
         services = facts[7:10]
         groups = spec["groups"]
-        packet = {**base, "chart_type": "SMALL_MULTIPLE_HORIZONTAL_DIVERGING_BARS", "series": [],
+        packet = {**base, "chart_type": "SMALL_MULTIPLE_HORIZONTAL_DIVERGING_BARS", "zero_based": True, "series": [],
             "caption": "Nested category rates, not contributions. Both panels use the same percent scale. Trade services measure margins; no category weights are inferred.",
             "alt_text": "Goods: foods 1.2%, energy 10.8%, excluding foods and energy 0.3%. Services: trade margins 1.4%, transport and warehousing 3.4%, other services 0.3%."}
         for group, values in zip(groups, [goods, services]):
@@ -95,8 +100,9 @@ for selected in decision["charts"]:
                 point(f, row["label"]) for f, row in zip(values, group["observations"])]})
     else:
         raise ValueError("Unrecognised MAX chart: " + aid)
-    asset = build_editorial_data_chart(packet, sources, output_dir=ROOT, retained_source_binding=binding)
-    target = MEDIA / (aid + ".png")
+    asset = build_editorial_data_chart(packet, sources,
+        output_dir=ROOT / "visual-repair-r1" if repair_nested else ROOT, retained_source_binding=binding)
+    target = MEDIA / (aid + ("-r1.png" if repair_nested else ".png"))
     shutil.copyfile(asset["path"], target)
     asset["path"] = str(target)
     validate_source_value_chart(asset, sources)
@@ -104,6 +110,9 @@ for selected in decision["charts"]:
 
 donor_assets = json.loads((DONOR / "media-plan-binding.json").read_bytes())["assets"]
 for aid in decision["contextual_photo_ids"]:
+    if repair_nested:
+        assets.append(previous[aid])
+        continue
     asset = deepcopy(next(a for a in donor_assets if a["asset_id"] == aid))
     validate_contextual_photo(asset)
     target = MEDIA / (aid + Path(asset["path"]).suffix)

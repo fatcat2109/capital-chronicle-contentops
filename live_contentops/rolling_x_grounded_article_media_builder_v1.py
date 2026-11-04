@@ -1982,7 +1982,7 @@ def _draw_editorial_chart(packet, values, plt, np):
         fig, axes = plt.subplots(
             len(panels),
             1,
-            figsize=(9, 2.5 * len(panels) + 2.5),
+            figsize=(9, (3.3 if kind == "SMALL_MULTIPLE_HORIZONTAL_DIVERGING_BARS" else 2.5) * len(panels) + 2.5),
             dpi=160,
             sharex=kind == "SMALL_MULTIPLE_HORIZONTAL_DIVERGING_BARS",
             squeeze=False,
@@ -1999,16 +1999,21 @@ def _draw_editorial_chart(packet, values, plt, np):
                     color=[colors[0] if n >= 0 else colors[1] for n in nums],
                     height=0.62,
                 )
-                ax.set_yticks(y, names)
+                ax.set_yticks(y, [textwrap.fill(name, 24) for name in names], fontsize=11)
                 ax.invert_yaxis()
                 ax.axvline(0, color="#667b78", linewidth=0.8)
                 low, high, span = _signed_horizontal_domain([n for row in values for n in row])
+                if packet.get("zero_based") and all(n >= 0 for row in values for n in row):
+                    low, high = 0, max(n for row in values for n in row) * 1.22 or 1
+                    span = high
                 ax.set_xlim(low, high)
+                decimals = int(packet.get("value_label_decimals", 1 if packet["unit"] == "percent" else 0))
+                suffix = "%" if packet["unit"] == "percent" else ""
                 for x, yy in zip(nums, y):
                     ax.text(
                         x + (span * 0.02 if x >= 0 else -span * 0.02),
                         yy,
-                        f"{x:+,.0f}",
+                        f"{x:+,.{decimals}f}{suffix}",
                         ha="left" if x >= 0 else "right",
                         va="center",
                         fontsize=10,
@@ -2066,7 +2071,8 @@ def _draw_editorial_chart(packet, values, plt, np):
                 ax.set_ylabel(packet["unit"])
                 ax.set_ylim(0, max(row[0] for row in values) * 1.22)
                 ax.grid(axis="y", alpha=0.15)
-        fig.subplots_adjust(left=0.20, right=0.96, top=0.78, bottom=0.19, hspace=0.9)
+        fig.subplots_adjust(left=0.40 if kind == "SMALL_MULTIPLE_HORIZONTAL_DIVERGING_BARS" else 0.20,
+            right=0.96, top=0.78, bottom=0.19, hspace=0.9)
     else:
         fig, ax = plt.subplots(figsize=(9, 6.5), dpi=160)
         axes = [ax]
