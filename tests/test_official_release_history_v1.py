@@ -106,6 +106,13 @@ def test_later_release_cannot_enter_older_event_history(archive):
         month_window("2026-09", 23)
 
 
+def test_retained_bls_summary_routes_keep_the_prior_release_clock(archive):
+    history = history_for_source_pack([{"url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "published_at_utc": CUTOFF}], cutoff_utc="2026-11-05T00:00:00Z", archive_root=archive)
+    assert history["window"] == ["2024-10", "2026-09"]
+    assert history["cutoff_utc"] == "2026-10-14T12:30:00+00:00"
+
+
 def test_component_chart_uses_reported_disjoint_effects_instead_of_weight_estimates(archive):
     rows = [json.loads(x) for x in (archive / "first_release_actuals.jsonl").read_bytes().splitlines()]
     manifest = json.loads((archive / "archive_manifest.json").read_bytes())

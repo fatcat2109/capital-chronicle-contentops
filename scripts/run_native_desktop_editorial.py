@@ -32,7 +32,7 @@ PRODUCTION_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps")
 DEFAULT_PROFILE = Path(__file__).resolve().parents[1] / "config/native_desktop_operator_profile_v1.json"
 
 
-def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=(), live_rollout=None, standing=False):
+def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=(), live_rollout=None, standing=False, preview_event_id=None):
     """Resolve one explicit owner operation; frozen binding survives quota/restarts.
 
     This is an entry to the existing outbox/opportunity, not a queue or scheduler.
@@ -59,6 +59,8 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
         binding = validate_binding(json.loads(path.read_bytes()))
         if request is not None and request != binding.get("editorial_request"):
             raise ValueError("OWNER_REQUEST_CHANGED_USE_NEW_OPERATION")
+        if preview_event_id is not None and preview_event_id != binding.get("preview_event_id"):
+            raise ValueError("OWNER_PREVIEW_EVENT_CHANGED_USE_NEW_OPERATION")
         # A newer feed applies only to new opportunities. Resumes retain their
         # original feed and frozen packets; the profile cannot redirect storage.
         for key in ("store_path", "published_memory_store", "published_memory_output_root"):
@@ -95,6 +97,8 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
             binding["rolling_input_path"] = profile["rolling_input_path"]
         if source_review_ids:
             binding["source_review_ids"] = list(source_review_ids)
+        if preview_event_id:
+            binding["preview_event_id"] = preview_event_id
         from live_contentops.native_newsroom_volume_v1 import volume_policy
         if policy := volume_policy(binding["cutoff_utc"]):
             binding["volume_policy"] = policy
@@ -442,6 +446,8 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
     if binding.get("research_editions_root"):
         pointer["research_editions_root"] = binding["research_editions_root"]
     pointer["source_review_ids"] = binding.get("source_review_ids", [])
+    if binding.get("preview_event_id"):
+        pointer["preview_event_id"] = binding["preview_event_id"]
     admitted_research = None
     frozen_input = None
     if binding.get("owner_manual_validation") or binding.get("owner_manual_live"):
@@ -606,6 +612,7 @@ def main(argv=None):
     parser.add_argument("--request", help="Owner's ordinary-language editorial question; metadata only")
     parser.add_argument("--request-file", type=Path, help="UTF-8 ordinary-language request")
     parser.add_argument("--report-only", action="store_true", help="Explicit Main/research trigger: no new X intake or fabricated filter work")
+    parser.add_argument("--preview-event-id", help="Exact retained preparation event; EVENT_PREVIEW background sources only")
     parser.add_argument("--live", action="store_true", help="Explicit authorized owner-manual run in the existing production store; requires --rollout")
     parser.add_argument("--binding", type=Path)
     parser.add_argument("--rollout", type=Path)
@@ -843,7 +850,8 @@ def main(argv=None):
             else:
                 path, binding = resolve_owner_operation(json.loads(args.profile.read_bytes()),
                     operation_id=args.operation_id, request=request, report_only=args.report_only, source_review_ids=args.source_review_id,
-                    live_rollout=json.loads(args.rollout.read_bytes()) if args.live else None)
+                    live_rollout=json.loads(args.rollout.read_bytes()) if args.live else None,
+                    preview_event_id=args.preview_event_id)
             result = operation(binding, report_only=args.report_only)
             if args.live or args.command == "standing":
                 result = with_due_digest(result, args.rollout)

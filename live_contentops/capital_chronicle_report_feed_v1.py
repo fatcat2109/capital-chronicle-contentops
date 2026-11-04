@@ -544,6 +544,10 @@ class MainReportFeed:
         if frozen_input and frozen_input.get("research"):
             from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
             self.retained_research = RetainedSourceResearch.from_frozen_snapshot(frozen_input["research"])
+        elif self.pointer.get("preview_event_id"):
+            from live_contentops.contentops_editorial_desk_v1 import preview_preparation_research
+            self.retained_research = preview_preparation_research(self.tracker.store,
+                event_id=self.pointer["preview_event_id"], cutoff_utc=cutoff_utc)
         elif self.pointer.get("research_root") and not self.can_resume(run_id):
             from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
             try:

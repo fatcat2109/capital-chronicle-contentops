@@ -1201,6 +1201,7 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                    if document.get("underlying_reuse_classification") == "governed_government_public_domain"
                    and document.get("rights_evidence_sha256") else {}),
                 **({"report_lineage": dict(document["report_lineage"])} if document.get("report_lineage") else {}),
+                **({"preview_preparation": dict(document["preview_preparation"])} if document.get("preview_preparation") else {}),
                 **({"desk_record_binding": dict(desk)} if isinstance(desk, Mapping) else {}),
             }
         )

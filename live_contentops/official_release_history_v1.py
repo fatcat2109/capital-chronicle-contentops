@@ -261,7 +261,7 @@ def history_for_source_pack(source_pack, *, cutoff_utc, archive_root):
     families, releases = set(), []
     for doc in source_pack:
         url = urlsplit(doc.get("url") or doc.get("source_url") or "")
-        match = re.fullmatch(r"/news.release/(?:archives/)?(cpi|empsit|ppi)(?:_\d{8})?\.htm", url.path)
+        match = re.fullmatch(r"/news.release/(?:archives/)?(cpi|empsit|ppi)(?:_\d{8}|\.nr0)?\.htm", url.path)
         if url.scheme == "https" and url.netloc == "www.bls.gov" and match:
             families.add(match[1])
             if not doc.get("published_at_utc"):

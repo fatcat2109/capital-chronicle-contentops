@@ -1,0 +1,147 @@
+"""Preview preparation reaches the real retained-source and writer consumer."""
+from copy import deepcopy
+from hashlib import sha256
+import json
+import pytest
+
+from live_contentops.contentops_editorial_desk_v1 import (
+    preview_preparation_research, record_pre_event_preparation,
+)
+from tests.test_capital_chronicle_report_feed_v1 import feed
+from tests.test_capital_chronicle_report_editorial_workspace_v1 import controlled_writer
+
+NOW = "2026-10-18T17:00:00Z"
+EVENT = "bls-emsit-20261106"
+
+
+def prepare(store, tmp_path, **changes):
+    capture = tmp_path / "controlled-prior.txt"
+    capture.write_text("CONTROLLED BLS fixture. Employment changed little in the prior month.", encoding="utf-8")
+    digest = sha256(capture.read_bytes()).hexdigest()
+    packet = {"event_id": EVENT, "title": "Employment report preview",
+        "known_at_utc": "2026-10-18T15:00:00Z", "planned_release_utc": "2026-11-06T13:30:00Z",
+        "reader_question": "What will the next report tell us about labor demand?",
+        "background": "Distinguish the establishment and household surveys.",
+        "release_work": "CC-107 adds the frozen dossier scenarios before publication.",
+        "missing_inputs": ["Future frozen dossier and future release"],
+        "released_facts_admitted": False, "publication_authority": False,
+        "official_sources": [{"url": "https://www.bls.gov/news.release/empsit.nr0.htm",
+            "capture_path": str(capture), "capture_sha256": digest,
+            "observed_at_utc": "2026-10-18T14:00:00Z", "published_at_utc": "2026-10-02T12:30:00Z"}],
+        "prior_fact_spans": [{"capture_sha256": digest,
+            "exact_source_span": "Employment changed little in the prior month.", "metric": "Fixture text"}]}
+    packet.update(changes)
+    receipt = record_pre_event_preparation(store, packet)
+    return capture, packet, receipt
+
+
+def consensus_input(tmp_path):
+    raw = tmp_path / "controlled-consensus.html"
+    raw.write_text("CONTROLLED expectation: 10K", encoding="utf-8")
+    projection = {"release_id": "US_NFP_20261106", "records": [{
+        "source": "fixture-source", "measure_key": "payrolls", "raw_path": raw.name,
+        "raw_sha256": sha256(raw.read_bytes()).hexdigest(), "pre_release_eligible": True,
+        "source_value_text": "10K", "known_at_utc": "2026-10-18T14:00:00Z",
+        "acquired_at_utc": "2026-10-18T14:00:00Z", "released_at_utc": "2026-11-06T13:30:00Z",
+        "source_statistic_label": "Consensus", "reference_period": "2026-10",
+        "release_date": "2026-11-06", "unit": "thousands_of_jobs", "rights_class": "MISSING",
+        "source_url": "https://fixture.example/expectation", "source_cells": ["RAW_TABLE_NEVER_EXPORTED"]}]}
+    path = tmp_path / "controlled-projection.json"
+    path.write_text(json.dumps(projection), encoding="utf-8")
+    return {"projection_path": str(path), "projection_sha256": sha256(path.read_bytes()).hexdigest(),
+        "release_id": projection["release_id"], "source": "fixture-source", "measure_key": "payrolls",
+        "capture_root": str(tmp_path)}
+
+
+def test_preparation_flows_through_feed_to_actual_writer_source_pack(tmp_path, monkeypatch):
+    f = feed(tmp_path)
+    _, _, receipt = prepare(f.tracker.store, tmp_path, single_consensus_fact=consensus_input(tmp_path))
+    f.pointer["preview_event_id"] = EVENT
+    monkeypatch.setattr(f, "pending", lambda **_: [])
+    donor = controlled_writer([])
+    observed = []
+
+    class WriterReached(Exception):
+        pass
+
+    def invoke(**kwargs):
+        governed = kwargs["governed_input"]
+        if "candidates" in governed:
+            return donor(**kwargs)
+        observed.extend(governed["source_pack"])
+        raise WriterReached
+
+    with pytest.raises(WriterReached):
+        f.opportunity(output_dir=tmp_path / "out", cutoff_utc=NOW, run_id="preview-source-consumer",
+            rolling_input={"headlines": []}, llm_invoke=invoke,
+            editorial_request="Write the EVENT_PREVIEW background for the future employment release.")
+    assert any(d.get("preview_preparation", {}).get("message_id") == receipt["message_id"] for d in observed)
+    doc = next(d for d in observed if "preview_preparation" in d)
+    assert "Employment changed little" in doc["canonical_content_text"]
+    assert doc["published_at_utc"] == "2026-10-02T12:30:00Z"
+    assert doc["preview_preparation"]["future_release_values"] is None
+    singles = [d for d in observed if d.get("source_reuse_constraints", {}).get("scope", "").startswith("SINGLE_ATTRIBUTED")]
+    assert len(singles) == 1 and "10K" in singles[0]["canonical_content_text"]
+    assert "RAW_TABLE_NEVER_EXPORTED" not in json.dumps(observed)
+    assert len(f.retained_research.headlines(cutoff_utc=NOW)) == 1
+    frozen = f.tracker.store.get_outbox_message(next(r["message_id"] for r in f.tracker.store.list_outbox_messages()
+        if r["destination"] == "internal:native-current-input"))
+    assert receipt["message_id"] in frozen["payload"]
+
+
+def test_source_hashes_spans_rights_and_clocks_stay_enforced(tmp_path):
+    f = feed(tmp_path)
+    capture, _, _ = prepare(f.tracker.store, tmp_path)
+    result = preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc=NOW)
+    docs = result.evidence({"headline_ids": list(result.records)}, cutoff_utc=NOW)
+    assert docs["status"] == "PASS", docs
+    assert docs["provenance"]["request_count_for_call"] == 0
+    capture.write_text("Changed", encoding="utf-8")
+    with pytest.raises(ValueError, match="CAPTURE_BINDING"):
+        preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc=NOW)
+
+
+@pytest.mark.parametrize("fault,expected", [
+    ("span", "SPAN_CHANGED"), ("rights", "PUBLIC_BLS_TEXT_RIGHTS"),
+    ("clock", "SOURCE_CLOCK"), ("no-facts", "NO_CAPTURED_PRIOR_FACTS"),
+])
+def test_unverified_preparation_never_establishes_a_fact(tmp_path, fault, expected):
+    f = feed(tmp_path)
+    _, packet, _ = prepare(f.tracker.store, tmp_path)
+    packet = deepcopy(packet)
+    packet["known_at_utc"] = "2026-10-18T16:00:00Z"
+    if fault == "span": packet["prior_fact_spans"][0]["exact_source_span"] = "A made-up release."
+    if fault == "rights": packet["official_sources"][0]["url"] = "https://third-party.example/news.release/empsit.htm"
+    if fault == "clock": packet["official_sources"][0]["published_at_utc"] = "2026-10-18T18:00:00Z"
+    if fault == "no-facts": packet["prior_fact_spans"] = []
+    record_pre_event_preparation(f.tracker.store, packet)
+    with pytest.raises(ValueError, match=expected):
+        preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc=NOW)
+
+
+def test_preview_scope_event_identity_and_expiry(tmp_path):
+    f = feed(tmp_path)
+    prepare(f.tracker.store, tmp_path)
+    with pytest.raises(ValueError, match="FOR_EVENT_PREVIEWS"):
+        preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc=NOW, article_type="EVENT_REVIEW")
+    with pytest.raises(ValueError, match="EVENT_NOT_FOUND"):
+        preview_preparation_research(f.tracker.store, event_id="another-event", cutoff_utc=NOW)
+    with pytest.raises(ValueError, match="EVENT_HAS_PASSED"):
+        preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc="2026-11-06T13:30:00Z")
+
+
+def test_new_future_preparation_cannot_replace_frozen_native_input(tmp_path, monkeypatch):
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, DesktopInputRequired
+    f = feed(tmp_path)
+    prepare(f.tracker.store, tmp_path)
+    f.pointer["preview_event_id"] = EVENT
+    turn = NativeDesktopTurn(f.tracker.store, run_id="frozen-preview", output_dir=tmp_path / "out", owner_manual_validation=True)
+    with pytest.raises(DesktopInputRequired) as before:
+        f.opportunity(output_dir=tmp_path / "out", cutoff_utc=NOW, run_id="frozen-preview",
+            rolling_input={"headlines": []}, llm_invoke=turn)
+    def forbidden(*a, **kw):
+        raise AssertionError("Must restore the exact frozen preparation")
+    monkeypatch.setattr("live_contentops.contentops_editorial_desk_v1.preview_preparation_research", forbidden)
+    with pytest.raises(DesktopInputRequired) as after:
+        f.opportunity(output_dir=tmp_path / "out", cutoff_utc=NOW, run_id="frozen-preview", llm_invoke=turn)
+    assert before.value.request["request_sha256"] == after.value.request["request_sha256"]

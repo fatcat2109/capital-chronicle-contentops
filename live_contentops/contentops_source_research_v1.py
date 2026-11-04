@@ -884,7 +884,7 @@ class RetainedSourceResearch:
                 if k not in {"document", "source_chart", "permitted_source_text"}
             }
             for row in self.records.values()
-            if _time(row["revision_at_utc"]) <= _time(cutoff_utc)
+            if _time(row["revision_at_utc"]) <= _time(cutoff_utc) and not row.get("context_only")
         ]
 
     def evidence(

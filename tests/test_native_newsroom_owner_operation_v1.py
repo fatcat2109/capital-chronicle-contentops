@@ -40,6 +40,21 @@ def test_owner_request_resumes_frozen_binding_and_cannot_redirect(tmp_path):
         module.resolve_owner_operation(profile, operation_id="../outside", request=request)
 
 
+def test_preview_event_is_bound_once_and_restored_on_resume(tmp_path):
+    profile = {"schema_version": "contentops.native_desktop_operator_profile.v1",
+        "editorial_output_root": str(tmp_path / "articles"),
+        **{k: str(tmp_path / k) for k in ("store_path", "feed_pointer_path", "published_memory_store", "published_memory_output_root")}}
+    module = entry()
+    path, first = module.resolve_owner_operation(profile, operation_id="early-nfp-preview",
+        request="Write the background for the exact forthcoming employment preview.",
+        preview_event_id="bls-emsit-20261106")
+    assert first["preview_event_id"] == "bls-emsit-20261106"
+    assert module.resolve_owner_operation(profile, operation_id="early-nfp-preview")[1] == first
+    assert json.loads(path.read_bytes()) == first
+    with pytest.raises(ValueError, match="PREVIEW_EVENT_CHANGED"):
+        module.resolve_owner_operation(profile, operation_id="early-nfp-preview", preview_event_id="bls-cpi-20261110")
+
+
 def test_repeated_identical_source_failure_preserves_each_attempt(tmp_path, monkeypatch):
     module = entry()
     profile = {"schema_version": "contentops.native_desktop_operator_profile.v1",
