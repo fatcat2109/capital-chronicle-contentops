@@ -4058,6 +4058,17 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         if isinstance(row, Mapping)
     ]
     canonical_url = str(intent.get("canonical_url") or "")
+    # Reviewed payloads bind media selections independently of old compiler hints.
+    if intent.get("reader_presentation_review") and isinstance(intent.get("native_payload"), Mapping):
+        from copy import deepcopy
+        article = deepcopy(article)
+        available = {a.get("asset_id") for a in media_assets}
+        if isinstance(article.get("native_destination_media"), Mapping):
+            article["native_destination_media"] = {d: [i for i in ids if i in available]
+                for d, ids in article["native_destination_media"].items()}
+        decision = article.get("visual_editorial_decision")
+        if isinstance(decision, Mapping) and isinstance(decision.get("channel_media"), Mapping):
+            decision["channel_media"] = {d: [i for i in ids if i in available] for d, ids in decision["channel_media"].items()}
     payloads = build_native_derivative_payloads(
         article=article,
         selection=selection,

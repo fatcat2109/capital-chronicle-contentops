@@ -330,12 +330,14 @@ def test_transport_resolves_current_reviewed_bytes_instead_of_old_context(tmp_pa
     old.write_bytes(b"CONTROLLED_OLD"); new.write_bytes(b"CONTROLLED_NEW")
     (tmp_path / "run_context_v1.json").write_text(json.dumps({"article": {
         "title": "Old", "market_mechanism": "Retained source-bound mechanism",
+        "visual_editorial_decision": {"channel_media": {"telegram": ["old"]}},
         "resolved_article_mode": "STANDARD_NEWS_ANALYSIS"},
         "media": {"assets": [{"asset_id": "old", "path": str(old)}]}}))
     def compile_retained_context(**kwargs):
         assert kwargs["article"]["market_mechanism"] == "Retained source-bound mechanism"
         assert kwargs["article"]["resolved_article_mode"] == "STANDARD_NEWS_ANALYSIS"
         assert kwargs["article"]["title"] == "Accepted correction"
+        assert kwargs["article"]["visual_editorial_decision"]["channel_media"]["telegram"] == []
         return {"telegram": {"text": "Unchanged"}}
     monkeypatch.setattr(impl, "build_native_derivative_payloads", compile_retained_context)
     monkeypatch.setattr("live_contentops.v1_simple_gemini_newsroom_v1.canonical_photo_attribution_payload", lambda payload, **kw: payload)
