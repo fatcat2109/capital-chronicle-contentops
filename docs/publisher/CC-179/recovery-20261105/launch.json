@@ -1,0 +1,17 @@
+{
+  "recorded_at_utc": "2026-11-04T17:59:09.806541+00:00",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "configuration_evidence": "Win32_Process PID 42424 launch arguments; no independent runtime model telemetry",
+  "native_invocation_id": "01a1a7b4-7e89-7b62-950c-6e294cacd36c",
+  "live_base_commit": "fe113be54e1facb7a27a141c8db5bde9f4daf0c7",
+  "remote_master": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "branch": "backlog/cc-179-publisher-recovery-20261105",
+  "base_reason": "Continue on current Publisher operating-root fixes; historical recovery branch retained without rewriting it.",
+  "preserved_wip": [
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+    "tests/evidence/cc-172-resume-20261104/latency-diagnosis.txt"
+  ]
+}
