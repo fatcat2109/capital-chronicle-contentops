@@ -1,0 +1,53 @@
+{
+  "delivery": {
+    "changed": false,
+    "page": 282,
+    "settled": false,
+    "value": [
+      {
+        "checked": true,
+        "label": "Everyone",
+        "type": "radio"
+      },
+      {
+        "checked": false,
+        "label": "Subscribers only",
+        "type": "radio"
+      },
+      {
+        "checked": false,
+        "label": "Paid subscribers only (Turn on paid subscriptions)",
+        "type": "radio"
+      },
+      {
+        "checked": true,
+        "label": "Everyone",
+        "type": "radio"
+      },
+      {
+        "checked": false,
+        "label": "Subscribers only",
+        "type": "radio"
+      },
+      {
+        "checked": false,
+        "label": "No one (disable comments)",
+        "type": "radio"
+      },
+      {
+        "checked": true,
+        "label": "Send via email and the Substack app",
+        "type": "checkbox"
+      },
+      {
+        "checked": false,
+        "label": "Schedule time to email and publish",
+        "type": "checkbox"
+      }
+    ]
+  },
+  "observed_at_utc": "2026-11-04T11:11:04.338Z",
+  "page": 282,
+  "snapshot": "- region \"Notifications\" [ref=e40] [cursor=pointer]\n- dialog \"Publish\"\n  - heading \"Publish\" [level=2]\n  - button \"close\" [ref=e95]\n    - image\n  - form\n    - LabelText\n    - LabelText\n      - generic [ref=e96] [cursor=pointer]\n        - radio \"Everyone\" [ref=e97]\n    - LabelText\n      - generic [ref=e98] [cursor=pointer]\n        - radio \"Subscribers only\" [ref=e99]\n    - LabelText\n      - radio \"Paid subscribers only (Turn on paid subscriptions)\" [disabled] [ref=e100]\n      - link \"(Turn on paid subscriptions)\" [ref=e101] [url=\"https://capitalchronicle.substack.com/publish/settings#payments-settings\"]\n  - form\n    - LabelText\n    - LabelText\n      - generic [ref=e102] [cursor=pointer]\n        - radio \"Everyone\" [ref=e103]\n    - LabelText\n      - generic [ref=e104] [cursor=pointer]\n        - radio \"Subscribers only\" [ref=e105]\n    - LabelText\n      - generic [ref=e106] [cursor=pointer]\n        - radio \"No one (disable comments)\" [ref=e107]\n  - LabelText\n  - combobox \"Select or create tags\" [collapsed] [ref=e108]\n  - button [collapsed] [ref=e109]\n  - LabelText [ref=e110] [cursor=pointer]\n  - button \"Social preview\" [ref=e111]\n    - button \"Edit\" [ref=e112]\n      - image\n  - form\n    - LabelText\n    - LabelText [ref=e113] [cursor=pointer]\n      - checkbox \"Send via email and the Substack app\" [ref=e114]\n        - image\n    - LabelText\n    - LabelText [ref=e115] [cursor=pointer]\n      - checkbox \"Schedule time to email and publish\" [ref=e116]\n        - image\n  - LabelText\n  - button \"Scan for AI text\" [ref=e117]\n    - image\n  - button \"Disable AI detection\" [ref=e118]\n    - image\n  - button \"Cancel\" [ref=e119]\n  - button \"Send to everyone now\" [ref=e120]",
+  "url": "https://capitalchronicle.substack.com/publish/post/223456283"
+}

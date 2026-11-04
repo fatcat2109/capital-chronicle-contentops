@@ -1,0 +1,19 @@
+{
+  "url": "https://substack-post-media.s3.amazonaws.com/public/images/58404804-4b70-42dc-8c71-5e300c795519_1600x900.png",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-143\\run-20261104-1744\\digest-public-card.png",
+  "size": 29534,
+  "sha256": "5767e87f663799e6d242c2a6bde246807e75a533f4e499d2dfc54347fb04642f",
+  "expected_sha256": "5767e87f663799e6d242c2a6bde246807e75a533f4e499d2dfc54347fb04642f",
+  "exact_bytes_match": true,
+  "metadata": {
+    "mime_type": "image/png",
+    "width": 1600,
+    "height": 900
+  },
+  "load_check": {
+    "complete": true,
+    "height": 1305,
+    "src": "https://substackcdn.com/image/fetch/$s_!YDqA!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F58404804-4b70-42dc-8c71-5e300c795519_1600x900.png",
+    "width": 2320
+  }
+}

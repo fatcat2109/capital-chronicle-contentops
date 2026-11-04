@@ -1,0 +1,23 @@
+{
+  "tool_request_sha256": "e364b5d876b3d1b7965bfa024a9c819eff76fed004d1fb693f46a09ff1a012b0",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "codex-exec-48600",
+    "surface": "CODEX_EXEC",
+    "observation_source": "Neo exact digest 223456283 reached share-center after Send to everyone now and Publish without buttons; digest-send-observation.json",
+    "observed_at_utc": "2026-11-04T11:11:54.384Z"
+  },
+  "result": {
+    "request_sha256": "6c4e0fd721f27ed48c2f5aaceb72ba0c40090fbf7df3dc43097ca61f7fabdcb0",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "223456283",
+    "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november",
+    "delivery_observation": {
+      "email_send_enabled": true,
+      "web_publish_enabled": true,
+      "evidence_ref": "digest-delivery-settings.json"
+    },
+    "email_verification_required": false
+  }
+}

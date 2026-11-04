@@ -181,6 +181,15 @@ class NeoDestinationHandoff:
             invocation = getattr(self.native_executor, "native_invocation_id", None)
             if invocation:
                 value["native_invocation_id"] = invocation
+        mode = intent.get("destination_plan", {}).get("substack_delivery_mode")
+        if destination == "substack" and mode and action == "PUBLISH":
+            from live_contentops.substack_daily_digest_v1 import delivery_policy
+            value["substack_delivery_policy"] = delivery_policy(mode)
+        if destination == "substack" and intent.get("daily_digest") and action == "READBACK":
+            value["digest_email_readback"] = {
+                "instruction": "Read this exact post's publisher dashboard delivery status; return email_delivery_confirmed=true only for an observed sent email, with email_delivery_evidence_ref. Never read a mailbox. A public page alone does not prove email delivery.",
+                "observation_hour": int(datetime.now(timezone.utc).timestamp()) // 3600,
+            }
         if destination == "substack" and action == "READBACK" and intent.get("published_content_export"):
             value["publication_clock_readback"] = (
                 "Return published_at_utc from the exact post's time datetime or post_date; "
@@ -217,6 +226,14 @@ class NeoDestinationHandoff:
         if (result.get("request_sha256") != request["request_sha256"]
                 or result.get("observed_identity") != IDENTITIES[destination]):
             return {"status": "UNKNOWN_WRITE", "reason_code": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"}
+        policy = request.get("substack_delivery_policy")
+        if policy and str(result.get("status", "")).upper() in {"SUCCESS", "PUBLISHED", "DISPATCH_CONFIRMED"}:
+            observed = result.get("delivery_observation") or {}
+            if (observed.get("email_send_enabled") is not policy["email_send_enabled"]
+                    or observed.get("web_publish_enabled") is not True
+                    or not observed.get("evidence_ref")):
+                return {**result, "status": "UNKNOWN_WRITE",
+                        "reason_code": "SUBSTACK_DELIVERY_MODE_NOT_VERIFIED", "retry_permitted": False}
         # Identity/readback ambiguity is left to the sole coordinator. Never retry here.
         return result
 
@@ -259,6 +276,17 @@ class NeoDestinationHandoff:
                     comparison_text = comparison_text.replace(_text(short), _text(canonical))
         text_match = (bool(segments) and all(_text(s) in comparison_text for s in segments)
             and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
+        if destination == "substack" and intent.get("daily_digest"):
+            # A native editor may render this structured link index as paragraphs
+            # or a list. Markdown list punctuation adds no reader-facing fact.
+            digest_segments = [re.sub(r"(?m)^-\s+(?=\[)", "", s) for s in segments]
+            text_match = bool(segments) and all(_text(s) in comparison_text for s in digest_segments)
+            from live_contentops.substack_daily_digest_v1 import validate_digest_intent
+            packet = validate_digest_intent(self.native_executor.store, intent)
+            expected_links = [(_text(a["title"]), a["url"]) for a in packet["articles"]]
+            observed_links = [(_text(a.get("text")), a.get("url"))
+                              for a in result.get("observed_links", [])]
+            text_match = text_match and observed_links == expected_links
         expected_media = {a.get("public_delivery_sha256") or a.get("sha256") for a in binding["media_manifest"]}
         expected_media.discard(None)
         media_match = expected_media <= set(result.get("observed_media_sha256") or [])

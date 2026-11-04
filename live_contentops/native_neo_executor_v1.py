@@ -194,6 +194,8 @@ class NativeNeoExecutor:
                     "pipeline_state": "SUBSTACK_DRAFT_AWAITING_OWNER", "automatic_wait": False,
                     "tab_policy": "Leave this tab open and untouched for Jim under decision 52; continue in other task tabs without a human-help tool wait."},
             }
+            if request.get("substack_delivery_policy"):
+                action_packet["substack_publish_routine"]["delivery"] = request["substack_delivery_policy"]
         return action_packet
 
     def submit(self, request_hash: str, response: Mapping[str, Any]):

@@ -1597,7 +1597,10 @@ class DurablePublicationCoordinator:
     def register_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         if plan.get("fixture_source_context"):
             raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
-        if self.published_content_path is not None:
+        if plan.get("daily_digest"):
+            from live_contentops.substack_daily_digest_v1 import validate_digest_plan
+            validate_digest_plan(self.store, work_item_id, plan)
+        if self.published_content_path is not None and not plan.get("daily_digest"):
             from live_contentops.published_content_v1 import article_metadata, read_records
             article_metadata(plan, require_notice=False)
             if self.published_content_path.exists():
@@ -1621,6 +1624,17 @@ class DurablePublicationCoordinator:
             if str(item.get("transport_type") or "") != registration.transport_type:
                 raise ValueError(f"publication_plan_transport_mismatch:{destination}")
             ids = self._ids(work_item_id, plan_hash, destination)
+            previous = self.store.get_outbox_message(ids["message_id"])
+            item = dict(item)
+            if destination == "substack":
+                if previous:
+                    # Issued intents/requests, including started writes, are immutable.
+                    prior = json.loads(previous["payload"])["destination_plan"]
+                    if prior.get("substack_delivery_mode"):
+                        item["substack_delivery_mode"] = prior["substack_delivery_mode"]
+                else:
+                    from live_contentops.substack_daily_digest_v1 import delivery_mode_for_plan
+                    item["substack_delivery_mode"] = delivery_mode_for_plan(self.store, work_item_id, plan)
             intent = {
                 "schema_version": "contentops.prewrite_intent.v1",
                 "work_item_id": work_item_id,
@@ -1679,6 +1693,14 @@ class DurablePublicationCoordinator:
                 previous = self.store.get_outbox_message(ids["message_id"])
                 if not previous or json.loads(previous["payload"]).get("published_content_export"):
                     intent["published_content_export"] = "contentops.published_content.v1"
+            if plan.get("daily_digest"):
+                from live_contentops.substack_daily_digest_v1 import validate_digest_plan
+                packet = validate_digest_plan(self.store, work_item_id, plan)
+                intent["daily_digest"] = packet["digest_id"]
+                intent["native_payload"] = packet["native_payload"]
+                intent["media_assets"] = packet.get("media_assets", [])
+                # A digest is a link index, not a new analytical article in the feed.
+                intent.pop("published_content_export", None)
             payload = _canonical_json(intent)
             expected_hash = str(item.get("payload_hash") or "")
             if item.get("payload") is not None and expected_hash:
@@ -1982,7 +2004,7 @@ class DurablePublicationCoordinator:
         mode = "AUTONOMOUS_DEFAULT" if native_pending_resume else self._mode()
         if mode != "AUTONOMOUS_DEFAULT":
             return {"destination": destination, "status": f"WRITE_BLOCKED_{mode}", "publish_called": False}
-        if self.published_content_path is not None:
+        if self.published_content_path is not None and not intent.get("daily_digest"):
             from live_contentops.published_content_v1 import article_metadata, read_records
             from live_contentops.event_article_guard_v1 import check_publication_copy
             metadata = article_metadata(intent)
@@ -1990,6 +2012,9 @@ class DurablePublicationCoordinator:
                 conditional_calls=metadata["conditional_calls"], require_notice=False, require_call_text=False)
             if self.published_content_path.exists():
                 read_records(self.published_content_path)
+        if intent.get("daily_digest"):
+            from live_contentops.substack_daily_digest_v1 import validate_digest_intent
+            validate_digest_intent(self.store, intent)
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
         native = self.store.get_outbox_message("native-operation-binding-" + sha256_of(intent["work_item_id"]))
         if native:
@@ -2516,7 +2541,7 @@ class DurablePublicationCoordinator:
                 current.update({k: result[k] for k in ("distribution_status", "canonical_publication_status",
                     "transaction_classification") if k in result})
             result = {**result, **current}
-        if self.published_content_path is not None and result.get("canonical_article_real_published"):
+        if self.published_content_path is not None and result.get("canonical_article_real_published") and not plan.get("daily_digest"):
             result["published_content_record"] = self.sync_published_content(work_item_id)
         return result
 
@@ -2599,7 +2624,7 @@ class DurablePublicationCoordinator:
         result = {**registration, "delivery_media_preparation": delivery, "per_destination": outcomes, **self.publication_totals(
             outcomes, full_v1=self._full_v1_distribution_required(plan))}
         result = self._site_publication_state(work_item_id, plan, result)
-        if self.published_content_path is not None and result["substack_publication_confirmed"]:
+        if self.published_content_path is not None and result["substack_publication_confirmed"] and not plan.get("daily_digest"):
             from live_contentops.published_content_v1 import sync_confirmed_piece
             try:
                 result["published_content_record"] = sync_confirmed_piece(self.store,
@@ -3606,7 +3631,11 @@ class CanonicalDestinationTransportRuntimeV1:
                 and intent.get("destination_plan", {}).get("transport_type") == "BROWSEROS_NEO_MCP"):
             result = self._neo_transport.readback(destination=destination, intent=intent,
                 public_object_id=public_object_id, public_object_url=public_object_url)
-            if destination == "substack" and result.get("verified") is True and result.get("public_image_urls"):
+            if (destination == "substack" and result.get("verified") is True
+                    and result.get("public_image_urls") and not intent.get("daily_digest")):
+                # Ordinary articles prepare downstream derivative media here.
+                # The frozen digest has no derivative plan or article workspace;
+                # Neo has already checked its bound original card hash.
                 from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
                 from live_contentops.media_manifest_authority_v1 import build_delivery_media_manifest
                 data = _durable_intent_inputs(intent)

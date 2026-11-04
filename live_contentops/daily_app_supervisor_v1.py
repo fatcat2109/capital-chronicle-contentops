@@ -2044,6 +2044,14 @@ class ContentOpsDailyAppSupervisor:
         # editorial windows and Run Now. Runs under every operating mode (ingestion is not a
         # public write); the locked CapitalChronicleBot binding is reused and never replaced.
         report["headline_ingestion"] = self._run_continuous_intake_housekeeping(now)
+        # The existing host tick prepares the daily link index. Native Neo actions
+        # remain in an active Publisher conversation; this is no fifth schedule.
+        try:
+            from live_contentops.substack_daily_digest_v1 import production_digest_housekeeping
+            report["daily_email_digest"] = production_digest_housekeeping(self._store, now=now)
+        except Exception as exc:  # keep unrelated intake/protection work independent
+            report["daily_email_digest"] = {"state": "DIGEST_PREPARATION_FAILED",
+                "cause": type(exc).__name__, "public_write_performed": False}
         effective_materiality = (
             materiality_metadata
             if isinstance(materiality_metadata, Mapping)
