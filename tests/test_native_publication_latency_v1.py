@@ -71,6 +71,36 @@ def test_editor_keep_preserves_original_text_clock_across_media_review(tmp_path,
     assert next_review["text_approved_at_utc"] == first
 
 
+def test_pre_writer_repair_counts_and_failed_asset_drops_with_source_bound_copy_alignment(tmp_path, monkeypatch):
+    store, binding, _, result, review = seeded(tmp_path, monkeypatch, final_visual=False)
+    for asset in result["media_assets"]:
+        asset["visual_review"] = {**asset.get("visual_review", {}), "repair_round": 1,
+            "pixels_inspected": True, "asset_sha256": asset["sha256"]}
+    store.finalize_outbox_payload_before_dispatch(
+        message_id="cc-editorial-final-" + sha256_of(binding["run_id"]),
+        payload=canonical_bytes(result).decode(), status="EDITORIAL_INTERNAL")
+    repair = failed_review(store, binding, result, "prewriter-one-repair")
+    worker = json.loads((Path(__file__).resolve().parents[1] /
+        "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/goal31-company-machine-reading-write-output.json").read_bytes())
+    original_dek = worker["article"]["dek"]
+    worker["article"]["dek"] += " A focused reading."
+    for claim in worker["material_claim_bindings"]:
+        if claim["claim_text"] == original_dek:
+            claim["claim_text"] = worker["article"]["dek"]
+    bind_editorial_media(store, run_id=binding["run_id"], article_identity=result["article_identity"], assets=[],
+        expected_package_revision=native_review_revision(result), final_visual_repair=repair,
+        drop_failed_visuals=True, corrected_worker_output=worker)
+    updated = current(store, binding["run_id"])
+    assert updated["article"]["dek"].endswith(" A focused reading.")
+    assert updated["evidence"] == result["evidence"]
+    assert updated["visual_repair_disposition"]["repair_rounds"] == 1
+    assert [a["modality"] for a in updated["media_assets"]] == ["source_backed_chart"]
+    assert len(updated["previews"]) == 8
+    assert all(not {a["asset_id"] for a in updated["visual_repair_disposition"]["dropped_assets"]}
+        & set(p["payload"].get("media_asset_ids", [])) for p in updated["previews"])
+    assert Path(updated["visual_repair_revision"]["qualified_record_path"]).is_file()
+
+
 @pytest.mark.parametrize("short_preview", [False, True, "revised_preview", "analysis", "long"])
 def test_current_policy_adopts_unchanged_legacy_text_without_rewriting_native_history(tmp_path, monkeypatch, short_preview):
     from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn

@@ -1253,8 +1253,8 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     if result.get("article_identity") != article_identity or not result.get("qualified_article_count"):
         raise ValueError("EXACT_QUALIFIED_NATIVE_ARTICLE_REQUIRED")
     disposition = result.get("visual_repair_disposition")
-    if drop_failed_visuals and (not final_visual_repair or corrected_worker_output is not None):
-        raise ValueError("DROP_VISUALS_REQUIRES_EXACT_REPAIR_RETURN_UNCHANGED_COPY")
+    if drop_failed_visuals and not final_visual_repair:
+        raise ValueError("DROP_VISUALS_REQUIRES_EXACT_REPAIR_RETURN")
     if disposition and not final_visual_repair and assets != result.get("media_assets"):
         raise ValueError("VISUAL_REPAIR_CAP_DROP_FAILED_ASSETS_REQUIRED")
     if final_visual_repair is not None:
@@ -1283,6 +1283,17 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         if dispatched:
             raise ValueError("REVIEWED_MEDIA_IMMUTABLE_AFTER_PUBLICATION_DISPATCH")
     corrected_article = result["article"]
+    if corrected_worker_output is not None:
+        if final_visual_repair is None:
+            raise ValueError("COPY_CORRECTION_REQUIRES_SAME_MAX_FINAL_REPAIR")
+        from live_contentops.v1_simple_gemini_newsroom_v1 import _validate_worker_text, _validate_article_against_source_pack
+        ok, _, _, reason = _validate_worker_text(json.dumps(corrected_worker_output))
+        if not ok:
+            raise ValueError("TARGETED_COPY_REPAIR_SCHEMA:" + str(reason))
+        revised, _ = _validate_article_against_source_pack(corrected_worker_output, result["evidence"],
+            selected_candidate=result["simple_result"]["selected_candidate"],
+            article_mode=result["article"]["resolved_article_mode"], epistemic_state=result["article"].get("epistemic_state"))
+        corrected_article = {**result["article"], **revised}
     if drop_failed_visuals:
         dropped = {a["asset_id"] for a in disposition["dropped_assets"]}
         decision = corrected_article.get("visual_editorial_decision") or result.get("visual_editorial_decision")
@@ -1295,17 +1306,6 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         corrected_article = {**corrected_article,
             **({"visual_editorial_decision": decision} if decision else {}),
             "visual_repair_disposition": {"policy": "CC-172", "repair_rounds": 1, "dropped_asset_ids": sorted(dropped)}}
-    if corrected_worker_output is not None:
-        if final_visual_repair is None:
-            raise ValueError("COPY_CORRECTION_REQUIRES_SAME_MAX_FINAL_REPAIR")
-        from live_contentops.v1_simple_gemini_newsroom_v1 import _validate_worker_text, _validate_article_against_source_pack
-        ok, _, _, reason = _validate_worker_text(json.dumps(corrected_worker_output))
-        if not ok:
-            raise ValueError("TARGETED_COPY_REPAIR_SCHEMA:" + str(reason))
-        revised, _ = _validate_article_against_source_pack(corrected_worker_output, result["evidence"],
-            selected_candidate=result["simple_result"]["selected_candidate"],
-            article_mode=result["article"]["resolved_article_mode"], epistemic_state=result["article"].get("epistemic_state"))
-        corrected_article = {**result["article"], **revised}
     allowed = {d["url"] for d in result.get("evidence", [])}
     allowed.update(s["url"] for d in result.get("evidence", []) for s in d.get("desk_record_binding", {}).get("sources", []))
     for d in result.get("evidence", []):
