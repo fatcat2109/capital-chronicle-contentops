@@ -1,0 +1,55 @@
+{
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "source_commit": "ced03eabbf246e2719b606a40d8da80c5025a571",
+  "integration": "FAST_FORWARD",
+  "all_source_and_test_files_match": true,
+  "files": [
+    {
+      "path": "live_contentops/native_desktop_publication_v1.py",
+      "normalized_sha256": "ee3cc9c1f9d2d616f945bcae5edeace3ced608f55d9840c844605e3564925beb",
+      "matches_source_commit": true
+    },
+    {
+      "path": "live_contentops/native_neo_executor_v1.py",
+      "normalized_sha256": "9cc8e9b0d83b73aa0e8c2f792581b376b911e4f714e0caae6ac8126976280f93",
+      "matches_source_commit": true
+    },
+    {
+      "path": "live_contentops/neo_destination_handoff_v1.py",
+      "normalized_sha256": "43a3298a1e8e63c2edc4aac2fc75cf0eaeeda3b5ea21ff712d0838f5c9a056ff",
+      "matches_source_commit": true
+    },
+    {
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "normalized_sha256": "f36a3cde6868d2ea797f0f769ba3ee53fbea49defc038d0957a9b5ad2a30c5d6",
+      "matches_source_commit": true
+    },
+    {
+      "path": "live_contentops/site_first_publication_v1.py",
+      "normalized_sha256": "3d599519e5e6216df914ce7dda15086398f52fd4a7725c62fc5c6a6c9381a615",
+      "matches_source_commit": true
+    },
+    {
+      "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "normalized_sha256": "4da4b742438d2ad5d53edeb7be7f859d02c78881a4502b3b4ab99df36016861c",
+      "matches_source_commit": true
+    },
+    {
+      "path": "tests/test_native_desktop_publication_v1.py",
+      "normalized_sha256": "1abe2eff5702cf4e04a8f44a7a5b3a6978f346488f4b43b4bddbf01f5387e1f8",
+      "matches_source_commit": true
+    },
+    {
+      "path": "tests/test_native_neo_executor_v1.py",
+      "normalized_sha256": "db4caff1751d379a087afaa0e7d0d0a3246da5cc66a4675f4a3501360a783d1b",
+      "matches_source_commit": true
+    },
+    {
+      "path": "tests/test_site_first_publication_v1.py",
+      "normalized_sha256": "6f9f0c3cf978f4ef5128a8721ca3f51cc11e050f7cba922341f49a245f425a26",
+      "matches_source_commit": true
+    }
+  ],
+  "live_consumer_entry": "NativeReviewedPublication.resume -> DurablePublicationCoordinator.execute_plan -> _execute_site_first_plan",
+  "downstream_site_consumer": "CC-146/149: NEWSROOM_CANONICAL_REQUIRED; not adapted or deployed by Publisher"
+}
