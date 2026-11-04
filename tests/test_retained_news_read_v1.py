@@ -352,4 +352,8 @@ def test_cli_rejects_alternate_profile_path_and_accepts_exact_real_article(capsy
         main(["news-read", "--article-id", IBM, "--workspace-root", "C:/private"])
     assert main(["news-read", "--article-id", IBM]) == 0
     output = json.loads(capsys.readouterr().out.splitlines()[-1])
+    if output.get("classification") == "TOOL_OUTPUT_IN_FILE":
+        # CC-172: output over 10 KB is written to a file and the CLI prints its reference.
+        from pathlib import Path as _Path
+        output = json.loads(_Path(output["output"]["path"]).read_bytes())
     assert output["status"] == 200 and output["body"]["story"]["article_identity"] == IBM
