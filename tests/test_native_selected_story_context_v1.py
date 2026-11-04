@@ -15,7 +15,7 @@ from test_native_editorial_media_standard_v1 import controlled_release_packet
 from test_v1_simple_gemini_newsroom_v1 import CUTOFF, _headlines, _evidence_result, _selection
 
 
-def seeded(tmp_path, monkeypatch, change=None):
+def seeded(tmp_path, monkeypatch, change=None, history_docs=0):
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
     store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
     run = "selected-context-test"
@@ -46,6 +46,14 @@ def seeded(tmp_path, monkeypatch, change=None):
         run_v1_simple_gemini_newsroom(**args)
     assert media.value.request["stage"] == "media-plan"
     source_pack = media.value.request["source_pack"]
+    if history_docs:
+        source_pack = [*source_pack, *[{"document_id": "controlled-history-" + str(i),
+            "canonical_content_sha256": str(i) * 64,
+            "source_authority_class": "official_release_history_from_cc010"} for i in range(history_docs)]]
+        path = turn.root / "simple_gemini_evidence_v1.json"
+        walk = json.loads(path.read_bytes())
+        walk["selected_source_pack"] = source_pack
+        path.write_bytes(canonical_bytes(walk))
     visual = {"request_sha256": "controlled-visual", "stage": "visual-edit",
               "governed_input": {"source_packet": {"source_pack": source_pack}}}
     turn._put("visual-edit", "request", visual)
@@ -133,6 +141,13 @@ def test_already_held_verified_context_can_join_before_writer_freeze(tmp_path, m
     assert result["classification"] == "SELECTED_STORY_CONTEXT_ATTACHED"
     assert turn.source_recovery()["context_documents"][0]["document_id"] == "other-held-context"
     assert result["new_source_requests"] == 0
+
+
+def test_governed_history_does_not_exhaust_the_primary_context_source_bound(tmp_path, monkeypatch):
+    turn, binding, response, _ = seeded(tmp_path, monkeypatch, history_docs=3)
+    result = entry().operation(binding, command="recover-sources", response=response)
+    assert result["classification"] == "SELECTED_STORY_CONTEXT_ATTACHED"
+    assert len(turn.source_recovery()["context_documents"]) == 1
 
 
 def test_cli_routes_prewrite_visual_amendment_to_existing_max(tmp_path, monkeypatch):

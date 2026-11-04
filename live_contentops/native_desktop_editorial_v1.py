@@ -223,7 +223,9 @@ def admit_selected_story_context(turn, binding, response):
     if (candidate != walk.get("selected_candidate_id") or not primary
             or candidate not in {p["candidate_id"] for p in turn._get("select", "response")["output"]["ordered_candidate_plan"]}
             or walk.get("selected_source_pack") != primary
-            or len(primary) + len(ids) > MAX_SOURCE_DOCUMENTS):
+            or sum(d.get("source_authority_class") != "official_release_history_from_cc010" for d in primary)
+                + len(ids) > MAX_SOURCE_DOCUMENTS
+            or len(primary) + len(ids) > 10):
         raise ValueError("EXACT_QUALIFIED_SELECTED_SOURCE_PACK_REQUIRED")
     documents = []
     for item_id in ids:
