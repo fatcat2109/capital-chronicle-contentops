@@ -1,0 +1,14 @@
+{
+  "resumed_at_utc": "2026-11-04T05:00:27.180937+00:00",
+  "cause": "USER_CONFIRMED_USAGE_LIMIT_CLEARED_BY_ACCOUNT_SWITCH_OR_TRANSIENT_RECOVERY",
+  "pushed_sha": "981c5c6db2027b4f45dc8f0bc94add8e9c495abc",
+  "item_status_observed": "IN_PROGRESS",
+  "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\binding.json",
+  "pending_stage": "visual-edit",
+  "request_sha256": "e23ec03f83eb5fc58454b90caae97e532aa773478353c0c0bd869b9ad9aa46b9",
+  "actual_prior_native_role_return": "Agent errored: usage limit; no response produced",
+  "retry_identity": "/root/native_writer_e23ec03f83eb",
+  "accepted_roles_repeated": false,
+  "new_bindings": 0,
+  "new_public_writes": 0
+}
