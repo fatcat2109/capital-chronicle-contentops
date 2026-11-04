@@ -47,3 +47,18 @@ readback normalization, ten-minute recovery observations, digest email evidence,
 publication clocks and pending code-tab protections survive the integration.
 See [integration.json](integration.json) for installed consumer verification and
 [integration-tests.junit.xml](integration-tests.junit.xml) for the targeted run.
+
+
+The continuation passed 168 targeted regressions, then 13 composition checks on
+the merged branch and the same 13 checks from the operating root. Installed code
+at `A:\Capital Chronicle\ContentOps` read the actual store in SQLite read-only
+mode: draft `213777803` was skipped before any executor call, while retained draft
+`210865567` remained in the readback scope. All six unrelated modified operating
+files kept their original byte hashes. No draft, public object, live store, schedule
+or user application was changed by this verification.
+
+Live release tag: `contentops-live-20261104-cc173-draft-scope`. The inventory CSV
+remains the 4 November 05:31–05:33 GMT+7 capture, with a 18:36 GMT+7 read-only
+store-reference comparison. [operating-root-tests.junit.xml](operating-root-tests.junit.xml)
+records the installed consumer tests. CC-173 is complete once this evidence commit
+is fast-forwarded into the operating root and the branch and tag read back remotely.

@@ -1,0 +1,32 @@
+{
+  "verified_at_utc": "2026-11-04T11:36:16.631203+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "installed_module": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\substack_draft_inventory_v1.py",
+  "launch": {
+    "pid": 18132,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "observation": "CONFIGURED_NOT_OBSERVED"
+  },
+  "inventory_capture_utc": "2026-11-03T22:31:56.452Z",
+  "total_drafts": 639,
+  "current_store_referenced_in_capture": 2,
+  "old_unreferenced_in_capture": 637,
+  "store_reference_count": 16,
+  "ignored_draft_id": "213777803",
+  "ignored_result": "UNREFERENCED_SUBSTACK_DRAFT_IGNORED",
+  "browser_executor_calls": 0,
+  "referenced_draft_in_scope": "210865567",
+  "unrelated_modified_files_preserved": true,
+  "preserved_file_count": 6,
+  "public_mutations": 0,
+  "live_store_writes": 0,
+  "targeted_tests": {
+    "passed": 168,
+    "failed": 0
+  },
+  "composition_tests": {
+    "passed": 13,
+    "failed": 0
+  }
+}
