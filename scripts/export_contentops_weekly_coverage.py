@@ -16,10 +16,7 @@ def main():
     parser.add_argument("--week-ending", required=True, help="Inclusive production date, YYYY-MM-DD")
     parser.add_argument("--output-dir", type=Path, required=True)
     args = parser.parse_args()
-    root = Path(__file__).resolve().parents[1]
     target = args.output_dir.resolve()
-    if not target.is_relative_to(root) or target == root:
-        raise ValueError("DIGEST_OUTPUT_MUST_BE_INSIDE_BACKLOG_WORKTREE")
     with sqlite3.connect(args.store.resolve().as_uri() + "?mode=ro", uri=True) as connection:
         connection.row_factory = sqlite3.Row
         connection.execute("PRAGMA query_only=ON")
