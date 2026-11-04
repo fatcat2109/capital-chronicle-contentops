@@ -1,0 +1,22 @@
+{
+  "observed_at_utc": "2026-11-04T15:07:50.723264+00:00",
+  "browser": "BrowserOS Neo",
+  "window_id": 1698400956,
+  "group_id": "7C9C0C355F4BD63FE1B02F8908C5B6D9",
+  "published_page_id": 337,
+  "drafts_page_id": 338,
+  "published_ids": [
+    "223456283",
+    "223429113",
+    "223408612",
+    "223293057",
+    "223246940",
+    "223199520"
+  ],
+  "drafts_latest_visible": "Untitled, updated September 2, 2026",
+  "today_finished_unpublished_drafts_found": 0,
+  "gmail_untouched": true,
+  "threads_profile_page_id": 339,
+  "threads_before_latest_visible_post": "DfAWVvEk9Q0",
+  "source": "Neo published/drafts page read and Threads profile snapshot"
+}

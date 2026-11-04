@@ -1,0 +1,12 @@
+{
+  "item": "CC-171",
+  "actual_entry_utc": "2026-11-04T15:05:44.999492+00:00",
+  "native_invocation_id": "01a1a716-5476-7a73-ab64-bc8ae37806eb",
+  "launch_pid": 18012,
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "telemetry": "CONFIGURED_NOT_OBSERVED",
+  "base": "986a6e88",
+  "pipeline_code_changes": false,
+  "source": "observed Win32_Process launch command line"
+}
