@@ -3427,6 +3427,7 @@ def _prepare_rolling_x_release_candidate(
             source_label=source_label,
             source_page_url=source_page_url,
             published_at=str(first_evidence.get("published_at") or first_evidence.get("published_at_utc") or "") or None,
+            article=final_article,
         )]
     body = str(final_article.get("substack_body_markdown") or "")
     rendered = str(final_article.get("rendered_body") or body)
@@ -3939,10 +3940,9 @@ def _prepare_cloudinary_delivery_media_for_plan(
         selection = dict(context.get("selection") or {})
         epistemic = dict(context.get("epistemic_state") or {})
         source_label = str(
-            epistemic.get("reader_visible_epistemic_label")
-            or epistemic.get("primary_reporting_publisher")
+            epistemic.get("primary_reporting_publisher")
             or selection.get("source_account")
-            or "Governed source"
+            or "Capital Chronicle"
         )
         source_page_url = str(
             selection.get("source_url")
@@ -3957,6 +3957,7 @@ def _prepare_cloudinary_delivery_media_for_plan(
                 source_label=source_label,
                 source_page_url=source_page_url,
                 published_at=str(selection.get("source_timestamp_utc") or "") or None,
+                article=article,
             )
         ]
     manifest_path = output_dir / "delivery_media_manifest_v1.json"
@@ -4037,11 +4038,22 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
             for index, post in enumerate(payloads[destination].get("posts") or []):
                 post["media_asset_ids"] = selected_ids if index == 0 else []
             frozen_payload = payloads[destination]
-        if "media_asset_ids" in frozen_payload:
-            chosen = set(frozen_payload.get("media_asset_ids") or [])
-            chosen.update(asset_id for post in frozen_payload.get("posts") or []
-                          if isinstance(post, Mapping) for asset_id in post.get("media_asset_ids") or [])
-            media_assets = [asset for asset in media_assets if asset.get("asset_id") in chosen]
+        if "media_asset_ids" in frozen_payload or any(
+            isinstance(post, Mapping) and post.get("media_asset_ids")
+            for post in frozen_payload.get("posts") or []
+        ):
+            chosen = list(dict.fromkeys([
+                *(frozen_payload.get("media_asset_ids") or []),
+                *(asset_id for post in frozen_payload.get("posts") or []
+                  if isinstance(post, Mapping) for asset_id in post.get("media_asset_ids") or []),
+            ]))
+            by_id = {asset.get("asset_id"): asset for asset in media_assets}
+            missing = [asset_id for asset_id in chosen if asset_id not in by_id or not Path(str(
+                by_id[asset_id].get("path") or by_id[asset_id].get("absolute_local_source_path") or ""
+            )).is_file()]
+            if missing:
+                raise ValueError("reviewed_delivery_media_asset_unavailable:" + ",".join(missing))
+            media_assets = [by_id[asset_id] for asset_id in chosen]
     if destination and destination != "substack":
         from live_contentops.v1_simple_gemini_newsroom_v1 import canonical_photo_attribution_payload
         payloads[destination] = canonical_photo_attribution_payload(payloads[destination], article=article,
@@ -4056,11 +4068,17 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
     delivery_path = output_dir / "delivery_media_manifest_v1.json"
     delivery = _read_json(delivery_path) if delivery_path.is_file() else {}
     delivery_assets = [dict(row) for row in (delivery.get("assets") or []) if isinstance(row, Mapping)]
+    selected_media_explicit = isinstance(frozen_payload, Mapping) and (
+        "media_asset_ids" in frozen_payload or any(
+            isinstance(post, Mapping) and post.get("media_asset_ids")
+            for post in frozen_payload.get("posts") or []
+        )
+    )
     primary = next(
         (
             row
             for row in delivery_assets
-            if (not media_assets or row.get("sha256") == local_sha256)
+            if ((not media_assets and not selected_media_explicit) or row.get("sha256") == local_sha256)
             and str(row.get("verified_public_delivery_url") or "").startswith("https://")
             and row.get("local_public_hash_continuity") is True
             and str(row.get("sha256") or "")
@@ -4168,7 +4186,13 @@ def _publish_one_destination_from_durable_intent(
         return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True}
     if str(authorization_context.get("dispatch_attempt_identity") or "") != str((intent.get("attempt_identity") or "")):
         return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True}
-    data = _durable_intent_inputs(intent)
+    try:
+        data = _durable_intent_inputs(intent)
+    except ValueError as exc:
+        if not str(exc).startswith("reviewed_delivery_media_asset_unavailable:"):
+            raise
+        return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                "public_write_performed": False, "reason_code": str(exc)}
     output_dir = data["output_dir"]
     article = data["article"]
     payloads = data["payloads"]

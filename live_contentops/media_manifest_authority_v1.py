@@ -150,16 +150,30 @@ def build_delivery_only_editorial_card(
     source_label: str,
     source_page_url: str,
     published_at: str | None = None,
+    article: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Render a rights-safe delivery card that is never canonical article media.
+    """Render an owned delivery card from admitted article facts or source metadata.
 
-    The card contains metadata and editorial packaging only: no synthetic documentary
-    imagery, invented numbers, or claim-bearing chart. Capital Chronicle owns the rendered
-    layout bytes; the source remains attributed and is not claimed as owned.
+    Article facts use the existing post-card owner and stay verbatim, with periods,
+    units and attribution. Metadata-only callers retain their historical format.
+    Capital Chronicle owns the layout, not the attributed underlying source.
     """
     from PIL import Image, ImageDraw
 
     target = Path(output_path).resolve()
+    display_content = None
+    if article:
+        import json
+        from live_contentops.rolling_x_grounded_article_media_builder_v1 import admitted_post_card_content
+        display_content = admitted_post_card_content(article)
+        if display_content["source_label"] != "Capital Chronicle":
+            source_label = display_content["source_label"]
+            source_page_url = display_content["source_page_url"]
+        published_at = published_at or display_content["source_published_at"]
+        # A new rendering must not overwrite a legacy file referenced by sent objects.
+        binding = [title, source_label, source_page_url, published_at, display_content]
+        identity = sha256_bytes(json.dumps(binding, sort_keys=True, ensure_ascii=True).encode())[:20]
+        target = target.with_name(target.stem + "-facts-" + identity + target.suffix)
     target.parent.mkdir(parents=True, exist_ok=True)
     image = Image.new("RGB", (1350, 1080), "#07111f")
     draw = ImageDraw.Draw(image)
@@ -197,7 +211,14 @@ def build_delivery_only_editorial_card(
         source_text += f" | {source_date}"
     draw.text((110, 875), source_text[:92], fill="#cbd5e1", font=small)
     draw.text((110, 930), "Read the full brief on Capital Chronicle", fill="#e0b85a", font=small)
-    image.save(target, format="PNG", optimize=True)
+    if display_content and display_content["body_lines"]:
+        import textwrap
+        from live_contentops.rolling_x_grounded_article_media_builder_v1 import _render_text_card
+        _render_text_card(path=target, header="CAPITAL CHRONICLE",
+            title_lines=textwrap.wrap(display_title, width=80), body_lines=display_content["body_lines"],
+            footer_lines=[source_text, "Analysis, not financial advice. Readers decide whether to trade."], wrap_body=True)
+    else:
+        image.save(target, format="PNG", optimize=True)
     metadata = image_metadata_from_file(target)
     return {
         "asset_id": "delivery_only_editorial_card",
@@ -206,8 +227,9 @@ def build_delivery_only_editorial_card(
         "local_path": str(target),
         "absolute_local_source_path": str(target),
         "sha256": sha256_file(target),
-        "caption": "Capital Chronicle delivery card for the governed article.",
-        "alt_text": f"Capital Chronicle newsroom brief: {' '.join(title.split())}",
+        "caption": "Capital Chronicle admitted facts card." if display_content else "Capital Chronicle delivery card for the governed article.",
+        "alt_text": f"Capital Chronicle newsroom brief: {' '.join(title.split())}" + (
+            ". " + " ".join(value for _, value in display_content["body_lines"]) if display_content else ""),
         "source_title": source_title,
         "display_title": display_title,
         "display_font_identity": font_identity,
@@ -220,9 +242,10 @@ def build_delivery_only_editorial_card(
         "source_page_url": str(source_page_url),
         "source_published_at": str(published_at or "") or None,
         "reader_facing_source_date": source_date,
-        "reader_facing_cta": "Read the full brief on Capital Chronicle",
-        "provenance_status": "VERIFIED_SOURCE_METADATA_CONTENTOPS_RENDER",
-        "rights_basis": "CONTENTOPS_OWNED_LAYOUT_SOURCE_METADATA_ONLY",
+        "display_content": display_content,
+        "reader_facing_cta": None if display_content else "Read the full brief on Capital Chronicle",
+        "provenance_status": "VERIFIED_ADMITTED_ARTICLE_FACTS_CONTENTOPS_RENDER" if display_content else "VERIFIED_SOURCE_METADATA_CONTENTOPS_RENDER",
+        "rights_basis": "CONTENTOPS_OWNED_LAYOUT_ADMITTED_PUBLIC_ARTICLE_COPY" if display_content else "CONTENTOPS_OWNED_LAYOUT_SOURCE_METADATA_ONLY",
         "article_inclusion": False,
         "canonical_article_media": False,
         "delivery_only": True,

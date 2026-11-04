@@ -1,0 +1,19 @@
+......................F..................                                [100%]
+================================== FAILURES ===================================
+__________ test_actual_retained_cpi_chart_reaches_instagram_adapter ___________
+tests\test_post_image_destination_paths_v1.py:152: in test_actual_retained_cpi_chart_reaches_instagram_adapter
+    pipeline._publish_one_destination_from_durable_intent(destination="instagram_business", intent=intent,
+live_contentops\_eight_platform_substack_first_pipeline_impl_v1.py:4190: in _publish_one_destination_from_durable_intent
+    data = _durable_intent_inputs(intent)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\_eight_platform_substack_first_pipeline_impl_v1.py:4021: in _durable_intent_inputs
+    payloads = build_native_derivative_payloads(
+live_contentops\_eight_platform_substack_first_pipeline_impl_v1.py:526: in build_native_derivative_payloads
+    payloads = _build_native_derivative_payloads(
+live_contentops\_eight_platform_substack_first_pipeline_impl_v1.py:814: in _build_native_derivative_payloads
+    mechanism = " ".join(str(article.get("market_mechanism") or selection["market_mechanism"]).split())
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'market_mechanism'
+=========================== short test summary info ===========================
+FAILED tests/test_post_image_destination_paths_v1.py::test_actual_retained_cpi_chart_reaches_instagram_adapter
+1 failed, 40 passed in 5.54s

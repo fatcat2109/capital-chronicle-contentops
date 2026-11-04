@@ -254,3 +254,37 @@ def test_delivery_card_uses_reader_facing_source_date_and_full_brief_cta(tmp_pat
     assert card["canonical_article_media"] is False
     assert card["article_inclusion"] is False
     assert card["delivery_only"] is True
+
+
+def test_delivery_fallback_uses_admitted_facts_and_publisher_not_epistemic_state(tmp_path: Path, monkeypatch):
+    from live_contentops import rolling_x_grounded_article_media_builder_v1 as builder
+    rendered = {}
+    actual = builder._render_text_card
+    def render(**kwargs):
+        rendered.update(kwargs)
+        actual(**kwargs)
+    monkeypatch.setattr(builder, "_render_text_card", render)
+    article = {"title": "The agency scheduled a hearing", "subtitle": "The public hearing will address the submitted proposal.",
+        "public_source_bindings": [{"publisher": "Federal agency", "url": "https://example.org/release",
+            "published_at_utc": "2026-11-04T12:00:00Z"}]}
+    card = build_delivery_only_editorial_card(output_path=tmp_path / "card.png", title=article["title"],
+        source_label="CONFIRMED", source_page_url="https://example.org/", article=article)
+    assert card["source_label"] == "Federal agency"
+    assert card["source_page_url"] == "https://example.org/release"
+    assert rendered["body_lines"] == [["What happened", article["subtitle"]]]
+    assert rendered["footer_lines"][0] == "Source: Federal agency | November 4, 2026"
+    assert card["width"] == 1600 and card["height"] == 900
+
+
+def test_enriched_fallback_preserves_legacy_dispatched_image_bytes(tmp_path: Path):
+    target = tmp_path / "delivery_only_editorial_card.png"
+    legacy = build_delivery_only_editorial_card(output_path=target, title="Retained title",
+        source_label="Federal agency", source_page_url="https://example.org/release")
+    before = target.read_bytes()
+    fresh = build_delivery_only_editorial_card(output_path=target, title="Retained title",
+        source_label="Federal agency", source_page_url="https://example.org/release",
+        article={"title": "Retained title", "subtitle": "The agency published the retained facts."})
+    assert Path(fresh["path"]) != target
+    assert target.read_bytes() == before
+    assert sha256_file(target) == legacy["sha256"]
+    assert Path(fresh["path"]).read_bytes() != before
