@@ -23,6 +23,10 @@ def test_current_editor_uses_one_check_and_image_consumer_without_named_writer_o
     assert request["governed_input"]["binding"]["renders"] == []
     observation = deepcopy(turn._get("write", "response")["invocation_observation"])
     observation.update(surface="CODEX_EXEC", invocation_id="current-max-editor-not-the-historical-writer")
+    observation.update(model=None, reasoning_effort=None, configuration_status="CONFIGURED_NOT_OBSERVED",
+        configured_model="gpt-6.1-sol", configured_reasoning_effort="max",
+        actual_configuration_unavailable=True, configuration_authority="JIM_DECISIONS_20261030_DECISION_61",
+        configuration_source="The current item's explicit MAX launch; no runtime telemetry.")
     turn.submit(request["stage"], {"request_sha256": request["request_sha256"],
         "invocation_observation": observation, "output": {"decision": "ACCEPT",
             "rationale": "Fixture editor checks unchanged source facts, dated copy, exact canonical and admitted image selection."}})

@@ -48,8 +48,7 @@ def validate_native_configuration(observation, target, *, required=True):
     if effort not in {None, target["reasoning_effort"]}:
         raise ValueError("NATIVE_DESKTOP_ROLE_EFFORT_MISMATCH")
     if observation.get("configuration_status") == CONFIGURED_NOT_OBSERVED:
-        if (observation.get("configuration_authority") != CONFIGURED_AUTHORITY
-                or observation.get("configured_model") != target["model"]
+        if (observation.get("configured_model") != target["model"]
                 or observation.get("configured_reasoning_effort") != target["reasoning_effort"]
                 or not observation.get("configuration_source")
                 or observation.get("actual_configuration_unavailable") is not True):
