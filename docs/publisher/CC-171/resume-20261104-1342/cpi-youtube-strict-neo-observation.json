@@ -1,0 +1,30 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "image_bytes": 13184,
+    "observed_at_utc": "2026-11-04T08:13:23.706Z",
+    "pageId": 245,
+    "platform_sha256": "fb1eb2181811c5464234e50d11eb9720ccc3dd1a658b33902d62492851acfe21",
+    "post": {
+      "changed": false,
+      "page": 245,
+      "settled": false,
+      "value": [
+        {
+          "images": [
+            {
+              "height": 462,
+              "loaded": true,
+              "src": "https://yt3.ggpht.com/9xvu6lRZfpl-Ii3dYofvd49pGQDeD5vaTDoIgRoQSaVi7sh0NdMSci5Ovy4ld5kDPDIyGc6QvN0NXpE=s640-rw-nd-v1",
+              "width": 640
+            }
+          ],
+          "text": "Capital Chronicle\n59 giây trước\nUpdate: September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nWhat to watch: Reading the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI retrospectively raises a separate question: what did contemporaneous market prices show? A claim about reception would need dated price evidence; a surprise claim would need a dated expectation. The CPI readings alone cannot supply either conclusion.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade.\nĐọc thêm"
+        }
+      ]
+    },
+    "public_image_url": "https://yt3.ggpht.com/9xvu6lRZfpl-Ii3dYofvd49pGQDeD5vaTDoIgRoQSaVi7sh0NdMSci5Ovy4ld5kDPDIyGc6QvN0NXpE=s640-rw-nd-v1",
+    "public_object_url": "https://www.youtube.com/post/UgkxfoYYb9nQIhzXGyir9S2DmN458SseAdvq"
+  }
+}

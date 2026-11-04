@@ -1,0 +1,36 @@
+{
+  "observation": {
+    "observed_at_utc": "2026-11-04T08:16:49.502Z",
+    "pageId": 246,
+    "post": {
+      "changed": false,
+      "page": 246,
+      "settled": false,
+      "value": {
+        "images": [
+          {
+            "height": 1080,
+            "loaded": true,
+            "src": "https://instagram.fhan14-1.fna.fbcdn.net/v/t51.82787-15/888345471_18074188973775432_9135961357384765785_n.jpg",
+            "width": 1350,
+            "query_omitted": true
+          }
+        ],
+        "text": "official.capitalchronicle\nofficial.capitalchronicle\n \n1m\nSeptember CPI: why 0.6% and 3.7% answer different questions\n\nSeptember CPI retrospective: the U.S. Bureau of Labor Statistics' October 14, 2026 release has monthly and annual readings.\n\nWhy it matters: Monthly and twelve-month readings in the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade.\nSee translation\nNo comments yet.\nStart the conversation.\nView insights\nBoost post\n1 minute ago"
+      }
+    },
+    "url": "https://www.instagram.com/p/DfUAKIzgfPH/"
+  },
+  "image": {
+    "logs": [],
+    "ok": true,
+    "value": {
+      "image_bytes": 36795,
+      "observed_at_utc": "2026-11-04T08:17:39.296Z",
+      "pageId": 246,
+      "platform_sha256": "26e32fb614ecfef5e8e062074d7451bf7a17dba45cf33e0830cc172549f25ad9",
+      "public_image_url": "https://instagram.fhan14-1.fna.fbcdn.net/v/t51.82787-15/888345471_18074188973775432_9135961357384765785_n.jpg",
+      "query_omitted": true
+    }
+  }
+}

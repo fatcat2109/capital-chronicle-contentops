@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="5.571" timestamp="2026-11-04T15:22:03.334314+07:00" hostname="J-P"><testcase classname="tests.test_cpi_derivative_media_revision_v1" name="test_native_publish_begin_uses_current_accepted_media" time="4.800" /></testsuite></testsuites>
