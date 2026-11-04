@@ -163,3 +163,30 @@ def test_the_deferred_proof_lives_only_inside_a_publishing_run(tmp_path, monkeyp
     other = NativeNeoExecutor(store, operation_id="another-operation", output_dir=tmp_path / "other",
                               native_invocation_id="controlled-test", allow_publish=True, identity_at_action=True)
     assert other._fresh_identity_return(DESTINATION, SURFACE, IDENTITIES[DESTINATION]) is None
+
+
+@pytest.mark.parametrize("stage, expected, reason", [
+    # The script threw after the click but before recording the dispatch time.
+    ("PUBLISH_CLICK_ATTEMPTED", "UNKNOWN_WRITE", "NATIVE_NEO_FAILURE_AFTER_PUBLISH_CLICK"),
+    # No stage: the executor cannot tell whether the click happened.
+    (None, "UNKNOWN_WRITE", "NATIVE_NEO_COMPOSED_STAGE_UNKNOWN"),
+    # A pre-write failure the script marked before the click is a definite no-write.
+    ("BEFORE_PUBLISH_CLICK", "FAILED_BEFORE_WRITE", None),
+])
+def test_only_a_marked_pre_click_failure_is_a_definite_no_write(tmp_path, monkeypatch, stage, expected, reason):
+    store, executor, coordinator, ids, value = composed_setup(tmp_path, monkeypatch)
+    packet = pending_publish(coordinator, store, ids, value, executor)
+    action = executor.begin(packet["request"]["request_sha256"])
+    assert "PUBLISH_CLICK_ATTEMPTED" in action["composed_run"]["2_publish"]
+    result = {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True, "public_write_performed": False}
+    if stage:
+        result["stage"] = stage
+    executor.submit(packet["request"]["request_sha256"], composed_response(
+        packet, identity=MATCHED, dispatched=False, readback=False, result=result))
+    stored = executor._get(packet["request"]["request_sha256"], "response")["result"]
+    assert stored["status"] == expected and stored["definite_no_write"] is (expected == "FAILED_BEFORE_WRITE")
+    if reason:
+        assert stored["reason_code"] == reason
+    coordinator._dispatch_message(store.get_outbox_message(ids["message_id"]), canonical_url=value["canonical_url"])
+    status = store.get_platform_dispatch(ids["dispatch_id"])["status"]
+    assert (status == UNKNOWN_WRITE) is (expected == "UNKNOWN_WRITE")

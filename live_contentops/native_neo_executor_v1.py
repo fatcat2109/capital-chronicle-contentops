@@ -224,14 +224,17 @@ class NativeNeoExecutor:
                 "1_identity": {"expected_identity": request["expected_identity"],
                     "expected_stable_id": SURFACE_REGISTRY[request["surface"]].expected_stable_id,
                     "rule": "Read the signed-in account and compare it with the expected identity and stable id. "
+                            "While in this identity or any other pre-write part, result.stage is BEFORE_PUBLISH_CLICK. "
                             "A mismatch or an unreadable identity returns FAILED_BEFORE_WRITE with definite_no_write "
-                            "true and no click."},
-                "2_publish": "Publish the exact payload once; record dispatched_at_utc at the publish click.",
+                            "true, stage BEFORE_PUBLISH_CLICK and no click."},
+                "2_publish": "Immediately BEFORE the publish click, set the observation's dispatched_at_utc and "
+                             "result.stage = PUBLISH_CLICK_ATTEMPTED; then click once to publish the exact payload.",
                 "3_readback": "Read back the published object (id, url, text, media) in the same run.",
-                "return": {"result": "the publish result, as for any PUBLISH step",
+                "return": {"result": "the publish result, as for any PUBLISH step, with its stage",
                     "composed": {"identity": ["authenticated", "observed_identity", "observed_stable_id", "observed_at_utc"],
                                  "readback": "the READBACK result fields, observed after the publish"}},
-                "after_click": "Any failure after the publish click, or of unknown state, is UNKNOWN_WRITE; "
+                "after_click": "FAILED_BEFORE_WRITE is a definite no-write only for an account mismatch or stage "
+                               "BEFORE_PUBLISH_CLICK. Any other failure, including a missing stage, is UNKNOWN_WRITE; "
                                "the coordinator reads back before any retry.",
             }
         return action_packet
@@ -320,18 +323,24 @@ class NativeNeoExecutor:
         result["composed_identity"] = identity
         no_write = (result.get("definite_no_write") is True
                     or str(result.get("status") or "").upper() in {"FAILED_BEFORE_WRITE", "DEFINITE_NO_WRITE"})
-        if no_write and dispatched:
-            # A failure after the publish click is never a definite no-write; the coordinator
-            # reads back before any retry, so a post never goes out twice.
+        stage = result.get("stage")
+        if no_write and (dispatched or stage == "PUBLISH_CLICK_ATTEMPTED"):
+            # A failure once the click was attempted is never a definite no-write (even if the
+            # script threw before recording the dispatch time); read back before any retry.
             result.update(status="UNKNOWN_WRITE", definite_no_write=False, retry_permitted=False,
                           reason_code="NATIVE_NEO_FAILURE_AFTER_PUBLISH_CLICK")
             return result, None
-        if no_write:
-            # Stopped before the click (an account mismatch or unreadable identity, or a
-            # pre-write failure): a definite no-write that releases the claim for a retry.
+        if no_write and (not matched or stage == "BEFORE_PUBLISH_CLICK"):
+            # Stopped before the click (the account did not match, or a pre-write failure the
+            # script marked BEFORE_PUBLISH_CLICK): a definite no-write that frees the claim for a retry.
             result.update(status="FAILED_BEFORE_WRITE", definite_no_write=True, public_write_performed=False)
             if not matched:
                 result.setdefault("reason_code", "NATIVE_NEO_COMPOSED_IDENTITY_MISMATCH")
+            return result, None
+        if no_write:
+            # A failure without its stage cannot prove the click never happened.
+            result.update(status="UNKNOWN_WRITE", definite_no_write=False, retry_permitted=False,
+                          reason_code="NATIVE_NEO_COMPOSED_STAGE_UNKNOWN")
             return result, None
         if not matched:
             # A write without a matched account is never trusted as a confirmed post.
