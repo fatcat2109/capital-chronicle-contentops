@@ -1864,8 +1864,11 @@ def validate_final_visual_return(turn, request, response):
         result = reader_presentation_revision_view(turn.store, run_id=turn.run_id, result=result, revision=revision)
     scope = ({"linkedin" if d == "linkedin_company" else d for d in revision["objects"]} if revision is not None
         else dated_distribution_destinations(recovery) if recovery is not None else None)
-    if final_visual_binding(result, renders=binding["renders"],
-            destinations=scope) != binding:
+    current = final_visual_binding(result, renders=binding["renders"], destinations=scope)
+    # Renderer source is provenance for the saved pixels. Its later source edits
+    # do not alter the exact PNG/HTML, media, source or channel bytes checked above.
+    current["renderer_sha256"] = binding["renderer_sha256"]
+    if current != binding:
         raise ValueError("FINAL_VISUAL_REVIEW_REVISION_CHANGED")
     if output.get("decision") not in {"ACCEPT", "REPAIR_REQUIRED", "EXTERNAL_BLOCK"}:
         raise ValueError("FINAL_VISUAL_DECISION_REQUIRED")

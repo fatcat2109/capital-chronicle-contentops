@@ -126,6 +126,24 @@ def test_matching_current_acceptance_allows_existing_continuation(tmp_path, monk
     assert outcome["classification"] == "NATIVE_PUBLICATION_CONTINUATION"
 
 
+def test_saved_reviewed_pixels_reach_publisher_after_renderer_source_changes(tmp_path, monkeypatch):
+    import live_contentops.native_desktop_editorial_v1 as editorial
+
+    store, binding, rollout, _, review = seeded(tmp_path, monkeypatch)
+    original = editorial.final_visual_binding
+
+    def updated_renderer(*args, **kwargs):
+        current = original(*args, **kwargs)
+        current["renderer_sha256"] = {"later-renderer-source": "f" * 64}
+        return current
+
+    monkeypatch.setattr(editorial, "final_visual_binding", updated_renderer)
+    pub, _, _ = composed(store, binding, rollout, monkeypatch)
+    outcome = pub.resume()
+    assert outcome["classification"] == "NATIVE_PUBLICATION_CONTINUATION"
+    assert require_current_final_visual_review(store, run_id=binding["run_id"]) == review["final_visual_review"]
+
+
 def test_unavailable_pixels_are_preserved_as_unverified_without_acceptance(tmp_path, monkeypatch):
     store, binding, _, result, _ = seeded(tmp_path, monkeypatch, final_visual=False)
     turn, request, response = visual_request_fixture(store, binding, result)

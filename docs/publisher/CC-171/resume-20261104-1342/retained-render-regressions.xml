@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="17" time="34.913" timestamp="2026-11-04T13:53:09.552568+07:00" hostname="J-P"><testcase classname="tests.test_native_final_visual_review_v1" name="test_missing_actual_final_acceptance_cannot_enter_native_publication" time="2.514" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_wrong_or_unobserved_model_effort_and_other_writer_rejected[model-gpt-6-luna]" time="1.320" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_wrong_or_unobserved_model_effort_and_other_writer_rejected[model-None]" time="1.375" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_wrong_or_unobserved_model_effort_and_other_writer_rejected[reasoning_effort-low]" time="1.322" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_wrong_or_unobserved_model_effort_and_other_writer_rejected[invocation_id-ANOTHER_REVIEWER]" time="1.285" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_material_sign_label_rounding_findings_require_same_product_correction[zero_baseline_scale]" time="2.331" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_material_sign_label_rounding_findings_require_same_product_correction[labels_legend]" time="2.567" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_material_sign_label_rounding_findings_require_same_product_correction[transformation_rounding]" time="2.209" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_changed_render_media_or_variant_invalidates_acceptance[render]" time="1.936" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_changed_render_media_or_variant_invalidates_acceptance[render_source]" time="1.891" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_changed_render_media_or_variant_invalidates_acceptance[asset]" time="1.898" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_changed_render_media_or_variant_invalidates_acceptance[preview]" time="2.033" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_same_max_targeted_media_edit_keeps_the_article_and_invalidates_only_old_review" time="1.520" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_matching_current_acceptance_allows_existing_continuation" time="3.327" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_saved_reviewed_pixels_reach_publisher_after_renderer_source_changes" time="3.265"><failure message="AssertionError: assert 'PUBLICATION_...VERY_REQUIRED' == 'PENDING_NATIVE'&#10;  &#10;  - PENDING_NATIVE&#10;  + PUBLICATION_RECOVERY_REQUIRED">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-32152/test_saved_reviewed_pixels_rea0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000002CD70FB0B50&gt;
+
+    def test_saved_reviewed_pixels_reach_publisher_after_renderer_source_changes(tmp_path, monkeypatch):
+        import live_contentops.native_desktop_editorial_v1 as editorial
+    
+        store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
+        original = editorial.final_visual_binding
+    
+        def updated_renderer(*args, **kwargs):
+            current = original(*args, **kwargs)
+            current["renderer_sha256"] = {"later-renderer-source": "f" * 64}
+            return current
+    
+        monkeypatch.setattr(editorial, "final_visual_binding", updated_renderer)
+        pub, _, _ = composed(store, binding, rollout, monkeypatch)
+        outcome = pub.resume()
+        assert outcome["classification"] == "NATIVE_PUBLICATION_CONTINUATION"
+&gt;       assert outcome["coordinator_result"]["state"] == "PENDING_NATIVE"
+E       AssertionError: assert 'PUBLICATION_...VERY_REQUIRED' == 'PENDING_NATIVE'
+E         
+E         - PENDING_NATIVE
+E         + PUBLICATION_RECOVERY_REQUIRED
+
+tests\test_native_final_visual_review_v1.py:144: AssertionError</failure></testcase><testcase classname="tests.test_native_final_visual_review_v1" name="test_unavailable_pixels_are_preserved_as_unverified_without_acceptance" time="1.479" /><testcase classname="tests.test_native_final_visual_review_v1" name="test_same_max_copy_correction_uses_existing_source_validator_without_restarting" time="1.661" /></testsuite></testsuites>
