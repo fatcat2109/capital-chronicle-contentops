@@ -35,3 +35,29 @@ through BrowserOS Neo. Times are GMT+7 unless marked Z.
   and photo-rule fixtures).
 </content>
 </invoke>
+
+## Hold on the rest of an article (CC-199 CLD-C1)
+
+After the image fixes, `publication-resume` for the SEC piece still sent nothing: SEC's
+LinkedIn `UNKNOWN_WRITE` and its never-written Threads row (`AUTH_INVALID`) were treated
+as the same article's backlog, which held every other destination, including the new
+Instagram and company-page copies. `recovery_blocks_new_publication` now lets a
+same-article derivative obligation pass once the canonical is confirmed with a verified
+readback; existing dispatches are still never resent without their own readback
+(commit `a23cc3b1`, test `test_same_article_derivative_recovery_does_not_hold_other_destinations`).
+
+## Corrections made on 4 Nov
+
+- SEC on Instagram, through the fixed path: https://www.instagram.com/p/DfUm_VegXht/
+  (`DISPATCH_CONFIRMED`, `RECONCILED_CONFIRMED`, 13:53Z). The image was read back from the
+  live post: the reviewed SEC card, the same one the other platforms carry.
+- SEC and jobs LinkedIn company-page copies: the SEC copy is registered and waits on a Neo
+  `VERIFY_IDENTITY` step; the jobs copy registers on the next resume after it. Neo steps
+  accept only Codex surfaces, so Codex Publisher completes them.
+- Not sent: the midterm preview's social copies (stale since election day) and the
+  FOMC/CPI copies that expired (CC-186: a stale copy is not reposted).
+- Substack: the SEC and digest posts were left as published. Editing a live post here
+  offers only the publish flow ("Continue", with email options), and the SEC image is
+  already the reviewed one. The next digest uses the fixed generator.
+
+Integration readback: `operating-root-integration.json`.
