@@ -1,0 +1,18 @@
+{
+  "tool_request_sha256": "cede4e009d7a5605f6db49d12d5fcbf42cf4f3407db53e38b70ca687ee8f46f2",
+  "result": {
+    "status": "SUCCESS",
+    "request_sha256": "182714fa145dfa9be76cd92bbdd9e6c082e4602294cfd18c87a95c2bf3e0d2d5",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:share:7523802668428087296",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7523802668428087296",
+    "evidence": "Actual Neo page358 company143198922 composer single Post click; Post successful supplied exact View post link. Reviewed SEC copy with new CC245 card uploaded from article own media via Neo intercepted file input."
+  },
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "surface": "CODEX_EXEC",
+    "native_invocation_id": "01a1a740-b336-7272-b067-9617c34dfd55",
+    "observed_at_utc": "2026-11-04T17:46:09.336265+00:00",
+    "observation_source": "Actual BrowserOS Neo return; A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-247\\sec-company-publish-observation.json"
+  }
+}

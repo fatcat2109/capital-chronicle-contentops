@@ -1,0 +1,36 @@
+{
+  "tool_request_sha256": "b3d343c2c2dde6213b2733b77bdf83611eab666c2804a555082a2d4d5a45aa35",
+  "result": {
+    "status": "SUCCESS",
+    "request_sha256": "bff12b9dce594b8f0c92d4476300a9887c2eb3d2b408c38dfcd466830d4d21e3",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:share:7523802668428087296",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7523802668428087296",
+    "observed_text": "Jim Pham\n\nGlobal Macro & Quant Trading Researcher | Founder, Capital Chronicle | AI-Driven Market Intelligence | Financial Data Systems\n\nHanoi Capital Region\n\nCapital Chronicle\n\nProfile viewers\n\n3\n\nPost impressions\n\n78\n\nFeed post\n\nPromote this post to reach people who matter to you.\n\nBoost\n\nCapital Chronicle\n\nnow\n\nFollow\n\nU.S. Securities and Exchange Commission plans November 9 data roundtable\n\nWhy it matters: The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.\n\nContext: The countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.\n\nRead the full brief: https://lnkd.in/gyKjg5PS\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\n\u200b\n\u200b\n\u200b\n\n\n\n\nAbout\n\nAccessibility\n\nHelp Center\n\nPrivacy & Terms\n\nAd Choices\n\nAdvertising\n\nBusiness Services\n\nGet the LinkedIn app\n\nMore\n\nLinkedIn Corporation \u00a9 2026",
+    "observed_link_resolutions": [
+      {
+        "displayed_url": "https://lnkd.in/gyKjg5PS",
+        "target_verified": true,
+        "target_url": "https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7523802668428087296"
+      }
+    ],
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "869a7af9a3d8a9ad2f1bd3497ad3c3ec7ad3b9032b588c55076d0dbe3f71b204",
+        "platform_sha256": "0aee873f1b964f227da3a447b1949e27df2b47e4f91999c32c23ddbfe87eb60c",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7523802668428087296",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQFhTMQqsmJ-sw/feedshare-shrink_800/B56aGnqqK_I4Ac-/0/1793814340522?e=1795651200&v=beta&t=BfVTqZ4srNKRSjatFJnmtgQLCCClY6MfV95XIKgquP0"
+      }
+    ]
+  },
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "surface": "CODEX_EXEC",
+    "native_invocation_id": "01a1a740-b336-7272-b067-9617c34dfd55",
+    "observed_at_utc": "2026-11-04T17:47:26.237792+00:00",
+    "observation_source": "Actual BrowserOS Neo return; A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-247\\sec-company-readback-observation.json"
+  }
+}

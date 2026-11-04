@@ -1,0 +1,10 @@
+{
+  "coordinator_result": {
+    "dispatch_id": "dispatch_7dd24a91b8afec20ed3dc0206f59cb73",
+    "destination": "linkedin",
+    "reconciliation_status": "RECONCILED_CONFIRMED",
+    "public_write_performed": false,
+    "publish_called": false
+  },
+  "pending_requests": []
+}

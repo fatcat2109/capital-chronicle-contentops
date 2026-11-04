@@ -50,7 +50,7 @@
       "platform_limit": 3000,
       "text": "U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nWhy it matters: The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.\n\nContext: The countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.\n\nRead the full brief: https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission\n\nAnalysis, not financial advice. Readers decide whether to trade."
     },
-    "observation_epoch": 2989689,
+    "observation_epoch": 2989691,
     "package_identity": "0320699169b7d9aa545f9dc7c7ef5ec3e48a0be03a4b69a1aa435e014b47e5d0",
     "payload": "U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nWhy it matters: The SEC says feedback will help staff understand how the market and investing public use machine-understandable data for SI solutions, and how the Commission might better facilitate SI.\n\nContext: The countercase is that this may remain a listening exercise. The announcement describes a discussion and a request for feedback; it supplies no quantified benefits, cost estimates or adopted policy.\n\nRead the full brief: https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission\n\nAnalysis, not financial advice. Readers decide whether to trade.",
     "payload_hash": "b6b187215bc46770c31d08418cd9a96509a34ad7feb4d38ea76a01acfe57bd20",
@@ -62,7 +62,7 @@
       "stage": "final-visual-3d2f5b725f2514f4fb4e546eb6e2563b92ad7c3319a25180e583d82b8b46ebb1"
     },
     "reader_text_normalization": "MARKDOWN_WHITESPACE_SMART_QUOTES_V1",
-    "request_sha256": "6b7c41e5e3486da3dd22d827d187e436c01c62eb8883b98975195b7f0b466a7b",
+    "request_sha256": "e5ac9191a76e3fb4d1ddbfc3c9dfba7bef94c5959c5858509483f0b9da069bb5",
     "schema_version": "contentops.neo_destination_handoff.v1",
     "steps": [
       "name_session; list tabs, open a task-owned tab",
@@ -77,5 +77,5 @@
   },
   "required_tool": "mcp__browseros_neo__run",
   "schema_version": "contentops.native_neo_tool_request.v1",
-  "tool_request_sha256": "bbfffad9029dd701d49855f0bce7e60c418a6a19e854cdf8efe7a4dfffdcaed0"
+  "tool_request_sha256": "4cb84329906151c62de682203dea48a15a0d8d48ba8e9a9219f3c32a74860445"
 }

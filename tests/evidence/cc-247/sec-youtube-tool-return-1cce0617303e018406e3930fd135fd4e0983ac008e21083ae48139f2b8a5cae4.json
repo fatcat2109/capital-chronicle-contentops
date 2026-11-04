@@ -1,0 +1,17 @@
+{
+  "tool_request_sha256": "36ad97f0ebfc14986ad0eb800bcd5fd46ca408ee24c19a76e30f0f8f1708aa61",
+  "result": {
+    "status": "SUCCESS",
+    "request_sha256": "1cce0617303e018406e3930fd135fd4e0983ac008e21083ae48139f2b8a5cae4",
+    "authenticated": true,
+    "observed_identity": "@CapitalChronicleYouTube",
+    "evidence": "Actual Neo page359 at /@CapitalChronicleYouTube/posts shows Capital Chronicle own channel, Customize channel / Manage videos for UCuSrYOgd4eeudcD2vidafbA and editable post composer."
+  },
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "surface": "CODEX_EXEC",
+    "native_invocation_id": "01a1a740-b336-7272-b067-9617c34dfd55",
+    "observed_at_utc": "2026-11-04T17:45:40.305186+00:00",
+    "observation_source": "Actual BrowserOS Neo return; A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-247\\sec-youtube-identity-observation.json"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "tool_request_sha256": "e477319e642b56fab7afaa17f102515b4a882adc38c70b503e2fe53eaad14740",
+  "result": {
+    "status": "SUCCESS",
+    "request_sha256": "b5c85e0fd6162b07cb984a572455ab2a12d50067806a5cc5ec6ecfc0b62295fe",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "UgkxgqFuDRKFhThzqa0K_-tfooJ7Yqz516WQ",
+    "public_object_url": "https://www.youtube.com/post/UgkxgqFuDRKFhThzqa0K_-tfooJ7Yqz516WQ",
+    "content_verified": true,
+    "observed_text": "Capital Chronicle\n29 gi\u00e2y tr\u01b0\u1edbc\nUpdate: U.S. Securities and Exchange Commission plans November 9 data roundtable\n\nThe SEC wants feedback on machine-understandable data and Super Intelligence. November 9 is a discussion to follow, not a rule change to assume.\n\nWhat to watch: Listen for concrete examples of use, a clear account of risks and costs, and any stated next steps. These are watchpoints for the discussion, not promised agenda items or conclusions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\u0110\u1ecdc th\u00eam",
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "869a7af9a3d8a9ad2f1bd3497ad3c3ec7ad3b9032b588c55076d0dbe3f71b204",
+        "platform_sha256": "156ebe1e1aca56921e66a1dbd438c719d1d041203f725cfe0ba402bf23634819",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "public_object_url": "https://www.youtube.com/post/UgkxgqFuDRKFhThzqa0K_-tfooJ7Yqz516WQ",
+        "public_image_url": "https://yt3.ggpht.com/FmS3zHq18a4lrCApH__-wK5XI36nvys67S0Ihxjof5P_LX2DzxLPX4djeWBRFXmaQcab5Olt7sJE=s640-rw-nd-v1"
+      }
+    ]
+  },
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "surface": "CODEX_EXEC",
+    "native_invocation_id": "01a1a740-b336-7272-b067-9617c34dfd55",
+    "observed_at_utc": "2026-11-04T17:49:20.468688+00:00",
+    "observation_source": "Actual BrowserOS Neo return; A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-247\\sec-youtube-readback-observation.json"
+  }
+}

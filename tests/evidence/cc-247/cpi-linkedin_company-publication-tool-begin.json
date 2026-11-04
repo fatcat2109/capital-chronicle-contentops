@@ -51,7 +51,7 @@
       "platform_limit": 3000,
       "text": "September CPI: why 0.6% and 3.7% answer different questions\n\nWhy it matters: Monthly and twelve-month readings in the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions.\n\nContext: The U.S. Bureau of Labor Statistics' September CPI release of October 14, 2026 showed a lower monthly reading excluding food and energy. Giving that narrower measure more weight is an analytical choice, not proof that the all-items increase was temporary. Giving the headline more weight does not establish persistence either.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade."
     },
-    "observation_epoch": 2989690,
+    "observation_epoch": 2989691,
     "package_identity": "536ccf3d8877e29245061d171d67c43fcc2fdb1dfd54928ca08b3266dbcfba25",
     "payload": "September CPI: why 0.6% and 3.7% answer different questions\n\nWhy it matters: Monthly and twelve-month readings in the U.S. Bureau of Labor Statistics' October 14, 2026 release on September CPI have different horizons and adjustment bases. Comparing 0.6% with 3.7% as competing answers would confuse those distinctions.\n\nContext: The U.S. Bureau of Labor Statistics' September CPI release of October 14, 2026 showed a lower monthly reading excluding food and energy. Giving that narrower measure more weight is an analytical choice, not proof that the all-items increase was temporary. Giving the headline more weight does not establish persistence either.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-cpi-why-06-and-37-answer\n\nAnalysis, not financial advice. Readers decide whether to trade.",
     "payload_hash": "9031ce5d946dc16936ba5e7b4d281528d36d0e482093ea6bb603ee79ef54b5ff",
@@ -63,7 +63,7 @@
       "stage": "final-visual-26523bfab774458447c1090daa4c6bc0183b24ed88f6ef65806c548a4f7e19f3"
     },
     "reader_text_normalization": "MARKDOWN_WHITESPACE_SMART_QUOTES_V1",
-    "request_sha256": "0b34f6cf715ce83eabec0894974b36f126b909ceee48af80acd02deabd98c87a",
+    "request_sha256": "37c8163b4f53229c6f5d9797150a3e774b222e69c6f41f4d3c69c589d1762af3",
     "schema_version": "contentops.neo_destination_handoff.v1",
     "steps": [
       "name_session; list tabs, open a task-owned tab",
@@ -78,5 +78,5 @@
   },
   "required_tool": "mcp__browseros_neo__run",
   "schema_version": "contentops.native_neo_tool_request.v1",
-  "tool_request_sha256": "eec63963710b95f54337a0c2dc0bbd120e473524394aeba5205ac95e38044277"
+  "tool_request_sha256": "d15df7ba92a1e45d23a0988279337120125c8f12da76b92531b5c181abae4854"
 }

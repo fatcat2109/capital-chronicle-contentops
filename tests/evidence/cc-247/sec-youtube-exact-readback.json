@@ -1,0 +1,10 @@
+{
+  "coordinator_result": {
+    "dispatch_id": "dispatch_e2f65cd8f4a0fa8f7d121c997440f230",
+    "destination": "youtube",
+    "reconciliation_status": "RECONCILED_CONFIRMED",
+    "public_write_performed": false,
+    "publish_called": false
+  },
+  "pending_requests": []
+}
