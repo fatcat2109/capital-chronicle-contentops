@@ -52,3 +52,12 @@ reader: dispatch, destination, observed object id, observed URL, identity match 
 verification must agree. The older flat format is still readable. Twenty-seven
 focused checks pass, including actual nested envelopes and mismatched/malformed
 controls. No reconciliation or dispatch state is rewritten to make a metric pass.
+
+
+The runtime coverage export also exposed seven accepted filter returns hidden by
+LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED. That was a model-label counting gate,
+contrary to Jim decision 60. Accepted input hashes now count once regardless of
+labels; actual and configured model/effort values remain alongside the count.
+The Markdown explains that Luna names the configured role. This changes no
+editorial role assignment. Twenty-nine weekly checks pass, including unknown and
+mismatched observed labels, exact deduplication and unchanged publication checks.

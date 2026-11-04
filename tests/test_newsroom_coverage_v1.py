@@ -63,13 +63,18 @@ def test_weekly_digest_counts_real_news_all_headlines_and_candidate_walks():
     assert not result["public_write_performed"] and result["model_calls"] == 0
 
 
-def test_no_observation_is_unavailable_and_unverified_model_is_named():
-    unknown = {"output": {"schema_version": "contentops.native_headline_filter.v1", "decisions": []},
-        "invocation_observation": {"model": None, "reasoning_effort": None}}
+@pytest.mark.parametrize("model,effort", [(None, None), ("gpt-6-luna", "max"), ("gpt-6.1-sol", "high")])
+def test_accepted_filter_inputs_count_with_actual_model_labels_preserved(model, effort):
+    unknown = {"output": {"schema_version": "contentops.native_headline_filter.v1",
+        "decisions": [{"input_sha256": "accepted-input"}]},
+        "invocation_observation": {"model": model, "reasoning_effort": effort}}
     result = weekly_newsroom_coverage(outbox=[row("unknown", unknown)], dispatches=[], reconciliations=[],
         readbacks=[], week_ending="2026-10-30")
     assert result["source_walk_success_rate"] is None
-    assert result["gaps"][0]["cause"] == "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"
+    assert sum(r["luna_headlines_filtered"] for r in result["daily"]) == 1
+    assert result["gaps"] == []
+    assert result["filter_invocations"][0]["observation"]["model"] == model
+    assert result["filter_invocations"][0]["observation"]["reasoning_effort"] == effort
     assert "UNAVAILABLE" in render_coverage_digest(result)
 
 

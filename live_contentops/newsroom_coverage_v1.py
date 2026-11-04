@@ -31,6 +31,7 @@ def weekly_newsroom_coverage(*, outbox, dispatches, reconciliations, readbacks, 
         "unclassified_canonicals": 0, "luna_headlines_filtered": 0,
         "source_walks": 0, "source_walks_succeeded": 0} for day in days}
     gaps, finals, accepted, walks = [], {}, {}, {}
+    filter_invocations = []
     by_message = {r["message_id"]: r for r in outbox}
 
     def in_week(value, identity):
@@ -62,10 +63,11 @@ def weekly_newsroom_coverage(*, outbox, dispatches, reconciliations, readbacks, 
             except (ValueError, TypeError):
                 continue
             observation = value.get("invocation_observation", {})
-            if observation.get("model") != "gpt-6-luna" or observation.get("reasoning_effort") != "max":
-                if day:
-                    gaps.append({"record": row["message_id"], "cause": "LUNA_ACTUAL_MODEL_OR_EFFORT_UNVERIFIED"})
-                continue
+            if day:
+                filter_invocations.append({"record": row["message_id"],
+                    "observation": {key: observation.get(key) for key in (
+                        "model", "reasoning_effort", "configured_model",
+                        "configured_reasoning_effort", "configuration_status")}})
             for decision in output.get("decisions", []):
                 identity = decision.get("input_sha256")
                 if identity and (identity not in accepted or accepted_at < accepted[identity][0]):
@@ -129,6 +131,8 @@ def weekly_newsroom_coverage(*, outbox, dispatches, reconciliations, readbacks, 
         "status": "PARTIAL" if gaps else "COMPLETE_RECORD_PROJECTION", "daily": rows,
         "source_walk_success_rate": successes / total_walks if total_walks else None,
         "source_walks": total_walks, "source_walks_succeeded": successes, "gaps": gaps,
+        "filter_invocations": filter_invocations,
+        "filter_count_basis": "Distinct accepted input hashes, first retained return. Luna is the configured role; actual model/effort observations are recorded, never a counting gate.",
         "clock_basis": {"articles": "actual dispatch time; exact confirmation from current snapshot",
             "luna": "durable native return time", "source_walks": "latest completed durable candidate walk time"},
         "source_walk_denominator": "Distinct work-item/candidate walks completed in the interval; recovery is one walk; a zero-GET permitted relay can succeed.",
@@ -144,5 +148,6 @@ def render_coverage_digest(value):
         lines.append(f"| {row['day']} | {row['news_articles']} | {row['main_articles']} | {row['unclassified_canonicals']} | {row['luna_headlines_filtered']} | {row['source_walks']} | {rate} |")
     lines.extend(["", "Production days start at 02:00 GMT+7. Articles require exact canonical identity, verified readback and reconciliation.",
         "News counts independent newsroom stories; Main-derived articles are shown separately. Drafts are excluded.",
+        value["filter_count_basis"],
         value["source_walk_denominator"], f"Data quality: {value['status']}; excluded-record gaps: {len(value['gaps'])}.", ""])
     return "\n".join(lines)
