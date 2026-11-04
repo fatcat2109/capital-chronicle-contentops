@@ -64,3 +64,8 @@ telemetry is unavailable, so it remains `CONFIGURED_NOT_OBSERVED`.
 Browser work stayed in the existing window and task group. Gmail, other tasks,
 schedules and user applications were left alone. No chat was messaged, no
 native file dialog was opened, and screenshots were not encoded into evidence.
+
+The existing telemetry writer appended five runtime events in this execution
+worktree. They remain uncommitted in its tracked runtime log and are also
+retained as [the exact five-event evidence](generated-telemetry-events.jsonl).
+No pre-existing telemetry bytes were changed or discarded.
