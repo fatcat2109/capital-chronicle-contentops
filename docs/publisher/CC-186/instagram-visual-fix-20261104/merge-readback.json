@@ -1,0 +1,9 @@
+{
+  "incoming_live_commit": "0209cdfe1dac32f122116abd7431ef1b4610be6d",
+  "merge_commit": "63014ff3698d9598bae2d50f229fdd3a85f0aa4f",
+  "original_patch_commit": "55aa2eec36a23fd6170794707b4f3b664c221ab3",
+  "conflicts": false,
+  "patch_source_bytes_unchanged": true,
+  "tests": "merged-focused-tests.xml",
+  "operating_root_written": false
+}
