@@ -339,7 +339,7 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
                     recovery = turn.source_recovery()
                     source_packet = (json.loads((turn.root /
                         "editorial_media_plan_required.json").read_bytes())
-                        if recovery and recovery.get("within_bound_live_budget") else governed)
+                        if (recovery and recovery.get("within_bound_live_budget")) or binding.get("preview_event_id") else governed)
                     frozen_visual = turn.frozen_request("visual-edit")
                     if (binding.get("editorial_request") and (not frozen_visual
                             or "owner_editorial_request" in frozen_visual["governed_input"]["source_packet"])):

@@ -117,6 +117,24 @@ def test_context_reaches_frozen_writer_without_reselection_or_new_acquisition(tm
         entry().operation(binding, command="recover-sources", response=response)
 
 
+def test_already_held_verified_context_can_join_before_writer_freeze(tmp_path, monkeypatch):
+    from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+    turn, binding, response, _ = seeded(tmp_path, monkeypatch)
+    frozen = json.loads(turn.store.get_outbox_message("native-current-input-" + sha256_of(turn.run_id))["payload"])
+    research = RetainedSourceResearch.from_frozen_snapshot(frozen["research"])
+    record = research.records["prior-context"]
+    def verified_init(self, root, **kwargs):
+        assert root == "CONTROLLED_ALREADY_HELD_SOURCE"
+        self.root, self.records, self.revision, self.gaps = research.root, {"other-held-context": record}, research.revision, []
+    monkeypatch.setattr(RetainedSourceResearch, "__init__", verified_init)
+    response["retained_research_root"] = "CONTROLLED_ALREADY_HELD_SOURCE"
+    response["supporting_headline_ids"] = ["other-held-context"]
+    result = entry().operation(binding, command="recover-sources", response=response)
+    assert result["classification"] == "SELECTED_STORY_CONTEXT_ATTACHED"
+    assert turn.source_recovery()["context_documents"][0]["document_id"] == "other-held-context"
+    assert result["new_source_requests"] == 0
+
+
 @pytest.mark.parametrize("clock", ["source_timestamp_utc", "known_at_utc", "revision_at_utc"])
 def test_context_rejects_later_information(tmp_path, monkeypatch, clock):
     turn, binding, response, _ = seeded(tmp_path, monkeypatch, lambda r: r.update({clock: "2026-08-27T00:00:00Z"}))

@@ -11,6 +11,7 @@ import hashlib
 import json
 import math
 import re
+import calendar
 from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -68,6 +69,81 @@ def _source_bytes(root, row):
     if _digest(raw) != row.get("source_sha256"):
         raise ValueError("HISTORY_SOURCE_CAPTURE_HASH_CHANGED")
     return raw
+
+
+def _ppi_sentence_change(text, period, *, core=False):
+    """Read the requested month's change, never the next number in the paragraph."""
+    month = calendar.month_name[int(period[5:])]
+    subject = (r"(?:The index|Prices|The price index) for final demand less foods, energy, and trade services"
+        if core else r"(?:The Producer Price Index for final demand|Final demand prices)")
+    starts = list(re.finditer(subject, text, re.I))
+    for start in starts:
+        span = re.split(r"(?<=[a-z])\.\s", text[start.start():start.start()+650], maxsplit=1)[0]
+        token = re.search(r"(?P<verb>were unchanged|was unchanged|remained unchanged|"
+            r"increased|rose|advanced|moved up|inched up|edged up|rising|moving up|"
+            r"decreased|fell|declined|moved down|edged down|falling|declining)"
+            r"(?:\s+(?P<value>\d+(?:\.\d+)?)\s+percent)?\s+in\s+" + month + r"\b", span, re.I)
+        if token:
+            verb = token["verb"].lower()
+            if "unchanged" in verb:
+                value = 0.0
+            elif token["value"]:
+                value = float(token["value"]) * (-1 if any(x in verb for x in
+                    ("decreased", "fell", "declin", "down", "falling")) else 1)
+            else:
+                continue
+            return value, span
+    return None
+
+
+def reconcile_ppi_history(history):
+    """Correct our chart projection from the held release; preserve producer rows.
+
+    CC-216 measured a parser taking a later month's number after 'unchanged'.
+    This changes no Main archive. It also uses the held core series instead of
+    treating an unexported series as absent data.
+    """
+    from copy import deepcopy
+    from bs4 import BeautifulSoup
+    headline = next((s for s in history["series"] if s["name"] == "PPI_FINAL_DEMAND_MOM"), None)
+    if headline is None:
+        return history
+    result = deepcopy(history)
+    headline = next(s for s in result["series"] if s["name"] == "PPI_FINAL_DEMAND_MOM")
+    core_points, corrections = [], []
+    for point in headline["observations"]:
+        record = point.get("source_record")
+        if not record:
+            core_points.append({**point, "value": None, "availability": "MISSING"})
+            continue
+        soup = BeautifulSoup(_source_bytes(Path(history["archive_root"]), record), "html.parser")
+        pre = soup.find("pre")
+        text = " ".join((pre.get_text(" ") if pre else soup.get_text(" ")).split())
+        reported = _ppi_sentence_change(text, point["period"])
+        if reported and reported[0] != point["value"]:
+            correction = {"period": point["period"], "producer_value": point["value"],
+                "reported_value": reported[0], "exact_source_span": reported[1],
+                "source_sha256": record["source_sha256"], "reason": "CURRENT_MONTH_UNCHANGED_NOT_LATER_MONTH_NUMBER"}
+            corrections.append(correction)
+            point.update(value=reported[0], source_record={**record, "value": reported[0],
+                "native_value": "0.0" if reported[0] == 0 else str(reported[0]),
+                "producer_record_preserved": record, "source_projection_correction": correction})
+        core = _ppi_sentence_change(text, point["period"], core=True)
+        core_points.append({"period": point["period"], "value": core[0] if core else None,
+            "availability": "OBSERVED" if core else "MISSING",
+            "missing_reason": None if core else "EXACT_CURRENT_MONTH_CORE_PASSAGE_NOT_FOUND",
+            "source_record": {**record, "series": "PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM",
+                "value": core[0], "native_value": str(core[0]), "exact_source_span": core[1],
+                "availability": "OBSERVED", "measure": "MONTH_ON_MONTH",
+                "metric": "Final demand less foods, energy, and trade services"} if core else None})
+    result["projection_corrections"] = corrections
+    if any(o["value"] is not None for o in core_points):
+        result["series"].append({"name": "PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM",
+            "official_series_id": "BLS_PPI_TABLE_A_FINAL_DEMAND_LESS_FOODS_ENERGY_TRADE_SERVICES",
+            "series_identity_basis": "EXACT_OFFICIAL_TABLE_ROW_LABEL_NOT_API_SERIES_CODE",
+            "measure": "MONTH_ON_MONTH", "unit": "percent", "seasonal_adjustment": "SA",
+            "observations": core_points})
+    return result
 
 
 def load_cc010_history(archive_root, *, series, end_period, cutoff_utc, months=24):
@@ -160,13 +236,14 @@ def load_cc010_history(archive_root, *, series, end_period, cutoff_utc, months=2
                 "period": end_period, "effects": effects,
                 "measure": "BLS_REPORTED_SEASONALLY_ADJUSTED_EFFECT_ON_ALL_ITEMS",
                 "aggregation": "FOOD_ENERGY_CORE_DISJOINT_CATEGORIES_NOT_WEIGHTS_TIMES_CHANGES"}
-    return {"schema_version": SCHEMA, "producer": "MAIN_CC010_FIRST_PRINT_ARCHIVE",
+    history = {"schema_version": SCHEMA, "producer": "MAIN_CC010_FIRST_PRINT_ARCHIVE",
         "dataset_sha256": _digest(raw), "archive_manifest_sha256": _digest(manifest_raw),
         "archive_root": str(root.resolve()), "cutoff_utc": cutoff_utc,
         "window": [periods[0], periods[-1]], "periods": periods, "series": result,
         "captures": list(verified.values()), "components": components, "new_source_requests": 0,
         "historical_possession_proven": False,
         "vintage_basis": "DATED_RELEASE_FIRST_PRINTS_NOT_CURRENT_REVISED_HISTORY"}
+    return reconcile_ppi_history(history)
 
 
 def history_documents(history):
@@ -329,11 +406,24 @@ def enrich_source_pack(turn, *, source_pack, article_mode, cutoff_utc, archive_r
         return source_pack
     if path.is_file():
         retained = json.loads(path.read_bytes())
-        for key in ("newsroom_desk_projection", "newsroom_desk_projection_error"):
+        for key in ("newsroom_desk_projection", "newsroom_desk_projection_error", "supersedes_projection_sha256"):
             if key in retained:
                 history[key] = retained[key]
         if retained != history:
-            raise ValueError("HISTORY_FROZEN_SOURCE_PROJECTION_CHANGED")
+            if (turn.frozen_request("write") or not history.get("projection_corrections")
+                    or retained["dataset_sha256"] != history["dataset_sha256"]
+                    or retained["cutoff_utc"] != history["cutoff_utc"]):
+                raise ValueError("HISTORY_FROZEN_SOURCE_PROJECTION_CHANGED")
+            # An exact held-source correction before writing preserves the issued
+            # Light request and old projection, and supplies corrected facts to MAX.
+            old_raw = path.read_bytes()
+            old_hash = _digest(old_raw)
+            original = path.with_name("official_release_history_before_cc216_" + old_hash[:12] + ".json")
+            if original.exists() and original.read_bytes() != old_raw:
+                raise ValueError("HISTORY_RETAINED_CORRECTION_IDENTITY_CONFLICT")
+            original.write_bytes(old_raw)
+            history["supersedes_projection_sha256"] = old_hash
+            path.write_bytes(canonical_bytes(history))
     else:
         try:
             if projection := newsroom_desk_projection(history, archive_root=archive_root):
@@ -351,6 +441,15 @@ def enrich_source_pack(turn, *, source_pack, article_mode, cutoff_utc, archive_r
             name = doc.get("official_release_history", {}).get("series", {}).get("name")
             selected = [row for row in projection["data"]["series"] if row["series_id"] == name]
             if selected:
+                from copy import deepcopy
+                selected = deepcopy(selected)
+                corrections = {r["period"]: r for r in history.get("projection_corrections", [])}
+                for series in selected:
+                    for point in series.get("points", []):
+                        if point["x"] in corrections:
+                            correction = corrections[point["x"]]
+                            point.update(producer_value_preserved=point["value"], value=correction["reported_value"],
+                                source_projection_correction=correction)
                 doc["newsroom_desk_projection"] = {**projection, "data": {**projection["data"], "series": selected}}
     if len(source_pack) + len(docs) > 10:
         raise ValueError("HISTORY_BOUNDED_SOURCE_PACK_REQUIRED")

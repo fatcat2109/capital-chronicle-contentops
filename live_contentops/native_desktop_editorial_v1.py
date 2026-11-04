@@ -209,6 +209,14 @@ def admit_selected_story_context(turn, binding, response):
     if frozen.get("run_id") != turn.run_id or frozen.get("cutoff_utc") != input_cutoff:
         raise ValueError("EXACT_FROZEN_CURRENT_INPUT_REQUIRED")
     research = RetainedSourceResearch.from_frozen_snapshot(frozen["research"])
+    if response.get("retained_research_root"):
+        # Already held, governed sources remain usable before writer freeze.
+        # The normal adapter verifies capture/policy bytes; clocks below still
+        # forbid later evidence from entering the frozen opportunity.
+        additional = RetainedSourceResearch(response["retained_research_root"])
+        if additional.gaps or set(ids) - set(additional.records):
+            raise ValueError("EXACT_VERIFIED_RETAINED_CONTEXT_REQUIRED")
+        research = additional
     walk = json.loads((turn.root / "simple_gemini_evidence_v1.json").read_bytes())
     primary = visual["governed_input"]["source_packet"]["source_pack"]
     candidate = response.get("candidate_id")
