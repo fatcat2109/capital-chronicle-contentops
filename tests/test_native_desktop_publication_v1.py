@@ -199,7 +199,7 @@ class ControlledTransport(CanonicalDestinationTransportRuntimeV1):
         return value
 
     def publish(self, *, destination, intent, authorization_context):
-        if destination in {"substack", "x", "youtube", "linkedin_company"}:
+        if destination in {"substack", "x", "youtube"}:
             return super().publish(
                 destination=destination,
                 intent=intent,
@@ -220,7 +220,7 @@ class ControlledTransport(CanonicalDestinationTransportRuntimeV1):
         }
 
     def readback(self, *, destination, intent, public_object_id, public_object_url):
-        if destination in {"substack", "x", "youtube", "linkedin_company"}:
+        if destination in {"substack", "x", "youtube"}:
             return super().readback(
                 destination=destination,
                 intent=intent,

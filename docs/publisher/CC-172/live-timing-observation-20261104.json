@@ -1,0 +1,257 @@
+{
+  "observed_at_utc": "2026-11-04T15:42:01.247271+00:00",
+  "store_access": "SQLITE_MODE_RO",
+  "consumer": "native_desktop_publication_v1.publication_projection",
+  "articles": [
+    {
+      "run_id": "cc124-next-article-20261103-b",
+      "state": "PENDING_NATIVE",
+      "timing": {
+        "policy": "JIM_DECISION_53",
+        "target_minutes": 15,
+        "text_approved_at_utc": "2026-11-03T16:38:46.874923+00:00",
+        "dispatch_deadline_utc": "2026-11-03T16:53:46.874923+00:00",
+        "channels": [
+          {
+            "destination": "substack",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T00:38:23.176630+00:00",
+            "dispatched_at_utc": "2026-11-04T00:52:11.141Z",
+            "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+            "seconds_after_text_approval": 29604.266077,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T07:52:11.141000+07:00"
+          },
+          {
+            "destination": "telegram",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T00:54:20.569489+00:00",
+            "dispatched_at_utc": "2026-11-04T00:54:20.569489+00:00",
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": 29733.694566,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T07:54:20.569489+07:00"
+          },
+          {
+            "destination": "discord",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T00:54:10.076894+00:00",
+            "dispatched_at_utc": "2026-11-04T00:54:10.076894+00:00",
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": 29723.201971,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T07:54:10.076894+07:00"
+          },
+          {
+            "destination": "x",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T00:56:58.721519+00:00",
+            "dispatched_at_utc": "2026-11-04T01:02:50.569Z",
+            "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+            "seconds_after_text_approval": 30243.694077,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T08:02:50.569000+07:00"
+          },
+          {
+            "destination": "linkedin",
+            "status": "UNKNOWN_WRITE",
+            "attempted_at_utc": "2026-11-04T00:54:18.341259+00:00",
+            "dispatched_at_utc": null,
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "skipped": false,
+            "dispatched_at_gmt7": null
+          },
+          {
+            "destination": "facebook_page",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T00:54:11.971961+00:00",
+            "dispatched_at_utc": "2026-11-04T00:54:11.971961+00:00",
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": 29725.097038,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T07:54:11.971961+07:00"
+          },
+          {
+            "destination": "instagram_business",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T13:53:20.528091+00:00",
+            "dispatched_at_utc": "2026-11-04T13:53:20.528091+00:00",
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": 76473.653168,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T20:53:20.528091+07:00"
+          },
+          {
+            "destination": "threads",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "skipped": false,
+            "dispatched_at_gmt7": null
+          },
+          {
+            "destination": "youtube",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T01:05:52.606811+00:00",
+            "dispatched_at_utc": "2026-11-04T01:08:42.505Z",
+            "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+            "seconds_after_text_approval": 30595.630077,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T08:08:42.505000+07:00"
+          },
+          {
+            "destination": "linkedin_company",
+            "status": "NATIVE_NEO_TOOL_PENDING",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "skipped": false,
+            "dispatched_at_gmt7": null
+          }
+        ],
+        "all_channels_dispatched_within_target": false,
+        "state": "OVERDUE_CONTINUE_PUBLICATION"
+      }
+    },
+    {
+      "run_id": "cc124-next-article-20261104-a",
+      "state": "PENDING_NATIVE",
+      "timing": {
+        "policy": "JIM_DECISION_53",
+        "target_minutes": 15,
+        "text_approved_at_utc": "2026-11-04T05:18:31.938589+00:00",
+        "dispatch_deadline_utc": "2026-11-04T05:33:31.938589+00:00",
+        "channels": [
+          {
+            "destination": "substack",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T05:21:38.887242+00:00",
+            "dispatched_at_utc": "2026-11-04T05:43:29.547489+00:00",
+            "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+            "seconds_after_text_approval": 1497.6089,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T12:43:29.547489+07:00"
+          },
+          {
+            "destination": "telegram",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T05:46:59.530877+00:00",
+            "dispatched_at_utc": "2026-11-04T05:46:59.530877+00:00",
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": 1707.592288,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T12:46:59.530877+07:00"
+          },
+          {
+            "destination": "discord",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T05:46:47.664008+00:00",
+            "dispatched_at_utc": "2026-11-04T05:46:47.664008+00:00",
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": 1695.725419,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T12:46:47.664008+07:00"
+          },
+          {
+            "destination": "x",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T05:51:20.828323+00:00",
+            "dispatched_at_utc": "2026-11-04T05:54:11.146630+00:00",
+            "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+            "seconds_after_text_approval": 2139.208041,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T12:54:11.146630+07:00"
+          },
+          {
+            "destination": "linkedin",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T10:11:43.908551+00:00",
+            "dispatched_at_utc": "2026-11-04T10:15:48.241Z",
+            "timing_basis": "NATIVE_ACTION_OBSERVED",
+            "seconds_after_text_approval": 17836.302411,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T17:15:48.241000+07:00"
+          },
+          {
+            "destination": "facebook_page",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T05:46:49.312201+00:00",
+            "dispatched_at_utc": "2026-11-04T05:46:49.312201+00:00",
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": 1697.373612,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T12:46:49.312201+07:00"
+          },
+          {
+            "destination": "instagram_business",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T06:11:33.203295+00:00",
+            "dispatched_at_utc": "2026-11-04T06:11:33.203295+00:00",
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": 3181.264706,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T13:11:33.203295+07:00"
+          },
+          {
+            "destination": "threads",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T15:16:50.595069+00:00",
+            "dispatched_at_utc": "2026-11-04T15:16:50.595069+00:00",
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": 35898.65648,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T22:16:50.595069+07:00"
+          },
+          {
+            "destination": "youtube",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T05:56:28.599453+00:00",
+            "dispatched_at_utc": "2026-11-04T06:05:57.870459+00:00",
+            "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+            "seconds_after_text_approval": 2845.93187,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T13:05:57.870459+07:00"
+          },
+          {
+            "destination": "linkedin_company",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-04T14:30:35.899253+00:00",
+            "dispatched_at_utc": "2026-11-04T14:36:16.403Z",
+            "timing_basis": "NATIVE_ACTION_OBSERVED",
+            "seconds_after_text_approval": 33464.464411,
+            "within_target": false,
+            "skipped": false,
+            "dispatched_at_gmt7": "2026-11-04T21:36:16.403000+07:00"
+          }
+        ],
+        "all_channels_dispatched_within_target": false,
+        "state": "OVERDUE_CONTINUE_PUBLICATION"
+      }
+    }
+  ],
+  "publication_performed": false,
+  "backdated_approvals": false
+}

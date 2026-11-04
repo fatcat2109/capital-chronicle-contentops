@@ -1,0 +1,10 @@
+{
+  "item": "CC-172",
+  "recorded_at_utc": "2026-11-04T15:44:56.183071+00:00",
+  "process_id": 29836,
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "configuration_evidence": "Observed active codex.exe launch arguments: exec --model gpt-6.1-sol -c model_reasoning_effort=high -C this exec worktree",
+  "runtime_observation": "CONFIGURED_NOT_OBSERVED",
+  "editorial_calls": 0
+}

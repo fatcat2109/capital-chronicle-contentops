@@ -148,7 +148,17 @@ def test_time_sensitive_writer_one_editor_publishes_without_screenshot_review(tm
     assert accepted["automated_media_check"]["blocks_publication"] is False
     from live_contentops.native_desktop_publication_v1 import prepare_native_publication
     prepare_native_publication(store, binding)
-    operation, executor, _ = composed(store, binding, rollout, monkeypatch)
+    operation, executor, transport = composed(store, binding, rollout, monkeypatch)
+    # The legacy general fixture simulates every non-core destination as an
+    # API. Exercise the actual company-page Neo route in this timing test.
+    from live_contentops.publication_coordinator_v1 import CanonicalDestinationTransportRuntimeV1
+    publish, readback = transport.publish, transport.readback
+    monkeypatch.setattr(transport, "publish", lambda **kw:
+        CanonicalDestinationTransportRuntimeV1.publish(transport, **kw)
+        if kw["destination"] == "linkedin_company" else publish(**kw))
+    monkeypatch.setattr(transport, "readback", lambda **kw:
+        CanonicalDestinationTransportRuntimeV1.readback(transport, **kw)
+        if kw["destination"] == "linkedin_company" else readback(**kw))
     value, _ = finish(operation, executor)
     timing = value["publication"]["timing"]
     # The current site-first fixture confirms the site before socials. Substack
