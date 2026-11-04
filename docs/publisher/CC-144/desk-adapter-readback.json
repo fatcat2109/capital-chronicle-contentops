@@ -1,0 +1,1503 @@
+{
+  "producer": "CC-145",
+  "module_path": "A:\\Capital Chronicle\\Worktrees\\codex-data-cc145\\tools\\product\\newsroom_desk_data_adapter_v1.py",
+  "module_sha256": "839fdcab5845d41b46206bff11ca6b63ed4772ed27f7dc8440730d8f35b38a08",
+  "catalog_path": "A:\\Capital Chronicle\\Worktrees\\codex-data-cc145\\docs\\research\\backlog\\cc-145\\host-catalog.example.json",
+  "data": {
+    "schema": "NewsroomDeskChartDataV1",
+    "audience": "public",
+    "public_export": true,
+    "catalog_sha256": "20a3bd2b2ff99464a8e904cce3cc474b43269cbba27219c9997bb006bcf91d00",
+    "query": {
+      "family": "cpi",
+      "series": [
+        "CPI_HEADLINE_YOY",
+        "CPI_CORE_YOY"
+      ],
+      "start": "2024-10",
+      "end": "2026-09",
+      "cutoff_utc": null,
+      "event_cutoff_utc": "2026-10-15T12:30:00Z"
+    },
+    "status": "READY",
+    "series": [
+      {
+        "series_id": "CPI_CORE_YOY",
+        "family": "cpi",
+        "unit": "percent",
+        "seasonal_adjustment": "NSA",
+        "measure": "YOY",
+        "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+        "window": {
+          "start": "2024-10",
+          "end": "2026-09"
+        },
+        "gaps": [
+          {
+            "x": "2025-10",
+            "value": null,
+            "state": "MISSING",
+            "reason": "NO_SAVED_OBSERVATION_FOR_PERIOD"
+          }
+        ],
+        "points": [
+          {
+            "x": "2024-10",
+            "value": 3.3,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_11132024.htm",
+                "capture_sha256": "ad0279d8d9bf165360affa63a8b640b28dbea9c49c6bfcc6f66f451d9e637769",
+                "captured_at_utc": "2026-10-30T01:35:32.027Z",
+                "known_at_utc": "2026-10-30T01:35:32.027Z",
+                "published_at_utc": "2024-11-13T13:30:00Z",
+                "window": {
+                  "reference_period": "2024-10"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2024-11",
+            "value": 3.3,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_12112024.htm",
+                "capture_sha256": "415282398015c224606261fb978ec7c61c35647ec5b3438fa3f613111217bb0e",
+                "captured_at_utc": "2026-10-30T01:35:31.857Z",
+                "known_at_utc": "2026-10-30T01:35:31.857Z",
+                "published_at_utc": "2024-12-11T13:30:00Z",
+                "window": {
+                  "reference_period": "2024-11"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2024-12",
+            "value": 3.2,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_01152025.htm",
+                "capture_sha256": "6e90f322584a8e8e776433678ff20e96ca1eb4f3545ecbfb067b9408a92e5abc",
+                "captured_at_utc": "2026-10-30T01:35:31.697Z",
+                "known_at_utc": "2026-10-30T01:35:31.697Z",
+                "published_at_utc": "2025-01-15T13:30:00Z",
+                "window": {
+                  "reference_period": "2024-12"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-01",
+            "value": 3.3,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_02122025.htm",
+                "capture_sha256": "92bf745a006f02fe197e880f81d2d7c56e56f8d297a713a02b0fe5aef4e588e1",
+                "captured_at_utc": "2026-10-30T01:35:31.425Z",
+                "known_at_utc": "2026-10-30T01:35:31.425Z",
+                "published_at_utc": "2025-02-12T13:30:00Z",
+                "window": {
+                  "reference_period": "2025-01"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-02",
+            "value": 3.1,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_03122025.htm",
+                "capture_sha256": "8d76b5e0f06f42521a0d325ed4dfa56985629fab354dde5b3ac52269e487fa53",
+                "captured_at_utc": "2026-10-30T01:35:31.367Z",
+                "known_at_utc": "2026-10-30T01:35:31.367Z",
+                "published_at_utc": "2025-03-12T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-02"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-03",
+            "value": 2.8,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_04102025.htm",
+                "capture_sha256": "b40ef03dec713fc7ca0e5e64e4043f2d9fa95e42a0e806b9dc101a64ca9bf424",
+                "captured_at_utc": "2026-10-30T01:35:31.306Z",
+                "known_at_utc": "2026-10-30T01:35:31.306Z",
+                "published_at_utc": "2025-04-10T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-03"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-04",
+            "value": 2.8,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_05132025.htm",
+                "capture_sha256": "d6b6ade9054d2af5f2de6aa342b8bbc7ba2ca0f5a5b090080ce7fc7dd6b45c10",
+                "captured_at_utc": "2026-10-30T01:35:31.636Z",
+                "known_at_utc": "2026-10-30T01:35:31.636Z",
+                "published_at_utc": "2025-05-13T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-04"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-05",
+            "value": 2.8,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_06112025.htm",
+                "capture_sha256": "0250b81ace8d66bb97595624259c8079deb2ad941e23f42dd4ce955b5ea75cf3",
+                "captured_at_utc": "2026-10-30T01:35:30.940Z",
+                "known_at_utc": "2026-10-30T01:35:30.940Z",
+                "published_at_utc": "2025-06-11T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-05"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-06",
+            "value": 2.9,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_07152025.htm",
+                "capture_sha256": "a0905a0de50db59be573b829d999a98d32512dc9d4e6f22ed789c64eed4fbcb2",
+                "captured_at_utc": "2026-10-30T01:35:30.879Z",
+                "known_at_utc": "2026-10-30T01:35:30.879Z",
+                "published_at_utc": "2025-07-15T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-06"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-07",
+            "value": 3.1,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_08122025.htm",
+                "capture_sha256": "a7651ec9f9870e9efab3f1659639d06aa80c43c2862d009a76ade1d16f941913",
+                "captured_at_utc": "2026-10-30T01:35:30.745Z",
+                "known_at_utc": "2026-10-30T01:35:30.745Z",
+                "published_at_utc": "2025-08-12T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-07"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-08",
+            "value": 3.1,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_09112025.htm",
+                "capture_sha256": "f376b178ee4e16a7cc2ae6810e2164cad96aa8da156900623b2ff780a78f26bf",
+                "captured_at_utc": "2026-10-30T01:35:31.003Z",
+                "known_at_utc": "2026-10-30T01:35:31.003Z",
+                "published_at_utc": "2025-09-11T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-08"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-09",
+            "value": 3,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_10242025.htm",
+                "capture_sha256": "ab7e0e431246f6f983575529cf4eae509706963fa893b6156576a2c320556397",
+                "captured_at_utc": "2026-10-30T01:35:30.475Z",
+                "known_at_utc": "2026-10-30T01:35:30.475Z",
+                "published_at_utc": "2025-10-24T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-09"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-11",
+            "value": 2.6,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_12182025.htm",
+                "capture_sha256": "85627e2f11db4d58fbdebc5877b27e71022c0ef17db77ddfb04497c4e33105b5",
+                "captured_at_utc": "2026-10-30T01:35:30.380Z",
+                "known_at_utc": "2026-10-30T01:35:30.380Z",
+                "published_at_utc": "2025-12-18T13:30:00Z",
+                "window": {
+                  "reference_period": "2025-11"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-12",
+            "value": 2.6,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_01132026.htm",
+                "capture_sha256": "bbdb2ecf47afdc9e0daad8555b1a3bf38b8a8981eacaf42d08d3d4953ba632fd",
+                "captured_at_utc": "2026-10-30T01:35:30.317Z",
+                "known_at_utc": "2026-10-30T01:35:30.317Z",
+                "published_at_utc": "2026-01-13T13:30:00Z",
+                "window": {
+                  "reference_period": "2025-12"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-01",
+            "value": 2.5,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_02132026.htm",
+                "capture_sha256": "e187d5e926bb71670d6b82fad7540c4a4804a9e25ec132a27d8fb701b0d371fc",
+                "captured_at_utc": "2026-10-30T01:35:30.245Z",
+                "known_at_utc": "2026-10-30T01:35:30.245Z",
+                "published_at_utc": "2026-02-13T13:30:00Z",
+                "window": {
+                  "reference_period": "2026-01"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-02",
+            "value": 2.5,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_03112026.htm",
+                "capture_sha256": "11f673e859eccffabc53987c0fb6cb02760c0601a4d24c1f03d62d162774f168",
+                "captured_at_utc": "2026-10-30T01:35:30.167Z",
+                "known_at_utc": "2026-10-30T01:35:30.167Z",
+                "published_at_utc": "2026-03-11T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-02"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-03",
+            "value": 2.6,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_04102026.htm",
+                "capture_sha256": "2f00ec5a10c8d2f0e6e879d8ae8762af555cb7ef26805b37b627ad47c93012f0",
+                "captured_at_utc": "2026-10-30T01:35:29.865Z",
+                "known_at_utc": "2026-10-30T01:35:29.865Z",
+                "published_at_utc": "2026-04-10T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-03"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-04",
+            "value": 2.8,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_05122026.htm",
+                "capture_sha256": "bfee220ac431aefa8dcd000040996fce59d17c06ea2fe2b297db0f3a6d5b659f",
+                "captured_at_utc": "2026-10-30T01:35:30.067Z",
+                "known_at_utc": "2026-10-30T01:35:30.067Z",
+                "published_at_utc": "2026-05-12T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-04"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-05",
+            "value": 2.9,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_06102026.htm",
+                "capture_sha256": "ba198a462a41b85b997df781558b90d3ab4663d9640efc8cdccca9e81e046a2f",
+                "captured_at_utc": "2026-10-30T01:35:29.933Z",
+                "known_at_utc": "2026-10-30T01:35:29.933Z",
+                "published_at_utc": "2026-06-10T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-05"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-06",
+            "value": 2.6,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_07142026.htm",
+                "capture_sha256": "382f20db3bdeba1f45a7783dacdaebb87e4ca8461ae2e701db803538afdfc790",
+                "captured_at_utc": "2026-10-30T01:35:30.000Z",
+                "known_at_utc": "2026-10-30T01:35:30.000Z",
+                "published_at_utc": "2026-07-14T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-06"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-07",
+            "value": 2.5,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_08122026.htm",
+                "capture_sha256": "d18471db7736e302e35085e14d746eddf51a4f6d27b954642e3ddec3e85778e5",
+                "captured_at_utc": "2026-10-30T01:35:27.017Z",
+                "known_at_utc": "2026-10-30T01:35:27.017Z",
+                "published_at_utc": "2026-08-12T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-07"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-08",
+            "value": 2.4,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_09112026.htm",
+                "capture_sha256": "aee0cdff604c295d784e6302b2ba74130f10f535675a5a0fb7262c936edaaabd",
+                "captured_at_utc": "2026-10-30T01:35:26.772Z",
+                "known_at_utc": "2026-10-30T01:35:26.772Z",
+                "published_at_utc": "2026-09-11T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-08"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-09",
+            "value": 2.6,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+                "capture_sha256": "b9f981390c08f4a530d839495fce582124015b979bac0398bfcc35ffde0544e4",
+                "captured_at_utc": "2026-10-30T01:35:26.713Z",
+                "known_at_utc": "2026-10-30T01:35:26.713Z",
+                "published_at_utc": "2026-10-14T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-09"
+                },
+                "source_series": "CUUR0000SA0L1E",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          }
+        ]
+      },
+      {
+        "series_id": "CPI_HEADLINE_YOY",
+        "family": "cpi",
+        "unit": "percent",
+        "seasonal_adjustment": "NSA",
+        "measure": "YOY",
+        "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+        "window": {
+          "start": "2024-10",
+          "end": "2026-09"
+        },
+        "gaps": [
+          {
+            "x": "2025-10",
+            "value": null,
+            "state": "MISSING",
+            "reason": "NO_SAVED_OBSERVATION_FOR_PERIOD"
+          }
+        ],
+        "points": [
+          {
+            "x": "2024-10",
+            "value": 2.6,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_11132024.htm",
+                "capture_sha256": "ad0279d8d9bf165360affa63a8b640b28dbea9c49c6bfcc6f66f451d9e637769",
+                "captured_at_utc": "2026-10-30T01:35:32.027Z",
+                "known_at_utc": "2026-10-30T01:35:32.027Z",
+                "published_at_utc": "2024-11-13T13:30:00Z",
+                "window": {
+                  "reference_period": "2024-10"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2024-11",
+            "value": 2.7,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_12112024.htm",
+                "capture_sha256": "415282398015c224606261fb978ec7c61c35647ec5b3438fa3f613111217bb0e",
+                "captured_at_utc": "2026-10-30T01:35:31.857Z",
+                "known_at_utc": "2026-10-30T01:35:31.857Z",
+                "published_at_utc": "2024-12-11T13:30:00Z",
+                "window": {
+                  "reference_period": "2024-11"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2024-12",
+            "value": 2.9,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_01152025.htm",
+                "capture_sha256": "6e90f322584a8e8e776433678ff20e96ca1eb4f3545ecbfb067b9408a92e5abc",
+                "captured_at_utc": "2026-10-30T01:35:31.697Z",
+                "known_at_utc": "2026-10-30T01:35:31.697Z",
+                "published_at_utc": "2025-01-15T13:30:00Z",
+                "window": {
+                  "reference_period": "2024-12"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-01",
+            "value": 3,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_02122025.htm",
+                "capture_sha256": "92bf745a006f02fe197e880f81d2d7c56e56f8d297a713a02b0fe5aef4e588e1",
+                "captured_at_utc": "2026-10-30T01:35:31.425Z",
+                "known_at_utc": "2026-10-30T01:35:31.425Z",
+                "published_at_utc": "2025-02-12T13:30:00Z",
+                "window": {
+                  "reference_period": "2025-01"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-02",
+            "value": 2.8,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_03122025.htm",
+                "capture_sha256": "8d76b5e0f06f42521a0d325ed4dfa56985629fab354dde5b3ac52269e487fa53",
+                "captured_at_utc": "2026-10-30T01:35:31.367Z",
+                "known_at_utc": "2026-10-30T01:35:31.367Z",
+                "published_at_utc": "2025-03-12T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-02"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-03",
+            "value": 2.4,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_04102025.htm",
+                "capture_sha256": "b40ef03dec713fc7ca0e5e64e4043f2d9fa95e42a0e806b9dc101a64ca9bf424",
+                "captured_at_utc": "2026-10-30T01:35:31.306Z",
+                "known_at_utc": "2026-10-30T01:35:31.306Z",
+                "published_at_utc": "2025-04-10T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-03"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-04",
+            "value": 2.3,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_05132025.htm",
+                "capture_sha256": "d6b6ade9054d2af5f2de6aa342b8bbc7ba2ca0f5a5b090080ce7fc7dd6b45c10",
+                "captured_at_utc": "2026-10-30T01:35:31.636Z",
+                "known_at_utc": "2026-10-30T01:35:31.636Z",
+                "published_at_utc": "2025-05-13T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-04"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-05",
+            "value": 2.4,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_06112025.htm",
+                "capture_sha256": "0250b81ace8d66bb97595624259c8079deb2ad941e23f42dd4ce955b5ea75cf3",
+                "captured_at_utc": "2026-10-30T01:35:30.940Z",
+                "known_at_utc": "2026-10-30T01:35:30.940Z",
+                "published_at_utc": "2025-06-11T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-05"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-06",
+            "value": 2.7,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_07152025.htm",
+                "capture_sha256": "a0905a0de50db59be573b829d999a98d32512dc9d4e6f22ed789c64eed4fbcb2",
+                "captured_at_utc": "2026-10-30T01:35:30.879Z",
+                "known_at_utc": "2026-10-30T01:35:30.879Z",
+                "published_at_utc": "2025-07-15T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-06"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-07",
+            "value": 2.7,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_08122025.htm",
+                "capture_sha256": "a7651ec9f9870e9efab3f1659639d06aa80c43c2862d009a76ade1d16f941913",
+                "captured_at_utc": "2026-10-30T01:35:30.745Z",
+                "known_at_utc": "2026-10-30T01:35:30.745Z",
+                "published_at_utc": "2025-08-12T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-07"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-08",
+            "value": 2.9,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_09112025.htm",
+                "capture_sha256": "f376b178ee4e16a7cc2ae6810e2164cad96aa8da156900623b2ff780a78f26bf",
+                "captured_at_utc": "2026-10-30T01:35:31.003Z",
+                "known_at_utc": "2026-10-30T01:35:31.003Z",
+                "published_at_utc": "2025-09-11T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-08"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-09",
+            "value": 3,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_10242025.htm",
+                "capture_sha256": "ab7e0e431246f6f983575529cf4eae509706963fa893b6156576a2c320556397",
+                "captured_at_utc": "2026-10-30T01:35:30.475Z",
+                "known_at_utc": "2026-10-30T01:35:30.475Z",
+                "published_at_utc": "2025-10-24T12:30:00Z",
+                "window": {
+                  "reference_period": "2025-09"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-11",
+            "value": 2.7,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_12182025.htm",
+                "capture_sha256": "85627e2f11db4d58fbdebc5877b27e71022c0ef17db77ddfb04497c4e33105b5",
+                "captured_at_utc": "2026-10-30T01:35:30.380Z",
+                "known_at_utc": "2026-10-30T01:35:30.380Z",
+                "published_at_utc": "2025-12-18T13:30:00Z",
+                "window": {
+                  "reference_period": "2025-11"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2025-12",
+            "value": 2.7,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_01132026.htm",
+                "capture_sha256": "bbdb2ecf47afdc9e0daad8555b1a3bf38b8a8981eacaf42d08d3d4953ba632fd",
+                "captured_at_utc": "2026-10-30T01:35:30.317Z",
+                "known_at_utc": "2026-10-30T01:35:30.317Z",
+                "published_at_utc": "2026-01-13T13:30:00Z",
+                "window": {
+                  "reference_period": "2025-12"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-01",
+            "value": 2.4,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_02132026.htm",
+                "capture_sha256": "e187d5e926bb71670d6b82fad7540c4a4804a9e25ec132a27d8fb701b0d371fc",
+                "captured_at_utc": "2026-10-30T01:35:30.245Z",
+                "known_at_utc": "2026-10-30T01:35:30.245Z",
+                "published_at_utc": "2026-02-13T13:30:00Z",
+                "window": {
+                  "reference_period": "2026-01"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-02",
+            "value": 2.4,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_03112026.htm",
+                "capture_sha256": "11f673e859eccffabc53987c0fb6cb02760c0601a4d24c1f03d62d162774f168",
+                "captured_at_utc": "2026-10-30T01:35:30.167Z",
+                "known_at_utc": "2026-10-30T01:35:30.167Z",
+                "published_at_utc": "2026-03-11T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-02"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-03",
+            "value": 3.3,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_04102026.htm",
+                "capture_sha256": "2f00ec5a10c8d2f0e6e879d8ae8762af555cb7ef26805b37b627ad47c93012f0",
+                "captured_at_utc": "2026-10-30T01:35:29.865Z",
+                "known_at_utc": "2026-10-30T01:35:29.865Z",
+                "published_at_utc": "2026-04-10T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-03"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-04",
+            "value": 3.8,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_05122026.htm",
+                "capture_sha256": "bfee220ac431aefa8dcd000040996fce59d17c06ea2fe2b297db0f3a6d5b659f",
+                "captured_at_utc": "2026-10-30T01:35:30.067Z",
+                "known_at_utc": "2026-10-30T01:35:30.067Z",
+                "published_at_utc": "2026-05-12T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-04"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-05",
+            "value": 4.2,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_06102026.htm",
+                "capture_sha256": "ba198a462a41b85b997df781558b90d3ab4663d9640efc8cdccca9e81e046a2f",
+                "captured_at_utc": "2026-10-30T01:35:29.933Z",
+                "known_at_utc": "2026-10-30T01:35:29.933Z",
+                "published_at_utc": "2026-06-10T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-05"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-06",
+            "value": 3.5,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_07142026.htm",
+                "capture_sha256": "382f20db3bdeba1f45a7783dacdaebb87e4ca8461ae2e701db803538afdfc790",
+                "captured_at_utc": "2026-10-30T01:35:30.000Z",
+                "known_at_utc": "2026-10-30T01:35:30.000Z",
+                "published_at_utc": "2026-07-14T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-06"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-07",
+            "value": 3.4,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_08122026.htm",
+                "capture_sha256": "d18471db7736e302e35085e14d746eddf51a4f6d27b954642e3ddec3e85778e5",
+                "captured_at_utc": "2026-10-30T01:35:27.017Z",
+                "known_at_utc": "2026-10-30T01:35:27.017Z",
+                "published_at_utc": "2026-08-12T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-07"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-08",
+            "value": 3.4,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_09112026.htm",
+                "capture_sha256": "aee0cdff604c295d784e6302b2ba74130f10f535675a5a0fb7262c936edaaabd",
+                "captured_at_utc": "2026-10-30T01:35:26.772Z",
+                "known_at_utc": "2026-10-30T01:35:26.772Z",
+                "published_at_utc": "2026-09-11T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-08"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          },
+          {
+            "x": "2026-09",
+            "value": 3.7,
+            "rights_class": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+            "public_eligible": true,
+            "use_label": "PUBLIC_FACT",
+            "state": "OBSERVED",
+            "missing_reason": null,
+            "lineage": [
+              {
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+                "capture_sha256": "b9f981390c08f4a530d839495fce582124015b979bac0398bfcc35ffde0544e4",
+                "captured_at_utc": "2026-10-30T01:35:26.713Z",
+                "known_at_utc": "2026-10-30T01:35:26.713Z",
+                "published_at_utc": "2026-10-14T12:30:00Z",
+                "window": {
+                  "reference_period": "2026-09"
+                },
+                "source_series": "CUUR0000SA0",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE",
+                "historical_possession_proven": false,
+                "archive_correction_notice": false,
+                "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                "source_publication_basis": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                "capture_hash_verified": true,
+                "input_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "source_id": "cc010-first-print"
+              }
+            ],
+            "details": {}
+          }
+        ]
+      }
+    ],
+    "excluded": {},
+    "limits": [
+      "Missing points are never filled; monthly gaps are explicit and must break chart lines.",
+      "Release, capture, knowledge and observation clocks remain distinct.",
+      "Current-vintage levels and dated first-release changes are separate series.",
+      "A saved archive does not prove historical possession or absence of later source corrections."
+    ]
+  }
+}

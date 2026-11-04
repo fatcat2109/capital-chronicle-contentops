@@ -284,6 +284,36 @@ def history_for_source_pack(source_pack, *, cutoff_utc, archive_root):
     return load_cc010_history(archive_root, series=FAMILIES[family], end_period=max(periods), cutoff_utc=cutoff_utc)
 
 
+def newsroom_desk_projection(history, *, archive_root, config_path=None):
+    """Use CC-145's existing delivered adapter, without copying its data engine."""
+    import importlib.util
+    config_path = Path(config_path or Path(__file__).resolve().parents[1] / "config/official_release_history_v1.json")
+    config = json.loads(config_path.read_bytes())
+    binding = config.get("newsroom_desk_adapter")
+    if not binding:
+        return None
+    catalog = Path(binding["catalog_path"])
+    catalog_value = json.loads(catalog.read_bytes())
+    # A relocated/test archive must not accidentally consume the host's data.
+    if not any(row.get("kind") == "first_print" and Path(row["root"]).resolve() == Path(archive_root).resolve()
+               for row in catalog_value.get("sources", [])):
+        return None
+    module_path = Path(binding["module_path"])
+    spec = importlib.util.spec_from_file_location("contentops_cc145_delivered_adapter", module_path)
+    adapter = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(adapter)
+    names = [row["name"] for row in history["series"]]
+    family = "cpi" if names[0].startswith("CPI_") else "ppi" if names[0].startswith("PPI_") else "nfp"
+    value = adapter.project(catalog, family=family, series=tuple(names), audience="public",
+        start=history["window"][0], end=history["window"][1], event_cutoff_utc=history["cutoff_utc"])
+    if value.get("schema") != "NewsroomDeskChartDataV1" or value.get("audience") != "public" or value.get("public_export") is not True:
+        raise ValueError("DESK_ADAPTER_PUBLIC_PROJECTION_REQUIRED")
+    if any(point.get("public_eligible") is not True for series in value.get("series", []) for point in series.get("points", [])):
+        raise ValueError("DESK_ADAPTER_PUBLIC_POINT_RIGHTS_REQUIRED")
+    return {"producer": "CC-145", "module_path": str(module_path),
+        "module_sha256": _digest(module_path.read_bytes()), "catalog_path": str(catalog), "data": value}
+
+
 def enrich_source_pack(turn, *, source_pack, article_mode, cutoff_utc, archive_root=None):
     """Join public history before the existing evidence artifact/writer is frozen."""
     if article_mode in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}:
@@ -297,12 +327,31 @@ def enrich_source_pack(turn, *, source_pack, article_mode, cutoff_utc, archive_r
     history = history_for_source_pack(source_pack, cutoff_utc=cutoff_utc, archive_root=archive_root)
     if history is None:
         return source_pack
-    if path.is_file() and json.loads(path.read_bytes()) != history:
-        raise ValueError("HISTORY_FROZEN_SOURCE_PROJECTION_CHANGED")
+    if path.is_file():
+        retained = json.loads(path.read_bytes())
+        for key in ("newsroom_desk_projection", "newsroom_desk_projection_error"):
+            if key in retained:
+                history[key] = retained[key]
+        if retained != history:
+            raise ValueError("HISTORY_FROZEN_SOURCE_PROJECTION_CHANGED")
+    else:
+        try:
+            if projection := newsroom_desk_projection(history, archive_root=archive_root):
+                history["newsroom_desk_projection"] = projection
+        except (OSError, ValueError) as exc:
+            # The existing verified CC-010 history is still usable. An optional
+            # projection failure never walls it off or admits failed/private data.
+            history["newsroom_desk_projection_error"] = str(exc)
     if not path.is_file():
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(canonical_bytes(history))
     docs = history_documents(history)
+    if projection := history.get("newsroom_desk_projection"):
+        for doc in docs:
+            name = doc.get("official_release_history", {}).get("series", {}).get("name")
+            selected = [row for row in projection["data"]["series"] if row["series_id"] == name]
+            if selected:
+                doc["newsroom_desk_projection"] = {**projection, "data": {**projection["data"], "series": selected}}
     if len(source_pack) + len(docs) > 10:
         raise ValueError("HISTORY_BOUNDED_SOURCE_PACK_REQUIRED")
     return [*source_pack, *[{**d, "source_id": f"SOURCE_{len(source_pack)+i+1}"} for i,d in enumerate(docs)]]

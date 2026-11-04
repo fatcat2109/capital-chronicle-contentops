@@ -66,3 +66,55 @@ Pending acceptance: integration into the live consumer; actual source-stage Neo
 and CC-145 desk-data use; exact final MAX review; and the **next five real posts**
 with image/public-object readbacks. No synthetic fixture is counted toward those
 five posts. CC-145's backlog delivery is not yet integrated/wired to the newsroom.
+
+
+4 November integration continuation
+
+The continuation branch `backlog/cc-144-live-integration` starts from the observed
+operating-root commit `24e067d3`, retaining the later CC-186 image transports,
+CC-183 recovery, CC-154 site-first publication and CC-173 draft scoping. The two
+original CC-144 commits are applied on that base. Source-bound cards enter the
+existing image-selection owner rather than being discarded and replaced by a
+generic title card. The editor's first selected asset still owns its hosted URL.
+
+The retained SEC article exposed a date-token defect: the comma in `November 9,
+2026` was included in the numeric token. Numeric tokens now exclude sentence
+punctuation. Cards prefer complete body claims to repeated SEO/title variants.
+A claim without exact numeric support is omitted from card selection; it never
+adds an unsupported number to the image or blocks other usable facts. Final
+card validation still rebinds every displayed claim and source byte hash.
+The existing signed comparison chart also keeps the percent suffix for declared
+units such as `% versus prior year`.
+
+The actual retained SEC source and native claim return produced a readable
+original card without changing its article, source, review or public object.
+[Real source replay](real-source-card.json) records its binary path, hash and
+complete displayed claims. This is deterministic media verification, not a new
+editorial model call or a publication. The local image reader inspected the
+actual card: complete paragraphs, source names and disclaimer are legible and
+unclipped within the portrait image.
+
+The existing source-history stage now calls the delivered CC-145 adapter using
+its declared module and catalog paths. Its public series, gaps, units, clocks,
+capture hashes and rights reach new writer source documents. It reuses the
+producer's code; there is no copied adapter or second acquisition owner. The
+retained source packet wins on resume and does not requery a changed producer.
+A relocated archive never silently reads the host catalog. The declared
+external adapter path must remain available until its owner provides a stable
+installed path. [Desk readback](desk-adapter-readback.json) records an actual
+24-month headline/core CPI query, including the missing October 2025 point.
+
+[Public readbacks](public-image-readbacks.json) contain fresh Neo observations
+of five existing canonical pages. Four were published after decision 42: the
+midterm preview, SEC roundtable, jobs retrospective and daily digest. The older
+CPI article is retained as image evidence but is excluded from that five-post
+count. Some below-fold images were still lazy-loaded; zero dimensions in those
+observations are not reported as completed loads. Every observed page has at
+least one fully loaded article image. No public write was performed to inflate
+the acceptance count, and no historical post was reposted.
+
+The live five-post criterion remains **4/5** after decision 42; it is **0/5** for
+fresh posts after this continuation's integration. The next genuine published
+article must provide the remaining decision-42 readback. This item is not DONE
+until its required live acceptance is satisfied. Engineering integration and
+passing consumer tests do not manufacture that fifth publication.

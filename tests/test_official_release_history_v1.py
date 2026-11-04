@@ -199,3 +199,64 @@ def test_missing_month_is_rendered_as_a_gap_and_cannot_be_filled(archive, tmp_pa
     bad["series"][0]["points"][12]["missing_reason"] = "invented gap"
     with pytest.raises(ValueError, match="MISSING_POINT_UNBOUND"):
         _editorial_data_values(bad, [doc])
+
+
+def test_source_stage_feeds_delivered_desk_series_to_writer_and_preserves_frozen_packet(archive, tmp_path, monkeypatch):
+    import live_contentops.official_release_history_v1 as owner
+    captured = {}
+    projection = {"producer": "CC-145", "module_sha256": "a" * 64,
+        "data": {"schema": "NewsroomDeskChartDataV1", "audience": "public", "public_export": True,
+                 "series": [{"series_id": name, "points": [{"x": "2026-09", "value": 2.3,
+                             "public_eligible": True}], "gaps": []} for name in NAMES]}}
+    def query(history, *, archive_root):
+        captured.update(window=history["window"], root=archive_root)
+        return deepcopy(projection)
+    monkeypatch.setattr(owner, "newsroom_desk_projection", query)
+    turn = SimpleNamespace(root=tmp_path / "operation", frozen_request=lambda stage: None)
+    source = [{"url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm", "published_at_utc": CUTOFF}]
+    docs = enrich_source_pack(turn, source_pack=source, article_mode="STANDARD_NEWS_ANALYSIS",
+                             cutoff_utc=CUTOFF, archive_root=archive)
+    joined = [d for d in docs if d.get("newsroom_desk_projection")]
+    assert len(joined) == 4 and captured["window"] == ["2024-10", "2026-09"]
+    assert {d["newsroom_desk_projection"]["data"]["series"][0]["series_id"] for d in joined} == set(NAMES)
+    assert all(len(d["newsroom_desk_projection"]["data"]["series"]) == 1 for d in joined)
+    before = (turn.root / "official_release_history_v1.json").read_bytes()
+    monkeypatch.setattr(owner, "newsroom_desk_projection", lambda *a, **k: pytest.fail("Frozen source must not requery"))
+    assert enrich_source_pack(turn, source_pack=source, article_mode="STANDARD_NEWS_ANALYSIS",
+                              cutoff_utc=CUTOFF, archive_root=archive) == docs
+    assert (turn.root / "official_release_history_v1.json").read_bytes() == before
+
+
+def test_desk_adapter_is_reused_and_only_its_public_projection_enters(archive, tmp_path):
+    from live_contentops.official_release_history_v1 import newsroom_desk_projection
+    module = tmp_path / "delivered_adapter.py"
+    module.write_text("def project(catalog, **kwargs):\n"
+        "    assert kwargs['audience'] == 'public' and kwargs['event_cutoff_utc']\n"
+        "    assert kwargs['start'] == '2024-10' and kwargs['end'] == '2026-09'\n"
+        "    return {'schema':'NewsroomDeskChartDataV1','audience':'public','public_export':True,"
+        "'series':[{'series_id':'CPI_HEADLINE_YOY','points':[{'public_eligible':True,'value':2.3}]}]}\n")
+    catalog = tmp_path / "catalog.json"
+    catalog.write_text(json.dumps({"sources": [{"kind": "first_print", "root": str(archive)}]}))
+    config = tmp_path / "config.json"
+    config.write_text(json.dumps({"newsroom_desk_adapter": {"module_path": str(module), "catalog_path": str(catalog)}}))
+    value = newsroom_desk_projection(load(archive), archive_root=archive, config_path=config)
+    assert value["data"]["series"][0]["points"][0]["value"] == 2.3
+    assert value["module_sha256"] == hashlib.sha256(module.read_bytes()).hexdigest()
+    module.write_text(module.read_text().replace("'public_eligible':True", "'public_eligible':False"))
+    with pytest.raises(ValueError, match="PUBLIC_POINT_RIGHTS"):
+        newsroom_desk_projection(load(archive), archive_root=archive, config_path=config)
+
+
+def test_unavailable_desk_adapter_keeps_existing_verified_history_in_live_source_stage(archive, tmp_path, monkeypatch):
+    import live_contentops.official_release_history_v1 as owner
+    def unavailable(*args, **kwargs):
+        raise FileNotFoundError("CC145_DELIVERED_MODULE_UNAVAILABLE")
+    monkeypatch.setattr(owner, "newsroom_desk_projection", unavailable)
+    turn = SimpleNamespace(root=tmp_path / "operation", frozen_request=lambda stage: None)
+    source = [{"url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm", "published_at_utc": CUTOFF}]
+    docs = enrich_source_pack(turn, source_pack=source, article_mode="STANDARD_NEWS_ANALYSIS",
+                             cutoff_utc=CUTOFF, archive_root=archive)
+    assert len([d for d in docs if d.get("official_release_history")]) == 4
+    saved = json.loads((turn.root / "official_release_history_v1.json").read_bytes())
+    assert saved["newsroom_desk_projection_error"] == "CC145_DELIVERED_MODULE_UNAVAILABLE"
+    assert all(not d.get("newsroom_desk_projection") for d in docs)

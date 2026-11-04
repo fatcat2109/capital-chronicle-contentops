@@ -4,5 +4,19 @@
   "owner": "MAIN_CC010_FIRST_PRINT_ARCHIVE",
   "minimum_calendar_months": 24,
   "missing_values": "KEEP_MISSING_NEVER_INTERPOLATE",
-  "official_source_hosts": ["api.bls.gov", "download.bls.gov", "www.bls.gov", "www.bea.gov", "apps.bea.gov", "www.federalreserve.gov", "home.treasury.gov", "api.fiscaldata.treasury.gov"]
+  "official_source_hosts": [
+    "api.bls.gov",
+    "download.bls.gov",
+    "www.bls.gov",
+    "www.bea.gov",
+    "apps.bea.gov",
+    "www.federalreserve.gov",
+    "home.treasury.gov",
+    "api.fiscaldata.treasury.gov"
+  ],
+  "newsroom_desk_adapter": {
+    "module_path": "A:/Capital Chronicle/Worktrees/codex-data-cc145/tools/product/newsroom_desk_data_adapter_v1.py",
+    "catalog_path": "A:/Capital Chronicle/Worktrees/codex-data-cc145/docs/research/backlog/cc-145/host-catalog.example.json",
+    "producer_commit": "18383826b3"
+  }
 }

@@ -1,0 +1,14 @@
+{
+  "source_document_count": 6,
+  "desk_document_count": 4,
+  "series": [
+    "CPI_HEADLINE_MOM",
+    "CPI_CORE_MOM",
+    "CPI_HEADLINE_YOY",
+    "CPI_CORE_YOY"
+  ],
+  "source_stage_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\backlog\\cc144-20261104\\desk-source-consumer",
+  "public_writes": 0,
+  "model_calls": 0,
+  "store_writes": 0
+}
