@@ -505,8 +505,15 @@ class NativeReviewedPublication:
 
     def projection(self):
         from live_contentops.contentops_editorial_desk_v1 import read_reviews
+        # A continuation needs this edition and its editorial opportunity only.
+        # Historical outbox payloads can contain large retained media; fetching
+        # every edition on each browser action delays the next destination.
+        rows = self.store.list_outbox_messages(work_item_id=self.binding["run_id"])
+        rows += self.store.list_outbox_messages(
+            work_item_id="cc-opportunity-" + sha256_of(self.binding["run_id"]))
+        rows.sort(key=lambda row: (row["created_at"], row["message_id"]))
         value = publication_projection(
-            self.store.list_outbox_messages(),
+            rows,
             self.store.list_platform_dispatches(),
             self.store.get_reconciliations_for_work_item(self.binding["run_id"]),
             run_id=self.binding["run_id"],

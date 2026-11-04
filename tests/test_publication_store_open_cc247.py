@@ -25,3 +25,20 @@ def test_atomic_publication_step_does_not_rescan_the_whole_production_day(monkey
     result = entry.operation({"run_id": "fixture", "owner_manual_validation": True, "owner_manual_live": True},
         command="publication-tool-begin")
     assert result["classification"] == "NATIVE_NEO_ACTION_BEGUN"
+
+
+def test_live_projection_retains_current_edition_without_loading_other_editions(tmp_path, monkeypatch):
+    from test_native_desktop_publication_v1 import seeded
+    from live_contentops.native_desktop_publication_v1 import NativeReviewedPublication
+    store, binding, *_ = seeded(tmp_path, monkeypatch)
+    publication = NativeReviewedPublication(store, binding, native_invocation_id="controlled")
+    before = publication.projection()
+    store.create_work_item(story_id="unrelated", work_item_id="unrelated", title="Other edition", target_surface="TEST")
+    store.register_outbox_message(message_id="unrelated-retained-media", work_item_id="unrelated",
+        destination="internal:old-media", payload='{"retained_media":"' + "x" * 100000 + '"}', status="EDITORIAL_INTERNAL")
+    original = store.list_outbox_messages
+    def scoped_only(**kwargs):
+        assert kwargs.get("work_item_id") or kwargs.get("destination"), "unbounded historical payload scan"
+        return original(**kwargs)
+    monkeypatch.setattr(store, "list_outbox_messages", scoped_only)
+    assert publication.projection() == before
