@@ -1,0 +1,317 @@
+{
+  "observed_at_utc": "2026-11-04T06:21:21.972281+00:00",
+  "consumer_path": "A:\\Capital Chronicle\\main-jim-research-dashboard-20261025\\tools\\product\\contentops_digest_v1.py",
+  "consumer_sha256": "8feb593918ee75c7a832cc195ea6a252caa12cee957bf16f7c6ba36385753061",
+  "entrypoint": "A:\\Capital Chronicle\\main-jim-research-dashboard-20261025\\tools\\product\\main_daily_digest_v1.py",
+  "mode": "READ_ONLY_EXISTING_COLLECTOR",
+  "digest_scheduled_run_performed": false,
+  "contentops": {
+    "state": "SAVED_RECORD",
+    "record_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-04-bangkok\\newsroom_production_day_v1.json",
+    "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "production_day_id": "newsroom-production-day-2026-11-04-bangkok",
+    "observed_at_utc": "2026-11-04T06:19:13.384535Z",
+    "stories_admitted": 3,
+    "distinct_articles_published": 2,
+    "confirmed_copies_by_channel": {
+      "discord": 2,
+      "facebook_page": 2,
+      "instagram_business": 1,
+      "substack": 2,
+      "telegram": 2,
+      "x": 2,
+      "youtube": 2
+    },
+    "first_blocking_causes": {},
+    "last_public_post": {
+      "state": "SAVED_CONFIRMED_DISPATCH",
+      "at_utc": "2026-11-04T06:11:33.192880Z",
+      "channel": "instagram_business",
+      "dispatch_id": "dispatch_08460f89ddd7928ef43fa99e76695f76",
+      "clock": "dispatched_at",
+      "reconciled_at_utc": "2026-11-04T06:11:47.629170Z"
+    }
+  },
+  "reader_evidence": {
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-04-bangkok\\newsroom_production_day_v1.json": {
+      "label": "ContentOps production day",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-04-bangkok\\newsroom_production_day_v1.json",
+      "state": "READ",
+      "sha256": "bcbe109436fa1c4934cc5f95c87bce480d98155ac70dcdeccaf96ad8c811fa53",
+      "document": {
+        "native_volume_measurement": {
+          "admitted_items": 3,
+          "confirmed_copies_by_channel": {
+            "discord": 2,
+            "facebook_page": 2,
+            "instagram_business": 1,
+            "substack": 2,
+            "telegram": 2,
+            "x": 2,
+            "youtube": 2
+          },
+          "distinct_canonical_items_published": 2,
+          "distinct_daily_target": 8,
+          "first_blocking_causes": {},
+          "interventions": [],
+          "observed_at_utc": "2026-11-04T06:19:13.384535+00:00",
+          "policy_id": "CC-047-20261030",
+          "pre_event_preparations_available": [
+            {
+              "event_id": "us-election-20261103",
+              "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+              "planned_release_utc": null,
+              "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+            },
+            {
+              "event_id": "boe-mpc-20261105",
+              "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+              "planned_release_utc": "2026-11-05T12:00:00+00:00",
+              "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+            },
+            {
+              "event_id": "bls-emsit-20261106",
+              "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+              "planned_release_utc": "2026-11-06T13:30:00+00:00",
+              "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+            },
+            {
+              "event_id": "bls-cpi-20261110",
+              "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+              "planned_release_utc": "2026-11-10T13:30:00+00:00",
+              "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+            },
+            {
+              "event_id": "boe-mpc-20261105",
+              "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+              "planned_release_utc": "2026-11-05T12:00:00+00:00",
+              "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+            },
+            {
+              "event_id": "bls-emsit-20261106",
+              "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+              "planned_release_utc": "2026-11-06T13:30:00+00:00",
+              "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+            },
+            {
+              "event_id": "bls-cpi-20261110",
+              "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+              "planned_release_utc": "2026-11-10T13:30:00+00:00",
+              "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+            },
+            {
+              "event_id": "us-election-20261103",
+              "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+              "planned_release_utc": null,
+              "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+            },
+            {
+              "event_id": "boe-mpc-20261105",
+              "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+              "planned_release_utc": "2026-11-05T12:00:00+00:00",
+              "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+            },
+            {
+              "event_id": "bls-emsit-20261106",
+              "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+              "planned_release_utc": "2026-11-06T13:30:00+00:00",
+              "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+            },
+            {
+              "event_id": "bls-cpi-20261110",
+              "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+              "planned_release_utc": "2026-11-10T13:30:00+00:00",
+              "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+            },
+            {
+              "event_id": "us-election-20261103",
+              "known_at_utc": "2026-10-29T17:38:06.658805+00:00",
+              "planned_release_utc": null,
+              "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+            },
+            {
+              "event_id": "boe-mpc-20261105",
+              "known_at_utc": "2026-10-29T17:36:50.561308+00:00",
+              "planned_release_utc": "2026-11-05T12:00:00+00:00",
+              "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+            },
+            {
+              "event_id": "bls-emsit-20261106",
+              "known_at_utc": "2026-10-29T17:36:50.561308+00:00",
+              "planned_release_utc": "2026-11-06T13:30:00+00:00",
+              "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+            }
+          ],
+          "quota_stops": [],
+          "reader_counts": [
+            {
+              "availability": "UNAVAILABLE",
+              "channel": "substack",
+              "observations": null,
+              "public_object_id": "223408612"
+            },
+            {
+              "availability": "UNAVAILABLE",
+              "channel": "telegram",
+              "observations": null,
+              "public_object_id": "75"
+            },
+            {
+              "availability": "UNAVAILABLE",
+              "channel": "discord",
+              "observations": null,
+              "public_object_id": "1567341152611467389"
+            },
+            {
+              "availability": "UNAVAILABLE",
+              "channel": "x",
+              "observations": null,
+              "public_object_id": "2117784321562124568"
+            },
+            {
+              "availability": "UNAVAILABLE",
+              "channel": "facebook_page",
+              "observations": null,
+              "public_object_id": "106091951705748_1444133184571764"
+            },
+            {
+              "availability": "UNAVAILABLE",
+              "channel": "youtube",
+              "observations": null,
+              "public_object_id": "UgkxpL7C_qPEDgq4_M3esrHD9Hpfseas5Fu_"
+            },
+            {
+              "availability": "UNAVAILABLE",
+              "channel": "substack",
+              "observations": null,
+              "public_object_id": "223429113"
+            },
+            {
+              "availability": "UNAVAILABLE",
+              "channel": "telegram",
+              "observations": null,
+              "public_object_id": "76"
+            },
+            {
+              "availability": "UNAVAILABLE",
+              "channel": "discord",
+              "observations": null,
+              "public_object_id": "1567414794468986923"
+            },
+            {
+              "availability": "UNAVAILABLE",
+              "channel": "x",
+              "observations": null,
+              "public_object_id": "2117857511042904348"
+            },
+            {
+              "availability": "UNAVAILABLE",
+              "channel": "facebook_page",
+              "observations": null,
+              "public_object_id": "106091951705748_1444330794552003"
+            },
+            {
+              "availability": "UNAVAILABLE",
+              "channel": "instagram_business",
+              "observations": null,
+              "public_object_id": "18120907216762181"
+            },
+            {
+              "availability": "UNAVAILABLE",
+              "channel": "youtube",
+              "observations": null,
+              "public_object_id": "UgkxHzB5SS25WhvXZ09CYjMqgn34e9eKJ-_t"
+            }
+          ],
+          "reader_counts_availability": "UNAVAILABLE",
+          "source_qualified_items": 2,
+          "target_by_revised_production_day": 3,
+          "tests_or_derivatives_are_original_publications": false,
+          "time_to_canonical": [
+            {
+              "public_object_id": "223408612",
+              "run_id": "cc124-next-article-20261103-b",
+              "window_entry_to_canonical_readback_seconds": null
+            },
+            {
+              "public_object_id": "223429113",
+              "run_id": "cc124-next-article-20261104-a",
+              "window_entry_to_canonical_readback_seconds": null
+            }
+          ],
+          "windows": {
+            "editorial-window-730dc274351e15dcd5a17f30407ade7d": {
+              "admitted_count": 0,
+              "brief_only": true,
+              "distinct_canonical_published": 0,
+              "source_request_count": 0
+            },
+            "standing": {
+              "admitted_count": 2,
+              "brief_only": false,
+              "distinct_canonical_published": 2,
+              "source_request_count": 1
+            }
+          }
+        },
+        "newsroom_production_day_id": "newsroom-production-day-2026-11-04-bangkok",
+        "record_sha256": "9c6aaa9ba651a407e6e5a0f2eee96dfd5ba77b5521dc301a12a648898930c25e",
+        "schema_version": "contentops.newsroom_production_day.v1"
+      }
+    },
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3": {
+      "label": "ContentOps publication store",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+      "state": "READ",
+      "observed_at_utc": "2026-11-04T06:21:21.972281Z"
+    }
+  },
+  "published_feed_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+  "published_feed_sha256": "6b0954c2a9b4780197f2b2d9abee3b18c64a49b07be698dfdf981e068e158fc0",
+  "published_feed_current_record": {
+    "conditional_calls": [],
+    "conflicts_notice": null,
+    "content_id": "substack:223429113",
+    "content_sha256": "2e84e4353f2503a13a751ab77bbdaa599d027d281d7226cf097154ed1b789402",
+    "disclaimer": "Analysis, not financial advice.",
+    "event_id": null,
+    "outlets": [
+      {
+        "name": "substack",
+        "url": "https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains"
+      },
+      {
+        "name": "discord",
+        "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1567414794468986923"
+      },
+      {
+        "name": "facebook_page",
+        "url": "https://www.facebook.com/1342369584748125/posts/1444330794552003"
+      },
+      {
+        "name": "instagram_business",
+        "url": "https://www.instagram.com/p/DfTyJF7gR4t/"
+      },
+      {
+        "name": "telegram",
+        "url": "https://t.me/CapitalChronicle/76"
+      },
+      {
+        "name": "x",
+        "url": "https://x.com/Capitalnicle/status/2117857511042904348"
+      },
+      {
+        "name": "youtube",
+        "url": "https://www.youtube.com/post/UgkxHzB5SS25WhvXZ09CYjMqgn34e9eKJ-_t"
+      }
+    ],
+    "published_at_utc": "2026-11-04T05:42:26.165000+00:00",
+    "recorded_at_utc": "2026-11-04T06:19:06.362293+00:00",
+    "rights_class": "CC_OWN_ANALYSIS",
+    "schema_version": "contentops.published_content.v1",
+    "standfirst": "The U.S. Bureau of Labor Statistics initially reported 29,000 more September payroll jobs. Private gains offset government losses; earnings growth softened.",
+    "title": "September 2026 jobs: private gains beneath a weak headline",
+    "type": "ARTICLE",
+    "visibility": "public"
+  }
+}
