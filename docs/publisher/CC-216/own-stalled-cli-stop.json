@@ -1,0 +1,10 @@
+{
+  "observed_at_utc": "2026-11-04T21:33:35.4728916Z",
+  "pid": 12536,
+  "parent_pid": 22844,
+  "creation_date": "2026-11-04T21:28:32.5889270Z",
+  "command": "run_native_desktop_editorial.py media-plan, exact cc216-cpi binding and visual-amendment-input.json",
+  "issued_request": "desktop_request_visual-edit-amend.json",
+  "reason": "Own helper stalled after request persistence; resume same binding with current-schema continuation repair",
+  "action": "Stop exact task-owned CLI helper only"
+}

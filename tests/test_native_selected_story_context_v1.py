@@ -138,6 +138,9 @@ def test_already_held_verified_context_can_join_before_writer_freeze(tmp_path, m
 def test_cli_routes_prewrite_visual_amendment_to_existing_max(tmp_path, monkeypatch):
     turn, binding, _, _ = seeded(tmp_path, monkeypatch)
     monkeypatch.setattr("live_contentops.visual_asset_discovery_v1.validate_contextual_photo", lambda asset: None)
+    binding["owner_manual_live"] = True  # Isolated live-shaped continuation, never the production store.
+    monkeypatch.setattr("live_contentops.native_newsroom_volume_v1.persist_native_day_measurement",
+        lambda *args, **kwargs: pytest.fail("Pending roles must return before whole-day publication aggregation"))
     result = entry().operation(binding, command="media-plan", response={"visual_amendment": True,
         "reason": "Drop an image that remained illegible after the single authorized repair round.",
         "contextual_assets": [{"asset_id": "controlled-photo"}]})

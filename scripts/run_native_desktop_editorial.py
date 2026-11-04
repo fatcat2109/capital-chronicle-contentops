@@ -585,8 +585,12 @@ def operation(binding, **kwargs):
         result["coordinator_action"] = next_editorial_action(result)
     from live_contentops.native_newsroom_volume_v1 import bound_volume_policy, persist_native_day_measurement
     if ((bound_volume_policy(binding) or binding.get("owner_manual_live"))
-            and kwargs.get("command", "advance") not in {"status", "publication-status", "context"}
-            and not kwargs.get("command", "advance").startswith("publication-")):
+            and kwargs.get("command", "advance") in {"advance", "newsroom", "standing", "scheduled"}
+            and result.get("classification") != "NATIVE_DESKTOP_INPUT_REQUIRED"):
+        # Exact role/source/media results are already durable. Rebuilding the
+        # whole day's historical publication projection at every pending role
+        # delayed the actual writer. Refresh it when this opportunity yields an
+        # outcome; this does not change any approval or publication clock.
         persist_native_day_measurement(ContentOpsDurableStore(binding["store_path"], auto_migrate=False), binding)
     return result
 

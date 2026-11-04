@@ -14,6 +14,13 @@ def main(name):
     response = json.loads((root / "desktop_response_media-plan.json").read_bytes())
     assert request["request_sha256"] == response["request_sha256"]
     assets = json.loads((root / "rendered-assets.json").read_bytes())
+    decision_path = root / "desktop_response_visual-edit-amend.json"
+    if not decision_path.exists():
+        decision_path = root / "desktop_response_visual-edit.json"
+    decision = json.loads(decision_path.read_bytes())["output"]
+    chosen = {c["asset_id"] for c in decision["charts"]} | set(decision.get("contextual_photo_ids", []))
+    assets = [a for a in assets if a["asset_id"] in chosen]
+    assert {a["asset_id"] for a in assets} == chosen
     for asset in assets:
         assert sha256(Path(asset["path"]).read_bytes()).hexdigest() == asset["sha256"]
         assert asset["visual_review"]["asset_sha256"] == asset["sha256"]
