@@ -400,3 +400,9 @@ These tests failed only because the task documents they check were deleted in 41
 | `tests/test_next_phase_selection.py`: `test_refreshed_0069_docs_exist`, `test_recommended_upload_paths_exist_and_unique` | `docs/TASK_CONTENTOPS_0069_LOCAL_BUNDLE_REFRESH_AND_NEXT_PHASE_SELECTION_V0.md` |
 | `tests/test_pipeline_trace.py`: `test_refreshed_0072_bundle_docs_exist` | `docs/TASK_CONTENTOPS_0072_EXTREME_LOCAL_REAL_ARTIFACT_PIPELINE_TRACE_REVIEW_PACKET_AND_BUNDLE...` |
 | `tests/test_review_bundle_manifest.py`: `test_recommended_upload_paths_exist_and_unique` | `docs/TASK_CONTENTOPS_0068_LOCAL_REVIEW_PACKET_BUNDLE_MANIFEST_AND_PROJECT_SOURCE_EXPORT_V0...` |
+
+## Tests of removed functions
+
+| Test file | Why |
+|---|---|
+| `tests/test_server.py` (5 tests) | It tests `live_contentops.server._run_id_from_stdout`, `_read_dispatch_audit` and `_trim_tasks`, all removed on 3 Aug 2026 in 7300517c ("quarantine legacy live entrypoints"). |
