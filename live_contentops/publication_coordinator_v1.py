@@ -1379,6 +1379,16 @@ class DurablePublicationCoordinator:
         request, result = (packet or {}).get("request", {}), (response or {}).get("result", {})
         observed = result.get("native_tool_observation") or {}
         intent = json.loads(self._effective_message(message)["payload"])
+        # A first send finalizes the canonical-bound envelope before Neo receives
+        # it. Reviewed amendments retain the original outbox row, so reproduce
+        # that same deterministic finalization when reconciling its exact return.
+        if request.get("intent_sha256") != sha256_of(intent):
+            finalizer = getattr(self.transport_runtime, "finalize_intent", None)
+            if callable(finalizer):
+                finalized = dict(finalizer(destination=message["destination"], intent=intent,
+                    canonical_url=intent.get("canonical_url")))
+                if request.get("intent_sha256") == sha256_of(finalized):
+                    intent = finalized
         ids = self._ids(message["work_item_id"], intent["plan_hash"], message["destination"])
         if (dispatch_id != ids["dispatch_id"] or request.get("action") != "PUBLISH"
                 or request.get("destination") != message["destination"]
