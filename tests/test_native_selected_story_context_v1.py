@@ -135,6 +135,17 @@ def test_already_held_verified_context_can_join_before_writer_freeze(tmp_path, m
     assert result["new_source_requests"] == 0
 
 
+def test_cli_routes_prewrite_visual_amendment_to_existing_max(tmp_path, monkeypatch):
+    turn, binding, _, _ = seeded(tmp_path, monkeypatch)
+    monkeypatch.setattr("live_contentops.visual_asset_discovery_v1.validate_contextual_photo", lambda asset: None)
+    result = entry().operation(binding, command="media-plan", response={"visual_amendment": True,
+        "reason": "Drop an image that remained illegible after the single authorized repair round.",
+        "contextual_assets": [{"asset_id": "controlled-photo"}]})
+    assert result["stage"] == "visual-edit-amend"
+    assert result["next_native_call"]["tool"] == "collaboration.followup_task"
+    assert result["next_native_call"]["arguments"]["target"] == turn._get("visual-edit", "response")["invocation_observation"]["invocation_id"]
+
+
 @pytest.mark.parametrize("clock", ["source_timestamp_utc", "known_at_utc", "revision_at_utc"])
 def test_context_rejects_later_information(tmp_path, monkeypatch, clock):
     turn, binding, response, _ = seeded(tmp_path, monkeypatch, lambda r: r.update({clock: "2026-08-27T00:00:00Z"}))

@@ -4,7 +4,7 @@
     {
       "asset_id": "payroll_first_print_trend",
       "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\payroll_first_print_trend.png",
-      "sha256": "7fe6e76c02335e7e35785dca841f1c59d7981ccff7dd398c1ba8e3fb4311c0dd",
+      "sha256": "9b8422a3579d56e931858dc0e128d1c06fb1d570a315eadd55ae073b70463521",
       "width": 1440,
       "height": 1040,
       "modality": "source_backed_chart"
@@ -20,7 +20,7 @@
     {
       "asset_id": "unemployment_first_print_trend",
       "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\unemployment_first_print_trend.png",
-      "sha256": "2f3e7f4eeb884b33bb0641c14696073108c0d47c7cb96345535776789dd9d21b",
+      "sha256": "f80105d8a1f7a3df2bc67664108fcd7cd0a423f09ad47580a25d8aa32338a74b",
       "width": 1440,
       "height": 1040,
       "modality": "source_backed_chart"
@@ -28,7 +28,7 @@
     {
       "asset_id": "earnings_first_print_trend",
       "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\earnings_first_print_trend.png",
-      "sha256": "d3a1baa52c3d61801f319a59989c1979485ee69daa677fba035872cc1d99c385",
+      "sha256": "02b3233ac1945aa9e7f7fe6169eeec03f5e7d1e86462c3f46a6031c1ae3f057f",
       "width": 1440,
       "height": 1040,
       "modality": "source_backed_chart"

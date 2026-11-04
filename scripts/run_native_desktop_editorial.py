@@ -309,6 +309,16 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
         return bind_editorial_media(store, run_id=binding["run_id"], **response)
     if command == "media-plan":
         from live_contentops.native_desktop_editorial_v1 import bind_editorial_media_plan
+        if response and response.get("visual_amendment"):
+            try:
+                output, receipt = turn.request_visual_amendment(reason=response["reason"],
+                    contextual_assets=response["contextual_assets"])
+                return {"classification": "NATIVE_VISUAL_AMENDMENT_RETURNED", "output": output,
+                    "request_sha256": receipt["request_sha256"], "public_write_performed": False}
+            except DesktopInputRequired as pending:
+                return {"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "stage": pending.request["stage"],
+                    "request_path": pending.request["request_path"], "request_sha256": pending.request["request_sha256"],
+                    "public_write_performed": False}
         if response is None:
             frozen_plan = turn.frozen_request("media-plan")
             governed = (frozen_plan["governed_input"] if frozen_plan else
@@ -560,7 +570,8 @@ def operation(binding, **kwargs):
                 and request.get("governed_input", {}).get("distribution_recovery") is not None)
             if (native_role(request["stage"]) in {"write", "revise", "final-visual", "visual-edit"}
                     and not dated_social_review):
-                prior = turn._get("write", "response") or turn.visual_response()
+                prior = (turn._get("visual-edit", "response") if request["stage"] == "visual-edit-amend"
+                    else turn._get("write", "response") or turn.visual_response())
                 if prior:
                     same_writer_configuration = prior["invocation_observation"]
                     same_writer = same_writer_configuration["invocation_id"]

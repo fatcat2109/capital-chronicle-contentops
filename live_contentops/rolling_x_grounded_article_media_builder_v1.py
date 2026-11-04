@@ -2129,13 +2129,19 @@ def _draw_editorial_chart(packet, values, plt, np):
                     else len(series)
                 )
                 width = 0.8 / count
-                ax.bar(
+                bars = ax.bar(
                     x - 0.4 + width * (i + 0.5),
                     np.asarray(nums, dtype=float),
                     width=width,
                     color=color,
                     label=label,
                 )
+                if packet.get("history_lineage"):
+                    lineage = packet["history_lineage"]["series"][i]["observations"]
+                    for j, observation in enumerate(lineage):
+                        if observation.get("availability") == "DERIVED":
+                            bars.patches[j].set_hatch("///")
+                            bars.patches[j].set_edgecolor("#182f33")
                 for mark in packet.get("history_point_labels", []):
                     if mark.get("series_index") != i:
                         continue
@@ -2145,7 +2151,8 @@ def _draw_editorial_chart(packet, values, plt, np):
                     decimals = mark.get("decimals", 1)
                     if nums[j] is None or type(decimals) is not int or not 0 <= decimals <= 6:
                         raise ValueError("EDITORIAL_HISTORY_POINT_LABEL_UNBOUND")
-                    ax.annotate(f"{label}: {nums[j]:.{decimals}f}%",
+                    suffix = "%" if str(packet["unit"]).lower() in {"percent", "%"} else ""
+                    ax.annotate(f"{label}: {nums[j]:,.{decimals}f}{suffix}",
                         (x[j] - .4 + width * (i + .5), nums[j]),
                         xytext=(mark.get("dx", 0), mark.get("dy", 12)),
                         textcoords="offset points", ha="center", fontsize=9, color=color,

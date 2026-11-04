@@ -1,0 +1,29 @@
+{
+  "observed_at_utc": "2026-11-04T21:22:48.219212+00:00",
+  "cause": "ACCOUNT_SWITCH_INTERRUPTED_EXACT_PPI_ADVANCE_WORKER",
+  "native_editorial_process_inventory": "No run_native_desktop_editorial.py or cc216 Python process exists; readback immediately preceded exact release.",
+  "released_exact_own_leases": [
+    {
+      "lease_key": "internal:native-editorial:cc216-ppi-background-20261105-v1",
+      "lease_id": "lease_704c4ca095961f0b",
+      "owner_ref": "native-desktop-bada6e08ebd84e2ab79acd6f05252ffe",
+      "fencing_token": 6,
+      "acquired_at": "2026-11-04T21:12:54.222747+00:00"
+    },
+    {
+      "lease_key": "internal:native-editorial:newsroom",
+      "lease_id": "lease_4e429b91c5b9db7f",
+      "owner_ref": "native-newsroom-6205051fc93b4c77b21d26804a647831",
+      "fencing_token": 599,
+      "acquired_at": "2026-11-04T21:12:54.208205+00:00"
+    },
+    {
+      "lease_key": "internal:cc-report-consume",
+      "lease_id": "lease_190607c72010e061",
+      "owner_ref": "cc-editorial-0f7c69260c424aeba354b0d450768fea",
+      "fencing_token": 511,
+      "acquired_at": "2026-11-04T21:12:57.588106+00:00"
+    }
+  ],
+  "method": "ContentOpsDurableStore.release_lease; original fencing preserved; no new lease owner/store/scheduler"
+}

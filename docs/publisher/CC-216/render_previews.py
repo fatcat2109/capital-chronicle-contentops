@@ -95,9 +95,23 @@ def main(name, repair=False):
                 packet["chart_type"] = "line" if "unemployment" in aid else "grouped_bar"
                 if "unemployment" in aid:
                     packet["history_axis_limits"] = [0, 5]
+                packet["series"][0]["name"] = {
+                    "NFP_PAYROLL_CHANGE": "Nonfarm payroll change",
+                    "UNEMPLOYMENT_RATE": "Civilian unemployment rate",
+                    "AHE_MOM": "Average hourly earnings, monthly change"}[names[0]]
+                packet["subtitle"] = ("Seasonally adjusted monthly change in jobs" if "payroll" in aid else
+                    "Civilian unemployment rate, seasonally adjusted" if "unemployment" in aid else
+                    "Nominal average hourly earnings, seasonally adjusted; percent month on month")
+                if "unemployment" not in aid:
+                    packet["history_point_labels"] = [{"series_index": 0, "period": "2026-09",
+                        "decimals": 0 if "payroll" in aid else 1, "dx": -35, "dy": 17}]
                 packet["source_caption"] = "Source: BLS dated first releases. October 2024–September 2026; each month retains its first print."
                 if "earnings" in aid:
-                    packet["source_caption"] += " October 2025 and July 2026 rates computed from published levels, rounded to one decimal."
+                    packet["source_caption"] += " Hatched bars: October 2025 and July 2026 computed from published levels, rounded to one decimal."
+                if "unemployment" in aid:
+                    packet["source_caption"] += " October 2025 is absent from the retained series; no interpolation."
+                    for gap in packet["missingness"]:
+                        gap["reader_note"] = "NO_SAVED_OBSERVATION_FOR_PERIOD; absent from retained series"
             binding = None
         packet["destination_subset"] = [d for d, ids in choice["channel_media"].items() if aid in ids]
         asset = build_editorial_data_chart(packet, sources, output_dir=root / "visual-repair-r1" if repair else root,
@@ -127,6 +141,8 @@ def main(name, repair=False):
         asset.update(path=str(target), rights_evidence_path=str(rights_target),
             caption=("Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context for monetary policy; not an image of the forthcoming release."
                 if name == "nfp" else "Dry beans at Papaya Supermarket in Dearborn, Michigan, June 2023. Archive context; not an observation of October 2026 prices."))
+        if name == "nfp":
+            asset["relevance_rationale"] = "Archive portrait of the Federal Reserve chair supplies institutional context for the preview's conditional transmission from labor data to monetary policy; it does not corroborate the forthcoming report."
         assets.append(asset)
     for asset in assets:
         prior = previous.get(asset["asset_id"], {})
