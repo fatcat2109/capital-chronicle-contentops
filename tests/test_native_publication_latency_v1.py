@@ -291,6 +291,27 @@ def test_long_explainer_keeps_full_visual_path():
     assert speed_policy({"article_mode": "STANDARD_NEWS_ANALYSIS"})["dispatch_target_minutes"] == 15
 
 
+@pytest.mark.parametrize("change", [
+    {"plan_hash": "another-plan"}, {"article_content_sha256": "0" * 64},
+    {"public_object_url": "https://example.com/wrong-article"}])
+def test_site_readback_before_first_dispatch_requires_exact_reviewed_plan(tmp_path, monkeypatch, change):
+    from live_contentops.native_desktop_publication_v1 import prepare_native_publication
+    from live_contentops.site_first_publication_v1 import request_for_site
+    from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired
+    store, binding, rollout, _, _, _ = brief_packet(tmp_path, monkeypatch)
+    prepare_native_publication(store, binding)
+    operation, executor, _ = composed(store, binding, rollout, monkeypatch)
+    operation.resume()
+    plan, _ = operation.validate()
+    request = {**request_for_site(binding["run_id"], plan, executor.native_invocation_id), **change}
+    request["request_sha256"] = sha256_of({k: v for k, v in request.items() if k != "request_sha256"})
+    with pytest.raises(NativeNeoInputRequired):
+        executor(request)
+    with pytest.raises(ValueError, match="NATIVE_NEO_EXACT_SITE_READBACK_REQUIRED"):
+        operation.tool("begin", request_hash=request["request_sha256"])
+    assert not store.list_platform_dispatches()
+
+
 def test_short_analysis_prepares_source_bound_media_then_replays_exact_writer_without_visual_role(tmp_path):
     from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, DesktopInputRequired, bind_editorial_media_plan
     from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
