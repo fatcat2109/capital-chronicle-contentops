@@ -62,3 +62,29 @@ their runnable work returns to OPEN. This run performs only CC-183.
 source scan, remote record commit and live-source method hashes. No public send, schedule change or chat message occurred. The integration
 readback below records operating-root application separately from these original
 delivery records.
+
+
+Integration readback, 4 November 2026, 13:40 GMT+7:
+
+- Code commit `68750207` is pushed and fast-forwarded into the operating root
+  `A:\Capital Chronicle\ContentOps` on its existing local publisher branch.
+- The source/claim parser, current MAX social reviewer, CPI amendment CLI,
+  coordinator and transport are wired there. The transport now selects the exact
+  reviewed article/media instead of its older sealed context. Nine consumer source
+  files match the integrated commit. Fresh consumer imports resolve to that root.
+- Operating-root acceptance: **43 passed** in 42.53 seconds using disposable stores.
+  This proves reviewed media reaches the publisher/transport, repeated sends stay
+  deduplicated, uncertain writes receive readback, unrelated operations progress,
+  and original-article MAX checks remain. Evidence: [operating-root regressions](operating-root-regressions.junit.xml).
+- The development run had 216 passes and one transport failure, preserved in
+  [its original report](development-pretransport-regressions.junit.xml). The missing
+  selection hunk was restored; all [19 affected regressions](transport-correction-regressions.junit.xml) then passed.
+- Reopened CC-042, CC-143, CC-144, CC-173, CC-177, CC-154, CC-171 and CC-179.
+  Their Results retain actual remaining work and destination-specific causes.
+- The operating root's six pre-existing modified artifacts are byte-identical.
+  The execution worktree's nine modified paths remain uncommitted, with the CC-183
+  changes committed separately. No schedule, process restart, chat message or public send
+  occurred. A new publication is not needed to exercise these existing consumers.
+
+The top-level fields in validation.json retain the original delivery observation;
+`integration_resume` records this later operating-root application and checks.

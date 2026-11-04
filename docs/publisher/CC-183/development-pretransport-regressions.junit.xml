@@ -18,7 +18,7 @@ monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000224B9391550&g
         data = impl._durable_intent_inputs(intent)
 &gt;       assert data["article"]["title"] == "Accepted correction"
 E       AssertionError: assert 'Old' == 'Accepted correction'
-E         
+E
 E         - Accepted correction
 E         + Old
 
