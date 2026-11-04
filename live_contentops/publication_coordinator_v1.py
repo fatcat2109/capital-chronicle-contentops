@@ -1149,6 +1149,73 @@ class DurablePublicationCoordinator:
             self._record_transport_correction_attempt(ids["dispatch_id"], correction_id, message["work_item_id"])
         return outcome
 
+    REPOST_AFTER_REMOVAL_DESTINATIONS = frozenset({"x", "telegram", "discord"})
+
+    def repost_after_owner_removal(self, message_id, *, review_reference):
+        """CC-247: one owner-approved repost of a derivative Jim deleted, under its own dispatch.
+
+        Evidence as for complete_dated_distribution_recovery: an accepted, owner-approved
+        reviewed revision that carries this destination's exact copy and media, an
+        unchanged canonical, and one attempt only. In place of an absent object it needs
+        the original object recorded as owner-removed (reconcile_owner_removed_object)
+        with its exact absence verified. The original dispatch, object id and history
+        stay as they are; the repost carries its own dispatch identity and readback.
+        """
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        message = self.store.get_outbox_message(message_id)
+        if not message or message["destination"] not in self.REPOST_AFTER_REMOVAL_DESTINATIONS:
+            raise ValueError("REPOST_EXACT_ORIGINAL_DESTINATION_REQUIRED")
+        destination = message["destination"]
+        original_intent = json.loads(message["payload"])
+        original_ids = self._ids(message["work_item_id"], original_intent["plan_hash"], destination)
+        original = self.store.get_platform_dispatch(original_ids["dispatch_id"]) or {}
+        removals = [(row["readback_id"], json.loads(row["readback_data"]))
+                    for row in self.store.list_readbacks_for_dispatch(original_ids["dispatch_id"])
+                    if row["readback_id"].startswith("owner-removal-")]
+        verified = [rid for rid, data in removals
+                    if data.get("exact_object_absence_independently_verified") is True]
+        if original.get("status") != EXTERNAL_REMOVAL_REPORTED_NO_RETRY or not verified:
+            raise ValueError("REPOST_VERIFIED_OWNER_REMOVAL_REQUIRED")
+        intent, _revision, _view, _acceptance = self._reader_presentation_intent(message, review_reference)
+        canonical = self._confirmed_canonical_url_for_work_item(
+            message["work_item_id"], plan_hash=original_intent["plan_hash"])
+        if not canonical or str(intent.get("canonical_url") or "") != canonical:
+            raise ValueError("DATED_DISTRIBUTION_CANONICAL_IDENTITY_CHANGED")
+        # One repost per removed object, whatever review is presented later.
+        repost_plan_hash = (original_intent["plan_hash"] + ":repost-after-removal:"
+                            + original_ids["dispatch_id"].removeprefix("dispatch_"))
+        ids = self._ids(message["work_item_id"], repost_plan_hash, destination)
+        record = {"schema_version": "contentops.repost_after_owner_removal.v1",
+            "original_dispatch_id": original_ids["dispatch_id"],
+            "original_public_object_id": original.get("public_object_id"),
+            "original_intent_sha256": sha256_of(original_intent),
+            "owner_removal_readback_ids": sorted(verified), "review_reference": review_reference,
+            "repost_dispatch_id": ids["dispatch_id"], "repost_message_id": ids["message_id"]}
+        key = "native-repost-after-removal-" + sha256_of(original_ids["dispatch_id"])
+        prior = self.store.get_outbox_message(key)
+        if prior and json.loads(prior["payload"]) != record:
+            raise ValueError("REPOST_IMMUTABLE_REVIEW_CONFLICT")
+        self.store.register_outbox_message(message_id=key, work_item_id=message["work_item_id"],
+            destination="internal:native-desktop-editorial", payload=_canonical_json(record),
+            status="EDITORIAL_INTERNAL")
+        repost = {**intent, "plan_hash": repost_plan_hash, "attempt_identity": ids["dispatch_id"],
+                  "repost_of_dispatch_id": original_ids["dispatch_id"], "repost_record": key}
+        if not self.store.get_outbox_message(ids["message_id"]):
+            self.store.register_outbox_message(message_id=ids["message_id"], work_item_id=message["work_item_id"],
+                destination=destination, payload=_canonical_json(repost), status="READY")
+        repost_message = self.store.get_outbox_message(ids["message_id"])
+        existing = self.store.get_platform_dispatch(ids["dispatch_id"])
+        absent = any(r["reconciliation_id"] == ids["reconciliation_id"] and r["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+                     for r in self.store.get_reconciliations_for_work_item(message["work_item_id"]))
+        if existing and existing["status"] != NATIVE_NEO_PENDING and not absent:
+            return {"destination": destination, "status": "REPOST_ALREADY_ATTEMPTED_READBACK_ONLY",
+                    "dispatch_id": ids["dispatch_id"], "publish_called": False,
+                    "public_object_url": existing.get("public_object_url")}
+        outcome = self._dispatch_message(repost_message, canonical_url=canonical,
+            explicit_reconciled_absent_retry=bool(existing and absent))
+        return {**outcome, "repost_of_dispatch_id": original_ids["dispatch_id"],
+                "repost_dispatch_id": ids["dispatch_id"]}
+
     def reconcile_completed_native_publish(self, dispatch_id, *, request_hash):
         """Consume an actual completed native write return; this never calls publish."""
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
