@@ -1,0 +1,28 @@
+{
+  "observed_at_utc": "2026-11-04T11:29:00.351924+00:00",
+  "operating_root_head": "885b908ed6c216357e9bdd1e93e6d00840a79523",
+  "entrypoint": "A:\\Capital Chronicle\\ContentOps\\scripts\\run_native_desktop_editorial.py",
+  "entrypoint_loaded_without_main": true,
+  "native_turn_class_origin": "live_contentops.native_desktop_editorial_v1",
+  "modules": {
+    "live_contentops.native_desktop_editorial_v1": {
+      "origin": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_editorial_v1.py",
+      "sha256": "87c7587a8053f3da93a3f56009fabdc32e5d5b30dc163b563877266ce9524353"
+    },
+    "live_contentops._eight_platform_substack_first_pipeline_impl_v1": {
+      "origin": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\_eight_platform_substack_first_pipeline_impl_v1.py",
+      "sha256": "d4fd028d00cec1c0b5f49d211d09976f4cfc768ea758e649c978a5adafd0d24e"
+    },
+    "live_contentops.media_manifest_authority_v1": {
+      "origin": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\media_manifest_authority_v1.py",
+      "sha256": "2330f551cda048202a25a4e7cdcf0476b21462994a63cc20ed0515f7c468a3e3"
+    },
+    "live_contentops.rolling_x_grounded_article_media_builder_v1": {
+      "origin": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\rolling_x_grounded_article_media_builder_v1.py",
+      "sha256": "f9e4ddc0baf11fe8029a15cee503f884475d7ef0b8a731380a97d7e8ed022676"
+    }
+  },
+  "production_operations_called": false,
+  "public_requests": 0,
+  "production_store_writes": 0
+}
