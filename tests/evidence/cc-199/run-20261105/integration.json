@@ -1,0 +1,75 @@
+{
+  "item": "CC-199",
+  "recorded_at_utc": "2026-11-04T20:29:14.548304+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head_after_integration": "6079953f0be1fca727fd808c226c55a1d010a4d7",
+  "operating_branch": "codex/contentops-local-publisher-20261030",
+  "integration": "FAST_FORWARD_BY_CODEX_PUBLISHER_JIM_DECISION_39",
+  "implementation_commit": "22e847babaa6a0f651bdb03cd67a35883ba9ef76",
+  "live_consumer_modules": [
+    {
+      "module": "live_contentops.instagram_adapter_v6",
+      "loaded_from": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\instagram_adapter_v6.py",
+      "sha256": "bd738b81ae03c6b7941464e901d4cf3bcac141bfd681f8f71ce51e7b367f50db"
+    },
+    {
+      "module": "live_contentops.linkedin_official_member_api_v1",
+      "loaded_from": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\linkedin_official_member_api_v1.py",
+      "sha256": "3ceaf95ba535027bdec57fb89112187f4404d728a906c0d8e2e5cba8eb83840a"
+    },
+    {
+      "module": "live_contentops.native_desktop_publication_v1",
+      "loaded_from": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_publication_v1.py",
+      "sha256": "27757e53d73de052af5012703f33ae568105936c78e10ec00977fb001afc9a69"
+    },
+    {
+      "module": "live_contentops.native_finished_publication_v1",
+      "loaded_from": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_finished_publication_v1.py",
+      "sha256": "a5600e44a505075e25bcbcadb8f5f100a86b818a439a6bdb390d92b3eef9f097"
+    },
+    {
+      "module": "live_contentops.native_neo_executor_v1",
+      "loaded_from": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_neo_executor_v1.py",
+      "sha256": "007f0f20693fbeb9fd33301427b3e79131552271b4888175fdc7f29c46ded0e9"
+    },
+    {
+      "module": "live_contentops.native_newsroom_volume_v1",
+      "loaded_from": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_newsroom_volume_v1.py",
+      "sha256": "df73902b7e19a76e39f85c9559d1ffac5272286c8c78aabbc388cacfc53d86d5"
+    },
+    {
+      "module": "live_contentops.native_text_first_v1",
+      "loaded_from": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_text_first_v1.py",
+      "sha256": "608d3cd89a05451ca33f526701484ff8ad3979ca73d6bd819f6b2734dc698a0a"
+    },
+    {
+      "module": "live_contentops.neo_destination_handoff_v1",
+      "loaded_from": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\neo_destination_handoff_v1.py",
+      "sha256": "f84e8918fcd941ea97184a658e0712109fa3512a8fb42b516e52a2b37e8113b9"
+    },
+    {
+      "module": "live_contentops.publication_coordinator_v1",
+      "loaded_from": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+      "sha256": "7b2ea814333344f45814aeb080696dc3ea16de0d940fd70a24f095fcb9905b4a"
+    }
+  ],
+  "operating_checks": {
+    "tests": 56,
+    "failures": 0,
+    "errors": 0,
+    "artifact": "operating-consumers.xml",
+    "scope": "Controlled exact coordinator/adapter consumers from the operating root; disposable stores."
+  },
+  "preserved_operating_tracked_wip_files": 6,
+  "preserved_exec_tracked_wip_files": 2,
+  "new_public_write_attempts": 0,
+  "editorial_model_calls": 0,
+  "schedule_changes": 0,
+  "chat_messages": 0,
+  "application_lifecycle_changes": 0,
+  "acceptance": "NEXT_THREE_PIECES_ALL_DESTINATIONS_WITH_IMAGES_AND_READBACKS_WITHIN_30_MINUTES_REMAINS_UNOBSERVED",
+  "status": "BLOCKED: SECRET_EXPOSURE_OWNER_ROTATION_REQUIRED",
+  "outside_cause_ref": "BACKLOG CC-143; c7de0532 records the exposed Threads app secret/user token and required owner rotation.",
+  "next_actor": "Jim",
+  "next_action": "Revoke/replace the exposed Threads app secret and user token; then resume exact reviewed operations and observe the three-piece acceptance."
+}

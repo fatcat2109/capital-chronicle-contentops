@@ -29,6 +29,13 @@ stores and controlled transports. [Run evidence](../../../tests/evidence/cc-199/
 records the launch, preserved WIP, targeted results, integration and retained
 destination baseline. These tests do not establish public delivery timing.
 
+All 211 final targeted checks passed. The branch is integrated into
+`A:/Capital Chronicle/ContentOps`; 56 installed consumer checks passed there.
+All nine implementation modules resolve to that root and match the tested
+bytes. Six tracked operating-root WIP files and both retained exec WIP files
+keep their original hashes. [Integration evidence](../../../tests/evidence/cc-199/run-20261105/integration.json)
+records the code commit and exact module paths.
+
 The retained jobs piece is confirmed on ten endpoints, counting LinkedIn member
 and company separately. The midterm canonical still needs a fresh observation
 under the corrected readback contract. SEC/CPI repairs remain their existing
