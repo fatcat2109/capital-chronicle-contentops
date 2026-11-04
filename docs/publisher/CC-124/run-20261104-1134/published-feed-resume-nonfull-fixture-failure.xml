@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="5" time="5.645" timestamp="2026-11-04T13:15:31.264679+07:00" hostname="J-P"><testcase classname="tests.test_cc124_published_feed_resume_v1" name="test_recovery_resume_exports_confirmed_article_once_without_republishing" time="1.288"><failure message="ValueError: Conflicting recreation">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-32132/test_recovery_resume_exports_c0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001D5B1C4C050&gt;
+
+    def test_recovery_resume_exports_confirmed_article_once_without_republishing(tmp_path, monkeypatch):
+        class Transport(FixtureTransport):
+            def publish(self, *, destination, **kwargs):
+                if destination == "x":
+                    self.publish_calls.append(destination)
+                    raise TimeoutError("response lost before public identity was observed")
+                return super().publish(destination=destination, **kwargs)
+    
+            def readback(self, *, destination, **kwargs):
+                if destination == "x":
+                    return {"status": "AMBIGUOUS", "verified": False}
+                return {**super().readback(destination=destination, **kwargs),
+                        "published_at_utc": ORIGINAL}
+    
+        store, transport, coordinator, plan, _, root = lifecycle(tmp_path, transport=Transport())
+        feed = coordinator.published_content_path
+        coordinator.published_content_path = None
+        result = coordinator.execute_plan("work-1", plan)
+        assert result["canonical_article_real_published"]
+        coordinator.published_content_path = feed
+        handoff = SimplePublicationHandoffV1(store=store, coordinator=coordinator)
+        monkeypatch.setattr(handoff, "ensure_plan", lambda **_: plan)
+        calls = list(transport.publish_calls)
+    
+&gt;       resumed = handoff.resume(slot_id="work-1", slot_output_dir=root)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_cc124_published_feed_resume_v1.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+live_contentops\v1_simple_publication_handoff_v1.py:377: in resume
+    self._ensure_work_item(slot_id=slot_id, plan=plan)
+live_contentops\v1_simple_publication_handoff_v1.py:251: in _ensure_work_item
+    self.store.create_work_item(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x000001D5B1C58050&gt;
+
+    def create_work_item(self, *, story_id: str, title: str, target_surface: str, work_item_id: Optional[str] = None,
+                         actor_ref: str = "producer_ref", correlation_id: Optional[str] = None,
+                         input_artifact_ids: Optional[List[str]] = None) -&gt; Dict[str, Any]:
+        now = self._get_now_iso(); item_id = work_item_id or f"wi_{compute_sha256(story_id+title+now)[:16]}"; ids = input_artifact_ids or []
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            existing = conn.execute("SELECT * FROM work_items WHERE work_item_id=?", (item_id,)).fetchone()
+            if existing:
+&gt;               if (existing["story_id"], existing["title"], existing["target_surface"]) != (story_id, title, target_surface): raise ValueError("Conflicting recreation")
+                                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               ValueError: Conflicting recreation
+
+live_contentops\durable_operational_store_v1.py:853: ValueError</failure></testcase><testcase classname="tests.test_cc124_published_feed_resume_v1" name="test_export_keeps_unknown_canonical_out_of_reader" time="0.667" /><testcase classname="tests.test_published_content_v1" name="test_publication_appends_one_piece_with_five_exact_confirmed_outlets_and_no_repeat" time="1.452" /><testcase classname="tests.test_published_content_v1" name="test_unknown_canonical_never_enters_feed" time="0.808" /><testcase classname="tests.test_v1_simple_publication_handoff_recovery_v1" name="test_ambiguous_or_unresolved_recovery_backlog_never_registers_or_republishes_current_intent" time="0.535" /></testsuite></testsuites>

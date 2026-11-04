@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="5" time="6.669" timestamp="2026-11-04T13:16:43.202068+07:00" hostname="J-P"><testcase classname="tests.test_cc124_published_feed_resume_v1" name="test_recovery_resume_exports_confirmed_article_once_without_republishing" time="2.318"><failure message="AssertionError: assert 'PUBLICATION_RECORD_PENDING' == 'APPENDED'&#10;  &#10;  - APPENDED&#10;  + PUBLICATION_RECORD_PENDING">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-32133/test_recovery_resume_exports_c0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001B9969D8050&gt;
+
+    def test_recovery_resume_exports_confirmed_article_once_without_republishing(tmp_path, monkeypatch):
+        class Transport(FixtureTransport):
+            def publish(self, *, destination, **kwargs):
+                if destination == "x":
+                    self.publish_calls.append(destination)
+                    raise TimeoutError("response lost before public identity was observed")
+                return super().publish(destination=destination, **kwargs)
+    
+            def readback(self, *, destination, **kwargs):
+                if destination == "x":
+                    return {"status": "AMBIGUOUS", "verified": False}
+                return {**super().readback(destination=destination, **kwargs),
+                        "published_at_utc": ORIGINAL}
+    
+        store, transport, coordinator, plan, _, root = lifecycle(tmp_path, transport=Transport())
+        plan.update(_quality_plan())
+        feed = coordinator.published_content_path
+        coordinator.published_content_path = None
+        result = coordinator.execute_plan("work-1", plan)
+        assert result["canonical_article_real_published"]
+        coordinator.published_content_path = feed
+        handoff = SimplePublicationHandoffV1(store=store, coordinator=coordinator)
+        monkeypatch.setattr(handoff, "ensure_plan", lambda **_: plan)
+        calls = list(transport.publish_calls)
+    
+        resumed = handoff.resume(slot_id="work-1", slot_output_dir=root)
+    
+        assert resumed["state"] == "PUBLICATION_RECOVERY_REQUIRED"
+&gt;       assert resumed["published_content_record"]["status"] == "APPENDED"
+E       AssertionError: assert 'PUBLICATION_RECORD_PENDING' == 'APPENDED'
+E         
+E         - APPENDED
+E         + PUBLICATION_RECORD_PENDING
+
+tests\test_cc124_published_feed_resume_v1.py:36: AssertionError</failure></testcase><testcase classname="tests.test_cc124_published_feed_resume_v1" name="test_export_keeps_unknown_canonical_out_of_reader" time="0.687" /><testcase classname="tests.test_published_content_v1" name="test_publication_appends_one_piece_with_five_exact_confirmed_outlets_and_no_repeat" time="1.567" /><testcase classname="tests.test_published_content_v1" name="test_unknown_canonical_never_enters_feed" time="0.731" /><testcase classname="tests.test_v1_simple_publication_handoff_recovery_v1" name="test_ambiguous_or_unresolved_recovery_backlog_never_registers_or_republishes_current_intent" time="0.466" /></testsuite></testsuites>
