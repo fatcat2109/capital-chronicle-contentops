@@ -1,0 +1,7 @@
+{
+  "observed_at_utc": "2026-11-04T05:04:40.937657+00:00",
+  "first_error": "EDITORIAL_CHART_DISTINCT_ID_REQUIRED",
+  "cause": "MAX selected valid underscore-delimited chart identifiers; renderer allowed only hyphens.",
+  "fix": "Permit underscore within existing bounded lowercase asset names; slash and path traversal remain excluded.",
+  "validation": "Four targeted mixed-source checks pass with an underscore asset identifier; four actual chosen charts rendered and passed source/value validation."
+}

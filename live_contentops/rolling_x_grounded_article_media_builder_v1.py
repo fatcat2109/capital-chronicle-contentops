@@ -2096,7 +2096,7 @@ def build_editorial_data_chart(packet, documents, *, output_dir, retained_source
     values = _editorial_data_values(packet, documents)
     source_links = editorial_chart_source_links(packet, documents)
     asset_id = packet["asset_id"]
-    if not re.fullmatch(r"[a-z][a-z0-9-]{2,90}", asset_id):
+    if not re.fullmatch(r"[a-z][a-z0-9_-]{2,90}", asset_id):
         raise ValueError("EDITORIAL_CHART_DISTINCT_ID_REQUIRED")
     path = Path(output_dir) / "media_assets" / (asset_id + ".png")
     data_path = path.with_suffix(".json")

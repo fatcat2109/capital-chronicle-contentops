@@ -40,7 +40,7 @@ def controlled_sources(root):
     document = {**doc, "url": url, "rights_evidence_sha256": record["rights_evidence_sha256"]}
     binding = {"research_root": str(root), "research_revision": research.revision,
         "source_capture_hashes": {doc["document_id"]: digest(raw)}}
-    packet = {"asset_id": "controlled-sector", "chart_type": "horizontal_diverging_bar",
+    packet = {"asset_id": "controlled_sector", "chart_type": "horizontal_diverging_bar",
         "title": "Controlled sector", "question": "What is the reported change?", "unit": "thousands of persons",
         "source_caption": "Source: controlled BLS test fixture", "series": [{"name": "Controlled payrolls",
             "points": [{"period": "2026-09", "value": 18, "observation_kind": "REPORTED_ACTUAL",

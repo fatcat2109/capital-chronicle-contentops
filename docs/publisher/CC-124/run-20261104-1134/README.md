@@ -24,3 +24,24 @@ The launch configures gpt-6.1-sol/max, labelled CONFIGURED_NOT_OBSERVED. Exact l
 readback, UTC clocks and invocation are in `launch.json`. This run sends no chat
 messages and changes no schedules. Publication outcome will be added after the
 same bound operation finishes.
+
+
+The same opportunity admitted the original October 2 employment release from the
+existing CC-010 archive. No network fetch was needed. Table B-1's disjoint broad
+sectors report goods +18, private services +28 and government -17 thousand, summing
+to the reported +29 thousand headline. The original capture, source policy and
+exact extraction are retained. The history consumer uses 24 calendar months;
+October 2025 unemployment stays missing and both October 2025 and July 2026 wage
+rates retain their derived status.
+
+The media owner exposed a real compatibility defect: one retained-source binding
+was incorrectly required to cover the separate typed history documents. The
+bounded fix reopens only explicitly named originals and leaves other documents
+with their own rights and lineage checks. Four mixed-source consumer tests and
+83 existing media-owner checks pass. The fix is pushed in `981c5c6d` and applied
+at live `7f1e798e`, tag `contentops-live-20261104-cc124-mixed-chart-sources`.
+
+A usage limit interrupted the first MAX visual-editor attempt without producing
+an accepted return. Jim cleared it and requested continuation. The same pending
+request and native role were resumed; Light returns and admitted sources were
+not repeated. The exact resume is in `resume-20261104-1158.json`.

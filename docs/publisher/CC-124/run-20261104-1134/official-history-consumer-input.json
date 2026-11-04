@@ -1,0 +1,64 @@
+{
+  "operation_id": "cc124-next-article-20261104-a",
+  "source_stage": "CC010_REUSED_OFFICIAL_FIRST_PRINTS",
+  "archive_root": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data",
+  "dataset_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+  "window": [
+    "2024-10",
+    "2026-09"
+  ],
+  "economic_information_cutoff_utc": "2026-10-02T12:30:00+00:00",
+  "network_requests": 0,
+  "series": [
+    {
+      "name": "NFP_PAYROLL_CHANGE",
+      "unit": "persons",
+      "official_series_id": "CES0000000001",
+      "observations": 24,
+      "numeric_observations": 24,
+      "missing": [],
+      "derived_periods": [],
+      "latest": {
+        "period": "2026-09",
+        "value": 29000.0,
+        "availability": "OBSERVED"
+      }
+    },
+    {
+      "name": "UNEMPLOYMENT_RATE",
+      "unit": "percent",
+      "official_series_id": "LNS14000000",
+      "observations": 24,
+      "numeric_observations": 23,
+      "missing": [
+        {
+          "period": "2025-10",
+          "reason": "NOT_PUBLISHED_OR_NOT_AVAILABLE_AT_EVENT"
+        }
+      ],
+      "derived_periods": [],
+      "latest": {
+        "period": "2026-09",
+        "value": 4.2,
+        "availability": "OBSERVED"
+      }
+    },
+    {
+      "name": "AHE_MOM",
+      "unit": "percent",
+      "official_series_id": "CES0500000003",
+      "observations": 24,
+      "numeric_observations": 24,
+      "missing": [],
+      "derived_periods": [
+        "2025-10",
+        "2026-07"
+      ],
+      "latest": {
+        "period": "2026-09",
+        "value": 0.1,
+        "availability": "OBSERVED"
+      }
+    }
+  ]
+}
