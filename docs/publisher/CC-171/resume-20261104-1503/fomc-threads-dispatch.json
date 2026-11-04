@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-04T15:20:06.710734+00:00",
+  "run_id": "cc074-retro-fomc-20261028-v1",
+  "original_message_id": "outbox_61b248c425f6f223d5cb8e44cfa8abe8",
+  "canonical_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+  "outcome": {
+    "destination": "threads",
+    "status": "DISPATCH_CONFIRMED",
+    "publish_called": true,
+    "public_object_id": "18640795297005650",
+    "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfUw3gsH11N",
+    "reconciliation_status": "RECONCILED_CONFIRMED"
+  }
+}

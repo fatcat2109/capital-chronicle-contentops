@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-11-04T15:19:41.568937+00:00",
+  "reviewer_native_invocation_id": "01a1a716-5476-7a73-ab64-bc8ae37806eb",
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "telemetry": "CONFIGURED_NOT_OBSERVED",
+  "source": "CC-171 current instruction: post other finished drafts missing Threads; original canonical read in Neo tab 340",
+  "decision": "APPROVE_UNCHANGED_DATED_DISTRIBUTION",
+  "reason": "Copy explicitly dates the October 28 meeting and November 1 retrospective, makes no current or subsequent-outcome claim; Fed source and reviewed vote chart retained. Outbox age alone does not invalidate this clearly dated retrospective.",
+  "original_message_status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+  "original_message_id": "outbox_61b248c425f6f223d5cb8e44cfa8abe8",
+  "original_approval_clock_preserved": true
+}
