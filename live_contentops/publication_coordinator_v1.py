@@ -784,8 +784,8 @@ class DurablePublicationCoordinator:
         parent_note = json.loads(canonical_note.get("payload") or "{}")
         required_canonical_review = (review_reference if revision.get("policy") == MEDIA_REPAIR_POLICY
             else revision["canonical_review_reference"])
-        if (canonical_note.get("status") != "PRESENTATION_EDIT_CONFIRMED"
-                or parent_note.get("review_reference") != required_canonical_review):
+        if (revision.get("policy") != MEDIA_REPAIR_POLICY and (canonical_note.get("status") != "PRESENTATION_EDIT_CONFIRMED"
+                or parent_note.get("review_reference") != required_canonical_review)):
             raise ValueError("DERIVATIVE_REVISION_CANONICAL_EDIT_READBACK_REQUIRED")
         ids = self._ids(work_item_id, revision["plan_hash"], destination)
         dispatch = self.store.get_platform_dispatch(ids["dispatch_id"])
@@ -876,7 +876,8 @@ class DurablePublicationCoordinator:
         canonical_id = revision["objects"]["substack"]["message_id"]
         if destination != "substack":
             canonical_edit = self.store.get_outbox_message("native-reader-presentation-" + sha256_of(canonical_id)) or {}
-            if canonical_edit.get("status") != "PRESENTATION_EDIT_CONFIRMED":
+            if (revision.get("policy") != "JIM_CC247_REVIEWED_MEDIA_REPAIR"
+                    and canonical_edit.get("status") != "PRESENTATION_EDIT_CONFIRMED"):
                 return {"status": "READER_REVISION_CANONICAL_EDIT_READBACK_REQUIRED", "edit_called": False}
         note = {"run_id": intent["work_item_id"], "article_identity": revision["article_identity"],
             "destination": destination, "public_message_id": message["message_id"],

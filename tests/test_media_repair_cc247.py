@@ -78,3 +78,24 @@ def test_company_copy_uses_same_reviewed_media_and_pinned_identity(repair, monke
     assert registration.expected_identity == "linkedin:company:143198922"
     assert intent["native_payload"] == revision["payloads"]["linkedin"]
     assert intent["media_assets"] == view["media_assets"]
+
+
+def test_media_only_social_copy_uses_confirmed_canonical_while_its_image_edit_is_pending(repair, monkeypatch):
+    import json
+    store, run, result, revision = repair
+    view = reader_presentation_revision_view(store, run_id=run, result=result, revision=revision)
+    monkeypatch.setattr("live_contentops.native_desktop_editorial_v1.reader_presentation_acceptance",
+        lambda *a, **kw: (revision, view, {}))
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    co = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    monkeypatch.setattr(co, "_mode", lambda: "AUTONOMOUS_DEFAULT")
+    seen = []
+    def send(message, **kwargs):
+        seen.append(json.loads(co._effective_message(message)["payload"]))
+        return {"publish_called": True}
+    monkeypatch.setattr(co, "_dispatch_message", send)
+    outcome = co.continue_reader_derivative(work_item_id=run, destination="discord",
+        review_reference={"request_sha256": "a" * 64})
+    assert outcome["publish_called"] is True
+    assert seen[0]["native_payload"] == revision["payloads"]["discord"]
+    assert seen[0]["media_assets"] == view["media_assets"]
