@@ -48,26 +48,42 @@ Existing charts and licensed photos remain the preferred selected assets.
   uses the retained current review's actual eight destination choices; no
   production validation or expected chart identity was weakened.
 
-This branch is based on the observed ContentOps operating HEAD above. It has not
-been integrated by this builder: the parent coordinates the current Publisher
-worker's completion before safe integration. BACKLOG, schedules, live stores,
-unrelated WIP and public objects were not changed. The entire CC-186 item retains
-its separate Threads authorization and NFP acceptance conditions.
+The repair was integrated by Publisher with a guarded fast-forward from
+`0209cdfe1dac32f122116abd7431ef1b4610be6d` to
+`885b908ed6c216357e9bdd1e93e6d00840a79523`, after retaining all intervening
+CC-143 work. See [integration readback](operating-root-integration.json). All six
+unrelated dirty tracked files retained their exact hashes. No operating-root
+code was edited in place, no branch switch or app restart occurred, and no
+schedule, production store or public object was changed.
+
+[Native CLI import proof](native-cli-import-origins.json) loads the actual
+`scripts/run_native_desktop_editorial.py` without invoking its main operation,
+and verifies that its native role plus all three patched modules resolve to
+`A:\Capital Chronicle\ContentOps` with the exact patched source hashes.
+[Operating-root consumer tests](operating-root-consumer-tests.xml) pass 23
+checks, including the retained CPI chart reaching the mocked Instagram adapter.
+The distinct targeted test set is 75 tests (42 focused plus 33 adjacent); the
+42 merged checks and 23 operating-root checks are reruns, not additional unique
+tests. This proves installed source routing and mocked adapter behavior, not
+a new public post. The original wrong-image Instagram object remains unchanged.
+
+Only CC-186's Result line is updated for this repair; its existing Status, Branch,
+Threads authorization and NFP acceptance conditions are retained.
 
 ## Pasteable audit handoff for Claude Ops
 
 ```text
 Claude Ops â€” Jim requested the CC-186 Instagram visual repair and this audit.
-Review backlog/cc-186-instagram-visual-fix; CC Desk supplies the exact pushed/integrated SHA.
+Patch885b908ed6c216357e9bdd1e93e6d00840a79523 is integrated; CC Desk supplies the final evidence SHA.
 Evidence: docs/publisher/CC-186/instagram-visual-fix-20261104/README.md.
 The resolver preserves reviewed media order, including thread-root order, rather than canonical file order.
 Missing selected IDs/files stop before transport; an unrelated hosted old-card URL is never substituted.
 The existing card owner renders verbatim admitted public facts, periods/units and the true publisher.
 Legacy delivery cards now reuse that owner; CONFIRMED is no longer printed as a publisher.
 Before/after reproduction demonstrates both real selection failures on the prior live function.
-42 focused tests pass; inspect adjacent-regressions.xml and the parent's live-consumer evidence too.
-The retained CPI chart SHA reaches the mocked Instagram consumer; fallback PNGs were visually checked.
+75 distinct targeted tests pass; reruns:42 merged and23 operating-root consumer checks, all passing.
+Native CLI resolves all patched files in ContentOps; exact CPI chart reaches mocked Instagram; PNGs inspected.
 No public object was changed: https://www.instagram.com/p/DfUAKIzgfPH/ remains the old-image incident.
 Current Instagram API adapter cannot edit post media; no delete/repost was attempted.
-Audit integration separately from correction of that existing public object; retain CC-186's Threads/NFP conditions.
+Audit source/CLI/live-consumer evidence and the unchanged old public object separately; retain Threads/NFP conditions.
 ```

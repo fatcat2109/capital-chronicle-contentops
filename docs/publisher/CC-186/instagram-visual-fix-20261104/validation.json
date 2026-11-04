@@ -2,7 +2,7 @@
   "observed_at_utc": "2026-11-04T10:58:52.088485+00:00",
   "base_commit": "5150b4b01da742094dabd1ce3c65fbb597003071",
   "branch": "backlog/cc-186-instagram-visual-fix",
-  "delivery_state": "BUILT_UNMERGED",
+  "delivery_state": "INTEGRATED_CODE",
   "source_sha256": {
     "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": "d4fd028d00cec1c0b5f49d211d09976f4cfc768ea758e649c978a5adafd0d24e",
     "live_contentops/media_manifest_authority_v1.py": "2330f551cda048202a25a4e7cdcf0476b21462994a63cc20ed0515f7c468a3e3",
@@ -37,9 +37,19 @@
   },
   "public_requests": 0,
   "production_store_writes": 0,
-  "backlog_changed": false,
+  "backlog_changed": "only CC-186 Result line; existing Status and Branch retained",
   "public_object_changed": false,
   "existing_public_object_url": "https://www.instagram.com/p/DfUAKIzgfPH/",
   "existing_public_object_id": "18140916916727008",
-  "integration_pending_parent_coordination": true
+  "integration_pending_parent_coordination": false,
+  "integrated_patch_commit": "885b908ed6c216357e9bdd1e93e6d00840a79523",
+  "distinct_test_count": 75,
+  "native_cli_source_proof": "native-cli-import-origins.json",
+  "integration_evidence": "operating-root-integration.json",
+  "operating_root_consumer_rerun": {
+    "tests": 23,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
 }
