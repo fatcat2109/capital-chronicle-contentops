@@ -334,6 +334,9 @@ class NativeNeoExecutor:
             if (payload["request"]["action"] == "VERIFY_IDENTITY"
                     and payload["request"].get("native_invocation_id") not in {None, self.native_invocation_id}):
                 continue
+            if (payload["request"]["action"] == "READBACK"
+                    and self.fresh_readback_request(payload["request"])):
+                continue  # A late exact return already satisfies this read-only request.
             request_hash = payload["request"]["request_sha256"]
             if self._get(request_hash, "response") is None:
                 claim = (self._get(request_hash, "started") if payload["request"]["action"] in {"PUBLISH", "EDIT_EXISTING"}

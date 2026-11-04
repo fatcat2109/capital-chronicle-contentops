@@ -285,6 +285,33 @@ def test_new_turn_gets_its_own_identity_probe_even_in_same_five_minute_epoch(tmp
     assert store.list_platform_dispatches() == []
 
 
+def test_late_exact_readback_satisfies_a_new_bucket_request_without_another_action(tmp_path):
+    store, executor = setup(tmp_path)
+    now = datetime(2026, 11, 4, 14, 39, 59, tzinfo=timezone.utc)
+    executor.clock = lambda: now
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    packet, object_id, url = pending_readback(adapter)
+    request_hash = packet["request"]["request_sha256"]
+    executor.begin(request_hash)
+    now += timedelta(seconds=2)
+    later, _, _ = pending_readback(adapter)
+    assert later["request"]["request_sha256"] != request_hash
+    executor.submit(request_hash, {
+        "tool_request_sha256": packet["tool_request_sha256"],
+        "tool_observation": {"tool_name": TOOL, "native_invocation_id": "controlled-test",
+            "surface": "CODEX_EXEC", "observation_source": "CONTROLLED_TEST_NOT_BROWSER_PROOF",
+            "observed_at_utc": now.isoformat()},
+        "result": {"request_sha256": request_hash, "status": "SUCCESS",
+            "observed_identity": "capitalchronicle.substack.com",
+            "public_object_id": object_id, "public_object_url": url,
+            "observed_text": "Exact supported proposition.", "content_verified": True}})
+    assert adapter.readback(destination="substack", intent=intent(),
+        public_object_id=object_id, public_object_url=url)["verified"] is True
+    assert executor.pending() == []
+    assert executor._get(later["request"]["request_sha256"], "request") is not None
+    assert store.list_platform_dispatches() == []
+
+
 @pytest.mark.parametrize("fault", [None, "stale", "invocation", "identity", "object", "unverified", "content", "media"])
 def test_successful_exact_readback_survives_bucket_change_by_observation_time(tmp_path, fault):
     store, executor = setup(tmp_path)
