@@ -118,3 +118,53 @@ fresh posts after this continuation's integration. The next genuine published
 article must provide the remaining decision-42 readback. This item is not DONE
 until its required live acceptance is satisfied. Engineering integration and
 passing consumer tests do not manufacture that fifth publication.
+
+
+Installed continuation, 4 November 2026, 21:10 GMT+7
+
+The newer Ops direction at 21:01 GMT+7 names the installed CC-199 root and
+requires confirmation on the next two pieces. This continuation merged
+`babd311d` into its branch before fast-forwarding the operating root to
+`dfd85870`. It retains CC-199's image floor, reviewed image ordering, per-image
+Substack placement and independent destination recovery. The older CC-144
+pre-send image-only refusal was removed: it would have contradicted that
+installed nonblocking fallback. The standalone validator still checks exact
+selected image bytes for media preparation.
+
+Current-base acceptance: **120 passed** in 13.56 seconds, one serial pytest
+process, covering cards, destination image paths, source history and all CC-199
+regressions. Installed operating-root acceptance: **29 passed**, 61 deselected,
+in 5.65 seconds. These exercise the actual semantic assembly, source-bound card
+selection, CC-145 writer source join, frozen packet preservation, installed image
+floor, Substack placement and per-destination recovery. See
+[current-base tests](current-live-base-final.junit.xml),
+[installed consumer tests](operating-root-final.junit.xml) and
+[live integration](live-integration.json).
+
+The six retained modified operating files were preserved byte for byte against
+the immediate pre-integration observation. The live telemetry file had acquired
+an external append between the original observation and this later observation;
+that append is retained. Source matches normalize only Git's LF/CRLF checkout
+conversion. No user app restart, schedule change, live-store write, public send
+or chat message occurred in this item.
+
+Earlier failed test reports remain original development evidence. The extended
+coordinator/native run was interrupted after prolonged no-progress; it has no
+pass claim. A later collection trace identified a Windows filesystem stat wait
+inside pytest collection. The narrowly selected source bridge passed 3 tests;
+the subsequent current-base and installed selections above passed normally.
+No whole-suite, parallel shard or second pytest process from this run was used.
+
+The five earlier canonical readbacks establish image presence on existing
+objects. Their older content and image quality do not satisfy the new next-two
+live acceptance; no image quality claim follows from an image URL. The local
+SEC card replay was inspected and retained separately. Reader-facing style
+improvement now belongs to the existing CC-245 item; this item does not claim
+that work or repair old public posts.
+
+CC-144 remains open for **two genuine post-integration pieces**, each with the
+reviewed image read back from its actual destinations. No post-integration send
+has yet been observed by this continuation. The installed branch is usable by
+the normal Publisher consumer now; passing tests and source installation are
+not those two publications. Threads retains its recorded AUTH_INVALID cause
+until Jim restores authorization, as the existing CC-186 result records.
