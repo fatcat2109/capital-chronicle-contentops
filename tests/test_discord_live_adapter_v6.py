@@ -115,9 +115,49 @@ def test_native_discord_send_never_omits_a_reviewed_photo(monkeypatch, tmp_path,
     monkeypatch.setattr(pipeline, "_publish_discord_verified", lambda **kw: calls.append(kw) or {"status": "SUCCESS"})
     result = pipeline._publish_one_destination_from_durable_intent(destination="discord", intent={"attempt_identity": "exact"},
         authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT", "dispatch_attempt_identity": "exact"})
-    if photo_required and not delivery_ready:
-        assert result["status"] == "DEFINITE_NO_WRITE" and not calls
-        assert result["reason_code"] == "VERIFIED_DELIVERY_MEDIA_UNAVAILABLE"
-    else:
-        assert result["status"] == "SUCCESS" and len(calls) == 1
-        assert calls[0]["image_url"] == (data["public_image_url"] if photo_required else None)
+    assert result["status"] == "SUCCESS" and len(calls) == 1
+    assert calls[0]["image_path"] == ("photo.jpeg" if photo_required else None)
+    assert calls[0]["image_url"] == (data["public_image_url"] if photo_required else None)
+
+
+def test_discord_uploads_binary_attachment_and_reads_back_its_exact_hash(tmp_path, monkeypatch):
+    from hashlib import sha256
+    from PIL import Image
+    from live_contentops import discord_live_adapter_v6 as adapter
+    import live_contentops.live_telemetry_v6 as telemetry
+
+    path = tmp_path / "own-card.png"
+    Image.new("RGB", (100, 100), "navy").save(path)
+    binary = path.read_bytes()
+    canonical = "https://capitalchronicle.substack.com/p/exact"
+    payload = {"id": "123", "channel_id": "1519311669216673802", "guild_id": "42",
+               "content": "Reviewed " + canonical,
+               "attachments": [{"content_type": "image/png", "url": "https://cdn.discordapp.com/attachments/42/card.png"}]}
+    requests = []
+
+    class Response:
+        def __init__(self, data): self.data = data
+        def __enter__(self): return self
+        def __exit__(self, *_): return None
+        def read(self, *_): return self.data
+
+    def opener(request, **_):
+        requests.append(request)
+        return Response(binary if isinstance(request, str) else json.dumps(payload).encode())
+
+    monkeypatch.setattr(adapter.urllib.request, "urlopen", opener)
+    monkeypatch.setattr(telemetry, "classify_and_record_dispatch", lambda **_: None)
+    webhook = "https://discord.test/api/webhooks/id/token"
+    sent = adapter.execute_discord_post(payload["content"], webhook_url=webhook, image_path=str(path),
+                                        embeds=[{"title": "Exact", "url": canonical}])
+    assert sent["status"] == "SUCCESS"
+    assert requests[0].get_header("Content-type").startswith("multipart/form-data;")
+    assert binary in requests[0].data
+    assert b'name="files[0]"' in requests[0].data
+    assert b'attachment://article-image.png' in requests[0].data
+    observed = adapter.readback_discord_post(message_id="123", expected_text="Reviewed", canonical_url=canonical,
+        webhook_url=webhook, expected_image_sha256=sha256(binary).hexdigest())
+    assert observed["verified"] and observed["attached_article_visual"] and observed["image_sha256_match"]
+    wrong = adapter.readback_discord_post(message_id="123", expected_text="Reviewed", canonical_url=canonical,
+        webhook_url=webhook, expected_image_sha256="0" * 64)
+    assert not wrong["verified"] and wrong["write_exists"]

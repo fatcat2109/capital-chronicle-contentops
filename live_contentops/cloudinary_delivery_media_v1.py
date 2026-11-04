@@ -177,22 +177,33 @@ def _verify_remote_object(
     }
 
 
-def _validated_local_asset(asset: Mapping[str, Any]) -> tuple[dict[str, Any] | None, list[str]]:
+def _validated_local_asset(asset: Mapping[str, Any], *, article_asset=False) -> tuple[dict[str, Any] | None, list[str]]:
     row = dict(asset)
     asset_id = str(row.get("asset_id") or "delivery_only")
     path = Path(str(row.get("absolute_local_source_path") or row.get("local_path") or row.get("path") or ""))
     blockers: list[str] = []
-    if str(row.get("media_role") or "") != "delivery_only":
+    if article_asset:
+        if row.get("modality") == "documentary_photo":
+            from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
+            try:
+                validate_contextual_photo(row, require_pixel_review=False)
+            except ValueError as exc:
+                blockers.append(f"article_media_rights_invalid:{asset_id}:{exc}")
+        elif (row.get("modality") != "source_backed_chart"
+              or row.get("underlying_source_rights_status") not in {"public_domain", "attributed_facts_independent_chart"}
+              or not row.get("source_reuse_basis")):
+            blockers.append(f"article_media_rights_invalid:{asset_id}")
+    elif str(row.get("media_role") or "") != "delivery_only":
         blockers.append(f"delivery_media_role_invalid:{asset_id}")
-    if row.get("article_inclusion") is not False:
+    if not article_asset and row.get("article_inclusion") is not False:
         blockers.append(f"delivery_media_article_inclusion_not_false:{asset_id}")
-    if row.get("canonical_article_media") is not False:
+    if not article_asset and row.get("canonical_article_media") is not False:
         blockers.append(f"delivery_media_canonical_article_media_not_false:{asset_id}")
-    if row.get("delivery_only") is not True:
+    if not article_asset and row.get("delivery_only") is not True:
         blockers.append(f"delivery_only_flag_missing:{asset_id}")
-    if not str(row.get("provenance_status") or "").startswith("VERIFIED_"):
+    if not article_asset and not str(row.get("provenance_status") or "").startswith("VERIFIED_"):
         blockers.append(f"delivery_media_provenance_not_verified:{asset_id}")
-    if not str(row.get("rights_basis") or ""):
+    if not article_asset and not str(row.get("rights_basis") or ""):
         blockers.append(f"delivery_media_rights_basis_missing:{asset_id}")
     if not path.is_absolute() or not path.is_file():
         blockers.append(f"delivery_media_local_file_missing:{asset_id}")
@@ -230,9 +241,10 @@ def prepare_cloudinary_delivery_media(
     delivery_only_assets: Sequence[Mapping[str, Any]],
     existing_manifest: Mapping[str, Any] | None = None,
     environment: Mapping[str, str] | None = None,
+    article_assets: Sequence[Mapping[str, Any]] = (),
 ) -> dict[str, Any]:
     """Upload or reuse exact delivery-only bytes and return a governed manifest."""
-    if not delivery_only_assets:
+    if not delivery_only_assets and not article_assets:
         return {
             "status": NOT_REQUIRED,
             "provider_calls": 0,
@@ -260,8 +272,9 @@ def prepare_cloudinary_delivery_media(
     provider_calls = 0
     reused_count = 0
     blockers: list[str] = []
-    for raw in delivery_only_assets:
-        local, local_blockers = _validated_local_asset(raw)
+    inputs = [(raw, False) for raw in delivery_only_assets] + [(raw, True) for raw in article_assets]
+    for raw, article_asset in inputs:
+        local, local_blockers = _validated_local_asset(raw, article_asset=article_asset)
         blockers.extend(local_blockers)
         if local is None or local_blockers:
             continue
@@ -337,10 +350,10 @@ def prepare_cloudinary_delivery_media(
         prepared.append(
             {
                 "media_asset_id": asset_id,
-                "media_role": "delivery_only",
-                "article_inclusion": False,
-                "canonical_article_media": False,
-                "delivery_only": True,
+                "media_role": raw.get("media_role") if article_asset else "delivery_only",
+                "article_inclusion": bool(article_asset),
+                "canonical_article_media": bool(article_asset),
+                "delivery_only": not article_asset,
                 "absolute_local_source_path": str(local["absolute_local_source_path"]),
                 "sha256": str(local["sha256"]),
                 "declared_sha256": str(raw.get("sha256") or ""),
@@ -349,7 +362,7 @@ def prepare_cloudinary_delivery_media(
                 "height": int(local["height"]),
                 "source_provenance": {
                     "status": raw.get("provenance_status"),
-                    "rights_basis": raw.get("rights_basis"),
+                    "rights_basis": raw.get("rights_basis") or raw.get("source_reuse_basis"),
                     "source_label": raw.get("source_label"),
                     "source_page_url": raw.get("source_page_url"),
                     "caption": raw.get("caption"),
@@ -364,7 +377,7 @@ def prepare_cloudinary_delivery_media(
                 "provider_object_reused": reused,
             }
         )
-    if blockers or len(prepared) != len(delivery_only_assets):
+    if blockers or len(prepared) != len(inputs):
         return {
             "status": "BLOCKED_CLOUDINARY_DELIVERY_MEDIA_PREPARATION",
             "blockers": list(dict.fromkeys(blockers or ["delivery_media_preparation_incomplete"])),

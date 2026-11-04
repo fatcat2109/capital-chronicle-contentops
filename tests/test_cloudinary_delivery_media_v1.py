@@ -39,6 +39,23 @@ def _asset(tmp_path: Path) -> dict:
     }
 
 
+def test_reviewed_article_chart_uses_same_cloudinary_path_without_delivery_only_relabelling(tmp_path, monkeypatch):
+    asset = {**_asset(tmp_path), "media_role": "editorial_data_journalism", "modality": "source_backed_chart",
+             "underlying_source_rights_status": "public_domain", "source_reuse_basis": "Official public-domain series"}
+    monkeypatch.setattr(cloudinary, "read_public_image_bytes", lambda _: Path(asset["path"]).read_bytes())
+    monkeypatch.setattr(cloudinary, "_upload_asset", lambda **_: (_ for _ in ()).throw(AssertionError("reuse exact object")))
+    result = cloudinary.prepare_cloudinary_delivery_media(work_item_id="reviewed-article", delivery_only_assets=[],
+        article_assets=[asset], environment=_environment())
+    assert result["status"] == cloudinary.READY and result["provider_calls"] == 0
+    row = result["manifest"]["assets"][0]
+    assert row["media_role"] == "editorial_data_journalism" and row["canonical_article_media"]
+    assert row["article_inclusion"] and not row["delivery_only"]
+    assert row["public_delivery_sha256"] == asset["sha256"]
+    rejected = cloudinary.prepare_cloudinary_delivery_media(work_item_id="reviewed-article", delivery_only_assets=[],
+        article_assets=[{**asset, "underlying_source_rights_status": "NOT_GRANTED"}], environment=_environment())
+    assert rejected["status"] == "BLOCKED_CLOUDINARY_DELIVERY_MEDIA_PREPARATION"
+
+
 def test_credential_presence_and_missing_failure_never_serialize_values(tmp_path, monkeypatch):
     asset = _asset(tmp_path)
     monkeypatch.setattr(
