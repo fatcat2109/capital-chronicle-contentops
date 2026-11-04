@@ -1,0 +1,37 @@
+[
+  {
+    "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+    "message_id": "outbox_b2dd871bf6a9e8c9b741aa6a37f476ac",
+    "platform": "substack",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-03T08:36:46.408614+00:00",
+    "public_object_id": "223293057",
+    "public_object_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on",
+    "public_object_url_hash": "1e5beb16375142392ab6c4b540b52a8b7508f9f5398980b4af9de1e9eb8fa97b",
+    "outbox_created_at_utc": "2026-11-03T08:36:46.389526+00:00",
+    "repost_of_dispatch_id": null,
+    "reconciliations": [
+      {
+        "reconciliation_id": "reconciliation_b2dd871bf6a9e8c9b741aa6a37f476ac",
+        "work_item_id": "cc107-midterm-preview-20261103-v1",
+        "status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+        "reconciled_at": "2026-11-03T10:28:24.476682+00:00"
+      }
+    ],
+    "latest_readback": {
+      "destination": "substack",
+      "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+      "readback": {
+        "canonical_url_valid": true,
+        "identity_match": true,
+        "observed_public_object_id": "223293057",
+        "observed_public_object_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on",
+        "source_status": "BLOCKED",
+        "verified": false,
+        "write_absent": false,
+        "write_exists": true
+      }
+    },
+    "last_read_at_utc": "2026-11-03T17:10:48.940730+00:00"
+  }
+]

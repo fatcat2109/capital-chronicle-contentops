@@ -1,5 +1,13 @@
 # CC-179 Publisher recovery
 
+## Current closeout — 5 November 2026
+
+CC-179's recovery acceptance is complete. The [current closeout](recovery-20261105/README.md)
+records all 27 original destination slots and CPI's company copy, three new exact-object
+confirmations, installed recovery fixes, and the remaining expired-preview and CC-247
+owner actions. No new public post was created. Earlier operational conclusions below
+are retained history.
+
 ## Resume — 4 November 2026, 00:40 GMT+7
 
 **BLOCKED.** [Current evidence](resume-20261104-0012/README.md) supersedes the

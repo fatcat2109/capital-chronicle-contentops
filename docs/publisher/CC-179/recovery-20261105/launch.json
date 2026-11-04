@@ -13,5 +13,6 @@
     "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
     "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
     "tests/evidence/cc-172-resume-20261104/latency-diagnosis.txt"
-  ]
+  ],
+  "resume_20261105": "Same user-authorized CC-179 item and branch; current CODEX_THREAD_ID retained; no second publisher or schedule."
 }

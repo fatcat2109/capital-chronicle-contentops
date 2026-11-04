@@ -1,0 +1,359 @@
+[
+  {
+    "dispatch_id": "dispatch_371115ac151c4db5280d7351ec1429fe",
+    "message_id": "outbox_371115ac151c4db5280d7351ec1429fe",
+    "platform": "instagram_business",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-02T17:50:30.008854+00:00",
+    "public_object_id": "18248334526314041",
+    "public_object_url": "https://www.instagram.com/p/DfUxsztgc3v/",
+    "public_object_url_hash": "4beef2f35cf9dea0c4ffdccef9e527a83c63ba32e0f2490502468dc3a4e7f952",
+    "outbox_created_at_utc": "2026-11-02T16:20:51.904422+00:00",
+    "repost_of_dispatch_id": null,
+    "reconciliations": [
+      {
+        "reconciliation_id": "reconciliation_371115ac151c4db5280d7351ec1429fe",
+        "work_item_id": "cc074-retro-fomc-20261028-v1",
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-02T17:50:36.149657+00:00"
+      }
+    ],
+    "latest_readback": {
+      "destination": "instagram_business",
+      "dispatch_id": "dispatch_371115ac151c4db5280d7351ec1429fe",
+      "readback": {
+        "identity_match": true,
+        "observed_public_object_id": "18248334526314041",
+        "observed_public_object_url": "https://www.instagram.com/p/DfUxsztgc3v/",
+        "source_status": "SUCCESS",
+        "verified": true,
+        "write_absent": false,
+        "write_exists": false
+      }
+    },
+    "last_read_at_utc": "2026-11-04T15:27:12.810956+00:00"
+  },
+  {
+    "dispatch_id": "dispatch_44015f64ead73e6dba975de3e41879c2",
+    "message_id": "outbox_44015f64ead73e6dba975de3e41879c2",
+    "platform": "telegram",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-02T17:50:43.065097+00:00",
+    "public_object_id": "73",
+    "public_object_url": "https://t.me/CapitalChronicle/73",
+    "public_object_url_hash": "e3c89781b5209528c1d5573f324913084a1b4934b5b5d7d178194f6e6fe3d421",
+    "outbox_created_at_utc": "2026-11-02T16:20:51.925174+00:00",
+    "repost_of_dispatch_id": null,
+    "reconciliations": [
+      {
+        "reconciliation_id": "reconciliation_44015f64ead73e6dba975de3e41879c2",
+        "work_item_id": "cc074-retro-fomc-20261028-v1",
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-02T17:50:45.513044+00:00"
+      }
+    ],
+    "latest_readback": {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_44015f64ead73e6dba975de3e41879c2",
+      "readback": {
+        "identity_match": true,
+        "observed_public_object_id": "73",
+        "observed_public_object_url": "https://t.me/CapitalChronicle/73",
+        "source_status": "SUCCESS",
+        "verified": true,
+        "write_absent": false,
+        "write_exists": false
+      }
+    },
+    "last_read_at_utc": "2026-11-02T17:50:45.492934+00:00"
+  },
+  {
+    "dispatch_id": "dispatch_5a2137e1a148265564399a6f60c6fb27",
+    "message_id": "outbox_5a2137e1a148265564399a6f60c6fb27",
+    "platform": "x",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-02T17:54:15.410492+00:00",
+    "public_object_id": "2117318307866968521",
+    "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521",
+    "public_object_url_hash": "40c1b5c06c309ca967023c4a7f6f55328f81e9fee4b47bf04fc91806c0475f3a",
+    "outbox_created_at_utc": "2026-11-02T16:20:51.943628+00:00",
+    "repost_of_dispatch_id": null,
+    "reconciliations": [
+      {
+        "reconciliation_id": "reconciliation_5a2137e1a148265564399a6f60c6fb27",
+        "work_item_id": "cc074-retro-fomc-20261028-v1",
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-02T18:23:51.477569+00:00"
+      }
+    ],
+    "latest_readback": {
+      "destination": "x",
+      "dispatch_id": "dispatch_5a2137e1a148265564399a6f60c6fb27",
+      "readback": {
+        "identity_match": true,
+        "observed_public_object_id": "2117318307866968521",
+        "observed_public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521",
+        "source_status": "SUCCESS",
+        "verified": true,
+        "write_absent": false,
+        "write_exists": true
+      }
+    },
+    "last_read_at_utc": "2026-11-02T18:23:51.461294+00:00"
+  },
+  {
+    "dispatch_id": "dispatch_61b248c425f6f223d5cb8e44cfa8abe8",
+    "message_id": "outbox_61b248c425f6f223d5cb8e44cfa8abe8",
+    "platform": "threads",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-04T15:19:42.667129+00:00",
+    "public_object_id": "18640795297005650",
+    "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfUw3gsH11N",
+    "public_object_url_hash": "47605288f68022e12e16d3b20791aa942a12d497c5570d0f014280bff23e71ad",
+    "outbox_created_at_utc": "2026-11-02T16:20:51.934863+00:00",
+    "repost_of_dispatch_id": null,
+    "reconciliations": [
+      {
+        "reconciliation_id": "reconciliation_61b248c425f6f223d5cb8e44cfa8abe8",
+        "work_item_id": "cc074-retro-fomc-20261028-v1",
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-04T15:20:06.698511+00:00"
+      }
+    ],
+    "latest_readback": {
+      "destination": "threads",
+      "dispatch_id": "dispatch_61b248c425f6f223d5cb8e44cfa8abe8",
+      "readback": {
+        "identity_match": true,
+        "observed_public_object_id": "18640795297005650",
+        "observed_public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfUw3gsH11N",
+        "source_status": "SUCCESS",
+        "verified": true,
+        "write_absent": false,
+        "write_exists": false
+      }
+    },
+    "last_read_at_utc": "2026-11-04T15:20:06.653234+00:00"
+  },
+  {
+    "dispatch_id": "dispatch_84fe2cb9b504ae27c7d7383f402dcd91",
+    "message_id": "outbox_84fe2cb9b504ae27c7d7383f402dcd91",
+    "platform": "substack",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-02T17:13:36.215695+00:00",
+    "public_object_id": "223199520",
+    "public_object_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+    "public_object_url_hash": "8306ada5b78dfe0cf5f1180be3a643b2799211763ffa1a2cee6208f9d1b966cc",
+    "outbox_created_at_utc": "2026-11-02T16:20:51.874247+00:00",
+    "repost_of_dispatch_id": null,
+    "reconciliations": [
+      {
+        "reconciliation_id": "reconciliation_84fe2cb9b504ae27c7d7383f402dcd91",
+        "work_item_id": "cc074-retro-fomc-20261028-v1",
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-02T17:50:08.600903+00:00"
+      }
+    ],
+    "latest_readback": {
+      "canonical_already_live": true,
+      "canonical_id": "223199520",
+      "canonical_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+      "destinations": [
+        {
+          "blocker": null,
+          "destination": "substack",
+          "public_object_id": "223199520",
+          "public_object_url": "https://capitalchronicle.substack.com/p/the-fed-held-on-october-28-both-dissenters",
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "blocker": null,
+          "destination": "telegram",
+          "public_object_id": "73",
+          "public_object_url": "https://t.me/CapitalChronicle/73",
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "blocker": null,
+          "destination": "discord",
+          "public_object_id": "1566872070753751344",
+          "public_object_url": null,
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "blocker": null,
+          "destination": "x",
+          "public_object_id": "2117318307866968521",
+          "public_object_url": "https://x.com/Capitalnicle/status/2117318307866968521",
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "blocker": "UNKNOWN_WRITE",
+          "destination": "linkedin",
+          "public_object_id": null,
+          "public_object_url": null,
+          "status": "UNKNOWN_WRITE"
+        },
+        {
+          "blocker": null,
+          "destination": "facebook_page",
+          "public_object_id": "106091951705748_1442865088031907",
+          "public_object_url": "https://www.facebook.com/1342369584748125/posts/1442865088031907",
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "destination": "instagram_business",
+          "public_object_id": null,
+          "public_object_url": null,
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+        },
+        {
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED",
+          "destination": "threads",
+          "public_object_id": null,
+          "public_object_url": null,
+          "status": "NOT_DISPATCHED"
+        },
+        {
+          "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "destination": "youtube",
+          "public_object_id": null,
+          "public_object_url": null,
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+        }
+      ],
+      "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+      "first_unsafe_retry_cause": "linkedin UNKNOWN_WRITE",
+      "next_action": "Publisher: reconcile the exact uncertain LinkedIn attempt by readback before any retry; complete destination-local Instagram/YouTube/Threads recovery under their existing owners. Never duplicate confirmed posts.",
+      "observed_at_utc": "2026-11-03T09:45:30.591087+00:00",
+      "operation_id": "cc074-retro-fomc-20261028-v1",
+      "public_write_performed_in_this_run": false
+    },
+    "last_read_at_utc": "2026-11-03T09:45:30.596310+00:00"
+  },
+  {
+    "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+    "message_id": "outbox_9b8a57d1a3c6794c5a999966b9bd28c2",
+    "platform": "linkedin",
+    "status": "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
+    "dispatched_at": "2026-11-02T17:50:38.994639+00:00",
+    "public_object_id": null,
+    "public_object_url": null,
+    "public_object_url_hash": null,
+    "outbox_created_at_utc": "2026-11-02T16:20:51.915221+00:00",
+    "repost_of_dispatch_id": null,
+    "reconciliations": [
+      {
+        "reconciliation_id": "reconciliation_9b8a57d1a3c6794c5a999966b9bd28c2",
+        "work_item_id": "cc074-retro-fomc-20261028-v1",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "reconciled_at": "2026-11-02T17:50:39.124947+00:00"
+      }
+    ],
+    "latest_readback": {
+      "destination": "linkedin",
+      "dispatch_id": "dispatch_9b8a57d1a3c6794c5a999966b9bd28c2",
+      "readback": {
+        "identity_match": false,
+        "observed_public_object_id": null,
+        "observed_public_object_url": null,
+        "source_status": "BLOCKED",
+        "verified": false,
+        "write_absent": true,
+        "write_exists": false
+      }
+    },
+    "last_read_at_utc": "2026-11-04T07:40:06.974215+00:00"
+  },
+  {
+    "dispatch_id": "dispatch_b0c56e93220ba413672e6a8110c75cb8",
+    "message_id": "outbox_b0c56e93220ba413672e6a8110c75cb8",
+    "platform": "youtube",
+    "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+    "dispatched_at": "2026-11-02T18:32:44.951024+00:00",
+    "public_object_id": null,
+    "public_object_url": null,
+    "public_object_url_hash": null,
+    "outbox_created_at_utc": "2026-11-02T16:20:51.954622+00:00",
+    "repost_of_dispatch_id": null,
+    "reconciliations": [
+      {
+        "reconciliation_id": "reconciliation_b0c56e93220ba413672e6a8110c75cb8",
+        "work_item_id": "cc074-retro-fomc-20261028-v1",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "reconciled_at": "2026-11-02T18:39:52.920443+00:00"
+      }
+    ],
+    "latest_readback": null,
+    "last_read_at_utc": null
+  },
+  {
+    "dispatch_id": "dispatch_bb9379a6030ed281b28a7798c7688759",
+    "message_id": "outbox_bb9379a6030ed281b28a7798c7688759",
+    "platform": "facebook_page",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-02T17:50:17.369737+00:00",
+    "public_object_id": "106091951705748_1442865088031907",
+    "public_object_url": "https://www.facebook.com/1342369584748125/posts/1442865088031907",
+    "public_object_url_hash": "58c0abdfb3a823dd0340d0b921589e3bc7532d366cbac548004cca5aba46cbe9",
+    "outbox_created_at_utc": "2026-11-02T16:20:51.893835+00:00",
+    "repost_of_dispatch_id": null,
+    "reconciliations": [
+      {
+        "reconciliation_id": "reconciliation_bb9379a6030ed281b28a7798c7688759",
+        "work_item_id": "cc074-retro-fomc-20261028-v1",
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-02T17:50:24.593455+00:00"
+      }
+    ],
+    "latest_readback": {
+      "destination": "facebook_page",
+      "dispatch_id": "dispatch_bb9379a6030ed281b28a7798c7688759",
+      "readback": {
+        "identity_match": true,
+        "observed_public_object_id": "106091951705748_1442865088031907",
+        "observed_public_object_url": "https://www.facebook.com/1342369584748125/posts/1442865088031907",
+        "source_status": "SUCCESS",
+        "verified": true,
+        "write_absent": false,
+        "write_exists": false
+      }
+    },
+    "last_read_at_utc": "2026-11-02T17:50:24.577978+00:00"
+  },
+  {
+    "dispatch_id": "dispatch_be8e8109d71a01ca26336982a8aadcf2",
+    "message_id": "outbox_be8e8109d71a01ca26336982a8aadcf2",
+    "platform": "discord",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-02T17:50:12.137599+00:00",
+    "public_object_id": "1566872070753751344",
+    "public_object_url": null,
+    "public_object_url_hash": null,
+    "outbox_created_at_utc": "2026-11-02T16:20:51.883852+00:00",
+    "repost_of_dispatch_id": null,
+    "reconciliations": [
+      {
+        "reconciliation_id": "reconciliation_be8e8109d71a01ca26336982a8aadcf2",
+        "work_item_id": "cc074-retro-fomc-20261028-v1",
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-02T17:50:13.199363+00:00"
+      }
+    ],
+    "latest_readback": {
+      "destination": "discord",
+      "dispatch_id": "dispatch_be8e8109d71a01ca26336982a8aadcf2",
+      "readback": {
+        "identity_match": true,
+        "observed_public_object_id": "1566872070753751344",
+        "observed_public_object_url": null,
+        "source_status": "SUCCESS",
+        "verified": true,
+        "write_absent": false,
+        "write_exists": false
+      }
+    },
+    "last_read_at_utc": "2026-11-02T17:50:13.180011+00:00"
+  }
+]

@@ -1,0 +1,32 @@
+{
+  "recorded_at_utc": "2026-11-04T18:28:53.702312+00:00",
+  "live_module": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+  "work_item_id": "cc074-retro-fomc-20261028-v1",
+  "prior_remaining_obligations": [
+    {
+      "work_item_id": "cc124-next-article-20261103-b",
+      "destination": "instagram_business",
+      "durable_status": "DISPATCH_CONFIRMED",
+      "blocking_status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+    },
+    {
+      "work_item_id": "cc124-next-article-20261103-b",
+      "destination": "threads",
+      "durable_status": "DISPATCH_CONFIRMED",
+      "blocking_status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILIATION_PENDING"
+    },
+    {
+      "work_item_id": "cc124-prepare-20261103-a",
+      "destination": "instagram_business",
+      "durable_status": "DISPATCH_CONFIRMED",
+      "blocking_status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+    }
+  ],
+  "backlog_blocking_current_article": false,
+  "dispatch_count_unchanged": true,
+  "public_write_performed": false,
+  "claim_limit": "Existing recovery guard evaluated with real persisted intents, replacement-parent records and exact public readbacks; no stale FOMC copy was sent."
+}

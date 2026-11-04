@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="5" time="39.202" timestamp="2026-11-05T01:08:30.775389+07:00" hostname="J-P"><testcase classname="tests.test_native_desktop_publication_v1" name="test_claimed_lost_publish_readback_before_retry_and_local_failure" time="14.207" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_exact_readback_survives_changed_review_while_new_send_stays_blocked" time="5.430" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_readback_still_requires_exact_existing_operation_and_destination[operation]" time="6.058"><failure message="sqlite3.IntegrityError: FOREIGN KEY constraint failed">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-32634/test_readback_still_requires_e0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x0000021B844A57F0&gt;
+fault = 'operation'
+
+    @pytest.mark.parametrize("fault", ["operation", "destination"])
+    def test_readback_still_requires_exact_existing_operation_and_destination(tmp_path, monkeypatch, fault):
+        store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
+        operation, executor, _ = composed(store, binding, rollout, monkeypatch)
+        operation.resume()
+        publish = executor.pending()[0]
+        operation.tool("begin", request_hash=publish["request"]["request_sha256"])
+        operation.resume()
+        readback = next(p for p in executor.pending() if p["request"]["action"] == "READBACK")
+        dispatch = store.get_platform_dispatch(publish["request"]["dispatch_attempt_identity"])
+        with store.get_connection() as conn:
+            if fault == "operation":
+&gt;               conn.execute("UPDATE outbox_messages SET work_item_id=? WHERE message_id=?",
+                             ("another-operation", dispatch["message_id"]))
+E               sqlite3.IntegrityError: FOREIGN KEY constraint failed
+
+tests\test_native_desktop_publication_v1.py:601: IntegrityError</failure></testcase><testcase classname="tests.test_native_desktop_publication_v1" name="test_readback_still_requires_exact_existing_operation_and_destination[destination]" time="6.882" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_lost_readback_projects_new_turn_begin_but_never_a_second_publish" time="5.850" /></testsuite></testsuites>
