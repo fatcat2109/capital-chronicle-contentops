@@ -35,7 +35,7 @@ def image_intent(tmp_path):
                            "media_asset_ids": [a["asset_id"] for a in assets]}}
 
 
-@pytest.mark.parametrize("destination", V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+@pytest.mark.parametrize("destination", [*V1_REQUIRED_DERIVATIVE_DESTINATIONS, "linkedin_company"])
 def test_hosted_image_is_the_same_selected_local_image_for_every_social_destination(image_intent, destination):
     image_intent["destination_plan"]["destination"] = destination
     data = pipeline._durable_intent_inputs(image_intent)
@@ -45,7 +45,7 @@ def test_hosted_image_is_the_same_selected_local_image_for_every_social_destinat
     assert data["payloads"][destination]["text"] == image_intent["native_payload"]["text"]
 
 
-@pytest.mark.parametrize("destination", ["substack", "x", "linkedin", "youtube"])
+@pytest.mark.parametrize("destination", ["substack", "x", "linkedin", "linkedin_company", "youtube"])
 def test_neo_request_contains_the_selected_binary_image_path(image_intent, destination):
     image_intent["destination_plan"]["destination"] = destination
     if destination == "substack":
