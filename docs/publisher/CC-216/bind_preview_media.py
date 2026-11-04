@@ -3,6 +3,9 @@ import argparse
 from hashlib import sha256
 import json
 from pathlib import Path
+from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+    _retained_chart_documents, editorial_chart_source_links, validate_source_value_chart,
+)
 
 BASE = Path("A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual")
 HERE = Path(__file__).resolve().parent
@@ -21,6 +24,16 @@ def main(name):
     chosen = {c["asset_id"] for c in decision["charts"]} | set(decision.get("contextual_photo_ids", []))
     assets = [a for a in assets if a["asset_id"] in chosen]
     assert {a["asset_id"] for a in assets} == chosen
+    sources = json.loads((root / "editorial_media_plan_required.json").read_bytes())["source_pack"]
+    for asset in assets:
+        if asset["modality"] != "source_backed_chart":
+            continue
+        docs = _retained_chart_documents(sources, asset.get("retained_source_binding"))
+        links = editorial_chart_source_links(asset["editorial_data_packet"], docs)
+        assert [x["url"] for x in links] == [x["url"] for x in asset["source_links"]]
+        asset.update(source_links=links, source_page_url=links[0]["url"],
+            source_lineage=[{"source_url": s["url"], "document_id": s["document_id"]} for s in links])
+        validate_source_value_chart(asset, sources)
     for asset in assets:
         assert sha256(Path(asset["path"]).read_bytes()).hexdigest() == asset["sha256"]
         assert asset["visual_review"]["asset_sha256"] == asset["sha256"]
