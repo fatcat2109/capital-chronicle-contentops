@@ -1,0 +1,33 @@
+{
+  "observed_at_utc": "2026-11-04T19:04:07.930306+00:00",
+  "evidence_kind": "CURRENT_CONSUMER_BYTES_COMPARED_WITH_EXECUTED_COMPATIBILITY_CHECK",
+  "consumers": [
+    {
+      "consumer": "A:\\Capital Chronicle\\Worktrees\\codex-web-cc246-preview\\tools\\product\\public_newsroom_articles_v1.py",
+      "sha256": "fae73d9dd57a5228d99d08c2e4104a7eeb3f58fc5a23e321d20d94a8703d2109",
+      "unchanged_since_executed_check": true,
+      "executed_check": "docs\\publisher\\CC-154\\resume-20261105\\consumer-compatibility.json",
+      "last_executed_site_only_result": {
+        "status": "REJECTED",
+        "cause": "NEWSROOM_CANONICAL_REQUIRED",
+        "input_sha256": "15afadf2f13c9bcb76768777607a9c32b3a22211ac30cf503561bbd2e2705d4d"
+      },
+      "head": "5bebf4a70c0a5fe6e88468c215f5995083a4e0ff"
+    },
+    {
+      "consumer": "A:\\Capital Chronicle\\Worktrees\\codex-web-cc254-clean\\tools\\product\\public_newsroom_articles_v1.py",
+      "sha256": "ce7495ac5855bb3307fc53de5a83ffd9d18891eeb6f32f5e0eda160f76737234",
+      "unchanged_since_executed_check": true,
+      "executed_check": "docs\\publisher\\CC-154\\resume-20261105\\consumer-compatibility.json",
+      "last_executed_site_only_result": {
+        "status": "REJECTED",
+        "cause": "NEWSROOM_CANONICAL_REQUIRED",
+        "input_sha256": "7458427f4fff9dc6c694a534f35ff23896a4f5fe8c404621fcb997e21f38511c"
+      },
+      "head": "7f605a4902c86032039531779be40604ebf0a92d"
+    }
+  ],
+  "next_owner": "Codex Web / Ops Product",
+  "required_action": "Consume the existing reviewed site_publication_candidate_v1.json before any Substack confirmation, render expected_site_url, and expose article_content_sha256 for exact site readback.",
+  "no_public_write": true
+}

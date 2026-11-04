@@ -1,0 +1,87 @@
+{
+  "item": "CC-172",
+  "recorded_at_utc": "2026-11-04T19:07:16.849124+00:00",
+  "status": "BLOCKED",
+  "first_external_cause": "NEWSROOM_CANONICAL_REQUIRED",
+  "next_owner": "Codex Web / Ops Product",
+  "smallest_next_action": "Wire reviewed site_publication_candidate_v1.json to the existing site consumer independently of Substack; Publisher then measures the next ordinary article against its first approval clock.",
+  "engineering_commits": [
+    "757c2648455118bbb57b66e2abe7c0c9dcc4af9e",
+    "49d001f39d881904a0cc03ce16b238d80c65d6ec"
+  ],
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head": "49d001f39d881904a0cc03ce16b238d80c65d6ec",
+  "integration_method": "git merge --ff-only on existing operating branch",
+  "live_consumer": "NativeReviewedPublication.tool / native_publication_latency_v1.short_path_acceptance",
+  "installed_files": {
+    "live_contentops/native_desktop_publication_v1.py": {
+      "sha256": "0dfdc7f6cef2251b14f10819254191f98cc5c7e5e1494845469836ec50f4bf28",
+      "matches_exec": true
+    },
+    "live_contentops/native_publication_latency_v1.py": {
+      "sha256": "abac00e6852e6da65ea44bab248590864e5a854c7b9ffeaa324166156e1010b8",
+      "matches_exec": true
+    },
+    "tests/test_native_publication_latency_v1.py": {
+      "sha256": "f21a91ebbbcd114e6638569534a40c71022dce5626047f278b732c7b0c52b426",
+      "matches_exec": true
+    }
+  },
+  "checks": {
+    "latency-fixed.xml": {
+      "tests": "20",
+      "failures": "0",
+      "errors": "0",
+      "time": "99.636",
+      "path": "tests\\evidence\\cc-172-resume-20261105\\latency-fixed.xml",
+      "sha256": "898c1a2a75f2ddb6ec69d0ca0a3224514e07ee551b033b73956f7dc78d9ade6c"
+    },
+    "site-binding-fixed.xml": {
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "time": "14.844",
+      "path": "tests\\evidence\\cc-172-resume-20261105\\site-binding-fixed.xml",
+      "sha256": "5cfbc96e40d454bb7d67dfde10ab3813e3eac62eb6d0b419d920d6cae83a6708"
+    },
+    "operating-root.xml": {
+      "tests": "30",
+      "failures": "0",
+      "errors": "0",
+      "time": "86.359",
+      "path": "tests\\evidence\\cc-172-resume-20261105\\operating-root.xml",
+      "sha256": "c8c565187608713d300fd862802af9e1d00c8a117a3bfa1ae6fa4610978a1309"
+    }
+  },
+  "binary_guard": "PASS_BINARY_EVIDENCE",
+  "ruff": {
+    "result": "3 pre-existing findings, each verified in base 2523887b",
+    "findings": [
+      "native_publication_latency_v1.py F841 unused n",
+      "test_native_publication_latency_v1.py F401 unused Path",
+      "test_native_publication_latency_v1.py F401 unused POLICY"
+    ]
+  },
+  "operating_wip_unchanged": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": true,
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": true,
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": true,
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": true,
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+  },
+  "exec_wip_unchanged": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+  },
+  "real_15_minute_acceptance": "INCOMPLETE; no newer approval; retained articles missed target",
+  "public_writes": 0,
+  "production_store_writes": 0,
+  "schedules_changed": false,
+  "apps_restarted": false,
+  "chats_messaged": false,
+  "editorial_calls": 0,
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "high",
+  "telemetry_status": "CONFIGURED_NOT_OBSERVED"
+}

@@ -1,0 +1,10 @@
+{
+  "item": "CC-172",
+  "recorded_at_utc": "2026-11-04T19:05:54.429626+00:00",
+  "process_id": 10524,
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "configuration_evidence": "Read back active codex.exe exec launch arguments for CC-172",
+  "runtime_observation": "CONFIGURED_NOT_OBSERVED",
+  "editorial_calls": 0
+}

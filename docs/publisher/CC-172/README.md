@@ -1,3 +1,11 @@
+# CC-172 current continuation — 5 November 2026
+
+The first site-readback defect and repeated publication model/effort label checks
+are fixed in the operating root. Real 15-minute acceptance awaits the Web consumer
+fix `NEWSROOM_CANONICAL_REQUIRED`, then the next ordinary article's actual clocks.
+See [current result](resume-20261105/README.md) and
+[validation](resume-20261105/validation.json). The earlier record follows.
+
 # CC-172 publication latency â€” 4 November continuation
 
 The 10 KB tool-output amendment is integrated in `A:\Capital Chronicle\ContentOps`
