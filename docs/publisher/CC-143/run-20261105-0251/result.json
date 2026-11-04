@@ -1,0 +1,32 @@
+{
+  "item": "CC-143",
+  "status": "BLOCKED",
+  "cause": "SECRET_EXPOSURE_OWNER_ROTATION_REQUIRED",
+  "observed_at_utc": "2026-11-04T19:51:34.2438126Z",
+  "summary": "An environment-variable inspection unintentionally printed Threads app secret and user access token into the tool transcript. Values are deliberately omitted here. Publication work stopped under host secrets rule 14 and repository hard stop 13.",
+  "required_owner_action": "Jim must revoke and replace the exposed Threads app secret and user access token through the existing credential owner before this run resumes.",
+  "branch": "backlog/cc-143-digest-delivery-20261105",
+  "base": "fd9fcd49dca73dcdf7fae4445e624307db4d0ffc",
+  "launch_model": "gpt-6.1-sol",
+  "launch_effort": "high",
+  "runtime_telemetry": "CONFIGURED_NOT_OBSERVED",
+  "work_completed": [
+    "Read current CC-143, host/scoped rules and current live runbook",
+    "Verified prior CC-143 branch and fresh remote master are ancestors of operating HEAD",
+    "Claimed item and created continuation branch from the current operating root including the required 4 November fixes",
+    "Opened one task-owned Substack dashboard tab in the existing Neo window"
+  ],
+  "unfinished": "Send existing 4 November digest through fixed path and obtain email-delivery readback; acceptance not met",
+  "public_writes": 0,
+  "tests_run": 0,
+  "code_changes": 0,
+  "schedules_changed": 0,
+  "applications_restarted": 0,
+  "chats_messaged": 0,
+  "preserved": "All pre-existing tracked and untracked WIP left untouched; no secret values saved in this artifact",
+  "browser": {
+    "page_id": 406,
+    "url": "https://capitalchronicle.substack.com/publish/posts",
+    "action": "Read-only dashboard navigation; no draft, Publish, Update, mailbox, code or legal action"
+  }
+}
