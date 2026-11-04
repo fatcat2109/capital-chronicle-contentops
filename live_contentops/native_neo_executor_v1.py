@@ -21,6 +21,12 @@ SCHEMA = "contentops.native_neo_tool_request.v1"
 DESTINATION = "internal:native-neo-tool"
 PENDING = "NATIVE_NEO_TOOL_PENDING"
 TOOL = "mcp__browseros_neo__run"
+# CC-283: the agent surface that ran the BrowserOS Neo step is recorded under its own true label
+# with the tool name that surface actually calls; Claude is never recorded as Codex (C5). The
+# request packet keeps naming TOOL, so stored requests and their hashes stay unchanged.
+CODEX_SURFACES = frozenset({"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT", "CODEX_EXEC"})
+CLAUDE_CODE_SURFACE = "CLAUDE_CODE_SESSION"
+SURFACE_TOOLS = {**{surface: TOOL for surface in CODEX_SURFACES}, CLAUDE_CODE_SURFACE: "mcp__browseros-neo__run"}
 
 
 class NativeNeoInputRequired(Exception):
@@ -209,9 +215,9 @@ class NativeNeoExecutor:
         claim = self._claim(request_hash, observation.get("native_invocation_id"))
         if not packet or not claim or response.get("tool_request_sha256") != packet["tool_request_sha256"]:
             raise ValueError("NATIVE_NEO_TOOL_RETURN_BINDING_REQUIRED")
-        if (observation.get("tool_name") != TOOL
+        if (observation.get("surface") not in SURFACE_TOOLS
+                or observation.get("tool_name") != SURFACE_TOOLS[observation["surface"]]
                 or observation.get("native_invocation_id") != claim["native_invocation_id"]
-                or observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT", "CODEX_EXEC"}
                 or not observation.get("observation_source") or not observation.get("observed_at_utc")):
             raise ValueError("NATIVE_NEO_ACTUAL_TOOL_OBSERVATION_REQUIRED")
         observed_at = datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
