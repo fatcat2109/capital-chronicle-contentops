@@ -73,10 +73,14 @@ def test_repeated_identical_source_failure_preserves_each_attempt(tmp_path, monk
     assert [p.read_bytes() for p in history.rglob("simple_gemini_newsroom_receipt_v1.json")] == [receipt, receipt]
 
 
-def test_real_pending_cli_role_exposes_spawn_then_accepts_actual_result_and_advances(tmp_path, monkeypatch):
+@pytest.mark.parametrize("pending_recovery", [[], ["controlled-prior-social-readback"]])
+def test_real_pending_cli_role_exposes_spawn_then_accepts_actual_result_and_advances(tmp_path, monkeypatch, pending_recovery):
     from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
     from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
     module = entry()
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    monkeypatch.setattr(DurablePublicationCoordinator, "editorial_recovery_dispatch_ids",
+                        lambda self: pending_recovery)
     profile = {"schema_version": "contentops.native_desktop_operator_profile.v1",
         "editorial_output_root": str(tmp_path / "articles"),
         **{k: str(tmp_path / k) for k in ("store_path", "feed_pointer_path", "published_memory_store", "published_memory_output_root")}}
@@ -99,6 +103,7 @@ def test_real_pending_cli_role_exposes_spawn_then_accepts_actual_result_and_adva
     monkeypatch.setattr(module, "MainReportFeed", ControlledFeed)
     monkeypatch.setattr(module, "load_canonical_published_memory_read_only", lambda **kwargs: ([], {}))
     pending = module.operation(binding)
+    assert pending["pending_publication_recovery_dispatch_ids"] == pending_recovery
     call = pending["next_native_call"]
     assert call["tool"] == "collaboration.spawn_agent"
     assert call["arguments"]["model"] == "gpt-6.1-sol" and call["arguments"]["reasoning_effort"] == "low"
@@ -111,7 +116,9 @@ def test_real_pending_cli_role_exposes_spawn_then_accepts_actual_result_and_adva
         turn.submit("select", response)
     response["invocation_observation"]["invocation_id"] = "/root/controlled_native_test"
     module.operation(binding, command="submit", stage="select", response=response)
-    assert module.operation(binding)["classification"] == "CONTROLLED_TERMINAL"
+    completed = module.operation(binding)
+    assert completed["classification"] == "CONTROLLED_TERMINAL"
+    assert completed["pending_publication_recovery_dispatch_ids"] == pending_recovery
     assert binding["cutoff_utc"] == "2026-10-29T10:00:00Z"
 
 

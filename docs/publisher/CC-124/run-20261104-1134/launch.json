@@ -1,0 +1,16 @@
+{
+  "item": "CC-124",
+  "started_at_utc": "2026-11-04T04:33:12.850645Z",
+  "recorded_at_utc": "2026-11-04T04:37:23.113127+00:00",
+  "invocation_id": "01a1a4d5-297b-7a72-bf56-c0af786aba7c",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_source": "Readback of actual codex.exe launch arguments, PID 2760",
+  "branch": "backlog/cc-124-20261104-1134",
+  "branch_base": "48d152a6231e919c02c0c4e2946297fe326a93b4",
+  "live_base": "d210d8e2bfea9a8a5fe37d15a4c6429c05ccd69f",
+  "dependency_note": "Base preserves the completed CC-186 Discord/image transport sub-step; pre-existing unfinished CC-186 paths remain uncommitted and excluded. Remote default predates installed native fixes.",
+  "chat_messages_sent": 0,
+  "schedule_changes": 0
+}
