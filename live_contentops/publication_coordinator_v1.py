@@ -724,8 +724,11 @@ class DurablePublicationCoordinator:
         revision, view, acceptance = reader_presentation_acceptance(self.store,
             run_id=message["work_item_id"], reference=reference)
         destination = message["destination"]
-        identity = revision["objects"][destination]
-        if identity["message_id"] != message["message_id"]:
+        company_repair = destination == "linkedin_company" and revision.get("policy") == "JIM_CC247_REVIEWED_MEDIA_REPAIR"
+        identity = revision["objects"]["linkedin" if company_repair else destination]
+        source_intent = json.loads(message["payload"])
+        if (identity["message_id"] != message["message_id"] and not (company_repair
+                and source_intent.get("company_copy_of_message_id") == identity["message_id"])):
             raise ValueError("READER_REVISION_EXACT_MESSAGE_REQUIRED")
         intent = json.loads(self._dated_distribution_message(message)["payload"])
         from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
@@ -737,7 +740,7 @@ class DurablePublicationCoordinator:
             article = _reader_safe_native_article(view["article"], article_mode=view["article"].get("resolved_article_mode", ""))
             payload = {"title": article["title"], "subtitle": article["subtitle"], "body_markdown": article["substack_body_markdown"]}
         else:
-            payload = revision["payloads"][destination]
+            payload = revision["payloads"]["linkedin" if company_repair else destination]
         intent.update(native_payload=payload, payload=payload.get("text") or payload["body_markdown"],
             media_assets=retained_media,
             reader_presentation_article=view["article"],
@@ -745,6 +748,10 @@ class DurablePublicationCoordinator:
                 m[0] for m in re.finditer(r"Reporting as of [^\n]+?\d{4}\.", revision["body_before"])])
         intent["destination_plan"] = {**intent["destination_plan"], "payload_hash": sha256_of(payload),
             "payload_hash_kind": "SAME_MAX_REVIEWED_PRESENTATION"}
+        if company_repair:
+            intent["owner_authority_ref"] = "human:BACKLOG_CC247"
+        if destination == "linkedin" and revision.get("policy") == "JIM_CC247_REVIEWED_MEDIA_REPAIR":
+            intent["destination_plan"]["transport_type"] = "BROWSEROS_NEO_MCP"
         return intent, revision, view, acceptance
 
     def _effective_message(self, message):
@@ -764,22 +771,31 @@ class DurablePublicationCoordinator:
         Caller retains the existing newsroom lease and native executor binding.
         """
         from live_contentops.native_desktop_editorial_v1 import reader_presentation_acceptance
-        from live_contentops.release_chart_revision_v1 import DERIVATIVE_POLICY, SOCIAL_DESTINATIONS
+        from live_contentops.release_chart_revision_v1 import DERIVATIVE_POLICY, MEDIA_REPAIR_POLICY, SOCIAL_DESTINATIONS
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
         if destination not in SOCIAL_DESTINATIONS or self._mode() != "AUTONOMOUS_DEFAULT":
             raise ValueError("DERIVATIVE_REVISION_LIVE_SOCIAL_SCOPE_REQUIRED")
         revision, _, acceptance = reader_presentation_acceptance(self.store,
             run_id=work_item_id, reference=review_reference)
-        if revision.get("policy") != DERIVATIVE_POLICY:
+        if revision.get("policy") not in {DERIVATIVE_POLICY, MEDIA_REPAIR_POLICY}:
             raise ValueError("DERIVATIVE_REVISION_EXACT_MEDIA_REVIEW_REQUIRED")
         canonical_id = revision["objects"]["substack"]["message_id"]
         canonical_note = self.store.get_outbox_message("native-reader-presentation-" + sha256_of(canonical_id)) or {}
         parent_note = json.loads(canonical_note.get("payload") or "{}")
+        required_canonical_review = (review_reference if revision.get("policy") == MEDIA_REPAIR_POLICY
+            else revision["canonical_review_reference"])
         if (canonical_note.get("status") != "PRESENTATION_EDIT_CONFIRMED"
-                or parent_note.get("review_reference") != revision["canonical_review_reference"]):
+                or parent_note.get("review_reference") != required_canonical_review):
             raise ValueError("DERIVATIVE_REVISION_CANONICAL_EDIT_READBACK_REQUIRED")
         ids = self._ids(work_item_id, revision["plan_hash"], destination)
         dispatch = self.store.get_platform_dispatch(ids["dispatch_id"])
+        if revision.get("policy") == MEDIA_REPAIR_POLICY and dispatch and dispatch.get("status") in {
+                EXTERNAL_REMOVAL_REPORTED_NO_RETRY, DERIVATIVE_EXPIRED_STALE_NO_WRITE, RECONCILED_ABSENT_SAFE_TO_RETRY,
+                DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE}:
+            if destination in {"facebook_page", "instagram_business", "youtube", "linkedin"}:
+                return self.complete_dated_distribution_recovery(ids["message_id"], review_reference=review_reference)
+            if dispatch["status"] == EXTERNAL_REMOVAL_REPORTED_NO_RETRY:
+                return self.repost_after_owner_removal(ids["message_id"], review_reference=review_reference)
         superseded = []
         native_pending_resume = False
         if dispatch and dispatch.get("status") == NATIVE_NEO_PENDING:
@@ -909,10 +925,24 @@ class DurablePublicationCoordinator:
         registration = registration_for_destination(destination)
         if (destination == "linkedin_company" and intent.get("routine_company_copy") is True
                 and not intent.get("dated_distribution_recovery")
+                and not intent.get("reader_presentation_review")
                 and intent.get("company_copy_of_message_id") == self._ids(
                     intent.get("work_item_id"), intent.get("plan_hash"), "linkedin")["message_id"]):
             return registration  # Same plan's reviewed LinkedIn copy (routine company page).
         if destination == "linkedin_company":
+            if intent.get("reader_presentation_review") and intent.get("owner_authority_ref") == "human:BACKLOG_CC247":
+                from live_contentops.native_desktop_editorial_v1 import reader_presentation_acceptance
+                from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+                revision, _, _ = reader_presentation_acceptance(self.store, run_id=intent["work_item_id"],
+                    reference=intent["reader_presentation_review"])
+                source_id = self._ids(intent["work_item_id"], revision["plan_hash"], "linkedin")["message_id"]
+                if (revision.get("policy") != "JIM_CC247_REVIEWED_MEDIA_REPAIR"
+                        or intent.get("company_copy_of_message_id") != source_id
+                        or intent.get("native_payload") != revision["payloads"]["linkedin"]
+                        or intent.get("canonical_url") != revision["objects"]["substack"]["public_object_url"]
+                        or intent.get("destination_plan", {}).get("payload_hash") != sha256_of(intent["native_payload"])):
+                    raise ValueError("LINKEDIN_COMPANY_EXACT_REVIEWED_COPY_REQUIRED")
+                return registration
             from live_contentops.native_desktop_editorial_v1 import dated_distribution_recovery_acceptance
             reference = intent.get("dated_distribution_recovery")
             if not reference:
@@ -941,6 +971,13 @@ class DurablePublicationCoordinator:
                 raise ValueError("LINKEDIN_COMPANY_EXACT_REVIEWED_COPY_REQUIRED")
         if destination == "linkedin" and intent.get("destination_plan", {}).get("transport_type") == "BROWSEROS_NEO_MCP":
             from dataclasses import replace
+            if intent.get("reader_presentation_review"):
+                from live_contentops.native_desktop_editorial_v1 import reader_presentation_acceptance
+                revision, _, _ = reader_presentation_acceptance(self.store, run_id=intent["work_item_id"],
+                    reference=intent["reader_presentation_review"])
+                if revision.get("policy") == "JIM_CC247_REVIEWED_MEDIA_REPAIR":
+                    return replace(registration, transport_type="BROWSEROS_NEO_MCP",
+                        adapter="neo_destination_handoff_v1.NeoDestinationHandoff")
             from live_contentops.native_desktop_editorial_v1 import dated_distribution_recovery_acceptance
             reference = intent.get("dated_distribution_recovery")
             if not reference:
@@ -1067,6 +1104,52 @@ class DurablePublicationCoordinator:
         """One explicitly selected company copy of the same reviewed LinkedIn payload."""
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
         from live_contentops.native_desktop_editorial_v1 import dated_distribution_recovery_acceptance
+        from live_contentops.native_desktop_editorial_v1 import reader_presentation_acceptance
+        try:
+            repair, _view, accepted = reader_presentation_acceptance(self.store, run_id=run_id, reference=review_reference)
+        except ValueError as exc:
+            if str(exc) != "READER_REVISION_EXACT_NATIVE_REVIEW_REQUIRED":
+                raise
+        else:
+            if repair.get("policy") != "JIM_CC247_REVIEWED_MEDIA_REPAIR":
+                raise ValueError("LINKEDIN_COMPANY_EXPLICIT_SAME_REVIEW_REQUIRED")
+            ids = self._ids(run_id, repair["plan_hash"], "linkedin_company")
+            prior = self.store.get_outbox_message(ids["message_id"])
+            dispatch = self.store.get_platform_dispatch(ids["dispatch_id"])
+            if dispatch and dispatch["status"] != NATIVE_NEO_PENDING:
+                return self.readback_existing_dispatch(ids["dispatch_id"])
+            source = self.store.get_outbox_message(repair["objects"]["linkedin"]["message_id"])
+            reviewed, _, _, _ = self._reader_presentation_intent(source, review_reference)
+            registration = registration_for_destination("linkedin_company")
+            payload = reviewed["native_payload"]
+            intent = {**reviewed, "company_copy_of_message_id": source["message_id"],
+                "owner_authority_ref": "human:BACKLOG_CC247",
+                "destination_plan": {**reviewed["destination_plan"], "destination": "linkedin_company",
+                    "surface": registration.surface, "transport_type": registration.transport_type,
+                    "expected_identity": registration.expected_identity}}
+            if not prior:
+                prior = self.store.register_outbox_message(message_id=ids["message_id"], work_item_id=run_id,
+                    destination="linkedin_company", payload=_canonical_json(intent), status="READY")
+            executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
+            pending = [p for p in executor.pending() if p["request"].get("dispatch_attempt_identity") == ids["dispatch_id"]
+                and p["request"].get("action") == "PUBLISH"] if executor else []
+            if dispatch and (not pending or any(p["action_claimed"] for p in pending)):
+                return self.readback_existing_dispatch(ids["dispatch_id"])
+            key = "native-reader-presentation-" + sha256_of(ids["message_id"])
+            original = json.loads(prior["payload"])
+            if original.get("company_copy_of_message_id") != source["message_id"]:
+                raise ValueError("LINKEDIN_COMPANY_EXACT_REVIEWED_COPY_REQUIRED")
+            note = {"run_id": run_id, "destination": "linkedin_company", "public_message_id": ids["message_id"],
+                "original_intent_sha256": sha256_of(original), "review_reference": review_reference, "acceptance": accepted}
+            bound = self.store.get_outbox_message(key)
+            if bound and json.loads(bound["payload"]) != note:
+                raise ValueError("LINKEDIN_COMPANY_IMMUTABLE_COPY_CONFLICT")
+            self.store.register_outbox_message(message_id=key, work_item_id=run_id,
+                destination="internal:native-reader-presentation", payload=_canonical_json(note), status="PRESENTATION_MEDIA_BOUND")
+            for p in pending:
+                if p["request"].get("native_payload") != payload:
+                    self.store.set_outbox_status(executor._key(p["request"]["request_sha256"], "request"), "NATIVE_NEO_SUPERSEDED")
+            return self._dispatch_message(prior, canonical_url=reviewed["canonical_url"])
         recovery, _ = dated_distribution_recovery_acceptance(self.store, run_id=run_id, reference=review_reference)
         if recovery.get("recipients", {}).get("linkedin_company") != "linkedin:company:143198922":
             raise ValueError("LINKEDIN_COMPANY_EXPLICIT_SAME_REVIEW_REQUIRED")
@@ -3660,6 +3743,14 @@ class CanonicalDestinationTransportRuntimeV1:
         if destination == "facebook_page":
             from live_contentops.facebook_page_adapter_v6 import execute_facebook_edit
             return execute_facebook_edit(post_id=public_object_id, message=intent["native_payload"]["text"], dry_run=False)
+        if destination == "discord":
+            from live_contentops.discord_live_adapter_v6 import execute_discord_edit
+            chosen = intent["native_payload"].get("media_asset_ids", [])
+            asset = next((a for a in intent.get("media_assets", []) if a["asset_id"] in chosen), None)
+            if not asset:
+                raise ValueError("REVIEWED_DISCORD_IMAGE_REQUIRED")
+            return execute_discord_edit(public_object_id, intent["native_payload"]["text"],
+                image_path=asset["path"], embeds=[], dry_run=False)
         return self._neo_transport.amend_existing(destination=destination, intent=intent,
             public_object_id=public_object_id, public_object_url=public_object_url,
             authorization_context=authorization_context)
@@ -3730,7 +3821,7 @@ class CanonicalDestinationTransportRuntimeV1:
     def publish(self, *, destination: str, intent: Mapping[str, Any],
                 authorization_context: Mapping[str, Any]) -> Mapping[str, Any]:
         if destination in {"substack", "x", "youtube", "linkedin_company"} or (destination == "linkedin"
-                and intent.get("dated_distribution_recovery")
+                and (intent.get("dated_distribution_recovery") or intent.get("reader_presentation_review"))
                 and intent.get("destination_plan", {}).get("transport_type") == "BROWSEROS_NEO_MCP"):
             return self._neo_transport.publish(destination=destination, intent=intent,
                                                 authorization_context=authorization_context)
@@ -3804,7 +3895,13 @@ class CanonicalDestinationTransportRuntimeV1:
 
     def readback(self, *, destination: str, public_object_id: Optional[str],
                  public_object_url: Optional[str], intent: Mapping[str, Any]) -> Mapping[str, Any]:
-        if intent.get("reader_presentation_review") and destination != "facebook_page":
+        if intent.get("reader_presentation_review") and destination == "discord":
+            from live_contentops.discord_live_adapter_v6 import readback_discord_post
+            chosen = intent["native_payload"].get("media_asset_ids", [])
+            asset = next((a for a in intent.get("media_assets", []) if a["asset_id"] in chosen), {})
+            return readback_discord_post(message_id=public_object_id, expected_text=intent["native_payload"]["text"],
+                canonical_url=intent["canonical_url"], expected_image_sha256=asset.get("sha256"))
+        if intent.get("reader_presentation_review") and destination not in {"facebook_page", "telegram"}:
             return self._neo_transport.readback(destination=destination, intent=intent,
                 public_object_id=public_object_id, public_object_url=public_object_url)
         if destination in {"substack", "x", "youtube", "linkedin_company"} or (destination == "linkedin"

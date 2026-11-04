@@ -44,7 +44,16 @@ def uses_short_path(store, *, run_id, result):
         return False
     adopted = store.get_outbox_message("native-approved-text-speed-" + sha256_of(run_id))
     if adopted:
-        return _approved_text_speed_basis(store, run_id=run_id, result=result) == json.loads(adopted["payload"])
+        basis = json.loads(adopted["payload"])
+        if (text_revision(result) != basis["text_revision_sha256"]
+                or sha256_of(result["evidence"]) != basis["source_sha256"]):
+            raise ValueError("APPROVED_TEXT_SOURCE_OR_COPY_CHANGED")
+        # A reviewed media replacement keeps the first text approval. Validate
+        # that approval against its original article, not new media metadata.
+        from live_contentops.native_desktop_editorial_v1 import native_artifact_key
+        original = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
+        return bool(original and _approved_text_speed_basis(store, run_id=run_id,
+            result=json.loads(original["payload"])) == basis)
     turn = NativeDesktopTurn(store, run_id=run_id, output_dir=binding["output_dir"], owner_manual_validation=True)
     request = turn.frozen_request("write") or {}
     policy = request.get("governed_input", {}).get("publication_speed_policy")

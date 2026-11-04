@@ -160,11 +160,13 @@ def media_repair_view(store, *, run_id, result, revision):
         replaced[old["asset_id"]] = asset["asset_id"]
     if set(replaced) != set(originals) or len(assets) != len(originals):
         raise ValueError("MEDIA_REPAIR_EXACT_EXISTING_ASSET_SET_REQUIRED")
-    decision = deepcopy(base["visual_editorial_decision"])
-    for chart in decision.get("charts", []):
-        chart["asset_id"] = replaced[chart["asset_id"]]
-    decision["channel_media"] = deepcopy(revision["channel_media"])
-    article = {**base["article"], "visual_editorial_decision": decision}
+    decision = deepcopy(base.get("visual_editorial_decision") or base["article"].get("visual_editorial_decision"))
+    article = deepcopy(base["article"])
+    if decision:
+        for chart in decision.get("charts", []):
+            chart["asset_id"] = replaced[chart["asset_id"]]
+        decision["channel_media"] = deepcopy(revision["channel_media"])
+        article["visual_editorial_decision"] = decision
     if revision.get("article") != article:
         raise ValueError("MEDIA_REPAIR_UNCHANGED_ARTICLE_REQUIRED")
     canonical_intent = json.loads(store.get_outbox_message(canonical_id["message_id"])["payload"])

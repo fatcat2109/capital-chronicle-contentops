@@ -55,3 +55,26 @@ def test_media_repair_rejects_fact_rights_copy_or_identity_drift(repair, fault):
     else: bad["owner_authority_ref"] = "human:OTHER"
     with pytest.raises(ValueError, match="MEDIA_REPAIR_"):
         reader_presentation_revision_view(store, run_id=run, result=result, revision=bad)
+
+
+def test_company_copy_uses_same_reviewed_media_and_pinned_identity(repair, monkeypatch):
+    import json
+    store, run, result, revision = repair
+    view = reader_presentation_revision_view(store, run_id=run, result=result, revision=revision)
+    monkeypatch.setattr("live_contentops.native_desktop_editorial_v1.reader_presentation_acceptance",
+        lambda *a, **kw: (revision, view, {}))
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    co = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    monkeypatch.setattr(co, "_confirmed_canonical_url_for_work_item", lambda *a, **kw: revision["objects"]["substack"]["public_object_url"])
+    seen = []
+    def send(message, **kwargs):
+        intent = json.loads(co._effective_message(message)["payload"])
+        registration = co._intent_registration("linkedin_company", intent)
+        seen.append((intent, registration))
+        return {"publish_called": True}
+    monkeypatch.setattr(co, "_dispatch_message", send)
+    co.publish_reviewed_linkedin_company_copy(run_id=run, review_reference={"request_sha256": "a" * 64})
+    intent, registration = seen[0]
+    assert registration.expected_identity == "linkedin:company:143198922"
+    assert intent["native_payload"] == revision["payloads"]["linkedin"]
+    assert intent["media_assets"] == view["media_assets"]

@@ -112,6 +112,9 @@ def test_current_policy_adopts_unchanged_legacy_text_without_rewriting_native_hi
         return
     basis = adopt_approved_text_speed_policy(store, run_id=run)
     assert uses_short_path(store, run_id=run, result=result)
+    media_only = copy.deepcopy(result)
+    media_only["article"]["native_destination_media"] = {"x": ["replacement-reviewed-card"]}
+    assert uses_short_path(store, run_id=run, result=media_only)
     kept = record_native_article_review(store, run_id=run, article_identity=result["article_identity"],
         decision="KEEP", expected_review_id=review["review_id"],
         rationale="Current policy applies to the exact unchanged source-bound native article.")

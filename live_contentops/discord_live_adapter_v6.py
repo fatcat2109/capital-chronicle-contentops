@@ -328,6 +328,7 @@ def execute_discord_edit(
     webhook_url: str | None = None,
     dry_run: bool = False,
     embeds: list[dict[str, Any]] | None = None,
+    image_path: str | None = None,
 ) -> dict[str, Any]:
     """Edits a previously published Discord webhook message via PATCH."""
     target_webhook = webhook_url or _get_default_webhook_url()
@@ -362,9 +363,31 @@ def execute_discord_edit(
     payload = {"content": new_message}
     if embeds is not None:
         payload["embeds"] = embeds
+    content_type = "application/json"
     data = json.dumps(payload).encode("utf-8")
+    if image_path:
+        from PIL import Image
+        path = Path(image_path)
+        try:
+            with Image.open(path) as image:
+                image.verify()
+                image_format = image.format
+            mime, extension = {"PNG": ("image/png", "png"), "JPEG": ("image/jpeg", "jpg")}[image_format]
+            image_bytes = path.read_bytes()
+        except (OSError, ValueError, KeyError):
+            return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                "reason_code": "DISCORD_IMAGE_FILE_INVALID", "platform": "discord"}
+        filename = "article-image." + extension
+        payload["attachments"] = [{"id": 0, "filename": filename}]
+        boundary = "cc-discord-" + uuid.uuid4().hex
+        data = (f'--{boundary}\r\nContent-Disposition: form-data; name="payload_json"\r\n'
+            'Content-Type: application/json\r\n\r\n').encode() + json.dumps(payload).encode()
+        data += (f'\r\n--{boundary}\r\nContent-Disposition: form-data; name="files[0]"; '
+            f'filename="{filename}"\r\nContent-Type: {mime}\r\n\r\n').encode()
+        data += image_bytes + f"\r\n--{boundary}--\r\n".encode()
+        content_type = "multipart/form-data; boundary=" + boundary
     req = urllib.request.Request(edit_url, data=data, method="PATCH")
-    req.add_header("Content-Type", "application/json")
+    req.add_header("Content-Type", content_type)
     req.add_header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36")
 
     try:

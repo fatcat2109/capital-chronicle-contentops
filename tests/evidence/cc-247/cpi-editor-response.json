@@ -1,0 +1,85 @@
+{
+  "schema_version": "contentops.native_media_editor_response.v1",
+  "task": "CC-247 CPI media-only repair",
+  "run_id": "cc124-prepare-20261103-a",
+  "request_sha256": "813b02d9188a8f4dee363b5395c069da7c983707b31f03fe37943b0ba3aab713",
+  "decision": "ACCEPT",
+  "rationale": "Accept the approved cpi-annual-history-r3 chart for the exact requested eight-destination media map. The inspected 1440x1040 PNG is legible, has no clipped labels or overlapping content, clearly distinguishes headline from core, and preserves the October 2025 gap. Its 46 nonmissing points exactly match the retained dated-release observations and source hashes; all release clocks are at or before the retained October 14, 2026 cutoff. The 24-month window, twelve-month percent unit, NSA basis, first-reading source caption and September endpoints are consistent with the retained article. This is a media-only amendment: all article prose, numerical statements and social claims are preserved. The map supports the scoped Discord, Facebook, Instagram, LinkedIn and Threads repairs; it does not call for replacing the existing canonical, X, YouTube or Telegram public objects. The prior canonical/source/chart acceptance remains retained. One editor check and the successful automated image loading check satisfy this decision-53 review.",
+  "revised_article_markdown": "# September CPI: why 0.6% and 3.7% answer different questions\n\nSeptember 2026's headline CPI rose 0.6% over one month and 3.7% over twelve months, according to the [U.S. Bureau of Labor Statistics release of October 14, 2026](https://www.bls.gov/news.release/archives/cpi_10142026.htm). The monthly figure is seasonally adjusted; the annual figure is not. They describe different horizons. This retrospective puts that release alongside the earlier readings and its component breakdown.\n\n## What the annual history shows\n\nThe dated BLS releases show different paths over the 24-month window. Headline annual inflation was 2.6% in October 2024 and 3.7% in September 2026. Core was 3.3% and 2.6%, respectively. Headline reached 4.2% in May 2026 before the September reading; the path was uneven.\n\nCore excludes food and energy. Its lower annual reading describes that narrower basket. It does not establish how long the pressure in the full basket would last.\n\n## The monthly pace\n\nIn the October 14 release, September's monthly headline increase was 0.6%, following 0.4% in August. Core rose 0.3% in both months. At the published precision, the latest monthly pace increased in headline CPI while core's pace held steady.\n\nThe history charts preserve each month's first reading in its dated BLS release. The monthly chart therefore follows successive release vintages, rather than today's revised seasonally adjusted history. Its breaks preserve the months without published one-month readings.\n\n## What contributed to September's increase\n\nBLS Table 6 supplies the component effects that the headline-core gap alone cannot identify. Energy contributed 0.377 percentage points to the all-items monthly change, core contributed 0.265 points and food contributed 0.006 points. Energy was the largest of these broad contributions, while core also added to the increase.\n\nA component's inflation rate describes how fast prices changed within that basket. Its percentage-point effect describes how much it added to the all-items change. Keeping those measures separate makes the composition of September's increase clearer.\n\n## What the release leaves open\n\nThe component effects explain September's composition; persistence requires evidence beyond one month's breakdown. A surprise claim requires a dated expectation, and a market-reaction claim requires contemporaneous prices. The CPI figures alone establish neither.\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+  "channel_media": {
+    "telegram": [
+      "cpi-annual-history-r3"
+    ],
+    "discord": [
+      "cpi-annual-history-r3"
+    ],
+    "x": [
+      "cpi-annual-history-r3"
+    ],
+    "linkedin": [
+      "cpi-annual-history-r3"
+    ],
+    "facebook_page": [
+      "cpi-annual-history-r3"
+    ],
+    "instagram_business": [
+      "cpi-annual-history-r3"
+    ],
+    "threads": [
+      "cpi-annual-history-r3"
+    ],
+    "youtube": [
+      "cpi-annual-history-r3"
+    ]
+  },
+  "article_prose_changed": false,
+  "social_claims_changed": false,
+  "asset_findings": [
+    {
+      "asset_id": "cpi-annual-history-r3",
+      "asset_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-142\\render-r3\\media_assets\\cpi-annual-history-r3.png",
+      "asset_sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+      "width": 1440,
+      "height": 1040,
+      "pixels_inspected": true,
+      "inspection_surface": "Exact local PNG inspected with tools.view_image at original resolution; no browser action or native desktop screenshot.",
+      "automated_image_load": "PASS: PIL decoded and loaded the complete 1440x1040 PNG; the actual file hash and dimensions match the approved asset record.",
+      "decision": "PASS",
+      "repair_required": false,
+      "clipping_detected": false,
+      "labels_and_units_legible": true,
+      "source_rows_match": true,
+      "transform_sha256": "0e9c374158b5fd63371ac159fd521c97ae5107beaec58509753ff11ae6bf1a45",
+      "legibility_findings": [
+        "The full title, subtitle, two-series legend, percent axis, date ticks, endpoint labels and BLS source footer are visible. No clipping, collision or obscured value is present.",
+        "The teal solid headline series and orange dashed core series remain distinguishable by line style and labels. The core legend explicitly states that food and energy are excluded.",
+        "The time window is visibly October 2024 through September 2026. The subtitle specifies CPI-U, U.S. city average, twelve-month percentage change and NSA; the footer specifies first readings and the unpublished October 2025 observation.",
+        "Both lines stop before October 2025 and resume after it, preserving the absent observation without interpolation. The final labels visibly read 3.7% and 2.6%."
+      ],
+      "source_findings": [
+        "Headline and core each span 24 calendar periods with 23 reported values and one null at October 2025. All 46 reported chart values equal the point input value_text and retained first-print observation native_value.",
+        "The chart points match their retained source-content hashes. Headline binds to BLS CUUR0000SA0 and core to CUUR0000SA0L1E, both twelve-month change, not seasonally adjusted.",
+        "The retained dated-release window is October 2024-September 2026, with release cutoff October 14, 2026 at 12:30 UTC. No included release occurs after that cutoff. This preserves event-time data availability without asserting historical possession at the event.",
+        "Headline begins at 2.6%, reaches 4.2% in May 2026 and ends at 3.7%; core begins at 3.3% and ends at 2.6%. These values match the unchanged article. The selected image makes no monthly, component-effect, consensus, market-reaction or policy claim."
+      ],
+      "rights_findings": [
+        "The approved asset is an independent chart of attributed BLS factual data, with underlying_source_rights_status attributed_facts_independent_chart and no reused source expression.",
+        "Retained source records carry BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION. The chart visibly attributes BLS dated CPI releases; supplied metadata preserves the exact dated official source links and first-print lineage.",
+        "The selected PNG contains no photograph, third-party illustration, agency seal or proprietary chart. This review retains the approved source/reuse basis and makes no additional licence claim."
+      ],
+      "limits": [
+        "This review inspects the selected standalone PNG and requested channel map. It makes no new public readback claim and does not require a new destination screenshot cycle under decision 53.",
+        "The other approved canonical assets and existing Substack, X, YouTube and Telegram public objects remain outside this amendment. Their retained approvals are not replaced or relabelled."
+      ]
+    }
+  ],
+  "native_invocation_id": "/root/media_editor",
+  "invocation_identity_evidence": "The native task identity /root/media_editor is observed in collaboration.list_agents. No separate opaque invocation token is exposed to this role.",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "model_effort_evidence_status": "CONFIGURED_NOT_OBSERVED",
+  "model_effort_basis": "Assigned ContentOps C4 MAX editorial role; explicit parent spawn configuration. Supported runtime telemetry for actual model and effort is unavailable in this child context.",
+  "actual_model": null,
+  "actual_effort": null,
+  "reviewed_at_utc": "2026-11-04T16:15:10.319663Z"
+}

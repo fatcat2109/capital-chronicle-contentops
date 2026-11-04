@@ -1840,7 +1840,8 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
         if reader_presentation_revision is not None else dated_distribution_destinations(distribution_recovery)
         if distribution_recovery is not None else None)
     from live_contentops.native_publication_latency_v1 import uses_short_path
-    if (distribution_recovery is not None or (reader_presentation_revision or {}).get("policy") == "JIM_CC247_REVIEWED_MEDIA_REPAIR") and uses_short_path(turn.store, run_id=turn.run_id, result=result):
+    media_only_repair = (reader_presentation_revision or {}).get("policy") == "JIM_CC247_REVIEWED_MEDIA_REPAIR"
+    if media_only_repair or (distribution_recovery is not None and uses_short_path(turn.store, run_id=turn.run_id, result=result)):
         binding = _distribution_editor_check_binding(result, scope)
         stage = "final-visual-" + sha256_of(binding)
         governed = {"binding": binding, "article": result["article"], "previews": result["previews"],
@@ -1931,7 +1932,7 @@ def validate_final_visual_return(turn, request, response):
         else dated_distribution_destinations(recovery) if recovery is not None else None)
     from live_contentops.native_publication_latency_v1 import SPEED_POLICY, uses_short_path
     if (recovery is not None or (revision or {}).get("policy") == "JIM_CC247_REVIEWED_MEDIA_REPAIR") and binding.get("review_policy") == SPEED_POLICY:
-        if (not uses_short_path(turn.store, run_id=turn.run_id, result=result)
+        if (((revision or {}).get("policy") != "JIM_CC247_REVIEWED_MEDIA_REPAIR" and not uses_short_path(turn.store, run_id=turn.run_id, result=result))
                 or _distribution_editor_check_binding(result, scope) != binding):
             raise ValueError("DISTRIBUTION_EDITOR_CHECK_COPY_OR_MEDIA_CHANGED")
         if (output.get("decision") not in {"ACCEPT", "REPAIR_REQUIRED"}

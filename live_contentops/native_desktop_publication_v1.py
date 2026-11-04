@@ -719,9 +719,14 @@ class NativeReviewedPublication:
         self.validate()
         self._authorize_and_bind()
         try:
-            result = self.coordinator.continue_reader_derivative(
-                work_item_id=self.binding["run_id"], destination=response["destination"],
-                review_reference=response["review_reference"])
+            if response["destination"] == "substack":
+                plan, _ = self.validate()
+                dispatch = self.coordinator._ids(self.binding["run_id"], plan["plan_hash"], "substack")["dispatch_id"]
+                result = self.coordinator.amend_reader_presentation(dispatch, review_reference=response["review_reference"])
+            else:
+                result = self.coordinator.continue_reader_derivative(
+                    work_item_id=self.binding["run_id"], destination=response["destination"],
+                    review_reference=response["review_reference"])
         except NativeNeoInputRequired as pending:
             result = {"state": "PENDING_NATIVE", "native_tool_request": pending.request}
         return {"classification": "NATIVE_READER_DERIVATIVE_CONTINUATION", "coordinator_result": result,

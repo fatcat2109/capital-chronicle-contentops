@@ -1,0 +1,42 @@
+[
+  {
+    "dispatch_id": "dispatch_d01bbafa38b1b14dba9ee60b7ef9f93b",
+    "status": "ALREADY_RECORDED"
+  },
+  {
+    "dispatch_id": "dispatch_56e1e68f8f3bbf42a84bd2490826da2c",
+    "public_object_id": "18175737499394152",
+    "public_object_url": "https://www.instagram.com/p/DfUm_VegXht/",
+    "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+    "readback_id": "owner-removal-f73ec38102708e2c77463a723579876c137e5e95dec78cca1fb899d5bd43158c",
+    "retry_permitted": false,
+    "provider_calls": 0
+  },
+  {
+    "dispatch_id": "dispatch_9c4df1abf9421b1e987136fbad3b160a",
+    "public_object_id": "106091951705748_1444133184571764",
+    "public_object_url": "https://www.facebook.com/1342369584748125/posts/1444133184571764",
+    "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+    "readback_id": "owner-removal-aa34c577fdae02601d5286589d3627eb83df193090954b1cde52d2021262a287",
+    "retry_permitted": false,
+    "provider_calls": 0
+  },
+  {
+    "dispatch_id": "dispatch_6f08856c1f557ccba894a0c58e6e633d",
+    "public_object_id": "75",
+    "public_object_url": "https://t.me/CapitalChronicle/75",
+    "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+    "readback_id": "owner-removal-f825be6c5a72a1721e40865fb04b9fbd2af15c7852595eb480b7bef0723fb940",
+    "retry_permitted": false,
+    "provider_calls": 0
+  },
+  {
+    "dispatch_id": "dispatch_e2266182add291a84aa8feb637643c3a",
+    "public_object_id": "UgkxpL7C_qPEDgq4_M3esrHD9Hpfseas5Fu_",
+    "public_object_url": "https://www.youtube.com/post/UgkxpL7C_qPEDgq4_M3esrHD9Hpfseas5Fu_",
+    "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+    "readback_id": "owner-removal-caaac11f57160239d9dfc7edd926914651396be7d8dbdf2064e5e78a308436a7",
+    "retry_permitted": false,
+    "provider_calls": 0
+  }
+]
