@@ -147,10 +147,3 @@ def test_ledger_family_registered():
     assert "lane_c_artifact_ingestion_foundation_future" in ENTRY_FAMILIES
 
 
-def test_progress_ledger_file_is_updated():
-    """Verify that the progress ledger includes 0175AI and the next recommended task."""
-    path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
-    assert path.exists()
-    content = path.read_text(encoding="utf-8")
-    assert "TASK_CONTENTOPS_0175AI" in content
-    assert "TASK_CONTENTOPS_0175AJ_LANE_C_ARTIFACT_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0" in content

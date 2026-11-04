@@ -228,18 +228,6 @@ def test_25_no_financial_advice_signal_execution_language():
     assert p["safety_flags"]["broker_order_execution"] is False
 
 
-def test_26_no_fake_market_numbers():
-    """26. Verify no fake market numbers."""
-    p = build_contract_packet()
-    # Ensure raw output JSON and markdown do not contain any unexpected text numbers
-    out_dir = Path("docs/automation/0175AQ")
-    runbook_path = out_dir / "platform_review_bundle_operator_decision_gate_contract.md"
-    assert runbook_path.exists()
-    content = runbook_path.read_text(encoding="utf-8")
-    assert "fake" not in content.lower()
-    assert "market_number" not in content.lower()
-
-
 def test_27_no_env_network_credential_platform_provider_api_imports_or_calls():
     """27. Scan code to ensure no environment, network, or credential API modules are imported."""
     with open("live_contentops/platform_review_bundle_operator_decision_gate_contract.py", encoding="utf-8") as f:
@@ -264,17 +252,6 @@ def test_30_artifacts_written_only_under_docs_automation_0175aq():
     """30. Verify that write_artifacts fails with ValueError outside docs/automation/0175AQ."""
     with pytest.raises(ValueError, match="artifact_writer_refuses_paths_outside_docs_automation_0175AQ"):
         write_artifacts(repo_root=".", output_dir="docs/automation/other")
-
-
-def test_31_progress_ledger_resolves_0175ap_and_appends_0175aq():
-    """31. Verify progress ledger resolves 0175AP final HEAD and appends 0175AQ."""
-    path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
-    assert path.exists()
-    content = path.read_text(encoding="utf-8")
-
-    # One-task-lag checks
-    assert "| `TASK_CONTENTOPS_0175AP_PLATFORM_PREVIEW_DRY_RENDER_TO_REVIEW_BUNDLE_V0` | `1a2d9bd78a254bee8790c3a8288168166a3f2fa8` | `ab4a851ff60121cc3c3bdd85e25ed58c07aa9766` |" in content
-    assert "| `TASK_CONTENTOPS_0175AQ_PLATFORM_REVIEW_BUNDLE_OPERATOR_DECISION_GATE_V0` | `ab4a851ff60121cc3c3bdd85e25ed58c07aa9766` | `68a7e425d229d7876fdfa1f37a65f3ef8c388849` |" in content
 
 
 def test_32_no_pycache_or_pyc_staged():

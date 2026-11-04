@@ -55,8 +55,8 @@ def test_meta_prefers_supervised_browser_cdp_adapter():
     assert res["cdp_allowed_supervised_only"] is True
 
 
-def test_reconciled_packet_contains_no_sensitive_values():
-    out_dir = Path("docs/automation/V6_PLATFORM_ADAPTER_POLICY_MATRIX_RECONCILIATION")
+def test_reconciled_packet_contains_no_sensitive_values(tmp_path):
+    out_dir = tmp_path / "V6_PLATFORM_ADAPTER_POLICY_MATRIX_RECONCILIATION"
     recon.main(["--output-dir", str(out_dir)])
     
     packet_file = out_dir / "adapter_policy_matrix_reconciliation_packet.json"

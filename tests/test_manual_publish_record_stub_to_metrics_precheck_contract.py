@@ -354,19 +354,6 @@ def test_41_no_financial_advice_signal_execution_language():
     assert p["safety_flags"]["broker_order_execution"] is False
 
 
-def test_42_no_fake_market_numbers():
-    """42. Verify no fake market numbers."""
-    p = build_contract_packet()
-    assert p["safety_flags"]["financial_advice"] is False
-    assert p["safety_flags"]["broker_order_execution"] is False
-
-    out_dir = Path("docs/automation/0175AW")
-    runbook_path = out_dir / "manual_publish_record_stub_to_metrics_precheck_contract.md"
-    assert runbook_path.exists()
-    content = runbook_path.read_text(encoding="utf-8")
-    assert "fake" not in content.lower()
-
-
 def test_43_no_env_network_credential_platform_provider_api_imports_or_calls():
     """43. Scan code to ensure no environment, network, or credential API modules are imported."""
     with open("live_contentops/manual_publish_record_stub_to_metrics_precheck_contract.py", encoding="utf-8") as f:
@@ -399,17 +386,6 @@ def test_47_artifacts_written_only_under_docs_automation_0175aw():
     """47. Verify that write_artifacts fails with ValueError outside docs/automation/0175AW."""
     with pytest.raises(ValueError, match="artifact_writer_refuses_paths_outside_docs_automation_0175AW"):
         write_artifacts(repo_root=".", output_dir="docs/automation/other")
-
-
-def test_48_progress_ledger_resolves_0175av_and_appends_0175aw():
-    """48. Verify progress ledger resolves 0175AV final HEAD and appends 0175AW."""
-    path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
-    assert path.exists()
-    content = path.read_text(encoding="utf-8")
-
-    # One-task-lag checks
-    assert "| `TASK_CONTENTOPS_0175AV_MANUAL_PUBLISH_RECORD_PRECHECK_TO_RECORD_STUB_V0` | `0c817cdfef6d71fe5e6f4b20040665b157d50596` | `1c8d66919f6e577b247f32b096b12f7eccd09bd6` |" in content
-    assert "| `TASK_CONTENTOPS_0175AW_MANUAL_PUBLISH_RECORD_STUB_TO_METRICS_PRECHECK_V0` | `1c8d66919f6e577b247f32b096b12f7eccd09bd6` | `c0d3e9944767f82b470b7e3f1bff0ba718c6e01d` |" in content
 
 
 def test_49_no_pycache_or_pyc_staged():

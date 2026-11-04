@@ -64,9 +64,9 @@ def test_browser_cdp_checkpoints_and_prohibitions():
     assert "token_extraction" in rules["prohibited_actions"]
 
 
-def test_packet_flags_are_secure():
-    # Make a dummy generation run to verify packet settings
-    out_dir = Path("docs/automation/V6_PLATFORM_ADAPTER_SELECTION_POLICY")
+def test_packet_flags_are_secure(tmp_path):
+    # Make a dummy generation run to verify packet settings (CC-268: into tmp, never the tracked docs)
+    out_dir = tmp_path / "V6_PLATFORM_ADAPTER_SELECTION_POLICY"
     policy.main(["--output-dir", str(out_dir)])
     
     packet_file = out_dir / "platform_adapter_selection_policy_packet.json"

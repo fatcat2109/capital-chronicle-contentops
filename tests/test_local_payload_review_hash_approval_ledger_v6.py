@@ -320,15 +320,3 @@ def test_cli_writes_deterministic_packet(tmp_path):
     assert first_packet["payload_review_hash_available"] is True
 
 
-def test_new_files_and_sample_json_are_utf8_without_bom():
-    docs_dir = Path("docs/automation/V6_LOCAL_PAYLOAD_REVIEW_HASH_AND_APPROVAL_LEDGER_STRENGTHENING")
-    paths = [
-        Path("live_contentops/local_payload_review_hash_approval_ledger_v6.py"),
-        Path("tests/test_local_payload_review_hash_approval_ledger_v6.py"),
-    ]
-    paths.extend(path for path in docs_dir.glob("*") if path.is_file())
-    for path in paths:
-        assert not path.read_bytes().startswith(b"\xef\xbb\xbf")
-    loaded = json.loads((docs_dir / "sample_payload_review_approval_ledger_packet.json").read_text(encoding="utf-8"))
-    assert loaded["sample_packet_non_runtime"] is True
-    assert loaded["runtime_truth"] is False

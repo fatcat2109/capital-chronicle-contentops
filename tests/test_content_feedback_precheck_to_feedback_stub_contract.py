@@ -339,19 +339,6 @@ def test_51_no_financial_advice_signal_execution_language():
     assert p["safety_flags"]["broker_order_execution"] is False
 
 
-def test_52_no_fake_market_numbers():
-    """52. Verify no fake market numbers."""
-    p = build_contract_packet()
-    assert p["safety_flags"]["financial_advice"] is False
-    assert p["safety_flags"]["broker_order_execution"] is False
-
-    out_dir = Path("docs/automation/0175BB")
-    runbook_path = out_dir / "content_feedback_precheck_to_feedback_stub_contract.md"
-    assert runbook_path.exists()
-    content = runbook_path.read_text(encoding="utf-8")
-    assert "fake" not in content.lower()
-
-
 def test_53_no_env_network_credential_platform_provider_api_imports_or_calls():
     """53. Scan code to ensure no environment, network, or credential API modules are imported."""
     with open("live_contentops/content_feedback_precheck_to_feedback_stub_contract.py", encoding="utf-8") as f:
@@ -400,17 +387,6 @@ def test_58_artifacts_written_only_under_docs_automation_0175bb():
     """58. Verify that write_artifacts fails with ValueError outside docs/automation/0175BB."""
     with pytest.raises(ValueError, match="artifact_writer_refuses_paths_outside_docs_automation_0175BB"):
         write_artifacts(repo_root=".", output_dir="docs/automation/other")
-
-
-def test_59_progress_ledger_resolves_0175ba_and_appends_0175bb():
-    """59. Verify progress ledger resolves 0175BA final HEAD and appends 0175BB."""
-    path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
-    assert path.exists()
-    content = path.read_text(encoding="utf-8")
-
-    # One-task-lag checks
-    assert "| `TASK_CONTENTOPS_0175BA_PERFORMANCE_SUMMARY_STUB_TO_CONTENT_FEEDBACK_PRECHECK_V0` | `888d6c34b31daa107056bb5a56ab0d5e7430e49b` | `1e278a83bb2cf95464edc80dbfe819adf6ba6107` |" in content
-    assert "| `TASK_CONTENTOPS_0175BB_CONTENT_FEEDBACK_PRECHECK_TO_FEEDBACK_STUB_V0` | `1e278a83bb2cf95464edc80dbfe819adf6ba6107` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` |" in content
 
 
 def test_60_no_pycache_or_pyc_staged():

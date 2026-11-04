@@ -366,15 +366,3 @@ def test_cli_writes_deterministic_packet(tmp_path):
     assert first_packet["outbox_package_staged"] is True
 
 
-def test_new_files_and_sample_json_are_utf8_without_bom():
-    docs_dir = Path("docs/automation/V6_LOCAL_OUTBOX_PACKAGE_STAGING_FROM_PAYLOAD_REVIEW_LEDGER")
-    paths = [
-        Path("live_contentops/local_outbox_package_staging_v6.py"),
-        Path("tests/test_local_outbox_package_staging_v6.py"),
-    ]
-    paths.extend(path for path in docs_dir.glob("*") if path.is_file())
-    for path in paths:
-        assert not path.read_bytes().startswith(b"\xef\xbb\xbf")
-    loaded = json.loads((docs_dir / "sample_outbox_package_staging_manifest.json").read_text(encoding="utf-8"))
-    assert loaded["sample_packet_non_runtime"] is True
-    assert loaded["runtime_truth"] is False

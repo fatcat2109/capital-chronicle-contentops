@@ -3,8 +3,8 @@ from pathlib import Path
 from live_contentops import operator_evidence_intake_studio_v6 as studio
 
 
-def test_committed_packet_is_blocked():
-    out_dir = Path("docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO")
+def test_committed_packet_is_blocked(tmp_path):
+    out_dir = tmp_path / "V6_OPERATOR_EVIDENCE_INTAKE_STUDIO"
     studio.main(["--output-dir", str(out_dir)])
     
     packet_file = out_dir / "operator_evidence_intake_studio_packet.json"
@@ -22,8 +22,8 @@ def test_committed_packet_is_blocked():
     assert data["next_recommended_task"] == "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
 
 
-def test_all_10_slots_exist_in_artifacts():
-    out_dir = Path("docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO")
+def test_all_10_slots_exist_in_artifacts(tmp_path):
+    out_dir = tmp_path / "V6_OPERATOR_EVIDENCE_INTAKE_STUDIO"
     studio.main(["--output-dir", str(out_dir)])
     
     # 1. Authoring template
@@ -59,8 +59,8 @@ def test_guidance_forbids_prohibited_patterns():
     assert "webhooks" in redactions
 
 
-def test_no_sensitive_values_leak_in_output():
-    out_dir = Path("docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO")
+def test_no_sensitive_values_leak_in_output(tmp_path):
+    out_dir = tmp_path / "V6_OPERATOR_EVIDENCE_INTAKE_STUDIO"
     studio.main(["--output-dir", str(out_dir)])
     
     files = [

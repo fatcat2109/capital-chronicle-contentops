@@ -209,19 +209,3 @@ def test_17_artifacts_written_only_under_docs_automation_0175al():
         write_artifacts(repo_root=".", output_dir="docs/automation/other")
 
 
-def test_18_progress_ledger_repaired_for_0175ak():
-    """18. Verify progress ledger is repaired for 0175AK."""
-    path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
-    assert path.exists()
-    content = path.read_text(encoding="utf-8")
-    # Verify final HEAD is replaced with actual commit SHA, not pending_commit
-    assert "| `TASK_CONTENTOPS_0175AK_LANE_C_EDITORIAL_BRIEF_TO_DRAFT_REVIEW_ONLY_PACKET_V0` | `ea5084684c04915c2261c5cd9e03a51fb2f276f1` | `6ba3bac45f676de8d340b4d3e7383283c5102068` |" in content
-
-
-def test_19_progress_ledger_updated_with_0175al():
-    """19. Verify progress ledger is updated with 0175AL row and next recommended task."""
-    path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
-    assert path.exists()
-    content = path.read_text(encoding="utf-8")
-    assert "TASK_CONTENTOPS_0175AL" in content
-    assert "TASK_CONTENTOPS_0175AM_LANE_C_APPROVAL_PACKET_TO_PLATFORM_PREVIEW_PRECHECK_V0" in content

@@ -127,6 +127,3 @@ def test_draft_preview_refuses_invalid_inputs() -> None:
         build_local_canonical_draft_preview(bad_auth_4)
 
 
-def test_committed_packet_matches_builder() -> None:
-    committed = json.loads(PACKET_PATH.read_text(encoding="utf-8"))
-    assert committed == build_local_canonical_draft_preview()

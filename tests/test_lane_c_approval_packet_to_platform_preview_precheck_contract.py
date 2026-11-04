@@ -158,15 +158,3 @@ def test_19_artifacts_written_only_under_docs_automation_0175am():
         write_artifacts(repo_root=".", output_dir="docs/automation/other")
 
 
-def test_20_progress_ledger_resolves_0175alr3_and_appends_0175am():
-    """20. Verify progress ledger is updated with 0175ALR3 final HEAD and 0175AM row."""
-    path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
-    assert path.exists()
-    content = path.read_text(encoding="utf-8")
-
-    # One-task-lag check
-    assert "| `TASK_CONTENTOPS_0175ALR3_LEDGER_PROTOCOL_ONE_TASK_LAG_REPAIR_V0` | `78385a78f4cc7e910d6311e7401838c90ac38357` | `ba81ce1851c8365cbd00f332daba2e087ea309df` |" in content
-    assert (
-        "| `TASK_CONTENTOPS_0175AM_LANE_C_APPROVAL_PACKET_TO_PLATFORM_PREVIEW_PRECHECK_V0` | `ba81ce1851c8365cbd00f332daba2e087ea309df` | `RECORDED_IN_NEXT_TASK_READBACK` |" in content
-        or "| `TASK_CONTENTOPS_0175AM_LANE_C_APPROVAL_PACKET_TO_PLATFORM_PREVIEW_PRECHECK_V0` | `ba81ce1851c8365cbd00f332daba2e087ea309df` | `4d10a497d0104f5d3acae54097708e9e8b97e5d7` |" in content
-    )

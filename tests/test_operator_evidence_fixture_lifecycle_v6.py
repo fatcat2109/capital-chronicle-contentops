@@ -3,8 +3,8 @@ from pathlib import Path
 from live_contentops import operator_evidence_fixture_lifecycle_v6 as lifecycle
 
 
-def test_committed_lifecycle_packet_is_blocked():
-    out_dir = Path("docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE")
+def test_committed_lifecycle_packet_is_blocked(tmp_path):
+    out_dir = tmp_path / "V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE"
     lifecycle.main(["--output-dir", str(out_dir)])
     
     packet_file = out_dir / "fixture_lifecycle_packet.json"
@@ -21,8 +21,8 @@ def test_committed_lifecycle_packet_is_blocked():
     assert data["next_recommended_task"] == "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
 
 
-def test_all_lifecycle_stages_exist():
-    out_dir = Path("docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE")
+def test_all_lifecycle_stages_exist(tmp_path):
+    out_dir = tmp_path / "V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE"
     lifecycle.main(["--output-dir", str(out_dir)])
     
     matrix_file = out_dir / "fixture_lifecycle_stage_matrix.json"
@@ -99,8 +99,8 @@ def test_dry_run_with_valid_synthetic_fixture_shows_success(tmp_path):
     assert data["kill_switch_active"] is True
 
 
-def test_no_sensitive_values_in_artifacts():
-    out_dir = Path("docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE")
+def test_no_sensitive_values_in_artifacts(tmp_path):
+    out_dir = tmp_path / "V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE"
     lifecycle.main(["--output-dir", str(out_dir)])
     
     files = [

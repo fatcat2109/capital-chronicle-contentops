@@ -3,8 +3,8 @@ from pathlib import Path
 from live_contentops import operator_evidence_console_v6 as console
 
 
-def test_console_packet_has_secure_flags():
-    out_dir = Path("docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE")
+def test_console_packet_has_secure_flags(tmp_path):
+    out_dir = tmp_path / "V6_OPERATOR_EVIDENCE_CONSOLE"
     console.main(["--output-dir", str(out_dir)])
     
     packet_file = out_dir / "operator_evidence_console_packet.json"
@@ -30,8 +30,8 @@ def test_console_packet_has_secure_flags():
     assert data.get("webhook_url_printed", False) is False
 
 
-def test_console_scaffold_has_all_10_slots():
-    out_dir = Path("docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE")
+def test_console_scaffold_has_all_10_slots(tmp_path):
+    out_dir = tmp_path / "V6_OPERATOR_EVIDENCE_CONSOLE"
     console.main(["--output-dir", str(out_dir)])
     
     blank_file = out_dir / "operator_evidence_fixture.blank.json"

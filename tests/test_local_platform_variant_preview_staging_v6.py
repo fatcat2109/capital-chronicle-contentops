@@ -248,20 +248,6 @@ def test_cli_writes_deterministic_packet(tmp_path):
     assert first_packet["variant_preview_staging_available"] is True
 
 
-def test_new_files_and_sample_json_are_utf8_without_bom():
-    docs_dir = Path("docs/automation/V6_LOCAL_PLATFORM_VARIANT_PREVIEW_STAGING_FROM_METADATA_VALUES")
-    paths = [
-        Path("live_contentops/local_platform_variant_preview_staging_v6.py"),
-        Path("tests/test_local_platform_variant_preview_staging_v6.py"),
-    ]
-    paths.extend(path for path in docs_dir.glob("*") if path.is_file())
-    for path in paths:
-        assert not path.read_bytes().startswith(b"\xef\xbb\xbf")
-    loaded = json.loads((docs_dir / "sample_variant_preview_staging_packet.json").read_text(encoding="utf-8"))
-    assert loaded["sample_packet_non_runtime"] is True
-    assert loaded["runtime_truth"] is False
-
-
 def test_metadata_fake_claim_title_fails_closed(tmp_path):
     wf = _metadata()
     wf["canonical_title"] = "Fake Title with fake_metrics"

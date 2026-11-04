@@ -25,6 +25,13 @@ from live_contentops.server import make_handler
 FIXED_NOW = datetime(2026, 8, 10, 4, 30, 0, tzinfo=timezone.utc)
 
 
+@pytest.fixture(autouse=True)
+def _no_live_intake_lane(monkeypatch):
+    # CC-268: supervisor.tick() must never run the real X capture. Without this, these tests drove
+    # the live ingestion browser (CDP 9222) and appended to the live headline sidecars (5 Nov baseline).
+    monkeypatch.setenv("CONTENTOPS_DAILY_APP_DISABLE_INTAKE_LANE", "1")
+
+
 def _fixed_clock():
     return lambda: FIXED_NOW
 

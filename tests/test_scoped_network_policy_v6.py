@@ -3,8 +3,8 @@ from pathlib import Path
 from live_contentops import scoped_network_policy_v6 as policy
 
 
-def test_scoped_network_policy_action_classes():
-    out_dir = Path("docs/automation/V6_NETWORK_SCOPE_POLICY")
+def test_scoped_network_policy_action_classes(tmp_path):
+    out_dir = tmp_path / "V6_NETWORK_SCOPE_POLICY"
     policy.main(["--output-dir", str(out_dir)])
     
     packet_file = out_dir / "network_scope_policy_packet.json"
@@ -47,8 +47,8 @@ def test_scan_ui_files_detects_violations(tmp_path):
     assert "unauthorized-api.com" in violations[0]
 
 
-def test_no_sensitive_values_in_governance_docs():
-    out_dir = Path("docs/automation/V6_NETWORK_SCOPE_POLICY")
+def test_no_sensitive_values_in_governance_docs(tmp_path):
+    out_dir = tmp_path / "V6_NETWORK_SCOPE_POLICY"
     policy.main(["--output-dir", str(out_dir)])
     
     md_file = out_dir / "scoped_network_policy_v6.md"

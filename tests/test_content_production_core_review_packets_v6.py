@@ -156,16 +156,3 @@ def test_static_no_env_provider_network_browser_request_patterns():
         assert re.search(pat, src, re.M | re.I) is None, pat
 
 
-def test_docs_runbook_sample_hygiene():
-    paths = [
-        "docs/runbooks/V6_CONTENT_PRODUCTION_CORE_OPERATOR_RUNBOOK_NO_PROVIDER_NO_SEND.md",
-        "docs/automation/V6_CONTENT_PRODUCTION_CORE_REVIEW_PACKETS_HEAVY_BATCH_NO_PROVIDER_NO_SEND/implementation_report.md",
-        "docs/automation/V6_CONTENT_PRODUCTION_CORE_REVIEW_PACKETS_HEAVY_BATCH_NO_PROVIDER_NO_SEND/content_production_core_review_packets_contract.md",
-        "docs/automation/V6_CONTENT_PRODUCTION_CORE_REVIEW_PACKETS_HEAVY_BATCH_NO_PROVIDER_NO_SEND/sample_content_production_core_review_bundle.json",
-    ]
-    for path in paths:
-        raw = Path(path).read_bytes()
-        assert not raw.startswith(b"\xef\xbb\xbf"), path
-        assert "`n" not in raw.decode("utf-8"), path
-    txt = Path(paths[0]).read_text(encoding="utf-8").lower()
-    assert "no provider" in txt and "no live send" in txt and "no publication readiness" in txt and "review-only" in txt

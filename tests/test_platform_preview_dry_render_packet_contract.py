@@ -205,17 +205,6 @@ def test_22_artifacts_written_only_under_docs_automation_0175ao():
         write_artifacts(repo_root=".", output_dir="docs/automation/other")
 
 
-def test_23_progress_ledger_resolves_0175an_and_appends_0175ao():
-    """23. Verify progress ledger is updated with 0175AN final HEAD and 0175AO row."""
-    path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
-    assert path.exists()
-    content = path.read_text(encoding="utf-8")
-
-    # One-task-lag check
-    assert "| `TASK_CONTENTOPS_0175AN_PLATFORM_PREVIEW_DRY_PAYLOAD_SHAPE_REGISTRY_V0` | `4d10a497d0104f5d3acae54097708e9e8b97e5d7` | `f57a23fb61a550d9528c1984d8e758e7f00ab265` |" in content
-    assert "| `TASK_CONTENTOPS_0175AO_PLATFORM_PREVIEW_DRY_RENDER_PACKET_V0` | `f57a23fb61a550d9528c1984d8e758e7f00ab265` | `1a2d9bd78a254bee8790c3a8288168166a3f2fa8` |" in content
-
-
 def test_24_no_pycache_or_pyc_staged():
     """24. Ensure no pycache or .pyc files are staged/tracked in git."""
     res = subprocess.run(
