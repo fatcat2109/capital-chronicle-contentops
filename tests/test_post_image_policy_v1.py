@@ -69,3 +69,21 @@ def test_owned_card_is_deterministic_and_retains_only_admitted_headline_facts(tm
     assert card["quantitative_chart"] is False
     assert card["post_card_binding"]["article_body_sha256"] == sha256(result["article"]["substack_body_markdown"].encode()).hexdigest()
     assert card["underlying_source_rights_status"] != "public_domain"
+
+
+def test_current_editor_channel_choices_survive_image_selection(tmp_path):
+    result = packet()
+    first = build_post_image_card(result["article"], output_dir=tmp_path / "first", accepted_evidence_sha256="a" * 64)
+    second = deepcopy(first)
+    second["asset_id"] = "second-current-card"
+    from pathlib import Path
+    second_path = tmp_path / "second.png"
+    second_path.write_bytes(Path(first["path"]).read_bytes())
+    second["path"] = str(second_path)
+    result["media_assets"] = [first, second]
+    result["visual_editorial_decision"] = {
+        "channel_media": {d: [second["asset_id"]] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS},
+        "charts": [],
+    }
+    view = post_image_view(result, output_dir=tmp_path)
+    assert all(ids == [second["asset_id"]] for ids in view["article"]["native_destination_media"].values())

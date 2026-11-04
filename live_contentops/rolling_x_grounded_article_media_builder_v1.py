@@ -1199,11 +1199,11 @@ def post_image_view(result, *, output_dir):
     allowed = {a["asset_id"] for a in usable}
     default = charts[0]["asset_id"]
     from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
-    choices = article.get("native_destination_media") or {}
+    decision = view.get("visual_editorial_decision") or article.get("visual_editorial_decision")
+    choices = article.get("native_destination_media") or (decision or {}).get("channel_media") or {}
     choices = {d: [i for i in choices.get(d, []) if i in allowed] or [default]
                for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
     article["native_destination_media"] = choices
-    decision = view.get("visual_editorial_decision") or article.get("visual_editorial_decision")
     if decision:
         original_charts = {c["asset_id"]: c for c in decision.get("charts", [])}
         decision = {**decision, "charts": [{**original_charts.get(a["asset_id"], {}), "asset_id": a["asset_id"],

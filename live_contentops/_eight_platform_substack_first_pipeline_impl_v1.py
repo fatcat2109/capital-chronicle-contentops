@@ -4051,6 +4051,8 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         for row in media_assets
         if Path(str(row.get("path") or row.get("absolute_local_source_path") or "")).is_file()
     ), "")
+    local_sha256 = next((row.get("sha256") for row in media_assets
+                         if str(row.get("path") or row.get("absolute_local_source_path") or "") == local_media), None)
     delivery_path = output_dir / "delivery_media_manifest_v1.json"
     delivery = _read_json(delivery_path) if delivery_path.is_file() else {}
     delivery_assets = [dict(row) for row in (delivery.get("assets") or []) if isinstance(row, Mapping)]
@@ -4058,7 +4060,7 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         (
             row
             for row in delivery_assets
-            if (not media_assets or row.get("sha256") in {a.get("sha256") for a in media_assets})
+            if (not media_assets or row.get("sha256") == local_sha256)
             and str(row.get("verified_public_delivery_url") or "").startswith("https://")
             and row.get("local_public_hash_continuity") is True
             and str(row.get("sha256") or "")
