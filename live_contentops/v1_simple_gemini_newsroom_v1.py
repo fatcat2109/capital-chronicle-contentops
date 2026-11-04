@@ -143,7 +143,7 @@ _RISKY_TEMPORAL_PATTERNS = (
         re.IGNORECASE,
     ),
 )
-_SOURCE_MARKER_RE = re.compile(r"\[\[SOURCE:(SOURCE_[1-4])\]\]")
+_SOURCE_MARKER_RE = re.compile(r"\[\[SOURCE:(SOURCE_(?:[1-9]|10))\]\]")
 _URL_RE = re.compile(r"https?://", re.IGNORECASE)
 _EXPLICIT_CC_INFERENCE_RE = re.compile(
     r"\bCapital Chronicle(?:'s)?\s+(?:view|analysis|interpretation|inference)\b|"
@@ -1487,7 +1487,10 @@ def _editorial_growth_edge_blockers(
     if mode in {"CAPITAL_CHRONICLE_VIEW", "WHAT_THE_MARKET_IS_MISSING"}:
         if not _EXPLICIT_CC_INFERENCE_RE.search(public_copy):
             blockers.append("house_mode_qualitative_inference_not_explicitly_labeled")
-    if _RESERVED_CC_NUMERIC_AUTHORITY_RE.search(public_copy):
+    reserved = [m for m in _RESERVED_CC_NUMERIC_AUTHORITY_RE.finditer(public_copy)
+        if not re.search(r"\b(?:not|rather than)\s+(?:(?:the )?release result or )?(?:a |the )?$",
+            public_copy[max(0, m.start()-70):m.start()], re.I)]
+    if reserved:
         blockers.append("capital_chronicle_reserved_numeric_authority_unavailable")
     return blockers
 
@@ -1954,6 +1957,7 @@ def _reader_safe_native_article(
         names = {("federal reserve bank of new york", "www.newyorkfed.org"): "New York Fed",
             ("federal reserve board", "www.federalreserve.gov"): "Fed",
             ("u.s. energy information administration", "www.eia.gov"): "EIA",
+            ("u.s. bureau of labor statistics", "www.bls.gov"): "BLS",
             ("yonhap news agency", "en.yna.co.kr"): "Yonhap"}
         short_name = names.get((publisher.casefold(), urlsplit(bound["url"]).hostname)) if bound else None
         if short_name:

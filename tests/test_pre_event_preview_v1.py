@@ -131,6 +131,28 @@ def test_exact_bls_preview_grant_feeds_the_chart_consumer(tmp_path):
         _editorial_data_values(packet, [doc])
 
 
+def test_real_history_source_markers_and_explicit_nonforecast_wording():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _paragraph_marker_blockers, _editorial_growth_edge_blockers
+    assert _paragraph_marker_blockers("Prior components. [[SOURCE:SOURCE_6]]", {"SOURCE_6"}) == []
+    assert _paragraph_marker_blockers("Unknown. [[SOURCE:SOURCE_6]]", {"SOURCE_1"})
+    for text in ["A provider expectation, not a Capital Chronicle forecast.",
+                 "Not the release result or a Capital Chronicle forecast."]:
+        assert _editorial_growth_edge_blockers({"title": text}, article_mode="WEEK_AHEAD_OR_WATCH") == []
+    assert _editorial_growth_edge_blockers({"title": "Capital Chronicle forecasts a 30% probability."}, article_mode="WEEK_AHEAD_OR_WATCH")
+
+
+def test_derivative_bls_attribution_uses_the_exact_bound_publisher_and_host():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
+    state = {"primary_reporting_publisher": "U.S. Bureau of Labor Statistics"}
+    article = {"title": "A release preview", "reader_first_version": "DATA_JOURNALISM_V1",
+        "public_source_bindings": [{"source_id": "SOURCE_1", "publisher": state["primary_reporting_publisher"],
+            "url": "https://www.bls.gov/news.release/empsit.nr0.htm"}]}
+    result = _reader_safe_native_article(article, article_mode="WEEK_AHEAD_OR_WATCH", epistemic_state=state)
+    assert result["native_source_attribution"]["display_name"] == "BLS"
+    article["public_source_bindings"][0]["url"] = "https://unverified.example/source"
+    assert "native_source_attribution" not in _reader_safe_native_article(article, article_mode="WEEK_AHEAD_OR_WATCH", epistemic_state=state)
+
+
 @pytest.mark.parametrize("fault,expected", [
     ("span", "SPAN_CHANGED"), ("rights", "PUBLIC_BLS_TEXT_RIGHTS"),
     ("clock", "SOURCE_CLOCK"), ("no-facts", "NO_CAPTURED_PRIOR_FACTS"),
