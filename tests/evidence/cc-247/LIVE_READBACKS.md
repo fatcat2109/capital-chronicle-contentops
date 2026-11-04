@@ -1,6 +1,6 @@
 # CC-247 live recovery, 4 November 2026
 
-Six public objects were sent through the existing coordinator and confirmed. Each URL below was opened live in BrowserOS Neo in the existing window and CC-247 tab group. No agent deleted a post. Original removal records and new dispatch IDs are preserved in the existing store.
+Six social replacements were sent through the existing coordinator and confirmed. The SEC canonical image was subsequently edited in place and confirmed, and the first CPI member LinkedIn post was published. Each URL below was opened live in BrowserOS Neo in the existing window and CC-247 tab group. No agent deleted a post. Original removal records and new dispatch IDs are preserved in the existing store.
 
 | Piece | Destination | Live object | Approved visual |
 |---|---|---|---|
@@ -10,6 +10,8 @@ Six public objects were sent through the existing coordinator and confirmed. Eac
 | SEC | Threads | https://www.threads.com/@official.capitalchronicle/post/DfU6YDnn1Fy | Reviewed SEC card; coordinator confirmed; live exact post opened |
 | CPI | Instagram | https://www.instagram.com/p/DfU6KQyASlv/ | cpi-annual-history-r3; live image loaded at 1440 x 1040 |
 | CPI | Threads | https://www.threads.com/@official.capitalchronicle/post/DfU6w2jHx39 | cpi-annual-history-r3; live screenshot inspected, including source window and missing October 2025 observation |
+| SEC | Substack | https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission | In-place CC-245 card; original uploaded bytes match 869a7af9a3d8a9ad2f1bd3497ad3c3ec7ad3b9032b588c55076d0dbe3f71b204; PRESENTATION_EDIT_CONFIRMED |
+| CPI | LinkedIn member | https://www.linkedin.com/feed/update/urn:li:activity:7523796524670025729/ | Annual chart, full live pixels inspected; same source window/gap/series. Short link verified to exact canonical; coordinator return submitted for readback |
 
 The existing media owner uploaded the exact selected SEC and CPI originals once each and verified remote bytes. See sec-delivery-media.json and cpi-delivery-media.json. No public-text or source cutoff was refreshed. Text approval clocks were retained; these repairs do not meet the original 15-minute target.
 
@@ -24,10 +26,10 @@ Both original Discord edits were attempted in place, without a new message. The 
 
 ## Retained pending browser work
 
-- SEC Substack object 223408612: EDIT_EXISTING request 89b208d8dc1630d2bfbdcc5e61a0cd91bf8ceccdd16dacca2b84d09545070633 is claimed, without a final tool return. The reader body has not been confirmed updated. Page 350, https://capitalchronicle.substack.com/publish/post/223408612, remains in its editor/Publish modal. No Update now click was completed. Draft media was changed to the verified hosted SEC card, but its rendered image had zero natural dimensions because the site rewrote the Cloudinary URL. Do not publish that draft until corrected and loaded. Original source, copy and old public object remain retained. The initial upload tool targeted the sidebar thumbnail input, not a body image. Page.setInterceptFileChooserDialog returned target_scope_unsupported. Native dialog presence is unverified; Jim was asked to check/close a possible file-picker. No native desktop control was used.
-- CPI LinkedIn member: reviewed first-copy recovery now reaches its exact Neo identity request; no new member post is claimed.
+- SEC Substack object 223408612: completed in place on page 352. File-input click interception plus Neo upload used the article's own media folder. The correct body image loaded, exact caption/alt were retained, and Update now reached the same object's share-center without an email challenge. Its exact readback was accepted. No native dialog opened; the earlier possible-picker note is cleared.
+- CPI LinkedIn member: sent once and read back at the URL above. PUBLISH return reconciled to the exact activity; READBACK return 6548499ae7c7469d4a5a1c931fc2f0452e45d90d19165094a3da5527e02486a6 submitted. Do not resend.
 - CPI LinkedIn company: exact identity request bbe696469f64a9e77ead68a9f5dcebad1d91f5a909adadb0d7dfa719effd48a9 is retained.
-- SEC LinkedIn member: dispatch_73a8a3ab22cc3d3b67e4c8c159ba0e42 remains UNKNOWN_WRITE. Its current exact own-profile readback request is 2aec31ca5859d6373790c4321ddfb98bde10d3fd732b6bb89d19b5922053a5c3. The earlier loaded profile showed the November 4 jobs post followed by October 27 oil, without SEC; that observation was not substituted for the coordinator's exact final readback. No new SEC member send occurred.
+- SEC LinkedIn member: old UNKNOWN_WRITE was reconciled RECONCILED_ABSENT_SAFE_TO_RETRY through the exact coordinator absence request 9bf80877fd6824a324ce4063da784c5dcefefde79bbce80c14c66cd34db76367 and actual own-profile readback. No new SEC member send yet.
 - SEC LinkedIn company: the old unclaimed routine request was superseded. The reviewed new-card PUBLISH request is 182714fa145dfa9be76cd92bbdd9e6c082e4602294cfd18c87a95c2bf3e0d2d5, unclaimed. The old card was never finalized.
 - SEC YouTube: identity request 4d100ddd60ea96f542d8703bd49c9d7e316327ef20ba8f0839300ee5641864ad is retained; no replacement public object is claimed.
 

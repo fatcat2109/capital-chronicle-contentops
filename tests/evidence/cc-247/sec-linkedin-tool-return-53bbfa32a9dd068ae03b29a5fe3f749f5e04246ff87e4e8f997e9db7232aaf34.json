@@ -1,0 +1,18 @@
+{
+  "tool_request_sha256": "ee62f5b3e7d6cb34072718401c7ad93191015e7b769ef9e71f1cb82428401bac",
+  "result": {
+    "status": "SUCCESS",
+    "request_sha256": "53bbfa32a9dd068ae03b29a5fe3f749f5e04246ff87e4e8f997e9db7232aaf34",
+    "observed_identity": "linkedin:jimcc",
+    "public_object_id": "urn:li:activity:7523800885085536256",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7523800885085536256/",
+    "evidence": "Actual Neo page351 single Post click completed; exact View post activity observed, SEC reviewed copy and CC245 own-folder image uploaded via intercepted file input."
+  },
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "surface": "CODEX_EXEC",
+    "native_invocation_id": "01a1a740-b336-7272-b067-9617c34dfd55",
+    "observed_at_utc": "2026-11-04T17:39:02.324160+00:00",
+    "observation_source": "Actual BrowserOS Neo return; A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-247\\sec-linkedin-publish-observation.json"
+  }
+}

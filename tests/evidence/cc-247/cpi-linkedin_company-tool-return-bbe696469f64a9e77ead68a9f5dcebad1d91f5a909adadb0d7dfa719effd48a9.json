@@ -1,0 +1,18 @@
+{
+  "tool_request_sha256": "e9483cfc7ea08ce1ace46f425e60836c137d44a59871d728cea8b39e75779237",
+  "result": {
+    "status": "SUCCESS",
+    "request_sha256": "bbe696469f64a9e77ead68a9f5dcebad1d91f5a909adadb0d7dfa719effd48a9",
+    "authenticated": true,
+    "observed_identity": "linkedin:company:143198922",
+    "observed_stable_id": "143198922",
+    "evidence": "Actual Neo page358 URL company/143198922/admin/page-posts/published, Capital Chronicle organizational admin navigation and Capital Chronicle Post to Anyone composer."
+  },
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "surface": "CODEX_EXEC",
+    "native_invocation_id": "01a1a740-b336-7272-b067-9617c34dfd55",
+    "observed_at_utc": "2026-11-04T17:27:48.276206+00:00",
+    "observation_source": "Actual BrowserOS Neo return; A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-247\\cpi-company-identity-observation.json"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "tool_request_sha256": "d344ccfe5234aa703ceab9726ec050641383f8e2ab44301f45fc64d57ab742f4",
+  "result": {
+    "status": "SUCCESS",
+    "request_sha256": "7067eb5b034cfe9e7e6dc3429a746a22fb50e29ef0bb167adca484a7fe4f8a5f",
+    "authenticated": true,
+    "observed_identity": "linkedin:jimcc",
+    "evidence": "Actual BrowserOS Neo page351 loaded Jim Pham own /in/jimcc activity with Jim Pham \u2022 You and posts."
+  },
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "surface": "CODEX_EXEC",
+    "native_invocation_id": "01a1a740-b336-7272-b067-9617c34dfd55",
+    "observed_at_utc": "2026-11-04T17:12:54.642963+00:00",
+    "observation_source": "Actual BrowserOS Neo return; A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\tests\\evidence\\cc-247\\sec-linkedin-identity-observation.json"
+  }
+}

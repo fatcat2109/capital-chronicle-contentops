@@ -1,6 +1,8 @@
 """Thin CC-247 invocation of the existing bound publication owner, one action."""
 from pathlib import Path
 import json, sys, os
+import faulthandler
+faulthandler.dump_traceback_later(60)
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 from scripts.run_native_desktop_editorial import operation
 

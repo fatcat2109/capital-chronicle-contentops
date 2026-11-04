@@ -1,13 +1,4 @@
 {
-  "request_sha256": "3c11c65345a54e65ed580bbfd20bf4c5ef6c24947d8453542a15f43abe4248e0",
-  "tool_return_sha256": "0bc0a9b0ce4859c063a609ebaaa1e5ae3e682e367ee6134c82d74b676c4adddd",
-  "completed_write_reconciliation": {
-    "dispatch_id": "dispatch_7dd24a91b8afec20ed3dc0206f59cb73",
-    "destination": "linkedin",
-    "public_object_id": "urn:li:activity:7523796524670025729",
-    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7523796524670025729/",
-    "reconciliation_status": "RECONCILIATION_PENDING",
-    "publish_called": false,
-    "public_write_performed": false
-  }
+  "request_sha256": "6548499ae7c7469d4a5a1c931fc2f0452e45d90d19165094a3da5527e02486a6",
+  "tool_return_sha256": "b3a939a44d2aa96bca4fcc34a9ff55b3c89d31bc588bf65e4bcce7e20b03fe6e"
 }
