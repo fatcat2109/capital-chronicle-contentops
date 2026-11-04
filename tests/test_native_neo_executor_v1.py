@@ -1,6 +1,6 @@
 """Controlled protocol checks only; these fixtures do not prove a browser action."""
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 import pytest
 
@@ -50,6 +50,30 @@ def pending_readback(adapter, destination="substack", value=None):
         adapter.readback(destination=destination, intent=value or intent(destination),
                          public_object_id=ids[destination], public_object_url=urls[destination])
     return pending.value.request, ids[destination], urls[destination]
+
+
+@pytest.mark.parametrize("age,identity,loaded,absent", [
+    (1200, "@Capitalnicle", True, True), (599, "@Capitalnicle", True, False),
+    (1200, "@OTHER_ACCOUNT", True, False), (1200, "@Capitalnicle", False, False)])
+def test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes(tmp_path, monkeypatch, age, identity, loaded, absent):
+    store, executor = setup(tmp_path)
+    monkeypatch.setattr(store, "get_platform_dispatch", lambda key: {"status": "UNKNOWN_WRITE",
+        "dispatched_at": (datetime.now(timezone.utc) - timedelta(seconds=age)).isoformat()})
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    def read():
+        return adapter.readback(destination="x", intent=intent("x"), public_object_id=None, public_object_url=None)
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        read()
+    packet = pending.value.request
+    observed = response(executor, packet, {"observed_identity": identity,
+        "observed_profile_url": "https://x.com/Capitalnicle", "authenticated": True,
+        "activity_feed_loaded": loaded, "target_post_absent": True,
+        "observed_text": "Own profile is loaded through older posts; the requested title and link are absent."})
+    observed["tool_observation"]["surface"] = "CODEX_EXEC"
+    executor.submit(packet["request"]["request_sha256"], observed)
+    actual = read()
+    assert actual["write_absent"] is absent
+    assert store.list_platform_dispatches() == []
 
 
 def test_later_native_turn_obtains_fresh_readback_without_repeating_a_write(tmp_path):

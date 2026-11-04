@@ -176,6 +176,14 @@ class NeoDestinationHandoff:
             value["owner_absence_context"] = intent.get("owner_absence_context")
         if intent.get("reader_presentation_review"):
             value["reader_presentation_review"] = intent["reader_presentation_review"]
+        if action == "READBACK":
+            resumed = getattr(self.native_executor, "readback_request_invocations", {})
+            identity = sha256_of({k: v for k, v in value.items() if k != "native_invocation_id"})
+            if identity in resumed:
+                if resumed[identity] is None:
+                    value.pop("native_invocation_id", None)
+                else:
+                    value["native_invocation_id"] = resumed[identity]
         value["request_sha256"] = sha256_of(value)
         return value
 
@@ -271,8 +279,27 @@ class NeoDestinationHandoff:
             and result.get("public_object_url") == public_object_url
             and _public_url(destination, public_object_url, public_object_id)
             and bool(observed_text))
+        absent = False
+        if not public_object_id and not public_object_url and result.get("target_post_absent") is True:
+            from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+            ids = DurablePublicationCoordinator._ids(intent["work_item_id"], intent["plan_hash"], destination)
+            dispatch = self.native_executor.store.get_platform_dispatch(ids["dispatch_id"]) or {}
+            observation = result.get("native_tool_observation") or {}
+            try:
+                observed_at = datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
+                attempted_at = datetime.fromisoformat(dispatch["dispatched_at"].replace("Z", "+00:00"))
+                elapsed = (observed_at - attempted_at).total_seconds()
+            except (KeyError, ValueError, TypeError):
+                elapsed = -1
+            absent = (elapsed >= 600 and result.get("authenticated") is True
+                and result.get("activity_feed_loaded") is True and bool(observed_text)
+                and result.get("observed_profile_url") == ROOTS[destination]
+                and result.get("observed_identity") == IDENTITIES[destination]
+                and result.get("request_sha256") == request["request_sha256"]
+                and dispatch.get("status") in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING"}
+                and not any(_text(s) in comparison_text for s in segments if len(_text(s)) >= 30))
         return {**result, "verified": bool(verified), "status": "SUCCESS" if verified else "BLOCKED",
-                "write_exists": bool(identity_exists), "write_absent": False,
+                "write_exists": bool(identity_exists), "write_absent": bool(absent),
                 "content_binding_checks": {"text_match": text_match, "media_match": media_match, "thread_match": thread_match}}
 
 

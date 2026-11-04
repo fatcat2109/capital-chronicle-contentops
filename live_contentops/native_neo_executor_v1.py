@@ -44,6 +44,7 @@ class NativeNeoExecutor:
         self.native_invocation_id = native_invocation_id
         self.allow_publish = allow_publish
         self.clock = clock or (lambda: datetime.now(timezone.utc))
+        self.readback_request_invocations = {}
 
     def _key(self, request_hash, kind):
         return "native-neo-" + sha256_of([self.operation_id, request_hash, kind])
@@ -170,6 +171,10 @@ class NativeNeoExecutor:
                  "begun_at_utc": self.clock().isoformat(), "required_tool": TOOL}
         # The unique immutable outbox key fences simultaneous Desktop claimers too.
         self._put(request_hash, claim_kind, claim, request["work_item_id"])
+        if request["action"] == "READBACK":
+            identity = sha256_of({k: v for k, v in request.items()
+                if k not in {"request_sha256", "native_invocation_id"}})
+            self.readback_request_invocations[identity] = request.get("native_invocation_id")
         action_packet = dict(packet)
         if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
             action_packet["upload_policy"] = {
@@ -196,7 +201,7 @@ class NativeNeoExecutor:
             raise ValueError("NATIVE_NEO_TOOL_RETURN_BINDING_REQUIRED")
         if (observation.get("tool_name") != TOOL
                 or observation.get("native_invocation_id") != claim["native_invocation_id"]
-                or observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT"}
+                or observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT", "CODEX_EXEC"}
                 or not observation.get("observation_source") or not observation.get("observed_at_utc")):
             raise ValueError("NATIVE_NEO_ACTUAL_TOOL_OBSERVATION_REQUIRED")
         observed_at = datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))

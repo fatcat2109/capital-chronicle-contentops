@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="41" time="13.231" timestamp="2026-11-04T14:23:13.822394+07:00" hostname="J-P"><testcase classname="tests.test_native_neo_executor_v1" name="test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes[1200-@Capitalnicle-True-True]" time="0.447" /><testcase classname="tests.test_native_neo_executor_v1" name="test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes[599-@Capitalnicle-True-False]" time="0.482" /><testcase classname="tests.test_native_neo_executor_v1" name="test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes[1200-@OTHER_ACCOUNT-True-False]" time="0.428" /><testcase classname="tests.test_native_neo_executor_v1" name="test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes[1200-@Capitalnicle-False-False]" time="0.473" /><testcase classname="tests.test_native_neo_executor_v1" name="test_later_native_turn_obtains_fresh_readback_without_repeating_a_write" time="0.484" /><testcase classname="tests.test_native_neo_executor_v1" name="test_exact_readback_restart_immutable_and_no_public_action[substack]" time="0.491" /><testcase classname="tests.test_native_neo_executor_v1" name="test_exact_readback_restart_immutable_and_no_public_action[x]" time="0.544" /><testcase classname="tests.test_native_neo_executor_v1" name="test_exact_readback_restart_immutable_and_no_public_action[youtube]" time="0.478" /><testcase classname="tests.test_native_neo_executor_v1" name="test_readback_requires_exact_text_url_media_and_thread[observed_thread]" time="0.536" /><testcase classname="tests.test_native_neo_executor_v1" name="test_readback_requires_exact_text_url_media_and_thread[thread_posts]" time="0.504" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed0-True-x]" time="0.004" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed0-True-youtube]" time="0.004" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed1-False-x]" time="0.004" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed1-False-youtube]" time="0.003" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed2-False-x]" time="0.004" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed2-False-youtube]" time="0.004" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed3-False-x]" time="0.004" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed3-False-youtube]" time="0.004" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed4-False-x]" time="0.005" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed4-False-youtube]" time="0.004" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed5-False-x]" time="0.003" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed5-False-youtube]" time="0.003" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed6-False-x]" time="0.004" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed6-False-youtube]" time="0.004" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed7-False-x]" time="0.003" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed7-False-youtube]" time="0.003" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed8-False-x]" time="0.003" /><testcase classname="tests.test_native_neo_executor_v1" name="test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[changed8-False-youtube]" time="0.003" /><testcase classname="tests.test_native_neo_executor_v1" name="test_lost_readonly_observation_resumes_in_new_turn_without_reclaiming_write" time="0.578"><failure message="live_contentops.native_neo_executor_v1.NativeNeoInputRequired: NATIVE_NEO_TOOL_PENDING">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-32164/test_lost_readonly_observation0')
+
+    def test_lost_readonly_observation_resumes_in_new_turn_without_reclaiming_write(tmp_path):
+        store, first = setup(tmp_path)
+        packet, object_id, url = pending_readback(NeoDestinationHandoff(native_executor=first))
+        request_hash = packet["request"]["request_sha256"]
+        first.begin(request_hash)
+        original_claim = first._get(request_hash, "started")
+        restarted = NativeNeoExecutor(store, operation_id="same-op", output_dir=tmp_path / "resume",
+                                      native_invocation_id="resumed-readonly-turn")
+        assert restarted.begin(request_hash)["tool_request_sha256"] == packet["tool_request_sha256"]
+        with pytest.raises(ValueError, match="ALREADY_CLAIMED"):
+            restarted.begin(request_hash)
+        returned = {
+            "tool_request_sha256": packet["tool_request_sha256"],
+            "tool_observation": {"tool_name": TOOL, "native_invocation_id": "resumed-readonly-turn",
+                "surface": "CODEX_DESKTOP_CONVERSATION", "observation_source": "CONTROLLED_TEST_NOT_BROWSER_PROOF",
+                "observed_at_utc": datetime.now(timezone.utc).isoformat()},
+            "result": {"request_sha256": request_hash, "status": "SUCCESS", "observed_identity": "capitalchronicle.substack.com",
+                "public_object_id": object_id, "public_object_url": url, "observed_text": "Exact supported proposition.",
+                "content_verified": True},
+        }
+        restarted.submit(request_hash, returned)
+&gt;       result = NeoDestinationHandoff(native_executor=restarted).readback(destination="substack", intent=intent(),
+            public_object_id=object_id, public_object_url=url)
+
+tests\test_native_neo_executor_v1.py:193: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+live_contentops\neo_destination_handoff_v1.py:216: in readback
+    result = dict(self.native_executor(request))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;live_contentops.native_neo_executor_v1.NativeNeoExecutor object at 0x0000023C667228D0&gt;
+request = {'action': 'READBACK', 'canonical_url': 'https://capitalchronicle.substack.com/p/test', 'content_binding': {'artifact_...xact supported proposition.'], 'expected_thread_texts': [], 'media_manifest': [], ...}, 'destination': 'substack', ...}
+
+    def __call__(self, request):
+        request = dict(request)
+        request_hash = request.get("request_sha256")
+        if request_hash != sha256_of({k: v for k, v in request.items() if k != "request_sha256"}):
+            raise ValueError("NATIVE_NEO_REQUEST_HASH_INVALID")
+        if request["action"] in {"PUBLISH", "EDIT_EXISTING"} and not self.allow_publish:
+            return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                    "request_sha256": request_hash, "observed_identity": request["expected_identity"],
+                    "reason_code": "NATIVE_NEO_OPERATION_READ_ONLY", "public_write_performed": False}
+        work = request["work_item_id"]
+        packet = {"schema_version": SCHEMA, "operation_id": self.operation_id,
+                  "required_tool": TOOL, "request": request,
+                  "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+                  "public_write_authorized": request["action"] in {"PUBLISH", "EDIT_EXISTING"} and self.allow_publish}
+        packet["tool_request_sha256"] = sha256_of(packet)
+        self._put(request_hash, "request", packet, work)
+        response = self._get(request_hash, "response")
+        if response:
+            return dict(response["result"])
+        started = self._get(request_hash, "started")
+        if started and request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
+            return {"status": "UNKNOWN_WRITE", "request_sha256": request_hash,
+                    "observed_identity": request["expected_identity"],
+                    "reason_code": "NATIVE_NEO_CLAIMED_ACTION_WITHOUT_RETURN", "retry_permitted": False}
+        self.root.mkdir(parents=True, exist_ok=True)
+        path = self.root / (request_hash + ".request.json")
+        path.write_bytes(canonical_bytes(packet))
+&gt;       raise NativeNeoInputRequired({**packet, "request_path": str(path)})
+E       live_contentops.native_neo_executor_v1.NativeNeoInputRequired: NATIVE_NEO_TOOL_PENDING
+
+live_contentops\native_neo_executor_v1.py:102: NativeNeoInputRequired</failure></testcase><testcase classname="tests.test_native_neo_executor_v1" name="test_new_turn_gets_its_own_identity_probe_even_in_same_five_minute_epoch" time="0.492" /><testcase classname="tests.test_native_neo_executor_v1" name="test_coordinator_pending_publish_and_claimed_loss_enters_readback_only" time="0.784" /><testcase classname="tests.test_native_neo_executor_v1" name="test_unrelated_recovery_preserves_claimed_native_write_and_late_return[unbound]" time="0.680" /><testcase classname="tests.test_native_neo_executor_v1" name="test_unrelated_recovery_preserves_claimed_native_write_and_late_return[readonly]" time="0.645" /><testcase classname="tests.test_native_neo_executor_v1" name="test_unrelated_recovery_preserves_claimed_native_write_and_late_return[other-operation]" time="0.693" /><testcase classname="tests.test_native_neo_executor_v1" name="test_existing_dispatch_readback_stays_in_coordinator_without_write" time="0.546" /><testcase classname="tests.test_native_neo_executor_v1" name="test_readonly_publish_and_unclaimed_or_wrong_return_fail_closed" time="0.455" /><testcase classname="tests.test_native_neo_executor_v1" name="test_identity_observation_survives_epoch_boundary_only_while_exact_and_fresh[None]" time="0.548" /><testcase classname="tests.test_native_neo_executor_v1" name="test_identity_observation_survives_epoch_boundary_only_while_exact_and_fresh[stale]" time="0.532" /><testcase classname="tests.test_native_neo_executor_v1" name="test_identity_observation_survives_epoch_boundary_only_while_exact_and_fresh[invocation]" time="0.536" /><testcase classname="tests.test_native_neo_executor_v1" name="test_identity_observation_survives_epoch_boundary_only_while_exact_and_fresh[identity]" time="0.609" /><testcase classname="tests.test_native_neo_executor_v1" name="test_identity_observation_survives_epoch_boundary_only_while_exact_and_fresh[unauthenticated]" time="0.543" /></testsuite></testsuites>
