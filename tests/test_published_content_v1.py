@@ -68,6 +68,91 @@ def publish_with_original_clock(tmp_path):
     return store, transport, coordinator, plan, result
 
 
+def native_lifecycle(tmp_path):
+    from live_contentops.newsroom_production_day_v1 import _logical_hash
+    store, transport, coordinator, plan, article, root = lifecycle(tmp_path)
+    article.pop("author_identity")
+    article.pop("publisher_identity")
+    article["schema_version"] = "contentops.v1_simple_article_manifest.v1"
+    (root / "article_manifest_v1.json").write_bytes(canonical(article))
+    identity = sha256(article["substack_body_markdown"].encode()).hexdigest()
+    plan.update(article_identity=identity, editorial_classification="QUALIFIED_NATIVE_DESKTOP_ARTICLE",
+        source_provenance_binding_preserved=True, compiler_input_sha256=sha256(b"compiler").hexdigest(),
+        accepted_evidence_sha256=sha256(b"admitted sources").hexdigest())
+    context = {"schema_version": "contentops.simple_durable_run_context.v1", "run_id": "work-1",
+        **{key: plan[key] for key in ("article_identity", "article_content_sha256",
+                                    "compiler_input_sha256", "accepted_evidence_sha256")}}
+    record = {"schema_version": "contentops.newsroom_qualified_article.v1", "qualified": True,
+        "qualification_blockers": [], "public_write_performed": False, "unknown_write_count": 0,
+        "derivative_package_intent_count": 8, "derivative_package_intents": [{} for _ in range(8)],
+        "newsroom_production_day_id": "2026-11-03", "attempt_run_id": "work-1", "parent_window_id": "work-1",
+        "article_identity": identity, "article_body_sha256": identity,
+        "accepted_evidence_sha256": plan["accepted_evidence_sha256"],
+        "editorial_worker": {"provider": "NATIVE_CODEX_DESKTOP"}}
+    record["record_sha256"] = _logical_hash(record)
+    (root / "run_context_v1.json").write_bytes(canonical(context))
+    (root / "qualified_article_record_v1.json").write_bytes(canonical(record))
+    return store, transport, coordinator, plan, article, root
+
+
+def test_retained_native_original_prose_publishes_and_exports_without_rewriting_its_artifacts(tmp_path):
+    _, transport, coordinator, plan, _, root = native_lifecycle(tmp_path)
+    before = {path.name: path.read_bytes() for path in root.iterdir()}
+    original_readback = transport.readback
+
+    def readback(**kwargs):
+        result = {**original_readback(**kwargs), "published_at_utc": ORIGINAL}
+        if kwargs["destination"] == "discord":
+            result["public_object_url"] = "https://discord.com/channels/111/222/333"
+        return result
+
+    transport.readback = readback
+    result = coordinator.execute_plan("work-1", plan)
+    assert result["canonical_article_real_published"] is True
+    assert result.get("published_content_record", {}).get("status") == "APPENDED", result.get("published_content_record")
+    assert read_records(coordinator.published_content_path)[0]["rights_class"] == "CC_OWN_ANALYSIS"
+    assert {name: (root / name).read_bytes() for name in before} == before
+
+
+@pytest.mark.parametrize("artifact,key,value", [
+    ("plan", "source_provenance_binding_preserved", False),
+    ("plan", "editorial_classification", "UNVERIFIED"),
+    ("plan", "accepted_evidence_sha256", "0" * 64),
+    ("run_context_v1.json", "compiler_input_sha256", "0" * 64),
+    ("run_context_v1.json", "article_identity", "0" * 64),
+    ("qualified_article_record_v1.json", "record_sha256", "0" * 64),
+    ("qualified_article_record_v1.json", "qualified", False),
+    ("article_manifest_v1.json", "rights_class", "PRIVATE_ONLY"),
+    ("article_manifest_v1.json", "author_identity", "Another publisher"),
+    ("article_manifest_v1.json", "schema_version", "unrecognized.article"),
+])
+def test_native_original_prose_requires_its_exact_qualified_binding_and_preserves_rights_refusals(
+    tmp_path, artifact, key, value
+):
+    _, transport, coordinator, plan, _, root = native_lifecycle(tmp_path)
+    if artifact == "plan":
+        plan[key] = value
+    else:
+        import json
+        path = root / artifact
+        changed = json.loads(path.read_bytes())
+        changed[key] = value
+        path.write_bytes(canonical(changed))
+    with pytest.raises(PublishedContentError, match="PUBLIC_REUSE_RIGHTS_NOT_ADMITTED"):
+        coordinator.execute_plan("work-1", plan)
+    assert transport.publish_calls == []
+    assert not coordinator.published_content_path.exists()
+
+
+@pytest.mark.parametrize("missing", ["run_context_v1.json", "qualified_article_record_v1.json"])
+def test_native_original_prose_never_infers_ownership_from_an_unbound_manifest(tmp_path, missing):
+    _, transport, coordinator, plan, _, root = native_lifecycle(tmp_path)
+    (root / missing).unlink()
+    with pytest.raises(PublishedContentError, match="PUBLIC_REUSE_RIGHTS_NOT_ADMITTED"):
+        coordinator.execute_plan("work-1", plan)
+    assert transport.publish_calls == []
+
+
 def test_append_only_exactly_once_preserves_every_prior_byte(tmp_path):
     feed = tmp_path / "feed.jsonl"
     first = sealed()
