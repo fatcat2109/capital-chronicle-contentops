@@ -3652,7 +3652,8 @@ class CanonicalDestinationTransportRuntimeV1:
             # before its final bytes are hashed, so readback binds that image.
             from live_contentops.rolling_x_grounded_article_media_builder_v1 import POST_IMAGE_POLICY
             floor_added = not finalized.get("post_image_policy")
-            finalized["post_image_policy"] = {"policy": POST_IMAGE_POLICY}
+            finalized["post_image_policy"] = ({"policy": POST_IMAGE_POLICY, "floor": "REVIEWED_RENDER_FIRST"}
+                if floor_added else finalized["post_image_policy"])
         try:
             data = _durable_intent_inputs(finalized)
         except (ValueError, KeyError, OSError) as exc:

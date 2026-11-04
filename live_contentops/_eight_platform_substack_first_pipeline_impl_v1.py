@@ -4018,7 +4018,34 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         and not [*(frozen_for_media.get("media_asset_ids") or []),
                  *(asset_id for post in frozen_for_media.get("posts") or []
                    if isinstance(post, Mapping) for asset_id in post.get("media_asset_ids") or [])])
-    if intent.get("post_image_policy") and (not context.get("post_image_policy") or frozen_without_media):
+    # Decision 61 floor: a copy with no image takes the run's first reviewed chart or
+    # card (Capital Chronicle's own render, already on the canonical), so every
+    # destination shows the same reviewed image. Only a run with none gets a new card.
+    reviewed_renders = [row for row in media_assets
+        if row.get("asset_id") and row.get("modality") != "documentary_photo"
+        and Path(str(row.get("path") or row.get("absolute_local_source_path") or "")).is_file()]
+    floor_ids = None
+    reviewed_floor = (intent.get("post_image_policy") or {}).get("floor") == "REVIEWED_RENDER_FIRST"
+    needs_image = frozen_without_media or not isinstance(frozen_for_media, Mapping)
+    if reviewed_floor and media_destination not in {"", "substack"} and reviewed_renders and needs_image:
+        floor_ids = [str(reviewed_renders[0]["asset_id"])]
+    elif reviewed_floor and not needs_image:
+        # The finalized copy already carries its floor image; keep that exact choice.
+        frozen_ids = {*(frozen_for_media.get("media_asset_ids") or []),
+                      *(asset_id for post in frozen_for_media.get("posts") or []
+                        if isinstance(post, Mapping) for asset_id in post.get("media_asset_ids") or [])}
+        if not frozen_ids <= {row.get("asset_id") for row in media_assets}:
+            # It is an owned card built at finalization: rebuild the same deterministic
+            # card so the bytes resolve, without changing which image was chosen.
+            from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
+            rebuilt_view = post_image_view({"article": article, "media_assets": media_assets,
+                "evidence": context.get("source_documents", []),
+                "accepted_evidence_sha256": context.get("accepted_evidence_sha256")},
+                output_dir=output_dir / "media" / "post-images")
+            known = {row.get("asset_id") for row in media_assets}
+            media_assets = [*media_assets, *(row for row in rebuilt_view["media_assets"]
+                                             if row.get("asset_id") not in known)]
+    elif intent.get("post_image_policy") and (not context.get("post_image_policy") or frozen_without_media):
         # Decision 61: a finalized copy with no selected image gets one here too.
         from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
         image_selection = post_image_view({"article": article, "media_assets": media_assets,
@@ -4044,10 +4071,27 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         from copy import deepcopy
         payloads["linkedin_company"] = deepcopy(payloads["linkedin"])
     frozen_payload = intent.get("native_payload")
+    if floor_ids and destination in payloads and not isinstance(frozen_payload, Mapping):
+        # No frozen copy: the rebuilt copy carries the reviewed floor image.
+        rebuilt = payloads[destination]
+        if not [*(rebuilt.get("media_asset_ids") or []), *(a for p in rebuilt.get("posts") or []
+                if isinstance(p, Mapping) for a in p.get("media_asset_ids") or [])]:
+            rebuilt.pop("delivery_state", None)
+            rebuilt.pop("skip_reason", None)
+            rebuilt["media_asset_ids"] = list(floor_ids)
+            for index, post in enumerate(rebuilt.get("posts") or []):
+                post["media_asset_ids"] = list(floor_ids) if index == 0 else []
     if destination and isinstance(frozen_payload, Mapping):
         # The canonical-first owner already froze the reviewed destination bytes.
         # Rebuilding here can lose photo credits, handles or per-post media choices.
         payloads[destination] = dict(frozen_payload)
+        if floor_ids:
+            from copy import deepcopy
+            payloads[destination] = deepcopy(frozen_payload)
+            payloads[destination]["media_asset_ids"] = list(floor_ids)
+            for index, post in enumerate(payloads[destination].get("posts") or []):
+                post["media_asset_ids"] = list(floor_ids) if index == 0 else []
+            frozen_payload = payloads[destination]
         if image_selection:
             from copy import deepcopy
             payloads[destination] = deepcopy(frozen_payload)

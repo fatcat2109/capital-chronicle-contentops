@@ -222,3 +222,20 @@ def test_company_copy_uses_the_same_compiled_linkedin_copy(imageless_copy):
     data = pipeline._durable_intent_inputs(imageless_copy)
     assert data["payloads"]["linkedin_company"] == data["payloads"]["linkedin"]
     assert data["payloads"]["linkedin_company"].get("text")
+
+
+@pytest.mark.parametrize("frozen", [True, False])
+def test_copy_without_image_takes_the_reviewed_chart_not_a_new_card(imageless_copy, frozen):
+    run_context = Path(imageless_copy["output_dir"]) / "run_context_v1.json"
+    context = json.loads(run_context.read_text())
+    context["media"]["assets"][0]["modality"] = "source_backed_chart"  # a reviewed own render
+    run_context.write_text(json.dumps(context))
+    imageless_copy["destination_plan"]["destination"] = "instagram_business"
+    if not frozen:
+        imageless_copy.pop("native_payload")
+    finalized = CanonicalDestinationTransportRuntimeV1().finalize_intent(
+        destination="instagram_business", intent=imageless_copy,
+        canonical_url="https://capitalchronicle.substack.com/p/fixture")
+    data = pipeline._durable_intent_inputs(finalized)
+    assert [a["asset_id"] for a in data["media_assets"]] == ["reviewed-chart"]
+    assert _payload_media_ids(finalized["native_payload"]) == ["reviewed-chart"]

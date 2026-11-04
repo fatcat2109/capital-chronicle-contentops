@@ -1,6 +1,6 @@
-.....F....................................................F............F [ 76%]
-....F..FF.....F..........FF..FFFFFFF.................................... [ 95%]
-.................                                                        [100%]
+.......F....................................................F........... [ 75%]
+.F....F..FF.....F..........FF..FFFFFFF.................................. [ 94%]
+...................                                                      [100%]
 =========================== short test summary info ===========================
 FAILED tests/test_reader_first_data_journalism_v1.py::test_signed_horizontal_percent_labels_keep_the_declared_unit
 FAILED tests/test_reader_first_data_journalism_v1.py::test_channel_photo_preview_keeps_archive_context_without_dropping_unknown_rights
@@ -19,4 +19,4 @@ FAILED tests/test_native_finished_publication_v1.py::test_finished_import_reuses
 FAILED tests/test_native_finished_publication_v1.py::test_finished_import_reuses_coordinator_policy_for_prior_derivative_gap[legacy]
 FAILED tests/test_native_finished_publication_v1.py::test_distinct_finished_run_defers_prior_distribution_before_transport[UNKNOWN_WRITE]
 FAILED tests/test_native_finished_publication_v1.py::test_distinct_finished_run_defers_prior_distribution_before_transport[NATIVE_NEO_TOOL_PENDING]
-17 failed, 360 passed in 296.16s (0:04:56)
+17 failed, 362 passed in 258.23s (0:04:18)
