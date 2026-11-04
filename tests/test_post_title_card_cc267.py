@@ -10,7 +10,7 @@ import pytest
 from PIL import Image
 
 from live_contentops.post_visuals_v1 import (
-    POLICY, DESTINATIONS, TITLE_CARD, build_post_data_card, card_title_without_figures,
+    POLICY, DESTINATIONS, TITLE_CARD, build_post_data_card, card_title,
     complete_post_visuals, require_publication_image, validate_post_data_card,
 )
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
@@ -23,16 +23,32 @@ ISM_CARD_TITLE = "ISM services index rises as prices paid climb"
 ISM_URL = "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-report-on-business/services/october/"
 
 
-@pytest.mark.parametrize("title, expected", [
+TITLE_CASES = [
+    # Ops Product's 5 Nov check. The two that read wrong first:
+    ("S&P Global US services PMI 54.8 vs 55.2 expected", "S&P Global US services PMI"),
+    ("US layoffs hit 153,074 in October, highest since 2020, Challenger says", "Challenger job cuts: October report"),
+    # ...and those that read fine (inputs rebuilt from the outputs in the check).
+    ("Challenger job cuts fall 18% to 125,000 in October", "Challenger job cuts fall in October"),
+    ("ADP: private payrolls rise 42,000 in October, beating forecast",
+     "ADP: private payrolls rise in October, beating forecast"),
+    ("ISM manufacturing PMI slips to 48.7, eighth month of contraction",
+     "ISM manufacturing PMI slips, eighth month of contraction"),
+    ("ADP: hiring slows to 42,000, wages rise 4.5%", "ADP: hiring slows, wages rise"),
     (ISM_TITLE, ISM_CARD_TITLE),
-    ("ADP: private payrolls rise 42,000 in October", "ADP: private payrolls rise in October"),
     ("Challenger job cuts jump 183% to 153,074 in October", "Challenger job cuts jump in October"),
     ("S&P Global flash PMI slips to 51.2 (52.0 expected)", "S&P Global flash PMI slips"),
-    ("UMich sentiment falls to 50.3, lowest since 2022", "UMich sentiment falls, lowest since 2022"),
+    ("UMich sentiment falls to 50.3, lowest since 2022, survey shows",
+     "UMich sentiment falls, lowest since 2022, survey shows"),
     ("Prices paid at 70.0 keep pressure on the Fed", "Prices paid keep pressure on the Fed"),
     ("52.4: what the ISM services reading says", "What the ISM services reading says"),
     ("Conference Board confidence drops 5.4 points to 94.6", "Conference Board confidence drops"),
     ("Yields climb 12bp after ISM", "Yields climb after ISM"),
+    ("Q3 GDP grows 2.8% annualised", "Q3 GDP grows"),
+    # A verb that lost its object, a lone 'consensus' or a one-word clause falls back.
+    ("ADP: hiring slows to +42k, wages +4.5%", "ADP: hiring slows"),
+    ("ISM services PMI tops 55 for first time since 2024", "ISM services PMI: latest report"),
+    ("UMich sentiment 50.3 vs 51.0 consensus", "UMich consumer sentiment: latest report"),
+    ("Private payrolls add 42,000 in October", "Capital Chronicle news brief"),
     # Dates, maturities, index and legal names keep their numbers.
     ("The Fed held on October 28. Both dissenters wanted a hike.",
      "The Fed held on October 28. Both dissenters wanted a hike."),
@@ -40,9 +56,25 @@ ISM_URL = "https://www.ismworld.org/supply-management-news-and-reports/reports/i
      "September 2026 jobs: private gains beneath a weak headline"),
     ("S&P 500 falls 1.2% as 10-year yield rises to 4.3%", "S&P 500 falls as 10-year yield rises"),
     ("Trump expands Section 232 steel tariffs to 50%", "Trump expands Section 232 steel tariffs"),
-])
-def test_card_title_keeps_the_headline_without_its_figures(title, expected):
-    assert card_title_without_figures(title) == expected
+]
+
+
+@pytest.mark.parametrize("title, expected", TITLE_CASES)
+def test_card_title_reads_cleanly_without_figures(title, expected):
+    shown = card_title({"title": title})
+    assert shown == expected
+    kept = re.findall(r"October 28|2026|2024|2022|2020|10-year|S&P 500|Section 232|Q3", title)
+    figures = [f for f in re.findall(r"[-+]?\d[\d,.]*\d|\d", title) if not any(f in k for k in kept)]
+    assert not any(re.search(r"(?<![\d.,])" + re.escape(f) + r"(?![\d.,])", shown) for f in figures)
+    assert not re.search(r"\b(?:since|vs|than)\s*(?:[,.;:]|$)", shown)
+
+
+def test_card_title_falls_back_to_the_clean_dek_before_a_release_title():
+    article = {"title": "US layoffs hit 153,074 in October",
+               "dek": "Employers announced 153,074 job cuts in October, the most since 2020."}
+    assert card_title(article) == "Employers announced job cuts in October, the most since 2020."
+    article["dek"] = "Challenger said layoffs hit 153,074."
+    assert card_title(article) == "Challenger job cuts: October report"
 
 
 def ism_only_packet():

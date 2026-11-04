@@ -58,3 +58,31 @@ This was defect T2 of the 5 Nov full regression.
 - **Integration:**
   - Live tag: `contentops-live-20261105-cc267-title-card`.
   - Rollback tag: `contentops-rollback-20261105-cc267-title-card`, the live head before this change.
+
+## 5 Nov: the card title never shows a phrase whose meaning changed or whose grammar broke
+
+Ops Product checked nine plausible headlines on the first version. Two read wrong:
+- "S&P Global US services PMI 54.8 vs 55.2 expected" became "... PMI expected".
+- "US layoffs hit 153,074 in October, highest since 2020, Challenger says" became "US layoffs hit in October, highest since, Challenger says".
+
+`card_title(article)` now removes figures and then checks that the result still reads cleanly:
+- A "vs 55.2 expected" comparison goes whole.
+- A year after "since" stays, even when a comma follows it.
+
+If removing a figure leaves any of these, the text is not used:
+- a verb without its object ("hit", "tops", "add");
+- a one-word clause ("wages");
+- a dangling "since", "vs" or "than";
+- a lone "expected", "forecast" or "consensus".
+
+The card then falls back, in order, to:
+1. the clean leading clause;
+2. the dek without figures;
+3. a neutral release title such as "Challenger job cuts: October report";
+4. "Capital Chronicle news brief" when no release is named.
+
+Tests: `tests/test_post_title_card_cc267.py` now holds 23 headline cases, each also checked so that no input figure reaches the card and no "since", "vs" or "than" dangles. They include:
+- Ops Product's six named headlines: the two that read wrong, and four that read fine, with inputs rebuilt from their outputs;
+- a dek fallback test.
+
+Render: `renders/challenger-fallback-title-card-1080x1350.png`.

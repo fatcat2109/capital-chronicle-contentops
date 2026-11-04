@@ -23,16 +23,54 @@ _SURVEYS = re.compile(r"\b(?:ism|ismworld|s&p global|spglobal|pmi|conference[ -]
 _MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December"
 _TITLE_KEEP = re.compile(
     r"\b(?:" + _MONTHS + r")(?:\s+\d{1,2}(?:st|nd|rd|th)?)?(?:,?\s+(?:19|20)\d{2})?(?!\w)"
-    r"|\b(?:in|since|of|for|from|to|by|until|through|before|after)\s+(?:19|20)\d{2}(?![\w,.%])"
+    r"|\b(?:in|since|of|for|from|to|by|until|through|before|after)\s+(?:19|20)\d{2}(?![\w%]|[.,]\d)"
     r"|\b[QH][1-4](?:\s+(?:19|20)\d{2})?(?!\w)|\b\d{1,2}-(?:year|month|week|day)s?\b"
     r"|\b\d{1,2}:\d{2}(?:\s?[ap]\.?m\.?)?|\b\d+(?:st|nd|rd|th)\b|\b[A-Za-z]+-\d+\b"
     r"|\b(?:S&P|Nasdaq|Russell|FTSE|DAX|Nikkei|Stoxx|CAC|Hang Seng|ASX|KOSPI|Sensex|Nifty|Section|Title"
     r"|Article|Chapter|Rule|Form|Regulation|Executive Order)\s+\d+\b", re.I)
-_TITLE_FIGURE = re.compile(
-    r"(?:\b(?:to|at|by|from|of|near|around|about|above|below|over|under|than|vs\.?|versus)\s+)?"
+_FIGURE = (
     r"(?<![\w.])[-+−]?[$€£¥]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?:bn|mn|tn|bps?|pp|pts?|[kmbx])?(?!\w)"
     r"(?:\s?(?:%|percent(?:age)?(?:\s+points?)?|pp|bps?|basis\s+points?|points?|pts|million|billion"
-    r"|trillion|thousand)(?!\w))?", re.I)
+    r"|trillion|thousand)(?!\w))?"
+    r"(?:\s+(?:annuali[sz]ed|year[- ]on[- ]year|y/y|m/m|month[- ]on[- ]month|a year (?:earlier|ago))(?!\w))?")
+_QUALIFIER = r"(?:expected|forecasts?|consensus|est\.?|estimates?|estimated)"
+# "54.8 vs 55.2 expected": the comparison goes whole, or "PMI expected" would change the meaning.
+_TITLE_VERSUS = re.compile(r"\s*\b(?:vs\.?|versus|against|compared with)\s+" + _FIGURE
+                           + r"(?:\s+" + _QUALIFIER + r"(?!\w))?", re.I)
+_TITLE_FIGURE = re.compile(
+    r"(?P<lead>\b(?:to|at|by|from|of|near|around|about|above|below|over|under|than)\s+)?" + _FIGURE, re.I)
+# A figure that was the object of one of these verbs leaves the verb without its object.
+_TRANSITIVE = frozenset((
+    "hit hits reach reaches reached top tops topped total totals totaled totalled exceed exceeds exceeded "
+    "surpass surpasses surpassed cross crosses crossed post posts posted add adds added shed sheds cut cuts "
+    "lose loses lost record records recorded see sees saw show shows showed register registers registered "
+    "print prints printed log logs logged notch notches notched mark marks marked approach approaches "
+    "approached near nears neared eclipse eclipses eclipsed match matches matched beat beats miss misses missed"
+).split())
+_PREPOSITIONS = frozenset((
+    "in on for during after amid as while with since from to at by of before despite under over through "
+    "into ahead following"
+).split())
+_DANGLING = re.compile(r"\b(?:since|vs\.?|versus|than|from|to|at|by|of|above|below|near|around|about|over|under"
+                       r"|between|and|or|with|as|the|a|an)\s*(?:[,.;:!?)]|$)", re.I)
+_QUALIFIER_WORD = re.compile(r"\b(?:expected|forecasts?|consensus|estimates?)\b", re.I)
+_QUALIFIER_OK_AFTER = frozenset((
+    "than beat beats beating beaten miss misses missing missed above below top tops topping topped exceed "
+    "exceeds exceeding exceeded over under with vs versus against of line ahead"
+).split())
+# The neutral title when no clean title or dek remains: "Challenger job cuts: October report".
+_RELEASES = (
+    (re.compile(r"\bChallenger\b", re.I), "Challenger job cuts"),
+    (re.compile(r"\bADP\b"), "ADP private payrolls"),
+    (re.compile(r"\bISM\b(?=.*\bservices\b)|\bservices\b(?=.*\bISM\b)", re.I), "ISM services PMI"),
+    (re.compile(r"\bISM\b(?=.*\bmanufacturing\b)|\bmanufacturing\b(?=.*\bISM\b)", re.I), "ISM manufacturing PMI"),
+    (re.compile(r"\bISM\b"), "ISM report"),
+    (re.compile(r"\bS&P Global\b(?=.*\bservices\b)", re.I), "S&P Global services PMI"),
+    (re.compile(r"\bS&P Global\b(?=.*\bmanufacturing\b)", re.I), "S&P Global manufacturing PMI"),
+    (re.compile(r"\bS&P Global\b", re.I), "S&P Global PMI"),
+    (re.compile(r"\bUMich\b|\bUniversity of Michigan\b|\bMichigan\b.*\bsentiment\b", re.I), "UMich consumer sentiment"),
+    (re.compile(r"\bConference Board\b", re.I), "Conference Board consumer confidence"),
+)
 
 
 def _normal(value):
@@ -180,39 +218,119 @@ def build_post_data_card(article, claims, documents, *, output_dir, series_packe
         "publication_authority": False}
 
 
-def card_title_without_figures(text):
-    """CC-267: the published title without its figures; dates and named numbers stay.
-
-    'ISM services index rises to 52.4 as prices paid climb' becomes 'ISM services index
-    rises as prices paid climb'. A figure goes with the preposition before it and the unit after it.
-    """
+def _protect(text):
     kept = []
 
     def keep(match):
         kept.append(match.group(0))
         return chr(0xE000 + len(kept) - 1)
 
-    value = _TITLE_KEEP.sub(keep, _normal(text))
-    value = _TITLE_FIGURE.sub("", value)
-    value = re.sub(r"\(\s*(?:expected|forecast|consensus|est\.?|estimate|prior|previous)?\s*\)", "", value, flags=re.I)
+    return _TITLE_KEEP.sub(keep, _normal(text)), kept
+
+
+def _restore(value, kept):
+    for index, original in enumerate(kept):
+        value = value.replace(chr(0xE000 + index), original)
+    return value
+
+
+def _tidy(value):
+    value = re.sub(r"\(\s*(?:expected|forecasts?|consensus|est\.?|estimates?|prior|previous)?\s*\)", "", value, flags=re.I)
     value = re.sub(r"\s+([,.;:!?])", r"\1", value)
     value = re.sub(r"([,;:])(?=\s*(?:[,;:.!?]|$))", "", value)
     value = re.sub(r"\s{2,}", " ", value).strip(" ,;:-–—")
     value = re.sub(r"(?:\s+(?:to|at|by|from|of|and|or|vs\.?|versus|with|than|as))+$", "", value, flags=re.I)
-    for index, original in enumerate(kept):
-        value = value.replace(chr(0xE000 + index), original)
-    value = value.strip(" ,;:-–—")
+    return value.strip(" ,;:-–—")
+
+
+def _capital(value):
     return value[:1].upper() + value[1:]
 
 
+def _lone_qualifier(value):
+    """'PMI expected' changed the meaning; 'beating forecast' or 'than expected' did not."""
+    for match in _QUALIFIER_WORD.finditer(value):
+        before = value[:match.start()].split()
+        if not before or before[-1].casefold().strip(",;:(") not in _QUALIFIER_OK_AFTER:
+            return True
+    return False
+
+
+def _reads_cleanly(value):
+    return len(value.split()) >= 3 and not _DANGLING.search(value) and not _lone_qualifier(value)
+
+
+def _strip_title_figures(text):
+    """(text without figures, whether it still reads cleanly). Unchanged text is clean."""
+    original = _normal(text)
+    value, kept = _protect(original)
+    value = _TITLE_VERSUS.sub("", value)
+    broken = []
+
+    def drop(match):
+        if not match.group("lead"):
+            clause = re.split(r"[,;:(]", match.string[:match.start()])[-1].split()
+            after = match.string[match.end():].lstrip()
+            following = re.match(r"[A-Za-z']+|[,.;:!?)]|$", after).group(0).casefold()
+            ends_clause = not following.isalpha()
+            if clause and clause[-1].casefold() in _TRANSITIVE and (ends_clause or following in _PREPOSITIONS):
+                broken.append("VERB_LOST_ITS_OBJECT")
+            if len(clause) == 1 and ends_clause:
+                broken.append("ONE_WORD_CLAUSE")
+        return ""
+
+    value = _capital(_restore(_tidy(_TITLE_FIGURE.sub(drop, value)), kept))
+    if value == original:
+        return value, True
+    return value, not broken and _reads_cleanly(value)
+
+
+def _leading_clause(text):
+    """The title before its first figure, when that part reads cleanly on its own."""
+    value, kept = _protect(text)
+    first = min((m.start() for m in (_TITLE_VERSUS.search(value), _TITLE_FIGURE.search(value)) if m), default=None)
+    if first is None:
+        return None
+    head = _capital(_restore(_tidy(value[:first]), kept))
+    # 'US layoffs hit' ends on a verb whose object was the figure.
+    if not _reads_cleanly(head) or head.split()[-1].casefold().strip(",;:.") in _TRANSITIVE:
+        return None
+    return head
+
+
+def _neutral_release_title(article):
+    text = " ".join(_normal(article.get(k)) for k in ("title", "dek"))
+    name = next((label for pattern, label in _RELEASES if pattern.search(text)), None)
+    month = re.search(r"\bin (" + _MONTHS + r")\b", text) or re.search(r"\b(" + _MONTHS + r")\b", text)
+    if not name:
+        return "Capital Chronicle news brief"
+    return f"{name}: {month.group(1)} report" if month else f"{name}: latest report"
+
+
+def card_title(article):
+    """CC-267: the card's title, never a phrase whose meaning changed or whose grammar broke.
+
+    The published title without its figures when it still reads cleanly ('ISM services index
+    rises to 52.4 as prices paid climb' -> 'ISM services index rises as prices paid climb');
+    otherwise the clean leading clause, the dek without figures, or a neutral release title
+    such as 'Challenger job cuts: October report'. Dates and named numbers stay.
+    """
+    title, clean = _strip_title_figures(article.get("title"))
+    if title and clean:
+        return title
+    lead = _leading_clause(article.get("title"))
+    if lead:
+        return lead
+    dek, clean = _strip_title_figures(article.get("dek"))
+    if clean and len(dek.split()) >= 3:
+        return dek
+    return _neutral_release_title(article)
+
+
 def title_card_packet(article):
-    """The packet a title card renders: the title without figures and the piece's date only."""
+    """The packet a title card renders: the card title (no figures) and the piece's date only."""
     from live_contentops.fact_card_design_v1 import DESIGN, piece_dated_line
-    title = card_title_without_figures(article.get("title"))
-    if len(title.split()) < 3:
-        dek = card_title_without_figures(article.get("dek"))
-        title = dek if len(dek.split()) >= 3 else "Capital Chronicle news brief"
-    return {"policy": POLICY, "kind": TITLE_CARD, "facts": [], "design": DESIGN, "title": title,
+    return {"policy": POLICY, "kind": TITLE_CARD, "facts": [], "design": DESIGN, "title": card_title(article),
             "dated_line": piece_dated_line(article)}
 
 
