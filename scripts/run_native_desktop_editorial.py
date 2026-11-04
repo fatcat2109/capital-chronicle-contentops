@@ -191,11 +191,25 @@ def continue_owner_story(profile, *, source_review_id, operation_id=None, reques
     return operation(binding)
 
 
+def _bound_store(binding, command):
+    """A publication continuation opens its existing schema without a full DB scan."""
+    store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]),
+        auto_migrate=not command.startswith("publication-"))
+    if command.startswith("publication-"):
+        from live_contentops.durable_operational_store_v1 import SCHEMA_VERSION
+        if store.get_current_schema_version() != SCHEMA_VERSION:
+            store.run_migrations()
+        else:
+            store.verify_applied_migrations()
+    return store
+
+
 def _operation(binding, *, command="advance", response=None, stage=None, rollout=None,
               native_invocation_id=None, request_hash=None, candidate_id=None, operation_lease=None,
               report_only=False):
     validate_binding(binding, read_or_prepare=command in {"publication-prepare", "publication-status"})
-    store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]), auto_migrate=command != "publication-status")
+    store = (_bound_store(binding, command) if command != "publication-status" else
+        ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]), auto_migrate=False))
     work = "cc-opportunity-" + sha256_of(binding["run_id"])
     key = "native-operation-binding-" + sha256_of(binding["run_id"])
     previous = store.get_outbox_message(key)
@@ -494,7 +508,7 @@ def operation(binding, **kwargs):
         result = _operation(binding, **kwargs)
     else:
         validate_binding(binding, read_or_prepare=command == "publication-prepare")
-        store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]))
+        store = _bound_store(binding, command)
         owner = "native-desktop-" + uuid4().hex
         from contextlib import nullcontext
         from live_contentops.native_finished_publication_v1 import newsroom_lease
