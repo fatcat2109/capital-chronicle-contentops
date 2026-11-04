@@ -63,7 +63,7 @@ def test_exact_quarantine_reaches_report_only_selection_and_preserves_binding(tm
 
 @pytest.mark.parametrize("fault", ["changed_intent", "changed_authority", "readback_not_owed",
                                     "ATTEMPT_STARTED", "PENDING", "AMBIGUOUS"])
-def test_invalid_or_inapplicable_quarantine_still_blocks_before_any_feed(tmp_path, monkeypatch, fault):
+def test_unresolved_recovery_is_visible_without_blocking_editorial_preparation(tmp_path, monkeypatch, fault):
     store, transport, coordinator, ids = _quarantined_derivative_fixture(tmp_path)
     module = entry()
     _, binding = isolated_binding(module, tmp_path, store)
@@ -82,10 +82,19 @@ def test_invalid_or_inapplicable_quarantine_still_blocks_before_any_feed(tmp_pat
                          (canonical_bytes(value).decode(), message_id))
     before = store.get_platform_dispatch(ids["dispatch_id"])
     calls = list(transport.publish_calls)
-    monkeypatch.setattr(module, "MainReportFeed", lambda *a, **kw: pytest.fail("feed must not run"))
+    class ControlledFeed:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def opportunity(self, **kwargs):
+            return {"classification": "CONTROLLED_INPUT_REACHED", "qualified_article_count": 0}
+
+    monkeypatch.setattr(module, "MainReportFeed", ControlledFeed)
+    monkeypatch.setattr(module, "load_canonical_published_memory_read_only", lambda **kwargs: ([], {}))
     result = module.operation(binding, report_only=True)
-    assert result["classification"] == "RECOVERY_REQUIRED"
-    assert result["dispatch_ids"] == [ids["dispatch_id"]]
+    assert result["classification"] == "CONTROLLED_INPUT_REACHED"
+    assert result["pending_publication_recovery_dispatch_ids"] == [ids["dispatch_id"]]
+    assert coordinator.editorial_recovery_dispatch_ids() == [ids["dispatch_id"]]
     assert store.get_platform_dispatch(ids["dispatch_id"]) == before
     assert transport.publish_calls == calls
 

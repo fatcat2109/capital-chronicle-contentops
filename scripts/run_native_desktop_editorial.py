@@ -401,14 +401,12 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
                         raise ValueError("BLOCKED_ATTEMPT_HISTORY_CONFLICT")
                     if not target.exists():
                         source.replace(target)
-    # Recover through the existing coordinator BEFORE another semantic/public intent.
+    # Editorial preparation cannot send a post. Keep older recovery visible while
+    # the sole publisher enforces exact-object recovery and duplicate prevention
+    # at dispatch; an unrelated social readback must not stop the newsroom.
     from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
     ambiguous = DurablePublicationCoordinator(
         store=store, transport_runtime=None).editorial_recovery_dispatch_ids()
-    if ambiguous:
-        return {"classification": "RECOVERY_REQUIRED", "dispatch_ids": ambiguous,
-                "next_operation": "Existing DurablePublicationCoordinator readback/reconciliation; do not retry publishing",
-                "public_write_performed": False}
     memory, memory_proof = load_canonical_published_memory_read_only(
         store_path=binding["published_memory_store"], output_root=binding["published_memory_output_root"])
     from live_contentops.native_newsroom_learning_v1 import freeze_learning, compact_briefing
@@ -466,6 +464,7 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
         return {"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "stage": pending.request["stage"],
                 "request_path": pending.request["request_path"],
                 "request_sha256": pending.request["request_sha256"],
+                "pending_publication_recovery_dispatch_ids": ambiguous,
                 "editorial_execution": turn.telemetry(), "public_write_performed": False,
                 **{k:pending.request[k] for k in ("parallel_requests","filter_progress") if k in pending.request}}
     if turn.manual_candidate and turn.story_outcomes():
@@ -473,12 +472,14 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
         if outcome is not None:
             return outcome
     result["native_published_memory_proof"] = memory_proof
+    result["pending_publication_recovery_dispatch_ids"] = ambiguous
     result["publication_handoff_state"] = "REVIEW_REQUIRED_NO_DISPATCH" if result.get("qualified_article_count") else "NO_QUALIFIED_HANDOFF"
     root = turn.root
     root.mkdir(parents=True, exist_ok=True)
     (root / "native_desktop_result.json").write_bytes(canonical_bytes(result))
     return {k: result.get(k) for k in ("classification", "qualified_article_count", "derivative_intent_count",
-        "exact_next_blocker", "article_path", "native_derivative_preview_path", "publication_handoff_state", "editorial_execution")}
+        "exact_next_blocker", "article_path", "native_derivative_preview_path", "publication_handoff_state", "editorial_execution",
+        "pending_publication_recovery_dispatch_ids")}
 
 
 def operation(binding, **kwargs):
