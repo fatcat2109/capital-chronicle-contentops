@@ -42,3 +42,12 @@ Launch ancestry: gpt-6.1-sol/high, CONFIGURED_NOT_OBSERVED. No editorial calls,
 public sends, schedule changes, app restarts or messages occurred. Live tag:
 `contentops-live-20261104-cc177-weekly-export`; prior live source is retained at
 `contentops-live-20261104-cc186-post-images` (91f38751).
+
+Final integration readback: the operating root fast-forwarded to evidence commit
+`9b2b2212047912ddfe3b1fd0b5f16657b6b779ff`; its status and retained WIP hashes still
+match. The branch remote was read back at that exact commit. The live tag exists
+locally. Two remote tag pushes failed: `fatal error in commit_refs`, then
+`Internal Server Error` (GitHub request C7BE:1480AD:14FCA16:1F33B42:6AEB0BF8,
+2026-11-04T10:42:01Z). Remote readback showed no such tag. This is a remote tag
+publication failure, not a failed local integration or consumer test. Retry the
+same local tag when GitHub recovers; do not replace it or infer remote success.
