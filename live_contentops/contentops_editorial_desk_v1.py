@@ -40,6 +40,57 @@ def record_pre_event_preparation(store, packet):
     return {"message_id": key, "event_id": packet["event_id"], "source_admission_state": value["source_admission_state"]}
 
 
+def retain_reviewed_preview_background(store, *, event_id, run_id):
+    """Feed an accepted background back to the existing event-preparation owner."""
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.native_desktop_editorial_v1 import native_review_revision
+    binding_row = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
+    binding = json.loads(binding_row["payload"]) if binding_row else {}
+    row = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
+    result = json.loads(row["payload"]) if row else {}
+    if binding.get("preview_event_id") != event_id or not result.get("qualified_article_count"):
+        raise ValueError("EXACT_PREVIEW_EVENT_BACKGROUND_REQUIRED")
+    with store.get_read_only_connection() as conn:
+        review = conn.execute("SELECT * FROM review_records WHERE work_item_id=? AND reviewer_ref=? "
+            "ORDER BY rowid DESC LIMIT 1", (row["work_item_id"], "NATIVE_DESKTOP_ARTICLE_REVIEW")).fetchone()
+        preparations = conn.execute("SELECT message_id,payload FROM outbox_messages WHERE destination=? ORDER BY rowid",
+            (STORY_PREPARATION,)).fetchall()
+    note = json.loads(review["notes"]) if review else {}
+    revision = native_review_revision(result)
+    if (not review or review["decision"] != "KEEP" or note.get("package_revision") != revision
+            or not note.get("final_visual_review")):
+        raise ValueError("REVIEWED_PREVIEW_BACKGROUND_REVISION_REQUIRED")
+    prior = [(r["message_id"], json.loads(r["payload"])) for r in preparations
+        if json.loads(r["payload"]).get("event_id") == event_id]
+    message_id, packet = prior[-1] if prior else (None, {})
+    if not packet:
+        raise ValueError("PREPARATION_EVENT_NOT_FOUND:" + event_id)
+    old = packet.get("reviewed_background") or {}
+    if old.get("article_revision") == revision and old.get("review_id") == review["review_id"]:
+        return {"message_id": message_id, "event_id": event_id, "run_id": run_id,
+            "article_revision": revision, "classification": "REVIEWED_BACKGROUND_ALREADY_RETAINED"}
+    from copy import deepcopy
+    background = {"run_id": run_id, "article_identity": result["article_identity"],
+        "article_revision": revision, "review_id": review["review_id"], "reviewed_at_utc": review["reviewed_at"],
+        "article": deepcopy(result["article"]), "original_source_pack": deepcopy(result["evidence"]),
+        "media_assets": [{k: deepcopy(a[k]) for k in ("asset_id", "path", "sha256", "modality", "caption",
+            "alt_text", "placement_after", "source_links") if k in a} for a in result.get("media_assets", [])],
+        "final_visual_review": deepcopy(note["final_visual_review"]),
+        "final_result_message_id": row["message_id"], "final_result_sha256": sha256_of(result),
+        "scope": "REVIEWED_PRE_EVENT_BACKGROUND", "dossier_scenarios_added": False}
+    # Exact media/renders remain binary in their owned folders; references and
+    # hashes are enough for the next native planner/writer to reuse those files.
+    background["final_visual_review"] = {k: v for k, v in background["final_visual_review"].items()
+        if k not in {"assets", "renders"}}
+    packet = {**packet, "known_at_utc": review["reviewed_at"],
+        "original_preparation_message_id": message_id,
+        "background_source_known_at_utc": packet.get("background_source_known_at_utc", packet["known_at_utc"]),
+        "reviewed_background": background}
+    receipt = record_pre_event_preparation(store, packet)
+    return {**receipt, "run_id": run_id, "article_revision": revision,
+        "classification": "REVIEWED_BACKGROUND_FEEDS_PREVIEW_PREPARATION"}
+
+
 def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="EVENT_PREVIEW"):
     """Use our existing preparation in the preview's ordinary source/writer path.
 
@@ -121,6 +172,8 @@ def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="E
                 "known_at_utc": packet["known_at_utc"], "background": packet["background"],
                 "reader_question": packet["reader_question"], "watchpoints": packet.get("watchpoints", []),
                 "missing_inputs": packet["missing_inputs"],
+                **({"reviewed_background": packet["reviewed_background"]}
+                   if packet.get("reviewed_background") and not records else {}),
                 "future_release_values": None, "dossier_scenarios": None,
                 "background_is_editorial_context_not_new_official_facts": True},
             "source_reuse_constraints": rights}

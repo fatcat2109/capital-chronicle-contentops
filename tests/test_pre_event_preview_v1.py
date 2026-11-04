@@ -197,3 +197,56 @@ def test_new_future_preparation_cannot_replace_frozen_native_input(tmp_path, mon
     with pytest.raises(DesktopInputRequired) as after:
         f.opportunity(output_dir=tmp_path / "out", cutoff_utc=NOW, run_id="frozen-preview", llm_invoke=turn)
     assert before.value.request["request_sha256"] == after.value.request["request_sha256"]
+
+
+def test_reviewed_background_reaches_next_preview_writer_without_rewriting_prior_preparation(tmp_path, monkeypatch):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.capital_chronicle_report_feed_v1 import _persist
+    from live_contentops.contentops_editorial_desk_v1 import retain_reviewed_preview_background
+    from live_contentops.native_desktop_editorial_v1 import native_review_revision
+    f = feed(tmp_path)
+    _, _, original = prepare(f.tracker.store, tmp_path)
+    before = f.tracker.store.get_outbox_message(original["message_id"])["payload"]
+    run = "controlled-reviewed-background"
+    _persist(f.tracker.store, "native-operation-binding-" + sha256_of(run),
+        {"preview_event_id": EVENT}, "internal:native-operation-binding")
+    result = {"qualified_article_count": 1, "article_identity": "controlled-background-identity",
+        "article": {"title": "Controlled reviewed employment preview", "substack_body_markdown":
+            "The reviewed background compares the two surveys without a future release value."},
+        "simple_result": {"publication_lifecycle_plan": {"plan_hash": "controlled-plan"}},
+        "evidence": [], "media_assets": []}
+    key = "cc-editorial-final-" + sha256_of(run)
+    _persist(f.tracker.store, key, result, "internal:controlled-native-result")
+    row = f.tracker.store.get_outbox_message(key)
+    note = {"package_revision": native_review_revision(result),
+        "final_visual_review": {"stage": "controlled-final-visual", "request_sha256": "controlled-review"}}
+    with f.tracker.store.get_connection() as conn:
+        conn.execute("INSERT INTO review_records VALUES (?,?,?,?,?,?)", ("controlled-background-review",
+            row["work_item_id"], "NATIVE_DESKTOP_ARTICLE_REVIEW", "KEEP", json.dumps(note), "2026-10-18T16:00:00Z"))
+    receipt = retain_reviewed_preview_background(f.tracker.store, event_id=EVENT, run_id=run)
+    assert f.tracker.store.get_outbox_message(original["message_id"])["payload"] == before
+    assert retain_reviewed_preview_background(f.tracker.store, event_id=EVENT, run_id=run)["message_id"] == receipt["message_id"]
+    f.pointer["preview_event_id"] = EVENT
+    monkeypatch.setattr(f, "pending", lambda **_: [])
+    donor, observed = controlled_writer([]), []
+
+    class WriterReached(Exception):
+        pass
+
+    def invoke(**kwargs):
+        governed = kwargs["governed_input"]
+        if "candidates" in governed:
+            return donor(**kwargs)
+        observed.extend(governed["source_pack"])
+        raise WriterReached
+
+    with pytest.raises(WriterReached):
+        f.opportunity(output_dir=tmp_path / "post-freeze-consumer", cutoff_utc=NOW,
+            run_id="controlled-next-event-preview", rolling_input={"headlines": []}, llm_invoke=invoke)
+    backgrounds = [d["preview_preparation"]["reviewed_background"] for d in observed
+        if d.get("preview_preparation", {}).get("reviewed_background")]
+    assert len(backgrounds) == 1
+    assert backgrounds[0]["article"] == result["article"]
+    assert backgrounds[0]["article_revision"] == native_review_revision(result)
+    assert backgrounds[0]["review_id"] == "controlled-background-review"
+    assert backgrounds[0]["dossier_scenarios_added"] is False
