@@ -1,0 +1,16 @@
+{
+  "public_image_url": "https://pbs.twimg.com/media/HWQkAZea4AAOROe?format=png&name=orig",
+  "public_file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261104-1134\\x-payroll-public-original.png",
+  "platform_sha256": "92ad374867747b1750211516b1f5db90f4929efb64a3250517406cb194cfb407",
+  "source_asset_sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+  "public_dimensions": [
+    1440,
+    1040
+  ],
+  "source_dimensions": [
+    1440,
+    1040
+  ],
+  "exact_pixels_equal": true,
+  "byte_identical": false
+}

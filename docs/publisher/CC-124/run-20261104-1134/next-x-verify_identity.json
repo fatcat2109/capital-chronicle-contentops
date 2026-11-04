@@ -1,0 +1,27 @@
+{
+  "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+  "operation_id": "cc124-next-article-20261104-a",
+  "public_write_authorized": false,
+  "request": {
+    "action": "VERIFY_IDENTITY",
+    "destination": "x",
+    "entry_url": "https://x.com/Capitalnicle",
+    "expected_identity": "@Capitalnicle",
+    "forbidden": [
+      "login",
+      "account_switch",
+      "public_write",
+      "saved_draft",
+      "private_storage"
+    ],
+    "native_invocation_id": "01a1a4d5-297b-7a72-bf56-c0af786aba7c",
+    "probe_epoch": 5979237,
+    "request_sha256": "59d412b90c435ec34e17781530d444bb0ae27dea16671459d2368d1676cc2c32",
+    "schema_version": "contentops.neo_identity_probe.v1",
+    "surface": "X_THREAD",
+    "work_item_id": "native-neo-operation-9c137e07ce5607918a3bcf719927d6dc8e9910ffb893fd22bb3436c59b21511a"
+  },
+  "required_tool": "mcp__browseros_neo__run",
+  "schema_version": "contentops.native_neo_tool_request.v1",
+  "tool_request_sha256": "21e278051167be6586268f8156b7670f536e9069f09c9135af4c1af402fd73c8"
+}
