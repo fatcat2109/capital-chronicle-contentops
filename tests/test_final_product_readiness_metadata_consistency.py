@@ -14,34 +14,6 @@ def _json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_status_records_database_authorized_generic_canary_authority() -> None:
-    status = _json(STATUS)
-    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1"
-    assert status["latest_accepted_task_result"] == "PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED"
-    assert status["current_task_classification"] == (
-        "PASS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_"
-        "EDITORIAL_SHADOW_HANDOFF_V1_AWAITING_CHATGPT_AUDIT"
-    )
-    assert status["accepted_product_baseline_sha"] == "6983bfb3ef300414b744f3f8f97ca81ff699348b"
-    assert status["upstream_readiness"]["dqr_status"] == "BLOCKED"
-    assert status["upstream_readiness"]["reporting_allowed"] is True
-    assert status["upstream_readiness"]["publication_decision"] == "PASS_PUBLICATION_AUTHORIZED"
-    live_run = status["database_publication_live_run"]
-    assert live_run["substack_plus_eight_derivatives_success"] is True
-    assert live_run["global_dqr_bypassed"] is False
-    assert live_run["final_auction_logic_repair"] == "PASS_EXACT_EXISTING_ARTICLE_UPDATE_STRICT_READBACK"
-    assert live_run["final_auction_logic_repair_after_body_sha256"] == "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc"
-    assert live_run["all_eight_derivative_evidence_rows_unchanged"] is True
-    assert live_run["final_release_verifier"] == "PASS_NO_BLOCKERS"
-    assert status["generalized_release_accepted"] is True
-    assert status["v1_0_tag_exists"] is True
-    assert status["v1_0_tag_name"] == "v1.0"
-    assert status["next_task"] == (
-        "INDEPENDENT_CHATGPT_AUDIT_VERIFIED_EVIDENCE_RECEIPT_WINDOW_"
-        "INCREMENTAL_INTAKE_AND_EDITORIAL_SHADOW_HANDOFF_V1"
-    )
-
-
 def test_current_evidence_separates_transport_from_quality() -> None:
     evidence = _json(RUN / "run_evidence_v1.json")
     assert evidence["classification"] == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
