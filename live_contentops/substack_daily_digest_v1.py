@@ -64,6 +64,7 @@ def validate_digest_intent(store, intent):
     if (intent.get("work_item_id") != packet.get("digest_id")
             or intent.get("plan_hash") != plan.get("plan_hash")
             or intent.get("native_payload") != packet.get("native_payload")
+            or intent.get("media_assets", []) != packet.get("media_assets", [])
             or intent.get("destination_plan") != {**plan.get("destinations", [{}])[0],
                                                    "substack_delivery_mode": EMAIL_DIGEST}):
         raise ValueError("EXACT_FROZEN_DAILY_DIGEST_INTENT_REQUIRED")
@@ -153,7 +154,15 @@ def prepare_daily_digest(store, feed_path, *, now=None):
         if not articles:
             return {"digest_id": digest_id, "state": "NO_CONFIRMED_ARTICLES", "public_write_performed": False}
         payload = {"title": "Capital Chronicle daily digest — " + day.strftime("%B %d, %Y"),
+                   "subtitle": f"{len(articles)} articles",
                    "body_markdown": "\n\n".join([*(f'- [{_link_title(a["title"])}]({a["url"]})' for a in articles), PUBLIC_NOTICE])}
+        from pathlib import Path
+        from live_contentops.rolling_x_grounded_article_media_builder_v1 import build_post_image_card
+        card = build_post_image_card(
+            {**payload, "substack_body_markdown": payload["body_markdown"]},
+            output_dir=Path(store.db_path).parent / "daily_app_outputs" / "owner-manual" / digest_id / "media",
+            accepted_evidence_sha256=sha256_of(articles))
+        card.update(rights_status="OWNED_ORIGINAL", rights="Capital Chronicle original publication index and layout")
         registration = registration_for_destination("substack")
         body = payload["body_markdown"]
         plan = {"schema_version": "contentops.publication_plan.v1", "daily_digest": digest_id,
@@ -168,7 +177,7 @@ def prepare_daily_digest(store, feed_path, *, now=None):
         plan["plan_hash"] = sha256_of(plan)
         packet = {"schema_version": "contentops.substack_daily_digest.v1", "digest_id": digest_id,
                   "cutoff_utc": end.isoformat(), "prepared_at_utc": now.astimezone(timezone.utc).isoformat(),
-                  "articles": articles, "native_payload": payload, "plan": plan}
+                  "articles": articles, "native_payload": payload, "media_assets": [card], "plan": plan}
         store.create_work_item(story_id=digest_id, work_item_id=digest_id,
                                title=payload["title"], target_surface="SUBSTACK_ARTICLE")
         store.register_outbox_message(message_id="substack-digest-" + digest_id, work_item_id=digest_id,
@@ -189,7 +198,15 @@ def production_digest_housekeeping(store, *, now=None):
     if not DEFAULT_FEED.is_file():
         return {"state": "CONFIRMED_PUBLICATION_FEED_MISSING", "public_write_performed": False}
     result = prepare_daily_digest(store, DEFAULT_FEED, now=now)
-    return {k: v for k, v in result.items() if k != "packet"}
+    summary = {k: v for k, v in result.items() if k != "packet"}
+    if result.get("packet") and not result.get("confirmed"):
+        summary["native_continuation"] = {
+            "command": "digest-resume",
+            "arguments": ["--rollout", "config/native_desktop_rollout_v1.json",
+                          "--native-invocation-id", "<actual-active-invocation>"],
+            "instruction": "Continue this exact due digest through the existing Neo begin/submit loop before preparing another digest. Preserve any code tab and never read a mailbox or enter a code.",
+        }
+    return summary
 
 
 def continue_daily_digest(store, packet, *, output_dir, invocation_id, rollout, command="resume",

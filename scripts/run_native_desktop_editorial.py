@@ -557,6 +557,19 @@ def operation(binding, **kwargs):
     return result
 
 
+def with_due_digest(result, rollout_path):
+    """Expose due native work to the existing Publisher entry, without a timer."""
+    from live_contentops.substack_daily_digest_v1 import production_digest_housekeeping
+    rollout = json.loads(rollout_path.read_bytes())
+    try:
+        store = ContentOpsDurableStore(rollout["store_path"], auto_migrate=False)
+        digest = production_digest_housekeeping(store)
+    except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
+        digest = {"state": "DIGEST_PREPARATION_FAILED", "cause": str(exc),
+                  "public_write_performed": False}
+    return {**result, "daily_email_digest": digest}
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("newsroom", "standing", "release-finished", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "next-candidate", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
@@ -812,6 +825,8 @@ def main(argv=None):
                     operation_id=args.operation_id, request=request, report_only=args.report_only, source_review_ids=args.source_review_id,
                     live_rollout=json.loads(args.rollout.read_bytes()) if args.live else None)
             result = operation(binding, report_only=args.report_only)
+            if args.live or args.command == "standing":
+                result = with_due_digest(result, args.rollout)
             print(json.dumps({**result, "binding_path": str(path),
                 "agent_instruction": "Continue assigned native roles, existing source tools, review and previews in this same opportunity. "
                     + ("Use the sole reviewed publication coordinator under the applied live rollout; verify exact objects and never retry UNKNOWN_WRITE."
@@ -833,6 +848,7 @@ def main(argv=None):
         try:
             result = scheduled_binding(json.loads(args.rollout.read_bytes()), args.automation_id,
                                        continue_after=args.continue_after)
+            result = with_due_digest(result, args.rollout)
         except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
             print(json.dumps({"classification": "NATIVE_DESKTOP_BLOCKED", "blocker": str(exc)}))
             return 2
@@ -847,6 +863,8 @@ def main(argv=None):
                            rollout=json.loads(args.rollout.read_bytes()) if args.rollout else None,
                            native_invocation_id=args.native_invocation_id, request_hash=args.request_sha256,
                            candidate_id=args.candidate_id, report_only=args.report_only)
+        if args.command == "publication-resume" and args.rollout:
+            result = with_due_digest(result, args.rollout)
     except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
         print(json.dumps({"classification": "NATIVE_DESKTOP_BLOCKED", "blocker": str(exc),
             "run_id":locals().get("binding", {}).get("run_id"), "binding_path":str(args.binding),

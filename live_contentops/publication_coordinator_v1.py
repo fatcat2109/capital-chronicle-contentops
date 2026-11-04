@@ -1698,6 +1698,7 @@ class DurablePublicationCoordinator:
                 packet = validate_digest_plan(self.store, work_item_id, plan)
                 intent["daily_digest"] = packet["digest_id"]
                 intent["native_payload"] = packet["native_payload"]
+                intent["media_assets"] = packet.get("media_assets", [])
                 # A digest is a link index, not a new analytical article in the feed.
                 intent.pop("published_content_export", None)
             payload = _canonical_json(intent)

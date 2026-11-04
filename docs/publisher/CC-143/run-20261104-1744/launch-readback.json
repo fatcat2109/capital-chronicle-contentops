@@ -1,0 +1,20 @@
+[
+  {
+    "name": "pwsh.exe",
+    "pid": 452,
+    "model": "",
+    "effort": ""
+  },
+  {
+    "name": "codex.exe",
+    "pid": 48600,
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+  },
+  {
+    "name": "pwsh.exe",
+    "pid": 2760,
+    "model": "",
+    "effort": ""
+  }
+]

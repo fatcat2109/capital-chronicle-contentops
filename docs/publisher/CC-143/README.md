@@ -61,3 +61,26 @@ Next action belongs to Ops: review/integrate the pushed branch, wire the existin
 Publisher consumer to the due digest continuation, and collect a real web-only
 article readback plus the digest's sent-email dashboard readback. Preserve every
 existing draft/code tab and UNKNOWN_WRITE; no replacement post or draft is allowed.
+
+## 4 November 2026 continuation
+
+The current run is `run-20261104-1744`. The delivered branch was merged with
+operating head 5150b4b0, preserving newer publication, media and recovery fixes.
+Publisher integrates its own changes under decision 39; earlier text assigning
+this integration to Ops is superseded.
+
+Existing standing/scheduled entries and publication resumes now surface an exact
+due-digest continuation; the existing host tick still prepares it. No schedule
+is added or changed. A digest uses the existing admitted-headline card renderer
+for its structured date/article-count cover, bound to its exact selected records.
+The publication coordinator binds those original binary bytes to the Neo request.
+
+173 targeted publication tests and 29 native-entry/digest checks pass. The current
+launch arguments observe gpt-6.1-sol/high; runtime model telemetry remains
+CONFIGURED_NOT_OBSERVED. No editorial model call was made: the digest copies
+confirmed public titles/links and renders structured publication metadata.
+
+Live readback verifies web-only SEC post 223408612 with no email recipients.
+The earlier exact publish return records email_sent=false and no code request.
+Midterm 223293057 is not silently inserted: its existing reconciliation is
+RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE, so the current confirmed feed excludes it.

@@ -80,6 +80,9 @@ def test_1900_cutoff_and_late_articles(tmp_path):
     assert prepared(store, feed, "2026-11-03T11:59:59Z")["state"] == "NO_CONFIRMED_ARTICLES"
     first = prepared(store, feed)["packet"]
     assert [a["content_id"] for a in first["articles"]] == ["one"]
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_post_image_card
+    validate_post_image_card(first["media_assets"][0],
+        accepted_evidence_sha256=first["plan"]["accepted_evidence_sha256"])
     assert first["cutoff_utc"] == "2026-11-03T12:00:00+00:00"
     assert first["native_payload"]["body_markdown"].count("/p/one") == 1
     confirm(store, first)
@@ -240,6 +243,7 @@ def test_full_native_digest_restart_loop_and_email_readback(tmp_path, monkeypatc
         begun = continue_daily_digest(store, packet, command="begin", request_hash=request_hash, **args)
         if action == "PUBLISH":
             assert begun["substack_publish_routine"]["delivery"]["email_send_enabled"] is True
+            assert begun["request"]["content_binding"]["media_manifest"][0]["sha256"] == packet["media_assets"][0]["sha256"]
         returned = {"request_sha256":request_hash, "observed_identity":"capitalchronicle.substack.com", "status":"SUCCESS"}
         if action == "VERIFY_IDENTITY":
             returned["authenticated"] = True
@@ -251,6 +255,7 @@ def test_full_native_digest_restart_loop_and_email_readback(tmp_path, monkeypatc
             else:
                 returned.update(content_verified=True,
                     observed_text=" ".join(request["content_binding"]["expected_text_segments"]),
+                    observed_media_sha256=[a["sha256"] for a in packet["media_assets"]],
                     email_delivery_confirmed=True, email_delivery_evidence_ref="CONTROLLED_TEST_NOT_BROWSER")
         response = {"tool_request_sha256":pending["tool_request_sha256"],
             "tool_observation":{"tool_name":TOOL, "native_invocation_id":"controlled-native-loop",
@@ -285,5 +290,39 @@ def test_existing_host_tick_prepares_due_digest_once_without_browser_or_cycle(tm
     assert due["daily_email_digest"]["state"] == "PREPARED_NATIVE_INPUT_REQUIRED"
     later = supervisor.tick(now=clock("2026-11-03T12:01:00Z"))
     assert later["daily_email_digest"]["digest_id"] == due["daily_email_digest"]["digest_id"]
+    assert due["daily_email_digest"]["native_continuation"]["command"] == "digest-resume"
     assert len(packets(store)) == 1 and store.list_platform_dispatches() == []
     assert calls == []
+
+
+def test_publisher_entry_consumes_due_digest_and_reuses_packet(tmp_path, monkeypatch, capsys):
+    from test_native_newsroom_owner_operation_v1 import entry
+    import live_contentops.published_content_v1 as published
+    module = entry()
+    store, feed = setup(tmp_path, [row()])
+    control = store.get_operating_control()
+    store.update_operating_control(operating_mode="AUTONOMOUS_DEFAULT",
+        expected_state_version=control["state_version"], control_source="TEST")
+    monkeypatch.setattr(published, "PRODUCTION_STORE", store.db_path)
+    monkeypatch.setattr(published, "DEFAULT_FEED", feed)
+    from live_contentops.substack_daily_digest_v1 import production_digest_housekeeping
+    monkeypatch.setattr("live_contentops.substack_daily_digest_v1.production_digest_housekeeping",
+        lambda store: production_digest_housekeeping(store, now=clock("2026-11-03T12:00:00Z")))
+    rollout = tmp_path / "rollout.json"
+    rollout.write_text(json.dumps({"store_path": str(store.db_path)}))
+    binding = tmp_path / "binding.json"
+    binding.write_text("{}")
+    monkeypatch.setattr(module, "operation", lambda *a, **kw: {"article": "unchanged"})
+    args = ["publication-resume", "--binding", str(binding), "--rollout", str(rollout)]
+    assert module.main(args) == 0
+    first = json.loads(capsys.readouterr().out)
+    digest = first["daily_email_digest"]
+    assert digest["native_continuation"]["command"] == "digest-resume"
+    assert digest["state"] == "PREPARED_NATIVE_INPUT_REQUIRED"
+    assert first["article"] == "unchanged"
+    assert module.main(args) == 0
+    again = json.loads(capsys.readouterr().out)
+    assert again["daily_email_digest"]["digest_id"] == digest["digest_id"]
+    assert len(packets(store)) == 1
+    packet = packets(store)[0]
+    assert packet["articles"][0]["url"] in packet["native_payload"]["body_markdown"]
