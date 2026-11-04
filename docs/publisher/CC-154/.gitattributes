@@ -1,0 +1,2 @@
+*.xml binary
+*.json -text whitespace=cr-at-eol

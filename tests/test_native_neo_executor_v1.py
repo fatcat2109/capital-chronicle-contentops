@@ -262,7 +262,12 @@ def test_coordinator_pending_publish_and_claimed_loss_enters_readback_only(tmp_p
     packet = executor.pending()[0]
     # Controlled boundary fixture; actual identity observations are separately proven in Neo.
     monkeypatch.setattr(executor, "readiness", lambda surface: {"authenticated": True, "native_executor_bound": True})
-    executor.begin(packet["request"]["request_sha256"])
+    action = executor.begin(packet["request"]["request_sha256"])
+    routine = action["substack_publish_routine"]
+    assert routine["policy"] == "JIM_DECISIONS_48_52_63"
+    assert "one existing" in routine["window"]
+    assert "continue other destinations" in routine["email_code_dialog"]
+    assert routine["email_code_return"]["automatic_wait"] is False
     with pytest.raises(ValueError, match="ALREADY_CLAIMED"):
         executor.begin(packet["request"]["request_sha256"])
     restarted = NativeNeoExecutor(store, operation_id="work", output_dir=tmp_path / "resume",

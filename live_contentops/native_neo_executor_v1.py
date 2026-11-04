@@ -184,12 +184,15 @@ class NativeNeoExecutor:
                 "native_file_dialog": "FORBIDDEN_STOP_WITH_NATIVE_FILE_DIALOG_OPEN"}
         if request["destination"] == "substack" and request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
             action_packet["substack_publish_routine"] = {
-                "policy": "JIM_DECISION_54",
-                "window": "Dedicated BrowserOS Neo window; keep the Substack tab open and in front. Never close, reuse or navigate it.",
-                "before_publish": "Two tabs in that same window: Jim's Gmail inbox, open and untouched, and the Substack draft. Agents never read Gmail.",
-                "email_code_dialog": "Record PENDING_JIM_EMAIL_CODE, page_id and URL in the item's Result. Wait on that tab for Jim to type the code. No reload, other input or use of another tab.",
+                "policy": "JIM_DECISIONS_48_52_63",
+                "window": "Use the one existing BrowserOS Neo window and this task's tab group. Never create another window. Leave Jim's tabs untouched.",
+                "before_publish": "Use the finished Substack draft in this task's tab group. Never read a mailbox or enter an email code.",
+                "email_code_dialog": "Record PENDING_JIM_EMAIL_CODE, draft_id, page_id and URL. Leave that tab open and untouched for Jim; continue other destinations in other task tabs. No automatic wait, reload, navigation or input on the code tab.",
                 "continue_only_after": "The same tab reaches /publish/posts/detail/.../share-center; continue exact readback and dispatch recording.",
                 "pending_is_dispatch": False,
+                "email_code_return": {"status": "PENDING_JIM_EMAIL_CODE", "required_fields": ["draft_id", "page_id", "page_url"],
+                    "pipeline_state": "SUBSTACK_DRAFT_AWAITING_OWNER", "automatic_wait": False,
+                    "tab_policy": "Leave this tab open and untouched for Jim under decision 52; continue in other task tabs without a human-help tool wait."},
             }
         return action_packet
 

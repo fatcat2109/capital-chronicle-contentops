@@ -32,6 +32,14 @@ def _canonical(url):
     return p.scheme == "https" and p.hostname == IDENTITIES["substack"] and p.path.startswith("/p/") and not p.query and not p.fragment
 
 
+def _social_canonical(url):
+    """The preview site's exact article path is also a permitted social target."""
+    p = urlsplit(str(url or ""))
+    return _canonical(url) or bool(p.scheme == "https" and p.hostname == "fatcat2109.github.io"
+        and not p.username and not p.password and not p.query and not p.fragment
+        and re.fullmatch(r"/capital-chronicle-preview/articles/[0-9a-f]{32}/", p.path))
+
+
 def _public_url(destination, url, object_id=None):
     p = urlsplit(str(url or ""))
     if p.scheme != "https" or p.query or p.fragment:
@@ -130,8 +138,10 @@ class NeoDestinationHandoff:
                     or auth.get("work_item_id") != intent.get("work_item_id")
                     or auth.get("payload_hash") != intent.get("destination_plan", {}).get("payload_hash")):
                 raise ValueError("SOLE_COORDINATOR_AUTHORIZATION_REQUIRED")
-            if destination != "substack" and not _canonical(intent.get("canonical_url")):
-                raise ValueError("RECONCILED_SUBSTACK_URL_REQUIRED")
+            valid_canonical = (_social_canonical(intent.get("canonical_url"))
+                if intent.get("distribution_policy") == "SITE_FIRST_V1" else _canonical(intent.get("canonical_url")))
+            if destination != "substack" and not valid_canonical:
+                raise ValueError("RECONCILED_CANONICAL_URL_REQUIRED")
         if action == "EDIT_EXISTING" and (not intent.get("reader_presentation_review")
                 or not public_object_id or not _public_url(destination, public_object_url, public_object_id)
                 or auth.get("action") != "EDIT_EXISTING"):
@@ -177,6 +187,10 @@ class NeoDestinationHandoff:
                 "preserve the original timestamp with a UTC offset. Never substitute a dispatch, "
                 "event, retrieval, scheduled or current clock."
             )
+        if destination == "substack" and action == "READBACK" and intent.get("pending_owner_screen"):
+            value["pending_owner_screen"] = intent["pending_owner_screen"]
+            value["owner_readback_invocation"] = intent.get("owner_readback_invocation")
+            value["steps"] = ["Inspect only the same retained code tab. Never reload, navigate, type, read a mailbox or enter a code. If still on the code screen, report unverified and continue other destinations in other task tabs without waiting. Continue exact Substack readback only after this tab reaches /publish/posts/detail/.../share-center."]
         if destination == "linkedin" and action == "READBACK" and not public_object_id:
             value["owner_absence_context"] = intent.get("owner_absence_context")
         if intent.get("reader_presentation_review"):
@@ -241,7 +255,7 @@ class NeoDestinationHandoff:
                         and short in str(result.get("observed_text") or "")
                         and link.get("target_verified") is True
                         and link.get("public_object_url") == public_object_url
-                        and link.get("target_url") == canonical and _canonical(canonical)):
+                        and link.get("target_url") == canonical and _social_canonical(canonical)):
                     comparison_text = comparison_text.replace(_text(short), _text(canonical))
         text_match = (bool(segments) and all(_text(s) in comparison_text for s in segments)
             and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))

@@ -2386,7 +2386,8 @@ def _build_simple_publication_lifecycle_plan(
         "transaction_readiness": "CANONICAL_READY_DERIVATIVES_DEFERRED",
         "transport_registry_version": REGISTRY_VERSION,
         "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
-        "substack_first_dependency": True,
+        "distribution_policy": "SITE_FIRST_V1",
+        "substack_first_dependency": False,
         "canonical_url_before_state": "PENDING_NON_DISPATCHABLE",
         "derivative_rematerialization_owner": (
             "CanonicalDestinationTransportRuntimeV1.finalize_intent"
