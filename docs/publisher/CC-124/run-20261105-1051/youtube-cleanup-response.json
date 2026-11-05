@@ -1,0 +1,30 @@
+{
+  "tool_request_sha256": "a7440c3eecc6bb4586351cb7af0629b04bc75abc9b3001f4891e3dd1bc56b407",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a9d5-9a22-73a1-ab8d-6c0e1e84c9ee",
+    "surface": "CODEX_EXEC",
+    "observed_at_utc": "2026-11-05T06:43:42.231Z",
+    "observation_source": "Fresh Neo exact object/profile reloaded under the claimed read-only request; same account, current full copy, loaded media and preserved public object identities. No publish, edit or retry."
+  },
+  "result": {
+    "request_sha256": "1691992d15eabbda003e02e8485a8150c9dc19f2e79310d55a4c049aac4f5218",
+    "status": "SUCCESS",
+    "content_verified": true,
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "Ugkxrj2tZ7a1Rv7Jk3zHVujlgRKCzverZLeg",
+    "public_object_url": "https://www.youtube.com/post/Ugkxrj2tZ7a1Rv7Jk3zHVujlgRKCzverZLeg",
+    "observed_text": "Update: SINGLE-SOURCE REPORT - REUTERS | Reuters' 21 October IBM report: software revenue growth outlook and the deal-timing test\n\nReuters' 21 October IBM report described a higher lower bound for annual software-revenue growth.\n\nWhat to watch: The next useful test is whether further reported results substantiate the new-business explanation.\n\nRead the full brief: https://capitalchronicle.substack.com/p/single-source-report-reuters-reuters\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "1e4dbe6e91df326a5e2616227417a0c716d2f5f73077db505459003eaa6ae7b6",
+        "platform_sha256": "c49f82d4ac00f42161ebc18188a4f8d4cfc641338c3110e0b5fd9ca63fe55cee",
+        "public_object_url": "https://www.youtube.com/post/Ugkxrj2tZ7a1Rv7Jk3zHVujlgRKCzverZLeg",
+        "public_image_url": "https://yt3.ggpht.com/jUSOMst_cyBL96mMmIB-WMl7W3Skr2s48pk1Jkhq1cOzh1FbaZk0ONoSn-KtybqLHiukHV6ICVdv3yg=s640-rw-nd-v1",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "inspection": "Same full uncropped branded source card; title, dek, Reuters date and analysis notice preserved after platform resize/compression."
+      }
+    ]
+  }
+}

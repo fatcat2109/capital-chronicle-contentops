@@ -1,0 +1,717 @@
+{
+  "checked_at_utc": "2026-11-05T07:17:12.726399+00:00",
+  "run_id": "cc124-next-article-20261105-c",
+  "canonical_feed_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+  "canonical_feed_row": {
+    "conditional_calls": [],
+    "conflicts_notice": null,
+    "content_id": "substack:223584317",
+    "content_sha256": "7f8a21d7734fb3d349c76b8ff0bf11a3cd781c85be282b87d1b6abd59439773f",
+    "disclaimer": "Analysis, not financial advice.",
+    "event_id": null,
+    "outlets": [
+      {
+        "name": "substack",
+        "url": "https://capitalchronicle.substack.com/p/single-source-report-reuters-reuters"
+      },
+      {
+        "name": "discord",
+        "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1567780536208990228"
+      },
+      {
+        "name": "facebook_page",
+        "url": "https://www.facebook.com/1342369584748125/posts/1445346454450437"
+      },
+      {
+        "name": "instagram_business",
+        "url": "https://www.instagram.com/p/DfWVp4VEx0d/"
+      },
+      {
+        "name": "telegram",
+        "url": "https://t.me/CapitalChronicle/80"
+      },
+      {
+        "name": "threads",
+        "url": "https://www.threads.com/@official.capitalchronicle/post/DfWVsZvH5pq"
+      }
+    ],
+    "published_at_utc": "2026-11-05T05:56:14.547000+00:00",
+    "recorded_at_utc": "2026-11-05T06:05:37.291020+00:00",
+    "rights_class": "CC_OWN_ANALYSIS",
+    "schema_version": "contentops.published_content.v1",
+    "standfirst": "Reuters reported a higher lower bound for IBM's annual software revenue growth outlook on 21 October 2026. Its account of deferred deals leaves a question about repeatable demand.",
+    "title": "Reuters' 21 October IBM report: software revenue growth outlook and the deal-timing test",
+    "type": "ARTICLE",
+    "visibility": "public"
+  },
+  "production_day_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-05-bangkok\\newsroom_production_day_v1.json",
+  "production_day_sha256": "6aac93a19afe695899f580e3fb12a1e2288ea0125b163768257eef089a9dda22",
+  "production_day_measurement": {
+    "admitted_items": 8,
+    "confirmed_copies_by_channel": {
+      "discord": 3,
+      "facebook_page": 3,
+      "instagram_business": 3,
+      "linkedin_company": 3,
+      "substack": 3,
+      "telegram": 3,
+      "threads": 2,
+      "x": 3,
+      "youtube": 3
+    },
+    "distinct_canonical_items_published": 3,
+    "distinct_daily_target": 8,
+    "first_blocking_causes": {},
+    "interventions": [],
+    "observed_at_utc": "2026-11-05T07:17:12.666352+00:00",
+    "policy_id": "CC-047-20261030",
+    "pre_event_preparations_available": [
+      {
+        "event_id": "us-election-20261103",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": null,
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "us-election-20261103",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": null,
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "us-election-20261103",
+        "known_at_utc": "2026-10-29T17:38:06.658805+00:00",
+        "planned_release_utc": null,
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T17:36:50.561308+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T17:36:50.561308+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-ppi-20261113",
+        "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+        "planned_release_utc": "2026-11-13T13:30:00Z",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-11-04T22:46:34.267520+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-ppi-20261113",
+        "known_at_utc": "2026-11-04T22:51:34.560028+00:00",
+        "planned_release_utc": "2026-11-13T13:30:00Z",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-11-04T23:06:43.872930+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      }
+    ],
+    "quota_stops": [],
+    "reader_counts": [
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223555673"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "78"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567697105110171698"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118143748899242476"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445129697805446"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "17965563222250380"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "18349318927265482"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:ugcPost:7523905097471361025"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223564454"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "79"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567725246025572474"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118169951320285473"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445224044462678"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "17955487743316912"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "UgkxW1jZvwD2wjn58bHraF_PXxPblw-fKS7E"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:share:7523933028772151297"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223584317"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "80"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567780536208990228"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118225640226951201"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445346454450437"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "18385860829239725"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "18646398562032992"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "Ugkxrj2tZ7a1Rv7Jk3zHVujlgRKCzverZLeg"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:share:7523988409204342785"
+      }
+    ],
+    "reader_counts_availability": "UNAVAILABLE",
+    "source_qualified_items": 7,
+    "target_by_revised_production_day": 3,
+    "tests_or_derivatives_are_original_publications": false,
+    "time_to_canonical": [
+      {
+        "public_object_id": "223555673",
+        "run_id": "cc124-next-article-20261105-a",
+        "window_entry_to_canonical_readback_seconds": null
+      },
+      {
+        "public_object_id": "223564454",
+        "run_id": "cc124-next-article-20261105-b",
+        "window_entry_to_canonical_readback_seconds": null
+      },
+      {
+        "public_object_id": "223584317",
+        "run_id": "cc124-next-article-20261105-c",
+        "window_entry_to_canonical_readback_seconds": null
+      }
+    ],
+    "windows": {
+      "standing": {
+        "admitted_count": 1,
+        "brief_only": false,
+        "distinct_canonical_published": 3,
+        "source_request_count": 1
+      }
+    }
+  },
+  "publication": {
+    "accepted_evidence_sha256": "e6c354294b6fc893bf7697a59c4b22e298bc43960fcaf193712bf9e8a475a0ca",
+    "article_identity": "25b089a0de736bdda1f9e3b7c69b758480ec29d63b228ba2bbdf24d482672c35",
+    "artifact_sha256": {
+      "article_manifest_v1.json": "5dd17d8736ea2bbcb5a9411f7f3e8e6a76776f6ef3c34190c6c7821364a43e68",
+      "native_derivative_previews_v1.json": "9dab6a5ac529f037c1d591bbff5644d1874f3d9d58e794306236b5fd43055580",
+      "publication_lifecycle_plan_v1.json": "47b800b9837be9fdac62e46812f81a5c8612854ef8b8ac879920ea8866b1304c",
+      "qualified_article_record_v1.json": "7d815b6e5172a2867dfbb08379672605c2aa4146bae47c466d9f2cd69678635a",
+      "run_context_v1.json": "bfac2f9f6a724e13e6b3c243696f0a9434f72915b6a8f8712bbf623ef673f3ef"
+    },
+    "binding_sha256": "e1f3e1b0c4389f134107eaa5a22fa7fab487bac741767c07331c963e7c37a23f",
+    "media_sha256": {
+      "post-facts-e3af5dcf1627c781beaa": "8714af0f9d2c2a92e4fc47708c1e97c33102065df8555fd2d8ef516d196ca5b3"
+    },
+    "native_result_sha256": "ac56adb37d369fc7c6a1a6dda118a5d80981e53a7a3b8ce1aeb31df6a9af4ed2",
+    "plan_hash": "9819d6ff3e98024032a2e73addeb19e7e96117d057bf37121c6500a72bb8479d",
+    "prepared_handoff_sha256": "b7c38b7896564fa6ab7be733a801823dec0180938a61f41ed82b595f7edf9d37",
+    "publication_authority": false,
+    "review_id": "native-article-review-96a81123bef943e5ba82aa996087184f",
+    "review_notes_sha256": "fc5b987e4cf6b710a5fd730373ba05ac2d366a9f9dc43f10089f97fc6189951b",
+    "run_id": "cc124-next-article-20261105-c",
+    "schema_version": "contentops.native_publication_binding.v1",
+    "work_item_id": "cc124-next-article-20261105-c",
+    "canonical_article_status": "REAL_PUBLISHED",
+    "canonical_article_real_published": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/single-source-report-reuters-reuters",
+    "canonical_publication_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "transaction_classification": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "derivative_confirmed_count": 7,
+    "derivative_attempted_count": 8,
+    "derivative_unknown_count": 0,
+    "derivative_absent_safe_to_retry_count": 1,
+    "derivative_failed_count": 0,
+    "derivative_never_attempted_count": 0,
+    "recovery_required_destinations": [
+      "linkedin"
+    ],
+    "readback_limitation_destinations": [],
+    "unknown_write_detected": false,
+    "unknown_write_count": 0,
+    "additional_destinations": {
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_91ff8930028987523ac45101c3d9f632",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "urn:li:share:7523988409204342785",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7523988409204342785/",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      }
+    },
+    "additional_confirmed_count": 1,
+    "additional_recovery_required_destinations": [],
+    "state": "DISTRIBUTION_INCOMPLETE",
+    "operation_scope": "OWNER_MANUAL_LIVE",
+    "destinations": [
+      {
+        "destination": "substack",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_c276a5384eb22c684244748505467304",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "223584317",
+        "public_object_url": "https://capitalchronicle.substack.com/p/single-source-report-reuters-reuters",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      },
+      {
+        "destination": "telegram",
+        "transport": "BOT_API",
+        "dispatch_id": "dispatch_e293402adff83d9fc4bb25ffe297313f",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "80",
+        "public_object_url": "https://t.me/CapitalChronicle/80",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "discord",
+        "transport": "WEBHOOK_API",
+        "dispatch_id": "dispatch_5e53e411fc3adc394482ca21630d27bb",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "1567780536208990228",
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "x",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_c6be26d0a3662f050fb736f3d1627b35",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "2118225640226951201",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118225640226951201",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      },
+      {
+        "destination": "linkedin",
+        "transport": "OFFICIAL_MEMBER_API",
+        "dispatch_id": "dispatch_7e04822abc49ee3a589f2db732f4a784",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+      },
+      {
+        "destination": "facebook_page",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_b0f00ba7d2d6daa17b0d476150504191",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "106091951705748_1445346454450437",
+        "public_object_url": "https://www.facebook.com/1342369584748125/posts/1445346454450437",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "instagram_business",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_6a1e11552d74d9a7a5aa2e96f3a0297b",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "18385860829239725",
+        "public_object_url": "https://www.instagram.com/p/DfWVp4VEx0d/",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "threads",
+        "transport": "THREADS_API",
+        "dispatch_id": "dispatch_4bfee370d62e1aca6ecf1c66f490d8fe",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "18646398562032992",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfWVsZvH5pq",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "youtube",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_025af0769190b748780684d11539668c",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "Ugkxrj2tZ7a1Rv7Jk3zHVujlgRKCzverZLeg",
+        "public_object_url": "https://www.youtube.com/post/Ugkxrj2tZ7a1Rv7Jk3zHVujlgRKCzverZLeg",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      },
+      {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_91ff8930028987523ac45101c3d9f632",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "urn:li:share:7523988409204342785",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7523988409204342785/",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      }
+    ],
+    "timing": {
+      "policy": "JIM_DECISION_53",
+      "target_minutes": 15,
+      "text_approved_at_utc": "2026-11-05T05:20:17.231181+00:00",
+      "dispatch_deadline_utc": "2026-11-05T05:35:17.231181+00:00",
+      "channels": [
+        {
+          "destination": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T05:50:43.615441+00:00",
+          "dispatched_at_utc": "2026-11-05T05:56:51.560Z",
+          "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+          "seconds_after_text_approval": 2194.328819,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T06:00:41.545057+00:00",
+          "dispatched_at_utc": "2026-11-05T06:00:41.545057+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 2424.313876,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T06:00:07.200211+00:00",
+          "dispatched_at_utc": null,
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "x",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T06:13:46.408150+00:00",
+          "dispatched_at_utc": "2026-11-05T06:16:21.890527+00:00",
+          "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+          "seconds_after_text_approval": 3364.659346,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "attempted_at_utc": "2026-11-05T06:00:37.435887+00:00",
+          "dispatched_at_utc": null,
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "facebook_page",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T06:00:09.874795+00:00",
+          "dispatched_at_utc": "2026-11-05T06:00:09.874795+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 2392.643614,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "instagram_business",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T06:00:21.421014+00:00",
+          "dispatched_at_utc": "2026-11-05T06:00:21.421014+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 2404.189833,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T06:00:45.048493+00:00",
+          "dispatched_at_utc": "2026-11-05T06:00:45.048493+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 2427.817312,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "youtube",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T06:15:54.535560+00:00",
+          "dispatched_at_utc": "2026-11-05T06:19:31.046Z",
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": 3553.814819,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin_company",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T06:02:03.120477+00:00",
+          "dispatched_at_utc": "2026-11-05T06:04:24.492Z",
+          "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+          "seconds_after_text_approval": 2647.260819,
+          "within_target": false,
+          "skipped": false
+        }
+      ],
+      "all_channels_dispatched_within_target": false,
+      "state": "OVERDUE_CONTINUE_PUBLICATION"
+    },
+    "skipped_destinations": [],
+    "pending_requests": [],
+    "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+    "next_operation": "publication-resume",
+    "dispatch_continuation_operation": "publication-resume",
+    "next_command": "python scripts/run_native_desktop_editorial.py publication-resume --binding \"A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-c\\native_operation_binding.json\" --native-invocation-id <actual-turn-id> --rollout config/native_desktop_rollout_v1.json",
+    "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale.",
+    "final_visual_acceptance": {
+      "review_type": "WRITER_ONE_EDITOR_CHECK_PUBLISH",
+      "policy_id": "JIM_DECISION_53",
+      "review_id": "native-article-review-96a81123bef943e5ba82aa996087184f",
+      "text_approved_at_utc": "2026-11-05T05:20:17.231181+00:00",
+      "automated_media_check": {
+        "policy": "JIM_DECISION_53",
+        "check": "IMAGE_LOAD_AND_SIZE_ONCE",
+        "findings": [
+          {
+            "asset_id": "post-facts-e3af5dcf1627c781beaa",
+            "sha256": "8714af0f9d2c2a92e4fc47708c1e97c33102065df8555fd2d8ef516d196ca5b3",
+            "pixels_inspected": false,
+            "loads": true,
+            "width": 1080,
+            "height": 1350,
+            "expected_dimensions": [
+              1080,
+              1350
+            ],
+            "right_size": true,
+            "status": "PASS"
+          }
+        ],
+        "failures_logged_no_repair_loop": 0,
+        "blocks_publication": false
+      },
+      "pixels_inspected": false
+    },
+    "site_url": null,
+    "site_publication_confirmed": false,
+    "substack_publication_confirmed": true
+  },
+  "actual_publication_day_content_ids": [
+    "substack:223555673",
+    "substack:223564454",
+    "substack:223584317"
+  ],
+  "schedule_changed": false,
+  "digest_dispatched": false
+}
