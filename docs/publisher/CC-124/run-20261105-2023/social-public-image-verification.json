@@ -1,0 +1,44 @@
+{
+  "observed_at_utc": "2026-11-05T15:30:56.373577+00:00",
+  "images": [
+    {
+      "destination": "x",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118360056257556854",
+      "public_image_url": "https://pbs.twimg.com/media/HWXtKJKa0AE2WT1?format=jpg&name=small",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\media_readback\\x-0-public.png",
+      "platform_sha256": "3a7564ced4ce78bd62fefe6d27731b010fc66442c9b6e99308d8c55323b83436",
+      "size_bytes": 30768,
+      "source_asset_sha256": "917dd568113956f0f3bfc58cd428c26f853e4c42065ada91b8be5f1b9335828d",
+      "similarity": 0.9976,
+      "mime_type": "image/jpeg",
+      "width": 680,
+      "height": 491
+    },
+    {
+      "destination": "linkedin-company",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524127631689072641/",
+      "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQFhsyKoVae6Fw/feedshare-shrink_800/B56aGsSNS4KAAg-/0/1793891816910?e=1795651200&v=beta&t=2Te8uiyxgqSKdo1U78817ZxvXTe4iHyq1Unst76egH4",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\media_readback\\linkedin-company-0-public.png",
+      "platform_sha256": "65365a81276e1976fda53b490ed956bef6ab8ac2f1c0ef304088ce3612f97828",
+      "size_bytes": 33185,
+      "source_asset_sha256": "917dd568113956f0f3bfc58cd428c26f853e4c42065ada91b8be5f1b9335828d",
+      "similarity": 0.9989,
+      "mime_type": "image/jpeg",
+      "width": 800,
+      "height": 577
+    },
+    {
+      "destination": "linkedin-company",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524127631689072641/",
+      "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQHr0LKVzLeyGA/feedshare-shrink_800/B56aGsSNR9HgAg-/0/1793891816871?e=1795651200&v=beta&t=fOioh9nd1M9ov0DHt3GF6NRxAj-niVGyifylKq-aYtM",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\media_readback\\linkedin-company-1-public.png",
+      "platform_sha256": "c6a8fad77ffae3e9783799991f1da550c493227c325f459e6daa505729f98982",
+      "size_bytes": 29285,
+      "source_asset_sha256": "ce136ff3711c4f29c8c2e426f393b9d6f369e47eab557ba17c0ee56282624e71",
+      "similarity": 0.9993,
+      "mime_type": "image/jpeg",
+      "width": 800,
+      "height": 577
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "recorded_at_utc": "2026-11-05T15:41:57.250069+00:00",
+  "operation_id": "cc124-jobs-fx-watch-20261105-f",
+  "article_identity": "e8c284c6d4b67e7ec32cfe4f99432ef5052b0a027a84ad976bd010bcdb4d5f96",
+  "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-and-usdjpy-two-falling-quotes",
+  "published_at_utc": "2026-11-05T15:01:43.248000+00:00",
+  "distinct_articles_published": 6,
+  "unknown_write_count": 0,
+  "pending_requests": 0,
+  "standing_item_status": "OPEN",
+  "destinations": [
+    {
+      "destination": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "223634631",
+      "public_object_url": "https://capitalchronicle.substack.com/p/eurusd-and-usdjpy-two-falling-quotes"
+    },
+    {
+      "destination": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "87",
+      "public_object_url": "https://t.me/CapitalChronicle/87"
+    },
+    {
+      "destination": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "1567918022956556288",
+      "public_object_url": null
+    },
+    {
+      "destination": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "2118360056257556854",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118360056257556854"
+    },
+    {
+      "destination": "linkedin",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    {
+      "destination": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "106091951705748_1445746907743725",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1445746907743725"
+    },
+    {
+      "destination": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "18082473488427682",
+      "public_object_url": "https://www.instagram.com/p/DfXUNDqAcwx/"
+    },
+    {
+      "destination": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "17914326447507674",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfXURBLH5E-"
+    },
+    {
+      "destination": "youtube",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+      "public_object_id": "UgkxCDr1Cr65dkwn8YQ_ozq1ZI0mMN2dt1QP",
+      "public_object_url": "https://www.youtube.com/post/UgkxCDr1Cr65dkwn8YQ_ozq1ZI0mMN2dt1QP"
+    },
+    {
+      "destination": "linkedin_company",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "urn:li:activity:7524127631689072641",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524127631689072641/"
+    }
+  ],
+  "limitations": [
+    "YOUTUBE_EXISTING_TEXT_POST_CANNOT_ATTACH_MEDIA: text published; chart absent and not counted as complete delivery",
+    "LinkedIn personal API post absent in authenticated activity feed; company copy confirmed",
+    "15-minute dispatch target missed; first text approval remains 2026-11-05T14:45:42.461172+00:00"
+  ],
+  "schedules_changed": false,
+  "chat_messages_sent": false,
+  "artifacts": [
+    {
+      "path": "x-composed-response.json",
+      "size_bytes": 3708,
+      "sha256": "3e33e1c3802c529ac3c1e3fbd211913bde3e8b0019646735200595dd02fbfb27"
+    },
+    {
+      "path": "youtube-composed-response.json",
+      "size_bytes": 2908,
+      "sha256": "fa2eb7f2553afcdd7bc3167d14677f8d44ce7efc28cfe38c657157006ffe17b8"
+    },
+    {
+      "path": "linkedin-company-composed-response.json",
+      "size_bytes": 3900,
+      "sha256": "7446f1ea5d9fdd9e6ce268c1d42aa18c1db71a2cde2a01d8b40c8012110629a8"
+    },
+    {
+      "path": "substack-credit-edit-response.json",
+      "size_bytes": 1147,
+      "sha256": "b0e9730a1921b74225de208ccdf5173e2a8547b118654d87662c75cfe61572b4"
+    },
+    {
+      "path": "substack-credit-final-readback-response.json",
+      "size_bytes": 6088,
+      "sha256": "aed134e355c9f1fe8b2c6e60042aefda5436f1b0c61520a0e030664b9ff40806"
+    },
+    {
+      "path": "x-final-readback-response.json",
+      "size_bytes": 3583,
+      "sha256": "e89a7cf459111c06ce3ec6a7545d503897498da764f9ea66484ef86ce8d0bf0b"
+    },
+    {
+      "path": "linkedin-company-final-readback-response.json",
+      "size_bytes": 4024,
+      "sha256": "c5e0b6edc1f36d61d9916d04d7017fa15a3c76d912b1f376137b9a425a0ada89"
+    },
+    {
+      "path": "youtube-final-readback-response.json",
+      "size_bytes": 1740,
+      "sha256": "974dfcb6aa69041b826f6d8b0185649f8028b09cf7d57cc300b38b577270bc02"
+    },
+    {
+      "path": "linkedin-absence-current-final-readback-response.json",
+      "size_bytes": 3109,
+      "sha256": "e2587f6828da6e95707cfe7718014b9b023632e35bd2af6eefe049f9afe490b2"
+    },
+    {
+      "path": "social-public-image-verification.json",
+      "size_bytes": 2519,
+      "sha256": "9a4aaeb72be30c742dc5909f762a964c3e7ec18ca73ad440a5338bdb84b2ece4"
+    },
+    {
+      "path": "credit-restore-current.json",
+      "size_bytes": 7561,
+      "sha256": "4f8c79de4bb7b2b4a66108b8fe9525f4461c7db77754ca260342b29120c8751b"
+    },
+    {
+      "path": "x-link-resolution-observed.json",
+      "size_bytes": 191,
+      "sha256": "752c848112ae753faabbe1bed48d79ce68f5962a154c60c632c18f904db4c8c0"
+    },
+    {
+      "path": "linkedin-company-link-resolution-observed.json",
+      "size_bytes": 192,
+      "sha256": "4f129d0a90054c6691dde55b8761c778dc2d4feb9c1d659b46260096c09d007c"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "consumer_live_root": "A:\\Capital Chronicle\\main-jim-research-dashboard-20261025",
+  "consumer_live_head": "11ef08fb6ed2cc1cacf26302997319eab31fd4aa",
+  "consumer_source_sha256": "7f7f08b10d5645e841384559bf39f41b3f70a8c43fa3580d8a73d7c8cd80eb67",
+  "checked_at_utc": "2026-11-05T15:38:41.232268+00:00",
+  "next_0700_record": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-05-bangkok\\newsroom_production_day_v1.json",
+  "observed_reader_result": {
+    "state": "SAVED_RECORD",
+    "record_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-05-bangkok\\newsroom_production_day_v1.json",
+    "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "production_day_id": "newsroom-production-day-2026-11-05-bangkok",
+    "observed_at_utc": "2026-11-05T15:38:40.535740Z",
+    "stories_admitted": 11,
+    "distinct_articles_published": 6,
+    "confirmed_copies_by_channel": {
+      "discord": 6,
+      "facebook_page": 6,
+      "instagram_business": 6,
+      "linkedin_company": 6,
+      "substack": 6,
+      "telegram": 6,
+      "threads": 5,
+      "x": 6,
+      "youtube": 5
+    },
+    "first_blocking_causes": {
+      "SOURCE_MISSING": 1
+    },
+    "last_public_post": {
+      "state": "SAVED_CONFIRMED_DISPATCH",
+      "at_utc": "2026-11-05T15:07:56.012081Z",
+      "channel": "x",
+      "dispatch_id": "dispatch_789aed9cd22d4a39ef6d3c556a8e8a7c",
+      "clock": "dispatched_at",
+      "reconciled_at_utc": "2026-11-05T15:37:33.404056Z"
+    }
+  },
+  "schedule_changed": false,
+  "digest_dispatched": false
+}

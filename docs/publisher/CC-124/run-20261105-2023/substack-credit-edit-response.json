@@ -1,0 +1,24 @@
+{
+  "tool_request_sha256": "bee59221741dc833b3d747410fd8e01c34db7785d1493f01a48ac9536f6dc89d",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T15:28:33.468Z",
+    "observation_source": "Neo page567 restored only malformed photo-credit link to approved Commons URL and removed parser residue .jpg). Email remained off. Update reached same223634631 share-center; no new post."
+  },
+  "result": {
+    "request_sha256": "22ba879d8c0fbe810eb0a45e460326b61b831f972b65b2b827656bc970cb0738",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "223634631",
+    "public_object_url": "https://capitalchronicle.substack.com/p/eurusd-and-usdjpy-two-falling-quotes",
+    "public_write_performed": true,
+    "delivery_observation": {
+      "email_send_enabled": false,
+      "web_publish_enabled": true,
+      "evidence_ref": "Neo page567 visible Update dialog delivery check 2026-11-05T15:27:57.115Z"
+    },
+    "edited_at_utc": "2026-11-05T15:28:07.608Z"
+  }
+}

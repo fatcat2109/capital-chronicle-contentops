@@ -1,0 +1,42 @@
+{
+  "tool_request_sha256": "d2f9e2e6db488080c4fa7a67d1b65f5ebf8a0f49fbdb6275266cec94d71d59a1",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T15:12:44.867Z",
+    "dispatched_at_utc": "2026-11-05T15:12:37.382Z",
+    "observation_source": "Neo page 566 exact YouTube post after one Publish click. Text matches with collapsed whitespace. Readback found no public chart; retained as incomplete media for exact-object repair, never a successful visual delivery."
+  },
+  "result": {
+    "request_sha256": "6e2cd9b693b4639905522c78290228addbf9e2282e727416e9adacf72991b053",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "UgkxCDr1Cr65dkwn8YQ_ozq1ZI0mMN2dt1QP",
+    "public_object_url": "https://www.youtube.com/post/UgkxCDr1Cr65dkwn8YQ_ozq1ZI0mMN2dt1QP",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "@CapitalChronicleYouTube",
+      "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA",
+      "observed_at_utc": "2026-11-05T15:12:37.382Z"
+    },
+    "pre_click_posts": [
+      "Update: EURUSD and USDJPY: two falling quotes, two dollar directions\n\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\n\nWhat to watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/eurusd-and-usdjpy-two-falling-quotes\n\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "@CapitalChronicleYouTube",
+      "public_object_id": "UgkxCDr1Cr65dkwn8YQ_ozq1ZI0mMN2dt1QP",
+      "public_object_url": "https://www.youtube.com/post/UgkxCDr1Cr65dkwn8YQ_ozq1ZI0mMN2dt1QP",
+      "observed_text": "Update: EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nWhat to watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nRead the full brief: https://capitalchronicle.substack.com/p/eurusd-and-usdjpy-two-falling-quotes\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+      "content_verified": false,
+      "public_image_urls": [],
+      "media_check_state": "MISSING_REQUIRED_MEDIA",
+      "public_write_performed": false
+    }
+  }
+}
