@@ -92,8 +92,13 @@ def _exact_site_absence(result, request):
         observed = datetime.fromisoformat(str(observation.get("observed_at_utc", "")).replace("Z", "+00:00"))
     except ValueError:
         return False
+    # Neo's accessibility snapshot exposes the exact GitHub Pages 404 page but
+    # does not expose HTTP response metadata. That observed absence still uses
+    # decisions 48/52's independent Substack path; it never confirms the site.
+    text = str(result.get("observed_text") or "").lstrip()
+    github_404 = text.startswith('- heading "404" [level=1]') and "https://help.github.com/pages/" in text
     return (result.get("verified") is False and result.get("status") == "NOT_FOUND"
-        and result.get("http_status") == 404
+        and (result.get("http_status") == 404 or github_404)
         and result.get("request_sha256") == request["request_sha256"]
         and result.get("public_object_url") == request["public_object_url"]
         and result.get("article_identity") == request["article_identity"]
