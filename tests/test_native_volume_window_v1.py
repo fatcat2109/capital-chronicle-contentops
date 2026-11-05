@@ -173,9 +173,9 @@ def test_day_measurement_reads_each_window_once_without_reloading_all_retained_p
             unscoped.append(True)
             assert len(unscoped) == 1, "Window projection reloaded all retained payloads"
         return original_reads(**kwargs)
-    def progress(current_store, issued):
+    def progress(current_store, issued, **kwargs):
         windows.append([b["run_id"] for b, _ in issued])
-        return original_progress(current_store, issued)
+        return original_progress(current_store, issued, **kwargs)
     monkeypatch.setattr(store, "list_outbox_messages", read)
     monkeypatch.setattr(volume, "window_progress", progress)
     path = persist_native_day_measurement(store, bindings[-1])

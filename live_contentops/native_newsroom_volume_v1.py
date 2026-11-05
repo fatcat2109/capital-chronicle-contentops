@@ -119,7 +119,7 @@ def native_selection(store, run_id):
     return tuple(values)
 
 
-def window_progress(store, issued):
+def window_progress(store, issued, *, publication_day_run_ids=None):
     """Carry actual global usage and admissions across the window's issued slots.
 
     Every revised slot reports a monotonically increasing window total. Earlier
@@ -170,6 +170,7 @@ def window_progress(store, issued):
         for canonical in projection.get("destinations", []):
             if (canonical.get("destination") == "substack"
                     and canonical.get("reconciliation_status") == "RECONCILED_CONFIRMED"
+                    and (publication_day_run_ids is None or run in publication_day_run_ids)
                     and DurablePublicationCoordinator._confirmed_public_object(canonical, destination="substack")):
                 published.add(str(canonical["public_object_id"]))
     if issued and issued[0][0].get("volume_policy"):
@@ -239,7 +240,7 @@ def persist_native_day_measurement(store, binding):
     day = newsroom_production_day_id(binding["cutoff_utc"] if binding.get("window_id")
                                     else datetime.now(timezone.utc))
     confirmed_runs = {p["run_id"] for p in confirmed_canonicals(store)
-                      if newsroom_production_day_id(p["first_readback_utc"]) == day}
+                      if newsroom_production_day_id(p.get("published_at_utc") or p["first_readback_utc"]) == day}
     rows, dispatches = store.list_outbox_messages(), store.list_platform_dispatches()
     bindings = [json.loads(row["payload"]) for row in rows if row["message_id"].startswith("native-operation-binding-")]
     bindings = [b for b in bindings if
@@ -278,7 +279,8 @@ def persist_native_day_measurement(store, binding):
             first_causes.setdefault((window, run), "WINDOW_ENDED_WITHOUT_EDITORIAL_RESULT")
         entry = checkpoint.get("actual_entry_utc") or (current.get("cutoff_utc") if current.get("standing_operation") else None)
         if window not in windows:
-            progress = window_progress(store, [(b, None) for b in bindings if b.get("window_id", "standing") == window])
+            progress = window_progress(store, [(b, None) for b in bindings if b.get("window_id", "standing") == window],
+                publication_day_run_ids=confirmed_runs)
             windows[window] = {"source_request_count": progress["source_request_count"],
                 "admitted_count": len(progress["admitted_candidate_ids"]),
                 "distinct_canonical_published": progress["published_article_count"],
@@ -287,6 +289,8 @@ def persist_native_day_measurement(store, binding):
         projection = publication_projection(rows, dispatches, store.get_reconciliations_for_work_item(run), run_id=run)
         for destination in projection.get("destinations", []):
             channel = destination["destination"]
+            if channel == "substack" and run not in confirmed_runs:
+                continue
             if (destination.get("reconciliation_status") != "RECONCILED_CONFIRMED"
                     or not DurablePublicationCoordinator._confirmed_public_object(destination, destination=channel)):
                 continue
