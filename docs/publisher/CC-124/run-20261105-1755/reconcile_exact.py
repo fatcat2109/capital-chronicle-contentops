@@ -13,7 +13,7 @@ from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired
 
 label, *destinations = sys.argv[1:]
 assert label.replace('-', '').isalnum()
-assert destinations and set(destinations) <= {'linkedin', 'linkedin_company', 'x', 'youtube'}
+assert destinations and set(destinations) <= {'substack', 'linkedin', 'linkedin_company', 'x', 'youtube'}
 binding = json.loads(Path(r'A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\owner-manual\cc124-gold-yields-20261105-e\binding.json').read_bytes())
 rollout = json.loads(Path(r"A:\Capital Chronicle\ContentOps\config\native_desktop_rollout_v1.json").read_bytes())
 store = ContentOpsDurableStore(binding['store_path'], auto_migrate=False)
@@ -29,6 +29,8 @@ with newsroom_lease(store):
             dispatch = publication.coordinator._ids(binding['run_id'], plan['plan_hash'], destination)['dispatch_id']
             try:
                 result = publication.coordinator.readback_existing_dispatch(dispatch)
+                if destination == 'substack' and result.get('reconciliation_status') == 'RECONCILED_CONFIRMED':
+                    result['published_content_record'] = publication.coordinator.sync_published_content(binding['run_id'])
             except NativeNeoInputRequired as pending:
                 result = {'destination': destination, 'status': 'NATIVE_NEO_TOOL_PENDING',
                           'native_tool_request': pending.request}

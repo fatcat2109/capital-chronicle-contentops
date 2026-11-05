@@ -533,6 +533,26 @@ def test_successful_exact_readback_survives_bucket_change_by_observation_time(tm
     assert store.list_platform_dispatches() == []
 
 
+def test_requested_publication_clock_can_complete_an_immutable_partial_readback(tmp_path):
+    store, executor = setup(tmp_path)
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    value = intent(published_content_export="contentops.published_content.v1")
+    packet, object_id, url = pending_readback(adapter, value=value)
+    result = {"status": "SUCCESS", "observed_identity": "capitalchronicle.substack.com",
+        "public_object_id": object_id, "public_object_url": url, "content_verified": True,
+        "observed_text": "Exact supported proposition."}
+    executor.submit(packet["request"]["request_sha256"], response(executor, packet, result))
+    original = executor._get(packet["request"]["request_sha256"], "response")
+    fresh, _, _ = pending_readback(adapter, value=value)
+    assert fresh["request"]["request_sha256"] != packet["request"]["request_sha256"]
+    executor.submit(fresh["request"]["request_sha256"], response(executor, fresh,
+        {**result, "published_at_utc": datetime.now(timezone.utc).isoformat()}))
+    assert adapter.readback(destination="substack", intent=value,
+        public_object_id=object_id, public_object_url=url)["verified"] is True
+    assert executor._get(packet["request"]["request_sha256"], "response") == original
+    assert store.list_platform_dispatches() == []
+
+
 @pytest.mark.parametrize("elapsed,authenticated,reuse", [(1800, True, True), (599, True, False), (1800, False, False)])
 def test_loaded_absence_reuses_exact_attempt_across_clock_bucket(tmp_path, elapsed, authenticated, reuse):
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
