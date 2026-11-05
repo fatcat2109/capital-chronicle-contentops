@@ -136,6 +136,16 @@ def test_resume_reuses_download_and_rejects_changed_snapshot_bytes(tmp_path, cap
         tv.validate_snapshot_asset(assets[0], article)
 
 
+def test_release_card_is_first_even_when_the_media_compiler_appended_it(tmp_path, capture):
+    article = {**packet()["article"], "market_asset": "US500"}
+    chart = build_post_image_card(article, output_dir=tmp_path / "chart", accepted_evidence_sha256="a" * 64)
+    card = {**deepcopy(chart), "asset_id": "controlled-appended-release-card", "modality": "source_bound_data_card"}
+    _, assets = tv.prepare_article_snapshot(article, [chart, card], output_dir=tmp_path)
+    assert assets[0]["asset_id"] == card["asset_id"]
+    assert assets[1]["modality"] == "tradingview_chart_snapshot" and not assets[1].get("derivative_only")
+    assert assets[-1]["preceding_card"]["asset_id"] == card["asset_id"]
+
+
 def test_current_reader_first_review_accepts_snapshot_without_replacing_official_charts(tmp_path, capture):
     from test_reader_first_data_journalism_v1 import decision
     from live_contentops.native_desktop_editorial_v1 import validate_release_media

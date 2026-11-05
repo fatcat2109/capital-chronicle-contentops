@@ -346,8 +346,8 @@ def prepare_article_snapshot(article: Mapping[str, Any], assets: list[dict], *, 
     if asset:
         if not existing:
             assets.append(asset)  # Keep the release card first.
-        first_card = next((a for a in assets if a.get("modality") in {
-            "source_bound_data_card", "source_backed_chart"}), None)
+        first_card = (next((a for a in assets if a.get("modality") == "source_bound_data_card"), None)
+                      or next((a for a in assets if a.get("modality") == "source_backed_chart"), None))
         selected = asset
         if first_card:
             try:
@@ -360,6 +360,10 @@ def prepare_article_snapshot(article: Mapping[str, Any], assets: list[dict], *, 
                 return article, [a for a in assets if a.get("modality") != "tradingview_chart_snapshot"]
             if selected["asset_id"] not in {a["asset_id"] for a in assets}:
                 assets.append(selected)
+            # The current compiler may have appended its release card after a
+            # photo/history chart. Keep that card first on the canonical too.
+            assets = [first_card, asset, *(a for a in assets
+                      if a["asset_id"] not in {first_card["asset_id"], asset["asset_id"]})]
         article["tradingview_snapshot_asset_ids"] = [selected["asset_id"]]
         from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
         # One exact image also reaches transports with a single-image API. The
