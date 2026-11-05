@@ -213,6 +213,7 @@ def compose(row: Mapping[str, Any]) -> dict:
 
 
 POSTING_WINDOW_MINUTES = 60
+PUBLIC_LEVELS = ("direction", "zone_low", "zone_high", "invalidation_level", "valid_until_utc")
 
 
 def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = None,
@@ -245,7 +246,10 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
         payload = {"schema_version": SCHEMA, "key": row["key"], "plan_id": row["plan_id"],
                    "symbol": row["symbol"], "state": row["to"],
                    "at_utc": row["at_utc"], "kind": post["kind"], "text": post["text"],
-                   "conditional_calls": post["conditional_calls"]}
+                   "conditional_calls": post["conditional_calls"],
+                   # CC-314: the levels the post's image shows (the chart timeframe and the
+                   # fallback fact card). Never the target or the cancel level (decision 40).
+                   "levels": {k: row["plan"].get(k) for k in PUBLIC_LEVELS}}
         queued.append({"key": row["key"], "symbol": row["symbol"], "state": row["to"], "at_utc": row["at_utc"],
                        "text": post["text"]})
         if dry_run:
@@ -303,11 +307,12 @@ def _x_length(text: str) -> int:
     return len(re.sub(r"https://\S+", "x" * X_URL_LENGTH, text))
 
 
-def destination_payloads(row: Mapping[str, Any], *, card_id: str) -> dict:
-    """The exact copy per destination: the post, the market page link and the notices."""
+def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: bool = False) -> dict:
+    """The exact copy per destination: the post, the market page link and the notices. With a
+    TradingView snapshot, "Chart: TradingView" follows the link (Terms section 4, decision 82)."""
     body, notices = _split(row["text"])
     url = SITE_ASSET_URL.format(symbol=row["symbol"])
-    link = f"The live plan: {url}"
+    link = f"The live plan: {url}" + (f"\n{CHART_CREDIT}" if chart_credit else "")
     payloads = {}
     for destination in POST_DESTINATIONS:
         text = f"{body}\n\n{link}\n\n{notices}"
@@ -317,7 +322,7 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str) -> dict:
             chunks, current = [], ""
             for sentence in sentences:
                 candidate = f"{current} {sentence}".strip()
-                room = LIMITS["x"] - (X_URL_LENGTH + len("The live plan: ") + 2 if not chunks else 0)
+                room = LIMITS["x"] - (_x_length(link) + 2 if not chunks else 0)
                 if current and _x_length(candidate) > room:
                     chunks.append(current)
                     current = sentence
@@ -348,6 +353,57 @@ def card_article(row: Mapping[str, Any]) -> dict:
             "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
 
 
+CHART_CREDIT = "Chart: TradingView"
+SNAPSHOT_RUN_BUDGET_SECONDS = 150  # the minute task has 5 minutes; later posts in a busy tick use the card
+
+
+def plan_facts(row: Mapping[str, Any]) -> list[tuple[str, str]]:
+    """The fallback card's facts: the plan's zone, invalidation, status and time. No target."""
+    levels = row.get("levels") or {}
+    facts = []
+    if levels.get("zone_low") is not None and levels.get("zone_high") is not None:
+        facts.append(("Entry zone", f"{_level(levels['zone_low'])}–{_level(levels['zone_high'])}"))
+    if levels.get("invalidation_level") is not None and levels.get("direction") in {"bullish", "bearish"}:
+        side = "Below" if levels["direction"] == "bullish" else "Above"
+        facts.append(("Invalidation", f"{side} {_level(levels['invalidation_level'])}"))
+    state = STATE_WORDS.get(row.get("state"), "status update")
+    facts.append(("Status", state[0].upper() + state[1:]))
+    facts.append(("As of", _when(row["at_utc"])))
+    return facts
+
+
+def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None) -> tuple[dict, bool]:
+    """CC-314 (decision 82): TradingView's snapshot of the market, or, if that fails, CC-290's
+    fact card with the plan's numbers. Taken once per post: a resumed post reuses its image."""
+    from live_contentops import tradingview_snapshot_v1 as tv
+    context_path = folder / "run_context_v1.json"
+    if context_path.is_file():
+        prior = json.loads(context_path.read_bytes())
+        assets = (prior.get("media") or {}).get("assets") or []
+        if assets and Path(assets[0]["path"]).is_file() \
+                and hashlib.sha256(Path(assets[0]["path"]).read_bytes()).hexdigest() == assets[0]["sha256"]:
+            return assets[0], bool(prior.get("chart_credit"))
+    market = row["symbol"]
+    interval = tv.interval_for((row.get("levels") or {}).get("valid_until_utc"), row["at_utc"])
+    media_dir = folder / "media_assets"
+    outcome = {"key": row["key"], "market": market, "interval": interval}
+    if snapshot_allowed is None or snapshot_allowed():
+        try:
+            taken = (snapshot or tv.capture)(market, interval, media_dir)
+            asset = tv.snapshot_asset(market, TITLES[market], taken, media_dir)
+            tv.record_outcome({**outcome, "status": "CAPTURED", "asset_id": asset["asset_id"],
+                               "seconds": taken.get("seconds")})
+            return asset, True
+        except Exception as exc:  # noqa: BLE001 - a failed snapshot never stops the post
+            tv.record_outcome({**outcome, "status": "FAILED", "cause": str(exc)[:200]})
+    else:
+        tv.record_outcome({**outcome, "status": "SKIPPED_RUN_TIME_BUDGET"})
+    at = _utc(row["at_utc"])
+    card = tv.fallback_card(title=f"{TITLES[market]}: {STATE_WORDS.get(row.get('state'), 'status update')}",
+                            facts=plan_facts(row), dated_line=f"{at:%B} {at.day}, {at.year}", out_dir=media_dir)
+    return card, False
+
+
 def _hosted(manifest_path: Path, card: Mapping[str, Any]) -> bool:
     """A verified hosted copy of exactly this card is already recorded (no provider call needed)."""
     if not manifest_path.is_file():
@@ -363,28 +419,32 @@ def _hosted(manifest_path: Path, card: Mapping[str, Any]) -> bool:
 
 
 def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
-                 destinations: tuple = POST_DESTINATIONS) -> dict:
-    """The post's package (title card, hosted copy, run context) and its coordinator plan."""
+                 destinations: tuple = POST_DESTINATIONS, snapshot=None, snapshot_allowed=None) -> dict:
+    """The post's package (its image, hosted copy, run context) and its coordinator plan."""
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes
     from live_contentops.destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
-    from live_contentops.post_visuals_v1 import build_post_title_card
     row = _row_payload(store, key)
     folder = Path(root) / key
     article = card_article(row)
-    card = build_post_title_card(article, [], [], output_dir=folder, reason="CC306_PLAN_STATUS_POST")
+    card, chart_credit = _post_image(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
     if host is None:
         from live_contentops.cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
     manifest_path = folder / "delivery_media_manifest_v1.json"
     if not _hosted(manifest_path, card):
         existing = json.loads(manifest_path.read_bytes()) if manifest_path.is_file() else None
-        delivery = host(work_item_id=key, delivery_only_assets=[], existing_manifest=existing,
-                        article_assets=[card], article=article, source_documents=[])
+        # The snapshot and the plan card are post images only (never on a site page). An older
+        # package's title card keeps its article-asset route.
+        delivery_only = card.get("delivery_only") is True
+        delivery = host(work_item_id=key, delivery_only_assets=[card] if delivery_only else [],
+                        existing_manifest=existing, article_assets=[] if delivery_only else [card],
+                        article=article, source_documents=[])
         if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":  # cloudinary_delivery_media_v1.READY
             raise PlanPostError("PLAN_STATUS_CARD_HOSTING_" + str(delivery.get("status") or "FAILED"))
         manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))  # the hosting result wraps it
-    payloads = destination_payloads(row, card_id=card["asset_id"])
+    payloads = destination_payloads(row, card_id=card["asset_id"], chart_credit=chart_credit)
     context = {"schema_version": "contentops.plan_status_post_context.v1", "article": {**article, "body": row["text"]},
-               "selection": {}, "media": {"assets": [card]}, "plan_status_post": key}
+               "selection": {}, "media": {"assets": [card]}, "plan_status_post": key,
+               "chart_credit": chart_credit}
     (folder / "run_context_v1.json").write_bytes(canonical_bytes(context))
     url = SITE_ASSET_URL.format(symbol=row["symbol"])
     rows = []
@@ -410,7 +470,7 @@ def _expected(store, key: str, output_dir: str) -> tuple[dict, dict]:
     if context.get("plan_status_post") != key:
         raise PlanPostError("PLAN_STATUS_POST_PACKAGE_MISMATCH")
     card_id = context["media"]["assets"][0]["asset_id"]
-    return row, destination_payloads(row, card_id=card_id)
+    return row, destination_payloads(row, card_id=card_id, chart_credit=bool(context.get("chart_credit")))
 
 
 def validate_status_post_plan(store, work_item_id: str, plan: Mapping[str, Any]) -> dict:
@@ -465,7 +525,7 @@ def _api_confirmed(store, key: str) -> bool:
 
 
 def publish_ready(store, *, latest_states=None, now: datetime | None = None, coordinator_for=None,
-                  root: Path = POST_ROOT, host=None, limit: int = 5) -> dict:
+                  root: Path = POST_ROOT, host=None, limit: int = 5, snapshot=None) -> dict:
     """Post fresh rows to the API destinations (Telegram, Discord, Threads) through the sole
     coordinator, and exit. Never waits on agent work: X is not in this plan (see start_x).
 
@@ -506,10 +566,13 @@ def publish_ready(store, *, latest_states=None, now: datetime | None = None, coo
         elif _age_minutes(payload, now) > FRESHNESS_MINUTES:
             continue  # an unresolved old copy is left to the coordinator's own recovery, not this tick
         candidates.append(row)
+    import time
+    started = time.monotonic()
     for row in candidates[:limit]:
         key = row["message_id"]
         try:
-            plan = prepare_post(store, key, root=root, host=host, destinations=API_DESTINATIONS)
+            plan = prepare_post(store, key, root=root, host=host, destinations=API_DESTINATIONS, snapshot=snapshot,
+                                snapshot_allowed=lambda: time.monotonic() - started < SNAPSHOT_RUN_BUDGET_SECONDS)
             store.create_work_item(story_id=key, title="Plan status post", target_surface="MULTI_PLATFORM",
                                    work_item_id=key)
             coordinator = coordinator_for(key, Path(plan["output_dir"]))
@@ -527,13 +590,13 @@ def publish_ready(store, *, latest_states=None, now: datetime | None = None, coo
 
 
 def start_x(store, key: str, *, native_invocation_id: str, now: datetime | None = None, root: Path = POST_ROOT,
-            host=None) -> dict:
+            host=None, snapshot=None) -> dict:
     """The agent route registers and issues a fresh status post's X copy (a Neo request)."""
     from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
     now = now or datetime.now(timezone.utc)
     if _age_minutes(_row_payload(store, key), now) > FRESHNESS_MINUTES:
         raise PlanPostError("PLAN_STATUS_X_STALE_NOT_POSTED: transition older than 60 minutes")
-    plan = prepare_post(store, key, root=root, host=host, destinations=("x",))
+    plan = prepare_post(store, key, root=root, host=host, destinations=("x",), snapshot=snapshot)
     coordinator, _ = bind_native_neo_coordinator(
         store, operation_id=key, output_dir=Path(plan["output_dir"]) / "native-neo",
         native_invocation_id=native_invocation_id, allow_publish=True)
