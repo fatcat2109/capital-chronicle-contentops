@@ -1677,6 +1677,32 @@ def test_idle_recovery_performs_no_global_or_destination_probe(tmp_path):
     assert transport.readback_calls == []
 
 
+def test_exact_work_item_recovery_reads_only_its_payloads(tmp_path, monkeypatch):
+    store, transport, coordinator = _coordinator(tmp_path)
+    plan = _plan("substack")
+    first = coordinator.execute_plan("work-1", plan)
+    assert first["canonical_article_real_published"] is True
+    store.create_work_item(story_id="old", work_item_id="old", title="Old edition", target_surface="TEST")
+    store.register_outbox_message(message_id="old-retained-media", work_item_id="old",
+        destination="internal:old", payload=json.dumps({"retained_media": "x" * 100000}), status="EDITORIAL_INTERNAL")
+    coordinator.recovery_scope = {"work_item_id": "work-1", "plan": plan, "exact_work_item_only": True}
+    original = store.list_outbox_messages
+    calls = []
+
+    def scoped_only(**kwargs):
+        assert kwargs.get("work_item_id") == "work-1", "unbounded historical payload scan"
+        rows = original(**kwargs)
+        assert all(r["work_item_id"] == "work-1" for r in rows)
+        calls.append(kwargs)
+        return rows
+
+    monkeypatch.setattr(store, "list_outbox_messages", scoped_only)
+    recovery = coordinator.recover_pending()
+    assert calls
+    assert recovery["backlog_remaining"] == 0
+    assert transport.publish_calls == ["substack"]
+
+
 def test_browser_publication_uses_exact_destination_jit_only(tmp_path):
     readiness = _ExactJitReadiness()
     _store_value, transport, coordinator = _coordinator(

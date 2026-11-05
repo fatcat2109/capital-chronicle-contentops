@@ -3489,14 +3489,15 @@ class DurablePublicationCoordinator:
             "backlog_remaining": 0,
         }
         def recovery_messages():
-            messages = self.store.list_outbox_messages()
             scope = self.recovery_scope or {}
             if scope.get("exact_work_item_only"):
                 # A digest invocation must not send another article's queued
                 # social copy (observed during CC-143's 5 November resume).
+                # Filter in the existing store query: loading every historical
+                # payload first stalled CC-124 distribution for several minutes.
                 # The global store and exactly-once checks remain available.
-                messages = [m for m in messages if m.get("work_item_id") == scope["work_item_id"]]
-            return messages
+                return self.store.list_outbox_messages(work_item_id=scope["work_item_id"])
+            return self.store.list_outbox_messages()
         messages = recovery_messages()
         dispatch_by_message = {str(d["message_id"]): d for d in self.store.list_platform_dispatches()}
         ready_messages: list[tuple[Mapping[str, Any], bool]] = []
