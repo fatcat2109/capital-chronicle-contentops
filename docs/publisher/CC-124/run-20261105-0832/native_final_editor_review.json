@@ -1,0 +1,177 @@
+{
+  "schema_version": "contentops.native_final_editor_review.v1",
+  "run_id": "cc124-next-article-20261105-b",
+  "status": "PASS",
+  "decision": "KEEP",
+  "reviewed_at_utc": "2026-11-05T02:05:40.199528+00:00",
+  "reviewer_invocation_id": "/root/southwest_max_writer",
+  "review_surface": "CODEX_NATIVE_SUBAGENT_LOCAL_ARTIFACT_TEXT_REVIEW",
+  "policy": "JIM_DECISION_53",
+  "editorial_check_count_for_this_final_revision": 1,
+  "article_identity": "dc24ef2b95943b731f4a30e56bcc29360e11bb9b44ac6d8a94d2578471537111",
+  "article_body_sha256": "dc24ef2b95943b731f4a30e56bcc29360e11bb9b44ac6d8a94d2578471537111",
+  "article_manifest_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\article_manifest_v1.json",
+  "article_manifest_file_sha256": "c8b8d56238f1b3bc30b1bc0f3298a5e44daa6742cf183b9fb70e8b1e5630e6af",
+  "qualified_record_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\qualified_article_record_v1.json",
+  "qualified_record_file_sha256": "3ad06632b74f64b82709c690690de89db6a413346253738e7ce0ce80bafbe240",
+  "qualified_record_sha256": "2878a15058e185e603ba802ee6e5aaa09443ba95d15d03d5bde536cefe2040ca",
+  "native_previews_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\native_derivative_previews_v1.json",
+  "native_previews_file_sha256": "6871c8eb06be8612e92f6a3ada48ae59e6413ef9cac9040854d56b728fbfc66d",
+  "final_validated_article_public_copy_sha256": "79aaf0f4d705d269af48fbfe3678acfd7cef9b4d56474e5c424daa53cef89082",
+  "compiler_input_sha256": "0ec8ec8e6a3f7fbe79c7995f1393173e5ad67464cff31ebfe6817a99591c5d4a",
+  "media_plan_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\media-plan-binding.json",
+  "media_plan_file_sha256": "064714c6d449222ef95f4c2bb27c9b033f7e6ef219382010e6b9ce1e7c9e96fd",
+  "source_document": {
+    "publisher": "Southwest Airlines Co.",
+    "source_id": "SOURCE_1",
+    "canonical_content_sha256": "c1fee545fb19485fae172d1b23d108df621b346796be75ababf492ea46705128",
+    "document": "Form 10-Q for the quarter ended June 30, 2025",
+    "source_publication_date": "2025-07-24",
+    "url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+    "rights_scope_used": "Attributed filing facts in independent public paraphrase; no issuer artwork or prose reuse"
+  },
+  "canonical_text_findings": [
+    "The headline, dek and opening explain the different cash and expense clocks and retain the 2025 filing context.",
+    "The opening naturally names Southwest Airlines Co. and links the July 24, 2025 Form 10-Q; it does not recast the filing as a current earnings report.",
+    "All three selected complete card facts appear verbatim in the body, with their approximate qualifiers, periods and conditional recognition horizon.",
+    "Accumulated other comprehensive income is spelled out and AOCI is explained before the deferred-balance fact.",
+    "The text states that the $209 million balance already included termination proceeds and explains why a second $40 million deduction would double-count the offset.",
+    "The $36 million is the quarter's premium expense including terminated positions, without assigning it entirely to the act of closure.",
+    "The countercase distinguishes expense timing from the hedge exit's economic merit, and the watch passage does not assert a current policy or earnings cause.",
+    "The three amounts are not added, subtracted or shown as a comparable series; the source-bound card supports the documentary argument.",
+    "The analysis notice and reader-decision notice are present. No trading direction or proprietary forecast is introduced."
+  ],
+  "native_package_reviews": [
+    {
+      "destination": "discord",
+      "decision": "KEEP",
+      "reader_meaning": "Preserves the dated company-document lens and source attribution; its selected passage adds no current-policy, economic-savings or earnings-causation claim.",
+      "qualified_payload_sha256": "ef85fe6df6203b669e8c6cfb332501d06a0fd2d93e2f2483a3d4d1ab258e98f0",
+      "media_asset_ids": [
+        "post-facts-c6d7a73bb1808cefa008"
+      ],
+      "notices_present_in_complete_package": true,
+      "layout_pixel_inspection_performed": false
+    },
+    {
+      "destination": "facebook_page",
+      "decision": "KEEP",
+      "reader_meaning": "Preserves the dated company-document lens and source attribution; its selected passage adds no current-policy, economic-savings or earnings-causation claim.",
+      "qualified_payload_sha256": "893a59353ce417a45306d29b8f206b73c766c78920f440abad52d68bcde957d2",
+      "media_asset_ids": [
+        "post-facts-c6d7a73bb1808cefa008"
+      ],
+      "notices_present_in_complete_package": true,
+      "layout_pixel_inspection_performed": false
+    },
+    {
+      "destination": "instagram_business",
+      "decision": "KEEP",
+      "reader_meaning": "Preserves the dated company-document lens and source attribution; its selected passage adds no current-policy, economic-savings or earnings-causation claim.",
+      "qualified_payload_sha256": "9adc27f742205cdb588bc9081d0b0a4306a68e23ba5f4ba687f2d5df7b7a5a3c",
+      "media_asset_ids": [
+        "post-facts-c6d7a73bb1808cefa008"
+      ],
+      "notices_present_in_complete_package": true,
+      "layout_pixel_inspection_performed": false
+    },
+    {
+      "destination": "linkedin",
+      "decision": "KEEP",
+      "reader_meaning": "Preserves the dated company-document lens and source attribution; its selected passage adds no current-policy, economic-savings or earnings-causation claim.",
+      "qualified_payload_sha256": "71d2b6ddbf0519237ec3a2f74fa2413dc08681ed0391c7332a936d3b78d6e2bf",
+      "media_asset_ids": [
+        "post-facts-c6d7a73bb1808cefa008"
+      ],
+      "notices_present_in_complete_package": true,
+      "layout_pixel_inspection_performed": false
+    },
+    {
+      "destination": "telegram",
+      "decision": "KEEP",
+      "reader_meaning": "Preserves the dated company-document lens and source attribution; its selected passage adds no current-policy, economic-savings or earnings-causation claim.",
+      "qualified_payload_sha256": "3b84c001dd19e8b053b1e4d62dcfa0022c1ac4c5f7838c319bb046d04b8b1485",
+      "media_asset_ids": [
+        "post-facts-c6d7a73bb1808cefa008"
+      ],
+      "notices_present_in_complete_package": true,
+      "layout_pixel_inspection_performed": false
+    },
+    {
+      "destination": "threads",
+      "decision": "KEEP",
+      "reader_meaning": "Preserves the dated company-document lens and source attribution; its selected passage adds no current-policy, economic-savings or earnings-causation claim.",
+      "qualified_payload_sha256": "f167d85ec6f1140959ea3d215854325e44bf98291e3da64c391adb1650bb557f",
+      "media_asset_ids": [
+        "post-facts-c6d7a73bb1808cefa008"
+      ],
+      "notices_present_in_complete_package": true,
+      "layout_pixel_inspection_performed": false
+    },
+    {
+      "destination": "x",
+      "decision": "KEEP",
+      "reader_meaning": "Preserves the dated company-document lens and source attribution; its selected passage adds no current-policy, economic-savings or earnings-causation claim.",
+      "qualified_payload_sha256": "d7a8ae0ef21afc7eb4188f92df436263bab41b6c600e2fc68aa5ee9e58df3267",
+      "media_asset_ids": [
+        "post-facts-c6d7a73bb1808cefa008"
+      ],
+      "notices_present_in_complete_package": true,
+      "layout_pixel_inspection_performed": false
+    },
+    {
+      "destination": "youtube",
+      "decision": "KEEP",
+      "reader_meaning": "Preserves the dated company-document lens and source attribution; its selected passage adds no current-policy, economic-savings or earnings-causation claim.",
+      "qualified_payload_sha256": "0efb22072033b236aeb8948a651bbc7f2f6ade2f8fc5193de1ef68c43c3ecd4c",
+      "media_asset_ids": [
+        "post-facts-c6d7a73bb1808cefa008"
+      ],
+      "notices_present_in_complete_package": true,
+      "layout_pixel_inspection_performed": false
+    }
+  ],
+  "media_review": {
+    "asset_id": "post-facts-c6d7a73bb1808cefa008",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\media_assets\\post-facts-c6d7a73bb1808cefa008.png",
+    "sha256": "240c8f6dc5ecea0d75af69517be776603ca3c9f69d0b15d13f120b91671fdec5",
+    "decision": "KEEP",
+    "prior_actual_pixel_review_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\native_card_review_write.json",
+    "prior_actual_pixel_review_file_sha256": "1e7c7e03e95c8b5f21271e92e079651bbdfd543f225bbe4d3fb3f7deb1ec4a81",
+    "prior_actual_pixel_review_utc": "2026-11-05T01:52:48.329380+00:00",
+    "prior_actual_pixel_review_surface": "LOCAL_FILE_VIEW_IMAGE",
+    "inspected_dimensions": {
+      "width": 1080,
+      "height": 1350
+    },
+    "same_exact_bytes_as_prior_pixel_inspection": true,
+    "meaning": "All three complete facts and dates are visible, with the historical balance date dominant and no misleading numeric axis or proportional encoding.",
+    "nonblocking_note": "The card leaves AOCI abbreviated. Its Expense still deferred label states its role and the canonical prose supplies the full definition; no repair is required.",
+    "new_pixel_review_performed_in_this_final_check": false
+  },
+  "material_defects": [],
+  "required_repairs": [],
+  "limits": [
+    "This check reviewed the exact local canonical text, all eight saved native package payloads, qualified identities and media bindings.",
+    "The card's actual prior local pixel review is retained by exact unchanged SHA256. No canonical desktop/mobile layout, destination screenshots or native desktop application was inspected.",
+    "The one automated image load/dimension check is the review owner's step and is not claimed by this text review.",
+    "Saved package URLs are pending non-dispatchable preview URLs. The sole publication owner must substitute the real reconciled canonical URL before derivative dispatch.",
+    "This artifact is an editorial result. It does not set store KEEP, invoke publication or establish any public-object readback."
+  ],
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/southwest_max_writer",
+    "speed": "standard",
+    "model": null,
+    "reasoning_effort": null,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Supported same-context parent assignment for the single final editor text check of article dc24ef2b95943b731f4a30e56bcc29360e11bb9b44ac6d8a94d2578471537111",
+    "observation_source": "Actual supported child context /root/southwest_max_writer; no runtime model or reasoning-effort telemetry exposed"
+  },
+  "public_write_performed": false,
+  "store_keep_written": false
+}

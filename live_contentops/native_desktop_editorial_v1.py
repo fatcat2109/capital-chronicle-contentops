@@ -188,6 +188,11 @@ def validate_visual_decision(value, *, dropped_after_repair=False):
         questions.append(chart["question"].strip().casefold())
     if len(set(ids)) != len(ids) or len(set(questions)) != len(questions):
         raise ValueError("DISTINCT_VISUAL_IDENTITIES_AND_QUESTIONS_REQUIRED")
+    card_ids = value.get("data_card_asset_ids", [])
+    if (not isinstance(card_ids, list) or len(card_ids) > 3 or len(set(card_ids)) != len(card_ids)
+            or any(not re.fullmatch(r"post-facts-[a-f0-9]{20}", i) for i in card_ids)):
+        raise ValueError("BOUND_POST_DATA_CARD_IDENTITIES_REQUIRED")
+    ids.extend(card_ids)
     destinations = {"telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube"}
     photo_ids = value.get("contextual_photo_ids", [])
     if not isinstance(photo_ids, list) or len(photo_ids) > 2 or len(set(photo_ids)) != len(photo_ids):
@@ -1437,6 +1442,8 @@ def validate_release_media(result, *, require_pixel_review=True, prewriter=False
     current_visuals = article.get("post_visual_policy") == POLICY
     quantitative_charts = [a for a in charts if not a.get("fact_card_packet") and not a.get("post_card_binding")]
     company_card_plan = _company_document_card_plan(decision, result.get("evidence") or [])
+    if (decision or {}).get("data_card_asset_ids") and set(decision["data_card_asset_ids"]) != {a["asset_id"] for a in cards}:
+        raise ValueError("RELEASE_DATA_CARDS_DIFFER_FROM_BOUND_MEDIA")
     disposition = result.get("visual_repair_disposition") or {}
     dropped = disposition.get("dropped_assets") or []
     dropped_after_repair = (disposition.get("policy") == "CC-172" and disposition.get("repair_rounds") == 1

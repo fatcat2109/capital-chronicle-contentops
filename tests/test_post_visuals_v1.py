@@ -106,6 +106,15 @@ def test_company_document_lens_uses_its_chosen_fact_card_without_inventing_macro
     article, assets = complete_post_visuals(article, claims, docs, [card], output_dir=tmp_path)
     counts = validate_release_media({"article": article, "media_assets": assets, "evidence": docs})
     assert counts["chart_count"] == 0 and counts["data_card_count"] == 1
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
+    publication_view = post_image_view({"article": article, "media_assets": assets, "evidence": docs},
+        output_dir=tmp_path / "publication")
+    assert publication_view["visual_editorial_decision"]["data_card_asset_ids"] == [card["asset_id"]]
+    validate_release_media(publication_view)
+    wrong = deepcopy(publication_view)
+    wrong["visual_editorial_decision"]["data_card_asset_ids"] = ["post-facts-" + "f" * 20]
+    with pytest.raises(ValueError, match="RELEASE_DATA_CARDS_DIFFER_FROM_BOUND_MEDIA"):
+        validate_release_media(wrong)
     bundle, _ = _native_preview_bundle(article=article, article_mode="DATA_OR_DOCUMENT_LENS",
         article_identity="e" * 64, media_assets=assets, media_asset_ids=[card["asset_id"]])
     assert len(bundle["packages"]) == 8

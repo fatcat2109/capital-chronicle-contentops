@@ -1263,6 +1263,7 @@ def post_image_view(result, *, output_dir):
             "data_spec": original_charts.get(a["asset_id"], {}).get("data_spec") or a.get("post_card_binding"),
             "placement_after": a.get("placement_after", "introduction")} for a in charts],
             "contextual_photo_ids": [a["asset_id"] for a in usable if a.get("modality") == "documentary_photo"],
+            "data_card_asset_ids": [a["asset_id"] for a in cards],
             "channel_media": choices}
         article["visual_editorial_decision"] = decision
         view["visual_editorial_decision"] = decision
