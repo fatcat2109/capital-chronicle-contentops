@@ -343,6 +343,34 @@ def test_unknown_with_object_identity_is_never_owner_absence_retried(tmp_path, m
     assert runtime.publish_calls == []
 
 
+@pytest.mark.parametrize("status", ["DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE", "DERIVATIVE_EXPIRED_STALE_NO_WRITE"])
+def test_terminal_member_no_write_state_accepts_fresh_own_activity_absence(tmp_path, monkeypatch, status):
+    from datetime import timedelta
+    store, binding, _, co, runtime, _, ids = linkedin_recovery(tmp_path, monkeypatch)
+    store.set_dispatch_status(ids["dispatch_id"], status)
+    now = datetime.now(timezone.utc) + timedelta(minutes=20)
+    executor = NativeNeoExecutor(store, operation_id=binding["run_id"], output_dir=tmp_path/"terminal-neo",
+        native_invocation_id="CONTROLLED_TERMINAL_ABSENCE", clock=lambda: now)
+    neo = NeoDestinationHandoff(native_executor=executor)
+    runtime._neo_transport = neo
+    intent = json.loads(store.get_outbox_message(ids["message_id"])["payload"])
+    request = neo.request(destination="linkedin", action="READBACK", intent=intent)
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        executor(request)
+    executor.begin(request["request_sha256"])
+    executor.submit(request["request_sha256"], {"tool_request_sha256": pending.value.request["tool_request_sha256"],
+        "tool_observation": {"tool_name": "mcp__browseros_neo__run", "native_invocation_id": executor.native_invocation_id,
+            "surface": "CODEX_EXEC", "observation_source": "CONTROLLED_TERMINAL_ABSENCE_NOT_PUBLIC_PROOF",
+            "observed_at_utc": now.isoformat()},
+        "result": {"request_sha256": request["request_sha256"], "status": "SUCCESS", "authenticated": True,
+            "activity_feed_loaded": True, "observed_identity": IDENTITIES["linkedin"],
+            "observed_profile_url": ROOTS["linkedin"], "target_post_absent": True,
+            "observed_text": "Own activity: unrelated older report."}})
+    actual = neo.readback(destination="linkedin", intent=intent, public_object_id=None, public_object_url=None)
+    assert actual["write_absent"] is True
+    assert runtime.publish_calls == []
+
+
 def test_old_owner_absence_report_cannot_reconcile_a_later_retry(tmp_path, monkeypatch):
     _, binding, _, co, runtime, _, ids = linkedin_recovery(tmp_path, monkeypatch)
     co._record_retry_attempt(ids["dispatch_id"], binding["run_id"])

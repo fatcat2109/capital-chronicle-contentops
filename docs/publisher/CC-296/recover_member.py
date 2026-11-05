@@ -41,6 +41,11 @@ try:
         raise ValueError("EXACT_CC296_ACTION_REQUIRED")
 except NativeNeoInputRequired as pending:
     result = {"status": "NATIVE_NEO_TOOL_PENDING", "native_tool_request": pending.request}
+if action == "readback" and result.get("reconciliation_status") == "RECONCILIATION_PENDING":
+    pending = [p for p in operation.executor.pending() if p["request"]["destination"] == "linkedin"
+        and p["request"].get("native_invocation_id") == operation.native_invocation_id]
+    if pending:
+        result["native_tool_request"] = pending[-1]
 (ROOT / (label + "-" + action + ".json")).write_text(json.dumps(result, indent=2), encoding="utf-8")
 packet = result.get("native_tool_request")
 print(json.dumps({"run_id": run_id, "action": action, "status": result.get("status"),

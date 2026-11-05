@@ -523,7 +523,9 @@ class NeoDestinationHandoff:
                 and result.get("activity_feed_loaded") is True and bool(observed_text)
                 and result.get("observed_identity") == IDENTITIES[destination]
                 and result.get("request_sha256") == request["request_sha256"]
-                and dispatch.get("status") in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING", "RECONCILED_ABSENT_SAFE_TO_RETRY"}
+                and dispatch.get("status") in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING",
+                    "RECONCILED_ABSENT_SAFE_TO_RETRY", "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
+                    "DERIVATIVE_EXPIRED_STALE_NO_WRITE"}
                 and not any(_text(s) in comparison_text for s in segments if len(_text(s)) >= 30))
         complete_readback = getattr(self.native_executor, "complete_readback_request", None)
         if callable(complete_readback):
