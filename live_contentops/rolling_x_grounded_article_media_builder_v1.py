@@ -1228,6 +1228,9 @@ def post_image_view(result, *, output_dir):
         try:
             if asset.get("modality") == "documentary_photo":
                 validate_contextual_photo(asset, require_pixel_review=False)
+            elif asset.get("modality") == "tradingview_chart_snapshot":
+                from live_contentops.tradingview_snapshot_v1 import validate_snapshot_asset
+                validate_snapshot_asset(asset, article)
             elif asset.get("modality") == "source_bound_data_card":
                 from live_contentops.post_visuals_v1 import validate_post_data_card
                 validate_post_data_card(asset, article, documents)
@@ -1241,6 +1244,12 @@ def post_image_view(result, *, output_dir):
         except (ValueError, OSError, KeyError) as exc:
             excluded.append({"asset_id": asset.get("asset_id"), "sha256": asset.get("sha256"),
                              "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__})
+    admitted_ids = {a["asset_id"] for a in usable}
+    for asset in list(usable):
+        if asset.get("preceding_card") and asset["preceding_card"]["asset_id"] not in admitted_ids:
+            usable.remove(asset)
+            excluded.append({"asset_id": asset["asset_id"], "sha256": asset["sha256"],
+                             "cause": "TRADINGVIEW_PRECEDING_CARD_NOT_ADMITTED"})
     charts = [a for a in usable if a.get("modality") == "source_backed_chart"]
     cards = [a for a in usable if a.get("modality") == "source_bound_data_card"]
     if not charts and not cards:

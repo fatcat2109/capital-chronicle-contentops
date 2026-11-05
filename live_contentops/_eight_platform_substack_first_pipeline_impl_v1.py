@@ -585,8 +585,9 @@ def build_native_derivative_payloads(
             destination = skipped["destination"]
             payloads[destination] = {"destination": destination, "delivery_state": skipped["status"],
                 "skip_reason": skipped["reason"], "media_asset_ids": []}
-        return payloads
-    if article.get("reader_first_version") != "DATA_JOURNALISM_V1":
+        if not article.get("tradingview_snapshot_asset_ids"):
+            return payloads
+    if article.get("reader_first_version") != "DATA_JOURNALISM_V1" and not article.get("tradingview_snapshot_asset_ids"):
         return payloads
     choices = article.get("native_destination_media")
     if not isinstance(choices, Mapping) or set(choices) != set(payloads):
@@ -4017,6 +4018,14 @@ def _prepare_cloudinary_delivery_media_for_plan(
             "accepted_evidence_sha256": context["accepted_evidence_sha256"]},
             output_dir=output_dir / "media" / "post-images")
         article_assets = selected["media_assets"]
+    # CC-316: snapshots are displayed in articles, but their hosting uses the
+    # existing delivery-only rights contract, never official-series validation.
+    snapshot_ids = {a["asset_id"] for a in delivery_only_assets}
+    for asset in article_assets:
+        if asset.get("modality") == "tradingview_chart_snapshot" and asset["asset_id"] not in snapshot_ids:
+            delivery_only_assets.append(asset)
+            snapshot_ids.add(asset["asset_id"])
+    article_assets = [a for a in article_assets if a.get("modality") != "tradingview_chart_snapshot"]
     if not article_assets and not delivery_only_assets:
         # Simple's text-first qualified article intentionally has no in-body media. Reuse the
         # accepted deterministic delivery-only card seam so Instagram can receive media without
@@ -4224,6 +4233,8 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         from live_contentops.v1_simple_gemini_newsroom_v1 import canonical_photo_attribution_payload
         payloads[destination] = canonical_photo_attribution_payload(payloads[destination], article=article,
             media_assets=media_assets, canonical_url=canonical_url)
+    if destination == "substack":
+        media_assets = [a for a in media_assets if not a.get("derivative_only")]
     local_media = next((
         str(row.get("path") or row.get("absolute_local_source_path") or "")
         for row in media_assets
