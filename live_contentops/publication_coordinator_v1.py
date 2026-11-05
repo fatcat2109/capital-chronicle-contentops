@@ -3920,7 +3920,7 @@ class DurablePublicationCoordinator:
         native Desktop readback tool request is pending.
         """
         dispatch = self.store.get_platform_dispatch(dispatch_id)
-        if not dispatch or dispatch.get("status") not in {DISPATCH_CONFIRMED, UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING, RECONCILED_ABSENT_SAFE_TO_RETRY, "SUBSTACK_DRAFT_AWAITING_OWNER"}:
+        if not dispatch or dispatch.get("status") not in {DISPATCH_CONFIRMED, UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING, RECONCILED_ABSENT_SAFE_TO_RETRY, DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE, DERIVATIVE_EXPIRED_STALE_NO_WRITE, "SUBSTACK_DRAFT_AWAITING_OWNER"}:
             raise ValueError("EXISTING_PUBLIC_OR_AMBIGUOUS_DISPATCH_REQUIRED")
         message = self.store.get_outbox_message(dispatch["message_id"])
         message = self._effective_message(message) if message else None

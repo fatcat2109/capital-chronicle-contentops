@@ -1898,6 +1898,18 @@ def test_explicit_member_transport_correction_needs_absence_and_is_one_shot(tmp_
     assert runtime.publish_calls.count("linkedin") == int(absence_proved)
 
 
+@pytest.mark.parametrize("status", [DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE, DERIVATIVE_EXPIRED_STALE_NO_WRITE])
+def test_terminal_no_write_dispatch_can_refresh_absence_without_publishing(tmp_path, status):
+    store, runtime, coordinator = _coordinator(tmp_path)
+    registered = coordinator.register_plan("work-1", _plan("linkedin"))["registered"][0]
+    store.register_platform_dispatch(dispatch_id=registered["dispatch_id"], message_id=registered["message_id"],
+        platform="linkedin", status=status)
+    before = list(runtime.publish_calls)
+    coordinator.readback_existing_dispatch(registered["dispatch_id"])
+    assert runtime.readback_calls == ["linkedin"]
+    assert runtime.publish_calls == before
+
+
 def test_durable_totals_survive_pending_callback_and_duplicate_resume(tmp_path):
     store, transport, coordinator = _coordinator(tmp_path)
     plan = _quality_plan()

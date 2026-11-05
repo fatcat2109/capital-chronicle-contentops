@@ -2260,6 +2260,33 @@ def require_current_final_visual_review(store, *, run_id):
     return acceptance
 
 
+def _sealed_dispatched_native_review(store, *, run_id, result, review, note):
+    """A new converter cannot revoke approval of unchanged, already sealed bytes."""
+    if not any(d.get("platform") == "substack" and d.get("status") == "DISPATCH_CONFIRMED"
+            and d.get("public_object_id") and d.get("public_object_url")
+            for d in store.get_dispatches_for_work_item(run_id)):
+        return False
+    from hashlib import sha256
+    from live_contentops.native_desktop_publication_v1 import ARTIFACTS, DESTINATION
+    prepared = [json.loads(r["payload"]) for r in store.list_outbox_messages(
+        destination="internal:native-prepared-handoff")]
+    for row in store.list_outbox_messages(destination=DESTINATION):
+        seal = json.loads(row["payload"])
+        if (seal.get("run_id") != run_id or seal.get("native_result_sha256") != sha256_of(result)
+                or seal.get("review_id") != review["review_id"]
+                or seal.get("review_notes_sha256") != sha256_of(note)
+                or set(seal.get("artifact_sha256", {})) != set(ARTIFACTS)):
+            continue
+        for packet in prepared:
+            if packet.get("run_id") != run_id or packet.get("plan_hash") != seal.get("plan_hash"):
+                continue
+            root = resolve_workspace_path(packet["output_dir"])
+            if all((root/name).is_file() and sha256((root/name).read_bytes()).hexdigest() == digest
+                    for name, digest in seal["artifact_sha256"].items()):
+                return True
+    return False
+
+
 def validated_native_review(store, *, run_id):
     """Read the current revision/source/media boundary shared by preparation and continuation."""
     from hashlib import sha256
@@ -2279,7 +2306,8 @@ def validated_native_review(store, *, run_id):
         raise ValueError("REVISION_BOUND_NATIVE_KEEP_REVIEW_REQUIRED")
     review = json.loads(reviews[-1]["notes"])
     revision = native_review_revision(result, include_metadata=bool(review.get("article_metadata_sha256")))
-    if review["package_revision"] != revision:
+    if (review["package_revision"] != revision and not _sealed_dispatched_native_review(
+            store, run_id=run_id, result=result, review=reviews[-1], note=review)):
         raise ValueError("NATIVE_REVIEW_REVISION_CHANGED")
     assets = result.get("media_assets", [])
     for asset in assets:

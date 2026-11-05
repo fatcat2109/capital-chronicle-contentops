@@ -836,3 +836,34 @@ def test_current_identity_request_and_runtime_reuse(tmp_path, monkeypatch):
     assert (
         existing.coordinator is operation.coordinator and existing.executor is executor
     )
+
+
+@pytest.mark.parametrize("corruption", [None, "result", "artifact", "canonical"])
+def test_dispatched_seals_preserve_unchanged_review_across_converter_change(tmp_path, monkeypatch, corruption):
+    store, binding, _, result, _ = seeded(tmp_path, monkeypatch)
+    import live_contentops.native_desktop_editorial_v1 as editorial
+    sealed, plan, root = _prepared_packet(store, binding)
+    ids = DurablePublicationCoordinator._ids(binding["run_id"], plan["plan_hash"], "substack")
+    store.create_work_item(story_id=binding["run_id"], work_item_id=binding["run_id"], title="Controlled recovery", target_surface="TEST")
+    co = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    co.register_plan(binding["run_id"], plan)
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"], platform="substack",
+        status="UNKNOWN_WRITE" if corruption == "canonical" else "DISPATCH_CONFIRMED",
+        public_object_id="CONTROLLED", public_object_url=CANONICAL)
+    if corruption == "result":
+        row = store.get_outbox_message(editorial.native_artifact_key(store, binding["run_id"], "cc-editorial-final-"))
+        changed = json.loads(row["payload"])
+        changed["article"]["title"] += " Unreviewed change"
+        with store.get_connection() as conn:
+            conn.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?", (json.dumps(changed), row["message_id"]))
+    if corruption == "artifact":
+        (root / "article_manifest_v1.json").write_text("{}", encoding="utf-8")
+    original = editorial.native_review_revision
+    monkeypatch.setattr(editorial, "native_review_revision", lambda *a, **kw: original(*a, **kw) + "-new-converter")
+    if corruption:
+        with pytest.raises(ValueError, match="NATIVE_REVIEW_REVISION_CHANGED"):
+            editorial.validated_native_review(store, run_id=binding["run_id"])
+    else:
+        actual, _, _ = editorial.validated_native_review(store, run_id=binding["run_id"])
+        assert actual == result
+        assert _prepared_packet(store, binding)[1] == plan
