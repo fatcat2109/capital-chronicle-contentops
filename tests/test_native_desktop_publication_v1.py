@@ -472,6 +472,25 @@ def test_changed_review_policy_retains_only_the_exact_dispatched_packet_path(tmp
         _prepared_packet(store, binding)
 
 
+@pytest.mark.parametrize("allow_prior", [False, True])
+def test_article_resume_leaves_other_operations_queued(tmp_path, monkeypatch, allow_prior):
+    store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
+    operation, executor, transport = composed(store, binding, rollout, monkeypatch)
+    operation._authorize_and_bind()
+    operation.coordinator.allow_prior_confirmed_distribution = allow_prior
+    store.create_work_item(story_id="other", work_item_id="other", title="Other article", target_surface="TEST")
+    store.register_outbox_message(message_id="other-send", work_item_id="other", destination="telegram",
+        payload=json.dumps({"work_item_id": "other", "plan_hash": "other-plan", "payload": "Other article"}),
+        status="READY")
+    operation.resume()
+    assert operation.coordinator.recovery_scope["exact_work_item_only"] is True
+    assert operation.coordinator.recovery_scope["work_item_id"] == binding["run_id"]
+    assert store.get_outbox_message("other-send")["status"] == "READY"
+    assert not any(d["message_id"] == "other-send" for d in store.list_platform_dispatches())
+    assert all(p["request"]["work_item_id"] == binding["run_id"] for p in executor.pending())
+    assert transport.calls == []
+
+
 def test_canonical_first_real_url_eight_native_packages_restart_dedupe(
     tmp_path, monkeypatch
 ):

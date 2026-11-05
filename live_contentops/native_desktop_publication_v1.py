@@ -642,9 +642,13 @@ class NativeReviewedPublication:
     def resume(self):
         plan, root = self.validate()
         self._authorize_and_bind()
-        self.coordinator.recovery_scope = (
-            {"work_item_id": self.binding["run_id"], "plan": plan}
-            if self.coordinator.allow_prior_confirmed_distribution else None)
+        # A bound article continuation owns this operation only. Reuse the
+        # coordinator's existing exact-item recovery filter, as the digest does;
+        # another article's pending sends belong to its own continuation.
+        self.coordinator.recovery_scope = {
+            "work_item_id": self.binding["run_id"], "plan": plan,
+            "exact_work_item_only": True,
+        }
         try:
             result, _, _ = validated_native_review(self.store, run_id=self.binding["run_id"])
             try:
