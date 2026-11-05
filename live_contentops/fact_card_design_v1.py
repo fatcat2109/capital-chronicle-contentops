@@ -84,6 +84,9 @@ class CardSpec:
     notice: str = "Analysis, not financial advice."
     image_path: str = ""   # an admitted chart image (e.g. a CC-144 series mini chart)
     extra: dict = field(default_factory=dict)
+    # A bound editorial chart asset (its packet and the owner's computed values). When
+    # given, the chart is drawn for the slot it fills, never a shrunk picture (CC-290).
+    chart: dict | None = None
 
 
 def card_date(now: datetime | None = None) -> str:
@@ -450,6 +453,9 @@ class _Body:
         self.spec, self.fmt, self.content, self.columns = spec, fmt, content, columns
         self.hero, self.rows, self.chart, self.available = hero, rows, chart, available
         self.scale = _SCALE[fmt]
+        # A chart the card draws needs its words at full size: reserve at least that height.
+        self.chart_min = (_ChartLayout(chart, columns[2] if columns else content).min_height()
+                          if isinstance(chart, dict) else 0.0)
 
     def levels(self):
         for level in range(_LEVELS + 1):
@@ -516,7 +522,10 @@ class _Body:
 
     def needed(self, title, main, side, grow=1.0) -> float:
         tallest = max(main.height(grow), side.height(grow) if side else 0.0)
-        chart = self.available * 0.45 if (self.chart and not self.columns) else 0.0
+        if self.chart and self.columns:
+            tallest = max(tallest, self.chart_min + (4 * UNIT if self.chart_min else 0))
+        chart = (max(self.available * (0.5 if self.chart_min else 0.45), self.chart_min + 5 * UNIT + 2)
+                 if (self.chart and not self.columns) else 0.0)
         return title.height + 5 * UNIT * grow + tallest + chart
 
     def fit(self):
@@ -631,7 +640,7 @@ def render_fact_card(path: str | Path, spec: CardSpec, *, size: tuple[int, int] 
         rows.append(_Row(label.strip(), value))
     facts_given = (1 if sentence else 0) + len(rows)
     hero = (hero_label.strip(), hero_value, sentence) if hero_value else None
-    chart = spec.image_path or ""
+    chart = spec.chart or spec.image_path or ""
     if not hero and not rows and not chart:
         return _title_only(image, spec, path, size, left, content, body_top, body_bottom, blocks)
 
@@ -662,12 +671,21 @@ def render_fact_card(path: str | Path, spec: CardSpec, *, size: tuple[int, int] 
         if side:
             end = max(end, _draw_column(draw, side, columns[1], y, grow, blocks))
         if chart:
-            _paste_chart(image, chart, (columns[1], round(body_start), right, round(body_bottom)), blocks)
+            # Level with the left column's first label, as a second column of rows would be.
+            chart_top = body_start + (UNIT + 3 * UNIT if spec.chart else 0)
+            _place_chart(image, draw, spec, (columns[1], round(chart_top), right, round(body_bottom)), blocks)
             end = body_bottom
     else:
         end = _draw_column(draw, main, left, y, grow, blocks)
         if chart:
-            _paste_chart(image, chart, (left, round(end + 4 * UNIT), right, round(body_bottom)), blocks)
+            chart_top = end + 4 * UNIT
+            if spec.chart:
+                # The chart is the column's next row: the same divider as between facts.
+                rule = round(end + 2.5 * UNIT)
+                draw.rectangle((left, rule, right - 1, rule + 1), fill=RULE)
+                blocks.append({"name": "rule", "box": [left, rule, right, rule + 2]})
+                chart_top = rule + 2 + 2.5 * UNIT
+            _place_chart(image, draw, spec, (left, round(chart_top), right, round(body_bottom)), blocks)
             end = body_bottom
     hero_parts = [b["box"] for b in blocks if b["name"] in {"accent", "hero_label", "hero_value", "hero_fact"}]
     hero_box = ([min(b[0] for b in hero_parts), min(b[1] for b in hero_parts),
@@ -682,6 +700,279 @@ def render_fact_card(path: str | Path, spec: CardSpec, *, size: tuple[int, int] 
             "facts_fill_ratio": (round(min(1.0, (end - body_start) / max(1.0, body_bottom - body_start)), 3)
                                  if facts_given else None),
             "gap_scale": round(grow, 3), "blocks": blocks, "margin": MARGIN, "design": DESIGN}
+
+
+# ---- a chart drawn for the slot it fills (CC-290, decision 74) -------------------------
+#
+# A 1440x1040 editorial chart shrunk into a card slot sets its numbers about 12px tall.
+# Given the bound chart asset (its packet and the chart owner's computed values), the card
+# draws the chart itself, at the slot's size, in the card's type: the packet's title,
+# series labels, periods, unit and source line word for word, and every word and number at
+# least CHART_TEXT, the floor post_visuals enforces for fact text. A chart the card cannot
+# set that large raises DATA_CARD_CHART_NOT_CARD_LEGIBLE, and the existing data-card owner
+# then keeps the facts without the chart.
+
+CHART_TEXT = 28
+_CHART_TYPES = {"grouped_bar", "line", "direct_labelled_two_line", "horizontal_count_bar"}
+_CHART_COLORS = (INK, "#8F8F88", YELLOW)        # lines and points
+_CHART_BARS = ("#A3A39C", "#55554F", YELLOW)      # columns: quiet fills, the numbers in ink carry them
+_PLOT_MIN = 140
+
+
+def _not_card_legible(reason: str) -> ValueError:
+    return ValueError("DATA_CARD_CHART_NOT_CARD_LEGIBLE:" + reason)
+
+
+def _chart_number(value) -> str:
+    """A computed value as the series states it: grouped thousands, no exponent, and only
+    float noise beyond six decimals dropped (0.30000000000000004 reads 0.3)."""
+    if value is None:
+        return "n/a"
+    number = float(value)
+    text = f"{abs(number):,.6f}".rstrip("0").rstrip(".")
+    return ("−" if number < 0 and text != "0" else "") + text
+
+
+def _chart_parts(asset: dict) -> dict:
+    """The chart's own words and numbers, exactly as its bound packet and values give them."""
+    packet = (asset or {}).get("editorial_data_packet") or {}
+    kind, series, values = packet.get("chart_type"), packet.get("series") or [], (asset or {}).get("computed_values")
+    if kind not in _CHART_TYPES:
+        raise _not_card_legible("TYPE:" + str(kind))
+    if packet.get("required_attribution") or packet.get("history_lineage") or packet.get("history_point_labels"):
+        raise _not_card_legible("MARKS_A_CARD_CANNOT_CARRY")
+    if (not series or len(series) > len(_CHART_COLORS) or not isinstance(values, list) or len(values) != len(series)
+            or (kind == "horizontal_count_bar" and len(series) != 1)):
+        raise _not_card_legible("SERIES")
+    periods = list(dict.fromkeys(str(point["period"]) for source in series for point in source["points"]))
+    rows = []
+    for source, numbers in zip(series, values):
+        if len(numbers) != len(source["points"]):
+            raise _not_card_legible("SERIES")
+        by_period = {str(point["period"]): number for point, number in zip(source["points"], numbers)}
+        rows.append([by_period.get(period) for period in periods])
+    if all(number is None for row in rows for number in row):
+        raise _not_card_legible("NO_VALUES")
+    return {"kind": kind, "title": str(packet["title"]), "subtitle": str(packet.get("subtitle") or ""),
+            "labels": [str(source.get("name") or source["label"]) for source in series],
+            "periods": periods, "rows": rows, "unit": str(packet["unit"]), "source": str(packet["source_caption"])}
+
+
+def _ink_span(text: str, weight: str, size: int) -> int:
+    left, right = _ink(text, weight, size)
+    return right - left
+
+
+class _ChartLayout:
+    """Where a card-drawn chart's words go, and how tall the chart must be at the least."""
+
+    def __init__(self, asset: dict, width: int):
+        self.parts, self.width = _chart_parts(asset), width
+        parts, size = self.parts, CHART_TEXT
+        self.title = _text("chart_title", parts["title"], "bold", size + 2, width, INK, leading=1.2)
+        self.subtitle = (_text("chart_subtitle", parts["subtitle"], "regular", size, width, MUTED, leading=1.2)
+                         if parts["subtitle"] else None)
+        self.source = _text("chart_source", parts["source"], "regular", size, width, MUTED, leading=1.2)
+        if (len(self.title.lines) > 2 or len(self.source.lines) > 2
+                or (self.subtitle and len(self.subtitle.lines) > 2)):
+            raise _not_card_legible("WORDS_EXCEED_TWO_LINES")
+        # Legend: a swatch and each series label, then the unit, wrapped into rows.
+        swatch, items = _cap("regular", size), []
+        self.palette = _CHART_BARS if parts["kind"] in {"grouped_bar", "horizontal_count_bar"} else _CHART_COLORS
+        for index, label in enumerate(parts["labels"]):
+            items.append(("chart_legend", label, swatch + 12 + _ink_width(label, "regular", size), index))
+        items.append(("chart_unit", parts["unit"], _ink_width(parts["unit"], "regular", size), None))
+        self.legend, row, used = [], [], 0
+        for item in items:
+            if item[2] > width:
+                raise _not_card_legible("LEGEND")
+            if row and used + 4 * UNIT + item[2] > width:
+                self.legend.append(row)
+                row, used = [], 0
+            row.append(item)
+            used += (4 * UNIT if used else 0) + item[2]
+        self.legend.append(row)
+        self.pitch = round(size * 1.3)
+        self.cap = _cap("regular", size)
+
+    def head_height(self) -> float:
+        height = self.title.height + 2 * UNIT
+        if self.subtitle:
+            height += self.subtitle.height + 2 * UNIT
+        return height + self.cap + (len(self.legend) - 1) * self.pitch + 3 * UNIT
+
+    def foot_height(self) -> float:
+        periods = 0 if self.parts["kind"] == "horizontal_count_bar" else 2 * UNIT + self.cap
+        return periods + 3 * UNIT + self.source.height
+
+    def min_height(self) -> float:
+        return self.head_height() + _PLOT_MIN + self.foot_height()
+
+
+def _draw_card_chart(draw, asset: dict, box, blocks: list) -> float:
+    """Draw the bound chart into ``box`` (left, top, right, bottom); returns its bottom."""
+    x0, y0, x1, y1 = box
+    layout = _ChartLayout(asset, x1 - x0)
+    parts, size = layout.parts, CHART_TEXT
+    if y1 - y0 < layout.min_height():
+        raise _not_card_legible("SPACE")
+
+    def label(name, text, x, baseline, weight="regular", color=MUTED, text_size=size):
+        right = _set(draw, x, baseline, text, weight, text_size, color)
+        blocks.append({"name": name, "box": [round(x), round(baseline - _cap(weight, text_size)), right, round(baseline)],
+                       "baseline": round(baseline), "size": text_size, "weight": weight, "text": text})
+
+    def block_lines(block, y):
+        baseline = y + block.cap
+        for line in block.lines:
+            label(block.name, line, x0, baseline, block.weight, block.color, block.size)
+            baseline += block.pitch
+        return y + block.height
+
+    y = block_lines(layout.title, y0) + 2 * UNIT
+    if layout.subtitle:
+        y = block_lines(layout.subtitle, y) + 2 * UNIT
+    for row_index, row in enumerate(layout.legend):
+        baseline, x = y + layout.cap, x0
+        for name, text, width, series in row:
+            if series is not None:
+                color = layout.palette[series]
+                draw.rectangle((x, baseline - layout.cap, x + layout.cap - 1, baseline - 1), fill=color,
+                               outline=INK if color == YELLOW else None)
+                label(name, text, x + layout.cap + 12, baseline, color=INK)
+            else:
+                label(name, text, x, baseline)
+            x += width + 4 * UNIT
+        y = baseline + (layout.pitch - layout.cap if row_index < len(layout.legend) - 1 else 0)
+    y += 3 * UNIT
+    plot = (x0, y, x1, y1 - layout.foot_height())
+    if parts["kind"] == "horizontal_count_bar":
+        _draw_count_bars(draw, parts, plot, label)
+    else:
+        _draw_columns_or_lines(draw, parts, plot, label, layout)
+    source_top = y1 - layout.source.height
+    block_lines(layout.source, source_top)
+    blocks.append({"name": "chart", "box": [x0, y0, x1, round(y1)]})
+    return y1
+
+
+def _draw_columns_or_lines(draw, parts, plot, label, layout):
+    x0, top, x1, bottom = plot
+    size, rows, periods = CHART_TEXT, parts["rows"], parts["periods"]
+    numbers = [n for row in rows for n in row if n is not None]
+    bars = parts["kind"] == "grouped_bar"
+    low, high = (min(0, *numbers), max(0, *numbers)) if bars else (min(numbers), max(numbers))
+    # Reference values on the left gutter: the zero baseline for columns; for lines the
+    # lowest and highest values the series states.
+    ticks = [0.0] if bars else sorted({low, high})
+    gutter = max(_ink_span(_chart_number(t), "regular", size) for t in ticks) + 2 * UNIT
+    left, count = x0 + gutter, len(periods)
+    group = (x1 - left) / count
+    head = layout.cap + 2 * UNIT                       # room for a value label above the highest mark
+    foot = head if bars and low < 0 else (UNIT if bars else head)
+    span = (high - low) or abs(high) or 1.0
+    scale = (bottom - top - head - foot) / span
+
+    def ypos(value):
+        return top + head + (high - value) * scale
+
+    for tick in ticks:
+        y = ypos(tick)
+        draw.rectangle((left, round(y) - (1 if bars else 0), x1 - 1, round(y)), fill=INK if bars else RULE)
+        label("chart_axis", _chart_number(tick), x0, y + layout.cap / 2)
+    centers = [left + group * (index + 0.5) for index in range(count)]
+    series_count = len(rows)
+    labelled = []
+    if bars:
+        width = group * 0.62 / series_count
+        room = group / series_count - UNIT
+
+        def fit(values):
+            return all(_ink_span(_chart_number(n), "bold", size) <= room for n in values if n is not None)
+        # Every column carries its value when the values fit side by side; else the latest
+        # period's do, and a chart too crowded even for those does not reach the card.
+        fits = fit(n for row in rows for n in row)
+        if not fits and not fit(row[-1] for row in rows):
+            raise _not_card_legible("VALUE_LABELS")
+        for s, row in enumerate(rows):
+            color = _CHART_BARS[s]
+            for i, value in enumerate(row):
+                if value is None:
+                    continue
+                bx0 = centers[i] - group * 0.31 + width * s
+                y_value, y_zero = ypos(value), ypos(0)
+                draw.rectangle((round(bx0), round(min(y_value, y_zero)), round(bx0 + width) - 1,
+                                round(max(y_value, y_zero))), fill=color, outline=INK if color == YELLOW else None)
+                if fits or i == count - 1:
+                    text = _chart_number(value)
+                    cx = bx0 + width / 2
+                    baseline = y_value - UNIT if value >= 0 else y_value + UNIT + layout.cap
+                    labelled.append((text, cx, baseline))
+    else:
+        for s, row in enumerate(rows):
+            color = _CHART_COLORS[s]
+            points = [(centers[i], ypos(v)) for i, v in enumerate(row) if v is not None]
+            run = []
+            for i, value in enumerate(row + [None]):
+                if value is None:
+                    if len(run) > 1:
+                        draw.line(run, fill=color, width=5, joint="curve")
+                    run = []
+                else:
+                    run.append((centers[i], ypos(value)))
+            for cx, cy in points:
+                draw.ellipse((cx - 7, cy - 7, cx + 7, cy + 7), fill=color, outline=INK if color == YELLOW else None)
+            last = max(i for i, v in enumerate(row) if v is not None)
+            labelled.append((_chart_number(row[last]), centers[last], ypos(row[last]) - 2 * UNIT))
+    taken = []
+    for text, cx, baseline in labelled:
+        span_px = _ink_span(text, "bold", size)
+        x = min(max(cx - span_px / 2, left), x1 - span_px)
+        box = (x, baseline - layout.cap, x + span_px, baseline)
+        if any(box[0] < b[2] and b[0] < box[2] and box[1] < b[3] and b[1] < box[3] for b in taken):
+            baseline += layout.cap + 3 * UNIT              # a second series' latest value goes under the mark
+            box = (x, baseline - layout.cap, x + span_px, baseline)
+        taken.append(box)
+        label("chart_value", text, x, baseline, "bold", INK)
+    # Periods under the plot: every one when they fit side by side, else the first and the last.
+    widths = [_ink_span(p, "regular", size) for p in periods]
+    every = all(w + 2 * UNIT <= group for w in widths)
+    shown = range(count) if every else sorted({0, count - 1})
+    baseline = bottom + 2 * UNIT + layout.cap
+    for i in shown:
+        x = min(max(centers[i] - widths[i] / 2, x0 if i == 0 else left), x1 - widths[i])
+        label("chart_period", periods[i], x, baseline)
+
+
+def _draw_count_bars(draw, parts, plot, label):
+    x0, top, x1, bottom = plot
+    size, cap = CHART_TEXT, _cap("regular", CHART_TEXT)
+    values, periods = parts["rows"][0], parts["periods"]
+    present = [v for v in values if v is not None]
+    if any(v < 0 for v in present):
+        raise _not_card_legible("COUNT_BARS_NEGATIVE")
+    row = cap + UNIT + 3 * UNIT + 2 * UNIT                # label, gap, bar, gap
+    if row * len(periods) > bottom - top:
+        raise _not_card_legible("SPACE")
+    longest = max(_ink_span(_chart_number(v), "bold", size) for v in values) + 2 * UNIT
+    reach = (x1 - x0 - longest) / (max(present) or 1)
+    y = top
+    for period, value in zip(periods, values):
+        label("chart_period", period, x0, y + cap)
+        bar_top = y + cap + UNIT
+        end = x0 + (value or 0) * reach
+        if value:
+            draw.rectangle((x0, round(bar_top), round(end) - 1, round(bar_top + 3 * UNIT) - 1), fill=_CHART_BARS[0])
+        label("chart_value", _chart_number(value), end + UNIT, bar_top + 3 * UNIT, "bold", INK)
+        y += row
+
+
+def _place_chart(image, draw, spec, box, blocks):
+    """A bound chart asset is drawn for its slot; a bare image is fitted into it as before."""
+    if spec.chart:
+        _draw_card_chart(draw, spec.chart, box, blocks)
+    else:
+        _paste_chart(image, spec.image_path, box, blocks)
 
 
 def _paste_chart(image, chart_path, box, blocks):

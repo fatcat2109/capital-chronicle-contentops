@@ -144,7 +144,8 @@ def _render_card(packet, path, mini_chart=None):
     spec = CardSpec(title=display.get("title") or packet.get("title") or "Key facts", facts=facts,
         kicker=display.get("kicker") or " · ".join(publishers),
         key_label=key_label, key_value=key_value, source_line="Source: " + ", ".join(publishers),
-        dated_line=packet.get("dated_line") or "Capital Chronicle", image_path=str(mini_chart or ""))
+        dated_line=packet.get("dated_line") or "Capital Chronicle", image_path=str(mini_chart or ""),
+        chart=packet.get("series_asset") if mini_chart else None)  # CC-290: drawn for its slot, legible
     result = render_fact_card(path, spec, size=INSTAGRAM_SIZE)
     # Readable on a phone: every fact whole, at 28px or more on the 1080px card.
     if result["facts_shown"] < result["facts_given"] or (result["facts_size"] or 0) < 28:

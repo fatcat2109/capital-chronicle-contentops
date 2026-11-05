@@ -5,6 +5,7 @@ past date. The content binding is CC-245's and is unchanged.
 Local fixtures only; no browser, provider, model or production-store write.
 """
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
 from PIL import Image
@@ -128,9 +129,9 @@ def test_every_block_starts_on_one_left_edge_and_ends_inside_the_right_edge(tmp_
     columns = result["columns"]
     assert columns[0] == MARGIN and (len(columns) == 1 or height < width)   # portrait is one column
     for block in result["blocks"]:
+        if block["name"].startswith("chart"):
+            continue                       # a chart's own labels sit over its marks
         assert block["box"][0] in columns, block
-        if block["name"] == "chart":
-            continue
         # The ink, not the pen position, sits on the edge: large type is set by its glyphs.
         bottom = block.get("baseline", block["box"][3] + 1)
         assert abs(_leftmost_ink(image, block["box"], bottom) - block["box"][0]) <= 1, block
@@ -218,3 +219,71 @@ def test_edge_measure_catches_an_indented_block():
     image = Image.new("RGB", INSTAGRAM_SIZE, PAPER)
     ImageDraw.Draw(image).rectangle((100, 300, 400, 340), fill="#111111")   # the old slab's inner text edge
     assert _leftmost_ink(image, [MARGIN, 300, 400, 340]) == 100
+
+
+# ---- a chart that reaches a card is legible (CC-290, decision 74) ----------------------
+
+def _ink_height_above_baseline(image, block):
+    """Rows of ink in a label's box, from just above its cap line down to its baseline."""
+    pixels = image.load()
+    x0, top, x1, baseline = block["box"][0], block["box"][1], block["box"][2], block["baseline"]
+    rows = [y for y in range(max(0, top - 8), baseline + 1)
+            if any(_ink(pixels[x, y]) for x in range(max(0, x0), min(image.width, x1 + 1)))]
+    return rows[-1] - rows[0] + 1 if rows else 0
+
+
+def test_a_chart_on_a_card_is_drawn_for_its_slot_with_every_label_at_the_fact_floor(tmp_path, monkeypatch):
+    """The real data-card path with the admitted test series: the card draws the bound chart
+    (no shrunk 1440x1040 picture), and every number, unit, period and legend measures at
+    least as tall on the card as the same words set at 28px, the fact-text floor."""
+    from test_reader_first_data_journalism_v1 import chart_packet
+    from live_contentops import fact_card_design_v1 as design
+    from live_contentops.fact_card_design_v1 import _bbox
+    from live_contentops.post_visuals_v1 import build_post_data_card
+    series, docs = chart_packet()
+    docs[0].update(source_id="SOURCE_1", underlying_reuse_classification="governed_government_public_domain",
+                   rights_evidence_sha256="d" * 64)
+    text = docs[0]["canonical_content_text"]
+    claims = [{"claim_id": "revenue", "source_id": "SOURCE_1", "claim_text": text, "support_excerpt": text}]
+    seen, real = [], design.render_fact_card
+
+    def capture(path, spec, *, size=X_SIZE):
+        seen.append((Path(path), spec, size))
+        return real(path, spec, size=size)
+
+    monkeypatch.setattr(design, "render_fact_card", capture)
+    card = build_post_data_card({"substack_body_markdown": text}, claims, docs, output_dir=tmp_path,
+                                series_packet=series)
+    _, spec, size = seen[-1]
+    chart = card["data_card_packet"]["series_asset"]
+    assert size == INSTAGRAM_SIZE and spec.chart == chart
+    for card_size in (INSTAGRAM_SIZE, X_SIZE):
+        path = tmp_path / f"chart-{card_size[0]}x{card_size[1]}.png"
+        result = real(path, spec, size=card_size)
+        image = Image.open(path).convert("RGB")
+        labels = [b for b in result["blocks"] if b["name"].startswith("chart_")]
+        names = {b["name"] for b in labels}
+        assert {"chart_title", "chart_legend", "chart_unit", "chart_value", "chart_period", "chart_axis",
+                "chart_source"} <= names
+        # The packet's words and the owner's values, exactly.
+        packet = chart["editorial_data_packet"]
+        shown = [b["text"] for b in labels]
+        assert packet["title"] in shown and packet["unit"] in shown and packet["source_caption"] in shown
+        assert {"2025", "2026", "100", "120", "Revenue"} <= set(shown)
+        for block in labels:
+            assert block["size"] >= 28, block
+            floor = -_bbox(block["text"], block["weight"], 28)[1]       # the same words at 28px
+            assert _ink_height_above_baseline(image, block) >= floor - 1, (block, floor)
+        # Nothing of the chart leaves its column or crosses the footer.
+        footer = next(b["box"] for b in result["blocks"] if b["name"] == "footer")
+        frame = next(b["box"] for b in result["blocks"] if b["name"] == "chart")
+        assert frame[0] == result["columns"][-1] and frame[2] <= card_size[0] - MARGIN and frame[3] < footer[1]
+
+
+def test_a_chart_the_card_cannot_set_legibly_never_reaches_it():
+    from test_reader_first_data_journalism_v1 import chart_packet
+    series, _ = chart_packet()
+    crowded = {"editorial_data_packet": {**series, "chart_type": "stacked_bar"}, "computed_values": [[100, 120]]}
+    with pytest.raises(ValueError, match="DATA_CARD_CHART_NOT_CARD_LEGIBLE:TYPE"):
+        render_fact_card("unused.png", CardSpec(title="Key facts", facts=[("Reported fact", "Revenue was 120.")],
+                                                chart=crowded), size=INSTAGRAM_SIZE)
