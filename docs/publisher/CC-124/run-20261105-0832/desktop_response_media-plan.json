@@ -1,0 +1,67 @@
+{
+  "request_sha256": "59f804138f1357532ff445d9311f9174bd1a074a2824d7b6d7c0982fa9cea932",
+  "output": {
+    "story_plan": {
+      "chart_plan": {
+        "source_canonical_content_sha256": "c1fee545fb19485fae172d1b23d108df621b346796be75ababf492ea46705128",
+        "source_id": "SOURCE_1",
+        "production": "Existing deterministic renderer uses these admitted filing facts in independent wording, preserving approximate qualifiers and natural source attribution. MAX chooses final form, count and placement and reviews its exact rendered meaning.",
+        "contextual_sources": "SOURCE_2 and SOURCE_3 may support a separate plain-language hedging definition only. Their futures examples do not describe Southwest contract mechanics; SOURCE_1 says its historical fuel derivatives were OTC options.",
+        "comparability": "These are different accounting quantities and clocks, not three comparable period expenses. Never sum or subtract them, make proportional bars, show a waterfall or portray the AOCI balance as a new cash payment. Do not deduct the proceeds again.",
+        "source_document": "Southwest June 30, 2025 Form 10-Q, published July 24, 2025",
+        "title": "One portfolio closure, three accounting facts",
+        "unit": "millions",
+        "historical_scope": "Place Q2 2025, June 30 2025 and through end-2027 prominently. No latest-policy label, current exposure claim or October earnings overlay.",
+        "value_status": "Reported historical approximate values; no estimates or forecasts introduced",
+        "panels": [
+          {
+            "qualifier": "approximately",
+            "meaning": "Cash proceeds from closing the portfolio; the filing says these reduce future premium costs",
+            "label": "Cash proceeds",
+            "period": "Q2 2025 termination transaction",
+            "value": 40
+          },
+          {
+            "qualifier": "approximately",
+            "meaning": "Reclassified from AOCI into Fuel and oil expense; includes terminated positions",
+            "label": "Premium expense recognized",
+            "period": "Q2 2025",
+            "value": 36
+          },
+          {
+            "qualifier": "approximately",
+            "meaning": "AOCI balance excludes tax impact and is already net of termination cash proceeds",
+            "label": "Deferred premium expense remaining",
+            "period": "Balance as of June 30, 2025; future reclassification through end-2027 as originally forecast transactions occur",
+            "value": 209
+          }
+        ],
+        "currency": "USD",
+        "proposal": "One original three-part facts-and-timing card, with equal visual weight and no common numeric axis"
+      },
+      "thesis": "Closing a hedge portfolio and finishing its income-statement effects are separate clocks. Southwest reported closing its remaining fuel hedges in Q2 2025, while previously deferred premium expense was scheduled to reach fuel expense through 2027. This is a historical filing explanation, not a statement of current policy or a quantified claim about October 2026 earnings.",
+      "photo_plan": {
+        "acquisition": "Existing media owner may use a retained inspected photograph only with exact source URL, creator, license, reuse/attribution conditions, original bytes and depicted date. Otherwise search approved lawful sources through the existing owner; this role performs no search.",
+        "optional": true,
+        "rights": "Do not reuse issuer artwork, logos as standalone artwork, filing screenshots or publisher photography without independently admitted rights. A factual card is adequate if no lawful relevant photo is available.",
+        "subject": "Authentic Southwest aircraft in ordinary airport operation, solely as business context",
+        "caption_scope": "Label an older image as an archive photograph with its actual depicted date if known; it does not document the hedge transaction or current operating conditions."
+      },
+      "source_requests": []
+    }
+  },
+  "invocation_observation": {
+    "configured_reasoning_effort": "low",
+    "invocation_id": "/root/native_select_d685c3c28feb",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "reasoning_effort": null,
+    "configured_model": "gpt-6.1-sol",
+    "observation_source": "Supported native collaboration task identity and final return; no actual model or reasoning telemetry exposed",
+    "speed": "standard",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_source": "Parent exact media-plan role assignment for cc124-next-article-20261105-b, request 59f804138f1357532ff445d9311f9174bd1a074a2824d7b6d7c0982fa9cea932",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_configuration_unavailable": true,
+    "model": null
+  }
+}

@@ -141,6 +141,31 @@ def validate_pre_writer_outcome(value, *, max_source_requests=6):
     return value
 
 
+def _company_document_card_plan(value, documents=None):
+    """Decision 41's macro-history rule does not create company filing series."""
+    value = value or {}
+    plan = value.get("post_data_card_plan") or {}
+    spec = plan.get("data_spec") or {}
+    scope = "ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"
+    facts = plan.get("facts") or []
+    if (value.get("story_kind") != "ANALYSIS" or value.get("editorial_format") != "DATA_OR_DOCUMENT_LENS"
+            or plan.get("modality") != "source_bound_data_card" or spec.get("rights_scope") != scope
+            or not spec.get("source_id") or not spec.get("source_url") or not spec.get("canonical_content_sha256")
+            or not 1 <= len(facts) <= 3
+            or any(not f.get("text") or f.get("source_id") != spec["source_id"] for f in facts)):
+        return None
+    if documents is not None:
+        from hashlib import sha256
+        source = next((d for d in documents if d.get("source_id") == spec["source_id"]
+            and (d.get("url") or d.get("source_url")) == spec["source_url"]
+            and sha256(d.get("canonical_content_text", "").encode()).hexdigest() == spec["canonical_content_sha256"]
+            and d.get("source_authority_class") == "first_party_public_source"
+            and (d.get("source_reuse_constraints") or {}).get("scope") == scope), None)
+        if source is None:
+            return None
+    return plan
+
+
 def validate_visual_decision(value, *, dropped_after_repair=False):
     """Validate the MAX editor's explicit choice, without scoring its judgment."""
     if not isinstance(value, dict) or value.get("reader_first_version") != "DATA_JOURNALISM_V1":
@@ -152,7 +177,8 @@ def validate_visual_decision(value, *, dropped_after_repair=False):
         raise ValueError("BOUNDED_VISUAL_DECISION_REQUIRED")
     # Decision 41 narrows decision 39 to short briefs. Analysis cannot use the
     # optional-photo exception to bypass its source-bound charts.
-    if value["story_kind"] == "ANALYSIS" and not charts and not dropped_after_repair:
+    if (value["story_kind"] == "ANALYSIS" and not charts and not dropped_after_repair
+            and not _company_document_card_plan(value)):
         raise ValueError("ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED")
     ids, questions = [], []
     for chart in charts:
@@ -1410,14 +1436,24 @@ def validate_release_media(result, *, require_pixel_review=True, prewriter=False
     from live_contentops.post_visuals_v1 import POLICY, validate_post_data_card
     current_visuals = article.get("post_visual_policy") == POLICY
     quantitative_charts = [a for a in charts if not a.get("fact_card_packet") and not a.get("post_card_binding")]
+    company_card_plan = _company_document_card_plan(decision, result.get("evidence") or [])
     disposition = result.get("visual_repair_disposition") or {}
     dropped = disposition.get("dropped_assets") or []
     dropped_after_repair = (disposition.get("policy") == "CC-172" and disposition.get("repair_rounds") == 1
         and bool(dropped) and not {a["asset_id"] for a in dropped} & {a["asset_id"] for a in assets})
     if (((result.get("article") or {}).get("news_item_kind") == "ANALYSIS"
             or (decision or {}).get("story_kind") == "ANALYSIS")
-            and not quantitative_charts and not dropped_after_repair):
+            and not quantitative_charts and not dropped_after_repair and not company_card_plan):
         raise ValueError("ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED")
+    if company_card_plan:
+        selected = [f["text"] for f in company_card_plan["facts"]]
+        if len(cards) != 1 or [f["text"] for f in cards[0]["data_card_packet"]["facts"]] != selected:
+            raise ValueError("COMPANY_DOCUMENT_EXACT_SELECTED_FACT_CARD_REQUIRED")
+        # Before writing, source qualification checks the planned sentences. After
+        # writing, the same validator additionally binds them to actual public copy.
+        card_article = article if article.get("substack_body_markdown") else {
+            "title": company_card_plan.get("title", ""), "substack_body_markdown": " ".join(selected)}
+        validate_post_data_card(cards[0], card_article, result.get("evidence") or [])
     if len(assets) != len(photos) + len(charts) + len(cards):
         raise ValueError("RELEASE_UNSUPPORTED_MEDIA")
     if text_first:

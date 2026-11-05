@@ -133,10 +133,16 @@ def _render_card(packet, path, mini_chart=None):
     builder drops the last fact and renders again (no cut claim is ever posted).
     """
     from live_contentops.fact_card_design_v1 import CardSpec, INSTAGRAM_SIZE, key_from_facts, render_fact_card
-    facts = [("Reported fact", fact["text"]) for fact in packet["facts"]]
+    display = packet.get("editorial_display") or {}
+    labels = display.get("fact_labels") or []
+    facts = [(labels[i] if i < len(labels) else "Reported fact", fact["text"])
+        for i, fact in enumerate(packet["facts"])]
     publishers = list(dict.fromkeys(fact["publisher"] for fact in packet["facts"]))
     key_label, key_value = ("", "") if mini_chart else key_from_facts(facts)
-    spec = CardSpec(title=packet.get("title") or "Key facts", facts=facts, kicker=" · ".join(publishers),
+    if display:
+        key_label, key_value = display["key_label"], display["key_value"]
+    spec = CardSpec(title=display.get("title") or packet.get("title") or "Key facts", facts=facts,
+        kicker=display.get("kicker") or " · ".join(publishers),
         key_label=key_label, key_value=key_value, source_line="Source: " + ", ".join(publishers),
         dated_line=packet.get("dated_line") or "Capital Chronicle", image_path=str(mini_chart or ""))
     result = render_fact_card(path, spec, size=INSTAGRAM_SIZE)
@@ -188,6 +194,11 @@ def build_post_data_card(article, claims, documents, *, output_dir, series_packe
     # reuses the path of a card already sent in the older layout.
     packet = {"policy": POLICY, "facts": facts, "design": DESIGN,
               "title": str(article.get("title") or "Key facts"), "dated_line": piece_dated_line(article)}
+    display = (article.get("visual_editorial_decision") or {}).get("post_data_card_plan") or {}
+    if display and [f.get("text") for f in display.get("facts", [])] == [f["text"] for f in facts]:
+        packet["editorial_display"] = {k: str(display.get(k) or "") for k in (
+            "title", "kicker", "key_label", "key_value")}
+        packet["editorial_display"]["fact_labels"] = [str(f.get("label") or "Reported fact") for f in display["facts"]]
     mini = None
     if series_packet:
         from live_contentops.rolling_x_grounded_article_media_builder_v1 import build_editorial_data_chart
