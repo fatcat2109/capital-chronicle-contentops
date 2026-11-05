@@ -428,6 +428,31 @@ def test_digest_does_not_send_another_articles_queued_post(tmp_path, monkeypatch
     assert store.list_platform_dispatches() == []
 
 
+def test_published_digest_with_incomplete_readback_resumes_readback_only(tmp_path, monkeypatch):
+    monkeypatch.setattr("live_contentops.native_desktop_publication_v1.live_publication_policy", lambda _: None)
+    monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
+    store, feed = setup(tmp_path, [row()])
+    control = store.get_operating_control()
+    store.update_operating_control(operating_mode="AUTONOMOUS_DEFAULT",
+        expected_state_version=control["state_version"], control_source="TEST")
+    packet = prepared(store, feed)["packet"]
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    coordinator.register_plan(packet["digest_id"], packet["plan"])
+    ids = coordinator._ids(packet["digest_id"], packet["plan"]["plan_hash"], "substack")
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="substack", status="DISPATCH_CONFIRMED", public_object_id="123",
+        public_object_url="https://capitalchronicle.substack.com/p/digest")
+    store.register_reconciliation(reconciliation_id=ids["reconciliation_id"], work_item_id=packet["digest_id"],
+        status="RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE")
+    result = continue_daily_digest(store, packet, output_dir=tmp_path / "tools", invocation_id="controlled-digest",
+        rollout={"store_path":str(store.db_path)})
+    pending = result.get("native_tool_request") or next(iter(result.get("pending_requests", [])), None)
+    assert pending, result
+    request = pending["request"]
+    assert request["action"] == "READBACK" and request["public_object_id"] == "123"
+    assert len(store.list_platform_dispatches()) == 1
+
+
 def test_digest_uses_live_recovery_scope_with_prior_unknown_social(tmp_path, monkeypatch):
     monkeypatch.setattr("live_contentops.native_desktop_publication_v1.live_publication_policy", lambda _: None)
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
