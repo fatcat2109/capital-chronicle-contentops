@@ -425,6 +425,13 @@ class NativeNeoExecutor:
                              "fields observed in this run right after the click (a failed read with its status "
                              "is accepted)")
         result.setdefault("observed_identity", identity["observed_identity"])
+        if readback.get("media_check_state") == "PENDING_BINARY_COMPARISON":
+            # 5 Nov EIA: X's in-run readback deferred its image comparison (after_run lets media
+            # checks wait until every destination is out). Reused at once, it recorded X as
+            # CONTENT_INCOMPLETE, which recovery never revisits, so the image was never compared.
+            # A pending media check is not a decisive readback: the coordinator asks for the full one.
+            result["in_run_readback_media"] = "PENDING_BINARY_COMPARISON"
+            return result, None
         return result, dict(readback)
 
     def _store_composed_readback(self, request, claim, published, readback, observation, response):

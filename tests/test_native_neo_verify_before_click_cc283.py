@@ -120,3 +120,22 @@ def test_the_in_run_readback_confirms_the_destination_even_without_a_click_clock
         destination=packet["request"]["destination"], intent=value, public_object_id=OBJECT_ID, public_object_url=OBJECT_URL)
     assert reread["verified"] is True
     assert [p for p in executor.pending() if not p.get("action_claimed")] == []  # no separate readback turn
+
+
+def test_an_in_run_readback_with_its_media_check_pending_is_not_reused(tmp_path, monkeypatch):
+    """5 Nov EIA: reusing it recorded X as CONTENT_INCOMPLETE and the image was never compared."""
+    from test_native_neo_composed_run_cc283 import OBJECT_ID, OBJECT_URL
+    from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    store, executor, coordinator, ids, value = composed_setup(tmp_path, monkeypatch)
+    packet = pending_publish(coordinator, store, ids, value, executor)
+    request_hash = packet["request"]["request_sha256"]
+    executor.begin(request_hash)
+    response = composed_response(packet, identity=MATCHED, result=PUBLISHED)
+    response["composed"]["readback"]["media_check_state"] = "PENDING_BINARY_COMPARISON"
+    executor.submit(request_hash, response)
+    assert executor._get(request_hash, "response")["result"]["in_run_readback_media"] == "PENDING_BINARY_COMPARISON"
+    with pytest.raises(NativeNeoInputRequired):  # the full readback is requested, not decided from the pending one
+        NeoDestinationHandoff(native_executor=executor).readback(
+            destination=packet["request"]["destination"], intent=value, public_object_id=OBJECT_ID,
+            public_object_url=OBJECT_URL)
