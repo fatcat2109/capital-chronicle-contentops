@@ -1202,9 +1202,19 @@ class ContentOpsDurableStore:
                 "SELECT rowid FROM outbox_messages" + where + " ORDER BY created_at, message_id",
                 tuple(value for _, value in supplied),
             ).fetchall()
-            rows = [conn.execute("SELECT * FROM outbox_messages WHERE rowid=?", (row[0],)).fetchone()
-                    for row in identities]
-            return [dict(row) for row in rows]
+            # Fetch payloads in bounded groups. A query per row made one retained
+            # newsroom read issue thousands of random SQLite reads on this host.
+            by_identity = {}
+            for start in range(0, len(identities), 500):
+                selected = [row[0] for row in identities[start:start + 500]]
+                placeholders = ",".join("?" for _ in selected)
+                for row in conn.execute(
+                    "SELECT rowid AS _outbox_rowid,* FROM outbox_messages WHERE rowid IN (" + placeholders + ")",
+                    selected,
+                ):
+                    value = dict(row)
+                    by_identity[value.pop("_outbox_rowid")] = value
+            return [by_identity[row[0]] for row in identities]
 
     def get_platform_dispatch(self, dispatch_id: str) -> Optional[Dict[str, Any]]:
         """Read one canonical dispatch row including its persisted external public-object identity."""
