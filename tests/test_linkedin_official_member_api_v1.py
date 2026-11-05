@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import ssl
 import threading
 import urllib.error
 import urllib.parse
@@ -383,6 +384,33 @@ def test_ambiguous_write_retains_safe_cause_without_provider_material(tmp_path, 
     assert caught.value.classification == classification
     assert caught.value.http_status == status
     assert "private" not in str(caught.value)
+
+
+@pytest.mark.parametrize("during_handshake", [True, False])
+def test_connection_reset_is_definite_only_during_tls_handshake(tmp_path, monkeypatch, during_handshake):
+    store = _test_store(tmp_path)
+    store.write({"access_token": "private"},
+        _metadata(expires_at=datetime.now(timezone.utc) + timedelta(days=30)))
+    def handshake(_self):
+        raise ConnectionResetError(10054, "controlled reset")
+    monkeypatch.setattr(ssl.SSLSocket, "do_handshake", handshake)
+    def provider(*_, **__):
+        try:
+            if during_handshake:
+                ssl.SSLSocket.do_handshake(None)
+            raise ConnectionResetError(10054, "controlled reset after send")
+        except OSError as exc:
+            raise urllib.error.URLError(exc) from exc
+    transport = LinkedInOfficialMemberApiTransportV1(token_store=store, opener=provider)
+    if during_handshake:
+        result = transport.publish(intent={"payload": "Reviewed copy"},
+            authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT"})
+        assert result["definite_no_write"] is True
+        assert result["reason_code"] == "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"
+    else:
+        with pytest.raises(LinkedInAmbiguousWriteError):
+            transport.publish(intent={"payload": "Reviewed copy"},
+                authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT"})
 
 
 def test_registry_readiness_and_runtime_never_fall_back_to_cdp(tmp_path):

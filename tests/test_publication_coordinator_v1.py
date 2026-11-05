@@ -1874,6 +1874,30 @@ def test_linkedin_ambiguous_provider_cause_reaches_durable_incident(tmp_path):
         "UNKNOWN_WRITE_PROVIDER_REQUEST_REJECTED;http_status:503" for row in rows)
 
 
+@pytest.mark.parametrize("absence_proved", [True, False])
+def test_explicit_member_transport_correction_needs_absence_and_is_one_shot(tmp_path, absence_proved):
+    class InitiallyUnavailable(FixtureTransport):
+        unavailable = True
+        def publish(self, *, destination, intent, authorization_context):
+            if destination == "linkedin" and self.unavailable:
+                return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True}
+            return super().publish(destination=destination, intent=intent, authorization_context=authorization_context)
+    runtime = InitiallyUnavailable()
+    store, _, coordinator = _coordinator(tmp_path, runtime=runtime)
+    plan = _quality_plan()
+    coordinator.execute_plan("work-1", plan)
+    runtime.unavailable = False
+    ids = coordinator._ids("work-1", plan["plan_hash"], "linkedin")
+    status = RECONCILED_ABSENT_SAFE_TO_RETRY if absence_proved else UNKNOWN_WRITE
+    store.set_dispatch_status(ids["dispatch_id"], status)
+    store.set_reconciliation_status(ids["reconciliation_id"], status)
+    first = coordinator.complete_derivative_after_transport_correction(ids["dispatch_id"], correction_id="cc296-controlled-tls-fix")
+    assert first["publish_called"] is absence_proved
+    second = coordinator.complete_derivative_after_transport_correction(ids["dispatch_id"], correction_id="cc296-controlled-tls-fix")
+    assert second["publish_called"] is False
+    assert runtime.publish_calls.count("linkedin") == int(absence_proved)
+
+
 def test_durable_totals_survive_pending_callback_and_duplicate_resume(tmp_path):
     store, transport, coordinator = _coordinator(tmp_path)
     plan = _quality_plan()

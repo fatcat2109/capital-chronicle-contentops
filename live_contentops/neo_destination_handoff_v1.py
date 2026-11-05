@@ -273,6 +273,8 @@ class NeoDestinationHandoff:
             # No signed-in view at all: the public channel page is the only Telegram surface.
             value["steps"][1] = "read " + TELEGRAM_PUBLIC_FEED + " with no sign-in; match the channel name @CapitalChronicle"
             value["forbidden"] = value["forbidden"] + ["web.telegram.org", "signed_in_telegram_view"]
+        if destination == "linkedin" and auth.get("linkedin_api_prewrite_failure"):
+            value["linkedin_api_prewrite_failure"] = auth["linkedin_api_prewrite_failure"]
         if destination == "substack" and action in {"PUBLISH", "EDIT_EXISTING"} and content_binding["media_manifest"]:
             value["substack_media_placement"] = (
                 "Place each media_manifest image in the body where its placement_after names: after the "

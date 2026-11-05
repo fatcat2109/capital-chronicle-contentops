@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="5.383" timestamp="2026-11-06T03:19:14.351171+07:00" hostname="J-P"><testcase classname="tests.test_linkedin_neo_recovery_v1" name="test_pre_http_fallback_restart_reuses_one_exact_native_action" time="4.852" /></testsuite></testsuites>

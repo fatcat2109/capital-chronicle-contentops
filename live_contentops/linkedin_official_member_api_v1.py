@@ -194,11 +194,19 @@ def _request_json(
         ) from exc
     except (urllib.error.URLError, TimeoutError, OSError) as exc:
         reason = exc.reason if isinstance(exc, urllib.error.URLError) else exc
+        trace = getattr(reason, "__traceback__", None)
+        handshake_failed = False
+        while trace:
+            if trace.tb_frame.f_code is ssl.SSLSocket.do_handshake.__code__:
+                handshake_failed = True
+                break
+            trace = trace.tb_next
         # DNS, connection refusal and TLS certificate rejection precede HTTP.
         # A generic timeout/reset can follow acceptance and remains ambiguous.
         before_request = isinstance(reason, (socket.gaierror, ConnectionRefusedError,
-                                             ssl.SSLCertVerificationError))
-        raise LinkedInOfficialApiError("TRANSPORT_UNAVAILABLE",
+                                             ssl.SSLCertVerificationError)) or handshake_failed
+        raise LinkedInOfficialApiError(
+            "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE" if handshake_failed else "TRANSPORT_UNAVAILABLE",
                                        definite_no_write=before_request) from exc
     try:
         payload = json.loads(raw.decode("utf-8")) if raw else {}

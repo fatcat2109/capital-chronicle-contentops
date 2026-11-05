@@ -1121,6 +1121,11 @@ class DurablePublicationCoordinator:
                 raise ValueError("LINKEDIN_NEO_EXACT_RECIPIENT_REQUIRED")
             registration = replace(registration, transport_type="BROWSEROS_NEO_MCP",
                 adapter="neo_destination_handoff_v1.NeoDestinationHandoff")
+        fallback = getattr(self.transport_runtime, "linkedin_prewrite_fallback", None)
+        if destination == "linkedin" and callable(fallback) and fallback(intent):
+            from dataclasses import replace
+            registration = replace(registration, transport_type="BROWSEROS_NEO_MCP",
+                adapter="neo_destination_handoff_v1.NeoDestinationHandoff")
         return registration
 
     def reconcile_owner_confirmed_linkedin_absence(self, dispatch_id, *, owner_authority_ref, request_hash=None):
@@ -2399,7 +2404,7 @@ class DurablePublicationCoordinator:
                 and (
                     (
                         (
-                            destination in {"facebook_page", "instagram_business"}
+                            destination in {"facebook_page", "instagram_business", "linkedin"}
                             or (
                                 destination == "linkedin"
                                 and intent.get("dated_distribution_recovery")
@@ -2792,11 +2797,13 @@ class DurablePublicationCoordinator:
             }
         message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
         destination = str((message or {}).get("destination") or "")
-        if not message or destination not in {"x", "facebook_page", "instagram_business"}:
+        if not message or destination not in {"x", "facebook_page", "instagram_business", "linkedin"}:
             return {
                 "status": "CORRECTION_BLOCKED_DESTINATION_NOT_AUTHORIZED",
                 "publish_called": False,
             }
+        if destination == "linkedin" and (dispatch.get("public_object_id") or dispatch.get("public_object_url")):
+            return {"status": "CORRECTION_EXISTING_LINKEDIN_OBJECT_READBACK_ONLY", "publish_called": False}
         normalized_correction_id = str(correction_id or "").strip()
         if not normalized_correction_id:
             return {
@@ -4107,6 +4114,23 @@ class CanonicalDestinationTransportRuntimeV1:
             "verified": bool(verified), "public_object_id": public_object_id,
             "canonical_url": canonical, "safe_error_classification": raw.get("error_code")}
 
+    def linkedin_prewrite_fallback(self, intent):
+        """Reuse the exact durable Neo action; an API reset after send never enters here."""
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        executor = getattr(self._neo_transport, "native_executor", None)
+        if not getattr(executor, "native_neo_protocol", False):
+            return None
+        for row in executor.store.list_outbox_messages(destination="internal:native-neo-tool",
+                work_item_id=intent.get("work_item_id")):
+            packet = json.loads(row["payload"])
+            request = packet.get("request") or {}
+            if (packet.get("operation_id") == intent.get("work_item_id")
+                    and request.get("destination") == "linkedin" and request.get("action") == "PUBLISH"
+                    and request.get("intent_sha256") == sha256_of(intent)
+                    and request.get("linkedin_api_prewrite_failure") == "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"):
+                return request["linkedin_api_prewrite_failure"]
+        return None
+
     def publish(self, *, destination: str, intent: Mapping[str, Any],
                 authorization_context: Mapping[str, Any]) -> Mapping[str, Any]:
         if destination in {"substack", "x", "youtube", "linkedin_company"} or (destination == "linkedin"
@@ -4115,9 +4139,21 @@ class CanonicalDestinationTransportRuntimeV1:
             return self._neo_transport.publish(destination=destination, intent=intent,
                                                 authorization_context=authorization_context)
         if destination == "linkedin":
-            return self._linkedin_transport.publish(
+            fallback = self.linkedin_prewrite_fallback(intent)
+            if fallback:
+                return self._neo_transport.publish(destination=destination, intent=intent,
+                    authorization_context={**authorization_context, "linkedin_api_prewrite_failure": fallback})
+            result = self._linkedin_transport.publish(
                 intent=intent, authorization_context=authorization_context,
             )
+            executor = getattr(self._neo_transport, "native_executor", None)
+            if (result.get("definite_no_write") is True
+                    and result.get("reason_code") == "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"
+                    and getattr(executor, "native_neo_protocol", False) and executor.allow_publish):
+                return self._neo_transport.publish(destination=destination, intent=intent,
+                    authorization_context={**authorization_context,
+                        "linkedin_api_prewrite_failure": result["reason_code"]})
+            return result
         from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import (
             _publish_one_destination_from_durable_intent,
         )
