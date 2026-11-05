@@ -1,0 +1,243 @@
+{
+  "request_sha256": "614cb1caef28be561c63bfb2a637f9a2be3d6f6e724a50e5759304fcc6275fdf",
+  "invocation_observation": {
+    "invocation_id": "/root/native_max_eia_614cb1caef28",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Frozen native request requested_model/requested_reasoning_effort and parent role assignment; no runtime model/effort telemetry exposed to this child.",
+    "observation_source": "Supported collaboration native child task identity /root/native_max_eia_614cb1caef28; this exact child read the governed request and chose the returned visual plan."
+  },
+  "decision": {
+    "reader_first_version": "DATA_JOURNALISM_V1",
+    "slug": "eia-oil-inventories-distillate-tightness-treasury-yields-november-2026",
+    "story_kind": "ANALYSIS",
+    "analysis_scope": "RELEASE_OR_POLICY",
+    "editorial_thesis": "The EIA's 4 November report for the week ending 30 October shows a more pronounced distillate squeeze than the small crude and gasoline draws. That can matter for oil-specific scarcity and inflation concerns, but divergent product-supplied measures and a changing refinery balance prevent a simple broad-demand conclusion. Treasury yields are a conditional macro cross-check, not an observed reaction in this evidence.",
+    "countercase": "Four-week gasoline product supplied was down 0.4% year on year, while distillate was up 8.7%. Inventories also reflect processing, trade and supply; product supplied is a demand proxy, and one US weekly report cannot establish a persistent global shortage or the cause of a Treasury-yield move.",
+    "proposed_section_headings": [
+      "Crude stocks in context",
+      "Gasoline is a different signal",
+      "The sharper squeeze is in distillates",
+      "Read oil alongside Treasury yields"
+    ],
+    "charts": [
+      {
+        "asset_id": "cc124-eia-crude-106w",
+        "question": "Where does the latest crude-stock draw sit in two years of weekly observations?",
+        "why_useful": "Shows the modest latest draw beside the much larger movement in the level of commercial crude stocks; prevents a single-week change being mistaken for a structural shortage.",
+        "placement_after": "Crude stocks in context",
+        "data_spec": {
+          "window_start": "2024-10-25",
+          "window_end": "2026-10-30",
+          "frequency": "weekly",
+          "observations": 106,
+          "source_unit": "Thousand Barrels",
+          "chart_unit": "Thousand barrels",
+          "transform": "IDENTITY; no resampling or interpolation",
+          "observation_kind": "REPORTED_ACTUAL",
+          "vintage": "Retained downloaded EIA history; no first-print or historical-PIT claim",
+          "chart_form": "line",
+          "source_id": "SOURCE_2",
+          "series_id": "WCESTUS1",
+          "metric": "Weekly US ending crude stocks excluding SPR",
+          "source_url": "https://www.eia.gov/dnav/pet/hist_xls/WCESTUS1w.xls",
+          "source_workbook_sha256": "5489a1f004087cd553a15d309bd7cab8772ab957e8a9db45655ed1ea161bec36",
+          "latest_raw": 409760,
+          "latest_cells": [
+            "Data 1!A2304",
+            "Data 1!B2304"
+          ],
+          "previous_raw": 410625,
+          "previous_cells": [
+            "Data 1!A2303",
+            "Data 1!B2303"
+          ],
+          "latest_change_thousand_barrels": -865,
+          "caption_million_barrel_scaling": "Displayed caption equivalence = raw thousand barrels / 1000; the plotted series remains in thousand barrels.",
+          "axis_rule": "One independent y-axis; all 106 actual weekly observations; no zero-baseline implication, price overlay or five-year band."
+        }
+      },
+      {
+        "asset_id": "cc124-eia-gasoline-106w",
+        "question": "Does the gasoline-stock history tell the same story as crude?",
+        "why_useful": "Shows the distinct gasoline seasonal pattern on its own labelled scale, instead of treating every petroleum inventory as one demand signal.",
+        "placement_after": "Gasoline is a different signal",
+        "data_spec": {
+          "window_start": "2024-10-25",
+          "window_end": "2026-10-30",
+          "frequency": "weekly",
+          "observations": 106,
+          "source_unit": "Thousand Barrels",
+          "chart_unit": "Thousand barrels",
+          "transform": "IDENTITY; no resampling or interpolation",
+          "observation_kind": "REPORTED_ACTUAL",
+          "vintage": "Retained downloaded EIA history; no first-print or historical-PIT claim",
+          "chart_form": "line",
+          "source_id": "SOURCE_3",
+          "series_id": "WGTSTUS1",
+          "metric": "Weekly US ending stocks of total gasoline",
+          "source_url": "https://www.eia.gov/dnav/pet/hist_xls/WGTSTUS1w.xls",
+          "source_workbook_sha256": "c899b608d76c08d39b5236620f209951885dc1c1aee1603344be2180220c8c31",
+          "latest_raw": 208958,
+          "latest_cells": [
+            "Data 1!A1925",
+            "Data 1!B1925"
+          ],
+          "previous_raw": 209180,
+          "previous_cells": [
+            "Data 1!A1924",
+            "Data 1!B1924"
+          ],
+          "latest_change_thousand_barrels": -222,
+          "caption_million_barrel_scaling": "Displayed caption equivalence = raw thousand barrels / 1000; the plotted series remains in thousand barrels.",
+          "axis_rule": "One independent y-axis; all 106 actual weekly observations; no zero-baseline implication, price overlay or five-year band."
+        }
+      },
+      {
+        "asset_id": "cc124-eia-weekly-product-draws",
+        "question": "Which petroleum products had the largest reported weekly draws?",
+        "why_useful": "Makes the 3.6-million-barrel distillate draw visibly distinct from the 0.9-million crude and 0.2-million gasoline draws, without inventing a full balance decomposition.",
+        "placement_after": "The sharper squeeze is in distillates",
+        "data_spec": {
+          "chart_form": "horizontal_diverging_bar",
+          "source_id": "SOURCE_1",
+          "source_url": "https://ir.eia.gov/secure/wpsr/summary.txt",
+          "reference_week": "2026-10-30",
+          "unit": "Million barrels",
+          "series": [
+            {
+              "product": "Crude (excludes SPR)",
+              "change": -0.9
+            },
+            {
+              "product": "Gasoline",
+              "change": -0.2
+            },
+            {
+              "product": "Distillate",
+              "change": -3.6
+            }
+          ],
+          "transform": "Reported rounded changes; sign is negative because the source says inventories decreased; no subtraction of rounded stock levels.",
+          "observation_kind": "REPORTED_ACTUAL",
+          "display_precision": 1,
+          "comparison_rule": "Zero baseline, same units and precision. Selected products only; not an additive decomposition of the reported total-commercial-petroleum draw."
+        }
+      },
+      {
+        "asset_id": "cc124-eia-stock-average-gaps",
+        "question": "How far below their five-year averages were the three product inventories?",
+        "why_useful": "Distinguishes the reported relative tightness in distillate stocks from the smaller crude and gasoline shortfalls; provides context that weekly flow changes cannot supply.",
+        "placement_after": "The sharper squeeze is in distillates",
+        "data_spec": {
+          "chart_form": "horizontal_diverging_bar",
+          "source_id": "SOURCE_1",
+          "source_url": "https://ir.eia.gov/secure/wpsr/summary.txt",
+          "reference_week": "2026-10-30",
+          "unit": "Percent",
+          "series": [
+            {
+              "product": "Crude (excludes SPR)",
+              "gap_percent": -4
+            },
+            {
+              "product": "Gasoline",
+              "gap_percent": -2
+            },
+            {
+              "product": "Distillate",
+              "gap_percent": -13
+            }
+          ],
+          "transform": "EIA reported percentage distance from five-year average; below = negative. No implied reconstruction of five-year levels or historical bands.",
+          "observation_kind": "REPORTED_ACTUAL",
+          "display_precision": 0,
+          "comparison_rule": "Zero baseline; percentage gaps have their own scale, separate from weekly barrel changes."
+        }
+      }
+    ],
+    "contextual_photo_ids": [
+      "cc124-archive-texas-refinery-fws"
+    ],
+    "contextual_photo_placement": {
+      "asset_id": "cc124-archive-texas-refinery-fws",
+      "placement": "After the opening argument, before the first section",
+      "archive_context": true,
+      "caption": "Archive context: a coastal Texas oil refinery. Photo: U.S. Fish and Wildlife Service, via Wikimedia Commons (public domain).",
+      "capture_date": null,
+      "capture_date_state": "NOT_GIVEN_BY_SOURCE",
+      "supports_current_inventory_claims": false
+    },
+    "channel_media": {
+      "telegram": [
+        "cc124-eia-weekly-product-draws"
+      ],
+      "discord": [
+        "cc124-eia-weekly-product-draws",
+        "cc124-eia-stock-average-gaps"
+      ],
+      "x": [
+        "cc124-eia-weekly-product-draws"
+      ],
+      "linkedin": [
+        "cc124-eia-stock-average-gaps"
+      ],
+      "facebook_page": [
+        "cc124-eia-weekly-product-draws"
+      ],
+      "instagram_business": [
+        "cc124-eia-weekly-product-draws",
+        "cc124-eia-stock-average-gaps"
+      ],
+      "threads": [
+        "cc124-eia-weekly-product-draws"
+      ],
+      "youtube": [
+        "cc124-eia-weekly-product-draws"
+      ]
+    },
+    "rejected_visuals": [
+      {
+        "visual": "US10Y yield or oil-price reaction chart",
+        "reason": "No admitted price/yield series or observed market reaction is in the frozen packet; conditional mechanism belongs in prose."
+      },
+      {
+        "visual": "Distillate history or invented five-year band",
+        "reason": "The admitted packet has the latest draw and percentage gap, not distillate levels/history or a five-year reference series."
+      },
+      {
+        "visual": "A summed petroleum-draw waterfall",
+        "reason": "Selected products omit other components of the total-commercial-petroleum balance; a partial sum would imply a false reconciliation."
+      },
+      {
+        "visual": "A mixed inventory/daily-flow/utilization axis",
+        "reason": "Weekly stock changes, barrels per day and percentage utilization measure different things."
+      }
+    ],
+    "essential_gaps": [],
+    "source_limits": [
+      "Release date is 4 November 2026, date only; reference week ends 30 October. Do not infer an intraday release clock.",
+      "Historical workbooks are downloaded vintages and do not demonstrate first-print availability. This is a dated release analysis, not a PIT event replay.",
+      "The retained set has no distillate level history or current US10Y/oil-price series. Those absent quantities are not claimed or required for the bounded argument.",
+      "The archive photograph is contextual; its capture date is not supplied and the Commons upload date is not its capture date."
+    ],
+    "photo_pixel_review": {
+      "reviewer_invocation_id": "/root/native_max_eia_614cb1caef28",
+      "method": "view_image of exact local asset",
+      "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+      "findings": "Storage tanks and coastal industrial waterways are clearly visible; relevant archive infrastructure context. No current-stock, current-operation or date claim is inferred."
+    },
+    "publication_speed_policy": {
+      "policy": "JIM_DECISION_53",
+      "path": "WRITER_ONE_EDITOR_CHECK_PUBLISH",
+      "all_chart_work_before_text_approval": true
+    }
+  }
+}

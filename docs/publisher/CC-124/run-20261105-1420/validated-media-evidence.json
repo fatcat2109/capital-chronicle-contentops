@@ -1,0 +1,111 @@
+{
+  "classification": "VALIDATED_BEFORE_WRITER",
+  "media_check": {
+    "standard": "DATA_JOURNALISM_V1",
+    "photo_count": 1,
+    "chart_count": 4,
+    "fact_card_count": 0,
+    "data_card_count": 0
+  },
+  "assets": [
+    {
+      "asset_id": "cc124-eia-crude-106w",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-crude-106w.png",
+      "sha256": "3fd1279dc693f2f944e3287b21ad097cecfe009a0bbd28abb726625837b17b05",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart",
+      "visual_review": {
+        "asset_sha256": "3fd1279dc693f2f944e3287b21ad097cecfe009a0bbd28abb726625837b17b05",
+        "pixels_inspected": true,
+        "labels_and_units_legible": true,
+        "reviewer": "/root/native_max_eia_614cb1caef28",
+        "review_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\eia-chart-assets.json",
+        "review_evidence_sha256": "b1177505371ed71aa998777544363375076db850d9d077999594383aeca66fd6",
+        "observation_source": "Exact asset hash projected from native MAX overall pixel_review plus parent local PNG inspection; original manifest unchanged."
+      }
+    },
+    {
+      "asset_id": "cc124-eia-gasoline-106w",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-gasoline-106w.png",
+      "sha256": "f26130fee940bb901e915a2f01052714626ac76981a06180292426fd7ee1fc0a",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart",
+      "visual_review": {
+        "asset_sha256": "f26130fee940bb901e915a2f01052714626ac76981a06180292426fd7ee1fc0a",
+        "pixels_inspected": true,
+        "labels_and_units_legible": true,
+        "reviewer": "/root/native_max_eia_614cb1caef28",
+        "review_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\eia-chart-assets.json",
+        "review_evidence_sha256": "b1177505371ed71aa998777544363375076db850d9d077999594383aeca66fd6",
+        "observation_source": "Exact asset hash projected from native MAX overall pixel_review plus parent local PNG inspection; original manifest unchanged."
+      }
+    },
+    {
+      "asset_id": "cc124-eia-weekly-product-draws",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-weekly-product-draws.png",
+      "sha256": "da0edf255f7ef21bc7aae7ee576930abdefacb8888a9bc5e20ccc570ce0a32ae",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart",
+      "visual_review": {
+        "asset_sha256": "da0edf255f7ef21bc7aae7ee576930abdefacb8888a9bc5e20ccc570ce0a32ae",
+        "pixels_inspected": true,
+        "labels_and_units_legible": true,
+        "reviewer": "/root/native_max_eia_614cb1caef28",
+        "review_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\eia-chart-assets.json",
+        "review_evidence_sha256": "b1177505371ed71aa998777544363375076db850d9d077999594383aeca66fd6",
+        "observation_source": "Exact asset hash projected from native MAX overall pixel_review plus parent local PNG inspection; original manifest unchanged."
+      }
+    },
+    {
+      "asset_id": "cc124-eia-stock-average-gaps",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-stock-average-gaps.png",
+      "sha256": "f7e598c6d153ee2d9e7e8aee9099252e1bd3d6dfd6d220f4b518b8777c66142f",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart",
+      "visual_review": {
+        "asset_sha256": "f7e598c6d153ee2d9e7e8aee9099252e1bd3d6dfd6d220f4b518b8777c66142f",
+        "pixels_inspected": true,
+        "labels_and_units_legible": true,
+        "reviewer": "/root/native_max_eia_614cb1caef28",
+        "review_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\eia-chart-assets.json",
+        "review_evidence_sha256": "b1177505371ed71aa998777544363375076db850d9d077999594383aeca66fd6",
+        "observation_source": "Exact asset hash projected from native MAX overall pixel_review plus parent local PNG inspection; original manifest unchanged."
+      }
+    },
+    {
+      "asset_id": "cc124-archive-texas-refinery-fws",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\Oil_refinery_coastal_Texas.jpg",
+      "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+      "width": 1512,
+      "height": 996,
+      "modality": "documentary_photo",
+      "visual_review": {
+        "asset_sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+        "pixels_inspected": true,
+        "relevant_subject": true,
+        "reviewer": "/root",
+        "findings": "Viewed original JPEG: oil storage tanks and coastal refinery infrastructure; archive context, capture date not given."
+      }
+    }
+  ],
+  "parent_full_file_review": "All four charts and original photo viewed. Gasoline title is fully visible in individual inspection; batched inline preview clipped its displayed top. Exact original PNG unchanged.",
+  "native_visual_invocation": {
+    "invocation_id": "/root/native_max_eia_614cb1caef28",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Frozen native request requested_model/requested_reasoning_effort and parent role assignment; no runtime model/effort telemetry exposed to this child.",
+    "observation_source": "Supported collaboration native child task identity /root/native_max_eia_614cb1caef28; this exact child read the governed request and chose the returned visual plan."
+  },
+  "binding_input_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\media-plan-bind-input.json"
+}
