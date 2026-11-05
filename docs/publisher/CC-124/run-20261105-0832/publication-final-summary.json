@@ -1,0 +1,98 @@
+{
+  "recorded_at_utc": "2026-11-05T03:10:58.753353+00:00",
+  "item": "CC-124",
+  "standing_status": "OPEN",
+  "next_due_gmt7": "5 Nov 2026 10:32 GMT+7",
+  "run_id": "cc124-next-article-20261105-b",
+  "new_distinct_articles": 1,
+  "production_day_distinct_articles": 2,
+  "canonical_url": "https://capitalchronicle.substack.com/p/southwests-2025-fuel-hedge-exit-did",
+  "public_derivative_channel_types": 8,
+  "strict_confirmed_derivative_channel_types": 7,
+  "destinations": [
+    {
+      "destination": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "223564454",
+      "public_object_url": "https://capitalchronicle.substack.com/p/southwests-2025-fuel-hedge-exit-did"
+    },
+    {
+      "destination": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "79",
+      "public_object_url": "https://t.me/CapitalChronicle/79"
+    },
+    {
+      "destination": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "1567725246025572474",
+      "public_object_url": null
+    },
+    {
+      "destination": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "2118169951320285473",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118169951320285473"
+    },
+    {
+      "destination": "linkedin",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    {
+      "destination": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "106091951705748_1445224044462678",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1445224044462678"
+    },
+    {
+      "destination": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "17955487743316912",
+      "public_object_url": "https://www.instagram.com/p/DfWAlMrkwtw/"
+    },
+    {
+      "destination": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+      "public_object_id": "18130022495483073",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfV8fzyH7uD"
+    },
+    {
+      "destination": "youtube",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "UgkxW1jZvwD2wjn58bHraF_PXxPblw-fKS7E",
+      "public_object_url": "https://www.youtube.com/post/UgkxW1jZvwD2wjn58bHraF_PXxPblw-fKS7E"
+    },
+    {
+      "destination": "linkedin_company",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "urn:li:share:7523933028772151297",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7523933028772151297/"
+    }
+  ],
+  "unknown_write_count": 0,
+  "pending_publication_requests": 0,
+  "timing": {
+    "policy": "JIM_DECISION_53",
+    "target_minutes": 15,
+    "text_approved_at_utc": "2026-11-05T02:06:22.643405+00:00",
+    "dispatch_deadline_utc": "2026-11-05T02:21:22.643405+00:00",
+    "all_channels_dispatched_within_target": false,
+    "state": "OVERDUE_CONTINUE_PUBLICATION"
+  },
+  "website_status": "404_NOT_FOUND",
+  "validated_live_implementation": "5e18ce51b72af56fa43d481948bd23f779a9ecac",
+  "schedule_changed": false,
+  "other_chats_messaged": false
+}

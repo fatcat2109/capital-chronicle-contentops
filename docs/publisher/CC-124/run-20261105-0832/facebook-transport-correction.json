@@ -1,0 +1,10 @@
+{
+  "destination": "facebook_page",
+  "status": "DISPATCH_CONFIRMED",
+  "publish_called": true,
+  "public_object_id": "106091951705748_1445224044462678",
+  "public_object_url": "https://www.facebook.com/1342369584748125/posts/1445224044462678",
+  "reconciliation_status": "RECONCILED_CONFIRMED",
+  "safe_error_classification": null,
+  "correction_id": "cc124-source-bound-card-delivery-6b83091e"
+}

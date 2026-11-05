@@ -1,0 +1,47 @@
+[
+  {
+    "path": "README.md",
+    "bytes": 5741,
+    "sha256": "a26ce39b878cc44aa97cdefcfef621fa2a9e93b942bc4c06b88314eb602eb53b"
+  },
+  {
+    "path": "publication-final-summary.json",
+    "bytes": 3829,
+    "sha256": "e2538e341b0ebc1866bc1703c9f74dc7dbaa9087ddf79787ef6b321be1377abf"
+  },
+  {
+    "path": "live-consumer-acceptance.json",
+    "bytes": 26163,
+    "sha256": "7897db5e3e84e1bd6042acafab767bd129650145670a8d5eaacf5715dad06ff1"
+  },
+  {
+    "path": "digest-consumer-acceptance.json",
+    "bytes": 1675,
+    "sha256": "e627819c058a9d547de5082c5ab6eb0cd38d51f7419ae135385ae1085895f296"
+  },
+  {
+    "path": "facebook-transport-correction.json",
+    "bytes": 406,
+    "sha256": "58fe899fc5cf1cfad855c44e4433c65e3996d4dcdbd7fc38ca409dfd10038bf1"
+  },
+  {
+    "path": "superseded-readback.json",
+    "bytes": 578,
+    "sha256": "f62afdb02c3b9485dcf3c9948e17d025f68d7362ff451de357461b406fa0c755"
+  },
+  {
+    "path": "website-final-readback.json",
+    "bytes": 1237,
+    "sha256": "2915ebeeb2513aa45293a9c4acb18d9dc6ce7349d45decd36ae2a431c01ebf99"
+  },
+  {
+    "path": "final-card-consumer-tests.xml",
+    "bytes": 9108,
+    "sha256": "ec9a18dcfc200e28c98a1235704e4f7cdad16625dd6aafa0210b903e2efcc946"
+  },
+  {
+    "path": "public-media-hash-check.json",
+    "bytes": 273,
+    "sha256": "2676b27367ff7466bc9466d8d1a65db12887cd125de5990b85219d9c063826b9"
+  }
+]
