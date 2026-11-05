@@ -1990,6 +1990,7 @@ def _reader_safe_native_article(
         names = {("federal reserve bank of new york", "www.newyorkfed.org"): "New York Fed",
             ("federal reserve board", "www.federalreserve.gov"): "Fed",
             ("u.s. energy information administration", "www.eia.gov"): "EIA",
+            ("u.s. energy information administration", "ir.eia.gov"): "EIA",
             ("u.s. bureau of labor statistics", "www.bls.gov"): "BLS",
             ("yonhap news agency", "en.yna.co.kr"): "Yonhap"}
         short_name = names.get((publisher.casefold(), urlsplit(bound["url"]).hostname)) if bound else None

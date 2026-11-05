@@ -22,6 +22,15 @@
       "telemetry_status": "CONFIGURED_NOT_OBSERVED",
       "native_context_identity": "/root",
       "same_binding": true
+    },
+    {
+      "started_utc": "2026-11-05T09:07:35.985969Z",
+      "process_id": 14888,
+      "configured_model": "gpt-6.1-sol",
+      "configured_effort": "max",
+      "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+      "native_context_identity": "/root",
+      "same_binding": true
     }
   ],
   "browser_resume": {
