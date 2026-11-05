@@ -70,6 +70,32 @@ def test_failed_readonly_identity_can_refresh_in_same_epoch_without_publish(tmp_
     assert store.list_platform_dispatches() == []
 
 
+def test_fresh_public_readback_survives_derived_receipt_hash_only(tmp_path):
+    from copy import deepcopy
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    store, executor = setup(tmp_path)
+    request = {"action": "READBACK", "work_item_id": "work", "destination": "x", "expected_identity": "@Capitalnicle",
+        "content_binding": {"media_manifest": [{"sha256": "a" * 64}],
+            "artifact_manifest": [{"path": "/approved/delivery_media_manifest_v1.json", "sha256": "b" * 64},
+                                  {"path": "/approved/run_context_v1.json", "sha256": "c" * 64}]}}
+    request["request_sha256"] = sha256_of(request)
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        executor(request)
+    executor.submit(request["request_sha256"], response(executor, pending.value.request,
+        {"status": "SUCCESS", "observed_identity": "@Capitalnicle", "public_object_id": "123",
+         "public_object_url": "https://x.com/Capitalnicle/status/123", "content_verified": True,
+         "observed_media_sha256": ["a" * 64]}))
+    current = deepcopy(request)
+    current["content_binding"]["artifact_manifest"][0]["sha256"] = "d" * 64
+    assert executor.fresh_readback_request(current) == request
+    assert request["content_binding"]["artifact_manifest"][0]["sha256"] == "b" * 64
+    current["content_binding"]["media_manifest"][0]["sha256"] = "e" * 64
+    assert executor.fresh_readback_request(current) is None
+    current = deepcopy(request)
+    current["content_binding"]["artifact_manifest"][1]["sha256"] = "f" * 64
+    assert executor.fresh_readback_request(current) is None
+
+
 @pytest.mark.parametrize("prior_action,claimed,changed_intent", [
     ("PUBLISH", False, False), ("READBACK", False, False),
     ("PUBLISH", True, False), ("PUBLISH", False, True)])

@@ -532,13 +532,22 @@ class NativeNeoExecutor:
         """Keep an exact successful observation across a ten-minute bucket change."""
         ignored = {"request_sha256", "observation_epoch", "native_invocation_id",
                    "supersedes_incomplete_readback_sha256"}
-        expected = {k: v for k, v in request.items() if k not in ignored}
+        def public_binding(value):
+            # CC-124, 5 Nov: rebuilding the derived delivery receipt changed its hash
+            # and repeatedly discarded exact public readbacks. Copy, source-media
+            # hashes, identities and every other artifact remain exact bindings.
+            clean = json.loads(json.dumps({k: v for k, v in value.items() if k not in ignored}))
+            for artifact in clean.get("content_binding", {}).get("artifact_manifest", []):
+                if str(artifact.get("path", "")).replace("\\", "/").endswith("/delivery_media_manifest_v1.json"):
+                    artifact.pop("sha256", None)
+            return clean
+        expected = public_binding(request)
         for row in reversed(self.store.list_outbox_messages(destination=DESTINATION)):
             packet = json.loads(row["payload"])
             prior = packet.get("request") or {}
             if (packet.get("schema_version") != SCHEMA or packet.get("operation_id") != self.operation_id
                     or prior.get("action") != "READBACK"
-                    or {k: v for k, v in prior.items() if k not in ignored} != expected):
+                    or public_binding(prior) != expected):
                 continue
             result = (self._get(prior["request_sha256"], "response") or {}).get("result") or {}
             observation = result.get("native_tool_observation") or {}
