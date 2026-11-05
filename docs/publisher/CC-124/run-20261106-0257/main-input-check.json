@@ -1,0 +1,99 @@
+{
+  "item": "CC-124",
+  "classification": "NO_NEW_MAIN_REPORT_INPUT",
+  "reason": "JIM_DECISION_89: bound Main manifest and desk-record inputs exactly equal the live consumer snapshot; no headline news or filler.",
+  "checked_at_utc": "2026-11-05T20:04:38.805542+00:00",
+  "actual_top_level_start_utc": "2026-11-05T19:57:45+00:00",
+  "next_due_utc": "2026-11-05T21:57:45+00:00",
+  "top_level_launch": {
+    "pid": 25024,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "observation": "CONFIGURED_NOT_OBSERVED",
+    "source": "Win32_Process launch arguments; runtime model telemetry unavailable"
+  },
+  "base_commit": "de6f12a39624033ff7add2b840206c034b3e24ef",
+  "main_feed": {
+    "pointer_path": "A:\\Capital Chronicle\\ContentOps\\config\\native_desktop_main_feed_binding_v1.json",
+    "pointer_sha256": "a73547e01a5003d7128f96fbd15cebf0bc4d2041c384af7507bba4400da2cb7f",
+    "public_export_root": "A:/Capital Chronicle/Runtime/MainPublicReports-v1",
+    "current_manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+    "accepted_manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+    "manifest_emitted_at_utc": "2026-10-20T22:43:00.880869Z",
+    "live_consumer_scan_utc": "2026-11-05T18:01:24.684143Z",
+    "new_manifest_entries": 0,
+    "entry_count": 15,
+    "latest_report_generation_utc": "2026-10-20T22:41:10.430750Z",
+    "latest_by_asset": {
+      "UKOIL": {
+        "report_id": "asset-report:UKOIL",
+        "report_version": 4,
+        "generated_at_utc": "2026-10-20T22:41:10.430750Z"
+      },
+      "USOIL": {
+        "report_id": "asset-report:USOIL",
+        "report_version": 6,
+        "generated_at_utc": "2026-10-20T22:41:10.430750Z"
+      },
+      "XNGUSD": {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 5,
+        "generated_at_utc": "2026-10-20T22:41:10.430750Z"
+      }
+    }
+  },
+  "desk_records": {
+    "configured_exports": [
+      {
+        "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\main-cc-014-20261103T1938\\desk-record-cand9-smoke.json",
+        "sha256": "a7c272ef3e215b6186d137c5abef45e53edb64e34b7937d276cef87e0de0b6c1"
+      }
+    ],
+    "current_count": 82,
+    "accepted_count": 82,
+    "current_records_sha256": "79dde99325695b102072c87f4f14e7b7a51e991f1f511b4116970b68fdb081eb",
+    "accepted_records_sha256": "79dde99325695b102072c87f4f14e7b7a51e991f1f511b4116970b68fdb081eb",
+    "record_types": {
+      "asset_dossier": 47,
+      "event_card": 2,
+      "decision_record": 2,
+      "calendar_entry": 21,
+      "data_series": 10
+    },
+    "new_records": 0,
+    "newest_known_at_utc": "2026-10-30T15:22:05Z"
+  },
+  "additional_source_checks": {
+    "older_public_export_root": "A:\\Capital Chronicle\\Runtime\\MainPublicReports",
+    "event_dossier_root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029",
+    "last_event_dossier": "20261103-midterm-dossier",
+    "latest_daily_saved_request": "request-c8bba0c593d99fb8",
+    "latest_brain_run": "run-20261105T155824Z",
+    "saved_output_inspection": "File metadata only for private run directories; no raw account or execution fields copied.",
+    "nfp": "CC-107 records FROZEN_NFP_INPUTS_NOT_YET_CREATED until 6 Nov 2026 18:00 GMT+7."
+  },
+  "live_consumers": {
+    "store_path": "A:/Capital Chronicle/Runtime/ContentOps/contentops_daily_app_v1.sqlite3",
+    "active_leases": [],
+    "current_production_day": "newsroom-production-day-2026-11-06-bangkok",
+    "current_distinct_confirmed_originals": 0,
+    "prior_production_day": "newsroom-production-day-2026-11-05-bangkok",
+    "prior_distinct_confirmed_originals": 8,
+    "count_basis": "existing confirmed_canonicals: exact Substack identity, verified readback and matching reconciliation; excludes daily digests"
+  },
+  "actions": {
+    "new_operation_created": false,
+    "editorial_model_calls": 0,
+    "public_posts": 0,
+    "digest_sent": false,
+    "schedule_changes": false,
+    "chat_messages": false,
+    "computer_use": false,
+    "pytest_runs": 0
+  },
+  "inherited_files_sha256_at_audit": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "eaf106a6c5f0f94602af7ef759fd3f13ff0c8e8a68e78b3c2b625b8f8a755ebe",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "6b9fcc177395a2a4fb1dec6ae823731a9b907a60e21bf8c63b085e50f1cb6e2a"
+  },
+  "verification": "PASS: configured live inputs equal accepted consumer inputs; production counts queried from actual store; inherited files excluded."
+}
