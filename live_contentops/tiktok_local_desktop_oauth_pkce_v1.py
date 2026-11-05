@@ -209,7 +209,7 @@ def read_approved_credentials(
 ) -> TikTokAppCredentials:
     """Read only the two owner-approved names when explicitly called."""
 
-    source = secret_environment() if env is None else env  # CC-297 reader
+    source = secret_environment(os.environ) if env is None else env  # CC-297 reader
     return TikTokAppCredentials(
         client_key=str(source.get(CLIENT_KEY_ENV) or ""),
         client_secret=str(source.get(CLIENT_SECRET_ENV) or ""),

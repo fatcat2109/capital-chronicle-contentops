@@ -33,6 +33,9 @@ Use `docs/codegraph/INDEX.md` to find callers and mapped tests before opening br
 - The durable store is production authority. Never reset/recreate it for tests or tooling.
 - Provider adapters use credentials but never serialize/log them. Exact requested/effective
   identity and bounded budgets remain observable.
+- Read every platform key through `secret_store_v1` (`read_secret`, `secret_environment`): Windows
+  Credential Manager `CapitalChronicle/<NAME>`, then the live user environment, then the process.
+  Never read a key straight from `os.environ` or copy one into a child's environment (CC-297).
 - V1 browser roles, readiness gates, KILL_SWITCH, UNKNOWN_WRITE, outbox, readback, and
   reconciliation behavior are protected.
 - Tier-2 remains isolated/local and must not touch the live V1 production store or gain upload,
