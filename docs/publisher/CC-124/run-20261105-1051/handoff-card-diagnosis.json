@@ -1,0 +1,14 @@
+{
+  "operation_id": "cc124-next-article-20261105-c",
+  "wrong_card_detected_before_tool_begin": true,
+  "unclaimed_request_sha256": "08de587a6a2aae6229025d90401bd30a9c371e03e9e2f271f1c419397c3111ce",
+  "card_source_cause": "Card builder used independent fact sentences absent from exact canonical prose. post_image_view excluded them under its current binding check and selected its own source-bound fallback.",
+  "tentative_validator_relaxation": "WITHDRAWN_UNCOMMITTED; no live source validator changed",
+  "selected_card_sha256": "1e4dbe6e91df326a5e2616227417a0c716d2f5f73077db505459003eaa6ae7b6",
+  "native_same_editor_review": "ACCEPTED; native_transport_card_review.json",
+  "public_write_performed": false,
+  "first_native_text_approval_utc": "2026-11-05T05:18:23.880986Z",
+  "deadline_missed": true,
+  "no_approval_clock_reset": true,
+  "exact_card_review_sha256": "c89812148756987e23f0701208a106e3109c3e1c874ee5df4850049315145df2"
+}

@@ -1,0 +1,24 @@
+{
+  "tool_request_sha256": "37f9ca3b1a76f29f4340de7060b4d2f16adf59a170ab2678b5aad705a6657514",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a9d5-9a22-73a1-ab8d-6c0e1e84c9ee",
+    "surface": "CODEX_EXEC",
+    "observation_source": "BrowserOS Neo page 494 clicked Publish now with email disabled, then Publish on web only, and reached exact /publish/posts/detail/223584317/share-center. Share center exposes this exact canonical URL. No email verification; Gmail untouched.",
+    "observed_at_utc": "2026-11-05T05:56:51.560Z"
+  },
+  "result": {
+    "request_sha256": "08de587a6a2aae6229025d90401bd30a9c371e03e9e2f271f1c419397c3111ce",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "223584317",
+    "public_object_url": "https://capitalchronicle.substack.com/p/single-source-report-reuters-reuters",
+    "email_sent": false,
+    "email_verification_required": false,
+    "delivery_observation": {
+      "email_send_enabled": false,
+      "web_publish_enabled": true,
+      "evidence_ref": "Neo page494 email checkbox false; Publish on web only confirmation; exact share-center URL and displayed canonical link."
+    }
+  }
+}

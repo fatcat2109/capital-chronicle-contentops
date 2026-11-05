@@ -1,0 +1,22 @@
+{
+  "page_id": 494,
+  "draft_id": "223584317",
+  "url": "https://capitalchronicle.substack.com/publish/post/223584317",
+  "request_sha256": "08de587a6a2aae6229025d90401bd30a9c371e03e9e2f271f1c419397c3111ce",
+  "observed_identity": "capitalchronicle.substack.com",
+  "email_send_enabled": false,
+  "web_publish_enabled": true,
+  "scheduled": false,
+  "visible_publish_control": "Publish now",
+  "body_paragraphs": 6,
+  "image_count": 1,
+  "selected_image_sha256": "1e4dbe6e91df326a5e2616227417a0c716d2f5f73077db505459003eaa6ae7b6",
+  "placement": "after introduction",
+  "alt_text_set": true,
+  "caption_set": true,
+  "upload_method": "BrowserOS Neo upload on intercepted body-image file input",
+  "native_file_dialog_opened": false,
+  "gmail_read": false,
+  "replacement_draft_created": false,
+  "public_write_performed": false
+}
