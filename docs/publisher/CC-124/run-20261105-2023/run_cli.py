@@ -18,8 +18,9 @@ try:
     payload = json.loads(result.stdout)
     if payload.get("classification") == "TOOL_OUTPUT_IN_FILE":
         payload = json.loads(Path(payload["output"]["path"]).read_bytes())
-        (HERE / (label + "-expanded.json")).write_text(
-            json.dumps(payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+        expanded = json.dumps(payload, ensure_ascii=True, indent=2) + "\n"
+        if len(expanded) <= 256_000 and "data:image/" not in expanded and '"screenshot_base64"' not in expanded:
+            (HERE / (label + "-expanded.json")).write_text(expanded, encoding="utf-8")
     keys = ("classification", "stage", "blocker", "error", "binding_path",
             "request_path", "request_sha256", "public_write_performed", "filter_progress")
     print(json.dumps({"exit_code": result.returncode,

@@ -1,0 +1,348 @@
+{
+  "captures": [
+    {
+      "box": {
+        "height": 3451.03125,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "destination": "substack",
+      "download": {
+        "bytes": 492941,
+        "filename": "cc124-substack-desktop.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-substack-desktop.png",
+        "ref": "e32"
+      },
+      "viewport": "desktop",
+      "captured_at_utc": "2026-11-05T14:40:03.066063+00:00",
+      "clock_basis": "OS download completion timestamp; exact screenshot clock unavailable"
+    },
+    {
+      "box": {
+        "height": 3908.671875,
+        "scale": 1,
+        "width": 351,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T14:40:37.764Z",
+      "destination": "substack",
+      "download": {
+        "bytes": 320290,
+        "filename": "cc124-substack-mobile.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-substack-mobile.png",
+        "ref": "e33"
+      },
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1299.109375,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T14:40:39.563Z",
+      "destination": "telegram",
+      "download": {
+        "bytes": 130890,
+        "filename": "cc124-telegram-desktop.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-telegram-desktop.png",
+        "ref": "e36"
+      },
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 1078.046875,
+        "scale": 1,
+        "width": 351,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T14:40:40.893Z",
+      "destination": "telegram",
+      "download": {
+        "bytes": 58431,
+        "filename": "cc124-telegram-mobile.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-telegram-mobile.png",
+        "ref": "e37"
+      },
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1975.109375,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T14:40:42.569Z",
+      "destination": "discord",
+      "download": {
+        "bytes": 213906,
+        "filename": "cc124-discord-desktop.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-discord-desktop.png",
+        "ref": "e40"
+      },
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 1448.171875,
+        "scale": 1,
+        "width": 351,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T14:40:50.659Z",
+      "destination": "discord",
+      "download": {
+        "bytes": 87630,
+        "filename": "cc124-discord-mobile.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-discord-mobile.png",
+        "ref": "e41"
+      },
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1384.078125,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T14:40:52.040Z",
+      "destination": "x",
+      "download": {
+        "bytes": 128283,
+        "filename": "cc124-x-desktop.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-x-desktop.png",
+        "ref": "e42"
+      },
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 1131.625,
+        "scale": 1,
+        "width": 351,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T14:40:53.706Z",
+      "destination": "x",
+      "download": {
+        "bytes": 57519,
+        "filename": "cc124-x-mobile.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-x-mobile.png",
+        "ref": "e43"
+      },
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 2031.203125,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T14:40:55.767Z",
+      "destination": "linkedin",
+      "download": {
+        "bytes": 221518,
+        "filename": "cc124-linkedin-desktop.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-linkedin-desktop.png",
+        "ref": "e46"
+      },
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 1606.515625,
+        "scale": 1,
+        "width": 351,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T14:40:57.398Z",
+      "destination": "linkedin",
+      "download": {
+        "bytes": 95010,
+        "filename": "cc124-linkedin-mobile.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-linkedin-mobile.png",
+        "ref": "e47"
+      },
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1312.71875,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T14:41:04.984Z",
+      "destination": "facebook_page",
+      "download": {
+        "bytes": 140528,
+        "filename": "cc124-facebook_page-desktop.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-facebook_page-desktop.png",
+        "ref": "e48"
+      },
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 1196.40625,
+        "scale": 1,
+        "width": 351,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T14:41:06.288Z",
+      "destination": "facebook_page",
+      "download": {
+        "bytes": 68177,
+        "filename": "cc124-facebook_page-mobile.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-facebook_page-mobile.png",
+        "ref": "e49"
+      },
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1299.109375,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T14:41:07.894Z",
+      "destination": "instagram_business",
+      "download": {
+        "bytes": 135188,
+        "filename": "cc124-instagram_business-desktop.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-instagram_business-desktop.png",
+        "ref": "e50"
+      },
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 1130.828125,
+        "scale": 1,
+        "width": 351,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T14:41:09.914Z",
+      "destination": "instagram_business",
+      "download": {
+        "bytes": 61876,
+        "filename": "cc124-instagram_business-mobile.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-instagram_business-mobile.png",
+        "ref": "e51"
+      },
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1384.078125,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T14:41:20.003Z",
+      "destination": "threads",
+      "download": {
+        "bytes": 132405,
+        "filename": "cc124-threads-desktop.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-threads-desktop.png",
+        "ref": "e52"
+      },
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 1158.015625,
+        "scale": 1,
+        "width": 351,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T14:41:21.375Z",
+      "destination": "threads",
+      "download": {
+        "bytes": 60514,
+        "filename": "cc124-threads-mobile.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-threads-mobile.png",
+        "ref": "e53"
+      },
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1256.625,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T14:41:23.059Z",
+      "destination": "youtube",
+      "download": {
+        "bytes": 131658,
+        "filename": "cc124-youtube-desktop.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-youtube-desktop.png",
+        "ref": "e54"
+      },
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 1038.0625,
+        "scale": 1,
+        "width": 351,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T14:41:25.026Z",
+      "destination": "youtube",
+      "download": {
+        "bytes": 58982,
+        "filename": "cc124-youtube-mobile.png",
+        "page": 566,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-youtube-mobile.png",
+        "ref": "e55"
+      },
+      "viewport": "mobile"
+    }
+  ],
+  "first_capture_clock_basis": "OS download completion timestamp; exact screenshot clock unavailable"
+}

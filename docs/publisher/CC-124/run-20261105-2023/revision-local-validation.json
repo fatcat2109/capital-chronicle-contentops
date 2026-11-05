@@ -1,0 +1,1558 @@
+{
+  "request_sha256": "e1005bb0595aeb6d6a80f395a5d86f591cf30706d3126133219b07712e75ff31",
+  "response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\desktop_response_revise.json",
+  "response_sha256": "cca9a879be0295be6d5039422298d7700fe6f50e4eae6aeec49f6f7c87ffb1be",
+  "validated_at_utc": "2026-11-05T14:38:43.501744+00:00",
+  "source_validation": {
+    "schema_version": "contentops.v1_simple_gemini_validation.v1",
+    "status": "PASS",
+    "ordering": "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_PROVENANCE_AWARE_BOUNDED_HTTP_THEN_BROWSER_RENDERED_RECOVERY_THEN_EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE",
+    "supported_material_claim_count": 55,
+    "unsupported_material_claim_count": 0,
+    "supported_material_claims": [
+      {
+        "claim_id": "title-euro",
+        "claim_text": "EURUSD and USDJPY: two falling quotes, two dollar directions",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "d6b602cd1b8aee9de305961e970c848d1e8d4f42e7c41ecbc1586996b1bd8156"
+      },
+      {
+        "claim_id": "title-yen",
+        "claim_text": "EURUSD and USDJPY: two falling quotes, two dollar directions",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "3d68e3689c0ee876bee1bc04ab9378674ec30fb4dc28c26f94d411f32bae4057"
+      },
+      {
+        "claim_id": "title-convention",
+        "claim_text": "EURUSD and USDJPY: two falling quotes, two dollar directions",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "dek-euro",
+        "claim_text": "Fed reference rates for October 26-30 show the dollar gaining against the euro and slipping against the yen. The quote convention changes the meaning of the move.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "d6b602cd1b8aee9de305961e970c848d1e8d4f42e7c41ecbc1586996b1bd8156"
+      },
+      {
+        "claim_id": "dek-yen",
+        "claim_text": "Fed reference rates for October 26-30 show the dollar gaining against the euro and slipping against the yen. The quote convention changes the meaning of the move.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "3d68e3689c0ee876bee1bc04ab9378674ec30fb4dc28c26f94d411f32bae4057"
+      },
+      {
+        "claim_id": "dek-convention",
+        "claim_text": "Fed reference rates for October 26-30 show the dollar gaining against the euro and slipping against the yen. The quote convention changes the meaning of the move.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "search-euro",
+        "claim_text": "EURUSD vs USDJPY: how to read the dollar's direction",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "d6b602cd1b8aee9de305961e970c848d1e8d4f42e7c41ecbc1586996b1bd8156"
+      },
+      {
+        "claim_id": "search-yen",
+        "claim_text": "EURUSD vs USDJPY: how to read the dollar's direction",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "3d68e3689c0ee876bee1bc04ab9378674ec30fb4dc28c26f94d411f32bae4057"
+      },
+      {
+        "claim_id": "search-convention",
+        "claim_text": "EURUSD vs USDJPY: how to read the dollar's direction",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "description-euro",
+        "claim_text": "Fed reference rates for October 26-30 show a stronger dollar against the euro and a weaker one against the yen. Read both pairs alongside Treasury yields.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "d6b602cd1b8aee9de305961e970c848d1e8d4f42e7c41ecbc1586996b1bd8156"
+      },
+      {
+        "claim_id": "description-yen",
+        "claim_text": "Fed reference rates for October 26-30 show a stronger dollar against the euro and a weaker one against the yen. Read both pairs alongside Treasury yields.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "3d68e3689c0ee876bee1bc04ab9378674ec30fb4dc28c26f94d411f32bae4057"
+      },
+      {
+        "claim_id": "description-convention",
+        "claim_text": "Fed reference rates for October 26-30 show a stronger dollar against the euro and a weaker one against the yen. Read both pairs alongside Treasury yields.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "hook-euro",
+        "claim_text": "EURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "d6b602cd1b8aee9de305961e970c848d1e8d4f42e7c41ecbc1586996b1bd8156"
+      },
+      {
+        "claim_id": "hook-yen",
+        "claim_text": "EURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "3d68e3689c0ee876bee1bc04ab9378674ec30fb4dc28c26f94d411f32bae4057"
+      },
+      {
+        "claim_id": "hook-convention",
+        "claim_text": "EURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "description-treasury-context",
+        "claim_text": "Fed reference rates for October 26-30 show a stronger dollar against the euro and a weaker one against the yen. Read both pairs alongside Treasury yields.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "6a0ac06ebc0223d3da1b0dd7bf8581d06b75c6c528abced4b1fa95c2a82ec7d0"
+      },
+      {
+        "claim_id": "release-date",
+        "claim_text": "In the Federal Reserve's November 2 H.10 release,",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "96a7fd3ace399721af433365ccb5a64f248e5e504628806b368ffc638e4944b6"
+      },
+      {
+        "claim_id": "lead-euro-values",
+        "claim_text": "EURUSD fell from 1.1178 to 1.1163 over October 26-30",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "d6b602cd1b8aee9de305961e970c848d1e8d4f42e7c41ecbc1586996b1bd8156"
+      },
+      {
+        "claim_id": "lead-yen-values",
+        "claim_text": "USDJPY fell from 157.5800 to 157.4700.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "3d68e3689c0ee876bee1bc04ab9378674ec30fb4dc28c26f94d411f32bae4057"
+      },
+      {
+        "claim_id": "two-quotes-fell-euro",
+        "claim_text": "Both quotes went down.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "d6b602cd1b8aee9de305961e970c848d1e8d4f42e7c41ecbc1586996b1bd8156"
+      },
+      {
+        "claim_id": "two-quotes-fell-yen",
+        "claim_text": "Both quotes went down.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "3d68e3689c0ee876bee1bc04ab9378674ec30fb4dc28c26f94d411f32bae4057"
+      },
+      {
+        "claim_id": "lead-direction-euro",
+        "claim_text": "The dollar strengthened against the euro and weakened against the yen.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "d6b602cd1b8aee9de305961e970c848d1e8d4f42e7c41ecbc1586996b1bd8156"
+      },
+      {
+        "claim_id": "lead-direction-yen",
+        "claim_text": "The dollar strengthened against the euro and weakened against the yen.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "3d68e3689c0ee876bee1bc04ab9378674ec30fb4dc28c26f94d411f32bae4057"
+      },
+      {
+        "claim_id": "lead-direction-convention",
+        "claim_text": "The dollar strengthened against the euro and weakened against the yen.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "labeled-house-view",
+        "claim_text": "Capital Chronicle's view is that a dollar thesis needs this two-currency check before it is compared with Treasury yields.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "five-date-frame",
+        "claim_text": "The small moves in this five-date window show why a dollar view needs a named currency counterpart.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "d6b602cd1b8aee9de305961e970c848d1e8d4f42e7c41ecbc1586996b1bd8156"
+      },
+      {
+        "claim_id": "euro-quote-unit",
+        "claim_text": "EURUSD is quoted in US dollars per euro.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "euro-quote-direction",
+        "claim_text": "When that number falls, one euro buys fewer dollars, so the dollar is stronger against the euro.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "yen-quote-unit",
+        "claim_text": "USDJPY is quoted in yen per dollar.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "yen-quote-direction",
+        "claim_text": "A fall means one dollar buys fewer yen, so the dollar is weaker against the yen.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "normalization-explanation",
+        "claim_text": "The first chart puts both relationships into currency units per dollar and measures their change from October 26.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "reciprocal-explanation",
+        "claim_text": "For the euro, that requires taking the reciprocal of EURUSD; the yen quote already measures what one dollar buys.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "normalized-euro-endpoint",
+        "claim_text": "On this basis, the dollar ended October 30 up 0.13% against the euro and down 0.07% against the yen.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "d6b602cd1b8aee9de305961e970c848d1e8d4f42e7c41ecbc1586996b1bd8156"
+      },
+      {
+        "claim_id": "normalized-yen-endpoint",
+        "claim_text": "On this basis, the dollar ended October 30 up 0.13% against the euro and down 0.07% against the yen.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "3d68e3689c0ee876bee1bc04ab9378674ec30fb4dc28c26f94d411f32bae4057"
+      },
+      {
+        "claim_id": "calculated-inverse",
+        "claim_text": "The inverted euro rate is calculated from the Fed quote.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "matched-yield-levels-and-change",
+        "claim_text": "Treasury's nominal 10-year par yield moved from 5.00% to 4.94% over the same October 26-30 window, a six-basis-point decline.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "2880fc97a0f15b20cc8dba93898787177bfb8607626b7033c5b674ee83b7794a"
+      },
+      {
+        "claim_id": "matched-yield-midweek",
+        "claim_text": "It reached 5.05% on October 28.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "b52392662c88d17f735450a894652d45c6b655353108c4473146725ecc103132"
+      },
+      {
+        "claim_id": "yield-path-description",
+        "claim_text": "The endpoint fall was not a steady daily decline.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "2880fc97a0f15b20cc8dba93898787177bfb8607626b7033c5b674ee83b7794a"
+      },
+      {
+        "claim_id": "date-alignment-treasury",
+        "claim_text": "Matching dates make the comparison fairer, but these daily observations are not synchronized intraday prices. They do not establish that Treasury yields caused either currency move.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "2880fc97a0f15b20cc8dba93898787177bfb8607626b7033c5b674ee83b7794a"
+      },
+      {
+        "claim_id": "date-alignment-fx",
+        "claim_text": "Matching dates make the comparison fairer, but these daily observations are not synchronized intraday prices. They do not establish that Treasury yields caused either currency move.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "d6b602cd1b8aee9de305961e970c848d1e8d4f42e7c41ecbc1586996b1bd8156"
+      },
+      {
+        "claim_id": "later-yield-dated",
+        "claim_text": "The later Treasury reading was 4.90% on November 4.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "58adab58b891a93f199d42136647f17e8a6f720d1834e576e5f604516f82786a"
+      },
+      {
+        "claim_id": "later-yield-separation",
+        "claim_text": "It is a separate context point: the FX observations compared here still end on October 30.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "d6b602cd1b8aee9de305961e970c848d1e8d4f42e7c41ecbc1586996b1bd8156"
+      },
+      {
+        "claim_id": "conditional-house-label",
+        "claim_text": "Capital Chronicle's analysis is conditional.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "6a0ac06ebc0223d3da1b0dd7bf8581d06b75c6c528abced4b1fa95c2a82ec7d0"
+      },
+      {
+        "claim_id": "conditional-yield-channel",
+        "claim_text": "A higher US yield could support the dollar if it makes dollar assets relatively more attractive.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "6a0ac06ebc0223d3da1b0dd7bf8581d06b75c6c528abced4b1fa95c2a82ec7d0"
+      },
+      {
+        "claim_id": "conditional-two-currency-direction",
+        "claim_text": "A fall in EURUSD alongside a rise in USDJPY would show the dollar strengthening against both currencies.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "channel-versus-cause-treasury",
+        "claim_text": "That consistent direction would fit the proposed channel; it would not prove that the yield move caused the currency moves.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "6a0ac06ebc0223d3da1b0dd7bf8581d06b75c6c528abced4b1fa95c2a82ec7d0"
+      },
+      {
+        "claim_id": "channel-versus-cause-fx",
+        "claim_text": "That consistent direction would fit the proposed channel; it would not prove that the yield move caused the currency moves.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "conditional-countercase",
+        "claim_text": "Euro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "conditional-challenge",
+        "claim_text": "A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      },
+      {
+        "claim_id": "observed-split-house-reading-euro",
+        "claim_text": "The October 26-30 endpoint split is already a reason to avoid treating the two pairs as one interchangeable dollar position.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "d6b602cd1b8aee9de305961e970c848d1e8d4f42e7c41ecbc1586996b1bd8156"
+      },
+      {
+        "claim_id": "observed-split-house-reading-yen",
+        "claim_text": "The October 26-30 endpoint split is already a reason to avoid treating the two pairs as one interchangeable dollar position.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "3d68e3689c0ee876bee1bc04ab9378674ec30fb4dc28c26f94d411f32bae4057"
+      },
+      {
+        "claim_id": "release-calendar",
+        "claim_text": "The Bureau of Labor Statistics schedules the October Employment Situation for November 6 at 8:30 a.m. EST.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "document_id": "cc124-bls-november-calendar",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "305eda69b1fa347ccb2d02cd64f2c0ba11f33c4da41a29ba85a7c7c693e34bd2"
+      },
+      {
+        "claim_id": "next-check-calendar",
+        "claim_text": "After the release, first read the observed Treasury yield response, then translate each currency pair into the dollar's direction.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "document_id": "cc124-bls-november-calendar",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "305eda69b1fa347ccb2d02cd64f2c0ba11f33c4da41a29ba85a7c7c693e34bd2"
+      },
+      {
+        "claim_id": "next-check-yield",
+        "claim_text": "After the release, first read the observed Treasury yield response, then translate each currency pair into the dollar's direction.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "6a0ac06ebc0223d3da1b0dd7bf8581d06b75c6c528abced4b1fa95c2a82ec7d0"
+      },
+      {
+        "claim_id": "next-check-fx",
+        "claim_text": "The question is whether both currencies support the same dollar interpretation.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-fed-h10-20261102-fx",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "bea56216424537d241fac9f4e44f9833bc616f1f0e59ab7ecec12fac9ba0abe6"
+      }
+    ],
+    "cited_source_count": 3,
+    "source_urls": [
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "https://www.bls.gov/schedule/2026/11_sched.htm",
+      "https://www.federalreserve.gov/releases/h10/current/"
+    ],
+    "source_timestamps_are_model_authority": false,
+    "source_bytes_precede_writer": true,
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": false,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "CONFIRMED",
+      "event_proposition": "Release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+      "event_truth_support_status": "SUPPORTED_PRIMARY",
+      "event_truth_supported": true,
+      "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+      "origin_character": "ON_RECORD",
+      "primary_reporting_publisher": "U.S. Department of the Treasury",
+      "primary_reporting_source_identity": "U.S. Department of the Treasury",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "CONFIRMED",
+      "relay_source_identity": null,
+      "report_proposition": "U.S. Department of the Treasury reports that release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+      "report_truth_support_status": "SUPPORTED_SOURCE_TITLE",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "OFFICIAL_PRIMARY",
+      "source_multiplicity": "MULTI_SOURCE",
+      "supporting_document_ids": [
+        "cc124-bls-november-calendar",
+        "cc124-fed-h10-20261102-fx",
+        "cc124-treasury-nominal-20261104"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": true
+    },
+    "report_truth_validated_separately_from_event_truth": true,
+    "public_write_performed": false,
+    "unknown_write_detected": false
+  },
+  "native_preview_owner_gate": {
+    "status": "PASS",
+    "package_count": 8
+  },
+  "local_preview_bundle": {
+    "schema_version": "contentops.v1_simple_native_derivative_previews.v1",
+    "article_identity": "cc124-jobs-fx-watch-20261105-f",
+    "final_validated_article_public_copy_sha256": "9b7a46dedf9f166bb8c72f4024ed5a6cd96c35f33d5478e7d6b065ff0da0c04d",
+    "compiler_input_sha256": "900f657e8b54b39968abf921c31b21e5456a8fba6aa76b71a7a27c38fd42b27d",
+    "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa",
+    "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+    "rematerialization_after_real_substack_url_required": true,
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": false,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "CONFIRMED",
+      "event_proposition": "Release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+      "event_truth_support_status": "SUPPORTED_PRIMARY",
+      "event_truth_supported": true,
+      "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+      "origin_character": "ON_RECORD",
+      "primary_reporting_publisher": "U.S. Department of the Treasury",
+      "primary_reporting_source_identity": "U.S. Department of the Treasury",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "CONFIRMED",
+      "relay_source_identity": null,
+      "report_proposition": "U.S. Department of the Treasury reports that release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+      "report_truth_support_status": "SUPPORTED_SOURCE_TITLE",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "OFFICIAL_PRIMARY",
+      "source_multiplicity": "MULTI_SOURCE",
+      "supporting_document_ids": [
+        "cc124-bls-november-calendar",
+        "cc124-fed-h10-20261102-fx",
+        "cc124-treasury-nominal-20261104"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": true
+    },
+    "every_preview_preserves_epistemic_state": true,
+    "package_count": 8,
+    "packages": {
+      "telegram": {
+        "format": "channel_brief",
+        "text": "NEWSROOM BRIEF\n\nEURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nWhat to watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 1024,
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions"
+        ],
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ]
+        }
+      },
+      "x": {
+        "format": "text_brief",
+        "root_text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa",
+        "reply_texts": [
+          "Watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+        ],
+        "full_text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\nWatch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 280,
+        "overflow_strategy": "ordered_reply_chain",
+        "hard_truncation_used": false,
+        "text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa",
+        "posts": [
+          {
+            "order": 0,
+            "role": "root",
+            "text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa",
+            "media_asset_ids": [
+              "cc124-fx-dollar-directions"
+            ]
+          },
+          {
+            "order": 1,
+            "role": "reply",
+            "text": "Watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+            "media_asset_ids": []
+          }
+        ],
+        "quality_metrics": {
+          "reply_count": 1,
+          "content_reply_count": 1,
+          "notice_reply_count": 0,
+          "post_character_counts": [
+            280,
+            253
+          ],
+          "per_post_character_utilization": [
+            1.0,
+            0.904
+          ],
+          "shortest_longest_reply_ratio": 0.904,
+          "sentence_boundary_pass": true,
+          "orphan_fragment_count": 0,
+          "visual_distribution_pass": true,
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false
+        },
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions"
+        ],
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ]
+        }
+      },
+      "linkedin": {
+        "format": "professional_brief",
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions",
+          "cc124-fx-matched-treasury"
+        ],
+        "text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nWhy it matters: The first chart puts both relationships into currency units per dollar and measures their change from October 26. For the euro, that requires taking the reciprocal of EURUSD; the yen quote already measures what one dollar buys. On this basis, the dollar ended October 30 up 0.13% against the euro and down 0.07% against the yen. The inverted euro rate is calculated from the Fed quote.\n\nContext: Euro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 3000,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ],
+          "cc124-fx-matched-treasury": [
+            {
+              "document_id": "cc124-treasury-nominal-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            }
+          ]
+        }
+      },
+      "discord": {
+        "format": "newsroom_brief",
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions",
+          "cc124-fx-matched-treasury"
+        ],
+        "text": "**Newsroom brief: EURUSD and USDJPY: two falling quotes, two dollar directions**\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\n**Context:** Euro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 2000,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ],
+          "cc124-fx-matched-treasury": [
+            {
+              "document_id": "cc124-treasury-nominal-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            }
+          ]
+        }
+      },
+      "facebook_page": {
+        "format": "page_brief",
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions"
+        ],
+        "text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nWhy it matters: The first chart puts both relationships into currency units per dollar and measures their change from October 26. For the euro, that requires taking the reciprocal of EURUSD; the yen quote already measures what one dollar buys. On this basis, the dollar ended October 30 up 0.13% against the euro and down 0.07% against the yen. The inverted euro rate is calculated from the Fed quote.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 63206,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ]
+        }
+      },
+      "instagram_business": {
+        "format": "brief_caption",
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions"
+        ],
+        "text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nIn focus: Euro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\n#CapitalChronicle\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 2200,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ]
+        }
+      },
+      "threads": {
+        "format": "text_brief",
+        "root_text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEuro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa",
+        "reply_texts": [
+          "What to watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+        ],
+        "full_text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEuro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\nWhat to watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 500,
+        "overflow_strategy": "ordered_reply_chain",
+        "hard_truncation_used": false,
+        "text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEuro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa",
+        "posts": [
+          {
+            "order": 0,
+            "role": "root",
+            "text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEuro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa",
+            "media_asset_ids": [
+              "cc124-fx-dollar-directions"
+            ]
+          },
+          {
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+            "media_asset_ids": []
+          }
+        ],
+        "quality_metrics": {
+          "reply_count": 1,
+          "content_reply_count": 1,
+          "notice_reply_count": 0,
+          "post_character_counts": [
+            334,
+            261
+          ],
+          "per_post_character_utilization": [
+            0.668,
+            0.522
+          ],
+          "shortest_longest_reply_ratio": 0.781,
+          "sentence_boundary_pass": true,
+          "orphan_fragment_count": 0,
+          "visual_distribution_pass": true,
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false
+        },
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions"
+        ],
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ]
+        }
+      },
+      "youtube": {
+        "format": "community_brief",
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions"
+        ],
+        "text": "Update: EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nWhat to watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 1000,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ]
+        }
+      }
+    },
+    "dispatch_state": "PREVIEW_ONLY_UNDISPATCHED",
+    "public_write_performed": false,
+    "provider_publication_writes": 0,
+    "publication_coordinator_dispatch_count": 0,
+    "unknown_write_count": 0
+  },
+  "local_preview_rows": [
+    {
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "article_identity": "cc124-jobs-fx-watch-20261105-f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "payload_sha256": "d15a4c3008c65beee6ff693cd59af85a21bb2ffa295c92d70ebe7673a4176de6",
+      "native_payload": {
+        "format": "channel_brief",
+        "text": "NEWSROOM BRIEF\n\nEURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nWhat to watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 1024,
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions"
+        ],
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ]
+        }
+      },
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "rematerialization_after_real_substack_url_required": true,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Department of the Treasury",
+        "primary_reporting_source_identity": "U.S. Department of the Treasury",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Department of the Treasury reports that release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "report_truth_support_status": "SUPPORTED_SOURCE_TITLE",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "MULTI_SOURCE",
+        "supporting_document_ids": [
+          "cc124-bls-november-calendar",
+          "cc124-fed-h10-20261102-fx",
+          "cc124-treasury-nominal-20261104"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      }
+    },
+    {
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "article_identity": "cc124-jobs-fx-watch-20261105-f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "payload_sha256": "066218c7b871bd1fe0f4b5599997385e6a4ffa68a88c46ad47cdb86a0e1ca210",
+      "native_payload": {
+        "format": "text_brief",
+        "root_text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa",
+        "reply_texts": [
+          "Watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+        ],
+        "full_text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\nWatch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 280,
+        "overflow_strategy": "ordered_reply_chain",
+        "hard_truncation_used": false,
+        "text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa",
+        "posts": [
+          {
+            "order": 0,
+            "role": "root",
+            "text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa",
+            "media_asset_ids": [
+              "cc124-fx-dollar-directions"
+            ]
+          },
+          {
+            "order": 1,
+            "role": "reply",
+            "text": "Watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+            "media_asset_ids": []
+          }
+        ],
+        "quality_metrics": {
+          "reply_count": 1,
+          "content_reply_count": 1,
+          "notice_reply_count": 0,
+          "post_character_counts": [
+            280,
+            253
+          ],
+          "per_post_character_utilization": [
+            1.0,
+            0.904
+          ],
+          "shortest_longest_reply_ratio": 0.904,
+          "sentence_boundary_pass": true,
+          "orphan_fragment_count": 0,
+          "visual_distribution_pass": true,
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false
+        },
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions"
+        ],
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ]
+        }
+      },
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "rematerialization_after_real_substack_url_required": true,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Department of the Treasury",
+        "primary_reporting_source_identity": "U.S. Department of the Treasury",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Department of the Treasury reports that release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "report_truth_support_status": "SUPPORTED_SOURCE_TITLE",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "MULTI_SOURCE",
+        "supporting_document_ids": [
+          "cc124-bls-november-calendar",
+          "cc124-fed-h10-20261102-fx",
+          "cc124-treasury-nominal-20261104"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      }
+    },
+    {
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "article_identity": "cc124-jobs-fx-watch-20261105-f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "payload_sha256": "a3209c456a41b8cd47c1d27b855b5fae780b56c54a0bcfa65f130640a1a55b7c",
+      "native_payload": {
+        "format": "newsroom_brief",
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions",
+          "cc124-fx-matched-treasury"
+        ],
+        "text": "**Newsroom brief: EURUSD and USDJPY: two falling quotes, two dollar directions**\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\n**Context:** Euro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 2000,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ],
+          "cc124-fx-matched-treasury": [
+            {
+              "document_id": "cc124-treasury-nominal-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            }
+          ]
+        }
+      },
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "rematerialization_after_real_substack_url_required": true,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Department of the Treasury",
+        "primary_reporting_source_identity": "U.S. Department of the Treasury",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Department of the Treasury reports that release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "report_truth_support_status": "SUPPORTED_SOURCE_TITLE",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "MULTI_SOURCE",
+        "supporting_document_ids": [
+          "cc124-bls-november-calendar",
+          "cc124-fed-h10-20261102-fx",
+          "cc124-treasury-nominal-20261104"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      }
+    },
+    {
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "article_identity": "cc124-jobs-fx-watch-20261105-f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "payload_sha256": "31edb9a049a727042ed38436b03bc13c0e0215b6670e3d9180589530bb2c4515",
+      "native_payload": {
+        "format": "professional_brief",
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions",
+          "cc124-fx-matched-treasury"
+        ],
+        "text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nWhy it matters: The first chart puts both relationships into currency units per dollar and measures their change from October 26. For the euro, that requires taking the reciprocal of EURUSD; the yen quote already measures what one dollar buys. On this basis, the dollar ended October 30 up 0.13% against the euro and down 0.07% against the yen. The inverted euro rate is calculated from the Fed quote.\n\nContext: Euro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 3000,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ],
+          "cc124-fx-matched-treasury": [
+            {
+              "document_id": "cc124-treasury-nominal-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            }
+          ]
+        }
+      },
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "rematerialization_after_real_substack_url_required": true,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Department of the Treasury",
+        "primary_reporting_source_identity": "U.S. Department of the Treasury",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Department of the Treasury reports that release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "report_truth_support_status": "SUPPORTED_SOURCE_TITLE",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "MULTI_SOURCE",
+        "supporting_document_ids": [
+          "cc124-bls-november-calendar",
+          "cc124-fed-h10-20261102-fx",
+          "cc124-treasury-nominal-20261104"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      }
+    },
+    {
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "article_identity": "cc124-jobs-fx-watch-20261105-f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "payload_sha256": "bebb86437e7f933d6c2be25efe3edd002ae355bc9414fc8e06768a81c6db6916",
+      "native_payload": {
+        "format": "page_brief",
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions"
+        ],
+        "text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nWhy it matters: The first chart puts both relationships into currency units per dollar and measures their change from October 26. For the euro, that requires taking the reciprocal of EURUSD; the yen quote already measures what one dollar buys. On this basis, the dollar ended October 30 up 0.13% against the euro and down 0.07% against the yen. The inverted euro rate is calculated from the Fed quote.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 63206,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ]
+        }
+      },
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "rematerialization_after_real_substack_url_required": true,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Department of the Treasury",
+        "primary_reporting_source_identity": "U.S. Department of the Treasury",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Department of the Treasury reports that release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "report_truth_support_status": "SUPPORTED_SOURCE_TITLE",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "MULTI_SOURCE",
+        "supporting_document_ids": [
+          "cc124-bls-november-calendar",
+          "cc124-fed-h10-20261102-fx",
+          "cc124-treasury-nominal-20261104"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      }
+    },
+    {
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "article_identity": "cc124-jobs-fx-watch-20261105-f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "payload_sha256": "6e8188d8c5c2ebd6e7fb33f4d03cf2eecd0acf5ae2b7ca103f60643e5a72088e",
+      "native_payload": {
+        "format": "brief_caption",
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions"
+        ],
+        "text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nIn focus: Euro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\n#CapitalChronicle\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 2200,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ]
+        }
+      },
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "rematerialization_after_real_substack_url_required": true,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Department of the Treasury",
+        "primary_reporting_source_identity": "U.S. Department of the Treasury",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Department of the Treasury reports that release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "report_truth_support_status": "SUPPORTED_SOURCE_TITLE",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "MULTI_SOURCE",
+        "supporting_document_ids": [
+          "cc124-bls-november-calendar",
+          "cc124-fed-h10-20261102-fx",
+          "cc124-treasury-nominal-20261104"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      }
+    },
+    {
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "article_identity": "cc124-jobs-fx-watch-20261105-f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "payload_sha256": "2d42555adc72ba89684f5793c48e2fb8089f02f241774177b67b64586ed65a34",
+      "native_payload": {
+        "format": "text_brief",
+        "root_text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEuro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa",
+        "reply_texts": [
+          "What to watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+        ],
+        "full_text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEuro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\nWhat to watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 500,
+        "overflow_strategy": "ordered_reply_chain",
+        "hard_truncation_used": false,
+        "text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEuro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa",
+        "posts": [
+          {
+            "order": 0,
+            "role": "root",
+            "text": "EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEuro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa",
+            "media_asset_ids": [
+              "cc124-fx-dollar-directions"
+            ]
+          },
+          {
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+            "media_asset_ids": []
+          }
+        ],
+        "quality_metrics": {
+          "reply_count": 1,
+          "content_reply_count": 1,
+          "notice_reply_count": 0,
+          "post_character_counts": [
+            334,
+            261
+          ],
+          "per_post_character_utilization": [
+            0.668,
+            0.522
+          ],
+          "shortest_longest_reply_ratio": 0.781,
+          "sentence_boundary_pass": true,
+          "orphan_fragment_count": 0,
+          "visual_distribution_pass": true,
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false
+        },
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions"
+        ],
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ]
+        }
+      },
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "rematerialization_after_real_substack_url_required": true,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Department of the Treasury",
+        "primary_reporting_source_identity": "U.S. Department of the Treasury",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Department of the Treasury reports that release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "report_truth_support_status": "SUPPORTED_SOURCE_TITLE",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "MULTI_SOURCE",
+        "supporting_document_ids": [
+          "cc124-bls-november-calendar",
+          "cc124-fed-h10-20261102-fx",
+          "cc124-treasury-nominal-20261104"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      }
+    },
+    {
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "article_identity": "cc124-jobs-fx-watch-20261105-f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "payload_sha256": "20558ba16c37d85e75839d02576a020913b66afee9058a567b99a10fbe9a6df0",
+      "native_payload": {
+        "format": "community_brief",
+        "media_asset_ids": [
+          "cc124-fx-dollar-directions"
+        ],
+        "text": "Update: EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nWhat to watch: A split dollar response across the two currencies would challenge an explanation built on one common dollar driver.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-jobs-fx-wa\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 1000,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-fx-dollar-directions": [
+            {
+              "document_id": "cc124-fed-h10-20261102-fx",
+              "label": "Board of Governors of the Federal Reserve System",
+              "url": "https://www.federalreserve.gov/releases/h10/current/"
+            }
+          ]
+        }
+      },
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "rematerialization_after_real_substack_url_required": true,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Department of the Treasury",
+        "primary_reporting_source_identity": "U.S. Department of the Treasury",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Department of the Treasury reports that release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+        "report_truth_support_status": "SUPPORTED_SOURCE_TITLE",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "MULTI_SOURCE",
+        "supporting_document_ids": [
+          "cc124-bls-november-calendar",
+          "cc124-fed-h10-20261102-fx",
+          "cc124-treasury-nominal-20261104"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      }
+    }
+  ],
+  "payload_audit": {
+    "telegram": {
+      "epistemic_owner_gate": "PASS",
+      "fed_attribution_present": true,
+      "dated_comparison_window_present": true,
+      "both_reader_notices_present": true,
+      "media_asset_ids": [
+        "cc124-fx-dollar-directions"
+      ],
+      "post_count": 0,
+      "preview_host_link_absent": true
+    },
+    "x": {
+      "epistemic_owner_gate": "PASS",
+      "fed_attribution_present": true,
+      "dated_comparison_window_present": true,
+      "both_reader_notices_present": true,
+      "media_asset_ids": [
+        "cc124-fx-dollar-directions"
+      ],
+      "post_count": 2,
+      "preview_host_link_absent": true,
+      "max_weighted_characters": 253,
+      "platform_limit": 280
+    },
+    "linkedin": {
+      "epistemic_owner_gate": "PASS",
+      "fed_attribution_present": true,
+      "dated_comparison_window_present": true,
+      "both_reader_notices_present": true,
+      "media_asset_ids": [
+        "cc124-fx-dollar-directions",
+        "cc124-fx-matched-treasury"
+      ],
+      "post_count": 0,
+      "preview_host_link_absent": true
+    },
+    "discord": {
+      "epistemic_owner_gate": "PASS",
+      "fed_attribution_present": true,
+      "dated_comparison_window_present": true,
+      "both_reader_notices_present": true,
+      "media_asset_ids": [
+        "cc124-fx-dollar-directions",
+        "cc124-fx-matched-treasury"
+      ],
+      "post_count": 0,
+      "preview_host_link_absent": true
+    },
+    "facebook_page": {
+      "epistemic_owner_gate": "PASS",
+      "fed_attribution_present": true,
+      "dated_comparison_window_present": true,
+      "both_reader_notices_present": true,
+      "media_asset_ids": [
+        "cc124-fx-dollar-directions"
+      ],
+      "post_count": 0,
+      "preview_host_link_absent": true
+    },
+    "instagram_business": {
+      "epistemic_owner_gate": "PASS",
+      "fed_attribution_present": true,
+      "dated_comparison_window_present": true,
+      "both_reader_notices_present": true,
+      "media_asset_ids": [
+        "cc124-fx-dollar-directions"
+      ],
+      "post_count": 0,
+      "preview_host_link_absent": true
+    },
+    "threads": {
+      "epistemic_owner_gate": "PASS",
+      "fed_attribution_present": true,
+      "dated_comparison_window_present": true,
+      "both_reader_notices_present": true,
+      "media_asset_ids": [
+        "cc124-fx-dollar-directions"
+      ],
+      "post_count": 2,
+      "preview_host_link_absent": true,
+      "max_weighted_characters": 281,
+      "platform_limit": 500
+    },
+    "youtube": {
+      "epistemic_owner_gate": "PASS",
+      "fed_attribution_present": true,
+      "dated_comparison_window_present": true,
+      "both_reader_notices_present": true,
+      "media_asset_ids": [
+        "cc124-fx-dollar-directions"
+      ],
+      "post_count": 0,
+      "preview_host_link_absent": true
+    }
+  },
+  "article_fields_changed": [
+    "substack_body_markdown",
+    "social_mechanism_summary",
+    "social_policy_summary"
+  ],
+  "canonical_prose_change": {
+    "prior": "The October 26-30 comparison cannot identify which driver dominated.",
+    "revised": "The October 26-30 Fed reference-rate comparison cannot identify which driver dominated.",
+    "reason": "The exact source-bound counterpart of Threads' authored summary gains natural Fed attribution; all other canonical prose is byte-identical."
+  },
+  "changed_claim_bindings": [
+    {
+      "claim_id": "conditional-countercase",
+      "prior_text": "Euro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 comparison cannot identify which driver dominated.",
+      "revised_text": "Euro- or yen-specific policy expectations and demand for safer assets could outweigh the US yield channel. The October 26-30 Fed reference-rate comparison cannot identify which driver dominated."
+    }
+  ],
+  "title_and_supported_values_unchanged": true,
+  "source_pack_unchanged": true,
+  "charts_and_photo_unchanged": true,
+  "public_write_attempted": false,
+  "final_assembled_pixel_review": "PENDING"
+}
