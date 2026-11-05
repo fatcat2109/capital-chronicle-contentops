@@ -41,9 +41,13 @@ def observe(store, plan, executor, **changes):
     return confirm_site(store, "work-1", plan, executor)
 
 
-def test_exact_site_404_uses_confirmed_substack_and_live_social_consumer(tmp_path):
+@pytest.mark.parametrize("absence", [
+    {"http_status": 404},
+    {"observed_text": '- heading "404" [level=1]\n- link "Read the full documentation" [url="https://help.github.com/pages/"]'},
+])
+def test_exact_site_404_uses_confirmed_substack_and_live_social_consumer(tmp_path, absence):
     store, transport, coordinator, plan, executor, _ = setup(tmp_path)
-    assert observe(store, plan, executor, verified=False, status="NOT_FOUND", http_status=404) is None
+    assert observe(store, plan, executor, verified=False, status="NOT_FOUND", **absence) is None
     original = transport.publish
     sent = []
     def publish(**kwargs):
