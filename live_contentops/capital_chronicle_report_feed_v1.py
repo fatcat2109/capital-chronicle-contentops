@@ -195,7 +195,7 @@ class MainReportFeed:
     def refresh_research_library(self, *, cutoff_utc):
         if self.retained_research is None:
             return None
-        from live_contentops.contentops_foundation_library_v1 import persist_library, persist_research_package, source_binding
+        from live_contentops.contentops_foundation_library_v1 import persist_library, persist_research_package, source_binding, reconcile_affected_work
         briefs = []
         brief_path = self.retained_research.root / "editorial_briefs.json"
         if brief_path.is_file() and brief_path.stat().st_size <= 1_000_000:
@@ -203,7 +203,7 @@ class MainReportFeed:
                 briefs = json.loads(brief_path.read_bytes())["briefs"][:32]
             except (ValueError, KeyError, TypeError):
                 self.research_error = "EDITORIAL_BRIEFS_UNAVAILABLE_OR_INVALID"
-        snapshot = persist_library(self.tracker, self.retained_research, cutoff_utc=cutoff_utc, briefs=briefs)
+        snapshot = persist_library(self.tracker, self.retained_research, cutoff_utc=cutoff_utc, briefs=briefs, reconcile=False)
         package_path = self.retained_research.root / "packages.json"
         if package_path.is_file() and package_path.stat().st_size <= 4_000_000:
             try:
@@ -217,9 +217,10 @@ class MainReportFeed:
                     dependencies = [i for i in snapshot["items"] if i["item_id"] in brief["source_item_ids"]]
                     if package.get("source_binding_sha256") != source_binding(dependencies):
                         continue
-                    persist_research_package(self.tracker, package, research_revision=self.retained_research.revision)
+                    persist_research_package(self.tracker, package, research_revision=self.retained_research.revision, reconcile=False)
             except (ValueError, KeyError, TypeError):
                 self.research_error = "CONFIGURED_RESEARCH_PACKAGES_INVALID_OR_UNAVAILABLE"
+        reconcile_affected_work(self.tracker)
         return snapshot
 
     def poll(self, *, cutoff_utc: str) -> dict[str, Any]:
@@ -270,7 +271,7 @@ class MainReportFeed:
             artifact_cache, reused = {}, 0
             specs = self.pointer.get("bundles", [])
             if hasattr(self.source, "refresh"):
-                scans = [json.loads(r["payload"]) for r in self.tracker.store.list_outbox_messages() if r["destination"] == FEED]
+                scans = [json.loads(r["payload"]) for r in self.tracker.store.list_outbox_messages(destination=FEED)]
                 previous = next((s for s in reversed(scans) if (s.get("manifest_sha256") or s.get("history_checkpoint")) and s.get("export_root_id") == self.pointer.get("export_root_id")), None)
                 try:
                     manifest = self.source.refresh(cutoff_utc=cutoff_utc, previous=previous)

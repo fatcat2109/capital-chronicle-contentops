@@ -1,0 +1,27 @@
+.....F..                                                                 [100%]
+================================== FAILURES ===================================
+____ test_dependency_refresh_reads_scoped_rows_and_preserves_live_library _____
+tests\test_contentops_foundation_library_v1.py:58: in test_dependency_refresh_reads_scoped_rows_and_preserves_live_library
+    view = library_projection(original())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\contentops_foundation_library_v1.py:266: in library_projection
+    result["stories"] = story_projection(result, rows, review_records)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\contentops_editorial_desk_v1.py:642: in story_projection
+    return [*stories, *story_context(rows, review_records)]
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\capital_chronicle_desk_record_source_v1.py:221: in story_context
+    value = json.loads(row["payload"])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\json\__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\json\decoder.py:345: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\json\decoder.py:363: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+=========================== short test summary info ===========================
+FAILED tests/test_contentops_foundation_library_v1.py::test_dependency_refresh_reads_scoped_rows_and_preserves_live_library
+1 failed, 7 passed, 64 deselected in 59.60s

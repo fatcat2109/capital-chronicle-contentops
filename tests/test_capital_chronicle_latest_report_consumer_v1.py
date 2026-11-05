@@ -211,6 +211,30 @@ def tracker(tmp_path):
     )
 
 
+def test_live_receipts_query_only_their_destination(tracker, monkeypatch):
+    accepted = tracker.consume(validate(*make_bundle()), receipt_id="accepted")
+    tracker.store.register_outbox_message(
+        message_id="unrelated-retained-media",
+        work_item_id=tracker.store.list_outbox_messages()[0]["work_item_id"],
+        destination="internal:retained-media", payload="unrelated binary metadata",
+        status="EDITORIAL_INTERNAL",
+    )
+    original = tracker.store.list_outbox_messages
+    queries = []
+
+    def scoped_messages(**kwargs):
+        queries.append(kwargs)
+        assert kwargs == {"destination": INBOX}
+        return original(**kwargs)
+
+    monkeypatch.setattr(tracker.store, "list_outbox_messages", scoped_messages)
+    receipts = tracker.receipts()
+    assert len(receipts) == 1
+    assert receipts[0]["receipt_id"] == accepted["receipt_id"]
+    assert receipts[0]["delivery_status"] == "REPORT_PENDING"
+    assert queries == [{"destination": INBOX}]
+
+
 def test_control_seals_exact_main_flat_wire_and_claim_formula():
     envelope, report = make_bundle()
     result = validate(envelope, report)

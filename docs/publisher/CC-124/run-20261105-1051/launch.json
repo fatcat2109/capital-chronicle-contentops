@@ -9,5 +9,6 @@
   "configured_effort": "max",
   "telemetry_status": "CONFIGURED_NOT_OBSERVED",
   "unrelated_wip": "Preserved outside item commits",
-  "native_invocation_id": "01a1a9d5-9a22-73a1-ab8d-6c0e1e84c9ee"
+  "native_invocation_id": "01a1a9d5-9a22-73a1-ab8d-6c0e1e84c9ee",
+  "resume_after_user_account_switch": true
 }

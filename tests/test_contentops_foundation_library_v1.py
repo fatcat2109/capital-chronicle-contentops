@@ -28,6 +28,38 @@ def test_real_six_family_wave_is_research_ready_with_explicit_missing_market_inp
     assert all(not b["fresh_provider_draft"] and not b["qualified"] for b in library["briefs"])
 
 
+def test_dependency_refresh_reads_scoped_rows_and_preserves_live_library(tmp_path, monkeypatch):
+    from live_contentops.contentops_foundation_library_v1 import (
+        LIBRARY, PACKAGE, reconcile_affected_work, library_projection,
+    )
+    tracker = LatestReportDeliveryTracker(ContentOpsDurableStore(tmp_path / "isolated.sqlite"))
+    research = RetainedSourceResearch(ROOT / "retained_research")
+    briefs = json.loads((ROOT / "editorial_briefs.json").read_bytes())["briefs"]
+    persist_library(tracker, research, cutoff_utc=CUTOFF, briefs=briefs)
+    tracker.store.register_outbox_message(
+        message_id="unrelated-media",
+        work_item_id=tracker.store.list_outbox_messages()[0]["work_item_id"],
+        destination="internal:retained-media", payload='{"irrelevant":"retained media"}',
+        status="EDITORIAL_INTERNAL",
+    )
+    original = tracker.store.list_outbox_messages
+    queries = []
+
+    def scoped_messages(**kwargs):
+        assert kwargs.get("destination") in {
+            LIBRARY, PACKAGE, "internal:cc-report-receipt", "internal:cc-report-withdrawal",
+        }
+        queries.append(kwargs["destination"])
+        return original(**kwargs)
+
+    monkeypatch.setattr(tracker.store, "list_outbox_messages", scoped_messages)
+    reconcile_affected_work(tracker)
+    assert len(queries) == 4
+    view = library_projection(original())
+    assert view["counts"]["briefs"] == 7
+    assert "stories" in view
+
+
 def test_source_missing_and_future_research_do_not_create_supported_briefs():
     research = RetainedSourceResearch(ROOT / "retained_research")
     briefs = json.loads((ROOT / "editorial_briefs.json").read_bytes())["briefs"]

@@ -1,0 +1,38 @@
+{
+  "ended_worker": 45924,
+  "released_exact_fenced_leases": [
+    {
+      "lease_id": "lease_029869e7438d055a",
+      "lease_key": "internal:cc-report-feed",
+      "work_item_id": null,
+      "owner_ref": "cc-feed-c38cd4b03ff64733aa6cf69c6c4e1c16",
+      "fencing_token": 28,
+      "acquired_at": "2026-11-05T03:58:31.771481+00:00",
+      "renewed_at": "2026-11-05T03:58:31.771481+00:00",
+      "expires_at": "2026-11-05T04:00:31.771481+00:00",
+      "status": "RELEASED"
+    },
+    {
+      "lease_id": "lease_4e429b91c5b9db7f",
+      "lease_key": "internal:native-editorial:newsroom",
+      "work_item_id": null,
+      "owner_ref": "native-newsroom-c39c0c9115ec49359e1f680ba29d061a",
+      "fencing_token": 758,
+      "acquired_at": "2026-11-05T03:57:37.608993+00:00",
+      "renewed_at": "2026-11-05T03:57:37.608993+00:00",
+      "expires_at": "2026-11-05T04:12:37.608993+00:00",
+      "status": "RELEASED"
+    },
+    {
+      "lease_id": "lease_aa457eb4a9b71051",
+      "lease_key": "internal:native-editorial:cc124-next-article-20261105-c",
+      "work_item_id": null,
+      "owner_ref": "native-desktop-2661f2e107bb4ece841d08483d6c24c9",
+      "fencing_token": 1,
+      "acquired_at": "2026-11-05T03:57:37.628346+00:00",
+      "renewed_at": "2026-11-05T03:57:37.628346+00:00",
+      "expires_at": "2026-11-05T04:12:37.628346+00:00",
+      "status": "RELEASED"
+    }
+  ]
+}
