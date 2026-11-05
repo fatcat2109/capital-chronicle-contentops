@@ -1,0 +1,117 @@
+{
+  "item": "CC-124",
+  "classification": "NO_NEW_MAIN_REPORT_INPUT",
+  "reason": "JIM_DECISION_89: current Main report manifest and desk records equal live consumer inputs; no new six-market plan or transition; no headline news or filler.",
+  "checked_at_utc": "2026-11-05T22:05:05.505281+00:00",
+  "actual_top_level_start_utc": "2026-11-05T22:00:18.171465+00:00",
+  "next_due_utc": "2026-11-06T00:00:18.171465+00:00",
+  "top_level_launch": {
+    "pid": 36588,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "observation": "CONFIGURED_NOT_OBSERVED",
+    "source": "Win32_Process launch arguments; actual runtime model telemetry unavailable"
+  },
+  "base_commit": "8e0ee573eb76a7255de601dd3c4d3ea89513bb8a",
+  "remote_default_commit": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "base_reason": "Publisher operating HEAD contains fresh remote default and newer integrated Publisher work.",
+  "main_feed": {
+    "pointer_path": "A:\\Capital Chronicle\\ContentOps\\config\\native_desktop_main_feed_binding_v1.json",
+    "pointer_sha256": "a73547e01a5003d7128f96fbd15cebf0bc4d2041c384af7507bba4400da2cb7f",
+    "public_export_root": "A:/Capital Chronicle/Runtime/MainPublicReports-v1",
+    "current_manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+    "accepted_manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+    "manifest_emitted_at_utc": "2026-10-20T22:43:00.880869Z",
+    "live_consumer_scan_utc": "2026-11-05T18:01:24.684143Z",
+    "new_manifest_entries": 0,
+    "entry_count": 15,
+    "latest_report_generation_utc": "2026-10-20T22:41:10.430750Z"
+  },
+  "desk_records": {
+    "configured_exports": [
+      {
+        "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\main-cc-014-20261103T1938\\desk-record-cand9-smoke.json",
+        "sha256": "a7c272ef3e215b6186d137c5abef45e53edb64e34b7937d276cef87e0de0b6c1"
+      }
+    ],
+    "current_count": 82,
+    "accepted_count": 82,
+    "current_records_sha256": "79dde99325695b102072c87f4f14e7b7a51e991f1f511b4116970b68fdb081eb",
+    "accepted_records_sha256": "79dde99325695b102072c87f4f14e7b7a51e991f1f511b4116970b68fdb081eb",
+    "record_types": {
+      "asset_dossier": 47,
+      "event_card": 2,
+      "decision_record": 2,
+      "calendar_entry": 21,
+      "data_series": 10
+    },
+    "new_records": 0
+  },
+  "public_plan_status": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1",
+    "generated_at_utc": "2026-11-05T22:05:00.842498Z",
+    "content_hash": "174e1687e675981d12f4ee1169ad81e97cd7deb1f0c490cd3cbb5e616810c017",
+    "transitions_content_hash": "a67cc01effb8fd33c6dd152d098430ce68cdf62e6e3efab5e94f52f39214a0f5",
+    "plan_count": 42,
+    "transition_count": 71,
+    "comparison_cutoff_utc": "2026-11-05T20:04:38.805542+00:00",
+    "new_six_market_registrations": [],
+    "new_six_market_transitions": [],
+    "other_recent_transitions": [
+      {
+        "asset_id": "USTEC",
+        "status": "INVALIDATED",
+        "at_utc": "2026-11-05T21:00:34.652682Z",
+        "reason_code": "INVALIDATED"
+      }
+    ],
+    "verification": "PASS: both content hashes and cross-file binding; only a Nasdaq invalidation changed, outside CC-124 six-market report scope."
+  },
+  "additional_source_checks": {
+    "event_dossier": {
+      "latest_name": "20261103-midterm-dossier",
+      "last_write_utc": "2026-11-02T23:35:09.153771+00:00",
+      "inspection": "file metadata only; no private account or execution data copied"
+    },
+    "main_brain_run": {
+      "latest_name": "run-20261105T155824Z",
+      "last_write_utc": "2026-11-05T16:57:15.508550+00:00",
+      "inspection": "file metadata only; no private account or execution data copied"
+    },
+    "daily_digest": {
+      "latest_name": "digest-20261105.md",
+      "last_write_utc": "2026-11-05T00:03:47.755968+00:00",
+      "inspection": "file metadata only; no private account or execution data copied"
+    },
+    "nfp": "CC-107: frozen NFP inputs due 6 November 2026 18:00 GMT+7; dossier directory has no newer NFP input.",
+    "daily_research_root_entry": {
+      "latest_name": ".precheck-preparation",
+      "last_write_utc": "2026-11-05T16:13:10.423470+00:00",
+      "inspection": "file metadata only; no private account or execution data copied"
+    }
+  },
+  "live_consumers": {
+    "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "active_leases": [],
+    "current_production_day": "newsroom-production-day-2026-11-06-bangkok",
+    "current_distinct_confirmed_originals": 0,
+    "prior_production_day": "newsroom-production-day-2026-11-05-bangkok",
+    "prior_distinct_confirmed_originals": 8,
+    "count_basis": "existing confirmed_canonicals: exact Substack identity, verified readback and matching reconciliation; daily digests excluded"
+  },
+  "actions": {
+    "new_operation_created": false,
+    "editorial_model_calls": 0,
+    "public_posts": 0,
+    "digest_sent": false,
+    "schedule_changes": false,
+    "chat_messages": false,
+    "computer_use": false,
+    "pytest_runs": 0
+  },
+  "inherited_files_sha256_at_audit": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "eaf106a6c5f0f94602af7ef759fd3f13ff0c8e8a68e78b3c2b625b8f8a755ebe",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "6b9fcc177395a2a4fb1dec6ae823731a9b907a60e21bf8c63b085e50f1cb6e2a"
+  },
+  "verification": "PASS: live consumer input identity, public plan-change comparison, confirmed-canonical counts, no active newsroom lease; inherited modifications excluded."
+}
