@@ -1,0 +1,44 @@
+{
+  "schema_version": "contentops.native_media_pixel_review.v1",
+  "operation_id": "cc124-nfp-us500-preview-20261105-g",
+  "outcome": "KEEP",
+  "reviewer": "/root/native_max_jobs_ed46a179bd88",
+  "reviewed_at_utc": "2026-11-05T16:05:17.566136Z",
+  "invocation_observation": {
+    "invocation_id": "/root/native_max_jobs_ed46a179bd88",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "speed": "standard",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "this supported task request",
+    "observation_source": "Supported native canonical task context /root/native_max_jobs_ed46a179bd88, matched to actual parent collaboration.spawn_agent return for the exact visual request; runtime model/effort telemetry unavailable."
+  },
+  "assets": [
+    {
+      "asset_id": "cc124-jobs-fed-archive",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_assets\\Eccles_Building_20110329.jpg",
+      "visual_review": {
+        "asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+        "pixels_inspected": true,
+        "relevant_subject": true,
+        "reviewer": "/root/native_max_jobs_ed46a179bd88",
+        "reviewer_invocation_id": "/root/native_max_jobs_ed46a179bd88",
+        "outcome": "KEEP",
+        "reviewed_at_utc": "2026-11-05T16:05:17.566136Z",
+        "archive_context_clear": true,
+        "caption_and_alt_match_subject": true,
+        "findings": "Viewed exact local original. The front facade and entrance of the Eccles Building are sharp, recognisable and appropriately framed. The retained caption identifies March 2011 archive context and the Federal Reserve Board/Commons public-domain credit; it makes no present-day meeting, jobs-release or corroboration claim. No generated or misleading scene is represented.",
+        "review_scope": "exact local documentary photo and bound caption; assembled article and destination renditions pending"
+      }
+    }
+  ],
+  "rights_evidence_sha256": "c7bf3261dc389813f4acf019354ef0e7e20e9e880c340c0cc49edcee433267d4",
+  "repair_required": false,
+  "repair_rounds_used": 0,
+  "assembled_article_acceptance": false
+}

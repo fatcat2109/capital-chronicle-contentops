@@ -22,5 +22,7 @@
     "docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl": "6b9fcc177395a2a4fb1dec6ae823731a9b907a60e21bf8c63b085e50f1cb6e2a"
   },
   "schedule_changed": false,
-  "chat_messages_sent": false
+  "chat_messages_sent": false,
+  "browser_window_id": 1698400956,
+  "browser_group_id": "A25E60F730F0A457F3F4E46D34A6D917"
 }

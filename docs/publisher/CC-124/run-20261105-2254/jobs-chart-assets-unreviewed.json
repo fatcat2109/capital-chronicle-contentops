@@ -1,0 +1,1334 @@
+{
+  "operation_id": "cc124-nfp-us500-preview-20261105-g",
+  "visual_request_sha256": "ed46a179bd885928885e678e71547977d97d09107da406e382d9474c128b73ef",
+  "media_assets": [
+    {
+      "asset_id": "cc124-jobs-payroll-employer-groups",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_assets\\jobs-source-bound-r1\\media_assets\\cc124-jobs-payroll-employer-groups.png",
+      "sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "role": "supporting_fact_context",
+      "caption": "September preliminary estimates: private goods +18, private services +28, government -17; total nonfarm +29 thousand jobs. Government is derived as total nonfarm minus total private.",
+      "attribution": "Source: U.S. Bureau of Labor Statistics, 2 October 2026. Calculations/chart: Capital Chronicle.",
+      "alt_text": "September payroll changes, thousands of jobs: private goods-producing +18, private services +28, government -17. Sum: +29. Seasonally adjusted, preliminary.",
+      "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+      "source_links": [
+        {
+          "document_id": "cc124-bls-september-employment-original",
+          "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+          "label": "U.S. Bureau of Labor Statistics"
+        }
+      ],
+      "source_lineage": [
+        {
+          "source_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+          "document_id": "cc124-bls-september-employment-original"
+        }
+      ],
+      "underlying_source_rights_status": "attributed_facts_independent_chart",
+      "source_reuse_basis": "Independent chart of attributed original-source facts; no source expression reused.",
+      "width": 1440,
+      "height": 1040,
+      "editorial_data_packet": {
+        "asset_id": "cc124-jobs-payroll-employer-groups",
+        "question": "Which non-overlapping employer groups contributed to September\u2019s small payroll gain?",
+        "placement_after": "The last jobs report was weak, but not uniform",
+        "destination_subset": [
+          "telegram",
+          "discord",
+          "x",
+          "linkedin",
+          "instagram_business",
+          "threads",
+          "youtube"
+        ],
+        "title": "September payroll changes across employer groups",
+        "subtitle": "Monthly change, thousands of jobs; seasonally adjusted; released 2 October 2026",
+        "unit": "thousands of jobs",
+        "chart_type": "horizontal_diverging_bar",
+        "series": [
+          {
+            "series_id": "EMPLOYER_GROUPS",
+            "name": "September total nonfarm +29",
+            "points": [
+              {
+                "period": "Private goods-producing",
+                "value": 18,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-bls-september-employment-original",
+                    "source_content_sha256": "91b3a9d20b12ef19a6610137743798f332b06134ebaa564942139f07f3bd8dd4",
+                    "support_excerpt": "Table B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18",
+                    "value_text": "18",
+                    "metric": "Goods-producing monthly change",
+                    "unit": "thousands of jobs",
+                    "source_period_text": "Sept. 2026",
+                    "prepared_period": "September 2026",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "September 2026"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "Private services",
+                "value": 28,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-bls-september-employment-original",
+                    "source_content_sha256": "91b3a9d20b12ef19a6610137743798f332b06134ebaa564942139f07f3bd8dd4",
+                    "support_excerpt": "Table B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28",
+                    "value_text": "28",
+                    "metric": "Private service-providing monthly change",
+                    "unit": "thousands of jobs",
+                    "source_period_text": "Sept. 2026",
+                    "prepared_period": "September 2026",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "September 2026"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "Government",
+                "value": -17,
+                "transform": "DIFFERENCE",
+                "scale": 1,
+                "observation_kind": "ESTIMATE",
+                "inputs": [
+                  {
+                    "document_id": "cc124-bls-september-employment-original",
+                    "source_content_sha256": "91b3a9d20b12ef19a6610137743798f332b06134ebaa564942139f07f3bd8dd4",
+                    "support_excerpt": "Table B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29",
+                    "value_text": "29",
+                    "metric": "Total nonfarm monthly change",
+                    "unit": "thousands of jobs",
+                    "source_period_text": "Sept. 2026",
+                    "prepared_period": "September 2026",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "September 2026"
+                    }
+                  },
+                  {
+                    "document_id": "cc124-bls-september-employment-original",
+                    "source_content_sha256": "91b3a9d20b12ef19a6610137743798f332b06134ebaa564942139f07f3bd8dd4",
+                    "support_excerpt": "Table B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46",
+                    "value_text": "46",
+                    "metric": "Total private monthly change",
+                    "unit": "thousands of jobs",
+                    "source_period_text": "Sept. 2026",
+                    "prepared_period": "September 2026",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "September 2026"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "source_caption": "Source: U.S. Bureau of Labor Statistics, 2 October 2026. Calculations/chart: Capital Chronicle.",
+        "caption": "September preliminary estimates: private goods +18, private services +28, government -17; total nonfarm +29 thousand jobs. Government is derived as total nonfarm minus total private.",
+        "alt_text": "September payroll changes, thousands of jobs: private goods-producing +18, private services +28, government -17. Sum: +29. Seasonally adjusted, preliminary.",
+        "missingness": "No missingness in the selected admitted cells. If code cannot reconcile the derived government component, retain the exact source mismatch for repair rather than fill it.",
+        "source_vintage_note": "As released 2 October 2026 at 08:30 EDT; September preliminary estimate. Preserve this dated vintage.",
+        "value_label_decimals": 0
+      },
+      "transform_sha256": "057c98fe2c11cb4d011dc9efffdc098ca0295e4f2e6225f10fa600aaa3467ec7",
+      "placement_after": "The last jobs report was weak, but not uniform",
+      "destination_subset": [
+        "telegram",
+        "discord",
+        "x",
+        "linkedin",
+        "instagram_business",
+        "threads",
+        "youtube"
+      ],
+      "computed_values": [
+        [
+          18.0,
+          28.0,
+          -17.0
+        ]
+      ],
+      "missingness": "No missingness in the selected admitted cells. If code cannot reconcile the derived government component, retain the exact source mismatch for repair rather than fill it."
+    },
+    {
+      "asset_id": "cc124-jobs-treasury-10y-backdrop",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_assets\\jobs-source-bound-r1\\media_assets\\cc124-jobs-treasury-10y-backdrop.png",
+      "sha256": "cd75d01f410ebe235b42cfb0f0718250992ee46b2b2b19e941fbc8b9bc31d8c3",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "role": "supporting_fact_context",
+      "caption": "Exact official observations from 1 September through 4 November 2026; final nominal par yield 4.90%. Dated context, not live US10Y CFD pricing or causal evidence.",
+      "attribution": "Source: U.S. Department of the Treasury. Independent chart: Capital Chronicle.",
+      "alt_text": "Official nominal 10-year Treasury daily par yields from 1 September to 4 November 2026, ending at 4.90 percent.",
+      "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "source_links": [
+        {
+          "document_id": "cc124-treasury-nominal-20261104",
+          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "label": "U.S. Department of the Treasury"
+        }
+      ],
+      "source_lineage": [
+        {
+          "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "document_id": "cc124-treasury-nominal-20261104"
+        }
+      ],
+      "underlying_source_rights_status": "attributed_facts_independent_chart",
+      "source_reuse_basis": "Independent chart of attributed original-source facts; no source expression reused.",
+      "width": 1440,
+      "height": 1040,
+      "editorial_data_packet": {
+        "asset_id": "cc124-jobs-treasury-10y-backdrop",
+        "question": "What dated interest-rate backdrop sits beside the earnings question?",
+        "placement_after": "A lower yield is only half the equity story",
+        "destination_subset": [
+          "discord",
+          "linkedin",
+          "facebook_page",
+          "instagram_business"
+        ],
+        "title": "The 10-year Treasury yield before the jobs report",
+        "subtitle": "Official nominal par yield, %; 1 September\u20134 November 2026",
+        "unit": "Percent",
+        "chart_type": "line",
+        "series": [
+          {
+            "series_id": "US10Y_PAR",
+            "name": "Nominal 10-year; final 4.90%",
+            "points": [
+              {
+                "period": "2026-09-01",
+                "value": 4.79,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-01 4.79",
+                    "value_text": "4.79",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-01",
+                    "prepared_period": "2026-09-01",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-01"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-02",
+                "value": 4.79,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-02 4.79",
+                    "value_text": "4.79",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-02",
+                    "prepared_period": "2026-09-02",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-02"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-03",
+                "value": 4.77,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-03 4.77",
+                    "value_text": "4.77",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-03",
+                    "prepared_period": "2026-09-03",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-03"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-04",
+                "value": 4.78,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-04 4.78",
+                    "value_text": "4.78",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-04",
+                    "prepared_period": "2026-09-04",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-04"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-08",
+                "value": 4.8,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-08 4.80",
+                    "value_text": "4.80",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-08",
+                    "prepared_period": "2026-09-08",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-08"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-09",
+                "value": 4.83,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-09 4.83",
+                    "value_text": "4.83",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-09",
+                    "prepared_period": "2026-09-09",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-09"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-10",
+                "value": 4.95,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-10 4.95",
+                    "value_text": "4.95",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-10",
+                    "prepared_period": "2026-09-10",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-10"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-11",
+                "value": 4.96,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-11 4.96",
+                    "value_text": "4.96",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-11",
+                    "prepared_period": "2026-09-11",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-11"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-14",
+                "value": 4.97,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-14 4.97",
+                    "value_text": "4.97",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-14",
+                    "prepared_period": "2026-09-14",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-14"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-15",
+                "value": 5.0,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-15 5.00",
+                    "value_text": "5.00",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-15",
+                    "prepared_period": "2026-09-15",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-15"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-16",
+                "value": 5.01,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-16 5.01",
+                    "value_text": "5.01",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-16",
+                    "prepared_period": "2026-09-16",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-16"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-17",
+                "value": 4.94,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-17 4.94",
+                    "value_text": "4.94",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-17",
+                    "prepared_period": "2026-09-17",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-17"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-18",
+                "value": 5.01,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-18 5.01",
+                    "value_text": "5.01",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-18",
+                    "prepared_period": "2026-09-18",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-18"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-21",
+                "value": 4.96,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-21 4.96",
+                    "value_text": "4.96",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-21",
+                    "prepared_period": "2026-09-21",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-21"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-22",
+                "value": 4.96,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-22 4.96",
+                    "value_text": "4.96",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-22",
+                    "prepared_period": "2026-09-22",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-22"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-23",
+                "value": 5.11,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-23 5.11",
+                    "value_text": "5.11",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-23",
+                    "prepared_period": "2026-09-23",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-23"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-24",
+                "value": 5.18,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-24 5.18",
+                    "value_text": "5.18",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-24",
+                    "prepared_period": "2026-09-24",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-24"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-25",
+                "value": 5.17,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-25 5.17",
+                    "value_text": "5.17",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-25",
+                    "prepared_period": "2026-09-25",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-25"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-28",
+                "value": 5.24,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-28 5.24",
+                    "value_text": "5.24",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-28",
+                    "prepared_period": "2026-09-28",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-28"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-29",
+                "value": 5.26,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-29 5.26",
+                    "value_text": "5.26",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-29",
+                    "prepared_period": "2026-09-29",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-29"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-09-30",
+                "value": 5.29,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-09-30 5.29",
+                    "value_text": "5.29",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-09-30",
+                    "prepared_period": "2026-09-30",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-09-30"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-01",
+                "value": 5.24,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-01 5.24",
+                    "value_text": "5.24",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-01",
+                    "prepared_period": "2026-10-01",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-01"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-02",
+                "value": 5.28,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-02 5.28",
+                    "value_text": "5.28",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-02",
+                    "prepared_period": "2026-10-02",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-02"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-05",
+                "value": 5.31,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-05 5.31",
+                    "value_text": "5.31",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-05",
+                    "prepared_period": "2026-10-05",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-05"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-06",
+                "value": 5.27,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-06 5.27",
+                    "value_text": "5.27",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-06",
+                    "prepared_period": "2026-10-06",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-06"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-07",
+                "value": 5.28,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-07 5.28",
+                    "value_text": "5.28",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-07",
+                    "prepared_period": "2026-10-07",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-07"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-08",
+                "value": 5.22,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-08 5.22",
+                    "value_text": "5.22",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-08",
+                    "prepared_period": "2026-10-08",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-08"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-09",
+                "value": 5.24,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-09 5.24",
+                    "value_text": "5.24",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-09",
+                    "prepared_period": "2026-10-09",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-09"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-13",
+                "value": 5.21,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-13 5.21",
+                    "value_text": "5.21",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-13",
+                    "prepared_period": "2026-10-13",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-13"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-14",
+                "value": 5.19,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-14 5.19",
+                    "value_text": "5.19",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-14",
+                    "prepared_period": "2026-10-14",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-14"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-15",
+                "value": 5.1,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-15 5.10",
+                    "value_text": "5.10",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-15",
+                    "prepared_period": "2026-10-15",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-15"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-16",
+                "value": 5.09,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-16 5.09",
+                    "value_text": "5.09",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-16",
+                    "prepared_period": "2026-10-16",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-16"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-19",
+                "value": 5.15,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-19 5.15",
+                    "value_text": "5.15",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-19",
+                    "prepared_period": "2026-10-19",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-19"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-20",
+                "value": 5.12,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-20 5.12",
+                    "value_text": "5.12",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-20",
+                    "prepared_period": "2026-10-20",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-20"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-21",
+                "value": 5.13,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-21 5.13",
+                    "value_text": "5.13",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-21",
+                    "prepared_period": "2026-10-21",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-21"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-22",
+                "value": 4.96,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-22 4.96",
+                    "value_text": "4.96",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-22",
+                    "prepared_period": "2026-10-22",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-22"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-23",
+                "value": 5.0,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-23 5.00",
+                    "value_text": "5.00",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-23",
+                    "prepared_period": "2026-10-23",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-23"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-26",
+                "value": 5.0,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-26 5.00",
+                    "value_text": "5.00",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-26",
+                    "prepared_period": "2026-10-26",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-26"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-27",
+                "value": 4.99,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-27 4.99",
+                    "value_text": "4.99",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-27",
+                    "prepared_period": "2026-10-27",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-27"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-28",
+                "value": 5.05,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-28 5.05",
+                    "value_text": "5.05",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-28",
+                    "prepared_period": "2026-10-28",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-28"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-29",
+                "value": 4.98,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-29 4.98",
+                    "value_text": "4.98",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-29",
+                    "prepared_period": "2026-10-29",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-29"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-10-30",
+                "value": 4.94,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-10-30 4.94",
+                    "value_text": "4.94",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-10-30",
+                    "prepared_period": "2026-10-30",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-10-30"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-11-02",
+                "value": 4.91,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-11-02 4.91",
+                    "value_text": "4.91",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-11-02",
+                    "prepared_period": "2026-11-02",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-11-02"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-11-03",
+                "value": 4.95,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-11-03 4.95",
+                    "value_text": "4.95",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-11-03",
+                    "prepared_period": "2026-11-03",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-11-03"
+                    }
+                  }
+                ]
+              },
+              {
+                "period": "2026-11-04",
+                "value": 4.9,
+                "transform": "IDENTITY",
+                "scale": 1,
+                "observation_kind": "REPORTED_ACTUAL",
+                "inputs": [
+                  {
+                    "document_id": "cc124-treasury-nominal-20261104",
+                    "source_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+                    "support_excerpt": "2026-11-04 4.90",
+                    "value_text": "4.90",
+                    "metric": "Nominal 10-year Treasury par yield",
+                    "unit": "Percent",
+                    "source_period_text": "2026-11-04",
+                    "prepared_period": "2026-11-04",
+                    "period_basis": {
+                      "kind": "EXACT_OFFICIAL_TABLE_OR_DATE_ROW",
+                      "source_period": "2026-11-04"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "source_caption": "Source: U.S. Department of the Treasury. Independent chart: Capital Chronicle.",
+        "caption": "Exact official observations from 1 September through 4 November 2026; final nominal par yield 4.90%. Dated context, not live US10Y CFD pricing or causal evidence.",
+        "alt_text": "Official nominal 10-year Treasury daily par yields from 1 September to 4 November 2026, ending at 4.90 percent.",
+        "missingness": "Non-reporting days have no invented values. Preserve any missing official observation; connect actual dated observations without manufacturing points.",
+        "source_vintage_note": "Retained official observations through 4 November 2026, within the operation\u2019s 5 November cutoff.",
+        "value_label_decimals": 2
+      },
+      "transform_sha256": "dcdb1abc54278a4f11fc55fa43b1a78a8dea7e79034e60aaba64410e1c8a83f7",
+      "placement_after": "A lower yield is only half the equity story",
+      "destination_subset": [
+        "discord",
+        "linkedin",
+        "facebook_page",
+        "instagram_business"
+      ],
+      "computed_values": [
+        [
+          4.79,
+          4.79,
+          4.77,
+          4.78,
+          4.8,
+          4.83,
+          4.95,
+          4.96,
+          4.97,
+          5.0,
+          5.01,
+          4.94,
+          5.01,
+          4.96,
+          4.96,
+          5.11,
+          5.18,
+          5.17,
+          5.24,
+          5.26,
+          5.29,
+          5.24,
+          5.28,
+          5.31,
+          5.27,
+          5.28,
+          5.22,
+          5.24,
+          5.21,
+          5.19,
+          5.1,
+          5.09,
+          5.15,
+          5.12,
+          5.13,
+          4.96,
+          5.0,
+          5.0,
+          4.99,
+          5.05,
+          4.98,
+          4.94,
+          4.91,
+          4.95,
+          4.9
+        ]
+      ],
+      "missingness": "Non-reporting days have no invented values. Preserve any missing official observation; connect actual dated observations without manufacturing points."
+    }
+  ],
+  "pixel_review": "PENDING_ACTUAL_IMAGE_INSPECTION",
+  "source_documents_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_assets\\jobs-chart-source-documents.json",
+  "source_documents_sha256": "6e0084c85a81cf2ae17f9b2f756543a73d3b210454e9230345ef2e8f2f500cab",
+  "reconciliation": {
+    "goods": 18,
+    "private_services": 28,
+    "total_private": 46,
+    "government": -17,
+    "total_nonfarm": 29,
+    "august_government": 23344,
+    "september_government": 23327,
+    "treasury_observation_count": 45,
+    "treasury_last": 4.9
+  }
+}

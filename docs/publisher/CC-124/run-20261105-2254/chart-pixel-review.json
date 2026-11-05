@@ -1,0 +1,66 @@
+{
+  "schema_version": "contentops.native_media_pixel_review.v1",
+  "operation_id": "cc124-nfp-us500-preview-20261105-g",
+  "visual_request_sha256": "ed46a179bd885928885e678e71547977d97d09107da406e382d9474c128b73ef",
+  "manifest_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_assets\\jobs-chart-assets-unreviewed.json",
+  "manifest_sha256": "fbb1698f678b584a8274a2b0e5d14fdb4e1feb0979cb4fbf4978d532a3d592e2",
+  "outcome": "KEEP",
+  "reviewer": "/root/native_max_jobs_ed46a179bd88",
+  "reviewed_at_utc": "2026-11-05T16:05:17.566136Z",
+  "invocation_observation": {
+    "invocation_id": "/root/native_max_jobs_ed46a179bd88",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "speed": "standard",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "this supported task request",
+    "observation_source": "Supported native canonical task context /root/native_max_jobs_ed46a179bd88, matched to actual parent collaboration.spawn_agent return for the exact visual request; runtime model/effort telemetry unavailable."
+  },
+  "assets": [
+    {
+      "asset_id": "cc124-jobs-payroll-employer-groups",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_assets\\jobs-source-bound-r1\\media_assets\\cc124-jobs-payroll-employer-groups.png",
+      "visual_review": {
+        "asset_sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+        "pixels_inspected": true,
+        "labels_and_units_legible": true,
+        "reviewer": "/root/native_max_jobs_ed46a179bd88",
+        "reviewer_invocation_id": "/root/native_max_jobs_ed46a179bd88",
+        "outcome": "KEEP",
+        "reviewed_at_utc": "2026-11-05T16:05:17.566136Z",
+        "source_meaning_correct": true,
+        "clipping_or_overlap": false,
+        "findings": "Viewed the exact 1440x1040 PNG. Title, September monthly period, seasonally adjusted status, thousands-of-jobs unit, 2 October 2026 source date and BLS/Capital Chronicle source line are legible and unclipped. The +18 and +28 private bars extend right of zero; government -17 extends left. The three non-overlapping employer groups preserve the source meaning. The bound caption states preliminary estimates, total +29 thousand and the total-minus-private government derivation; retain it with the chart. No implication of the unreleased October result.",
+        "review_scope": "exact local chart asset; assembled article and destination renditions pending"
+      }
+    },
+    {
+      "asset_id": "cc124-jobs-treasury-10y-backdrop",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_assets\\jobs-source-bound-r1\\media_assets\\cc124-jobs-treasury-10y-backdrop.png",
+      "visual_review": {
+        "asset_sha256": "cd75d01f410ebe235b42cfb0f0718250992ee46b2b2b19e941fbc8b9bc31d8c3",
+        "pixels_inspected": true,
+        "labels_and_units_legible": true,
+        "reviewer": "/root/native_max_jobs_ed46a179bd88",
+        "reviewer_invocation_id": "/root/native_max_jobs_ed46a179bd88",
+        "outcome": "KEEP",
+        "reviewed_at_utc": "2026-11-05T16:05:17.566136Z",
+        "source_meaning_correct": true,
+        "clipping_or_overlap": false,
+        "findings": "Viewed the exact 1440x1040 PNG. Nominal 10-year par yield is explicit; percent units, 1 September-4 November 2026 window, Treasury source line and final 4.90% legend are legible and unclipped. One line uses the 45 supplied observations, with no equity overlay, forecast, correlation or causal arrow. The visible yield-axis range is explicit. Retain the bound caption identifying dated official context.",
+        "review_scope": "exact local chart asset; assembled article and destination renditions pending"
+      }
+    }
+  ],
+  "repair_required": false,
+  "repair_rounds_used": 0,
+  "assembled_article_acceptance": false,
+  "limits": [
+    "Asset-level inspection only. Retain captions and inspect the assembled desktop/mobile article and actual destination renditions before claiming final product acceptance."
+  ]
+}

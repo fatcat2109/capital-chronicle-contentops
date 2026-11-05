@@ -1,0 +1,26 @@
+{
+  "checked_at_utc": "2026-11-05T16:02:16.739293+00:00",
+  "browser_window_id": 1698400956,
+  "browser_group_id": "A25E60F730F0A457F3F4E46D34A6D917",
+  "browser_skill": "browseros-neo",
+  "sources": [
+    {
+      "page_id": 572,
+      "url": "https://www.bls.gov/schedule/2026/11_sched.htm",
+      "observation": "Calendar lists October2026 Employment Situation on6November08:30 Eastern. Last modified3November2026.",
+      "original_tool_full_read_path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8317.26\\.browseros\\tool-output\\read-1793893848777-8c8c4955-6396-4a7e-a8eb-4b509d4da83e.md",
+      "original_tool_full_read_sha256": "5a0bc441024cc8b46f36259aa6b92d647e51784384fabd539d61c853ffcb84b1"
+    },
+    {
+      "page_id": 573,
+      "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+      "observation": "Exact dated release independently read through Neo. September payrolls+29000, unemployment4.2%, wages0.1%monthly/3.0%annual; July revised-31000 andAugust-29000.",
+      "original_tool_full_snapshot_path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8317.26\\.browseros\\tool-output\\snapshot-1793893984443-da52de08-0d7b-4c9e-9432-3ee862828ae9.md",
+      "original_tool_full_snapshot_sha256": "041e5ad127579621c913e01b7a922fa8ccc02ff59040155defa3566e454c81a4"
+    }
+  ],
+  "mailbox_read": false,
+  "signed_in_telegram_read": false,
+  "native_desktop_control_used": false,
+  "public_write_performed": false
+}
