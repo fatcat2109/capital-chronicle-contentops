@@ -27,8 +27,20 @@ try:
     if call:
         (ROOT / "next-native-call.json").write_text(json.dumps(call, indent=2), encoding="utf-8")
         print("native call saved", call.get("tool"), call.get("native_stage"), call.get("result_path"))
-    coordinator = d.get("coordinator_result") or {}
-    pending = coordinator.get("native_tool_request") or d.get("native_tool_request")
+    def native_request(value):
+        if isinstance(value, dict):
+            if value.get("schema_version") == "contentops.native_neo_tool_request.v1":
+                return value
+            for child in value.values():
+                found = native_request(child)
+                if found:
+                    return found
+        elif isinstance(value, list):
+            for child in value:
+                found = native_request(child)
+                if found:
+                    return found
+    pending = native_request(d)
     if pending:
         (ROOT / "pending-native-tool.json").write_text(json.dumps(pending, indent=2), encoding="utf-8")
         q = pending["request"]
