@@ -27,10 +27,24 @@ In a publishing operation (`allow_publish`), `bind_native_neo_coordinator` turns
    - The run's identity is evidence for that publish only: it is not stored as a readiness proof for another destination or operation.
 4. **The readback is reused.** The run's readback is stored as the READBACK request that `NeoDestinationHandoff.request()` builds, so `fresh_readback_request` (10 minutes) serves it. The adapter still checks the content as before, and no further agent turn is needed.
 
-## Regression, 5 Nov 22:57-23:12Z
+## Regression, 4 Nov 22:57-23:12Z
 
-The 42 test files that touch the executor, the adapter, the readiness manager or the coordinator: 861 passed, 12 failed. All 12 also fail on the clean 5 Nov baseline (95c9e3c3), so the change adds no new failure.
+The 42 test files that touch the executor, the adapter, the readiness manager or the coordinator: 861 passed, 12 failed. All 12 also fail on the clean baseline 95c9e3c3 (4 Nov 21:04Z), so the change adds no new failure.
 
-## Acceptance still to come
+## Acceptance: the PPI piece, 5 Nov
 
-The next piece's X, YouTube and LinkedIn copies each take one agent turn, and their times go into this folder.
+This is the first piece published after part 2 went live: CC-124 run `docs/publisher/CC-124/run-20261105-0610`, read from `final-publication-status-verified.json` and the step files. Every Neo destination used the composed run, labelled CODEX_EXEC with `mcp__browseros_neo__run`.
+
+| Destination | Claim | Click | Recorded | Write runs |
+|---|---|---|---|---|
+| LinkedIn company | 00:30:28Z | 00:32:39Z | 00:34:03Z | 1 |
+| X | 00:35:16Z | 00:49:55Z | 00:51:38Z | 2: the first left the third reply partial; a correction run (click 01:08:35Z, recorded 01:12:19Z) completed the thread |
+| YouTube | 00:51:55Z | 00:54:03Z | 00:58:21Z | 1 (on 4 Nov: three turns, 18.2 min) |
+
+- **One agent turn:** met for YouTube and LinkedIn company, not for X.
+  - X spent 14 min 40 s between claim and click, with no recorded step.
+  - Why the third reply was partial is NOT VERIFIED: the run's evidence does not say.
+- **LinkedIn personal** goes through the API, not Neo. It returned `LinkedInAmbiguousWriteError` at 00:29:07Z and on its one retry at 01:02:17Z. The readback at 01:17:05Z found it absent, so the run keeps DISTRIBUTION_INCOMPLETE.
+- **Every other destination** went out in the article's own run.
+- **Owners:** the X partial reply and the LinkedIn API ambiguity are Codex Publisher's.
+- **Second reading:** the Southwest piece (run-20261105-0832), still publishing at 02:46Z.
