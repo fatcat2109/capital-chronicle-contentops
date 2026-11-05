@@ -1,0 +1,42 @@
+{
+  "checked_at_utc": "2026-11-05T13:41:19.644147+00:00",
+  "cause": "User-reported turn interruption; prior exec handles and PID 17696 / parent 52324 absent",
+  "old_process_absence_verified": true,
+  "saved_candidate_pool_reused": true,
+  "released_leases": [
+    {
+      "lease_id": "lease_190607c72010e061",
+      "lease_key": "internal:cc-report-consume",
+      "work_item_id": null,
+      "owner_ref": "cc-editorial-d213d3d689474ec2ac1c1d9e45e4f090",
+      "fencing_token": 664,
+      "acquired_at": "2026-11-05T13:31:20.774266+00:00",
+      "renewed_at": "2026-11-05T13:31:20.774266+00:00",
+      "expires_at": "2026-11-05T13:46:20.774266+00:00",
+      "status": "RELEASED"
+    },
+    {
+      "lease_id": "lease_4e429b91c5b9db7f",
+      "lease_key": "internal:native-editorial:newsroom",
+      "work_item_id": null,
+      "owner_ref": "native-newsroom-7a6a7464dc894fba84d603df033fd501",
+      "fencing_token": 1000,
+      "acquired_at": "2026-11-05T13:27:24.412542+00:00",
+      "renewed_at": "2026-11-05T13:27:24.412542+00:00",
+      "expires_at": "2026-11-05T13:42:24.412542+00:00",
+      "status": "RELEASED"
+    },
+    {
+      "lease_id": "lease_c06819de700f8afe",
+      "lease_key": "internal:native-editorial:cc124-jobs-fx-watch-20261105-f",
+      "work_item_id": null,
+      "owner_ref": "native-desktop-5d2e076129784d738f71084c5c99cad6",
+      "fencing_token": 1,
+      "acquired_at": "2026-11-05T13:27:24.426920+00:00",
+      "renewed_at": "2026-11-05T13:27:24.426920+00:00",
+      "expires_at": "2026-11-05T13:42:24.426920+00:00",
+      "status": "RELEASED"
+    }
+  ],
+  "public_write_performed": false
+}
