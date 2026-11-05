@@ -18,6 +18,50 @@ DESTINATION, SURFACE = "x", "X_POST"
 OBJECT_ID, OBJECT_URL = "123", "https://x.com/Capitalnicle/status/123"
 
 
+@pytest.mark.parametrize("wrong_root", [False, True])
+def test_completed_x_correction_reconciles_only_exact_existing_root(tmp_path, monkeypatch, wrong_root):
+    store, executor, coordinator, ids, value = composed_setup(tmp_path, monkeypatch)
+    monkeypatch.setattr(coordinator.transport_runtime, "finalize_intent", lambda **kwargs: dict(kwargs["intent"]))
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"], platform="x",
+        status="DISPATCH_CONFIRMED", public_object_id=OBJECT_ID, public_object_url=OBJECT_URL)
+    store.register_reconciliation(reconciliation_id=ids["reconciliation_id"], work_item_id="work",
+        status="RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE")
+    correction = {**value, "recovery_public_object_url": OBJECT_URL if not wrong_root else "https://x.com/Capitalnicle/status/999"}
+    request = NeoDestinationHandoff(native_executor=executor).request(destination="x", action="PUBLISH",
+        intent=correction, authorization_context={"schema_version":"contentops.canonical_machine_authorization.v1",
+            "operating_mode":"AUTONOMOUS_DEFAULT", "destination":"x", "dispatch_attempt_identity":ids["dispatch_id"],
+            "work_item_id":"work", "payload_hash":"hash"})
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        executor(request)
+    packet = pending.value.request
+    store.set_dispatch_status(ids["dispatch_id"], "NATIVE_NEO_TOOL_PENDING")
+    executor.begin(request["request_sha256"])
+    observed = composed_response(packet, identity={"authenticated":True,"observed_identity":"@Capitalnicle"},
+        result={"status":"SUCCESS", "stage":"PUBLISH_CLICK_ATTEMPTED", "observed_identity":"@Capitalnicle",
+            "public_object_id":OBJECT_ID, "public_object_url":OBJECT_URL}, surface="CODEX_EXEC")
+    observed["composed"]["readback"].update(observed_text=value["payload"], content_verified=True)
+    executor.submit(request["request_sha256"], observed)
+    if wrong_root:
+        with pytest.raises(ValueError, match="EXACT_COMPLETED_NATIVE_PUBLISH_RETURN_REQUIRED"):
+            coordinator.reconcile_completed_native_publish(ids["dispatch_id"], request_hash=request["request_sha256"])
+    else:
+        result = coordinator.reconcile_completed_native_publish(ids["dispatch_id"], request_hash=request["request_sha256"])
+        assert result["reconciliation_status"] == "RECONCILED_CONFIRMED"
+        assert result["publish_called"] is False
+        assert store.get_platform_dispatch(ids["dispatch_id"])["public_object_url"] == OBJECT_URL
+
+
+def test_absent_dispatch_can_be_observed_again_without_another_publish(tmp_path, monkeypatch):
+    store, executor, coordinator, ids, value = composed_setup(tmp_path, monkeypatch)
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"], platform="x",
+        status="RECONCILED_ABSENT_SAFE_TO_RETRY")
+    result = coordinator.readback_existing_dispatch(ids["dispatch_id"])
+    assert result["reconciliation_status"] == "RECONCILIATION_PENDING"
+    assert any(p["request"]["action"] == "READBACK" for p in executor.pending())
+    assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == "RECONCILED_ABSENT_SAFE_TO_RETRY"
+    assert not any(p["request"]["action"] == "PUBLISH" for p in executor.pending())
+
+
 def now():
     return datetime.now(timezone.utc)
 

@@ -485,7 +485,7 @@ class NeoDestinationHandoff:
                 and result.get("observed_profile_url") == ROOTS[destination]
                 and result.get("observed_identity") == IDENTITIES[destination]
                 and result.get("request_sha256") == request["request_sha256"]
-                and dispatch.get("status") in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING"}
+                and dispatch.get("status") in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING", "RECONCILED_ABSENT_SAFE_TO_RETRY"}
                 and not any(_text(s) in comparison_text for s in segments if len(_text(s)) >= 30))
         complete_readback = getattr(self.native_executor, "complete_readback_request", None)
         if (verified or canonical_present) and callable(complete_readback):

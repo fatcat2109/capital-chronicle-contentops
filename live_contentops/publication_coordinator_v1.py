@@ -1360,7 +1360,6 @@ class DurablePublicationCoordinator:
         with its exact absence verified. The original dispatch, object id and history
         stay as they are; the repost carries its own dispatch identity and readback.
         """
-        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
         message = self.store.get_outbox_message(message_id)
         if not message or message["destination"] not in self.REPOST_AFTER_REMOVAL_DESTINATIONS:
             raise ValueError("REPOST_EXACT_ORIGINAL_DESTINATION_REQUIRED")
@@ -1434,6 +1433,15 @@ class DurablePublicationCoordinator:
         request, result = (packet or {}).get("request", {}), (response or {}).get("result", {})
         observed = result.get("native_tool_observation") or {}
         intent = json.loads(self._effective_message(message)["payload"])
+        if message["destination"] == "x" and request.get("intent_sha256") != sha256_of(intent):
+            root = dispatch.get("public_object_url")
+            recovery = {**intent, "recovery_public_object_url": root}
+            if (_public_url("x", root, dispatch.get("public_object_id"))
+                    and result.get("public_object_url") == root
+                    and request.get("intent_sha256") == sha256_of(recovery)):
+                # The correction uses the unchanged approved envelope plus its
+                # exact existing root. That transient control is not a new post.
+                intent = recovery
         # A first send finalizes the canonical-bound envelope before Neo receives
         # it. Reviewed amendments retain the original outbox row, so reproduce
         # that same deterministic finalization when reconciling its exact return.
@@ -1476,6 +1484,10 @@ class DurablePublicationCoordinator:
                 for row in self.store.get_reconciliations_for_work_item(message["work_item_id"])):
             self.store.set_reconciliation_status(ids["reconciliation_id"], RECONCILIATION_PENDING)
         current = self.store.get_platform_dispatch(dispatch_id)
+        if message["destination"] == "x" and "recovery_public_object_url" in intent:
+            # Composed readback is bound to the unchanged original content;
+            # the recovery-root control applies only to the write action.
+            intent = {k: v for k, v in intent.items() if k != "recovery_public_object_url"}
         status = self._reconcile(current, intent)
         return {"dispatch_id": dispatch_id, "destination": message["destination"],
             "public_object_id": current["public_object_id"], "public_object_url": current["public_object_url"],
@@ -3789,7 +3801,7 @@ class DurablePublicationCoordinator:
         native Desktop readback tool request is pending.
         """
         dispatch = self.store.get_platform_dispatch(dispatch_id)
-        if not dispatch or dispatch.get("status") not in {DISPATCH_CONFIRMED, UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING, "SUBSTACK_DRAFT_AWAITING_OWNER"}:
+        if not dispatch or dispatch.get("status") not in {DISPATCH_CONFIRMED, UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING, RECONCILED_ABSENT_SAFE_TO_RETRY, "SUBSTACK_DRAFT_AWAITING_OWNER"}:
             raise ValueError("EXISTING_PUBLIC_OR_AMBIGUOUS_DISPATCH_REQUIRED")
         message = self.store.get_outbox_message(dispatch["message_id"])
         message = self._effective_message(message) if message else None
