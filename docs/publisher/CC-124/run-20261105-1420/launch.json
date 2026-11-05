@@ -23,5 +23,13 @@
       "native_context_identity": "/root",
       "same_binding": true
     }
-  ]
+  ],
+  "browser_resume": {
+    "existing_window_id": 1698400956,
+    "group_id": "535C5A78043A76B86DE64707BF5BCBC3",
+    "group_title": "codex/cc124-article",
+    "substack_tab_id": 528,
+    "previous_task_group": "3084767AB9023DE28A75ACC549671FAC",
+    "previous_group_unavailable_after_account_switch": true
+  }
 }
