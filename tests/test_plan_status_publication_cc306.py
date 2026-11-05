@@ -19,10 +19,28 @@ from test_plan_status_posts_cc306 import NOW, event, export as export_fixture, m
 from test_publication_coordinator_v1 import FixtureTransport, _coordinator, _set_mode
 
 
+@pytest.fixture(autouse=True)
+def no_real_snapshot(monkeypatch, tmp_path):
+    """CC-314: these tests never open TradingView; a refused snapshot takes the plan's fact card."""
+    from live_contentops import tradingview_snapshot_v1 as tv
+
+    def refused(*args, **kwargs):
+        raise tv.SnapshotError("CONTROLLED_TEST_NO_BROWSER")
+    monkeypatch.setattr(tv, "capture", refused)
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "snapshot-outcomes.jsonl")
+
+
 def fake_host(*, work_item_id, delivery_only_assets, existing_manifest, article_assets, article, source_documents):
-    from live_contentops.post_visuals_v1 import validate_post_data_card
-    card = article_assets[0]
-    validate_post_data_card(card, article, source_documents)  # the real check the hosting step runs
+    if article_assets:
+        from live_contentops.post_visuals_v1 import validate_post_data_card
+        card = article_assets[0]
+        validate_post_data_card(card, article, source_documents)  # the real check the hosting step runs
+    else:
+        # CC-314: post images are delivery-only; the hosting step checks their flags and provenance.
+        from live_contentops.cloudinary_delivery_media_v1 import _validated_local_asset
+        card = delivery_only_assets[0]
+        _, blockers = _validated_local_asset(card)
+        assert not blockers, blockers
     # The real result's shape (cloudinary_delivery_media_v1, read on the 5 Nov first post):
     # status READY, with the manifest itself under "manifest".
     return {"status": "CLOUDINARY_DELIVERY_MEDIA_READY", "provider_calls": 1, "manifest": {"status": "PASS", "assets": [{
