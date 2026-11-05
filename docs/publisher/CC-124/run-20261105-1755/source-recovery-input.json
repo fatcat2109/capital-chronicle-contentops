@@ -1,0 +1,92 @@
+{
+  "within_bound_live_budget": true,
+  "expected_selection_request_sha256": "bfe46d873eae9dd071a4bac7e6f23ebc2f0a8655cd8383489c78efa6b4b1661a",
+  "expected_source_request_sha256": "a4e8dae4bc1fa6838e91de47049493fcfbfcaa3c50e804c03038c64407b86dc1",
+  "expected_evidence_sha256": "8d1b988c2f2ee335a3acc39354074b2e995c382b591465cf40b36410ad37da08",
+  "candidate_id": "simple-story-3801a6378ce49ae80f8064be",
+  "research_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\source-editions-treasury",
+  "supporting_headline_ids": [
+    "cc124-treasury-nominal-20261104",
+    "cc124-treasury-real-20261104",
+    "cc124-bls-november-calendar"
+  ],
+  "additional_source_requests": [
+    {
+      "reason": "Acquire official 2026 daily nominal Treasury par yield curve observations, especially the 10-year maturity and latest observation published before the frozen cutoff. Preserve source methodology, date, percent units and missingness; calculate changes with code only.",
+      "url": "https://home.treasury.gov/resource-center-data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T11:22:09.557861+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\source-captures\\issued-treasury-0-404.txt",
+      "capture_sha256": "e8eaf761a89456a5c8e32d386b573df040cf32fd8f125e62a2de3699ebb55c44",
+      "status": "SOURCE_MISSING",
+      "error": "Page Not Found at issued Treasury path; corrected link observed on same Treasury site."
+    },
+    {
+      "reason": "Acquire comparable official 2026 daily real Treasury par yield observations, especially the 10-year maturity, with the same cutoff and date alignment. This supplies the inflation-adjusted opportunity-cost context; it does not establish a gold reaction.",
+      "url": "https://home.treasury.gov/resource-center-data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T11:22:09.557861+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\source-captures\\issued-treasury-1-404.txt",
+      "capture_sha256": "bd9ccb2e04dce53d90ec699ddcc9f79865841c50ad020ccabe77d0c67ad49a84",
+      "status": "SOURCE_MISSING",
+      "error": "Page Not Found at issued Treasury path; corrected link observed on same Treasury site."
+    },
+    {
+      "reason": "Verify the approaching November employment-report date and release clock directly from the official BLS monthly calendar. Preserve the release name and reference period actually stated; convert Eastern time using date-correct EST only after verification. Do not treat the scheduled release as an observed outcome.",
+      "url": "https://www.bls.gov/schedule/2026/11_sched.htm",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T11:22:09.557861+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\source-editions-treasury\\bls-calendar-visible.txt",
+      "capture_sha256": "c5a1aa737489fe81d666b82bf3b88857b28f973d2ddd3c6b8d0875ed8b3ae5c1"
+    },
+    {
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "reason": "Corrected official path; exact 10-year series from its downloaded CSV.",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T11:22:09.557861+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\source-editions-treasury\\nominal-facts.json",
+      "capture_sha256": "196a98f5a4536da627ac64ff92efa755da5a2cdabf32a459055515050d80d91b"
+    },
+    {
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve&field_tdr_date_value=2026&page&_format=csv",
+      "reason": "Exact CSV link downloaded by Neo; retain original bytes.",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T11:22:09.557861+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\source-editions-treasury\\nominal.csv",
+      "capture_sha256": "653c51f4ab54bc97634b53793ad5f362e7822c96f9535752cc3bc5c9d0cc05cc"
+    },
+    {
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026",
+      "reason": "Corrected official path; exact 10-year series from its downloaded CSV.",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T11:22:09.557861+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\source-editions-treasury\\real-facts.json",
+      "capture_sha256": "63aaa80eace3f19523afdb9d4b12f61b0b81cc939923f9e3dfa1f7817b838975"
+    },
+    {
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026&page&_format=csv",
+      "reason": "Exact CSV link downloaded by Neo; retain original bytes.",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T11:22:09.557861+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\source-editions-treasury\\real.csv",
+      "capture_sha256": "facb4e79b2238f079948fa0732f4f9d529263168dba9c3eefb130ff60dd086b1"
+    },
+    {
+      "url": "https://home.treasury.gov/subfooter/site-policies-and-notices",
+      "reason": "Actual source policy context read; no additional factual claim.",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T11:22:09.557861+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\source-captures\\site-policies-observation.json",
+      "capture_sha256": "ce85c48855f7bac296d3fcf14d068e78f0b108c85fb9eeb1a539cb9835b1ae5e"
+    },
+    {
+      "url": "https://home.treasury.gov/subfooter/privacy-policy",
+      "reason": "Actual source policy context read; no additional factual claim.",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T11:22:09.557861+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\source-captures\\privacy-policy-observation.json",
+      "capture_sha256": "fc3e8e4cb7720696d372eb0d99fd19d53a0fbbdd6932187c5d2fc3ea43375dc0"
+    }
+  ],
+  "owner_instruction": "Use exact official Treasury nominal and real par yields, preserving observation dates and retrieval clocks. No gold price, current plan or observed gold response is established. BLS confirms October jobs on November 6 at 08:30 Eastern; no release result is known. Keep the existing cutoff, budget and accepted Light returns."
+}
