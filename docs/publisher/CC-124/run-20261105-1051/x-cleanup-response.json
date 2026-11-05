@@ -1,0 +1,57 @@
+{
+  "tool_request_sha256": "0f6a5890c2022e2e111f721bc16d596e01260818c95f934a43484fc502ef0b98",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a9d5-9a22-73a1-ab8d-6c0e1e84c9ee",
+    "surface": "CODEX_EXEC",
+    "observed_at_utc": "2026-11-05T06:43:42.175Z",
+    "observation_source": "Fresh Neo exact object/profile reloaded under the claimed read-only request; same account, current full copy, loaded media and preserved public object identities. No publish, edit or retry."
+  },
+  "result": {
+    "request_sha256": "fe3e76d98cb3947043271a38b5e88525bbaf46ce55cb8b92eba123b8f7323cdc",
+    "status": "SUCCESS",
+    "content_verified": true,
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2118225640226951201",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118225640226951201",
+    "observed_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters' 21 October IBM report: software revenue growth outlook and the deal-timing test\n\n\nhttps://\ncapitalchronicle.substack.com/p/single-sourc\ne-report-reuters-reuters\n\u2026\n\nReuters' 21 October IBM report described a higher lower bound for annual software-revenue growth.\n\nWatch: The next useful test is whether further reported results substantiate the new-business explanation.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "1e4dbe6e91df326a5e2616227417a0c716d2f5f73077db505459003eaa6ae7b6",
+        "platform_sha256": "dffe8c2e2e54431eac702ec2b347094761d6b0ca04f023bca26f728309a051c7",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118225640226951201",
+        "public_image_url": "https://pbs.twimg.com/media/HWVyv9oagAAUXDC?format=png&name=small",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "inspection": "Same full uncropped branded source card; title, dek, Reuters date and analysis notice preserved after platform resize/compression."
+      }
+    ],
+    "observed_thread": [
+      {
+        "public_object_id": "2118225640226951201",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118225640226951201",
+        "observed_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters' 21 October IBM report: software revenue growth outlook and the deal-timing test\n\n\nhttps://\ncapitalchronicle.substack.com/p/single-sourc\ne-report-reuters-reuters\n\u2026"
+      },
+      {
+        "public_object_id": "2118225643511132532",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118225643511132532",
+        "observed_text": "Reuters' 21 October IBM report described a higher lower bound for annual software-revenue growth.\n\nWatch: The next useful test is whether further reported results substantiate the new-business explanation.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade."
+      },
+      {
+        "public_object_id": "2118225646833053967",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118225646833053967",
+        "observed_text": "Capital Chronicle may hold positions in the markets it covers."
+      }
+    ],
+    "observed_link_resolutions": [
+      {
+        "displayed_text": "https://\ncapitalchronicle.substack.com/p/single-sourc\ne-report-reuters-reuters\n\u2026",
+        "short_url": "https://t.co/O56kYUHbUM",
+        "target_url": "https://capitalchronicle.substack.com/p/single-source-report-reuters-reuters",
+        "target_verified": true,
+        "public_object_url": "https://x.com/Capitalnicle/status/2118225640226951201",
+        "evidence": "Neo page498 followed this exact t.co URL to the canonical Substack page."
+      }
+    ]
+  }
+}
