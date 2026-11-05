@@ -1,0 +1,58 @@
+[
+  {
+    "alt_text": "Line chart of 106 weekly observations of crude stocks excluding spr from 25 October 2024 to 30 October 2026. The latest level is 409,760 thousand barrels. The y-axis is in thousand barrels.",
+    "asset_id": "cc124-eia-crude-106w",
+    "attribution": "U.S. Energy Information Administration \u00b7 25 Oct 2024\u201330 Oct 2026. Independent chart: Capital Chronicle.",
+    "caption": "Crude stocks excluding SPR, 25 October 2024\u201330 October 2026. Latest: 409,760 thousand barrels (409.760 million; raw / 1,000). Sources: [U.S. Energy Information Administration \u00b7 04 Nov 2026](https://www.eia.gov/dnav/pet/hist_xls/WCESTUS1w.xls).",
+    "modality": "source_backed_chart",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-crude-106w.png",
+    "placement_after": "Crude stocks in context",
+    "sha256": "3fd1279dc693f2f944e3287b21ad097cecfe009a0bbd28abb726625837b17b05",
+    "source_page_url": "https://www.eia.gov/dnav/pet/hist_xls/WCESTUS1w.xls"
+  },
+  {
+    "alt_text": "Line chart of 106 weekly observations of total gasoline stocks from 25 October 2024 to 30 October 2026. The latest level is 208,958 thousand barrels. The y-axis is in thousand barrels.",
+    "asset_id": "cc124-eia-gasoline-106w",
+    "attribution": "U.S. Energy Information Administration \u00b7 25 Oct 2024\u201330 Oct 2026. Independent chart: Capital Chronicle.",
+    "caption": "Total gasoline stocks, 25 October 2024\u201330 October 2026. Latest: 208,958 thousand barrels (208.958 million; raw / 1,000). Sources: [U.S. Energy Information Administration \u00b7 04 Nov 2026](https://www.eia.gov/dnav/pet/hist_xls/WGTSTUS1w.xls).",
+    "modality": "source_backed_chart",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-gasoline-106w.png",
+    "placement_after": "Gasoline is a different signal",
+    "sha256": "f26130fee940bb901e915a2f01052714626ac76981a06180292426fd7ee1fc0a",
+    "source_page_url": "https://www.eia.gov/dnav/pet/hist_xls/WGTSTUS1w.xls"
+  },
+  {
+    "alt_text": "Horizontal bars show weekly inventory changes for the week ending 30 October 2026: crude excluding SPR minus 0.9 million barrels, gasoline minus 0.2 million, and distillate minus 3.6 million. All bars share a million-barrel scale and zero reference.",
+    "asset_id": "cc124-eia-weekly-product-draws",
+    "attribution": "U.S. Energy Information Administration \u00b7 4 Nov 2026 report, week ending 30 Oct. Independent chart: Capital Chronicle.",
+    "caption": "EIA reported weekly stock declines of 0.9 million barrels for crude excluding SPR, 0.2 million for gasoline and 3.6 million for distillate. Selected products do not constitute a full decomposition of the total petroleum-stock change. Sources: [U.S. Energy Information Administration \u00b7 04 Nov 2026](https://ir.eia.gov/secure/wpsr/summary.txt).",
+    "modality": "source_backed_chart",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-weekly-product-draws.png",
+    "placement_after": "The sharper squeeze is in distillates",
+    "sha256": "da0edf255f7ef21bc7aae7ee576930abdefacb8888a9bc5e20ccc570ce0a32ae",
+    "source_page_url": "https://ir.eia.gov/secure/wpsr/summary.txt"
+  },
+  {
+    "alt_text": "Horizontal bars show crude inventories 4% below their five-year average, gasoline 2% below and distillate 13% below for the week ending 30 October 2026. All bars share a percentage scale and zero reference.",
+    "asset_id": "cc124-eia-stock-average-gaps",
+    "attribution": "U.S. Energy Information Administration \u00b7 4 Nov 2026 report, week ending 30 Oct. Independent chart: Capital Chronicle.",
+    "caption": "EIA reported inventories 4% below their five-year average for crude excluding SPR, 2% below for gasoline and 13% below for distillate. This is a percentage comparison, not a barrel-volume comparison. Sources: [U.S. Energy Information Administration \u00b7 04 Nov 2026](https://ir.eia.gov/secure/wpsr/summary.txt).",
+    "modality": "source_backed_chart",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-stock-average-gaps.png",
+    "placement_after": "The sharper squeeze is in distillates",
+    "sha256": "f7e598c6d153ee2d9e7e8aee9099252e1bd3d6dfd6d220f4b518b8777c66142f",
+    "source_page_url": "https://ir.eia.gov/secure/wpsr/summary.txt"
+  },
+  {
+    "alt_text": "Archive aerial photograph of storage tanks and coastal refinery infrastructure in Texas.",
+    "asset_id": "cc124-archive-texas-refinery-fws",
+    "attribution": "U.S. Fish and Wildlife Service / Wikimedia Commons / public domain",
+    "caption": "Photo: [U.S. Fish and Wildlife Service](https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg) \u00b7 [Public domain (PD-USGov-FWS)](https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg#Licensing). Archive context: a coastal Texas oil refinery. Photo: U.S. Fish and Wildlife Service, via Wikimedia Commons (public domain).",
+    "license_url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg#Licensing",
+    "modality": "documentary_photo",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\Oil_refinery_coastal_Texas.jpg",
+    "rights_status": "PUBLIC_DOMAIN",
+    "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+    "source_page_url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg"
+  }
+]
