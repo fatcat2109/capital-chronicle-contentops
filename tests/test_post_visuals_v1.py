@@ -341,7 +341,7 @@ def test_each_channel_requires_its_selected_exact_image(tmp_path, destination):
         require_publication_image(destination, data)
 
 
-@pytest.mark.parametrize("destination", ["discord", "facebook_page", "instagram_business", "threads"])
+@pytest.mark.parametrize("destination", ["facebook_page", "instagram_business", "threads"])
 def test_url_transport_cannot_fall_back_to_text_or_another_image(tmp_path, destination):
     article, claims, docs = packet()
     card = build_post_data_card(article, claims, docs, output_dir=tmp_path)

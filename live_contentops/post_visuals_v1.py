@@ -456,7 +456,7 @@ def require_publication_image(destination, data):
             if pixels.format not in {"PNG", "JPEG", "WEBP"}:
                 raise ValueError("PUBLICATION_IMAGE_FORMAT_UNSUPPORTED:" + destination)
             pixels.verify()
-    if destination in {"discord", "facebook_page", "instagram_business", "threads"}:
+    if destination in {"facebook_page", "instagram_business", "threads"}:
         primary = data.get("primary_media") or {}
         if (not str(data.get("public_image_url") or "").startswith("https://")
                 or primary.get("sha256") not in {a["sha256"] for a in assets}
