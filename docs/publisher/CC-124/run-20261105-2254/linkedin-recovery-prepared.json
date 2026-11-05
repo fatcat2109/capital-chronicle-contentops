@@ -1,0 +1,51 @@
+{
+  "schema_version": "contentops.dated_distribution_recovery.v1",
+  "run_id": "cc124-nfp-us500-preview-20261105-g",
+  "owner_authority_ref": "human:BACKLOG_CC124_JIM_DECISION_39_ROUTINE_DISTRIBUTION",
+  "source_cutoff_utc": "2026-11-05T15:49:29.125703Z",
+  "article_identity": "e5793bfad26d0dda46844ae0c12c6efb9b7b85d13e03a8ca31b6ad6164a0ceea",
+  "canonical_article_revision": "7573f9610d9ce8c516065efe898215ce292e89369430fe135f114c3bf863edfb",
+  "plan_hash": "398f9e5e4b8ff2b0a0c70c1ba1ec913bb358bb689ead94c036605550ab2d6adb",
+  "canonical_url": "https://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut",
+  "date_label": "Reporting as of 10:49 EST on 5 November 2026.",
+  "original_intent_sha256": {
+    "linkedin": "969b294815ec26aadaed783e8cc26ae0fcf6d5e6d3ddf99948032e0660857d22"
+  },
+  "payloads": {
+    "linkedin": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "cc124-jobs-payroll-employer-groups",
+        "cc124-jobs-treasury-10y-backdrop"
+      ],
+      "media_source_links": {
+        "cc124-jobs-payroll-employer-groups": [
+          {
+            "document_id": "cc124-bls-september-employment-original",
+            "label": "U.S. Bureau of Labor Statistics",
+            "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+          }
+        ],
+        "cc124-jobs-treasury-10y-backdrop": [
+          {
+            "document_id": "cc124-treasury-nominal-20261104",
+            "label": "U.S. Department of the Treasury",
+            "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          }
+        ]
+      },
+      "platform_limit": 3000,
+      "text": "Reporting as of 10:49 EST on 5 November 2026.\n\nJobs watch: weaker hiring can cut both ways for US stocks\n\nWhy it matters: Lower Treasury yields could support equity valuations if investors also lower the rate they use to value future profits.\n\nContext: Continued hiring, stable unemployment and moderating wage growth would fit orderly cooling. Rising unemployment and further downward revisions would strengthen the growth-risk interpretation.\n\nRead the full brief: https://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nSource: BLS."
+    }
+  },
+  "reader_timezone": "America/New_York",
+  "destinations": [
+    "linkedin"
+  ],
+  "transport_override": "BROWSEROS_NEO_MCP",
+  "recipients": {
+    "linkedin": "linkedin:jimcc",
+    "linkedin_company": "linkedin:company:143198922"
+  }
+}

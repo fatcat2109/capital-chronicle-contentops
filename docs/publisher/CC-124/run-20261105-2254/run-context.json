@@ -41,6 +41,17 @@
     "window_id": 1698400956,
     "canonical_page_id": 578,
     "published_object_id": "223651009",
-    "no_republish": true
-  }
+    "no_republish": true,
+    "active_group_title": "codex/cc124 jobs watch"
+  },
+  "resume_configurations": [
+    {
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "source": "Win32_Process current Ops exec PID52116 created 2026-11-05T17:39:44Z",
+      "actual_model": null,
+      "actual_reasoning_effort": null
+    }
+  ]
 }

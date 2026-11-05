@@ -1,0 +1,26 @@
+{
+  "destination": "youtube",
+  "images": {
+    "changed": false,
+    "page": 586,
+    "settled": false,
+    "value": [
+      {
+        "height": 462,
+        "loaded": true,
+        "src": "https://yt3.ggpht.com/-kKPlp7OKeogAHI_-3qMLk_fENz7XRCC2zc2aI_tDZ7tMmS6BY7Q9Pmtsh_YakfvXZo1jUCwJKesCg=s640-rw-nd-v1",
+        "width": 640
+      }
+    ]
+  },
+  "observed_at_utc": "2026-11-05T17:28:17.794Z",
+  "observed_identity": "@CapitalChronicleYouTube",
+  "observed_text": {
+    "changed": false,
+    "page": 586,
+    "settled": false,
+    "value": "Update: Jobs watch: weaker hiring can cut both ways for US stocks\n\nA weak jobs headline can ease rate pressure and weaken the earnings outlook at the same time. The S&P 500 needs both sides of that story.\n\nWhat to watch: A falling yield by itself will not distinguish relief about rates from worry about growth.\n\nRead the full brief: https://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nSource: BLS."
+  },
+  "public_object_id": "UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V",
+  "public_object_url": "https://www.youtube.com/post/UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V"
+}

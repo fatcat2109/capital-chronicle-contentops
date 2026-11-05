@@ -1,0 +1,15 @@
+Timeout (0:00:20)!
+Thread 0x0000c74c (most recent call first):
+  File "A:\Capital Chronicle\ContentOps\live_contentops\native_manual_candidate_v1.py", line 57 in native_artifact_key
+  File "A:\Capital Chronicle\ContentOps\live_contentops\native_desktop_editorial_v1.py", line 2267 in validated_native_review
+  File "A:\Capital Chronicle\ContentOps\live_contentops\native_desktop_publication_v1.py", line 41 in _prepared_packet
+  File "A:\Capital Chronicle\ContentOps\live_contentops\native_desktop_publication_v1.py", line 497 in validate
+  File "A:\Capital Chronicle\ContentOps\live_contentops\native_desktop_publication_v1.py", line 643 in resume
+  File "scripts/run_native_desktop_editorial.py", line 259 in _operation
+  File "scripts/run_native_desktop_editorial.py", line 542 in operation
+  File "scripts/run_native_desktop_editorial.py", line 916 in main
+  File "scripts/run_native_desktop_editorial.py", line 933 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 98 in _run_module_code
+  File "<frozen runpy>", line 287 in run_path
+  File "<string>", line 1 in <module>

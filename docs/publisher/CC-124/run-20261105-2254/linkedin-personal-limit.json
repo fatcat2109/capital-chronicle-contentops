@@ -1,0 +1,26 @@
+{
+  "observed_at_utc": "2026-11-05T17:53:05.731228+00:00",
+  "destination": "linkedin",
+  "api_attempts": [
+    {
+      "at_utc": "2026-11-05T17:08:30.361110+00:00",
+      "error": "LinkedInAmbiguousWriteError"
+    },
+    {
+      "at_utc": "2026-11-05T17:33:18.695589+00:00",
+      "error": "LinkedInAmbiguousWriteError"
+    }
+  ],
+  "latest_authenticate_activity_readback": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\linkedin-retry-absence-observation.json",
+  "latest_absence_observed_at_utc": "2026-11-05T17:43:21.472Z",
+  "reconciled_state": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+  "unknown_write_count": 0,
+  "recovery_prepared": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\linkedin-recovery\\distribution-recovery.json",
+  "recovery_published": false,
+  "external_recovery_failure": "BrowserOS Neo: screenshot failed: CDP request timed out: Page.captureScreenshot",
+  "next_action": "Resume this exact prepared LinkedIn-only Neo recovery after final native MAX acceptance; use a fresh loaded own-activity absence check before any click. Keep confirmed company post and canonical article.",
+  "next_actor": "Codex Publisher",
+  "native_file_dialog_opened": false,
+  "schedule_changed": false,
+  "chat_messages_sent": false
+}

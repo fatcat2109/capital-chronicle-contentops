@@ -1,0 +1,29 @@
+{
+  "destination": "x",
+  "observed_at_utc": "2026-11-05T17:28:17.794Z",
+  "observed_identity": "@Capitalnicle",
+  "posts": {
+    "changed": false,
+    "page": 579,
+    "settled": false,
+    "value": [
+      {
+        "observed_text": "Jobs watch: weaker hiring can cut both ways for US stocks\n\nhttps://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut…\n\nSource: BLS.",
+        "public_image_urls": [
+          "https://pbs.twimg.com/media/HWYJHggaIAAJcp4?format=jpg&name=small"
+        ],
+        "public_object_url": "https://x.com/Capitalnicle/status/2118390909213786336"
+      },
+      {
+        "observed_text": "A weak jobs headline can ease rate pressure and weaken the earnings outlook at the same time.\n\nThe S&P 500 needs both sides of that story.",
+        "public_image_urls": [],
+        "public_object_url": "https://x.com/Capitalnicle/status/2118390912741212452"
+      },
+      {
+        "observed_text": "Watch: A falling yield by itself will not distinguish relief about rates from worry about growth.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "public_image_urls": [],
+        "public_object_url": "https://x.com/Capitalnicle/status/2118390915492679869"
+      }
+    ]
+  }
+}

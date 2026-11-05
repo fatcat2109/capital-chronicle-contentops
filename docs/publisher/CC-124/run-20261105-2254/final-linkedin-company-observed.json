@@ -1,0 +1,27 @@
+{
+  "destination": "linkedin-company",
+  "images": {
+    "changed": false,
+    "page": 583,
+    "settled": false,
+    "value": [
+      {
+        "height": 346,
+        "loaded": true,
+        "src": "https://media.licdn.com/dms/image/v2/D5622AQHCwBBx3fK4ug/feedshare-shrink_480/B56aGstlJ0KcAg-/0/1793898992476?e=1795651200&v=beta&t=eRIiy0YGOYlPf6l_2VBlEsI4zOrVa1A-1Os7Dgfq4Vc",
+        "width": 480
+      },
+      {
+        "height": 346,
+        "loaded": true,
+        "src": "https://media.licdn.com/dms/image/v2/D5622AQGgSI--lJcKSQ/feedshare-shrink_480/B56aGstlKvHQAY-/0/1793898992594?e=1795651200&v=beta&t=CCt69Y8Tx6u3DyV6IIClJdoOLfhQYCcaifIbTLi7Uu4",
+        "width": 480
+      }
+    ]
+  },
+  "observed_at_utc": "2026-11-05T17:28:17.848Z",
+  "observed_identity": "linkedin:company:143198922",
+  "observed_text": "Jobs watch: weaker hiring can cut both ways for US stocks\n\nWhy it matters: Lower Treasury yields could support equity valuations if investors also lower the rate they use to value future profits.\n\nContext: Continued hiring, stable unemployment and moderating wage growth would fit orderly cooling. Rising unemployment and further downward revisions would strengthen the growth-risk interpretation.\n\nRead the full brief: https://lnkd.in/gYqbxNHN\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nSource: BLS.",
+  "public_object_id": "urn:li:ugcPost:7524157727577841664",
+  "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7524157727577841664/"
+}

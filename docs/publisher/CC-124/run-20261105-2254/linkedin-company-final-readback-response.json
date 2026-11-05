@@ -1,0 +1,54 @@
+{
+  "tool_request_sha256": "9a88717c64bb2b86e8a187e0286303d9cf9e5fae52905c174e622fbe0f43f8d0",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T17:28:17.848Z",
+    "observation_source": "Fresh exact Neo object/feed readback; public images decoded and compared with the approved source pixels. No public write."
+  },
+  "result": {
+    "request_sha256": "5cdf87cfb4eeaff74dc709954761f0c98644cfd1590bb41b4cfa6330022ea0d9",
+    "status": "SUCCESS",
+    "public_write_performed": false,
+    "observed_identity": "linkedin:company:143198922",
+    "content_verified": true,
+    "public_image_urls": [
+      "https://media.licdn.com/dms/image/v2/D5622AQHCwBBx3fK4ug/feedshare-shrink_480/B56aGstlJ0KcAg-/0/1793898992476?e=1795651200&v=beta&t=eRIiy0YGOYlPf6l_2VBlEsI4zOrVa1A-1Os7Dgfq4Vc",
+      "https://media.licdn.com/dms/image/v2/D5622AQGgSI--lJcKSQ/feedshare-shrink_480/B56aGstlKvHQAY-/0/1793898992594?e=1795651200&v=beta&t=CCt69Y8Tx6u3DyV6IIClJdoOLfhQYCcaifIbTLi7Uu4"
+    ],
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+        "platform_sha256": "6a10a0c1514c3b241ccc4bb133ee38207201f6f6555d1a24d3ce4072d42ae673",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7524157727577841664/",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQHCwBBx3fK4ug/feedshare-shrink_480/B56aGstlJ0KcAg-/0/1793898992476?e=1795651200&v=beta&t=eRIiy0YGOYlPf6l_2VBlEsI4zOrVa1A-1Os7Dgfq4Vc",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "similarity": 0.9986,
+        "inspection_method": "DECODED_PIXEL_SIMILARITY_TO_APPROVED_SOURCE"
+      },
+      {
+        "source_asset_sha256": "cd75d01f410ebe235b42cfb0f0718250992ee46b2b2b19e941fbc8b9bc31d8c3",
+        "platform_sha256": "a9f63fdd4e67fc3317c92ad61ba7ce887cfd3eda450c1c70b1c8c4fa97dba2a1",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7524157727577841664/",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQGgSI--lJcKSQ/feedshare-shrink_480/B56aGstlKvHQAY-/0/1793898992594?e=1795651200&v=beta&t=CCt69Y8Tx6u3DyV6IIClJdoOLfhQYCcaifIbTLi7Uu4",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "similarity": 0.9982,
+        "inspection_method": "DECODED_PIXEL_SIMILARITY_TO_APPROVED_SOURCE"
+      }
+    ],
+    "public_object_id": "urn:li:ugcPost:7524157727577841664",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7524157727577841664/",
+    "observed_text": "Jobs watch: weaker hiring can cut both ways for US stocks\n\nWhy it matters: Lower Treasury yields could support equity valuations if investors also lower the rate they use to value future profits.\n\nContext: Continued hiring, stable unemployment and moderating wage growth would fit orderly cooling. Rising unemployment and further downward revisions would strengthen the growth-risk interpretation.\n\nRead the full brief: https://lnkd.in/gYqbxNHN\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nSource: BLS.",
+    "observed_link_resolutions": [
+      {
+        "displayed_url": "https://lnkd.in/gYqbxNHN",
+        "target_url": "https://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut",
+        "target_verified": true,
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7524157727577841664/"
+      }
+    ]
+  }
+}

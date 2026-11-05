@@ -1,0 +1,29 @@
+{
+  "at_utc": "2026-11-05T17:42:47.856486+00:00",
+  "cause": "Interrupted exact operation worker no longer exists after account switch; verified current process inventory before release",
+  "released_own_leases": [
+    {
+      "lease_id": "lease_4e429b91c5b9db7f",
+      "lease_key": "internal:native-editorial:newsroom",
+      "work_item_id": null,
+      "owner_ref": "native-newsroom-05b0a7a2a11946ed8d2a2eabe2129222",
+      "fencing_token": 1141,
+      "acquired_at": "2026-11-05T17:32:39.537386+00:00",
+      "renewed_at": "2026-11-05T17:32:39.537386+00:00",
+      "expires_at": "2026-11-05T17:47:39.537386+00:00",
+      "status": "ACTIVE"
+    },
+    {
+      "lease_id": "lease_8a78ff16d8f86e0b",
+      "lease_key": "internal:native-editorial:cc124-nfp-us500-preview-20261105-g",
+      "work_item_id": null,
+      "owner_ref": "native-desktop-d2445b624c3f4548becfd44d27d72b2a",
+      "fencing_token": 59,
+      "acquired_at": "2026-11-05T17:32:39.751952+00:00",
+      "renewed_at": "2026-11-05T17:32:39.751952+00:00",
+      "expires_at": "2026-11-05T17:47:39.751952+00:00",
+      "status": "ACTIVE"
+    }
+  ],
+  "other_leases_changed": false
+}

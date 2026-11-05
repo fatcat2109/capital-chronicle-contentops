@@ -1,0 +1,119 @@
+{
+  "recorded_at_utc": "2026-11-05T17:56:06.184310+00:00",
+  "operation_id": "cc124-nfp-us500-preview-20261105-g",
+  "article_identity": "e5793bfad26d0dda46844ae0c12c6efb9b7b85d13e03a8ca31b6ad6164a0ceea",
+  "canonical_url": "https://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut",
+  "published_at_utc": "2026-11-05T16:48:08.853Z",
+  "distinct_articles_published": 7,
+  "daily_target": 8,
+  "standing_item_status": "OPEN",
+  "implemented_pushed_integrated_head": "3c22664f8697c1541a6289e9c7c7a3171413a55f",
+  "live_consumer_state": "SAVED_RECORD",
+  "confirmed_routine_derivatives": 7,
+  "confirmed_additional_linkedin_company": 1,
+  "unknown_write_count": 0,
+  "pending_tool_requests": 0,
+  "destinations": [
+    {
+      "destination": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "223651009",
+      "public_object_url": "https://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut"
+    },
+    {
+      "destination": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "88",
+      "public_object_url": "https://t.me/CapitalChronicle/88"
+    },
+    {
+      "destination": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "1567948490607435938",
+      "public_object_url": null
+    },
+    {
+      "destination": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "2118390909213786336",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118390909213786336"
+    },
+    {
+      "destination": "linkedin",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    {
+      "destination": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "106091951705748_1445847037733712",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1445847037733712"
+    },
+    {
+      "destination": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "18483940786113086",
+      "public_object_url": "https://www.instagram.com/p/DfXiFvbAV3Z/"
+    },
+    {
+      "destination": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "18096525881669709",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfXiJ9LH0hr"
+    },
+    {
+      "destination": "youtube",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V",
+      "public_object_url": "https://www.youtube.com/post/UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V"
+    },
+    {
+      "destination": "linkedin_company",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "urn:li:ugcPost:7524157727577841664",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7524157727577841664/"
+    }
+  ],
+  "tests": {
+    "coordinator-regression.xml": {
+      "tests": 99,
+      "failures": 0,
+      "errors": 0
+    },
+    "indexed-store-tests.xml": {
+      "tests": 70,
+      "failures": 0,
+      "errors": 0
+    },
+    "scoped-recovery-tests.xml": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    "recovered-context-consumers.xml": {
+      "tests": 45,
+      "failures": 0,
+      "errors": 0
+    }
+  },
+  "limitations": [
+    "LinkedIn personal: two official API attempts raised LinkedInAmbiguousWriteError; authenticated own-activity readbacks confirmed absence after each. RECONCILED_ABSENT_SAFE_TO_RETRY.",
+    "LinkedIn-only dated Neo recovery prepared; screenshot capture returned CDP request timed out: Page.captureScreenshot. No recovery send or invented review acceptance.",
+    "15-minute distribution target missed; original text approval remains 2026-11-05T16:38:22.436512+00:00."
+  ],
+  "next_action": "Publisher resumes the retained LinkedIn-only Neo recovery after actual MAX review and fresh absence; never recreate the canonical article.",
+  "schedule_changed": false,
+  "chat_messages_sent": false,
+  "unrelated_wip_preserved": true
+}

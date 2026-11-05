@@ -1,0 +1,19 @@
+{
+  "index_application_seconds": 13.299,
+  "schema_version": 9,
+  "indexes": [
+    "idx_outbox_destination_order_read",
+    "idx_outbox_work_destination_read",
+    "sqlite_autoindex_outbox_messages_1"
+  ],
+  "exact_artifact_query_plan": [
+    {
+      "id": 4,
+      "parent": 0,
+      "notused": 61,
+      "detail": "SEARCH outbox_messages USING INDEX idx_outbox_work_destination_read (work_item_id=? AND destination=?)"
+    }
+  ],
+  "source_head": "3c22664f",
+  "canonical_rows_mutated": false
+}

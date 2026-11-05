@@ -1,0 +1,35 @@
+{
+  "tool_request_sha256": "81f5251d11fd2b474fab22b735b79be4361908280c5725f783287eeb243d7c69",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T17:28:17.794Z",
+    "observation_source": "Fresh exact Neo object/feed readback; public images decoded and compared with the approved source pixels. No public write."
+  },
+  "result": {
+    "request_sha256": "c517bcf0f3a447f893def84c1ddbdc444b7c60b6799b573fc736f4d10af78684",
+    "status": "SUCCESS",
+    "public_write_performed": false,
+    "observed_identity": "@CapitalChronicleYouTube",
+    "content_verified": true,
+    "public_image_urls": [
+      "https://yt3.ggpht.com/-kKPlp7OKeogAHI_-3qMLk_fENz7XRCC2zc2aI_tDZ7tMmS6BY7Q9Pmtsh_YakfvXZo1jUCwJKesCg=s640-rw-nd-v1"
+    ],
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+        "platform_sha256": "c7affab9131ea77236f20106299bfe1ffe031ab251e006b59edc3bfff48a7ce4",
+        "public_object_url": "https://www.youtube.com/post/UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V",
+        "public_image_url": "https://yt3.ggpht.com/-kKPlp7OKeogAHI_-3qMLk_fENz7XRCC2zc2aI_tDZ7tMmS6BY7Q9Pmtsh_YakfvXZo1jUCwJKesCg=s640-rw-nd-v1",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "similarity": 0.9952,
+        "inspection_method": "DECODED_PIXEL_SIMILARITY_TO_APPROVED_SOURCE"
+      }
+    ],
+    "public_object_id": "UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V",
+    "public_object_url": "https://www.youtube.com/post/UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V",
+    "observed_text": "Update: Jobs watch: weaker hiring can cut both ways for US stocks\n\nA weak jobs headline can ease rate pressure and weaken the earnings outlook at the same time. The S&P 500 needs both sides of that story.\n\nWhat to watch: A falling yield by itself will not distinguish relief about rates from worry about growth.\n\nRead the full brief: https://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nSource: BLS."
+  }
+}
