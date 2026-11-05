@@ -1,0 +1,12 @@
+{
+  "asset_id": "post-facts-c6d7a73bb1808cefa008",
+  "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\media_assets\\post-facts-c6d7a73bb1808cefa008.png",
+  "sha256": "240c8f6dc5ecea0d75af69517be776603ca3c9f69d0b15d13f120b91671fdec5",
+  "width": 1080,
+  "height": 1350,
+  "modality": "source_bound_data_card",
+  "attribution": "Source: Southwest Airlines Co.",
+  "transform_sha256": "c6d7a73bb1808cefa008347437db2752fde4e2a9c2eb59477ea0ab4fcd907dd2",
+  "fact_count": 3,
+  "source_canonical_sha256": "c1fee545fb19485fae172d1b23d108df621b346796be75ababf492ea46705128"
+}
