@@ -1,0 +1,42 @@
+[
+  {
+    "asset_id": "documentary_oil",
+    "source_url": "https://substackcdn.com/image/fetch/$s_!hceT!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa45d9266-7795-49ef-a105-f2bfbdf1fa3e_640x427.jpeg",
+    "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/a45d9266-7795-49ef-a105-f2bfbdf1fa3e_640x427.jpeg",
+    "public_sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+    "local_sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+    "bytes_match": true,
+    "visual_similarity": 1.0,
+    "public_alt_text_present": true
+  },
+  {
+    "asset_id": "ppi_september_component_rates",
+    "source_url": "https://substackcdn.com/image/fetch/$s_!iwiR!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e91d673-2edf-41e2-9858-a6635ae9728b_1440x1040.png",
+    "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/5e91d673-2edf-41e2-9858-a6635ae9728b_1440x1040.png",
+    "public_sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+    "local_sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+    "bytes_match": true,
+    "visual_similarity": 1.0,
+    "public_alt_text_present": true
+  },
+  {
+    "asset_id": "ppi_headline_core_24m",
+    "source_url": "https://substackcdn.com/image/fetch/$s_!3q7W!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F133c6fb7-b05c-40cd-b1b5-8d006971c2dc_1440x1040.png",
+    "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/133c6fb7-b05c-40cd-b1b5-8d006971c2dc_1440x1040.png",
+    "public_sha256": "8a7418f4ebadca2995bae77616a58f953216eb5aca6b50abe8eca1cda77d8c11",
+    "local_sha256": "8a7418f4ebadca2995bae77616a58f953216eb5aca6b50abe8eca1cda77d8c11",
+    "bytes_match": true,
+    "visual_similarity": 1.0,
+    "public_alt_text_present": true
+  },
+  {
+    "asset_id": "ppi_september_nested_rates",
+    "source_url": "https://substackcdn.com/image/fetch/$s_!AGLG!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7a338e55-b795-4161-a3f4-112d1e65eed8_1440x1456.png",
+    "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/7a338e55-b795-4161-a3f4-112d1e65eed8_1440x1456.png",
+    "public_sha256": "bb1cbcd0019bbd39258e98308cd87889744b964dceb2b7714b26de15ac55cdad",
+    "local_sha256": "bb1cbcd0019bbd39258e98308cd87889744b964dceb2b7714b26de15ac55cdad",
+    "bytes_match": true,
+    "visual_similarity": 1.0,
+    "public_alt_text_present": true
+  }
+]
