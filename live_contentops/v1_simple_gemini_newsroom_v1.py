@@ -2157,6 +2157,19 @@ def _native_preview_bundle(
     source_attribution = compiler_article.get("native_source_attribution") or {}
     if bound_publisher and source_attribution.get("publisher") == publisher:
         attribution_names.append(source_attribution["display_name"].casefold())
+    if (reader_first and (epistemic_state or {}).get("evidence_basis") == "PRIMARY_EVENT_EVIDENCE"
+            and (epistemic_state or {}).get("event_confirmation_state") == "CONFIRMED"
+            and (epistemic_state or {}).get("source_multiplicity") == "MULTI_SOURCE"):
+        # A comparison of official series may cite the relevant agency in each
+        # channel. The first document's order does not select every claim's author.
+        for source in article.get("public_source_bindings", []):
+            agency = str(source.get("publisher") or "").strip()
+            attributed = _reader_safe_native_article(article, article_mode=article_mode,
+                epistemic_state={**epistemic_state, "primary_reporting_publisher": agency},
+                legacy_presentation=article.get("reader_attribution_policy") != READER_ATTRIBUTION_POLICY)
+            alias = attributed.get("native_source_attribution") or {}
+            if alias.get("publisher") == agency:
+                attribution_names.extend((agency.casefold(), alias["display_name"].casefold()))
 
     def visible_text(payload):
         return "\n".join(str(value) for key, value in dict(payload).items()
