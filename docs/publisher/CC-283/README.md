@@ -46,5 +46,41 @@ This is the first piece published after part 2 went live: CC-124 run `docs/publi
   - Why the third reply was partial is NOT VERIFIED: the run's evidence does not say.
 - **LinkedIn personal** goes through the API, not Neo. It returned `LinkedInAmbiguousWriteError` at 00:29:07Z and on its one retry at 01:02:17Z. The readback at 01:17:05Z found it absent, so the run keeps DISTRIBUTION_INCOMPLETE.
 - **Every other destination** went out in the article's own run.
-- **Owners:** the X partial reply and the LinkedIn API ambiguity are Codex Publisher's.
-- **Second reading:** the Southwest piece (run-20261105-0832), still publishing at 02:46Z.
+- **Owners:** Ops Product gave the X partial reply to this lane (below). The LinkedIn API ambiguity is CC-296 (Codex Publisher).
+- **Second reading:** the Southwest piece (run-20261105-0832), below.
+
+## The X partial reply and the 14 min 40 s (5 Nov)
+
+- **What was posted (VERIFIED).** `x-four-post-readback.json` (01:09:13Z) shows the third reply as "Readers decide whether to trade.". It lost its first paragraph, up to the blank line: "Retrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice." The root and the second reply match the approved posts exactly. The fourth reply, the correction, carries the whole notice.
+- **Why (NOT VERIFIED).** The run keeps only the composed run's return: identity, stage and a page excerpt. The script the agent wrote is not retained. Nothing compared the composer with the approved posts before the click, so a box holding part of its post went out.
+  - The likely mechanisms are text entered before the newly added box was ready, or entered paragraph by paragraph.
+  - It is intermittent: Southwest's three-post thread went out whole by the same path.
+  - A no-post reproduction in the live X composer was not run. Unsent composer text can carry over to another X tab, and Codex Publisher publishes in that browser.
+- **The 14 min 40 s (inference from the record).** X was claimed at 00:35:16Z. No X step is recorded until the click at 00:49:55Z, and that run took 1 min 42 s from click to record. In between, the same agent finished the LinkedIn company confirmation: the media comparisons, the observation and the response, committed as a74b2bb8 at 00:49:33Z. That was 22 s before the X click.
+
+### Fix (native_neo_executor_v1, the composed run packet)
+
+- **`2_compose`:** enter each post in its own box, in order. For a thread, wait until each new box exists and has focus, then enter the post's whole text in one operation.
+- **`3_verify_before_click`:** this step carries the exact posts (`expected_posts`).
+  - Before the click, read every box back and compare it with its post (whitespace collapsed, links allowed to render shortened).
+  - Re-enter a differing box once.
+  - If a post still differs, return FAILED_BEFORE_WRITE, stage BEFORE_PUBLISH_CLICK, with no click. That is a definite no-write, so the claim is released.
+  - Return the texts read as `composed.pre_click_posts`, so the next failure is diagnosable.
+- **`after_run`:** submit the return at once and start the next destination. Extra checks of a destination already read back wait until every destination has gone out.
+- **`one_run`:** the run replaces the request's legacy `steps` list (no separate identity, snapshot or binding step).
+- **Tests:** `tests/test_native_neo_verify_before_click_cc283.py` (3). With the composed-run, Claude-surface, executor and handoff files, 91 pass.
+
+## Second reading: the Southwest piece, 5 Nov
+
+From CC-124 run `docs/publisher/CC-124/run-20261105-0832`, read from `live-consumer-acceptance.json` and `publication-final-summary.json`.
+
+| Destination | Claim | Click | Result |
+|---|---|---|---|
+| LinkedIn company | 02:21:31Z | by 02:26:16Z (the dispatch clock was not recorded; this is an upper bound from the return) | confirmed, link and image |
+| X | 02:32:29Z | 02:34:03Z | confirmed: all three posts, link and image, with no correction |
+| YouTube | 02:36:19Z | 02:40:47Z | confirmed |
+
+- **No correction or repair is recorded for any of the three.** Each has one claim and one click. X took 1 min 33 s from claim to click.
+- **Outside the composed path:**
+  - LinkedIn personal (API) is again absent (CC-296).
+  - Threads (API) reads `RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE`.

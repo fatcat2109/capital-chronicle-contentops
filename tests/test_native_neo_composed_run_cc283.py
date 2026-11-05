@@ -221,7 +221,7 @@ def test_only_a_marked_pre_click_failure_is_a_definite_no_write(tmp_path, monkey
     store, executor, coordinator, ids, value = composed_setup(tmp_path, monkeypatch)
     packet = pending_publish(coordinator, store, ids, value, executor)
     action = executor.begin(packet["request"]["request_sha256"])
-    assert "PUBLISH_CLICK_ATTEMPTED" in action["composed_run"]["2_publish"]
+    assert "PUBLISH_CLICK_ATTEMPTED" in action["composed_run"]["4_publish"]
     result = {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True, "public_write_performed": False}
     if stage:
         result["stage"] = stage
