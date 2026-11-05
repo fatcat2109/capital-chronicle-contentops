@@ -56,8 +56,25 @@ class NativeNeoInputRequired(Exception):
         super().__init__(PENDING)
 
 
+def _readback_absence_evidence(request, result):
+    if (request.get("public_object_id") or request.get("public_object_url")
+            or result.get("public_object_id") or result.get("public_object_url")
+            or result.get("target_post_absent") is not True
+            or result.get("authenticated") is not True or result.get("activity_feed_loaded") is not True
+            or result.get("observed_profile_url") != request.get("entry_url")):
+        return False
+    try:
+        observed = datetime.fromisoformat(result["native_tool_observation"]["observed_at_utc"].replace("Z", "+00:00"))
+        attempted = datetime.fromisoformat(request["latest_dispatch_attempt_at_utc"].replace("Z", "+00:00"))
+        return (observed - attempted).total_seconds() >= 600
+    except (KeyError, TypeError, ValueError):
+        return False
+
+
 def _pending_readback_media(request, result):
     """An observed image URL alone leaves the approved-byte comparison pending."""
+    if _readback_absence_evidence(request, result):
+        return False  # An absent object has no delivered image to compare.
     return (result.get("media_check_state") == "PENDING_BINARY_COMPARISON"
             or (bool((request.get("content_binding") or {}).get("media_manifest"))
                 and not result.get("observed_media_sha256") and not result.get("media_comparisons")))
@@ -512,10 +529,11 @@ class NativeNeoExecutor:
                 continue
             result = (self._get(prior["request_sha256"], "response") or {}).get("result") or {}
             observation = result.get("native_tool_observation") or {}
-            if (result.get("status") != "SUCCESS" or result.get("content_verified") is not True
+            absent = _readback_absence_evidence(prior, result)
+            if (result.get("status") != "SUCCESS" or (result.get("content_verified") is not True and not absent)
                     or _pending_readback_media(prior, result)
                     or result.get("observed_identity") != request.get("expected_identity")
-                    or not result.get("public_object_id") or not result.get("public_object_url")
+                    or (not absent and (not result.get("public_object_id") or not result.get("public_object_url")))
                     or (request.get("public_object_id") and result["public_object_id"] != request["public_object_id"])
                     or (request.get("public_object_url") and result["public_object_url"] != request["public_object_url"])
                     or observation.get("native_invocation_id") != self.native_invocation_id):

@@ -533,6 +533,35 @@ def test_successful_exact_readback_survives_bucket_change_by_observation_time(tm
     assert store.list_platform_dispatches() == []
 
 
+@pytest.mark.parametrize("elapsed,authenticated,reuse", [(1800, True, True), (599, True, False), (1800, False, False)])
+def test_loaded_absence_reuses_exact_attempt_across_clock_bucket(tmp_path, elapsed, authenticated, reuse):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.native_neo_executor_v1 import SCHEMA
+    store, executor = setup(tmp_path)
+    now = datetime.now(timezone.utc)
+    executor.clock = lambda: now
+    prior = {"action": "READBACK", "destination": "linkedin", "work_item_id": "work",
+        "expected_identity": "linkedin:jimcc", "entry_url": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
+        "public_object_id": None, "public_object_url": None, "native_invocation_id": "controlled-test",
+        "content_binding": {"media_manifest": [{"sha256": "a" * 64}]},
+        "latest_dispatch_attempt_at_utc": (now - timedelta(seconds=elapsed+60)).isoformat(),
+        "observation_epoch": int(now.timestamp()) // 600 - 1}
+    prior["request_sha256"] = sha256_of(prior)
+    executor._put(prior["request_sha256"], "request", {"schema_version": SCHEMA,
+        "operation_id": "same-op", "request": prior}, "work")
+    result = {"status": "SUCCESS", "target_post_absent": True, "authenticated": authenticated,
+        "activity_feed_loaded": True, "observed_profile_url": prior["entry_url"],
+        "observed_identity": "linkedin:jimcc", "content_verified": False,
+        "native_tool_observation": {"observed_at_utc": (now-timedelta(seconds=60)).isoformat(),
+            "native_invocation_id": "controlled-test"}}
+    executor._put(prior["request_sha256"], "response", {"result": result}, "work")
+    request = {**prior, "observation_epoch": int(now.timestamp()) // 600}
+    request.pop("request_sha256")
+    actual = executor.fresh_readback_request(request)
+    assert (actual == prior) is reuse
+    assert store.list_platform_dispatches() == []
+
+
 @pytest.mark.parametrize("marked_pending", [False, True])
 def test_pending_media_readback_accepts_completed_evidence_without_clock_wait(tmp_path, marked_pending):
     store, executor = setup(tmp_path)
