@@ -2,49 +2,59 @@
 
 - Final full run on a clean checkout (backlog/cc-268-suite-hygiene at b16979c8, rebased on live bd73f4ae; 4 Nov 23:38Z to 5 Nov 00:51Z; pytest basetemp and scratch on C:): 10,198 tests, 131 failed, 9 errors. `git status` was empty afterwards.
 - Clean baseline for comparison (live head 95c9e3c3, 4 Nov 21:04Z): 10,807 tests, 515 failed, 170 errors.
-- Every failing id of the final run was re-run at ca39e453 (rebased on live bda0d915, with the commits after b16979c8): 37 no longer exist (removed and listed in removed-tests.md), 5 pass, 4 skip with a named reason, and 94 still fail. All 94 are listed below with an owner.
+- Every failing id of the final run was re-run at ca39e453 (rebased on live bda0d915, with the commits after b16979c8): 37 no longer exist (removed and listed in removed-tests.md), 5 pass, 4 skip with a named reason, and 94 still fail. All 94 had an owner here; CC-288 closed them (section below).
 - None of the 94 is new: each failed on the clean baseline too, so none comes from CC-267, CC-248, CC-283 or CC-268.
 - A file-write probe ran through both runs: no test wrote outside its temp folder after the Run Now fix (before it, six operator-trigger tests wrote nine raw X captures into the live headline root).
 
-## Text-first and editorial-mode changes since 2 Nov (BACKLOG CC-288)
+## What is left (5 Nov, after CC-288)
 
-Owner: **Codex Publisher**. Align fixtures with text-first (a7bba1fd) and the current story kinds, or name a defect.
-
-| Test file | Failing | First error |
+| Test | Cause | Owner |
 |---|---|---|
-| `tests/test_generic_evidence_freshness_visual_editorial_fabric_v2.py` | 8 | AssertionError: assert 'story_type_a..._mode_profile' == 'caller' |
-| `tests/test_growth_first_editorial_wake_canonical_first_v1.py` | 4 | assert 0 == 1 |
-| `tests/test_native_manual_candidate_v1.py` | 34 | AssertionError: assert 'write' == 'media-plan' |
-| `tests/test_native_photoless_briefs_v1.py` | 1 | Failed: DID NOT RAISE <class 'ValueError'> |
-| `tests/test_native_pre_writer_outcomes_v1.py` | 1 | ValueError: ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED |
-| `tests/test_nonnumeric_story_authority_consumer_v1.py` | 1 | ValueError: canonical_editorial_capability_unresolved:unsupported_story_type |
+| `tests/test_tiktok_local_desktop_oauth_pkce_v1.py::test_local_fake_e2e_and_refresh_leak_nothing_or_persist_anything` | OAUTH_CALLBACK_TIMEOUT. Another process (PID 29928, seen with netstat at about 06:40Z) listens on 127.0.0.1:8765, the module's fixed callback port, so the fake callback never reaches the test's listener. Fails the same way at 70c2a2a4, so not CC-297's. Not a code defect on a free port. | **Ops Product**: identify the 8765 listener; the test passes on a host where the port is free |
+| `tests/test_contentops_editorial_desk_v1.py::test_review_api_origin_exact_revision_and_daily_app_readback` | ConnectionAbortedError (WinError 10053) on its 127.0.0.1 test server during the 86-minute full run; passes alone on this branch and on 70c2a2a4. | **Codex Publisher**: flaky under load; give the local server call a retry or a longer timeout |
+| `tests/test_daily_app_operator_trigger_v1.py::test_historical_run_pipeline_remains_quarantined` | Same WinError 10053 on its 127.0.0.1 server in one focused run; passed in the full run and the rerun. | **Codex Publisher**: same flake |
 
-## Publication lifecycle and recovery behaviour (BACKLOG CC-288)
+Fixed on this branch after the full run (test-only unless noted):
+- `tests/test_discord_live_adapter_v6.py` (3 cases, also failing at 70c2a2a4): decision 61 (49b238d0) sends every Discord post with its selected, hash-verified image; the photo-optional case became a DEFINITE_NO_WRITE case.
+- `tests/test_substack_draft_inventory_v1.py` (2 cases, also failing at 70c2a2a4): the fixture intent now carries `plan_hash`, which the absence clock reads since 525156ac.
+- `tests/test_daily_app_operator_trigger_v1.py::test_autonomous_default_operator_cycle_keeps_canonical_gate_flag_only`: passed at 70c2a2a4 and failed here because of this branch's routing fix. The supervisor's prepared-candidate refresh reads the live headline sidecars; at 70c2a2a4 it raised KeyError on a routed data-release headline and wrote no checkpoint, so the cycle got no `prepared_candidate_state`. Now it does, and the test allows that kwarg.
 
-Owner: **Codex Publisher**. Each is a changed expectation or a defect; decide per test (CC-179 and CC-247 changed readback and recovery).
+CC-297 follow-up (Ops Product, 5 Nov): every file in `C:\CapitalChronicleScratch\pytest-cc297\order_all.txt` ran inside the full run above at 7856953b. The only failures among them were the Discord, Substack draft inventory and TikTok files; all three fail the same way at 70c2a2a4 (run one file at a time, 4 GB free), so none comes from CC-297's secret reader.
 
-| Test file | Failing | First error |
+## CC-288 result (Claude Builder, 5 Nov)
+
+All 94 ids this file listed at 8074a821 now pass, or were removed with the reason written beside them in the test file. Branch `backlog/cc-288-outdated-tests`, live tag `contentops-live-20261105-cc288-outdated-tests`.
+
+- Before (focused runs on a C: worktree at live 44af672b, 5 Nov 04:09-04:33Z): 94 failing (49 text-first and editorial-mode, 43 lifecycle and recovery, 2 native desk). The two Instagram pipeline cases already passed there: Codex Publisher's 44af672b gave their fixtures the selected, hash-verified image that `require_publication_image` checks (decision 61).
+- After (focused runs, one file at a time, 04:09-04:48Z): 0 of them fail.
+- Full run on the rebased branch: 10,267 tests at c95c838f (this branch rebased on live 7856953b), 5 Nov 04:49-06:15Z, one process, basetemp on C:: 10,191 passed, 8 failed, 68 skipped. None of the 8 is a CC-288 id. Six were then fixed on this branch; the other two, and one flake seen in a later focused run, are under "What is left".
+
+Live code changed only for two defects the tests exposed, each with its own test (`tests/test_evidence_gate_calibration_v1.py`):
+- `classify_rolling_x_story_types_deterministically` raised KeyError for three routable locator surfaces that had no story profile (`bea_current_releases_v1`, `imf_press_release_feed_v1`, `company_investor_relations_release_feed_v1`). A GDP/PCE, IMF or Nvidia-results headline in the 24 h window failed the supervisor's whole prepared-candidate refresh. Shown by `test_v1_throughput_architecture_v1::test_zero_write_prepared_candidate_to_canonical_plan_smoke`.
+- `_rebind_story_scoped_receipt` kept a deep dive's `capital_chronicle_authority_not_verified` on lower modes that need no authority, so a deep dive could never downgrade (since 3c5aea4c, 21 Aug). Shown by `test_evidence_gate_calibration_v1::test_e_deep_dive_downgrades_to_standard_when_cc_authority_is_unavailable`.
+
+| Test file | Ids | What was done |
 |---|---|---|
-| `tests/test_core_v0_acceptance_harness_v1.py` | 1 | assert 9 == 4 |
-| `tests/test_core_v0_repeated_shadow_soak_and_recovery_v1.py` | 1 | assert 9 == 4 |
-| `tests/test_daily_app_publication_lifecycle_v1.py` | 19 | assert False is True |
-| `tests/test_dated_distribution_recovery_v1.py` | 2 | AssertionError: assert 'DERIVATIVE_E...TALE_NO_WRITE' == 'CORRECTION_B...IVATIVE_STALE' |
-| `tests/test_evidence_gate_calibration_v1.py` | 3 | AssertionError: assert 'NO_PUBLICATION' == 'SUCCESS' |
-| `tests/test_executable_snapshot_requirement_separation_v1.py` | 1 | assert False is True |
-| `tests/test_native_configured_provenance_v1.py` | 1 | Failed: DID NOT RAISE <class 'ValueError'> |
-| `tests/test_native_live_source_recovery_v1.py` | 1 | KeyError: 'stage' |
-| `tests/test_native_newsroom_publication_recovery_v1.py` | 5 | ValueError: EXACT_FAILED_SOURCE_ATTEMPTS_REQUIRED |
-| `tests/test_public_object_identity_persistence_v1.py` | 7 | assert False is True |
-| `tests/test_story_scoped_permission_and_operator_ready_package_v1.py` | 1 | assert False is True |
-| `tests/test_v1_throughput_architecture_v1.py` | 1 | KeyError: 'company_investor_relations_release_feed_v1' |
+| `tests/test_generic_evidence_freshness_visual_editorial_fabric_v2.py` | 8 | Updated to the Aug registry: default straight_news, mode profiles, adapter families; straight news needs no market snapshot. The no-mode and mismatch rules are still tested on a registry copy and an unsupported mode. |
+| `tests/test_growth_first_editorial_wake_canonical_first_v1.py` | 4 | Quiet-day explainer now falls back to BREAKING_BRIEF with the fallback recorded (330f1978). Material wake: the supervisor stages it idempotently and runs no cycle itself (the routine owner is the native desk). 2 removed: FDA-G scheduled-window dispatch, unreachable under the live owner NATIVE_CODEX_DESKTOP. |
+| `tests/test_native_manual_candidate_v1.py` | 34 | Fixture uses a long-form mode, which still takes media-plan then visual-edit (a brief is text-first, time-sensitive modes skip the visual edit); the source cap is read from the bound volume policy (20). |
+| `tests/test_native_photoless_briefs_v1.py` | 1 | Decision 39 removed the photo minimum; analysis keeps its official-history charts (decision 41). |
+| `tests/test_native_pre_writer_outcomes_v1.py` | 1 | Error code is now ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED. |
+| `tests/test_nonnumeric_story_authority_consumer_v1.py` | 1 | Removed: the canonical-shadow route for this family has had no registry story type since fa829e72 (1 Aug) and no live caller. |
+| `tests/test_core_v0_acceptance_harness_v1.py`, `tests/test_core_v0_repeated_shadow_soak_and_recovery_v1.py` | 2 | Schema version asserted as the store's SCHEMA_VERSION (9). |
+| `tests/test_daily_app_publication_lifecycle_v1.py` | 19 | Removed: they drove the supervisor's own window publication, which the live runtime never reaches (owner NATIVE_CODEX_DESKTOP, publication through DurablePublicationCoordinator). The same rules are tested in `tests/test_publication_coordinator_v1.py`. |
+| `tests/test_public_object_identity_persistence_v1.py` | 7 | Removed for the same reason; the store-level identity tests stay. |
+| `tests/test_dated_distribution_recovery_v1.py` | 2 | An expired stale derivative keeps DERIVATIVE_EXPIRED_STALE_NO_WRITE under an ordinary correction, with no write. |
+| `tests/test_evidence_gate_calibration_v1.py` | 3 | Deep-dive downgrade passes after the defect fix; diagnostics carry the status code; a second pass skips recently failed routes; an X-only story stops before any claim contract. |
+| `tests/test_executable_snapshot_requirement_separation_v1.py` | 1 | Asserts the live registry; parity with the frozen 1 Aug V5 receipt removed (historical record, no live consumer). |
+| `tests/test_native_configured_provenance_v1.py` | 1 | CC-186 (4883791e) dropped the fixed authority label; positive test added. |
+| `tests/test_native_live_source_recovery_v1.py` | 1 | Fixture uses a long-form mode, which keeps the visual-edit path. |
+| `tests/test_native_newsroom_publication_recovery_v1.py` | 5 | 4 pass through the shared fixture; the 2 Nov replay uses the Substack-first fixture (as `test_native_text_first_v1`) and the decision 61 destination set. |
+| `tests/test_story_scoped_permission_and_operator_ready_package_v1.py` | 1 | Rebuilt outcomes: straight news needs no market snapshot. |
+| `tests/test_v1_throughput_architecture_v1.py` | 1 | Passes after the defect fix. |
+| `tests/test_native_desktop_workspace_v1.py` | 2 | Frozen input carries `rolling_input`; the pending request is a real file, as `operation()` re-reads it. |
 
-## Native desk manual resume (new; not yet in CC-288)
-
-Owner: **Codex Publisher**. `scripts/run_native_desktop_editorial.py:470` reads `frozen_input["rolling_input"]`; the test's frozen input predates that key. Update the fixture, or use `.get` if a frozen input may lack it.
-
-| Test file | Failing | First error |
-|---|---|---|
-| `tests/test_native_desktop_workspace_v1.py` | 2 | KeyError: 'rolling_input' |
+Open question for Ops Product (not changed here): since 330f1978, preselection can never resolve EVERGREEN_EXPLAINER or WEEK_AHEAD_OR_WATCH for a general public event, because that story type offers only straight_news and analysis; it falls back to BREAKING_BRIEF. If quiet-day explainers should exist, the registry needs those profiles.
 
 ## Skipped in a clean checkout, with the reason
 
