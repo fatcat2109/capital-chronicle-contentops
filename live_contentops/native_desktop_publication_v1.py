@@ -339,7 +339,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
         )
     pending = []
     for r in rows:
-        if r["destination"] != "internal:native-neo-tool":
+        if r["destination"] != "internal:native-neo-tool" or r.get("status") == "NATIVE_NEO_SUPERSEDED":
             continue
         p = json.loads(r["payload"])
         if (
