@@ -122,6 +122,12 @@ def _plain(text):
     return " ".join(str(text or "").replace("\n", " ").split())
 
 
+def substack_subtitle(text):
+    """The native editor accepts 200 characters; full titles stay in the body."""
+    text = _plain(text)
+    return text if len(text) <= 200 else text[:197].rsplit(" ", 1)[0] + "..."
+
+
 def _utc_text(value):
     return utc(str(value).replace("Z", "+00:00")).isoformat()
 
@@ -244,7 +250,7 @@ def prepare_daily_digest(store, feed_path, *, now=None):
         if not articles:
             return {"digest_id": digest_id, "state": "NO_CONFIRMED_ARTICLES", "public_write_performed": False}
         titles = "; ".join(a["title"] for a in articles)
-        subtitle = titles if len(titles) <= 240 else titles[:237].rsplit(" ", 1)[0] + "..."
+        subtitle = substack_subtitle(titles)
         entries = [f'**[{_link_title(a["title"])}]({a["url"]})**' + (f'\n\n{a["standfirst"]}' if a["standfirst"] else "")
                    for a in articles]
         payload = {"title": "Capital Chronicle daily digest — " + day_label(day),

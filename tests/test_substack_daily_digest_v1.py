@@ -92,6 +92,52 @@ def test_1900_cutoff_and_late_articles(tmp_path):
     assert [a["content_id"] for a in second["articles"]] == ["later"]
 
 
+@pytest.mark.parametrize("defect", [None, "subtitle", "summary", "link"])
+def test_frozen_long_subtitle_and_inline_card_reach_digest_consumer(tmp_path, monkeypatch, defect):
+    import live_contentops.substack_daily_digest_v1 as digest
+    article = row()
+    article["title"] = "An already published article with a long title " * 5
+    article["content_sha256"] = sha256(canonical({k:v for k,v in article.items() if k != "content_sha256"})).hexdigest()
+    store, feed = setup(tmp_path, [article])
+    render_subtitle = digest.substack_subtitle
+    # Reproduce the 4 November packet issued before the editor limit was known.
+    monkeypatch.setattr(digest, "substack_subtitle", lambda text: text)
+    packet = prepared(store, feed)["packet"]
+    frozen = store.get_outbox_message("substack-digest-" + packet["digest_id"])["payload"]
+    monkeypatch.setattr(digest, "substack_subtitle", render_subtitle)
+    assert len(packet["native_payload"]["subtitle"]) > 200
+    assert len(render_subtitle(packet["native_payload"]["subtitle"])) <= 200
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    coordinator.register_plan(packet["digest_id"], packet["plan"])
+    message = next(r for r in store.list_outbox_messages() if r["destination"] == "substack")
+    intent = json.loads(message["payload"])
+    title = packet["articles"][0]["title"]
+    subtitle = render_subtitle(packet["native_payload"]["subtitle"])
+    caption = packet["media_assets"][0]["caption"]
+    summary = packet["articles"][0]["standfirst"]
+    class Observation:
+        def __init__(self):
+            self.store = store
+        def __call__(self, request):
+            return {"request_sha256":request["request_sha256"], "observed_identity":"capitalchronicle.substack.com",
+                "public_object_id":"123", "public_object_url":"https://capitalchronicle.substack.com/p/digest",
+                "content_verified":True, "observed_text":" ".join([packet["native_payload"]["title"],
+                    "Wrong subtitle" if defect == "subtitle" else subtitle, title, caption,
+                    "Wrong summary" if defect == "summary" else summary, PUBLIC_NOTICE]),
+                "observed_links":[{"text":title, "url":"https://capitalchronicle.substack.com/p/wrong"
+                    if defect == "link" else packet["articles"][0]["url"]}],
+                "observed_media_sha256":[a["sha256"] for a in packet["media_assets"]]}
+    result = NeoDestinationHandoff(native_executor=Observation()).readback(destination="substack", intent=intent,
+        public_object_id="123", public_object_url="https://capitalchronicle.substack.com/p/digest")
+    assert result["verified"] is (defect is None)
+    assert store.get_outbox_message("substack-digest-" + packet["digest_id"])["payload"] == frozen
+    # New packets fit the field and retain each complete body title.
+    fresh_store, fresh_feed = setup(tmp_path / "new", [article])
+    fresh = prepared(fresh_store, fresh_feed)["packet"]
+    assert len(fresh["native_payload"]["subtitle"]) <= 200
+    assert title in fresh["native_payload"]["body_markdown"]
+
+
 def test_restart_and_missing_code_reuse_exact_unsent_digest(tmp_path):
     store, feed = setup(tmp_path, [row()])
     first = prepared(store, feed)["packet"]

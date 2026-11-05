@@ -381,7 +381,7 @@ class NeoDestinationHandoff:
         segments = binding["expected_text_segments"]
         observed_text = _text(result.get("observed_text"))
         comparison_text = observed_text
-        if destination == "substack" and intent.get("reader_presentation_review"):
+        if destination == "substack" and (intent.get("reader_presentation_review") or intent.get("daily_digest")):
             # The accepted body remains contiguous after removing only its exact
             # reviewed figure captions, which the renderer inserts between blocks.
             for asset in binding["media_manifest"]:
@@ -408,7 +408,13 @@ class NeoDestinationHandoff:
         if destination == "substack" and intent.get("daily_digest"):
             # A native editor may render this structured link index as paragraphs
             # or a list. Markdown list punctuation adds no reader-facing fact.
-            digest_segments = [re.sub(r"(?m)^-\s+(?=\[)", "", s) for s in segments]
+            from live_contentops.substack_daily_digest_v1 import substack_subtitle
+            # Already-issued digests can carry a subtitle longer than the native
+            # editor's 200-character field. Render its bounded presentation while
+            # preserving the frozen packet and every full body title/summary/link.
+            subtitle = (intent.get("native_payload") or {}).get("subtitle")
+            digest_segments = [re.sub(r"(?m)^-\s+(?=\[)", "",
+                substack_subtitle(s) if s == subtitle else s) for s in segments]
             text_match = bool(segments) and all(_text(s) in comparison_text for s in digest_segments)
             from live_contentops.substack_daily_digest_v1 import validate_digest_intent
             packet = validate_digest_intent(self.native_executor.store, intent)
