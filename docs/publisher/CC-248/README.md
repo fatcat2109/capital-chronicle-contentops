@@ -68,3 +68,21 @@ Each launch opened the log with a plain write handle, so a child wrote from the 
 - the hook's own launch.
 
 The first two fail on the old handle, and the first reproduces the 5 Nov log. With the hook tests, 17 pass.
+
+## Rebind to CC-295 (5 Nov)
+
+Codex Web's CC-295 (`backlog/cc-295-article-admission`, 142907e620) changes the reader and the worker:
+
+- the reader takes undated sources, nested chart sources and hosted data cards;
+- the worker drops the per-release and daily waits, and keeps the 6, 10 and 13 Nov 18:30-22:30 GMT+7 windows and a check for 4 GB of free RAM.
+
+The worker is hash-pinned, so the binding moves with it:
+
+- **The consumer root:** `Worktrees/codex-web-cc254-clean`, which only this hook uses, moves from 7f605a49 to 142907e6, an exact descendant.
+  - `ui/package.json` and the lockfile are unchanged, so its own `ui/node_modules` serves the new code.
+- **`consumer_module_sha256`:** 1193e2a3... becomes f73feffd... It matches the worker bytes on disk and Codex Web's `tests/evidence/cc-295/worker-sha256.txt`.
+- **Reviewed before the rebind:**
+  - the worker diff adds no network, process, delete or write path, and the publish path is unchanged;
+  - the reader diff keeps the photo rights checks;
+  - it admits a data card only under the hosting step's `attributed_facts_independent_chart` condition.
+- **Rollback:** check out 7f605a49 in the consumer root and restore 1193e2a3.
