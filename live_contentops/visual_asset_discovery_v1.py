@@ -180,6 +180,16 @@ def _contextual_license_url(receipt, provider, meta):
     wikitext = provider["page"].get("license_wikitext", "")
     templates = ("{{PD-USGov}}", "{{PD-USGov-USDA}}")
     aoc = "{{PD-USGov-Congress-AOC}}" in wikitext
+    federal_reserve = "{{PD-USGov-Federal Reserve}}" in wikitext
+    federal_reserve_terms = ("public domain", "board of governors of the federal reserve system",
+        "does not apply to any other entity within the federal reserve system",
+        "including the regional federal reserve banks")
+    if federal_reserve:
+        policy_url = "https://commons.wikimedia.org/wiki/Template:PD-USGov-Federal_Reserve"
+        terms = " ".join(str(receipt.get("license_text") or "").split()).lower()
+        if (receipt.get("creator_publisher") != "Federalreserve"
+                or not all(term in terms for term in federal_reserve_terms)):
+            raise ValueError("PHOTO_FEDERAL_RESERVE_BOARD_WORK_REQUIRED")
     if aoc:
         # An exact federal-work subtype, not a generic free-image fallback.
         # The retained source identifies the agency, official duties and terms.
@@ -191,7 +201,7 @@ def _contextual_license_url(receipt, provider, meta):
     if (meta.get("License", {}).get("value") != "pd"
             or meta.get("LicenseShortName", {}).get("value") != "Public domain"
             or meta.get("Copyrighted", {}).get("value") != "False"
-            or not (aoc or any(template in wikitext for template in templates))
+            or not (aoc or federal_reserve or any(template in wikitext for template in templates))
             or basis.get("policy_url") != policy_url):
         raise ValueError("PHOTO_PUBLIC_DOMAIN_BASIS_REQUIRED")
     raw = Path(basis["policy_capture_path"]).read_bytes()
@@ -200,8 +210,8 @@ def _contextual_license_url(receipt, provider, meta):
     if (hashlib.sha256(raw).hexdigest() != basis.get("policy_capture_sha256")
             or policy.get("status") != "PASS" or policy.get("final_url") != policy_url
             or policy.get("retrieval_method") != "READ_ONLY_BROWSEROS_NEO_PUBLIC_LICENSE"
-            or not all(s in text for s in ("public domain", "united states federal government",
-                                          "official duties", "section 105"))
+            or not all(s in text for s in (federal_reserve_terms if federal_reserve else
+                ("public domain", "united states federal government", "official duties", "section 105")))
             or policy.get("credential_or_session_material_read") is not False
             or policy.get("public_write_performed") is not False):
         raise ValueError("PHOTO_PUBLIC_DOMAIN_POLICY_NOT_VERIFIED")

@@ -1,0 +1,120 @@
+{
+  "calculation_owner": "Python Decimal; precision 40 for ratios; no floating-point arithmetic",
+  "fed_release_date": "2026-11-02",
+  "fx_observation_window": [
+    "2026-10-26",
+    "2026-10-30"
+  ],
+  "aligned_observations": [
+    {
+      "date": "2026-10-26",
+      "eurusd_usd_per_eur": "1.1178",
+      "usdjpy_jpy_per_usd": "157.5800",
+      "usdeur_eur_per_usd": "0.8946144211844694936482376095902665950975",
+      "jpyusd_usd_per_jpy": "0.006345982992765579388247239497398146972966",
+      "us10y_par_yield_percent": "5.00"
+    },
+    {
+      "date": "2026-10-27",
+      "eurusd_usd_per_eur": "1.1144",
+      "usdjpy_jpy_per_usd": "157.8600",
+      "usdeur_eur_per_usd": "0.8973438621679827709978463747307968413496",
+      "jpyusd_usd_per_jpy": "0.006334726973267452172811351830736095274294",
+      "us10y_par_yield_percent": "4.99"
+    },
+    {
+      "date": "2026-10-28",
+      "eurusd_usd_per_eur": "1.1140",
+      "usdjpy_jpy_per_usd": "158.2400",
+      "usdeur_eur_per_usd": "0.8976660682226211849192100538599640933573",
+      "jpyusd_usd_per_jpy": "0.006319514661274014155712841253791708796764",
+      "us10y_par_yield_percent": "5.05"
+    },
+    {
+      "date": "2026-10-29",
+      "eurusd_usd_per_eur": "1.1165",
+      "usdjpy_jpy_per_usd": "157.8300",
+      "usdeur_eur_per_usd": "0.8956560680698611733094491715181370353784",
+      "jpyusd_usd_per_jpy": "0.006335931065070012038269023633022872711145",
+      "us10y_par_yield_percent": "4.98"
+    },
+    {
+      "date": "2026-10-30",
+      "eurusd_usd_per_eur": "1.1163",
+      "usdjpy_jpy_per_usd": "157.4700",
+      "usdeur_eur_per_usd": "0.8958165367732688345426856579772462599660",
+      "jpyusd_usd_per_jpy": "0.006350415952244872039118562265828411760970",
+      "us10y_par_yield_percent": "4.94"
+    }
+  ],
+  "window_changes": {
+    "eurusd": {
+      "first": "1.1178",
+      "last": "1.1163",
+      "absolute_change": "-0.0015",
+      "percent_change": "-0.1341921631776704240472356414385399892600"
+    },
+    "usdjpy": {
+      "first": "157.5800",
+      "last": "157.4700",
+      "absolute_change": "-0.1100",
+      "percent_change": "-0.0698058129204213732707196344713796167000"
+    },
+    "usdeur": {
+      "first": "0.8946144211844694936482376095902665950975",
+      "last": "0.8958165367732688345426856579772462599660",
+      "absolute_change": "0.0012021155887993408944480483869796648685",
+      "percent_change": "0.134372480515990325181402848696586939000"
+    },
+    "jpyusd": {
+      "first": "0.006345982992765579388247239497398146972966",
+      "last": "0.006350415952244872039118562265828411760970",
+      "absolute_change": "0.000004432959479292650871322768430264788004",
+      "percent_change": "0.069854575474693592430304184924112529400"
+    }
+  },
+  "matched_us10y_change_basis_points": "-6.00",
+  "later_treasury_observation": {
+    "date": "2026-11-04",
+    "yield_percent": "4.90",
+    "matched_fx_observation": null
+  },
+  "jobs_calendar": {
+    "release_date": "2026-11-06",
+    "reference_month": "October 2026",
+    "source_time": "08:30 AM Eastern Time",
+    "date_correct_utc": "2026-11-06T13:30:00Z",
+    "reader_gmt_plus_7": "2026-11-06T20:30:00+07:00",
+    "result": null
+  },
+  "caveats": [
+    "FX reference rates end October 30, not November 5 live spot.",
+    "Daily series are date-aligned, not synchronized intraday observations; no causal or correlation estimate.",
+    "Treasury latest November 4 is displayed separately; no FX observation is imputed for that date.",
+    "No payroll forecast, consensus or jobs result is supplied.",
+    "H.10 captured after frozen cutoff; release and all admitted observations precede it; retrieval is not backdated.",
+    "Inverse rates are calculated reciprocals, not separately observed quotes."
+  ],
+  "source_hashes": {
+    "bls-admission.json": "92923e9a7e4a5e21743265856be0bda89d84267afc4c1281b94fb12249550bc7",
+    "bls-calendar-visible.txt": "c5a1aa737489fe81d666b82bf3b88857b28f973d2ddd3c6b8d0875ed8b3ae5c1",
+    "bls-calendar.json": "783514989aa9291352003339680a5580e1c1259ef740b67815fc3d1d14d00125",
+    "bls-policy.json": "07e57e3372791ba042aa02b5c5abf60da3241ea67c0dddacbe88a501062ac465",
+    "facts-policy.json": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+    "fed-h10-admission.json": "123ae8f7036157a7c470538f3a24cec1517400567d5e19b9dce49607c00a02a3",
+    "fed-h10-original-read.md": "7c5a4be2332bdac5b4f46d058c741ec4ca4d30cec603bcadb6d00674f7e6c546",
+    "fed-h10-rendered.json": "11b239436817520f9ff2e061ce2bb77651233653720d3cbf43c44c2f9cb6ee33",
+    "fed-policy.json": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+    "index.json": "62767bc00117d45bdbb8460f665a3d442275bfd570b3c7c6a823c31ccfbe0355",
+    "nominal-admission.json": "cba29e0c9f62f33eaa99f621fc8b470664a56df2251da654e0223549ea180539",
+    "nominal-facts.json": "196a98f5a4536da627ac64ff92efa755da5a2cdabf32a459055515050d80d91b",
+    "nominal-original.json": "3393151ad09a66849140d44a5cd107f3bca6920de36531def868296bec8bcebc",
+    "nominal.csv": "653c51f4ab54bc97634b53793ad5f362e7822c96f9535752cc3bc5c9d0cc05cc"
+  },
+  "verified_record_ids": [
+    "cc124-treasury-nominal-20261104",
+    "cc124-bls-november-calendar",
+    "cc124-fed-h10-20261102-fx"
+  ],
+  "verification_gaps": []
+}
