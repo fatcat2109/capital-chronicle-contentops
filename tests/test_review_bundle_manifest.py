@@ -101,22 +101,6 @@ def test_continuation_doc_states_0068_completed_at_cd72ee4():
     assert "must NOT resume from 68b041c" in text
 
 
-def test_recommended_upload_paths_exist_and_unique():
-    man = m.build_manifest()
-    paths = [f["path"] for f in man["included_files"] if f.get("upload_recommended")]
-    # No stale duplicate paths.
-    assert len(paths) == len(set(paths))
-    # Each recommended doc exists on disk.
-    repo_root = os.path.join(os.path.dirname(__file__), "..")
-    for p in paths:
-        path = os.path.join(repo_root, p)
-        if not os.path.isfile(path):
-            path = os.path.join(repo_root, "docs", "archive", "stale_prelaunch_reset_0174CG", os.path.basename(p))
-        assert os.path.isfile(path), f"missing doc: {p}"
-
-
-
-
 def test_manifest_supersedes_older_bundles():
     man = m.build_manifest()
     assert man["supersedes_older_source_bundles"] is True

@@ -1,0 +1,13 @@
+{
+  "schema": "contentops.preview_desk_analysis_context.v1",
+  "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b685c54776119d2a\\primary-native.json",
+  "source_sha256": "f737590d093155bfb1b6e0a3c44a2f3ae061cd1c5fb84a5b6c92d7b45e953e9a",
+  "source_field": "market_interpretation.major_uncertainty",
+  "exact_qualitative_span": "Will the USD-down/risk-on leg persist through Thursday, or fade into NFP on Friday 6 Nov 13:30Z (Ops event calendar)?",
+  "analysis_cutoff_utc": "2026-11-04T16:55:23Z",
+  "completion_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b685c54776119d2a\\completion-result.json",
+  "completion_sha256": "e10a7245fd4d629220b25b651f99995d345316c891a52fd328ae2c0c142f5669",
+  "use": "The prior desk analysis identified persistence of the dollar/risk impulse into the jobs report as its unresolved question. Use that uncertainty to frame conditional transmission; do not treat an intraday model interpretation as official event evidence or evidence of future prices.",
+  "raw_account_execution_or_trade_fields_exported": false,
+  "source_analytical_status": "Main dated analysis, 4 November; future release unknown"
+}

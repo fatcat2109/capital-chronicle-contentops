@@ -1,0 +1,8 @@
+{
+  "pid": 27212,
+  "parent": 44748,
+  "start_utc": "2026-11-04T21:33:58.2534740Z",
+  "reason": "Exact CPI native amendment already accepted; task-owned helper spending remaining time rebuilding whole-day publication aggregate",
+  "accepted_request_sha256": "91194892b0e61d059e905c6ec5d454b16a8c20410894eddd09c5175262c38185",
+  "action": "Stop own post-result aggregate helper; continue next exact stage"
+}

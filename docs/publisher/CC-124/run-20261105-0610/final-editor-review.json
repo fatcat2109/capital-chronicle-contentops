@@ -1,0 +1,435 @@
+{
+  "schema_version": "contentops.native_final_editor_review.v1",
+  "run_id": "cc124-next-article-20261105-a",
+  "article_identity": "eddc51c72ad48e2c71becf2b131e31bd05e8fb252a1e021857cc1056ba1cfd1f",
+  "article_record_sha256": "f1975b49eea2786c81574b0df9bf5bcd61591c531bcd742a0f1729955de5ff8c",
+  "decision": "PASS",
+  "recommended_owner_decision": "KEEP",
+  "reviewed_at_utc": "2026-11-05T00:07:49.977115Z",
+  "reviewer_invocation_id": "/root/ppi_max_writer",
+  "same_visual_editor_and_writer": true,
+  "review_kind": "ONE_PRE_APPROVAL_EDITORIAL_AND_RENDERED_CHECK",
+  "review_complete": true,
+  "store_keep_recorded": false,
+  "text_approval_clock_recorded": false,
+  "public_write_performed": false,
+  "artifacts": {
+    "html": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\preview.html",
+      "sha256": "93120125c7bc9d3a3cb3ff41d459957dfd1912ea1cea0c91c7482f163c3bda95"
+    },
+    "write_response": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\desktop_response_write.json",
+      "sha256": "e99b4a288560de1f791911794772c8aec7d4ace4f4f1227740130cca86d39106",
+      "request_sha256": "f71c9f0f2933e61afce3a86fdc3830dc569a2954f216a230bae366954d7236ff"
+    },
+    "qualified_article_record": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\qualified_article_record_v1.json",
+      "sha256": "6e925a86f0a54f8a67063ea72c132ba4bda8ebc63483e72decce7eee0664e157"
+    },
+    "native_derivative_previews": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\native_derivative_previews_v1.json",
+      "sha256": "d90db7920d3bedca8d2ad37f194449121537b1d113095898a5a7dd02b583585b",
+      "package_count": 8,
+      "compiler_input_sha256": "97d73a0fa44063ed153dfc6a267d7263a2de0a3ee474f897a5ea3d3673e251d4",
+      "final_validated_article_public_copy_sha256": "068942277955ede4cce6db9d560d208e05b5a2531b2ff08587bb46723110493d"
+    },
+    "reviewed_media_manifest": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\rendered-assets-reviewed.json",
+      "sha256": "794041317ef7df0e1c00c33a6fbc769a143f733bc00332af70e4ca28fec7088b"
+    },
+    "media": [
+      {
+        "asset_id": "ppi_headline_core_24m",
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_headline_core_24m.png",
+        "sha256": "8a7418f4ebadca2995bae77616a58f953216eb5aca6b50abe8eca1cda77d8c11",
+        "width": 1440,
+        "height": 1040,
+        "placement_after": "How September compares with two years of first releases",
+        "transform_sha256": "5e46a51986f2efd853198c8b7e98685bb04baa103aa45d644e119bfd5a44ff03",
+        "caption": "October 2024–September 2026. Each month retains its dated first release. Underlying excludes foods, energy and trade services; later revisions are not substituted."
+      },
+      {
+        "asset_id": "ppi_september_component_rates",
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_september_component_rates.png",
+        "sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+        "width": 1440,
+        "height": 1040,
+        "placement_after": "September's jump was broad, but uneven",
+        "transform_sha256": "911ba6f949b3350d2d1537f2ce404ded25e1876a118805ef3112140b3feabeb8",
+        "caption": "Separate monthly rates, not percentage-point contributions. The underlying measure overlaps goods and services; the bars do not add to the headline."
+      },
+      {
+        "asset_id": "ppi_september_nested_rates",
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_september_nested_rates-r1.png",
+        "sha256": "bb1cbcd0019bbd39258e98308cd87889744b964dceb2b7714b26de15ac55cdad",
+        "width": 1440,
+        "height": 1456,
+        "placement_after": "Energy and trade margins explain the split",
+        "transform_sha256": "5a72e9f67583dbb3e92e6c1a2486047a787b72d1f75c0f0400816ad13129bc8c",
+        "caption": "Nested category rates, not contributions. Both panels use the same percent scale. Trade services measure margins; no category weights are inferred."
+      },
+      {
+        "asset_id": "documentary_oil",
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\documentary_oil.jpg",
+        "sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+        "width": 640,
+        "height": 427,
+        "caption": "Archive: Fawley Oil Refinery, United Kingdom, 16 June 2017.",
+        "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+        "rights_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\documentary_oil-rights.json",
+        "rights_evidence_sha256": "f9046e511ed2a142d7226ffd2f65d1ba6d002c668218882b3db95b2c377dde93"
+      }
+    ]
+  },
+  "browser_evidence": {
+    "browser": "BrowserOS Neo",
+    "window_id": 1698400956,
+    "task_group_id": "5A6D3FED3FC91479DF646F24C749C8CB",
+    "task_group_title": "codex/cc124-article",
+    "url": "file:///A:/Capital%20Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/cc124-next-article-20261105-a/preview.html",
+    "page_ids": [
+      423,
+      424
+    ],
+    "continuation": "The same review continued after account/usage interruption. The exact HTML/write/media hashes were reverified. The remade browser connection listed the prior page as another session, so a new owned local-preview page was opened in the same task group/window; original tabs were preserved.",
+    "viewport_control": "Supported Neo page.cdp Emulation.setDeviceMetricsOverride; Page.getLayoutMetrics verified the mobile 390x844 viewport and content width 390.",
+    "screenshot_count": 18,
+    "screenshot_storage": "BrowserOS inline ImageContent only, forwarded as binary image tool output. No screenshot PNG files or hashes were supplied by the tool and none are invented.",
+    "inspected_views": [
+      {
+        "view": "canonical",
+        "viewport_css": {
+          "width": 1440,
+          "height": 1000
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": false,
+        "page_id": 423,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "readback_performed": true,
+        "result": "PASS",
+        "findings": "Title, dek and opening identify September 2026 and the 15 October release. Four exact section headings place the three charts beside their explanation. First-print history remains separate from revised July/August comparators. Photo has UK/2017 archive caption plus creator/source/licence links. Countercase, persistence test and advice notice remain visible."
+      },
+      {
+        "view": "telegram",
+        "viewport_css": {
+          "width": 1440,
+          "height": 1000
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": false,
+        "page_id": 423,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "readback_performed": true,
+        "result": "PASS",
+        "findings": "Dated BLS headline/underlying values and conditional persistence watch survive compression; selected trend and aggregate charts load without clipping."
+      },
+      {
+        "view": "discord",
+        "viewport_css": {
+          "width": 1440,
+          "height": 1000
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": false,
+        "page_id": 423,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "readback_performed": true,
+        "result": "PASS",
+        "findings": "Dated headline/underlying result and concentration countercase remain intact; aggregate and nested charts load with their notes."
+      },
+      {
+        "view": "x",
+        "viewport_css": {
+          "width": 1440,
+          "height": 1000
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": false,
+        "page_id": 423,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "readback_performed": true,
+        "result": "PASS",
+        "findings": "Root/reply structure preserves the dated release result, conditional watch and advice notice. No orphaned factual fragment or certainty upgrade observed."
+      },
+      {
+        "view": "linkedin",
+        "viewport_css": {
+          "width": 1440,
+          "height": 1000
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": false,
+        "page_id": 423,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "readback_performed": true,
+        "result": "PASS",
+        "findings": "Energy share remains explicitly a share of the goods increase, with the services result and concentration countercase; trend/aggregate charts load."
+      },
+      {
+        "view": "facebook_page",
+        "viewport_css": {
+          "width": 1440,
+          "height": 1000
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": false,
+        "page_id": 423,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "readback_performed": true,
+        "result": "PASS",
+        "findings": "Dated headline result and BLS energy-goods attribution remain clear; aggregate/nested chart choices preserve units and rates-not-contributions notes."
+      },
+      {
+        "view": "instagram_business",
+        "viewport_css": {
+          "width": 1440,
+          "height": 1000
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": false,
+        "page_id": 423,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "readback_performed": true,
+        "result": "PASS",
+        "findings": "Dated release and concentration countercase remain clear. Three selected charts load in full, retaining their proportions and source/context notes."
+      },
+      {
+        "view": "threads",
+        "viewport_css": {
+          "width": 1440,
+          "height": 1000
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": false,
+        "page_id": 423,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "readback_performed": true,
+        "result": "PASS",
+        "findings": "Root/reply structure preserves the September concentration countercase, BLS attribution, conditional watch and notice; aggregate chart loads."
+      },
+      {
+        "view": "youtube",
+        "viewport_css": {
+          "width": 1440,
+          "height": 1000
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": false,
+        "page_id": 423,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "readback_performed": true,
+        "result": "PASS",
+        "findings": "Dated BLS result and conditional watch remain intact. The generic Update prefix does not obscure the explicit September/15 October dates and retrospective notice."
+      },
+      {
+        "view": "canonical",
+        "viewport_css": {
+          "width": 390,
+          "height": 844
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": true,
+        "page_id": 423,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "result": "PASS",
+        "findings": "Responsive text, figures and captions remain inside the 390px page without horizontal overflow or overlap. Figures preserve aspect ratio; full-size image links provide access to detailed labels. Title, dek and opening identify September 2026 and the 15 October release. Four exact section headings place the three charts beside their explanation. First-print history remains separate from revised July/August comparators. Photo has UK/2017 archive caption plus creator/source/licence links. Countercase, persistence test and advice notice remain visible."
+      },
+      {
+        "view": "telegram",
+        "viewport_css": {
+          "width": 390,
+          "height": 844
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": true,
+        "page_id": 423,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "result": "PASS",
+        "findings": "Responsive text, figures and captions remain inside the 390px page without horizontal overflow or overlap. Figures preserve aspect ratio; full-size image links provide access to detailed labels. Dated BLS headline/underlying values and conditional persistence watch survive compression; selected trend and aggregate charts load without clipping."
+      },
+      {
+        "view": "discord",
+        "viewport_css": {
+          "width": 390,
+          "height": 844
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": true,
+        "page_id": 423,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "result": "PASS",
+        "findings": "Responsive text, figures and captions remain inside the 390px page without horizontal overflow or overlap. Figures preserve aspect ratio; full-size image links provide access to detailed labels. Dated headline/underlying result and concentration countercase remain intact; aggregate and nested charts load with their notes."
+      },
+      {
+        "view": "x",
+        "viewport_css": {
+          "width": 390,
+          "height": 844
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": true,
+        "page_id": 423,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "result": "PASS",
+        "findings": "Responsive text, figures and captions remain inside the 390px page without horizontal overflow or overlap. Figures preserve aspect ratio; full-size image links provide access to detailed labels. Root/reply structure preserves the dated release result, conditional watch and advice notice. No orphaned factual fragment or certainty upgrade observed."
+      },
+      {
+        "view": "linkedin",
+        "viewport_css": {
+          "width": 390,
+          "height": 844
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": true,
+        "page_id": 423,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "result": "PASS",
+        "findings": "Responsive text, figures and captions remain inside the 390px page without horizontal overflow or overlap. Figures preserve aspect ratio; full-size image links provide access to detailed labels. Energy share remains explicitly a share of the goods increase, with the services result and concentration countercase; trend/aggregate charts load."
+      },
+      {
+        "view": "facebook_page",
+        "viewport_css": {
+          "width": 390,
+          "height": 844
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": true,
+        "page_id": 424,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "result": "PASS",
+        "findings": "Responsive text, figures and captions remain inside the 390px page without horizontal overflow or overlap. Figures preserve aspect ratio; full-size image links provide access to detailed labels. Dated headline result and BLS energy-goods attribution remain clear; aggregate/nested chart choices preserve units and rates-not-contributions notes."
+      },
+      {
+        "view": "instagram_business",
+        "viewport_css": {
+          "width": 390,
+          "height": 844
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": true,
+        "page_id": 424,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "result": "PASS",
+        "findings": "Responsive text, figures and captions remain inside the 390px page without horizontal overflow or overlap. Figures preserve aspect ratio; full-size image links provide access to detailed labels. Dated release and concentration countercase remain clear. Three selected charts load in full, retaining their proportions and source/context notes."
+      },
+      {
+        "view": "threads",
+        "viewport_css": {
+          "width": 390,
+          "height": 844
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": true,
+        "page_id": 424,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "result": "PASS",
+        "findings": "Responsive text, figures and captions remain inside the 390px page without horizontal overflow or overlap. Figures preserve aspect ratio; full-size image links provide access to detailed labels. Root/reply structure preserves the September concentration countercase, BLS attribution, conditional watch and notice; aggregate chart loads."
+      },
+      {
+        "view": "youtube",
+        "viewport_css": {
+          "width": 390,
+          "height": 844
+        },
+        "device_scale_factor": 1,
+        "mobile_emulation": true,
+        "page_id": 424,
+        "screenshot": "INLINE_IMAGE_CONTENT",
+        "screenshot_saved_path": null,
+        "screenshot_sha256": null,
+        "result": "PASS",
+        "findings": "Responsive text, figures and captions remain inside the 390px page without horizontal overflow or overlap. Figures preserve aspect ratio; full-size image links provide access to detailed labels. Dated BLS result and conditional watch remain intact. The generic Update prefix does not obscure the explicit September/15 October dates and retrospective notice."
+      }
+    ],
+    "final_page_state": {
+      "page_id": 424,
+      "view": "canonical",
+      "viewport_css": {
+        "width": 1440,
+        "height": 1000
+      },
+      "left_open": true
+    }
+  },
+  "editorial_findings": [
+    "The strongest defensible tension is supported: energy dominated the goods increase while services and the explicitly defined underlying measure also rose. The 80% attribution remains confined to goods, never total final demand.",
+    "All reviewed headline/component values match the bound source records: headline 1.3, goods 2.6, services 0.8, underlying 0.5; nested rates 1.2/10.8/0.3 and 1.4/3.4/0.3 percent monthly SA.",
+    "The 24-month chart retains first-release values and the prose explicitly distinguishes the September-release revised July/August comparators. No post-event observation, current-vintage replacement or record-high claim was introduced.",
+    "The article contains a substantive concentration/volatility countercase and a conditional future test. It does not convert this producer-price release into an automatic CPI or Federal Reserve forecast.",
+    "Canonical photo credit is complete and accessible: Chris, Wikimedia Commons, CC BY-SA 2.0, with exact UK/16 June 2017 archive context. The unchanged photograph is modestly displayed and not treated as price/event evidence.",
+    "All nine local reading views preserve the dated retrospective framing and Analysis, not financial advice. Readers decide whether to trade. Native payload previews do not strengthen the article claims.",
+    "The three rendered charts are complete and unclipped. At mobile width the images are thumbnails with full-size links; surrounding prose and captions preserve the essential numbers, dates, definitions and uncertainty.",
+    "The local review shell retains status/source disclosures. Those controls are distinct from the authored article body and are not publication evidence."
+  ],
+  "reader_time_assessment": {
+    "body_text": "Retrospective analysis, written on 5 November 2026 (GMT+7).",
+    "finding": "Truthful authorship date, separate from the explicit 15 October release date; it does not backdate the economic event or imply fresh data. No exact clock time is asserted. The GMT+7 qualifier and repeated footer are optional presentation detail rather than a factual or release-blocking defect.",
+    "required_change": null,
+    "optional_future_polish": "If the date presentation is revised later, retain the original source/release date and use the actual publication date in the platform dateline; do not refresh the story facts."
+  },
+  "non_material_presentation_notes": [
+    {
+      "location": "24-month chart source-link caption",
+      "finding": "The same BLS link appears twice and its label exposes CC-010 first-print projection. The provenance and chart are correct; this duplication does not change facts or impede reading.",
+      "optional_exact_polish": "Use one link labelled BLS dated first releases, October 2024-September 2026 while preserving both internal source bindings and their hashes. No new model/source cycle is needed for that display label."
+    }
+  ],
+  "material_issues": [],
+  "required_repairs": [],
+  "next_action": "Parent records the one KEEP/text approval for this exact reviewed revision, then uses the existing publication coordinator and one automated image load/dimension check. This artifact itself records no store approval or publication.",
+  "limits": [
+    "This check inspected the actual local React reader canonical and native eight-channel previews, not live platform pages or published objects.",
+    "Canonical links remain pending in the local previews. The existing coordinator must supply the actual reconciled canonical URL before derivative dispatch.",
+    "No Gmail, mailbox, code page, external source, native desktop surface, schedule or other chat was accessed."
+  ],
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/ppi_max_writer",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Supported native task context /root/ppi_max_writer exposes canonical task identity; actual runtime model and reasoning-effort telemetry is unavailable.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Exact desktop_request_write.json requested_model/requested_reasoning_effort and supported parent followup_task assignment to the SAME /root/ppi_max_writer."
+  }
+}

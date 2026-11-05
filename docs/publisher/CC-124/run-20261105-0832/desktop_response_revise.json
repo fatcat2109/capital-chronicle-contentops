@@ -1,0 +1,377 @@
+{
+  "request_sha256": "d527dee08b02f17f502f3b83559912e38a299f83f5d988e05a4e9913fe9ebe08",
+  "output": {
+    "article": {
+      "title": "Southwest's 2025 fuel-hedge exit did not end the expense clock",
+      "dek": "Southwest Airlines Co.'s July 2025 filing separates the cash from closing hedges from premium expense still awaiting recognition through 2027.",
+      "search_title": "Southwest's 2025 fuel-hedge exit: cash versus expense",
+      "meta_description": "Southwest Airlines Co.'s Q2 2025 fuel-hedge exit brought cash proceeds, while premium expense remained deferred. Its filing explains the accounting clocks.",
+      "social_hook": "Southwest Airlines Co. closed its fuel hedges in Q2 2025. Why did its filing still point to premium expense through 2027?",
+      "substack_body_markdown": "Southwest Airlines Co. closed its remaining fuel hedges in Q2 2025, yet the accounting did not finish with the contracts. Its [[CITE:SOURCE_1|July 24, 2025 Form 10-Q]] described premium expense still to enter fuel costs through 2027 as the originally forecast transactions occur. For a reader comparing fuel costs, the distinction matters: an expense tied to an old hedge does not, by itself, establish that a new hedge exists. [[SOURCE:SOURCE_1]]\n\n## One closure, three clocks\n\nIn Q2 2025, Southwest received approximately $40 million from closing its remaining fuel hedges. The filing said those proceeds would reduce future premium costs. [[SOURCE:SOURCE_1]]\n\nSouthwest recorded approximately $36 million of fuel-hedging premium expense in Q2 2025, including terminated positions. That amount moved from accumulated other comprehensive income (AOCI) into fuel and oil expense. In this disclosure, AOCI held premium costs awaiting recognition in the income statement. [[SOURCE:SOURCE_1]]\n\nAt June 30, 2025, approximately $209 million remained in AOCI, excluding tax and net of termination proceeds, for reclassification to fuel expense through end-2027 as the originally forecast transactions occur. [[SOURCE:SOURCE_1]]\n\n## Why expense outlasts the contracts\n\nSouthwest Airlines Co.'s filing tied later premium expense to the originally forecast transactions, even after closure removed the hedge assets. Capital Chronicle's analysis is that an accounting tail can outlive the portfolio. [[SOURCE:SOURCE_1]]\n\nThe practical consequence is to read each amount against its own label and date. One describes money received, another describes expense recognized during a quarter, and the third describes a deferred balance. Adding them into a single exit cost would erase those distinctions. [[SOURCE:SOURCE_1]]\n\nThe $209 million balance already incorporated the termination proceeds. Subtracting the $40 million again would count the same offset twice. The $36 million describes the quarter's premium expense, including terminated positions; the passage does not assign the entire amount to the act of closing the book. [[SOURCE:SOURCE_1]]\n\n## What the filing cannot settle\n\nSouthwest Airlines Co.'s disclosure explains accounting timing; deferred expense is not a verdict on whether the hedge exit was economically sound. The passage does not measure the contracts' overall benefit or establish how the exit changed subsequent earnings. [[SOURCE:SOURCE_1]]\n\nTo test the continuing accounting story in Southwest Airlines Co.'s filing, look for later company disclosures showing how the deferred balance moved and whether new contracts were added. This filing alone cannot establish the current hedge policy. [[SOURCE:SOURCE_1]]\n\nThat leaves a useful reading rule: identify when the contracts ended, when cash changed hands and when an expense reached earnings before interpreting a hedge-related fuel-cost number. Southwest's 2025 disclosure answers the timing question without settling every question about the decision's economics. [[SOURCE:SOURCE_1]]\n\nAnalysis, not financial advice. Readers decide whether to trade. [[SOURCE:SOURCE_1]]",
+      "reader_first_version": "DATA_JOURNALISM_V1",
+      "visual_editorial_decision": {
+        "channel_media": {
+          "discord": [],
+          "facebook_page": [],
+          "instagram_business": [],
+          "linkedin": [],
+          "telegram": [],
+          "threads": [],
+          "x": [],
+          "youtube": []
+        },
+        "channel_media_instruction": "Use the existing deterministic post-data-card owner to fill every empty destination choice, including Instagram, with this article's own facts card. These empty lists do not request text-only distribution. Bind the real generated asset identities after rendering; no photo or asset identity has been invented here.",
+        "charts": [],
+        "contextual_photo_ids": [],
+        "countercase": "Explaining deferred recognition does not establish whether closing the hedges was economically wise. A later expense entry can reflect earlier premiums without proving new contracts, but that accounting distinction also does not prove that fuel-price risk disappeared, that the closure saved money overall or that any later earnings outcome was caused by it. The retained passage cannot settle those questions.",
+        "editorial_format": "DATA_OR_DOCUMENT_LENS",
+        "editorial_thesis": "Southwest's Q2 2025 hedge exit shows why closing contracts and finishing their effect on reported expenses are separate events. The cash received on closure, premium expense recognized that quarter and premium expense deferred in AOCI answer different questions. Reading them on their own clocks avoids treating a closed portfolio as a completed income-statement story, double-counting the proceeds or mistaking an accounting balance for a fresh cash bill.",
+        "essential_gaps": [
+          "Measured process mismatch: native_desktop_editorial_v1.validate_visual_decision currently raises ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED whenever story_kind is ANALYSIS and charts is empty; the downstream editorial-media check similarly demands a comparable quantitative chart for all analysis. This company document lens remains ANALYSIS and selects one source-bound factual card. Decision 41's official-history rule concerns data-release or policy-decision analysis. The owner can narrowly admit this exact document-lens card with its factual lineage rather than relabel the story, invent a series or treat unlike facts as comparable data.",
+          "The facts-card rights path must honor SOURCE_1's ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE scope. The original factual sentences above may be rendered with attribution; issuer expression, photographs, logos and exhibits remain outside that permission. A renderer demanding redistributable issuer prose would be asking for a different right than this output uses.",
+          "No rendered card or canonical/channel layout exists in this visual-choice return, so no pixel inspection or final-media acceptance is claimed. Render the chosen facts with the existing owner and return the exact artifacts to this same writer context for the later review. No exact lawful contextual photo was supplied; the factual card carries the article and destinations without inventing one.",
+          "The retained filing supports the dated accounting explanation and its countercase. It does not support a current Southwest hedge-policy claim, a current fuel-risk estimate or a 2026 earnings causal claim. Those claims are excluded from the chosen article rather than made prerequisites for writing it."
+        ],
+        "historical_scope": {
+          "additional_factual_source_requests": [],
+          "balance_date": "2025-06-30",
+          "canonical_content_sha256": "c1fee545fb19485fae172d1b23d108df621b346796be75ababf492ea46705128",
+          "current_policy_or_2026_earnings_claim": false,
+          "event_period": "Q2 2025",
+          "recognition_horizon_as_reported_then": "Through end-2027, when the originally forecast transactions occur",
+          "source_document": "Southwest Airlines Co. Form 10-Q for the quarter ended June 30, 2025",
+          "source_id": "SOURCE_1",
+          "source_publication_date": "2025-07-24"
+        },
+        "post_data_card_plan": {
+          "article_lineage_instruction": "Include all three selected fact sentences verbatim in the later canonical prose so the existing article-to-card lineage owner can bind them exactly. Define accumulated other comprehensive income (AOCI) before the third sentence. All three facts are independently worded descriptions of the filing's facts, not copied issuer prose.",
+          "asset_id_proposal": "southwest-2025-hedge-clocks-card",
+          "asset_id_status": "PROPOSED_NOT_RENDERED",
+          "data_spec": {
+            "canonical_content_sha256": "c1fee545fb19485fae172d1b23d108df621b346796be75ababf492ea46705128",
+            "issuer_expression_images_logos_exhibits_reuse": false,
+            "observations": "Exactly the three complete fact sentences above",
+            "rights_scope": "ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+            "series": null,
+            "source_id": "SOURCE_1",
+            "source_series_is_comparable": false,
+            "source_url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+            "transformation": "Independent public paraphrase of admitted single filing facts; no numeric transformation, aggregation or interpolation"
+          },
+          "facts": [
+            {
+              "currency": "USD",
+              "label": "Closure cash",
+              "period": "Q2 2025",
+              "source_id": "SOURCE_1",
+              "text": "In Q2 2025, Southwest received approximately $40 million from closing its remaining fuel hedges.",
+              "value_status": "Reported approximate historical cash proceeds"
+            },
+            {
+              "currency": "USD",
+              "label": "Quarter's premium expense",
+              "period": "Q2 2025",
+              "source_id": "SOURCE_1",
+              "text": "Southwest recorded approximately $36 million of fuel-hedging premium expense in Q2 2025, including terminated positions.",
+              "value_status": "Reported approximate historical expense reclassified from AOCI; not solely a termination charge"
+            },
+            {
+              "currency": "USD",
+              "label": "Expense still deferred",
+              "period": "Balance at June 30, 2025; recognition horizon stated in that filing",
+              "source_id": "SOURCE_1",
+              "text": "At June 30, 2025, approximately $209 million remained in AOCI, excluding tax and net of termination proceeds, for reclassification to fuel expense through end-2027 as the originally forecast transactions occur.",
+              "value_status": "Reported approximate historical deferred premium balance, excluding tax impact and already net of closure cash proceeds"
+            }
+          ],
+          "key_label": "Historical balance date",
+          "key_value": "June 30, 2025",
+          "kicker": "Q2 2025 filing explained",
+          "modality": "source_bound_data_card",
+          "notice": "Analysis, not financial advice.",
+          "placement_after": "One closure, three clocks",
+          "question": "Which amounts describe closure cash, expense already recorded and expense still deferred?",
+          "renderer": "Existing post_visuals_v1 and fact_card_design_v1 owners",
+          "source_line": "Source: Southwest Airlines, Q2 2025 Form 10-Q, July 24, 2025.",
+          "title": "Southwest's 2025 hedge exit",
+          "visual_form": "One typographic facts card with three clearly separated entries and dates; equal entry treatment, no common numeric axis, area encoding, proportional bar, waterfall, arithmetic or illustrated future fuel-price path. Use the historical date, rather than a bare dollar amount, as the key block so the card's dominant message is scope and timing.",
+          "why_useful": "The reader can see the timing distinction without a false common axis or a calculation between unlike quantities. Each complete fact retains its own period and approximate qualifier."
+        },
+        "proposed_article_structure": [
+          {
+            "heading": "One closure, three clocks",
+            "purpose": "Date the document and transaction immediately. Explain the reader's apparent contradiction, define AOCI in ordinary language and include the three exact selected card sentences. Place the facts card after this section."
+          },
+          {
+            "heading": "Why expense outlasts the contracts",
+            "purpose": "Explain that the filing tied later reclassification to the originally forecast transactions, despite derecognition of the hedge assets. Describe the $209 million as the balance at the stated date, already net of proceeds. Explain why the $36 million is a quarter's premium expense, including terminated positions, rather than a separately established bill for the decision to close. Do not add or subtract the three figures."
+          },
+          {
+            "heading": "What the filing cannot settle",
+            "purpose": "Give the serious countercase: accounting timing alone cannot establish the closure's economic merit, quantify forward fuel exposure or attribute 2026 results. Close with the practical reading rule: identify the transaction date, the expense-recognition period and the balance date before interpreting a hedge-related fuel-cost number. Include Analysis, not financial advice."
+          }
+        ],
+        "reader_first_version": "DATA_JOURNALISM_V1",
+        "reader_question": "How can Southwest have closed its remaining fuel hedges in Q2 2025 while the same filing still described hedge-premium expense flowing into fuel costs through 2027?",
+        "rejected_visuals": [
+          {
+            "reason": "Cash proceeds, period expense and a deferred balance are unlike quantities. A shared size comparison or arithmetic bridge would create meaning the filing does not support.",
+            "visual": "Common-axis bars, pie chart or waterfall of $40 million, $36 million and $209 million"
+          },
+          {
+            "reason": "The reader question concerns one company filing's accounting clocks. A release-style trend panel would add a different question; the frozen packet supplies no comparable company series for it.",
+            "visual": "Official macro time series or manufactured 24-month company fuel series"
+          },
+          {
+            "reason": "The retained disclosure supplies neither the inputs nor the period allocations needed to make these charts.",
+            "visual": "Forward fuel exposure, earnings attribution or future premium-expense schedule chart"
+          },
+          {
+            "reason": "The admitted rights allow independently expressed attributed filing facts and do not admit issuer expression, images, logos or exhibits. No exact lawful photo asset is bound in this request. A decorative acquisition is unnecessary for this argument.",
+            "visual": "Issuer artwork, filing screenshot or an unbound aircraft photo"
+          }
+        ],
+        "slug": "southwest-fuel-hedge-exit-2025-accounting-clocks",
+        "story_kind": "ANALYSIS",
+        "writing_controls": {
+          "attribution": "Naturally link the July 24, 2025 Southwest filing at the first factual attribution; retain source/date on the card. No ritual Sources list or freshness footer.",
+          "facts_verbatim_for_card": true,
+          "forbidden_inferences": [
+            "No current-policy or latest-earnings label for the 2025 disclosure",
+            "No asserted current hedge book, quantified forward fuel exposure or absence of fuel-price risk",
+            "No invented fuel consumption, prices, strikes, maturities, premium amortization schedule or quarter-by-quarter allocation",
+            "No closure-cost, savings or economic-benefit total derived from 40, 36 and 209",
+            "No deduction of the closure proceeds from the 209 balance a second time",
+            "No assertion that the 36 expense came entirely from terminating contracts",
+            "No later information presented as known in Q2 2025 or on the filing date",
+            "No issuer screenshot, logo, chart or copied prose presented as publicly reusable artwork"
+          ],
+          "optional_context": "SOURCE_2 and SOURCE_3 may support only a brief generic definition of hedging if it improves comprehension. They are not evidence of Southwest's contract mechanics. Prefer the filing's actual OTC-option description if any mechanism distinction is necessary; omit a futures or margin tutorial.",
+          "planned_length_words": "450-650, reduced if the source-bound argument is complete sooner"
+        }
+      },
+      "display_date": "Capital Chronicle · November 5, 2026 (UTC)",
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "news_item_kind": "ANALYSIS",
+      "canonical_slug_candidate": "southwest-fuel-hedge-exit-2025-accounting-clocks",
+      "primary_reader_question": "How can Southwest have closed its remaining fuel hedges in Q2 2025 while the same filing still described hedge-premium expense flowing into fuel costs through 2027?",
+      "secondary_reader_questions": [
+        "What did the approximately $40 million of closure proceeds represent?",
+        "Why could fuel-hedging premium expense remain after the contracts were closed?",
+        "Why should the approximately $209 million balance not be reduced by the proceeds again?"
+      ],
+      "entities": [
+        "Southwest Airlines Co."
+      ],
+      "topics": [
+        "Fuel hedging",
+        "Airline financial statements",
+        "Deferred premium expense",
+        "AOCI"
+      ],
+      "search_freshness_class": "HISTORICAL_DOCUMENT_LENS",
+      "internal_link_candidates": [],
+      "structured_data_packet": null,
+      "social_mechanism_summary": "Southwest Airlines Co.'s filing tied later premium expense to the originally forecast transactions, even after closure removed the hedge assets. Capital Chronicle's analysis is that an accounting tail can outlive the portfolio.",
+      "social_policy_summary": "Southwest Airlines Co.'s disclosure explains accounting timing; deferred expense is not a verdict on whether the hedge exit was economically sound. The passage does not measure the contracts' overall benefit or establish how the exit changed subsequent earnings.",
+      "social_cross_asset_summary": "To test the continuing accounting story in Southwest Airlines Co.'s filing, look for later company disclosures showing how the deferred balance moved and whether new contracts were added. This filing alone cannot establish the current hedge policy.",
+      "source_clock_metadata": {
+        "source_id": "SOURCE_1",
+        "source_publication_date": "2025-07-24",
+        "source_release_time_available": false,
+        "published_at_utc_is_locator_hint": true,
+        "transaction_period": "Q2 2025",
+        "deferred_balance_date": "2025-06-30",
+        "recognition_horizon_as_reported_then": "Through end-2027 as the originally forecast transactions occur",
+        "frozen_cutoff_utc": "2026-11-05T01:35:08.556448Z",
+        "current_policy_claim": false
+      }
+    },
+    "cited_sources": [
+      {
+        "source_id": "SOURCE_1",
+        "url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+        "publisher": "Southwest Airlines Co.",
+        "published_at_utc": "2025-07-24T00:00:00Z"
+      }
+    ],
+    "material_claim_bindings": [
+      {
+        "claim_id": "southwest-metadata-title",
+        "claim_text": "Southwest's 2025 fuel-hedge exit did not end the expense clock",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-metadata-dek",
+        "claim_text": "Southwest Airlines Co.'s July 2025 filing separates the cash from closing hedges from premium expense still awaiting recognition through 2027.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-metadata-search-title",
+        "claim_text": "Southwest's 2025 fuel-hedge exit: cash versus expense",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-metadata-meta-description",
+        "claim_text": "Southwest Airlines Co.'s Q2 2025 fuel-hedge exit brought cash proceeds, while premium expense remained deferred. Its filing explains the accounting clocks.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-metadata-social-hook",
+        "claim_text": "Southwest Airlines Co. closed its fuel hedges in Q2 2025. Why did its filing still point to premium expense through 2027?",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-opening-closure",
+        "claim_text": "Southwest Airlines Co. closed its remaining fuel hedges in Q2 2025, yet the accounting did not finish with the contracts.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-filing-date-horizon",
+        "claim_text": "Its [[CITE:SOURCE_1|July 24, 2025 Form 10-Q]] described premium expense still to enter fuel costs through 2027 as the originally forecast transactions occur.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-opening-inference",
+        "claim_text": "For a reader comparing fuel costs, the distinction matters: an expense tied to an old hedge does not, by itself, establish that a new hedge exists.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-clock-1",
+        "claim_text": "In Q2 2025, Southwest received approximately $40 million from closing its remaining fuel hedges.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-proceeds-future-premiums",
+        "claim_text": "The filing said those proceeds would reduce future premium costs.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-clock-2",
+        "claim_text": "Southwest recorded approximately $36 million of fuel-hedging premium expense in Q2 2025, including terminated positions.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-aoci-transfer",
+        "claim_text": "That amount moved from accumulated other comprehensive income (AOCI) into fuel and oil expense.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-aoci-definition",
+        "claim_text": "In this disclosure, AOCI held premium costs awaiting recognition in the income statement.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-clock-3",
+        "claim_text": "At June 30, 2025, approximately $209 million remained in AOCI, excluding tax and net of termination proceeds, for reclassification to fuel expense through end-2027 as the originally forecast transactions occur.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-mechanism",
+        "claim_text": "Southwest Airlines Co.'s filing tied later premium expense to the originally forecast transactions, even after closure removed the hedge assets. Capital Chronicle's analysis is that an accounting tail can outlive the portfolio.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-comparability",
+        "claim_text": "The practical consequence is to read each amount against its own label and date. One describes money received, another describes expense recognized during a quarter, and the third describes a deferred balance. Adding them into a single exit cost would erase those distinctions.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-no-double-offset",
+        "claim_text": "The $209 million balance already incorporated the termination proceeds. Subtracting the $40 million again would count the same offset twice. The $36 million describes the quarter's premium expense, including terminated positions; the passage does not assign the entire amount to the act of closing the book.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-countercase",
+        "claim_text": "Southwest Airlines Co.'s disclosure explains accounting timing; deferred expense is not a verdict on whether the hedge exit was economically sound. The passage does not measure the contracts' overall benefit or establish how the exit changed subsequent earnings.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-watch",
+        "claim_text": "To test the continuing accounting story in Southwest Airlines Co.'s filing, look for later company disclosures showing how the deferred balance moved and whether new contracts were added. This filing alone cannot establish the current hedge policy.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "southwest-reading-rule",
+        "claim_text": "That leaves a useful reading rule: identify when the contracts ended, when cash changed hands and when an expense reached earnings before interpreting a hedge-related fuel-cost number. Southwest's 2025 disclosure answers the timing question without settling every question about the decision's economics.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations.",
+        "attribution_required": true
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_article.v1"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/southwest_max_writer",
+    "speed": "standard",
+    "model": null,
+    "reasoning_effort": null,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Supported same-context parent bounded-revise role assignment for cc124-next-article-20261105-b, frozen request d527dee08b02f17f502f3b83559912e38a299f83f5d988e05a4e9913fe9ebe08",
+    "observation_source": "Actual supported child context /root/southwest_max_writer; no runtime model or reasoning-effort telemetry exposed"
+  }
+}

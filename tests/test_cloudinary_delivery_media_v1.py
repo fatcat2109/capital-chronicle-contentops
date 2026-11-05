@@ -80,6 +80,46 @@ def test_credential_presence_and_missing_failure_never_serialize_values(tmp_path
     assert "must-not-leak" not in json.dumps(result, sort_keys=True)
 
 
+def test_filing_fact_card_reaches_url_transports_with_source_and_byte_checks(tmp_path, monkeypatch):
+    from copy import deepcopy
+    from test_post_visuals_v1 import packet
+    from live_contentops.post_visuals_v1 import build_post_data_card, complete_post_visuals
+    from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+
+    article, claims, documents = packet()
+    article["article_mode"] = "BREAKING_BRIEF"
+    documents[0].pop("underlying_reuse_classification")
+    documents[0].pop("rights_evidence_sha256")
+    documents[0]["source_reuse_constraints"]["scope"] = "ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"
+    card = build_post_data_card(article, claims, documents, output_dir=tmp_path)
+    article, assets = complete_post_visuals(article, claims, documents, [], output_dir=tmp_path)
+    article["native_destination_media"] = article["post_visual_destination_media"]
+    monkeypatch.setattr(cloudinary, "read_public_image_bytes", lambda _: Path(card["path"]).read_bytes())
+    monkeypatch.setattr(cloudinary, "_upload_asset", lambda **_: (_ for _ in ()).throw(AssertionError("reuse verified bytes")))
+    kwargs = dict(work_item_id="filing-card", delivery_only_assets=[], article_assets=assets,
+        article=article, source_documents=documents, environment=_environment())
+    result = cloudinary.prepare_cloudinary_delivery_media(**kwargs)
+    assert result["status"] == cloudinary.READY
+    (tmp_path / "delivery_media_manifest_v1.json").write_text(json.dumps(result["manifest"]))
+    (tmp_path / "run_context_v1.json").write_text(json.dumps({"article": article,
+        "media": {"assets": assets}, "source_documents": documents, "selection": {}}))
+    for destination in ("facebook_page", "instagram_business"):
+        inputs = _durable_intent_inputs({"output_dir": str(tmp_path),
+            "destination_plan": {"destination": destination},
+            "canonical_url": "https://capitalchronicle.substack.com/p/controlled-card",
+            "native_payload": {"text": "Controlled copy", "media_asset_ids": [card["asset_id"]]}})
+        assert inputs["primary_media"]["public_delivery_sha256"] == card["sha256"]
+        assert inputs["public_image_url"].startswith("https://res.cloudinary.com/")
+
+    changed = deepcopy(documents)
+    changed[0]["source_reuse_constraints"]["scope"] = "NO_PUBLIC_REUSE"
+    for replacement in ({"source_documents": changed}, {"article": None},
+                        {"article_assets": [{**card, "sha256": "0" * 64}]}):
+        rejected = cloudinary.prepare_cloudinary_delivery_media(**{**kwargs, **replacement})
+        assert rejected["status"] == "BLOCKED_CLOUDINARY_DELIVERY_MEDIA_PREPARATION"
+        assert rejected["provider_calls"] == 0
+
+
 def test_deterministic_identity_is_stable_for_same_work_item_and_sha(tmp_path):
     asset = _asset(tmp_path)
     first = cloudinary.deterministic_cloudinary_public_id(
@@ -278,6 +318,40 @@ def test_wrong_mime_or_dimensions_blocks_hosted_media(tmp_path, monkeypatch):
     assert "cloudinary_remote_mime_type_mismatch" in verification["blockers"]
     assert "cloudinary_remote_width_mismatch" in verification["blockers"]
     assert "cloudinary_remote_height_mismatch" in verification["blockers"]
+
+
+def test_selected_card_never_silently_becomes_bare_text_before_url_delivery(tmp_path, monkeypatch):
+    import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    asset = _asset(tmp_path)
+    for destination in ("facebook_page", "instagram_business", "threads"):
+        data = {"media_assets": [asset], "primary_media": {}, "public_image_url": "",
+            "payloads": {destination: {"text": "Controlled approved copy",
+                "media_asset_ids": [asset["asset_id"]]}}}
+        monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda _: data)
+        result = pipeline._publish_one_destination_from_durable_intent(destination=destination,
+            intent={"attempt_identity": "controlled"}, authorization_context={
+                "operating_mode": "AUTONOMOUS_DEFAULT", "dispatch_attempt_identity": "controlled"})
+        assert result["definite_no_write"] and result["public_write_performed"] is False
+        assert result["reason_code"] == "SELECTED_IMAGE_PUBLIC_DELIVERY_REQUIRED:" + destination
+
+
+def test_discord_uses_the_reviewed_local_card_without_needing_url_delivery(tmp_path, monkeypatch):
+    import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    asset = _asset(tmp_path)
+    data = {"output_dir": tmp_path, "article": {"title": "Controlled filing"}, "selection": {},
+        "media_assets": [asset], "delivery_only_assets": [], "primary_media": {}, "public_image_url": "",
+        "local_media": asset["path"], "canonical_url": "https://capitalchronicle.substack.com/p/controlled",
+        "payloads": {"discord": {"text": "Controlled approved copy", "media_asset_ids": [asset["asset_id"]]}}}
+    monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda _: data)
+    captured = []
+    def publish(**kwargs):
+        captured.append(kwargs)
+        return {"status": "SUCCESS"}
+    monkeypatch.setattr(pipeline, "_publish_discord_verified", publish)
+    result = pipeline._publish_one_destination_from_durable_intent(destination="discord",
+        intent={"attempt_identity": "controlled"}, authorization_context={
+            "operating_mode": "AUTONOMOUS_DEFAULT", "dispatch_attempt_identity": "controlled"})
+    assert result["status"] == "SUCCESS" and captured[0]["image_path"] == asset["path"]
 
 
 def test_substack_adapter_has_no_delivery_only_contract_or_staging_failure():

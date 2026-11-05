@@ -127,10 +127,3 @@ def test_ledger_family_registered():
     assert "lane_c_editorial_brief_to_draft_review_only_packet_future" in ENTRY_FAMILIES
 
 
-def test_progress_ledger_file_is_updated():
-    """Verify that the progress ledger includes 0175AK and the next recommended task."""
-    path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
-    assert path.exists()
-    content = path.read_text(encoding="utf-8")
-    assert "TASK_CONTENTOPS_0175AK" in content
-    assert "TASK_CONTENTOPS_0175AL" in content

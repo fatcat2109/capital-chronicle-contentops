@@ -11,6 +11,8 @@ import hashlib
 import json
 import os
 import secrets
+import socket
+import ssl
 import tempfile
 import urllib.error
 import urllib.parse
@@ -46,10 +48,12 @@ EXPIRING_WITHIN_DAYS = 7
 class LinkedInOfficialApiError(RuntimeError):
     """A safe, nonsecret LinkedIn boundary failure."""
 
-    def __init__(self, classification: str, *, http_status: int | None = None) -> None:
+    def __init__(self, classification: str, *, http_status: int | None = None,
+                 definite_no_write: bool = False) -> None:
         super().__init__(classification)
         self.classification = classification
         self.http_status = http_status
+        self.definite_no_write = definite_no_write
 
 
 class LinkedInAmbiguousWriteError(LinkedInOfficialApiError):
@@ -187,7 +191,13 @@ def _request_json(
             http_status=int(exc.code),
         ) from exc
     except (urllib.error.URLError, TimeoutError, OSError) as exc:
-        raise LinkedInOfficialApiError("TRANSPORT_UNAVAILABLE") from exc
+        reason = exc.reason if isinstance(exc, urllib.error.URLError) else exc
+        # DNS, connection refusal and TLS certificate rejection precede HTTP.
+        # A generic timeout/reset can follow acceptance and remains ambiguous.
+        before_request = isinstance(reason, (socket.gaierror, ConnectionRefusedError,
+                                             ssl.SSLCertVerificationError))
+        raise LinkedInOfficialApiError("TRANSPORT_UNAVAILABLE",
+                                       definite_no_write=before_request) from exc
     try:
         payload = json.loads(raw.decode("utf-8")) if raw else {}
     except (UnicodeDecodeError, json.JSONDecodeError) as exc:
@@ -509,7 +519,7 @@ class LinkedInOfficialMemberApiTransportV1:
             raise LinkedInOfficialApiError("LINKEDIN_IMAGE_UPLOAD_FAILED", http_status=status)
         return asset
 
-    def publish(self, *, intent: Mapping[str, Any], authorization_context: Mapping[str, Any]) -> dict[str, Any]:
+    def _prepare_publish(self, *, intent: Mapping[str, Any], authorization_context: Mapping[str, Any]):
         if str(authorization_context.get("operating_mode") or "") != "AUTONOMOUS_DEFAULT":
             raise LinkedInOfficialApiError("CANONICAL_MACHINE_AUTHORIZATION_INVALID")
         credentials, metadata = self._authorized()
@@ -541,10 +551,20 @@ class LinkedInOfficialMemberApiTransportV1:
                 "X-Restli-Protocol-Version": "2.0.0",
             },
         )
+        return request, image_urn, image_cause
+
+    def publish(self, *, intent: Mapping[str, Any], authorization_context: Mapping[str, Any]) -> dict[str, Any]:
+        try:
+            request, image_urn, image_cause = self._prepare_publish(
+                intent=intent, authorization_context=authorization_context)
+        except (LinkedInOfficialApiError, ValueError, KeyError, OSError) as exc:
+            return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                    "reason_code": exc.classification if isinstance(exc, LinkedInOfficialApiError)
+                    else type(exc).__name__, "adapter_version": TRANSPORT_VERSION}
         try:
             status, _body, headers = _request_json(request, timeout_seconds=20.0, opener=self.opener)
         except LinkedInOfficialApiError as exc:
-            if exc.http_status in {400, 401, 403, 404, 422}:
+            if exc.definite_no_write or exc.http_status in {400, 401, 403, 404, 422, 429}:
                 return {
                     "status": "DEFINITE_NO_WRITE", "definite_no_write": True,
                     "reason_code": exc.classification, "adapter_version": TRANSPORT_VERSION,

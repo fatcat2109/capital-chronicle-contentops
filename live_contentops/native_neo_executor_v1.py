@@ -21,6 +21,12 @@ SCHEMA = "contentops.native_neo_tool_request.v1"
 DESTINATION = "internal:native-neo-tool"
 PENDING = "NATIVE_NEO_TOOL_PENDING"
 TOOL = "mcp__browseros_neo__run"
+# CC-283: the agent surface that ran the BrowserOS Neo step is recorded under its own true label
+# with the tool name that surface actually calls; Claude is never recorded as Codex (C5). The
+# request packet keeps naming TOOL, so stored requests and their hashes stay unchanged.
+CODEX_SURFACES = frozenset({"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT", "CODEX_EXEC"})
+CLAUDE_CODE_SURFACE = "CLAUDE_CODE_SESSION"
+SURFACE_TOOLS = {**{surface: TOOL for surface in CODEX_SURFACES}, CLAUDE_CODE_SURFACE: "mcp__browseros-neo__run"}
 
 
 class NativeNeoInputRequired(Exception):
@@ -35,7 +41,8 @@ class NativeNeoExecutor:
     native_neo_protocol = True
 
     def __init__(self, store, *, operation_id: str, output_dir: str | Path,
-                 native_invocation_id: str, allow_publish: bool = False, clock=None):
+                 native_invocation_id: str, allow_publish: bool = False, clock=None,
+                 identity_at_action: bool = False):
         if not operation_id or not native_invocation_id:
             raise ValueError("NATIVE_NEO_ACTIVE_INVOCATION_REQUIRED")
         self.store = store
@@ -43,6 +50,9 @@ class NativeNeoExecutor:
         self.root = Path(output_dir)
         self.native_invocation_id = native_invocation_id
         self.allow_publish = allow_publish
+        # CC-283: in a publishing operation, one composed Neo run per destination checks the
+        # expected account, publishes and reads back. Never outside a publishing operation.
+        self.identity_at_action = bool(identity_at_action and allow_publish)
         self.clock = clock or (lambda: datetime.now(timezone.utc))
         self.readback_request_invocations = {}
 
@@ -159,9 +169,12 @@ class NativeNeoExecutor:
                 raise ValueError("NATIVE_NEO_EXACT_PAYLOAD_REQUIRED")
             # Fresh native account proof is rechecked at the action boundary, after any
             # pending Desktop delay. A configured login/executor flag grants no write.
-            proof = self.readiness(request["surface"])
-            if not proof["authenticated"] or not proof["native_executor_bound"]:
-                raise ValueError("NATIVE_NEO_CURRENT_IDENTITY_REQUIRED")
+            # CC-283: a composed publish checks the account inside the same run, just before
+            # the write; submit() then requires that observation (fresher than a 5-minute proof).
+            if not self._composed(request):
+                proof = self.readiness(request["surface"])
+                if not proof["authenticated"] or not proof["native_executor_bound"]:
+                    raise ValueError("NATIVE_NEO_CURRENT_IDENTITY_REQUIRED")
             for artifact in [*content.get("artifact_manifest", []), *content.get("media_manifest", [])]:
                 path = Path(str(artifact.get("path") or ""))
                 if not artifact.get("sha256") or not path.is_file() or sha256(path.read_bytes()).hexdigest() != artifact["sha256"]:
@@ -169,6 +182,8 @@ class NativeNeoExecutor:
         claim = {"tool_request_sha256": packet["tool_request_sha256"],
                  "native_invocation_id": self.native_invocation_id,
                  "begun_at_utc": self.clock().isoformat(), "required_tool": TOOL}
+        if self._composed(request):
+            claim["identity_at_action"] = True
         # The unique immutable outbox key fences simultaneous Desktop claimers too.
         self._put(request_hash, claim_kind, claim, request["work_item_id"])
         if request["action"] == "READBACK":
@@ -176,6 +191,11 @@ class NativeNeoExecutor:
                 if k not in {"request_sha256", "native_invocation_id"}})
             self.readback_request_invocations[identity] = request.get("native_invocation_id")
         action_packet = dict(packet)
+        action_packet["browser_workspace"] = {
+            "policy": "JIM_DECISION_63",
+            "window": "Use the one existing BrowserOS Neo window. Create one only if none exists.",
+            "tabs": "Open tabs with tabs action=new and groupId in this task's group, titled Capital Chronicle/<task>. Leave Jim's and other agents' tabs untouched.",
+        }
         if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
             action_packet["upload_policy"] = {
                 "method": "BROWSEROS_NEO_UPLOAD_OR_FILE_CHOOSER_INTERCEPTION",
@@ -196,7 +216,47 @@ class NativeNeoExecutor:
             }
             if request.get("substack_delivery_policy"):
                 action_packet["substack_publish_routine"]["delivery"] = request["substack_delivery_policy"]
+        if self._composed(request):
+            from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
+            action_packet["composed_run"] = {
+                "policy": "CC-283",
+                "one_run": "One BrowserOS Neo run script does all three steps in this order, in this task's tab.",
+                "1_identity": {"expected_identity": request["expected_identity"],
+                    "expected_stable_id": SURFACE_REGISTRY[request["surface"]].expected_stable_id,
+                    "rule": "Read the signed-in account and compare it with the expected identity and stable id. "
+                            "While in this identity or any other pre-write part, result.stage is BEFORE_PUBLISH_CLICK. "
+                            "A mismatch or an unreadable identity returns FAILED_BEFORE_WRITE with definite_no_write "
+                            "true, stage BEFORE_PUBLISH_CLICK and no click."},
+                "2_publish": "Immediately BEFORE the publish click, set the observation's dispatched_at_utc and "
+                             "result.stage = PUBLISH_CLICK_ATTEMPTED; then click once to publish the exact payload.",
+                "3_readback": "Read back the published object (id, url, text, media) in the same run.",
+                "return": {"result": "the publish result, as for any PUBLISH step, with its stage",
+                    "composed": {"identity": ["authenticated", "observed_identity", "observed_stable_id", "observed_at_utc"],
+                                 "readback": "the READBACK result fields, observed after the publish"}},
+                "after_click": "FAILED_BEFORE_WRITE is a definite no-write only for an account mismatch or stage "
+                               "BEFORE_PUBLISH_CLICK. Any other failure, including a missing stage, is UNKNOWN_WRITE; "
+                               "the coordinator reads back before any retry.",
+            }
         return action_packet
+
+    def _composed(self, request):
+        return (self.identity_at_action and request.get("action") == "PUBLISH"
+                and request.get("destination") not in {"substack"})
+
+    def publication_readiness(self, surface):
+        """The readiness manager's provider. Inside a publishing operation with composed runs, a
+        Neo destination without a fresh proof is ready for a run that checks the account at the
+        action; anything else needs an observed identity as before."""
+        from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
+        destination = SURFACE_REGISTRY[surface].destination_key
+        if self.identity_at_action and destination != "substack":
+            from live_contentops.neo_destination_handoff_v1 import IDENTITIES
+            fresh = self._fresh_identity_return(destination, surface, IDENTITIES[destination],
+                expected_stable_id=SURFACE_REGISTRY[surface].expected_stable_id)
+            if fresh is None:
+                return {"identity_at_action": True, "native_executor_bound": True, "authenticated": None,
+                        "proof_fresh": False, "native_invocation_id": self.native_invocation_id}
+        return self.readiness(surface)
 
     def submit(self, request_hash: str, response: Mapping[str, Any]):
         packet = self._get(request_hash, "request")
@@ -204,9 +264,9 @@ class NativeNeoExecutor:
         claim = self._claim(request_hash, observation.get("native_invocation_id"))
         if not packet or not claim or response.get("tool_request_sha256") != packet["tool_request_sha256"]:
             raise ValueError("NATIVE_NEO_TOOL_RETURN_BINDING_REQUIRED")
-        if (observation.get("tool_name") != TOOL
+        if (observation.get("surface") not in SURFACE_TOOLS
+                or observation.get("tool_name") != SURFACE_TOOLS[observation["surface"]]
                 or observation.get("native_invocation_id") != claim["native_invocation_id"]
-                or observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT", "CODEX_EXEC"}
                 or not observation.get("observation_source") or not observation.get("observed_at_utc")):
             raise ValueError("NATIVE_NEO_ACTUAL_TOOL_OBSERVATION_REQUIRED")
         observed_at = datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
@@ -227,10 +287,102 @@ class NativeNeoExecutor:
             # Reject an incomplete observation before the immutable return is saved,
             # so the caller can correct it on the same claimed read-only request.
             raise ValueError("NATIVE_NEO_STABLE_IDENTITY_OBSERVATION_REQUIRED")
+        readback = None
+        if claim.get("identity_at_action"):
+            result, readback = self._composed_return(packet["request"], claim, observation, result,
+                                                     dict(response.get("composed") or {}))
         result["native_tool_observation"] = observation
         result["native_tool_return_sha256"] = sha256_of(response)
         self._put(request_hash, "response", {"result": result}, packet["request"]["work_item_id"])
+        if readback is not None:
+            self._store_composed_readback(packet["request"], claim, result, readback, observation, response)
         return {"request_sha256": request_hash, "tool_return_sha256": sha256_of(response)}
+
+    def _composed_return(self, request, claim, observation, result, composed):
+        """CC-283: the account must be observed in the same run, between the claim and the
+        publish click, and match the binding's expected identity and stable id."""
+        from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
+        identity = composed.get("identity")
+        if not isinstance(identity, Mapping) or not identity.get("observed_at_utc"):
+            raise ValueError("NATIVE_NEO_COMPOSED_IDENTITY_REQUIRED")
+        identity = dict(identity)
+        begun_at = datetime.fromisoformat(claim["begun_at_utc"])
+        dispatched = observation.get("dispatched_at_utc")
+        limit = datetime.fromisoformat(str(dispatched or observation["observed_at_utc"]).replace("Z", "+00:00"))
+        try:
+            identity_at = datetime.fromisoformat(str(identity["observed_at_utc"]).replace("Z", "+00:00"))
+        except ValueError:
+            raise ValueError("NATIVE_NEO_COMPOSED_IDENTITY_REQUIRED") from None
+        if not begun_at <= identity_at <= limit:
+            raise ValueError("NATIVE_NEO_COMPOSED_IDENTITY_TIME_INVALID")
+        expected_stable = SURFACE_REGISTRY[request["surface"]].expected_stable_id
+        matched = (identity.get("authenticated") is True
+                   and identity.get("observed_identity") == request["expected_identity"]
+                   and (not expected_stable or identity.get("observed_stable_id") == expected_stable))
+        result = dict(result)
+        result["composed_identity"] = identity
+        no_write = (result.get("definite_no_write") is True
+                    or str(result.get("status") or "").upper() in {"FAILED_BEFORE_WRITE", "DEFINITE_NO_WRITE"})
+        stage = result.get("stage")
+        if no_write and (dispatched or stage == "PUBLISH_CLICK_ATTEMPTED"):
+            # A failure once the click was attempted is never a definite no-write (even if the
+            # script threw before recording the dispatch time); read back before any retry.
+            result.update(status="UNKNOWN_WRITE", definite_no_write=False, retry_permitted=False,
+                          reason_code="NATIVE_NEO_FAILURE_AFTER_PUBLISH_CLICK")
+            return result, None
+        if no_write and (not matched or stage == "BEFORE_PUBLISH_CLICK"):
+            # Stopped before the click (the account did not match, or a pre-write failure the
+            # script marked BEFORE_PUBLISH_CLICK): a definite no-write that frees the claim for a retry.
+            result.update(status="FAILED_BEFORE_WRITE", definite_no_write=True, public_write_performed=False)
+            if not matched:
+                result.setdefault("reason_code", "NATIVE_NEO_COMPOSED_IDENTITY_MISMATCH")
+            return result, None
+        if no_write:
+            # A failure without its stage cannot prove the click never happened.
+            result.update(status="UNKNOWN_WRITE", definite_no_write=False, retry_permitted=False,
+                          reason_code="NATIVE_NEO_COMPOSED_STAGE_UNKNOWN")
+            return result, None
+        if not matched:
+            # A write without a matched account is never trusted as a confirmed post.
+            result.update(status="UNKNOWN_WRITE", retry_permitted=False,
+                          observed_identity=identity.get("observed_identity"),
+                          reason_code="NATIVE_NEO_COMPOSED_IDENTITY_MISMATCH_AFTER_DISPATCH")
+            return result, None
+        result.setdefault("observed_identity", identity["observed_identity"])
+        readback = composed.get("readback")
+        return result, (dict(readback) if dispatched and isinstance(readback, Mapping) else None)
+
+    def _store_composed_readback(self, request, claim, published, readback, observation, response):
+        """CC-283: keep the run's readback where the coordinator's 10-minute reuse
+        (fresh_readback_request) finds it; the adapter still checks the content as today."""
+        from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+        from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+        object_id = published.get("public_object_id") or readback.get("public_object_id")
+        object_url = published.get("public_object_url") or readback.get("public_object_url")
+        dispatch = self.store.get_platform_dispatch(request["dispatch_attempt_identity"])
+        message = self.store.get_outbox_message(dispatch["message_id"]) if dispatch else None
+        if not message or not object_id or not object_url:
+            return None
+        effective = DurablePublicationCoordinator(store=self.store, transport_runtime=None)._effective_message(message)
+        value = NeoDestinationHandoff(native_executor=self).request(
+            destination=request["destination"], action="READBACK", intent=json.loads(effective["payload"]),
+            public_object_id=object_id, public_object_url=object_url)
+        packet = {"schema_version": SCHEMA, "operation_id": self.operation_id, "required_tool": TOOL,
+                  "request": value, "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+                  "public_write_authorized": False}
+        packet["tool_request_sha256"] = sha256_of(packet)
+        rb_hash, work = value["request_sha256"], value["work_item_id"]
+        self._put(rb_hash, "request", packet, work)
+        if self._get(rb_hash, "response") is None:
+            self._put(rb_hash, "started", {"tool_request_sha256": packet["tool_request_sha256"],
+                "native_invocation_id": self.native_invocation_id, "begun_at_utc": claim["begun_at_utc"],
+                "required_tool": TOOL, "composed_with_publish": request["request_sha256"]}, work)
+            self._put(rb_hash, "response", {"result": {**readback, "request_sha256": rb_hash,
+                "public_object_id": object_id, "public_object_url": object_url,
+                "observed_identity": readback.get("observed_identity") or published.get("observed_identity"),
+                "composed_with_publish": request["request_sha256"],
+                "native_tool_observation": observation, "native_tool_return_sha256": sha256_of(response)}}, work)
+        return rb_hash
 
     def _fresh_identity_return(self, destination, surface, expected_identity, *, expected_stable_id=None):
         # Probe epochs deduplicate requests; actual observation time controls
@@ -366,8 +518,9 @@ def bind_native_neo_coordinator(store, *, operation_id, output_dir, native_invoc
         CanonicalDestinationTransportRuntimeV1, DurablePublicationCoordinator,
     )
     executor = NativeNeoExecutor(store, operation_id=operation_id, output_dir=output_dir,
-                                 native_invocation_id=native_invocation_id, allow_publish=allow_publish)
+                                 native_invocation_id=native_invocation_id, allow_publish=allow_publish,
+                                 identity_at_action=allow_publish)
     runtime = CanonicalDestinationTransportRuntimeV1(neo_transport=NeoDestinationHandoff(native_executor=executor, store=store))
-    readiness = DestinationReadinessManager(store=store, neo_readiness_provider=executor.readiness)
+    readiness = DestinationReadinessManager(store=store, neo_readiness_provider=executor.publication_readiness)
     coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime, readiness_manager=readiness)
     return coordinator, executor

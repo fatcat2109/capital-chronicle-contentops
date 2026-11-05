@@ -1,0 +1,4 @@
+Rebased CC-267 (parent b9d892e7), 12 card and newsroom files, 5 Nov 20:58Z:
+2 failed, 366 passed in 82.97s (0:01:22)
+FAILED tests/test_native_photoless_briefs_v1.py::test_unbound_old_and_analysis_articles_keep_the_photo_rule
+FAILED tests/test_reader_first_data_journalism_v1.py::test_channel_photo_preview_keeps_archive_context_without_dropping_unknown_rights

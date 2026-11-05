@@ -1,0 +1,20 @@
+{
+  "within_bound_live_budget": true,
+  "expected_selection_request_sha256": "ead0eecf66b4a6951a02cc9391350c860e39d49c72a4565dca6b72af0dadf691",
+  "expected_evidence_sha256": "3bc1973c56dd7e7582199edf68dbde1db182c9d6cf1384e71f698713b2fac4c8",
+  "candidate_id": "simple-story-fada8125f8a912aa78b0ffe2",
+  "research_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\source-recovery-september-ppi",
+  "supporting_headline_ids": [
+    "cc124-bls-september-ppi-original"
+  ],
+  "additional_source_requests": [
+    {
+      "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-10-30T01:36:40.150Z",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\source-recovery-september-ppi\\release.html",
+      "capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+      "retrieval_method": "REUSE_RETAINED_CC010_SOURCE_NO_NEW_NETWORK_REQUEST"
+    }
+  ]
+}

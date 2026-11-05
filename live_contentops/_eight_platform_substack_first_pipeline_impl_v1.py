@@ -3973,6 +3973,8 @@ def _prepare_cloudinary_delivery_media_for_plan(
         delivery_only_assets=delivery_only_assets,
         existing_manifest=existing_manifest,
         article_assets=article_assets,
+        article=context.get("article"),
+        source_documents=context.get("source_documents"),
     )
     if str(prepared.get("status") or "") == CLOUDINARY_DELIVERY_MEDIA_READY:
         # Retained public objects keep their original delivery bindings.
@@ -4275,6 +4277,13 @@ def _publish_one_destination_from_durable_intent(
         if not str(exc).startswith("reviewed_delivery_media_asset_unavailable:"):
             raise
         return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                "public_write_performed": False, "reason_code": str(exc)}
+    if destination in {"discord", "facebook_page", "instagram_business", "threads"}:
+        from live_contentops.post_visuals_v1 import require_publication_image
+        try:
+            require_publication_image(destination, data)
+        except ValueError as exc:
+            return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True,
                 "public_write_performed": False, "reason_code": str(exc)}
     output_dir = data["output_dir"]
     article = data["article"]

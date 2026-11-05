@@ -376,20 +376,6 @@ def test_cli_writes_deterministic_packet(tmp_path):
     assert first["dispatch_request_package_gate_available"] is True
 
 
-def test_new_files_and_sample_json_are_utf8_without_bom():
-    docs_dir = Path("docs/automation/V6_LOCAL_LIVE_DISPATCH_REQUEST_PACKAGE_GATE_FROM_ACCOUNT_BINDING")
-    paths = [
-        Path("live_contentops/local_live_dispatch_request_package_gate_v6.py"),
-        Path("tests/test_local_live_dispatch_request_package_gate_v6.py"),
-    ]
-    paths.extend(path for path in docs_dir.glob("*") if path.is_file())
-    for path in paths:
-        assert not path.read_bytes().startswith(b"\xef\xbb\xbf")
-    loaded = json.loads((docs_dir / "sample_local_live_dispatch_request_package_gate_packet.json").read_text(encoding="utf-8"))
-    assert loaded["sample_packet_non_runtime"] is True
-    assert loaded["runtime_truth"] is False
-
-
 def test_malformed_non_object_cli_blocked_test(tmp_path):
     p_path = tmp_path / "preflight.json"
     p_path.write_text("[]", encoding="utf-8")

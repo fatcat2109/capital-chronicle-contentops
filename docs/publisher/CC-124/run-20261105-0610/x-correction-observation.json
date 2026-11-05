@@ -1,0 +1,26 @@
+{
+  "dispatched_at_utc": "2026-11-05T01:08:35.408Z",
+  "identity": {
+    "authenticated": true,
+    "observed_at_utc": "2026-11-05T01:08:35.296Z",
+    "observed_identity": "@Capitalnicle"
+  },
+  "observed": {
+    "changed": false,
+    "page": 430,
+    "settled": false,
+    "value": [
+      {
+        "text": "Retrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade.",
+        "urls": [
+          "https://x.com/Capitalnicle/status/2118148441973117093",
+          "https://x.com/Capitalnicle/status/2118148441973117093/analytics"
+        ]
+      }
+    ]
+  },
+  "sent": {
+    "matched": true
+  },
+  "stage": "PUBLISH_CLICK_ATTEMPTED"
+}

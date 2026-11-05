@@ -419,7 +419,9 @@ def test_dated_writer_request_replays_exactly_but_changed_inputs_still_fail(tmp_
     assert (
         replay.value.request["request_sha256"] == first.value.request["request_sha256"]
     )
-    assert first.value.request["prompt"].count("DATED J8:") == 1
+    # CC-144 / decision 42 replaced the dated J8 photo guidance in new writer requests (as d6116e86 for T1).
+    assert first.value.request["prompt"].count(
+        "CC-144 / Jim decision 42: Every post and destination carries an image.") == 1
     with pytest.raises(ValueError, match="IMMUTABLE_RETURN_CONFLICT"):
         turn(**{**arguments, "governed_input": {"controlled": 2}})
 

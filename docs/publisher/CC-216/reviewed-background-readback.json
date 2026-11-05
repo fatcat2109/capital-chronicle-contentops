@@ -1,0 +1,53 @@
+{
+  "cpi": {
+    "event_id": "bls-cpi-20261110",
+    "run_id": "cc216-cpi-background-20261105-v1",
+    "retained_message_id": "native-story-preparation-604d442101c98888cb6895208a6129b0d286e7fbf8a9de77c47a931550b41c74",
+    "article_identity": "08eda53eb04902d57f8ef63cea047dab52966891ca021f48ebc47099d5968496",
+    "article_revision": "66bf410411cb8403374e3e1dfd93857b5988215c6343b627334896ec5d524657",
+    "review_id": "native-article-review-1c46a9b718db4f7a9e34f0e0f1733337",
+    "background_reviewed_at_utc": "2026-11-04T22:46:34.267520+00:00",
+    "writer_source_pack_readback_at_utc": "2026-11-04T23:06:45.955919+00:00",
+    "writer_received_reviewed_article": true,
+    "title": "October CPI preview: does inflation pressure reach beyond energy?",
+    "retained_media_count": 3,
+    "media_hashes_verified": true,
+    "source_documents": 7,
+    "dossier_scenarios_added": false,
+    "public_write_performed": false
+  },
+  "ppi": {
+    "event_id": "bls-ppi-20261113",
+    "run_id": "cc216-ppi-background-20261105-v1",
+    "retained_message_id": "native-story-preparation-aed9ded4ae9497d6065cf55ac45ccae843009d3cb14a194dfa7c2039a5c155a2",
+    "article_identity": "c166884aebaf6e8afd76e005ce489bbfcf65b9c0a274b19b667e48be9f9bfc91",
+    "article_revision": "08dbdc898780f0e7359d7787e5444c4beb61bb529001d5252c6b233f53609d41",
+    "review_id": "native-article-review-61f8f5be592341bfad437546de511316",
+    "background_reviewed_at_utc": "2026-11-04T22:51:34.560028+00:00",
+    "writer_source_pack_readback_at_utc": "2026-11-04T23:06:46.217253+00:00",
+    "writer_received_reviewed_article": true,
+    "title": "October PPI preview: how broad is the pressure?",
+    "retained_media_count": 3,
+    "media_hashes_verified": true,
+    "source_documents": 4,
+    "dossier_scenarios_added": false,
+    "public_write_performed": false
+  },
+  "nfp": {
+    "event_id": "bls-emsit-20261106",
+    "run_id": "cc216-nfp-background-20261105-v1",
+    "retained_message_id": "native-story-preparation-b65dcc1c9f57da188b6b264fc2412c924e29e9eeef45842fd289c1c435f453cd",
+    "article_identity": "8f27feefedd3aaf6a2daf6eebe86a9a854b311c8f7312c9db32e9cb39b3adda0",
+    "article_revision": "c5791a900fb2e52f19201d648bb99d24aa4e1ca46a355cb5dd448bbe577bf84b",
+    "review_id": "native-article-review-851f7a8c9917441c8fc5bce7eea700df",
+    "background_reviewed_at_utc": "2026-11-04T23:06:43.872930+00:00",
+    "writer_source_pack_readback_at_utc": "2026-11-04T23:06:45.715201+00:00",
+    "writer_received_reviewed_article": true,
+    "title": "October jobs preview: how to separate a shift from monthly noise",
+    "retained_media_count": 3,
+    "media_hashes_verified": true,
+    "source_documents": 6,
+    "dossier_scenarios_added": false,
+    "public_write_performed": false
+  }
+}

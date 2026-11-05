@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="40" time="69.222" timestamp="2026-11-05T03:08:25.658258+07:00" hostname="J-P"><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_plan_or_validation_failure_is_not_an_ambiguous_write[VALIDATION_FAILED]" time="0.011" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_plan_or_validation_failure_is_not_an_ambiguous_write[SKIPPED_IMAGE_REQUIRED]" time="0.005" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_error_codes_survive_without_provider_message_or_request_material" time="0.005" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_instagram_tracks_the_public_publish_boundary[container]" time="0.015" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_instagram_tracks_the_public_publish_boundary[publish]" time="0.007" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_repaired_validation_failure_keeps_recovering_until_the_live_consumer_posts" time="3.242" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_linkedin_connection_failure_before_http_is_definite_no_write[reason0]" time="0.032" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_linkedin_connection_failure_before_http_is_definite_no_write[reason1]" time="0.022" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_linkedin_preparation_failure_never_becomes_unknown" time="0.004" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[None]" time="0.957" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[identity]" time="0.763" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[id]" time="0.797" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[url]" time="0.699" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[title]" time="0.847" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[notice]" time="0.605" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_queued_derivative_ages_from_canonical_and_later_readbacks_do_not_refresh_it" time="0.839" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_publication_after_credit_edit_feeds_the_published_corpus_and_record" time="1.792" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[BREAKING_BRIEF-6]" time="0.856" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[FOLLOW_UP_UPDATE-24]" time="0.601" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[STANDARD_NEWS_ANALYSIS-168]" time="0.473" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[DATA_OR_DOCUMENT_LENS-168]" time="0.534" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[EVERGREEN_EXPLAINER-168]" time="0.457" /><testcase classname="tests.test_native_finished_publication_v1" name="test_any_finished_store_releases_without_manifest_and_preserves_source" time="12.868"><failure message="AssertionError: assert 'DISTRIBUTION_INCOMPLETE' == 'RECONCILED'&#10;  &#10;  - RECONCILED&#10;  + DISTRIBUTION_INCOMPLETE">ready = (&lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x000002595E5EA820&gt;, &lt;live_contentops....01T00:00:00Z', 'scope': 'V1_NATIVE_PUBLICATION', 'thread_id': 'CONTROLLED', ...}, 'public_write_authority': True, ...})
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000002595C8FE9E0&gt;
+
+    def test_any_finished_store_releases_without_manifest_and_preserves_source(ready, monkeypatch):
+        source, target, original, path, rollout = ready
+        before = workspace_snapshot(source.db_path)
+        value = release_finished_piece(path, rollout)
+        assert value["classification"] == "FINISHED_PIECE_READY_FOR_COORDINATOR"
+        binding = value["binding"]
+        assert binding["owner_manual_live"] and binding["cutoff_utc"] == original["cutoff_utc"]
+        assert binding["publication_eligibility_utc"] != binding["cutoff_utc"]
+        assert before == workspace_snapshot(source.db_path)
+        assert target.list_platform_dispatches() == []
+        assert release_finished_piece(path, rollout)["binding"] == binding
+        operation, executor, transports = composed(target, binding, rollout, monkeypatch)
+        final, browser_writes = finish(operation, executor)
+        assert operation.coordinator.allow_prior_confirmed_distribution is True
+        assert final["publication"]["canonical_article_real_published"] is True
+&gt;       assert final["publication"]["state"] == "RECONCILED"
+E       AssertionError: assert 'DISTRIBUTION_INCOMPLETE' == 'RECONCILED'
+E         
+E         - RECONCILED
+E         + DISTRIBUTION_INCOMPLETE
+
+tests\test_native_finished_publication_v1.py:61: AssertionError</failure></testcase><testcase classname="tests.test_native_finished_publication_v1" name="test_live_piece_reuses_binding_and_never_imports_or_rewrites_attempts" time="10.447" /><testcase classname="tests.test_native_finished_publication_v1" name="test_finished_source_faults_fail_without_import[model]" time="1.614" /><testcase classname="tests.test_native_finished_publication_v1" name="test_finished_source_faults_fail_without_import[clock]" time="1.571" /><testcase classname="tests.test_native_finished_publication_v1" name="test_finished_source_faults_fail_without_import[private]" time="1.587" /><testcase classname="tests.test_native_finished_publication_v1" name="test_finished_source_faults_fail_without_import[changed_request]" time="1.651" /><testcase classname="tests.test_native_finished_publication_v1" name="test_newsroom_lease_is_shared_and_never_steals_a_window" time="1.443" /><testcase classname="tests.test_native_finished_publication_v1" name="test_finished_piece_is_due_without_spacing_and_keeps_original_canonical_clock" time="11.135"><failure message="IndexError: list index out of range">ready = (&lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x000002595DA54FD0&gt;, &lt;live_contentops....01T00:00:00Z', 'scope': 'V1_NATIVE_PUBLICATION', 'thread_id': 'CONTROLLED', ...}, 'public_write_authority': True, ...})
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000002595E5D3B60&gt;
+
+    def test_finished_piece_is_due_without_spacing_and_keeps_original_canonical_clock(ready, monkeypatch):
+        _, target, _, path, rollout = ready
+        released = release_finished_piece(path, rollout)
+        operation, executor, _ = composed(target, released["binding"], rollout, monkeypatch)
+        finish(operation, executor)
+&gt;       first = list(confirmed_canonicals(target))[0]["first_readback_utc"]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+tests\test_native_finished_publication_v1.py:131: IndexError</failure></testcase><testcase classname="tests.test_native_finished_publication_v1" name="test_standing_binding_reuses_its_identity_and_preserves_another_pending_operation" time="1.553" /><testcase classname="tests.test_native_finished_publication_v1" name="test_policy_target_is_distinct_from_position_instruction[The federal funds target at 3.75 to 4 percent.-False]" time="0.004" /><testcase classname="tests.test_native_finished_publication_v1" name="test_policy_target_is_distinct_from_position_instruction[The Fed held its target at 3.75 to 4 percent.-False]" time="0.003" /><testcase classname="tests.test_native_finished_publication_v1" name="test_policy_target_is_distinct_from_position_instruction[The inflation target at 2 percent remains.-False]" time="0.004" /><testcase classname="tests.test_native_finished_publication_v1" name="test_policy_target_is_distinct_from_position_instruction[Target at 3.75; stop at 2.75.-True]" time="0.004" /><testcase classname="tests.test_native_finished_publication_v1" name="test_policy_target_is_distinct_from_position_instruction[Our position size is 2 lots.-True]" time="0.004" /><testcase classname="tests.test_native_finished_publication_v1" name="test_policy_target_is_distinct_from_position_instruction[Buy at 3.75.-True]" time="0.004" /><testcase classname="tests.test_native_finished_publication_v1" name="test_missing_exact_writer_cannot_be_promoted" time="2.341" /><testcase classname="tests.test_native_finished_publication_v1" name="test_standing_daily_cap_counts_distinct_read_back_articles" time="1.591" /><testcase classname="tests.test_native_finished_publication_v1" name="test_missing_legacy_text_clock_does_not_delay_a_reviewed_canonical" time="4.254"><failure message="assert False&#10; +  where False = any(&lt;generator object test_missing_legacy_text_clock_does_not_delay_a_reviewed_canonical.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002595E5F3370&gt;)">ready = (&lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x000002595DE9F550&gt;, &lt;live_contentops....01T00:00:00Z', 'scope': 'V1_NATIVE_PUBLICATION', 'thread_id': 'CONTROLLED', ...}, 'public_write_authority': True, ...})
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000002595C853770&gt;
+
+    def test_missing_legacy_text_clock_does_not_delay_a_reviewed_canonical(ready, monkeypatch):
+        _, target, _, path, rollout = ready
+        released = release_finished_piece(path, rollout)
+        operation, _, transport = composed(target, released["binding"], rollout, monkeypatch)
+        monkeypatch.setattr("live_contentops.native_finished_publication_v1.publication_due",
+            lambda *a, **k: {"due": False, "next_publication_utc": "CONTROLLED_FUTURE"})
+        original_projection = operation.projection
+        def legacy_projection():
+            value = original_projection()
+            return {**value, "timing": {**value["timing"], "text_approved_at_utc": None}}
+        monkeypatch.setattr(operation, "projection", legacy_projection)
+        assert operation.resume()["classification"] != "NATIVE_PUBLICATION_NOT_YET_DUE"
+&gt;       assert any(d["platform"] == "substack" for d in target.list_platform_dispatches())
+E       assert False
+E        +  where False = any(&lt;generator object test_missing_legacy_text_clock_does_not_delay_a_reviewed_canonical.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002595E5F3370&gt;)
+
+tests\test_native_finished_publication_v1.py:204: AssertionError</failure></testcase></testsuite></testsuites>

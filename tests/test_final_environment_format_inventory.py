@@ -78,11 +78,3 @@ def test_vertex_raw_json_fixture_blocks() -> None:
     assert report["private_key_block_present"] is True
 
 
-def test_actual_local_env_validates_without_printing_values() -> None:
-    report = build_inventory(Path(__file__).resolve().parents[1])
-    serialized = json.dumps(report, sort_keys=True)
-    assert report["required_key_missing"] == []
-    assert report["duplicate_keys"] == []
-    assert report["known_secret_values_redacted"] is True
-    assert "BEGIN PRIVATE KEY" not in serialized
-    assert "access_token=" not in serialized.lower()

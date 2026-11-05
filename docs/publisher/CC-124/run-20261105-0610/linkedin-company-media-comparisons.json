@@ -1,0 +1,24 @@
+[
+  {
+    "asset_id": "ppi_headline_core_24m",
+    "source_asset_sha256": "8a7418f4ebadca2995bae77616a58f953216eb5aca6b50abe8eca1cda77d8c11",
+    "platform_sha256": "03ba6e1b277f6697c0e20d2b5c9cc0a34b77371e6332d6aeb8ffccf7a032ba6d",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523905097471361025",
+    "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQFtsx0e9VloQw/feedshare-shrink_800/B56aGpH0LQLMAg-/0/1793838760894?e=1795651200&v=beta&t=_CWWZWelI_O6PTDPrZNiX_KPaCug6kZOfvn3X5GUxaM",
+    "local_public_capture": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\public-readback\\linkedin-company-ppi_headline_core_24m.jpg",
+    "similarity": 0.9988,
+    "source_pixels_match": true,
+    "pixels_inspected": true
+  },
+  {
+    "asset_id": "ppi_september_component_rates",
+    "source_asset_sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+    "platform_sha256": "56decd9377ceaf43c8c2d2a421ab5cd33ce6f8975b88baf28082d938bdb9469a",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523905097471361025",
+    "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQF3GaGJX4Sv1Q/feedshare-shrink_800/B56aGpH0N3HsAg-/0/1793838761128?e=1795651200&v=beta&t=HmnDx4fVykIEWYe8KLQKq2TrzTNrzhd5HgFT-pkYiIc",
+    "local_public_capture": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\public-readback\\linkedin-company-ppi_september_component_rates.jpg",
+    "similarity": 0.9991,
+    "source_pixels_match": true,
+    "pixels_inspected": true
+  }
+]

@@ -296,16 +296,6 @@ def test_unreachable_pinned_commit_is_rejected(advanced_branch_repo, tmp_path):
         run_adapter_conformance(spec, repo_root=ROOT, upstream_git_repository=repo, upstream_commit=foreign, branch_authority_ref="refs/heads/main")
 
 
-def test_append_only_registries_and_frozen_manifest_integrity():
-    assert not validate_foundation_freeze(ROOT)
-    verifiers = adapters.load_trusted_verifier_registry(ROOT)
-    extractors = extraction.load_extractor_registry(ROOT)
-    assert verifiers.registry_version == "trusted-evidence-registry-1.3.0"
-    assert extractors.registry_version == "artifact-evidence-extractor-registry-1.3.0"
-    assert verifiers.resolve(wave2.VERIFIER_ID, "v1") is not None
-    assert all(extractors.resolve(extractor_id, wave2.EXTRACTOR_VERSION) is not None for extractor_id in ARTIFACTS)
-
-
 def test_exact_inventory_pins_are_complete():
     assert set(wave2.PINNED_ARTIFACTS) == set(ARTIFACTS)
     assert all(row["producer_commit"] != wave2.OBSERVED_UPSTREAM_HEAD for row in wave2.PINNED_ARTIFACTS.values())

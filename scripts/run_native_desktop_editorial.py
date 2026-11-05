@@ -32,7 +32,7 @@ PRODUCTION_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps")
 DEFAULT_PROFILE = Path(__file__).resolve().parents[1] / "config/native_desktop_operator_profile_v1.json"
 
 
-def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=(), live_rollout=None, standing=False):
+def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=(), live_rollout=None, standing=False, preview_event_id=None):
     """Resolve one explicit owner operation; frozen binding survives quota/restarts.
 
     This is an entry to the existing outbox/opportunity, not a queue or scheduler.
@@ -59,6 +59,8 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
         binding = validate_binding(json.loads(path.read_bytes()))
         if request is not None and request != binding.get("editorial_request"):
             raise ValueError("OWNER_REQUEST_CHANGED_USE_NEW_OPERATION")
+        if preview_event_id is not None and preview_event_id != binding.get("preview_event_id"):
+            raise ValueError("OWNER_PREVIEW_EVENT_CHANGED_USE_NEW_OPERATION")
         # A newer feed applies only to new opportunities. Resumes retain their
         # original feed and frozen packets; the profile cannot redirect storage.
         for key in ("store_path", "published_memory_store", "published_memory_output_root"):
@@ -95,6 +97,8 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
             binding["rolling_input_path"] = profile["rolling_input_path"]
         if source_review_ids:
             binding["source_review_ids"] = list(source_review_ids)
+        if preview_event_id:
+            binding["preview_event_id"] = preview_event_id
         from live_contentops.native_newsroom_volume_v1 import volume_policy
         if policy := volume_policy(binding["cutoff_utc"]):
             binding["volume_policy"] = policy
@@ -192,15 +196,13 @@ def continue_owner_story(profile, *, source_review_id, operation_id=None, reques
 
 
 def _bound_store(binding, command):
-    """A publication continuation opens its existing schema without a full DB scan."""
-    store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]),
-        auto_migrate=not command.startswith("publication-"))
-    if command.startswith("publication-"):
-        from live_contentops.durable_operational_store_v1 import SCHEMA_VERSION
-        if store.get_current_schema_version() != SCHEMA_VERSION:
-            store.run_migrations()
-        else:
-            store.verify_applied_migrations()
+    """Resume the existing schema without rescanning the whole production store."""
+    store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]), auto_migrate=False)
+    from live_contentops.durable_operational_store_v1 import SCHEMA_VERSION
+    if store.get_current_schema_version() != SCHEMA_VERSION:
+        store.run_migrations()
+    else:
+        store.verify_applied_migrations()
     return store
 
 
@@ -305,6 +307,16 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
         return bind_editorial_media(store, run_id=binding["run_id"], **response)
     if command == "media-plan":
         from live_contentops.native_desktop_editorial_v1 import bind_editorial_media_plan
+        if response and response.get("visual_amendment"):
+            try:
+                output, receipt = turn.request_visual_amendment(reason=response["reason"],
+                    contextual_assets=response["contextual_assets"])
+                return {"classification": "NATIVE_VISUAL_AMENDMENT_RETURNED", "output": output,
+                    "request_sha256": receipt["request_sha256"], "public_write_performed": False}
+            except DesktopInputRequired as pending:
+                return {"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "stage": pending.request["stage"],
+                    "request_path": pending.request["request_path"], "request_sha256": pending.request["request_sha256"],
+                    "public_write_performed": False}
         if response is None:
             frozen_plan = turn.frozen_request("media-plan")
             governed = (frozen_plan["governed_input"] if frozen_plan else
@@ -335,7 +347,7 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
                     recovery = turn.source_recovery()
                     source_packet = (json.loads((turn.root /
                         "editorial_media_plan_required.json").read_bytes())
-                        if recovery and recovery.get("within_bound_live_budget") else governed)
+                        if (recovery and recovery.get("within_bound_live_budget")) or binding.get("preview_event_id") else governed)
                     frozen_visual = turn.frozen_request("visual-edit")
                     if (binding.get("editorial_request") and (not frozen_visual
                             or "owner_editorial_request" in frozen_visual["governed_input"]["source_packet"])):
@@ -442,6 +454,8 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
     if binding.get("research_editions_root"):
         pointer["research_editions_root"] = binding["research_editions_root"]
     pointer["source_review_ids"] = binding.get("source_review_ids", [])
+    if binding.get("preview_event_id"):
+        pointer["preview_event_id"] = binding["preview_event_id"]
     admitted_research = None
     frozen_input = None
     if binding.get("owner_manual_validation") or binding.get("owner_manual_live"):
@@ -554,7 +568,8 @@ def operation(binding, **kwargs):
                 and request.get("governed_input", {}).get("distribution_recovery") is not None)
             if (native_role(request["stage"]) in {"write", "revise", "final-visual", "visual-edit"}
                     and not dated_social_review):
-                prior = turn._get("write", "response") or turn.visual_response()
+                prior = (turn._get("visual-edit", "response") if request["stage"] == "visual-edit-amend"
+                    else turn._get("write", "response") or turn.visual_response())
                 if prior:
                     same_writer_configuration = prior["invocation_observation"]
                     same_writer = same_writer_configuration["invocation_id"]
@@ -570,8 +585,12 @@ def operation(binding, **kwargs):
         result["coordinator_action"] = next_editorial_action(result)
     from live_contentops.native_newsroom_volume_v1 import bound_volume_policy, persist_native_day_measurement
     if ((bound_volume_policy(binding) or binding.get("owner_manual_live"))
-            and kwargs.get("command", "advance") not in {"status", "publication-status", "context"}
-            and not kwargs.get("command", "advance").startswith("publication-")):
+            and kwargs.get("command", "advance") in {"advance", "newsroom", "standing", "scheduled"}
+            and result.get("classification") != "NATIVE_DESKTOP_INPUT_REQUIRED"):
+        # Exact role/source/media results are already durable. Rebuilding the
+        # whole day's historical publication projection at every pending role
+        # delayed the actual writer. Refresh it when this opportunity yields an
+        # outcome; this does not change any approval or publication clock.
         persist_native_day_measurement(ContentOpsDurableStore(binding["store_path"], auto_migrate=False), binding)
     return result
 
@@ -606,6 +625,7 @@ def main(argv=None):
     parser.add_argument("--request", help="Owner's ordinary-language editorial question; metadata only")
     parser.add_argument("--request-file", type=Path, help="UTF-8 ordinary-language request")
     parser.add_argument("--report-only", action="store_true", help="Explicit Main/research trigger: no new X intake or fabricated filter work")
+    parser.add_argument("--preview-event-id", help="Exact retained preparation event; EVENT_PREVIEW background sources only")
     parser.add_argument("--live", action="store_true", help="Explicit authorized owner-manual run in the existing production store; requires --rollout")
     parser.add_argument("--binding", type=Path)
     parser.add_argument("--rollout", type=Path)
@@ -843,7 +863,8 @@ def main(argv=None):
             else:
                 path, binding = resolve_owner_operation(json.loads(args.profile.read_bytes()),
                     operation_id=args.operation_id, request=request, report_only=args.report_only, source_review_ids=args.source_review_id,
-                    live_rollout=json.loads(args.rollout.read_bytes()) if args.live else None)
+                    live_rollout=json.loads(args.rollout.read_bytes()) if args.live else None,
+                    preview_event_id=args.preview_event_id)
             result = operation(binding, report_only=args.report_only)
             if args.live or args.command == "standing":
                 result = with_due_digest(result, args.rollout)

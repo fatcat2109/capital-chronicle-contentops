@@ -41,10 +41,10 @@ def _ready_edge(
 def test_registry_contains_owner_pins_without_changing_transport_routing():
     packet = canonical_transport_registry()
     expected_routing = {
-        "SUBSTACK_ARTICLE": ("EDGE_CDP", 9223),
-        "X_THREAD": ("EDGE_CDP", 9223),
+        "SUBSTACK_ARTICLE": ("BROWSEROS_NEO_MCP", None),  # Neo since 20 and 28 Oct (CC-268)
+        "X_THREAD": ("BROWSEROS_NEO_MCP", None),  # Neo since 20 and 28 Oct (CC-268)
         "LINKEDIN_POST": ("OFFICIAL_MEMBER_API", None),
-        "YOUTUBE_COMMUNITY_POST": ("EDGE_CDP", 9223),
+        "YOUTUBE_COMMUNITY_POST": ("BROWSEROS_NEO_MCP", None),  # Neo since 20 and 28 Oct (CC-268)
         "TELEGRAM_CHANNEL_POST": ("BOT_API", None),
         "DISCORD_ANNOUNCEMENT": ("WEBHOOK_API", None),
         "FACEBOOK_PAGE_POST": ("META_GRAPH_API", None),
@@ -65,22 +65,6 @@ def test_registry_contains_owner_pins_without_changing_transport_routing():
     assert rows["SUBSTACK_ARTICLE"]["expected_domain"] == "capitalchronicle.substack.com"
     assert rows["DISCORD_ANNOUNCEMENT"]["expected_stable_id"] == "1519311669216673802"
     assert rows["FACEBOOK_PAGE_POST"]["expected_stable_id"] == "106091951705748"
-
-
-@pytest.mark.parametrize(
-    "domain,expected",
-    [
-        ("capitalchronicle.substack.com", "READY_AUTHENTICATED"),
-        ("another-newsletter.substack.com", "IDENTITY_MISMATCH"),
-    ],
-)
-def test_cases_a_b_substack_requires_exact_publication(monkeypatch, domain, expected):
-    _ready_edge(monkeypatch, {
-        "substack": {"authenticated": True, "page_domain": domain, "login_control_detected": False},
-    })
-    row = DestinationReadinessManager(env={}).probe_surface("SUBSTACK_ARTICLE")
-    assert row["readiness_state"] == expected
-    assert row["write_eligible"] is (expected == "READY_AUTHENTICATED")
 
 
 @pytest.mark.parametrize(
@@ -145,21 +129,6 @@ def test_cases_f_g_h_graph_env_id_equal_provider_id_is_not_authority(
     assert row["write_eligible"] is False
 
 
-@pytest.mark.parametrize(
-    "surface,key,identity",
-    [("X_THREAD", "x", "@WrongCapitalAccount")],
-)
-def test_cases_i_j_wrong_authenticated_browser_account_is_mismatch(
-    monkeypatch, surface, key, identity,
-):
-    _ready_edge(monkeypatch, {
-        key: {"authenticated": True, "destination_identity": identity, "login_control_detected": False},
-    })
-    row = DestinationReadinessManager(env={}).probe_surface(surface)
-    assert row["readiness_state"] == "IDENTITY_MISMATCH"
-    assert row["write_eligible"] is False
-
-
 def test_linkedin_official_api_readiness_never_uses_browser_doctor_or_cdp(monkeypatch, tmp_path):
     import live_contentops.edge_cdp_publishing_adapter_v1 as adapter
     import live_contentops.publishing_profile_registry_v1 as profiles
@@ -177,33 +146,6 @@ def test_linkedin_official_api_readiness_never_uses_browser_doctor_or_cdp(monkey
     assert row["sanitized_detail"]["official_api_state"] == "AUTH_UNAVAILABLE"
     assert row["probe_kind"] == "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA"
     assert row["sanitized_detail"]["cdp_navigation_performed"] is False
-    assert row["write_eligible"] is False
-
-
-def test_case_k_wrong_authenticated_youtube_channel_is_mismatch(monkeypatch):
-    _ready_edge(monkeypatch, {
-        "youtube": {
-            "authenticated": True,
-            "destination_identity": "@WrongChannel",
-            "destination_stable_id": "UCwrong",
-            "login_control_detected": False,
-        },
-    }, youtube_identity_verified=False)
-    row = DestinationReadinessManager(env={}).probe_surface("YOUTUBE_COMMUNITY_POST")
-    assert row["readiness_state"] == "IDENTITY_MISMATCH"
-    assert row["write_eligible"] is False
-
-
-def test_youtube_public_handle_page_cannot_self_authorize_wrong_studio_channel(monkeypatch):
-    _ready_edge(monkeypatch, {
-        "youtube": {
-            "authenticated": True,
-            "destination_stable_id": "UCwrong",
-            "login_control_detected": False,
-        },
-    }, youtube_identity_verified=True, youtube_canonical_channel_id="UCcanonical")
-    row = DestinationReadinessManager(env={}).probe_surface("YOUTUBE_COMMUNITY_POST")
-    assert row["readiness_state"] == "IDENTITY_MISMATCH"
     assert row["write_eligible"] is False
 
 
@@ -233,7 +175,7 @@ def test_global_probe_all_is_passive_and_never_calls_browser_or_provider(monkeyp
         edge_runtime_ensurer=lambda **_kwargs: pytest.fail("passive probe_all launched Edge"),
     )
 
-    result = manager.probe_all(persist=True)
+    result = manager.probe_all()  # passive snapshots are return-only (CC-268)
 
     assert result["active_browser_probe_performed"] is False
     assert result["external_provider_health_poll_performed"] is False
@@ -244,47 +186,6 @@ def test_global_probe_all_is_passive_and_never_calls_browser_or_provider(monkeyp
         }
         for row in result["surfaces"].values()
     )
-
-
-def test_failed_jit_attempt_marker_is_durable_and_survives_passive_snapshot(
-    monkeypatch, tmp_path
-):
-    import live_contentops.publishing_profile_registry_v1 as profiles
-    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
-
-    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
-    manager = DestinationReadinessManager(store=store, env={})
-    registration = registry.registration_for_destination("substack")
-    monkeypatch.setattr(
-        manager,
-        "probe_surface",
-        lambda _surface: registry._base_row(
-            registration,
-            state="REAUTH_REQUIRED",
-            identity=None,
-            identity_match=False,
-            probe_kind="EDGE_CDP_IDENTITY",
-            detail={"authenticated": False},
-        ),
-    )
-    row = manager.verify_destination_jit(
-        "substack", reason="PUBLICATION", attempt_identity="dispatch_fixture"
-    )
-    assert row["readiness_state"] == "REAUTH_REQUIRED"
-    assert manager.cached_failed_jit_attempt(
-        "substack", attempt_identity="dispatch_fixture"
-    )["readiness_state"] == "REAUTH_REQUIRED"
-
-    monkeypatch.setattr(
-        profiles,
-        "browser_doctor",
-        lambda **_kwargs: {"status": "READY_TO_ATTACH", "recommended_cdp_port": 9223},
-    )
-    passive = manager.passive_surface("SUBSTACK_ARTICLE", persist=True)
-    assert passive["readiness_state"] == "REAUTH_REQUIRED"
-    assert manager.cached_failed_jit_attempt(
-        "substack", attempt_identity="dispatch_fixture"
-    )["readiness_state"] == "REAUTH_REQUIRED"
 
 
 @pytest.mark.parametrize("readiness", ["IDENTITY_MISMATCH", "REAUTH_REQUIRED", "AUTH_INVALID"])

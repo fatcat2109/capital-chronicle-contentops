@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="0.686" timestamp="2026-11-05T08:42:49.701147+07:00" hostname="J-P"><testcase classname="tests.test_post_visuals_v1" name="test_attributed_filing_facts_reach_all_eight_publication_packages" time="0.216" /></testsuite></testsuites>

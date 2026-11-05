@@ -3,6 +3,15 @@ from pathlib import Path
 from live_contentops import payload_preview_hash_v6 as preview_hash
 
 
+def _automation_root(tmp_path):
+    """CC-268: a tmp automation root with a copy of the generator's committed inputs."""
+    import shutil
+    root = tmp_path / "automation"
+    source = Path("docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING")
+    shutil.copytree(source, root / source.name)
+    return root
+
+
 def _write_committed_inputs(base_dir: Path, *, placeholder: bool = False, missing_summary: bool = False) -> None:
     delegated_dir = base_dir / "V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING"
     delegated_dir.mkdir(parents=True, exist_ok=True)
@@ -58,9 +67,10 @@ def _write_committed_inputs(base_dir: Path, *, placeholder: bool = False, missin
     (delegated_dir / "delegated_evidence_refresh_result.json").write_text(json.dumps(refresh), encoding="utf-8")
 
 
-def test_committed_preview_hash_packet_properties():
-    out_dir = Path("docs/automation/V6_PAYLOAD_PREVIEW_HASH")
-    preview_hash.main(["--output-dir", str(out_dir)])
+def test_committed_preview_hash_packet_properties(tmp_path):
+    automation = _automation_root(tmp_path)
+    preview_hash.main(["--output-dir", str(automation)])
+    out_dir = automation / "V6_PAYLOAD_PREVIEW_HASH"
 
     packet_file = out_dir / "payload_preview_hash_packet.json"
     assert packet_file.exists()
@@ -84,9 +94,10 @@ def test_committed_preview_hash_packet_properties():
     assert data["next_recommended_task"] == "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0"
 
 
-def test_payload_preview_is_review_only_and_grounded():
-    out_dir = Path("docs/automation/V6_PAYLOAD_PREVIEW_HASH")
-    preview_hash.main(["--output-dir", str(out_dir)])
+def test_payload_preview_is_review_only_and_grounded(tmp_path):
+    automation = _automation_root(tmp_path)
+    preview_hash.main(["--output-dir", str(automation)])
+    out_dir = automation / "V6_PAYLOAD_PREVIEW_HASH"
 
     preview_file = out_dir / "payload_preview_exact_review.json"
     assert preview_file.exists()
@@ -150,9 +161,10 @@ def test_placeholder_tainted_committed_summary_blocks_hash_creation(tmp_path):
     assert "exact safe payload unavailable" in preview["title"].lower()
 
 
-def test_no_sensitive_values_in_artifacts():
-    out_dir = Path("docs/automation/V6_PAYLOAD_PREVIEW_HASH")
-    preview_hash.main(["--output-dir", str(out_dir)])
+def test_no_sensitive_values_in_artifacts(tmp_path):
+    automation = _automation_root(tmp_path)
+    preview_hash.main(["--output-dir", str(automation)])
+    out_dir = automation / "V6_PAYLOAD_PREVIEW_HASH"
 
     files = [
         out_dir / "payload_preview_hash_packet.json",

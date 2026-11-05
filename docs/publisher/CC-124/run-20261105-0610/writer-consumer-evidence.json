@@ -1,0 +1,29 @@
+{
+  "operation_id": "cc124-next-article-20261105-a",
+  "article_identity": "eddc51c72ad48e2c71becf2b131e31bd05e8fb252a1e021857cc1056ba1cfd1f",
+  "qualified_article_count": 1,
+  "title": "September PPI: energy drove the goods surge as services rose",
+  "canonical_slug": "september-2026-ppi-energy-services-retrospective",
+  "source_count": 3,
+  "claim_bindings": 28,
+  "writer_invocation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/ppi_max_writer",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Supported native task context /root/ppi_max_writer exposes canonical task identity; actual runtime model and reasoning-effort telemetry is unavailable.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Exact desktop_request_write.json requested_model/requested_reasoning_effort and supported parent followup_task assignment to the SAME /root/ppi_max_writer."
+  },
+  "response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\desktop_response_write.json",
+  "response_sha256": "e99b4a288560de1f791911794772c8aec7d4ace4f4f1227740130cca86d39106",
+  "preview_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\preview.html",
+  "preview_sha256": "93120125c7bc9d3a3cb3ff41d459957dfd1912ea1cea0c91c7482f163c3bda95",
+  "publication_claimed": false,
+  "text_approved": false
+}

@@ -31,8 +31,12 @@ INGESTION_ONLY_CDP_PORT = 9222
 READY_AUTHENTICATED = "READY_AUTHENTICATED"
 READY_NON_BROWSER_BINDING = "READY_NON_BROWSER_BINDING"
 READY_OFFICIAL_MEMBER_API = "READY_OFFICIAL_MEMBER_API"
+# CC-283: a Neo publish whose account check runs inside the same composed run, just before the
+# write. No identity was observed yet, so identity_match stays None; the executor accepts the
+# return only with an identity observed between its claim and the dispatch.
+READY_IDENTITY_AT_ACTION = "READY_IDENTITY_AT_ACTION"
 READY_STATES = frozenset({
-    READY_AUTHENTICATED, READY_NON_BROWSER_BINDING, READY_OFFICIAL_MEMBER_API,
+    READY_AUTHENTICATED, READY_NON_BROWSER_BINDING, READY_OFFICIAL_MEMBER_API, READY_IDENTITY_AT_ACTION,
 })
 READINESS_STATES = frozenset({
     *READY_STATES,
@@ -602,6 +606,11 @@ class DestinationReadinessManager:
             # An old Edge/cache result never proves this Neo account. Native observation
             # must establish the current authenticated identity before any future write.
             proof = self.neo_readiness_provider(surface) if callable(self.neo_readiness_provider) else {}
+            if proof.get("identity_at_action") is True and proof.get("native_executor_bound") is True:
+                return _base_row(registration, state=READY_IDENTITY_AT_ACTION, identity=None, identity_match=None,
+                    probe_kind="NATIVE_NEO_IDENTITY_CHECKED_AT_ACTION",
+                    detail={"identity_at_action": True, "native_executor_bound": True, "authenticated": None,
+                            "owner_action": "The composed Neo run checks the expected account just before the write."})
             matched, _ = _identity_pin_match(registration,
                 observed_stable_id=proof.get("stable_id"), observed_public_handle=proof.get("public_handle"),
                 observed_domain=proof.get("domain")) if proof else (False, {})
@@ -630,7 +639,9 @@ class DestinationReadinessManager:
 
     def _persist(self, row: Mapping[str, Any], *, persist: bool) -> dict[str, Any]:
         result = dict(row)
-        if persist and self.store is not None:
+        # CC-283: an account check deferred to the composed run is valid only inside that run;
+        # it is never stored as a destination's readiness (the last stored state stays).
+        if persist and self.store is not None and result.get("readiness_state") != READY_IDENTITY_AT_ACTION:
             self.store.upsert_destination_readiness(row=result)
         return result
 
@@ -642,7 +653,7 @@ class DestinationReadinessManager:
             {},
         )
 
-    def passive_surface(self, surface: str, *, persist: bool = True) -> dict[str, Any]:
+    def passive_surface(self, surface: str, *, persist: bool = False) -> dict[str, Any]:
         """Local/process/cached-metadata readiness only; never opens or navigates a page."""
 
         registration = SURFACE_REGISTRY[surface]
@@ -824,7 +835,7 @@ class DestinationReadinessManager:
         }
 
     def probe_all(self, *, surfaces: Sequence[str] = TIER1_SURFACES,
-                   persist: bool = True) -> dict[str, Any]:
+                   persist: bool = False) -> dict[str, Any]:
         """Compatibility name for a passive snapshot; global active social probing is forbidden."""
         if BROWSER_INTERACTION_BUDGET_V1.edge_global_social_probe_allowed:
             raise RuntimeError("browser_budget_invalid_global_social_probe_enabled")

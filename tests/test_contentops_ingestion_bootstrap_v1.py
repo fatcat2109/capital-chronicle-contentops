@@ -133,7 +133,13 @@ def test_no_session_or_credential_extraction_anywhere_in_module():
 
 
 def test_browser_roles_remain_separated_in_launcher_summary(monkeypatch):
-    monkeypatch.setattr(bootstrap, "probe_cdp", lambda port, **kwargs: {"cdp_alive": port == bootstrap.PUBLISHING_CDP_PORT, "browser": "Edge"})
+    from live_contentops import daily_app_launcher_v1
+
+    fake_probe = lambda port, **kwargs: {"cdp_alive": port == bootstrap.PUBLISHING_CDP_PORT, "browser": "Edge"}
+    monkeypatch.setattr(bootstrap, "probe_cdp", fake_probe)
+    # CC-268: the launcher imports probe_cdp by name; patch the name it calls, or the summary
+    # probes the real Edge 9223 on this machine and the result depends on whether Edge is up.
+    monkeypatch.setattr(daily_app_launcher_v1, "probe_cdp", fake_probe)
     state = summarize_browser_state(
         {"platforms": {"destinations": [{"platform_id": "substack", "readiness": "READY_AUTHENTICATED"}]}},
         ingestion_runtime={"status": bootstrap.STATE_ALREADY_READY, "state": bootstrap.STATE_READY, "detail": "CANONICAL", "auth_state": bootstrap.STATE_READY},

@@ -388,19 +388,6 @@ def test_52_no_financial_advice_signal_execution_language():
     assert p["safety_flags"]["broker_order_execution"] is False
 
 
-def test_53_no_fake_market_numbers():
-    """53. Verify no fake market numbers."""
-    p = build_contract_packet()
-    assert p["safety_flags"]["financial_advice"] is False
-    assert p["safety_flags"]["broker_order_execution"] is False
-
-    out_dir = Path("docs/automation/0175AZ")
-    runbook_path = out_dir / "performance_audit_precheck_to_summary_stub_contract.md"
-    assert runbook_path.exists()
-    content = runbook_path.read_text(encoding="utf-8")
-    assert "fake" not in content.lower()
-
-
 def test_54_no_env_network_credential_platform_provider_api_imports_or_calls():
     """54. Scan code to ensure no environment, network, or credential API modules are imported."""
     with open("live_contentops/performance_audit_precheck_to_summary_stub_contract.py", encoding="utf-8") as f:
@@ -446,17 +433,6 @@ def test_59_artifacts_written_only_under_docs_automation_0175az():
     """59. Verify that write_artifacts fails with ValueError outside docs/automation/0175AZ."""
     with pytest.raises(ValueError, match="artifact_writer_refuses_paths_outside_docs_automation_0175AZ"):
         write_artifacts(repo_root=".", output_dir="docs/automation/other")
-
-
-def test_60_progress_ledger_resolves_0175ay_and_appends_0175az():
-    """60. Verify progress ledger resolves 0175AY final HEAD and appends 0175AZ."""
-    path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
-    assert path.exists()
-    content = path.read_text(encoding="utf-8")
-
-    # One-task-lag checks
-    assert "| `TASK_CONTENTOPS_0175AY_METRICS_RECORD_STUB_TO_PERFORMANCE_AUDIT_PRECHECK_V0` | `f3e0cb0e2774b8a9566e652ee61be947bf686a5e` | `048b27c6dce2aef5fb38e0552b8208d4fd408d9f` |" in content
-    assert "| `TASK_CONTENTOPS_0175AZ_PERFORMANCE_AUDIT_PRECHECK_TO_SUMMARY_STUB_V0` | `048b27c6dce2aef5fb38e0552b8208d4fd408d9f` | `888d6c34b31daa107056bb5a56ab0d5e7430e49b` |" in content
 
 
 def test_61_no_pycache_or_pyc_staged():

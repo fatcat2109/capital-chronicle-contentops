@@ -1,0 +1,191 @@
+{
+  "receipt": {
+    "message_id": "native-story-preparation-9afc01b6f89fad0c54f3196e925337746cfbbf3074316737acff7c07090f5084",
+    "event_id": "bls-cpi-20261110",
+    "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+  },
+  "packet": {
+    "background": "The exact September CPI summary and its embedded main-category monthly/annual table, released 14 October, are retained. Headline and core, monthly seasonally adjusted changes and annual unadjusted changes must remain distinct. The capture is raw background, not an admitted chart dataset.",
+    "comparison_plan": [
+      "Compare October and September on the same metric, period, unit and seasonal-adjustment basis.",
+      "Preserve raw index levels separately from monthly and annual percentage changes; retain actual revisions rather than overwriting the September capture.",
+      "Use admitted component evidence for attribution; do not assume the prior energy movement persists or infer a market surprise without a separately admitted expectation."
+    ],
+    "consensus": null,
+    "event_id": "bls-cpi-20261110",
+    "future_release_values": null,
+    "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+    "missing_inputs": [
+      "Actual October CPI release, exact table edition and known-at at T0",
+      "Table/header/footnote admission and lawful chart transformation before any chart is created",
+      "No filled October values, imputed components or invented expectations"
+    ],
+    "official_attribution": "Attribute actual released facts naturally to the named official issuer; attributed reporting and market reaction require their own exact sources and clocks.",
+    "official_sources": [
+      {
+        "capture_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\co1-application\\volume-official-event-browser-read.json",
+        "capture_sha256": "c355e871895d100d3addbf0fcd793a0b0068bc3237a529ed36f169dfda93dec6",
+        "observed_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "publication_clock": "NOT_SUPPLIED",
+        "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+        "writer_source_admitted": false
+      },
+      {
+        "capture_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\co1-application\\pre-event-background-20261029\\bls-cpi-september-2026.md",
+        "capture_sha256": "0160abbf3a461f718be66228efc0a9b168a932728fb9be30088764d7986c64a2",
+        "observed_at_utc": "2026-10-29T04:59:52.147000+00:00",
+        "publication_clock": "2026-10-14T08:30:00-04:00",
+        "published_at_utc": "2026-10-14T12:30:00+00:00",
+        "reference_period": "2026-09",
+        "role": "PRIOR_OFFICIAL_BACKGROUND",
+        "source_release_id": "USDL-26-1574",
+        "url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "vintage": "AS_CAPTURED_FROM_OFFICIAL_RELEASE_20261029",
+        "writer_source_admitted": false
+      },
+      {
+        "capture_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\co1-application\\co5-20261030-read-1793293747399-e823fbea-b2af-4a82-b99d-dae23e91adf3.md",
+        "capture_sha256": "5244d72ca4cbcec442194331b37eb19120b5083eb6051536c6bef40d380097cd",
+        "observation_clock_limitation": "Neo read completed in this native operation; exact per-page observation UTC was not emitted. Retained-at is not publication or release time.",
+        "observed_at_utc": null,
+        "retained_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "url": "https://www.bls.gov/schedule/2026/home.htm",
+        "writer_source_admitted": false
+      }
+    ],
+    "planned_release_utc": "2026-11-10T13:30:00+00:00",
+    "preparation_revision": "CC216_EARLY_PREVIEW_BACKGROUND",
+    "prior_fact_spans": [
+      {
+        "capture_sha256": "0160abbf3a461f718be66228efc0a9b168a932728fb9be30088764d7986c64a2",
+        "exact_source_span": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in \nSeptember after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 \nmonths, the all items index increased 3.7 percent before seasonal adjustment.",
+        "metric": "Headline monthly SA and annual NSA percent"
+      },
+      {
+        "capture_sha256": "0160abbf3a461f718be66228efc0a9b168a932728fb9be30088764d7986c64a2",
+        "exact_source_span": "The index for all items less food and energy rose 0.3 percent in September, as it did in August. Indexes that increased \nover the month include recreation, used cars and trucks, education, airline fares, medical care, and apparel. Conversely, \nthe index for communication was among the small number of major indexes that decreased in September.",
+        "metric": "Core monthly percent"
+      },
+      {
+        "capture_sha256": "0160abbf3a461f718be66228efc0a9b168a932728fb9be30088764d7986c64a2",
+        "exact_source_span": "The all items less food and energy index rose 2.6 percent over the year, \nfollowing a 2.4-percent increase over the 12 months ending August.",
+        "metric": "Core annual percent"
+      }
+    ],
+    "prior_values": [
+      {
+        "basis": "monthly SA",
+        "metric": "CPI-U all items",
+        "period": "2026-09",
+        "unit": "percent",
+        "value": 0.6,
+        "vintage": "USDL-26-1574 as captured 2026-10-29"
+      },
+      {
+        "basis": "12-month NSA",
+        "metric": "CPI-U all items",
+        "period": "2026-09",
+        "unit": "percent",
+        "value": 3.7,
+        "vintage": "USDL-26-1574 as captured 2026-10-29"
+      },
+      {
+        "basis": "monthly SA",
+        "metric": "CPI-U less food and energy",
+        "period": "2026-09",
+        "unit": "percent",
+        "value": 0.3,
+        "vintage": "USDL-26-1574 as captured 2026-10-29"
+      },
+      {
+        "basis": "12-month NSA",
+        "metric": "CPI-U less food and energy",
+        "period": "2026-09",
+        "unit": "percent",
+        "value": 2.6,
+        "vintage": "USDL-26-1574 as captured 2026-10-29"
+      },
+      {
+        "basis": "monthly SA",
+        "metric": "Energy",
+        "period": "2026-09",
+        "unit": "percent",
+        "value": 5.2,
+        "vintage": "USDL-26-1574 as captured 2026-10-29"
+      },
+      {
+        "basis": "monthly SA",
+        "metric": "Gasoline all types",
+        "period": "2026-09",
+        "unit": "percent",
+        "value": 9.1,
+        "vintage": "USDL-26-1574 as captured 2026-10-29"
+      },
+      {
+        "basis": "monthly SA",
+        "metric": "Shelter",
+        "period": "2026-09",
+        "unit": "percent",
+        "value": 0.4,
+        "vintage": "USDL-26-1574 as captured 2026-10-29"
+      },
+      {
+        "basis": "monthly SA",
+        "metric": "Food",
+        "period": "2026-09",
+        "unit": "percent",
+        "value": 0.0,
+        "vintage": "USDL-26-1574 as captured 2026-10-29"
+      }
+    ],
+    "prior_values_source_binding": "All values are internal background transcriptions from retained official prior source captures listed in official_sources; not writer-source or chart admission.",
+    "public_write_performed": false,
+    "publication_authority": false,
+    "reader_question": "Which admitted components explain the new inflation observation, with month/year rates and adjustment bases kept distinct?",
+    "relation_to_frozen_edition": "NONE_FROZEN_EDITION_UNCHANGED",
+    "release_clock_basis": "Retained release-specific official schedule plus newly retained BLS annual calendar statement that all calendar times are Eastern; 08:30 EST is 13:30 UTC and 20:30 GMT+7 on these November dates. Scheduled time is not actual publication or known-at.",
+    "release_work": "At the scheduled event, use the existing intake/source/story owner to retain actual release bytes, publisher clock if supplied, observed known-at and revision; compare against this retained prior vintage without overwriting it. Admit only the bounded new facts; native Light preparation then same MAX writing/final rendered review and sole coordinator. This packet allocates no operation, fetch budget or publication.",
+    "released_facts_admitted": false,
+    "schema_version": "contentops.native_story_preparation.v1",
+    "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK",
+    "source_budget_relation": "SEPARATE_PRE_EVENT_PREPARATION_NOT_A_REOPENED_OR_UPGRADED_EDITION",
+    "supersedes_preparation_message_id": "native-story-preparation-8178bfc32e13c79e4a6dfb623c932175dca47a7b631f7639a5045cb4ab07bdff",
+    "table_locators": [
+      {
+        "state": "RAW_TABLE_CAPTURED_NOT_CHART_ADMITTED",
+        "table": "Embedded main-category summary table",
+        "url": "https://www.bls.gov/news.release/cpi.nr0.htm"
+      },
+      {
+        "state": "LINK_OBSERVED_TABLE_BODY_NOT_CAPTURED",
+        "table": "CPI-U expenditure categories",
+        "url": "https://www.bls.gov/news.release/cpi.t01.htm"
+      },
+      {
+        "state": "LINK_OBSERVED_TABLE_BODY_NOT_CAPTURED",
+        "table": "Detailed expenditure categories",
+        "url": "https://www.bls.gov/news.release/cpi.t02.htm"
+      }
+    ],
+    "title": "CPI for October2026, 10 November",
+    "update_frames": [
+      "If headline and core diverge, lead with the evidenced component mechanism rather than treating one as the whole inflation picture.",
+      "If annual and monthly directions diverge, explain their distinct comparison periods using actual admitted figures.",
+      "Use a broadening/narrowing frame only after comparable components support it; no automatic extrapolation of September gasoline movement."
+    ],
+    "watchpoints": [
+      "Separate headline/core and monthly SA/annual NSA; do not compare rates with different bases.",
+      "Check actual energy, shelter and food contributions or source explanation; a component rate alone is not a weighted contribution.",
+      "A lower annual rate can reflect base effects; test against actual monthly and component evidence before explaining causality.",
+      "Preserve September vintage if the October release revises comparable seasonal figures; no surprise claim without admitted expectation."
+    ],
+    "single_consensus_fact": {
+      "projection_path": "A:\\Capital Chronicle\\ResearchRuns\\cc-068-release-consensus\\root\\daily\\2026-11-05\\US_CPI_20261110.json",
+      "projection_sha256": "be053635b7789def43e49884edac2639cc67964b00111f821b3d152db0837a81",
+      "capture_root": "A:\\Capital Chronicle\\ResearchRuns\\cc-068-release-consensus\\root",
+      "release_id": "US_CPI_20261110",
+      "source": "myfxbook",
+      "measure_key": "cpi_yoy"
+    }
+  }
+}

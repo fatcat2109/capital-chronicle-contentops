@@ -1,0 +1,9 @@
+{
+  "at_utc": "2026-11-05T03:08:39.470577+00:00",
+  "old_readback_request": "8c58aef43693d027f50fca7296e605220346ea0e08dde9c54f79bda72a3c3aa0",
+  "observed_readback_request": "7cc4d6965aebdf747b4cc195e4671ee10afca4a7125c60e5b7fd7bba633cb746",
+  "intent_sha256": "7b96b0b634a31c6c2aa3d3290e2baec5a46890748b3d37f385e50b15e4cb59ad",
+  "status": "NATIVE_NEO_SUPERSEDED",
+  "cause": "Later exact own-profile observation reconciled the same absent post after delivery-manifest binding changed; immutable text and source card hashes match.",
+  "public_write_performed": false
+}

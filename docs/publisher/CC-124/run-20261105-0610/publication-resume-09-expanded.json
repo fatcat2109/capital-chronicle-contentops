@@ -1,0 +1,1121 @@
+{
+  "classification": "NATIVE_PUBLICATION_CONTINUATION",
+  "coordinator_result": {
+    "plan_hash": "764f3dd475c7507dd5863e783d5416b1ecd1532dc9a257dd9b307a49d4442ae2",
+    "registered": [
+      {
+        "destination": "substack",
+        "message_id": "outbox_dc4ee7cc7a89527382a152a0021f9520",
+        "dispatch_id": "dispatch_dc4ee7cc7a89527382a152a0021f9520",
+        "reconciliation_id": "reconciliation_dc4ee7cc7a89527382a152a0021f9520"
+      },
+      {
+        "destination": "discord",
+        "message_id": "outbox_372fcfd461f86afc9b9c7805e45c5da9",
+        "dispatch_id": "dispatch_372fcfd461f86afc9b9c7805e45c5da9",
+        "reconciliation_id": "reconciliation_372fcfd461f86afc9b9c7805e45c5da9"
+      },
+      {
+        "destination": "facebook_page",
+        "message_id": "outbox_5a6eaafd20eb19301bde339c7af48bd8",
+        "dispatch_id": "dispatch_5a6eaafd20eb19301bde339c7af48bd8",
+        "reconciliation_id": "reconciliation_5a6eaafd20eb19301bde339c7af48bd8"
+      },
+      {
+        "destination": "instagram_business",
+        "message_id": "outbox_9d27cf07bbaf59eeed3d4f4152c89624",
+        "dispatch_id": "dispatch_9d27cf07bbaf59eeed3d4f4152c89624",
+        "reconciliation_id": "reconciliation_9d27cf07bbaf59eeed3d4f4152c89624"
+      },
+      {
+        "destination": "linkedin",
+        "message_id": "outbox_2704c810355edb38f779637795ce85b0",
+        "dispatch_id": "dispatch_2704c810355edb38f779637795ce85b0",
+        "reconciliation_id": "reconciliation_2704c810355edb38f779637795ce85b0"
+      },
+      {
+        "destination": "linkedin_company",
+        "message_id": "outbox_6018a55943e05cad2e94306d6af803cc",
+        "dispatch_id": "dispatch_6018a55943e05cad2e94306d6af803cc",
+        "reconciliation_id": "reconciliation_6018a55943e05cad2e94306d6af803cc"
+      },
+      {
+        "destination": "telegram",
+        "message_id": "outbox_08c2481cba2e9be0a933fbc423f0d884",
+        "dispatch_id": "dispatch_08c2481cba2e9be0a933fbc423f0d884",
+        "reconciliation_id": "reconciliation_08c2481cba2e9be0a933fbc423f0d884"
+      },
+      {
+        "destination": "threads",
+        "message_id": "outbox_faeeba2d6428ead952d51a6093798e79",
+        "dispatch_id": "dispatch_faeeba2d6428ead952d51a6093798e79",
+        "reconciliation_id": "reconciliation_faeeba2d6428ead952d51a6093798e79"
+      },
+      {
+        "destination": "x",
+        "message_id": "outbox_7625f314528bf2b7e160025e8dbf1d57",
+        "dispatch_id": "dispatch_7625f314528bf2b7e160025e8dbf1d57",
+        "reconciliation_id": "reconciliation_7625f314528bf2b7e160025e8dbf1d57"
+      },
+      {
+        "destination": "youtube",
+        "message_id": "outbox_d723e05d2500b8b477ef073bf8f163d9",
+        "dispatch_id": "dispatch_d723e05d2500b8b477ef073bf8f163d9",
+        "reconciliation_id": "reconciliation_d723e05d2500b8b477ef073bf8f163d9"
+      }
+    ],
+    "outbox_count": 10,
+    "per_destination": {
+      "substack": {
+        "destination": "substack",
+        "dispatch_id": "dispatch_dc4ee7cc7a89527382a152a0021f9520",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "223555673",
+        "public_object_url": "https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+        "publish_called": false
+      },
+      "telegram": {
+        "destination": "telegram",
+        "dispatch_id": "dispatch_08c2481cba2e9be0a933fbc423f0d884",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "78",
+        "public_object_url": "https://t.me/CapitalChronicle/78",
+        "publish_called": false
+      },
+      "x": {
+        "destination": "x",
+        "dispatch_id": "dispatch_7625f314528bf2b7e160025e8dbf1d57",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+        "public_object_id": "2118143748899242476",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118143748899242476",
+        "publish_called": false
+      },
+      "discord": {
+        "destination": "discord",
+        "dispatch_id": "dispatch_372fcfd461f86afc9b9c7805e45c5da9",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "1567697105110171698",
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "linkedin": {
+        "destination": "linkedin",
+        "dispatch_id": "dispatch_2704c810355edb38f779637795ce85b0",
+        "dispatch_recorded": true,
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "facebook_page": {
+        "destination": "facebook_page",
+        "dispatch_id": "dispatch_5a6eaafd20eb19301bde339c7af48bd8",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "106091951705748_1445129697805446",
+        "public_object_url": "https://www.facebook.com/1342369584748125/posts/1445129697805446",
+        "publish_called": false
+      },
+      "instagram_business": {
+        "destination": "instagram_business",
+        "dispatch_id": "dispatch_9d27cf07bbaf59eeed3d4f4152c89624",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "17965563222250380",
+        "public_object_url": "https://www.instagram.com/p/DfVvtyuE_Bz/",
+        "publish_called": false
+      },
+      "threads": {
+        "destination": "threads",
+        "dispatch_id": "dispatch_faeeba2d6428ead952d51a6093798e79",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "18349318927265482",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfVvwJZnwY7",
+        "publish_called": false
+      },
+      "youtube": {
+        "destination": "youtube",
+        "dispatch_id": "dispatch_d723e05d2500b8b477ef073bf8f163d9",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc",
+        "public_object_url": "https://www.youtube.com/post/Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc",
+        "publish_called": false
+      },
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "dispatch_id": "dispatch_6018a55943e05cad2e94306d6af803cc",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "urn:li:ugcPost:7523905097471361025",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523905097471361025",
+        "publish_called": false
+      }
+    },
+    "canonical_article_status": "REAL_PUBLISHED",
+    "canonical_article_real_published": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+    "canonical_publication_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "transaction_classification": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "quality_preflight": {
+      "status": "CANONICAL_SUBSTACK_READY_DERIVATIVES_DEFERRED",
+      "required_destinations": [
+        "substack",
+        "telegram",
+        "x",
+        "discord",
+        "linkedin",
+        "facebook_page",
+        "instagram_business",
+        "threads",
+        "youtube"
+      ],
+      "required_derivative_destinations": [
+        "telegram",
+        "x",
+        "discord",
+        "linkedin",
+        "facebook_page",
+        "instagram_business",
+        "threads",
+        "youtube"
+      ],
+      "structural_blockers": {
+        "missing_destinations": [],
+        "unexpected_destinations": [],
+        "duplicate_destinations": [],
+        "skipped_derivative_destinations": [],
+        "pre_substack_blockers": []
+      },
+      "readiness_blockers": [],
+      "derivative_readiness_deferred": [
+        "telegram",
+        "x",
+        "discord",
+        "linkedin",
+        "facebook_page",
+        "instagram_business",
+        "threads",
+        "youtube"
+      ],
+      "per_destination": {
+        "substack": {
+          "readiness_state": "JIT_DEFERRED_UNTIL_CANONICAL_CONFIRMED",
+          "identity_match": null,
+          "write_eligible": false,
+          "jit_deferred_until_after_canonical": true,
+          "planned_readiness_state": "JIT_VERIFICATION_REQUIRED",
+          "safe_error_classification": null,
+          "sanitized_detail": {}
+        },
+        "telegram": {
+          "readiness_state": "JIT_DEFERRED_UNTIL_CANONICAL_CONFIRMED",
+          "identity_match": null,
+          "write_eligible": false,
+          "jit_deferred_until_after_canonical": true,
+          "planned_readiness_state": "JIT_VERIFICATION_REQUIRED",
+          "safe_error_classification": null,
+          "sanitized_detail": {}
+        },
+        "x": {
+          "readiness_state": "JIT_DEFERRED_UNTIL_CANONICAL_CONFIRMED",
+          "identity_match": null,
+          "write_eligible": false,
+          "jit_deferred_until_after_canonical": true,
+          "planned_readiness_state": "JIT_VERIFICATION_REQUIRED",
+          "safe_error_classification": null,
+          "sanitized_detail": {}
+        },
+        "discord": {
+          "readiness_state": "JIT_DEFERRED_UNTIL_CANONICAL_CONFIRMED",
+          "identity_match": null,
+          "write_eligible": false,
+          "jit_deferred_until_after_canonical": true,
+          "planned_readiness_state": "JIT_VERIFICATION_REQUIRED",
+          "safe_error_classification": null,
+          "sanitized_detail": {}
+        },
+        "linkedin": {
+          "readiness_state": "JIT_DEFERRED_UNTIL_CANONICAL_CONFIRMED",
+          "identity_match": null,
+          "write_eligible": false,
+          "jit_deferred_until_after_canonical": true,
+          "planned_readiness_state": "JIT_VERIFICATION_REQUIRED",
+          "safe_error_classification": null,
+          "sanitized_detail": {}
+        },
+        "facebook_page": {
+          "readiness_state": "JIT_DEFERRED_UNTIL_CANONICAL_CONFIRMED",
+          "identity_match": null,
+          "write_eligible": false,
+          "jit_deferred_until_after_canonical": true,
+          "planned_readiness_state": "JIT_VERIFICATION_REQUIRED",
+          "safe_error_classification": null,
+          "sanitized_detail": {}
+        },
+        "instagram_business": {
+          "readiness_state": "JIT_DEFERRED_UNTIL_CANONICAL_CONFIRMED",
+          "identity_match": null,
+          "write_eligible": false,
+          "jit_deferred_until_after_canonical": true,
+          "planned_readiness_state": "JIT_VERIFICATION_REQUIRED",
+          "safe_error_classification": null,
+          "sanitized_detail": {}
+        },
+        "threads": {
+          "readiness_state": "JIT_DEFERRED_UNTIL_CANONICAL_CONFIRMED",
+          "identity_match": null,
+          "write_eligible": false,
+          "jit_deferred_until_after_canonical": true,
+          "planned_readiness_state": "JIT_VERIFICATION_REQUIRED",
+          "safe_error_classification": null,
+          "sanitized_detail": {}
+        },
+        "youtube": {
+          "readiness_state": "JIT_DEFERRED_UNTIL_CANONICAL_CONFIRMED",
+          "identity_match": null,
+          "write_eligible": false,
+          "jit_deferred_until_after_canonical": true,
+          "planned_readiness_state": "JIT_VERIFICATION_REQUIRED",
+          "safe_error_classification": null,
+          "sanitized_detail": {}
+        }
+      },
+      "public_write_performed": false
+    },
+    "delivery_media_preparation": {
+      "status": "CLOUDINARY_DELIVERY_MEDIA_READY",
+      "credential_presence": {
+        "CLOUDINARY_CLOUD_NAME": true,
+        "CLOUDINARY_API_KEY": true,
+        "CLOUDINARY_API_SECRET": true
+      },
+      "provider_calls": 0,
+      "reused_asset_count": 4,
+      "verified_asset_count": 4,
+      "public_write_performed": false,
+      "canonical_publication_attempted": false,
+      "delivery_manifest_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\reviewed-handoff\\d619ecc2cd48e8bb6d74958fc5e2295b08fc843402b2b6e4f94b0e07ffd05011\\delivery_media_manifest_v1.json"
+    },
+    "recovery_required_destinations": [
+      "linkedin"
+    ],
+    "readback_limitation_destinations": [
+      "x"
+    ],
+    "metrics_availability_independent_from_publication_confirmation": true,
+    "derivative_attempted_count": 8,
+    "derivative_confirmed_count": 7,
+    "derivative_skipped_count": 1,
+    "derivative_failed_count": 0,
+    "derivative_unknown_count": 0,
+    "public_write_performed": false,
+    "unknown_write_detected": false,
+    "published_content_record": {
+      "status": "ALREADY_RECORDED",
+      "content_id": "substack:223555673",
+      "content_sha256": "3ad3ea2e0352d4a9f892d46112f2350761a6122fbb4c793db81546b2bb91e281",
+      "outlet_count": 7
+    },
+    "site_publication_confirmed": false,
+    "site_url": null,
+    "site_readback_status": "NOT_FOUND_404",
+    "distribution_route": "CONFIRMED_SUBSTACK_WHILE_SITE_ABSENT",
+    "derivative_absent_safe_to_retry_count": 1,
+    "derivative_never_attempted_count": 0,
+    "unknown_write_count": 0,
+    "additional_destinations": {
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "dispatch_id": "dispatch_6018a55943e05cad2e94306d6af803cc",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "urn:li:ugcPost:7523905097471361025",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523905097471361025",
+        "publish_called": false
+      }
+    },
+    "additional_confirmed_count": 1,
+    "additional_recovery_required_destinations": [],
+    "substack_publication_confirmed": true
+  },
+  "publication": {
+    "accepted_evidence_sha256": "b1dd755b62bcecfea15d16445ea5419ba2ba25de09fbb1d0d909a029de1e7153",
+    "article_identity": "eddc51c72ad48e2c71becf2b131e31bd05e8fb252a1e021857cc1056ba1cfd1f",
+    "artifact_sha256": {
+      "article_manifest_v1.json": "3dfdb1ed0f3beaafb10ec1995cc3d47f2a4f00cb44cc5a74fe8dd6e9999d1958",
+      "native_derivative_previews_v1.json": "d6fde1a0d24c8338de38bd61699c98587b08c1ae03bf3f4bb7a76860c4b9bdb6",
+      "publication_lifecycle_plan_v1.json": "ccfee197f6d15a358eadd078b9786b52e59f7432661b7636446459b1fd0bef75",
+      "qualified_article_record_v1.json": "6e925a86f0a54f8a67063ea72c132ba4bda8ebc63483e72decce7eee0664e157",
+      "run_context_v1.json": "70deb001adc2216a8e51ab18451dbd79d0b26f1a53106cc6c62a248fa006e878"
+    },
+    "binding_sha256": "724639230fd4cc37dcfe58af654a99ee4adbed60de1ca531345df1c8a47599a0",
+    "media_sha256": {
+      "documentary_oil": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+      "ppi_headline_core_24m": "8a7418f4ebadca2995bae77616a58f953216eb5aca6b50abe8eca1cda77d8c11",
+      "ppi_september_component_rates": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+      "ppi_september_nested_rates": "bb1cbcd0019bbd39258e98308cd87889744b964dceb2b7714b26de15ac55cdad"
+    },
+    "native_result_sha256": "ef32ef642b4e5bfaab5fd973a80376e2d806bb570afd3bf02fa304d58cf08c17",
+    "plan_hash": "764f3dd475c7507dd5863e783d5416b1ecd1532dc9a257dd9b307a49d4442ae2",
+    "prepared_handoff_sha256": "1983dee50d731b57421bbf5bfd413d0aebb906103b3ad8ba4ba3db8d4086f906",
+    "publication_authority": false,
+    "review_id": "native-article-review-1528074088da4db78253d4c4ab730759",
+    "review_notes_sha256": "f6786092ecb7bb8eefa08d01b5493c14fa15c4baa29d059dfe003863c6168a5e",
+    "run_id": "cc124-next-article-20261105-a",
+    "schema_version": "contentops.native_publication_binding.v1",
+    "work_item_id": "cc124-next-article-20261105-a",
+    "canonical_article_status": "REAL_PUBLISHED",
+    "canonical_article_real_published": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+    "canonical_publication_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "transaction_classification": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "derivative_confirmed_count": 7,
+    "derivative_attempted_count": 8,
+    "derivative_unknown_count": 0,
+    "derivative_absent_safe_to_retry_count": 1,
+    "derivative_failed_count": 0,
+    "derivative_never_attempted_count": 0,
+    "recovery_required_destinations": [
+      "linkedin"
+    ],
+    "readback_limitation_destinations": [
+      "x"
+    ],
+    "unknown_write_detected": false,
+    "unknown_write_count": 0,
+    "additional_destinations": {
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_6018a55943e05cad2e94306d6af803cc",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "urn:li:ugcPost:7523905097471361025",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523905097471361025",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      }
+    },
+    "additional_confirmed_count": 1,
+    "additional_recovery_required_destinations": [],
+    "state": "PENDING_NATIVE",
+    "operation_scope": "OWNER_MANUAL_LIVE",
+    "destinations": [
+      {
+        "destination": "substack",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_dc4ee7cc7a89527382a152a0021f9520",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "223555673",
+        "public_object_url": "https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      },
+      {
+        "destination": "telegram",
+        "transport": "BOT_API",
+        "dispatch_id": "dispatch_08c2481cba2e9be0a933fbc423f0d884",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "78",
+        "public_object_url": "https://t.me/CapitalChronicle/78",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "discord",
+        "transport": "WEBHOOK_API",
+        "dispatch_id": "dispatch_372fcfd461f86afc9b9c7805e45c5da9",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "1567697105110171698",
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "x",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_7625f314528bf2b7e160025e8dbf1d57",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+        "public_object_id": "2118143748899242476",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118143748899242476",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "linkedin",
+        "transport": "OFFICIAL_MEMBER_API",
+        "dispatch_id": "dispatch_2704c810355edb38f779637795ce85b0",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+      },
+      {
+        "destination": "facebook_page",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_5a6eaafd20eb19301bde339c7af48bd8",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "106091951705748_1445129697805446",
+        "public_object_url": "https://www.facebook.com/1342369584748125/posts/1445129697805446",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "instagram_business",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_9d27cf07bbaf59eeed3d4f4152c89624",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "17965563222250380",
+        "public_object_url": "https://www.instagram.com/p/DfVvtyuE_Bz/",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "threads",
+        "transport": "THREADS_API",
+        "dispatch_id": "dispatch_faeeba2d6428ead952d51a6093798e79",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "18349318927265482",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfVvwJZnwY7",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "youtube",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_d723e05d2500b8b477ef073bf8f163d9",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc",
+        "public_object_url": "https://www.youtube.com/post/Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      },
+      {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_6018a55943e05cad2e94306d6af803cc",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "urn:li:ugcPost:7523905097471361025",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523905097471361025",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      }
+    ],
+    "timing": {
+      "policy": "JIM_DECISION_53",
+      "target_minutes": 15,
+      "text_approved_at_utc": "2026-11-05T00:08:19.429760+00:00",
+      "dispatch_deadline_utc": "2026-11-05T00:23:19.429760+00:00",
+      "channels": [
+        {
+          "destination": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T00:17:39.352346+00:00",
+          "dispatched_at_utc": "2026-11-05T00:24:49.819Z",
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": 990.38924,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T00:29:09.382805+00:00",
+          "dispatched_at_utc": "2026-11-05T00:29:09.382805+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 1249.953045,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T00:28:34.447144+00:00",
+          "dispatched_at_utc": null,
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "x",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T00:35:16.096969+00:00",
+          "dispatched_at_utc": "2026-11-05T00:49:55.783Z",
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": 2496.35324,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "attempted_at_utc": "2026-11-05T01:02:17.919040+00:00",
+          "dispatched_at_utc": null,
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "facebook_page",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T00:34:23.680792+00:00",
+          "dispatched_at_utc": "2026-11-05T00:34:23.680792+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 1564.251032,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "instagram_business",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T00:28:51.606561+00:00",
+          "dispatched_at_utc": "2026-11-05T00:28:51.606561+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 1232.176801,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T00:29:12.348069+00:00",
+          "dispatched_at_utc": "2026-11-05T00:29:12.348069+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 1252.918309,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "youtube",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T00:51:54.976858+00:00",
+          "dispatched_at_utc": "2026-11-05T00:54:02.775Z",
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": 2743.34524,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin_company",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T00:30:28.419294+00:00",
+          "dispatched_at_utc": "2026-11-05T00:32:39.119Z",
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": 1459.68924,
+          "within_target": false,
+          "skipped": false
+        }
+      ],
+      "all_channels_dispatched_within_target": false,
+      "state": "OVERDUE_CONTINUE_PUBLICATION"
+    },
+    "skipped_destinations": [],
+    "pending_requests": [
+      {
+        "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+        "operation_id": "cc124-next-article-20261105-a",
+        "public_write_authorized": false,
+        "request": {
+          "action": "READBACK",
+          "canonical_url": "https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+          "content_binding": {
+            "artifact_manifest": [
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\reviewed-handoff\\d619ecc2cd48e8bb6d74958fc5e2295b08fc843402b2b6e4f94b0e07ffd05011\\run_context_v1.json",
+                "sha256": "70deb001adc2216a8e51ab18451dbd79d0b26f1a53106cc6c62a248fa006e878"
+              },
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\reviewed-handoff\\d619ecc2cd48e8bb6d74958fc5e2295b08fc843402b2b6e4f94b0e07ffd05011\\delivery_media_manifest_v1.json",
+                "sha256": "402ddcede988a58455002a41f184642a11f034562b72aa6bf4cab264026310c3"
+              }
+            ],
+            "expected_text_segments": [
+              "September PPI: energy drove the goods surge as services rose\n\nWhy it matters: In the September 2026 release, BLS attributed over 80% of the goods increase to energy, which rose 10.8%. Services prices also rose 0.8%.\n\nContext: The September 2026 countercase is concentration: goods excluding foods and energy rose 0.3%, and services excluding trade, transportation and warehousing also rose 0.3%.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods\n\nRetrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade."
+            ],
+            "expected_thread_texts": [],
+            "media_manifest": [
+              {
+                "alt_text": "Two years of first-reported monthly PPI changes; September headline 1.3%, underlying 0.5%.",
+                "asset_id": "ppi_headline_core_24m",
+                "attribution": "BLS dated first releases; monthly change, seasonally adjusted; October 2024-September 2026. Each point retains its original dated-release source.",
+                "caption": "October 2024\u2013September 2026. Each month retains its dated first release. Underlying excludes foods, energy and trade services; later revisions are not substituted. Sources: [U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 15 Oct 2026](https://www.bls.gov/news.release/archives/ppi_10152026.htm); [U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 15 Oct 2026](https://www.bls.gov/news.release/archives/ppi_10152026.htm).",
+                "modality": "source_backed_chart",
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_headline_core_24m.png",
+                "placement_after": "How September compares with two years of first releases",
+                "sha256": "8a7418f4ebadca2995bae77616a58f953216eb5aca6b50abe8eca1cda77d8c11",
+                "source_page_url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+              },
+              {
+                "alt_text": "September PPI: final demand 1.3%, goods 2.6%, services 0.8%, excluding foods, energy and trade services 0.5%.",
+                "asset_id": "ppi_september_component_rates",
+                "attribution": "BLS, September 2026 PPI, 15 October 2026 release; monthly SA changes. Rates, not contributions.",
+                "caption": "Separate monthly rates, not percentage-point contributions. The underlying measure overlaps goods and services; the bars do not add to the headline. Sources: [U.S. Bureau of Labor Statistics](https://www.bls.gov/news.release/archives/ppi_10152026.htm).",
+                "modality": "source_backed_chart",
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_september_component_rates.png",
+                "placement_after": "September's jump was broad, but uneven",
+                "sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+                "source_page_url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+              }
+            ],
+            "thread_post_count": 0
+          },
+          "destination": "linkedin",
+          "dispatch_attempt_identity": null,
+          "entry_url": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
+          "expected_identity": "linkedin:jimcc",
+          "forbidden": [
+            "login",
+            "reauthorize",
+            "account_switch",
+            "cookies",
+            "storage",
+            "blind_retry",
+            "bulk_x_ingestion"
+          ],
+          "intent_sha256": "3adbe65696c23a98841f8aeeb4ee7f9b9399c85b09f800d1394bbdb8b28231dd",
+          "native_invocation_id": "/root",
+          "native_payload": {
+            "format": "professional_brief",
+            "hard_truncation_used": false,
+            "media_asset_ids": [
+              "ppi_headline_core_24m",
+              "ppi_september_component_rates"
+            ],
+            "media_source_links": {
+              "ppi_headline_core_24m": [
+                {
+                  "document_id": "official-history-ed46497caabd15d7183472c1",
+                  "label": "U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 15 Oct 2026",
+                  "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+                },
+                {
+                  "document_id": "official-history-a5c68f0f5c98a7b161c86470",
+                  "label": "U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 15 Oct 2026",
+                  "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+                }
+              ],
+              "ppi_september_component_rates": [
+                {
+                  "document_id": "cc124-bls-september-ppi-original",
+                  "label": "U.S. Bureau of Labor Statistics",
+                  "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+                }
+              ]
+            },
+            "platform_limit": 3000,
+            "text": "September PPI: energy drove the goods surge as services rose\n\nWhy it matters: In the September 2026 release, BLS attributed over 80% of the goods increase to energy, which rose 10.8%. Services prices also rose 0.8%.\n\nContext: The September 2026 countercase is concentration: goods excluding foods and energy rose 0.3%, and services excluding trade, transportation and warehousing also rose 0.3%.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods\n\nRetrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade."
+          },
+          "observation_epoch": 2989731,
+          "owner_absence_context": null,
+          "package_identity": "698d2c61317dedc3af88ffe3e6b365f93da9c89bcbf132a4ed1cb6beebe8cbda",
+          "payload": "September PPI: energy drove the goods surge as services rose\n\nWhy it matters: In the September 2026 release, BLS attributed over 80% of the goods increase to energy, which rose 10.8%. Services prices also rose 0.8%.\n\nContext: The September 2026 countercase is concentration: goods excluding foods and energy rose 0.3%, and services excluding trade, transportation and warehousing also rose 0.3%.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods\n\nRetrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade.",
+          "payload_hash": "e70f9ee3c76285b4bbbe00d36fc1eda4be3049edff3a77880aab6b435df5faa6",
+          "public_object_id": null,
+          "public_object_url": null,
+          "reader_text_normalization": "MARKDOWN_WHITESPACE_SMART_QUOTES_V1",
+          "request_sha256": "773c8ddb6fe5c3bfb583737e3077c37274e5a20ef23e6f4ec0f6c84e51765350",
+          "schema_version": "contentops.neo_destination_handoff.v1",
+          "steps": [
+            "name_session; list tabs, open a task-owned tab",
+            "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+            "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+            "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+            "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+          ],
+          "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+          "surface": "LINKEDIN_POST",
+          "work_item_id": "cc124-next-article-20261105-a"
+        },
+        "required_tool": "mcp__browseros_neo__run",
+        "schema_version": "contentops.native_neo_tool_request.v1",
+        "tool_request_sha256": "df6b240a5fe6cebc260ef4835cf6678b69947d4e2b5fe6b7c12ae2992a9fd193",
+        "action_claimed": false,
+        "next_operation": "publication-tool-begin"
+      },
+      {
+        "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+        "operation_id": "cc124-next-article-20261105-a",
+        "public_write_authorized": true,
+        "request": {
+          "action": "PUBLISH",
+          "canonical_url": "https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+          "content_binding": {
+            "artifact_manifest": [
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\reviewed-handoff\\d619ecc2cd48e8bb6d74958fc5e2295b08fc843402b2b6e4f94b0e07ffd05011\\run_context_v1.json",
+                "sha256": "70deb001adc2216a8e51ab18451dbd79d0b26f1a53106cc6c62a248fa006e878"
+              },
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\reviewed-handoff\\d619ecc2cd48e8bb6d74958fc5e2295b08fc843402b2b6e4f94b0e07ffd05011\\delivery_media_manifest_v1.json",
+                "sha256": "402ddcede988a58455002a41f184642a11f034562b72aa6bf4cab264026310c3"
+              }
+            ],
+            "expected_text_segments": [
+              "September PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\nhttps://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+              "September PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\nhttps://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+              "Watch: A lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it.",
+              "Retrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade."
+            ],
+            "expected_thread_texts": [
+              "September PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\nhttps://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+              "Watch: A lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it.",
+              "Retrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade."
+            ],
+            "media_manifest": [
+              {
+                "alt_text": "September PPI: final demand 1.3%, goods 2.6%, services 0.8%, excluding foods, energy and trade services 0.5%.",
+                "asset_id": "ppi_september_component_rates",
+                "attribution": "BLS, September 2026 PPI, 15 October 2026 release; monthly SA changes. Rates, not contributions.",
+                "caption": "Separate monthly rates, not percentage-point contributions. The underlying measure overlaps goods and services; the bars do not add to the headline. Sources: [U.S. Bureau of Labor Statistics](https://www.bls.gov/news.release/archives/ppi_10152026.htm).",
+                "modality": "source_backed_chart",
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_september_component_rates.png",
+                "placement_after": "September's jump was broad, but uneven",
+                "sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+                "source_page_url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+              }
+            ],
+            "thread_post_count": 3
+          },
+          "destination": "x",
+          "dispatch_attempt_identity": "dispatch_7625f314528bf2b7e160025e8dbf1d57",
+          "entry_url": "https://x.com/Capitalnicle",
+          "expected_identity": "@Capitalnicle",
+          "forbidden": [
+            "login",
+            "reauthorize",
+            "account_switch",
+            "cookies",
+            "storage",
+            "blind_retry",
+            "bulk_x_ingestion"
+          ],
+          "intent_sha256": "e950ac6b15aeed9596557e8971e70cd92ab3c33e3e0a282fa92bdb7d89324fcf",
+          "native_payload": {
+            "format": "text_brief",
+            "full_text": "September PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\nhttps://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods\n\nWatch: A lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it.\n\nRetrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade.",
+            "hard_truncation_used": false,
+            "media_asset_ids": [
+              "ppi_september_component_rates"
+            ],
+            "media_source_links": {
+              "ppi_september_component_rates": [
+                {
+                  "document_id": "cc124-bls-september-ppi-original",
+                  "label": "U.S. Bureau of Labor Statistics",
+                  "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+                }
+              ]
+            },
+            "overflow_strategy": "ordered_reply_chain",
+            "platform_limit": 280,
+            "posts": [
+              {
+                "media_asset_ids": [
+                  "ppi_september_component_rates"
+                ],
+                "order": 0,
+                "role": "root",
+                "text": "September PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\nhttps://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods"
+              },
+              {
+                "media_asset_ids": [],
+                "order": 1,
+                "role": "reply",
+                "text": "Watch: A lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it."
+              },
+              {
+                "media_asset_ids": [],
+                "order": 2,
+                "role": "reply",
+                "text": "Retrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade."
+              }
+            ],
+            "quality_metrics": {
+              "complete_article_visual_count": 1,
+              "duplicated_sentence_count": 0,
+              "hard_character_slicing_used": false,
+              "orphan_fragment_count": 0,
+              "per_post_character_utilization": [
+                0.986,
+                0.561,
+                0.443
+              ],
+              "post_character_counts": [
+                276,
+                157,
+                124
+              ],
+              "reply_count": 2,
+              "sentence_boundary_pass": true,
+              "shortest_longest_reply_ratio": 0.449,
+              "visual_distribution_pass": true
+            },
+            "reply_texts": [
+              "Watch: A lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it.",
+              "Retrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice.\n\nReaders decide whether to trade."
+            ],
+            "root_text": "September PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\nhttps://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+            "text": "September PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\nhttps://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods"
+          },
+          "package_identity": "698d2c61317dedc3af88ffe3e6b365f93da9c89bcbf132a4ed1cb6beebe8cbda",
+          "payload": "September PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\nhttps://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+          "payload_hash": "fc43025fce08985a929385f8bc0c3ff3b1db1016f10c17423d356ba0a913512a",
+          "public_object_id": null,
+          "public_object_url": null,
+          "request_sha256": "3b1cdf0585fd5e2d57cadc703b1b4834d944f80f394ef2e029088b7326addc78",
+          "schema_version": "contentops.neo_destination_handoff.v1",
+          "steps": [
+            "name_session; list tabs, open a task-owned tab",
+            "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+            "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+            "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+            "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+          ],
+          "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+          "surface": "X_THREAD",
+          "work_item_id": "cc124-next-article-20261105-a"
+        },
+        "required_tool": "mcp__browseros_neo__run",
+        "schema_version": "contentops.native_neo_tool_request.v1",
+        "tool_request_sha256": "b934a48dde8411a3682bb8afb9473350658035b63ff5b2a60d6af3261a135496",
+        "action_claimed": false,
+        "next_operation": "publication-tool-begin"
+      },
+      {
+        "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+        "operation_id": "cc124-next-article-20261105-a",
+        "public_write_authorized": true,
+        "request": {
+          "action": "PUBLISH",
+          "canonical_url": "https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+          "content_binding": {
+            "artifact_manifest": [
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\reviewed-handoff\\d619ecc2cd48e8bb6d74958fc5e2295b08fc843402b2b6e4f94b0e07ffd05011\\run_context_v1.json",
+                "sha256": "70deb001adc2216a8e51ab18451dbd79d0b26f1a53106cc6c62a248fa006e878"
+              },
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\reviewed-handoff\\d619ecc2cd48e8bb6d74958fc5e2295b08fc843402b2b6e4f94b0e07ffd05011\\delivery_media_manifest_v1.json",
+                "sha256": "402ddcede988a58455002a41f184642a11f034562b72aa6bf4cab264026310c3"
+              }
+            ],
+            "expected_text_segments": [
+              "Update: September PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\nWhat to watch: A lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods\n\nRetrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade."
+            ],
+            "expected_thread_texts": [],
+            "media_manifest": [
+              {
+                "alt_text": "September PPI: final demand 1.3%, goods 2.6%, services 0.8%, excluding foods, energy and trade services 0.5%.",
+                "asset_id": "ppi_september_component_rates",
+                "attribution": "BLS, September 2026 PPI, 15 October 2026 release; monthly SA changes. Rates, not contributions.",
+                "caption": "Separate monthly rates, not percentage-point contributions. The underlying measure overlaps goods and services; the bars do not add to the headline. Sources: [U.S. Bureau of Labor Statistics](https://www.bls.gov/news.release/archives/ppi_10152026.htm).",
+                "modality": "source_backed_chart",
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_september_component_rates.png",
+                "placement_after": "September's jump was broad, but uneven",
+                "sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+                "source_page_url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+              }
+            ],
+            "thread_post_count": 0
+          },
+          "destination": "youtube",
+          "dispatch_attempt_identity": "dispatch_d723e05d2500b8b477ef073bf8f163d9",
+          "entry_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+          "expected_identity": "@CapitalChronicleYouTube",
+          "forbidden": [
+            "login",
+            "reauthorize",
+            "account_switch",
+            "cookies",
+            "storage",
+            "blind_retry",
+            "bulk_x_ingestion"
+          ],
+          "intent_sha256": "f150708c777d4e4f0f141e81776b79d8cd6da97f5c16f890ab96dbd9cba4b78e",
+          "native_payload": {
+            "format": "community_brief",
+            "hard_truncation_used": false,
+            "media_asset_ids": [
+              "ppi_september_component_rates"
+            ],
+            "media_source_links": {
+              "ppi_september_component_rates": [
+                {
+                  "document_id": "cc124-bls-september-ppi-original",
+                  "label": "U.S. Bureau of Labor Statistics",
+                  "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+                }
+              ]
+            },
+            "platform_limit": 1000,
+            "text": "Update: September PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\nWhat to watch: A lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods\n\nRetrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade."
+          },
+          "package_identity": "698d2c61317dedc3af88ffe3e6b365f93da9c89bcbf132a4ed1cb6beebe8cbda",
+          "payload": "Update: September PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\nWhat to watch: A lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods\n\nRetrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade.",
+          "payload_hash": "eca20201eadeef7057a1006b3d4a74b31d2a783d41a8436e6bc6291f5fff1239",
+          "public_object_id": null,
+          "public_object_url": null,
+          "request_sha256": "d5be83006bd0efe14874cb87b079c11b5614112fc83f44679d9dffdfa37a709b",
+          "schema_version": "contentops.neo_destination_handoff.v1",
+          "steps": [
+            "name_session; list tabs, open a task-owned tab",
+            "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+            "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+            "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+            "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+          ],
+          "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+          "surface": "YOUTUBE_COMMUNITY_POST",
+          "work_item_id": "cc124-next-article-20261105-a"
+        },
+        "required_tool": "mcp__browseros_neo__run",
+        "schema_version": "contentops.native_neo_tool_request.v1",
+        "tool_request_sha256": "a67ff97c0daf18e3662cba47596d4bff68886eebb4731e94a7a41d0944b562bb",
+        "action_claimed": false,
+        "next_operation": "publication-tool-begin"
+      }
+    ],
+    "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+    "next_operation": "publication-tool-begin",
+    "dispatch_continuation_operation": "publication-tool-begin",
+    "next_command": "python scripts/run_native_desktop_editorial.py publication-tool-begin --binding \"A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\native_operation_binding.json\" --request-sha256 d5be83006bd0efe14874cb87b079c11b5614112fc83f44679d9dffdfa37a709b --native-invocation-id <actual-turn-id> --rollout config/native_desktop_rollout_v1.json",
+    "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale.",
+    "final_visual_acceptance": {
+      "review_type": "WRITER_ONE_EDITOR_CHECK_PUBLISH",
+      "policy_id": "JIM_DECISION_53",
+      "review_id": "native-article-review-1528074088da4db78253d4c4ab730759",
+      "text_approved_at_utc": "2026-11-05T00:08:19.429760+00:00",
+      "automated_media_check": {
+        "policy": "JIM_DECISION_53",
+        "check": "IMAGE_LOAD_AND_SIZE_ONCE",
+        "findings": [
+          {
+            "asset_id": "ppi_headline_core_24m",
+            "sha256": "8a7418f4ebadca2995bae77616a58f953216eb5aca6b50abe8eca1cda77d8c11",
+            "pixels_inspected": false,
+            "loads": true,
+            "width": 1440,
+            "height": 1040,
+            "expected_dimensions": [
+              1440,
+              1040
+            ],
+            "right_size": true,
+            "status": "PASS"
+          },
+          {
+            "asset_id": "ppi_september_component_rates",
+            "sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+            "pixels_inspected": false,
+            "loads": true,
+            "width": 1440,
+            "height": 1040,
+            "expected_dimensions": [
+              1440,
+              1040
+            ],
+            "right_size": true,
+            "status": "PASS"
+          },
+          {
+            "asset_id": "ppi_september_nested_rates",
+            "sha256": "bb1cbcd0019bbd39258e98308cd87889744b964dceb2b7714b26de15ac55cdad",
+            "pixels_inspected": false,
+            "loads": true,
+            "width": 1440,
+            "height": 1456,
+            "expected_dimensions": [
+              1440,
+              1456
+            ],
+            "right_size": true,
+            "status": "PASS"
+          },
+          {
+            "asset_id": "documentary_oil",
+            "sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+            "pixels_inspected": false,
+            "loads": true,
+            "width": 640,
+            "height": 427,
+            "expected_dimensions": [
+              640,
+              427
+            ],
+            "right_size": true,
+            "status": "PASS"
+          }
+        ],
+        "failures_logged_no_repair_loop": 0,
+        "blocks_publication": false
+      },
+      "pixels_inspected": false
+    },
+    "site_url": null,
+    "site_publication_confirmed": false,
+    "substack_publication_confirmed": true
+  },
+  "daily_email_digest": {
+    "digest_id": "cc143-digest-2026-11-04",
+    "confirmed": false,
+    "web_confirmed": false,
+    "email_confirmed": false,
+    "state": "PREPARED_NATIVE_INPUT_REQUIRED",
+    "public_object_id": null,
+    "public_object_url": null,
+    "public_write_performed": false,
+    "native_continuation": {
+      "command": "digest-resume",
+      "arguments": [
+        "--rollout",
+        "config/native_desktop_rollout_v1.json",
+        "--native-invocation-id",
+        "<actual-active-invocation>"
+      ],
+      "instruction": "Continue this exact due digest through the existing Neo begin/submit loop before preparing another digest. Preserve any code tab and never read a mailbox or enter a code."
+    }
+  }
+}

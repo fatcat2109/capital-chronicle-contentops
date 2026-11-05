@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="23" time="14.443" timestamp="2026-11-05T03:16:25.330382+07:00" hostname="J-P"><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_plan_or_validation_failure_is_not_an_ambiguous_write[VALIDATION_FAILED]" time="0.012" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_plan_or_validation_failure_is_not_an_ambiguous_write[SKIPPED_IMAGE_REQUIRED]" time="0.004" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_error_codes_survive_without_provider_message_or_request_material" time="0.004" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_instagram_tracks_the_public_publish_boundary[container]" time="0.004" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_instagram_tracks_the_public_publish_boundary[publish]" time="0.004" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_repaired_validation_failure_keeps_recovering_until_the_live_consumer_posts" time="2.762" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_text_first_piece_reaches_all_destinations_despite_frozen_channel_skips" time="0.540"><failure message="AttributeError: 'bool' object has no attribute 'get'">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-32737/test_text_first_piece_reaches_0')
+
+    def test_text_first_piece_reaches_all_destinations_despite_frozen_channel_skips(tmp_path):
+        from live_contentops.native_text_first_v1 import skipped_destinations
+        store, transport, coordinator = _coordinator(tmp_path)
+        plan = _quality_plan()
+        plan.update(text_first=True, media_asset_count=1,
+                    skipped_derivative_destinations=skipped_destinations(has_image=True))
+&gt;       result = coordinator.execute_plan("work-1", plan)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_finished_piece_dispatch_v1.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+live_contentops\publication_coordinator_v1.py:2914: in execute_plan
+    result = self._execute_plan(work_item_id, plan)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\publication_coordinator_v1.py:3079: in _execute_plan
+    quality_preflight = self._full_v1_distribution_preflight(work_item_id, plan)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\publication_coordinator_v1.py:1830: in _full_v1_distribution_preflight
+    permitted_skips = permitted_derivative_skips(plan)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\native_newsroom_volume_v1.py:100: in permitted_derivative_skips
+    return permitted_skips(plan)
+           ^^^^^^^^^^^^^^^^^^^^^
+live_contentops\native_text_first_v1.py:81: in permitted_skips
+    if not plan.get("text_first") or not text_first_brief(plan):
+                                         ^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = {'article_identity': 'article-1', 'destinations': [{'canonical_url': 'https://capitalchronicle.substack.com/p/test', '...ination_identity': 'Capital Chronicle', ...}, ...], 'full_v1_distribution_required': True, 'media_asset_count': 1, ...}
+
+    def text_first_brief(result):
+        article = result.get("article") or result
+        marker = article.get("text_first")
+        if not marker:
+            return False
+&gt;       mode = article.get("resolved_article_mode") or article.get("effective_article_mode") or marker.get("article_mode")
+                                                                                                ^^^^^^^^^^
+E       AttributeError: 'bool' object has no attribute 'get'
+
+live_contentops\native_text_first_v1.py:63: AttributeError</failure></testcase><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_linkedin_connection_failure_before_http_is_definite_no_write[reason0]" time="0.023" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_linkedin_connection_failure_before_http_is_definite_no_write[reason1]" time="0.022" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_linkedin_preparation_failure_never_becomes_unknown" time="0.005" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[None]" time="0.914" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[identity]" time="0.668" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[id]" time="0.728" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[url]" time="0.820" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[title]" time="0.770" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[notice]" time="0.800" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_queued_derivative_ages_from_canonical_and_later_readbacks_do_not_refresh_it" time="0.851" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_publication_after_credit_edit_feeds_the_published_corpus_and_record" time="1.950" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[BREAKING_BRIEF-6]" time="0.495" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[FOLLOW_UP_UPDATE-24]" time="0.492" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[STANDARD_NEWS_ANALYSIS-168]" time="0.501" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[DATA_OR_DOCUMENT_LENS-168]" time="0.498" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[EVERGREEN_EXPLAINER-168]" time="0.552" /></testsuite></testsuites>

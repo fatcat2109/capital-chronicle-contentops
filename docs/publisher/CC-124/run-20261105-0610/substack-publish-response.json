@@ -1,0 +1,26 @@
+{
+  "tool_request_sha256": "43d3c0bb6c160a865ab0335a3d9274d110a69bb786527221aa55bc1fbd77c0a7",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "BrowserOS Neo page 426 reached /publish/posts/detail/223555673/share-center after Publish now then Publish on web only; no email-code screen. Page 427 exact public canonical readback follows.",
+    "observed_at_utc": "2026-11-05T00:25:34.426600+00:00",
+    "dispatched_at_utc": "2026-11-05T00:24:49.819Z"
+  },
+  "result": {
+    "request_sha256": "2fe4d5214c875f5983ff11a15b6188d82fb8470eb88f09b6809b597b7be3141a",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "223555673",
+    "public_object_url": "https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+    "published_at_utc": "2026-11-05T00:24:49.819Z",
+    "email_sent": false,
+    "email_verification_required": false,
+    "delivery_observation": {
+      "email_send_enabled": false,
+      "web_publish_enabled": true,
+      "evidence_ref": "Neo page 426 Publish dialog: email checkbox false, Publish on web only selected; share-center read back."
+    }
+  }
+}

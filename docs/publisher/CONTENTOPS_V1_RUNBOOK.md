@@ -97,23 +97,46 @@ BACKLOG Result line: `+1: <title>, <Substack URL>, <destinations confirmed>`.
 |---|---|---|
 | `UNKNOWN_WRITE` | The send may or may not have landed. | Read the destination's page through Neo at least 10 minutes after the attempt. Present: confirmed. Absent: one retry, then a readback. Never resend blind. |
 | `AUTH_INVALID` / `THREADS_AUTH_INVALID` | The account token expired. | Jim re-authorizes; never retry a login or read secret files. Other destinations continue. |
-| `NATIVE_NEO_TOOL_PENDING` / `PENDING_NATIVE` | A Neo step is waiting. | Do the step (begin, act, submit, resume). |
+| `NATIVE_NEO_TOOL_PENDING` / `PENDING_NATIVE` | A Neo step is waiting. | Do the step (begin, act, submit, resume). A Claude Code session may take it: its `tool_observation` says `surface: CLAUDE_CODE_SESSION` and `tool_name: mcp__browseros-neo__run`, with its own invocation id (CC-283); never a Codex label. In a publishing operation a PUBLISH step's action packet carries `composed_run`: one Neo run checks the expected account, publishes once and reads back; submit adds `composed.identity` (observed between begin and the click) and, after a click, `composed.readback`. A mismatch returns FAILED_BEFORE_WRITE with no click. |
 | `VERIFY_IDENTITY linkedin_company` | First company-page send in a session. | Open the company admin page in Neo, confirm "Capital Chronicle" (143198922), submit. |
 | `PENDING_JIM_EMAIL_CODE` | Substack asked for the email code. | Leave that tab on the code screen; Jim types it; continue in other tabs (decision 54). |
 | `DERIVATIVE_EXPIRED_STALE_NO_WRITE` | The copy aged out unsent. | Do not repost a stale copy; the newest piece goes instead (CC-186). |
-| `RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE` on Substack | Live page differs from the bound copy, often after a credit edit. | The page is live: check it by eye. CLD-C7 (open) is to stop this holding derivatives. |
+| `RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE` on Substack | Exact copy equality was not established. | Read back the exact canonical identity, title and public analysis notice. CC-199 records publication separately from the copy limitation, then releases unchanged derivatives. A missing title/notice or wrong identity still holds this canonical. |
 | `FAILED_BEFORE_WRITE` (Instagram, unhosted image) | The selected image has no hosted URL. | Re-run the resume; the delivery step hosts the selected image. Never use an old hosted card. |
 | `post_image_floor_failure` on an intent | No image could be built. | The post went with its link; fix the cause named there. |
 | `NATIVE_FILE_DIALOG_OPEN` | A native file dialog opened. | Stop that step; Jim closes it. Upload only through Neo's upload tool. |
 
-## 4. Still open (4 Nov, 23:00 GMT+7)
+## 4. CC-199 continuation (5 Nov)
+
+The finished-piece path has no 3.5-hour spacing hold and no single-pending-operation
+restriction. The shared newsroom lease still prevents simultaneous writers. Every brief
+now compiles and registers every authorized destination, including Facebook, Instagram
+and YouTube; historical skip records and issued identities stay intact.
+
+LinkedIn failures before its HTTP post (preparation, DNS, connection refusal and certificate
+rejection) are definite no-writes. A timeout after sending remains ambiguous and requires
+the existing page readback. Instagram validation, container creation and processing are
+also definite no-writes; ambiguity begins at `media_publish`. Failure incidents keep bounded
+validation/provider codes, never raw provider messages or token-bearing URLs. A definite
+no-write does not exhaust the one retry reserved for an ambiguous public send.
+
+Derivative freshness starts at the canonical's original observed publication time, or its
+first exact verified readback when that time is unavailable. Later readbacks and edits
+never refresh that clock. Breaking briefs have six hours, follow-ups 24 hours, and analysis,
+data-lens, retrospective and evergreen pieces seven days. An explicit expiry (including
+an event's T0) still takes precedence. The site-first path uses its existing confirmed site
+observation. Recovery cannot substitute an old intent URL for an unresolved canonical.
+
+Every native Neo action packet carries decision 63's one-existing-window and task-tab-group
+instructions, including identity and readback steps. Issued native request hashes do not change.
+
+The three-piece public timing and image acceptance remains to be observed after the
+Threads credential rotation recorded in CC-143. See [CC-199 evidence](CC-199/README.md).
+
+## 5. Retained limits
 
 - Threads: Jim's refreshed token works (Threads posts confirmed at 22:16 and 22:19 GMT+7).
   When it expires, `THREADS_AUTH_INVALID` returns and Jim re-authorizes. A Neo path for
   Threads would remove the token dependency (the web session is signed in).
-- CC-199 CLD-C7 (canonical marked incomplete after an edit) and CLD-C11 (derivative
-  expiry counts from the outbox row, not the canonical's publication).
-- Text-first briefs still skip Facebook, YouTube and Instagram (decision 37 B2); CC-199
-  asks for every destination.
 - 17 tests that already failed on 24e067d3 (listed in
   `CC-199/contentops-v1-lane-20261104/regression-15-files-summary.txt`).

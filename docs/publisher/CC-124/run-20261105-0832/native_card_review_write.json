@@ -1,0 +1,26 @@
+{
+  "schema_version": "contentops.native_local_card_review.v1",
+  "run_id": "cc124-next-article-20261105-b",
+  "writer_request_sha256": "97a6e81326e6c8ba912d8dda339f7050ad4d6662d7921fb7a8f7829a4d709e26",
+  "reviewed_at_utc": "2026-11-05T01:52:48.329380+00:00",
+  "reviewer_invocation_id": "/root/southwest_max_writer",
+  "surface": "LOCAL_FILE_VIEW_IMAGE",
+  "asset_id": "post-facts-c6d7a73bb1808cefa008",
+  "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\media_assets\\post-facts-c6d7a73bb1808cefa008.png",
+  "sha256": "240c8f6dc5ecea0d75af69517be776603ca3c9f69d0b15d13f120b91671fdec5",
+  "observed_dimensions": {
+    "width": 1080,
+    "height": 1350
+  },
+  "outcome": "ACCEPTED_FOR_THIS_ARTICLE",
+  "material_defects": [],
+  "required_repairs": [],
+  "observed": [
+    "All three source-bound fact sentences are fully visible without clipping or a common numeric axis.",
+    "The Q2 2025 header and dominant June 30, 2025 historical balance date clearly establish the filing's vintage.",
+    "Approximate qualifiers, the quarter's expense, net-of-proceeds deferred balance and conditional recognition horizon are retained.",
+    "The source attribution and analysis notice are visible, with the article's separate November 5, 2026 date in the footer."
+  ],
+  "nonblocking_clarity_note": "The card does not expand AOCI. Its Expense still deferred row heading and the sentence about later fuel-expense recognition state the relevant meaning, so this is not a material factual or reading defect. Expanding the acronym would improve first-pass comprehension but is not required for this bound asset. The article defines accumulated other comprehensive income before the third fact.",
+  "scope": "Actual local fact-card inspection and source/reader review only. Canonical and destination package layout inspection has not occurred. No asset bytes were changed and no public write was attempted."
+}

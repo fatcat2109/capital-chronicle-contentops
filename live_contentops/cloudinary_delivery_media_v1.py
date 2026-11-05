@@ -177,7 +177,8 @@ def _verify_remote_object(
     }
 
 
-def _validated_local_asset(asset: Mapping[str, Any], *, article_asset=False) -> tuple[dict[str, Any] | None, list[str]]:
+def _validated_local_asset(asset: Mapping[str, Any], *, article_asset=False,
+    article=None, source_documents=None) -> tuple[dict[str, Any] | None, list[str]]:
     row = dict(asset)
     asset_id = str(row.get("asset_id") or "delivery_only")
     path = Path(str(row.get("absolute_local_source_path") or row.get("local_path") or row.get("path") or ""))
@@ -189,6 +190,17 @@ def _validated_local_asset(asset: Mapping[str, Any], *, article_asset=False) -> 
                 validate_contextual_photo(row, require_pixel_review=False)
             except ValueError as exc:
                 blockers.append(f"article_media_rights_invalid:{asset_id}:{exc}")
+        elif row.get("modality") == "source_bound_data_card":
+            # Reuse the article's source/rights/byte validator for an owned card.
+            # A modality label alone never grants reuse of filing expression.
+            try:
+                if article is None or source_documents is None or row.get(
+                    "underlying_source_rights_status") != "attributed_facts_independent_chart":
+                    raise ValueError("DATA_CARD_SOURCE_CONTEXT_REQUIRED")
+                from live_contentops.post_visuals_v1 import validate_post_data_card
+                validate_post_data_card(row, article, source_documents)
+            except (ValueError, OSError, KeyError) as exc:
+                blockers.append(f"article_media_rights_invalid:{asset_id}:{type(exc).__name__}")
         elif (row.get("modality") != "source_backed_chart"
               or row.get("underlying_source_rights_status") not in {"public_domain", "attributed_facts_independent_chart"}
               or not row.get("source_reuse_basis")):
@@ -242,6 +254,8 @@ def prepare_cloudinary_delivery_media(
     existing_manifest: Mapping[str, Any] | None = None,
     environment: Mapping[str, str] | None = None,
     article_assets: Sequence[Mapping[str, Any]] = (),
+    article: Mapping[str, Any] | None = None,
+    source_documents: Sequence[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Upload or reuse exact delivery-only bytes and return a governed manifest."""
     if not delivery_only_assets and not article_assets:
@@ -274,7 +288,8 @@ def prepare_cloudinary_delivery_media(
     blockers: list[str] = []
     inputs = [(raw, False) for raw in delivery_only_assets] + [(raw, True) for raw in article_assets]
     for raw, article_asset in inputs:
-        local, local_blockers = _validated_local_asset(raw, article_asset=article_asset)
+        local, local_blockers = _validated_local_asset(raw, article_asset=article_asset,
+            article=article, source_documents=source_documents)
         blockers.extend(local_blockers)
         if local is None or local_blockers:
             continue

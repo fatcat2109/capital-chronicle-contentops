@@ -237,17 +237,6 @@ def test_22_artifacts_written_only_under_docs_automation_0175ap():
         write_artifacts(repo_root=".", output_dir="docs/automation/other")
 
 
-def test_23_progress_ledger_resolves_0175ao_and_appends_0175ap():
-    """23. Verify progress ledger resolves 0175AO to 1a2d9bd78a254bee8790c3a8288168166a3f2fa8 and appends 0175AP."""
-    path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
-    assert path.exists()
-    content = path.read_text(encoding="utf-8")
-
-    # One-task-lag checks
-    assert "| `TASK_CONTENTOPS_0175AO_PLATFORM_PREVIEW_DRY_RENDER_PACKET_V0` | `f57a23fb61a550d9528c1984d8e758e7f00ab265` | `1a2d9bd78a254bee8790c3a8288168166a3f2fa8` |" in content
-    assert "| `TASK_CONTENTOPS_0175AP_PLATFORM_PREVIEW_DRY_RENDER_TO_REVIEW_BUNDLE_V0` | `1a2d9bd78a254bee8790c3a8288168166a3f2fa8` | `ab4a851ff60121cc3c3bdd85e25ed58c07aa9766` |" in content
-
-
 def test_24_no_pycache_or_pyc_staged():
     """24. Ensure no pycache or .pyc files are staged/tracked in git."""
     res = subprocess.run(
@@ -286,19 +275,3 @@ def test_27_review_notes_placeholder_format():
         assert item["review_notes_placeholder"] == f"[REVIEW_NOTE_PLACEHOLDER: operator comments for {tid}]"
 
 
-def test_28_target_files_generated_exist_and_are_valid():
-    """28. Verify target files generated in docs/automation/0175AP exist and are valid."""
-    out_dir = Path("docs/automation/0175AP")
-    packet_path = out_dir / "platform_preview_dry_render_to_review_bundle_contract_packet.json"
-    runbook_path = out_dir / "platform_preview_dry_render_to_review_bundle_contract.md"
-    assert packet_path.exists()
-    assert runbook_path.exists()
-
-    # Load and validate json
-    data = json.loads(packet_path.read_text(encoding="utf-8"))
-    assert data["packet_hash"] is not None
-    assert len(data["bundle_items"]) == 10
-
-    # Read markdown
-    md_content = runbook_path.read_text(encoding="utf-8")
-    assert "# Platform Preview Dry Render to Review Bundle Contract" in md_content

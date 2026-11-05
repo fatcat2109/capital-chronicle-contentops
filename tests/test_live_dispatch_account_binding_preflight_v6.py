@@ -437,20 +437,6 @@ def test_cli_writes_deterministic_packet(tmp_path):
     assert first["account_binding_preflight_available"] is True
 
 
-def test_new_files_and_sample_json_are_utf8_without_bom():
-    docs_dir = Path("docs/automation/V6_LIVE_DISPATCH_ACCOUNT_BINDING_PREFLIGHT_FROM_CREDENTIAL_ALLOWLIST")
-    paths = [
-        Path("live_contentops/live_dispatch_account_binding_preflight_v6.py"),
-        Path("tests/test_live_dispatch_account_binding_preflight_v6.py"),
-    ]
-    paths.extend(path for path in docs_dir.glob("*") if path.is_file())
-    for path in paths:
-        assert not path.read_bytes().startswith(b"\xef\xbb\xbf")
-    loaded = json.loads((docs_dir / "sample_live_dispatch_account_binding_preflight_packet.json").read_text(encoding="utf-8"))
-    assert loaded["sample_packet_non_runtime"] is True
-    assert loaded["runtime_truth"] is False
-
-
 def test_malformed_non_object_cli_blocked_test(tmp_path):
     p_path = tmp_path / "preflight.json"
     p_path.write_text("[]", encoding="utf-8")

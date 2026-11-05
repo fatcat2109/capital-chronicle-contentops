@@ -102,12 +102,12 @@ def permitted_derivative_skips(plan):
 
 
 def registration_skips(plan):
-    """Destinations left unregistered. Jim's decision 61 (CC-186, CC-144): Instagram
-    is never left out for want of an image, because finalization supplies the
-    reviewed visual or the owned card (the 4 Nov SEC post was skipped this way).
-    Text-first channel selection is unchanged."""
-    return permitted_derivative_skips(plan) - {"instagram_business"} if not plan.get("text_first") \
-        else permitted_derivative_skips(plan)
+    """CC-199 / decision 61: register every authorized destination, briefs too.
+
+    Frozen plan-time skips remain historical evidence. Finalization supplies
+    the reviewed image or the post's owned card before each destination sends.
+    """
+    return set()
 
 
 def native_selection(store, run_id):

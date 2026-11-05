@@ -61,6 +61,10 @@ def confirm_site(store, work_item_id, plan, executor):
     identity = request_for_site(work_item_id, plan)
     request = request_for_site(work_item_id, plan, executor.native_invocation_id)
     result = executor(request)
+    # An observed absent Web page cannot prevent the independently authorized
+    # Substack publication (decisions 48/52). Keep absence distinct from success.
+    if _exact_site_absence(result, request):
+        return None
     observation = result.get("native_tool_observation") or {}
     try:
         observed = datetime.fromisoformat(str(observation.get("observed_at_utc", "")).replace("Z", "+00:00"))
@@ -80,6 +84,34 @@ def confirm_site(store, work_item_id, plan, executor):
         work_item_id=work_item_id, destination=DESTINATION,
         payload=json.dumps(value, sort_keys=True), status="SITE_READBACK_CONFIRMED")
     return site_url(plan)
+
+
+def _exact_site_absence(result, request):
+    observation = result.get("native_tool_observation") or {}
+    try:
+        observed = datetime.fromisoformat(str(observation.get("observed_at_utc", "")).replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    return (result.get("verified") is False and result.get("status") == "NOT_FOUND"
+        and result.get("http_status") == 404
+        and result.get("request_sha256") == request["request_sha256"]
+        and result.get("public_object_url") == request["public_object_url"]
+        and result.get("article_identity") == request["article_identity"]
+        and result.get("observed_identity") == request["expected_identity"]
+        and bool(result.get("native_tool_return_sha256"))
+        and observed.tzinfo is not None and observed <= datetime.now(timezone.utc))
+
+
+def observed_site_absence(store, work_item_id, plan):
+    """Read the exact existing native return; no second state or approval owner."""
+    for row in store.list_outbox_messages(work_item_id=work_item_id):
+        if row["destination"] != "internal:native-neo-tool":
+            continue
+        result = json.loads(row["payload"]).get("result") or {}
+        invocation = (result.get("native_tool_observation") or {}).get("native_invocation_id")
+        if invocation and _exact_site_absence(result, request_for_site(work_item_id, plan, invocation)):
+            return True
+    return False
 
 
 def confirmed_site(store, work_item_id, plan):

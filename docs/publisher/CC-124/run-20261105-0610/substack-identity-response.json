@@ -1,0 +1,16 @@
+{
+  "tool_request_sha256": "76aa2f9f64d6cf3c1de704321ab55269bccc8810db84f3c26562c08530a9fe10",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "BrowserOS Neo authenticated capitalchronicle.substack.com Publisher dashboard, page 426, Jim\u2019s Substack. Exact domain and existing Capital Chronicle posts observed.",
+    "observed_at_utc": "2026-11-05T00:16:22.790456+00:00"
+  },
+  "result": {
+    "request_sha256": "93ad932cf4d13ce1e9b2f7acad3378b48e2945cacba3f0bab08c020b2065b2a0",
+    "status": "READY_AUTHENTICATED",
+    "authenticated": true,
+    "observed_identity": "capitalchronicle.substack.com"
+  }
+}

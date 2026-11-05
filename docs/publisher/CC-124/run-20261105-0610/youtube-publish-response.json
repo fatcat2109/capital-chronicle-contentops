@@ -1,0 +1,52 @@
+{
+  "tool_request_sha256": "4accd51b1f648340166815e50aa4303795610102a5ef538884f52a24a18e98af",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "Neo page 431 verified own channel, clicked Post once, observed posted toast and exact public object. Fresh exact-post readback verifies complete approved text and source-matched image.",
+    "observed_at_utc": "2026-11-05T00:58:21.089513+00:00",
+    "dispatched_at_utc": "2026-11-05T00:54:02.775Z"
+  },
+  "result": {
+    "request_sha256": "c1e4467f7046690306d6c9eb94934aff7873f6690ff2641fab79df670b3011c9",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc",
+    "public_object_url": "https://www.youtube.com/post/Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc",
+    "published_at_utc": "2026-11-05T00:54:02.775Z"
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-05T00:54:02.775Z",
+      "observed_identity": "@CapitalChronicleYouTube"
+    },
+    "readback": {
+      "status": "SUCCESS",
+      "content_verified": true,
+      "observed_identity": "@CapitalChronicleYouTube",
+      "public_object_id": "Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc",
+      "public_object_url": "https://www.youtube.com/post/Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc",
+      "observed_text": "Capital Chronicle\n3 ph\u00fat tr\u01b0\u1edbc\nUpdate: September PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\nWhat to watch: A lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods\n\nRetrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade.\n\u1ea8n b\u1edbt",
+      "media_comparisons": [
+        {
+          "asset_id": "ppi_september_component_rates",
+          "source_asset_sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+          "platform_sha256": "7796a48f8aaf0bd7f90c23181d2fa706599772e38b580673665e7f0354330d6c",
+          "public_object_url": "https://www.youtube.com/post/Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc",
+          "public_image_url": "https://yt3.ggpht.com/rG_a90sANRU8QQR3cbaw901lLSbys1tFS4c0WxjUv-_kpnmhZD-xTWJdVIHiBN0HNGBjxSFt6Zxm9W8=s640-rw-nd-v1",
+          "local_public_capture": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\public-readback\\youtube-ppi_september_component_rates.webp",
+          "similarity": 0.9951,
+          "mime_type": "image/webp",
+          "width": 640,
+          "height": 462,
+          "expected_text_found": true,
+          "pixels_inspected": true,
+          "source_pixels_match": true
+        }
+      ]
+    }
+  }
+}

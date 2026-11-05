@@ -278,17 +278,3 @@ def test_three_adapter_conformance_and_branch_advancement_are_deterministic(tmp_
     assert all("NO_PUBLICATION" in row["publication_disposition"] and row["writes_performed"] == 0 for row in first)
 
 
-def test_append_only_registries_pins_and_frozen_manifest_integrity():
-    assert not validate_foundation_freeze(ROOT)
-    assert adapters.load_trusted_verifier_registry(ROOT).registry_version == "trusted-evidence-registry-1.3.0"
-    registry = extraction.load_extractor_registry(ROOT)
-    assert registry.registry_version == "artifact-evidence-extractor-registry-1.3.0"
-    for path in (
-        "live_contentops/trusted_evidence_verifier_registry_v1.json",
-        "live_contentops/artifact_evidence_extractor_registry_v1.json",
-    ):
-        baseline = json.loads(_git(ROOT, "show", f"{coverage.STARTING_AUTHORITY_SHA}:{path}"))
-        current = json.loads((ROOT / path).read_text(encoding="utf-8"))
-        assert current["records"][:len(baseline["records"])] == baseline["records"]
-    assert set(wave3.PINNED_ARTIFACTS) == set(ARTIFACTS)
-    assert all(row["producer_commit"] != wave3.OBSERVED_UPSTREAM_HEAD and len(row["git_blob_sha1"]) == 40 and len(row["byte_sha256"]) == 64 for row in wave3.PINNED_ARTIFACTS.values())

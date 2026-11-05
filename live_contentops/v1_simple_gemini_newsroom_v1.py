@@ -143,7 +143,7 @@ _RISKY_TEMPORAL_PATTERNS = (
         re.IGNORECASE,
     ),
 )
-_SOURCE_MARKER_RE = re.compile(r"\[\[SOURCE:(SOURCE_[1-4])\]\]")
+_SOURCE_MARKER_RE = re.compile(r"\[\[SOURCE:(SOURCE_(?:[1-9]|10))\]\]")
 _URL_RE = re.compile(r"https?://", re.IGNORECASE)
 _EXPLICIT_CC_INFERENCE_RE = re.compile(
     r"\bCapital Chronicle(?:'s)?\s+(?:view|analysis|interpretation|inference)\b|"
@@ -1141,11 +1141,27 @@ def _updated_source_route_health(loader: Any) -> dict[str, Any]:
 
 def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
     pack: list[dict[str, Any]] = []
+    # The early MAX background carries its already admitted source pack. Reuse
+    # those exact facts as ordinary citable sources for the later dossier edit,
+    # rather than giving the writer the prose while omitting its source spans.
+    held = [source for document in documents
+        for source in (document.get("preview_preparation", {}).get("reviewed_background", {})
+                       .get("original_source_pack", []))]
+    if held:
+        expanded, seen = [], set()
+        for document in [*documents, *held]:
+            key = (document.get("source_url") or document.get("url"), document.get("canonical_content_sha256"))
+            if key in seen:
+                continue
+            seen.add(key)
+            expanded.append({**document, "source_url": document.get("source_url") or document.get("url", "")})
+        documents = expanded
     # Comparable original releases need distinct documents; historical briefs keep
     # their existing limit. No new retrieval or model operation is implied.
     original_facts = any((d.get("source_reuse_constraints") or {}).get("scope") ==
         "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" for d in documents)
-    for document in documents[:6 if original_facts else MAX_SOURCE_DOCUMENTS]:
+    document_limit = 10 if held else 6 if original_facts else MAX_SOURCE_DOCUMENTS
+    for document in documents[:document_limit]:
         url = str(document.get("reader_source_url") or document.get("source_url") or "")
         text = str(document.get("canonical_content_text") or "")
         retained_main = (document.get("source_authority_class") == "governed_capital_chronicle_report_only"
@@ -1201,6 +1217,7 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                    if document.get("underlying_reuse_classification") == "governed_government_public_domain"
                    and document.get("rights_evidence_sha256") else {}),
                 **({"report_lineage": dict(document["report_lineage"])} if document.get("report_lineage") else {}),
+                **({"preview_preparation": dict(document["preview_preparation"])} if document.get("preview_preparation") else {}),
                 **({"desk_record_binding": dict(desk)} if isinstance(desk, Mapping) else {}),
             }
         )
@@ -1410,6 +1427,10 @@ def _peg_terms(value: Any) -> set[str]:
         for term in re.findall(r"[a-z][a-z0-9'-]{2,}", normalized)
         if term not in _NEWS_PEG_STOPWORDS and not term.startswith("http")
     }
+    # A fuel-hedge headline and prose about hedges express the selected hedging
+    # topic. The token heuristic must not demand a writer revision for inflection.
+    if re.search(r"(?<!\w)hedg(?:e|es|ed|ing)(?!\w)", normalized):
+        terms.add("hedging")
     # A Vietnamese lead may express the exact selected topic without English keywords.
     for phrase, topic in (("lạm phát", "inflation"), ("chi tiêu", "spending"), ("thu nhập", "income"),
                           ("doanh thu", "revenue"), ("lợi nhuận", "earnings"), ("tài trợ", "financing"),
@@ -1486,7 +1507,10 @@ def _editorial_growth_edge_blockers(
     if mode in {"CAPITAL_CHRONICLE_VIEW", "WHAT_THE_MARKET_IS_MISSING"}:
         if not _EXPLICIT_CC_INFERENCE_RE.search(public_copy):
             blockers.append("house_mode_qualitative_inference_not_explicitly_labeled")
-    if _RESERVED_CC_NUMERIC_AUTHORITY_RE.search(public_copy):
+    reserved = [m for m in _RESERVED_CC_NUMERIC_AUTHORITY_RE.finditer(public_copy)
+        if not re.search(r"\b(?:not|rather than)\s+(?:(?:the )?release result or )?(?:a |the )?$",
+            public_copy[max(0, m.start()-70):m.start()], re.I)]
+    if reserved:
         blockers.append("capital_chronicle_reserved_numeric_authority_unavailable")
     return blockers
 
@@ -1953,6 +1977,7 @@ def _reader_safe_native_article(
         names = {("federal reserve bank of new york", "www.newyorkfed.org"): "New York Fed",
             ("federal reserve board", "www.federalreserve.gov"): "Fed",
             ("u.s. energy information administration", "www.eia.gov"): "EIA",
+            ("u.s. bureau of labor statistics", "www.bls.gov"): "BLS",
             ("yonhap news agency", "en.yna.co.kr"): "Yonhap"}
         short_name = names.get((publisher.casefold(), urlsplit(bound["url"]).hostname)) if bound else None
         if short_name:
@@ -2812,6 +2837,9 @@ def run_v1_simple_gemini_newsroom(
             selected_epistemic_state = candidate_epistemic_state or None
             source_pack = candidate_source_pack
             break
+    if selected is not None and selected_plan_entry is not None and native and getattr(llm_invoke, "release_history_sources", None):
+        source_pack = llm_invoke.release_history_sources(source_pack=source_pack,
+            article_mode=selected_plan_entry["article_mode"], cutoff_utc=cutoff_utc)
     selected_context = recovery if recovery and recovery.get("pre_writer_context_attachment") else None
     if selected is not None and selected_context:
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
@@ -2826,9 +2854,6 @@ def run_v1_simple_gemini_newsroom(
                                      for i, d in enumerate(contextual)]]
         selected = {**selected, "evolving_story_context": [*selected.get("evolving_story_context", []),
                                                         selected_context["selected_story_context"]]}
-    if selected is not None and selected_plan_entry is not None and native and getattr(llm_invoke, "release_history_sources", None):
-        source_pack = llm_invoke.release_history_sources(source_pack=source_pack,
-            article_mode=selected_plan_entry["article_mode"], cutoff_utc=cutoff_utc)
     evidence_artifact = {
         "schema_version": "contentops.v1_simple_candidate_source_walk.v1",
         "status": "PASS" if selected is not None else "BLOCKED",

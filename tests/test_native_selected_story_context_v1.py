@@ -15,7 +15,7 @@ from test_native_editorial_media_standard_v1 import controlled_release_packet
 from test_v1_simple_gemini_newsroom_v1 import CUTOFF, _headlines, _evidence_result, _selection
 
 
-def seeded(tmp_path, monkeypatch, change=None):
+def seeded(tmp_path, monkeypatch, change=None, history_docs=0):
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
     store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
     run = "selected-context-test"
@@ -46,6 +46,14 @@ def seeded(tmp_path, monkeypatch, change=None):
         run_v1_simple_gemini_newsroom(**args)
     assert media.value.request["stage"] == "media-plan"
     source_pack = media.value.request["source_pack"]
+    if history_docs:
+        source_pack = [*source_pack, *[{"document_id": "controlled-history-" + str(i),
+            "canonical_content_sha256": str(i) * 64,
+            "source_authority_class": "official_release_history_from_cc010"} for i in range(history_docs)]]
+        path = turn.root / "simple_gemini_evidence_v1.json"
+        walk = json.loads(path.read_bytes())
+        walk["selected_source_pack"] = source_pack
+        path.write_bytes(canonical_bytes(walk))
     visual = {"request_sha256": "controlled-visual", "stage": "visual-edit",
               "governed_input": {"source_packet": {"source_pack": source_pack}}}
     turn._put("visual-edit", "request", visual)
@@ -115,6 +123,60 @@ def test_context_reaches_frozen_writer_without_reselection_or_new_acquisition(tm
     assert len(walk["selected_source_pack"]) == 2 and walk["request_count"] == original_walk["request_count"]
     with pytest.raises(ValueError, match="UNWRITTEN"):
         entry().operation(binding, command="recover-sources", response=response)
+
+
+def test_already_held_verified_context_can_join_before_writer_freeze(tmp_path, monkeypatch):
+    from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+    turn, binding, response, _ = seeded(tmp_path, monkeypatch)
+    frozen = json.loads(turn.store.get_outbox_message("native-current-input-" + sha256_of(turn.run_id))["payload"])
+    research = RetainedSourceResearch.from_frozen_snapshot(frozen["research"])
+    record = deepcopy(research.records["prior-context"])
+    record["document"].pop("public_claim_allowed")
+    def verified_init(self, root, **kwargs):
+        assert root == "CONTROLLED_ALREADY_HELD_SOURCE"
+        self.root, self.records, self.revision, self.gaps = research.root, {"other-held-context": record}, research.revision, []
+    monkeypatch.setattr(RetainedSourceResearch, "__init__", verified_init)
+    monkeypatch.setattr(RetainedSourceResearch, "evidence", lambda self, request, **kwargs:
+        {"status": "PASS", "evidence_documents": [{**record["document"],
+            "document_id": "other-held-context", "public_claim_allowed": True}]})
+    response["retained_research_root"] = "CONTROLLED_ALREADY_HELD_SOURCE"
+    response["supporting_headline_ids"] = ["other-held-context"]
+    result = entry().operation(binding, command="recover-sources", response=response)
+    assert result["classification"] == "SELECTED_STORY_CONTEXT_ATTACHED"
+    assert turn.source_recovery()["context_documents"][0]["document_id"] == "other-held-context"
+    assert result["new_source_requests"] == 0
+
+
+def test_governed_history_does_not_exhaust_the_primary_context_source_bound(tmp_path, monkeypatch):
+    turn, binding, response, args = seeded(tmp_path, monkeypatch, history_docs=3)
+    result = entry().operation(binding, command="recover-sources", response=response)
+    assert result["classification"] == "SELECTED_STORY_CONTEXT_ATTACHED"
+    assert len(turn.source_recovery()["context_documents"]) == 1
+    primary = turn.frozen_request("visual-edit")["governed_input"]["source_packet"]["source_pack"]
+    monkeypatch.setattr(turn, "release_history_sources", lambda **kwargs: [*kwargs["source_pack"], *primary[1:]])
+    _, photo, _ = controlled_release_packet(tmp_path / "controlled-history-media")
+    turn.store.register_outbox_message(message_id="native-editorial-media-plan-" + sha256_of(turn.run_id),
+        work_item_id=turn.work, destination="internal:controlled-media", status="EDITORIAL_INTERNAL",
+        payload=canonical_bytes({"source_request_sha256": "controlled", "assets": [photo]}).decode())
+    with pytest.raises(DesktopInputRequired) as pending:
+        run_v1_simple_gemini_newsroom(**args)
+    assert pending.value.request["stage"] == "write"
+    assert len(pending.value.request["governed_input"]["source_pack"]) == 5
+    assert pending.value.request["governed_input"]["source_pack"][-1]["context_only"]
+
+
+def test_cli_routes_prewrite_visual_amendment_to_existing_max(tmp_path, monkeypatch):
+    turn, binding, _, _ = seeded(tmp_path, monkeypatch)
+    monkeypatch.setattr("live_contentops.visual_asset_discovery_v1.validate_contextual_photo", lambda asset: None)
+    binding["owner_manual_live"] = True  # Isolated live-shaped continuation, never the production store.
+    monkeypatch.setattr("live_contentops.native_newsroom_volume_v1.persist_native_day_measurement",
+        lambda *args, **kwargs: pytest.fail("Pending roles must return before whole-day publication aggregation"))
+    result = entry().operation(binding, command="media-plan", response={"visual_amendment": True,
+        "reason": "Drop an image that remained illegible after the single authorized repair round.",
+        "contextual_assets": [{"asset_id": "controlled-photo"}]})
+    assert result["stage"] == "visual-edit-amend"
+    assert result["next_native_call"]["tool"] == "collaboration.followup_task"
+    assert result["next_native_call"]["arguments"]["target"] == turn._get("visual-edit", "response")["invocation_observation"]["invocation_id"]
 
 
 @pytest.mark.parametrize("clock", ["source_timestamp_utc", "known_at_utc", "revision_at_utc"])

@@ -50,6 +50,9 @@ def test_relocation_does_not_move_an_active_writer(tmp_path):
 
 def test_desk_export_is_offline_read_only_and_preserves_the_existing_store(tmp_path, monkeypatch, capsys):
     """Real exporter over a controlled projection; neither model nor publication proof."""
+    if not (Path(__file__).resolve().parents[1] / "ui/contentops_v5/node_modules/esbuild").is_dir():
+        # CC-268: the exporter renders with esbuild; node_modules is not tracked (npm ci in ui/contentops_v5).
+        pytest.skip("ui/contentops_v5/node_modules is not installed in this checkout (npm ci there)")
     from scripts.run_native_desktop_editorial import main
     from live_contentops import capital_chronicle_report_editorial_workspace_v1 as workspace
     from live_contentops import native_newsroom_learning_v1 as learning

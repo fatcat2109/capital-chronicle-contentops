@@ -1,0 +1,26 @@
+{
+  "item": "CC-199",
+  "recorded_at_utc": "2026-11-04T20:27:20.757765+00:00",
+  "validated_code_commit": "22e847babaa6a0f651bdb03cd67a35883ba9ef76",
+  "final_selections": [
+    {
+      "artifact": "finished-piece-final.xml",
+      "tests": 52,
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 221.562
+    },
+    {
+      "artifact": "consumer-regressions.xml",
+      "tests": 159,
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 205.411
+    }
+  ],
+  "total_final_tests": 211,
+  "execution": "One pytest process at a time, targeted files only; no provider/model/production-store calls.",
+  "intermediate_failures": "Earlier fixture failures retained in adjacent XML files were corrected: real Discord outlet URL, text-first marker shape, historical Substack-first fixture epoch, and obsolete skipped-destination expectations.",
+  "public_acceptance": "NOT_YET_OBSERVED_NEXT_THREE_PIECES_WITH_ALL_IMAGES_AND_READBACKS_WITHIN_30_MINUTES",
+  "outside_cause": "CC-143 SECRET_EXPOSURE_OWNER_ROTATION_REQUIRED; Jim revokes/replaces exposed Threads app secret and user token."
+}

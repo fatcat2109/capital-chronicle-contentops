@@ -1,0 +1,221 @@
+{
+  "receipt": {
+    "message_id": "native-story-preparation-9df78549eb16de198b3be6a390a077a164a7012e74058d266dfdabaeeed42d76",
+    "event_id": "bls-emsit-20261106",
+    "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+  },
+  "packet": {
+    "background": "The exact September Employment Situation summary, released 2 October, is retained. Payroll employment is the establishment survey; unemployment and participation are household-survey measures. Store the prior payroll and revision observations separately from the future October print.",
+    "comparison_plan": [
+      "At T0 retain current October, prior September as first observed, and any newly revised prior values in separate columns.",
+      "Do not mix payroll job changes with household employment changes or unemployment-rate percentage-point movements.",
+      "Verify exact table units and seasonal-adjustment labels before admitting a numeric chart; no missing cells are imputed.",
+      "Newly captured A-1/B-1 raw tables confirm the prior headline direction and survey separation; retain preliminary flags and March 2025 benchmark note. Do not turn a raw B-1 cell into jobs without admitted unit metadata."
+    ],
+    "consensus": null,
+    "event_id": "bls-emsit-20261106",
+    "future_release_values": null,
+    "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+    "missing_inputs": [
+      "Actual October release and revision vintage at T0",
+      "A-1/B-1 bodies and footnotes captured; exact omitted unit/header admission and separate Technical Note body still required before dataset/chart admission.",
+      "No forecast, consensus or causal market reaction admitted"
+    ],
+    "official_attribution": "Attribute actual released facts naturally to the named official issuer; attributed reporting and market reaction require their own exact sources and clocks.",
+    "official_sources": [
+      {
+        "capture_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\co1-application\\volume-official-event-browser-read.json",
+        "capture_sha256": "c355e871895d100d3addbf0fcd793a0b0068bc3237a529ed36f169dfda93dec6",
+        "observed_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "publication_clock": "NOT_SUPPLIED",
+        "url": "https://www.bls.gov/schedule/news_release/empsit.htm",
+        "writer_source_admitted": false
+      },
+      {
+        "capture_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\co1-application\\pre-event-background-20261029\\bls-employment-september-2026.md",
+        "capture_sha256": "94b4fa75ab45a36ae562dc3172823fdf7ca5dba493bcb6d5d586f4d9d2671e72",
+        "observed_at_utc": "2026-10-29T04:59:52.144000+00:00",
+        "publication_clock": "2026-10-02T08:30:00-04:00",
+        "published_at_utc": "2026-10-02T12:30:00+00:00",
+        "reference_period": "2026-09",
+        "role": "PRIOR_OFFICIAL_BACKGROUND",
+        "source_release_id": "USDL-26-1549",
+        "url": "https://www.bls.gov/news.release/empsit.nr0.htm",
+        "vintage": "AS_CAPTURED_FROM_OFFICIAL_RELEASE_20261029",
+        "writer_source_admitted": false
+      },
+      {
+        "capture_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\co1-application\\co5-20261030-read-1793293747399-e823fbea-b2af-4a82-b99d-dae23e91adf3.md",
+        "capture_sha256": "5244d72ca4cbcec442194331b37eb19120b5083eb6051536c6bef40d380097cd",
+        "observation_clock_limitation": "Neo read completed in this native operation; exact per-page observation UTC was not emitted. Retained-at is not publication or release time.",
+        "observed_at_utc": null,
+        "retained_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "url": "https://www.bls.gov/schedule/2026/home.htm",
+        "writer_source_admitted": false
+      },
+      {
+        "access_state": "RAW_TABLE_BODY_AND_FOOTNOTES_CAPTURED",
+        "capture_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\co1-application\\co5-employment-a1-20261030.md",
+        "capture_sha256": "2ac0eb601151d4c8a96209eafdd6d312b3416b4424735dd0422eb7ecbd871e0a",
+        "observed_at_utc": "2026-10-29T17:36:17.107Z",
+        "publication_clock": "NOT_SUPPLIED_BY_THIS_TABLE_OR_PDF_READ",
+        "published_at_utc": null,
+        "retained_at_utc": "2026-10-29T17:36:50.561308+00:00",
+        "role": "PRIOR_OFFICIAL_TABLE_BACKGROUND",
+        "url": "https://www.bls.gov/news.release/empsit.t01.htm",
+        "writer_source_admitted": false
+      },
+      {
+        "access_state": "RAW_TABLE_BODY_AND_FOOTNOTES_CAPTURED",
+        "capture_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\co1-application\\co5-employment-b1-20261030.md",
+        "capture_sha256": "dc7cc23be79651733394e29c3f197fd2123236bff161d0034539c068cdffef33",
+        "observed_at_utc": "2026-10-29T17:36:15.248Z",
+        "publication_clock": "NOT_SUPPLIED_BY_THIS_TABLE_OR_PDF_READ",
+        "published_at_utc": null,
+        "retained_at_utc": "2026-10-29T17:36:50.561308+00:00",
+        "role": "PRIOR_OFFICIAL_TABLE_BACKGROUND",
+        "url": "https://www.bls.gov/news.release/empsit.t17.htm",
+        "writer_source_admitted": false
+      }
+    ],
+    "planned_release_utc": "2026-11-06T13:30:00+00:00",
+    "preparation_revision": "CC216_EARLY_PREVIEW_BACKGROUND",
+    "prior_fact_spans": [
+      {
+        "capture_sha256": "94b4fa75ab45a36ae562dc3172823fdf7ca5dba493bcb6d5d586f4d9d2671e72",
+        "exact_source_span": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in \nSeptember, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries \nchanged little over the month.",
+        "metric": "September payroll change and unemployment; reported units jobs and percent"
+      },
+      {
+        "capture_sha256": "94b4fa75ab45a36ae562dc3172823fdf7ca5dba493bcb6d5d586f4d9d2671e72",
+        "exact_source_span": "This news release presents statistics from two monthly surveys. The household survey measures labor \nforce status, including unemployment, by demographic characteristics. The establishment survey \nmeasures nonfarm employment, hours, and earnings by industry. For more information about the \nconcepts and statistical methodology used in these two surveys, see the Technical Note.",
+        "metric": "Survey definitions"
+      },
+      {
+        "capture_sha256": "94b4fa75ab45a36ae562dc3172823fdf7ca5dba493bcb6d5d586f4d9d2671e72",
+        "exact_source_span": "The change in total nonfarm payroll employment for July was revised down by 31,000, from +21,000 to \n-10,000, and the change for August was revised down by 29,000, from +162,000 to +133,000. With \nthese revisions, employment in July and August combined is 60,000 lower than previously reported. \n(Monthly revisions result from additional reports received from businesses and government agencies \nsince the last published estimates and from the recalculation of seasonal factors.)",
+        "metric": "Prior payroll revisions, jobs; values copied from the release rather than recomputed"
+      }
+    ],
+    "prior_values": [
+      {
+        "metric": "Total nonfarm payroll monthly change",
+        "period": "2026-09",
+        "survey": "establishment",
+        "unit": "jobs",
+        "value": 29000,
+        "vintage": "USDL-26-1549 as captured 2026-10-29"
+      },
+      {
+        "metric": "Unemployment rate",
+        "period": "2026-09",
+        "survey": "household",
+        "unit": "percent",
+        "value": 4.2
+      },
+      {
+        "metric": "Labor force participation rate",
+        "period": "2026-09",
+        "survey": "household",
+        "unit": "percent",
+        "value": 61.8
+      },
+      {
+        "annual_percent": 3.0,
+        "metric": "Average hourly earnings all private nonfarm employees",
+        "monthly_percent": 0.1,
+        "period": "2026-09",
+        "unit": "USD/hour",
+        "value": 37.81
+      },
+      {
+        "metric": "Average workweek all private nonfarm employees",
+        "period": "2026-09",
+        "unit": "hours/week",
+        "value": 34.4
+      }
+    ],
+    "prior_values_source_binding": "All values are internal background transcriptions from retained official prior source captures listed in official_sources; not writer-source or chart admission.",
+    "public_write_performed": false,
+    "publication_authority": false,
+    "reader_question": "What does the new release establish about employment, unemployment and revisions, without conflating distinct survey measures?",
+    "relation_to_frozen_edition": "NONE_FROZEN_EDITION_UNCHANGED",
+    "release_clock_basis": "Retained release-specific official schedule plus newly retained BLS annual calendar statement that all calendar times are Eastern; 08:30 EST is 13:30 UTC and 20:30 GMT+7 on these November dates. Scheduled time is not actual publication or known-at.",
+    "release_work": "At the scheduled event, use the existing intake/source/story owner to retain actual release bytes, publisher clock if supplied, observed known-at and revision; compare against this retained prior vintage without overwriting it. Admit only the bounded new facts; native Light preparation then same MAX writing/final rendered review and sole coordinator. This packet allocates no operation, fetch budget or publication.",
+    "released_facts_admitted": false,
+    "schema_version": "contentops.native_story_preparation.v1",
+    "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK",
+    "source_budget_relation": "SEPARATE_PRE_EVENT_PREPARATION_NOT_A_REOPENED_OR_UPGRADED_EDITION",
+    "supersedes_preparation_message_id": "native-story-preparation-7973102659f25a1a3af1e186ec04b646704c79131780e80c07d5434f37fd7dbf",
+    "table_background": [
+      {
+        "basis": "Household survey; distinguish NSA and SA columns",
+        "footnotes": [
+          "Population figures are not adjusted for seasonal variation; identical numbers appear in unadjusted and adjusted columns.",
+          "Updated population controls are introduced annually with January data."
+        ],
+        "reference_period": "2026-09",
+        "retained_prior_checks": {
+          "September_SA_employment_population_percent": 59.2,
+          "September_SA_participation_percent": 61.8,
+          "September_SA_unemployment_percent": 4.2
+        },
+        "source_capture_sha256": "2ac0eb601151d4c8a96209eafdd6d312b3416b4424735dd0422eb7ecbd871e0a",
+        "table": "A-1"
+      },
+      {
+        "basis": "Establishment payroll employees by industry; distinguish NSA and SA columns",
+        "footnotes": [
+          "(p) Preliminary; August and September columns carry p.",
+          "Data revised to March 2025 benchmark levels and updated seasonal adjustment factors."
+        ],
+        "reference_period": "2026-09",
+        "retained_prior_checks": {
+          "August_SA_total_nonfarm_raw_cell": "159,015",
+          "SA_monthly_change_raw_cell": "29",
+          "September_SA_total_nonfarm_raw_cell": "159,044"
+        },
+        "source_capture_sha256": "dc7cc23be79651733394e29c3f197fd2123236bff161d0034539c068cdffef33",
+        "table": "B-1",
+        "unit_limitation": "Neo markdown did not expose a unit heading. Raw cells retained without independently assigning a thousands multiplier; existing September release separately reports +29,000 jobs. Exact unit/header admission required before chart transformation."
+      }
+    ],
+    "table_locators": [
+      {
+        "state": "RAW_TABLE_BODY_AND_FOOTNOTES_CAPTURED_NOT_CHART_ADMITTED",
+        "table": "A-1 household employment status",
+        "url": "https://www.bls.gov/news.release/empsit.t01.htm"
+      },
+      {
+        "state": "RAW_TABLE_BODY_AND_FOOTNOTES_CAPTURED_NOT_CHART_ADMITTED",
+        "table": "B-1 nonfarm payrolls by industry",
+        "url": "https://www.bls.gov/news.release/empsit.t17.htm"
+      },
+      {
+        "state": "LINK_OBSERVED_BODY_NOT_CAPTURED",
+        "table": "Technical note",
+        "url": "https://www.bls.gov/news.release/empsit.tn.htm"
+      }
+    ],
+    "title": "Employment Situation for October2026, 6 November",
+    "update_frames": [
+      "Report the actual October headline and revision totals separately; state whether revisions reinforce or weaken the apparent direction only after comparison.",
+      "If payroll and household measures diverge, explain distinct survey populations and uncertainty; do not reconcile by inventing a cause.",
+      "Use a wage/hours or industry frame only if actual components materially change the reader conclusion."
+    ],
+    "watchpoints": [
+      "October payroll change separately from September/August revisions; preserve originally reported and revised values with their vintages.",
+      "Household unemployment, participation and employment-population ratio separately from establishment payroll jobs.",
+      "Hours, earnings and industry breadth; source adjustment labels and uncertainty before a chart or claims of trend.",
+      "No market-surprise or policy-path conclusion from a print alone; expectations and price reaction are separate evidence."
+    ],
+    "single_consensus_fact": {
+      "projection_path": "A:\\Capital Chronicle\\ResearchRuns\\cc-068-release-consensus\\root\\daily\\2026-11-05\\US_NFP_20261106.json",
+      "projection_sha256": "2010a75f756ec07f6d4c25f197366aef15683efc151cd49dca9e3fd728f3014f",
+      "capture_root": "A:\\Capital Chronicle\\ResearchRuns\\cc-068-release-consensus\\root",
+      "release_id": "US_NFP_20261106",
+      "source": "investing",
+      "measure_key": "payrolls"
+    }
+  }
+}

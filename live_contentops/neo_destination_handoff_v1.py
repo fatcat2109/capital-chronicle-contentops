@@ -77,6 +77,42 @@ def _text(value):
     return " ".join(re.sub(r"[#*_`]", "", value).split())
 
 
+def _x_reader_text(value, links, public_object_url, canonical):
+    text = _text(value)
+    for link in links:
+        displayed = _text(link.get("displayed_text"))
+        if (displayed and displayed in text
+                and re.fullmatch(r"https://t\.co/[A-Za-z0-9]+", str(link.get("short_url") or ""))
+                and link.get("target_verified") is True
+                and link.get("public_object_url") == public_object_url
+                and link.get("target_url") == canonical and _social_canonical(canonical)):
+            text = text.replace(displayed, _text(canonical))
+    return text
+
+
+def _x_thread_matches(binding, thread, links, canonical):
+    expected = binding["expected_thread_texts"]
+    if len(thread) < len(expected) or len({p.get("public_object_id") for p in thread}) != len(thread):
+        return False
+    # A partial reply can be completed in the same thread when the platform has
+    # no edit control. Extra text must be a complete fragment of approved copy;
+    # all full approved posts must still be present in their original order.
+    fragments = {_text(part) for text in expected
+        for part in re.split(r"\n+|(?<=[.!?])\s+", text)
+        if _text(part) and _text(part) != _text(text)}
+    index = 0
+    for post in thread:
+        url, object_id = post.get("public_object_url"), post.get("public_object_id")
+        if not _public_url("x", url, object_id):
+            return False
+        text = _x_reader_text(post.get("observed_text"), links, url, canonical)
+        if index < len(expected) and _text(expected[index]) in text:
+            index += 1
+        elif text not in fragments:
+            return False
+    return index == len(expected)
+
+
 def _payload_binding(intent, destination):
     payload = intent.get("native_payload") or intent.get("payload")
     assets = list(intent.get("media_assets") or [])
@@ -143,6 +179,28 @@ class NeoDestinationHandoff:
     def __init__(self, *, native_executor=None, store=None):
         self.native_executor = native_executor
         self.store = store
+
+    def _absence_dispatch_clock(self, intent, destination):
+        """Absence must follow the latest write attempt, including a bounded API retry."""
+        from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+        store = self.store or getattr(self.native_executor, "store", None)
+        if store is None:
+            return {}, None
+        ids = DurablePublicationCoordinator._ids(intent["work_item_id"], intent["plan_hash"], destination)
+        dispatch = store.get_platform_dispatch(ids["dispatch_id"]) or {}
+        try:
+            latest = datetime.fromisoformat(dispatch["dispatched_at"].replace("Z", "+00:00"))
+            prefix = "incident_dispatch_outcome_" + sha256(ids["dispatch_id"].encode()).hexdigest()[:24] + "_%"
+            with store.get_read_only_connection() as conn:
+                rows = conn.execute("SELECT description FROM incidents WHERE incident_id LIKE ?", (prefix,)).fetchall()
+            for row in rows:
+                outcome = json.loads(row[0])
+                if outcome.get("dispatch_id") == ids["dispatch_id"]:
+                    attempted = datetime.fromisoformat(outcome["attempt_started_at_utc"].replace("Z", "+00:00"))
+                    latest = max(latest, attempted)
+            return dispatch, latest.isoformat()
+        except (KeyError, ValueError, TypeError):
+            return dispatch, None
 
     def request(self, *, destination, action, intent, authorization_context=None,
                 public_object_id=None, public_object_url=None):
@@ -211,6 +269,12 @@ class NeoDestinationHandoff:
             clock = getattr(self.native_executor, "clock", None)
             now = clock() if callable(clock) else datetime.now(timezone.utc)
             value["observation_epoch"] = int(now.timestamp()) // 600
+            if not public_object_id and not public_object_url:
+                _, latest_attempt = self._absence_dispatch_clock(intent, destination)
+                if latest_attempt:
+                    # A retry in the same epoch needs a fresh observation; the old
+                    # immutable return cannot establish absence after that retry.
+                    value["latest_dispatch_attempt_at_utc"] = latest_attempt
             invocation = getattr(self.native_executor, "native_invocation_id", None)
             if invocation:
                 value["native_invocation_id"] = invocation
@@ -265,6 +329,13 @@ class NeoDestinationHandoff:
                     "reason_code": "NEO_NATIVE_EXECUTOR_NOT_BOUND", "request": request,
                     "public_write_performed": False}
         result = dict(self.native_executor(request))
+        if (result.get("request_sha256") == request["request_sha256"] and result.get("composed_identity") is not None
+                and result.get("definite_no_write") is True and str(result.get("status")) == "FAILED_BEFORE_WRITE"
+                and result.get("public_write_performed") is False
+                and not (result.get("native_tool_observation") or {}).get("dispatched_at_utc")):
+            # CC-283: the composed run stopped before the publish click (for example an account
+            # mismatch); a definite no-write that releases the claim for a retry.
+            return result
         if (result.get("request_sha256") != request["request_sha256"]
                 or result.get("observed_identity") != IDENTITIES[destination]):
             return {"status": "UNKNOWN_WRITE", "reason_code": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"}
@@ -329,6 +400,9 @@ class NeoDestinationHandoff:
                         and link.get("public_object_url") == public_object_url
                         and link.get("target_url") == canonical and _social_canonical(canonical)):
                     comparison_text = comparison_text.replace(_text(short), _text(canonical))
+        if destination == "x":
+            comparison_text = _x_reader_text(observed_text, result.get("observed_link_resolutions") or [],
+                public_object_url, str(intent.get("canonical_url") or ""))
         text_match = (bool(segments) and all(_text(s) in comparison_text for s in segments)
             and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
         if destination == "substack" and intent.get("daily_digest"):
@@ -371,6 +445,9 @@ class NeoDestinationHandoff:
                     and _public_url(destination, post.get("public_object_url"), post.get("public_object_id"))
                     for text, post in zip(binding["expected_thread_texts"], thread))
             and len({p.get("public_object_id") for p in thread}) == len(thread)))
+        if destination == "x" and binding["thread_post_count"] > 1:
+            thread_match = _x_thread_matches(binding, thread, result.get("observed_link_resolutions") or [],
+                str(intent.get("canonical_url") or ""))
         verified = (result.get("request_sha256") == request["request_sha256"]
             and result.get("observed_identity") == IDENTITIES[destination]
             and (not public_object_id or result.get("public_object_id") == public_object_id)
@@ -383,15 +460,23 @@ class NeoDestinationHandoff:
             and result.get("public_object_url") == public_object_url
             and _public_url(destination, public_object_url, public_object_id)
             and bool(observed_text))
+        # Publication and exact copy equality are separate observations. A
+        # later credit/caption edit cannot unpublish an otherwise identified
+        # canonical or invalidate unchanged derivative copies (CC-199 CLD-C7).
+        from live_contentops.event_article_guard_v1 import PUBLIC_NOTICE
+        payload = request.get("native_payload") or {}
+        title = _text(payload.get("title")) if isinstance(payload, dict) else ""
+        canonical_present = bool(destination == "substack" and not intent.get("daily_digest")
+            and identity_exists and title and title in observed_text
+            and _text(PUBLIC_NOTICE) in observed_text
+            and any(_text(PUBLIC_NOTICE) in _text(s) for s in segments))
         absent = False
         if not public_object_id and not public_object_url and result.get("target_post_absent") is True:
-            from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
-            ids = DurablePublicationCoordinator._ids(intent["work_item_id"], intent["plan_hash"], destination)
-            dispatch = self.native_executor.store.get_platform_dispatch(ids["dispatch_id"]) or {}
+            dispatch, latest_attempt = self._absence_dispatch_clock(intent, destination)
             observation = result.get("native_tool_observation") or {}
             try:
                 observed_at = datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
-                attempted_at = datetime.fromisoformat(dispatch["dispatched_at"].replace("Z", "+00:00"))
+                attempted_at = datetime.fromisoformat(latest_attempt)
                 elapsed = (observed_at - attempted_at).total_seconds()
             except (KeyError, ValueError, TypeError):
                 elapsed = -1
@@ -400,13 +485,14 @@ class NeoDestinationHandoff:
                 and result.get("observed_profile_url") == ROOTS[destination]
                 and result.get("observed_identity") == IDENTITIES[destination]
                 and result.get("request_sha256") == request["request_sha256"]
-                and dispatch.get("status") in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING"}
+                and dispatch.get("status") in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING", "RECONCILED_ABSENT_SAFE_TO_RETRY"}
                 and not any(_text(s) in comparison_text for s in segments if len(_text(s)) >= 30))
         complete_readback = getattr(self.native_executor, "complete_readback_request", None)
-        if verified and callable(complete_readback):
+        if (verified or canonical_present) and callable(complete_readback):
             complete_readback(request)
         return {**result, "verified": bool(verified), "status": "SUCCESS" if verified else "BLOCKED",
                 "write_exists": bool(identity_exists), "write_absent": bool(absent),
+                "canonical_publication_verified": canonical_present,
                 "content_binding_checks": {"text_match": text_match, "media_match": media_match, "thread_match": thread_match}}
 
 

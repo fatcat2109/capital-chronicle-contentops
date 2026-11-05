@@ -1,0 +1,39 @@
+{
+  "source_value_validators": "PASS",
+  "history_cutoff_utc": "2026-10-15T12:30:00+00:00",
+  "assets": [
+    {
+      "asset_id": "ppi_headline_core_24m",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_headline_core_24m.png",
+      "sha256": "8a7418f4ebadca2995bae77616a58f953216eb5aca6b50abe8eca1cda77d8c11",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart"
+    },
+    {
+      "asset_id": "ppi_september_component_rates",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_september_component_rates.png",
+      "sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart"
+    },
+    {
+      "asset_id": "ppi_september_nested_rates",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_september_nested_rates-r1.png",
+      "sha256": "bb1cbcd0019bbd39258e98308cd87889744b964dceb2b7714b26de15ac55cdad",
+      "width": 1440,
+      "height": 1456,
+      "modality": "source_backed_chart"
+    },
+    {
+      "asset_id": "documentary_oil",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\documentary_oil.jpg",
+      "sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+      "width": 640,
+      "height": 427,
+      "modality": "documentary_photo"
+    }
+  ],
+  "pixels_reviewed_this_run": false
+}

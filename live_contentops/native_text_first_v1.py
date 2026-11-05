@@ -11,7 +11,8 @@ from live_contentops.capital_chronicle_latest_report_consumer_v1 import _private
 
 POLICY_ID = "JIM_DECISION_37_B2_TEXT_FIRST"
 BRIEF_MODES = {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}
-DESTINATIONS = {"substack", "x", "telegram", "discord", "threads", "linkedin"}
+DESTINATIONS = {"substack", "x", "telegram", "discord", "threads", "linkedin",
+                "facebook_page", "instagram_business", "youtube"}
 MAX_WORDS = 500
 SKIPPED_IMAGE = "SKIPPED_TEXT_FIRST_INSTAGRAM_IMAGE_REQUIRED"
 SKIPPED_CHANNEL = "SKIPPED_TEXT_FIRST_CHANNEL_NOT_SELECTED"
@@ -68,6 +69,12 @@ def text_first_brief(result):
 
 
 def skipped_destinations(*, has_image=False):
+    """CC-199: finished briefs use every destination and the post image floor."""
+    return []
+
+
+def _legacy_skipped_destinations(*, has_image=False):
+    """Recognize frozen pre-CC-199 plans without rewriting their identities."""
     return [{"destination": destination, "status": status, "disposition": status, "reason": reason}
         for destination, status, reason in (
             ("instagram_business", SKIPPED_CHANNEL if has_image else SKIPPED_IMAGE,
@@ -80,7 +87,7 @@ def skipped_destinations(*, has_image=False):
 def permitted_skips(plan):
     if not plan.get("text_first") or not text_first_brief(plan):
         return set()
-    expected = skipped_destinations(has_image=bool(plan.get("media_asset_count")))
+    expected = _legacy_skipped_destinations(has_image=bool(plan.get("media_asset_count")))
     actual = plan.get("skipped_derivative_destinations") or []
     if sorted(actual, key=lambda s: s["destination"]) != sorted(expected, key=lambda s: s["destination"]):
         return set()

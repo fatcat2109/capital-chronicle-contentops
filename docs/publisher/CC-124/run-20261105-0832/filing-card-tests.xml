@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="51" time="8.025" timestamp="2026-11-05T08:42:26.527978+07:00" hostname="J-P"><testcase classname="tests.test_post_visuals_v1" name="test_card_projects_exact_post_facts_and_is_replay_stable" time="0.329" /><testcase classname="tests.test_post_visuals_v1" name="test_attributed_filing_facts_reach_all_eight_publication_packages" time="0.200"><failure message="ValueError: SELECTED_IMAGE_PUBLIC_DELIVERY_REQUIRED:discord">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-32893/test_attributed_filing_facts_r0')
+
+    def test_attributed_filing_facts_reach_all_eight_publication_packages(tmp_path):
+        article, claims, docs = packet()
+        doc = docs[0]
+        doc.pop("underlying_reuse_classification")
+        doc.pop("rights_evidence_sha256")
+        doc.update(publisher="Controlled company", source_authority_class="first_party_public_source",
+            canonical_content_text="In 2026, the company reported production of 120 units. "
+                "In 2025, it reported 100 units. No timetable has been set.")
+        doc["source_reuse_constraints"].update(
+            scope="ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+            government_authorship=False, public_expression_reuse_allowed=False,
+            images_logos_exhibits_reuse_allowed=False)
+        claims[0]["support_excerpt"] = "In 2026, the company reported production of 120 units. In 2025, it reported 100 units."
+        claims[1]["support_excerpt"] = "No timetable has been set."
+        article, assets = complete_post_visuals(article, claims, docs, [], output_dir=tmp_path)
+        card = assets[0]
+        assert [f["text"] for f in card["data_card_packet"]["facts"]] == [c["claim_text"] for c in claims]
+        assert all(f["rights_class"] == "attributed_facts_independent_chart" for f in card["data_card_packet"]["facts"])
+        validate_post_data_card(card, article, docs)
+        bundle, _ = _native_preview_bundle(article=article, article_mode="BREAKING_BRIEF",
+            article_identity="f" * 64, media_assets=assets, media_asset_ids=[card["asset_id"]])
+        assert len(bundle["packages"]) == 8
+        for destination, payload in bundle["packages"].items():
+            assert payload["media_asset_ids"] == [card["asset_id"]]
+&gt;           require_publication_image(destination, {"media_assets": assets,
+                "payloads": {destination: payload}})
+
+tests\test_post_visuals_v1.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+destination = 'discord'
+data = {'media_assets': [{'alt_text': 'The agency reported output of 120 units in 2026, compared with 100 units in 2025. The ...'}, {'document_id': 'controlled-source', 'label': 'Controlled company', 'url': 'https://example.org/release'}]}, ...}}}
+
+    def require_publication_image(destination, data):
+        """One pre-send check across Neo and API transports. Readback never calls it."""
+        assets = data.get("media_assets") or []
+        if destination != "substack":
+            payload = data.get("payloads", {}).get(destination) or {}
+            selected = set(payload.get("media_asset_ids") or [])
+            selected.update(a for post in payload.get("posts") or [] for a in post.get("media_asset_ids") or [])
+            assets = [a for a in assets if a.get("asset_id") in selected]
+        if not assets:
+            raise ValueError("EVERY_POST_IMAGE_REQUIRED:" + destination)
+        from PIL import Image
+        for asset in assets:
+            path = Path(asset.get("path") or asset.get("absolute_local_source_path") or "")
+            if not path.is_file() or sha256(path.read_bytes()).hexdigest() != asset.get("sha256"):
+                raise ValueError("PUBLICATION_IMAGE_BYTES_CHANGED:" + destination)
+            with Image.open(path) as pixels:
+                if pixels.format not in {"PNG", "JPEG", "WEBP"}:
+                    raise ValueError("PUBLICATION_IMAGE_FORMAT_UNSUPPORTED:" + destination)
+                pixels.verify()
+        if destination in {"discord", "facebook_page", "instagram_business", "threads"}:
+            primary = data.get("primary_media") or {}
+            if (not str(data.get("public_image_url") or "").startswith("https://")
+                    or primary.get("sha256") not in {a["sha256"] for a in assets}
+                    or primary.get("local_public_hash_continuity") is not True
+                    or primary.get("public_delivery_sha256") != primary.get("sha256")):
+&gt;               raise ValueError("SELECTED_IMAGE_PUBLIC_DELIVERY_REQUIRED:" + destination)
+E               ValueError: SELECTED_IMAGE_PUBLIC_DELIVERY_REQUIRED:discord
+
+live_contentops\post_visuals_v1.py:454: ValueError</failure></testcase><testcase classname="tests.test_post_visuals_v1" name="test_changed_facts_rights_or_bytes_fail[number]" time="0.147" /><testcase classname="tests.test_post_visuals_v1" name="test_changed_facts_rights_or_bytes_fail[post]" time="0.156" /><testcase classname="tests.test_post_visuals_v1" name="test_changed_facts_rights_or_bytes_fail[source]" time="0.137" /><testcase classname="tests.test_post_visuals_v1" name="test_changed_facts_rights_or_bytes_fail[rights]" time="0.144" /><testcase classname="tests.test_post_visuals_v1" name="test_changed_facts_rights_or_bytes_fail[pixels]" time="0.158" /><testcase classname="tests.test_post_visuals_v1" name="test_changed_facts_rights_or_bytes_fail[packet]" time="0.160" /><testcase classname="tests.test_post_visuals_v1" name="test_private_surveys_never_become_cards_or_charts[ISM]" time="0.065" /><testcase classname="tests.test_post_visuals_v1" name="test_private_surveys_never_become_cards_or_charts[S&amp;P Global PMI]" time="0.005" /><testcase classname="tests.test_post_visuals_v1" name="test_private_surveys_never_become_cards_or_charts[Conference Board]" time="0.004" /><testcase classname="tests.test_post_visuals_v1" name="test_private_surveys_never_become_cards_or_charts[UMich]" time="0.003" /><testcase classname="tests.test_post_visuals_v1" name="test_private_surveys_never_become_cards_or_charts[ADP]" time="0.003" /><testcase classname="tests.test_post_visuals_v1" name="test_unknown_rights_excluded_and_no_number_is_inferred" time="0.117" /><testcase classname="tests.test_post_visuals_v1" name="test_relay_does_not_hide_private_survey_origin" time="0.004" /><testcase classname="tests.test_post_visuals_v1" name="test_native_semantic_assembly_persists_card_before_preview_and_handoff" time="0.342" /><testcase classname="tests.test_post_visuals_v1" name="test_no_photo_card_compiles_eight_image_packages_and_enters_final_review" time="0.158" /><testcase classname="tests.test_post_visuals_v1" name="test_analysis_retains_two_to_five_chart_requirement" time="0.004" /><testcase classname="tests.test_post_visuals_v1" name="test_preparation_without_photo_can_reach_writer_but_final_post_needs_card" time="0.003" /><testcase classname="tests.test_post_visuals_v1" name="test_card_small_chart_uses_existing_admitted_series_owner" time="1.145" /><testcase classname="tests.test_post_visuals_v1" name="test_invalid_image_is_rejected_by_image_validator" time="0.242" /><testcase classname="tests.test_post_visuals_v1" name="test_shared_transport_preserves_installed_image_failure_fallback[substack]" time="0.004" /><testcase classname="tests.test_post_visuals_v1" name="test_shared_transport_preserves_installed_image_failure_fallback[telegram]" time="0.003" /><testcase classname="tests.test_post_visuals_v1" name="test_shared_transport_preserves_installed_image_failure_fallback[discord]" time="0.003" /><testcase classname="tests.test_post_visuals_v1" name="test_shared_transport_preserves_installed_image_failure_fallback[x]" time="0.003" /><testcase classname="tests.test_post_visuals_v1" name="test_shared_transport_preserves_installed_image_failure_fallback[linkedin]" time="0.004" /><testcase classname="tests.test_post_visuals_v1" name="test_shared_transport_preserves_installed_image_failure_fallback[facebook_page]" time="0.003" /><testcase classname="tests.test_post_visuals_v1" name="test_shared_transport_preserves_installed_image_failure_fallback[instagram_business]" time="0.004" /><testcase classname="tests.test_post_visuals_v1" name="test_shared_transport_preserves_installed_image_failure_fallback[threads]" time="0.003" /><testcase classname="tests.test_post_visuals_v1" name="test_shared_transport_preserves_installed_image_failure_fallback[youtube]" time="0.004" /><testcase classname="tests.test_post_visuals_v1" name="test_shared_transport_preserves_installed_image_failure_fallback[linkedin_company]" time="0.003" /><testcase classname="tests.test_post_visuals_v1" name="test_each_channel_requires_its_selected_exact_image[substack]" time="0.193" /><testcase classname="tests.test_post_visuals_v1" name="test_each_channel_requires_its_selected_exact_image[telegram]" time="0.156" /><testcase classname="tests.test_post_visuals_v1" name="test_each_channel_requires_its_selected_exact_image[discord]" time="0.156" /><testcase classname="tests.test_post_visuals_v1" name="test_each_channel_requires_its_selected_exact_image[x]" time="0.161" /><testcase classname="tests.test_post_visuals_v1" name="test_each_channel_requires_its_selected_exact_image[linkedin]" time="0.156" /><testcase classname="tests.test_post_visuals_v1" name="test_each_channel_requires_its_selected_exact_image[facebook_page]" time="0.155" /><testcase classname="tests.test_post_visuals_v1" name="test_each_channel_requires_its_selected_exact_image[instagram_business]" time="0.154" /><testcase classname="tests.test_post_visuals_v1" name="test_each_channel_requires_its_selected_exact_image[threads]" time="0.167" /><testcase classname="tests.test_post_visuals_v1" name="test_each_channel_requires_its_selected_exact_image[youtube]" time="0.155" /><testcase classname="tests.test_post_visuals_v1" name="test_url_transport_cannot_fall_back_to_text_or_another_image[discord]" time="0.151" /><testcase classname="tests.test_post_visuals_v1" name="test_url_transport_cannot_fall_back_to_text_or_another_image[facebook_page]" time="0.163" /><testcase classname="tests.test_post_visuals_v1" name="test_url_transport_cannot_fall_back_to_text_or_another_image[instagram_business]" time="0.158" /><testcase classname="tests.test_post_visuals_v1" name="test_url_transport_cannot_fall_back_to_text_or_another_image[threads]" time="0.163" /><testcase classname="tests.test_post_visuals_v1" name="test_visual_request_reentry_preserves_exact_frozen_prompt" time="0.532" /><testcase classname="tests.test_post_visuals_v1" name="test_delivery_url_is_selected_by_the_channel_asset_hash" time="0.186" /><testcase classname="tests.test_post_visuals_v1" name="test_long_cards_keep_complete_claims_in_bounded_readable_layout" time="0.330" /><testcase classname="tests.test_post_visuals_v1" name="test_source_bound_card_survives_existing_live_image_selection" time="0.159" /><testcase classname="tests.test_post_visuals_v1" name="test_date_punctuation_is_not_part_of_the_admitted_number" time="0.117" /><testcase classname="tests.test_post_visuals_v1" name="test_key_facts_prefer_article_body_to_repeated_metadata" time="0.150" /><testcase classname="tests.test_post_visuals_v1" name="test_admitted_claim_can_include_date_context_elsewhere_in_same_exact_source" time="0.127" /></testsuite></testsuites>

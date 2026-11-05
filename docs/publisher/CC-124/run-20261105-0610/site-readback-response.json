@@ -1,0 +1,20 @@
+{
+  "tool_request_sha256": "91f1adf80b03f66de71c23005d824465446e7c108e6092eee4c24543a1e5399c",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "BrowserOS Neo exact article page 427: GitHub Pages 404 File not found. No article content present. Snapshot and read observed the configured exact URL.",
+    "observed_at_utc": "2026-11-05T00:11:24.697820+00:00"
+  },
+  "result": {
+    "request_sha256": "a8ef33cb8a158eb8fb7ebade10b6370088c27cbac284d779e229fb644baff103",
+    "status": "NOT_FOUND",
+    "http_status": 404,
+    "verified": false,
+    "observed_identity": "fatcat2109/capital-chronicle-preview",
+    "public_object_url": "https://fatcat2109.github.io/capital-chronicle-preview/articles/2da75e867f99c039402d4b75d8f46a9a/",
+    "article_identity": "eddc51c72ad48e2c71becf2b131e31bd05e8fb252a1e021857cc1056ba1cfd1f",
+    "observed_text": "404 File not found. The site configured at this address does not contain the requested file."
+  }
+}

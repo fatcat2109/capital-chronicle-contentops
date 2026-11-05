@@ -141,6 +141,31 @@ def validate_pre_writer_outcome(value, *, max_source_requests=6):
     return value
 
 
+def _company_document_card_plan(value, documents=None):
+    """Decision 41's macro-history rule does not create company filing series."""
+    value = value or {}
+    plan = value.get("post_data_card_plan") or {}
+    spec = plan.get("data_spec") or {}
+    scope = "ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"
+    facts = plan.get("facts") or []
+    if (value.get("story_kind") != "ANALYSIS" or value.get("editorial_format") != "DATA_OR_DOCUMENT_LENS"
+            or plan.get("modality") != "source_bound_data_card" or spec.get("rights_scope") != scope
+            or not spec.get("source_id") or not spec.get("source_url") or not spec.get("canonical_content_sha256")
+            or not 1 <= len(facts) <= 3
+            or any(not f.get("text") or f.get("source_id") != spec["source_id"] for f in facts)):
+        return None
+    if documents is not None:
+        from hashlib import sha256
+        source = next((d for d in documents if d.get("source_id") == spec["source_id"]
+            and (d.get("url") or d.get("source_url")) == spec["source_url"]
+            and sha256(d.get("canonical_content_text", "").encode()).hexdigest() == spec["canonical_content_sha256"]
+            and d.get("source_authority_class") == "first_party_public_source"
+            and (d.get("source_reuse_constraints") or {}).get("scope") == scope), None)
+        if source is None:
+            return None
+    return plan
+
+
 def validate_visual_decision(value, *, dropped_after_repair=False):
     """Validate the MAX editor's explicit choice, without scoring its judgment."""
     if not isinstance(value, dict) or value.get("reader_first_version") != "DATA_JOURNALISM_V1":
@@ -152,7 +177,8 @@ def validate_visual_decision(value, *, dropped_after_repair=False):
         raise ValueError("BOUNDED_VISUAL_DECISION_REQUIRED")
     # Decision 41 narrows decision 39 to short briefs. Analysis cannot use the
     # optional-photo exception to bypass its source-bound charts.
-    if value["story_kind"] == "ANALYSIS" and not charts and not dropped_after_repair:
+    if (value["story_kind"] == "ANALYSIS" and not charts and not dropped_after_repair
+            and not _company_document_card_plan(value)):
         raise ValueError("ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED")
     ids, questions = [], []
     for chart in charts:
@@ -162,6 +188,11 @@ def validate_visual_decision(value, *, dropped_after_repair=False):
         questions.append(chart["question"].strip().casefold())
     if len(set(ids)) != len(ids) or len(set(questions)) != len(questions):
         raise ValueError("DISTINCT_VISUAL_IDENTITIES_AND_QUESTIONS_REQUIRED")
+    card_ids = value.get("data_card_asset_ids", [])
+    if (not isinstance(card_ids, list) or len(card_ids) > 3 or len(set(card_ids)) != len(card_ids)
+            or any(not re.fullmatch(r"post-facts-[a-f0-9]{20}", i) for i in card_ids)):
+        raise ValueError("BOUND_POST_DATA_CARD_IDENTITIES_REQUIRED")
+    ids.extend(card_ids)
     destinations = {"telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube"}
     photo_ids = value.get("contextual_photo_ids", [])
     if not isinstance(photo_ids, list) or len(photo_ids) > 2 or len(set(photo_ids)) != len(photo_ids):
@@ -209,13 +240,28 @@ def admit_selected_story_context(turn, binding, response):
     if frozen.get("run_id") != turn.run_id or frozen.get("cutoff_utc") != input_cutoff:
         raise ValueError("EXACT_FROZEN_CURRENT_INPUT_REQUIRED")
     research = RetainedSourceResearch.from_frozen_snapshot(frozen["research"])
+    verified_context = {}
+    if response.get("retained_research_root"):
+        # Already held, governed sources remain usable before writer freeze.
+        # The normal adapter verifies capture/policy bytes; clocks below still
+        # forbid later evidence from entering the frozen opportunity.
+        additional = RetainedSourceResearch(response["retained_research_root"])
+        if additional.gaps or set(ids) - set(additional.records):
+            raise ValueError("EXACT_VERIFIED_RETAINED_CONTEXT_REQUIRED")
+        admitted = additional.evidence({"headline_ids": ids}, cutoff_utc=input_cutoff)
+        if not admitted or admitted.get("status") != "PASS":
+            raise ValueError("RETAINED_CONTEXT_SOURCE_ADMISSION_REQUIRED")
+        verified_context = {d["document_id"]: d for d in admitted.get("evidence_documents", [])}
+        research = additional
     walk = json.loads((turn.root / "simple_gemini_evidence_v1.json").read_bytes())
     primary = visual["governed_input"]["source_packet"]["source_pack"]
     candidate = response.get("candidate_id")
     if (candidate != walk.get("selected_candidate_id") or not primary
             or candidate not in {p["candidate_id"] for p in turn._get("select", "response")["output"]["ordered_candidate_plan"]}
             or walk.get("selected_source_pack") != primary
-            or len(primary) + len(ids) > MAX_SOURCE_DOCUMENTS):
+            or sum(d.get("source_authority_class") != "official_release_history_from_cc010" for d in primary)
+                + len(ids) > MAX_SOURCE_DOCUMENTS
+            or len(primary) + len(ids) > 10):
         raise ValueError("EXACT_QUALIFIED_SELECTED_SOURCE_PACK_REQUIRED")
     documents = []
     for item_id in ids:
@@ -226,10 +272,11 @@ def admit_selected_story_context(turn, binding, response):
                for k in ("source_timestamp_utc", "known_at_utc", "revision_at_utc")):
             raise ValueError("CONTEXT_SOURCE_AFTER_FROZEN_CUTOFF")
         permission = record["source_permissions"]
-        if not permission.get("MODEL_INPUT_ALLOWED") or not record["document"].get("public_claim_allowed"):
+        document = verified_context.get(item_id, record["document"])
+        if not permission.get("MODEL_INPUT_ALLOWED") or not document.get("public_claim_allowed"):
             raise ValueError("CONTEXT_SOURCE_PERMISSION_REQUIRED")
         text = record["permitted_source_text"]
-        documents.append({**record["document"], "document_id": item_id,
+        documents.append({**document, "document_id": item_id,
             "source_identity": record["source_identity"], "canonical_content_text": text,
             "canonical_content_sha256": sha256(text.encode()).hexdigest(),
             "known_at_utc": record["known_at_utc"], "retrieval_time_utc": record["retrieval_time_utc"],
@@ -1092,6 +1139,11 @@ class NativeDesktopTurn:
             if observation["invocation_id"] != visual["invocation_observation"]["invocation_id"]:
                 raise ValueError("NATIVE_DESKTOP_SAME_VISUAL_EDITOR_WRITER_REQUIRED")
             article = response.get("output", {}).get("article", {})
+            # The accepted visual decision is owned by this exact native
+            # operation. Attach omitted representation metadata deterministically
+            # rather than paying for another writer call to copy the same JSON.
+            article.setdefault("reader_first_version", "DATA_JOURNALISM_V1")
+            article.setdefault("visual_editorial_decision", visual["output"])
             if (article.get("reader_first_version") != "DATA_JOURNALISM_V1"
                     or article.get("visual_editorial_decision") != visual["output"]):
                 raise ValueError("NATIVE_DESKTOP_EXACT_VISUAL_ARGUMENT_REQUIRED")
@@ -1232,8 +1284,8 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     if result.get("article_identity") != article_identity or not result.get("qualified_article_count"):
         raise ValueError("EXACT_QUALIFIED_NATIVE_ARTICLE_REQUIRED")
     disposition = result.get("visual_repair_disposition")
-    if drop_failed_visuals and (not final_visual_repair or corrected_worker_output is not None):
-        raise ValueError("DROP_VISUALS_REQUIRES_EXACT_REPAIR_RETURN_UNCHANGED_COPY")
+    if drop_failed_visuals and not final_visual_repair:
+        raise ValueError("DROP_VISUALS_REQUIRES_EXACT_REPAIR_RETURN")
     if disposition and not final_visual_repair and assets != result.get("media_assets"):
         raise ValueError("VISUAL_REPAIR_CAP_DROP_FAILED_ASSETS_REQUIRED")
     if final_visual_repair is not None:
@@ -1262,18 +1314,6 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         if dispatched:
             raise ValueError("REVIEWED_MEDIA_IMMUTABLE_AFTER_PUBLICATION_DISPATCH")
     corrected_article = result["article"]
-    if drop_failed_visuals:
-        dropped = {a["asset_id"] for a in disposition["dropped_assets"]}
-        decision = corrected_article.get("visual_editorial_decision") or result.get("visual_editorial_decision")
-        if decision:
-            disposition["original_visual_editorial_decision"] = (
-                (result.get("visual_repair_disposition") or {}).get("original_visual_editorial_decision") or decision)
-            decision = {**decision, "charts": [c for c in decision["charts"] if c["asset_id"] not in dropped],
-                "contextual_photo_ids": [i for i in decision.get("contextual_photo_ids", []) if i not in dropped],
-                "channel_media": {d: [i for i in ids if i not in dropped] for d, ids in decision["channel_media"].items()}}
-        corrected_article = {**corrected_article,
-            **({"visual_editorial_decision": decision} if decision else {}),
-            "visual_repair_disposition": {"policy": "CC-172", "repair_rounds": 1, "dropped_asset_ids": sorted(dropped)}}
     if corrected_worker_output is not None:
         if final_visual_repair is None:
             raise ValueError("COPY_CORRECTION_REQUIRES_SAME_MAX_FINAL_REPAIR")
@@ -1285,6 +1325,20 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             selected_candidate=result["simple_result"]["selected_candidate"],
             article_mode=result["article"]["resolved_article_mode"], epistemic_state=result["article"].get("epistemic_state"))
         corrected_article = {**result["article"], **revised}
+    if drop_failed_visuals:
+        dropped = {a["asset_id"] for a in disposition["dropped_assets"]}
+        decision = corrected_article.get("visual_editorial_decision") or result.get("visual_editorial_decision")
+        if decision:
+            disposition["original_visual_editorial_decision"] = (
+                (result.get("visual_repair_disposition") or {}).get("original_visual_editorial_decision") or decision)
+            decision = {**decision, "charts": [c for c in decision["charts"] if c["asset_id"] not in dropped],
+                "contextual_photo_ids": [i for i in decision.get("contextual_photo_ids", []) if i not in dropped],
+                "channel_media": {d: [i for i in ids if i not in dropped] for d, ids in decision["channel_media"].items()}}
+        corrected_article = {**corrected_article,
+            **({"visual_editorial_decision": decision} if decision else {}),
+            **({"post_visual_destination_media": final_visual_repair["channel_media_after_drop"]}
+               if final_visual_repair.get("channel_media_after_drop") else {}),
+            "visual_repair_disposition": {"policy": "CC-172", "repair_rounds": 1, "dropped_asset_ids": sorted(dropped)}}
     allowed = {d["url"] for d in result.get("evidence", [])}
     allowed.update(s["url"] for d in result.get("evidence", []) for s in d.get("desk_record_binding", {}).get("sources", []))
     for d in result.get("evidence", []):
@@ -1387,14 +1441,26 @@ def validate_release_media(result, *, require_pixel_review=True, prewriter=False
     from live_contentops.post_visuals_v1 import POLICY, validate_post_data_card
     current_visuals = article.get("post_visual_policy") == POLICY
     quantitative_charts = [a for a in charts if not a.get("fact_card_packet") and not a.get("post_card_binding")]
+    company_card_plan = _company_document_card_plan(decision, result.get("evidence") or [])
+    if (decision or {}).get("data_card_asset_ids") and set(decision["data_card_asset_ids"]) != {a["asset_id"] for a in cards}:
+        raise ValueError("RELEASE_DATA_CARDS_DIFFER_FROM_BOUND_MEDIA")
     disposition = result.get("visual_repair_disposition") or {}
     dropped = disposition.get("dropped_assets") or []
     dropped_after_repair = (disposition.get("policy") == "CC-172" and disposition.get("repair_rounds") == 1
         and bool(dropped) and not {a["asset_id"] for a in dropped} & {a["asset_id"] for a in assets})
     if (((result.get("article") or {}).get("news_item_kind") == "ANALYSIS"
             or (decision or {}).get("story_kind") == "ANALYSIS")
-            and not quantitative_charts and not dropped_after_repair):
+            and not quantitative_charts and not dropped_after_repair and not company_card_plan):
         raise ValueError("ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED")
+    if company_card_plan:
+        selected = [f["text"] for f in company_card_plan["facts"]]
+        if len(cards) != 1 or [f["text"] for f in cards[0]["data_card_packet"]["facts"]] != selected:
+            raise ValueError("COMPANY_DOCUMENT_EXACT_SELECTED_FACT_CARD_REQUIRED")
+        # Before writing, source qualification checks the planned sentences. After
+        # writing, the same validator additionally binds them to actual public copy.
+        card_article = article if article.get("substack_body_markdown") else {
+            "title": company_card_plan.get("title", ""), "substack_body_markdown": " ".join(selected)}
+        validate_post_data_card(cards[0], card_article, result.get("evidence") or [])
     if len(assets) != len(photos) + len(charts) + len(cards):
         raise ValueError("RELEASE_UNSUPPORTED_MEDIA")
     if text_first:

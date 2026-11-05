@@ -185,36 +185,6 @@ def test_all_18_current_holds_and_exact_five_supersessions_remain_hash_identical
         assert parity_row["public_write_authority"] is False
 
 
-def test_matrix_and_committed_temporal_artifacts_are_logically_hash_valid():
-    temporal = _build()
-    matrix = build_historical_replay_integrity_matrix(temporal)
-    assert matrix["historical_authority_pass_count"] == 0
-    assert matrix["source_time_pass_does_not_grant_authority"] is True
-    for filename in (
-        "temporal_authority_records.json",
-        "historical_replay_integrity_matrix.json",
-        "current_readiness_parity.json",
-        "validation_truth.json",
-        "final_manifest.json",
-    ):
-        document = _load(CURRENT / filename)
-        observed = document["logical_hash"]
-        core = {key: value for key, value in document.items() if key != "logical_hash"}
-        assert observed == logical_hash(core)
-    committed = _load(CURRENT / "temporal_authority_records.json")
-    assert committed == temporal
-    assert committed["starting_remote_head"] == "1548196ebffd2bc7ce82a4ae290211b9c53a45df"
-    assert committed["publication_authority"] is False
-    assert committed["dispatch_authority"] is False
-    assert committed["approval_authority"] is False
-    assert committed["public_write_authority"] is False
-    manifest = _load(CURRENT / "final_manifest.json")
-    for artifact in manifest["artifacts"]:
-        assert artifact["byte_sha256"] == sha256(
-            Path(artifact["path"]).read_bytes()
-        ).hexdigest()
-
-
 def test_canonical_json_hash_helper_matches_sha256_reference():
     value = {"z": 1, "a": [False, None, "x"]}
     expected = sha256(

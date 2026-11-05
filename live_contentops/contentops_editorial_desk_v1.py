@@ -20,7 +20,7 @@ STORY_PREPARATION = "internal:native-story-preparation"
 
 
 def record_pre_event_preparation(store, packet):
-    """Retain dated background in the existing story outbox, without source admission."""
+    """Retain dated background; preview operations can admit its verified sources."""
     from live_contentops.capital_chronicle_report_feed_v1 import _persist
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
     if (_private(packet) or not all(packet.get(k) for k in ("event_id", "title", "known_at_utc",
@@ -34,10 +34,219 @@ def record_pre_event_preparation(store, packet):
                 or sha256(Path(source["capture_path"]).read_bytes()).hexdigest() != source.get("capture_sha256")):
             raise ValueError("PREPARATION_OFFICIAL_CAPTURE_BINDING_REQUIRED")
     value = {"schema_version": "contentops.native_story_preparation.v1", **packet,
-        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK", "public_write_performed": False}
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW", "public_write_performed": False}
     key = "native-story-preparation-" + sha256_of(value)
     _persist(store, key, value, STORY_PREPARATION)
     return {"message_id": key, "event_id": packet["event_id"], "source_admission_state": value["source_admission_state"]}
+
+
+def retain_reviewed_preview_background(store, *, event_id, run_id):
+    """Feed an accepted background back to the existing event-preparation owner."""
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.native_desktop_editorial_v1 import native_review_revision
+    binding_row = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
+    binding = json.loads(binding_row["payload"]) if binding_row else {}
+    row = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
+    result = json.loads(row["payload"]) if row else {}
+    if binding.get("preview_event_id") != event_id or not result.get("qualified_article_count"):
+        raise ValueError("EXACT_PREVIEW_EVENT_BACKGROUND_REQUIRED")
+    with store.get_read_only_connection() as conn:
+        review = conn.execute("SELECT * FROM review_records WHERE work_item_id=? AND reviewer_ref=? "
+            "ORDER BY rowid DESC LIMIT 1", (row["work_item_id"], "NATIVE_DESKTOP_ARTICLE_REVIEW")).fetchone()
+        preparations = conn.execute("SELECT message_id,payload FROM outbox_messages WHERE destination=? ORDER BY rowid",
+            (STORY_PREPARATION,)).fetchall()
+    note = json.loads(review["notes"]) if review else {}
+    revision = native_review_revision(result)
+    if (not review or review["decision"] != "KEEP" or note.get("package_revision") != revision
+            or not note.get("final_visual_review")):
+        raise ValueError("REVIEWED_PREVIEW_BACKGROUND_REVISION_REQUIRED")
+    prior = [(r["message_id"], json.loads(r["payload"])) for r in preparations
+        if json.loads(r["payload"]).get("event_id") == event_id]
+    message_id, packet = prior[-1] if prior else (None, {})
+    if not packet:
+        raise ValueError("PREPARATION_EVENT_NOT_FOUND:" + event_id)
+    old = packet.get("reviewed_background") or {}
+    if old.get("article_revision") == revision and old.get("review_id") == review["review_id"]:
+        return {"message_id": message_id, "event_id": event_id, "run_id": run_id,
+            "article_revision": revision, "classification": "REVIEWED_BACKGROUND_ALREADY_RETAINED"}
+    from copy import deepcopy
+    background = {"run_id": run_id, "article_identity": result["article_identity"],
+        "article_revision": revision, "review_id": review["review_id"], "reviewed_at_utc": review["reviewed_at"],
+        "article": deepcopy(result["article"]), "original_source_pack": deepcopy(result["evidence"]),
+        "media_assets": [{k: deepcopy(a[k]) for k in ("asset_id", "path", "sha256", "modality", "caption",
+            "alt_text", "placement_after", "source_links") if k in a} for a in result.get("media_assets", [])],
+        "final_visual_review": deepcopy(note["final_visual_review"]),
+        "final_result_message_id": row["message_id"], "final_result_sha256": sha256_of(result),
+        "scope": "REVIEWED_PRE_EVENT_BACKGROUND", "dossier_scenarios_added": False}
+    # Exact media/renders remain binary in their owned folders; references and
+    # hashes are enough for the next native planner/writer to reuse those files.
+    background["final_visual_review"] = {k: v for k, v in background["final_visual_review"].items()
+        if k not in {"assets", "renders"}}
+    packet = {**packet, "known_at_utc": review["reviewed_at"],
+        "original_preparation_message_id": message_id,
+        "background_source_known_at_utc": packet.get("background_source_known_at_utc", packet["known_at_utc"]),
+        "reviewed_background": background}
+    receipt = record_pre_event_preparation(store, packet)
+    return {**receipt, "run_id": run_id, "article_revision": revision,
+        "classification": "REVIEWED_BACKGROUND_FEEDS_PREVIEW_PREPARATION"}
+
+
+def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="EVENT_PREVIEW"):
+    """Use our existing preparation in the preview's ordinary source/writer path.
+
+    The preparation's prose is editorial context. Only exact, captured BLS spans
+    establish past facts. Neither the future print nor dossier probabilities are
+    invented. The original outbox record, rights and source clocks stay unchanged.
+    """
+    from hashlib import sha256
+    from pathlib import Path
+    from urllib.parse import urlsplit
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, _time
+    from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+
+    if article_type != "EVENT_PREVIEW":
+        raise ValueError("PREPARATION_REUSE_IS_FOR_EVENT_PREVIEWS")
+    eligible = []
+    with store.get_read_only_connection() as conn:
+        rows = conn.execute("SELECT message_id,payload FROM outbox_messages WHERE destination=? ORDER BY rowid",
+                            (STORY_PREPARATION,)).fetchall()
+    for row in rows:
+        packet = json.loads(row["payload"])
+        if packet.get("event_id") != event_id or _time(packet["known_at_utc"]) > _time(cutoff_utc):
+            continue
+        if row["message_id"] != "native-story-preparation-" + sha256_of(packet):
+            raise ValueError("PREPARATION_IMMUTABLE_PACKET_CHANGED")
+        eligible.append((row["message_id"], packet))
+    if not eligible:
+        raise ValueError("PREPARATION_EVENT_NOT_FOUND:" + event_id)
+    message_id, packet = max(eligible, key=lambda x: _time(x[1]["known_at_utc"]))
+    if not packet.get("planned_release_utc") or _time(cutoff_utc) >= _time(packet["planned_release_utc"]):
+        raise ValueError("PREVIEW_EVENT_HAS_PASSED_USE_EVENT_REVIEW")
+    sources = {}
+    for source in packet["official_sources"]:
+        raw = Path(source["capture_path"]).read_bytes()
+        if sha256(raw).hexdigest() != source["capture_sha256"]:
+            raise ValueError("PREPARATION_OFFICIAL_CAPTURE_BINDING_REQUIRED")
+        sources[source["capture_sha256"]] = (source, raw.decode("utf-8-sig"))
+    records = {}
+    grouped = {}
+    for span in packet.get("prior_fact_spans", []):
+        digest = span["capture_sha256"]
+        source, text = sources[digest]
+        url = urlsplit(source["url"])
+        if (url.scheme != "https" or url.netloc != "www.bls.gov"
+                or not url.path.startswith("/news.release/")):
+            raise ValueError("PREPARATION_PUBLIC_BLS_TEXT_RIGHTS_REQUIRED")
+        excerpt = span["exact_source_span"]
+        if not excerpt or " ".join(excerpt.split()) not in " ".join(text.split()):
+            raise ValueError("PREPARATION_PRIOR_FACT_SPAN_CHANGED")
+        published = source.get("published_at_utc")
+        known = source.get("observed_at_utc") or source.get("retained_at_utc") or packet["known_at_utc"]
+        if not published or _time(published) > _time(known) or _time(known) > _time(cutoff_utc):
+            raise ValueError("PREPARATION_PRIOR_SOURCE_CLOCK_INVALID")
+        grouped.setdefault(digest, []).append(excerpt)
+    if not grouped:
+        raise ValueError("PREPARATION_NO_CAPTURED_PRIOR_FACTS:" + event_id)
+    for digest, excerpts in grouped.items():
+        source, _ = sources[digest]
+        identity = "preview-background-" + sha256_of([message_id, digest])
+        text = "\n\n".join(excerpts)
+        content_hash = sha256(text.encode()).hexdigest()
+        rights = {"scope": "BLS_AGENCY_AUTHORED_PUBLIC_DOMAIN_TEXT_PREVIEW_BACKGROUND",
+            "authority_ref": "JIM_DECISION_41_AND_BACKLOG_CC216",
+            "article_types": ["EVENT_PREVIEW"], "attribution_required": True,
+            "source_capture_sha256": digest, "content_sha256": content_hash,
+            "MODEL_INPUT_ALLOWED": True, "LLM_INPUT_ALLOWED": True,
+            "INTERNAL_ANALYSIS_ALLOWED": True,
+            "excludes": ["third_party_photographs", "unreleased_facts", "invented_consensus"]}
+        known = source.get("observed_at_utc") or source.get("retained_at_utc") or packet["known_at_utc"]
+        doc = {"document_id": identity, "source_url": source["url"],
+            "publisher": "U.S. Bureau of Labor Statistics",
+            "published_at_utc": source["published_at_utc"],
+            "source_adapter_family": "official_macro",
+            "source_authority_class": "official_public_primary_source",
+            "canonical_content_text": text, "canonical_content_sha256": content_hash,
+            "raw_sha256": digest, "content_truncated": False, "public_claim_allowed": True,
+            "preview_preparation": {"message_id": message_id, "event_id": event_id,
+                "planned_release_utc": packet["planned_release_utc"],
+                "known_at_utc": packet["known_at_utc"], "background": packet["background"],
+                "reader_question": packet["reader_question"], "watchpoints": packet.get("watchpoints", []),
+                "missing_inputs": packet["missing_inputs"],
+                **({"reviewed_background": packet["reviewed_background"]}
+                   if packet.get("reviewed_background") and not records else {}),
+                "future_release_values": None, "dossier_scenarios": None,
+                "background_is_editorial_context_not_new_official_facts": True},
+            "source_reuse_constraints": rights}
+        records[identity] = {"headline_id": identity,
+            "headline_text": excerpts[0],
+            "text_sha256": content_hash, "source_identity": doc["publisher"],
+            "source_platform": "CONTENTOPS_PRE_EVENT_PREPARATION",
+            "source_account": doc["publisher"], "source_url": source["url"],
+            "official_source_urls": [source["url"]], "source_timestamp_utc": source["published_at_utc"],
+            "headline_timestamp": source["published_at_utc"], "known_at_utc": known,
+            "retrieval_time_utc": known, "revision_at_utc": packet["known_at_utc"],
+            "rights_state": "BLS_US_FEDERAL_PUBLIC_DOMAIN_TEXT",
+            "source_capture_sha256": digest, "rights_evidence_sha256": sha256_of(rights),
+            "source_permissions": rights, "source_permission_record_sha256": sha256_of(rights),
+            "candidate_catalyst_tags": ["EVENT_PREVIEW", event_id],
+            "originality": "EXISTING_NEWSROOM_PREPARATION_WITH_EXACT_PRIOR_OFFICIAL_SOURCES",
+            "correction_of": None, "document": doc, "source_chart": None,
+            "permitted_source_text": text, "supporting_headline_ids": [],
+            "research_metadata": {"event_id": event_id, "article_type": "EVENT_PREVIEW",
+                "preparation_message_id": message_id}}
+    if consensus := packet.get("single_consensus_fact"):
+        projection_raw = Path(consensus["projection_path"]).read_bytes()
+        if sha256(projection_raw).hexdigest() != consensus["projection_sha256"]:
+            raise ValueError("PREVIEW_CONSENSUS_PROJECTION_CHANGED")
+        projection = json.loads(projection_raw)
+        if projection["release_id"] != consensus["release_id"]:
+            raise ValueError("PREVIEW_CONSENSUS_EVENT_CHANGED")
+        rows = [r for r in projection["records"] if r["source"] == consensus["source"]
+            and r["measure_key"] == consensus["measure_key"]]
+        if len(rows) != 1:
+            raise ValueError("PREVIEW_EXACTLY_ONE_ATTRIBUTED_CONSENSUS_REQUIRED")
+        row = rows[0]
+        capture_root = Path(consensus["capture_root"]).resolve()
+        capture = (capture_root / row["raw_path"]).resolve()
+        if not capture.is_relative_to(capture_root) or sha256(capture.read_bytes()).hexdigest() != row["raw_sha256"]:
+            raise ValueError("PREVIEW_CONSENSUS_SOURCE_CAPTURE_CHANGED")
+        if (not row.get("pre_release_eligible") or not row.get("source_value_text")
+                or _time(row["known_at_utc"]) > _time(cutoff_utc)
+                or _time(row["released_at_utc"]) != _time(packet["planned_release_utc"])):
+            raise ValueError("PREVIEW_CONSENSUS_PERIOD_OR_CLOCK_INVALID")
+        text = (f"{row['source']} {row['source_statistic_label']} for {row['measure_key']} "
+            f"({row['reference_period']}, release {row['release_date']}): {row['source_value_text']}; "
+            f"unit {row['unit']}; observed {row['known_at_utc']}. "
+            "One source's published expectation, not the release result or a Capital Chronicle forecast.")
+        identity = "preview-consensus-" + sha256_of([message_id, consensus])
+        constraints = {"scope": "SINGLE_ATTRIBUTED_CONSENSUS_FACT_NO_TABLE_SERIES_OR_CHART",
+            "authority_ref": "JIM_DECISION_44_AND_HOST_RULE_7_CITATIONS",
+            "original_capture_rights_class": row.get("rights_class"),
+            "raw_capture_public_redistribution": False, "attribution_required": True,
+            "source_capture_sha256": row["raw_sha256"], "article_types": ["EVENT_PREVIEW"]}
+        template = dict(next(iter(records.values())))
+        template.update(headline_id=identity, headline_text=text, text_sha256=sha256(text.encode()).hexdigest(),
+            context_only=True,
+            source_identity=row["source"], source_account=row["source"], source_url=row["source_url"],
+            source_timestamp_utc=None, headline_timestamp=row["known_at_utc"],
+            known_at_utc=row["known_at_utc"], retrieval_time_utc=row["acquired_at_utc"],
+            revision_at_utc=row["known_at_utc"], official_source_urls=[],
+            source_capture_sha256=row["raw_sha256"], source_permissions=constraints,
+            source_permission_record_sha256=sha256_of(constraints), rights_evidence_sha256=sha256_of(constraints),
+            rights_state="SINGLE_ATTRIBUTED_FACT_JIM_DECISION_44", permitted_source_text=text,
+            document={"document_id": identity, "source_url": row["source_url"], "publisher": row["source"],
+                "published_at_utc": None, "canonical_content_text": text,
+                "canonical_content_sha256": sha256(text.encode()).hexdigest(), "raw_sha256": row["raw_sha256"],
+                "source_authority_class": "reputable_secondary_source", "report_truth_only": True,
+                "source_reuse_constraints": constraints})
+        for record in records.values():
+            record["supporting_headline_ids"] = [identity]
+        # Context belongs to this preview's source pack, never its own candidate.
+        template["research_metadata"] = {"event_id": event_id, "context_only": True}
+        records[identity] = template
+    snapshot = {"root": str(Path(__file__).resolve().parents[1]),
+        "revision": sha256_of([message_id, records]), "records": records, "gaps": []}
+    return RetainedSourceResearch.from_frozen_snapshot({**snapshot, "snapshot_sha256": sha256_of(snapshot)})
 
 
 def record_owner_edition(store, *, edition_id, title, operation_ids, held_candidates=(), opportunity_outcomes=()):

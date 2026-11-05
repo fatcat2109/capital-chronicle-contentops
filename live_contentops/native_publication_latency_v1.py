@@ -245,7 +245,14 @@ def failed_asset_ids(output):
 
 def visual_repair_disposition(result, assets, *, response, reference, drop_failed=False):
     prior = result.get("visual_repair_disposition") or {}
-    rounds = prior.get("repair_rounds", 0)
+    # A chart can already have used its one repair before the writer runs.
+    # Those exact-byte pixel reviews travel with the accepted media; the final
+    # assembly must count them rather than offer another round or refuse a drop.
+    prewriter_rounds = max((a.get("visual_review", {}).get("repair_round", 0)
+        for a in result.get("media_assets", [])
+        if a.get("visual_review", {}).get("pixels_inspected") is True
+        and a.get("visual_review", {}).get("asset_sha256") == a.get("sha256")), default=0)
+    rounds = max(prior.get("repair_rounds", 0), prewriter_rounds)
     failed = failed_asset_ids(response["output"])
     if drop_failed:
         if rounds != MAX_VISUAL_REPAIRS or not failed:

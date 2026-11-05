@@ -106,6 +106,13 @@ def test_later_release_cannot_enter_older_event_history(archive):
         month_window("2026-09", 23)
 
 
+def test_retained_bls_summary_routes_keep_the_prior_release_clock(archive):
+    history = history_for_source_pack([{"url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "published_at_utc": CUTOFF}], cutoff_utc="2026-11-05T00:00:00Z", archive_root=archive)
+    assert history["window"] == ["2024-10", "2026-09"]
+    assert history["cutoff_utc"] == "2026-10-14T12:30:00+00:00"
+
+
 def test_component_chart_uses_reported_disjoint_effects_instead_of_weight_estimates(archive):
     rows = [json.loads(x) for x in (archive / "first_release_actuals.jsonl").read_bytes().splitlines()]
     manifest = json.loads((archive / "archive_manifest.json").read_bytes())
@@ -173,7 +180,8 @@ def test_exact_official_history_fetch_reuses_shared_budget_without_retry(url):
     assert len(calls) == 1
 
 
-def test_missing_month_is_rendered_as_a_gap_and_cannot_be_filled(archive, tmp_path):
+@pytest.mark.parametrize("chart_type", ["line", "grouped_bar"])
+def test_missing_month_is_rendered_as_a_gap_and_cannot_be_filled(archive, tmp_path, chart_type):
     history = load(archive)
     doc = history_documents(history)[0]
     points = []
@@ -189,12 +197,20 @@ def test_missing_month_is_rendered_as_a_gap_and_cannot_be_filled(archive, tmp_pa
                     "source_period_text": obs["period"], "source_content_sha256": doc["canonical_content_sha256"],
                     "metric": "CPI_HEADLINE_MOM", "unit": "percent", "prepared_period": obs["period"],
                     "period_basis": {"basis": "CONTROLLED_CC010_OBSERVATION"}}]})
-    packet = {"asset_id": "controlled-history-gap", "chart_type": "line", "title": "Controlled fixture",
+    packet = {"asset_id": "controlled-history-gap", "chart_type": chart_type, "title": "Controlled fixture",
         "question": "Does the missing month remain a gap?", "unit": "percent", "source_caption": "BLS controlled fixture",
         "series": [{"name": "Controlled", "points": points}], "missingness": ["2025-10", "2025-11"]}
     assert _editorial_data_values(packet, [doc])[0][12:14] == [None, None]
     asset = build_editorial_data_chart(packet, [doc], output_dir=tmp_path / "render")
     assert asset["computed_values"][0][12:14] == [None, None]
+    if chart_type == "grouped_bar":
+        packet["history_point_labels"] = [{"series_index": 0, "period": "2026-09", "decimals": 1}]
+        labelled = build_editorial_data_chart(packet, [doc], output_dir=tmp_path / "labelled")
+        assert labelled["computed_values"] == asset["computed_values"]
+        packet["history_point_labels"] = [{"series_index": 0, "period": "2025-10"}]
+        with pytest.raises(ValueError, match="POINT_LABEL_UNBOUND"):
+            build_editorial_data_chart(packet, [doc], output_dir=tmp_path / "invalid-label")
+        packet.pop("history_point_labels")
     bad = deepcopy(packet)
     bad["series"][0]["points"][12]["missing_reason"] = "invented gap"
     with pytest.raises(ValueError, match="MISSING_POINT_UNBOUND"):

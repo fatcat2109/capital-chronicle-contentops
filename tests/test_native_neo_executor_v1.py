@@ -52,13 +52,28 @@ def pending_readback(adapter, destination="substack", value=None):
     return pending.value.request, ids[destination], urls[destination]
 
 
+@pytest.mark.parametrize("destination", ["substack", "x", "youtube"])
+def test_readback_action_uses_existing_window_and_task_group_without_changing_request(tmp_path, destination):
+    _, executor = setup(tmp_path)
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    packet, _, _ = pending_readback(adapter, destination=destination)
+    action = executor.begin(packet["request"]["request_sha256"])
+    assert action["request"] == packet["request"]
+    workspace = action["browser_workspace"]
+    assert workspace["policy"] == "JIM_DECISION_63"
+    assert "one existing" in workspace["window"]
+    assert "only if none exists" in workspace["window"]
+    assert "tabs action=new" in workspace["tabs"] and "groupId" in workspace["tabs"]
+
+
 @pytest.mark.parametrize("age,identity,loaded,absent", [
     (1200, "@Capitalnicle", True, True), (599, "@Capitalnicle", True, False),
     (1200, "@OTHER_ACCOUNT", True, False), (1200, "@Capitalnicle", False, False)])
 def test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes(tmp_path, monkeypatch, age, identity, loaded, absent):
     store, executor = setup(tmp_path)
+    attempted_at = (datetime.now(timezone.utc) - timedelta(seconds=age)).isoformat()
     monkeypatch.setattr(store, "get_platform_dispatch", lambda key: {"status": "UNKNOWN_WRITE",
-        "dispatched_at": (datetime.now(timezone.utc) - timedelta(seconds=age)).isoformat()})
+        "dispatched_at": attempted_at})
     adapter = NeoDestinationHandoff(native_executor=executor)
     def read():
         return adapter.readback(destination="x", intent=intent("x"), public_object_id=None, public_object_url=None)
@@ -74,6 +89,96 @@ def test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes(tmp_p
     actual = read()
     assert actual["write_absent"] is absent
     assert store.list_platform_dispatches() == []
+
+
+@pytest.mark.parametrize("retry_age,absent", [(120, False), (700, True)])
+def test_profile_absence_waits_ten_minutes_after_latest_api_attempt(tmp_path, monkeypatch, retry_age, absent):
+    from hashlib import sha256
+    store, executor = setup(tmp_path)
+    now = datetime.now(timezone.utc)
+    ids = DurablePublicationCoordinator._ids("work", "plan", "x")
+    monkeypatch.setattr(store, "get_platform_dispatch", lambda key: {"status": "UNKNOWN_WRITE",
+        "dispatched_at": (now - timedelta(seconds=1800)).isoformat()})
+    store.register_incident(incident_id="incident_dispatch_outcome_"
+        + sha256(ids["dispatch_id"].encode()).hexdigest()[:24] + "_retry", work_item_id="work",
+        severity="DISPATCH_FAILURE", description=json.dumps({"dispatch_id": ids["dispatch_id"],
+            "attempt_started_at_utc": (now - timedelta(seconds=retry_age)).isoformat()}))
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    def read():
+        return adapter.readback(destination="x", intent=intent("x"), public_object_id=None, public_object_url=None)
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        read()
+    packet = pending.value.request
+    observed = response(executor, packet, {"observed_identity": "@Capitalnicle",
+        "observed_profile_url": "https://x.com/Capitalnicle", "authenticated": True,
+        "activity_feed_loaded": True, "target_post_absent": True,
+        "observed_text": "Own feed loaded with older posts; the requested post is absent."})
+    executor.submit(packet["request"]["request_sha256"], observed)
+    assert read()["write_absent"] is absent
+
+
+def test_retry_invalidates_prior_absence_return_in_same_readback_epoch(tmp_path, monkeypatch):
+    from hashlib import sha256
+    store, executor = setup(tmp_path)
+    now = datetime.now(timezone.utc)
+    ids = DurablePublicationCoordinator._ids("work", "plan", "x")
+    monkeypatch.setattr(store, "get_platform_dispatch", lambda key: {"status": "UNKNOWN_WRITE",
+        "dispatched_at": (now - timedelta(seconds=1800)).isoformat()})
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    def read():
+        return adapter.readback(destination="x", intent=intent("x"), public_object_id=None, public_object_url=None)
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        read()
+    packet = pending.value.request
+    observed = response(executor, packet, {"observed_identity": "@Capitalnicle",
+        "observed_profile_url": "https://x.com/Capitalnicle", "authenticated": True,
+        "activity_feed_loaded": True, "target_post_absent": True,
+        "observed_text": "Own feed loaded; the target is absent."})
+    executor.submit(packet["request"]["request_sha256"], observed)
+    assert read()["write_absent"] is True
+    store.register_incident(incident_id="incident_dispatch_outcome_"
+        + sha256(ids["dispatch_id"].encode()).hexdigest()[:24] + "_retry", work_item_id="work",
+        severity="DISPATCH_FAILURE", description=json.dumps({"dispatch_id": ids["dispatch_id"],
+            "attempt_started_at_utc": datetime.now(timezone.utc).isoformat()}))
+    with pytest.raises(NativeNeoInputRequired) as fresh:
+        read()
+    assert fresh.value.request["request"]["request_sha256"] != packet["request"]["request_sha256"]
+    assert fresh.value.request["request"]["observation_epoch"] == packet["request"]["observation_epoch"]
+
+
+@pytest.mark.parametrize("fault", [None, "unverified_link", "wrong_link", "extra_claim", "duplicate_root", "missing_notice", "wrong_order"])
+def test_repaired_x_thread_uses_existing_posts_and_verified_shortlink(tmp_path, fault):
+    _, executor = setup(tmp_path)
+    canonical = "https://capitalchronicle.substack.com/p/test"
+    expected = ["Source-backed headline.\n\n" + canonical,
+        "Watch the next official release.",
+        "Retrospective analysis.\n\nAnalysis, not financial advice. Readers decide whether to trade."]
+    value = intent("x", native_payload={"posts": [{"text": text} for text in expected]})
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    packet, object_id, url = pending_readback(adapter, destination="x", value=value)
+    shown = "https://\ncapitalchronicle.substack.com/p/te\nst\n..."
+    texts = [expected[0].replace(canonical, shown), expected[1], "Readers decide whether to trade.", expected[2]]
+    if fault == "extra_claim":
+        texts[2] = "Buy stocks now: guaranteed gains."
+    if fault == "duplicate_root":
+        texts[2] = texts[0]
+    if fault == "missing_notice":
+        texts.pop()
+    if fault == "wrong_order":
+        texts[0], texts[1] = texts[1], texts[0]
+    thread = [{"public_object_id": str(123+i), "public_object_url": "https://x.com/Capitalnicle/status/" + str(123+i),
+        "observed_text": text} for i, text in enumerate(texts)]
+    links = [{"displayed_text": shown, "short_url": "https://t.co/realObservedLink", "target_url": canonical,
+        "target_verified": fault != "unverified_link", "public_object_url": url}]
+    if fault == "wrong_link":
+        links[0]["target_url"] = "https://example.com/unrelated"
+    observed = response(executor, packet, {"observed_identity": "@Capitalnicle", "public_object_id": object_id,
+        "public_object_url": url, "content_verified": True, "observed_text": "\n\n".join(texts),
+        "observed_thread": thread, "observed_link_resolutions": links})
+    executor.submit(packet["request"]["request_sha256"], observed)
+    result = adapter.readback(destination="x", intent=value, public_object_id=object_id, public_object_url=url)
+    assert result["verified"] is (fault is None)
+    assert result["write_exists"] is True
 
 
 @pytest.mark.parametrize("observed_stable_id", [None, "wrong-company"])
@@ -380,6 +485,7 @@ def test_coordinator_pending_publish_and_claimed_loss_enters_readback_only(tmp_p
     monkeypatch.setattr(executor, "readiness", lambda surface: {"authenticated": True, "native_executor_bound": True})
     action = executor.begin(packet["request"]["request_sha256"])
     routine = action["substack_publish_routine"]
+    assert action["browser_workspace"]["policy"] == "JIM_DECISION_63"
     assert routine["policy"] == "JIM_DECISIONS_48_52_63"
     assert "one existing" in routine["window"]
     assert "continue other destinations" in routine["email_code_dialog"]

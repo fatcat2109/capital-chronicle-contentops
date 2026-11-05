@@ -71,6 +71,13 @@ DESTINATION_READINESS_STATES = frozenset({
     "TRANSPORT_UNAVAILABLE", "TRANSIENT_DEGRADED", "CAPABILITY_UNSUPPORTED",
     "LAST_VERIFIED_READY", "STALE_NEEDS_JIT_VERIFICATION",
 })
+# The destination_readiness table's CHECK (historical_schema_compatibility_v1) holds these ten.
+# LAST_VERIFIED_READY and STALE_NEEDS_JIT_VERIFICATION are passive, return-only states (CC-268).
+PERSISTABLE_DESTINATION_READINESS_STATES = frozenset({
+    "READY_AUTHENTICATED", "READY_NON_BROWSER_BINDING", "REAUTH_REQUIRED", "AUTH_INVALID",
+    "IDENTITY_MISMATCH", "PERMISSION_MISSING", "SESSION_UNAVAILABLE", "TRANSPORT_UNAVAILABLE",
+    "TRANSIENT_DEGRADED", "CAPABILITY_UNSUPPORTED",
+})
 PROTECTED_INSERT_TABLES = frozenset({"transition_events", "artifact_references"})
 RUNTIME_INSERT_GUARD_SQL = (
     "CREATE TRIGGER IF NOT EXISTS trg_transition_events_append_authorized BEFORE INSERT ON transition_events BEGIN SELECT CASE WHEN contentops_append_authorized() != 1 THEN RAISE(ABORT,'transition_events INSERT requires canonical append authorization') END; END",
@@ -1452,6 +1459,9 @@ class ContentOpsDurableStore:
         state = str(row["readiness_state"])
         if state not in DESTINATION_READINESS_STATES:
             raise ValueError(f"destination_readiness_state_invalid:{state}")
+        if state not in PERSISTABLE_DESTINATION_READINESS_STATES:
+            # CC-268: passive states are return-only; the table's CHECK does not hold them.
+            raise ValueError(f"destination_readiness_state_not_persistable:{state}")
         detail = row.get("sanitized_detail") or {}
         if not isinstance(detail, Mapping):
             raise ValueError("destination_readiness_detail_must_be_mapping")

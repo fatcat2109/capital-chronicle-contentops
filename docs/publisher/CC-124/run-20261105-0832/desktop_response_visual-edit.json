@@ -1,0 +1,158 @@
+{
+  "request_sha256": "2e39397b8199936031e0f83795cb5de0451a3e6a980a4ce4988e8be9d8dab5ee",
+  "output": {
+    "reader_first_version": "DATA_JOURNALISM_V1",
+    "slug": "southwest-fuel-hedge-exit-2025-accounting-clocks",
+    "story_kind": "ANALYSIS",
+    "editorial_format": "DATA_OR_DOCUMENT_LENS",
+    "editorial_thesis": "Southwest's Q2 2025 hedge exit shows why closing contracts and finishing their effect on reported expenses are separate events. The cash received on closure, premium expense recognized that quarter and premium expense deferred in AOCI answer different questions. Reading them on their own clocks avoids treating a closed portfolio as a completed income-statement story, double-counting the proceeds or mistaking an accounting balance for a fresh cash bill.",
+    "reader_question": "How can Southwest have closed its remaining fuel hedges in Q2 2025 while the same filing still described hedge-premium expense flowing into fuel costs through 2027?",
+    "countercase": "Explaining deferred recognition does not establish whether closing the hedges was economically wise. A later expense entry can reflect earlier premiums without proving new contracts, but that accounting distinction also does not prove that fuel-price risk disappeared, that the closure saved money overall or that any later earnings outcome was caused by it. The retained passage cannot settle those questions.",
+    "historical_scope": {
+      "event_period": "Q2 2025",
+      "balance_date": "2025-06-30",
+      "source_document": "Southwest Airlines Co. Form 10-Q for the quarter ended June 30, 2025",
+      "source_publication_date": "2025-07-24",
+      "source_id": "SOURCE_1",
+      "canonical_content_sha256": "c1fee545fb19485fae172d1b23d108df621b346796be75ababf492ea46705128",
+      "recognition_horizon_as_reported_then": "Through end-2027, when the originally forecast transactions occur",
+      "current_policy_or_2026_earnings_claim": false,
+      "additional_factual_source_requests": []
+    },
+    "charts": [],
+    "contextual_photo_ids": [],
+    "channel_media": {
+      "telegram": [],
+      "discord": [],
+      "x": [],
+      "linkedin": [],
+      "facebook_page": [],
+      "instagram_business": [],
+      "threads": [],
+      "youtube": []
+    },
+    "channel_media_instruction": "Use the existing deterministic post-data-card owner to fill every empty destination choice, including Instagram, with this article's own facts card. These empty lists do not request text-only distribution. Bind the real generated asset identities after rendering; no photo or asset identity has been invented here.",
+    "post_data_card_plan": {
+      "asset_id_proposal": "southwest-2025-hedge-clocks-card",
+      "asset_id_status": "PROPOSED_NOT_RENDERED",
+      "modality": "source_bound_data_card",
+      "renderer": "Existing post_visuals_v1 and fact_card_design_v1 owners",
+      "title": "Southwest's 2025 hedge exit",
+      "kicker": "Q2 2025 filing explained",
+      "question": "Which amounts describe closure cash, expense already recorded and expense still deferred?",
+      "why_useful": "The reader can see the timing distinction without a false common axis or a calculation between unlike quantities. Each complete fact retains its own period and approximate qualifier.",
+      "placement_after": "One closure, three clocks",
+      "key_label": "Historical balance date",
+      "key_value": "June 30, 2025",
+      "source_line": "Source: Southwest Airlines, Q2 2025 Form 10-Q, July 24, 2025.",
+      "notice": "Analysis, not financial advice.",
+      "facts": [
+        {
+          "label": "Closure cash",
+          "text": "In Q2 2025, Southwest received approximately $40 million from closing its remaining fuel hedges.",
+          "source_id": "SOURCE_1",
+          "currency": "USD",
+          "period": "Q2 2025",
+          "value_status": "Reported approximate historical cash proceeds"
+        },
+        {
+          "label": "Quarter's premium expense",
+          "text": "Southwest recorded approximately $36 million of fuel-hedging premium expense in Q2 2025, including terminated positions.",
+          "source_id": "SOURCE_1",
+          "currency": "USD",
+          "period": "Q2 2025",
+          "value_status": "Reported approximate historical expense reclassified from AOCI; not solely a termination charge"
+        },
+        {
+          "label": "Expense still deferred",
+          "text": "At June 30, 2025, approximately $209 million remained in AOCI, excluding tax and net of termination proceeds, for reclassification to fuel expense through end-2027 as the originally forecast transactions occur.",
+          "source_id": "SOURCE_1",
+          "currency": "USD",
+          "period": "Balance at June 30, 2025; recognition horizon stated in that filing",
+          "value_status": "Reported approximate historical deferred premium balance, excluding tax impact and already net of closure cash proceeds"
+        }
+      ],
+      "article_lineage_instruction": "Include all three selected fact sentences verbatim in the later canonical prose so the existing article-to-card lineage owner can bind them exactly. Define accumulated other comprehensive income (AOCI) before the third sentence. All three facts are independently worded descriptions of the filing's facts, not copied issuer prose.",
+      "visual_form": "One typographic facts card with three clearly separated entries and dates; equal entry treatment, no common numeric axis, area encoding, proportional bar, waterfall, arithmetic or illustrated future fuel-price path. Use the historical date, rather than a bare dollar amount, as the key block so the card's dominant message is scope and timing.",
+      "data_spec": {
+        "source_id": "SOURCE_1",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+        "canonical_content_sha256": "c1fee545fb19485fae172d1b23d108df621b346796be75ababf492ea46705128",
+        "observations": "Exactly the three complete fact sentences above",
+        "series": null,
+        "transformation": "Independent public paraphrase of admitted single filing facts; no numeric transformation, aggregation or interpolation",
+        "rights_scope": "ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+        "issuer_expression_images_logos_exhibits_reuse": false,
+        "source_series_is_comparable": false
+      }
+    },
+    "proposed_article_structure": [
+      {
+        "heading": "One closure, three clocks",
+        "purpose": "Date the document and transaction immediately. Explain the reader's apparent contradiction, define AOCI in ordinary language and include the three exact selected card sentences. Place the facts card after this section."
+      },
+      {
+        "heading": "Why expense outlasts the contracts",
+        "purpose": "Explain that the filing tied later reclassification to the originally forecast transactions, despite derecognition of the hedge assets. Describe the $209 million as the balance at the stated date, already net of proceeds. Explain why the $36 million is a quarter's premium expense, including terminated positions, rather than a separately established bill for the decision to close. Do not add or subtract the three figures."
+      },
+      {
+        "heading": "What the filing cannot settle",
+        "purpose": "Give the serious countercase: accounting timing alone cannot establish the closure's economic merit, quantify forward fuel exposure or attribute 2026 results. Close with the practical reading rule: identify the transaction date, the expense-recognition period and the balance date before interpreting a hedge-related fuel-cost number. Include Analysis, not financial advice."
+      }
+    ],
+    "writing_controls": {
+      "planned_length_words": "450-650, reduced if the source-bound argument is complete sooner",
+      "attribution": "Naturally link the July 24, 2025 Southwest filing at the first factual attribution; retain source/date on the card. No ritual Sources list or freshness footer.",
+      "facts_verbatim_for_card": true,
+      "optional_context": "SOURCE_2 and SOURCE_3 may support only a brief generic definition of hedging if it improves comprehension. They are not evidence of Southwest's contract mechanics. Prefer the filing's actual OTC-option description if any mechanism distinction is necessary; omit a futures or margin tutorial.",
+      "forbidden_inferences": [
+        "No current-policy or latest-earnings label for the 2025 disclosure",
+        "No asserted current hedge book, quantified forward fuel exposure or absence of fuel-price risk",
+        "No invented fuel consumption, prices, strikes, maturities, premium amortization schedule or quarter-by-quarter allocation",
+        "No closure-cost, savings or economic-benefit total derived from 40, 36 and 209",
+        "No deduction of the closure proceeds from the 209 balance a second time",
+        "No assertion that the 36 expense came entirely from terminating contracts",
+        "No later information presented as known in Q2 2025 or on the filing date",
+        "No issuer screenshot, logo, chart or copied prose presented as publicly reusable artwork"
+      ]
+    },
+    "rejected_visuals": [
+      {
+        "visual": "Common-axis bars, pie chart or waterfall of $40 million, $36 million and $209 million",
+        "reason": "Cash proceeds, period expense and a deferred balance are unlike quantities. A shared size comparison or arithmetic bridge would create meaning the filing does not support."
+      },
+      {
+        "visual": "Official macro time series or manufactured 24-month company fuel series",
+        "reason": "The reader question concerns one company filing's accounting clocks. A release-style trend panel would add a different question; the frozen packet supplies no comparable company series for it."
+      },
+      {
+        "visual": "Forward fuel exposure, earnings attribution or future premium-expense schedule chart",
+        "reason": "The retained disclosure supplies neither the inputs nor the period allocations needed to make these charts."
+      },
+      {
+        "visual": "Issuer artwork, filing screenshot or an unbound aircraft photo",
+        "reason": "The admitted rights allow independently expressed attributed filing facts and do not admit issuer expression, images, logos or exhibits. No exact lawful photo asset is bound in this request. A decorative acquisition is unnecessary for this argument."
+      }
+    ],
+    "essential_gaps": [
+      "Measured process mismatch: native_desktop_editorial_v1.validate_visual_decision currently raises ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED whenever story_kind is ANALYSIS and charts is empty; the downstream editorial-media check similarly demands a comparable quantitative chart for all analysis. This company document lens remains ANALYSIS and selects one source-bound factual card. Decision 41's official-history rule concerns data-release or policy-decision analysis. The owner can narrowly admit this exact document-lens card with its factual lineage rather than relabel the story, invent a series or treat unlike facts as comparable data.",
+      "The facts-card rights path must honor SOURCE_1's ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE scope. The original factual sentences above may be rendered with attribution; issuer expression, photographs, logos and exhibits remain outside that permission. A renderer demanding redistributable issuer prose would be asking for a different right than this output uses.",
+      "No rendered card or canonical/channel layout exists in this visual-choice return, so no pixel inspection or final-media acceptance is claimed. Render the chosen facts with the existing owner and return the exact artifacts to this same writer context for the later review. No exact lawful contextual photo was supplied; the factual card carries the article and destinations without inventing one.",
+      "The retained filing supports the dated accounting explanation and its countercase. It does not support a current Southwest hedge-policy claim, a current fuel-risk estimate or a 2026 earnings causal claim. Those claims are excluded from the chosen article rather than made prerequisites for writing it."
+    ]
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/southwest_max_writer",
+    "speed": "standard",
+    "model": null,
+    "reasoning_effort": null,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Supported parent assignment for CC-124 operation cc124-next-article-20261105-b, frozen visual-edit request 2e39397b8199936031e0f83795cb5de0451a3e6a980a4ce4988e8be9d8dab5ee",
+    "observation_source": "Actual supported child context /root/southwest_max_writer; no runtime model or reasoning-effort telemetry exposed"
+  }
+}

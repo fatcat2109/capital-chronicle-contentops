@@ -1,0 +1,165 @@
+{
+  "schema_version": "contentops.native_pre_writer_media_review.v1",
+  "run_id": "cc124-next-article-20261105-a",
+  "invocation_id": "/root/ppi_max_writer",
+  "reviewed_at_utc": "2026-11-04T23:38:54.556545Z",
+  "review_result": "PASS",
+  "repair_round": 1,
+  "asset_count": 4,
+  "input_manifest_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\rendered-assets.json",
+  "input_manifest_sha256": "55a2d94c7f946ea856a7c7b7fdc3e8a61fc455ba6c5409377bc0bfe209a51162",
+  "initial_review_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\prewriter-media-review.json",
+  "initial_review_sha256": "56433154473ad9935976fbbea48304371d47b819375bf49be4f5ae99afcf9f7f",
+  "public_write_performed": false,
+  "final_article_review_performed": false,
+  "text_approval_performed": false,
+  "reviews": [
+    {
+      "asset_id": "ppi_headline_core_24m",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_headline_core_24m.png",
+      "asset_sha256": "8a7418f4ebadca2995bae77616a58f953216eb5aca6b50abe8eca1cda77d8c11",
+      "dimensions": {
+        "width": 1440,
+        "height": 1040
+      },
+      "pixels_inspected": true,
+      "reviewer": "/root/ppi_max_writer",
+      "invocation_id": "/root/ppi_max_writer",
+      "review_surface": "tools.view_image exact local generated artifact, original resolution",
+      "scope": "Prewriter standalone media pixels and source-bound meaning only; assembled canonical/channel desktop/mobile review remains for the same writer after prose.",
+      "result": "PASS",
+      "labels_and_units_legible": true,
+      "material_defects": [],
+      "findings": [
+        "Both series and the October 2024-September 2026 date window are visible. Solid teal headline and dashed orange underlying are clearly distinguished, with the full less-foods-energy-trade definition in the legend.",
+        "September endpoints 1.3% and 0.5% are fully visible and match the source-bound values. April headline 1.4% is visibly higher than September; the title does not claim a record.",
+        "Monthly, seasonally adjusted and as-first-reported labels are explicit. The percent axis includes positive and negative readings and the zero line. Footer retains BLS dated-release provenance and is not clipped."
+      ],
+      "reviewed_at_utc": "2026-11-04T23:38:54.556545Z",
+      "continuity": "Exact bytes unchanged from the original-resolution inspection recorded in prewriter-media-review.json; hash reverified in this review.",
+      "repair_round": 0
+    },
+    {
+      "asset_id": "ppi_september_component_rates",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_september_component_rates.png",
+      "asset_sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+      "dimensions": {
+        "width": 1440,
+        "height": 1040
+      },
+      "pixels_inspected": true,
+      "reviewer": "/root/ppi_max_writer",
+      "invocation_id": "/root/ppi_max_writer",
+      "review_surface": "tools.view_image exact local generated artifact, original resolution",
+      "scope": "Prewriter standalone media pixels and source-bound meaning only; assembled canonical/channel desktop/mobile review remains for the same writer after prose.",
+      "result": "PASS",
+      "labels_and_units_legible": true,
+      "material_defects": [],
+      "findings": [
+        "Four horizontal bars share a visible zero baseline, and exact direct labels +1.3%, +2.6%, +0.8% and +0.5% are fully visible.",
+        "The long underlying label wraps without clipping. The title, September 2026 monthly-SA subtitle and percent axis are legible.",
+        "BLS September release/date and rates-not-contributions footer are visible. Overlapping underlying and headline categories are not stacked or summed."
+      ],
+      "reviewed_at_utc": "2026-11-04T23:38:54.556545Z",
+      "continuity": "Exact bytes unchanged from the original-resolution inspection recorded in prewriter-media-review.json; hash reverified in this review.",
+      "repair_round": 0
+    },
+    {
+      "asset_id": "ppi_september_nested_rates",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_september_nested_rates-r1.png",
+      "asset_sha256": "bb1cbcd0019bbd39258e98308cd87889744b964dceb2b7714b26de15ac55cdad",
+      "dimensions": {
+        "width": 1440,
+        "height": 1456
+      },
+      "pixels_inspected": true,
+      "reviewer": "/root/ppi_max_writer",
+      "invocation_id": "/root/ppi_max_writer",
+      "review_surface": "tools.view_image exact local generated artifact, original resolution",
+      "scope": "Prewriter standalone media pixels and source-bound meaning only; assembled canonical/channel desktop/mobile review remains for the same writer after prose.",
+      "result": "PASS",
+      "labels_and_units_legible": true,
+      "material_defects": [],
+      "findings": [
+        "Repaired revision inspected at original resolution. All six direct labels now show the exact fractional rates and percent units: +1.2%, +10.8%, +0.3%, +1.4%, +3.4% and +0.3%.",
+        "All goods/service category labels are fully visible. The longest services-exclusion label wraps across three lines without clipping or collision; transportation/warehousing and goods-exclusion labels wrap cleanly.",
+        "Goods categories and Services categories titles are clear. Both panels share the same zero-based common percent scale; the lower panel displays the common 0, 2, 4, 6, 8, 10 and 12 ticks. Bar lengths use that scale consistently.",
+        "The title and September 2026 monthly-SA subtitle are legible. Complete BLS release/date, rates-not-contributions and trade-margins footer is visible and unclipped.",
+        "The repair resolves both measured defects without changing any of the six admitted rates, source/vintage meaning, chart identity or placement."
+      ],
+      "reviewed_at_utc": "2026-11-04T23:38:54.556545Z",
+      "repair_round": 1,
+      "supersedes_failed_asset_sha256": "88a46874add2ab1d3b4ef427adb799d2c8d8a478b17a77fba3f0b8124b8e4b08"
+    },
+    {
+      "asset_id": "documentary_oil",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\documentary_oil.jpg",
+      "asset_sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "pixels_inspected": true,
+      "reviewer": "/root/ppi_max_writer",
+      "invocation_id": "/root/ppi_max_writer",
+      "review_surface": "tools.view_image exact local generated artifact, original resolution",
+      "scope": "Prewriter standalone media pixels and source-bound meaning only; assembled canonical/channel desktop/mobile review remains for the same writer after prose.",
+      "result": "PASS",
+      "labels_and_units_legible": true,
+      "labels_and_units_applicability": "No chart labels; photo identity/credit is metadata for final assembly.",
+      "material_defects": [],
+      "findings": [
+        "Exact 640x427 unchanged original inspected again from this article media folder. Industrial refinery structures and tanks are visible; no synthetic additions or annotations are present.",
+        "Bytes match the retained original d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b. Creator Chris, UK location, 16 June 2017 date and CC BY-SA 2.0 source/rights record are retained.",
+        "Use as modest archive industrial context. Final assembly should use the chosen UK/date caption and full canonical credit; avoid implying a current U.S. event or stretching this 640px original to a full-bleed hero."
+      ],
+      "rights_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\documentary_oil-rights.json",
+      "rights_evidence_sha256": "f9046e511ed2a142d7226ffd2f65d1ba6d002c668218882b3db95b2c377dde93",
+      "rights_hash_verified": true,
+      "reviewed_at_utc": "2026-11-04T23:38:54.556545Z",
+      "continuity": "Exact bytes unchanged from the original-resolution inspection recorded in prewriter-media-review.json; hash reverified in this review.",
+      "repair_round": 0
+    }
+  ],
+  "remaining_media_defects": [],
+  "metadata_assembly_notes": [
+    "Photo caption/alt/changes/relevance and linked canonical credit have been applied to the reviewed copied-photo metadata. Keep the 640px original at modest lead width, preserving its aspect ratio."
+  ],
+  "next_step": "Bind the four exact reviewed assets with the corrected article-specific photo metadata, then obtain the exact write request for /root/ppi_max_writer.",
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/ppi_max_writer",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Supported native task context /root/ppi_max_writer exposes canonical task identity; actual runtime model and reasoning-effort telemetry is unavailable.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Exact desktop_request_visual-edit.json requested_model/requested_reasoning_effort and supported parent native role assignment to /root/ppi_max_writer."
+  },
+  "metadata_applied": {
+    "asset_id": "documentary_oil",
+    "before": {
+      "caption": "Fawley Oil Refinery, June 2017. Archive context for producer input prices; not a photograph of October 2026 production or prices.",
+      "alt_text": "Archive aerial photograph of Fawley Oil Refinery.",
+      "changes_description": "Unchanged original; display resizing only.",
+      "relevance_rationale": "Oil-industry context only; no claim about reported inventories or diplomacy.",
+      "role": "hero",
+      "canonical_photo_credit": null
+    },
+    "after": {
+      "caption": "Archive: Fawley Oil Refinery, United Kingdom, 16 June 2017.",
+      "alt_text": "Archive aerial view of Fawley Oil Refinery in the United Kingdom, with storage tanks, industrial structures and surrounding fields.",
+      "changes_description": "Unchanged original; display resizing only. Preserve its aspect ratio, creator, source and licence links. If an adaptation is later necessary, record it and preserve share-alike terms.",
+      "relevance_rationale": "Archive oil-refining context for the energy category in the dated September 2026 PPI analysis. This UK photograph from 16 June 2017 supplies industrial context and does not corroborate any reported PPI value.",
+      "role": "contextual_photo",
+      "canonical_photo_credit": "Photo: [Chris](https://commons.wikimedia.org/wiki/File:Fawley_Oil_Refinery,_aerial_2017_-_geograph.org.uk_-_5439355.jpg) / Wikimedia Commons / [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)."
+    },
+    "image_bytes_changed": false
+  },
+  "reviewed_assets_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\rendered-assets-reviewed.json",
+  "reviewed_assets_sha256": "794041317ef7df0e1c00c33a6fbc769a143f733bc00332af70e4ca28fec7088b"
+}

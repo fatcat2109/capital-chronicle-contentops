@@ -1,0 +1,266 @@
+{
+  "item": "CC-199",
+  "observed_at_utc": "2026-11-04T20:10:01.982888+00:00",
+  "source_store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "read_only": true,
+  "new_public_writes": 0,
+  "pieces": [
+    {
+      "work_item_id": "cc124-next-article-20261104-a",
+      "plan_hash": "47a74854b1cc1f6a03cb3553fbed90a763c9d577b4ae8554e3c0f305ca82ebb0",
+      "article_identity": "8bf80a8dc58d374bdadec97d5adc3298ea0541654343ab681e1a599ddb39f9b4",
+      "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\reviewed-handoff\\87fd21cb3cf659f8bcb6bf112c675535196d2e2c74a5d9ce43c5884195c9cf37",
+      "destinations": [
+        {
+          "platform": "discord",
+          "dispatch_id": "dispatch_717850c738d6aa4ee3f09b369457fdb9",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "1567414794468986923",
+          "public_object_url": null,
+          "dispatched_at": "2026-11-04T05:46:47.654721+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "facebook_page",
+          "dispatch_id": "dispatch_2a1445e9dc139fbb91c1e2a49039cdec",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "106091951705748_1444330794552003",
+          "public_object_url": "https://www.facebook.com/1342369584748125/posts/1444330794552003",
+          "dispatched_at": "2026-11-04T05:46:49.301366+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "instagram_business",
+          "dispatch_id": "dispatch_08460f89ddd7928ef43fa99e76695f76",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "18120907216762181",
+          "public_object_url": "https://www.instagram.com/p/DfTyJF7gR4t/",
+          "dispatched_at": "2026-11-04T06:11:33.192880+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "linkedin",
+          "dispatch_id": "dispatch_b8fc362c07c56b308d0ddfd04618772b",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "urn:li:ugcPost:7523689467564490752",
+          "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523689467564490752/",
+          "dispatched_at": "2026-11-04T05:46:57.229275+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "linkedin_company",
+          "dispatch_id": "dispatch_8912ce2f3b6629bb2a6ead8ac135a70b",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "urn:li:ugcPost:7523755015203774464",
+          "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523755015203774464/",
+          "dispatched_at": "2026-11-04T14:29:48.764478+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "substack",
+          "dispatch_id": "dispatch_5ecb15a03deb378aad0818f49296f51e",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "223429113",
+          "public_object_url": "https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains",
+          "dispatched_at": "2026-11-04T05:20:51.301167+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "telegram",
+          "dispatch_id": "dispatch_255d57a35bbdc2b804bdac76e600f469",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "76",
+          "public_object_url": "https://t.me/CapitalChronicle/76",
+          "dispatched_at": "2026-11-04T05:46:59.521716+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "threads",
+          "dispatch_id": "dispatch_70ed7ed4a366cd9235455b99d59b9236",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "18377871493214723",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfUwigun0Yi",
+          "dispatched_at": "2026-11-04T15:16:50.585368+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "x",
+          "dispatch_id": "dispatch_a20f4244f846f98e566814b7936d54b0",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "2117857511042904348",
+          "public_object_url": "https://x.com/Capitalnicle/status/2117857511042904348",
+          "dispatched_at": "2026-11-04T05:48:33.970421+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "youtube",
+          "dispatch_id": "dispatch_02d9edf597163931720467a305467f06",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "UgkxHzB5SS25WhvXZ09CYjMqgn34e9eKJ-_t",
+          "public_object_url": "https://www.youtube.com/post/UgkxHzB5SS25WhvXZ09CYjMqgn34e9eKJ-_t",
+          "dispatched_at": "2026-11-04T05:55:30.706054+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        }
+      ],
+      "within_30_minutes": "NOT_ESTABLISHED_BY_THIS_READ_ONLY_BASELINE",
+      "image_readback": "NO_FRESH_BROWSER_OBSERVATION_IN_THIS_RUN"
+    },
+    {
+      "work_item_id": "cc124-next-article-20261103-b",
+      "plan_hash": "f86187c2098e35bb0bf1ec9000fd41c6e0d23f6676c8b11be71099cf68bd6426",
+      "article_identity": "1bab80f5cec3150a932cb794d8a76c22a8950c113462ef61a5cb96b8e4cc964e",
+      "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\reviewed-handoff\\5692377ae23398763a31865c1f5892fd0b079d6bb12846ae0b5e225a13a11ba3",
+      "destinations": [
+        {
+          "platform": "discord",
+          "dispatch_id": "dispatch_e824878e1a1f05ad6488e6f15aa6d099",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "1567341152611467389",
+          "public_object_url": null,
+          "dispatched_at": "2026-11-04T00:54:10.068363+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "facebook_page",
+          "dispatch_id": "dispatch_9c4df1abf9421b1e987136fbad3b160a",
+          "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+          "public_object_id": "106091951705748_1444133184571764",
+          "public_object_url": "https://www.facebook.com/1342369584748125/posts/1444133184571764",
+          "dispatched_at": "2026-11-04T00:54:11.962723+00:00",
+          "reconciliation_status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY"
+        },
+        {
+          "platform": "facebook_page",
+          "dispatch_id": "dispatch_ce288f47f50cb90814be90a76bf02622",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "106091951705748_1444816001170149",
+          "public_object_url": "https://www.facebook.com/1342369584748125/posts/1444816001170149",
+          "dispatched_at": "2026-11-04T16:38:08.712461+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "instagram_business",
+          "dispatch_id": "dispatch_56e1e68f8f3bbf42a84bd2490826da2c",
+          "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+          "public_object_id": "18175737499394152",
+          "public_object_url": "https://www.instagram.com/p/DfUm_VegXht/",
+          "dispatched_at": "2026-11-04T13:53:20.515922+00:00",
+          "reconciliation_status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY"
+        },
+        {
+          "platform": "instagram_business",
+          "dispatch_id": "dispatch_d8ff353efb8a6882e1a12db015bca72d",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "18102182414532929",
+          "public_object_url": "https://www.instagram.com/p/DfU6GGTAdW_/",
+          "dispatched_at": "2026-11-04T16:38:12.000102+00:00",
+          "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+        },
+        {
+          "platform": "linkedin",
+          "dispatch_id": "dispatch_73a8a3ab22cc3d3b67e4c8c159ba0e42",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "urn:li:activity:7523800885085536256",
+          "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7523800885085536256/",
+          "dispatched_at": "2026-11-04T00:54:18.333580+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "linkedin_company",
+          "dispatch_id": "dispatch_8e41439af79c2408b4ef1c3d99cbf4df",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "urn:li:share:7523802668428087296",
+          "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7523802668428087296",
+          "dispatched_at": "2026-11-04T15:10:08.746389+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "substack",
+          "dispatch_id": "dispatch_27fa5f84bd333d9cc480ceba5d8c4f9c",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "223408612",
+          "public_object_url": "https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission",
+          "dispatched_at": "2026-11-04T00:37:41.126060+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "telegram",
+          "dispatch_id": "dispatch_6f08856c1f557ccba894a0c58e6e633d",
+          "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+          "public_object_id": "75",
+          "public_object_url": "https://t.me/CapitalChronicle/75",
+          "dispatched_at": "2026-11-04T00:54:20.560139+00:00",
+          "reconciliation_status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY"
+        },
+        {
+          "platform": "telegram",
+          "dispatch_id": "dispatch_5c68754db9682197d8043ab421a6cf02",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "77",
+          "public_object_url": "https://t.me/CapitalChronicle/77",
+          "dispatched_at": "2026-11-04T16:36:33.838926+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "threads",
+          "dispatch_id": "dispatch_61cfe8b1986b5b63932f16c9be511383",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "17901465660393622",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfU6YDnn1Fy",
+          "dispatched_at": "2026-11-04T16:42:47.632946+00:00",
+          "reconciliation_status": "RECONCILIATION_PENDING"
+        },
+        {
+          "platform": "x",
+          "dispatch_id": "dispatch_c0fcacf4cb0cd0313dcd656f2978368e",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "2117784321562124568",
+          "public_object_url": "https://x.com/Capitalnicle/status/2117784321562124568",
+          "dispatched_at": "2026-11-04T00:56:09.016658+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        },
+        {
+          "platform": "youtube",
+          "dispatch_id": "dispatch_e2266182add291a84aa8feb637643c3a",
+          "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+          "public_object_id": "UgkxpL7C_qPEDgq4_M3esrHD9Hpfseas5Fu_",
+          "public_object_url": "https://www.youtube.com/post/UgkxpL7C_qPEDgq4_M3esrHD9Hpfseas5Fu_",
+          "dispatched_at": "2026-11-04T00:59:04.072116+00:00",
+          "reconciliation_status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY"
+        },
+        {
+          "platform": "youtube",
+          "dispatch_id": "dispatch_e2f65cd8f4a0fa8f7d121c997440f230",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "UgkxgqFuDRKFhThzqa0K_-tfooJ7Yqz516WQ",
+          "public_object_url": "https://www.youtube.com/post/UgkxgqFuDRKFhThzqa0K_-tfooJ7Yqz516WQ",
+          "dispatched_at": "2026-11-04T17:45:43.213896+00:00",
+          "reconciliation_status": "RECONCILED_CONFIRMED"
+        }
+      ],
+      "within_30_minutes": "NOT_ESTABLISHED_BY_THIS_READ_ONLY_BASELINE",
+      "image_readback": "NO_FRESH_BROWSER_OBSERVATION_IN_THIS_RUN"
+    },
+    {
+      "work_item_id": "cc107-midterm-preview-20261103-v1",
+      "plan_hash": "04aaf7385f8d1394ffe1f9047fce2964860be5009b075df67e20a667f78ba0ba",
+      "article_identity": "c4368eb9690d8c3b69eadf50a48eef29812520953113646a7e90da7237f1a309",
+      "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc107-midterm-preview-20261103-v1\\reviewed-handoff\\3ad7f3d9f7a85ff987baf17d9d4568d930c3b342d862e88bf1c99344a0f408ab",
+      "destinations": [
+        {
+          "platform": "substack",
+          "dispatch_id": "dispatch_b2dd871bf6a9e8c9b741aa6a37f476ac",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "223293057",
+          "public_object_url": "https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on",
+          "dispatched_at": "2026-11-03T08:36:46.408614+00:00",
+          "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE"
+        }
+      ],
+      "within_30_minutes": "NOT_ESTABLISHED_BY_THIS_READ_ONLY_BASELINE",
+      "image_readback": "NO_FRESH_BROWSER_OBSERVATION_IN_THIS_RUN"
+    }
+  ],
+  "acceptance": "Three future finished pieces still require exact image and destination readbacks within 30 minutes; these retained rows are baseline only.",
+  "outside_cause": "Existing CC-143 SECRET_EXPOSURE_OWNER_ROTATION_REQUIRED is unresolved in BACKLOG; no auth material read or provider request made."
+}

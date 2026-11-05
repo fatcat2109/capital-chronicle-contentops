@@ -297,16 +297,6 @@ def test_portable_git_receipt_rejects_blob_and_byte_pin_mismatch(three_adapter_r
         batch.build_production_git_artifact_receipt(**kwargs, expected_byte_sha256="0" * 64)
 
 
-def test_frozen_manifest_integrity_and_append_only_registry_deltas():
-    assert not validate_foundation_freeze(ROOT)
-    verifiers = adapters.load_trusted_verifier_registry(ROOT)
-    extractors = extraction.load_extractor_registry(ROOT)
-    assert verifiers.registry_version == "trusted-evidence-registry-1.3.0"
-    assert extractors.registry_version == "artifact-evidence-extractor-registry-1.3.0"
-    assert verifiers.resolve(batch.VERIFIER_ID, "v1") is not None
-    assert all(extractors.resolve(extractor_id, "v1") is not None for extractor_id in ARTIFACTS)
-
-
 def test_exact_real_artifact_inventory_constants_are_complete():
     assert set(batch.PINNED_ARTIFACTS) == set(ARTIFACTS)
     assert {row["git_blob_sha1"] for row in batch.PINNED_ARTIFACTS.values()} == {

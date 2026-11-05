@@ -1,0 +1,31 @@
+{
+  "operation_id": "cc216-ppi-background-20261105-v1",
+  "assets": [
+    {
+      "asset_id": "ppi_headline_core_24m",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-ppi-background-20261105-v1\\media\\ppi_headline_core_24m.png",
+      "sha256": "0061cddbdb9fb1beb6cf2bb0c3f564567080f22a289ea94bdce2d901f08a165f",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart"
+    },
+    {
+      "asset_id": "ppi_september_component_rates",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-ppi-background-20261105-v1\\media\\ppi_september_component_rates.png",
+      "sha256": "0181dd1d6a90b7fd2e9ceee51940d09ad88fa8be67c5c3c209f582111eb12727",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart"
+    },
+    {
+      "asset_id": "documentary_oil",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-ppi-background-20261105-v1\\media\\documentary_oil.jpg",
+      "sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+      "width": 640,
+      "height": 427,
+      "modality": "documentary_photo"
+    }
+  ],
+  "source_value_validators": "PASS",
+  "pixels_reviewed_this_run": false
+}

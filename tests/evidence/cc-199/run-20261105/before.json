@@ -1,0 +1,31 @@
+{
+  "item": "CC-199",
+  "recorded_at_utc": "2026-11-04T20:06:57.801754+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head_before": "fd9fcd49dca73dcdf7fae4445e624307db4d0ffc",
+  "operating_branch": "codex/contentops-local-publisher-20261030",
+  "operating_tracked_wip_sha256": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "3f8d72da06b9f971a23ac16e0ad1a824e302f50b651f038d73bec67794460742",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "7172fbd560a130db5a0df9dba7db1ae5676d3cc469a1156c6b13ac0b8e7decd3"
+  },
+  "exec_retained_wip_sha256": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "72af9ad9e32baa429e52cd8d4a275cec6cd7726078e8778516f663b6f03fba56",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "29b205409ba1817489c146e29e7497aa900b73cef8022b662a9c0fd166545164"
+  },
+  "launch": {
+    "pid": 35992,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "classification": "CONFIGURED_NOT_OBSERVED",
+    "source": "Win32_Process parent command-line flags, values only",
+    "native_invocation_id": "01a1a81e-4f64-7370-b01a-850dfd7759f2",
+    "editorial_model_calls": 0
+  },
+  "base_reason": "Current ContentOps operating HEAD, including the integrated CC-199 V1 lane fixes; origin/master is an older pre-live epoch.",
+  "external_stop_ref": "BACKLOG CC-143 c7de0532; SECRET_EXPOSURE_OWNER_ROTATION_REQUIRED",
+  "wip_snapshot_note": "Refreshed all tracked WIP hashes before any operating-root mutation; no status-line stripping."
+}

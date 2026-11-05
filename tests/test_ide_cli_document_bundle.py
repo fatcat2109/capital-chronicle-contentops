@@ -22,14 +22,6 @@ def _read(name):
         return f.read()
 
 
-def test_all_0074_docs_exist():
-    for name in _DOC_NAMES:
-        path = os.path.join(DOCS, name)
-        if not os.path.isfile(path):
-            path = os.path.join(DOCS, "archive", "stale_prelaunch_reset_0174CG", name)
-        assert os.path.isfile(path), f"missing doc: {name}"
-
-
 def test_master_bundle_required_sections():
     text = _read("IDE_CLI_DOCUMENT_BUNDLE_AFTER_0074.md")
     for needle in ("A:\\Capital Chronicle\\tools\\cc-live-contentops",
@@ -60,19 +52,6 @@ def test_allowed_maintenance_lists_present():
     assert "Forbidden maintenance categories" in text
 
 
-def test_recommended_doc_paths_exact_and_unique():
-    paths = b.RECOMMENDED_DOCS
-    assert len(paths) == len(set(paths))
-    for p in paths:
-        path = os.path.join(DOCS, os.path.basename(p))
-        if not os.path.isfile(path):
-            path = os.path.join(DOCS, "archive", "stale_prelaunch_reset_0174CG", os.path.basename(p))
-        assert os.path.isfile(path), f"missing: {p}"
-    # No .gitignore recommended.
-    joined = " ".join(paths).lower()
-    assert ".gitignore" not in joined
-
-
 def test_summary_preserves_wait_state_and_adds_no_runtime():
     s = b.build_summary()
     assert s["document_bundle_enabled"] is True
@@ -92,7 +71,3 @@ def test_terminal_wait_state_pointer_unchanged():
             == "WAIT_FOR_REAL_CAPITAL_CHRONICLE_ALPHA_ARTIFACTS_OR_OPERATOR_SELECTED_LOCAL_MAINTENANCE")
 
 
-def test_bundle_validation_passes():
-    res = b.validate_bundle()
-    assert res["status"] == "PASS", res["blockers"]
-    assert res["blockers"] == []

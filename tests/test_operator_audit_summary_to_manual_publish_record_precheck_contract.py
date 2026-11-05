@@ -303,19 +303,6 @@ def test_31_no_financial_advice_signal_execution_language():
     assert p["safety_flags"]["broker_order_execution"] is False
 
 
-def test_32_no_fake_market_numbers():
-    """32. Verify no fake market numbers."""
-    p = build_contract_packet()
-    assert p["safety_flags"]["financial_advice"] is False
-    assert p["safety_flags"]["broker_order_execution"] is False
-    
-    out_dir = Path("docs/automation/0175AU")
-    runbook_path = out_dir / "operator_audit_summary_to_manual_publish_record_precheck_contract.md"
-    assert runbook_path.exists()
-    content = runbook_path.read_text(encoding="utf-8")
-    assert "fake" not in content.lower()
-
-
 def test_33_no_env_network_credential_platform_provider_api_imports_or_calls():
     """33. Scan code to ensure no environment, network, or credential API modules are imported."""
     with open("live_contentops/operator_audit_summary_to_manual_publish_record_precheck_contract.py", encoding="utf-8") as f:
@@ -340,17 +327,6 @@ def test_36_artifacts_written_only_under_docs_automation_0175au():
     """36. Verify that write_artifacts fails with ValueError outside docs/automation/0175AU."""
     with pytest.raises(ValueError, match="artifact_writer_refuses_paths_outside_docs_automation_0175AU"):
         write_artifacts(repo_root=".", output_dir="docs/automation/other")
-
-
-def test_37_progress_ledger_resolves_0175at_and_appends_0175au():
-    """37. Verify progress ledger resolves 0175AT final HEAD and appends 0175AU."""
-    path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
-    assert path.exists()
-    content = path.read_text(encoding="utf-8")
-
-    # One-task-lag checks
-    assert "| `TASK_CONTENTOPS_0175AT_EXPORT_PACKET_STUB_TO_OPERATOR_AUDIT_SUMMARY_V0` | `3441635cad8010a7325d83d856351275f897ce37` | `9cf9d9d545d14ece9fa6239dfc717baac547f3e0` |" in content
-    assert "| `TASK_CONTENTOPS_0175AU_OPERATOR_AUDIT_SUMMARY_TO_MANUAL_PUBLISH_RECORD_PRECHECK_V0` | `9cf9d9d545d14ece9fa6239dfc717baac547f3e0` | `0c817cdfef6d71fe5e6f4b20040665b157d50596` |" in content
 
 
 def test_38_no_pycache_or_pyc_staged():

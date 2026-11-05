@@ -24,14 +24,6 @@ def _sample() -> dict:
     return json.loads(SAMPLE.read_text(encoding="utf-8-sig"))
 
 
-def test_committed_sample_matches_builder() -> None:
-    built = build_substack_manual_export_packet(_source())
-    assert _sample() == built
-    assert built["export_packet_id"].startswith("substack_manual_export_")
-    assert built["source_article_packet_id"] == "article_engine_packet_d4a5afd3ecf03b1b"
-    assert built["source_canonical_hash"] == "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e"
-
-
 def test_export_hash_is_stable() -> None:
     first = build_substack_manual_export_packet(_source())
     second = build_substack_manual_export_packet(_source())

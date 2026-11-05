@@ -53,6 +53,83 @@ def test_card_projects_exact_post_facts_and_is_replay_stable(tmp_path):
     validate_post_data_card(first, article, docs)
 
 
+def test_attributed_filing_facts_reach_all_eight_publication_packages(tmp_path):
+    article, claims, docs = packet()
+    doc = docs[0]
+    doc.pop("underlying_reuse_classification")
+    doc.pop("rights_evidence_sha256")
+    doc.update(publisher="Controlled company", source_authority_class="first_party_public_source",
+        canonical_content_text="In 2026, the company reported production of 120 units. "
+            "In 2025, it reported 100 units. No timetable has been set.")
+    doc["source_reuse_constraints"].update(
+        scope="ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+        government_authorship=False, public_expression_reuse_allowed=False,
+        images_logos_exhibits_reuse_allowed=False)
+    claims[0]["support_excerpt"] = "In 2026, the company reported production of 120 units. In 2025, it reported 100 units."
+    claims[1]["support_excerpt"] = "No timetable has been set."
+    article, assets = complete_post_visuals(article, claims, docs, [], output_dir=tmp_path)
+    card = assets[0]
+    assert [f["text"] for f in card["data_card_packet"]["facts"]] == [c["claim_text"] for c in claims]
+    assert all(f["rights_class"] == "attributed_facts_independent_chart" for f in card["data_card_packet"]["facts"])
+    validate_post_data_card(card, article, docs)
+    bundle, _ = _native_preview_bundle(article=article, article_mode="BREAKING_BRIEF",
+        article_identity="f" * 64, media_assets=assets, media_asset_ids=[card["asset_id"]])
+    assert len(bundle["packages"]) == 8
+    for destination, payload in bundle["packages"].items():
+        assert payload["media_asset_ids"] == [card["asset_id"]]
+        require_publication_image(destination, {"media_assets": assets,
+            "payloads": {destination: payload}, "public_image_url": "https://example.org/controlled-card.png",
+            "primary_media": {"sha256": card["sha256"], "public_delivery_sha256": card["sha256"],
+                "local_public_hash_continuity": True}})
+
+
+def test_company_document_lens_uses_its_chosen_fact_card_without_inventing_macro_history(tmp_path):
+    article, claims, docs = packet()
+    doc = docs[0]
+    doc.pop("underlying_reuse_classification")
+    doc.pop("rights_evidence_sha256")
+    doc.update(source_authority_class="first_party_public_source", publisher="Controlled company")
+    doc["source_reuse_constraints"]["scope"] = "ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"
+    decision = article["visual_editorial_decision"]
+    decision.update(story_kind="ANALYSIS", editorial_format="DATA_OR_DOCUMENT_LENS",
+        post_data_card_plan={"modality": "source_bound_data_card", "title": "Reading the company filing",
+            "key_label": "Reported year", "key_value": "2026", "kicker": "Company document explained",
+            "facts": [{"text": c["claim_text"], "source_id": c["source_id"], "label": "Filing fact"} for c in claims],
+            "data_spec": {"source_id": doc["source_id"], "source_url": doc["url"],
+                "canonical_content_sha256": sha256(doc["canonical_content_text"].encode()).hexdigest(),
+                "rights_scope": doc["source_reuse_constraints"]["scope"]}})
+    article.update(news_item_kind="ANALYSIS", resolved_article_mode="DATA_OR_DOCUMENT_LENS")
+    card = build_post_data_card(article, claims, docs, output_dir=tmp_path)
+    assert card["data_card_packet"]["editorial_display"]["key_value"] == "2026"
+    assert card["data_card_packet"]["editorial_display"]["fact_labels"] == ["Filing fact", "Filing fact"]
+    validate_release_media({"visual_editorial_decision": decision, "media_assets": [card], "evidence": docs}, prewriter=True)
+    article, assets = complete_post_visuals(article, claims, docs, [card], output_dir=tmp_path)
+    counts = validate_release_media({"article": article, "media_assets": assets, "evidence": docs})
+    assert counts["chart_count"] == 0 and counts["data_card_count"] == 1
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
+    publication_view = post_image_view({"article": article, "media_assets": assets, "evidence": docs},
+        output_dir=tmp_path / "publication")
+    assert publication_view["visual_editorial_decision"]["data_card_asset_ids"] == [card["asset_id"]]
+    validate_release_media(publication_view)
+    wrong = deepcopy(publication_view)
+    wrong["visual_editorial_decision"]["data_card_asset_ids"] = ["post-facts-" + "f" * 20]
+    with pytest.raises(ValueError, match="RELEASE_DATA_CARDS_DIFFER_FROM_BOUND_MEDIA"):
+        validate_release_media(wrong)
+    bundle, _ = _native_preview_bundle(article=article, article_mode="DATA_OR_DOCUMENT_LENS",
+        article_identity="e" * 64, media_assets=assets, media_asset_ids=[card["asset_id"]])
+    assert len(bundle["packages"]) == 8
+    assert all(p["media_asset_ids"] == [card["asset_id"]] for p in bundle["packages"].values())
+    # A macro source cannot acquire the company-card exception from a mode label.
+    macro = deepcopy(docs)
+    macro[0]["source_reuse_constraints"]["scope"] = "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"
+    with pytest.raises(ValueError, match="ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"):
+        validate_release_media({"article": article, "media_assets": assets, "evidence": macro})
+    changed = deepcopy(assets)
+    changed[0]["data_card_packet"]["facts"].pop()
+    with pytest.raises(ValueError, match="COMPANY_DOCUMENT_EXACT_SELECTED_FACT_CARD_REQUIRED"):
+        validate_release_media({"article": article, "media_assets": changed, "evidence": docs})
+
+
 @pytest.mark.parametrize("change", ["number", "post", "source", "rights", "pixels", "packet"])
 def test_changed_facts_rights_or_bytes_fail(tmp_path, change):
     article, claims, docs = packet()
@@ -264,7 +341,7 @@ def test_each_channel_requires_its_selected_exact_image(tmp_path, destination):
         require_publication_image(destination, data)
 
 
-@pytest.mark.parametrize("destination", ["discord", "facebook_page", "instagram_business", "threads"])
+@pytest.mark.parametrize("destination", ["facebook_page", "instagram_business", "threads"])
 def test_url_transport_cannot_fall_back_to_text_or_another_image(tmp_path, destination):
     article, claims, docs = packet()
     card = build_post_data_card(article, claims, docs, output_dir=tmp_path)

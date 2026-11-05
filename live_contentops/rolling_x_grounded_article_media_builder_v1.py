@@ -1263,6 +1263,7 @@ def post_image_view(result, *, output_dir):
             "data_spec": original_charts.get(a["asset_id"], {}).get("data_spec") or a.get("post_card_binding"),
             "placement_after": a.get("placement_after", "introduction")} for a in charts],
             "contextual_photo_ids": [a["asset_id"] for a in usable if a.get("modality") == "documentary_photo"],
+            "data_card_asset_ids": [a["asset_id"] for a in cards],
             "channel_media": choices}
         article["visual_editorial_decision"] = decision
         view["visual_editorial_decision"] = decision
@@ -1324,7 +1325,7 @@ def _editorial_data_values(packet, documents):
                 history = doc.get("official_release_history") or {}
                 observed = next((o for o in history.get("series", {}).get("observations", [])
                     if o["period"] == point.get("period")), None)
-                if (packet.get("chart_type") != "line" or point.get("observation_kind") != "MISSING"
+                if (packet.get("chart_type") not in {"line", "grouped_bar"} or point.get("observation_kind") != "MISSING"
                         or point.get("inputs") or not point.get("missing_reason")
                         or not observed or observed["value"] is not None
                         or observed.get("missing_reason") != point["missing_reason"]
@@ -1362,9 +1363,16 @@ def _editorial_data_values(packet, documents):
                 ):
                     raise ValueError("EDITORIAL_CHART_METRIC_UNIT_PERIOD_HASH_REQUIRED")
                 rights = doc.get("source_reuse_constraints") or {}
+                preview = doc.get("preview_preparation") or {}
+                preview_bls_grant = (
+                    rights.get("scope") == "BLS_AGENCY_AUTHORED_PUBLIC_DOMAIN_TEXT_PREVIEW_BACKGROUND"
+                    and rights.get("authority_ref") == "JIM_DECISION_41_AND_BACKLOG_CC216"
+                    and rights.get("article_types") == ["EVENT_PREVIEW"]
+                    and preview.get("message_id") and preview.get("event_id")
+                    and urlsplit(doc.get("url") or doc.get("source_url") or "").netloc == "www.bls.gov")
                 if not doc.get("desk_record_binding") and not (
                     rights.get("attribution_required")
-                    and rights.get("policy_capture_sha256")
+                    and (rights.get("policy_capture_sha256") or preview_bls_grant)
                     and rights.get("source_capture_sha256")
                 ):
                     raise ValueError("EDITORIAL_CHART_FACT_RIGHTS_UNBOUND")
@@ -1975,7 +1983,7 @@ def _draw_editorial_chart(packet, values, plt, np):
         fig, axes = plt.subplots(
             len(panels),
             1,
-            figsize=(9, 2.5 * len(panels) + 2.5),
+            figsize=(9, (3.3 if kind == "SMALL_MULTIPLE_HORIZONTAL_DIVERGING_BARS" else 2.5) * len(panels) + 2.5),
             dpi=160,
             sharex=kind == "SMALL_MULTIPLE_HORIZONTAL_DIVERGING_BARS",
             squeeze=False,
@@ -1992,16 +2000,21 @@ def _draw_editorial_chart(packet, values, plt, np):
                     color=[colors[0] if n >= 0 else colors[1] for n in nums],
                     height=0.62,
                 )
-                ax.set_yticks(y, names)
+                ax.set_yticks(y, [textwrap.fill(name, 24) for name in names], fontsize=11)
                 ax.invert_yaxis()
                 ax.axvline(0, color="#667b78", linewidth=0.8)
                 low, high, span = _signed_horizontal_domain([n for row in values for n in row])
+                if packet.get("zero_based") and all(n >= 0 for row in values for n in row):
+                    low, high = 0, max(n for row in values for n in row) * 1.22 or 1
+                    span = high
                 ax.set_xlim(low, high)
+                decimals = int(packet.get("value_label_decimals", 1 if packet["unit"] == "percent" else 0))
+                suffix = "%" if packet["unit"] == "percent" else ""
                 for x, yy in zip(nums, y):
                     ax.text(
                         x + (span * 0.02 if x >= 0 else -span * 0.02),
                         yy,
-                        f"{x:+,.0f}",
+                        f"{x:+,.{decimals}f}{suffix}",
                         ha="left" if x >= 0 else "right",
                         va="center",
                         fontsize=10,
@@ -2059,7 +2072,8 @@ def _draw_editorial_chart(packet, values, plt, np):
                 ax.set_ylabel(packet["unit"])
                 ax.set_ylim(0, max(row[0] for row in values) * 1.22)
                 ax.grid(axis="y", alpha=0.15)
-        fig.subplots_adjust(left=0.20, right=0.96, top=0.78, bottom=0.19, hspace=0.9)
+        fig.subplots_adjust(left=0.40 if kind == "SMALL_MULTIPLE_HORIZONTAL_DIVERGING_BARS" else 0.20,
+            right=0.96, top=0.78, bottom=0.19, hspace=0.9)
     else:
         fig, ax = plt.subplots(figsize=(9, 6.5), dpi=160)
         axes = [ax]
@@ -2129,13 +2143,34 @@ def _draw_editorial_chart(packet, values, plt, np):
                     else len(series)
                 )
                 width = 0.8 / count
-                ax.bar(
+                bars = ax.bar(
                     x - 0.4 + width * (i + 0.5),
-                    nums,
+                    np.asarray(nums, dtype=float),
                     width=width,
                     color=color,
                     label=label,
                 )
+                if packet.get("history_lineage"):
+                    lineage = packet["history_lineage"]["series"][i]["observations"]
+                    for j, observation in enumerate(lineage):
+                        if observation.get("availability") == "DERIVED":
+                            bars.patches[j].set_hatch("///")
+                            bars.patches[j].set_edgecolor("#182f33")
+                for mark in packet.get("history_point_labels", []):
+                    if mark.get("series_index") != i:
+                        continue
+                    if mark.get("period") not in periods:
+                        raise ValueError("EDITORIAL_HISTORY_POINT_LABEL_UNBOUND")
+                    j = periods.index(mark["period"])
+                    decimals = mark.get("decimals", 1)
+                    if nums[j] is None or type(decimals) is not int or not 0 <= decimals <= 6:
+                        raise ValueError("EDITORIAL_HISTORY_POINT_LABEL_UNBOUND")
+                    suffix = "%" if str(packet["unit"]).lower() in {"percent", "%"} else ""
+                    ax.annotate(f"{label}: {nums[j]:,.{decimals}f}{suffix}",
+                        (x[j] - .4 + width * (i + .5), nums[j]),
+                        xytext=(mark.get("dx", 0), mark.get("dy", 12)),
+                        textcoords="offset points", ha="center", fontsize=9, color=color,
+                        arrowprops={"arrowstyle": "-", "color": color, "lw": .6})
         ticks = list(range(0, len(periods), max(1, math.ceil(len(periods) / 6))))
         if len(periods) - 1 not in ticks:
             ticks.append(len(periods) - 1)

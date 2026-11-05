@@ -22,6 +22,17 @@ from scripts.run_native_desktop_editorial import resolve_owner_operation
 
 @pytest.fixture
 def ready(tmp_path, monkeypatch):
+    # This dated packet exercises Substack-first publication. Current site-first
+    # behavior has its own continuation checks in test_site_first_publication_v1.
+    import live_contentops.v1_simple_gemini_newsroom_v1 as newsroom
+    build = newsroom._build_simple_publication_lifecycle_plan
+    def substack_first(**kwargs):
+        plan = build(**kwargs)
+        plan.pop("distribution_policy", None)
+        plan["substack_first_dependency"] = True
+        plan["plan_hash"] = newsroom._hash({k: v for k, v in plan.items() if k != "plan_hash"})
+        return plan
+    monkeypatch.setattr(newsroom, "_build_simple_publication_lifecycle_plan", substack_first)
     source, binding, _, _, _, _ = brief_packet(tmp_path / "source", monkeypatch)
     binding = {k: v for k, v in binding.items() if k not in {"automation_id", "window_id", "slot_ordinal"}}
     binding["owner_manual_validation"] = True
@@ -58,8 +69,10 @@ def test_any_finished_store_releases_without_manifest_and_preserves_source(ready
     final, browser_writes = finish(operation, executor)
     assert operation.coordinator.allow_prior_confirmed_distribution is True
     assert final["publication"]["canonical_article_real_published"] is True
-    assert final["publication"]["state"] == "RECONCILED"
-    assert set(browser_writes + transports.calls) == {"substack", "telegram", "discord", "x", "linkedin", "threads"}
+    assert final["publication"]["state"] == "RECONCILED", "; ".join(
+        f"{d['destination']}:{d['status']}:{d['reconciliation_status']}" for d in final["publication"].get("destinations", []))
+    assert set(browser_writes + transports.calls) == {"substack", "telegram", "discord", "x", "linkedin", "linkedin_company",
+                                                    "threads", "facebook_page", "instagram_business", "youtube"}
     assert len(list(confirmed_canonicals(target))) == 1
     assert before == workspace_snapshot(source.db_path)
 
@@ -123,19 +136,20 @@ def test_newsroom_lease_is_shared_and_never_steals_a_window(ready):
                 pytest.fail("second operation entered")
 
 
-def test_drip_uses_first_confirmed_canonical_readback_and_does_not_delay_derivatives(ready, monkeypatch):
+def test_finished_piece_is_due_without_spacing_and_keeps_original_canonical_clock(ready, monkeypatch):
     _, target, _, path, rollout = ready
     released = release_finished_piece(path, rollout)
     operation, executor, _ = composed(target, released["binding"], rollout, monkeypatch)
     finish(operation, executor)
     first = list(confirmed_canonicals(target))[0]["first_readback_utc"]
-    assert not publication_due(target, now=first + timedelta(hours=3))["due"]
+    assert publication_due(target, now=first)["due"]
+    assert publication_due(target, now=first + timedelta(hours=3))["due"]
     assert publication_due(target, now=first + timedelta(hours=3, minutes=30))["due"]
     assert publication_due(target, run_id=released["binding"]["run_id"], now=first)["due"]
     assert operation.resume()["publication"]["state"] == "RECONCILED"
 
 
-def test_standing_binding_is_live_resumable_and_refuses_a_second_pending_operation(ready):
+def test_standing_binding_reuses_its_identity_and_preserves_another_pending_operation(ready):
     _, target, private, _, rollout = ready
     profile = {"schema_version": "contentops.native_desktop_operator_profile.v1"}
     request = "Select one useful admitted article, then use the existing publisher and readback."
@@ -150,8 +164,10 @@ def test_standing_binding_is_live_resumable_and_refuses_a_second_pending_operati
     target.register_outbox_message(message_id="native-operation-binding-" + sha256_of(binding["run_id"]),
         work_item_id="controlled", destination="internal:native-desktop-editorial",
         payload=canonical_bytes(binding).decode(), status="EDITORIAL_INTERNAL")
-    with pytest.raises(ValueError, match="STANDING_OPERATION_ALREADY_PENDING"):
-        standing_binding(profile, rollout, operation_id="second", resolver=resolve_owner_operation, request=request)
+    original = target.get_outbox_message("native-operation-binding-" + sha256_of(binding["run_id"]))["payload"]
+    _, second = standing_binding(profile, rollout, operation_id="second", resolver=resolve_owner_operation, request=request)
+    assert second["run_id"] != binding["run_id"]
+    assert target.get_outbox_message("native-operation-binding-" + sha256_of(binding["run_id"]))["payload"] == original
     assert private["owner_manual_validation"]
 
 
@@ -186,10 +202,10 @@ def test_standing_daily_cap_counts_distinct_read_back_articles(ready, monkeypatc
     assert not Path(rollout["editorial_output_root"]).exists()
 
 
-def test_legacy_drip_prevents_a_new_canonical_attempt_without_a_text_clock(ready, monkeypatch):
+def test_missing_legacy_text_clock_does_not_delay_a_reviewed_canonical(ready, monkeypatch):
     _, target, _, path, rollout = ready
     released = release_finished_piece(path, rollout)
-    operation, _, transport = composed(target, released["binding"], rollout, monkeypatch)
+    operation, executor, transport = composed(target, released["binding"], rollout, monkeypatch)
     monkeypatch.setattr("live_contentops.native_finished_publication_v1.publication_due",
         lambda *a, **k: {"due": False, "next_publication_utc": "CONTROLLED_FUTURE"})
     original_projection = operation.projection
@@ -197,17 +213,18 @@ def test_legacy_drip_prevents_a_new_canonical_attempt_without_a_text_clock(ready
         value = original_projection()
         return {**value, "timing": {**value["timing"], "text_approved_at_utc": None}}
     monkeypatch.setattr(operation, "projection", legacy_projection)
-    assert operation.resume()["classification"] == "NATIVE_PUBLICATION_NOT_YET_DUE"
-    assert not target.list_platform_dispatches() and not transport.calls
+    value, _ = finish(operation, executor)
+    assert value["classification"] != "NATIVE_PUBLICATION_NOT_YET_DUE"
+    assert any(d["platform"] == "substack" for d in target.list_platform_dispatches())
 
 
 def test_approved_text_dispatches_without_waiting_for_old_spacing(ready, monkeypatch):
     _, target, _, path, rollout = ready
     released = release_finished_piece(path, rollout)
-    operation, _, _ = composed(target, released["binding"], rollout, monkeypatch)
+    operation, executor, _ = composed(target, released["binding"], rollout, monkeypatch)
     monkeypatch.setattr("live_contentops.native_finished_publication_v1.publication_due",
         lambda *a, **k: {"due": False, "next_publication_utc": "CONTROLLED_FUTURE"})
-    value = operation.resume()
+    value, _ = finish(operation, executor)
     assert value["classification"] != "NATIVE_PUBLICATION_NOT_YET_DUE"
     assert value["publication"]["timing"]["text_approved_at_utc"]
     assert any(d["platform"] == "substack" for d in target.list_platform_dispatches())

@@ -1,0 +1,8 @@
+{
+  "branch": "backlog/cc-216-early-event-previews",
+  "commit": "5145906e1edc85efc7011c55180c19f5669bcb2d",
+  "operating_head": "5145906e1edc85efc7011c55180c19f5669bcb2d",
+  "preserved_other_lane_commit": "95c9e3c3c683d7a7c26b4c1ab0c1b41d232770a6",
+  "substep": "source admission and saved preparations integrated; native writing continues",
+  "public_write_performed": false
+}

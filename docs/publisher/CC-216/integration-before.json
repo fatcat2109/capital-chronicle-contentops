@@ -1,0 +1,36 @@
+{
+  "roots": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "head": "b9d892e730fc2205ed2eed78619b5311c60370ec",
+      "preserved_files": [
+        {
+          "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+          "sha256": "72af9ad9e32baa429e52cd8d4a275cec6cd7726078e8778516f663b6f03fba56",
+          "bytes": 934509
+        },
+        {
+          "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+          "sha256": "29b205409ba1817489c146e29e7497aa900b73cef8022b662a9c0fd166545164",
+          "bytes": 5584
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "head": "eee788fd5d5f3aa17773f1c52f6ee0586d625b53",
+      "preserved_files": [
+        {
+          "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+          "sha256": "3f8d72da06b9f971a23ac16e0ad1a824e302f50b651f038d73bec67794460742",
+          "bytes": 960903
+        },
+        {
+          "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+          "sha256": "7172fbd560a130db5a0df9dba7db1ae5676d3cc469a1156c6b13ac0b8e7decd3",
+          "bytes": 8970
+        }
+      ]
+    }
+  ]
+}

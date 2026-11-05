@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import json
 from contextlib import contextmanager
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
@@ -24,7 +24,6 @@ from live_contentops.native_manual_candidate_v1 import manual_output_root
 from live_contentops.native_publication_promotion_v1 import ReadOnlyStore, _snapshot, promote
 
 AUTHORITY = "JIM_DECISIONS_20261030_DECISION_39"
-DRIP_HOURS = 3.5
 
 
 @contextmanager
@@ -88,13 +87,10 @@ def confirmed_canonicals(store):
 
 
 def publication_due(store, *, run_id=None, now=None):
-    """Use confirmed canonical readback clocks; a draft/derivative never starts a drip."""
+    """A finished, reviewed piece is due now (CC-199 / decision 53)."""
     now = now or datetime.now(timezone.utc)
-    times = [v["first_readback_utc"] for v in confirmed_canonicals(store) if v["run_id"] != run_id]
-    latest = max(times) if times else None
-    due = latest + timedelta(hours=DRIP_HOURS) if latest else now
-    return {"due": now >= due, "next_publication_utc": due.isoformat(),
-            "spacing_hours": DRIP_HOURS, "clock_basis": "FIRST_VERIFIED_CANONICAL_READBACK"}
+    return {"due": True, "next_publication_utc": now.isoformat(),
+            "spacing_hours": 0, "clock_basis": "REVIEWED_PIECE_READY"}
 
 
 def standing_binding(profile, rollout, *, operation_id, resolver, request=None, now=None, report_only=False):
@@ -108,23 +104,10 @@ def standing_binding(profile, rollout, *, operation_id, resolver, request=None, 
     with newsroom_lease(store):
         published = list(confirmed_canonicals(store))
         completed = {p["run_id"] for p in published}
-        for row in store.list_outbox_messages():
-            if not row["message_id"].startswith("native-operation-binding-"):
-                continue
-            prior = json.loads(row["payload"])
-            if (prior.get("standing_operation") and prior["run_id"] not in completed
-                    and prior["run_id"] != operation_id):
-                final = store.get_outbox_message("cc-editorial-final-" + sha256_of(prior["run_id"]))
-                # A genuine no-story operation is finished; a pending role stays resumable.
-                if not final or json.loads(final["payload"]).get("qualified_article_count"):
-                    raise ValueError("STANDING_OPERATION_ALREADY_PENDING:" + prior["run_id"])
         day = newsroom_production_day_id(now)
         identities = {p["article_identity"] for p in published if newsroom_production_day_id(p["first_readback_utc"]) == day}
         if len(identities) >= 8 and operation_id not in completed:
             raise ValueError("STANDING_DAILY_TARGET_REACHED")
-        due = publication_due(store, run_id=operation_id, now=now)
-        if not due["due"] and operation_id not in completed:
-            raise ValueError("STANDING_PUBLICATION_NOT_YET_DUE:" + due["next_publication_utc"])
         return resolver(profile, operation_id=operation_id, request=request, now=now,
                         live_rollout=rollout, standing=True, report_only=report_only)
 

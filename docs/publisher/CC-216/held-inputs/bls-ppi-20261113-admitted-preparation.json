@@ -1,0 +1,67 @@
+{
+  "receipt": {
+    "message_id": "native-story-preparation-42837545a09b161559d8b05c3a273e942b7c51cad2255ec251f982ab64fef4ae",
+    "event_id": "bls-ppi-20261113",
+    "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+  },
+  "packet": {
+    "event_id": "bls-ppi-20261113",
+    "title": "October producer-price preview, 13 November",
+    "planned_release_utc": "2026-11-13T13:30:00Z",
+    "reader_question": "Does the next producer-price report broaden the prior inflation shock or show it fading?",
+    "background": "Use the dated September final-demand release as the baseline. Separate goods, services and the measure excluding foods, energy and trade services; none is the October result.",
+    "official_sources": [
+      {
+        "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+        "capture_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-216\\sources\\ppi-prior-official.html",
+        "capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+        "published_at_utc": "2026-10-15T12:30:00Z",
+        "observed_at_utc": "2026-10-30T01:36:40.150Z",
+        "reference_period": "2026-09"
+      },
+      {
+        "url": "https://www.bls.gov/schedule/news_release/ppi.htm",
+        "capture_path": "A:\\Capital Chronicle\\ResearchRuns\\cc-068-release-consensus\\root\\input\\bls-ppi-schedule.json",
+        "capture_sha256": "e5ba8b9dbe392c91c00345d3f183be10377f9be5f43edf0cbd6c54d2c28bf515"
+      }
+    ],
+    "prior_fact_spans": [
+      {
+        "capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+        "exact_source_span": "The Producer Price Index for final demand increased 1.3 percent in September, seasonally \nadjusted, the U.S. Bureau of Labor Statistics reported today. Final demand prices moved up 0.5 \npercent in August and 0.2 percent in July. (See table A.) The September increase is the largest \nadvance since rising 1.7 percent in March 2022. On an unadjusted basis, the index for final \ndemand climbed 6.3 percent for the 12 months ended in September, the largest 12-month \nincrease since moving up 6.4 percent in December 2022.",
+        "metric": "BLS September PPI official summary"
+      },
+      {
+        "capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+        "exact_source_span": "In September, prices for final demand goods rose 2.6 percent, and the index for final demand \nservices advanced 0.8 percent.",
+        "metric": "BLS September PPI official summary"
+      },
+      {
+        "capture_sha256": "3ea265ba342320909d625ebbe4bfc55f4a988346593d751d0b02a23c606524c5",
+        "exact_source_span": "Prices for final demand less foods, energy, and trade services moved up 0.5 percent in September \nafter increasing 0.3 percent in August. For the 12 months ended in September, the index for final \ndemand less foods, energy, and trade services rose 5.0 percent.",
+        "metric": "BLS September PPI official summary"
+      }
+    ],
+    "watchpoints": [
+      "Final demand goods and services separately.",
+      "Trade services measure margins, not goods prices.",
+      "Producer inflation is not a mechanical forecast of consumer inflation."
+    ],
+    "release_work": "CC-107 adds only the exact frozen dossier's scenarios and probabilities, reviews the affected copy and dispatches through the existing coordinator before T0.",
+    "missing_inputs": [
+      "Frozen October PPI dossier, due before T0; actual October release is not available"
+    ],
+    "released_facts_admitted": false,
+    "publication_authority": false,
+    "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+    "preparation_revision": "CC216_EARLY_PREVIEW_BACKGROUND",
+    "single_consensus_fact": {
+      "projection_path": "A:\\Capital Chronicle\\ResearchRuns\\cc-068-release-consensus\\root\\daily\\2026-11-05\\US_PPI_20261113.json",
+      "projection_sha256": "ae8dfdd0676f6873c8c9b720e75817505a2e0b9314ef0bf36359cba5f43d4f95",
+      "capture_root": "A:\\Capital Chronicle\\ResearchRuns\\cc-068-release-consensus\\root",
+      "release_id": "US_PPI_20261113",
+      "source": "myfxbook",
+      "measure_key": "ppi_mom"
+    }
+  }
+}

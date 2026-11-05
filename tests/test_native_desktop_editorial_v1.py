@@ -13,6 +13,27 @@ from live_contentops.destination_transport_registry_v1 import DestinationReadine
 from live_contentops.daily_app_supervisor_v1 import ContentOpsDailyAppSupervisor
 
 
+def test_omitted_visual_metadata_uses_the_exact_accepted_operation_decision(tmp_path, monkeypatch):
+    from tests.test_reader_first_data_journalism_v1 import decision
+    store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
+    run = "visual-metadata-only"
+    work = "cc-opportunity-" + sha256_of(run)
+    store.create_work_item(story_id=work, work_item_id=work, title="Controlled", target_surface="CONTENTOPS_EDITORIAL_ONLY")
+    turn = NativeDesktopTurn(store, run_id=run, output_dir=tmp_path, owner_manual_validation=True)
+    observation = {"surface": "CODEX_NATIVE_SUBAGENT", "invocation_id": "controlled-writer",
+        "model": "gpt-6.1-sol", "reasoning_effort": "max", "observation_source": "CONTROLLED_TEST"}
+    turn._put("visual-edit", "response", {"output": decision(), "invocation_observation": observation})
+    turn._put("write", "request", {"request_sha256": "controlled", "governed_input": {}, "prompt": "Controlled"})
+    monkeypatch.setattr("live_contentops.v1_simple_gemini_newsroom_v1._validate_worker_text",
+        lambda raw: (True, None, json.loads(raw), None))
+    output = {"article": {"substack_body_markdown": "Controlled unchanged prose."}}
+    turn.submit("write", {"request_sha256": "controlled", "output": output, "invocation_observation": observation})
+    article = turn._get("write", "response")["output"]["article"]
+    assert article["visual_editorial_decision"] == decision()
+    assert article["reader_first_version"] == "DATA_JOURNALISM_V1"
+    assert article["substack_body_markdown"] == "Controlled unchanged prose."
+
+
 def test_pending_response_restart_and_mismatched_binding(tmp_path):
     store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
     work = "cc-opportunity-" + sha256_of("same-turn")
