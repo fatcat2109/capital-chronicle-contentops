@@ -3552,6 +3552,12 @@ def _rebind_story_scoped_receipt(
             continue
         if documents and code == "evidence_documents_missing":
             continue
+        # The adapter raises this only for a request that needs Capital Chronicle authority.
+        # A lower mode without that need must not inherit it (CC-288); a higher mode still
+        # gets capital_chronicle_authority_required from the scheduler's own check.
+        if (code == "capital_chronicle_authority_not_verified"
+                and not request.get("capital_chronicle_numeric_or_analytical_authority_required")):
+            continue
         retained.append(code)
     for missing in sorted(required - supplied):
         retained.append(f"required_evidence_capability_missing:{missing}")
@@ -3866,7 +3872,12 @@ def classify_rolling_x_story_types_deterministically(
         r"\b(?:prices?|rall(?:y|ies|ied)|selloff|slump|surge|jump|fall|fell|drop|"
         r"rise|rose|gain|loss|breakout|intraday|record high|record low|market move)\b"
     )
+    # Every routable LOCATOR_SURFACES id needs a profile here; a routed id without one raised
+    # KeyError and failed the whole prepared-candidate refresh (CC-288).
     exact_surface_story_types = {
+        "bea_current_releases_v1": "data_release",
+        "imf_press_release_feed_v1": "data_release",
+        "company_investor_relations_release_feed_v1": "company_sector_event",
         "eia_weekly_natural_gas_storage_v1": "data_release",
         "philadelphia_fed_mbos_v1": "data_release",
         "state_current_fms_press_releases_v1": "regulatory_fiscal_event",

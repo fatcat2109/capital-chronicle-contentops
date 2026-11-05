@@ -423,6 +423,24 @@ def test_e_deep_dive_downgrades_to_standard_when_cc_authority_is_unavailable():
     assert attempt["mode_downgrade_reason"] == "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED"
 
 
+def test_lower_mode_rebind_drops_an_authority_block_it_does_not_need():
+    # CC-288 defect: since 3c5aea4c (21 Aug) a downgrade reuses the story-scoped receipt, which
+    # kept the deep dive's capital_chronicle_authority_not_verified, so no downgrade could pass.
+    from live_contentops.newsroom_assignment_scheduler_v1 import _rebind_story_scoped_receipt
+
+    base = {"cluster_id": "deep", "headline_ids": ["headline-1"],
+        "required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"]}
+    receipt = {**_pass_receipt(base), "status": "BLOCKED",
+        "blockers": ["capital_chronicle_authority_not_verified"]}
+    lower = _rebind_story_scoped_receipt(
+        receipt, {**base, "capital_chronicle_numeric_or_analytical_authority_required": False})
+    assert lower["status"] == "PASS" and lower["blockers"] == []
+    higher = _rebind_story_scoped_receipt(
+        receipt, {**base, "capital_chronicle_numeric_or_analytical_authority_required": True})
+    assert higher["status"] == "BLOCKED"
+    assert higher["blockers"] == ["capital_chronicle_authority_not_verified"]
+
+
 def test_f_large_official_document_uses_bounded_verified_prefix():
     url = "https://api.federalregister.gov/v1/documents/2026-12345.json"
     body = json.dumps(
@@ -647,13 +665,17 @@ def test_inaccessible_bound_and_first_listing_recover_to_accessible_reputable_so
     assert packet["provenance"]["request_count_for_candidate"] == len(calls) == 6
     assert packet["provenance"]["request_limit_per_candidate"] == 6
     assert packet["provenance"]["paywall_or_access_control_bypass"] is False
-    assert "public_source_http_status_not_200" in packet["provenance"]["diagnostics"]
+    # Diagnostics now carry the exact status code (e.g. ":403").
+    assert any(d.startswith("public_source_http_status_not_200") for d in packet["provenance"]["diagnostics"])
 
     second_packet = loader(request)
 
     assert second_packet["status"] == "PASS"
-    assert second_packet["provenance"]["request_count_total"] == len(calls) == 12
-    assert second_packet["provenance"]["request_count_for_candidate"] == 6
+    # The second pass skips the routes that just failed (recent route health) and spends 4 requests.
+    assert second_packet["provenance"]["request_count_total"] == len(calls) == 10
+    assert second_packet["provenance"]["request_count_for_candidate"] == 4
+    assert "public_source_route_suppressed_by_recent_health" in second_packet["provenance"]["diagnostics"]
+    assert direct_url not in calls[6:] and inaccessible_listing not in calls[6:]
     assert second_packet["provenance"]["request_limit"] == 24
 
 
@@ -679,7 +701,9 @@ def test_only_x_discovery_with_no_corroborating_document_fails_closed():
     receipt = adapter(request)
     assert receipt["status"] == "BLOCKED"
     assert "evidence_documents_missing" in receipt["blockers"]
-    assert receipt["claim_evidence_contract"]["fabricated_claim_count"] == 0
+    # The adapter now stops before drafting any claim: no documents, no capability, no claim contract.
+    assert receipt["evidence_documents"] == [] and receipt["provided_evidence_capabilities"] == []
+    assert "claim_evidence_contract" not in receipt and "minimum_trustworthy_evidence_packet" not in receipt
 
 
 def test_unsupported_quote_is_omitted_not_invented():
@@ -867,6 +891,23 @@ def test_exact_first_party_surfaces_precede_generic_market_and_geopolitical_prof
         row["reason"] == "EXACT_FIRST_PARTY_LOCATOR_SURFACE_PROFILE"
         for row in result["stories"]
     )
+
+
+def test_every_routable_locator_surface_has_a_story_profile(monkeypatch):
+    # CC-288 defect: bea_current_releases_v1, imf_press_release_feed_v1 and
+    # company_investor_relations_release_feed_v1 routed but had no profile, so a GDP/PCE, IMF or
+    # Nvidia-results cluster raised KeyError and failed the whole prepared-candidate refresh.
+    import live_contentops.official_primary_source_locator_v1 as locator
+
+    registry = load_source_capability_registry()
+    for surface in locator.LOCATOR_SURFACES:
+        surface_id = str(surface["surface_id"])
+        monkeypatch.setattr(locator, "routed_official_locator_surface_ids", lambda _request, sid=surface_id: (sid,))
+        result = classify_rolling_x_story_types_deterministically(
+            clusters=[{"cluster_id": surface_id, "leaf_summaries": ["Controlled routed surface."]}])
+        story_type = result["story_type_by_cluster"][surface_id]
+        assert result["stories"][0]["reason"] == "EXACT_FIRST_PARTY_LOCATOR_SURFACE_PROFILE"
+        assert surface["family"] in registry["story_types"][story_type]["source_adapter_families"], surface_id
 
 
 def test_semantic_assignment_failure_has_evidence_reachable_zero_authority_fallback():
