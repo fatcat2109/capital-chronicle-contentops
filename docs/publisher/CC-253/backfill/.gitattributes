@@ -1,0 +1,2 @@
+# CC-253: exact runtime bytes for rollback and hash checks; never convert line endings.
+*.json -text
