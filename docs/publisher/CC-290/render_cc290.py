@@ -6,8 +6,10 @@
 renderer), read from git; "after" is the working tree. Writes out_dir/before, out_dir/after,
 out_dir/compare (before left, after right) and two overview sheets of every case.
 The Southwest facts are the 5 Nov post's admitted text; the PPI facts are the 5 Nov PPI
-preview's BLS sentences; "one-fact", "no-figure", "long-title" and "mini-chart" are layout
-fixtures (the chart is a plain stand-in drawn here).
+preview's BLS sentences; "one-fact", "no-figure" and "long-title" are layout fixtures.
+"data-card-chart-test-series" is a real card from the data-card path (build_post_data_card
+with an admitted series and its chart owner), fed the repository's test series because no
+admitted public-domain series in our run files has every value stated in its post.
 """
 from __future__ import annotations
 
@@ -58,7 +60,7 @@ def digest(titles, label):
                 key_value=label, source_line="Capital Chronicle's own articles", dated_line="Capital Chronicle · " + label)
 
 
-def cases(module, chart):
+def cases(module):
     key = module.key_from_facts
     return {
         "southwest": dict(title="Southwest's 2025 hedge exit", facts=SOUTHWEST, kicker="Q2 2025 filing explained",
@@ -94,22 +96,28 @@ def cases(module, chart):
                            facts=SOUTHWEST, kicker="Q2 2025 filing explained", key_label="Historical balance date",
                            key_value="June 30, 2025", source_line="Source: Southwest Airlines Co.",
                            dated_line="Capital Chronicle · November 5, 2026"),
-        "mini-chart": dict(title="September CPI: monthly prices", facts=CPI[:1], kicker="U.S. Bureau of Labor Statistics",
-                           source_line="Source: U.S. Bureau of Labor Statistics", image_path=chart,
-                           dated_line="Capital Chronicle · November 2, 2026"),
     }
 
 
-def stand_in_chart(path: Path) -> str:
-    image = Image.new("RGB", (1200, 700), "#FFFFFF")
-    draw = ImageDraw.Draw(image)
-    draw.line((80, 620, 1160, 620), fill="#55554F", width=3)
-    draw.line((80, 60, 80, 620), fill="#55554F", width=3)
-    for i, value in enumerate([0.2, 0.3, 0.1, 0.4, 0.2, 0.3, 0.6, 0.4, 0.3, 0.5, 0.2, 0.6]):
-        x0 = 110 + i * 88
-        draw.rectangle((x0, 620 - int(value * 850), x0 + 56, 620), fill="#111111" if i == 11 else "#A3A39C")
-    image.save(path)
-    return str(path)
+def real_chart_card(out: Path):
+    """The live data-card path with the repository's admitted test series (CC-144 owner)."""
+    sys.path.insert(0, str(ROOT / "tests"))
+    from test_reader_first_data_journalism_v1 import chart_packet
+    from live_contentops.post_visuals_v1 import build_post_data_card
+    series, docs = chart_packet()
+    docs[0].update(source_id="SOURCE_1", underlying_reuse_classification="governed_government_public_domain",
+                   rights_evidence_sha256="d" * 64)
+    text = docs[0]["canonical_content_text"]
+    claims = [{"claim_id": "revenue", "source_id": "SOURCE_1", "claim_text": text, "support_excerpt": text}]
+    card = build_post_data_card({"substack_body_markdown": text}, claims, docs, output_dir=out / "data-card-path",
+                                series_packet=series)
+    packet = card["data_card_packet"]
+    publishers = list(dict.fromkeys(f["publisher"] for f in packet["facts"]))
+    # The spec _render_card builds for this packet (no article title: "Key facts").
+    spec = dict(title=packet.get("title") or "Key facts", facts=[("Reported fact", f["text"]) for f in packet["facts"]],
+                kicker=" · ".join(publishers), source_line="Source: " + ", ".join(publishers),
+                dated_line=packet.get("dated_line") or "Capital Chronicle")
+    return Path(card["path"]), packet["series_asset"], spec
 
 
 def load_before(rev: str, out: Path):
@@ -145,14 +153,17 @@ def compare(title, left: Path, right: Path, out: Path):
     canvas.save(out, optimize=True)
 
 
-def sheet(paths, out: Path, columns: int):
-    images = [Image.open(p).convert("RGB") for p in paths]
-    w, h = images[0].width // 2, images[0].height // 2
-    rows = (len(images) + columns - 1) // columns
-    canvas = Image.new("RGB", (columns * (w + 24) + 24, rows * (h + 24) + 24), "#8A8A84")
-    for index, image in enumerate(images):
-        canvas.paste(image.resize((w, h), Image.Resampling.LANCZOS),
-                     (24 + index % columns * (w + 24), 24 + index // columns * (h + 24)))
+def sheet(cells, out: Path, columns: int):
+    """Every case at half size, each under its own caption."""
+    images = [(caption, Image.open(p).convert("RGB")) for caption, p in cells]
+    w, h = images[0][1].width // 2, images[0][1].height // 2
+    head, rows = 44, (len(images) + columns - 1) // columns
+    canvas = Image.new("RGB", (columns * (w + 24) + 24, rows * (h + head + 24) + 24), "#8A8A84")
+    draw = ImageDraw.Draw(canvas)
+    for index, (caption, image) in enumerate(images):
+        x, y = 24 + index % columns * (w + 24), 24 + index // columns * (h + head + 24)
+        draw.text((x, y + 4), caption, font=font(26), fill="#FFFFFF")
+        canvas.paste(image.resize((w, h), Image.Resampling.LANCZOS), (x, y + head))
     canvas.save(out, optimize=True)
 
 
@@ -164,18 +175,31 @@ def main():
     sys.path.insert(0, str(ROOT))
     from live_contentops import fact_card_design_v1 as after
     before = load_before(rev, out)
-    chart = stand_in_chart(out / "stand-in-chart.png")
+    card_path, chart, chart_spec = real_chart_card(out)
+    chart_case = "data-card-chart-test-series"
     for size_name, size in (("1080x1350", after.INSTAGRAM_SIZE), ("1600x900", after.X_SIZE)):
-        rendered = []
-        for name, kwargs in cases(after, chart).items():
+        cells = []
+        for name, kwargs in cases(after).items():
             left, right = out / "before" / f"{name}-{size_name}.png", out / "after" / f"{name}-{size_name}.png"
-            before.render_fact_card(left, before.CardSpec(**cases(before, chart)[name]), size=size)
+            before.render_fact_card(left, before.CardSpec(**cases(before)[name]), size=size)
             result = after.render_fact_card(right, after.CardSpec(**kwargs), size=size)
             compare(f"{name} · {size_name}", left, right, out / "compare" / f"{name}-{size_name}.png")
-            rendered.append(right)
+            cells.append((name, right))
             print(name, size_name, "hero", result["hero"], "facts", result["facts_shown"], "/", result["facts_given"],
                   "at", result["facts_size"], "px")
-        sheet(rendered, out / f"all-cases-after-{size_name}.png", 4 if size_name == "1080x1350" else 3)
+        # The data card with its chart: "before" shrank the chart owner's 1440x1040 picture into
+        # the slot; "after" draws the same bound chart for the slot. The 1080x1350 card is the
+        # data-card path's own file; the X size is the same spec rendered at 1600x900.
+        left, right = out / "before" / f"{chart_case}-{size_name}.png", out / "after" / f"{chart_case}-{size_name}.png"
+        before.render_fact_card(left, before.CardSpec(**chart_spec, image_path=chart["path"]), size=size)
+        if size == after.INSTAGRAM_SIZE:
+            right.write_bytes(card_path.read_bytes())
+        else:
+            after.render_fact_card(right, after.CardSpec(**chart_spec, chart=chart), size=size)
+        compare(f"{chart_case} · {size_name}", left, right, out / "compare" / f"{chart_case}-{size_name}.png")
+        cells.append(("data card with chart · test series", right))
+        print(chart_case, size_name, "chart", chart["editorial_data_packet"]["title"])
+        sheet(cells, out / f"all-cases-after-{size_name}.png", 4 if size_name == "1080x1350" else 3)
 
 
 if __name__ == "__main__":
