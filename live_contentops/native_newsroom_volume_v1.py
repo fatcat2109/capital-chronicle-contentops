@@ -237,9 +237,16 @@ def persist_native_day_measurement(store, binding):
     if not bound_volume_policy(binding) and not binding.get("owner_manual_live"):
         return None
     from live_contentops.native_finished_publication_v1 import confirmed_canonicals
-    day = newsroom_production_day_id(binding["cutoff_utc"] if binding.get("window_id")
-                                    else datetime.now(timezone.utc))
-    confirmed_runs = {p["run_id"] for p in confirmed_canonicals(store)
+    published = list(confirmed_canonicals(store))
+    own_publication = next((p for p in published if p["run_id"] == binding["run_id"]), None)
+    # A standing run may reconcile after 02:00 Bangkok. Refresh the day on
+    # which its article actually went public, rather than losing that last
+    # article from the prior day's digest when this projection is refreshed.
+    reference = (binding["cutoff_utc"] if binding.get("window_id") else
+                 ((own_publication.get("published_at_utc") or own_publication["first_readback_utc"])
+                  if own_publication else datetime.now(timezone.utc)))
+    day = newsroom_production_day_id(reference)
+    confirmed_runs = {p["run_id"] for p in published
                       if newsroom_production_day_id(p.get("published_at_utc") or p["first_readback_utc"]) == day}
     rows, dispatches = store.list_outbox_messages(), store.list_platform_dispatches()
     bindings = [json.loads(row["payload"]) for row in rows if row["message_id"].startswith("native-operation-binding-")]
