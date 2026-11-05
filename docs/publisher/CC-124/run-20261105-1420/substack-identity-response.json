@@ -1,0 +1,16 @@
+{
+  "tool_request_sha256": "476ac4d88f667711b016635276027716a4874fe1ebd7fff435066e298c45d582",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "Neo page 531 shows authenticated capitalchronicle.substack.com Publisher dashboard with Capital Chronicle-owned drafts. No login, mailbox or account change.",
+    "observed_at_utc": "2026-11-05T09:39:44.380590+00:00"
+  },
+  "result": {
+    "request_sha256": "81dcbddb7bd7313fab5b2692f15a76f5d61ee79457bb7b0246559da0835f5de2",
+    "status": "READY_AUTHENTICATED",
+    "authenticated": true,
+    "observed_identity": "capitalchronicle.substack.com"
+  }
+}
