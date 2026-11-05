@@ -778,6 +778,20 @@ def test_current_earnings_candidate_cannot_pivot_to_older_financing_highlight():
     assert "selected_current_news_peg_topic_missing_from_title_dek" in exc_info.value.details
 
 
+@pytest.mark.parametrize("title", [
+    "Southwest's 2025 fuel-hedge exit did not end the expense clock",
+    "Southwest closed its hedges; expense followed another clock",
+    "Southwest hedged fuel costs before closing the contracts",
+])
+def test_selected_hedging_topic_accepts_actual_hedge_wording(title):
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _selected_news_peg_blockers
+    candidate = {"headline_text": "The Company terminated its remaining portfolio of fuel hedging contracts.",
+        "source_account": "Southwest Airlines Co."}
+    assert _selected_news_peg_blockers({"title": title, "dek": "A dated company filing explained."}, candidate) == []
+    assert _selected_news_peg_blockers({"title": "Southwest's passenger revenue increased", "dek": "Quarterly results."},
+        candidate) == ["selected_current_news_peg_topic_missing_from_title_dek"]
+
+
 @pytest.mark.parametrize(
     "sentence",
     [

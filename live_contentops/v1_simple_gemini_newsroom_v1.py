@@ -1427,6 +1427,10 @@ def _peg_terms(value: Any) -> set[str]:
         for term in re.findall(r"[a-z][a-z0-9'-]{2,}", normalized)
         if term not in _NEWS_PEG_STOPWORDS and not term.startswith("http")
     }
+    # A fuel-hedge headline and prose about hedges express the selected hedging
+    # topic. The token heuristic must not demand a writer revision for inflection.
+    if re.search(r"(?<!\w)hedg(?:e|es|ed|ing)(?!\w)", normalized):
+        terms.add("hedging")
     # A Vietnamese lead may express the exact selected topic without English keywords.
     for phrase, topic in (("lạm phát", "inflation"), ("chi tiêu", "spending"), ("thu nhập", "income"),
                           ("doanh thu", "revenue"), ("lợi nhuận", "earnings"), ("tài trợ", "financing"),
