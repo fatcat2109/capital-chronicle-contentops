@@ -1,0 +1,39 @@
+"""Save one exact call to the existing newsroom CLI; no alternate runtime."""
+import json
+from pathlib import Path
+import subprocess
+import sys
+
+ROOT = Path(__file__).resolve().parent
+OPERATING = Path(r"A:\Capital Chronicle\ContentOps")
+BINDING = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\owner-manual\cc124-next-article-20261105-b\binding.json")
+label, command, *rest = sys.argv[1:]
+args = [sys.executable, "scripts/run_native_desktop_editorial.py", command]
+if command != "standing":
+    args += ["--binding", str(BINDING)]
+args += rest
+p = subprocess.run(args, cwd=OPERATING, capture_output=True, text=True, encoding="utf-8")
+(ROOT / (label + ".json")).write_text(p.stdout, encoding="utf-8")
+if p.stderr:
+    (ROOT / (label + ".stderr.txt")).write_text(p.stderr, encoding="utf-8")
+try:
+    d = json.loads(p.stdout)
+    if d.get("classification") == "TOOL_OUTPUT_IN_FILE":
+        d = json.loads(Path(d["output"]["path"]).read_bytes())
+        (ROOT / (label + "-expanded.json")).write_text(json.dumps(d, indent=2), encoding="utf-8")
+    keys = ("classification", "stage", "request_path", "request_sha256", "binding_path", "blocker", "next_source_action", "exact_next_blocker", "public_write_performed")
+    print(json.dumps({k: d[k] for k in keys if k in d}, ensure_ascii=True))
+    call = d.get("next_native_call")
+    if call:
+        (ROOT / "next-native-call.json").write_text(json.dumps(call, indent=2), encoding="utf-8")
+        print("native call saved", call.get("tool"), call.get("native_stage"), call.get("result_path"))
+    coordinator = d.get("coordinator_result") or {}
+    pending = coordinator.get("native_tool_request") or d.get("native_tool_request")
+    if pending:
+        (ROOT / "pending-native-tool.json").write_text(json.dumps(pending, indent=2), encoding="utf-8")
+        q = pending["request"]
+        print(json.dumps({k:q.get(k) for k in ("action", "destination", "request_sha256")}, ensure_ascii=True))
+except ValueError:
+    print(p.stdout[:1000], p.stderr[:1000])
+print("saved", ROOT / (label + ".json"), "exit", p.returncode)
+raise SystemExit(p.returncode)

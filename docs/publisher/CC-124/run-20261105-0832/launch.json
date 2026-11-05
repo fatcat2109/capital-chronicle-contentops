@@ -1,0 +1,15 @@
+{
+  "started_at_utc": "2026-11-05T01:32:13Z",
+  "started_at_gmt7": "5 Nov 2026 08:32:13 GMT+7",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "identity_state": "CONFIGURED_NOT_OBSERVED",
+  "process_id": 39092,
+  "native_task": "/root",
+  "branch": "backlog/cc-124-20261105-0832",
+  "base_commit": "a3f134b0dc3df1618a3aeea0f6c33a924c5977fd",
+  "base_source": "current ContentOps operating HEAD; fresh origin/master is ancestor",
+  "fresh_remote_default": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "actual_model_effort": "not exposed by supported runtime telemetry",
+  "other_chats_or_schedules": false
+}
