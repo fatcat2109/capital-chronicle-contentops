@@ -12,7 +12,7 @@ import pytest
 
 from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
 from live_contentops.plan_status_posts_v1 import (
-    DESTINATION, POST_DESTINATIONS, PlanPostError, SITE_ASSET_URL, _x_length, destination_payloads,
+    DESTINATION, POST_DESTINATIONS, PlanPostError, _x_length, destination_payloads,
     prepare_post, publish_ready, queue_posts, validate_status_post_intent,
 )
 from test_plan_status_posts_cc306 import NOW, event, export as export_fixture, main_root, plan, write_export  # noqa: F401
@@ -58,13 +58,13 @@ def queued(tmp_path, export_fixture, main_root):
     return store, transport, coordinator, keys, tmp_path / "posts"
 
 
-def test_each_destination_gets_the_post_the_market_page_and_the_notices(queued):
+def test_each_destination_gets_the_post_and_the_notices_and_no_link(queued):
     store, _, _, keys, root = queued
     plan_ = prepare_post(store, keys[("XAUUSD", "WAITING")], root=root, host=fake_host)
     assert [d["destination"] for d in plan_["destinations"]] == list(POST_DESTINATIONS)
-    url = SITE_ASSET_URL.format(symbol="XAUUSD")
     for row in plan_["destinations"]:
-        assert row["canonical_url"] == url and url in row["payload"]
+        # Jim's decision 83: a status post carries no site link, only its text and image.
+        assert row["canonical_url"] is None and "https://" not in row["payload"]
         assert row["payload"].startswith("Gold: new plan. If price trades into 4,070–4,085, the desk is bullish")
         assert "Analysis, not financial advice." in row["payload"]
     assert not {"linkedin", "facebook_page", "instagram_business", "substack"} & {d["destination"] for d in plan_["destinations"]}

@@ -8,8 +8,8 @@ from live_contentops.public_dispatch_freeze_guard_v6 import build_public_dispatc
 from live_contentops.publication_coordinator_v1 import DEFINITE_NO_WRITE, normalize_dispatch_result
 from live_contentops.telegram_live_adapter_v6 import _guard_non_dry_run_telegram_action
 
-URL = "https://fatcat2109.github.io/capital-chronicle-preview/assets/EURUSD.html"
-TEXT = "EUR/USD: new plan. If price trades into 1.1274–1.1284, the desk is bullish on EUR/USD.\n\nThe live plan: " + URL
+URL = "https://t.me/CapitalChronicle"  # decision 83: the status post's guard identity, never a site link
+TEXT = "EUR/USD: new plan. If price trades into 1.1274–1.1284, the desk is bullish on EUR/USD."
 
 
 def guard_for(monkeypatch, *, guard_url, prior):

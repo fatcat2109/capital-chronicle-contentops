@@ -56,6 +56,36 @@ class SnapshotError(RuntimeError):
     pass
 
 
+# Ops Product, 5 Nov (CC-035): one headless Chromium on TradingView takes about 0.5 GB for 10-20 s,
+# and Guardian overran at 1.9 GB free. Below this floor the post takes the fact card instead.
+MIN_FREE_RAM_GB = 1.5
+LOW_MEMORY = "LOW_MEMORY_FALLBACK"
+
+
+class LowMemory(SnapshotError):
+    pass
+
+
+def free_ram_gb() -> float | None:
+    """Free physical memory (GlobalMemoryStatusEx); None when it cannot be read."""
+    try:
+        import ctypes
+
+        class MemoryStatus(ctypes.Structure):
+            _fields_ = [("dwLength", ctypes.c_ulong), ("dwMemoryLoad", ctypes.c_ulong),
+                        ("ullTotalPhys", ctypes.c_ulonglong), ("ullAvailPhys", ctypes.c_ulonglong),
+                        ("ullTotalPageFile", ctypes.c_ulonglong), ("ullAvailPageFile", ctypes.c_ulonglong),
+                        ("ullTotalVirtual", ctypes.c_ulonglong), ("ullAvailVirtual", ctypes.c_ulonglong),
+                        ("ullAvailExtendedVirtual", ctypes.c_ulonglong)]
+        status = MemoryStatus()
+        status.dwLength = ctypes.sizeof(MemoryStatus)
+        if not ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(status)):
+            return None
+        return status.ullAvailPhys / 1024 ** 3
+    except (AttributeError, OSError):
+        return None
+
+
 def _utc(value: Any) -> datetime | None:
     if not value:
         return None
@@ -162,6 +192,9 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
     """One TradingView Download image of the market at the interval, checked before use."""
     if market not in SYMBOLS or interval not in INTERVAL_LABELS:
         raise SnapshotError("TRADINGVIEW_SNAPSHOT_MARKET_OR_INTERVAL_UNSUPPORTED")
+    free = free_ram_gb()
+    if free is None or free < MIN_FREE_RAM_GB:  # unreadable counts as low: never risk Guardian
+        raise LowMemory(f"{LOW_MEMORY}:{'unknown' if free is None else round(free, 2)}GB")
     tv_symbol = SYMBOLS[market]
     out_dir = Path(out_dir).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)

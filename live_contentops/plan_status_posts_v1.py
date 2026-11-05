@@ -278,7 +278,7 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
 POST_DESTINATIONS = ("telegram", "discord", "threads", "x")
 # The minute task posts only these (no agent needed). X is registered by the agent route.
 API_DESTINATIONS = ("telegram", "discord", "threads")
-SITE_ASSET_URL = "https://fatcat2109.github.io/capital-chronicle-preview/assets/{symbol}.html"
+# Jim's decision 83 (5 Nov): a status post carries no site link, only its text and image.
 POST_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\plan-status-posts")
 STATE_WORDS = {"WAITING": "new plan", "TRIGGERED": "plan now active", "CANCELLED": "plan cancelled",
                "INVALIDATED": "plan invalidated", "EXPIRED": "plan expired", "VIEW_CHANGED": "view changed"}
@@ -308,28 +308,28 @@ def _x_length(text: str) -> int:
 
 
 def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: bool = False) -> dict:
-    """The exact copy per destination: the post, the market page link and the notices. With a
-    TradingView snapshot, "Chart: TradingView" follows the link (Terms section 4, decision 82)."""
+    """The exact copy per destination: the post and the notices, no link (decision 83). With a
+    TradingView snapshot, "Chart: TradingView" follows the post (Terms section 4, decision 82)."""
     body, notices = _split(row["text"])
-    url = SITE_ASSET_URL.format(symbol=row["symbol"])
-    link = f"The live plan: {url}" + (f"\n{CHART_CREDIT}" if chart_credit else "")
+    link = CHART_CREDIT if chart_credit else ""
     payloads = {}
     for destination in POST_DESTINATIONS:
-        text = f"{body}\n\n{link}\n\n{notices}"
+        text = "\n\n".join(part for part in (body, link, notices) if part)
         if destination == "x" and _x_length(text) > LIMITS["x"]:
-            # Whole sentences per post: the link with the first, the notices last.
+            # Whole sentences per post: the chart credit with the first, the notices last.
             sentences = re.split(r"(?<=\.)\s+(?=[A-Z])", body)
             chunks, current = [], ""
             for sentence in sentences:
                 candidate = f"{current} {sentence}".strip()
-                room = LIMITS["x"] - (_x_length(link) + 2 if not chunks else 0)
+                room = LIMITS["x"] - (_x_length(link) + 2 if link and not chunks else 0)
                 if current and _x_length(candidate) > room:
                     chunks.append(current)
                     current = sentence
                 else:
                     current = candidate
             chunks.append(current)
-            chunks[0] = f"{chunks[0]}\n\n{link}"
+            if link:
+                chunks[0] = f"{chunks[0]}\n\n{link}"
             chunks.append(notices)
             if any(_x_length(c) > LIMITS["x"] for c in chunks):
                 raise PlanPostError("PLAN_STATUS_POST_TOO_LONG_FOR_X")
@@ -395,7 +395,8 @@ def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot
                                "seconds": taken.get("seconds")})
             return asset, True
         except Exception as exc:  # noqa: BLE001 - a failed snapshot never stops the post
-            tv.record_outcome({**outcome, "status": "FAILED", "cause": str(exc)[:200]})
+            tv.record_outcome({**outcome, "status": tv.LOW_MEMORY if isinstance(exc, tv.LowMemory) else "FAILED",
+                               "cause": str(exc)[:200]})
     else:
         tv.record_outcome({**outcome, "status": "SKIPPED_RUN_TIME_BUDGET"})
     at = _utc(row["at_utc"])
@@ -446,7 +447,6 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
                "selection": {}, "media": {"assets": [card]}, "plan_status_post": key,
                "chart_credit": chart_credit}
     (folder / "run_context_v1.json").write_bytes(canonical_bytes(context))
-    url = SITE_ASSET_URL.format(symbol=row["symbol"])
     rows = []
     for destination in destinations:
         registration = registration_for_destination(destination)
@@ -454,7 +454,7 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
         rows.append({"destination": destination, "platform": registration.platform,
                      "surface": registration.surface, "transport_type": registration.transport_type,
                      "transport_registry_version": REGISTRY_VERSION, "payload": text,
-                     "payload_hash": hashlib.sha256(text.encode("utf-8")).hexdigest(), "canonical_url": url,
+                     "payload_hash": hashlib.sha256(text.encode("utf-8")).hexdigest(), "canonical_url": None,
                      "expected_destination_identity": registration.expected_identity})
     return {"schema_version": "contentops.publication_plan.v1", "plan_status_post": key,
             "plan_hash": hashlib.sha256(("plan-status-post:" + key).encode()).hexdigest(),
@@ -481,7 +481,7 @@ def validate_status_post_plan(store, work_item_id: str, plan: Mapping[str, Any])
     for item in plan.get("destinations") or []:
         destination = item.get("destination")
         if (destination not in payloads or item.get("payload") != payloads[destination]["full_text"]
-                or item.get("canonical_url") != SITE_ASSET_URL.format(symbol=row["symbol"])):
+                or item.get("canonical_url")):
             raise PlanPostError("PLAN_STATUS_POST_PLAN_COPY_CHANGED")
     return {"key": key, "payloads": payloads}
 

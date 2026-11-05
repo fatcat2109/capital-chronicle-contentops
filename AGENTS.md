@@ -27,6 +27,12 @@ Telegram is read only on the public channel page https://t.me/s/CapitalChronicle
 readback (presence or absence). Agents never open, snapshot, read, grep, evaluate or screenshot Telegram Web or any
 signed-in Telegram view: BrowserOS is signed in there to Jim's personal account (Ops Product, 5 Nov; same reasoning as
 the Gmail rule). Nothing from it goes into any result or message.
+No post on social media or Substack links to the preview site or any other host until Capital Chronicle owns its
+own domain (Jim's decision 83, 5 Nov; after that, only that domain). Never put fatcat2109.github.io,
+capital-chronicle-preview, any *.github.io, pages.dev, workers.dev, netlify.app or vercel.app address, or the word
+fatcat2109, in any post text, link, Substack body or profile. A social copy links the confirmed Substack post or
+nothing; a status post carries no link. Every write path refuses such a copy with PREVIEW_HOST_LINK_FORBIDDEN
+(`live_contentops/preview_link_guard_v1.py`): never work around it.
 
 ## Scheduled terminal-window reporting (CC-238, 5 Nov 2026)
 

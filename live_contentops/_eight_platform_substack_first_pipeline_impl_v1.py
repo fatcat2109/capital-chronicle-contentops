@@ -1296,7 +1296,8 @@ def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str |
                               image_path: str | None = None) -> dict[str, Any]:
     from live_contentops.discord_live_adapter_v6 import execute_discord_post, readback_discord_post
 
-    embeds = [{"title": title, "url": canonical_url}]
+    # A post with no link (a status post, decision 83) has an embed without a url.
+    embeds = [{"title": title, **({"url": canonical_url} if canonical_url else {})}]
     if image_url:
         embeds[0]["image"] = {"url": image_url}
     raw = execute_discord_post(message=text, embeds=embeds, dry_run=False,
@@ -4347,6 +4348,13 @@ def _publish_one_destination_from_durable_intent(
     canonical_url = data["canonical_url"]
     image_path = data["local_media"]
     public_image_url = data["public_image_url"]
+    # Jim's decision 83: the final copy and link of every destination, Substack's body included.
+    from live_contentops.preview_link_guard_v1 import REASON, find_forbidden_link
+    forbidden = find_forbidden_link(payloads.get(destination), canonical_url,
+                                    article.get("substack_body_markdown") if destination == "substack" else None)
+    if forbidden:
+        return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True, "public_write_performed": False,
+                "reason_code": REASON, "matched": forbidden}
     if destination == "substack":
         result = publish_substack_article_via_edge(
             cdp_port=cdp_port,
@@ -4538,7 +4546,8 @@ def _publish_one_destination_from_durable_intent(
             # freeze guard allows one Telegram post per link (fragments are stripped), so it keys a status post on the
             # post itself (the link plus the post key, never shown); an exact re-send of the
             # same post is still refused.
-            guard_canonical_url=(f"{canonical_url}?status_post={intent['plan_status_post']}"
+            # Decision 83: a status post carries no link; its guard identity is the channel plus the post key.
+            guard_canonical_url=(f"https://t.me/CapitalChronicle?status_post={intent['plan_status_post']}"
                                  if intent.get("plan_status_post") else None),
         )
     if destination == "discord":
