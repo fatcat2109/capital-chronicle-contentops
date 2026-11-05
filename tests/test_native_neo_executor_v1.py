@@ -52,6 +52,24 @@ def pending_readback(adapter, destination="substack", value=None):
     return pending.value.request, ids[destination], urls[destination]
 
 
+def test_failed_readonly_identity_can_refresh_in_same_epoch_without_publish(tmp_path):
+    store, executor = setup(tmp_path)
+    with pytest.raises(NativeNeoInputRequired) as first:
+        executor.readiness("SUBSTACK_ARTICLE")
+    first_packet = first.value.request
+    executor.submit(first_packet["request"]["request_sha256"], response(executor, first_packet,
+        {"authenticated": False, "observed_identity": "capitalchronicle.substack.com"}))
+    with pytest.raises(NativeNeoInputRequired) as second:
+        executor.readiness("SUBSTACK_ARTICLE")
+    second_packet = second.value.request
+    assert second_packet["request"]["request_sha256"] != first_packet["request"]["request_sha256"]
+    executor.submit(second_packet["request"]["request_sha256"], response(executor, second_packet,
+        {"authenticated": True, "observed_identity": "capitalchronicle.substack.com"}))
+    assert executor.readiness("SUBSTACK_ARTICLE")["authenticated"] is True
+    assert executor._get(first_packet["request"]["request_sha256"], "response")["result"]["authenticated"] is False
+    assert store.list_platform_dispatches() == []
+
+
 @pytest.mark.parametrize("prior_action,claimed,changed_intent", [
     ("PUBLISH", False, False), ("READBACK", False, False),
     ("PUBLISH", True, False), ("PUBLISH", False, True)])

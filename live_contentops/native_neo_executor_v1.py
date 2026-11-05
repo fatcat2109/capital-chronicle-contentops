@@ -609,6 +609,14 @@ class NativeNeoExecutor:
         result = self._fresh_identity_return(destination, surface, IDENTITIES[destination],
             expected_stable_id=registration.expected_stable_id)
         if result is None:
+            prior = self._get(request["request_sha256"], "response")
+            while prior and prior["result"].get("authenticated") is not True:
+                # An absent/incomplete read-only observation is not a five-minute
+                # session failure. Preserve it and bind a fresh actual observation.
+                request["prior_identity_return_sha256"] = sha256_of(prior)
+                request["request_sha256"] = sha256_of({k: v for k, v in request.items()
+                    if k != "request_sha256"})
+                prior = self._get(request["request_sha256"], "response")
             result = self(request)
         observed = result.get("native_tool_observation") or {}
         age = self.clock() - datetime.fromisoformat(observed["observed_at_utc"].replace("Z", "+00:00"))
