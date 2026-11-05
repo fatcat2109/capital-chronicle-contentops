@@ -1,0 +1,40 @@
+{
+  "tool_request_sha256": "068f2847a7c76659fbc34c362fb63c1846757b5c96d281079b58778de800fd8d",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "dispatched_at_utc": "2026-11-05T10:34:41.997Z",
+    "observed_at_utc": "2026-11-05T10:34:45.848Z",
+    "observation_source": "Neo page537 one final send call verified authenticated own-channel editing controls, entered whole approved Community text, compared the composer and checked bound image load/dimensions, captured the click clock and clicked Đăng once. The same call observed the new exact public post ID and full text through DOM mutation readback. Binary media comparison follows after every destination has gone out."
+  },
+  "result": {
+    "request_sha256": "0019f600278a7ad6f76de263976f8ab8cf87dd429135bfd41d69d889388ad8fc",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "UgkxTU7JJ92PqzRq9tY3UBOkXvS39CsRPLLZ",
+    "public_object_url": "https://www.youtube.com/post/UgkxTU7JJ92PqzRq9tY3UBOkXvS39CsRPLLZ"
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-05T10:34:29.632Z",
+      "observed_identity": "@CapitalChronicleYouTube",
+      "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA"
+    },
+    "pre_click_posts": [
+      "Update: EIA oil inventories: the sharper squeeze is in distillates\n\n\nThe crude draw was small. The distillate draw deserves the closer look.\n\n\nWhat to watch: Crude and gasoline stocks posted much smaller declines.\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/eia-oil-inventories-the-sharper-squeeze\n\n\nAnalysis, not financial advice.\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "@CapitalChronicleYouTube",
+      "public_object_id": "UgkxTU7JJ92PqzRq9tY3UBOkXvS39CsRPLLZ",
+      "public_object_url": "https://www.youtube.com/post/UgkxTU7JJ92PqzRq9tY3UBOkXvS39CsRPLLZ",
+      "observed_text": "Update: EIA oil inventories: the sharper squeeze is in distillates\n\nThe crude draw was small. The distillate draw deserves the closer look.\n\nWhat to watch: Crude and gasoline stocks posted much smaller declines.\n\nRead the full brief: https://capitalchronicle.substack.com/p/eia-oil-inventories-the-sharper-squeeze\n\nAnalysis, not financial advice.\n\nCapital Chronicle may hold positions in the markets it covers.",
+      "content_verified": true,
+      "observed_media_sha256": [],
+      "media_check_state": "PENDING_BINARY_COMPARISON"
+    }
+  }
+}

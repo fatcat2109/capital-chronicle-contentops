@@ -1,0 +1,70 @@
+{
+  "tool_request_sha256": "53118ec93677db0d48edad8ff699c6cb558f28be9db890396a3fe1d4748360b7",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "dispatched_at_utc": "2026-11-05T10:29:59.941Z",
+    "observed_at_utc": "2026-11-05T10:30:47.041Z",
+    "observation_source": "Neo page536 final send call observed authenticated @Capitalnicle, read both whole composer texts and bound-media alt, then clicked Post all once at the captured clock. Send confirmation observed. Immediate profile read initially loaded no rows; next read obtained both exact public objects. Neo page535 follows their exact t.co URL. No second send; binary platform-media comparison remains pending."
+  },
+  "result": {
+    "request_sha256": "ef67c7af11729ecf9ee1f600ab642a8a2667d7dbecfc0348b78adcd0f2d0249f",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2118289723047473490",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118289723047473490",
+    "thread_public_object_ids": [
+      "2118289723047473490",
+      "2118289726054748271"
+    ]
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-05T10:29:52.432Z",
+      "observed_identity": "@Capitalnicle",
+      "observed_stable_id": "Capitalnicle"
+    },
+    "pre_click_posts": [
+      "EIA oil inventories: the sharper squeeze is in distillates\n\n\n\n\nThe crude draw was small. The distillate draw deserves the closer look.\n\n\n\n\nhttps://capitalchronicle.substack.com/p/eia-oil-inventories-the-sharper-squeeze",
+      "Watch: Crude and gasoline stocks posted much smaller declines.\n\n\n\n\nAnalysis, not financial advice.\n\n\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "@Capitalnicle",
+      "public_object_id": "2118289723047473490",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118289723047473490",
+      "content_verified": true,
+      "observed_text": "EIA oil inventories: the sharper squeeze is in distillates\n\nThe crude draw was small. The distillate draw deserves the closer look.\n\n\nhttps://\ncapitalchronicle.substack.com/p/eia-oil-inve\nntories-the-sharper-squeeze\n…\n\nWatch: Crude and gasoline stocks posted much smaller declines.\n\nAnalysis, not financial advice.\n\nCapital Chronicle may hold positions in the markets it covers.",
+      "observed_thread": [
+        {
+          "public_object_id": "2118289723047473490",
+          "public_object_url": "https://x.com/Capitalnicle/status/2118289723047473490",
+          "observed_text": "EIA oil inventories: the sharper squeeze is in distillates\n\nThe crude draw was small. The distillate draw deserves the closer look.\n\n\nhttps://\ncapitalchronicle.substack.com/p/eia-oil-inve\nntories-the-sharper-squeeze\n…"
+        },
+        {
+          "public_object_id": "2118289726054748271",
+          "public_object_url": "https://x.com/Capitalnicle/status/2118289726054748271",
+          "observed_text": "Watch: Crude and gasoline stocks posted much smaller declines.\n\nAnalysis, not financial advice.\n\nCapital Chronicle may hold positions in the markets it covers."
+        }
+      ],
+      "public_image_urls": [
+        "https://pbs.twimg.com/media/HWWsyBDa0AA0uJN?format=jpg&name=small"
+      ],
+      "observed_media_sha256": [],
+      "media_check_state": "PENDING_BINARY_COMPARISON",
+      "observed_link_resolutions": [
+        {
+          "displayed_url": "https://\ncapitalchronicle.substack.com/p/eia-oil-inve\nntories-the-sharper-squeeze\n…",
+          "short_url": "https://t.co/7tYTluxBEY",
+          "target_url": "https://capitalchronicle.substack.com/p/eia-oil-inventories-the-sharper-squeeze",
+          "target_verified": true,
+          "public_object_url": "https://x.com/Capitalnicle/status/2118289723047473490",
+          "evidence_ref": "Neo page535 follows exact t.co link to canonical."
+        }
+      ]
+    }
+  }
+}
