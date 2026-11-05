@@ -1873,3 +1873,28 @@ def test_outbox_filters_preserve_default_order_and_exact_payloads(temp_db):
                     {"destination": "unknown' OR 1=1 --"}):
         expected = [r for r in all_rows if all(r[k] == v for k, v in filters.items())]
         assert temp_db.list_outbox_messages(**filters) == expected
+
+
+def test_retained_outbox_batches_preserve_all_rows_payloads_and_tied_clocks(temp_db):
+    temp_db.create_work_item(work_item_id="retained", story_id="retained",
+                             title="Retained input", target_surface="internal")
+    temp_db.register_outbox_message(message_id="seed", work_item_id="retained",
+        destination="internal:review", status="READY", payload='{"seed":true}')
+    with temp_db.get_connection() as conn:
+        seed = dict(conn.execute("SELECT * FROM outbox_messages WHERE message_id='seed'").fetchone())
+        expected = [seed]
+        for index in range(603):
+            payload = json.dumps({"exact": index, "retained": "x" * 1024})
+            expected.append({**seed, "message_id": f"retained-{603-index:04}",
+                "created_at": f"2026-11-05T00:{index % 60:02}:00+00:00",
+                "destination": "internal:review" if index % 2 else "internal:media",
+                "payload": payload})
+        columns = list(seed)
+        conn.executemany("INSERT INTO outbox_messages (" + ",".join(columns) + ") VALUES ("
+            + ",".join("?" for _ in columns) + ")",
+            [[row[column] for column in columns] for row in expected[1:]])
+        conn.commit()
+    expected.sort(key=lambda row: (row["created_at"], row["message_id"]))
+    assert temp_db.list_outbox_messages() == expected
+    assert temp_db.list_outbox_messages(destination="internal:review") == [
+        row for row in expected if row["destination"] == "internal:review"]
