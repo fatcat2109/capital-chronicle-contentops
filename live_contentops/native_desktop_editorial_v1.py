@@ -429,6 +429,32 @@ def admit_pre_writer_source_recovery(turn, binding, response):
         "next_operation": "advance same binding", "public_write_performed": False}
 
 
+def repair_recovered_writer_context(turn, response):
+    """Correct an unanswered writer's lead metadata without replacing any facts."""
+    turn._check_pause()
+    previous, pending = turn.source_recovery(), turn.frozen_request("write")
+    if (not previous or not previous.get("pre_writer_source_recovery") or not pending
+            or pending["request_sha256"] != response.get("expected_request_sha256")
+            or turn._get("write", "response")):
+        raise ValueError("EXACT_UNANSWERED_RECOVERED_WRITER_REQUIRED")
+    value = {k: v for k, v in previous.items() if k not in {"request_sha256", "admission_result"}}
+    value.update(source_context_policy="RECOVERED_SOURCE_PROPOSITION_V1",
+        writer_context_repair_of=pending["request_sha256"],
+        prior_recovery_request_sha256=previous["request_sha256"])
+    if previous.get("superseded_unanswered_visual_sha256"):
+        value["visual_recovery_request_sha256"] = previous.get("visual_recovery_request_sha256", previous["request_sha256"])
+    value["request_sha256"] = sha256_of(value)
+    archive = turn.root / "source-recovery-history" / value["request_sha256"]
+    archive.mkdir(parents=True, exist_ok=True)
+    (archive / "desktop_request_write.json").write_bytes(canonical_bytes(pending))
+    turn.store.register_outbox_message(message_id="native-source-recovery-" + sha256_of(value),
+        work_item_id=turn.work, destination="internal:native-desktop-source-recovery",
+        payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
+    return {"classification": "RECOVERED_WRITER_CONTEXT_REPROJECTED",
+        "request_sha256": value["request_sha256"], "prior_writer_request_sha256": pending["request_sha256"],
+        "new_source_requests": 0, "public_write_performed": False, "next_operation": "advance same binding"}
+
+
 def validate_source_requests(requests):
     from urllib.parse import urlsplit
     if not isinstance(requests, list) or len(requests) > 3:
@@ -636,7 +662,9 @@ def _admit_live_source_recovery(turn, binding, response):
         if attempt.get("candidate_id") == candidate), None)
     if not original_request:
         raise ValueError("EXACT_SELECTED_LIVE_SOURCE_REQUEST_REQUIRED")
-    admitted = research.evidence({**original_request, "headline_ids": ids}, cutoff_utc=now)
+    from live_contentops.contentops_source_research_v1 import recovered_source_context
+    recovered_request, _ = recovered_source_context(research, original_request, ids)
+    admitted = research.evidence(recovered_request, cutoff_utc=now)
     qualified_primary = []
     if (not admitted or admitted.get("status") != "PASS") and any(
             a.get("candidate_id") == candidate and a.get("status") == "SOURCE_QUALIFIED"
@@ -651,6 +679,7 @@ def _admit_live_source_recovery(turn, binding, response):
         raise ValueError("RECOVERY_SOURCE_PROPOSITION_NOT_ADMITTED:" + ",".join((admitted or {}).get("blockers", [])))
     value = {"schema_version": "contentops.native_pre_writer_source_recovery.v1",
         "pre_writer_source_recovery": True, "within_bound_live_budget": True,
+        "source_context_policy": "RECOVERED_SOURCE_PROPOSITION_V1",
         "source_amendment_sha256": amendment_sha, "candidate_id": candidate,
         "selection_request_sha256": selection["request_sha256"],
         "prior_evidence_sha256": sha256(walk_raw).hexdigest(),
@@ -737,7 +766,8 @@ class NativeDesktopTurn:
         if self.manual_candidate and stage != "select" and native_role(stage) != "filter":
             identity.append(self.manual_candidate["candidate_id"])
         if revision:
-            identity.append(revision["request_sha256"])
+            identity.append(revision.get("visual_recovery_request_sha256", revision["request_sha256"])
+                if stage == "visual-edit" else revision["request_sha256"])
         return "native-desktop-" + sha256_of(identity)
 
     def source_recovery(self):

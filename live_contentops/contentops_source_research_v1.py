@@ -261,6 +261,27 @@ class XListPrivateMainPermission:
             "record_permission_sha256":sha256_of(binding)}
 
 
+def recovered_source_context(research, request, headline_ids):
+    """Project the verified primary proposition, retaining the selection's identity."""
+    from live_contentops.v1_simple_epistemic_state_v1 import candidate_report_provenance
+    primary = research.records[headline_ids[0]]
+    document = primary["document"]
+    context = {"headline_id": primary["headline_id"], "headline_text": primary["headline_text"],
+        "source_account": primary["source_identity"],
+        "source_timestamp_utc": primary["source_timestamp_utc"], "source_url": document["source_url"],
+        "public_source_urls": [document["source_url"]],
+        "official_source_urls": ([document["source_url"]]
+            if document.get("source_authority_class") == "official_public_primary_source" else [])}
+    projected = {**request, "headline_ids": headline_ids,
+        "story_context": {**request.get("story_context", {}),
+            "leaf_summaries": [primary["headline_text"]],
+            "report_provenance": candidate_report_provenance(context),
+            "candidate_source_account": primary["source_identity"],
+            "candidate_source_timestamp_utc": primary["source_timestamp_utc"],
+            "candidate_source_url": document["source_url"]}}
+    return projected, context
+
+
 class RetainedSourceResearch:
     """Read an explicitly configured evidence root; never follow arbitrary row paths."""
 

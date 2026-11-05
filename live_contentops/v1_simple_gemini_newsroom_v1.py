@@ -2800,6 +2800,11 @@ def run_v1_simple_gemini_newsroom(
             if isinstance(row, Mapping) and row.get("public_claim_allowed") is True
         ][:MAX_SOURCE_DOCUMENTS]
         candidate_source_pack = _source_pack(documents)
+        if offline_recovery and evidence.get("recovered_candidate_context"):
+            # Selection remains immutable lead provenance. The facts and their
+            # reporting/event propositions belong to the recovered source.
+            candidate = {**candidate, **evidence["recovered_candidate_context"],
+                "selection_origin_candidate": candidate}
         candidate_epistemic_state = (
             dict(evidence.get("epistemic_state") or {})
             if isinstance(evidence.get("epistemic_state"), Mapping)

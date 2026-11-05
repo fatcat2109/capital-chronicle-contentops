@@ -576,11 +576,19 @@ def run_report_editorial_cycle(
                 def recovered():
                     if request["cluster_id"] == recovery["candidate_id"]:
                         research = RetainedSourceResearch.from_frozen_snapshot(recovery["research_snapshot"])
-                        value = research.evidence({**request, "headline_ids": recovery["supporting_headline_ids"]},
+                        recovered_request = {**request, "headline_ids": recovery["supporting_headline_ids"]}
+                        candidate_context = None
+                        if recovery.get("source_context_policy") == "RECOVERED_SOURCE_PROPOSITION_V1":
+                            from live_contentops.contentops_source_research_v1 import recovered_source_context
+                            recovered_request, candidate_context = recovered_source_context(
+                                research, request, recovery["supporting_headline_ids"])
+                        value = research.evidence(recovered_request,
                             cutoff_utc=recovery["admitted_at_utc"],
                             qualified_source_pack=recovery.get("qualified_primary_source_pack"))
                         if not value:
                             raise ValueError("ADMITTED_RECOVERY_SOURCE_MISSING")
+                        if candidate_context:
+                            value = {**value, "recovered_candidate_context": candidate_context}
                     else:
                         old = stages.get("cc-step-" + sha256_of([stages.work, stage]))
                         value = dict(old["result"]) if old else {"status": "BLOCKED", "evidence_documents": [],

@@ -56,7 +56,7 @@ def source_fixture(root, *, published="2026-10-30T09:00:00Z", publisher="Reuters
 
 
 def seeded(tmp_path, monkeypatch, *, used=2, published="2026-10-30T09:00:00Z", scheduled=False, needs_sources=False,
-        source_missing=False):
+        source_missing=False, candidate_headline=None):
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     root = tmp_path / "output"
@@ -87,7 +87,7 @@ def seeded(tmp_path, monkeypatch, *, used=2, published="2026-10-30T09:00:00Z", s
         lambda *a, **k: Resolver())
     rolling = _headlines(1)
     rolling["headlines"][0].update(source_timestamp_utc="2026-10-30T09:00:00Z",
-        headline_text="Controlled report describes a conditional policy pace",
+        headline_text=candidate_headline or "Controlled report describes a conditional policy pace",
         source_url="https://www.reuters.com/markets/us/controlled-policy-report-2026-10-30/")
     def run():
         return run_report_editorial_cycle(tracker, receipt_id="controlled", admission=None,
@@ -166,6 +166,41 @@ def test_live_recovery_preserves_roles_and_clocks_and_reaches_max_without_gets(t
     history = turn.root / "source-recovery-history" / result["request_sha256"]
     assert (history / "simple_gemini_evidence_v1.json").read_bytes() == prior_walk
     assert all(p.read_bytes() == raw for p, raw in preserved.items())
+    assert turn.store.list_platform_dispatches() == []
+
+
+def test_recovered_source_proposition_reaches_writer_without_relabelling_old_lead(tmp_path, monkeypatch):
+    turn, binding, response, run, calls = seeded(tmp_path, monkeypatch,
+        candidate_headline="The Federal Reserve raised its policy rate in September.")
+    entry().operation(binding, command="recover-sources", response=response)
+    # Give the frozen source an unmistakably different, exact admitted headline.
+    recovery = turn.source_recovery()
+    assert recovery["source_context_policy"] == "RECOVERED_SOURCE_PROPOSITION_V1"
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes
+    from live_contentops.native_desktop_editorial_v1 import native_artifact_key
+    monkeypatch.setattr("live_contentops.native_desktop_editorial_v1.validate_release_media", lambda *a, **k: {})
+    turn.store.register_outbox_message(message_id=native_artifact_key(turn.store, turn.run_id, "native-editorial-media-plan-"),
+        work_item_id=turn.work, destination="internal:native-editorial-media-plan",
+        payload=canonical_bytes({"assets": [], "plan": {}, "source_request_sha256": "CONTROLLED"}).decode())
+    with pytest.raises(DesktopInputRequired) as pending:
+        run()
+    assert pending.value.request["stage"] == "write"
+    governed = pending.value.request["governed_input"]
+    assert governed["selected_candidate"]["headline_id"] == "controlled-original"
+    assert governed["selected_candidate"]["selection_origin_candidate"]["headline_id"] != "controlled-original"
+    assert "controlled report describes a conditional policy pace" in governed["report_truth"].lower()
+    assert "raised its policy rate" not in governed["report_truth"]
+    assert "raised its policy rate" not in governed["event_truth"]["proposition"]
+    assert governed["source_pack"][0]["document_id"] == "controlled-original"
+    assert len(calls) == 1
+    original = turn.frozen_request("write")
+    result = entry().operation(binding, command="recover-sources", response={"source_context_projection": True,
+        "expected_request_sha256": original["request_sha256"]})
+    assert result["new_source_requests"] == 0
+    assert turn.frozen_request("write") is None
+    archive = turn.root / "source-recovery-history" / result["request_sha256"] / "desktop_request_write.json"
+    assert json.loads(archive.read_bytes()) == original
+    assert turn.source_recovery()["research_snapshot"] == recovery["research_snapshot"]
     assert turn.store.list_platform_dispatches() == []
 
 
