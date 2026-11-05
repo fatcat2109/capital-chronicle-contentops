@@ -1,0 +1,13 @@
+F.............................................................           [100%]
+================================== FAILURES ===================================
+_______________ test_live_receipts_query_only_their_destination _______________
+tests\test_capital_chronicle_latest_report_consumer_v1.py:216: in test_live_receipts_query_only_their_destination
+    tracker.store.register_outbox_message(
+live_contentops\durable_operational_store_v1.py:1118: in register_outbox_message
+    return self._idempotent_insert(
+live_contentops\durable_operational_store_v1.py:1099: in _idempotent_insert
+    conn.execute(
+E   sqlite3.IntegrityError: FOREIGN KEY constraint failed
+=========================== short test summary info ===========================
+FAILED tests/test_capital_chronicle_latest_report_consumer_v1.py::test_live_receipts_query_only_their_destination
+1 failed, 61 passed in 289.11s (0:04:49)

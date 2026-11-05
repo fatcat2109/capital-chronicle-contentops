@@ -870,8 +870,7 @@ class LatestReportDeliveryTracker:
                 "delivery_status": row["status"],
                 "message_id": row["message_id"],
             }
-            for row in self.store.list_outbox_messages()
-            if row["destination"] == INBOX
+            for row in self.store.list_outbox_messages(destination=INBOX)
         ]
 
     @staticmethod

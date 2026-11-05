@@ -1,0 +1,16 @@
+Timeout (0:00:40)!
+Thread 0x00009944 (most recent call first):
+  File "A:\Capital Chronicle\ContentOps\live_contentops\durable_operational_store_v1.py", line 1205 in list_outbox_messages
+  File "A:\Capital Chronicle\ContentOps\live_contentops\contentops_foundation_library_v1.py", line 135 in reconcile_affected_work
+  File "A:\Capital Chronicle\ContentOps\live_contentops\contentops_foundation_library_v1.py", line 124 in persist_research_package
+  File "A:\Capital Chronicle\ContentOps\live_contentops\capital_chronicle_report_feed_v1.py", line 220 in refresh_research_library
+  File "A:\Capital Chronicle\ContentOps\live_contentops\capital_chronicle_report_feed_v1.py", line 231 in poll
+  File "A:\Capital Chronicle\ContentOps\live_contentops\capital_chronicle_report_feed_v1.py", line 543 in opportunity
+  File "scripts/run_native_desktop_editorial.py", line 496 in _operation
+  File "scripts/run_native_desktop_editorial.py", line 532 in operation
+  File "scripts/run_native_desktop_editorial.py", line 902 in main
+  File "scripts/run_native_desktop_editorial.py", line 919 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 98 in _run_module_code
+  File "<frozen runpy>", line 287 in run_path
+  File "<stdin>", line 7 in <module>

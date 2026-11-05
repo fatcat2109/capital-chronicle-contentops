@@ -88,7 +88,7 @@ def research_library(research, *, cutoff_utc: str, briefs: Sequence[Mapping] = (
             "model_execution_state": "LLM_OPERATOR_PAUSED_RESEARCH_CONTINUES", "public_write_performed": False}
 
 
-def persist_library(tracker, research, *, cutoff_utc, briefs=()):
+def persist_library(tracker, research, *, cutoff_utc, briefs=(), reconcile=True):
     from live_contentops.capital_chronicle_report_feed_v1 import _persist
     snapshot = research_library(research, cutoff_utc=cutoff_utc, briefs=briefs)
     # Identical research/brief revision is stored once. Scan clocks remain in feed telemetry.
@@ -97,13 +97,14 @@ def persist_library(tracker, research, *, cutoff_utc, briefs=()):
         snapshot["briefs"], snapshot["gaps"], snapshot["next_operation"]])
     key = "cc-library-" + identity
     if not tracker.store.get_outbox_message(key):
-        prior = [json.loads(r["payload"]).get("library_sequence", 0) for r in tracker.store.list_outbox_messages() if r["destination"] == LIBRARY]
+        prior = [json.loads(r["payload"]).get("library_sequence", 0) for r in tracker.store.list_outbox_messages(destination=LIBRARY)]
         _persist(tracker.store, key, {**snapshot, "library_sequence": max(prior, default=0) + 1}, LIBRARY)
-    reconcile_affected_work(tracker)
+    if reconcile:
+        reconcile_affected_work(tracker)
     return snapshot
 
 
-def persist_research_package(tracker, package, *, research_revision):
+def persist_research_package(tracker, package, *, research_revision, reconcile=True):
     from live_contentops.capital_chronicle_report_feed_v1 import _persist
     if (package.get("stage") != "EDITOR_AUTHORED_RESEARCH_PACKAGE" or package.get("qualified") is not False
             or package.get("fresh_provider_draft") is not False or package.get("published") is not False):
@@ -119,9 +120,10 @@ def persist_research_package(tracker, package, *, research_revision):
     key = "cc-library-package-" + sha256_of({k: v for k, v in payload.items()
         if k != "research_revision" or not payload.get("source_binding_sha256")})
     if not tracker.store.get_outbox_message(key):
-        prior = [json.loads(r["payload"]).get("package_sequence", 0) for r in tracker.store.list_outbox_messages() if r["destination"] == PACKAGE]
+        prior = [json.loads(r["payload"]).get("package_sequence", 0) for r in tracker.store.list_outbox_messages(destination=PACKAGE)]
         _persist(tracker.store, key, {**payload, "package_sequence": max(prior, default=0) + 1}, PACKAGE)
-    reconcile_affected_work(tracker)
+    if reconcile:
+        reconcile_affected_work(tracker)
 
 
 def reconcile_affected_work(tracker):
@@ -132,7 +134,14 @@ def reconcile_affected_work(tracker):
     """
     from live_contentops.capital_chronicle_report_feed_v1 import _persist
     from live_contentops.contentops_editorial_desk_v1 import read_reviews
-    projection = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
+    # Dependency reconciliation needs the library, packages and Main lineage.
+    # Avoid loading unrelated retained media and editorial-stage payloads on every
+    # package refresh; the full reader still includes its story context.
+    rows = [row for destination in (LIBRARY, PACKAGE, "internal:cc-report-receipt",
+                                   "internal:cc-report-withdrawal")
+            for row in tracker.store.list_outbox_messages(destination=destination)]
+    rows.sort(key=lambda row: (row["created_at"], row["message_id"]))
+    projection = library_projection(rows, read_reviews(tracker.store), include_story_context=False)
     if not projection:
         return
     for p in projection["packages"]:
@@ -170,7 +179,7 @@ def _asset_family(asset):
     return "UNCLASSIFIED_PUBLIC_ASSET"
 
 
-def library_projection(rows, review_records=()):
+def library_projection(rows, review_records=(), *, include_story_context=True):
     snapshots = [json.loads(row["payload"]) for row in rows if row["destination"] == LIBRARY]
     snapshot = dict(max(enumerate(snapshots), key=lambda pair: (pair[1].get("library_sequence", 0), pair[0]))[1]) if snapshots else None
     if snapshot is None:
@@ -254,6 +263,8 @@ def library_projection(rows, review_records=()):
                 "media": sum(len(p.get("media_assets", [])) for p in current_packages)}}
     from live_contentops.contentops_editorial_desk_v1 import desk_projection, story_projection, publication_story_context
     result = desk_projection(result, review_records)
+    if not include_story_context:
+        return result
     result["stories"] = story_projection(result, rows, review_records)
     for row in reversed(rows):
         if row["destination"] == "internal:cc-report-editorial-stage":
