@@ -1,9 +1,14 @@
 """Reference projection and checks for the CC-014 desk-record export (schema v1).
 
 Every reader applies ``project`` before showing anything: ``project(doc, {"public"})`` for free
-surfaces, ``project(doc, {"public", "pro"})`` for Pro surfaces. Validate the document against
-``schemas/publication/CapitalChronicleDeskRecordExportV1.schema.json`` first; the schema cannot see
+surfaces, ``project(doc, {"public", "pro"})`` for Pro surfaces. Validate the document against its
+``schemas/publication/CapitalChronicleDeskRecordExportV1*.schema.json`` first; the schema cannot see
 cross-references, so the projection also drops any Field that cites a private-only source.
+
+This file is the canonical projection copy (CC-262): Codex Web's and Publisher's copies are regenerated
+from it. Jim's decision 72 b: ``check_public_text`` blocks only DEMO and execution identifiers, bulk raw
+third-party data and secrets. It never fails on a cited price, move or yield, on a consensus figure with
+its source, or on a Capital Chronicle model level.
 """
 
 from __future__ import annotations
@@ -40,13 +45,15 @@ PRIVATE_ONLY_RIGHTS = frozenset(
         "OFFICIAL_SOURCE_CONTRACT_PENDING",
     }
 )
-# Producer rule: public and Pro text never states a consensus-relative judgement or a trading level.
-PRIVATE_TERMS = re.compile(
-    r"\b(consensus|forecast(?:s|ed)?|in line with|beat(?:s)?|miss(?:ed|es)?|surprise(?:d|s)?|gex|gamma|"
-    r"stop[- ]loss|take[- ]profit|armed)\b",
-    re.IGNORECASE,
-)
+# Jim's decision 72 b (CC-262): our computed outputs are public as Capital Chronicle model estimates with decision
+# 40's notices; a consensus figure is public only as one cited fact with its source and date.
+MODEL_ESTIMATE = "CC_MODEL_ESTIMATE"
+CITED_FACT = "CITED_THIRD_PARTY_FACT"
+MODEL_ESTIMATE_LABEL = "Capital Chronicle model estimate"
+MODEL_ESTIMATE_NOTICES = ("Analysis, not financial advice.",
+                          "Capital Chronicle may hold positions in the markets it covers.")
 _DROP = object()
+CALL_FIELDS = ("condition", "trigger", "invalidation_level")
 _CLOCK_KEYS = (
     "known_at_utc",
     "generated_at_utc",
@@ -106,6 +113,13 @@ def _project(node: Any, allowed: frozenset[str], blocked: set[str]) -> Any:
     return node
 
 
+def _is_conditioned_call(record: dict[str, Any]) -> bool:
+    condition = record.get("condition", {}).get("value")
+    return (record.get("call", {}).get("value") in {"WATCH", "EXPRESS"}
+            and record.get("direction", {}).get("value") in {"BULLISH", "BEARISH"}
+            and isinstance(condition, str) and bool(condition.strip()))
+
+
 def project(doc: dict[str, Any], allowed: Iterable[str]) -> dict[str, Any]:
     """Return only what a surface showing ``allowed`` visibilities may show.
 
@@ -129,6 +143,21 @@ def project(doc: dict[str, Any], allowed: Iterable[str]) -> dict[str, Any]:
     }
     for name in RECORD_LISTS:
         out[name] = _project(doc[name], allowed, blocked)
+    for record in out["decision_records"]:
+        # Rights/source filtering can remove the condition after the producer has
+        # admitted a call. Never leave its direction or levels public on their own.
+        if record.get("call", {}).get("value") not in {"ABSTAIN", "NO_TRADE", "HOLD"} and not _is_conditioned_call(record):
+            if record.get("call", {}).get("value") in {"WATCH", "EXPRESS"}:
+                record.pop("summary", None)
+            for key in ("call", "direction", "horizon_days", *CALL_FIELDS):
+                record.pop(key, None)
+            record.get("analytical_outcome", {}).pop("scored_move", None)
+    for dossier in out["asset_dossiers"]:
+        # The same rule for a dossier's newest call (CC-262): no direction or level without its shown condition.
+        analysis = dossier.get("maintained_analysis")
+        call = analysis.get("conditional_call") if isinstance(analysis, dict) else None
+        if isinstance(call, dict) and not _is_conditioned_call(call):
+            analysis.pop("conditional_call")
     cited = {
         sid
         for _, field in iter_fields({name: out[name] for name in RECORD_LISTS})
@@ -259,30 +288,153 @@ def _numerals(text: str) -> Iterator[tuple[Decimal, int, bool]]:
         yield abs(Decimal(raw)), _places(Decimal(raw)), bool(match.group(2))
 
 
-def _private_numbers(doc: dict[str, Any]) -> list[tuple[Decimal, bool]]:
-    """Private values to keep out of public text: (absolute value, matched only as an R multiple).
+def _number(value: Any) -> Decimal | None:
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        return abs(Decimal(repr(value)))
+    return None
 
-    Numeric private-only Fields of three or more significant digits; DEMO results and R values (keys ending in
-    ``_r`` or naming a result) at any digit count, matched as R multiples below three digits so an official 0.8% is
-    never refused for a -0.8R result; and the decimal numbers of three or more significant digits written inside
-    private-only string Fields (an "entry reference 157.695" in a rationale), which earlier went uncollected."""
-    numbers: list[tuple[Decimal, bool]] = []
-    for path, field in iter_fields({name: doc[name] for name in RECORD_LISTS}):
-        value = field["value"]
+
+def _execution_numbers(doc: dict[str, Any]) -> list[tuple[Decimal, bool, str]]:
+    """DEMO execution values matched by value in public text: (absolute value, matched only as an R multiple, kind).
+
+    Planned risk and DEMO results in R, matched only as R multiples, so an official 0.8% is never refused for a -0.8R
+    result. A plan's levels, cited prices, model levels and consensus figures are never matched by value (decision
+    72 b): "model support 6,812.5" passes even when a private plan holds 6812.5. The producer keeps a run's own
+    profit target out of the analysis it publishes (decision 40; desk_record_analysis_v1)."""
+    numbers: list[tuple[Decimal, bool, str]] = []
+    for dossier in doc["asset_dossiers"]:
+        plans = list(dossier.get("open_plans") or [])
+        analysis = dossier.get("maintained_analysis")
+        if isinstance(analysis, dict) and isinstance(analysis.get("plan_levels"), dict):
+            plans.append(analysis["plan_levels"])
+        for plan in plans:
+            for key, field in plan.items():
+                if not is_field(field) or field["rights_class"] not in PRIVATE_ONLY_RIGHTS:
+                    continue
+                number = _number(field["value"])
+                if number and key.endswith("_r"):
+                    numbers.append((number, True, "R value"))
+    for record in doc["decision_records"]:
+        number = _number(((record.get("demo") or {}).get("result_r") or {}).get("value"))
+        if number:
+            numbers.append((number, True, "DEMO result"))
+    return numbers
+
+
+# Raw third-party rows that stay private (decision 72 b, host rule 7): a public text that copies a run of their values
+# is bulk raw data. One cited figure, or a few, never is.
+RAW_ROW_CLASSES = frozenset({"MARKET_CONSENSUS_PRIVATE_ONLY", "OPTIONS_GEX_PRIVATE_ONLY", "BROKER_PROXY_RAW_PRIVATE",
+                             "FRED_SOURCE_RIGHTS_BLOCKED", "RIGHTS_MISSING"})
+BULK_MIN_VALUES = 4
+# Numbers in a pasted list or table ("63.0, 4.2, 0.3"): a comma followed by three digits is a thousands separator.
+_LISTED = re.compile(r"(?<![\w.])[-+−]?((?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?)(?!\d)")
+
+
+def _values(node: Any) -> Iterator[Decimal]:
+    number = _number(node)
+    if number is not None:
+        yield number
+    elif isinstance(node, dict):
+        for value in node.values():
+            yield from _values(value)
+    elif isinstance(node, list):
+        for value in node:
+            yield from _values(value)
+
+
+def _raw_tables(doc: dict[str, Any]) -> dict[tuple[str, str], set[Decimal]]:
+    """Numeric values held in private raw rows, by (dataset, provider): one table or series per source."""
+    owners = {s["source_id"]: (s["dataset"], s["provider"]) for s in doc["sources"]
+              if s["rights_class"] in RAW_ROW_CLASSES}
+    tables: dict[tuple[str, str], set[Decimal]] = {}
+    for _, field in iter_fields({name: doc[name] for name in RECORD_LISTS}):
         if field["rights_class"] not in PRIVATE_ONLY_RIGHTS:
             continue
-        if isinstance(value, (int, float)) and not isinstance(value, bool):
-            number = abs(Decimal(repr(value)))
-            key = path.rsplit(".", 1)[-1]
-            r_value = key.endswith("_r") or (field["rights_class"] == "DEMO_DERIVED_PRIVATE" and "result" in key)
-            if _significant(number) >= 3:
-                numbers.append((number, False))
-            elif r_value and number:
-                numbers.append((number, True))
-        elif isinstance(value, str):
-            numbers.extend((number, False) for number, places, _ in _numerals(value)
-                           if places >= 1 and _significant(number) >= 3)
-    return numbers
+        for owner in {owners[s] for s in field["source_ids"] if s in owners}:
+            tables.setdefault(owner, set()).update(v for v in _values(field["value"]) if _significant(v) >= 2)
+    return tables
+
+
+# DEMO account identities (host AGENTS.md standing facts): the J1 DEMO account and the 26 Oct cost-sample account,
+# both on the DEMO server. Matched by value anywhere in public text; callers may add more.
+DEMO_ACCOUNT_LOGINS = frozenset({"279805139", "279779602"})
+# DEMO and execution identifiers by name (decision 40, host rule 7): login, server, balance, lots, tickets, fills,
+# USD P&L, order levels and R multiples.
+EXECUTION_TERMS = (
+    ("DEMO account", re.compile(r"\b(?:login|account\s*(?:no\.?|number|id|#)?|acct)\s*[:#]?\s*\d{6,}\b", re.I)),
+    ("DEMO account", re.compile(r"\bdemo\s+(?:account|login|server|balance|equity|book|portfolio|positions?|orders?|"
+                                r"trades?|fills?|p&l|pnl|results?)\b", re.I)),
+    ("broker server", re.compile(r"\b(?:exness[\w-]*|mt5\s*trial\d*|metatrader\s*\d?|mt[45])\b", re.I)),
+    # A macro "current account balance" or "trade balance" is not an account balance.
+    ("account balance", re.compile(r"\b(?:demo|book|portfolio)\s+(?:account\s+)?(?:balance|equity|margin)\b|"
+                                   r"\baccount\s+(?:balance|equity)\b(?<!current account balance)"
+                                   r"(?<!capital account balance)(?<!financial account balance)|"
+                                   r"\bfree\s+margin\b|\bmargin\s+level\b", re.I)),
+    ("lot size", re.compile(r"(?<![\w.])\d+(?:\.\d+)?\s*(?:standard\s+|mini\s+|micro\s+)?lots?\b|\blot\s+sizes?\b",
+                            re.I)),
+    ("ticket", re.compile(r"\b(?:ticket|deal|order|position)\s*(?:id|no\.?|number|#)?\s*[:#]?\s*\d{5,}\b", re.I)),
+    ("fill", re.compile(r"\b(?:fill(?:ed)?\s+(?:at|price)|fills?\s+(?:at|of)|execution\s+price|executed\s+at|"
+                        r"entry\s+fill)\b", re.I)),
+    # A small dollar P&L ("$123.45 profit"); a company's "$5 billion loss" or "unrealized losses" is not one.
+    ("USD P&L", re.compile(r"\b(?:p&l|pnl|p/l)\b|(?:US\$|\$)\s?[-+−]?\d[\d,]*(?:\.\d+)?\s*(?:profit|loss|gain)\b",
+                           re.I)),
+    ("order level", re.compile(r"\b(?:stop[- ]loss|take[- ]profit|profit[- ]target|tp|sl)\b\s*(?:at|of|level|is|was|"
+                               r"[:=])?\s*[-+]?\d", re.I)),
+    ("R multiple", re.compile(r"(?<![\w.])[-+\u2212]?\d+(?:\.\d+)?\s?R\b|\bR\s*[:/]\s*R\b")),
+    # Position sizes stay off public content (decision 40): the DEMO size tier and risk as a share of the account.
+    ("position size", re.compile(r"\bSTARTER\b|(?i:\b(?:risk|size)\s+tier\b|\bposition\s+siz(?:e|es|ing)\b|"
+                                 r"\d+(?:\.\d+)?\s*%\s+of\s+(?:equity|the\s+book|the\s+account|account|balance|capital)\b|"
+                                 r"\bplanned\s+(?:loss|risk)\b)")),
+)
+# A raw option-chain row: a strike (or "6800C") with its open interest or implied volatility and numbers. A modelled
+# regime, flip or wall level is not one.
+OPTION_ROW = (re.compile(r"\bstrikes?\b|\b\d{3,5}\s?[CP]\b", re.I),
+              re.compile(r"\bopen\s+interest\b|\bimplied\s+vol(?:atility)?\b|\b(?:OI|IV)\b"))
+PREDICTION_MARKETS = re.compile(r"\b(?:kalshi|polymarket|predictit|prediction[- ]markets?|betting\s+markets?)\b", re.I)
+# Odds written as a number: 62%, 62 cents, 0.62, "odds of 3", "2 in 3". A date or release name beside a market is not.
+ODDS = re.compile(r"\d+(?:\.\d+)?\s*(?:%|percent\b|per\s+cent\b|cents?\b|¢)|\bodds\s+(?:of|at)\s+\d|"
+                  r"\b\d+\s*(?:in|out\s+of)\s+\d+\b|(?<![\w.])0?\.\d+\b", re.I)
+SECRETS = re.compile(
+    r"-----BEGIN [A-Z ]*PRIVATE KEY-----|\bAKIA[0-9A-Z]{16}\b|\bgh[pousr]_[A-Za-z0-9]{30,}\b|"
+    r"\bgithub_pat_[A-Za-z0-9_]{30,}\b|\bxox[abprs]-[A-Za-z0-9-]{10,}\b|\bsk-[A-Za-z0-9_-]{20,}\b|"
+    r"\b(?:sk|pk|rk)_(?:live|test)_[A-Za-z0-9]{16,}\b|\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}|"
+    r"\b(?:api[_ -]?key|secret|access[_ -]?token|token|password|passwd|bearer)\b\s*[:=]\s*\S{6,}", re.I)
+
+
+def _sentences(text: str) -> list[str]:
+    return [s for s in re.split(r"(?<=[.!?;])\s+|\n", text) if s.strip()]
+
+
+def public_text_problems(text: str, *, execution: Iterable[tuple[Decimal, bool, str]] = (),
+                         raw_tables: dict[tuple[str, str], set[Decimal]] | None = None,
+                         demo_identity: Iterable[str] = ()) -> list[str]:
+    """What decision 72 b refuses in one public text: DEMO and execution identifiers (by name and by value), bulk raw
+    third-party data and secrets. Empty means the text may be shown."""
+    problems: list[str] = []
+    for value in sorted(DEMO_ACCOUNT_LOGINS | {str(v) for v in demo_identity if str(v).strip()}):
+        if re.search(r"(?<![\w.])" + re.escape(value) + r"(?![\w])", text):
+            problems.append("DEMO or execution identifier (DEMO identity value)")
+    for kind, pattern in EXECUTION_TERMS:
+        if pattern.search(text):
+            problems.append("DEMO or execution identifier (%s)" % kind)
+    written = list(_numerals(text))
+    for number, r_only, kind in execution:
+        if any(_matches(number, r_only, w, places, as_r) for w, places, as_r in written):
+            problems.append("DEMO or execution identifier (%s %s)" % (kind, number))
+    shown = {abs(Decimal(m.group(1).replace(",", ""))) for m in _LISTED.finditer(text)}
+    shown = {w for w in shown if _significant(w) >= 2}
+    for (dataset, provider), values in sorted((raw_tables or {}).items()):
+        if len(shown & values) >= BULK_MIN_VALUES:
+            problems.append("bulk raw third-party data (%s, %s)" % (dataset, provider))
+    if OPTION_ROW[0].search(text) and OPTION_ROW[1].search(text) and len(written) >= 2:
+        problems.append("bulk raw third-party data (option-chain row)")
+    for sentence in _sentences(text):
+        if PREDICTION_MARKETS.search(sentence) and ODDS.search(sentence):
+            problems.append("bulk raw third-party data (prediction-market number)")
+            break
+    if SECRETS.search(text):
+        problems.append("secret")
+    return sorted(set(problems))
 
 
 def _matches(private: Decimal, r_only: bool, written: Decimal, places: int, as_r: bool) -> bool:
@@ -304,33 +456,23 @@ def _matches(private: Decimal, r_only: bool, written: Decimal, places: int, as_r
     return written in {private.quantize(step, rounding=ROUND_HALF_UP), private.quantize(step, rounding=ROUND_DOWN)}
 
 
+def public_text_context(doc: dict[str, Any]) -> dict[str, Any]:
+    """The document-wide inputs of ``public_text_problems``."""
+    return {"execution": _execution_numbers(doc), "raw_tables": _raw_tables(doc)}
+
+
 def check_public_text(
-    doc: dict[str, Any], allowed: Iterable[str] = ("public",)
+    doc: dict[str, Any], allowed: Iterable[str] = ("public",), demo_identity: Iterable[str] = ()
 ) -> list[str]:
-    """Producer rule on what a surface will show: no consensus or trading terms, no private provider
-    names, and no private number of three or more significant digits."""
+    """Producer rule on what a surface will show (Jim's decision 72 b): no DEMO or execution identifier, matched by
+    name and by value (login, server, balance, lots, tickets, fills, USD P&L, order levels named as such, R
+    multiples), no bulk raw third-party data (a run of values from one private table or series, an option-chain
+    row, a prediction-market number) and no secret. Cited prices, moves and yields, a consensus figure with its
+    source, and Capital Chronicle model levels in any wording pass, whatever private value they equal."""
     projected = project(doc, allowed)
-    vendor_classes = {
-        "MARKET_CONSENSUS_PRIVATE_ONLY",
-        "RIGHTS_MISSING",
-        "FRED_SOURCE_RIGHTS_BLOCKED",
-        "BROKER_PROXY_RAW_PRIVATE",
-    }
-    providers = {
-        s["provider"] for s in doc["sources"] if s["rights_class"] in vendor_classes
-    }
-    numbers = _private_numbers(doc)
+    context = {**public_text_context(doc), "demo_identity": tuple(demo_identity)}
     problems: list[str] = []
     for path, field in iter_fields({name: projected[name] for name in RECORD_LISTS}):
-        if not isinstance(field["value"], str):
-            continue
-        text = field["value"]
-        if PRIVATE_TERMS.search(text):
-            problems.append(f"{path}: private term")
-        for provider in providers:
-            if provider.split(" ")[0].lower() in text.lower():
-                problems.append(f"{path}: private provider {provider}")
-        for number, r_only in numbers:  # numerals compared as numbers, not strings (CC-045's check, 31 Oct)
-            if any(_matches(number, r_only, written, places, as_r) for written, places, as_r in _numerals(text)):
-                problems.append(f"{path}: private number {number}")
+        if isinstance(field["value"], str):
+            problems += [f"{path}: {problem}" for problem in public_text_problems(field["value"], **context)]
     return problems

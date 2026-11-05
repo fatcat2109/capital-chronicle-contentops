@@ -66,7 +66,40 @@ def test_supported_export_reaches_native_selection_with_exact_public_fields(tmp_
     assert all(f["rights_class"] != "DEMO_DERIVED_PRIVATE" for r in records for f in r["binding"]["fields"])
 
 
-@pytest.mark.parametrize("version", ["0.9.0", "1.4.0", "2.0.0"])
+def test_schema_1_4_export_reaches_native_selection_with_cited_figures_and_model_estimates(tmp_path):
+    # CC-262's 5 Nov replay of real inputs (schema 1.4.0, CC-264): the cited consensus figures, the public official
+    # expectation and our labelled model estimates reach the writer's input; raw rows and private anchors never do.
+    path = FIXTURE.with_name("desk_record_export_v1_4.fixture.json")
+    doc = json.loads(path.read_bytes())
+    spec = {"path": str(path), "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+            "allow_fixture_private_preview": True}
+    store = ContentOpsDurableStore(tmp_path / "copy.sqlite3")
+    feed = MainReportFeed(LatestReportDeliveryTracker(store), {"desk_record_exports": [spec]}, headline_paths=[])
+    turn = NativeDesktopTurn(store, run_id="version-1.4.0", output_dir=tmp_path / "article", owner_manual_validation=True)
+    with pytest.raises(DesktopInputRequired) as pending:
+        feed.opportunity(output_dir=tmp_path / "article", cutoff_utc="2026-11-05T12:00:00Z", run_id=turn.run_id,
+                         rolling_input={"headlines": []}, llm_invoke=turn)
+    request = json.dumps(pending.value.request)
+    assert all(str(sentinel) not in request for sentinel in doc["fixture_sentinels"])
+    frozen = json.loads(store.get_outbox_message("native-current-input-" + sha256_of(turn.run_id))["payload"])
+    fields = {f["citation"].split("#", 1)[1]: f for r in frozen["feed_scan"]["desk_record_sources"]
+              for f in r["binding"]["fields"]}
+    nfp = fields["event:US_NFP_20261106/consensus_citation/value"]
+    assert (nfp["display"], nfp["rights_class"], nfp["cited_provider"], nfp["cited_on"]) == (
+        "63", "CITED_THIRD_PARTY_FACT", "Investing.com", "2026-11-04")
+    sep = fields["event:US_NFP_20261106/expectation_anchors/fomc:unemployment_rate:2026:percent_q4_average:2026-09-16/value"]
+    assert (sep["display"], sep["cited_on"], sep["cited_label"]) == ("4.1", "2026-09-16", "Cited official expectation")
+    regime = fields["asset:US500/options_positioning/regime"]
+    assert regime["display"] == "NEGATIVE" and regime["estimate_label"] == "Capital Chronicle model estimate"
+    assert regime["notices"] == ["Analysis, not financial advice.",
+                                 "Capital Chronicle may hold positions in the markets it covers."]
+    assert not [c for c in fields if "/expectation_anchors/cleveland:" in c or "/expectation_anchors/spf:" in c]
+    assert all(f["rights_class"] not in {"MARKET_CONSENSUS_PRIVATE_ONLY", "OPTIONS_GEX_PRIVATE_ONLY",
+                                         "DEMO_DERIVED_PRIVATE", "OFFICIAL_SOURCE_CONTRACT_PENDING"} for f in fields.values())
+    assert not [c for c in fields if c.endswith("/expectation") or c.endswith("/net_gex") or c.endswith("/gross_gex")]
+
+
+@pytest.mark.parametrize("version", ["0.9.0", "1.5.0", "2.0.0"])
 def test_unknown_schema_is_named_without_falling_back_to_another_contract(tmp_path, version):
     with pytest.raises(ValueError, match="DESK_EXPORT_SCHEMA_VERSION_UNSUPPORTED"):
         read_export(write_export(tmp_path, versioned_doc(version)), cutoff_utc=NOW)

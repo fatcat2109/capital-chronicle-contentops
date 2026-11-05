@@ -3,11 +3,20 @@
 Evidence is a separately pinned admission from the existing source/rights owner,
 never a permission supplied by the article. This checker grants no publication
 authority and performs no model, transport, store or scheduler operation.
+
+Jim's decision 72 b (CC-262, CC-264): consensus, forecast, surprise, beat, miss and
+gamma are ordinary words here. A consensus figure is admitted as one
+CITED_THIRD_PARTY_FACT whose evidence names its source (``attribution``) and date
+(``cited_on``, YYYY-MM-DD), and the section that prints it names both. Our computed
+outputs are admitted as CC_MODEL_ESTIMATE facts (``estimate_label`` "Capital
+Chronicle model estimate"); the section that prints one carries the label, and the
+piece carries decision 40's two notices. DEMO identifiers, broker servers, lot sizes,
+R multiples, prediction-market numbers and unconditional calls stay refused.
 """
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from decimal import Decimal, InvalidOperation
 from hashlib import sha256
 import json
@@ -22,6 +31,13 @@ EVIDENCE_SCHEMA = "contentops.event_article_evidence.v1"
 DISCLAIMER = "This is general market analysis, not financial advice."
 PUBLIC_NOTICE = "Analysis, not financial advice."
 CONFLICTS_NOTICE = "Capital Chronicle may hold positions in the markets it covers."
+# Decision 72 b: the rights classes of a cited third-party figure and of our computed outputs (schema 1.4, CC-262).
+CITED_FACT = "CITED_THIRD_PARTY_FACT"
+MODEL_ESTIMATE = "CC_MODEL_ESTIMATE"
+MODEL_ESTIMATE_LABEL = "Capital Chronicle model estimate"
+# Host rule 7: single facts with their source and date, never a table or series from one source. Four or more
+# figures from one source in one piece are its table, as in the canonical check_public_text (BULK_MIN_VALUES = 4).
+CITED_FACTS_PER_SOURCE_LIMIT = 3
 ARTICLE_TYPES = ("EVENT_PREVIEW", "EVENT_REVIEW")
 REACTION_ASSETS = {"rates", "dollar", "gold", "oil", "indices", "sectors"}
 SECTIONS = {
@@ -40,11 +56,17 @@ _PRIVATE_KEY = re.compile(
     r"sizes?|sizing|lots?|volume|account|demo|mt5|positions?|holdings?|"
     r"balances?|equity|pnl|profit|loss|fills?|orders?|tickets?)(?:_|$)"
 )
+# DEMO and execution identifiers (decision 40, host rule 7). The broker server, DEMO logins and lot sizes follow the
+# canonical check_public_text (CC-262): "Exness-MT5Trial8", "279805139", "0.05 lots" and "lot size" are refused,
+# while "a lot of" or "lots of" in ordinary prose is not a size.
 _PRIVATE_TEXT = re.compile(
-    r"\b(?:demo|mt5|stop[ -]?loss|take[ -]?profit|entry price|entry level|"
-    r"position siz(?:e|ing)|account (?:id|number|balance|equity)|"
+    r"\b(?:demo|mt[45]|mt5\s*trial\d*|exness[\w-]*|metatrader\s*\d?|stop[ -]?loss|take[ -]?profit|entry price|"
+    r"entry level|position siz(?:e|ing)|account (?:id|number|balance|equity)|"
     r"portfolio (?:positions?|results?|returns?)|our (?:positions?|holdings?)|"
-    r"p\s*&\s*l|lots?)\b|(?<!\w)[+-]?\d+(?:\.\d+)?\s*r\b", re.I
+    r"p\s*&\s*l|lot\s+sizes?)\b|"
+    r"(?<![\w.])(?:\d+(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|half\s+a|a\s+single)\s*"
+    r"(?:standard\s+|mini\s+|micro\s+)?lots?\b|"
+    r"(?<!\w)[+-]?\d+(?:\.\d+)?\s*r\b|(?<![\w.])(?:279805139|279779602)(?!\w)", re.I
 )
 _INSTRUCTION = re.compile(
     r"\b(?:go|stay|remain)\s+(?:long|short)\b|"
@@ -70,6 +92,45 @@ _NUMBER = re.compile(
 )
 _NEVER_PUBLIC = {"NOT_GRANTED", "UNKNOWN", "UNCLASSIFIED", "LICENSE_REQUIRED",
                  "CONDITIONAL", "INTERNAL_RESEARCH_ONLY"}
+# Digits that belong to a name, not a figure: a maturity, a quarter, a group, an index or its CFD symbol ("the 10-year
+# yield", "S&P 500", "US500"). A figure written beside a name ("S&P 500 at 6,812") still needs its own binding.
+NAMED_NUMBER = re.compile(
+    r"(?<![\w.,])\d{1,2}-(?:year|month|week|day)\b|\bQ[1-4]\b|\bG-?(?:7|20)\b|"
+    r"\bS&P\s?(?:100|400|500|600)\b|\bNasdaq[- ]?100\b|\bRussell\s?(?:1000|2000|3000)\b|"
+    r"\bFTSE\s?(?:100|250|350)\b|\b(?:DAX|CAC)\s?40\b|\bNikkei\s?225\b|"
+    r"\b(?:Euro\s)?Stoxx\s?(?:Europe\s)?(?:50|600)\b|\b(?:ASX|KOSPI)\s?200\b|"
+    r"\b(?:US500|US30|US100|US2000|SPX500|NAS100|UK100|GER40|DE40|FRA40|EU50|JP225|AUS200|HK50)\b", re.I)
+_ISO_DAY = re.compile(r"\d{4}-\d{2}-\d{2}")
+_MONTHS = ("january", "february", "march", "april", "may", "june", "july", "august",
+           "september", "october", "november", "december")
+
+
+def iso_day(value: Any) -> bool:
+    """A calendar date written YYYY-MM-DD, as a cited figure's ``cited_on``."""
+    if not isinstance(value, str) or not _ISO_DAY.fullmatch(value):
+        return False
+    try:
+        date.fromisoformat(value)
+    except ValueError:
+        return False
+    return True
+
+
+def cited_date_pattern(iso_date: str) -> re.Pattern[str]:
+    """The ways prose writes one cited date: 2026-11-04, 4 November, 4th Nov. 2026, November 4, Nov 4, 2026.
+
+    The day never joins a longer number and the year is optional. Shared by the event checker and the desk-record
+    citation check, so a consensus figure's date is part of its citation, never an unbound number."""
+    if not iso_day(iso_date):
+        raise ValueError("CITED_DATE_INVALID")
+    day = date.fromisoformat(iso_date)
+    month = _MONTHS[day.month - 1]
+    names = sorted({month, month[:3], *(("sept",) if day.month == 9 else ())}, key=len, reverse=True)
+    mon = r"(?:%s)\.?" % "|".join(names)
+    num = r"(?<![\d.,])0?%d(?:st|nd|rd|th)?(?!\d)(?![.,]\d)" % day.day
+    year = r"(?:,?\s+%d(?!\d))?" % day.year
+    return re.compile(r"\b%s\b|%s\s+(?:of\s+)?%s(?![a-z])%s|\b%s\s+%s%s" % (
+        re.escape(iso_date), num, mon, year, mon, num, year), re.I)
 
 
 class PublicOutputError(ValueError):
@@ -158,8 +219,9 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
                      r"CODEX[_ ]*DIGEST[_ ]*INTERNAL|DEMO[_ ]*DERIVED[_ ]*PRIVATE)", text, re.I):
             _fail("PRIVATE_LABEL_IN_PUBLIC_COPY", "copy")
         for sentence in re.split(r"[\n.!?](?!\d)", text):
+            # Odds stay in words (decision 40); an index or maturity name beside a market is not a number.
             if (re.search(r"\b(?:Kalshi|Polymarket|prediction.market|market odds)\b", sentence, re.I)
-                    and _NUMBER.search(sentence)):
+                    and _NUMBER.search(NAMED_NUMBER.sub(" ", sentence))):
                 _fail("PREDICTION_MARKET_NUMBER_FORBIDDEN", "copy")
     return {"status": "PASS", "policy": "JIM_DECISIONS_35_40", "conditional_call_count": len(calls)}
 
@@ -247,6 +309,13 @@ def _fact(fact: Any, cutoff: datetime, event_time: datetime, location: str) -> s
             or not isinstance(fact.get("display"), str) or not fact["display"].strip()
             or not isinstance(fact.get("use_label"), str) or not fact["use_label"].strip()):
         _fail("SOURCE_BINDING_REQUIRED", location)
+    # Decision 72 b: a cited third-party figure names its source and date; our model output carries its label.
+    if rights.strip().upper() == CITED_FACT and (
+            not isinstance(fact.get("attribution"), str) or not fact["attribution"].strip()
+            or not iso_day(fact.get("cited_on"))):
+        _fail("CITED_FACT_SOURCE_AND_DATE_REQUIRED", location)
+    if rights.strip().upper() == MODEL_ESTIMATE and fact.get("estimate_label") != MODEL_ESTIMATE_LABEL:
+        _fail("MODEL_ESTIMATE_LABEL_REQUIRED", location)
     known = _time(fact.get("known_at_utc"), location)
     if known > cutoff:
         _fail("EVIDENCE_AFTER_CUTOFF", location)
@@ -262,6 +331,13 @@ def check_public_event_article(article: Mapping[str, Any], *,
     The caller must pin evidence from project(public) or the existing dossier
     source/rights owner. A writer must never author that context. In particular,
     CC-104's public terms decision is required before market odds enter it.
+
+    A CITED_THIRD_PARTY_FACT (a consensus figure) is one fact: its evidence carries
+    ``attribution`` and ``cited_on``, the section printing it names both, and its date
+    there is part of the citation. At most three figures from one source appear in a
+    piece; four are its table. A CC_MODEL_ESTIMATE carries ``estimate_label``; the
+    section printing it says "Capital Chronicle model estimate", and the piece carries
+    decision 40's notices.
     """
     if not isinstance(article, Mapping):
         _fail("ARTICLE_OBJECT_REQUIRED", "article")
@@ -318,6 +394,9 @@ def check_public_event_article(article: Mapping[str, Any], *,
     if not isinstance(bindings, list):
         _fail("NUMERIC_BINDINGS_REQUIRED", "article.numeric_bindings")
     coverage = {path: [] for path in texts}
+    cited_dates = {path: [] for path in texts}  # a cited figure's own date, part of its citation
+    cited_by_source: dict[str, set[str]] = {}
+    model_estimate_bound = False
     for index, binding in enumerate(bindings):
         location = f"numeric_bindings[{index}]"
         if not isinstance(binding, Mapping) or set(binding) != {"copy_path", "start", "end", "evidence_ref"}:
@@ -329,7 +408,8 @@ def check_public_event_article(article: Mapping[str, Any], *,
                 or not isinstance(binding["evidence_ref"], str)):
             _fail("NUMERIC_BINDING_SPAN_INVALID", location)
         surface = texts[path][start:end]
-        display = _fact(evidence["facts"].get(binding["evidence_ref"]), cutoff, event_time, location)
+        fact = evidence["facts"].get(binding["evidence_ref"])
+        display = _fact(fact, cutoff, event_time, location)
         # Exact wording, precision, sign and unit remain source-owned. Only Unicode
         # presentation and digit grouping may differ; numbers are never inferred.
         if _display_text(surface) != _display_text(display) or not _numbers(surface):
@@ -337,15 +417,34 @@ def check_public_event_article(article: Mapping[str, Any], *,
         if any(start < b and a < end for a, b in coverage[path]):
             _fail("OVERLAPPING_NUMERIC_BINDINGS", location)
         coverage[path].append((start, end))
+        rights = fact["rights_class"].strip().upper()
+        section = _text(texts[path])
+        if rights == CITED_FACT:
+            dates = [m.span() for m in cited_date_pattern(fact["cited_on"]).finditer(section)]
+            if _text(fact["attribution"]).strip().casefold() not in section.casefold() or not dates:
+                _fail("CITED_FACT_SOURCE_AND_DATE_REQUIRED", location)
+            cited_dates[path].extend(dates)
+            cited_by_source.setdefault(_text(fact["attribution"]).strip().casefold(), set()).add(
+                _display_text(display))
+        elif rights == MODEL_ESTIMATE:
+            if MODEL_ESTIMATE_LABEL.casefold() not in section.casefold():
+                _fail("MODEL_ESTIMATE_LABEL_REQUIRED", location)
+            model_estimate_bound = True
+    if any(len(figures) > CITED_FACTS_PER_SOURCE_LIMIT for figures in cited_by_source.values()):
+        _fail("THIRD_PARTY_TABLE_OR_SERIES_FORBIDDEN", "article.numeric_bindings")
+    if model_estimate_bound and CONFLICTS_NOTICE not in "\n".join(
+            re.sub(r"[`*_]", "", _text(value)) for value in texts.values()):
+        _fail("CONFLICTS_NOTICE_REQUIRED", "copy")
     for path, text in texts.items():
         # Work on original offsets; normalisation above must not move span bounds.
         normalized = _text(text)
         if len(normalized) != len(text) and _numbers(text):
             _fail("NUMERIC_TEXT_REQUIRES_PLAIN_UNICODE", path)
+        names = [m.span() for m in NAMED_NUMBER.finditer(normalized)]
         for match in _NUMBER.finditer(normalized):
             start, end = match.span()
             end = len(normalized[:end].rstrip())
-            if not any(a <= start and end <= b for a, b in coverage[path]):
+            if not any(a <= start and end <= b for a, b in coverage[path] + cited_dates[path] + names):
                 _fail("UNBOUND_PUBLIC_NUMBER", path)
     return {"status": "PASS", "public_copy_sha256": sha256(
                 json.dumps(copy, sort_keys=True, ensure_ascii=False, allow_nan=False).encode()).hexdigest(),

@@ -10,8 +10,10 @@ from pathlib import Path
 from jsonschema import Draft202012Validator, FormatChecker
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import _load, _time, sha256_of
+from live_contentops.event_article_guard_v1 import NAMED_NUMBER, cited_date_pattern, iso_day
 from tools.product.desk_record_projection_v1 import (
-    RECORD_LISTS, check_clocks, check_public_text, check_references, is_field, project,
+    CITED_FACT, MODEL_ESTIMATE, MODEL_ESTIMATE_LABEL, MODEL_ESTIMATE_NOTICES, RECORD_LISTS, check_clocks,
+    check_public_text, check_references, is_field, project, public_text_problems,
 )
 
 PRODUCER_COMMIT = "89e59374eda3686271a0df4690e74b2e2d3f996a"
@@ -21,8 +23,13 @@ SCHEMA_PATHS = {
     "1.1.0": SCHEMA_PATH.with_name("CapitalChronicleDeskRecordExportV1_1.schema.json"),
     "1.2.0": SCHEMA_PATH.with_name("CapitalChronicleDeskRecordExportV1_2.schema.json"),
     "1.3.0": SCHEMA_PATH.with_name("CapitalChronicleDeskRecordExportV1_3.schema.json"),
+    # CC-262 (Jim's decision 72 b): our model estimates and one cited consensus figure per release are public.
+    "1.4.0": SCHEMA_PATH.with_name("CapitalChronicleDeskRecordExportV1_4.schema.json"),
 }
 FIXTURE_NOTICE = "Fixture, not current data. Private acceptance preview; never publish."
+# List items reached by their producer id (citations never use array offsets). anchor_id and level_id are schema 1.4's
+# expectation anchors and modelled GEX key levels; an anchor also names its measure, so its own id comes first.
+_ITEM_IDS = ("anchor_id", "level_id", "measure_id", "metric_id", "update_id", "section_id", "scenario_id")
 
 
 def display_value(field, *, observations_decimals=None):
@@ -33,7 +40,12 @@ def display_value(field, *, observations_decimals=None):
         return "true" if value else "false"
     if isinstance(value, (int, float)):
         number = Decimal(str(value))
-        decimals = field.get("decimals", 0)
+        decimals = field.get("decimals")
+        if decimals is None and number != number.to_integral_value():
+            # Schema 1.4 (CC-262): a model estimate or a cited figure may declare no precision. It is shown exactly
+            # as the producer wrote it; a whole number keeps its whole display.
+            return format(number, "f")
+        decimals = decimals or 0
         quantum = Decimal(1).scaleb(-decimals)
         if number != number.quantize(quantum):
             raise ValueError("DESK_NUMBER_PRECISION_MISMATCH")
@@ -47,20 +59,31 @@ def display_value(field, *, observations_decimals=None):
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
 
 
-def record_fields(node, path=""):
-    """Use producer ids, never array offsets, in the required record citations."""
+def record_fields(node, path="", parent=None):
+    """Use producer ids, never array offsets, in the required record citations. Yields (path, Field, the object
+    holding it)."""
     if is_field(node):
-        yield path, node
+        yield path, node, parent
     elif isinstance(node, dict):
         for key, value in node.items():
-            yield from record_fields(value, path + "/" + key)
+            yield from record_fields(value, path + "/" + key, node)
     elif isinstance(node, list):
         for value in node:
             if not isinstance(value, dict):
                 continue
-            identity = next((value[k] for k in ("measure_id", "metric_id", "update_id", "section_id", "scenario_id") if k in value), None)
+            identity = next((value[k] for k in _ITEM_IDS if k in value), None)
             if identity is not None:
-                yield from record_fields(value, path + "/" + identity)
+                yield from record_fields(value, path + "/" + identity, node)
+
+
+def _citation_terms(field, holder):
+    """A cited third-party figure's source and date as the export states them beside it (schema 1.4): a consensus
+    citation's provider and observed_on, an official expectation's provider, label and released_on."""
+    if field.get("rights_class") != CITED_FACT or not isinstance(holder, dict):
+        return {}
+    terms = {"cited_provider": holder.get("provider"), "cited_on": holder.get("observed_on") or holder.get("released_on"),
+             "cited_label": holder.get("label") if isinstance(holder.get("label"), str) else None}
+    return {k: v for k, v in terms.items() if isinstance(v, str) and v.strip()}
 
 
 def read_export(spec, *, cutoff_utc):
@@ -93,11 +116,13 @@ def read_export(spec, *, cutoff_utc):
     for kind in RECORD_LISTS:
         for record in public[kind]:
             fields = []
-            for path, field in record_fields(record):
+            for path, field, holder in record_fields(record):
                 fields.append({"citation": public["export_id"] + "#" + record["record_id"] + path,
                     "field_path": path, "value": field["value"], "display": display_value(field,
                         observations_decimals=record["decimals"] if kind == "data_series" and path == "/observations" else None),
-                    **{k: field[k] for k in ("unit", "decimals", "rights_class", "use_label", "source_ids") if k in field}})
+                    **{k: field[k] for k in ("unit", "decimals", "rights_class", "use_label", "source_ids",
+                                             "estimate_label", "notices") if k in field},
+                    **_citation_terms(field, holder)})
             if not fields:
                 continue
             ids = sorted({sid for f in fields for sid in f["source_ids"]})
@@ -187,27 +212,55 @@ def validate_article_citations(article, records):
                 or sha256_of(cite.get("value")) != sha256_of(field["value"])
                 or any(cite.get(k) != field.get(k) for k in ("value", "display", "decimals", "unit"))):
             raise ValueError("DESK_ARTICLE_VALUE_OR_PRECISION_CHANGED")
-    source_ids = {sid for cite in citations for sid in facts[cite["citation"]]["source_ids"]}
+    cited_fields = [facts[cite["citation"]] for cite in citations]
+    source_ids = {sid for field in cited_fields for sid in field["source_ids"]}
     required_sources = {source["source_id"]: source for r in records for source in r["binding"]["sources"]
         if source["source_id"] in source_ids}
     body = article.get("substack_body_markdown", "")
+    folded = body.casefold()
     for source in required_sources.values():
-        for key in ("attribution", "disclaimer"):
-            if source.get(key) and source[key].casefold() not in body.casefold():
+        # Decision 72 b: a model-estimate source is shown by the label and decision 40's notices, and a cited figure by
+        # its source's name and its date (both below); their one-line export disclaimers say the same.
+        rights = source.get("rights_class")
+        keys = () if rights == MODEL_ESTIMATE else ("attribution",) if rights == CITED_FACT else ("attribution", "disclaimer")
+        for key in keys:
+            if source.get(key) and source[key].casefold() not in folded:
                 raise ValueError("DESK_ARTICLE_SOURCE_" + key.upper() + "_REQUIRED")
-    if any(r["binding"]["fixture"] for r in records) and "fixture, not current data" not in body.casefold():
+    if (any(field.get("rights_class") == MODEL_ESTIMATE for field in cited_fields)
+            or any(source.get("rights_class") == MODEL_ESTIMATE for source in required_sources.values())):
+        if MODEL_ESTIMATE_LABEL.casefold() not in folded:
+            raise ValueError("DESK_ARTICLE_MODEL_ESTIMATE_LABEL_REQUIRED")
+        if any(notice.casefold() not in folded for notice in MODEL_ESTIMATE_NOTICES):
+            raise ValueError("DESK_ARTICLE_MODEL_ESTIMATE_NOTICES_REQUIRED")
+    # A consensus figure or an official expectation is one fact with its source and date: the export's observed_on or
+    # released_on beside it, else the day its source was known. Its source's attribution is required above.
+    cited_days = set()
+    for field in cited_fields:
+        if field.get("rights_class") == CITED_FACT:
+            known = sorted(str(s.get("known_at_utc") or "") for s in required_sources.values()
+                           if s["source_id"] in field["source_ids"])
+            day = field.get("cited_on") or (known[0][:10] if known else "")
+            if not iso_day(day) or not cited_date_pattern(day).search(body):
+                raise ValueError("DESK_ARTICLE_CITED_FACT_DATE_REQUIRED")
+            cited_days.add(day)
+    if any(r["binding"]["fixture"] for r in records) and "fixture, not current data" not in folded:
         raise ValueError("DESK_FIXTURE_NOTICE_REQUIRED")
-    # The producer's text checks run before projection. These checks also cover new prose.
-    from tools.product.desk_record_projection_v1 import PRIVATE_TERMS
+    # The producer's text checks run before projection. These checks also cover new prose, under the same rule
+    # (decision 72 b): DEMO and execution identifiers, raw third-party rows and secrets are refused; consensus,
+    # forecast, beat, miss, surprise and gamma are ordinary words.
     prose = " ".join(str(article.get(k) or "") for k in (
         "title", "dek", "search_title", "meta_description", "substack_body_markdown", "social_hook", "social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"))
-    if PRIVATE_TERMS.search(prose):
-        raise ValueError("DESK_ARTICLE_PRIVATE_DERIVATION_TERMS")
-    if "analysis, not financial advice" not in body.casefold():
+    problems = public_text_problems(prose)
+    if problems:
+        raise ValueError("DESK_ARTICLE_PRIVATE_OR_RAW_TEXT: " + "; ".join(problems))
+    if "analysis, not financial advice" not in folded:
         raise ValueError("DESK_ARTICLE_ANALYSIS_NOTICE_REQUIRED")
     numbers = re.compile(r"(?<![A-Za-z0-9])[-+]?\d+(?:[.,]\d+)*")
     allowed = {n for cite in citations for n in numbers.findall(cite["display"])}
     prose = re.sub(r"https?://\S+|\[\[SOURCE:[^\]]+\]\]", "", prose)
+    for day in sorted(cited_days):  # a cited figure's own date is part of its citation
+        prose = cited_date_pattern(day).sub(" ", prose)
+    prose = NAMED_NUMBER.sub(" ", prose)  # "S&P 500", "the 10-year yield": names, not figures
     if set(numbers.findall(prose)) - allowed:
         raise ValueError("DESK_ARTICLE_UNBOUND_OR_CHANGED_NUMBER")
     return {"citation_count": len(citations), "citations_sha256": sha256_of(citations),

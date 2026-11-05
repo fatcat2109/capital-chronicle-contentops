@@ -68,7 +68,9 @@ def test_mutated_producer_input_is_refused(tmp_path, change, error):
         card = next(c for c in doc["event_cards"] if c["event_id"] == "US_NFP_20261106")
         card["measures"][0]["expectation"]["visibility"] = "public"
     elif change == "text_leak":
-        doc["asset_dossiers"][0]["headline_analysis"].update(value="In line with consensus", missing_cause=None)
+        # Decision 72 b (CC-262): consensus wording is public; a DEMO identifier is not.
+        doc["asset_dossiers"][0]["headline_analysis"].update(value="Held on DEMO login 279805139 at 0.5 lots.",
+                                                             missing_cause=None)
         doc["asset_dossiers"][0]["headline_analysis"].pop("missing_cause", None)
     elif change == "clock":
         doc["sources"][0]["known_at_utc"] = "2026-10-31T12:00:00Z"
@@ -103,15 +105,22 @@ def test_exact_citations_retain_value_and_display_decimals():
 
 
 @pytest.mark.parametrize("change,error", [("value", "VALUE_OR_PRECISION"), ("display", "VALUE_OR_PRECISION"),
-    ("prose", "UNBOUND_OR_CHANGED_NUMBER"), ("notice", "FIXTURE_NOTICE"), ("private_term", "PRIVATE_DERIVATION")])
+    ("prose", "UNBOUND_OR_CHANGED_NUMBER"), ("notice", "FIXTURE_NOTICE"), ("private_text", "PRIVATE_OR_RAW_TEXT")])
 def test_article_cannot_change_values_or_hide_fixture_state(change, error):
     value = article()
     if change == "value": value["desk_record_citations"][0]["value"] = 3.5
     elif change == "display": value["desk_record_citations"][0]["display"] = "3.40"
     elif change == "prose": value["substack_body_markdown"] = value["substack_body_markdown"].replace("3.4", "3.5")
     elif change == "notice": value["substack_body_markdown"] = value["substack_body_markdown"].replace("Fixture, not current data.", "")
-    else: value["title"] = "Rate beats consensus"
+    else: value["title"] = "Our DEMO account balance rose"  # decision 72 b: DEMO identifiers stay private
     with pytest.raises(ValueError, match=error): validate_article_citations(value, sources())
+
+
+def test_consensus_wording_is_an_ordinary_word_in_desk_articles():
+    # Decision 72 b (CC-264): the old term list refused this title; consensus, beat and miss now pass.
+    value = article()
+    value["title"] = "Rate beats consensus; a miss would surprise"
+    assert validate_article_citations(value, sources())["citation_count"] == 1
 
 
 def test_feed_freezes_projected_desk_records_in_the_existing_native_request(tmp_path):

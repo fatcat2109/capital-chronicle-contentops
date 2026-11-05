@@ -1498,8 +1498,18 @@ def _public_copy_integrity_blockers(
     return blockers
 
 
+def _carries_model_estimates(document: Mapping[str, Any]) -> bool:
+    """A source the owner admitted as Capital Chronicle model estimates (Jim's decision 72 b, CC-262): a desk-record
+    projection with CC_MODEL_ESTIMATE fields, or a document whose reuse constraints name that rights class."""
+    if (document.get("source_reuse_constraints") or {}).get("rights_class") == "CC_MODEL_ESTIMATE":
+        return True
+    desk = document.get("desk_record_binding") or {}
+    return any(isinstance(row, Mapping) and row.get("rights_class") == "CC_MODEL_ESTIMATE"
+               for row in [*(desk.get("fields") or []), *(desk.get("sources") or [])])
+
+
 def _editorial_growth_edge_blockers(
-    article: Mapping[str, Any], *, article_mode: str | None
+    article: Mapping[str, Any], *, article_mode: str | None, model_estimates_cited: bool = False
 ) -> list[str]:
     mode = str(article_mode or "").upper()
     public_copy = _public_copy(article)
@@ -1510,7 +1520,9 @@ def _editorial_growth_edge_blockers(
     reserved = [m for m in _RESERVED_CC_NUMERIC_AUTHORITY_RE.finditer(public_copy)
         if not re.search(r"\b(?:not|rather than)\s+(?:(?:the )?release result or )?(?:a |the )?$",
             public_copy[max(0, m.start()-70):m.start()], re.I)]
-    if reserved:
+    # Decision 72 b (CC-264): when the piece cites our model estimates, Capital Chronicle's forecast, scenario,
+    # probability or regime is that labelled model output; without such a source it would be invented (host rule 8).
+    if reserved and not (model_estimates_cited and "capital chronicle model estimate" in public_copy.casefold()):
         blockers.append("capital_chronicle_reserved_numeric_authority_unavailable")
     return blockers
 
@@ -1751,7 +1763,8 @@ def _validate_article_against_source_pack(
                 blockers.append("retained_background_label_required:" + field)
     blockers.extend(_public_copy_integrity_blockers(article, cited_by_id))
     blockers.extend(
-        _editorial_growth_edge_blockers(article, article_mode=article_mode)
+        _editorial_growth_edge_blockers(article, article_mode=article_mode, model_estimates_cited=any(
+            _carries_model_estimates(document) for document in cited_by_id.values()))
     )
     blockers.extend(_epistemic_copy_blockers(article, claims, epistemic_state, source_pack=source_pack))
     body = _normal(_SOURCE_MARKER_RE.sub("", str(article.get("substack_body_markdown") or "")))

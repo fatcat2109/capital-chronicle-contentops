@@ -1,4 +1,9 @@
-"""Consumer checks against the producer's exact numeric policy; isolated fixtures only."""
+"""Consumer checks against the producer's exact numeric policy; isolated fixtures only.
+
+Since Jim's decision 72 b (CC-262, CC-264) only DEMO execution values are matched by value (R values as R multiples);
+one number equal to a private consensus, GEX or plan value is a cited figure or a model level and passes, while a run
+of values from one private table is bulk raw data and a DEMO identifier is refused.
+"""
 import json
 from pathlib import Path
 
@@ -10,7 +15,9 @@ from live_contentops.capital_chronicle_report_feed_v1 import MainReportFeed
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired, NativeDesktopTurn
 from tests.test_capital_chronicle_desk_record_source_v1 import FIXTURE, NOW, spec
-from tools.product.desk_record_projection_v1 import RECORD_LISTS, iter_fields
+from tools.product.desk_record_projection_v1 import RECORD_LISTS, iter_fields, public_text_context
+
+FIXTURE_1_4 = FIXTURE.with_name("desk_record_export_v1_4.fixture.json")
 
 
 def write_export(tmp_path, doc):
@@ -30,22 +37,47 @@ def private_number(doc, rights, value):
     field["value"] = value
 
 
+def headline(records):
+    record = next(r for r in records if r["binding"]["record_id"] == "asset:USDJPY")
+    return next(f["value"] for f in record["binding"]["fields"] if f["field_path"] == "/headline_analysis")
+
+
 @pytest.mark.parametrize("rights", ["MARKET_CONSENSUS_PRIVATE_ONLY", "OPTIONS_GEX_PRIVATE_ONLY", "DEMO_DERIVED_PRIVATE"])
 @pytest.mark.parametrize("written", ["2,412.35", "2412.4", "2412.3", "\u22122412.35"])
-def test_consumer_refuses_reformatted_private_values_before_creating_source_records(tmp_path, rights, written):
+def test_one_number_equal_to_a_private_value_is_a_cited_or_model_level(tmp_path, rights, written):
     doc = json.loads(FIXTURE.read_bytes())
     private_number(doc, rights, 2412.35)
-    dossier(doc)["headline_analysis"]["value"] = f"The retained level was {written} at the close."
-    with pytest.raises(ValueError, match="DESK_EXPORT_REFERENCE_CLOCK_OR_PUBLIC_TEXT_INVALID"):
-        read_export(write_export(tmp_path, doc), cutoff_utc=NOW)
+    text = f"The retained level was {written} at the close."
+    dossier(doc)["headline_analysis"]["value"] = text
+    assert headline(read_export(write_export(tmp_path, doc), cutoff_utc=NOW)) == text
 
 
 @pytest.mark.parametrize("written", ["157.695", "157.70"])
-def test_private_prose_numbers_are_refused_at_exact_and_allowed_rounded_precision(tmp_path, written):
+def test_a_number_written_only_inside_private_prose_is_a_cited_level(tmp_path, written):
     doc = json.loads(FIXTURE.read_bytes())
     doc["decision_records"][0]["rationale"]["value"] = "Entry reference 157.695 on the retained quote."
-    dossier(doc)["headline_analysis"]["value"] = f"The level was near {written} during the release."
-    with pytest.raises(ValueError, match="REFERENCE_CLOCK_OR_PUBLIC_TEXT"):
+    text = f"The level was near {written} during the release."
+    dossier(doc)["headline_analysis"]["value"] = text
+    assert headline(read_export(write_export(tmp_path, doc), cutoff_utc=NOW)) == text
+
+
+def test_a_run_of_one_private_consensus_table_is_refused_as_bulk_raw_data(tmp_path):
+    # The 5 Nov replay holds CC-068's real rows; four values of one provider's table are its table, not a citation.
+    doc = json.loads(FIXTURE_1_4.read_bytes())
+    values = sorted(public_text_context(doc)["raw_tables"][("cc068_private_release_consensus", "myfxbook")])
+    assert len(values) >= 4
+    usdjpy = next(d for d in doc["asset_dossiers"] if d["asset_id"] == "USDJPY")
+    usdjpy["headline_analysis"]["value"] = "Rows: " + ", ".join(format(v, "f") for v in values)
+    with pytest.raises(ValueError, match="DESK_EXPORT_REFERENCE_CLOCK_OR_PUBLIC_TEXT_INVALID"):
+        read_export(write_export(tmp_path, doc), cutoff_utc="2026-11-05T12:00:00Z")
+
+
+@pytest.mark.parametrize("text", ["Held on DEMO login 279805139.", "Orders route to Exness-MT5Trial8.",
+                                  "We bought 0.10 lots of gold.", "Ticket 1234567890 closed at the stop."])
+def test_a_demo_identifier_in_producer_text_is_refused(tmp_path, text):
+    doc = json.loads(FIXTURE.read_bytes())
+    dossier(doc)["headline_analysis"]["value"] = text
+    with pytest.raises(ValueError, match="DESK_EXPORT_REFERENCE_CLOCK_OR_PUBLIC_TEXT_INVALID"):
         read_export(write_export(tmp_path, doc), cutoff_utc=NOW)
 
 
@@ -87,7 +119,8 @@ def test_public_official_point_eight_percent_does_not_collide_with_short_private
 def test_invalid_private_prose_export_never_enters_existing_native_input(tmp_path):
     doc = json.loads(FIXTURE.read_bytes())
     doc["decision_records"][0]["rationale"]["value"] = "Entry reference 157.695 on the retained quote."
-    leak = "CONTROLLED-PRIVATE-NUMBER-LEAK near 157.70"
+    # Decision 72 b: the leak a producer text may not carry is a DEMO identifier, by name or by value.
+    leak = "CONTROLLED-PRIVATE-LEAK on DEMO login 279805139 near 157.70"
     dossier(doc)["headline_analysis"]["value"] = leak
     invalid = write_export(tmp_path, doc)
     store = ContentOpsDurableStore(tmp_path / "isolated.sqlite3")

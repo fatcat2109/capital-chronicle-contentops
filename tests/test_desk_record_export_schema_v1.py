@@ -180,15 +180,19 @@ def test_projection_drops_a_field_that_cites_a_private_source() -> None:
     )
 
 
-def test_text_check_catches_a_consensus_judgement_and_a_private_number() -> None:
+def test_text_check_passes_consensus_wording_and_levels_and_catches_a_demo_identifier() -> None:
+    # Decision 72 b (CC-262): consensus wording and levels pass; DEMO and execution identifiers are refused.
     doc = _doc()
     _dossier(doc, "USDJPY")["headline_analysis"]["value"] = (
-        "In line with consensus; short from 999.111."
+        "In line with consensus; model level 999.111."
+    )
+    assert check_public_text(doc) == []
+    _dossier(doc, "USDJPY")["headline_analysis"]["value"] = (
+        "Held on DEMO login 279805139 at 0.5 lots."
     )
     problems = check_public_text(doc)
-    assert any("private term" in p for p in problems) and any(
-        "private number" in p for p in problems
-    )
+    assert any("DEMO or execution identifier (DEMO identity value)" in p for p in problems)
+    assert any("DEMO or execution identifier (lot size)" in p for p in problems)
 
 
 def test_reference_check_catches_an_unsorted_series_window() -> None:
@@ -348,7 +352,8 @@ def test_record_lists_are_the_schema_record_lists() -> None:
     assert set(RECORD_LISTS) <= set(schema["required"])
 
 
-# CC-014 rights filter: private numbers are matched as numbers, not strings (CC-045's check, Ops 31 Oct).
+# CC-014 rights filter: numerals are matched as numbers, not strings (CC-045's check, Ops 31 Oct). Since decision
+# 72 b (CC-262) only DEMO execution values are matched by value: R values as R multiples, never a level.
 def _private_value(doc: dict[str, Any], value: Any) -> None:
     """Make the USDJPY open plan's entry (DEMO_DERIVED_PRIVATE) a given private value."""
     _dossier(doc, "USDJPY")["open_plans"][0]["entry"]["value"] = value
@@ -356,7 +361,7 @@ def _private_value(doc: dict[str, Any], value: Any) -> None:
 
 def _public_text(doc: dict[str, Any], text: str) -> list[str]:
     _dossier(doc, "USDJPY")["headline_analysis"]["value"] = text
-    return [p for p in check_public_text(doc) if "private number" in p]
+    return [p for p in check_public_text(doc) if "DEMO or execution identifier" in p]
 
 
 @pytest.mark.parametrize("text", [
@@ -365,10 +370,10 @@ def _public_text(doc: dict[str, Any], text: str) -> list[str]:
     "The level was 2412.3 at the close.",  # truncated to one decimal
     "The level was -2412.35 at the close.",  # a sign
 ])
-def test_a_reformatted_private_number_is_refused(text: str) -> None:
+def test_a_number_equal_to_a_private_plan_level_is_a_cited_or_model_level(text: str) -> None:
     doc = _doc()
     _private_value(doc, 2412.35)
-    assert _public_text(doc, text), text
+    assert _public_text(doc, text) == [], text
 
 
 def test_a_demo_result_in_r_is_refused_at_any_digit_count() -> None:
@@ -378,11 +383,11 @@ def test_a_demo_result_in_r_is_refused_at_any_digit_count() -> None:
     assert _public_text(doc, "The trade lost 0.8 R after the release.")
 
 
-def test_a_number_written_only_inside_private_prose_is_collected() -> None:
+def test_a_number_written_only_inside_private_prose_is_a_cited_level() -> None:
     doc = _doc()
     doc["decision_records"][0]["rationale"]["value"] = "Short kept; entry reference 157.695 on the recorded quote."
-    assert _public_text(doc, "USDJPY traded near 157.695 into the release.")
-    assert _public_text(doc, "USDJPY traded near 157.70 into the release.")  # rounded, five significant digits
+    assert _public_text(doc, "USDJPY traded near 157.695 into the release.") == []
+    assert _public_text(doc, "USDJPY traded near 157.70 into the release.") == []
 
 
 @pytest.mark.parametrize("private,text", [

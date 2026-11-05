@@ -1029,6 +1029,16 @@ class NativeDesktopTurn:
             native_guidance += "\n" + public_notice + "\n"
         if (native_guidance and '"desk_record_binding"' in canonical_bytes(kwargs.get("governed_input", {})).decode()
                 and (not frozen or "MAIN_DESK_RECORD_FIELDS" in frozen["prompt"])):
+            # CC-264 (Jim's decision 72 b): new requests may carry the cited consensus and our labelled model
+            # estimates; a frozen request keeps the text it was issued with.
+            public_line = ("Never publish it. A consensus figure or official expectation appears as one cited fact "
+                "with its source and date; our model estimates (scenario weights, the surprise against consensus, "
+                "betas, the modelled GEX regime and levels) say 'Capital Chronicle model estimate' and carry "
+                "'Analysis, not financial advice.' and 'Capital Chronicle may hold positions in the markets it covers.' "
+                "Never state a DEMO detail, an entry, stop or target level, a size or a prediction-market number. ")
+            if frozen and "Never publish it or state a consensus judgement" in frozen["prompt"]:
+                public_line = ("Never publish it or state a consensus judgement, trading level, GEX interpretation "
+                    "or private derived result. ")
             native_guidance += (
                 "\nMAIN_DESK_RECORD_FIELDS: Use only retained public fields. Add article.desk_record_citations "
                 "for each used field, copying citation, value, display, decimals and unit exactly from its binding "
@@ -1036,8 +1046,7 @@ class NativeDesktopTurn:
                 "come from memory or private data. Cite event cards and dossiers by the supplied export_id#record_id/field "
                 "identities in that metadata; use natural attribution in prose. Include source attribution and each "
                 "required disclaimer. Fixture-derived copy must say 'Fixture, not current data' and stay a private "
-                "preview. Never publish it or state a consensus judgement, trading level, GEX interpretation or private "
-                "derived result. Distinguish Main's reported analysis from independent event confirmation.\n")
+                "preview. " + public_line + "Distinguish Main's reported analysis from independent event confirmation.\n")
         if visual:
             native_guidance = native_guidance.replace(
                 "say it is not supplied in source notes.", "retain that missing clock in internal evidence metadata.")
