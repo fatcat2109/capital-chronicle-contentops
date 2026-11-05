@@ -1,0 +1,32 @@
+{
+  "checked_at_utc": "2026-11-05T17:26:40.622042+00:00",
+  "run_id": "cc124-nfp-us500-preview-20261105-g",
+  "canonical_url": "https://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut",
+  "canonical_id": "223651009",
+  "canonical_state": "RECONCILED_CONFIRMED",
+  "posted_native_objects": {
+    "x": {
+      "public_object_id": "2118390909213786336",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118390909213786336",
+      "dispatched_at_utc": "2026-11-05T17:12:03.587Z"
+    },
+    "youtube": {
+      "public_object_id": "UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V",
+      "public_object_url": "https://www.youtube.com/post/UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V",
+      "dispatched_at_utc": "2026-11-05T17:17:45.031Z"
+    },
+    "linkedin-company": {
+      "public_object_id": "urn:li:ugcPost:7524157727577841664",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7524157727577841664/",
+      "dispatched_at_utc": "2026-11-05T17:16:31.159Z"
+    }
+  },
+  "linkedin_member_state": "API_UNKNOWN_WRITE; refreshed own activity feed absent after ten minutes; fresh readback reconciliation pending",
+  "distribution_target_minutes": 15,
+  "distribution_target_met": false,
+  "first_text_approval_utc": "2026-11-05T16:38:22.436512+00:00",
+  "live_recovery_fix": "856a2038",
+  "all_social_image_similarity_min": 0.9952,
+  "schedule_changed": false,
+  "chat_messages_sent": false
+}

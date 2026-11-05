@@ -1,0 +1,57 @@
+{
+  "observed_at_utc": "2026-11-05T17:23:43.066417+00:00",
+  "images": [
+    {
+      "destination": "x",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118390909213786336",
+      "public_image_url": "https://pbs.twimg.com/media/HWYJHggaIAAJcp4?format=jpg&name=small",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_readback\\x-0-public.png",
+      "platform_sha256": "54b05c5882abcb5e410d83c1018a228975659d1d470667f9e00e9563d49670c0",
+      "size_bytes": 23905,
+      "source_asset_sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+      "similarity": 0.9987,
+      "mime_type": "image/jpeg",
+      "width": 680,
+      "height": 491
+    },
+    {
+      "destination": "linkedin-company",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7524157727577841664/",
+      "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQHCwBBx3fK4ug/feedshare-shrink_480/B56aGstlJ0KcAg-/0/1793898992476?e=1795651200&v=beta&t=eRIiy0YGOYlPf6l_2VBlEsI4zOrVa1A-1Os7Dgfq4Vc",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_readback\\linkedin-company-0-public.png",
+      "platform_sha256": "6a10a0c1514c3b241ccc4bb133ee38207201f6f6555d1a24d3ce4072d42ae673",
+      "size_bytes": 14546,
+      "source_asset_sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+      "similarity": 0.9986,
+      "mime_type": "image/jpeg",
+      "width": 480,
+      "height": 346
+    },
+    {
+      "destination": "linkedin-company",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7524157727577841664/",
+      "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQGgSI--lJcKSQ/feedshare-shrink_480/B56aGstlKvHQAY-/0/1793898992594?e=1795651200&v=beta&t=CCt69Y8Tx6u3DyV6IIClJdoOLfhQYCcaifIbTLi7Uu4",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_readback\\linkedin-company-1-public.png",
+      "platform_sha256": "a9f63fdd4e67fc3317c92ad61ba7ce887cfd3eda450c1c70b1c8c4fa97dba2a1",
+      "size_bytes": 17483,
+      "source_asset_sha256": "cd75d01f410ebe235b42cfb0f0718250992ee46b2b2b19e941fbc8b9bc31d8c3",
+      "similarity": 0.9982,
+      "mime_type": "image/jpeg",
+      "width": 480,
+      "height": 346
+    },
+    {
+      "destination": "youtube",
+      "public_object_url": "https://www.youtube.com/post/UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V",
+      "public_image_url": "https://yt3.ggpht.com/-kKPlp7OKeogAHI_-3qMLk_fENz7XRCC2zc2aI_tDZ7tMmS6BY7Q9Pmtsh_YakfvXZo1jUCwJKesCg=s640-rw-nd-v1",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_readback\\youtube-0-public.png",
+      "platform_sha256": "c7affab9131ea77236f20106299bfe1ffe031ab251e006b59edc3bfff48a7ce4",
+      "size_bytes": 9598,
+      "source_asset_sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+      "similarity": 0.9952,
+      "mime_type": "image/webp",
+      "width": 640,
+      "height": 462
+    }
+  ]
+}

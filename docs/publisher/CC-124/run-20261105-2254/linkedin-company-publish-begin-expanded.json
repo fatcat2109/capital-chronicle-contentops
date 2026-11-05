@@ -1,0 +1,157 @@
+{
+  "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+  "operation_id": "cc124-nfp-us500-preview-20261105-g",
+  "public_write_authorized": true,
+  "request": {
+    "action": "PUBLISH",
+    "canonical_url": "https://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut",
+    "content_binding": {
+      "artifact_manifest": [
+        {
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\reviewed-handoff\\310372c7328288e2fcf3dc2b2cb1741d076dfcc3a6c3459ced519d87df28e673\\run_context_v1.json",
+          "sha256": "fb1e00d5f2af38728c54d74644a0f99841aa90554f86b3961888f73bb9e44957"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\reviewed-handoff\\310372c7328288e2fcf3dc2b2cb1741d076dfcc3a6c3459ced519d87df28e673\\delivery_media_manifest_v1.json",
+          "sha256": "0c41606a7b19fbaa364c298ac7d8df62402dfd778e082ee906dedaa0ad7e6a92"
+        }
+      ],
+      "expected_text_segments": [
+        "Jobs watch: weaker hiring can cut both ways for US stocks\n\nWhy it matters: Lower Treasury yields could support equity valuations if investors also lower the rate they use to value future profits.\n\nContext: Continued hiring, stable unemployment and moderating wage growth would fit orderly cooling. Rising unemployment and further downward revisions would strengthen the growth-risk interpretation.\n\nRead the full brief: https://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nSource: BLS."
+      ],
+      "expected_thread_texts": [],
+      "media_manifest": [
+        {
+          "alt_text": "September payroll changes, thousands of jobs: private goods-producing +18, private services +28, government -17. Sum: +29. Seasonally adjusted, preliminary.",
+          "asset_id": "cc124-jobs-payroll-employer-groups",
+          "attribution": "Source: U.S. Bureau of Labor Statistics, 2 October 2026. Calculations/chart: Capital Chronicle.",
+          "caption": "September preliminary estimates: private goods +18, private services +28, government -17; total nonfarm +29 thousand jobs. Government is derived as total nonfarm minus total private. Sources: [U.S. Bureau of Labor Statistics](https://www.bls.gov/news.release/archives/empsit_10022026.htm).",
+          "modality": "source_backed_chart",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_assets\\jobs-source-bound-r1\\media_assets\\cc124-jobs-payroll-employer-groups.png",
+          "placement_after": "The last jobs report was weak, but not uniform",
+          "sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+          "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+        },
+        {
+          "alt_text": "Official nominal 10-year Treasury daily par yields from 1 September to 4 November 2026, ending at 4.90 percent.",
+          "asset_id": "cc124-jobs-treasury-10y-backdrop",
+          "attribution": "Source: U.S. Department of the Treasury. Independent chart: Capital Chronicle.",
+          "caption": "Exact official observations from 1 September through 4 November 2026; final nominal par yield 4.90%. Dated context, not live US10Y CFD pricing or causal evidence. Sources: [U.S. Department of the Treasury](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026).",
+          "modality": "source_backed_chart",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_assets\\jobs-source-bound-r1\\media_assets\\cc124-jobs-treasury-10y-backdrop.png",
+          "placement_after": "A lower yield is only half the equity story",
+          "sha256": "cd75d01f410ebe235b42cfb0f0718250992ee46b2b2b19e941fbc8b9bc31d8c3",
+          "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        }
+      ],
+      "thread_post_count": 0
+    },
+    "destination": "linkedin_company",
+    "dispatch_attempt_identity": "dispatch_67c10356d4ff69f7cac635b1d236dfa7",
+    "entry_url": "https://www.linkedin.com/company/143198922/admin/page-posts/published/",
+    "expected_identity": "linkedin:company:143198922",
+    "forbidden": [
+      "login",
+      "reauthorize",
+      "account_switch",
+      "cookies",
+      "storage",
+      "blind_retry",
+      "bulk_x_ingestion"
+    ],
+    "intent_sha256": "b0dfd2d5b2d9f066b2814193228f6410067030695124996a19897f829569df9d",
+    "native_payload": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "cc124-jobs-payroll-employer-groups",
+        "cc124-jobs-treasury-10y-backdrop"
+      ],
+      "media_source_links": {
+        "cc124-jobs-payroll-employer-groups": [
+          {
+            "document_id": "cc124-bls-september-employment-original",
+            "label": "U.S. Bureau of Labor Statistics",
+            "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+          }
+        ],
+        "cc124-jobs-treasury-10y-backdrop": [
+          {
+            "document_id": "cc124-treasury-nominal-20261104",
+            "label": "U.S. Department of the Treasury",
+            "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          }
+        ]
+      },
+      "platform_limit": 3000,
+      "text": "Jobs watch: weaker hiring can cut both ways for US stocks\n\nWhy it matters: Lower Treasury yields could support equity valuations if investors also lower the rate they use to value future profits.\n\nContext: Continued hiring, stable unemployment and moderating wage growth would fit orderly cooling. Rising unemployment and further downward revisions would strengthen the growth-risk interpretation.\n\nRead the full brief: https://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nSource: BLS."
+    },
+    "package_identity": "d7a94c3e262d509250b599af57b0353475a1f3670830a78d5f6b27e6f87d2245",
+    "payload": "Jobs watch: weaker hiring can cut both ways for US stocks\n\nWhy it matters: Lower Treasury yields could support equity valuations if investors also lower the rate they use to value future profits.\n\nContext: Continued hiring, stable unemployment and moderating wage growth would fit orderly cooling. Rising unemployment and further downward revisions would strengthen the growth-risk interpretation.\n\nRead the full brief: https://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nSource: BLS.",
+    "payload_hash": "cddb1741e1044f21748fd13037ffae3b33ee85085c700ae52ced8d3785e48a08",
+    "public_object_id": null,
+    "public_object_url": null,
+    "request_sha256": "f229cc3a58d69a0f725ee631df6aa9c0429cf40b0d729249524f98a783c8a05c",
+    "schema_version": "contentops.neo_destination_handoff.v1",
+    "steps": [
+      "name_session; list tabs, open a task-owned tab",
+      "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+      "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+      "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+      "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+    ],
+    "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+    "surface": "LINKEDIN_COMPANY_POST",
+    "work_item_id": "cc124-nfp-us500-preview-20261105-g"
+  },
+  "required_tool": "mcp__browseros_neo__run",
+  "schema_version": "contentops.native_neo_tool_request.v1",
+  "tool_request_sha256": "913f8775a1fe5de762e7cf627592f0f7496c1d25c802a3ff92016b54d09ac523",
+  "browser_workspace": {
+    "policy": "JIM_DECISION_63",
+    "window": "Use the one existing BrowserOS Neo window. Create one only if none exists.",
+    "tabs": "Open tabs with tabs action=new and groupId in this task's group, titled Capital Chronicle/<task>. Leave Jim's and other agents' tabs untouched."
+  },
+  "upload_policy": {
+    "method": "BROWSEROS_NEO_UPLOAD_OR_FILE_CHOOSER_INTERCEPTION",
+    "source_scope": "ARTICLE_OWN_MEDIA_FOLDER",
+    "bound_media_paths": [
+      "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_assets\\jobs-source-bound-r1\\media_assets\\cc124-jobs-payroll-employer-groups.png",
+      "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_assets\\jobs-source-bound-r1\\media_assets\\cc124-jobs-treasury-10y-backdrop.png"
+    ],
+    "native_file_dialog": "FORBIDDEN_STOP_WITH_NATIVE_FILE_DIALOG_OPEN"
+  },
+  "composed_run": {
+    "policy": "CC-283",
+    "one_run": "One BrowserOS Neo run script does all five steps in this order, in this task's tab. It replaces the request's steps list: no separate identity, snapshot or binding step first.",
+    "1_identity": {
+      "expected_identity": "linkedin:company:143198922",
+      "expected_stable_id": "143198922",
+      "rule": "Read the signed-in account and compare it with the expected identity and stable id. While in this identity or any other pre-write part, result.stage is BEFORE_PUBLISH_CLICK. A mismatch or an unreadable identity returns FAILED_BEFORE_WRITE with definite_no_write true, stage BEFORE_PUBLISH_CLICK and no click."
+    },
+    "2_compose": "Enter each post below in its own composer box, in order, with its bound media. For a thread, add each next box with the composer's add-post control and wait until that box exists and has focus; then enter the post's whole text in one operation, newlines included. Never enter a post paragraph by paragraph, or before its box is ready.",
+    "3_verify_before_click": {
+      "posts": [
+        "Jobs watch: weaker hiring can cut both ways for US stocks\n\nWhy it matters: Lower Treasury yields could support equity valuations if investors also lower the rate they use to value future profits.\n\nContext: Continued hiring, stable unemployment and moderating wage growth would fit orderly cooling. Rising unemployment and further downward revisions would strengthen the growth-risk interpretation.\n\nRead the full brief: https://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nSource: BLS."
+      ],
+      "rule": "Before the click, read every composer box's text back and compare it with its post, with whitespace collapsed and a link allowed to render shortened. Every post must match, in order, with no box missing or extra. Re-enter a box that differs once and compare again. If any post still differs, return FAILED_BEFORE_WRITE with definite_no_write true, stage BEFORE_PUBLISH_CLICK and no click."
+    },
+    "4_publish": "Immediately BEFORE the publish click, set the observation's dispatched_at_utc and result.stage = PUBLISH_CLICK_ATTEMPTED; then click once to publish the exact payload.",
+    "5_readback": "Right after the click, in the same run, read back the published object (id, url, text, media) and return it as composed.readback. This readback confirms the destination: no separate readback turn follows, and the next destination's run starts after it.",
+    "return": {
+      "result": "the publish result, as for any PUBLISH step, with its stage",
+      "composed": {
+        "identity": [
+          "authenticated",
+          "observed_identity",
+          "observed_stable_id",
+          "observed_at_utc"
+        ],
+        "pre_click_posts": "REQUIRED with any write: the composer texts read in step 3, in order. A return without them is refused; if they were not read, submit nothing",
+        "readback": "REQUIRED with any write: the READBACK result fields (status, observed_identity, public_object_id, public_object_url, observed_text, content_verified, media) observed in this run after the click. A return without it is refused"
+      }
+    },
+    "after_click": "FAILED_BEFORE_WRITE is a definite no-write only for an account mismatch or stage BEFORE_PUBLISH_CLICK. Any other failure, including a missing stage, is UNKNOWN_WRITE; the coordinator reads back before any retry.",
+    "after_run": "Submit this run's return at once, then start the next destination's run. Extra checks of a destination already read back (media comparisons, evidence files, commits) wait until every destination has gone out."
+  }
+}

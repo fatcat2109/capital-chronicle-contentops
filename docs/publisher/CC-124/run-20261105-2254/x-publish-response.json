@@ -1,0 +1,67 @@
+{
+  "tool_request_sha256": "674cd6c364c0516c29ebb2138f741ec2e47a8928318b43d4a1ad0b1de1695050",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T17:13:21.945Z",
+    "observation_source": "Neo page 579: three exact composer posts read before one Post all click; exact public thread and loaded payroll image read after click.",
+    "dispatched_at_utc": "2026-11-05T17:12:03.587Z"
+  },
+  "result": {
+    "request_sha256": "5cf20d42a618e0cde58e8dd2e8e66c32fe3e190958845b8b157344dd45913ccb",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2118390909213786336",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118390909213786336",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "@Capitalnicle",
+      "observed_at_utc": "2026-11-05T17:11:49.132Z"
+    },
+    "pre_click_posts": [
+      "Jobs watch: weaker hiring can cut both ways for US stocks\n\nhttps://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut\n\nSource: BLS.",
+      "A weak jobs headline can ease rate pressure and weaken the earnings outlook at the same time.\n\nThe S&P 500 needs both sides of that story.",
+      "Watch: A falling yield by itself will not distinguish relief about rates from worry about growth.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "@Capitalnicle",
+      "public_object_id": "2118390909213786336",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118390909213786336",
+      "observed_text": "Jobs watch: weaker hiring can cut both ways for US stocks\n\nhttps://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut\u2026\n\nSource: BLS.\n\nA weak jobs headline can ease rate pressure and weaken the earnings outlook at the same time.\n\nThe S&P 500 needs both sides of that story.\n\nWatch: A falling yield by itself will not distinguish relief about rates from worry about growth.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+      "observed_thread": [
+        {
+          "observed_text": "Jobs watch: weaker hiring can cut both ways for US stocks\n\nhttps://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut\u2026\n\nSource: BLS.",
+          "public_image_urls": [
+            "https://pbs.twimg.com/media/HWYJHggaIAAJcp4?format=jpg&name=small"
+          ],
+          "public_object_url": "https://x.com/Capitalnicle/status/2118390909213786336",
+          "public_object_id": "2118390909213786336"
+        },
+        {
+          "observed_text": "A weak jobs headline can ease rate pressure and weaken the earnings outlook at the same time.\n\nThe S&P 500 needs both sides of that story.",
+          "public_image_urls": [],
+          "public_object_url": "https://x.com/Capitalnicle/status/2118390912741212452",
+          "public_object_id": "2118390912741212452"
+        },
+        {
+          "observed_text": "Watch: A falling yield by itself will not distinguish relief about rates from worry about growth.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+          "public_image_urls": [],
+          "public_object_url": "https://x.com/Capitalnicle/status/2118390915492679869",
+          "public_object_id": "2118390915492679869"
+        }
+      ],
+      "content_verified": true,
+      "public_image_urls": [
+        "https://pbs.twimg.com/media/HWYJHggaIAAJcp4?format=jpg&name=small"
+      ],
+      "media_check_state": "PENDING_BINARY_COMPARISON",
+      "public_write_performed": false
+    }
+  }
+}

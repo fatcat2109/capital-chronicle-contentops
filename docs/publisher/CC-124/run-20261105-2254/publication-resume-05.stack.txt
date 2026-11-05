@@ -1,0 +1,33 @@
+Timeout (0:00:20)!
+Thread 0x000048f0 (most recent call first):
+  File "C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1138 in read
+  File "C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1304 in recv_into
+  File "C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 719 in readinto
+  File "C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 292 in _read_status
+  File "C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 331 in begin
+  File "C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1430 in getresponse
+  File "C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 1323 in do_open
+  File "C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 1367 in https_open
+  File "C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 466 in _call_chain
+  File "C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 506 in _open
+  File "C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 489 in open
+  File "C:\Users\bullw\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 189 in urlopen
+  File "A:\Capital Chronicle\ContentOps\live_contentops\facebook_page_adapter_v6.py", line 61 in _post_form
+  File "A:\Capital Chronicle\ContentOps\live_contentops\facebook_page_adapter_v6.py", line 222 in execute_facebook_photo
+  File "A:\Capital Chronicle\ContentOps\live_contentops\_eight_platform_substack_first_pipeline_impl_v1.py", line 1403 in _publish_facebook_photo_verified
+  File "A:\Capital Chronicle\ContentOps\live_contentops\_eight_platform_substack_first_pipeline_impl_v1.py", line 4587 in _publish_one_destination_from_durable_intent
+  File "A:\Capital Chronicle\ContentOps\live_contentops\publication_coordinator_v1.py", line 4100 in publish
+  File "A:\Capital Chronicle\ContentOps\live_contentops\publication_coordinator_v1.py", line 2556 in _dispatch_message
+  File "A:\Capital Chronicle\ContentOps\live_contentops\publication_coordinator_v1.py", line 3723 in recover_pending
+  File "A:\Capital Chronicle\ContentOps\live_contentops\publication_coordinator_v1.py", line 3165 in _execute_plan
+  File "A:\Capital Chronicle\ContentOps\live_contentops\publication_coordinator_v1.py", line 3061 in _execute_site_first_plan
+  File "A:\Capital Chronicle\ContentOps\live_contentops\publication_coordinator_v1.py", line 3006 in execute_plan
+  File "A:\Capital Chronicle\ContentOps\live_contentops\native_desktop_publication_v1.py", line 688 in resume
+  File "scripts/run_native_desktop_editorial.py", line 259 in _operation
+  File "scripts/run_native_desktop_editorial.py", line 542 in operation
+  File "scripts/run_native_desktop_editorial.py", line 916 in main
+  File "scripts/run_native_desktop_editorial.py", line 933 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 98 in _run_module_code
+  File "<frozen runpy>", line 287 in run_path
+  File "<string>", line 1 in <module>
