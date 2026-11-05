@@ -1,0 +1,32 @@
+{
+  "run_id": "cc124-next-article-20261105-d",
+  "article_identity": "1c80e0bb53b1ae6e7e26977e226b5fecb62698f173ce8dfe6ada24360e8e4bc7",
+  "title": "EIA oil inventories: the sharper squeeze is in distillates",
+  "writer_response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\desktop_response_write.json",
+  "writer_response_sha256": "8c55c5f0bea9a3edb3d0986d6b27941792c2914eea5aa6e7d42ef1d1c111ab33",
+  "writer_observation": {
+    "invocation_id": "/root/native_max_eia_614cb1caef28",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Frozen write request requested_model/requested_reasoning_effort and same-writer parent assignment; no actual runtime model/effort telemetry exposed to this child.",
+    "observation_source": "Supported collaboration native task /root/native_max_eia_614cb1caef28; same invocation chose the accepted visual plan and authored this article from the frozen write request."
+  },
+  "qualified_article_count": 1,
+  "supported_material_claim_count": 20,
+  "derivative_intent_count": 8,
+  "revision_performed": false,
+  "source_request_count": 12,
+  "source_request_limit": 20,
+  "article_sha256": "23b5feb06711457a6fe3b15e08453653d4ecd3d229b954c761972e7c045ad3b8",
+  "native_previews_sha256": "77c50009b278c2680236d148675f5259aaf04dfd28eef186e48ef30d46a34c2f",
+  "media_count": 5,
+  "pending_publication_recovery_dispatch_ids": [],
+  "unused_revise_request": "Frozen native repair request retained but never executed; deterministic official-host attribution fix allowed original writer return to qualify."
+}
