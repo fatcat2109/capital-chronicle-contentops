@@ -1,0 +1,532 @@
+{
+  "request_sha256": "7bc6eb30046d64188c2c1980ae5f25927548ef553601fbfde2437bec70423a91",
+  "output": {
+    "schema_version": "contentops.v1_simple_gemini_article.v1",
+    "article": {
+      "title": "Lower Treasury yields leave Bitcoin's demand question open",
+      "dek": "The nominal 10-year Treasury yield fell to 4.90% on November 4. That can ease one cost of holding Bitcoin, while leaving investors' appetite for its price risk unanswered.",
+      "search_title": "Bitcoin and lower Treasury yields: the demand test",
+      "meta_description": "Treasury's November 4 yield decline offers one possible support for Bitcoin. The jobs-report watch still needs separate evidence of Bitcoin demand.",
+      "social_hook": "Treasury's 10-year yield fell to 4.90% on November 4. Lower interest elsewhere can help Bitcoin's case; it does not establish that buyers are returning.",
+      "substack_body_markdown": "On November 4, the U.S. Treasury's nominal 10-year par yield was 4.90%, down from 4.95% on November 3. For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]]\n\nCapital Chronicle's view is that lower Treasury yields can ease one cost of holding Bitcoin, while leaving the demand question open. A bond-yield decline alone does not establish a Bitcoin recovery. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]]\n\n## What the Treasury figures show\n\nRead the series as a nominal 10-year Treasury yield. It is not the Federal Reserve's policy-rate target or an inflation-adjusted yield. The chart ends on November 4 and shows no Bitcoin price performance. [[SOURCE:SOURCE_1]]\n\n[[VISUAL:cc124-treasury-10y-nominal-2026-bitcoin-watch]] [[SOURCE:SOURCE_1]]\n\n[[VISUAL:cc124-bitcoin-fed-archive]] [[SOURCE:SOURCE_1]]\n\n## Why lower yields are only one part of the Bitcoin test\n\nThe opportunity-cost argument is conditional: if the yield on an interest-bearing alternative falls, choosing an asset that pays no interest would mean giving up less interest. That could make Bitcoin more attractive, other things equal. It does not tell us whether investors will make that choice. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]]\n\nAccess and appetite are different questions. In its September 9, 2024 investor bulletin, the SEC described spot Bitcoin ETPs as trusts that hold the asset and seek to track its price. It also warned that Bitcoin exposure remains highly speculative, including through an ETP, and highlighted price volatility. [[SOURCE:SOURCE_3]]\n\nThe counter-case deserves weight: lower yields could help if investors' willingness to hold Bitcoin remains intact. If that willingness weakens, however, reduced interest elsewhere might not be enough to offset reluctance to accept Bitcoin's price risk. The Treasury series does not establish either state of appetite. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]]\n\n## What would make the argument stronger\n\nFirst, watch whether lower Treasury yields persist. Then assess Bitcoin separately, using dated market observations and verified evidence of investment-product demand. Neither a Bitcoin move nor product flows can be read out of this bond chart. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]]\n\nIf yields fell while Bitcoin weakened, the rate relief would have failed to translate into price support. If Bitcoin strengthened while yields rose, a bond-yield explanation would be insufficient. Even a Bitcoin rise alongside falling yields would be consistent with the mechanism without proving it caused the move. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]]\n\n## The jobs report is a scheduled test\n\nThe Bureau of Labor Statistics schedules the October 2026 Employment Situation for November 6 at 8:30 a.m. EST. That is a release-calendar fact, not a payroll result or a consensus estimate. [[SOURCE:SOURCE_2]]\n\nAfter the release, check the observed Treasury-yield response and then the separate Bitcoin evidence. A jobs headline does not settle both questions. The useful watch is whether a more favourable rate backdrop is accompanied by an independently established willingness to hold Bitcoin. [[SOURCE:SOURCE_2]] [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]]\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers. [[SOURCE:SOURCE_1]]",
+      "reader_first_version": "DATA_JOURNALISM_V1",
+      "visual_editorial_decision": {
+        "amendment_summary": "The supplied exact archive photo identity and rights close the earlier optional-photo binding gap. Fresh own pixel inspection supports secondary macro context. The Treasury chart, its question/window and all eight chart selections are unchanged.",
+        "analysis_scope": "OTHER_ANALYSIS",
+        "analysis_scope_reason": "A conditional Bitcoin market watch using dated Treasury observations, SEC investor education and a BLS release schedule; it analyses neither a released payroll result nor a policy decision.",
+        "channel_media": {
+          "discord": [
+            "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+          ],
+          "facebook_page": [
+            "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+          ],
+          "instagram_business": [
+            "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+          ],
+          "linkedin": [
+            "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+          ],
+          "telegram": [
+            "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+          ],
+          "threads": [
+            "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+          ],
+          "x": [
+            "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+          ],
+          "youtube": [
+            "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+          ]
+        },
+        "channel_media_reason": "Each destination has the selected observed Treasury chart. Once the article-bound factual card exists, the same writer may choose its exact generated ID for compact social presentations during the revision-bound review. No placeholder card or photo identity is admitted by this plan.",
+        "charts": [
+          {
+            "asset_id": "cc124-treasury-10y-nominal-2026-bitcoin-watch",
+            "data_spec": {
+              "axis": "One clearly labelled percent axis. Use calendar dates on the horizontal axis and direct final-point labelling. Do not use a second axis, Bitcoin symbol, trading arrow or annotation that attributes a yield move to an unobserved cause.",
+              "canonical_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+              "caption": "Source: U.S. Treasury. Nominal 10-year par yield, percent, January 2-November 4, 2026; reported observations. This chart shows Treasury yields, not Bitcoin performance.",
+              "chart_form": "line",
+              "document_id": "cc124-treasury-nominal-20261104",
+              "frequency": "reported daily Treasury observations",
+              "latest_observation_date": "2026-11-04",
+              "latest_value_percent": "4.90",
+              "metric": "Official nominal 10-year Treasury par yield",
+              "missingness": "There are 212 reported rows in this retained capture. Do not manufacture weekends, holidays, later observations or missing values. Connecting reported points is a visual connector, not a claim that an unreported day's value was observed.",
+              "observation_count": 212,
+              "period_end": "2026-11-04",
+              "period_start": "2026-01-02",
+              "provenance_and_clock_rule": "Retain the original capture, known-at and publication clocks. The economic observations end November 4; later rereading does not make them November 6 market observations. This is not a retrospective of the unreleased jobs report.",
+              "rights_basis": "An original Capital Chronicle chart of admitted official Treasury numerical facts, with source attribution. Do not copy the Treasury page's expression, logos or graphic assets. Preserve the retained source capture and its existing rights binding.",
+              "source_id": "SOURCE_1",
+              "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+              "subtitle": "U.S. nominal 10-year Treasury par yield; reported daily observations, January 2-November 4, 2026",
+              "title": "The Treasury backdrop, through November 4",
+              "transform": "Code parses the exact 212 date/value pairs from the admitted document and plots the reported levels in chronological order at source precision. Label the final observation 4.90%, Nov 4. Any prose change from November 3 uses Decimal subtraction of the exact 4.95 and 4.90 percent observations, multiplied by 100 for basis points. Do not smooth, rebase, fit, calculate a correlation or derive a Bitcoin value.",
+              "unit": "percent per annum",
+              "value_status": "ACTUAL_REPORTED_OBSERVATION"
+            },
+            "placement_after": "What the Treasury figures show",
+            "question": "Where does the latest easing sit within the available 2026 Treasury yield history?",
+            "why_useful": "A full-window single series shows that the latest lower reading is one part of a changing yield backdrop. It supplies the actual observed evidence for the rate side of the argument while making no claim about Bitcoin's price or demand. A Bitcoin overlay or second yield measure would introduce unsupported evidence."
+          }
+        ],
+        "contextual_photo_ids": [
+          "cc124-bitcoin-fed-archive"
+        ],
+        "contextual_photo_plan": {
+          "alt_text": "The front entrance and facade of the Federal Reserve's Eccles Building, photographed in March 2011.",
+          "asset_id": "cc124-bitcoin-fed-archive",
+          "asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+          "caption": "Archive context: the Federal Reserve's Eccles Building, March 2011. Photo: Federal Reserve Board (Federalreserve), via Wikimedia Commons; public domain.",
+          "depicted_date": "2011-03-29 11:47",
+          "limits": "Authentic March 2011 Federal Reserve Board archive context only. It does not depict Bitcoin, the scheduled November 2026 jobs release, a present meeting or market demand. The retained public-domain record is for the Board of Governors work and is not an inference about regional Reserve Bank rights.",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_assets\\Eccles_Building_20110329.jpg",
+          "pixels_inspected": true,
+          "placement": "Secondary macro context in the canonical article after the Treasury chart and before the explanation of the two distinct Bitcoin tests. Keep the archive caption attached. The chart remains the selected image on all eight destinations.",
+          "prior_visual_review": {
+            "archive_context_clear": true,
+            "asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+            "caption_and_alt_match_subject": true,
+            "findings": "Viewed exact local original. The front facade and entrance of the Eccles Building are sharp, recognisable and appropriately framed. The retained caption identifies March 2011 archive context and the Federal Reserve Board/Commons public-domain credit; it makes no present-day meeting, jobs-release or corroboration claim. No generated or misleading scene is represented.",
+            "outcome": "KEEP",
+            "pixels_inspected": true,
+            "relevant_subject": true,
+            "review_scope": "exact local documentary photo and bound caption; assembled article and destination renditions pending",
+            "reviewed_at_utc": "2026-11-05T16:05:17.566136Z",
+            "reviewer": "/root/native_max_jobs_ed46a179bd88",
+            "reviewer_invocation_id": "/root/native_max_jobs_ed46a179bd88"
+          },
+          "rights_basis": "The exact Commons PD-USGov-Federal Reserve template identifies a Board of Governors work; regional Reserve Banks are explicitly excluded.",
+          "rights_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_assets\\photo-rights-evidence.json",
+          "rights_evidence_sha256": "c7bf3261dc389813f4acf019354ef0e7e20e9e880c340c0cc49edcee433267d4",
+          "source_page_url": "https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg",
+          "visual_review": {
+            "archive_context_clear": true,
+            "asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+            "caption_and_alt_match_subject": true,
+            "findings": "The inspected photograph shows the broad pale-stone facade and central columned entrance of the Federal Reserve Eccles Building, a flagpole above it, blue sky, lawn and approach. The main building is sharp, unobstructed and symmetrically framed. It is suitable as secondary institutional context for the discussion of the interest-rate backdrop. The retained March 2011 archive caption and full Federal Reserve Board/Commons public-domain credit must remain visible. The pixels do not establish a current Fed action, a Treasury-yield move, Bitcoin trading or investor demand. The depicted date and authorship come from the bound retained metadata, not from a visual inference.",
+            "inspection_method": "Actual view_image inspection of exact local JPEG in this canonical native role; file and rights evidence SHA256 read back.",
+            "outcome": "KEEP",
+            "pixels_inspected": true,
+            "relevant_subject": true,
+            "review_scope": "Exact local original photo plus bound caption, alt text and rights record; assembled article, chart and destination renderings remain for later revision-bound review.",
+            "reviewed_at_utc": "2026-11-05T18:16:51.906562Z",
+            "reviewer": "/root/native_visual_edit_1d9d8c3613e6",
+            "reviewer_invocation_id": "/root/native_visual_edit_1d9d8c3613e6"
+          }
+        },
+        "countercase": "A lower yield can matter to an asset that does not pay interest, so dismissing the rate backdrop would also go too far. But a nominal Treasury yield does not identify why yields changed, measure investors' willingness to bear Bitcoin risk, establish ETP inflows or determine Bitcoin's next move. The available sources support a conditional framework rather than an observed recovery, an empirical relationship or a directional forecast. No present weakening of risk appetite is established either.",
+        "editorial_mode": "WEEK_AHEAD_OR_WATCH",
+        "editorial_thesis": "Lower Treasury yields can reduce one reason to prefer an interest-bearing asset over Bitcoin, but that possible support does not establish demand for Bitcoin or a recovery. The admitted 10-year Treasury observation is 4.90% on November 4, 2026, after 4.95% on November 3. Explain the opportunity-cost mechanism conditionally, then distinguish it from the separate question of whether investors will accept Bitcoin's price volatility. The SEC's September 9, 2024 bulletin describes speculative exposure and volatility even through a spot ETP. The November 6 BLS calendar is a scheduled event to watch, not a jobs result or evidence of any Bitcoin response.",
+        "essential_gaps": [
+          "The supplied evidence supports a useful conditional watch without a current Bitcoin observation. Omit current Bitcoin price, direction, recovery, ETP flows and empirical correlation; no present weakening of risk appetite is established.",
+          "SOURCE_2 establishes the November 6 schedule only. The article must not anticipate an unreleased jobs result, consensus or market reaction.",
+          "The assembled final article, claim-bound card and chart pixels have not yet been inspected in this role. This is an editorial selection, not rendered acceptance. Keep the same canonical invocation for the writing and revision-bound visual follow-ups."
+        ],
+        "post_data_card_plan": {
+          "avoid": "No bullish arrow, demand score, implied probability, Bitcoin price, ETP-flow figure, risk-off label or claim that easier yields have already caused a recovery. Keep any conditional editorial statement distinct from the source facts.",
+          "construction": "Build with the existing post-data-card owner from the actual final article's admitted claim bindings. Use the final article's exact sentences, not this plan or stand-in prose. Prefer two short facts: the November 4 Treasury observation and the dated SEC description of speculative price exposure. Use the BLS schedule as a third fact only if all three remain fully readable. No new asset identity is invented before the final card is built.",
+          "placement_after": "Why lower yields are only one part of the Bitcoin test",
+          "planned_article_facts": [
+            {
+              "document_id": "cc124-treasury-nominal-20261104",
+              "fact": "The nominal 10-year Treasury par yield was 4.90% on November 4, 2026.",
+              "source_id": "SOURCE_1",
+              "support_excerpt": "2026-11-04 4.90"
+            },
+            {
+              "binding": "Use the exact admitted SEC passage and an independently worded sentence in the final article; do not present the bulletin as a new warning or a current flow observation.",
+              "document_id": "cc124-sec-bitcoin-etp-bulletin-20240909",
+              "fact": "The SEC's September 9, 2024 investor bulletin describes Bitcoin as highly speculative and says its price volatility remains a consideration when exposure is obtained through an ETP.",
+              "source_id": "SOURCE_3"
+            },
+            {
+              "binding": "If retained, reader copy uses date-correct EST or UTC. A schedule supplies no payroll result or consensus.",
+              "document_id": "cc124-bls-november-calendar",
+              "fact": "The BLS calendar schedules the October 2026 Employment Situation for November 6 at 8:30 a.m. Eastern Time.",
+              "source_id": "SOURCE_2"
+            }
+          ],
+          "purpose": "Give social readers the article's concrete dated facts while preserving the distinction between a rate backdrop and Bitcoin demand.",
+          "series_choice": "Use the Treasury history chart for the observed series. Do not add a miniature series to the card that would repeat the same visual; the card's exact factual prose must first exist in the final article.",
+          "title_intent": "Lower yields leave a second Bitcoin question",
+          "useful": true
+        },
+        "proposed_section_headings": [
+          "What the Treasury figures show",
+          "Why lower yields are only one part of the Bitcoin test",
+          "What would make the argument stronger",
+          "The jobs report is a scheduled test"
+        ],
+        "public_notices": [
+          "Analysis, not financial advice.",
+          "Capital Chronicle may hold positions in the markets it covers."
+        ],
+        "reader_first_version": "DATA_JOURNALISM_V1",
+        "rejected_visuals": [
+          {
+            "reason": "No matched Bitcoin price series or empirical calculation is admitted. These would imply measured evidence that this packet does not supply.",
+            "visual": "Bitcoin/yield overlay, fitted relationship or correlation"
+          },
+          {
+            "reason": "The packet has no current observation establishing those states. The SEC's dated ETP explanation supplies neither inflows nor demand.",
+            "visual": "Risk appetite, ETP flows or a Bitcoin recovery gauge"
+          },
+          {
+            "reason": "The BLS source is a release calendar, not a released result, consensus capture or historical employment series.",
+            "visual": "Payroll result, surprise, consensus or employment-component chart"
+          },
+          {
+            "reason": "Only the nominal 10-year Treasury history is admitted in this request; do not relabel it as a real yield, Fed policy rate or measured easing of monetary policy.",
+            "visual": "Real-yield or policy-rate chart"
+          },
+          {
+            "reason": "These would add no observed evidence, and the supplied request does not establish their authentic identity or rights.",
+            "visual": "Generic Bitcoin coin art, invented trading screen or an unbound archive photo"
+          }
+        ],
+        "slug": "bitcoin-lower-treasury-yields-demand-test-2026-11-06",
+        "story_kind": "ANALYSIS"
+      },
+      "canonical_slug_candidate": "bitcoin-lower-treasury-yields-demand-test-2026-11-06",
+      "primary_reader_question": "If Treasury yields ease, what else must be true before that is a useful positive signal for Bitcoin?",
+      "secondary_reader_questions": [
+        "What does the November 4 Treasury yield observation establish?",
+        "Why does access through a spot Bitcoin ETP leave price risk in place?",
+        "Which observations would challenge a simple yield-based Bitcoin argument?"
+      ],
+      "entities": [
+        "Bitcoin",
+        "U.S. Department of the Treasury",
+        "SEC Office of Investor Education and Advocacy",
+        "U.S. Bureau of Labor Statistics"
+      ],
+      "topics": [
+        "Bitcoin",
+        "Treasury yields",
+        "Investment-product demand",
+        "Employment Situation"
+      ],
+      "search_freshness_class": "DATED_PRE_RELEASE_WATCH",
+      "internal_link_candidates": [],
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "U.S. Treasury nominal 10-year par yields, 2 January through 4 November 2026; percent",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Department of the Treasury",
+        "primary_reporting_source_identity": "U.S. Department of the Treasury",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Department of the Treasury reports that U.S. Treasury nominal 10-year par yields, 2 January through 4 November 2026; percent",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "MULTI_SOURCE",
+        "supporting_document_ids": [
+          "cc124-bls-november-calendar",
+          "cc124-sec-bitcoin-etp-bulletin-20240909",
+          "cc124-treasury-nominal-20261104"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      }
+    },
+    "cited_sources": [
+      {
+        "source_id": "SOURCE_1",
+        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+        "publisher": "U.S. Department of the Treasury",
+        "published_at_utc": "2026-11-04T23:59:59Z"
+      },
+      {
+        "source_id": "SOURCE_2",
+        "url": "https://www.bls.gov/schedule/2026/11_sched.htm",
+        "publisher": "U.S. Bureau of Labor Statistics",
+        "published_at_utc": "2026-11-03T23:59:59Z"
+      },
+      {
+        "source_id": "SOURCE_3",
+        "url": "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins/ETPBulletinSeptember2024",
+        "publisher": "SEC Office of Investor Education and Advocacy",
+        "published_at_utc": "2024-09-09T23:59:59Z"
+      }
+    ],
+    "material_claim_bindings": [
+      {
+        "claim_id": "title-yield",
+        "claim_text": "Lower Treasury yields leave Bitcoin's demand question open",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "2026-11-03 4.95\n2026-11-04 4.90",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "title-bitcoin-risk",
+        "claim_text": "Lower Treasury yields leave Bitcoin's demand question open",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Investors should understand that bitcoin and ether are highly speculative investments. This includes when exposure is gained through an exchange-traded product (ETP). Investors should consider the volatility of the price of bitcoin and ether.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "dek-yield",
+        "claim_text": "The nominal 10-year Treasury yield fell to 4.90% on November 4. That can ease one cost of holding Bitcoin, while leaving investors' appetite for its price risk unanswered.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "2026-11-03 4.95\n2026-11-04 4.90",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "dek-bitcoin-risk",
+        "claim_text": "The nominal 10-year Treasury yield fell to 4.90% on November 4. That can ease one cost of holding Bitcoin, while leaving investors' appetite for its price risk unanswered.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Investors should understand that bitcoin and ether are highly speculative investments. This includes when exposure is gained through an exchange-traded product (ETP). Investors should consider the volatility of the price of bitcoin and ether.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "search_title-yield",
+        "claim_text": "Bitcoin and lower Treasury yields: the demand test",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "2026-11-03 4.95\n2026-11-04 4.90",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "search_title-bitcoin-risk",
+        "claim_text": "Bitcoin and lower Treasury yields: the demand test",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Investors should understand that bitcoin and ether are highly speculative investments. This includes when exposure is gained through an exchange-traded product (ETP). Investors should consider the volatility of the price of bitcoin and ether.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "meta_description-yield",
+        "claim_text": "Treasury's November 4 yield decline offers one possible support for Bitcoin. The jobs-report watch still needs separate evidence of Bitcoin demand.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "2026-11-03 4.95\n2026-11-04 4.90",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "meta_description-bitcoin-risk",
+        "claim_text": "Treasury's November 4 yield decline offers one possible support for Bitcoin. The jobs-report watch still needs separate evidence of Bitcoin demand.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Investors should understand that bitcoin and ether are highly speculative investments. This includes when exposure is gained through an exchange-traded product (ETP). Investors should consider the volatility of the price of bitcoin and ether.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "social_hook-yield",
+        "claim_text": "Treasury's 10-year yield fell to 4.90% on November 4. Lower interest elsewhere can help Bitcoin's case; it does not establish that buyers are returning.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "2026-11-03 4.95\n2026-11-04 4.90",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "social_hook-bitcoin-risk",
+        "claim_text": "Treasury's 10-year yield fell to 4.90% on November 4. Lower interest elsewhere can help Bitcoin's case; it does not establish that buyers are returning.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Investors should understand that bitcoin and ether are highly speculative investments. This includes when exposure is gained through an exchange-traded product (ETP). Investors should consider the volatility of the price of bitcoin and ether.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "description-jobs-watch",
+        "claim_text": "Treasury's November 4 yield decline offers one possible support for Bitcoin. The jobs-report watch still needs separate evidence of Bitcoin demand.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "6 Employment Situation October 2026 08:30 AM\n\nNOTE: All times on calendar are Eastern Time.\n\nNovember 2026",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "lead-yield-observations",
+        "claim_text": "On November 4, the U.S. Treasury's nominal 10-year par yield was 4.90%, down from 4.95% on November 3.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "2026-11-03 4.95\n2026-11-04 4.90",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "lead-distinct-tests",
+        "claim_text": "For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "U.S. Treasury nominal 10-year par yields, 2 January through 4 November 2026; percent.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "lead-distinct-tests-risk",
+        "claim_text": "For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Investors should understand that bitcoin and ether are highly speculative investments. This includes when exposure is gained through an exchange-traded product (ETP). Investors should consider the volatility of the price of bitcoin and ether.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "labelled-house-inference",
+        "claim_text": "Capital Chronicle's view is that lower Treasury yields can ease one cost of holding Bitcoin, while leaving the demand question open. A bond-yield decline alone does not establish a Bitcoin recovery.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "2026-11-03 4.95\n2026-11-04 4.90",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "labelled-house-inference-risk",
+        "claim_text": "Capital Chronicle's view is that lower Treasury yields can ease one cost of holding Bitcoin, while leaving the demand question open. A bond-yield decline alone does not establish a Bitcoin recovery.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Investors should understand that bitcoin and ether are highly speculative investments. This includes when exposure is gained through an exchange-traded product (ETP). Investors should consider the volatility of the price of bitcoin and ether.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "series-meaning-and-window",
+        "claim_text": "Read the series as a nominal 10-year Treasury yield. It is not the Federal Reserve's policy-rate target or an inflation-adjusted yield. The chart ends on November 4 and shows no Bitcoin price performance.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "U.S. Treasury nominal 10-year par yields, 2 January through 4 November 2026; percent.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "conditional-opportunity-cost",
+        "claim_text": "The opportunity-cost argument is conditional: if the yield on an interest-bearing alternative falls, choosing an asset that pays no interest would mean giving up less interest. That could make Bitcoin more attractive, other things equal. It does not tell us whether investors will make that choice.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "U.S. Treasury nominal 10-year par yields, 2 January through 4 November 2026; percent.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "conditional-bitcoin-choice",
+        "claim_text": "The opportunity-cost argument is conditional: if the yield on an interest-bearing alternative falls, choosing an asset that pays no interest would mean giving up less interest. That could make Bitcoin more attractive, other things equal. It does not tell us whether investors will make that choice.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Investors should understand that bitcoin and ether are highly speculative investments. This includes when exposure is gained through an exchange-traded product (ETP). Investors should consider the volatility of the price of bitcoin and ether.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "access-versus-appetite",
+        "claim_text": "Access and appetite are different questions.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Spot bitcoin and ether ETPs are exchange-traded commodity trusts that hold either crypto asset. These products seek to provide an exchange-traded investment alternative for investors interested in exposure to the underlying asset without direct investment in the underlying asset.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "dated-sec-etp-background",
+        "claim_text": "In its September 9, 2024 investor bulletin, the SEC described spot Bitcoin ETPs as trusts that hold the asset and seek to track its price.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Spot bitcoin and ether ETPs are exchange-traded commodity trusts that hold either crypto asset. These products seek to provide an exchange-traded investment alternative for investors interested in exposure to the underlying asset without direct investment in the underlying asset. Spot bitcoin and ether ETPs seek to track the performance of the price of bitcoin or ether and may offer some potential benefits that are not available to investors who hold the crypto asset directly. For example, spot bitcoin and ether ETPs may provide exposure to those crypto assets without some of the direct risks to the investor of personally transacting on a crypto asset trading platform or using a crypto asset wallet and handling the public and private cryptographic keys. Keep in mind, the spot bitcoin or ether ETP itself is subject to these risks.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "sec-speculative-volatility",
+        "claim_text": "It also warned that Bitcoin exposure remains highly speculative, including through an ETP, and highlighted price volatility.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Investors should understand that bitcoin and ether are highly speculative investments. This includes when exposure is gained through an exchange-traded product (ETP). Investors should consider the volatility of the price of bitcoin and ether.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "conditional-countercase-yields",
+        "claim_text": "The counter-case deserves weight: lower yields could help if investors' willingness to hold Bitcoin remains intact. If that willingness weakens, however, reduced interest elsewhere might not be enough to offset reluctance to accept Bitcoin's price risk. The Treasury series does not establish either state of appetite.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "2026-11-03 4.95\n2026-11-04 4.90",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "conditional-countercase-risk",
+        "claim_text": "The counter-case deserves weight: lower yields could help if investors' willingness to hold Bitcoin remains intact. If that willingness weakens, however, reduced interest elsewhere might not be enough to offset reluctance to accept Bitcoin's price risk. The Treasury series does not establish either state of appetite.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Investors should understand that bitcoin and ether are highly speculative investments. This includes when exposure is gained through an exchange-traded product (ETP). Investors should consider the volatility of the price of bitcoin and ether.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "independent-demand-watch-yields",
+        "claim_text": "First, watch whether lower Treasury yields persist. Then assess Bitcoin separately, using dated market observations and verified evidence of investment-product demand. Neither a Bitcoin move nor product flows can be read out of this bond chart.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "U.S. Treasury nominal 10-year par yields, 2 January through 4 November 2026; percent.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "independent-demand-watch-etps",
+        "claim_text": "First, watch whether lower Treasury yields persist. Then assess Bitcoin separately, using dated market observations and verified evidence of investment-product demand. Neither a Bitcoin move nor product flows can be read out of this bond chart.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Spot bitcoin and ether ETPs are exchange-traded commodity trusts that hold either crypto asset. These products seek to provide an exchange-traded investment alternative for investors interested in exposure to the underlying asset without direct investment in the underlying asset.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "observable-challenges-yields",
+        "claim_text": "If yields fell while Bitcoin weakened, the rate relief would have failed to translate into price support. If Bitcoin strengthened while yields rose, a bond-yield explanation would be insufficient. Even a Bitcoin rise alongside falling yields would be consistent with the mechanism without proving it caused the move.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "U.S. Treasury nominal 10-year par yields, 2 January through 4 November 2026; percent.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "observable-challenges-bitcoin",
+        "claim_text": "If yields fell while Bitcoin weakened, the rate relief would have failed to translate into price support. If Bitcoin strengthened while yields rose, a bond-yield explanation would be insufficient. Even a Bitcoin rise alongside falling yields would be consistent with the mechanism without proving it caused the move.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Investors should understand that bitcoin and ether are highly speculative investments. This includes when exposure is gained through an exchange-traded product (ETP). Investors should consider the volatility of the price of bitcoin and ether.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "jobs-calendar",
+        "claim_text": "The Bureau of Labor Statistics schedules the October 2026 Employment Situation for November 6 at 8:30 a.m. EST. That is a release-calendar fact, not a payroll result or a consensus estimate.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "6 Employment Situation October 2026 08:30 AM\n\nNOTE: All times on calendar are Eastern Time.\n\nNovember 2026",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "post-release-watch",
+        "claim_text": "After the release, check the observed Treasury-yield response and then the separate Bitcoin evidence. A jobs headline does not settle both questions. The useful watch is whether a more favourable rate backdrop is accompanied by an independently established willingness to hold Bitcoin.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "6 Employment Situation October 2026 08:30 AM\n\nNOTE: All times on calendar are Eastern Time.\n\nNovember 2026",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "post-release-demand-distinction",
+        "claim_text": "After the release, check the observed Treasury-yield response and then the separate Bitcoin evidence. A jobs headline does not settle both questions. The useful watch is whether a more favourable rate backdrop is accompanied by an independently established willingness to hold Bitcoin.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Investors should understand that bitcoin and ether are highly speculative investments. This includes when exposure is gained through an exchange-traded product (ETP). Investors should consider the volatility of the price of bitcoin and ether.",
+        "attribution_required": true
+      }
+    ],
+    "public_write_attempted": false
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_visual_edit_1d9d8c3613e6",
+    "assignment_id": "cc124-bitcoin-rates-20261106-h:write",
+    "request_identity": "write:7bc6eb30046d64188c2c1980ae5f25927548ef553601fbfde2437bec70423a91",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_configuration_unavailable": true,
+    "observation_source": "Supported native collaboration NEW_TASK context supplies canonical invocation identity /root/native_visual_edit_1d9d8c3613e6. The frozen request and parent assignment supply the configured role and speed; actual runtime model and effort telemetry are unavailable.",
+    "configuration_source": "Exact frozen desktop_request_write.json and supported SAME-context parent assignment request gpt-6.1-sol/max at standard speed. These are configured values; actual runtime model and reasoning effort telemetry are unavailable."
+  }
+}

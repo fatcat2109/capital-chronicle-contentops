@@ -18,5 +18,16 @@
     "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "6b9fcc177395a2a4fb1dec6ae823731a9b907a60e21bf8c63b085e50f1cb6e2a"
   },
   "schedule_changed": false,
-  "chat_messages_sent": false
+  "chat_messages_sent": false,
+  "resumed_at_utc": "2026-11-05T18:28:53.122870+00:00",
+  "resume_authority": {
+    "decision": 88,
+    "scope": "Exact in-flight run started PID39024 at 17:57Z may finish, then no new run; CC124 stays PAUSED."
+  },
+  "resume_state": {
+    "pushed_head": "3d38881351c21ae21616995867f20593bb0d1923",
+    "pending_stage": "revise",
+    "prior_native_worker_registered": false,
+    "prior_role_returns_preserved": true
+  }
 }
