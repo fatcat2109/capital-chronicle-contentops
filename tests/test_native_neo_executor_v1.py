@@ -96,6 +96,23 @@ def test_fresh_public_readback_survives_derived_receipt_hash_only(tmp_path):
     assert executor.fresh_readback_request(current) is None
 
 
+def test_observed_missing_public_image_stays_failed_without_a_readback_loop(tmp_path):
+    store, executor = setup(tmp_path)
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    value = intent("youtube", native_payload={"text": "Exact supported proposition.", "media_asset_ids": ["chart"]},
+        media_assets=[{"asset_id": "chart", "sha256": "a" * 64, "path": str(tmp_path / "chart.png")}])
+    packet, object_id, url = pending_readback(adapter, "youtube", value)
+    request = packet["request"]
+    executor.submit(request["request_sha256"], response(executor, packet,
+        {"status": "SUCCESS", "observed_identity": "@CapitalChronicleYouTube", "public_object_id": object_id,
+         "public_object_url": url, "observed_text": "Exact supported proposition.", "content_verified": True,
+         "public_image_urls": [], "media_check_state": "MISSING_REQUIRED_MEDIA", "missing_required_media_observed": True}))
+    observed = adapter.readback(destination="youtube", intent=value, public_object_id=object_id, public_object_url=url)
+    assert observed["write_exists"] is True and observed["verified"] is False
+    assert observed["content_binding_checks"] == {"text_match": True, "media_match": False, "thread_match": True}
+    assert executor.fresh_readback_request(request) == request
+
+
 @pytest.mark.parametrize("prior_action,claimed,changed_intent", [
     ("PUBLISH", False, False), ("READBACK", False, False),
     ("PUBLISH", True, False), ("PUBLISH", False, True)])

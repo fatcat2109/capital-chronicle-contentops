@@ -75,6 +75,11 @@ def _incomplete_readback_evidence(request, result):
     """Refresh a partial image comparison or a requested original publication clock."""
     if _readback_absence_evidence(request, result):
         return False  # An absent object has no delivered image to compare.
+    if (result.get("media_check_state") == "MISSING_REQUIRED_MEDIA"
+            and result.get("missing_required_media_observed") is True
+            and result.get("public_object_id") and result.get("public_object_url")
+            and result.get("observed_text") and not result.get("public_image_urls")):
+        return False  # Decisive failed delivery, not an unfinished binary comparison.
     return (result.get("media_check_state") == "PENDING_BINARY_COMPARISON"
             or (bool(request.get("publication_clock_readback"))
                 and not (result.get("published_at_utc") or result.get("observed_published_at_utc")))

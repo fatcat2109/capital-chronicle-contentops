@@ -529,6 +529,11 @@ class NeoDestinationHandoff:
                 complete_readback(request, write_absent=True)
             elif verified or canonical_present:
                 complete_readback(request)
+            elif (identity_exists and text_match and not media_match
+                    and result.get("media_check_state") == "MISSING_REQUIRED_MEDIA"
+                    and result.get("missing_required_media_observed") is True
+                    and not result.get("public_image_urls")):
+                complete_readback(request)  # Retain CONTENT_INCOMPLETE; never turn it into a resend.
         return {**result, "verified": bool(verified), "status": "SUCCESS" if verified else "BLOCKED",
                 "write_exists": bool(identity_exists), "write_absent": bool(absent),
                 "canonical_publication_verified": canonical_present,
