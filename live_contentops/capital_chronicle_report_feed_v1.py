@@ -488,7 +488,7 @@ class MainReportFeed:
         return {"state": "DUPLICATE_WITHDRAWAL_NOOP" if existing else "CLAIMS_WITHDRAWN", "event_id": event["event_id"], "report_id": record["report_id"], "report_version": record["report_version"]}
 
     def pending(self, *, include_controlled: bool = True) -> list[dict[str, Any]]:
-        withdrawn_hashes = {json.loads(r["payload"])["source_report_sha256"] for r in self.tracker.store.list_outbox_messages() if r["destination"] == "internal:cc-report-withdrawal"}
+        withdrawn_hashes = {json.loads(r["payload"])["source_report_sha256"] for r in self.tracker.store.list_outbox_messages(destination="internal:cc-report-withdrawal")}
         latest = {}
         for record in self.tracker.receipts():
             if record["status"] not in CURRENT:
@@ -500,8 +500,7 @@ class MainReportFeed:
                 latest[record["report_id"]] = record
         results = [
             json.loads(r["payload"])
-            for r in self.tracker.store.list_outbox_messages()
-            if r["destination"] == "internal:cc-report-simple-result"
+            for r in self.tracker.store.list_outbox_messages(destination="internal:cc-report-simple-result")
         ]
         return [
             r
