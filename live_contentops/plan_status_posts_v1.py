@@ -395,7 +395,7 @@ def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot
                                "seconds": taken.get("seconds")})
             return asset, True
         except Exception as exc:  # noqa: BLE001 - a failed snapshot never stops the post
-            tv.record_outcome({**outcome, "status": tv.LOW_MEMORY if isinstance(exc, tv.LowMemory) else "FAILED",
+            tv.record_outcome({**outcome, "status": "FAILED",
                                "cause": str(exc)[:200]})
     else:
         tv.record_outcome({**outcome, "status": "SKIPPED_RUN_TIME_BUDGET"})
