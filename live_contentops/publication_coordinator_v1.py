@@ -957,6 +957,24 @@ class DurablePublicationCoordinator:
         canonical_url = revision["objects"]["substack"]["public_object_url"]
         return self._dispatch_message(message, canonical_url=canonical_url)
 
+    def restore_approved_presentation(self, dispatch_id):
+        """Repair browser assembly to the unchanged approved copy/media on the same post."""
+        from live_contentops.approved_presentation_restore_v1 import restore_intent
+        if self._mode() != "AUTONOMOUS_DEFAULT":
+            raise ValueError("APPROVED_PRESENTATION_LIVE_MODE_REQUIRED")
+        intent = restore_intent(self.store, dispatch_id)
+        dispatch = self.store.get_platform_dispatch(dispatch_id)
+        authorization = {"schema_version": "contentops.canonical_machine_authorization.v1",
+            "operating_mode": self._mode(), "work_item_id": intent["work_item_id"],
+            "destination": "substack", "payload_hash": intent["destination_plan"]["payload_hash"],
+            "dispatch_attempt_identity": dispatch_id, "action": "EDIT_EXISTING"}
+        raw = self.transport_runtime._neo_transport.amend_existing(destination="substack", intent=intent,
+            public_object_id=dispatch["public_object_id"], public_object_url=dispatch["public_object_url"],
+            authorization_context=authorization)
+        observed = self.transport_runtime._neo_transport.readback(destination="substack", intent=intent,
+            public_object_id=dispatch["public_object_id"], public_object_url=dispatch["public_object_url"])
+        return {"edit": raw, "readback": observed, "new_post_calls": 0}
+
     def amend_reader_presentation(self, dispatch_id, *, review_reference):
         """Edit the reviewed existing object once; all uncertain outcomes are readback-only."""
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of

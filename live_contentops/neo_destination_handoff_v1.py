@@ -74,7 +74,7 @@ def _public_url(destination, url, object_id=None):
 
 def _text(value):
     # Browser rendering removes common Markdown syntax; it does not change the proposition.
-    value = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", str(value or ""))
+    value = re.sub(r"\[([^\]]+)\]\((?:[^()\s]|\([^()]*\))*\)", r"\1", str(value or ""))
     # Substack's smart punctuation changes apostrophe/quote glyphs on the same
     # published copy. Keep numbers, minus signs, words and order exact.
     value = value.translate(str.maketrans({"\u2018": "'", "\u2019": "'", "\u201c": '"', "\u201d": '"'}))
@@ -232,7 +232,8 @@ class NeoDestinationHandoff:
             from live_contentops.preview_link_guard_v1 import REASON, find_forbidden_link, posted_values
             if find_forbidden_link(*posted_values(intent)):
                 raise ValueError(REASON)
-        if action == "EDIT_EXISTING" and (not intent.get("reader_presentation_review")
+        if action == "EDIT_EXISTING" and (not (intent.get("reader_presentation_review")
+                or (destination == "substack" and intent.get("approved_presentation_restore")))
                 or not public_object_id or not _public_url(destination, public_object_url, public_object_id)
                 or auth.get("action") != "EDIT_EXISTING"):
             raise ValueError("NEO_EXACT_REVIEWED_EXISTING_OBJECT_REQUIRED")
@@ -326,6 +327,8 @@ class NeoDestinationHandoff:
             value["owner_absence_context"] = intent.get("owner_absence_context")
         if intent.get("reader_presentation_review"):
             value["reader_presentation_review"] = intent["reader_presentation_review"]
+        if intent.get("approved_presentation_restore"):
+            value["approved_presentation_restore"] = intent["approved_presentation_restore"]
         if action == "READBACK":
             resumed = getattr(self.native_executor, "readback_request_invocations", {})
             identity = sha256_of({k: v for k, v in value.items() if k != "native_invocation_id"})

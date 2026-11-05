@@ -185,7 +185,18 @@ class NativeNeoExecutor:
             expected_status = "DISPATCH_CONFIRMED" if request["action"] == "EDIT_EXISTING" else PENDING
             if not dispatch or dispatch["status"] != expected_status:
                 raise ValueError("NATIVE_NEO_EXACT_COORDINATOR_PENDING_DISPATCH_REQUIRED")
-            if request["action"] == "EDIT_EXISTING":
+            if request["action"] == "EDIT_EXISTING" and request.get("approved_presentation_restore"):
+                from live_contentops.approved_presentation_restore_v1 import restore_intent
+                from live_contentops.neo_destination_handoff_v1 import _payload_binding
+                expected = restore_intent(self.store, request["dispatch_attempt_identity"])
+                payload, content = _payload_binding(expected, "substack")
+                if (request["destination"] != "substack"
+                        or request["approved_presentation_restore"] != expected["approved_presentation_restore"]
+                        or any(request.get(k) != dispatch.get(k) for k in ("public_object_id", "public_object_url"))
+                        or request.get("native_payload") != payload or request.get("content_binding") != content
+                        or request.get("payload_hash") != expected["destination_plan"]["payload_hash"]):
+                    raise ValueError("NATIVE_NEO_APPROVED_PRESENTATION_RESTORE_CHANGED")
+            elif request["action"] == "EDIT_EXISTING":
                 from live_contentops.native_desktop_editorial_v1 import reader_presentation_acceptance
                 revision, _, _ = reader_presentation_acceptance(self.store, run_id=request["work_item_id"],
                     reference=request.get("reader_presentation_review"))
