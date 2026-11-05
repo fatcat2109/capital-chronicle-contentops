@@ -382,9 +382,10 @@ class NeoDestinationHandoff:
         segments = binding["expected_text_segments"]
         observed_text = _text(result.get("observed_text"))
         comparison_text = observed_text
-        if destination == "substack" and (intent.get("reader_presentation_review") or intent.get("daily_digest")):
+        if destination == "substack":
             # The accepted body remains contiguous after removing only its exact
-            # reviewed figure captions, which the renderer inserts between blocks.
+            # reviewed figure captions, which every native article inserts between
+            # blocks. Fresh articles need the same comparison as reviewed edits.
             for asset in binding["media_manifest"]:
                 caption = _text(asset.get("caption"))
                 if caption:

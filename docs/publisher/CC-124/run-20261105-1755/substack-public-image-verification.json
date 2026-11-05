@@ -1,0 +1,117 @@
+{
+  "schema_version": "contentops.delivery_media_manifest.v1",
+  "run_id": "cc124-gold-yields-20261105-e",
+  "authority": "approved_media_manifest_hash_binding_not_substack_dom_selection",
+  "status": "PASS",
+  "blockers": [],
+  "minimum_chart_dimensions": {
+    "width": 800,
+    "height": 400
+  },
+  "assets": [
+    {
+      "media_asset_id": "cc124-treasury-10y-nominal-real-2026",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\media_assets\\cc124-treasury-10y-nominal-real-2026.png",
+      "sha256": "186518c20f3540959f7e8e67e1b9001531c3d1fcd80bbdf316bfda85ddc9641c",
+      "declared_sha256": "186518c20f3540959f7e8e67e1b9001531c3d1fcd80bbdf316bfda85ddc9641c",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+        "caption": "Treasury's 10-year nominal and real par yield estimates on matching dates. The latest observations are 4.90% and 2.64% on 4 November 2026."
+      },
+      "chart_title": "Treasury's 10-year nominal and real par yield estimates on matching dates. The latest observations are 4.90% and 2.64% on 4 November 2026.",
+      "alt_text": "Two lines show nominal and real 10-year Treasury par yields from 2 January through 4 November 2026, ending at 4.90 percent and 2.64 percent. These are daily estimates, not live quotes.",
+      "canonical_article_section_association": "cc124-treasury-10y-nominal-real-2026",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/da0655b8-3531-496b-a7e4-d86bf37a003d_1440x1040.png",
+      "public_delivery_sha256": "186518c20f3540959f7e8e67e1b9001531c3d1fcd80bbdf316bfda85ddc9641c",
+      "local_public_hash_continuity": true
+    },
+    {
+      "media_asset_id": "cc124-treasury-latest-daily-change-20261104",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\media_assets\\cc124-treasury-latest-daily-change-20261104.png",
+      "sha256": "5c585296a88af4f7dd0236ef1aef8d8df4a19c2b7c68832a26b6c31e15126a20",
+      "declared_sha256": "5c585296a88af4f7dd0236ef1aef8d8df4a19c2b7c68832a26b6c31e15126a20",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+        "caption": "From 3 to 4 November, the nominal 10-year par yield fell 5 basis points and the real 10-year yield fell 1 basis point. A basis point is 0.01 percentage point."
+      },
+      "chart_title": "From 3 to 4 November, the nominal 10-year par yield fell 5 basis points and the real 10-year yield fell 1 basis point. A basis point is 0.01 percentage point.",
+      "alt_text": "Two bars compare the latest daily decline: 5 basis points for the nominal 10-year yield, and 1 basis point for the real 10-year yield. Zero is the baseline.",
+      "canonical_article_section_association": "cc124-treasury-latest-daily-change-20261104",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/b941d095-0836-43e6-b428-017d63e9f9e5_1440x1040.png",
+      "public_delivery_sha256": "5c585296a88af4f7dd0236ef1aef8d8df4a19c2b7c68832a26b6c31e15126a20",
+      "local_public_hash_continuity": true
+    },
+    {
+      "media_asset_id": "cc124-west-point-gold-2011",
+      "media_role": "context_photo",
+      "modality": "documentary_photo",
+      "rights_status": "PUBLIC_DOMAIN",
+      "rights_evidence_sha256": "23c2f29a583679742969e6016d8701c2166fef92d6099047672cb384d11f64ad",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:West_Point_gold.jpg",
+      "license_url": "https://commons.wikimedia.org/wiki/File:West_Point_gold.jpg#Licensing",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\media_assets\\West_Point_gold.jpg",
+      "sha256": "3fb037489bd491bf23dc9a77f52d7a9ee5ea7d5b6f15f70bd3f64bde1f95d131",
+      "declared_sha256": "3fb037489bd491bf23dc9a77f52d7a9ee5ea7d5b6f15f70bd3f64bde1f95d131",
+      "mime_type": "image/jpeg",
+      "width": 1920,
+      "height": 1080,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:West_Point_gold.jpg",
+        "caption": "Archive context: gold bars at the West Point Mint, 2011. Photo: U.S. Mint, via Wikimedia Commons (public domain)."
+      },
+      "chart_title": "Archive context: gold bars at the West Point Mint, 2011. Photo: U.S. Mint, via Wikimedia Commons (public domain).",
+      "alt_text": "Archive view of stacks of gold bars inside the West Point Mint, dated 2011.",
+      "canonical_article_section_association": "cc124-west-point-gold-2011",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/0e35e8ae-0dd4-4a76-a600-a77ac726565c_1920x1080.jpeg",
+      "public_delivery_sha256": "3fb037489bd491bf23dc9a77f52d7a9ee5ea7d5b6f15f70bd3f64bde1f95d131",
+      "local_public_hash_continuity": true
+    }
+  ],
+  "selected_primary_media_asset_id": "cc124-treasury-10y-nominal-real-2026",
+  "selected_primary_media_sha256": "186518c20f3540959f7e8e67e1b9001531c3d1fcd80bbdf316bfda85ddc9641c",
+  "remote_objects_audited": [
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!6_6h!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0e35e8ae-0dd4-4a76-a600-a77ac726565c_1920x1080.jpeg",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/0e35e8ae-0dd4-4a76-a600-a77ac726565c_1920x1080.jpeg",
+      "sha256": "3fb037489bd491bf23dc9a77f52d7a9ee5ea7d5b6f15f70bd3f64bde1f95d131",
+      "mime_type": "image/jpeg",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!fzj1!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fda0655b8-3531-496b-a7e4-d86bf37a003d_1440x1040.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/da0655b8-3531-496b-a7e4-d86bf37a003d_1440x1040.png",
+      "sha256": "186518c20f3540959f7e8e67e1b9001531c3d1fcd80bbdf316bfda85ddc9641c",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040
+    },
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!cHP-!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb941d095-0836-43e6-b428-017d63e9f9e5_1440x1040.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/b941d095-0836-43e6-b428-017d63e9f9e5_1440x1040.png",
+      "sha256": "5c585296a88af4f7dd0236ef1aef8d8df4a19c2b7c68832a26b6c31e15126a20",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040
+    }
+  ],
+  "checked_at_utc": "2026-11-05T12:30:25.066393+00:00"
+}
