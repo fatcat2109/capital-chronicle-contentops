@@ -1,0 +1,31 @@
+{
+  "tool_request_sha256": "caecab799716d0953ce8d8df7bb101879ad5515c4d5fbe3f6a3b8364965c817e",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T15:01:48.614Z",
+    "dispatched_at_utc": "2026-11-05T15:01:41.450Z",
+    "observation_source": "Neo page 567 exact draft 223634631 reached share-center after web-only publish; no email-code screen. The share-center displays the canonical post URL."
+  },
+  "result": {
+    "request_sha256": "438fd2411c822111e01e2d084cf97ef64cd0b9224eeb6d0f10641f89a7dae887",
+    "status": "PUBLISHED",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "223634631",
+    "public_object_url": "https://capitalchronicle.substack.com/p/eurusd-and-usdjpy-two-falling-quotes",
+    "public_write_performed": true,
+    "delivery_observation": {
+      "email_send_enabled": false,
+      "web_publish_enabled": true,
+      "evidence_ref": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\substack-delivery-before-publish.json"
+    },
+    "step_clocks": {
+      "draft_ready_utc": "2026-11-05T15:00:16.599Z",
+      "images_uploaded_utc": "2026-11-05T14:58:52.889Z",
+      "publish_clicked_utc": "2026-11-05T15:01:41.450Z",
+      "email_setting_confirmed_utc": "2026-11-05T15:00:52.505Z",
+      "share_center_reached_utc": "2026-11-05T15:01:48.614Z"
+    }
+  }
+}

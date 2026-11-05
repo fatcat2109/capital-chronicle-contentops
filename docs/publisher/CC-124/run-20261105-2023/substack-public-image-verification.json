@@ -1,0 +1,117 @@
+{
+  "schema_version": "contentops.delivery_media_manifest.v1",
+  "run_id": "cc124-jobs-fx-watch-20261105-f",
+  "authority": "approved_media_manifest_hash_binding_not_substack_dom_selection",
+  "status": "PASS",
+  "blockers": [],
+  "minimum_chart_dimensions": {
+    "width": 800,
+    "height": 400
+  },
+  "assets": [
+    {
+      "media_asset_id": "cc124-fx-dollar-directions",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "source_page_url": "https://www.federalreserve.gov/releases/h10/current/",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\media_assets\\fx-source-bound-r2\\media_assets\\cc124-fx-dollar-directions.png",
+      "sha256": "917dd568113956f0f3bfc58cd428c26f853e4c42065ada91b8be5f1b9335828d",
+      "declared_sha256": "917dd568113956f0f3bfc58cd428c26f853e4c42065ada91b8be5f1b9335828d",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://www.federalreserve.gov/releases/h10/current/",
+        "caption": "Above zero: stronger dollar. Below zero: weaker dollar. Euro quotes are inverted to EUR per USD before normalization; yen uses JPY per USD. Endpoint changes: +0.13% versus euro; -0.07% versus yen."
+      },
+      "chart_title": "Above zero: stronger dollar. Below zero: weaker dollar. Euro quotes are inverted to EUR per USD before normalization; yen uses JPY per USD. Endpoint changes: +0.13% versus euro; -0.07% versus yen.",
+      "alt_text": "Five dated dollar changes against the euro and yen from October 26 to 30, 2026. The dollar ends 0.13 percent stronger versus the euro and 0.07 percent weaker versus the yen. Both start at zero; rates are dated Fed references.",
+      "canonical_article_section_association": "cc124-fx-dollar-directions",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/1fce2d2c-33ef-4982-b8b8-be92dac50439_1440x1040.png",
+      "public_delivery_sha256": "917dd568113956f0f3bfc58cd428c26f853e4c42065ada91b8be5f1b9335828d",
+      "local_public_hash_continuity": true
+    },
+    {
+      "media_asset_id": "cc124-fx-matched-treasury",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\media_assets\\fx-source-bound-r2\\media_assets\\cc124-fx-matched-treasury.png",
+      "sha256": "ce136ff3711c4f29c8c2e426f393b9d6f369e47eab557ba17c0ee56282624e71",
+      "declared_sha256": "ce136ff3711c4f29c8c2e426f393b9d6f369e47eab557ba17c0ee56282624e71",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+        "caption": "The nominal 10-year par yield fell from 5.00% to 4.94%, a six-basis-point decline. Same calendar dates do not establish synchronized pricing or causation."
+      },
+      "chart_title": "The nominal 10-year par yield fell from 5.00% to 4.94%, a six-basis-point decline. Same calendar dates do not establish synchronized pricing or causation.",
+      "alt_text": "Treasury nominal 10-year par yields are 5.00, 4.99, 5.05, 4.98 and 4.94 percent on October 26 to 30 respectively. The endpoint decline is six basis points.",
+      "canonical_article_section_association": "cc124-fx-matched-treasury",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/b888dcd4-e16c-47d2-8a0a-3740858fd888_1440x1040.png",
+      "public_delivery_sha256": "ce136ff3711c4f29c8c2e426f393b9d6f369e47eab557ba17c0ee56282624e71",
+      "local_public_hash_continuity": true
+    },
+    {
+      "media_asset_id": "cc124-fx-fed-archive",
+      "media_role": "context_photo",
+      "modality": "documentary_photo",
+      "rights_status": "PUBLIC_DOMAIN",
+      "rights_evidence_sha256": "c7bf3261dc389813f4acf019354ef0e7e20e9e880c340c0cc49edcee433267d4",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg",
+      "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Federal_Reserve",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\media_assets\\Eccles_Building_20110329.jpg",
+      "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "declared_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "mime_type": "image/jpeg",
+      "width": 3000,
+      "height": 2041,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg",
+        "caption": "Archive context: the Federal Reserve's Eccles Building, March 2011. Photo: Federal Reserve Board (Federalreserve), via Wikimedia Commons; public domain."
+      },
+      "chart_title": "Archive context: the Federal Reserve's Eccles Building, March 2011. Photo: Federal Reserve Board (Federalreserve), via Wikimedia Commons; public domain.",
+      "alt_text": "The front entrance and facade of the Federal Reserve's Eccles Building, photographed in March 2011.",
+      "canonical_article_section_association": "cc124-fx-fed-archive",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/3917d678-9d34-4b1c-8abe-347571a1f071_3000x2041.jpeg",
+      "public_delivery_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "local_public_hash_continuity": true
+    }
+  ],
+  "selected_primary_media_asset_id": "cc124-fx-dollar-directions",
+  "selected_primary_media_sha256": "917dd568113956f0f3bfc58cd428c26f853e4c42065ada91b8be5f1b9335828d",
+  "remote_objects_audited": [
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!i2Wk!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3917d678-9d34-4b1c-8abe-347571a1f071_3000x2041.jpeg",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/3917d678-9d34-4b1c-8abe-347571a1f071_3000x2041.jpeg",
+      "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "mime_type": "image/jpeg",
+      "width": 3000,
+      "height": 2041
+    },
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!yNnV!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1fce2d2c-33ef-4982-b8b8-be92dac50439_1440x1040.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/1fce2d2c-33ef-4982-b8b8-be92dac50439_1440x1040.png",
+      "sha256": "917dd568113956f0f3bfc58cd428c26f853e4c42065ada91b8be5f1b9335828d",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040
+    },
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!KNlJ!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb888dcd4-e16c-47d2-8a0a-3740858fd888_1440x1040.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/b888dcd4-e16c-47d2-8a0a-3740858fd888_1440x1040.png",
+      "sha256": "ce136ff3711c4f29c8c2e426f393b9d6f369e47eab557ba17c0ee56282624e71",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040
+    }
+  ],
+  "checked_at_utc": "2026-11-05T15:04:45.545353+00:00"
+}
