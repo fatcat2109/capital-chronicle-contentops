@@ -1,0 +1,137 @@
+{
+  "item": "CC-143",
+  "mode": "DRY_RUN_COPIED_STORE",
+  "clock_utc": "2026-11-05T12:05:00+00:00",
+  "clock_is_simulated": true,
+  "scratch": "C:\\CapitalChronicleScratch\\cc143-route\\final-20261105T041612Z",
+  "copied_store": "C:\\CapitalChronicleScratch\\cc143-route\\final-20261105T041612Z\\contentops_daily_app_v1.sqlite3",
+  "production_before": {
+    "size": 280539136,
+    "mtime_ns": 1793852063366579100,
+    "rows": {
+      "outbox_messages": 5078,
+      "platform_dispatches": 136,
+      "work_items": 396
+    },
+    "digest_packets": 2
+  },
+  "copy_at_start": {
+    "size": 280539136,
+    "mtime_ns": 1793852174856036900,
+    "rows": {
+      "outbox_messages": 5078,
+      "platform_dispatches": 136,
+      "work_items": 396
+    },
+    "digest_packets": 2
+  },
+  "state": "DUE",
+  "due_at_gmt7": "2026-11-05T19:00:00+07:00",
+  "due_at_utc": "2026-11-05T12:00:00+00:00",
+  "digest_id": "cc143-digest-2026-11-05",
+  "prepare": {
+    "digest_id": "cc143-digest-2026-11-05",
+    "confirmed": false,
+    "web_confirmed": false,
+    "email_confirmed": false,
+    "state": "PREPARED_NATIVE_INPUT_REQUIRED",
+    "public_object_id": null,
+    "public_object_url": null,
+    "public_write_performed": false
+  },
+  "digest": {
+    "digest_id": "cc143-digest-2026-11-05",
+    "cutoff_utc": "2026-11-05T12:00:00+00:00",
+    "title": "Capital Chronicle daily digest \u2014 November 5, 2026",
+    "subtitle": "September PPI: energy drove the goods surge as services rose; Southwest's 2025 fuel-hedge exit did not end the expense clock",
+    "articles": [
+      {
+        "title": "September PPI: energy drove the goods surge as services rose",
+        "url": "https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+        "published_at_utc": "2026-11-05T00:24:49.819000+00:00"
+      },
+      {
+        "title": "Southwest's 2025 fuel-hedge exit did not end the expense clock",
+        "url": "https://capitalchronicle.substack.com/p/southwests-2025-fuel-hedge-exit-did",
+        "published_at_utc": "2026-11-05T02:16:47.464000+00:00"
+      }
+    ],
+    "media": [
+      {
+        "asset_id": "digest-card-da8ee3f8b97de7dfe75b",
+        "path": "C:\\CapitalChronicleScratch\\cc143-route\\final-20261105T041612Z\\daily_app_outputs\\owner-manual\\cc143-digest-2026-11-05\\media\\digest-card-da8ee3f8b97de7dfe75b.png",
+        "sha256": "b85f1758bc086bf39d92b9473c66c1baa55369ff21f1e50407f9284bf3d46488"
+      }
+    ]
+  },
+  "continue": {
+    "state": "NATIVE_NEO_TOOL_PENDING",
+    "web_confirmed": null,
+    "email_confirmed": null,
+    "first_native_request": {
+      "action": "VERIFY_IDENTITY",
+      "destination": "substack",
+      "surface": "SUBSTACK_ARTICLE",
+      "expected_identity": "capitalchronicle.substack.com",
+      "request_sha256": "79540e577550af41c57ceaff8dfd87e16286c91902b9d9630b1320e9c8c6207a",
+      "required_tool": "mcp__browseros_neo__run",
+      "public_write_authorized": false,
+      "request_path": "C:\\CapitalChronicleScratch\\cc143-route\\final-20261105T041612Z\\outputs\\owner-manual\\cc143-digest-2026-11-05\\native-tools\\79540e577550af41c57ceaff8dfd87e16286c91902b9d9630b1320e9c8c6207a.request.json"
+    },
+    "pending_requests": 0
+  },
+  "simulated_identity": {
+    "submitted": {
+      "request_sha256": "79540e577550af41c57ceaff8dfd87e16286c91902b9d9630b1320e9c8c6207a",
+      "tool_return_sha256": "b3e95a904e42671f44ea2b26398c26bb39fde8499c6ca625f9ea6e2bae6003cd"
+    },
+    "next_state": "NATIVE_NEO_TOOL_PENDING",
+    "publication_status": "BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS",
+    "next_native_request": {
+      "action": "PUBLISH",
+      "destination": "substack",
+      "public_write_authorized": true,
+      "substack_delivery_policy": {
+        "authority": "JIM_DECISION_42",
+        "before_publish": "Inspect the visible delivery controls. Set and verify the email choice before the final Publish button; stop before writing if it cannot be verified.",
+        "code_policy": "JIM_DECISION_54_WAIT_ON_UNTOUCHED_CODE_TAB",
+        "duplicate_policy": "Reuse this operation's existing draft/post; read back before any retry. Never create a second draft.",
+        "email_send_enabled": true,
+        "mode": "DAILY_EMAIL_DIGEST",
+        "return_fields": [
+          "delivery_observation.email_send_enabled",
+          "delivery_observation.web_publish_enabled",
+          "delivery_observation.evidence_ref"
+        ],
+        "web_publish_enabled": true
+      },
+      "request_sha256": "75280f207340b22bfd07a66a254ec6a948f07fc9f02fddc29387ed7b4ba4ac70",
+      "request_path": null
+    },
+    "next_request_begun": false
+  },
+  "copy_status_after": {
+    "digest_id": "cc143-digest-2026-11-05",
+    "confirmed": false,
+    "web_confirmed": false,
+    "email_confirmed": false,
+    "state": "NATIVE_NEO_TOOL_PENDING",
+    "public_object_id": null,
+    "public_object_url": null
+  },
+  "production_after": {
+    "size": 280539136,
+    "mtime_ns": 1793852063366579100,
+    "rows": {
+      "outbox_messages": 5078,
+      "platform_dispatches": 136,
+      "work_items": 396
+    },
+    "digest_packets": 2
+  },
+  "production_unchanged": true,
+  "feed_unchanged": true,
+  "refused_writes_outside_scratch": [],
+  "refused_network_connections": [],
+  "public_write_performed": false
+}

@@ -1,0 +1,46 @@
+{
+  "item": "CC-143",
+  "route": "CLAUDE_DESKTOP_TASK_1900",
+  "checked_at_utc": "2026-11-05T04:16:31.414177+00:00",
+  "public_write_performed": false,
+  "state": "NOT_YET_DUE",
+  "due_at_gmt7": "2026-11-05T19:00:00+07:00",
+  "due_at_utc": "2026-11-05T12:00:00+00:00",
+  "digest_id": "cc143-digest-2026-11-05",
+  "operating_mode": "AUTONOMOUS_DEFAULT",
+  "existing_digests": [
+    {
+      "digest_id": "cc143-digest-2026-11-03",
+      "state": "CONFIRMED",
+      "web_confirmed": true,
+      "email_confirmed": true,
+      "public_object_id": "223456283",
+      "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november",
+      "articles": 2
+    },
+    {
+      "digest_id": "cc143-digest-2026-11-04",
+      "state": "WEB_CONFIRMED_EMAIL_READBACK_REQUIRED",
+      "web_confirmed": true,
+      "email_confirmed": false,
+      "public_object_id": "223570288",
+      "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-ac3",
+      "articles": 3
+    }
+  ],
+  "todays_digest_exists": false,
+  "native_invocation_id": "claude-code-session:cc143-digest-1900:20261105T041631Z",
+  "commands": {
+    "resume": "\"A:\\Capital Chronicle\\Runtime\\ContentOps\\v1-runtime\\venv\\Scripts\\python.exe\" -B scripts/run_daily_digest_1900.py resume --native-invocation-id \"claude-code-session:cc143-digest-1900:20261105T041631Z\"",
+    "begin": "\"A:\\Capital Chronicle\\Runtime\\ContentOps\\v1-runtime\\venv\\Scripts\\python.exe\" -B scripts/run_native_desktop_editorial.py digest-tool-begin --rollout config/native_desktop_rollout_v1.json --native-invocation-id \"claude-code-session:cc143-digest-1900:20261105T041631Z\" --request-sha256 <request_sha256>",
+    "submit": "\"A:\\Capital Chronicle\\Runtime\\ContentOps\\v1-runtime\\venv\\Scripts\\python.exe\" -B scripts/run_native_desktop_editorial.py digest-tool-submit --rollout config/native_desktop_rollout_v1.json --native-invocation-id \"claude-code-session:cc143-digest-1900:20261105T041631Z\" --request-sha256 <request_sha256> --response <response.json>",
+    "observation": {
+      "surface": "CLAUDE_CODE_SESSION",
+      "tool_name": "mcp__browseros-neo__run",
+      "native_invocation_id": "claude-code-session:cc143-digest-1900:20261105T041631Z",
+      "observation_source": "BROWSEROS_NEO"
+    }
+  },
+  "blockers": [],
+  "route_state": "NOT_YET_DUE"
+}
