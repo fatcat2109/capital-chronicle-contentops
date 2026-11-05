@@ -1,0 +1,35 @@
+.......................F.F......F............F..                         [100%]
+================================== FAILURES ===================================
+____ test_x_and_threads_use_three_coherent_posts_with_all_article_visuals _____
+tests\test_eight_platform_substack_first_pipeline_v1.py:889: in test_x_and_threads_use_three_coherent_posts_with_all_article_visuals
+    assert len(payload["posts"]) == 3
+E   AssertionError: assert 4 == 3
+E    +  where 4 = len([{'article_sections': ['lede_and_current_market_signal'], 'media_asset_ids': ['primary'], 'order': 0, 'role': 'root', ... 'reply', 'text': 'Analysis, not financial advice.\n\nCapital Chronicle may hold positions in the markets it covers.'}])
+___________ test_oil_thread_uses_actual_three_manifest_assets_once ____________
+tests\test_eight_platform_substack_first_pipeline_v1.py:929: in test_oil_thread_uses_actual_three_manifest_assets_once
+    assert payloads[platform]["quality_metrics"]["visual_distribution_pass"] is True
+E   assert False is True
+_________ test_prepare_only_release_candidate_never_calls_publishers __________
+tests\test_eight_platform_substack_first_pipeline_v1.py:1087: in test_prepare_only_release_candidate_never_calls_publishers
+    assert packet["classification"] == "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"
+E   AssertionError: assert 'BLOCKED_TEXT...ATE_REHEARSAL' == 'PASS_TEXT_IM...ATE_REHEARSAL'
+E
+E     - PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL
+E     ? ^^^^
+E     + BLOCKED_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL
+E     ? ^^^^^^^
+____ test_compile_variant_reliability_evidence_is_no_write_and_three_media ____
+tests\test_eight_platform_substack_first_pipeline_v1.py:1699: in test_compile_variant_reliability_evidence_is_no_write_and_three_media
+    assert packet["classification"] == "PASS_SEMANTIC_VARIANT_RELIABILITY"
+E   AssertionError: assert 'BLOCKED_SEMA...T_RELIABILITY' == 'PASS_SEMANTI...T_RELIABILITY'
+E
+E     - PASS_SEMANTIC_VARIANT_RELIABILITY
+E     ? ^^^^
+E     + BLOCKED_SEMANTIC_VARIANT_RELIABILITY
+E     ? ^^^^^^^
+=========================== short test summary info ===========================
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_x_and_threads_use_three_coherent_posts_with_all_article_visuals
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_oil_thread_uses_actual_three_manifest_assets_once
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_prepare_only_release_candidate_never_calls_publishers
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_compile_variant_reliability_evidence_is_no_write_and_three_media
+4 failed, 44 passed in 3.69s

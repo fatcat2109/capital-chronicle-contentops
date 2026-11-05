@@ -400,6 +400,14 @@ def _concise_semantic_sentence(value: str, *, maximum: int) -> str:
     raise ValueError("sentence_complete_semantic_summary_required")
 
 
+def _publication_notice_only(post: Mapping[str, Any]) -> bool:
+    paragraphs = [text.strip() for text in str(post.get("text") or "").split("\n\n") if text.strip()]
+    return bool(post.get("publication_notice_only") and paragraphs and set(paragraphs) <= {
+        "Analysis, not financial advice.",
+        "Capital Chronicle may hold positions in the markets it covers.",
+    })
+
+
 def _thread_quality(
     posts: Sequence[Mapping[str, Any]],
     *,
@@ -428,9 +436,13 @@ def _thread_quality(
             sentence_keys.extend(re.sub(r"\W+", " ", item.casefold()).strip() for item in _sentence_units(paragraph))
     media_ids = [str(item) for row in posts for item in (row.get("media_asset_ids") or [])]
     duplicates = len(sentence_keys) - len(set(sentence_keys))
-    shortest_longest = round(min(lengths) / max(lengths), 3) if lengths and max(lengths) else 0.0
+    content_lengths = [len(text) for post, text in zip(posts, texts) if not _publication_notice_only(post)]
+    notice_count = sum(_publication_notice_only(post) for post in posts)
+    shortest_longest = round(min(content_lengths) / max(content_lengths), 3) if content_lengths and max(content_lengths) else 0.0
     return {
         "reply_count": max(0, len(posts) - 1),
+        "content_reply_count": max(0, len(posts) - notice_count - 1),
+        "notice_reply_count": notice_count,
         "post_character_counts": lengths,
         "per_post_character_utilization": [round(length / limit, 3) for length in lengths],
         "shortest_longest_reply_ratio": shortest_longest,
@@ -529,6 +541,44 @@ def build_native_derivative_payloads(
         canonical_url=canonical_url,
         media_asset_ids=media_asset_ids,
     )
+    notices = ("Analysis, not financial advice.",
+               "Capital Chronicle may hold positions in the markets it covers.")
+    for destination, payload in payloads.items():
+        posts = payload.get("posts") or []
+        limit = int(payload.get("platform_limit") or
+                    (280 if destination == "x" else 500 if destination == "threads" else 0))
+        if posts:
+            visible = "\n\n".join(str(post.get("text") or "") for post in posts)
+            missing = [notice for notice in notices if notice.casefold() not in visible.casefold()]
+            if missing:
+                tail = "\n\n".join(missing)
+                combined = str(posts[-1].get("text") or "") + "\n\n" + tail
+                if not limit or len(combined) <= limit:
+                    posts[-1]["text"] = combined
+                else:
+                    for text in _split_complete_chunks(missing, limit=limit):
+                        posts.append({"text": text, "media_asset_ids": [],
+                                      "order": len(posts), "role": "reply",
+                                      "publication_notice_only": True})
+            payload["root_text"] = posts[0]["text"]
+            payload["full_text"] = "\n\n".join(post["text"] for post in posts)
+            if "text" in payload:
+                payload["text"] = posts[0]["text"]
+            if "reply_texts" in payload:
+                payload["reply_texts"] = [post["text"] for post in posts[1:]]
+            if destination in {"x", "threads"}:
+                payload["quality_metrics"] = _thread_quality(
+                    posts, limit=limit,
+                    expected_media_ids=list(media_asset_ids))
+        else:
+            for field in ("text", "full_text", "caption"):
+                if not payload.get(field):
+                    continue
+                text = str(payload[field])
+                missing = [notice for notice in notices if notice.casefold() not in text.casefold()]
+                payload[field] = "\n\n".join([text, *missing])
+                if limit and len(payload[field]) > limit:
+                    raise ValueError("PUBLICATION_NOTICES_EXCEED_PLATFORM_LIMIT:" + destination)
     from live_contentops.native_text_first_v1 import text_first_brief, skipped_destinations
     if text_first_brief(article):
         for skipped in skipped_destinations(has_image=bool(media_asset_ids)):
@@ -1703,7 +1753,7 @@ def _prepare_text_image_release_candidate(
     for platform in ("x", "threads"):
         metrics = payloads[platform]["quality_metrics"]
         if not (
-            metrics["reply_count"] == 2
+            metrics.get("content_reply_count", metrics["reply_count"]) == 2
             and metrics["sentence_boundary_pass"]
             and metrics["orphan_fragment_count"] == 0
             and metrics["visual_distribution_pass"]
@@ -1894,7 +1944,7 @@ def _prepare_generic_text_image_release_candidate(
     for platform in ("x", "threads"):
         metrics = (payloads.get(platform) or {}).get("quality_metrics") or {}
         if not (
-            metrics.get("reply_count") == 2
+            metrics.get("content_reply_count", metrics.get("reply_count")) == 2
             and metrics.get("sentence_boundary_pass")
             and metrics.get("orphan_fragment_count") == 0
             and metrics.get("visual_distribution_pass")
@@ -8679,7 +8729,7 @@ def compile_variant_reliability_evidence(*, output_dir: Path) -> dict[str, Any]:
         and row["quality_metrics"]["orphan_fragment_count"] == 0
         and row["quality_metrics"]["visual_distribution_pass"]
         and row["quality_metrics"]["complete_article_visual_count"] == 3
-        and row["quality_metrics"]["reply_count"] == 2
+        and row["quality_metrics"].get("content_reply_count", row["quality_metrics"]["reply_count"]) == 2
         for row in thread_rows.values()
     ) and media_ids == ["primary", "policy_corridor", "sofr_context"]
     packet = {
