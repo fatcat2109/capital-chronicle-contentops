@@ -1986,7 +1986,7 @@ class DurablePublicationCoordinator:
         if plan.get("daily_digest"):
             from live_contentops.substack_daily_digest_v1 import validate_digest_plan
             validate_digest_plan(self.store, work_item_id, plan)
-        if self.published_content_path is not None and not plan.get("daily_digest"):
+        if self.published_content_path is not None and not plan.get("daily_digest") and not plan.get("plan_status_post"):
             from live_contentops.published_content_v1 import article_metadata, read_records
             article_metadata(plan, require_notice=False)
             if self.published_content_path.exists():
@@ -2086,6 +2086,14 @@ class DurablePublicationCoordinator:
                 intent["native_payload"] = packet["native_payload"]
                 intent["media_assets"] = packet.get("media_assets", [])
                 # A digest is a link index, not a new analytical article in the feed.
+                intent.pop("published_content_export", None)
+            if plan.get("plan_status_post"):
+                # CC-306: a plan-state post freezes its validated copy per destination, as the
+                # digest does; it is not an article, so it never enters the published feed.
+                from live_contentops.plan_status_posts_v1 import validate_status_post_plan
+                packet = validate_status_post_plan(self.store, work_item_id, plan)
+                intent["plan_status_post"] = packet["key"]
+                intent["native_payload"] = packet["payloads"][destination]
                 intent.pop("published_content_export", None)
             payload = _canonical_json(intent)
             expected_hash = str(item.get("payload_hash") or "")
@@ -2416,7 +2424,10 @@ class DurablePublicationCoordinator:
         mode = "AUTONOMOUS_DEFAULT" if native_pending_resume else self._mode()
         if mode != "AUTONOMOUS_DEFAULT":
             return {"destination": destination, "status": f"WRITE_BLOCKED_{mode}", "publish_called": False}
-        if self.published_content_path is not None and not intent.get("daily_digest"):
+        if intent.get("plan_status_post"):
+            from live_contentops.plan_status_posts_v1 import validate_status_post_intent
+            validate_status_post_intent(self.store, intent)
+        elif self.published_content_path is not None and not intent.get("daily_digest"):
             from live_contentops.published_content_v1 import article_metadata, read_records
             from live_contentops.event_article_guard_v1 import check_publication_copy
             metadata = article_metadata(intent)

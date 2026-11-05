@@ -38,10 +38,33 @@ def main(argv=None) -> int:
     parser.add_argument("--store", type=Path, default=PRODUCTION_STORE)
     parser.add_argument("--window-minutes", type=int, default=POSTING_WINDOW_MINUTES)
     parser.add_argument("--main-root", type=Path, default=MAIN_ROOT)
+    parser.add_argument("--publish", action="store_true",
+                        help="after queueing, post queued rows through the coordinator (X waits for an agent turn)")
+    parser.add_argument("--pending-x", action="store_true", help="list status posts' X requests for an agent")
+    parser.add_argument("--x-begin", nargs=2, metavar=("KEY", "REQUEST_SHA256"))
+    parser.add_argument("--x-submit", nargs=3, metavar=("KEY", "REQUEST_SHA256", "RESPONSE_JSON"))
+    parser.add_argument("--native-invocation-id", default="")
     args = parser.parse_args(argv)
-    result = queue_posts(ContentOpsDurableStore(str(args.store), auto_migrate=False), args.export_dir,
-                         window_minutes=args.window_minutes, dry_run=args.dry_run,
-                         main_root=args.main_root, python=child_python())
+    store = ContentOpsDurableStore(str(args.store), auto_migrate=False)
+    from live_contentops import plan_status_posts_v1 as posts
+    if args.pending_x or args.x_begin or args.x_submit:
+        if args.pending_x:
+            result = {"status": "OK", "pending_x": posts.pending_x(store)}
+        elif not args.native_invocation_id:
+            result = {"status": "NATIVE_INVOCATION_ID_REQUIRED"}
+        elif args.x_begin:
+            result = {"status": "OK", "begin": posts.begin_x(store, *args.x_begin,
+                                                             native_invocation_id=args.native_invocation_id)}
+        else:
+            key, request_hash, response = args.x_submit
+            result = {"status": "OK", "submit": posts.submit_x(
+                store, key, request_hash, json.loads(Path(response).read_text(encoding="utf-8")),
+                native_invocation_id=args.native_invocation_id)}
+    else:
+        result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
+                             main_root=args.main_root, python=child_python())
+        if args.publish and not args.dry_run and result["status"] == "OK":
+            result["publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"))
     if sys.stdout is not None:  # pythonw has no stdout; the outbox rows are the record
         sys.stdout.reconfigure(encoding="utf-8")
         sys.stdout.write(json.dumps(result, sort_keys=True, ensure_ascii=False, indent=1) + "\n")
