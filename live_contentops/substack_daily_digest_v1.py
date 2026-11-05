@@ -125,7 +125,12 @@ def _plain(text):
 def substack_subtitle(text):
     """The native editor accepts 200 characters; full titles stay in the body."""
     text = _plain(text)
-    return text if len(text) <= 200 else text[:197].rsplit(" ", 1)[0] + "..."
+    if len(text) <= 200:
+        return text
+    prefix = text[:197]
+    if text[197] != " " and " " in prefix:
+        prefix = prefix.rsplit(" ", 1)[0]
+    return prefix.rstrip() + "..."
 
 
 def _utc_text(value):

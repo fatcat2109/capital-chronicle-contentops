@@ -138,6 +138,12 @@ def test_frozen_long_subtitle_and_inline_card_reach_digest_consumer(tmp_path, mo
     assert title in fresh["native_payload"]["body_markdown"]
 
 
+def test_subtitle_keeps_a_complete_word_at_the_exact_editor_limit():
+    from live_contentops.substack_daily_digest_v1 import substack_subtitle
+    assert substack_subtitle("a" * 192 + " weak headline") == "a" * 192 + " weak..."
+    assert len(substack_subtitle("a" * 300)) == 200
+
+
 def test_restart_and_missing_code_reuse_exact_unsent_digest(tmp_path):
     store, feed = setup(tmp_path, [row()])
     first = prepared(store, feed)["packet"]
