@@ -1,0 +1,46 @@
+{
+  "operation_id": "cc124-nfp-us500-preview-20261105-g",
+  "old_unanswered_request_sha256": "22336df949fedc277c6879d4777784de33daaed683a84ad99a3ace392dbd8a02",
+  "current_request_sha256": "d897bc7ae5664d1bf5b645e8a29de389b5917396ce5721cb014fcea375e3d66f",
+  "source_pack_unchanged": true,
+  "admitted_media_unchanged": true,
+  "visual_decision_unchanged": true,
+  "operation_selection_identity_unchanged": true,
+  "current_lead": "cc124-bls-september-employment-original",
+  "current_attribution": "U.S. Bureau of Labor Statistics reports that both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month",
+  "source_count": 6,
+  "new_source_requests": 0,
+  "publication_performed": false,
+  "source_files": [
+    {
+      "source_id": "SOURCE_1",
+      "document_id": "cc124-bls-september-employment-original",
+      "canonical_content_sha256": "91b3a9d20b12ef19a6610137743798f332b06134ebaa564942139f07f3bd8dd4"
+    },
+    {
+      "source_id": "SOURCE_2",
+      "document_id": "cc124-treasury-nominal-20261104",
+      "canonical_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629"
+    },
+    {
+      "source_id": "SOURCE_3",
+      "document_id": "cc124-bls-november-calendar",
+      "canonical_content_sha256": "305eda69b1fa347ccb2d02cd64f2c0ba11f33c4da41a29ba85a7c7c693e34bd2"
+    },
+    {
+      "source_id": "SOURCE_4",
+      "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+      "canonical_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5"
+    },
+    {
+      "source_id": "SOURCE_5",
+      "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+      "canonical_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3"
+    },
+    {
+      "source_id": "SOURCE_6",
+      "document_id": "official-history-843f76a60b18948f30fd1775",
+      "canonical_content_sha256": "0c3440d34c489d32c2469a45061242bdb73af266e5bdfc4c3a758fa29be95608"
+    }
+  ]
+}

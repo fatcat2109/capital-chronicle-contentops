@@ -24,5 +24,15 @@
   "schedule_changed": false,
   "chat_messages_sent": false,
   "browser_window_id": 1698400956,
-  "browser_group_id": "A25E60F730F0A457F3F4E46D34A6D917"
+  "browser_group_id": "A25E60F730F0A457F3F4E46D34A6D917",
+  "resumed_at_utc": "2026-11-05T16:20:50.128556Z",
+  "resume_configuration": {
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "source": "Observed current Ops-dispatched resume Win32_Process launch arguments PID17764",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "prior_native_child_contexts_available_after_resume": false
+  }
 }
