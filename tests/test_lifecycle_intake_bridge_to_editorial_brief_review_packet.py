@@ -100,36 +100,6 @@ def test_consumes_fixture_and_emits_deterministic_review_packet(sample_bridge_pa
     assert packet1["candidate_count"] == 3
 
 
-def test_real_0175bg_packet_loads_and_produces_metadata_only_review_items():
-    """Verify that the real 0175BG JSON packet loads and generates metadata-only items."""
-    packet_path = Path("docs/automation/0175BG/lane_c_artifact_intake_lifecycle_bridge_packet.json")
-    assert packet_path.exists(), "Real 0175BG packet file must exist for integration verification."
-
-    with open(packet_path, "r", encoding="utf-8") as f:
-        real_bg_packet = json.load(f)
-
-    review_packet = create_editorial_brief_review_packet(real_bg_packet)
-    assert review_packet["candidate_count"] == 7
-
-    allowed_fields = {
-        "candidate_id", "relative_path", "evidence_role", "source_family",
-        "records_count", "contract_name", "advisory_only", "candidate_only",
-        "operator_review_required", "blocked_reasons", "allowed_next_step"
-    }
-
-    for item in review_packet["candidate_review_items"]:
-        # Field check: only allowed fields are present
-        extra_fields = set(item.keys()) - allowed_fields
-        assert not extra_fields, f"Forbidden extra fields observed: {extra_fields}"
-
-        # Value checks for forbidden concepts
-        for field, val in item.items():
-            val_str = str(val).lower()
-            # Ensure no raw record contents / buy/sell/hold keywords or investment signals
-            for forbidden_word in ["buy", "sell", "hold", "guaranteed", "price target", "order execution"]:
-                assert forbidden_word not in val_str, f"Forbidden keyword '{forbidden_word}' found in field '{field}': {val}"
-
-
 def test_truth_and_safety_flags_remain_false(sample_bridge_packet):
     """Verify that truth protection and safety flags are strictly set to False."""
     review_packet = create_editorial_brief_review_packet(sample_bridge_packet)

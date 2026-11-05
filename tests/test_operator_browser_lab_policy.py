@@ -22,12 +22,12 @@ def test_default_profile_path_outside_repo():
 
 
 def test_cdp_default_port_and_override():
-    assert lab.resolve_cdp_port({}) == 9222
+    assert lab.resolve_cdp_port({}) == 9223  # the Edge publishing port; 9222 is the ingestion-only Chrome
     assert lab.resolve_cdp_port({lab.CDP_PORT_ENV_KEY: "9333"}) == 9333
 
 
 def test_browser_command_never_includes_secrets():
-    cmd = lab.build_browser_command("msedge.exe", Path(r"A:\Capital Chronicle\operator-browser-profiles\contentops-social-main"), 9222, "telegram")
+    cmd = lab.build_browser_command("msedge.exe", Path(r"A:\Capital Chronicle\operator-browser-profiles\contentops-social-main"), 9223, "telegram")
     joined = "\n".join(cmd).lower()
     assert "bot_token" not in joined
     assert "client_secret" not in joined

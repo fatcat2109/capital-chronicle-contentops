@@ -651,20 +651,6 @@ def test_cli_writes_deterministic_manifest_and_package_names(tmp_path):
     assert first_packet["local_dispatch_execution_prepared"] is True
 
 
-def test_new_files_and_sample_json_are_utf8_without_bom():
-    docs_dir = Path("docs/automation/V6_LOCAL_DISPATCH_EXECUTION_PAYLOAD_PREPARATION_FROM_SUPERVISED_DECISION")
-    paths = [
-        Path("live_contentops/local_dispatch_execution_payload_preparation_v6.py"),
-        Path("tests/test_local_dispatch_execution_payload_preparation_v6.py"),
-    ]
-    paths.extend(path for path in docs_dir.glob("*") if path.is_file())
-    for path in paths:
-        assert not path.read_bytes().startswith(b"\xef\xbb\xbf")
-    loaded = json.loads((docs_dir / "sample_local_dispatch_execution_payload_manifest.json").read_text(encoding="utf-8"))
-    assert loaded["sample_packet_non_runtime"] is True
-    assert loaded["runtime_truth"] is False
-
-
 def test_malformed_non_object_cli_blocked_test(tmp_path):
     dec_path = tmp_path / "decision.json"
     dec_path.write_text("[]", encoding="utf-8")

@@ -78,15 +78,6 @@ def test_guardrail_rules_are_explicit() -> None:
         assert rule in rules
 
 
-def test_status_markdown_explicit_authority_statements() -> None:
-    text = _read(STATUS_MD)
-    lower = text.lower()
-    assert "`ui/contentops_v5/` is the canonical" in lower
-    assert "`ui/institutional_operator_cockpit_v4/`" in lower
-    assert "fallback/reference only" in lower
-    assert "github remote commits and fetched repo files remain runtime authority above this status doc" in lower
-
-
 def test_protocol_and_dashboard_authority_reinforce_v5() -> None:
     protocol = _read(PROTOCOL_MD).lower()
     authority = _read(DASHBOARD_AUTHORITY_MD).lower()

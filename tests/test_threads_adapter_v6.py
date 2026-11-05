@@ -7,6 +7,21 @@ import urllib.request
 
 from live_contentops import threads_adapter_v6 as adapter
 
+import pytest
+
+
+@pytest.fixture(autouse=True)
+def _telemetry_to_tmp(tmp_path, monkeypatch):
+    # CC-268: dispatch telemetry from these tests goes to tmp, never the tracked
+    # docs/automation/V6_LIVE_TELEMETRY registry (the adapter imports this at call time).
+    from live_contentops import live_telemetry_v6
+    original = live_telemetry_v6.classify_and_record_dispatch
+
+    def record(*args, **kwargs):
+        kwargs.setdefault("registry_file", str(tmp_path / "live_telemetry_registry_v6.jsonl"))
+        return original(*args, **kwargs)
+    monkeypatch.setattr(live_telemetry_v6, "classify_and_record_dispatch", record)
+
 
 def test_compile_payload():
     payload = adapter.compile_threads_payload("Threads post text", "TEXT")

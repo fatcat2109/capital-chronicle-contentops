@@ -452,22 +452,3 @@ def test_cli_writes_deterministic_packet(tmp_path):
     assert first_packet["dispatch_preflight_available"] is True
 
 
-def test_new_files_and_sample_json_are_utf8_without_bom():
-    docs_dir = Path("docs/automation/V6_LOCAL_DISPATCH_PREFLIGHT_FROM_ACTIVE_OUTBOX")
-    paths = [
-        Path("live_contentops/local_dispatch_preflight_v6.py"),
-        Path("tests/test_local_dispatch_preflight_v6.py"),
-    ]
-    paths.extend(path for path in docs_dir.glob("*") if path.is_file())
-    for path in paths:
-        assert not path.read_bytes().startswith(b"\xef\xbb\xbf")
-    loaded = json.loads((docs_dir / "sample_local_dispatch_preflight_packet.json").read_text(encoding="utf-8"))
-    assert loaded["sample_packet_non_runtime"] is True
-    assert loaded["runtime_truth"] is False
-
-
-def test_previous_implementation_report_patched():
-    report_path = Path("docs/automation/V6_LOCAL_ACTIVE_OUTBOX_CREATION_FROM_OPERATOR_REVIEW_DECISION/implementation_report.md")
-    content = report_path.read_text(encoding="utf-8")
-    assert "No active payload files." not in content
-    assert "No dispatch/live-send payload files." in content

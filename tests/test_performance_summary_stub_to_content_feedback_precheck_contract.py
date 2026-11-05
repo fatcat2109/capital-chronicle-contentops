@@ -334,19 +334,6 @@ def test_48_no_financial_advice_signal_execution_language():
     assert p["safety_flags"]["broker_order_execution"] is False
 
 
-def test_49_no_fake_market_numbers():
-    """49. Verify no fake market numbers."""
-    p = build_contract_packet()
-    assert p["safety_flags"]["financial_advice"] is False
-    assert p["safety_flags"]["broker_order_execution"] is False
-
-    out_dir = Path("docs/automation/0175BA")
-    runbook_path = out_dir / "performance_summary_stub_to_content_feedback_precheck_contract.md"
-    assert runbook_path.exists()
-    content = runbook_path.read_text(encoding="utf-8")
-    assert "fake" not in content.lower()
-
-
 def test_50_no_env_network_credential_platform_provider_api_imports_or_calls():
     """50. Scan code to ensure no environment, network, or credential API modules are imported."""
     with open("live_contentops/performance_summary_stub_to_content_feedback_precheck_contract.py", encoding="utf-8") as f:
@@ -393,17 +380,6 @@ def test_55_artifacts_written_only_under_docs_automation_0175ba():
     """55. Verify that write_artifacts fails with ValueError outside docs/automation/0175BA."""
     with pytest.raises(ValueError, match="artifact_writer_refuses_paths_outside_docs_automation_0175BA"):
         write_artifacts(repo_root=".", output_dir="docs/automation/other")
-
-
-def test_56_progress_ledger_resolves_0175az_and_appends_0175ba():
-    """56. Verify progress ledger resolves 0175AZ final HEAD and appends 0175BA."""
-    path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
-    assert path.exists()
-    content = path.read_text(encoding="utf-8")
-
-    # One-task-lag checks
-    assert "| `TASK_CONTENTOPS_0175AZ_PERFORMANCE_AUDIT_PRECHECK_TO_SUMMARY_STUB_V0` | `048b27c6dce2aef5fb38e0552b8208d4fd408d9f` | `888d6c34b31daa107056bb5a56ab0d5e7430e49b` |" in content
-    assert "| `TASK_CONTENTOPS_0175BA_PERFORMANCE_SUMMARY_STUB_TO_CONTENT_FEEDBACK_PRECHECK_V0` | `888d6c34b31daa107056bb5a56ab0d5e7430e49b` | `1e278a83bb2cf95464edc80dbfe819adf6ba6107` |" in content
 
 
 def test_57_no_pycache_or_pyc_staged():

@@ -8,6 +8,25 @@ from live_contentops.platform_native_variant_generator_live_v6 import (
     _insert_substack_visual_markers,
 )
 
+import pytest
+
+from live_contentops import platform_native_variant_generator_live_v6 as generator_module
+
+
+@pytest.fixture(autouse=True)
+def _ui_copy_to_tmp(tmp_path, monkeypatch):
+    # CC-268: the generator also copies its packet to ui/contentops_v5/src/data (a tracked file);
+    # in tests that copy goes to tmp.
+    original = generator_module.write_json
+    ui_copy = Path("ui/contentops_v5/src/data/platform_variant_packet.json")
+
+    def write_json(path, value, *args, **kwargs):
+        if Path(path) == ui_copy:
+            path = tmp_path / "ui_platform_variant_packet.json"
+        return original(path, value, *args, **kwargs)
+    monkeypatch.setattr(generator_module, "write_json", write_json)
+    monkeypatch.setattr(generator_module, "FALLBACK_IMAGE_DIR", tmp_path / "downloads")
+
 
 def test_compute_packet_hash():
     data1 = {"a": 1, "b": 2, "platform_variant_packet_id": "123"}

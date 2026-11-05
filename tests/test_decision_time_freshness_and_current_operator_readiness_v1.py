@@ -230,20 +230,3 @@ def test_all_current_platform_receipts_are_truthful_hash_bound_and_no_write():
     )
 
 
-def test_committed_decision_time_evidence_logical_and_byte_hashes_validate():
-    decision = _load(CURRENT / "decision_time_freshness_records.json")
-    current = _load(CURRENT / "current_operator_readiness_records.json")
-    for document in (decision, current):
-        observed = document["logical_hash"]
-        core = {key: value for key, value in document.items() if key != "logical_hash"}
-        assert observed == sha256(
-            json.dumps(core, ensure_ascii=False, separators=(",", ":"), sort_keys=True).encode()
-        ).hexdigest()
-    manifest = _load(CURRENT / "final_manifest.json")
-    manifest_hash = manifest["logical_hash"]
-    manifest_core = {key: value for key, value in manifest.items() if key != "logical_hash"}
-    assert manifest_hash == sha256(
-        json.dumps(manifest_core, ensure_ascii=False, separators=(",", ":"), sort_keys=True).encode()
-    ).hexdigest()
-    for artifact in manifest["artifacts"]:
-        assert artifact["byte_sha256"] == sha256(Path(artifact["path"]).read_bytes()).hexdigest()

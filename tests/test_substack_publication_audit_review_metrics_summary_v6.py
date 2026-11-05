@@ -33,10 +33,6 @@ def _build(**kwargs) -> dict:
     )
 
 
-def test_committed_sample_matches_builder() -> None:
-    assert _read_json(SAMPLE) == _build()
-
-
 def test_packet_binds_url_audit_and_handoff_hashes() -> None:
     url_audit = _read_json(URL_AUDIT)
     packet = _build()

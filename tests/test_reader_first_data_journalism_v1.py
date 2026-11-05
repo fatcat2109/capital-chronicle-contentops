@@ -613,6 +613,9 @@ def test_channel_photo_preview_keeps_archive_context_without_dropping_unknown_ri
     from live_contentops.v1_simple_gemini_newsroom_v1 import _publication_media_metadata
 
     ui = Path(__file__).resolve().parents[1] / "ui/contentops_v5"
+    if not (ui / "node_modules" / "esbuild").is_dir():
+        # CC-268: this renders the React view with esbuild; node_modules is not tracked.
+        pytest.skip("ui/contentops_v5/node_modules is not installed in this checkout (npm ci there)")
     asset = {
         "asset_id": "controlled-photo", "modality": "documentary_photo",
         "creator_publisher": "Controlled Photographer\u00a0",

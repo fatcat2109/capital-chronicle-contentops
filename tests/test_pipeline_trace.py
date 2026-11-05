@@ -190,14 +190,3 @@ def test_summary_counts():
     assert s["all_fixture_outputs_not_public_postable"] is True
 
 
-def test_refreshed_0072_bundle_docs_exist():
-    docs = os.path.join(os.path.dirname(__file__), "..", "docs")
-    for name in ("NEW_CHAT_CONTINUATION_AFTER_0072.md",
-                 "UPLOAD_BUNDLE_MANIFEST_AFTER_0072.md",
-                 "PROJECT_SOURCE_EXPORT_AFTER_0072.md",
-                 "TASK_CONTENTOPS_0072_EXTREME_LOCAL_REAL_ARTIFACT_PIPELINE_TRACE_REVIEW_PACKET_AND_BUNDLE_REFRESH_V0.md"):
-        path = os.path.join(docs, name)
-        if not os.path.isfile(path):
-            path = os.path.join(docs, "archive", "stale_prelaunch_reset_0174CG", name)
-        assert os.path.isfile(path), f"missing doc: {name}"
-

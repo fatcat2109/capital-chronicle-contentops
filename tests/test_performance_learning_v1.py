@@ -347,10 +347,12 @@ def test_adaptive_learning_firewall_is_complete_and_proposals_remain_review_only
         assert all(proposal["automatic_change"] is False for proposal in decision[key])
 
 
-def test_adaptive_writer_is_scoped_and_artifacts_match_rebuild(tmp_path):
+def test_adaptive_writer_is_scoped_and_artifacts_match_rebuild(tmp_path, monkeypatch):
     repo = tmp_path / "repo"
     repo.mkdir()
     source_root = Path(learning.__file__).resolve().parents[1]
+    # CC-268: the scoped writer's folder points at tmp, so the tracked docs are never rewritten.
+    monkeypatch.setattr(learning, "ADAPTIVE_REL_DIR", tmp_path / "adaptive_newsroom_learning_loop")
     with pytest.raises(ValueError, match="artifact_writer_refuses_paths_outside_adaptive_newsroom_learning_loop"):
         learning.write_adaptive_newsroom_learning_artifacts(source_root, tmp_path / "other")
     result = learning.write_adaptive_newsroom_learning_artifacts(source_root)

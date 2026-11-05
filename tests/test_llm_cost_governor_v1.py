@@ -12,6 +12,8 @@ from live_contentops.llm_cost_governor_v1 import (
     LLMCostBudgetExceededError,
     budget_snapshot,
     llm_cycle_budget_scope,
+    reserve_logical_invocation,
+    reserve_provider_attempt,
 )
 from live_contentops.nine_router_llm_seam_v2 import (
     ROLE_ARTICLE_WRITING,
@@ -20,6 +22,7 @@ from live_contentops.nine_router_llm_seam_v2 import (
 from live_contentops.nine_router_ordered_model_router_v2 import (
     V1_HIGH_QUALITY_MODEL_POOL,
     ProviderResult,
+    model_pool_for_role,
 )
 
 
@@ -64,6 +67,10 @@ def test_cycle_logical_call_budget_is_shared_and_cannot_reset(tmp_path):
 
 
 def test_provider_attempt_budget_spans_retries_model_changes_and_next_call(tmp_path):
+    # CC-268: since 17 Aug (8f6e4422) every role routes over the two authorized Gemini models, and
+    # a retryable failure makes one attempt per model. Six calls therefore use exactly the
+    # 12-attempt cycle budget, and the seventh is refused before any provider call.
+    pool = list(model_pool_for_role(ROLE_ARTICLE_WRITING))
     provider_calls = 0
 
     def unavailable(prompt, model, timeout):
@@ -76,15 +83,17 @@ def test_provider_attempt_budget_spans_retries_model_changes_and_next_call(tmp_p
         )
 
     with llm_cycle_budget_scope("cycle-attempts", control_root=tmp_path, now=NOW):
-        _invoke("logical-a", unavailable)
-        _invoke("logical-b", unavailable)
-        result = _invoke("logical-c", unavailable)
+        results = [
+            _invoke(f"logical-{index}", unavailable)
+            for index in range(HARD_MAX_LOGICAL_CALLS_PER_CYCLE)
+        ]
+        calls_before_refusal = provider_calls
+        with pytest.raises(LLMCostBudgetExceededError):
+            _invoke("logical-over-budget", unavailable)
 
-    assert provider_calls == HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE
-    assert result["terminal_disposition"] == "LLM_TERMINAL_NON_RETRYABLE_FAILURE"
-    assert result["attempts"][-1]["failure_class"] == (
-        "llm_cycle_provider_attempt_budget_exhausted"
-    )
+    assert len(pool) * HARD_MAX_LOGICAL_CALLS_PER_CYCLE == HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE
+    assert all(r["models_attempted_in_order"] == pool for r in results)
+    assert provider_calls == calls_before_refusal == HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE
     snapshot = budget_snapshot("cycle-attempts", control_root=tmp_path)
     assert snapshot["cycle"]["provider_attempts"] == HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE
 
@@ -125,12 +134,30 @@ def test_proven_pre_generation_model_rejections_release_only_token_reservations(
     assert final["cycle"]["provider_attempts"] == len(V1_HIGH_QUALITY_MODEL_POOL) + 1
 
 
+def test_the_thirteenth_provider_attempt_in_a_cycle_is_refused(tmp_path):
+    # The refusal path the test above can no longer reach through the router (see CC-268 there).
+    with llm_cycle_budget_scope("cycle-attempt-cap", control_root=tmp_path, now=NOW):
+        reserve_logical_invocation("logical-cap")
+        for _ in range(HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE):
+            reserve_provider_attempt("bounded governed prompt", logical_invocation_id="logical-cap")
+        with pytest.raises(LLMCostBudgetExceededError) as exc:
+            reserve_provider_attempt("bounded governed prompt", logical_invocation_id="logical-cap")
+    assert exc.value.failure_class == "llm_cycle_provider_attempt_budget_exhausted"
+    snapshot = budget_snapshot("cycle-attempt-cap", control_root=tmp_path)
+    assert snapshot["cycle"]["provider_attempts"] == HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE
+
+
 def test_accepted_fallback_caches_model_scoped_unavailability_for_same_cycle(tmp_path):
+    # CC-268: written against a four-model ladder; the live pool is two Gemini models since 17 Aug
+    # (8f6e4422), so the ladder comes from the router and the last model is the one that accepts.
+    pool = list(model_pool_for_role(ROLE_ARTICLE_WRITING))
+    assert len(pool) >= 2
+    accepting = pool[-1]
     provider_models = []
 
     def provider(prompt, model, timeout):
         provider_models.append(model)
-        if model != "vx/gemini-3.1-pro-preview(high)":
+        if model != accepting:
             return ProviderResult(
                 failure_class="requested_model_temporarily_unavailable",
                 usage=None,
@@ -145,24 +172,12 @@ def test_accepted_fallback_caches_model_scoped_unavailability_for_same_cycle(tmp
 
     assert first["terminal_disposition"] == "ACCEPTED"
     assert second["terminal_disposition"] == "ACCEPTED"
-    assert provider_models == [
-        "new/claude-fable-5",
-        "new/gpt-5.6-sol-xhigh",
-        "new/claude-opus-5",
-        "vx/gemini-3.1-pro-preview(high)",
-        "vx/gemini-3.1-pro-preview(high)",
-    ]
-    assert second["cycle_cached_unavailable_models_skipped"] == [
-        "new/claude-fable-5",
-        "new/gpt-5.6-sol-xhigh",
-        "new/claude-opus-5",
-    ]
-    assert second["models_attempted_in_order"] == [
-        "vx/gemini-3.1-pro-preview(high)"
-    ]
-    assert second["provider_network_calls_skipped_by_cycle_unavailability_cache"] == 3
+    assert provider_models == [*pool, accepting]
+    assert second["cycle_cached_unavailable_models_skipped"] == pool[:-1]
+    assert second["models_attempted_in_order"] == [accepting]
+    assert second["provider_network_calls_skipped_by_cycle_unavailability_cache"] == len(pool) - 1
     snapshot = budget_snapshot("cycle-model-cache", control_root=tmp_path)
-    assert snapshot["cycle"]["provider_attempts"] == 5
+    assert snapshot["cycle"]["provider_attempts"] == len(pool) + 1
 
 
 def test_terminal_pool_exhaustion_does_not_poison_later_invocation(tmp_path):

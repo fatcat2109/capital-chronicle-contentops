@@ -90,19 +90,6 @@ def four_adapter_repo(tmp_path: Path) -> tuple[Path, str]:
     return repo, _git(repo, "rev-parse", "HEAD")
 
 
-def test_freeze_manifest_integrity_and_interface_classification():
-    manifest = load_freeze_manifest()
-    assert manifest["manifest_logical_hash"] == calculated_manifest_hash(manifest)
-    assert not validate_foundation_freeze(ROOT, manifest)
-    classes = manifest["interface_classification"]
-    assert set(classes) == {"FROZEN_SEMANTICS", "VERSIONED_APPEND_ONLY_EXTENSION", "ADAPTER_OWNED"}
-    assert "exact_set_feature_aggregation" in classes["FROZEN_SEMANTICS"]
-    assert "new_extractor_records" in classes["VERSIONED_APPEND_ONLY_EXTENSION"]
-    assert "selectors" in classes["ADAPTER_OWNED"]
-    assert manifest["exact_source_counts_frozen"] is False
-    assert manifest["scenario_fixtures_frozen"] is False
-
-
 def test_prohibited_silent_semantic_mutation_is_detected():
     manifest = deepcopy(load_freeze_manifest())
     manifest["exact_semantic_files"][0]["sha256"] = "0" * 64

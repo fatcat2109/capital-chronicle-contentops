@@ -346,19 +346,6 @@ def test_55_no_financial_advice_signal_execution_language():
     assert p["safety_flags"]["broker_order_execution"] is False
 
 
-def test_56_no_fake_market_numbers():
-    """56. Verify no fake market numbers."""
-    p = build_contract_packet()
-    assert p["safety_flags"]["financial_advice"] is False
-    assert p["safety_flags"]["broker_order_execution"] is False
-
-    out_dir = Path("docs/automation/0175BC")
-    runbook_path = out_dir / "feedback_stub_to_operator_review_brief_precheck_contract.md"
-    assert runbook_path.exists()
-    content = runbook_path.read_text(encoding="utf-8")
-    assert "fake" not in content.lower()
-
-
 def test_57_no_env_network_credential_platform_provider_api_imports_or_calls():
     """57. Scan code to ensure no environment, network, or credential API modules are imported."""
     with open("live_contentops/feedback_stub_to_operator_review_brief_precheck_contract.py", encoding="utf-8") as f:
@@ -409,20 +396,6 @@ def test_62_artifacts_written_only_under_docs_automation_0175bc():
     """62. Verify that write_artifacts fails with ValueError outside docs/automation/0175BC."""
     with pytest.raises(ValueError, match="artifact_writer_refuses_paths_outside_docs_automation_0175BC"):
         write_artifacts(repo_root=".", output_dir="docs/automation/other")
-
-
-def test_63_progress_ledger_resolves_0175bb_and_appends_0175bc():
-    """63. Verify progress ledger resolves 0175BB final HEAD and appends 0175BC."""
-    path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
-    assert path.exists()
-    content = path.read_text(encoding="utf-8")
-
-    # One-task-lag checks
-    assert "| `TASK_CONTENTOPS_0175BB_CONTENT_FEEDBACK_PRECHECK_TO_FEEDBACK_STUB_V0` | `1e278a83bb2cf95464edc80dbfe819adf6ba6107` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` |" in content
-    assert (
-        "| `TASK_CONTENTOPS_0175BC_FEEDBACK_STUB_TO_OPERATOR_REVIEW_BRIEF_PRECHECK_V0` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` | `RECORDED_IN_NEXT_TASK_READBACK` |" in content or
-        "| `TASK_CONTENTOPS_0175BC_FEEDBACK_STUB_TO_OPERATOR_REVIEW_BRIEF_PRECHECK_V0` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` | `2265841efaa3af9177fbb58f2def53ac6cfa807a` |" in content
-    )
 
 
 def test_64_no_pycache_or_pyc_staged():

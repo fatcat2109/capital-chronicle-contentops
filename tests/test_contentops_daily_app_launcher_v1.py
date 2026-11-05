@@ -440,12 +440,19 @@ def test_detached_spawn_survives_launcher_exit(tmp_path):
         sys.executable, "-c",
         f"import time; open(r'{marker}', 'w').close(); time.sleep(4)",
     ]
-    pid = launcher.spawn_detached_daily_app(
-        command,
-        working_directory=tmp_path,
-        stdout_log=tmp_path / "out.log",
-        stderr_log=tmp_path / "err.log",
-    )
+    try:
+        pid = launcher.spawn_detached_daily_app(
+            command,
+            working_directory=tmp_path,
+            stdout_log=tmp_path / "out.log",
+            stderr_log=tmp_path / "err.log",
+        )
+    except PermissionError as exc:
+        if getattr(exc, "winerror", None) != 5:
+            raise
+        # CC-268: CREATE_BREAKAWAY_FROM_JOB needs a host job that permits breakaway. The scheduled
+        # task's does; an agent or IDE tool shell's job does not (WinError 5).
+        pytest.skip("this shell's job object forbids breakaway (WinError 5); the scheduled task's permits it")
     assert pid > 0
     deadline = time.monotonic() + 5.0
     while not marker.exists() and time.monotonic() < deadline:
