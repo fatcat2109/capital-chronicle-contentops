@@ -407,7 +407,7 @@ These tests failed only because the task documents they check were deleted in 41
 |---|---|
 | `tests/test_server.py` (5 tests) | It tests `live_contentops.server._run_id_from_stdout`, `_read_dispatch_audit` and `_trim_tasks`, all removed on 3 Aug 2026 in 7300517c ("quarantine legacy live entrypoints"). |
 
-## Two more dead controls (the same rule, 6 Nov)
+## Two more dead controls (the same rule, 5 Nov)
 
 | Test file | Module | Why |
 |---|---|---|
@@ -428,7 +428,7 @@ No surface uses EDGE_CDP any more: Substack, X and YouTube community posts moved
 
 The same file's routing test now expects the current routing (BROWSEROS_NEO_MCP, no CDP port) and passes.
 
-## Hash seals and retired status documents (Ops Product, 6 Nov)
+## Hash seals and retired status documents (Ops Product, 5 Nov)
 
 Only the tests listed here were removed; the other tests in each file stay and pass. The runtime keeps
 any check it really enforces.
@@ -475,4 +475,16 @@ Text of retired status documents: each pinned wording in a retired V6 status, au
 | `tests/test_current_project_status_guardrail_v6.py::test_status_markdown_explicit_authority_statements` | AssertionError: assert '`ui/institutional_operator_cockpit_v4/`' in '# current project status\n\n`ui |
 | `tests/test_final_product_readiness_metadata_consistency.py::test_status_records_database_authorized_generic_canary_authority` | AssertionError: assert 'V1_PRESELECT...G_SOAK_ACTIVE' == 'PASS_VERIFIE...CHATGPT_AUDIT' |
 | `tests/test_final_environment_format_inventory.py::test_actual_local_env_validates_without_printing_values` | AssertionError: assert ['TELEGRAM_BO...DING_ID', ...] == [] |
-- `tests/test_destination_identity_pinning_v1.py::test_failed_jit_attempt_marker_is_durable_and_survives_passive_snapshot`: it expected a failed Edge CDP check marker to survive a passive Substack snapshot. Substack has used Neo since 28 Oct, where a passive snapshot is always STALE_NEEDS_JIT_VERIFICATION and is return-only (removed 6 Nov).
+- `tests/test_destination_identity_pinning_v1.py::test_failed_jit_attempt_marker_is_durable_and_survives_passive_snapshot`: it expected a failed Edge CDP check marker to survive a passive Substack snapshot. Substack has used Neo since 28 Oct, where a passive snapshot is always STALE_NEEDS_JIT_VERIFICATION and is return-only (removed 5 Nov).
+
+## Tests pinned to a commit that no longer exists (5 Nov)
+
+`live_contentops/schema_aware_real_canary_v1.py` pins `UPSTREAM_HEAD = 48ec657bb66758b444b12ef7467ab2687d200c6a`.
+That commit is in neither this repository nor origin (fetching it returns "not our ref"), so these three
+tests failed in every checkout. The module stays; the other tests in the file pass.
+
+| Test | What it needed |
+|---|---|
+| `tests/test_trusted_evidence_verifier_registry_and_real_multi_topic_canary_v1.py::test_real_multi_topic_canary_uses_three_exact_committed_artifacts_and_no_synthetic_count` | `git show` of 48ec657b |
+| `tests/test_trusted_evidence_verifier_registry_and_real_multi_topic_canary_v1.py::test_real_canary_is_deterministic` | `git show` of 48ec657b |
+| `tests/test_trusted_evidence_verifier_registry_and_real_multi_topic_canary_v1.py::test_evidence_manifest_hashes_every_required_nonself_report` | `git show` of 48ec657b |

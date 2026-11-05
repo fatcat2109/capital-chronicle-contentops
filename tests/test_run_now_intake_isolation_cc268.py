@@ -2,7 +2,7 @@
 
 tests/conftest.py sets CONTENTOPS_DAILY_APP_DISABLE_INTAKE_LANE=1 for every test, but Run Now's
 fallback sync ignored it. In the 5 Nov full run, six operator-trigger tests on fresh (stale) stores
-drove the live X capture (CDP 9222) and wrote eight raw archives into the live headline root.
+drove the live X capture (CDP 9222) and wrote nine raw archives into the live headline root.
 """
 from datetime import datetime, timezone
 
