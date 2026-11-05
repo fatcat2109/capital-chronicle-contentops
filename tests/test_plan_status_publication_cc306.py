@@ -23,10 +23,12 @@ def fake_host(*, work_item_id, delivery_only_assets, existing_manifest, article_
     from live_contentops.post_visuals_v1 import validate_post_data_card
     card = article_assets[0]
     validate_post_data_card(card, article, source_documents)  # the real check the hosting step runs
-    return {"status": "PASS", "assets": [{
+    # The real result's shape (cloudinary_delivery_media_v1, read on the 5 Nov first post):
+    # status READY, with the manifest itself under "manifest".
+    return {"status": "CLOUDINARY_DELIVERY_MEDIA_READY", "provider_calls": 1, "manifest": {"status": "PASS", "assets": [{
         "media_asset_id": card["asset_id"], "sha256": card["sha256"], "public_delivery_sha256": card["sha256"],
         "absolute_local_source_path": card["path"], "local_public_hash_continuity": True,
-        "verified_public_delivery_url": "https://res.cloudinary.com/demo/image/upload/" + card["sha256"][:16] + ".png"}]}
+        "verified_public_delivery_url": "https://res.cloudinary.com/demo/image/upload/" + card["sha256"][:16] + ".png"}]}}
 
 
 @pytest.fixture
@@ -155,3 +157,19 @@ def test_a_stale_x_request_is_never_claimed_for_a_write(queued, monkeypatch):
     with pytest.raises(PlanPostError, match="PLAN_STATUS_X_STALE_NOT_POSTED"):
         begin_x(store, keys[("XAUUSD", "TRIGGERED")], "a" * 64, native_invocation_id="agent",
                 now=NOW + timedelta(minutes=61))
+
+
+def test_recovery_sees_only_the_posts_own_rows(queued):
+    """5 Nov first post: a store-wide recovery pass filed other pieces' readbacks under the post."""
+    store, transport, coordinator, keys, root = queued
+    seen = []
+    real = coordinator.recover_pending
+
+    def recover():
+        seen.append(dict(coordinator.recovery_scope or {}))
+        return real()
+
+    coordinator.recover_pending = recover
+    publish_ready(store, now=NOW, coordinator_for=lambda key, folder: coordinator, root=root, host=fake_host, limit=1)
+    assert seen and seen[0]["exact_work_item_only"] is True
+    assert seen[0]["work_item_id"] in keys.values()
