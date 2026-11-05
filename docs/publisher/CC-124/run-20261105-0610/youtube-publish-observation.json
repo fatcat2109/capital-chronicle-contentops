@@ -1,0 +1,36 @@
+{
+  "dispatched_at_utc": "2026-11-05T00:54:02.775Z",
+  "identity": {
+    "authenticated": true,
+    "observed_at_utc": "2026-11-05T00:54:02.775Z",
+    "observed_identity": "@CapitalChronicleYouTube"
+  },
+  "stage": "PUBLISH_CLICK_ATTEMPTED",
+  "observed": [
+    {
+      "images": [
+        {
+          "alt": "Capital Chronicle",
+          "src": "https://yt3.googleusercontent.com/t4_79_iKy3g7DwnpTPrfMqWjiavlstEPHAk_BWlknzMbql6tYdl81gCWHS2iPkTcyv_SYFWORo8=s48-c-k-c0x00ffffff-no-rj-mo"
+        },
+        {
+          "alt": "",
+          "src": "https://yt3.ggpht.com/rG_a90sANRU8QQR3cbaw901lLSbys1tFS4c0WxjUv-_kpnmhZD-xTWJdVIHiBN0HNGBjxSFt6Zxm9W8=s640-c-fcrop64=1,238e0000dc71ffff-rw-nd-v1"
+        },
+        {
+          "alt": "",
+          "src": ""
+        }
+      ],
+      "links": [
+        "https://www.youtube.com/@CapitalChronicleYouTube",
+        "https://www.youtube.com/@CapitalChronicleYouTube",
+        "https://www.youtube.com/post/Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc",
+        "https://www.youtube.com/post/Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc",
+        "https://www.youtube.com/post/Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc",
+        "https://www.youtube.com/post/Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc"
+      ],
+      "text": "Capital Chronicle\n0 giây trước\nUpdate: September PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\nWhat to watch: A lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods\n\nRetrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade.\nĐọc thêm"
+    }
+  ]
+}
