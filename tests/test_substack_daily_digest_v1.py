@@ -408,6 +408,26 @@ def test_publisher_entry_consumes_due_digest_and_reuses_packet(tmp_path, monkeyp
     assert packet["articles"][0]["url"] in packet["native_payload"]["body_markdown"]
 
 
+def test_digest_does_not_send_another_articles_queued_post(tmp_path, monkeypatch):
+    monkeypatch.setattr("live_contentops.native_desktop_publication_v1.live_publication_policy", lambda _: None)
+    monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
+    store, feed = setup(tmp_path, [row()])
+    control = store.get_operating_control()
+    store.update_operating_control(operating_mode="AUTONOMOUS_DEFAULT",
+        expected_state_version=control["state_version"], control_source="TEST")
+    store.create_work_item(story_id="other", work_item_id="other", title="Another article", target_surface="MULTI_PLATFORM")
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    coordinator.register_plan("other", _plan("substack", "linkedin"))
+    before = [dict(r) for r in store.list_outbox_messages() if r["work_item_id"] == "other"]
+    packet = prepared(store, feed)["packet"]
+    result = continue_daily_digest(store, packet, output_dir=tmp_path / "tools", invocation_id="controlled-digest",
+        rollout={"store_path":str(store.db_path)})
+    request = result["native_tool_request"]["request"]
+    assert request["action"] == "VERIFY_IDENTITY" and request["destination"] == "substack"
+    assert [dict(r) for r in store.list_outbox_messages() if r["work_item_id"] == "other"] == before
+    assert store.list_platform_dispatches() == []
+
+
 def test_digest_uses_live_recovery_scope_with_prior_unknown_social(tmp_path, monkeypatch):
     monkeypatch.setattr("live_contentops.native_desktop_publication_v1.live_publication_policy", lambda _: None)
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)

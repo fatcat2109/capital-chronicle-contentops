@@ -326,7 +326,8 @@ def continue_daily_digest(store, packet, *, output_dir, invocation_id, rollout, 
     # unfinished social delivery cannot hold this exact digest's Substack send.
     # The coordinator still keeps unknown canonical and same-object writes local.
     coordinator.allow_prior_confirmed_distribution = True
-    coordinator.recovery_scope = {"work_item_id": packet["digest_id"], "plan": plan}
+    coordinator.recovery_scope = {"work_item_id": packet["digest_id"], "plan": plan,
+                                  "exact_work_item_only": True}
     if command in {"begin", "submit"}:
         request = (executor._get(request_hash, "request") or {}).get("request", {})
         if request.get("work_item_id") not in {packet["digest_id"],
