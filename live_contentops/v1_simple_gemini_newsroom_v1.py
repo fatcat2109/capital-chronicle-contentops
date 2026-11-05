@@ -1940,6 +1940,10 @@ def _reader_safe_native_article(
             body = body.rstrip() + ("\n\n" if existing_notes else "\n\n### Sources\n\n") + " · ".join(dict.fromkeys(notes))
     else:
         body = _SOURCE_MARKER_RE.sub(reader_reference if legacy_presentation else "", raw_body)
+    # Media are placed from exact admitted asset records. Writer placement hints
+    # are internal metadata, just like source markers, never reader-facing copy.
+    body = re.sub(r"\[\[VISUAL:[A-Za-z0-9_.:-]+\]\]", "", body)
+    body = re.sub(r"\n[ \t]*\n(?:[ \t]*\n)+", "\n\n", body).strip()
     if not reader_first:
         body = re.sub(r"(?m)^#{1,6}\s+", "", body)
     title = str(article.get("title") or "")

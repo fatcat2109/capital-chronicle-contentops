@@ -37,23 +37,29 @@ def run(code):
         raise RuntimeError(str(structured.get("error"))[:1000])
     return structured["value"]
 
-renders = []
+manifest = ROOT / "render-manifest.json"
+renders = json.loads(manifest.read_bytes())["renders"] if manifest.exists() else []
+for render in renders:
+    assert hashlib.sha256(Path(render["path"]).read_bytes()).hexdigest() == render["sha256"]
+completed = {(r["destination"], r["viewport"]) for r in renders}
 try:
     client.initialize()
     call("browser_target", {"action": "set_window", "windowId": 1698400956})
     # First inventory, then one tab in this task's existing group and window.
     call("tabs", {"action": "list"})
-    new = call("tabs", {"action": "new", "groupId": "B4B5A1D184A4CA126657D42B40A5CB38",
-        "url": (ROOT / "review-desktop.html").as_uri()})
-    opened = next(c["text"] for c in new["content"] if c.get("type") == "text" and c.get("text", "").startswith("opened page "))
-    page = int(re.search(r"opened page (\d+)", opened)[1])
-    (ROOT / "capture-page.json").write_text(json.dumps({"page_id": page,
-        "group_id": "B4B5A1D184A4CA126657D42B40A5CB38", "window_id": 1698400956}), encoding="utf-8")
     for viewport in ("desktop", "mobile"):
+        if all((d, viewport) in completed for d in targets["variants"]):
+            continue
         html = ROOT / ("review-" + viewport + ".html")
-        if viewport == "mobile":
-            call("navigate", {"page": page, "url": html.as_uri()})
+        # Neo admits local previews through tabs/new, while navigate is http(s).
+        new = call("tabs", {"action": "new", "groupId": "B4B5A1D184A4CA126657D42B40A5CB38", "url": html.as_uri()})
+        opened = next(c["text"] for c in new["content"] if c.get("type") == "text" and c.get("text", "").startswith("opened page "))
+        page = int(re.search(r"opened page (\d+)", opened)[1])
+        (ROOT / ("capture-page-" + viewport + ".json")).write_text(json.dumps({"page_id": page,
+            "group_id": "B4B5A1D184A4CA126657D42B40A5CB38", "window_id": 1698400956}), encoding="utf-8")
         for destination, variant in sorted(targets["variants"].items()):
+            if (destination, viewport) in completed:
+                continue
             channel = "canonical" if destination == "substack" else destination
             code = f"""const p=browser.page({page});
 const snap=await p.snapshot({{mode:'interactive'}});
