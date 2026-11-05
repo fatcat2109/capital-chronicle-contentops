@@ -1,0 +1,23 @@
+{
+  "operation_id": "cc124-next-article-20261105-d",
+  "returns": [
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\desktop_response_filter-717906eb5e6ef4d9f7f97c6198b807c866e7090d800d31d2ffd43ee256f67462.json",
+      "request_sha256": "a237aa1da368c1b081c9f0f7a8b921ad3e26ecdaf392a243062711d002678e90",
+      "invocation_id": "/root/native_filter_a237aa1da368",
+      "configured_model": "gpt-6-luna",
+      "configured_reasoning_effort": "max",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "decision_count": 96
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\desktop_response_filter-c4f361410c731f5fe58b4288021cd352f74fd27d042780c2ae432d04823ecac2.json",
+      "request_sha256": "231686ff475be7ba5f8a297d41675e2639dadc3ac64ca1ec83ce5ffcd8fe9dc7",
+      "invocation_id": "/root/native_filter_231686ff475b",
+      "configured_model": "gpt-6-luna",
+      "configured_reasoning_effort": "max",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "decision_count": 96
+    }
+  ]
+}
