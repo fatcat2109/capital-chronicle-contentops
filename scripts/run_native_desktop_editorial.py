@@ -348,7 +348,7 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
                             "the shared budget before MAX. A missing optional chart never holds a complete short item."),
                     governed_input=governed, validator=lambda raw: (True, None, json.loads(raw), None))
                 if not turn.visual_response() and not governed.get("publication_speed_policy"):
-                    if turn.scheduled_window:
+                    if turn.volume_policy:
                         from live_contentops.native_desktop_editorial_v1 import request_source_preparation
                         request_source_preparation(turn, output["story_plan"].get("source_requests", []))
                     recovery = turn.source_recovery()

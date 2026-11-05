@@ -450,7 +450,8 @@ def request_source_preparation(turn, requests, *, candidate_id=None):
     validate_source_requests(requests)
     if not requests or turn.source_recovery():
         return
-    if not turn.volume_policy or turn.frozen_request("write") or turn.frozen_request("visual-edit"):
+    if (not turn.volume_policy or turn.frozen_request("write")
+            or turn._get("visual-edit", "response") or turn.admitted_editorial_media()):
         raise ValueError("SOURCE_PREPARATION_MUST_PRECEDE_MAX_FREEZE")
     selection = turn.frozen_request("select")
     walk_path = turn.root / "simple_gemini_evidence_v1.json"
@@ -526,7 +527,9 @@ def _admit_live_source_recovery(turn, binding, response):
         and final.get("exact_next_blocker") == "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED"
         and final.get("writer_invoked") is False and final.get("article") is None
         and final.get("qualified_article_count") == 0 and final.get("public_write_performed") is False)
-    if (turn.frozen_request("write") or turn.frozen_request("visual-edit")
+    unanswered_visual = turn.frozen_request("visual-edit")
+    if (turn.frozen_request("write") or turn._get("visual-edit", "response")
+            or turn.admitted_editorial_media()
             or turn.current_story_outcomes() or (final_row and not source_failure_only)):
         raise ValueError("LIVE_SOURCE_RECOVERY_MUST_PRECEDE_MAX_FREEZE")
     walk_raw = (turn.root / "simple_gemini_evidence_v1.json").read_bytes()
@@ -631,11 +634,20 @@ def _admit_live_source_recovery(turn, binding, response):
         "source_request_count": used + len(requests), "source_request_limit": limit,
         "additional_source_requests": requests, "all_acquisition_already_completed": True,
         "further_acquisition_allowed": False, "public_write_performed": False}
+    if unanswered_visual:
+        # An old manual entry could issue this brief before acquiring Light's
+        # requested sources. No MAX return or media exists. Preserve that exact
+        # unanswered request, and issue a new source-bound brief after recovery.
+        value["superseded_unanswered_visual_sha256"] = unanswered_visual["request_sha256"]
     value["request_sha256"] = sha256_of(value)
     result = {"classification": "RETAINED_SOURCE_RECOVERY_PREPARED", "request_sha256": value["request_sha256"],
         "source_request_count": value["source_request_count"], "source_request_limit": limit,
         "next_operation": "advance same binding", "public_write_performed": False}
     value["admission_result"] = result
+    if unanswered_visual:
+        archive = turn.root / "source-recovery-history" / value["request_sha256"]
+        archive.mkdir(parents=True, exist_ok=True)
+        (archive / "desktop_request_visual-edit.json").write_bytes(canonical_bytes(unanswered_visual))
     turn.store.register_outbox_message(message_id="native-source-recovery-" + sha256_of(value),
         work_item_id=turn.work, destination="internal:native-desktop-source-recovery",
         payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
@@ -689,6 +701,10 @@ class NativeDesktopTurn:
     def _key(self, stage: str, kind: str) -> str:
         native_role(stage)
         revision = self.source_recovery() if stage in {"write", "revise"} else None
+        if stage == "visual-edit":
+            recovered = self.source_recovery()
+            if recovered and recovered.get("superseded_unanswered_visual_sha256"):
+                revision = recovered
         identity = [self.work, stage, kind]
         if self.manual_candidate and stage != "select" and native_role(stage) != "filter":
             identity.append(self.manual_candidate["candidate_id"])

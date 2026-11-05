@@ -210,6 +210,44 @@ def test_pending_recovery_cannot_replace_issued_source_with_context(tmp_path, mo
         admit_pre_writer_source_recovery(turn, binding, response)
 
 
+def test_standing_light_sources_reach_acquisition_before_max(tmp_path, monkeypatch):
+    turn, binding, response, _, _ = seeded(tmp_path, monkeypatch, needs_sources=True)
+    pending = entry().operation(binding, command="media-plan")
+    assert pending["stage"] == "sources"
+    assert turn.frozen_request("visual-edit") is None
+    request = json.loads((turn.root / "source_preparation_required.json").read_bytes())
+    assert request["source_requests"][0]["url"] == response["additional_source_requests"][0]["url"]
+
+
+def test_unanswered_old_visual_is_preserved_and_replaced_with_acquired_sources(tmp_path, monkeypatch):
+    from live_contentops.native_desktop_editorial_v1 import request_source_preparation
+    turn, binding, response, run, calls = seeded(tmp_path, monkeypatch)
+    pending = entry().operation(binding, command="media-plan")
+    assert pending["stage"] == "visual-edit"
+    original = turn.frozen_request("visual-edit")
+    original_key = turn._key("visual-edit", "request")
+    original_bytes = (turn.root / "desktop_request_visual-edit.json").read_bytes()
+    with pytest.raises(DesktopInputRequired):
+        request_source_preparation(turn, [{"url": response["additional_source_requests"][0]["url"],
+            "reason": "Acquire the missing original before the unanswered visual brief is used."}])
+    issued = json.loads((turn.root / "source_preparation_required.json").read_bytes())
+    response["expected_source_request_sha256"] = issued["request_sha256"]
+    admitted = admit_pre_writer_source_recovery(turn, binding, response)
+    history = turn.root / "source-recovery-history" / admitted["request_sha256"]
+    assert (history / "desktop_request_visual-edit.json").read_bytes() == original_bytes
+    assert json.loads(turn.store.get_outbox_message(original_key)["payload"]) == original
+    assert turn.frozen_request("visual-edit") is None
+    with pytest.raises(DesktopInputRequired) as ready:
+        run()
+    assert ready.value.request["stage"] == "media-plan" and len(calls) == 1
+    pending = entry().operation(binding, command="media-plan")
+    assert pending["stage"] == "visual-edit"
+    revised = turn.frozen_request("visual-edit")
+    assert revised["request_sha256"] != original["request_sha256"]
+    assert revised["governed_input"]["source_packet"]["source_pack"][0]["document_id"] == "controlled-original"
+    assert turn.frozen_request("write") is None
+
+
 def test_cached_zero_writer_source_failure_recovers_without_replacing_its_result(tmp_path, monkeypatch):
     from live_contentops.native_manual_candidate_v1 import native_artifact_key
     turn, binding, response, run, calls = seeded(tmp_path, monkeypatch, source_missing=True)
@@ -283,7 +321,9 @@ def test_invalid_live_recovery_changes_no_outbox_rows(tmp_path, monkeypatch, fai
     elif failure == "source_rights":
         p = turn.root / "acquired/index.json"; v = json.loads(p.read_bytes())
         v["records"][0]["public_expression_reuse_allowed"] = True; p.write_text(json.dumps(v))
-    elif failure == "max_frozen": turn._put("visual-edit", "request", {"request_sha256": "existing"})
+    elif failure == "max_frozen":
+        turn._put("visual-edit", "request", {"request_sha256": "existing"})
+        turn._put("visual-edit", "response", {"request_sha256": "existing", "output": {}})
     elif failure == "uncertain_source":
         turn.store.register_outbox_message(message_id="cc-controlled-source-started", work_item_id=turn.work,
             destination="internal:cc-report-editorial-stage", payload=json.dumps({
