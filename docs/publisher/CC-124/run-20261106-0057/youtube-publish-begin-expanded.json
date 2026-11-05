@@ -1,0 +1,137 @@
+{
+  "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+  "operation_id": "cc124-bitcoin-rates-20261106-h",
+  "public_write_authorized": true,
+  "request": {
+    "action": "PUBLISH",
+    "canonical_url": "https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins",
+    "content_binding": {
+      "artifact_manifest": [
+        {
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\reviewed-handoff\\b96f5cd8b1f720b9440f31038bd02eb27143478ddc75c631adf62863dfca4d90\\run_context_v1.json",
+          "sha256": "1a4d2b64e796734940275891ad23961f96a04f0466dfdda98918403fb74ce204"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\reviewed-handoff\\b96f5cd8b1f720b9440f31038bd02eb27143478ddc75c631adf62863dfca4d90\\delivery_media_manifest_v1.json",
+          "sha256": "621ce81fbcdbdf80214317f681ab22109817333ebddb4509b7d7d8390e828c26"
+        }
+      ],
+      "expected_text_segments": [
+        "Update: Lower Treasury yields leave Bitcoin's demand question open\n\nU.S. Department of the Treasury's 10-year yield fell to 4.90% on November 4. Lower interest elsewhere can help Bitcoin's case; it does not establish that buyers are returning.\n\nWhat to watch: For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\n\nRead the full brief: https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      ],
+      "expected_thread_texts": [],
+      "media_manifest": [
+        {
+          "alt_text": "Nominal 10-year Treasury par yield, reported daily observations from January 2 to November 4, 2026, ending at 4.90 percent. This is a Treasury series, not Bitcoin performance.",
+          "asset_id": "cc124-treasury-10y-nominal-2026-bitcoin-watch",
+          "attribution": "Source: U.S. Department of the Treasury. Independent chart: Capital Chronicle.",
+          "caption": "Source: U.S. Treasury. Nominal 10-year par yield, percent, January 2-November 4, 2026; reported observations. This chart shows Treasury yields, not Bitcoin performance. Sources: [U.S. Department of the Treasury](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026).",
+          "modality": "source_backed_chart",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_assets\\treasury-chart\\media_assets\\cc124-treasury-10y-nominal-2026-bitcoin-watch.png",
+          "placement_after": "What the Treasury figures show",
+          "sha256": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+          "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        }
+      ],
+      "thread_post_count": 0
+    },
+    "destination": "youtube",
+    "dispatch_attempt_identity": "dispatch_24e6f3f32d6d6c1f924dbe9375978b0a",
+    "entry_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+    "expected_identity": "@CapitalChronicleYouTube",
+    "forbidden": [
+      "login",
+      "reauthorize",
+      "account_switch",
+      "cookies",
+      "storage",
+      "blind_retry",
+      "bulk_x_ingestion"
+    ],
+    "intent_sha256": "172df3ce58fecf81753177f5a126b4f09e658f63d83f88e22000a490d3f2188e",
+    "native_payload": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+      ],
+      "media_source_links": {
+        "cc124-treasury-10y-nominal-2026-bitcoin-watch": [
+          {
+            "document_id": "cc124-treasury-nominal-20261104",
+            "label": "U.S. Department of the Treasury",
+            "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          }
+        ]
+      },
+      "platform_limit": 1000,
+      "text": "Update: Lower Treasury yields leave Bitcoin's demand question open\n\nU.S. Department of the Treasury's 10-year yield fell to 4.90% on November 4. Lower interest elsewhere can help Bitcoin's case; it does not establish that buyers are returning.\n\nWhat to watch: For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\n\nRead the full brief: https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+    },
+    "package_identity": "02f533e0eb81e84f3e093bc4a599472c4332d5692ef3cd8044d01a18c03a36da",
+    "payload": "Update: Lower Treasury yields leave Bitcoin's demand question open\n\nU.S. Department of the Treasury's 10-year yield fell to 4.90% on November 4. Lower interest elsewhere can help Bitcoin's case; it does not establish that buyers are returning.\n\nWhat to watch: For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\n\nRead the full brief: https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "payload_hash": "30a9cb9edcec77b220ec3f841622c47b2753b2b1124fd3ebe3cd83d05dd1f930",
+    "public_object_id": null,
+    "public_object_url": null,
+    "request_sha256": "b7285b95b1f9eeed8c154931a1fbaf326b1e701c866fa239043b32e65f537200",
+    "schema_version": "contentops.neo_destination_handoff.v1",
+    "steps": [
+      "name_session; list tabs, open a task-owned tab",
+      "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+      "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+      "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+      "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+    ],
+    "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+    "surface": "YOUTUBE_COMMUNITY_POST",
+    "work_item_id": "cc124-bitcoin-rates-20261106-h"
+  },
+  "required_tool": "mcp__browseros_neo__run",
+  "schema_version": "contentops.native_neo_tool_request.v1",
+  "tool_request_sha256": "ff070df9d6e44b4171dc72b837f12de91e17684fcba040a3dc0cdd4e724795b5",
+  "browser_workspace": {
+    "policy": "JIM_DECISION_63",
+    "window": "Use the one existing BrowserOS Neo window. Create one only if none exists.",
+    "tabs": "Open tabs with tabs action=new and groupId in this task's group, titled Capital Chronicle/<task>. Leave Jim's and other agents' tabs untouched."
+  },
+  "upload_policy": {
+    "method": "BROWSEROS_NEO_UPLOAD_OR_FILE_CHOOSER_INTERCEPTION",
+    "source_scope": "ARTICLE_OWN_MEDIA_FOLDER",
+    "bound_media_paths": [
+      "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_assets\\treasury-chart\\media_assets\\cc124-treasury-10y-nominal-2026-bitcoin-watch.png"
+    ],
+    "native_file_dialog": "FORBIDDEN_STOP_WITH_NATIVE_FILE_DIALOG_OPEN"
+  },
+  "composed_run": {
+    "policy": "CC-283",
+    "one_run": "One BrowserOS Neo run script does all five steps in this order, in this task's tab. It replaces the request's steps list: no separate identity, snapshot or binding step first.",
+    "1_identity": {
+      "expected_identity": "@CapitalChronicleYouTube",
+      "expected_stable_id": null,
+      "rule": "Read the signed-in account and compare it with the expected identity and stable id. While in this identity or any other pre-write part, result.stage is BEFORE_PUBLISH_CLICK. A mismatch or an unreadable identity returns FAILED_BEFORE_WRITE with definite_no_write true, stage BEFORE_PUBLISH_CLICK and no click."
+    },
+    "2_compose": "Enter each post below in its own composer box, in order, with its bound media. For a thread, add each next box with the composer's add-post control and wait until that box exists and has focus; then enter the post's whole text in one operation, newlines included. Never enter a post paragraph by paragraph, or before its box is ready.",
+    "3_verify_before_click": {
+      "posts": [
+        "Update: Lower Treasury yields leave Bitcoin's demand question open\n\nU.S. Department of the Treasury's 10-year yield fell to 4.90% on November 4. Lower interest elsewhere can help Bitcoin's case; it does not establish that buyers are returning.\n\nWhat to watch: For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\n\nRead the full brief: https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      ],
+      "rule": "Before the click, read every composer box's text back and compare it with its post, with whitespace collapsed and a link allowed to render shortened. Every post must match, in order, with no box missing or extra. Re-enter a box that differs once and compare again. If any post still differs, return FAILED_BEFORE_WRITE with definite_no_write true, stage BEFORE_PUBLISH_CLICK and no click."
+    },
+    "4_publish": "Immediately BEFORE the publish click, set the observation's dispatched_at_utc and result.stage = PUBLISH_CLICK_ATTEMPTED; then click once to publish the exact payload.",
+    "5_readback": "Right after the click, in the same run, read back the published object (id, url, text, media) and return it as composed.readback. This readback confirms the destination: no separate readback turn follows, and the next destination's run starts after it.",
+    "return": {
+      "result": "the publish result, as for any PUBLISH step, with its stage",
+      "composed": {
+        "identity": [
+          "authenticated",
+          "observed_identity",
+          "observed_stable_id",
+          "observed_at_utc"
+        ],
+        "pre_click_posts": "REQUIRED with any write: the composer texts read in step 3, in order. A return without them is refused; if they were not read, submit nothing",
+        "readback": "REQUIRED with any write: the READBACK result fields (status, observed_identity, public_object_id, public_object_url, observed_text, content_verified, media) observed in this run after the click. A return without it is refused"
+      }
+    },
+    "after_click": "FAILED_BEFORE_WRITE is a definite no-write only for an account mismatch or stage BEFORE_PUBLISH_CLICK. Any other failure, including a missing stage, is UNKNOWN_WRITE; the coordinator reads back before any retry.",
+    "after_run": "Submit this run's return at once, then start the next destination's run. Extra checks of a destination already read back (media comparisons, evidence files, commits) wait until every destination has gone out."
+  }
+}

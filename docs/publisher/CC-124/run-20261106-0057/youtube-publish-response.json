@@ -1,0 +1,54 @@
+{
+  "tool_request_sha256": "ff070df9d6e44b4171dc72b837f12de91e17684fcba040a3dc0cdd4e724795b5",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T19:10:10.125Z",
+    "dispatched_at_utc": "2026-11-05T18:54:05.577Z",
+    "observation_source": "Actual own-channel composer, one publish click, visible YouTube advanced-features refusal and own-channel posts readback. No repeated click."
+  },
+  "result": {
+    "request_sha256": "b7285b95b1f9eeed8c154931a1fbaf326b1e701c866fa239043b32e65f537200",
+    "status": "UNKNOWN_WRITE",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "reason_code": "YOUTUBE_ADVANCED_FEATURE_VERIFICATION_OR_24H_WAIT",
+    "platform_message": "T\u1eadn h\u01b0\u1edfng c\u00e1c t\u00ednh n\u0103ng n\u00e2ng cao\n\u0110\u1ec3 t\u1ea1o nhi\u1ec1u b\u00e0i \u0111\u0103ng h\u01a1n m\u1ed7i ng\u00e0y v\u00e0 s\u1eed d\u1ee5ng c\u00e1c t\u00ednh n\u0103ng n\u00e2ng cao kh\u00e1c c\u1ee7a YouTube, h\u00e3y ho\u00e0n t\u1ea5t m\u1ed9t b\u01b0\u1edbc x\u00e1c minh nhanh ho\u1eb7c \u0111\u1ee3i 24 gi\u1edd. B\u01b0\u1edbc b\u1ed5 sung n\u00e0y gi\u00fap ch\u00fang t\u00f4i h\u1ea1n ch\u1ebf nh\u1eefng ng\u01b0\u1eddi g\u1eedi n\u1ed9i dung r\u00e1c v\u00e0 duy tr\u00ec s\u1ef1 an to\u00e0n cho c\u1ea3 c\u1ed9ng \u0111\u1ed3ng. T\u00ecm hi\u1ec3u th\u00eam\nHu\u1ef7\nX\u00e1c minh",
+    "public_write_performed": false,
+    "retry_permitted": false
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "@CapitalChronicleYouTube",
+      "observed_at_utc": "2026-11-05T18:54:05.577Z",
+      "basis": "Own channel link and Manage videos were observed in this composer flow before the one click."
+    },
+    "pre_click_posts": [
+      "Update: Lower Treasury yields leave Bitcoin's demand question open\n\n\nU.S. Department of the Treasury's 10-year yield fell to 4.90% on November 4. Lower interest elsewhere can help Bitcoin's case; it does not establish that buyers are returning.\n\n\nWhat to watch: For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins\n\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "BLOCKED",
+      "activity_feed_loaded": true,
+      "authenticated": true,
+      "observed_at_utc": "2026-11-05T19:10:10.125Z",
+      "observed_profile_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+      "observed_text": "Capital Chronicle\n1 gi\u1edd tr\u01b0\u1edbc\nUpdate: Jobs watch: weaker hiring can cut both ways for US stocks\n\nA weak jobs headline can ease rate pressure and weaken the earnings outlook at the same time. The S&P 500 needs both sides of that story.\n\nWhat to watch: A falling yield by itself will not distinguish relief about rates from worry about growth.\n\nRead th\n\nCapital Chronicle\n3 gi\u1edd tr\u01b0\u1edbc\nUpdate: EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nWhat to watch: A split dollar response across the two currencies would challenge an explanation built on one\n\nCapital Chronicle\n5 gi\u1edd tr\u01b0\u1edbc\nUpdate: Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\nWhat to watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nRead the full brie\n\nCapital Chronicle\n8 gi\u1edd tr\u01b0\u1edbc\nUpdate: EIA oil inventories: the sharper squeeze is in distillates\n\nThe crude draw was small. The distillate draw deserves the closer look.\n\nWhat to watch: Crude and gasoline stocks posted much smaller declines.\n\nRead the full brief: https://capitalchronicle.substack.com/p/eia-oil-inventories-the-sharper-squeeze\n\nAnaly\n\nCapital Chronicle\n12 gi\u1edd tr\u01b0\u1edbc\nUpdate: SINGLE-SOURCE REPORT - REUTERS | Reuters' 21 October IBM report: software revenue growth outlook and the deal-timing test\n\nReuters' 21 October IBM report described a higher lower bound for annual software-revenue growth.\n\nWhat to watch: The next useful test is whether further reported results substantiate the ",
+      "post_count": 10,
+      "recent_post_urls": [
+        "https://www.youtube.com/post/UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V",
+        "https://www.youtube.com/post/UgkxCDr1Cr65dkwn8YQ_ozq1ZI0mMN2dt1QP",
+        "https://www.youtube.com/post/UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w",
+        "https://www.youtube.com/post/UgkxTU7JJ92PqzRq9tY3UBOkXvS39CsRPLLZ",
+        "https://www.youtube.com/post/Ugkxrj2tZ7a1Rv7Jk3zHVujlgRKCzverZLeg"
+      ],
+      "target_post_absent": true,
+      "visible_dialogs": [
+        "T\u1eadn h\u01b0\u1edfng c\u00e1c t\u00ednh n\u0103ng n\u00e2ng cao\n\u0110\u1ec3 t\u1ea1o nhi\u1ec1u b\u00e0i \u0111\u0103ng h\u01a1n m\u1ed7i ng\u00e0y v\u00e0 s\u1eed d\u1ee5ng c\u00e1c t\u00ednh n\u0103ng n\u00e2ng cao kh\u00e1c c\u1ee7a YouTube, h\u00e3y ho\u00e0n t\u1ea5t m\u1ed9t b\u01b0\u1edbc x\u00e1c minh nhanh ho\u1eb7c \u0111\u1ee3i 24 gi\u1edd. B\u01b0\u1edbc b\u1ed5 sung n\u00e0y gi\u00fap ch\u00fang t\u00f4i h\u1ea1n ch\u1ebf nh\u1eefng ng\u01b0\u1eddi g\u1eedi n\u1ed9i dung r\u00e1c v\u00e0 duy tr\u00ec s\u1ef1 an to\u00e0n cho c\u1ea3 c\u1ed9ng \u0111\u1ed3ng. T\u00ecm hi\u1ec3u th\u00eam\nHu\u1ef7\nX\u00e1c minh"
+      ],
+      "observed_identity": "@CapitalChronicleYouTube",
+      "public_write_performed": false
+    }
+  }
+}

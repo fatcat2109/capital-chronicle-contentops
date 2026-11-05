@@ -1,0 +1,101 @@
+{
+  "tool_request_sha256": "0687e65378d3fe8e42421f39847350d2abeb90f3a45264d749bc89e9fa37a154",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T19:07:31.402969+00:00",
+    "observation_source": "Saved real Neo composer and exact own-object/feed observations; decoded image comparison to the reviewed source.",
+    "dispatched_at_utc": "2026-11-05T18:51:01.383Z"
+  },
+  "result": {
+    "request_sha256": "33370016959c7b5e82ade20448826b264ee7d6e0728c98a334a07e516e7f9ab2",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2118415812772216943",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118415812772216943",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "@Capitalnicle",
+      "observed_at_utc": "2026-11-05T18:51:01.383Z",
+      "basis": "Own profile Edit profile and @Capitalnicle profile link observed in this composer flow before the one click."
+    },
+    "pre_click_posts": [
+      "Lower Treasury yields leave Bitcoin's demand question open\n\nhttps://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins",
+      "U.S. Department of the Treasury's 10-year yield fell to 4.90% on November 4.\n\nLower interest elsewhere can help Bitcoin's case; it does not establish that buyers are returning.",
+      "Watch: For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.",
+      "Capital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "@Capitalnicle",
+      "public_object_id": "2118415812772216943",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118415812772216943",
+      "observed_text": "Lower Treasury yields leave Bitcoin's demand question open\n\n\nhttps://\ncapitalchronicle.substack.com/p/lower-treasu\nry-yields-leave-bitcoins\n\u2026\n\nU.S. Department of the Treasury's 10-year yield fell to 4.90% on November 4.\n\nLower interest elsewhere can help Bitcoin's case; it does not establish that buyers are returning.\n\nWatch: For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+      "observed_thread": [
+        {
+          "observed_text": "Lower Treasury yields leave Bitcoin's demand question open\n\n\nhttps://\ncapitalchronicle.substack.com/p/lower-treasu\nry-yields-leave-bitcoins\n\u2026",
+          "public_object_id": "2118415812772216943",
+          "public_object_url": "https://x.com/Capitalnicle/status/2118415812772216943",
+          "public_image_urls": [
+            "https://pbs.twimg.com/media/HWYfscWaIAEhGKB?format=jpg&name=small"
+          ]
+        },
+        {
+          "observed_text": "U.S. Department of the Treasury's 10-year yield fell to 4.90% on November 4.\n\nLower interest elsewhere can help Bitcoin's case; it does not establish that buyers are returning.",
+          "public_object_id": "2118415815666204781",
+          "public_object_url": "https://x.com/Capitalnicle/status/2118415815666204781",
+          "public_image_urls": []
+        },
+        {
+          "observed_text": "Watch: For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.",
+          "public_object_id": "2118415818002485728",
+          "public_object_url": "https://x.com/Capitalnicle/status/2118415818002485728",
+          "public_image_urls": []
+        },
+        {
+          "observed_text": "Capital Chronicle may hold positions in the markets it covers.",
+          "public_object_id": "2118415820347023631",
+          "public_object_url": "https://x.com/Capitalnicle/status/2118415820347023631",
+          "public_image_urls": []
+        }
+      ],
+      "content_verified": true,
+      "public_image_urls": [
+        "https://pbs.twimg.com/media/HWYfscWaIAEhGKB?format=jpg&name=small"
+      ],
+      "observed_link_resolutions": [
+        {
+          "displayed_text": "\nhttps://\ncapitalchronicle.substack.com/p/lower-treasu\nry-yields-leave-bitcoins\n\u2026",
+          "short_url": "https://t.co/UXtwIXUlsf",
+          "target_url": "https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins",
+          "target_verified": true,
+          "public_object_url": "https://x.com/Capitalnicle/status/2118415812772216943"
+        }
+      ],
+      "media_comparisons": [
+        {
+          "destination": "x",
+          "public_object_url": "https://x.com/Capitalnicle/status/2118415812772216943",
+          "public_image_url": "https://pbs.twimg.com/media/HWYfscWaIAEhGKB?format=jpg&name=small",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_readback\\x-treasury-public-image.bin",
+          "size_bytes": 33512,
+          "platform_sha256": "1b493688a55c0992f56d57b9d361b31c935121f1ee046f7b7a293a77928dbde8",
+          "source_asset_sha256": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+          "similarity": 0.9977,
+          "pixels_inspected": true,
+          "source_pixels_match": true,
+          "inspection_method": "DECODED_PIXEL_SIMILARITY_TO_APPROVED_SOURCE",
+          "mime_type": "image/jpeg",
+          "width": 680,
+          "height": 491
+        }
+      ],
+      "public_write_performed": false
+    }
+  }
+}

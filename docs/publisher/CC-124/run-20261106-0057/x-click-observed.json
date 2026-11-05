@@ -1,0 +1,19 @@
+{
+  "after": "- heading \"To view keyboard shortcuts, press question mark View keyboard shortcuts\" [level=2]\n  - link \"View keyboard shortcuts\" [ref=e1] [url=\"https://x.com/i/keyboard_shortcuts\"]\n- button \"Grok\" [ref=e2]\n- button \"Chat\" [ref=e3]\n- dialog\n  - group [ref=e4] [cursor=pointer]\n    - generic [ref=e5] [cursor=pointer]\n    - dialog\n      - button \"Close\" [ref=e6]\n      - button \"Drafts\" [ref=e7]\n      - generic [ref=e8] [cursor=pointer]\n      - textbox \"Post text\" [ref=e22]: \"Lower Treasury yields leave Bitcoin's demand question open\\n\\nhttps://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins\"\n      - group \"Media\" [ref=e25] [cursor=pointer]\n      - generic [ref=e30] [cursor=pointer]\n      - textbox \"Post text\" [ref=e32]: \"U.S. Department of the Treasury's 10-year yield fell to 4.90% on November 4.\\n\\nLower interest elsewhere can help Bitcoin's case; it does not establish that buyers are returning.\"\n      - generic [ref=e48] [cursor=pointer]\n      - textbox \"Post text\" [ref=e50]: \"Watch: For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\\n\\nAnalysis, not financial advice.\\n\\nReaders decide whether to trade.\"\n      - generic [ref=e66] [cursor=pointer]\n      - textbox \"Post text\" [ref=e68]: \"Capital Chronicle may hold positions in the markets it covers.\"\n      - navigation\n        - button \"Previous\" [disabled] [ref=e72]\n        - tablist\n          - ",
+  "verified": {
+    "changed": false,
+    "page": 593,
+    "settled": false,
+    "value": {
+      "media_present": true,
+      "observed_at_utc": "2026-11-05T18:51:01.383Z",
+      "post_count": 4,
+      "texts": [
+        "Lower Treasury yields leave Bitcoin's demand question open\n\nhttps://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins",
+        "U.S. Department of the Treasury's 10-year yield fell to 4.90% on November 4.\n\nLower interest elsewhere can help Bitcoin's case; it does not establish that buyers are returning.",
+        "Watch: For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.",
+        "Capital Chronicle may hold positions in the markets it covers."
+      ]
+    }
+  }
+}

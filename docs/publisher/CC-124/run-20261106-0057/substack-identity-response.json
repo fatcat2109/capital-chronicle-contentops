@@ -1,0 +1,19 @@
+{
+  "tool_request_sha256": "7173a1599ce565d18a4f4cb2c17baa443ff4dcdd4585799c4a74f6f8a48f9470",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T18:39:41.432447+00:00",
+    "observation_source": "Actual BrowserOS Neo page595 publisher dashboard snapshot/grep: domain capitalchronicle.substack.com with authenticated dashboard and Website link to the exact publication. No login, account change or write."
+  },
+  "result": {
+    "request_sha256": "17f891f9917ccddaf870e7d90ea40c2037ccecf47f821bc4946334c898464067",
+    "authenticated": true,
+    "observed_identity": "capitalchronicle.substack.com",
+    "page_id": 595,
+    "public_write_performed": false,
+    "status": "SUCCESS",
+    "url": "https://capitalchronicle.substack.com/publish/posts/published"
+  }
+}

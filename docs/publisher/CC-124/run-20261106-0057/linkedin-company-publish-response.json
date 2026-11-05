@@ -1,0 +1,69 @@
+{
+  "tool_request_sha256": "ca4f857d485ac86d58dd09347b89b3d762fe0a86af90ae7d47f1f1741c2973cc",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T19:05:45.261Z",
+    "observation_source": "Saved real Neo composer and exact own-object/feed observations; decoded image comparison to the reviewed source.",
+    "dispatched_at_utc": "2026-11-05T18:57:51.468Z"
+  },
+  "result": {
+    "request_sha256": "ac13d4ca10a8fa3bf7b7b091830481bbb42c615a05964fa6da5bbfb2b65faa22",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:share:7524183229864628225",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524183229864628225/",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-05T18:57:51.468Z",
+      "observed_identity": "linkedin:company:143198922",
+      "observed_stable_id": "143198922"
+    },
+    "pre_click_posts": [
+      "Lower Treasury yields leave Bitcoin's demand question open\n\nWhy it matters: On November 4, the U.S. Department of the Treasury's nominal 10-year par yield was 4.90%, down from 4.95% on November 3.\n\nContext: On November 4, the U.S. Department of the Treasury's nominal 10-year par yield was 4.90%, down from 4.95% on November 3. For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\n\nRead the full brief: https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "linkedin:company:143198922",
+      "public_object_id": "urn:li:share:7524183229864628225",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524183229864628225/",
+      "observed_text": "Lower Treasury yields leave Bitcoin's demand question open\nWhy it matters: On November 4, the U.S. Department of the Treasury's nominal 10-year par yield was 4.90%, down from 4.95% on November 3.\nContext: On November 4, the U.S. Department of the Treasury's nominal 10-year par yield was 4.90%, down from 4.95% on November 3. For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\nRead the full brief: https://lnkd.in/gXT3bEVR\nAnalysis, not financial advice. Readers decide whether to trade.\nCapital Chronicle may hold positions in the markets it covers.",
+      "content_verified": true,
+      "public_image_urls": [
+        "https://media.licdn.com/dms/image/v2/D5622AQG440XGg06jQg/feedshare-shrink_800/B56aGtExyHHsAg-/0/1793905073525?e=1795651200&v=beta&t=hLMSwm_FvTn-NJ5kNGkn9GA3DiRcOpSVxV1R-vKX5sk"
+      ],
+      "media_comparisons": [
+        {
+          "destination": "linkedin-company",
+          "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524183229864628225/",
+          "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQG440XGg06jQg/feedshare-shrink_800/B56aGtExyHHsAg-/0/1793905073525?e=1795651200&v=beta&t=hLMSwm_FvTn-NJ5kNGkn9GA3DiRcOpSVxV1R-vKX5sk",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_readback\\linkedin-company-treasury-public-image.bin",
+          "size_bytes": 37164,
+          "platform_sha256": "75dde9c04c78be41bbc72f8fef9327e508afc263c337be91de8a2111bf02a335",
+          "source_asset_sha256": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+          "similarity": 0.9991,
+          "pixels_inspected": true,
+          "source_pixels_match": true,
+          "inspection_method": "DECODED_PIXEL_SIMILARITY_TO_APPROVED_SOURCE",
+          "mime_type": "image/jpeg",
+          "width": 800,
+          "height": 577
+        }
+      ],
+      "public_write_performed": false,
+      "observed_link_resolutions": [
+        {
+          "displayed_url": "https://lnkd.in/gXT3bEVR",
+          "target_url": "https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins",
+          "target_verified": true,
+          "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524183229864628225/"
+        }
+      ]
+    }
+  }
+}

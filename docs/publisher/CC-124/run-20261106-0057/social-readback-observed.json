@@ -1,0 +1,31 @@
+{
+  "company": {
+    "author_links": [],
+    "images": [],
+    "observed_at_utc": "2026-11-05T19:02:19.620Z",
+    "url": "https://www.linkedin.com/feed/update/urn:li:share:7524183229864628225/"
+  },
+  "personal": {
+    "activity_feed_loaded": true,
+    "authenticated": false,
+    "observed_at_utc": "2026-11-05T19:02:19.654Z",
+    "posts_inspected": 0,
+    "recent_post_headings": [],
+    "target_post_absent": true,
+    "url": "https://www.linkedin.com/in/jimcc/recent-activity/all/"
+  },
+  "youtube": {
+    "latest_post_urls": [
+      "https://www.youtube.com/post/UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V",
+      "https://www.youtube.com/post/UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V",
+      "https://www.youtube.com/post/UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V",
+      "https://www.youtube.com/post/UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V",
+      "https://www.youtube.com/post/UgkxCDr1Cr65dkwn8YQ_ozq1ZI0mMN2dt1QP"
+    ],
+    "observed_at_utc": "2026-11-05T19:02:19.697Z",
+    "url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+    "visible_dialogs": [
+      "Tận hưởng các tính năng nâng cao\nĐể tạo nhiều bài đăng hơn mỗi ngày và sử dụng các tính năng nâng cao khác của YouTube, hãy hoàn tất một bước xác minh nhanh hoặc đợi 24 giờ. Bước bổ sung này giúp chúng tôi hạn chế những người gửi nội dung rác và duy trì sự an toàn cho cả cộng đồng. Tìm hiểu thêm\nHuỷ\nXác minh"
+    ]
+  }
+}

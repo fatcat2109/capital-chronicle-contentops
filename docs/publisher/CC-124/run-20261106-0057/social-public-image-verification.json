@@ -1,0 +1,37 @@
+{
+  "checked_at_utc": "2026-11-05T19:07:31.578696+00:00",
+  "images": [
+    {
+      "destination": "x",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118415812772216943",
+      "public_image_url": "https://pbs.twimg.com/media/HWYfscWaIAEhGKB?format=jpg&name=small",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_readback\\x-treasury-public-image.bin",
+      "size_bytes": 33512,
+      "platform_sha256": "1b493688a55c0992f56d57b9d361b31c935121f1ee046f7b7a293a77928dbde8",
+      "source_asset_sha256": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+      "similarity": 0.9977,
+      "pixels_inspected": true,
+      "source_pixels_match": true,
+      "inspection_method": "DECODED_PIXEL_SIMILARITY_TO_APPROVED_SOURCE",
+      "mime_type": "image/jpeg",
+      "width": 680,
+      "height": 491
+    },
+    {
+      "destination": "linkedin-company",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524183229864628225/",
+      "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQG440XGg06jQg/feedshare-shrink_800/B56aGtExyHHsAg-/0/1793905073525?e=1795651200&v=beta&t=hLMSwm_FvTn-NJ5kNGkn9GA3DiRcOpSVxV1R-vKX5sk",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_readback\\linkedin-company-treasury-public-image.bin",
+      "size_bytes": 37164,
+      "platform_sha256": "75dde9c04c78be41bbc72f8fef9327e508afc263c337be91de8a2111bf02a335",
+      "source_asset_sha256": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+      "similarity": 0.9991,
+      "pixels_inspected": true,
+      "source_pixels_match": true,
+      "inspection_method": "DECODED_PIXEL_SIMILARITY_TO_APPROVED_SOURCE",
+      "mime_type": "image/jpeg",
+      "width": 800,
+      "height": 577
+    }
+  ]
+}
