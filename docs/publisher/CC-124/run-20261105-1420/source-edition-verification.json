@@ -1,0 +1,36 @@
+{
+  "verified_at_utc": "2026-11-05T08:33:34.370692Z",
+  "index_sha256": "e14e1531d3d8c967ad1105dbccb8f481b708c51393726754f8a822f205c9f8b7",
+  "verified_records": {
+    "cc124-eia-summary-20261104": {
+      "source_capture_sha256": "3c3c8c22eea864778f5c23dddbdff78d982347b360f3fddbf712077475c65f25",
+      "text_sha256": "4a4f10bea82ad94830a3b220855e8a3a21f29d6d82775d9084b1263d817e647a",
+      "source_permission_record_sha256": "7358d7c37f59f002199fea88d5854beee5c9f73a474a843f38bd76bb489cfb92",
+      "known_at_utc": "2026-11-05T08:14:41.229018Z",
+      "source_url": "https://ir.eia.gov/secure/wpsr/summary.txt"
+    },
+    "cc124-eia-wcestus1-20261104": {
+      "source_capture_sha256": "1ee8dae3894cad3651e0bdc5670f7573c70e1e98ab40c23911cbbfd8b6080955",
+      "text_sha256": "a97911b57c7c3372aa733bc45c613db77de364e8dde1ed8e775d03ce11e23bc8",
+      "source_permission_record_sha256": "c0434582154b547f8eb172673e6801807bdf511b8dd4c76b4df5214e0ee01af0",
+      "known_at_utc": "2026-11-05T08:14:41.229018Z",
+      "source_url": "https://www.eia.gov/dnav/pet/hist_xls/WCESTUS1w.xls"
+    },
+    "cc124-eia-wgtstus1-20261104": {
+      "source_capture_sha256": "6d6d2dc962724f30a3b7a606637836e15d488cc99dd19f2e24b6c74a09980d2f",
+      "text_sha256": "f3fd2c18efbb3df8cbc9cd847744c01a14d92fe00132710c59304f13e4bc8819",
+      "source_permission_record_sha256": "36051b0313fe855969f097fa8b8b9a218a102c510e62897be71e97b9a7b1d3e0",
+      "known_at_utc": "2026-11-05T08:14:41.229018Z",
+      "source_url": "https://www.eia.gov/dnav/pet/hist_xls/WGTSTUS1w.xls"
+    },
+    "cc124-eia-release-20261104": {
+      "source_capture_sha256": "334dcaefeef05fdef3daa19ac6e3e74ed40fe521deadbf7e7bf75f9488846266",
+      "text_sha256": "171f404c28229e58a16a88e2338afb6f69050911cd425e3974e39ae1fc25e43e",
+      "source_permission_record_sha256": "2f647c2a2afd16d3085ccb275071e8b1557e8df2bb738b778bf035e67417d3e3",
+      "known_at_utc": "2026-11-05T08:33:34.370692Z",
+      "source_url": "https://www.eia.gov/petroleum/supply/weekly/"
+    }
+  },
+  "gaps": [],
+  "limits": "Publication dates DATE_ONLY; known-at is local capture verification; no HTTP-body, PIT or first-print claim; original summary URL correction preserved."
+}
