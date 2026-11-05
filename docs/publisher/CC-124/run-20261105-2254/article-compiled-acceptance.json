@@ -1,0 +1,14 @@
+{
+  "checked_at_utc": "2026-11-05T16:34:38.232593+00:00",
+  "operation_id": "cc124-nfp-us500-preview-20261105-g",
+  "article_identity": "e5793bfad26d0dda46844ae0c12c6efb9b7b85d13e03a8ca31b6ad6164a0ceea",
+  "title": "Jobs watch: weaker hiring can cut both ways for US stocks",
+  "current_writer_request_sha256": "d897bc7ae5664d1bf5b645e8a29de389b5917396ce5721cb014fcea375e3d66f",
+  "native_writer_output_sha256": "9de5a871cae0951836e2b40e8a904203bdd743cc1f0a1aba7f7cd7fa39b57488",
+  "native_compiler": "PASS",
+  "destinations": 8,
+  "source_request_count": 3,
+  "captures": 18,
+  "binary_bytes": 2519165,
+  "public_write_performed": false
+}

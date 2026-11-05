@@ -1,0 +1,19 @@
+{
+  "article_identity": "e5793bfad26d0dda46844ae0c12c6efb9b7b85d13e03a8ca31b6ad6164a0ceea",
+  "article_revision": "7573f9610d9ce8c516065efe898215ce292e89369430fe135f114c3bf863edfb",
+  "variants": {
+    "discord": "ba107ee76ca781bfab6973b8b964aff0761b28f842dce92960c433a1b2b270f5",
+    "facebook_page": "fcb8a4e10fe6b4966f4169b5e5948a180dc8c104e2972bdb8757641d1e78fb8b",
+    "instagram_business": "3b7fcb1cf0fa0ea11b3ec881a12ec6e1adb1713a6f53f773c11a0f415feac71c",
+    "linkedin": "d4d698633f93107d506ccbbeac3d5eb6e227473513299968f2ed8f79425da7eb",
+    "substack": "2b8284eda35251354db4483fc963fc4851fae29f02df14b55d691c1c7f6bf1ab",
+    "telegram": "796d63daedcbdf007e10db59ce5089ce300a644517e6bc7c4f148f13203d1959",
+    "threads": "a3d710552a5f4f075455f26f1a55c5790a061de1a3e09498cac230fb5e88d12b",
+    "x": "94c90f61ed30ba250f25d39a53208e6005041a8a53333341fb264f55ed7907b4",
+    "youtube": "9661c3750577830e4354edf691d6ab0259e319ad35b6871e828a85cf4e20c197"
+  },
+  "required_viewports": [
+    "desktop",
+    "mobile"
+  ]
+}

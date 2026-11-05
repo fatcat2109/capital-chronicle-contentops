@@ -33,6 +33,6 @@
     "source": "Observed current Ops-dispatched resume Win32_Process launch arguments PID17764",
     "actual_model": null,
     "actual_reasoning_effort": null,
-    "prior_native_child_contexts_available_after_resume": false
+    "native_child_resume": "Existing canonical task /root/native_max_jobs_ed46a179bd88 resumed through supported collaboration.followup_task; no replacement spawned."
   }
 }

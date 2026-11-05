@@ -1,0 +1,507 @@
+{
+  "captures": [
+    {
+      "box": {
+        "height": 3533.265625,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T16:32:03.006Z",
+      "destination": "substack",
+      "download": {
+        "bytes": 496777,
+        "filename": "cc124-jobs-substack-desktop.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-substack-desktop.png",
+        "ref": "e32"
+      },
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 1313.546875,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T16:32:26.830Z",
+      "destination": "telegram",
+      "download": {
+        "bytes": 102236,
+        "filename": "cc124-jobs-telegram-desktop.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-telegram-desktop.png",
+        "ref": "e35"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 2017.59375,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T16:32:29.499Z",
+      "destination": "discord",
+      "download": {
+        "bytes": 206484,
+        "filename": "cc124-jobs-discord-desktop.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-discord-desktop.png",
+        "ref": "e38"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        },
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 1455.4375,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T16:32:31.554Z",
+      "destination": "x",
+      "download": {
+        "bytes": 102715,
+        "filename": "cc124-jobs-x-desktop.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-x-desktop.png",
+        "ref": "e39"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 2017.59375,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T16:32:34.007Z",
+      "destination": "linkedin",
+      "download": {
+        "bytes": 204983,
+        "filename": "cc124-jobs-linkedin-desktop.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-linkedin-desktop.png",
+        "ref": "e42"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        },
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 1299.109375,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T16:32:35.553Z",
+      "destination": "facebook_page",
+      "download": {
+        "bytes": 133692,
+        "filename": "cc124-jobs-facebook_page-desktop.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-facebook_page-desktop.png",
+        "ref": "e43"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 2060.078125,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T16:32:37.152Z",
+      "destination": "instagram_business",
+      "download": {
+        "bytes": 208137,
+        "filename": "cc124-jobs-instagram_business-desktop.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-instagram_business-desktop.png",
+        "ref": "e46"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        },
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 1398.515625,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T16:32:39.257Z",
+      "destination": "threads",
+      "download": {
+        "bytes": 105181,
+        "filename": "cc124-jobs-threads-desktop.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-threads-desktop.png",
+        "ref": "e47"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 1271.0625,
+        "scale": 1,
+        "width": 944,
+        "x": 240.5,
+        "y": 623.9375
+      },
+      "captured_at_utc": "2026-11-05T16:32:40.797Z",
+      "destination": "youtube",
+      "download": {
+        "bytes": 101880,
+        "filename": "cc124-jobs-youtube-desktop.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-youtube-desktop.png",
+        "ref": "e48"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "desktop"
+    },
+    {
+      "box": {
+        "height": 4070.734375,
+        "scale": 1,
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T16:32:56.205Z",
+      "destination": "substack",
+      "download": {
+        "bytes": 330156,
+        "filename": "cc124-jobs-substack-mobile.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-substack-mobile.png",
+        "ref": "e56"
+      },
+      "images": [
+        {
+          "h": 816,
+          "loaded": true,
+          "w": 1200
+        },
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        },
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1102.46875,
+        "scale": 1,
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T16:32:57.459Z",
+      "destination": "telegram",
+      "download": {
+        "bytes": 51292,
+        "filename": "cc124-jobs-telegram-mobile.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-telegram-mobile.png",
+        "ref": "e59"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1509.8125,
+        "scale": 1,
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T16:32:58.573Z",
+      "destination": "discord",
+      "download": {
+        "bytes": 86451,
+        "filename": "cc124-jobs-discord-mobile.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-discord-mobile.png",
+        "ref": "e62"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        },
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1209.625,
+        "scale": 1,
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T16:32:59.995Z",
+      "destination": "x",
+      "download": {
+        "bytes": 51934,
+        "filename": "cc124-jobs-x-mobile.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-x-mobile.png",
+        "ref": "e63"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1483.421875,
+        "scale": 1,
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T16:33:01.383Z",
+      "destination": "linkedin",
+      "download": {
+        "bytes": 84636,
+        "filename": "cc124-jobs-linkedin-mobile.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-linkedin-mobile.png",
+        "ref": "e66"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        },
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1041.375,
+        "scale": 1,
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T16:33:02.577Z",
+      "destination": "facebook_page",
+      "download": {
+        "bytes": 59823,
+        "filename": "cc124-jobs-facebook_page-mobile.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-facebook_page-mobile.png",
+        "ref": "e67"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1549.796875,
+        "scale": 1,
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T16:33:03.829Z",
+      "destination": "instagram_business",
+      "download": {
+        "bytes": 87704,
+        "filename": "cc124-jobs-instagram_business-mobile.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-instagram_business-mobile.png",
+        "ref": "e70"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        },
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1182.4375,
+        "scale": 1,
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T16:33:05.605Z",
+      "destination": "threads",
+      "download": {
+        "bytes": 53104,
+        "filename": "cc124-jobs-threads-mobile.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-threads-mobile.png",
+        "ref": "e71"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "mobile"
+    },
+    {
+      "box": {
+        "height": 1062.484375,
+        "scale": 1,
+        "width": 366,
+        "x": 12,
+        "y": 577.265625
+      },
+      "captured_at_utc": "2026-11-05T16:33:07.238Z",
+      "destination": "youtube",
+      "download": {
+        "bytes": 51980,
+        "filename": "cc124-jobs-youtube-mobile.png",
+        "page": 575,
+        "path": "C:\\Users\\bullw\\Downloads\\cc124-jobs-youtube-mobile.png",
+        "ref": "e72"
+      },
+      "images": [
+        {
+          "h": 1040,
+          "loaded": true,
+          "w": 1440
+        }
+      ],
+      "viewport": "mobile"
+    }
+  ],
+  "capture_method": "BrowserOS Neo Page.captureScreenshot of the rendered selected-article element; binary downloaded through the same task page; no native desktop control."
+}
+
