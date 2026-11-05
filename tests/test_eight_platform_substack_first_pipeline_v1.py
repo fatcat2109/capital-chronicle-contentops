@@ -19,6 +19,30 @@ def _article() -> dict:
     return {"title": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues", "subtitle": "FRED's latest reading keeps the policy-transmission question in focus."}
 
 
+def test_every_derivative_carries_notices_and_overflow_remains_a_valid_thread(monkeypatch):
+    text = "This is a complete source-qualified sentence. " * 6
+    payloads = {destination: {"text": "A source-qualified report.", "platform_limit": 1000}
+                for destination in EXPECTED_DESTINATIONS}
+    for destination, limit in (("x", 280), ("threads", 500)):
+        posts = [{"text": text, "order": 0, "role": "root", "media_asset_ids": ["card"]},
+                 {"text": text, "order": 1, "role": "reply", "media_asset_ids": []}]
+        payloads[destination] = {"text": text, "root_text": text, "full_text": text,
+            "reply_texts": [text], "posts": posts, "platform_limit": limit}
+    monkeypatch.setattr(pipeline, "_build_native_derivative_payloads", lambda **kwargs: payloads)
+    result = build_native_derivative_payloads(article=_article(), selection={},
+        canonical_url="https://capitalchronicle.substack.com/p/exact", media_asset_ids=["card"])
+    for destination, payload in result.items():
+        visible = payload.get("full_text") or payload["text"]
+        assert "Analysis, not financial advice." in visible
+        assert "Capital Chronicle may hold positions in the markets it covers." in visible
+        if destination in {"x", "threads"}:
+            assert payload["text"] == payload["root_text"] == payload["posts"][0]["text"]
+            assert payload["reply_texts"] == [post["text"] for post in payload["posts"][1:]]
+            assert [post["order"] for post in payload["posts"]] == list(range(len(payload["posts"])))
+            assert all(len(post["text"]) <= payload["platform_limit"] for post in payload["posts"])
+            assert payload["quality_metrics"]["reply_count"] == len(payload["posts"]) - 1
+
+
 def test_thread_sentence_packing_keeps_initialism_bound_to_publisher():
     attribution = "According to the U.S. Bureau of Labor Statistics, the readings have different bases."
     assert pipeline._sentence_units(attribution + " Readers should keep those bases visible.") == [
@@ -862,17 +886,20 @@ def test_x_and_threads_use_three_coherent_posts_with_all_article_visuals():
     for platform in ("x", "threads"):
         payload = payloads[platform]
         metrics = payload["quality_metrics"]
-        assert len(payload["posts"]) == 3
-        assert metrics["reply_count"] == 2
+        assert len(payload["posts"]) == 3 + metrics["notice_reply_count"]
+        assert metrics["content_reply_count"] == 2
+        assert metrics["reply_count"] == len(payload["posts"]) - 1
         assert metrics["sentence_boundary_pass"] is True
         assert metrics["orphan_fragment_count"] == 0
         assert metrics["shortest_longest_reply_ratio"] >= 0.45
         assert metrics["visual_distribution_pass"] is True
         assert metrics["complete_article_visual_count"] == 3
         assert metrics["duplicated_sentence_count"] == 0
-        assert [row["media_asset_ids"] for row in payload["posts"]] == [
+        assert [row["media_asset_ids"] for row in payload["posts"][:3]] == [
             ["primary"], ["policy_corridor"], ["sofr_context"]
         ]
+        assert all(pipeline._publication_notice_only(row) and not row["media_asset_ids"]
+                   for row in payload["posts"][3:])
         assert payload["posts"][0]["media_asset_ids"] == ["primary"]
 
 
@@ -1677,7 +1704,8 @@ def test_compile_variant_reliability_evidence_is_no_write_and_three_media(tmp_pa
     assert packet["live_outputs_modified"] is False
     for platform in ("x", "threads"):
         metrics = packet["planned_layouts"][platform]["quality_metrics"]
-        assert metrics["reply_count"] == 2
+        assert metrics["content_reply_count"] == 2
+        assert metrics["reply_count"] == 2 + metrics["notice_reply_count"]
         assert metrics["complete_article_visual_count"] == 3
 
 
