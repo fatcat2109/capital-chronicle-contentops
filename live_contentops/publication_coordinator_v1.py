@@ -360,6 +360,25 @@ def normalize_readback_result(
         "identity_match": matching,
         "source_status": str(raw.get("status") or raw.get("classification") or "") or None,
     }
+    # CC-199: retain the reason an existing object is incomplete. Provider
+    # bodies, signed media URLs and authentication material never enter this
+    # summary; only the named boolean checks survive.
+    checks = raw.get("content_binding_checks") or {}
+    normalized_checks = {key: checks[key] for key in (
+        "text_match", "media_match", "thread_match", "account_match",
+        "canonical_link_match", "public_url_match", "object_id_match",
+    ) if type(checks.get(key)) is bool}
+    if normalized_checks:
+        normalized["content_binding_checks"] = normalized_checks
+    if type(raw.get("meaningful_media_visible")) is bool:
+        normalized["meaningful_media_visible"] = raw["meaningful_media_visible"]
+    observed_at = (raw.get("native_tool_observation") or {}).get("observed_at_utc")
+    if observed_at:
+        from live_contentops.published_content_v1 import utc
+        try:
+            normalized["observed_at_utc"] = utc(observed_at).isoformat()
+        except (TypeError, ValueError):
+            pass
     if (destination == "substack" and matching and raw.get("write_exists") is True
             and raw.get("canonical_publication_verified") is True):
         normalized["strict_content_verified"] = normalized["verified"]
@@ -367,7 +386,6 @@ def normalize_readback_result(
         normalized["canonical_publication_verified"] = True
         if not normalized["strict_content_verified"]:
             normalized["content_readback_limitation"] = "CANONICAL_PRESENT_TITLE_AND_PUBLIC_NOTICE_VERIFIED_COPY_CHANGED"
-            normalized["content_binding_checks"] = dict(raw.get("content_binding_checks") or {})
     if raw.get("published_at_utc"):
         from live_contentops.published_content_v1 import utc
         try:
@@ -4210,11 +4228,16 @@ class CanonicalDestinationTransportRuntimeV1:
             return observed
         cached = self._strict_publish_readbacks.get((destination, str(public_object_id or "")))
         if cached is not None:
+            proof = cached.get("readback") or {}
+            # Threads' strict result has a root plus its ordered reply chain.
+            proof = proof.get("root", proof)
             return {
                 "status": "SUCCESS", "verified": True,
                 "public_object_id": public_object_id,
                 "public_object_url": public_object_url,
                 "readback_source": "STRICT_PROVIDER_OR_BROWSER_RESULT_FROM_CURRENT_ATTEMPT",
+                **{key: proof[key] for key in ("meaningful_media_visible", "content_binding_checks")
+                   if key in proof},
             }
         from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import (
             _readback_one_destination_from_durable_intent,

@@ -1,0 +1,51 @@
+{
+  "recorded_at_utc": "2026-11-05T19:38:44.369214+00:00",
+  "run_id": "cc124-next-article-20261105-b",
+  "coordinator": {
+    "dispatch_id": "dispatch_15ca220a084a4524f4585596ad96b253",
+    "destination": "threads",
+    "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+    "public_write_performed": false,
+    "publish_called": false
+  },
+  "observed": {
+    "status": "FAILED_THREADS_STRICT_READBACK",
+    "verified": false,
+    "write_exists": true,
+    "body_text_visible": true,
+    "substack_url_visible": true,
+    "meaningful_media_visible": false,
+    "expected_chart_visual_similarity": null,
+    "media_type": "TEXT_POST",
+    "public_url": "https://www.threads.com/@official.capitalchronicle/post/DfV8fzyH7uD",
+    "post_id": "18130022495483073",
+    "reply_chain": {
+      "status": "SUCCESS",
+      "platform": "threads",
+      "root_id": "18130022495483073",
+      "reply_ids_in_provider_order": [
+        "18083534351719472"
+      ],
+      "reply_ids_in_chronological_order": [
+        "18083534351719472"
+      ],
+      "provider_order_verified": true,
+      "ordered_replies": [
+        {
+          "order": 1,
+          "id": "18083534351719472",
+          "public_url": "https://www.threads.com/@official.capitalchronicle/post/DfV8hQtHxVM",
+          "parent_root_id": "18130022495483073",
+          "parent_child_verified": true,
+          "visible_body_text": "What to watch: To test the continuing accounting story in Southwest Airlines Co.'s filing, look for later company disclosures showing how the deferred balance moved and whether new contracts were added. This filing alone cannot establish the current hedge policy. Analysis, not financial advice. Readers decide whether to trade.",
+          "text_verified": true,
+          "expected_media_local_path": null,
+          "media_required": false,
+          "media_verified": true,
+          "expected_chart_visual_similarity": null
+        }
+      ],
+      "complete_article_visual_count": 1
+    }
+  }
+}

@@ -50,3 +50,24 @@ provider request. No chat, schedule or application lifecycle is changed.
 
 The launch flags observed `gpt-6.1-sol / max`, labelled
 `CONFIGURED_NOT_OBSERVED`; this engineering run makes no editorial model call.
+
+## 6 November continuation
+
+The earlier Threads rotation blocker is superseded: refreshed credentials work.
+The retained Southwest root is a `TEXT_POST`; fresh API readback verifies both
+text posts and their link, but finds no image. This is a media failure, not a
+missing-text failure or permission to send the article twice.
+
+The existing publication status now retains bounded content-check booleans and
+the native observation clock. Its timing view recognizes Substack's successful
+`PUBLISHED` return, reports exact persisted readbacks, and measures CC-199's
+30-minute image/readback requirement separately from the 15-minute dispatch
+policy. An ambiguous send reconciled later has a readback upper bound; the
+report never substitutes its attempted time for an observed send. Repeated
+media reviews retain the original text approval. These observations add no
+publication gate or scheduler.
+
+Validation: 11 new acceptance checks and 144 targeted coordinator/dispatch/speed
+regressions passed; three existing decision-83 site-link cases remain skipped.
+The [continuation evidence](run-20261106/) retains the actual three-piece and
+current destination limits separately from those controlled tests.

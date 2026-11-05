@@ -536,6 +536,7 @@ class NeoDestinationHandoff:
                 complete_readback(request)  # Retain CONTENT_INCOMPLETE; never turn it into a resend.
         return {**result, "verified": bool(verified), "status": "SUCCESS" if verified else "BLOCKED",
                 "write_exists": bool(identity_exists), "write_absent": bool(absent),
+                "meaningful_media_visible": bool(expected_media and media_match),
                 "canonical_publication_verified": canonical_present,
                 "content_binding_checks": {"text_match": text_match, "media_match": media_match, "thread_match": thread_match}}
 

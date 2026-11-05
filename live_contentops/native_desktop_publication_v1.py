@@ -237,7 +237,7 @@ def scheduled_publication_authority(store, binding, rollout):
         raise ValueError("PUBLICATION_OPERATING_MODE_BLOCKED")
 
 
-def publication_projection(rows, dispatches, reconciliations, *, run_id, readiness=(), native_invocation_id=None, reviews=()):
+def publication_projection(rows, dispatches, reconciliations, *, run_id, readiness=(), native_invocation_id=None, reviews=(), readbacks=()):
     """Actual records only; no provider probes, configuration-as-login or writes."""
     operation = next(
         (
@@ -443,7 +443,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
         if operation.get("owner_manual_validation")
         else "SCHEDULED",
         "destinations": entries,
-        "timing": publication_timing(rows, reviews, run_id=run_id, destinations=entries),
+        "timing": publication_timing(rows, reviews, run_id=run_id, destinations=entries, readbacks=readbacks),
         "skipped_destinations": sorted(skipped),
         "pending_requests": pending,
         "dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED"
@@ -516,14 +516,19 @@ class NativeReviewedPublication:
         rows += self.store.list_outbox_messages(
             work_item_id="cc-opportunity-" + sha256_of(self.binding["run_id"]))
         rows.sort(key=lambda row: (row["created_at"], row["message_id"]))
+        dispatches = self.store.list_platform_dispatches()
+        message_ids = {row["message_id"] for row in rows}
+        readbacks = [readback for dispatch in dispatches if dispatch["message_id"] in message_ids
+            for readback in self.store.list_readbacks_for_dispatch(dispatch["dispatch_id"])]
         value = publication_projection(
             rows,
-            self.store.list_platform_dispatches(),
+            dispatches,
             self.store.get_reconciliations_for_work_item(self.binding["run_id"]),
             run_id=self.binding["run_id"],
             readiness=self.store.list_destination_readiness(),
             native_invocation_id=self.native_invocation_id,
             reviews=read_reviews(self.store),
+            readbacks=readbacks,
         )
         plan = None
         try:

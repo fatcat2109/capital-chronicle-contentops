@@ -12,6 +12,7 @@ from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonica
 POLICY = "CC-172"
 MAX_VISUAL_REPAIRS = 1
 DISPATCH_MINUTES = 15
+FINISHED_PIECE_MINUTES = 30
 SPEED_POLICY = "JIM_DECISION_53"
 TIME_SENSITIVE_MODES = {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE", "STANDARD_NEWS_ANALYSIS", "DATA_OR_DOCUMENT_LENS"}
 LONG_FORM_MODES = {"EVERGREEN_EXPLAINER", "CAPITAL_CHRONICLE_VIEW", "WHAT_THE_MARKET_IS_MISSING", "WEEK_AHEAD_OR_WATCH"}
@@ -284,7 +285,31 @@ def record_api_dispatch(store, *, intent, destination, dispatch_id, started_at, 
         payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
 
 
-def publication_timing(rows, reviews, *, run_id, destinations, now=None):
+def _verified_readback_clocks(readbacks, entry):
+    """Read the exact dispatch's proof, never its attempt or reconciliation flag."""
+    verified = []
+    for row in readbacks:
+        if row.get("dispatch_id") != entry.get("dispatch_id"):
+            continue
+        data = json.loads(row["readback_data"])
+        proof = data.get("readback", data)
+        if (proof.get("verified") is not True or proof.get("identity_match") is not True
+                or str(proof.get("observed_public_object_id") or "") != str(entry.get("public_object_id") or "")
+                or not entry.get("public_object_id")):
+            continue
+        recorded = _utc(row["read_at"])
+        # Native returns carry the actual observation clock. Delayed submission
+        # never changes it; an invalid future clock cannot backdate evidence.
+        observed = _utc(proof["observed_at_utc"]) if proof.get("observed_at_utc") else recorded
+        if observed > recorded:
+            observed = recorded
+        verified.append((observed, proof.get("meaningful_media_visible") is True))
+    first = min((clock for clock, _ in verified), default=None)
+    image = min((clock for clock, visible in verified if visible), default=None)
+    return first, image
+
+
+def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbacks=()):
     own = [r for r in reviews
         if r["reviewer_ref"] == "NATIVE_DESKTOP_ARTICLE_REVIEW"
         and json.loads(r["notes"]).get("run_id") == run_id]
@@ -312,22 +337,43 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None):
                 responses[request_hash] = json.loads(row["payload"])["result"]
         claim, response = claims.get(request_hash, {}), responses.get(request_hash, {})
         observation = response.get("native_tool_observation") or {}
-        sent = (observation.get("dispatched_at_utc") or observation.get("observed_at_utc")) if response.get("status") == "SUCCESS" else None
+        sent = (observation.get("dispatched_at_utc") or observation.get("observed_at_utc")) if response.get("status") in {"SUCCESS", "PUBLISHED", "POSTED", "CONFIRMED"} else None
         observations.append({"destination": request["destination"],
+            "dispatch_id": request.get("dispatch_attempt_identity"),
             "attempted_at_utc": claim.get("begun_at_utc"), "dispatched_at_utc": sent,
             "status": response.get("status", "PENDING_NATIVE_RETURN"),
             "timing_basis": "NATIVE_ACTION_OBSERVED" if observation.get("dispatched_at_utc") else "NATIVE_RETURN_OBSERVED_UPPER_BOUND"})
     channels = []
     for entry in destinations:
-        actual = [v for v in observations if v["destination"] == entry["destination"]]
+        actual = [v for v in observations if v["destination"] == entry["destination"]
+            and (not v.get("dispatch_id") or not entry.get("dispatch_id")
+                 or v["dispatch_id"] == entry["dispatch_id"])]
         sent = sorted((v for v in actual if v.get("dispatched_at_utc")), key=lambda v: _utc(v["dispatched_at_utc"]))
         chosen = sent[0] if sent else actual[-1] if actual else {}
         clock = chosen.get("dispatched_at_utc")
+        first_readback, image_readback = _verified_readback_clocks(readbacks, entry)
+        # A previously ambiguous API call may later be reconciled. Its exact
+        # verified readback proves an upper bound, never an invented send time.
+        upper_bound = not clock and first_readback is not None
+        if upper_bound:
+            clock = first_readback.isoformat()
         elapsed = (_utc(clock) - _utc(approved)).total_seconds() if clock and approved else None
+        readback_elapsed = (first_readback - _utc(approved)).total_seconds() if first_readback and approved else None
+        image_elapsed = (image_readback - _utc(approved)).total_seconds() if image_readback and approved else None
+        within = 0 <= elapsed <= DISPATCH_MINUTES * 60 if elapsed is not None else None
+        if upper_bound and within is False:
+            within = None  # A late observation does not prove a late send.
+        confirmed = entry.get("reconciliation_status") == "RECONCILED_CONFIRMED" and entry["status"] == "DISPATCH_CONFIRMED"
+        finished = bool(confirmed and elapsed is not None and 0 <= elapsed <= FINISHED_PIECE_MINUTES * 60
+            and image_elapsed is not None and 0 <= image_elapsed <= FINISHED_PIECE_MINUTES * 60)
         channels.append({"destination": entry["destination"], "status": entry["status"],
             "attempted_at_utc": chosen.get("attempted_at_utc"), "dispatched_at_utc": clock,
-            "timing_basis": chosen.get("timing_basis"), "seconds_after_text_approval": elapsed,
-            "within_target": 0 <= elapsed <= DISPATCH_MINUTES * 60 if elapsed is not None else None,
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND" if upper_bound else chosen.get("timing_basis"),
+            "seconds_after_text_approval": elapsed, "within_target": within,
+            "first_verified_readback_at_utc": first_readback.isoformat() if first_readback else None,
+            "readback_seconds_after_text_approval": readback_elapsed,
+            "image_verified_readback_at_utc": image_readback.isoformat() if image_readback else None,
+            "finished_piece_within_30_minutes": finished,
             "skipped": entry["status"].startswith("SKIPPED_")})
     required = [c for c in channels if not c["skipped"]]
     complete = bool(required) and all(c["within_target"] is True for c in required)
@@ -335,5 +381,8 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None):
     return {"policy": SPEED_POLICY, "target_minutes": DISPATCH_MINUTES, "text_approved_at_utc": approved,
         "dispatch_deadline_utc": deadline.isoformat() if deadline else None,
         "channels": channels, "all_channels_dispatched_within_target": complete,
+        "finished_piece_acceptance": {"item": "CC-199", "target_minutes": FINISHED_PIECE_MINUTES,
+            "all_destinations_with_image_readbacks_within_target": bool(required)
+                and all(c["finished_piece_within_30_minutes"] for c in required)},
         "state": "WITHIN_15_MINUTES" if complete else "OVERDUE_CONTINUE_PUBLICATION" if overdue
             else "DISPATCH_NOW" if approved else "TEXT_APPROVAL_NOT_OBSERVED"}

@@ -218,6 +218,14 @@ def readback_threads_post(
         "meaningful_media_visible": meaningful_media_visible,
         "expected_chart_visual_similarity": similarity,
         "media_type": value.get("media_type"),
+        "content_binding_checks": {
+            "text_match": text_verified,
+            "media_match": media_verified,
+            "canonical_link_match": link_verified,
+            "account_match": username.casefold() == "official.capitalchronicle",
+            "public_url_match": bool(permalink),
+            "object_id_match": str(value.get("id") or post_id) == str(post_id),
+        },
     }
 
 
