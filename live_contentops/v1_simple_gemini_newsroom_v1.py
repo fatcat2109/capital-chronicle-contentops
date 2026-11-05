@@ -1989,6 +1989,7 @@ def _reader_safe_native_article(
         bound = next((s for s in sources.values() if s.get("publisher", "").casefold() == publisher.casefold()), None)
         names = {("federal reserve bank of new york", "www.newyorkfed.org"): "New York Fed",
             ("federal reserve board", "www.federalreserve.gov"): "Fed",
+            ("board of governors of the federal reserve system", "www.federalreserve.gov"): "Fed",
             ("u.s. energy information administration", "www.eia.gov"): "EIA",
             ("u.s. energy information administration", "ir.eia.gov"): "EIA",
             ("u.s. bureau of labor statistics", "www.bls.gov"): "BLS",
