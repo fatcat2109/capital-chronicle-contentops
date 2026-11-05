@@ -533,7 +533,8 @@ def test_successful_exact_readback_survives_bucket_change_by_observation_time(tm
     assert store.list_platform_dispatches() == []
 
 
-def test_pending_media_readback_accepts_completed_evidence_without_clock_wait(tmp_path):
+@pytest.mark.parametrize("marked_pending", [False, True])
+def test_pending_media_readback_accepts_completed_evidence_without_clock_wait(tmp_path, marked_pending):
     store, executor = setup(tmp_path)
     now = datetime.now(timezone.utc)
     executor.clock = lambda: now
@@ -554,7 +555,7 @@ def test_pending_media_readback_accepts_completed_evidence_without_clock_wait(tm
                 "public_object_url": url, "observed_text": "Exact supported proposition.",
                 "content_verified": True, **extra}})
 
-    submit(packet, media_check_state="PENDING_BINARY_COMPARISON")
+    submit(packet, **({"media_check_state": "PENDING_BINARY_COMPARISON"} if marked_pending else {}))
     original = executor._get(packet["request"]["request_sha256"], "response")
     fresh, _, _ = pending_readback(adapter, value=value)
     assert fresh["request"]["request_sha256"] != packet["request"]["request_sha256"]

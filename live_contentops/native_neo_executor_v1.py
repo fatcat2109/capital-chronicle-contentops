@@ -56,6 +56,13 @@ class NativeNeoInputRequired(Exception):
         super().__init__(PENDING)
 
 
+def _pending_readback_media(request, result):
+    """An observed image URL alone leaves the approved-byte comparison pending."""
+    return (result.get("media_check_state") == "PENDING_BINARY_COMPARISON"
+            or (bool((request.get("content_binding") or {}).get("media_manifest"))
+                and not result.get("observed_media_sha256") and not result.get("media_comparisons")))
+
+
 class NativeNeoExecutor:
     """Callable executor and readiness provider bound to one active Desktop operation."""
 
@@ -425,7 +432,7 @@ class NativeNeoExecutor:
                              "fields observed in this run right after the click (a failed read with its status "
                              "is accepted)")
         result.setdefault("observed_identity", identity["observed_identity"])
-        if readback.get("media_check_state") == "PENDING_BINARY_COMPARISON":
+        if _pending_readback_media(request, readback):
             # 5 Nov EIA: X's in-run readback deferred its image comparison (after_run lets media
             # checks wait until every destination is out). Reused at once, it recorded X as
             # CONTENT_INCOMPLETE, which recovery never revisits, so the image was never compared.
@@ -506,7 +513,7 @@ class NativeNeoExecutor:
             result = (self._get(prior["request_sha256"], "response") or {}).get("result") or {}
             observation = result.get("native_tool_observation") or {}
             if (result.get("status") != "SUCCESS" or result.get("content_verified") is not True
-                    or result.get("media_check_state") == "PENDING_BINARY_COMPARISON"
+                    or _pending_readback_media(prior, result)
                     or result.get("observed_identity") != request.get("expected_identity")
                     or not result.get("public_object_id") or not result.get("public_object_url")
                     or (request.get("public_object_id") and result["public_object_id"] != request["public_object_id"])
@@ -521,7 +528,7 @@ class NativeNeoExecutor:
         # of reusing that partial return until the next ten-minute bucket.
         refreshed = dict(request)
         previous = self._get(sha256_of(refreshed), "response")
-        while previous and (previous.get("result") or {}).get("media_check_state") == "PENDING_BINARY_COMPARISON":
+        while previous and _pending_readback_media(refreshed, previous.get("result") or {}):
             refreshed["supersedes_incomplete_readback_sha256"] = sha256_of(previous)
             previous = self._get(sha256_of(refreshed), "response")
         if refreshed != request:
