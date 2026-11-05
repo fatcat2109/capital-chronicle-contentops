@@ -229,6 +229,42 @@ def test_cached_zero_writer_source_failure_recovers_without_replacing_its_result
     assert turn.store.get_outbox_message(original_key) == original
 
 
+def test_four_verified_documents_feed_the_same_writer_with_one_shared_budget(tmp_path, monkeypatch):
+    turn, binding, response, run, _ = seeded(tmp_path, monkeypatch)
+    root = turn.root / "acquired"
+    index = json.loads((root / "index.json").read_bytes())
+    for n in range(1, 4):
+        relative = "context-" + str(n)
+        extra = root / relative
+        source_fixture(extra)
+        suffix = "controlled-original-" + str(n)
+        url = "https://www.reuters.com/markets/us/controlled-policy-context-" + str(n) + "-2026-10-30/"
+        capture = json.loads((extra / "capture.json").read_bytes())
+        capture["url"] = url
+        (extra / "capture.json").write_text(json.dumps(capture), encoding="utf-8")
+        digest = sha256((extra / "capture.json").read_bytes()).hexdigest()
+        admission = json.loads((extra / "admission.json").read_bytes())
+        admission["official_source_documents"][0].update(document_id=suffix, source_url=url, raw_sha256=digest)
+        (extra / "admission.json").write_text(json.dumps(admission), encoding="utf-8")
+        spec = json.loads((extra / "index.json").read_bytes())["records"][0]
+        spec.update(headline_id=suffix, source_capture_sha256=digest)
+        for key in ("capture_path", "policy_capture_path", "loader_result_path"):
+            spec[key] = relative + "/" + spec[key]
+        index["records"].append(spec)
+        response["supporting_headline_ids"].append(suffix)
+        response["additional_source_requests"].append({"url": url, "non_chargeable": True,
+            "observed_at_utc": "2026-10-31T00:00:00Z", "capture_path": str(extra / "capture.json"),
+            "capture_sha256": digest})
+    (root / "index.json").write_text(json.dumps(index), encoding="utf-8")
+    result = admit_pre_writer_source_recovery(turn, binding, response)
+    assert result["source_request_count"] == 6  # Two earlier and four acquired documents.
+    with pytest.raises(DesktopInputRequired) as ready:
+        run()
+    assert ready.value.request["stage"] == "media-plan"
+    walk = json.loads((turn.root / "simple_gemini_evidence_v1.json").read_bytes())
+    assert len(walk["selected_source_pack"]) == 4 and walk["request_count"] == 6
+
+
 @pytest.mark.parametrize("failure", ["budget", "changed_walk", "changed_selection", "different_candidate",
     "capture_hash", "unrelated_capture", "paid", "future_capture", "outside_root", "source_rights",
     "uncertain_source", "max_frozen", "terminal", "not_live"])

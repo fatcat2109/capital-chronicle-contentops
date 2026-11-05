@@ -1,0 +1,98 @@
+{
+  "within_bound_live_budget": true,
+  "expected_selection_request_sha256": "2ad36bb360fc630998a241ee864566d2b3903a472f40188d1ce857f94104f7a1",
+  "expected_source_request_sha256": "6941438a0b1e7055c240d990f6acab24cfda8841ae25856b435213df0833c450",
+  "expected_evidence_sha256": "a29076929c779e4cc24a6de0e9224e928b0a604bd650a7ea2753cabd6560b886",
+  "candidate_id": "simple-story-f9ddb46e45cef053628802d0",
+  "research_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-editions-eia",
+  "supporting_headline_ids": [
+    "cc124-eia-summary-20261104",
+    "cc124-eia-wcestus1-20261104",
+    "cc124-eia-wgtstus1-20261104",
+    "cc124-eia-release-20261104"
+  ],
+  "additional_source_requests": [
+    {
+      "reason": "Exact dated official weekly petroleum balance and component changes; original primary retrieval had zero accepted documents.",
+      "url": "https://ir.eia.gov/wpsr/summary.txt",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T08:17:40.797505+00:00",
+      "observation_clock_basis": "LOCAL_CAPTURE_VERIFIED_AFTER_NEO_ACQUISITION_DOWNLOAD_TIME_NOT_EXPOSED",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-editions-eia\\cc124-eia-summary-20261104-visible.md",
+      "capture_sha256": "3c3c8c22eea864778f5c23dddbdff78d982347b360f3fddbf712077475c65f25"
+    },
+    {
+      "reason": "Comparable official weekly US commercial crude inventories for at least 24 months, units and latest period.",
+      "url": "https://www.eia.gov/dnav/pet/hist_xls/WCESTUS1w.xls",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T08:17:40.797505+00:00",
+      "observation_clock_basis": "LOCAL_CAPTURE_VERIFIED_AFTER_NEO_ACQUISITION_DOWNLOAD_TIME_NOT_EXPOSED",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-editions-eia\\WCESTUS1-facts.json",
+      "capture_sha256": "1ee8dae3894cad3651e0bdc5670f7573c70e1e98ab40c23911cbbfd8b6080955"
+    },
+    {
+      "reason": "Comparable official weekly US gasoline inventories for at least 24 months, units and latest period.",
+      "url": "https://www.eia.gov/dnav/pet/hist_xls/WGTSTUS1w.xls",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T08:17:40.797505+00:00",
+      "observation_clock_basis": "LOCAL_CAPTURE_VERIFIED_AFTER_NEO_ACQUISITION_DOWNLOAD_TIME_NOT_EXPOSED",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-editions-eia\\WGTSTUS1-facts.json",
+      "capture_sha256": "6d6d2dc962724f30a3b7a606637836e15d488cc99dd19f2e24b6c74a09980d2f"
+    },
+    {
+      "url": "https://www.eia.gov/petroleum/supply/weekly/",
+      "reason": "Official release and reference-week date needed to bind the undated summary and workbook dates.",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T08:17:40.797505+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-editions-eia\\cc124-eia-release-20261104-visible.md",
+      "capture_sha256": "334dcaefeef05fdef3daa19ac6e3e74ed40fe521deadbf7e7bf75f9488846266",
+      "observation_clock_basis": "LOCAL_CAPTURE_VERIFIED_AFTER_NEO_ACQUISITION_DOWNLOAD_TIME_NOT_EXPOSED"
+    },
+    {
+      "url": "https://ir.eia.gov/secure/wpsr/summary.txt",
+      "reason": "Actual observed EIA redirect to the secure summary resource; public access query omitted from canonical URL.",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T08:17:40.797505+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-editions-eia\\cc124-eia-summary-20261104-visible.md",
+      "capture_sha256": "3c3c8c22eea864778f5c23dddbdff78d982347b360f3fddbf712077475c65f25",
+      "observation_clock_basis": "LOCAL_CAPTURE_VERIFIED_AFTER_NEO_ACQUISITION_DOWNLOAD_TIME_NOT_EXPOSED"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=oil%20refinery%20public%20domain",
+      "reason": "Find an authentic lawful contextual refinery photo.",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T08:44:51.862911+00:00",
+      "observation_clock_basis": "LOCAL_CAPTURE_VERIFIED_AFTER_NEO_ACQUISITION_DOWNLOAD_TIME_UNEXPOSED",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-captures\\commons-photo-search.md",
+      "capture_sha256": "59f5020af78e6237d40a266f4a7c31a15ddcfe38ebe2049138429b9139b2a6f8"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg",
+      "reason": "Verify creator, archive context, original image and PD-USGov-FWS licence.",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T08:44:51.862911+00:00",
+      "observation_clock_basis": "LOCAL_CAPTURE_VERIFIED_AFTER_NEO_ACQUISITION_DOWNLOAD_TIME_UNEXPOSED",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-captures\\commons-refinery-page.md",
+      "capture_sha256": "7400aa0bb5846a56d1f29e9a267e8f8418b3c5bb07ec55bf400a747d80fbf31a"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Oil_refinery_coastal_Texas.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
+      "reason": "First original-image link navigated inline without a download event; preserve the observed failure.",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T08:44:51.862911+00:00",
+      "observation_clock_basis": "LOCAL_CAPTURE_VERIFIED_AFTER_NEO_ACQUISITION_DOWNLOAD_TIME_UNEXPOSED",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-captures\\photo-inline-first-attempt.json",
+      "capture_sha256": "2d29a02cd0ebdef91a1518b35ee885486365b0123bbb6d3954cb67dc00dd2c6f"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Oil_refinery_coastal_Texas.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
+      "reason": "Same-origin download attribute acquired the exact original after the observed inline-image cause was corrected.",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T08:44:51.862911+00:00",
+      "observation_clock_basis": "LOCAL_CAPTURE_VERIFIED_AFTER_NEO_ACQUISITION_DOWNLOAD_TIME_UNEXPOSED",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\Oil_refinery_coastal_Texas.jpg",
+      "capture_sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c"
+    }
+  ],
+  "owner_instruction": "Use the exact Nov 4 official EIA release for week ending Oct 30 and source/cell-bound 106-week official histories. Keep all prior requests/failures and clocks. Neo visible-text exports and downloaded XLS are not raw HTTP body observations. Include the official report title/date page and actual photo lookup/download attempts in the same budget. Archive photo is media context, never release evidence. All acquisitions are complete before MAX freeze. Focus USOIL under Jim decision 79, without inventing a current plan or market reaction."
+}

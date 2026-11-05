@@ -599,7 +599,7 @@ def _admit_live_source_recovery(turn, binding, response):
             "next_operation": "advance same binding to continue its remaining candidates"}
     research = RetainedSourceResearch(source_root)
     ids = response.get("supporting_headline_ids", [])
-    if (research.gaps or not isinstance(ids, list) or not 1 <= len(ids) <= 3
+    if (research.gaps or not isinstance(ids, list) or not ids
             or len(set(ids)) != len(ids) or set(ids) != set(research.records)):
         raise ValueError("EXACT_VERIFIED_RECOVERY_SOURCE_IDS_REQUIRED")
     cutoff = binding.get("input_known_at_cutoff_utc", binding["cutoff_utc"])

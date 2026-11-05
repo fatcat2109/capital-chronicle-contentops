@@ -1,0 +1,31 @@
+{
+  "asset_id": "cc124-archive-texas-refinery-fws",
+  "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\Oil_refinery_coastal_Texas.jpg",
+  "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+  "width": 1512,
+  "height": 996,
+  "modality": "photograph",
+  "media_role": "context_photo",
+  "source_page_url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg",
+  "source_media_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Oil_refinery_coastal_Texas.jpg",
+  "creator": "U.S. Fish and Wildlife Service",
+  "source": "Wikimedia Commons; U.S. Fish and Wildlife Service",
+  "license_name": "Public domain (PD-USGov-FWS)",
+  "license_url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg#Licensing",
+  "underlying_source_rights_status": "public_domain",
+  "source_page_capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-captures\\commons-refinery-page.md",
+  "source_page_capture_sha256": "7400aa0bb5846a56d1f29e9a267e8f8418b3c5bb07ec55bf400a747d80fbf31a",
+  "source_photo_capture_date": null,
+  "source_photo_capture_date_state": "NOT_GIVEN_BY_SOURCE",
+  "commons_upload_date": "2013-03-01",
+  "is_archive_context": true,
+  "supports_headline": false,
+  "caption": "Archive context: a coastal Texas oil refinery. Photo: U.S. Fish and Wildlife Service, via Wikimedia Commons (public domain).",
+  "alt_text": "Archive aerial photograph of storage tanks and coastal refinery infrastructure in Texas.",
+  "attribution": "U.S. Fish and Wildlife Service / Wikimedia Commons / public domain",
+  "pixel_inspection": {
+    "reviewer": "/root",
+    "observed": "Aerial photograph of cylindrical storage tanks, refinery infrastructure and coastal waterways; archive context, no evidence of current inventory conditions."
+  },
+  "source_request_count_total_including_prior_evidence": 12
+}
