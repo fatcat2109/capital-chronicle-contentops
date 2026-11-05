@@ -1,0 +1,32 @@
+{
+  "images": [
+    {
+      "asset_id": "cc124-treasury-10y-nominal-2026-bitcoin-watch",
+      "source_asset_sha256": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+      "platform_sha256": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+      "public_image_url": "https://substackcdn.com/image/fetch/$s_!MmAi!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F93bb985e-d589-4d3a-9e4c-395391bde990_1440x1040.png",
+      "original_image_url": "https://substack-post-media.s3.amazonaws.com/public/images/93bb985e-d589-4d3a-9e4c-395391bde990_1440x1040.png",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_readback\\cc124-treasury-10y-nominal-2026-bitcoin-watch-substack.bin",
+      "similarity": 1.0,
+      "source_pixels_match": true,
+      "inspection_method": "DECODED_PIXEL_SIMILARITY_TO_APPROVED_SOURCE",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040
+    },
+    {
+      "asset_id": "cc124-bitcoin-fed-archive",
+      "source_asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "platform_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "public_image_url": "https://substackcdn.com/image/fetch/$s_!Miw3!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F06eb12e4-3862-45aa-9fa7-8876d95c8466_3000x2041.jpeg",
+      "original_image_url": "https://substack-post-media.s3.amazonaws.com/public/images/06eb12e4-3862-45aa-9fa7-8876d95c8466_3000x2041.jpeg",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_readback\\cc124-bitcoin-fed-archive-substack.bin",
+      "similarity": 1.0,
+      "source_pixels_match": true,
+      "inspection_method": "DECODED_PIXEL_SIMILARITY_TO_APPROVED_SOURCE",
+      "mime_type": "image/jpeg",
+      "width": 3000,
+      "height": 2041
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "status": "PUBLISHED",
+  "observed_identity": "capitalchronicle.substack.com",
+  "public_object_id": "223667079",
+  "public_object_url": "https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins",
+  "public_write_performed": true,
+  "observed_at_utc": "2026-11-05T18:45:25.999093+00:00",
+  "dispatched_at_utc": "2026-11-05T18:44:38.928Z",
+  "observation_source": "Actual Neo page595 draft223667079 reached exact share-center after one web-only publication flow; textbox supplied canonical URL. Email verified unchecked; no code dialog appeared and no mailbox was opened.",
+  "delivery_observation": {
+    "email_send_enabled": false,
+    "web_publish_enabled": true,
+    "evidence_ref": "docs\\publisher\\CC-124\\run-20261106-0057\\substack-share-center-observed.json"
+  }
+}

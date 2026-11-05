@@ -1,0 +1,111 @@
+{
+  "tool_request_sha256": "1d5a4b524d04e69161439db5e950ef93403d030b3321546364d1521bb4c82c43",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T18:46:12.364Z",
+    "observation_source": "Fresh actual Neo canonical article body, title, subtitle, time and two loaded images. Every source paragraph matched; exact uploaded image bytes decoded/compared by installed media owner."
+  },
+  "result": {
+    "request_sha256": "ef70ed708bd41d7ca2a5ccda953050388083d5b7249c66225bdbaaa925129135",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "observed_text": "Lower Treasury yields leave Bitcoin's demand question open\nThe nominal 10-year Treasury yield fell to 4.90% on November 4. That can ease one cost of holding Bitcoin, while leaving investors' appetite for its price risk unanswered.\nOn November 4, the U.S. Department of the Treasury's nominal 10-year par yield was 4.90%, down from 4.95% on November 3. For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\n\nCapital Chronicle's view is that lower Treasury yields can ease one cost of holding Bitcoin, while leaving the demand question open. A bond-yield decline alone does not establish a Bitcoin recovery.\n\nArchive context: the Federal Reserve's Eccles Building, March 2011. Photo: Federal Reserve Board (Federalreserve), via Wikimedia Commons; public domain. Photo source \u00b7 Public domain (Federal Reserve Board)\n\nWhat the Treasury figures show\n\nRead the series as a nominal 10-year Treasury yield. It is not the Federal Reserve's policy-rate target or an inflation-adjusted yield. The chart ends on November 4 and shows no Bitcoin price performance.\n\nSource: U.S. Treasury. Nominal 10-year par yield, percent, January 2-November 4, 2026; reported observations. This chart shows Treasury yields, not Bitcoin performance. U.S. Treasury\n\nWhy lower yields are only one part of the Bitcoin test\n\nThe opportunity-cost argument is conditional: if the yield on an interest-bearing alternative falls, choosing an asset that pays no interest would mean giving up less interest. That could make Bitcoin more attractive, other things equal. It does not tell us whether investors will make that choice.\n\nAccess and appetite are different questions. In its September 9, 2024 investor bulletin, the SEC described spot Bitcoin ETPs as trusts that hold the asset and seek to track its price. It also warned that Bitcoin exposure remains highly speculative, including through an ETP, and highlighted price volatility.\n\nThe counter-case deserves weight: lower yields could help if investors' willingness to hold Bitcoin remains intact. If that willingness weakens, however, reduced interest elsewhere might not be enough to offset reluctance to accept Bitcoin's price risk. The Treasury series does not establish either state of appetite.\n\nWhat would make the argument stronger\n\nFirst, watch whether lower Treasury yields persist. Then assess Bitcoin separately, using dated market observations and verified evidence of investment-product demand. Neither a Bitcoin move nor product flows can be read out of this bond chart.\n\nIf yields fell while Bitcoin weakened, the rate relief would have failed to translate into price support. If Bitcoin strengthened while yields rose, a bond-yield explanation would be insufficient. Even a Bitcoin rise alongside falling yields would be consistent with the mechanism without proving it caused the move.\n\nThe jobs report is a scheduled test\n\nThe Bureau of Labor Statistics schedules the October 2026 Employment Situation for November 6 at 8:30 a.m. EST. That is a release-calendar fact, not a payroll result or a consensus estimate.\n\nAfter the release, check the observed Treasury-yield response and then the separate Bitcoin evidence. A jobs headline does not settle both questions. The useful watch is whether a more favourable rate backdrop is accompanied by an independently established willingness to hold Bitcoin.\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+    "public_object_id": "223667079",
+    "public_object_url": "https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins",
+    "public_write_performed": false,
+    "published_at_utc": "2026-11-05T18:44:51.561Z",
+    "content_verified": true,
+    "observed_media_sha256": [
+      "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+      "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62"
+    ],
+    "public_image_urls": [
+      "https://substackcdn.com/image/fetch/$s_!Miw3!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F06eb12e4-3862-45aa-9fa7-8876d95c8466_3000x2041.jpeg",
+      "https://substackcdn.com/image/fetch/$s_!MmAi!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F93bb985e-d589-4d3a-9e4c-395391bde990_1440x1040.png"
+    ],
+    "images": [
+      {
+        "alt": "The front entrance and facade of the Federal Reserve's Eccles Building, photographed in March 2011.",
+        "height": 1134,
+        "loaded": true,
+        "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/06eb12e4-3862-45aa-9fa7-8876d95c8466_3000x2041.jpeg",
+        "src": "https://substackcdn.com/image/fetch/$s_!Miw3!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F06eb12e4-3862-45aa-9fa7-8876d95c8466_3000x2041.jpeg",
+        "width": 1667
+      },
+      {
+        "alt": "Nominal 10-year Treasury par yield, reported daily observations from January 2 to November 4, 2026, ending at 4.90 percent. This is a Treasury series, not Bitcoin performance.",
+        "height": 1190,
+        "loaded": true,
+        "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/93bb985e-d589-4d3a-9e4c-395391bde990_1440x1040.png",
+        "src": "https://substackcdn.com/image/fetch/$s_!MmAi!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F93bb985e-d589-4d3a-9e4c-395391bde990_1440x1040.png",
+        "width": 1648
+      }
+    ],
+    "links": [
+      {
+        "href": "https://substackcdn.com/image/fetch/$s_!Miw3!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F06eb12e4-3862-45aa-9fa7-8876d95c8466_3000x2041.jpeg",
+        "text": ""
+      },
+      {
+        "href": "https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg",
+        "text": "Photo source"
+      },
+      {
+        "href": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Federal_Reserve",
+        "text": "Public domain (Federal Reserve Board)"
+      },
+      {
+        "href": "https://substackcdn.com/image/fetch/$s_!MmAi!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F93bb985e-d589-4d3a-9e4c-395391bde990_1440x1040.png",
+        "text": ""
+      },
+      {
+        "href": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+        "text": "U.S. Treasury"
+      }
+    ],
+    "media_comparisons": [
+      {
+        "asset_id": "cc124-treasury-10y-nominal-2026-bitcoin-watch",
+        "source_asset_sha256": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+        "platform_sha256": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+        "public_image_url": "https://substackcdn.com/image/fetch/$s_!MmAi!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F93bb985e-d589-4d3a-9e4c-395391bde990_1440x1040.png",
+        "original_image_url": "https://substack-post-media.s3.amazonaws.com/public/images/93bb985e-d589-4d3a-9e4c-395391bde990_1440x1040.png",
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_readback\\cc124-treasury-10y-nominal-2026-bitcoin-watch-substack.bin",
+        "similarity": 1.0,
+        "source_pixels_match": true,
+        "inspection_method": "DECODED_PIXEL_SIMILARITY_TO_APPROVED_SOURCE",
+        "mime_type": "image/png",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "asset_id": "cc124-bitcoin-fed-archive",
+        "source_asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+        "platform_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+        "public_image_url": "https://substackcdn.com/image/fetch/$s_!Miw3!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F06eb12e4-3862-45aa-9fa7-8876d95c8466_3000x2041.jpeg",
+        "original_image_url": "https://substack-post-media.s3.amazonaws.com/public/images/06eb12e4-3862-45aa-9fa7-8876d95c8466_3000x2041.jpeg",
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_readback\\cc124-bitcoin-fed-archive-substack.bin",
+        "similarity": 1.0,
+        "source_pixels_match": true,
+        "inspection_method": "DECODED_PIXEL_SIMILARITY_TO_APPROVED_SOURCE",
+        "mime_type": "image/jpeg",
+        "width": 3000,
+        "height": 2041
+      }
+    ],
+    "media_placement_observations": [
+      {
+        "asset_id": "cc124-treasury-10y-nominal-2026-bitcoin-watch",
+        "public_alt_text_present": true,
+        "public_caption_present": true
+      },
+      {
+        "asset_id": "cc124-bitcoin-fed-archive",
+        "public_alt_text_present": true,
+        "public_caption_present": true
+      }
+    ]
+  }
+}

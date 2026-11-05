@@ -1,0 +1,339 @@
+{
+  "request_sha256": "7926656a8e0ee0047ceeac482415a5ef2fbb705225104f71eafcedc987e3035c",
+  "output": {
+    "decision": "ACCEPT",
+    "rationale": "The same actual writer inspected all 18 bound desktop/mobile renders and both original assets. Both corrected canonical renders remove the internal markers while preserving useful chart placement, dated facts, uncertainty, source/photo credit and notices. The other 16 inspected channel PNGs and both assets are unchanged by exact hash. All applicable checks pass; the single observed presentation defect is resolved. This accepts the exact local reader/render revision, not a public-object readback or a pending URL send.",
+    "asset_findings": [
+      {
+        "asset_id": "cc124-treasury-10y-nominal-2026-bitcoin-watch",
+        "asset_sha256": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS",
+          "sign_magnitude": "PASS",
+          "denominator": "NOT_APPLICABLE",
+          "period_year_quarter": "PASS",
+          "units_currency": "PASS",
+          "transformation_rounding": "PASS",
+          "source_link_claim": "PASS",
+          "zero_baseline_scale": "PASS",
+          "comparisons_stacks_totals_missingness": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actually inspected the exact 1440x1040 PNG using view_image in this canonical writer context. The single nominal 10-year Treasury par-yield series uses percent, January 2-November 4, 2026. Code compared all 212 point dates and values against the exact admitted official text; the final 4.90% and prior 4.95% imply a Decimal change of minus 5.00 basis points. The visible early-year low, autumn high and final decline agree with that series. Line geometry uses a clearly labelled nonzero percent scale appropriate for comparing yield levels; there are no bars, stacks, totals, currency conversion, second axis, Bitcoin overlay or extrapolated observations. Labels, legend, source and window are legible at original size. Reported-date connectors do not fabricate weekend observations. The full source-linked caption says this is Treasury yields rather than Bitcoin performance. Mobile embedding is compact; key dates, 4.90% and the source are also supplied in readable surrounding prose/caption."
+      },
+      {
+        "asset_id": "cc124-bitcoin-fed-archive",
+        "asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS",
+          "identity_relevance": "PASS",
+          "archive_context": "PASS",
+          "caption_credit_alt": "PASS",
+          "lawful_reuse": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actually inspected the original 3000x2041 JPEG using view_image, then both canonical renditions. The sharp pale-stone facade, central entrance, flagpole, sky and lawn agree with the retained Eccles Building identity. March 2011 is explicitly labelled archive context, with full Federal Reserve Board/Federalreserve via Wikimedia Commons/public-domain credit on the canonical article. The supplied exact rights evidence identifies a Board of Governors work under the PD-USGov-Federal Reserve template; it does not infer rights from regional Reserve Banks or from agency text. Identity/date/authorship derive from that retained record rather than the pixels. Original and rights hashes were already checked in this same role; the bound JPEG remains unchanged. The photo is secondary macro context, makes no Bitcoin/current-meeting/demand claim and is not used by the eight social image selections."
+      }
+    ],
+    "render_findings": [
+      {
+        "render_id": "cc124-bitcoin-discord-desktop",
+        "sha256": "b7fb184e5b8d55539c7f09f03df69453c8f079118fac2a39f56cdbdfbe21179b",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local desktop compiled-preview pixels inspected. The brief preserves the November 4 4.90% and November 3 4.95% comparison in its context paragraph, with the Bitcoin demand distinction and both notices. Its selected Treasury chart and dated source caption appear once. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The 935-pixel desktop article element is fully framed with readable text, complete chart/source labels and no horizontal clipping. It is a local browser-rendered artifact, not a public-object readback. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-facebook_page-desktop",
+        "sha256": "aa5a0e388caf00dcb6c9869e05458c4304bef67abd4794d5e64446b47936e901",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local desktop compiled-preview pixels inspected. The hook and why-it-matters passage retain the dated 4.90%/4.95% Treasury observations and qualification about buyers. Both notices and one selected Treasury chart with its dated source caption are present. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The 935-pixel desktop article element is fully framed with readable text, complete chart/source labels and no horizontal clipping. It is a local browser-rendered artifact, not a public-object readback. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-instagram_business-desktop",
+        "sha256": "a642893218e7d3bf1f21005f5a528ace479d390ed75bea424438b6c3e4b41239",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local desktop compiled-preview pixels inspected. The 4.90% November 4 hook and 4.95% November 3 context stay source-attributed and qualified. One Treasury image is present, with intact proportions, matching caption, source, hashtag and both notices. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The 935-pixel desktop article element is fully framed with readable text, complete chart/source labels and no horizontal clipping. It is a local browser-rendered artifact, not a public-object readback. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-linkedin-desktop",
+        "sha256": "df20a10981005113501d3b73b7101f80cf4a7e1d41d1e17a7144b4a98eb7e92d",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local desktop compiled-preview pixels inspected. The yield comparison is repeated in the why-it-matters and context passages; this is minor repetition, not a changed fact or certainty. Both dates and values are correct, the demand question remains open, both notices appear and the selected Treasury chart/caption is intact. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The 935-pixel desktop article element is fully framed with readable text, complete chart/source labels and no horizontal clipping. It is a local browser-rendered artifact, not a public-object readback. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-telegram-desktop",
+        "sha256": "3f1974c95812d5a0a9fb148eed936e89ce4ea5e39c926e003429ed16a693276c",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local desktop compiled-preview pixels inspected. The visible 4.90% observation is dated November 4, attributed to the U.S. Department of the Treasury and qualified by the statement that buyers returning is not established. The conditional watch, both notices, one Treasury chart and source caption are present. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The 935-pixel desktop article element is fully framed with readable text, complete chart/source labels and no horizontal clipping. It is a local browser-rendered artifact, not a public-object readback. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-threads-desktop",
+        "sha256": "70217bf799ec00c23786eae1e399b64851178afef32bdbe1ab6489a3302495a9",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local desktop compiled-preview pixels inspected. The root preserves both dated yield values and the separate Bitcoin-demand question; the reply is a conditional watch. Complete ordered text and both notices are present. The selected chart and dated non-Bitcoin-performance caption are intact. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The 935-pixel desktop article element is fully framed with readable text, complete chart/source labels and no horizontal clipping. It is a local browser-rendered artifact, not a public-object readback. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-x-desktop",
+        "sha256": "5cc95b5288120a7bf29ee109bf079238fc9302b36ba41d15d63630f067d36d66",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local desktop compiled-preview pixels inspected. The root, three replies and notices use complete sentences. Reply 1 preserves the November 4 4.90% Treasury observation and states that returning buyers are not established; the later watch remains conditional. One selected Treasury chart and dated caption are present. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The 935-pixel desktop article element is fully framed with readable text, complete chart/source labels and no horizontal clipping. It is a local browser-rendered artifact, not a public-object readback. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-youtube-desktop",
+        "sha256": "f4736b2c28d0cec4cd6274d2096f5e77e4f4c33185b47810fe363abee3df174c",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local desktop compiled-preview pixels inspected. The update preserves the November 4 4.90% observation, official publisher attribution, qualification about buyers and conditional demand watch. Both notices and one selected Treasury chart/source caption are present. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The 935-pixel desktop article element is fully framed with readable text, complete chart/source labels and no horizontal clipping. It is a local browser-rendered artifact, not a public-object readback. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-discord-mobile",
+        "sha256": "a35dc29441e2d3c193178e27c179e29edf3de97a051e7a791815a80548e8bef5",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local mobile compiled-preview pixels inspected. The brief preserves the November 4 4.90% and November 3 4.95% comparison in its context paragraph, with the Bitcoin demand distinction and both notices. Its selected Treasury chart and dated source caption appear once. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The retained capture uses the explicit 414-pixel mobile canvas and mobile CSS, cropped to a 386-pixel article element. Text and caption wrap within the element. Fine chart labels are compact at this scale, while the key value/window/source remain in adjacent readable copy. This is local responsive preview inspection, not proof of a signed-in platform UI. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-facebook_page-mobile",
+        "sha256": "484ac9f79a83faa3481dad548b7fb47d8bd69007af1e70ea1ed794ff6492970e",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local mobile compiled-preview pixels inspected. The hook and why-it-matters passage retain the dated 4.90%/4.95% Treasury observations and qualification about buyers. Both notices and one selected Treasury chart with its dated source caption are present. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The retained capture uses the explicit 414-pixel mobile canvas and mobile CSS, cropped to a 386-pixel article element. Text and caption wrap within the element. Fine chart labels are compact at this scale, while the key value/window/source remain in adjacent readable copy. This is local responsive preview inspection, not proof of a signed-in platform UI. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-instagram_business-mobile",
+        "sha256": "4145c324cc67bae5caadf5940add59831eb0f5dd5802727b8e67c00b1a9fb9ad",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local mobile compiled-preview pixels inspected. The 4.90% November 4 hook and 4.95% November 3 context stay source-attributed and qualified. One Treasury image is present, with intact proportions, matching caption, source, hashtag and both notices. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The retained capture uses the explicit 414-pixel mobile canvas and mobile CSS, cropped to a 386-pixel article element. Text and caption wrap within the element. Fine chart labels are compact at this scale, while the key value/window/source remain in adjacent readable copy. This is local responsive preview inspection, not proof of a signed-in platform UI. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-linkedin-mobile",
+        "sha256": "b64efa7f766e90c30a5617a2969f3d62920ba4b935091b8e85c6f6bdcdf84413",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local mobile compiled-preview pixels inspected. The yield comparison is repeated in the why-it-matters and context passages; this is minor repetition, not a changed fact or certainty. Both dates and values are correct, the demand question remains open, both notices appear and the selected Treasury chart/caption is intact. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The retained capture uses the explicit 414-pixel mobile canvas and mobile CSS, cropped to a 386-pixel article element. Text and caption wrap within the element. Fine chart labels are compact at this scale, while the key value/window/source remain in adjacent readable copy. This is local responsive preview inspection, not proof of a signed-in platform UI. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-telegram-mobile",
+        "sha256": "2b7b6b5fb73b366d1ec63d385c2d4abb86d4baed8c8a8006184e89dd3969f8d5",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local mobile compiled-preview pixels inspected. The visible 4.90% observation is dated November 4, attributed to the U.S. Department of the Treasury and qualified by the statement that buyers returning is not established. The conditional watch, both notices, one Treasury chart and source caption are present. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The retained capture uses the explicit 414-pixel mobile canvas and mobile CSS, cropped to a 386-pixel article element. Text and caption wrap within the element. Fine chart labels are compact at this scale, while the key value/window/source remain in adjacent readable copy. This is local responsive preview inspection, not proof of a signed-in platform UI. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-threads-mobile",
+        "sha256": "b2ee591fde2edda266cba0fe4d3de99712efa6b216c2d1749d1e9250c3cc2e23",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local mobile compiled-preview pixels inspected. The root preserves both dated yield values and the separate Bitcoin-demand question; the reply is a conditional watch. Complete ordered text and both notices are present. The selected chart and dated non-Bitcoin-performance caption are intact. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The retained capture uses the explicit 414-pixel mobile canvas and mobile CSS, cropped to a 386-pixel article element. Text and caption wrap within the element. Fine chart labels are compact at this scale, while the key value/window/source remain in adjacent readable copy. This is local responsive preview inspection, not proof of a signed-in platform UI. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-x-mobile",
+        "sha256": "23805001f45f7812bf151e86b6a800b592e12fce50c4964f148263e3f304271c",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local mobile compiled-preview pixels inspected. The root, three replies and notices use complete sentences. Reply 1 preserves the November 4 4.90% Treasury observation and states that returning buyers are not established; the later watch remains conditional. One selected Treasury chart and dated caption are present. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The retained capture uses the explicit 414-pixel mobile canvas and mobile CSS, cropped to a 386-pixel article element. Text and caption wrap within the element. Fine chart labels are compact at this scale, while the key value/window/source remain in adjacent readable copy. This is local responsive preview inspection, not proof of a signed-in platform UI. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-youtube-mobile",
+        "sha256": "cb8c22fdf4e97c545714568045a79124a68a907d680f61a89039590741d84db1",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actual local mobile compiled-preview pixels inspected. The update preserves the November 4 4.90% observation, official publisher attribution, qualification about buyers and conditional demand watch. Both notices and one selected Treasury chart/source caption are present. No internal VISUAL marker, forbidden preview host, overlap, clipped prose or image distortion was observed. The canonical-link-pending wording is an explicit private preview placeholder; this review does not certify a real URL or authorize sending that placeholder. Actual confirmed Substack URL rematerialization belongs to the sole publication owner. The retained capture uses the explicit 414-pixel mobile canvas and mobile CSS, cropped to a 386-pixel article element. Text and caption wrap within the element. Fine chart labels are compact at this scale, while the key value/window/source remain in adjacent readable copy. This is local responsive preview inspection, not proof of a signed-in platform UI. Exact PNG hash is unchanged from the actually inspected prior round and matches this current request; the corrected canonical projection did not alter this channel artifact."
+      },
+      {
+        "render_id": "cc124-bitcoin-substack-desktop",
+        "sha256": "5823ec39e6dc3147f220a0edf4ca4f74f1fce16cf3b1a7842c5c7fa1015f13de",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actually inspected this exact corrected canonical desktop PNG with view_image in the same native writer context. The public projection no longer shows either internal VISUAL marker. The chart remains immediately after the nominal Treasury explanation, and the March 2011 Eccles Building archive photograph remains secondary context with full Federal Reserve Board/Federalreserve via Wikimedia Commons and public-domain credit. The 4.90% November 4 and 4.95% November 3 observations, distinction from policy/real yields and Bitcoin price performance, dated September 9, 2024 SEC bulletin, conditional counter-case, November 6 8:30 a.m. EST schedule and both decision-40 notices remain intact. Prose, image proportions, source caption, section order and page flow have no observed overlap or clipping. The repaired canonical is accepted for this exact local render revision. The 935-pixel desktop article element displays the full Treasury chart with readable labels/legend and retains the linked canonical photo credit. This is local artifact acceptance rather than public-object readback."
+      },
+      {
+        "render_id": "cc124-bitcoin-substack-mobile",
+        "sha256": "c3c346bffaa757a585fd12db16740cb538f93959a0d1c2e9bb562969b54408bd",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Actually inspected this exact corrected canonical mobile PNG with view_image in the same native writer context. The public projection no longer shows either internal VISUAL marker. The chart remains immediately after the nominal Treasury explanation, and the March 2011 Eccles Building archive photograph remains secondary context with full Federal Reserve Board/Federalreserve via Wikimedia Commons and public-domain credit. The 4.90% November 4 and 4.95% November 3 observations, distinction from policy/real yields and Bitcoin price performance, dated September 9, 2024 SEC bulletin, conditional counter-case, November 6 8:30 a.m. EST schedule and both decision-40 notices remain intact. Prose, image proportions, source caption, section order and page flow have no observed overlap or clipping. The repaired canonical is accepted for this exact local render revision. The mobile CSS uses an explicit 414-pixel canvas cropped to the 386-pixel article element. Body/caption text wraps within the frame. Fine chart labels remain compact but are not cropped; the endpoint, date, series identity and source are repeated in readable prose/caption. This proves the local responsive artifact, not a live Substack mobile interface."
+      }
+    ],
+    "repair_disposition": {
+      "prior_review_request_sha256": "5ad688fa799cbe5f8841688601b3d0cb6e74cc380c79a40dcc9dfad11489d1a3",
+      "prior_review_response_sha256": "605995ff818f21962250878b67df1ff333b7a73fe04e9702b671c8c1f8b968e6",
+      "resolved_issue": "INTERNAL_VISUAL_MARKERS_VISIBLE",
+      "affected_renders": [
+        "cc124-bitcoin-substack-desktop",
+        "cc124-bitcoin-substack-mobile"
+      ],
+      "actual_presentation_repair_rounds": 1,
+      "dropped_asset_ids": [],
+      "original_failed_review_retained": true
+    },
+    "minor_limits": [
+      "The full-history chart is dense at mobile width; key value, series, dated window and source remain readable in adjacent prose and caption.",
+      "LinkedIn repeats the dated lead observation. This is minor repetition and does not change the data or certainty.",
+      "These are real local browser-rendered pixels, including a 414-pixel mobile canvas. They do not establish how each signed-in destination will render a published object.",
+      "Private channel previews show the canonical link as pending. The sole publisher must bind the real confirmed Substack URL before derivative sends; no pending placeholder is accepted for a public send."
+    ],
+    "article_revision": "086a6d4c49913c94988fb5f853341bb34910c36cff9c925509fa1648877d8ceb",
+    "public_write_performed": false
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_visual_edit_1d9d8c3613e6",
+    "assignment_id": "cc124-bitcoin-rates-20261106-h:final-visual-6790d90b23f55e71dc1ed50fd68f44d5f486ec067c12ac5ddcb95ee383a9177e",
+    "request_identity": "final-visual-6790d90b23f55e71dc1ed50fd68f44d5f486ec067c12ac5ddcb95ee383a9177e:7926656a8e0ee0047ceeac482415a5ef2fbb705225104f71eafcedc987e3035c",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_configuration_unavailable": true,
+    "observation_source": "Supported native collaboration NEW_TASK context supplies canonical invocation identity /root/native_visual_edit_1d9d8c3613e6. The frozen request and parent assignment supply the configured role and speed; actual runtime model and effort telemetry are unavailable.",
+    "configuration_source": "Exact frozen r2 final-visual request and supported continuation in the SAME canonical native writer context configure gpt-6.1-sol/max at standard speed. Actual model and effort telemetry are unavailable; direct local pixel inspection and current file hashes support the visual findings."
+  }
+}

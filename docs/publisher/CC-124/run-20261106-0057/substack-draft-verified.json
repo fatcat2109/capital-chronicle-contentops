@@ -1,0 +1,31 @@
+{
+  "controls": [
+    "- button \"Saved\" [ref=e64]",
+    "- button \"Preview\" [ref=e8]",
+    "- button \"Continue\" [ref=e65]"
+  ],
+  "media": {
+    "changed": false,
+    "page": 595,
+    "settled": false,
+    "value": {
+      "chartCaptionPresent": true,
+      "creditsPresent": true,
+      "images": [
+        {
+          "alt": "The front entrance and facade of the Federal Reserve's Eccles Building, photographed in March 2011.",
+          "height": 1134,
+          "src": "https://substackcdn.com/image/fetch/$s_!Miw3!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F06eb12e4-3862-45aa-9fa7-8876d95c8466_3000x2041.jpeg",
+          "width": 1667
+        },
+        {
+          "alt": "Nominal 10-year Treasury par yield, reported daily observations from January 2 to November 4, 2026, ending at 4.90 percent. This is a Treasury series, not Bitcoin performance.",
+          "height": 1190,
+          "src": "https://substackcdn.com/image/fetch/$s_!MmAi!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F93bb985e-d589-4d3a-9e4c-395391bde990_1440x1040.png",
+          "width": 1648
+        }
+      ],
+      "text": "On November 4, the U.S. Department of the Treasury's nominal 10-year par yield was 4.90%, down from 4.95% on November 3. For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\n\nCapital Chronicle's view is that lower Treasury yields can ease one cost of holding Bitcoin, while leaving the demand question open. A bond-yield decline alone does not establish a Bitcoin recovery.\n\nArchive context: the Federal Reserve's Eccles Building, March 2011. Photo: Federal Reserve Board (Federalreserve), via Wikimedia Commons; public domain. Photo source · Public domain (Federal Reserve Board)\n\nWhat the Treasury figures show\n\nRead the series as a nominal 10-year Treasury yield. It is not the Federal Reserve's policy-rate target or an inflation-adjusted yield. The chart ends on November 4 and shows no Bitcoin price performance.\n\nSource: U.S. Treasury. Nominal 10-year par yield, percent, January 2-November 4, 2026; reported observations. This chart shows Treasury yields, not Bitcoin performance. U.S. Treasury\n\nWhy lower yields are only one part of the Bitcoin test\n\nThe opportunity-cost argument is conditional: if the yield on an interest-bearing alternative falls, choosing an asset that pays no interest would mean giving up less interest. That could make Bitcoin more attractive, other things equal. It does not tell us whether investors will make that choice.\n\nAccess and appetite are different questions. In its September 9, 2024 investor bulletin, the SEC described spot Bitcoin ETPs as trusts that hold the asset and seek to track its price. It also warned that Bitcoin exposure remains highly speculative, including through an ETP, and highlighted price volatility.\n\nThe counter-case deserves weight: lower yields could help if investors' willingness to hold Bitcoin remains intact. If that willingness weakens, however, reduced interest elsewhere might not be enough to offset reluctance to accept Bitcoin's price risk. The Treasury series does not establish either state of appetite.\n\nWhat would make the argument stronger\n\nFirst, watch whether lower Treasury yields persist. Then assess Bitcoin separately, using dated market observations and verified evidence of investment-product demand. Neither a Bitcoin move nor product flows can be read out of this bond chart.\n\nIf yields fell while Bitcoin weakened, the rate relief would have failed to translate into price support. If Bitcoin strengthened while yields rose, a bond-yield explanation would be insufficient. Even a Bitcoin rise alongside falling yields would be consistent with the mechanism without proving it caused the move.\n\nThe jobs report is a scheduled test\n\nThe Bureau of Labor Statistics schedules the October 2026 Employment Situation for November 6 at 8:30 a.m. EST. That is a release-calendar fact, not a payroll result or a consensus estimate.\n\nAfter the release, check the observed Treasury-yield response and then the separate Bitcoin evidence. A jobs headline does not settle both questions. The useful watch is whether a more favourable rate backdrop is accompanied by an independently established willingness to hold Bitcoin.\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers."
+    }
+  }
+}
