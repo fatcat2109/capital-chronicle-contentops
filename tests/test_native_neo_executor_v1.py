@@ -533,6 +533,39 @@ def test_successful_exact_readback_survives_bucket_change_by_observation_time(tm
     assert store.list_platform_dispatches() == []
 
 
+def test_pending_media_readback_accepts_completed_evidence_without_clock_wait(tmp_path):
+    store, executor = setup(tmp_path)
+    now = datetime.now(timezone.utc)
+    executor.clock = lambda: now
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    value = intent(media_assets=[{"asset_id": "chart", "sha256": "a" * 64}])
+    packet, object_id, url = pending_readback(adapter, value=value)
+
+    def submit(packet, **extra):
+        request_hash = packet["request"]["request_sha256"]
+        executor.begin(request_hash)
+        executor.submit(request_hash, {
+            "tool_request_sha256": packet["tool_request_sha256"],
+            "tool_observation": {"tool_name": TOOL, "native_invocation_id": "controlled-test",
+                "surface": "CODEX_EXEC", "observation_source": "CONTROLLED_TEST_NOT_BROWSER_PROOF",
+                "observed_at_utc": now.isoformat()},
+            "result": {"request_sha256": request_hash, "status": "SUCCESS",
+                "observed_identity": "capitalchronicle.substack.com", "public_object_id": object_id,
+                "public_object_url": url, "observed_text": "Exact supported proposition.",
+                "content_verified": True, **extra}})
+
+    submit(packet, media_check_state="PENDING_BINARY_COMPARISON")
+    original = executor._get(packet["request"]["request_sha256"], "response")
+    fresh, _, _ = pending_readback(adapter, value=value)
+    assert fresh["request"]["request_sha256"] != packet["request"]["request_sha256"]
+    assert fresh["request"]["supersedes_incomplete_readback_sha256"]
+    submit(fresh, observed_media_sha256=["a" * 64])
+    result = adapter.readback(destination="substack", intent=value, public_object_id=object_id, public_object_url=url)
+    assert result["verified"] is True
+    assert executor._get(packet["request"]["request_sha256"], "response") == original
+    assert store.list_platform_dispatches() == []
+
+
 def test_coordinator_pending_publish_and_claimed_loss_enters_readback_only(tmp_path, monkeypatch):
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
     store, executor = setup(tmp_path, allow_publish=True)

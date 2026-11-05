@@ -486,7 +486,8 @@ class NativeNeoExecutor:
 
     def fresh_readback_request(self, request):
         """Keep an exact successful observation across a ten-minute bucket change."""
-        ignored = {"request_sha256", "observation_epoch", "native_invocation_id"}
+        ignored = {"request_sha256", "observation_epoch", "native_invocation_id",
+                   "supersedes_incomplete_readback_sha256"}
         expected = {k: v for k, v in request.items() if k not in ignored}
         for row in reversed(self.store.list_outbox_messages(destination=DESTINATION)):
             packet = json.loads(row["payload"])
@@ -498,6 +499,7 @@ class NativeNeoExecutor:
             result = (self._get(prior["request_sha256"], "response") or {}).get("result") or {}
             observation = result.get("native_tool_observation") or {}
             if (result.get("status") != "SUCCESS" or result.get("content_verified") is not True
+                    or result.get("media_check_state") == "PENDING_BINARY_COMPARISON"
                     or result.get("observed_identity") != request.get("expected_identity")
                     or not result.get("public_object_id") or not result.get("public_object_url")
                     or (request.get("public_object_id") and result["public_object_id"] != request["public_object_id"])
@@ -507,6 +509,17 @@ class NativeNeoExecutor:
             age = self.clock() - datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
             if timedelta(0) <= age <= timedelta(minutes=10):
                 return dict(prior)
+        # A deliberately partial post-click return is immutable. Once media
+        # checks finish, request fresh read-only evidence immediately instead
+        # of reusing that partial return until the next ten-minute bucket.
+        refreshed = dict(request)
+        previous = self._get(sha256_of(refreshed), "response")
+        while previous and (previous.get("result") or {}).get("media_check_state") == "PENDING_BINARY_COMPARISON":
+            refreshed["supersedes_incomplete_readback_sha256"] = sha256_of(previous)
+            previous = self._get(sha256_of(refreshed), "response")
+        if refreshed != request:
+            refreshed["request_sha256"] = sha256_of(refreshed)
+            return refreshed
         return None
 
     def complete_readback_request(self, request, *, write_absent=False):
