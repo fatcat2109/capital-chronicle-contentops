@@ -134,12 +134,10 @@ def test_quiet_day_low_delta_candidate_enters_useful_mode_ladder():
     candidate = result["ranked_clusters"][0]
     assert candidate["editorial_classification"] == DECISION_QUIET_DAY_USEFUL
     # Since 330f1978 (23 Aug) preselection checks the mode against the source-capability registry.
-    # A general public event offers straight_news and analysis only, so the explainer falls back
-    # to BREAKING_BRIEF with the fallback recorded; the quiet-day classification is unchanged.
-    assert candidate["resolved_article_mode"] == "BREAKING_BRIEF"
-    assert candidate["growth_editorial_mode_resolution"][
-        "preselection_capability_fallback_from"
-    ] == "EVERGREEN_EXPLAINER"
+    # CC-304: a general public event offers the explainer again, so the quiet-day explainer stays
+    # an explainer, with no fallback; its evidence gates are unchanged.
+    assert candidate["resolved_article_mode"] == "EVERGREEN_EXPLAINER"
+    assert "preselection_capability_fallback_from" not in candidate["growth_editorial_mode_resolution"]
     assert candidate["growth_editorial_mode_resolution"][
         "quiet_day_utility_candidate"
     ] is True

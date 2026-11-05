@@ -166,6 +166,40 @@ ROLLING_X_GENERAL_PUBLIC_EVENT_PROFILE: dict[str, Any] = {
             ],
             "source_adapter_families": ["public_secondary"],
         },
+        # CC-304: since 330f1978 (23 Aug) preselection checks each mode against this profile,
+        # and with only straight_news and analysis here every quiet-day explainer fell back to a
+        # breaking brief and every week-ahead piece failed. No reason was recorded for that. Both
+        # modes keep the same evidence gates: source-bound facts with source and date, and for a
+        # week-ahead piece the deterministic official schedule facts the adapter requires.
+        "explainer": {
+            "required_evidence_capabilities": [
+                "credible_event_confirmation",
+                "basic_attributed_facts",
+            ],
+            "optional_evidence_capabilities": [
+                "primary_source_documents",
+                "event_timeline",
+                "affected_entities",
+                "limitations",
+            ],
+            "source_adapter_families": ["public_secondary"],
+        },
+        "week_ahead": {
+            "required_evidence_capabilities": [
+                "official_schedule",
+                "scheduled_event_identity",
+                "scheduled_event_date_time",
+                "basic_attributed_facts",
+            ],
+            "optional_evidence_capabilities": [
+                "scheduled_period_or_edition_label",
+                "primary_source_documents",
+                "event_timeline",
+                "affected_entities",
+                "limitations",
+            ],
+            "source_adapter_families": ["official_macro", "public_secondary"],
+        },
     },
 }
 

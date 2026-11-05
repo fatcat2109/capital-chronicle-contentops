@@ -4051,6 +4051,8 @@ def select_first_viable_rolling_x_cluster(
                 "deep_analysis": "CAPITAL_CHRONICLE_DEEP_DIVE",
                 "explainer": "EVERGREEN_EXPLAINER",
                 "data_release": "DATA_OR_DOCUMENT_LENS",
+                # CC-304: a cluster routed as week_ahead was read as a breaking brief.
+                "week_ahead": "WEEK_AHEAD_OR_WATCH",
             }.get(preselection_mode or routed_mode, "BREAKING_BRIEF")
         )
         mode_attempts: list[dict[str, Any]] = []
