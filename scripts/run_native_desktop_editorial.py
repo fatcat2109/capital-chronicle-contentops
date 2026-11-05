@@ -210,6 +210,8 @@ def _bound_store(binding, command):
         store.run_migrations()
     else:
         store.verify_applied_migrations()
+    if command not in {"status", "publication-status"}:
+        store.ensure_outbox_read_indexes()
     return store
 
 

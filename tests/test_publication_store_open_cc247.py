@@ -13,6 +13,29 @@ def test_registered_publication_checks_migration_hashes_without_integrity_scan(t
     opened.verify_applied_migrations()
 
 
+def test_bound_publication_indexes_exact_artifact_and_destination_reads(tmp_path):
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    path = tmp_path / "store.sqlite3"
+    store = ContentOpsDurableStore(path)
+    version = store.get_current_schema_version()
+    # A status read does not install indexes or change canonical records.
+    entry._bound_store({"store_path": str(path)}, "status")
+    with store.get_read_only_connection() as conn:
+        assert not conn.execute("SELECT name FROM sqlite_master WHERE name LIKE 'idx_outbox_%_read'").fetchall()
+    opened = entry._bound_store({"store_path": str(path)}, "publication-tool-begin")
+    entry._bound_store({"store_path": str(path)}, "publication-tool-begin")
+    with opened.get_read_only_connection() as conn:
+        artifact = conn.execute("EXPLAIN QUERY PLAN SELECT payload FROM outbox_messages "
+            "WHERE work_item_id=? AND destination=? ORDER BY rowid DESC", ("work", "internal:source")).fetchall()
+        destination = conn.execute("EXPLAIN QUERY PLAN SELECT rowid FROM outbox_messages "
+            "WHERE destination=? ORDER BY created_at,message_id", ("internal:native-neo",)).fetchall()
+        assert any("idx_outbox_work_destination_read" in r[3] for r in artifact)
+        assert any("idx_outbox_destination_order_read" in r[3] for r in destination)
+        assert conn.execute("SELECT count(*) FROM outbox_messages").fetchone()[0] == 0
+    assert opened.get_current_schema_version() == version
+    assert opened.verify_applied_migrations()
+
+
 def test_atomic_publication_step_does_not_rescan_the_whole_production_day(monkeypatch):
     from types import SimpleNamespace
     store = SimpleNamespace(acquire_lease=lambda *a, **kw: {"lease_id": "fixture", "fencing_token": 1},

@@ -451,6 +451,14 @@ class ContentOpsDurableStore:
         now = self._now_fn() if self._now_fn else datetime.now(timezone.utc)
         return now.replace(tzinfo=timezone.utc) if now.tzinfo is None else now.astimezone(timezone.utc)
     def _get_now_iso(self) -> str: return self._get_now().isoformat()
+    def ensure_outbox_read_indexes(self) -> None:
+        """Optional read indexes; leave payloads, identities and schema lineage unchanged."""
+        with self.get_connection() as conn:
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_outbox_work_destination_read "
+                         "ON outbox_messages(work_item_id, destination)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_outbox_destination_order_read "
+                         "ON outbox_messages(destination, created_at, message_id)")
+
     def _append_authorized(self) -> int: return int(bool(getattr(self._write_local, "append_enabled", False)))
     def _artifact_insert_authorized(self) -> int: return int(bool(getattr(self._write_local, "artifact_insert_enabled", False)))
     def _connection_authorizer(self, action: int, argument_1: Optional[str], _argument_2: Optional[str],
