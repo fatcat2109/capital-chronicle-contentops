@@ -4,7 +4,7 @@
   "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
   "width": 1512,
   "height": 996,
-  "modality": "photograph",
+  "modality": "documentary_photo",
   "media_role": "context_photo",
   "source_page_url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg",
   "source_media_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Oil_refinery_coastal_Texas.jpg",
@@ -27,5 +27,26 @@
     "reviewer": "/root",
     "observed": "Aerial photograph of cylindrical storage tanks, refinery infrastructure and coastal waterways; archive context, no evidence of current inventory conditions."
   },
-  "source_request_count_total_including_prior_evidence": 12
+  "source_request_count_total_including_prior_evidence": 12,
+  "rights_status": "PUBLIC_DOMAIN",
+  "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Oil_refinery_coastal_Texas.jpg",
+  "creator_publisher": "U.S. Fish and Wildlife Service",
+  "relevance_rationale": "Archive illustration of US coastal oil storage and refinery infrastructure. It is not evidence of current inventory conditions.",
+  "depicted_date": "Not given",
+  "source_reuse_basis": "Commons identifies an official-duty Fish and Wildlife Service work as public domain (PD-USGov-FWS).",
+  "context_only": true,
+  "corroborates_article_facts": false,
+  "is_logo": false,
+  "is_thumbnail": false,
+  "is_synthetic": false,
+  "ai_generated_image": false,
+  "visual_review": {
+    "asset_sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+    "pixels_inspected": true,
+    "relevant_subject": true,
+    "reviewer": "/root",
+    "findings": "Viewed original JPEG: oil storage tanks and coastal refinery infrastructure; archive context, capture date not given."
+  },
+  "rights_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\photo-rights-evidence.json",
+  "rights_evidence_sha256": "69e7e160832125a366b909c8cdbc73cdb31f1b63a56236fda3af18ac4311c35e"
 }

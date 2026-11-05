@@ -1,0 +1,29 @@
+{
+  "verified_at_utc": "2026-11-05T08:46:18.315764+00:00",
+  "matching_editorial_python_process_count": 0,
+  "cause": "Interrupted prior CC-124 CLI process ended; exact old operation/newsroom fencing tokens retained; no application stopped.",
+  "released_exact_fenced_leases": [
+    {
+      "lease_id": "lease_4e429b91c5b9db7f",
+      "lease_key": "internal:native-editorial:newsroom",
+      "work_item_id": null,
+      "owner_ref": "native-newsroom-22e1cb2293c945b39293116dc92acaa1",
+      "fencing_token": 871,
+      "acquired_at": "2026-11-05T08:39:35.867983+00:00",
+      "renewed_at": "2026-11-05T08:39:35.867983+00:00",
+      "expires_at": "2026-11-05T08:54:35.867983+00:00",
+      "status": "RELEASED"
+    },
+    {
+      "lease_id": "lease_acba7a9fbef495e0",
+      "lease_key": "internal:native-editorial:cc124-next-article-20261105-d",
+      "work_item_id": null,
+      "owner_ref": "native-desktop-9e4b58222efc4bd9969594c4b95de40f",
+      "fencing_token": 21,
+      "acquired_at": "2026-11-05T08:39:35.951825+00:00",
+      "renewed_at": "2026-11-05T08:39:35.951825+00:00",
+      "expires_at": "2026-11-05T08:54:35.951825+00:00",
+      "status": "RELEASED"
+    }
+  ]
+}
