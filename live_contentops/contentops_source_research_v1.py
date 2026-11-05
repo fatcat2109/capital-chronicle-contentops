@@ -900,7 +900,8 @@ class RetainedSourceResearch:
         ]
 
     def evidence(
-        self, request: Mapping[str, Any], *, cutoff_utc: str | None = None
+        self, request: Mapping[str, Any], *, cutoff_utc: str | None = None,
+        qualified_source_pack: list[dict[str, Any]] | None = None,
     ) -> dict[str, Any] | None:
         found = [
             self.records[h]
@@ -961,7 +962,15 @@ class RetainedSourceResearch:
             }
             for r in found
         ]
-        report_only = all(d.get("source_authority_class") == "reputable_secondary_source" for d in docs)
+        additional_docs = list(docs)
+        if qualified_source_pack:
+            # The bound pre-writer recovery supplies the unchanged primary pack
+            # from its already SOURCE_QUALIFIED walk. Additional facts supplement
+            # that event; they need not independently prove the old proposition.
+            docs = [{**d, "source_url": d.get("source_url") or d.get("url"),
+                     "public_claim_allowed": True} for d in qualified_source_pack] + docs
+        event_docs = docs[:len(qualified_source_pack)] if qualified_source_pack else docs
+        report_only = all(d.get("source_authority_class") == "reputable_secondary_source" for d in event_docs)
         route = "DIRECT_REPUTABLE_REPORT" if report_only else "OFFICIAL_PRIMARY"
         result = {
             "status": "PASS",
@@ -987,10 +996,15 @@ class RetainedSourceResearch:
 
         accepted, state, blockers = (
             SimpleFirstPartyAwareEvidenceResolver._accepted_epistemic_route(
-                request, result, route=route
+                request, ({**result, "evidence_documents" if report_only else "official_source_documents": event_docs}
+                          if qualified_source_pack else result), route=route
             )
         )
         if accepted:
+            if qualified_source_pack:
+                existing_ids = {d["document_id"] for d in accepted}
+                accepted.extend({**d, "context_only": True} for d in additional_docs
+                                if d["document_id"] not in existing_ids)
             # Explicitly retained editorial context joins the selected event only
             # after its own permission/capture verification. Its role is context;
             # it does not acquire authority over the selected event proposition.

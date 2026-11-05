@@ -136,7 +136,7 @@ for n, issued in enumerate(pending["source_requests"]):
         path.write_text(initial[538 + n]["read"], encoding="utf-8")
     else:
         path = ROOT / "bls-calendar-visible.txt"
-        path.write_text(text, encoding="utf-8")
+        path.write_bytes(text.encode("utf-8"))
     requests.append({**issued, "non_chargeable": True, "observed_at_utc": now,
         "capture_path": str(path), "capture_sha256": sha256(path.read_bytes()).hexdigest(),
         **({"status": "SOURCE_MISSING", "error": "Page Not Found at issued Treasury path; corrected link observed on same Treasury site."} if n < 2 else {})})

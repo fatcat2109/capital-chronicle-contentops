@@ -622,6 +622,16 @@ def _admit_live_source_recovery(turn, binding, response):
     if not original_request:
         raise ValueError("EXACT_SELECTED_LIVE_SOURCE_REQUEST_REQUIRED")
     admitted = research.evidence({**original_request, "headline_ids": ids}, cutoff_utc=now)
+    qualified_primary = []
+    if (not admitted or admitted.get("status") != "PASS") and any(
+            a.get("candidate_id") == candidate and a.get("status") == "SOURCE_QUALIFIED"
+            for a in walk.get("evidence_attempts", [])):
+        qualified_primary = walk.get("selected_source_pack", [])
+        from live_contentops.v1_simple_gemini_newsroom_v1 import MAX_SOURCE_DOCUMENTS
+        if len(qualified_primary) + len(ids) > MAX_SOURCE_DOCUMENTS:
+            raise ValueError("RECOVERY_COMBINED_SOURCE_PACK_LIMIT_EXCEEDED")
+        admitted = research.evidence({**original_request, "headline_ids": ids}, cutoff_utc=now,
+                                    qualified_source_pack=qualified_primary)
     if not admitted or admitted.get("status") != "PASS":
         raise ValueError("RECOVERY_SOURCE_PROPOSITION_NOT_ADMITTED:" + ",".join((admitted or {}).get("blockers", [])))
     value = {"schema_version": "contentops.native_pre_writer_source_recovery.v1",
@@ -630,6 +640,7 @@ def _admit_live_source_recovery(turn, binding, response):
         "selection_request_sha256": selection["request_sha256"],
         "prior_evidence_sha256": sha256(walk_raw).hexdigest(),
         "supporting_headline_ids": ids, "research_snapshot": research.frozen_snapshot(),
+        "qualified_primary_source_pack": qualified_primary,
         "admitted_at_utc": now, "cutoff_utc": cutoff,
         "source_request_count": used + len(requests), "source_request_limit": limit,
         "additional_source_requests": requests, "all_acquisition_already_completed": True,

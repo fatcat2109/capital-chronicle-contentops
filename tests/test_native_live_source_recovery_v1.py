@@ -219,6 +219,27 @@ def test_standing_light_sources_reach_acquisition_before_max(tmp_path, monkeypat
     assert request["source_requests"][0]["url"] == response["additional_source_requests"][0]["url"]
 
 
+def test_verified_new_context_supplements_qualified_policy_without_reproving_it(tmp_path):
+    from live_contentops.v1_simple_epistemic_state_v1 import candidate_report_provenance
+    source_fixture(tmp_path / "new-context")
+    research = RetainedSourceResearch(tmp_path / "new-context")
+    statement = "The Federal Reserve maintains the target range for the federal funds rate at 3.75 to 4 percent."
+    url = "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+    profile = candidate_report_provenance({"headline_text": statement, "source_url": url})
+    request = {"headline_ids": ["controlled-original"], "story_context": {
+        "leaf_summaries": [statement], "report_provenance": profile}}
+    assert research.evidence(request, cutoff_utc="2026-10-31T01:00:00Z")["status"] == "BLOCKED"
+    primary = {"document_id": "retained-fed", "url": url, "publisher": "Federal Reserve",
+        "source_identity": "federalreserve.gov", "source_adapter_family": "official_policy",
+        "source_authority_class": "official_public_primary_source", "canonical_content_text": statement,
+        "canonical_content_sha256": sha256(statement.encode()).hexdigest(), "published_at_utc": "2026-10-28T18:00:00Z"}
+    result = research.evidence(request, cutoff_utc="2026-10-31T01:00:00Z", qualified_source_pack=[primary])
+    assert result["status"] == "PASS"
+    documents = {d["document_id"]: d for d in result["evidence_documents"]}
+    assert documents["retained-fed"]["canonical_content_sha256"] == primary["canonical_content_sha256"]
+    assert documents["controlled-original"]["context_only"] is True
+
+
 def test_unanswered_old_visual_is_preserved_and_replaced_with_acquired_sources(tmp_path, monkeypatch):
     from live_contentops.native_desktop_editorial_v1 import request_source_preparation
     turn, binding, response, run, calls = seeded(tmp_path, monkeypatch)

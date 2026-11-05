@@ -577,7 +577,8 @@ def run_report_editorial_cycle(
                     if request["cluster_id"] == recovery["candidate_id"]:
                         research = RetainedSourceResearch.from_frozen_snapshot(recovery["research_snapshot"])
                         value = research.evidence({**request, "headline_ids": recovery["supporting_headline_ids"]},
-                            cutoff_utc=recovery["admitted_at_utc"])
+                            cutoff_utc=recovery["admitted_at_utc"],
+                            qualified_source_pack=recovery.get("qualified_primary_source_pack"))
                         if not value:
                             raise ValueError("ADMITTED_RECOVERY_SOURCE_MISSING")
                     else:
