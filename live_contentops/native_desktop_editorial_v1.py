@@ -516,7 +516,8 @@ def _admit_live_source_recovery(turn, binding, response):
         raise ValueError("EXACT_BOUND_LIVE_SELECTION_REQUIRED")
     amendment_sha = sha256_of(response)
     previous = turn.source_recovery()
-    if previous:
+    projection_repair = bool(previous and response.get("source_projection_repair_of") == previous.get("request_sha256"))
+    if previous and not projection_repair:
         if previous.get("source_amendment_sha256") != amendment_sha:
             raise ValueError("RECOVERY_ALREADY_ADMITTED_RESUME_SAME_OPERATION")
         return previous["admission_result"]
@@ -558,6 +559,11 @@ def _admit_live_source_recovery(turn, binding, response):
     source_reviews = json.loads(frozen_row["payload"]).get("source_requests_before_writer_freeze", 0) if frozen_row else 0
     used = max(turn.source_request_count_at_start + spent + (0 if turn.manual_candidate else source_reviews), int(walk.get("request_count", 0)))
     requests = response.get("additional_source_requests", [])
+    if projection_repair:
+        if requests != previous.get("additional_source_requests"):
+            raise ValueError("SOURCE_PROJECTION_REPAIR_MUST_REUSE_EXACT_ACQUISITIONS")
+        # Re-project held bytes; their already recorded acquisition count stays fixed.
+        used = previous["source_request_count"] - len(requests)
     if pending:
         # Preserve every issued request while allowing explicitly captured context
         # (release dates, source history or rights) within the same live budget.
@@ -604,6 +610,16 @@ def _admit_live_source_recovery(turn, binding, response):
     if (research.gaps or not isinstance(ids, list) or not ids
             or len(set(ids)) != len(ids) or set(ids) != set(research.records)):
         raise ValueError("EXACT_VERIFIED_RECOVERY_SOURCE_IDS_REQUIRED")
+    if projection_repair:
+        prior_records = previous["research_snapshot"]["records"]
+        if set(ids) != set(prior_records):
+            raise ValueError("SOURCE_PROJECTION_REPAIR_CANNOT_REPLACE_SOURCES")
+        for item_id, record in research.records.items():
+            prior = prior_records[item_id]
+            immutable = ("document", "source_capture_sha256", "rights_evidence_sha256", "rights_state",
+                         "source_timestamp_utc", "known_at_utc", "retrieval_time_utc", "revision_at_utc")
+            if any(record.get(k) != prior.get(k) for k in immutable):
+                raise ValueError("SOURCE_PROJECTION_REPAIR_CAPTURE_RIGHTS_OR_CLOCK_CHANGED")
     cutoff = binding.get("input_known_at_cutoff_utc", binding["cutoff_utc"])
     urls = {r["url"] for r in requests}
     for record in research.records.values():
@@ -644,6 +660,8 @@ def _admit_live_source_recovery(turn, binding, response):
         "source_request_count": used + len(requests), "source_request_limit": limit,
         "additional_source_requests": requests, "all_acquisition_already_completed": True,
         "further_acquisition_allowed": False, "public_write_performed": False}
+    if projection_repair:
+        value["source_projection_repair_of"] = previous["request_sha256"]
     if unanswered_visual:
         # An old manual entry could issue this brief before acquiring Light's
         # requested sources. No MAX return or media exists. Preserve that exact

@@ -3,6 +3,7 @@ import json
 import shutil
 from copy import deepcopy
 from hashlib import sha256
+from pathlib import Path
 
 import pytest
 
@@ -166,6 +167,50 @@ def test_live_recovery_preserves_roles_and_clocks_and_reaches_max_without_gets(t
     assert (history / "simple_gemini_evidence_v1.json").read_bytes() == prior_walk
     assert all(p.read_bytes() == raw for p, raw in preserved.items())
     assert turn.store.list_platform_dispatches() == []
+
+
+def test_held_source_span_repair_feeds_consumer_without_reacquisition(tmp_path, monkeypatch):
+    turn, binding, response, run, calls = seeded(tmp_path, monkeypatch)
+    original = admit_pre_writer_source_recovery(turn, binding, response)
+    prior = turn.source_recovery()
+    with pytest.raises(DesktopInputRequired):
+        run()
+    source = turn.root / "reprojected"
+    shutil.copytree(response["research_root"], source)
+    index_path = source / "index.json"
+    index = json.loads(index_path.read_bytes())
+    text = prior["research_snapshot"]["records"]["controlled-original"]["document"]["canonical_content_text"]
+    begin = text.index("A controlled interview")
+    index["records"][0]["context_spans"] = [[begin, len(text)]]
+    index_path.write_text(json.dumps(index), encoding="utf-8")
+    repair = {**response, "research_root": str(source), "source_projection_repair_of": prior["request_sha256"],
+        "expected_evidence_sha256": sha256((turn.root / "simple_gemini_evidence_v1.json").read_bytes()).hexdigest()}
+    admitted = admit_pre_writer_source_recovery(turn, binding, repair)
+    assert admitted["source_request_count"] == original["source_request_count"]
+    with pytest.raises(DesktopInputRequired):
+        run()
+    current = json.loads((turn.root / "simple_gemini_evidence_v1.json").read_bytes())
+    assert "pace preference from a committee decision" in current["selected_source_pack"][0]["canonical_content_text"]
+    assert current["request_count"] == original["source_request_count"] and len(calls) == 1
+    assert turn.source_recovery()["source_projection_repair_of"] == prior["request_sha256"]
+    assert turn.source_recovery()["research_snapshot"]["records"]["controlled-original"]["document"] == prior["research_snapshot"]["records"]["controlled-original"]["document"]
+
+
+@pytest.mark.parametrize("fault", ["acquisition", "source_bytes"])
+def test_held_source_span_repair_retains_acquisition_and_source_identity(tmp_path, monkeypatch, fault):
+    turn, binding, response, _, _ = seeded(tmp_path, monkeypatch)
+    admit_pre_writer_source_recovery(turn, binding, response)
+    repair = deepcopy(response)
+    repair["source_projection_repair_of"] = turn.source_recovery()["request_sha256"]
+    if fault == "acquisition":
+        repair["additional_source_requests"][0]["observed_at_utc"] = "2026-10-31T00:00:01Z"
+    else:
+        path = Path(response["research_root"]) / "admission.json"
+        value = json.loads(path.read_bytes())
+        value["official_source_documents"][0]["published_at_source"] = "changed"
+        path.write_text(json.dumps(value), encoding="utf-8")
+    with pytest.raises(ValueError, match="SOURCE_PROJECTION_REPAIR_"):
+        admit_pre_writer_source_recovery(turn, binding, repair)
 
 
 def test_pending_recovery_charges_appended_context_and_feeds_writer(tmp_path, monkeypatch):

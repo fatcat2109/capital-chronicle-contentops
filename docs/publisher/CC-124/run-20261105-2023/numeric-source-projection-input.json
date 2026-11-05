@@ -1,0 +1,44 @@
+{
+  "within_bound_live_budget": true,
+  "expected_selection_request_sha256": "13e52dad07b598182b0b9ed20fdc47eb30c55dabb06f4c8fd0cfa819489cf054",
+  "expected_source_request_sha256": "14bdee49514d48f1e1330b48da379c4189ca8abf079b6d47ded077d02ca7d42a",
+  "expected_evidence_sha256": "879e336eba02517254427a04c6a994a87e8a6245c0546034b936b1a3da20bda8",
+  "candidate_id": "simple-story-b211259efae086a585eb78ab",
+  "research_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\source-editions-fx-numeric",
+  "supporting_headline_ids": [
+    "cc124-treasury-nominal-20261104",
+    "cc124-bls-november-calendar",
+    "cc124-fed-h10-20261102-fx"
+  ],
+  "additional_source_requests": [
+    {
+      "reason": "Refresh exact dated H.10 reference observations and quote conventions from the already observed November 2 release. Retain and charge the existing capture; do not repeat acquisition.",
+      "url": "https://www.federalreserve.gov/releases/h10/current/",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T13:44:00Z",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\source-editions-fx\\fed-h10-visible.txt",
+      "capture_sha256": "94bab871456a4e36ee4ab6fc66927b564b70e2d33ffd0378b74839e6701a100a",
+      "clock_basis": "Actual Neo acquisition minute; captured after source cutoff, published earlier"
+    },
+    {
+      "reason": "Reuse held original nominal Treasury CSV and accepted record clocks; match October 26-30 and retain November 4 as separately dated context. No network reacquisition.",
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T11:22:09.557861+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\source-editions-fx\\nominal-facts.json",
+      "capture_sha256": "196a98f5a4536da627ac64ff92efa755da5a2cdabf32a459055515050d80d91b",
+      "clock_basis": "Exact retained original source acquisition reused; no new network request"
+    },
+    {
+      "reason": "Reuse the held calendar plus verified fresh read to confirm the November 6 Employment Situation schedule only. Preserve actual release and retrieval clocks; no result or expectations.",
+      "url": "https://www.bls.gov/schedule/2026/11_sched.htm",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T11:22:09.557861+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\source-editions-fx\\bls-calendar-visible.txt",
+      "capture_sha256": "c5a1aa737489fe81d666b82bf3b88857b28f973d2ddd3c6b8d0875ed8b3ae5c1",
+      "clock_basis": "Exact retained original calendar acquisition reused; independent new Neo calendar check also retained"
+    }
+  ],
+  "owner_instruction": "Use dated Fed H10 November2 reference rates for Oct26-30 and exact matched Treasury observation dates. Preserve quoted units. Latest Treasury November4 is separate with no imputed FX. BLS calendar establishes Nov6 08:30 EST schedule only. Original H10 Oct13 metadata is retained history and not latest pricing. No payroll result, consensus or directional plan. Actual H10 acquisition occurred after cutoff; release observations precede it. No source clock is backdated.",
+  "source_projection_repair_of": "3a568320e6a1fff1cf3c230d6f6b357c05af177fb31e7c9609b5e2341f4c6e74"
+}
