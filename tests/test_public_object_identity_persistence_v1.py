@@ -1,5 +1,5 @@
-"""Focused tests: public-object identity persistence, v4→v5 lossless migration,
-durable-identity readback, restart-safe pending-readback recovery, and regression gates.
+"""Focused tests: public-object identity persistence, v4→v5 lossless migration and
+regression gates (supervisor lifecycle cases removed in CC-288, see the note below).
 
 Covers TASK_CONTENTOPS_FINAL_DAILY_APP_PUBLIC_OBJECT_IDENTITY_PERSISTENCE_AND_RESTART_RECOVERY_V1
 PHASE 14 required focused test matrix.
@@ -7,28 +7,16 @@ PHASE 14 required focused test matrix.
 from __future__ import annotations
 
 import hashlib
-from datetime import datetime, timezone
 
 import pytest
 
 from live_contentops import historical_schema_compatibility_v1 as hist
-from live_contentops.daily_app_supervisor_v1 import (
-    ContentOpsDailyAppSupervisor,
-    RECONCILE_CONFIRMED,
-    RECONCILE_CONTROLLED_NO_WRITE,
-    RECONCILE_PENDING_READBACK,
-    STATUS_CONTROLLED_NO_WRITE,
-    STATUS_DISPATCH_CONFIRMED,
-    STATUS_UNKNOWN_WRITE,
-)
 from live_contentops.durable_operational_store_v1 import (
     ContentOpsDurableStore,
     DispatchIdentityConflictError,
     SCHEMA_VERSION,
     compute_sha256,
 )
-
-INSIDE = datetime(2026, 8, 9, 14, tzinfo=timezone.utc)
 
 # Frozen v1-v4 migration SQL checksums (byte-for-byte immutable evidence).
 FROZEN_V1_V4_CHECKSUMS = {
@@ -196,193 +184,18 @@ def test_conflicting_public_object_url_fails_closed(tmp_path):
     assert store.get_platform_dispatch("pd_url")["public_object_url"] == "https://x/one"
 
 
-# ---------------------------------------------------------------------------
-# Supervisor lifecycle fixtures
-# ---------------------------------------------------------------------------
-
-
-def _plan_cycle(destinations=("substack",), package_identity="pkg-1"):
-    def cycle(*, run_id, output_dir, cutoff_utc, publication_enabled, **kwargs):
-        return {
-            "classification": "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1",
-            "publication_lifecycle_plan": {"ready_destinations": list(destinations), "package_identity": package_identity},
-            "public_write_performed": False, "unknown_write_detected": False,
-        }
-    return cycle
-
-
-def _life(tmp_path, *, publisher, readback, mode="AUTONOMOUS_DEFAULT"):
-    return ContentOpsDailyAppSupervisor(
-        store_path=tmp_path / "life.sqlite3", output_root=tmp_path / "out",
-        clock=lambda: INSIDE, operating_mode=mode, newsroom_cycle=_plan_cycle(),
-        publication_publisher=publisher, publication_readback_provider=readback,
-        enable_publication_lifecycle=True,
-    )
-
-
-def _wid(store):
-    conn = store.get_connection()
-    try:
-        r = conn.execute("SELECT work_item_id FROM work_items ORDER BY updated_at DESC LIMIT 1").fetchone()
-        return r["work_item_id"] if r else None
-    finally:
-        conn.close()
-
-
-def _recon(store, wid):
-    return sorted(r["status"] for r in store.get_reconciliations_for_work_item(wid))
-
-
-# ---------------------------------------------------------------------------
-# Phase 14 #10-16 — durable-identity readback + restart-safe pending recovery
-# ---------------------------------------------------------------------------
-
-
-def _rb_provider(object_id, *, calls, dispatch_mismatch=False, dest_mismatch=False, obj_mismatch=False):
-    def provider(dispatch_id, destination, expected_object):
-        calls.append((dispatch_id, destination, expected_object))
-        return {
-            "verified": True,
-            "dispatch_id": ("WRONG-DISPATCH" if dispatch_mismatch else dispatch_id),
-            "destination": ("WRONG-DEST" if dest_mismatch else destination),
-            "public_object_id": ("object-OTHER" if obj_mismatch else object_id),
-        }
-    return provider
-
-
-def test_case_a_real_confirmed_persists_identity_and_restart_idempotent(tmp_path):
-    pub_calls = []
-    rb_calls = []
-    def publisher(destination, package_identity):
-        pub_calls.append(destination)
-        return {"status": "DISPATCH_CONFIRMED", "public_object_id": "object-A", "public_object_url": "https://x/a"}
-    sup = _life(tmp_path, publisher=publisher, readback=_rb_provider("object-A", calls=rb_calls))
-    report = sup.tick(now=INSIDE)
-    wid = _wid(sup._store)
-    assert report["public_write_performed"] is True
-    assert _recon(sup._store, wid) == [RECONCILE_CONFIRMED]
-    disp = sup._store.get_dispatches_for_work_item(wid)[0]
-    assert disp["public_object_id"] == "object-A"
-    assert disp["public_object_url"] == "https://x/a"
-    # Immediate readback resolved the durable identity.
-    assert rb_calls and rb_calls[0][2] == "object-A"
-
-    # Restart: no duplicate dispatch/readback/reconciliation.
-    before = sup._store.get_dispatches_for_work_item(wid)
-    restarted = _life(tmp_path, publisher=publisher, readback=_rb_provider("object-A", calls=[]))
-    report2 = restarted.tick(now=INSIDE)
-    assert report2["windows_dispatched"] == 0
-    assert restarted._store.get_dispatches_for_work_item(wid) == before
-
-
-def test_case_b_pending_readback_restart_recovery_zero_publisher(tmp_path):
-    pub_calls = []
-    def publisher(destination, package_identity):
-        pub_calls.append(destination)
-        return {"status": "DISPATCH_CONFIRMED", "public_object_id": "object-B", "public_object_url": "https://x/b"}
-    # Initial readback unavailable -> identity persists but reconciliation stays pending.
-    sup = _life(tmp_path, publisher=publisher, readback=None)
-    sup.tick(now=INSIDE)
-    wid = _wid(sup._store)
-    disp = sup._store.get_dispatches_for_work_item(wid)[0]
-    assert disp["status"] == STATUS_DISPATCH_CONFIRMED
-    assert disp["public_object_id"] == "object-B"
-    assert _recon(sup._store, wid) == [RECONCILE_PENDING_READBACK]
-
-    # Restart with readback enabled -> recovery reads back the stored object-B, zero publisher calls.
-    rb_calls = []
-    restarted = _life(tmp_path, publisher=publisher, readback=_rb_provider("object-B", calls=rb_calls))
-    report = restarted.tick(now=INSIDE)
-    assert report["windows_dispatched"] == 0
-    summary = restarted.perform_safe_readback_and_reconciliation(wid)
-    assert summary["publisher_calls"] == 0
-    assert summary["readback_calls"] == 1
-    # Recovery invoked readback with the exact stored identity (object-B).
-    assert rb_calls[0][2] == "object-B"
-    assert _recon(restarted._store, wid) == [RECONCILE_CONFIRMED]
-
-
-def test_immediate_readback_uses_durable_identity(tmp_path):
-    rb_calls = []
-    def publisher(destination, package_identity):
-        return {"status": "DISPATCH_CONFIRMED", "public_object_id": "object-D", "public_object_url": "https://x/d"}
-    sup = _life(tmp_path, publisher=publisher, readback=_rb_provider("object-D", calls=rb_calls))
-    sup.tick(now=INSIDE)
-    assert rb_calls and rb_calls[0][2] == "object-D"  # readback received the durable identity
-
-
-def test_case_d_wrong_readback_object_cannot_confirm(tmp_path):
-    rb_calls = []
-    def publisher(destination, package_identity):
-        return {"status": "DISPATCH_CONFIRMED", "public_object_id": "object-D1", "public_object_url": "https://x/d1"}
-    sup = _life(tmp_path, publisher=publisher, readback=_rb_provider("object-D1", calls=rb_calls, obj_mismatch=True))
-    sup.tick(now=INSIDE)
-    wid = _wid(sup._store)
-    # Readback observed a DIFFERENT object -> cannot confirm.
-    assert _recon(sup._store, wid) == [RECONCILE_PENDING_READBACK]
-
-
-def test_case_e_controlled_no_write_has_no_fake_identity(tmp_path):
-    def publisher(destination, package_identity):
-        return {"status": "DISPATCH_CONFIRMED_NO_WRITE"}
-    sup = _life(tmp_path, publisher=publisher, readback=None)
-    sup.tick(now=INSIDE)
-    wid = _wid(sup._store)
-    disp = sup._store.get_dispatches_for_work_item(wid)[0]
-    assert disp["status"] == STATUS_CONTROLLED_NO_WRITE
-    assert disp["public_object_id"] is None  # no fabricated external identity
-    assert disp["public_object_url"] is None
-    assert _recon(sup._store, wid) == [RECONCILE_CONTROLLED_NO_WRITE]
-    assert sup.tick(now=INSIDE)["public_write_performed"] is False
-
-
-def test_case_f_unknown_write_gates_preserved(tmp_path):
-    pub_calls = []
-    def publisher(destination, package_identity):
-        pub_calls.append(destination)
-        return {"status": "UNKNOWN_WRITE"}
-    sup = _life(tmp_path, publisher=publisher, readback=None)
-    sup.tick(now=INSIDE)
-    wid = _wid(sup._store)
-    disp = sup._store.get_dispatches_for_work_item(wid)[0]
-    assert disp["status"] == STATUS_UNKNOWN_WRITE
-    assert len(pub_calls) == 1  # exactly one publish attempt, never retried
-    # Recovery reads back but never redispatches.
-    rb_calls = []
-    summary = sup.perform_safe_readback_and_reconciliation(wid, readback_provider=_rb_provider("obj-uw", calls=rb_calls))
-    assert summary["publisher_calls"] == 0
-    assert len(pub_calls) == 1
+# CC-288: the seven supervisor lifecycle cases (case A, B, D, E, F, immediate readback and
+# kill-switch readback-only recovery) were removed. They drove ContentOpsDailyAppSupervisor.tick()
+# through its own window execution and drive_canonical_publication_lifecycle, which the live runtime
+# no longer reaches (production_runtime_v1: owner NATIVE_CODEX_DESKTOP since 3e69658a, 20 Oct, and
+# publication through DurablePublicationCoordinator). The store-level identity rules stay tested
+# above and below; the live readback and recovery rules are tested in
+# tests/test_publication_coordinator_v1.py.
 
 
 # ---------------------------------------------------------------------------
 # Phase 14 #19-21 — kill switch, restart, production-store row preservation
 # ---------------------------------------------------------------------------
-
-
-def test_kill_switch_allows_readback_only_recovery(tmp_path):
-    pub_calls = []
-    def publisher(destination, package_identity):
-        pub_calls.append(destination)
-        return {"status": "DISPATCH_CONFIRMED", "public_object_id": "object-K", "public_object_url": "https://x/k"}
-    sup = _life(tmp_path, publisher=publisher, readback=None)
-    sup.tick(now=INSIDE)
-    wid = _wid(sup._store)
-
-    # Restart under KILL_SWITCH; recovery reads back, zero publisher calls, zero new dispatch.
-    rb_calls = []
-    ks = ContentOpsDailyAppSupervisor(
-        store_path=tmp_path / "life.sqlite3", output_root=tmp_path / "out",
-        clock=lambda: INSIDE, operating_mode="KILL_SWITCH", newsroom_cycle=_plan_cycle(),
-        publication_publisher=publisher, publication_readback_provider=_rb_provider("object-K", calls=rb_calls),
-        enable_publication_lifecycle=True,
-    )
-    report = ks.tick(now=INSIDE)
-    assert report["windows_dispatched"] == 0
-    summary = ks.perform_safe_readback_and_reconciliation(wid)
-    assert summary["publisher_calls"] == 0
-    assert summary["readback_calls"] == 1
-    assert _recon(ks._store, wid) == [RECONCILE_CONFIRMED]
-    assert len(pub_calls) == 1
 
 
 def test_missing_durable_identity_cannot_be_guessed(tmp_path):

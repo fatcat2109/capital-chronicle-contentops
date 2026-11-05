@@ -151,30 +151,24 @@ def test_generic_fabric_flows_resolver_snapshot_policy_into_runtime(
     assert not SNAPSHOT_BLOCKERS.intersection(freshness["blockers"])
 
 
-def test_backend_and_committed_v5_readiness_parity_for_current_three_packages() -> None:
+def test_backend_readiness_for_current_three_packages() -> None:
+    # The fast newsroom policy (Aug registry) makes straight news snapshot-free while sensitivity stays.
+    # CC-288 removed the parity check against the committed V5 receipt
+    # (CONTENTOPS_FAST_SHIP_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1, 1 Aug): it is
+    # a historical audit record that keeps its original values and has no live consumer.
     registry = load_source_capability_registry()
     expected = {
-        "policy_decision": ("federal_reserve_fomc", True, True),
-        "company_sector_event": ("sec_edgar", True, True),
-        "physical_event": ("usgs_comcat", False, False),
+        "policy_decision": ("federal_reserve_fomc", True),
+        "company_sector_event": ("sec_edgar", True),
+        "physical_event": ("usgs_comcat", False),
     }
-    records_path = ROOT / (
-        "docs/automation/CONTENTOPS_FAST_SHIP_CAPABILITY_POLICY_GENERICITY_AND_"
-        "READINESS_RECEIPT_REPAIR_V1/capability_readiness_records.json"
-    )
-    records = json.loads(records_path.read_text(encoding="utf-8"))["records"]
-    for story_type, (source_family, sensitive, snapshot_required) in expected.items():
+    for story_type, (source_family, sensitive) in expected.items():
         capability = resolve_story_capabilities(
             {"source_family_id": source_family}, registry
         )
+        assert capability["story_type"] == story_type
         assert capability["market_sensitive"] is sensitive
-        assert capability["market_snapshot_required"] is snapshot_required
-        ui_rows = [row for row in records if row["story_type"] == story_type]
-        assert len(ui_rows) == 6
-        assert all(row["market_sensitive"] is sensitive for row in ui_rows)
-        assert all(
-            row["market_snapshot_required"] is snapshot_required for row in ui_rows
-        )
+        assert capability["market_snapshot_required"] is False
 
 
 def test_snapshot_requirement_evidence_is_hash_bound_and_no_write() -> None:

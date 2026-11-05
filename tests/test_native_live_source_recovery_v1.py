@@ -97,7 +97,9 @@ def seeded(tmp_path, monkeypatch, *, used=2, published="2026-10-30T09:00:00Z", s
     request = pending.value.request
     candidate = request["governed_input"]["candidates"][0]["candidate_id"]
     selected = _selection(candidate)
-    selected["ordered_candidate_plan"][0].update(article_mode="STANDARD_NEWS_ANALYSIS", angle="Controlled policy question",
+    # Time-sensitive modes now skip the MAX visual edit (decision 53, native_publication_latency_v1.speed_policy);
+    # this recovery path is asserted through visual-edit, which long-form modes still take.
+    selected["ordered_candidate_plan"][0].update(article_mode="CAPITAL_CHRONICLE_VIEW", angle="Controlled policy question",
         primary_reader_question="What does the report establish?", evidence_plan="Use exact attributed facts.")
     if source_missing:
         selected["ordered_candidate_plan"][0]["source_requests"] = [{"url": rolling["headlines"][0]["source_url"],

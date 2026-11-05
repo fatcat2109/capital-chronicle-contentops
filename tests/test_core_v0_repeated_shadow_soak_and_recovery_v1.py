@@ -62,7 +62,7 @@ from live_contentops.core_v0_soak_slo_report_v1 import (
     UNMEASURABLE,
     VERDICTS,
 )
-from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.durable_operational_store_v1 import SCHEMA_VERSION, ContentOpsDurableStore
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 
@@ -229,7 +229,7 @@ def test_no_durable_work_item_is_lost_or_double_claimed(soak) -> None:
     assert durable["lost_work_items"] == 0
     assert durable["duplicate_durable_claims"] == 0
     assert durable["restart_reconstruction_status"] == "PASS"
-    assert durable["schema_version"] == 4
+    assert durable["schema_version"] == SCHEMA_VERSION  # the store migrates forward (4 then, 9 now)
 
 
 def test_store_reopens_and_replays_independently(soak) -> None:

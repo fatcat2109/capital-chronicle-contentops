@@ -21,6 +21,7 @@ from live_contentops.core_v0_acceptance_harness_v1 import (
     run_acceptance,
 )
 from live_contentops.core_v0_shadow_soak_runner_v1 import run_core_v0_shadow_soak
+from live_contentops.durable_operational_store_v1 import SCHEMA_VERSION
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 
@@ -68,7 +69,7 @@ def test_durable_gate_reopens_the_real_store(evidence) -> None:
     gate = next(row for row in result["gates"] if row["gate"] == "durable_replay")
     assert gate["status"] == PASS
     assert gate["detail"]["verified_from"] == "independent_store_reopen"
-    assert gate["detail"]["schema_version"] == 4
+    assert gate["detail"]["schema_version"] == SCHEMA_VERSION  # the store migrates forward (4 then, 9 now)
     assert gate["detail"]["integrity_verified"] is True
     assert gate["detail"]["restart_reconstruction_status"] == "PASS"
 

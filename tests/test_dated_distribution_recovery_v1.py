@@ -137,7 +137,11 @@ def test_dated_amendment_retains_original_bytes_and_one_exact_send(tmp_path, mon
     ids = co._ids(binding["run_id"], recovery["plan_hash"], destination)
     before = store.get_outbox_message(ids["message_id"])["payload"]
     if destination != "youtube":
-        assert co.complete_derivative_after_transport_correction(ids["dispatch_id"], correction_id="CONTROLLED")["status"] == "CORRECTION_BLOCKED_DERIVATIVE_STALE"
+        # The stale derivative is already expired with no write; an ordinary correction keeps that
+        # terminal no-write state, and only the reviewed dated amendment below may send.
+        corrected = co.complete_derivative_after_transport_correction(ids["dispatch_id"], correction_id="CONTROLLED")
+        assert corrected["status"] == "DERIVATIVE_EXPIRED_STALE_NO_WRITE" and corrected["publish_called"] is False
+        assert runtime.publish_calls == []
     co.complete_dated_distribution_recovery(ids["message_id"], review_reference=ref)
     assert runtime.publish_calls == [destination]
     assert store.get_outbox_message(ids["message_id"])["payload"] == before

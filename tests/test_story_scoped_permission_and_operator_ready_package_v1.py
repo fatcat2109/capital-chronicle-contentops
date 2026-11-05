@@ -103,10 +103,11 @@ def test_rebuilt_v3_and_editorial_outputs_preserve_per_story_capabilities():
     fomc = outcomes["fomc-minutes-2026-04-28-29"]
     apple = outcomes["apple-sec-10q-2026-000013"]
     usgs = outcomes["usgs-reviewed-ridgecrest-ci38457511"]
+    # Straight news no longer waits for a market snapshot (Aug fast-newsroom registry); sensitivity stays.
     for row in (fomc, apple):
         assert row["freshness_disposition"]["market_sensitive"] is True
-        assert row["freshness_disposition"]["market_snapshot_required"] is True
-        assert len(row["freshness_disposition"]["blockers"]) == 2
+        assert row["freshness_disposition"]["market_snapshot_required"] is False
+        assert row["freshness_disposition"]["blockers"] == []
     assert usgs["freshness_disposition"]["market_sensitive"] is False
     assert usgs["freshness_disposition"]["market_snapshot_required"] is False
     assert usgs["freshness_disposition"]["blockers"] == []

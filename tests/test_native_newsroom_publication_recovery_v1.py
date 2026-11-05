@@ -15,7 +15,8 @@ from live_contentops.v1_simple_gemini_newsroom_v1 import (
 )
 from tests.test_native_live_source_recovery_v1 import seeded
 from tests.test_native_newsroom_owner_operation_v1 import entry
-from tests.test_native_text_first_v1 import brief_packet
+from live_contentops.native_text_first_v1 import DESTINATIONS
+from tests.test_native_text_first_v1 import brief_packet, substack_first  # noqa: F401 - fixture
 from tests.test_native_desktop_publication_v1 import composed, finish
 from tests.test_v1_simple_gemini_newsroom_v1 import _headlines
 
@@ -38,7 +39,9 @@ def fed_copy(snapshot):
         "public_write_attempted": False}
 
 
-def test_recorded_2_nov_hold_reaches_text_publication_with_controlled_transports(tmp_path, monkeypatch):
+# Substack-first semantics as in test_native_text_first_v1; site-first continuation has its own tests
+# (under site-first the replay leaves Substack a draft by design, decision 48).
+def test_recorded_2_nov_hold_reaches_text_publication_with_controlled_transports(tmp_path, monkeypatch, substack_first):
     snapshot = json.loads(INCIDENT.read_bytes())
     assert snapshot["original_source_requests"] == 0
     assert snapshot["original_selection"]["ordered_candidate_plan"][0]["article_mode"] == "DATA_OR_DOCUMENT_LENS"
@@ -65,8 +68,8 @@ def test_recorded_2_nov_hold_reaches_text_publication_with_controlled_transports
     operation, executor, transport = composed(store, binding, rollout, monkeypatch)
     value, simulated = finish(operation, executor)
     assert value["publication"]["state"] == "RECONCILED"
-    assert "substack" in simulated and set(simulated + transport.calls) == {
-        "substack", "x", "telegram", "discord", "threads", "linkedin"}
+    # Decision 61: every post carries an image, so no destination is skipped any more.
+    assert "substack" in simulated and set(simulated + transport.calls) == DESTINATIONS | {"linkedin_company"}
     assert value["publication"]["destinations"][0]
     report = {"scope": "CONTROLLED_RETROSPECTIVE_TEST_NOT_NATIVE_OR_LIVE_PUBLICATION",
         "original_run_id": snapshot["run_id"], "original_hold_preserved": True,

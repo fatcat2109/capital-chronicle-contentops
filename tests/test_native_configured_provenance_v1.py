@@ -38,13 +38,20 @@ def test_configured_return_resumes_exact_request_without_claiming_observed_model
 
 
 @pytest.mark.parametrize("change", [
-    {"configuration_status": None}, {"configuration_authority": None}, {"configuration_source": ""},
+    {"configuration_status": None}, {"configuration_source": ""},
     {"actual_configuration_unavailable": False}, {"configured_model": "gpt-6-luna"},
     {"configured_reasoning_effort": "max"},
 ])
 def test_fallback_cannot_be_unlabelled_wrong_role_or_unbound(change):
     with pytest.raises(ValueError):
         validate_native_configuration({**configured(), **change}, {"model": "gpt-6.1-sol", "reasoning_effort": "low"})
+
+
+def test_fallback_needs_no_fixed_authority_label():
+    # CC-186 (4883791e, 4 Nov) dropped the fixed decision-16 authority label: the exact configured
+    # model, effort, source and the unavailable-actuals flag still bind the fallback.
+    validate_native_configuration({**configured(), "configuration_authority": None},
+        {"model": "gpt-6.1-sol", "reasoning_effort": "low"})
 
 
 def test_observed_mismatch_is_not_hidden_by_configured_fallback():
