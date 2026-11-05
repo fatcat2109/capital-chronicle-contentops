@@ -112,6 +112,8 @@ def test_no_forbidden_imports_or_env_vars():
         "tier2_video_factory_v1.py",
         "tiktok_local_desktop_oauth_pkce_v1.py",
         "video_tts_worker_v1.py",
+        # CC-297 (5 Nov 2026): the one secret reader; key reads elsewhere go through it.
+        "secret_store_v1.py",
     }
 
     for p in root.rglob("*.py"):
