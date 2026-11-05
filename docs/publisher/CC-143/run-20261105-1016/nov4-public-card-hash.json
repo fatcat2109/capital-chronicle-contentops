@@ -1,0 +1,9 @@
+{
+  "url_observed_through": "BROWSEROS_NEO",
+  "byte_verification": "exact original public asset after Neo download timed out; no browser/session material",
+  "url": "https://substack-post-media.s3.amazonaws.com/public/images/05b22cc8-6771-42f3-a00c-a43b28b54634_1600x900.png",
+  "bytes": 49699,
+  "sha256": "b9fa7836236d141dd3b01bf0608d4cabc76e52bcc9212da25f1798f11e1872fb",
+  "expected_sha256": "b9fa7836236d141dd3b01bf0608d4cabc76e52bcc9212da25f1798f11e1872fb",
+  "match": true
+}

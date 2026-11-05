@@ -1,0 +1,17 @@
+{
+  "tool_request_sha256": "67fd7447e56422b52f9d5607185d0f6599801228a16bc0b74379db30770e4b72",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "codex-exec-48008",
+    "surface": "CODEX_EXEC",
+    "observation_source": "BROWSEROS_NEO",
+    "observed_at_utc": "2026-11-05T03:18:10.693Z"
+  },
+  "result": {
+    "request_sha256": "baedfb4a33bd93886d9ae3b0f7d3359a220e31031cf2511e2ea92d661f3d2923",
+    "observed_identity": "capitalchronicle.substack.com",
+    "authenticated": true,
+    "status": "SUCCESS",
+    "observation_ref": "docs/publisher/CC-143/run-20261105-1016/nov3-browser-observation.json#identity"
+  }
+}

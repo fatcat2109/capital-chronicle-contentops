@@ -1,0 +1,83 @@
+{
+  "item": "CC-143",
+  "status": "BLOCKED",
+  "cause": "DAILY_1900_EXECUTOR_DISABLED",
+  "observed_at_utc": "2026-11-05T03:50:26.597023+00:00",
+  "branch": "backlog/cc-143-digest-delivery-20261105",
+  "live_code_commit": "73280d76b1513f2cc47941a09008afdc8c66b109",
+  "integrated": true,
+  "live_consumer_uses_output": true,
+  "evidence": "live-consumer-acceptance.json",
+  "publication": {
+    "operation_id": "cc143-digest-2026-11-04",
+    "public_object_id": "223570288",
+    "url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-ac3",
+    "observed_published_at_utc": "2026-11-05T03:32:13.027Z",
+    "web_confirmed": true,
+    "email_send_enabled_at_click": true,
+    "email_code_requested": false,
+    "email_delivery_confirmed": false,
+    "readback": "WEB_CONFIRMED_EMAIL_READBACK_REQUIRED",
+    "articles": 3,
+    "public_card_original_bytes_match": true,
+    "one_dispatch_per_digest": true
+  },
+  "earlier_digest": {
+    "post_id": "223456283",
+    "state": "CONFIRMED",
+    "recipients": 4,
+    "opens": 1,
+    "open_rate_percent": 25,
+    "resent": false
+  },
+  "repairs": [
+    "200-character native subtitle limit, including a complete word at the boundary",
+    "Bound inline caption normalization without loosening exact body/summary/link checks",
+    "Only the current digest may be processed by digest recovery",
+    "An existing published object with incomplete observation resumes readback only",
+    "Corrected digest readback contract receives a new read-only request identity"
+  ],
+  "tests": [
+    {
+      "file": "scoped-recovery-tests.xml",
+      "passed": 124,
+      "scope": "digest and canonical coordinator before the final narrow readback/boundary corrections"
+    },
+    {
+      "file": "readback-recovery-tests.xml",
+      "passed": 27,
+      "scope": "digest tests after readback recovery correction"
+    },
+    {
+      "file": "subtitle-boundary-tests.xml",
+      "passed": 6,
+      "scope": "final boundary, frozen packet, summary/link rejection and exact-object readback checks"
+    }
+  ],
+  "test_selections_overlap": true,
+  "outside_operation": {
+    "operation": "daily 19:00 GMT+7 execution",
+    "actual_error": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime: Disabled",
+    "owner": "Ops Product",
+    "next_action": "Supply the existing daily execution route; this run was instructed to change no schedule."
+  },
+  "other_limits": [
+    "Substack exposes no recipient/delivery total for post 223570288; retain the exact public object and only read back, never resend. Recipient details offer publisher-agreement/privacy acceptance; not performed.",
+    "Before the recovery-scope fix, the existing recovery summary reported another article LinkedIn publish_called=true/UNKNOWN_WRITE. No new confirmed LinkedIn object is asserted; preserve its existing ambiguity. See nov4-resume-03.json.",
+    "BrowserOS image download timed out; the exact public asset URL was observed through Neo and its original bytes were independently fetched and hash-matched without session material."
+  ],
+  "launch": {
+    "pid": 48008,
+    "start": "2026-11-05T10:13:23.27421+07:00",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "telemetry": "CONFIGURED_NOT_OBSERVED"
+  },
+  "editorial_model_calls": 0,
+  "schedules_changed": 0,
+  "applications_started_or_stopped": 0,
+  "mailboxes_read": 0,
+  "email_codes_entered": 0,
+  "chats_messaged": 0,
+  "unrelated_wip": "Existing tracked ledger changes and unrelated untracked artifacts remain outside commits."
+}

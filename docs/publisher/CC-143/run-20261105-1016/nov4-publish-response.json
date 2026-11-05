@@ -1,0 +1,28 @@
+{
+  "tool_request_sha256": "dc3dd342db3e2ee75ed64609fb1176b967a834a32c31e760dccbbb50e1081e18",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "codex-exec-48008",
+    "surface": "CODEX_EXEC",
+    "observation_source": "BROWSEROS_NEO",
+    "observed_at_utc": "2026-11-05T03:32:40.514Z"
+  },
+  "result": {
+    "request_sha256": "9b634f458f41b83488482ec0cdfb4d458eb8c00f85113a8c3b8b276b0d2917f7",
+    "observed_identity": "capitalchronicle.substack.com",
+    "status": "SUCCESS",
+    "public_object_id": "223570288",
+    "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-ac3",
+    "dispatched_at_utc": "2026-11-05T03:32:11.232Z",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "delivery_observation": {
+      "email_send_enabled": true,
+      "web_publish_enabled": true,
+      "evidence_ref": "docs/publisher/CC-143/run-20261105-1016/nov4-delivery-verified.json"
+    },
+    "email_code_request_observed": false,
+    "public_alt_text_present": true,
+    "public_caption_present": true,
+    "observation_ref": "docs/publisher/CC-143/run-20261105-1016/nov4-post-send-observation.json"
+  }
+}

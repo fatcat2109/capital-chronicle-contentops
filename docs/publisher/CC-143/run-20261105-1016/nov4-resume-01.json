@@ -1,0 +1,31 @@
+{
+  "state": "NATIVE_NEO_TOOL_PENDING",
+  "native_tool_request": {
+    "schema_version": "contentops.native_neo_tool_request.v1",
+    "operation_id": "cc143-digest-2026-11-04",
+    "required_tool": "mcp__browseros_neo__run",
+    "request": {
+      "schema_version": "contentops.neo_identity_probe.v1",
+      "destination": "substack",
+      "probe_epoch": 5979495,
+      "native_invocation_id": "codex-exec-48008",
+      "action": "VERIFY_IDENTITY",
+      "surface": "SUBSTACK_ARTICLE",
+      "expected_identity": "capitalchronicle.substack.com",
+      "entry_url": "https://capitalchronicle.substack.com/",
+      "work_item_id": "native-neo-operation-d0689e65d13396a6bf0c01ffec692b677ce0bc3a4c470a5290bc985908aa7de7",
+      "forbidden": [
+        "login",
+        "account_switch",
+        "public_write",
+        "saved_draft",
+        "private_storage"
+      ],
+      "request_sha256": "baedfb4a33bd93886d9ae3b0f7d3359a220e31031cf2511e2ea92d661f3d2923"
+    },
+    "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+    "public_write_authorized": false,
+    "tool_request_sha256": "67fd7447e56422b52f9d5607185d0f6599801228a16bc0b74379db30770e4b72",
+    "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc143-digest-2026-11-04\\native-tools\\baedfb4a33bd93886d9ae3b0f7d3359a220e31031cf2511e2ea92d661f3d2923.request.json"
+  }
+}

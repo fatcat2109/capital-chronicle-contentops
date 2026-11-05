@@ -1,0 +1,133 @@
+{
+  "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+  "operation_id": "cc143-digest-2026-11-04",
+  "public_write_authorized": true,
+  "request": {
+    "action": "PUBLISH",
+    "canonical_url": null,
+    "content_binding": {
+      "artifact_manifest": [],
+      "expected_text_segments": [
+        "Capital Chronicle daily digest \u2014 November 4, 2026",
+        "US midterms: Capital Chronicle on the result that could surprise markets; U.S. Securities and Exchange Commission plans November 9 data roundtable; September 2026 jobs: private gains beneath a weak headline",
+        "**[US midterms: Capital Chronicle on the result that could surprise markets](https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on)**\n\nA Democratic sweep leads expectations in Capital Chronicle's dated preview. Republican control, a split Congress or a slow count could change the market response.\n\n**[U.S. Securities and Exchange Commission plans November 9 data roundtable](https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission)**\n\nThe SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.\n\n**[September 2026 jobs: private gains beneath a weak headline](https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains)**\n\nThe U.S. Bureau of Labor Statistics initially reported 29,000 more September payroll jobs. Private gains offset government losses; earnings growth softened.\n\nAnalysis, not financial advice."
+      ],
+      "expected_thread_texts": [],
+      "media_manifest": [
+        {
+          "alt_text": "Capital Chronicle daily digest, November 4, 2026: US midterms: Capital Chronicle on the result that could surprise markets; U.S. Securities and Exchange Commission plans November 9 data roundtable; September 2026 jobs: private gains beneath a weak headline",
+          "asset_id": "digest-card-c5897d936fe2dfa34e06",
+          "caption": "Capital Chronicle daily digest, November 4, 2026",
+          "modality": "source_backed_chart",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc143-digest-2026-11-04\\media\\digest-card-c5897d936fe2dfa34e06.png",
+          "placement_after": "lead",
+          "rights": "Capital Chronicle original publication index and layout",
+          "rights_status": "OWNED_ORIGINAL",
+          "sha256": "b9fa7836236d141dd3b01bf0608d4cabc76e52bcc9212da25f1798f11e1872fb"
+        }
+      ],
+      "thread_post_count": 0
+    },
+    "destination": "substack",
+    "dispatch_attempt_identity": "dispatch_15e0b8f269d0a5e503156b8a76dd0716",
+    "entry_url": "https://capitalchronicle.substack.com/",
+    "expected_identity": "capitalchronicle.substack.com",
+    "forbidden": [
+      "login",
+      "reauthorize",
+      "account_switch",
+      "cookies",
+      "storage",
+      "blind_retry",
+      "bulk_x_ingestion"
+    ],
+    "intent_sha256": "af84c4707190ef6c84661ad1b03a64fb8205b20b1c0a06bff5212f24f86ae52c",
+    "native_payload": {
+      "body_markdown": "**[US midterms: Capital Chronicle on the result that could surprise markets](https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on)**\n\nA Democratic sweep leads expectations in Capital Chronicle's dated preview. Republican control, a split Congress or a slow count could change the market response.\n\n**[U.S. Securities and Exchange Commission plans November 9 data roundtable](https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission)**\n\nThe SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.\n\n**[September 2026 jobs: private gains beneath a weak headline](https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains)**\n\nThe U.S. Bureau of Labor Statistics initially reported 29,000 more September payroll jobs. Private gains offset government losses; earnings growth softened.\n\nAnalysis, not financial advice.",
+      "subtitle": "US midterms: Capital Chronicle on the result that could surprise markets; U.S. Securities and Exchange Commission plans November 9 data roundtable; September 2026 jobs: private gains beneath a weak headline",
+      "title": "Capital Chronicle daily digest \u2014 November 4, 2026"
+    },
+    "package_identity": "cc143-digest-2026-11-04",
+    "payload": "**[US midterms: Capital Chronicle on the result that could surprise markets](https://capitalchronicle.substack.com/p/us-midterms-capital-chronicle-on)**\n\nA Democratic sweep leads expectations in Capital Chronicle's dated preview. Republican control, a split Congress or a slow count could change the market response.\n\n**[U.S. Securities and Exchange Commission plans November 9 data roundtable](https://capitalchronicle.substack.com/p/us-securities-and-exchange-commission)**\n\nThe SEC plans a public discussion of machine-understandable data and Super Intelligence. Readers can follow the webcast and listen for concrete evidence of use, risks and costs.\n\n**[September 2026 jobs: private gains beneath a weak headline](https://capitalchronicle.substack.com/p/september-2026-jobs-private-gains)**\n\nThe U.S. Bureau of Labor Statistics initially reported 29,000 more September payroll jobs. Private gains offset government losses; earnings growth softened.\n\nAnalysis, not financial advice.",
+    "payload_hash": "aeaf999ec72c0b27f1e722ee3cd0d1d55fd95676dc4094b2b2711135679fb3d5",
+    "public_object_id": null,
+    "public_object_url": null,
+    "request_sha256": "9b634f458f41b83488482ec0cdfb4d458eb8c00f85113a8c3b8b276b0d2917f7",
+    "schema_version": "contentops.neo_destination_handoff.v1",
+    "steps": [
+      "name_session; list tabs, open a task-owned tab",
+      "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+      "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+      "Place each media_manifest image in the body where its placement_after names: after the paragraphs under the heading with that text ('introduction' or 'lead' means after the first paragraph). Never put an image above the first paragraph unless placement_after says so. Set its alt text to alt_text and its caption to caption (with the credit when attribution is present). Return public_alt_text_present and public_caption_present for each image.",
+      "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+      "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+    ],
+    "substack_delivery_policy": {
+      "authority": "JIM_DECISION_42",
+      "before_publish": "Inspect the visible delivery controls. Set and verify the email choice before the final Publish button; stop before writing if it cannot be verified.",
+      "code_policy": "JIM_DECISION_54_WAIT_ON_UNTOUCHED_CODE_TAB",
+      "duplicate_policy": "Reuse this operation's existing draft/post; read back before any retry. Never create a second draft.",
+      "email_send_enabled": true,
+      "mode": "DAILY_EMAIL_DIGEST",
+      "return_fields": [
+        "delivery_observation.email_send_enabled",
+        "delivery_observation.web_publish_enabled",
+        "delivery_observation.evidence_ref"
+      ],
+      "web_publish_enabled": true
+    },
+    "substack_media_placement": "Place each media_manifest image in the body where its placement_after names: after the paragraphs under the heading with that text ('introduction' or 'lead' means after the first paragraph). Never put an image above the first paragraph unless placement_after says so. Set its alt text to alt_text and its caption to caption (with the credit when attribution is present). Return public_alt_text_present and public_caption_present for each image.",
+    "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+    "surface": "SUBSTACK_ARTICLE",
+    "work_item_id": "cc143-digest-2026-11-04"
+  },
+  "required_tool": "mcp__browseros_neo__run",
+  "schema_version": "contentops.native_neo_tool_request.v1",
+  "tool_request_sha256": "dc3dd342db3e2ee75ed64609fb1176b967a834a32c31e760dccbbb50e1081e18",
+  "browser_workspace": {
+    "policy": "JIM_DECISION_63",
+    "window": "Use the one existing BrowserOS Neo window. Create one only if none exists.",
+    "tabs": "Open tabs with tabs action=new and groupId in this task's group, titled Capital Chronicle/<task>. Leave Jim's and other agents' tabs untouched."
+  },
+  "upload_policy": {
+    "method": "BROWSEROS_NEO_UPLOAD_OR_FILE_CHOOSER_INTERCEPTION",
+    "source_scope": "ARTICLE_OWN_MEDIA_FOLDER",
+    "bound_media_paths": [
+      "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc143-digest-2026-11-04\\media\\digest-card-c5897d936fe2dfa34e06.png"
+    ],
+    "native_file_dialog": "FORBIDDEN_STOP_WITH_NATIVE_FILE_DIALOG_OPEN"
+  },
+  "substack_publish_routine": {
+    "policy": "JIM_DECISIONS_48_52_63",
+    "window": "Use the one existing BrowserOS Neo window and this task's tab group. Never create another window. Leave Jim's tabs untouched.",
+    "before_publish": "Use the finished Substack draft in this task's tab group. Never read a mailbox or enter an email code.",
+    "email_code_dialog": "Record PENDING_JIM_EMAIL_CODE, draft_id, page_id and URL. Leave that tab open and untouched for Jim; continue other destinations in other task tabs. No automatic wait, reload, navigation or input on the code tab.",
+    "continue_only_after": "The same tab reaches /publish/posts/detail/.../share-center; continue exact readback and dispatch recording.",
+    "pending_is_dispatch": false,
+    "email_code_return": {
+      "status": "PENDING_JIM_EMAIL_CODE",
+      "required_fields": [
+        "draft_id",
+        "page_id",
+        "page_url"
+      ],
+      "pipeline_state": "SUBSTACK_DRAFT_AWAITING_OWNER",
+      "automatic_wait": false,
+      "tab_policy": "Leave this tab open and untouched for Jim under decision 52; continue in other task tabs without a human-help tool wait."
+    },
+    "delivery": {
+      "authority": "JIM_DECISION_42",
+      "before_publish": "Inspect the visible delivery controls. Set and verify the email choice before the final Publish button; stop before writing if it cannot be verified.",
+      "code_policy": "JIM_DECISION_54_WAIT_ON_UNTOUCHED_CODE_TAB",
+      "duplicate_policy": "Reuse this operation's existing draft/post; read back before any retry. Never create a second draft.",
+      "email_send_enabled": true,
+      "mode": "DAILY_EMAIL_DIGEST",
+      "return_fields": [
+        "delivery_observation.email_send_enabled",
+        "delivery_observation.web_publish_enabled",
+        "delivery_observation.evidence_ref"
+      ],
+      "web_publish_enabled": true
+    }
+  }
+}

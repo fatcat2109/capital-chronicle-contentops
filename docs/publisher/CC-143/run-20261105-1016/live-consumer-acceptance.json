@@ -1,0 +1,88 @@
+{
+  "observed_at_utc": "2026-11-05T03:49:44.388030+00:00",
+  "live_code_commit": "73280d76b1513f2cc47941a09008afdc8c66b109",
+  "installed_source_hashes": {
+    "live_contentops/substack_daily_digest_v1.py": {
+      "worktree": "bfe49645db414ad3d7c7e60c2a45838f69444ad111920dc2150698a3e841dfff",
+      "live": "bfe49645db414ad3d7c7e60c2a45838f69444ad111920dc2150698a3e841dfff"
+    },
+    "live_contentops/neo_destination_handoff_v1.py": {
+      "worktree": "378d84bd41c53e56591687cd032b2ab93c4bf9a85b568a33116e5053a305c5fc",
+      "live": "378d84bd41c53e56591687cd032b2ab93c4bf9a85b568a33116e5053a305c5fc"
+    },
+    "live_contentops/publication_coordinator_v1.py": {
+      "worktree": "0746873ae7be13faa17df6e22c6720cb6d9290fa9ef15e4c2b8f2a74bb3f49f6",
+      "live": "0746873ae7be13faa17df6e22c6720cb6d9290fa9ef15e4c2b8f2a74bb3f49f6"
+    }
+  },
+  "ordinary_web_only_articles": [
+    {
+      "operation": "cc124-next-article-20261105-a",
+      "post_id": "223555673",
+      "delivery": "WEB_ONLY"
+    },
+    {
+      "operation": "cc124-next-article-20261105-b",
+      "post_id": "223564454",
+      "delivery": "WEB_ONLY"
+    }
+  ],
+  "digests": [
+    {
+      "digest_id": "cc143-digest-2026-11-03",
+      "confirmed": true,
+      "web_confirmed": true,
+      "email_confirmed": true,
+      "state": "CONFIRMED",
+      "public_object_id": "223456283",
+      "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november"
+    },
+    {
+      "digest_id": "cc143-digest-2026-11-04",
+      "confirmed": false,
+      "web_confirmed": true,
+      "email_confirmed": false,
+      "state": "WEB_CONFIRMED_EMAIL_READBACK_REQUIRED",
+      "public_object_id": "223570288",
+      "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-ac3"
+    }
+  ],
+  "one_dispatch_per_existing_digest": [
+    {
+      "operation": "cc143-digest-2026-11-03",
+      "post_id": "223456283"
+    },
+    {
+      "operation": "cc143-digest-2026-11-04",
+      "post_id": "223570288"
+    }
+  ],
+  "live_consumer_call": {
+    "digest_id": "cc143-digest-2026-11-04",
+    "confirmed": false,
+    "web_confirmed": true,
+    "email_confirmed": false,
+    "state": "WEB_CONFIRMED_EMAIL_READBACK_REQUIRED",
+    "public_object_id": "223570288",
+    "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-ac3",
+    "public_write_performed": false,
+    "native_continuation": {
+      "command": "digest-resume",
+      "arguments": [
+        "--rollout",
+        "config/native_desktop_rollout_v1.json",
+        "--native-invocation-id",
+        "<actual-active-invocation>"
+      ],
+      "instruction": "Continue this exact due digest through the existing Neo begin/submit loop before preparing another digest. Preserve any code tab and never read a mailbox or enter a code."
+    }
+  },
+  "consumer_observation": "manual call of installed existing host-tick consumer; not scheduled-execution proof",
+  "all_issued_article_ids": [
+    "substack:223199520",
+    "substack:223246940",
+    "substack:223293057",
+    "substack:223408612",
+    "substack:223429113"
+  ]
+}
