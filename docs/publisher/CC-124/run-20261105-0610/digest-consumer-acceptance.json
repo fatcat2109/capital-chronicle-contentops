@@ -1,15 +1,15 @@
 {
   "consumer_accepted_commit": "e8f565d8f8a617c10b992253a49a6d8fc31a92b8",
   "consumer_source_sha256": "7f7f08b10d5645e841384559bf39f41b3f70a8c43fa3580d8a73d7c8cd80eb67",
-  "checked_at_utc": "2026-11-05T01:25:35.626330+00:00",
+  "checked_at_utc": "2026-11-05T01:29:52.270682+00:00",
   "next_digest_reference_for_path_selection_only": "2026-11-06T00:00:00+00:00",
-  "record_sha256": "aa07500343d1ffb7df259c21e6acfebeb437e8ea91a9a4b6646bbd43c8b71e96",
+  "record_sha256": "9814113869a7e00ee8e7bf42b53aa0ba8483e3ee590202c0b459a54858f9c713",
   "observed_reader_result": {
     "state": "SAVED_RECORD",
     "record_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-05-bangkok\\newsroom_production_day_v1.json",
     "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
     "production_day_id": "newsroom-production-day-2026-11-05-bangkok",
-    "observed_at_utc": "2026-11-05T01:24:29.284232Z",
+    "observed_at_utc": "2026-11-05T01:27:08.141934Z",
     "stories_admitted": 4,
     "distinct_articles_published": 1,
     "confirmed_copies_by_channel": {
