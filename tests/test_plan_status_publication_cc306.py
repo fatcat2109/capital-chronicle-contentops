@@ -98,7 +98,9 @@ def test_publish_ready_runs_each_post_once_through_the_coordinator(queued):
     first = publish_ready(store, now=NOW, coordinator_for=lambda key, folder: coordinator, root=root, host=fake_host, limit=10)
     assert {p["status"] for p in first["posts"]} == {"PUBLISHED"}
     calls = list(transport.publish_calls)
-    assert sorted(calls) == sorted(list(POST_DESTINATIONS) * len(keys))
+    # The minute task posts the API destinations only; X goes through the agent route.
+    from live_contentops.plan_status_posts_v1 import API_DESTINATIONS
+    assert sorted(calls) == sorted(list(API_DESTINATIONS) * len(keys)) and "x" not in calls
     again = publish_ready(store, now=NOW, coordinator_for=lambda key, folder: coordinator, root=root, host=fake_host, limit=10)
     assert again["posts"] == [] and transport.publish_calls == calls  # published rows are not run again
     assert {r["status"] for r in store.list_outbox_messages(destination=DESTINATION)} == {"PUBLISHED"}
@@ -173,3 +175,42 @@ def test_recovery_sees_only_the_posts_own_rows(queued):
     publish_ready(store, now=NOW, coordinator_for=lambda key, folder: coordinator, root=root, host=fake_host, limit=1)
     assert seen and seen[0]["exact_work_item_only"] is True
     assert seen[0]["work_item_id"] in keys.values()
+
+
+def test_an_idle_run_touches_no_coordinator_and_no_host(queued):
+    """5 Nov 11:10Z: the first --publish run outlived its minute with nothing fresh to post."""
+    store, transport, coordinator, keys, root = queued
+    publish_ready(store, now=NOW, coordinator_for=lambda key, folder: coordinator, root=root, host=fake_host, limit=10)
+    calls = list(transport.publish_calls)
+
+    def no_coordinator(key, folder):
+        raise AssertionError("an idle run must not build a coordinator")
+
+    def no_host(**kw):
+        raise AssertionError("an idle run must not call the hosting provider")
+
+    idle = publish_ready(store, now=NOW, coordinator_for=no_coordinator, root=root, host=no_host, limit=10)
+    assert idle == {"status": "OK", "posts": []} and transport.publish_calls == calls
+
+
+def test_a_hosted_card_is_reused_without_a_provider_call(queued):
+    store, _, _, keys, root = queued
+    key = keys[("XAUUSD", "TRIGGERED")]
+    prepare_post(store, key, root=root, host=fake_host)
+
+    def no_host(**kw):
+        raise AssertionError("the verified hosted card must be reused")
+
+    plan_ = prepare_post(store, key, root=root, host=no_host)
+    assert plan_["status_post_card_id"]
+
+
+def test_x_is_only_issued_by_the_agent_route_and_never_when_stale(queued, monkeypatch):
+    from datetime import timedelta
+    from live_contentops.plan_status_posts_v1 import start_x
+    store, _, _, keys, root = queued
+    key = keys[("XAUUSD", "TRIGGERED")]
+    with pytest.raises(PlanPostError, match="PLAN_STATUS_X_STALE_NOT_POSTED"):
+        start_x(store, key, native_invocation_id="agent", now=NOW + timedelta(minutes=61), root=root, host=fake_host)
+    plan_ = prepare_post(store, key, root=root, host=fake_host, destinations=("x",))
+    assert [d["destination"] for d in plan_["destinations"]] == ["x"]

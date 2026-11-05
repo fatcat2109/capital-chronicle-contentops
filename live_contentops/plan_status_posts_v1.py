@@ -272,6 +272,8 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
 # link is the market's page on the site (the preview until CC-305 publishes).
 # ---------------------------------------------------------------------------------------------
 POST_DESTINATIONS = ("telegram", "discord", "threads", "x")
+# The minute task posts only these (no agent needed). X is registered by the agent route.
+API_DESTINATIONS = ("telegram", "discord", "threads")
 SITE_ASSET_URL = "https://fatcat2109.github.io/capital-chronicle-preview/assets/{symbol}.html"
 POST_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\plan-status-posts")
 STATE_WORDS = {"WAITING": "new plan", "TRIGGERED": "plan now active", "CANCELLED": "plan cancelled",
@@ -346,7 +348,22 @@ def card_article(row: Mapping[str, Any]) -> dict:
             "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
 
 
-def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None) -> dict:
+def _hosted(manifest_path: Path, card: Mapping[str, Any]) -> bool:
+    """A verified hosted copy of exactly this card is already recorded (no provider call needed)."""
+    if not manifest_path.is_file():
+        return False
+    try:
+        manifest = json.loads(manifest_path.read_bytes())
+    except ValueError:
+        return False
+    return any(a.get("sha256") == card["sha256"] == a.get("public_delivery_sha256")
+               and a.get("local_public_hash_continuity") is True
+               and str(a.get("verified_public_delivery_url") or "").startswith("https://")
+               for a in manifest.get("assets") or [])
+
+
+def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
+                 destinations: tuple = POST_DESTINATIONS) -> dict:
     """The post's package (title card, hosted copy, run context) and its coordinator plan."""
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes
     from live_contentops.destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
@@ -358,19 +375,20 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None) -> dict:
     if host is None:
         from live_contentops.cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
     manifest_path = folder / "delivery_media_manifest_v1.json"
-    existing = json.loads(manifest_path.read_bytes()) if manifest_path.is_file() else None
-    delivery = host(work_item_id=key, delivery_only_assets=[], existing_manifest=existing,
-                    article_assets=[card], article=article, source_documents=[])
-    if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":  # cloudinary_delivery_media_v1.READY
-        raise PlanPostError("PLAN_STATUS_CARD_HOSTING_" + str(delivery.get("status") or "FAILED"))
-    manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))  # the hosting result wraps it
+    if not _hosted(manifest_path, card):
+        existing = json.loads(manifest_path.read_bytes()) if manifest_path.is_file() else None
+        delivery = host(work_item_id=key, delivery_only_assets=[], existing_manifest=existing,
+                        article_assets=[card], article=article, source_documents=[])
+        if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":  # cloudinary_delivery_media_v1.READY
+            raise PlanPostError("PLAN_STATUS_CARD_HOSTING_" + str(delivery.get("status") or "FAILED"))
+        manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))  # the hosting result wraps it
     payloads = destination_payloads(row, card_id=card["asset_id"])
     context = {"schema_version": "contentops.plan_status_post_context.v1", "article": {**article, "body": row["text"]},
                "selection": {}, "media": {"assets": [card]}, "plan_status_post": key}
     (folder / "run_context_v1.json").write_bytes(canonical_bytes(context))
     url = SITE_ASSET_URL.format(symbol=row["symbol"])
     rows = []
-    for destination in POST_DESTINATIONS:
+    for destination in destinations:
         registration = registration_for_destination(destination)
         text = payloads[destination]["full_text"]
         rows.append({"destination": destination, "platform": registration.platform,
@@ -436,14 +454,26 @@ def scope_to_post(coordinator, key: str, plan: Mapping[str, Any]) -> None:
     coordinator.recovery_scope = {"work_item_id": key, "plan": plan, "exact_work_item_only": True}
 
 
+def _api_confirmed(store, key: str) -> bool:
+    plan_hash = hashlib.sha256(("plan-status-post:" + key).encode()).hexdigest()
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    for destination in API_DESTINATIONS:
+        dispatch = store.get_platform_dispatch(DurablePublicationCoordinator._ids(key, plan_hash, destination)["dispatch_id"])
+        if not dispatch or dispatch["status"] != "DISPATCH_CONFIRMED":
+            return False
+    return True
+
+
 def publish_ready(store, *, latest_states=None, now: datetime | None = None, coordinator_for=None,
                   root: Path = POST_ROOT, host=None, limit: int = 5) -> dict:
-    """Run each READY_FOR_PUBLISHER row through the sole coordinator. API destinations post now;
-    X's BrowserOS Neo request waits for an agent turn. Repeats only resume the same dispatches.
+    """Post fresh rows to the API destinations (Telegram, Discord, Threads) through the sole
+    coordinator, and exit. Never waits on agent work: X is not in this plan (see start_x).
 
     Freshness (Ops Product, 5 Nov): a row whose transition is older than 60 minutes when the
-    poster first reaches it is marked stale and never posted. A "new plan" post whose plan has
-    since moved on (triggered, cancelled, expired) is marked superseded and never posted.
+    poster reaches it is marked stale and never posted. A "new plan" post whose plan has since
+    moved on (triggered, cancelled, expired) is marked superseded and never posted. A fresh row
+    whose API copies are not all confirmed yet is resumed (the coordinator reads back before any
+    retry); a row with all three confirmed is done, so an idle run touches nothing.
     """
     now = now or datetime.now(timezone.utc)
     if coordinator_for is None:
@@ -454,10 +484,10 @@ def publish_ready(store, *, latest_states=None, now: datetime | None = None, coo
                 native_invocation_id="plan-status-posts-cc306", allow_publish=True)
             return coordinator
     results = []
-    rows = [r for r in store.list_outbox_messages(destination=DESTINATION)
-            if r["status"] in {READY, "PUBLISHING"}][:limit]
-    for row in rows:
-        key = row["message_id"]
+    candidates = []
+    for row in store.list_outbox_messages(destination=DESTINATION):
+        if row["status"] not in {READY, "PUBLISHING"}:
+            continue
         payload = json.loads(row["payload"])
         if row["status"] == READY:
             cause = None
@@ -467,11 +497,19 @@ def publish_ready(store, *, latest_states=None, now: datetime | None = None, coo
                     and latest_states.get(payload.get("plan_id"), "WAITING") != "WAITING"):
                 cause = (SUPERSEDED, "PLAN_ALREADY_" + str(latest_states[payload["plan_id"]]))
             if cause:
-                store.set_outbox_status(key, cause[0])
-                results.append({"key": key, "status": cause[0], "cause": cause[1]})
+                store.set_outbox_status(row["message_id"], cause[0])
+                results.append({"key": row["message_id"], "status": cause[0], "cause": cause[1]})
                 continue
+        elif _api_confirmed(store, row["message_id"]):
+            store.set_outbox_status(row["message_id"], "PUBLISHED")
+            continue
+        elif _age_minutes(payload, now) > FRESHNESS_MINUTES:
+            continue  # an unresolved old copy is left to the coordinator's own recovery, not this tick
+        candidates.append(row)
+    for row in candidates[:limit]:
+        key = row["message_id"]
         try:
-            plan = prepare_post(store, key, root=root, host=host)
+            plan = prepare_post(store, key, root=root, host=host, destinations=API_DESTINATIONS)
             store.create_work_item(story_id=key, title="Plan status post", target_surface="MULTI_PLATFORM",
                                    work_item_id=key)
             coordinator = coordinator_for(key, Path(plan["output_dir"]))
@@ -482,10 +520,27 @@ def publish_ready(store, *, latest_states=None, now: datetime | None = None, coo
             results.append({"key": key, "status": "NOT_STARTED", "cause": str(exc)[:200]})
             continue
         per = {d: (o or {}).get("status") for d, o in (outcome.get("per_destination") or {}).items()}
-        done = all(per.get(d) == "DISPATCH_CONFIRMED" for d in POST_DESTINATIONS)
+        done = all(per.get(d) == "DISPATCH_CONFIRMED" for d in API_DESTINATIONS)
         store.set_outbox_status(key, "PUBLISHED" if done else "PUBLISHING")
         results.append({"key": key, "status": "PUBLISHED" if done else "PUBLISHING", "per_destination": per})
     return {"status": "OK", "posts": results}
+
+
+def start_x(store, key: str, *, native_invocation_id: str, now: datetime | None = None, root: Path = POST_ROOT,
+            host=None) -> dict:
+    """The agent route registers and issues a fresh status post's X copy (a Neo request)."""
+    from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
+    now = now or datetime.now(timezone.utc)
+    if _age_minutes(_row_payload(store, key), now) > FRESHNESS_MINUTES:
+        raise PlanPostError("PLAN_STATUS_X_STALE_NOT_POSTED: transition older than 60 minutes")
+    plan = prepare_post(store, key, root=root, host=host, destinations=("x",))
+    coordinator, _ = bind_native_neo_coordinator(
+        store, operation_id=key, output_dir=Path(plan["output_dir"]) / "native-neo",
+        native_invocation_id=native_invocation_id, allow_publish=True)
+    scope_to_post(coordinator, key, plan)
+    coordinator.register_plan(key, plan)
+    outcome = coordinator.execute_plan(key, plan)
+    return {"key": key, "x": (outcome.get("per_destination") or {}).get("x")}
 
 
 def pending_x(store, *, now: datetime | None = None) -> list[dict]:
@@ -494,7 +549,7 @@ def pending_x(store, *, now: datetime | None = None) -> list[dict]:
     now = now or datetime.now(timezone.utc)
     pending = []
     for row in store.list_outbox_messages(destination=DESTINATION):
-        if row["status"] != "PUBLISHING":
+        if row["status"] not in {"PUBLISHING", "PUBLISHED"}:
             continue
         payload = json.loads(row["payload"])
         executor = NativeNeoExecutor(store, operation_id=row["message_id"], output_dir=POST_ROOT / row["message_id"]

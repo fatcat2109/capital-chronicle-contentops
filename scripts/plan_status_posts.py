@@ -41,17 +41,21 @@ def main(argv=None) -> int:
     parser.add_argument("--publish", action="store_true",
                         help="after queueing, post queued rows through the coordinator (X waits for an agent turn)")
     parser.add_argument("--pending-x", action="store_true", help="list status posts' X requests for an agent")
+    parser.add_argument("--x-start", metavar="KEY", help="agent route: register and issue a fresh post's X copy")
     parser.add_argument("--x-begin", nargs=2, metavar=("KEY", "REQUEST_SHA256"))
     parser.add_argument("--x-submit", nargs=3, metavar=("KEY", "REQUEST_SHA256", "RESPONSE_JSON"))
     parser.add_argument("--native-invocation-id", default="")
     args = parser.parse_args(argv)
     store = ContentOpsDurableStore(str(args.store), auto_migrate=False)
     from live_contentops import plan_status_posts_v1 as posts
-    if args.pending_x or args.x_begin or args.x_submit:
+    if args.pending_x or args.x_start or args.x_begin or args.x_submit:
         if args.pending_x:
             result = {"status": "OK", "pending_x": posts.pending_x(store)}
         elif not args.native_invocation_id:
             result = {"status": "NATIVE_INVOCATION_ID_REQUIRED"}
+        elif args.x_start:
+            result = {"status": "OK", "start": posts.start_x(store, args.x_start,
+                                                             native_invocation_id=args.native_invocation_id)}
         elif args.x_begin:
             result = {"status": "OK", "begin": posts.begin_x(store, *args.x_begin,
                                                              native_invocation_id=args.native_invocation_id)}
