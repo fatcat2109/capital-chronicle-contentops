@@ -1,0 +1,53 @@
+[
+  {
+    "destination": "linkedin_company",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524051266721734657/",
+    "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQEb_S4srmCVBg/feedshare-shrink_800/B56aGrMweZG4Ak-/0/1793873611016?e=1795651200&v=beta&t=st7sF5lzAborGdG9mCFpa-pqZ5MbBZZzP3vaa9P6v4I",
+    "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-stock-average-gaps.png",
+    "source_asset_sha256": "f7e598c6d153ee2d9e7e8aee9099252e1bd3d6dfd6d220f4b518b8777c66142f",
+    "mime_type": "image/jpeg",
+    "width": 800,
+    "height": 577,
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\platform_readback\\linkedin_company-current.jpg",
+    "bytes": 26120,
+    "platform_sha256": "a639434a04150e8171453df28edc35332ec4752e7b6066f34ccb1e22a9adb9f2",
+    "visual_similarity": 0.9992,
+    "pixels_inspected": true,
+    "source_pixels_match": true,
+    "pixel_inspection": "Actual retained public binary viewed and compared with the bound original chart; automated similarity and metadata retained."
+  },
+  {
+    "destination": "x",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118289723047473490",
+    "public_image_url": "https://pbs.twimg.com/media/HWWsyBDa0AA0uJN?format=jpg&name=small",
+    "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-weekly-product-draws.png",
+    "source_asset_sha256": "da0edf255f7ef21bc7aae7ee576930abdefacb8888a9bc5e20ccc570ce0a32ae",
+    "mime_type": "image/jpeg",
+    "width": 680,
+    "height": 491,
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\platform_readback\\x.jpg",
+    "bytes": 21825,
+    "platform_sha256": "69571b74cff6b295e94e2d4c4ddb949bbb44f105cc13c69bb894fece3d2a1b2c",
+    "visual_similarity": 0.9987,
+    "pixels_inspected": true,
+    "source_pixels_match": true,
+    "pixel_inspection": "Actual retained public binary viewed and compared with the bound original chart; automated similarity and metadata retained."
+  },
+  {
+    "destination": "youtube",
+    "public_object_url": "https://www.youtube.com/post/UgkxTU7JJ92PqzRq9tY3UBOkXvS39CsRPLLZ",
+    "public_image_url": "https://yt3.ggpht.com/P1zQrA4bRxQDsf-Bfawu2v0BK7G8LMyNLg0pWsBCebaIUqruoMysLTZi6iWc45_xB7aFghE2Nvwzuw=s640-rw-nd-v1",
+    "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-weekly-product-draws.png",
+    "source_asset_sha256": "da0edf255f7ef21bc7aae7ee576930abdefacb8888a9bc5e20ccc570ce0a32ae",
+    "mime_type": "image/webp",
+    "width": 640,
+    "height": 462,
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\platform_readback\\youtube-detail.webp",
+    "bytes": 8256,
+    "platform_sha256": "e41a51887765e892af21a7a01e76cd434f5cbd3c36cfcf694d76696076593808",
+    "visual_similarity": 0.9955,
+    "pixels_inspected": true,
+    "source_pixels_match": true,
+    "pixel_inspection": "Actual retained public binary viewed and compared with the bound original chart; automated similarity and metadata retained."
+  }
+]
