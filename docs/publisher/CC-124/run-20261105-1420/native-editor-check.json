@@ -1,0 +1,159 @@
+{
+  "schema_version": "contentops.native_text_editor_check.v1",
+  "operation_id": "cc124-next-article-20261105-d",
+  "decision": "KEEP",
+  "review_scope": "WRITER_ONE_EDITOR_CHECK_PUBLISH",
+  "article_identity": "1c80e0bb53b1ae6e7e26977e226b5fecb62698f173ce8dfe6ada24360e8e4bc7",
+  "package_revision": "32683808ed88b5bf1dfae2d1401c279f1159a75a7479b436acea7825e93abc31",
+  "checked_at_utc": "2026-11-05T09:26:36.094604Z",
+  "first_text_approval_utc": "2026-11-05T09:26:36.094604Z",
+  "dispatch_target_deadline_utc": "2026-11-05T09:41:36.094604Z",
+  "rationale": [
+    "The dated 4 November EIA report and week ending 30 October remain distinct. All article quantities agree with the four unchanged original source texts; charts retain their source units and the caption /1000 conversion.",
+    "The central distillate-tightness argument is balanced by weaker gasoline product supplied and the refinery/trade explanation. The article states what would challenge persistent tightness.",
+    "The USOIL/US10Y discussion is explicitly a conditional macro interpretation. Neither a measured yield/price reaction nor a directional call, plan status, probability, entry or target is asserted.",
+    "All eight native text payloads accurately narrow the same EIA proposition, preserve EIA attribution and both transport notices, retain complete sentences and use the accepted media subsets.",
+    "The four expected section headings and source-bound chart placements match the accepted visual decision. The credited refinery photo remains archive context; no new screenshot or pixel-review claim is made."
+  ],
+  "material_issues": [],
+  "copy_changes": [],
+  "original_source_hashes": [
+    {
+      "source_id": "SOURCE_1",
+      "document_id": "cc124-eia-summary-20261104",
+      "url": "https://ir.eia.gov/secure/wpsr/summary.txt",
+      "canonical_content_sha256": "39c685b27e678ef936b248acafe2210213ec7feca8f8aed13d15a225040d6068"
+    },
+    {
+      "source_id": "SOURCE_2",
+      "document_id": "cc124-eia-wcestus1-20261104",
+      "url": "https://www.eia.gov/dnav/pet/hist_xls/WCESTUS1w.xls",
+      "canonical_content_sha256": "862adb79d45a63841e43f5e60668c74fb6f201fab98c4138580e49d689294ae3"
+    },
+    {
+      "source_id": "SOURCE_3",
+      "document_id": "cc124-eia-wgtstus1-20261104",
+      "url": "https://www.eia.gov/dnav/pet/hist_xls/WGTSTUS1w.xls",
+      "canonical_content_sha256": "b180a924b3638e188fb95eae715abaddd87524b166488353e62e9390b3498435"
+    },
+    {
+      "source_id": "SOURCE_4",
+      "document_id": "cc124-eia-release-20261104",
+      "url": "https://www.eia.gov/petroleum/supply/weekly/",
+      "canonical_content_sha256": "83b4aea04537406ac273f8052b2b6aaac433eac6cdcd1783d50b9c17cf6cc803"
+    }
+  ],
+  "canonical_public_text_sha256": "ca9af9475539b2f7f406a0b4432d93789fd6b580bfa4b6bab432251d11f607d4",
+  "checked_files": {
+    "native_desktop_result.json": "7ca71818ba463a5449f93b49adb33cdddb4bd8d137acd86ae81f192ba7839272",
+    "article_manifest_v1.json": "23b5feb06711457a6fe3b15e08453653d4ecd3d229b954c761972e7c045ad3b8",
+    "native_derivative_previews_v1.json": "77c50009b278c2680236d148675f5259aaf04dfd28eef186e48ef30d46a34c2f",
+    "desktop_request_write.json": "ca4a904622879c5f4b8c1022417fb4134e836066975eab4eba3e079a7547c25d",
+    "desktop_response_write.json": "8c55c5f0bea9a3edb3d0986d6b27941792c2914eea5aa6e7d42ef1d1c111ab33"
+  },
+  "native_text_payload_checks": {
+    "discord": {
+      "text_sha256": "a3171357a3b8f0647c0ab2a224f914f7d8686b04c0771505989b3b115bb39751",
+      "material_issues": [],
+      "attribution_and_precision": "EIA named in title; source facts retained; no added yield/price reaction or directional call.",
+      "both_public_notices_present": true,
+      "assigned_media_ids": [
+        "cc124-eia-weekly-product-draws",
+        "cc124-eia-stock-average-gaps"
+      ],
+      "ordered_post_count": 1
+    },
+    "facebook_page": {
+      "text_sha256": "884a14104ed5d798f0e9158f4e1bcd18e13868f2d74a53e3eb86148fac5276bf",
+      "material_issues": [],
+      "attribution_and_precision": "EIA named in title; source facts retained; no added yield/price reaction or directional call.",
+      "both_public_notices_present": true,
+      "assigned_media_ids": [
+        "cc124-eia-weekly-product-draws"
+      ],
+      "ordered_post_count": 1
+    },
+    "instagram_business": {
+      "text_sha256": "0c14c59ab149e61f2e08be8c97aab976589567b8658a7c09557b4357dd3b2806",
+      "material_issues": [],
+      "attribution_and_precision": "EIA named in title; source facts retained; no added yield/price reaction or directional call.",
+      "both_public_notices_present": true,
+      "assigned_media_ids": [
+        "cc124-eia-weekly-product-draws",
+        "cc124-eia-stock-average-gaps"
+      ],
+      "ordered_post_count": 1
+    },
+    "linkedin": {
+      "text_sha256": "f00e2c633f2370215a927c7cdb21048b9caabbc15b0b4d861d159a1e14b3eaca",
+      "material_issues": [],
+      "attribution_and_precision": "EIA named in title; source facts retained; no added yield/price reaction or directional call.",
+      "both_public_notices_present": true,
+      "assigned_media_ids": [
+        "cc124-eia-stock-average-gaps"
+      ],
+      "ordered_post_count": 1
+    },
+    "telegram": {
+      "text_sha256": "3717f8031772b7b4bfd35773af326189c7bbf738f0190afe5639ce0e5542bc05",
+      "material_issues": [],
+      "attribution_and_precision": "EIA named in title; source facts retained; no added yield/price reaction or directional call.",
+      "both_public_notices_present": true,
+      "assigned_media_ids": [
+        "cc124-eia-weekly-product-draws"
+      ],
+      "ordered_post_count": 1
+    },
+    "threads": {
+      "text_sha256": "d23a3bffce3ed969eed9b8635320d65704cbe414e6c99134661f21c70079844a",
+      "material_issues": [],
+      "attribution_and_precision": "EIA named in title; source facts retained; no added yield/price reaction or directional call.",
+      "both_public_notices_present": true,
+      "assigned_media_ids": [
+        "cc124-eia-weekly-product-draws"
+      ],
+      "ordered_post_count": 2
+    },
+    "x": {
+      "text_sha256": "9587a71dd4b4e9b003bd198114da7d9c2cbf078a280955d3236083028d3f5309",
+      "material_issues": [],
+      "attribution_and_precision": "EIA named in title; source facts retained; no added yield/price reaction or directional call.",
+      "both_public_notices_present": true,
+      "assigned_media_ids": [
+        "cc124-eia-weekly-product-draws"
+      ],
+      "ordered_post_count": 2
+    },
+    "youtube": {
+      "text_sha256": "90c512b8f8b459fb83691ab061db36db85c73109353bc9c9c6e640dc9c8c41a0",
+      "material_issues": [],
+      "attribution_and_precision": "EIA named in title; source facts retained; no added yield/price reaction or directional call.",
+      "both_public_notices_present": true,
+      "assigned_media_ids": [
+        "cc124-eia-weekly-product-draws"
+      ],
+      "ordered_post_count": 1
+    }
+  },
+  "canonical_public_notice": "Analysis, not financial advice.",
+  "derivative_public_notices": [
+    "Analysis, not financial advice.",
+    "Capital Chronicle may hold positions in the markets it covers."
+  ],
+  "pixel_review_repeated": false,
+  "public_write_performed": false,
+  "invocation_observation": {
+    "invocation_id": "/root/native_max_eia_614cb1caef28",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Same accepted native visual editor/writer assignment, configured gpt-6.1-sol/max; runtime model and effort telemetry remain unavailable.",
+    "observation_source": "Supported native task /root/native_max_eia_614cb1caef28 performed this one editor check on the exact compiled workspace result, reader-safe canonical prose and all eight native text payloads."
+  }
+}
