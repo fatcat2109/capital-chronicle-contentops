@@ -495,8 +495,11 @@ class NeoDestinationHandoff:
                 and dispatch.get("status") in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING", "RECONCILED_ABSENT_SAFE_TO_RETRY"}
                 and not any(_text(s) in comparison_text for s in segments if len(_text(s)) >= 30))
         complete_readback = getattr(self.native_executor, "complete_readback_request", None)
-        if (verified or canonical_present or absent) and callable(complete_readback):
-            complete_readback(request)
+        if callable(complete_readback):
+            if absent:
+                complete_readback(request, write_absent=True)
+            elif verified or canonical_present:
+                complete_readback(request)
         return {**result, "verified": bool(verified), "status": "SUCCESS" if verified else "BLOCKED",
                 "write_exists": bool(identity_exists), "write_absent": bool(absent),
                 "canonical_publication_verified": canonical_present,

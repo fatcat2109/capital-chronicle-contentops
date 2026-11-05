@@ -488,7 +488,7 @@ class NativeNeoExecutor:
                 return dict(prior)
         return None
 
-    def complete_readback_request(self, request):
+    def complete_readback_request(self, request, *, write_absent=False):
         """Retire obsolete unclaimed requests after exact readback or proven absence."""
         ignored = {"request_sha256", "observation_epoch", "native_invocation_id"}
         expected = {k: v for k, v in request.items() if k not in ignored}
@@ -510,8 +510,13 @@ class NativeNeoExecutor:
                 and all(prior.get(k) == request.get(k) for k in binding_keys)
                 and prior.get("public_object_id") in {None, request["public_object_id"]}
                 and prior.get("public_object_url") in {None, request["public_object_url"]})
+            absent_intent = (write_absent and bool(request.get("intent_sha256"))
+                and prior.get("action") == "READBACK"
+                and not prior.get("public_object_id") and not prior.get("public_object_url")
+                and all(prior.get(k) == request.get(k) for k in binding_keys)
+                and prior.get("latest_dispatch_attempt_at_utc") == request.get("latest_dispatch_attempt_at_utc"))
             if (packet.get("schema_version") != SCHEMA or packet.get("operation_id") != self.operation_id
-                    or request_hash == request["request_sha256"] or not (same_read or delivered_intent)
+                    or request_hash == request["request_sha256"] or not (same_read or delivered_intent or absent_intent)
                     or self._get(request_hash, "response") or self._get(request_hash, "started")):
                 continue
             self.store.set_outbox_status(row["message_id"], "NATIVE_NEO_SUPERSEDED")

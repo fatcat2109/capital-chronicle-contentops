@@ -92,6 +92,7 @@ def test_verified_object_retires_only_unclaimed_requests_for_its_exact_intent(
 
 @pytest.mark.parametrize("age,retired", [(1200, True), (599, False)])
 def test_only_proven_absence_retires_older_unclaimed_reads(tmp_path, monkeypatch, age, retired):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
     store, executor = setup(tmp_path)
     now = datetime.now(timezone.utc)
     monkeypatch.setattr(store, "get_platform_dispatch", lambda key: {"status": "UNKNOWN_WRITE",
@@ -101,8 +102,13 @@ def test_only_proven_absence_retires_older_unclaimed_reads(tmp_path, monkeypatch
         return adapter.readback(destination="x", intent=intent("x"),
             public_object_id=None, public_object_url=None)
     executor.clock = lambda: now - timedelta(seconds=601)
+    # The first request predates delivery-manifest metadata being refreshed.
+    # Its immutable article intent and latest dispatch attempt are unchanged.
+    older = adapter.request(destination="x", action="READBACK", intent=intent("x"))
+    older["content_binding"]["artifact_manifest"] = [{"path": "controlled-old-manifest.json", "sha256": "a" * 64}]
+    older["request_sha256"] = sha256_of({k: v for k, v in older.items() if k != "request_sha256"})
     with pytest.raises(NativeNeoInputRequired) as old:
-        read()
+        executor(older)
     executor.clock = lambda: now
     with pytest.raises(NativeNeoInputRequired) as current:
         read()
