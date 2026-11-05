@@ -1,0 +1,33 @@
+{
+  "tool_request_sha256": "0ccedde69662527286b37d745fa253b2b5f7eb283e55813ae6c1b2caf874452b",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a9d5-9a22-73a1-ab8d-6c0e1e84c9ee",
+    "surface": "CODEX_EXEC",
+    "observed_at_utc": "2026-11-05T06:16:21.890527+00:00",
+    "observation_source": "Neo page500 exact @Capitalnicle own profile and Capital Chronicle composer. Three approved posts, source card and bound alt; Post all clicked once. Your posts were sent; all three stable object IDs observed in own profile."
+  },
+  "result": {
+    "request_sha256": "77d1d968cb79f0c6761da54232a836247c564a75eba811ae5c9852a35e29e205",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2118225640226951201",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118225640226951201",
+    "thread_public_object_ids": [
+      "2118225640226951201",
+      "2118225643511132532",
+      "2118225646833053967"
+    ]
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-05T06:16:21.890527+00:00",
+      "observed_identity": "@Capitalnicle",
+      "observed_stable_id": "Capitalnicle",
+      "composer_identity_observed_before_click": true,
+      "timestamp_basis": "Recorded at submit; exact click clock not exposed. Profile link @Capitalnicle and Capital Chronicle composer observed before its one Post all click."
+    }
+  }
+}
