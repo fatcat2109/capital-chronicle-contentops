@@ -204,12 +204,12 @@ def test_house_view_contract_and_validator_keep_core_analyzer_boundary():
         assert not any("proprietary_analysis" in value for value in clean)
 
 
-def test_material_event_wake_stages_idempotently_and_leaves_the_run_to_the_native_desk(
+def test_material_event_wake_stages_idempotently_and_runs_no_supervisor_cycle(
     tmp_path,
 ):
     # The live supervisor (production_runtime_v1, owner NATIVE_CODEX_DESKTOP since 3e69658a, 20 Oct)
-    # stages material-event opportunities durably but never runs a newsroom cycle itself: the native
-    # desk's schedule takes them. The FDA-G supervisor dispatch, spacing and saturation route is retired.
+    # stages material-event opportunities durably but never runs a newsroom cycle itself; the routine
+    # owner is the native desk. The FDA-G supervisor dispatch, spacing and saturation route is retired.
     now = datetime(2026, 8, 20, 4, 30, tzinfo=timezone.utc)
     calls: list[dict] = []
 

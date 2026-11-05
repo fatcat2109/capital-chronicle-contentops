@@ -25,7 +25,8 @@ def store_with_draft(tmp_path):
 
 
 def intent():
-    return {"work_item_id": "work", "package_identity": "pkg", "payload": "Same title",
+    # Every coordinator intent carries its plan_hash; the absence clock (525156ac) reads it.
+    return {"work_item_id": "work", "plan_hash": "plan", "package_identity": "pkg", "payload": "Same title",
             "destination_plan": {"payload_hash": "hash", "surface": "SUBSTACK_ARTICLE"}}
 
 

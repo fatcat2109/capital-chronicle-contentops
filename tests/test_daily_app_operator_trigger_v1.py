@@ -244,6 +244,9 @@ def test_autonomous_default_operator_cycle_keeps_canonical_gate_flag_only(tmp_pa
         "run_id", "output_dir", "cutoff_utc", "publication_enabled", "sidecar_glob",
         "capital_chronicle_root", "published_corpus", "cc_catalog", "operating_mode",
         "newsroom_production_day_id", "learning_policy",
+        # The prepared-candidate checkpoint reaches the cycle once its refresh succeeds
+        # (it raised KeyError on routed BEA/IMF/company-IR headlines until CC-288).
+        "prepared_candidate_state",
     }
     assert set(calls[0]) <= allowed
     assert "operator_run_now_override" not in calls[0]

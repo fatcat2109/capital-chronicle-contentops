@@ -104,20 +104,39 @@ def test_edit_existing_message_transmits_explicit_media_without_creating_a_post(
     assert json.loads(calls[0].data) == {"content": "Same copy", "embeds": embeds}
 
 
-@pytest.mark.parametrize("photo_required,delivery_ready", [(True, False), (True, True), (False, False)])
-def test_native_discord_send_never_omits_a_reviewed_photo(monkeypatch, tmp_path, photo_required, delivery_ready):
+def _discord_send(monkeypatch, tmp_path, *, selected, delivery_ready):
     import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
-    data = {"output_dir": tmp_path, "article": {"title": "Dated report"}, "payloads": {"discord": {"text": "Reviewed copy"}},
-        "canonical_url": "https://capitalchronicle.substack.com/p/exact", "media_assets": [],
-        "local_media": "photo.jpeg" if photo_required else "", "public_image_url": "https://example.test/photo.jpeg" if delivery_ready else ""}
+    from hashlib import sha256
+    from PIL import Image
+    path = tmp_path / "photo.png"
+    Image.new("RGB", (32, 32), "white").save(path)
+    asset = {"asset_id": "reviewed-photo", "path": str(path), "sha256": sha256(path.read_bytes()).hexdigest()}
+    data = {"output_dir": tmp_path, "article": {"title": "Dated report"},
+        "payloads": {"discord": {"text": "Reviewed copy", "media_asset_ids": [asset["asset_id"]] if selected else []}},
+        "canonical_url": "https://capitalchronicle.substack.com/p/exact", "media_assets": [asset],
+        "local_media": str(path), "public_image_url": "https://example.test/photo.png" if delivery_ready else ""}
     calls = []
     monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda _: data)
     monkeypatch.setattr(pipeline, "_publish_discord_verified", lambda **kw: calls.append(kw) or {"status": "SUCCESS"})
     result = pipeline._publish_one_destination_from_durable_intent(destination="discord", intent={"attempt_identity": "exact"},
         authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT", "dispatch_attempt_identity": "exact"})
+    return result, calls, data
+
+
+@pytest.mark.parametrize("delivery_ready", [False, True])
+def test_native_discord_send_never_omits_the_selected_image(monkeypatch, tmp_path, delivery_ready):
+    # Decision 61 (49b238d0): every Discord post carries its selected, hash-verified image.
+    result, calls, data = _discord_send(monkeypatch, tmp_path, selected=True, delivery_ready=delivery_ready)
     assert result["status"] == "SUCCESS" and len(calls) == 1
-    assert calls[0]["image_path"] == ("photo.jpeg" if photo_required else None)
-    assert calls[0]["image_url"] == (data["public_image_url"] if photo_required else None)
+    assert calls[0]["image_path"] == data["local_media"]
+    assert calls[0]["image_url"] == data["public_image_url"]
+
+
+def test_native_discord_without_a_selected_image_is_definite_no_write(monkeypatch, tmp_path):
+    # Replaces the former photo-optional case: a text-only Discord post is no longer sent.
+    result, calls, _ = _discord_send(monkeypatch, tmp_path, selected=False, delivery_ready=False)
+    assert result["status"] == "DEFINITE_NO_WRITE" and result["public_write_performed"] is False
+    assert result["reason_code"] == "EVERY_POST_IMAGE_REQUIRED:discord" and calls == []
 
 
 def test_discord_uploads_binary_attachment_and_reads_back_its_exact_hash(tmp_path, monkeypatch):
