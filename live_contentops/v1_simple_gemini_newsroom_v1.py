@@ -2493,7 +2493,9 @@ def run_v1_simple_gemini_newsroom(
                 # in the existing recovery history before materializing this one.
                 archive = path.parent / "source-recovery-history" / context["request_sha256"] / path.name
                 if archive.exists():
-                    raise SimpleGeminiNewsroomError("selected_story_context_artifact_changed_again", [path.name])
+                    archive = archive.parent / ("retained-" + _hash(json.loads(path.read_bytes()))) / path.name
+                    if archive.exists() and archive.read_bytes() != path.read_bytes():
+                        raise SimpleGeminiNewsroomError("selected_story_context_history_conflict", [path.name])
                 archive.parent.mkdir(parents=True, exist_ok=True)
                 path.replace(archive)
         if volume and Path(path).name == "simple_gemini_newsroom_receipt_v1.json":

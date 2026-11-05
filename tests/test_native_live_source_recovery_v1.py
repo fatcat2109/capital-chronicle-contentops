@@ -194,6 +194,24 @@ def test_held_source_span_repair_feeds_consumer_without_reacquisition(tmp_path, 
     assert current["request_count"] == original["source_request_count"] and len(calls) == 1
     assert turn.source_recovery()["source_projection_repair_of"] == prior["request_sha256"]
     assert turn.source_recovery()["research_snapshot"]["records"]["controlled-original"]["document"] == prior["research_snapshot"]["records"]["controlled-original"]["document"]
+    # Completing a cached rights projection must retain each prior materialization,
+    # rather than impose a one-repair limit on held source metadata.
+    from live_contentops import v1_simple_gemini_newsroom_v1 as newsroom
+    original_pack = newsroom._source_pack
+    def completed_rights(documents):
+        pack = original_pack(documents)
+        for document in pack:
+            document["source_reuse_constraints"] = {**document.get("source_reuse_constraints", {}),
+                "retained_policy_scope_note": "Same verified source and policy bytes"}
+        return pack
+    monkeypatch.setattr(newsroom, "_source_pack", completed_rights)
+    saved = (turn.root / "simple_gemini_evidence_v1.json").read_bytes()
+    with pytest.raises(DesktopInputRequired):
+        run()
+    current = json.loads((turn.root / "simple_gemini_evidence_v1.json").read_bytes())
+    assert current["selected_source_pack"][0]["source_reuse_constraints"]["retained_policy_scope_note"]
+    assert any(path.read_bytes() == saved for path in (turn.root / "source-recovery-history").glob("**/simple_gemini_evidence_v1.json"))
+    assert len(calls) == 1 and current["request_count"] == original["source_request_count"]
 
 
 @pytest.mark.parametrize("fault", ["acquisition", "source_bytes"])
