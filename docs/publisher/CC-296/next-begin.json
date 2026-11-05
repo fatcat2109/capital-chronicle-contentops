@@ -1,0 +1,147 @@
+{
+  "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+  "operation_id": "cc124-next-article-20261105-b",
+  "public_write_authorized": true,
+  "request": {
+    "action": "PUBLISH",
+    "canonical_url": "https://capitalchronicle.substack.com/p/southwests-2025-fuel-hedge-exit-did",
+    "content_binding": {
+      "artifact_manifest": [
+        {
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\reviewed-handoff\\59e2fbfd30bad0b2c89ad44673917067b2459a93b47d40ef02abaac9f663d786\\run_context_v1.json",
+          "sha256": "d924043486b0aaad72da80352a67e1fed1c29548816b02bf0bb0cc4b05f18cd9"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\reviewed-handoff\\59e2fbfd30bad0b2c89ad44673917067b2459a93b47d40ef02abaac9f663d786\\delivery_media_manifest_v1.json",
+          "sha256": "961e5a5fb17c84039c5c5ad0ea602181d7791cbcd0fc7e7eb1447a65886abc00"
+        }
+      ],
+      "expected_text_segments": [
+        "Southwest's 2025 fuel-hedge exit did not end the expense clock\n\nWhy it matters: Southwest Airlines Co.'s filing tied later premium expense to the originally forecast transactions, even after closure removed the hedge assets. Capital Chronicle's analysis is that an accounting tail can outlive the portfolio.\n\nContext: Southwest Airlines Co.'s disclosure explains accounting timing; deferred expense is not a verdict on whether the hedge exit was economically sound. The passage does not measure the contracts' overall benefit or establish how the exit changed subsequent earnings.\n\nRead the full brief: https://capitalchronicle.substack.com/p/southwests-2025-fuel-hedge-exit-did\n\nAnalysis, not financial advice. Readers decide whether to trade."
+      ],
+      "expected_thread_texts": [],
+      "media_manifest": [
+        {
+          "alt_text": "In Q2 2025, Southwest received approximately $40 million from closing its remaining fuel hedges. Southwest recorded approximately $36 million of fuel-hedging premium expense in Q2 2025, including terminated positions. At June 30, 2025, approximately $209 million remained in AOCI, excluding tax and net of termination proceeds, for reclassification to fuel expense through end-2027 as the originally forecast transactions occur.",
+          "asset_id": "post-facts-c6d7a73bb1808cefa008",
+          "attribution": "Source: Southwest Airlines Co.",
+          "caption": "Key facts from the article.",
+          "modality": "source_bound_data_card",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\media_assets\\post-facts-c6d7a73bb1808cefa008.png",
+          "sha256": "240c8f6dc5ecea0d75af69517be776603ca3c9f69d0b15d13f120b91671fdec5",
+          "source_page_url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm"
+        }
+      ],
+      "thread_post_count": 0
+    },
+    "destination": "linkedin",
+    "dispatch_attempt_identity": "dispatch_a749b509ef031d009fea961c23f3333d",
+    "entry_url": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
+    "expected_identity": "linkedin:jimcc",
+    "forbidden": [
+      "login",
+      "reauthorize",
+      "account_switch",
+      "cookies",
+      "storage",
+      "blind_retry",
+      "bulk_x_ingestion"
+    ],
+    "intent_sha256": "7b96b0b634a31c6c2aa3d3290e2baec5a46890748b3d37f385e50b15e4cb59ad",
+    "linkedin_api_prewrite_failure": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+    "native_payload": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "post-facts-c6d7a73bb1808cefa008"
+      ],
+      "media_source_links": {
+        "post-facts-c6d7a73bb1808cefa008": [
+          {
+            "document_id": "goal34-southwest-hedge-clocks",
+            "label": "Southwest Airlines Co.",
+            "url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm"
+          },
+          {
+            "document_id": "goal34-southwest-hedge-clocks",
+            "label": "Southwest Airlines Co.",
+            "url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm"
+          },
+          {
+            "document_id": "goal34-southwest-hedge-clocks",
+            "label": "Southwest Airlines Co.",
+            "url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm"
+          }
+        ]
+      },
+      "platform_limit": 3000,
+      "text": "Southwest's 2025 fuel-hedge exit did not end the expense clock\n\nWhy it matters: Southwest Airlines Co.'s filing tied later premium expense to the originally forecast transactions, even after closure removed the hedge assets. Capital Chronicle's analysis is that an accounting tail can outlive the portfolio.\n\nContext: Southwest Airlines Co.'s disclosure explains accounting timing; deferred expense is not a verdict on whether the hedge exit was economically sound. The passage does not measure the contracts' overall benefit or establish how the exit changed subsequent earnings.\n\nRead the full brief: https://capitalchronicle.substack.com/p/southwests-2025-fuel-hedge-exit-did\n\nAnalysis, not financial advice. Readers decide whether to trade."
+    },
+    "package_identity": "5fdf60bb03b078329e55b82da99b60edc68755c37f3274bdde3ad91085191981",
+    "payload": "Southwest's 2025 fuel-hedge exit did not end the expense clock\n\nWhy it matters: Southwest Airlines Co.'s filing tied later premium expense to the originally forecast transactions, even after closure removed the hedge assets. Capital Chronicle's analysis is that an accounting tail can outlive the portfolio.\n\nContext: Southwest Airlines Co.'s disclosure explains accounting timing; deferred expense is not a verdict on whether the hedge exit was economically sound. The passage does not measure the contracts' overall benefit or establish how the exit changed subsequent earnings.\n\nRead the full brief: https://capitalchronicle.substack.com/p/southwests-2025-fuel-hedge-exit-did\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+    "payload_hash": "0845dca612c607ab69529715c4016199d7b1b9ac8582df80b37e6032b2ef06e2",
+    "public_object_id": null,
+    "public_object_url": null,
+    "request_sha256": "9b958fe4158ecf69a454613ccee0f3fedcbdf2b69a716de06f53bb7a384dc0bb",
+    "schema_version": "contentops.neo_destination_handoff.v1",
+    "steps": [
+      "name_session; list tabs, open a task-owned tab",
+      "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+      "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+      "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+      "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+    ],
+    "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+    "surface": "LINKEDIN_POST",
+    "work_item_id": "cc124-next-article-20261105-b"
+  },
+  "required_tool": "mcp__browseros_neo__run",
+  "schema_version": "contentops.native_neo_tool_request.v1",
+  "tool_request_sha256": "d940cbda0685a91b822cbf49972b1842a298ada6b969859e09768bc6f1728586",
+  "browser_workspace": {
+    "policy": "JIM_DECISION_63",
+    "window": "Use the one existing BrowserOS Neo window. Create one only if none exists.",
+    "tabs": "Open tabs with tabs action=new and groupId in this task's group, titled Capital Chronicle/<task>. Leave Jim's and other agents' tabs untouched."
+  },
+  "upload_policy": {
+    "method": "BROWSEROS_NEO_UPLOAD_OR_FILE_CHOOSER_INTERCEPTION",
+    "source_scope": "ARTICLE_OWN_MEDIA_FOLDER",
+    "bound_media_paths": [
+      "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\media_assets\\post-facts-c6d7a73bb1808cefa008.png"
+    ],
+    "native_file_dialog": "FORBIDDEN_STOP_WITH_NATIVE_FILE_DIALOG_OPEN"
+  },
+  "composed_run": {
+    "policy": "CC-283",
+    "one_run": "One BrowserOS Neo run script does all five steps in this order, in this task's tab. It replaces the request's steps list: no separate identity, snapshot or binding step first.",
+    "1_identity": {
+      "expected_identity": "linkedin:jimcc",
+      "expected_stable_id": null,
+      "rule": "Read the signed-in account and compare it with the expected identity and stable id. While in this identity or any other pre-write part, result.stage is BEFORE_PUBLISH_CLICK. A mismatch or an unreadable identity returns FAILED_BEFORE_WRITE with definite_no_write true, stage BEFORE_PUBLISH_CLICK and no click."
+    },
+    "2_compose": "Enter each post below in its own composer box, in order, with its bound media. For a thread, add each next box with the composer's add-post control and wait until that box exists and has focus; then enter the post's whole text in one operation, newlines included. Never enter a post paragraph by paragraph, or before its box is ready.",
+    "3_verify_before_click": {
+      "posts": [
+        "Southwest's 2025 fuel-hedge exit did not end the expense clock\n\nWhy it matters: Southwest Airlines Co.'s filing tied later premium expense to the originally forecast transactions, even after closure removed the hedge assets. Capital Chronicle's analysis is that an accounting tail can outlive the portfolio.\n\nContext: Southwest Airlines Co.'s disclosure explains accounting timing; deferred expense is not a verdict on whether the hedge exit was economically sound. The passage does not measure the contracts' overall benefit or establish how the exit changed subsequent earnings.\n\nRead the full brief: https://capitalchronicle.substack.com/p/southwests-2025-fuel-hedge-exit-did\n\nAnalysis, not financial advice. Readers decide whether to trade."
+      ],
+      "rule": "Before the click, read every composer box's text back and compare it with its post, with whitespace collapsed and a link allowed to render shortened. Every post must match, in order, with no box missing or extra. Re-enter a box that differs once and compare again. If any post still differs, return FAILED_BEFORE_WRITE with definite_no_write true, stage BEFORE_PUBLISH_CLICK and no click."
+    },
+    "4_publish": "Immediately BEFORE the publish click, set the observation's dispatched_at_utc and result.stage = PUBLISH_CLICK_ATTEMPTED; then click once to publish the exact payload.",
+    "5_readback": "Right after the click, in the same run, read back the published object (id, url, text, media) and return it as composed.readback. This readback confirms the destination: no separate readback turn follows, and the next destination's run starts after it.",
+    "return": {
+      "result": "the publish result, as for any PUBLISH step, with its stage",
+      "composed": {
+        "identity": [
+          "authenticated",
+          "observed_identity",
+          "observed_stable_id",
+          "observed_at_utc"
+        ],
+        "pre_click_posts": "REQUIRED with any write: the composer texts read in step 3, in order. A return without them is refused; if they were not read, submit nothing",
+        "readback": "REQUIRED with any write: the READBACK result fields (status, observed_identity, public_object_id, public_object_url, observed_text, content_verified, media) observed in this run after the click. A return without it is refused"
+      }
+    },
+    "after_click": "FAILED_BEFORE_WRITE is a definite no-write only for an account mismatch or stage BEFORE_PUBLISH_CLICK. Any other failure, including a missing stage, is UNKNOWN_WRITE; the coordinator reads back before any retry.",
+    "after_run": "Submit this run's return at once, then start the next destination's run. Extra checks of a destination already read back (media comparisons, evidence files, commits) wait until every destination has gone out."
+  }
+}

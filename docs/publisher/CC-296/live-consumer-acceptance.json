@@ -1,0 +1,50 @@
+{
+  "records": [
+    {
+      "run_id": "cc124-next-article-20261105-a",
+      "dispatch_id": "dispatch_2704c810355edb38f779637795ce85b0",
+      "public_object_id": "urn:li:activity:7524207127058427904",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524207127058427904/",
+      "status": "DISPATCH_CONFIRMED",
+      "original_payload_sha256": "3adbe65696c23a98841f8aeeb4ee7f9b9399c85b09f800d1394bbdb8b28231dd",
+      "configured_transport": "OFFICIAL_MEMBER_API",
+      "actual_transport": "BROWSEROS_NEO_MCP",
+      "fallback_requests": [
+        {
+          "request_sha256": "9588df4d2450185e32fed83803c231f21f72e63f6316bb10094fd5da20ef2995",
+          "intent_sha256": "3adbe65696c23a98841f8aeeb4ee7f9b9399c85b09f800d1394bbdb8b28231dd",
+          "fallback_cause": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"
+        }
+      ],
+      "publish_click_utc": "2026-11-05T20:32:50.801Z",
+      "strict_reconciliation": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+      "missing_media_cause": "NEO_UPLOAD_FILE_INPUT_UNAVAILABLE;FILE_CHOOSER_INTERCEPTION_UNSUPPORTED",
+      "duplicate_publish_clicks": 0
+    },
+    {
+      "run_id": "cc124-next-article-20261105-b",
+      "dispatch_id": "dispatch_a749b509ef031d009fea961c23f3333d",
+      "public_object_id": "urn:li:activity:7524207612276486144",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524207612276486144/",
+      "status": "DISPATCH_CONFIRMED",
+      "original_payload_sha256": "7b96b0b634a31c6c2aa3d3290e2baec5a46890748b3d37f385e50b15e4cb59ad",
+      "configured_transport": "OFFICIAL_MEMBER_API",
+      "actual_transport": "BROWSEROS_NEO_MCP",
+      "fallback_requests": [
+        {
+          "request_sha256": "9b958fe4158ecf69a454613ccee0f3fedcbdf2b69a716de06f53bb7a384dc0bb",
+          "intent_sha256": "7b96b0b634a31c6c2aa3d3290e2baec5a46890748b3d37f385e50b15e4cb59ad",
+          "fallback_cause": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"
+        }
+      ],
+      "publish_click_utc": "2026-11-05T20:34:42.846Z",
+      "strict_reconciliation": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+      "missing_media_cause": "NEO_UPLOAD_FILE_INPUT_UNAVAILABLE;FILE_CHOOSER_INTERCEPTION_UNSUPPORTED",
+      "duplicate_publish_clicks": 0
+    }
+  ],
+  "new_canonical_articles": 0,
+  "schedule_changes": 0,
+  "chat_messages": 0,
+  "strict_media_acceptance": false
+}

@@ -1,0 +1,125 @@
+{
+  "destination": "linkedin",
+  "status": "NATIVE_NEO_TOOL_PENDING",
+  "publish_called": false,
+  "native_tool_request": {
+    "schema_version": "contentops.native_neo_tool_request.v1",
+    "operation_id": "cc124-next-article-20261105-a",
+    "required_tool": "mcp__browseros_neo__run",
+    "request": {
+      "schema_version": "contentops.neo_destination_handoff.v1",
+      "destination": "linkedin",
+      "action": "PUBLISH",
+      "expected_identity": "linkedin:jimcc",
+      "entry_url": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
+      "intent_sha256": "3adbe65696c23a98841f8aeeb4ee7f9b9399c85b09f800d1394bbdb8b28231dd",
+      "work_item_id": "cc124-next-article-20261105-a",
+      "package_identity": "698d2c61317dedc3af88ffe3e6b365f93da9c89bcbf132a4ed1cb6beebe8cbda",
+      "payload_hash": "e70f9ee3c76285b4bbbe00d36fc1eda4be3049edff3a77880aab6b435df5faa6",
+      "dispatch_attempt_identity": "dispatch_2704c810355edb38f779637795ce85b0",
+      "canonical_url": "https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+      "public_object_id": null,
+      "public_object_url": null,
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "ppi_headline_core_24m",
+          "ppi_september_component_rates"
+        ],
+        "media_source_links": {
+          "ppi_headline_core_24m": [
+            {
+              "document_id": "official-history-ed46497caabd15d7183472c1",
+              "label": "U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 15 Oct 2026",
+              "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+            },
+            {
+              "document_id": "official-history-a5c68f0f5c98a7b161c86470",
+              "label": "U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 15 Oct 2026",
+              "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+            }
+          ],
+          "ppi_september_component_rates": [
+            {
+              "document_id": "cc124-bls-september-ppi-original",
+              "label": "U.S. Bureau of Labor Statistics",
+              "url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm"
+            }
+          ]
+        },
+        "platform_limit": 3000,
+        "text": "September PPI: energy drove the goods surge as services rose\n\nWhy it matters: In the September 2026 release, BLS attributed over 80% of the goods increase to energy, which rose 10.8%. Services prices also rose 0.8%.\n\nContext: The September 2026 countercase is concentration: goods excluding foods and energy rose 0.3%, and services excluding trade, transportation and warehousing also rose 0.3%.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods\n\nRetrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade."
+      },
+      "payload": "September PPI: energy drove the goods surge as services rose\n\nWhy it matters: In the September 2026 release, BLS attributed over 80% of the goods increase to energy, which rose 10.8%. Services prices also rose 0.8%.\n\nContext: The September 2026 countercase is concentration: goods excluding foods and energy rose 0.3%, and services excluding trade, transportation and warehousing also rose 0.3%.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods\n\nRetrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade.",
+      "content_binding": {
+        "expected_text_segments": [
+          "September PPI: energy drove the goods surge as services rose\n\nWhy it matters: In the September 2026 release, BLS attributed over 80% of the goods increase to energy, which rose 10.8%. Services prices also rose 0.8%.\n\nContext: The September 2026 countercase is concentration: goods excluding foods and energy rose 0.3%, and services excluding trade, transportation and warehousing also rose 0.3%.\n\nRead the full brief: https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods\n\nRetrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade."
+        ],
+        "expected_thread_texts": [],
+        "thread_post_count": 0,
+        "media_manifest": [
+          {
+            "asset_id": "ppi_headline_core_24m",
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_headline_core_24m.png",
+            "sha256": "8a7418f4ebadca2995bae77616a58f953216eb5aca6b50abe8eca1cda77d8c11",
+            "caption": "October 2024\u2013September 2026. Each month retains its dated first release. Underlying excludes foods, energy and trade services; later revisions are not substituted. Sources: [U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 15 Oct 2026](https://www.bls.gov/news.release/archives/ppi_10152026.htm); [U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 15 Oct 2026](https://www.bls.gov/news.release/archives/ppi_10152026.htm).",
+            "alt_text": "Two years of first-reported monthly PPI changes; September headline 1.3%, underlying 0.5%.",
+            "attribution": "BLS dated first releases; monthly change, seasonally adjusted; October 2024-September 2026. Each point retains its original dated-release source.",
+            "source_page_url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+            "placement_after": "How September compares with two years of first releases",
+            "modality": "source_backed_chart"
+          },
+          {
+            "asset_id": "ppi_september_component_rates",
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\ppi_september_component_rates.png",
+            "sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+            "caption": "Separate monthly rates, not percentage-point contributions. The underlying measure overlaps goods and services; the bars do not add to the headline. Sources: [U.S. Bureau of Labor Statistics](https://www.bls.gov/news.release/archives/ppi_10152026.htm).",
+            "alt_text": "September PPI: final demand 1.3%, goods 2.6%, services 0.8%, excluding foods, energy and trade services 0.5%.",
+            "attribution": "BLS, September 2026 PPI, 15 October 2026 release; monthly SA changes. Rates, not contributions.",
+            "source_page_url": "https://www.bls.gov/news.release/archives/ppi_10152026.htm",
+            "placement_after": "September's jump was broad, but uneven",
+            "modality": "source_backed_chart"
+          }
+        ],
+        "artifact_manifest": [
+          {
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\reviewed-handoff\\d619ecc2cd48e8bb6d74958fc5e2295b08fc843402b2b6e4f94b0e07ffd05011\\run_context_v1.json",
+            "sha256": "70deb001adc2216a8e51ab18451dbd79d0b26f1a53106cc6c62a248fa006e878"
+          },
+          {
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\reviewed-handoff\\d619ecc2cd48e8bb6d74958fc5e2295b08fc843402b2b6e4f94b0e07ffd05011\\delivery_media_manifest_v1.json",
+            "sha256": "483c0546d196350db09aa1d6c7c95d63e853218f263de376e2af8bed187da100"
+          }
+        ]
+      },
+      "surface": "LINKEDIN_POST",
+      "steps": [
+        "name_session; list tabs, open a task-owned tab",
+        "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+        "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+        "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+        "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+      ],
+      "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+      "forbidden": [
+        "login",
+        "reauthorize",
+        "account_switch",
+        "cookies",
+        "storage",
+        "blind_retry",
+        "bulk_x_ingestion"
+      ],
+      "linkedin_api_prewrite_failure": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+      "request_sha256": "9588df4d2450185e32fed83803c231f21f72e63f6316bb10094fd5da20ef2995"
+    },
+    "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+    "public_write_authorized": true,
+    "tool_request_sha256": "f2ce6e9844af8a16c4c20717ffb9dfe5724dc2ef13e434e7ef4a1ab33dcae185",
+    "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\native-neo\\9588df4d2450185e32fed83803c231f21f72e63f6316bb10094fd5da20ef2995.request.json"
+  },
+  "reconciliation_status": null,
+  "public_write_performed": false,
+  "correction_id": "cc296-pre-http-tls-recovery-v1"
+}

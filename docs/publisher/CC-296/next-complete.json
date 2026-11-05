@@ -1,0 +1,110 @@
+{
+  "destination": "linkedin",
+  "status": "NATIVE_NEO_TOOL_PENDING",
+  "publish_called": false,
+  "native_tool_request": {
+    "schema_version": "contentops.native_neo_tool_request.v1",
+    "operation_id": "cc124-next-article-20261105-b",
+    "required_tool": "mcp__browseros_neo__run",
+    "request": {
+      "schema_version": "contentops.neo_destination_handoff.v1",
+      "destination": "linkedin",
+      "action": "PUBLISH",
+      "expected_identity": "linkedin:jimcc",
+      "entry_url": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
+      "intent_sha256": "7b96b0b634a31c6c2aa3d3290e2baec5a46890748b3d37f385e50b15e4cb59ad",
+      "work_item_id": "cc124-next-article-20261105-b",
+      "package_identity": "5fdf60bb03b078329e55b82da99b60edc68755c37f3274bdde3ad91085191981",
+      "payload_hash": "0845dca612c607ab69529715c4016199d7b1b9ac8582df80b37e6032b2ef06e2",
+      "dispatch_attempt_identity": "dispatch_a749b509ef031d009fea961c23f3333d",
+      "canonical_url": "https://capitalchronicle.substack.com/p/southwests-2025-fuel-hedge-exit-did",
+      "public_object_id": null,
+      "public_object_url": null,
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "post-facts-c6d7a73bb1808cefa008"
+        ],
+        "media_source_links": {
+          "post-facts-c6d7a73bb1808cefa008": [
+            {
+              "document_id": "goal34-southwest-hedge-clocks",
+              "label": "Southwest Airlines Co.",
+              "url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm"
+            },
+            {
+              "document_id": "goal34-southwest-hedge-clocks",
+              "label": "Southwest Airlines Co.",
+              "url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm"
+            },
+            {
+              "document_id": "goal34-southwest-hedge-clocks",
+              "label": "Southwest Airlines Co.",
+              "url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm"
+            }
+          ]
+        },
+        "platform_limit": 3000,
+        "text": "Southwest's 2025 fuel-hedge exit did not end the expense clock\n\nWhy it matters: Southwest Airlines Co.'s filing tied later premium expense to the originally forecast transactions, even after closure removed the hedge assets. Capital Chronicle's analysis is that an accounting tail can outlive the portfolio.\n\nContext: Southwest Airlines Co.'s disclosure explains accounting timing; deferred expense is not a verdict on whether the hedge exit was economically sound. The passage does not measure the contracts' overall benefit or establish how the exit changed subsequent earnings.\n\nRead the full brief: https://capitalchronicle.substack.com/p/southwests-2025-fuel-hedge-exit-did\n\nAnalysis, not financial advice. Readers decide whether to trade."
+      },
+      "payload": "Southwest's 2025 fuel-hedge exit did not end the expense clock\n\nWhy it matters: Southwest Airlines Co.'s filing tied later premium expense to the originally forecast transactions, even after closure removed the hedge assets. Capital Chronicle's analysis is that an accounting tail can outlive the portfolio.\n\nContext: Southwest Airlines Co.'s disclosure explains accounting timing; deferred expense is not a verdict on whether the hedge exit was economically sound. The passage does not measure the contracts' overall benefit or establish how the exit changed subsequent earnings.\n\nRead the full brief: https://capitalchronicle.substack.com/p/southwests-2025-fuel-hedge-exit-did\n\nAnalysis, not financial advice. Readers decide whether to trade.",
+      "content_binding": {
+        "expected_text_segments": [
+          "Southwest's 2025 fuel-hedge exit did not end the expense clock\n\nWhy it matters: Southwest Airlines Co.'s filing tied later premium expense to the originally forecast transactions, even after closure removed the hedge assets. Capital Chronicle's analysis is that an accounting tail can outlive the portfolio.\n\nContext: Southwest Airlines Co.'s disclosure explains accounting timing; deferred expense is not a verdict on whether the hedge exit was economically sound. The passage does not measure the contracts' overall benefit or establish how the exit changed subsequent earnings.\n\nRead the full brief: https://capitalchronicle.substack.com/p/southwests-2025-fuel-hedge-exit-did\n\nAnalysis, not financial advice. Readers decide whether to trade."
+        ],
+        "expected_thread_texts": [],
+        "thread_post_count": 0,
+        "media_manifest": [
+          {
+            "asset_id": "post-facts-c6d7a73bb1808cefa008",
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\media_assets\\post-facts-c6d7a73bb1808cefa008.png",
+            "sha256": "240c8f6dc5ecea0d75af69517be776603ca3c9f69d0b15d13f120b91671fdec5",
+            "caption": "Key facts from the article.",
+            "alt_text": "In Q2 2025, Southwest received approximately $40 million from closing its remaining fuel hedges. Southwest recorded approximately $36 million of fuel-hedging premium expense in Q2 2025, including terminated positions. At June 30, 2025, approximately $209 million remained in AOCI, excluding tax and net of termination proceeds, for reclassification to fuel expense through end-2027 as the originally forecast transactions occur.",
+            "attribution": "Source: Southwest Airlines Co.",
+            "source_page_url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+            "modality": "source_bound_data_card"
+          }
+        ],
+        "artifact_manifest": [
+          {
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\reviewed-handoff\\59e2fbfd30bad0b2c89ad44673917067b2459a93b47d40ef02abaac9f663d786\\run_context_v1.json",
+            "sha256": "d924043486b0aaad72da80352a67e1fed1c29548816b02bf0bb0cc4b05f18cd9"
+          },
+          {
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\reviewed-handoff\\59e2fbfd30bad0b2c89ad44673917067b2459a93b47d40ef02abaac9f663d786\\delivery_media_manifest_v1.json",
+            "sha256": "961e5a5fb17c84039c5c5ad0ea602181d7791cbcd0fc7e7eb1447a65886abc00"
+          }
+        ]
+      },
+      "surface": "LINKEDIN_POST",
+      "steps": [
+        "name_session; list tabs, open a task-owned tab",
+        "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+        "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+        "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+        "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+      ],
+      "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+      "forbidden": [
+        "login",
+        "reauthorize",
+        "account_switch",
+        "cookies",
+        "storage",
+        "blind_retry",
+        "bulk_x_ingestion"
+      ],
+      "linkedin_api_prewrite_failure": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+      "request_sha256": "9b958fe4158ecf69a454613ccee0f3fedcbdf2b69a716de06f53bb7a384dc0bb"
+    },
+    "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+    "public_write_authorized": true,
+    "tool_request_sha256": "d940cbda0685a91b822cbf49972b1842a298ada6b969859e09768bc6f1728586",
+    "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\native-neo\\9b958fe4158ecf69a454613ccee0f3fedcbdf2b69a716de06f53bb7a384dc0bb.request.json"
+  },
+  "reconciliation_status": null,
+  "public_write_performed": false,
+  "correction_id": "cc296-pre-http-tls-recovery-v1"
+}

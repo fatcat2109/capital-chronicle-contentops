@@ -1,0 +1,7 @@
+{
+  "dispatch_id": "dispatch_2704c810355edb38f779637795ce85b0",
+  "destination": "linkedin",
+  "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+  "public_write_performed": false,
+  "publish_called": false
+}

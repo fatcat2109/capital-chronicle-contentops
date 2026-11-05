@@ -1,4 +1,13 @@
 {
-  "request_sha256": "7642139aa4d17f03cd90242a61a07249b5d6831067ef891e37fcc90eeb0e4df8",
-  "tool_return_sha256": "c08d282d05d9dff56add8f1282b91c007576e9aabe02f52034f3b637f8c24a7f"
+  "request_sha256": "9588df4d2450185e32fed83803c231f21f72e63f6316bb10094fd5da20ef2995",
+  "tool_return_sha256": "f4536eaab471a876e5e741b56c979e8678e8ca7a4710a4e3a5342b1f228dc30f",
+  "completed_write_reconciliation": {
+    "dispatch_id": "dispatch_2704c810355edb38f779637795ce85b0",
+    "destination": "linkedin",
+    "public_object_id": "urn:li:activity:7524207127058427904",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524207127058427904/",
+    "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+    "publish_called": false,
+    "public_write_performed": false
+  }
 }
