@@ -108,9 +108,18 @@ def seeded(tmp_path, monkeypatch, *, used=2, published="2026-10-30T09:00:00Z", s
         "invocation_id": "/root/CONTROLLED_TEST", "observation_source": "CONTROLLED_TEST_NOT_MODEL_PROOF"}
     turn.submit("select", {"request_sha256": request["request_sha256"], "output": selected,
         "invocation_observation": observation})
-    with pytest.raises(DesktopInputRequired) as media:
-        run()
-    assert media.value.request["stage"] == ("sources" if source_missing else "media-plan")
+    if source_missing:
+        from live_contentops.native_desktop_editorial_v1 import request_source_preparation
+        blocked = run()
+        assert blocked["classification"] == "DRAFT_BLOCKED" and not blocked["writer_invoked"]
+        with pytest.raises(DesktopInputRequired) as media:
+            request_source_preparation(turn, selected["ordered_candidate_plan"][0]["source_requests"],
+                                       candidate_id=candidate)
+        assert media.value.request["stage"] == "sources"
+    else:
+        with pytest.raises(DesktopInputRequired) as media:
+            run()
+        assert media.value.request["stage"] == "media-plan"
     if not source_missing:
         pending = entry().operation(binding, command="media-plan")
         turn.submit("media-plan", {"request_sha256": pending["request_sha256"],
@@ -199,6 +208,25 @@ def test_pending_recovery_cannot_replace_issued_source_with_context(tmp_path, mo
     response["additional_source_requests"][0]["url"] = "https://www.reuters.com/another-source/"
     with pytest.raises(ValueError, match="EXACT_PENDING_SOURCE_PREPARATION_REQUIRED"):
         admit_pre_writer_source_recovery(turn, binding, response)
+
+
+def test_cached_zero_writer_source_failure_recovers_without_replacing_its_result(tmp_path, monkeypatch):
+    from live_contentops.native_manual_candidate_v1 import native_artifact_key
+    turn, binding, response, run, calls = seeded(tmp_path, monkeypatch, source_missing=True)
+    original_key = native_artifact_key(turn.store, turn.run_id, "cc-editorial-final-")
+    original = turn.store.get_outbox_message(original_key)
+    pending = json.loads((turn.root / "source_preparation_required.json").read_bytes())
+    response["expected_source_request_sha256"] = pending["request_sha256"]
+    admitted = admit_pre_writer_source_recovery(turn, binding, response)
+    assert admitted["source_request_count"] == 3
+    assert native_artifact_key(turn.store, turn.run_id, "cc-editorial-final-") != original_key
+    assert turn.store.get_outbox_message(original_key) == original
+    with pytest.raises(DesktopInputRequired) as ready:
+        run()
+    assert ready.value.request["stage"] == "media-plan" and len(calls) == 1
+    walk = json.loads((turn.root / "simple_gemini_evidence_v1.json").read_bytes())
+    assert walk["selected_source_pack"][0]["document_id"] == "controlled-original"
+    assert turn.store.get_outbox_message(original_key) == original
 
 
 @pytest.mark.parametrize("failure", ["budget", "changed_walk", "changed_selection", "different_candidate",

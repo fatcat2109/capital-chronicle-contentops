@@ -520,9 +520,14 @@ def _admit_live_source_recovery(turn, binding, response):
         if previous.get("source_amendment_sha256") != amendment_sha:
             raise ValueError("RECOVERY_ALREADY_ADMITTED_RESUME_SAME_OPERATION")
         return previous["admission_result"]
+    final_row = turn.store.get_outbox_message(native_artifact_key(turn.store, turn.run_id, "cc-editorial-final-"))
+    final = json.loads(final_row["payload"]) if final_row else None
+    source_failure_only = bool(final and final.get("classification") == "DRAFT_BLOCKED"
+        and final.get("exact_next_blocker") == "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED"
+        and final.get("writer_invoked") is False and final.get("article") is None
+        and final.get("qualified_article_count") == 0 and final.get("public_write_performed") is False)
     if (turn.frozen_request("write") or turn.frozen_request("visual-edit")
-            or turn.current_story_outcomes()
-            or turn.store.get_outbox_message(native_artifact_key(turn.store, turn.run_id, "cc-editorial-final-"))):
+            or turn.current_story_outcomes() or (final_row and not source_failure_only)):
         raise ValueError("LIVE_SOURCE_RECOVERY_MUST_PRECEDE_MAX_FREEZE")
     walk_raw = (turn.root / "simple_gemini_evidence_v1.json").read_bytes()
     walk = json.loads(walk_raw)
