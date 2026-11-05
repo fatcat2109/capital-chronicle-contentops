@@ -1,0 +1,20 @@
+{
+  "source_requests_admitted_in_shared_pipeline": 9,
+  "additional_unused_factual_read": {
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\source-captures\\fed-return.json",
+    "sha256": "d1738598150ccba40712d12748151fc27451a1113862b1c65bd8b022b9c816d2",
+    "used_as_new_writer_evidence": false
+  },
+  "total_factual_acquisitions_observed": 10,
+  "limit": 20,
+  "visual_acquisition_separate_from_factual_budget": true,
+  "photo_acquisition": {
+    "first_original_link": "DOWNLOAD_EVENT_TIMEOUT_INLINE_IMAGE_OBSERVED",
+    "native_file_dialog_observed": false,
+    "repair": "Same-origin HTML download attribute, then Neo download tool",
+    "saved_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\media_assets\\West_Point_gold.jpg",
+    "sha256": "3fb037489bd491bf23dc9a77f52d7a9ee5ea7d5b6f15f70bd3f64bde1f95d131"
+  },
+  "binaries_committed": false
+}
