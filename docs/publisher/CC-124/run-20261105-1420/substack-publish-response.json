@@ -1,0 +1,24 @@
+{
+  "tool_request_sha256": "e2014a2911b29e66574d1e3d6acff7759d7f08300d4ec1084896b4401b5ae9cd",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "BrowserOS Neo page531 clicked Publish now with email disabled, then Publish on web only once; reached /publish/posts/detail/223601127/share-center with the exact canonical URL. No email verification. No mailbox accessed.",
+    "observed_at_utc": "2026-11-05T09:53:50Z"
+  },
+  "result": {
+    "request_sha256": "e2f1212c18f1c9c7b50e731b7e7ebed3798f443c27d60cd7465146bafd5d78bd",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "223601127",
+    "public_object_url": "https://capitalchronicle.substack.com/p/eia-oil-inventories-the-sharper-squeeze",
+    "email_sent": false,
+    "email_verification_required": false,
+    "delivery_observation": {
+      "email_send_enabled": false,
+      "web_publish_enabled": true,
+      "evidence_ref": "Neo page531 email checkbox false; Publish on web only confirmation; exact share-center URL and displayed canonical link."
+    }
+  }
+}

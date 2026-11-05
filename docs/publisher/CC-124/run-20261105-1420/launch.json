@@ -31,6 +31,15 @@
       "telemetry_status": "CONFIGURED_NOT_OBSERVED",
       "native_context_identity": "/root",
       "same_binding": true
+    },
+    {
+      "started_utc": "2026-11-05T09:36:42.090491Z",
+      "process_id": 41828,
+      "configured_model": "gpt-6.1-sol",
+      "configured_effort": "max",
+      "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+      "native_context_identity": "/root",
+      "same_binding": true
     }
   ],
   "browser_resume": {
@@ -39,6 +48,7 @@
     "group_title": "codex/cc124-article",
     "substack_tab_id": 528,
     "previous_task_group": "3084767AB9023DE28A75ACC549671FAC",
-    "previous_group_unavailable_after_account_switch": true
+    "previous_group_unavailable_after_account_switch": true,
+    "active_working_tab": 531
   }
 }

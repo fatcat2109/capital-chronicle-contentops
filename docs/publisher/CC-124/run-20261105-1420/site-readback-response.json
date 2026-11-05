@@ -1,0 +1,19 @@
+{
+  "tool_request_sha256": "4eb02c09379a7218a3d2783d88d77e3755e4fe8cdc12488c8631e3372767edf0",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "Exact Neo article page 530 shows GitHub Pages 404 File not found; no article content.",
+    "observed_at_utc": "2026-11-05T09:28:59.864192+00:00"
+  },
+  "result": {
+    "request_sha256": "a233df9ddeaa65746a9996b56bae81725f0fbf687bc28ca5b176e35b25feda1d",
+    "status": "NOT_FOUND",
+    "verified": false,
+    "observed_identity": "fatcat2109/capital-chronicle-preview",
+    "public_object_url": "https://fatcat2109.github.io/capital-chronicle-preview/articles/86bb0b110c8fd1ebc9a509e4fa85eebb/",
+    "article_identity": "1c80e0bb53b1ae6e7e26977e226b5fecb62698f173ce8dfe6ada24360e8e4bc7",
+    "observed_text": "404. File not found. The site configured at this address does not contain the requested file."
+  }
+}
