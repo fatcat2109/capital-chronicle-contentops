@@ -1,0 +1,9 @@
+{
+  "source": "BLS November 2026 calendar; all times Eastern",
+  "event": "Employment Situation, October 2026",
+  "release_source_local": "2026-11-06T08:30:00-05:00",
+  "source_timezone_abbreviation": "EST",
+  "release_utc": "2026-11-06T13:30:00+00:00",
+  "release_gmt7": "2026-11-06T20:30:00+07:00",
+  "conversion_owner": "Python datetime and IANA zoneinfo"
+}
