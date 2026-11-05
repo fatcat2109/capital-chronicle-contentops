@@ -562,6 +562,10 @@ def test_coordinator_pending_publish_and_claimed_loss_enters_readback_only(tmp_p
     assert "one existing" in routine["window"]
     assert "continue other destinations" in routine["email_code_dialog"]
     assert routine["email_code_return"]["automatic_wait"] is False
+    # CC-199: the run's step clocks come back in its own return, with no extra turn.
+    assert routine["step_clocks"]["return_as"] == "result.step_clocks"
+    assert routine["step_clocks"]["fields"] == ["draft_ready_utc", "images_uploaded_utc", "publish_clicked_utc",
+                                                "email_setting_confirmed_utc", "share_center_reached_utc"]
     with pytest.raises(ValueError, match="ALREADY_CLAIMED"):
         executor.begin(packet["request"]["request_sha256"])
     restarted = NativeNeoExecutor(store, operation_id="work", output_dir=tmp_path / "resume",

@@ -231,6 +231,13 @@ class NativeNeoExecutor:
                 "email_code_dialog": "Record PENDING_JIM_EMAIL_CODE, draft_id, page_id and URL. Only now open Gmail, in one new tab of this task's group, by a run script that returns only the page id; never tabs action=new (its reply carries a snapshot) and never a snapshot, read, grep, evaluate or screenshot of Gmail or its content in any result. Leave the code tab open and untouched for Jim; continue other destinations in other task tabs. No automatic wait, reload, navigation or input on the code tab.",
                 "continue_only_after": "The same tab reaches /publish/posts/detail/.../share-center; continue exact readback and dispatch recording.",
                 "pending_is_dispatch": False,
+                # CC-199, 5 Nov IBM: the Substack run took 6 min 8 s (claim 05:50:43Z, observed 05:56:51Z)
+                # and nothing recorded which part. Timestamps only, inside this run's return.
+                "step_clocks": {"return_as": "result.step_clocks",
+                    "fields": ["draft_ready_utc", "images_uploaded_utc", "publish_clicked_utc",
+                               "email_setting_confirmed_utc", "share_center_reached_utc"],
+                    "rule": "Record each UTC time from the browser clock as the run reaches that point; leave a "
+                            "point that did not happen null. No extra step or turn."},
                 "email_code_return": {"status": "PENDING_JIM_EMAIL_CODE", "required_fields": ["draft_id", "page_id", "page_url"],
                     "pipeline_state": "SUBSTACK_DRAFT_AWAITING_OWNER", "automatic_wait": False,
                     "tab_policy": "Leave this tab open and untouched for Jim under decision 52; continue in other task tabs without a human-help tool wait."},
