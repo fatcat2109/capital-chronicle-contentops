@@ -34,6 +34,24 @@ REQUIRED_ENV_VAR_NAMES = (
 )
 READY = "CLOUDINARY_DELIVERY_MEDIA_READY"
 NOT_REQUIRED = "CLOUDINARY_DELIVERY_MEDIA_NOT_REQUIRED"
+# CC-253: the fields the newsroom reader and validate_delivery_media_object decide article media
+# by. A hosted article asset keeps each one exactly as its input row recorded it; none is inferred.
+ARTICLE_MEDIA_FIELDS = (
+    "modality",
+    "rights_status",
+    "rights_evidence_sha256",
+    "license_url",
+    "source_page_url",
+    "alt_text",
+    "chart_title",
+    "underlying_source_rights_status",
+    "source_reuse_basis",
+)
+
+
+def is_post_card(asset: Mapping[str, Any]) -> bool:
+    """A generated post card (build_post_image_card) is social media only, never site media."""
+    return bool(asset.get("post_card_binding")) or asset.get("media_role") == "post_card"
 
 
 def credential_presence(environment: Mapping[str, str] | None = None) -> dict[str, bool]:
@@ -362,13 +380,17 @@ def prepare_cloudinary_delivery_media(
             continue
         if reused:
             reused_count += 1
+        # CC-253: a post card is validated like an article asset but hosted delivery-only.
+        on_site = bool(article_asset) and not is_post_card(raw)
         prepared.append(
             {
                 "media_asset_id": asset_id,
-                "media_role": raw.get("media_role") if article_asset else "delivery_only",
-                "article_inclusion": bool(article_asset),
-                "canonical_article_media": bool(article_asset),
-                "delivery_only": not article_asset,
+                "media_role": raw.get("media_role") if on_site else "delivery_only",
+                "article_inclusion": on_site,
+                "canonical_article_media": on_site,
+                "delivery_only": not on_site,
+                **({key: raw[key] for key in ARTICLE_MEDIA_FIELDS if raw.get(key) not in (None, "")}
+                   if on_site else {}),
                 "absolute_local_source_path": str(local["absolute_local_source_path"]),
                 "sha256": str(local["sha256"]),
                 "declared_sha256": str(raw.get("sha256") or ""),
