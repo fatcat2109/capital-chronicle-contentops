@@ -1,0 +1,47 @@
+[
+  {
+    "asset_id": "cc124-archive-texas-refinery-fws",
+    "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/b3b84329-e928-4f5f-9197-c11bf98dcb92_1512x996.jpeg",
+    "bytes": 112433,
+    "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+    "expected_sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+    "matches_exact_bound_asset": true,
+    "alt_matches": true
+  },
+  {
+    "asset_id": "cc124-eia-crude-106w",
+    "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/5386ebd9-c31f-4e1f-b20e-47dcbec558c3_1440x1040.png",
+    "bytes": 128994,
+    "sha256": "3fd1279dc693f2f944e3287b21ad097cecfe009a0bbd28abb726625837b17b05",
+    "expected_sha256": "3fd1279dc693f2f944e3287b21ad097cecfe009a0bbd28abb726625837b17b05",
+    "matches_exact_bound_asset": true,
+    "alt_matches": true
+  },
+  {
+    "asset_id": "cc124-eia-gasoline-106w",
+    "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/0713f50c-95dc-41dd-9cc3-b8e4ad5f522a_1440x1040.png",
+    "bytes": 122014,
+    "sha256": "f26130fee940bb901e915a2f01052714626ac76981a06180292426fd7ee1fc0a",
+    "expected_sha256": "f26130fee940bb901e915a2f01052714626ac76981a06180292426fd7ee1fc0a",
+    "matches_exact_bound_asset": true,
+    "alt_matches": true
+  },
+  {
+    "asset_id": "cc124-eia-weekly-product-draws",
+    "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/246e93a7-bde6-4cea-bbbd-fb5543d325af_1440x1040.png",
+    "bytes": 65973,
+    "sha256": "da0edf255f7ef21bc7aae7ee576930abdefacb8888a9bc5e20ccc570ce0a32ae",
+    "expected_sha256": "da0edf255f7ef21bc7aae7ee576930abdefacb8888a9bc5e20ccc570ce0a32ae",
+    "matches_exact_bound_asset": true,
+    "alt_matches": true
+  },
+  {
+    "asset_id": "cc124-eia-stock-average-gaps",
+    "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/48790a89-14d4-4547-ba06-41f022746f3c_1440x1040.png",
+    "bytes": 71714,
+    "sha256": "f7e598c6d153ee2d9e7e8aee9099252e1bd3d6dfd6d220f4b518b8777c66142f",
+    "expected_sha256": "f7e598c6d153ee2d9e7e8aee9099252e1bd3d6dfd6d220f4b518b8777c66142f",
+    "matches_exact_bound_asset": true,
+    "alt_matches": true
+  }
+]
