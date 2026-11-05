@@ -94,7 +94,8 @@ def pending_publish(coordinator, store, ids, value, executor):
     return packets[0]
 
 
-def composed_response(packet, *, identity, result, dispatched=True, readback=True, surface="CODEX_NATIVE_SUBAGENT"):
+def composed_response(packet, *, identity, result, dispatched=True, readback=True, surface="CODEX_NATIVE_SUBAGENT",
+                      pre_click_posts="READ"):
     identity_at = now()
     dispatched_at = identity_at + timedelta(milliseconds=200)
     observed_at = dispatched_at + timedelta(milliseconds=400)
@@ -104,6 +105,11 @@ def composed_response(packet, *, identity, result, dispatched=True, readback=Tru
     if dispatched:
         observation["dispatched_at_utc"] = dispatched_at.isoformat()
     composed = {"identity": {**identity, "observed_at_utc": identity_at.isoformat()}}
+    if pre_click_posts == "READ":
+        from live_contentops.native_neo_executor_v1 import expected_posts
+        composed["pre_click_posts"] = expected_posts(packet["request"])
+    elif pre_click_posts is not None:
+        composed["pre_click_posts"] = pre_click_posts
     if readback:
         composed["readback"] = {"status": "SUCCESS", "observed_identity": IDENTITIES[DESTINATION],
             "public_object_id": OBJECT_ID, "public_object_url": OBJECT_URL,

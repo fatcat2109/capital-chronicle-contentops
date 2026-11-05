@@ -43,6 +43,13 @@ def expected_posts(request: Mapping[str, Any]) -> list[str]:
     return [str(payload["text"])] if payload.get("text") else []
 
 
+def _post_texts(posts) -> list[str]:
+    """Compare composer texts as step 3 says: whitespace collapsed, a link allowed to render shortened."""
+    import re
+    quotes = str.maketrans({"‘": "'", "’": "'", "“": '"', "”": '"'})
+    return [" ".join(re.sub(r"https?://\S+", "<link>", str(p).translate(quotes)).split()) for p in posts]
+
+
 class NativeNeoInputRequired(Exception):
     def __init__(self, request: Mapping[str, Any]):
         self.request = dict(request)
@@ -259,7 +266,9 @@ class NativeNeoExecutor:
                 "5_readback": "Read back the published object (id, url, text, media) in the same run.",
                 "return": {"result": "the publish result, as for any PUBLISH step, with its stage",
                     "composed": {"identity": ["authenticated", "observed_identity", "observed_stable_id", "observed_at_utc"],
-                                 "pre_click_posts": "the composer texts read in step 3, in order",
+                                 "pre_click_posts": "REQUIRED with any write: the composer texts read in "
+                                                    "step 3, in order. A return without them is refused; "
+                                                    "if they were not read, submit nothing",
                                  "readback": "the READBACK result fields, observed after the publish"}},
                 "after_click": "FAILED_BEFORE_WRITE is a definite no-write only for an account mismatch or stage "
                                "BEFORE_PUBLISH_CLICK. Any other failure, including a missing stage, is UNKNOWN_WRITE; "
@@ -381,6 +390,18 @@ class NativeNeoExecutor:
                           observed_identity=identity.get("observed_identity"),
                           reason_code="NATIVE_NEO_COMPOSED_IDENTITY_MISMATCH_AFTER_DISPATCH")
             return result, None
+        # CC-283, 5 Nov IBM: the X return came back without the composer texts read before the
+        # click, so nothing showed that step 3 ran. A write's return must carry them. Refused
+        # before saving, so the run can resubmit the texts it read; a run that did not read them
+        # submits nothing and the coordinator reads the post back (UNKNOWN_WRITE), never resends.
+        posts = composed.get("pre_click_posts")
+        if not isinstance(posts, list) or not posts or not all(isinstance(p, str) for p in posts):
+            raise ValueError("NATIVE_NEO_PRE_CLICK_POSTS_REQUIRED: return composed.pre_click_posts, the "
+                             "composer texts read before the click; if they were not read, submit nothing")
+        result["pre_click_verification"] = (
+            "MATCHED" if _post_texts(posts) == _post_texts(expected_posts(request)) else "DIFFERED")
+        if not dispatched:
+            result["click_clock"] = "NOT_RETURNED"
         result.setdefault("observed_identity", identity["observed_identity"])
         readback = composed.get("readback")
         return result, (dict(readback) if dispatched and isinstance(readback, Mapping) else None)

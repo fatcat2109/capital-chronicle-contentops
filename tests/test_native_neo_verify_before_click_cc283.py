@@ -44,3 +44,50 @@ def test_a_single_text_payload_is_one_post():
     assert expected_posts({"native_payload": "A plain post"}) == ["A plain post"]
     assert expected_posts({"payload": {"text": "From the plan payload"}}) == ["From the plan payload"]
     assert expected_posts({"native_payload": {}}) == []
+
+
+# 5 Nov IBM: the X return came back with composed.identity only. It had no pre_click_posts and no click
+# clock, and was accepted, so nothing showed the check before the click had run.
+import pytest  # noqa: E402
+
+from test_native_neo_composed_run_cc283 import MATCHED, PUBLISHED, composed_response  # noqa: E402
+
+
+def test_a_write_without_the_pre_click_texts_is_refused_before_it_is_saved(tmp_path, monkeypatch):
+    store, executor, coordinator, ids, value = composed_setup(tmp_path, monkeypatch)
+    packet = pending_publish(coordinator, store, ids, value, executor)
+    request_hash = packet["request"]["request_sha256"]
+    executor.begin(request_hash)
+    with pytest.raises(ValueError, match="NATIVE_NEO_PRE_CLICK_POSTS_REQUIRED"):
+        executor.submit(request_hash, composed_response(packet, identity=MATCHED, result=PUBLISHED, pre_click_posts=None))
+    assert executor._get(request_hash, "response") is None  # nothing saved; the run may resubmit what it read
+    executor.submit(request_hash, composed_response(packet, identity=MATCHED, result=PUBLISHED))
+    stored = executor._get(request_hash, "response")["result"]
+    assert stored["pre_click_verification"] == "MATCHED" and "click_clock" not in stored
+
+
+def test_a_lost_return_is_read_back_never_resent(tmp_path, monkeypatch):
+    store, executor, coordinator, ids, value = composed_setup(tmp_path, monkeypatch)
+    packet = pending_publish(coordinator, store, ids, value, executor)
+    executor.begin(packet["request"]["request_sha256"])
+    # The run did not read the composer, so it submits nothing: the claim stays without a return.
+    assert executor(packet["request"])["status"] == "UNKNOWN_WRITE"
+
+
+def test_differing_texts_and_a_missing_click_clock_are_recorded(tmp_path, monkeypatch):
+    store, executor, coordinator, ids, value = composed_setup(tmp_path, monkeypatch)
+    packet = pending_publish(coordinator, store, ids, value, executor)
+    request_hash = packet["request"]["request_sha256"]
+    executor.begin(request_hash)
+    posts = expected_posts(packet["request"])
+    executor.submit(request_hash, composed_response(packet, identity=MATCHED, result=PUBLISHED, dispatched=False,
+                                                    readback=False, pre_click_posts=[posts[0][:-5]] + posts[1:]))
+    stored = executor._get(request_hash, "response")["result"]
+    assert stored["pre_click_verification"] == "DIFFERED" and stored["click_clock"] == "NOT_RETURNED"
+
+
+def test_whitespace_quotes_and_a_shortened_link_still_match():
+    from live_contentops.native_neo_executor_v1 import _post_texts
+    assert _post_texts(["It\u2019s here:\n\nhttps://capitalchronicle.substack.com/p/a"]) == \
+        _post_texts(["It's  here: https://t.co/xyz"])
+    assert _post_texts(["Readers decide."]) != _post_texts(["Readers decide whether to trade."])
