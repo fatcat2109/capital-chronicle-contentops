@@ -1,0 +1,191 @@
+{
+  "schema": "contentops.cc253_hosted_media_backfill.v1",
+  "applied": false,
+  "pieces": [
+    {
+      "content_id": "substack:223555673",
+      "package": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\reviewed-handoff\\d619ecc2cd48e8bb6d74958fc5e2295b08fc843402b2b6e4f94b0e07ffd05011",
+      "before_sha256": "33aee419730a7dc9bbdf95af182ba8017a71383fc5c032a31a706f8e96ed1c5f",
+      "after_sha256": "483c0546d196350db09aa1d6c7c95d63e853218f263de376e2af8bed187da100",
+      "changed": true,
+      "rows": [
+        {
+          "media_asset_id": "ppi_headline_core_24m",
+          "sha256": "8a7418f4ebadca2995bae77616a58f953216eb5aca6b50abe8eca1cda77d8c11",
+          "basis": "INPUT_ROW",
+          "added_fields": [
+            "modality",
+            "source_page_url",
+            "alt_text",
+            "underlying_source_rights_status",
+            "source_reuse_basis"
+          ],
+          "delivery_only_set": false
+        },
+        {
+          "media_asset_id": "ppi_september_component_rates",
+          "sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+          "basis": "INPUT_ROW",
+          "added_fields": [
+            "modality",
+            "source_page_url",
+            "alt_text",
+            "underlying_source_rights_status",
+            "source_reuse_basis"
+          ],
+          "delivery_only_set": false
+        },
+        {
+          "media_asset_id": "ppi_september_nested_rates",
+          "sha256": "bb1cbcd0019bbd39258e98308cd87889744b964dceb2b7714b26de15ac55cdad",
+          "basis": "INPUT_ROW",
+          "added_fields": [
+            "modality",
+            "source_page_url",
+            "alt_text",
+            "underlying_source_rights_status",
+            "source_reuse_basis"
+          ],
+          "delivery_only_set": false
+        },
+        {
+          "media_asset_id": "documentary_oil",
+          "sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+          "basis": "INPUT_ROW",
+          "added_fields": [
+            "modality",
+            "rights_status",
+            "rights_evidence_sha256",
+            "license_url",
+            "source_page_url",
+            "alt_text",
+            "underlying_source_rights_status",
+            "source_reuse_basis"
+          ],
+          "delivery_only_set": false
+        }
+      ]
+    },
+    {
+      "content_id": "substack:223408612",
+      "package": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\reviewed-handoff\\5692377ae23398763a31865c1f5892fd0b079d6bb12846ae0b5e225a13a11ba3",
+      "before_sha256": "bfdf1826f48f1398277c23ed9f6e65f0aeb6967124a47aa361c4bbbc8d50b9ab",
+      "after_sha256": "aaeebca73f952fc81318fa26abeec9b1e27a30f9abb0ba0584515056cdf1d40a",
+      "changed": true,
+      "rows": [
+        {
+          "media_asset_id": "post-card-d390bcb5ff02f570bc13",
+          "sha256": "41845b5e592058b02fb489695ed0cf151812c8fe0d92c7ec7b451a3fdff242b5",
+          "basis": "POST_CARD",
+          "added_fields": [],
+          "delivery_only_set": true
+        },
+        {
+          "media_asset_id": "sec-si-roundtable-event-facts-20261109-cc245",
+          "sha256": "869a7af9a3d8a9ad2f1bd3497ad3c3ec7ad3b9032b588c55076d0dbe3f71b204",
+          "basis": "NOT_IN_REVIEWED_VISUAL_DECISION",
+          "added_fields": [],
+          "delivery_only_set": true
+        },
+        {
+          "media_asset_id": "post-card-ecd037228c427088d714",
+          "sha256": "039273807f27080ab0bff8d07d8f41abe0e516e37648e2a5a2afd4b284b97825",
+          "basis": "POST_CARD",
+          "added_fields": [],
+          "delivery_only_set": true
+        },
+        {
+          "media_asset_id": "sec-si-roundtable-event-facts-20261109",
+          "sha256": "c4e7eadb075ad47d754424b0204da53f4e6c76fc8f8d73be463460eb70b39fbe",
+          "basis": "INPUT_ROW",
+          "added_fields": [
+            "underlying_source_rights_status",
+            "source_reuse_basis"
+          ],
+          "delivery_only_set": false
+        }
+      ]
+    },
+    {
+      "content_id": "substack:223199520",
+      "package": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc074-retro-fomc-20261028-v1\\reviewed-handoff\\babd5c02bcedea40f218c7c582c6982e3c4524936b7e649450dcc63aa1505d43",
+      "before_sha256": "a5de98ab1b18eb444bcf3ef664c80025ffe8ccd22ccccfb4918094802bf6f59a",
+      "after_sha256": "2b0a959f219ff7c7c7763b711aeb62fe680fef27c99c46362ff5847e5a13f3b6",
+      "changed": true,
+      "rows": [
+        {
+          "media_asset_id": "post-card-e06e6bbbb2b3545f9cf5",
+          "sha256": "44b15ca4d28e641e49f35624ce5b511f77ec65e73a60fd74bc0d60d1087a5bd1",
+          "basis": "POST_CARD",
+          "added_fields": [],
+          "delivery_only_set": true
+        },
+        {
+          "media_asset_id": "cc074-archive-warsh-20260522",
+          "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+          "basis": "INPUT_ROW",
+          "added_fields": [
+            "modality",
+            "rights_status",
+            "rights_evidence_sha256",
+            "license_url",
+            "source_page_url",
+            "alt_text",
+            "source_reuse_basis"
+          ],
+          "delivery_only_set": false
+        },
+        {
+          "media_asset_id": "cc074-fomc-20261028-vote-direction",
+          "sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789",
+          "basis": "INPUT_ROW",
+          "added_fields": [
+            "underlying_source_rights_status",
+            "source_reuse_basis"
+          ],
+          "delivery_only_set": false
+        },
+        {
+          "media_asset_id": "cc074-fomc-20261028-rate-framework",
+          "sha256": "5b4223d7feee9476decf997e3a788f640ba68a223cd5318999ef52124433d851",
+          "basis": "INPUT_ROW",
+          "added_fields": [
+            "underlying_source_rights_status",
+            "source_reuse_basis"
+          ],
+          "delivery_only_set": false
+        }
+      ]
+    },
+    {
+      "content_id": "substack:223246940",
+      "package": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a\\reviewed-handoff\\ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305",
+      "before_sha256": "171c71bbf8b1f93ee0b27852ed5738e29366c56a9fe58025cca070e587698228",
+      "after_sha256": "786700910e94ca3be4f59b06ec25cd5c5001ccda51fd0cc90b8e282c1e8ca773",
+      "changed": true,
+      "rows": [
+        {
+          "media_asset_id": "post-card-83a570db836f56fe59e9",
+          "sha256": "2cb291c0c78552af2459695ffe789df0f43da0f3eff1734d44ae62721c651906",
+          "basis": "POST_CARD",
+          "added_fields": [],
+          "delivery_only_set": true
+        },
+        {
+          "media_asset_id": "cpi-annual-history-r3",
+          "sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+          "basis": "NOT_IN_REVIEWED_VISUAL_DECISION",
+          "added_fields": [],
+          "delivery_only_set": true
+        },
+        {
+          "media_asset_id": "delivery_only_editorial_card",
+          "sha256": "258d806cd8234247d85ff1fdb5b3341f06ee5806fb518e613b86d9794dda2363",
+          "basis": "ALREADY_DELIVERY_ONLY",
+          "added_fields": [],
+          "delivery_only_set": false
+        }
+      ]
+    }
+  ]
+}
