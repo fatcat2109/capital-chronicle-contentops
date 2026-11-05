@@ -167,6 +167,25 @@ def _validate_card_series(packet, article, documents):
                 raise ValueError("DATA_CARD_SERIES_NUMBER_NOT_IN_POST")
 
 
+def _prose_sentences(article, claim):
+    """The post's own sentences that state every figure of ``claim``, in reading order.
+
+    A card fact worded apart from the post binds to the post's sentence carrying the same
+    figures, so a card is built only from the canonical prose (CC-290, IBM 5 Nov)."""
+    figures = set(_NUMBERS.findall(_normal(claim.get("claim_text"))))
+    if not figures:
+        return []
+    prose = re.sub(r"\[\[[A-Z_]+:[^\]]*\]\]", " ", str(article.get("substack_body_markdown") or ""))
+    found = []
+    for paragraph in re.split(r"\n\s*\n", prose):
+        if paragraph.lstrip().startswith(("#", "![")):
+            continue
+        for sentence in re.split(r"(?<=[a-z0-9%)\"\u201d\u2019]{2}[.!?])\s+(?=[A-Z0-9\"\u201c(])", _normal(paragraph)):
+            if figures <= set(_NUMBERS.findall(sentence)):
+                found.append(sentence)
+    return found
+
+
 def build_post_data_card(article, claims, documents, *, output_dir, series_packet=None):
     """Render only admitted claims present in this post. No number extraction guesses."""
     facts, seen = [], set()
@@ -175,15 +194,25 @@ def build_post_data_card(article, claims, documents, *, output_dir, series_packe
         text = _normal(claim.get("claim_text"))
         if not text or text in seen or len(text) > 280:
             continue
-        try:
-            fact = _bound_fact(claim, article, documents)
-        except ValueError as exc:
-            if str(exc) in {"PRIVATE_SURVEY_HEADLINE_ONLY_NO_VISUAL", "DATA_CARD_PUBLIC_RIGHTS_REQUIRED",
-                    "DATA_CARD_FACT_OR_NUMBER_NOT_IN_POST_AND_SOURCE"}:
-                continue
-            raise
-        facts.append(fact)
-        seen.add(text)
+        # CC-290 (IBM, 5 Nov): the claim's own words if the post contains them, else the
+        # post's own sentence stating its figures; post_image_view admits exactly these.
+        fact, candidates = None, [text]
+        while candidates:
+            candidate = candidates.pop(0)
+            try:
+                fact = _bound_fact({**claim, "claim_text": candidate}, article, documents)
+                break
+            except ValueError as exc:
+                if str(exc) in {"PRIVATE_SURVEY_HEADLINE_ONLY_NO_VISUAL", "DATA_CARD_PUBLIC_RIGHTS_REQUIRED"}:
+                    break
+                if str(exc) != "DATA_CARD_FACT_OR_NUMBER_NOT_IN_POST_AND_SOURCE":
+                    raise
+                if candidate == text:
+                    candidates = [s for s in _prose_sentences(article, claim)
+                                  if s != text and s not in seen and len(s) <= 280]
+        if fact:
+            facts.append(fact)
+            seen.add(fact["text"])
     # Validate every candidate before selection. Prefer the article's actual
     # paragraphs to SEO/title variants that would repeat the same fact.
     body_facts = [f for f in facts if f["text"] in body]

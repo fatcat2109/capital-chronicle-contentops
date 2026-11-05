@@ -1,0 +1,64 @@
+{
+ "note": "CC-290: IBM piece, run cc124-next-article-20261105-c (CC-124 run-20261105-1051). The article fields and card claims are verbatim from article_manifest_v1.json and card-claims.json; the Reuters source text is reduced to the three support excerpts the claims cite (full text sha256 3ea8bbea4ba84df6bba32068466924d478361609c2b60a814baabdfbcadb0a84).",
+ "article": {
+  "title": "Reuters' 21 October IBM report: software revenue growth outlook and the deal-timing test",
+  "dek": "Reuters reported a higher lower bound for IBM's annual software revenue growth outlook on 21 October 2026. Its account of deferred deals leaves a question about repeatable demand.",
+  "substack_body_markdown": "Reuters reported on 21 October 2026 that IBM's annual software-revenue growth outlook was about 7% to 8%, compared with 6% to 8% previously. The reported revision raised the lower bound and left the upper bound unchanged. How much of the quarter reflected fresh business, and how much depended on transaction timing? [[SOURCE:SOURCE_1]]\n\nReuters put third-quarter total revenue at $17.10 billion, with software revenue of $7.80 billion. These are quarterly results as reported by Reuters; the annual growth range is management's expectation. Software revenue is included in IBM's total revenue. [[SOURCE:SOURCE_1]]\n\nKavanaugh told Reuters that approximately 25% of transaction-processing revenue reflected deals postponed from the second quarter; he described the other 75% as new business. Both percentages refer to transaction-processing revenue. The split distinguishes delayed deals from new business within that revenue category. [[SOURCE:SOURCE_1]]\n\nIf Reuters' account is accurate, delayed transactions contributed to the quarter alongside new business. That gives two possible explanations for the reported improvement: stronger ongoing demand and a recovery in the timing of deals. The raised lower bound remains management's expectation; the reported quarter alone cannot establish how durable any improvement would be. [[SOURCE:SOURCE_1]]\n\nThe next useful test is whether further reported results substantiate the new-business explanation. More detail on the contribution from deferred transactions would help distinguish deal timing from repeatable demand. The 21 October 2026 report does not establish that subsequent outcome. [[SOURCE:SOURCE_1]]\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers. [[SOURCE:SOURCE_1]]",
+  "social_hook": "Reuters' 21 October IBM report described a higher lower bound for annual software-revenue growth. The deal mix leaves the useful question: how much growth can repeat?",
+  "search_title": "IBM software outlook and deferred deals: Reuters' 21 October 2026 report",
+  "meta_description": "Reuters' 21 October 2026 IBM report separates annual software guidance from quarterly revenue and a transaction-processing mix of delayed deals and new business."
+ },
+ "claims": [
+  {
+   "claim_id": "ibm-card-1",
+   "claim_text": "Reuters reported an annual software revenue growth outlook of about 7% to 8%, previously 6% to 8%.",
+   "source_id": "SOURCE_1",
+   "support_excerpt": "In an interview with Reuters, Kavanaugh said \u200bIBM now expects annual software revenue growth of about \u200b7% to 8%, up from 6% to 8% \u2060previously. IBM's shares rose about 4% in extended trading."
+  },
+  {
+   "claim_id": "ibm-card-2",
+   "claim_text": "Reuters reported third-quarter revenue of $17.10 billion.",
+   "source_id": "SOURCE_1",
+   "support_excerpt": "Third-quarter revenue rose 4.7% to $17.10 billion, above \u200banalysts' average estimate of $16.82 billion, according to data compiled by LSEG"
+  },
+  {
+   "claim_id": "ibm-card-3",
+   "claim_text": "Reuters reported third-quarter software revenue of $7.80 billion.",
+   "source_id": "SOURCE_1",
+   "support_excerpt": "Software revenue rose 8.3% to $7.80 billion in the third quarter, topping estimates of $7.62 billion"
+  }
+ ],
+ "document": {
+  "document_id": "goal35-ibm",
+  "source_id": "SOURCE_1",
+  "publisher": "Reuters",
+  "url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/",
+  "published_at_utc": "2026-10-21T20:12:00Z",
+  "source_authority_class": "reputable_secondary_source",
+  "source_reuse_constraints": {
+   "INTERNAL_ANALYSIS_ALLOWED": true,
+   "LLM_INPUT_ALLOWED": true,
+   "MODEL_INPUT_ALLOWED": true,
+   "attribution_required": true,
+   "canonical_text_sha256": "3ea8bbea4ba84df6bba32068466924d478361609c2b60a814baabdfbcadb0a84",
+   "content_sha256": "8a3a5eb3b8293d0fe6f80f180c86334f3c446926b89292d27aaf3fd315de1bc8",
+   "government_authorship": false,
+   "images_logos_exhibits_reuse_allowed": false,
+   "permitted_consumers": [
+    "internal_research",
+    "narrative_context"
+   ],
+   "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+   "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+   "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+   "provider_safe": true,
+   "public_expression_reuse_allowed": false,
+   "scope": "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+   "source_capture_sha256": "468ebc08e76e964e126e926ac97c922e6053d588b781d60968257e146e93c9d6",
+   "underlying_event_truth_granted": false
+  },
+  "canonical_content_text": "In an interview with Reuters, Kavanaugh said \u200bIBM now expects annual software revenue growth of about \u200b7% to 8%, up from 6% to 8% \u2060previously. IBM's shares rose about 4% in extended trading. Third-quarter revenue rose 4.7% to $17.10 billion, above \u200banalysts' average estimate of $16.82 billion, according to data compiled by LSEG Software revenue rose 8.3% to $7.80 billion in the third quarter, topping estimates of $7.62 billion"
+ },
+ "handoff_stub_title": "Reuters on IBM: outlook and quarterly results",
+ "handoff_stub_dated_line": "Capital Chronicle \u00b7 October 21, 2026"
+}
