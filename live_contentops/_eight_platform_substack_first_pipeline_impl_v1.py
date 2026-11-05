@@ -3973,6 +3973,8 @@ def _prepare_cloudinary_delivery_media_for_plan(
         delivery_only_assets=delivery_only_assets,
         existing_manifest=existing_manifest,
         article_assets=article_assets,
+        article=context.get("article"),
+        source_documents=context.get("source_documents"),
     )
     if str(prepared.get("status") or "") == CLOUDINARY_DELIVERY_MEDIA_READY:
         # Retained public objects keep their original delivery bindings.
