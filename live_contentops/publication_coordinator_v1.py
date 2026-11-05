@@ -222,6 +222,20 @@ def _safe_dispatch_error(raw: Mapping[str, Any]) -> Optional[str]:
     return ";".join(dict.fromkeys(codes)) or None
 
 
+# CC-237 (red-tape synthesis S38): each adapter's own success words, matched
+# exactly. A substring match read NOT_PUBLISHED, NOT_CONFIRMED and DRY_RUN_PASS
+# as success. Neo returns (and the handoff's Substack delivery check) use the
+# first set; the API, webhook and Edge adapters return SUCCESS or their
+# idempotent replay (SUCCESS_STATUSES in the eight-platform pipeline).
+_NEO_SUCCESS_STATUSES = frozenset({"SUCCESS", "PUBLISHED", "DISPATCH_CONFIRMED"})
+_ADAPTER_SUCCESS_STATUSES = frozenset({"SUCCESS", "ALREADY_SUCCESSFUL_IDEMPOTENT"})
+_RESULT_FLAGS = ("ok", "success", "published")
+
+
+def _adapter_success_statuses(transport_type: str) -> frozenset:
+    return _NEO_SUCCESS_STATUSES if transport_type == "BROWSEROS_NEO_MCP" else _ADAPTER_SUCCESS_STATUSES
+
+
 def normalize_dispatch_result(
     result: Mapping[str, Any], *, destination: str, surface: str, transport_type: str
 ) -> dict[str, Any]:
@@ -229,30 +243,39 @@ def normalize_dispatch_result(
 
     Stable provider IDs are sufficient identity authority; a URL is intentionally optional.
     HTTP/browser success without a stable object identity remains UNKNOWN_WRITE.
+    CC-237: only the adapter's exact success word confirms, an explicit false
+    flag always wins, and a draft id confirms only beside a public post URL.
     """
     raw = dict(result or {})
-    object_id = next((str(raw.get(k)) for k in (
+    public_id = next((str(raw.get(k)) for k in (
         "public_object_id", "post_id", "message_id", "media_id", "id", "activity_id",
-        "root_post_id", "draft_id",
+        "root_post_id",
     ) if raw.get(k) not in (None, "")), None)
+    draft_id = str(raw.get("draft_id")) if raw.get("draft_id") not in (None, "") else None
+    # A draft id stays the identity an ambiguous write is reconciled by.
+    object_id = public_id or draft_id
     object_url = next((str(raw.get(k)) for k in (
         "public_object_url", "public_url", "post_url", "permalink", "url", "root_url",
     ) if raw.get(k) not in (None, "")), None)
+    try:
+        url_path = urlsplit(object_url).path if object_url else ""
+    except ValueError:
+        url_path = ""
+    # Substack's post id is its draft id; it is public only at a post URL,
+    # never at the editor (/publish/...).
+    public_identity = bool(public_id) or bool(
+        draft_id and object_url and url_path and not url_path.startswith("/publish/"))
     status_text = str(raw.get("status") or raw.get("classification") or "").upper()
     explicit_no_write = bool(raw.get("definite_no_write")) or status_text in {
         "DEFINITE_NO_WRITE", "FAILED_BEFORE_WRITE", "CONTROLLED_NO_PUBLIC_WRITE",
         "DISPATCH_CONFIRMED_NO_WRITE", "VALIDATION_FAILED", "SKIPPED_IMAGE_REQUIRED",
     }
-    explicit_success = (
-        raw.get("ok") is True
-        or raw.get("success") is True
-        or raw.get("published") is True
-        or any(token in status_text for token in ("PASS", "PUBLISHED", "CONFIRMED", "SUCCESS"))
-    )
+    explicit_failure = any(raw.get(flag) is False for flag in _RESULT_FLAGS)
+    success_word = status_text in _adapter_success_statuses(transport_type)
     if explicit_no_write:
         status, certainty = DEFINITE_NO_WRITE, "DEFINITE_NO_WRITE"
         object_id = object_url = None
-    elif object_id and (explicit_success or not status_text):
+    elif public_identity and not explicit_failure and (success_word or not status_text):
         status, certainty = DISPATCH_CONFIRMED, "PROVIDER_ACCEPTED"
     else:
         status, certainty = UNKNOWN_WRITE, "AMBIGUOUS"

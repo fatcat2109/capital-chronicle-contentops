@@ -267,6 +267,12 @@ def persist_native_day_measurement(store, binding):
             interventions.extend(semantic.get("process_findings", []))
         checkpoint = store.get_outbox_message("native-window-" + sha256_of(window))
         checkpoint = json.loads(checkpoint["payload"]) if checkpoint else {}
+        window_end = (checkpoint.get("window") or {}).get("end_utc")
+        if (not final and current.get("window_id") and window_end
+                and datetime.fromisoformat(window_end.replace("Z", "+00:00")) < datetime.now(timezone.utc)):
+            # CC-237: a bound window that ended with no editorial result (3 Nov:
+            # five windows stopped at entry) is counted with that cause, not {}.
+            first_causes.setdefault((window, run), "WINDOW_ENDED_WITHOUT_EDITORIAL_RESULT")
         entry = checkpoint.get("actual_entry_utc") or (current.get("cutoff_utc") if current.get("standing_operation") else None)
         progress = window_progress(store, [(b, None) for b in bindings if b.get("window_id", "standing") == window])
         windows[window] = {"source_request_count": progress["source_request_count"],

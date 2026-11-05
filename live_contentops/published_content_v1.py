@@ -80,21 +80,8 @@ def _https(value):
         return False
 
 
-def validate_record(row):
-    if (not isinstance(row, dict) or set(row) != KEYS
-            or row.get("schema_version") != SCHEMA or not isinstance(row.get("type"), str)
-            or row["type"] not in TYPES):
-        raise PublishedContentError("PUBLICATION_RECORD_SCHEMA_INVALID")
-    for key in ("content_id", "title", "standfirst", "rights_class"):
-        if not isinstance(row[key], str) or not row[key].strip():
-            raise PublishedContentError("PUBLICATION_RECORD_TEXT_REQUIRED")
-    if row["rights_class"] not in PUBLIC_RIGHTS or row["visibility"] != "public":
-        raise PublishedContentError("PUBLIC_REUSE_RIGHTS_NOT_ADMITTED")
-    if utc(row["recorded_at_utc"]) < utc(row["published_at_utc"]):
-        raise PublishedContentError("RECORDING_PRECEDES_PUBLICATION")
-    if row["event_id"] is not None and (not isinstance(row["event_id"], str) or not row["event_id"].strip()):
-        raise PublishedContentError("EVENT_ID_INVALID")
-    outlets = row["outlets"]
+def _validate_outlets(outlets):
+    """Return the canonical Substack URL of a valid confirmed-outlet list."""
     if not isinstance(outlets, list) or not outlets:
         raise PublishedContentError("CONFIRMED_OUTLETS_REQUIRED")
     names, urls = set(), set()
@@ -111,6 +98,24 @@ def validate_record(row):
     from live_contentops.published_corpus_read_model_v1 import _valid_canonical_substack_url
     if not _valid_canonical_substack_url(substack):
         raise PublishedContentError("CONFIRMED_CANONICAL_REQUIRED")
+    return substack
+
+
+def validate_record(row):
+    if (not isinstance(row, dict) or set(row) != KEYS
+            or row.get("schema_version") != SCHEMA or not isinstance(row.get("type"), str)
+            or row["type"] not in TYPES):
+        raise PublishedContentError("PUBLICATION_RECORD_SCHEMA_INVALID")
+    for key in ("content_id", "title", "standfirst", "rights_class"):
+        if not isinstance(row[key], str) or not row[key].strip():
+            raise PublishedContentError("PUBLICATION_RECORD_TEXT_REQUIRED")
+    if row["rights_class"] not in PUBLIC_RIGHTS or row["visibility"] != "public":
+        raise PublishedContentError("PUBLIC_REUSE_RIGHTS_NOT_ADMITTED")
+    if utc(row["recorded_at_utc"]) < utc(row["published_at_utc"]):
+        raise PublishedContentError("RECORDING_PRECEDES_PUBLICATION")
+    if row["event_id"] is not None and (not isinstance(row["event_id"], str) or not row["event_id"].strip()):
+        raise PublishedContentError("EVENT_ID_INVALID")
+    _validate_outlets(row["outlets"])
     check_publication_copy({k: row[k] for k in ("title", "standfirst", "disclaimer", "conflicts_notice")},
                            conditional_calls=row["conditional_calls"], require_call_text=False)
     content = {k: v for k, v in row.items() if k != "content_sha256"}
@@ -199,6 +204,95 @@ def append_record(path, row):
             "preview_mirror": preview}
 
 
+# CC-237: the feed keeps each piece's first recording, sealed. Outlets confirmed
+# later (CPI's Telegram, Discord and Facebook on 3 Nov) are appended to this
+# file beside it, one line per change, so readers can show current outlets
+# without the seal or the feed's one-row-per-piece shape changing.
+OUTLETS_SCHEMA = "contentops.published_content_outlets.v1"
+OUTLET_UPDATE_KEYS = {"schema_version", "content_id", "record_sha256", "outlets",
+                      "recorded_at_utc", "update_sha256"}
+
+
+def outlets_path(path):
+    path = Path(path)
+    return path.with_name(path.stem.removesuffix("_v1") + "_outlets_v1" + path.suffix)
+
+
+def _validate_update(row, records):
+    if (not isinstance(row, dict) or set(row) != OUTLET_UPDATE_KEYS
+            or row.get("schema_version") != OUTLETS_SCHEMA):
+        raise PublishedContentError("OUTLET_UPDATE_SCHEMA_INVALID")
+    record = records.get(row["content_id"])
+    if record is None or row["record_sha256"] != record["content_sha256"]:
+        raise PublishedContentError("OUTLET_UPDATE_RECORD_UNKNOWN")
+    canonical_url = next(o["url"] for o in record["outlets"] if o["name"] == "substack")
+    if _validate_outlets(row["outlets"]) != canonical_url:
+        raise PublishedContentError("OUTLET_UPDATE_CANONICAL_CHANGED")
+    if utc(row["recorded_at_utc"]) < utc(record["recorded_at_utc"]):
+        raise PublishedContentError("OUTLET_UPDATE_PRECEDES_RECORD")
+    content = {k: v for k, v in row.items() if k != "update_sha256"}
+    if (not re.fullmatch(r"[0-9a-f]{64}", str(row["update_sha256"]))
+            or sha256(canonical(content)).hexdigest() != row["update_sha256"]):
+        raise PublishedContentError("OUTLET_UPDATE_SEAL_MISMATCH")
+    return row
+
+
+def _updates(raw, records):
+    if raw and not raw.endswith(b"\n"):
+        raise PublishedContentError("TORN_OUTLET_UPDATE_TAIL_READBACK_REQUIRED")
+    rows = []
+    for line in raw.splitlines():
+        if not line.strip():
+            raise PublishedContentError("EMPTY_OUTLET_UPDATE_LINE")
+        rows.append(_validate_update(load_json(line), records))
+    return rows
+
+
+def current_outlets(path):
+    """Each recorded piece's outlets now: its latest update, else its first recording."""
+    records = {r["content_id"]: r for r in read_records(path)}
+    current = {cid: r["outlets"] for cid, r in records.items()}
+    updates = outlets_path(path)
+    if updates.is_file():
+        for row in _updates(updates.read_bytes(), records):
+            current[row["content_id"]] = row["outlets"]
+    return current
+
+
+def read_current_records(path):
+    """Feed rows with current outlets. content_sha256 still seals the first recording."""
+    current = current_outlets(path)
+    return [{**row, "outlets": current[row["content_id"]]} for row in read_records(path)]
+
+
+def append_outlet_update(path, record, outlets, *, recorded_at_utc):
+    """Append one outlet change for a recorded piece; an unchanged set writes nothing."""
+    outlets = sorted(outlets, key=lambda o: (o["name"] != "substack", o["name"]))
+    row = {"schema_version": OUTLETS_SCHEMA, "content_id": record["content_id"],
+           "record_sha256": record["content_sha256"], "outlets": outlets,
+           "recorded_at_utc": recorded_at_utc}
+    row["update_sha256"] = sha256(canonical(row)).hexdigest()
+    records = {r["content_id"]: r for r in read_records(path)}
+    _validate_update(row, records)
+    with _locked_feed(outlets_path(path)) as handle:
+        latest = record["outlets"]
+        for prior in _updates(handle.read(), records):
+            if prior["content_id"] == record["content_id"]:
+                latest = prior["outlets"]
+        if latest == outlets:
+            return {"status": "OUTLETS_UNCHANGED", "content_id": record["content_id"],
+                    "outlet_count": len(outlets)}
+        handle.seek(0, os.SEEK_END)
+        data = canonical(row) + b"\n"
+        if handle.write(data) != len(data):
+            raise PublishedContentError("OUTLET_UPDATE_APPEND_INCOMPLETE_READBACK_REQUIRED")
+        handle.flush()
+        os.fsync(handle.fileno())
+    return {"status": "OUTLETS_UPDATED", "content_id": record["content_id"],
+            "outlet_count": len(outlets), "previous_outlet_count": len(latest),
+            "update_sha256": row["update_sha256"]}
+
+
 def _native_original_prose(plan, article, root):
     """Recognize retained native compiler output with its existing qualification seal."""
     if (article.get("schema_version") != "contentops.v1_simple_article_manifest.v1"
@@ -266,6 +360,15 @@ def record_from_corpus(article, metadata, *, published_at_utc, recorded_at_utc, 
     from live_contentops.published_corpus_read_model_v1 import is_countable_canonical_published_article
     if not is_countable_canonical_published_article(article):
         raise PublishedContentError("EXACT_CANONICAL_RECONCILIATION_REQUIRED")
+    outlets = _corpus_outlets(article, outlet_urls)
+    row = {"schema_version": SCHEMA, "content_id": "substack:" + article.public_object_id,
+           **metadata, "published_at_utc": published_at_utc, "recorded_at_utc": recorded_at_utc,
+           "visibility": "public", "outlets": sorted(outlets, key=lambda o: (o["name"] != "substack", o["name"]))}
+    row["content_sha256"] = sha256(canonical(row)).hexdigest()
+    return validate_record(row)
+
+
+def _corpus_outlets(article, outlet_urls=None):
     outlets = []
     for obj in article.derivative_public_objects:
         name = obj["destination"]
@@ -281,11 +384,7 @@ def record_from_corpus(article, metadata, *, published_at_utc, recorded_at_utc, 
         if not url:
             raise PublishedContentError("CONFIRMED_OUTLET_URL_REQUIRED:" + name)
         outlets.append({"name": name, "url": url})
-    row = {"schema_version": SCHEMA, "content_id": "substack:" + article.public_object_id,
-           **metadata, "published_at_utc": published_at_utc, "recorded_at_utc": recorded_at_utc,
-           "visibility": "public", "outlets": sorted(outlets, key=lambda o: (o["name"] != "substack", o["name"]))}
-    row["content_sha256"] = sha256(canonical(row)).hexdigest()
-    return validate_record(row)
+    return outlets
 
 
 def sync_confirmed_piece(store, path, work_item_id, *, recorded_at_utc=None, original=None):
@@ -308,8 +407,17 @@ def sync_confirmed_piece(store, path, work_item_id, *, recorded_at_utc=None, ori
             if prior["content_id"] == "substack:" + article.public_object_id:
                 if any(prior[k] != value for k, value in metadata.items()):
                     raise PublishedContentError("SEALED_PUBLICATION_IDENTITY_CONFLICT")
-                return {"status": "ALREADY_RECORDED", "content_id": prior["content_id"],
-                        "content_sha256": prior["content_sha256"], "outlet_count": len(prior["outlets"])}
+                result = {"status": "ALREADY_RECORDED", "content_id": prior["content_id"],
+                          "content_sha256": prior["content_sha256"], "outlet_count": len(prior["outlets"])}
+                try:
+                    outlets = _corpus_outlets(article, (original or {}).get("outlet_urls"))
+                    result["outlet_update"] = append_outlet_update(path, prior, outlets,
+                        recorded_at_utc=recorded_at_utc or datetime.now(timezone.utc).isoformat())
+                except (PublishedContentError, OSError) as exc:
+                    # The first recording stands; a later outlet change waits for the next sync.
+                    result["outlet_update"] = {"status": "OUTLET_UPDATE_PENDING",
+                        "cause": str(exc) if isinstance(exc, PublishedContentError) else type(exc).__name__}
+                return result
     original = original or {}
     if original and (original.get("canonical_url") != article.canonical_url
                      or original.get("public_object_id") != article.public_object_id):

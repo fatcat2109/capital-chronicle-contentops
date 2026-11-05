@@ -319,6 +319,12 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
         )
         reg = registration_for_destination(destination)
         cached = next((r for r in readiness if r["surface"] == reg.surface), {})
+        # CC-237: the blocker names the recorded state that stops this copy
+        # (its reconciliation, dispatch or queued message), or that no copy was
+        # registered; never a readback claim nobody made.
+        queued = next((r for r in rows if r["message_id"] == ids["message_id"]), None)
+        blocker = (reconciliation.get("status") or dispatch.get("status")
+                   or (queued or {}).get("status") or "NOT_REGISTERED")
         entries.append(
             {
                 "destination": destination,
@@ -332,9 +338,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
                 "cached_readiness": cached.get("readiness_state", "NOT_VERIFIED"),
                 "blocker": None
                 if reconciliation.get("status") == "RECONCILED_CONFIRMED"
-                else dispatch.get(
-                    "status", "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
-                ),
+                else blocker,
             }
         )
     pending = []
