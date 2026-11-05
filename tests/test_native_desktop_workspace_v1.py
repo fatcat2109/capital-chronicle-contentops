@@ -125,8 +125,12 @@ def test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift(tmp_pat
     frozen = source.frozen_snapshot()
     if tampered:
         frozen["revision"] = "b" * 64
+    # Every live frozen input carries its rolling_input (MainReportFeed writes it with the research
+    # snapshot); resume must reuse those exact bytes, never rescan the live X sidecars.
+    frozen_rolling = {"headlines": [{"headline_id": "controlled-frozen-headline"}], "scope": "CONTROLLED_FROZEN_INTAKE"}
     store.register_outbox_message(message_id="native-current-input-" + sha256_of(run), work_item_id=work,
-        destination="internal:native-current-input", payload=canonical_bytes({"research": frozen}).decode(), status="EDITORIAL_INTERNAL")
+        destination="internal:native-current-input",
+        payload=canonical_bytes({"research": frozen, "rolling_input": frozen_rolling}).decode(), status="EDITORIAL_INTERNAL")
     pointer = tmp_path / "pointer.json"
     pointer.write_text(json.dumps({"research_root": str(tmp_path / "changed-source")}))
     binding = {"schema_version": operator.BINDING_SCHEMA, "run_id": run, "owner_manual_validation": True,
@@ -150,8 +154,12 @@ def test_manual_resume_reuses_admitted_source_snapshot_and_rejects_drift(tmp_pat
     class Feed:
         def __init__(self, _tracker, _pointer, *, retained_research):
             assert retained_research.frozen_snapshot() == source.frozen_snapshot()
-        def opportunity(self, **_kwargs):
-            raise DesktopInputRequired({"stage": "select", "request_path": "controlled-request", "request_sha256": "controlled"})
+        def opportunity(self, **kwargs):
+            assert kwargs["rolling_input"] == frozen_rolling
+            # operation() re-reads the pending request file and binds its stage and hash.
+            pending = tmp_path / "controlled-request.json"
+            pending.write_text(json.dumps({"stage": "select", "request_sha256": "controlled"}))
+            raise DesktopInputRequired({"stage": "select", "request_path": str(pending), "request_sha256": "controlled"})
     monkeypatch.setattr(operator, "MainReportFeed", Feed)
     if tampered:
         with pytest.raises(ValueError, match="FROZEN_RESEARCH_SNAPSHOT_CHANGED"):

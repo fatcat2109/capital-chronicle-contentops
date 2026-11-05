@@ -1,13 +1,9 @@
 from __future__ import annotations
 
-from dataclasses import replace
 from datetime import datetime, timedelta, timezone
 
 from live_contentops.claim_evidence_contract_v1 import build_claim_evidence_contract
 from live_contentops.daily_app_supervisor_v1 import ContentOpsDailyAppSupervisor
-from live_contentops.daily_app_supervisor_v1 import (
-    build_bootstrap_editorial_window_policy,
-)
 from live_contentops.editorial_portfolio_v1 import (
     CANONICAL_EDITORIAL_MODE_LADDER,
     DECISION_QUIET_DAY_USEFUL,
@@ -137,7 +133,13 @@ def test_quiet_day_low_delta_candidate_enters_useful_mode_ladder():
     assert result["held_shortlist_count"] == 0
     candidate = result["ranked_clusters"][0]
     assert candidate["editorial_classification"] == DECISION_QUIET_DAY_USEFUL
-    assert candidate["resolved_article_mode"] == "EVERGREEN_EXPLAINER"
+    # Since 330f1978 (23 Aug) preselection checks the mode against the source-capability registry.
+    # A general public event offers straight_news and analysis only, so the explainer falls back
+    # to BREAKING_BRIEF with the fallback recorded; the quiet-day classification is unchanged.
+    assert candidate["resolved_article_mode"] == "BREAKING_BRIEF"
+    assert candidate["growth_editorial_mode_resolution"][
+        "preselection_capability_fallback_from"
+    ] == "EVERGREEN_EXPLAINER"
     assert candidate["growth_editorial_mode_resolution"][
         "quiet_day_utility_candidate"
     ] is True
@@ -202,9 +204,12 @@ def test_house_view_contract_and_validator_keep_core_analyzer_boundary():
         assert not any("proprietary_analysis" in value for value in clean)
 
 
-def test_material_event_shadow_wake_is_idempotent_spacing_aware_and_zero_write(
+def test_material_event_wake_stages_idempotently_and_leaves_the_run_to_the_native_desk(
     tmp_path,
 ):
+    # The live supervisor (production_runtime_v1, owner NATIVE_CODEX_DESKTOP since 3e69658a, 20 Oct)
+    # stages material-event opportunities durably but never runs a newsroom cycle itself: the native
+    # desk's schedule takes them. The FDA-G supervisor dispatch, spacing and saturation route is retired.
     now = datetime(2026, 8, 20, 4, 30, tzinfo=timezone.utc)
     calls: list[dict] = []
 
@@ -223,6 +228,7 @@ def test_material_event_shadow_wake_is_idempotent_spacing_aware_and_zero_write(
         clock=lambda: now,
         newsroom_cycle=controlled_cycle,
     )
+    assert supervisor.routine_editorial_owner == "NATIVE_CODEX_DESKTOP"
     supervisor._run_continuous_intake_housekeeping = lambda _now: {
         "material_event_due": False,
         "llm_or_provider_calls": 0,
@@ -248,27 +254,20 @@ def test_material_event_shadow_wake_is_idempotent_spacing_aware_and_zero_write(
         },
     )
 
-    assert first["windows_dispatched"] == 1
-    assert first["newsroom_cycle_invocations"] == 1
+    assert first["material_event_wake"]["state"] == "DISCOVERED"
     assert first["material_event_wake"]["wake_execution_scope"] == (
         "SHADOW_NO_PUBLIC_WRITE"
     )
     assert first["material_event_wake"]["wake_eligibility"]["eligible"] is True
-    assert calls[0]["publication_enabled"] is False
+    assert first["windows_dispatched"] == 0
+    assert first["newsroom_cycle_invocations"] == 0
     assert first["public_write_performed"] is False
-    assert duplicate["material_event_wake"]["window_id"] == first[
-        "material_event_wake"
-    ]["window_id"]
-    assert duplicate["material_event_wake"]["duplicate_update_chain_suppressed"] is True
-    assert duplicate["windows_dispatched"] == 0
-    assert update_chain_duplicate["material_event_wake"]["window_id"] == first[
-        "material_event_wake"
-    ]["window_id"]
-    assert update_chain_duplicate["material_event_wake"][
-        "duplicate_update_chain_suppressed"
-    ] is True
-    assert update_chain_duplicate["windows_dispatched"] == 0
-    assert len(calls) == 1
+    for repeat in (duplicate, update_chain_duplicate):
+        assert repeat["material_event_wake"]["window_id"] == first[
+            "material_event_wake"
+        ]["window_id"]
+        assert repeat["material_event_wake"]["duplicate_update_chain_suppressed"] is True
+        assert repeat["windows_dispatched"] == 0
 
     distinct = supervisor.tick(
         now=now + timedelta(minutes=5),
@@ -279,204 +278,18 @@ def test_material_event_shadow_wake_is_idempotent_spacing_aware_and_zero_write(
             "update_chain_identities": ["distinct-chain"],
         },
     )
-    assert distinct["material_event_wake"]["wake_eligibility"] == {
-        "eligible": False,
-        "reason": "MINIMUM_CYCLE_SPACING_ACTIVE",
-    }
+    assert distinct["material_event_wake"]["window_id"] != first["material_event_wake"]["window_id"]
     assert distinct["windows_dispatched"] == 0
-    assert len(calls) == 1
+    assert calls == []
     with supervisor._store.get_read_only_connection() as connection:
         count = connection.execute(
             "SELECT COUNT(*) FROM work_items "
             "WHERE target_surface='daily_app_material_event_window'"
         ).fetchone()[0]
-    assert count == 2  # one executed identity plus one distinct spacing-held identity
-
-    saturated_calls: list[dict] = []
-    saturated_supervisor = ContentOpsDailyAppSupervisor(
-        store_path=tmp_path / "saturated-store.sqlite3",
-        output_root=tmp_path / "saturated-out",
-        operating_mode="SHADOW_ONLY",
-        clock=lambda: now,
-        newsroom_cycle=lambda **kwargs: (
-            saturated_calls.append(dict(kwargs))
-            or {
-                "classification": "NO_PUBLICATION",
-                "public_write_performed": False,
-                "unknown_write_detected": False,
-            }
-        ),
-        policy=replace(
-            build_bootstrap_editorial_window_policy(),
-            minimum_cycle_spacing_hours=0.0,
-            material_event_daily_saturation_limit=1,
-        ),
-    )
-    saturated_supervisor._run_continuous_intake_housekeeping = lambda _now: {
-        "material_event_due": False,
-        "llm_or_provider_calls": 0,
-    }
-    saturated_supervisor.tick(now=now, materiality_metadata=first_metadata)
-    saturated = saturated_supervisor.tick(
-        now=now + timedelta(minutes=5),
-        materiality_metadata={
-            **first_metadata,
-            "new_material_event_identity": "saturated-material-event",
-            "new_headline_ids": ["saturated-headline"],
-            "update_chain_identities": ["saturated-chain"],
-        },
-    )
-    assert saturated["material_event_wake"]["wake_eligibility"] == {
-        "eligible": False,
-        "reason": "MATERIAL_EVENT_DAILY_SATURATION_LIMIT",
-    }
-    assert saturated["windows_dispatched"] == 0
-    assert len(saturated_calls) == 1
+    assert count == 2  # two distinct staged identities; duplicates reuse the first
 
 
-def test_due_unexecuted_scheduled_window_absorbs_material_priority_once(tmp_path):
-    now = datetime(2026, 8, 20, 10, 15, tzinfo=timezone.utc)
-    calls: list[dict] = []
-    supervisor = ContentOpsDailyAppSupervisor(
-        store_path=tmp_path / "store.sqlite3",
-        output_root=tmp_path / "out",
-        operating_mode="SHADOW_ONLY",
-        clock=lambda: now,
-        newsroom_cycle=lambda **kwargs: (
-            calls.append(dict(kwargs))
-            or {
-                "classification": "NO_PUBLICATION",
-                "public_write_performed": False,
-                "unknown_write_detected": False,
-            }
-        ),
-    )
-    supervisor._run_continuous_intake_housekeeping = lambda _now: {
-        "material_event_due": False,
-        "llm_or_provider_calls": 0,
-    }
-    metadata = {
-        "material_event_due": True,
-        "new_material_event_count": 1,
-        "new_material_event_identity": "routine-collision-event",
-        "new_headline_ids": ["routine-collision-headline"],
-        "new_headline_source_refs": ["routine-collision-source"],
-        "update_chain_identities": ["routine-collision-chain"],
-    }
-
-    first = supervisor.tick(now=now, materiality_metadata=metadata)
-    priority_id = first["material_event_wake"]["window_id"]
-
-    assert first["material_event_wake"]["wake_eligibility"]["eligible"] is False
-    assert first["material_event_wake"]["wake_eligibility"]["reason"] == (
-        "CURRENTLY_DUE_SCHEDULED_OPPORTUNITY_AVAILABLE"
-    )
-    assert first["windows_dispatched"] == 1
-    assert first["newsroom_cycle_invocations"] == 1
-    assert first["public_write_performed"] is False
-    assert len(calls) == 1
-    assert calls[0]["run_id"] != priority_id
-    assert calls[0]["publication_enabled"] is False
-    assert calls[0]["material_event_priority"]["priority_ids"] == [priority_id]
-    assert supervisor._store.get_work_item(priority_id)["current_state"] == "REJECTED"
-    with supervisor._store.get_read_only_connection() as connection:
-        material_reasons = {
-            str(row["reason_code"])
-            for row in connection.execute(
-                "SELECT reason_code FROM transition_events WHERE work_item_id=?",
-                (priority_id,),
-            ).fetchall()
-        }
-        material_opportunities = connection.execute(
-            "SELECT COUNT(*) FROM work_items "
-            "WHERE target_surface='daily_app_material_event_window'"
-        ).fetchone()[0]
-        scheduled_opportunities = connection.execute(
-            "SELECT COUNT(*) FROM work_items "
-            "WHERE target_surface='daily_app_editorial_window'"
-        ).fetchone()[0]
-    assert material_reasons == {
-        "WORK_ITEM_INITIALIZATION",
-        "MATERIAL_EVENT_PRIORITY_CONSUMED",
-    }
-    assert material_opportunities == 1
-    assert scheduled_opportunities == 1
-
-    second = supervisor.tick(
-        now=now + timedelta(minutes=5),
-        materiality_metadata=metadata,
-    )
-
-    assert second["material_event_wake"]["window_id"] == priority_id
-    assert second["material_event_wake"]["duplicate_update_chain_suppressed"] is True
-    assert second["windows_dispatched"] == 0
-    assert second["newsroom_cycle_invocations"] == 0
-    assert second["public_write_performed"] is False
-    assert len(calls) == 1
-    with supervisor._store.get_read_only_connection() as connection:
-        assert connection.execute(
-            "SELECT COUNT(*) FROM work_items "
-            "WHERE target_surface='daily_app_material_event_window'"
-        ).fetchone()[0] == 1
-
-
-def test_terminal_scheduled_window_in_grace_does_not_block_later_material_wake(
-    tmp_path,
-):
-    scheduled_now = datetime(2026, 8, 20, 10, 15, tzinfo=timezone.utc)
-    calls: list[dict] = []
-    supervisor = ContentOpsDailyAppSupervisor(
-        store_path=tmp_path / "store.sqlite3",
-        output_root=tmp_path / "out",
-        operating_mode="SHADOW_ONLY",
-        clock=lambda: scheduled_now,
-        newsroom_cycle=lambda **kwargs: (
-            calls.append(dict(kwargs))
-            or {
-                "classification": "NO_PUBLICATION",
-                "public_write_performed": False,
-                "unknown_write_detected": False,
-            }
-        ),
-        policy=replace(
-            build_bootstrap_editorial_window_policy(),
-            minimum_cycle_spacing_hours=0.25,
-        ),
-    )
-    supervisor._run_continuous_intake_housekeeping = lambda _now: {
-        "material_event_due": False,
-        "llm_or_provider_calls": 0,
-    }
-
-    scheduled = supervisor.tick(
-        now=scheduled_now,
-        materiality_metadata={"material_event_due": False},
-    )
-    assert scheduled["windows_dispatched"] == 1
-    scheduled_run_id = calls[0]["run_id"]
-    assert supervisor._store.get_work_item(scheduled_run_id)[
-        "current_state"
-    ] == "REJECTED"
-
-    later = scheduled_now + timedelta(hours=1, minutes=5)
-    material = supervisor.tick(
-        now=later,
-        materiality_metadata={
-            "material_event_due": True,
-            "new_material_event_count": 1,
-            "new_material_event_identity": "post-terminal-material-event",
-            "new_headline_ids": ["post-terminal-headline"],
-            "new_headline_source_refs": ["post-terminal-source"],
-            "update_chain_identities": ["post-terminal-chain"],
-        },
-    )
-    material_id = material["material_event_wake"]["window_id"]
-
-    assert material["material_event_wake"]["wake_eligibility"]["eligible"] is True
-    assert material["windows_dispatched"] == 1
-    assert material["newsroom_cycle_invocations"] == 1
-    assert material["public_write_performed"] is False
-    assert len(calls) == 2
-    assert calls[1]["run_id"] == material_id
-    assert calls[1]["run_id"] != scheduled_run_id
-    assert calls[1]["publication_enabled"] is False
+# CC-288: test_due_unexecuted_scheduled_window_absorbs_material_priority_once and
+# test_terminal_scheduled_window_in_grace_does_not_block_later_material_wake were removed. Both drove
+# the supervisor's own scheduled-window dispatch, which the live owner NATIVE_CODEX_DESKTOP retired
+# (_due_windows returns nothing; production_runtime_v1 binds that owner since 3e69658a, 20 Oct).

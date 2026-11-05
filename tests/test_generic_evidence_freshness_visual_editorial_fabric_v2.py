@@ -222,15 +222,24 @@ def test_six_generalized_story_families_resolve_without_topic_hardcoding(story_t
     assert decision["visual_roles"]
 
 
-def test_registry_mode_is_explicit_for_data_release_and_analysis_packages():
+def test_registry_mode_is_explicit_for_data_release_and_source_families_default_to_straight_news():
+    # The fast newsroom evidence policy (Aug 12-20 registry changes, c620542b..b6e0cf1d) gives every
+    # story type an explicit default mode: straight_news, data_release for data releases.
     registry = load_source_capability_registry()
     assert resolve_story_capabilities({"story_type": "data_release"}, registry)["article_mode"] == "data_release"
     for source_family in ("federal_reserve_fomc", "sec_edgar", "usgs_comcat"):
-        assert resolve_story_capabilities({"source_family_id": source_family}, registry)["article_mode"] == "analysis"
+        decision = resolve_story_capabilities({"source_family_id": source_family}, registry)
+        assert decision["article_mode"] == "straight_news" and decision["article_mode_source"] == "registry"
+    analysis = resolve_story_capabilities({"source_family_id": "federal_reserve_fomc", "article_mode": "deep_analysis"}, registry)
+    assert analysis["status"] == "PASS" and analysis["article_mode_source"] == "story_type_article_mode_profile"
 
 
 def test_caller_mode_is_preserved_when_registry_has_no_mode_and_missing_mode_fails_closed():
-    registry = load_source_capability_registry()
+    # Every checked-in story type now declares a mode; the no-mode rule still guards a registry row without one.
+    registry = deepcopy(load_source_capability_registry())
+    row = registry["story_types"]["geopolitical_event"]
+    row.pop("article_mode")
+    row.pop("article_mode_profiles")
     preserved = resolve_story_capabilities(
         {"story_type": "geopolitical_event", "article_mode": "straight_news"}, registry
     )
@@ -241,24 +250,28 @@ def test_caller_mode_is_preserved_when_registry_has_no_mode_and_missing_mode_fai
     assert unresolved["status"] == "BLOCK"
     assert unresolved["article_mode"] == ""
     assert unresolved["blockers"] == ["article_mode_unresolved"]
+    declared = resolve_story_capabilities({"story_type": "geopolitical_event"}, load_source_capability_registry())
+    assert declared["status"] == "PASS" and declared["article_mode"] == "straight_news"
 
 
-def test_caller_mode_mismatch_with_explicit_registry_policy_fails_closed():
-    decision = resolve_story_capabilities(
-        {"story_type": "policy_decision", "article_mode": "straight_news"},
-        load_source_capability_registry(),
-    )
+def test_caller_mode_outside_the_registry_profiles_fails_closed():
+    registry = load_source_capability_registry()
+    offered = resolve_story_capabilities({"story_type": "policy_decision", "article_mode": "straight_news"}, registry)
+    assert offered["status"] == "PASS" and offered["article_mode_source"] == "story_type_article_mode_profile"
+    decision = resolve_story_capabilities({"story_type": "policy_decision", "article_mode": "week_ahead"}, registry)
     assert decision["status"] == "BLOCK"
-    assert "article_mode_mismatch_with_capability" in decision["blockers"]
+    assert decision["article_mode"] == "straight_news"
+    assert decision["blockers"] == ["article_mode_unsupported_for_story_type", "article_mode_mismatch_with_capability"]
 
 
-def test_invalid_caller_mode_does_not_fill_an_undeclared_registry_mode():
+def test_invalid_caller_mode_does_not_fill_the_registry_mode():
     decision = resolve_story_capabilities(
         {"story_type": "geopolitical_event", "article_mode": "generic_analysis"},
         load_source_capability_registry(),
     )
     assert decision["status"] == "BLOCK"
-    assert decision["blockers"] == ["caller_article_mode_invalid"]
+    assert decision["article_mode"] == "straight_news"
+    assert decision["blockers"][0] == "caller_article_mode_invalid"
 
 
 def test_market_sensitivity_and_snapshot_requirement_are_independent():
@@ -272,6 +285,8 @@ def test_market_sensitivity_and_snapshot_requirement_are_independent():
 
 
 def test_launch_story_profiles_resolve_by_story_type_and_article_mode():
+    # Straight news and analysis need a credible confirmation and attributed facts (fast newsroom policy);
+    # the governed analytical context and Capital Chronicle authority belong to deep analysis and data analysis.
     registry = load_source_capability_registry()
     regulatory = resolve_story_capabilities(
         {"story_type": "regulatory_fiscal_event", "article_mode": "straight_news"},
@@ -282,7 +297,7 @@ def test_launch_story_profiles_resolve_by_story_type_and_article_mode():
         registry,
     )
     company_analysis = resolve_story_capabilities(
-        {"story_type": "company_sector_event", "article_mode": "analysis"},
+        {"story_type": "company_sector_event", "article_mode": "deep_analysis"},
         registry,
     )
     data_news = resolve_story_capabilities(
@@ -294,11 +309,12 @@ def test_launch_story_profiles_resolve_by_story_type_and_article_mode():
     )
 
     assert regulatory["required_evidence_capabilities"] == [
-        "official_document", "implementation_timeline", "affected_entities"
+        "credible_event_confirmation", "basic_attributed_facts"
     ]
+    assert regulatory["source_adapter_families"] == ["official_regulatory_fiscal", "public_secondary"]
     assert regulatory["capital_chronicle_authority_required"] is False
     assert company_news["source_adapter_families"] == [
-        "company_primary", "sec_regulatory"
+        "company_primary", "sec_regulatory", "public_secondary"
     ]
     assert company_news["market_sensitive"] is True
     assert company_news["market_snapshot_required"] is False
@@ -306,12 +322,13 @@ def test_launch_story_profiles_resolve_by_story_type_and_article_mode():
     assert company_analysis["capital_chronicle_authority_required"] is True
     assert "governed_analytical_context" in company_analysis["required_evidence_capabilities"]
     assert data_news["capital_chronicle_authority_required"] is False
-    assert data_news["source_adapter_families"] == ["official_macro"]
+    assert data_news["source_adapter_families"] == ["official_macro", "public_secondary"]
     assert data_analysis["capital_chronicle_authority_required"] is True
+    assert data_analysis["required_evidence_capabilities"] == ["official_release", "governed_analytical_context"]
 
 
 @pytest.mark.parametrize(
-    ("source_family_id", "story_type", "market_snapshot_required"),
+    ("source_family_id", "story_type", "market_sensitive"),
     [
         ("federal_reserve_fomc", "policy_decision", True),
         ("sec_edgar", "company_sector_event", True),
@@ -319,18 +336,19 @@ def test_launch_story_profiles_resolve_by_story_type_and_article_mode():
     ],
 )
 def test_source_family_capabilities_derive_mode_and_market_sensitivity(
-    source_family_id, story_type, market_snapshot_required
+    source_family_id, story_type, market_sensitive
 ):
+    # Straight news never waits for a market snapshot; sensitivity stays a separate flag.
     decision = resolve_story_capabilities(
         {"source_family_id": source_family_id},
         load_source_capability_registry(),
     )
     assert decision["status"] == "PASS"
     assert decision["story_type"] == story_type
-    assert decision["article_mode"] == "analysis"
-    assert decision["market_snapshot_required"] is market_snapshot_required
-    assert decision["market_sensitive"] is market_snapshot_required
-    assert decision["freshness_requirements"]["requires_market_snapshot"] is market_snapshot_required
+    assert decision["article_mode"] == "straight_news"
+    assert decision["market_snapshot_required"] is False
+    assert decision["market_sensitive"] is market_sensitive
+    assert decision["freshness_requirements"]["requires_market_snapshot"] is False
 
 
 def test_usgs_physical_event_does_not_require_market_snapshot():

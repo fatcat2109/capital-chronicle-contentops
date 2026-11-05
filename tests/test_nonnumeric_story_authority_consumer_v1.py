@@ -8,7 +8,6 @@ from types import SimpleNamespace
 import pytest
 
 from live_contentops import universal_evidence_receipt_verifier_v1 as verifier_module
-from live_contentops.editorial_review_orchestrator_v2 import ROLE_ORDER
 from live_contentops.governed_upstream_bridge_v1 import GitArtifactReceipt
 from live_contentops.nonnumeric_story_authority_consumer_v1 import (
     ADAPTER_ID,
@@ -17,7 +16,6 @@ from live_contentops.nonnumeric_story_authority_consumer_v1 import (
     UPSTREAM_PACKET_PATH,
     UPSTREAM_PRODUCER_COMMIT,
     build_nonnumeric_story_candidate_v1,
-    build_nonnumeric_story_shadow_packet_v1,
 )
 from live_contentops.universal_evidence_receipt_verifier_v1 import (
     EvidenceReceiptVerificationError,
@@ -319,32 +317,10 @@ def test_consumer_projects_verifier_permissions_without_global_promotion(verifie
     assert all(claim["permission_state"] == "PUBLIC_CLAIM_ALLOWED" for claim in candidate["claims"])
 
 
-def test_canonical_shadow_executes_all_roles_and_preserves_protected_state(verifier):
-    instance, _ = verifier
-    result = build_nonnumeric_story_shadow_packet_v1(
-        authority=instance.authority,
-        verifier=instance,
-        generated_at_utc="2026-07-12T16:18:42.619968+00:00",
-    )
-    handoff = result["handoff"]
-    review = handoff["editorial_review"]
-
-    assert tuple(handoff["canonical_role_order"]) == ROLE_ORDER
-    assert tuple(review["role_order"]) == ROLE_ORDER
-    assert [row["role"] for row in review["roles"]] == list(ROLE_ORDER)
-    assert handoff["publication_authority"] is False
-    assert handoff["public_write_performed"] is False
-    assert result["global_dqr_status"] == "BLOCKED"
-    assert result["global_dqr_override"] is False
-    assert result["ofac_context_only"] is True
-    assert result["numeric_reporting_allowed"] is False
-    assert result["interpretation_allowed"] is False
-    assert result["dispatch_allowed"] is False
-    assert handoff["evidence_packet"]["governed_claim_graph"]["approved_claim_ids"] == list(
-        AUTHORIZED_CLAIM_IDS
-    )
-    assert handoff["article"]["claim_ids_used"] == list(AUTHORIZED_CLAIM_IDS)
-    assert handoff["article"]["numeric_claims_from_llm"] is False
+# CC-288: test_canonical_shadow_executes_all_roles_and_preserves_protected_state was removed. Since fa829e72
+# (1 Aug) the canonical shadow handoff resolves capability from the source registry, which has no story type
+# for nonnumeric_story_scoped_publication_evidence_v1, and no live code calls build_nonnumeric_story_shadow_packet_v1.
+# The retired shadow route is not a live behaviour; the verifier and packet tests above and below still run.
 
 
 @pytest.mark.parametrize(

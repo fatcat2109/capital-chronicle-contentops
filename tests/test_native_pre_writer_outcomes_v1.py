@@ -125,7 +125,8 @@ def test_decision_does_not_require_instagram_image_but_keeps_editorial_chart_con
         "charts": [], "exception_reason": "No quantitative series is admitted for this narrow policy report.",
         "channel_media": {c: [] for c in ("telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube")}}
     assert validate_visual_decision(value) == value
-    with pytest.raises(ValueError, match="ANALYSIS_REQUIRES"):
+    # Decision 39 dropped the 2-5 chart minimum; decision 41 keeps official-history charts on analysis.
+    with pytest.raises(ValueError, match="ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"):
         validate_visual_decision({**value, "story_kind": "ANALYSIS"})
 
 

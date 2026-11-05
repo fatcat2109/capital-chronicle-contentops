@@ -15,13 +15,15 @@ from live_contentops.capital_chronicle_report_feed_v1 import MainReportFeed
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore, LeaseConflictError
 from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, PRE_WRITER_OUTCOME_SCHEMA
 from live_contentops.native_manual_candidate_v1 import active_manual_candidate, native_artifact_key
-from live_contentops.native_newsroom_volume_v1 import configure_volume_turn
+from live_contentops.native_newsroom_volume_v1 import configure_volume_turn, volume_policy
 from tests.test_native_newsroom_owner_operation_v1 import entry
 from tests.test_v1_simple_gemini_newsroom_v1 import _headlines, _selection, _evidence_result
 
 CUTOFF = "2026-10-30T23:45:33.033578Z"
 OBS = {"surface": "CODEX_NATIVE_SUBAGENT", "model": "gpt-6.1-sol", "reasoning_effort": "low",
     "invocation_id": "/root/CONTROLLED_SYNTHETIC_NOT_NATIVE_PROOF", "observation_source": "SYNTHETIC_TEST_ONLY"}
+# The shared window source cap of a binding issued at CUTOFF (CC-047 amendment: 20 from production day 31 Oct).
+LIMIT = volume_policy(CUTOFF)["source_request_limit"]
 
 
 def turn_for(store, binding):
@@ -50,7 +52,7 @@ def refuse(module, binding, pending, candidate, *, used=5):
         "request_sha256": pending["request_sha256"], "invocation_observation": {**OBS, "reasoning_effort": "max"},
         "output": {"schema_version": PRE_WRITER_OUTCOME_SCHEMA, "candidate_id": candidate, "outcome": "HOLD",
             "primary_cause": "SOFTWARE_PROCESS_DEFECT", "reason": "Synthetic fixture preserves the accepted original source-packet process HOLD.",
-            "source_request_count": used, "source_request_limit": 10, "public_write_attempted": False}})
+            "source_request_count": used, "source_request_limit": LIMIT, "public_write_attempted": False}})
 
 
 def seed(tmp_path, monkeypatch):
@@ -87,7 +89,11 @@ def seed(tmp_path, monkeypatch):
     ids = [c["candidate_id"] for c in request["governed_input"]["candidates"]]
     selected = _selection(*ids)
     for p in selected["ordered_candidate_plan"]:
-        p.update(article_mode="BREAKING_BRIEF", angle="Synthetic bounded report question", primary_reader_question="What is actually established?",
+        # A BREAKING_BRIEF now takes the decision 37 B2 text-first route straight to the writer
+        # (native_text_first_v1.writer_policy), and time-sensitive modes skip the MAX visual edit
+        # (decision 53, native_publication_latency_v1.speed_policy). This topology covers the
+        # media-plan -> visual-edit path, which long-form modes still take.
+        p.update(article_mode="CAPITAL_CHRONICLE_VIEW", angle="Synthetic bounded report question", primary_reader_question="What is actually established?",
                  evidence_plan="Retain the exact publisher, frozen cutoff and rights gates; no new facts.")
     module.operation(binding, command="submit", stage="select", response={"request_sha256": select["request_sha256"],
         "output": selected, "invocation_observation": OBS})
@@ -102,7 +108,7 @@ def seed(tmp_path, monkeypatch):
     assert partial["classification"] == "NATIVE_NEXT_CANDIDATE_REQUIRED"
     legacy = {"classification": "NATIVE_PRE_WRITER_EDITION_COMPLETE", "run_id": binding["run_id"],
         "model_execution_state": "NATIVE_DESKTOP_REQUEST_RETURN", "qualified_article_count": 0,
-        "remaining_candidate_ids": ids[1:], "source_request_count": 5, "source_request_limit": 10,
+        "remaining_candidate_ids": ids[1:], "source_request_count": 5, "source_request_limit": LIMIT,
         "candidate_outcomes": turn_for(store, binding).story_outcomes(),
         "next_operation": "scheduled --continue-after " + binding["run_id"]}
     old_key = "cc-editorial-final-" + sha256_of(binding["run_id"])
@@ -130,7 +136,7 @@ def test_preserved_partial_final_progresses_both_untouched_candidates_without_ne
     for i, used in [(1, 7), (2, 9)]:
         pending = module.operation(binding)
         assert pending["stage"] == "media-plan" and calls[-1]["cluster_id"] == ids[i]
-        assert calls[-1]["remaining_window_source_requests"] == 10 - (5 if i == 1 else 7)
+        assert calls[-1]["remaining_window_source_requests"] == LIMIT - (5 if i == 1 else 7)
         before = len(calls)
         assert module.operation(binding)["request_sha256"] == pending["request_sha256"]
         assert len(calls) == before
@@ -259,9 +265,9 @@ def test_existing_ambiguity_pending_work_or_spending_prevents_transition_without
     else:
         store.register_outbox_message(message_id="controlled-spending", work_item_id=turn.work,
             destination="internal:native-desktop-source-recovery", payload=json.dumps({"pre_writer_source_recovery": True,
-                "source_request_count": 10 if cause == "exhausted" else 11}))
+                "source_request_count": LIMIT if cause == "exhausted" else LIMIT + 1}))
     response = intent(store, binding)
-    if cause == "exhausted": response["source_request_count"] = 10
+    if cause == "exhausted": response["source_request_count"] = LIMIT
     before = store.list_outbox_messages()
     with pytest.raises(ValueError):
         transition(data, response=response)
@@ -332,7 +338,7 @@ def test_budget_exhaustion_records_untouched_candidate_as_budget_refusal_and_nev
     module.operation(binding, command="submit", stage="media-plan", response={"request_sha256": media["request_sha256"],
         "output": {"story_plan": {"thesis": "Synthetic control"}}, "invocation_observation": OBS})
     visual = module.operation(binding, command="media-plan")
-    refuse(module, binding, visual, ids[1], used=10)
+    refuse(module, binding, visual, ids[1], used=LIMIT)
     result = module.operation(binding)
     assert result["classification"] == "NATIVE_PRE_WRITER_EDITION_COMPLETE" and result["remaining_candidate_ids"] == []
     untouched = next(v for v in result["candidate_outcomes"] if v["candidate_id"] == ids[2])
@@ -392,7 +398,7 @@ def test_active_candidate_preserves_media_writer_role_and_same_writer_guards(tmp
     refused = {"request_sha256": writer["request_sha256"], "invocation_observation": {**OBS, "reasoning_effort": "max", "invocation_id": "/root/WRONG_SYNTHETIC_WRITER"},
         "output": {"schema_version": PRE_WRITER_OUTCOME_SCHEMA, "candidate_id": ids[1], "outcome": "HOLD", "primary_cause": "INSUFFICIENT_READER_VALUE",
             "reason": "Synthetic writer refusal must retain the exact same MAX visual editor identity.",
-            "source_request_count": 7, "source_request_limit": 10, "public_write_attempted": False}}
+            "source_request_count": 7, "source_request_limit": LIMIT, "public_write_attempted": False}}
     with pytest.raises(ValueError, match="SAME_VISUAL_EDITOR_WRITER"):
         module.operation(binding, command="submit", stage="write", response=refused)
     assert turn._get("write", "response") is None and not store.list_platform_dispatches()

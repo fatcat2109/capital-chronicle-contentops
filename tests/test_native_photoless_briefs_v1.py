@@ -36,14 +36,17 @@ def test_photoless_news_can_compile_eight_results_with_instagram_skipped():
             assert payload.get("delivery_state") != PHOTOLESS_INSTAGRAM_SKIP
 
 
-def test_unbound_old_and_analysis_articles_keep_the_photo_rule():
+def test_no_photo_minimum_without_the_volume_binding_but_analysis_keeps_its_charts():
+    # Jim's decision 39 (e2dc5c64, 3 Nov) removed the contextual-photo minimum for every story:
+    # a missing optional photo never holds a piece, with or without the dated volume binding.
     item = article()
     unbound = {k:v for k,v in item.items() if k not in {"volume_policy", "volume_policy_cutoff_utc"}}
-    with pytest.raises(ValueError, match="CONTEXTUAL_PHOTO"):
-        validate_release_media({"article": unbound, "media_assets": []})
+    assert validate_release_media({"article": unbound, "media_assets": []})["photo_count"] == 0
+    # Decision 41 keeps the floor for analysis: source-backed charts, not a photo.
     analytical = deepcopy(item)
     analytical["resolved_article_mode"] = "STANDARD_NEWS_ANALYSIS"
-    with pytest.raises(ValueError, match="CONTEXTUAL_PHOTO"):
+    analytical["visual_editorial_decision"] = {**analytical["visual_editorial_decision"], "story_kind": "ANALYSIS"}
+    with pytest.raises(ValueError, match="ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"):
         validate_release_media({"article": analytical, "media_assets": []})
 
 
