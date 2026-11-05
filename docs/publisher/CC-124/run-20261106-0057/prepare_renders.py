@@ -21,7 +21,7 @@ articles = [a for a in workspace["native_edition"] if a["run_id"] == binding["ru
 assert len(articles) == 1
 result = json.loads(store.get_outbox_message(native_artifact_key(store, binding["run_id"], "cc-editorial-final-"))["payload"])
 targets = final_visual_binding(result, renders=None)
-out = RUN / "render-review"
+out = RUN / (sys.argv[1] if len(sys.argv) > 1 else "render-review")
 out.mkdir(exist_ok=True)
 data = {"native_edition": articles, "owner_edition": {"edition_id": binding["run_id"],
     "title": "Bitcoin and the rate backdrop", "operation_ids": [binding["run_id"]], "ready": 1,

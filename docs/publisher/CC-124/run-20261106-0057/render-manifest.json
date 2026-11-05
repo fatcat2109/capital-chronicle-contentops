@@ -1,0 +1,364 @@
+{
+  "renders": [
+    {
+      "destination": "discord",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-discord-desktop.png",
+      "sha256": "b7fb184e5b8d55539c7f09f03df69453c8f079118fac2a39f56cdbdfbe21179b",
+      "width": 935,
+      "height": 1273,
+      "captured_at_utc": "2026-11-05T18:31:58.259532+00:00",
+      "render_id": "cc124-bitcoin-discord-desktop",
+      "variant_sha256": "e8ba5091191c604ee30b19d060123860c481f9faf5429fda6bdc42f81375a54e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-desktop.html",
+        "sha256": "7d9445a8adf609b59dead4f4f0193c28e7654e2ac09cb3c40fdc3ae85158e825"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-discord-desktop-page.png",
+        "sha256": "7b7756b27a4320ddd1fa4ddd50757d33253811fd3fde3b61cd90f5c2fad0d3da"
+      }
+    },
+    {
+      "destination": "facebook_page",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-facebook_page-desktop.png",
+      "sha256": "aa5a0e388caf00dcb6c9869e05458c4304bef67abd4794d5e64446b47936e901",
+      "width": 935,
+      "height": 1246,
+      "captured_at_utc": "2026-11-05T18:32:00.624992+00:00",
+      "render_id": "cc124-bitcoin-facebook_page-desktop",
+      "variant_sha256": "852b560b0e939acf351433021d244a1f0767ebb2bb9626c5859f4a4c518ff15c",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-desktop.html",
+        "sha256": "7d9445a8adf609b59dead4f4f0193c28e7654e2ac09cb3c40fdc3ae85158e825"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-facebook_page-desktop-page.png",
+        "sha256": "d9de439064ef7f445fcba82179207a9345361427509edbb4a134006780223c9b"
+      }
+    },
+    {
+      "destination": "instagram_business",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-instagram_business-desktop.png",
+      "sha256": "a642893218e7d3bf1f21005f5a528ace479d390ed75bea424438b6c3e4b41239",
+      "width": 935,
+      "height": 1316,
+      "captured_at_utc": "2026-11-05T18:32:04.623993+00:00",
+      "render_id": "cc124-bitcoin-instagram_business-desktop",
+      "variant_sha256": "956c533f58ede55c6255a4dcd54c6e380d904a541348857c0b2cf1a4f7bac072",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-desktop.html",
+        "sha256": "7d9445a8adf609b59dead4f4f0193c28e7654e2ac09cb3c40fdc3ae85158e825"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-instagram_business-desktop-page.png",
+        "sha256": "ef497332a49678ebda7421494c506f2a0e95a31d55f7a935462529082f602291"
+      }
+    },
+    {
+      "destination": "linkedin",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-linkedin-desktop.png",
+      "sha256": "df20a10981005113501d3b73b7101f80cf4a7e1d41d1e17a7144b4a98eb7e92d",
+      "width": 935,
+      "height": 1273,
+      "captured_at_utc": "2026-11-05T18:32:06.214761+00:00",
+      "render_id": "cc124-bitcoin-linkedin-desktop",
+      "variant_sha256": "76bbf4fb62f0dd3e3ec848c164038f6b80fc9c111674982e2f62972fe3f962fb",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-desktop.html",
+        "sha256": "7d9445a8adf609b59dead4f4f0193c28e7654e2ac09cb3c40fdc3ae85158e825"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-linkedin-desktop-page.png",
+        "sha256": "ce6d8bbbe95d9a0c537443c528575d46047bc812a41ba12124e0fd9793fb79b7"
+      }
+    },
+    {
+      "destination": "telegram",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-telegram-desktop.png",
+      "sha256": "3f1974c95812d5a0a9fb148eed936e89ce4ea5e39c926e003429ed16a693276c",
+      "width": 935,
+      "height": 1288,
+      "captured_at_utc": "2026-11-05T18:32:10.623009+00:00",
+      "render_id": "cc124-bitcoin-telegram-desktop",
+      "variant_sha256": "ddab162b99929d2435e9edb00aa2f1b939c8cb3a9a36d4521155663f7f4aa2c1",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-desktop.html",
+        "sha256": "7d9445a8adf609b59dead4f4f0193c28e7654e2ac09cb3c40fdc3ae85158e825"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-telegram-desktop-page.png",
+        "sha256": "3a3ad5261e0a4e98e4ada56a2fea96e13fd49eebbc79726c494b80cdabfd0bb1"
+      }
+    },
+    {
+      "destination": "threads",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-threads-desktop.png",
+      "sha256": "70217bf799ec00c23786eae1e399b64851178afef32bdbe1ab6489a3302495a9",
+      "width": 935,
+      "height": 1400,
+      "captured_at_utc": "2026-11-05T18:32:14.131219+00:00",
+      "render_id": "cc124-bitcoin-threads-desktop",
+      "variant_sha256": "0e6d02fcbae3cdfee79ef0530b347dec52aed950fe850f54bac889df10c65370",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-desktop.html",
+        "sha256": "7d9445a8adf609b59dead4f4f0193c28e7654e2ac09cb3c40fdc3ae85158e825"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-threads-desktop-page.png",
+        "sha256": "33a445c84799245c73f9ae2408609c5b06ea9168aa87fe3bee735d5c63fb99fe"
+      }
+    },
+    {
+      "destination": "x",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-x-desktop.png",
+      "sha256": "5cc95b5288120a7bf29ee109bf079238fc9302b36ba41d15d63630f067d36d66",
+      "width": 935,
+      "height": 1470,
+      "captured_at_utc": "2026-11-05T18:32:16.135398+00:00",
+      "render_id": "cc124-bitcoin-x-desktop",
+      "variant_sha256": "9c07edb421d8b6d18653500b3f2f4d46c51b2e8aabb3477cd1a2ecb4e27f77ef",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-desktop.html",
+        "sha256": "7d9445a8adf609b59dead4f4f0193c28e7654e2ac09cb3c40fdc3ae85158e825"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-x-desktop-page.png",
+        "sha256": "c41d0e8a30ced2ebbbf7eaf2a139a96b1543c5ef885ef6803fa287ca3a1c7b8f"
+      }
+    },
+    {
+      "destination": "youtube",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-youtube-desktop.png",
+      "sha256": "f4736b2c28d0cec4cd6274d2096f5e77e4f4c33185b47810fe363abee3df174c",
+      "width": 935,
+      "height": 1246,
+      "captured_at_utc": "2026-11-05T18:32:19.651304+00:00",
+      "render_id": "cc124-bitcoin-youtube-desktop",
+      "variant_sha256": "c596825eb49299b47ed3f3e2ee11438d615e04ff1475515c2ccf3e428d1ef74c",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-desktop.html",
+        "sha256": "7d9445a8adf609b59dead4f4f0193c28e7654e2ac09cb3c40fdc3ae85158e825"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-youtube-desktop-page.png",
+        "sha256": "129e5ad9ed09112d310ed7bafcf079cc78fc945b149f28a1b9cce99e377a7593"
+      }
+    },
+    {
+      "destination": "discord",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-discord-mobile.png",
+      "sha256": "a35dc29441e2d3c193178e27c179e29edf3de97a051e7a791815a80548e8bef5",
+      "width": 386,
+      "height": 1114,
+      "captured_at_utc": "2026-11-05T18:33:05.553612+00:00",
+      "render_id": "cc124-bitcoin-discord-mobile",
+      "variant_sha256": "e8ba5091191c604ee30b19d060123860c481f9faf5429fda6bdc42f81375a54e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-mobile.html",
+        "sha256": "65f8e7b075d97c46257a5797ea6e6f86cf5b4e7853474dee8b76b3c5a7be3550"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-discord-mobile-page.png",
+        "sha256": "8f966cb3ebcbb8a2de4d4d5b6ce8bccb4b9de52e629f0a148ee6ceab7e994801"
+      }
+    },
+    {
+      "destination": "facebook_page",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-facebook_page-mobile.png",
+      "sha256": "484ac9f79a83faa3481dad548b7fb47d8bd69007af1e70ea1ed794ff6492970e",
+      "width": 386,
+      "height": 1036,
+      "captured_at_utc": "2026-11-05T18:33:08.557302+00:00",
+      "render_id": "cc124-bitcoin-facebook_page-mobile",
+      "variant_sha256": "852b560b0e939acf351433021d244a1f0767ebb2bb9626c5859f4a4c518ff15c",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-mobile.html",
+        "sha256": "65f8e7b075d97c46257a5797ea6e6f86cf5b4e7853474dee8b76b3c5a7be3550"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-facebook_page-mobile-page.png",
+        "sha256": "6f144f82a35134153210169464fdb0da6a5b552a9e32a7c6530f5089e30b0870"
+      }
+    },
+    {
+      "destination": "instagram_business",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-instagram_business-mobile.png",
+      "sha256": "4145c324cc67bae5caadf5940add59831eb0f5dd5802727b8e67c00b1a9fb9ad",
+      "width": 386,
+      "height": 1154,
+      "captured_at_utc": "2026-11-05T18:33:11.448365+00:00",
+      "render_id": "cc124-bitcoin-instagram_business-mobile",
+      "variant_sha256": "956c533f58ede55c6255a4dcd54c6e380d904a541348857c0b2cf1a4f7bac072",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-mobile.html",
+        "sha256": "65f8e7b075d97c46257a5797ea6e6f86cf5b4e7853474dee8b76b3c5a7be3550"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-instagram_business-mobile-page.png",
+        "sha256": "e5d0657edbcc148e044762cd08b3b28c1980555e8fdaf17142bd714181a50176"
+      }
+    },
+    {
+      "destination": "linkedin",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-linkedin-mobile.png",
+      "sha256": "b64efa7f766e90c30a5617a2969f3d62920ba4b935091b8e85c6f6bdcdf84413",
+      "width": 386,
+      "height": 1114,
+      "captured_at_utc": "2026-11-05T18:33:15.603886+00:00",
+      "render_id": "cc124-bitcoin-linkedin-mobile",
+      "variant_sha256": "76bbf4fb62f0dd3e3ec848c164038f6b80fc9c111674982e2f62972fe3f962fb",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-mobile.html",
+        "sha256": "65f8e7b075d97c46257a5797ea6e6f86cf5b4e7853474dee8b76b3c5a7be3550"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-linkedin-mobile-page.png",
+        "sha256": "d9cb01d78013a370667a87f8c65b844663bb102370d9b0a288414d29243e1891"
+      }
+    },
+    {
+      "destination": "telegram",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-telegram-mobile.png",
+      "sha256": "2b7b6b5fb73b366d1ec63d385c2d4abb86d4baed8c8a8006184e89dd3969f8d5",
+      "width": 386,
+      "height": 1075,
+      "captured_at_utc": "2026-11-05T18:33:18.690775+00:00",
+      "render_id": "cc124-bitcoin-telegram-mobile",
+      "variant_sha256": "ddab162b99929d2435e9edb00aa2f1b939c8cb3a9a36d4521155663f7f4aa2c1",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-mobile.html",
+        "sha256": "65f8e7b075d97c46257a5797ea6e6f86cf5b4e7853474dee8b76b3c5a7be3550"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-telegram-mobile-page.png",
+        "sha256": "2f5e5a5d57b03dde6a6bd5e8d52287109d78ebf5eff2717fe0dbcbbbae7eae73"
+      }
+    },
+    {
+      "destination": "threads",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-threads-mobile.png",
+      "sha256": "b2ee591fde2edda266cba0fe4d3de99712efa6b216c2d1749d1e9250c3cc2e23",
+      "width": 386,
+      "height": 1181,
+      "captured_at_utc": "2026-11-05T18:33:20.837114+00:00",
+      "render_id": "cc124-bitcoin-threads-mobile",
+      "variant_sha256": "0e6d02fcbae3cdfee79ef0530b347dec52aed950fe850f54bac889df10c65370",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-mobile.html",
+        "sha256": "65f8e7b075d97c46257a5797ea6e6f86cf5b4e7853474dee8b76b3c5a7be3550"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-threads-mobile-page.png",
+        "sha256": "7bae5b84f7c4c827e55ac9065123c418616c59b0164d6fd94013e6520b45d9b4"
+      }
+    },
+    {
+      "destination": "x",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-x-mobile.png",
+      "sha256": "23805001f45f7812bf151e86b6a800b592e12fce50c4964f148263e3f304271c",
+      "width": 386,
+      "height": 1221,
+      "captured_at_utc": "2026-11-05T18:33:22.275052+00:00",
+      "render_id": "cc124-bitcoin-x-mobile",
+      "variant_sha256": "9c07edb421d8b6d18653500b3f2f4d46c51b2e8aabb3477cd1a2ecb4e27f77ef",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-mobile.html",
+        "sha256": "65f8e7b075d97c46257a5797ea6e6f86cf5b4e7853474dee8b76b3c5a7be3550"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-x-mobile-page.png",
+        "sha256": "64b3e109dfd23426c3338e5bfa46ee357fd76aaabee532c0ca52eaf48d014a79"
+      }
+    },
+    {
+      "destination": "youtube",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-youtube-mobile.png",
+      "sha256": "cb8c22fdf4e97c545714568045a79124a68a907d680f61a89039590741d84db1",
+      "width": 386,
+      "height": 1036,
+      "captured_at_utc": "2026-11-05T18:33:23.268597+00:00",
+      "render_id": "cc124-bitcoin-youtube-mobile",
+      "variant_sha256": "c596825eb49299b47ed3f3e2ee11438d615e04ff1475515c2ccf3e428d1ef74c",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\review-mobile.html",
+        "sha256": "65f8e7b075d97c46257a5797ea6e6f86cf5b4e7853474dee8b76b3c5a7be3550"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review\\captures\\cc124-bitcoin-youtube-mobile-page.png",
+        "sha256": "3cddeb8384fc798cf28cd2312ece85cccbd3f586c282da4df28752db5a705031"
+      }
+    },
+    {
+      "destination": "substack",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review-r2\\captures\\cc124-bitcoin-substack-desktop.png",
+      "sha256": "5823ec39e6dc3147f220a0edf4ca4f74f1fce16cf3b1a7842c5c7fa1015f13de",
+      "width": 935,
+      "height": 2605,
+      "captured_at_utc": "2026-11-05T18:36:04.837483+00:00",
+      "render_id": "cc124-bitcoin-substack-desktop",
+      "variant_sha256": "f4558903c9cf4eedb9365b763e7f1b9ffc4518273d904467b503bfdc6f72da4c",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review-r2\\review-desktop.html",
+        "sha256": "4e345de3a403e15aca8b409bcc2afe549031e6751908fcfb9c3f2cdeb6066e66"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review-r2\\captures\\cc124-bitcoin-substack-desktop-page.png",
+        "sha256": "5ab118351910385b4b7231b6c10da2d1ccbd1003ea819886358c0bada06af567"
+      }
+    },
+    {
+      "destination": "substack",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review-r2\\captures\\cc124-bitcoin-substack-mobile.png",
+      "sha256": "c3c346bffaa757a585fd12db16740cb538f93959a0d1c2e9bb562969b54408bd",
+      "width": 386,
+      "height": 3276,
+      "captured_at_utc": "2026-11-05T18:36:06.517417+00:00",
+      "render_id": "cc124-bitcoin-substack-mobile",
+      "variant_sha256": "f4558903c9cf4eedb9365b763e7f1b9ffc4518273d904467b503bfdc6f72da4c",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review-r2\\review-mobile.html",
+        "sha256": "e6d9936bf680a1e28a6642366aa6f032dbcafc40fb7c76a503a126f7dcb1bdf1"
+      },
+      "capture_method": "BrowserOS Neo screenshot; exact article bounds cropped from retained original browser pixels",
+      "original_page_capture": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\render-review-r2\\captures\\cc124-bitcoin-substack-mobile-page.png",
+        "sha256": "5b7e02606e86496c3c0a6a84bb0c42f05059abef178c2171c17031d26933c837"
+      }
+    }
+  ]
+}

@@ -13,7 +13,7 @@ sys.path.insert(0, r"A:\Capital Chronicle\ContentOps")
 from live_contentops.browser_rendered_source_recovery_v1 import BrowserOSNeoMcpTransport
 
 RUN = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\owner-manual\cc124-bitcoin-rates-20261106-h")
-ROOT = RUN / "render-review"
+ROOT = RUN / (sys.argv[1] if len(sys.argv) > 1 else "render-review")
 OUT = ROOT / "captures"
 OUT.mkdir(exist_ok=True)
 targets = json.loads((ROOT / "targets.json").read_bytes())
