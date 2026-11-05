@@ -1,0 +1,20 @@
+{
+  "records": [
+    "cc124-treasury-nominal-20261104",
+    "cc124-bls-november-calendar",
+    "cc124-sec-bitcoin-etp-bulletin-20240909"
+  ],
+  "gaps": [],
+  "research_revision": "13591caa9e6249cc6171c709a1ffefcefad3486be49ecb1e22177f3b7e2a28c5",
+  "sec_capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\source-editions-bitcoin\\sec-bulletin-visible.txt",
+  "sec_capture_sha256": "1c3b1d5784f0c7bef426ac679b40eeb3b0de7c7a2bc2906e9e0d26b3d131503d",
+  "read_at_utc": "2026-11-05T18:03:45.956000+00:00",
+  "rights": {
+    "cc124-treasury-nominal-20261104": "GOVERNED_ORIGINAL_PUBLIC_FACTS_ONLY_NO_EXPRESSIVE_REUSE",
+    "cc124-bls-november-calendar": "GOVERNED_GOVERNMENT_AUTHORED_TEXT_PUBLIC_DOMAIN",
+    "cc124-sec-bitcoin-etp-bulletin-20240909": "GOVERNED_GOVERNMENT_AUTHORED_TEXT_PUBLIC_DOMAIN"
+  },
+  "installed_max_request_sha256": "1d9d8c3613e6dca0464ff7dfce1977e0f22abcdfabc30a718d2f9fcb2a391a17",
+  "installed_max_packet_contains_actual_sources": true,
+  "operating_source_head": "dbd9c2e75d58d428298b3b6f1d9242b6a8d77ab5"
+}

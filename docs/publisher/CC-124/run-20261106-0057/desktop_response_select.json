@@ -1,0 +1,40 @@
+{
+  "request_sha256": "327218dfee4eb667d70cfaea424c9ef7a3234b648dcc0243dbe419e96940ed57",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Why lower Treasury yields alone cannot establish a Bitcoin recovery: separate the opportunity-cost channel from willingness to hold a volatile asset. Use the October 1 SEC custody proposal only as dated institutional-access background, not a fresh catalyst or final rule.",
+        "article_mode": "WEEK_AHEAD_OR_WATCH",
+        "candidate_id": "simple-story-39523148d6ddd5bdcb0f8687",
+        "evidence_plan": "Resolve the retained official SEC item through the existing resolver and preserve its October 1 publication date and proposal status. Search held public-safe Main desk records and other lane outputs for Bitcoin identity and dated Treasury yield observations; date each observation and do not infer a maintained Bitcoin thesis from identity alone. Resolve dated SEC Investor.gov risk background and official Treasury/Fed definitions with the existing source owner. The writer can explain conditional rate relief versus weaker risk appetite, but must not assert that Bitcoin is currently rising or falling, that risk appetite has actually weakened, or that a measured Bitcoin-yield correlation exists without corresponding dated evidence. No current BTC price, return, flows, leverage, empirical correlation or NFP outcome is supplied here. Code owns arithmetic. Build a source-bound conceptual comparison/data card from the actual supported article; no invented Bitcoin price chart. Preserve the two decision-40 notices through the existing writing owner.",
+        "primary_reader_question": "If Treasury yields ease, what else must be true before that is a useful positive signal for Bitcoin?",
+        "research_queries": [
+          "SEC Investor.gov bitcoin ether exchange traded products volatility underlying assets investor bulletin",
+          "US Treasury daily nominal real yield curve rates dated November 2026",
+          "SEC October 1 2026 crypto custody proposal investment advisers funds"
+        ],
+        "selection_rationale": "The remaining first-phase market offers a distinct reader question after the published gold, FX and stocks pieces. A conditional Bitcoin watch can explain why financing conditions and demand for risk are separate tests without a current Bitcoin level or proprietary forecast. The supplied crypto candidate provides an exact admitted identity and dated official background, not proof of current market conditions. Selection authorizes preparation and resolution, not factual qualification."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Admit one Bitcoin watch for the explicitly requested remaining market. Prefer a useful conditional mechanism over stale custody-proposal news; preserve the proposal date and distinguish supported facts from watch conditions. No fallback is added merely to fill the one-article instruction.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "invocation_id": "/root/native_select_327218dfee4e",
+    "assignment_id": "cc124-bitcoin-rates-20261106-h:select",
+    "request_identity": "select:327218dfee4eb667d70cfaea424c9ef7a3234b648dcc0243dbe419e96940ed57",
+    "model": null,
+    "reasoning_effort": null,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Parent native-role assignment supplies configured model and effort; canonical task identity /root/native_select_327218dfee4e is provided by supported collaboration context. No runtime model or effort telemetry is available in this role context.",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "speed": "standard",
+    "observation_source": "Supported collaboration.spawn_agent returned /root/native_select_327218dfee4e and its native final returned this exact saved selection; configured model/effort only, runtime telemetry not exposed."
+  }
+}
