@@ -1,0 +1,26 @@
+{
+  "item": "CC-124",
+  "run_started_at_utc": "2026-11-05T15:44:50.825344Z",
+  "claimed_at_gmt7": "2026-11-05T22:47:11.547205+07:00",
+  "branch": "backlog/cc-124-20261105-2254",
+  "base_operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "base_head": "6af511360554c93ff2fdf389c5ad29878024fa97",
+  "remote_default_head": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "remote_default_is_ancestor": true,
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "configuration_source": "Observed Win32_Process launch arguments of current Ops-dispatched exec PID 30396",
+  "actual_model": null,
+  "actual_reasoning_effort": null,
+  "native_context": "/root",
+  "operation_id": "cc124-nfp-us500-preview-20261105-g",
+  "initial_published_count": 6,
+  "initial_active_leases": [],
+  "unrelated_tracked_edits": {
+    "docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl": "eaf106a6c5f0f94602af7ef759fd3f13ff0c8e8a68e78b3c2b625b8f8a755ebe",
+    "docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl": "6b9fcc177395a2a4fb1dec6ae823731a9b907a60e21bf8c63b085e50f1cb6e2a"
+  },
+  "schedule_changed": false,
+  "chat_messages_sent": false
+}

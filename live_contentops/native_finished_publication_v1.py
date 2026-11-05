@@ -72,6 +72,10 @@ def confirmed_canonicals(store):
         if not row:
             continue
         intent = json.loads(row["payload"])
+        # The daily digest recaps existing articles. It is a real public object,
+        # but does not satisfy the newsroom's target for distinct originals.
+        if intent.get("daily_digest"):
+            continue
         ids = DurablePublicationCoordinator._ids(row["work_item_id"], intent["plan_hash"], "substack")
         reconciled = store.get_reconciliations_for_work_item(row["work_item_id"])
         if dispatch["dispatch_id"] != ids["dispatch_id"] or not any(r["reconciliation_id"] == ids["reconciliation_id"]

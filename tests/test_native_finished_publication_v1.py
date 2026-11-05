@@ -89,6 +89,40 @@ def test_live_piece_reuses_binding_and_never_imports_or_rewrites_attempts(ready,
     assert target.list_platform_dispatches() == dispatches
 
 
+def test_daily_digest_does_not_consume_standing_original_article_target(ready, monkeypatch):
+    _, target, _, path, rollout = ready
+    released = release_finished_piece(path, rollout)
+    operation, executor, _ = composed(target, released["binding"], rollout, monkeypatch)
+    finish(operation, executor)
+    assert len(list(confirmed_canonicals(target))) == 1
+    dispatch = next(d for d in target.list_platform_dispatches() if d["platform"] == "substack")
+    row = target.get_outbox_message(dispatch["message_id"])
+    intent = json.loads(row["payload"])
+    intent["daily_digest"] = row["work_item_id"]
+    with target.get_connection() as conn:
+        conn.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?",
+            (canonical_bytes(intent).decode(), row["message_id"]))
+    assert list(confirmed_canonicals(target)) == []
+    assert target.get_platform_dispatch(dispatch["dispatch_id"])["status"] == "DISPATCH_CONFIRMED"
+    # A real digest remains public; it must not consume an original's slot.
+    profile = {"schema_version": "contentops.native_desktop_operator_profile.v1"}
+    _, next_binding = standing_binding(profile, rollout, operation_id="after-digest",
+        resolver=resolve_owner_operation, request="Prepare the next distinct useful original article.",
+        report_only=True)
+    assert next_binding["standing_operation"]
+
+
+def test_standing_original_article_cap_remains_eight(ready, monkeypatch):
+    _, target, _, _, rollout = ready
+    now = datetime.now(timezone.utc)
+    monkeypatch.setattr("live_contentops.native_finished_publication_v1.confirmed_canonicals",
+        lambda store: [{"run_id": "original-" + str(i), "article_identity": str(i),
+                        "published_at_utc": now, "first_readback_utc": now} for i in range(8)])
+    with pytest.raises(ValueError, match="STANDING_DAILY_TARGET_REACHED"):
+        standing_binding({}, rollout, operation_id="ninth-original",
+            resolver=lambda *a, **k: pytest.fail("ninth original admitted"), now=now)
+
+
 @pytest.mark.parametrize("failure", ["model", "clock", "private", "changed_request"])
 def test_finished_source_faults_fail_without_import(ready, monkeypatch, failure):
     source, target, binding, path, rollout = ready
