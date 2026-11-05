@@ -71,8 +71,9 @@ def test_readback_action_uses_existing_window_and_task_group_without_changing_re
     (1200, "@OTHER_ACCOUNT", True, False), (1200, "@Capitalnicle", False, False)])
 def test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes(tmp_path, monkeypatch, age, identity, loaded, absent):
     store, executor = setup(tmp_path)
+    attempted_at = (datetime.now(timezone.utc) - timedelta(seconds=age)).isoformat()
     monkeypatch.setattr(store, "get_platform_dispatch", lambda key: {"status": "UNKNOWN_WRITE",
-        "dispatched_at": (datetime.now(timezone.utc) - timedelta(seconds=age)).isoformat()})
+        "dispatched_at": attempted_at})
     adapter = NeoDestinationHandoff(native_executor=executor)
     def read():
         return adapter.readback(destination="x", intent=intent("x"), public_object_id=None, public_object_url=None)
@@ -88,6 +89,61 @@ def test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes(tmp_p
     actual = read()
     assert actual["write_absent"] is absent
     assert store.list_platform_dispatches() == []
+
+
+@pytest.mark.parametrize("retry_age,absent", [(120, False), (700, True)])
+def test_profile_absence_waits_ten_minutes_after_latest_api_attempt(tmp_path, monkeypatch, retry_age, absent):
+    from hashlib import sha256
+    store, executor = setup(tmp_path)
+    now = datetime.now(timezone.utc)
+    ids = DurablePublicationCoordinator._ids("work", "plan", "x")
+    monkeypatch.setattr(store, "get_platform_dispatch", lambda key: {"status": "UNKNOWN_WRITE",
+        "dispatched_at": (now - timedelta(seconds=1800)).isoformat()})
+    store.register_incident(incident_id="incident_dispatch_outcome_"
+        + sha256(ids["dispatch_id"].encode()).hexdigest()[:24] + "_retry", work_item_id="work",
+        severity="DISPATCH_FAILURE", description=json.dumps({"dispatch_id": ids["dispatch_id"],
+            "attempt_started_at_utc": (now - timedelta(seconds=retry_age)).isoformat()}))
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    def read():
+        return adapter.readback(destination="x", intent=intent("x"), public_object_id=None, public_object_url=None)
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        read()
+    packet = pending.value.request
+    observed = response(executor, packet, {"observed_identity": "@Capitalnicle",
+        "observed_profile_url": "https://x.com/Capitalnicle", "authenticated": True,
+        "activity_feed_loaded": True, "target_post_absent": True,
+        "observed_text": "Own feed loaded with older posts; the requested post is absent."})
+    executor.submit(packet["request"]["request_sha256"], observed)
+    assert read()["write_absent"] is absent
+
+
+def test_retry_invalidates_prior_absence_return_in_same_readback_epoch(tmp_path, monkeypatch):
+    from hashlib import sha256
+    store, executor = setup(tmp_path)
+    now = datetime.now(timezone.utc)
+    ids = DurablePublicationCoordinator._ids("work", "plan", "x")
+    monkeypatch.setattr(store, "get_platform_dispatch", lambda key: {"status": "UNKNOWN_WRITE",
+        "dispatched_at": (now - timedelta(seconds=1800)).isoformat()})
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    def read():
+        return adapter.readback(destination="x", intent=intent("x"), public_object_id=None, public_object_url=None)
+    with pytest.raises(NativeNeoInputRequired) as pending:
+        read()
+    packet = pending.value.request
+    observed = response(executor, packet, {"observed_identity": "@Capitalnicle",
+        "observed_profile_url": "https://x.com/Capitalnicle", "authenticated": True,
+        "activity_feed_loaded": True, "target_post_absent": True,
+        "observed_text": "Own feed loaded; the target is absent."})
+    executor.submit(packet["request"]["request_sha256"], observed)
+    assert read()["write_absent"] is True
+    store.register_incident(incident_id="incident_dispatch_outcome_"
+        + sha256(ids["dispatch_id"].encode()).hexdigest()[:24] + "_retry", work_item_id="work",
+        severity="DISPATCH_FAILURE", description=json.dumps({"dispatch_id": ids["dispatch_id"],
+            "attempt_started_at_utc": datetime.now(timezone.utc).isoformat()}))
+    with pytest.raises(NativeNeoInputRequired) as fresh:
+        read()
+    assert fresh.value.request["request"]["request_sha256"] != packet["request"]["request_sha256"]
+    assert fresh.value.request["request"]["observation_epoch"] == packet["request"]["observation_epoch"]
 
 
 @pytest.mark.parametrize("observed_stable_id", [None, "wrong-company"])

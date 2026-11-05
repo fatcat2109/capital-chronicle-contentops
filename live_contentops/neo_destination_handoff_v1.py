@@ -144,6 +144,28 @@ class NeoDestinationHandoff:
         self.native_executor = native_executor
         self.store = store
 
+    def _absence_dispatch_clock(self, intent, destination):
+        """Absence must follow the latest write attempt, including a bounded API retry."""
+        from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+        store = self.store or getattr(self.native_executor, "store", None)
+        if store is None:
+            return {}, None
+        ids = DurablePublicationCoordinator._ids(intent["work_item_id"], intent["plan_hash"], destination)
+        dispatch = store.get_platform_dispatch(ids["dispatch_id"]) or {}
+        try:
+            latest = datetime.fromisoformat(dispatch["dispatched_at"].replace("Z", "+00:00"))
+            prefix = "incident_dispatch_outcome_" + sha256(ids["dispatch_id"].encode()).hexdigest()[:24] + "_%"
+            with store.get_read_only_connection() as conn:
+                rows = conn.execute("SELECT description FROM incidents WHERE incident_id LIKE ?", (prefix,)).fetchall()
+            for row in rows:
+                outcome = json.loads(row[0])
+                if outcome.get("dispatch_id") == ids["dispatch_id"]:
+                    attempted = datetime.fromisoformat(outcome["attempt_started_at_utc"].replace("Z", "+00:00"))
+                    latest = max(latest, attempted)
+            return dispatch, latest.isoformat()
+        except (KeyError, ValueError, TypeError):
+            return dispatch, None
+
     def request(self, *, destination, action, intent, authorization_context=None,
                 public_object_id=None, public_object_url=None):
         if destination not in IDENTITIES or action not in {"PUBLISH", "READBACK", "EDIT_EXISTING"}:
@@ -211,6 +233,12 @@ class NeoDestinationHandoff:
             clock = getattr(self.native_executor, "clock", None)
             now = clock() if callable(clock) else datetime.now(timezone.utc)
             value["observation_epoch"] = int(now.timestamp()) // 600
+            if not public_object_id and not public_object_url:
+                _, latest_attempt = self._absence_dispatch_clock(intent, destination)
+                if latest_attempt:
+                    # A retry in the same epoch needs a fresh observation; the old
+                    # immutable return cannot establish absence after that retry.
+                    value["latest_dispatch_attempt_at_utc"] = latest_attempt
             invocation = getattr(self.native_executor, "native_invocation_id", None)
             if invocation:
                 value["native_invocation_id"] = invocation
@@ -402,13 +430,11 @@ class NeoDestinationHandoff:
             and any(_text(PUBLIC_NOTICE) in _text(s) for s in segments))
         absent = False
         if not public_object_id and not public_object_url and result.get("target_post_absent") is True:
-            from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
-            ids = DurablePublicationCoordinator._ids(intent["work_item_id"], intent["plan_hash"], destination)
-            dispatch = self.native_executor.store.get_platform_dispatch(ids["dispatch_id"]) or {}
+            dispatch, latest_attempt = self._absence_dispatch_clock(intent, destination)
             observation = result.get("native_tool_observation") or {}
             try:
                 observed_at = datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
-                attempted_at = datetime.fromisoformat(dispatch["dispatched_at"].replace("Z", "+00:00"))
+                attempted_at = datetime.fromisoformat(latest_attempt)
                 elapsed = (observed_at - attempted_at).total_seconds()
             except (KeyError, ValueError, TypeError):
                 elapsed = -1
