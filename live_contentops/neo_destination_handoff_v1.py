@@ -28,6 +28,11 @@ ROOTS = {"substack": "https://capitalchronicle.substack.com/", "x": "https://x.c
           "instagram_business": "https://www.instagram.com/official.capitalchronicle/",
           "telegram": "https://t.me/CapitalChronicle",
           "threads": "https://www.threads.com/@official.capitalchronicle"}
+# Ops Product, 5 Nov (privacy): Telegram is read only on the public channel page, never in
+# Telegram Web, which is signed in to Jim's personal account (same reasoning as the Gmail rule).
+TELEGRAM_PUBLIC_FEED = "https://t.me/s/CapitalChronicle"
+TELEGRAM_READ_RULE = ("Read only https://t.me/s/CapitalChronicle, with no sign-in. Never open, snapshot, read "
+                      "or screenshot web.telegram.org or any signed-in Telegram view; it is Jim's personal account.")
 
 
 def _canonical(url):
@@ -229,14 +234,17 @@ class NeoDestinationHandoff:
                 or auth.get("action") != "EDIT_EXISTING"):
             raise ValueError("NEO_EXACT_REVIEWED_EXISTING_OBJECT_REQUIRED")
         native_payload, content_binding = _payload_binding(intent, destination)
+        telegram_rule = ({"telegram_read_rule": TELEGRAM_READ_RULE} if destination == "telegram" else {})
         value = {"schema_version": SCHEMA, "destination": destination, "action": action,
-            "expected_identity": IDENTITIES[destination], "entry_url": ROOTS[destination],
+            "expected_identity": IDENTITIES[destination],
+            "entry_url": TELEGRAM_PUBLIC_FEED if destination == "telegram" else ROOTS[destination],
             "intent_sha256": sha256_of(intent), "work_item_id": intent.get("work_item_id"),
             "package_identity": intent.get("package_identity"),
             "payload_hash": intent.get("destination_plan", {}).get("payload_hash"),
             "dispatch_attempt_identity": auth.get("dispatch_attempt_identity"),
             "canonical_url": intent.get("canonical_url"),
             "public_object_id": public_object_id, "public_object_url": public_object_url,
+            **telegram_rule,
             "native_payload": native_payload, "payload": intent.get("payload"),
             "content_binding": content_binding,
             "surface": intent.get("destination_plan", {}).get("surface") or {
@@ -252,6 +260,10 @@ class NeoDestinationHandoff:
                 "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"],
             "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
             "forbidden": ["login", "reauthorize", "account_switch", "cookies", "storage", "blind_retry", "bulk_x_ingestion"]}
+        if destination == "telegram":
+            # No signed-in view at all: the public channel page is the only Telegram surface.
+            value["steps"][1] = "read " + TELEGRAM_PUBLIC_FEED + " with no sign-in; match the channel name @CapitalChronicle"
+            value["forbidden"] = value["forbidden"] + ["web.telegram.org", "signed_in_telegram_view"]
         if destination == "substack" and action in {"PUBLISH", "EDIT_EXISTING"} and content_binding["media_manifest"]:
             value["substack_media_placement"] = (
                 "Place each media_manifest image in the body where its placement_after names: after the "
@@ -488,9 +500,14 @@ class NeoDestinationHandoff:
                 elapsed = (observed_at - attempted_at).total_seconds()
             except (KeyError, ValueError, TypeError):
                 elapsed = -1
-            absent = (elapsed >= 600 and result.get("authenticated") is True
+            # Telegram: the public channel page lists every post of a public channel, so it is
+            # read with no sign-in (Ops Product, 5 Nov: no agent opens Jim's Telegram Web).
+            feed_read = (result.get("observed_profile_url") == TELEGRAM_PUBLIC_FEED
+                         if destination == "telegram" else
+                         result.get("authenticated") is True
+                         and result.get("observed_profile_url") == ROOTS[destination])
+            absent = (elapsed >= 600 and feed_read
                 and result.get("activity_feed_loaded") is True and bool(observed_text)
-                and result.get("observed_profile_url") == ROOTS[destination]
                 and result.get("observed_identity") == IDENTITIES[destination]
                 and result.get("request_sha256") == request["request_sha256"]
                 and dispatch.get("status") in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING", "RECONCILED_ABSENT_SAFE_TO_RETRY"}
