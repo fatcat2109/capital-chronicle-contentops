@@ -147,6 +147,44 @@ def test_day_measurement_keeps_unknown_readers_and_original_count_separate(tmp_p
     assert revised.final_published_target_min == 8 and old.final_published_target_min == 5
 
 
+def test_day_measurement_reads_each_window_once_without_reloading_all_retained_payloads(tmp_path, monkeypatch):
+    import live_contentops.native_newsroom_volume_v1 as volume
+    from live_contentops.newsroom_production_day_v1 import newsroom_production_day_id
+    store = ContentOpsDurableStore(tmp_path / "scoped.sqlite3")
+    day = newsroom_production_day_id(CUTOFF)
+    bindings = []
+    for count in (1, 2, 3):
+        run = "run-" + str(count)
+        root = tmp_path / day / "shared" / run
+        root.mkdir(parents=True)
+        _, binding = make_turn(store, root, run, window_id="shared")
+        bindings.append(binding)
+        work = "cc-opportunity-" + sha256_of(run)
+        store.register_outbox_message(message_id="native-operation-binding-" + sha256_of(run),
+            work_item_id=work, destination="internal:native-desktop-editorial",
+            payload=json.dumps(binding), status="EDITORIAL_INTERNAL")
+        store.register_outbox_message(message_id="source-" + run, work_item_id=work,
+            destination="internal:native-desktop-source-recovery",
+            payload=json.dumps({"source_request_count": count}), status="EDITORIAL_INTERNAL")
+    original_reads, original_progress = store.list_outbox_messages, volume.window_progress
+    unscoped, windows = [], []
+    def read(**kwargs):
+        if not kwargs:
+            unscoped.append(True)
+            assert len(unscoped) == 1, "Window projection reloaded all retained payloads"
+        return original_reads(**kwargs)
+    def progress(current_store, issued):
+        windows.append([b["run_id"] for b, _ in issued])
+        return original_progress(current_store, issued)
+    monkeypatch.setattr(store, "list_outbox_messages", read)
+    monkeypatch.setattr(volume, "window_progress", progress)
+    path = persist_native_day_measurement(store, bindings[-1])
+    measurement = json.loads(Path(path).read_bytes())["native_volume_measurement"]
+    assert windows == [[b["run_id"] for b in bindings]]
+    assert measurement["windows"]["shared"]["source_request_count"] == 3
+    assert measurement["distinct_canonical_items_published"] == 0
+
+
 def test_cross_window_or_unbound_budget_carry_is_rejected(tmp_path):
     store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
     turn, binding = make_turn(store, tmp_path / "turn", "current")
