@@ -1,0 +1,67 @@
+{
+  "operation_id": "cc124-next-article-20261105-c",
+  "article_identity": "25b089a0de736bdda1f9e3b7c69b758480ec29d63b228ba2bbdf24d482672c35",
+  "package_revision": "e610f77046d78c00b235e2efc065eb1652556084c7686bd68274fa7933d59136",
+  "same_max_editor": "/root/native_write_ca5eb0d030b7",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "native_editor_accepted_at_utc": "2026-11-05T05:18:23.880986Z",
+  "stored_keep_approved_at_utc": "2026-11-05T05:20:17.231181+00:00",
+  "artifacts": [
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-c\\desktop_response_write.json",
+      "bytes": 13215,
+      "sha256": "d3ae8a116fe4d7b7a0da948d649359326e7355fc950885ef8a60042f3834181b"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-c\\desktop_response_revise.json",
+      "bytes": 13259,
+      "sha256": "a32b845d370847e5e728b7fb2e128d11020675f2b58da599f018ed1638e0c112"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-c\\native_final_editor_review_initial.json",
+      "bytes": 12857,
+      "sha256": "0af92e0a0cc9bc3989b645e085c8ba8ee1071217f503867e4164e8be86c847b2"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-c\\native_final_editor_review_repaired.json",
+      "bytes": 12722,
+      "sha256": "28eee68aaf203be33c7fef915f0c96cec4c1ba621a771f89bc9991dd5d6f0f4a"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-c\\native_final_review_input_repaired.json",
+      "bytes": 30374,
+      "sha256": "22b417751c6366ff56cd3ed7b3f5d0aa22dc5e517e1fc13270ca10af9468ba11"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-c\\review-input.json",
+      "bytes": 993,
+      "sha256": "3ffa34a81bf88f749e37676a9ab1b50b5ddb70a1a1e6c6f28b389e855e526850"
+    }
+  ],
+  "card": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-c\\media_assets\\post-facts-e3af5dcf1627c781beaa.png",
+    "sha256": "8714af0f9d2c2a92e4fc47708c1e97c33102065df8555fd2d8ef516d196ca5b3",
+    "dimensions": [
+      1080,
+      1350
+    ],
+    "actual_pixels_inspected_by_same_editor": true,
+    "repairs_verified": [
+      "complete approximate guidance range",
+      "explicit Reuters report date",
+      "conflicts notice on all eight copies"
+    ]
+  },
+  "source": {
+    "publisher": "Reuters",
+    "published_at_utc": "2026-10-21T20:12:00Z",
+    "canonical_content_sha256": "3ea8bbea4ba84df6bba32068466924d478361609c2b60a814baabdfbcadb0a84",
+    "public_scope": "independent attributed factual paraphrase; original expression and media not reused"
+  },
+  "all_native_channel_types_reviewed": 8,
+  "desktop_mobile_screenshots_claimed": false,
+  "policy": "JIM_DECISION_53",
+  "original_source_and_private_returns_retained_in_operation": true
+}
