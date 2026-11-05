@@ -1,0 +1,14 @@
+{
+  "started_at_utc": "2026-11-05T10:59:04.987449+00:00",
+  "backlog_item": "CC-124",
+  "operation_id": "cc124-gold-yields-20261105-e",
+  "base_live_head": "60560c44b8d201b6b7e095a401d62d4c0051d1f5",
+  "branch": "backlog/cc-124-20261105-1755",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_process_id": 6140,
+  "native_context": "/root",
+  "source_mode": "MAIN_PUBLIC_RESEARCH_NO_X",
+  "unrelated_tracked_wip_preserved": true
+}
