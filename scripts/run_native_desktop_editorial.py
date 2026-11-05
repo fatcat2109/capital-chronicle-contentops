@@ -32,7 +32,7 @@ PRODUCTION_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps")
 DEFAULT_PROFILE = Path(__file__).resolve().parents[1] / "config/native_desktop_operator_profile_v1.json"
 
 
-def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=(), live_rollout=None, standing=False, preview_event_id=None):
+def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=(), live_rollout=None, standing=False, preview_event_id=None, editorial_agent=None):
     """Resolve one explicit owner operation; frozen binding survives quota/restarts.
 
     This is an entry to the existing outbox/opportunity, not a queue or scheduler.
@@ -61,6 +61,8 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
             raise ValueError("OWNER_REQUEST_CHANGED_USE_NEW_OPERATION")
         if preview_event_id is not None and preview_event_id != binding.get("preview_event_id"):
             raise ValueError("OWNER_PREVIEW_EVENT_CHANGED_USE_NEW_OPERATION")
+        if editorial_agent is not None and editorial_agent != binding.get("editorial_agent", "codex"):
+            raise ValueError("OWNER_EDITORIAL_AGENT_CHANGED_USE_NEW_OPERATION")
         # A newer feed applies only to new opportunities. Resumes retain their
         # original feed and frozen packets; the profile cannot redirect storage.
         for key in ("store_path", "published_memory_store", "published_memory_output_root"):
@@ -99,6 +101,9 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
             binding["source_review_ids"] = list(source_review_ids)
         if preview_event_id:
             binding["preview_event_id"] = preview_event_id
+        if editorial_agent not in (None, "codex"):
+            # CC-300: this operation's editorial stages run in Claude Code; Codex bindings stay unchanged.
+            binding["editorial_agent"] = editorial_agent
         from live_contentops.native_newsroom_volume_v1 import volume_policy
         if policy := volume_policy(binding["cutoff_utc"]):
             binding["volume_policy"] = policy
@@ -111,6 +116,8 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
 def validate_binding(binding, *, read_or_prepare=False):
     if binding.get("schema_version") != BINDING_SCHEMA or not binding.get("run_id"):
         raise ValueError("NATIVE_OPERATION_BINDING_INVALID")
+    from live_contentops.native_desktop_editorial_v1 import editorial_agent_of
+    editorial_agent_of(binding)  # EDITORIAL_AGENT_INVALID for anything but codex or claude
     for key in ("store_path", "output_dir", "feed_pointer_path", "published_memory_store", "published_memory_output_root"):
         if not Path(binding[key]).is_absolute():
             raise ValueError("ABSOLUTE_OPERATION_PATH_REQUIRED:" + key)
@@ -640,6 +647,8 @@ def main(argv=None):
     parser.add_argument("--stage", help="select/write/revise or exact pending filter-<batch sha256>")
     parser.add_argument("--source-review-id", action="append", default=[])
     parser.add_argument("--workspace-root", type=Path, help="Explicit stable destination for authorized manual-workspace relocation")
+    parser.add_argument("--editorial-agent", choices=("codex", "claude"),
+                        help="CC-300: who runs a NEW operation's editorial stages (default codex); fixed for its life")
     args = parser.parse_args(argv)
     if args.command.startswith("digest"):
         if not args.rollout:
@@ -856,15 +865,17 @@ def main(argv=None):
             if args.command == "standing":
                 if not args.rollout:
                     parser.error("standing requires --rollout")
+                from functools import partial
                 from live_contentops.native_finished_publication_v1 import standing_binding
                 path, binding = standing_binding(json.loads(args.profile.read_bytes()),
                     json.loads(args.rollout.read_bytes()), operation_id=args.operation_id,
-                    request=request, resolver=resolve_owner_operation, report_only=args.report_only)
+                    request=request, resolver=partial(resolve_owner_operation, editorial_agent=args.editorial_agent),
+                    report_only=args.report_only)
             else:
                 path, binding = resolve_owner_operation(json.loads(args.profile.read_bytes()),
                     operation_id=args.operation_id, request=request, report_only=args.report_only, source_review_ids=args.source_review_id,
                     live_rollout=json.loads(args.rollout.read_bytes()) if args.live else None,
-                    preview_event_id=args.preview_event_id)
+                    preview_event_id=args.preview_event_id, editorial_agent=args.editorial_agent)
             result = operation(binding, report_only=args.report_only)
             if args.live or args.command == "standing":
                 result = with_due_digest(result, args.rollout)
