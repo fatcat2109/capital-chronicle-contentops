@@ -1,0 +1,28 @@
+{
+  "tool_request_sha256": "fc8e9da37eb874e6a6b776d698c3bc92f400dbe90b76d2b802921c6f6e0b6154",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a9d5-9a22-73a1-ab8d-6c0e1e84c9ee",
+    "surface": "CODEX_EXEC",
+    "observation_source": "Neo company admin page498 verified Capital Chronicle company143198922 actor, exact approved copy and uploaded bound card with alt text. Clicked Post once; Post successful dialog returned the exact company post URL.",
+    "observed_at_utc": "2026-11-05T06:04:24.492Z"
+  },
+  "result": {
+    "request_sha256": "3b624b2e11106c82a4ab151ec65cb7e652ed6483734e2081eaddefd5bd0b52b1",
+    "status": "SUCCESS",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:share:7523988409204342785",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7523988409204342785/",
+    "stage": "PUBLISH_CLICK_ATTEMPTED"
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-05T06:04:24.492Z",
+      "observed_identity": "linkedin:company:143198922",
+      "observed_stable_id": "143198922",
+      "timestamp_basis": "Recorded at submit; the exact click clock is not exposed. This same Neo sequence observed the Capital Chronicle company composer identity before its one Post click.",
+      "composer_identity_observed_before_click": true
+    }
+  }
+}

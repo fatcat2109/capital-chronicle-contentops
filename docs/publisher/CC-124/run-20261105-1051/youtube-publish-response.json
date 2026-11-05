@@ -1,0 +1,30 @@
+{
+  "tool_request_sha256": "73af3019078d9b08ea3faaa2a8de8eb609b61632d73384ca47dd9ad8797225b4",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1a9d5-9a22-73a1-ab8d-6c0e1e84c9ee",
+    "surface": "CODEX_EXEC",
+    "dispatched_at_utc": "2026-11-05T06:19:31.046Z",
+    "observed_at_utc": "2026-11-05T06:20:15.561Z",
+    "observation_source": "Neo page502 own channel @CapitalChronicleYouTube, studio links expose UCuSrYOgd4eeudcD2vidafbA. Exact approved community text, bound card uploaded through Neo file input; actual image1600x900 complete. One Đăng click; new 0-seconds-old stable post observed."
+  },
+  "result": {
+    "request_sha256": "b203dcda79ed4c78f25a0f5e47139a13d05edbc3d4aa8a83a202d1af462303ba",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "Ugkxrj2tZ7a1Rv7Jk3zHVujlgRKCzverZLeg",
+    "public_object_url": "https://www.youtube.com/post/Ugkxrj2tZ7a1Rv7Jk3zHVujlgRKCzverZLeg"
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "@CapitalChronicleYouTube",
+      "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA",
+      "observed_at_utc": "2026-11-05T06:18:52.721Z"
+    },
+    "pre_click_posts": [
+      "Update: SINGLE-SOURCE REPORT - REUTERS | Reuters' 21 October IBM report: software revenue growth outlook and the deal-timing test\n\n\nReuters' 21 October IBM report described a higher lower bound for annual software-revenue growth.\n\n\nWhat to watch: The next useful test is whether further reported results substantiate the new-business explanation.\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/single-source-report-reuters-reuters\n\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ]
+  }
+}
