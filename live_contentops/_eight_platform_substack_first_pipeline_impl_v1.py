@@ -1149,15 +1149,17 @@ def _publish_telegram_photo_verified(
     text: str,
     canonical_url: str,
     image_path: str,
+    guard_canonical_url: str | None = None,
 ) -> dict[str, Any]:
     from live_contentops.telegram_live_adapter_v6 import execute_telegram_photo
 
     public_ledger = Path("docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl")
+    dedupe_url = guard_canonical_url or canonical_url
     payload_hash = build_public_dispatch_payload_hash(
         platform="telegram",
         action="photo",
         body_text=text,
-        canonical_url=canonical_url,
+        canonical_url=dedupe_url,
         media_url=image_path,
         topic_hash=topic_hash,
     )
@@ -1177,7 +1179,7 @@ def _publish_telegram_photo_verified(
             "run_id": run_id,
             "topic_hash": topic_hash,
             "payload_hash": payload_hash,
-            "canonical_url": canonical_url,
+            "canonical_url": dedupe_url,
             "prior_dispatch_hashes": load_public_dispatch_hashes(public_ledger),
             "public_dispatch_ledger_path": str(public_ledger),
             "canonical_packet_status": "PASS",
@@ -1207,7 +1209,7 @@ def _publish_telegram_photo_verified(
             run_id=run_id,
             topic_hash=topic_hash,
             payload_hash=payload_hash,
-            canonical_url=canonical_url,
+            canonical_url=dedupe_url,
             media_url=image_path,
             status="SUCCESS",
         )
@@ -4532,6 +4534,12 @@ def _publish_one_destination_from_durable_intent(
             run_id=str(intent.get("work_item_id") or ""),
             topic_hash=_sha256(str(intent.get("package_identity") or "")),
             text=text, canonical_url=canonical_url, image_path=image_path,
+            # CC-306: one market page is the link of every status post about that market. The
+            # freeze guard allows one Telegram post per link (fragments are stripped), so it keys a status post on the
+            # post itself (the link plus the post key, never shown); an exact re-send of the
+            # same post is still refused.
+            guard_canonical_url=(f"{canonical_url}?status_post={intent['plan_status_post']}"
+                                 if intent.get("plan_status_post") else None),
         )
     if destination == "discord":
         return _publish_discord_verified(
