@@ -23,6 +23,10 @@ result or message. On the dialog, record PENDING_JIM_EMAIL_CODE plus page id and
 Gmail in one new tab of the task's group by a run script that returns only the page id (not tabs action=new, whose
 reply carries a snapshot), and wait on the code tab for Jim: no reload, other input or other tab use. Continue readback only when the same tab
 reaches /publish/posts/detail/.../share-center. Never close, reuse or navigate the code tab.
+Telegram is read only on the public channel page https://t.me/s/CapitalChronicle, with no sign-in, for every
+readback (presence or absence). Agents never open, snapshot, read, grep, evaluate or screenshot Telegram Web or any
+signed-in Telegram view: BrowserOS is signed in there to Jim's personal account (Ops Product, 5 Nov; same reasoning as
+the Gmail rule). Nothing from it goes into any result or message.
 
 ## Scheduled terminal-window reporting (CC-238, 5 Nov 2026)
 
