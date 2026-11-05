@@ -361,9 +361,9 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None) -> dict:
     existing = json.loads(manifest_path.read_bytes()) if manifest_path.is_file() else None
     delivery = host(work_item_id=key, delivery_only_assets=[], existing_manifest=existing,
                     article_assets=[card], article=article, source_documents=[])
-    if delivery.get("status") != "PASS":
+    if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":  # cloudinary_delivery_media_v1.READY
         raise PlanPostError("PLAN_STATUS_CARD_HOSTING_" + str(delivery.get("status") or "FAILED"))
-    manifest_path.write_bytes(canonical_bytes(delivery))
+    manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))  # the hosting result wraps it
     payloads = destination_payloads(row, card_id=card["asset_id"])
     context = {"schema_version": "contentops.plan_status_post_context.v1", "article": {**article, "body": row["text"]},
                "selection": {}, "media": {"assets": [card]}, "plan_status_post": key}

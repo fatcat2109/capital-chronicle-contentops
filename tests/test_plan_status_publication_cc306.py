@@ -23,10 +23,12 @@ def fake_host(*, work_item_id, delivery_only_assets, existing_manifest, article_
     from live_contentops.post_visuals_v1 import validate_post_data_card
     card = article_assets[0]
     validate_post_data_card(card, article, source_documents)  # the real check the hosting step runs
-    return {"status": "PASS", "assets": [{
+    # The real result's shape (cloudinary_delivery_media_v1, read on the 5 Nov first post):
+    # status READY, with the manifest itself under "manifest".
+    return {"status": "CLOUDINARY_DELIVERY_MEDIA_READY", "provider_calls": 1, "manifest": {"status": "PASS", "assets": [{
         "media_asset_id": card["asset_id"], "sha256": card["sha256"], "public_delivery_sha256": card["sha256"],
         "absolute_local_source_path": card["path"], "local_public_hash_continuity": True,
-        "verified_public_delivery_url": "https://res.cloudinary.com/demo/image/upload/" + card["sha256"][:16] + ".png"}]}
+        "verified_public_delivery_url": "https://res.cloudinary.com/demo/image/upload/" + card["sha256"][:16] + ".png"}]}}
 
 
 @pytest.fixture
