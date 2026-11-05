@@ -80,6 +80,21 @@ _SUBSTACK_POST_WRITE_REASONS = frozenset(
 )
 
 
+
+# Jim's decision 83 (5 Nov): until Capital Chronicle owns its own domain, no social or Substack
+# post links the preview site or any other host. A site-first plan therefore takes its proven
+# Substack route (the one it took while the site read back absent): Substack first, social
+# copies link the confirmed Substack post. Set True only for the owned domain.
+SITE_LINKS_ALLOWED = False
+
+
+def _site_first_owners():
+    """confirmed_site, observed_site_absence and confirm_site, as decision 83 allows them."""
+    from live_contentops import site_first_publication_v1 as site_first
+    if SITE_LINKS_ALLOWED:
+        return site_first.confirmed_site, site_first.observed_site_absence, site_first.confirm_site
+    return (lambda *a, **k: None), (lambda *a, **k: True), (lambda *a, **k: None)
+
 def _payload_media_ids(payload: Any) -> list[str]:
     """Media a frozen destination payload selected, root post included."""
     if not isinstance(payload, Mapping):
@@ -1599,7 +1614,8 @@ class DurablePublicationCoordinator:
         if intent.get("distribution_policy") == "SITE_FIRST_V1":
             # Site-first uses its exact confirmed canonical, even while Substack
             # remains a draft. Its outbox observation already binds the plan.
-            from live_contentops.site_first_publication_v1 import confirmed_site, request_for_site, observed_site_absence
+            from live_contentops.site_first_publication_v1 import request_for_site
+            confirmed_site, observed_site_absence, _ = _site_first_owners()
             if confirmed_site(self.store, intent["work_item_id"], intent):
                 request = request_for_site(intent["work_item_id"], intent)
                 row = self.store.get_outbox_message("site-readback-" + request["request_sha256"])
@@ -2297,7 +2313,7 @@ class DurablePublicationCoordinator:
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
         if intent.get("distribution_policy") == "SITE_FIRST_V1":
-            from live_contentops.site_first_publication_v1 import confirmed_site, observed_site_absence
+            confirmed_site, observed_site_absence, _ = _site_first_owners()
             site = confirmed_site(self.store, intent["work_item_id"], intent)
             absent = not site and observed_site_absence(self.store, intent["work_item_id"], intent)
             if not site and not absent:
@@ -2427,6 +2443,11 @@ class DurablePublicationCoordinator:
         mode = "AUTONOMOUS_DEFAULT" if native_pending_resume else self._mode()
         if mode != "AUTONOMOUS_DEFAULT":
             return {"destination": destination, "status": f"WRITE_BLOCKED_{mode}", "publish_called": False}
+        # Jim's decision 83: no copy or link to the preview or any other host, on any destination.
+        from live_contentops.preview_link_guard_v1 import find_forbidden_link, posted_values, refusal
+        forbidden = find_forbidden_link(*posted_values(intent, canonical_url))
+        if forbidden:
+            return refusal(destination, forbidden)
         if intent.get("plan_status_post"):
             from live_contentops.plan_status_posts_v1 import validate_status_post_intent
             validate_status_post_intent(self.store, intent)
@@ -3000,7 +3021,8 @@ class DurablePublicationCoordinator:
                     "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__}
 
     def _execute_site_first_plan(self, work_item_id, plan):
-        from live_contentops.site_first_publication_v1 import candidate, confirmed_site, confirm_site, observed_site_absence
+        from live_contentops.site_first_publication_v1 import candidate
+        confirmed_site, observed_site_absence, confirm_site = _site_first_owners()
         exported = candidate(work_item_id, plan)
         path = Path(plan["output_dir"]) / "site_publication_candidate_v1.json"
         payload = json.dumps(exported, sort_keys=True, indent=2) + "\n"
@@ -3009,7 +3031,7 @@ class DurablePublicationCoordinator:
         if not path.exists():
             path.write_text(payload, encoding="utf-8", newline="\n")
         site = confirmed_site(self.store, work_item_id, plan)
-        if not site:
+        if not site and SITE_LINKS_ALLOWED:  # decision 83: no site readback is owed
             executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
             if executor is None:
                 return {"distribution_status": "WAITING_SITE_READBACK", "site_candidate_path": str(path),
@@ -3022,7 +3044,8 @@ class DurablePublicationCoordinator:
             if self.published_content_path is not None and result.get("canonical_article_real_published"):
                 result["published_content_record"] = self.sync_published_content(work_item_id)
             return {**result, "site_publication_confirmed": False,
-                "site_url": None, "site_readback_status": "NOT_FOUND_404",
+                "site_url": None, "site_readback_status": ("NOT_FOUND_404" if SITE_LINKS_ALLOWED
+                                                           else "SITE_LINKS_FORBIDDEN_DECISION_83"),
                 "distribution_route": "CONFIRMED_SUBSTACK_WHILE_SITE_ABSENT"}
         if self._recovery_is_quarantined(work_item_id):
             return {"distribution_status": "BLOCKED_RECOVERY_QUARANTINED_WORK_ITEM", "public_write_performed": False}
@@ -3085,7 +3108,7 @@ class DurablePublicationCoordinator:
         return result
 
     def _site_publication_state(self, work_item_id, plan, result):
-        from live_contentops.site_first_publication_v1 import confirmed_site, observed_site_absence
+        confirmed_site, observed_site_absence, _ = _site_first_owners()
         site = confirmed_site(self.store, work_item_id, plan)
         if not site and observed_site_absence(self.store, work_item_id, plan):
             return {**result, "site_url": None, "site_publication_confirmed": False,
@@ -3406,7 +3429,7 @@ class DurablePublicationCoordinator:
                 continue
             intent = json.loads(message["payload"])
             if intent.get("distribution_policy") == "SITE_FIRST_V1":
-                from live_contentops.site_first_publication_v1 import confirmed_site, observed_site_absence
+                confirmed_site, observed_site_absence, _ = _site_first_owners()
                 site = confirmed_site(self.store, work_item_id, intent)
                 if site or not observed_site_absence(self.store, work_item_id, intent):
                     return site
@@ -3584,7 +3607,8 @@ class DurablePublicationCoordinator:
                 else:
                     canonical_url = str(intent.get("canonical_url") or "") or self._confirmed_canonical_url_for_work_item(
                         work_item_id) or ""
-                if destination != "substack" and not canonical_url:
+                # A status post carries no link at all (decision 83); it never waits for one.
+                if destination != "substack" and not canonical_url and not intent.get("plan_status_post"):
                     summary["per_destination"][destination] = {
                         "status": "WAITING_CANONICAL_URL",
                         "publish_called": False,

@@ -41,11 +41,10 @@ def _canonical(url):
 
 
 def _social_canonical(url):
-    """The preview site's exact article path is also a permitted social target."""
-    p = urlsplit(str(url or ""))
-    return _canonical(url) or bool(p.scheme == "https" and p.hostname == "fatcat2109.github.io"
-        and not p.username and not p.password and not p.query and not p.fragment
-        and re.fullmatch(r"/capital-chronicle-preview/articles/[0-9a-f]{32}/", p.path))
+    """Jim's decision 83 (5 Nov): a social copy links only the confirmed Substack post. The
+    preview site (fatcat2109.github.io/capital-chronicle-preview) is never a social target until
+    Capital Chronicle owns its own domain."""
+    return _canonical(url)
 
 
 def _public_url(destination, url, object_id=None):
@@ -227,13 +226,22 @@ class NeoDestinationHandoff:
                 raise ValueError("SOLE_COORDINATOR_AUTHORIZATION_REQUIRED")
             valid_canonical = (_social_canonical(intent.get("canonical_url"))
                 if intent.get("distribution_policy") == "SITE_FIRST_V1" else _canonical(intent.get("canonical_url")))
-            if destination != "substack" and not valid_canonical:
+            if destination != "substack" and not valid_canonical and not (
+                    intent.get("plan_status_post") and not intent.get("canonical_url")):
                 raise ValueError("RECONCILED_CANONICAL_URL_REQUIRED")
+            from live_contentops.preview_link_guard_v1 import REASON, find_forbidden_link, posted_values
+            if find_forbidden_link(*posted_values(intent)):
+                raise ValueError(REASON)
         if action == "EDIT_EXISTING" and (not intent.get("reader_presentation_review")
                 or not public_object_id or not _public_url(destination, public_object_url, public_object_id)
                 or auth.get("action") != "EDIT_EXISTING"):
             raise ValueError("NEO_EXACT_REVIEWED_EXISTING_OBJECT_REQUIRED")
         native_payload, content_binding = _payload_binding(intent, destination)
+        if action in {"PUBLISH", "EDIT_EXISTING"}:
+            # Decision 83: the bound copy itself (Substack's body included) names no preview host.
+            from live_contentops.preview_link_guard_v1 import REASON, find_forbidden_link
+            if find_forbidden_link(native_payload):
+                raise ValueError(REASON)
         telegram_rule = ({"telegram_read_rule": TELEGRAM_READ_RULE} if destination == "telegram" else {})
         value = {"schema_version": SCHEMA, "destination": destination, "action": action,
             "expected_identity": IDENTITIES[destination],

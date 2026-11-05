@@ -72,6 +72,7 @@ def test_exact_site_404_uses_confirmed_substack_and_live_social_consumer(tmp_pat
     assert transport.publish_calls == before
 
 
+@pytest.mark.skip(reason="Jim's decision 83 (5 Nov): no social or Substack post links the preview site until Capital Chronicle owns its domain; site-first linking is off (SITE_LINKS_ALLOWED=False). Re-enable against the owned domain.")
 def test_candidate_is_not_live_proof_and_no_substack_or_social_before_site(tmp_path):
     store, transport, coordinator, plan, executor, root = setup(tmp_path)
     assert candidate("work-1", plan)["site_publication_confirmed"] is False
@@ -97,6 +98,7 @@ def test_wrong_stale_or_missing_live_article_never_unlocks_social(tmp_path, chan
     assert not transport.publish_calls
 
 
+@pytest.mark.skip(reason="Jim's decision 83 (5 Nov): no social or Substack post links the preview site until Capital Chronicle owns its domain; site-first linking is off (SITE_LINKS_ALLOWED=False). Re-enable against the owned domain.")
 def test_social_uses_site_and_finishes_before_substack_code_without_wait(tmp_path):
     store, transport, coordinator, plan, executor, _ = setup(tmp_path)
     observe(store, plan, executor)
@@ -149,6 +151,7 @@ def test_site_proof_does_not_bypass_kill_switch_or_uncertain_social(tmp_path):
     assert not transport.publish_calls
 
 
+@pytest.mark.skip(reason="Jim's decision 83 (5 Nov): no social or Substack post links the preview site until Capital Chronicle owns its domain; site-first linking is off (SITE_LINKS_ALLOWED=False). Re-enable against the owned domain.")
 def test_recovery_cannot_use_placeholder_or_substack_instead_of_site(tmp_path):
     store, transport, coordinator, plan, executor, _ = setup(tmp_path)
     registration = coordinator.register_plan("work-1", plan)
@@ -177,6 +180,7 @@ def test_export_rejects_changed_article_bytes(tmp_path):
         coordinator.execute_plan("work-1", plan)
 
 
+@pytest.mark.skip(reason="Jim's decision 83 (5 Nov): no social or Substack post links the preview site until Capital Chronicle owns its domain; site-first linking is off (SITE_LINKS_ALLOWED=False). Re-enable against the owned domain.")
 def test_pending_social_never_opens_substack_code_tab(tmp_path):
     store, transport, coordinator, plan, executor, _ = setup(tmp_path)
     observe(store, plan, executor)
@@ -192,6 +196,7 @@ def test_pending_social_never_opens_substack_code_tab(tmp_path):
     assert "telegram" in transport.publish_calls
 
 
+@pytest.mark.skip(reason="Jim's decision 83 (5 Nov): no social or Substack post links the preview site until Capital Chronicle owns its domain; site-first linking is off (SITE_LINKS_ALLOWED=False). Re-enable against the owned domain.")
 def test_native_social_request_accepts_only_exact_preview_article_scope():
     from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
     intent = {"work_item_id": "work", "distribution_policy": POLICY,
@@ -238,6 +243,7 @@ def test_new_invocation_can_recheck_site_after_external_deployment(tmp_path):
     assert pending.value.request["request"]["native_invocation_id"] == "later-exec"
 
 
+@pytest.mark.skip(reason="Jim's decision 83 (5 Nov): no social or Substack post links the preview site until Capital Chronicle owns its domain; site-first linking is off (SITE_LINKS_ALLOWED=False). Re-enable against the owned domain.")
 def test_full_distribution_substack_unavailable_never_vetoes_social(tmp_path):
     store, transport, coordinator, plan, executor, _ = setup(tmp_path)
     from test_publication_coordinator_v1 import _quality_plan
@@ -265,6 +271,7 @@ def test_full_distribution_substack_unavailable_never_vetoes_social(tmp_path):
     assert transport.publish_calls == calls
 
 
+@pytest.mark.skip(reason="Jim's decision 83 (5 Nov): no social or Substack post links the preview site until Capital Chronicle owns its domain; site-first linking is off (SITE_LINKS_ALLOWED=False). Re-enable against the owned domain.")
 def test_unknown_social_preserves_readback_before_retry_and_defers_substack(tmp_path):
     store, transport, coordinator, plan, executor, _ = setup(tmp_path)
     observe(store, plan, executor)
