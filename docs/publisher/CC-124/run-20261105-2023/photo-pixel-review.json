@@ -1,0 +1,53 @@
+{
+  "schema_version": "contentops.native_photo_pixel_review.v1",
+  "run_id": "cc124-jobs-fx-watch-20261105-f",
+  "asset_id": "cc124-fx-fed-archive",
+  "asset_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\media_assets\\Eccles_Building_20110329.jpg",
+  "asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+  "pixels_inspected": true,
+  "inspection_method": "functions.view_image on the exact local JPEG, displayed with high detail; no native desktop screenshot or control",
+  "reviewed_at_utc": "2026-11-05T14:06:26.078860+00:00",
+  "relevant_subject": true,
+  "relevant_subject_finding": "The displayed photograph shows the symmetrical white-stone front facade and central entrance of the source-identified Federal Reserve Eccles Building, with a lawn, approach path and flags. It is suitable institutional context for the Fed reference-rate discussion.",
+  "findings": [
+    "The building and central entrance are clear and in focus at the inspected display size. The image loads intact; no broken-image, visible corruption, pasted text or chart overlay is present.",
+    "The photograph is not a currency-market observation or a depiction of the November 2026 jobs release. Its 2011 date and identity are provided by the retained source metadata, not inferred from pixels.",
+    "Keep the source image proportions or a crop that preserves the central building and flags; do not use a crop that suggests a current event or conceals the archive caption."
+  ],
+  "source_identity_basis": {
+    "source_page_url": "https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg",
+    "rights_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\media_assets\\photo-rights-evidence.json",
+    "rights_evidence_sha256": "c7bf3261dc389813f4acf019354ef0e7e20e9e880c340c0cc49edcee433267d4",
+    "unreviewed_asset_record_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\media_assets\\photo-asset-unreviewed.json",
+    "unreviewed_asset_record_sha256": "9a78b7fe134bc5e52267a249d4e5caf895676e5ae30ef0144ffdd86c7ddb13ce",
+    "creator_publisher": "Federalreserve",
+    "depicted_date": "2011-03-29 11:47",
+    "rights_status": "PUBLIC_DOMAIN"
+  },
+  "caption_review": {
+    "status": "ACCEPT",
+    "caption": "Archive context: the Federal Reserve's Eccles Building, March 2011. Photo: Federal Reserve Board (Federalreserve), via Wikimedia Commons; public domain.",
+    "issue": null,
+    "reason": "It explicitly identifies archive context and March 2011, names the visible source-identified building, and carries the creator/source/public-domain credit required for the canonical article."
+  },
+  "alt_text_review": {
+    "status": "ACCEPT",
+    "alt_text": "The front entrance and facade of the Federal Reserve's Eccles Building, photographed in March 2011.",
+    "issue": null
+  },
+  "decision": "ACCEPT_FOR_CONTEXT_PHOTO_BINDING",
+  "acceptance_scope": "Exact source image and supplied caption/alt text only; assembled article placement, crop and final rendered outputs still require their own review.",
+  "reviewer": {
+    "invocation_id": "/root/native_max_fx_42ae7362164c",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true,
+    "observation_source": "Same supported native subagent context as the visual plan; local image pixels were displayed through view_image. Actual model and effort telemetry is unavailable."
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "output": {
+    "story_plan": {
+      "source_requests": [
+        {
+          "reason": "Refresh exact dated H.10 reference observations and quote conventions from the already observed November 2 release. Retain and charge the existing capture; do not repeat acquisition.",
+          "url": "https://www.federalreserve.gov/releases/h10/current/"
+        },
+        {
+          "reason": "Reuse held original nominal Treasury CSV and accepted record clocks; match October 26-30 and retain November 4 as separately dated context. No network reacquisition.",
+          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        },
+        {
+          "reason": "Reuse the held calendar plus verified fresh read to confirm the November 6 Employment Situation schedule only. Preserve actual release and retrieval clocks; no result or expectations.",
+          "url": "https://www.bls.gov/schedule/2026/11_sched.htm"
+        }
+      ],
+      "chart_plan": {
+        "analysis_scope": "OTHER_ANALYSIS",
+        "reason": "This is a dated currency-comparison watch with conditional mechanisms, not analysis of a newly released payroll or policy decision. The jobs calendar supplies a future watch time only.",
+        "max_decides": "Final visual count, form, placement and wording after source recovery; cards derive from the written article.",
+        "missingness": "Five matched dates have no missing values. No FX observations after October 30 are supplied; no jobs result or consensus is supplied.",
+        "calculation_owner": "Python Decimal in prepare_fx_sources.py; original bytes, quote reciprocals, date matching and exact changes retained in fx-official-data-summary.json",
+        "proposals": [
+          {
+            "title": "Same dollar, different currency response",
+            "form": "Two small panels with explicit quote units, or a common-base percentage-change panel chosen by MAX",
+            "data": "Exact Fed H.10 reference observations October 26-30, 2026; EURUSD USD per EUR and USDJPY JPY per USD. If reoriented to dollar strength, use computed reciprocal EUR per USD and original JPY per USD with the transformation stated.",
+            "meaning": "Show the two currency relationships without claiming synchronized intraday moves or forecasting the next payroll response."
+          },
+          {
+            "title": "Compare like dates before extending the yield story",
+            "form": "Separate aligned Treasury 10-year yield panel or concise paired fact card",
+            "data": "Match Treasury nominal 10-year par yields to October 26-30. Show latest November 4 yield only as a separately dated context fact, never as the FX endpoint.",
+            "meaning": "Keep FX and yield clocks visible; no dual-axis causality claim, interpolation, inferred correlation or fabricated November 4 FX point."
+          }
+        ]
+      },
+      "photo_plan": "Use a contextual lawful photograph of currency trading or authentic euro/yen banknotes only if the existing media owner finds exact original, creator, license, subject date and attribution. Label archive context where needed; do not imply the photo depicts the dated observations. A source-bound chart or fact card supplies the required visual; optional photo absence does not hold this currency watch.",
+      "thesis": "A dollar move is not one trade: the dated EURUSD and USDJPY observations need opposite quote conventions and the same-date Treasury comparison before a jobs-related dollar interpretation. Explain the observed divergence and conditional transmission without asserting a current market move, causal result, payroll forecast or full jobs-preview scenario."
+    }
+  },
+  "invocation_observation": {
+    "actual_configuration_unavailable": true,
+    "speed": "standard",
+    "configuration_source": "Parent native task request for same operation Sol Light media-plan continuation.",
+    "configured_reasoning_effort": "low",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "invocation_id": "/root/native_select_13e52dad07b5",
+    "model": null,
+    "configured_model": "gpt-6.1-sol",
+    "reasoning_effort": null,
+    "observation_source": "Supported native task assignment and frozen desktop_request_media-plan.json; actual runtime model/effort telemetry unavailable.",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16"
+  },
+  "request_sha256": "c751cfc71657850814d3a6f45afeb4a2031dc3039634102eccb7c2f4c70686b0"
+}

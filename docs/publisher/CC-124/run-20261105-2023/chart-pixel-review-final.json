@@ -1,0 +1,64 @@
+{
+  "schema_version": "contentops.native_chart_pixel_review.v1",
+  "run_id": "cc124-jobs-fx-watch-20261105-f",
+  "request_sha256": "ee684b64ad53bbd6aaf98354ec6738d4caa7459029b054628d869a5e7c9eb92f",
+  "reviewed_at_utc": "2026-11-05T14:21:02.109942+00:00",
+  "manifest_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\media_assets\\fx-chart-assets-unreviewed.json",
+  "manifest_sha256": "404c2b3ee1c23c7f1308a6965bb1ba5d5b67232ab3d501b132e050897d903515",
+  "charts": [
+    {
+      "asset_id": "cc124-fx-dollar-directions",
+      "asset_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\media_assets\\fx-source-bound-r2\\media_assets\\cc124-fx-dollar-directions.png",
+      "asset_sha256": "917dd568113956f0f3bfc58cd428c26f853e4c42065ada91b8be5f1b9335828d",
+      "pixels_inspected": true,
+      "labels_and_units_legible": true,
+      "review_basis": "Actual view_image detail original during this same-context continuation on the corrected exact local PNG",
+      "findings": [
+        "The corrected endpoint labels read +0.13% and -0.07%, both fully inside the canvas; the prior right-edge clipping is resolved.",
+        "Title, source/release date, October 26–30 observation dates, percent-change axis, zero reference, currency legend and line markers are legible.",
+        "The chart still ends above zero for the dollar against the euro and below zero against the yen. This is the accepted dated reciprocal-versus-observed comparison; no new data or later date was added."
+      ],
+      "decision": "ACCEPT_CHART_PIXELS",
+      "unresolved_material_issues": []
+    },
+    {
+      "asset_id": "cc124-fx-matched-treasury",
+      "asset_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\media_assets\\fx-source-bound-r2\\media_assets\\cc124-fx-matched-treasury.png",
+      "asset_sha256": "ce136ff3711c4f29c8c2e426f393b9d6f369e47eab557ba17c0ee56282624e71",
+      "pixels_inspected": true,
+      "labels_and_units_legible": true,
+      "review_basis": "Retained actual view_image detail original inspection in this same context; current relocated PNG has exactly the same SHA256 as the inspected accepted Treasury image",
+      "findings": [
+        "The unchanged image retains the readable nominal 10-year yield legend, percent unit, source attribution and October 26–30 dates.",
+        "The displayed five-point path and endpoint values 5.00% to 4.94% remain accepted. No pixel or data revision is required."
+      ],
+      "decision": "ACCEPT_CHART_PIXELS",
+      "unresolved_material_issues": []
+    }
+  ],
+  "decision": "ACCEPT_CHART_PIXELS",
+  "repair_rounds_used": 1,
+  "prior_review_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\media_assets\\chart-pixel-review.json",
+  "prior_review_sha256": "3061db8b38853ba85058a6985cf43725dfb8204272208a8bd1f28ea7ea6f925f",
+  "resolved_issue": "Dollar-direction endpoint annotation clipping resolved by short, in-canvas two-decimal labels. No second repair round requested.",
+  "retained_photo_review": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\media_assets\\photo-pixel-review.json",
+    "sha256": "da5ef64730115a06fb6d90c04ef55add149bbe511a5d797846bc935ae1ed78c3",
+    "asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+    "decision": "ACCEPT_FOR_CONTEXT_PHOTO_BINDING"
+  },
+  "reviewer": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_max_fx_42ae7362164c",
+    "observation_source": "Supported native subagent context for this exact frozen visual-edit request; canonical task identity is observed here. Actual model and reasoning-effort telemetry is unavailable in this context.",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true
+  },
+  "acceptance_scope": "Both exact chart images and the already accepted archive photo remain suitable for article preparation. This final chart-asset decision supersedes the resolved layout finding in the earlier pixel review; assembled article review remains the next native editorial step."
+}
