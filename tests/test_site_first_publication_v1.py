@@ -41,6 +41,32 @@ def observe(store, plan, executor, **changes):
     return confirm_site(store, "work-1", plan, executor)
 
 
+def test_exact_site_404_uses_confirmed_substack_and_live_social_consumer(tmp_path):
+    store, transport, coordinator, plan, executor, _ = setup(tmp_path)
+    assert observe(store, plan, executor, verified=False, status="NOT_FOUND", http_status=404) is None
+    original = transport.publish
+    sent = []
+    def publish(**kwargs):
+        sent.append(deepcopy(kwargs))
+        return original(**kwargs)
+    transport.publish = publish
+    result = coordinator.execute_plan("work-1", plan)
+    assert transport.publish_calls[0] == "substack"
+    assert set(transport.publish_calls) == {"substack", "telegram", "discord", "x", "facebook_page"}
+    assert result["canonical_article_real_published"] is True
+    assert result["canonical_url"].startswith("https://capitalchronicle.substack.com/p/")
+    assert all(call["intent"]["canonical_url"] == result["canonical_url"]
+        for call in sent if call["destination"] != "substack")
+    assert confirmed_site(store, "work-1", plan) is None
+    assert result["site_publication_confirmed"] is False
+    state = coordinator.publication_state("work-1", plan)
+    assert state["canonical_url"] == result["canonical_url"]
+    assert state["site_publication_confirmed"] is False
+    before = list(transport.publish_calls)
+    coordinator.execute_plan("work-1", plan)
+    assert transport.publish_calls == before
+
+
 def test_candidate_is_not_live_proof_and_no_substack_or_social_before_site(tmp_path):
     store, transport, coordinator, plan, executor, root = setup(tmp_path)
     assert candidate("work-1", plan)["site_publication_confirmed"] is False

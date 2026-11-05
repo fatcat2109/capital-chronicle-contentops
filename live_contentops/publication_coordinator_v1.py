@@ -1561,12 +1561,12 @@ class DurablePublicationCoordinator:
         if intent.get("distribution_policy") == "SITE_FIRST_V1":
             # Site-first uses its exact confirmed canonical, even while Substack
             # remains a draft. Its outbox observation already binds the plan.
-            from live_contentops.site_first_publication_v1 import confirmed_site, request_for_site
+            from live_contentops.site_first_publication_v1 import confirmed_site, request_for_site, observed_site_absence
             if confirmed_site(self.store, intent["work_item_id"], intent):
                 request = request_for_site(intent["work_item_id"], intent)
                 row = self.store.get_outbox_message("site-readback-" + request["request_sha256"])
                 created = _parse_utc(row["created_at"])
-            else:
+            elif not observed_site_absence(self.store, intent["work_item_id"], intent):
                 created = None
         return bool(
             created is not None
@@ -2251,13 +2251,14 @@ class DurablePublicationCoordinator:
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
         if intent.get("distribution_policy") == "SITE_FIRST_V1":
-            from live_contentops.site_first_publication_v1 import confirmed_site
+            from live_contentops.site_first_publication_v1 import confirmed_site, observed_site_absence
             site = confirmed_site(self.store, intent["work_item_id"], intent)
-            if not site:
+            absent = not site and observed_site_absence(self.store, intent["work_item_id"], intent)
+            if not site and not absent:
                 return {"destination": destination, "status": "WAITING_SITE_READBACK", "publish_called": False}
-            if destination != "substack":
+            if destination != "substack" and site:
                 canonical_url = site
-            elif not getattr(self, "_site_social_pass_complete", False):
+            elif destination == "substack" and site and not getattr(self, "_site_social_pass_complete", False):
                 return {"destination": destination, "status": "SUBSTACK_AFTER_SOCIAL_PASS", "publish_called": False}
         if self._dispatch_quarantine(existing):
             return {"destination": destination, "status": "QUARANTINED_UNKNOWN_WRITE_READBACK_OWED",
@@ -2950,7 +2951,7 @@ class DurablePublicationCoordinator:
                     "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__}
 
     def _execute_site_first_plan(self, work_item_id, plan):
-        from live_contentops.site_first_publication_v1 import candidate, confirmed_site, confirm_site
+        from live_contentops.site_first_publication_v1 import candidate, confirmed_site, confirm_site, observed_site_absence
         exported = candidate(work_item_id, plan)
         path = Path(plan["output_dir"]) / "site_publication_candidate_v1.json"
         payload = json.dumps(exported, sort_keys=True, indent=2) + "\n"
@@ -2965,6 +2966,15 @@ class DurablePublicationCoordinator:
                 return {"distribution_status": "WAITING_SITE_READBACK", "site_candidate_path": str(path),
                     "canonical_article_real_published": False, "public_write_performed": False}
             site = confirm_site(self.store, work_item_id, plan, executor)
+        if not site and observed_site_absence(self.store, work_item_id, plan):
+            # Same plan, outbox and dispatch ids. The existing canonical-first
+            # path keeps wrong-account, rights and unknown-write checks intact.
+            result = self._execute_plan(work_item_id, plan)
+            if self.published_content_path is not None and result.get("canonical_article_real_published"):
+                result["published_content_record"] = self.sync_published_content(work_item_id)
+            return {**result, "site_publication_confirmed": False,
+                "site_url": None, "site_readback_status": "NOT_FOUND_404",
+                "distribution_route": "CONFIRMED_SUBSTACK_WHILE_SITE_ABSENT"}
         if self._recovery_is_quarantined(work_item_id):
             return {"distribution_status": "BLOCKED_RECOVERY_QUARANTINED_WORK_ITEM", "public_write_performed": False}
         recovery = self.recover_pending()
@@ -3026,8 +3036,12 @@ class DurablePublicationCoordinator:
         return result
 
     def _site_publication_state(self, work_item_id, plan, result):
-        from live_contentops.site_first_publication_v1 import confirmed_site
+        from live_contentops.site_first_publication_v1 import confirmed_site, observed_site_absence
         site = confirmed_site(self.store, work_item_id, plan)
+        if not site and observed_site_absence(self.store, work_item_id, plan):
+            return {**result, "site_url": None, "site_publication_confirmed": False,
+                "substack_publication_confirmed": result.get("canonical_article_real_published") is True,
+                "site_readback_status": "NOT_FOUND_404"}
         skipped = {r["destination"] for r in plan.get("skipped_derivative_destinations", [])}
         social = {d: o for d, o in result.get("per_destination", {}).items() if d != "substack" and d not in skipped}
         substack = result.get("per_destination", {}).get("substack", {})
@@ -3343,8 +3357,10 @@ class DurablePublicationCoordinator:
                 continue
             intent = json.loads(message["payload"])
             if intent.get("distribution_policy") == "SITE_FIRST_V1":
-                from live_contentops.site_first_publication_v1 import confirmed_site
-                return confirmed_site(self.store, work_item_id, intent)
+                from live_contentops.site_first_publication_v1 import confirmed_site, observed_site_absence
+                site = confirmed_site(self.store, work_item_id, intent)
+                if site or not observed_site_absence(self.store, work_item_id, intent):
+                    return site
             dispatch = self.store.get_platform_dispatch(
                 "dispatch_" + str(message["message_id"]).removeprefix("outbox_")
             )
