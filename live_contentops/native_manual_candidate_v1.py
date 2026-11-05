@@ -39,6 +39,16 @@ def native_artifact_key(store, run_id, prefix):
     active = active_manual_candidate(store, run_id)
     identity = [run_id, active["candidate_id"]] if active else run_id
     if prefix == "cc-editorial-final-":
+        # Pre-existing written/reviewed artifacts keep the key their consumers
+        # already bind. Source-recovery namespacing only replaces a zero-writer
+        # failure; applying it retroactively hid older accepted articles.
+        legacy_key = prefix + sha256_of(identity)
+        legacy = store.get_outbox_message(legacy_key)
+        if legacy:
+            result = json.loads(legacy["payload"])
+            if (result.get("writer_invoked") is True or result.get("qualified_article_count")
+                    or result.get("article") is not None or result.get("public_write_performed") is True):
+                return legacy_key
         # A verified pre-writer recovery gets its own final artifact. The original
         # zero-writer SOURCE_BLOCKED result remains immutable and discoverable.
         work = "cc-opportunity-" + sha256_of(run_id)
