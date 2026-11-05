@@ -1082,14 +1082,7 @@ class LatestReportDeliveryTracker:
             ):
                 raise LatestReportConsumerError("NEWER_REPORT_ALREADY_RECEIVED")
             message_id = "cc-input-" + record["envelope_sha256"]
-            previous = next(
-                (
-                    row
-                    for row in self.store.list_outbox_messages()
-                    if row["message_id"] == message_id
-                ),
-                None,
-            )
+            previous = self.store.get_outbox_message(message_id)
             if previous:
                 self.store.set_outbox_status(record["message_id"], "REPORT_INPUT_READY")
                 return json.loads(previous["payload"])
@@ -1115,9 +1108,7 @@ class LatestReportDeliveryTracker:
     def counts(self) -> dict[str, int]:
         rows = self.receipts()
         simple_results = []
-        for message in self.store.list_outbox_messages():
-            if message["destination"] != SIMPLE_RESULT:
-                continue
+        for message in self.store.list_outbox_messages(destination=SIMPLE_RESULT):
             try:
                 value = json.loads(message["payload"])
             except (TypeError, ValueError):
