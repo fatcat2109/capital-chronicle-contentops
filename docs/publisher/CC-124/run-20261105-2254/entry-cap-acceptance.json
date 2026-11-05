@@ -1,0 +1,60 @@
+{
+  "checked_at_utc": "2026-11-05T15:58:10.735739+00:00",
+  "production_day": "newsroom-production-day-2026-11-05-bangkok",
+  "original_public_feed_count": 6,
+  "canonical_dispatches": [
+    {
+      "public_object_id": "223555673",
+      "public_object_url": "https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+      "work_item_id": "cc124-next-article-20261105-a",
+      "daily_digest": null
+    },
+    {
+      "public_object_id": "223564454",
+      "public_object_url": "https://capitalchronicle.substack.com/p/southwests-2025-fuel-hedge-exit-did",
+      "work_item_id": "cc124-next-article-20261105-b",
+      "daily_digest": null
+    },
+    {
+      "public_object_id": "223570288",
+      "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-ac3",
+      "work_item_id": "cc143-digest-2026-11-04",
+      "daily_digest": "cc143-digest-2026-11-04"
+    },
+    {
+      "public_object_id": "223584317",
+      "public_object_url": "https://capitalchronicle.substack.com/p/single-source-report-reuters-reuters",
+      "work_item_id": "cc124-next-article-20261105-c",
+      "daily_digest": null
+    },
+    {
+      "public_object_id": "223601127",
+      "public_object_url": "https://capitalchronicle.substack.com/p/eia-oil-inventories-the-sharper-squeeze",
+      "work_item_id": "cc124-next-article-20261105-d",
+      "daily_digest": null
+    },
+    {
+      "public_object_id": "223615409",
+      "public_object_url": "https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond",
+      "work_item_id": "cc124-gold-yields-20261105-e",
+      "daily_digest": null
+    },
+    {
+      "public_object_id": "223626281",
+      "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-756",
+      "work_item_id": "cc143-digest-2026-11-05",
+      "daily_digest": "cc143-digest-2026-11-05"
+    },
+    {
+      "public_object_id": "223634631",
+      "public_object_url": "https://capitalchronicle.substack.com/p/eurusd-and-usdjpy-two-falling-quotes",
+      "work_item_id": "cc124-jobs-fx-watch-20261105-f",
+      "daily_digest": null
+    }
+  ],
+  "bug": "Two daily recaps consumed original-article slots",
+  "live_entry_after_fix": "NATIVE_DESKTOP_INPUT_REQUIRED select, exact operation cc124-nfp-us500-preview-20261105-g",
+  "model_settings": "CONFIGURED_NOT_OBSERVED",
+  "schedule_changed": false,
+  "public_write_performed": false
+}

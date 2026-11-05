@@ -1,0 +1,85 @@
+{
+  "prepared_at_utc": "2026-11-05T15:55:55.721987+00:00",
+  "source_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\source-editions-jobs-treasury",
+  "verified_source_ids": [
+    "cc124-bls-september-employment-original",
+    "cc124-treasury-nominal-20261104",
+    "cc124-bls-november-calendar"
+  ],
+  "gaps": [],
+  "latest_treasury": {
+    "date": "11/04/2026",
+    "10_year_percent": "4.90"
+  },
+  "retained_text": {
+    "cc124-bls-september-employment-original": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.\n\nThis news release presents statistics from two monthly surveys. The household survey measures labor force status, including unemployment, by demographic characteristics. The establishment survey measures nonfarm employment, hours, and earnings by industry. For more information about the concepts and statistical methodology used in these two surveys, see the Technical Note. Household Survey Data Both the unemployment rate, at 4.2 percent, and the number of unemployed people, at 7.1 million, changed little in September. The unemployment rate has remained in a narrow range of 4.1 percent to 4.3 percent since March. (See table A-\n\nIn September, average hourly earnings for all employees on private nonfarm payrolls edged up by 5 cents, or 0.1 percent, to $37.81. Over the past 12 months, average hourly earnings have increased by 3.0 percent. In September, average hourly earnings of private-sector production and nonsupervisory employees rose by 7 cents, or 0.2 percent, to $32.60. (See tables B-3 and B-8.) The average workweek for all employees on private nonfarm payrolls remained at 34.4 hours in September. In manufacturing, the average workweek was unchanged at 40.6 hours, and overtime held at 3.0 hours. The average workweek for production and nonsupervisory employees on private nonfarm payrolls remained at 33.8 hours. (See tables B-2 and B-7.) The change in total nonfarm payroll employment for July was revised down by 31,000, from +21,000 to -10,000, and the change for August was revised down by 29,000, from +162,000 to +133,000. With these revisions, employment in July and August combined is 60,000 lower than previously reported. (Monthly revisions result from additional reports received from businesses and government agencies since the last published estimates and from the recalculation of seasonal factors.) _____________\n\nTable B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28",
+    "cc124-treasury-nominal-20261104": "U.S. Treasury nominal 10-year par yields, 2 January through 4 November 2026; percent.\n2026-01-02 4.19\n2026-01-05 4.17\n2026-01-06 4.18\n2026-01-07 4.15\n2026-01-08 4.19\n2026-01-09 4.18\n2026-01-12 4.19\n2026-01-13 4.18\n2026-01-14 4.15\n2026-01-15 4.17\n2026-01-16 4.24\n2026-01-20 4.30\n2026-01-21 4.26\n2026-01-22 4.26\n2026-01-23 4.24\n2026-01-26 4.22\n2026-01-27 4.24\n2026-01-28 4.26\n2026-01-29 4.24\n2026-01-30 4.26\n2026-02-02 4.29\n2026-02-03 4.28\n2026-02-04 4.29\n2026-02-05 4.21\n2026-02-06 4.22\n2026-02-09 4.22\n2026-02-10 4.16\n2026-02-11 4.18\n2026-02-12 4.09\n2026-02-13 4.04\n2026-02-17 4.05\n2026-02-18 4.09\n2026-02-19 4.08\n2026-02-20 4.08\n2026-02-23 4.03\n2026-02-24 4.04\n2026-02-25 4.05\n2026-02-26 4.02\n2026-02-27 3.97\n2026-03-02 4.05\n2026-03-03 4.06\n2026-03-04 4.09\n2026-03-05 4.13\n2026-03-06 4.15\n2026-03-09 4.12\n2026-03-10 4.15\n2026-03-11 4.21\n2026-03-12 4.27\n2026-03-13 4.28\n2026-03-16 4.23\n2026-03-17 4.20\n2026-03-18 4.26\n2026-03-19 4.25\n2026-03-20 4.39\n2026-03-23 4.34\n2026-03-24 4.39\n2026-03-25 4.33\n2026-03-26 4.42\n2026-03-27 4.44\n2026-03-30 4.35\n2026-03-31 4.30\n2026-04-01 4.33\n2026-04-02 4.31\n2026-04-03 4.35\n2026-04-06 4.34\n2026-04-07 4.33\n2026-04-08 4.29\n2026-04-09 4.29\n2026-04-10 4.31\n2026-04-13 4.30\n2026-04-14 4.26\n2026-04-15 4.29\n2026-04-16 4.32\n2026-04-17 4.26\n2026-04-20 4.26\n2026-04-21 4.30\n2026-04-22 4.30\n2026-04-23 4.34\n2026-04-24 4.31\n2026-04-27 4.35\n2026-04-28 4.36\n2026-04-29 4.42\n2026-04-30 4.40\n2026-05-01 4.39\n2026-05-04 4.45\n2026-05-05 4.43\n2026-05-06 4.36\n2026-05-07 4.41\n2026-05-08 4.38\n2026-05-11 4.42\n2026-05-12 4.46\n2026-05-13 4.46\n2026-05-14 4.47\n2026-05-15 4.59\n2026-05-18 4.61\n2026-05-19 4.67\n2026-05-20 4.57\n2026-05-21 4.57\n2026-05-22 4.56\n2026-05-26 4.50\n2026-05-27 4.48\n2026-05-28 4.45\n2026-05-29 4.45\n2026-06-01 4.47\n2026-06-02 4.46\n2026-06-03 4.49\n2026-06-04 4.47\n2026-06-05 4.55\n2026-06-08 4.56\n2026-06-09 4.53\n2026-06-10 4.55\n2026-06-11 4.45\n2026-06-12 4.48\n2026-06-15 4.47\n2026-06-16 4.43\n2026-06-17 4.49\n2026-06-18 4.46\n2026-06-22 4.51\n2026-06-23 4.50\n2026-06-24 4.41\n2026-06-25 4.40\n2026-06-26 4.38\n2026-06-29 4.38\n2026-06-30 4.44\n2026-07-01 4.48\n2026-07-02 4.49\n2026-07-06 4.48\n2026-07-07 4.55\n2026-07-08 4.56\n2026-07-09 4.54\n2026-07-10 4.56\n2026-07-13 4.62\n2026-07-14 4.58\n2026-07-15 4.55\n2026-07-16 4.57\n2026-07-17 4.55\n2026-07-20 4.60\n2026-07-21 4.63\n2026-07-22 4.67\n2026-07-23 4.71\n2026-07-24 4.69\n2026-07-27 4.65\n2026-07-28 4.61\n2026-07-29 4.67\n2026-07-30 4.68\n2026-07-31 4.75\n2026-08-03 4.70\n2026-08-04 4.63\n2026-08-05 4.63\n2026-08-06 4.69\n2026-08-07 4.65\n2026-08-10 4.72\n2026-08-11 4.70\n2026-08-12 4.68\n2026-08-13 4.63\n2026-08-14 4.68\n2026-08-17 4.72\n2026-08-18 4.71\n2026-08-19 4.65\n2026-08-20 4.69\n2026-08-21 4.74\n2026-08-24 4.70\n2026-08-25 4.64\n2026-08-26 4.66\n2026-08-27 4.67\n2026-08-28 4.73\n2026-08-31 4.75\n2026-09-01 4.79\n2026-09-02 4.79\n2026-09-03 4.77\n2026-09-04 4.78\n2026-09-08 4.80\n2026-09-09 4.83\n2026-09-10 4.95\n2026-09-11 4.96\n2026-09-14 4.97\n2026-09-15 5.00\n2026-09-16 5.01\n2026-09-17 4.94\n2026-09-18 5.01\n2026-09-21 4.96\n2026-09-22 4.96\n2026-09-23 5.11\n2026-09-24 5.18\n2026-09-25 5.17\n2026-09-28 5.24\n2026-09-29 5.26\n2026-09-30 5.29\n2026-10-01 5.24\n2026-10-02 5.28\n2026-10-05 5.31\n2026-10-06 5.27\n2026-10-07 5.28\n2026-10-08 5.22\n2026-10-09 5.24\n2026-10-13 5.21\n2026-10-14 5.19\n2026-10-15 5.10\n2026-10-16 5.09\n2026-10-19 5.15\n2026-10-20 5.12\n2026-10-21 5.13\n2026-10-22 4.96\n2026-10-23 5.00\n2026-10-26 5.00\n2026-10-27 4.99\n2026-10-28 5.05\n2026-10-29 4.98\n2026-10-30 4.94\n2026-11-02 4.91\n2026-11-03 4.95\n2026-11-04 4.90",
+    "cc124-bls-november-calendar": "6 Employment Situation October 2026 08:30 AM\n\nNOTE: All times on calendar are Eastern Time.\n\nNovember 2026"
+  },
+  "rights": {
+    "cc124-bls-september-employment-original": {
+      "source_capture_sha256": "1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe",
+      "canonical_text_sha256": "1b68807d493eebc3e2f02c9cf45d3293b71bd4a4297593cf0195d538298228eb",
+      "content_sha256": "aeae83980923079c20358a893620ba8ce1d9a8eb92cfbdd40143df0e917f61c3",
+      "policy_url": "https://www.bls.gov/bls/linksite.htm",
+      "policy_capture_sha256": "07e57e3372791ba042aa02b5c5abf60da3241ea67c0dddacbe88a501062ac465",
+      "policy_retrieved_at_utc": "2026-10-19T06:13:50.392474Z",
+      "scope": "AGENCY_AUTHORED_TEXT_ONLY_EXCLUDES_LOGOS_PHOTOS_THIRD_PARTY",
+      "permitted_context_text_hashes": [
+        "f56ca18c4f3ac146362dd45daebde9d2fd6f93317166dc2ba07948e6ccd8b085",
+        "57b2eacc0aaf25dcc50f734fe7369f001fdf27a9af4465730a648fa7006f462a",
+        "7ef27f674a7de175189d356d1524b659c85b16570aba16bef7f17c8f917c4aa0",
+        "3d01adbbeabeb37124eb5624a4cc359c3d1aa37c6a342b78131fcbc445b01c1a"
+      ],
+      "INTERNAL_ANALYSIS_ALLOWED": true,
+      "MODEL_INPUT_ALLOWED": true,
+      "LLM_INPUT_ALLOWED": true,
+      "provider_safe": true,
+      "permitted_consumers": [
+        "internal_research",
+        "narrative_context"
+      ]
+    },
+    "cc124-treasury-nominal-20261104": {
+      "scope": "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+      "source_capture_sha256": "196a98f5a4536da627ac64ff92efa755da5a2cdabf32a459055515050d80d91b",
+      "canonical_text_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+      "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+      "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+      "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+      "public_expression_reuse_allowed": false,
+      "images_logos_exhibits_reuse_allowed": false,
+      "attribution_required": true,
+      "government_authorship": false,
+      "INTERNAL_ANALYSIS_ALLOWED": true,
+      "MODEL_INPUT_ALLOWED": true,
+      "LLM_INPUT_ALLOWED": true,
+      "provider_safe": true,
+      "permitted_consumers": [
+        "internal_research",
+        "narrative_context"
+      ]
+    },
+    "cc124-bls-november-calendar": {
+      "source_capture_sha256": "c5a1aa737489fe81d666b82bf3b88857b28f973d2ddd3c6b8d0875ed8b3ae5c1",
+      "canonical_text_sha256": "5d356400216170ff0489c738ed2a94ea38dd7af98b5a52447d66018436b98d18",
+      "content_sha256": "a88c457a2569e95cf418341b5fe3ef5860afdcd65f9a7bc711d5bf3cbeffa7ba",
+      "policy_url": "https://www.bls.gov/bls/linksite.htm",
+      "policy_capture_sha256": "07e57e3372791ba042aa02b5c5abf60da3241ea67c0dddacbe88a501062ac465",
+      "policy_retrieved_at_utc": "2026-10-19T06:13:50.392474Z",
+      "scope": "AGENCY_AUTHORED_TEXT_ONLY_EXCLUDES_LOGOS_PHOTOS_THIRD_PARTY",
+      "permitted_context_text_hashes": [
+        "91b540f92b5dac8bd763741cb3853c8b3d7714d05e52709b69c8c852c7e40430",
+        "5061e77e507d12a27c632e8e897c3afb5fdbb52ed7cb65e1678ef297c5361e70"
+      ],
+      "INTERNAL_ANALYSIS_ALLOWED": true,
+      "MODEL_INPUT_ALLOWED": true,
+      "LLM_INPUT_ALLOWED": true,
+      "provider_safe": true,
+      "permitted_consumers": [
+        "internal_research",
+        "narrative_context"
+      ]
+    }
+  }
+}

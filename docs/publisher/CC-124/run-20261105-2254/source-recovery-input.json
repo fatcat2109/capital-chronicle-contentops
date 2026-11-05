@@ -1,0 +1,43 @@
+{
+  "within_bound_live_budget": true,
+  "expected_selection_request_sha256": "cf8330b385b798a89bb9230afd2fe80c7d915f64c3182057369f9cf67b5cd5c2",
+  "expected_source_request_sha256": "20f0be2a0b2f04eb40d2cdb05d02e18546495372d27ee6d6e7b80fb4db7baccf",
+  "expected_evidence_sha256": "a82f248dba0db58881f9d39a1863c0c0aa47192d234debebc6553e7564618a1d",
+  "candidate_id": "simple-story-2117e189e8454ce2c2e13cd7",
+  "research_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\source-editions-jobs-treasury",
+  "supporting_headline_ids": [
+    "cc124-bls-september-employment-original",
+    "cc124-treasury-nominal-20261104",
+    "cc124-bls-november-calendar"
+  ],
+  "additional_source_requests": [
+    {
+      "reason": "Recover and bind held September Employment Situation release from cc124-next-article-20261104-a/source-recovery-september-employment: dated payroll, unemployment, wages, revisions and sectors. Preserve publication and known-at clocks. This is background, not the unreleased October result.",
+      "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-10-30T01:34:41.252Z",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\source-editions-jobs-treasury\\jobs\\release.html",
+      "capture_sha256": "1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe",
+      "clock_basis": "Exact held original acquisition reused; no network reacquisition or clock refresh"
+    },
+    {
+      "reason": "Recover held official nominal Treasury CSV through 4 November from cc124-gold-yields-20261105-e/source-editions-treasury. Bind observation dates and 10-year yield units for dated rate context and any useful chart; not a current executable US10Y price.",
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T11:22:09.557861+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\source-editions-jobs-treasury\\treasury\\nominal-facts.json",
+      "capture_sha256": "196a98f5a4536da627ac64ff92efa755da5a2cdabf32a459055515050d80d91b",
+      "clock_basis": "Exact held original acquisition reused; no network reacquisition or clock refresh"
+    },
+    {
+      "reason": "Bind held plus parent freshly verified November BLS calendar to the exact scheduled October Employment Situation release on 6 November at 08:30 Eastern; preserve page modification/verification clocks and separate schedule from future outcome.",
+      "url": "https://www.bls.gov/schedule/2026/11_sched.htm",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T11:12:24.746Z",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\source-editions-jobs-treasury\\treasury\\bls-calendar-visible.txt",
+      "capture_sha256": "c5a1aa737489fe81d666b82bf3b88857b28f973d2ddd3c6b8d0875ed8b3ae5c1",
+      "clock_basis": "Exact held original acquisition reused; no network reacquisition or clock refresh"
+    }
+  ],
+  "owner_instruction": "Use September BLS release dated October 2 as prior context, official November 6 schedule, and Treasury yields through November 4 as dated background. No current US500/US10Y spot, payroll result, forecast, consensus or directional call is supplied. Distinct daily US500 rates-versus-growth question; do not replace the CC216/CC107 event preview. Treat mechanisms as conditional. Source publication and acquisition clocks remain original. Parent independently checked both BLS public pages in Neo at 15:50-15:53Z November5."
+}
