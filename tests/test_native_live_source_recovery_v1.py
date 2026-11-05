@@ -159,6 +159,48 @@ def test_live_recovery_preserves_roles_and_clocks_and_reaches_max_without_gets(t
     assert turn.store.list_platform_dispatches() == []
 
 
+def test_pending_recovery_charges_appended_context_and_feeds_writer(tmp_path, monkeypatch):
+    from live_contentops.native_desktop_editorial_v1 import request_source_preparation
+    turn, binding, response, run, calls = seeded(tmp_path, monkeypatch)
+    with pytest.raises(DesktopInputRequired):
+        request_source_preparation(turn, [{"url": response["additional_source_requests"][0]["url"],
+            "reason": "Acquire the original report before writer freeze."}], candidate_id=response["candidate_id"])
+    pending_path = turn.root / "source_preparation_required.json"
+    original = pending_path.read_bytes()
+    pending = json.loads(original)
+    response["expected_source_request_sha256"] = pending["request_sha256"]
+    capture = turn.root / "release-context.txt"
+    capture.write_text("Controlled original publication-date context.", encoding="utf-8")
+    response["additional_source_requests"].append({
+        "url": "https://www.reuters.com/markets/us/controlled-date-context-2026-10-30/",
+        "non_chargeable": True, "observed_at_utc": "2026-10-31T00:00:00Z",
+        "capture_path": str(capture), "capture_sha256": sha256(capture.read_bytes()).hexdigest(),
+    })
+    admitted = admit_pre_writer_source_recovery(turn, binding, response)
+    assert admitted["source_request_count"] == 4  # Two earlier and two captured reads.
+    assert pending_path.read_bytes() == original
+    with pytest.raises(DesktopInputRequired) as ready:
+        run()
+    assert ready.value.request["stage"] == "media-plan" and len(calls) == 1
+    walk = json.loads((turn.root / "simple_gemini_evidence_v1.json").read_bytes())
+    assert walk["request_count"] == 4
+    assert walk["selected_source_pack"][0]["document_id"] == "controlled-original"
+    assert len(turn.source_recovery()["additional_source_requests"]) == 2
+
+
+def test_pending_recovery_cannot_replace_issued_source_with_context(tmp_path, monkeypatch):
+    from live_contentops.native_desktop_editorial_v1 import request_source_preparation
+    turn, binding, response, _, _ = seeded(tmp_path, monkeypatch)
+    with pytest.raises(DesktopInputRequired):
+        request_source_preparation(turn, [{"url": response["additional_source_requests"][0]["url"],
+            "reason": "Acquire the original report before writer freeze."}], candidate_id=response["candidate_id"])
+    pending = json.loads((turn.root / "source_preparation_required.json").read_bytes())
+    response["expected_source_request_sha256"] = pending["request_sha256"]
+    response["additional_source_requests"][0]["url"] = "https://www.reuters.com/another-source/"
+    with pytest.raises(ValueError, match="EXACT_PENDING_SOURCE_PREPARATION_REQUIRED"):
+        admit_pre_writer_source_recovery(turn, binding, response)
+
+
 @pytest.mark.parametrize("failure", ["budget", "changed_walk", "changed_selection", "different_candidate",
     "capture_hash", "unrelated_capture", "paid", "future_capture", "outside_root", "source_rights",
     "uncertain_source", "max_frozen", "terminal", "not_live"])

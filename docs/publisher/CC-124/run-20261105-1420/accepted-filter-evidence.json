@@ -1,0 +1,254 @@
+{
+  "operation_id": "cc124-next-article-20261105-d",
+  "accepted_records": 855,
+  "counts": {
+    "KEEP": 574,
+    "REJECT": 227,
+    "DEFER": 54
+  },
+  "returns": [
+    {
+      "stage": "filter-fc104e41ac21a48f88c2484121453fd5ec0078e55c3f541b60c753d498ad5748",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\desktop_response_filter-fc104e41ac21a48f88c2484121453fd5ec0078e55c3f541b60c753d498ad5748.json",
+      "sha256": "1eef2382441370b2f81d73555e8e6204d171e418cb7950da5105010d503108ce",
+      "accepted_response_sha256": "ed871d1ccefb6094eecc4a604c445715453598959579c1d3a620994793debd51",
+      "request_sha256": "0a60540761306c1352c93af678506dc8aa15a2e2710b0e075f3376c8a4cdbd40",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_0a6054076130",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "speed": "standard",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "supported spawn request",
+        "observation_source": "Supported native-subagent task context supplies the invocation identity and requested configuration; actual runtime model and effort telemetry are not exposed."
+      },
+      "counts": {
+        "KEEP": 69,
+        "REJECT": 22,
+        "DEFER": 5
+      },
+      "decision_count": 96
+    },
+    {
+      "stage": "filter-717906eb5e6ef4d9f7f97c6198b807c866e7090d800d31d2ffd43ee256f67462",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\desktop_response_filter-717906eb5e6ef4d9f7f97c6198b807c866e7090d800d31d2ffd43ee256f67462.json",
+      "sha256": "f6b9da7d82ca48db0d8bfe9ae585f684176e55e65b13b8e5c70e9a216e7c9ba4",
+      "accepted_response_sha256": "088e7fac08d95aac1fcb65e252199d7f27d6236c676141fd3ed0b41a46e070b7",
+      "request_sha256": "a237aa1da368c1b081c9f0f7a8b921ad3e26ecdaf392a243062711d002678e90",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_a237aa1da368",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "speed": "standard",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "supported spawn request",
+        "observation_source": "supported spawn request supplied the canonical task name, surface and speed; actual model and reasoning-effort telemetry is unavailable to this subagent"
+      },
+      "counts": {
+        "KEEP": 62,
+        "REJECT": 30,
+        "DEFER": 4
+      },
+      "decision_count": 96
+    },
+    {
+      "stage": "filter-c4f361410c731f5fe58b4288021cd352f74fd27d042780c2ae432d04823ecac2",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\desktop_response_filter-c4f361410c731f5fe58b4288021cd352f74fd27d042780c2ae432d04823ecac2.json",
+      "sha256": "ffca36e34c99d14fd2de49ac0aed2450afb60c8c7f9db04647525b30501f32bc",
+      "accepted_response_sha256": "e5c4d562687ca8375ef69b04addd52b6d69910b0d2bf0cf0264af17cc91e1a3e",
+      "request_sha256": "231686ff475be7ba5f8a297d41675e2639dadc3ac64ca1ec83ce5ffcd8fe9dc7",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_231686ff475b",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "speed": "standard",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "supported spawn request",
+        "observation_source": "Supported spawn request supplied the surface, speed, and configured values; no actual model or effort runtime telemetry was supplied."
+      },
+      "counts": {
+        "KEEP": 50,
+        "REJECT": 39,
+        "DEFER": 7
+      },
+      "decision_count": 96
+    },
+    {
+      "stage": "filter-3b7bff2fb6afb54ed12eb70cba56abd4b05e775ae2eb2230a31ef2310de6023e",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\desktop_response_filter-3b7bff2fb6afb54ed12eb70cba56abd4b05e775ae2eb2230a31ef2310de6023e.json",
+      "sha256": "72c3af09510e262344ae30d21d92e04e56b332428dfe98c49c6292005bec771c",
+      "accepted_response_sha256": "a510a37209eea428889794a56231fe18e1f02cdf3a39159ae19bb379844b54cf",
+      "request_sha256": "426a1f13893efc0da8d94cc7fe230112c901ed6b766fef355e2682d70f41b80f",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_a237aa1da368",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "speed": "standard",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "supported spawn request",
+        "observation_source": "supported spawn request supplied the canonical task name, surface and speed; actual model and reasoning-effort telemetry is unavailable to this subagent"
+      },
+      "counts": {
+        "KEEP": 61,
+        "REJECT": 28,
+        "DEFER": 7
+      },
+      "decision_count": 96
+    },
+    {
+      "stage": "filter-d71a4ec6a3f7667da843404e43ebf17f62a7d7a28890344e465d2d2b111a3176",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\desktop_response_filter-d71a4ec6a3f7667da843404e43ebf17f62a7d7a28890344e465d2d2b111a3176.json",
+      "sha256": "07327378f19775b38b13645048f04be136ce00bb731c5f4a0a87bc81a957b9f9",
+      "accepted_response_sha256": "243fe7aa47224e8e8e80a900f487c530c02d8391135546d7298f461954464cb7",
+      "request_sha256": "95ee612c9251e9cef1f88460249ca6b790b10f720561dee140773f8b86a2b5a8",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_231686ff475b",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "speed": "standard",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "supported spawn request",
+        "observation_source": "Supported spawn request supplied the surface, speed, and configured values; no actual model or effort runtime telemetry was supplied."
+      },
+      "counts": {
+        "KEEP": 74,
+        "REJECT": 17,
+        "DEFER": 5
+      },
+      "decision_count": 96
+    },
+    {
+      "stage": "filter-940b1eb2de3a4a7ce55ab7e2969ec0061f7ec7e952b5f5f250bba7b2e81f4afe",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\desktop_response_filter-940b1eb2de3a4a7ce55ab7e2969ec0061f7ec7e952b5f5f250bba7b2e81f4afe.json",
+      "sha256": "32bb8e54865209dbebedcf1196af5ee130de094945c413c3419ddab43284e191",
+      "accepted_response_sha256": "9b3c26970f91023cf37d5287753f6b1806c479066d529bbc8948edabbabe9a98",
+      "request_sha256": "0faa715cf7dbd5c72977a6d853c4ee47042b7f01ae8b09b71e2104f829574c7c",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_0a6054076130",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "speed": "standard",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "supported spawn request",
+        "observation_source": "Supported native-subagent task context supplies the invocation identity and requested configuration; actual runtime model and effort telemetry are not exposed."
+      },
+      "counts": {
+        "KEEP": 74,
+        "REJECT": 18,
+        "DEFER": 4
+      },
+      "decision_count": 96
+    },
+    {
+      "stage": "filter-2c0a2b5cac1f730f4dd35759181d86c246766d3911931bbab2069da6e41fe25e",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\desktop_response_filter-2c0a2b5cac1f730f4dd35759181d86c246766d3911931bbab2069da6e41fe25e.json",
+      "sha256": "bc5952f406bc0e1d1f11cdd259a7dc979beb318637f7b5319cc13c23d0cff5b2",
+      "accepted_response_sha256": "e1406ed01ce3bbc8ece8d01483971e53c8b9b6645997076f84dbf6f1cdf13230",
+      "request_sha256": "ee242374d4f5f094fef0ecb83b1c69c7157b90bff152ce79e90630d6d2b874f2",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_a237aa1da368",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "speed": "standard",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "supported spawn request",
+        "observation_source": "supported spawn request supplied the canonical task name, surface and speed; actual model and reasoning-effort telemetry is unavailable to this subagent"
+      },
+      "counts": {
+        "KEEP": 61,
+        "DEFER": 5,
+        "REJECT": 30
+      },
+      "decision_count": 96
+    },
+    {
+      "stage": "filter-f668b5b5c2a3f3f60a8264cc4862bde2b49d41df961485043e369375c7b595fb",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\desktop_response_filter-f668b5b5c2a3f3f60a8264cc4862bde2b49d41df961485043e369375c7b595fb.json",
+      "sha256": "3379fb6255c9f4f4180ef5833ae8e939638d6cc65fd02846d0b771e35ee088d5",
+      "accepted_response_sha256": "94dd7dddb8f42200e3b3c651bf44041e85a03e3dbf78510444b18107c76cf3f1",
+      "request_sha256": "0c0132ab25b03f331ade6aeccd391425e6377f3995807e2ef4ca32744e953ee3",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_231686ff475b",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "speed": "standard",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "supported spawn request",
+        "observation_source": "Supported spawn request supplied the surface, speed, and configured values; no actual model or effort runtime telemetry was supplied."
+      },
+      "counts": {
+        "KEEP": 66,
+        "DEFER": 8,
+        "REJECT": 22
+      },
+      "decision_count": 96
+    },
+    {
+      "stage": "filter-3c0df1c60c197ed34fca52777679e3d26d315db76f010a9e7de6533eb3a00b02",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\desktop_response_filter-3c0df1c60c197ed34fca52777679e3d26d315db76f010a9e7de6533eb3a00b02.json",
+      "sha256": "66d19b4f687fc7c0bbb0d0ed1407fdf4dbff5296dcb73d4844dd0a13ba8146ea",
+      "accepted_response_sha256": "54785e9f79d858a05e6023a578ba4caf9f31ae8ef1cad484e29d113037a61bd3",
+      "request_sha256": "def73b6e9a38b57e8bdeaf59a9b4b1d7dd96edecc89b4aca1a70a7170a5985b3",
+      "invocation_observation": {
+        "invocation_id": "/root/native_filter_0a6054076130",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "speed": "standard",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6-luna",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "supported spawn request",
+        "observation_source": "Supported native-subagent task context supplies the invocation identity and requested configuration; actual runtime model and effort telemetry are not exposed."
+      },
+      "counts": {
+        "KEEP": 57,
+        "REJECT": 21,
+        "DEFER": 9
+      },
+      "decision_count": 87
+    }
+  ]
+}
