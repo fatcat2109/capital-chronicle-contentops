@@ -52,6 +52,72 @@ def pending_readback(adapter, destination="substack", value=None):
     return pending.value.request, ids[destination], urls[destination]
 
 
+@pytest.mark.parametrize("prior_action,claimed,changed_intent", [
+    ("PUBLISH", False, False), ("READBACK", False, False),
+    ("PUBLISH", True, False), ("PUBLISH", False, True)])
+def test_verified_object_retires_only_unclaimed_requests_for_its_exact_intent(
+        tmp_path, monkeypatch, prior_action, claimed, changed_intent):
+    monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
+    store, executor = setup(tmp_path, allow_publish=True)
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    value = intent("x")
+    older = adapter.request(destination="x", action=prior_action,
+        intent=intent("x", package_identity="different") if changed_intent else value,
+        authorization_context={"schema_version": "contentops.canonical_machine_authorization.v1",
+            "operating_mode": "AUTONOMOUS_DEFAULT", "destination": "x",
+            "dispatch_attempt_identity": "controlled-dispatch", "work_item_id": "work",
+            "payload_hash": "hash"})
+    with pytest.raises(NativeNeoInputRequired):
+        executor(older)
+    if claimed:
+        store.register_outbox_message(message_id="controlled-outbox", work_item_id="work",
+            destination="x", payload=json.dumps(value), status="READY")
+        store.register_platform_dispatch(dispatch_id="controlled-dispatch", message_id="controlled-outbox",
+            platform="x", status=PENDING)
+        monkeypatch.setattr(executor, "readiness", lambda _: {"authenticated": True, "native_executor_bound": True})
+        executor.begin(older["request_sha256"])
+    dispatches_before = store.list_platform_dispatches()
+    packet, object_id, url = pending_readback(adapter, destination="x", value=value)
+    executor.submit(packet["request"]["request_sha256"], response(executor, packet, {
+        "status": "SUCCESS", "observed_identity": "@Capitalnicle", "content_verified": True,
+        "public_object_id": object_id, "public_object_url": url,
+        "observed_text": "Exact supported proposition."}))
+    actual = adapter.readback(destination="x", intent=value,
+        public_object_id=object_id, public_object_url=url)
+    assert actual["verified"] is True
+    pending = {p["request"]["request_sha256"] for p in executor.pending()}
+    assert (older["request_sha256"] in pending) is (claimed or changed_intent)
+    assert store.list_platform_dispatches() == dispatches_before
+
+
+@pytest.mark.parametrize("age,retired", [(1200, True), (599, False)])
+def test_only_proven_absence_retires_older_unclaimed_reads(tmp_path, monkeypatch, age, retired):
+    store, executor = setup(tmp_path)
+    now = datetime.now(timezone.utc)
+    monkeypatch.setattr(store, "get_platform_dispatch", lambda key: {"status": "UNKNOWN_WRITE",
+        "dispatched_at": (now - timedelta(seconds=age)).isoformat()})
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    def read():
+        return adapter.readback(destination="x", intent=intent("x"),
+            public_object_id=None, public_object_url=None)
+    executor.clock = lambda: now - timedelta(seconds=601)
+    with pytest.raises(NativeNeoInputRequired) as old:
+        read()
+    executor.clock = lambda: now
+    with pytest.raises(NativeNeoInputRequired) as current:
+        read()
+    packet = current.value.request
+    observed = response(executor, packet, {"observed_identity": "@Capitalnicle",
+        "observed_profile_url": "https://x.com/Capitalnicle", "authenticated": True,
+        "activity_feed_loaded": True, "target_post_absent": True,
+        "observed_text": "Own profile loaded through older posts; target absent."})
+    observed["tool_observation"]["observed_at_utc"] = now.isoformat()
+    executor.submit(packet["request"]["request_sha256"], observed)
+    assert read()["write_absent"] is retired
+    pending = {p["request"]["request_sha256"] for p in executor.pending()}
+    assert (old.value.request["request"]["request_sha256"] not in pending) is retired
+
+
 @pytest.mark.parametrize("destination", ["substack", "x", "youtube"])
 def test_readback_action_uses_existing_window_and_task_group_without_changing_request(tmp_path, destination):
     _, executor = setup(tmp_path)

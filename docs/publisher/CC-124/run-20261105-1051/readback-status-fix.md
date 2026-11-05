@@ -1,0 +1,7 @@
+CC-124's exact public objects were confirmed, but older unclaimed PUBLISH requests and unidentified READBACK requests still appeared in the live status reader. That could offer the same post twice after a resume.
+
+The existing native executor now retires obsolete unclaimed requests only after its adapter verifies the same immutable intent, account, package and public object. A claimed write, another revision, another account or another identified object remains untouched. A proven ten-minute own-profile absence also retires equivalent old read-only requests; an unproven absence does not. Public writes still require the sole coordinator.
+
+The exact readback helper uses NativeReviewedPublication's bound coordinator and readback_existing_dispatch under the existing newsroom and operation leases. It performs zero publish calls and avoids re-running unrelated publication recovery while inspecting this article's four outstanding readbacks. It does not introduce another publisher, store or schedule.
+
+Validation: 10 focused cases passed in 8.70 seconds, including claimed-write recovery, changed-intent preservation, confirmed-object cleanup and the ten-minute absence boundary. The initial full targeted file also passed 69 existing cases; new fixtures initially lacked sole-coordinator authorization/dispatch binding and were corrected without changing those production guards. No whole-suite or parallel pytest run was started.

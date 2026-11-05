@@ -468,16 +468,29 @@ class NativeNeoExecutor:
         return None
 
     def complete_readback_request(self, request):
-        """Retire unclaimed equivalent reads after the adapter verifies exact content."""
+        """Retire obsolete unclaimed requests after exact readback or proven absence."""
         ignored = {"request_sha256", "observation_epoch", "native_invocation_id"}
         expected = {k: v for k, v in request.items() if k not in ignored}
+        delivered = bool(request.get("public_object_id") and request.get("public_object_url"))
+        binding_keys = ("destination", "intent_sha256", "work_item_id", "package_identity",
+                        "payload_hash", "expected_identity", "canonical_url")
         for row in self.store.list_outbox_messages(destination=DESTINATION):
             packet = json.loads(row["payload"])
             prior = packet.get("request") or {}
             request_hash = prior.get("request_sha256")
+            same_read = (prior.get("action") == "READBACK"
+                         and {k: v for k, v in prior.items() if k not in ignored} == expected)
+            # CC-124: a newer claim can publish and verify this exact intent while
+            # an older unclaimed publish or unidentified read remains in the UI.
+            # Retire only that delivered intent, never a claimed write, another
+            # revision/account, or a read of a different public object.
+            delivered_intent = (delivered and bool(request.get("intent_sha256"))
+                and prior.get("action") in {"PUBLISH", "READBACK"}
+                and all(prior.get(k) == request.get(k) for k in binding_keys)
+                and prior.get("public_object_id") in {None, request["public_object_id"]}
+                and prior.get("public_object_url") in {None, request["public_object_url"]})
             if (packet.get("schema_version") != SCHEMA or packet.get("operation_id") != self.operation_id
-                    or prior.get("action") != "READBACK" or request_hash == request["request_sha256"]
-                    or {k: v for k, v in prior.items() if k not in ignored} != expected
+                    or request_hash == request["request_sha256"] or not (same_read or delivered_intent)
                     or self._get(request_hash, "response") or self._get(request_hash, "started")):
                 continue
             self.store.set_outbox_status(row["message_id"], "NATIVE_NEO_SUPERSEDED")

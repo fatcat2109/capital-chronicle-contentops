@@ -1,0 +1,20 @@
+{
+  "x": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261105-1051\\x-public-image.png",
+    "public_image_url": "https://pbs.twimg.com/media/HWVyv9oagAAUXDC?format=png&name=small",
+    "sha256": "dffe8c2e2e54431eac702ec2b347094761d6b0ca04f023bca26f728309a051c7",
+    "bytes": 68934,
+    "mime_type": "image/png",
+    "width": 680,
+    "height": 383
+  },
+  "youtube": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261105-1051\\youtube-public-image.webp",
+    "public_image_url": "https://yt3.ggpht.com/jUSOMst_cyBL96mMmIB-WMl7W3Skr2s48pk1Jkhq1cOzh1FbaZk0ONoSn-KtybqLHiukHV6ICVdv3yg=s640-rw-nd-v1",
+    "sha256": "c49f82d4ac00f42161ebc18188a4f8d4cfc641338c3110e0b5fd9ca63fe55cee",
+    "bytes": 12508,
+    "mime_type": "image/webp",
+    "width": 640,
+    "height": 360
+  }
+}
