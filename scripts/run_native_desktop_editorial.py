@@ -538,7 +538,13 @@ def operation(binding, **kwargs):
         owner = "native-desktop-" + uuid4().hex
         from contextlib import nullcontext
         from live_contentops.native_finished_publication_v1 import newsroom_lease
-        with (newsroom_lease(store) if not binding.get("owner_manual_validation") else nullcontext()):
+        # Recording a completed Neo return cannot start editorial work or send a
+        # public write. Do not strand a known public object behind another
+        # window's lease. Keep this operation's lease and all native claim,
+        # identity and content checks; begin/resume still take the newsroom lock.
+        records_tool_return = command == "publication-tool-submit"
+        with (newsroom_lease(store) if not (binding.get("owner_manual_validation") or records_tool_return)
+              else nullcontext()):
             lease = store.acquire_lease("internal:native-editorial:" + binding["run_id"], owner, ttl_seconds=900)
             try:
                 result = _operation(binding, operation_lease=lease, **kwargs)
