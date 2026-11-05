@@ -34,5 +34,13 @@
     "actual_model": null,
     "actual_reasoning_effort": null,
     "native_child_resume": "Existing canonical task /root/native_max_jobs_ed46a179bd88 resumed through supported collaboration.followup_task; no replacement spawned."
+  },
+  "browser_recovery": {
+    "original_group_closed_externally": true,
+    "new_group_id": "F100C82D5D6C59F86AEE4D0B1F05A029",
+    "window_id": 1698400956,
+    "canonical_page_id": 578,
+    "published_object_id": "223651009",
+    "no_republish": true
   }
 }

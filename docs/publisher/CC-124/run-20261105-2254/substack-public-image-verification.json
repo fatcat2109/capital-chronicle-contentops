@@ -1,0 +1,116 @@
+{
+  "schema_version": "contentops.delivery_media_manifest.v1",
+  "run_id": "cc124-nfp-us500-preview-20261105-g",
+  "authority": "approved_media_manifest_hash_binding_not_substack_dom_selection",
+  "status": "PASS",
+  "blockers": [],
+  "minimum_chart_dimensions": {
+    "width": 800,
+    "height": 400
+  },
+  "assets": [
+    {
+      "media_asset_id": "cc124-jobs-payroll-employer-groups",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_assets\\jobs-source-bound-r1\\media_assets\\cc124-jobs-payroll-employer-groups.png",
+      "sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+      "declared_sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+        "caption": "September preliminary estimates: private goods +18, private services +28, government -17; total nonfarm +29 thousand jobs. Government is derived as total nonfarm minus total private."
+      },
+      "chart_title": "September preliminary estimates: private goods +18, private services +28, government -17; total nonfarm +29 thousand jobs. Government is derived as total nonfarm minus total private.",
+      "alt_text": "September payroll changes, thousands of jobs: private goods-producing +18, private services +28, government -17. Sum: +29. Seasonally adjusted, preliminary.",
+      "canonical_article_section_association": "cc124-jobs-payroll-employer-groups",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/ac8a1d65-7755-4369-b601-a49cbc6ed63e_1440x1040.png",
+      "public_delivery_sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+      "local_public_hash_continuity": true
+    },
+    {
+      "media_asset_id": "cc124-jobs-treasury-10y-backdrop",
+      "media_role": "editorial_data_journalism",
+      "modality": "source_backed_chart",
+      "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_assets\\jobs-source-bound-r1\\media_assets\\cc124-jobs-treasury-10y-backdrop.png",
+      "sha256": "cd75d01f410ebe235b42cfb0f0718250992ee46b2b2b19e941fbc8b9bc31d8c3",
+      "declared_sha256": "cd75d01f410ebe235b42cfb0f0718250992ee46b2b2b19e941fbc8b9bc31d8c3",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+        "caption": "Exact official observations from 1 September through 4 November 2026; final nominal par yield 4.90%. Dated context, not live US10Y CFD pricing or causal evidence."
+      },
+      "chart_title": "Exact official observations from 1 September through 4 November 2026; final nominal par yield 4.90%. Dated context, not live US10Y CFD pricing or causal evidence.",
+      "alt_text": "Official nominal 10-year Treasury daily par yields from 1 September to 4 November 2026, ending at 4.90 percent.",
+      "canonical_article_section_association": "cc124-jobs-treasury-10y-backdrop",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/787185b9-8033-40cf-a4ca-c0011fad3496_1440x1040.png",
+      "public_delivery_sha256": "cd75d01f410ebe235b42cfb0f0718250992ee46b2b2b19e941fbc8b9bc31d8c3",
+      "local_public_hash_continuity": true
+    },
+    {
+      "media_asset_id": "cc124-jobs-fed-archive",
+      "media_role": "context_photo",
+      "modality": "documentary_photo",
+      "rights_status": "PUBLIC_DOMAIN",
+      "rights_evidence_sha256": "c7bf3261dc389813f4acf019354ef0e7e20e9e880c340c0cc49edcee433267d4",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg",
+      "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Federal_Reserve",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\media_assets\\Eccles_Building_20110329.jpg",
+      "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "declared_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "mime_type": "image/jpeg",
+      "width": 3000,
+      "height": 2041,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg",
+        "caption": "Archive context: the Federal Reserve's Eccles Building, March 2011. Photo: Federal Reserve Board (Federalreserve), via Wikimedia Commons; public domain."
+      },
+      "chart_title": "Archive context: the Federal Reserve's Eccles Building, March 2011. Photo: Federal Reserve Board (Federalreserve), via Wikimedia Commons; public domain.",
+      "alt_text": "The front entrance and facade of the Federal Reserve's Eccles Building, photographed in March 2011.",
+      "canonical_article_section_association": "cc124-jobs-fed-archive",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/931d18bb-8a9f-48aa-8c90-44cc1ecbe651_3000x2041.jpeg",
+      "public_delivery_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "local_public_hash_continuity": true
+    }
+  ],
+  "selected_primary_media_asset_id": "cc124-jobs-payroll-employer-groups",
+  "selected_primary_media_sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+  "remote_objects_audited": [
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!MUkG!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F931d18bb-8a9f-48aa-8c90-44cc1ecbe651_3000x2041.jpeg",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/931d18bb-8a9f-48aa-8c90-44cc1ecbe651_3000x2041.jpeg",
+      "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "mime_type": "image/jpeg",
+      "width": 3000,
+      "height": 2041
+    },
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!5sYg!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F787185b9-8033-40cf-a4ca-c0011fad3496_1440x1040.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/787185b9-8033-40cf-a4ca-c0011fad3496_1440x1040.png",
+      "sha256": "cd75d01f410ebe235b42cfb0f0718250992ee46b2b2b19e941fbc8b9bc31d8c3",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040
+    },
+    {
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!287o!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fac8a1d65-7755-4369-b601-a49cbc6ed63e_1440x1040.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/ac8a1d65-7755-4369-b601-a49cbc6ed63e_1440x1040.png",
+      "sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+      "mime_type": "image/png",
+      "width": 1440,
+      "height": 1040
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "authenticated": true,
+  "observation_source": "Actual Neo page576 capitalchronicle Substack publisher dashboard, existing publication posts, Jim’s Substack and Dean account avatar; no login or account change.",
+  "observed_at_utc": "2026-11-05T16:42:06.811Z",
+  "observed_identity": "capitalchronicle.substack.com",
+  "page_id": 576,
+  "public_write_performed": false,
+  "status": "SUCCESS",
+  "url": "https://capitalchronicle.substack.com/publish/home"
+}

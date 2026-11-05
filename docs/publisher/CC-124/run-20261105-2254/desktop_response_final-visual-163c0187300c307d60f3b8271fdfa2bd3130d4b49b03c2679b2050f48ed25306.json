@@ -1,0 +1,347 @@
+{
+  "request_sha256": "07cea14f5ce4043a69ced756db311455e4afe647d744ab0892b56385b503b15d",
+  "output": {
+    "decision": "ACCEPT",
+    "rationale": "All three exact assets and all eighteen bound canonical/channel desktop/mobile PNGs were actually inspected in the same writer context. Data, signs, dates, units, source meaning, archive identity/rights, credit and reader notices agree with admitted evidence. No material visual or copy defect requires the one permitted repair round.",
+    "article_revision": "7573f9610d9ce8c516065efe898215ce292e89369430fe135f114c3bf863edfb",
+    "asset_findings": [
+      {
+        "asset_id": "cc124-jobs-payroll-employer-groups",
+        "asset_sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS",
+          "sign_magnitude": "PASS",
+          "denominator": "NOT_APPLICABLE",
+          "period_year_quarter": "PASS",
+          "units_currency": "PASS",
+          "transformation_rounding": "PASS",
+          "source_link_claim": "PASS",
+          "zero_baseline_scale": "PASS",
+          "comparisons_stacks_totals_missingness": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact 1440x1040 PNG again in this final review and in every bound rendition that uses it. Three non-overlapping employer groups show private goods +18, private services +28 and government -17 thousand jobs. The zero line separates positive and negative changes; signs, lengths, category labels and unit are correct. Values reconcile to total nonfarm +29; government is the code-derived 29 minus 46, also matching the change in total-minus-private levels. The September reference period, seasonally adjusted basis and 2 October 2026 release date are visible; the bound caption supplies preliminary-estimate status and the derivation. No forecast, stacked duplicate subtotal, invented missing observation or October outcome appears. Full source pixels are crisp; on mobile the fine internal type is small but normal-sized captions repeat the essential figures, date, units and source."
+      },
+      {
+        "asset_id": "cc124-jobs-treasury-10y-backdrop",
+        "asset_sha256": "cd75d01f410ebe235b42cfb0f0718250992ee46b2b2b19e941fbc8b9bc31d8c3",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS",
+          "sign_magnitude": "PASS",
+          "denominator": "PASS",
+          "period_year_quarter": "PASS",
+          "units_currency": "PASS",
+          "transformation_rounding": "PASS",
+          "source_link_claim": "PASS",
+          "zero_baseline_scale": "PASS",
+          "comparisons_stacks_totals_missingness": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact 1440x1040 PNG again in this final review and each bound rendition that uses it. The single nominal 10-year Treasury par-yield line agrees with the exact 45 dated observations from 1 September through 4 November 2026. Its final point and legend read 4.90%; the early-October peak agrees with the 5.31% 5 October observation cited in the article. Percent units, date window and Treasury/Capital Chronicle source line are present. The explicitly visible yield-axis range is suitable for this level series; no zero-baseline claim is implied. No dual axis, equity overlay, causal arrow, imputed holiday observation, smoothing or forecast is shown. The full image is unclipped and readable. Mobile captions preserve the final value, exact period and source while the detailed axis/source type is small."
+      },
+      {
+        "asset_id": "cc124-jobs-fed-archive",
+        "asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "NOT_APPLICABLE",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS",
+          "identity_relevance": "PASS",
+          "archive_context": "PASS",
+          "caption_credit_alt": "PASS",
+          "lawful_reuse": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact 3000x2041 local photograph again and the canonical desktop/mobile placements. It shows the exterior front facade and entrance of the Eccles Building with no distortion or misleading crop. The visible canonical caption identifies March 2011 archive context; it does not suggest a current meeting, a jobs-release scene or corroboration of employment figures. The caption, alt text and creator/source identity agree. The retained hash-verified licence receipt identifies a Board of Governors work under the Federal Reserve public-domain template, with the regional-bank distinction preserved. Canonical credit visibly retains Federalreserve/Federal Reserve Board, Wikimedia Commons, source and public-domain licence links. The photograph is used for institutional rate context and does not appear as a factual chart or a contemporary event photo."
+      }
+    ],
+    "render_findings": [
+      {
+        "render_id": "cc124-jobs-substack-desktop",
+        "sha256": "db33365f1ee254880853f2d47069b6e4911a2af6e92173d333e98eca53cd19f7",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact desktop PNG. Text wraps within the card, images preserve aspect ratio, headings/captions do not overlap, and the bottom content is retained. The chart labels and source lines are readable at this width. Complete canonical article is present, with title, dek and 5 November 2026 display date. September BLS figures remain dated to the 2 October release; the 6 November 08:30 EST release is scheduled and its result remains future. Treasury 4.90% on 4 November and 5.31% on 5 October agree with admitted observations. The discount-rate/earnings explanation and orderly-cooling countercase remain conditional, with no current index quote, forecast, probability or directional call. Both approved headings retain the correct chart beside the relevant section; the Eccles archive photograph and full credit are visible above the rate section. The concluding analysis, reader-choice and holdings notices are visible. No machine source markers or internal operation ids appear in article prose."
+      },
+      {
+        "render_id": "cc124-jobs-telegram-desktop",
+        "sha256": "b0468109284294bec39130483c36f909b7b4276ade0e1f168f2bda8274f7741d",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact desktop PNG. Text wraps within the card, images preserve aspect ratio, headings/captions do not overlap, and the bottom content is retained. The chart labels and source lines are readable at this width. Newsroom brief retains the two-sided jobs/earnings tension and the falling-yield watch question. The chosen payroll chart is present in full with a normal-sized caption stating +18/+28/-17, total +29 thousand, preliminary status and the government derivation. BLS attribution and the analysis, reader-choice and holdings notices are visible; no unreleased result is stated."
+      },
+      {
+        "render_id": "cc124-jobs-discord-desktop",
+        "sha256": "7df6fc783684b0e5d1737d533b1555006bfa216205168c94b55f003d03f81c3f",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact desktop PNG. Text wraps within the card, images preserve aspect ratio, headings/captions do not overlap, and the bottom content is retained. The chart labels and source lines are readable at this width. Newsroom brief includes the two-sided hook and the actual orderly-cooling versus growth-risk countercase. Both selected charts appear in the approved order with their exact date/unit/source captions; no photo substitutes for data. BLS attribution and both decision-40 notices, plus reader-choice wording, are visible. Future conditions remain conditional."
+      },
+      {
+        "render_id": "cc124-jobs-x-desktop",
+        "sha256": "52b1181c5008d34504cb621e2eec40c52ab9c8bd26b05a2953e4aa1b31c34880",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact desktop PNG. Text wraps within the card, images preserve aspect ratio, headings/captions do not overlap, and the bottom content is retained. The chart labels and source lines are readable at this width. Root retains the article headline, canonical-link placeholder and BLS credit. Reply 1 carries both complete hook sentences; reply 2 retains the falling-yield watch question and all reader notices. The credit-packing repair preserves complete prose with no hard slicing or orphan fragment. The payroll chart and explanatory caption are intact; no result, market reaction or directional call has been added."
+      },
+      {
+        "render_id": "cc124-jobs-linkedin-desktop",
+        "sha256": "48a198c73263b99cf244b1e413ec0f1a6a69058ccd7a2e342d50fb6e8180abbe",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact desktop PNG. Text wraps within the card, images preserve aspect ratio, headings/captions do not overlap, and the bottom content is retained. The chart labels and source lines are readable at this width. Professional brief retains the conditional valuation mechanism and the orderly-cooling/growth-risk countercase. Both selected charts, source captions and units/windows are present in the approved order. BLS attribution and all reader notices are visible; there is no upgrade from a possible mechanism to a measured market cause."
+      },
+      {
+        "render_id": "cc124-jobs-facebook_page-desktop",
+        "sha256": "fb446bf855d03b2dd4980070c20422fd70b9e2f21d32974541ff739373c31c5c",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact desktop PNG. Text wraps within the card, images preserve aspect ratio, headings/captions do not overlap, and the bottom content is retained. The chart labels and source lines are readable at this width. Page brief retains the two-sided jobs hook and the conditional valuation explanation. The selected Treasury chart is intact, with percent units, the 1 September-4 November window and the 4.90% final observation in the caption. The chart source identifies Treasury; BLS attribution refers to the jobs context. All reader notices remain visible."
+      },
+      {
+        "render_id": "cc124-jobs-instagram_business-desktop",
+        "sha256": "a71fe30d84f0eaf39854ad4eba3454095d8a42f766280b4119e1acdfa85abafb",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact desktop PNG. Text wraps within the card, images preserve aspect ratio, headings/captions do not overlap, and the bottom content is retained. The chart labels and source lines are readable at this width. Caption retains the two-sided jobs hook and the conditional orderly-cooling/growth-risk distinction, followed by the Capital Chronicle hashtag and reader notices. Both exact charts are present in the selected order, with readable exterior captions preserving essential values, periods, units and sources. No chart is cropped to a square, stretched, replaced with stock imagery or presented as the October employment outcome."
+      },
+      {
+        "render_id": "cc124-jobs-threads-desktop",
+        "sha256": "1e02d6314e2c1f4bb2829d27262a9c7a3adcfb25c2d23209ff51cefb7a2b5685",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact desktop PNG. Text wraps within the card, images preserve aspect ratio, headings/captions do not overlap, and the bottom content is retained. The chart labels and source lines are readable at this width. Root preserves the article headline, full orderly-cooling/growth-risk countercase and BLS attribution. The ordered reply preserves the falling-yield watch question and analysis, reader-choice and holdings notices. The payroll chart and its full factual caption appear without clipping, new numerical claims or greater certainty."
+      },
+      {
+        "render_id": "cc124-jobs-youtube-desktop",
+        "sha256": "4cf90a7f1a112be40407788e4426f8527aaa5975eb8e615f92726892651e47b6",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact desktop PNG. Text wraps within the card, images preserve aspect ratio, headings/captions do not overlap, and the bottom content is retained. The chart labels and source lines are readable at this width. Community brief retains the jobs hook, falling-yield watch question and all reader notices. The selected payroll chart and explanatory caption remain intact with September preliminary status, +18/+28/-17 and total +29 thousand. BLS attribution is visible. No event outcome, forecast or direction was introduced by the Update label."
+      },
+      {
+        "render_id": "cc124-jobs-substack-mobile",
+        "sha256": "8ae7346cbfaa746b2ceb1b90790d0b08fdcc3d67380a4b19a7ca7d62f39e9eaf",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact 366-pixel-wide mobile PNG. Title and body reflow without horizontal overflow; images retain their full frames and aspect ratios, and captions/credits remain within the card. Fine chart axis/source type is small, while normal-sized captions repeat the decision-useful facts, periods, units and sources. No material label, data point or notice is lost. Complete canonical article is present, with title, dek and 5 November 2026 display date. September BLS figures remain dated to the 2 October release; the 6 November 08:30 EST release is scheduled and its result remains future. Treasury 4.90% on 4 November and 5.31% on 5 October agree with admitted observations. The discount-rate/earnings explanation and orderly-cooling countercase remain conditional, with no current index quote, forecast, probability or directional call. Both approved headings retain the correct chart beside the relevant section; the Eccles archive photograph and full credit are visible above the rate section. The concluding analysis, reader-choice and holdings notices are visible. No machine source markers or internal operation ids appear in article prose."
+      },
+      {
+        "render_id": "cc124-jobs-telegram-mobile",
+        "sha256": "ea3771adab3edadade0ef18d55fe450fc4a43cd522fe26eada030c5aa3cd4b7a",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact 366-pixel-wide mobile PNG. Title and body reflow without horizontal overflow; images retain their full frames and aspect ratios, and captions/credits remain within the card. Fine chart axis/source type is small, while normal-sized captions repeat the decision-useful facts, periods, units and sources. No material label, data point or notice is lost. Newsroom brief retains the two-sided jobs/earnings tension and the falling-yield watch question. The chosen payroll chart is present in full with a normal-sized caption stating +18/+28/-17, total +29 thousand, preliminary status and the government derivation. BLS attribution and the analysis, reader-choice and holdings notices are visible; no unreleased result is stated."
+      },
+      {
+        "render_id": "cc124-jobs-discord-mobile",
+        "sha256": "cc7929bb0004b3a95fce9554ce5ccca582c419c5fb47fcc0a3b3623b1eaa9fca",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact 366-pixel-wide mobile PNG. Title and body reflow without horizontal overflow; images retain their full frames and aspect ratios, and captions/credits remain within the card. Fine chart axis/source type is small, while normal-sized captions repeat the decision-useful facts, periods, units and sources. No material label, data point or notice is lost. Newsroom brief includes the two-sided hook and the actual orderly-cooling versus growth-risk countercase. Both selected charts appear in the approved order with their exact date/unit/source captions; no photo substitutes for data. BLS attribution and both decision-40 notices, plus reader-choice wording, are visible. Future conditions remain conditional."
+      },
+      {
+        "render_id": "cc124-jobs-x-mobile",
+        "sha256": "5e9761e19a55fbc30d3fa6643502d1d2991b586ba03632758a13eb2914c32976",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact 366-pixel-wide mobile PNG. Title and body reflow without horizontal overflow; images retain their full frames and aspect ratios, and captions/credits remain within the card. Fine chart axis/source type is small, while normal-sized captions repeat the decision-useful facts, periods, units and sources. No material label, data point or notice is lost. Root retains the article headline, canonical-link placeholder and BLS credit. Reply 1 carries both complete hook sentences; reply 2 retains the falling-yield watch question and all reader notices. The credit-packing repair preserves complete prose with no hard slicing or orphan fragment. The payroll chart and explanatory caption are intact; no result, market reaction or directional call has been added."
+      },
+      {
+        "render_id": "cc124-jobs-linkedin-mobile",
+        "sha256": "499282094ad2af4ad6f91ce3099b4158a0ce4ecdfe28d6116057f3954d1d1c0f",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact 366-pixel-wide mobile PNG. Title and body reflow without horizontal overflow; images retain their full frames and aspect ratios, and captions/credits remain within the card. Fine chart axis/source type is small, while normal-sized captions repeat the decision-useful facts, periods, units and sources. No material label, data point or notice is lost. Professional brief retains the conditional valuation mechanism and the orderly-cooling/growth-risk countercase. Both selected charts, source captions and units/windows are present in the approved order. BLS attribution and all reader notices are visible; there is no upgrade from a possible mechanism to a measured market cause."
+      },
+      {
+        "render_id": "cc124-jobs-facebook_page-mobile",
+        "sha256": "ed2b1262f64ac1076e9b431e0aa63c4ada9e1926461164dc2c8c8f3a91895a62",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact 366-pixel-wide mobile PNG. Title and body reflow without horizontal overflow; images retain their full frames and aspect ratios, and captions/credits remain within the card. Fine chart axis/source type is small, while normal-sized captions repeat the decision-useful facts, periods, units and sources. No material label, data point or notice is lost. Page brief retains the two-sided jobs hook and the conditional valuation explanation. The selected Treasury chart is intact, with percent units, the 1 September-4 November window and the 4.90% final observation in the caption. The chart source identifies Treasury; BLS attribution refers to the jobs context. All reader notices remain visible."
+      },
+      {
+        "render_id": "cc124-jobs-instagram_business-mobile",
+        "sha256": "2d9683d6005b4576080493daa449d419583fe1c7c90ece08c0d4a3ed3e9e8dc2",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact 366-pixel-wide mobile PNG. Title and body reflow without horizontal overflow; images retain their full frames and aspect ratios, and captions/credits remain within the card. Fine chart axis/source type is small, while normal-sized captions repeat the decision-useful facts, periods, units and sources. No material label, data point or notice is lost. Caption retains the two-sided jobs hook and the conditional orderly-cooling/growth-risk distinction, followed by the Capital Chronicle hashtag and reader notices. Both exact charts are present in the selected order, with readable exterior captions preserving essential values, periods, units and sources. No chart is cropped to a square, stretched, replaced with stock imagery or presented as the October employment outcome."
+      },
+      {
+        "render_id": "cc124-jobs-threads-mobile",
+        "sha256": "a1313bce223c8de0cde7d81e13dd169cd5194f23caf2d1306e80e51a032d4903",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact 366-pixel-wide mobile PNG. Title and body reflow without horizontal overflow; images retain their full frames and aspect ratios, and captions/credits remain within the card. Fine chart axis/source type is small, while normal-sized captions repeat the decision-useful facts, periods, units and sources. No material label, data point or notice is lost. Root preserves the article headline, full orderly-cooling/growth-risk countercase and BLS attribution. The ordered reply preserves the falling-yield watch question and analysis, reader-choice and holdings notices. The payroll chart and its full factual caption appear without clipping, new numerical claims or greater certainty."
+      },
+      {
+        "render_id": "cc124-jobs-youtube-mobile",
+        "sha256": "c23da7b37419773e4d7494e00ecf1f12b137f4a4a4cda173b0ad7e5ff2174a7f",
+        "pixels_inspected": true,
+        "checks": {
+          "overlap_clipping": "PASS",
+          "labels_legend": "PASS",
+          "text_contrast": "PASS",
+          "crop_distortion": "PASS",
+          "placement": "PASS"
+        },
+        "findings": [],
+        "evidence_notes": "Viewed the exact 366-pixel-wide mobile PNG. Title and body reflow without horizontal overflow; images retain their full frames and aspect ratios, and captions/credits remain within the card. Fine chart axis/source type is small, while normal-sized captions repeat the decision-useful facts, periods, units and sources. No material label, data point or notice is lost. Community brief retains the jobs hook, falling-yield watch question and all reader notices. The selected payroll chart and explanatory caption remain intact with September preliminary status, +18/+28/-17 and total +29 thousand. BLS attribution is visible. No event outcome, forecast or direction was introduced by the Update label."
+      }
+    ],
+    "non_material_observations": [
+      "Fine chart axis/source text is small in 366-pixel mobile renditions. Original image pixels are crisp and bound captions repeat essential figures, periods, units and sources at normal text size; this is a minor readability limitation, not a missing or misleading factual label.",
+      "The canonical photo credit repeats creator/public-domain wording. All required attribution is retained and readable; no optional credit rewrite is requested in this publication pass.",
+      "These are the exact selected local reader-preview projections. Derivative previews show Canonical link pending before publication; the sole publisher must supply the real reconciled canonical URL through its existing path. This review does not claim actual public-platform UI, write or readback evidence."
+    ],
+    "repair_rounds_used": 0,
+    "public_write_performed": false
+  },
+  "invocation_observation": {
+    "actual_configuration_unavailable": true,
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_source": "this supported task request",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "invocation_id": "/root/native_max_jobs_ed46a179bd88",
+    "model": null,
+    "observation_source": "Supported native canonical task context /root/native_max_jobs_ed46a179bd88 continued from visual planning and article writing through this final review. functions.view_image returned all 18 exact bound desktop/mobile PNGs and all 3 exact local media assets in this context; source/manifest hashes were checked with local file tools. Runtime model/effort telemetry remains unavailable; assigned configuration is recorded, not claimed as observed.",
+    "reasoning_effort": null,
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  }
+}

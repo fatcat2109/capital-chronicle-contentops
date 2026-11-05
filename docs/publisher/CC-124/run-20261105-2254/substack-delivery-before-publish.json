@@ -1,0 +1,11 @@
+{
+  "email_send_enabled": false,
+  "email_setting_confirmed_utc": "2026-11-05T16:47:54.849Z",
+  "schedule_enabled": false,
+  "web_publish_enabled": true,
+  "one_image_load_dimension_check": {
+    "images": 3,
+    "all_loaded": true,
+    "observed_on_actual_editor": true
+  }
+}

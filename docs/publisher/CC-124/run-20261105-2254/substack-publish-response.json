@@ -1,0 +1,32 @@
+{
+  "tool_request_sha256": "ce494f6623ee0c92c191dae74e1718d987feecc2883e46223ec88a90cfcad2cc",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T16:48:31.064Z",
+    "observation_source": "Actual Neo page576 exact draft223651009 reached share-center after one web-only publication flow. Share-center textbox supplies the canonical URL. No email code was requested and no mailbox was opened.",
+    "dispatched_at_utc": "2026-11-05T16:48:06.766Z"
+  },
+  "result": {
+    "request_sha256": "d827c46ae76c3282dde7dfae1609aca949a524895b6dcf8bf32455837abc3e07",
+    "status": "PUBLISHED",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "223651009",
+    "public_object_url": "https://capitalchronicle.substack.com/p/jobs-watch-weaker-hiring-can-cut",
+    "public_write_performed": true,
+    "delivery_observation": {
+      "email_send_enabled": false,
+      "web_publish_enabled": true,
+      "evidence_ref": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\substack-delivery-before-publish.json"
+    },
+    "step_clocks": {
+      "draft_ready_utc": "2026-11-05T16:46:26.260Z",
+      "images_uploaded_utc": "2026-11-05T16:45:09.965Z",
+      "publish_clicked_utc": "2026-11-05T16:47:54.902Z",
+      "email_setting_confirmed_utc": "2026-11-05T16:47:54.849Z",
+      "share_center_reached_utc": "2026-11-05T16:48:12.783Z",
+      "publish_web_only_confirmation_clicked_utc": "2026-11-05T16:48:06.766Z"
+    }
+  }
+}

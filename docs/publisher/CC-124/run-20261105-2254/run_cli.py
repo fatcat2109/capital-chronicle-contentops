@@ -7,8 +7,16 @@ from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
 HERE = Path(__file__).resolve().parent
 label, *arguments = sys.argv[1:]
+invocation = [sys.executable, "scripts/run_native_desktop_editorial.py", *arguments]
+if arguments and arguments[0] == "publication-resume":
+    # One in-process stack sample diagnoses this observed multi-minute wait.
+    # No locals, secrets, polling process or runtime/schedule change.
+    invocation = [sys.executable, "-c", "import faulthandler,runpy,sys; "
+        "faulthandler.dump_traceback_later(20, repeat=False); "
+        "sys.argv=sys.argv[1:]; runpy.run_path(sys.argv[0],run_name='__main__')",
+        "scripts/run_native_desktop_editorial.py", *arguments]
 result = subprocess.run(
-    [sys.executable, "scripts/run_native_desktop_editorial.py", *arguments],
+    invocation,
     cwd=r"A:\Capital Chronicle\ContentOps", capture_output=True,
 )
 (HERE / (label + ".json")).write_bytes(result.stdout)

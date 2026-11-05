@@ -1,0 +1,14 @@
+{
+  "request_sha256": "d897bc7ae5664d1bf5b645e8a29de389b5917396ce5721cb014fcea375e3d66f",
+  "response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\desktop_response_write.json",
+  "response_sha256": "c52ebd3576f1eb4bec1aa74fece7fdbf6b1cc46bc3560e8d16439476901f4105",
+  "title": "Jobs watch: weaker hiring can cut both ways for US stocks",
+  "schema_validation": "PASS",
+  "source_claim_validation": "PASS",
+  "supported_material_claim_count": 43,
+  "cited_source_count": 3,
+  "public_write_attempted": false,
+  "body_word_count": 497,
+  "assembled_render_review": "PENDING",
+  "model_and_effort_observation": "CONFIGURED_NOT_OBSERVED"
+}
