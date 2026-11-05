@@ -1,0 +1,32 @@
+{
+  "recorded_at_utc": "2026-11-05T19:48:57.026758+00:00",
+  "coordinator": {
+    "dispatch_id": "dispatch_15ca220a084a4524f4585596ad96b253",
+    "destination": "threads",
+    "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+    "public_write_performed": false,
+    "publish_called": false
+  },
+  "persisted_readback": {
+    "destination": "threads",
+    "dispatch_id": "dispatch_15ca220a084a4524f4585596ad96b253",
+    "readback": {
+      "content_binding_checks": {
+        "account_match": true,
+        "canonical_link_match": true,
+        "media_match": false,
+        "object_id_match": true,
+        "public_url_match": true,
+        "text_match": true
+      },
+      "identity_match": true,
+      "meaningful_media_visible": false,
+      "observed_public_object_id": "18130022495483073",
+      "observed_public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfV8fzyH7uD",
+      "source_status": "FAILED_THREADS_STRICT_READBACK",
+      "verified": false,
+      "write_absent": false,
+      "write_exists": true
+    }
+  }
+}

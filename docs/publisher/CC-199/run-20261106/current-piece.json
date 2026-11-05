@@ -1,0 +1,252 @@
+{
+  "run_id": "cc124-bitcoin-rates-20261106-h",
+  "binding": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\binding.json",
+  "state": "DISTRIBUTION_INCOMPLETE",
+  "timing": {
+    "policy": "JIM_DECISION_53",
+    "target_minutes": 15,
+    "text_approved_at_utc": "2026-11-05T18:38:31.410683+00:00",
+    "dispatch_deadline_utc": "2026-11-05T18:53:31.410683+00:00",
+    "channels": [
+      {
+        "destination": "substack",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-05T18:40:00.030662+00:00",
+        "dispatched_at_utc": "2026-11-05T18:44:38.928Z",
+        "timing_basis": "NATIVE_ACTION_OBSERVED",
+        "seconds_after_text_approval": 367.517317,
+        "within_target": true,
+        "first_verified_readback_at_utc": "2026-11-05T18:47:35.424314+00:00",
+        "readback_seconds_after_text_approval": 544.013631,
+        "image_verified_readback_at_utc": null,
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      },
+      {
+        "destination": "telegram",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-05T18:48:08.712670+00:00",
+        "dispatched_at_utc": "2026-11-05T18:48:08.712670+00:00",
+        "timing_basis": "API_TRANSPORT_CALL",
+        "seconds_after_text_approval": 577.301987,
+        "within_target": true,
+        "first_verified_readback_at_utc": "2026-11-05T18:48:11.358078+00:00",
+        "readback_seconds_after_text_approval": 579.947395,
+        "image_verified_readback_at_utc": null,
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      },
+      {
+        "destination": "discord",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-05T18:47:36.193168+00:00",
+        "dispatched_at_utc": "2026-11-05T18:47:40.331168+00:00",
+        "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+        "seconds_after_text_approval": 548.920485,
+        "within_target": true,
+        "first_verified_readback_at_utc": "2026-11-05T18:47:40.331168+00:00",
+        "readback_seconds_after_text_approval": 548.920485,
+        "image_verified_readback_at_utc": null,
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      },
+      {
+        "destination": "x",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-05T18:49:08.769300+00:00",
+        "dispatched_at_utc": "2026-11-05T18:51:01.383Z",
+        "timing_basis": "NATIVE_ACTION_OBSERVED",
+        "seconds_after_text_approval": 749.972317,
+        "within_target": true,
+        "first_verified_readback_at_utc": "2026-11-05T19:09:29.418016+00:00",
+        "readback_seconds_after_text_approval": 1858.007333,
+        "image_verified_readback_at_utc": null,
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      },
+      {
+        "destination": "linkedin",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "attempted_at_utc": "2026-11-05T18:48:06.211051+00:00",
+        "dispatched_at_utc": null,
+        "timing_basis": "API_TRANSPORT_CALL",
+        "seconds_after_text_approval": null,
+        "within_target": null,
+        "first_verified_readback_at_utc": null,
+        "readback_seconds_after_text_approval": null,
+        "image_verified_readback_at_utc": null,
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      },
+      {
+        "destination": "facebook_page",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-05T19:18:00.465729+00:00",
+        "dispatched_at_utc": "2026-11-05T19:18:00.465729+00:00",
+        "timing_basis": "API_TRANSPORT_CALL",
+        "seconds_after_text_approval": 2369.055046,
+        "within_target": false,
+        "first_verified_readback_at_utc": "2026-11-05T19:18:07.500253+00:00",
+        "readback_seconds_after_text_approval": 2376.08957,
+        "image_verified_readback_at_utc": null,
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      },
+      {
+        "destination": "instagram_business",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-05T18:47:49.038396+00:00",
+        "dispatched_at_utc": "2026-11-05T18:47:49.038396+00:00",
+        "timing_basis": "API_TRANSPORT_CALL",
+        "seconds_after_text_approval": 557.627713,
+        "within_target": true,
+        "first_verified_readback_at_utc": "2026-11-05T18:48:05.900651+00:00",
+        "readback_seconds_after_text_approval": 574.489968,
+        "image_verified_readback_at_utc": null,
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      },
+      {
+        "destination": "threads",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-05T18:48:12.476979+00:00",
+        "dispatched_at_utc": "2026-11-05T18:48:12.476979+00:00",
+        "timing_basis": "API_TRANSPORT_CALL",
+        "seconds_after_text_approval": 581.066296,
+        "within_target": true,
+        "first_verified_readback_at_utc": "2026-11-05T18:48:38.459363+00:00",
+        "readback_seconds_after_text_approval": 607.04868,
+        "image_verified_readback_at_utc": null,
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      },
+      {
+        "destination": "youtube",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "attempted_at_utc": "2026-11-05T18:51:18.647119+00:00",
+        "dispatched_at_utc": null,
+        "timing_basis": "NATIVE_ACTION_OBSERVED",
+        "seconds_after_text_approval": null,
+        "within_target": null,
+        "first_verified_readback_at_utc": null,
+        "readback_seconds_after_text_approval": null,
+        "image_verified_readback_at_utc": null,
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      },
+      {
+        "destination": "linkedin_company",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-05T18:54:31.244771+00:00",
+        "dispatched_at_utc": "2026-11-05T18:57:51.468Z",
+        "timing_basis": "NATIVE_ACTION_OBSERVED",
+        "seconds_after_text_approval": 1160.057317,
+        "within_target": false,
+        "first_verified_readback_at_utc": "2026-11-05T19:09:32.155427+00:00",
+        "readback_seconds_after_text_approval": 1860.744744,
+        "image_verified_readback_at_utc": null,
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      }
+    ],
+    "all_channels_dispatched_within_target": false,
+    "finished_piece_acceptance": {
+      "item": "CC-199",
+      "target_minutes": 30,
+      "all_destinations_with_image_readbacks_within_target": false
+    },
+    "state": "OVERDUE_CONTINUE_PUBLICATION"
+  },
+  "destinations": [
+    {
+      "destination": "substack",
+      "dispatch_id": "dispatch_9bdaea201ef6fbe180e59c7e84c37ec9",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "223667079",
+      "public_object_url": "https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins",
+      "blocker": null
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_25394099eeb9b6d461130736a26f0c66",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "89",
+      "public_object_url": "https://t.me/CapitalChronicle/89",
+      "blocker": null
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_b6384facde9f1006963cfa520fe590a1",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "1567973679671943284",
+      "public_object_url": null,
+      "blocker": null
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_0303b933bbb909f36e2abc87056efbab",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "2118415812772216943",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118415812772216943",
+      "blocker": null
+    },
+    {
+      "destination": "linkedin",
+      "dispatch_id": "dispatch_6bba1541543f592d24e2add73c6fde4b",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null,
+      "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+    },
+    {
+      "destination": "facebook_page",
+      "dispatch_id": "dispatch_abe1baddfe34ed5d46ab0d9ff7ede4bc",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "106091951705748_1445938507724565",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1445938507724565",
+      "blocker": null
+    },
+    {
+      "destination": "instagram_business",
+      "dispatch_id": "dispatch_b18350c3db6166e122bce063c096a3f9",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "17903586153606654",
+      "public_object_url": "https://www.instagram.com/p/DfXteqtATKv/",
+      "blocker": null
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_692424f2eba8e7ad683fda823f4573c4",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "18084256550401403",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfXthZ8nxU8",
+      "blocker": null
+    },
+    {
+      "destination": "youtube",
+      "dispatch_id": "dispatch_24e6f3f32d6d6c1f924dbe9375978b0a",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null,
+      "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+    },
+    {
+      "destination": "linkedin_company",
+      "dispatch_id": "dispatch_7393bc29ca2c2464b617f35e49fb9639",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "urn:li:share:7524183229864628225",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524183229864628225/",
+      "blocker": null
+    }
+  ]
+}

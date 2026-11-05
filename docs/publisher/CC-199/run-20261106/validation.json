@@ -1,0 +1,59 @@
+{
+  "tests_passed": 155,
+  "tests_skipped": 3,
+  "scope": "11 new acceptance cases; 144 targeted coordinator, finished-piece dispatch and native publication latency regressions",
+  "junit": [
+    "acceptance-tests.xml",
+    "targeted-regression.xml"
+  ],
+  "installed_consumer": "installed-consumer.json",
+  "three_piece_acceptance_met": false,
+  "public_writes": 0,
+  "editorial_model_calls": 0,
+  "schedule_changes": 0,
+  "chat_messages": 0,
+  "native_desktop_control": false,
+  "native_file_dialog_opened": false,
+  "preserved_wip": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "unchanged": true
+    }
+  ]
+}

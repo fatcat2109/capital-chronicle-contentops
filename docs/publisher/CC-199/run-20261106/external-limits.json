@@ -1,0 +1,80 @@
+{
+  "recorded_at_utc": "2026-11-05T19:56:20.478458+00:00",
+  "item": "CC-199",
+  "first_outside_cause": "YOUTUBE_ADVANCED_FEATURE_VERIFICATION_OR_24H_WAIT",
+  "choice": "Use the provider wait, retain exact public objects and bound recoveries, and avoid duplicate sends.",
+  "youtube": {
+    "destination": "youtube",
+    "cause": "YOUTUBE_ADVANCED_FEATURE_VERIFICATION_OR_24H_WAIT",
+    "public_object_created": false,
+    "publish_clicks": 1,
+    "reconciled_state": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+    "absence_artifact": "youtube-final-absence-observed.json",
+    "binding": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\binding.json",
+    "canonical_url": "https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins",
+    "prepared_person_action": "Complete YouTube's advanced-features verification for @CapitalChronicleYouTube, or allow its stated 24-hour wait. Then resume only this bound destination after a fresh absence readback; retain its source cutoff and approval clock.",
+    "account_configuration_changed": false,
+    "retry_clicked": false,
+    "schedule_changed": false,
+    "chat_messages_sent": false
+  },
+  "linkedin": {
+    "observed_at_utc": "2026-11-05T19:26:26.639938+00:00",
+    "destination": "linkedin",
+    "original_api_failure": "LinkedInAmbiguousWriteError",
+    "reconciled_state": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+    "own_activity_absence": "linkedin-final-absence-observed.json",
+    "company_copy_confirmed": "https://www.linkedin.com/feed/update/urn:li:share:7524183229864628225/",
+    "recovery_prepared": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\linkedin-recovery\\distribution-recovery.json",
+    "desktop_render": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\linkedin-recovery\\captures\\cc124-bitcoin-linkedin-desktop.png",
+    "recovery_published": false,
+    "external_recovery_failure": "BrowserOS Neo screenshot failed: CDP request timed out: Page.captureScreenshot; two full-page captures and one bounded clip failed for the mobile view.",
+    "choice": "Keep the confirmed company LinkedIn copy and prepared personal recovery. Do not repeat the ambiguous API write or assert an unperformed mobile inspection.",
+    "next_action": "Resume this exact LinkedIn-only recovery when Neo captures pixels again; collect its native MAX acceptance and publish once after a fresh own-profile absence readback.",
+    "schedule_changed": false,
+    "chat_messages_sent": false,
+    "native_file_dialog_opened": false
+  },
+  "southwest_threads": {
+    "run_id": "cc124-next-article-20261105-b",
+    "root_id": "18130022495483073",
+    "root_url": "https://www.threads.com/@official.capitalchronicle/post/DfV8fzyH7uD",
+    "reply_id": "18083534351719472",
+    "reply_url": "https://www.threads.com/@official.capitalchronicle/post/DfV8hQtHxVM",
+    "cause": "EXISTING_TEXT_POST_HAS_NO_SELECTED_IMAGE",
+    "text_verified": true,
+    "reply_chain_verified": true,
+    "image_verified": false,
+    "retained_image": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\media_assets\\post-facts-c6d7a73bb1808cefa008.png",
+    "retained_image_sha256": "240c8f6dc5ecea0d75af69517be776603ca3c9f69d0b15d13f120b91671fdec5",
+    "api_edit": "UNSUPPORTED in the installed execute_threads_edit adapter; no provider edit was attempted.",
+    "browser_control_errors": [
+      "Element e19 (button More) is covered by <path> at its click point",
+      "act failed: Element cannot receive focus."
+    ],
+    "repair_performed": false,
+    "prepared_person_action": "If removal is used for this media repair, remove only the exact Southwest root 18130022495483073 and its reply 18083534351719472. Publisher must verify their absence before any reviewed replacement; the current root is never blindly reposted."
+  },
+  "source_artifacts": [
+    {
+      "path": "docs\\publisher\\CC-124\\run-20261106-0057\\youtube-limit.json",
+      "bytes": 897,
+      "sha256": "313c387df483583551be6a1a93261d885a6193305126b56a6e0b51388846cdea"
+    },
+    {
+      "path": "docs\\publisher\\CC-124\\run-20261106-0057\\youtube-final-absence-observed.json",
+      "bytes": 1899,
+      "sha256": "8508e52a753bc7753da5d6c1adca10415e166426597d430d8646960975055085"
+    },
+    {
+      "path": "docs\\publisher\\CC-124\\run-20261106-0057\\linkedin-personal-limit.json",
+      "bytes": 1436,
+      "sha256": "b9de09d564dca40f0a7e6a1eb765325643463ba980f427a0eee35059ecbebdf3"
+    },
+    {
+      "path": "docs\\publisher\\CC-124\\run-20261106-0057\\linkedin-final-absence-observed.json",
+      "bytes": 2599,
+      "sha256": "63e9642cd94719d328479b77877cc6daa03c86a8ea6f71bbf5dc09f5a5b5f481"
+    }
+  ]
+}
