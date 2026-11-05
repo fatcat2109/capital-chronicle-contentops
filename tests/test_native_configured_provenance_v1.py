@@ -38,7 +38,7 @@ def test_configured_return_resumes_exact_request_without_claiming_observed_model
 
 
 @pytest.mark.parametrize("change", [
-    {"configuration_status": None}, {"configuration_source": ""},
+    {"configuration_status": None},
     {"actual_configuration_unavailable": False}, {"configured_model": "gpt-6-luna"},
     {"configured_reasoning_effort": "max"},
 ])
@@ -52,6 +52,22 @@ def test_fallback_needs_no_fixed_authority_label():
     # model, effort, source and the unavailable-actuals flag still bind the fallback.
     validate_native_configuration({**configured(), "configuration_authority": None},
         {"model": "gpt-6.1-sol", "reasoning_effort": "low"})
+
+
+def test_native_context_source_needs_no_duplicate_configuration_source(tmp_path):
+    turn = _turn(tmp_path)
+    args = {"logical_invocation_id": turn.run_id + ":select", "prompt": "controlled select",
+        "governed_input": {}, "validator": lambda raw: (True, None, json.loads(raw), None)}
+    with pytest.raises(DesktopInputRequired) as pending:
+        turn(**args)
+    observation = configured()
+    observation.pop("configuration_source")
+    turn.submit("select", {"request_sha256": pending.value.request["request_sha256"],
+        "output": {"selected": "controlled"}, "invocation_observation": observation})
+    output, receipt = turn(**args)
+    assert output == {"selected": "controlled"}
+    assert receipt["selected_model"] is None and receipt["reasoning_effort"] is None
+    assert receipt["observation"]["observation_source"] == observation["observation_source"]
 
 
 def test_observed_mismatch_is_not_hidden_by_configured_fallback():

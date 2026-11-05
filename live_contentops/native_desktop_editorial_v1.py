@@ -79,7 +79,6 @@ def validate_native_configuration(observation, target, *, required=True):
     if observation.get("configuration_status") == CONFIGURED_NOT_OBSERVED:
         if (observation.get("configured_model") != target["model"]
                 or observation.get("configured_reasoning_effort") != target["reasoning_effort"]
-                or not observation.get("configuration_source")
                 or observation.get("actual_configuration_unavailable") is not True):
             raise ValueError("EXACT_LABELLED_NATIVE_CONFIGURATION_REQUIRED")
         # A fully observed return must use its actual configuration instead.
