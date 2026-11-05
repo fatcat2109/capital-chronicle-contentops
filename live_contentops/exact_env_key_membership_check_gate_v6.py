@@ -69,7 +69,10 @@ def validate_membership_scaffold_bundle(bundle:dict[str,Any])->list[str]:
     if isinstance(recs,list):
         for i,r in enumerate(recs): b += [f"record_{i}_{x}" for x in validate_membership_record(r)]
     return b
-def _process_env_has_key(key_name:str)->bool: return key_name in PROCESS_ENV
+def _process_env_has_key(key_name:str)->bool:
+    # CC-297: a key in Credential Manager or the live user environment is present too.
+    from live_contentops.secret_store_v1 import secret_environment
+    return key_name in PROCESS_ENV or key_name in secret_environment(PROCESS_ENV)
 def _mapping_has_key(env_mapping:Mapping[str,object],key_name:str)->bool: return key_name in env_mapping
 def make_check_record(r:dict[str,Any],source_id:str,*,checked:bool,present:bool)->dict[str,Any]:
     key=str(r.get("required_env_key_name","")); missing=(not present) if checked else True; status=(PRESENT_STATUS if present else MISSING_STATUS) if checked else BLOCKED_STATUS; short=_sha({"source":source_id,"record":r.get("credential_presence_membership_record_id"),"key":key,"checked":checked,"present":present})[:16]

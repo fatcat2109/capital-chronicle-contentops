@@ -146,6 +146,11 @@ def get_environment_keys() -> list[str]:
     for key in os.environ:
         if any(prefix in key.upper() for prefix in target_prefixes):
             keys.append(key)
+    # CC-297: names held in Credential Manager count as set (names only, never values).
+    from live_contentops.secret_store_v1 import stored_secret_names
+    for key in stored_secret_names():
+        if key not in keys and any(prefix in key.upper() for prefix in target_prefixes):
+            keys.append(key)
     return sorted(keys)
 
 

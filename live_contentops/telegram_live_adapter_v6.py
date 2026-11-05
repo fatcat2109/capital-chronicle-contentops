@@ -14,18 +14,21 @@ import urllib.parse
 import urllib.request
 from typing import Any, Mapping
 
+from .secret_store_v1 import read_secret
+
 TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_DISCORD_AND_TELEGRAM_V0"
 
 
 def _get_default_bot_token() -> str:
-    return os.environ.get("TELEGRAM_BOT_TOKEN") or ""
+    # CC-297: Credential Manager, then the live user environment, then the process environment.
+    return read_secret("TELEGRAM_BOT_TOKEN") or ""
 
 
 def _get_default_chat_id() -> str:
     return (
-        os.environ.get("TELEGRAM_TARGET_CHAT_ID")
-        or os.environ.get("TEST_TELEGRAM_CHANNEL")
-        or os.environ.get("TELEGRAM_CHANNEL_ID")
+        read_secret("TELEGRAM_TARGET_CHAT_ID")
+        or read_secret("TEST_TELEGRAM_CHANNEL")
+        or read_secret("TELEGRAM_CHANNEL_ID")
         or ""
     )
 

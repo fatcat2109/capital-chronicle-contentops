@@ -56,7 +56,10 @@ def is_post_card(asset: Mapping[str, Any]) -> bool:
 
 def credential_presence(environment: Mapping[str, str] | None = None) -> dict[str, bool]:
     """Return names and booleans only; credential values never leave this module."""
-    source = environment if environment is not None else os.environ
+    if environment is None:  # CC-297: Credential Manager, then the live user env, then the process env
+        from live_contentops.secret_store_v1 import secret_environment
+        environment = secret_environment()
+    source = environment
     return {name: bool(str(source.get(name) or "").strip()) for name in REQUIRED_ENV_VAR_NAMES}
 
 
@@ -282,7 +285,10 @@ def prepare_cloudinary_delivery_media(
             "provider_calls": 0,
             "credential_presence": credential_presence(environment),
         }
-    source = environment if environment is not None else os.environ
+    if environment is None:  # CC-297: Credential Manager, then the live user env, then the process env
+        from live_contentops.secret_store_v1 import secret_environment
+        environment = secret_environment()
+    source = environment
     presence = credential_presence(source)
     missing = [name for name, present in presence.items() if not present]
     if missing:

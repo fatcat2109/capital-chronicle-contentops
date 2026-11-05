@@ -10,10 +10,12 @@ Orchestrates:
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any
 
 from live_contentops.cc_artifact_packet_intake_v0 import intake_packet, load_packet
+from live_contentops.secret_store_v1 import read_secret
 from live_contentops.cc_artifact_packet_operator_decision_v1 import (
     load_existing_intake_artifacts,
     write_operator_decision_outputs,
@@ -94,8 +96,8 @@ def run_fast_one_cycle(
     
     # Prefer Discord if configured safely.
     discord_webhook = (
-        os.environ.get("DISCORD_ANNOUNCEMENTS_WEBHOOK_URL")
-        or os.environ.get("DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK")
+        read_secret("DISCORD_ANNOUNCEMENTS_WEBHOOK_URL", env=os.environ)
+        or read_secret("DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK", env=os.environ)
         or ""
     )
     

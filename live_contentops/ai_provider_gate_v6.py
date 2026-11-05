@@ -7,6 +7,8 @@ from __future__ import annotations
 import os
 from typing import Any
 
+from live_contentops.secret_store_v1 import secret_present
+
 PROVIDER_MODES = [
     "disabled",
     "dry_run_stub",
@@ -34,7 +36,7 @@ def inspect_provider_credentials() -> dict[str, bool]:
         "NINE_ROUTER_API_KEY",
         "ANTHROPIC_API_KEY"
     ]
-    return {k: (k in os.environ) for k in keys}
+    return {k: secret_present(k) for k in keys}  # CC-297: Credential Manager, then user env, then process env
 
 
 def call_llm_deferred(prompt_family: str, prompt_text: str, schema: dict[str, Any] | None = None) -> dict[str, Any]:

@@ -19,6 +19,7 @@ from .media_manifest_authority_v1 import (
     sha256_bytes,
     visual_similarity_to_local_file,
 )
+from .secret_store_v1 import read_secret
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0"
 GRAPH_VERSION = "v21.0"
@@ -32,11 +33,12 @@ def _first_nonblank(*values: str | None) -> str:
 
 
 def _facebook_token(access_token: str | None = None) -> str:
-    return _first_nonblank(access_token, os.environ.get("FACEBOOK_PAGE_ACCESS_TOKEN"), os.environ.get("META_ACCESS_TOKEN"))
+    # CC-297: Credential Manager, then the live user environment, then the process environment.
+    return _first_nonblank(access_token, read_secret("FACEBOOK_PAGE_ACCESS_TOKEN"), read_secret("META_ACCESS_TOKEN"))
 
 
 def _facebook_page_id(page_id: str | None = None) -> str:
-    return _first_nonblank(page_id, os.environ.get("FACEBOOK_PAGE_ID"))
+    return _first_nonblank(page_id, read_secret("FACEBOOK_PAGE_ID"))
 
 
 def _validation_failed(missing: list[str]) -> dict[str, Any]:

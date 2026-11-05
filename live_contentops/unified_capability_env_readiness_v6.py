@@ -6,6 +6,7 @@ import argparse, json, os
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Mapping
+from live_contentops.secret_store_v1 import secret_environment  # CC-297 reader
 SCHEMA_VERSION="6.0.0"
 TASK_LABEL="TASK_CONTENTOPS_V6_FAST_SHIP_RUNTIME_SPINE_CONSOLIDATION_UNIFIED_CAPABILITY_ENV_READINESS_HEAVY_BATCH_V0"
 PACKET_STATUS_READY="unified_capability_env_readiness_available_for_product_lane_selection"
@@ -40,7 +41,7 @@ def parse_dotenv_key_names(path:Path)->set[str]:
   if key and key.replace("_","").isalnum(): keys.add(key)
  return keys
 def collect_key_presence(env:Mapping[str,Any]|None=None,dotenv_path:str|Path|None=None,scan_mode:str="both",checked_keys:list[str]|None=None)->EnvScanSummary:
- checked=checked_keys or known_key_names(); use_process=scan_mode in {"both","process_env_only"}; use_dotenv=scan_mode in {"both","dotenv_key_name_presence_only"}; env_map=env if env is not None else os.environ; path=Path(dotenv_path) if dotenv_path is not None else Path(".env"); dotenv_names=parse_dotenv_key_names(path) if use_dotenv else set(); presence={k:bool((use_process and k in env_map) or (use_dotenv and k in dotenv_names)) for k in checked}
+ checked=checked_keys or known_key_names(); use_process=scan_mode in {"both","process_env_only"}; use_dotenv=scan_mode in {"both","dotenv_key_name_presence_only"}; env_map=env if env is not None else secret_environment(); path=Path(dotenv_path) if dotenv_path is not None else Path(".env"); dotenv_names=parse_dotenv_key_names(path) if use_dotenv else set(); presence={k:bool((use_process and k in env_map) or (use_dotenv and k in dotenv_names)) for k in checked}
  return EnvScanSummary(scan_mode,use_process,use_dotenv,path.exists() if use_dotenv else False,False,checked,presence)
 def _status(required:list[str],optional:list[str],presence:dict[str,bool],capability_id:str)->tuple[str,list[str]]:
  missing=[k for k in required if not presence.get(k,False)]

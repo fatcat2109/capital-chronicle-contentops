@@ -26,6 +26,8 @@ from urllib.request import Request, urlopen
 
 from PIL import Image
 
+from live_contentops.secret_store_v1 import read_secret, secret_environment
+
 ENV_API_KEY = "AI_API_CHEAP_API_KEY"
 DEFAULT_BASE_URL = "https://ai.api-cheap.site/v1"
 IMAGE_PATH = "/images/generations"
@@ -76,7 +78,7 @@ class TransportWorkerLoss(RuntimeError):
 
 def credential_presence(env: Mapping[str, str] | None = None) -> dict[str, str]:
     """Return presence only; neither key nor Authorization value is ever returned."""
-    source = env if env is not None else os.environ
+    source = env if env is not None else secret_environment(os.environ)  # CC-297 reader
     return {ENV_API_KEY: "PRESENT" if source.get(ENV_API_KEY) else "MISSING"}
 
 
@@ -343,7 +345,7 @@ def generate_image(
     if timeout_seconds <= 0:
         raise DirectImageConfigError("timeout_must_be_positive")
     base_url = resolve_base_url()
-    api_key = os.environ.get(ENV_API_KEY)
+    api_key = read_secret(ENV_API_KEY, env=os.environ)  # CC-297: Credential Manager, then user env, then process env
     started = time.monotonic()
     if not api_key:
         return _failure_result(

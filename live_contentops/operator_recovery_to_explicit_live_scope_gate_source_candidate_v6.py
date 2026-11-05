@@ -41,8 +41,9 @@ def build_gate_packet() -> dict:
         exact_payload_preview_created = True
 
     # Credential check
-    webhook_present = "present" if os.environ.get("DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK") else "missing"
-    channel_present = "present" if os.environ.get("DISCORD_LIVE_ANNOUNCEMENTS_CHANNEL_LABEL") else "missing"
+    from live_contentops.secret_store_v1 import secret_present  # CC-297 reader
+    webhook_present = "present" if secret_present("DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK") else "missing"
+    channel_present = "present" if secret_present("DISCORD_LIVE_ANNOUNCEMENTS_CHANNEL_LABEL") else "missing"
 
     forbidden_financial = any("contains_forbidden_financial_advice" in r for r in blocked_reasons)
 

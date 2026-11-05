@@ -27,6 +27,7 @@ from typing import Any, Mapping
 from urllib.parse import urlparse
 
 from live_contentops.credential_redaction_policy import redacted_presence
+from live_contentops.secret_store_v1 import secret_environment
 from live_contentops.nine_router_ordered_model_router_v2 import (
     AUTHORIZED_MODELS,
     GATEWAY,
@@ -76,7 +77,7 @@ def grounding_capability_manifest() -> dict[str, Any]:
 
 def credential_presence() -> dict[str, str]:
     """Presence-only credential report. Never returns or hints at a value."""
-    env = getattr(os, "environ")
+    env = secret_environment(getattr(os, "environ"))  # CC-297 reader
     return {
         ENV_API_KEY: redacted_presence(bool(env.get(ENV_API_KEY)), ENV_API_KEY),
         ENV_BASE_URL: redacted_presence(bool(env.get(ENV_BASE_URL)), ENV_BASE_URL),
@@ -284,7 +285,7 @@ def call_nine_router(
     if model not in AUTHORIZED_MODELS:
         raise NineRouterAdapterError(f"unauthorized_model:{model}")
 
-    env = getattr(os, "environ")
+    env = secret_environment(getattr(os, "environ"))  # CC-297: Credential Manager, then user env, then process env
     api_key = env.get(ENV_API_KEY)
     if not api_key:
         raise NineRouterAdapterError(f"{ENV_API_KEY}_missing")

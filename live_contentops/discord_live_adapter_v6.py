@@ -16,13 +16,16 @@ import uuid
 from pathlib import Path
 from typing import Any, Mapping
 
+from .secret_store_v1 import read_secret
+
 TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_DISCORD_AND_TELEGRAM_V0"
 
 
 def _get_default_webhook_url() -> str:
+    # CC-297: Credential Manager, then the live user environment, then the process environment.
     return (
-        os.environ.get("DISCORD_ANNOUNCEMENTS_WEBHOOK_URL")
-        or os.environ.get("DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK")
+        read_secret("DISCORD_ANNOUNCEMENTS_WEBHOOK_URL")
+        or read_secret("DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK")
         or ""
     )
 

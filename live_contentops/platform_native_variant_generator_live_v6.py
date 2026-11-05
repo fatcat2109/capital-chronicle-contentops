@@ -25,6 +25,7 @@ from live_contentops.google_image_search_v6 import (
     execute_google_image_search_and_download,
 )
 from live_contentops.macro_chart_renderer_v6 import render_macro_chart
+from live_contentops.secret_store_v1 import read_secret
 from live_contentops.media_content_audit_v6 import (
     _fed_funds_fixture_scope,
     _looks_like_fed_funds_topic,
@@ -731,7 +732,7 @@ def generate_live_platform_variants(
 
     if live_run:
         _load_live_env_if_needed(True)
-        api_key = os.environ.get("NINE_ROUTER_API_KEY")
+        api_key = read_secret("NINE_ROUTER_API_KEY")  # CC-297: Credential Manager, then user env, then process env
         if not api_key:
             validation_failures.append("NINE_ROUTER_API_KEY_missing")
         else:

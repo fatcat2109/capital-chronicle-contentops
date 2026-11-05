@@ -767,7 +767,8 @@ def make_credential_allowlist_preflight_packet(
                 if env_mapping is not None:
                     is_present = key in env_mapping
                 else:
-                    is_present = key in getattr(os, "environ")
+                    from live_contentops.secret_store_v1 import secret_environment  # CC-297 reader
+                    is_present = key in getattr(os, "environ") or key in secret_environment()
 
                 if not is_present:
                     all_present = False

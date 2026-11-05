@@ -1433,8 +1433,10 @@ def _publish_threads_reply_verified(
 
 
 def _capability_presence() -> dict[str, bool]:
+    from live_contentops.secret_store_v1 import secret_present  # CC-297 reader
+
     def present(*keys: str) -> bool:
-        return any(bool(os.environ.get(key)) for key in keys)
+        return any(secret_present(key) for key in keys)
 
     return {
         "discord": present("DISCORD_ANNOUNCEMENTS_WEBHOOK_URL", "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK"),

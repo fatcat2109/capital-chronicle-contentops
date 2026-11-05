@@ -81,9 +81,12 @@ def _read_env_file_keys(env_path: Path) -> set[str]:
 def collect_env_key_presence(repo_root: str | Path, *, include_process_env: bool = False) -> dict[str, bool]:
     root = Path(repo_root)
     keys = _read_env_file_keys(root / ".env") | _read_env_file_keys(root / ".env.local")
+    wanted = {spec[3] for spec in CREDENTIAL_SPECS}
     if include_process_env:
         keys |= set(getattr(os, "environ"))
-    wanted = {spec[3] for spec in CREDENTIAL_SPECS}
+        # CC-297: a key moved to Credential Manager or the live user environment is present too.
+        from .secret_store_v1 import secret_present
+        keys |= {name for name in wanted if name not in keys and secret_present(name)}
     return {key: key in keys for key in sorted(wanted)}
 
 

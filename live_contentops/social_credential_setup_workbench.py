@@ -104,7 +104,10 @@ def read_local_env(repo_root: Path) -> tuple[dict[str, str | None], list[str]]:
     return merged, sources
 
 def merge_process_env(values: dict[str, str | None], env: Mapping[str, str] | None = None) -> dict[str, str | None]:
-    source = os.environ if env is None else env
+    if env is None:  # CC-297: Credential Manager, then the live user env, then the process env
+        from live_contentops.secret_store_v1 import secret_environment
+        env = secret_environment()
+    source = env
     merged = dict(values)
     for key in approved_key_names():
         if not merged.get(key) and source.get(key):

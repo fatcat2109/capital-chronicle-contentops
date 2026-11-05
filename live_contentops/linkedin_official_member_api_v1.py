@@ -25,6 +25,8 @@ from pathlib import Path
 from threading import Event
 from typing import Any, Callable, Mapping, Optional
 
+from live_contentops.secret_store_v1 import secret_environment
+
 
 TRANSPORT_VERSION = "contentops.linkedin_official_member_api_transport.v1"
 AUTH_METADATA_VERSION = "contentops.linkedin_official_member_api_auth_metadata.v1"
@@ -77,7 +79,7 @@ def _parse_time(value: Any) -> datetime | None:
 
 
 def env_name_presence(env: Mapping[str, str] | None = None) -> dict[str, bool]:
-    source = os.environ if env is None else env
+    source = secret_environment() if env is None else env  # CC-297 reader
     return {
         name: bool(str(source.get(name) or ""))
         for name in ("LINKEDIN_CLIENT_ID", "LINKEDIN_CLIENT_SECRET", "LINKEDIN_OAUTH_REDIRECT_URI")
@@ -322,7 +324,7 @@ def authorize_interactively(
     browser_opener: Callable[[str], Any] = webbrowser.open,
     token_store: WindowsDpapiTokenStore | None = None,
 ) -> dict[str, Any]:
-    source = os.environ if env is None else env
+    source = secret_environment() if env is None else env  # CC-297 reader
     presence = env_name_presence(source)
     if not all(presence.values()):
         raise LinkedInOfficialApiError("REQUIRED_CONFIGURATION_ABSENT")

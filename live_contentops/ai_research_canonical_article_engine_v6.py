@@ -15,6 +15,8 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Mapping
 
+from live_contentops.secret_store_v1 import secret_environment
+
 SCHEMA_VERSION = "6.0.0"
 TASK_LABEL = "TASK_CONTENTOPS_V6_ARTICLE_EVIDENCE_MEDIA_QUALITY_HARDENING_V0"
 DETERMINISTIC_TIMESTAMP = "2026-07-01T02:56:46+07:00"
@@ -1406,7 +1408,7 @@ def call_live_provider(prompt: str, provider: str, timeout_seconds: int = 15, mo
     The openai/anthropic branches are legacy and unchanged; the current product routes
     through 9router.
     """
-    env_map = getattr(os, "environ")
+    env_map = secret_environment(getattr(os, "environ"))  # CC-297 reader
     if provider == "9router" and model_override is None:
         from live_contentops.nine_router_llm_seam_v2 import (
             ROLE_ARTICLE_WRITING,
@@ -1633,7 +1635,7 @@ def run_article_engine(
         if provider_request_budget < 1:
             blockers.append("request_budget_insufficient")
         else:
-            env_map = getattr(os, "environ")
+            env_map = secret_environment(getattr(os, "environ"))  # CC-297 reader
             if live_provider == "openai":
                 key_name = "OPENAI_API_KEY"
             elif live_provider == "anthropic":

@@ -20,6 +20,7 @@ from .media_manifest_authority_v1 import (
     sha256_bytes,
     visual_similarity_to_local_file,
 )
+from .secret_store_v1 import read_secret
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0"
 THREADS_GRAPH_VERSION = "v1.0"
@@ -33,11 +34,12 @@ def _first_nonblank(*values: str | None) -> str:
 
 
 def _threads_token(access_token: str | None = None) -> str:
-    return _first_nonblank(access_token, os.environ.get("THREADS_USER_ACCESS_TOKEN"), os.environ.get("THREADS_ACCESS_TOKEN"))
+    # CC-297: Credential Manager, then the live user environment, then the process environment.
+    return _first_nonblank(access_token, read_secret("THREADS_USER_ACCESS_TOKEN"), read_secret("THREADS_ACCESS_TOKEN"))
 
 
 def _threads_user_id(threads_user_id: str | None = None) -> str:
-    return _first_nonblank(threads_user_id, os.environ.get("THREADS_USER_ID"))
+    return _first_nonblank(threads_user_id, read_secret("THREADS_USER_ID"))
 
 
 def _validation_failed(missing: list[str]) -> dict[str, Any]:

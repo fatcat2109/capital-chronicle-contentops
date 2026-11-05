@@ -12,6 +12,8 @@ import urllib.parse
 import urllib.request
 from typing import Any, Mapping
 
+from live_contentops.secret_store_v1 import first_secret, read_secret
+
 METRICS = (
     "impressions", "reach", "views", "likes", "reactions", "shares", "reposts",
     "comments", "replies", "canonical_article_clicks", "subscriber_conversions",
@@ -80,7 +82,8 @@ def _http_failure(destination: str, error: Exception) -> dict[str, Any]:
 
 
 def _meta_token(*names: str) -> str:
-    return next((str(os.environ.get(name) or "") for name in names if os.environ.get(name)), "")
+    # CC-297: Credential Manager, then the live user environment, then the process environment.
+    return first_secret(*names)
 
 
 def _counts(values):
@@ -167,7 +170,7 @@ def _threads(post_id: str) -> dict[str, Any]:
 
 
 def _discord(message_id: str) -> dict[str, Any]:
-    webhook = str(os.environ.get("DISCORD_WEBHOOK_URL") or "")
+    webhook = str(read_secret("DISCORD_WEBHOOK_URL") or "")
     if not webhook:
         return _result("discord", "AUTH_REQUIRED", limitation="current_webhook_binding_missing")
     request = urllib.request.Request(

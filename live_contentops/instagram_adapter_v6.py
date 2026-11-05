@@ -20,6 +20,7 @@ from .media_manifest_authority_v1 import (
     sha256_bytes,
     visual_similarity_to_local_file,
 )
+from .secret_store_v1 import read_secret
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0"
 GRAPH_VERSION = "v21.0"
@@ -33,11 +34,12 @@ def _first_nonblank(*values: str | None) -> str:
 
 
 def _instagram_token(access_token: str | None = None) -> str:
-    return _first_nonblank(access_token, os.environ.get("INSTAGRAM_ACCESS_TOKEN"), os.environ.get("META_ACCESS_TOKEN"))
+    # CC-297: Credential Manager, then the live user environment, then the process environment.
+    return _first_nonblank(access_token, read_secret("INSTAGRAM_ACCESS_TOKEN"), read_secret("META_ACCESS_TOKEN"))
 
 
 def _instagram_id(ig_id: str | None = None) -> str:
-    return _first_nonblank(ig_id, os.environ.get("INSTAGRAM_BUSINESS_ACCOUNT_ID"), os.environ.get("INSTAGRAM_IG_ID"))
+    return _first_nonblank(ig_id, read_secret("INSTAGRAM_BUSINESS_ACCOUNT_ID"), read_secret("INSTAGRAM_IG_ID"))
 
 
 def _validation_failed(missing: list[str]) -> dict[str, Any]:

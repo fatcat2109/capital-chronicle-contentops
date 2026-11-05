@@ -505,7 +505,9 @@ class NeoDestinationHandoff:
 
 def destination_setup_projection(*, env=None, now=None, linkedin_root=None):
     """Presence only, with non-secret expiry metadata. Never decrypt or probe tokens."""
-    env = os.environ if env is None else env
+    if env is None:  # CC-297: Credential Manager, then the live user env, then the process env
+        from live_contentops.secret_store_v1 import secret_environment
+        env = secret_environment()
     now = now or datetime.now(timezone.utc)
     keys = {
         "telegram": (("TELEGRAM_BOT_TOKEN",), ("TELEGRAM_TARGET_CHAT_ID", "TELEGRAM_CHANNEL_ID", "TELEGRAM_CHAT_ID")),

@@ -24,6 +24,7 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Optional
 from urllib.parse import urlsplit
 
+from live_contentops.secret_store_v1 import leaked_secret_names, secret_environment
 from live_contentops.ingestion_bootstrap_v1 import (
     BINDING_LOCKED,
     INGESTION_CDP_PORT,
@@ -643,7 +644,8 @@ def wait_for_health(api_base: str, *, timeout_seconds: float = 90.0, poll_second
 
 
 def build_credential_inventory(env: Optional[Mapping[str, str]] = None) -> list[dict[str, Any]]:
-    source = dict(os.environ) if env is None else dict(env)
+    # CC-297: each name from Credential Manager, then the live user environment, then the process.
+    source = secret_environment() if env is None else dict(env)
 
     def presence(name: str) -> bool:
         value = source.get(name)
@@ -1016,6 +1018,12 @@ def _redaction_guard(text: str, env: Optional[Mapping[str, str]] = None) -> str:
             continue
         if value and len(value) >= 12 and value in text:
             raise LauncherError(f"refusing to emit output containing material resembling env value for {name}")
+    # CC-297: keys moved to Credential Manager, or rotated in the live user environment, are guarded too.
+    leaked = leaked_secret_names(
+        text, env=source, env_names=[name for name in source if SECRET_NAME_PATTERN.search(name)]
+    )
+    if leaked:
+        raise LauncherError(f"refusing to emit output containing material resembling the stored value for {leaked[0]}")
     return text
 
 

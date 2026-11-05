@@ -23,6 +23,8 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from threading import Event
 from typing import Any, Callable, Mapping, Protocol
 
+from live_contentops.secret_store_v1 import secret_environment
+
 
 CLIENT_KEY_ENV = "CONTENTOPS_TIKTOK_CLIENT_KEY"
 CLIENT_SECRET_ENV = "CONTENTOPS_TIKTOK_CLIENT_SECRET"
@@ -207,7 +209,7 @@ def read_approved_credentials(
 ) -> TikTokAppCredentials:
     """Read only the two owner-approved names when explicitly called."""
 
-    source = os.environ if env is None else env
+    source = secret_environment() if env is None else env  # CC-297 reader
     return TikTokAppCredentials(
         client_key=str(source.get(CLIENT_KEY_ENV) or ""),
         client_secret=str(source.get(CLIENT_SECRET_ENV) or ""),

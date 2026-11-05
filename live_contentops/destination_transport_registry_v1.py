@@ -20,6 +20,7 @@ from live_contentops.browser_interaction_budget_v1 import (
     browser_activity,
     record_browser_interaction_event,
 )
+from live_contentops.secret_store_v1 import secret_environment
 
 
 REGISTRY_VERSION = "contentops.destination_transport_registry.v3"
@@ -353,7 +354,8 @@ class DestinationReadinessManager:
                  linkedin_transport: Any = None, neo_readiness_provider: Any = None) -> None:
         validate_registry()
         self.store = store
-        self.env = os.environ if env is None else env
+        # CC-297: each name from Credential Manager, then the live user environment, then the process.
+        self.env = secret_environment() if env is None else env
         self.edge_runtime_ensurer = edge_runtime_ensurer
         self.linkedin_auth_root = linkedin_auth_root
         self.linkedin_transport = linkedin_transport

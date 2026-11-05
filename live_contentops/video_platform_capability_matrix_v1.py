@@ -105,7 +105,11 @@ def build_youtube_upload_request(
 
 
 def build_video_capability_matrix(environ: Mapping[str, str] | None = None) -> dict[str, Any]:
-    env = dict(os.environ if environ is None else environ)
+    if environ is None:  # CC-297: Credential Manager, then the live user env, then the process env
+        from live_contentops.secret_store_v1 import secret_environment
+        env = secret_environment()
+    else:
+        env = dict(environ)
     tiktok_app = _presence(TIKTOK_APP_KEYS, env)
     tiktok_oauth = _presence(TIKTOK_OAUTH_KEYS, env)
     youtube = _presence(YOUTUBE_KEYS, env)
