@@ -43,7 +43,9 @@ def next_editorial_action(result: Mapping[str, Any]) -> dict[str, Any]:
         calls = result.get("next_native_calls") or ([result["next_native_call"]] if result.get("next_native_call") else [])
         if not calls:
             raise ValueError("PENDING_NATIVE_ROLE_HAS_NO_DISPATCH")
-        if len(calls) > 3 or any(c.get("tool") not in {"collaboration.spawn_agent", "collaboration.followup_task"} for c in calls):
+        # CC-300: a Claude operation's role runs in its own Claude Code session ("claude.session").
+        if len(calls) > 3 or any(c.get("tool") not in {"collaboration.spawn_agent", "collaboration.followup_task",
+                                                       "claude.session"} for c in calls):
             raise ValueError("BOUNDED_SUPPORTED_NATIVE_CALLS_REQUIRED")
         from live_contentops.native_desktop_editorial_v1 import validate_native_role_dispatch
         for call in calls:
