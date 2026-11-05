@@ -535,12 +535,23 @@ def test_substack_transport_receives_only_canonical_article_media(monkeypatch, t
     assert "delivery_only_assets" not in captured
 
 
+def _instagram_selected_image(tmp_path):
+    from hashlib import sha256
+    from PIL import Image
+
+    path = tmp_path / "delivery.png"
+    Image.new("RGB", (32, 32), "white").save(path)
+    return {"asset_id": "delivery-card", "path": str(path),
+            "sha256": sha256(path.read_bytes()).hexdigest()}
+
+
 def test_instagram_consumes_only_verified_delivery_manifest_media(monkeypatch, tmp_path):
+    asset = _instagram_selected_image(tmp_path)
     media = {
         "media_asset_id": "delivery-card",
         "verified_public_delivery_url": "https://res.cloudinary.com/example/delivery.png",
-        "sha256": "a" * 64,
-        "public_delivery_sha256": "a" * 64,
+        "sha256": asset["sha256"],
+        "public_delivery_sha256": asset["sha256"],
         "local_public_hash_continuity": True,
         "absolute_local_source_path": str(tmp_path / "delivery.png"),
     }
@@ -551,13 +562,13 @@ def test_instagram_consumes_only_verified_delivery_manifest_media(monkeypatch, t
         lambda _intent: {
             "output_dir": tmp_path,
             "article": {"title": "Exact title"},
-            "payloads": {"instagram_business": {"text": "Caption"}},
+            "payloads": {"instagram_business": {"text": "Caption", "media_asset_ids": [asset["asset_id"]]}},
             "canonical_url": "https://capitalchronicle.substack.com/p/exact",
             "local_media": "",
             "delivery_local_media": media["absolute_local_source_path"],
             "public_image_url": media["verified_public_delivery_url"],
             "primary_media": media,
-            "media_assets": [],
+            "media_assets": [asset],
             "delivery_only_assets": [],
         },
     )
@@ -584,18 +595,19 @@ def test_instagram_consumes_only_verified_delivery_manifest_media(monkeypatch, t
 def test_instagram_fails_definite_no_write_without_verified_delivery_media(
     monkeypatch, tmp_path
 ):
+    asset = _instagram_selected_image(tmp_path)
     monkeypatch.setattr(
         pipeline,
         "_durable_intent_inputs",
         lambda _intent: {
             "output_dir": tmp_path,
             "article": {"title": "Exact title"},
-            "payloads": {"instagram_business": {"text": "Caption"}},
+            "payloads": {"instagram_business": {"text": "Caption", "media_asset_ids": [asset["asset_id"]]}},
             "canonical_url": "https://capitalchronicle.substack.com/p/exact",
             "local_media": "",
             "public_image_url": "",
             "primary_media": {},
-            "media_assets": [],
+            "media_assets": [asset],
             "delivery_only_assets": [],
         },
     )
@@ -617,7 +629,8 @@ def test_instagram_fails_definite_no_write_without_verified_delivery_media(
     assert result == {
         "status": "DEFINITE_NO_WRITE",
         "definite_no_write": True,
-        "reason_code": "VERIFIED_DELIVERY_MEDIA_UNAVAILABLE",
+        "public_write_performed": False,
+        "reason_code": "SELECTED_IMAGE_PUBLIC_DELIVERY_REQUIRED:instagram_business",
     }
 
 

@@ -1,0 +1,13 @@
+{
+  "item": "CC-124",
+  "started_utc": "2026-11-05T03:55:14.262241+00:00",
+  "branch": "backlog/cc-124-20261105-1051",
+  "base": "77046547c128b825531c150adeaf2ea77bf77a23",
+  "base_reason": "Current Publisher operating root includes fresh origin/master and integrated live fixes.",
+  "process_id": 14856,
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+  "unrelated_wip": "Preserved outside item commits",
+  "native_invocation_id": "01a1a9d5-9a22-73a1-ab8d-6c0e1e84c9ee"
+}

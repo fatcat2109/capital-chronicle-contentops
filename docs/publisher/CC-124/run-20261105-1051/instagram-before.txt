@@ -1,0 +1,24 @@
+FF                                                                       [100%]
+================================== FAILURES ===================================
+________ test_instagram_consumes_only_verified_delivery_manifest_media ________
+tests\test_eight_platform_substack_first_pipeline_v1.py:579: in test_instagram_consumes_only_verified_delivery_manifest_media
+    assert result["status"] == "SUCCESS"
+E   AssertionError: assert 'DEFINITE_NO_WRITE' == 'SUCCESS'
+E     
+E     - SUCCESS
+E     + DEFINITE_NO_WRITE
+___ test_instagram_fails_definite_no_write_without_verified_delivery_media ____
+tests\test_eight_platform_substack_first_pipeline_v1.py:617: in test_instagram_fails_definite_no_write_without_verified_delivery_media
+    assert result == {
+E   AssertionError: assert {'definite_no...ITE_NO_WRITE'} == {'definite_no...ITE_NO_WRITE'}
+E     
+E     Omitting 2 identical items, use -vv to show
+E     Differing items:
+E     {'reason_code': 'EVERY_POST_IMAGE_REQUIRED:instagram_business'} != {'reason_code': 'VERIFIED_DELIVERY_MEDIA_UNAVAILABLE'}
+E     Left contains 1 more item:
+E     {'public_write_performed': False}
+E     Use -v to get more diff
+=========================== short test summary info ===========================
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_instagram_consumes_only_verified_delivery_manifest_media
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_instagram_fails_definite_no_write_without_verified_delivery_media
+2 failed, 45 deselected in 1.85s
