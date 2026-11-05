@@ -1,0 +1,56 @@
+{
+  "tool_request_sha256": "b58ac796943750445f634d4eab1c7e89fc6038a63bbfb0e6b23d23d7616cac1c",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "surface": "CODEX_EXEC",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T00:51:37.732727+00:00",
+    "dispatched_at_utc": "2026-11-05T00:49:55.783Z",
+    "observation_source": "Neo page 429 verified @Capitalnicle then Post all once; Your posts were sent observed. Exact three-post conversation read back on pages 429/430; root and first reply match, last reply lacks notice."
+  },
+  "result": {
+    "request_sha256": "18575199ba8a48bc16de15f2cef1ef184aa057cfc1f8de1a56faecbf6d0e9c31",
+    "status": "SUCCESS",
+    "observed_identity": "@Capitalnicle",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "public_object_id": "2118143748899242476",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118143748899242476",
+    "published_at_utc": "2026-11-05T00:49:55.783Z"
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-05T00:49:55.783Z",
+      "observed_identity": "@Capitalnicle"
+    },
+    "readback": {
+      "status": "SUCCESS",
+      "content_verified": false,
+      "observed_identity": "@Capitalnicle",
+      "public_object_id": "2118143748899242476",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118143748899242476",
+      "observed_text": "Capital Chronicle\n@Capitalnicle\nSeptember PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\n\nhttps://\ncapitalchronicle.substack.com/p/september-pp\ni-energy-drove-the-goods\n\u2026\nALT\n7:49 AM \u00b7 Nov 5, 2026\n\u00b7\n7\n Views\n1\n\nCapital Chronicle\n@Capitalnicle\n\u00b7\n34s\nWatch: A lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it.\n1\n2\n\nCapital Chronicle\n@Capitalnicle\n\u00b7\n33s\nReaders decide whether to trade.\n1",
+      "observed_thread": [
+        {
+          "public_object_url": "https://x.com/Capitalnicle/status/2118143748899242476",
+          "public_object_id": "2118143748899242476",
+          "observed_text": "Capital Chronicle\n@Capitalnicle\nSeptember PPI: energy drove the goods surge as services rose\n\nThe BLS release of 15 October 2026 showed a 1.3% September headline rise and a 0.5% increase excluding foods, energy and trade services.\n\n\nhttps://\ncapitalchronicle.substack.com/p/september-pp\ni-energy-drove-the-goods\n\u2026\nALT\n7:49 AM \u00b7 Nov 5, 2026\n\u00b7\n7\n Views\n1"
+        },
+        {
+          "public_object_url": "https://x.com/Capitalnicle/status/2118143752334365128",
+          "public_object_id": "2118143752334365128",
+          "observed_text": "Capital Chronicle\n@Capitalnicle\n\u00b7\n34s\nWatch: A lasting inflation signal from the September 2026 release would require repeated gains outside energy; weaker underlying readings would challenge it.\n1\n2"
+        },
+        {
+          "public_object_url": "https://x.com/Capitalnicle/status/2118143755131957720",
+          "public_object_id": "2118143755131957720",
+          "observed_text": "Capital Chronicle\n@Capitalnicle\n\u00b7\n33s\nReaders decide whether to trade.\n1"
+        }
+      ],
+      "public_image_urls": [
+        "https://pbs.twimg.com/media/HWUl8ogakAAfkxl?format=jpg&name=small"
+      ],
+      "content_limitation": "Third reply contains only Readers decide whether to trade.; planned preceding retrospective/analysis notice missing. Exact post menu has no Edit. No repost or delete attempted."
+    }
+  }
+}
