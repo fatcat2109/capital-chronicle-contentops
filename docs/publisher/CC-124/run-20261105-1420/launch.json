@@ -1,0 +1,16 @@
+{
+  "item": "CC-124",
+  "started_utc": "2026-11-05T07:20:13Z",
+  "branch": "backlog/cc-124-20261105-1420",
+  "base": "78874c6a2125d4d1efcbd08a9251786310076523",
+  "base_reason": "Current Publisher operating root with integrated current source; fresh origin/master fetched 5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+  "process_id": 30628,
+  "unrelated_wip": "Preserved outside item commits",
+  "operation_id": "cc124-next-article-20261105-d",
+  "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\binding.json",
+  "binding_sha256": "12caea0fbfab8af74588a2f6a622025329a585915688313743b61eaf07907083",
+  "cutoff_utc": "2026-11-05T07:23:32.777824Z"
+}
