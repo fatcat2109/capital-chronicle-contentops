@@ -1,0 +1,200 @@
+{
+  "request_sha256": "94007034eae05a4257912e76c2087e2ccbfd104e42ce7b99e3dc5f312117a1a1",
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_visual_edit_1d9d8c3613e6",
+    "assignment_id": "cc124-bitcoin-rates-20261106-h:visual-edit-amend",
+    "request_identity": "visual-edit-amend:94007034eae05a4257912e76c2087e2ccbfd104e42ce7b99e3dc5f312117a1a1",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_configuration_unavailable": true,
+    "observation_source": "Supported native collaboration NEW_TASK context supplies canonical invocation identity /root/native_visual_edit_1d9d8c3613e6. The frozen request and parent assignment supply the configured role and speed; actual runtime model and effort telemetry are unavailable.",
+    "configuration_source": "Exact frozen desktop_request_visual-edit-amend.json and supported parent assignment request gpt-6.1-sol/max at standard speed; same canonical native context as original visual selection. These are configured values, not observed runtime telemetry."
+  },
+  "output": {
+    "analysis_scope": "OTHER_ANALYSIS",
+    "analysis_scope_reason": "A conditional Bitcoin market watch using dated Treasury observations, SEC investor education and a BLS release schedule; it analyses neither a released payroll result nor a policy decision.",
+    "channel_media": {
+      "discord": [
+        "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+      ],
+      "facebook_page": [
+        "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+      ],
+      "instagram_business": [
+        "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+      ],
+      "linkedin": [
+        "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+      ],
+      "telegram": [
+        "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+      ],
+      "threads": [
+        "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+      ],
+      "x": [
+        "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+      ],
+      "youtube": [
+        "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+      ]
+    },
+    "channel_media_reason": "Each destination has the selected observed Treasury chart. Once the article-bound factual card exists, the same writer may choose its exact generated ID for compact social presentations during the revision-bound review. No placeholder card or photo identity is admitted by this plan.",
+    "charts": [
+      {
+        "asset_id": "cc124-treasury-10y-nominal-2026-bitcoin-watch",
+        "data_spec": {
+          "axis": "One clearly labelled percent axis. Use calendar dates on the horizontal axis and direct final-point labelling. Do not use a second axis, Bitcoin symbol, trading arrow or annotation that attributes a yield move to an unobserved cause.",
+          "canonical_content_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+          "caption": "Source: U.S. Treasury. Nominal 10-year par yield, percent, January 2-November 4, 2026; reported observations. This chart shows Treasury yields, not Bitcoin performance.",
+          "chart_form": "line",
+          "document_id": "cc124-treasury-nominal-20261104",
+          "frequency": "reported daily Treasury observations",
+          "latest_observation_date": "2026-11-04",
+          "latest_value_percent": "4.90",
+          "metric": "Official nominal 10-year Treasury par yield",
+          "missingness": "There are 212 reported rows in this retained capture. Do not manufacture weekends, holidays, later observations or missing values. Connecting reported points is a visual connector, not a claim that an unreported day's value was observed.",
+          "observation_count": 212,
+          "period_end": "2026-11-04",
+          "period_start": "2026-01-02",
+          "provenance_and_clock_rule": "Retain the original capture, known-at and publication clocks. The economic observations end November 4; later rereading does not make them November 6 market observations. This is not a retrospective of the unreleased jobs report.",
+          "rights_basis": "An original Capital Chronicle chart of admitted official Treasury numerical facts, with source attribution. Do not copy the Treasury page's expression, logos or graphic assets. Preserve the retained source capture and its existing rights binding.",
+          "source_id": "SOURCE_1",
+          "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "subtitle": "U.S. nominal 10-year Treasury par yield; reported daily observations, January 2-November 4, 2026",
+          "title": "The Treasury backdrop, through November 4",
+          "transform": "Code parses the exact 212 date/value pairs from the admitted document and plots the reported levels in chronological order at source precision. Label the final observation 4.90%, Nov 4. Any prose change from November 3 uses Decimal subtraction of the exact 4.95 and 4.90 percent observations, multiplied by 100 for basis points. Do not smooth, rebase, fit, calculate a correlation or derive a Bitcoin value.",
+          "unit": "percent per annum",
+          "value_status": "ACTUAL_REPORTED_OBSERVATION"
+        },
+        "placement_after": "What the Treasury figures show",
+        "question": "Where does the latest easing sit within the available 2026 Treasury yield history?",
+        "why_useful": "A full-window single series shows that the latest lower reading is one part of a changing yield backdrop. It supplies the actual observed evidence for the rate side of the argument while making no claim about Bitcoin's price or demand. A Bitcoin overlay or second yield measure would introduce unsupported evidence."
+      }
+    ],
+    "contextual_photo_ids": [
+      "cc124-bitcoin-fed-archive"
+    ],
+    "contextual_photo_plan": {
+      "asset_id": "cc124-bitcoin-fed-archive",
+      "asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_assets\\Eccles_Building_20110329.jpg",
+      "placement": "Secondary macro context in the canonical article after the Treasury chart and before the explanation of the two distinct Bitcoin tests. Keep the archive caption attached. The chart remains the selected image on all eight destinations.",
+      "caption": "Archive context: the Federal Reserve's Eccles Building, March 2011. Photo: Federal Reserve Board (Federalreserve), via Wikimedia Commons; public domain.",
+      "alt_text": "The front entrance and facade of the Federal Reserve's Eccles Building, photographed in March 2011.",
+      "depicted_date": "2011-03-29 11:47",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg",
+      "rights_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_assets\\photo-rights-evidence.json",
+      "rights_evidence_sha256": "c7bf3261dc389813f4acf019354ef0e7e20e9e880c340c0cc49edcee433267d4",
+      "rights_basis": "The exact Commons PD-USGov-Federal Reserve template identifies a Board of Governors work; regional Reserve Banks are explicitly excluded.",
+      "pixels_inspected": true,
+      "visual_review": {
+        "asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+        "pixels_inspected": true,
+        "relevant_subject": true,
+        "reviewer": "/root/native_visual_edit_1d9d8c3613e6",
+        "reviewer_invocation_id": "/root/native_visual_edit_1d9d8c3613e6",
+        "outcome": "KEEP",
+        "reviewed_at_utc": "2026-11-05T18:16:51.906562Z",
+        "archive_context_clear": true,
+        "caption_and_alt_match_subject": true,
+        "inspection_method": "Actual view_image inspection of exact local JPEG in this canonical native role; file and rights evidence SHA256 read back.",
+        "findings": "The inspected photograph shows the broad pale-stone facade and central columned entrance of the Federal Reserve Eccles Building, a flagpole above it, blue sky, lawn and approach. The main building is sharp, unobstructed and symmetrically framed. It is suitable as secondary institutional context for the discussion of the interest-rate backdrop. The retained March 2011 archive caption and full Federal Reserve Board/Commons public-domain credit must remain visible. The pixels do not establish a current Fed action, a Treasury-yield move, Bitcoin trading or investor demand. The depicted date and authorship come from the bound retained metadata, not from a visual inference.",
+        "review_scope": "Exact local original photo plus bound caption, alt text and rights record; assembled article, chart and destination renderings remain for later revision-bound review."
+      },
+      "prior_visual_review": {
+        "asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+        "pixels_inspected": true,
+        "relevant_subject": true,
+        "reviewer": "/root/native_max_jobs_ed46a179bd88",
+        "reviewer_invocation_id": "/root/native_max_jobs_ed46a179bd88",
+        "outcome": "KEEP",
+        "reviewed_at_utc": "2026-11-05T16:05:17.566136Z",
+        "archive_context_clear": true,
+        "caption_and_alt_match_subject": true,
+        "findings": "Viewed exact local original. The front facade and entrance of the Eccles Building are sharp, recognisable and appropriately framed. The retained caption identifies March 2011 archive context and the Federal Reserve Board/Commons public-domain credit; it makes no present-day meeting, jobs-release or corroboration claim. No generated or misleading scene is represented.",
+        "review_scope": "exact local documentary photo and bound caption; assembled article and destination renditions pending"
+      },
+      "limits": "Authentic March 2011 Federal Reserve Board archive context only. It does not depict Bitcoin, the scheduled November 2026 jobs release, a present meeting or market demand. The retained public-domain record is for the Board of Governors work and is not an inference about regional Reserve Bank rights."
+    },
+    "countercase": "A lower yield can matter to an asset that does not pay interest, so dismissing the rate backdrop would also go too far. But a nominal Treasury yield does not identify why yields changed, measure investors' willingness to bear Bitcoin risk, establish ETP inflows or determine Bitcoin's next move. The available sources support a conditional framework rather than an observed recovery, an empirical relationship or a directional forecast. No present weakening of risk appetite is established either.",
+    "editorial_mode": "WEEK_AHEAD_OR_WATCH",
+    "editorial_thesis": "Lower Treasury yields can reduce one reason to prefer an interest-bearing asset over Bitcoin, but that possible support does not establish demand for Bitcoin or a recovery. The admitted 10-year Treasury observation is 4.90% on November 4, 2026, after 4.95% on November 3. Explain the opportunity-cost mechanism conditionally, then distinguish it from the separate question of whether investors will accept Bitcoin's price volatility. The SEC's September 9, 2024 bulletin describes speculative exposure and volatility even through a spot ETP. The November 6 BLS calendar is a scheduled event to watch, not a jobs result or evidence of any Bitcoin response.",
+    "essential_gaps": [
+      "The supplied evidence supports a useful conditional watch without a current Bitcoin observation. Omit current Bitcoin price, direction, recovery, ETP flows and empirical correlation; no present weakening of risk appetite is established.",
+      "SOURCE_2 establishes the November 6 schedule only. The article must not anticipate an unreleased jobs result, consensus or market reaction.",
+      "The assembled final article, claim-bound card and chart pixels have not yet been inspected in this role. This is an editorial selection, not rendered acceptance. Keep the same canonical invocation for the writing and revision-bound visual follow-ups."
+    ],
+    "post_data_card_plan": {
+      "avoid": "No bullish arrow, demand score, implied probability, Bitcoin price, ETP-flow figure, risk-off label or claim that easier yields have already caused a recovery. Keep any conditional editorial statement distinct from the source facts.",
+      "construction": "Build with the existing post-data-card owner from the actual final article's admitted claim bindings. Use the final article's exact sentences, not this plan or stand-in prose. Prefer two short facts: the November 4 Treasury observation and the dated SEC description of speculative price exposure. Use the BLS schedule as a third fact only if all three remain fully readable. No new asset identity is invented before the final card is built.",
+      "placement_after": "Why lower yields are only one part of the Bitcoin test",
+      "planned_article_facts": [
+        {
+          "document_id": "cc124-treasury-nominal-20261104",
+          "fact": "The nominal 10-year Treasury par yield was 4.90% on November 4, 2026.",
+          "source_id": "SOURCE_1",
+          "support_excerpt": "2026-11-04 4.90"
+        },
+        {
+          "binding": "Use the exact admitted SEC passage and an independently worded sentence in the final article; do not present the bulletin as a new warning or a current flow observation.",
+          "document_id": "cc124-sec-bitcoin-etp-bulletin-20240909",
+          "fact": "The SEC's September 9, 2024 investor bulletin describes Bitcoin as highly speculative and says its price volatility remains a consideration when exposure is obtained through an ETP.",
+          "source_id": "SOURCE_3"
+        },
+        {
+          "binding": "If retained, reader copy uses date-correct EST or UTC. A schedule supplies no payroll result or consensus.",
+          "document_id": "cc124-bls-november-calendar",
+          "fact": "The BLS calendar schedules the October 2026 Employment Situation for November 6 at 8:30 a.m. Eastern Time.",
+          "source_id": "SOURCE_2"
+        }
+      ],
+      "purpose": "Give social readers the article's concrete dated facts while preserving the distinction between a rate backdrop and Bitcoin demand.",
+      "series_choice": "Use the Treasury history chart for the observed series. Do not add a miniature series to the card that would repeat the same visual; the card's exact factual prose must first exist in the final article.",
+      "title_intent": "Lower yields leave a second Bitcoin question",
+      "useful": true
+    },
+    "proposed_section_headings": [
+      "What the Treasury figures show",
+      "Why lower yields are only one part of the Bitcoin test",
+      "What would make the argument stronger",
+      "The jobs report is a scheduled test"
+    ],
+    "public_notices": [
+      "Analysis, not financial advice.",
+      "Capital Chronicle may hold positions in the markets it covers."
+    ],
+    "reader_first_version": "DATA_JOURNALISM_V1",
+    "rejected_visuals": [
+      {
+        "reason": "No matched Bitcoin price series or empirical calculation is admitted. These would imply measured evidence that this packet does not supply.",
+        "visual": "Bitcoin/yield overlay, fitted relationship or correlation"
+      },
+      {
+        "reason": "The packet has no current observation establishing those states. The SEC's dated ETP explanation supplies neither inflows nor demand.",
+        "visual": "Risk appetite, ETP flows or a Bitcoin recovery gauge"
+      },
+      {
+        "reason": "The BLS source is a release calendar, not a released result, consensus capture or historical employment series.",
+        "visual": "Payroll result, surprise, consensus or employment-component chart"
+      },
+      {
+        "reason": "Only the nominal 10-year Treasury history is admitted in this request; do not relabel it as a real yield, Fed policy rate or measured easing of monetary policy.",
+        "visual": "Real-yield or policy-rate chart"
+      },
+      {
+        "reason": "These would add no observed evidence, and the supplied request does not establish their authentic identity or rights.",
+        "visual": "Generic Bitcoin coin art, invented trading screen or an unbound archive photo"
+      }
+    ],
+    "slug": "bitcoin-lower-treasury-yields-demand-test-2026-11-06",
+    "story_kind": "ANALYSIS",
+    "amendment_summary": "The supplied exact archive photo identity and rights close the earlier optional-photo binding gap. Fresh own pixel inspection supports secondary macro context. The Treasury chart, its question/window and all eight chart selections are unchanged."
+  }
+}

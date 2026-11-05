@@ -1,0 +1,18 @@
+{
+  "chart": {
+    "asset_id": "cc124-treasury-10y-nominal-2026-bitcoin-watch",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\media_assets\\treasury-chart\\media_assets\\cc124-treasury-10y-nominal-2026-bitcoin-watch.png",
+    "sha256": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+    "width": 1440,
+    "height": 1040
+  },
+  "source_document_id": "cc124-treasury-nominal-20261104",
+  "source_sha256": "a320fd39c1516d89459e4f90e0c225fef7dacb69fe925dc7adedd553f3705629",
+  "reported_observation_count": 212,
+  "final_date": "2026-11-04",
+  "final_value_percent": "4.90",
+  "previous_value_percent": "4.95",
+  "change_basis_points": "-5.00",
+  "pixels_reviewed": false,
+  "new_source_requests": 0
+}
