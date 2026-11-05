@@ -1,0 +1,40 @@
+{
+  "identity": {
+    "authenticated": true,
+    "observed_at_utc": "2026-11-05T00:32:39.119Z",
+    "observed_identity": "linkedin:company:143198922",
+    "observed_stable_id": "143198922"
+  },
+  "dispatched_at_utc": "2026-11-05T00:32:39.119Z",
+  "observed": {
+    "images": [
+      {
+        "alt": "",
+        "src": "https://media.licdn.com/dms/image/v2/D560BAQEIfQyhdVoI5A/company-logo_100_100/B56Z_6vhnSJcAI-/0/1786618190749?e=1795651200&v=beta&t=V0SwG42aCu95JFcIsU3rZB8ZeaoVye8eZtlo9HtOuM8"
+      },
+      {
+        "alt": "Two years of first-reported monthly PPI changes; September headline 1.3%, underlying 0.5%.",
+        "src": "https://media.licdn.com/dms/image/v2/D5622AQFtsx0e9VloQw/feedshare-shrink_800/B56aGpH0LQLMAg-/0/1793838760894?e=1795651200&v=beta&t=_CWWZWelI_O6PTDPrZNiX_KPaCug6kZOfvn3X5GUxaM"
+      },
+      {
+        "alt": "September PPI: final demand 1.3%, goods 2.6%, services 0.8%, excluding foods, energy and trade services 0.5%.",
+        "src": "https://media.licdn.com/dms/image/v2/D5622AQF3GaGJX4Sv1Q/feedshare-shrink_800/B56aGpH0N3HsAg-/0/1793838761128?e=1795651200&v=beta&t=HmnDx4fVykIEWYe8KLQKq2TrzTNrzhd5HgFT-pkYiIc"
+      },
+      {
+        "alt": "Capital Chronicle logo",
+        "src": "https://media.licdn.com/dms/image/v2/D560BAQEIfQyhdVoI5A/company-logo_100_100/B56Z_6vhnSJcAI-/0/1786618190749?e=1795651200&v=beta&t=V0SwG42aCu95JFcIsU3rZB8ZeaoVye8eZtlo9HtOuM8"
+      }
+    ],
+    "links": [
+      "https://www.linkedin.com/company/capitalchronicle/posts",
+      "https://www.linkedin.com/company/capitalchronicle/posts",
+      "https://lnkd.in/gAipRicn"
+    ],
+    "text": "Feed post number 1\nCapital Chronicle\nCapital Chronicle\n0 followers\n0 followers\nnow • \n \nJust now • Visible to anyone on or off LinkedIn\nSeptember PPI: energy drove the goods surge as services rose\n\nWhy it matters: In the September 2026 release, BLS attributed over 80% of the goods increase to energy, which rose 10.8%. Services prices also rose 0.8%.\n\nContext: The September 2026 countercase is concentration: goods excluding foods and energy rose 0.3%, and services excluding trade, transportation and warehousing also rose 0.3%.\n\nRead the full brief: https://lnkd.in/gAipRicn\n\nRetrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade.\n…more\nLike\nComment\nRepost",
+    "urn": "urn:li:activity:7523905098285006848"
+  },
+  "public_object_id": "urn:li:ugcPost:7523905097471361025",
+  "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523905097471361025",
+  "shortlink": "https://lnkd.in/gAipRicn",
+  "verified_link_target": "https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods"
+}

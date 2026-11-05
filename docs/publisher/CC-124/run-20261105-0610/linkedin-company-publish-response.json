@@ -1,0 +1,68 @@
+{
+  "tool_request_sha256": "8faa6b1b4cf42ad1d205352acd160b0c13c48e534664d76306a8ca2b32dc42bc",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "Neo page 428 composed run verified Capital Chronicle company 143198922 immediately before Post and observed Post successful plus exact first post. Two public chart variants match selected originals; shortlink target verified on page 427.",
+    "observed_at_utc": "2026-11-05T00:34:03.363411+00:00",
+    "dispatched_at_utc": "2026-11-05T00:32:39.119Z"
+  },
+  "result": {
+    "request_sha256": "82e6e9462941362025e6d1754db7a2c64e2438cae3ee06149bbeeb5c477fae77",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:ugcPost:7523905097471361025",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523905097471361025",
+    "published_at_utc": "2026-11-05T00:32:39.119Z"
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-05T00:32:39.119Z",
+      "observed_identity": "linkedin:company:143198922",
+      "observed_stable_id": "143198922"
+    },
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "linkedin:company:143198922",
+      "public_object_id": "urn:li:ugcPost:7523905097471361025",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523905097471361025",
+      "content_verified": true,
+      "observed_text": "Feed post number 1\nCapital Chronicle\nCapital Chronicle\n0 followers\n0 followers\nnow \u2022 \n \nJust now \u2022 Visible to anyone on or off LinkedIn\nSeptember PPI: energy drove the goods surge as services rose\n\nWhy it matters: In the September 2026 release, BLS attributed over 80% of the goods increase to energy, which rose 10.8%. Services prices also rose 0.8%.\n\nContext: The September 2026 countercase is concentration: goods excluding foods and energy rose 0.3%, and services excluding trade, transportation and warehousing also rose 0.3%.\n\nRead the full brief: https://lnkd.in/gAipRicn\n\nRetrospective analysis, written on 5 November 2026 (GMT+7) Analysis, not financial advice. Readers decide whether to trade.\n\u2026more\nLike\nComment\nRepost",
+      "media_comparisons": [
+        {
+          "asset_id": "ppi_headline_core_24m",
+          "source_asset_sha256": "8a7418f4ebadca2995bae77616a58f953216eb5aca6b50abe8eca1cda77d8c11",
+          "platform_sha256": "03ba6e1b277f6697c0e20d2b5c9cc0a34b77371e6332d6aeb8ffccf7a032ba6d",
+          "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523905097471361025",
+          "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQFtsx0e9VloQw/feedshare-shrink_800/B56aGpH0LQLMAg-/0/1793838760894?e=1795651200&v=beta&t=_CWWZWelI_O6PTDPrZNiX_KPaCug6kZOfvn3X5GUxaM",
+          "local_public_capture": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\public-readback\\linkedin-company-ppi_headline_core_24m.jpg",
+          "similarity": 0.9988,
+          "source_pixels_match": true,
+          "pixels_inspected": true
+        },
+        {
+          "asset_id": "ppi_september_component_rates",
+          "source_asset_sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+          "platform_sha256": "56decd9377ceaf43c8c2d2a421ab5cd33ce6f8975b88baf28082d938bdb9469a",
+          "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523905097471361025",
+          "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQF3GaGJX4Sv1Q/feedshare-shrink_800/B56aGpH0N3HsAg-/0/1793838761128?e=1795651200&v=beta&t=HmnDx4fVykIEWYe8KLQKq2TrzTNrzhd5HgFT-pkYiIc",
+          "local_public_capture": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\media\\public-readback\\linkedin-company-ppi_september_component_rates.jpg",
+          "similarity": 0.9991,
+          "source_pixels_match": true,
+          "pixels_inspected": true
+        }
+      ],
+      "observed_link_resolutions": [
+        {
+          "displayed_url": "https://lnkd.in/gAipRicn",
+          "target_url": "https://capitalchronicle.substack.com/p/september-ppi-energy-drove-the-goods",
+          "public_object_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523905097471361025",
+          "target_verified": true
+        }
+      ]
+    }
+  }
+}
