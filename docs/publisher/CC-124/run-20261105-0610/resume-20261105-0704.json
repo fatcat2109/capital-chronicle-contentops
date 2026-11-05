@@ -1,0 +1,10 @@
+{
+  "cause": "USER_CLEARED_QUOTA_ACCOUNT_SWITCH",
+  "observed_pushed_head": "4e14334a1e548ac8d683269253cfc4e6d11ff402",
+  "backlog_status": "IN_PROGRESS",
+  "same_operation_id": "cc124-next-article-20261105-a",
+  "same_max_task": "/root/ppi_max_writer",
+  "unfinished_stage": "FINAL_EDITOR_RENDERED_CHECK",
+  "publication_attempted": false,
+  "prior_returns_repeated": false
+}
