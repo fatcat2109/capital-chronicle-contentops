@@ -2096,11 +2096,15 @@ def _draw_editorial_chart(packet, values, plt, np):
                     ax.annotate(f"{nums[-1]:g}%", (x[-1], nums[-1]), xytext=(8,0),
                         textcoords="offset points", color=color, fontsize=11)
                 if kind == "direct_labelled_two_line":
+                    endpoint_decimals = packet.get("endpoint_label_decimals")
+                    endpoint = (f"{nums[-1]:+.{int(endpoint_decimals)}f}%"
+                                if endpoint_decimals is not None else f"{nums[-1]:g}%")
                     ax.annotate(
-                        f"{nums[-1]:g}%",
+                        endpoint,
                         (x[-1], nums[-1]),
-                        xytext=(8, 0),
+                        xytext=(-8, 0) if endpoint_decimals is not None else (8, 0),
                         textcoords="offset points",
+                        ha="right" if endpoint_decimals is not None else "left",
                         color=color,
                         fontsize=11,
                     )

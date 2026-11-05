@@ -956,6 +956,9 @@ class RetainedSourceResearch:
                     "attributed_public_filing_facts_only" if r["document"].get("source_reuse_constraints")
                     else "governed_government_public_domain"),
                 "rights_evidence_sha256": r["rights_evidence_sha256"],
+                **({"source_reuse_constraints": {**r["source_permissions"], "attribution_required": True}}
+                   if r.get("rights_state") == "GOVERNED_GOVERNMENT_AUTHORED_TEXT_PUBLIC_DOMAIN"
+                   and not r["document"].get("source_reuse_constraints") else {}),
                 # _verify proved the exact authorship/rights class and bounded
                 # evidence. A filing remains attributed issuer facts only.
                 "public_claim_allowed": True,
