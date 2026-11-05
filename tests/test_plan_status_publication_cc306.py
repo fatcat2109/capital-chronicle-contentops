@@ -157,3 +157,19 @@ def test_a_stale_x_request_is_never_claimed_for_a_write(queued, monkeypatch):
     with pytest.raises(PlanPostError, match="PLAN_STATUS_X_STALE_NOT_POSTED"):
         begin_x(store, keys[("XAUUSD", "TRIGGERED")], "a" * 64, native_invocation_id="agent",
                 now=NOW + timedelta(minutes=61))
+
+
+def test_recovery_sees_only_the_posts_own_rows(queued):
+    """5 Nov first post: a store-wide recovery pass filed other pieces' readbacks under the post."""
+    store, transport, coordinator, keys, root = queued
+    seen = []
+    real = coordinator.recover_pending
+
+    def recover():
+        seen.append(dict(coordinator.recovery_scope or {}))
+        return real()
+
+    coordinator.recover_pending = recover
+    publish_ready(store, now=NOW, coordinator_for=lambda key, folder: coordinator, root=root, host=fake_host, limit=1)
+    assert seen and seen[0]["exact_work_item_only"] is True
+    assert seen[0]["work_item_id"] in keys.values()

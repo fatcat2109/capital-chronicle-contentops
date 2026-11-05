@@ -428,6 +428,14 @@ def _age_minutes(payload, now):
     return (now - _utc(payload["at_utc"])).total_seconds() / 60
 
 
+def scope_to_post(coordinator, key: str, plan: Mapping[str, Any]) -> None:
+    """Recovery sees this post's own rows only, as the daily digest does (5 Nov first post: a
+    store-wide pass filed other pieces' Threads and LinkedIn readbacks under this post and its
+    backlog held X). Exactly-once and the global store checks are unchanged."""
+    coordinator.allow_prior_confirmed_distribution = True
+    coordinator.recovery_scope = {"work_item_id": key, "plan": plan, "exact_work_item_only": True}
+
+
 def publish_ready(store, *, latest_states=None, now: datetime | None = None, coordinator_for=None,
                   root: Path = POST_ROOT, host=None, limit: int = 5) -> dict:
     """Run each READY_FOR_PUBLISHER row through the sole coordinator. API destinations post now;
@@ -467,6 +475,7 @@ def publish_ready(store, *, latest_states=None, now: datetime | None = None, coo
             store.create_work_item(story_id=key, title="Plan status post", target_surface="MULTI_PLATFORM",
                                    work_item_id=key)
             coordinator = coordinator_for(key, Path(plan["output_dir"]))
+            scope_to_post(coordinator, key, plan)
             coordinator.register_plan(key, plan)
             outcome = coordinator.execute_plan(key, plan)
         except (OSError, ValueError, KeyError, TypeError) as exc:
@@ -522,6 +531,7 @@ def submit_x(store, key: str, request_sha256: str, response: Mapping[str, Any], 
     coordinator, executor = bind_native_neo_coordinator(
         store, operation_id=key, output_dir=POST_ROOT / key / "native-neo",
         native_invocation_id=native_invocation_id, allow_publish=True)
+    scope_to_post(coordinator, key, {"plan_status_post": key})
     submitted = executor.submit(request_sha256, response)
     packet = executor._get(request_sha256, "request")
     result = response.get("result") or {}
