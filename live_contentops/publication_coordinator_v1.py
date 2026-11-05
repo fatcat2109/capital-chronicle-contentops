@@ -2609,9 +2609,14 @@ class DurablePublicationCoordinator:
                     "native_tool_request": pending.request, "reconciliation_status": None,
                     "public_write_performed": False}
         except Exception as exc:
+            from live_contentops.linkedin_official_member_api_v1 import LinkedInOfficialApiError
+            safe_error = type(exc).__name__
+            if isinstance(exc, LinkedInOfficialApiError):
+                safe_error = _safe_dispatch_error({"reason_code": exc.classification,
+                    "error_code": exc.http_status}) or safe_error
             result = {
                 "status": UNKNOWN_WRITE, "public_object_id": None,
-                "public_object_url": None, "safe_error_classification": type(exc).__name__,
+                "public_object_url": None, "safe_error_classification": safe_error,
             }
         if registration.transport_type not in {"EDGE_CDP", "BROWSEROS_NEO_MCP"}:
             from live_contentops.native_publication_latency_v1 import record_api_dispatch

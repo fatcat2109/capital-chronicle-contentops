@@ -1,0 +1,64 @@
+{
+  "method": "GET",
+  "classification": "TRANSPORT_UNAVAILABLE",
+  "reason_type": "ConnectionResetError",
+  "winerror": 10054,
+  "trace_frames": [
+    {
+      "file": "request.py",
+      "function": "do_open",
+      "line": 1319
+    },
+    {
+      "file": "client.py",
+      "function": "request",
+      "line": 1338
+    },
+    {
+      "file": "client.py",
+      "function": "_send_request",
+      "line": 1384
+    },
+    {
+      "file": "client.py",
+      "function": "endheaders",
+      "line": 1333
+    },
+    {
+      "file": "client.py",
+      "function": "_send_output",
+      "line": 1093
+    },
+    {
+      "file": "client.py",
+      "function": "send",
+      "line": 1037
+    },
+    {
+      "file": "client.py",
+      "function": "connect",
+      "line": 1479
+    },
+    {
+      "file": "_api.py",
+      "function": "wrap_socket",
+      "line": 121
+    },
+    {
+      "file": "ssl.py",
+      "function": "wrap_socket",
+      "line": 455
+    },
+    {
+      "file": "ssl.py",
+      "function": "_create",
+      "line": 1076
+    },
+    {
+      "file": "ssl.py",
+      "function": "do_handshake",
+      "line": 1372
+    }
+  ],
+  "public_writes": 0
+}

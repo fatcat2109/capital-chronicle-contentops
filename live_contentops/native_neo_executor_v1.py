@@ -73,6 +73,12 @@ def _readback_absence_evidence(request, result):
 
 def _incomplete_readback_evidence(request, result):
     """Refresh a partial image comparison or a requested original publication clock."""
+    if (request.get("owner_absence_context") and not request.get("public_object_id")
+            and not request.get("public_object_url")):
+        # The coordinator validates this own-activity absence observation. An
+        # absent post has no delivered media; do not replace its exact return
+        # with a new image-comparison request before that validation can run.
+        return False
     if _readback_absence_evidence(request, result):
         return False  # An absent object has no delivered image to compare.
     if (result.get("media_check_state") == "MISSING_REQUIRED_MEDIA"

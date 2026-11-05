@@ -1,0 +1,12 @@
+F
+================================== FAILURES ===================================
+_ test_unknown_absence_needs_owner_report_and_fresh_loaded_own_activity[None] _
+tests\test_linkedin_neo_recovery_v1.py:327: in test_unknown_absence_needs_owner_report_and_fresh_loaded_own_activity
+    observed = co.reconcile_owner_confirmed_linkedin_absence(ids["dispatch_id"],
+live_contentops\publication_coordinator_v1.py:1163: in reconcile_owner_confirmed_linkedin_absence
+    raise ValueError("LINKEDIN_EXACT_PRIOR_ABSENCE_REQUEST_REQUIRED")
+E   ValueError: LINKEDIN_EXACT_PRIOR_ABSENCE_REQUEST_REQUIRED
+=========================== short test summary info ===========================
+FAILED tests/test_linkedin_neo_recovery_v1.py::test_unknown_absence_needs_owner_report_and_fresh_loaded_own_activity[None]
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 41 deselected in 4.58s

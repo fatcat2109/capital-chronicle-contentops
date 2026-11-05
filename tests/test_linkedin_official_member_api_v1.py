@@ -361,6 +361,30 @@ def test_timeout_after_crossing_write_boundary_is_unknown_write(tmp_path):
         )
 
 
+@pytest.mark.parametrize("outcome,classification,status", [
+    (503, "UNKNOWN_WRITE_PROVIDER_REQUEST_REJECTED", 503),
+    (200, "UNKNOWN_WRITE_UNEXPECTED_STATUS", 200),
+    (201, "UNKNOWN_WRITE_CREATE_ID_MISSING", 201),
+    (None, "UNKNOWN_WRITE_TRANSPORT_UNAVAILABLE", None),
+])
+def test_ambiguous_write_retains_safe_cause_without_provider_material(tmp_path, outcome, classification, status):
+    store = _test_store(tmp_path)
+    store.write({"access_token": "private-access"},
+        _metadata(expires_at=datetime.now(timezone.utc) + timedelta(days=30)))
+    def provider(request, **_):
+        if outcome is None:
+            raise urllib.error.URLError("private-provider-material")
+        if outcome == 503:
+            raise urllib.error.HTTPError(request.full_url, 503, "private-provider-material", {}, None)
+        return _Response(outcome)
+    with pytest.raises(LinkedInAmbiguousWriteError) as caught:
+        LinkedInOfficialMemberApiTransportV1(token_store=store, opener=provider).publish(
+            intent={"payload": "Reviewed copy"}, authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT"})
+    assert caught.value.classification == classification
+    assert caught.value.http_status == status
+    assert "private" not in str(caught.value)
+
+
 def test_registry_readiness_and_runtime_never_fall_back_to_cdp(tmp_path):
     class FakeTransport:
         def readiness(self):

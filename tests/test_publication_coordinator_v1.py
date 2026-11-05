@@ -1859,6 +1859,21 @@ def test_explicit_transport_correction_is_exact_and_one_shot(
     assert transport.publish_calls.count(destination) == before + 1
 
 
+def test_linkedin_ambiguous_provider_cause_reaches_durable_incident(tmp_path):
+    from live_contentops.linkedin_official_member_api_v1 import LinkedInAmbiguousWriteError
+    class FailedMemberTransport(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            if destination == "linkedin":
+                raise LinkedInAmbiguousWriteError("UNKNOWN_WRITE_PROVIDER_REQUEST_REJECTED", http_status=503)
+            return super().publish(destination=destination, intent=intent, authorization_context=authorization_context)
+    store, _, coordinator = _coordinator(tmp_path, runtime=FailedMemberTransport())
+    coordinator.execute_plan("work-1", _quality_plan())
+    with store.get_read_only_connection() as conn:
+        rows = conn.execute("SELECT description FROM incidents WHERE severity='DISPATCH_FAILURE'").fetchall()
+    assert any(json.loads(row[0]).get("safe_error_classification") ==
+        "UNKNOWN_WRITE_PROVIDER_REQUEST_REJECTED;http_status:503" for row in rows)
+
+
 def test_durable_totals_survive_pending_callback_and_duplicate_resume(tmp_path):
     store, transport, coordinator = _coordinator(tmp_path)
     plan = _quality_plan()

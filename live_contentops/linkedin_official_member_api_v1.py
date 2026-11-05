@@ -571,10 +571,16 @@ class LinkedInOfficialMemberApiTransportV1:
                     "status": "DEFINITE_NO_WRITE", "definite_no_write": True,
                     "reason_code": exc.classification, "adapter_version": TRANSPORT_VERSION,
                 }
-            raise LinkedInAmbiguousWriteError("UNKNOWN_WRITE") from exc
+            raise LinkedInAmbiguousWriteError(
+                "UNKNOWN_WRITE_" + exc.classification,
+                http_status=exc.http_status,
+            ) from exc
         object_id = str(headers.get("X-RestLi-Id") or headers.get("x-restli-id") or "")
         if status != 201 or not object_id:
-            raise LinkedInAmbiguousWriteError("UNKNOWN_WRITE")
+            raise LinkedInAmbiguousWriteError(
+                "UNKNOWN_WRITE_UNEXPECTED_STATUS" if status != 201 else "UNKNOWN_WRITE_CREATE_ID_MISSING",
+                http_status=status,
+            )
         return {
             "status": "SUCCESS",
             "public_object_id": object_id,
