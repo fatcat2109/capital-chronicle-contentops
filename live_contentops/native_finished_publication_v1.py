@@ -56,8 +56,15 @@ def assert_newsroom_idle(store, *, own_lease=None):
 
 
 def confirmed_canonicals(store):
-    """Yield exact reconciled objects with their first verified readback clock."""
+    """Yield exact reconciled objects with separate publication and readback clocks."""
     from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    from live_contentops.published_content_v1 import DEFAULT_FEED, read_records
+    try:
+        records = read_records(DEFAULT_FEED)
+    except FileNotFoundError:
+        records = []
+    publication_clocks = {(r["content_id"], o["url"]): utc(r["published_at_utc"])
+        for r in records for o in r["outlets"] if o["name"] == "substack"}
     for dispatch in store.list_platform_dispatches():
         if dispatch.get("platform") != "substack" or dispatch.get("status") != "DISPATCH_CONFIRMED":
             continue
@@ -83,6 +90,8 @@ def confirmed_canonicals(store):
         if times:
             yield {"run_id": row["work_item_id"], "dispatch_id": dispatch["dispatch_id"],
                    "article_identity": intent.get("article_identity") or row["work_item_id"],
+                   "published_at_utc": publication_clocks.get(("substack:" + str(dispatch["public_object_id"]),
+                                                               dispatch["public_object_url"])),
                    "first_readback_utc": min(times)}
 
 
@@ -105,7 +114,8 @@ def standing_binding(profile, rollout, *, operation_id, resolver, request=None, 
         published = list(confirmed_canonicals(store))
         completed = {p["run_id"] for p in published}
         day = newsroom_production_day_id(now)
-        identities = {p["article_identity"] for p in published if newsroom_production_day_id(p["first_readback_utc"]) == day}
+        identities = {p["article_identity"] for p in published
+                      if newsroom_production_day_id(p.get("published_at_utc") or p["first_readback_utc"]) == day}
         if len(identities) >= 8 and operation_id not in completed:
             raise ValueError("STANDING_DAILY_TARGET_REACHED")
         return resolver(profile, operation_id=operation_id, request=request, now=now,

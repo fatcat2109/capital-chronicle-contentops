@@ -1,0 +1,5 @@
+The first saved day measurement and installed CC-122 reader returned four articles. Checking the held publication feed found that object223293057, the midterm piece, was actually published2026-11-03T10:20:18.502Z. A later verified readback had counted it again on5November. The three actual5November publications are PPI223555673, Southwest223564454 and IBM223584317.
+
+The existing canonical observer now carries the feed's exact-object publication time separately from its first verified readback. The unchanged eight-article standing cap and the daily/window counts use that publication time when held. A legacy object without an exported publication time retains its first-readback clock explicitly; no timestamp is invented. Source cutoffs and readback history stay intact.
+
+Four targeted cases passed in7.15seconds. The regression gives both an old and a current publication fresh readbacks and current bindings, then proves only the current publication enters the existing day and window counts. Live acceptance compares the saved count with all held Substack feed records' actual publication days, and the installed CC-122 reader must consume that same corrected record.
