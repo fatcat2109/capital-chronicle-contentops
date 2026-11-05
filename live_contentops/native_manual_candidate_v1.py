@@ -37,7 +37,20 @@ def active_manual_candidate(store, run_id):
 
 def native_artifact_key(store, run_id, prefix):
     active = active_manual_candidate(store, run_id)
-    return prefix + sha256_of([run_id, active["candidate_id"]] if active else run_id)
+    identity = [run_id, active["candidate_id"]] if active else run_id
+    if prefix == "cc-editorial-final-":
+        # A verified pre-writer recovery gets its own final artifact. The original
+        # zero-writer SOURCE_BLOCKED result remains immutable and discoverable.
+        work = "cc-opportunity-" + sha256_of(run_id)
+        with store.get_read_only_connection() as conn:
+            rows = conn.execute("SELECT payload FROM outbox_messages WHERE work_item_id=? AND destination=? ORDER BY rowid DESC",
+                (work, "internal:native-desktop-source-recovery")).fetchall()
+        recovery = next((v for row in rows if (v := json.loads(row["payload"]))
+            and v.get("pre_writer_source_recovery")
+            and (not active or v.get("candidate_id") == active["candidate_id"])), None)
+        if recovery:
+            identity = [identity, "source-recovery", recovery["request_sha256"]]
+    return prefix + sha256_of(identity)
 
 
 def candidate_root(base, candidate_id):
