@@ -97,6 +97,8 @@ def _exact_site_absence(result, request):
     # decisions 48/52's independent Substack path; it never confirms the site.
     text = str(result.get("observed_text") or "").lstrip()
     github_404 = text.startswith('- heading "404" [level=1]') and "https://help.github.com/pages/" in text
+    github_404 = github_404 or (text.startswith("404. File not found.")
+        and "The site configured at this address does not contain the requested file." in text)
     return (result.get("verified") is False and result.get("status") == "NOT_FOUND"
         and (result.get("http_status") == 404 or github_404)
         and result.get("request_sha256") == request["request_sha256"]

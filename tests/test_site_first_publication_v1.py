@@ -43,6 +43,7 @@ def observe(store, plan, executor, **changes):
 
 @pytest.mark.parametrize("absence", [
     {"http_status": 404},
+    {"observed_text": "404. File not found. The site configured at this address does not contain the requested file."},
     {"observed_text": '- heading "404" [level=1]\n- link "Read the full documentation" [url="https://help.github.com/pages/"]'},
 ])
 def test_exact_site_404_uses_confirmed_substack_and_live_social_consumer(tmp_path, absence):
