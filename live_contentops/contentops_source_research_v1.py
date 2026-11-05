@@ -36,6 +36,14 @@ POLICIES = {
         ("information presented on sec.gov", "copied or further distributed", "please do not use the sec seal"),
         ("/answers/reada10k.htm", "/newsroom/press-releases/"),
     ),
+    # Investor.gov is the SEC's investor-education site and links this same
+    # SEC policy. Admit only this agency-authored bulletin, excluding its
+    # photographs, logos and linked third-party material as for SEC.gov.
+    "www.investor.gov": (
+        "https://www.sec.gov/about/privacy-information",
+        ("information presented on sec.gov", "copied or further distributed", "please do not use the sec seal"),
+        ("/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins/ETPBulletinSeptember2024",),
+    ),
     "www.cftc.gov": (
         "https://www.cftc.gov/WebPolicy/index.htm",
         ("public domain", "freely distributed and copied", "written permission of the copyright owners"),
@@ -363,6 +371,7 @@ class RetainedSourceResearch:
             or url.password
             or url.port not in (None, 443)
             or not any(url.path.startswith(p) for p in rule[2])
+            or (url.hostname == "www.investor.gov" and url.path != rule[2][0])
         ):
             raise ValueError("SOURCE_REUSE_POLICY_NOT_SUPPORTED")
         if (
@@ -398,7 +407,7 @@ class RetainedSourceResearch:
             raise ValueError("SOURCE_CAPTURE_HASH_MISMATCH")
         authored_family = {"www.bls.gov": "official_macro", "www.eia.gov": "official_macro", "ir.eia.gov": "official_macro",
                            "www.federalreserve.gov": "official_policy", "www.sec.gov": "sec_regulatory",
-                           "www.cftc.gov": "official_regulatory_fiscal"}
+                            "www.cftc.gov": "official_regulatory_fiscal", "www.investor.gov": "sec_regulatory"}
         if (
             doc["source_adapter_family"] != authored_family.get(url.hostname)
             or doc["source_authority_class"] != "official_public_primary_source"
