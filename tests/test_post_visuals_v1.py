@@ -53,6 +53,36 @@ def test_card_projects_exact_post_facts_and_is_replay_stable(tmp_path):
     validate_post_data_card(first, article, docs)
 
 
+def test_attributed_filing_facts_reach_all_eight_publication_packages(tmp_path):
+    article, claims, docs = packet()
+    doc = docs[0]
+    doc.pop("underlying_reuse_classification")
+    doc.pop("rights_evidence_sha256")
+    doc.update(publisher="Controlled company", source_authority_class="first_party_public_source",
+        canonical_content_text="In 2026, the company reported production of 120 units. "
+            "In 2025, it reported 100 units. No timetable has been set.")
+    doc["source_reuse_constraints"].update(
+        scope="ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+        government_authorship=False, public_expression_reuse_allowed=False,
+        images_logos_exhibits_reuse_allowed=False)
+    claims[0]["support_excerpt"] = "In 2026, the company reported production of 120 units. In 2025, it reported 100 units."
+    claims[1]["support_excerpt"] = "No timetable has been set."
+    article, assets = complete_post_visuals(article, claims, docs, [], output_dir=tmp_path)
+    card = assets[0]
+    assert [f["text"] for f in card["data_card_packet"]["facts"]] == [c["claim_text"] for c in claims]
+    assert all(f["rights_class"] == "attributed_facts_independent_chart" for f in card["data_card_packet"]["facts"])
+    validate_post_data_card(card, article, docs)
+    bundle, _ = _native_preview_bundle(article=article, article_mode="BREAKING_BRIEF",
+        article_identity="f" * 64, media_assets=assets, media_asset_ids=[card["asset_id"]])
+    assert len(bundle["packages"]) == 8
+    for destination, payload in bundle["packages"].items():
+        assert payload["media_asset_ids"] == [card["asset_id"]]
+        require_publication_image(destination, {"media_assets": assets,
+            "payloads": {destination: payload}, "public_image_url": "https://example.org/controlled-card.png",
+            "primary_media": {"sha256": card["sha256"], "public_delivery_sha256": card["sha256"],
+                "local_public_hash_continuity": True}})
+
+
 @pytest.mark.parametrize("change", ["number", "post", "source", "rights", "pixels", "packet"])
 def test_changed_facts_rights_or_bytes_fail(tmp_path, change):
     article, claims, docs = packet()

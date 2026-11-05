@@ -1,0 +1,37 @@
+{
+  "request_sha256": "d685c3c28feb5234506deeabbfac258c610921e8d35f3d63250be9a500a7ac19",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Southwest closed its fuel hedge book in 2025: what the filing says about who bears the next fuel-price shock, and what it does not prove about current earnings",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-58c20e2b812d839f223fed99",
+        "evidence_plan": "Resolve the retained Southwest June 30, 2025 SEC 10-Q and its fuel-hedging note first; the supplied dated excerpt says the remaining portfolio, scheduled to settle through 2027, was terminated in Q2 2025. Preserve the July 24, 2025 source clock and original dated capture. Check exact termination date, settlement/accounting amounts and fuel-risk language in the full retained filing before using them; code owns all arithmetic. Use the separate retained October 21, 2026 Reuters Southwest report only if its exact capture supports a clearly attributed, dated earnings context; the headline alone does not establish cause or quantities. Check held later company filings for any hedge-policy change through the frozen November 5 cutoff, distinguishing historical policy from a verified current state. MAX chooses useful source-bound charts or an article-specific factual timeline/card; do not reproduce restricted third-party series or infer fuel-price forecasts. Source qualification and current policy continuity are not yet verified; preserve the existing shared request ledger and 20-request limit.",
+        "primary_reader_question": "When an airline closes its fuel hedges, how does that change fuel-cost exposure, and which parts of the earnings story still depend on operating performance?",
+        "research_queries": [
+          "Southwest second quarter 2025 Form 10-Q fuel hedging termination portfolio 2027",
+          "Southwest 2026 quarterly filing fuel risk hedging policy operating performance"
+        ],
+        "selection_rationale": "A concrete Tier 1 company decision with a bound primary filing offers a useful business mechanism rather than a stale earnings recap. The retained excerpt supports a narrow documentary starting point and a distinct exposure-versus-performance question. No due-event dossier, current official release or CFTC positioning candidate appears in this frozen set; the ECB entry is September rather than the requested October retrospective. Already-covered macro subjects are excluded. The historical filing is usable with its original date, without pretending it is fresh news."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select one company document lens, anchored in the retained Southwest SEC filing. Prefer its exact primary evidence to the paywall-dependent October company headlines. Do not assert current hedging status or a quantified earnings effect without checking the held later company record. No external source requests or publication actions were performed by this role.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_select_d685c3c28feb",
+    "assignment": "cc124-next-article-20261105-b:select",
+    "expected_return": "select:d685c3c28feb5234506deeabbfac258c610921e8d35f3d63250be9a500a7ac19",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Parent role assignment states configured model and effort; no supported runtime telemetry exposed actual values. Canonical task identity supplied by collaboration context."
+  }
+}

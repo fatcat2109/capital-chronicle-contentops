@@ -93,7 +93,8 @@ def public_visual_source(document):
     if rights == "public_domain" and document.get("rights_evidence_sha256"):
         return "public_domain"
     if (constraints.get("scope") in {"ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
-            "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"}
+            "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+            "ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"}
             and constraints.get("attribution_required") is True
             and constraints.get("policy_capture_sha256") and constraints.get("source_capture_sha256")):
         return "attributed_facts_independent_chart"
