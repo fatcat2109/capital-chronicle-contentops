@@ -4,9 +4,9 @@ ___ test_retained_outbox_batches_preserve_all_rows_payloads_and_tied_clocks ___
 tests\test_durable_operational_store_v1.py:1898: in test_retained_outbox_batches_preserve_all_rows_payloads_and_tied_clocks
     assert temp_db.list_outbox_messages() == expected
 E   assert [{'created_at...}', ...}, ...] == [{'created_at...}', ...}, ...]
-E     
+E
 E     At index 0 diff: {'message_id': 'retained-0003', 'work_item_id': 'retained', 'destination': 'internal:media', 'payload': '{"exact": 600, "retained": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...
-E     
+E
 E     ...Full output truncated (2 lines hidden), use '-vv' to show
 =========================== short test summary info ===========================
 FAILED tests/test_durable_operational_store_v1.py::test_retained_outbox_batches_preserve_all_rows_payloads_and_tied_clocks

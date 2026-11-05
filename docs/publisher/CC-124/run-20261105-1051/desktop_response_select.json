@@ -1,0 +1,49 @@
+{
+  "request_sha256": "23482503ce9bcc6da0afcea9650dde5dca5c6f6b952e9b9791a9dd4c4512b51f",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "A dated IBM earnings digest: distinguish the software outlook change from the evidence that delayed deals actually closed.",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-cfa3cb4bdb5389780c472d78",
+        "evidence_plan": "Use the existing resolver and retained evidence first, then the free IBM investor-relations earnings release or filing underlying the dated Reuters report within the unchanged shared source budget. Verify release date, outlook wording, comparison basis and evidence for deal timing; code owns arithmetic. Preserve the original cutoff and distinguish management guidance from achieved results. Use only source-bound facts with public rights; do not present the October 21 report as today's news or add subsequent outcomes.",
+        "primary_reader_question": "What changed in IBM's software outlook, and what evidence separates easing deal delays from management optimism?",
+        "research_queries": [
+          "IBM October 2026 earnings software revenue outlook deal delays investor relations",
+          "IBM 2026 quarterly results software outlook SEC filing"
+        ],
+        "selection_rationale": "A Tier 1 company digest is next in the owner priority after the unavailable due preview and already published releases. The retained report offers a concrete guidance-versus-execution tension and an identifiable company-primary resolution path, whose qualification must still be checked."
+      },
+      {
+        "angle": "A dated Tesla earnings digest: separate positive cash generation from the timing of AI investment and the reported operating drivers.",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-6c6ae25852f4519d9a6d2168",
+        "evidence_plan": "Resolve the retained October 21 report through existing evidence and Tesla investor-relations results or the relevant filing, within the same remaining source-request budget and cutoff. Verify the cash-flow definition, reporting period, capital expenditure and the source of any expectation comparison. Attribute management explanations; omit an unsupported surprise comparison. Code owns arithmetic; bind every card fact and any chart to lawful admitted data. Preserve historical dates and exclude post-cutoff information.",
+        "primary_reader_question": "Does the reported positive cash flow reflect operating strength, lower investment spending, or both?",
+        "research_queries": [
+          "Tesla October 2026 quarterly results cash flow capital expenditure investor relations",
+          "Tesla 2026 quarterly filing AI spending operating cash flow"
+        ],
+        "selection_rationale": "An independent Tier 1 company fallback with a distinct source route and a useful cash-generation-versus-investment question. It remains a dated company review, with no inferred new release, market reaction or investment call."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select IBM first and Tesla second as independently useful dated Tier 1 company digests; produce exactly one article. No eligible due preview or today's unreported official release appears in this frozen packet. NFP remains unavailable until its stated tomorrow input time; exclude the expired midterm and already published PPI and Southwest. Do not recycle old oil or gas observations as current news or treat Main wire corrections as new economic evidence. Preserve cutoff 2026-11-05T03:57:36.676191Z, accepted work, source dates, existing source-request ledger and limit of 20, and public rights. Routing hints do not qualify sources; use the existing resolver before factual writing.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_select_23482503ce9b",
+    "speed": "standard",
+    "model": null,
+    "reasoning_effort": null,
+    "observation_source": "Native subagent assignment and supported tool return in the current task; runtime model and effort telemetry is not exposed.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Supported native collaboration spawn assigned the existing operation select role and requested gpt-6.1-sol/low; actual runtime configuration is unavailable in this child turn."
+  }
+}

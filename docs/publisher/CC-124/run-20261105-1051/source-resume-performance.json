@@ -1,0 +1,9 @@
+{
+  "operation_id": "cc124-next-article-20261105-c",
+  "elapsed_seconds": 20.83,
+  "classification": "NATIVE_DESKTOP_INPUT_REQUIRED",
+  "stage": "select",
+  "request_sha256": "23482503ce9bcc6da0afcea9650dde5dca5c6f6b952e9b9791a9dd4c4512b51f",
+  "source_fix_live_commit": "20708529",
+  "accepted_by_existing_native_consumer": true
+}
