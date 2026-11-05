@@ -1,0 +1,51 @@
+{
+  "tool_request_sha256": "b3e05ee09aedafe44bfeb60ce8607cb32df2691d80a73e2cc58ce130ab48ecf2",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T12:45:10.318Z",
+    "dispatched_at_utc": "2026-11-05T12:44:08.561Z",
+    "observation_source": "Neo company 143198922 exact composer, one Post click, Post successful, public share identity/text/media load and canonical link redirect."
+  },
+  "result": {
+    "request_sha256": "5743995391b2475387977f0e42e782a702a8e6a63902d74ee6a55e5f1ad9fbc8",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:share:7524089180923154433",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524089180923154433/",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-05T12:44:08.559Z",
+      "observed_identity": "linkedin:company:143198922",
+      "observed_stable_id": "143198922"
+    },
+    "pre_click_posts": [
+      "Gold before the jobs report: beyond the Fed's target range\n\n\n\n\nWhy it matters: Lower real Treasury yields would reduce one cost of holding gold: the inflation-adjusted return available from a competing asset.\n\n\n\n\nContext: Currency moves or demand for safety could outweigh the real-yield channel. That would make a simple bond-yield explanation inadequate.\n\n\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond\n\n\n\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\n\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "linkedin:company:143198922",
+      "public_object_id": "urn:li:share:7524089180923154433",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524089180923154433/",
+      "observed_text": "Feed post\n\nPromote this post to reach people who matter to you.\n\nBoost\n\nCapital Chronicle\n\nnow\n\nFollow\n\nGold before the jobs report: beyond the Fed's target range\n\nWhy it matters: Lower real Treasury yields would reduce one cost of holding gold: the inflation-adjusted return available from a competing asset.\n\nContext: Currency moves or demand for safety could outweigh the real-yield channel. That would make a simple bond-yield explanation inadequate.\n\nRead the full brief: https://lnkd.in/gWmPnffQ\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\n​\n​\n​\n​\n\n\n",
+      "content_verified": true,
+      "observed_media_sha256": [],
+      "public_image_urls": [
+        "https://media.licdn.com/dms/image/v2/D5622AQF70ZnuRoIvkg/feedshare-shrink_800/B56aGrvPS8HsAg-/0/1793882650031?e=1795651200&v=beta&t=-1_q_a7rdM9GQDkGPnRu2cOS84UF3INfA2rF5pPXSdI"
+      ],
+      "observed_link_resolutions": [
+        {
+          "displayed_url": "https://lnkd.in/gWmPnffQ",
+          "target_url": "https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond",
+          "target_verified": true,
+          "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524089180923154433/"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "dispatched_at_utc": "2026-11-05T12:54:08.459Z",
+  "identity": {
+    "authenticated": true,
+    "observed_at_utc": "2026-11-05T12:54:08.459Z",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA"
+  },
+  "observed_at_utc": "2026-11-05T12:54:10.790Z",
+  "ui": "- main\n  - button \"Cập nhật ảnh hồ sơ\" [ref=e82]\n  - heading \"Capital Chronicle\" [level=1]\n  - generic \"1,29 triệu người đăng ký\"\n  - generic [ref=e83] [cursor=pointer]\n    - button \"Nội dung mô tả. Welcome to Capital Chronicle, your trusted source for data-d...nhấn để xem thêm.\" [ref=e84]\n  - link \"Tùy chỉnh kênh\" [ref=e85] [url=\"https://studio.youtube.com/channel/UCuSrYOgd4eeudcD2vidafbA/editing\"]\n  - link \"Quản lý video\" [ref=e86] [url=\"https://studio.youtube.com/channel/UCuSrYOgd4eeudcD2vidafbA/content\"]\n  - link \"Cộng đồng\" [ref=e87] [url=\"https://www.youtube.com/@CapitalChronicleYouTube/community\"]\n  - tablist [ref=e88] [cursor=pointer]\n    - tablist\n      - tab \"Trang chủ\" [ref=e89]\n      - tab \"Bài đăng\" [selected] [ref=e90]\n  - generic \"loading\"\n  - tablist [ref=e99] [cursor=pointer]\n    - tab \"ĐÃ ĐĂNG\" [selected] [ref=e100]\n    - tab \"ĐÃ LÊN LỊCH\" [ref=e101]\n    - tab \"ĐÃ LƯU TRỮ\" [ref=e102]\n  - link \"Capital Chronicle\" [ref=e103] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]\n    - image \"Capital Chronicle\"\n  - link \"Capital Chronicle\" [ref=e104] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]\n  - link \"2 giờ trước\" [ref=e105] [url=\"https://www.youtube.com/post/UgkxTU7JJ92PqzRq9tY3UBOkXvS39CsRPLLZ\"]\n  - button \"Đọc thêm\" [collapsed] [ref=e106]\n  - link \"Chuyển đến chi tiết bài đăng\" [ref=e107] [url=\"https://www.youtube.com/post/UgkxTU7JJ92PqzRq9tY3UBOkXvS39CsRPLLZ\"]\n  - button \"Thích bài đăng này\" [ref=e108]\n  - tooltip \"tooltip\"\n  - button \"Chia sẻ\" [ref=e109]\n  - tooltip \"tooltip\"\n  - link \"Bình luận\" [ref=e110] [url=\"https://www.youtube.com/post/UgkxTU7JJ92PqzRq9tY3UBOkXvS39CsRPLLZ\"]\n  - tooltip \"tooltip\"\n  - button \"Menu tác vụ\" [ref=e111]\n  - link \"Capital Chronicle\" [ref=e112] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]\n    - image \"Capital Chronicle\"\n  - link \"Capital Chronicle\" [ref=e113] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]\n  - link \"6 giờ trước\" [ref=e114] [url=\"https://www.youtube.com/post/Ugkxrj2tZ7a1Rv7Jk3zHVujlgRKCzverZLeg\"]\n  - button \"Đọc thêm\" [collapsed] [ref=e115]\n  - link \"Chuyển đến chi tiết bài đăng\" [ref=e116] [url=\"https://www.youtube.com/post/Ugkxrj2tZ7a1Rv7Jk3zHVujlgRKCzverZLeg\"]\n  - button \"Thích bài đăng này\" [ref=e117]\n  - tooltip \"tooltip\"\n  - button \"Chia sẻ\" [ref=e118]\n  - tooltip \"tooltip\"\n  - link \"Bình luận\" [ref=e119] [url=\"https://www.youtube.com/post/Ugkxrj2tZ7a1Rv7Jk3zHVujlgRKCzverZLeg\"]\n  - tooltip \"tooltip\"\n  - button \"Menu tác vụ\" [ref=e120]\n  - link \"Capital Chronicle\" [ref=e121] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]\n    - image \"Capital Chronicle\"\n  - link \"Capital Chronicle\" [ref=e122] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]\n  - link \"9 giờ trước\" [ref=e123] [url=\"https://www.youtube.com/post/UgkxW1jZvwD2wjn58bHraF_PXxPblw-fKS7E\"]\n  - button \"Đọc thêm\" [collapsed] [ref=e124]\n  - link \"Chuyển đến chi tiết bài đăng\" [ref=e125] [url=\"https://www.youtube.com/post/UgkxW1jZvwD2wjn58bHraF_PXxPblw-fKS7E\"]\n  - button \"Thích bài đăng này\" [ref=e126]\n  - tooltip \"tooltip\"\n  - button \"Chia sẻ\" [ref=e127]\n  - tooltip \"tooltip\"\n  - link \"Bình luận\" [ref=e128] [url=\"https://www.youtube.com/post/UgkxW1jZvwD2wjn58bHraF_PXxPblw-fKS7E\"]\n  - tooltip \"tooltip\"\n  - button \"Menu tác vụ\" [ref=e129]\n  - link \"Capital Chronicle\" [ref=e130] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]\n    - image \"Capital Chronicle\"\n  - link \"Capital Chronicle\" [ref=e131] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]\n  - link \"11 giờ trước\" [ref=e132] [url=\"https://www.youtube.com/post/Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc\"]\n  - button \"Đọc thêm\" [collapsed] [ref=e133]\n  - link \"Chuyển đến chi tiết bài đăng\" [ref=e134] [url=\"https://www.youtube.com/post/Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc\"]\n  - button \"Thích bài đăng này\" [ref=e135]\n  - tooltip \"tooltip\"\n  - button \"Chia sẻ\" [ref=e136]\n  - tooltip \"tooltip\"\n  - link \"Bình luận\" [ref=e137] [url=\"https://www.youtube.com/post/Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc\"]\n  - tooltip \"tooltip\"\n  - button \"Menu tác vụ\" [ref=e138]\n  - link \"Capital Chronicle\" [ref=e139] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]\n    - image \"Capital Chronicle\"\n  - link \"Capital Chronicle\" [ref=e140] [url=\"https://www.youtube.com/@CapitalChronicleYouTube\"]\n  - link \"18 giờ trước\" [ref=e141] [url=\"https://www.youtube.com/post/UgkxgqFuDRKFhThzqa0K_-tfooJ7Yqz516WQ\"]\n  - button \"Đọc thêm\" [collapsed] [ref=e142]\n  - link \"Chuyển đến chi tiết bài đăng\" [ref=e143] [url",
+  "url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+  "pre_click_posts": [
+    "Update: Gold before the jobs report: beyond the Fed's target range\n\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\n\nWhat to watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond\n\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\n\nCapital Chronicle may hold positions in the markets it covers."
+  ],
+  "media_check": [
+    {
+      "complete": true,
+      "embedded_preview": true,
+      "height": 1040,
+      "width": 1440
+    },
+    {
+      "complete": true,
+      "embedded_preview": true,
+      "height": 1040,
+      "width": 1440
+    },
+    {
+      "complete": true,
+      "embedded_preview": true,
+      "height": 1040,
+      "width": 1440
+    },
+    {
+      "complete": true,
+      "embedded_preview": true,
+      "height": 1040,
+      "width": 1440
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "tool_request_sha256": "4cbfcf41cce52865ba3f8a4670f3305909b5c1582f73f0d39b0d862750fc8ea7",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T12:40:52.774Z",
+    "dispatched_at_utc": "2026-11-05T12:40:05.676Z",
+    "observation_source": "Exact Neo page 549 two-post thread after one Post all click; actual public text/image load and canonical redirect observed. Reencoded-image comparison follows all destination sends."
+  },
+  "result": {
+    "request_sha256": "68a5aadebced140b71cff678b44000c3479c883760e0cdd5d1f74802f25b9a0b",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2118322464782737866",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118322464782737866",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-05T12:38:49.977Z",
+      "observed_identity": "@Capitalnicle",
+      "observed_stable_id": "1465516914608799746"
+    },
+    "pre_click_posts": [
+      "Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\nhttps://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond",
+      "Watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "@Capitalnicle",
+      "public_object_id": "2118322464782737866",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118322464782737866",
+      "observed_text": "Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\n\nhttps://\ncapitalchronicle.substack.com/p/gold-before-\nthe-jobs-report-beyond\n…\n\nWatch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+      "content_verified": true,
+      "observed_media_sha256": [],
+      "observed_thread": [
+        {
+          "public_object_id": "2118322464782737866",
+          "public_object_url": "https://x.com/Capitalnicle/status/2118322464782737866",
+          "observed_text": "Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\n\nhttps://\ncapitalchronicle.substack.com/p/gold-before-\nthe-jobs-report-beyond\n…"
+        },
+        {
+          "public_object_id": "2118322467681058842",
+          "public_object_url": "https://x.com/Capitalnicle/status/2118322467681058842",
+          "observed_text": "Watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+        }
+      ],
+      "observed_link_resolutions": [
+        {
+          "displayed_text": "https://\ncapitalchronicle.substack.com/p/gold-before-\nthe-jobs-report-beyond\n…",
+          "short_url": "https://t.co/NNL4KTpLAg",
+          "target_url": "https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond",
+          "target_verified": true,
+          "public_object_url": "https://x.com/Capitalnicle/status/2118322464782737866"
+        }
+      ],
+      "public_image_urls": [
+        "https://pbs.twimg.com/media/HWXK2_fbQAA7hWN?format=jpg&name=small"
+      ]
+    }
+  }
+}

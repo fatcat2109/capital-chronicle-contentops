@@ -1,0 +1,20 @@
+{
+  "checked": {
+    "changed": false,
+    "page": 547,
+    "settled": false,
+    "value": [
+      {
+        "checked": false,
+        "label": "Send via email and the Substack app"
+      },
+      {
+        "checked": false,
+        "label": "Schedule time to publish"
+      }
+    ]
+  },
+  "time": "2026-11-05T12:22:53.821Z",
+  "ui": "substack.com/publish/settings#payments-settings\"]\n  - form\n    - LabelText\n    - LabelText\n      - generic [ref=e199] [cursor=pointer]\n        - radio \"Everyone\" [ref=e200]\n    - LabelText\n      - generic [ref=e201] [cursor=pointer]\n        - radio \"Subscribers only\" [ref=e202]\n    - LabelText\n      - generic [ref=e203] [cursor=pointer]\n        - radio \"No one (disable comments)\" [ref=e204]\n  - LabelText\n  - combobox \"Select or create tags\" [collapsed] [ref=e205]\n  - button [collapsed] [ref=e206]\n  - LabelText [ref=e207] [cursor=pointer]\n  - button \"Social preview\" [ref=e208]\n    - button \"Edit\" [ref=e209]\n      - image\n  - form\n    - LabelText\n    - LabelText [ref=e210] [cursor=pointer]\n      - checkbox \"Send via email and the Substack app\" [ref=e211]\n        - image\n    - LabelText\n    - LabelText [ref=e212] [cursor=pointer]\n      - checkbox \"Schedule time to publish\" [ref=e213]\n        - image\n  - LabelText\n  - button \"Scan for AI text\" [ref=e214]\n    - image\n  - button \"Disable AI detection\" [ref=e215]\n    - image\n  - button \"Cancel\" [ref=e216]\n  - button \"Publish now\" [ref=e217]",
+  "url": "https://capitalchronicle.substack.com/publish/post/223615409"
+}

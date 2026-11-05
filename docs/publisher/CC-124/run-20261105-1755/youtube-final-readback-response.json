@@ -1,0 +1,35 @@
+{
+  "tool_request_sha256": "4dea34888fb91ab2321fcfe9083e3f6f48a0f45bcb641e09d8b60836d2595969",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T13:01:56.481Z",
+    "observation_source": "Fresh exact-object Neo text, loaded image dimensions and unchanged image URL; downloaded platform pixels inspected against source chart after all destinations sent. Exact binary hashes retained."
+  },
+  "result": {
+    "status": "SUCCESS",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w",
+    "public_object_url": "https://www.youtube.com/post/UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w",
+    "observed_text": "Capital Chronicle\n7 ph\u00fat tr\u01b0\u1edbc\nUpdate: Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\nWhat to watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nRead the full brief: https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\u0110\u1ecdc th\u00eam",
+    "content_verified": true,
+    "observed_media_sha256": [
+      "214c7967166171ee4e9fd2bd1158554c098c8b64e54cfa26674b0a0feed89a6e"
+    ],
+    "public_image_urls": [
+      "https://yt3.ggpht.com/81DEMlRLgRihruQiYsUcH6g9Z-fX2OEtDIucpdetUl320qjpRk0QSzReUIA93jsMcvsx3etK52QR=s640-rw-nd-v1"
+    ],
+    "request_sha256": "ce407f25a1c2c58868d0f4a8cffb3425f7dbc8c76a11bd973523e80223ba25f4",
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "5c585296a88af4f7dd0236ef1aef8d8df4a19c2b7c68832a26b6c31e15126a20",
+        "platform_sha256": "214c7967166171ee4e9fd2bd1158554c098c8b64e54cfa26674b0a0feed89a6e",
+        "public_object_url": "https://www.youtube.com/post/UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w",
+        "public_image_url": "https://yt3.ggpht.com/81DEMlRLgRihruQiYsUcH6g9Z-fX2OEtDIucpdetUl320qjpRk0QSzReUIA93jsMcvsx3etK52QR=s640-rw-nd-v1",
+        "pixels_inspected": true,
+        "source_pixels_match": true
+      }
+    ]
+  }
+}

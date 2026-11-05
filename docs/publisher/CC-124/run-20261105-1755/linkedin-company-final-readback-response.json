@@ -1,0 +1,43 @@
+{
+  "tool_request_sha256": "df42bbad8c5ff5efcdcaf71239e3825c19d970fbbcb0046a67d14ded43297277",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T13:01:56.481Z",
+    "observation_source": "Fresh exact-object Neo text, loaded image dimensions and unchanged image URL; downloaded platform pixels inspected against source chart after all destinations sent. Exact binary hashes retained."
+  },
+  "result": {
+    "status": "SUCCESS",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:share:7524089180923154433",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524089180923154433/",
+    "observed_text": "Feed post\n\nPromote this post to reach people who matter to you.\n\nBoost\n\nCapital Chronicle\n\n17m\n\nFollow\n\nGold before the jobs report: beyond the Fed's target range\n\nWhy it matters: Lower real Treasury yields would reduce one cost of holding gold: the inflation-adjusted return available from a competing asset.\n\nContext: Currency moves or demand for safety could outweigh the real-yield channel. That would make a simple bond-yield explanation inadequate.\n\nRead the full brief: https://lnkd.in/gWmPnffQ\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\n\u200b\n\u200b\n\u200b\n\u200b\n\n\n",
+    "content_verified": true,
+    "observed_media_sha256": [
+      "d739167228204db0fa8cec9523290967a6ab8b4e85523c893c127afc2919b16d"
+    ],
+    "public_image_urls": [
+      "https://media.licdn.com/dms/image/v2/D5622AQF70ZnuRoIvkg/feedshare-shrink_800/B56aGrvPS8HsAg-/0/1793882650031?e=1795651200&v=beta&t=-1_q_a7rdM9GQDkGPnRu2cOS84UF3INfA2rF5pPXSdI"
+    ],
+    "observed_link_resolutions": [
+      {
+        "displayed_url": "https://lnkd.in/gWmPnffQ",
+        "target_url": "https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond",
+        "target_verified": true,
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524089180923154433/"
+      }
+    ],
+    "request_sha256": "7a4b7bf18107f5a426dda2b548a57682df2c39739fcda1ffc27925a0c3cce821",
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "5c585296a88af4f7dd0236ef1aef8d8df4a19c2b7c68832a26b6c31e15126a20",
+        "platform_sha256": "d739167228204db0fa8cec9523290967a6ab8b4e85523c893c127afc2919b16d",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524089180923154433/",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQF70ZnuRoIvkg/feedshare-shrink_800/B56aGrvPS8HsAg-/0/1793882650031?e=1795651200&v=beta&t=-1_q_a7rdM9GQDkGPnRu2cOS84UF3INfA2rF5pPXSdI",
+        "pixels_inspected": true,
+        "source_pixels_match": true
+      }
+    ]
+  }
+}

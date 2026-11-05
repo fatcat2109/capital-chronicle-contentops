@@ -1,0 +1,15 @@
+{
+  "dispatched_at_utc": "2026-11-05T12:44:08.561Z",
+  "identity": {
+    "authenticated": true,
+    "observed_at_utc": "2026-11-05T12:44:08.559Z",
+    "observed_identity": "linkedin:company:143198922",
+    "observed_stable_id": "143198922"
+  },
+  "observed_at_utc": "2026-11-05T12:44:09.040Z",
+  "pre_click_posts": [
+    "Gold before the jobs report: beyond the Fed's target range\n\n\n\n\nWhy it matters: Lower real Treasury yields would reduce one cost of holding gold: the inflation-adjusted return available from a competing asset.\n\n\n\n\nContext: Currency moves or demand for safety could outweigh the real-yield channel. That would make a simple bond-yield explanation inadequate.\n\n\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond\n\n\n\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\n\n\n\nCapital Chronicle may hold positions in the markets it covers."
+  ],
+  "ui": "- region \"Toast message\"\n  - sectionheader\n    - heading \"0 notifications total\" [level=2]\n  - alert\n- dialog \"Create post modal\"\n  - button \"Dismiss\" [ref=e145]\n  - heading \"Create post modal\" [level=2]\n  - button \"Capital Chronicle Capital Chronicle Post to Anyone\" [ref=e179]\n    - image \"Capital Chronicle\"\n  - textbox \"Text editor for creating content\" [ref=e180]: \"Gold before the jobs report: beyond the Fed's target range\\n\\n\\n\\n\\nWhy it matters: Lower real Treasury yields would reduce one cost of holding gold: the inflation-adjusted return available from a competing asset.\\n\\n\\n\\n\\nContext: Currency moves or demand for safety could outweigh the real-yield channel. That would make a simple bond-yield explanation inadequate.\\n\\n\\n\\n\\nRead the full brief: https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond\\n\\n\\n\\n\\nAnalysis, not financial advice. Readers decide whether to trade.\\n\\n\\n\\n\\nCapital Chronicle may hold positions in the markets it covers.\"\n    - paragraph [ref=e181] [cursor=pointer]\n    - paragraph [ref=e182] [cursor=pointer]\n    - paragraph [ref=e183] [cursor=pointer]\n    - paragraph [ref=e184] [cursor=pointer]\n    - paragraph [ref=e185] [cursor=pointer]\n    - paragraph [ref=e186] [cursor=pointer]\n    - paragraph [ref=e187] [cursor=pointer]\n    - paragraph [ref=e188] [cursor=pointer]\n    - paragraph [ref=e189] [cursor=pointer]\n    - paragraph [ref=e190] [cursor=pointer]\n    - paragraph [ref=e191] [cursor=pointer]\n  - button \"Edit media preview\" [ref=e192]\n  - button \"Remove media\" [ref=e193]\n  - image \"Image preview\"\n  - button \"Open Emoji Keyboard\" [collapsed] [ref=e194]\n  - separator\n  - button \"Schedule post\" [ref=e195]\n  - button [disabled] [ref=e196]",
+  "url": "https://www.linkedin.com/company/143198922/admin/page-posts/published/"
+}

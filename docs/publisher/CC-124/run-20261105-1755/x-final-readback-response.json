@@ -1,0 +1,56 @@
+{
+  "tool_request_sha256": "5f43f1079519eb888abc3d8e13b4f2e2a36c14fafde813c707055dbebfa872d8",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T13:01:56.481Z",
+    "observation_source": "Fresh exact-object Neo text, loaded image dimensions and unchanged image URL; downloaded platform pixels inspected against source chart after all destinations sent. Exact binary hashes retained."
+  },
+  "result": {
+    "status": "SUCCESS",
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2118322464782737866",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118322464782737866",
+    "observed_text": "Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\n\nhttps://\ncapitalchronicle.substack.com/p/gold-before-\nthe-jobs-report-beyond\n\u2026\n\nWatch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "content_verified": true,
+    "observed_media_sha256": [
+      "33c9ea5ef79c908f16062ab61adf9e49ba1cf3e120b8559629f9740344611569"
+    ],
+    "observed_thread": [
+      {
+        "public_object_id": "2118322464782737866",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118322464782737866",
+        "observed_text": "Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\n\nhttps://\ncapitalchronicle.substack.com/p/gold-before-\nthe-jobs-report-beyond\n\u2026"
+      },
+      {
+        "public_object_id": "2118322467681058842",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118322467681058842",
+        "observed_text": "Watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      }
+    ],
+    "observed_link_resolutions": [
+      {
+        "displayed_text": "https://\ncapitalchronicle.substack.com/p/gold-before-\nthe-jobs-report-beyond\n\u2026",
+        "short_url": "https://t.co/NNL4KTpLAg",
+        "target_url": "https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond",
+        "target_verified": true,
+        "public_object_url": "https://x.com/Capitalnicle/status/2118322464782737866"
+      }
+    ],
+    "public_image_urls": [
+      "https://pbs.twimg.com/media/HWXK2_fbQAA7hWN?format=jpg&name=small"
+    ],
+    "request_sha256": "397b468c9bd1a7df3f57840b11868110a2aa8be8c83610a533d0d0e283244099",
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "5c585296a88af4f7dd0236ef1aef8d8df4a19c2b7c68832a26b6c31e15126a20",
+        "platform_sha256": "33c9ea5ef79c908f16062ab61adf9e49ba1cf3e120b8559629f9740344611569",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118322464782737866",
+        "public_image_url": "https://pbs.twimg.com/media/HWXK2_fbQAA7hWN?format=jpg&name=small",
+        "pixels_inspected": true,
+        "source_pixels_match": true
+      }
+    ]
+  }
+}

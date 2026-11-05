@@ -1,0 +1,846 @@
+{
+  "checked_at_utc": "2026-11-05T13:17:40.611189+00:00",
+  "run_id": "cc124-gold-yields-20261105-e",
+  "canonical_feed_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+  "canonical_feed_row": {
+    "conditional_calls": [],
+    "conflicts_notice": null,
+    "content_id": "substack:223615409",
+    "content_sha256": "0258b60ed5ce0b2a2f274919c6f9b60088aa2d954e6cdca4304eb17bfd1efb73",
+    "disclaimer": "Analysis, not financial advice.",
+    "event_id": null,
+    "outlets": [
+      {
+        "name": "substack",
+        "url": "https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond"
+      },
+      {
+        "name": "discord",
+        "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1567880156494692437"
+      },
+      {
+        "name": "facebook_page",
+        "url": "https://www.facebook.com/1342369584748125/posts/1445629467755469"
+      },
+      {
+        "name": "instagram_business",
+        "url": "https://www.instagram.com/p/DfXEe-LAbFY/"
+      },
+      {
+        "name": "linkedin_company",
+        "url": "https://www.linkedin.com/feed/update/urn:li:share:7524089180923154433/"
+      },
+      {
+        "name": "telegram",
+        "url": "https://t.me/CapitalChronicle/85"
+      },
+      {
+        "name": "threads",
+        "url": "https://www.threads.com/@official.capitalchronicle/post/DfXDC4rH-Sq"
+      },
+      {
+        "name": "x",
+        "url": "https://x.com/Capitalnicle/status/2118322464782737866"
+      },
+      {
+        "name": "youtube",
+        "url": "https://www.youtube.com/post/UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w"
+      }
+    ],
+    "published_at_utc": "2026-11-05T12:23:12.266000+00:00",
+    "recorded_at_utc": "2026-11-05T13:16:22.607035+00:00",
+    "rights_class": "CC_OWN_ANALYSIS",
+    "schema_version": "contentops.published_content.v1",
+    "standfirst": "Treasury's nominal 10-year yield fell 5 basis points on November 4; its real yield fell 1. The next question for gold is how real yields respond to the November 6 jobs report.",
+    "title": "Gold before the jobs report: beyond the Fed's target range",
+    "type": "ARTICLE",
+    "visibility": "public"
+  },
+  "production_day_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-05-bangkok\\newsroom_production_day_v1.json",
+  "production_day_sha256": "90e6cc493b681bbbcbe1f61d5e6e4af0735e1cee5672470329bf739ebd8f11d8",
+  "production_day_measurement": {
+    "admitted_items": 10,
+    "confirmed_copies_by_channel": {
+      "discord": 5,
+      "facebook_page": 5,
+      "instagram_business": 5,
+      "linkedin_company": 5,
+      "substack": 5,
+      "telegram": 5,
+      "threads": 4,
+      "x": 5,
+      "youtube": 5
+    },
+    "distinct_canonical_items_published": 5,
+    "distinct_daily_target": 8,
+    "first_blocking_causes": {
+      "SOURCE_MISSING": 1
+    },
+    "interventions": [],
+    "observed_at_utc": "2026-11-05T13:17:40.521513+00:00",
+    "policy_id": "CC-047-20261030",
+    "pre_event_preparations_available": [
+      {
+        "event_id": "us-election-20261103",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": null,
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "us-election-20261103",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": null,
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "us-election-20261103",
+        "known_at_utc": "2026-10-29T17:38:06.658805+00:00",
+        "planned_release_utc": null,
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T17:36:50.561308+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T17:36:50.561308+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-ppi-20261113",
+        "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+        "planned_release_utc": "2026-11-13T13:30:00Z",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-11-04T22:46:34.267520+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-ppi-20261113",
+        "known_at_utc": "2026-11-04T22:51:34.560028+00:00",
+        "planned_release_utc": "2026-11-13T13:30:00Z",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-11-04T23:06:43.872930+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      }
+    ],
+    "quota_stops": [],
+    "reader_counts": [
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223555673"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "78"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567697105110171698"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118143748899242476"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445129697805446"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "17965563222250380"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "18349318927265482"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:ugcPost:7523905097471361025"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223564454"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "79"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567725246025572474"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118169951320285473"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445224044462678"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "17955487743316912"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "UgkxW1jZvwD2wjn58bHraF_PXxPblw-fKS7E"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:share:7523933028772151297"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223584317"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "80"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567780536208990228"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118225640226951201"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445346454450437"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "18385860829239725"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "18646398562032992"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "Ugkxrj2tZ7a1Rv7Jk3zHVujlgRKCzverZLeg"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:share:7523988409204342785"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223601127"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "81"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567842904955949147"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118289723047473490"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445511274433955"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "18494983612110017"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "18169449811468433"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "UgkxTU7JJ92PqzRq9tY3UBOkXvS39CsRPLLZ"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:share:7524051266721734657"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223615409"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "85"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567880156494692437"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118322464782737866"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445629467755469"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "17885365770526136"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "17970947069964931"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:share:7524089180923154433"
+      }
+    ],
+    "reader_counts_availability": "UNAVAILABLE",
+    "source_qualified_items": 9,
+    "target_by_revised_production_day": 3,
+    "tests_or_derivatives_are_original_publications": false,
+    "time_to_canonical": [
+      {
+        "public_object_id": "223555673",
+        "run_id": "cc124-next-article-20261105-a",
+        "window_entry_to_canonical_readback_seconds": null
+      },
+      {
+        "public_object_id": "223564454",
+        "run_id": "cc124-next-article-20261105-b",
+        "window_entry_to_canonical_readback_seconds": null
+      },
+      {
+        "public_object_id": "223584317",
+        "run_id": "cc124-next-article-20261105-c",
+        "window_entry_to_canonical_readback_seconds": null
+      },
+      {
+        "public_object_id": "223601127",
+        "run_id": "cc124-next-article-20261105-d",
+        "window_entry_to_canonical_readback_seconds": null
+      },
+      {
+        "public_object_id": "223615409",
+        "run_id": "cc124-gold-yields-20261105-e",
+        "window_entry_to_canonical_readback_seconds": null
+      }
+    ],
+    "windows": {
+      "standing": {
+        "admitted_count": 1,
+        "brief_only": false,
+        "distinct_canonical_published": 5,
+        "source_request_count": 12
+      }
+    }
+  },
+  "publication": {
+    "accepted_evidence_sha256": "bf64b55997ec2df670c127608b8c5b57e23e7b4e0aa2b0a133461b1ae22419fd",
+    "article_identity": "9dfd915b9d1d746b03880c288065540787ba0e0dc55492e1e2d48272eb2d7754",
+    "artifact_sha256": {
+      "article_manifest_v1.json": "70f5052eb1e002a49072ef8641e4c97fda130e70005376ed5ed87abcf70be155",
+      "native_derivative_previews_v1.json": "a717fe5db2df7ce48fdd83c05928fa08b7d7ea5fa24303c74a11e4d04ef519e2",
+      "publication_lifecycle_plan_v1.json": "18e4a114582977cb184f7f34c844e36181a0c3f5ffa4d59f5ef46b5c0c57dac7",
+      "qualified_article_record_v1.json": "69b1130fa31a2d0949835eb6552355ec370254f75b2625490af1233c73ddf83d",
+      "run_context_v1.json": "299cb381d012492dc282794847b0b9f858307a031e1bc57f09c27e286c8cca2b"
+    },
+    "binding_sha256": "3c8b3e97dca0ed36ba0bd5822ae06d45e843b4a04f197b0be9f003aaef8f90ce",
+    "media_sha256": {
+      "cc124-treasury-10y-nominal-real-2026": "186518c20f3540959f7e8e67e1b9001531c3d1fcd80bbdf316bfda85ddc9641c",
+      "cc124-treasury-latest-daily-change-20261104": "5c585296a88af4f7dd0236ef1aef8d8df4a19c2b7c68832a26b6c31e15126a20",
+      "cc124-west-point-gold-2011": "3fb037489bd491bf23dc9a77f52d7a9ee5ea7d5b6f15f70bd3f64bde1f95d131"
+    },
+    "native_result_sha256": "0427b32828022c71153cc1c84a4f5aab91a8653e95723445883e2db4e128c25c",
+    "plan_hash": "9eb8083827a8e07ae2e1c824c0977d0786f291ffbc798f8106fcbd984e9c030f",
+    "prepared_handoff_sha256": "db39b2cf71d27fe75eeb720a7ed8cbb19345cf56a7e8810306403cf550b35d5e",
+    "publication_authority": false,
+    "review_id": "native-article-review-791b66f767d44935b1cd92bf09b32d0f",
+    "review_notes_sha256": "d8f205e67c241799397ed6d09b23edecdfd77fe4490024ed4ff4d7adb6b47141",
+    "run_id": "cc124-gold-yields-20261105-e",
+    "schema_version": "contentops.native_publication_binding.v1",
+    "work_item_id": "cc124-gold-yields-20261105-e",
+    "canonical_article_status": "REAL_PUBLISHED",
+    "canonical_article_real_published": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond",
+    "canonical_publication_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "transaction_classification": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "derivative_confirmed_count": 7,
+    "derivative_attempted_count": 8,
+    "derivative_unknown_count": 0,
+    "derivative_absent_safe_to_retry_count": 1,
+    "derivative_failed_count": 0,
+    "derivative_never_attempted_count": 0,
+    "recovery_required_destinations": [
+      "linkedin"
+    ],
+    "readback_limitation_destinations": [],
+    "unknown_write_detected": false,
+    "unknown_write_count": 0,
+    "additional_destinations": {
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_4ab1893de1554f3de2a715486dfb615a",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "urn:li:share:7524089180923154433",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524089180923154433/",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      }
+    },
+    "additional_confirmed_count": 1,
+    "additional_recovery_required_destinations": [],
+    "state": "DISTRIBUTION_INCOMPLETE",
+    "operation_scope": "OWNER_MANUAL_LIVE",
+    "destinations": [
+      {
+        "destination": "substack",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_726076d12aadefcbd75673905b132e22",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "223615409",
+        "public_object_url": "https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      },
+      {
+        "destination": "telegram",
+        "transport": "BOT_API",
+        "dispatch_id": "dispatch_b7f2c86da5c4a76ed4f22392d5b6ad3f",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "85",
+        "public_object_url": "https://t.me/CapitalChronicle/85",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "discord",
+        "transport": "WEBHOOK_API",
+        "dispatch_id": "dispatch_00f0615bcfff5b9eff8630fad8a69ca0",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "1567880156494692437",
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "x",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_77b84ac90c911119595eb077f1b39160",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "2118322464782737866",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118322464782737866",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      },
+      {
+        "destination": "linkedin",
+        "transport": "OFFICIAL_MEMBER_API",
+        "dispatch_id": "dispatch_30b6ddefb92f0dfb7687fd6e48da78de",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+      },
+      {
+        "destination": "facebook_page",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_2ff7dc799048d48a1a216ebe649fc3e8",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "106091951705748_1445629467755469",
+        "public_object_url": "https://www.facebook.com/1342369584748125/posts/1445629467755469",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "instagram_business",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_7136d6dbef8fe16547a4d42d661819d8",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "17885365770526136",
+        "public_object_url": "https://www.instagram.com/p/DfXEe-LAbFY/",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "threads",
+        "transport": "THREADS_API",
+        "dispatch_id": "dispatch_0adc4b425174034c0940492bc5ed8080",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "17970947069964931",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfXDC4rH-Sq",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "youtube",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_1e45b1385551ac57955f73fa3c7f6188",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w",
+        "public_object_url": "https://www.youtube.com/post/UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      },
+      {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_4ab1893de1554f3de2a715486dfb615a",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "urn:li:share:7524089180923154433",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524089180923154433/",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      }
+    ],
+    "timing": {
+      "policy": "JIM_DECISION_53",
+      "target_minutes": 15,
+      "text_approved_at_utc": "2026-11-05T12:05:42.665306+00:00",
+      "dispatch_deadline_utc": "2026-11-05T12:20:42.665306+00:00",
+      "channels": [
+        {
+          "destination": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T12:14:11.198281+00:00",
+          "dispatched_at_utc": null,
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T12:36:58.982756+00:00",
+          "dispatched_at_utc": "2026-11-05T12:36:58.982756+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 1876.31745,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T12:35:58.738308+00:00",
+          "dispatched_at_utc": null,
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "x",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T12:38:37.048068+00:00",
+          "dispatched_at_utc": "2026-11-05T12:40:05.676Z",
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": 2063.010694,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "attempted_at_utc": "2026-11-05T12:36:55.773810+00:00",
+          "dispatched_at_utc": null,
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "facebook_page",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T12:47:42.835914+00:00",
+          "dispatched_at_utc": "2026-11-05T12:47:42.835914+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 2520.170608,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "instagram_business",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T12:49:36.288145+00:00",
+          "dispatched_at_utc": "2026-11-05T12:49:36.288145+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 2633.622839,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T12:37:02.289114+00:00",
+          "dispatched_at_utc": "2026-11-05T12:37:02.289114+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 1879.623808,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "youtube",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T12:50:53.393926+00:00",
+          "dispatched_at_utc": "2026-11-05T12:54:08.459Z",
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": 2905.793694,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin_company",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T12:42:44.633613+00:00",
+          "dispatched_at_utc": "2026-11-05T12:44:08.561Z",
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": 2305.895694,
+          "within_target": false,
+          "skipped": false
+        }
+      ],
+      "all_channels_dispatched_within_target": false,
+      "state": "OVERDUE_CONTINUE_PUBLICATION"
+    },
+    "skipped_destinations": [],
+    "pending_requests": [],
+    "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+    "next_operation": "publication-resume",
+    "dispatch_continuation_operation": "publication-resume",
+    "next_command": "python scripts/run_native_desktop_editorial.py publication-resume --binding \"A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\native_operation_binding.json\" --native-invocation-id <actual-turn-id> --rollout config/native_desktop_rollout_v1.json",
+    "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale.",
+    "final_visual_acceptance": {
+      "stage": "final-visual-51614c0148b9c4c921fd172492129244e3b29eb51fb29b2232baacc883051005",
+      "request_sha256": "446e7fdef1fb6d3aa4631d9c1f60c5772d8d2773054a0e6f0d2c382d8d7f5773",
+      "response_sha256": "7bc9cd425d1360cd99e23b916b6c125d78ec204c01b735f67a228978a6488378",
+      "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e",
+      "article_revision": "c5deb6b7e93adddafa39e05269f4c3e691294dc99ee1f7fb0e509b953471274d",
+      "render_binding_sha256": "51614c0148b9c4c921fd172492129244e3b29eb51fb29b2232baacc883051005",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "This exact supported final-review continuation in the SAME native task context /root/native_max_gold_ff1ce849 and frozen request 446e7fdef1fb6d3aa4631d9c1f60c5772d8d2773054a0e6f0d2c382d8d7f5773 request gpt-6.1-sol/max. Configuration remains CONFIGURED_NOT_OBSERVED; actual runtime model/effort telemetry is unavailable.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_max_gold_ff1ce849",
+        "model": null,
+        "observation_source": "Supported canonical native task context identifies this role as /root/native_max_gold_ff1ce849. Actual runtime model and reasoning-effort telemetry are unavailable in this context.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    },
+    "site_url": null,
+    "site_publication_confirmed": false,
+    "substack_publication_confirmed": true
+  },
+  "actual_publication_day_content_ids": [
+    "substack:223555673",
+    "substack:223564454",
+    "substack:223584317",
+    "substack:223601127",
+    "substack:223615409"
+  ],
+  "schedule_changed": false,
+  "digest_dispatched": false
+}

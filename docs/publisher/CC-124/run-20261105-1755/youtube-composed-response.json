@@ -1,0 +1,43 @@
+{
+  "tool_request_sha256": "7445b13f8f72832424dc90008acfc41e2b4e9aab3b76a6ed35f35ecccb1ec6c3",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T12:54:51.134Z",
+    "dispatched_at_utc": "2026-11-05T12:54:08.459Z",
+    "observation_source": "Neo exact YouTube channel composer, one upload through tool, loaded 1440x1040 preview, exact prose, one Post click, published object and public text/image load."
+  },
+  "result": {
+    "request_sha256": "ea85cdf165db4a07fd17a72e8fb185d6cd30d5bb56f9f0822b56b45439355804",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w",
+    "public_object_url": "https://www.youtube.com/post/UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-05T12:54:08.459Z",
+      "observed_identity": "@CapitalChronicleYouTube",
+      "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA"
+    },
+    "pre_click_posts": [
+      "Update: Gold before the jobs report: beyond the Fed's target range\n\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\n\nWhat to watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond\n\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "@CapitalChronicleYouTube",
+      "public_object_id": "UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w",
+      "public_object_url": "https://www.youtube.com/post/UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w",
+      "observed_text": "Capital Chronicle\n25 giây trước\nUpdate: Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\nWhat to watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nRead the full brief: https://capitalchronicle.substack.com/p/gold-before-the-jobs-report-beyond\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\nĐọc thêm",
+      "content_verified": true,
+      "observed_media_sha256": [],
+      "public_image_urls": [
+        "https://yt3.ggpht.com/81DEMlRLgRihruQiYsUcH6g9Z-fX2OEtDIucpdetUl320qjpRk0QSzReUIA93jsMcvsx3etK52QR=s640-rw-nd-v1"
+      ]
+    }
+  }
+}

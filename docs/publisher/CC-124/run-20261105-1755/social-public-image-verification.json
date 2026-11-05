@@ -1,0 +1,44 @@
+{
+  "observed_at_utc": "2026-11-05T12:55:49.948919+00:00",
+  "images": [
+    {
+      "destination": "x",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118322464782737866",
+      "public_image_url": "https://pbs.twimg.com/media/HWXK2_fbQAA7hWN?format=jpg&name=small",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\media_readback\\x-public.png",
+      "platform_sha256": "33c9ea5ef79c908f16062ab61adf9e49ba1cf3e120b8559629f9740344611569",
+      "size_bytes": 17171,
+      "source_asset_sha256": "5c585296a88af4f7dd0236ef1aef8d8df4a19c2b7c68832a26b6c31e15126a20",
+      "similarity": 0.9989,
+      "mime_type": "image/jpeg",
+      "width": 680,
+      "height": 491
+    },
+    {
+      "destination": "linkedin-company",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524089180923154433/",
+      "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQF70ZnuRoIvkg/feedshare-shrink_800/B56aGrvPS8HsAg-/0/1793882650031?e=1795651200&v=beta&t=-1_q_a7rdM9GQDkGPnRu2cOS84UF3INfA2rF5pPXSdI",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\media_readback\\linkedin-company-public.png",
+      "platform_sha256": "d739167228204db0fa8cec9523290967a6ab8b4e85523c893c127afc2919b16d",
+      "size_bytes": 20637,
+      "source_asset_sha256": "5c585296a88af4f7dd0236ef1aef8d8df4a19c2b7c68832a26b6c31e15126a20",
+      "similarity": 0.9995,
+      "mime_type": "image/jpeg",
+      "width": 800,
+      "height": 577
+    },
+    {
+      "destination": "youtube",
+      "public_object_url": "https://www.youtube.com/post/UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w",
+      "public_image_url": "https://yt3.ggpht.com/81DEMlRLgRihruQiYsUcH6g9Z-fX2OEtDIucpdetUl320qjpRk0QSzReUIA93jsMcvsx3etK52QR=s640-rw-nd-v1",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\media_readback\\youtube-public.png",
+      "platform_sha256": "214c7967166171ee4e9fd2bd1158554c098c8b64e54cfa26674b0a0feed89a6e",
+      "size_bytes": 6068,
+      "source_asset_sha256": "5c585296a88af4f7dd0236ef1aef8d8df4a19c2b7c68832a26b6c31e15126a20",
+      "similarity": 0.9961,
+      "mime_type": "image/webp",
+      "width": 640,
+      "height": 462
+    }
+  ]
+}
