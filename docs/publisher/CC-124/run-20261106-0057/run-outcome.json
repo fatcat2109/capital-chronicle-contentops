@@ -1,0 +1,46 @@
+{
+  "item": "CC-124",
+  "run_id": "cc124-bitcoin-rates-20261106-h",
+  "completed_at_utc": "2026-11-05T19:30:44.082833+00:00",
+  "run_outcome": "PUBLISHED_WITH_DESTINATION_LIMITS",
+  "standing_status": "OPEN (next due 6 Nov 2026 02:57 GMT+7)",
+  "canonical_url": "https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins",
+  "canonical_object_id": "223667079",
+  "published_at_utc": "2026-11-05T18:44:51.561Z",
+  "production_day_id": "newsroom-production-day-2026-11-05-bangkok",
+  "distinct_originals": 8,
+  "live_digest_reader_state": "SAVED_RECORD",
+  "confirmed_destinations": [
+    "substack",
+    "telegram",
+    "discord",
+    "x",
+    "facebook_page",
+    "instagram_business",
+    "threads",
+    "linkedin_company"
+  ],
+  "unpublished_destinations": {
+    "youtube": "YOUTUBE_ADVANCED_FEATURE_VERIFICATION_OR_24H_WAIT",
+    "linkedin": "API ambiguous; reconciled absent; exact Neo recovery prepared, mobile capture timed out"
+  },
+  "unknown_write_count": 0,
+  "pending_native_requests": 0,
+  "targeted_tests_passed": 44,
+  "dispatch_target": "MISSED; original approval clock retained",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "actual_model": null,
+  "actual_effort": null,
+  "prior_operating_code_head": "1bf0f3ef0b7725ee7f6155f1e1e5b7a8cf9237f8",
+  "inherited_wip_sha256": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "eaf106a6c5f0f94602af7ef759fd3f13ff0c8e8a68e78b3c2b625b8f8a755ebe",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "6b9fcc177395a2a4fb1dec6ae823731a9b907a60e21bf8c63b085e50f1cb6e2a"
+  },
+  "scope_choice": "Finish the exact pre-decision-89 publication; all future articles use Main reports. Preserve the confirmed company LinkedIn copy; prepare the personal recovery without another ambiguous API write.",
+  "schedule_changed": false,
+  "chat_messages_sent": false,
+  "native_file_dialog_opened": false,
+  "desktop_automation_used": false
+}

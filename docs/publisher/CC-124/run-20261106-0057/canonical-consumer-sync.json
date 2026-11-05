@@ -1,0 +1,14 @@
+{
+  "result": {
+    "status": "ALREADY_RECORDED",
+    "content_id": "substack:223667079",
+    "content_sha256": "29859a33f7574dd84fd2ed07e24bcd45b3b5bfddfc2b935a469552853b413ac6",
+    "outlet_count": 7,
+    "outlet_update": {
+      "status": "OUTLETS_UNCHANGED",
+      "content_id": "substack:223667079",
+      "outlet_count": 8
+    }
+  },
+  "public_write_performed": false
+}

@@ -1,0 +1,29 @@
+{
+  "tool_request_sha256": "00e85ac67be768e0501d07f1751b3f73da466382af662358ef3a0b3ab9407a42",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-05T19:28:42.124Z",
+    "observation_source": "Fresh authenticated own-channel posts after page reload; target absent after ten minutes from the latest recorded attempt. No new publish click."
+  },
+  "result": {
+    "request_sha256": "b17d8ffcd43e2adfef58876fee26033d296451488dcc611dab3dcc74a9880fab",
+    "status": "SUCCESS",
+    "public_write_performed": false,
+    "activity_feed_loaded": true,
+    "authenticated": true,
+    "latest_post_urls": [
+      "https://www.youtube.com/post/UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V",
+      "https://www.youtube.com/post/UgkxCDr1Cr65dkwn8YQ_ozq1ZI0mMN2dt1QP",
+      "https://www.youtube.com/post/UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w",
+      "https://www.youtube.com/post/UgkxTU7JJ92PqzRq9tY3UBOkXvS39CsRPLLZ"
+    ],
+    "observed_at_utc": "2026-11-05T19:28:42.124Z",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "observed_profile_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+    "observed_text": "Capital Chronicle\n2 gi\u1edd tr\u01b0\u1edbc\nUpdate: Jobs watch: weaker hiring can cut both ways for US stocks\n\nA weak jobs headline can ease rate pressure and weaken the earnings outlook at the same time. The S&P 500 needs both sides of that story.\n\nWhat to watch: A falling yield by itself will not distinguish re\n\nCapital Chronicle\n4 gi\u1edd tr\u01b0\u1edbc\nUpdate: EURUSD and USDJPY: two falling quotes, two dollar directions\n\nEURUSD fell. USDJPY fell. Those October 26-30 Fed reference rates meant a stronger dollar against the euro and a weaker one against the yen.\n\nWhat to watch: A split dollar response across the two curr\n\nCapital Chronicle\n6 gi\u1edd tr\u01b0\u1edbc\nUpdate: Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\nWhat to watch: A sustained real-yield rise after the jobs report would weaken thi\n\nCapital Chronicle\n8 gi\u1edd tr\u01b0\u1edbc\nUpdate: EIA oil inventories: the sharper squeeze is in distillates\n\nThe crude draw was small. The distillate draw deserves the closer look.\n\nWhat to watch: Crude and gasoline stocks posted much smaller declines.\n\nRead the full brief: https://capitalchronicle.substack.co",
+    "posts_inspected": 8,
+    "target_post_absent": true
+  }
+}

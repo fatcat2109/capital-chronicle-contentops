@@ -29,5 +29,10 @@
     "pending_stage": "revise",
     "prior_native_worker_registered": false,
     "prior_role_returns_preserved": true
+  },
+  "latest_authority": {
+    "decision": 89,
+    "recorded_at_utc": "2026-11-05T19:15:48.567279+00:00",
+    "scope": "CC124 returned IN_PROGRESS by Ops; future articles only from Main reports. Finish this pre-change in-flight publication and stop after this item."
   }
 }

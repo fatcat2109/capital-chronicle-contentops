@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "destination": "facebook_page",
+  "primary_sha256": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+  "public_delivery_sha256": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+  "local_public_hash_continuity": true,
+  "public_image_url": "https://res.cloudinary.com/ig1h3mud/image/upload/v1793904463/capital_chronicle/v1/delivery_only/cc124-bitcoin-rates-20261106-h/cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d.png",
+  "first_failure": "SELECTED_IMAGE_PUBLIC_DELIVERY_REQUIRED:facebook_page",
+  "resolution": "Original chart is now present in the existing verified Cloudinary delivery manifest; keep the image guard and retry the proven absent destination."
+}

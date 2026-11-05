@@ -1,0 +1,43 @@
+{
+  "targeted_tests": 44,
+  "runs": [
+    {
+      "artifact": "source-admission-tests.xml",
+      "tests": 24,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "artifact": "reader-marker-tests.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "artifact": "reader-projection-consumer-tests.xml",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "artifact": "tool-return-lease-tests.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "artifact": "day-clock-tests.xml",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "artifact": "day-existing-regressions.xml",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    }
+  ],
+  "serial": true,
+  "parallel_shards": false
+}

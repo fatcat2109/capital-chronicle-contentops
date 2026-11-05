@@ -1,0 +1,43 @@
+{
+  "schema_version": "contentops.dated_distribution_recovery.v1",
+  "run_id": "cc124-bitcoin-rates-20261106-h",
+  "owner_authority_ref": "human:BACKLOG_CC124_JIM_DECISIONS_39_88_IN_FLIGHT_DISTRIBUTION",
+  "source_cutoff_utc": "2026-11-05T18:01:24.684143Z",
+  "article_identity": "cd038fca77e76ce0dcc713dd288bcd2e73e5189f957ce2086adb6ed9f6c6d17b",
+  "canonical_article_revision": "086a6d4c49913c94988fb5f853341bb34910c36cff9c925509fa1648877d8ceb",
+  "plan_hash": "632720e479a7c53140b6ff524db36f894837f0894a64c2a72c300c47d8cf2577",
+  "canonical_url": "https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins",
+  "date_label": "Reporting as of 13:01 EST on 5 November 2026.",
+  "original_intent_sha256": {
+    "linkedin": "45dece11cca69800ae698d99675c3b9e88cac144f9905f197911b08516a29629"
+  },
+  "payloads": {
+    "linkedin": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "cc124-treasury-10y-nominal-2026-bitcoin-watch"
+      ],
+      "media_source_links": {
+        "cc124-treasury-10y-nominal-2026-bitcoin-watch": [
+          {
+            "document_id": "cc124-treasury-nominal-20261104",
+            "label": "U.S. Department of the Treasury",
+            "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          }
+        ]
+      },
+      "platform_limit": 3000,
+      "text": "Reporting as of 13:01 EST on 5 November 2026.\n\nLower Treasury yields leave Bitcoin's demand question open\n\nWhy it matters: On November 4, the U.S. Department of the Treasury's nominal 10-year par yield was 4.90%, down from 4.95% on November 3.\n\nContext: On November 4, the U.S. Department of the Treasury's nominal 10-year par yield was 4.90%, down from 4.95% on November 3. For Bitcoin, the useful distinction is between a lower return on an interest-bearing alternative and evidence that investors want more exposure to a volatile asset.\n\nRead the full brief: https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+    }
+  },
+  "reader_timezone": "America/New_York",
+  "destinations": [
+    "linkedin"
+  ],
+  "transport_override": "BROWSEROS_NEO_MCP",
+  "recipients": {
+    "linkedin": "linkedin:jimcc",
+    "linkedin_company": "linkedin:company:143198922"
+  }
+}

@@ -1,0 +1,1015 @@
+{
+  "checked_at_utc": "2026-11-05T19:29:03.028053+00:00",
+  "run_id": "cc124-bitcoin-rates-20261106-h",
+  "canonical_feed_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+  "canonical_feed_row": {
+    "conditional_calls": [],
+    "conflicts_notice": null,
+    "content_id": "substack:223667079",
+    "content_sha256": "29859a33f7574dd84fd2ed07e24bcd45b3b5bfddfc2b935a469552853b413ac6",
+    "disclaimer": "Analysis, not financial advice.",
+    "event_id": null,
+    "outlets": [
+      {
+        "name": "substack",
+        "url": "https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins"
+      },
+      {
+        "name": "discord",
+        "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1567973679671943284"
+      },
+      {
+        "name": "instagram_business",
+        "url": "https://www.instagram.com/p/DfXteqtATKv/"
+      },
+      {
+        "name": "linkedin_company",
+        "url": "https://www.linkedin.com/feed/update/urn:li:share:7524183229864628225/"
+      },
+      {
+        "name": "telegram",
+        "url": "https://t.me/CapitalChronicle/89"
+      },
+      {
+        "name": "threads",
+        "url": "https://www.threads.com/@official.capitalchronicle/post/DfXthZ8nxU8"
+      },
+      {
+        "name": "x",
+        "url": "https://x.com/Capitalnicle/status/2118415812772216943"
+      }
+    ],
+    "published_at_utc": "2026-11-05T18:44:51.561000+00:00",
+    "recorded_at_utc": "2026-11-05T19:12:32.588794+00:00",
+    "rights_class": "CC_OWN_ANALYSIS",
+    "schema_version": "contentops.published_content.v1",
+    "standfirst": "The nominal 10-year Treasury yield fell to 4.90% on November 4. That can ease one cost of holding Bitcoin, while leaving investors' appetite for its price risk unanswered.",
+    "title": "Lower Treasury yields leave Bitcoin's demand question open",
+    "type": "ARTICLE",
+    "visibility": "public"
+  },
+  "production_day_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-05-bangkok\\newsroom_production_day_v1.json",
+  "production_day_sha256": "ec75193489923656bff6c7b3da73fde13ac04e380bf563a9f629c8081a01400d",
+  "production_day_measurement": {
+    "admitted_items": 13,
+    "confirmed_copies_by_channel": {
+      "discord": 8,
+      "facebook_page": 8,
+      "instagram_business": 8,
+      "linkedin_company": 8,
+      "substack": 8,
+      "telegram": 8,
+      "threads": 7,
+      "x": 8,
+      "youtube": 6
+    },
+    "distinct_canonical_items_published": 8,
+    "distinct_daily_target": 8,
+    "first_blocking_causes": {
+      "SOURCE_MISSING": 1,
+      "WINDOW_ENDED_WITHOUT_EDITORIAL_RESULT": 1
+    },
+    "interventions": [],
+    "observed_at_utc": "2026-11-05T19:29:02.971514+00:00",
+    "policy_id": "CC-047-20261030",
+    "pre_event_preparations_available": [
+      {
+        "event_id": "us-election-20261103",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": null,
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "us-election-20261103",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": null,
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "us-election-20261103",
+        "known_at_utc": "2026-10-29T17:38:06.658805+00:00",
+        "planned_release_utc": null,
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T17:36:50.561308+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T17:36:50.561308+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-ppi-20261113",
+        "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+        "planned_release_utc": "2026-11-13T13:30:00Z",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-11-04T22:46:34.267520+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-ppi-20261113",
+        "known_at_utc": "2026-11-04T22:51:34.560028+00:00",
+        "planned_release_utc": "2026-11-13T13:30:00Z",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-11-04T23:06:43.872930+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      }
+    ],
+    "quota_stops": [],
+    "reader_counts": [
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223555673"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "78"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567697105110171698"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118143748899242476"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445129697805446"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "17965563222250380"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "18349318927265482"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "Ugkx_KmB2pIUkEZNGkPSDB7snUAFjP_JdPuc"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:ugcPost:7523905097471361025"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223564454"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "79"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567725246025572474"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118169951320285473"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445224044462678"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "17955487743316912"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "UgkxW1jZvwD2wjn58bHraF_PXxPblw-fKS7E"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:share:7523933028772151297"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223584317"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "80"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567780536208990228"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118225640226951201"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445346454450437"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "18385860829239725"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "18646398562032992"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "Ugkxrj2tZ7a1Rv7Jk3zHVujlgRKCzverZLeg"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:share:7523988409204342785"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223601127"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "81"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567842904955949147"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118289723047473490"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445511274433955"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "18494983612110017"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "18169449811468433"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "UgkxTU7JJ92PqzRq9tY3UBOkXvS39CsRPLLZ"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:share:7524051266721734657"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223615409"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "85"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567880156494692437"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118322464782737866"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445629467755469"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "17885365770526136"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "17970947069964931"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "UgkxD3XFqJYfUqZQRH-2tGBMZfIp_tRHC70w"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:share:7524089180923154433"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223634631"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "87"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567918022956556288"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118360056257556854"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445746907743725"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "18082473488427682"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "17914326447507674"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:activity:7524127631689072641"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223651009"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "88"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567948490607435938"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118390909213786336"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445847037733712"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "18483940786113086"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "18096525881669709"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "UgkxNlSOwjsyPzXnHIiEcZpCFHFuLep89N-V"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:ugcPost:7524157727577841664"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "223667079"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "89"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1567973679671943284"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2118415812772216943"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1445938507724565"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "17903586153606654"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "18084256550401403"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:share:7524183229864628225"
+      }
+    ],
+    "reader_counts_availability": "UNAVAILABLE",
+    "source_qualified_items": 12,
+    "target_by_revised_production_day": 3,
+    "tests_or_derivatives_are_original_publications": false,
+    "time_to_canonical": [
+      {
+        "public_object_id": "223555673",
+        "run_id": "cc124-next-article-20261105-a",
+        "window_entry_to_canonical_readback_seconds": null
+      },
+      {
+        "public_object_id": "223564454",
+        "run_id": "cc124-next-article-20261105-b",
+        "window_entry_to_canonical_readback_seconds": null
+      },
+      {
+        "public_object_id": "223584317",
+        "run_id": "cc124-next-article-20261105-c",
+        "window_entry_to_canonical_readback_seconds": null
+      },
+      {
+        "public_object_id": "223601127",
+        "run_id": "cc124-next-article-20261105-d",
+        "window_entry_to_canonical_readback_seconds": null
+      },
+      {
+        "public_object_id": "223615409",
+        "run_id": "cc124-gold-yields-20261105-e",
+        "window_entry_to_canonical_readback_seconds": null
+      },
+      {
+        "public_object_id": "223634631",
+        "run_id": "cc124-jobs-fx-watch-20261105-f",
+        "window_entry_to_canonical_readback_seconds": null
+      },
+      {
+        "public_object_id": "223651009",
+        "run_id": "cc124-nfp-us500-preview-20261105-g",
+        "window_entry_to_canonical_readback_seconds": null
+      },
+      {
+        "public_object_id": "223667079",
+        "run_id": "cc124-bitcoin-rates-20261106-h",
+        "window_entry_to_canonical_readback_seconds": null
+      }
+    ],
+    "windows": {
+      "editorial-window-85bae696e24f11006b2352c6c8e88a00": {
+        "admitted_count": 0,
+        "brief_only": false,
+        "distinct_canonical_published": 0,
+        "source_request_count": 0
+      },
+      "standing": {
+        "admitted_count": 1,
+        "brief_only": false,
+        "distinct_canonical_published": 8,
+        "source_request_count": 12
+      }
+    }
+  },
+  "publication": {
+    "accepted_evidence_sha256": "944edfa315829efa1ae9c69cd285c007ae2bcbb9082c4b1028c6b19ff50ac179",
+    "article_identity": "cd038fca77e76ce0dcc713dd288bcd2e73e5189f957ce2086adb6ed9f6c6d17b",
+    "artifact_sha256": {
+      "article_manifest_v1.json": "cde8912e4185444d112a2bd023f09177020fc10db32900f533fe5adc69e6c0ba",
+      "native_derivative_previews_v1.json": "d0b0c179e7cb4289b5a49ccb04c2f232d8144a56619cd9b3567381fbb2473d23",
+      "publication_lifecycle_plan_v1.json": "0af0474c28720cec6173d8cf7c48fc75209a2fa3f636132560bc171f211e1380",
+      "qualified_article_record_v1.json": "386c7cde3776e7721ca3fa9670982e62835b80a28c79705e6890244c55c11346",
+      "run_context_v1.json": "1a4d2b64e796734940275891ad23961f96a04f0466dfdda98918403fb74ce204"
+    },
+    "binding_sha256": "eeaaca20a76b8dc2fe7be99a8154ed05510f380585c75858bd65eb1c25f21165",
+    "media_sha256": {
+      "cc124-bitcoin-fed-archive": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "cc124-treasury-10y-nominal-2026-bitcoin-watch": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d"
+    },
+    "native_result_sha256": "23493f054a9c237827d2fa889b76812da7bfd5560a5872b70ec85f0f455e7ba0",
+    "plan_hash": "632720e479a7c53140b6ff524db36f894837f0894a64c2a72c300c47d8cf2577",
+    "prepared_handoff_sha256": "1291e82934ca89ba67383c5646fc7bc6a7346972bcd37d10c06b87a805423a32",
+    "publication_authority": false,
+    "review_id": "native-article-review-259a10f6aaf6489787ff28d43564f744",
+    "review_notes_sha256": "1ed276936512df3fab0207deb0f15a1b32d3f59b9058fafd82566533abfc751c",
+    "run_id": "cc124-bitcoin-rates-20261106-h",
+    "schema_version": "contentops.native_publication_binding.v1",
+    "work_item_id": "cc124-bitcoin-rates-20261106-h",
+    "canonical_article_status": "REAL_PUBLISHED",
+    "canonical_article_real_published": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins",
+    "canonical_publication_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "transaction_classification": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "derivative_confirmed_count": 6,
+    "derivative_attempted_count": 8,
+    "derivative_unknown_count": 0,
+    "derivative_absent_safe_to_retry_count": 2,
+    "derivative_failed_count": 0,
+    "derivative_never_attempted_count": 0,
+    "recovery_required_destinations": [
+      "linkedin",
+      "youtube"
+    ],
+    "readback_limitation_destinations": [],
+    "unknown_write_detected": false,
+    "unknown_write_count": 0,
+    "additional_destinations": {
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_7393bc29ca2c2464b617f35e49fb9639",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "urn:li:share:7524183229864628225",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524183229864628225/",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      }
+    },
+    "additional_confirmed_count": 1,
+    "additional_recovery_required_destinations": [],
+    "state": "DISTRIBUTION_INCOMPLETE",
+    "operation_scope": "OWNER_MANUAL_LIVE",
+    "destinations": [
+      {
+        "destination": "substack",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_9bdaea201ef6fbe180e59c7e84c37ec9",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "223667079",
+        "public_object_url": "https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      },
+      {
+        "destination": "telegram",
+        "transport": "BOT_API",
+        "dispatch_id": "dispatch_25394099eeb9b6d461130736a26f0c66",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "89",
+        "public_object_url": "https://t.me/CapitalChronicle/89",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "discord",
+        "transport": "WEBHOOK_API",
+        "dispatch_id": "dispatch_b6384facde9f1006963cfa520fe590a1",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "1567973679671943284",
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "x",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_0303b933bbb909f36e2abc87056efbab",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "2118415812772216943",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118415812772216943",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      },
+      {
+        "destination": "linkedin",
+        "transport": "OFFICIAL_MEMBER_API",
+        "dispatch_id": "dispatch_6bba1541543f592d24e2add73c6fde4b",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+      },
+      {
+        "destination": "facebook_page",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_abe1baddfe34ed5d46ab0d9ff7ede4bc",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "106091951705748_1445938507724565",
+        "public_object_url": "https://www.facebook.com/1342369584748125/posts/1445938507724565",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "instagram_business",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_b18350c3db6166e122bce063c096a3f9",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "17903586153606654",
+        "public_object_url": "https://www.instagram.com/p/DfXteqtATKv/",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "threads",
+        "transport": "THREADS_API",
+        "dispatch_id": "dispatch_692424f2eba8e7ad683fda823f4573c4",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "18084256550401403",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfXthZ8nxU8",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "youtube",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_24e6f3f32d6d6c1f924dbe9375978b0a",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+      },
+      {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_7393bc29ca2c2464b617f35e49fb9639",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "urn:li:share:7524183229864628225",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524183229864628225/",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      }
+    ],
+    "timing": {
+      "policy": "JIM_DECISION_53",
+      "target_minutes": 15,
+      "text_approved_at_utc": "2026-11-05T18:38:31.410683+00:00",
+      "dispatch_deadline_utc": "2026-11-05T18:53:31.410683+00:00",
+      "channels": [
+        {
+          "destination": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T18:40:00.030662+00:00",
+          "dispatched_at_utc": null,
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T18:48:08.712670+00:00",
+          "dispatched_at_utc": "2026-11-05T18:48:08.712670+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 577.301987,
+          "within_target": true,
+          "skipped": false
+        },
+        {
+          "destination": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T18:47:36.193168+00:00",
+          "dispatched_at_utc": null,
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "x",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T18:49:08.769300+00:00",
+          "dispatched_at_utc": "2026-11-05T18:51:01.383Z",
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": 749.972317,
+          "within_target": true,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "attempted_at_utc": "2026-11-05T18:48:06.211051+00:00",
+          "dispatched_at_utc": null,
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "facebook_page",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T19:18:00.465729+00:00",
+          "dispatched_at_utc": "2026-11-05T19:18:00.465729+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 2369.055046,
+          "within_target": false,
+          "skipped": false
+        },
+        {
+          "destination": "instagram_business",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T18:47:49.038396+00:00",
+          "dispatched_at_utc": "2026-11-05T18:47:49.038396+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 557.627713,
+          "within_target": true,
+          "skipped": false
+        },
+        {
+          "destination": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T18:48:12.476979+00:00",
+          "dispatched_at_utc": "2026-11-05T18:48:12.476979+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 581.066296,
+          "within_target": true,
+          "skipped": false
+        },
+        {
+          "destination": "youtube",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "attempted_at_utc": "2026-11-05T18:51:18.647119+00:00",
+          "dispatched_at_utc": null,
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin_company",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-05T18:54:31.244771+00:00",
+          "dispatched_at_utc": "2026-11-05T18:57:51.468Z",
+          "timing_basis": "NATIVE_ACTION_OBSERVED",
+          "seconds_after_text_approval": 1160.057317,
+          "within_target": false,
+          "skipped": false
+        }
+      ],
+      "all_channels_dispatched_within_target": false,
+      "state": "OVERDUE_CONTINUE_PUBLICATION"
+    },
+    "skipped_destinations": [],
+    "pending_requests": [],
+    "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+    "next_operation": "publication-resume",
+    "dispatch_continuation_operation": "publication-resume",
+    "next_command": "python scripts/run_native_desktop_editorial.py publication-resume --binding \"A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\native_operation_binding.json\" --native-invocation-id <actual-turn-id> --rollout config/native_desktop_rollout_v1.json",
+    "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale.",
+    "final_visual_acceptance": {
+      "stage": "final-visual-6790d90b23f55e71dc1ed50fd68f44d5f486ec067c12ac5ddcb95ee383a9177e",
+      "request_sha256": "7926656a8e0ee0047ceeac482415a5ef2fbb705225104f71eafcedc987e3035c",
+      "response_sha256": "0b243e2438ea6b9448957c5178dd97958f3634a242eff5e3ae78bb28ba3a4582",
+      "output_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h",
+      "article_revision": "086a6d4c49913c94988fb5f853341bb34910c36cff9c925509fa1648877d8ceb",
+      "render_binding_sha256": "6790d90b23f55e71dc1ed50fd68f44d5f486ec067c12ac5ddcb95ee383a9177e",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "assignment_id": "cc124-bitcoin-rates-20261106-h:final-visual-6790d90b23f55e71dc1ed50fd68f44d5f486ec067c12ac5ddcb95ee383a9177e",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Exact frozen r2 final-visual request and supported continuation in the SAME canonical native writer context configure gpt-6.1-sol/max at standard speed. Actual model and effort telemetry are unavailable; direct local pixel inspection and current file hashes support the visual findings.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_visual_edit_1d9d8c3613e6",
+        "model": null,
+        "observation_source": "Supported native collaboration NEW_TASK context supplies canonical invocation identity /root/native_visual_edit_1d9d8c3613e6. The frozen request and parent assignment supply the configured role and speed; actual runtime model and effort telemetry are unavailable.",
+        "reasoning_effort": null,
+        "request_identity": "final-visual-6790d90b23f55e71dc1ed50fd68f44d5f486ec067c12ac5ddcb95ee383a9177e:7926656a8e0ee0047ceeac482415a5ef2fbb705225104f71eafcedc987e3035c",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    },
+    "site_url": null,
+    "site_publication_confirmed": false,
+    "substack_publication_confirmed": true
+  },
+  "actual_publication_day_content_ids": [
+    "substack:223555673",
+    "substack:223564454",
+    "substack:223584317",
+    "substack:223601127",
+    "substack:223615409",
+    "substack:223634631",
+    "substack:223651009",
+    "substack:223667079"
+  ],
+  "schedule_changed": false,
+  "digest_dispatched": false
+}

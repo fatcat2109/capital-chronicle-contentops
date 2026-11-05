@@ -1,0 +1,15 @@
+{
+  "destination": "youtube",
+  "cause": "YOUTUBE_ADVANCED_FEATURE_VERIFICATION_OR_24H_WAIT",
+  "public_object_created": false,
+  "publish_clicks": 1,
+  "reconciled_state": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+  "absence_artifact": "youtube-final-absence-observed.json",
+  "binding": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\binding.json",
+  "canonical_url": "https://capitalchronicle.substack.com/p/lower-treasury-yields-leave-bitcoins",
+  "prepared_person_action": "Complete YouTube's advanced-features verification for @CapitalChronicleYouTube, or allow its stated 24-hour wait. Then resume only this bound destination after a fresh absence readback; retain its source cutoff and approval clock.",
+  "account_configuration_changed": false,
+  "retry_clicked": false,
+  "schedule_changed": false,
+  "chat_messages_sent": false
+}

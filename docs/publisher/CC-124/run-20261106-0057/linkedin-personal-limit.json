@@ -1,0 +1,17 @@
+{
+  "observed_at_utc": "2026-11-05T19:26:26.639938+00:00",
+  "destination": "linkedin",
+  "original_api_failure": "LinkedInAmbiguousWriteError",
+  "reconciled_state": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+  "own_activity_absence": "linkedin-final-absence-observed.json",
+  "company_copy_confirmed": "https://www.linkedin.com/feed/update/urn:li:share:7524183229864628225/",
+  "recovery_prepared": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\linkedin-recovery\\distribution-recovery.json",
+  "desktop_render": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\linkedin-recovery\\captures\\cc124-bitcoin-linkedin-desktop.png",
+  "recovery_published": false,
+  "external_recovery_failure": "BrowserOS Neo screenshot failed: CDP request timed out: Page.captureScreenshot; two full-page captures and one bounded clip failed for the mobile view.",
+  "choice": "Keep the confirmed company LinkedIn copy and prepared personal recovery. Do not repeat the ambiguous API write or assert an unperformed mobile inspection.",
+  "next_action": "Resume this exact LinkedIn-only recovery when Neo captures pixels again; collect its native MAX acceptance and publish once after a fresh own-profile absence readback.",
+  "schedule_changed": false,
+  "chat_messages_sent": false,
+  "native_file_dialog_opened": false
+}
