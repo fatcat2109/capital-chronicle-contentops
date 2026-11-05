@@ -1,0 +1,277 @@
+{
+  "renders": [
+    {
+      "destination": "discord",
+      "viewport": "desktop",
+      "render_id": "cc124-gold-yields-20261105-e:discord:desktop",
+      "variant_sha256": "ce136bb5da7ae32df34e054a9f01baa747e90bbdb2720211503d4a97cab9ed25",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\discord-desktop.png",
+      "sha256": "dfff581f7e5d313c499fc9d3b744f4500ccfd9e1e0b7db8a9ffad83f7b852647",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:36.372861+00:00",
+      "width": 944,
+      "height": 1230
+    },
+    {
+      "destination": "facebook_page",
+      "viewport": "desktop",
+      "render_id": "cc124-gold-yields-20261105-e:facebook_page:desktop",
+      "variant_sha256": "8c76f73d0830dc6a4328793cf59e8a111c3875d38df2d336c28e3ff189123977",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\facebook_page-desktop.png",
+      "sha256": "4bee562ca503bdd9e334730c41b30735b110c43333f19fdf4ebaf4f30f56cf86",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:36.531861+00:00",
+      "width": 944,
+      "height": 1230
+    },
+    {
+      "destination": "instagram_business",
+      "viewport": "desktop",
+      "render_id": "cc124-gold-yields-20261105-e:instagram_business:desktop",
+      "variant_sha256": "86fedce5ffecd00009a8f41efc522452c7eae84006458ab6ba835d65903681aa",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\instagram_business-desktop.png",
+      "sha256": "40271962191f01783ba53998c5978559b18725e5e5f8d1e2ea321c0ef7e33cba",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:36.684723+00:00",
+      "width": 944,
+      "height": 1272
+    },
+    {
+      "destination": "linkedin",
+      "viewport": "desktop",
+      "render_id": "cc124-gold-yields-20261105-e:linkedin:desktop",
+      "variant_sha256": "931cd18a500f113fe9f84a79a9a293d407515d7761e016e06f49af561e54b31e",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\linkedin-desktop.png",
+      "sha256": "93190f2b3d8ddeeaeefe36973d4e2ee7f726a874660f4878c3d7fe13faf78515",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:36.838314+00:00",
+      "width": 944,
+      "height": 1258
+    },
+    {
+      "destination": "substack",
+      "viewport": "desktop",
+      "render_id": "cc124-gold-yields-20261105-e:substack:desktop",
+      "variant_sha256": "9804c94071b8d4176db41b55a045903365a4a7132df26273e985d3c5de28dee0",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\substack-desktop.png",
+      "sha256": "3c7d2703b3a0b3f86ef80f78e73d36d6b852c33fde4d402e3aa89862f35abd7c",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:37.188296+00:00",
+      "width": 944,
+      "height": 3121
+    },
+    {
+      "destination": "telegram",
+      "viewport": "desktop",
+      "render_id": "cc124-gold-yields-20261105-e:telegram:desktop",
+      "variant_sha256": "c451b4bdde2297d488de97dd2bb06e72330e9d81e31fed60c9db0f979c5e13d7",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\telegram-desktop.png",
+      "sha256": "79ed4e2995e5a2a3376095c98f39791f8a74bf46dba06e10707630c76b675e74",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:37.338041+00:00",
+      "width": 944,
+      "height": 1244
+    },
+    {
+      "destination": "threads",
+      "viewport": "desktop",
+      "render_id": "cc124-gold-yields-20261105-e:threads:desktop",
+      "variant_sha256": "8c59281791d8cc0a8af9b354cb7e2bcd05e8d16bf0c32363a8e9e1b607cc0d59",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\threads-desktop.png",
+      "sha256": "878a76ebd7fe79e93e12343781f847f07679b417c5b23176d075e5fde7ad8bcd",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:37.512469+00:00",
+      "width": 944,
+      "height": 1357
+    },
+    {
+      "destination": "x",
+      "viewport": "desktop",
+      "render_id": "cc124-gold-yields-20261105-e:x:desktop",
+      "variant_sha256": "b7691eead3ab4e1c5e6838605fe172aacbd92c8d1566d48aafe0255a360d6e45",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\x-desktop.png",
+      "sha256": "f7357d16c1b495efaec96541e05f56e4d6e98832789678c34d23c622a94d4a6e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:37.673667+00:00",
+      "width": 944,
+      "height": 1329
+    },
+    {
+      "destination": "youtube",
+      "viewport": "desktop",
+      "render_id": "cc124-gold-yields-20261105-e:youtube:desktop",
+      "variant_sha256": "2b32f5ba00b88f812524b48beab563b9a15faeb669e2731b2541342bf901fa29",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\youtube-desktop.png",
+      "sha256": "16c2896e00db90f0ac187dcdcbe40f9268780b350fc7ee15a3a455be93266625",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:37.833819+00:00",
+      "width": 944,
+      "height": 1202
+    },
+    {
+      "destination": "discord",
+      "viewport": "mobile",
+      "render_id": "cc124-gold-yields-20261105-e:discord:mobile",
+      "variant_sha256": "ce136bb5da7ae32df34e054a9f01baa747e90bbdb2720211503d4a97cab9ed25",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\discord-mobile.png",
+      "sha256": "ab25f9023971560fa1c3bd9bb01fabc3e76612d0eb85ad5219f694eaa853a842",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:38.303699+00:00",
+      "width": 366,
+      "height": 1023
+    },
+    {
+      "destination": "facebook_page",
+      "viewport": "mobile",
+      "render_id": "cc124-gold-yields-20261105-e:facebook_page:mobile",
+      "variant_sha256": "8c76f73d0830dc6a4328793cf59e8a111c3875d38df2d336c28e3ff189123977",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\facebook_page-mobile.png",
+      "sha256": "0b0c7eece8efff5e862c2cc917c296011bf1c4eb181e8c022e60c91b0f9bdc0c",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:38.435027+00:00",
+      "width": 366,
+      "height": 1023
+    },
+    {
+      "destination": "instagram_business",
+      "viewport": "mobile",
+      "render_id": "cc124-gold-yields-20261105-e:instagram_business:mobile",
+      "variant_sha256": "86fedce5ffecd00009a8f41efc522452c7eae84006458ab6ba835d65903681aa",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\instagram_business-mobile.png",
+      "sha256": "a514556187b190bee669e2e2a851d0cf05748096c4a9e07149e6ffeade68eba7",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:38.550932+00:00",
+      "width": 366,
+      "height": 1063
+    },
+    {
+      "destination": "linkedin",
+      "viewport": "mobile",
+      "render_id": "cc124-gold-yields-20261105-e:linkedin:mobile",
+      "variant_sha256": "931cd18a500f113fe9f84a79a9a293d407515d7761e016e06f49af561e54b31e",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\linkedin-mobile.png",
+      "sha256": "83abc873ce49eacd564f033816952617b4a78fc29fdcd6ae68a836c4366e207a",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:38.669328+00:00",
+      "width": 366,
+      "height": 1050
+    },
+    {
+      "destination": "substack",
+      "viewport": "mobile",
+      "render_id": "cc124-gold-yields-20261105-e:substack:mobile",
+      "variant_sha256": "9804c94071b8d4176db41b55a045903365a4a7132df26273e985d3c5de28dee0",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\substack-mobile.png",
+      "sha256": "7f2d3c25c9f4582ddcaae302540a0a6d2c27978a9dc95dc16bb3c18e3b21599f",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:38.876652+00:00",
+      "width": 366,
+      "height": 3239
+    },
+    {
+      "destination": "telegram",
+      "viewport": "mobile",
+      "render_id": "cc124-gold-yields-20261105-e:telegram:mobile",
+      "variant_sha256": "c451b4bdde2297d488de97dd2bb06e72330e9d81e31fed60c9db0f979c5e13d7",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\telegram-mobile.png",
+      "sha256": "117e422b6f022e7007b712b84918858dd36174f7d3b534fa2843ae539c876c7e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:39.006241+00:00",
+      "width": 366,
+      "height": 1037
+    },
+    {
+      "destination": "threads",
+      "viewport": "mobile",
+      "render_id": "cc124-gold-yields-20261105-e:threads:mobile",
+      "variant_sha256": "8c59281791d8cc0a8af9b354cb7e2bcd05e8d16bf0c32363a8e9e1b607cc0d59",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\threads-mobile.png",
+      "sha256": "2e5d39e874dd963a664f8c9ae164f6a1b34f3c6db9d8e1d4038ef222f01f9e2f",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:39.135559+00:00",
+      "width": 366,
+      "height": 1117
+    },
+    {
+      "destination": "x",
+      "viewport": "mobile",
+      "render_id": "cc124-gold-yields-20261105-e:x:mobile",
+      "variant_sha256": "b7691eead3ab4e1c5e6838605fe172aacbd92c8d1566d48aafe0255a360d6e45",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\x-mobile.png",
+      "sha256": "caaae838d2ffc158455cbcdfe4d1028a5d5fc5b0e132b37bf038e13ee0151c4e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:39.251731+00:00",
+      "width": 366,
+      "height": 1090
+    },
+    {
+      "destination": "youtube",
+      "viewport": "mobile",
+      "render_id": "cc124-gold-yields-20261105-e:youtube:mobile",
+      "variant_sha256": "2b32f5ba00b88f812524b48beab563b9a15faeb669e2731b2541342bf901fa29",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\youtube-mobile.png",
+      "sha256": "c88d185a6c1fbcc1f9511aee6afe50bcd1974952f640d95d49581e2538122f43",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\render-review\\review.html",
+        "sha256": "4e19d7610cbe0a3d2dfd0000c5930ee850ed7c9afbf22b02432604f1c05d59bd"
+      },
+      "captured_at_utc": "2026-11-05T11:59:39.387272+00:00",
+      "width": 366,
+      "height": 997
+    }
+  ],
+  "renderer": "Existing ReportEditorialWorkspace through render-report-workspace.mjs",
+  "binary_files_committed": false,
+  "actual_render_count": 18
+}

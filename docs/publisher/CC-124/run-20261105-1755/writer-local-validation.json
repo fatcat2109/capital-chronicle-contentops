@@ -1,0 +1,775 @@
+{
+  "request_sha256": "3a768a46f25b3e19a9be67efe17dea1f890883e03e09025653b364038edb87ac",
+  "response_sha256": "e964663fc6244d26e827b436a16d768e8a35038a43c52fd45351033af5cb7a46",
+  "source_validation": {
+    "schema_version": "contentops.v1_simple_gemini_validation.v1",
+    "status": "PASS",
+    "ordering": "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_PROVENANCE_AWARE_BOUNDED_HTTP_THEN_BROWSER_RENDERED_RECOVERY_THEN_EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE",
+    "supported_material_claim_count": 37,
+    "unsupported_material_claim_count": 0,
+    "supported_material_claims": [
+      {
+        "claim_id": "title-policy-anchor",
+        "claim_text": "Gold before the jobs report: beyond the Fed's target range",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "official-release-b4301a87bf03dd90ee250f3f604fac24119b8963eab5e0713ea226d71c87cd9f",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "67952b2802e8ebafe7bcd1386f496376be20f1929238080e40ecd47a14e151c6"
+      },
+      {
+        "claim_id": "title-yield-anchor",
+        "claim_text": "Gold before the jobs report: beyond the Fed's target range",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "ca7264ef883e660e72b55bd017969d26fa5cc7a8eaf7dc62b8884baf7cb18bad"
+      },
+      {
+        "claim_id": "dek-nominal",
+        "claim_text": "Treasury's nominal 10-year yield fell 5 basis points on November 4; its real yield fell 1. The next question for gold is how real yields respond to the November 6 jobs report.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f74024b29398647db8384ac15f9270d7c4c24fd6aec9361cd0158dab2728b515"
+      },
+      {
+        "claim_id": "dek-real",
+        "claim_text": "Treasury's nominal 10-year yield fell 5 basis points on November 4; its real yield fell 1. The next question for gold is how real yields respond to the November 6 jobs report.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "07644bbb16160f638bc02d1acf6bc1742119de545fbb9a90878ee3dec48758b5"
+      },
+      {
+        "claim_id": "dek-calendar",
+        "claim_text": "Treasury's nominal 10-year yield fell 5 basis points on November 4; its real yield fell 1. The next question for gold is how real yields respond to the November 6 jobs report.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_4",
+        "document_id": "cc124-bls-november-calendar",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "305eda69b1fa347ccb2d02cd64f2c0ba11f33c4da41a29ba85a7c7c693e34bd2"
+      },
+      {
+        "claim_id": "search-nominal",
+        "claim_text": "Gold and real Treasury yields before the November 6 jobs report",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f74024b29398647db8384ac15f9270d7c4c24fd6aec9361cd0158dab2728b515"
+      },
+      {
+        "claim_id": "search-real",
+        "claim_text": "Gold and real Treasury yields before the November 6 jobs report",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "07644bbb16160f638bc02d1acf6bc1742119de545fbb9a90878ee3dec48758b5"
+      },
+      {
+        "claim_id": "search-calendar",
+        "claim_text": "Gold and real Treasury yields before the November 6 jobs report",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_4",
+        "document_id": "cc124-bls-november-calendar",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "305eda69b1fa347ccb2d02cd64f2c0ba11f33c4da41a29ba85a7c7c693e34bd2"
+      },
+      {
+        "claim_id": "description-nominal",
+        "claim_text": "Treasury's November 4 nominal yield fell more than its real yield. A gold watch before the November 6 jobs report, with conditions that would change the view.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f74024b29398647db8384ac15f9270d7c4c24fd6aec9361cd0158dab2728b515"
+      },
+      {
+        "claim_id": "description-real",
+        "claim_text": "Treasury's November 4 nominal yield fell more than its real yield. A gold watch before the November 6 jobs report, with conditions that would change the view.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "07644bbb16160f638bc02d1acf6bc1742119de545fbb9a90878ee3dec48758b5"
+      },
+      {
+        "claim_id": "description-calendar",
+        "claim_text": "Treasury's November 4 nominal yield fell more than its real yield. A gold watch before the November 6 jobs report, with conditions that would change the view.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_4",
+        "document_id": "cc124-bls-november-calendar",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "305eda69b1fa347ccb2d02cd64f2c0ba11f33c4da41a29ba85a7c7c693e34bd2"
+      },
+      {
+        "claim_id": "hook-nominal",
+        "claim_text": "Treasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f74024b29398647db8384ac15f9270d7c4c24fd6aec9361cd0158dab2728b515"
+      },
+      {
+        "claim_id": "hook-real",
+        "claim_text": "Treasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "07644bbb16160f638bc02d1acf6bc1742119de545fbb9a90878ee3dec48758b5"
+      },
+      {
+        "claim_id": "lead-qualitative-frame",
+        "claim_text": "A lower Treasury yield is an incomplete guide to gold.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "ca7264ef883e660e72b55bd017969d26fa5cc7a8eaf7dc62b8884baf7cb18bad"
+      },
+      {
+        "claim_id": "lead-nominal-levels",
+        "claim_text": "On November 4, Treasury's nominal 10-year par yield was 4.90%, down from 4.95% on November 3.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f74024b29398647db8384ac15f9270d7c4c24fd6aec9361cd0158dab2728b515"
+      },
+      {
+        "claim_id": "lead-real-levels",
+        "claim_text": "Its real 10-year yield was 2.64%, down from 2.65% on the same dates.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "07644bbb16160f638bc02d1acf6bc1742119de545fbb9a90878ee3dec48758b5"
+      },
+      {
+        "claim_id": "release-calendar",
+        "claim_text": "The Bureau of Labor Statistics schedules the October Employment Situation for November 6 at 8:30 a.m. EST.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_4",
+        "document_id": "cc124-bls-november-calendar",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "305eda69b1fa347ccb2d02cd64f2c0ba11f33c4da41a29ba85a7c7c693e34bd2"
+      },
+      {
+        "claim_id": "release-future-status",
+        "claim_text": "The jobs outcome is still ahead.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_4",
+        "document_id": "cc124-bls-november-calendar",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "305eda69b1fa347ccb2d02cd64f2c0ba11f33c4da41a29ba85a7c7c693e34bd2"
+      },
+      {
+        "claim_id": "labeled-house-watch",
+        "claim_text": "Capital Chronicle's view is that the useful follow-up for gold is whether the inflation-adjusted yield moves lower.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "ca7264ef883e660e72b55bd017969d26fa5cc7a8eaf7dc62b8884baf7cb18bad"
+      },
+      {
+        "claim_id": "series-nominal-meaning",
+        "claim_text": "The nominal Treasury series quotes a yield without an adjustment for inflation; the real series is its inflation-adjusted counterpart.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "6a0ac06ebc0223d3da1b0dd7bf8581d06b75c6c528abced4b1fa95c2a82ec7d0"
+      },
+      {
+        "claim_id": "series-real-meaning",
+        "claim_text": "The nominal Treasury series quotes a yield without an adjustment for inflation; the real series is its inflation-adjusted counterpart.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "ca7264ef883e660e72b55bd017969d26fa5cc7a8eaf7dc62b8884baf7cb18bad"
+      },
+      {
+        "claim_id": "conditional-opportunity-cost",
+        "claim_text": "Lower real Treasury yields would reduce one cost of holding gold: the inflation-adjusted return available from a competing asset.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "ca7264ef883e660e72b55bd017969d26fa5cc7a8eaf7dc62b8884baf7cb18bad"
+      },
+      {
+        "claim_id": "not-measured-gold-reaction",
+        "claim_text": "That is the economic channel being watched, rather than a measurement of gold's reaction.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "ca7264ef883e660e72b55bd017969d26fa5cc7a8eaf7dc62b8884baf7cb18bad"
+      },
+      {
+        "claim_id": "dated-policy-range",
+        "claim_text": "recorded a target range for the federal funds rate of 3.75%-4.00%.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "document_id": "official-release-b4301a87bf03dd90ee250f3f604fac24119b8963eab5e0713ea226d71c87cd9f",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "67952b2802e8ebafe7bcd1386f496376be20f1929238080e40ecd47a14e151c6"
+      },
+      {
+        "claim_id": "policy-versus-market-measure",
+        "claim_text": "That dated policy range anchors the discussion, but it is a different measure from the 10-year bond yields relevant to this watch.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "official-release-b4301a87bf03dd90ee250f3f604fac24119b8963eab5e0713ea226d71c87cd9f",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "67952b2802e8ebafe7bcd1386f496376be20f1929238080e40ecd47a14e151c6"
+      },
+      {
+        "claim_id": "daily-nominal-change",
+        "claim_text": "the nominal decline was 5 basis points",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f74024b29398647db8384ac15f9270d7c4c24fd6aec9361cd0158dab2728b515"
+      },
+      {
+        "claim_id": "daily-real-change",
+        "claim_text": "the real decline was 1 basis point.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "07644bbb16160f638bc02d1acf6bc1742119de545fbb9a90878ee3dec48758b5"
+      },
+      {
+        "claim_id": "basis-point-unit",
+        "claim_text": "One basis point is 0.01 percentage point.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f74024b29398647db8384ac15f9270d7c4c24fd6aec9361cd0158dab2728b515"
+      },
+      {
+        "claim_id": "daily-qualitative-comparison-nominal",
+        "claim_text": "The daily comparison therefore shows much less easing in the real measure.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "document_id": "cc124-treasury-nominal-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f74024b29398647db8384ac15f9270d7c4c24fd6aec9361cd0158dab2728b515"
+      },
+      {
+        "claim_id": "daily-qualitative-comparison-real",
+        "claim_text": "The daily comparison therefore shows much less easing in the real measure.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "07644bbb16160f638bc02d1acf6bc1742119de545fbb9a90878ee3dec48758b5"
+      },
+      {
+        "claim_id": "no-observed-gold-inference",
+        "claim_text": "These yield observations do not establish how gold traded.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "ca7264ef883e660e72b55bd017969d26fa5cc7a8eaf7dc62b8884baf7cb18bad"
+      },
+      {
+        "claim_id": "conditional-support",
+        "claim_text": "After the release, a sustained fall in the real 10-year yield would strengthen this particular case for gold.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "ca7264ef883e660e72b55bd017969d26fa5cc7a8eaf7dc62b8884baf7cb18bad"
+      },
+      {
+        "claim_id": "conditional-less-support",
+        "claim_text": "A fall in the nominal yield with the real yield little changed would offer less support through the same channel.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "ca7264ef883e660e72b55bd017969d26fa5cc7a8eaf7dc62b8884baf7cb18bad"
+      },
+      {
+        "claim_id": "conditional-invalidation",
+        "claim_text": "A sustained real-yield rise after the jobs report would weaken this particular support for gold.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "ca7264ef883e660e72b55bd017969d26fa5cc7a8eaf7dc62b8884baf7cb18bad"
+      },
+      {
+        "claim_id": "competing-channels",
+        "claim_text": "Currency moves or demand for safety could outweigh the real-yield channel. That would make a simple bond-yield explanation inadequate.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "ca7264ef883e660e72b55bd017969d26fa5cc7a8eaf7dc62b8884baf7cb18bad"
+      },
+      {
+        "claim_id": "observable-countercase",
+        "claim_text": "A gold rise alongside rising real yields, or a gold decline alongside falling real yields, would challenge a one-channel reading.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_3",
+        "document_id": "cc124-treasury-real-20261104",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "ca7264ef883e660e72b55bd017969d26fa5cc7a8eaf7dc62b8884baf7cb18bad"
+      },
+      {
+        "claim_id": "release-followup-checkpoint",
+        "claim_text": "The checkpoint is the observed real-yield response after the release, then whether gold moves consistently with that mechanism.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_4",
+        "document_id": "cc124-bls-november-calendar",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+        "attribution_required": true,
+        "support_excerpt_sha256": "305eda69b1fa347ccb2d02cd64f2c0ba11f33c4da41a29ba85a7c7c693e34bd2"
+      }
+    ],
+    "cited_source_count": 4,
+    "source_urls": [
+      "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026",
+      "https://www.bls.gov/schedule/2026/11_sched.htm"
+    ],
+    "source_timestamps_are_model_authority": false,
+    "source_bytes_precede_writer": true,
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": false,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "CONFIRMED",
+      "event_proposition": "Board of Governors of the Federal Reserve System; retained official release Federal Reserve Board|FED|2026-10-28|2026-10-28. Federal funds target range lower bound: 3.75 percent; basis POLICY_TARGET_RANGE_LOWER_BOUND. Federal funds target range upper bound: 4.0 percent; basis POLICY_TARGET_RANGE_UPPER_BOUND. Reference period: 2026-10-28. Retained vintage; not a new release at intake",
+      "event_truth_support_status": "SUPPORTED_PRIMARY",
+      "event_truth_supported": true,
+      "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+      "origin_character": "ON_RECORD",
+      "primary_reporting_publisher": "Board of Governors of the Federal Reserve System",
+      "primary_reporting_source_identity": "Board of Governors of the Federal Reserve System",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "CONFIRMED",
+      "relay_source_identity": null,
+      "report_proposition": "Board of Governors of the Federal Reserve System reports that board of Governors of the Federal Reserve System; retained official release Federal Reserve Board|FED|2026-10-28|2026-10-28. Federal funds target range lower bound: 3.75 percent; basis POLICY_TARGET_RANGE_LOWER_BOUND. Federal funds target range upper bound: 4.0 percent; basis POLICY_TARGET_RANGE_UPPER_BOUND. Reference period: 2026-10-28. Retained vintage; not a new release at intake",
+      "report_truth_support_status": "SUPPORTED_PRIMARY",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "OFFICIAL_PRIMARY",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "official-release-b4301a87bf03dd90ee250f3f604fac24119b8963eab5e0713ea226d71c87cd9f"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": true
+    },
+    "report_truth_validated_separately_from_event_truth": true,
+    "public_write_performed": false,
+    "unknown_write_detected": false
+  },
+  "local_preview_bundle": {
+    "packages": {
+      "telegram": {
+        "format": "channel_brief",
+        "text": "NEWSROOM BRIEF\n\nGold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\nWhat to watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-gold-yield\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 1024,
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "cc124-treasury-latest-daily-change-20261104"
+        ],
+        "media_source_links": {
+          "cc124-treasury-latest-daily-change-20261104": [
+            {
+              "document_id": "cc124-treasury-nominal-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            },
+            {
+              "document_id": "cc124-treasury-real-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026"
+            }
+          ]
+        }
+      },
+      "x": {
+        "format": "text_brief",
+        "root_text": "Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-gold-yield",
+        "reply_texts": [
+          "Watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+        ],
+        "full_text": "Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-gold-yield\n\nWatch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 280,
+        "overflow_strategy": "ordered_reply_chain",
+        "hard_truncation_used": false,
+        "text": "Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-gold-yield",
+        "posts": [
+          {
+            "order": 0,
+            "role": "root",
+            "text": "Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-gold-yield",
+            "media_asset_ids": [
+              "cc124-treasury-latest-daily-change-20261104"
+            ]
+          },
+          {
+            "order": 1,
+            "role": "reply",
+            "text": "Watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+            "media_asset_ids": []
+          }
+        ],
+        "quality_metrics": {
+          "reply_count": 1,
+          "content_reply_count": 1,
+          "notice_reply_count": 0,
+          "post_character_counts": [
+            257,
+            234
+          ],
+          "per_post_character_utilization": [
+            0.918,
+            0.836
+          ],
+          "shortest_longest_reply_ratio": 0.911,
+          "sentence_boundary_pass": true,
+          "orphan_fragment_count": 0,
+          "visual_distribution_pass": true,
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false
+        },
+        "media_asset_ids": [
+          "cc124-treasury-latest-daily-change-20261104"
+        ],
+        "media_source_links": {
+          "cc124-treasury-latest-daily-change-20261104": [
+            {
+              "document_id": "cc124-treasury-nominal-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            },
+            {
+              "document_id": "cc124-treasury-real-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026"
+            }
+          ]
+        }
+      },
+      "linkedin": {
+        "format": "professional_brief",
+        "media_asset_ids": [
+          "cc124-treasury-latest-daily-change-20261104"
+        ],
+        "text": "Gold before the jobs report: beyond the Fed's target range\n\nWhy it matters: Lower real Treasury yields would reduce one cost of holding gold: the inflation-adjusted return available from a competing asset.\n\nContext: Currency moves or demand for safety could outweigh the real-yield channel. That would make a simple bond-yield explanation inadequate.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-gold-yield\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 3000,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-treasury-latest-daily-change-20261104": [
+            {
+              "document_id": "cc124-treasury-nominal-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            },
+            {
+              "document_id": "cc124-treasury-real-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026"
+            }
+          ]
+        }
+      },
+      "discord": {
+        "format": "newsroom_brief",
+        "media_asset_ids": [
+          "cc124-treasury-latest-daily-change-20261104"
+        ],
+        "text": "**Newsroom brief: Gold before the jobs report: beyond the Fed's target range**\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\n**Context:** Currency moves or demand for safety could outweigh the real-yield channel. That would make a simple bond-yield explanation inadequate.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-cc124-gold-yield\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 2000,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-treasury-latest-daily-change-20261104": [
+            {
+              "document_id": "cc124-treasury-nominal-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            },
+            {
+              "document_id": "cc124-treasury-real-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026"
+            }
+          ]
+        }
+      },
+      "facebook_page": {
+        "format": "page_brief",
+        "media_asset_ids": [
+          "cc124-treasury-latest-daily-change-20261104"
+        ],
+        "text": "Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\nWhy it matters: Lower real Treasury yields would reduce one cost of holding gold: the inflation-adjusted return available from a competing asset.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-gold-yield\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 63206,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-treasury-latest-daily-change-20261104": [
+            {
+              "document_id": "cc124-treasury-nominal-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            },
+            {
+              "document_id": "cc124-treasury-real-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026"
+            }
+          ]
+        }
+      },
+      "instagram_business": {
+        "format": "brief_caption",
+        "media_asset_ids": [
+          "cc124-treasury-latest-daily-change-20261104"
+        ],
+        "text": "Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\nIn focus: Currency moves or demand for safety could outweigh the real-yield channel. That would make a simple bond-yield explanation inadequate.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-gold-yield\n\n#CapitalChronicle\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 2200,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-treasury-latest-daily-change-20261104": [
+            {
+              "document_id": "cc124-treasury-nominal-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            },
+            {
+              "document_id": "cc124-treasury-real-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026"
+            }
+          ]
+        }
+      },
+      "threads": {
+        "format": "text_brief",
+        "root_text": "Gold before the jobs report: beyond the Fed's target range\n\nCurrency moves or demand for safety could outweigh the real-yield channel. That would make a simple bond-yield explanation inadequate.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-gold-yield",
+        "reply_texts": [
+          "What to watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+        ],
+        "full_text": "Gold before the jobs report: beyond the Fed's target range\n\nCurrency moves or demand for safety could outweigh the real-yield channel. That would make a simple bond-yield explanation inadequate.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-gold-yield\n\nWhat to watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 500,
+        "overflow_strategy": "ordered_reply_chain",
+        "hard_truncation_used": false,
+        "text": "Gold before the jobs report: beyond the Fed's target range\n\nCurrency moves or demand for safety could outweigh the real-yield channel. That would make a simple bond-yield explanation inadequate.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-gold-yield",
+        "posts": [
+          {
+            "order": 0,
+            "role": "root",
+            "text": "Gold before the jobs report: beyond the Fed's target range\n\nCurrency moves or demand for safety could outweigh the real-yield channel. That would make a simple bond-yield explanation inadequate.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cc124-gold-yield",
+            "media_asset_ids": [
+              "cc124-treasury-latest-daily-change-20261104"
+            ]
+          },
+          {
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+            "media_asset_ids": []
+          }
+        ],
+        "quality_metrics": {
+          "reply_count": 1,
+          "content_reply_count": 1,
+          "notice_reply_count": 0,
+          "post_character_counts": [
+            272,
+            242
+          ],
+          "per_post_character_utilization": [
+            0.544,
+            0.484
+          ],
+          "shortest_longest_reply_ratio": 0.89,
+          "sentence_boundary_pass": true,
+          "orphan_fragment_count": 0,
+          "visual_distribution_pass": true,
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false
+        },
+        "media_asset_ids": [
+          "cc124-treasury-latest-daily-change-20261104"
+        ],
+        "media_source_links": {
+          "cc124-treasury-latest-daily-change-20261104": [
+            {
+              "document_id": "cc124-treasury-nominal-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            },
+            {
+              "document_id": "cc124-treasury-real-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026"
+            }
+          ]
+        }
+      },
+      "youtube": {
+        "format": "community_brief",
+        "media_asset_ids": [
+          "cc124-treasury-latest-daily-change-20261104"
+        ],
+        "text": "Update: Gold before the jobs report: beyond the Fed's target range\n\nTreasury's nominal yield fell 5 basis points on November 4. Its real yield fell 1. Gold's jobs-report watch needs both.\n\nWhat to watch: A sustained real-yield rise after the jobs report would weaken this particular support for gold.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-cc124-gold-yield\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "platform_limit": 1000,
+        "hard_truncation_used": false,
+        "media_source_links": {
+          "cc124-treasury-latest-daily-change-20261104": [
+            {
+              "document_id": "cc124-treasury-nominal-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            },
+            {
+              "document_id": "cc124-treasury-real-20261104",
+              "label": "U.S. Department of the Treasury",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026"
+            }
+          ]
+        }
+      }
+    },
+    "local_payload_audit_only": true,
+    "owner_gate": {
+      "status": "FAILED",
+      "error": "native_preview_epistemic_state_missing:telegram",
+      "details": [
+        "telegram"
+      ]
+    }
+  },
+  "local_preview_rows": [],
+  "native_preview_owner_gate": {
+    "status": "FAILED",
+    "error": "native_preview_epistemic_state_missing:telegram",
+    "details": [
+      "telegram"
+    ]
+  },
+  "payload_audit": {
+    "telegram": {
+      "both_notices_present": true,
+      "media_asset_ids": [
+        "cc124-treasury-latest-daily-change-20261104"
+      ],
+      "post_count": 0
+    },
+    "x": {
+      "both_notices_present": true,
+      "media_asset_ids": [
+        "cc124-treasury-latest-daily-change-20261104"
+      ],
+      "post_count": 2,
+      "max_weighted_characters": 234,
+      "platform_limit": 280,
+      "complete_sentences": true
+    },
+    "linkedin": {
+      "both_notices_present": true,
+      "media_asset_ids": [
+        "cc124-treasury-latest-daily-change-20261104"
+      ],
+      "post_count": 0
+    },
+    "discord": {
+      "both_notices_present": true,
+      "media_asset_ids": [
+        "cc124-treasury-latest-daily-change-20261104"
+      ],
+      "post_count": 0
+    },
+    "facebook_page": {
+      "both_notices_present": true,
+      "media_asset_ids": [
+        "cc124-treasury-latest-daily-change-20261104"
+      ],
+      "post_count": 0
+    },
+    "instagram_business": {
+      "both_notices_present": true,
+      "media_asset_ids": [
+        "cc124-treasury-latest-daily-change-20261104"
+      ],
+      "post_count": 0
+    },
+    "threads": {
+      "both_notices_present": true,
+      "media_asset_ids": [
+        "cc124-treasury-latest-daily-change-20261104"
+      ],
+      "post_count": 2,
+      "max_weighted_characters": 242,
+      "platform_limit": 500,
+      "complete_sentences": true
+    },
+    "youtube": {
+      "both_notices_present": true,
+      "media_asset_ids": [
+        "cc124-treasury-latest-daily-change-20261104"
+      ],
+      "post_count": 0
+    }
+  },
+  "public_write_attempted": false,
+  "final_assembled_pixel_review": "PENDING"
+}

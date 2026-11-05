@@ -24,6 +24,13 @@ try:
             "request_path", "request_sha256", "public_write_performed", "filter_progress")
     print(json.dumps({"exit_code": result.returncode,
                       **{k: payload[k] for k in keys if k in payload}}, ensure_ascii=True))
+    publication = payload.get("publication") or payload
+    if publication.get("state") or publication.get("pending_requests"):
+        print(json.dumps({"state": publication.get("state"), "unknown_write_count": publication.get("unknown_write_count"),
+            "destinations": [{k: d.get(k) for k in ("destination", "status", "public_object_url", "first_blocking_cause")}
+                             for d in publication.get("destinations", [])],
+            "pending": [{k: p.get("request", p).get(k) for k in ("destination", "action", "request_sha256")}
+                        for p in publication.get("pending_requests", [])]}, ensure_ascii=True))
     for call in payload.get("next_native_calls", []) or [payload.get("next_native_call")]:
         if call:
             print(json.dumps({"tool": call.get("tool"), "native_stage": call.get("native_stage"),
