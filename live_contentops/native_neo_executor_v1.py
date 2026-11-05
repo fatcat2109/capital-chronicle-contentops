@@ -29,6 +29,20 @@ CLAUDE_CODE_SURFACE = "CLAUDE_CODE_SESSION"
 SURFACE_TOOLS = {**{surface: TOOL for surface in CODEX_SURFACES}, CLAUDE_CODE_SURFACE: "mcp__browseros-neo__run"}
 
 
+def expected_posts(request: Mapping[str, Any]) -> list[str]:
+    """The exact texts a composer must hold before the click: a thread's posts, else the one text."""
+    payload = request.get("native_payload") or request.get("payload") or {}
+    if isinstance(payload, str):
+        return [payload] if payload else []
+    if not isinstance(payload, Mapping):
+        return []
+    posts = [str(p.get("text") if isinstance(p, Mapping) else p) for p in payload.get("posts") or []
+             if (p.get("text") if isinstance(p, Mapping) else p)]
+    if posts:
+        return posts
+    return [str(payload["text"])] if payload.get("text") else []
+
+
 class NativeNeoInputRequired(Exception):
     def __init__(self, request: Mapping[str, Any]):
         self.request = dict(request)
@@ -220,22 +234,41 @@ class NativeNeoExecutor:
             from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
             action_packet["composed_run"] = {
                 "policy": "CC-283",
-                "one_run": "One BrowserOS Neo run script does all three steps in this order, in this task's tab.",
+                "one_run": "One BrowserOS Neo run script does all five steps in this order, in this task's tab. "
+                           "It replaces the request's steps list: no separate identity, snapshot or binding step first.",
                 "1_identity": {"expected_identity": request["expected_identity"],
                     "expected_stable_id": SURFACE_REGISTRY[request["surface"]].expected_stable_id,
                     "rule": "Read the signed-in account and compare it with the expected identity and stable id. "
                             "While in this identity or any other pre-write part, result.stage is BEFORE_PUBLISH_CLICK. "
                             "A mismatch or an unreadable identity returns FAILED_BEFORE_WRITE with definite_no_write "
                             "true, stage BEFORE_PUBLISH_CLICK and no click."},
-                "2_publish": "Immediately BEFORE the publish click, set the observation's dispatched_at_utc and "
+                # 5 Nov PPI: the X thread's third reply went out without its first paragraph and needed a
+                # public correction reply. Nothing checked the composer before the click.
+                "2_compose": "Enter each post below in its own composer box, in order, with its bound media. For a "
+                             "thread, add each next box with the composer's add-post control and wait until that box "
+                             "exists and has focus; then enter the post's whole text in one operation, newlines "
+                             "included. Never enter a post paragraph by paragraph, or before its box is ready.",
+                "3_verify_before_click": {"posts": expected_posts(request),
+                    "rule": "Before the click, read every composer box's text back and compare it with its post, with "
+                            "whitespace collapsed and a link allowed to render shortened. Every post must match, in "
+                            "order, with no box missing or extra. Re-enter a box that differs once and compare again. "
+                            "If any post still differs, return FAILED_BEFORE_WRITE with definite_no_write true, stage "
+                            "BEFORE_PUBLISH_CLICK and no click."},
+                "4_publish": "Immediately BEFORE the publish click, set the observation's dispatched_at_utc and "
                              "result.stage = PUBLISH_CLICK_ATTEMPTED; then click once to publish the exact payload.",
-                "3_readback": "Read back the published object (id, url, text, media) in the same run.",
+                "5_readback": "Read back the published object (id, url, text, media) in the same run.",
                 "return": {"result": "the publish result, as for any PUBLISH step, with its stage",
                     "composed": {"identity": ["authenticated", "observed_identity", "observed_stable_id", "observed_at_utc"],
+                                 "pre_click_posts": "the composer texts read in step 3, in order",
                                  "readback": "the READBACK result fields, observed after the publish"}},
                 "after_click": "FAILED_BEFORE_WRITE is a definite no-write only for an account mismatch or stage "
                                "BEFORE_PUBLISH_CLICK. Any other failure, including a missing stage, is UNKNOWN_WRITE; "
                                "the coordinator reads back before any retry.",
+                # 5 Nov PPI: X was claimed at 00:35:16Z and clicked at 00:49:55Z, after the LinkedIn company
+                # evidence work (a74b2bb8, 00:49:33Z); the X run itself took 1 min 42 s.
+                "after_run": "Submit this run's return at once, then start the next destination's run. Extra checks "
+                             "of a destination already read back (media comparisons, evidence files, commits) wait "
+                             "until every destination has gone out.",
             }
         return action_packet
 
