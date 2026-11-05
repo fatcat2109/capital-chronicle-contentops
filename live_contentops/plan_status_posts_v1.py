@@ -51,13 +51,6 @@ def _sha(value: Any) -> str:
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
-def _sealed(value: Any) -> dict:
-    if not isinstance(value, dict) or value.get("content_hash") != _sha(
-            {k: v for k, v in value.items() if k != "content_hash"}):
-        raise PlanPostError("PLAN_EXPORT_SEAL_INVALID")
-    return value
-
-
 def _utc(value: Any) -> datetime:
     try:
         at = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
@@ -68,39 +61,53 @@ def _utc(value: Any) -> datetime:
     return at.astimezone(timezone.utc)
 
 
-def read_transitions(export_dir: Path) -> list[dict]:
-    """Normalised transitions of the export: Main's two sealed documents, or the jsonl contract."""
-    export_dir = Path(export_dir)
-    status_path, events_path = export_dir / "plan-status.public.json", export_dir / "plan-transitions.public.json"
-    if status_path.is_file() and events_path.is_file():
-        status = _sealed(json.loads(status_path.read_bytes()))
-        events = _sealed(json.loads(events_path.read_bytes()))
-        if (events.get("status_content_hash") != status["content_hash"]
-                or events.get("generated_at_utc") != status.get("generated_at_utc")):
-            raise PlanPostError("PLAN_EXPORT_SNAPSHOT_MISMATCH")
-        plans = {p["plan_id"]: p for p in status.get("plans", []) if p.get("plan_id")}
-        rows = []
-        for event in events.get("transitions", []):
-            plan = plans.get(event.get("plan_id"))
-            if plan is None:
-                raise PlanPostError("PLAN_EXPORT_TRANSITION_UNKNOWN_PLAN")
-            rows.append(_row(plan_id=event["plan_id"], symbol=plan.get("asset_id"), to=event.get("status"),
-                             at_utc=event.get("at_utc"), cause=event.get("reason_code"), plan=_built_plan(plan)))
-        return rows
-    status_path, events_path = export_dir / "status.json", export_dir / "transitions.jsonl"
-    if status_path.is_file() and events_path.is_file():
-        plans = {p["plan_id"]: p for p in json.loads(status_path.read_bytes()).get("plans", [])}
-        rows = []
-        for line in events_path.read_bytes().splitlines():
-            if not line.strip():
-                continue
-            event = json.loads(line)
-            plan = plans.get(event.get("plan_id")) or {}
-            rows.append(_row(plan_id=event["plan_id"], symbol=event.get("symbol") or plan.get("symbol"),
-                             to=event.get("to"), at_utc=event.get("at_utc"), cause=event.get("cause"),
-                             plan=_contract_plan(plan)))
-        return rows
-    return []
+# CC-307's contract reader runs in Main's live root, in its own process: ContentOps and Main both
+# have a namespace package named "tools", which must never merge in one interpreter.
+MAIN_ROOT = Path(r"A:\Capital Chronicle\main-jim-research-dashboard-20261025")
+EXPORT_DIR = Path(r"A:\Capital Chronicle\ResearchRuns\plan-status-v1")
+_READER = """import datetime as dt, json, sys
+from tools.product.plan_status_export_v1 import read_public_status, read_public_transitions
+folder = sys.argv[1]
+status = read_public_status(folder + "/plan-status.public.json", as_of=dt.datetime.now(dt.timezone.utc).isoformat())
+events = read_public_transitions(folder + "/plan-transitions.public.json", status=status)
+sys.stdout.write(json.dumps({"status": status, "transitions": events}))
+"""
+
+
+def read_export(export_dir: Path = EXPORT_DIR, *, main_root: Path = MAIN_ROOT, python: str | None = None) -> dict:
+    """Both export documents, validated and joined by CC-307's own read_public_transitions."""
+    import subprocess
+    import sys
+    flags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+    for attempt in (1, 2):
+        done = subprocess.run([python or sys.executable, "-B", "-c", _READER, str(export_dir)], cwd=str(main_root),
+                              capture_output=True, text=True, encoding="utf-8", timeout=120, creationflags=flags)
+        if done.returncode == 0:
+            return json.loads(done.stdout)
+        cause = (done.stderr.strip().splitlines() or ["PLAN_EXPORT_READER_FAILED"])[-1]
+        # The two files are replaced one after the other each minute: one bounded reread.
+        if attempt == 1 and "SNAPSHOT_MISMATCH" in cause:
+            continue
+        name = cause.split(":", 1)[-1].strip() if "PlanStatusError" in cause else cause.split(":", 1)[0]
+        raise PlanPostError("PLAN_EXPORT_UNREADABLE:" + re.sub(r"[^A-Za-z0-9_]", "", name)[:80])
+
+
+def rows_from_export(export: Mapping[str, Any]) -> list[dict]:
+    plans = {p["plan_id"]: p for p in export["status"].get("plans", []) if p.get("plan_id")}
+    rows = []
+    for event in export["transitions"].get("transitions", []):
+        plan = plans.get(event.get("plan_id"))
+        if plan is None:
+            raise PlanPostError("PLAN_EXPORT_TRANSITION_UNKNOWN_PLAN")
+        rows.append(_row(plan_id=event["plan_id"], symbol=plan.get("asset_id"), to=event.get("status"),
+                         at_utc=event.get("at_utc"), cause=event.get("reason_code"), plan=_built_plan(plan)))
+    return rows
+
+
+def read_transitions(export_dir: Path = EXPORT_DIR, **kwargs) -> list[dict]:
+    if not (Path(export_dir) / "plan-status.public.json").is_file():
+        return []
+    return rows_from_export(read_export(export_dir, **kwargs))
 
 
 def _built_plan(plan: Mapping[str, Any]) -> dict:
@@ -114,13 +121,6 @@ def _built_plan(plan: Mapping[str, Any]) -> dict:
             "cancel_level": plan.get("cancel_level"),
             "invalidation_level": (max(invalid) if below else min(invalid)) if invalid else None,
             "valid_until_utc": plan.get("entry_deadline_utc") or plan.get("expires_at_utc")}
-
-
-def _contract_plan(plan: Mapping[str, Any]) -> dict:
-    direction = {"LONG": "bullish", "SHORT": "bearish"}.get(plan.get("side"))
-    return {"direction": direction, "zone_low": plan.get("zone_low"), "zone_high": plan.get("zone_high"),
-            "cancel_level": plan.get("cancel_level"), "invalidation_level": plan.get("stop"),
-            "valid_until_utc": plan.get("expires_at_utc")}
 
 
 def _row(*, plan_id, symbol, to, at_utc, cause, plan):
@@ -194,28 +194,48 @@ def compose(row: Mapping[str, Any]) -> dict:
     return {"status": "COMPOSED", "kind": kind, "text": text, "conditional_calls": calls}
 
 
-def queue_posts(store, export_dir: Path) -> dict:
-    """Register one outbox row per new transition for the six markets; repeats change nothing."""
+POSTING_WINDOW_MINUTES = 60
+
+
+def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = None,
+                window_minutes: int = POSTING_WINDOW_MINUTES, dry_run: bool = False, **reader) -> dict:
+    """Register one outbox row per new transition for the six markets; repeats change nothing.
+
+    The export carries every plan's whole history (back to 27 Oct on 5 Nov). A status post is
+    news only while it is recent, so a transition older than the posting window is counted and
+    never posted. A dry run reads the store but writes nothing.
+    """
     try:
-        rows = read_transitions(export_dir)
+        rows = read_transitions(export_dir, **reader)
     except (OSError, ValueError, KeyError, TypeError) as exc:
         return {"status": "EXPORT_UNREADABLE", "cause": str(exc) if isinstance(exc, PlanPostError) else type(exc).__name__}
-    queued, existing, skipped = [], [], []
-    if any(row["symbol"] in MARKETS for row in rows):
-        store.create_work_item(story_id=WORK_ITEM_ID, title="Plan status posts (decision 79)",
-                               target_surface="MULTI_PLATFORM", work_item_id=WORK_ITEM_ID)
-    for row in rows:
-        if row["symbol"] not in MARKETS:
+    now = now or datetime.now(timezone.utc)
+    oldest = now.timestamp() - window_minutes * 60
+    queued, existing, skipped, too_old = [], [], [], 0
+    fresh = [row for row in rows if row["symbol"] in MARKETS]
+    for row in fresh:
+        if _utc(row["at_utc"]).timestamp() < oldest:
+            too_old += 1
             continue
         post = compose(row)
         if post["status"] != "COMPOSED":
             skipped.append({"key": row["key"], "cause": post.get("cause")})
             continue
+        if store.get_outbox_message(row["key"]):
+            existing.append(row["key"])
+            continue
         payload = {"schema_version": SCHEMA, "key": row["key"], "symbol": row["symbol"], "state": row["to"],
                    "at_utc": row["at_utc"], "kind": post["kind"], "text": post["text"],
                    "conditional_calls": post["conditional_calls"]}
-        before = store.get_outbox_message(row["key"])
+        queued.append({"key": row["key"], "symbol": row["symbol"], "state": row["to"], "at_utc": row["at_utc"],
+                       "text": post["text"]})
+        if dry_run:
+            continue
+        store.create_work_item(story_id=WORK_ITEM_ID, title="Plan status posts (decision 79)",
+                               target_surface="MULTI_PLATFORM", work_item_id=WORK_ITEM_ID)
         store.register_outbox_message(message_id=row["key"], work_item_id=WORK_ITEM_ID, destination=DESTINATION,
                                       payload=json.dumps(payload, sort_keys=True, ensure_ascii=False), status=READY)
-        (existing if before else queued).append(row["key"])
-    return {"status": "OK", "queued": queued, "already_queued": existing, "not_posted": skipped}
+    return {"status": "OK", "dry_run": dry_run, "transitions_read": len(rows), "six_market_transitions": len(fresh),
+            "older_than_window": too_old, "window_minutes": window_minutes,
+            "queued" if not dry_run else "would_queue": queued,
+            "already_queued": existing, "not_posted": skipped}

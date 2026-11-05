@@ -1,10 +1,12 @@
-"""CC-306: queue one post per new plan-state change for the six markets (run from an existing tick).
+"""CC-306: queue one post per new plan-state change for the six markets (one run, then exit).
 
-    python scripts/plan_status_posts.py [--export-dir DIR] [--store PATH]
+    python scripts/plan_status_posts.py [--dry-run] [--export-dir DIR] [--store PATH]
+                                        [--window-minutes N] [--main-root DIR]
 
-Reads Main's plan-status export and registers one READY_FOR_PUBLISHER outbox row per new
-transition in the ContentOps store. Repeats change nothing. No public write here: Codex
-Publisher posts each row through the existing publication path.
+Reads Main's plan-status export through CC-307's own reader (read_public_status and
+read_public_transitions, run in Main's live root) and registers one READY_FOR_PUBLISHER outbox
+row per new transition in the ContentOps store. Repeats change nothing. --dry-run writes no
+shared state and prints the rows it would queue. No public write here.
 """
 from __future__ import annotations
 
@@ -16,19 +18,33 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore  # noqa: E402
-from live_contentops.plan_status_posts_v1 import queue_posts  # noqa: E402
+from live_contentops.plan_status_posts_v1 import (  # noqa: E402
+    EXPORT_DIR, MAIN_ROOT, POSTING_WINDOW_MINUTES, queue_posts,
+)
 from live_contentops.published_content_v1 import PRODUCTION_STORE  # noqa: E402
 
-DEFAULT_EXPORT = Path(r"A:\Capital Chronicle\ResearchRuns\plan-status-v1")
+
+def child_python() -> str:
+    # Under pythonw the reader child still needs a console-less interpreter with jsonschema.
+    here = Path(sys.executable)
+    sibling = here.with_name("python.exe")
+    return str(sibling if here.name.lower() == "pythonw.exe" and sibling.is_file() else here)
 
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--export-dir", type=Path, default=DEFAULT_EXPORT)
+    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--export-dir", type=Path, default=EXPORT_DIR)
     parser.add_argument("--store", type=Path, default=PRODUCTION_STORE)
+    parser.add_argument("--window-minutes", type=int, default=POSTING_WINDOW_MINUTES)
+    parser.add_argument("--main-root", type=Path, default=MAIN_ROOT)
     args = parser.parse_args(argv)
-    result = queue_posts(ContentOpsDurableStore(str(args.store), auto_migrate=False), args.export_dir)
-    print(json.dumps(result, sort_keys=True))
+    result = queue_posts(ContentOpsDurableStore(str(args.store), auto_migrate=False), args.export_dir,
+                         window_minutes=args.window_minutes, dry_run=args.dry_run,
+                         main_root=args.main_root, python=child_python())
+    if sys.stdout is not None:  # pythonw has no stdout; the outbox rows are the record
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stdout.write(json.dumps(result, sort_keys=True, ensure_ascii=False, indent=1) + "\n")
     return 0 if result["status"] == "OK" else 1
 
 

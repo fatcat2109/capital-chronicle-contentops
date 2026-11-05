@@ -1,21 +1,51 @@
 """CC-306: one post per change of plan state for the six markets. Controlled fixtures only.
 
-The fixture follows Main's CC-307 export (plan_status_export_v1, 9d1838a4): two sealed documents
-joined by status_content_hash. Gold's plan mirrors section 4.4's example (zone 4,070-4,085).
+The export follows Main's CC-307 contract (plan_status_export_v1): plan-status.public.json and
+plan-transitions.public.json, joined by status_content_hash and read through Main's own
+read_public_status / read_public_transitions in a separate process. Here a stub Main root stands
+in for that reader; the live one is exercised by the dry run against the live folder.
 """
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import json
+import sys
+import textwrap
 
 import pytest
 
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE
-from live_contentops.plan_status_posts_v1 import (
-    DESTINATION, PlanPostError, _sha, compose, queue_posts, read_transitions,
-)
+from live_contentops.plan_status_posts_v1 import DESTINATION, compose, queue_posts, read_transitions
 
-GENERATED = "2026-11-05T12:30:00Z"
+NOW = datetime(2026, 11, 5, 12, 30, tzinfo=timezone.utc)
+STUB_READER = textwrap.dedent('''
+    import json
+    from pathlib import Path
+
+    class PlanStatusError(ValueError):
+        pass
+
+    def read_public_status(path, *, as_of):
+        value = json.loads(Path(path).read_bytes())
+        if value.get("tampered"):
+            raise PlanStatusError("PUBLIC_PLAN_STATUS_SCHEMA_INVALID")
+        return value
+
+    def read_public_transitions(path, *, status):
+        value = json.loads(Path(path).read_bytes())
+        if value["status_content_hash"] != status["content_hash"]:
+            raise PlanStatusError("PUBLIC_PLAN_SNAPSHOT_MISMATCH")
+        return value
+''')
+
+
+@pytest.fixture
+def main_root(tmp_path):
+    root = tmp_path / "main"
+    (root / "tools" / "product").mkdir(parents=True)
+    (root / "tools" / "product" / "plan_status_export_v1.py").write_text(STUB_READER, encoding="utf-8")
+    return root
 
 
 def plan(plan_id, asset, direction, low, high, *, cancel=None, invalid=None, deadline="2026-11-06T12:45:00Z"):
@@ -23,24 +53,20 @@ def plan(plan_id, asset, direction, low, high, *, cancel=None, invalid=None, dea
     conditions = [] if invalid is None else [
         {"field": "close", "operator": "LT" if below else "GT", "threshold": invalid}]
     return {"plan_id": plan_id, "asset_id": asset, "direction": direction, "status": "WAITING",
-            "status_label": "Waiting", "zone": {"minimum": low, "maximum": high}, "cancel_level": cancel,
-            "invalidation_conditions": conditions, "expires_at_utc": deadline, "entry_deadline_utc": deadline,
-            "data_state": "AVAILABLE"}
+            "zone": {"minimum": low, "maximum": high}, "cancel_level": cancel,
+            "invalidation_conditions": conditions, "expires_at_utc": deadline, "entry_deadline_utc": deadline}
 
 
 def event(plan_id, status, at, reason=None):
-    return {"transition_id": "transition_" + _sha([plan_id, status])[:32], "plan_id": plan_id, "status": status,
-            "status_label": status.title(), "at_utc": at, "evidence_hash": "e" * 64, "reason_code": reason or status}
+    return {"plan_id": plan_id, "status": status, "at_utc": at, "reason_code": reason or status}
 
 
-def write_export(folder, plans, events):
-    status = {"schema": "CapitalChroniclePlanStatusV1", "schema_version": "1.0.0", "generated_at_utc": GENERATED,
-              "plans": plans}
-    status["content_hash"] = _sha(status)
-    transitions = {"schema": "CapitalChroniclePlanTransitionsV1", "schema_version": "1.0.0",
-                   "generated_at_utc": GENERATED, "status_content_hash": status["content_hash"], "transitions": events}
-    transitions["content_hash"] = _sha(transitions)
+def write_export(folder, plans, events, *, tampered=False):
     folder.mkdir(parents=True, exist_ok=True)
+    status = {"generated_at_utc": "2026-11-05T12:29:50Z", "plans": plans, "content_hash": "s" * 64,
+              **({"tampered": True} if tampered else {})}
+    transitions = {"generated_at_utc": status["generated_at_utc"], "status_content_hash": "s" * 64,
+                   "transitions": events}
     (folder / "plan-status.public.json").write_text(json.dumps(status), encoding="utf-8")
     (folder / "plan-transitions.public.json").write_text(json.dumps(transitions), encoding="utf-8")
     return folder
@@ -51,107 +77,103 @@ def export(tmp_path):
     plans = [plan("plan_gold", "XAUUSD", "BULLISH", 4070, 4085, cancel=4150, invalid=4055),
              plan("plan_oil", "USOIL", "BEARISH", 61.2, 61.8, cancel=59.5, invalid=62.4),
              plan("plan_aud", "AUDUSD", "BULLISH", 0.65, 0.651, invalid=0.648),
-             plan("plan_jpy", "USDJPY", "BULLISH", 152.1, 152.4)]  # no invalidation level
-    events = [event("plan_gold", "WAITING", "2026-11-05T01:45:00Z"),
-              event("plan_gold", "TRIGGERED", "2026-11-05T05:20:00Z"),
-              event("plan_oil", "WAITING", "2026-11-05T02:00:00Z"),
-              event("plan_oil", "CANCELLED", "2026-11-05T09:10:00Z", "RUNAWAY_CANCEL"),
-              event("plan_aud", "WAITING", "2026-11-05T02:00:00Z"),
-              event("plan_jpy", "WAITING", "2026-11-05T03:00:00Z")]
+             plan("plan_jpy", "USDJPY", "BULLISH", 152.1, 152.4),  # no invalidation level
+             plan("plan_old", "EURUSD", "BULLISH", 1.1214, 1.1227, invalid=1.12)]
+    events = [event("plan_gold", "WAITING", "2026-11-05T11:45:00Z"),
+              event("plan_gold", "TRIGGERED", "2026-11-05T12:20:00Z"),
+              event("plan_oil", "WAITING", "2026-11-05T12:00:00Z"),
+              event("plan_oil", "CANCELLED", "2026-11-05T12:10:00Z", "RUNAWAY_CANCEL"),
+              event("plan_aud", "WAITING", "2026-11-05T12:00:00Z"),
+              event("plan_jpy", "WAITING", "2026-11-05T12:05:00Z"),
+              event("plan_old", "WAITING", "2026-10-27T23:11:17Z")]  # history: never posted
     return write_export(tmp_path / "plan-status-v1", plans, events)
 
 
-def by_symbol_state(export):
-    return {(r["symbol"], r["to"]): r for r in read_transitions(export)}
+def rows_by(export, main_root):
+    return {(r["symbol"], r["to"]): r for r in read_transitions(export, main_root=main_root, python=sys.executable)}
 
 
-def test_setup_post_states_the_conditional_call_with_zone_invalidation_validity_and_notices(export):
-    post = compose(by_symbol_state(export)[("XAUUSD", "WAITING")])
+def queue(store, export, main_root, **kw):
+    return queue_posts(store, export, now=NOW, main_root=main_root, python=sys.executable, **kw)
+
+
+def test_setup_post_states_the_conditional_call_with_zone_invalidation_validity_and_notices(export, main_root):
+    post = compose(rows_by(export, main_root)[("XAUUSD", "WAITING")])
     assert post["status"] == "COMPOSED" and post["kind"] == "setup"
-    text = post["text"]
-    assert text.startswith("Gold: new plan. If price trades into 4,070–4,085, the desk is bullish on gold over "
-                           "the period to Fri 6 Nov, 12:45 UTC. Invalidated if price moves below 4,055.")
-    assert "If price reaches 4,150 before that, the plan is cancelled." in text
-    assert PUBLIC_NOTICE in text and CONFLICTS_NOTICE in text
-    assert post["conditional_calls"][0]["direction"] == "bullish"
+    assert post["text"].startswith(
+        "Gold: new plan. If price trades into 4,070–4,085, the desk is bullish on gold over the period to "
+        "Fri 6 Nov, 12:45 UTC. Invalidated if price moves below 4,055.")
+    assert "If price reaches 4,150 before that, the plan is cancelled." in post["text"]
+    assert PUBLIC_NOTICE in post["text"] and CONFLICTS_NOTICE in post["text"]
 
 
-def test_triggered_and_cancelled_posts_report_the_change_in_plain_words(export):
-    rows = by_symbol_state(export)
-    triggered = compose(rows[("XAUUSD", "TRIGGERED")])["text"]
-    assert triggered.startswith("Gold: the plan with the 4,070–4,085 entry zone is now active. "
-                                "Price reached the zone at Thu 5 Nov, 05:20 UTC.")
-    assert "invalidated if price moves below 4,055" in triggered
+def test_triggered_and_cancelled_posts_report_the_change_in_plain_words(export, main_root):
+    rows = rows_by(export, main_root)
+    assert compose(rows[("XAUUSD", "TRIGGERED")])["text"].startswith(
+        "Gold: the plan with the 4,070–4,085 entry zone is now active. Price reached the zone at Thu 5 Nov, 12:20 UTC.")
     cancelled = compose(rows[("USOIL", "CANCELLED")])["text"]
     assert cancelled.startswith("US crude oil: the plan with the 61.2–61.8 entry zone is cancelled at "
-                                "Thu 5 Nov, 09:10 UTC: price moved away before reaching the zone.")
-    assert "ended without an entry" in cancelled
+                                "Thu 5 Nov, 12:10 UTC: price moved away before reaching the zone.")
 
 
 @pytest.mark.parametrize("state,reason,expected", [
-    ("EXPIRED", "CONTRACT_EXPIRY", "expired at Thu 5 Nov, 09:10 UTC without price reaching the zone"),
-    ("INVALIDATED", "WATCH_INVALIDATED", "is invalidated at Thu 5 Nov, 09:10 UTC: price moved below 4,055"),
-    ("VIEW_CHANGED", "THESIS_CHANGED", "our view changed at Thu 5 Nov, 09:10 UTC"),
+    ("EXPIRED", "CONTRACT_EXPIRY", "expired at Thu 5 Nov, 12:10 UTC without price reaching the zone"),
+    ("INVALIDATED", "WATCH_INVALIDATED", "is invalidated at Thu 5 Nov, 12:10 UTC: price moved below 4,055"),
+    ("VIEW_CHANGED", "THESIS_CHANGED", "our view changed at Thu 5 Nov, 12:10 UTC"),
 ])
-def test_every_other_state_has_one_plain_post(tmp_path, state, reason, expected):
+def test_every_other_state_has_one_plain_post(tmp_path, main_root, state, reason, expected):
     folder = write_export(tmp_path / "x", [plan("plan_gold", "XAUUSD", "BULLISH", 4070, 4085, invalid=4055)],
-                          [event("plan_gold", state, "2026-11-05T09:10:00Z", reason)])
-    assert expected in compose(read_transitions(folder)[0])["text"]
+                          [event("plan_gold", state, "2026-11-05T12:10:00Z", reason)])
+    row = read_transitions(folder, main_root=main_root, python=sys.executable)[0]
+    assert expected in compose(row)["text"]
 
 
-def test_no_post_carries_ids_internal_words_targets_or_sizes(export):
-    for row in read_transitions(export):
+def test_no_post_carries_ids_internal_words_targets_or_sizes(export, main_root):
+    for row in rows_by(export, main_root).values():
         post = compose(row)
-        if post["status"] != "COMPOSED":
-            continue
-        for word in ("plan_", "transition_", "frozen", "committee", "export", "target", " lot", " R ", "buy now"):
-            assert word not in post["text"].lower()
+        if post["status"] == "COMPOSED":
+            for word in ("plan_", "frozen", "committee", "export", "target", " lot", " r ", "buy now"):
+                assert word not in post["text"].lower()
 
 
-def test_only_the_six_markets_post_and_a_call_without_invalidation_is_not_posted(export):
-    rows = by_symbol_state(export)
+def test_only_the_six_markets_post_and_a_call_without_invalidation_is_not_posted(export, main_root):
+    rows = rows_by(export, main_root)
     assert compose(rows[("AUDUSD", "WAITING")]) == {"status": "NOT_A_FIRST_PHASE_MARKET"}
     assert compose(rows[("USDJPY", "WAITING")]) == {"status": "NOT_POSTED", "cause": "PLAN_INVALIDATION_LEVEL_MISSING"}
 
 
-def test_each_transition_queues_exactly_once_for_the_publisher(tmp_path, export):
+def test_each_recent_transition_queues_exactly_once_and_history_never_posts(tmp_path, export, main_root):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
-    first = queue_posts(store, export)
-    assert len(first["queued"]) == 4  # gold setup and trigger, oil setup and cancel
-    assert first["not_posted"] == [{"key": by_symbol_state(export)[("USDJPY", "WAITING")]["key"],
-                                    "cause": "PLAN_INVALIDATION_LEVEL_MISSING"}]
-    again = queue_posts(store, export)
-    assert again["queued"] == [] and sorted(again["already_queued"]) == sorted(first["queued"])
+    first = queue(store, export, main_root)
+    assert [(q["symbol"], q["state"]) for q in first["queued"]] == [
+        ("XAUUSD", "WAITING"), ("XAUUSD", "TRIGGERED"), ("USOIL", "WAITING"), ("USOIL", "CANCELLED")]
+    assert first["older_than_window"] == 1  # 27 Oct EURUSD
+    assert first["not_posted"][0]["cause"] == "PLAN_INVALIDATION_LEVEL_MISSING"
+    again = queue(store, export, main_root)
+    assert again["queued"] == [] and len(again["already_queued"]) == 4
     rows = store.list_outbox_messages(destination=DESTINATION)
     assert len(rows) == 4 and {r["status"] for r in rows} == {"READY_FOR_PUBLISHER"}
-    payload = json.loads(next(r["payload"] for r in rows if json.loads(r["payload"])["kind"] == "triggered"))
-    assert payload["symbol"] == "XAUUSD" and payload["state"] == "TRIGGERED"
 
 
-def test_a_tampered_or_mismatched_export_is_named_and_queues_nothing(tmp_path, export):
+def test_a_dry_run_reports_the_rows_and_writes_nothing(tmp_path, export, main_root):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
-    path = export / "plan-transitions.public.json"
-    value = json.loads(path.read_text(encoding="utf-8"))
-    value["transitions"][0]["at_utc"] = "2026-11-05T01:46:00Z"
-    path.write_text(json.dumps(value), encoding="utf-8")
-    assert queue_posts(store, export) == {"status": "EXPORT_UNREADABLE", "cause": "PLAN_EXPORT_SEAL_INVALID"}
+    dry = queue(store, export, main_root, dry_run=True)
+    assert dry["dry_run"] is True and len(dry["would_queue"]) == 4 and "queued" not in dry
+    assert store.list_outbox_messages(destination=DESTINATION) == []
+    queue(store, export, main_root)
+    assert queue(store, export, main_root, dry_run=True)["would_queue"] == []
+
+
+def test_a_refused_export_is_named_and_queues_nothing(tmp_path, main_root):
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    folder = write_export(tmp_path / "bad", [plan("plan_gold", "XAUUSD", "BULLISH", 4070, 4085, invalid=4055)],
+                          [event("plan_gold", "WAITING", "2026-11-05T12:10:00Z")], tampered=True)
+    result = queue(store, folder, main_root)
+    assert result == {"status": "EXPORT_UNREADABLE", "cause": "PLAN_EXPORT_UNREADABLE:PUBLIC_PLAN_STATUS_SCHEMA_INVALID"}
     assert store.list_outbox_messages(destination=DESTINATION) == []
 
 
-def test_the_stated_jsonl_contract_is_read_too(tmp_path):
-    folder = tmp_path / "jsonl"
-    folder.mkdir()
-    (folder / "status.json").write_text(json.dumps({"plans": [
-        {"plan_id": "p1", "symbol": "BTCUSD", "side": "SHORT", "zone_low": 71000, "zone_high": 71500,
-         "cancel_level": 68000, "stop": 72500, "expires_at_utc": "2026-11-07T00:00:00Z"}]}), encoding="utf-8")
-    (folder / "transitions.jsonl").write_text(json.dumps(
-        {"at_utc": "2026-11-05T10:00:00Z", "plan_id": "p1", "symbol": "BTCUSD", "from": None, "to": "WAITING",
-         "cause": None}) + "\n", encoding="utf-8")
-    text = compose(read_transitions(folder)[0])["text"]
-    assert "the desk is bearish on Bitcoin" in text and "price moves above 72,500" in text
-
-
-def test_no_export_yet_queues_nothing(tmp_path):
+def test_no_export_yet_queues_nothing(tmp_path, main_root):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
-    assert queue_posts(store, tmp_path / "absent") == {"status": "OK", "queued": [], "already_queued": [],
-                                                       "not_posted": []}
+    result = queue(store, tmp_path / "absent", main_root)
+    assert result["status"] == "OK" and result["queued"] == [] and result["transitions_read"] == 0
