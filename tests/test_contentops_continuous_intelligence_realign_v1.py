@@ -884,6 +884,8 @@ def test_run_now_stale_intake_performs_exactly_one_bounded_forced_sync(
 ):
     from tests.test_daily_app_operator_trigger_v1 import _supervisor as supervisor_factory
 
+    # The capture is stubbed below, so this test may lift the suite-wide intake switch.
+    monkeypatch.delenv("CONTENTOPS_DAILY_APP_DISABLE_INTAKE_LANE", raising=False)
     supervisor, _calls = supervisor_factory(tmp_path, mode="SHADOW_ONLY")
     sync_calls = []
     monkeypatch.setattr(intake, "intake_is_stale", lambda _store, now: True)

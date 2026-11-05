@@ -1905,6 +1905,11 @@ class ContentOpsDailyAppSupervisor:
 
             if not intake_is_stale(self._store, now=now):
                 result = {"lane_state": "FRESH", "detail": "intake_fresh_no_sync_needed", "llm_or_provider_calls": 0}
+            elif os.environ.get("CONTENTOPS_DAILY_APP_DISABLE_INTAKE_LANE") == "1":
+                # CC-268: the controlled-test switch covers this forced sync too. Without it, every
+                # Run Now test on a fresh store drove the live X capture (CDP 9222) and wrote raw
+                # archives into the live headline root (5 Nov full run). Production never sets it.
+                result = {"lane_state": "DISABLED_FOR_CONTROLLED_TEST", "detail": "intake_lane_disabled_by_env", "llm_or_provider_calls": 0}
             else:
                 result = dict(run_ingestion_housekeeping_iteration(self._store, now=now, force=True))
             result["prepared_candidate_state"] = self._refresh_prepared_candidate_checkpoint(now)
