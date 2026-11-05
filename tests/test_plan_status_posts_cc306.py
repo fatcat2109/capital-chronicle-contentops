@@ -103,7 +103,9 @@ def test_setup_post_states_the_conditional_call_with_zone_invalidation_validity_
     assert post["text"].startswith(
         "Gold: new plan. If price trades into 4,070–4,085, the desk is bullish on gold over the period to "
         "Fri 6 Nov, 12:45 UTC. Invalidated if price moves below 4,055.")
-    assert "If price reaches 4,150 before that, the plan is cancelled." in post["text"]
+    # CC-307's rows carry no target, so the cancel number never prints (decision 40).
+    assert "If price runs away before any pullback, the plan is cancelled and we re-assess." in post["text"]
+    assert "4,150" not in post["text"]
     assert PUBLIC_NOTICE in post["text"] and CONFLICTS_NOTICE in post["text"]
 
 
@@ -177,3 +179,20 @@ def test_no_export_yet_queues_nothing(tmp_path, main_root):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     result = queue(store, tmp_path / "absent", main_root)
     assert result["status"] == "OK" and result["queued"] == [] and result["transitions_read"] == 0
+
+
+@pytest.mark.parametrize("target,printed", [
+    (82500, False),                                   # cancel at the target: never printed
+    ({"minimum": 82000, "maximum": 83000}, False),    # cancel inside the target's range
+    (84000, True),                                    # a known target clear of the cancel level
+    (None, False),                                    # no target known
+])
+def test_a_runaway_cancel_at_the_target_never_reveals_the_number(tmp_path, main_root, target, printed):
+    row = plan("plan_btc", "BTCUSD", "BULLISH", 79850, 80150, cancel=82500, invalid=79200)
+    if target is not None:
+        row["target"] = target
+    folder = write_export(tmp_path / "btc", [row], [event("plan_btc", "WAITING", "2026-11-05T12:10:00Z")])
+    text = compose(read_transitions(folder, main_root=main_root, python=sys.executable)[0])["text"]
+    assert ("82,500" in text) is printed
+    if not printed:
+        assert "If price runs away before any pullback, the plan is cancelled and we re-assess." in text

@@ -119,6 +119,7 @@ def _built_plan(plan: Mapping[str, Any]) -> dict:
                and p.get("field") in {"low", "close", "bid", "mid"} | ({"high", "ask"} if not below else set())]
     return {"direction": direction, "zone_low": zone.get("minimum"), "zone_high": zone.get("maximum"),
             "cancel_level": plan.get("cancel_level"),
+            "target": plan.get("target", plan.get("target_level")),
             "invalidation_level": (max(invalid) if below else min(invalid)) if invalid else None,
             "valid_until_utc": plan.get("entry_deadline_utc") or plan.get("expires_at_utc")}
 
@@ -140,6 +141,20 @@ def _level(value) -> str:
 def _when(value) -> str:
     at = _utc(value)
     return f"{at:%a} {at.day} {at:%b}, {at:%H:%M} UTC"
+
+
+def _cancel_level_is_public(plan: Mapping[str, Any]) -> bool:
+    """Decision 40: no target in public copy. A runaway cancel often sits at the target, so the
+    number prints only when a target is known and the cancel level is clear of it."""
+    cancel, target = plan.get("cancel_level"), plan.get("target")
+    if target is None:
+        return False  # unknown target (CC-307's rows carry none today): never risk revealing it
+    if isinstance(target, Mapping):
+        low, high = target.get("minimum", target.get("low")), target.get("maximum", target.get("high"))
+        return low is not None and high is not None and not (float(low) <= float(cancel) <= float(high))
+    if isinstance(target, (list, tuple)):
+        return bool(target) and not (min(map(float, target)) <= float(cancel) <= max(map(float, target)))
+    return float(cancel) != float(target)
 
 
 def compose(row: Mapping[str, Any]) -> dict:
@@ -167,7 +182,10 @@ def compose(row: Mapping[str, Any]) -> dict:
         calls = [call]
         lines = [f"{title}: new plan.", conditional_call_text(call)]
         if plan.get("cancel_level") is not None:
-            lines.append(f"If price reaches {_level(plan['cancel_level'])} before that, the plan is cancelled.")
+            if _cancel_level_is_public(plan):
+                lines.append(f"If price reaches {_level(plan['cancel_level'])} before that, the plan is cancelled.")
+            else:
+                lines.append("If price runs away before any pullback, the plan is cancelled and we re-assess.")
     elif to == "TRIGGERED":
         lines = [f"{title}: the plan with the {zone} entry zone is now active.",
                  f"Price reached the zone at {_when(row['at_utc'])}.",
@@ -292,16 +310,29 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str) -> dict:
     for destination in POST_DESTINATIONS:
         text = f"{body}\n\n{link}\n\n{notices}"
         if destination == "x" and _x_length(text) > LIMITS["x"]:
-            first = f"{body}\n\n{link}"
-            if _x_length(first) > LIMITS["x"]:
+            # Whole sentences per post: the link with the first, the notices last.
+            sentences = re.split(r"(?<=\.)\s+(?=[A-Z])", body)
+            chunks, current = [], ""
+            for sentence in sentences:
+                candidate = f"{current} {sentence}".strip()
+                room = LIMITS["x"] - (X_URL_LENGTH + len("The live plan: ") + 2 if not chunks else 0)
+                if current and _x_length(candidate) > room:
+                    chunks.append(current)
+                    current = sentence
+                else:
+                    current = candidate
+            chunks.append(current)
+            chunks[0] = f"{chunks[0]}\n\n{link}"
+            chunks.append(notices)
+            if any(_x_length(c) > LIMITS["x"] for c in chunks):
                 raise PlanPostError("PLAN_STATUS_POST_TOO_LONG_FOR_X")
-            posts = [{"text": first, "media_asset_ids": [card_id], "order": 0, "role": "root"},
-                     {"text": notices, "media_asset_ids": [], "order": 1, "role": "reply"}]
-            payloads[destination] = {"destination": destination, "text": first, "posts": posts,
-                                     "root_text": first, "reply_texts": [notices],
-                                     "full_text": f"{first}\n\n{notices}", "media_asset_ids": [card_id]}
+            posts = [{"text": c, "media_asset_ids": [card_id] if i == 0 else [], "order": i,
+                      "role": "root" if i == 0 else "reply"} for i, c in enumerate(chunks)]
+            payloads[destination] = {"destination": destination, "text": chunks[0], "posts": posts,
+                                     "root_text": chunks[0], "reply_texts": chunks[1:],
+                                     "full_text": "\n\n".join(chunks), "media_asset_ids": [card_id]}
             continue
-        if len(text) > LIMITS[destination]:
+        if (_x_length(text) if destination == "x" else len(text)) > LIMITS[destination]:
             raise PlanPostError("PLAN_STATUS_POST_TOO_LONG:" + destination)
         payloads[destination] = {"destination": destination, "text": text, "full_text": text,
                                  "media_asset_ids": [card_id]}
