@@ -1,6 +1,6 @@
 {
   "schema": "contentops.preview_mirror_binding.v1",
   "consumer_root": "A:/Capital Chronicle/Worktrees/codex-web-cc254-clean",
-  "consumer_module_sha256": "f73feffd0acff2ceb4a456b33a615202572dccbd0a14a04b4461df48b704e764",
+  "consumer_module_sha256": "f3351fe15d5cbd2f2e5e94ec608e6f88981b8b7c45d30275f07ff2a06dfa6fbe",
   "worker_python": "C:/Users/bullw/AppData/Local/Programs/Python/Python313/python.exe"
 }

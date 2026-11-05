@@ -96,3 +96,11 @@ The consumer root `Worktrees/codex-web-cc254-clean` moved from 142907e6 (CC-295)
 - The worker file is unchanged, so `consumer_module_sha256` stays f73feffd and `config/public_preview_mirror_v1.json` is untouched.
 - The six preflight checks pass, and a read-only reader run on the live feed admits all 8 pieces, the midterm without its PollCheck card.
 - **Rollback:** check out 142907e6 in the consumer root.
+
+## Rebind for frozen outlet updates (5 Nov)
+
+The 07:17Z build (preview 9a9f9a9a, 9 articles, midterm page included) froze only the feed into its temp workspace, so the reader found no outlet updates (`outlets_state` NO_OUTLET_UPDATES). Main 9feb0201f3 makes the worker freeze `published_content_outlets_v1.jsonl` beside the frozen feed.
+
+- The worker file changes, so `consumer_module_sha256` moves f73feffd... -> f3351fe1....
+- The consumer root moves 09bd09e8 -> 9feb0201, in the same switch as this config.
+- **Rollback:** check out 09bd09e8 in the consumer root and restore f73feffd....
