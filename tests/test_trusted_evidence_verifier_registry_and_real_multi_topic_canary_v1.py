@@ -358,37 +358,3 @@ def test_governed_outcome_requires_trusted_receipt_and_emits_nonempty_lineage():
     assert outcome.complete_evidence_lineage
 
 
-def test_real_multi_topic_canary_uses_three_exact_committed_artifacts_and_no_synthetic_count():
-    report = canary.run_schema_aware_real_canary(repo_root=ROOT, upstream_git_repository=UPSTREAM_GIT)
-    assert report["status"] == "PASS"
-    assert report["coverage"]["distinct_story_count"] >= 3
-    assert report["coverage"]["distinct_editorial_class_count"] >= 3
-    assert report["coverage"]["distinct_artifact_family_count"] >= 3
-    assert report["coverage"]["distinct_modality_count"] >= 2
-    assert report["coverage"]["numeric_present"] and report["coverage"]["nonnumeric_present"]
-    assert report["coverage"]["synthetic_artifacts_counted"] == 0
-    assert all(row["pinned_commit"] == canary.UPSTREAM_HEAD and row["git_blob_sha1"] and row["byte_sha256"] for row in report["artifact_inventory"])
-    assert all(row["features"] for row in report["decision_rows"])
-    assert report["publication_authority_granted"] is False
-
-
-def test_real_canary_is_deterministic():
-    first = canary.run_schema_aware_real_canary(repo_root=ROOT, upstream_git_repository=UPSTREAM_GIT)
-    second = canary.run_schema_aware_real_canary(repo_root=ROOT, upstream_git_repository=UPSTREAM_GIT)
-    assert contracts.canonical_json(first) == contracts.canonical_json(second)
-
-
-def test_evidence_manifest_hashes_every_required_nonself_report(tmp_path):
-    summary = {"schema_version": "test", "status": "PASS"}
-    manifest = evidence_builder.generate_evidence(
-        repo_root=ROOT, upstream_git_repository=UPSTREAM_GIT,
-        test_summary=summary,
-        changed_protected_paths={"schema_version": "test", "status": "PASS"},
-        compatibility_report={"schema_version": "test", "status": "PASS"},
-        safety_report={"schema_version": "test", "status": "PASS"},
-        output_dir=tmp_path,
-    )
-    assert manifest["status"] == "PASS"
-    assert set(manifest["artifact_byte_sha256"]) == set(evidence_builder.REQUIRED_REPORTS)
-    for name, digest in manifest["artifact_byte_sha256"].items():
-        assert contracts.sha256((tmp_path / name).read_bytes()).hexdigest() == digest

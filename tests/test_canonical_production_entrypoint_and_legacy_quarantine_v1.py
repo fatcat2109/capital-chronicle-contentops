@@ -85,7 +85,7 @@ def test_registry_export_is_stable_and_json_serializable(tmp_path):
 
 
 def test_orchestrator_is_lazy_and_bound(monkeypatch):
-    sys.modules.pop(CANONICAL_MODULE, None)
+    monkeypatch.delitem(sys.modules, CANONICAL_MODULE, raising=False)
     calls: list[tuple[str, dict[str, object]]] = []
 
     def fake_dispatcher(operation: str, **kwargs: object) -> dict[str, object]:
@@ -117,7 +117,7 @@ def test_orchestrator_rejects_unknown_operation_before_import(monkeypatch):
 
 
 def test_public_compatibility_import_is_safe_and_all_live_apis_delegate_once(monkeypatch, tmp_path):
-    sys.modules.pop(CANONICAL_MODULE, None)
+    monkeypatch.delitem(sys.modules, CANONICAL_MODULE, raising=False)
     public_module = importlib.import_module("live_contentops.eight_platform_substack_first_pipeline_v1")
     assert CANONICAL_MODULE not in sys.modules
     calls: list[tuple[str, dict[str, object]]] = []
@@ -309,7 +309,7 @@ def test_public_rolling_x_facade_starts_sdk_only_with_bound_fallback_arbitration
     ],
 )
 def test_every_live_capable_canonical_cli_family_delegates_once(monkeypatch, argv):
-    sys.modules.pop(CANONICAL_MODULE, None)
+    monkeypatch.delitem(sys.modules, CANONICAL_MODULE, raising=False)
     public_module = importlib.import_module("live_contentops.eight_platform_substack_first_pipeline_v1")
     calls: list[tuple[str, dict[str, object]]] = []
 
@@ -325,7 +325,7 @@ def test_every_live_capable_canonical_cli_family_delegates_once(monkeypatch, arg
 
 
 def test_closure_historical_repair_cli_delegates_once_without_private_import(monkeypatch):
-    sys.modules.pop(CANONICAL_MODULE, None)
+    monkeypatch.delitem(sys.modules, CANONICAL_MODULE, raising=False)
     public_module = importlib.import_module("live_contentops.eight_platform_substack_first_pipeline_v1")
     calls: list[tuple[str, dict[str, object]]] = []
 
@@ -342,7 +342,7 @@ def test_closure_historical_repair_cli_delegates_once_without_private_import(mon
 
 
 def test_finalize_v1_tag_cli_delegates_once_without_private_import(monkeypatch):
-    sys.modules.pop(CANONICAL_MODULE, None)
+    monkeypatch.delitem(sys.modules, CANONICAL_MODULE, raising=False)
     public_module = importlib.import_module("live_contentops.eight_platform_substack_first_pipeline_v1")
     calls: list[tuple[str, dict[str, object]]] = []
 
@@ -480,7 +480,7 @@ def test_scheduler_live_tick_fails_before_load_or_save(monkeypatch, tmp_path):
 def test_cli_fast_ship_scheduler_fails_before_scheduler_import(monkeypatch):
     from live_contentops import cli
 
-    sys.modules.pop("live_contentops.scheduler_v6", None)
+    monkeypatch.delitem(sys.modules, "live_contentops.scheduler_v6", raising=False)
     original_import = __import__
 
     def guarded_import(name, *args, **kwargs):
@@ -506,7 +506,7 @@ def test_registry_covers_direct_cli_adapter_families():
 def test_cli_telegram_pilot_fails_before_env_or_pilot_import(monkeypatch):
     from live_contentops import cli
 
-    sys.modules.pop("live_contentops.telegram_live_pilot", None)
+    monkeypatch.delitem(sys.modules, "live_contentops.telegram_live_pilot", raising=False)
     monkeypatch.setattr("os.getenv", lambda *_: pytest.fail("environment read reached"))
     _assert_quarantined(cli.telegram_live_pilot_execute, "contentops.cli_direct_platform_adapters.v1")
     assert "live_contentops.telegram_live_pilot" not in sys.modules
@@ -525,7 +525,7 @@ def test_legacy_automation_callables_fail_before_io_env_or_adapter_import(
         "live_contentops.substack_browser_adapter_v6",
     }
     for name in forbidden:
-        sys.modules.pop(name, None)
+        monkeypatch.delitem(sys.modules, name, raising=False)
     monkeypatch.setattr(Path, "mkdir", lambda *_args, **_kwargs: pytest.fail("filesystem mutation reached"))
     monkeypatch.setattr("os.getenv", lambda *_: pytest.fail("environment read reached"))
     module = importlib.import_module(module_name)
@@ -542,7 +542,7 @@ def test_legacy_substack_loop_entrypoints_fail_before_io_env_or_adapter_import(m
         "live_contentops.telegram_live_adapter_v6",
     }
     for name in forbidden:
-        sys.modules.pop(name, None)
+        monkeypatch.delitem(sys.modules, name, raising=False)
     module = importlib.import_module(module_name)
     monkeypatch.setattr(module, "_load_dotenv_safely", lambda: pytest.fail("dotenv reached"))
     monkeypatch.setattr(Path, "mkdir", lambda *_args, **_kwargs: pytest.fail("filesystem mutation reached"))
