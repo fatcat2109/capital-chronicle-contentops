@@ -1225,3 +1225,36 @@ def test_issuer_promotional_title_proves_publication_without_proving_its_cause(t
     altered, blockers = build_epistemic_state(request=other_request,
         documents=[doc], selected_route="OFFICIAL_PRIMARY")
     assert altered is None and blockers
+
+
+def test_cc238_other_analysis_needs_no_official_history_charts_or_photo_but_release_analysis_still_does():
+    # Decision 41 covers analysis of a data release or policy decision; CC-238 narrows the code rule to it.
+    other = decision("ANALYSIS", 0)
+    other.update(analysis_scope="OTHER_ANALYSIS", analysis_scope_reason="House view on term premia, not tied to one release.")
+    assert validate_visual_decision(other) == other
+    article = {"reader_first_version": "DATA_JOURNALISM_V1", "news_item_kind": "ANALYSIS",
+        "visual_editorial_decision": other}
+    # No chart and no photo: the analysis is not held by the chart or photo rule.
+    assert validate_release_media({"article": article, "media_assets": []})["chart_count"] == 0
+    # The same chartless analysis, left on the default scope or marked as release/policy, is still refused.
+    for scope in (None, "RELEASE_OR_POLICY"):
+        release = decision("ANALYSIS", 0)
+        if scope:
+            release["analysis_scope"] = scope
+        with pytest.raises(ValueError, match="ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"):
+            validate_visual_decision(release)
+        with pytest.raises(ValueError, match="ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED"):
+            validate_release_media({"article": {**article, "visual_editorial_decision": release}, "media_assets": []})
+    # The other scope needs a reason and is only for analysis.
+    no_reason = decision("ANALYSIS", 0)
+    no_reason["analysis_scope"] = "OTHER_ANALYSIS"
+    with pytest.raises(ValueError, match="ANALYSIS_SCOPE_REASON_REQUIRED"):
+        validate_visual_decision(no_reason)
+    news = decision("NEWS", 0)
+    news.update(analysis_scope="OTHER_ANALYSIS", analysis_scope_reason="not analysis")
+    with pytest.raises(ValueError, match="ANALYSIS_SCOPE_REASON_REQUIRED"):
+        validate_visual_decision(news)
+    bad = decision("ANALYSIS", 0)
+    bad["analysis_scope"] = "ANYTHING"
+    with pytest.raises(ValueError, match="ANALYSIS_SCOPE_INVALID"):
+        validate_visual_decision(bad)

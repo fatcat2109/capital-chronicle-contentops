@@ -166,18 +166,37 @@ def _company_document_card_plan(value, documents=None):
     return plan
 
 
+OTHER_ANALYSIS = "OTHER_ANALYSIS"
+
+
+def analysis_needs_official_history(decision):
+    """Decision 41, narrowed by CC-238: only release and policy analysis must carry official-history charts.
+
+    The MAX editor marks an analysis that is not about a data release or a policy decision with
+    analysis_scope OTHER_ANALYSIS and a reason; anything else keeps the decision 41 chart rule.
+    """
+    return (decision or {}).get("analysis_scope") != OTHER_ANALYSIS
+
+
 def validate_visual_decision(value, *, dropped_after_repair=False):
     """Validate the MAX editor's explicit choice, without scoring its judgment."""
     if not isinstance(value, dict) or value.get("reader_first_version") != "DATA_JOURNALISM_V1":
         raise ValueError("MAX_VISUAL_DECISION_REQUIRED")
     if value.get("story_kind") not in {"ANALYSIS", "NEWS", "POLICY"} or not value.get("editorial_thesis"):
         raise ValueError("VISUAL_EDITORIAL_ARGUMENT_REQUIRED")
+    scope = value.get("analysis_scope")
+    if scope not in {None, "RELEASE_OR_POLICY", OTHER_ANALYSIS}:
+        raise ValueError("ANALYSIS_SCOPE_INVALID")
+    if scope == OTHER_ANALYSIS and (value["story_kind"] != "ANALYSIS"
+            or not str(value.get("analysis_scope_reason") or "").strip()):
+        raise ValueError("ANALYSIS_SCOPE_REASON_REQUIRED")
     charts = value.get("charts")
     if not isinstance(charts, list) or len(charts) > 5:
         raise ValueError("BOUNDED_VISUAL_DECISION_REQUIRED")
     # Decision 41 narrows decision 39 to short briefs. Analysis cannot use the
     # optional-photo exception to bypass its source-bound charts.
     if (value["story_kind"] == "ANALYSIS" and not charts and not dropped_after_repair
+            and analysis_needs_official_history(value)
             and not _company_document_card_plan(value)):
         raise ValueError("ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED")
     ids, questions = [], []
@@ -838,7 +857,9 @@ class NativeDesktopTurn:
                 "first-print archives before writing. No observation or factual revision after a retrospective event is admissible. "
                 "Choose useful charts, at most five, each with unique asset_id, question, why_useful, placement_after (exact proposed "
                 "article section heading), data_spec (exact source series/units/periods/transform/chart form). "
-                "Only a short news brief may be text-only. A missing optional contextual photo never holds analysis; "
+                "Only a short news brief may be text-only. An ANALYSIS that is not about a data release or a policy decision "
+                "(a house view, an explainer, market commentary) sets analysis_scope OTHER_ANALYSIS with a one-line "
+                "analysis_scope_reason and may use the charts that serve its argument, or none. A missing optional contextual photo never holds analysis; "
                 "use a relevant public-domain or licensed image when available. Missing analysis charts require source recovery; never "
                 "relabel analysis, manufacture data or pad panels. Choose contextual_photo_ids and exact "
                 "media subsets for all eight keys telegram,discord,x,linkedin,facebook_page,instagram_business,"
@@ -967,9 +988,14 @@ class NativeDesktopTurn:
             kwargs["prompt"] += volume_guidance
         if (role in {"visual-edit", "write"} and (not frozen or "CC-144 / Jim decision 42:" in frozen["prompt"])
                 and "CC-144 / Jim decision 42:" not in kwargs["prompt"]):
+            # CC-238: new requests carry the narrowed chart line; a frozen request keeps the text it was issued with.
+            chart_line = ("Release and policy analysis carries its official-history charts (decision 41); "
+                "other analysis uses the charts that serve its argument, or none. ")
+            if frozen and "Analysis keeps 2-5 useful charts. " in frozen["prompt"]:
+                chart_line = "Analysis keeps 2-5 useful charts. "
             kwargs["prompt"] += ("\nCC-144 / Jim decision 42: Every post and destination carries an image. "
                 "NEWS/POLICY gets a deterministic data card from this article's admitted claim bindings; "
-                "empty destination media choices use that card, including Instagram. Analysis keeps 2-5 useful charts. "
+                "empty destination media choices use that card, including Instagram. " + chart_line + ""
                 "Search for a lawful relevant photo through BrowserOS Neo (US agency, Commons or free-licence stock) "
                 "and history through the existing desk-data adapter; retain the source/license/attribution result. "
                 "Visual discovery is separate from the per-story factual-source request cap; it never admits new "
@@ -1450,7 +1476,8 @@ def validate_release_media(result, *, require_pixel_review=True, prewriter=False
         and bool(dropped) and not {a["asset_id"] for a in dropped} & {a["asset_id"] for a in assets})
     if (((result.get("article") or {}).get("news_item_kind") == "ANALYSIS"
             or (decision or {}).get("story_kind") == "ANALYSIS")
-            and not quantitative_charts and not dropped_after_repair and not company_card_plan):
+            and not quantitative_charts and not dropped_after_repair and not company_card_plan
+            and analysis_needs_official_history(decision)):
         raise ValueError("ANALYSIS_OFFICIAL_HISTORY_CHARTS_REQUIRED")
     if company_card_plan:
         selected = [f["text"] for f in company_card_plan["facts"]]

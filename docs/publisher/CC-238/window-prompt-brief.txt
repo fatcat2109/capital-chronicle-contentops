@@ -1,0 +1,5 @@
+BRIEF-ONLY WINDOW. The installed brief prompt is this text, a blank line, then window-prompt-full.txt with the automation id filled in. Changes for a brief window:
+
+- The window produces one useful NEWS or POLICY brief from up to three admissions, with the same ten non-chargeable source requests. The six-candidate and two-article limits of the full window do not apply.
+- A source-sufficient brief may use no photo and no assets (media-plan with assets:[] after the real Light and MAX planning), and Instagram is then skipped. Do not relabel an ANALYSIS piece as a brief.
+- When nothing useful and admissible exists, keep a typed NO_STORY or HOLD with no media and a real first cause, then save the window result.

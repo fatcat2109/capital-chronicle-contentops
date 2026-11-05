@@ -220,8 +220,8 @@ class NativeNeoExecutor:
             action_packet["substack_publish_routine"] = {
                 "policy": "JIM_DECISIONS_48_52_63",
                 "window": "Use the one existing BrowserOS Neo window and this task's tab group. Never create another window. Leave Jim's tabs untouched.",
-                "before_publish": "Use the finished Substack draft in this task's tab group. Never read a mailbox or enter an email code.",
-                "email_code_dialog": "Record PENDING_JIM_EMAIL_CODE, draft_id, page_id and URL. Leave that tab open and untouched for Jim; continue other destinations in other task tabs. No automatic wait, reload, navigation or input on the code tab.",
+                "before_publish": "Use the finished Substack draft in this task's tab group. Do not open Gmail unless Substack shows \"Check your email\". Never read a mailbox or enter an email code.",
+                "email_code_dialog": "Record PENDING_JIM_EMAIL_CODE, draft_id, page_id and URL. Only now open Gmail, in one new tab of this task's group, by a run script that returns only the page id; never tabs action=new (its reply carries a snapshot) and never a snapshot, read, grep, evaluate or screenshot of Gmail or its content in any result. Leave the code tab open and untouched for Jim; continue other destinations in other task tabs. No automatic wait, reload, navigation or input on the code tab.",
                 "continue_only_after": "The same tab reaches /publish/posts/detail/.../share-center; continue exact readback and dispatch recording.",
                 "pending_is_dispatch": False,
                 "email_code_return": {"status": "PENDING_JIM_EMAIL_CODE", "required_fields": ["draft_id", "page_id", "page_url"],

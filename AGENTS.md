@@ -16,31 +16,25 @@ Keep screenshots binary; never commit or print image base64. Upload only through
 upload tool or file-chooser interception, from the article's own media folder. Never open a
 native file dialog; if one opens, record NATIVE_FILE_DIALOG_OPEN and stop that step.
 Before Substack Publish, use the one existing Neo window and the task's tab group
-(Jim's decision 63), with the draft and Jim's untouched Gmail inbox. Agents never read Gmail. Keep the draft tab open and in front. On "Check your email",
-record PENDING_JIM_EMAIL_CODE plus page id and URL in the item's Result, and wait on that tab
-for Jim: no reload, other input or other tab use. Continue readback only when the same tab
+(Jim's decisions 63 and 74), with the draft only. Keep the draft tab open and in front. Open Gmail
+only when Substack shows "Check your email", never before: a web-only publish that asks for no code leaves Gmail
+closed. Agents never read Gmail: no snapshot, read, grep, evaluate or screenshot of it, and nothing from it in any
+result or message. On the dialog, record PENDING_JIM_EMAIL_CODE plus page id and URL in the item's Result, then open
+Gmail in one new tab of the task's group by a run script that returns only the page id (not tabs action=new, whose
+reply carries a snapshot), and wait on the code tab for Jim: no reload, other input or other tab use. Continue readback only when the same tab
 reaches /publish/posts/detail/.../share-center. Never close, reuse or navigate the code tab.
 
-## Scheduled terminal-window reporting — Jim's approval, 29 October 2026
+## Scheduled terminal-window reporting (CC-238, 5 Nov 2026)
 
-Each of the seven existing App task chats sends one result notice to L2 ContentOps
-`01a1657e-f5d0-76a1-b52b-ec6c78b6fe35`, host `local`, after saving a genuinely terminal
-whole-window result through the existing window/result outbox. Use the existing native
-send_message_to_thread tool, one fenced attempt and actual success/failure recording.
-Aggregate eligible candidates/slots first; a candidate HOLD alone is not window completion.
-Guarded NOT_YET_EFFECTIVE, stale/duplicate, partial, unfinished-child, unchanged-progress
-and quota-interrupted callbacks send no completion notice.
-A window that cannot reach its terminal result in its turn sends one BLOCKED notice instead, with the stage, the pending request and the first cause.
-No retry/acknowledgement loop,
-new ledger, notification service, scheduler or watcher is authorized. Report the exact
-identities, outcome, distinct canonicals/channel states, first cause, artifact and next
-action, with Jim-facing times in GMT+7. This reporting-only exception permits necessary
-prompt wording changes while preserving issued bindings, policies, budgets, calendars,
-models, rights, publication semantics and the 30 October brief date guard.
-These scheduled task chats are separate operations; native subagents never message an
-ancestor. Engineering Builders retain their one WHOLE-GOAL completion notice. L2 may
-review material results and fix routine failures; Claude remains Jim-triggered. No L1
-approval round or decision request is needed; the next Tower handoff records application.
+A window runs the newsroom CLI and follows this file. It saves its terminal whole-window result through the existing
+window/result outbox and messages no other chat or thread: the L2 ContentOps thread is retired, and the result
+store is what Ops and Jim read. A window that cannot reach its terminal result in its turn saves one BLOCKED result
+with the stage, the pending request and the first cause. Aggregate eligible candidates and slots first; a candidate
+HOLD alone is not window completion. Guarded NOT_YET_EFFECTIVE, stale or duplicate, partial, unfinished-child,
+unchanged-progress and quota-interrupted callbacks save no completion result. No retry loop, ledger, notifier,
+scheduler or watcher is added. Report the exact identities, outcome, distinct canonicals and channel states,
+first cause, artifact and next action, with Jim-facing times in GMT+7. Issued bindings, policies, budgets,
+calendars, models, rights, publication semantics and the 30 October brief date guard stay.
 
 ## CO-4 private-use permission and scoped runtime application — 29 October 2026
 
@@ -72,8 +66,8 @@ The [next-production-day volume amendment](docs/automation/CONTENTOPS_V1_NEXT_PR
 
 ## Native role results and terminal outcomes — 29 October 2026
 
-Jim's personal instructions V3 and Claude L1 A1 supersede the rejected ancestor-callback route. Follow [the native result rule](docs/automation/CONTENTOPS_BUILDER_SUBAGENT_COMPLETION_HANDOFF_RULE_V1.md). Luna, Light and MAX are roles inside the same operation: collect their supported native final return or saved artifact and continue the active pipeline. Never instruct a child to message its ancestor, pause merely for an own native role, or build a relay, watcher or schedule around platform limits. Preserve true paused/quota state and report any exact unsupported-return gap.
-Terminal pre-writer HOLD, SOURCE_BLOCKED, REJECT and NO_STORY require zero media and retain their first source/editorial/rights/staleness/process cause. Instagram media readiness belongs to its destination; it cannot block an editorial refusal or an otherwise compatible channel. Articles proceeding to publication retain Jim's lawful-photo policy, same-MAX final rendered review and sole canonical-first publisher. Conditional J8/J10 are not active blanket exceptions. One genuine whole-goal L3-to-L2 completion notice remains authorized under V3.
+The native result rule replaces the rejected ancestor-callback route. Follow [the native result rule](docs/automation/CONTENTOPS_BUILDER_SUBAGENT_COMPLETION_HANDOFF_RULE_V1.md). Luna, Light and MAX are roles inside the same operation: collect their supported native final return or saved artifact and continue the active pipeline. Never instruct a child to message its ancestor, pause merely for an own native role, or build a relay, watcher or schedule around platform limits. Preserve true paused/quota state and report any exact unsupported-return gap.
+Terminal pre-writer HOLD, SOURCE_BLOCKED, REJECT and NO_STORY require zero media and retain their first source/editorial/rights/staleness/process cause. Instagram media readiness belongs to its destination; it cannot block an editorial refusal or an otherwise compatible channel. Articles proceeding to publication carry a lawful photo when one exists (a missing photo never holds a piece: decisions 41 and 61), the same-MAX final rendered review and the sole canonical-first publisher. Conditional J8/J10 are not active blanket exceptions.
 
 ## Reader attribution and public time — 28 October 2026
 
@@ -96,7 +90,7 @@ publication owner, schedule, store, model/API spending or V2/V3 authority is cre
 ## Permanent final-media review and direct repair — 27 October 2026
 
 Jim's actual messages01a17b8c-11a4-78b0-8686-d3ca0b1bcb6a,01a17b92-5b16-7a02-92d2-39c33c9df307 and01a17b94-5870-7402-9f46-c736f10052fe were verified via read_thread in assigned L2. The [permanent final-product rule](docs/automation/CONTENTOPS_V1_FINAL_MEDIA_REVIEW_AND_REPAIR_RULE_V1.md) is mandatory for every V1 article and material revision.
-After final assembly the SAME actual designated strongest native editor/writer, currently gpt-6.1-sol/max, inspects the exact rendered canonical/channel desktop/mobile pixels and source-bound visual meaning, then directly repairs concrete defects, re-renders affected outputs and checks the correction. Preserve valid article/intake/returns/assets; no discard/restart or arbitrary one-repair ceiling for recoverable defects. Missing external source/rights/access remains an exact resumable affected-article constraint.
+After final assembly the SAME actual designated strongest native editor/writer, currently gpt-6.1-sol/max, inspects the exact rendered canonical/channel desktop/mobile pixels and source-bound visual meaning, then directly repairs concrete defects, re-renders affected outputs and checks the correction. Preserve valid article/intake/returns/assets; no discard or restart; at most one repair round, then drop a still-failing asset and keep the passing ones (decision 53, CC-172). Missing external source/rights/access remains an exact resumable affected-article constraint.
 Existing native request/return and article-review owners bind actual model/effort/invocation, article/media/render revision and findings. The sole publisher rejects missing/stale/wrong-model acceptance or unresolved material issues before a fresh send; UNKNOWN_WRITE recovery remains readback-first. Planning/settings/tests do not prove inspection. Later approved stronger models may replace the active editorial assignment consistently; the review-and-repair obligation is permanent. V2/V3 remain paused.
 
 
@@ -371,7 +365,7 @@ Builders own only their admitted paths. V1 zero-write runtime and four windows f
 
 ## Editorial media and data release standard — 2026-10-24
 
-Jim's CONTENTOPS_V1_READER_FIRST_DATA_JOURNALISM_V1 correction supersedes the blanket one-chart rule. Substantial analysis requires2-5distinct useful charts chosen by the actual native Sol6.1 MAX editor for the argument, using adequate comparable primary data or lawful original-source charts. A genuine news/policy story may use zero charts only when that same editor records a substantive reason internally; never relabel analysis, pad near-identical panels or expose a gap banner. A relevant authentic lawful photograph and all source/rights/identity/date bindings remain required. Chart count, complexity and model scores certify no explanatory value. Old proofs remain dated history, not current owner acceptance.
+Jim's CONTENTOPS_V1_READER_FIRST_DATA_JOURNALISM_V1 correction supersedes the blanket one-chart rule. Analysis of a data release or policy decision carries charts built from official history (decision 41); other analysis uses the charts the actual native Sol6.1 MAX editor finds useful for the argument, or none, marked analysis_scope OTHER_ANALYSIS with a reason. Use adequate comparable primary data or lawful original-source charts. A genuine news/policy story may use zero charts only when that same editor records a substantive reason internally; never relabel analysis, pad near-identical panels or expose a gap banner. A relevant lawful photograph is used when one exists and never holds a piece; all source/rights/identity/date bindings remain required. Chart count, complexity and model scores certify no explanatory value. Old proofs remain dated history, not current owner acceptance.
 
 Use the existing native flow: story/evidence/data/visual plan -> bounded Neo/source discovery and exact lawful original -> deterministic admitted-data chart -> actual Sol6.1 MAX writing/SEO and bounded same-writer revision -> canonical and eight appropriate previews -> exact revision-bound review/preparation -> sole existing publisher/recovery. Luna MAX filters only genuine X input; Sol6.1 Light plans; Sol6.1 MAX owns prose. Photos have separate source/license/date/attribution/caption/alt and inspected-pixel bindings. Archive context is labelled and never counted as factual corroboration. Charts retain metric/series, unit/currency, period, actual/estimate/forecast, missingness, source and transformation identity. No fabricated history, interpolation, copied proprietary chart or proxy/numeric-authority drift.
 

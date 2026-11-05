@@ -303,6 +303,10 @@ def test_substack_action_keeps_jims_code_tab_and_upload_rules_and_bounds_dispatc
     assert "task's tab group" in routine["before_publish"]
     assert "Never read a mailbox" in routine["before_publish"]
     assert "PENDING_JIM_EMAIL_CODE" in routine["email_code_dialog"]
+    # CC-242 (decision 74): Gmail opens only on the "Check your email" dialog, never read or snapshotted.
+    assert "Do not open Gmail unless Substack shows" in routine["before_publish"]
+    assert "Only now open Gmail" in routine["email_code_dialog"]
+    assert "never tabs action=new" in routine["email_code_dialog"]
     assert "share-center" in routine["continue_only_after"]
     response = observed(pending)
     claim = executor._get(request_hash, "started")
@@ -385,3 +389,13 @@ def test_short_analysis_prepares_source_bound_media_then_replays_exact_writer_wi
     with pytest.raises(DesktopInputRequired) as resumed:
         turn(**args)
     assert resumed.value.request["request_sha256"] == request["request_sha256"]
+
+
+def test_agents_md_opens_gmail_only_on_the_check_your_email_dialog():
+    import re
+    from pathlib import Path
+    text = re.sub(r"\s+", " ", (Path(__file__).resolve().parents[1] / "AGENTS.md").read_text(encoding="utf-8"))
+    assert "with the draft only" in text
+    assert "untouched Gmail inbox" not in text
+    assert "Open Gmail only when Substack shows \"Check your email\"" in text
+    assert "Agents never read Gmail: no snapshot, read, grep, evaluate or screenshot" in text
