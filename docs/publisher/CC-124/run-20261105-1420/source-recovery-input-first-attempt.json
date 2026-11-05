@@ -1,0 +1,61 @@
+{
+  "within_bound_live_budget": true,
+  "expected_selection_request_sha256": "2ad36bb360fc630998a241ee864566d2b3903a472f40188d1ce857f94104f7a1",
+  "expected_source_request_sha256": "6941438a0b1e7055c240d990f6acab24cfda8841ae25856b435213df0833c450",
+  "expected_evidence_sha256": "a29076929c779e4cc24a6de0e9224e928b0a604bd650a7ea2753cabd6560b886",
+  "candidate_id": "simple-story-f9ddb46e45cef053628802d0",
+  "research_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-editions-eia",
+  "supporting_headline_ids": [
+    "cc124-eia-summary-20261104",
+    "cc124-eia-wcestus1-20261104",
+    "cc124-eia-wgtstus1-20261104"
+  ],
+  "additional_source_requests": [
+    {
+      "reason": "Exact dated official weekly petroleum balance and component changes; original primary retrieval had zero accepted documents.",
+      "url": "https://ir.eia.gov/wpsr/summary.txt",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T08:17:40.797505+00:00",
+      "observation_clock_basis": "LOCAL_CAPTURE_VERIFIED_AFTER_NEO_ACQUISITION_DOWNLOAD_TIME_NOT_EXPOSED",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-captures\\eia-summary-visible.txt",
+      "capture_sha256": "3c3c8c22eea864778f5c23dddbdff78d982347b360f3fddbf712077475c65f25"
+    },
+    {
+      "reason": "Comparable official weekly US commercial crude inventories for at least 24 months, units and latest period.",
+      "url": "https://www.eia.gov/dnav/pet/hist_xls/WCESTUS1w.xls",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T08:17:40.797505+00:00",
+      "observation_clock_basis": "LOCAL_CAPTURE_VERIFIED_AFTER_NEO_ACQUISITION_DOWNLOAD_TIME_NOT_EXPOSED",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-editions-eia\\WCESTUS1-facts.json",
+      "capture_sha256": "1ee8dae3894cad3651e0bdc5670f7573c70e1e98ab40c23911cbbfd8b6080955"
+    },
+    {
+      "reason": "Comparable official weekly US gasoline inventories for at least 24 months, units and latest period.",
+      "url": "https://www.eia.gov/dnav/pet/hist_xls/WGTSTUS1w.xls",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T08:17:40.797505+00:00",
+      "observation_clock_basis": "LOCAL_CAPTURE_VERIFIED_AFTER_NEO_ACQUISITION_DOWNLOAD_TIME_NOT_EXPOSED",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-editions-eia\\WGTSTUS1-facts.json",
+      "capture_sha256": "6d6d2dc962724f30a3b7a606637836e15d488cc99dd19f2e24b6c74a09980d2f"
+    },
+    {
+      "url": "https://www.eia.gov/petroleum/supply/weekly/",
+      "reason": "Official release and reference-week date needed to bind the undated summary and workbook dates.",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T08:17:40.797505+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-captures\\eia-release-visible.txt",
+      "capture_sha256": "4cafcaa32ae03e2a37d2dc24e977404442f08d8773fb1d0bdb184e14452a7bec",
+      "observation_clock_basis": "LOCAL_CAPTURE_VERIFIED_AFTER_NEO_ACQUISITION_DOWNLOAD_TIME_NOT_EXPOSED"
+    },
+    {
+      "url": "https://ir.eia.gov/secure/wpsr/summary.txt",
+      "reason": "Actual observed EIA redirect to the secure summary resource; public access query omitted from canonical URL.",
+      "non_chargeable": true,
+      "observed_at_utc": "2026-11-05T08:17:40.797505+00:00",
+      "capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-captures\\eia-summary-visible.txt",
+      "capture_sha256": "3c3c8c22eea864778f5c23dddbdff78d982347b360f3fddbf712077475c65f25",
+      "observation_clock_basis": "LOCAL_CAPTURE_VERIFIED_AFTER_NEO_ACQUISITION_DOWNLOAD_TIME_NOT_EXPOSED"
+    }
+  ],
+  "owner_instruction": "Use the exact Nov 4 official EIA release for week ending Oct 30 and source/cell-bound 106-week official histories. Keep all prior requests/failures and clocks. Neo visible-text exports and downloaded XLS are not raw HTTP body observations."
+}
