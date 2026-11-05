@@ -86,3 +86,13 @@ The worker is hash-pinned, so the binding moves with it:
   - the reader diff keeps the photo rights checks;
   - it admits a data card only under the hosting step's `attributed_facts_independent_chart` condition.
 - **Rollback:** check out 7f605a49 in the consumer root and restore 1193e2a3.
+
+## Consumer moved for CC-237 (5 Nov)
+
+The consumer root `Worktrees/codex-web-cc254-clean` moved from 142907e6 (CC-295) to Main 09bd09e840 (`backlog/cc-237-preview-current-outlets`, two commits on top of CC-295) in two steps, at 05:34:18Z and then at 05:37:50Z.
+
+- The reader now applies ContentOps' outlet updates (`published_content_outlets_v1.jsonl`), so each page shows its current outlets.
+- A chart the site cannot carry is now left out of the page, while its article stays. Ops Product's decision cites host rule 7: the site carries official public-domain or our own computed series only. The build names each chart it leaves out in `newsroom.omitted_media`.
+- The worker file is unchanged, so `consumer_module_sha256` stays f73feffd and `config/public_preview_mirror_v1.json` is untouched.
+- The six preflight checks pass, and a read-only reader run on the live feed admits all 8 pieces, the midterm without its PollCheck card.
+- **Rollback:** check out 142907e6 in the consumer root.
