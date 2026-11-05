@@ -56,6 +56,38 @@ def test_thread_sentence_packing_keeps_initialism_bound_to_publisher():
     assert "Readers should keep those bases visible." in chunks
 
 
+def test_bound_chart_credit_reflows_into_live_native_thread_without_losing_copy(monkeypatch):
+    url = "https://capitalchronicle.substack.com/p/exact"
+    root = "Jobs and stocks\n\nThe jobs report can ease rate pressure while weakening the earnings outlook.\n\n" + url
+    source = "Source: U.S. Bureau of Labor Statistics. September preliminary estimates; seasonally adjusted."
+    payloads = {d: {"text": "The payroll composition needs a closer look.", "platform_limit": 1000}
+                for d in EXPECTED_DESTINATIONS}
+    for destination, limit in (("x", 280), ("threads", 500)):
+        payloads[destination] = {"text": root, "root_text": root, "full_text": root,
+            "reply_texts": [], "posts": [{"text": root, "order": 0, "role": "root",
+                                          "media_asset_ids": ["chart"]}], "platform_limit": limit}
+    monkeypatch.setattr(pipeline, "_build_native_derivative_payloads", lambda **kwargs: payloads)
+    choices = {d: ["chart"] for d in EXPECTED_DESTINATIONS}
+    article = {**_article(), "reader_first_version": "DATA_JOURNALISM_V1",
+        "native_destination_media": choices, "native_destination_credits": {d: source for d in choices}}
+    result = build_native_derivative_payloads(article=article, selection={},
+        canonical_url=url, media_asset_ids=["chart"])
+    for destination in ("x", "threads"):
+        payload = result[destination]
+        assert all(len(post["text"]) <= payload["platform_limit"] for post in payload["posts"])
+        assert source in payload["full_text"]
+        assert url in payload["root_text"]
+        assert source in payload["root_text"]
+        assert "The jobs report can ease rate pressure while weakening the earnings outlook." in payload["full_text"]
+        assert "Analysis, not financial advice." in payload["full_text"]
+        assert "Capital Chronicle may hold positions in the markets it covers." in payload["full_text"]
+        assert payload["posts"][0]["media_asset_ids"] == ["chart"]
+        assert all(not post["media_asset_ids"] for post in payload["posts"][1:])
+        assert payload["text"] == payload["root_text"] == payload["posts"][0]["text"]
+        assert payload["reply_texts"] == [p["text"] for p in payload["posts"][1:]]
+        assert payload["quality_metrics"]["reply_count"] == len(payload["posts"]) - 1
+
+
 def _selection() -> dict:
     return {
         "dek": "FRED's latest effective federal funds reading keeps the policy-transmission question in focus.",

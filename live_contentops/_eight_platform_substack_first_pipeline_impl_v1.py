@@ -638,6 +638,30 @@ def build_native_derivative_payloads(
             payload.get("platform_limit")
             or (280 if destination == "x" else 500 if destination == "threads" else 0)
         )
+        if destination in {"x", "threads"} and posts and any(len(str(p.get("text") or "")) > limit for p in posts):
+            # Credits join after the semantic copy was packed. Repack complete
+            # units rather than rejecting a valid article or dropping attribution.
+            expanded = []
+            for index, post in enumerate(posts):
+                text = str(post.get("text") or "")
+                chunks = _split_complete_chunks([text], limit=limit)
+                if index == 0 and canonical_url in text:
+                    paragraphs = text.split("\n\n")
+                    locked = [paragraphs[0], *[p for p in paragraphs[1:] if canonical_url in p]]
+                    if credit:
+                        locked.append(credit)
+                    root = "\n\n".join(locked)
+                    if len(root) <= limit:
+                        chunks = [root, *_split_complete_chunks([p for p in paragraphs if p not in locked], limit=limit)]
+                for chunk in chunks:
+                    expanded.append({**post, "text": chunk, "order": len(expanded),
+                        "role": "root" if not expanded else "reply",
+                        "media_asset_ids": chosen if not expanded else []})
+            posts = payload["posts"] = expanded
+            payload.update(root_text=posts[0]["text"], full_text="\n\n".join(p["text"] for p in posts),
+                reply_texts=[p["text"] for p in posts[1:]], overflow_strategy="ordered_reply_chain")
+            if "text" in payload:
+                payload["text"] = posts[0]["text"]
         texts = (
             [str(p.get("text") or "") for p in posts]
             if posts

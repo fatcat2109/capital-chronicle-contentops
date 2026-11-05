@@ -1,0 +1,131 @@
+{
+  "request_sha256": "d897bc7ae5664d1bf5b645e8a29de389b5917396ce5721cb014fcea375e3d66f",
+  "article_title": "Jobs watch: weaker hiring can cut both ways for US stocks",
+  "fact_validation": "PASS",
+  "native_compiler": "PASS",
+  "packages": {
+    "telegram": {
+      "post_lengths": [],
+      "platform_limit": 1024,
+      "root_contains_canonical": false,
+      "media_asset_ids": [
+        "cc124-jobs-payroll-employer-groups"
+      ],
+      "quality_metrics": null
+    },
+    "x": {
+      "post_lengths": [
+        149,
+        138,
+        228
+      ],
+      "platform_limit": 280,
+      "root_contains_canonical": true,
+      "media_asset_ids": [
+        "cc124-jobs-payroll-employer-groups"
+      ],
+      "quality_metrics": {
+        "reply_count": 2,
+        "content_reply_count": 2,
+        "notice_reply_count": 0,
+        "post_character_counts": [
+          149,
+          138,
+          228
+        ],
+        "per_post_character_utilization": [
+          0.532,
+          0.493,
+          0.814
+        ],
+        "shortest_longest_reply_ratio": 0.605,
+        "sentence_boundary_pass": true,
+        "orphan_fragment_count": 0,
+        "visual_distribution_pass": true,
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false
+      }
+    },
+    "linkedin": {
+      "post_lengths": [],
+      "platform_limit": 3000,
+      "root_contains_canonical": false,
+      "media_asset_ids": [
+        "cc124-jobs-payroll-employer-groups",
+        "cc124-jobs-treasury-10y-backdrop"
+      ],
+      "quality_metrics": null
+    },
+    "discord": {
+      "post_lengths": [],
+      "platform_limit": 2000,
+      "root_contains_canonical": false,
+      "media_asset_ids": [
+        "cc124-jobs-payroll-employer-groups",
+        "cc124-jobs-treasury-10y-backdrop"
+      ],
+      "quality_metrics": null
+    },
+    "facebook_page": {
+      "post_lengths": [],
+      "platform_limit": 63206,
+      "root_contains_canonical": false,
+      "media_asset_ids": [
+        "cc124-jobs-treasury-10y-backdrop"
+      ],
+      "quality_metrics": null
+    },
+    "instagram_business": {
+      "post_lengths": [],
+      "platform_limit": 2200,
+      "root_contains_canonical": false,
+      "media_asset_ids": [
+        "cc124-jobs-payroll-employer-groups",
+        "cc124-jobs-treasury-10y-backdrop"
+      ],
+      "quality_metrics": null
+    },
+    "threads": {
+      "post_lengths": [
+        342,
+        236
+      ],
+      "platform_limit": 500,
+      "root_contains_canonical": true,
+      "media_asset_ids": [
+        "cc124-jobs-payroll-employer-groups"
+      ],
+      "quality_metrics": {
+        "reply_count": 1,
+        "content_reply_count": 1,
+        "notice_reply_count": 0,
+        "post_character_counts": [
+          342,
+          236
+        ],
+        "per_post_character_utilization": [
+          0.684,
+          0.472
+        ],
+        "shortest_longest_reply_ratio": 0.69,
+        "sentence_boundary_pass": true,
+        "orphan_fragment_count": 0,
+        "visual_distribution_pass": true,
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false
+      }
+    },
+    "youtube": {
+      "post_lengths": [],
+      "platform_limit": 1000,
+      "root_contains_canonical": false,
+      "media_asset_ids": [
+        "cc124-jobs-payroll-employer-groups"
+      ],
+      "quality_metrics": null
+    }
+  },
+  "public_write_performed": false
+}
