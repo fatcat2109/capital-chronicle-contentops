@@ -1,0 +1,197 @@
+{
+  "schema_version": "contentops.native_transport_card_review.v1",
+  "run_id": "cc124-next-article-20261105-c",
+  "article_identity": "25b089a0de736bdda1f9e3b7c69b758480ec29d63b228ba2bbdf24d482672c35",
+  "decision": "ACCEPTED",
+  "review_kind": "Same-editor verification of the transport-bound fallback after the one repaired optional asset was excluded; no new repair loop.",
+  "request_sha256": "08de587a6a2aae6229025d90401bd30a9c371e03e9e2f271f1c419397c3111ce",
+  "tool_request_sha256": "37f9ca3b1a76f29f4340de7060b4d2f16adf59a170ab2678b5aad705a6657514",
+  "pending_request_summary": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261105-1051\\pending-substack-request-summary.json",
+    "sha256": "b90ef067c299ed63ce306477148c4ac2191c699d56cbea1fd4160d5088875e0c",
+    "request_action_claimed_as_recorded": false
+  },
+  "transport_context": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-c\\reviewed-handoff\\8f2c533f159a2193eafb0dcc7130feb757f0b6c84da929d72ec963f5830a12a9\\run_context_v1.json",
+    "sha256": "bfac2f9f6a724e13e6b3c243696f0a9434f72915b6a8f8712bbf623ef673f3ef",
+    "article_content_sha256": "4d29f19aa3fd7ec70a9f1e6cff4ef7e958644f71e179865e599d3058ebce5f3b",
+    "compiler_input_sha256": "829946dd69f7e2ebeb7407d167edffd1d5a2deeb13b53a1475fdbfb32ff6c5a1"
+  },
+  "native_packages": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-c\\reviewed-handoff\\8f2c533f159a2193eafb0dcc7130feb757f0b6c84da929d72ec963f5830a12a9\\native_derivative_previews_v1.json",
+    "sha256": "9dab6a5ac529f037c1d591bbff5644d1874f3d9d58e794306236b5fd43055580",
+    "package_count": 8
+  },
+  "accepted_asset": {
+    "asset_id": "post-card-8ac0853ae02434e19801",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-c\\media\\post-images\\post-card-8ac0853ae02434e19801.png",
+    "sha256": "1e4dbe6e91df326a5e2616227417a0c716d2f5f73077db505459003eaa6ae7b6",
+    "dimensions": [
+      1600,
+      900
+    ],
+    "placement_after": "introduction",
+    "inspection_method": "tools.view_image of the actual binary PNG at original detail",
+    "visual_type": "Own attributed headline-and-summary card; not a numerical chart or historical series."
+  },
+  "findings": [
+    "The inspected 1600x900 fallback is legible and has no clipped or colliding text. The full source-attributed IBM title and approved summary appear with Reuters and the clearly labelled source date October 21, 2026.",
+    "The narrative states Reuters reported a higher lower bound in annual software revenue growth expectations and retains the deferred-deal versus repeatable-demand question. It does not supply numerical guidance, a quarterly/annual comparison chart, a market reaction, or a confirmed-event claim.",
+    "The exact title and summary are already approved copy. The transport body differs from the approved canonical body only by removal of internal source markers and whitespace. Annual expectations, quarterly reported actuals, Kavanaugh attribution and the transaction-processing denominator remain unchanged.",
+    "One concise own card is sufficient for this article. Placement after the introduction serves its guidance-versus-deal-timing argument without implying unsupported history, separate corroboration, a revenue sum or a new fact.",
+    "The reviewed handoff and all eight actual derivative payloads select only the fallback card. All eight copies match their previously accepted text and retain the analysis, reader-decision and conflicts notices. X and Threads preserve root/reply order, complete notice text and platform limits.",
+    "The optional numerical card is excluded by the existing owner with DATA_CARD_FACT_OR_NUMBER_NOT_IN_POST_AND_SOURCE; its bytes and prior editorial acceptance remain. This review neither relaxes that validation nor relabels its source-bound numbers as fabricated."
+  ],
+  "native_package_checks": [
+    {
+      "destination": "discord",
+      "selected_media_asset_ids": [
+        "post-card-8ac0853ae02434e19801"
+      ],
+      "copy_unchanged_from_accepted_revision": true,
+      "all_notices_preserved": true,
+      "report_date_attribution_uncertainty_and_denominator_preserved": true,
+      "message_character_counts": [
+        585
+      ],
+      "platform_limit": 2000,
+      "ordered_fields_and_limits_pass": true
+    },
+    {
+      "destination": "facebook_page",
+      "selected_media_asset_ids": [
+        "post-card-8ac0853ae02434e19801"
+      ],
+      "copy_unchanged_from_accepted_revision": true,
+      "all_notices_preserved": true,
+      "report_date_attribution_uncertainty_and_denominator_preserved": true,
+      "message_character_counts": [
+        641
+      ],
+      "platform_limit": 63206,
+      "ordered_fields_and_limits_pass": true
+    },
+    {
+      "destination": "instagram_business",
+      "selected_media_asset_ids": [
+        "post-card-8ac0853ae02434e19801"
+      ],
+      "copy_unchanged_from_accepted_revision": true,
+      "all_notices_preserved": true,
+      "report_date_attribution_uncertainty_and_denominator_preserved": true,
+      "message_character_counts": [
+        575
+      ],
+      "platform_limit": 2200,
+      "ordered_fields_and_limits_pass": true
+    },
+    {
+      "destination": "linkedin",
+      "selected_media_asset_ids": [
+        "post-card-8ac0853ae02434e19801"
+      ],
+      "copy_unchanged_from_accepted_revision": true,
+      "all_notices_preserved": true,
+      "report_date_attribution_uncertainty_and_denominator_preserved": true,
+      "message_character_counts": [
+        657
+      ],
+      "platform_limit": 3000,
+      "ordered_fields_and_limits_pass": true
+    },
+    {
+      "destination": "telegram",
+      "selected_media_asset_ids": [
+        "post-card-8ac0853ae02434e19801"
+      ],
+      "copy_unchanged_from_accepted_revision": true,
+      "all_notices_preserved": true,
+      "report_date_attribution_uncertainty_and_denominator_preserved": true,
+      "message_character_counts": [
+        572
+      ],
+      "platform_limit": 1024,
+      "ordered_fields_and_limits_pass": true
+    },
+    {
+      "destination": "threads",
+      "selected_media_asset_ids": [
+        "post-card-8ac0853ae02434e19801"
+      ],
+      "copy_unchanged_from_accepted_revision": true,
+      "all_notices_preserved": true,
+      "report_date_attribution_uncertainty_and_denominator_preserved": true,
+      "message_character_counts": [
+        305,
+        245
+      ],
+      "platform_limit": 500,
+      "ordered_fields_and_limits_pass": true
+    },
+    {
+      "destination": "x",
+      "selected_media_asset_ids": [
+        "post-card-8ac0853ae02434e19801"
+      ],
+      "copy_unchanged_from_accepted_revision": true,
+      "all_notices_preserved": true,
+      "report_date_attribution_uncertainty_and_denominator_preserved": true,
+      "message_character_counts": [
+        199,
+        272,
+        62
+      ],
+      "platform_limit": 280,
+      "ordered_fields_and_limits_pass": true
+    },
+    {
+      "destination": "youtube",
+      "selected_media_asset_ids": [
+        "post-card-8ac0853ae02434e19801"
+      ],
+      "copy_unchanged_from_accepted_revision": true,
+      "all_notices_preserved": true,
+      "report_date_attribution_uncertainty_and_denominator_preserved": true,
+      "message_character_counts": [
+        573
+      ],
+      "platform_limit": 1000,
+      "ordered_fields_and_limits_pass": true
+    }
+  ],
+  "remaining_material_defects": [],
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_write_ca5eb0d030b7",
+    "speed": "standard",
+    "model": null,
+    "reasoning_effort": null,
+    "observation_source": "Native subagent assignment and supported tool return in the current task; runtime model and effort telemetry is not exposed.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Supported native collaboration spawn assigned the existing operation writer/editor role and requested gpt-6.1-sol/max; actual runtime configuration is unavailable in this child turn."
+  },
+  "publication_clock": {
+    "first_text_approved_at_utc": "2026-11-05T05:18:23.880986Z",
+    "approval_clock_preserved": true,
+    "approval_clock_reset": false,
+    "dispatch_target_deadline_utc": "2026-11-05T05:33:23.880986Z",
+    "dispatch_deadline_missed": true,
+    "inspected_at_utc": "2026-11-05T05:49:39.491878Z",
+    "new_text_approval_issued": false
+  },
+  "exact_limits": [
+    "Acceptance covers the exact bound fallback hash and exact request/content hashes recorded above, for this article and its eight stored copies.",
+    "No desktop/mobile/channel screenshot, live layout review, new asset, source, external action, agent, schedule or chat message was used. Destination-specific cropping, uploads and readbacks are unobserved.",
+    "This verification does not reset the first text approval. The 15-minute dispatch target is already missed; no later media check or inspection time replaces that clock.",
+    "The pending canonical placeholder in the derivative previews remains non-dispatchable until the existing sole coordinator binds the real read-back canonical URL. This is acceptance of the card and copy, not proof of publication.",
+    "No pending request was changed or claimed, no store KEEP was written, and no public write was attempted. The parent retains the existing publication and post-approval automated image-check path.",
+    "Actual model/effort remain unobserved. The same native invocation records configured gpt-6.1-sol/max as CONFIGURED_NOT_OBSERVED."
+  ],
+  "public_write_attempted": false,
+  "store_keep_written": false,
+  "pending_request_altered": false
+}
