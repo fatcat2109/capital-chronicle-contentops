@@ -1,5 +1,6 @@
 """A verified official record supplies its existing rights to the chart consumer."""
 from hashlib import sha256
+import pytest
 
 from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
 from live_contentops.rolling_x_grounded_article_media_builder_v1 import build_editorial_data_chart, validate_editorial_data_chart
@@ -7,10 +8,14 @@ from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
 from tests.test_contentops_source_research_v1 import ROOT, NOW
 
 
-def test_official_held_fact_reaches_chart_with_exact_capture_and_policy(tmp_path):
+@pytest.mark.parametrize("cached_receipt", [False, True])
+def test_official_held_fact_reaches_chart_with_exact_capture_and_policy(tmp_path, cached_receipt):
     research = RetainedSourceResearch(ROOT)
     record = research.records["goal20-bls-cpi-september"]
     admitted = research.evidence({"headline_ids": [record["headline_id"]]}, cutoff_utc=NOW)
+    if cached_receipt:
+        for document in admitted["official_source_documents"]:
+            document.pop("source_reuse_constraints", None)
     docs = _source_pack(admitted["official_source_documents"])
     doc = docs[0]
     rights = doc["source_reuse_constraints"]

@@ -1174,6 +1174,17 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
             retained_main = True
         if not (url.startswith("https://") or retained_main) or len(text.strip()) < 40:
             continue
+        constraints = document.get("source_reuse_constraints") or {}
+        if (not constraints and document.get("underlying_reuse_classification") == "governed_government_public_domain"
+                and document.get("public_claim_allowed") is True
+                and all(re.fullmatch(r"[a-f0-9]{64}", str(document.get(k) or ""))
+                        for k in ("rights_evidence_sha256", "source_capture_sha256"))):
+            # Older accepted source receipts carry these exact verified bindings
+            # separately. Forward them to charts without another acquisition.
+            constraints = {"attribution_required": True,
+                "policy_capture_sha256": document["rights_evidence_sha256"],
+                "source_capture_sha256": document["source_capture_sha256"],
+                "scope": "VERIFIED_GOVERNMENT_PUBLIC_DOMAIN_SOURCE_ADMISSION"}
         source_id = f"SOURCE_{len(pack) + 1}"
         pack.append(
             {
@@ -1209,8 +1220,7 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                     document.get("canonical_content_sha256") or _text_hash(text)
                 ),
                 "canonical_content_text": text[:48_000] if (document.get("source_reuse_constraints") or {}).get("scope") == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" else text[:MAX_SOURCE_TEXT_CHARS],
-                **({"source_reuse_constraints": dict(document["source_reuse_constraints"])}
-                   if document.get("source_reuse_constraints") else {}),
+                **({"source_reuse_constraints": dict(constraints)} if constraints else {}),
                 **({k: document[k] for k in ("context_only", "known_at_utc", "retrieval_time_utc", "revision_at_utc")
                     if k in document} if document.get("context_only") else {}),
                 **({k: document[k] for k in ("underlying_reuse_classification", "rights_evidence_sha256")}
