@@ -54,7 +54,7 @@ def _utc_instant(value):
 def quota_stop_observations(store, *, production_date):
     """Read actual scoped observations from the same existing outbox."""
     events = []
-    for row in store.list_outbox_messages():
+    for row in store.list_outbox_messages(destination="internal:native-quota-stop"):
         if row["destination"] != "internal:native-quota-stop":
             continue
         event = json.loads(row["payload"])

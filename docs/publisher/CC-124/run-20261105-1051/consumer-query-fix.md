@@ -1,0 +1,5 @@
+The live acceptance helper stayed in window_progress while repeatedly reading the entire retained outbox. Two stack samples of our exact PID45080 showed ContentOpsDurableStore.list_outbox_messages inside window_progress and persist_native_day_measurement. Its command, parent42556 and creation2026-11-05T06:48:49.474339Z were verified before stopping only that read-only acceptance helper. Publication processes and user applications were untouched.
+
+Window publication projections now read the run and its opportunity records. The daily measurement computes each shared window once instead of once per bound article, preserving the last binding's brief flag. Quota observations read their existing destination directly. The same day artifact, count rules, source budgets and CC-122 consumer remain in use.
+
+Three targeted day-measurement cases passed in 3.66 seconds. The regression proves that three bindings share one window calculation, retain their source usage, and do not reload unrelated payloads for each window projection or quota check. The restarted acceptance helper must prove the actual IBM article enters the existing daily record and digest reader.

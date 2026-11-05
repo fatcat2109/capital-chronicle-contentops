@@ -161,7 +161,10 @@ def window_progress(store, issued):
                 attempted.add(selected["candidate_id"])
         # Use the existing strict canonical contract, never a derivative count.
         from live_contentops.native_desktop_publication_v1 import publication_projection
-        projection = publication_projection(store.list_outbox_messages(), store.list_platform_dispatches(),
+        scoped_rows = store.list_outbox_messages(work_item_id=run)
+        scoped_rows += store.list_outbox_messages(work_item_id=work)
+        scoped_rows.sort(key=lambda row: (row["created_at"], row["message_id"]))
+        projection = publication_projection(scoped_rows, store.list_platform_dispatches(),
             store.get_reconciliations_for_work_item(run), run_id=run)
         from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
         for canonical in projection.get("destinations", []):
@@ -274,11 +277,13 @@ def persist_native_day_measurement(store, binding):
             # five windows stopped at entry) is counted with that cause, not {}.
             first_causes.setdefault((window, run), "WINDOW_ENDED_WITHOUT_EDITORIAL_RESULT")
         entry = checkpoint.get("actual_entry_utc") or (current.get("cutoff_utc") if current.get("standing_operation") else None)
-        progress = window_progress(store, [(b, None) for b in bindings if b.get("window_id", "standing") == window])
-        windows[window] = {"source_request_count": progress["source_request_count"],
-            "admitted_count": len(progress["admitted_candidate_ids"]),
-            "distinct_canonical_published": progress["published_article_count"],
-            "brief_only": (current.get("volume_policy") or {}).get("brief_only", False)}
+        if window not in windows:
+            progress = window_progress(store, [(b, None) for b in bindings if b.get("window_id", "standing") == window])
+            windows[window] = {"source_request_count": progress["source_request_count"],
+                "admitted_count": len(progress["admitted_candidate_ids"]),
+                "distinct_canonical_published": progress["published_article_count"],
+                "brief_only": (current.get("volume_policy") or {}).get("brief_only", False)}
+        windows[window]["brief_only"] = (current.get("volume_policy") or {}).get("brief_only", False)
         projection = publication_projection(rows, dispatches, store.get_reconciliations_for_work_item(run), run_id=run)
         for destination in projection.get("destinations", []):
             channel = destination["destination"]
