@@ -481,9 +481,11 @@ class RetainedSourceResearch:
             "www.eia.gov": ("/dnav/pet/hist/LeafHandler.ashx", "/dnav/pet/hist/RBRTED.htm", "/dnav/pet/hist/RWTCD.htm"),
             "www.newyorkfed.org": ("/markets/reference-rates/",),
         }
+        eia_stock_workbook = (url.hostname == "www.eia.gov" and not url.query and url.path in {
+            "/dnav/pet/hist_xls/WCESTUS1w.xls", "/dnav/pet/hist_xls/WGTSTUS1w.xls"})
         if (url.scheme != "https" or url.username or url.password or url.fragment
                 or url.port not in (None, 443) or url.hostname not in original_routes
-                or not any(url.path.startswith(p) for p in original_routes[url.hostname])):
+                or not (eia_stock_workbook or any(url.path.startswith(p) for p in original_routes[url.hostname]))):
             raise ValueError("ORIGINAL_FACTS_LOCATOR_INVALID")
         policy_url = "https://www.copyright.gov/help/faq/faq-protect.html"
         if spec["policy_url"] != policy_url or _hash(policy) != spec["policy_capture_sha256"]:

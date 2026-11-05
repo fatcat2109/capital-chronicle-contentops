@@ -552,9 +552,14 @@ def _admit_live_source_recovery(turn, binding, response):
     used = max(turn.source_request_count_at_start + spent + (0 if turn.manual_candidate else source_reviews), int(walk.get("request_count", 0)))
     requests = response.get("additional_source_requests", [])
     if pending:
+        # Preserve every issued request while allowing explicitly captured context
+        # (release dates, source history or rights) within the same live budget.
+        # The original request remains immutable; all appended reads are charged
+        # and pass the same capture, clock, rights and non-chargeable checks below.
+        issued_urls = [r["url"] for r in pending["source_requests"]]
         if (response.get("expected_source_request_sha256") != pending["request_sha256"]
                 or pending["candidate_id"] != candidate
-                or [r.get("url") for r in requests] != [r["url"] for r in pending["source_requests"]]):
+                or [r.get("url") for r in requests[:len(issued_urls)]] != issued_urls):
             raise ValueError("EXACT_PENDING_SOURCE_PREPARATION_REQUIRED")
     limit = policy["source_request_limit"]
     if (walk.get("request_limit") != limit or not isinstance(requests, list)

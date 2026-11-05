@@ -1,0 +1,24 @@
+{
+  "verified_at_utc": "2026-11-05T08:17:40.797505+00:00",
+  "gaps": [],
+  "records": {
+    "cc124-eia-summary-20261104": {
+      "source_capture_sha256": "3c3c8c22eea864778f5c23dddbdff78d982347b360f3fddbf712077475c65f25",
+      "url": "https://ir.eia.gov/secure/wpsr/summary.txt",
+      "permission_sha256": "7358d7c37f59f002199fea88d5854beee5c9f73a474a843f38bd76bb489cfb92"
+    },
+    "cc124-eia-wcestus1-20261104": {
+      "source_capture_sha256": "1ee8dae3894cad3651e0bdc5670f7573c70e1e98ab40c23911cbbfd8b6080955",
+      "url": "https://www.eia.gov/dnav/pet/hist_xls/WCESTUS1w.xls",
+      "permission_sha256": "c0434582154b547f8eb172673e6801807bdf511b8dd4c76b4df5214e0ee01af0"
+    },
+    "cc124-eia-wgtstus1-20261104": {
+      "source_capture_sha256": "6d6d2dc962724f30a3b7a606637836e15d488cc99dd19f2e24b6c74a09980d2f",
+      "url": "https://www.eia.gov/dnav/pet/hist_xls/WGTSTUS1w.xls",
+      "permission_sha256": "36051b0313fe855969f097fa8b8b9a218a102c510e62897be71e97b9a7b1d3e0"
+    }
+  },
+  "recovery_request_count": 5,
+  "prior_requests": 3,
+  "charged_total": 8
+}
