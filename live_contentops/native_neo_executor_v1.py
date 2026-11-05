@@ -263,13 +263,19 @@ class NativeNeoExecutor:
                             "BEFORE_PUBLISH_CLICK and no click."},
                 "4_publish": "Immediately BEFORE the publish click, set the observation's dispatched_at_utc and "
                              "result.stage = PUBLISH_CLICK_ATTEMPTED; then click once to publish the exact payload.",
-                "5_readback": "Read back the published object (id, url, text, media) in the same run.",
+                "5_readback": "Right after the click, in the same run, read back the published object (id, url, "
+                              "text, media) and return it as composed.readback. This readback confirms the "
+                              "destination: no separate readback turn follows, and the next destination's run "
+                              "starts after it.",
                 "return": {"result": "the publish result, as for any PUBLISH step, with its stage",
                     "composed": {"identity": ["authenticated", "observed_identity", "observed_stable_id", "observed_at_utc"],
                                  "pre_click_posts": "REQUIRED with any write: the composer texts read in "
                                                     "step 3, in order. A return without them is refused; "
                                                     "if they were not read, submit nothing",
-                                 "readback": "the READBACK result fields, observed after the publish"}},
+                                 "readback": "REQUIRED with any write: the READBACK result fields (status, "
+                                             "observed_identity, public_object_id, public_object_url, "
+                                             "observed_text, content_verified, media) observed in this run after "
+                                             "the click. A return without it is refused"}},
                 "after_click": "FAILED_BEFORE_WRITE is a definite no-write only for an account mismatch or stage "
                                "BEFORE_PUBLISH_CLICK. Any other failure, including a missing stage, is UNKNOWN_WRITE; "
                                "the coordinator reads back before any retry.",
@@ -402,9 +408,17 @@ class NativeNeoExecutor:
             "MATCHED" if _post_texts(posts) == _post_texts(expected_posts(request)) else "DIFFERED")
         if not dispatched:
             result["click_clock"] = "NOT_RETURNED"
-        result.setdefault("observed_identity", identity["observed_identity"])
+        # CC-199, 5 Nov IBM: no browser return carried its in-run readback (step 5), so each
+        # destination waited for a separate readback turn; the last landed 17 min after the last
+        # click. The run's own readback confirms the destination; it is used even when the click
+        # clock is missing (the post's id exists only after the click).
         readback = composed.get("readback")
-        return result, (dict(readback) if dispatched and isinstance(readback, Mapping) else None)
+        if not isinstance(readback, Mapping) or not (readback.get("public_object_id") or readback.get("status")):
+            raise ValueError("NATIVE_NEO_IN_RUN_READBACK_REQUIRED: return composed.readback, the READBACK "
+                             "fields observed in this run right after the click (a failed read with its status "
+                             "is accepted)")
+        result.setdefault("observed_identity", identity["observed_identity"])
+        return result, dict(readback)
 
     def _store_composed_readback(self, request, claim, published, readback, observation, response):
         """CC-283: keep the run's readback where the coordinator's 10-minute reuse

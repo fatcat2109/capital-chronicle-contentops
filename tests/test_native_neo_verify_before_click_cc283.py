@@ -81,7 +81,7 @@ def test_differing_texts_and_a_missing_click_clock_are_recorded(tmp_path, monkey
     executor.begin(request_hash)
     posts = expected_posts(packet["request"])
     executor.submit(request_hash, composed_response(packet, identity=MATCHED, result=PUBLISHED, dispatched=False,
-                                                    readback=False, pre_click_posts=[posts[0][:-5]] + posts[1:]))
+                                                    readback=True, pre_click_posts=[posts[0][:-5]] + posts[1:]))
     stored = executor._get(request_hash, "response")["result"]
     assert stored["pre_click_verification"] == "DIFFERED" and stored["click_clock"] == "NOT_RETURNED"
 
@@ -91,3 +91,32 @@ def test_whitespace_quotes_and_a_shortened_link_still_match():
     assert _post_texts(["It\u2019s here:\n\nhttps://capitalchronicle.substack.com/p/a"]) == \
         _post_texts(["It's  here: https://t.co/xyz"])
     assert _post_texts(["Readers decide."]) != _post_texts(["Readers decide whether to trade."])
+
+
+# CC-199, 5 Nov IBM: X, YouTube and LinkedIn company returned without their in-run readback, so each
+# waited for a separate readback turn; the last landed at 06:33:38Z, 17 min after the last click.
+def test_a_write_without_its_in_run_readback_is_refused_before_it_is_saved(tmp_path, monkeypatch):
+    store, executor, coordinator, ids, value = composed_setup(tmp_path, monkeypatch)
+    packet = pending_publish(coordinator, store, ids, value, executor)
+    request_hash = packet["request"]["request_sha256"]
+    run = executor.begin(request_hash)["composed_run"]
+    assert "no separate readback turn follows" in run["5_readback"]
+    assert run["return"]["composed"]["readback"].startswith("REQUIRED")
+    with pytest.raises(ValueError, match="NATIVE_NEO_IN_RUN_READBACK_REQUIRED"):
+        executor.submit(request_hash, composed_response(packet, identity=MATCHED, result=PUBLISHED, readback=False))
+    assert executor._get(request_hash, "response") is None
+
+
+def test_the_in_run_readback_confirms_the_destination_even_without_a_click_clock(tmp_path, monkeypatch):
+    from test_native_neo_composed_run_cc283 import OBJECT_ID, OBJECT_URL
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    store, executor, coordinator, ids, value = composed_setup(tmp_path, monkeypatch)
+    packet = pending_publish(coordinator, store, ids, value, executor)
+    request_hash = packet["request"]["request_sha256"]
+    executor.begin(request_hash)
+    executor.submit(request_hash, composed_response(packet, identity=MATCHED, result=PUBLISHED, dispatched=False))
+    assert executor._get(request_hash, "response")["result"]["click_clock"] == "NOT_RETURNED"
+    reread = NeoDestinationHandoff(native_executor=executor).readback(
+        destination=packet["request"]["destination"], intent=value, public_object_id=OBJECT_ID, public_object_url=OBJECT_URL)
+    assert reread["verified"] is True
+    assert [p for p in executor.pending() if not p.get("action_claimed")] == []  # no separate readback turn
