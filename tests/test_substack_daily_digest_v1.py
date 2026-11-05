@@ -450,6 +450,7 @@ def test_published_digest_with_incomplete_readback_resumes_readback_only(tmp_pat
     assert pending, result
     request = pending["request"]
     assert request["action"] == "READBACK" and request["public_object_id"] == "123"
+    assert request["reader_text_normalization"] == "DIGEST_EDITOR_SUBTITLE_CAPTION_V2"
     assert len(store.list_platform_dispatches()) == 1
 
 
