@@ -320,6 +320,21 @@ def test_wrong_mime_or_dimensions_blocks_hosted_media(tmp_path, monkeypatch):
     assert "cloudinary_remote_height_mismatch" in verification["blockers"]
 
 
+def test_selected_card_never_silently_becomes_bare_text_before_url_delivery(tmp_path, monkeypatch):
+    import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    asset = _asset(tmp_path)
+    for destination in ("discord", "facebook_page", "instagram_business", "threads"):
+        data = {"media_assets": [asset], "primary_media": {}, "public_image_url": "",
+            "payloads": {destination: {"text": "Controlled approved copy",
+                "media_asset_ids": [asset["asset_id"]]}}}
+        monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda _: data)
+        result = pipeline._publish_one_destination_from_durable_intent(destination=destination,
+            intent={"attempt_identity": "controlled"}, authorization_context={
+                "operating_mode": "AUTONOMOUS_DEFAULT", "dispatch_attempt_identity": "controlled"})
+        assert result["definite_no_write"] and result["public_write_performed"] is False
+        assert result["reason_code"] == "SELECTED_IMAGE_PUBLIC_DELIVERY_REQUIRED:" + destination
+
+
 def test_substack_adapter_has_no_delivery_only_contract_or_staging_failure():
     import live_contentops.edge_cdp_publishing_adapter_v1 as substack
 

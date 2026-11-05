@@ -4278,6 +4278,13 @@ def _publish_one_destination_from_durable_intent(
             raise
         return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
                 "public_write_performed": False, "reason_code": str(exc)}
+    if destination in {"discord", "facebook_page", "instagram_business", "threads"}:
+        from live_contentops.post_visuals_v1 import require_publication_image
+        try:
+            require_publication_image(destination, data)
+        except ValueError as exc:
+            return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True,
+                "public_write_performed": False, "reason_code": str(exc)}
     output_dir = data["output_dir"]
     article = data["article"]
     payloads = data["payloads"]

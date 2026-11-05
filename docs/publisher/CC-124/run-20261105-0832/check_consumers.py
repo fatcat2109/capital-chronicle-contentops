@@ -39,11 +39,12 @@ evidence = {"checked_at_utc": datetime.now(timezone.utc).isoformat(), "run_id": 
     "schedule_changed": False, "digest_dispatched": False}
 (ROOT / "live-consumer-acceptance.json").write_text(json.dumps(evidence, indent=2), encoding="utf-8")
 
-REPOSITORY = Path(r"A:\Capital Chronicle\Worktrees\codex-main-exec")
-COMMIT = "e8f565d8f8"
+REPOSITORY = Path(r"A:\Capital Chronicle\main-jim-research-dashboard-20261025")
+COMMIT = subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPOSITORY,
+    capture_output=True, text=True, check=True).stdout.strip()
 def source(path):
-    return subprocess.run(["git", "show", COMMIT + ":" + path], cwd=REPOSITORY,
-        capture_output=True, text=True, encoding="utf-8", check=True).stdout
+    # Read the installed consumer without mutating Main or dispatching a digest.
+    return (REPOSITORY / path).read_text(encoding="utf-8-sig")
 
 consumer_source = source("tools/product/contentops_digest_v1.py")
 consumer = types.ModuleType("accepted_cc122_contentops_reader")
@@ -60,7 +61,7 @@ assert result["state"] == "SAVED_RECORD"
 assert result["distinct_articles_published"] == measurement["distinct_canonical_items_published"]
 accepted_commit = subprocess.run(["git", "rev-parse", COMMIT], cwd=REPOSITORY,
     capture_output=True, text=True, check=True).stdout.strip()
-digest = {"consumer_accepted_commit": accepted_commit,
+digest = {"consumer_live_root": str(REPOSITORY), "consumer_live_head": accepted_commit,
     "consumer_source_sha256": hashlib.sha256(consumer_source.encode()).hexdigest(),
     "checked_at_utc": datetime.now(timezone.utc).isoformat(), "next_0700_record": str(record),
     "observed_reader_result": result, "schedule_changed": False, "digest_dispatched": False}
