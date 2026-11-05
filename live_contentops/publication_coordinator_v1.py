@@ -269,6 +269,9 @@ def normalize_dispatch_result(
     explicit_no_write = bool(raw.get("definite_no_write")) or status_text in {
         "DEFINITE_NO_WRITE", "FAILED_BEFORE_WRITE", "CONTROLLED_NO_PUBLIC_WRITE",
         "DISPATCH_CONFIRMED_NO_WRITE", "VALIDATION_FAILED", "SKIPPED_IMAGE_REQUIRED",
+        # CC-306, 5 Nov: the freeze guard refuses before any network call; filing it as
+        # UNKNOWN_WRITE cost a 30-minute agent readback for a post that was never sent.
+        "PUBLIC_DISPATCH_FROZEN",
     }
     explicit_failure = any(raw.get(flag) is False for flag in _RESULT_FLAGS)
     success_word = status_text in _adapter_success_statuses(transport_type)
