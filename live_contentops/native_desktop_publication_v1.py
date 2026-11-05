@@ -763,6 +763,11 @@ class NativeReviewedPublication:
                         or message["destination"] != request["destination"]):
                     continue
                 intent = json.loads(message["payload"])
+                if request.get("approved_presentation_restore"):
+                    from live_contentops.approved_presentation_restore_v1 import restore_intent
+                    restored = restore_intent(self.store, dispatch["dispatch_id"])
+                    if restored["approved_presentation_restore"] == request["approved_presentation_restore"]:
+                        intent = restored
                 if sha256_of(intent) != request["intent_sha256"]:
                     intent = json.loads(self.coordinator._effective_message(message)["payload"])
                 if sha256_of(intent) == request["intent_sha256"]:
