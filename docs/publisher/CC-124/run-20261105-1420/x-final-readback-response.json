@@ -1,0 +1,62 @@
+{
+  "tool_request_sha256": "3be2e885025ad1eca56731002209a7de6c75b3a05534dba22e62ec3f1ac84c2e",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "Exact public object read after its bound begin in Neo. Actual platform image binary was retained, inspected and matched against the bound source; full bytes, dimensions, hashes and similarity are in platform-media-final-byte-check.json. No public write or retry.",
+    "observed_at_utc": "2026-11-05T10:46:23.860Z"
+  },
+  "result": {
+    "request_sha256": "de8bbb7798ea525cd635139b6f6082ee58a91edb5a15c76f8973585fe07ce950",
+    "status": "SUCCESS",
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2118289723047473490",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118289723047473490",
+    "content_verified": true,
+    "observed_media_sha256": [],
+    "media_comparisons": [
+      {
+        "destination": "x",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118289723047473490",
+        "public_image_url": "https://pbs.twimg.com/media/HWWsyBDa0AA0uJN?format=jpg&name=small",
+        "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-weekly-product-draws.png",
+        "source_asset_sha256": "da0edf255f7ef21bc7aae7ee576930abdefacb8888a9bc5e20ccc570ce0a32ae",
+        "mime_type": "image/jpeg",
+        "width": 680,
+        "height": 491,
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\platform_readback\\x.jpg",
+        "bytes": 21825,
+        "platform_sha256": "69571b74cff6b295e94e2d4c4ddb949bbb44f105cc13c69bb894fece3d2a1b2c",
+        "visual_similarity": 0.9987,
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "pixel_inspection": "Actual retained public binary viewed and compared with the bound original chart; automated similarity and metadata retained."
+      }
+    ],
+    "observed_text": "EIA oil inventories: the sharper squeeze is in distillates\n\nThe crude draw was small. The distillate draw deserves the closer look.\n\n\nhttps://\ncapitalchronicle.substack.com/p/eia-oil-inve\nntories-the-sharper-squeeze\n…\n\nWatch: Crude and gasoline stocks posted much smaller declines.\n\nAnalysis, not financial advice.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "observed_thread": [
+      {
+        "public_object_id": "2118289723047473490",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118289723047473490",
+        "observed_text": "EIA oil inventories: the sharper squeeze is in distillates\n\nThe crude draw was small. The distillate draw deserves the closer look.\n\n\nhttps://\ncapitalchronicle.substack.com/p/eia-oil-inve\nntories-the-sharper-squeeze\n…"
+      },
+      {
+        "public_object_id": "2118289726054748271",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118289726054748271",
+        "observed_text": "Watch: Crude and gasoline stocks posted much smaller declines.\n\nAnalysis, not financial advice.\n\nCapital Chronicle may hold positions in the markets it covers."
+      }
+    ],
+    "public_image_urls": [],
+    "observed_link_resolutions": [
+      {
+        "displayed_text": "https://\ncapitalchronicle.substack.com/p/eia-oil-inve\nntories-the-sharper-squeeze\n…",
+        "short_url": "https://t.co/7tYTluxBEY",
+        "target_url": "https://capitalchronicle.substack.com/p/eia-oil-inventories-the-sharper-squeeze",
+        "target_verified": true,
+        "public_object_url": "https://x.com/Capitalnicle/status/2118289723047473490",
+        "evidence_ref": "Exact t.co/7tYTluxBEY navigation in page535 reached this canonical URL."
+      }
+    ]
+  }
+}

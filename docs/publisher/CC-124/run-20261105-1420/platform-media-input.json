@@ -1,0 +1,23 @@
+[
+  {
+    "destination": "linkedin_company",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524051266721734657/",
+    "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQEb_S4srmCVBg/feedshare-shrink_160/B56aGrMweZG4Ag-/0/1793873611016?e=1795651200&v=beta&t=f-NwRQD5xCObjCa2gthr4YzVuI1wn207JNAw__hLOeI",
+    "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-stock-average-gaps.png",
+    "source_asset_sha256": "f7e598c6d153ee2d9e7e8aee9099252e1bd3d6dfd6d220f4b518b8777c66142f"
+  },
+  {
+    "destination": "x",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118289723047473490",
+    "public_image_url": "https://pbs.twimg.com/media/HWWsyBDa0AA0uJN?format=jpg&name=small",
+    "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-weekly-product-draws.png",
+    "source_asset_sha256": "da0edf255f7ef21bc7aae7ee576930abdefacb8888a9bc5e20ccc570ce0a32ae"
+  },
+  {
+    "destination": "youtube",
+    "public_object_url": "https://www.youtube.com/post/UgkxTU7JJ92PqzRq9tY3UBOkXvS39CsRPLLZ",
+    "public_image_url": "https://yt3.ggpht.com/P1zQrA4bRxQDsf-Bfawu2v0BK7G8LMyNLg0pWsBCebaIUqruoMysLTZi6iWc45_xB7aFghE2Nvwzuw=s640-c-fcrop64=1,238e0000dc71ffff-rw-nd-v1",
+    "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-weekly-product-draws.png",
+    "source_asset_sha256": "da0edf255f7ef21bc7aae7ee576930abdefacb8888a9bc5e20ccc570ce0a32ae"
+  }
+]

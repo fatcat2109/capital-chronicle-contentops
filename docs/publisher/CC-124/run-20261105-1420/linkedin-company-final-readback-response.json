@@ -1,0 +1,51 @@
+{
+  "tool_request_sha256": "35a1d7fb9b4109c2ed6809e502994dddb563a8cafa482daea4621db6c1c393d0",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "Exact public object read after its bound begin in Neo. Actual platform image binary was retained, inspected and matched against the bound source; full bytes, dimensions, hashes and similarity are in platform-media-final-byte-check.json. No public write or retry.",
+    "observed_at_utc": "2026-11-05T10:45:40.913Z"
+  },
+  "result": {
+    "request_sha256": "64dc4d0d13beae67adae1c59c3c18736811003978f7eec5a08f049bc188180c4",
+    "status": "SUCCESS",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:share:7524051266721734657",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524051266721734657/",
+    "content_verified": true,
+    "observed_media_sha256": [],
+    "media_comparisons": [
+      {
+        "destination": "linkedin_company",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524051266721734657/",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQEb_S4srmCVBg/feedshare-shrink_800/B56aGrMweZG4Ak-/0/1793873611016?e=1795651200&v=beta&t=st7sF5lzAborGdG9mCFpa-pqZ5MbBZZzP3vaa9P6v4I",
+        "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\cc124-eia-stock-average-gaps.png",
+        "source_asset_sha256": "f7e598c6d153ee2d9e7e8aee9099252e1bd3d6dfd6d220f4b518b8777c66142f",
+        "mime_type": "image/jpeg",
+        "width": 800,
+        "height": 577,
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\media_assets\\platform_readback\\linkedin_company-current.jpg",
+        "bytes": 26120,
+        "platform_sha256": "a639434a04150e8171453df28edc35332ec4752e7b6066f34ccb1e22a9adb9f2",
+        "visual_similarity": 0.9992,
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "pixel_inspection": "Actual retained public binary viewed and compared with the bound original chart; automated similarity and metadata retained."
+      }
+    ],
+    "observed_text": "Feed post\n\nPromote this post to reach people who matter to you.\n\nBoost\n\nCapital Chronicle\n\n1m\n\nFollow\n\nEIA oil inventories: the sharper squeeze is in distillates\nWhy it matters: The U.S. Energy Information Administration's 4 November 2026 petroleum report puts the clearest sign of fuel-stock tightness in distillates.\nContext: For the week ending 30 October, distillate inventories fell 3.6 million barrels and stood 13% below their five-year average.\nRead the full brief: https://lnkd.in/gCkbuT3p\nAnalysis, not financial advice.\nCapital Chronicle may hold positions in the markets it covers.\n\n​\n​\n​\n​\n\n\n",
+    "public_image_urls": [
+      "https://media.licdn.com/dms/image/v2/D5622AQEb_S4srmCVBg/feedshare-shrink_800/B56aGrMweZG4Ak-/0/1793873611016?e=1795651200&v=beta&t=st7sF5lzAborGdG9mCFpa-pqZ5MbBZZzP3vaa9P6v4I"
+    ],
+    "observed_link_resolutions": [
+      {
+        "displayed_url": "https://lnkd.in/gCkbuT3p",
+        "target_url": "https://capitalchronicle.substack.com/p/eia-oil-inventories-the-sharper-squeeze",
+        "target_verified": true,
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524051266721734657/",
+        "evidence_ref": "Exact same post's short link resolved to page535 external-link interstitial with this canonical target."
+      }
+    ]
+  }
+}
