@@ -49,7 +49,7 @@ POLICIES = {
             "public domain",
             "except for previously copyrighted photographs",
         ),
-        ("/news.release/", "/opub/ted/"),
+        ("/news.release/", "/opub/ted/", "/schedule/"),
     ),
     "www.eia.gov": (
         "https://www.eia.gov/about/copyrights_reuse.php",
@@ -480,12 +480,22 @@ class RetainedSourceResearch:
             "ir.tesla.com": ("/_flysystem/s3/sec/",),
             "www.eia.gov": ("/dnav/pet/hist/LeafHandler.ashx", "/dnav/pet/hist/RBRTED.htm", "/dnav/pet/hist/RWTCD.htm"),
             "www.newyorkfed.org": ("/markets/reference-rates/",),
+            "home.treasury.gov": (),
         }
+        from urllib.parse import parse_qs
+        treasury_query = parse_qs(url.query)
+        treasury_series = treasury_query.get("type", [])
+        treasury_year = treasury_query.get("field_tdr_date_value", [])
+        treasury_rates = (url.hostname == "home.treasury.gov"
+            and url.path == "/resource-center/data-chart-center/interest-rates/TextView"
+            and treasury_series in [["daily_treasury_yield_curve"], ["daily_treasury_real_yield_curve"]]
+            and len(treasury_year) == 1 and re.fullmatch(r"20\d{2}", treasury_year[0])
+            and set(treasury_query) == {"type", "field_tdr_date_value"})
         eia_stock_workbook = (url.hostname == "www.eia.gov" and not url.query and url.path in {
             "/dnav/pet/hist_xls/WCESTUS1w.xls", "/dnav/pet/hist_xls/WGTSTUS1w.xls"})
         if (url.scheme != "https" or url.username or url.password or url.fragment
                 or url.port not in (None, 443) or url.hostname not in original_routes
-                or not (eia_stock_workbook or any(url.path.startswith(p) for p in original_routes[url.hostname]))):
+                or not (treasury_rates or eia_stock_workbook or any(url.path.startswith(p) for p in original_routes[url.hostname]))):
             raise ValueError("ORIGINAL_FACTS_LOCATOR_INVALID")
         policy_url = "https://www.copyright.gov/help/faq/faq-protect.html"
         if spec["policy_url"] != policy_url or _hash(policy) != spec["policy_capture_sha256"]:
