@@ -77,6 +77,42 @@ def _text(value):
     return " ".join(re.sub(r"[#*_`]", "", value).split())
 
 
+def _x_reader_text(value, links, public_object_url, canonical):
+    text = _text(value)
+    for link in links:
+        displayed = _text(link.get("displayed_text"))
+        if (displayed and displayed in text
+                and re.fullmatch(r"https://t\.co/[A-Za-z0-9]+", str(link.get("short_url") or ""))
+                and link.get("target_verified") is True
+                and link.get("public_object_url") == public_object_url
+                and link.get("target_url") == canonical and _social_canonical(canonical)):
+            text = text.replace(displayed, _text(canonical))
+    return text
+
+
+def _x_thread_matches(binding, thread, links, canonical):
+    expected = binding["expected_thread_texts"]
+    if len(thread) < len(expected) or len({p.get("public_object_id") for p in thread}) != len(thread):
+        return False
+    # A partial reply can be completed in the same thread when the platform has
+    # no edit control. Extra text must be a complete fragment of approved copy;
+    # all full approved posts must still be present in their original order.
+    fragments = {_text(part) for text in expected
+        for part in re.split(r"\n+|(?<=[.!?])\s+", text)
+        if _text(part) and _text(part) != _text(text)}
+    index = 0
+    for post in thread:
+        url, object_id = post.get("public_object_url"), post.get("public_object_id")
+        if not _public_url("x", url, object_id):
+            return False
+        text = _x_reader_text(post.get("observed_text"), links, url, canonical)
+        if index < len(expected) and _text(expected[index]) in text:
+            index += 1
+        elif text not in fragments:
+            return False
+    return index == len(expected)
+
+
 def _payload_binding(intent, destination):
     payload = intent.get("native_payload") or intent.get("payload")
     assets = list(intent.get("media_assets") or [])
@@ -364,6 +400,9 @@ class NeoDestinationHandoff:
                         and link.get("public_object_url") == public_object_url
                         and link.get("target_url") == canonical and _social_canonical(canonical)):
                     comparison_text = comparison_text.replace(_text(short), _text(canonical))
+        if destination == "x":
+            comparison_text = _x_reader_text(observed_text, result.get("observed_link_resolutions") or [],
+                public_object_url, str(intent.get("canonical_url") or ""))
         text_match = (bool(segments) and all(_text(s) in comparison_text for s in segments)
             and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
         if destination == "substack" and intent.get("daily_digest"):
@@ -406,6 +445,9 @@ class NeoDestinationHandoff:
                     and _public_url(destination, post.get("public_object_url"), post.get("public_object_id"))
                     for text, post in zip(binding["expected_thread_texts"], thread))
             and len({p.get("public_object_id") for p in thread}) == len(thread)))
+        if destination == "x" and binding["thread_post_count"] > 1:
+            thread_match = _x_thread_matches(binding, thread, result.get("observed_link_resolutions") or [],
+                str(intent.get("canonical_url") or ""))
         verified = (result.get("request_sha256") == request["request_sha256"]
             and result.get("observed_identity") == IDENTITIES[destination]
             and (not public_object_id or result.get("public_object_id") == public_object_id)

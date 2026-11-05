@@ -146,6 +146,41 @@ def test_retry_invalidates_prior_absence_return_in_same_readback_epoch(tmp_path,
     assert fresh.value.request["request"]["observation_epoch"] == packet["request"]["observation_epoch"]
 
 
+@pytest.mark.parametrize("fault", [None, "unverified_link", "wrong_link", "extra_claim", "duplicate_root", "missing_notice", "wrong_order"])
+def test_repaired_x_thread_uses_existing_posts_and_verified_shortlink(tmp_path, fault):
+    _, executor = setup(tmp_path)
+    canonical = "https://capitalchronicle.substack.com/p/test"
+    expected = ["Source-backed headline.\n\n" + canonical,
+        "Watch the next official release.",
+        "Retrospective analysis.\n\nAnalysis, not financial advice. Readers decide whether to trade."]
+    value = intent("x", native_payload={"posts": [{"text": text} for text in expected]})
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    packet, object_id, url = pending_readback(adapter, destination="x", value=value)
+    shown = "https://\ncapitalchronicle.substack.com/p/te\nst\n..."
+    texts = [expected[0].replace(canonical, shown), expected[1], "Readers decide whether to trade.", expected[2]]
+    if fault == "extra_claim":
+        texts[2] = "Buy stocks now: guaranteed gains."
+    if fault == "duplicate_root":
+        texts[2] = texts[0]
+    if fault == "missing_notice":
+        texts.pop()
+    if fault == "wrong_order":
+        texts[0], texts[1] = texts[1], texts[0]
+    thread = [{"public_object_id": str(123+i), "public_object_url": "https://x.com/Capitalnicle/status/" + str(123+i),
+        "observed_text": text} for i, text in enumerate(texts)]
+    links = [{"displayed_text": shown, "short_url": "https://t.co/realObservedLink", "target_url": canonical,
+        "target_verified": fault != "unverified_link", "public_object_url": url}]
+    if fault == "wrong_link":
+        links[0]["target_url"] = "https://example.com/unrelated"
+    observed = response(executor, packet, {"observed_identity": "@Capitalnicle", "public_object_id": object_id,
+        "public_object_url": url, "content_verified": True, "observed_text": "\n\n".join(texts),
+        "observed_thread": thread, "observed_link_resolutions": links})
+    executor.submit(packet["request"]["request_sha256"], observed)
+    result = adapter.readback(destination="x", intent=value, public_object_id=object_id, public_object_url=url)
+    assert result["verified"] is (fault is None)
+    assert result["write_exists"] is True
+
+
 @pytest.mark.parametrize("observed_stable_id", [None, "wrong-company"])
 def test_company_probe_names_required_id_and_accepts_corrected_observation(tmp_path, observed_stable_id):
     store, executor = setup(tmp_path)
