@@ -1,0 +1,9 @@
+{
+  "exact_revision_response_sha256": "6976052dd13d8f44e121b2eb8093890837f1622ff3b064bb4ff1b3549d7ac6d5",
+  "source_and_claim_validation_passed": true,
+  "claim_count": 32,
+  "article_body_sha256": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+  "new_source_or_numeric_claims": false,
+  "text_approved": false,
+  "public_write_performed": false
+}
