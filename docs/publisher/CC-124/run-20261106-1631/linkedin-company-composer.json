@@ -1,0 +1,20 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "pre": {
+      "changed": false,
+      "page": 703,
+      "settled": false,
+      "value": {
+        "adminUrl": "https://www.linkedin.com/company/143198922/admin/page-posts/published/",
+        "exact": true,
+        "identity": "linkedin:company:143198922",
+        "identity_at_utc": "2026-11-06T11:01:50.833Z",
+        "images": [],
+        "text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\n\n\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\n\n\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\n\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\n\n\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\n\n\n\nCapital Chronicle may hold positions in the markets it covers."
+      }
+    },
+    "snapshot": "confirming that geopolitical premise.\\n\\n\\n\\n\\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\\n\\n\\n\\n\\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\\n\\n\\n\\n\\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\\n\\n\\n\\n\\nCapital Chronicle may hold positions in the markets it covers.\"\n    - paragraph [ref=e199] [cursor=pointer]\n    - paragraph [ref=e200] [cursor=pointer]\n    - paragraph [ref=e201] [cursor=pointer]\n    - paragraph [ref=e202] [cursor=pointer]\n    - paragraph [ref=e203] [cursor=pointer]\n    - paragraph [ref=e204] [cursor=pointer]\n    - paragraph [ref=e205] [cursor=pointer]\n    - paragraph [ref=e206] [cursor=pointer]\n    - paragraph [ref=e207] [cursor=pointer]\n    - paragraph [ref=e208] [cursor=pointer]\n    - paragraph [ref=e209] [cursor=pointer]\n  - button \"Edit media preview\" [ref=e210]\n  - button \"Remove media\" [ref=e211]\n  - button \"Open Emoji Keyboard\" [collapsed] [ref=e212]\n  - button \"Schedule post\" [ref=e213]\n  - button \"Post\" [ref=e214]\n- button \"CC124 company card upload\" [ref=e177]"
+  }
+}
