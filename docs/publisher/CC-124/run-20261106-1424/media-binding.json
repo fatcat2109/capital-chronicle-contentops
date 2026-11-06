@@ -1,10 +1,10 @@
 {
-  "article_identity": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
+  "article_identity": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
   "assets": [
     {
-      "asset_id": "post-facts-d20ae2b692df6277c87d",
-      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\media_assets\\post-facts-d20ae2b692df6277c87d.png",
-      "sha256": "9f83695b0bfa70436fab957986e71ab7f7abf424a4d64d5257ed0231e4d6b335",
+      "asset_id": "post-facts-87d77248283f787c5527",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\media_assets\\post-facts-87d77248283f787c5527.png",
+      "sha256": "cce5a0dde9bee65fdc247c96ae95bedac121d176185163e5b2f16d58a00ceda4",
       "width": 1080,
       "height": 1350,
       "modality": "source_bound_data_card",
@@ -66,10 +66,11 @@
           }
         ],
         "design": "CC290_SITE_FACT_CARD_V2",
+        "text_presentation": "PLAIN_EMPHASIS_AND_DATED_REVIEW_ATTRIBUTION_V1",
         "title": "Capital Chronicle's pre-payrolls review: a dollar bid with different countercases",
         "dated_line": "Capital Chronicle"
       },
-      "transform_sha256": "d20ae2b692df6277c87d28d7ca310e22c2d68fc40a7c5be1133d51b1ef566a0a",
+      "transform_sha256": "87d77248283f787c5527546a7f557579d473442a037ce500c4775ef2df9ff450",
       "publication_authority": false
     },
     {

@@ -1,9 +1,9 @@
 {
-  "article_identity": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
-  "article_body_sha256": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
+  "article_identity": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+  "article_body_sha256": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
   "builder": "build_post_data_card",
   "uses_actual_written_article": true,
-  "card_sha256": "9f83695b0bfa70436fab957986e71ab7f7abf424a4d64d5257ed0231e4d6b335",
+  "card_sha256": "cce5a0dde9bee65fdc247c96ae95bedac121d176185163e5b2f16d58a00ceda4",
   "fact_texts": [
     "**EUR/USD.** The review names firmer euro-area inflation, expectations of ECB rate increases and limited sensitivity to broader risk moves as counterweights to the dollar bid. It also notes that EUR/USD barely fell on 5 November.",
     "The useful distinction is between a common backdrop and market-specific evidence. The review's dollar-positioning explanation can be challenged by the payrolls reaction; it does not resolve each market's countercase in advance."

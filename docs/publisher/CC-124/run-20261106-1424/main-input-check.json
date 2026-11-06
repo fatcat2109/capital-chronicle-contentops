@@ -33,5 +33,16 @@
     "rights": "Verified original SHA1 and dimensions against exact current Commons provider metadata and Federal Reserve Board public-domain policy.",
     "download_attempt": "Neo download timed out; reused exact held original from Downloads, not claimed as new retrieval.",
     "asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62"
+  },
+  "verification": {
+    "source_tests": "16 PASS before source extension integration",
+    "instagram_regression": "2 PASS on unchanged delivery guards",
+    "attribution_regression": "66 PASS in 6.29 s; natural document attribution, substantive limits retained, and disclosure-aware X assertion",
+    "preexisting_test_adjustment": "Unconfirmed X watch-sentence test expected the watch sentence last; current approved consumer appends the required disclosure. Test now checks watch sentence is intact and disclosure closes the chain.",
+    "compiled_article": "PASS_NATIVE_DESKTOP_ZERO_WRITE_ARTICLE; eight previews; zero sends so far",
+    "card_source_check": "Two facts from actual revised compiled article, with source bindings; no stand-in article.",
+    "assembly_recovery": "27 changed-path checks PASS in 10.55 s under 55-second timeout; exact accepted revision and original package retained in existing assembly owner.",
+    "load_limit_exception": "Initial targeted file run took 68.55 s during the 14:40-15:30 GMT+7 decision window, exceeding the one-minute limit; preserved exact failed-fixture output, then narrowed selection and enforced 55-second timeout.",
+    "live_revision_consumer": "Live existing final outbox now contains exact accepted revised body 26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c, revision_performed true; 8 previews and source-bound repaired card. No new model or source call."
   }
 }
