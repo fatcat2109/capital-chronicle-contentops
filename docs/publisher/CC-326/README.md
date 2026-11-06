@@ -19,3 +19,9 @@ Second passing sub-step: `media-tests.xml`, 78 focused checks passed. The ET
 retrospective notice survives all eight native derivative packages, and delivery-card
 source dates convert aware instants before selecting the New York day. Date-only source
 periods and sealed historical article bytes remain intact.
+
+Canonical regression: `consumer-regression-initial.xml` passed 214 checks and exposed one
+stale assertion equating issued scheduler prompt wording with regenerated prompt wording.
+The corrected check preserves every schedule field except the deliberately frozen prompt
+and checks decision 90 in new prompt generation. `native-editorial-regression.xml` passes
+all 13 tests in that file. No schedule or rollout configuration changed.

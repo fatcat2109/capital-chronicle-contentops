@@ -130,7 +130,12 @@ def test_paused_rollout_and_active_authority_match_native_target():
     from live_contentops.codex_desktop_newsroom_operator_v1 import four_task_setup_packet
     root = Path(__file__).resolve().parents[1]
     rollout = json.loads((root / "config/native_desktop_rollout_v1.json").read_bytes())
-    assert rollout["tasks"] == four_task_setup_packet()["tasks"]
+    generated = four_task_setup_packet()["tasks"]
+    # Issued scheduler prompts stay frozen. New native writer requests carry decision 90;
+    # an editorial wording update must neither change nor invalidate the four schedules.
+    without_prompt = lambda rows: [{k: v for k, v in r.items() if k != "prompt"} for r in rows]
+    assert without_prompt(rollout["tasks"]) == without_prompt(generated)
+    assert all("written ET (Jim decision 90)" in r["prompt"] for r in generated)
     assert rollout["target_status"] == "AUTHORIZED_LIVE_TRANSITION"
     assert rollout["public_write_authority"] is True
     assert rollout["live_authority"]["scope"] == "V1_NATIVE_PUBLICATION"
