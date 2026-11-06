@@ -25,3 +25,16 @@ stale assertion equating issued scheduler prompt wording with regenerated prompt
 The corrected check preserves every schedule field except the deliberately frozen prompt
 and checks decision 90 in new prompt generation. `native-editorial-regression.xml` passes
 all 13 tests in that file. No schedule or rollout configuration changed.
+
+Operating root: `A:\Capital Chronicle\ContentOps`, verified code commit
+`73053979d3db099d4f03fee3c595266a6537260a`. `operating-root-tests.xml` passes all 55 CC-326 checks from that root,
+including ET copy reaching the real coordinator implementation with isolated test stores
+and transports. `integration.json` binds matching source hashes and unchanged WIP hashes
+in both worktrees. Rollback: `contentops-rollback-20261106-cc326` (`c1abfa82d9c6570363a168b951b38a80fbd82bf9`).
+Live tag: `contentops-live-20261106-cc326` on the final evidence commit with those same code bytes.
+
+Remaining acceptance: the next ordinary article's actual canonical/channel public readback.
+The latest confirmed canonical was dispatched at `2026-11-06T04:15:30.548809+00:00`, before decision 90
+and this integration. It cannot satisfy that check. CC-326 stays IN_PROGRESS for this
+single observation; the existing Publisher publication/readback flow supplies it on the
+next article. No schedule, mailbox, desktop, public object or production store was changed.

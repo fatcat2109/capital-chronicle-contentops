@@ -1,0 +1,63 @@
+{
+  "recorded_at_utc": "2026-11-06T07:22:59.735085+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "verified_code_commit": "73053979d3db099d4f03fee3c595266a6537260a",
+  "rollback_tag": "contentops-rollback-20261106-cc326",
+  "rollback_commit": "c1abfa82d9c6570363a168b951b38a80fbd82bf9",
+  "live_tag": "contentops-live-20261106-cc326",
+  "live_tag_scope": "final evidence commit; same verified code bytes",
+  "source_sha256": {
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": "ce141f2c11a66d1b13004c0e45e431b80ae5ce4fbeefb05925422ebd001bab06",
+    "live_contentops/codex_desktop_newsroom_operator_v1.py": "c378e6bbe9c8e18038dae912db900a2d73ff66bf50d8c765db118323dad1f32d",
+    "live_contentops/fact_card_design_v1.py": "caeda237da843b35c64612a3bde3e875b764d4e5ba8fab4b182f9427808a7489",
+    "live_contentops/media_manifest_authority_v1.py": "5b27aa09dbe2702bd6e87755e1f247b5b217e979609bc8f251aa972f30c57f29",
+    "live_contentops/native_desktop_editorial_v1.py": "c67fae012a19711e2063badd3bc6f28d607eb1b90d4e8f7cbbac3fc187f2737c",
+    "live_contentops/native_neo_executor_v1.py": "d3df05fce74b86b29ecac91f9ad6ac5836638d82bc3f22ff48833c29af6c7b09",
+    "live_contentops/neo_destination_handoff_v1.py": "27b323b351ec640f3557dab36f6d2a8ab4d0b091bd295ed17c11180f8a8e0c5f",
+    "live_contentops/public_time_v1.py": "1232df8fef33532bb8ef912afd0dd97d893539cb39700380cd77c3e7956af224",
+    "live_contentops/publication_coordinator_v1.py": "737cd1c2b0987c7e72d945d4c62a3d97b5499de58f106ca202d9643faa808e85",
+    "live_contentops/retrospective_piece_v1.py": "87008ef5b8beddf08a4544653063e90133e0b3a7cfa4961282a0963ddaa9f408",
+    "live_contentops/substack_daily_digest_v1.py": "90f84eff8b244538e716aa976c8dc720787f8a640bb5b91d9b9508a9f9ac87b6",
+    "live_contentops/v1_simple_gemini_newsroom_v1.py": "99996aa30c34b336fdba183e3bfe635fcd50477b5e018c6e035e48146495cd3a"
+  },
+  "operating_root_test_command": "python -m pytest -q tests/test_public_time_cc326.py --disable-warnings --maxfail=1 --tb=short",
+  "operating_root_tests": {
+    "passed": 55,
+    "evidence": "operating-root-tests.xml",
+    "production_writes": 0
+  },
+  "preserved_wip": {
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+        "unchanged": true,
+        "bytes": 944692,
+        "sha256": "eaf106a6c5f0f94602af7ef759fd3f13ff0c8e8a68e78b3c2b625b8f8a755ebe"
+      },
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+        "unchanged": true,
+        "bytes": 6206,
+        "sha256": "6b9fcc177395a2a4fb1dec6ae823731a9b907a60e21bf8c63b085e50f1cb6e2a"
+      }
+    },
+    "A:\\Capital Chronicle\\ContentOps": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+        "unchanged": true,
+        "bytes": 1050446,
+        "sha256": "6fe669c5de0010175fa1ec73ac7c0da5cf8f65f30a25743a292aa83a737ee6c1"
+      },
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+        "unchanged": true,
+        "bytes": 16819,
+        "sha256": "beb09413db1cdf82c7cc6c06a932db2556be610ed962f222941fd7d9adc7c1ca"
+      }
+    }
+  },
+  "schedule_configuration_changed": false,
+  "publication_objects_changed": false,
+  "next_article_public_readback": {
+    "status": "PENDING_NEXT_ORDINARY_ARTICLE",
+    "latest_existing_url": "https://capitalchronicle.substack.com/p/capital-chronicles-midterm-review",
+    "latest_existing_dispatch_utc": "2026-11-06T04:15:30.548809+00:00",
+    "reason": "The latest canonical predates decision 90 and this integration; it is not next-article evidence."
+  }
+}
