@@ -199,6 +199,19 @@ class NativeNeoExecutor:
             expected_status = "DISPATCH_CONFIRMED" if request["action"] == "EDIT_EXISTING" else PENDING
             if not dispatch or dispatch["status"] != expected_status:
                 raise ValueError("NATIVE_NEO_EXACT_COORDINATOR_PENDING_DISPATCH_REQUIRED")
+            if request["action"] == "PUBLISH":
+                # A pending request can outlive the first coordinator call. Apply
+                # decision 93 again at the actual browser action boundary.
+                from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+                from live_contentops.article_publication_quality_v1 import before_article_write
+                coordinator = DurablePublicationCoordinator(store=self.store, transport_runtime=None, clock=self.clock)
+                if coordinator.published_content_path is not None:
+                    message = self.store.get_outbox_message(dispatch["message_id"])
+                    effective = coordinator._effective_message(message)
+                    intent = json.loads(effective["payload"])
+                    before_article_write(coordinator, {**intent,
+                        **({"native_payload": request["native_payload"]} if request.get("native_payload") else {})},
+                        request["destination"])
             if request["action"] == "EDIT_EXISTING" and request.get("approved_presentation_restore"):
                 from live_contentops.approved_presentation_restore_v1 import restore_intent
                 from live_contentops.neo_destination_handoff_v1 import _payload_binding

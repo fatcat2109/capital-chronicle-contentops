@@ -541,6 +541,8 @@ def build_native_derivative_payloads(
         canonical_url=canonical_url,
         media_asset_ids=media_asset_ids,
     )
+    from live_contentops.article_scenarios_v1 import include_social_scenarios
+    include_social_scenarios(payloads, article)
     notices = ("Analysis, not financial advice.",
                "Capital Chronicle may hold positions in the markets it covers.")
     for destination, payload in payloads.items():
@@ -4017,6 +4019,13 @@ def _prepare_cloudinary_delivery_media_for_plan(
             "accepted_evidence_sha256": context["accepted_evidence_sha256"]},
             output_dir=output_dir / "media" / "post-images")
         article_assets = selected["media_assets"]
+    # CC-316: snapshots are displayed in the article and hosted through the
+    # existing delivery-only owner; they are never parsed as source-value charts.
+    snapshots = [a for a in article_assets if a.get("modality") == "tradingview_chart_snapshot"]
+    known_delivery = {a.get("asset_id") for a in delivery_only_assets}
+    delivery_only_assets.extend({**a, "article_inclusion": False, "canonical_article_media": False}
+        for a in snapshots if a.get("asset_id") not in known_delivery)
+    article_assets = [a for a in article_assets if a.get("modality") != "tradingview_chart_snapshot"]
     if not article_assets and not delivery_only_assets:
         # Simple's text-first qualified article intentionally has no in-body media. Reuse the
         # accepted deterministic delivery-only card seam so Instagram can receive media without

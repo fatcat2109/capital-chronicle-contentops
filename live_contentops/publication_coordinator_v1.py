@@ -2347,6 +2347,21 @@ class DurablePublicationCoordinator:
             work_item_id=str(intent["work_item_id"]), status=status,
         )
         self.store.set_reconciliation_status(ids["reconciliation_id"], status)
+        from live_contentops.article_publication_quality_v1 import settle_article_images
+        try:
+            settle_article_images(self, intent, destination=destination, status=status, canonical_url=observed_url,
+                                  published_at_utc=normalized.get("observed_published_at_utc"))
+            if status in {RECONCILED_CONFIRMED, RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE}:
+                from live_contentops.article_publication_quality_v1 import observe_published_images
+                observe_published_images(self, intent, dispatch, observed_url=observed_url,
+                                         published_at_utc=normalized.get("observed_published_at_utc"))
+        except (ValueError, OSError, KeyError, TypeError) as image_error:
+            # An auxiliary fingerprint failure never changes exact public-object
+            # truth or disables readback. Fresh writes still consult the register.
+            self.store.register_incident(incident_id="image-register-sync-" + _hash(dispatch_id + status)[:24],
+                work_item_id=intent["work_item_id"], severity="IMAGE_REGISTER_SYNC",
+                description=_canonical_json({"policy": "JIM_DECISION_93", "dispatch_id": dispatch_id,
+                                             "cause": type(image_error).__name__}))
         return status
 
     def _dispatch_message(
@@ -2558,6 +2573,12 @@ class DurablePublicationCoordinator:
             readiness = self._readiness(destination, item)
         if readiness not in READY_STATES:
             return {"destination": destination, "status": readiness or "READINESS_UNKNOWN", "publish_called": False}
+        from live_contentops.article_publication_quality_v1 import before_article_write
+        try:
+            before_article_write(self, intent, destination)
+        except (ValueError, OSError, KeyError, TypeError) as quality_error:
+            cause = str(quality_error) if isinstance(quality_error, ValueError) else type(quality_error).__name__
+            return {"destination": destination, "status": cause, "reason_code": cause, "publish_called": False}
         claimed = self.store.claim_platform_dispatch_attempt(dispatch_id=ids["dispatch_id"],
             message_id=ids["message_id"], platform=destination,
             expected_status=existing.get("status") if existing else None)
@@ -2661,6 +2682,9 @@ class DurablePublicationCoordinator:
         )
         self.store.set_dispatch_status(ids["dispatch_id"], str(result["status"]))
         self.store.set_outbox_status(ids["message_id"], str(result["status"]))
+        if result["status"] == DEFINITE_NO_WRITE:
+            from live_contentops.article_publication_quality_v1 import settle_article_images
+            settle_article_images(self, intent, destination=destination, status=DEFINITE_NO_WRITE)
         dispatch = self.store.get_platform_dispatch(ids["dispatch_id"])
         if result["status"] in {DISPATCH_CONFIRMED, UNKNOWN_WRITE}:
             reconciliation = self._reconcile(

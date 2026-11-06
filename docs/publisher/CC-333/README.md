@@ -1,7 +1,14 @@
 # CC-333: distinct images, two articles per day, Main scenarios
 
 Decision 93 is applied through the existing publication coordinator, native writer,
-media binding and eight-channel compiler. The implementation is in progress.
+media binding and eight-channel compiler. The first feature selection passed:
+[feature-tests.xml](feature-tests.xml), 46 checks in 19.85 seconds. It started at
+22:30:18 GMT+7, after the machine-load blackout, in one pytest process with a
+55-second limit. Regression and operating-root verification follow.
+
+The branch uses the operating root's `17836e3330e09b98d7b0f2cf7dd34389c345d94a`
+source, preserving the Publisher consumers already 610 commits ahead of the
+fresh remote default. This permits a forward integration into that live root.
 
 The [public image inventory](public-image-inventory.json) records 22 Substack pages
 and 51 content-image occurrences observed through BrowserOS Neo. The
@@ -11,6 +18,13 @@ cards held only in hosting manifests are included. Fingerprints feed the shared
 runtime register beside `published_content_v1.jsonl`; source images stay binary
 in the audit operation's media folder. Repeated Federal Reserve and Capitol
 photographs are retained as published-image evidence.
+
+The resulting register has 262 active records, 63 distinct exact image hashes and
+62 distinct perceptual hashes. Five historical canonical dispatches have no
+retained image binding after checking their run contexts and hosting manifests;
+the seed result names them. That observation is preserved rather than inventing
+an image. All images found in the current public archive and retained send
+bindings feed the register; retrieval produced no errors.
 
 The register stores SHA256 and a 64-bit perceptual hash. An article reserves its
 image and a daily slot before its adapter runs. Unknown writes retain the

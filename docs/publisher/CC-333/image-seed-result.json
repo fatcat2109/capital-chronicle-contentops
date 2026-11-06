@@ -1,9 +1,9 @@
 {
-  "recorded_at_utc": "2026-11-06T14:55:40.122433+00:00",
+  "recorded_at_utc": "2026-11-06T15:19:48.418085+00:00",
   "register": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_images_v1.jsonl",
   "retained": {
     "dispatches_inspected": 245,
-    "register_rows_added": 0,
+    "register_rows_added": 240,
     "image_occurrences": 324,
     "without_bound_image": [
       {
@@ -41,7 +41,7 @@
   },
   "public": {
     "articles_inspected": 22,
-    "register_rows_added": 0,
+    "register_rows_added": 22,
     "unique_images": 51,
     "images": [
       {

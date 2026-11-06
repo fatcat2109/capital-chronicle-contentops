@@ -234,7 +234,8 @@ def snapshot_asset(market: str, title: str, snapshot: Mapping[str, Any], out_dir
     digest = _sha256(framed_path)
     label = snapshot["interval_label"]
     captured = _utc(snapshot.get("captured_at_utc")) or datetime.now(timezone.utc)
-    when = f"{captured:%a} {captured.day} {captured:%b} {captured:%H:%M} UTC"
+    from live_contentops.public_time_v1 import public_timestamp
+    when = public_timestamp(captured)
     return {"asset_id": "tradingview-snapshot-" + digest[:20], "path": str(framed_path), "sha256": digest,
             "width": framing["width"], "height": framing["height"], "mime_type": "image/png",
             "modality": "tradingview_chart_snapshot", "card_kind": "TRADINGVIEW_SNAPSHOT",

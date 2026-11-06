@@ -1203,6 +1203,10 @@ class NativeDesktopTurn:
         from live_contentops.public_time_v1 import WRITER_GUIDANCE
         if stage in {"write", "revise", "visual-edit"} and (not frozen or WRITER_GUIDANCE in frozen["prompt"]):
             native_guidance += "\n" + WRITER_GUIDANCE + "\n"
+        from live_contentops.article_scenarios_v1 import WRITER_GUIDANCE as SCENARIO_WRITER, PREPARATION_GUIDANCE
+        SCENARIO_GUIDANCE = SCENARIO_WRITER if stage in {"write", "revise"} else PREPARATION_GUIDANCE
+        if stage in {"select", "write", "revise", "visual-edit"} and (not frozen or SCENARIO_GUIDANCE in frozen["prompt"]):
+            native_guidance += "\n" + SCENARIO_GUIDANCE + "\n"
         request_prompt = kwargs["prompt"] + native_guidance
         if stage in {"write", "revise"}:
             from live_contentops.event_article_guard_v1 import event_writer_guidance
@@ -1569,6 +1573,14 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
                if final_visual_repair.get("channel_media_after_drop") else {}),
             "visual_repair_disposition": {"policy": "CC-172", "repair_rounds": 1, "dropped_asset_ids": sorted(dropped)}}
     allowed = {d["url"] for d in result.get("evidence", [])}
+    if corrected_article.get("market_asset"):
+        from live_contentops.article_publication_quality_v1 import prepare_market_snapshot
+        registered = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
+        operation = json.loads(registered["payload"]) if registered else {}
+        if not operation.get("output_dir"):
+            raise ValueError("ARTICLE_MEDIA_OUTPUT_DIR_REQUIRED")
+        corrected_article, assets = prepare_market_snapshot(corrected_article, assets,
+            output_dir=resolve_workspace_path(operation["output_dir"]) / "media" / "market-snapshot")
     allowed.update(s["url"] for d in result.get("evidence", []) for s in d.get("desk_record_binding", {}).get("sources", []))
     for d in result.get("evidence", []):
         allowed.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
@@ -1585,7 +1597,13 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         validate_release_media({**result, "article": corrected_article, "media_assets": assets,
             "visual_repair_disposition": disposition,
             "visual_editorial_decision": corrected_article.get("visual_editorial_decision")})
+    if corrected_article.get("lead_image_asset_id"):
+        assets = sorted(assets, key=lambda a: a.get("asset_id") != corrected_article["lead_image_asset_id"])
     for asset in assets:
+        if asset.get("modality") == "tradingview_chart_snapshot":
+            from live_contentops.article_publication_quality_v1 import validate_snapshot_asset
+            validate_snapshot_asset(asset, market=corrected_article.get("market_asset"))
+            continue
         if asset.get("modality") == "documentary_photo":
             from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
             validate_contextual_photo(asset)
@@ -1670,6 +1688,10 @@ def validate_release_media(result, *, require_pixel_review=True, prewriter=False
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]
     charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
     cards = [a for a in assets if a.get("modality") == "source_bound_data_card"]
+    snapshots = [a for a in assets if a.get("modality") == "tradingview_chart_snapshot"]
+    for snapshot in snapshots:
+        from live_contentops.article_publication_quality_v1 import validate_snapshot_asset
+        validate_snapshot_asset(snapshot, market=(result.get("article") or {}).get("market_asset"))
     article = result.get("article") or {}
     from live_contentops.post_visuals_v1 import POLICY, validate_post_data_card
     current_visuals = article.get("post_visual_policy") == POLICY
@@ -1695,10 +1717,10 @@ def validate_release_media(result, *, require_pixel_review=True, prewriter=False
         card_article = article if article.get("substack_body_markdown") else {
             "title": company_card_plan.get("title", ""), "substack_body_markdown": " ".join(selected)}
         validate_post_data_card(cards[0], card_article, result.get("evidence") or [])
-    if len(assets) != len(photos) + len(charts) + len(cards):
+    if len(assets) != len(photos) + len(charts) + len(cards) + len(snapshots):
         raise ValueError("RELEASE_UNSUPPORTED_MEDIA")
     if text_first:
-        if len(assets) != len(photos) + len(charts) + len(cards):
+        if len(assets) != len(photos) + len(charts) + len(cards) + len(snapshots):
             raise ValueError("TEXT_FIRST_UNSUPPORTED_MEDIA")
     elif reader_first:
         if dropped_after_repair:

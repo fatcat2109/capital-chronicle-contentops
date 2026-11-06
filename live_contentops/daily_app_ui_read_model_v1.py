@@ -1589,7 +1589,8 @@ def build_daily_app_snapshot(
         "schedule": {
             "idle_healthy": bool(
                 cockpit_primary_state == "RUNNING_IDLE"
-                and production_day.production_day_state in {"ON_TRACK", "FLOOR_MET"}
+                and production_day.production_day_state in {"ON_TRACK", "FLOOR_MET",
+                    "WITHIN_DAILY_ARTICLE_CAP", "DAILY_ARTICLE_CAP_REACHED"}
             ),
             "next_editorial_wake_utc": next_window.get("window_start_utc") if next_window else None,
             "next_editorial_wake_reason": (

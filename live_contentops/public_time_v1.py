@@ -65,4 +65,4 @@ def public_media_text(assets):
 def public_article_text(article):
     return {k: article[k] for k in ("title", "subtitle", "dek", "substack_body_markdown",
         "display_date", "social_hook", "social_mechanism_summary", "social_policy_summary",
-        "social_cross_asset_summary", "editorial_scope_notice") if k in article}
+        "social_cross_asset_summary", "editorial_scope_notice", "social_scenarios") if k in article}

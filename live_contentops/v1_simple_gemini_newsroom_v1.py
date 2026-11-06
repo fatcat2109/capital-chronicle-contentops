@@ -1342,7 +1342,7 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
 
 
 def _public_copy(article: Mapping[str, Any]) -> str:
-    return "\n".join(
+    text = "\n".join(
         str(article.get(key) or "")
         for key in (
             "title",
@@ -1353,6 +1353,9 @@ def _public_copy(article: Mapping[str, Any]) -> str:
             "substack_body_markdown",
         )
     )
+    social = article.get("social_scenarios") or {}
+    lines = [str(social[k]) for k in ("base_case", "alternative") if social.get(k)]
+    return text + ("\n" + "\n".join(lines) if lines else "")
 
 
 def _normalize_relay_attribution(
@@ -1978,7 +1981,7 @@ def _reader_safe_native_article(
     # are internal metadata, just like source markers, never reader-facing copy.
     body = re.sub(r"\[\[VISUAL:[A-Za-z0-9_.:-]+\]\]", "", body)
     body = re.sub(r"\n[ \t]*\n(?:[ \t]*\n)+", "\n\n", body).strip()
-    if not reader_first:
+    if not reader_first and not article.get("scenario_analysis"):
         body = re.sub(r"(?m)^#{1,6}\s+", "", body)
     title = str(article.get("title") or "")
     label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
@@ -2015,6 +2018,10 @@ def _reader_safe_native_article(
             result["editorial_scope_notice"] += " Fixture, not current data."
         result["editorial_scope_notice"] = " ".join(filter(None, (
             result["editorial_scope_notice"], *article.get("desk_record_source_notices", []))))
+    for key in ("scenario_analysis", "social_scenarios", "market_asset", "article_type", "release_analysis",
+                "lead_image_asset_id", "publication_quality_policy", "valid_until_utc"):
+        if key in article:
+            result[key] = article[key]
     from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
     notices = [text for d in article.get("public_research_descriptors", []) for text in reader_notices(d)]
     if notices:
@@ -2083,6 +2090,9 @@ def _publication_media_metadata(media_assets, *, compact=False):
     assets, credits = [], []
     for original in media_assets:
         asset = dict(original)
+        if asset.get("modality") == "tradingview_chart_snapshot":
+            from live_contentops.tradingview_snapshot_v1 import CREDIT
+            credits.append(CREDIT + ".")
         if asset.get("modality") == "source_backed_chart" and asset.get("source_links"):
             links = "; ".join(f"[{s['label']}]({s['url']})" for s in asset["source_links"])
             asset["caption"] = str(asset.get("caption") or "") + " Sources: " + links + "."
@@ -2183,7 +2193,9 @@ def _native_preview_bundle(
         compiler_article["native_destination_credits"] = {d: _derivative_media_attribution(
             [a for a in media_assets if a["asset_id"] in ids],compact=True)
             for d,ids in compiler_article["native_destination_media"].items()}
-    attribution = _derivative_media_attribution([] if reader_first else media_assets[:1])
+    legacy_media = [*media_assets[:1], *(a for a in media_assets[1:]
+        if a.get("modality") == "tradingview_chart_snapshot")]
+    attribution = _derivative_media_attribution([] if reader_first else legacy_media)
     if attribution:
         compiler_article["native_media_attribution"] = attribution
     payloads = build_native_derivative_payloads(
@@ -2351,7 +2363,9 @@ def _build_simple_publication_lifecycle_plan(
     )
     reader_first = article.get("reader_first_version") == "DATA_JOURNALISM_V1"
     publication_assets, attribution = _publication_media_metadata(media_assets, compact=reader_first)
-    attribution = _derivative_media_attribution([] if reader_first else media_assets[:1])
+    legacy_media = [*media_assets[:1], *(a for a in media_assets[1:]
+        if a.get("modality") == "tradingview_chart_snapshot")]
+    attribution = _derivative_media_attribution([] if reader_first else legacy_media)
     if reader_first:
         compiler_article["native_media_sources"] = {a["asset_id"]:a["source_links"]
             for a in media_assets if a.get("source_links")}

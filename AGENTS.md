@@ -1,5 +1,30 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Fewer pieces, new images and scenarios — 6 November 2026 (CC-333; decision 93)
+
+At most two articles per existing newsroom production day, including event pieces.
+CC-124's standing cadence is six hours; this changes no schedule in an item run.
+This supersedes older 5–8/day targets and no-image exceptions for new publication.
+The existing coordinator requires a content image never published in another piece,
+checking exact SHA256 and perceptual hashes in `published_images_v1.jsonl` beside
+the publication feed. The same article distributes its images to its social copies.
+Six-market pieces set `article.market_asset` before media binding/registration and
+lead with a fresh CC-316 TradingView snapshot; release pieces keep their release
+card first and add the relevant snapshot. Other pieces use their own data chart
+or an unused lawful photo. Never reuse the Fed building or Capitol photographs.
+Use the existing media binding owner to capture/refresh before review; preserve
+TradingView's full attribution, free-public-page rights and image bytes.
+
+Every article carries a Scenarios section with 2–3 Main-sourced scenarios: labelled
+model-estimate probability, confirmation, six-market implications and invalidation.
+Supply `article.scenario_analysis` with exact source bindings and two authored
+`article.social_scenarios` lines (base case and main alternative). The existing
+eight-channel compiler carries both lines to social copy. Do not invent missing
+probabilities or derive an unsupported complement. Search held full Main reports
+and dossiers before naming a gap. Decisions 40, 84 and 90 still apply. Status
+posts and digest link indexes retain their separate existing contracts. Historical
+objects and frozen requests stay immutable; readback/reconciliation stays available.
+
 ## Publication speed — 3 November 2026 (CC-172; Jim's decisions 53 and 54)
 
 Dispatch every applicable channel within 15 minutes of approved text. Preserve the first
