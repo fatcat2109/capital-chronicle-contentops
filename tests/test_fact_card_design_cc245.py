@@ -83,7 +83,8 @@ def test_too_much_text_is_cut_never_raised(tmp_path):
 
 
 def test_dates_are_reader_dates_and_the_piece_date_is_fixed():
-    assert reader_date("2026-10-19T00:00:00Z") == "October 19, 2026"
+    assert reader_date("2026-10-19T00:00:00Z") == "October 18, 2026"
+    assert reader_date("2026-10-19") == "October 19, 2026"
     assert reader_date("") == ""
     assert piece_dated_line({"display_date": "Written November 2, 2026 (New York) · retrospective"}) == \
         "Capital Chronicle · November 2, 2026"
@@ -125,7 +126,7 @@ def test_source_fact_card_keeps_a_sent_file_and_labels_the_source_date(tmp_path,
         dated_line="Capital Chronicle · November 3, 2026")
     assert sent.read_bytes() == before                    # never overwritten
     assert Path(card["path"]) != sent and Path(card["path"]).is_file()
-    assert seen["footer_lines"][0] == "Source: U.S. Securities and Exchange Commission, announced October 19, 2026"
+    assert seen["footer_lines"][0] == "Source: U.S. Securities and Exchange Commission, announced October 18, 2026"
     assert seen["dated_line"] == "Capital Chronicle · November 3, 2026"
     assert seen["kicker"] == "U.S. Securities and Exchange Commission"
     assert not any("Announcement:" in line for line in seen["footer_lines"])
