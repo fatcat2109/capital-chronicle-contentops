@@ -1,0 +1,27 @@
+.............F.                                                          [100%]
+================================== FAILURES ===================================
+________ test_hosting_routes_snapshots_through_validated_delivery_only ________
+
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-34121/test_hosting_routes_snapshots_0')
+capture = [('US500', '240')]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002055455DCD0>
+
+    def test_hosting_routes_snapshots_through_validated_delivery_only(tmp_path, capture, monkeypatch):
+        article, assets = prepared(tmp_path, release=True)
+        plan_for(tmp_path, article, assets)
+        observed = []
+        monkeypatch.setattr(pipeline, "prepare_cloudinary_delivery_media", lambda **kw: observed.append(kw) or {"status": "CONTROLLED"})
+        pipeline._prepare_cloudinary_delivery_media_for_plan(work_item_id="cc316", plan={"output_dir": str(tmp_path)},
+            preconditions={"canonical_publication_status": "RECONCILED_CONFIRMED", "unknown_write_count": 0})
+        assert len(observed[0]["delivery_only_assets"]) == 2
+        assert all(a["modality"] != "tradingview_chart_snapshot" for a in observed[0]["article_assets"])
+        from live_contentops.cloudinary_delivery_media_v1 import _validated_local_asset
+        for asset in observed[0]["delivery_only_assets"]:
+            _, blockers = _validated_local_asset(asset, article=article)
+>           assert not blockers
+E           AssertionError: assert not ['delivery_media_article_inclusion_not_false:tradingview-snapshot-7f196613d0dbcf2d49e3', 'delivery_media_canonical_article_media_not_false:tradingview-snapshot-7f196613d0dbcf2d49e3']
+
+tests\test_article_tradingview_snapshot_cc316.py:191: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_article_tradingview_snapshot_cc316.py::test_hosting_routes_snapshots_through_validated_delivery_only
+1 failed, 14 passed in 15.82s

@@ -43,6 +43,29 @@ The two inherited builder JSONL files and all six dirty operating-root files
 stay outside this item's commits. No other chat, schedule or native desktop
 control is used.
 
+The final source is integrated and pushed at
+`69a6b3898bf911665385b47f7ac7013a48fb2d8f`. Live tag:
+`contentops-live-20261107-cc333-r2`; rollback tag:
+`contentops-rollback-20261107-cc333-r2` at `de3fbcf7`. The first integration's
+rollback at `7dfecb46` is also retained. [Integration](resume-20261107/integration.json)
+verifies all 54 changed files against the installed bytes and Git blobs, and
+all eight inherited dirty files remain byte-identical. The final snapshot
+correction also recognizes supplied scenarios without requiring a policy label.
+
+[Validation](resume-20261107/validation.json) records 230 distinct passing builder
+checks. The operating-root selection passed 60 checks, followed by 19 passing
+snapshot checks after the final correction; those two selections overlap.
+[The installed consumer read](resume-20261107/operating-consumer-read.json) resolves
+the actual production feed/register and the original NFP binding. It shows zero
+occupied article slots and capacity for one article on 7 November. The old
+daily-cap cause is no longer current. The first remaining cause is
+`JIM_DECISION_94_CC124_NOT_DUE`: the existing CC-124 run is due at **7 November
+15:01 GMT+7**, under the new-Main-only weekend rule. Its pending writer request
+`f91f22eaba23d5af0e115dd181655185d9a5639c627ea07de641d570f5e96c87`
+and binding are unchanged, with no public dispatch. The required public-piece
+readbacks remain **0/2**. CC-333 stays BLOCKED until that due run, and cannot be
+DONE until two compliant pieces have exact canonical and social readbacks.
+
 Decision 93 is applied through the existing publication coordinator, native writer,
 media binding and eight-channel compiler. The first feature selection passed:
 [feature-tests.xml](feature-tests.xml), 46 checks in 19.85 seconds. It started at

@@ -1,0 +1,18 @@
+..........F
+================================== FAILURES ===================================
+___________ test_dates_are_reader_dates_and_the_piece_date_is_fixed ___________
+
+    def test_dates_are_reader_dates_and_the_piece_date_is_fixed():
+>       assert reader_date("2026-10-19T00:00:00Z") == "October 19, 2026"
+E       AssertionError: assert 'October 18, 2026' == 'October 19, 2026'
+E         
+E         - October 19, 2026
+E         ?          ^
+E         + October 18, 2026
+E         ?          ^
+
+tests\test_fact_card_design_cc245.py:86: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_fact_card_design_cc245.py::test_dates_are_reader_dates_and_the_piece_date_is_fixed
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 10 passed in 5.33s
