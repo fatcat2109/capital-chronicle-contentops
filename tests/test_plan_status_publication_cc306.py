@@ -53,6 +53,11 @@ def fake_host(*, work_item_id, delivery_only_assets, existing_manifest, article_
 def queued(tmp_path, export_fixture, main_root):
     store, transport, coordinator = _coordinator(tmp_path, runtime=FixtureTransport())
     _set_mode(store, "AUTONOMOUS_DEFAULT")
+    # Oil's setup went out earlier, so its cancellation is news readers can follow (Jim, 6 Nov).
+    from live_contentops.plan_status_posts_v1 import DESTINATION as _D, WORK_ITEM_ID as _W
+    store.create_work_item(story_id=_W, title="Plan status posts (decision 79)", target_surface="MULTI_PLATFORM", work_item_id=_W)
+    store.register_outbox_message(message_id="announced-plan_oil", work_item_id=_W, destination=_D, status="PUBLISHED",
+                                  payload=json.dumps({"plan_id": "plan_oil", "state": "WAITING"}))
     result = queue_posts(store, export_fixture, now=NOW, main_root=main_root, python=sys.executable)
     keys = {(q["symbol"], q["state"]): q["key"] for q in result["queued"]}
     return store, transport, coordinator, keys, tmp_path / "posts"

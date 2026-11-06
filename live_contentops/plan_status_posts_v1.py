@@ -221,6 +221,10 @@ POSTING_WINDOW_MINUTES = 60
 # whose post already went out still posts after the window, up to this many hours, with its true time:
 # readers who saw the setup must not be left with a plan that has ended (decision 79's live status).
 LATE_STATE_HOURS = 24
+# Jim, 6 Nov: a 'withdrawn' post about a plan readers never saw only confuses them (EUR/USD: a new sell plan,
+# then 'view changed' about an older plan whose setup post had been refused). Such states post only for an
+# announced plan, and before any new plan queued in the same run.
+WITHDRAWN = {"VIEW_CHANGED", "CANCELLED", "INVALIDATED", "EXPIRED"}
 PUBLIC_LEVELS = ("direction", "zone_low", "zone_high", "invalidation_level", "valid_until_utc")
 
 
@@ -242,7 +246,7 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     fresh = [row for row in rows if row["symbol"] in MARKETS]
     announced = {json.loads(r["payload"]).get("plan_id") for r in store.list_outbox_messages(destination=DESTINATION)
                  if r["status"] == "PUBLISHED"}
-    for row in fresh:
+    for row in sorted(fresh, key=lambda r: (r["to"] not in WITHDRAWN, r["at_utc"])):
         late = False
         if _utc(row["at_utc"]).timestamp() < oldest:
             if (row["to"] != "WAITING" and row["plan_id"] in announced
@@ -251,6 +255,9 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
             else:
                 too_old += 1
                 continue
+        if row["to"] in WITHDRAWN and row["plan_id"] not in announced:
+            skipped.append({"key": row["key"], "cause": "PLAN_NEVER_ANNOUNCED"})
+            continue
         post = compose(row)
         if post["status"] != "COMPOSED":
             skipped.append({"key": row["key"], "cause": post.get("cause")})

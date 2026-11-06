@@ -148,19 +148,19 @@ def test_each_recent_transition_queues_exactly_once_and_history_never_posts(tmp_
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     first = queue(store, export, main_root)
     assert [(q["symbol"], q["state"]) for q in first["queued"]] == [
-        ("XAUUSD", "WAITING"), ("XAUUSD", "TRIGGERED"), ("USOIL", "WAITING"), ("USOIL", "CANCELLED")]
+        ("XAUUSD", "WAITING"), ("USOIL", "WAITING"), ("XAUUSD", "TRIGGERED")]
     assert first["older_than_window"] == 1  # 27 Oct EURUSD
-    assert first["not_posted"][0]["cause"] == "PLAN_INVALIDATION_LEVEL_MISSING"
+    assert {s["cause"] for s in first["not_posted"]} == {"PLAN_INVALIDATION_LEVEL_MISSING", "PLAN_NEVER_ANNOUNCED"}
     again = queue(store, export, main_root)
-    assert again["queued"] == [] and len(again["already_queued"]) == 4
+    assert again["queued"] == [] and len(again["already_queued"]) == 3
     rows = store.list_outbox_messages(destination=DESTINATION)
-    assert len(rows) == 4 and {r["status"] for r in rows} == {"READY_FOR_PUBLISHER"}
+    assert len(rows) == 3 and {r["status"] for r in rows} == {"READY_FOR_PUBLISHER"}
 
 
 def test_a_dry_run_reports_the_rows_and_writes_nothing(tmp_path, export, main_root):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     dry = queue(store, export, main_root, dry_run=True)
-    assert dry["dry_run"] is True and len(dry["would_queue"]) == 4 and "queued" not in dry
+    assert dry["dry_run"] is True and len(dry["would_queue"]) == 3 and "queued" not in dry
     assert store.list_outbox_messages(destination=DESTINATION) == []
     queue(store, export, main_root)
     assert queue(store, export, main_root, dry_run=True)["would_queue"] == []
@@ -221,4 +221,31 @@ def test_a_later_state_of_an_announced_plan_posts_late_but_unannounced_history_d
     payload = json.loads(late_row["payload"])
     assert payload["late"] is True and freshness_limit_minutes(payload) == 24 * 60
     assert freshness_limit_minutes({"state": "WAITING"}) == 60
+
+def _announce(store, plan_id):
+    from live_contentops.plan_status_posts_v1 import WORK_ITEM_ID
+    store.create_work_item(story_id=WORK_ITEM_ID, title="Plan status posts (decision 79)",
+                           target_surface="MULTI_PLATFORM", work_item_id=WORK_ITEM_ID)
+    store.register_outbox_message(message_id="announced-" + plan_id, work_item_id=WORK_ITEM_ID, destination=DESTINATION,
+                                  status="PUBLISHED", payload=json.dumps({"plan_id": plan_id, "state": "WAITING"}))
+
+
+@pytest.mark.parametrize("announced", [False, True])
+def test_a_withdrawal_posts_only_for_a_plan_readers_saw_and_before_the_new_plan(tmp_path, main_root, announced):
+    """Jim, 6 Nov: EUR/USD's new sell plan went out, then 'view changed' about an older plan whose setup post had
+    been refused; readers saw a plan and its withdrawal of something they never read."""
+    plans = [plan("plan_old", "EURUSD", "BEARISH", 1.1255, 1.1272, invalid=1.1305),
+             plan("plan_new", "EURUSD", "BEARISH", 1.1187, 1.1191, invalid=1.1204)]
+    events = [event("plan_new", "WAITING", "2026-11-05T12:19:32Z"),
+              event("plan_old", "VIEW_CHANGED", "2026-11-05T12:20:18Z", "THESIS_CHANGED")]
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    if announced:
+        _announce(store, "plan_old")
+    result = queue(store, write_export(tmp_path / "swap", plans, events), main_root)
+    order = [(q["state"], q["at_utc"]) for q in result["queued"]]
+    if announced:
+        assert order == [("VIEW_CHANGED", "2026-11-05T12:20:18Z"), ("WAITING", "2026-11-05T12:19:32Z")]
+    else:
+        assert order == [("WAITING", "2026-11-05T12:19:32Z")]
+        assert [s["cause"] for s in result["not_posted"]] == ["PLAN_NEVER_ANNOUNCED"]
 
