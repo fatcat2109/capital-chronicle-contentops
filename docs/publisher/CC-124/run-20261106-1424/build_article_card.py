@@ -6,12 +6,14 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[4]))
 from live_contentops.post_visuals_v1 import build_post_data_card, validate_post_data_card
+from live_contentops.native_publication_promotion_v1 import ReadOnlyStore
+from live_contentops.native_desktop_editorial_v1 import native_artifact_key
 
 HERE = Path(__file__).resolve().parent
 RUN = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\owner-manual\cc124-six-markets-20261106-v1")
-cycle = json.loads((RUN / "native_desktop_result.json").read_bytes())
-result = cycle.get("report_workspace_result", cycle)
-stage = "revise" if cycle.get("revision_performed") or result.get("simple_result", {}).get("revision_performed") else "write"
+store = ReadOnlyStore(r"A:\Capital Chronicle\Runtime\ContentOps\contentops_daily_app_v1.sqlite3")
+result = json.loads(store.get_outbox_message(native_artifact_key(store, RUN.name, "cc-editorial-final-"))["payload"])
+stage = "revise" if result.get("simple_result", {}).get("revision_performed") else "write"
 response = json.loads((RUN / ("desktop_response_" + stage + ".json")).read_bytes())
 article = result["article"]
 documents = result["evidence"]

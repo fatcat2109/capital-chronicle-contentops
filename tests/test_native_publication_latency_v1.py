@@ -26,7 +26,7 @@ def current(store, run):
 
 @pytest.mark.parametrize("mismatch", [None, "return", "source"])
 def test_completed_native_revision_reaches_existing_assembly_without_another_writer(tmp_path, monkeypatch, mismatch):
-    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, resume_completed_native_revision
     store, binding, _, result, _ = seeded(tmp_path, monkeypatch, final_visual=False)
     turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"], owner_manual_validation=True)
     original = json.loads((Path(__file__).resolve().parents[1] /
@@ -43,9 +43,7 @@ def test_completed_native_revision_reaches_existing_assembly_without_another_wri
     turn._put("revise", "request", request)
     turn._put("revise", "response", response)
     before = copy.deepcopy(current(store, binding["run_id"]))
-    call = lambda: bind_editorial_media(store, run_id=binding["run_id"], article_identity=result["article_identity"],
-        assets=result["media_assets"], expected_package_revision=native_review_revision(result),
-        completed_revision_request_sha256=request["request_sha256"])
+    call = lambda: resume_completed_native_revision(store, turn, result, run_id=binding["run_id"])
     if mismatch:
         with pytest.raises(ValueError, match="EXACT_COMPLETED_NATIVE_REVISION_REQUIRED"):
             call()

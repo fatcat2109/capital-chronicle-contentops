@@ -1451,6 +1451,18 @@ def normalize_native_receipt(value: dict[str, Any], telemetry: Mapping[str, Any]
         value["exact_next_blocker"] = value["exact_next_blocker"].replace("GEMINI_", "DESKTOP_")
 
 
+def resume_completed_native_revision(store, turn, result, *, run_id):
+    """Keep the completed authored revision current when reopening an assembly."""
+    request = getattr(turn, "frozen_request", lambda _: None)("revise")
+    response = getattr(turn, "_get", lambda *_: None)("revise", "response")
+    if not request or not response or result.get("simple_result", {}).get("revision_performed"):
+        return result
+    bind_editorial_media(store, run_id=run_id, article_identity=result["article_identity"],
+        assets=result.get("media_assets", []), expected_package_revision=native_review_revision(result),
+        completed_revision_request_sha256=request["request_sha256"])
+    return json.loads(store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))["payload"])
+
+
 def bind_editorial_media(store, *, run_id, article_identity, assets, expected_package_revision=None,
                          final_visual_repair=None, corrected_worker_output=None, drop_failed_visuals=False,
                          completed_revision_request_sha256=None):
