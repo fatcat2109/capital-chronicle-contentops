@@ -1,0 +1,64 @@
+{
+  "tool_request_sha256": "f1e9465f6410ed946723bcac6c107c5f0556223b762c533ca594f89418f10a85",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "Neo page 688: expected signed-in Profile and Edit profile on @Capitalnicle, same-tab composer continuity, exact three pre-click boxes and loaded 1080x1350 card; Post all clicked once; root and two replies read immediately afterwards. Binary comparison follows after the other sends.",
+    "observed_at_utc": "2026-11-06T08:55:04.422Z",
+    "dispatched_at_utc": "2026-11-06T08:54:40.249Z"
+  },
+  "result": {
+    "request_sha256": "b6601e5a5c8be83f91a97247d9118daf5588c035316ca81e550f67eaefe25e2b",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2118628120114905227",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118628120114905227",
+    "published_at_utc": "2026-11-06T08:54:40.249Z",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "@Capitalnicle",
+      "observed_stable_id": null,
+      "observed_at_utc": "2026-11-06T08:54:29.008Z",
+      "evidence": "Expected signed-in Profile plus Edit profile before composing; same-page continuity through this pre-click composer observation."
+    },
+    "pre_click_posts": [
+      "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nhttps://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital",
+      "Watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.",
+      "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "@Capitalnicle",
+      "public_object_id": "2118628120114905227",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118628120114905227",
+      "observed_text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\n\nhttps://\ncapitalchronicle.substack.com/p/dated-capita\nl-chronicle-review-capital\n…\n\nWatch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+      "content_verified": true,
+      "observed_thread": [
+        {
+          "public_object_id": "2118628120114905227",
+          "public_object_url": "https://x.com/Capitalnicle/status/2118628120114905227",
+          "observed_text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\n\nhttps://\ncapitalchronicle.substack.com/p/dated-capita\nl-chronicle-review-capital\n…"
+        },
+        {
+          "public_object_id": "2118628122870554673",
+          "public_object_url": "https://x.com/Capitalnicle/status/2118628122870554673",
+          "observed_text": "Watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure."
+        },
+        {
+          "public_object_id": "2118628124934160684",
+          "public_object_url": "https://x.com/Capitalnicle/status/2118628124934160684",
+          "observed_text": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+        }
+      ],
+      "public_image_urls": [
+        "https://pbs.twimg.com/media/HWbgsFKacAApgsu?format=png&name=small"
+      ],
+      "media_check_state": "PENDING_BINARY_COMPARISON"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "format": "text_brief",
+  "full_text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nhttps://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital\n\nWatch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+  "hard_truncation_used": false,
+  "overflow_strategy": "ordered_reply_chain",
+  "platform_limit": 280,
+  "posts": [
+    {
+      "media_asset_ids": [
+        "post-facts-87d77248283f787c5527"
+      ],
+      "order": 0,
+      "role": "root",
+      "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nhttps://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital"
+    },
+    {
+      "media_asset_ids": [],
+      "order": 1,
+      "role": "reply",
+      "text": "Watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure."
+    },
+    {
+      "media_asset_ids": [],
+      "order": 2,
+      "role": "reply",
+      "text": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+    }
+  ],
+  "quality_metrics": {
+    "complete_article_visual_count": 1,
+    "content_reply_count": 2,
+    "duplicated_sentence_count": 0,
+    "hard_character_slicing_used": false,
+    "notice_reply_count": 0,
+    "orphan_fragment_count": 0,
+    "per_post_character_utilization": [
+      0.846,
+      0.357,
+      0.882
+    ],
+    "post_character_counts": [
+      237,
+      100,
+      247
+    ],
+    "reply_count": 2,
+    "sentence_boundary_pass": true,
+    "shortest_longest_reply_ratio": 0.405,
+    "visual_distribution_pass": false
+  },
+  "reply_texts": [
+    "Watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.",
+    "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+  ],
+  "root_text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nhttps://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital",
+  "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nhttps://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital"
+}

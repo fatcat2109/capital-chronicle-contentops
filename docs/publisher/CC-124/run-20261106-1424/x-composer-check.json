@@ -1,0 +1,21 @@
+{
+  "expected_post_texts": [
+    "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nhttps://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital",
+    "Watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.",
+    "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+  ],
+  "observed_post_texts": [
+    "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nhttps://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital",
+    "Watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.",
+    "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+  ],
+  "passed": true,
+  "observed_at_utc": "2026-11-06T08:54:29.008Z",
+  "image_load_check": [
+    {
+      "h": 1350,
+      "src": "blob:https://x.com/8ef0d66f-32a6-4b0f-bea6-bee776521868",
+      "w": 1080
+    }
+  ]
+}
