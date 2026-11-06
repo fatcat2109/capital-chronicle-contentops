@@ -1,0 +1,23 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "clicked_at_utc": "2026-11-06T10:46:44.065Z",
+    "info": {
+      "browserProfileId": "AE5BBDC417C5C94D312789F609F796DC",
+      "groupId": "49336E35E266293A68E526A7A334A82F",
+      "index": 16,
+      "isActive": false,
+      "isLoading": false,
+      "isPinned": false,
+      "loadProgress": 0,
+      "pageId": 701,
+      "tabId": 1698402477,
+      "targetId": "FDB98CB87F8F7E02BCAC77515F478958",
+      "title": "(4) Capital Chronicle (@Capitalnicle) / X",
+      "url": "https://x.com/compose/post",
+      "windowId": 1698400956
+    },
+    "snapshot": "e @Capitalnicle 1 hour ago Watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure. 1 reply, 6 views\" [ref=e95] [cursor=pointer]\n        - article \"Capital Chronicle @Capitalnicle 6 hours ago Capital Chronicle's midterm review: right scenario, wrong market call capitalchronicle.substack.com/p/capital-chro 1 reply, 45 views\" [ref=e105] [cursor=pointer]\n        - article \"Capital Chronicle @Capitalnicle 6 hours ago Capital Chronicle's review: the election scenario matched, but equities and Bitcoin rose against the downside map. A right result is not a market-direction model. 1 reply, 1 like, 6 views\" [ref=e117] [cursor=pointer]\n        - article \"Capital Chronicle @Capitalnicle 15 hours ago Lower Treasury yields leave Bitcoin's demand question open capitalchronicle.substack.com/p/lower-treasu 1 reply, 1 like, 81 views\" [ref=e127] [cursor=pointer]\n  - generic \"Trending\" [ref=e139] [cursor=pointer]\n    - search \"Search\"\n      - combobox \"Search query\" [ref=e140]\n    - complementary \"Who to follow\"\n      - generic [ref=e141] [cursor=pointer]\n        - heading \"You might like\" [level=2]\n      - list\n        - listitem [level=1] [ref=e142] [cursor=pointer]\n        - listitem [level=1] [ref=e146] [cursor=pointer]\n        - listitem [level=1] [ref=e150] [cursor=pointer]\n      - link \"Show more\" [ref=e155] [url=\"https://x.com/i/connect_people?user_id=1465516914608799746\"]\n    - region \"Trending now\"\n      - heading \"Trending now\" [level=1]\n      - generic \"Timeline: Trending now\"\n        - generic [ref=e156] [cursor=pointer]\n        - link \"Politics · Trending Thomas Massie More\" [ref=e157]\n        - link \"Trending in Vietnam #LoversAndGangstersEP2 More\" [ref=e159]\n        - link \"Politics · Trending Civil War More\" [ref=e161]\n        - link \"Trending liberation day More\" [ref=e163]\n        - link \"Show more\" [ref=e165] [url=\"https://x.com/explore/tabs/for-you\"]\n    - navigation \"Footer\"\n      - link \"Terms\" [ref=e166] [url=\"https://x.com/tos\"]\n      - link \"Privacy\" [ref=e167] [url=\"https://x.com/privacy\"]\n      - link \"Cookies\" [ref=e168] [url=\"https://support.x.com/articles/20170514\"]\n      - link \"Accessibility\" [ref=e169] [url=\"https://help.x.com/resources/accessibility\"]\n      - link \"Ads Info\" [ref=e170] [url=\"https://business.x.com/help/troubleshooting/how-twitter-ads-work.html?ref=web-twc-ao-gbl-adsinfo&utm_source=twc&utm_medium=web&utm_campaign=ao&utm_content=adsinfo\"]\n      - button \"More\" [collapsed] [ref=e171]"
+  }
+}

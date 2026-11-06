@@ -1,0 +1,44 @@
+{
+  "tool_request_sha256": "2dd7e817cd42b5241b4259a70cdbb15ee2771241fe8e5f401bc2723b5e9ddc81",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "surface": "CODEX_EXEC",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-06T10:51:01.889Z",
+    "dispatched_at_utc": "2026-11-06T10:50:49.121Z",
+    "observation_source": "Neo 701 identity, full composer comparison and one publish click; initial feed still showed prior post, then bounded text-ready read returned this exact new object. No retry."
+  },
+  "result": {
+    "request_sha256": "14e01c3b2f1eb77e528e4869292fb8878edf1f751a956324f6235ea5106dd87a",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "Ugkxb1PcuEu4mpuBVHDfcKOTJdzuHZPkF9k2",
+    "public_object_url": "https://www.youtube.com/post/Ugkxb1PcuEu4mpuBVHDfcKOTJdzuHZPkF9k2",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "@CapitalChronicleYouTube",
+      "observed_stable_id": null,
+      "observed_at_utc": "2026-11-06T10:50:48.463Z",
+      "evidence": "Your channel link matches @CapitalChronicleYouTube; Customize channel and Manage videos link the current UCuSrYOgd4eeudcD2vidafbA channel. Same-page exact pre-click composer."
+    },
+    "pre_click_posts": [
+      "Update: Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "@CapitalChronicleYouTube",
+      "public_object_id": "Ugkxb1PcuEu4mpuBVHDfcKOTJdzuHZPkF9k2",
+      "public_object_url": "https://www.youtube.com/post/Ugkxb1PcuEu4mpuBVHDfcKOTJdzuHZPkF9k2",
+      "observed_text": "Capital Chronicle\n0 gi\u00e2y tr\u01b0\u1edbc\nUpdate: Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\u0110\u1ecdc th\u00eam",
+      "content_verified": true,
+      "public_image_urls": [
+        "https://yt3.ggpht.com/pNtP6oZd1Tmfl9CqAHA1lccJSvdzTZoyse89qmbAc6q9J7Tp0hUKvqJEi9dQdW8qGhNlldBEbIWyVg8=s640-c-fcrop64=1,0000199affffe666-rw-nd-v1"
+      ],
+      "media_check_state": "PENDING_BINARY_COMPARISON"
+    }
+  }
+}
