@@ -1,0 +1,23 @@
+{
+  "method": "Observed each exact displayed short link in Neo; LinkedIn's external-link page named this canonical and its link was followed; all three task tabs reached this canonical.",
+  "redirects": [
+    {
+      "page": 655,
+      "short_url": "https://lnkd.in/g456GY6W",
+      "target_url": "https://capitalchronicle.substack.com/p/capital-chronicles-midterm-review",
+      "target_verified": true
+    },
+    {
+      "page": 656,
+      "short_url": "https://lnkd.in/gCrMBaTR",
+      "target_url": "https://capitalchronicle.substack.com/p/capital-chronicles-midterm-review",
+      "target_verified": true
+    },
+    {
+      "page": 657,
+      "short_url": "https://t.co/POM8wrVk6B",
+      "target_url": "https://capitalchronicle.substack.com/p/capital-chronicles-midterm-review",
+      "target_verified": true
+    }
+  ]
+}

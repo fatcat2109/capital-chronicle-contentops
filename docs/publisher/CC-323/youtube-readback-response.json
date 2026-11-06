@@ -1,0 +1,43 @@
+{
+  "tool_request_sha256": "2ab16640a45935d129e27243add00ab7938848f2f0178bfcbb6ad3d01af01c36",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-06T04:52:37.473163+00:00",
+    "observation_source": "Actual exact-object Neo DOM readback; followed displayed short links; binary platform images inspected and compared with approved local card"
+  },
+  "result": {
+    "request_sha256": "81f2b23d8f517b47be49dccd2ac442786fa75733e86530aefd877e19c2bc57f1",
+    "status": "SUCCESS",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "Ugkxgbu3Nwjz01FnZyRB1vI6o7EyiDTkuDIz",
+    "public_object_url": "https://www.youtube.com/post/Ugkxgbu3Nwjz01FnZyRB1vI6o7EyiDTkuDIz",
+    "observed_text": "Capital Chronicle\n3 ph\u00fat tr\u01b0\u1edbc\nUpdate: Capital Chronicle's midterm review: right scenario, wrong market call\n\nCapital Chronicle's review: the election scenario matched, but equities and Bitcoin rose against the downside map. A right result is not a market-direction model.\n\nWhat to watch: For a future scenario, Capital Chronicle's lesson is to write down the political condition, the proposed market direction and the horizon separately, then ask what would challenge each. This review shows why the right political answer cannot stand in for that market analysis.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-midterm-review\n\nThis is a retrospective of Capital Chronicle's dated dossier and review, not a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\u0110\u1ecdc th\u00eam",
+    "content_verified": true,
+    "observed_media_sha256": [],
+    "public_write_performed": false,
+    "media_comparisons": [
+      {
+        "destination": "youtube",
+        "public_object_url": "https://www.youtube.com/post/Ugkxgbu3Nwjz01FnZyRB1vI6o7EyiDTkuDIz",
+        "public_image_url": "https://yt3.ggpht.com/ddVKVWPuL6PlTY8yTHcpQgzk8adpKws5JNp79gdNj-uRzJXQ31SLTzcJtCa89qYa2XOSQf3dv7-8ww=s640-rw-nd-v1",
+        "binary_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-323\\media\\readback\\youtube.webp",
+        "platform_sha256": "355d3952d8f826c68560fddcd5049ef8954e1e2da6a5e99f90d3eaad6feed233",
+        "source_asset_sha256": "c6d5bd2281debc7e8be8e68419de41d9f0722db5a2671005abddba91f5e90556",
+        "bytes": 27066,
+        "mime_type": "image/webp",
+        "width": 512,
+        "height": 640,
+        "visual_similarity": 0.9939,
+        "dimension_ratio_matches": true,
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "inspection_method": "Actual binary image inspected through view_image; all three timing facts, title and source footer are present and readable; existing visual_similarity_to_local_file confirms platform re-encoding."
+      }
+    ],
+    "public_image_urls": [
+      "https://yt3.ggpht.com/ddVKVWPuL6PlTY8yTHcpQgzk8adpKws5JNp79gdNj-uRzJXQ31SLTzcJtCa89qYa2XOSQf3dv7-8ww=s640-rw-nd-v1"
+    ]
+  }
+}

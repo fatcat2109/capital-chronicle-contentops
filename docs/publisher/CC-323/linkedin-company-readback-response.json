@@ -1,0 +1,51 @@
+{
+  "tool_request_sha256": "d1ce990dbc3d0875d7b551a8889426202b908d65801d37923af774bef35e9ef7",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-06T04:52:37.469939+00:00",
+    "observation_source": "Actual exact-object Neo DOM readback; followed displayed short links; binary platform images inspected and compared with approved local card"
+  },
+  "result": {
+    "request_sha256": "cafc2e706d8be91d00640a20ed216f1fd2d0edc960a4a9812be6717114ec4580",
+    "status": "SUCCESS",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:share:7524330971534508032",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524330971534508032?actorCompanyId=143198922",
+    "observed_text": "Feed post\n\nPromote this post to reach people who matter to you.\n\nBoost\n\nCapital Chronicle\n\n4m\n\nFollow\n\nCapital Chronicle's midterm review: right scenario, wrong market call\n\nWhy it matters: Capital Chronicle's 5 November Main review delivers a blunt midterm lesson: the dossier's leading Democratic-sweep scenario occurred, yet US500, USTEC and Bitcoin rose against its downside mapping. Our market-direction map was wrong. Getting the political outcome right did not make the expected market response right.\n\nContext: The same Main review calls a Democratic sweep the 'priced base case.' Capital Chronicle's interpretation is that an expected result need not tell us what fresh information a market will trade on. That is a competing explanation to examine, not proof that anticipation caused these rises.\n\nRead the full brief: https://lnkd.in/g456GY6W\n\nThis is a retrospective of Capital Chronicle's dated dossier and review, not a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\n\u200b\n\u200b\n\u200b\n\n\n",
+    "content_verified": true,
+    "observed_media_sha256": [],
+    "public_write_performed": false,
+    "media_comparisons": [
+      {
+        "destination": "linkedin_company",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524330971534508032?actorCompanyId=143198922",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQGAcRR07T2sVQ/feedshare-shrink_800/B56aGvLJkrKkAg-/0/1793940298268?e=1795651200&v=beta&t=7y4iylmQh18xR0gcZXZyESPSnDytnpzXEdYgOiQEA04",
+        "binary_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-323\\media\\readback\\linkedin_company.jpg",
+        "platform_sha256": "3f93189aed0763bf01310004f322ea863e51f3f9fc3af460620b17d20d880521",
+        "source_asset_sha256": "c6d5bd2281debc7e8be8e68419de41d9f0722db5a2671005abddba91f5e90556",
+        "bytes": 82007,
+        "mime_type": "image/jpeg",
+        "width": 800,
+        "height": 1000,
+        "visual_similarity": 0.9982,
+        "dimension_ratio_matches": true,
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "inspection_method": "Actual binary image inspected through view_image; all three timing facts, title and source footer are present and readable; existing visual_similarity_to_local_file confirms platform re-encoding."
+      }
+    ],
+    "public_image_urls": [
+      "https://media.licdn.com/dms/image/v2/D5622AQGAcRR07T2sVQ/feedshare-shrink_800/B56aGvLJkrKkAg-/0/1793940298268?e=1795651200&v=beta&t=7y4iylmQh18xR0gcZXZyESPSnDytnpzXEdYgOiQEA04"
+    ],
+    "observed_link_resolutions": [
+      {
+        "displayed_url": "https://lnkd.in/g456GY6W",
+        "target_url": "https://capitalchronicle.substack.com/p/capital-chronicles-midterm-review",
+        "target_verified": true,
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524330971534508032?actorCompanyId=143198922"
+      }
+    ]
+  }
+}
