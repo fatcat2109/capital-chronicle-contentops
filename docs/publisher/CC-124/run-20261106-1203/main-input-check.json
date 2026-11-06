@@ -1,0 +1,197 @@
+{
+  "item": "CC-124",
+  "classification": "NO_NEW_COMPLETED_PUBLISHABLE_MAIN_ANALYSIS",
+  "reason": "JIM_DECISION_89: no new completed Main report, event dossier, plan or scored outcome; Main started a precheck-only run during this audit. No headline briefs or filler; CC-323 already published the midterm lesson.",
+  "checked_at_utc": "2026-11-06T05:12:54.857897+00:00",
+  "actual_top_level_start_utc": "2026-11-06T05:03:19.626632+00:00",
+  "next_due_utc": "2026-11-06T07:04:00+00:00",
+  "top_level_launch": {
+    "pid": 45904,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "observation": "CONFIGURED_NOT_OBSERVED",
+    "source": "fresh Win32_Process launch arguments; runtime model telemetry unavailable"
+  },
+  "base_commit": "d27d93b716d69ae769cdbec8cb6c871e87aaf198",
+  "remote_default_commit": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "base_reason": "Publisher operating HEAD contains fresh remote default and integrated Publisher work.",
+  "comparison_baseline": {
+    "path": "docs\\publisher\\CC-124\\run-20261106-0917\\main-input-check.json",
+    "sha256": "e225041c97d6cec627010575a4f5c662e4c7a9017427ebfef3130525e8648e9f",
+    "checked_at_utc": "2026-11-06T02:24:49.968524+00:00"
+  },
+  "live_reader_root": "A:\\Capital Chronicle\\ContentOps",
+  "main_feed": {
+    "pointer_path": "A:\\Capital Chronicle\\ContentOps\\config\\native_desktop_main_feed_binding_v1.json",
+    "pointer_sha256": "a73547e01a5003d7128f96fbd15cebf0bc4d2041c384af7507bba4400da2cb7f",
+    "public_export_root": "A:/Capital Chronicle/Runtime/MainPublicReports-v1",
+    "manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+    "accepted_manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+    "manifest_emitted_at_utc": "2026-10-20T22:43:00.880869Z",
+    "entry_count": 15,
+    "live_consumer_scan_id": "cc-feed-scan-680e79beb1d624cee689cfd51c360597dbce911d5eeffd97e7464456ce272d84",
+    "live_consumer_scan_utc": "2026-11-06T03:37:50.824555Z",
+    "new_entries": 0
+  },
+  "desk_records": {
+    "configured_exports": [
+      {
+        "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\main-cc-014-20261103T1938\\desk-record-cand9-smoke.json",
+        "sha256": "a7c272ef3e215b6186d137c5abef45e53edb64e34b7937d276cef87e0de0b6c1"
+      }
+    ],
+    "current_count": 82,
+    "accepted_count": 82,
+    "current_records_sha256": "79dde99325695b102072c87f4f14e7b7a51e991f1f511b4116970b68fdb081eb",
+    "accepted_records_sha256": "79dde99325695b102072c87f4f14e7b7a51e991f1f511b4116970b68fdb081eb",
+    "new_records": 0
+  },
+  "public_plan_status": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1",
+    "generated_at_utc": "2026-11-06T05:13:09.834076Z",
+    "content_hash": "ebe9c456fb7bb4f70a6eaf0e3ecfcec1d100852b8e37d2cf26f096533156c82c",
+    "transitions_content_hash": "86fafc47928ecc1c8570866a05c58394a1840c7a7ecc4f99eb686e39ba16bc69",
+    "status_content_hash_binding": "ebe9c456fb7bb4f70a6eaf0e3ecfcec1d100852b8e37d2cf26f096533156c82c",
+    "plan_count": 42,
+    "transition_count": 71,
+    "latest_registration_utc": "2026-11-05T16:55:38.049733Z",
+    "latest_transition_utc": "2026-11-05T21:00:34.652682Z",
+    "comparison_cutoff_utc": "2026-11-06T02:24:49.968524+00:00",
+    "new_registrations": [],
+    "new_transitions": [],
+    "verification": "PASS: producer reader validates both hashes and their binding; refreshed check clocks contain no new plan registration or transition."
+  },
+  "additional_source_checks": {
+    "event_dossier": {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029",
+      "latest_name": "20261103-midterm-dossier",
+      "last_write_utc": "2026-11-02T23:35:09.153771+00:00",
+      "matches_previous": true,
+      "files_changed_since_previous_check": []
+    },
+    "daily_research_root_entry": {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139",
+      "latest_name": ".precheck-preparation",
+      "last_write_utc": "2026-11-05T16:13:10.423470+00:00",
+      "matches_previous": true,
+      "files_changed_since_previous_check": []
+    },
+    "main_brain_run": {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs",
+      "previous_completed_run": "run-20261105T155824Z",
+      "previous_run_last_write_utc": "2026-11-05T16:57:15.508550+00:00",
+      "latest_name": "run-20261106T050844Z",
+      "last_write_utc": "2026-11-06T05:09:22.912240+00:00",
+      "matches_previous": false,
+      "new_activity": "Main started during this check; entry checks only, no completed report.",
+      "entry_verdict": "GO",
+      "files": [
+        {
+          "name": "catch-up.json",
+          "size_bytes": 1960,
+          "sha256": "8dcf5c57637c2248c82b8a423b14ca3ae50834481d37306b1e56da98ef5716f0"
+        },
+        {
+          "name": "entry-health.json",
+          "size_bytes": 1244,
+          "sha256": "11ec4d60d4ebf2ab29170a9ead9b4b8b2fbc5c45f03b3ca88bd8691a04da4827"
+        },
+        {
+          "name": "precheck-1.json",
+          "size_bytes": 1134,
+          "sha256": "d475b9a751e30e842cced02c4dcfe71717d40f1cd83e5024b74e4d9acfce7294"
+        },
+        {
+          "name": "precheck-verdict.json",
+          "size_bytes": 395,
+          "sha256": "1b9f31b5b30f28afbaf7369ff2e0551ab84d9dd4353bf8499fa4cd4123a058ec"
+        },
+        {
+          "name": "precheck-waits.json",
+          "size_bytes": 424,
+          "sha256": "65dc6f6f5232f0d2d1400787c0201ae2f3b74c60695004a3d4deb77caee7fe2b"
+        },
+        {
+          "name": "precheck.json",
+          "size_bytes": 1134,
+          "sha256": "d475b9a751e30e842cced02c4dcfe71717d40f1cd83e5024b74e4d9acfce7294"
+        },
+        {
+          "name": "t2-admission-continuity.json",
+          "size_bytes": 562,
+          "sha256": "098f66cd55d3f93b1c52bb0eb086156b2f7618674a5ee8a71ef5f4ca08690b0f"
+        },
+        {
+          "name": "usage-before.json",
+          "size_bytes": 520,
+          "sha256": "249d6e6568b54de3354cfcb6b307ea3d840289c6f7baac37aea8d6f14fd8aecb"
+        },
+        {
+          "name": "usage-guard.json",
+          "size_bytes": 263,
+          "sha256": "17dcd66c1da7f9d79bc5eefe1619ac24236c1f5b2bdd337e9e3b757db9c3a7fb"
+        }
+      ],
+      "report_or_complete_result_present": false,
+      "used_by": "Current article selection: pending Main activity supplies no completed analytical report yet."
+    }
+  },
+  "private_scorecard_selection": {
+    "digest_path": "A:\\Capital Chronicle\\ResearchRuns\\main-daily-digest\\digest-20261106.md",
+    "digest_sha256": "154a001ae6e8e13ebb3174d7fe02ccd7339ba00889f4e937e17babce760a197c",
+    "scorecard_path": "A:\\Capital Chronicle\\ResearchRuns\\main-daily-digest\\scores-20261106T0003422213488Z.json",
+    "scorecard_sha256": "78ae963eeeba661c44ce46ec1d81cd3bec88558eb05d3cfa8425902fa0d86f64",
+    "unchanged_since_previous_check": true,
+    "summary": {
+      "flagged_arms": 7,
+      "reviewed_no_trades": 75,
+      "scored_episodes": 0,
+      "unattributed_fills": 2,
+      "unscorable_episodes": 7
+    },
+    "calibration_state": "MISSING",
+    "calibration_forecast_count": 0,
+    "used_by": "Article selection; no new scored result or forecast.",
+    "public_restriction": "DEMO execution details private under host rule 7 / Jim decision 74; Main computed analysis remains eligible under decision 72 b.",
+    "private_execution_rows_copied": false
+  },
+  "nfp_input_status": "Fresh CC-107 read: FROZEN_NFP_INPUTS_NOT_YET_CREATED; due 6 November 2026 18:00 GMT+7.",
+  "live_consumers": {
+    "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "store_access": "ReadOnlyStore; existing production-day artifact refreshed through its owner",
+    "active_leases": [],
+    "current_production_day": "newsroom-production-day-2026-11-06-bangkok",
+    "current_distinct_confirmed_originals": 1,
+    "current_day_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-06-bangkok\\newsroom_production_day_v1.json",
+    "current_day_sha256": "c301f54950240d6270701fe65bcaf42066749ffb899b15413e48a1732ceb36fc",
+    "current_day_record_count": 1,
+    "prior_production_day": "newsroom-production-day-2026-11-05-bangkok",
+    "prior_distinct_confirmed_originals": 8,
+    "production_day_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-05-bangkok\\newsroom_production_day_v1.json",
+    "production_day_sha256": "ec75193489923656bff6c7b3da73fde13ac04e380bf563a9f629c8081a01400d",
+    "production_day_record_count": 8,
+    "digest_path": "A:\\Capital Chronicle\\ResearchRuns\\main-daily-digest\\digest-20261106.md",
+    "digest_prior_day_count": 8,
+    "existing_digest_consumer_contains_cc323": true,
+    "cc323_not_already_allocated_to_digest": true,
+    "next_digest_cutoff_utc": "2026-11-06T12:00:00+00:00",
+    "count_basis": "Existing confirmed_canonicals: exact Substack identity, verified readback and reconciliation; distinct originals, excluding digest recaps.",
+    "accounting_repair_evidence": "production-day-refresh.json"
+  },
+  "actions": {
+    "new_operation_created": false,
+    "editorial_model_calls": 0,
+    "public_posts": 0,
+    "digest_sent": false,
+    "schedule_changes": false,
+    "chat_messages": false,
+    "computer_use": false,
+    "pytest_runs": 0,
+    "production_day_projection_refreshed": true
+  },
+  "inherited_files_sha256_at_audit": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "eaf106a6c5f0f94602af7ef759fd3f13ff0c8e8a68e78b3c2b625b8f8a755ebe",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "6b9fcc177395a2a4fb1dec6ae823731a9b907a60e21bf8c63b085e50f1cb6e2a"
+  },
+  "verification": "PASS: current Main exports match live consumer; no new plan, completed report or scored result. Pending Main entry checks reviewed. Day record now agrees with the one reconciled original, and the existing digest input contains CC-323. No implementation changed."
+}

@@ -1,0 +1,16 @@
+{
+  "observed_at_utc": "2026-11-06T05:08:56.034051+00:00",
+  "operation": "existing persist_native_day_measurement with CC-323 unchanged completed binding",
+  "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-06-bangkok\\newsroom_production_day_v1.json",
+  "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc323-midterm-lesson-20261106-v1\\binding.json",
+  "before_count": 0,
+  "after_count": 1,
+  "confirmed_canonical_count": 1,
+  "before_sha256": "bdddf6f26e48c5191b6fca7d7c9bea1f82e4a6f12115d00938c5c97db54d55cd",
+  "after_sha256": "c301f54950240d6270701fe65bcaf42066749ffb899b15413e48a1732ceb36fc",
+  "existing_digest_consumer_contains_cc323": true,
+  "active_leases": [],
+  "new_operation_created": false,
+  "public_posts": 0,
+  "store_access": "existing ReadOnlyStore; only the existing day artifact refreshed"
+}
