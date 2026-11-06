@@ -1,0 +1,13 @@
+{
+  "repair_rounds": 1,
+  "original_review": "editor-check-result.json",
+  "repaired_package": "editor-check-input-repaired.json",
+  "article_body_unchanged": true,
+  "all_eight_payload_prefixes_removed": true,
+  "natural_attribution_and_source_uncertainty_retained": true,
+  "source_footer": "Source: Capital Chronicle review, November 6, 2026 (ET).",
+  "new_card_sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+  "original_card_and_photo_bytes_retained": true,
+  "tests": "5 targeted presentation + 3 existing renderer/skip regressions PASS; initial missing-fixture-scope failure preserved.",
+  "text_approved": false
+}
