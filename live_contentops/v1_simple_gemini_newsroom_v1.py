@@ -2101,7 +2101,8 @@ def _publication_media_metadata(media_assets, *, compact=False):
                 "Changes: " + str(asset.get("changes_description") or "Unchanged original; display resizing only.").rstrip(".") + ".",
             ))
             if compact:
-                creator=str(asset["creator_publisher"]).strip().rstrip(".")
+                creator=str(asset.get("creator_credit") or asset.get("attribution")
+                            or asset["creator_publisher"]).strip().rstrip(".")
                 license_label=asset.get("license_name") or asset.get("license_short_name") or "Reuse terms"
                 credit=(f"Photo: [{creator}]({asset['source_page_url']}) · "
                     f"[{license_label}]({asset['license_url']}). {reader_photo_caption(asset)}")

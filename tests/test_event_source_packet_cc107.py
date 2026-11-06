@@ -68,3 +68,14 @@ def test_source_eleven_marker_stays_provenance_and_never_leaks_to_reader():
     text = "A conditional model interpretation. [[SOURCE:SOURCE_11]]"
     assert _SOURCE_MARKER_RE.findall(text) == ["SOURCE_11"]
     assert "SOURCE_11" not in _public_copy({"title": "Preview", "dek": "Interpretation", "substack_body_markdown": text})
+
+
+def test_canonical_photo_credit_retains_held_creator_attribution():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _publication_media_metadata
+    photo = {"asset_id": "archive", "modality": "documentary_photo",
+        "creator_publisher": "The White House", "attribution": "Official photograph by Daniel Torok",
+        "caption": "Archive context.", "source_page_url": "https://example.org/photo",
+        "license_url": "https://example.org/public-domain", "license_name": "Public domain"}
+    _, credit = _publication_media_metadata([photo], compact=True)
+    assert "Daniel Torok" in credit and "Public domain" in credit
+    assert photo["source_page_url"] in credit and photo["license_url"] in credit
