@@ -1,0 +1,18 @@
+{
+  "observed_at_utc": "2026-11-06T09:50:45.879609+00:00",
+  "operation_id": "cc124-oil-euro-followup-20261106-v2",
+  "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\binding.json",
+  "source_projection_in_live_consumer": true,
+  "consumer": "NativeDesktopTurn media-plan governed_input.source_pack",
+  "source_count": 1,
+  "source_content_sha256": "8d80386373c4a132edf9cffbc6c81fe6daff00cb917612a6d48e8e86c2f4cf61",
+  "exact_content_matches_verified_projection": true,
+  "source_completion_utc": "2026-11-06T08:21:03Z",
+  "original_source_cutoff_utc": "2026-11-06T07:36:24Z",
+  "frozen_operation_cutoff_utc": "2026-11-06T09:44:56.617874Z",
+  "native_selection_request_sha256": "6cb248e8a781e1e1bd4c678b15c29d9cb910a9124770a581efce06e104fd3396",
+  "native_media_plan_request_sha256": "2205a124881e41c5f8c1e3392bc1404e13790a59dcfb3b95da33c1f350ad001e",
+  "new_external_source_requests": 0,
+  "initial_empty_attempt_preserved": "cc124-oil-euro-followup-20261106-v1",
+  "initial_result": "DRAFT_BLOCKED, 0 qualified articles/derivatives and no handoff; first cause incorrect launch feed routing."
+}
