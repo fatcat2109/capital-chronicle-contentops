@@ -1,0 +1,23 @@
+{
+  "first_pushed_commit": "7ec851a6",
+  "second_pushed_commit": "0c63a4b456cf81a8f7c437ee9c0576d1833c20dd",
+  "operating_root_head_at_readback": "0c63a4b456cf81a8f7c437ee9c0576d1833c20dd",
+  "base_commit": "9cc3ab287ffe55b8b2b9b6a78eb4ba2f5df9d9ec",
+  "tests_before_blackout": {
+    "event_and_writer_tests": "279 passed in 11.39s",
+    "finished_source_tests": "6 passed in 10.17s"
+  },
+  "actual_runtime_consumer": {
+    "binding_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\binding.json",
+    "writer_request_sha256": "28d887035e0b3d617c94981890f47edac59bb067db18331ea93e33902fdcdb26",
+    "event_brief_in_actual_writer_request": true,
+    "frozen_main_dossier_in_actual_writer_source_pack": true,
+    "original_reviewed_background_reused": true,
+    "no_new_source_requests": true
+  },
+  "limits": [
+    "Source-context short-path and source-bound event packet fixes have runtime evidence; new tests are authored but no test run starts during the CC-035 blackout.",
+    "No public write has happened for this NFP operation yet.",
+    "NFP review and CPI preview acceptance require their future event inputs."
+  ]
+}

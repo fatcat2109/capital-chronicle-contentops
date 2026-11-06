@@ -70,32 +70,13 @@
           "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
           "fragments": [
             {
-              "start": 4886,
-              "end": 4997
-            }
-          ]
-        },
-        {
-          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
-          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
-          "fragments": [
-            {
-              "start": 5913,
-              "end": 5958
-            }
-          ]
-        },
-        {
-          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
-          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
-          "fragments": [
-            {
-              "start": 6431,
-              "end": 6467
+              "start": 4362,
+              "end": 4414
             }
           ]
         }
-      ]
+      ],
+      "passage_selection_at_utc": "2026-11-06T11:46:03.481962+00:00"
     }
   ]
 }

@@ -24,6 +24,7 @@ from pathlib import Path
 import re
 import unicodedata
 from typing import Any, Mapping
+from zoneinfo import ZoneInfo
 
 
 SCHEMA = "contentops.event_article.v1"
@@ -67,6 +68,14 @@ def event_writer_guidance(governed: Mapping[str, Any]) -> str:
             or metadata.get("article_type"))
     if kind not in ARTICLE_TYPES:
         kind = next((tag for tag in tags if tag in ARTICLE_TYPES), None)
+    if kind not in ARTICLE_TYPES:
+        # The candidate compiler keeps source metadata on documents, not tags.
+        # Only the preparation owner's explicit type can select this brief.
+        for document in governed.get("source_pack", []):
+            allowed = (document.get("source_reuse_constraints") or {}).get("article_types")
+            if document.get("preview_preparation") and allowed == ["EVENT_PREVIEW"]:
+                kind = "EVENT_PREVIEW"
+                break
     if kind not in ARTICLE_TYPES:
         return ""
     name = "event_preview.md" if kind == "EVENT_PREVIEW" else "event_review.md"
@@ -479,6 +488,60 @@ def check_public_event_article(article: Mapping[str, Any], *,
             "publication_authority": False, "jim_approval_required": False,
             "standing_approval": "JIM_DECISION_36",
             "final_native_render_review_required": True}
+
+
+def check_source_bound_event_article(article: Mapping[str, Any], source_pack) -> dict[str, Any]:
+    """Resolve numeric refs from the actual admitted writer packet, never writer facts.
+
+    A ref is SOURCE_n:start:end in the source's exact canonical text. Rights,
+    source clocks and hashes come from that admitted document. This reuses the
+    existing source and event guards rather than requiring a second admission.
+    """
+    documents = {d["source_id"]: d for d in source_pack}
+    facts = {}
+    for binding in article.get("numeric_bindings", []):
+        ref = binding.get("evidence_ref", "")
+        match = re.fullmatch(r"(SOURCE_\d+):(\d+):(\d+)", ref)
+        if not match or match[1] not in documents:
+            _fail("SOURCE_BOUND_EVENT_REF_REQUIRED", "numeric_bindings")
+        doc = documents[match[1]]
+        if doc.get("public_claim_allowed") is False:
+            _fail("SOURCE_BOUND_EVENT_PUBLIC_RIGHTS_REQUIRED", "numeric_bindings")
+        text = doc["canonical_content_text"]
+        start, end = int(match[2]), int(match[3])
+        if (not 0 <= start < end <= len(text)
+                or sha256(text.encode()).hexdigest() != doc["canonical_content_sha256"]):
+            _fail("SOURCE_BOUND_EVENT_BYTES_CHANGED", "numeric_bindings")
+        constraints = doc.get("source_reuse_constraints") or {}
+        scope = constraints.get("scope", "")
+        authority = doc.get("source_authority_class", "")
+        if scope.startswith("SINGLE_ATTRIBUTED_CONSENSUS_FACT"):
+            rights = CITED_FACT
+        elif authority == "governed_capital_chronicle_report_only":
+            rights = MODEL_ESTIMATE
+        elif (authority == "official_release_history_from_cc010"
+                or (authority == "official_public_primary_source"
+                    and (scope.startswith("BLS_")
+                         or scope == "AGENCY_AUTHORED_TEXT_ONLY_EXCLUDES_LOGOS_PHOTOS_THIRD_PARTY"
+                         or constraints.get("public_expression_reuse_allowed") is True))):
+            rights = "PUBLIC_DOMAIN_OFFICIAL_FACT"
+        else:
+            _fail("SOURCE_BOUND_EVENT_PUBLIC_RIGHTS_REQUIRED", "numeric_bindings")
+        known = doc.get("known_at_utc") or doc.get("published_at_utc")
+        fact = {"display": text[start:end], "source_ref": doc.get("url") or doc.get("source_url"),
+            "source_sha256": doc["canonical_content_sha256"], "known_at_utc": known,
+            "rights_class": rights, "public_use_allowed": True, "use_label": "PUBLIC",
+            "rights_evidence_ref": (constraints.get("authority_ref") or constraints.get("policy_capture_sha256")
+                                   or constraints.get("source_capture_sha256"))}
+        if rights == CITED_FACT:
+            fact.update(attribution=doc["publisher"],
+                        cited_on=_time(known, ref).astimezone(ZoneInfo("America/New_York")).date().isoformat())
+        if rights == MODEL_ESTIMATE:
+            fact["estimate_label"] = MODEL_ESTIMATE_LABEL
+        facts[ref] = fact
+    evidence = {"schema_version": EVIDENCE_SCHEMA, "event_id": article["event_id"],
+                "facts": facts, "private_text": []}
+    return check_public_event_article(article, evidence=evidence)
 
 
 def _load(raw: bytes):

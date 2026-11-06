@@ -70,3 +70,9 @@ exact-object readback under decisions 84 and 89. Do not route to the site. Follo
 root's current overrides. Substack is web-only; if it asks for an email code,
 record PENDING_JIM_EMAIL_CODE and wait on that tab for Jim under decision 54.
 Never read a mailbox or enter a code.
+
+Return the structured packet as `article.event_article_packet` and set `article.article_type`
+to `EVENT_REVIEW`. Each packet section appears verbatim in the article. Bind
+numbers through exact admitted source offsets with `evidence_ref: SOURCE_n:start:end`;
+the release owner resolves the source hash, clock and rights. Never author an
+evidence admission. Earlier separately admitted packets remain readable.

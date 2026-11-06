@@ -274,14 +274,16 @@ def admit_selected_story_context(turn, binding, response):
     from hashlib import sha256
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import _time
     from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
-    from live_contentops.v1_simple_gemini_newsroom_v1 import MAX_SOURCE_DOCUMENTS
 
     turn._check_pause()
     selection, visual = turn.frozen_request("select"), turn.frozen_request("visual-edit")
-    if (not selection or not turn._get("select", "response") or not visual
-            or not turn.visual_response()
-            or response.get("expected_request_sha256") != visual["request_sha256"]
-            or turn.frozen_request("write") or turn._get("write", "response")):
+    writer = turn.frozen_request("write")
+    short_path = bool(not visual and writer and writer["governed_input"].get("publication_speed_policy"))
+    reference = writer if short_path else visual
+    if (not selection or not turn._get("select", "response") or not reference
+            or (not short_path and not turn.visual_response())
+            or response.get("expected_request_sha256") != reference["request_sha256"]
+            or (writer and not short_path) or turn._get("write", "response")):
         raise ValueError("EXACT_UNWRITTEN_SELECTED_VISUAL_REQUEST_REQUIRED")
     ids = response.get("supporting_headline_ids", [])
     reason = response.get("match_reason", "")
@@ -319,14 +321,13 @@ def admit_selected_story_context(turn, binding, response):
         verified_context = {d["document_id"]: d for d in admitted.get("evidence_documents", [])}
         research = additional
     walk = json.loads((turn.root / "simple_gemini_evidence_v1.json").read_bytes())
-    primary = visual["governed_input"]["source_packet"]["source_pack"]
+    primary = (writer["governed_input"]["source_pack"] if short_path
+               else visual["governed_input"]["source_packet"]["source_pack"])
     candidate = response.get("candidate_id")
     if (candidate != walk.get("selected_candidate_id") or not primary
             or candidate not in {p["candidate_id"] for p in turn._get("select", "response")["output"]["ordered_candidate_plan"]}
             or walk.get("selected_source_pack") != primary
-            or sum(d.get("source_authority_class") != "official_release_history_from_cc010" for d in primary)
-                + len(ids) > MAX_SOURCE_DOCUMENTS
-            or len(primary) + len(ids) > 10):
+            or len({(d["document_id"], d["canonical_content_sha256"]) for d in primary}) + len(ids) > 10):
         raise ValueError("EXACT_QUALIFIED_SELECTED_SOURCE_PACK_REQUIRED")
     documents = []
     for item_id in ids:
@@ -352,7 +353,10 @@ def admit_selected_story_context(turn, binding, response):
             "source_reuse_constraints": permission})
     value = {"schema_version": "contentops.native_selected_story_context.v1",
         "pre_writer_context_attachment": True, "candidate_id": candidate,
-        "selection_request_sha256": selection["request_sha256"], "visual_request_sha256": visual["request_sha256"],
+        "selection_request_sha256": selection["request_sha256"],
+        "source_request_sha256": reference["request_sha256"],
+        **({"superseded_unanswered_writer_sha256": writer["request_sha256"]} if short_path
+           else {"visual_request_sha256": visual["request_sha256"]}),
         "context_amendment_sha256": amendment_sha, "primary_source_pack_sha256": sha256_of(primary),
         "supporting_headline_ids": ids, "context_documents": documents,
         "research_revision": research.revision, "cutoff_utc": input_cutoff,
@@ -363,6 +367,16 @@ def admit_selected_story_context(turn, binding, response):
             "publication_state": "CONTEXT_SOURCE_REPORTING_NOT_PRIOR_PUBLIC_CC_COVERAGE"},
         "public_write_performed": False}
     value["request_sha256"] = sha256_of(value)
+    if short_path:
+        path = turn.root / "desktop_request_write.json"
+        if path.is_file():
+            archive = turn.root / "source-recovery-history" / writer["request_sha256"] / path.name
+            archive.parent.mkdir(parents=True, exist_ok=True)
+            if archive.exists():
+                if archive.read_bytes() != path.read_bytes():
+                    raise ValueError("SELECTED_STORY_WRITER_HISTORY_CONFLICT")
+            else:
+                path.replace(archive)
     turn.store.register_outbox_message(message_id="native-source-recovery-" + sha256_of(value),
         work_item_id=turn.work, destination="internal:native-desktop-source-recovery",
         payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")

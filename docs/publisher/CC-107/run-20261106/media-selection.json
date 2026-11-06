@@ -1,0 +1,22 @@
+{
+  "selected_at_utc": "2026-11-06T11:42:11.267627+00:00",
+  "native_invocation_id": "01a1b092-b78e-7203-aeb6-664d04f8765a",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "media_root": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media",
+  "retained_assets": [
+    "september_sector_breakdown",
+    "unemployment_first_print_trend",
+    "cc074-archive-warsh-20260522"
+  ],
+  "new_asset": {
+    "asset_id": "payroll_first_print_trend_cc107",
+    "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\payroll_first_print_trend_cc107.png",
+    "sha256": "c8b26f95e130c5490da5028837b91ab5f2352d24d5b0c13ed433b34584383a60",
+    "width": 1440,
+    "height": 1040
+  },
+  "decision": "Use official payroll history, sector composition and unemployment, plus the held lawful archive portrait. Move the latest payroll figure into the chart title and remove the colliding annotation; all 24 source values are unchanged.",
+  "public_write_performed": false
+}

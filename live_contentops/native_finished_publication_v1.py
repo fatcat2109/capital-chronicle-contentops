@@ -179,13 +179,18 @@ def check_finished_piece(store, binding):
         raise ValueError("FINISHED_PIECE_PUBLIC_OUTPUT_GUARD")
     if "analysis, not financial advice" not in surfaces[0].casefold():
         raise ValueError("FINISHED_PIECE_ANALYSIS_NOTICE_REQUIRED")
-    event_packet = response["output"].get("event_article")
+    event_packet = (response["output"].get("event_article")
+                    or response["output"]["article"].get("event_article_packet"))
     if result["article"].get("article_type") in {"EVENT_PREVIEW", "EVENT_REVIEW"} and not event_packet:
         raise ValueError("FINISHED_EVENT_EXACT_PUBLIC_PACKET_REQUIRED")
     event_check = None
     if event_packet:
         admission = governed.get("public_event_evidence")
-        event_check = check_public_event_article(event_packet, evidence=admission)
+        if admission:
+            event_check = check_public_event_article(event_packet, evidence=admission)
+        else:
+            from live_contentops.event_article_guard_v1 import check_source_bound_event_article
+            event_check = check_source_bound_event_article(event_packet, governed["source_pack"])
         if event_packet["copy"]["headline"] != result["article"]["title"]:
             raise ValueError("FINISHED_EVENT_COPY_CHANGED")
         def strings(value):

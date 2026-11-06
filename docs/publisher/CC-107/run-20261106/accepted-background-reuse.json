@@ -1,0 +1,13 @@
+{
+  "source_message_id": "native-story-preparation-b65dcc1c9f57da188b6b264fc2412c924e29e9eeef45842fd289c1c435f453cd",
+  "target_receipt": {
+    "message_id": "native-story-preparation-b65dcc1c9f57da188b6b264fc2412c924e29e9eeef45842fd289c1c435f453cd",
+    "event_id": "bls-emsit-20261106",
+    "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+  },
+  "original_known_at_utc": "2026-11-04T23:06:43.872930+00:00",
+  "original_review_id": "native-article-review-851f7a8c9917441c8fc5bce7eea700df",
+  "source_store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "target_store": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\owner-newsroom\\editorial-v4.sqlite3",
+  "bytes_and_review_unchanged": true
+}

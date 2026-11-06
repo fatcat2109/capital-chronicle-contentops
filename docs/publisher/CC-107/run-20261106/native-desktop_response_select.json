@@ -1,0 +1,35 @@
+{
+  "request_sha256": "4609d07ca6d9298076c3b6c35ef619e70e22da30b531852b0b136ec554966476",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Use the reviewed September employment background to explain what the November 6 payrolls release would need to change in the labour-market picture; preserve historical observations and future outcomes as distinct.",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-d062ccf311327a0bd3882c64",
+        "evidence_plan": "Reuse the accepted CC-216 NFP preview background for bls-emsit-20261106, its original retained BLS source spans and lawful passing media. Resolve from held preparation only; no fresh acquisition. The existing recovery owner will append the exact frozen Main dossier projection before writing. Attribute any computed release thresholds to Capital Chronicle and keep their frozen cutoff. No numerical branch probabilities, measured pre-event range or implied move are supplied; do not infer them from setup confidence, daily ranges or execution bounds. Retain the serious countercase, separate historical BLS prints from the future release, and use ET for public instants.",
+        "primary_reader_question": "Which combinations in the coming employment report would materially change the rates and dollar narrative, and why might gold or the euro respond differently?",
+        "research_queries": [
+          "October 2026 Employment Situation retained BLS background payroll employment unemployment definitions"
+        ],
+        "selection_rationale": "The accepted source-bound NFP background directly serves the named forthcoming event and can be reused now. The earlier petroleum and storage reports do not answer this event-preview request."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select the reviewed CC-216 NFP background alone for bls-emsit-20261106. Reuse held official evidence and media; append the frozen Main public projection through the existing owner before the writer. This selection creates no fresh source request or release result.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/cc107_nfp_preparation",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true,
+    "speed": "standard",
+    "observation_source": "Supported canonical native task identity from this subagent context is /root/cc107_nfp_preparation. Model and effort are the requested role configuration, not supported observed runtime telemetry; actual model and reasoning effort remain unknown."
+  }
+}

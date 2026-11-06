@@ -39,3 +39,24 @@ def test_preparation_event_tag_selects_brief_but_source_prose_does_not():
     assert "pre_event_range" in event_writer_guidance({"selected_candidate": {
         "candidate_catalyst_tags": ["EVENT_PREVIEW", "bls-emsit-20261106"]}})
     assert event_writer_guidance({"source_pack": [{"text": "EVENT_PREVIEW"}]}) == ""
+    assert "branch_confirmation" in event_writer_guidance({"source_pack": [{
+        "preview_preparation": {"event_id": "bls-emsit-20261106"},
+        "source_reuse_constraints": {"article_types": ["EVENT_PREVIEW"]}}]})
+
+
+def test_native_brief_replay_preserves_issued_bytes_when_template_changes(tmp_path, monkeypatch):
+    store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
+    run = "issued-event-brief"
+    work = "cc-opportunity-" + sha256_of(run)
+    store.create_work_item(story_id=work, work_item_id=work, title="Test", target_surface="CONTENTOPS_EDITORIAL_ONLY")
+    turn = NativeDesktopTurn(store, run_id=run, output_dir=tmp_path, owner_manual_validation=True)
+    args = dict(logical_invocation_id=run + ":write", prompt="Author the exact sources.",
+                governed_input={"article_type": "EVENT_REVIEW"},
+                validator=lambda raw: (True, None, json.loads(raw), None))
+    with pytest.raises(DesktopInputRequired) as issued:
+        turn(**args)
+    monkeypatch.setattr("live_contentops.event_article_guard_v1.event_writer_guidance",
+                        lambda _: "\nCC107_EVENT_RESOLUTION_FRAME\nChanged future instructions.")
+    with pytest.raises(DesktopInputRequired) as replayed:
+        turn(**args)
+    assert replayed.value.request == issued.value.request

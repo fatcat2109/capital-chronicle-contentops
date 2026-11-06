@@ -72,3 +72,12 @@ and exact-object readback under decisions 84 and 89. Do not route to the site. F
 the root's current overrides; no extra per-article yes is required. Substack is
 web-only; if it asks for an email code, record PENDING_JIM_EMAIL_CODE and wait on
 that tab for Jim under decision 54. Never read a mailbox or enter a code.
+
+Return the structured packet as `article.event_article_packet` in the worker output, and
+set `article.article_type` to `EVENT_PREVIEW`. Every packet copy section appears
+verbatim in the authored article (headline/dek may be its title/subtitle). Numeric
+bindings use `evidence_ref: SOURCE_n:start:end`: exact character offsets in that
+admitted source's `canonical_content_text`. The existing release owner resolves
+the source hash, clock and rights from that document. Never author an evidence
+admission or permission. Model-derived thresholds/ranges carry the Capital
+Chronicle model estimate label; a consensus citation prints its source and date.
