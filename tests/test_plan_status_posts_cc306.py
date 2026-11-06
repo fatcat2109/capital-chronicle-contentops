@@ -249,3 +249,16 @@ def test_a_withdrawal_posts_only_for_a_plan_readers_saw_and_before_the_new_plan(
         assert order == [("WAITING", "2026-11-05T12:19:32Z")]
         assert [s["cause"] for s in result["not_posted"]] == ["PLAN_NEVER_ANNOUNCED"]
 
+def test_a_demo_fill_is_read_but_never_posted(tmp_path, main_root):
+    """CC-330 adds FILLED to the export; a fill is a DEMO detail (decision 40). Before, an unknown state made
+    the whole export unreadable and stopped every status post."""
+    plans = [plan("plan_eur", "EURUSD", "BEARISH", 1.1187, 1.1191, invalid=1.1204)]
+    events = [event("plan_eur", "WAITING", "2026-11-05T12:00:00Z"),
+              event("plan_eur", "TRIGGERED", "2026-11-05T12:10:00Z"),
+              event("plan_eur", "FILLED", "2026-11-05T12:10:05Z")]
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    result = queue(store, write_export(tmp_path / "fill", plans, events), main_root)
+    assert result["status"] == "OK"
+    assert [(q["symbol"], q["state"]) for q in result["queued"]] == [("EURUSD", "WAITING"), ("EURUSD", "TRIGGERED")]
+    assert [s["cause"] for s in result["not_posted"]] == ["DEMO_FILL_NOT_PUBLIC"]
+
