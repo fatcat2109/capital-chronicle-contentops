@@ -17,6 +17,11 @@ these smaller sequential selections completed. Consuming a saved native return
 does not rerun pre-write policy; `executor.begin` still checks an actual new
 browser action. This preserves reconciliation of already-completed writes.
 
+The affected source/renderer checks also pass: 24 production-day/TradingView,
+44 native editorial/media, 87 image/time and 53 writer/compiler checks. Their
+JUnit results are saved alongside this file. These selections use isolated
+stores and fixture transports; they do not claim any new public article.
+
 The branch uses the operating root's `17836e3330e09b98d7b0f2cf7dd34389c345d94a`
 source, preserving the Publisher consumers already 610 commits ahead of the
 fresh remote default. This permits a forward integration into that live root.
