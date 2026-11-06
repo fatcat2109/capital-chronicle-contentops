@@ -8,6 +8,12 @@ probabilities and cutoff, admitted event outcome, correctly dated reactions, and
 CC-106's actual score and baseline comparison when available and public-safe.
 Keep the pre-event forecast separate from later observations and revisions.
 
+Put the supplied `Retrospective analysis, written on <day month year> (ET)` line
+before the review body. Its date comes from the actual writing instant converted
+to America/New_York, including daylight saving; never use the event's date as the
+writing date. Keep this own writing-clock notice outside `event_article_packet.copy`
+and its source-fact `numeric_bindings`.
+
 CC-338 (G06): reproduce the preview's full SHA-256 and freeze time in ET. The
 transport attaches the original frozen public file as a download and verifies the
 download's hash and length. Never recreate it from prose or re-serialize its JSON.

@@ -152,6 +152,16 @@ def _render_card(packet, path, mini_chart=None):
     key_label, key_value = ("", "") if mini_chart else key_from_facts(facts)
     if display:
         key_label, key_value = display["key_label"], display["key_value"]
+    if all(fact.get("rights_class") == "capital_chronicle_own_report" for fact in packet["facts"]):
+        from live_contentops.fact_card_design_v1 import full_number_text, main_review_figure
+        # Display formatting only: the packet retains the admitted source words.
+        # A Main review leads with its count, rather than a period or compact suffix.
+        figure_label, figure_value = main_review_figure(facts)
+        if figure_value:
+            key_label, key_value = figure_label, full_number_text(figure_value)
+        else:
+            key_value = full_number_text(key_value)
+        facts = [(label, full_number_text(text)) for label, text in facts]
     spec = CardSpec(title=display.get("title") or packet.get("title") or "Key facts", facts=facts,
         kicker=display.get("kicker") or " · ".join(publishers),
         key_label=key_label, key_value=key_value,
@@ -238,6 +248,7 @@ def build_post_data_card(article, claims, documents, *, output_dir, series_packe
               "text_presentation": "PLAIN_EMPHASIS_AND_DATED_REVIEW_ATTRIBUTION_V1",
               "title": str(article.get("title") or "Key facts"), "dated_line": piece_dated_line(article)}
     if all(f["rights_class"] == "capital_chronicle_own_report" for f in facts):
+        packet["text_presentation"] = "CC333_MAIN_REVIEW_FULL_FIGURE_V1"
         from live_contentops.public_time_v1 import public_date
         source_ids = {f["document_id"] for f in facts}
         dates = {public_date(d["published_at_utc"]) for d in documents

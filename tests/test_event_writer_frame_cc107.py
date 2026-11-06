@@ -28,6 +28,10 @@ def test_live_native_writer_request_consumes_frame_and_replays_exactly(tmp_path,
     assert all(section in prompt for section in expected)
     assert "New York time" in prompt
     assert "Do not route to the site" in prompt
+    if kind == "EVENT_REVIEW":
+        assert "Retrospective analysis, written on " in prompt
+        assert "(ET)" in prompt and "CC333_REVIEW_WRITING_CLOCK" in prompt
+        assert "outside `event_article_packet.copy`" in prompt
     with pytest.raises(DesktopInputRequired) as resumed:
         turn(**args)
     assert resumed.value.request["request_sha256"] == first.value.request["request_sha256"]
@@ -60,3 +64,19 @@ def test_native_brief_replay_preserves_issued_bytes_when_template_changes(tmp_pa
     with pytest.raises(DesktopInputRequired) as replayed:
         turn(**args)
     assert replayed.value.request == issued.value.request
+
+
+@pytest.mark.parametrize("instant,expected", [
+    ("2026-11-07T02:00:00+00:00", "6 November 2026 (ET)"),
+    ("2026-07-01T02:00:00+00:00", "30 June 2026 (ET)"),
+])
+def test_review_request_dates_the_writing_clock_in_et(monkeypatch, instant, expected):
+    from datetime import datetime
+    from live_contentops import event_article_guard_v1 as guard
+    class Clock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return datetime.fromisoformat(instant).astimezone(tz)
+    monkeypatch.setattr(guard, "datetime", Clock)
+    text = guard.event_writer_guidance({"article_type": "EVENT_REVIEW"})
+    assert "Retrospective analysis, written on " + expected in text

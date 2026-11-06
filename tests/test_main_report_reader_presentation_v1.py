@@ -87,3 +87,35 @@ def test_main_review_date_reaches_actual_card_renderer_in_new_york(tmp_path, mon
     validate_post_data_card(card, article, docs)
     assert drawn[-1] == f"Source: Capital Chronicle review, {expected} (ET)."
     assert card["data_card_packet"]["source_line"] == drawn[-1]
+
+
+@pytest.mark.parametrize("editorial_key", [None, "2026", "65.00K"])
+@pytest.mark.parametrize("source_count", ["65.00K", "65,000", "65000"])
+def test_main_review_count_leads_actual_card_in_full_without_changing_source(tmp_path, monkeypatch, editorial_key, source_count):
+    article, claims, docs = packet()
+    text = f"Nonfarm payrolls rose by {source_count}; the unemployment rate was 4.1%."
+    article.update(title="The jobs review", substack_body_markdown=text, dek=text)
+    claims = [{"claim_id": "payrolls", "claim_text": text, "source_id": "SOURCE_1", "support_excerpt": text}]
+    doc = docs[0]
+    digest = "d" * 64
+    doc.update(publisher="Capital Chronicle", url="urn:cc-public-report:main-retained:" + digest,
+        canonical_content_text=text, source_authority_class="governed_capital_chronicle_report_only",
+        published_at_utc="2026-11-06T14:00:00Z", report_lineage={"report_projection_sha256": digest},
+        source_reuse_constraints={"scope": "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS",
+            "authority_ref": "JIM_DECISION_89", "source_capture_sha256": digest})
+    if editorial_key:
+        article["visual_editorial_decision"]["post_data_card_plan"] = {
+            "title": "The jobs review", "key_label": "Payrolls", "key_value": editorial_key,
+            "facts": [{"text": text, "label": "Payrolls"}]}
+    drawn = []
+    render = design.render_fact_card
+    def capture(path, spec, **kwargs):
+        drawn.append(spec)
+        return render(path, spec, **kwargs)
+    monkeypatch.setattr(design, "render_fact_card", capture)
+    card = build_post_data_card(article, claims, docs, output_dir=tmp_path)
+    validate_post_data_card(card, article, docs)
+    assert drawn[-1].key_value == "65,000"
+    assert "65,000" in drawn[-1].facts[0][1] and "65.00K" not in drawn[-1].facts[0][1]
+    assert card["data_card_packet"]["facts"][0]["text"] == text
+    assert doc["canonical_content_text"] == text

@@ -527,6 +527,16 @@ def _root_and_replies(
     }
 
 
+def _telegram_plain_text(text: str) -> str:
+    """Keep authored words and link targets while removing Markdown presentation."""
+    text = re.sub(r"!?\[([^\]]+)\]\((https?://[^\s)]+)\)", r"\1 (\2)", text)
+    text = re.sub(r"(?m)^\s{0,3}(?:#{1,6}\s+|>\s?)", "", text)
+    text = re.sub(r"(`{1,3})([\s\S]*?)\1", r"\2", text)
+    for _ in range(3):
+        text = re.sub(r"(?<!\w)(\*{1,3}|_{1,3}|~~)(?=\S)(.+?)(?<=\S)\1(?!\w)", r"\2", text)
+    return text
+
+
 def build_native_derivative_payloads(
     *,
     article: Mapping[str, Any],
@@ -581,6 +591,10 @@ def build_native_derivative_payloads(
                 payload[field] = "\n\n".join([text, *missing])
                 if limit and len(payload[field]) > limit:
                     raise ValueError("PUBLICATION_NOTICES_EXCEED_PLATFORM_LIMIT:" + destination)
+    telegram = payloads.get("telegram") or {}
+    for field in ("text", "full_text", "caption"):
+        if isinstance(telegram.get(field), str):
+            telegram[field] = _telegram_plain_text(telegram[field])
     from live_contentops.native_text_first_v1 import text_first_brief, skipped_destinations
     if text_first_brief(article):
         for skipped in skipped_destinations(has_image=bool(media_asset_ids)):
@@ -1199,7 +1213,7 @@ def _publish_telegram_photo_verified(
     raw = execute_telegram_photo(
         photo_url=image_path,
         caption=text,
-        parse_mode="HTML",
+        parse_mode=None,
         dry_run=False,
         approval_context={
             "operator_approval_marker": marker,
@@ -1278,7 +1292,7 @@ def _publish_telegram_text_verified(
         run_id=run_id, topic_hash=topic_hash, payload_hash=payload_hash, platform="telegram",
     )
     raw = execute_telegram_post(
-        message=text, parse_mode="HTML", dry_run=False,
+        message=text, parse_mode=None, dry_run=False,
         approval_context={
             "operator_approval_marker": marker,
             "run_id": run_id,

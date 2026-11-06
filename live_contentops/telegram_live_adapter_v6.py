@@ -116,7 +116,7 @@ def execute_telegram_post(
     message: str,
     chat_id: str | None = None,
     bot_token: str | None = None,
-    parse_mode: str = "HTML",
+    parse_mode: str | None = "HTML",
     dry_run: bool = False,
     approval_context: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
@@ -164,8 +164,9 @@ def execute_telegram_post(
     payload = {
         "chat_id": target_chat,
         "text": message,
-        "parse_mode": parse_mode,
     }
+    if parse_mode:
+        payload["parse_mode"] = parse_mode
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(api_url, data=data, method="POST")
     req.add_header("Content-Type", "application/json")
@@ -219,7 +220,7 @@ def execute_telegram_photo(
     caption: str,
     chat_id: str | None = None,
     bot_token: str | None = None,
-    parse_mode: str = "HTML",
+    parse_mode: str | None = "HTML",
     dry_run: bool = False,
     approval_context: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
@@ -273,8 +274,9 @@ def execute_telegram_photo(
         fields = {
             "chat_id": str(target_chat),
             "caption": caption,
-            "parse_mode": parse_mode
         }
+        if parse_mode:
+            fields["parse_mode"] = parse_mode
         for k, v in fields.items():
             parts.append(f"--{boundary}\r\nContent-Disposition: form-data; name=\"{k}\"\r\n\r\n{v}\r\n".encode("utf-8"))
             
@@ -291,7 +293,9 @@ def execute_telegram_photo(
         req.add_header("Content-Type", f"multipart/form-data; boundary={boundary}")
         req.add_header("Content-Length", str(len(data)))
     else:
-        payload = {"chat_id": target_chat, "photo": photo_url, "caption": caption, "parse_mode": parse_mode}
+        payload = {"chat_id": target_chat, "photo": photo_url, "caption": caption}
+        if parse_mode:
+            payload["parse_mode"] = parse_mode
         data = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(api_url, data=data, method="POST")
         req.add_header("Content-Type", "application/json")

@@ -81,6 +81,10 @@ def event_writer_guidance(governed: Mapping[str, Any]) -> str:
     name = "event_preview.md" if kind == "EVENT_PREVIEW" else "event_review.md"
     brief = Path(__file__).resolve().parents[1] / "docs/publisher/EVENT_ARTICLES_V1/templates" / name
     guidance = "\nCC107_EVENT_RESOLUTION_FRAME\n" + brief.read_text(encoding="utf-8")
+    if kind == "EVENT_REVIEW":
+        from live_contentops.retrospective_piece_v1 import retrospective_notice
+        guidance += ("\nCC333_REVIEW_WRITING_CLOCK\nPlace this actual writing-date line before the review body: "
+                     + retrospective_notice(datetime.now(timezone.utc)) + "\n")
     if any(d.get("frozen_public_record") for d in governed.get("source_pack", [])):
         guidance += ("\nCC338_FROZEN_PUBLIC_RECORD\nUse Main's exact frozen public record in source_pack. "
             "Print its full SHA-256 and frozen_at_et verbatim in the article. A preview headline contains "
