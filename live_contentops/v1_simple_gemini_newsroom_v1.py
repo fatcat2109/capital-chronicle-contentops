@@ -146,7 +146,7 @@ _RISKY_TEMPORAL_PATTERNS = (
         re.IGNORECASE,
     ),
 )
-_SOURCE_MARKER_RE = re.compile(r"\[\[SOURCE:(SOURCE_(?:[1-9]|10))\]\]")
+_SOURCE_MARKER_RE = re.compile(r"\[\[SOURCE:(SOURCE_[1-9][0-9]*)\]\]")
 _URL_RE = re.compile(r"https?://", re.IGNORECASE)
 _EXPLICIT_CC_INFERENCE_RE = re.compile(
     r"\bCapital Chronicle(?:'s)?\s+(?:view|analysis|interpretation|inference)\b|"

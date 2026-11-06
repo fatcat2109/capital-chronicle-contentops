@@ -1,0 +1,199 @@
+{
+  "schema_version": "contentops.native_writer_product_validation.v1",
+  "operation_id": "cc107-nfp-preview-20261106-v1",
+  "request_sha256": "28d887035e0b3d617c94981890f47edac59bb067db18331ea93e33902fdcdb26",
+  "request_file_sha256": "e6c74efbda5b326b089cc637a8c0fe339214c824a0e9b21d24b6e0ad4a88a0b1",
+  "native_invocation_id": "/root/cc107_nfp_writer",
+  "validated_at_utc": "2026-11-06T12:03:33.294378Z",
+  "normal_live_product_validation": true,
+  "tests_run": false,
+  "worker_text": {
+    "accepted": true
+  },
+  "article_source_pack": {
+    "status": "PASS",
+    "supported_material_claim_count": 34,
+    "unsupported_material_claim_count": 0,
+    "cited_source_count": 6
+  },
+  "source_bound_event": {
+    "status": "PASS",
+    "public_copy_sha256": "12ac5ae77f5c1500ebc85d365a80aa5c4e37833d6f12a6b5f4c6ebcfc47fe90f",
+    "checked_surfaces": 16,
+    "numeric_bindings": 6,
+    "publication_authority": false,
+    "jim_approval_required": false,
+    "standing_approval": "JIM_DECISION_36",
+    "final_native_render_review_required": true
+  },
+  "public_copy": {
+    "status": "PASS",
+    "policy": "JIM_DECISIONS_35_40",
+    "conditional_call_count": 0
+  },
+  "visual_decision": "PASS",
+  "exact_event_copy_in_article": "PASS",
+  "exact_media_placement_headings": "PASS",
+  "all_four_visual_markers_present": "PASS",
+  "reader_marker_removal": "PASS",
+  "source_11_marker_supported_by_current_owned_parser": true,
+  "response_sha256": "f35ea14c003c5dc1471e63b2d72d3c3e4eedd54702b144f64558121632cec33d",
+  "before_repair_response_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\desktop_response_write-before-source-marker-repair.json",
+  "before_repair_response_sha256": "933d2e845da9d7ca7cc5cb3b750735a7a089616facd278e6661c01e08baf99ec",
+  "readable_draft_sha256": "4907e740bbcdc1652c6c5e0db038a9ed43acbf3dd236f370091e49a6c89aa487",
+  "body_words": 768,
+  "provenance_correction": {
+    "restored_source": "SOURCE_11",
+    "corrected_paragraphs": [
+      {
+        "paragraph": 1,
+        "source_ids_before": [
+          "SOURCE_1"
+        ],
+        "source_ids_after": [
+          "SOURCE_1",
+          "SOURCE_11"
+        ],
+        "opening": "Friday's October jobs report will test whether weak hiring persists or a broader recovery is tak"
+      },
+      {
+        "paragraph": 3,
+        "source_ids_before": [
+          "SOURCE_2"
+        ],
+        "source_ids_after": [
+          "SOURCE_2",
+          "SOURCE_11"
+        ],
+        "opening": "Investing.com's payroll forecast was 65.00K for October, observed on 5 November 2026. That point"
+      },
+      {
+        "paragraph": 12,
+        "source_ids_before": [
+          "SOURCE_1"
+        ],
+        "source_ids_after": [
+          "SOURCE_1",
+          "SOURCE_11"
+        ],
+        "opening": "Capital Chronicle model estimate: a strong combination is payrolls of about +154K or more with u"
+      },
+      {
+        "paragraph": 13,
+        "source_ids_before": [
+          "SOURCE_1"
+        ],
+        "source_ids_after": [
+          "SOURCE_11"
+        ],
+        "opening": "Friday morning's pre-release review places EURUSD low in a five-week 1.1104-1.1286 reference ran"
+      },
+      {
+        "paragraph": 15,
+        "source_ids_before": [
+          "SOURCE_1"
+        ],
+        "source_ids_after": [
+          "SOURCE_1",
+          "SOURCE_11"
+        ],
+        "opening": "Rates: A strong combination could lift the expected Fed path and Treasury yields; weak hiring co"
+      },
+      {
+        "paragraph": 16,
+        "source_ids_before": [
+          "SOURCE_1"
+        ],
+        "source_ids_after": [
+          "SOURCE_1",
+          "SOURCE_11"
+        ],
+        "opening": "Dollar: Higher expected US rates could support the dollar; a lower expected path could weaken it"
+      },
+      {
+        "paragraph": 17,
+        "source_ids_before": [
+          "SOURCE_1"
+        ],
+        "source_ids_after": [
+          "SOURCE_1",
+          "SOURCE_11"
+        ],
+        "opening": "Gold: If the dollar and real yields rise together, gold could face pressure from a higher opport"
+      },
+      {
+        "paragraph": 18,
+        "source_ids_before": [
+          "SOURCE_1"
+        ],
+        "source_ids_after": [
+          "SOURCE_1",
+          "SOURCE_11"
+        ],
+        "opening": "Oil: Stronger hiring could improve demand expectations, while a firmer dollar could pull the oth"
+      },
+      {
+        "paragraph": 19,
+        "source_ids_before": [
+          "SOURCE_1"
+        ],
+        "source_ids_after": [
+          "SOURCE_1",
+          "SOURCE_11"
+        ],
+        "opening": "Indices: Better employment could improve revenue expectations even as higher yields weigh on val"
+      },
+      {
+        "paragraph": 22,
+        "source_ids_before": [
+          "SOURCE_1"
+        ],
+        "source_ids_after": [
+          "SOURCE_1",
+          "SOURCE_11"
+        ],
+        "opening": "The strong branch gains credibility if payrolls and unemployment reinforce each other and rates "
+      },
+      {
+        "paragraph": 23,
+        "source_ids_before": [
+          "SOURCE_1",
+          "SOURCE_7"
+        ],
+        "source_ids_after": [
+          "SOURCE_1",
+          "SOURCE_7",
+          "SOURCE_11"
+        ],
+        "opening": "A strong payroll headline with softer pay could favour growth without the same rate pressure. We"
+      },
+      {
+        "paragraph": 24,
+        "source_ids_before": [
+          "SOURCE_1"
+        ],
+        "source_ids_after": [
+          "SOURCE_1",
+          "SOURCE_11"
+        ],
+        "opening": "These branches are conditional model interpretations. Their credibility depends on corroborating"
+      }
+    ],
+    "unchanged": [
+      "Public prose including original whitespace after marker removal",
+      "Six event numeric bindings",
+      "Full event packet including original written_at_utc",
+      "Exact source bytes and identities",
+      "Cited sources and material claim bindings",
+      "Original request and native invocation",
+      "Four intended VISUAL markers"
+    ],
+    "explanation": "Restored SOURCE_11 markers on Main-supported framing, threshold, range, transmission, branch-confirmation, countercase and model-basis paragraphs. Replaced the incorrect SOURCE_1 substitute on the Main-only five-week range paragraph with SOURCE_11. Correct BLS and consensus background markers remain alongside Main where applicable. The parent-owned parser now recognises positive source IDs and strips SOURCE_11 from reader copy."
+  },
+  "limits": [
+    "This is the source-marker repair of the same writing stage, not editor approval.",
+    "Exact final media/article render has not been inspected in this writing call.",
+    "Actual model and effort remain unavailable; configured gpt-6.1-sol/max is CONFIGURED_NOT_OBSERVED.",
+    "No tests, code changes, browser action, publication, commits, schedules or chat/agent messages were performed in this repair."
+  ]
+}

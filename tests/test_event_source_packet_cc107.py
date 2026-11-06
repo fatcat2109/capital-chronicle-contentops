@@ -61,3 +61,10 @@ def test_model_threshold_uses_label_and_not_vendor_table_permission():
         "authority_ref": "JIM_DECISION_89"}
     with pytest.raises(PublicOutputError, match="MODEL_ESTIMATE_LABEL_REQUIRED"):
         check_source_bound_event_article(article, sources)
+
+
+def test_source_eleven_marker_stays_provenance_and_never_leaks_to_reader():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _public_copy, _SOURCE_MARKER_RE
+    text = "A conditional model interpretation. [[SOURCE:SOURCE_11]]"
+    assert _SOURCE_MARKER_RE.findall(text) == ["SOURCE_11"]
+    assert "SOURCE_11" not in _public_copy({"title": "Preview", "dek": "Interpretation", "substack_body_markdown": text})
