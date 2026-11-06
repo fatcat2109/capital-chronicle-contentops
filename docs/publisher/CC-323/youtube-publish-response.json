@@ -1,0 +1,41 @@
+{
+  "tool_request_sha256": "4067c61a5613b003290ae88b23b997ecb6fa259b872d1d06514967de5c9669b2",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-06T04:46:28.328Z",
+    "dispatched_at_utc": "2026-11-06T04:46:16.366Z",
+    "observation_source": "Actual approved composer followed by the newly visible CC-323 YouTube community post"
+  },
+  "result": {
+    "request_sha256": "399099f60420ff865c10982155342f8922db96369a363eb7036e2c3fdf193f1b",
+    "status": "PUBLISHED",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "Ugkxgbu3Nwjz01FnZyRB1vI6o7EyiDTkuDIz",
+    "public_object_url": "https://www.youtube.com/post/Ugkxgbu3Nwjz01FnZyRB1vI6o7EyiDTkuDIz",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "@CapitalChronicleYouTube",
+      "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA",
+      "observed_at_utc": "2026-11-06T04:46:04.865Z"
+    },
+    "pre_click_posts": [
+      "Update: Capital Chronicle's midterm review: right scenario, wrong market call\n\n\nCapital Chronicle's review: the election scenario matched, but equities and Bitcoin rose against the downside map. A right result is not a market-direction model.\n\n\nWhat to watch: For a future scenario, Capital Chronicle's lesson is to write down the political condition, the proposed market direction and the horizon separately, then ask what would challenge each. This review shows why the right political answer cannot stand in for that market analysis.\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-midterm-review\n\n\nThis is a retrospective of Capital Chronicle's dated dossier and review, not a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "@CapitalChronicleYouTube",
+      "public_object_id": "Ugkxgbu3Nwjz01FnZyRB1vI6o7EyiDTkuDIz",
+      "public_object_url": "https://www.youtube.com/post/Ugkxgbu3Nwjz01FnZyRB1vI6o7EyiDTkuDIz",
+      "observed_text": "Capital Chronicle\n0 giây trước\nUpdate: Capital Chronicle's midterm review: right scenario, wrong market call\n\nCapital Chronicle's review: the election scenario matched, but equities and Bitcoin rose against the downside map. A right result is not a market-direction model.\n\nWhat to watch: For a future scenario, Capital Chronicle's lesson is to write down the political condition, the proposed market direction and the horizon separately, then ask what would challenge each. This review shows why the right political answer cannot stand in for that market analysis.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-midterm-review\n\nThis is a retrospective of Capital Chronicle's dated dossier and review, not a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\nĐọc thêm",
+      "content_verified": true,
+      "media_check_state": "PENDING_BINARY_COMPARISON",
+      "public_write_performed": false
+    }
+  }
+}
