@@ -1,0 +1,163 @@
+{
+  "item": "CC-322",
+  "observed_at_utc": "2026-11-06T05:20:23.011857Z",
+  "outcome": "BLOCKED_MAIN_PUBLIC_PLAN_OUTCOME_ABSENT",
+  "choice": "Do not map RIGHT/WRONG or pre-entry EXPIRED/INVALIDATED states to hit/stopped/expired, and do not infer a public call result from prices or private DEMO P&L. Request the explicit Main result contract before changing publication behavior.",
+  "launch": {
+    "process_id": 5588,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "evidence": "Win32_Process command line readback",
+    "telemetry_status": "CONFIGURED_NOT_OBSERVED"
+  },
+  "publisher_base": "1899648d73750da4d2d5326f76082dbcc4e00798",
+  "main_head_observed": "e4d5697984f70f5c6bb46853ec46cf3633c36445",
+  "plan_export": {
+    "generated_at_utc": "2026-11-06T05:20:01.855325Z",
+    "status_content_hash": "66311bd6ab7b17df2d653b2b6bfb373469bbc4ccf3307f9a89c72d5446711903",
+    "transitions_content_hash": "ae17a8b8ddafd1aa2904e9c397d7b879ffc1b4b5bc74b5d4d011fa94e739bec5",
+    "plans": 42,
+    "transitions": 71,
+    "states": {
+      "VIEW_CHANGED": 14,
+      "WAITING": 4,
+      "TRIGGERED": 6,
+      "CANCELLED": 4,
+      "INVALIDATED": 6,
+      "None": 6,
+      "EXPIRED": 2
+    },
+    "outcome_field": null
+  },
+  "desk_export": {
+    "generated_at_utc": "2026-11-06T04:57:11.943132Z",
+    "schema_version": "1.0.0",
+    "decision_records": 11,
+    "outcome_states": {
+      "NOT_SCORED_ABSTAIN": 8,
+      "PENDING": 3
+    },
+    "schema_outcome_enum": [
+      "PENDING",
+      "RIGHT",
+      "WRONG",
+      "INCONCLUSIVE",
+      "NOT_SCORED_ABSTAIN"
+    ],
+    "exporter_source_anchors": [
+      {
+        "line": 581,
+        "text": "\"status\": field(\"decision.outcome.status\", \"NOT_SCORED_ABSTAIN\" if abstain else \"PENDING\", []),"
+      },
+      {
+        "line": 582,
+        "text": "\"scored_at_utc\": None, \"horizon_end_utc\": None,"
+      }
+    ]
+  },
+  "held_scorer": {
+    "episodes": 258,
+    "fields": [
+      "account_fingerprint_hash",
+      "alpha_proven",
+      "broker_symbol",
+      "closed_at_utc",
+      "cohort",
+      "currency",
+      "episode_id",
+      "fills",
+      "initial_fee_reserve_cash",
+      "initial_risk_basis",
+      "initial_risk_cash",
+      "initial_stop_cash",
+      "known_at_utc",
+      "net_pnl_cash",
+      "net_r",
+      "position_ticket",
+      "reasons",
+      "risk_quote_age_seconds",
+      "risk_quote_at_utc",
+      "source_journal_hash",
+      "source_outcome_hash",
+      "source_reconciliation_hash",
+      "state"
+    ],
+    "interpretation": "DEMO execution episodes, not an explicit public conditional-plan result; no plan_id join."
+  },
+  "search_coverage": [
+    "Main tracked scorecard/public-call/decision-record filenames and tools/product outcome producers",
+    "ResearchRuns immediate scorecard/outcome/decision/plan-status candidates; latest main-read-only-scorer output",
+    "PrivateApp/data current desk record and its analytical_outcome fields; CC-262 desk export producer and schema",
+    "CC-307 validated current public plan status and transitions; no outcome field",
+    "Main data/research immediate item directories; ContentOps data/research absent",
+    "Runtime/MainPublicReports-v1 root; existing feed bindings; current BACKLOG CC-262/307/322 and BACKLOG_ARCHIVE public scorecard references"
+  ],
+  "required_upstream": {
+    "owner": "Ops Live / Codex Main",
+    "route": "extend existing Main scoring and CC-307 / desk-record export owners",
+    "needs": [
+      "explicit HIT / STOPPED / EXPIRED outcome with plan identity and public-call identity",
+      "frozen-call, horizon-end and scored-at clocks; source hash / score basis",
+      "complete unique scored-call count, including losses, with corrections linked to the original outcome rather than edits",
+      "preserve raw third-party data and private DEMO execution fields outside public output"
+    ]
+  },
+  "checks": {
+    "validated_plan_status_and_transitions_same_snapshot": true,
+    "no_plan_outcome_field": true,
+    "no_terminal_scoring_transition": true,
+    "desk_has_no_scored_result": true,
+    "desk_scoring_clocks_empty": true,
+    "desk_schema_has_no_hit_stopped_expired_outcome": true,
+    "scorer_episodes_have_no_plan_id": true,
+    "exporter_emits_placeholder_outcomes": true
+  },
+  "check_count": 8,
+  "checks_passed": true,
+  "publication_changes": false,
+  "public_writes": 0,
+  "schedules_changed": false,
+  "live_consumer_result_proven": false,
+  "acceptance_remaining": [
+    "Main terminal outcome contract and producer",
+    "Publisher deterministic composition/count/immutable correction and exactly-once tests against that contract",
+    "integration with live and rollback tags and first post per working destination read back"
+  ],
+  "sources": [
+    {
+      "path": "A:\\Capital Chronicle\\main-jim-research-dashboard-20261025\\tools\\product\\plan_status_export_v1.py",
+      "bytes": 28864,
+      "sha256": "02917b516fc1e02cd52d3cac29dfa94bd67b81a4085790a63822f29b71ea6829"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\main-jim-research-dashboard-20261025\\tools\\product\\desk_record_export_v1.py",
+      "bytes": 87627,
+      "sha256": "3d7aa6cd30850b71599dcf9ce6d109cdb11eaa8cc063da3b3ebb73cab80b6c88"
+    },
+    {
+      "path": "schemas\\publication\\CapitalChronicleDeskRecordExportV1_4.schema.json",
+      "bytes": 78773,
+      "sha256": "85f19d4f8a58873442708d63a284af4c72a1377aee22c0cc2f37934a159274d4"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\main-jim-research-dashboard-20261025\\tools\\product\\web_decision_record_projection_v1.py",
+      "bytes": 37207,
+      "sha256": "09a3ac7ad9e09620eba9a05fbd0d9e424dbce78d516d02b492f72da508958e6c"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\PrivateApp\\data\\desk-record.private.json",
+      "bytes": 274046,
+      "sha256": "d1955c007ad29985e4b79519ae30c93d95ac7d59966488d4d49dcba235eec6b9"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\main-read-only-scorer\\scores-20261106T034542Z.json",
+      "bytes": 1012019,
+      "sha256": "c5fee267450023a934bd442f932a785fb20bd21759ef79ac5834cc08172a21eb"
+    },
+    {
+      "path": "live_contentops\\plan_status_posts_v1.py",
+      "bytes": 38607,
+      "sha256": "3937a72eb86142c4682de2dd1b2da2e46f632586c10acb47cf9e5d5b7cc1ed2a"
+    }
+  ]
+}
