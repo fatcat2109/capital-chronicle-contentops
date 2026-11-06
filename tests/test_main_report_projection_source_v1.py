@@ -98,6 +98,24 @@ def test_own_report_facts_feed_existing_public_card_renderer(tmp_path, monkeypat
     validate_post_data_card(asset, article, docs)
 
 
+def test_exact_main_spans_validate_without_fabricated_typed_claims(tmp_path, monkeypatch):
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack, _validate_article_against_source_pack, SimpleGeminiNewsroomError
+    root, report, spec = retained(tmp_path, monkeypatch)
+    research = RetainedSourceResearch(root)
+    docs = _source_pack(research.evidence({"headline_ids": [spec["headline_id"]]}, cutoff_utc=NOW)["evidence_documents"])
+    fact = "The dossier favoured a Democratic sweep."
+    article = {k: fact for k in ("title", "dek", "search_title", "meta_description", "social_hook")}
+    article["substack_body_markdown"] = fact + " [[SOURCE:SOURCE_1]]"
+    output = {"article": article, "cited_sources": [{k: docs[0][k] for k in ("source_id", "url", "publisher", "published_at_utc")}],
+        "material_claim_bindings": [{"claim_id": "exact-span", "claim_text": fact, "claim_kind": "FACT",
+            "support_excerpt": fact, "source_id": "SOURCE_1", "attribution_required": True}]}
+    _, validation = _validate_article_against_source_pack(output, docs)
+    assert validation["supported_material_claims"][0]["support_status"] == "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    docs[0]["report_lineage"]["origin"] = "ORIGINAL_TYPED_MAIN_ENVELOPE"
+    with pytest.raises(SimpleGeminiNewsroomError, match="report_claim_excerpt_unbound"):
+        _validate_article_against_source_pack(output, docs)
+
+
 def test_report_path_cannot_escape_configured_main_roots(tmp_path, monkeypatch):
     root, _, spec = retained(tmp_path, monkeypatch)
     spec["passages"][0]["source_path"] = str(tmp_path / "outside.md")

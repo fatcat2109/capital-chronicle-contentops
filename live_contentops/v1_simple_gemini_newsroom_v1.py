@@ -1724,6 +1724,18 @@ def _validate_article_against_source_pack(
             blockers.append(f"material_claim_excerpt_not_verified:{claim_id}")
             continue
         report_lineage = document.get("report_lineage") or {}
+        # The retained Main adapter verifies exact file bytes and public spans.
+        # Those untyped excerpts are not the typed claims of a Main envelope.
+        # Keep the normal exact-excerpt check above; preserve typed-claim checks
+        # for every original report envelope.
+        span_digest = report_lineage.get("report_projection_sha256")
+        span_projection = (report_lineage.get("origin") == "RETAINED_MAIN_REPORT_EXACT_SPANS"
+            and re.fullmatch(r"[a-f0-9]{64}", str(span_digest or ""))
+            and document.get("url") == "urn:cc-public-report:main-retained:" + span_digest
+            and (document.get("source_reuse_constraints") or {}).get("scope") == "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS"
+            and (document.get("source_reuse_constraints") or {}).get("source_capture_sha256") == span_digest)
+        if span_projection:
+            report_lineage = {}
         report_claims = [c for c in report_lineage.get("claims", []) if _normal(excerpt) in _normal(c["text"])]
         report_metadata = [m for m in report_lineage.get("source_clock_metadata", [])
                            if _normal(excerpt) == _normal(m["text"])]
@@ -1750,7 +1762,8 @@ def _validate_article_against_source_pack(
                 "claim_kind": str(claim.get("claim_kind") or "FACT"),
                 "source_id": source_id,
                 "document_id": document.get("document_id"),
-                "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION" if report_lineage else "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+                "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS" if span_projection else
+                    "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION" if report_lineage else "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
                 "attribution_required": bool(claim.get("attribution_required")),
                 "support_excerpt_sha256": _text_hash(excerpt),
                 **({"research_semantics": semantics} if semantics else {}),
