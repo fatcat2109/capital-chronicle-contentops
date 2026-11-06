@@ -1,0 +1,170 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "authority_ref": "JIM_DECISION_89",
+      "headline_id": "cc124-six-markets-20261106",
+      "headline_text": "Capital Chronicle reviews six markets ahead of payrolls: a shared dollar risk, different setups",
+      "source_url": "urn:cc-public-report:six-markets:20261106",
+      "known_at_utc": "2026-11-06T06:06:29Z",
+      "revision_at_utc": "2026-11-06T07:30:23.181445Z",
+      "candidate_catalyst_tags": [
+        "payrolls",
+        "six-markets",
+        "dollar"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+          "source_sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+          "source_json_pointer": "/summary/1/text",
+          "fragments": [
+            {
+              "start": 178,
+              "end": 256
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+          "source_sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+          "source_json_pointer": "/causal_alternatives/1/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 166
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+          "source_sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+          "source_json_pointer": "/contradictions/0/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 55
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+          "source_sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+          "source_json_pointer": "/candidates/3/rationale",
+          "fragments": [
+            {
+              "start": 1580,
+              "end": 1665
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+          "source_sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+          "source_json_pointer": "/candidates/4/rationale",
+          "fragments": [
+            {
+              "start": 1341,
+              "end": 1379
+            },
+            {
+              "start": 1604,
+              "end": 1686
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+          "source_sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+          "source_json_pointer": "/candidates/2/rationale",
+          "fragments": [
+            {
+              "start": 248,
+              "end": 319
+            },
+            {
+              "start": 399,
+              "end": 443
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+          "source_sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+          "source_json_pointer": "/candidates/6/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 22
+            },
+            {
+              "start": 173,
+              "end": 334
+            },
+            {
+              "start": 392,
+              "end": 420
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+          "source_sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+          "source_json_pointer": "/causal_alternatives/2/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 55
+            },
+            {
+              "start": 137,
+              "end": 173
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+          "source_sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+          "source_json_pointer": "/candidates/8/rationale",
+          "fragments": [
+            {
+              "start": 1816,
+              "end": 1971
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+          "source_sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+          "source_json_pointer": "/candidates/1/rationale",
+          "fragments": [
+            {
+              "start": 289,
+              "end": 334
+            },
+            {
+              "start": 679,
+              "end": 780
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+          "source_sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+          "source_json_pointer": "/coverage_limit",
+          "fragments": [
+            {
+              "start": 179,
+              "end": 398
+            },
+            {
+              "start": 439,
+              "end": 544
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
