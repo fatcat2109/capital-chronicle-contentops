@@ -1,0 +1,141 @@
+{
+  "item": "CC-124",
+  "classification": "NO_NEW_PUBLISHABLE_MAIN_ANALYSIS",
+  "reason": "JIM_DECISION_89: Main reports, plans, event dossiers and scorecard unchanged; no headline briefs or filler.",
+  "checked_at_utc": "2026-11-06T02:24:49.968524+00:00",
+  "actual_top_level_start_utc": "2026-11-06T02:17:54.253736+00:00",
+  "next_due_utc": "2026-11-06T04:18:00+00:00",
+  "top_level_launch": {
+    "pid": 9220,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "observation": "CONFIGURED_NOT_OBSERVED",
+    "source": "fresh Win32_Process launch arguments; runtime model telemetry unavailable"
+  },
+  "base_commit": "469d5f117579e123582536d354e403c872d57196",
+  "remote_default_commit": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "base_reason": "Publisher operating HEAD contains fresh remote default plus integrated Publisher work.",
+  "comparison_baseline": {
+    "path": "docs\\publisher\\CC-124\\run-20261106-0708\\main-input-check.json",
+    "sha256": "abc5e4a3e0f0ebbb7891f067489bfa0e84e713e5a2c1d335b8a2abf460b90807",
+    "checked_at_utc": "2026-11-06T00:16:21.463361+00:00"
+  },
+  "main_feed": {
+    "pointer_path": "A:\\Capital Chronicle\\ContentOps\\config\\native_desktop_main_feed_binding_v1.json",
+    "pointer_sha256": "a73547e01a5003d7128f96fbd15cebf0bc4d2041c384af7507bba4400da2cb7f",
+    "public_export_root": "A:/Capital Chronicle/Runtime/MainPublicReports-v1",
+    "manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+    "accepted_manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+    "manifest_emitted_at_utc": "2026-10-20T22:43:00.880869Z",
+    "entry_count": 15,
+    "live_consumer_scan_id": "cc-feed-scan-61e4a56af81b2e9edcf7568f24d80a9a806c9de1ee15d0a8594f72e2c797fedb",
+    "live_consumer_scan_utc": "2026-11-05T18:01:24.684143Z",
+    "new_entries": 0
+  },
+  "desk_records": {
+    "configured_exports": [
+      {
+        "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\main-cc-014-20261103T1938\\desk-record-cand9-smoke.json",
+        "sha256": "a7c272ef3e215b6186d137c5abef45e53edb64e34b7937d276cef87e0de0b6c1"
+      }
+    ],
+    "current_count": 82,
+    "accepted_count": 82,
+    "current_records_sha256": "79dde99325695b102072c87f4f14e7b7a51e991f1f511b4116970b68fdb081eb",
+    "accepted_records_sha256": "79dde99325695b102072c87f4f14e7b7a51e991f1f511b4116970b68fdb081eb",
+    "new_records": 0
+  },
+  "public_plan_status": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1",
+    "generated_at_utc": "2026-11-06T02:24:01.088573Z",
+    "content_hash": "f0768e70c38b2d56480a5d6d7026d1f7d000813ac2e841e597c7c8f423931ad8",
+    "transitions_content_hash": "ecabc7c7f83fb9870cdcfa2ee3501203222b28609a0833464681ee5e010293cc",
+    "status_content_hash_binding": "f0768e70c38b2d56480a5d6d7026d1f7d000813ac2e841e597c7c8f423931ad8",
+    "plan_count": 42,
+    "transition_count": 71,
+    "latest_transition_utc": "2026-11-05T21:00:34.652682Z",
+    "comparison_cutoff_utc": "2026-11-06T00:16:21.463361+00:00",
+    "new_registrations": [],
+    "new_transitions": [],
+    "undated_watch_rows_reviewed": 3,
+    "undated_watch_context": "Three WATCH rows have no asset or registration clock; no new market view or transition.",
+    "verification": "PASS: producer reader validates both hashes and their binding. Refresh clocks are not new analysis."
+  },
+  "additional_source_checks": {
+    "event_dossier": {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029",
+      "latest_name": "20261103-midterm-dossier",
+      "last_write_utc": "2026-11-02T23:35:09.153771+00:00",
+      "matches_previous": true
+    },
+    "main_brain_run": {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs",
+      "latest_name": "run-20261105T155824Z",
+      "last_write_utc": "2026-11-05T16:57:15.508550+00:00",
+      "matches_previous": true
+    },
+    "daily_research_root_entry": {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139",
+      "latest_name": ".precheck-preparation",
+      "last_write_utc": "2026-11-05T16:13:10.423470+00:00",
+      "matches_previous": true
+    },
+    "new_event_root_file": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\browseros-ready-20261106T0045Z.json",
+      "sha256": "b2339f23789d94961c507c79a9398fccf99f7d4383299d5e1bc1a12dcc9cfec3",
+      "checked_at_utc": "2026-11-06T00:45:48Z",
+      "status": "READY",
+      "meaning": "Browser readiness result, no event dossier, market analysis or release input."
+    }
+  },
+  "private_scorecard_selection": {
+    "digest_path": "A:\\Capital Chronicle\\ResearchRuns\\main-daily-digest\\digest-20261106.md",
+    "digest_sha256": "154a001ae6e8e13ebb3174d7fe02ccd7339ba00889f4e937e17babce760a197c",
+    "scorecard_path": "A:\\Capital Chronicle\\ResearchRuns\\main-daily-digest\\scores-20261106T0003422213488Z.json",
+    "scorecard_sha256": "78ae963eeeba661c44ce46ec1d81cd3bec88558eb05d3cfa8425902fa0d86f64",
+    "unchanged_since_previous_check": true,
+    "summary": {
+      "flagged_arms": 7,
+      "reviewed_no_trades": 75,
+      "scored_episodes": 0,
+      "unattributed_fills": 2,
+      "unscorable_episodes": 7
+    },
+    "calibration_state": "MISSING",
+    "calibration_forecast_count": 0,
+    "used_by": "Current article selection: no new forecast or scored outcome.",
+    "public_restriction": "DEMO execution details private under host rule 7 / Jim decision 74. Main computed analysis remains eligible under decision 72 b.",
+    "private_execution_rows_copied": false
+  },
+  "nfp_input_status": "Fresh CC-107 read: FROZEN_NFP_INPUTS_NOT_YET_CREATED, due 6 November 2026 18:00 GMT+7.",
+  "live_consumers": {
+    "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "store_access": "read-only SQLite URI / existing ReadOnlyStore",
+    "active_leases": [],
+    "current_production_day": "newsroom-production-day-2026-11-06-bangkok",
+    "current_distinct_confirmed_originals": 0,
+    "prior_production_day": "newsroom-production-day-2026-11-05-bangkok",
+    "prior_distinct_confirmed_originals": 8,
+    "count_basis": "Existing confirmed_canonicals requires exact Substack identity, verified readback and reconciliation; excludes digests.",
+    "production_day_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-05-bangkok\\newsroom_production_day_v1.json",
+    "production_day_sha256": "ec75193489923656bff6c7b3da73fde13ac04e380bf563a9f629c8081a01400d",
+    "production_day_record_count": 8,
+    "digest_path": "A:\\Capital Chronicle\\ResearchRuns\\main-daily-digest\\digest-20261106.md",
+    "digest_prior_day_count": 8
+  },
+  "actions": {
+    "new_operation_created": false,
+    "editorial_model_calls": 0,
+    "public_posts": 0,
+    "digest_sent": false,
+    "schedule_changes": false,
+    "chat_messages": false,
+    "computer_use": false,
+    "pytest_runs": 0
+  },
+  "inherited_files_sha256_at_audit": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "eaf106a6c5f0f94602af7ef759fd3f13ff0c8e8a68e78b3c2b625b8f8a755ebe",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "6b9fcc177395a2a4fb1dec6ae823731a9b907a60e21bf8c63b085e50f1cb6e2a"
+  },
+  "verification": "PASS: current Main inputs match live consumer, no plan delta, unchanged scorecard used, canonical counts match production record and actual digest, no active newsroom lease. No implementation changed."
+}
