@@ -10,6 +10,13 @@ whole-file selection exceeded the 55-second load limit and was stopped; the
 complete file then passed in four sequential bounded selections. Further affected
 consumer and operating-root verification follow.
 
+Native execution checks pass: 32 and 51 checks in the two executor selections,
+plus 31 composed-action/surface checks (including CC-333's native-result resume
+regression). A broader combined selection was stopped at 55 seconds before
+these smaller sequential selections completed. Consuming a saved native return
+does not rerun pre-write policy; `executor.begin` still checks an actual new
+browser action. This preserves reconciliation of already-completed writes.
+
 The branch uses the operating root's `17836e3330e09b98d7b0f2cf7dd34389c345d94a`
 source, preserving the Publisher consumers already 610 commits ahead of the
 fresh remote default. This permits a forward integration into that live root.

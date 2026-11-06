@@ -2575,7 +2575,11 @@ class DurablePublicationCoordinator:
             return {"destination": destination, "status": readiness or "READINESS_UNKNOWN", "publish_called": False}
         from live_contentops.article_publication_quality_v1 import before_article_write
         try:
-            before_article_write(self, intent, destination)
+            if not native_pending_resume:
+                # A resume consumes the frozen native request/return and can
+                # reveal an already-completed write. begin() checks any actual
+                # unclaimed browser write; never block consuming its result.
+                before_article_write(self, intent, destination)
         except (ValueError, OSError, KeyError, TypeError) as quality_error:
             cause = str(quality_error) if isinstance(quality_error, ValueError) else type(quality_error).__name__
             return {"destination": destination, "status": cause, "reason_code": cause, "publish_called": False}

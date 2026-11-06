@@ -117,6 +117,24 @@ def test_fingerprint_recording_failure_cannot_disable_public_readback(tmp_path, 
     assert runtime.publish_calls == ["substack"]
 
 
+def test_native_resume_consumes_an_existing_return_without_blocking_on_new_media_policy(tmp_path):
+    from types import SimpleNamespace
+    store, runtime, coordinator, message, *_ = publication(tmp_path, assets=False)
+    intent = json.loads(message["payload"])
+    runtime._neo_transport = SimpleNamespace(native_executor=SimpleNamespace(
+        native_neo_protocol=True, allow_publish=True, operation_id="work-1", store=store))
+    assert intent["destination_plan"]["transport_type"] == "BROWSEROS_NEO_MCP"
+    assert store.claim_platform_dispatch_attempt(dispatch_id=intent["attempt_identity"],
+        message_id=message["message_id"], platform="substack")
+    store.set_dispatch_status(intent["attempt_identity"], "NATIVE_NEO_TOOL_PENDING")
+    result = coordinator._dispatch_message(message, canonical_url=None)
+    assert result["status"] == "DISPATCH_CONFIRMED"
+    assert result["reconciliation_status"] == "RECONCILED_CONFIRMED"
+    # The fixture stands for consuming the existing executor return. A real
+    # browser action still goes through the separately tested executor.begin.
+    assert runtime.publish_calls == ["substack"]
+
+
 @pytest.mark.parametrize("variant", ["exact", "resized", "jpeg"])
 def test_real_coordinator_refuses_published_or_near_duplicate_image(tmp_path, variant):
     _, runtime, coordinator, message, media, _, _ = publication(tmp_path)
