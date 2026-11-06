@@ -1,0 +1,13 @@
+{
+  "request_sha256": "56c456ece5b39da6b7c60d51d8cc852e8c61fa70bae86e8cc8929308aa01313d",
+  "tool_return_sha256": "a8d3ff7febd80dd07722d2a909e42c157e2b1b15525f980b02208df9948bded0",
+  "completed_write_reconciliation": {
+    "dispatch_id": "dispatch_ea6fef69841a1b77ebabac38c599af4e",
+    "destination": "linkedin_company",
+    "public_object_id": "urn:li:activity:7524462065680285696",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524462065680285696/",
+    "reconciliation_status": "RECONCILIATION_PENDING",
+    "publish_called": false,
+    "public_write_performed": false
+  }
+}

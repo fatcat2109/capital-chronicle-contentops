@@ -1,0 +1,39 @@
+{
+  "tool_request_sha256": "791984e12d38be277b6244fa0b092caa984522f0edea9f73700fd62c207b6bf2",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1b092-b78e-7203-aeb6-664d04f8765a",
+    "observed_at_utc": "2026-11-06T13:17:52.052Z",
+    "observation_source": "x-public-observation.json; exact account and composer checked before send; actual post-click public object observed; no resend. X/YouTube pre-click identity clock not returned; their timestamp records the fresh readback. Media comparisons remain explicit."
+  },
+  "result": {
+    "request_sha256": "eea7d6bdd928462c612ff4254791f90a2ccc9d1873d542b2aad7a4476af0ef3a",
+    "status": "SUCCESS",
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2118693801451823351",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118693801451823351"
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "@Capitalnicle",
+      "observed_at_utc": "2026-11-06T13:17:52.052Z"
+    },
+    "pre_click_posts": [
+      "NFP preview: why a payroll beat needs help from unemployment\n\nhttps://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs\n\nSource: BLS.",
+      "A payroll beat alone cannot settle the October jobs story.\n\nWatch unemployment, revisions and wages, then ask whether rates and the dollar agree.\n\nWatch: Indices: Better employment could improve revenue expectations even as higher yields weigh on valuations.",
+      "A weak report could ease discount-rate pressure while raising earnings concerns.\n\n\n\n\nGrowth and interest rates can therefore point equities in opposite directions.\n\n\n\n\nAnalysis, not financial advice.\n\n\n\n\nReaders decide whether to trade.",
+      "Capital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "@Capitalnicle",
+      "public_object_id": "2118693801451823351",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118693801451823351",
+      "observed_text": "NFP preview: why a payroll beat needs help from unemployment\n\n\nhttps://\ncapitalchronicle.substack.com/p/nfp-preview-\nwhy-a-payroll-beat-needs\n\u2026\n\nSource: BLS.\n\nA payroll beat alone cannot settle the October jobs story.\n\nWatch unemployment, revisions and wages, then ask whether rates and the dollar agree.\n\nWatch: Indices: Better employment could improve revenue expectations even as higher yields weigh on valuations.\n\nA weak report could ease discount-rate pressure while raising earnings concerns.\n\nGrowth and interest rates can therefore point equities in opposite directions.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+      "content_verified": false,
+      "media_check_state": "PENDING_BINARY_COMPARISON"
+    }
+  }
+}

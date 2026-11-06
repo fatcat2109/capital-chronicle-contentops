@@ -1,0 +1,37 @@
+{
+  "tool_request_sha256": "db0e8930e3c58b42ff4b53d24d47e8e85b78f60f672f8b84c8ea569ec3ccfdfa",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1b092-b78e-7203-aeb6-664d04f8765a",
+    "observed_at_utc": "2026-11-06T13:21:56.455Z",
+    "observation_source": "linkedin-public-observation.json; exact account and composer checked before send; actual post-click public object observed; no resend. X/YouTube pre-click identity clock not returned; their timestamp records the fresh readback. Media comparisons remain explicit.",
+    "dispatched_at_utc": "2026-11-06T13:20:37.627Z"
+  },
+  "result": {
+    "request_sha256": "7b186630c7f6da583a06ff42d4e57e7e66ab0aaa8206a4cc7e5b50cb5e60c18e",
+    "status": "SUCCESS",
+    "observed_identity": "linkedin:jimcc",
+    "public_object_id": "urn:li:activity:7524460754750750720",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524460754750750720/"
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "linkedin:jimcc",
+      "observed_at_utc": "2026-11-06T13:20:36.256Z"
+    },
+    "pre_click_posts": [
+      "NFP preview: why a payroll beat needs help from unemployment\n\nWhy it matters: Rates: A strong combination could lift the expected Fed path and Treasury yields; weak hiring could lower that path. Firmer wages would complicate an easing interpretation, so pay remains a policy cross-check.\n\nContext: The strong branch gains credibility if payrolls and unemployment reinforce each other and rates and the dollar follow the firmer-policy interpretation. The weak branch needs employment weakness and a softer expected policy path. A reversal after revisions or wages are examined would challenge either reading; disagreement across markets would weaken a simple headline explanation.\n\nRead the full brief: https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nSource: BLS."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "linkedin:jimcc",
+      "public_object_id": "urn:li:activity:7524460754750750720",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524460754750750720/",
+      "observed_text": "Feed post\n\nPromote this post to reach people who matter to you.\n\nBoost\n\nJim Pham\n\n \u2022 You\n\nGlobal Macro & Quant Trading Researcher | Founder, Capital Chronicle | AI-Driven Market Intelligence | Financial Data Systems\n\nnow\n\nNFP preview: why a payroll beat needs help from unemployment\nWhy it matters: Rates: A strong combination could lift the expected Fed path and Treasury yields; weak hiring could lower that path. Firmer wages would complicate an easing interpretation, so pay remains a policy cross-check.\nContext: The strong branch gains credibility if payrolls and unemployment reinforce each other and rates and the dollar follow the firmer-policy interpretation. The weak branch needs employment weakness and a softer expected policy path. A reversal after revisions or wages are examined would challenge either reading; disagreement across markets would weaken a simple headline explanation.\nRead the full brief: https://lnkd.in/gEf-VV59\nAnalysis, not financial advice. Readers decide whether to trade.\nCapital Chronicle may hold positions in the markets it covers.\nSource: BLS.\n\n\u200b\n\u200b\n\u200b\n\u200b",
+      "content_verified": false,
+      "media_check_state": "PENDING_BINARY_COMPARISON"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "request_sha256": "45c3a4e9eedfa25d51fff1870aa595c506b0230a4574a26f92f25fb1a1367985",
+  "tool_return_sha256": "31ff79fa1d4d868526e63080f17bcf89d179e3cac0e920610dc72705cee37699",
+  "completed_write_reconciliation": {
+    "dispatch_id": "dispatch_c490f9d3056ccdc2363755792f7be269",
+    "destination": "youtube",
+    "public_object_id": "UgkxgzPknumtaawPLwOIxiH0-Yd6m6QcbZin",
+    "public_object_url": "https://www.youtube.com/post/UgkxgzPknumtaawPLwOIxiH0-Yd6m6QcbZin",
+    "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+    "publish_called": false,
+    "public_write_performed": false
+  }
+}
