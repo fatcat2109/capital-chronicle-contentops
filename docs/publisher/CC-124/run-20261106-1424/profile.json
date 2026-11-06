@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.native_desktop_operator_profile.v1",
+  "scope": "OWNER_MANUAL_EDITORIAL_ONLY_EXISTING_REVIEWED_WORKSPACE_NOT_PRODUCTION",
+  "store_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\owner-newsroom\\editorial-v4.sqlite3",
+  "editorial_output_root": "C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/editorial-previews",
+  "feed_pointer_path": "A:/Capital Chronicle/ContentOps/config/native_desktop_operator_main_feed_binding_v1.json",
+  "published_memory_store": "A:/Capital Chronicle/Runtime/ContentOps/contentops_daily_app_v1.sqlite3",
+  "published_memory_output_root": "A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs",
+  "input_policy": "CURRENT_CANONICAL_INTAKE_UNLESS_EXPLICIT_REPORT_ONLY_TRIGGER",
+  "research_editions_root": [],
+  "workspace_relocation_manifest": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\owner-newsroom\\relocation.json",
+  "research_root": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-124\\run-20261106-1424\\source"
+}
