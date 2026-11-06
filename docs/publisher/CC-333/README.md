@@ -7,8 +7,7 @@ media binding and eight-channel compiler. The first feature selection passed:
 55-second limit. All 104 canonical coordinator regressions also pass in
 `coordinator-regression-1.xml` through `coordinator-regression-4.xml`. One initial
 whole-file selection exceeded the 55-second load limit and was stopped; the
-complete file then passed in four sequential bounded selections. Further affected
-consumer and operating-root verification follow.
+complete file then passed in four sequential bounded selections.
 
 Native execution checks pass: 32 and 51 checks in the two executor selections,
 plus 31 composed-action/surface checks (including CC-333's native-result resume
@@ -68,8 +67,28 @@ unavailable (`CONFIGURED_NOT_OBSERVED`). No editorial model was called by this
 engineering step. Existing dirty telemetry/duplicate-ledger files remain outside
 this item's commits. No chat, schedule or native desktop action was used.
 
-No pytest run starts during the 6 November 18:30–22:30 GMT+7 machine-load
-restriction. Targeted checks, integration tags and the two future public
-readbacks will be recorded here when observed. Four articles were already
-confirmed for 6 November before this item, so decision 93 permits no additional
-article in that production day.
+No pytest run started during the 6 November 18:30–22:30 GMT+7 machine-load
+restriction. All test processes ran serially, limited to 55 seconds, against
+targeted files. The saved 21 successful selections contain 504 distinct passing
+checks across 16 test modules; this is not a full-suite claim.
+
+The change is integrated into `A:\Capital Chronicle\ContentOps`. Its final
+code head is `79f5382469d7f9937d5f50f41b02e01c3c5a0f80`; subsequent commits
+record evidence only. [Operating-root tests](operating-root-tests.xml) pass all
+49 feature/compatibility checks in 27.30 seconds. [Integration evidence](integration.json)
+records source parity and unchanged hashes for both inherited builder files and
+all six modified operating-root files. The CC-306 commit remains in ancestry.
+Live tag: `contentops-live-20261106-cc333`. Rollback tag:
+`contentops-rollback-20261106-cc333` at `e3ec0779fb06bab4b0aadcdfb37adadeb86ae15c`.
+
+[The operating consumer read](operating-consumer-read.json) imports the new
+module from the operating root and resolves the actual production feed and image
+register. It confirms four distinct articles for 6 November and zero capacity
+under the new limit of two. No article was published by CC-333. The two required
+new-piece public readbacks remain 0/2, so this item is not DONE. The outside
+cause is `JIM_DECISION_93_DAILY_ARTICLE_CAP_REACHED`. The existing production day
+rolls over at **7 November 02:00 GMT+7**; the retained CC-124 operation is next due
+at **7 November 02:50 GMT+7**. Its ordinary run must prepare compliant scenarios
+and new media, publish within that day's cap, and retain exact Substack/social
+readbacks. Complete CC-333 after the next two such pieces, without creating a
+replacement operation or a schedule.

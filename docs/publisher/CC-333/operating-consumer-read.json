@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-11-06T15:53:43.508378+00:00",
+  "module_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\article_publication_quality_v1.py",
+  "module_sha256": "30523be8db6e7461e1cf1c5a324e2a1f6be60732bddb2efa4426a0b10778495b",
+  "publication_feed": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+  "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "register_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_images_v1.jsonl",
+  "production_date": "2026-11-06",
+  "distinct_published_articles": 4,
+  "daily_limit": 2,
+  "remaining_capacity": 0,
+  "canonical_urls": [
+    "https://capitalchronicle.substack.com/p/capital-chronicles-midterm-review",
+    "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+    "https://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital",
+    "https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs"
+  ],
+  "next_production_day_utc": "2026-11-06T19:00:00Z",
+  "next_existing_cc124_run_utc": "2026-11-06T19:50:00Z",
+  "new_articles_published_in_cc333": 0,
+  "reads_only": true,
+  "source_control_integration_is_not_public_readback": true
+}
