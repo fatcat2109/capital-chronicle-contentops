@@ -82,6 +82,22 @@ def test_changed_main_bytes_cannot_replace_frozen_evidence(tmp_path, monkeypatch
     assert research.gaps[0]["state"] == "MAIN_REPORT_SOURCE_BYTES_CHANGED"
 
 
+def test_own_report_facts_feed_existing_public_card_renderer(tmp_path, monkeypatch):
+    from live_contentops.post_visuals_v1 import build_post_data_card, validate_post_data_card
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
+    root, report, spec = retained(tmp_path, monkeypatch)
+    research = RetainedSourceResearch(root)
+    evidence = research.evidence({"headline_ids": [spec["headline_id"]]}, cutoff_utc=NOW)
+    docs = _source_pack(evidence["evidence_documents"])
+    fact = "Equities and Bitcoin rose."
+    article = {"title": "Main's midterm review", "substack_body_markdown": fact}
+    claims = [{"claim_id": "reaction", "claim_text": fact, "support_excerpt": fact, "source_id": "SOURCE_1"}]
+    asset = build_post_data_card(article, claims, docs, output_dir=tmp_path / "media")
+    assert asset["data_card_packet"]["facts"][0]["text"] == fact
+    assert asset["data_card_packet"]["facts"][0]["rights_class"] == "capital_chronicle_own_report"
+    validate_post_data_card(asset, article, docs)
+
+
 def test_report_path_cannot_escape_configured_main_roots(tmp_path, monkeypatch):
     root, _, spec = retained(tmp_path, monkeypatch)
     spec["passages"][0]["source_path"] = str(tmp_path / "outside.md")

@@ -88,6 +88,15 @@ def reject_private_survey_visual(document, context=""):
 def public_visual_source(document):
     reject_private_survey_visual(document)
     constraints = document.get("source_reuse_constraints") or {}
+    lineage = document.get("report_lineage") or {}
+    digest = lineage.get("report_projection_sha256")
+    if (constraints.get("scope") == "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS"
+            and constraints.get("authority_ref") == "JIM_DECISION_89"
+            and document.get("source_authority_class") == "governed_capital_chronicle_report_only"
+            and re.fullmatch(r"[a-f0-9]{64}", str(digest or ""))
+            and constraints.get("source_capture_sha256") == digest
+            and (document.get("url") or document.get("source_url")) == "urn:cc-public-report:main-retained:" + digest):
+        return "capital_chronicle_own_report"
     from live_contentops.rolling_x_grounded_article_media_builder_v1 import _underlying_source_rights
     rights, _ = _underlying_source_rights(document)
     if rights == "public_domain" and document.get("rights_evidence_sha256"):
@@ -115,7 +124,7 @@ def _bound_fact(claim, article, documents):
             or not set(_NUMBERS.findall(text)) <= set(_NUMBERS.findall(_normal(canonical)))):
         raise ValueError("DATA_CARD_FACT_OR_NUMBER_NOT_IN_POST_AND_SOURCE")
     url = source.get("url") or source.get("source_url")
-    if not str(url or "").startswith("https://") or not source.get("publisher"):
+    if (not str(url or "").startswith("https://") and rights != "capital_chronicle_own_report") or not source.get("publisher"):
         raise ValueError("DATA_CARD_PUBLIC_ATTRIBUTION_REQUIRED")
     return {"claim_id": claim.get("claim_id"), "text": text, "source_id": claim["source_id"],
         "document_id": source["document_id"], "support_excerpt": claim["support_excerpt"],

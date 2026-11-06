@@ -1,0 +1,45 @@
+{
+  "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d232ac540a32a050\\intraday-capture.json",
+  "source_sha256": "72b400990f3bcded4cb11f65bc8ae3bc958387539fae5d1096f7df4fe8fcad6d",
+  "known_at_utc": "2026-11-05T10:28:52.649695Z",
+  "event_date": "2026-11-04",
+  "clock_basis": "Retained review infers broker-server bar times are UTC; not independently re-established by this check.",
+  "method": "Read retained H1 rows only; compare recorded OHLC; output derived directions and turning-hour checks, no raw series or account fields.",
+  "markets": {
+    "XAUUSD": {
+      "completed_hourly_bars": 23,
+      "day_direction": "up",
+      "lowest_bar_open_utc": "2026-11-04T00:00:00+00:00",
+      "raw_prices_exported": false,
+      "05_to_07_window_direction": "up"
+    },
+    "US500": {
+      "completed_hourly_bars": 23,
+      "day_direction": "up",
+      "lowest_bar_open_utc": "2026-11-04T03:00:00+00:00",
+      "raw_prices_exported": false,
+      "04_hour_direction": "up",
+      "04_to_10_direction": "up"
+    },
+    "USTEC": {
+      "completed_hourly_bars": 23,
+      "day_direction": "up",
+      "lowest_bar_open_utc": "2026-11-04T03:00:00+00:00",
+      "raw_prices_exported": false
+    },
+    "BTCUSD": {
+      "completed_hourly_bars": 24,
+      "day_direction": "up",
+      "lowest_bar_open_utc": "2026-11-04T03:00:00+00:00",
+      "raw_prices_exported": false,
+      "14_to_15_window_direction": "up"
+    },
+    "USOIL": {
+      "completed_hourly_bars": 23,
+      "day_direction": "down",
+      "lowest_bar_open_utc": "2026-11-04T17:00:00+00:00",
+      "raw_prices_exported": false,
+      "12_to_17_window_direction": "down"
+    }
+  }
+}
