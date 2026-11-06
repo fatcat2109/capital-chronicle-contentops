@@ -4,7 +4,11 @@ Decision 93 is applied through the existing publication coordinator, native writ
 media binding and eight-channel compiler. The first feature selection passed:
 [feature-tests.xml](feature-tests.xml), 46 checks in 19.85 seconds. It started at
 22:30:18 GMT+7, after the machine-load blackout, in one pytest process with a
-55-second limit. Regression and operating-root verification follow.
+55-second limit. All 104 canonical coordinator regressions also pass in
+`coordinator-regression-1.xml` through `coordinator-regression-4.xml`. One initial
+whole-file selection exceeded the 55-second load limit and was stopped; the
+complete file then passed in four sequential bounded selections. Further affected
+consumer and operating-root verification follow.
 
 The branch uses the operating root's `17836e3330e09b98d7b0f2cf7dd34389c345d94a`
 source, preserving the Publisher consumers already 610 commits ahead of the
