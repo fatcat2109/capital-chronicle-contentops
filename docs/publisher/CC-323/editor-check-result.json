@@ -1,0 +1,265 @@
+{
+  "article_identity": "43a4b97338d9f60033cea8418f3699a44ac9aacaada2c5562c3f3cbe74057dae",
+  "decision": "KEEP",
+  "review_policy": "JIM_DECISION_53_ONE_EDITOR_TEXT_CHECK_THEN_PUBLISH",
+  "reviewed_at_utc": "2026-11-06T04:14:03.825490Z",
+  "reviewer": "/root/cc323_max_resume",
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/cc323_max_resume",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Supported native task context and parent follow-up identify this as the same /root/cc323_max_resume visual editor/writer. Actual model and effort telemetry are unavailable; configuration is recorded separately.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Exact frozen writer request 514f6285643572b22928a625b8ef089040c2c3ea888be5b3d995621ae0af3ee8 and supported parent assignment to perform the one editor check in this same native MAX context."
+  },
+  "input_binding": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-323\\editor-check-input.json",
+    "sha256": "56a3bce82351019b498a2dc5c576fa5dfd8a9a18a9adf7d29b6c9c2b2d9413ac",
+    "native_result_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc323-midterm-lesson-20261106-v1\\native_desktop_result.json",
+    "native_result_sha256": "160c3e16caae9468d829705b7f53d4ea1b7d1b918652315abb984f4a9ab46f01"
+  },
+  "scope": "One editor text check of the assembled canonical article, all eight actual derivative payloads including ordered reply chains, the two retained source projections, and admitted media metadata. The exact card and photo pixels were inspected earlier in this same native role; no new screenshot loop was performed.",
+  "findings": [
+    {
+      "area": "Reader value and candid correction",
+      "result": "PASS",
+      "reason": "The dated Main-review framing is natural in the title, dek and opening. The article plainly admits the equities/Bitcoin downside map was wrong while retaining the gold-up and USD-down matches. Its takeaway separates election outcome, market direction and horizon; it makes no claim of investing success."
+    },
+    {
+      "area": "Source scope and uncertainty",
+      "result": "PASS",
+      "reason": "SOURCE_1 and SOURCE_2 remain two projections of the same original Main review, not independent event confirmation. Public facts stay attributed to that review. The scope notice appears once in the canonical body. The expected-outcome passage is a words-only priced-base-case assessment from SOURCE_2 and is explicitly distinguished from proof that anticipation caused market moves."
+    },
+    {
+      "area": "Event window and time conversion",
+      "result": "PASS",
+      "reason": "The exact three retained card sentences remain in the body under What moved when. Gold 05:00-07:00 UTC maps to 12:00-14:00 Bangkok; US500 from 04:00 UTC maps to 11:00 Bangkok; Bitcoin 14:00-15:00 UTC maps to 21:00-22:00 Bangkok; oil 12:00-17:00 UTC maps to 19:00-24:00 Bangkok. Bangkok is explicitly GMT+7. US500 climbing through Asia and Europe, the inferred broker UTC clock basis, and the limit on exact catalyst timing all remain. No later 5 November price observation is introduced."
+    },
+    {
+      "area": "Causality and countercase",
+      "result": "PASS",
+      "reason": "Timing is not presented as election causality. The priced-base-case interpretation is a competing explanation to examine, not an asserted mechanism. The countercase retains matching legs and makes clear that one mixed case cannot establish a universal mechanism, hit rate or forecasting skill."
+    },
+    {
+      "area": "Required notices",
+      "result": "PASS",
+      "reason": "The canonical article contains the exact analysis/not-financial-advice, reader-decision and possible-positions disclosures. All eight full derivative payloads retain those notices, with X and Threads using their complete ordered chains."
+    },
+    {
+      "area": "Public content and privacy",
+      "result": "PASS",
+      "reason": "No numerical prediction-market odds, raw prices/history, percentage returns, account/execution details, alpha or trading-result claims, unsupported dealer/gamma/liquidation/geopolitical explanations, or forbidden preview-host URL appear in the reviewed public prose. The internal SOURCE markers, URN source identities and source_date_notice remain metadata/internal compilation inputs; the derivative text does not expose them or KEEP/PREPARED workflow labels."
+    },
+    {
+      "area": "Media",
+      "result": "PASS",
+      "reason": "Both image byte hashes still match the assets inspected earlier in this same role. The card is source-bound, contains no raw prices, attributes its windows to the review and visibly qualifies the clock inference. The selected Capitol photo retains its 1997 archive caption, full canonical credit, exact public-domain rights receipt and context-only status."
+    },
+    {
+      "area": "Derivative semantics",
+      "result": "PASS",
+      "reason": "All eight actual payloads preserve the candid correction in their review-led title or text and retain either the serious interpretation limit or the separate-condition/direction/horizon lesson. X and Threads must be assessed as their complete ordered reply chains. No generic unconfirmed fallback or hard-truncated copy replaces the authored lesson."
+    }
+  ],
+  "channel_findings": [
+    {
+      "destination": "discord",
+      "preview_id": "cc-preview-17e31d78c397ecdd8590d1127811a8b12b6d047d92548b6c9601391ad4bc92f5",
+      "article_identity": "43a4b97338d9f60033cea8418f3699a44ac9aacaada2c5562c3f3cbe74057dae",
+      "text_check": "PASS",
+      "findings": "The headline and hook admit the wrong market call. Context retains the same-review priced-base-case statement, labels the explanation as Capital Chronicle interpretation, and explicitly denies causal proof. Scope and required notices remain.",
+      "payload_sha256": "df81b56ddbc39c40e8f5eb2d48329c29fcc0670fa68f4b75c312c4d98bbb6008",
+      "media_asset_ids": [
+        "post-facts-99b70e72adeaee9b1099"
+      ],
+      "ordered_post_count": 1,
+      "individual_post_character_counts": [
+        880
+      ],
+      "platform_limit": 2000,
+      "hard_truncation_used": false,
+      "contains_required_disclosures_across_complete_payload": true,
+      "canonical_link_state": "PREPUBLICATION_PLACEHOLDER_REQUIRES_CONFIRMED_CANONICAL_SUBSTITUTION"
+    },
+    {
+      "destination": "facebook_page",
+      "preview_id": "cc-preview-13039f86169337060e5b0c0027a69511e93c39c9a6843f80e2ea501c9cdc774d",
+      "article_identity": "43a4b97338d9f60033cea8418f3699a44ac9aacaada2c5562c3f3cbe74057dae",
+      "text_check": "PASS",
+      "findings": "The headline, hook and why-it-matters passage explicitly acknowledge equities and Bitcoin rising against the downside map, attributed to the dated Main review. No causal explanation is asserted; scope and required notices remain.",
+      "payload_sha256": "2e445500d4e6fe38dbc7b82c341a647216c34815f2223468c994a394fc49a16a",
+      "media_asset_ids": [
+        "post-facts-99b70e72adeaee9b1099"
+      ],
+      "ordered_post_count": 1,
+      "individual_post_character_counts": [
+        897
+      ],
+      "platform_limit": 63206,
+      "hard_truncation_used": false,
+      "contains_required_disclosures_across_complete_payload": true,
+      "canonical_link_state": "PREPUBLICATION_PLACEHOLDER_REQUIRES_CONFIRMED_CANONICAL_SUBSTITUTION"
+    },
+    {
+      "destination": "instagram_business",
+      "preview_id": "cc-preview-6e2062a629f9031dbbb3a4c46e895ada03185bb41b9831c7636585079626823a",
+      "article_identity": "43a4b97338d9f60033cea8418f3699a44ac9aacaada2c5562c3f3cbe74057dae",
+      "text_check": "PASS",
+      "findings": "The caption admits the wrong market call and preserves review attribution. The expectation passage is labelled as interpretation and expressly not causal proof. The selected card carries review-attributed times and the inferred-UTC qualifier; scope and notices remain.",
+      "payload_sha256": "f3080759eb2bcb030755979259ad20bfc897edf927830804ab63cf03cce62443",
+      "media_asset_ids": [
+        "post-facts-99b70e72adeaee9b1099"
+      ],
+      "ordered_post_count": 1,
+      "individual_post_character_counts": [
+        870
+      ],
+      "platform_limit": 2200,
+      "hard_truncation_used": false,
+      "contains_required_disclosures_across_complete_payload": true,
+      "canonical_link_state": "PREPUBLICATION_PLACEHOLDER_REQUIRES_CONFIRMED_CANONICAL_SUBSTITUTION"
+    },
+    {
+      "destination": "linkedin",
+      "preview_id": "cc-preview-bd087b6aa9b746bc656c3aead0a2cb65a84a95304439e6158100fd0ca0b2fc85",
+      "article_identity": "43a4b97338d9f60033cea8418f3699a44ac9aacaada2c5562c3f3cbe74057dae",
+      "text_check": "PASS",
+      "findings": "The opening explicitly says the market-direction map was wrong and attributes the case to the 5 November review. The competing explanation is labelled and bounded. Scope and required notices remain.",
+      "payload_sha256": "0999a2bd81ea6ff0fa9b05587f8b653e5b0b87e9f88386675498182b9a29fbce",
+      "media_asset_ids": [
+        "post-facts-99b70e72adeaee9b1099"
+      ],
+      "ordered_post_count": 1,
+      "individual_post_character_counts": [
+        1031
+      ],
+      "platform_limit": 3000,
+      "hard_truncation_used": false,
+      "contains_required_disclosures_across_complete_payload": true,
+      "canonical_link_state": "PREPUBLICATION_PLACEHOLDER_REQUIRES_CONFIRMED_CANONICAL_SUBSTITUTION"
+    },
+    {
+      "destination": "telegram",
+      "preview_id": "cc-preview-c49f1e574f473d766140c5ed36c70a14cc3ace8a04253e6e2a0a31f45a986065",
+      "article_identity": "43a4b97338d9f60033cea8418f3699a44ac9aacaada2c5562c3f3cbe74057dae",
+      "text_check": "PASS",
+      "findings": "The headline and hook retain the candid correction and report attribution. The watch passage asks separately about political condition, market direction, horizon and challenge. Scope and required notices remain.",
+      "payload_sha256": "d2079320110e91c07651d80ace8b7e53fa15f836936f88175f2c4874a97da020",
+      "media_asset_ids": [
+        "post-facts-99b70e72adeaee9b1099"
+      ],
+      "ordered_post_count": 1,
+      "individual_post_character_counts": [
+        861
+      ],
+      "platform_limit": 1024,
+      "hard_truncation_used": false,
+      "contains_required_disclosures_across_complete_payload": true,
+      "canonical_link_state": "PREPUBLICATION_PLACEHOLDER_REQUIRES_CONFIRMED_CANONICAL_SUBSTITUTION"
+    },
+    {
+      "destination": "threads",
+      "preview_id": "cc-preview-cfdc7fe2fd77f3490d925d8b7c0f5b04641f853df59c5613a75f8520daf76a7a",
+      "article_identity": "43a4b97338d9f60033cea8418f3699a44ac9aacaada2c5562c3f3cbe74057dae",
+      "text_check": "PASS",
+      "findings": "Reviewed the complete three-post chain, not only root text. The review-led headline admits a wrong market call; the root preserves the expectation interpretation and denies causal proof. Replies retain the separate-direction/horizon lesson, retrospective scope and all notices. No hard truncation.",
+      "payload_sha256": "472f65270b1a7dba25057b7c7e766405148b33efed2b5fd1e07aba9854fcd7c3",
+      "media_asset_ids": [
+        "post-facts-99b70e72adeaee9b1099"
+      ],
+      "ordered_post_count": 3,
+      "individual_post_character_counts": [
+        436,
+        459,
+        62
+      ],
+      "platform_limit": 500,
+      "hard_truncation_used": false,
+      "contains_required_disclosures_across_complete_payload": true,
+      "canonical_link_state": "PREPUBLICATION_PLACEHOLDER_REQUIRES_CONFIRMED_CANONICAL_SUBSTITUTION"
+    },
+    {
+      "destination": "x",
+      "preview_id": "cc-preview-cb54655ddc961059c4f22ff438eedba3a46c8ad0d6d546ad79e5cf7dea329169",
+      "article_identity": "43a4b97338d9f60033cea8418f3699a44ac9aacaada2c5562c3f3cbe74057dae",
+      "text_check": "PASS",
+      "findings": "Reviewed the complete five-post chain, not only root text. The review-led root headline admits the wrong market call; the first reply states equities and Bitcoin rose against the downside map. Remaining replies preserve the conditional watch question, retrospective scope and all notices. No hard truncation.",
+      "payload_sha256": "7ea65a3c339c26d18ce9f493fad3aaf3c150052cb29f8e36695e55736f11819b",
+      "media_asset_ids": [
+        "post-facts-99b70e72adeaee9b1099"
+      ],
+      "ordered_post_count": 5,
+      "individual_post_character_counts": [
+        147,
+        163,
+        192,
+        257,
+        62
+      ],
+      "platform_limit": 280,
+      "hard_truncation_used": false,
+      "contains_required_disclosures_across_complete_payload": true,
+      "canonical_link_state": "PREPUBLICATION_PLACEHOLDER_REQUIRES_CONFIRMED_CANONICAL_SUBSTITUTION"
+    },
+    {
+      "destination": "youtube",
+      "preview_id": "cc-preview-efe3e63046f2324940189e08018657e16cc88154386810015a898389be40224e",
+      "article_identity": "43a4b97338d9f60033cea8418f3699a44ac9aacaada2c5562c3f3cbe74057dae",
+      "text_check": "PASS",
+      "findings": "The headline and hook admit the wrong market call with review attribution. The watch passage preserves the lesson about political condition, market direction, horizon and challenge. Scope and required notices remain.",
+      "payload_sha256": "527d69561c9b292b223e0aabf5c5362692a5aa2f1ca0f6ef9fed62758e7c8d5a",
+      "media_asset_ids": [
+        "post-facts-99b70e72adeaee9b1099"
+      ],
+      "ordered_post_count": 1,
+      "individual_post_character_counts": [
+        862
+      ],
+      "platform_limit": 1000,
+      "hard_truncation_used": false,
+      "contains_required_disclosures_across_complete_payload": true,
+      "canonical_link_state": "PREPUBLICATION_PLACEHOLDER_REQUIRES_CONFIRMED_CANONICAL_SUBSTITUTION"
+    }
+  ],
+  "media_bindings": [
+    {
+      "asset_id": "post-facts-99b70e72adeaee9b1099",
+      "sha256": "c6d5bd2281debc7e8be8e68419de41d9f0722db5a2671005abddba91f5e90556",
+      "exact_bytes_match_previously_inspected_asset": true,
+      "prior_pixel_inspection_by": "/root/cc323_max_resume",
+      "new_pixel_or_screenshot_review_performed": false
+    },
+    {
+      "asset_id": "cc323-capitol-west-front-archive-1997",
+      "sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+      "exact_bytes_match_previously_inspected_asset": true,
+      "prior_pixel_inspection_by": "/root/cc323_max_resume",
+      "new_pixel_or_screenshot_review_performed": false
+    }
+  ],
+  "material_editorial_defects": [],
+  "changes_required_to_reviewed_text": [],
+  "publication_handoff": {
+    "text_approved": true,
+    "canonical_first": true,
+    "observed_preview_link_placeholders": [
+      "https://capitalchronicle.substack.com/p/pending-publication-43a4b97338d9f600"
+    ],
+    "placeholder_is_confirmed_public_url": false,
+    "required_transport_action": "The sole coordinator publishes/reads back the canonical Substack article, substitutes its exact confirmed /p/ URL into derivative payloads and then sends them. Do not send the prepublication placeholder URLs. This deterministic canonical-link substitution does not reopen the unchanged-text editor check.",
+    "after_approval_media_policy": "One automated image load/dimension check with failures logged, per decision 53; no additional model screenshot or draft-review loop.",
+    "public_write_performed": false,
+    "review_submitted": false
+  },
+  "limits": [
+    "This artifact is an editor text decision, not a publication or public readback result.",
+    "Actual runtime model/effort telemetry are unavailable and are recorded as CONFIGURED_NOT_OBSERVED.",
+    "The short path does not claim newly inspected composed desktop/mobile renders or per-channel screenshots."
+  ]
+}

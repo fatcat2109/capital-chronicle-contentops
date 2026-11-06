@@ -1,0 +1,231 @@
+{
+  "schema_version": "contentops.v1_simple_gemini_validation.v1",
+  "status": "PASS",
+  "ordering": "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_PROVENANCE_AWARE_BOUNDED_HTTP_THEN_BROWSER_RENDERED_RECOVERY_THEN_EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE",
+  "supported_material_claim_count": 19,
+  "unsupported_material_claim_count": 0,
+  "supported_material_claims": [
+    {
+      "claim_id": "CC323_META_TITLE",
+      "claim_text": "Capital Chronicle's midterm review: right scenario, wrong market call",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "3f965eeef23cc7709f2bf85451845b0d93253e98a007886badcc6a5e74beb7ef"
+    },
+    {
+      "claim_id": "CC323_META_DEK",
+      "claim_text": "Capital Chronicle's 5 November review says equities and Bitcoin rose against the dossier's downside map. Getting the election scenario right did not settle the market response.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "3f965eeef23cc7709f2bf85451845b0d93253e98a007886badcc6a5e74beb7ef"
+    },
+    {
+      "claim_id": "CC323_META_SEARCH_TITLE",
+      "claim_text": "Capital Chronicle's midterm review: a market-direction error",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "401e5edb86619bb856e5ed6e7f248fb08dbaf70c0ef224fee00895d2b074beb4"
+    },
+    {
+      "claim_id": "CC323_META_META_DESCRIPTION",
+      "claim_text": "Capital Chronicle's midterm review records an equity and Bitcoin direction error. A correct election scenario did not settle the market response.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "401e5edb86619bb856e5ed6e7f248fb08dbaf70c0ef224fee00895d2b074beb4"
+    },
+    {
+      "claim_id": "CC323_META_SOCIAL_HOOK",
+      "claim_text": "Capital Chronicle's review: the election scenario matched, but equities and Bitcoin rose against the downside map. A right result is not a market-direction model.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "3f965eeef23cc7709f2bf85451845b0d93253e98a007886badcc6a5e74beb7ef"
+    },
+    {
+      "claim_id": "CC323_LEAD",
+      "claim_text": "Capital Chronicle's 5 November Main review delivers a blunt midterm lesson: the dossier's leading Democratic-sweep scenario occurred, yet US500, USTEC and Bitcoin rose against its downside mapping. Our market-direction map was wrong. Getting the political outcome right did not make the expected market response right.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "3f965eeef23cc7709f2bf85451845b0d93253e98a007886badcc6a5e74beb7ef"
+    },
+    {
+      "claim_id": "CC323_MAPPING",
+      "claim_text": "According to the review, the dossier mapped a Democratic House and Senate to falling US500, USTEC and Bitcoin. It instead records rises in those markets. The same review says the gold-up and USD-down legs matched. That is a mixed direction check, not grounds to turn the election call into a claim of investing success.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "3f965eeef23cc7709f2bf85451845b0d93253e98a007886badcc6a5e74beb7ef"
+    },
+    {
+      "claim_id": "CC323_RECONSTRUCTION",
+      "claim_text": "The timeline below is the review's hourly reconstruction of 4 November, not an exact catalyst timestamp.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "6d4272201a2dad87526459cf163e34ccb9532b63cd622b4a43d73429a387afa3"
+    },
+    {
+      "claim_id": "CC323_CLOCK_BASIS",
+      "claim_text": "It infers that the broker's hourly timestamps are UTC; that clock basis has not been independently re-established here.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_2",
+      "document_id": "cc323-midterm-source-context-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "b1ea1d5e90d0565e9d378d1237488d2bb0befeba73ca9e4d91b5e9f67e93a424"
+    },
+    {
+      "claim_id": "CC323_BANGKOK_TIME",
+      "claim_text": "All Bangkok times below are GMT+7.",
+      "claim_kind": "NUMBER",
+      "source_id": "SOURCE_2",
+      "document_id": "cc323-midterm-source-context-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "b1ea1d5e90d0565e9d378d1237488d2bb0befeba73ca9e4d91b5e9f67e93a424"
+    },
+    {
+      "claim_id": "CC323_CARD_1",
+      "claim_text": "The review places gold's upward move at 05:00-07:00 UTC (12:00-14:00 Bangkok), with US500 turning up from 04:00 UTC (11:00 Bangkok).",
+      "claim_kind": "NUMBER",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "0a830e29ecdc48d0933c26b19d9f298533f4b63debd9a6c77e2157f53f530a90"
+    },
+    {
+      "claim_id": "CC323_CARD_2",
+      "claim_text": "The review places Bitcoin's largest upward leg at 14:00-15:00 UTC (21:00-22:00 Bangkok).",
+      "claim_kind": "NUMBER",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "dcebcd9ff6455559f9e1fbe0a8d82f7a9becb3212f95fcb5ec47554d10cb6c7c"
+    },
+    {
+      "claim_id": "CC323_CARD_3",
+      "claim_text": "The review says oil fell throughout the day, with its largest leg at 12:00-17:00 UTC (19:00-24:00 Bangkok).",
+      "claim_kind": "NUMBER",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "aa6f7c2ea151971c118f5a192cb20e5004d1071a5e01f09f37b05e23557367b4"
+    },
+    {
+      "claim_id": "CC323_SESSIONS",
+      "claim_text": "US500, the review says, continued climbing through Asia and Europe. Its sequence challenges a blanket account of these moves as starting only in the US session. The review locates Bitcoin's largest leg and oil's largest slide in that later session; it places gold's main move and US500's turn earlier.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "420d97d1ce1cb3eef0119a41bdb41cfe9b2fc3eb85b303684eb066366870ae3f"
+    },
+    {
+      "claim_id": "CC323_CAUSAL_LIMIT",
+      "claim_text": "Those windows help frame the question of what information was available at each stage. Their alignment does not establish that election calls caused the moves, and the hourly reconstruction cannot identify a precise trigger.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "6d4272201a2dad87526459cf163e34ccb9532b63cd622b4a43d73429a387afa3"
+    },
+    {
+      "claim_id": "CC323_PRICED_EXPECTATION",
+      "claim_text": "The same Main review calls a Democratic sweep the 'priced base case.'",
+      "claim_kind": "QUOTE",
+      "source_id": "SOURCE_2",
+      "document_id": "cc323-midterm-source-context-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "87368e6f34c1cac5917632ff6f8f90e1cad92cefb41e6811adcd994e5333daab"
+    },
+    {
+      "claim_id": "CC323_EXPECTATION_INTERPRETATION",
+      "claim_text": "Capital Chronicle's interpretation is that an expected result need not tell us what fresh information a market will trade on. That is a competing explanation to examine, not proof that anticipation caused these rises.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_2",
+      "document_id": "cc323-midterm-source-context-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "87368e6f34c1cac5917632ff6f8f90e1cad92cefb41e6811adcd994e5333daab"
+    },
+    {
+      "claim_id": "CC323_COUNTERCASE",
+      "claim_text": "The countercase is not that every part of the dossier failed: the review's gold and dollar directions matched, and a conditional scenario can still organise questions. But one mixed outcome cannot establish a universal mechanism, a forecasting hit rate or the cause of a day's moves.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "401e5edb86619bb856e5ed6e7f248fb08dbaf70c0ef224fee00895d2b074beb4"
+    },
+    {
+      "claim_id": "CC323_FUTURE_LESSON",
+      "claim_text": "For a future scenario, Capital Chronicle's lesson is to write down the political condition, the proposed market direction and the horizon separately, then ask what would challenge each. This review shows why the right political answer cannot stand in for that market analysis.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+      "attribution_required": true,
+      "support_excerpt_sha256": "3f965eeef23cc7709f2bf85451845b0d93253e98a007886badcc6a5e74beb7ef"
+    }
+  ],
+  "cited_source_count": 2,
+  "source_urls": [
+    "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995",
+    "urn:cc-public-report:main-retained:e97624b35db59fc5a81ef016b335492d15e8a9c806cddb5555b6f3fe06e3b4c3"
+  ],
+  "source_timestamps_are_model_authority": false,
+  "source_bytes_precede_writer": true,
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "The retained Main report records dated analysis and market observations.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "cc323-midterm-lesson-20261106",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "DATED CAPITAL CHRONICLE REVIEW",
+    "report_proposition": "Capital Chronicle's midterm lesson: the election call was right, but equities and Bitcoin rose against the dossier's direction.",
+    "report_scope_notice": "This is a retrospective of Capital Chronicle's dated dossier and review, not a performance record.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "cc323-midterm-lesson-20261106"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "report_truth_validated_separately_from_event_truth": true,
+  "public_write_performed": false,
+  "unknown_write_detected": false
+}
