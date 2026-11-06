@@ -1,0 +1,59 @@
+{
+  "status": "SOURCE_PREPARATION_COMPLETE",
+  "native_task_identity": "/root/cc107_nfp_preparation",
+  "role": "Sol 6.1 Light source preparation",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "low",
+  "model_observation": "CONFIGURED_NOT_OBSERVED",
+  "actual_model": null,
+  "actual_effort": null,
+  "created_at_utc": "2026-11-06T11:26:56.839393Z",
+  "frozen_at_utc": "2026-11-06T10:03:37Z",
+  "event_at_utc": "2026-11-06T13:30:00Z",
+  "source_files": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+      "sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\dossier.json",
+      "sha256": "970d9bd0186fe73d56f59393ca83e9c70b83b95fc9c70156123ef8edd6802a4d"
+    }
+  ],
+  "source_index_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-107\\run-20261106\\source\\index.json",
+  "projection_verification": {
+    "status": "PASS",
+    "consumer": "live_contentops.main_report_projection_source_v1.verify_projection",
+    "source_capture_sha256": "a97f65ee107efd656dea2b7cb4365ebe9490f15deb3c55dcb553d4f74fd35242",
+    "canonical_content_sha256": "21f29d72a6596abe223fd687286bebc52cc87f6ee8f45055de1638b036c7abcf",
+    "exact_fragment_count": 8
+  },
+  "public_excerpt_text": "STRONG: payrolls z >= +1.0, so >= about +154K, and unemployment z <= +0.5, so <= 4.274% (in practice 4.2% or lower).\n\nWEAK: payrolls z <= -1.0, so <= about -24K, and unemployment z >= -0.5, so >= 4.126% (in practice 4.2% or higher).\n\na hawkish labour surprise raises the expected Fed path, the USD and real yields;\n\na second weak print after September's +29K lowers the expected hike path and weakens the USD;\n\nThe CFTC positioning both plans cite is from 27 Oct and stale after large moves since.\n\nEURUSD fell 55 pips before capture while gold fell 8: an unexplained euro-side driver could cap the WEAK rally.\n\nno separate rates read was taken in this run.\n\nNo market-context.json was gathered.",
+  "public_interpretation": [
+    "Strong/weak thresholds are Capital Chronicle computed model thresholds, not consensus values or measured branch odds (decision 72b).",
+    "The strong/weak framing is conditional pre-release analysis; the release has not occurred at the frozen cutoff.",
+    "Gold and euro transmission are qualitative channels from Main; no price forecast or directional trade call is admitted."
+  ],
+  "limits": [
+    "The approximately 65% confidence in each setup is uncalibrated setup confidence, not probability of a strong or weak economic outcome; excluded from public projection.",
+    "No numerical economic-branch probabilities are supplied by this frozen dossier. Do not invent them.",
+    "No prediction-market numbers, raw consensus table, positioning counts, execution rows, account identifiers, entry/stop/target/size or order-path content admitted.",
+    "No independently measured pre-event range or options-implied move is supplied by this dossier. Daily price ranges and plan bounds are not substitutes. This is a private preparation gap, not a reason to refuse the article.",
+    "No separate rates read and no market-context.json were gathered in the dossier.",
+    "Positioning described by Main is dated 27 October and explicitly stale; no raw positioning numbers admitted."
+  ],
+  "suggested_article_frame": "Reuse the accepted CC-216 NFP explanatory background and lawful retained visuals. Explain the payrolls/unemployment combinations Main defines as a strong or weak surprise, then the expected Fed-path, dollar, gold and euro transmission. Make clear that these are model thresholds, not odds or realised results. Include the euro-specific countercase and stale-positioning limitation. Do not add numeric outcome probabilities, implied moves or execution guidance.",
+  "background_reuse": {
+    "readme": "docs/publisher/CC-216/README.md",
+    "event_id": "bls-emsit-20261106",
+    "accepted_assets": [
+      "sector breakdown",
+      "24-month unemployment history",
+      "archive portrait"
+    ],
+    "original_artifacts_immutable": true
+  },
+  "external_acquisition_performed": false,
+  "tests_run": false,
+  "publication_performed": false
+}

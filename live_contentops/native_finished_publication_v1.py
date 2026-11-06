@@ -147,10 +147,10 @@ def check_finished_piece(store, binding):
         if packet["request_sha256"] != sha256_of({k: v for k, v in packet.items() if k != "request_sha256"}):
             raise ValueError("FINISHED_PIECE_NATIVE_REQUEST_CHANGED")
     observation = response.get("invocation_observation") or {}
-    model = observation.get("model") or observation.get("configured_model")
-    effort = observation.get("reasoning_effort") or observation.get("configured_reasoning_effort")
-    if not observation.get("invocation_id") or model != "gpt-6.1-sol" or effort != "max":
-        raise ValueError("FINISHED_PIECE_APPROVED_WRITER_REQUIRED")
+    # Decisions 60 and 86: record role labels; they never refuse a finished piece.
+    # The real invocation, exact source/copy and current review remain required.
+    if not observation.get("invocation_id"):
+        raise ValueError("FINISHED_PIECE_NATIVE_INVOCATION_REQUIRED")
     governed = request["governed_input"]
     cutoff = utc(governed["cutoff_utc"])
     if cutoff != utc(binding["cutoff_utc"]):

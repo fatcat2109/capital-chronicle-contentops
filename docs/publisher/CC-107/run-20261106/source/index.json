@@ -1,0 +1,101 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "authority_ref": "JIM_DECISION_89",
+      "headline_id": "cc107-nfp-frozen-preview-20261106",
+      "headline_text": "Capital Chronicle frozen payrolls preview: the strong and weak surprises that could move rates and the dollar",
+      "source_url": "urn:cc-public-report:nfp-frozen-preview:20261106",
+      "known_at_utc": "2026-11-06T10:03:37Z",
+      "revision_at_utc": "2026-11-06T11:26:56.839393Z",
+      "candidate_catalyst_tags": [
+        "EVENT_PREVIEW",
+        "bls-emsit-20261106",
+        "payrolls"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 2762,
+              "end": 2878
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 2881,
+              "end": 2995
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 3868,
+              "end": 3948
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 4205,
+              "end": 4298
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 4797,
+              "end": 4883
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 4886,
+              "end": 4997
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 5913,
+              "end": 5958
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 6431,
+              "end": 6467
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

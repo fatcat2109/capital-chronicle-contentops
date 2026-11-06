@@ -123,7 +123,7 @@ def test_standing_original_article_cap_remains_eight(ready, monkeypatch):
             resolver=lambda *a, **k: pytest.fail("ninth original admitted"), now=now)
 
 
-@pytest.mark.parametrize("failure", ["model", "clock", "private", "changed_request"])
+@pytest.mark.parametrize("failure", ["invocation", "clock", "private", "changed_request"])
 def test_finished_source_faults_fail_without_import(ready, monkeypatch, failure):
     source, target, binding, path, rollout = ready
     from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
@@ -140,12 +140,12 @@ def test_finished_source_faults_fail_without_import(ready, monkeypatch, failure)
             if failure != "changed_request":
                 value["request_sha256"] = sha256_of({k: v for k, v in value.items() if k != "request_sha256"})
         return value
-    if failure == "model":
+    if failure == "invocation":
         get = NativeDesktopTurn._get
         def wrong_model(turn, stage, kind):
             value = deepcopy(get(turn, stage, kind))
             if stage == "write" and kind == "response":
-                value["invocation_observation"]["model"] = "WRONG_MODEL"
+                value["invocation_observation"]["invocation_id"] = None
             return value
         monkeypatch.setattr(NativeDesktopTurn, "_get", wrong_model)
     else:
@@ -380,3 +380,19 @@ def test_distinct_finished_run_defers_prior_distribution_before_transport(ready,
     assert not coordinator._defer_prior_distribution_recovery(intent, "linkedin")
     coordinator.recovery_scope = None
     assert not coordinator._defer_prior_distribution_recovery(intent, "linkedin")
+
+
+def test_finished_writer_model_and_effort_labels_are_recorded_not_gates(ready, monkeypatch):
+    source, _, binding, _, _ = ready
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
+    get = NativeDesktopTurn._get
+    def observed_labels(turn, stage, kind):
+        value = deepcopy(get(turn, stage, kind))
+        if stage == "write" and kind == "response":
+            value["invocation_observation"].update(model="recorded-model", reasoning_effort="recorded-effort")
+        return value
+    monkeypatch.setattr(NativeDesktopTurn, "_get", observed_labels)
+    result = check_finished_piece(source, binding)
+    assert result["status"] == "PASS"
+    assert result["writer_observation"]["model"] == "recorded-model"
+    assert result["writer_observation"]["reasoning_effort"] == "recorded-effort"
