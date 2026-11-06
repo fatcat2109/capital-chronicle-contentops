@@ -1,0 +1,31 @@
+{
+  "operation_id": "cc124-six-markets-20261106-v1",
+  "page_id": 667,
+  "group_id": "684842BBDF5E40554F0CB8D8EE19B866",
+  "draft_id": "223739949",
+  "draft_url": "https://capitalchronicle.substack.com/publish/post/223739949",
+  "first_text_approval_utc": "2026-11-06T08:21:34Z",
+  "draft_ready_utc": "2026-11-06T08:41:02.286Z",
+  "images_uploaded_utc": "2026-11-06T08:40:18.398Z",
+  "automated_image_load_check": {
+    "changed": false,
+    "page": 667,
+    "settled": false,
+    "value": [
+      {
+        "alt": "Archive photograph of the Federal Reserve’s white stone Eccles Building, with columns and a blue sky.",
+        "h": 1134,
+        "src": "https://substackcdn.com/image/fetch/$s_!p2jl!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F54db29b3-0536-4108-9f95-d21e90a004a0_3000x2041.jpeg",
+        "w": 1667
+      },
+      {
+        "alt": "Two excerpts from Capital Chronicle’s dated six-market review.",
+        "h": 1545,
+        "src": "https://substackcdn.com/image/fetch/$s_!fazX!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F46fdd49e-43a6-472d-ac87-9a67fc365d7f_1080x1350.png",
+        "w": 1236
+      }
+    ]
+  },
+  "public_write_performed": false,
+  "continuation_note": "Reopened the same saved draft after its old task group disappeared; retained original approval clock. Restored exact approved prose and full canonical photo attribution through editor clipboard; both previously uploaded images load."
+}

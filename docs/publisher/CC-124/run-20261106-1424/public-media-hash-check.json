@@ -1,0 +1,22 @@
+{
+  "observed_at_utc": "2026-11-06T08:47:19.070340+00:00",
+  "method": "Binary hash of the public S3 originals referenced by the images in Neo page 687. Neo anchor download timed out; no browser session or secret material accessed.",
+  "assets": [
+    {
+      "url": "https://substack-post-media.s3.amazonaws.com/public/images/54db29b3-0536-4108-9f95-d21e90a004a0_3000x2041.jpeg",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\public-originals\\archive-photo.jpeg",
+      "bytes": 1403231,
+      "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "expected_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "matches": true
+    },
+    {
+      "url": "https://substack-post-media.s3.amazonaws.com/public/images/46fdd49e-43a6-472d-ac87-9a67fc365d7f_1080x1350.png",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\public-originals\\review-card.png",
+      "bytes": 98043,
+      "sha256": "cce5a0dde9bee65fdc247c96ae95bedac121d176185163e5b2f16d58a00ceda4",
+      "expected_sha256": "cce5a0dde9bee65fdc247c96ae95bedac121d176185163e5b2f16d58a00ceda4",
+      "matches": true
+    }
+  ]
+}

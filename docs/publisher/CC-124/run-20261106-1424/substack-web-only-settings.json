@@ -1,0 +1,8 @@
+{
+  "page_id": 667,
+  "email_send_enabled": false,
+  "web_publish_enabled": true,
+  "schedule_enabled": false,
+  "observed_at_utc": "2026-11-06T08:41:53.240Z",
+  "evidence": "Neo live Publish dialog: Send via email and the Substack app unchecked; Schedule time to publish unchecked; Everyone audience; Publish now button."
+}
