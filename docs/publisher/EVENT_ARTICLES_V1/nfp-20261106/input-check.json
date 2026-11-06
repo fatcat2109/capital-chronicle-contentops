@@ -1,0 +1,109 @@
+{
+  "item": "CC-107",
+  "recorded_at_utc": "2026-11-03T17:46:51.717033+00:00",
+  "status": "BLOCKED",
+  "cause": "FROZEN_NFP_INPUTS_NOT_YET_CREATED",
+  "operation": "Read required frozen NFP dossier before native preparation",
+  "draft_inputs": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1100-dossier-nfp\\DOSSIER.md",
+      "exists": false,
+      "error": "FileNotFoundError",
+      "errno": 2,
+      "winerror": 3
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1100-dossier-nfp\\dossier.json",
+      "exists": false,
+      "error": "FileNotFoundError",
+      "errno": 2,
+      "winerror": 3
+    }
+  ],
+  "rerun_directories": [],
+  "prompt": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261106-1100-nfp-dossier.md",
+    "sha256": "2e781102e4491c0e208358b266c348a5c985cffc33e51368fde32d26f5e2c473",
+    "scheduled_utc": "2026-11-06T11:00:00Z",
+    "freeze_deadline_utc": "2026-11-06T12:30:00Z",
+    "meaning": "Retained prompt instructions, not observed runtime or current scheduler state"
+  },
+  "base": {
+    "live_head": "a4d60fe0d10de97a06603a8de6b6c3e88c79edcd",
+    "live_tag": "contentops-live-20261104-cc179-retry-clock",
+    "live_tag_commit": "eeab463157acc50a96cf5a134dd36220092930f7",
+    "live_tag_is_ancestor": true
+  },
+  "branch": "backlog/cc-107-nfp-preview",
+  "launch": {
+    "process_id": 50100,
+    "parent_process_id": 21988,
+    "creation_utc": "2026-11-03T17:42:38.9964840Z",
+    "process_name": "codex.exe",
+    "model_argument_present": true,
+    "high_effort_argument_present": true,
+    "worktree_argument_present": true,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "high",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "argument_verification": "Read-only current Win32_Process command-line checks; full command line not retained."
+  },
+  "validation": [
+    {
+      "command": "python -m pytest -q tests/test_event_article_guard_v1.py",
+      "junit": "tests/evidence/cc-107/nfp-20261104-guard.junit.xml",
+      "tests": 133,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "command": "python -m pytest -q tests/test_published_content_v1.py -k 'decision or conditional or shared_gate'",
+      "junit": "tests/evidence/cc-107/nfp-20261104-publication-guard.junit.xml",
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "next_actor": "Claude Ops / existing NFP dossier and source-rights owners",
+  "next_action": "After the existing NFP run freezes its real inputs, supply DOSSIER.md and dossier.json plus public source/rights admission; resume this branch using Light preparation and Sol MAX writing. Preserve the midterm operation; do not repeat its publication.",
+  "limits": [
+    "NFP private draft absent; no placeholder counted.",
+    "Template updates and tests are delivered only; no integration or live consumer wiring claimed.",
+    "No synthetic forecast, probability, consensus or score substituted for frozen input."
+  ],
+  "actions": {
+    "native_editorial_calls": 0,
+    "source_acquisitions": 0,
+    "browser_actions": 0,
+    "public_writes": 0,
+    "platform_drafts": 0,
+    "schedules_changed": 0,
+    "chat_messages": 0,
+    "runtime_changes": 0,
+    "merges": 0
+  },
+  "file_sha256": {
+    "docs/publisher/EVENT_ARTICLES_V1/README.md": "cd1ffb75ee569300f94430ef9e25be88803f4053c409082e90acbd99ae6d6e51",
+    "docs/publisher/EVENT_ARTICLES_V1/templates/event_preview.md": "bb8d36b426806d47c74bdb71f4d8f1e1074dc18259b87dc8c0c62706db40f94b",
+    "docs/publisher/EVENT_ARTICLES_V1/templates/event_review.md": "d891fddb71cbce39f7cc3dd85f930fb7209778d1155f27e36f69e66a5b7579d3",
+    "live_contentops/event_article_guard_v1.py": "48c8108f908e59dc7ddd064a85b040b0c2ad9a730e20c5e6468c7f175c98a8e4"
+  },
+  "file_sha256_scope": "Working-tree bytes at observation, including Windows line endings.",
+  "committed_file_sha256": {
+    "docs/publisher/EVENT_ARTICLES_V1/README.md": "df08645d3a1d9728dc94ef521b9790f05d824477f0297ea0cafdaf8325d2e818",
+    "docs/publisher/EVENT_ARTICLES_V1/templates/event_preview.md": "4616815f42106a563975be5144bbdadf569086d7c4959369d23a260e12a68806",
+    "docs/publisher/EVENT_ARTICLES_V1/templates/event_review.md": "02cdbed505974bb6c909d12c557e5b8346890b1211233fb069b28f560f72509c",
+    "live_contentops/event_article_guard_v1.py": "8f306e98ccb618b9b5f4ab65444df1c6e7e400761f04eceef7737852417a1f87"
+  },
+  "delivery_readback": {
+    "checked_commit": "4267b77be934a08137cf61b58d642279b2b3b2e1",
+    "remote_head_matched": true,
+    "committed_file_hashes_verified": true,
+    "merged": false,
+    "live_consumer_wiring_changed": false
+  }
+}

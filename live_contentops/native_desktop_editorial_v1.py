@@ -1190,6 +1190,15 @@ class NativeDesktopTurn:
         if stage in {"write", "revise", "visual-edit"} and (not frozen or WRITER_GUIDANCE in frozen["prompt"]):
             native_guidance += "\n" + WRITER_GUIDANCE + "\n"
         request_prompt = kwargs["prompt"] + native_guidance
+        if stage in {"write", "revise"}:
+            from live_contentops.event_article_guard_v1 import event_writer_guidance
+            if not frozen:
+                request_prompt += event_writer_guidance(kwargs["governed_input"])
+            elif "\nCC107_EVENT_RESOLUTION_FRAME\n" in frozen["prompt"]:
+                # Replay the issued brief's bytes even after templates change.
+                issued = frozen["prompt"].split("\nCC107_EVENT_RESOLUTION_FRAME\n", 1)[1]
+                issued = issued.split("\nA terminal pre-writer refusal", 1)[0]
+                request_prompt += "\nCC107_EVENT_RESOLUTION_FRAME\n" + issued
         if publication_speed:
             request_prompt = frozen_writer["prompt"] if frozen_writer else request_prompt + publication_guidance
         negative_contract = role in {"select", "visual-edit", "write"} and (

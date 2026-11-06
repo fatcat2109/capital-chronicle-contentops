@@ -48,6 +48,32 @@ SECTIONS = {
                      "prediction_market_comparison", "market_reactions", "lesson",
                      "disclaimer"},
 }
+EVENT_FRAME_SECTIONS = {
+    "EVENT_PREVIEW": {"what_is_priced", "pre_event_range", "branch_confirmation"},
+    "EVENT_REVIEW": {"what_moved_when"},
+}
+
+
+def event_writer_guidance(governed: Mapping[str, Any]) -> str:
+    """Put CC-107's current brief in the existing native writer's request.
+
+    Use explicit event metadata only. Source prose cannot choose a new role.
+    Frozen native requests retain their original prompt in the caller.
+    """
+    candidate = governed.get("selected_candidate") or {}
+    metadata = candidate.get("research_metadata") or {}
+    tags = candidate.get("candidate_catalyst_tags") or []
+    kind = (governed.get("article_type") or candidate.get("article_type")
+            or metadata.get("article_type"))
+    if kind not in ARTICLE_TYPES:
+        kind = next((tag for tag in tags if tag in ARTICLE_TYPES), None)
+    if kind not in ARTICLE_TYPES:
+        return ""
+    name = "event_preview.md" if kind == "EVENT_PREVIEW" else "event_review.md"
+    brief = Path(__file__).resolve().parents[1] / "docs/publisher/EVENT_ARTICLES_V1/templates" / name
+    return "\nCC107_EVENT_RESOLUTION_FRAME\n" + brief.read_text(encoding="utf-8")
+
+
 _ROOT_KEYS = {"schema_version", "article_type", "event_id", "event_time_utc",
               "cutoff_utc", "written_at_utc", "copy", "numeric_bindings"}
 _SHA = re.compile(r"^[0-9a-f]{64}$")
@@ -358,7 +384,8 @@ def check_public_event_article(article: Mapping[str, Any], *,
     if kind == "EVENT_REVIEW" and cutoff < event_time:
         _fail("REVIEW_BEFORE_EVENT", "article.cutoff_utc")
     copy = article.get("copy")
-    if not isinstance(copy, Mapping) or set(copy) != SECTIONS[kind]:
+    if (not isinstance(copy, Mapping) or not SECTIONS[kind] <= set(copy)
+            or set(copy) - SECTIONS[kind] not in (set(), EVENT_FRAME_SECTIONS[kind])):
         _fail("EVENT_SECTIONS_REQUIRED", "copy")
     if (not isinstance(copy.get("market_reactions"), Mapping)
             or set(copy["market_reactions"]) != REACTION_ASSETS
@@ -449,7 +476,8 @@ def check_public_event_article(article: Mapping[str, Any], *,
     return {"status": "PASS", "public_copy_sha256": sha256(
                 json.dumps(copy, sort_keys=True, ensure_ascii=False, allow_nan=False).encode()).hexdigest(),
             "checked_surfaces": len(texts), "numeric_bindings": len(bindings),
-            "publication_authority": False, "jim_approval_required": True,
+            "publication_authority": False, "jim_approval_required": False,
+            "standing_approval": "JIM_DECISION_36",
             "final_native_render_review_required": True}
 
 
