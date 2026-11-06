@@ -349,9 +349,12 @@ def prepare_article_snapshot(article: Mapping[str, Any], assets: list[dict], *, 
     article["tradingview_snapshot_outcome"] = {k: v for k, v in outcome.items() if k != "asset"}
     if asset:
         event = article.get("article_type") in {"EVENT_PREVIEW", "EVENT_REVIEW"} or article.get("release_analysis") is True
+        decision_93 = bool(article.get("scenario_analysis")) or article.get("publication_quality_policy") == "JIM_DECISION_93"
+        if decision_93:
+            article["publication_quality_policy"] = "JIM_DECISION_93"
         # Preserve the older card inference for retained requests. Decision 93
         # explicitly distinguishes a market lead from a release-card lead.
-        card_first = event or article.get("publication_quality_policy") != "JIM_DECISION_93"
+        card_first = event or not decision_93
         if not existing:
             assets.append(asset)  # Keep the release card first.
         first_card = (next((a for a in assets if a.get("modality") == "source_bound_data_card"), None)
@@ -372,7 +375,7 @@ def prepare_article_snapshot(article: Mapping[str, Any], assets: list[dict], *, 
             # photo/history chart. Keep that card first on the canonical too.
             assets = [first_card, asset, *(a for a in assets
                       if a["asset_id"] not in {first_card["asset_id"], asset["asset_id"]})]
-        elif article.get("publication_quality_policy") == "JIM_DECISION_93":
+        elif decision_93:
             assets = [asset, *(a for a in assets if a["asset_id"] != asset["asset_id"])]
         article["lead_image_asset_id"] = assets[0]["asset_id"]
         article["tradingview_snapshot_asset_ids"] = [selected["asset_id"]]

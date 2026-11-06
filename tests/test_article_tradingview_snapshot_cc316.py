@@ -225,9 +225,13 @@ def test_cc124_native_article_run_attaches_before_the_plan_freezes(tmp_path, cap
 
 
 @pytest.mark.parametrize("event", [False, True])
-def test_decision93_market_lead_and_release_lead_survive_snapshot_delivery(tmp_path, capture, event):
-    article = {**packet()["article"], "market_asset": "US500",
-               "publication_quality_policy": "JIM_DECISION_93"}
+@pytest.mark.parametrize("policy_label", [False, True])
+def test_decision93_market_lead_and_release_lead_survive_snapshot_delivery(tmp_path, capture, event, policy_label):
+    article = {**packet()["article"], "market_asset": "US500"}
+    if policy_label:
+        article["publication_quality_policy"] = "JIM_DECISION_93"
+    else:
+        article["scenario_analysis"] = [{"name": "Main-supplied base"}, {"name": "Main-supplied alternative"}]
     if event:
         article["article_type"] = "EVENT_REVIEW"
     card = build_post_image_card(article, output_dir=tmp_path / "cards", accepted_evidence_sha256="a" * 64)
