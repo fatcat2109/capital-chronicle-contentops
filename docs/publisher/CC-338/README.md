@@ -108,3 +108,28 @@ with its actual receipt time and the source's original known-at time. Earlier
 preparations and frozen requests stay readable and unchanged. Three added
 regressions cover index changes, original cutoffs and source-byte corruption;
 the updated feature selection passes 34 tests in 28.20 seconds.
+
+Code is integrated into `A:\Capital Chronicle\ContentOps` at
+`9b0470bcf870f182f02b335b66547142fdfc0133`.
+[Integration evidence](integration.json) verifies all 13 changed Python files
+against their Git blobs and preserves the six inherited dirty operating-root
+files and both inherited builder files. The live source tag is
+`contentops-live-20261107-cc338`; the source rollback tag is
+`contentops-rollback-20261107-cc338` at the original `be449906` base.
+
+The initial operating-root feature selection passed 31 checks in 24.27 seconds.
+After the consensus repair, a combined root selection hit the 55-second load
+limit; the [changed preparation owner's 15 checks](operating-preparation-tests.xml)
+then passed in 20.23 seconds. The remaining source blobs match the tested builder
+and initial root checks. Both bounded interruptions remain named in validation.
+
+[Runtime application](preparation-repair.json) appended one current CPI preparation
+and verified all earlier CPI preparation payloads unchanged. The original source
+known-at time remains 5 November; its new receipt keeps its actual 7 November
+time. [The operating consumer](operating-consumer-read.json) loads the installed
+modules from the operating root, reads the real publication feed and outbox,
+returns the two public calls, and successfully reads the current CPI background
+and its single cited consensus fact. It still has no G05 frozen public file.
+No public write, model call, chat message, schedule change or process restart was
+performed. This is integrated code and an applied input repair; CC-338 remains
+BLOCKED on the Main-owned G05 file and the subsequent real public acceptance.

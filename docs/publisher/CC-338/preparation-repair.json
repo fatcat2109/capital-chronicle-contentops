@@ -1,0 +1,27 @@
+{
+  "applied_at_utc": "2026-11-06T19:04:03.366756+00:00",
+  "first_measured_failure": "PREVIEW_CONSENSUS_PROJECTION_CHANGED",
+  "receipt": {
+    "message_id": "native-story-preparation-d83dc31bf6a25585f09fd28d05e4e6b91fe925418b3cd222685f2ee53128f5df",
+    "event_id": "bls-cpi-20261110",
+    "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW",
+    "previous_preparation_message_id": "native-story-preparation-604d442101c98888cb6895208a6129b0d286e7fbf8a9de77c47a931550b41c74",
+    "classification": "CURRENT_CONSENSUS_FACT_RETAINED",
+    "source_known_at_utc": "2026-11-05T04:41:54.324696Z"
+  },
+  "prior_preparation_count": 5,
+  "current_preparation_count": 6,
+  "prior_preparation_sha256": {
+    "native-story-preparation-9a838580b89856b3f7fb6745b4092fb546138ec86840bf6a80965ced53ec091b": "9a838580b89856b3f7fb6745b4092fb546138ec86840bf6a80965ced53ec091b",
+    "native-story-preparation-2a1d63be12a55989d3cb7029da601b2e4b9407cadf22d67746071bce35871a72": "2a1d63be12a55989d3cb7029da601b2e4b9407cadf22d67746071bce35871a72",
+    "native-story-preparation-8178bfc32e13c79e4a6dfb623c932175dca47a7b631f7639a5045cb4ab07bdff": "8178bfc32e13c79e4a6dfb623c932175dca47a7b631f7639a5045cb4ab07bdff",
+    "native-story-preparation-9afc01b6f89fad0c54f3196e925337746cfbbf3074316737acff7c07090f5084": "9afc01b6f89fad0c54f3196e925337746cfbbf3074316737acff7c07090f5084",
+    "native-story-preparation-604d442101c98888cb6895208a6129b0d286e7fbf8a9de77c47a931550b41c74": "604d442101c98888cb6895208a6129b0d286e7fbf8a9de77c47a931550b41c74"
+  },
+  "all_prior_preparations_unchanged": true,
+  "current_source_records": 2,
+  "single_consensus_context_count": 1,
+  "g05_frozen_public_record_present": false,
+  "public_write_performed": false,
+  "schedules_changed": false
+}

@@ -47,6 +47,16 @@
       "failures": 0
     },
     {
+      "file": "operating-preparation-tests.xml",
+      "cases": 15,
+      "failures": 0
+    },
+    {
+      "file": "operating-root-tests.xml",
+      "cases": 31,
+      "failures": 0
+    },
+    {
       "file": "release-regressions.xml",
       "cases": 6,
       "failures": 0
@@ -69,5 +79,18 @@
     "cause": "55_SECOND_TEST_LOAD_LIMIT",
     "completed_by": "native-regressions-1.xml through native-regressions-5.xml"
   },
-  "ruff": "PASS on all changed Python files"
+  "ruff": "PASS on all changed Python files",
+  "operating_root_checks": {
+    "initial_code_commit": "e965c21378a5800cf7bc0557148bd289f97b885d",
+    "initial_features": 31,
+    "current_code_commit": "9b0470bcf870f182f02b335b66547142fdfc0133",
+    "current_preparation_checks": 15,
+    "current_preparation_seconds": 20.23,
+    "real_consumer": "operating-consumer-read.json"
+  },
+  "additional_bounded_interruption": {
+    "selection": "three current feature files in operating root",
+    "cause": "55_SECOND_TEST_LOAD_LIMIT",
+    "resolved_by": "operating-preparation-tests.xml for changed preparation owner; other source blobs verified identical to builder and earlier root feature checks"
+  }
 }
