@@ -1,0 +1,50 @@
+{
+  "tool_request_sha256": "63072c776fd8778b958ee211f6f58aded50e92fc569b7fc8c2a9ce293c5221d2",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-06T09:21:11.935Z",
+    "observation_source": "Exact public-object Neo readback; displayed short links followed to the canonical; retained platform-image bytes compared and viewed. See observation, redirect and media comparison artifacts."
+  },
+  "result": {
+    "request_sha256": "3eb00f8bd8f2ab7331bf897e87185fbd3cd276f52128b9b297c8dd38da223df3",
+    "status": "SUCCESS",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:activity:7524397996751572992",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524397996751572992/",
+    "observed_text": "Feed post\n\nPromote this post to reach people who matter to you.\n\nBoost\n\nCapital Chronicle\n\n3m\n\nFollow\n\nDATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nWhy it matters: Capital Chronicle's 6 November pre-payrolls review describes an Asian dollar bid alongside rising equities and falling gold.\n\nContext: **WTI.** The review weighs deal progress against shipping-attack risk near Hormuz.\n\nRead the full brief: https://lnkd.in/gPM5wpTj\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\n\u200b\n\u200b\n\u200b\n\u200b\n\n\n\n\n",
+    "content_verified": true,
+    "public_write_performed": false,
+    "media_comparisons": [
+      {
+        "destination": "linkedin_company",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524397996751572992/",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQG8zhD4RBSfwQ/feedshare-shrink_160/B56aGwIGz.HsAc-/0/1793956277737?e=1795651200&v=beta&t=mY97uC_X6dqIGkc_loUICEZcd1SQrVo8SNGO27ApL5E",
+        "binary_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\readback\\linkedin_company.jpg",
+        "platform_sha256": "99b8b7e4416cc8f6236036358312cb1da4b7ae8a960ff912deedfa86f1cda855",
+        "source_asset_sha256": "cce5a0dde9bee65fdc247c96ae95bedac121d176185163e5b2f16d58a00ceda4",
+        "bytes": 6449,
+        "mime_type": "image/jpeg",
+        "width": 160,
+        "height": 200,
+        "visual_similarity": 0.9914,
+        "dimension_ratio_matches": true,
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "pixel_inspection": "Actual retained platform bytes viewed through view_image; same card title, both review excerpts, source and disclosure; platform resizing only."
+      }
+    ],
+    "public_image_urls": [
+      "https://media.licdn.com/dms/image/v2/D5622AQG8zhD4RBSfwQ/feedshare-shrink_160/B56aGwIGz.HsAc-/0/1793956277737?e=1795651200&v=beta&t=mY97uC_X6dqIGkc_loUICEZcd1SQrVo8SNGO27ApL5E"
+    ],
+    "observed_link_resolutions": [
+      {
+        "displayed_url": "https://lnkd.in/gPM5wpTj",
+        "target_url": "https://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital",
+        "target_verified": true,
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524397996751572992/"
+      }
+    ]
+  }
+}

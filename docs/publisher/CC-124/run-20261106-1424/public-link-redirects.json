@@ -1,0 +1,23 @@
+{
+  "redirects": [
+    {
+      "observed_at_utc": "2026-11-06T09:22:16.460Z",
+      "short_url": "https://t.co/kSb5H2lOID",
+      "target_url": "https://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital",
+      "target_verified": true
+    },
+    {
+      "observed_at_utc": "2026-11-06T09:22:18.642Z",
+      "short_url": "https://lnkd.in/g5uY9RuQ",
+      "target_url": "https://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital",
+      "target_verified": true
+    },
+    {
+      "observed_at_utc": "2026-11-06T09:21:14.309Z",
+      "short_url": "https://lnkd.in/gPM5wpTj",
+      "target_link_observed": true,
+      "target_url": "https://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital",
+      "target_verified": true
+    }
+  ]
+}

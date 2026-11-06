@@ -1,0 +1,42 @@
+{
+  "tool_request_sha256": "54c0de52d1436260bc8f75caca83b78fce56d7ed1da10f9693c1758e9f791292",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-06T09:22:02.183Z",
+    "observation_source": "Exact public-object Neo readback; displayed short links followed to the canonical; retained platform-image bytes compared and viewed. See observation, redirect and media comparison artifacts."
+  },
+  "result": {
+    "request_sha256": "5b7d433cbad19c326e2110e19a16eeeee0d7d6eadc260b3adaed2e2ff25ca5e9",
+    "status": "SUCCESS",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "UgkxZaXCLvwbnUs3W9Y_rO2RN1ELyutCgC73",
+    "public_object_url": "https://www.youtube.com/post/UgkxZaXCLvwbnUs3W9Y_rO2RN1ELyutCgC73",
+    "observed_text": "Update: DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nWhat to watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.\n\nRead the full brief: https://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "content_verified": true,
+    "public_write_performed": false,
+    "media_comparisons": [
+      {
+        "destination": "youtube",
+        "public_object_url": "https://www.youtube.com/post/UgkxZaXCLvwbnUs3W9Y_rO2RN1ELyutCgC73",
+        "public_image_url": "https://yt3.ggpht.com/Pof0xXaVlNcIiNYLJjf1mHtjk0tDiNk3O1vutzflFG1wxKexIX38fFeS3FwZluCzKhy3xPRSBeGCCA=s640-rw-nd-v1",
+        "binary_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\readback\\youtube.webp",
+        "platform_sha256": "6c6a1a908151c8c98e0eb441d0d2e4cfdcc45d4e2c5de235dda36ef32e546a4a",
+        "source_asset_sha256": "cce5a0dde9bee65fdc247c96ae95bedac121d176185163e5b2f16d58a00ceda4",
+        "bytes": 24334,
+        "mime_type": "image/webp",
+        "width": 512,
+        "height": 640,
+        "visual_similarity": 0.9936,
+        "dimension_ratio_matches": true,
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "pixel_inspection": "Actual retained platform bytes viewed through view_image; same card title, both review excerpts, source and disclosure; platform resizing only."
+      }
+    ],
+    "public_image_urls": [
+      "https://yt3.ggpht.com/Pof0xXaVlNcIiNYLJjf1mHtjk0tDiNk3O1vutzflFG1wxKexIX38fFeS3FwZluCzKhy3xPRSBeGCCA=s640-rw-nd-v1"
+    ]
+  }
+}

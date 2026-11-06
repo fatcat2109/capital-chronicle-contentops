@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-11-06T09:24:52.740005+00:00",
+  "consumer": "live_contentops.substack_daily_digest_v1.prepare_daily_digest -> live_canonicals",
+  "production_store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "feed_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+  "live_canonical": {
+    "content_id": "substack:223739949",
+    "url": "https://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital",
+    "title": "Capital Chronicle's pre-payrolls review: a dollar bid with different countercases",
+    "standfirst": "DATED CAPITAL CHRONICLE REVIEW \u2014 Gold, US500, EUR/USD, USD/JPY, WTI and Bitcoin carry different counterweights to the dollar risk.",
+    "published_at_utc": "2026-11-06T08:42:20.275000+00:00"
+  },
+  "published_feed_rows": 1,
+  "not_already_allocated": true,
+  "next_cutoff_utc": "2026-11-06T12:00:00+00:00",
+  "next_cutoff_GMT7": "06 Nov 2026 19:00",
+  "eligible_for_next_daily_digest": true,
+  "email_sent": false,
+  "delivery": "WEB_ONLY_ARTICLE; existing once-daily email-digest consumer selects this confirmed canonical at 19:00 GMT+7",
+  "clock": "Actual current clock; no future clock supplied to a mutating consumer",
+  "schedule_changed": false,
+  "public_write_performed": false
+}

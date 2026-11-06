@@ -1,0 +1,902 @@
+{
+  "classification": "NATIVE_PUBLICATION_CONTINUATION",
+  "coordinator_result": {
+    "plan_hash": "3c3cd91923ff571a090acaff18bf26a4cde449a42565916eec11e3981d43ea20",
+    "registered": [],
+    "outbox_count": 0,
+    "per_destination": {
+      "substack": {
+        "destination": "substack",
+        "dispatch_id": "dispatch_6a6b9bee67647c254c017520fe29e3ce",
+        "dispatch_recorded": true,
+        "status": "NATIVE_NEO_TOOL_PENDING",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "telegram": {
+        "destination": "telegram",
+        "dispatch_id": "dispatch_b219987292fd4e966af6af549ea34bee",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "x": {
+        "destination": "x",
+        "dispatch_id": "dispatch_5709133403b687cb088bd582e27ec5e5",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "discord": {
+        "destination": "discord",
+        "dispatch_id": "dispatch_bfb3fd227323469a0103615eb70a5e0b",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "linkedin": {
+        "destination": "linkedin",
+        "dispatch_id": "dispatch_e2636fd1305858b1623ecccfc17a2115",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "facebook_page": {
+        "destination": "facebook_page",
+        "dispatch_id": "dispatch_92a05d8dccb2bfe45bea83c3670f3071",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "instagram_business": {
+        "destination": "instagram_business",
+        "dispatch_id": "dispatch_de175e43e1c365e296ce60a356ae7fee",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "threads": {
+        "destination": "threads",
+        "dispatch_id": "dispatch_62bc1170c1607a3e0c6af03624283edb",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "youtube": {
+        "destination": "youtube",
+        "dispatch_id": "dispatch_2de271af4d6599dd1d3f91a8c5c794c7",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "dispatch_id": "dispatch_84cbc5261b1df36bb9a99231e6a3330b",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      }
+    },
+    "canonical_article_status": "NOT_CONFIRMED",
+    "canonical_article_real_published": false,
+    "canonical_url": null,
+    "canonical_publication_status": "CANONICAL_NOT_CONFIRMED",
+    "distribution_status": "CANONICAL_NOT_CONFIRMED",
+    "recovery_preflight": {
+      "safe_resumes": 1,
+      "safely_attempted": 1,
+      "stale_expired": 0,
+      "marked_unknown": 0,
+      "readbacks": 0,
+      "publish_calls": 0,
+      "readiness_probe_performed": false,
+      "per_destination": {
+        "substack": {
+          "destination": "substack",
+          "status": "NATIVE_NEO_TOOL_PENDING",
+          "publish_called": false,
+          "native_tool_request": {
+            "schema_version": "contentops.native_neo_tool_request.v1",
+            "operation_id": "cc124-six-markets-20261106-v1",
+            "required_tool": "mcp__browseros_neo__run",
+            "request": {
+              "schema_version": "contentops.neo_destination_handoff.v1",
+              "destination": "substack",
+              "action": "PUBLISH",
+              "expected_identity": "capitalchronicle.substack.com",
+              "entry_url": "https://capitalchronicle.substack.com/",
+              "intent_sha256": "9d464fa7bf41e619f440433405f073294641d17979f28801fd3b1658be099083",
+              "work_item_id": "cc124-six-markets-20261106-v1",
+              "package_identity": "2d59ed69032963262a1359c02a74f346dbd67c608d47f088ce5d55887502534e",
+              "payload_hash": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+              "dispatch_attempt_identity": "dispatch_6a6b9bee67647c254c017520fe29e3ce",
+              "canonical_url": null,
+              "public_object_id": null,
+              "public_object_url": null,
+              "native_payload": {
+                "title": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases",
+                "subtitle": "DATED CAPITAL CHRONICLE REVIEW \u2014 Gold, US500, EUR/USD, USD/JPY, WTI and Bitcoin carry different counterweights to the dollar risk.",
+                "body_markdown": "Capital Chronicle's 6 November pre-payrolls review describes an Asian dollar bid alongside rising equities and falling gold. It interprets that combination as a possible unwind of haven demand. The dollar buying may itself be positioning that reverses when payrolls arrive. The shared dollar backdrop therefore leaves different questions for each market. \n\n**Gold.** According to Capital Chronicle's dated review, gold fell on 5 November even as real and nominal yields fell. For the Asian drop, it offers a haven-demand unwind as an interpretation. Its countercase combines softer payrolls, lower real yields and renewed haven buying. A rates-only explanation misses the tension in the report. \n\n**US500.** According to Capital Chronicle's dated review, the Asian equity rebound retained most of its gain, challenging a blanket flight-from-risk explanation. Its US500 assessment rests on daily bars; hourly and 15-minute observations were not assessed. The limitation concerns the detail of the intraday picture, not a separate reason to infer direction. \n\n**EUR/USD.** The review names firmer euro-area inflation, expectations of ECB rate increases and limited sensitivity to broader risk moves as counterweights to the dollar bid. It also notes that EUR/USD barely fell on 5 November. \n\n**USD/JPY.** The review takes no direction: dollar demand and the prospect of strong payrolls changing rate expectations compete with yen haven demand, hawkish Bank of Japan minutes and intervention risk. It also records a narrower U.S.\u2013Japan two-year yield gap on 5 November. Intraday coverage for the pair was unavailable. The document leaves those forces unresolved. \n\n**WTI.** The review weighs deal progress against shipping-attack risk near Hormuz. It cautions that treating the deal channel as dominant rests on one Financial Times headline in its background material, rather than demonstrated evidence. These are the review's competing headline scenarios; this article does not independently confirm either event. \n\n**Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure. That is a question about shared equity risk, rather than two independent ideas. Hourly and 15-minute Bitcoin observations were not assessed; the review separates that coverage gap from the overlap argument. \n\nThe comparison also has uneven inputs. The review supplies no payrolls consensus median, dollar-index level, VIX reading or high-yield spread measurement. Its COT positioning is dated 27 October, its GEX options proxy comes from a 23 October case, and its latest GLD holdings observation is 4 November. Holdings describe a stock, not a flow. \n\nThe useful distinction is between a common backdrop and market-specific evidence. The review's dollar-positioning explanation can be challenged by the payrolls reaction; it does not resolve each market's countercase in advance. \n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. \n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers."
+              },
+              "payload": null,
+              "content_binding": {
+                "expected_text_segments": [
+                  "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases",
+                  "DATED CAPITAL CHRONICLE REVIEW \u2014 Gold, US500, EUR/USD, USD/JPY, WTI and Bitcoin carry different counterweights to the dollar risk.",
+                  "Capital Chronicle's 6 November pre-payrolls review describes an Asian dollar bid alongside rising equities and falling gold. It interprets that combination as a possible unwind of haven demand. The dollar buying may itself be positioning that reverses when payrolls arrive. The shared dollar backdrop therefore leaves different questions for each market. \n\n**Gold.** According to Capital Chronicle's dated review, gold fell on 5 November even as real and nominal yields fell. For the Asian drop, it offers a haven-demand unwind as an interpretation. Its countercase combines softer payrolls, lower real yields and renewed haven buying. A rates-only explanation misses the tension in the report. \n\n**US500.** According to Capital Chronicle's dated review, the Asian equity rebound retained most of its gain, challenging a blanket flight-from-risk explanation. Its US500 assessment rests on daily bars; hourly and 15-minute observations were not assessed. The limitation concerns the detail of the intraday picture, not a separate reason to infer direction. \n\n**EUR/USD.** The review names firmer euro-area inflation, expectations of ECB rate increases and limited sensitivity to broader risk moves as counterweights to the dollar bid. It also notes that EUR/USD barely fell on 5 November. \n\n**USD/JPY.** The review takes no direction: dollar demand and the prospect of strong payrolls changing rate expectations compete with yen haven demand, hawkish Bank of Japan minutes and intervention risk. It also records a narrower U.S.\u2013Japan two-year yield gap on 5 November. Intraday coverage for the pair was unavailable. The document leaves those forces unresolved. \n\n**WTI.** The review weighs deal progress against shipping-attack risk near Hormuz. It cautions that treating the deal channel as dominant rests on one Financial Times headline in its background material, rather than demonstrated evidence. These are the review's competing headline scenarios; this article does not independently confirm either event. \n\n**Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure. That is a question about shared equity risk, rather than two independent ideas. Hourly and 15-minute Bitcoin observations were not assessed; the review separates that coverage gap from the overlap argument. \n\nThe comparison also has uneven inputs. The review supplies no payrolls consensus median, dollar-index level, VIX reading or high-yield spread measurement. Its COT positioning is dated 27 October, its GEX options proxy comes from a 23 October case, and its latest GLD holdings observation is 4 November. Holdings describe a stock, not a flow. \n\nThe useful distinction is between a common backdrop and market-specific evidence. The review's dollar-positioning explanation can be challenged by the payrolls reaction; it does not resolve each market's countercase in advance. \n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. \n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers."
+                ],
+                "expected_thread_texts": [],
+                "thread_post_count": 0,
+                "media_manifest": [
+                  {
+                    "asset_id": "post-facts-87d77248283f787c5527",
+                    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\media_assets\\post-facts-87d77248283f787c5527.png",
+                    "sha256": "cce5a0dde9bee65fdc247c96ae95bedac121d176185163e5b2f16d58a00ceda4",
+                    "caption": "Key facts from the article.",
+                    "alt_text": "**EUR/USD.** The review names firmer euro-area inflation, expectations of ECB rate increases and limited sensitivity to broader risk moves as counterweights to the dollar bid. It also notes that EUR/USD barely fell on 5 November. The useful distinction is between a common backdrop and market-specific evidence. The review's dollar-positioning explanation can be challenged by the payrolls reaction; it does not resolve each market's countercase in advance.",
+                    "attribution": "Source: Capital Chronicle",
+                    "source_page_url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4",
+                    "modality": "source_bound_data_card"
+                  },
+                  {
+                    "asset_id": "cc124-eccles-archive-2011",
+                    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\eccles-building-2011.jpg",
+                    "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+                    "rights_status": "PUBLIC_DOMAIN",
+                    "caption": "Photo: Federalreserve. The Federal Reserve\u2019s Eccles Building, photographed on 29 March 2011. Archive image. License: https://commons.wikimedia.org/wiki/Template:PD-USGov-Federal_Reserve. Source: https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg. Changes: Unchanged original; display resizing only.",
+                    "alt_text": "Archive photograph of the Federal Reserve\u2019s white stone Eccles Building, with columns and a blue sky.",
+                    "attribution": "Britt Leckman / Federal Reserve Board, via Wikimedia Commons. Public domain.",
+                    "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Federal_Reserve",
+                    "source_page_url": "https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg",
+                    "modality": "documentary_photo"
+                  }
+                ],
+                "artifact_manifest": [
+                  {
+                    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-six-markets-20261106-v1\\reviewed-handoff\\0f948287e18ce656fec02783cabcca30eec4fbac4e6c2e669e3041b9a8c1ec76\\run_context_v1.json",
+                    "sha256": "7012404836393b995e45520357b1d8853b0305d22374cd51052e479964355ff6"
+                  }
+                ]
+              },
+              "surface": "SUBSTACK_ARTICLE",
+              "steps": [
+                "name_session; list tabs, open a task-owned tab",
+                "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+                "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+                "Place each media_manifest image in the body where its placement_after names: after the paragraphs under the heading with that text ('introduction' or 'lead' means after the first paragraph). Never put an image above the first paragraph unless placement_after says so. Set its alt text to alt_text and its caption to caption (with the credit when attribution is present). Return public_alt_text_present and public_caption_present for each image.",
+                "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+                "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+              ],
+              "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+              "forbidden": [
+                "login",
+                "reauthorize",
+                "account_switch",
+                "cookies",
+                "storage",
+                "blind_retry",
+                "bulk_x_ingestion"
+              ],
+              "substack_media_placement": "Place each media_manifest image in the body where its placement_after names: after the paragraphs under the heading with that text ('introduction' or 'lead' means after the first paragraph). Never put an image above the first paragraph unless placement_after says so. Set its alt text to alt_text and its caption to caption (with the credit when attribution is present). Return public_alt_text_present and public_caption_present for each image.",
+              "substack_delivery_policy": {
+                "authority": "JIM_DECISION_42",
+                "mode": "WEB_ONLY",
+                "web_publish_enabled": true,
+                "email_send_enabled": false,
+                "before_publish": "Inspect the visible delivery controls. Set and verify the email choice before the final Publish button; stop before writing if it cannot be verified.",
+                "return_fields": [
+                  "delivery_observation.email_send_enabled",
+                  "delivery_observation.web_publish_enabled",
+                  "delivery_observation.evidence_ref"
+                ],
+                "code_policy": "JIM_DECISION_54_WAIT_ON_UNTOUCHED_CODE_TAB",
+                "duplicate_policy": "Reuse this operation's existing draft/post; read back before any retry. Never create a second draft."
+              },
+              "request_sha256": "71bd2808af518792ff2ca486f3d2218c186f169f91d2505ea4b95db3ddb7ba17"
+            },
+            "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+            "public_write_authorized": true,
+            "tool_request_sha256": "9b15725b6874e868b20c32d00fbad31cf03a5e4b3da3276a9d2d22c30cc7c241",
+            "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-six-markets-20261106-v1\\native-neo\\71bd2808af518792ff2ca486f3d2218c186f169f91d2505ea4b95db3ddb7ba17.request.json"
+          },
+          "reconciliation_status": null,
+          "public_write_performed": false
+        },
+        "discord": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "facebook_page": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "instagram_business": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "linkedin": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "linkedin_company": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "telegram": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "threads": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "x": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        }
+      },
+      "recovery_attempt_budget": 9,
+      "backlog_remaining": 10,
+      "backlog_remaining_by_destination": [
+        "discord",
+        "facebook_page",
+        "instagram_business",
+        "linkedin",
+        "linkedin_company",
+        "substack",
+        "telegram",
+        "threads",
+        "x",
+        "youtube"
+      ],
+      "backlog_remaining_obligations": [
+        {
+          "work_item_id": "cc124-six-markets-20261106-v1",
+          "destination": "discord",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-six-markets-20261106-v1",
+          "destination": "facebook_page",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-six-markets-20261106-v1",
+          "destination": "instagram_business",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-six-markets-20261106-v1",
+          "destination": "linkedin",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-six-markets-20261106-v1",
+          "destination": "substack",
+          "durable_status": "NATIVE_NEO_TOOL_PENDING",
+          "blocking_status": "NATIVE_NEO_TOOL_PENDING",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-six-markets-20261106-v1",
+          "destination": "telegram",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-six-markets-20261106-v1",
+          "destination": "threads",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-six-markets-20261106-v1",
+          "destination": "x",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-six-markets-20261106-v1",
+          "destination": "youtube",
+          "durable_status": "READY",
+          "blocking_status": "READY",
+          "reconciliation_status": ""
+        }
+      ],
+      "recovery_quarantined_obligations": [],
+      "recovery_quarantined_obligation_count": 0,
+      "backlog_blocking_new_publication": true,
+      "backlog_blocking_current_article": true
+    },
+    "public_write_performed": false,
+    "unknown_write_detected": false,
+    "site_publication_confirmed": false,
+    "site_url": null,
+    "site_readback_status": "NOT_FOUND_404",
+    "distribution_route": "CONFIRMED_SUBSTACK_WHILE_SITE_ABSENT",
+    "transaction_classification": "CANONICAL_NOT_CONFIRMED",
+    "derivative_confirmed_count": 0,
+    "derivative_attempted_count": 0,
+    "derivative_unknown_count": 0,
+    "derivative_absent_safe_to_retry_count": 0,
+    "derivative_failed_count": 0,
+    "derivative_never_attempted_count": 8,
+    "recovery_required_destinations": [],
+    "readback_limitation_destinations": [],
+    "unknown_write_count": 0,
+    "additional_destinations": {
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "dispatch_id": "dispatch_84cbc5261b1df36bb9a99231e6a3330b",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      }
+    },
+    "additional_confirmed_count": 0,
+    "additional_recovery_required_destinations": [
+      "linkedin_company"
+    ],
+    "substack_publication_confirmed": false
+  },
+  "publication": {
+    "accepted_evidence_sha256": "80a4c3c4a80ebe975f5eb4943f75377070fc7a34401d0844e7077de700eb767f",
+    "article_identity": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+    "artifact_sha256": {
+      "article_manifest_v1.json": "1ceb8d3042c3fc2500bdfd2af71b209a6f188587d5099fe475c4cd565c92f08f",
+      "native_derivative_previews_v1.json": "a2e419836b6b571ae63b66d68a9793b189f5772857c1d264a626cbfe518a0268",
+      "publication_lifecycle_plan_v1.json": "c105b6ee13ff086d340f45d9658fa603f85e3fb5338d7eca7988699792633574",
+      "qualified_article_record_v1.json": "60be651dd1e3aed5407b9f266d8d7e4e5ad01ce1a07410a183a8f62c413f6ffd",
+      "run_context_v1.json": "7012404836393b995e45520357b1d8853b0305d22374cd51052e479964355ff6"
+    },
+    "binding_sha256": "a33493028587b887aa394086780465ea89800763dab6a43ababd5251fad288f8",
+    "media_sha256": {
+      "cc124-eccles-archive-2011": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "post-facts-87d77248283f787c5527": "cce5a0dde9bee65fdc247c96ae95bedac121d176185163e5b2f16d58a00ceda4"
+    },
+    "native_result_sha256": "0cacd88a5ecb45c3e506ca0b65a8aa220b4c021dbd9da28028f98213f51ed7cb",
+    "plan_hash": "3c3cd91923ff571a090acaff18bf26a4cde449a42565916eec11e3981d43ea20",
+    "prepared_handoff_sha256": "805b3169b9e4e52532e87cfd3afa034aa02e414fb2753ba8f1d2c3c396862220",
+    "publication_authority": false,
+    "review_id": "native-article-review-621c3be281ec4b2b9fc5f65e7baa4194",
+    "review_notes_sha256": "c874e3002b12b2347cb002ce1f001250e57a01c0e88df9e8fddd031586a2746a",
+    "run_id": "cc124-six-markets-20261106-v1",
+    "schema_version": "contentops.native_publication_binding.v1",
+    "work_item_id": "cc124-six-markets-20261106-v1",
+    "canonical_article_status": "NOT_CONFIRMED",
+    "canonical_article_real_published": false,
+    "canonical_url": null,
+    "canonical_publication_status": "CANONICAL_NOT_CONFIRMED",
+    "distribution_status": "CANONICAL_NOT_CONFIRMED",
+    "transaction_classification": "CANONICAL_NOT_CONFIRMED",
+    "derivative_confirmed_count": 0,
+    "derivative_attempted_count": 0,
+    "derivative_unknown_count": 0,
+    "derivative_absent_safe_to_retry_count": 0,
+    "derivative_failed_count": 0,
+    "derivative_never_attempted_count": 8,
+    "recovery_required_destinations": [],
+    "readback_limitation_destinations": [],
+    "unknown_write_detected": false,
+    "unknown_write_count": 0,
+    "additional_destinations": {
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_84cbc5261b1df36bb9a99231e6a3330b",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "READY"
+      }
+    },
+    "additional_confirmed_count": 0,
+    "additional_recovery_required_destinations": [
+      "linkedin_company"
+    ],
+    "state": "PENDING_NATIVE",
+    "operation_scope": "OWNER_MANUAL_LIVE",
+    "destinations": [
+      {
+        "destination": "substack",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_6a6b9bee67647c254c017520fe29e3ce",
+        "status": "NATIVE_NEO_TOOL_PENDING",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "NATIVE_NEO_TOOL_PENDING"
+      },
+      {
+        "destination": "telegram",
+        "transport": "BOT_API",
+        "dispatch_id": "dispatch_b219987292fd4e966af6af549ea34bee",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "READY"
+      },
+      {
+        "destination": "discord",
+        "transport": "WEBHOOK_API",
+        "dispatch_id": "dispatch_bfb3fd227323469a0103615eb70a5e0b",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "READY"
+      },
+      {
+        "destination": "x",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_5709133403b687cb088bd582e27ec5e5",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "READY"
+      },
+      {
+        "destination": "linkedin",
+        "transport": "OFFICIAL_MEMBER_API",
+        "dispatch_id": "dispatch_e2636fd1305858b1623ecccfc17a2115",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "READY"
+      },
+      {
+        "destination": "facebook_page",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_92a05d8dccb2bfe45bea83c3670f3071",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "READY"
+      },
+      {
+        "destination": "instagram_business",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_de175e43e1c365e296ce60a356ae7fee",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "READY"
+      },
+      {
+        "destination": "threads",
+        "transport": "THREADS_API",
+        "dispatch_id": "dispatch_62bc1170c1607a3e0c6af03624283edb",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "READY"
+      },
+      {
+        "destination": "youtube",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_2de271af4d6599dd1d3f91a8c5c794c7",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "READY"
+      },
+      {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_84cbc5261b1df36bb9a99231e6a3330b",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "READY"
+      }
+    ],
+    "timing": {
+      "policy": "JIM_DECISION_53",
+      "target_minutes": 15,
+      "text_approved_at_utc": "2026-11-06T08:22:35.291759+00:00",
+      "dispatch_deadline_utc": "2026-11-06T08:37:35.291759+00:00",
+      "channels": [
+        {
+          "destination": "substack",
+          "status": "NATIVE_NEO_TOOL_PENDING",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "telegram",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "discord",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "x",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "facebook_page",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "instagram_business",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "threads",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "youtube",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin_company",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        }
+      ],
+      "all_channels_dispatched_within_target": false,
+      "finished_piece_acceptance": {
+        "item": "CC-199",
+        "target_minutes": 30,
+        "all_destinations_with_image_readbacks_within_target": false
+      },
+      "state": "DISPATCH_NOW"
+    },
+    "skipped_destinations": [],
+    "pending_requests": [
+      {
+        "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+        "operation_id": "cc124-six-markets-20261106-v1",
+        "public_write_authorized": true,
+        "request": {
+          "action": "PUBLISH",
+          "canonical_url": null,
+          "content_binding": {
+            "artifact_manifest": [
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-six-markets-20261106-v1\\reviewed-handoff\\0f948287e18ce656fec02783cabcca30eec4fbac4e6c2e669e3041b9a8c1ec76\\run_context_v1.json",
+                "sha256": "7012404836393b995e45520357b1d8853b0305d22374cd51052e479964355ff6"
+              }
+            ],
+            "expected_text_segments": [
+              "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases",
+              "DATED CAPITAL CHRONICLE REVIEW \u2014 Gold, US500, EUR/USD, USD/JPY, WTI and Bitcoin carry different counterweights to the dollar risk.",
+              "Capital Chronicle's 6 November pre-payrolls review describes an Asian dollar bid alongside rising equities and falling gold. It interprets that combination as a possible unwind of haven demand. The dollar buying may itself be positioning that reverses when payrolls arrive. The shared dollar backdrop therefore leaves different questions for each market. \n\n**Gold.** According to Capital Chronicle's dated review, gold fell on 5 November even as real and nominal yields fell. For the Asian drop, it offers a haven-demand unwind as an interpretation. Its countercase combines softer payrolls, lower real yields and renewed haven buying. A rates-only explanation misses the tension in the report. \n\n**US500.** According to Capital Chronicle's dated review, the Asian equity rebound retained most of its gain, challenging a blanket flight-from-risk explanation. Its US500 assessment rests on daily bars; hourly and 15-minute observations were not assessed. The limitation concerns the detail of the intraday picture, not a separate reason to infer direction. \n\n**EUR/USD.** The review names firmer euro-area inflation, expectations of ECB rate increases and limited sensitivity to broader risk moves as counterweights to the dollar bid. It also notes that EUR/USD barely fell on 5 November. \n\n**USD/JPY.** The review takes no direction: dollar demand and the prospect of strong payrolls changing rate expectations compete with yen haven demand, hawkish Bank of Japan minutes and intervention risk. It also records a narrower U.S.\u2013Japan two-year yield gap on 5 November. Intraday coverage for the pair was unavailable. The document leaves those forces unresolved. \n\n**WTI.** The review weighs deal progress against shipping-attack risk near Hormuz. It cautions that treating the deal channel as dominant rests on one Financial Times headline in its background material, rather than demonstrated evidence. These are the review's competing headline scenarios; this article does not independently confirm either event. \n\n**Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure. That is a question about shared equity risk, rather than two independent ideas. Hourly and 15-minute Bitcoin observations were not assessed; the review separates that coverage gap from the overlap argument. \n\nThe comparison also has uneven inputs. The review supplies no payrolls consensus median, dollar-index level, VIX reading or high-yield spread measurement. Its COT positioning is dated 27 October, its GEX options proxy comes from a 23 October case, and its latest GLD holdings observation is 4 November. Holdings describe a stock, not a flow. \n\nThe useful distinction is between a common backdrop and market-specific evidence. The review's dollar-positioning explanation can be challenged by the payrolls reaction; it does not resolve each market's countercase in advance. \n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. \n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers."
+            ],
+            "expected_thread_texts": [],
+            "media_manifest": [
+              {
+                "alt_text": "**EUR/USD.** The review names firmer euro-area inflation, expectations of ECB rate increases and limited sensitivity to broader risk moves as counterweights to the dollar bid. It also notes that EUR/USD barely fell on 5 November. The useful distinction is between a common backdrop and market-specific evidence. The review's dollar-positioning explanation can be challenged by the payrolls reaction; it does not resolve each market's countercase in advance.",
+                "asset_id": "post-facts-87d77248283f787c5527",
+                "attribution": "Source: Capital Chronicle",
+                "caption": "Key facts from the article.",
+                "modality": "source_bound_data_card",
+                "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\media_assets\\post-facts-87d77248283f787c5527.png",
+                "sha256": "cce5a0dde9bee65fdc247c96ae95bedac121d176185163e5b2f16d58a00ceda4",
+                "source_page_url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4"
+              },
+              {
+                "alt_text": "Archive photograph of the Federal Reserve\u2019s white stone Eccles Building, with columns and a blue sky.",
+                "asset_id": "cc124-eccles-archive-2011",
+                "attribution": "Britt Leckman / Federal Reserve Board, via Wikimedia Commons. Public domain.",
+                "caption": "Photo: Federalreserve. The Federal Reserve\u2019s Eccles Building, photographed on 29 March 2011. Archive image. License: https://commons.wikimedia.org/wiki/Template:PD-USGov-Federal_Reserve. Source: https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg. Changes: Unchanged original; display resizing only.",
+                "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Federal_Reserve",
+                "modality": "documentary_photo",
+                "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\eccles-building-2011.jpg",
+                "rights_status": "PUBLIC_DOMAIN",
+                "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+                "source_page_url": "https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg"
+              }
+            ],
+            "thread_post_count": 0
+          },
+          "destination": "substack",
+          "dispatch_attempt_identity": "dispatch_6a6b9bee67647c254c017520fe29e3ce",
+          "entry_url": "https://capitalchronicle.substack.com/",
+          "expected_identity": "capitalchronicle.substack.com",
+          "forbidden": [
+            "login",
+            "reauthorize",
+            "account_switch",
+            "cookies",
+            "storage",
+            "blind_retry",
+            "bulk_x_ingestion"
+          ],
+          "intent_sha256": "9d464fa7bf41e619f440433405f073294641d17979f28801fd3b1658be099083",
+          "native_payload": {
+            "body_markdown": "Capital Chronicle's 6 November pre-payrolls review describes an Asian dollar bid alongside rising equities and falling gold. It interprets that combination as a possible unwind of haven demand. The dollar buying may itself be positioning that reverses when payrolls arrive. The shared dollar backdrop therefore leaves different questions for each market. \n\n**Gold.** According to Capital Chronicle's dated review, gold fell on 5 November even as real and nominal yields fell. For the Asian drop, it offers a haven-demand unwind as an interpretation. Its countercase combines softer payrolls, lower real yields and renewed haven buying. A rates-only explanation misses the tension in the report. \n\n**US500.** According to Capital Chronicle's dated review, the Asian equity rebound retained most of its gain, challenging a blanket flight-from-risk explanation. Its US500 assessment rests on daily bars; hourly and 15-minute observations were not assessed. The limitation concerns the detail of the intraday picture, not a separate reason to infer direction. \n\n**EUR/USD.** The review names firmer euro-area inflation, expectations of ECB rate increases and limited sensitivity to broader risk moves as counterweights to the dollar bid. It also notes that EUR/USD barely fell on 5 November. \n\n**USD/JPY.** The review takes no direction: dollar demand and the prospect of strong payrolls changing rate expectations compete with yen haven demand, hawkish Bank of Japan minutes and intervention risk. It also records a narrower U.S.\u2013Japan two-year yield gap on 5 November. Intraday coverage for the pair was unavailable. The document leaves those forces unresolved. \n\n**WTI.** The review weighs deal progress against shipping-attack risk near Hormuz. It cautions that treating the deal channel as dominant rests on one Financial Times headline in its background material, rather than demonstrated evidence. These are the review's competing headline scenarios; this article does not independently confirm either event. \n\n**Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure. That is a question about shared equity risk, rather than two independent ideas. Hourly and 15-minute Bitcoin observations were not assessed; the review separates that coverage gap from the overlap argument. \n\nThe comparison also has uneven inputs. The review supplies no payrolls consensus median, dollar-index level, VIX reading or high-yield spread measurement. Its COT positioning is dated 27 October, its GEX options proxy comes from a 23 October case, and its latest GLD holdings observation is 4 November. Holdings describe a stock, not a flow. \n\nThe useful distinction is between a common backdrop and market-specific evidence. The review's dollar-positioning explanation can be challenged by the payrolls reaction; it does not resolve each market's countercase in advance. \n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. \n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+            "subtitle": "DATED CAPITAL CHRONICLE REVIEW \u2014 Gold, US500, EUR/USD, USD/JPY, WTI and Bitcoin carry different counterweights to the dollar risk.",
+            "title": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases"
+          },
+          "package_identity": "2d59ed69032963262a1359c02a74f346dbd67c608d47f088ce5d55887502534e",
+          "payload": null,
+          "payload_hash": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+          "public_object_id": null,
+          "public_object_url": null,
+          "request_sha256": "71bd2808af518792ff2ca486f3d2218c186f169f91d2505ea4b95db3ddb7ba17",
+          "schema_version": "contentops.neo_destination_handoff.v1",
+          "steps": [
+            "name_session; list tabs, open a task-owned tab",
+            "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+            "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+            "Place each media_manifest image in the body where its placement_after names: after the paragraphs under the heading with that text ('introduction' or 'lead' means after the first paragraph). Never put an image above the first paragraph unless placement_after says so. Set its alt text to alt_text and its caption to caption (with the credit when attribution is present). Return public_alt_text_present and public_caption_present for each image.",
+            "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+            "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+          ],
+          "substack_delivery_policy": {
+            "authority": "JIM_DECISION_42",
+            "before_publish": "Inspect the visible delivery controls. Set and verify the email choice before the final Publish button; stop before writing if it cannot be verified.",
+            "code_policy": "JIM_DECISION_54_WAIT_ON_UNTOUCHED_CODE_TAB",
+            "duplicate_policy": "Reuse this operation's existing draft/post; read back before any retry. Never create a second draft.",
+            "email_send_enabled": false,
+            "mode": "WEB_ONLY",
+            "return_fields": [
+              "delivery_observation.email_send_enabled",
+              "delivery_observation.web_publish_enabled",
+              "delivery_observation.evidence_ref"
+            ],
+            "web_publish_enabled": true
+          },
+          "substack_media_placement": "Place each media_manifest image in the body where its placement_after names: after the paragraphs under the heading with that text ('introduction' or 'lead' means after the first paragraph). Never put an image above the first paragraph unless placement_after says so. Set its alt text to alt_text and its caption to caption (with the credit when attribution is present). Return public_alt_text_present and public_caption_present for each image.",
+          "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+          "surface": "SUBSTACK_ARTICLE",
+          "work_item_id": "cc124-six-markets-20261106-v1"
+        },
+        "required_tool": "mcp__browseros_neo__run",
+        "schema_version": "contentops.native_neo_tool_request.v1",
+        "tool_request_sha256": "9b15725b6874e868b20c32d00fbad31cf03a5e4b3da3276a9d2d22c30cc7c241",
+        "action_claimed": false,
+        "next_operation": "publication-tool-begin"
+      }
+    ],
+    "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+    "next_operation": "publication-tool-begin",
+    "dispatch_continuation_operation": "publication-tool-begin",
+    "next_command": "python scripts/run_native_desktop_editorial.py publication-tool-begin --binding \"A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-six-markets-20261106-v1\\native_operation_binding.json\" --request-sha256 71bd2808af518792ff2ca486f3d2218c186f169f91d2505ea4b95db3ddb7ba17 --native-invocation-id <actual-turn-id> --rollout config/native_desktop_rollout_v1.json",
+    "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale.",
+    "final_visual_acceptance": {
+      "review_type": "WRITER_ONE_EDITOR_CHECK_PUBLISH",
+      "policy_id": "JIM_DECISION_53",
+      "review_id": "native-article-review-621c3be281ec4b2b9fc5f65e7baa4194",
+      "text_approved_at_utc": "2026-11-06T08:22:35.291759+00:00",
+      "automated_media_check": {
+        "policy": "JIM_DECISION_53",
+        "check": "IMAGE_LOAD_AND_SIZE_ONCE",
+        "findings": [
+          {
+            "asset_id": "post-facts-87d77248283f787c5527",
+            "sha256": "cce5a0dde9bee65fdc247c96ae95bedac121d176185163e5b2f16d58a00ceda4",
+            "pixels_inspected": false,
+            "loads": true,
+            "width": 1080,
+            "height": 1350,
+            "expected_dimensions": [
+              1080,
+              1350
+            ],
+            "right_size": true,
+            "status": "PASS"
+          },
+          {
+            "asset_id": "cc124-eccles-archive-2011",
+            "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+            "pixels_inspected": false,
+            "loads": true,
+            "width": 3000,
+            "height": 2041,
+            "expected_dimensions": [
+              3000,
+              2041
+            ],
+            "right_size": true,
+            "status": "PASS"
+          }
+        ],
+        "failures_logged_no_repair_loop": 0,
+        "blocks_publication": false
+      },
+      "pixels_inspected": false
+    },
+    "site_url": null,
+    "site_publication_confirmed": false,
+    "substack_publication_confirmed": false
+  },
+  "daily_email_digest": {
+    "digest_id": "cc143-digest-2026-11-05",
+    "confirmed": false,
+    "web_confirmed": true,
+    "email_confirmed": false,
+    "state": "WEB_CONFIRMED_EMAIL_READBACK_REQUIRED",
+    "public_object_id": "223626281",
+    "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-756",
+    "public_write_performed": false,
+    "native_continuation": {
+      "command": "digest-resume",
+      "arguments": [
+        "--rollout",
+        "config/native_desktop_rollout_v1.json",
+        "--native-invocation-id",
+        "<actual-active-invocation>"
+      ],
+      "instruction": "Continue this exact due digest through the existing Neo begin/submit loop before preparing another digest. Preserve any code tab and never read a mailbox or enter a code."
+    }
+  }
+}

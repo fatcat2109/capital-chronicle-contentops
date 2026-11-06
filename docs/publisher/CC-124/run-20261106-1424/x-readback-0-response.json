@@ -1,0 +1,68 @@
+{
+  "tool_request_sha256": "de722e9570d3b61abbfbb07603de2113792239ede8fca427f53905bca452d02f",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-06T09:22:02.154Z",
+    "observation_source": "Exact public-object Neo readback; displayed short links followed to the canonical; retained platform-image bytes compared and viewed. See observation, redirect and media comparison artifacts."
+  },
+  "result": {
+    "request_sha256": "7c99b101aacc228fe2fe276a461187412bed2b0084494c09d16029ca5c629f0e",
+    "status": "SUCCESS",
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2118628120114905227",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118628120114905227",
+    "observed_text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\n\nhttps://\ncapitalchronicle.substack.com/p/dated-capita\nl-chronicle-review-capital\n\u2026\n\nWatch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "content_verified": true,
+    "public_write_performed": false,
+    "media_comparisons": [
+      {
+        "destination": "x",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118628120114905227",
+        "public_image_url": "https://pbs.twimg.com/media/HWbgsFKacAApgsu?format=png&name=small",
+        "binary_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\readback\\x.png",
+        "platform_sha256": "d32ad64d67a4e3f36b5dcce37ed1566e0a3f053f0cd14ac01d1907bd38415a5c",
+        "source_asset_sha256": "cce5a0dde9bee65fdc247c96ae95bedac121d176185163e5b2f16d58a00ceda4",
+        "bytes": 130626,
+        "mime_type": "image/png",
+        "width": 544,
+        "height": 680,
+        "visual_similarity": 0.9988,
+        "dimension_ratio_matches": true,
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "pixel_inspection": "Actual retained platform bytes viewed through view_image; same card title, both review excerpts, source and disclosure; platform resizing only."
+      }
+    ],
+    "public_image_urls": [
+      "https://pbs.twimg.com/media/HWbgsFKacAApgsu?format=png&name=small"
+    ],
+    "observed_link_resolutions": [
+      {
+        "displayed_text": "https://\ncapitalchronicle.substack.com/p/dated-capita\nl-chronicle-review-capital\n\u2026",
+        "short_url": "https://t.co/kSb5H2lOID",
+        "target_url": "https://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital",
+        "target_verified": true,
+        "public_object_url": "https://x.com/Capitalnicle/status/2118628120114905227"
+      }
+    ],
+    "observed_thread": [
+      {
+        "public_object_url": "https://x.com/Capitalnicle/status/2118628120114905227",
+        "public_object_id": "2118628120114905227",
+        "observed_text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\n\nhttps://\ncapitalchronicle.substack.com/p/dated-capita\nl-chronicle-review-capital\n\u2026"
+      },
+      {
+        "public_object_url": "https://x.com/Capitalnicle/status/2118628122870554673",
+        "public_object_id": "2118628122870554673",
+        "observed_text": "Watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure."
+      },
+      {
+        "public_object_url": "https://x.com/Capitalnicle/status/2118628124934160684",
+        "public_object_id": "2118628124934160684",
+        "observed_text": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      }
+    ]
+  }
+}
