@@ -1,0 +1,22 @@
+[
+  {
+    "bytes": 179393,
+    "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+    "url": "https://substack-post-media.s3.amazonaws.com/public/images/b8cbef1a-ea60-4e15-95a1-5ec4eaff55f7_635x900.jpeg"
+  },
+  {
+    "bytes": 84580,
+    "sha256": "c8b26f95e130c5490da5028837b91ab5f2352d24d5b0c13ed433b34584383a60",
+    "url": "https://substack-post-media.s3.amazonaws.com/public/images/71b9bfc7-ff67-428e-940c-4390066ce3a6_1440x1040.png"
+  },
+  {
+    "bytes": 76159,
+    "sha256": "2bb1bd99db2b1c6b3f2060ed05d71355ddeb237db4a6f85829ca6b33b6de027a",
+    "url": "https://substack-post-media.s3.amazonaws.com/public/images/dec7026f-bdef-4ef4-81fe-5f99f9f5a4af_1440x1040.png"
+  },
+  {
+    "bytes": 82839,
+    "sha256": "f80105d8a1f7a3df2bc67664108fcd7cd0a423f09ad47580a25d8aa32338a74b",
+    "url": "https://substack-post-media.s3.amazonaws.com/public/images/0b467541-fe8a-4d58-b745-0d933d30cd88_1440x1040.png"
+  }
+]

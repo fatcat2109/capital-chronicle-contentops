@@ -597,6 +597,18 @@ class DurablePublicationCoordinator:
             if not matches or not plan.get("article_identity"):
                 return True
             for intent in matches:
+                if (intent.get("plan_status_post") == run and run != work_item_id
+                        and intent.get("article_identity") == run
+                        and intent["article_identity"] != plan["article_identity"]):
+                    # CC-107: a source-bound plan-status post has no Substack
+                    # canonical by design. Its UNKNOWN_WRITE remains fenced for
+                    # readback; it cannot be a duplicate of this distinct article.
+                    from live_contentops.plan_status_posts_v1 import _row_payload
+                    try:
+                        _row_payload(self.store, run)
+                    except (ValueError, OSError, KeyError, TypeError):
+                        return True
+                    continue
                 if (not intent.get("article_identity") or intent["article_identity"] == plan["article_identity"]
                         or not canonical_resolved(intent)):
                     return True

@@ -1,0 +1,96 @@
+{
+  "schema_version": "contentops.native_editor_check_result.v1",
+  "operation_id": "cc107-nfp-preview-20261106-v1",
+  "decision": "KEEP",
+  "article_identity": "2d8e36972f630378df9b6ea7ae8b870f5c0b8c0712a1da9a653bb9c2017c29fb",
+  "package_revision": "016ea42946f02bf47ce3a0c0c9312edb26af836a3257ddc78de3cff4681d01f4",
+  "expected_review_id": null,
+  "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-107\\run-20261106\\editor-check-input-repaired.json",
+  "input_sha256": "cc01c70355ac92423e5a2b08ae9eb91a411c1f2dce00e1670e6e2095e1cf325e",
+  "repair_of_input_sha256": "d46e05539b13ffb1c2ee35a7a9b5dee0c446e7182f45b86d1a1b3883ded37c8a",
+  "prior_editor_result_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-107\\run-20261106\\editor-check-result.json",
+  "prior_editor_result_sha256": "86b149b898ab912218a6d051118aab4ea64e0d238b83d80556d27512601d8781",
+  "verdict_at_utc": "2026-11-06T12:46:27.585514Z",
+  "first_text_approval_utc": "2026-11-06T12:46:27.585514Z",
+  "rationale": "KEEP. The one requested repair is resolved: _publication_media_metadata(compact=True) emits the exact proposed credit naming Daniel Torok, The White House, Wikimedia Commons and public-domain reuse terms, with the original archive caption and source/terms links. The article and its event packet are unchanged; all eight complete payloads and their preview identities are identical after matching by destination. Source hashes and all four image bytes remain unchanged. The earlier same-writer inspection and product checks therefore remain applicable: future-event framing, current dated 65.00K Investing.com expectation, six source-bound numeric spans, labelled model thresholds and five-week EURUSD reference context, conditional cross-asset meaning, ET dates, both notices, no private execution copy, no preview-host links and no marker leakage pass. Preview ordering and refreshed claim/review evidence are internal metadata changes. No further prose or image repair is needed. This is the repair readback of the same single editor check, not a new editorial pass. The first text-approval clock begins at this actual KEEP verdict; the existing owner performs the one image load/dimension check and canonical-first dispatch under Jim decision 53.",
+  "policy": "JIM_DECISION_53_WRITER_ONE_EDITOR_CHECK_PUBLISH",
+  "same_writer_invocation_id": "/root/cc107_nfp_writer",
+  "invocation_observation": {
+    "invocation_id": "/root/cc107_nfp_writer",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "observation_source": "Same supported canonical native writer task; actual runtime model and effort telemetry remain unavailable. This is the one editor check repair readback."
+  },
+  "material_findings": [],
+  "resolved_findings": [
+    {
+      "cause": "CANONICAL_PHOTO_CREATOR_CREDIT_OMITTED",
+      "status": "RESOLVED",
+      "asset_id": "cc074-archive-warsh-20260522",
+      "canonical_renderer": "_publication_media_metadata(compact=True)",
+      "exact_requested_credit_emitted": true,
+      "canonical_photo_credit": "Photo: Official White House photograph by Daniel Torok / [The White House](https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg), via Wikimedia Commons. [Public domain (US federal government)](https://commons.wikimedia.org/wiki/Template:PD-USGov). Commons crop; no further edits. Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context for monetary policy; not an image of the forthcoming release."
+    }
+  ],
+  "unchanged_reviewed_content": {
+    "article_and_event_packet": true,
+    "source_hashes": true,
+    "complete_eight_payloads_matched_by_destination": true,
+    "preview_ids": true,
+    "four_exact_image_hashes": true,
+    "actual_images_inspected_in_same_editor_check": true,
+    "no_repeated_unchanged_pixel_inspection": true
+  },
+  "media_inspection": [
+    {
+      "asset_id": "payroll_first_print_trend_cc107",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\payroll_first_print_trend_cc107.png",
+      "sha256": "c8b26f95e130c5490da5028837b91ab5f2352d24d5b0c13ed433b34584383a60",
+      "exact_bytes_verified": true,
+      "pixels_inspected": true,
+      "inspection_method": "view_image of owned local file; no native desktop screenshot",
+      "finding": "Readable bars and labels; source-bound first-print payroll history with positive/negative months and latest prior month, not the forthcoming release."
+    },
+    {
+      "asset_id": "september_sector_breakdown",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\september_sector_breakdown.png",
+      "sha256": "2bb1bd99db2b1c6b3f2060ed05d71355ddeb237db4a6f85829ca6b33b6de027a",
+      "exact_bytes_verified": true,
+      "pixels_inspected": true,
+      "inspection_method": "view_image of owned local file; no native desktop screenshot",
+      "finding": "Readable divergent bars, shared zero and signed contributions; broad components sum to the prior payroll total with correct thousands unit."
+    },
+    {
+      "asset_id": "unemployment_first_print_trend",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\unemployment_first_print_trend.png",
+      "sha256": "f80105d8a1f7a3df2bc67664108fcd7cd0a423f09ad47580a25d8aa32338a74b",
+      "exact_bytes_verified": true,
+      "pixels_inspected": true,
+      "inspection_method": "view_image of owned local file; no native desktop screenshot",
+      "finding": "Readable separate unemployment series, correct percent unit, latest prior 4.2% and visible retained-series gap without interpolation."
+    },
+    {
+      "asset_id": "cc074-archive-warsh-20260522",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\cc074-archive-warsh-20260522.jpg",
+      "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+      "exact_bytes_verified": true,
+      "pixels_inspected": true,
+      "inspection_method": "view_image of owned local file; no native desktop screenshot",
+      "finding": "Authentic retained archive portrait; public-domain rights record/hash verified. Restore creator in canonical credit; retain archive-context caption."
+    }
+  ],
+  "no_post_approval_screenshot_loop": true,
+  "image_load_dimension_check_due_after_keep": true,
+  "native_runtime_approval_recorded": false,
+  "tests_run": false,
+  "publication_performed": false,
+  "code_edits_performed": false,
+  "next_action": "Parent records this exact KEEP through the existing native review owner, performs its one automated image load/dimension check, and releases the canonical-first package through the sole coordinator within 15 minutes of first_text_approval_utc. Pending canonical placeholders must be remapped before derivative dispatch."
+}
