@@ -4,11 +4,12 @@ Reads Main's plan-status export (CC-307), keeps the six first-phase markets, and
 short public post per transition. Exactly once: one outbox row per transition in the existing
 ContentOps store, keyed on plan, state and time; Codex Publisher posts from that row through the
 existing publication path. Wording follows decision 40 (a directional call only in its conditional
-form, with the notices) and section 4.4 (plain words, no ids or internal terms, times in UTC).
+form, with the notices) and section 4.4 (plain words, no ids or internal terms, times in New York time, ET: Jim, 6 Nov, public posts use the most common time zone).
 No order, no price data and no write outside the store.
 """
 from __future__ import annotations
 
+from zoneinfo import ZoneInfo
 from datetime import datetime, timezone
 from decimal import Decimal
 import hashlib
@@ -138,9 +139,12 @@ def _level(value) -> str:
     return text
 
 
+PUBLIC_TZ = ZoneInfo("America/New_York")  # Jim, 6 Nov: public times in ET; GMT+7 only when talking to Jim
+
+
 def _when(value) -> str:
-    at = _utc(value)
-    return f"{at:%a} {at.day} {at:%b}, {at:%H:%M} UTC"
+    at = _utc(value).astimezone(PUBLIC_TZ)
+    return f"{at:%a} {at.day} {at:%b}, {at:%H:%M} ET"
 
 
 def _cancel_level_is_public(plan: Mapping[str, Any]) -> bool:
@@ -349,7 +353,7 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
 def card_article(row: Mapping[str, Any]) -> dict:
     at = _utc(row["at_utc"])
     return {"title": f"{TITLES[row['symbol']]}: {STATE_WORDS[row['state']]}",
-            "dek": _split(row["text"])[0], "display_date": f"{at:%B} {at.day}, {at.year}",
+            "dek": _split(row["text"])[0], "display_date": (lambda et: f"{et:%B} {et.day}, {et.year}")(at.astimezone(PUBLIC_TZ)),
             "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
 
 

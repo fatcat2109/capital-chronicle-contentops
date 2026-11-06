@@ -115,7 +115,7 @@ def test_a_failed_snapshot_still_posts_with_the_plans_numbers(queued, outcomes):
     assert asset["card_kind"] == "PLAN_FACT_CARD" and Path(asset["path"]).is_file()
     facts = dict(asset["data_card_packet"]["facts"])
     assert facts["Entry zone"] == "7,650–7,672.5" and facts["Invalidation"] == "Below 7,620"
-    assert facts["Status"] == "New plan" and facts["As of"] == "Thu 5 Nov, 12:20 UTC"
+    assert facts["Status"] == "New plan" and facts["As of"] == "Thu 5 Nov, 07:20 ET"
     assert "7,790" not in json.dumps(asset) and "7,740" not in json.dumps(asset)
     for row in plan_["destinations"]:
         assert "Chart: TradingView" not in row["payload"]
@@ -184,7 +184,7 @@ def test_the_plan_facts_never_carry_a_target():
            "levels": {"direction": "bearish", "zone_low": 61.2, "zone_high": 61.8, "invalidation_level": 62.4,
                       "target": 59.0}}
     assert plan_facts(row) == [("Entry zone", "61.2–61.8"), ("Invalidation", "Above 62.4"),
-                               ("Status", "Plan now active"), ("As of", "Thu 5 Nov, 12:20 UTC")]
+                               ("Status", "Plan now active"), ("As of", "Thu 5 Nov, 07:20 ET")]
 
 
 def test_a_daily_chart_is_confirmed_by_tradingviews_d_label(tmp_path):

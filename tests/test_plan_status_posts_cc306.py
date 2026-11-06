@@ -102,7 +102,7 @@ def test_setup_post_states_the_conditional_call_with_zone_invalidation_validity_
     assert post["status"] == "COMPOSED" and post["kind"] == "setup"
     assert post["text"].startswith(
         "Gold: new plan. If price trades into 4,070–4,085, the desk is bullish on gold over the period to "
-        "Fri 6 Nov, 12:45 UTC. Invalidated if price moves below 4,055.")
+        "Fri 6 Nov, 07:45 ET. Invalidated if price moves below 4,055.")
     # CC-307's rows carry no target, so the cancel number never prints (decision 40).
     assert "If price runs away before any pullback, the plan is cancelled and we re-assess." in post["text"]
     assert "4,150" not in post["text"]
@@ -112,16 +112,16 @@ def test_setup_post_states_the_conditional_call_with_zone_invalidation_validity_
 def test_triggered_and_cancelled_posts_report_the_change_in_plain_words(export, main_root):
     rows = rows_by(export, main_root)
     assert compose(rows[("XAUUSD", "TRIGGERED")])["text"].startswith(
-        "Gold: the plan with the 4,070–4,085 entry zone is now active. Price reached the zone at Thu 5 Nov, 12:20 UTC.")
+        "Gold: the plan with the 4,070–4,085 entry zone is now active. Price reached the zone at Thu 5 Nov, 07:20 ET.")
     cancelled = compose(rows[("USOIL", "CANCELLED")])["text"]
     assert cancelled.startswith("US crude oil: the plan with the 61.2–61.8 entry zone is cancelled at "
-                                "Thu 5 Nov, 12:10 UTC: price moved away before reaching the zone.")
+                                "Thu 5 Nov, 07:10 ET: price moved away before reaching the zone.")
 
 
 @pytest.mark.parametrize("state,reason,expected", [
-    ("EXPIRED", "CONTRACT_EXPIRY", "expired at Thu 5 Nov, 12:10 UTC without price reaching the zone"),
-    ("INVALIDATED", "WATCH_INVALIDATED", "is invalidated at Thu 5 Nov, 12:10 UTC: price moved below 4,055"),
-    ("VIEW_CHANGED", "THESIS_CHANGED", "our view changed at Thu 5 Nov, 12:10 UTC"),
+    ("EXPIRED", "CONTRACT_EXPIRY", "expired at Thu 5 Nov, 07:10 ET without price reaching the zone"),
+    ("INVALIDATED", "WATCH_INVALIDATED", "is invalidated at Thu 5 Nov, 07:10 ET: price moved below 4,055"),
+    ("VIEW_CHANGED", "THESIS_CHANGED", "our view changed at Thu 5 Nov, 07:10 ET"),
 ])
 def test_every_other_state_has_one_plain_post(tmp_path, main_root, state, reason, expected):
     folder = write_export(tmp_path / "x", [plan("plan_gold", "XAUUSD", "BULLISH", 4070, 4085, invalid=4055)],
