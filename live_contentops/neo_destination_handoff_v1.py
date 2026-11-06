@@ -49,7 +49,11 @@ def _social_canonical(url):
 
 def _public_url(destination, url, object_id=None):
     p = urlsplit(str(url or ""))
-    if p.scheme != "https" or p.query or p.fragment:
+    # LinkedIn's company publish receipt includes its exact acting company.
+    # Keep that durable receipt URL; no other query or account is admitted.
+    company_receipt_query = (destination == "linkedin_company"
+        and p.query == "actorCompanyId=143198922")
+    if p.scheme != "https" or (p.query and not company_receipt_query) or p.fragment:
         return False
     if destination == "substack":
         return _canonical(url)
