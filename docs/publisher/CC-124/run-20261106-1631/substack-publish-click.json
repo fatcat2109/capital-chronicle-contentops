@@ -1,0 +1,23 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "info": {
+      "browserProfileId": "AE5BBDC417C5C94D312789F609F796DC",
+      "groupId": "49336E35E266293A68E526A7A334A82F",
+      "index": 14,
+      "isActive": false,
+      "isLoading": false,
+      "isPinned": false,
+      "loadProgress": 0,
+      "pageId": 699,
+      "tabId": 1698402475,
+      "targetId": "064D116405CFCC558F45BBEEB7D00ED5",
+      "title": "(1) Editing \"Capital Chronicle's pre-payrolls review gives oil a supply-risk test\" - Substack",
+      "url": "https://capitalchronicle.substack.com/publish/post/223749516",
+      "windowId": 1698400956
+    },
+    "publish_clicked_utc": "2026-11-06T10:37:32.848Z",
+    "snapshot": "- region \"Notifications\" [ref=e40] [cursor=pointer]\n- dialog \"Do you want to send this post via email?\"\n  - heading \"Do you want to send this post via email?\" [level=2]\n  - LabelText\n    - checkbox \"Don’t ask again\" [ref=e149]\n  - button \"Publish on web only\" [ref=e150]\n  - button \"Also send via email\" [ref=e151]"
+  }
+}

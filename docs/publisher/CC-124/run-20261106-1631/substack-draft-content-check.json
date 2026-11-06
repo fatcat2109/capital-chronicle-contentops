@@ -1,0 +1,46 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "changed": true,
+    "page": 699,
+    "settled": true,
+    "value": {
+      "all_prose_exact": true,
+      "approved_body_paragraphs": 6,
+      "draft_id": "223749516",
+      "draft_url": "https://capitalchronicle.substack.com/publish/post/223749516",
+      "images": [
+        {
+          "alt": "Archive aerial photograph of storage tanks and coastal refinery infrastructure in Texas.",
+          "caption": "Photo: U.S. Fish and Wildlife Service. A coastal Texas oil refinery. Archive photograph; the source does not give the capture date. License: https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg#Licensing. Source: https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg. Changes: Unchanged original; display resizing only.",
+          "src": "https://substack-post-media.s3.amazonaws.com/public/images/8fd158c3-b664-4298-9b8d-711f70c84af9_1512x996.jpeg"
+        },
+        {
+          "alt": "Gold's divergence challenges a uniform dollar account. The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+          "caption": "Key facts from the article.",
+          "src": "https://substack-post-media.s3.amazonaws.com/public/images/67f4247a-f09b-4a0b-b8e5-e0c11c7a2fb1_1080x1350.png"
+        }
+      ],
+      "images_uploaded_utc": "2026-11-06T10:36:41.732Z",
+      "order": [
+        "paragraph",
+        "captionedImage",
+        "paragraph",
+        "paragraph",
+        "paragraph",
+        "captionedImage",
+        "paragraph",
+        "paragraph"
+      ],
+      "paragraphs": [
+        "Capital Chronicle's November 6 pre-payrolls follow-up separates oil's supply-risk explanation from the dollar mechanism it sees in the euro. Gold's divergence challenges a uniform dollar account. The useful distinction is the different test attached to each interpretation.",
+        "Oil: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward. If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.",
+        "Euro: Capital Chronicle links the dollar bid to the risk impulse after the November 5 U.S. equity shock. For the euro, it retains two countercases: squaring of crowded short euro positions before payrolls and the rates channel that had weakened the dollar in the November 5 U.S. session. If the rates channel reasserts itself, the dollar-risk explanation would face a competing force.",
+        "Gold: The review says gold made no lower low and had stopped following the dollar leg. That divergence is the review's test of a uniform dollar explanation.",
+        "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.",
+        "Analysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers."
+      ]
+    }
+  }
+}

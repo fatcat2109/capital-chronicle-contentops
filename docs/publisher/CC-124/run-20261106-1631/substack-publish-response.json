@@ -1,0 +1,31 @@
+{
+  "tool_request_sha256": "1ee6919e4d70ddceaf7e091281a91adaff3bdbfd1a091090189a7c99416661aa",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-06T10:37:53.245Z",
+    "observation_source": "Neo page 699 reached exact share-center for object 223749516 after web-only confirmation. Both email and schedule checkboxes verified false before final send; no code prompt or mailbox access."
+  },
+  "result": {
+    "request_sha256": "cb36abfd90464ea7ffa21315fc7398f27aca9f982b4105dfade7378bf12bf35d",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "223749516",
+    "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+    "email_sent": false,
+    "email_verification_required": false,
+    "delivery_observation": {
+      "email_send_enabled": false,
+      "web_publish_enabled": true,
+      "evidence_ref": "substack-delivery-controls.json; substack-web-only-confirmation.json; substack-share-center.json"
+    },
+    "step_clocks": {
+      "draft_ready_utc": null,
+      "images_uploaded_utc": "2026-11-06T10:36:41.732Z",
+      "publish_clicked_utc": "2026-11-06T10:37:32.848Z",
+      "email_setting_confirmed_utc": "2026-11-06T10:37:24.201Z",
+      "share_center_reached_utc": "2026-11-06T10:37:53.245Z"
+    }
+  }
+}
