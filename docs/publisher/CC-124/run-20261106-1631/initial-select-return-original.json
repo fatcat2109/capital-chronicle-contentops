@@ -1,0 +1,23 @@
+{
+  "request_sha256": "b69a22534a5c2a96c3493b40435a118621d6978a2f8372d34a5f04919be3270c",
+  "output": {
+    "ordered_candidate_plan": [],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "The frozen governed input contains 32 candidates, but none contains the requested new completed Main projection cc124-oil-euro-followup-20261106. There is no research_root in this request. The oil report candidates are dated October 19 and describe retained EIA material, not the new oil/euro/gold interpretation. Selecting those or a generic calendar headline would violate the owner scope and invent a binding to absent evidence. No candidate selected; preserve cutoff 2026-11-06T09:38:16.722864Z and supply the exact new Main projection through the existing owner before continuing.",
+    "status": "ABSTAIN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_select_b69a22534a5c",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v1\\desktop_request_select.json"
+  }
+}
