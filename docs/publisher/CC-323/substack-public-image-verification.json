@@ -1,0 +1,85 @@
+{
+  "schema_version": "contentops.delivery_media_manifest.v1",
+  "run_id": "cc323-midterm-lesson-20261106-v1",
+  "authority": "approved_media_manifest_hash_binding_not_substack_dom_selection",
+  "status": "PASS",
+  "blockers": [],
+  "minimum_chart_dimensions": {
+    "width": 800,
+    "height": 400
+  },
+  "assets": [
+    {
+      "media_asset_id": "post-facts-99b70e72adeaee9b1099",
+      "media_role": "post_key_facts",
+      "modality": "source_bound_data_card",
+      "source_page_url": "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-323\\media\\media_assets\\post-facts-99b70e72adeaee9b1099.png",
+      "sha256": "c6d5bd2281debc7e8be8e68419de41d9f0722db5a2671005abddba91f5e90556",
+      "declared_sha256": "c6d5bd2281debc7e8be8e68419de41d9f0722db5a2671005abddba91f5e90556",
+      "mime_type": "image/png",
+      "width": 1080,
+      "height": 1350,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995",
+        "caption": "Capital Chronicle Main review's hourly reconstruction of 4 November. Broker-hour timestamps are inferred to be UTC, not independently re-established; timing association does not establish election causality."
+      },
+      "chart_title": "Capital Chronicle Main review's hourly reconstruction of 4 November. Broker-hour timestamps are inferred to be UTC, not independently re-established; timing association does not establish election causality.",
+      "alt_text": "The review places gold's upward move at 05:00-07:00 UTC (12:00-14:00 Bangkok), with US500 turning up from 04:00 UTC (11:00 Bangkok). The review places Bitcoin's largest upward leg at 14:00-15:00 UTC (21:00-22:00 Bangkok). The review says oil fell throughout the day, with its largest leg at 12:00-17:00 UTC (19:00-24:00 Bangkok).",
+      "canonical_article_section_association": "post-facts-99b70e72adeaee9b1099",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/3ff1b8aa-4a57-4129-9f60-b6945f120c9e_1080x1350.png",
+      "public_delivery_sha256": "c6d5bd2281debc7e8be8e68419de41d9f0722db5a2671005abddba91f5e90556",
+      "local_public_hash_continuity": true
+    },
+    {
+      "media_asset_id": "cc323-capitol-west-front-archive-1997",
+      "media_role": "contextual_photo",
+      "modality": "documentary_photo",
+      "rights_status": "PUBLIC_DOMAIN",
+      "rights_evidence_sha256": "00c937c7ef7c7a60e9f843914dda79c869122abf132594ea65c03bd59c984600",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:United_States_Capitol_-_west_front.jpg",
+      "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-323\\media\\capitol-west-front-1997.jpg",
+      "sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+      "declared_sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+      "mime_type": "image/jpeg",
+      "width": 3000,
+      "height": 1556,
+      "source_provenance": {
+        "status": null,
+        "source_label": null,
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:United_States_Capitol_-_west_front.jpg",
+        "caption": "The west front of the US Capitol in 1997. Archive image; it does not depict election night."
+      },
+      "chart_title": "The west front of the US Capitol in 1997. Archive image; it does not depict election night.",
+      "alt_text": "Archive photograph of the west front of the US Capitol, with lawn, flower beds and paths in the foreground.",
+      "canonical_article_section_association": "cc323-capitol-west-front-archive-1997",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/538c8ce2-9d6f-41c0-b714-e37f5eb00ed4_3000x1556.jpeg",
+      "public_delivery_sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+      "local_public_hash_continuity": true
+    }
+  ],
+  "selected_primary_media_asset_id": "cc323-capitol-west-front-archive-1997",
+  "selected_primary_media_sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+  "remote_objects_audited": [
+    {
+      "supplied_url": "https://substack-post-media.s3.amazonaws.com/public/images/538c8ce2-9d6f-41c0-b714-e37f5eb00ed4_3000x1556.jpeg",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/538c8ce2-9d6f-41c0-b714-e37f5eb00ed4_3000x1556.jpeg",
+      "sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+      "mime_type": "image/jpeg",
+      "width": 3000,
+      "height": 1556
+    },
+    {
+      "supplied_url": "https://substack-post-media.s3.amazonaws.com/public/images/3ff1b8aa-4a57-4129-9f60-b6945f120c9e_1080x1350.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/3ff1b8aa-4a57-4129-9f60-b6945f120c9e_1080x1350.png",
+      "sha256": "c6d5bd2281debc7e8be8e68419de41d9f0722db5a2671005abddba91f5e90556",
+      "mime_type": "image/png",
+      "width": 1080,
+      "height": 1350
+    }
+  ],
+  "checked_at_utc": "2026-11-06T04:27:59.818003+00:00"
+}

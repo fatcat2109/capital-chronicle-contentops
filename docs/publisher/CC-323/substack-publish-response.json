@@ -1,0 +1,31 @@
+{
+  "tool_request_sha256": "682204f4fe4454d57d32fcbf3fb7464b9af6088b7cc9c87a28fdb4352e232fc6",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-06T04:25:30.269Z",
+    "dispatched_at_utc": "2026-11-06T04:25:24.411Z",
+    "observation_source": "Neo page 645 reached exact post 223722704 share-center after Publish on web only; share-link input contains the canonical article URL. No email-code dialog or mailbox read."
+  },
+  "result": {
+    "request_sha256": "868a1541a06030b84d0890776beca4e65a3133ceb1eeb29d0f49c57e876d83ce",
+    "status": "PUBLISHED",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "223722704",
+    "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicles-midterm-review",
+    "public_write_performed": true,
+    "delivery_observation": {
+      "email_send_enabled": false,
+      "web_publish_enabled": true,
+      "evidence_ref": "docs/publisher/CC-323/substack-delivery-observation.json"
+    },
+    "step_clocks": {
+      "draft_ready_utc": "2026-11-06T04:17:01Z",
+      "images_uploaded_utc": "2026-11-06T04:23:27.690Z",
+      "publish_clicked_utc": "2026-11-06T04:25:24.411Z",
+      "email_setting_confirmed_utc": "2026-11-06T04:25:12.779Z",
+      "share_center_reached_utc": "2026-11-06T04:25:30.269Z"
+    }
+  }
+}

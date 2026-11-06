@@ -1,0 +1,33 @@
+{
+  "draft_id": "223722704",
+  "page_id": 645,
+  "delivery": {
+    "email_send_enabled": false,
+    "images": [
+      {
+        "alt": "Archive photograph of the west front of the US Capitol, with lawn, flower beds and paths in the foreground.",
+        "height": 864,
+        "loads": true,
+        "title": "Archive photograph of the west front of the US Capitol, with lawn, flower beds and paths in the foreground.",
+        "width": 1667
+      },
+      {
+        "alt": "The review places gold's upward move at 05:00-07:00 UTC (12:00-14:00 Bangkok), with US500 turning up from 04:00 UTC (11:00 Bangkok). The review places Bitcoin's largest upward leg at 14:00-15:00 UTC (21:00-22:00 Bangkok). The review says oil fell throughout the day, with its largest leg at 12:00-17:00 UTC (19:00-24:00 Bangkok).",
+        "height": 1545,
+        "loads": true,
+        "title": "The review places gold's upward move at 05:00-07:00 UTC (12:00-14:00 Bangkok), with US500 turning up from 04:00 UTC (11:00 Bangkok). The review places Bitcoin's largest upward leg at 14:00-15:00 UTC (21:00-22:00 Bangkok). The review says oil fell throughout the day, with its largest leg at 12:00-17:00 UTC (19:00-24:00 Bangkok).",
+        "width": 1236
+      }
+    ],
+    "observed_at_utc": "2026-11-06T04:25:12.779Z",
+    "web_publish_enabled": true
+  },
+  "share_center": {
+    "observed_at_utc": "2026-11-06T04:25:30.269Z",
+    "text": "- navigation \"Publisher dashboard\"\n  - button \"Jim’s Substack\" [ref=e1]\n  - link \"Home\" [ref=e2] [url=\"https://capitalchronicle.substack.com/publish/home\"]\n  - link \"Website\" [ref=e3] [url=\"https://capitalchronicle.substack.com/\"]\n  - button \"Create\" [collapsed] [ref=e4]\n  - link \"Publish\" [expanded] [ref=e5] [url=\"https://capitalchronicle.substack.com/publish/posts/drafts\"]\n  - link \"Drafts\" [ref=e6] [url=\"https://capitalchronicle.substack.com/publish/posts/drafts\"]\n  - link \"Posts\" [ref=e7] [url=\"https://capitalchronicle.substack.com/publish/posts\"]\n  - link \"Podcast\" [ref=e8] [url=\"https://capitalchronicle.substack.com/publish/podcasting\"]\n  - link \"Chat\" [ref=e9] [url=\"https://capitalchronicle.substack.com/publish/chat\"]\n  - link \"Live video\" [ref=e10] [url=\"https://capitalchronicle.substack.com/publish/live-videos\"]\n  - link \"Website editor\" [ref=e11] [url=\"https://capitalchronicle.substack.com/publish/website-editor/home\"]\n  - link \"Audience\" [collapsed] [ref=e12] [url=\"https://capitalchronicle.substack.com/publish/subscribers\"]\n  - link \"Analytics\" [collapsed] [ref=e13] [url=\"https://capitalchronicle.substack.com/publish/growth\"]\n  - link \"Revenue\" [collapsed] [ref=e14] [url=\"https://capitalchronicle.substack.com/publish/payments\"]\n  - button \"Help\" [ref=e15]\n  - link \"Settings\" [ref=e16] [url=\"https://capitalchronicle.substack.com/publish/settings\"]\n- button \"Back\" [ref=e17]\n- heading \"Posts\" [level=3]\n- button \"Switch to dark mode\" [ref=e18]\n- button [ref=e19]\n- button \"View chats\" [collapsed] [ref=e20]\n- button \"View activity\" [collapsed] [ref=e21]\n- button \"Dean's avatar\" [collapsed] [ref=e22]\n- button \"Enable 2FA\" [ref=e23]\n- button \"Dismiss\" [ref=e24]\n- link \"Capital Chronicle's midterm review: right scenario, wrong market call Adjust\" [ref=e25]\n  - button \"Adjust\" [ref=e26]\n- heading \"Capital Chronicle's midterm review: right scenario, wrong market call\" [level=3]\n  - link \"Capital Chronicle's midterm review: right scenario, wrong market call\" [ref=e27]\n- button \"View post\" [ref=e28]\n- button [collapsed] [ref=e29]\n- tablist \"Tabs\"\n  - tab \"Overview\" [ref=e30]\n  - tab \"Reach\" [ref=e31]\n  - tab \"Engagement\" [ref=e32]\n  - tab \"Growth\" [ref=e33]\n  - tab \"Discussion\" [ref=e34]\n  - tab \"Share\" [selected] [ref=e35]\n- region \"Notifications\" [ref=e36] [cursor=pointer]",
+    "url": "https://capitalchronicle.substack.com/publish/posts/detail/223722704/share-center",
+    "web_only_confirmed_utc": "2026-11-06T04:25:24.411Z"
+  },
+  "code_requested": false,
+  "mailbox_read": false
+}
