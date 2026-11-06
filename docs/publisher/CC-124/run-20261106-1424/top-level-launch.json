@@ -1,0 +1,11 @@
+[
+  {
+    "pid": 31036,
+    "parent_pid": 24004,
+    "started_at_utc": "2026-11-06T07:37:58.2608170Z",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "observation": "CONFIGURED_NOT_OBSERVED",
+    "source": "fresh Win32_Process launch arguments; actual runtime telemetry unavailable"
+  }
+]

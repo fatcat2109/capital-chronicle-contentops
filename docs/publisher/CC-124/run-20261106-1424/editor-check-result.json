@@ -1,0 +1,130 @@
+{
+  "operation_id": "cc124-six-markets-20261106-v1",
+  "article_identity": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+  "revision": "c4b837d8e58ff950d9e5ca581052bcf0977618bd3fa2f3d374ac181cfa83506b",
+  "decision": "KEEP",
+  "text_approved": true,
+  "first_text_approval_utc": "2026-11-06T08:21:34.789369+00:00",
+  "reviewed_at_utc": "2026-11-06T08:21:34.789369+00:00",
+  "editor_role": "SAME_WRITER_FINAL_EDITOR_CHECK_SINGLE_REPAIRED_ASSEMBLY",
+  "invocation_observation": {
+    "invocation_id": "/root/cc124_six_market_max",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "observation_source": "supported native task context",
+    "model": null,
+    "reasoning_effort": null,
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true,
+    "speed": "standard",
+    "configuration_source": "Exact SAME MAX final-editor assignment and repaired assembly A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\editor-check-input.json; task /root/cc124_six_market_max"
+  },
+  "inspected_input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\editor-check-input.json",
+  "inspected_input_sha256": "4bcdbcf49e0d8ec529b3e54c6cb7f3db28bbbdd498949c4ac96bb7e51d319569",
+  "assembled_body_sha256": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+  "assembled_equals_saved_bounded_revision": true,
+  "material_issues": [],
+  "corrected_findings": [
+    "The assembled body now uses the exact saved bounded revision and explicit Capital Chronicle attribution for Gold and US500.",
+    "The canonical public scope notice and all eight destination notices say dated review; internal provenance retains its original identity.",
+    "The repaired card removes visible emphasis markup and replaces REPORTED FACT with FROM THE DATED REVIEW for both source-bound passages."
+  ],
+  "findings": [
+    "The thesis and public metadata describe a dated comparison of competing mechanisms. The body preserves the USD-bid correction and distinct Gold, US500, EUR/USD, USD/JPY, WTI and Bitcoin countercases without a six-market directional call.",
+    "The retained review remains the sole factual lineage. Oil headline context remains explicitly unconfirmed; missing intraday coverage and uneven dated inputs remain visible in the canonical copy. No new facts, quotations, series or numbers were introduced by the repair.",
+    "All eight complete payloads and both full reply chains preserve the dated-review label and analysis, reader-choice and holdings notices. No private execution/account identifier, forbidden preview host or non-New-York time label appears in the reader-facing copy.",
+    "The source instant falls on 6 November in New York; public report date is consistent. Observation dates 5 November, 27 October, 23 October, 4 November and archive photograph date 29 March 2011 stay date-only.",
+    "The 1080 by 1350 comparison card is legible with no clipping or overlap. Its two passages are faithful to the article and retained source, and are labelled as material from the dated review.",
+    "The same inspected original photograph is unchanged. Its caption is archival context only, and its canonical record carries Britt Leckman / Federal Reserve Board, Commons source and public-domain reuse credit."
+  ],
+  "non_blocking_notes": [
+    "Some derivative text fields retain Markdown emphasis around market labels. This is a presentation-only detail; deterministic plain-text transport cleanup may strip the markers without changing wording or claims and without a new editor cycle.",
+    "Derivative pending-publication links are preparation placeholders. The existing coordinator must supply the confirmed canonical URL before derivative sends; this KEEP does not assert a published object."
+  ],
+  "reviewed_previews": [
+    {
+      "destination": "telegram",
+      "preview_id": "cc-preview-edad86323cd76db9fc728ca77f5e4d0ae3dec34a23aeb2551aba68dab15ede8e",
+      "article_identity": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+      "payload_sha256": "4a31c87d0b7240e701af94c710d2bd442dc13fcb9fb5b88f7db8ee189987a1c0",
+      "chain_post_count": 0
+    },
+    {
+      "destination": "x",
+      "preview_id": "cc-preview-a7fab64b9ad298ef54a076dfe780bfdf45bf227cd7c2f97cf5c70a4ce084431b",
+      "article_identity": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+      "payload_sha256": "b5c3096c8d01fe2f8a3c6923217d568edc35bcde501704fc0b18d2cb42ad5282",
+      "chain_post_count": 3
+    },
+    {
+      "destination": "linkedin",
+      "preview_id": "cc-preview-199e4e4da993d1282b7e9625218ab91fc1c56acbe6cddf5197b8c6453c40dae9",
+      "article_identity": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+      "payload_sha256": "2018d36cf512a5527eee5f19a30bc768066acf1a78010d93f552ea16a8c21699",
+      "chain_post_count": 0
+    },
+    {
+      "destination": "discord",
+      "preview_id": "cc-preview-67aebefcffce1ec50d5dfe32f5bf80eff7d78039a3b7a0c007b7a7deff323e5f",
+      "article_identity": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+      "payload_sha256": "802f2a3fd3b0a33145cda9461a71577ec43b21a3cd50b3d64ac70ca3f0f0751d",
+      "chain_post_count": 0
+    },
+    {
+      "destination": "facebook_page",
+      "preview_id": "cc-preview-0f4eec8331c48b09b416f3d96f0efa31da469431403d905010e56236b8e5bd5e",
+      "article_identity": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+      "payload_sha256": "dd1ba077e5c289e69fb26fb2a4feec1e83f9a96644d6f0cc18f038427bcad824",
+      "chain_post_count": 0
+    },
+    {
+      "destination": "instagram_business",
+      "preview_id": "cc-preview-7f49e42fec9ef4c09e6ebc69bc9726b5a5dd86842d97951ccaeb88ebc8d70b4a",
+      "article_identity": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+      "payload_sha256": "06854783466df032aa35c2eac7f0765c971dd5e13c640f805f6344b9605cde1d",
+      "chain_post_count": 0
+    },
+    {
+      "destination": "threads",
+      "preview_id": "cc-preview-958a4dc38682b629746fae123ecc870b8b9f261b6339bf392069f026241f2a42",
+      "article_identity": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+      "payload_sha256": "a7c2db8e07b62143e36e668235259c1033a8accd0bd473229a5896d7c765c61e",
+      "chain_post_count": 2
+    },
+    {
+      "destination": "youtube",
+      "preview_id": "cc-preview-84ea2d556c2cd9fb7a29df2c079ed9f0c641f58009164a4a04fd2a68c6e3a111",
+      "article_identity": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+      "payload_sha256": "529fe4756e6a7a084e0574531e0cf7a6123f6165a297610294670588636aa7d0",
+      "chain_post_count": 0
+    }
+  ],
+  "media_inspected": [
+    {
+      "asset_id": "post-facts-87d77248283f787c5527",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\media_assets\\post-facts-87d77248283f787c5527.png",
+      "sha256": "cce5a0dde9bee65fdc247c96ae95bedac121d176185163e5b2f16d58a00ceda4",
+      "width": 1080,
+      "height": 1350,
+      "inspection": "EXACT_REPAIRED_CARD_LOCAL_PIXELS_VIEW_IMAGE",
+      "findings": "Legible, no clipping, no visible Markdown, source-versus-interpretation label corrected."
+    },
+    {
+      "asset_id": "cc124-eccles-archive-2011",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\eccles-building-2011.jpg",
+      "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "inspection": "SAME_WRITER_PREVIOUS_LOCAL_SOURCE_PHOTO_PIXELS_UNCHANGED",
+      "findings": "Archive photograph matches the retained inspected bytes and full canonical credit."
+    }
+  ],
+  "publication_speed_policy": "JIM_DECISION_53",
+  "approval_clock_note": "This is the first text approval of the corrected assembly. Preserve this clock for unchanged text; media checks do not restart it.",
+  "per_channel_screenshots_performed": false,
+  "public_write_attempted": false,
+  "limits": "Reviewed the supplied local assembly and exact card pixels. No browser, platform draft or public-object readback was performed. Post-approval automated image load/dimension checks and canonical-first dispatch remain with the existing owner.",
+  "rationale": "KEEP the repaired dated six-market document lens. The assembled canonical body is byte-equal to the saved bounded revision, with explicit Capital Chronicle attribution for Gold and US500 and a clean public scope notice. The shared dollar mechanism, each market's countercase, and the intraday and dated-input limits remain supported by the same retained review; no event is independently confirmed and no directional trade call, probability, target, sizing or execution detail is added. I read the canonical metadata and body plus all eight destination payloads, including every post in the X and Threads chains. They preserve report attribution, analysis/reader-choice/holdings notices and the article's narrower uncertainty. Source observation dates remain date-only; the 6 November report date agrees with its New York date. Public copy has no internal Main label or forbidden preview-host link. I inspected the exact repaired card pixels: text is legible, unclipped and faithful to the two source-bound article passages; visible Markdown is removed and both panels are labelled From the dated review. The unchanged inspected Eccles Building photograph retains its 29 March 2011 archive caption and full creator/source/public-domain credit in the canonical media record. There is no remaining material editorial issue. Existing coordinator preparation URLs must be replaced with the confirmed canonical URL through the normal canonical-first path before derivative sends. Plain-text emphasis markers around a few derivative market labels are a non-blocking presentation detail and may be stripped deterministically without another editorial round."
+}
