@@ -1,0 +1,107 @@
+{
+  "asset_id": "post-facts-99b70e72adeaee9b1099",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-323\\media\\media_assets\\post-facts-99b70e72adeaee9b1099.png",
+  "sha256": "c6d5bd2281debc7e8be8e68419de41d9f0722db5a2671005abddba91f5e90556",
+  "width": 1080,
+  "height": 1350,
+  "modality": "source_bound_data_card",
+  "role": "supporting_fact_context",
+  "media_role": "post_key_facts",
+  "caption": "Capital Chronicle Main review's hourly reconstruction of 4 November. Broker-hour timestamps are inferred to be UTC, not independently re-established; timing association does not establish election causality.",
+  "alt_text": "The review places gold's upward move at 05:00-07:00 UTC (12:00-14:00 Bangkok), with US500 turning up from 04:00 UTC (11:00 Bangkok). The review places Bitcoin's largest upward leg at 14:00-15:00 UTC (21:00-22:00 Bangkok). The review says oil fell throughout the day, with its largest leg at 12:00-17:00 UTC (19:00-24:00 Bangkok).",
+  "attribution": "Source: Capital Chronicle",
+  "source_page_url": "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995",
+  "source_links": [
+    {
+      "document_id": "cc323-midterm-lesson-20261106",
+      "url": "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995",
+      "label": "Capital Chronicle"
+    },
+    {
+      "document_id": "cc323-midterm-lesson-20261106",
+      "url": "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995",
+      "label": "Capital Chronicle"
+    },
+    {
+      "document_id": "cc323-midterm-lesson-20261106",
+      "url": "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995",
+      "label": "Capital Chronicle"
+    }
+  ],
+  "source_lineage": [
+    {
+      "document_id": "cc323-midterm-lesson-20261106",
+      "source_url": "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995"
+    },
+    {
+      "document_id": "cc323-midterm-lesson-20261106",
+      "source_url": "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995"
+    },
+    {
+      "document_id": "cc323-midterm-lesson-20261106",
+      "source_url": "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995"
+    }
+  ],
+  "underlying_source_rights_status": "attributed_facts_independent_chart",
+  "data_card_packet": {
+    "policy": "CC144_EVERY_POST_VISUAL_V1",
+    "facts": [
+      {
+        "claim_id": "CC323_CARD_1",
+        "text": "The review places gold's upward move at 05:00-07:00 UTC (12:00-14:00 Bangkok), with US500 turning up from 04:00 UTC (11:00 Bangkok).",
+        "source_id": "SOURCE_1",
+        "document_id": "cc323-midterm-lesson-20261106",
+        "support_excerpt": "Gold 05:00-07:00Z (12:00-14:00)\n\nUS500 04:00Z (11:00) A steady climb through Asia and Europe:",
+        "source_content_sha256": "b38301dfef9834244c0635590598ccf39e518af42a4dde5d21ea17e4400badde",
+        "rights_class": "capital_chronicle_own_report",
+        "rights_binding_sha256": "7a68c0985c4c136a1efe3a1977d88d56f3abc8dca204059495b97a39acd7f149",
+        "publisher": "Capital Chronicle",
+        "url": "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995"
+      },
+      {
+        "claim_id": "CC323_CARD_2",
+        "text": "The review places Bitcoin's largest upward leg at 14:00-15:00 UTC (21:00-22:00 Bangkok).",
+        "source_id": "SOURCE_1",
+        "document_id": "cc323-midterm-lesson-20261106",
+        "support_excerpt": "Our own dossier got the direction wrong for risk assets. DOS §6.1 mapped a Democratic sweep to US500 down, USTEC down and BTC down, following strategists (Hartnett, Yardeni). The sweep came, and those markets rose. The gold-up and USD-down legs were right.\n\nJim's question: when did each market move on 4 Nov?\n\nGold 05:00-07:00Z (12:00-14:00)\n\nUS500 04:00Z (11:00) A steady climb through Asia and Europe:\n\nBTC First leg 04:00-08:00Z Largest leg 14:00-15:00Z (21:00-22:00, US session)",
+        "source_content_sha256": "b38301dfef9834244c0635590598ccf39e518af42a4dde5d21ea17e4400badde",
+        "rights_class": "capital_chronicle_own_report",
+        "rights_binding_sha256": "7a68c0985c4c136a1efe3a1977d88d56f3abc8dca204059495b97a39acd7f149",
+        "publisher": "Capital Chronicle",
+        "url": "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995"
+      },
+      {
+        "claim_id": "CC323_CARD_3",
+        "text": "The review says oil fell throughout the day, with its largest leg at 12:00-17:00 UTC (19:00-24:00 Bangkok).",
+        "source_id": "SOURCE_1",
+        "document_id": "cc323-midterm-lesson-20261106",
+        "support_excerpt": "USOIL It fell all day. The largest leg was in the US session, 12:00-17:00Z (19:00-24:00)",
+        "source_content_sha256": "b38301dfef9834244c0635590598ccf39e518af42a4dde5d21ea17e4400badde",
+        "rights_class": "capital_chronicle_own_report",
+        "rights_binding_sha256": "7a68c0985c4c136a1efe3a1977d88d56f3abc8dca204059495b97a39acd7f149",
+        "publisher": "Capital Chronicle",
+        "url": "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995"
+      }
+    ],
+    "design": "CC290_SITE_FACT_CARD_V2",
+    "title": "4 November: different market clocks",
+    "dated_line": "Capital Chronicle",
+    "editorial_display": {
+      "title": "4 November: different market clocks",
+      "kicker": "Main review · clock inferred as UTC",
+      "key_label": "",
+      "key_value": "",
+      "fact_labels": [
+        "Gold and US500",
+        "Bitcoin",
+        "Oil"
+      ]
+    }
+  },
+  "transform_sha256": "99b70e72adeaee9b109918e75e0c572783f3eb935f7ab60a6116cbc1fbe7e71a",
+  "publication_authority": false,
+  "placement_after": "What moved when",
+  "event_date": "2026-11-04",
+  "raw_prices_exported": false,
+  "causality_claimed": false
+}

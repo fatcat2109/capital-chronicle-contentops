@@ -1,0 +1,84 @@
+{
+  "operation_id": "cc323-midterm-lesson-20261106-v1",
+  "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc323-midterm-lesson-20261106-v1\\binding.json",
+  "stage": "PRE_WRITER_MEDIA_BOUND",
+  "assets": [
+    {
+      "asset_id": "post-facts-99b70e72adeaee9b1099",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-323\\media\\media_assets\\post-facts-99b70e72adeaee9b1099.png",
+      "sha256": "c6d5bd2281debc7e8be8e68419de41d9f0722db5a2671005abddba91f5e90556",
+      "modality": "source_bound_data_card",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "asset_id": "cc323-capitol-west-front-archive-1997",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-323\\media\\capitol-west-front-1997.jpg",
+      "sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+      "modality": "documentary_photo",
+      "width": 3000,
+      "height": 1556
+    }
+  ],
+  "native_returns": [
+    {
+      "stage": "select",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc323-midterm-lesson-20261106-v1\\desktop_response_select.json",
+      "sha256": "b69ca156d680616f8ed54656288b529cd72f73b58edde1c147ff98130f650a86",
+      "observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/native_select_49601fe78d41",
+        "model": null,
+        "reasoning_effort": null,
+        "speed": "standard",
+        "observation_source": "Supported native task context provides canonical task identity; actual model and effort telemetry are not exposed.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "Exact select-task.txt native assignment and frozen desktop_request_select.json requested_model/requested_reasoning_effort."
+      }
+    },
+    {
+      "stage": "media-plan",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc323-midterm-lesson-20261106-v1\\desktop_response_media-plan.json",
+      "sha256": "1fec0857410dca5fe27fb379b1170ca5243b78e63379f921fdbdbc58f7d17376",
+      "observation": {
+        "model": null,
+        "configuration_source": "Exact media-plan assignment and frozen desktop_request_media-plan.json requested model and effort.",
+        "observation_source": "Canonical task identity supplied by native context; actual model and effort telemetry unavailable.",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "invocation_id": "/root/native_select_49601fe78d41",
+        "configured_reasoning_effort": "low",
+        "speed": "standard",
+        "actual_configuration_unavailable": true,
+        "reasoning_effort": null
+      }
+    },
+    {
+      "stage": "visual-edit",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc323-midterm-lesson-20261106-v1\\desktop_response_visual-edit.json",
+      "sha256": "e9902ae9884150bf62d9668eeda0875364c391393c829949d822fbfcd12da43c",
+      "observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/cc323_max_resume",
+        "model": null,
+        "reasoning_effort": null,
+        "speed": "standard",
+        "observation_source": "Canonical native task identity /root/cc323_max_resume is provided in the supported task context. Actual model and reasoning effort telemetry are unavailable in this context; configured values are recorded separately from observations.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "Exact frozen desktop_request_visual-edit.json for request 7153b02b1df1a6ef56063ddf588c6d8c1b7c63ad93534d6789af60d8b93267ce and the parent native role assignment; requested gpt-6.1-sol/max, speed standard."
+      }
+    }
+  ],
+  "publication_performed": false,
+  "interruption": "Initial MAX role stopped before accepted return; /root/cc323_max_resume reused its assets and completed visual-edit."
+}

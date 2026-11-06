@@ -1,0 +1,126 @@
+{
+  "request_sha256": "7153b02b1df1a6ef56063ddf588c6d8c1b7c63ad93534d6789af60d8b93267ce",
+  "run_id": "cc323-midterm-lesson-20261106-v1",
+  "article": {
+    "title": "4 November: different market clocks",
+    "substack_body_markdown": "## What moved when\n\nThe review places gold's upward move at 05:00-07:00 UTC (12:00-14:00 Bangkok), with US500 turning up from 04:00 UTC (11:00 Bangkok).\n\nThe review places Bitcoin's largest upward leg at 14:00-15:00 UTC (21:00-22:00 Bangkok).\n\nThe review says oil fell throughout the day, with its largest leg at 12:00-17:00 UTC (19:00-24:00 Bangkok).",
+    "visual_editorial_decision": {
+      "post_data_card_plan": {
+        "modality": "source_bound_data_card",
+        "title": "4 November: different market clocks",
+        "kicker": "Main review · clock inferred as UTC",
+        "key_label": "",
+        "key_value": "",
+        "placement_after": "What moved when",
+        "facts": [
+          {
+            "label": "Gold and US500",
+            "text": "The review places gold's upward move at 05:00-07:00 UTC (12:00-14:00 Bangkok), with US500 turning up from 04:00 UTC (11:00 Bangkok).",
+            "claim_id": "CC323_CARD_1",
+            "source_id": "SOURCE_1"
+          },
+          {
+            "label": "Bitcoin",
+            "text": "The review places Bitcoin's largest upward leg at 14:00-15:00 UTC (21:00-22:00 Bangkok).",
+            "claim_id": "CC323_CARD_2",
+            "source_id": "SOURCE_1"
+          },
+          {
+            "label": "Oil",
+            "text": "The review says oil fell throughout the day, with its largest leg at 12:00-17:00 UTC (19:00-24:00 Bangkok).",
+            "claim_id": "CC323_CARD_3",
+            "source_id": "SOURCE_1"
+          }
+        ],
+        "data_spec": {
+          "source_id": "SOURCE_1",
+          "source_identity": "cc323-midterm-lesson-20261106",
+          "source_url": "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995",
+          "source_capture_sha256": "609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995",
+          "rights_scope": "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS",
+          "authority_ref": "JIM_DECISION_89",
+          "metric": "Qualitative direction and reported hourly windows",
+          "unit": "UTC and Bangkok time; no price scale",
+          "period": "4 November 2026 only",
+          "form": "Three source-bound fact rows, with gold and US500 combined",
+          "transformation": "Verbatim planned article sentences; no price series, returns or numerical odds",
+          "actual_estimate_forecast": "Retrospective reported direction and inferred-clock reconstruction, not a forecast",
+          "missingness": "Clock basis and largest-leg ranking not independently re-established; no second-level catalyst timing",
+          "supporting_check_sha256": "72b400990f3bcded4cb11f65bc8ae3bc958387539fae5d1096f7df4fe8fcad6d"
+        }
+      }
+    }
+  },
+  "material_claims": [
+    {
+      "claim_id": "CC323_CARD_1",
+      "source_id": "SOURCE_1",
+      "claim_text": "The review places gold's upward move at 05:00-07:00 UTC (12:00-14:00 Bangkok), with US500 turning up from 04:00 UTC (11:00 Bangkok).",
+      "support_excerpt": "Gold 05:00-07:00Z (12:00-14:00)\n\nUS500 04:00Z (11:00) A steady climb through Asia and Europe:",
+      "epistemic_state": "ATTRIBUTED_REPORT",
+      "source_identity": "cc323-midterm-lesson-20261106",
+      "source_capture_sha256": "609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995"
+    },
+    {
+      "claim_id": "CC323_CARD_2",
+      "source_id": "SOURCE_1",
+      "claim_text": "The review places Bitcoin's largest upward leg at 14:00-15:00 UTC (21:00-22:00 Bangkok).",
+      "support_excerpt": "Our own dossier got the direction wrong for risk assets. DOS §6.1 mapped a Democratic sweep to US500 down, USTEC down and BTC down, following strategists (Hartnett, Yardeni). The sweep came, and those markets rose. The gold-up and USD-down legs were right.\n\nJim's question: when did each market move on 4 Nov?\n\nGold 05:00-07:00Z (12:00-14:00)\n\nUS500 04:00Z (11:00) A steady climb through Asia and Europe:\n\nBTC First leg 04:00-08:00Z Largest leg 14:00-15:00Z (21:00-22:00, US session)",
+      "epistemic_state": "ATTRIBUTED_REPORT",
+      "source_identity": "cc323-midterm-lesson-20261106",
+      "source_capture_sha256": "609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995"
+    },
+    {
+      "claim_id": "CC323_CARD_3",
+      "source_id": "SOURCE_1",
+      "claim_text": "The review says oil fell throughout the day, with its largest leg at 12:00-17:00 UTC (19:00-24:00 Bangkok).",
+      "support_excerpt": "USOIL It fell all day. The largest leg was in the US session, 12:00-17:00Z (19:00-24:00)",
+      "epistemic_state": "ATTRIBUTED_REPORT",
+      "source_identity": "cc323-midterm-lesson-20261106",
+      "source_capture_sha256": "609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995"
+    }
+  ],
+  "source_pack": [
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "b38301dfef9834244c0635590598ccf39e518af42a4dde5d21ea17e4400badde",
+      "canonical_content_text": "D_SWEEP: Democratic House and Democratic Senate (most likely)\n\nOur own dossier got the direction wrong for risk assets. DOS §6.1 mapped a Democratic sweep to US500 down, USTEC down and BTC down, following strategists (Hartnett, Yardeni). The sweep came, and those markets rose. The gold-up and USD-down legs were right.\n\nJim's question: when did each market move on 4 Nov?\n\nGold 05:00-07:00Z (12:00-14:00)\n\nUS500 04:00Z (11:00) A steady climb through Asia and Europe:\n\nBTC First leg 04:00-08:00Z Largest leg 14:00-15:00Z (21:00-22:00, US session)\n\nUSOIL It fell all day. The largest leg was in the US session, 12:00-17:00Z (19:00-24:00)\n\n\"Only in the US session\" holds for Bitcoin's breakout and oil's slide. It does not hold for gold, silver and US500. Gold moved at noon Vietnam time, as the Senate calls came in. US500 turned at 11:00 and climbed all through Asia and Europe.",
+      "canonical_resolution_status": "",
+      "document_id": "cc323-midterm-lesson-20261106",
+      "published_at_source": "RETAINED_MAIN_REPORT_KNOWN_AT_NOT_PUBLICATION_CLOCK",
+      "published_at_utc": "2026-11-05T15:00:00Z",
+      "publisher": "Capital Chronicle",
+      "report_lineage": {
+        "independent_confirmation": false,
+        "origin": "RETAINED_MAIN_REPORT_EXACT_SPANS",
+        "report_id": "cc323-midterm-lesson-20261106",
+        "report_projection_sha256": "609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995"
+      },
+      "report_truth_only": true,
+      "retrieval_method": "EXACT_RETAINED_MAIN_REPORT_PUBLIC_SPANS",
+      "secondary_listing_only": false,
+      "source_authority_class": "governed_capital_chronicle_report_only",
+      "source_id": "SOURCE_1",
+      "source_identity": "cc323-midterm-lesson-20261106",
+      "source_reuse_constraints": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "attribution_required": true,
+        "authority_ref": "JIM_DECISION_89",
+        "permitted_consumers": [
+          "internal_research",
+          "narrative_context"
+        ],
+        "provider_safe": true,
+        "public_expression_reuse_allowed": true,
+        "scope": "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS",
+        "source_capture_sha256": "609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995",
+        "underlying_event_truth_granted": false
+      },
+      "url": "urn:cc-public-report:main-retained:609d5443a5ec918426df4c0a8c79d2002d86348fa791250db085e3ba7c84d995"
+    }
+  ],
+  "source_packet_cutoff_utc": "2026-11-06T03:37:50.824555Z",
+  "purpose": "Exact planned fact sentences for this source-bound card; same writer must retain them in final prose."
+}
