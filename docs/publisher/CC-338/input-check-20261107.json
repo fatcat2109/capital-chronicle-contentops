@@ -1,0 +1,56 @@
+{
+  "observed_at_utc": "2026-11-06T18:50:23.227535+00:00",
+  "searches": [
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029",
+      "exists": true,
+      "public_freeze_candidate_paths": [],
+      "candidate_count": 0
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-catchup",
+      "exists": true,
+      "public_freeze_candidate_paths": [],
+      "candidate_count": 0
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Runtime\\MainPublicReports-v1",
+      "exists": true,
+      "public_freeze_candidate_paths": [],
+      "candidate_count": 0
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research",
+      "exists": true,
+      "public_freeze_candidate_paths": [],
+      "candidate_count": 0
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\codex-main-exec\\data\\research",
+      "exists": true,
+      "public_freeze_candidate_paths": [],
+      "candidate_count": 0
+    }
+  ],
+  "manifest_path": "A:\\Capital Chronicle\\Runtime\\MainPublicReports-v1\\manifests\\c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2.json",
+  "manifest_entries": 15,
+  "cpi_manifest_entries": 0,
+  "prepared_events": [
+    "bls-cpi-20261110",
+    "bls-emsit-20261106",
+    "bls-ppi-20261113",
+    "boe-mpc-20261105",
+    "us-election-20261103"
+  ],
+  "first_cause": "G05_FROZEN_PUBLIC_FILE_NOT_ISSUED",
+  "next_actor": "Ops Live supplies Main G05 frozen public subset and its exact SHA256; Publisher uses existing event preparation before CPI preview deadline",
+  "cpi_preview_deadline_utc": "2026-11-10T11:30:00Z",
+  "fallback": "PPI 2026-11-13, per CC-338; no schedule change",
+  "existing_cpi_preparation": {
+    "event_id": "bls-cpi-20261110",
+    "known_at_utc": "2026-11-04T22:46:34.267520+00:00",
+    "planned_release_utc": "2026-11-10T13:30:00+00:00",
+    "official_source_count": 3,
+    "frozen_public_record_present": false
+  }
+}

@@ -162,10 +162,14 @@ def test_unverified_preparation_never_establishes_a_fact(tmp_path, fault, expect
     _, packet, _ = prepare(f.tracker.store, tmp_path)
     packet = deepcopy(packet)
     packet["known_at_utc"] = "2026-10-18T16:00:00Z"
-    if fault == "span": packet["prior_fact_spans"][0]["exact_source_span"] = "A made-up release."
-    if fault == "rights": packet["official_sources"][0]["url"] = "https://third-party.example/news.release/empsit.htm"
-    if fault == "clock": packet["official_sources"][0]["published_at_utc"] = "2026-10-18T18:00:00Z"
-    if fault == "no-facts": packet["prior_fact_spans"] = []
+    if fault == "span":
+        packet["prior_fact_spans"][0]["exact_source_span"] = "A made-up release."
+    if fault == "rights":
+        packet["official_sources"][0]["url"] = "https://third-party.example/news.release/empsit.htm"
+    if fault == "clock":
+        packet["official_sources"][0]["published_at_utc"] = "2026-10-18T18:00:00Z"
+    if fault == "no-facts":
+        packet["prior_fact_spans"] = []
     record_pre_event_preparation(f.tracker.store, packet)
     with pytest.raises(ValueError, match=expected):
         preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc=NOW)

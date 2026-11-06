@@ -69,21 +69,41 @@ def build_scorecard(store, *, feed_path=DEFAULT_FEED, since_utc=SINCE, as_of_utc
             add(identity, call, record["published_at_utc"], record["outlets"])
 
     with store.get_read_only_connection() as conn:
+        conn.execute("BEGIN")  # One read snapshot while normal publication continues.
         messages = conn.execute(
             "SELECT message_id,status,payload FROM outbox_messages WHERE destination=? ORDER BY rowid",
             ("internal:plan-status-post",),
         ).fetchall()
         # Channel outbox rows belong to the original plan-post message's work item.
         dispatches = conn.execute(
-            "SELECT o.work_item_id,d.platform,d.public_object_url,d.dispatched_at "
+            "SELECT o.work_item_id,d.platform,d.public_object_url,d.dispatched_at,d.dispatch_id "
             "FROM platform_dispatches d JOIN outbox_messages o ON o.message_id=d.message_id "
-            "WHERE d.status IN (?,?) AND d.public_object_url IS NOT NULL",
-            CONFIRMED,
+            "JOIN outbox_messages p ON p.message_id=o.work_item_id "
+            "WHERE d.status IN (?,?) AND d.public_object_url IS NOT NULL AND p.destination=?",
+            (*CONFIRMED, "internal:plan-status-post"),
         ).fetchall()
+        observations = conn.execute(
+            "SELECT r.dispatch_id,r.read_at,r.readback_data FROM readbacks r "
+            "JOIN platform_dispatches d ON d.dispatch_id=r.dispatch_id "
+            "JOIN outbox_messages o ON o.message_id=d.message_id "
+            "JOIN outbox_messages p ON p.message_id=o.work_item_id WHERE d.status IN (?,?) AND p.destination=?",
+            (*CONFIRMED, "internal:plan-status-post"),
+        ).fetchall()
+    publication_clocks = {}
+    for dispatch_id, read_at, raw in observations:
+        if utc(read_at) > end:
+            continue
+        observation = json.loads(raw)
+        observation = observation.get("readback", observation)
+        published = observation.get("published_at_utc") or observation.get("observed_published_at_utc")
+        if published and utc(published) <= utc(read_at):
+            publication_clocks.setdefault(dispatch_id, []).append(published)
     destinations = {}
-    for work_item, platform, url, at in dispatches:
+    for work_item, platform, url, at, dispatch_id in dispatches:
         if at and utc(at) <= end:
-            destinations.setdefault(work_item, []).append({"name": platform, "url": url, "at_utc": at})
+            clocks = publication_clocks.get(dispatch_id, [])
+            destinations.setdefault(work_item, []).append({"name": platform, "url": url,
+                "dispatch_at_utc": at, "published_at_utc": min(clocks, key=utc) if clocks else None})
     plans = {}
     history = {}
     for message_id, status, raw in messages:
@@ -98,7 +118,8 @@ def build_scorecard(store, *, feed_path=DEFAULT_FEED, since_utc=SINCE, as_of_utc
         history.setdefault(plan_id, []).append({"state": state, "at_utc": at})
         for call in packet.get("conditional_calls") or []:
             # The event clock and the first public-write clock stay distinct.
-            public_at = min((p["at_utc"] for p in publications), key=utc) if publications else None
+            clocks = [p["published_at_utc"] for p in publications if p["published_at_utc"]]
+            public_at = min(clocks, key=utc) if clocks else None
             entry = add(["plan", plan_id], call, public_at, publications, clock_fallback=at)
             if entry is not None:
                 plans.setdefault(plan_id, []).append(entry)

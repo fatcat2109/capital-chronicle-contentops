@@ -1,0 +1,68 @@
+{
+  "distinct_passing_checks": 187,
+  "junit_results": [
+    {
+      "file": "feed-regressions.xml",
+      "cases": 14,
+      "failures": 0
+    },
+    {
+      "file": "final-feature-tests.xml",
+      "cases": 31,
+      "failures": 0
+    },
+    {
+      "file": "freeze-tests.xml",
+      "cases": 23,
+      "failures": 0
+    },
+    {
+      "file": "native-regressions-1.xml",
+      "cases": 12,
+      "failures": 0
+    },
+    {
+      "file": "native-regressions-2.xml",
+      "cases": 17,
+      "failures": 0
+    },
+    {
+      "file": "native-regressions-3.xml",
+      "cases": 26,
+      "failures": 0
+    },
+    {
+      "file": "native-regressions-4.xml",
+      "cases": 15,
+      "failures": 0
+    },
+    {
+      "file": "native-regressions-5.xml",
+      "cases": 13,
+      "failures": 0
+    },
+    {
+      "file": "release-regressions.xml",
+      "cases": 6,
+      "failures": 0
+    },
+    {
+      "file": "scorecard-tests.xml",
+      "cases": 7,
+      "failures": 0
+    },
+    {
+      "file": "writer-regressions.xml",
+      "cases": 64,
+      "failures": 0
+    }
+  ],
+  "serial_pytest_only": true,
+  "test_timeout_seconds": 55,
+  "bounded_interruption": {
+    "file": "tests/test_native_neo_executor_v1.py",
+    "cause": "55_SECOND_TEST_LOAD_LIMIT",
+    "completed_by": "native-regressions-1.xml through native-regressions-5.xml"
+  },
+  "ruff": "PASS on all changed Python files"
+}

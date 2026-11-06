@@ -75,6 +75,7 @@ def test_repeated_updates_do_not_edit_or_multiply_a_call_and_fills_never_escape(
     assert result["calls"][0]["state"] == "TRIGGERED"
     assert "FILLED" not in json.dumps(result)
     assert "plan-one" not in json.dumps(result)
+    assert result["calls"][0]["first_published_at_utc"] is None  # dispatch is not publication
 
 
 def test_changed_wording_retains_both_versions(corpus):
@@ -84,6 +85,18 @@ def test_changed_wording_retains_both_versions(corpus):
     result = snapshot(corpus)
     assert result["total_calls"] == 2
     assert {r["call"]["invalidation"] for r in result["calls"]} == {CALL["invalidation"], changed["invalidation"]}
+
+
+def test_only_observed_publication_time_supplies_publication_clock(corpus):
+    post(corpus, "clock")
+    published = "2026-11-06T08:21:12Z"
+    with sqlite3.connect(corpus[1]) as conn:
+        conn.execute("INSERT INTO readbacks (readback_id,dispatch_id,readback_data,read_at) VALUES (?,?,?,?)",
+                     ("clock-readback", "clock-dispatch", json.dumps({"readback": {"published_at_utc": published}}),
+                      "2026-11-06T08:25:00Z"))
+    row = snapshot(corpus)["calls"][0]
+    assert row["first_published_at_utc"] == published
+    assert row["publications"][0]["dispatch_at_utc"] == AT
 
 
 def test_public_date_is_converted_and_missing_public_clock_is_not_invented(corpus):

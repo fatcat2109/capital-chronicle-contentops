@@ -87,6 +87,8 @@ def event_writer_guidance(governed: Mapping[str, Any]) -> str:
             "one branch's exact condition, market, bullish/bearish direction, minimum_move and horizon. "
             "Explain comparison with its naive_release_beta, keeping Main's supplied units and scoring rule. "
             "A review includes the complete public_call_scorecard canonical_content_text verbatim. "
+            "Include each original scorecard call in article.conditional_calls so the public-copy guard "
+            "can match its conditional wording, without changing the original text. "
             "Never omit withdrawn, invalidated, not-triggered or unresolved calls. The transport uploads "
             "the original frozen file; never reconstruct it. Keep the structured metadata outside the "
             "event packet's copy/numeric_bindings. Bind numerical prose to the source's exact offsets.\n")

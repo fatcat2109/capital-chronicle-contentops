@@ -21,7 +21,7 @@ from live_contentops.published_content_v1 import load_json, utc
 SCHEMA = "capital_chronicle.frozen_public_calls.v1"
 SHA = re.compile(r"[a-f0-9]{64}")
 ROOT_KEYS = {"schema_version", "event_id", "event_time_utc", "frozen_at_utc",
-             "reaction_map", "q1_probabilities", "resolution_rule"}
+             "reaction_map", "q1_probabilities", "resolution_rule", "estimate_label", "notice", "conflicts_notice"}
 CALL_KEYS = {"condition", "market", "direction", "horizon", "invalidation"}
 BINDING_KEYS = {"source_ref", "source_sha256", "known_at_utc"}
 
@@ -39,6 +39,9 @@ def load_record(spec, *, event_id, event_time_utc, cutoff_utc):
     if (not isinstance(doc, dict) or set(doc) != ROOT_KEYS or doc.get("schema_version") != SCHEMA
             or doc.get("event_id") != event_id or utc(doc["event_time_utc"]) != utc(event_time_utc)):
         raise ValueError("FROZEN_PUBLIC_RECORD_EVENT_OR_SCHEMA_INVALID")
+    if (doc["estimate_label"] != "Capital Chronicle model estimate" or doc["notice"] != PUBLIC_NOTICE
+            or doc["conflicts_notice"] != CONFLICTS_NOTICE):
+        raise ValueError("FROZEN_PUBLIC_MODEL_LABEL_AND_NOTICES_REQUIRED")
     frozen = utc(doc["frozen_at_utc"])
     if frozen >= utc(event_time_utc) or frozen > utc(cutoff_utc):
         raise ValueError("FROZEN_PUBLIC_RECORD_CLOCK_INVALID")
@@ -97,6 +100,7 @@ def record_document(spec, *, event_id, event_time_utc, cutoff_utc):
             "source_authority_class": "governed_capital_chronicle_report_only",
             "frozen_public_record": record,
             "source_reuse_constraints": {"scope": "CAPITAL_CHRONICLE_OWN_FROZEN_PUBLIC_SUBSET",
+                "rights_class": "CC_MODEL_ESTIMATE",
                 "authority_ref": "BACKLOG_CC338_JIM_DECISIONS_40_84_90",
                 "MODEL_INPUT_ALLOWED": True, "LLM_INPUT_ALLOWED": True,
                 "INTERNAL_ANALYSIS_ALLOWED": True, "public_expression_reuse_allowed": True}}
@@ -208,11 +212,16 @@ def attachment_for_article(article, *, media_dir):
     spec = article.get("frozen_public_record")
     if not spec or article.get("article_type") != "EVENT_REVIEW":
         return None
-    record = load_record(spec, event_id=spec["event_id"], event_time_utc=spec["event_time_utc"],
-                         cutoff_utc=spec["frozen_at_utc"])
     folder = Path(media_dir).resolve()
+    if not SHA.fullmatch(str(spec.get("sha256") or "")):
+        raise ValueError("REVIEW_ATTACHMENT_HASH_INVALID")
+    target = folder / (spec["sha256"] + ".json")
+    # Once materialized, exact retained bytes suffice for later readback even if
+    # Main has moved its original file. Never reconstruct or reserialize them.
+    retained = {**spec, "path": str(target)} if target.is_file() else spec
+    record = load_record(retained, event_id=spec["event_id"], event_time_utc=spec["event_time_utc"],
+                         cutoff_utc=spec["frozen_at_utc"])
     folder.mkdir(parents=True, exist_ok=True)
-    target = folder / (record["sha256"] + ".json")
     raw = Path(record["path"]).read_bytes()
     if target.exists():
         if target.read_bytes() != raw:

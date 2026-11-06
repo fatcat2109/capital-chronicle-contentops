@@ -11,6 +11,7 @@ from live_contentops.event_public_record_v1 import (
 )
 from live_contentops.contentops_editorial_desk_v1 import record_pre_event_preparation, preview_preparation_research
 from live_contentops.event_article_guard_v1 import event_writer_guidance
+from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE
 from tests.test_pre_event_preview_v1 import EVENT, NOW, prepare
 from tests.test_capital_chronicle_report_feed_v1 import feed
 from tests.test_capital_chronicle_report_editorial_workspace_v1 import controlled_writer
@@ -22,6 +23,7 @@ RELEASE = "2026-11-06T13:30:00Z"
 def frozen_file(tmp_path, **changes):
     binding = {"source_ref": "CONTROLLED Main fixture", "source_sha256": "a" * 64, "known_at_utc": FROZEN}
     doc = {"schema_version": SCHEMA, "event_id": EVENT, "event_time_utc": RELEASE,
+           "estimate_label": "Capital Chronicle model estimate", "notice": PUBLIC_NOTICE, "conflicts_notice": CONFLICTS_NOTICE,
            "frozen_at_utc": FROZEN, "resolution_rule": "Main scores the conditional move over the supplied horizon.",
            "reaction_map": [{"condition": "core inflation exceeds 0.3%", "market": "gold", "direction": "bearish",
                "minimum_move": "0.5%", "horizon": "one hour", "invalidation": "the prior high is regained",
@@ -118,6 +120,8 @@ def test_review_retains_original_download_bytes_inside_own_media_folder(tmp_path
     attachment = attachment_for_article(copy, media_dir=media)
     assert Path(attachment["path"]).is_relative_to(media.resolve())
     assert Path(attachment["path"]).read_bytes() == Path(spec["path"]).read_bytes()
+    assert attachment_for_article(copy, media_dir=media) == attachment
+    Path(spec["path"]).unlink()  # Only a controlled fixture; the retained original download remains.
     assert attachment_for_article(copy, media_dir=media) == attachment
     url = "https://capitalchronicle.substack.com/p/controlled-review"
     observed = {"sha256": attachment["sha256"], "bytes": attachment["bytes"], "download_verified": True,

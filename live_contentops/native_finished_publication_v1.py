@@ -14,7 +14,7 @@ from uuid import uuid4
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import _private, canonical_bytes, sha256_of
 from live_contentops.native_desktop_editorial_v1 import (
     NativeDesktopTurn, native_review_revision, require_current_final_visual_review,
-    validate_release_media, validated_native_review,
+    validated_native_review,
 )
 from live_contentops.native_desktop_publication_v1 import (
     NativeReviewedPublication, prepare_native_publication, scheduled_publication_authority,
