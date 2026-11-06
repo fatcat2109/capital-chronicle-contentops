@@ -1,5 +1,48 @@
 # CC-333: distinct images, two articles per day, Main scenarios
 
+## Resume on 7 November
+
+The remaining CC-316 source is merged into the existing CC-333 branch, preserving
+the later CC-338 operating changes. Its snapshot capture no longer waits for free
+RAM (decision 87). Daily market pieces keep the fresh TradingView image first;
+event pieces keep the release card first and use an intact card-plus-snapshot
+panel on single-image social transports. Hosting keeps its delivery-only metadata
+without removing the snapshot from the canonical article. The original download,
+attribution, rights and exact bytes are validated through the existing owners.
+
+The event-review writer request now consumes `retrospective_notice()` with the
+actual request's writing date in ET. Issued requests replay unchanged. Main-review
+cards expand exact magnitudes, for example `65.00K` to `65,000`, and lead with the
+count instead of a period. Original source passages remain unchanged in the bound
+card packet. Telegram's compiled copy strips Markdown emphasis, keeps authored
+words, uncertainty, figures and links, and sends plain text through the Bot API.
+The transport omits `parse_mode` for these copies, so `<` and `&` remain literal.
+
+Decision 94 temporarily reduces the publisher and its day read model to one
+article per production day until **9 November 01:00 GMT+7**. The normal two-piece
+ceiling returns automatically at that instant. CC-124's existing twelve-hour
+weekend cadence and new-Main-report requirement remain; this run changes no
+schedule. The prior 02:50 continuation note below is superseded by the current
+CC-124 backlog entry: its next run is **7 November 15:01 GMT+7**.
+
+[The exact held NFP passage replay](resume-20261107/held-nfp-card-replay.json)
+uses the real pending operation's Main source through the actual card renderer.
+It displays `+165,000`, retains the source words and bytes, and completes in
+0.55 seconds. Its binary card was inspected: the figure, complete facts, dated
+attribution and footer fit the 1080×1350 canvas. This is a local deterministic
+replay, with zero model calls or public writes; it does not count toward the two
+required published-piece readbacks.
+
+The run's serial targeted tests and operating-root checks are recorded in
+`resume-20261107/`. A combined snapshot selection hit the 55-second load limit;
+the smaller article and capture selections then passed. The first combined card
+selection also ended before a complete result. Two older card-test expectations
+used the UTC date for an instant; corrected ET/date-only expectations pass.
+The launch configured `gpt-6.1-sol/max`, recorded as `CONFIGURED_NOT_OBSERVED`.
+The two inherited builder JSONL files and all six dirty operating-root files
+stay outside this item's commits. No other chat, schedule or native desktop
+control is used.
+
 Decision 93 is applied through the existing publication coordinator, native writer,
 media binding and eight-channel compiler. The first feature selection passed:
 [feature-tests.xml](feature-tests.xml), 46 checks in 19.85 seconds. It started at
