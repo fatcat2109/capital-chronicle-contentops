@@ -1,0 +1,132 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "authority_ref": "JIM_DECISION_89",
+      "headline_id": "cc124-oil-euro-followup-20261106",
+      "headline_text": "Capital Chronicle updates its pre-payrolls view: oil diverges from the dollar trade",
+      "source_url": "urn:cc-public-report:oil-euro-followup:20261106",
+      "known_at_utc": "2026-11-06T08:21:03Z",
+      "revision_at_utc": "2026-11-06T09:36:14.772334Z",
+      "candidate_catalyst_tags": [
+        "payrolls",
+        "oil",
+        "euro",
+        "dollar"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+          "source_sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+          "source_json_pointer": "/summary/1/text",
+          "fragments": [
+            {
+              "start": 529,
+              "end": 579
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+          "source_sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+          "source_json_pointer": "/candidates/10/invalidation",
+          "fragments": [
+            {
+              "start": 180,
+              "end": 241
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+          "source_sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+          "source_json_pointer": "/causal_alternatives/2/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 58
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+          "source_sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+          "source_json_pointer": "/candidates/10/rationale",
+          "fragments": [
+            {
+              "start": 910,
+              "end": 967
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+          "source_sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+          "source_json_pointer": "/candidates/3/rationale",
+          "fragments": [
+            {
+              "start": 221,
+              "end": 347
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+          "source_sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+          "source_json_pointer": "/candidates/3/rationale",
+          "fragments": [
+            {
+              "start": 611,
+              "end": 725
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+          "source_sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+          "source_json_pointer": "/candidates/3/rationale",
+          "fragments": [
+            {
+              "start": 1147,
+              "end": 1264
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+          "source_sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+          "source_json_pointer": "/causal_alternatives/1/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 39
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+          "source_sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+          "source_json_pointer": "/candidates/5/rationale",
+          "fragments": [
+            {
+              "start": 232,
+              "end": 300
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+          "source_sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+          "source_json_pointer": "/coverage_limit",
+          "fragments": [
+            {
+              "start": 406,
+              "end": 665
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
