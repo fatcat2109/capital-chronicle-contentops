@@ -24,6 +24,11 @@ NATIVE_MAIN_REPORT_ROOT = Path(
 )
 
 
+def _allowed_report_path(path):
+    return ((path.suffix.lower() == ".md" and any(path.is_relative_to(root.resolve()) for root in REPORT_ROOTS))
+            or (path.name == "owner-native.json" and path.is_relative_to(NATIVE_MAIN_REPORT_ROOT.resolve())))
+
+
 def _passage_text(path, passage, raw):
     """Read prose fields from Main's synthesis without admitting its execution rows."""
     if path.suffix.lower() == ".md" and any(path.is_relative_to(root.resolve()) for root in REPORT_ROOTS):
@@ -63,7 +68,7 @@ def verify_projection(spec):
     texts, sources = [], {}
     for passage in passages:
         path = Path(passage["source_path"]).resolve()
-        if not path.is_file() or path.stat().st_size > 1_000_000:
+        if not _allowed_report_path(path) or not path.is_file() or path.stat().st_size > 1_000_000:
             raise ValueError("MAIN_REPORT_SOURCE_PATH_INVALID")
         raw = path.read_bytes()
         digest = sha256(raw).hexdigest()

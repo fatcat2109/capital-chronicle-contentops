@@ -130,6 +130,24 @@ def test_report_path_cannot_escape_configured_main_roots(tmp_path, monkeypatch):
         projection.verify_projection(spec)
 
 
+def test_unadmitted_file_is_refused_before_reading_bytes(tmp_path, monkeypatch):
+    from pathlib import Path
+    _, _, spec = retained(tmp_path, monkeypatch, native=True)
+    outside = tmp_path / "outside" / "owner-native.json"
+    outside.parent.mkdir()
+    outside.write_text('{"summary": [{"text": "Not admitted"}]}', encoding="utf-8")
+    spec["passages"][0]["source_path"] = str(outside)
+    original = Path.read_bytes
+
+    def guarded_read(path):
+        assert path != outside, "Unadmitted source bytes must never be read"
+        return original(path)
+
+    monkeypatch.setattr(Path, "read_bytes", guarded_read)
+    with pytest.raises(ValueError, match="MAIN_REPORT_SOURCE_PATH_INVALID"):
+        projection.verify_projection(spec)
+
+
 @pytest.mark.parametrize("pointer", ["/candidates/0/entry", "/summary/8/text", "/account/balance"])
 def test_native_projection_refuses_execution_fields_or_absent_prose(tmp_path, monkeypatch, pointer):
     _, _, spec = retained(tmp_path, monkeypatch, native=True)
