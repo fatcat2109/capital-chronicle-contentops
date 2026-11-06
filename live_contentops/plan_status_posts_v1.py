@@ -35,6 +35,9 @@ TITLES = {"XAUUSD": "Gold", "US500": "US 500", "EURUSD": "EUR/USD", "USDJPY": "U
           "USOIL": "US crude oil", "BTCUSD": "Bitcoin"}
 KINDS = {"WAITING": "setup", "TRIGGERED": "triggered", "CANCELLED": "cancelled",
          "INVALIDATED": "invalidated", "EXPIRED": "expired", "VIEW_CHANGED": "view_changed"}
+# CC-330: the export also carries FILLED (our DEMO order filled). Fills, positions and P&L are DEMO details and
+# never public (decision 40), so the composer reads the state and never posts it.
+PRIVATE_STATES = {"FILLED"}
 # Section 4.4: none of these may reach a reader.
 INTERNAL = re.compile(
     r"\b(?:frozen|committee|fixture|export|admission|deterministic|watch_runtime|plan_[0-9a-f]{6,}|"
@@ -126,7 +129,7 @@ def _built_plan(plan: Mapping[str, Any]) -> dict:
 
 
 def _row(*, plan_id, symbol, to, at_utc, cause, plan):
-    if not plan_id or to not in KINDS or not at_utc:
+    if not plan_id or (to not in KINDS and to not in PRIVATE_STATES) or not at_utc:
         raise PlanPostError("PLAN_EXPORT_TRANSITION_INVALID")
     at = _utc(at_utc).isoformat().replace("+00:00", "Z")
     return {"key": "plan-status-post-" + hashlib.sha256(f"{plan_id}|{to}|{at}".encode()).hexdigest()[:32],
@@ -166,6 +169,8 @@ def compose(row: Mapping[str, Any]) -> dict:
     symbol, plan = row["symbol"], row["plan"]
     if symbol not in MARKETS:
         return {"status": "NOT_A_FIRST_PHASE_MARKET"}
+    if row["to"] in PRIVATE_STATES:
+        return {"status": "NOT_POSTED", "cause": "DEMO_FILL_NOT_PUBLIC"}
     market, title = MARKETS[symbol], TITLES[symbol]
     if plan.get("direction") not in {"bullish", "bearish"}:
         return {"status": "NOT_POSTED", "cause": "PLAN_DIRECTION_MISSING"}
