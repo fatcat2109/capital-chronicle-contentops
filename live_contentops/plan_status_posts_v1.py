@@ -217,6 +217,10 @@ def compose(row: Mapping[str, Any]) -> dict:
 
 
 POSTING_WINDOW_MINUTES = 60
+# Ops Product, 6 Nov: a later state (triggered, cancelled, invalidated, expired, view changed) of a plan
+# whose post already went out still posts after the window, up to this many hours, with its true time:
+# readers who saw the setup must not be left with a plan that has ended (decision 79's live status).
+LATE_STATE_HOURS = 24
 PUBLIC_LEVELS = ("direction", "zone_low", "zone_high", "invalidation_level", "valid_until_utc")
 
 
@@ -236,10 +240,17 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     oldest = now.timestamp() - window_minutes * 60
     queued, existing, skipped, too_old = [], [], [], 0
     fresh = [row for row in rows if row["symbol"] in MARKETS]
+    announced = {json.loads(r["payload"]).get("plan_id") for r in store.list_outbox_messages(destination=DESTINATION)
+                 if r["status"] == "PUBLISHED"}
     for row in fresh:
+        late = False
         if _utc(row["at_utc"]).timestamp() < oldest:
-            too_old += 1
-            continue
+            if (row["to"] != "WAITING" and row["plan_id"] in announced
+                    and _utc(row["at_utc"]).timestamp() >= now.timestamp() - LATE_STATE_HOURS * 3600):
+                late = True
+            else:
+                too_old += 1
+                continue
         post = compose(row)
         if post["status"] != "COMPOSED":
             skipped.append({"key": row["key"], "cause": post.get("cause")})
@@ -253,7 +264,8 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
                    "conditional_calls": post["conditional_calls"],
                    # CC-314: the levels the post's image shows (the chart timeframe and the
                    # fallback fact card). Never the target or the cancel level (decision 40).
-                   "levels": {k: row["plan"].get(k) for k in PUBLIC_LEVELS}}
+                   "levels": {k: row["plan"].get(k) for k in PUBLIC_LEVELS},
+                   **({"late": True} if late else {})}
         queued.append({"key": row["key"], "symbol": row["symbol"], "state": row["to"], "at_utc": row["at_utc"],
                        "text": post["text"]})
         if dry_run:
@@ -503,6 +515,11 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
 
 FRESHNESS_MINUTES = 60
 STALE = "STALE_NOT_POSTED"
+
+
+def freshness_limit_minutes(payload) -> int:
+    """60 minutes for a new post; a later state of an announced plan keeps LATE_STATE_HOURS."""
+    return LATE_STATE_HOURS * 60 if payload.get("late") else FRESHNESS_MINUTES
 SUPERSEDED = "SUPERSEDED_NOT_POSTED"
 
 
@@ -555,7 +572,7 @@ def publish_ready(store, *, latest_states=None, now: datetime | None = None, coo
         payload = json.loads(row["payload"])
         if row["status"] == READY:
             cause = None
-            if _age_minutes(payload, now) > FRESHNESS_MINUTES:
+            if _age_minutes(payload, now) > freshness_limit_minutes(payload):
                 cause = (STALE, "TRANSITION_OLDER_THAN_60_MINUTES_WHEN_POSTER_REACHED_IT")
             elif (payload.get("state") == "WAITING" and latest_states is not None
                     and latest_states.get(payload.get("plan_id"), "WAITING") != "WAITING"):
@@ -567,7 +584,7 @@ def publish_ready(store, *, latest_states=None, now: datetime | None = None, coo
         elif _api_confirmed(store, row["message_id"]):
             store.set_outbox_status(row["message_id"], "PUBLISHED")
             continue
-        elif _age_minutes(payload, now) > FRESHNESS_MINUTES:
+        elif _age_minutes(payload, now) > freshness_limit_minutes(payload):
             continue  # an unresolved old copy is left to the coordinator's own recovery, not this tick
         candidates.append(row)
     import time

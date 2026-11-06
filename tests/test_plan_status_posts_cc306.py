@@ -196,3 +196,29 @@ def test_a_runaway_cancel_at_the_target_never_reveals_the_number(tmp_path, main_
     assert ("82,500" in text) is printed
     if not printed:
         assert "If price runs away before any pullback, the plan is cancelled and we re-assess." in text
+
+def test_a_later_state_of_an_announced_plan_posts_late_but_unannounced_history_does_not(tmp_path, main_root):
+    """6 Nov: oil's invalidation reached the export after the window, and the public setup kept showing it."""
+    from live_contentops.plan_status_posts_v1 import WORK_ITEM_ID, freshness_limit_minutes
+    plans = [plan("plan_gold", "XAUUSD", "BULLISH", 4070, 4085, cancel=4150, invalid=4055),
+             plan("plan_oil", "USOIL", "BEARISH", 61.2, 61.8, cancel=59.5, invalid=62.4)]
+    events = [event("plan_gold", "WAITING", "2026-11-05T09:00:00Z"),
+              event("plan_gold", "INVALIDATED", "2026-11-05T10:00:00Z", "WATCH_INVALIDATED"),
+              event("plan_oil", "WAITING", "2026-11-05T09:00:00Z"),
+              event("plan_oil", "CANCELLED", "2026-11-05T10:00:00Z", "RUNAWAY_CANCEL")]
+    late_export = write_export(tmp_path / "late", plans, events)
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    store.create_work_item(story_id=WORK_ITEM_ID, title="Plan status posts (decision 79)",
+                           target_surface="MULTI_PLATFORM", work_item_id=WORK_ITEM_ID)
+    store.register_outbox_message(message_id="announced-gold-setup", work_item_id=WORK_ITEM_ID,
+                                  destination=DESTINATION, status="PUBLISHED",
+                                  payload=json.dumps({"plan_id": "plan_gold", "state": "WAITING"}))
+    result = queue(store, late_export, main_root)
+    assert [(q["symbol"], q["state"]) for q in result["queued"]] == [("XAUUSD", "INVALIDATED")]
+    assert result["older_than_window"] == 3
+    late_row = next(r for r in store.list_outbox_messages(destination=DESTINATION)
+                    if r["message_id"] != "announced-gold-setup")
+    payload = json.loads(late_row["payload"])
+    assert payload["late"] is True and freshness_limit_minutes(payload) == 24 * 60
+    assert freshness_limit_minutes({"state": "WAITING"}) == 60
+
