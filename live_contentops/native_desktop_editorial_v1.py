@@ -1618,6 +1618,7 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         article_path = root / "article_manifest_v1.json"
         article_path.write_bytes(canonical_bytes(article))
         record.update(article_identity=article_identity, article_path=str(article_path),
+            article_body_sha256=sha256(article["substack_body_markdown"].encode()).hexdigest(),
             derivative_package_intents=intents, derivative_package_intent_count=len(intents))
         record["record_sha256"] = _logical_hash({k:v for k,v in record.items() if k != "record_sha256"})
         record_path = persist_qualified_article_record(root, record)

@@ -114,6 +114,32 @@ def test_retained_native_original_prose_publishes_and_exports_without_rewriting_
     assert {name: (root / name).read_bytes() for name in before} == before
 
 
+@pytest.mark.parametrize("wrong_current_identity", [False, True])
+def test_revised_native_prose_uses_current_body_identity_instead_of_stale_duplicate_hash(tmp_path, wrong_current_identity):
+    import json
+    from live_contentops.newsroom_production_day_v1 import _logical_hash
+    _, transport, coordinator, plan, _, root = native_lifecycle(tmp_path)
+    record_path = root / "qualified_article_record_v1.json"
+    record = json.loads(record_path.read_bytes())
+    record["article_body_sha256"] = "a" * 64  # Retained prior-draft duplicate.
+    if wrong_current_identity:
+        record["article_identity"] = plan["article_identity"] = "b" * 64
+        context_path = root / "run_context_v1.json"
+        context = json.loads(context_path.read_bytes())
+        context["article_identity"] = plan["article_identity"]
+        context_path.write_bytes(canonical(context))
+    record["record_sha256"] = _logical_hash({k: v for k, v in record.items() if k != "record_sha256"})
+    record_path.write_bytes(canonical(record))
+    before = {path.name: path.read_bytes() for path in root.iterdir()}
+    if wrong_current_identity:
+        with pytest.raises(PublishedContentError, match="PUBLIC_REUSE_RIGHTS_NOT_ADMITTED"):
+            coordinator.execute_plan("work-1", plan)
+        assert transport.publish_calls == []
+    else:
+        assert article_metadata(plan)["rights_class"] == "CC_OWN_ANALYSIS"
+    assert {name: (root / name).read_bytes() for name in before} == before
+
+
 @pytest.mark.parametrize("artifact,key,value", [
     ("plan", "source_provenance_binding_preserved", False),
     ("plan", "editorial_classification", "UNVERIFIED"),
