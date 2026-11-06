@@ -1,0 +1,38 @@
+{
+  "searched_data_research": [
+    {
+      "path": "A:\\Capital Chronicle\\data\\research",
+      "exists": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\data\\research",
+      "exists": false
+    }
+  ],
+  "event_research_directories": [
+    "A:\\Capital Chronicle\\ResearchRuns\\claude-main-builder-j-20261102\\cc-071-cpi",
+    "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp",
+    "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp",
+    "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261106-nfp"
+  ],
+  "data_lane_matching_files": [],
+  "backlog_and_archive_searched_for": [
+    "NFP review",
+    "CPI preview",
+    "20261107 nfp",
+    "20261110 cpi"
+  ],
+  "available_now": {
+    "nfp_arrival": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\RESULT.md",
+    "payrolls": 165000,
+    "unemployment_percent": 4.1,
+    "first_seen_utc": "2026-11-06T13:33:00Z",
+    "branch": "Strong report"
+  },
+  "remaining_acceptance": [
+    "NFP review on 7 Nov: what moved when, using the dated Main review",
+    "CPI preview on 10 Nov: model output from its frozen dossier, scheduled at 09:30Z"
+  ],
+  "outside_cause": "DATED_NFP_REVIEW_TIMELINE_AND_CPI_DOSSIER_PENDING",
+  "meaning": "NFP arrival facts are already available and retained for review preparation; no current dated review market timeline or 10 Nov frozen CPI dossier was found. Existing preview output is live and consumed."
+}

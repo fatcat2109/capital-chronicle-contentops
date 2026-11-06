@@ -1,0 +1,82 @@
+{
+  "tool_request_sha256": "3efc1e7c4848d05a97054b0e98e2d9d04bcda7e6e8c5915ea48f3b09a9d2e862",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1b092-b78e-7203-aeb6-664d04f8765a",
+    "observed_at_utc": "2026-11-06T13:33:22.173Z",
+    "observation_source": "linkedin-company-final-public-observation.json; exact public copy, actual redirect targets, public image SHA and decoded-pixel comparisons recorded in this item folder; no public write"
+  },
+  "result": {
+    "request_sha256": "343cd10f8ddef9a1fb0da36f5d11ad1c96cc46aa8e96b86d23a1700496fc186c",
+    "status": "SUCCESS",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:activity:7524462065680285696",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524462065680285696/",
+    "content_verified": true,
+    "media_check_state": "SOURCE_PIXELS_MATCH",
+    "observed_link_resolutions": [
+      {
+        "displayed_url": "https://lnkd.in/gF9suBdT",
+        "target_url": "https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs",
+        "target_verified": true,
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524462065680285696/",
+        "observed_at_utc": "2026-11-06T13:30:54.267Z",
+        "evidence": "Neo resolved the short-link destination page and read its exact canonical target"
+      }
+    ],
+    "observed_text": "Feed post\n\nThis post type can't be boosted.\n\nCapital Chronicle\n\n7m\n\nFollow\n\nNFP preview: why a payroll beat needs help from unemployment\nWhy it matters: Rates: A strong combination could lift the expected Fed path and Treasury yields; weak hiring could lower that path. Firmer wages would complicate an easing interpretation, so pay remains a policy cross-check.\nContext: The strong branch gains credibility if payrolls and unemployment reinforce each other and rates and the dollar follow the firmer-policy interpretation. The weak branch needs employment weakness and a softer expected policy path. A reversal after revisions or wages are examined would challenge either reading; disagreement across markets would weaken a simple headline explanation.\nRead the full brief: https://lnkd.in/gF9suBdT\nAnalysis, not financial advice. Readers decide whether to trade.\nCapital Chronicle may hold positions in the markets it covers.\nSource: BLS.\n\n\u200b\n\u200b\n\u200b\n\u200b",
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "c8b26f95e130c5490da5028837b91ab5f2352d24d5b0c13ed433b34584383a60",
+        "platform_sha256": "358ca7fb119ba34c3bc5862a7554910f2d75ed873efcf5907f210f236c17c127",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQHcVXdngecXPA/feedshare-shrink_800/B56aGxCX6bKAAk-/0/1793971552133?e=1795651200&v=beta&t=08pOdjeymP8ePoAEnITBvg0EAuJIK9xrZuhwT5_7-JU",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524462065680285696/",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "inspection_method": "Decoded RGB comparison against approved source; same aspect and content after platform resizing/compression",
+        "psnr_db": 35.71711386123074,
+        "dimensions": [
+          800,
+          577
+        ],
+        "binary_path": "C:\\Users\\bullw\\Downloads\\cc107-linkedin-member-0.jpg"
+      },
+      {
+        "source_asset_sha256": "2bb1bd99db2b1c6b3f2060ed05d71355ddeb237db4a6f85829ca6b33b6de027a",
+        "platform_sha256": "3d56bce0a8a8795fb22d4a27df9c95f7f7b08811b0e6c4d74ffb02ae70ffbe53",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQE5lpqT-yhD9Q/feedshare-shrink_480/B56aGxCX78IwAY-/0/1793971552243?e=1795651200&v=beta&t=Al-eE-3KwXGsRRlpVavu_jm5qt5fpvoWd2cf_W0FzMA",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524462065680285696/",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "inspection_method": "Decoded RGB comparison against approved source; same aspect and content after platform resizing/compression",
+        "psnr_db": 35.68825491486481,
+        "dimensions": [
+          480,
+          346
+        ],
+        "binary_path": "C:\\Users\\bullw\\Downloads\\cc107-linkedin-member-1.jpg"
+      },
+      {
+        "source_asset_sha256": "f80105d8a1f7a3df2bc67664108fcd7cd0a423f09ad47580a25d8aa32338a74b",
+        "platform_sha256": "56abee508ac38e97d1397b1177048df98915106974607084e268c42635722a6b",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQHfjeTOyc2NoQ/feedshare-shrink_480/B56aGxCX7CIAAY-/0/1793971552201?e=1795651200&v=beta&t=QRT2NeYd6nLlNqa3L2_GRYv-J6WD4yRYwiB2ZUKC0ms",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524462065680285696/",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "inspection_method": "Decoded RGB comparison against approved source; same aspect and content after platform resizing/compression",
+        "psnr_db": 35.22182951288231,
+        "dimensions": [
+          480,
+          346
+        ],
+        "binary_path": "C:\\Users\\bullw\\Downloads\\cc107-linkedin-member-2.jpg"
+      }
+    ],
+    "public_image_urls": [
+      "https://media.licdn.com/dms/image/v2/D5622AQHcVXdngecXPA/feedshare-shrink_800/B56aGxCX6bKAAk-/0/1793971552133?e=1795651200&v=beta&t=08pOdjeymP8ePoAEnITBvg0EAuJIK9xrZuhwT5_7-JU",
+      "https://media.licdn.com/dms/image/v2/D5622AQE5lpqT-yhD9Q/feedshare-shrink_480/B56aGxCX78IwAY-/0/1793971552243?e=1795651200&v=beta&t=Al-eE-3KwXGsRRlpVavu_jm5qt5fpvoWd2cf_W0FzMA",
+      "https://media.licdn.com/dms/image/v2/D5622AQHfjeTOyc2NoQ/feedshare-shrink_480/B56aGxCX7CIAAY-/0/1793971552201?e=1795651200&v=beta&t=QRT2NeYd6nLlNqa3L2_GRYv-J6WD4yRYwiB2ZUKC0ms"
+    ]
+  }
+}

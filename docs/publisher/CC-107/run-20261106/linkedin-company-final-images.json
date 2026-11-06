@@ -1,0 +1,30 @@
+{
+  "images": [
+    {
+      "bytes": 39443,
+      "h": 577,
+      "loaded": true,
+      "sha256": "358ca7fb119ba34c3bc5862a7554910f2d75ed873efcf5907f210f236c17c127",
+      "url": "https://media.licdn.com/dms/image/v2/D5622AQHcVXdngecXPA/feedshare-shrink_800/B56aGxCX6bKAAk-/0/1793971552133?e=1795651200&v=beta&t=08pOdjeymP8ePoAEnITBvg0EAuJIK9xrZuhwT5_7-JU",
+      "w": 800
+    },
+    {
+      "bytes": 14479,
+      "h": 346,
+      "loaded": true,
+      "sha256": "3d56bce0a8a8795fb22d4a27df9c95f7f7b08811b0e6c4d74ffb02ae70ffbe53",
+      "url": "https://media.licdn.com/dms/image/v2/D5622AQE5lpqT-yhD9Q/feedshare-shrink_480/B56aGxCX78IwAY-/0/1793971552243?e=1795651200&v=beta&t=Al-eE-3KwXGsRRlpVavu_jm5qt5fpvoWd2cf_W0FzMA",
+      "w": 480
+    },
+    {
+      "bytes": 15300,
+      "h": 346,
+      "loaded": true,
+      "sha256": "56abee508ac38e97d1397b1177048df98915106974607084e268c42635722a6b",
+      "url": "https://media.licdn.com/dms/image/v2/D5622AQHfjeTOyc2NoQ/feedshare-shrink_480/B56aGxCX7CIAAY-/0/1793971552201?e=1795651200&v=beta&t=QRT2NeYd6nLlNqa3L2_GRYv-J6WD4yRYwiB2ZUKC0ms",
+      "w": 480
+    }
+  ],
+  "observed_at_utc": "2026-11-06T13:33:56.567Z",
+  "url": "https://www.linkedin.com/feed/update/urn:li:activity:7524462065680285696/"
+}
