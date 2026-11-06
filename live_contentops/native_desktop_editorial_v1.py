@@ -302,6 +302,7 @@ def admit_selected_story_context(turn, binding, response):
         raise ValueError("EXACT_FROZEN_CURRENT_INPUT_REQUIRED")
     research = RetainedSourceResearch.from_frozen_snapshot(frozen["research"])
     verified_context = {}
+    from live_contentops.main_report_projection_source_v1 import projection_bytes_already_frozen
     if response.get("retained_research_root"):
         # Already held, governed sources remain usable before writer freeze.
         # The normal adapter verifies capture/policy bytes; clocks below still
@@ -309,7 +310,10 @@ def admit_selected_story_context(turn, binding, response):
         additional = RetainedSourceResearch(response["retained_research_root"])
         if additional.gaps or set(ids) - set(additional.records):
             raise ValueError("EXACT_VERIFIED_RETAINED_CONTEXT_REQUIRED")
-        admitted = additional.evidence({"headline_ids": ids}, cutoff_utc=input_cutoff)
+        admission_cutoff = (datetime.now(timezone.utc).isoformat()
+            if all(projection_bytes_already_frozen(additional.records[i], frozen["research"]["records"]) for i in ids)
+            else input_cutoff)
+        admitted = additional.evidence({"headline_ids": ids}, cutoff_utc=admission_cutoff)
         if not admitted or admitted.get("status") != "PASS":
             raise ValueError("RETAINED_CONTEXT_SOURCE_ADMISSION_REQUIRED")
         verified_context = {d["document_id"]: d for d in admitted.get("evidence_documents", [])}
@@ -329,8 +333,10 @@ def admit_selected_story_context(turn, binding, response):
         record = research.records.get(item_id)
         if not record:
             raise ValueError("CONTEXT_SOURCE_NOT_IN_FROZEN_RESEARCH")
-        if any(_time(record.get(k)) > _time(input_cutoff)
-               for k in ("source_timestamp_utc", "known_at_utc", "revision_at_utc")):
+        held_main_bytes = projection_bytes_already_frozen(record, frozen["research"]["records"])
+        if (any(_time(record.get(k)) > _time(input_cutoff)
+                for k in ("source_timestamp_utc", "known_at_utc"))
+                or (_time(record.get("revision_at_utc")) > _time(input_cutoff) and not held_main_bytes)):
             raise ValueError("CONTEXT_SOURCE_AFTER_FROZEN_CUTOFF")
         permission = record["source_permissions"]
         document = verified_context.get(item_id, record["document"])

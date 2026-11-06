@@ -147,6 +147,34 @@ def test_already_held_verified_context_can_join_before_writer_freeze(tmp_path, m
     assert result["new_source_requests"] == 0
 
 
+@pytest.mark.parametrize("same_bytes", [True, False])
+def test_new_excerpt_of_held_main_report_keeps_real_admission_clock(tmp_path, monkeypatch, same_bytes):
+    from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+    from live_contentops.main_report_projection_source_v1 import PLATFORM
+    def main_record(record):
+        record.update(source_platform=PLATFORM,
+            research_metadata={"source_hashes": {"retained-report.md": "a" * 64}})
+    turn, binding, response, _ = seeded(tmp_path, monkeypatch, main_record)
+    frozen = json.loads(turn.store.get_outbox_message("native-current-input-" + sha256_of(turn.run_id))["payload"])
+    record = deepcopy(frozen["research"]["records"]["prior-context"])
+    record["revision_at_utc"] = "2026-08-27T00:00:00Z"
+    if not same_bytes:
+        record["research_metadata"]["source_hashes"]["retained-report.md"] = "b" * 64
+    def verified_init(self, root, **kwargs):
+        self.root, self.records, self.revision, self.gaps = tmp_path, {"new-excerpt": record}, "controlled", []
+    monkeypatch.setattr(RetainedSourceResearch, "__init__", verified_init)
+    monkeypatch.setattr(RetainedSourceResearch, "evidence", lambda self, request, **kwargs:
+        {"status": "PASS", "evidence_documents": [{**record["document"], "document_id": "new-excerpt"}]})
+    response.update(retained_research_root="CONTROLLED_HELD_MAIN", supporting_headline_ids=["new-excerpt"])
+    if not same_bytes:
+        with pytest.raises(ValueError, match="AFTER_FROZEN_CUTOFF"):
+            entry().operation(binding, command="recover-sources", response=response)
+        return
+    result = entry().operation(binding, command="recover-sources", response=response)
+    assert result["new_source_requests"] == 0
+    assert turn.source_recovery()["context_documents"][0]["revision_at_utc"] == "2026-08-27T00:00:00Z"
+
+
 def test_governed_history_does_not_exhaust_the_primary_context_source_bound(tmp_path, monkeypatch):
     turn, binding, response, args = seeded(tmp_path, monkeypatch, history_docs=3)
     result = entry().operation(binding, command="recover-sources", response=response)

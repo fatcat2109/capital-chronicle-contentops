@@ -119,3 +119,15 @@ def projection_evidence(records, request):
             "report_scope_notice": "This is a retrospective of Capital Chronicle's dated dossier and review, not a performance record."},
         "provenance": {"request_count_for_call": 0, "new_external_acquisition": False,
             "retrieval_method": "EXACT_RETAINED_MAIN_REPORT_PUBLIC_SPANS"}}
+
+
+def projection_bytes_already_frozen(record, frozen_records):
+    """A new excerpt of the exact held report is not a later factual observation."""
+    if record.get("source_platform") != PLATFORM:
+        return False
+    hashes = record.get("research_metadata", {}).get("source_hashes") or {}
+    held = {}
+    for prior in frozen_records.values():
+        if prior.get("source_platform") == PLATFORM:
+            held.update(prior.get("research_metadata", {}).get("source_hashes") or {})
+    return bool(hashes) and all(held.get(path) == digest for path, digest in hashes.items())
