@@ -22,6 +22,13 @@ The affected source/renderer checks also pass: 24 production-day/TradingView,
 JUnit results are saved alongside this file. These selections use isolated
 stores and fixture transports; they do not claim any new public article.
 
+All 30 read-model regressions pass in six bounded selections. The final merged
+feature selection passes 49 checks (48 CC-333 and the preserved CC-306 FILLED
+export regression), in 32.24 seconds. It includes the actual current read model
+showing the two-article ceiling with no deficit against the superseded target.
+The operating root's intervening CC-306 commit
+`e3ec0779fb06bab4b0aadcdfb37adadeb86ae15c` is retained by the merge.
+
 The branch uses the operating root's `17836e3330e09b98d7b0f2cf7dd34389c345d94a`
 source, preserving the Publisher consumers already 610 commits ahead of the
 fresh remote default. This permits a forward integration into that live root.

@@ -256,6 +256,23 @@ def test_current_daily_consumer_uses_the_two_article_ceiling(tmp_path):
     assert snapshot.remaining_published_deficit == 0
 
 
+def test_current_read_model_shows_the_ceiling_without_an_old_output_deficit(tmp_path):
+    from live_contentops.continuous_headline_ingest_v1 import OUTCOME_CAPTURED_NONE, write_ingestion_checkpoint
+    from live_contentops.daily_app_ui_read_model_v1 import build_daily_app_snapshot
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    store = ContentOpsDurableStore(tmp_path / "read-model.sqlite3", now_fn=lambda: NOW)
+    store.upsert_heartbeat("daily-supervisor")
+    write_ingestion_checkpoint(store, now=NOW, last_success_epoch=NOW.timestamp(),
+        last_attempt_epoch=NOW.timestamp(), outcome_code=OUTCOME_CAPTURED_NONE, consecutive_empty=1, rows_iteration=0)
+    snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+    assert snapshot["today"]["final_published_target_min"] == 0
+    assert snapshot["today"]["final_published_target_max"] == 2
+    assert snapshot["today"]["remaining_published_deficit"] == 0
+    cockpit = snapshot["runtime"]["operator_cockpit"]
+    assert cockpit["output_health"] == "WITHIN_DAILY_ARTICLE_CAP"
+    assert cockpit["schedule"]["idle_healthy"] is True
+
+
 def test_native_action_begin_rechecks_image_policy_without_claiming_a_bad_write(tmp_path, monkeypatch):
     from live_contentops import published_content_v1 as feed
     from live_contentops import llm_operator_control_v1 as control

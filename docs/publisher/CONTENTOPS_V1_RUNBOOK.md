@@ -1,5 +1,18 @@
 # ContentOps V1 runbook: a finished piece to every destination
 
+Current amendment, 6 Nov 2026 (CC-333, Jim decision 93): new articles, event pieces
+included, are capped at two per existing production day; CC-124 checks every six
+hours. Every new article needs an unused content image and a Main-sourced
+Scenarios section. Missing/reused images are refused before a fresh write, which
+supersedes the older image-failure fallback below. Set `article.market_asset`
+before the existing media binding owner captures CC-316's TradingView snapshot
+and before publication registration freezes media ids. Market pieces lead with
+it; release pieces keep their release card first. Supply source-bound
+`article.scenario_analysis` and the authored `article.social_scenarios` base and
+alternative lines. The existing compiler distributes both lines. Readback and
+UNKNOWN_WRITE recovery remain available. See [CC-333](CC-333/README.md) and root
+`AGENTS.md` for source, credit, probability and ET requirements.
+
 Written by the ContentOps V1 lane on 4 Nov 2026 for Codex Publisher; updated 4 Nov 23:00 GMT+7.
 Live tags it describes: `contentops-live-20261104-cc199-v1-lane-c` (V1 fixes),
 `contentops-live-20261104-cc245-fact-cards` and `contentops-live-20261104-cc245-data-cards`
