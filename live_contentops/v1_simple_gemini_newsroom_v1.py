@@ -1571,7 +1571,11 @@ def _epistemic_copy_blockers(
             blockers.append(str(exc))
     if epistemic_state.get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT" and not desk_only:
         notice = str(epistemic_state.get("report_scope_notice") or "")
-        if not notice or notice not in str(article.get("substack_body_markdown") or ""):
+        # The public equivalent omits the internal producer name. Preserve all
+        # substantive limits from an older frozen packet, without requiring its
+        # internal label to appear in reader-facing prose.
+        notice_forms = {notice, notice.replace("dated Main report", "dated review")}
+        if not notice or not any(form in str(article.get("substack_body_markdown") or "") for form in notice_forms):
             blockers.append("report_horizon_proxy_cost_limits_missing")
     if blockers:
         return blockers
@@ -1636,7 +1640,17 @@ def _epistemic_copy_blockers(
                 clean,
                 re.IGNORECASE,
             )
-            if conditional is None and not any(
+            # CC-124: the opening already names the dated Main review. Natural
+            # references to that same document retain attribution without forcing
+            # the publisher's full name into every paragraph. Exact source/claim
+            # validation still applies; unattributed event assertions still fail.
+            report_reference = (
+                epistemic_state.get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT"
+                and re.search(r"\b(?:the|this|its) (?:dated )?(?:review|report) "
+                              r"(?:says|records|describes|notes|finds|takes|weighs|names|treats)\b",
+                              clean, re.IGNORECASE)
+            )
+            if conditional is None and not report_reference and not any(
                 token in _normal(clean) for token in attribution_tokens
             ):
                 blockers.append(f"epistemic_event_asserted_as_confirmed:{index}")

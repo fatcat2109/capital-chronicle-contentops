@@ -478,9 +478,10 @@ def test_unconfirmed_native_preview_uses_complete_conditional_watch_sentences():
     x_metrics = bundle["packages"]["x"]["quality_metrics"]
     assert x_metrics["sentence_boundary_pass"] is True
     assert x_metrics["orphan_fragment_count"] == 0
-    assert bundle["packages"]["x"]["reply_texts"][-1].endswith(
-        "Watch: Independent confirmation or denial is the next watch point."
-    )
+    replies = bundle["packages"]["x"]["reply_texts"]
+    assert any(reply.endswith("Watch: Independent confirmation or denial is the next watch point.")
+               for reply in replies)
+    assert replies[-1].endswith("Capital Chronicle may hold positions in the markets it covers.")
     assert len(intents) == 8
 
 

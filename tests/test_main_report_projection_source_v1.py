@@ -150,3 +150,38 @@ def test_native_synthesis_prose_feeds_existing_public_card(tmp_path, monkeypatch
     asset = build_post_data_card(article, claims, docs, output_dir=tmp_path / "media")
     validate_post_data_card(asset, article, docs)
     assert asset["data_card_packet"]["facts"][0]["text"] in text
+
+
+@pytest.mark.parametrize("paragraph,attributed", [
+    ("The review records gold falling even as yields fell.", True),
+    ("The review says gold and yields fell together.", True),
+    ("Gold and yields fell together.", False),
+])
+def test_main_review_attribution_survives_natural_document_references(tmp_path, monkeypatch, paragraph, attributed):
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _epistemic_copy_blockers
+    root, _, spec = retained(tmp_path, monkeypatch, native=True)
+    records = list(RetainedSourceResearch(root).records.values())
+    state = projection.projection_evidence(records, {})["epistemic_state"]
+    state["event_proposition"] = "Gold and yields fell together."
+    article = {key: "Capital Chronicle reviews gold and yields" for key in
+               ("title", "dek", "search_title", "meta_description", "social_hook")}
+    article["substack_body_markdown"] = ("Capital Chronicle reviews gold and yields.\n\n" + paragraph
+                                         + "\n\n" + state["report_scope_notice"])
+    blockers = _epistemic_copy_blockers(article, [], state)
+    assert ("epistemic_event_asserted_as_confirmed:2" not in blockers) is attributed
+
+
+@pytest.mark.parametrize("keep_limits", [True, False])
+def test_public_review_notice_keeps_frozen_packet_limits_without_internal_producer_name(tmp_path, monkeypatch, keep_limits):
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _epistemic_copy_blockers
+    root, _, _ = retained(tmp_path, monkeypatch, native=True)
+    records = list(RetainedSourceResearch(root).records.values())
+    state = projection.projection_evidence(records, {})["epistemic_state"]
+    state["report_scope_notice"] = ("Capital Chronicle's dated Main report provides analysis, "
+                                    "not independently confirmed event facts or a performance record.")
+    article = {key: "Capital Chronicle reviews the dated report" for key in
+               ("title", "dek", "search_title", "meta_description", "social_hook")}
+    notice = state["report_scope_notice"].replace("dated Main report", "dated review")
+    article["substack_body_markdown"] = "Capital Chronicle reviews the report.\n\n" + (notice if keep_limits else "")
+    blockers = _epistemic_copy_blockers(article, [], state)
+    assert ("report_horizon_proxy_cost_limits_missing" not in blockers) is keep_limits

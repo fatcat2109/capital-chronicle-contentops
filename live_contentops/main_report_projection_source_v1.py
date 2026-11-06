@@ -142,7 +142,7 @@ def projection_evidence(records, request):
             "supporting_document_ids": [d["document_id"] for d in docs], "analysis_must_be_conditional": True,
             "underlying_event_may_be_stated_as_confirmed": False, "authority_granted_by_adapter": False,
             "public_write_authority": False,
-            "report_scope_notice": "Capital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record."},
+            "report_scope_notice": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record."},
         "provenance": {"request_count_for_call": 0, "new_external_acquisition": False,
             "retrieval_method": "EXACT_RETAINED_MAIN_REPORT_PUBLIC_SPANS"}}
 
