@@ -1,0 +1,412 @@
+{
+  "recorded_at_utc": "2026-11-06T14:55:40.122433+00:00",
+  "register": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_images_v1.jsonl",
+  "retained": {
+    "dispatches_inspected": 245,
+    "register_rows_added": 0,
+    "image_occurrences": 324,
+    "without_bound_image": [
+      {
+        "dispatch_id": "dispatch_f965293955e07056cf91494d96299351",
+        "platform": "substack",
+        "context_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\canary_evidence\\TASK_V1_SIMPLE_CANONICAL_X_RELAY_RUMOR_ACCEPTANCE_20260828T142100Z\\run_context_v1.json",
+        "context_exists": true
+      },
+      {
+        "dispatch_id": "dispatch_1705e85f2ee188822296f79233a22b6b",
+        "platform": "substack",
+        "context_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\simple_gemini_scheduler_v1\\product-first-canary-fix2-20260830T211000Z\\run_context_v1.json",
+        "context_exists": true
+      },
+      {
+        "dispatch_id": "dispatch_065208a98b5a96d7f7c34c70b66f59b6",
+        "platform": "substack",
+        "context_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\simple_gemini_scheduler_v1\\newsroom-production-day-2026-09-01-bangkok\\editorial-window-dadf3d6ba4360f4f2f836dc5ea70ba21\\simple-gemini-slot-0d7759a868f5775ac747a8831a84dac6\\run_context_v1.json",
+        "context_exists": true
+      },
+      {
+        "dispatch_id": "dispatch_fbdd4eeaf6eb710d3e4361a4fd8c4e8c",
+        "platform": "substack",
+        "context_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\simple_gemini_scheduler_v1\\newsroom-production-day-2026-09-01-bangkok\\editorial-window-b5f6ab9f1f25c79ce802aa8570720b4c\\simple-gemini-slot-9ee4cbb24033d4f1ad09c3ded0bb95df\\run_context_v1.json",
+        "context_exists": true
+      },
+      {
+        "dispatch_id": "dispatch_61e1c3551501afee92efad2c69c2b1d1",
+        "platform": "substack",
+        "context_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a\\reviewed-handoff\\ea18bb4724470d8440aea1718abc0c18c32befac1c8ba9a56b0f457fad85d305\\run_context_v1.json",
+        "context_exists": true
+      }
+    ],
+    "gaps": []
+  },
+  "public": {
+    "articles_inspected": 22,
+    "register_rows_added": 0,
+    "unique_images": 51,
+    "images": [
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\12e8ceeaaa9297c804c97f78d86ea366d1b78144df2043ae48a61d45fa164331.image",
+        "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+        "perceptual_hash": "6b31c3e7610c972c",
+        "width": 635,
+        "height": 900
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\ecb513bed93574aa03a012827b01f6d55dfd0c18d4cc3e840455a09bb2c17c2e.image",
+        "sha256": "c8b26f95e130c5490da5028837b91ab5f2352d24d5b0c13ed433b34584383a60",
+        "perceptual_hash": "5e63611c46e3b91c",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\cd9438f9cddc7e7c3bdf1c6673efdf1ebfea8182078d4554b19c612b9e2e857d.image",
+        "sha256": "2bb1bd99db2b1c6b3f2060ed05d71355ddeb237db4a6f85829ca6b33b6de027a",
+        "perceptual_hash": "926ca4926c69b9b6",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\4a0982ab10a8a47ae3302ac218f04039c2fac88f84815e4724ed06859aec2d79.image",
+        "sha256": "f80105d8a1f7a3df2bc67664108fcd7cd0a423f09ad47580a25d8aa32338a74b",
+        "perceptual_hash": "24b45684c4fcb4fc",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\c5b5e650d063e74a6aee20096d03e2e4d167e7aca7d00ce25843dcd1f6a77a39.image",
+        "sha256": "ba9929cbf2a4809c800778057e70a27ae0b1734601cabb28a9dfc19f30e49008",
+        "perceptual_hash": "03134b5b748bb4f4",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\5db55ef56c10501bb3bad748c8e724ebb22092cffff7a427092ed1ef9b1a58d5.image",
+        "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+        "perceptual_hash": "a4fd73d0946df100",
+        "width": 1512,
+        "height": 996
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\e9730fdd28363579e467b4920ef773b90527e3367f2e2f1f24a23f00b183fd3f.image",
+        "sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+        "perceptual_hash": "960b294b782e1cfc",
+        "width": 1080,
+        "height": 1350
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\fe85fdf0f38546dfd6127769870767261a0fbd1c84289fd2b801243d97aebbb8.image",
+        "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+        "perceptual_hash": "ee6f5805d3e294c0",
+        "width": 3000,
+        "height": 2041
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\61c3dbb4af40c18c5553036281c2cddc21913ff76f4c80f23883c5bcb2e8e8e8.image",
+        "sha256": "cce5a0dde9bee65fdc247c96ae95bedac121d176185163e5b2f16d58a00ceda4",
+        "perceptual_hash": "b8fc0b03160b5cfc",
+        "width": 1080,
+        "height": 1350
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\13c0fd5e66305a4ddc4a548ec712c040ff142bea1b524a495fd6268669c0d4dd.image",
+        "sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+        "perceptual_hash": "cf906acf92666590",
+        "width": 3000,
+        "height": 1556
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\ccd370c5e8b9e482894c774600b38dab05bf3c20c9952c1bfbc0d9d433918aa1.image",
+        "sha256": "c6d5bd2281debc7e8be8e68419de41d9f0722db5a2671005abddba91f5e90556",
+        "perceptual_hash": "0303b5391e497cfc",
+        "width": 1080,
+        "height": 1350
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\ef5a4c007282183d10b626970cf8ec660ec3763732118388c0c18a5a6e4b84b9.image",
+        "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+        "perceptual_hash": "ee6f5805d3e294c0",
+        "width": 3000,
+        "height": 2041
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\2c4aa94f708d884b936fe611902a75319f22a97d1dc7a18da0f3642dce243988.image",
+        "sha256": "cd03c211d8098620cfff4f4752f4c8e8abe4361b96be84f977e10af962ce429d",
+        "perceptual_hash": "a65c52a6acad92d4",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\d76d729002bf3a6ca9d3eca0c005774c305429dae96f544a96e6bd05d08f9d9f.image",
+        "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+        "perceptual_hash": "ee6f5805d3e294c0",
+        "width": 3000,
+        "height": 2041
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\a01ad27a078a60dcc0f807ad8ec9474efa766024bab77a904830a5afb96f6861.image",
+        "sha256": "cd75d01f410ebe235b42cfb0f0718250992ee46b2b2b19e941fbc8b9bc31d8c3",
+        "perceptual_hash": "1e6ce484d8eca4f4",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\320786d5c2c0e9a8a057521ae392aeb750de401c61d00dfd4fb6704e20931369.image",
+        "sha256": "26a1d3b5300f7b76c35a4afd4aaf398f7c5cf0b92a3b990e643dbb3eeba800d0",
+        "perceptual_hash": "926ca6926c69b8b6",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\cdccbd8fd49f72f34552615713f0c26a55b8ea46fb40377a205ee27f0439749b.image",
+        "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+        "perceptual_hash": "ee6f5805d3e294c0",
+        "width": 3000,
+        "height": 2041
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\171acf62dd9474ef6b3f5199df366c1d379a18934e56f717c2d0ce267206ada6.image",
+        "sha256": "917dd568113956f0f3bfc58cd428c26f853e4c42065ada91b8be5f1b9335828d",
+        "perceptual_hash": "7a646c2470ec6cf4",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\cfc7392289f3adbf8f74969c4c4a36ef115b27e75fc29bac7984f239fc1c07c7.image",
+        "sha256": "ce136ff3711c4f29c8c2e426f393b9d6f369e47eab557ba17c0ee56282624e71",
+        "perceptual_hash": "346466a4b07cacfc",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\5d7eea8c24843b69e12f98f8cc8cd3657ba7c3626ff0190bf5a628f141b6f02c.image",
+        "sha256": "6348caab1b2bd98987f966095ab3ff3564ae739ec68498698af96d9fdb3912c7",
+        "perceptual_hash": "0b43534b698bb4f4",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\e6b69243a33f60fd597083ba6f5d5ce40c469649d70d4ccc8aeb03d289670fe1.image",
+        "sha256": "3fb037489bd491bf23dc9a77f52d7a9ee5ea7d5b6f15f70bd3f64bde1f95d131",
+        "perceptual_hash": "a7d173721b8c2552",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\6321f68aa5b870efd081b41a9c18d996a4d5ef62575cf717a55879a6604558f3.image",
+        "sha256": "186518c20f3540959f7e8e67e1b9001531c3d1fcd80bbdf316bfda85ddc9641c",
+        "perceptual_hash": "4356fca8a8a989dc",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\94d0eb1a4d0139c9e7b8ada525134d612a519988309075e9d85057e2f21b821d.image",
+        "sha256": "5c585296a88af4f7dd0236ef1aef8d8df4a19c2b7c68832a26b6c31e15126a20",
+        "perceptual_hash": "a9d276a4d989a456",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\32692218b8c7f6cf501fdddf8897fabfb0b8761beb00e8975760b97aa8d4eac9.image",
+        "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+        "perceptual_hash": "a4fd73d0946df100",
+        "width": 1512,
+        "height": 996
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\3d8980d4cf13bba611f1b93d448ffeb127bd9c7010e2e2821ebf6d2fc44d35ce.image",
+        "sha256": "3fd1279dc693f2f944e3287b21ad097cecfe009a0bbd28abb726625837b17b05",
+        "perceptual_hash": "2ce693044cfdad54",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\057a93eae25326ba0ca09ea3be7f1c90e500f8b70ff313b95d50533f78059aea.image",
+        "sha256": "f26130fee940bb901e915a2f01052714626ac76981a06180292426fd7ee1fc0a",
+        "perceptual_hash": "8ce4708cccff2954",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\c456448a04b2be6eb58dfb666813ed4dadcc768cee1f859832797d1f74442466.image",
+        "sha256": "da0edf255f7ef21bc7aae7ee576930abdefacb8888a9bc5e20ccc570ce0a32ae",
+        "perceptual_hash": "09d6d6c926ac9956",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\00f8150311405f44e6dc068741c6008e5a0b2c16b9511d16a49b415f35e42cdb.image",
+        "sha256": "f7e598c6d153ee2d9e7e8aee9099252e1bd3d6dfd6d220f4b518b8777c66142f",
+        "perceptual_hash": "099696d926ad89d6",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\576b83d12c8878d409bf5addc1dd9e9804501aacec7d192e47ce34c3d3ac1891.image",
+        "sha256": "1e4dbe6e91df326a5e2616227417a0c716d2f5f73077db505459003eaa6ae7b6",
+        "perceptual_hash": "88dc586323a3d8fc",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\0bc376f338994a746b3322873575a443a77b49dfe7313f3f1a93c53f083c0f09.image",
+        "sha256": "b9fa7836236d141dd3b01bf0608d4cabc76e52bcc9212da25f1798f11e1872fb",
+        "perceptual_hash": "cec68e8686c2cecc",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\ead5b92fe46a37e036aed7d2b2ced47091f1d2a8508b2976ff00c2dd30d72c53.image",
+        "sha256": "240c8f6dc5ecea0d75af69517be776603ca3c9f69d0b15d13f120b91671fdec5",
+        "perceptual_hash": "d1dc7e0b8101767c",
+        "width": 1080,
+        "height": 1350
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\d80d19afba813cf493eb5b8372ba62ac0a8dd17a5d8868e528aa07f319bdb10b.image",
+        "sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+        "perceptual_hash": "db9b2f3344e99108",
+        "width": 640,
+        "height": 427
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\651a7d9a3f798663dc97c5b344adeeb1dd8ab2d52d1dc27c68e4feec72531665.image",
+        "sha256": "1ad9c7cf904ad2462f819ff1f1adf519fc32c307e51e4ffe3eb0910e026856b8",
+        "perceptual_hash": "63cd66f6983160cc",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\c8a6739f2a124fee55b6e1aea63f146d0448872097a4f791bc77eb4f90298f7d.image",
+        "sha256": "8a7418f4ebadca2995bae77616a58f953216eb5aca6b50abe8eca1cda77d8c11",
+        "perceptual_hash": "649c92f45cbca4d4",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\a3ceb1ccaaa62ce086495ee94b628c2fb53181761049a3f7308eda942b3d8de8.image",
+        "sha256": "bb1cbcd0019bbd39258e98308cd87889744b964dceb2b7714b26de15ac55cdad",
+        "perceptual_hash": "96c61631e931d6cc",
+        "width": 1440,
+        "height": 1456
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\7329b785c82fc7d11fc6bd0c7f98cef9fa560ee7f91ea1908b2236ae922cdbd4.image",
+        "sha256": "5767e87f663799e6d242c2a6bde246807e75a533f4e499d2dfc54347fb04642f",
+        "perceptual_hash": "e20646e6c6cec6cc",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\dca32b8d63583d631c899677bdeff1d2d32823300881248a39e2bb7455253787.image",
+        "sha256": "08d235a8b5183a1f717ddec110e4afa8c4e27f469b21ea6efdcf0ec957dc7922",
+        "perceptual_hash": "1e63a99c06e3b91c",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\383812b03e32f9646bbf1e5d202dd8022c721a38f5436612ad9ab91b6f145e8e.image",
+        "sha256": "9c3edc1443778895f6884781458ffd28d92e7823700ab4539e4b2ea74e26c12b",
+        "perceptual_hash": "926ca4926c69b9b6",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\316997e167729756323e12681fc9dc74457c40e26d3d887eede8798360090e56.image",
+        "sha256": "8f5f4ba6cc1ea167aa0773f505460e056078ac3bbb5c5ad19f0e797c58c3a53f",
+        "perceptual_hash": "24b45ee4247c2cfc",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\b4d736ed45f7794c1772fa2f1fbae7f2b9b0adecd093b001cd5437696ae57933.image",
+        "sha256": "5924ccd31418cb17d66a43319277f239b3d8514b10cbdff00d177f4277ea6801",
+        "perceptual_hash": "89de21a15e83a97c",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\a5bf863a9da02f70b5134dacb9d26a3748e7d41fec2a190f9425a427e24378c6.image",
+        "sha256": "869a7af9a3d8a9ad2f1bd3497ad3c3ec7ad3b9032b588c55076d0dbe3f71b204",
+        "perceptual_hash": "0718f8c39a4767b8",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\59923660c494c7f7362d1f0486ae0735bcd5b77093fc2e568b0c9fe2d965d710.image",
+        "sha256": "19a3be6aee33fdf7c6043044386c268b4fba35f6c981882ba82b740b8a0da470",
+        "perceptual_hash": "cf906acf92666590",
+        "width": 3000,
+        "height": 1556
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\00c11a12eda9f3b0748470dc78d2eeb50118218b5de83cdd7968b1177574b53c.image",
+        "sha256": "f230c117cc279bde0718c094aaf70d4b1c8efae377f4ccacb78c222066fac4f1",
+        "perceptual_hash": "988907891676f8fc",
+        "width": 800,
+        "height": 1280
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\66b8238db54effdb96380335afa9a715f4a0baa1fe3b9b898b65b4b56eb3525b.image",
+        "sha256": "0076410f9826b8b03bb26a63a9e08c016ac0316f6424bb48607fee5f1e38157d",
+        "perceptual_hash": "3f8bf0c60ef08076",
+        "width": 5364,
+        "height": 3334
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\abfee6ac0877d843ee25ed932166592de9ef3b4b0accbf5c1e13f0de8dfa8383.image",
+        "sha256": "2e94bde55b4ba794b39c25cc31d4cd2a49a99359bb7545ec5d0305f6111617cc",
+        "perceptual_hash": "a4a1d6b4b4a4b4dc",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\292d5b41a95367612e5103091bae2208565a30d70da3ea72880f3776ade4efda.image",
+        "sha256": "b4b200688c3491920f314fb68d54a1455f3e0189ed72bdb561bcffadd1a0dbb6",
+        "perceptual_hash": "dca1f2b4542cacd4",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\6294fe54879e6079d1b6a87f568c695eef1b333148b9148d178b82b6f5434019.image",
+        "sha256": "45af728560c668a3aee17a095ef289cc99b7e1e7cb013caa7e5bd3f39311ba99",
+        "perceptual_hash": "24d6d6a42979d686",
+        "width": 1440,
+        "height": 1040
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\3a9955af52bd331775231e3c8da1b48d4a66ae136a3c62d2293fa56422bec4c4.image",
+        "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+        "perceptual_hash": "6b31c3e7610c972c",
+        "width": 635,
+        "height": 900
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\27fc3fe5c0623429cd191096cbac4c36b4d09605d9ab05fe7669cccad3c706db.image",
+        "sha256": "4110ee29075a70c5ef1fde96342c2a3405c4c4b9394f76b4357b409b431e3789",
+        "perceptual_hash": "39c65636893936c6",
+        "width": 1500,
+        "height": 1300
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\6c25fcf5c5196f701d3085003871a9aab916c21e42ef716c51e221754e26b38b.image",
+        "sha256": "5b4223d7feee9476decf997e3a788f640ba68a223cd5318999ef52124433d851",
+        "perceptual_hash": "615696bc48e2745e",
+        "width": 1500,
+        "height": 1300
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc333-image-audit\\media\\63dadce9e1f4d9f385bbd66b9a68737221eb54284cfc54ffeebdd68a5b4facbe.image",
+        "sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+        "perceptual_hash": "db9b2f3344e99108",
+        "width": 640,
+        "height": 427
+      }
+    ],
+    "gaps": []
+  },
+  "register_summary": {
+    "active_records": 262,
+    "distinct_exact_images": 63,
+    "distinct_perceptual_hashes": 62
+  }
+}
