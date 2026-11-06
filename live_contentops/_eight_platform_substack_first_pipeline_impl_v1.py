@@ -4440,7 +4440,9 @@ def _publish_one_destination_from_durable_intent(
             }
             _write_json(output_dir / "delivery_media_manifest_v1.json", delivery)
         return result
-    if not canonical_url:
+    # Decision 83 (CC-315): a plan-status post carries no link at all, so it has no canonical URL.
+    # Only an article copy needs the confirmed Substack post (6 Nov: every status post was refused here).
+    if not canonical_url and not intent.get("plan_status_post"):
         return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True,
                 "reason_code": "CANONICAL_SUBSTACK_URL_UNAVAILABLE"}
     text = str((payloads.get(destination) or {}).get("text") or "")
