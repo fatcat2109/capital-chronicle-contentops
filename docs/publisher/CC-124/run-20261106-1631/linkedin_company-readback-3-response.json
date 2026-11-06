@@ -1,0 +1,50 @@
+{
+  "tool_request_sha256": "6ba15162bdb536d05e3e2f3680687b5ccf75e83d7b31568b4098442cff8f144d",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-06T11:08:08.826Z",
+    "observation_source": "Exact public-object Neo readback; X redirect and LinkedIn external-link interstitial destination anchors verify the canonical. Platform image binaries were compared and viewed; see observation, redirect and media evidence."
+  },
+  "result": {
+    "request_sha256": "66b1fb434735fcc3106454f3c332b562afb4e75616b6786f124895f0d4806bb0",
+    "status": "SUCCESS",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:activity:7524425901736964096",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524425901736964096/",
+    "observed_text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://lnkd.in/gT6yH3cv\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "content_verified": true,
+    "public_write_performed": false,
+    "media_comparisons": [
+      {
+        "destination": "linkedin_company",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524425901736964096/",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQHaJ7LB-Jg5TA/feedshare-shrink_800/B56aGwhfQ_IkAg-/0/1793962931488?e=1795651200&v=beta&t=1Rq86AKP1W6vPinM06ayMF5vI3hbN3yvf9HDnO0YoZE",
+        "binary_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\readback\\linkedin_company.jpg",
+        "platform_sha256": "273c38c76a0cf738b6fb5d0154adedb3f45deee2909d5f0782faefe8c77edb72",
+        "source_asset_sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+        "bytes": 90435,
+        "mime_type": "image/jpeg",
+        "width": 800,
+        "height": 1000,
+        "visual_similarity": 0.9982,
+        "dimension_ratio_matches": true,
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "pixel_inspection": "All title, three dated-review facts, source date and footer match the approved card; platform resizes/compression retained. LinkedIn member and company bytes are identical."
+      }
+    ],
+    "public_image_urls": [
+      "https://media.licdn.com/dms/image/v2/D5622AQHaJ7LB-Jg5TA/feedshare-shrink_800/B56aGwhfQ_IkAg-/0/1793962931488?e=1795651200&v=beta&t=1Rq86AKP1W6vPinM06ayMF5vI3hbN3yvf9HDnO0YoZE"
+    ],
+    "observed_link_resolutions": [
+      {
+        "displayed_url": "https://lnkd.in/gT6yH3cv",
+        "target_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+        "target_verified": true,
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524425901736964096/"
+      }
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "tool_request_sha256": "ace5f7816823072e7a5230ec0e1fd9733b22b80d381eefe2cdf7b8980b13f0a7",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-06T11:07:25.660Z",
+    "observation_source": "Exact public-object Neo readback; X redirect and LinkedIn external-link interstitial destination anchors verify the canonical. Platform image binaries were compared and viewed; see observation, redirect and media evidence."
+  },
+  "result": {
+    "request_sha256": "772f231eb4f44929e7dc142d2d9c3b0b968fd9d48e3435da5b532f7369977fb9",
+    "status": "SUCCESS",
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2118656322845769835",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118656322845769835",
+    "observed_text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\n\nhttps://\ncapitalchronicle.substack.com/p/capital-chro\nnicles-pre-payrolls-review\n\u2026\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link. Watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+    "content_verified": true,
+    "public_write_performed": false,
+    "media_comparisons": [
+      {
+        "destination": "x",
+        "public_object_url": "https://x.com/Capitalnicle/status/2118656322845769835",
+        "public_image_url": "https://pbs.twimg.com/media/HWb6UqGbsAACsza?format=png&name=small",
+        "binary_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\readback\\x.png",
+        "platform_sha256": "5338496dfc30d377023cbbeaaa5a5f4434f5bac514d8c840dc62a88087d19eb8",
+        "source_asset_sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+        "bytes": 164354,
+        "mime_type": "image/png",
+        "width": 544,
+        "height": 680,
+        "visual_similarity": 0.999,
+        "dimension_ratio_matches": true,
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "pixel_inspection": "All title, three dated-review facts, source date and footer match the approved card; platform resizes/compression retained. LinkedIn member and company bytes are identical."
+      }
+    ],
+    "public_image_urls": [
+      "https://pbs.twimg.com/media/HWb6UqGbsAACsza?format=png&name=small"
+    ],
+    "observed_link_resolutions": [
+      {
+        "short_url": "https://t.co/hzB8iY4ai7",
+        "displayed_url": "https://\ncapitalchronicle.substack.com/p/capital-chro\nnicles-pre-payrolls-review\n\u2026",
+        "displayed_text": "https://\ncapitalchronicle.substack.com/p/capital-chro\nnicles-pre-payrolls-review\n\u2026",
+        "target_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+        "target_verified": true,
+        "public_object_url": "https://x.com/Capitalnicle/status/2118656322845769835"
+      }
+    ],
+    "observed_thread": [
+      {
+        "public_object_url": "https://x.com/Capitalnicle/status/2118656322845769835",
+        "public_object_id": "2118656322845769835",
+        "observed_text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\n\nhttps://\ncapitalchronicle.substack.com/p/capital-chro\nnicles-pre-payrolls-review\n\u2026"
+      },
+      {
+        "public_object_url": "https://x.com/Capitalnicle/status/2118656325576171894",
+        "public_object_id": "2118656325576171894",
+        "observed_text": "Capital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link. Watch: The review says gold made no lower low and had stopped following the dollar leg."
+      },
+      {
+        "public_object_url": "https://x.com/Capitalnicle/status/2118656327757246475",
+        "public_object_id": "2118656327757246475",
+        "observed_text": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers."
+      }
+    ]
+  }
+}
