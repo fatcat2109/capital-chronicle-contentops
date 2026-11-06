@@ -81,7 +81,7 @@ insufficient. Upload uses Neo's upload tool or file-chooser interception only.
 An unsupported attachment control is reported before publishing; it never opens
 a native file dialog or quietly substitutes another file.
 
-[Validation](validation.json) contains **187 distinct passing checks**, deduplicated
+[Validation](validation.json) contains **190 distinct passing checks**, deduplicated
 across the targeted JUnit files. The final feature selection is 31 tests in 42.74
 seconds. All 83 native-executor regressions pass in five serial selections; a
 preceding whole-file run hit the 55-second load limit and was stopped. The writer
@@ -98,3 +98,13 @@ find no issued G05 public file. The first outside cause is
 hash; Publisher then resumes this item to publish the CPI preview by 10 November
 18:30 GMT+7, followed by its matching post-event review and Main's actual scores.
 The backlog permits PPI on 13 November if CPI is missed. No schedule was changed.
+
+The first operating-root read exposed `PREVIEW_CONSENSUS_PROJECTION_CHANGED`:
+the old CPI preparation pinned a daily index that had since changed. The repaired
+existing preparation owner retains only the selected fact's exact fields and its
+original source/capture hashes. Later index refreshes cannot replace that fact;
+changed captures still fail. An explicit current revision appends a new preparation
+with its actual receipt time and the source's original known-at time. Earlier
+preparations and frozen requests stay readable and unchanged. Three added
+regressions cover index changes, original cutoffs and source-byte corruption;
+the updated feature selection passes 34 tests in 28.20 seconds.

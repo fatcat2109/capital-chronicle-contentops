@@ -1,6 +1,11 @@
 {
-  "distinct_passing_checks": 187,
+  "distinct_passing_checks": 190,
   "junit_results": [
+    {
+      "file": "consensus-feature-tests.xml",
+      "cases": 34,
+      "failures": 0
+    },
     {
       "file": "feed-regressions.xml",
       "cases": 14,

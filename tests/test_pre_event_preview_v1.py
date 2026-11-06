@@ -5,7 +5,7 @@ import json
 import pytest
 
 from live_contentops.contentops_editorial_desk_v1 import (
-    preview_preparation_research, record_pre_event_preparation,
+    preview_preparation_research, record_pre_event_preparation, refresh_pre_event_consensus,
 )
 from tests.test_capital_chronicle_report_feed_v1 import feed
 from tests.test_capital_chronicle_report_editorial_workspace_v1 import controlled_writer
@@ -51,6 +51,51 @@ def consensus_input(tmp_path):
     return {"projection_path": str(path), "projection_sha256": sha256(path.read_bytes()).hexdigest(),
         "release_id": projection["release_id"], "source": "fixture-source", "measure_key": "payrolls",
         "capture_root": str(tmp_path)}
+
+
+def test_retained_consensus_fact_survives_mutable_index_but_not_changed_capture(tmp_path):
+    f = feed(tmp_path)
+    spec = consensus_input(tmp_path)
+    prepare(f.tracker.store, tmp_path, single_consensus_fact=spec)
+    from pathlib import Path
+    Path(spec["projection_path"]).write_text('{"new_unrelated_daily_index":true}', encoding="utf-8")
+    result = preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc=NOW)
+    text = "\n".join(r["permitted_source_text"] for r in result.records.values())
+    assert "10K" in text and "RAW_TABLE_NEVER_EXPORTED" not in text
+    (tmp_path / "controlled-consensus.html").write_text("Changed capture", encoding="utf-8")
+    with pytest.raises(ValueError, match="SOURCE_CAPTURE_CHANGED"):
+        preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc=NOW)
+
+
+def test_current_consensus_revision_keeps_earlier_cutoff_and_original_record(tmp_path):
+    from pathlib import Path
+    f = feed(tmp_path)
+    spec = consensus_input(tmp_path)
+    _, _, original = prepare(f.tracker.store, tmp_path, single_consensus_fact=spec)
+    before = f.tracker.store.get_outbox_message(original["message_id"])["payload"]
+    projection = json.loads(Path(spec["projection_path"]).read_bytes())
+    capture = tmp_path / "controlled-current.html"
+    capture.write_text("CONTROLLED expectation: 20K", encoding="utf-8")
+    projection["records"][0].update(source_value_text="20K", raw_path=capture.name,
+        raw_sha256=sha256(capture.read_bytes()).hexdigest(), known_at_utc="2026-10-18T16:00:00Z")
+    Path(spec["projection_path"]).write_text(json.dumps(projection), encoding="utf-8")
+    receipt = refresh_pre_event_consensus(f.tracker.store, event_id=EVENT, known_at_utc=NOW)
+    assert receipt["previous_preparation_message_id"] == original["message_id"]
+    assert f.tracker.store.get_outbox_message(original["message_id"])["payload"] == before
+    old = preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc="2026-10-18T16:30:00Z")
+    current = preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc=NOW)
+    assert any("10K" in r["permitted_source_text"] for r in old.records.values())
+    assert any("20K" in r["permitted_source_text"] for r in current.records.values())
+    assert refresh_pre_event_consensus(f.tracker.store, event_id=EVENT, known_at_utc=NOW)["message_id"] == receipt["message_id"]
+
+
+def test_changed_retained_consensus_is_refused_before_preparation_append(tmp_path):
+    f = feed(tmp_path)
+    _, _, original = prepare(f.tracker.store, tmp_path, single_consensus_fact=consensus_input(tmp_path))
+    packet = json.loads(f.tracker.store.get_outbox_message(original["message_id"])["payload"])
+    packet["single_consensus_fact"]["retained_record"]["source_value_text"] = "20K"
+    with pytest.raises(ValueError, match="RETAINED_CONSENSUS_RECORD_CHANGED"):
+        record_pre_event_preparation(f.tracker.store, packet)
 
 
 def test_preparation_flows_through_feed_to_actual_writer_source_pack(tmp_path, monkeypatch):
