@@ -77,7 +77,10 @@ code head is `79f5382469d7f9937d5f50f41b02e01c3c5a0f80`; subsequent commits
 record evidence only. [Operating-root tests](operating-root-tests.xml) pass all
 49 feature/compatibility checks in 27.30 seconds. [Integration evidence](integration.json)
 records source parity and unchanged hashes for both inherited builder files and
-all six modified operating-root files. The CC-306 commit remains in ancestry.
+all six modified operating-root files at the initial forward merge. A later
+one-record telemetry append is retained; its entire previous content matches an
+exact prefix, and its writer was not identified. That file stays uncommitted.
+The CC-306 commit remains in ancestry.
 Live tag: `contentops-live-20261106-cc333`. Rollback tag:
 `contentops-rollback-20261106-cc333` at `e3ec0779fb06bab4b0aadcdfb37adadeb86ae15c`.
 

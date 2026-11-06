@@ -304,5 +304,17 @@
     "next_existing_cc124_run_utc": "2026-11-06T19:50:00Z",
     "next_action": "Retained CC-124 run supplies the next two compliant canonical/social readbacks within the new daily cap."
   },
-  "verified_at_utc": "2026-11-06T15:55:21.797349+00:00"
+  "verified_at_utc": "2026-11-06T15:55:21.797349+00:00",
+  "later_wip_observation": {
+    "observed_at_utc": "2026-11-06T15:56:49.775616+00:00",
+    "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    "prior_sha256": "4e2da1eccc9d2b6c6dec2e21e87a643acab57f03736f3cd153efa92b88c72322",
+    "observed_sha256": "cffe67cefeece6d6c4212033e4dc2afdd8d8981a1d39ce27db08886f2052b07d",
+    "prior_content_is_exact_prefix": true,
+    "prior_bytes": 1086254,
+    "appended_bytes": 1317,
+    "appended_records": 1,
+    "writer_identity": "NOT_IDENTIFIED",
+    "action": "Preserved the append; this file remains uncommitted and outside CC-333."
+  }
 }
