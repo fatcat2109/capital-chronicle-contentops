@@ -204,6 +204,16 @@ def _validated_local_asset(asset: Mapping[str, Any], *, article_asset=False,
     asset_id = str(row.get("asset_id") or "delivery_only")
     path = Path(str(row.get("absolute_local_source_path") or row.get("local_path") or row.get("path") or ""))
     blockers: list[str] = []
+    if row.get("modality") == "tradingview_chart_snapshot":
+        from live_contentops.tradingview_snapshot_v1 import validate_snapshot_asset
+        try:
+            validate_snapshot_asset(row, article)
+            if row.get("preceding_card"):
+                _, card_blockers = _validated_local_asset(row["preceding_card"], article_asset=True,
+                    article=article, source_documents=source_documents)
+                blockers.extend(card_blockers)
+        except (ValueError, OSError, KeyError) as exc:
+            blockers.append(f"tradingview_snapshot_invalid:{asset_id}:{type(exc).__name__}")
     if article_asset:
         if row.get("modality") == "documentary_photo":
             from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo

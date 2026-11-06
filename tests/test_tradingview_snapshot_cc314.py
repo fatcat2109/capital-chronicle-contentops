@@ -22,11 +22,6 @@ from test_publication_coordinator_v1 import FixtureTransport, _coordinator, _set
 FIXTURE = Path(__file__).parent / "fixtures" / "cc314" / "SPX500USD_2026-11-05_13-21-11.png"
 
 
-@pytest.fixture(autouse=True)
-def enough_ram(monkeypatch):
-    monkeypatch.setattr(tv, "free_ram_gb", lambda: 8.0)
-
-
 @pytest.fixture
 def outcomes(tmp_path, monkeypatch):
     path = tmp_path / "outcomes.jsonl"
@@ -196,16 +191,12 @@ def test_a_daily_chart_is_confirmed_by_tradingviews_d_label(tmp_path):
     assert snap["tv_symbol"] == "FX:USDJPY" and snap["interval"] == "D"
 
 
-def test_below_the_ram_floor_no_browser_starts_and_the_fact_card_is_counted(queued, outcomes, monkeypatch):
+def test_capture_has_no_ram_gate(queued, outcomes, monkeypatch):
     store, _, key, root = queued
-    monkeypatch.setattr(tv, "free_ram_gb", lambda: 1.1)
+    # Even unavailable/low telemetry cannot refuse the capture (Jim decision 87).
+    monkeypatch.setattr(tv, "free_ram_gb", lambda: None, raising=False)
     calls = []
     plan_ = prepare_post(store, key, root=root, host=fake_host, snapshot=snapshot_with(calls))
     asset = json.loads((Path(plan_["output_dir"]) / "run_context_v1.json").read_bytes())["media"]["assets"][0]
-    assert calls == [] and asset["card_kind"] == "PLAN_FACT_CARD"
-    assert json.loads(outcomes.read_text().splitlines()[0])["status"] == "LOW_MEMORY_FALLBACK"
-    assert tv.failure_count(outcomes) == 1
-    monkeypatch.setattr(tv, "free_ram_gb", lambda: None)  # unreadable memory is treated as low
-    with pytest.raises(tv.LowMemory):
-        tv.capture("US500", "240", root / "unknown", worker=tradingview_worker(calls))
-    assert calls == []
+    assert len(calls) == 1 and asset["card_kind"] == "TRADINGVIEW_SNAPSHOT"
+    assert json.loads(outcomes.read_text().splitlines()[0])["status"] == "CAPTURED"

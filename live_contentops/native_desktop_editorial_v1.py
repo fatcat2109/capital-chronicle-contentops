@@ -254,6 +254,12 @@ def validate_visual_decision(value, *, dropped_after_repair=False):
             or any(not re.fullmatch(r"post-facts-[a-f0-9]{20}", i) for i in card_ids)):
         raise ValueError("BOUND_POST_DATA_CARD_IDENTITIES_REQUIRED")
     ids.extend(card_ids)
+    snapshot_ids = value.get("tradingview_snapshot_asset_ids", [])
+    if (not isinstance(snapshot_ids, list) or len(snapshot_ids) > 2
+            or len(set(snapshot_ids)) != len(snapshot_ids)
+            or any(not re.fullmatch(r"tradingview-(?:snapshot|panel)-[a-f0-9]{20}", i) for i in snapshot_ids)):
+        raise ValueError("BOUND_TRADINGVIEW_SNAPSHOT_IDENTITIES_REQUIRED")
+    ids.extend(snapshot_ids)
     destinations = {"telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube"}
     photo_ids = value.get("contextual_photo_ids", [])
     if not isinstance(photo_ids, list) or len(photo_ids) > 2 or len(set(photo_ids)) != len(photo_ids):
@@ -1692,6 +1698,10 @@ def validate_release_media(result, *, require_pixel_review=True, prewriter=False
     for snapshot in snapshots:
         from live_contentops.article_publication_quality_v1 import validate_snapshot_asset
         validate_snapshot_asset(snapshot, market=(result.get("article") or {}).get("market_asset"))
+        from live_contentops.tradingview_snapshot_v1 import validate_snapshot_asset as validate_delivery_snapshot
+        validate_delivery_snapshot(snapshot, result.get("article"))
+    if decision and not set(decision.get("tradingview_snapshot_asset_ids", [])) <= {a["asset_id"] for a in snapshots}:
+        raise ValueError("TRADINGVIEW_SNAPSHOT_CHOICE_UNBOUND")
     article = result.get("article") or {}
     from live_contentops.post_visuals_v1 import POLICY, validate_post_data_card
     current_visuals = article.get("post_visual_policy") == POLICY

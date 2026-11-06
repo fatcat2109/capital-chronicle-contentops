@@ -1258,6 +1258,7 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
             "meta_description": "string",
             "social_hook": "string",
             "substack_body_markdown": "string",
+            "market_asset": "XAUUSD|US500|EURUSD|USDJPY|USOIL|BTCUSD or null; only the discussed market",
         },
         "cited_sources": [
             {
@@ -1287,6 +1288,10 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "Return exactly one JSON object with exactly the five top-level keys shown in OUTPUT_CONTRACT. "
         "Do not use markdown code fences, commentary, prefixes, or suffixes outside the JSON object. "
         "Write one useful concise Capital Chronicle article from GOVERNED_INPUT and SOURCE_PACK only. " + background_guidance +
+        "For a daily market piece or an NFP/CPI release piece discussing one market, set article.market_asset "
+        "to XAUUSD (gold), US500, EURUSD, USDJPY, USOIL or BTCUSD. Choose the market actually discussed; "
+        "omit it for an unrelated or multi-market piece. This selects an attributed guest TradingView snapshot, "
+        "never an analytical data source. "
         "For GOVERNED_CAPITAL_CHRONICLE_REPORT, SOURCE_PACK is a derived Main report projection, not freshly "
         "acquired source-page bytes. Attribute facts to that report, distinguish OBSERVED_SOURCE_FACT, CC_ANALYSIS "
         "and CONDITIONAL_SCENARIO, keep horizons and proxy/cost limits, and include report_scope_notice verbatim "
@@ -2052,9 +2057,12 @@ def _reader_safe_native_article(
     for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):
         if article.get(key):
             result[key] = article[key]
+    for key in ("market_asset", "tradingview_snapshot_asset_ids", "native_destination_media"):
+        if article.get(key):
+            result[key] = article[key]
     if reader_first:
         result["reader_first_version"] = "DATA_JOURNALISM_V1"
-        result["native_destination_media"] = article.get("post_visual_destination_media") or (article.get("visual_editorial_decision") or {}).get("channel_media", {})
+        result["native_destination_media"] = article.get("post_visual_destination_media") or article.get("native_destination_media") or (article.get("visual_editorial_decision") or {}).get("channel_media", {})
         if article.get("post_visual_policy"):
             result["post_visual_policy"] = article["post_visual_policy"]
         publisher = str((epistemic_state or {}).get("primary_reporting_publisher") or "").strip()
@@ -2133,8 +2141,11 @@ def _publication_media_metadata(media_assets, *, compact=False):
                 credit = asset.get("canonical_photo_credit") or credit
             credits.append(credit)
             asset["caption"] = credit
+        if asset.get("modality") == "tradingview_chart_snapshot":
+            from live_contentops.tradingview_snapshot_v1 import CREDIT
+            credits.append(CREDIT + ".")
         assets.append(asset)
-    return assets, "\n\n".join(credits)
+    return assets, "\n\n".join(dict.fromkeys(credits))
 
 
 def _derivative_media_attribution(media_assets, *, compact=False):
@@ -2393,7 +2404,9 @@ def _build_simple_publication_lifecycle_plan(
         "run_id": run_id,
         "selection": dict(selected_candidate),
         "article": compiler_article,
-        "media": {"assets": publication_assets, "delivery_only_assets": []},
+        "media": {"assets": publication_assets, "delivery_only_assets": [
+            {**a, "article_inclusion": False, "canonical_article_media": False} for a in publication_assets
+            if a.get("modality") == "tradingview_chart_snapshot"]},
         "epistemic_state": dict(epistemic_state or {}),
         "article_identity": article_identity,
         "article_content_sha256": _text_hash(_public_copy(article)),
@@ -3354,6 +3367,11 @@ def run_v1_simple_gemini_newsroom(
         publication_speed = (llm_invoke.frozen_request("write") or {}).get("governed_input", {}).get("publication_speed_policy")
         validate_release_media({"article": article, "media_assets": admitted_media, "evidence": source_pack},
             require_pixel_review=not bool(publication_speed))
+    if native:
+        from live_contentops.tradingview_snapshot_v1 import prepare_article_snapshot
+        article, admitted_media = prepare_article_snapshot(article, admitted_media, output_dir=root,
+            selected_candidate=selected)
+        article_manifest.update(article)
     persist(root / "article_manifest_v1.json", article_manifest)
     try:
         native_previews, intents = _native_preview_bundle(
