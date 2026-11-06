@@ -1,0 +1,98 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-06T14:24:48.545107+00:00",
+  "operation_id": "cc124-nfp-arrival-review-20261106-v1",
+  "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-arrival-review-20261106-v1\\binding.json",
+  "binding_sha256": "7d91e8991b7202f3fc28faedc835e4dbd15b2ecd63134201d3eaf1c99c6879ce",
+  "run_result": "JIM_DECISION_93_DAILY_ARTICLE_CAP_REACHED",
+  "decision_source": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\JIM_DECISIONS_20261030.md#93",
+  "decision_known_on_resume": true,
+  "current_policy_daily_cap": 2,
+  "current_policy_cadence_minutes": 360,
+  "policy_choice": "Apply the newly recorded publication cap at this resumed entry; preserve the original operation and accepted roles. No additional public article today.",
+  "production_day_id": "newsroom-production-day-2026-11-06-bangkok",
+  "confirmed_distinct_articles": 4,
+  "production_record": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-06-bangkok\\newsroom_production_day_v1.json",
+  "production_record_sha256": "44e46026032fe3200afc7b833783cf4905a872c72496686426a12a61646d2cd5",
+  "saved_record_count": 4,
+  "confirmed_canonicals": [
+    {
+      "run_id": "cc323-midterm-lesson-20261106-v1",
+      "dispatch_id": "dispatch_f11ccb4431c6d872e416d0add6cf48cf",
+      "article_identity": "43a4b97338d9f60033cea8418f3699a44ac9aacaada2c5562c3f3cbe74057dae",
+      "published_at_utc": "2026-11-06T04:25:26.791000+00:00",
+      "first_readback_utc": "2026-11-06T04:28:24.987193+00:00"
+    },
+    {
+      "run_id": "cc124-six-markets-20261106-v1",
+      "dispatch_id": "dispatch_6a6b9bee67647c254c017520fe29e3ce",
+      "article_identity": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+      "published_at_utc": "2026-11-06T08:42:20.275000+00:00",
+      "first_readback_utc": "2026-11-06T08:47:57.415230+00:00"
+    },
+    {
+      "run_id": "cc124-oil-euro-followup-20261106-v2",
+      "dispatch_id": "dispatch_99bced709eb50718ec5b8986367a8825",
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "published_at_utc": "2026-11-06T10:37:42.739000+00:00",
+      "first_readback_utc": "2026-11-06T10:42:25.465570+00:00"
+    },
+    {
+      "run_id": "cc107-nfp-preview-20261106-v1",
+      "dispatch_id": "dispatch_a260b1cce70fc7a3a71bb1f7f7db51e3",
+      "article_identity": "2d8e36972f630378df9b6ea7ae8b870f5c0b8c0712a1da9a653bb9c2017c29fb",
+      "published_at_utc": "2026-11-06T12:58:16.717000+00:00",
+      "first_readback_utc": "2026-11-06T13:02:08.685118+00:00"
+    }
+  ],
+  "published_feed": [
+    {
+      "content_id": "substack:223722704",
+      "title": "Capital Chronicle's midterm review: right scenario, wrong market call",
+      "published_at_utc": "2026-11-06T04:25:26.791000+00:00"
+    },
+    {
+      "content_id": "substack:223739949",
+      "title": "Capital Chronicle's pre-payrolls review: a dollar bid with different countercases",
+      "published_at_utc": "2026-11-06T08:42:20.275000+00:00"
+    },
+    {
+      "content_id": "substack:223749516",
+      "title": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test",
+      "published_at_utc": "2026-11-06T10:37:42.739000+00:00"
+    },
+    {
+      "content_id": "substack:223763353",
+      "title": "NFP preview: why a payroll beat needs help from unemployment",
+      "published_at_utc": "2026-11-06T12:58:16.717000+00:00"
+    }
+  ],
+  "source_consumer": {
+    "path": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-124\\run-20261106-2050\\source",
+    "revision": "78995d62efe3a0da6bf378cfd97c99b0a09a0f22055548789f22625251285e15",
+    "verified_records": [
+      "cc124-nfp-arrival-review-20261106",
+      "bls-october-release",
+      "bls-october-sectors"
+    ],
+    "gaps": []
+  },
+  "accepted_selection_sha256": "0c503f74db9215926b7b08934403d74475f5f29881b40881c6eeb805b0273145",
+  "pending_stage": "write",
+  "pending_request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-arrival-review-20261106-v1\\desktop_request_write.json",
+  "pending_request_sha256": "f91f22eaba23d5af0e115dd181655185d9a5639c627ea07de641d570f5e96c87",
+  "writer_invoked": false,
+  "new_public_dispatches": [],
+  "public_write_performed": false,
+  "article_completed": false,
+  "new_publication_count": 0,
+  "next_due_utc": "2026-11-06T19:50:00+00:00",
+  "next_due_gmt7": "7 Nov 2026 02:50 GMT+7",
+  "next_actor": "Codex Publisher",
+  "next_action": "At the next eligible run, resume this exact operation. Recheck held Main facts and current policy. Before writing, attach the held official supporting data and Main's full scenarios through the existing selected-story context owner; prepare new data charts and use an unpublished lead image. No private probability, market response or performance is invented.",
+  "test_runs_started": 0,
+  "test_reason": "6 November 18:30-22:30 GMT+7 machine-load restriction",
+  "schedules_changed": false,
+  "chat_messages_sent": false,
+  "native_desktop_control_used": false
+}
