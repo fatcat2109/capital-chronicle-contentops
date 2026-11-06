@@ -350,6 +350,9 @@ class RetainedSourceResearch:
         return target.read_bytes()
 
     def _verify(self, spec: Mapping[str, Any]) -> dict[str, Any]:
+        from live_contentops.main_report_projection_source_v1 import AUTHORSHIP, verify_projection
+        if spec.get("authorship_class") == AUTHORSHIP:
+            return verify_projection(spec)
         raw = self._read(spec["capture_path"])
         policy = self._read(spec["policy_capture_path"])
         loader = json.loads(self._read(spec["loader_result_path"]))
@@ -968,6 +971,9 @@ class RetainedSourceResearch:
             return None
         # Reuse the existing evidence seam with truthful source authority and
         # zero additional network reads. Syndication is still one origin.
+        from live_contentops.main_report_projection_source_v1 import PLATFORM, projection_evidence
+        if all(r["source_platform"] == PLATFORM for r in found):
+            return projection_evidence(found, request)
         docs = [
             {
                 **r["document"],

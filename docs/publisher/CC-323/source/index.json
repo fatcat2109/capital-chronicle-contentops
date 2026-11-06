@@ -1,0 +1,140 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "headline_id": "cc323-midterm-lesson-20261106",
+      "headline_text": "Capital Chronicle's midterm lesson: the election call was right, but equities and Bitcoin rose against the dossier's direction.",
+      "known_at_utc": "2026-11-05T15:00:00Z",
+      "revision_at_utc": "2026-11-06T03:34:43Z",
+      "source_url": "urn:cc-public-report:midterm-review:20261105",
+      "authority_ref": "JIM_DECISION_89",
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\DOSSIER.md",
+          "source_sha256": "959f0d26bf66d9d5097982d13545391d9cbad52ca9641991639ea4389cace300",
+          "fragments": [
+            {
+              "start": 22875,
+              "end": 22936
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\CLAIMS_AND_MECHANISMS.md",
+          "source_sha256": "1e21e1f48393fba0dc90879825fa99ffb7a95025e3da935b2c8a6e08c1fd662f",
+          "fragments": [
+            {
+              "start": 9941,
+              "end": 9997
+            },
+            {
+              "start": 10002,
+              "end": 10119
+            },
+            {
+              "start": 10122,
+              "end": 10161
+            },
+            {
+              "start": 10164,
+              "end": 10205
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\CLAIMS_AND_MECHANISMS.md",
+          "source_sha256": "1e21e1f48393fba0dc90879825fa99ffb7a95025e3da935b2c8a6e08c1fd662f",
+          "fragments": [
+            {
+              "start": 10319,
+              "end": 10370
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\CLAIMS_AND_MECHANISMS.md",
+          "source_sha256": "1e21e1f48393fba0dc90879825fa99ffb7a95025e3da935b2c8a6e08c1fd662f",
+          "fragments": [
+            {
+              "start": 10533,
+              "end": 10537
+            },
+            {
+              "start": 10612,
+              "end": 10638
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\CLAIMS_AND_MECHANISMS.md",
+          "source_sha256": "1e21e1f48393fba0dc90879825fa99ffb7a95025e3da935b2c8a6e08c1fd662f",
+          "fragments": [
+            {
+              "start": 10814,
+              "end": 10819
+            },
+            {
+              "start": 10852,
+              "end": 10866
+            },
+            {
+              "start": 10869,
+              "end": 10908
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\CLAIMS_AND_MECHANISMS.md",
+          "source_sha256": "1e21e1f48393fba0dc90879825fa99ffb7a95025e3da935b2c8a6e08c1fd662f",
+          "fragments": [
+            {
+              "start": 10991,
+              "end": 10994
+            },
+            {
+              "start": 11037,
+              "end": 11059
+            },
+            {
+              "start": 11082,
+              "end": 11132
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\CLAIMS_AND_MECHANISMS.md",
+          "source_sha256": "1e21e1f48393fba0dc90879825fa99ffb7a95025e3da935b2c8a6e08c1fd662f",
+          "fragments": [
+            {
+              "start": 11200,
+              "end": 11205
+            },
+            {
+              "start": 11227,
+              "end": 11243
+            },
+            {
+              "start": 11246,
+              "end": 11311
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\CLAIMS_AND_MECHANISMS.md",
+          "source_sha256": "1e21e1f48393fba0dc90879825fa99ffb7a95025e3da935b2c8a6e08c1fd662f",
+          "fragments": [
+            {
+              "start": 11415,
+              "end": 11485
+            },
+            {
+              "start": 11488,
+              "end": 11657
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "operation_id": "cc323-midterm-lesson-20261106-v1",
+  "generated_at_utc": "2026-11-06T03:34:43Z",
+  "source_hashes": [
+    {
+      "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\DOSSIER.md",
+      "source_sha256": "959f0d26bf66d9d5097982d13545391d9cbad52ca9641991639ea4389cace300"
+    },
+    {
+      "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\CLAIMS_AND_MECHANISMS.md",
+      "source_sha256": "1e21e1f48393fba0dc90879825fa99ffb7a95025e3da935b2c8a6e08c1fd662f"
+    }
+  ],
+  "source_clocks": {
+    "dossier_freeze_utc": "2026-11-02T23:35:00Z",
+    "review_written_start_utc": "2026-11-05T13:44:00Z",
+    "review_written_end_utc": "2026-11-05T15:00:00Z",
+    "known_at_utc": "2026-11-05T15:00:00Z",
+    "projection_revision_at_utc": "2026-11-06T03:34:43Z"
+  },
+  "passages": [
+    {
+      "passage_index": 0,
+      "selected_text": "D_SWEEP: Democratic House and Democratic Senate (most likely)",
+      "note": null
+    },
+    {
+      "passage_index": 1,
+      "selected_text": "Our own dossier got the direction wrong for risk assets. DOS §6.1 mapped a Democratic sweep to US500 down, USTEC down and BTC down, following strategists (Hartnett, Yardeni). The sweep came, and those markets rose. The gold-up and USD-down legs were right.",
+      "note": null
+    },
+    {
+      "passage_index": 2,
+      "selected_text": "Jim's question: when did each market move on 4 Nov?",
+      "note": "Review event is 4 November 2026; timing derived from hourly bars, UTC interpretation is an inference."
+    },
+    {
+      "passage_index": 3,
+      "selected_text": "Gold 05:00-07:00Z (12:00-14:00)",
+      "note": "Main gold leg; parentheses GMT+7. No prices selected."
+    },
+    {
+      "passage_index": 4,
+      "selected_text": "US500 04:00Z (11:00) A steady climb through Asia and Europe:",
+      "note": "Turn then Asia/Europe climb; parentheses GMT+7. Trailing colon is verbatim retained punctuation."
+    },
+    {
+      "passage_index": 5,
+      "selected_text": "BTC First leg 04:00-08:00Z Largest leg 14:00-15:00Z (21:00-22:00, US session)",
+      "note": "First and largest Bitcoin legs. No prices or liquidation figures selected."
+    },
+    {
+      "passage_index": 6,
+      "selected_text": "USOIL It fell all day. The largest leg was in the US session, 12:00-17:00Z (19:00-24:00)",
+      "note": "Oil timing; parentheses GMT+7. No prices selected."
+    },
+    {
+      "passage_index": 7,
+      "selected_text": "\"Only in the US session\" holds for Bitcoin's breakout and oil's slide. It does not hold for gold, silver and US500. Gold moved at noon Vietnam time, as the Senate calls came in. US500 turned at 11:00 and climbed all through Asia and Europe.",
+      "note": null
+    }
+  ],
+  "limits": [
+    "UTC interpretation of retained broker-server hourly bar clocks is explicitly high-confidence inference in the review, not independently verified here. Writer must preserve this qualifier for exact timing.",
+    "Correct election result and directional comparison are retained Main review claims; no external fact refresh performed.",
+    "Projection contains qualitative comparisons and selected timing only; it makes no publication, execution, track record or alpha claim.",
+    "No raw source copied, external source fetched, code edited, test executed, commit made or public write performed.",
+    "Adapter is being implemented by parent; no adapter acceptance asserted by this preparation role."
+  ]
+}

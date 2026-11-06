@@ -1,0 +1,31 @@
+{
+  "operation_id": "cc323-midterm-lesson-20261106-v1",
+  "stage": "main-report-source-preparation",
+  "outcome": "PREPARED",
+  "actual_task_identity": "/root/cc323_source_preparation",
+  "role": {
+    "model": "gpt-6.1-sol",
+    "effort": "low",
+    "observation": "CONFIGURED_NOT_OBSERVED"
+  },
+  "role_observation": "Requested Sol Light preparation role; actual model and effort not exposed by supported runtime telemetry. CONFIGURED_NOT_OBSERVED.",
+  "generated_at_utc": "2026-11-06T03:34:43Z",
+  "outputs": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-323\\source\\index.json",
+      "sha256": "b9c7334d3ac1a468ca7afba73c33e09dc8e171ae6db194e792d136f177bf0fd3"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-323\\source-claim-trace.json",
+      "sha256": "652631bc1aea67b3ae6a4fe82d9ab35200384d9f18592ed3e8e82e63645695b9"
+    }
+  ],
+  "passage_count": 8,
+  "limits": [
+    "UTC interpretation of retained broker-server hourly bar clocks is explicitly high-confidence inference in the review, not independently verified here. Writer must preserve this qualifier for exact timing.",
+    "Correct election result and directional comparison are retained Main review claims; no external fact refresh performed.",
+    "Projection contains qualitative comparisons and selected timing only; it makes no publication, execution, track record or alpha claim.",
+    "No raw source copied, external source fetched, code edited, test executed, commit made or public write performed.",
+    "Adapter is being implemented by parent; no adapter acceptance asserted by this preparation role."
+  ]
+}
