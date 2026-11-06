@@ -1,0 +1,46 @@
+{
+  "tool_request_sha256": "fd03fa32d0ccb2d7477a4caf00e2504163fc05ae872c9c993bc6e41570e93add",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-06T04:32:45.013Z",
+    "dispatched_at_utc": "2026-11-06T04:32:35.273Z",
+    "observation_source": "Neo page 651 checked @Capitalnicle, compared all five complete composer texts and root image, published once; Your posts were sent toast gave exact root URL and same-run root readback."
+  },
+  "result": {
+    "request_sha256": "24ae916fe9ba3a7b550ce4e75c982581c09c38942ead34ed4cd40874475dd985",
+    "status": "PUBLISHED",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2118562167637369262",
+    "public_object_url": "https://x.com/Capitalnicle/status/2118562167637369262",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "@Capitalnicle",
+      "observed_stable_id": null,
+      "observed_at_utc": "2026-11-06T04:32:35.273Z"
+    },
+    "pre_click_posts": [
+      "Capital Chronicle's midterm review: right scenario, wrong market call\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-midterm-review",
+      "Capital Chronicle's review: the election scenario matched, but equities and Bitcoin rose against the downside map.\n\nA right result is not a market-direction model.",
+      "Watch: For a future scenario, Capital Chronicle's lesson is to write down the political condition, the proposed market direction and the horizon separately, then ask what would challenge each.",
+      "This review shows why the right political answer cannot stand in for that market analysis.\n\n\n\n\nThis is a retrospective of Capital Chronicle's dated dossier and review, not a performance record.\n\n\n\n\nAnalysis, not financial advice.\n\n\n\n\nReaders decide whether to trade.",
+      "Capital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "request_sha256": "24ae916fe9ba3a7b550ce4e75c982581c09c38942ead34ed4cd40874475dd985",
+      "status": "SUCCESS",
+      "observed_identity": "@Capitalnicle",
+      "public_object_id": "2118562167637369262",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118562167637369262",
+      "observed_text": "Capital Chronicle\n@Capitalnicle\nCapital Chronicle's midterm review: right scenario, wrong market call\n\n\nhttps://\ncapitalchronicle.substack.com/p/capital-chro\nnicles-midterm-review\n…\n11:32 AM · Nov 6, 2026\n·\n7\n Views\n1",
+      "content_verified": false,
+      "media_check_state": "PENDING_BINARY_COMPARISON",
+      "public_write_performed": false
+    }
+  }
+}
