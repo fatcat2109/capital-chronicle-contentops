@@ -1,0 +1,255 @@
+{
+  "observed_at_utc": "2026-11-06T05:00:48.342204+00:00",
+  "operation_id": "cc323-midterm-lesson-20261106-v1",
+  "state": "RECONCILED",
+  "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicles-midterm-review",
+  "unknown_write_count": 0,
+  "pending_requests": [],
+  "confirmed_destinations": [
+    {
+      "dispatch_id": "dispatch_aade94acf29ad293e8c9fb77316fed83",
+      "platform": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1568119849555861594",
+      "public_object_url": null,
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T04:28:28.007072+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "1568119849555861594",
+          "observed_public_object_url": null
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_3bea3aa515c342d419728b32955d7144",
+      "platform": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "106091951705748_1446301094354973",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1446301094354973",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T04:47:11.458347+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "106091951705748_1446301094354973",
+          "observed_public_object_url": "https://www.facebook.com/1342369584748125/posts/1446301094354973"
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_37563e5066b0c98381d4b82296b42a1e",
+      "platform": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "17892919167454067",
+      "public_object_url": "https://www.instagram.com/p/DfYv82ogQ1v/",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T04:28:54.716501+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "17892919167454067",
+          "observed_public_object_url": "https://www.instagram.com/p/DfYv82ogQ1v/"
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_4fe954a88af3a87868ade9d8664d2565",
+      "platform": "linkedin",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "urn:li:activity:7524328966573469696",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524328966573469696/",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T04:53:25.836740+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "urn:li:activity:7524328966573469696",
+          "observed_public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524328966573469696/",
+          "content_binding_checks": {
+            "media_match": true,
+            "text_match": true,
+            "thread_match": true
+          }
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_8a4563cd4e529f911ebc39b48d5559e5",
+      "platform": "linkedin_company",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "urn:li:share:7524330971534508032",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524330971534508032?actorCompanyId=143198922",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T04:53:25.903622+00:00",
+          "verified": false,
+          "source_status": "BLOCKED",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "urn:li:share:7524330971534508032",
+          "observed_public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524330971534508032?actorCompanyId=143198922",
+          "content_binding_checks": {
+            "media_match": true,
+            "text_match": true,
+            "thread_match": true
+          }
+        },
+        {
+          "read_at_utc": "2026-11-06T04:59:42.016132+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "urn:li:share:7524330971534508032",
+          "observed_public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7524330971534508032?actorCompanyId=143198922",
+          "content_binding_checks": {
+            "media_match": true,
+            "text_match": true,
+            "thread_match": true
+          }
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_f11ccb4431c6d872e416d0add6cf48cf",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "223722704",
+      "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicles-midterm-review",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T04:28:24.987193+00:00",
+          "verified": true,
+          "source_status": "BLOCKED",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "223722704",
+          "observed_public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicles-midterm-review",
+          "content_binding_checks": {
+            "media_match": true,
+            "text_match": false,
+            "thread_match": true
+          }
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_b970c640f218c8e2e3a77529ecb9c389",
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "90",
+      "public_object_url": "https://t.me/CapitalChronicle/90",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T04:29:00.018995+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "90",
+          "observed_public_object_url": "https://t.me/CapitalChronicle/90"
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_04d29acad7d0cfe2de8840ba0bf90b6b",
+      "platform": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18075801878487577",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfYv_aRnwHd",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T04:29:38.809620+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "18075801878487577",
+          "observed_public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfYv_aRnwHd",
+          "content_binding_checks": {
+            "account_match": true,
+            "canonical_link_match": true,
+            "media_match": true,
+            "object_id_match": true,
+            "public_url_match": true,
+            "text_match": true
+          }
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_9579addd3b0133c2bfc2dae773aceeb4",
+      "platform": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2118562167637369262",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118562167637369262",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T04:53:26.001104+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "2118562167637369262",
+          "observed_public_object_url": "https://x.com/Capitalnicle/status/2118562167637369262",
+          "content_binding_checks": {
+            "media_match": true,
+            "text_match": true,
+            "thread_match": true
+          }
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_8134d525e25aa007a64652c0f285b1d5",
+      "platform": "youtube",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "Ugkxgbu3Nwjz01FnZyRB1vI6o7EyiDTkuDIz",
+      "public_object_url": "https://www.youtube.com/post/Ugkxgbu3Nwjz01FnZyRB1vI6o7EyiDTkuDIz",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T04:53:26.098316+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "Ugkxgbu3Nwjz01FnZyRB1vI6o7EyiDTkuDIz",
+          "observed_public_object_url": "https://www.youtube.com/post/Ugkxgbu3Nwjz01FnZyRB1vI6o7EyiDTkuDIz",
+          "content_binding_checks": {
+            "media_match": true,
+            "text_match": true,
+            "thread_match": true
+          }
+        }
+      ]
+    }
+  ],
+  "source_trace": "source-claim-trace.json",
+  "bar_direction_check": "bar-check.json",
+  "email_digest_consumer": "digest-live-consumer.json",
+  "telegram_public_readback": "telegram-public-readback.json",
+  "top_level_launch": "top-level-launch.json",
+  "editorial_roles": "editorial-execution.json",
+  "clock_correction": {
+    "supersedes": "substack-publish-response.json: result.step_clocks.draft_ready_utc",
+    "recorded_unverified_value": "2026-11-06T04:17:01Z",
+    "verified_draft_ready_utc": null,
+    "reason": "The exact draft-ready clock was not retained as an observation. Do not use the prior value as measured timing.",
+    "text_approved_utc": "2026-11-06T04:14:34.467820+00:00",
+    "canonical_published_utc": "2026-11-06T04:25:26.791Z",
+    "latest_observed_send_click_utc": "2026-11-06T04:46:16.366Z",
+    "all_channels_within_15_minutes": false
+  },
+  "site_published": false,
+  "schedule_changed": false
+}

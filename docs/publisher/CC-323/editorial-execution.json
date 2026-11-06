@@ -77,8 +77,54 @@
         "actual_configuration_unavailable": true,
         "configuration_source": "Exact frozen desktop_request_visual-edit.json for request 7153b02b1df1a6ef56063ddf588c6d8c1b7c63ad93534d6789af60d8b93267ce and the parent native role assignment; requested gpt-6.1-sol/max, speed standard."
       }
+    },
+    {
+      "stage": "write",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc323-midterm-lesson-20261106-v1\\desktop_response_write.json",
+      "sha256": "2086b1cd11389f6df81310bfc3cfd0ecf694b957a265ff7ca8be5ffffd261cdf",
+      "observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/cc323_max_resume",
+        "model": null,
+        "reasoning_effort": null,
+        "speed": "standard",
+        "observation_source": "The supported native task context and exact generated writer assignment identify this invocation as /root/cc323_max_resume. Runtime model/effort telemetry are not available in this context; the requested settings below are configuration, not observed actual values.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "Exact frozen desktop_request_write.json request 514f6285643572b22928a625b8ef089040c2c3ea888be5b3d995621ae0af3ee8 and supported parent task; requested gpt-6.1-sol/max, speed standard."
+      }
+    },
+    {
+      "stage": "editor-check",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-323\\editor-check-result.json",
+      "sha256": "f9ee3f1ed70a86f4248d784a21537398d9fd0c67a22d9714aa9075eac34fdd2a",
+      "observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/cc323_max_resume",
+        "model": null,
+        "reasoning_effort": null,
+        "speed": "standard",
+        "observation_source": "Supported native task context and parent follow-up identify this as the same /root/cc323_max_resume visual editor/writer. Actual model and effort telemetry are unavailable; configuration is recorded separately.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "Exact frozen writer request 514f6285643572b22928a625b8ef089040c2c3ea888be5b3d995621ae0af3ee8 and supported parent assignment to perform the one editor check in this same native MAX context."
+      },
+      "decision": "KEEP",
+      "reviewed_at_utc": "2026-11-06T04:14:03.825490Z"
     }
   ],
   "publication_performed": false,
-  "interruption": "Initial MAX role stopped before accepted return; /root/cc323_max_resume reused its assets and completed visual-edit."
+  "interruption": "Initial MAX role stopped before accepted return; /root/cc323_max_resume reused its assets and completed visual-edit.",
+  "completion": {
+    "state": "RECONCILED",
+    "live_acceptance": "live-acceptance.json",
+    "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicles-midterm-review",
+    "email_digest_consumer": "digest-live-consumer.json"
+  }
 }
