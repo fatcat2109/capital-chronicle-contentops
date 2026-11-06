@@ -1,0 +1,71 @@
+{
+  "asset_id": "post-facts-d20ae2b692df6277c87d",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\media_assets\\post-facts-d20ae2b692df6277c87d.png",
+  "sha256": "9f83695b0bfa70436fab957986e71ab7f7abf424a4d64d5257ed0231e4d6b335",
+  "width": 1080,
+  "height": 1350,
+  "modality": "source_bound_data_card",
+  "role": "supporting_fact_context",
+  "media_role": "post_key_facts",
+  "caption": "Key facts from the article.",
+  "alt_text": "**EUR/USD.** The review names firmer euro-area inflation, expectations of ECB rate increases and limited sensitivity to broader risk moves as counterweights to the dollar bid. It also notes that EUR/USD barely fell on 5 November. The useful distinction is between a common backdrop and market-specific evidence. The review's dollar-positioning explanation can be challenged by the payrolls reaction; it does not resolve each market's countercase in advance.",
+  "attribution": "Source: Capital Chronicle",
+  "source_page_url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4",
+  "source_links": [
+    {
+      "document_id": "cc124-six-markets-20261106",
+      "url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4",
+      "label": "Capital Chronicle"
+    },
+    {
+      "document_id": "cc124-six-markets-20261106",
+      "url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4",
+      "label": "Capital Chronicle"
+    }
+  ],
+  "source_lineage": [
+    {
+      "document_id": "cc124-six-markets-20261106",
+      "source_url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4"
+    },
+    {
+      "document_id": "cc124-six-markets-20261106",
+      "source_url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4"
+    }
+  ],
+  "underlying_source_rights_status": "attributed_facts_independent_chart",
+  "data_card_packet": {
+    "policy": "CC144_EVERY_POST_VISUAL_V1",
+    "facts": [
+      {
+        "claim_id": "euro-counterweights",
+        "text": "**EUR/USD.** The review names firmer euro-area inflation, expectations of ECB rate increases and limited sensitivity to broader risk moves as counterweights to the dollar bid. It also notes that EUR/USD barely fell on 5 November.",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-six-markets-20261106",
+        "support_excerpt": "Named opposite mechanisms: euro-area inflation firming ECB hike pricing low risk beta (EURUSD barely fell on 5 Nov).",
+        "source_content_sha256": "dd536413e590b3ea0b42fb64d760ffcbea0c5b1c94819f2fe1257e909053a24a",
+        "rights_class": "capital_chronicle_own_report",
+        "rights_binding_sha256": "401a68cb1412f5b75963b2b0c4b69d9bbfa9be8d667d6f41ebc8ec5aeb958dd2",
+        "publisher": "Capital Chronicle",
+        "url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4"
+      },
+      {
+        "claim_id": "closing-conditional-dollar",
+        "text": "The useful distinction is between a common backdrop and market-specific evidence. The review's dollar-positioning explanation can be challenged by the payrolls reaction; it does not resolve each market's countercase in advance.",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-six-markets-20261106",
+        "support_excerpt": "The Asia USD bid may be pre-NFP positioning that unwinds on the print rather than a durable USD trend; gold's Asia drop with rising equities looks like a haven unwind",
+        "source_content_sha256": "dd536413e590b3ea0b42fb64d760ffcbea0c5b1c94819f2fe1257e909053a24a",
+        "rights_class": "capital_chronicle_own_report",
+        "rights_binding_sha256": "401a68cb1412f5b75963b2b0c4b69d9bbfa9be8d667d6f41ebc8ec5aeb958dd2",
+        "publisher": "Capital Chronicle",
+        "url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4"
+      }
+    ],
+    "design": "CC290_SITE_FACT_CARD_V2",
+    "title": "Capital Chronicle's pre-payrolls review: a dollar bid with different countercases",
+    "dated_line": "Capital Chronicle"
+  },
+  "transform_sha256": "d20ae2b692df6277c87d28d7ca310e22c2d68fc40a7c5be1133d51b1ef566a0a",
+  "publication_authority": false
+}
