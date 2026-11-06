@@ -2004,7 +2004,7 @@ def _reader_safe_native_article(
     # Older sealed articles without it remain unchanged; no source claim is added.
     analysis_notice = "Analysis, not financial advice. Readers decide whether to trade."
     retrospective_notice = re.search(
-        r"Retrospective analysis, written on \d{1,2} [A-Z][a-z]+ \d{4} \(GMT\+7\)", raw_body)
+        r"Retrospective analysis, written on \d{1,2} [A-Z][a-z]+ \d{4} \((?:ET|GMT\+7)\)", raw_body)
     if retrospective_notice:
         result["editorial_scope_notice"] = " ".join(filter(None, (
             result["editorial_scope_notice"].strip(), retrospective_notice.group(0))))

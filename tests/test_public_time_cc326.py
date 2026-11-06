@@ -128,3 +128,39 @@ def test_router_checks_resolved_article_and_derivative_payload(tmp_path, monkeyp
         result = _publish_one_destination_from_durable_intent(destination=destination, intent={"attempt_identity": "controlled"},
             authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT", "dispatch_attempt_identity": "controlled"})
         assert result["reason_code"] == REASON and result["public_write_performed"] is False
+
+
+@pytest.mark.parametrize("instant,expected", [
+    ("2026-11-06T02:00:00Z", "November 5, 2026"),
+    ("2026-07-15T04:30:00Z", "July 15, 2026"),
+    ("2026-11-06", "November 6, 2026"),
+])
+def test_delivery_media_source_date_converts_instants_only(instant, expected):
+    from live_contentops.media_manifest_authority_v1 import _reader_facing_source_date
+    assert _reader_facing_source_date(instant) == expected
+
+
+def test_et_retrospective_notice_survives_all_eight_native_packages():
+    from pathlib import Path
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle
+    from test_retrospective_piece_v1 import retained_json
+    root = Path(__file__).resolve().parents[1] / "docs/publisher/CC-074-private-20261101"
+    source = (root / "native/desktop_response_write.json").read_bytes()
+    # An in-memory regression fixture; the historical article and all files stay sealed.
+    old = "Retrospective analysis, written on 1 November 2026 (GMT+7)"
+    notice = "Retrospective analysis, written on 1 November 2026 (ET)"
+    article = json.loads(source)["output"]["article"]
+    article = json.loads(json.dumps(article).replace(old, notice))
+    article["public_source_bindings"] = [{k: d[k] for k in ("source_id", "publisher", "url")}
+        for d in retained_json("source-packet.json")]
+    assets = retained_json("chart-assets.json")
+    bundle, _ = _native_preview_bundle(article=article, article_mode="DATA_OR_DOCUMENT_LENS",
+        article_identity="a" * 64, epistemic_state={"reader_visible_epistemic_label": "CONFIRMED",
+            "event_confirmation_state": "CONFIRMED", "primary_reporting_publisher": "Federal Reserve Board"},
+        media_asset_ids=[a["asset_id"] for a in assets], media_assets=assets)
+    assert len(bundle["packages"]) == 8
+    for payload in bundle["packages"].values():
+        text = payload.get("full_text") or payload["text"]
+        assert notice in " ".join(text.split())
+        assert find_forbidden_public_time(text) is None
+    assert (root / "native/desktop_response_write.json").read_bytes() == source

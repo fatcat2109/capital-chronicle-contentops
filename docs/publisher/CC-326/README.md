@@ -14,3 +14,8 @@ history, exact frozen-request replay, digest delivery and reader-presentation re
 actual model and effort telemetry are unavailable (CONFIGURED_NOT_OBSERVED).
 
 Integration and next-article public readback are recorded below when observed.
+
+Second passing sub-step: `media-tests.xml`, 78 focused checks passed. The ET
+retrospective notice survives all eight native derivative packages, and delivery-card
+source dates convert aware instants before selecting the New York day. Date-only source
+periods and sealed historical article bytes remain intact.
