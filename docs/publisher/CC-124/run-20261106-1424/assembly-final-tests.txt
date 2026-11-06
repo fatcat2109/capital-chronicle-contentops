@@ -1,0 +1,55 @@
+FFF....................sss..........................                     [100%]
+================================== FAILURES ===================================
+_ test_completed_native_revision_reaches_existing_assembly_without_another_writer[None] _
+
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-33845/test_completed_native_revision0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002C8363A95B0>
+mismatch = None
+
+    @pytest.mark.parametrize("mismatch", [None, "return", "source"])
+    def test_completed_native_revision_reaches_existing_assembly_without_another_writer(tmp_path, monkeypatch, mismatch):
+        from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
+        store, binding, _, result, _ = seeded(tmp_path, monkeypatch, final_visual=False)
+        turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"], owner_manual_validation=True)
+>       worker = copy.deepcopy(turn._get("write", "response")["output"])
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+tests\test_native_publication_latency_v1.py:32: TypeError
+_ test_completed_native_revision_reaches_existing_assembly_without_another_writer[return] _
+
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-33845/test_completed_native_revision1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002C834B115B0>
+mismatch = 'return'
+
+    @pytest.mark.parametrize("mismatch", [None, "return", "source"])
+    def test_completed_native_revision_reaches_existing_assembly_without_another_writer(tmp_path, monkeypatch, mismatch):
+        from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
+        store, binding, _, result, _ = seeded(tmp_path, monkeypatch, final_visual=False)
+        turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"], owner_manual_validation=True)
+>       worker = copy.deepcopy(turn._get("write", "response")["output"])
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+tests\test_native_publication_latency_v1.py:32: TypeError
+_ test_completed_native_revision_reaches_existing_assembly_without_another_writer[source] _
+
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-33845/test_completed_native_revision2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002C858916210>
+mismatch = 'source'
+
+    @pytest.mark.parametrize("mismatch", [None, "return", "source"])
+    def test_completed_native_revision_reaches_existing_assembly_without_another_writer(tmp_path, monkeypatch, mismatch):
+        from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
+        store, binding, _, result, _ = seeded(tmp_path, monkeypatch, final_visual=False)
+        turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"], owner_manual_validation=True)
+>       worker = copy.deepcopy(turn._get("write", "response")["output"])
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+tests\test_native_publication_latency_v1.py:32: TypeError
+=========================== short test summary info ===========================
+FAILED tests/test_native_publication_latency_v1.py::test_completed_native_revision_reaches_existing_assembly_without_another_writer[None]
+FAILED tests/test_native_publication_latency_v1.py::test_completed_native_revision_reaches_existing_assembly_without_another_writer[return]
+FAILED tests/test_native_publication_latency_v1.py::test_completed_native_revision_reaches_existing_assembly_without_another_writer[source]
+3 failed, 46 passed, 3 skipped in 68.55s (0:01:08)

@@ -1997,7 +1997,7 @@ def _reader_safe_native_article(
         "effective_article_mode": str(article_mode),
         "substack_body_markdown": body,
         "editorial_scope_notice": " ".join(s for s in (
-            str((epistemic_state or {}).get("report_scope_notice") or ""),
+            str((epistemic_state or {}).get("report_scope_notice") or "").replace("dated Main report", "dated review"),
             str(article.get("source_date_notice") or "") if legacy_presentation and not reader_first else "") if s),
     }
     if article.get("text_first"):

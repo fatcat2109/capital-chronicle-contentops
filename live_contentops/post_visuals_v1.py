@@ -144,7 +144,9 @@ def _render_card(packet, path, mini_chart=None):
     from live_contentops.fact_card_design_v1 import CardSpec, INSTAGRAM_SIZE, key_from_facts, render_fact_card
     display = packet.get("editorial_display") or {}
     labels = display.get("fact_labels") or []
-    facts = [(labels[i] if i < len(labels) else "Reported fact", fact["text"])
+    facts = [(labels[i] if i < len(labels) else
+              "From the dated review" if fact.get("rights_class") == "capital_chronicle_own_report" else "Reported fact",
+              re.sub(r"\*\*([^*]+)\*\*", r"\1", fact["text"]))
         for i, fact in enumerate(packet["facts"])]
     publishers = list(dict.fromkeys(fact["publisher"] for fact in packet["facts"]))
     key_label, key_value = ("", "") if mini_chart else key_from_facts(facts)
@@ -232,6 +234,7 @@ def build_post_data_card(article, claims, documents, *, output_dir, series_packe
     # The design, title and piece date are part of the packet, so a new render never
     # reuses the path of a card already sent in the older layout.
     packet = {"policy": POLICY, "facts": facts, "design": DESIGN,
+              "text_presentation": "PLAIN_EMPHASIS_AND_DATED_REVIEW_ATTRIBUTION_V1",
               "title": str(article.get("title") or "Key facts"), "dated_line": piece_dated_line(article)}
     display = (article.get("visual_editorial_decision") or {}).get("post_data_card_plan") or {}
     if display and [f.get("text") for f in display.get("facts", [])] == [f["text"] for f in facts]:

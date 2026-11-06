@@ -24,6 +24,44 @@ def current(store, run):
     return json.loads(store.get_outbox_message("cc-editorial-final-" + sha256_of(run))["payload"])
 
 
+@pytest.mark.parametrize("mismatch", [None, "return", "source"])
+def test_completed_native_revision_reaches_existing_assembly_without_another_writer(tmp_path, monkeypatch, mismatch):
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
+    store, binding, _, result, _ = seeded(tmp_path, monkeypatch, final_visual=False)
+    turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"], owner_manual_validation=True)
+    original = json.loads((Path(__file__).resolve().parents[1] /
+        "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/goal31-company-machine-reading-write-output.json").read_bytes())
+    turn._put("write", "response", {"output": original,
+        "invocation_observation": {"invocation_id": "CONTROLLED_TEST_SAME_WRITER"}})
+    worker = copy.deepcopy(original)
+    worker["article"]["substack_body_markdown"] = worker["article"]["substack_body_markdown"].replace("\n\n", "\n\n\n", 1)
+    request = {"request_sha256": "a" * 64, "governed_input": {"source_pack": result["evidence"]}}
+    if mismatch == "source":
+        request["governed_input"]["source_pack"] = []
+    response = {"request_sha256": ("b" * 64 if mismatch == "return" else request["request_sha256"]),
+                "output": worker, "invocation_observation": turn._get("write", "response")["invocation_observation"]}
+    turn._put("revise", "request", request)
+    turn._put("revise", "response", response)
+    before = copy.deepcopy(current(store, binding["run_id"]))
+    call = lambda: bind_editorial_media(store, run_id=binding["run_id"], article_identity=result["article_identity"],
+        assets=result["media_assets"], expected_package_revision=native_review_revision(result),
+        completed_revision_request_sha256=request["request_sha256"])
+    if mismatch:
+        with pytest.raises(ValueError, match="EXACT_COMPLETED_NATIVE_REVISION_REQUIRED"):
+            call()
+        assert current(store, binding["run_id"]) == before
+        return
+    call()
+    actual = current(store, binding["run_id"])
+    assert actual["article"]["substack_body_markdown"] == worker["article"]["substack_body_markdown"]
+    assert actual["simple_result"]["revision_performed"] is True
+    assert len(actual["previews"]) == 8
+    assert actual["evidence"] == before["evidence"]
+    assert turn._get("write", "response")["output"] != worker
+    assert turn._get("revise", "response") == response
+    assert not store.list_platform_dispatches()
+
+
 def failed_review(store, binding, result, tag):
     turn, request, response = visual_request_fixture(store, binding, result, revision_tag=tag)
     response["output"]["decision"] = "REPAIR_REQUIRED"

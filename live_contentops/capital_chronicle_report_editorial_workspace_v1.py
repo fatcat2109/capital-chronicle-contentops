@@ -310,6 +310,20 @@ def run_report_editorial_cycle(
                 else "DRAFT_SUPERSEDED",
                 "superseded_by_version": latest["report_version"],
             }
+        # A validator repair can make the original draft pass on a later resume.
+        # A completed native revision remains the current authored result. Reuse
+        # it through the existing pre-dispatch media/assembly owner, preserving
+        # the prior package and every immutable native request/return.
+        revision_request = getattr(llm_invoke, "frozen_request", lambda _: None)("revise") if native else None
+        revision_response = getattr(llm_invoke, "_get", lambda *_: None)("revise", "response") if native else None
+        if (revision_request and revision_response
+                and not previous.get("simple_result", {}).get("revision_performed")):
+            from live_contentops.native_desktop_editorial_v1 import bind_editorial_media, native_review_revision
+            bind_editorial_media(tracker.store, run_id=opportunity_id or run_id or receipt_id,
+                article_identity=previous["article_identity"], assets=previous.get("media_assets", []),
+                expected_package_revision=native_review_revision(previous),
+                completed_revision_request_sha256=revision_request["request_sha256"])
+            previous = stages.get(final_id)
         return previous
     if record.get("status") in {
         "INVALIDATION_WITHDRAWAL_NOOP",

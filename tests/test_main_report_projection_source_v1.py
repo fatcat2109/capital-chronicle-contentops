@@ -170,6 +170,44 @@ def test_native_synthesis_prose_feeds_existing_public_card(tmp_path, monkeypatch
     assert asset["data_card_packet"]["facts"][0]["text"] in text
 
 
+def test_review_card_renders_prose_without_exposing_markdown_or_certifying_interpretation(tmp_path, monkeypatch):
+    from live_contentops import fact_card_design_v1 as design
+    from live_contentops.post_visuals_v1 import build_post_data_card
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
+    text = "**Gold.** The review describes competing mechanisms."
+    root, _, spec = retained(tmp_path, monkeypatch, text, native=True)
+    docs = _source_pack(RetainedSourceResearch(root).evidence({"headline_ids": [spec["headline_id"]]}, cutoff_utc=NOW)["evidence_documents"])
+    seen, original = [], design.render_fact_card
+
+    def capture(path, card_spec, **kwargs):
+        seen.extend(card_spec.facts)
+        return original(path, card_spec, **kwargs)
+
+    monkeypatch.setattr(design, "render_fact_card", capture)
+    article = {"title": "Capital Chronicle review", "substack_body_markdown": text}
+    asset = build_post_data_card(article, [{"claim_text": text, "support_excerpt": text, "source_id": "SOURCE_1"}], docs,
+                                output_dir=tmp_path / "media")
+    assert asset["data_card_packet"]["facts"][0]["text"] == text
+    assert seen == [("From the dated review", "Gold. The review describes competing mechanisms.")]
+
+
+def test_all_derivatives_display_public_review_notice_without_changing_frozen_provenance(tmp_path, monkeypatch):
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle
+    root, _, _ = retained(tmp_path, monkeypatch, native=True)
+    state = projection.projection_evidence(list(RetainedSourceResearch(root).records.values()), {})["epistemic_state"]
+    old = "Capital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record."
+    state["report_scope_notice"] = old
+    article = {"title": "Capital Chronicle reviews six markets", "dek": "Capital Chronicle's dated review.",
+               "substack_body_markdown": "Capital Chronicle reviews competing mechanisms.\n\n" + old.replace("dated Main report", "dated review")}
+    bundle, intents = _native_preview_bundle(article=article, article_mode="DATA_OR_DOCUMENT_LENS",
+        article_identity="f" * 64, epistemic_state=state)
+    assert len(intents) == 8
+    for package in bundle["packages"].values():
+        assert "dated Main report" not in json.dumps(package)
+        assert "dated review" in json.dumps(package)
+    assert state["report_scope_notice"] == old
+
+
 @pytest.mark.parametrize("paragraph,attributed", [
     ("The review records gold falling even as yields fell.", True),
     ("The review says gold and yields fell together.", True),

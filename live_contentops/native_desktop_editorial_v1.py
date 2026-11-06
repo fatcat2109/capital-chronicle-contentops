@@ -1452,7 +1452,8 @@ def normalize_native_receipt(value: dict[str, Any], telemetry: Mapping[str, Any]
 
 
 def bind_editorial_media(store, *, run_id, article_identity, assets, expected_package_revision=None,
-                         final_visual_repair=None, corrected_worker_output=None, drop_failed_visuals=False):
+                         final_visual_repair=None, corrected_worker_output=None, drop_failed_visuals=False,
+                         completed_revision_request_sha256=None):
     """Seal relevant inspected media before review using the existing final outbox.
 
     Earlier bytes stay history. A reviewed correction needs its exact revision and
@@ -1495,9 +1496,20 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
                 (run_id,row["work_item_id"])).fetchone()
         if dispatched:
             raise ValueError("REVIEWED_MEDIA_IMMUTABLE_AFTER_PUBLICATION_DISPATCH")
+    if completed_revision_request_sha256:
+        registered = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
+        operation = json.loads(registered["payload"]) if registered else {}
+        turn = NativeDesktopTurn(store, run_id=run_id, output_dir=operation["output_dir"], owner_manual_validation=True)
+        request, response = turn.frozen_request("revise"), turn._get("revise", "response")
+        if (not request or not response or request["request_sha256"] != completed_revision_request_sha256
+                or response["request_sha256"] != request["request_sha256"]
+                or request["governed_input"]["source_pack"] != result["evidence"]
+                or corrected_worker_output is not None):
+            raise ValueError("EXACT_COMPLETED_NATIVE_REVISION_REQUIRED")
+        corrected_worker_output = response["output"]
     corrected_article = result["article"]
     if corrected_worker_output is not None:
-        if final_visual_repair is None:
+        if final_visual_repair is None and not completed_revision_request_sha256:
             raise ValueError("COPY_CORRECTION_REQUIRES_SAME_MAX_FINAL_REPAIR")
         from live_contentops.v1_simple_gemini_newsroom_v1 import _validate_worker_text, _validate_article_against_source_pack
         ok, _, _, reason = _validate_worker_text(json.dumps(corrected_worker_output))
@@ -1600,7 +1612,10 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         updated["visual_repair_revision"] = {"qualified_record_path": str(record_path),
             "prior_article_identity": result["article_identity"], "source_requests": 0, "intake_restarted": False}
         updated["simple_result"] = {**result["simple_result"], "article_identity": article_identity,
-            "article_path": str(article_path), "qualified_record_path": str(record_path)}
+            "article_path": str(article_path), "qualified_record_path": str(record_path),
+            **({"revision_performed": True} if completed_revision_request_sha256 else {})}
+        if completed_revision_request_sha256:
+            updated["completed_native_revision_request_sha256"] = completed_revision_request_sha256
     store.finalize_outbox_payload_before_dispatch(message_id=key, payload=canonical_bytes(updated).decode(), status="EDITORIAL_INTERNAL")
     return {"classification": "MEDIA_BOUND_REVIEW_REQUIRED", "article_identity": article_identity, "media_count": len(assets), "public_write_performed": False}
 

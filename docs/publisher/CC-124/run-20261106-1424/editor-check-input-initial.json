@@ -1,0 +1,500 @@
+{
+  "operation_id": "cc124-six-markets-20261106-v1",
+  "article_identity": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
+  "revision": "fa76de42a70fc58c98d55edf983768b043028141e941ded3c30c9a0848e9eaf0",
+  "article": {
+    "analysis_scope": "OTHER_ANALYSIS",
+    "audience_learning_binding": {
+      "policy_version": "policy_c3e1de30fca9eace0112b384",
+      "preference_only": true,
+      "snapshot_sha256": "fa489b58a328ddc5d2e5cf0b73177d0d5cdaf299c7542939a555ec647e9424b1"
+    },
+    "canonical_slug_candidate": "pre-payrolls-six-market-review-dollar-countercases",
+    "chart_reason": "This is a qualitative comparison of a retained six-market review, not analysis of a new data release or policy decision. The admitted passages supply no comparable numerical history. One comparison card drawn solely from the finished article can explain the distinct mechanisms and coverage limits without inventing series.",
+    "dek": "DATED CAPITAL CHRONICLE REVIEW \u2014 Gold, US500, EUR/USD, USD/JPY, WTI and Bitcoin carry different counterweights to the dollar risk.",
+    "entities": [
+      "Capital Chronicle",
+      "Gold",
+      "US500",
+      "EUR/USD",
+      "USD/JPY",
+      "WTI",
+      "Bitcoin",
+      "European Central Bank",
+      "Bank of Japan",
+      "Financial Times"
+    ],
+    "epistemic_state": {
+      "analysis_must_be_conditional": true,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "UNCONFIRMED",
+      "event_proposition": "The retained Main report records dated analysis and market observations.",
+      "event_truth_supported": false,
+      "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+      "origin_character": "ON_RECORD",
+      "primary_reporting_publisher": "Capital Chronicle",
+      "primary_reporting_source_identity": "cc124-six-markets-20261106",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "DATED CAPITAL CHRONICLE REVIEW",
+      "report_proposition": "Capital Chronicle reviews six markets ahead of payrolls: a shared dollar risk, different setups",
+      "report_scope_notice": "Capital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record.",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "cc124-six-markets-20261106"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": false
+    },
+    "internal_link_candidates": [],
+    "meta_description": "Capital Chronicle's 6 November review compares the dollar bid and competing forces in six markets, preserving its intraday coverage limits.",
+    "photo_less_brief_eligible": false,
+    "primary_reader_question": "Why does the shared dollar risk before payrolls create different conditions and countercases in gold, US500, EUR/USD, USD/JPY, WTI and Bitcoin?",
+    "public_source_bindings": [
+      {
+        "published_at_utc": "2026-11-06T06:06:29Z",
+        "publisher": "Capital Chronicle",
+        "source_id": "SOURCE_1",
+        "url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4"
+      }
+    ],
+    "public_write_performed": false,
+    "reader_attribution_policy": "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1",
+    "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+    "schema_version": "contentops.v1_simple_article_manifest.v1",
+    "search_freshness_class": "DATED_DOCUMENT_LENS",
+    "search_title": "Pre-payrolls market review: gold, US500, FX, WTI and Bitcoin",
+    "secondary_reader_questions": [
+      "Why did the review question a broad flight-from-risk explanation?",
+      "Which counterforces distinguish the two currency pairs?",
+      "Where does intraday coverage limit the comparison?"
+    ],
+    "social_cross_asset_summary": "**Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure. That is a question about shared equity risk, rather than two independent ideas. Hourly and 15-minute Bitcoin observations were not assessed; the review separates that coverage gap from the overlap argument.",
+    "social_hook": "A dollar bid is not a six-market verdict. Capital Chronicle's pre-payrolls review weighs the countercases.",
+    "social_mechanism_summary": "Capital Chronicle's 6 November pre-payrolls review describes an Asian dollar bid alongside rising equities and falling gold. It interprets that combination as a possible unwind of haven demand. The dollar buying may itself be positioning that reverses when payrolls arrive. The shared dollar backdrop therefore leaves different questions for each market.",
+    "social_policy_summary": "**WTI.** The review weighs deal progress against shipping-attack risk near Hormuz. It cautions that treating the deal channel as dominant rests on one Financial Times headline in its background material, rather than demonstrated evidence. These are the review's competing headline scenarios; this article does not independently confirm either event.",
+    "source_date_notice": "Source date: 2026-11-06. Interpretation remains analysis.",
+    "source_document_ids": [
+      "cc124-six-markets-20261106"
+    ],
+    "story_identity": "simple-story-b59f3e325ee83ceab23586a8",
+    "structured_data_packet": null,
+    "substack_body_markdown": "Capital Chronicle's 6 November pre-payrolls review describes an Asian dollar bid alongside rising equities and falling gold. It interprets that combination as a possible unwind of haven demand. The dollar buying may itself be positioning that reverses when payrolls arrive. The shared dollar backdrop therefore leaves different questions for each market. [[SOURCE:SOURCE_1]]\n\n**Gold.** The review records gold falling on 5 November even as real and nominal yields fell. For the Asian drop, it offers a haven-demand unwind as an interpretation. Its countercase combines softer payrolls, lower real yields and renewed haven buying. A rates-only explanation misses the tension in the report. [[SOURCE:SOURCE_1]]\n\n**US500.** The review says the Asian equity rebound retained most of its gain, challenging a blanket flight-from-risk explanation. Its US500 assessment rests on daily bars; hourly and 15-minute observations were not assessed. The limitation concerns the detail of the intraday picture, not a separate reason to infer direction. [[SOURCE:SOURCE_1]]\n\n**EUR/USD.** The review names firmer euro-area inflation, expectations of ECB rate increases and limited sensitivity to broader risk moves as counterweights to the dollar bid. It also notes that EUR/USD barely fell on 5 November. [[SOURCE:SOURCE_1]]\n\n**USD/JPY.** The review takes no direction: dollar demand and the prospect of strong payrolls changing rate expectations compete with yen haven demand, hawkish Bank of Japan minutes and intervention risk. It also records a narrower U.S.\u2013Japan two-year yield gap on 5 November. Intraday coverage for the pair was unavailable. The document leaves those forces unresolved. [[SOURCE:SOURCE_1]]\n\n**WTI.** The review weighs deal progress against shipping-attack risk near Hormuz. It cautions that treating the deal channel as dominant rests on one Financial Times headline in its background material, rather than demonstrated evidence. These are the review's competing headline scenarios; this article does not independently confirm either event. [[SOURCE:SOURCE_1]]\n\n**Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure. That is a question about shared equity risk, rather than two independent ideas. Hourly and 15-minute Bitcoin observations were not assessed; the review separates that coverage gap from the overlap argument. [[SOURCE:SOURCE_1]]\n\nThe comparison also has uneven inputs. The review supplies no payrolls consensus median, dollar-index level, VIX reading or high-yield spread measurement. Its COT positioning is dated 27 October, its GEX options proxy comes from a 23 October case, and its latest GLD holdings observation is 4 November. Holdings describe a stock, not a flow. [[SOURCE:SOURCE_1]]\n\nThe useful distinction is between a common backdrop and market-specific evidence. The review's dollar-positioning explanation can be challenged by the payrolls reaction; it does not resolve each market's countercase in advance. [[SOURCE:SOURCE_1]]\n\nCapital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record. [[SOURCE:SOURCE_1]]\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers. [[SOURCE:SOURCE_1]]",
+    "title": "Capital Chronicle's pre-payrolls review: a dollar bid with different countercases",
+    "topics": [
+      "Cross-market analysis",
+      "U.S. payrolls",
+      "Dollar positioning",
+      "Market countercases"
+    ],
+    "update_chain_identity": "simple-story-b59f3e325ee83ceab23586a8",
+    "volume_policy": {
+      "brief_only": false,
+      "effective_production_date": "2026-10-31",
+      "max_admitted_candidates": 6,
+      "max_articles": 2,
+      "non_chargeable_only": true,
+      "photo_less_news_policy": true,
+      "policy_id": "CC-047-20261030",
+      "source_request_limit": 20,
+      "source_resolvability_first": true
+    },
+    "volume_policy_cutoff_utc": "2026-11-06T07:32:14.751576Z"
+  },
+  "previews": [
+    {
+      "article_identity": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
+      "claim_lineage": [],
+      "destination": "telegram",
+      "payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "post-facts-d20ae2b692df6277c87d"
+        ],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nDATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nWhat to watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-c30ba72b539d3672\n\nCapital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      },
+      "preview_id": "cc-preview-15599e05cfcbeb5cdbb44dcc0045ce316ba246f8f37acc0341b1f049ca1f84c2"
+    },
+    {
+      "article_identity": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
+      "claim_lineage": [],
+      "destination": "x",
+      "payload": {
+        "format": "text_brief",
+        "full_text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c30ba72b539d3672\n\nWatch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.\n\nCapital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "post-facts-d20ae2b692df6277c87d"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c30ba72b539d3672"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure."
+          },
+          {
+            "media_asset_ids": [],
+            "order": 2,
+            "role": "reply",
+            "text": "Capital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "content_reply_count": 2,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "notice_reply_count": 0,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.839,
+            0.357,
+            0.9
+          ],
+          "post_character_counts": [
+            235,
+            100,
+            252
+          ],
+          "reply_count": 2,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.397,
+          "visual_distribution_pass": false
+        },
+        "reply_texts": [
+          "Watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.",
+          "Capital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+        ],
+        "root_text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c30ba72b539d3672",
+        "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c30ba72b539d3672"
+      },
+      "preview_id": "cc-preview-0b72416b01d6ac28c7b470c81422a1353b1963f735dfddcf2d3beffa907435c5"
+    },
+    {
+      "article_identity": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
+      "claim_lineage": [],
+      "destination": "linkedin",
+      "payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "post-facts-d20ae2b692df6277c87d"
+        ],
+        "platform_limit": 3000,
+        "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nWhy it matters: Capital Chronicle's 6 November pre-payrolls review describes an Asian dollar bid alongside rising equities and falling gold.\n\nContext: **WTI.** The review weighs deal progress against shipping-attack risk near Hormuz.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-c30ba72b539d3672\n\nCapital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      },
+      "preview_id": "cc-preview-7ad1c7224a676c23b62ebb4bd52b871748b6b8411e34bdd28ad19a16813020c7"
+    },
+    {
+      "article_identity": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
+      "claim_lineage": [],
+      "destination": "discord",
+      "payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "post-facts-d20ae2b692df6277c87d"
+        ],
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases**\n\nA dollar bid is not a six-market verdict.\n\n**Context:** **WTI.** The review weighs deal progress against shipping-attack risk near Hormuz.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-c30ba72b539d3672\n\nCapital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      },
+      "preview_id": "cc-preview-b46fb943aee99d306057be47618ca2f4fb47f27c8bc92ba502442fc769bf90cf"
+    },
+    {
+      "article_identity": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
+      "claim_lineage": [],
+      "destination": "facebook_page",
+      "payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "post-facts-d20ae2b692df6277c87d"
+        ],
+        "platform_limit": 63206,
+        "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nWhy it matters: Capital Chronicle's 6 November pre-payrolls review describes an Asian dollar bid alongside rising equities and falling gold.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-c30ba72b539d3672\n\nCapital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      },
+      "preview_id": "cc-preview-c77772b0dd25148bef27bb7b0e47defc8ac65d5c724eae03b7ff9d72fc8a577d"
+    },
+    {
+      "article_identity": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
+      "claim_lineage": [],
+      "destination": "instagram_business",
+      "payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "post-facts-d20ae2b692df6277c87d"
+        ],
+        "platform_limit": 2200,
+        "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nIn focus: **WTI.** The review weighs deal progress against shipping-attack risk near Hormuz.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-c30ba72b539d3672\n\n#CapitalChronicle\n\nCapital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      },
+      "preview_id": "cc-preview-2864ec9dd19d40a8739083f46f8afaf3ebb61a593d7a494a990bab8d66243b71"
+    },
+    {
+      "article_identity": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
+      "claim_lineage": [],
+      "destination": "threads",
+      "payload": {
+        "format": "text_brief",
+        "full_text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\n**WTI.** The review weighs deal progress against shipping-attack risk near Hormuz.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c30ba72b539d3672\n\nWhat to watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.\n\nCapital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "post-facts-d20ae2b692df6277c87d"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\n**WTI.** The review weighs deal progress against shipping-attack risk near Hormuz.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c30ba72b539d3672"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.\n\nCapital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "content_reply_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "notice_reply_count": 0,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.552,
+            0.724
+          ],
+          "post_character_counts": [
+            276,
+            362
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.762,
+          "visual_distribution_pass": false
+        },
+        "reply_texts": [
+          "What to watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.\n\nCapital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+        ],
+        "root_text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\n**WTI.** The review weighs deal progress against shipping-attack risk near Hormuz.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c30ba72b539d3672",
+        "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\n**WTI.** The review weighs deal progress against shipping-attack risk near Hormuz.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c30ba72b539d3672"
+      },
+      "preview_id": "cc-preview-34e75aa6486b4a3f3153da69c8379922d1ee6cb95862d88347fc00540f23089d"
+    },
+    {
+      "article_identity": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
+      "claim_lineage": [],
+      "destination": "youtube",
+      "payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "post-facts-d20ae2b692df6277c87d"
+        ],
+        "platform_limit": 1000,
+        "text": "Update: DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nWhat to watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-c30ba72b539d3672\n\nCapital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      },
+      "preview_id": "cc-preview-52d42d7c99af50dcf81af8ebeacd090d12cd52b20c6412baf723e06a0ff72331"
+    }
+  ],
+  "evidence": [
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "dd536413e590b3ea0b42fb64d760ffcbea0c5b1c94819f2fe1257e909053a24a",
+      "canonical_content_text": "The Critical's correction is adopted: this window was a USD bid, not risk-off.\n\nThe Asia USD bid may be pre-NFP positioning that unwinds on the print rather than a durable USD trend; gold's Asia drop with rising equities looks like a haven unwind\n\nGold fell even as real and nominal yields fell on 5 Nov\n\nlower real yields after a soft NFP plus haven buying are the named opposite mechanism\n\nthe Asia rebound held most of its gain Levels rest on D1 bars because the US500 H1/M15 rows were not read (coverage gap).\n\nNamed opposite mechanisms: euro-area inflation firming ECB hike pricing low risk beta (EURUSD barely fell on 5 Nov).\n\nNo direction this run. Two named mechanisms offset inside the horizon: the USD bid and a strong-NFP hike repricing push up; the yen haven bid, hawkish BoJ minutes and intervention risk US2Y-JP2Y narrowed on 5 Nov.\n\nOil runs on a two-sided headline channel: deal progress against shipping attacks near Hormuz\n\nshipping attacks near Hormuz are a named mechanism for the opposite move, and the deal-dominates view rests on one FT headline in context, not on evidence.\n\na BTC short would double the SPX equity tail. The BTCUSD H1/M15 rows sit unread in the native-intraday row; that is a coverage gap, not the reason.\n\nUSDJPY intraday contract was refused at capture (INTRADAY_CONTRACT_NOT_IN_ADMITTED_CURRENT_INVENTORY). NFP consensus medians are null. DXY level, VIX and high-yield spreads are unknown (all scenario dimensions unknown). COT is from 27 Oct and the GEX proxy from the 23 Oct case; ETF holdings are stocks, latest GLD row 4 Nov.",
+      "canonical_resolution_status": "",
+      "document_id": "cc124-six-markets-20261106",
+      "published_at_source": "RETAINED_MAIN_REPORT_KNOWN_AT_NOT_PUBLICATION_CLOCK",
+      "published_at_utc": "2026-11-06T06:06:29Z",
+      "publisher": "Capital Chronicle",
+      "report_lineage": {
+        "independent_confirmation": false,
+        "origin": "RETAINED_MAIN_REPORT_EXACT_SPANS",
+        "report_id": "cc124-six-markets-20261106",
+        "report_projection_sha256": "04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4"
+      },
+      "report_truth_only": true,
+      "retrieval_method": "EXACT_RETAINED_MAIN_REPORT_PUBLIC_SPANS",
+      "secondary_listing_only": false,
+      "source_authority_class": "governed_capital_chronicle_report_only",
+      "source_id": "SOURCE_1",
+      "source_identity": "cc124-six-markets-20261106",
+      "source_reuse_constraints": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "attribution_required": true,
+        "authority_ref": "JIM_DECISION_89",
+        "permitted_consumers": [
+          "internal_research",
+          "narrative_context"
+        ],
+        "provider_safe": true,
+        "public_expression_reuse_allowed": true,
+        "scope": "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS",
+        "source_capture_sha256": "04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4",
+        "underlying_event_truth_granted": false
+      },
+      "url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4"
+    }
+  ],
+  "media_assets": [
+    {
+      "alt_text": "**EUR/USD.** The review names firmer euro-area inflation, expectations of ECB rate increases and limited sensitivity to broader risk moves as counterweights to the dollar bid. It also notes that EUR/USD barely fell on 5 November. The useful distinction is between a common backdrop and market-specific evidence. The review's dollar-positioning explanation can be challenged by the payrolls reaction; it does not resolve each market's countercase in advance.",
+      "asset_id": "post-facts-d20ae2b692df6277c87d",
+      "attribution": "Source: Capital Chronicle",
+      "caption": "Key facts from the article.",
+      "data_card_packet": {
+        "dated_line": "Capital Chronicle",
+        "design": "CC290_SITE_FACT_CARD_V2",
+        "facts": [
+          {
+            "claim_id": "euro-counterweights",
+            "document_id": "cc124-six-markets-20261106",
+            "publisher": "Capital Chronicle",
+            "rights_binding_sha256": "401a68cb1412f5b75963b2b0c4b69d9bbfa9be8d667d6f41ebc8ec5aeb958dd2",
+            "rights_class": "capital_chronicle_own_report",
+            "source_content_sha256": "dd536413e590b3ea0b42fb64d760ffcbea0c5b1c94819f2fe1257e909053a24a",
+            "source_id": "SOURCE_1",
+            "support_excerpt": "Named opposite mechanisms: euro-area inflation firming ECB hike pricing low risk beta (EURUSD barely fell on 5 Nov).",
+            "text": "**EUR/USD.** The review names firmer euro-area inflation, expectations of ECB rate increases and limited sensitivity to broader risk moves as counterweights to the dollar bid. It also notes that EUR/USD barely fell on 5 November.",
+            "url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4"
+          },
+          {
+            "claim_id": "closing-conditional-dollar",
+            "document_id": "cc124-six-markets-20261106",
+            "publisher": "Capital Chronicle",
+            "rights_binding_sha256": "401a68cb1412f5b75963b2b0c4b69d9bbfa9be8d667d6f41ebc8ec5aeb958dd2",
+            "rights_class": "capital_chronicle_own_report",
+            "source_content_sha256": "dd536413e590b3ea0b42fb64d760ffcbea0c5b1c94819f2fe1257e909053a24a",
+            "source_id": "SOURCE_1",
+            "support_excerpt": "The Asia USD bid may be pre-NFP positioning that unwinds on the print rather than a durable USD trend; gold's Asia drop with rising equities looks like a haven unwind",
+            "text": "The useful distinction is between a common backdrop and market-specific evidence. The review's dollar-positioning explanation can be challenged by the payrolls reaction; it does not resolve each market's countercase in advance.",
+            "url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4"
+          }
+        ],
+        "policy": "CC144_EVERY_POST_VISUAL_V1",
+        "title": "Capital Chronicle's pre-payrolls review: a dollar bid with different countercases"
+      },
+      "height": 1350,
+      "media_role": "post_key_facts",
+      "modality": "source_bound_data_card",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\media_assets\\post-facts-d20ae2b692df6277c87d.png",
+      "publication_authority": false,
+      "role": "supporting_fact_context",
+      "sha256": "9f83695b0bfa70436fab957986e71ab7f7abf424a4d64d5257ed0231e4d6b335",
+      "source_lineage": [
+        {
+          "document_id": "cc124-six-markets-20261106",
+          "source_url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4"
+        },
+        {
+          "document_id": "cc124-six-markets-20261106",
+          "source_url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4"
+        }
+      ],
+      "source_links": [
+        {
+          "document_id": "cc124-six-markets-20261106",
+          "label": "Capital Chronicle",
+          "url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4"
+        },
+        {
+          "document_id": "cc124-six-markets-20261106",
+          "label": "Capital Chronicle",
+          "url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4"
+        }
+      ],
+      "source_page_url": "urn:cc-public-report:main-retained:04ccffee4db578da6c1555a81e3ccd2351a1c6f32ec74599d93d338bd863a7a4",
+      "transform_sha256": "d20ae2b692df6277c87d28d7ca310e22c2d68fc40a7c5be1133d51b1ef566a0a",
+      "underlying_source_rights_status": "attributed_facts_independent_chart",
+      "width": 1080
+    },
+    {
+      "alt_text": "Archive photograph of the Federal Reserve\u2019s white stone Eccles Building, with columns and a blue sky.",
+      "asset_id": "cc124-eccles-archive-2011",
+      "attribution": "Britt Leckman / Federal Reserve Board, via Wikimedia Commons. Public domain.",
+      "canonical_photo_credit": "Photo: Britt Leckman / Federal Reserve Board ([Federalreserve, via Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg)). [Public domain \u2014 U.S. Federal Reserve Board work](https://commons.wikimedia.org/wiki/Template:PD-USGov-Federal_Reserve). The Federal Reserve's Eccles Building, photographed on 29 March 2011. Archive image.",
+      "caption": "The Federal Reserve\u2019s Eccles Building, photographed on 29 March 2011. Archive image.",
+      "context_only": true,
+      "corroborates_article_facts": false,
+      "creator_publisher": "Federalreserve",
+      "depicted_date": "2011-03-29 11:47",
+      "height": 2041,
+      "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Federal_Reserve",
+      "modality": "documentary_photo",
+      "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/8/89/Eccles_Building_%2826088200676%29.jpg",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\eccles-building-2011.jpg",
+      "placement": "After the opening paragraph and before the six-market comparison; retain the complete composition and caption. The comparison card follows the market paragraphs.",
+      "relevance_rationale": "Archive central-bank context for the dollar and interest-rate mechanisms discussed in Main\u2019s six-market review; no current event or price corroboration.",
+      "rights_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\photo-rights.json",
+      "rights_evidence_sha256": "74bdf9204edc85dded9326da4f3a2557edf99d0a1483e9957f85bed5ac1d97fb",
+      "rights_status": "PUBLIC_DOMAIN",
+      "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg",
+      "source_reuse_basis": "Commons licensing identifies an official Board of Governors work; metadata credits Britt Leckman, Official Federal Reserve Photo, U.S. government work.",
+      "visual_review": {
+        "actual_model": null,
+        "actual_reasoning_effort": null,
+        "asset_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "final_render_review_completed": false,
+        "findings": [
+          "The inspected pixels show a clear frontal view of a white stone columned Federal Reserve building, a central entrance, flags and blue sky; the visible scene matches the supplied Eccles Building metadata.",
+          "The photograph is suitable as archive central-bank context for the article's dollar and rate mechanisms. It does not show a current announcement, any market price or evidence of the review's market observations.",
+          "Retain the full image without a destructive crop. Label the caption 29 March 2011 and Archive image. Keep the full creator, source and public-domain credit on the canonical article.",
+          "This review covers the original source photograph only. No assembled canonical, comparison card or derivative render has yet been inspected."
+        ],
+        "inspected": true,
+        "inspected_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\eccles-building-2011.jpg",
+        "inspected_sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+        "inspection_detail": "original",
+        "inspection_surface": "LOCAL_ARTIFACT_VIEW_IMAGE",
+        "inspection_tool": "view_image",
+        "invocation_observation": {
+          "actual_configuration_unavailable": true,
+          "actual_model": null,
+          "actual_reasoning_effort": null,
+          "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+          "configuration_source": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-six-markets-20261106-v1\\desktop_request_revise.json; exact native assignment /root/cc124_six_market_max",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "configured_model": "gpt-6.1-sol",
+          "configured_reasoning_effort": "max",
+          "invocation_id": "/root/cc124_six_market_max",
+          "model": null,
+          "observation_source": "supported native task context",
+          "reasoning_effort": null,
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        "material_issues": [],
+        "observation_source": "supported native task context and local image pixels emitted by view_image",
+        "pixels_inspected": true,
+        "recorded_at_utc": "2026-11-06T07:52:34.245932+00:00",
+        "relevant_subject": true,
+        "reviewed_at_utc": "2026-11-06T07:52:34.245932+00:00",
+        "reviewer": "/root/cc124_six_market_max",
+        "reviewer_invocation_id": "/root/cc124_six_market_max",
+        "status": "PASS_SOURCE_PHOTO_INSPECTION"
+      },
+      "width": 3000
+    }
+  ],
+  "publication_speed_policy": "JIM_DECISION_53",
+  "instructions": "Same MAX single pre-publication editor check: assess complete canonical and eight payloads, fact binding, uncertainty, notices, ET dates, no private execution or forbidden host links, inspect exact source-bound card pixels and photo already inspected; no per-channel screenshots. No new sources or expanded scope. Save editor-check-result.json and review-response.json, expected_review_id null."
+}
