@@ -1,5 +1,14 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Temporary weekend load — 7–8 November 2026 (decision 94)
+
+Until 9 November 01:00 GMT+7, CC-124 checks every twelve hours and publishes
+at most one article per existing production day, only from a new Main report.
+The existing publisher and day read model apply the temporary one-article cap;
+the normal decision-93 ceiling of two returns at that reset. No schedule change
+is part of CC-333. Status posts keep their separate contract. The retained NFP
+operation and frozen native request remain available for the next due CC-124 run.
+
 ## Fewer pieces, new images and scenarios — 6 November 2026 (CC-333; decision 93)
 
 At most two articles per existing newsroom production day, including event pieces.

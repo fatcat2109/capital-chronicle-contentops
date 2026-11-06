@@ -594,7 +594,8 @@ def build_production_day_snapshot(
     if decision_93:
         # Decision 93 sets a ceiling, not a quota or a reason to create filler.
         target_min = 0
-    target_max = 2 if decision_93 else FINAL_PUBLISHED_TARGET_MAX
+    from live_contentops.published_images_v1 import daily_limit
+    target_max = daily_limit(reference) if decision_93 else FINAL_PUBLISHED_TARGET_MAX
     qualified = len(
         load_qualified_article_records(output_root, production_day_id=day_id)
     )

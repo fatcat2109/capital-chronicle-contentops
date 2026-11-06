@@ -170,6 +170,33 @@ def test_daily_cap_uses_the_live_register_before_an_event_article_write(tmp_path
     assert media[0]["sha256"] not in {i["sha256"] for row in registry.records() for i in row["images"]}
 
 
+def test_weekend_cap_refuses_second_piece_but_keeps_own_social_distribution(tmp_path):
+    from live_contentops.published_images_v1 import daily_limit
+    weekend = datetime(2026, 11, 7, 8, 1, tzinfo=timezone.utc)
+    _, runtime, coordinator, message, media, *_ = publication(tmp_path)
+    coordinator._clock = lambda: weekend
+    register = image_register(coordinator)
+    register.seed(piece_id="first-weekend-piece", canonical_url="https://capitalchronicle.substack.com/p/weekend-first",
+        images=[image_asset(tmp_path, 2)], published_at=weekend.isoformat(), observation_ref="weekend-readback")
+    assert coordinator._dispatch_message(message, canonical_url=None)["status"] == "DAILY_ARTICLE_CAP_REACHED"
+    assert runtime.publish_calls == [] and daily_limit(weekend) == 1
+    first = image_asset(tmp_path, 2)
+    # Reaching this article's own remaining channels is still ordinary distribution.
+    register.reserve(piece_id="first-weekend-piece", assets=[first], lead_asset_id=first["asset_id"], now=weekend,
+        canonical_url="https://capitalchronicle.substack.com/p/weekend-first", enforce_cap=False)
+
+
+@pytest.mark.parametrize("instant,limit", [
+    ("2026-11-06T16:59:59Z", 2), ("2026-11-06T17:00:00Z", 1),
+    ("2026-11-08T17:59:59Z", 1), ("2026-11-08T18:00:00Z", 2),
+])
+def test_weekend_limit_feeds_existing_production_day_read_model(tmp_path, instant, limit):
+    from live_contentops.newsroom_production_day_v1 import build_production_day_snapshot
+    from live_contentops.published_images_v1 import daily_limit
+    result = build_production_day_snapshot(reference=instant, output_root=tmp_path)
+    assert result.final_published_target_max == daily_limit(instant) == limit
+
+
 def test_reserved_unknown_write_occupies_cap_until_exact_absence(tmp_path):
     registry = PublishedImages(tmp_path / "images.jsonl")
     for number in (1, 2):

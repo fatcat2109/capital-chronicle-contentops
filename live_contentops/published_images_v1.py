@@ -17,6 +17,8 @@ from live_contentops.published_content_v1 import _locked_feed, canonical, read_r
 
 SCHEMA = "contentops.published_images.v1"
 DAILY_LIMIT = 2
+WEEKEND_LOAD_START = datetime(2026, 11, 6, 17, 0, tzinfo=timezone.utc)
+WEEKEND_LOAD_END = datetime(2026, 11, 8, 18, 0, tzinfo=timezone.utc)
 NEAR_DISTANCE = 6
 _COS = [[math.cos((2 * x + 1) * k * math.pi / 64) for x in range(32)] for k in range(8)]
 
@@ -31,6 +33,14 @@ def day_of(value):
         raise ImagePolicyError("PUBLICATION_CLOCK_REQUIRED")
     from live_contentops.newsroom_production_day_v1 import newsroom_production_date
     return newsroom_production_date(value).isoformat()
+
+
+def daily_limit(value):
+    """Decision 94's dated weekend ceiling; normal decision-93 limit returns at reset."""
+    instant = datetime.fromisoformat(value.replace("Z", "+00:00")) if isinstance(value, str) else value
+    if instant.tzinfo is None:
+        raise ImagePolicyError("PUBLICATION_CLOCK_REQUIRED")
+    return 1 if WEEKEND_LOAD_START <= instant < WEEKEND_LOAD_END else DAILY_LIMIT
 
 
 def fingerprint(path):
@@ -128,7 +138,7 @@ class PublishedImages:
             if any(near(image, previous) for image in images for r in others for previous in r["images"]):
                 raise ImagePolicyError("IMAGE_REUSED")
             already_today = any(r["day"] == day_of(now) or r["state"] == "PUBLISHED" for r in own)
-            if enforce_cap and not already_today and len(self._daily_pieces(rows, now)) >= DAILY_LIMIT:
+            if enforce_cap and not already_today and len(self._daily_pieces(rows, now)) >= daily_limit(now):
                 raise ImagePolicyError("DAILY_ARTICLE_CAP_REACHED")
             record_id = sha256(canonical([piece_id, [i["sha256"] for i in images]])).hexdigest()
             existing = next((r for r in own if r["record_id"] == record_id), None)
