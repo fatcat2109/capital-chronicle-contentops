@@ -2489,6 +2489,10 @@ class DurablePublicationCoordinator:
         forbidden = find_forbidden_link(*posted_values(intent, canonical_url))
         if forbidden:
             return refusal(destination, forbidden)
+        from live_contentops.public_time_v1 import REASON as TIME_REASON, find_forbidden_public_time, public_media_text
+        wrong_time = find_forbidden_public_time(*posted_values(intent, canonical_url), public_media_text(intent.get("media_assets")))
+        if wrong_time:
+            return {**refusal(destination, wrong_time), "status": TIME_REASON, "reason_code": TIME_REASON}
         if intent.get("plan_status_post"):
             from live_contentops.plan_status_posts_v1 import validate_status_post_intent
             validate_status_post_intent(self.store, intent)

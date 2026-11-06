@@ -34,6 +34,16 @@ fatcat2109, in any post text, link, Substack body or profile. A social copy link
 nothing; a status post carries no link. Every write path refuses such a copy with PREVIEW_HOST_LINK_FORBIDDEN
 (`live_contentops/preview_link_guard_v1.py`): never work around it.
 
+## Public dates and times — 6 November 2026 (CC-326; Jim's decision 90)
+
+Every new public article, social copy, card, digest and dated line uses New York time
+(`America/New_York`, including daylight saving), written **ET**. Convert the supplied
+instant before choosing its public date. Date-only source periods stay date-only.
+Never put GMT+7, UTC+7, Bangkok time or Vietnam time in public copy. TradingView's own
+snapshot header stays as supplied. Already-published posts are not edited for this rule.
+Messages to Jim stay GMT+7; records stay UTC and internal schedules do not change.
+The final payload checks in `live_contentops/public_time_v1.py` apply before a new write.
+
 ## Scheduled terminal-window reporting (CC-238, 5 Nov 2026)
 
 A window runs the newsroom CLI and follows this file. It saves its terminal whole-window result through the existing

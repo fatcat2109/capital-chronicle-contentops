@@ -29,6 +29,12 @@ def _hash(value):
     return sha256(value).hexdigest()
 
 
+def retrospective_notice(written_at_utc):
+    from live_contentops.public_time_v1 import public_datetime
+    local = public_datetime(written_at_utc)
+    return f"Retrospective analysis, written on {local.day} {local:%B %Y} (ET)"
+
+
 def validate_retrospective_piece(piece, *, documents, chart_assets, article_text):
     """Reject hindsight, unbound chart data, missing rights and false writing dates.
 
@@ -71,7 +77,11 @@ def validate_retrospective_piece(piece, *, documents, chart_assets, article_text
             call.get("model") is not None or call.get("reasoning_effort") is not None
         ):
             raise ValueError("RETROSPECTIVE_CONFIGURATION_IS_NOT_OBSERVATION")
-    expected_notice = f"Retrospective analysis, written on {written_on.day} {written_on.strftime('%B %Y')} (GMT+7)"
+    expected_notice = retrospective_notice(written)
+    # Immutable dated records from before decision 90 still validate as originally sealed.
+    legacy_notice = f"Retrospective analysis, written on {written_on.day} {written_on.strftime('%B %Y')} (GMT+7)"
+    if written < _time("2026-11-06T06:56:00Z") and legacy_notice.casefold() in article_text.casefold():
+        expected_notice = legacy_notice
     if (
         expected_notice.casefold() not in article_text.casefold()
         or "analysis, not financial advice" not in article_text.casefold()

@@ -184,7 +184,7 @@ def _titles_card(day, articles, *, output_dir, evidence_sha256):
                "accepted_evidence_sha256": evidence_sha256, "design": DESIGN}
     path = Path(output_dir) / ("digest-card-" + sha256_of(binding)[:20] + ".png")
     path.parent.mkdir(parents=True, exist_ok=True)
-    label = day_label(day)
+    label = day_label(day) + " (ET)"
     facts = [("Edition", label), *(("", a["title"]) for a in articles[:5])]
     if len(articles) > 5:
         facts.append(("", f"and {len(articles) - 5} more"))
@@ -258,10 +258,13 @@ def prepare_daily_digest(store, feed_path, *, now=None):
         subtitle = substack_subtitle(titles)
         entries = [f'**[{_link_title(a["title"])}]({a["url"]})**' + (f'\n\n{a["standfirst"]}' if a["standfirst"] else "")
                    for a in articles]
-        payload = {"title": "Capital Chronicle daily digest — " + day_label(day),
+        from live_contentops.public_time_v1 import public_datetime, require_public_time
+        reader_day = public_datetime(end).date()
+        payload = {"title": "Capital Chronicle daily digest — " + day_label(reader_day) + " (ET)",
                    "subtitle": subtitle,
                    "body_markdown": "\n\n".join([*entries, PUBLIC_NOTICE])}
-        card = _titles_card(day, articles,
+        require_public_time(payload)
+        card = _titles_card(reader_day, articles,
             output_dir=Path(store.db_path).parent / "daily_app_outputs" / "owner-manual" / digest_id / "media",
             evidence_sha256=sha256_of(articles))
         registration = registration_for_destination("substack")

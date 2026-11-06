@@ -247,6 +247,9 @@ class NeoDestinationHandoff:
             from live_contentops.preview_link_guard_v1 import REASON, find_forbidden_link
             if find_forbidden_link(native_payload):
                 raise ValueError(REASON)
+            from live_contentops.public_time_v1 import require_public_time, public_media_text
+            require_public_time(*posted_values(intent), native_payload, public_media_text(intent.get("media_assets")),
+                                public_media_text(content_binding.get("media_manifest")))
         telegram_rule = ({"telegram_read_rule": TELEGRAM_READ_RULE} if destination == "telegram" else {})
         value = {"schema_version": SCHEMA, "destination": destination, "action": action,
             "expected_identity": IDENTITIES[destination],

@@ -4379,6 +4379,12 @@ def _publish_one_destination_from_durable_intent(
     if forbidden:
         return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True, "public_write_performed": False,
                 "reason_code": REASON, "matched": forbidden}
+    from live_contentops.public_time_v1 import REASON as TIME_REASON, find_forbidden_public_time, public_media_text, public_article_text
+    wrong_time = find_forbidden_public_time(payloads.get(destination),
+        public_article_text(article) if destination == "substack" else None, public_media_text(data["media_assets"]))
+    if wrong_time:
+        return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True, "public_write_performed": False,
+                "reason_code": TIME_REASON, "matched": wrong_time}
     if destination == "substack":
         result = publish_substack_article_via_edge(
             cdp_port=cdp_port,

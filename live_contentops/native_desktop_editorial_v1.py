@@ -1186,6 +1186,9 @@ class NativeDesktopTurn:
         if visual:
             native_guidance = native_guidance.replace(
                 "say it is not supplied in source notes.", "retain that missing clock in internal evidence metadata.")
+        from live_contentops.public_time_v1 import WRITER_GUIDANCE
+        if stage in {"write", "revise", "visual-edit"} and (not frozen or WRITER_GUIDANCE in frozen["prompt"]):
+            native_guidance += "\n" + WRITER_GUIDANCE + "\n"
         request_prompt = kwargs["prompt"] + native_guidance
         if publication_speed:
             request_prompt = frozen_writer["prompt"] if frozen_writer else request_prompt + publication_guidance
@@ -1792,7 +1795,7 @@ def dated_distribution_destinations(recovery):
 
 
 def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref, destinations=None,
-                                      reader_timezone="America/New_York"):
+                                      reader_timezone="America/New_York", legacy=False):
     """Prepare the owner's dated distribution amendment without changing sent intents."""
     from datetime import datetime
     from zoneinfo import ZoneInfo
@@ -1811,13 +1814,13 @@ def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref, des
         for r in store.get_reconciliations_for_work_item(run_id))
     if canonical.get("status") != "DISPATCH_CONFIRMED" or not reconciled:
         raise ValueError("DATED_DISTRIBUTION_CONFIRMED_CANONICAL_REQUIRED")
-    if reader_timezone is None:
+    if legacy and reader_timezone is None:
         # Only rebuilding an immutable historical recovery uses its original label.
         cutoff = datetime.fromisoformat(binding["cutoff_utc"].replace("Z", "+00:00")).astimezone(ZoneInfo("Asia/Bangkok"))
         label = f"Reporting as of {cutoff:%H:%M} Bangkok on {cutoff.day} {cutoff:%B %Y}."
     else:
         from live_contentops.v1_simple_gemini_newsroom_v1 import reader_timestamp
-        label = f"Reporting as of {reader_timestamp(binding['cutoff_utc'], zone=reader_timezone)}."
+        label = f"Reporting as of {reader_timestamp(binding['cutoff_utc'], zone=reader_timezone, legacy=legacy)}."
     scope = dated_distribution_destinations({} if destinations is None else {"destinations": destinations})
     payloads, originals = {}, {}
     for destination in sorted(scope):
@@ -1838,6 +1841,10 @@ def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref, des
         "article_identity": result["article_identity"], "canonical_article_revision": native_review_revision(result),
         "plan_hash": plan["plan_hash"], "canonical_url": canonical["public_object_url"],
         "date_label": label, "original_intent_sha256": originals, "payloads": payloads}
+    if not legacy:
+        from live_contentops.public_time_v1 import POLICY
+        recovery["public_time_policy"] = POLICY
+        reader_timezone = "America/New_York"
     if reader_timezone is not None:
         recovery["reader_timezone"] = reader_timezone
     if destinations is not None:
@@ -1854,7 +1861,7 @@ def dated_distribution_recovery_view(store, *, run_id, result, recovery):
     from copy import deepcopy
     expected = build_dated_distribution_recovery(store, run_id=run_id,
         owner_authority_ref=recovery.get("owner_authority_ref"), destinations=recovery.get("destinations"),
-        reader_timezone=recovery.get("reader_timezone"))
+        reader_timezone=recovery.get("reader_timezone"), legacy="public_time_policy" not in recovery)
     if recovery != expected or native_review_revision(result) != recovery["canonical_article_revision"]:
         raise ValueError("DATED_DISTRIBUTION_SOURCE_OR_PAYLOAD_CHANGED")
     view = deepcopy(result)
@@ -1893,9 +1900,8 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
     canonical = proposal["canonical_amendment"]
     body = canonical["governed_article_body"]
     dates = canonical["display_date_if_rendered"]
-    cutoff = datetime.fromisoformat(result["simple_result"]["cutoff_utc"].replace("Z", "+00:00")).astimezone(ZoneInfo("Asia/Bangkok"))
+    cutoff = datetime.fromisoformat(result["simple_result"]["cutoff_utc"].replace("Z", "+00:00")).astimezone(ZoneInfo("America/New_York"))
     date = f"{cutoff.day} {cutoff:%B %Y}"
-    label = f"Reporting as of {cutoff:%H:%M} Bangkok on {date}."
     suffix = body["removed_exact_suffix"]
     if (body["before"] != result["article"]["substack_body_markdown"] or not body["after"].strip()
             or body["before"] != body["after"] + suffix
@@ -1918,7 +1924,8 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
         effective = json.loads(co._dated_distribution_message(original)["payload"])
         before, after = change["before_payload"], change["after_payload"]
         resolved = _durable_intent_inputs(effective)["payloads"][destination]
-        if (before != resolved or before["text"] != label + "\n\n" + after["text"][len(date) + 2:]
+        label = resolved["text"].split("\n\n", 1)[0]
+        if (not label.startswith("Reporting as of ") or before != resolved or before["text"] != label + "\n\n" + after["text"][len(date) + 2:]
                 or not after["text"].startswith(date + "\n\n")
                 or {k:v for k,v in before.items() if k != "text"} != {k:v for k,v in after.items() if k != "text"}):
             raise ValueError("READER_REVISION_ONLY_DATED_PREFIX_PRESENTATION_ALLOWED")

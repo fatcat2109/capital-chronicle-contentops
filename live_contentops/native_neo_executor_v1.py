@@ -188,6 +188,9 @@ class NativeNeoExecutor:
                 raise ValueError("NATIVE_NEO_ACTION_ALREADY_CLAIMED_READBACK_ONLY")
             claim_kind = "started-readonly-" + sha256_of(self.native_invocation_id)
         if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
+            from live_contentops.public_time_v1 import require_public_time, public_media_text
+            require_public_time(request.get("native_payload"), request.get("payload"),
+                                public_media_text(request.get("content_binding", {}).get("media_manifest")))
             from live_contentops.llm_operator_control_v1 import assert_llm_operator_execution_enabled
             assert_llm_operator_execution_enabled()
             if not self.allow_publish or self.store.get_operating_control()["operating_mode"] != "AUTONOMOUS_DEFAULT":

@@ -78,10 +78,13 @@ from live_contentops.v1_simple_epistemic_state_v1 import (
 READER_ATTRIBUTION_POLICY = "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1"
 
 
-def reader_timestamp(instant: str, *, zone: str = "America/New_York") -> str:
+def reader_timestamp(instant: str, *, zone: str = "America/New_York", legacy: bool = False) -> str:
     """Display the supplied instant; never invent precision or refresh its clock."""
     if re.fullmatch(r"\d{4}-\d{2}-\d{2}", instant):
         return instant
+    if not legacy:
+        from live_contentops.public_time_v1 import public_timestamp
+        return public_timestamp(instant)
     value = datetime.fromisoformat(instant.replace("Z", "+00:00"))
     if value.tzinfo is None:
         raise ValueError("READER_TIMESTAMP_REQUIRES_AWARE_INSTANT")
@@ -1037,10 +1040,11 @@ def _reader_first_worker_prompt(prompt, governed):
         "lists, paragraph-by-paragraph links or ritual cutoff footers. Keep natural claim attribution, relay qualification "
         "and uncertainty, all internal source markers and actual mandatory quotation/photo/reuse credits or links. "
         "Do not drop meaningful metric/unit/period/context notes. Omit unnecessary exact times; when material, "
-        "display the supplied instant with America/New_York date-correct EDT/EST, or UTC where clearer. Never "
+        "display the supplied instant with America/New_York date-correct daylight saving, written ET. Never "
         "hardcode UTC-5, backdate or treat formatting as fresh evidence. Internal UTC/cutoff/Bangkok schedules stay exact."
     )
-    return prompt
+    from live_contentops.public_time_v1 import WRITER_GUIDANCE
+    return prompt + "\n" + WRITER_GUIDANCE
 
 
 def _evidence_request(candidate: Mapping[str, Any], plan_entry: Mapping[str, Any]) -> dict[str, Any]:
@@ -1681,6 +1685,9 @@ def _validate_article_against_source_pack(
     available_by_id = {str(row.get("source_id") or ""): dict(row) for row in source_pack}
     cited_by_id: dict[str, dict[str, Any]] = {}
     blockers: list[str] = []
+    from live_contentops.public_time_v1 import REASON as TIME_REASON, find_forbidden_public_time, public_article_text
+    if find_forbidden_public_time(public_article_text(article)):
+        blockers.append(TIME_REASON)
     source_order = {str(row.get("source_id") or ""): i for i, row in enumerate(source_pack)}
     prior_source_position = -1
     for source in sources:

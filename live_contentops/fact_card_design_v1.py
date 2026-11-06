@@ -91,13 +91,8 @@ class CardSpec:
 
 def card_date(now: datetime | None = None) -> str:
     """The card's own date, in New York like the site's public times (reader policy)."""
-    now = now or datetime.now(timezone.utc)
-    try:
-        from zoneinfo import ZoneInfo
-        local = now.astimezone(ZoneInfo("America/New_York"))
-    except Exception:  # tz database missing: UTC date is still a true date
-        local = now.astimezone(timezone.utc)
-    return f"{local:%B} {local.day}, {local.year}"
+    from live_contentops.public_time_v1 import public_date
+    return public_date(now or datetime.now(timezone.utc))
 
 
 def reader_date(value: str | None) -> str:
@@ -106,6 +101,9 @@ def reader_date(value: str | None) -> str:
     match = re.match(r"^(\d{4})-(\d{2})-(\d{2})", text)
     if not match:
         return text
+    if "T" in text:
+        from live_contentops.public_time_v1 import public_date
+        return public_date(text)
     parsed = datetime(int(match[1]), int(match[2]), int(match[3]))
     return f"{parsed:%B} {parsed.day}, {parsed.year}"
 
@@ -580,6 +578,9 @@ class _Body:
 def render_fact_card(path: str | Path, spec: CardSpec, *, size: tuple[int, int] = X_SIZE) -> dict:
     """Render ``spec`` at ``size``; returns the layout facts tests and reviewers check."""
     from PIL import Image, ImageDraw
+    from live_contentops.public_time_v1 import require_public_time
+    require_public_time(spec.title, spec.facts, spec.kicker, spec.key_label, spec.key_value,
+                        spec.source_line, spec.dated_line, spec.notice)
 
     if not spec.title.strip():
         raise ValueError("FACT_CARD_TITLE_REQUIRED")
