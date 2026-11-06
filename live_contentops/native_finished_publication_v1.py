@@ -201,6 +201,10 @@ def check_finished_piece(store, binding):
                     yield from strings(child)
         if any(t not in surfaces[0] for t in strings(event_packet["copy"])):
             raise ValueError("FINISHED_EVENT_SECTIONS_CHANGED")
+    from live_contentops.event_public_record_v1 import validate_article_record
+    frozen_record = validate_article_record(result["article"], governed["source_pack"])
+    if frozen_record != result["article"].get("frozen_public_record"):
+        raise ValueError("FINISHED_EVENT_PUBLIC_RECORD_CHANGED")
     return {"status": "PASS", "article_identity": result["article_identity"],
             "package_revision": native_review_revision(result), "review_id": review["review_id"],
             "writer_request_sha256": exact["request_sha256"], "writer_observation": observation,

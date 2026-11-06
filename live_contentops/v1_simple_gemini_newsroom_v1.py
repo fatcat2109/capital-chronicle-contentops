@@ -1165,12 +1165,18 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
     original_facts = any((d.get("source_reuse_constraints") or {}).get("scope") ==
         "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" for d in documents)
     document_limit = 10 if held else 6 if original_facts else MAX_SOURCE_DOCUMENTS
-    for document in documents[:document_limit]:
+    owned_context = [d for d in documents if d.get("frozen_public_record") or d.get("public_call_scorecard")]
+    ordinary = [d for d in documents if d not in owned_context]
+    for document in [*ordinary[:document_limit], *owned_context]:
         url = str(document.get("reader_source_url") or document.get("source_url") or "")
         text = str(document.get("canonical_content_text") or "")
         retained_main = (document.get("source_authority_class") == "governed_capital_chronicle_report_only"
                          and document.get("report_lineage")
                          and re.fullmatch(r"urn:cc-public-report:[a-zA-Z0-9_-]{1,100}:[a-f0-9]{64}", url))
+        from live_contentops.event_public_record_v1 import verified_source_metadata
+        public_record_metadata = verified_source_metadata(document)
+        if public_record_metadata:
+            retained_main = True
         desk = document.get("desk_record_binding")
         if (isinstance(desk, Mapping) and document.get("source_authority_class") == "governed_capital_chronicle_report_only"
                 and document.get("retrieval_method") == "MAIN_PUBLIC_DESK_RECORD_PROJECTION"
@@ -1223,7 +1229,7 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                 "canonical_content_sha256": str(
                     document.get("canonical_content_sha256") or _text_hash(text)
                 ),
-                "canonical_content_text": text[:48_000] if (document.get("source_reuse_constraints") or {}).get("scope") == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" else text[:MAX_SOURCE_TEXT_CHARS],
+                "canonical_content_text": text if public_record_metadata else text[:48_000] if (document.get("source_reuse_constraints") or {}).get("scope") == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" else text[:MAX_SOURCE_TEXT_CHARS],
                 **({"source_reuse_constraints": dict(constraints)} if constraints else {}),
                 **({k: document[k] for k in ("context_only", "known_at_utc", "retrieval_time_utc", "revision_at_utc")
                     if k in document} if document.get("context_only") else {}),
@@ -1232,6 +1238,7 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                    and document.get("rights_evidence_sha256") else {}),
                 **({"report_lineage": dict(document["report_lineage"])} if document.get("report_lineage") else {}),
                 **({"preview_preparation": dict(document["preview_preparation"])} if document.get("preview_preparation") else {}),
+                **public_record_metadata,
                 **({"desk_record_binding": dict(desk)} if isinstance(desk, Mapping) else {}),
             }
         )
@@ -1697,6 +1704,7 @@ def _validate_article_against_source_pack(
     # Only source-bound validation may attach this compiler metadata. A writer's
     # extra article fields cannot self-certify a permitted probability descriptor.
     article.pop("public_research_descriptors", None)
+    article.pop("frozen_public_record", None)  # Main's exact source, never writer-authored attachment metadata.
     sources = [dict(row) for row in worker_output.get("cited_sources") or [] if isinstance(row, Mapping)]
     claims = [dict(row) for row in worker_output.get("material_claim_bindings") or [] if isinstance(row, Mapping)]
     available_by_id = {str(row.get("source_id") or ""): dict(row) for row in source_pack}
@@ -1833,6 +1841,10 @@ def _validate_article_against_source_pack(
             raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", ["public_probability_reader_disclosure_missing"])
     if descriptors:
         article["public_research_descriptors"] = list(descriptors.values())
+    from live_contentops.event_public_record_v1 import validate_article_record
+    public_record = validate_article_record(article, source_pack)
+    if public_record:
+        article["frozen_public_record"] = public_record
     return article, {
         "schema_version": VALIDATION_SCHEMA_VERSION,
         "status": "PASS",
@@ -2858,6 +2870,11 @@ def run_v1_simple_gemini_newsroom(
             for row in evidence.get("evidence_documents") or []
             if isinstance(row, Mapping) and row.get("public_claim_allowed") is True
         ][:MAX_SOURCE_DOCUMENTS]
+        # Held public commitments and their full denominator are not extra source
+        # requests. Preserve them even when ordinary evidence fills its document cap.
+        owned_context = [d for d in evidence.get("evidence_documents", [])
+                         if d.get("frozen_public_record") or d.get("public_call_scorecard")]
+        documents.extend(d for d in owned_context if d not in documents)
         candidate_source_pack = _source_pack(documents)
         if offline_recovery and evidence.get("recovered_candidate_context"):
             # Selection remains immutable lead provenance. The facts and their

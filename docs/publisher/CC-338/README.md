@@ -25,3 +25,52 @@ Ops launched and resumed this run with `gpt-6.1-sol/max`.
 No editorial model call, schedule change or chat message was made by this step.
 The future CPI preview, matching review attachment and event score remain to be
 observed; this item is not DONE.
+
+The [freeze/preview checks](freeze-tests.xml) pass 23 tests in 22.08 seconds.
+They include the real feed reaching the writer with the exact freeze metadata,
+the review retaining every byte (including BOM, CRLF and final newline), and the
+Neo payload requiring a downloaded attachment hash before verified readback.
+The existing preparation now resolves equal source clocks by append order;
+the source normalizer retains verified owned context and does not truncate the
+scorecard denominator. Historical native requests remain unchanged.
+
+Ops Live supplies the public subset, never a raw private dossier. Its contract is
+`capital_chronicle.frozen_public_calls.v1`, with exactly these root fields:
+
+- `schema_version`, `event_id`, `event_time_utc`, `frozen_at_utc`;
+- `reaction_map`: each row has `condition`, `market`, `direction` (bullish or
+  bearish), `minimum_move`, `horizon`, `invalidation`, `naive_release_beta`;
+- `q1_probabilities`: each row has `question`, `outcome`, `probability`;
+- `resolution_rule`: Main's rule stated before the outcome.
+
+Every reaction/probability row also has `source_ref`, `source_sha256` and
+`known_at_utc`. Analytical displays remain exact strings in Main's units. This
+consumer computes neither them nor unsupported probability complements. An empty
+Q1 array preserves an explicit absent Q1 input; it does not invent one.
+
+Attach Ops Live's exact file and hash to the existing event preparation:
+
+```powershell
+python scripts/event_public_record.py --attach-freeze <existing-event-id> --freeze-file <absolute-public-file> --freeze-sha256 <Ops-Live-SHA256>
+```
+
+This appends one preparation in the existing store, preserves older packets and
+refuses replacement of an attached freeze. It creates no operation or schedule.
+The existing feed pointer's `preview_event_id` uses it before the release;
+`review_event_id` uses the same preparation after the release and includes the
+complete existing-store scorecard. Optional `published_feed_path` selects the
+same publication feed (tests select an isolated fixture).
+
+The approved native writer authors the prose. Code supplies only structured
+source/table/attachment metadata. The preview prints the full hash and ET freeze
+time and leads with one exact conditional reaction. The two-hour deadline is
+rechecked at the actual new browser action: CPI is due by **10 November 18:30
+GMT+7** (06:30 ET). A missed CPI deadline uses the backlog's PPI alternative;
+it does not relabel a late preview. Readback and reconciliation remain available.
+
+For a review, the existing Neo transport copies the original file into that
+article's own media folder, binds its hash and size to the request, and requests
+an actual download hash on the same published object. A displayed filename is
+insufficient. Upload uses Neo's upload tool or file-chooser interception only.
+An unsupported attachment control is reported before publishing; it never opens
+a native file dialog or quietly substitutes another file.

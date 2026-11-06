@@ -176,6 +176,13 @@ def _payload_binding(intent, destination):
                 row["placement_after"] = placements[str(row["asset_id"])]
     binding = {"expected_text_segments": texts, "expected_thread_texts": thread_texts, "thread_post_count": len(posts),
                "media_manifest": media, "artifact_manifest": artifacts}
+    if destination == "substack" and article.get("frozen_public_record"):
+        from live_contentops.event_public_record_v1 import attachment_for_article
+        binding["event_public_record"] = {"article_type": article.get("article_type"),
+                                         "frozen_public_record": article["frozen_public_record"]}
+        attachment = attachment_for_article(article, media_dir=root / "media" / "public-record")
+        if attachment:
+            binding["attachment_manifest"] = [attachment]
     if intent.get("reader_presentation_review"):
         binding["excluded_text_segments"] = intent["removed_reader_text"]
     return payload, binding
@@ -290,6 +297,13 @@ class NeoDestinationHandoff:
                 "its alt text to alt_text and its caption to caption (with the credit when attribution is "
                 "present). Return public_alt_text_present and public_caption_present for each image.")
             value["steps"].insert(3, value["substack_media_placement"])
+        if content_binding.get("attachment_manifest"):
+            value["steps"].append(
+                "Upload attachment_manifest files as downloadable files through BrowserOS Neo's upload tool or "
+                "file-chooser interception, from this article's media folder. Never open a native file dialog. "
+                "Preserve exact bytes. If unsupported, report ATTACHMENT_UPLOAD_UNSUPPORTED without publishing. "
+                "Read back each public download, recording observed_attachments with sha256, bytes, url, "
+                "download_verified=true and the exact parent public_object_url. A filename alone proves nothing.")
         if action == "READBACK":
             # An earlier failed observation stays immutable. A corrected readback
             # contract receives a new read-only identity, never a new write.
@@ -479,6 +493,9 @@ class NeoDestinationHandoff:
                 and platform_image(m.get("public_image_url"))}
             media_match = expected_media <= source_matches
         thread = result.get("observed_thread") or result.get("thread_posts") or []
+        from live_contentops.event_public_record_v1 import attachment_readback_matches
+        attachments_match = attachment_readback_matches(binding.get("attachment_manifest", []),
+            result.get("observed_attachments") or [], result.get("public_object_url"))
         thread_match = (binding["thread_post_count"] <= 1 or (
             len(thread) == binding["thread_post_count"]
             and all(_text(text) in _text(post.get("observed_text"))
@@ -493,7 +510,7 @@ class NeoDestinationHandoff:
             and (not public_object_id or result.get("public_object_id") == public_object_id)
             and (not public_object_url or result.get("public_object_url") == public_object_url)
             and _public_url(destination, result.get("public_object_url"), result.get("public_object_id"))
-            and result.get("content_verified") is True and text_match and media_match and thread_match)
+            and result.get("content_verified") is True and text_match and media_match and thread_match and attachments_match)
         identity_exists = (result.get("request_sha256") == request["request_sha256"]
             and result.get("observed_identity") == IDENTITIES[destination]
             and bool(public_object_id) and result.get("public_object_id") == public_object_id

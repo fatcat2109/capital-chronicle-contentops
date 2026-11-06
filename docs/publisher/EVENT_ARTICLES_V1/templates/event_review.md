@@ -8,6 +8,16 @@ probabilities and cutoff, admitted event outcome, correctly dated reactions, and
 CC-106's actual score and baseline comparison when available and public-safe.
 Keep the pre-event forecast separate from later observations and revisions.
 
+CC-338 (G06): reproduce the preview's full SHA-256 and freeze time in ET. The
+transport attaches the original frozen public file as a download and verifies the
+download's hash and length. Never recreate it from prose or re-serialize its JSON.
+Include the entire supplied public-call scorecard table, with its total count and
+every triggered, not-triggered, invalidated, withdrawn and unresolved call. Keep
+the original wording. Numerical scores and naive-release-beta comparisons come
+from Main's scored output. A public state or a fill is not a performance score.
+Do not claim returns or skill (decision 84). Missing scores limit that comparison;
+they do not remove any call from the denominator.
+
 The native Sol 6.1 MAX writer authors the following `copy` sections:
 
 | Key | Reader question |

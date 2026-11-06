@@ -8,6 +8,18 @@ its cutoff and event time, source hashes, lawful public fields, dated probabilit
 conditional reactions and earlier relevant analysis. Raw private dossiers never go
 to a public writer. Keep the internal preparation and rights record separate from copy.
 
+CC-338 (G06): when Main supplies a `frozen_public_record`, lead the headline with
+one conditional reaction map: if the exact surprise condition holds, the named
+market moves in the stated direction by at least the supplied minimum within the
+supplied horizon. Use the branch's exact terms. Compare against Main's supplied
+naive release beta, without recomputing it. Print the full file SHA-256 and freeze
+instant in ET verbatim from that record. These are a commitment, not proof of skill.
+Ops Live supplies the hash of Main's frozen public subset. Never hash a private
+dossier and then publish a different projection. The preview must publish at least
+two hours before T0 (CPI: 10 November 06:30 ET); preparation does not restart that
+deadline. The original file is retained for the review. Historical requests stay
+immutable.
+
 The native Sol 6.1 MAX writer authors the following `copy` sections:
 
 | Key | Reader question |

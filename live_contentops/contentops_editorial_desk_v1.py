@@ -91,7 +91,7 @@ def retain_reviewed_preview_background(store, *, event_id, run_id):
         "classification": "REVIEWED_BACKGROUND_FEEDS_PREVIEW_PREPARATION"}
 
 
-def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="EVENT_PREVIEW"):
+def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="EVENT_PREVIEW", published_feed_path=None):
     """Use our existing preparation in the preview's ordinary source/writer path.
 
     The preparation's prose is editorial context. Only exact, captured BLS spans
@@ -104,8 +104,8 @@ def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="E
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, _time
     from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
 
-    if article_type != "EVENT_PREVIEW":
-        raise ValueError("PREPARATION_REUSE_IS_FOR_EVENT_PREVIEWS")
+    if article_type not in {"EVENT_PREVIEW", "EVENT_REVIEW"}:
+        raise ValueError("PREPARATION_REUSE_IS_FOR_EVENT_ARTICLES")
     eligible = []
     with store.get_read_only_connection() as conn:
         rows = conn.execute("SELECT message_id,payload FROM outbox_messages WHERE destination=? ORDER BY rowid",
@@ -119,9 +119,14 @@ def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="E
         eligible.append((row["message_id"], packet))
     if not eligible:
         raise ValueError("PREPARATION_EVENT_NOT_FOUND:" + event_id)
-    message_id, packet = max(eligible, key=lambda x: _time(x[1]["known_at_utc"]))
-    if not packet.get("planned_release_utc") or _time(cutoff_utc) >= _time(packet["planned_release_utc"]):
+    # Append order resolves equal source clocks: an attachment must not disappear
+    # merely because the newer preparation preserves the original known-at time.
+    message_id, packet = max(reversed(eligible), key=lambda x: _time(x[1]["known_at_utc"]))
+    if not packet.get("planned_release_utc") or (article_type == "EVENT_PREVIEW"
+            and _time(cutoff_utc) >= _time(packet["planned_release_utc"])):
         raise ValueError("PREVIEW_EVENT_HAS_PASSED_USE_EVENT_REVIEW")
+    if article_type == "EVENT_REVIEW" and _time(cutoff_utc) < _time(packet["planned_release_utc"]):
+        raise ValueError("EVENT_REVIEW_BEFORE_RELEASE")
     sources = {}
     for source in packet["official_sources"]:
         raw = Path(source["capture_path"]).read_bytes()
@@ -154,7 +159,7 @@ def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="E
         content_hash = sha256(text.encode()).hexdigest()
         rights = {"scope": "BLS_AGENCY_AUTHORED_PUBLIC_DOMAIN_TEXT_PREVIEW_BACKGROUND",
             "authority_ref": "JIM_DECISION_41_AND_BACKLOG_CC216",
-            "article_types": ["EVENT_PREVIEW"], "attribution_required": True,
+            "article_types": [article_type], "attribution_required": True,
             "source_capture_sha256": digest, "content_sha256": content_hash,
             "MODEL_INPUT_ALLOWED": True, "LLM_INPUT_ALLOWED": True,
             "INTERNAL_ANALYSIS_ALLOWED": True,
@@ -188,11 +193,11 @@ def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="E
             "rights_state": "BLS_US_FEDERAL_PUBLIC_DOMAIN_TEXT",
             "source_capture_sha256": digest, "rights_evidence_sha256": sha256_of(rights),
             "source_permissions": rights, "source_permission_record_sha256": sha256_of(rights),
-            "candidate_catalyst_tags": ["EVENT_PREVIEW", event_id],
+            "candidate_catalyst_tags": [article_type, event_id],
             "originality": "EXISTING_NEWSROOM_PREPARATION_WITH_EXACT_PRIOR_OFFICIAL_SOURCES",
             "correction_of": None, "document": doc, "source_chart": None,
             "permitted_source_text": text, "supporting_headline_ids": [],
-            "research_metadata": {"event_id": event_id, "article_type": "EVENT_PREVIEW",
+            "research_metadata": {"event_id": event_id, "article_type": article_type,
                 "preparation_message_id": message_id}}
     if consensus := packet.get("single_consensus_fact"):
         projection_raw = Path(consensus["projection_path"]).read_bytes()
@@ -244,6 +249,12 @@ def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="E
         # Context belongs to this preview's source pack, never its own candidate.
         template["research_metadata"] = {"event_id": event_id, "context_only": True}
         records[identity] = template
+    if packet.get("frozen_public_record"):
+        from live_contentops.event_public_record_v1 import attach_research_records, attach_scorecard_record
+        attach_research_records(records, packet["frozen_public_record"], event_id=event_id,
+            event_time_utc=packet["planned_release_utc"], cutoff_utc=cutoff_utc, article_type=article_type)
+        if article_type == "EVENT_REVIEW":
+            attach_scorecard_record(records, store, cutoff_utc=cutoff_utc, feed_path=published_feed_path)
     snapshot = {"root": str(Path(__file__).resolve().parents[1]),
         "revision": sha256_of([message_id, records]), "records": records, "gaps": []}
     return RetainedSourceResearch.from_frozen_snapshot({**snapshot, "snapshot_sha256": sha256_of(snapshot)})

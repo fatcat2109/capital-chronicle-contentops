@@ -174,7 +174,7 @@ def test_unverified_preparation_never_establishes_a_fact(tmp_path, fault, expect
 def test_preview_scope_event_identity_and_expiry(tmp_path):
     f = feed(tmp_path)
     prepare(f.tracker.store, tmp_path)
-    with pytest.raises(ValueError, match="FOR_EVENT_PREVIEWS"):
+    with pytest.raises(ValueError, match="REVIEW_BEFORE_RELEASE"):
         preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc=NOW, article_type="EVENT_REVIEW")
     with pytest.raises(ValueError, match="EVENT_NOT_FOUND"):
         preview_preparation_research(f.tracker.store, event_id="another-event", cutoff_utc=NOW)
