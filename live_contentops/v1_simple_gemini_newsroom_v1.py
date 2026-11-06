@@ -1982,7 +1982,12 @@ def _reader_safe_native_article(
         body = re.sub(r"(?m)^#{1,6}\s+", "", body)
     title = str(article.get("title") or "")
     label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
-    if not reader_first and label and label.casefold() not in title.casefold():
+    publisher = str((epistemic_state or {}).get("primary_reporting_publisher") or "")
+    attributed_main_review = (
+        (epistemic_state or {}).get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT"
+        and publisher and re.search(r"(?<!\w)" + re.escape(publisher) + r"(?!\w)", title, re.IGNORECASE)
+    )
+    if not reader_first and not attributed_main_review and label and label.casefold() not in title.casefold():
         title = f"{label} | {title}"
     notice = str(article.get("source_date_notice") or "")
     if notice and not reader_first and legacy_presentation:
@@ -2266,7 +2271,8 @@ def _native_preview_bundle(
             continue  # A named non-delivery has no reader copy to carry certainty.
         visible = visible_text(payload)
         if (label and label.casefold() not in visible.casefold()
-                and not (reader_first and any(re.search(r"(?<!\w)" + re.escape(name) + r"(?!\w)",
+                and not ((reader_first or (epistemic_state or {}).get("evidence_basis")
+                          == "GOVERNED_CAPITAL_CHRONICLE_REPORT") and any(re.search(r"(?<!\w)" + re.escape(name) + r"(?!\w)",
                     visible, re.IGNORECASE) for name in attribution_names))):
             raise SimpleGeminiNewsroomError(
                 "native_preview_epistemic_state_missing", [destination]

@@ -1,0 +1,563 @@
+{
+  "operation_id": "cc124-oil-euro-followup-20261106-v2",
+  "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+  "revision": "223bc5f86acc5af972d7ab611db977c279bb44bcb3c8c0f85cada82f0cba40e7",
+  "article": {
+    "analysis_scope": "OTHER_ANALYSIS",
+    "analysis_scope_reason": "This is a qualitative comparison of Main report interpretations. No comparable numerical history is admitted, and a numerical history chart would not explain this document lens. One source-bound qualitative comparison card serves the argument.",
+    "audience_learning_binding": {
+      "policy_version": "policy_c3e1de30fca9eace0112b384",
+      "preference_only": true,
+      "snapshot_sha256": "80e0d8879876a591079e0bc042e9e35a22a6d2808a31f6bc9711ace109468513"
+    },
+    "canonical_slug_candidate": "oil-euro-gold-pre-payrolls-review",
+    "dek": "Capital Chronicle's follow-up pairs oil's supply-risk reading with a range test, keeps euro countercases and treats gold's divergence as a challenge to one dollar story.",
+    "editorial_media_decision": {
+      "card_count": 1,
+      "card_placement": "After the oil, euro and gold comparison and before the disclosures.",
+      "card_rows": [
+        {
+          "explanation": "Supply-risk interpretation",
+          "market": "Oil",
+          "test_or_countercase": "Upward break from contracting range; if a ceasefire or agreement is confirmed, the supply thesis no longer holds"
+        },
+        {
+          "explanation": "Dollar bid during the risk impulse",
+          "market": "Euro",
+          "test_or_countercase": "Pre-payrolls short positioning and the rates channel"
+        },
+        {
+          "explanation": "No lower low; stopped following the dollar leg",
+          "market": "Gold",
+          "test_or_countercase": "Divergence tests a uniform dollar explanation"
+        }
+      ],
+      "card_rule": "Compare the article explanations and countercases without numerical history, prices, probabilities, targets or directional arrows. Source attribution and date must remain legible.",
+      "card_source_attribution": "Source: Capital Chronicle review, November 6, 2026 (ET).",
+      "card_title": "Capital Chronicle's pre-payrolls tests",
+      "card_type": "QUALITATIVE_COMPARISON",
+      "final_render_review_completed": false,
+      "first_text_approval_utc": null,
+      "photo_asset_id": "cc124-oil-followup-archive-refinery-fws",
+      "photo_asset_sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+      "photo_context_only": true,
+      "photo_corroborates_article_facts": false,
+      "photo_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\photo-asset.json",
+      "photo_placement": "After the opening passage. Use the complete inspected source image with its archive caption, alt text and full canonical source/licence credit from the media record.",
+      "text_approved": false
+    },
+    "entities": [
+      "Capital Chronicle",
+      "WTI",
+      "euro",
+      "gold",
+      "U.S. dollar"
+    ],
+    "epistemic_state": {
+      "analysis_must_be_conditional": true,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "UNCONFIRMED",
+      "event_proposition": "The retained Main report records dated analysis and market observations.",
+      "event_truth_supported": false,
+      "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+      "origin_character": "ON_RECORD",
+      "primary_reporting_publisher": "Capital Chronicle",
+      "primary_reporting_source_identity": "cc124-oil-euro-followup-20261106",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "DATED CAPITAL CHRONICLE REVIEW",
+      "report_proposition": "Capital Chronicle updates its pre-payrolls view: oil diverges from the dollar trade",
+      "report_scope_notice": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "cc124-oil-euro-followup-20261106"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": false
+    },
+    "internal_link_candidates": [],
+    "meta_description": "Capital Chronicle weighs oil's supply risk and range test, the euro's dollar exposure and gold's divergence before payrolls.",
+    "photo_less_brief_eligible": false,
+    "primary_reader_question": "Why do oil's supply explanation, the euro's dollar exposure and gold's failure to follow the dollar require different tests before payrolls?",
+    "public_source_bindings": [
+      {
+        "published_at_utc": "2026-11-06T08:21:03Z",
+        "publisher": "Capital Chronicle",
+        "source_id": "SOURCE_1",
+        "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+      }
+    ],
+    "public_write_performed": false,
+    "reader_attribution_policy": "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1",
+    "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+    "schema_version": "contentops.v1_simple_article_manifest.v1",
+    "search_freshness_class": "DATED_ANALYSIS_FOLLOW_UP",
+    "search_title": "Oil, euro and gold: Capital Chronicle's pre-payrolls review",
+    "secondary_reader_questions": [
+      "What would challenge Capital Chronicle's supply-risk explanation for oil?",
+      "How could euro positioning or the rates channel challenge the dollar-risk reading?",
+      "Why does gold's divergence limit a common-dollar explanation?"
+    ],
+    "social_cross_asset_summary": "The review says gold made no lower low and had stopped following the dollar leg. That divergence is the review's test of a uniform dollar explanation.",
+    "social_hook": "Capital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.",
+    "social_mechanism_summary": "The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+    "social_policy_summary": "If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.",
+    "source_date_notice": "Source date: 2026-11-06. Interpretation remains analysis.",
+    "source_document_ids": [
+      "cc124-oil-euro-followup-20261106"
+    ],
+    "story_identity": "simple-story-30e6919a299ca752dcd41dbd",
+    "structured_data_packet": null,
+    "substack_body_markdown": "Capital Chronicle's November 6 pre-payrolls follow-up separates oil's supply-risk explanation from the dollar mechanism it sees in the euro. Gold's divergence challenges a uniform dollar account. The useful distinction is the different test attached to each interpretation. [[SOURCE:SOURCE_1]]\n\n**Oil:** The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward. If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium. [[SOURCE:SOURCE_1]]\n\n**Euro:** Capital Chronicle links the dollar bid to the risk impulse after the November 5 U.S. equity shock. For the euro, it retains two countercases: squaring of crowded short euro positions before payrolls and the rates channel that had weakened the dollar in the November 5 U.S. session. If the rates channel reasserts itself, the dollar-risk explanation would face a competing force. [[SOURCE:SOURCE_1]]\n\n**Gold:** The review says gold made no lower low and had stopped following the dollar leg. That divergence is the review's test of a uniform dollar explanation. [[SOURCE:SOURCE_1]]\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. [[SOURCE:SOURCE_1]]\n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers. [[SOURCE:SOURCE_1]]",
+    "title": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test",
+    "topics": [
+      "Oil supply risk",
+      "Foreign exchange",
+      "Gold",
+      "Cross-market analysis",
+      "Pre-payrolls review"
+    ],
+    "update_chain_identity": "simple-story-30e6919a299ca752dcd41dbd",
+    "volume_policy": {
+      "brief_only": false,
+      "effective_production_date": "2026-10-31",
+      "max_admitted_candidates": 6,
+      "max_articles": 2,
+      "non_chargeable_only": true,
+      "photo_less_news_policy": true,
+      "policy_id": "CC-047-20261030",
+      "source_request_limit": 20,
+      "source_resolvability_first": true
+    },
+    "volume_policy_cutoff_utc": "2026-11-06T09:44:56.617874Z"
+  },
+  "previews": [
+    {
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "claim_lineage": [],
+      "destination": "telegram",
+      "payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "post-facts-3686e830033ce0a8774d"
+        ],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nDATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-71cee49477edd904\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      },
+      "preview_id": "cc-preview-16e5d34ab5790de1653c36bba9988e5e473b2d9318908fcaaf0ec05bd9c60a58"
+    },
+    {
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "claim_lineage": [],
+      "destination": "x",
+      "payload": {
+        "format": "text_brief",
+        "full_text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/pending-publication-71cee49477edd904\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWatch: The review says gold made no lower low and had stopped following the dollar leg.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "post-facts-3686e830033ce0a8774d"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/pending-publication-71cee49477edd904"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Capital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWatch: The review says gold made no lower low and had stopped following the dollar leg."
+          },
+          {
+            "media_asset_ids": [],
+            "order": 2,
+            "role": "reply",
+            "text": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "content_reply_count": 2,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "notice_reply_count": 0,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.639,
+            0.839,
+            0.882
+          ],
+          "post_character_counts": [
+            179,
+            235,
+            247
+          ],
+          "reply_count": 2,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.725,
+          "visual_distribution_pass": false
+        },
+        "reply_texts": [
+          "Capital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWatch: The review says gold made no lower low and had stopped following the dollar leg.",
+          "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+        ],
+        "root_text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/pending-publication-71cee49477edd904",
+        "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/pending-publication-71cee49477edd904"
+      },
+      "preview_id": "cc-preview-574acc0ed9e3f1d1a0a9f1dc7de45411e9d420a4a0acfa4fb42d6c44ccfc5a78"
+    },
+    {
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "claim_lineage": [],
+      "destination": "linkedin",
+      "payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "post-facts-3686e830033ce0a8774d"
+        ],
+        "platform_limit": 3000,
+        "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-71cee49477edd904\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      },
+      "preview_id": "cc-preview-82c61259093366e0ef30f401f21c389dd204dcf9181fe51c59761ddb980a3a8a"
+    },
+    {
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "claim_lineage": [],
+      "destination": "discord",
+      "payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "post-facts-3686e830033ce0a8774d"
+        ],
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review gives oil a supply-risk test**\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\n**Context:** If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-71cee49477edd904\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      },
+      "preview_id": "cc-preview-c0bf0706b0d4aa4de5f5fcb7580368d2420eb0f600f4c486511113656ef8a203"
+    },
+    {
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "claim_lineage": [],
+      "destination": "facebook_page",
+      "payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "post-facts-3686e830033ce0a8774d"
+        ],
+        "platform_limit": 63206,
+        "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-71cee49477edd904\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      },
+      "preview_id": "cc-preview-f191311e75c1ad44e3dc90cfd2a52e0781a681123ff2a445fd5f3bc157a6fd30"
+    },
+    {
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "claim_lineage": [],
+      "destination": "instagram_business",
+      "payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "post-facts-3686e830033ce0a8774d"
+        ],
+        "platform_limit": 2200,
+        "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nIn focus: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-71cee49477edd904\n\n#CapitalChronicle\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      },
+      "preview_id": "cc-preview-2653008bca66373941fbd406e12b45632a4fb4626162cc1227433b9613f27116"
+    },
+    {
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "claim_lineage": [],
+      "destination": "threads",
+      "payload": {
+        "format": "text_brief",
+        "full_text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nIf a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-71cee49477edd904\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "post-facts-3686e830033ce0a8774d"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nIf a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-71cee49477edd904"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "content_reply_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "notice_reply_count": 0,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.634,
+            0.688
+          ],
+          "post_character_counts": [
+            317,
+            344
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.922,
+          "visual_distribution_pass": false
+        },
+        "reply_texts": [
+          "What to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+        ],
+        "root_text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nIf a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-71cee49477edd904",
+        "text": "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nIf a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-71cee49477edd904"
+      },
+      "preview_id": "cc-preview-3d810f45fcf8355b8caecdd59025d70ed6d55691b257ababe95e996222c1fcd9"
+    },
+    {
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "claim_lineage": [],
+      "destination": "youtube",
+      "payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "post-facts-3686e830033ce0a8774d"
+        ],
+        "platform_limit": 1000,
+        "text": "Update: DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-71cee49477edd904\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      },
+      "preview_id": "cc-preview-10d99771b91387f213c8a0c4deb2828cb57a8f91cf6ff303201b0f4e3214a4d3"
+    }
+  ],
+  "evidence": [
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "8d80386373c4a132edf9cffbc6c81fe6daff00cb917612a6d48e8e86c2f4cf61",
+      "canonical_content_text": "WTI moved on Hormuz supply risk, against equities.\n\nA confirmed ceasefire or agreement removes the supply thesis.\n\nWTI: de-escalation can reprice the risk premium as fast as\n\nso the target needs the contracting range to break upward\n\nMechanism: the global risk impulse after the 5 Nov US equity shock drives a USD bid in Asia/Europe, and the bars move with it:\n\nIndependent confirmations: DXY above every session M15 high; GBPUSD and NZDUSD at session lows in the same window.\n\nDissent kept: pre-NFP squaring of crowded EUR shorts and the rates channel that sank the USD in the 5 Nov US session.\n\nEURUSD: the rates channel can reassert.\n\nwhile gold made no lower low, so gold stopped following the USD leg.\n\nNot re-read here: the consensus rows, the accepted-owner-research and bls-eci rows, and the DXY, GBPUSD, NZDUSD, US500, XAUUSD, USDJPY, USDCHF and ETHUSD bar rows; their levels are taken from the Primary as checked by the Critical's evidence_grounding review.",
+      "canonical_resolution_status": "",
+      "document_id": "cc124-oil-euro-followup-20261106",
+      "published_at_source": "RETAINED_MAIN_REPORT_KNOWN_AT_NOT_PUBLICATION_CLOCK",
+      "published_at_utc": "2026-11-06T08:21:03Z",
+      "publisher": "Capital Chronicle",
+      "report_lineage": {
+        "independent_confirmation": false,
+        "origin": "RETAINED_MAIN_REPORT_EXACT_SPANS",
+        "report_id": "cc124-oil-euro-followup-20261106",
+        "report_projection_sha256": "e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+      },
+      "report_truth_only": true,
+      "retrieval_method": "EXACT_RETAINED_MAIN_REPORT_PUBLIC_SPANS",
+      "secondary_listing_only": false,
+      "source_authority_class": "governed_capital_chronicle_report_only",
+      "source_id": "SOURCE_1",
+      "source_identity": "cc124-oil-euro-followup-20261106",
+      "source_reuse_constraints": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "attribution_required": true,
+        "authority_ref": "JIM_DECISION_89",
+        "permitted_consumers": [
+          "internal_research",
+          "narrative_context"
+        ],
+        "provider_safe": true,
+        "public_expression_reuse_allowed": true,
+        "scope": "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS",
+        "source_capture_sha256": "e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+        "underlying_event_truth_granted": false
+      },
+      "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+    }
+  ],
+  "media_assets": [
+    {
+      "alt_text": "Gold's divergence challenges a uniform dollar account. The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+      "asset_id": "post-facts-3686e830033ce0a8774d",
+      "attribution": "Source: Capital Chronicle",
+      "caption": "Key facts from the article.",
+      "data_card_packet": {
+        "dated_line": "Capital Chronicle",
+        "design": "CC290_SITE_FACT_CARD_V2",
+        "facts": [
+          {
+            "claim_id": "lead-gold",
+            "document_id": "cc124-oil-euro-followup-20261106",
+            "publisher": "Capital Chronicle",
+            "rights_binding_sha256": "5842648e139902ae70dc704710b81da1d7e2eeba8fdbf4b70971390bedbe7d20",
+            "rights_class": "capital_chronicle_own_report",
+            "source_content_sha256": "8d80386373c4a132edf9cffbc6c81fe6daff00cb917612a6d48e8e86c2f4cf61",
+            "source_id": "SOURCE_1",
+            "support_excerpt": "while gold made no lower low, so gold stopped following the USD leg.",
+            "text": "Gold's divergence challenges a uniform dollar account.",
+            "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+          },
+          {
+            "claim_id": "body-oil-supply",
+            "document_id": "cc124-oil-euro-followup-20261106",
+            "publisher": "Capital Chronicle",
+            "rights_binding_sha256": "5842648e139902ae70dc704710b81da1d7e2eeba8fdbf4b70971390bedbe7d20",
+            "rights_class": "capital_chronicle_own_report",
+            "source_content_sha256": "8d80386373c4a132edf9cffbc6c81fe6daff00cb917612a6d48e8e86c2f4cf61",
+            "source_id": "SOURCE_1",
+            "support_excerpt": "WTI moved on Hormuz supply risk, against equities.",
+            "text": "The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.",
+            "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+          },
+          {
+            "claim_id": "body-oil-range",
+            "document_id": "cc124-oil-euro-followup-20261106",
+            "publisher": "Capital Chronicle",
+            "rights_binding_sha256": "5842648e139902ae70dc704710b81da1d7e2eeba8fdbf4b70971390bedbe7d20",
+            "rights_class": "capital_chronicle_own_report",
+            "source_content_sha256": "8d80386373c4a132edf9cffbc6c81fe6daff00cb917612a6d48e8e86c2f4cf61",
+            "source_id": "SOURCE_1",
+            "support_excerpt": "so the target needs the contracting range to break upward",
+            "text": "Its conditional oil thesis needs the contracting range to break upward.",
+            "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+          }
+        ],
+        "policy": "CC144_EVERY_POST_VISUAL_V1",
+        "text_presentation": "PLAIN_EMPHASIS_AND_DATED_REVIEW_ATTRIBUTION_V1",
+        "title": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test"
+      },
+      "height": 1350,
+      "media_role": "post_key_facts",
+      "modality": "source_bound_data_card",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-3686e830033ce0a8774d.png",
+      "publication_authority": false,
+      "role": "supporting_fact_context",
+      "sha256": "077cc2c1a95d86b1ef25947ba1716e4d656ef9b4898090737b46c6b97166e3e8",
+      "source_lineage": [
+        {
+          "document_id": "cc124-oil-euro-followup-20261106",
+          "source_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+        },
+        {
+          "document_id": "cc124-oil-euro-followup-20261106",
+          "source_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+        },
+        {
+          "document_id": "cc124-oil-euro-followup-20261106",
+          "source_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+        }
+      ],
+      "source_links": [
+        {
+          "document_id": "cc124-oil-euro-followup-20261106",
+          "label": "Capital Chronicle",
+          "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+        },
+        {
+          "document_id": "cc124-oil-euro-followup-20261106",
+          "label": "Capital Chronicle",
+          "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+        },
+        {
+          "document_id": "cc124-oil-euro-followup-20261106",
+          "label": "Capital Chronicle",
+          "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+        }
+      ],
+      "source_page_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+      "transform_sha256": "3686e830033ce0a8774d9b67c8b2f37e8ef78679df0cbc9c6205cb874fc4e59a",
+      "underlying_source_rights_status": "attributed_facts_independent_chart",
+      "width": 1080
+    },
+    {
+      "alt_text": "Archive aerial photograph of storage tanks and coastal refinery infrastructure in Texas.",
+      "asset_id": "cc124-oil-followup-archive-refinery-fws",
+      "attribution": "U.S. Fish and Wildlife Service / Wikimedia Commons. Public domain.",
+      "canonical_photo_credit": "Photo: U.S. Fish and Wildlife Service, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg). [Public domain \u2014 U.S. government work](https://commons.wikimedia.org/wiki/Template:PD-USGov-FWS). Archive photograph of a coastal Texas oil refinery; capture date not supplied.",
+      "caption": "A coastal Texas oil refinery. Archive photograph; the source does not give the capture date.",
+      "context_only": true,
+      "corroborates_article_facts": false,
+      "creator_publisher": "U.S. Fish and Wildlife Service",
+      "depicted_date": "Not given",
+      "height": 996,
+      "license_url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg#Licensing",
+      "modality": "documentary_photo",
+      "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Oil_refinery_coastal_Texas.jpg",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\oil-refinery-coastal-texas.jpg",
+      "placement": "After the opening passage, as unaltered archive context. The article fact card follows the main comparison.",
+      "relevance_rationale": "Archive oil infrastructure context for the dated Main review of supply risk; it does not depict Hormuz or confirm any current event.",
+      "rights_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\photo-rights-original.json",
+      "rights_evidence_sha256": "69e7e160832125a366b909c8cdbc73cdb31f1b63a56236fda3af18ac4311c35e",
+      "rights_status": "PUBLIC_DOMAIN",
+      "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg",
+      "source_reuse_basis": "Commons identifies an official-duty Fish and Wildlife Service work as public domain (PD-USGov-FWS).",
+      "visual_review": {
+        "actual_model": null,
+        "actual_reasoning_effort": null,
+        "asset_sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "final_render_review_completed": false,
+        "findings": [
+          "The inspected 1512 by 996 landscape image shows cylindrical storage tanks in the foreground, coastal water and marsh islands, roads or embankments, and harbor or industrial infrastructure beyond. The retained source metadata identifies the scene as a coastal Texas oil refinery; the location is not independently established by pixels.",
+          "The image is visibly soft and blue tinted, with bright upper areas, but the tank farm, water and shoreline remain recognizable. No material pixel defect prevents its intended use as contextual archive media. No embedded date, event label or watermark is visible.",
+          "The original composition includes tanks cut by its lower edge. Retain the complete original image without an additional destructive crop, overlays or invented detail; do not enlarge it beyond a sensible article display width.",
+          "The supplied caption, alt text and archive qualification match the visible subject and retained source metadata. Preserve the explicit unknown capture date and full U.S. Fish and Wildlife Service, Wikimedia Commons and public-domain credit with their source and licence links on the canonical article.",
+          "The photograph provides oil-infrastructure context for the qualitative oil, euro and gold document follow-up. It does not depict Hormuz or corroborate a current disruption, agreement, escalation, price move or any other contemporary event. Those limits prevent a false event-image association under the no-fabrication rule; the image remains usable as labelled archive context.",
+          "Source and rights evidence are retained exactly: the local JPEG and original rights record hashes match the supplied metadata. This inspection did not fetch or independently recheck the external source or licence page.",
+          "This review covers only the original source photograph. It does not inspect an assembled canonical article, fact card or derivative render, and it does not approve text. The dated Main report remains known at 2026-11-06T08:21:03Z with underlying inputs ending 2026-11-06T07:36:24Z."
+        ],
+        "inspected": true,
+        "inspected_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\oil-refinery-coastal-texas.jpg",
+        "inspected_sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+        "inspection_detail": "original",
+        "inspection_surface": "LOCAL_ARTIFACT_VIEW_IMAGE",
+        "inspection_tool": "view_image",
+        "invocation_observation": {
+          "actual_configuration_unavailable": true,
+          "actual_model": null,
+          "actual_reasoning_effort": null,
+          "configuration_source": "Exact parent native assignment for CC-124 operation cc124-oil-euro-followup-20261106-v2, SAME Sol MAX writer/editor source-photograph inspection.",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "configured_model": "gpt-6.1-sol",
+          "configured_reasoning_effort": "max",
+          "invocation_id": "/root/cc124_followup_max",
+          "model": null,
+          "observation_source": "Supported native task context identifies this task as /root/cc124_followup_max; runtime model and effort telemetry is not exposed.",
+          "reasoning_effort": null,
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        "material_issues": [],
+        "observation_source": "Supported native task context and the exact local JPEG pixels emitted by view_image at original detail.",
+        "operation_id": "cc124-oil-euro-followup-20261106-v2",
+        "pixels_inspected": true,
+        "recorded_at_utc": "2026-11-06T09:54:23.0776273+00:00",
+        "relevant_subject": true,
+        "repair_required": false,
+        "reviewed_at_utc": "2026-11-06T09:54:23.0776273+00:00",
+        "reviewer": "/root/cc124_followup_max",
+        "reviewer_invocation_id": "/root/cc124_followup_max",
+        "source_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\photo-asset-unreviewed.json",
+        "source_metadata_sha256": "11c5a4df1e8772942084842e42ae203ad091fd6fccfa7f79089c8a84987896d6",
+        "status": "PASS_SOURCE_PHOTO_INSPECTION",
+        "text_approved": false
+      },
+      "width": 1512
+    }
+  ],
+  "claim_lineage": null,
+  "accepted_native_response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\desktop_response_revise.json",
+  "accepted_native_body_matches_assembly": true,
+  "text_approved": false,
+  "first_text_approval_utc": null,
+  "expected_review_id": null,
+  "policy": "JIM_DECISION_53_WRITER_ONE_EDITOR_CHECK_PUBLISH"
+}

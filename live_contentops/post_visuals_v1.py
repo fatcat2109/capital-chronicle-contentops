@@ -154,7 +154,8 @@ def _render_card(packet, path, mini_chart=None):
         key_label, key_value = display["key_label"], display["key_value"]
     spec = CardSpec(title=display.get("title") or packet.get("title") or "Key facts", facts=facts,
         kicker=display.get("kicker") or " · ".join(publishers),
-        key_label=key_label, key_value=key_value, source_line="Source: " + ", ".join(publishers),
+        key_label=key_label, key_value=key_value,
+        source_line=packet.get("source_line") or "Source: " + ", ".join(publishers),
         dated_line=packet.get("dated_line") or "Capital Chronicle", image_path=str(mini_chart or ""),
         chart=packet.get("series_asset") if mini_chart else None)  # CC-290: drawn for its slot, legible
     result = render_fact_card(path, spec, size=INSTAGRAM_SIZE)
@@ -236,6 +237,13 @@ def build_post_data_card(article, claims, documents, *, output_dir, series_packe
     packet = {"policy": POLICY, "facts": facts, "design": DESIGN,
               "text_presentation": "PLAIN_EMPHASIS_AND_DATED_REVIEW_ATTRIBUTION_V1",
               "title": str(article.get("title") or "Key facts"), "dated_line": piece_dated_line(article)}
+    if all(f["rights_class"] == "capital_chronicle_own_report" for f in facts):
+        from live_contentops.public_time_v1 import public_date
+        source_ids = {f["document_id"] for f in facts}
+        dates = {public_date(d["published_at_utc"]) for d in documents
+                 if d.get("document_id") in source_ids and d.get("published_at_utc")}
+        if len(dates) == 1:
+            packet["source_line"] = "Source: Capital Chronicle review, " + dates.pop() + " (ET)."
     display = (article.get("visual_editorial_decision") or {}).get("post_data_card_plan") or {}
     if display and [f.get("text") for f in display.get("facts", [])] == [f["text"] for f in facts]:
         packet["editorial_display"] = {k: str(display.get(k) or "") for k in (
