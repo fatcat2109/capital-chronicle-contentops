@@ -1,0 +1,32 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-06T13:52:19.726501+00:00",
+  "operation_id": "cc124-nfp-arrival-review-20261106-v1",
+  "base_commit": "36a45540be48fcb799d7a886779597f54fed8e7a",
+  "remote_default_commit": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "base_reason": "Current Publisher operating HEAD includes origin/master and integrated live consumers.",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "configuration_source": "Active codex exec launch arguments read back through Win32_Process; runtime model telemetry unavailable.",
+  "active_leases": [],
+  "sources": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\RESULT.md",
+      "sha256": "7360673b4f92871290575c87a569d167c1bb1e3046efcab1ff462453219430b1"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\run.json",
+      "sha256": "768e6f986439bec3a8bd1bf6a2d67bc86705e21241044b83df7b4778280126b9"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+      "sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336"
+    }
+  ],
+  "inherited_files_sha256": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "1cc4f6e6b95194d9093390cf5ccfd5c8f133fdfd016c6b463597fa17ed595483",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "adcf8f92d3dc38f8ece8a08cc363a0b6d0f8ecac2e711df2469b193a9c26b7cd"
+  },
+  "test_window": "No test run 18:30-22:30 GMT+7 on 6 November; use actual product validators and readbacks."
+}

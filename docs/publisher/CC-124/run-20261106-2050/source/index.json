@@ -1,0 +1,130 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authority_ref": "JIM_DECISION_89",
+      "source_url": "urn:cc-public-report:cc124:nfp-arrival-review:20261106",
+      "headline_id": "cc124-nfp-arrival-review-20261106",
+      "headline_text": "Capital Chronicle NFP arrival review: the strong condition held",
+      "known_at_utc": "2026-11-06T13:34:06Z",
+      "revision_at_utc": "2026-11-06T13:54:12.044066Z",
+      "candidate_catalyst_tags": [
+        "NFP",
+        "event-review",
+        "labour-market",
+        "conditional-policy-mechanism"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\RESULT.md",
+          "source_sha256": "7360673b4f92871290575c87a569d167c1bb1e3046efcab1ff462453219430b1",
+          "fragments": [
+            {
+              "start": 358,
+              "end": 448
+            },
+            {
+              "start": 506,
+              "end": 553
+            },
+            {
+              "start": 864,
+              "end": 1005
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 3868,
+              "end": 3948
+            },
+            {
+              "start": 4205,
+              "end": 4298
+            },
+            {
+              "start": 4719,
+              "end": 4764
+            },
+            {
+              "start": 5913,
+              "end": 5958
+            },
+            {
+              "start": 6431,
+              "end": 6467
+            }
+          ]
+        }
+      ],
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "headline_id": "bls-october-release",
+      "headline_text": "Total nonfarm payroll employment rose by 165,000 in October, and the unemployment rate changed little at 4.1 percent, the U.S. Bureau of Labor Statistics reported today.",
+      "capture_path": "bls-october-release-capture.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_capture_path": "bls-policy-capture.json",
+      "policy_url": "https://www.bls.gov/bls/linksite.htm",
+      "policy_capture_sha256": "a8f3c5a585c40b0d83fe415aaa456398cd65dbf9ad26cc7f390167a8783d60eb",
+      "policy_retrieved_at_utc": "2026-11-06T13:57:39.392115+00:00",
+      "source_capture_sha256": "1e1aab797c626f8e2faff0a3fd3be0fb97a0b4c8347340a6b9d7601aef675b00",
+      "loader_result_path": "bls-october-release-loader.json",
+      "proposition_span": [
+        1487,
+        1656
+      ],
+      "revision_at_utc": "2026-11-06T13:57:39.392115+00:00",
+      "candidate_catalyst_tags": [
+        "payrolls",
+        "employment",
+        "official-support"
+      ],
+      "supporting_headline_ids": [
+        "cc124-nfp-arrival-review-20261106"
+      ],
+      "research_metadata": {
+        "role": "OFFICIAL_SUPPORT_FOR_HELD_MAIN_REPORT",
+        "observation_date": "2026-10",
+        "vintage": "OCTOBER_RELEASE_AS_READ_20261106",
+        "independent_market_reaction": false
+      }
+    },
+    {
+      "headline_id": "bls-october-sectors",
+      "headline_text": "| Total nonfarm | 159,355 | 158,910 | 159,254 | 160,277 | 158,408 | 159,068 | 159,128 | 159,293 | 165 |",
+      "capture_path": "bls-october-sectors-capture.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_capture_path": "bls-policy-capture.json",
+      "policy_url": "https://www.bls.gov/bls/linksite.htm",
+      "policy_capture_sha256": "a8f3c5a585c40b0d83fe415aaa456398cd65dbf9ad26cc7f390167a8783d60eb",
+      "policy_retrieved_at_utc": "2026-11-06T13:57:39.392115+00:00",
+      "source_capture_sha256": "6dd385fa0dd29743ac63a55ae7aad286da7281e8966040716a4e0ca1497abac0",
+      "loader_result_path": "bls-october-sectors-loader.json",
+      "proposition_span": [
+        1730,
+        1833
+      ],
+      "revision_at_utc": "2026-11-06T13:57:39.392115+00:00",
+      "candidate_catalyst_tags": [
+        "payrolls",
+        "employment",
+        "official-support"
+      ],
+      "supporting_headline_ids": [
+        "cc124-nfp-arrival-review-20261106"
+      ],
+      "research_metadata": {
+        "role": "OFFICIAL_SUPPORT_FOR_HELD_MAIN_REPORT",
+        "observation_date": "2026-10",
+        "vintage": "OCTOBER_RELEASE_AS_READ_20261106",
+        "independent_market_reaction": false
+      }
+    }
+  ]
+}
