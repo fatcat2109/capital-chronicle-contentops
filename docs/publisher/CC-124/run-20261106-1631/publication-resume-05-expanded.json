@@ -1,0 +1,843 @@
+{
+  "classification": "NATIVE_PUBLICATION_CONTINUATION",
+  "coordinator_result": {
+    "plan_hash": "124365a10f9bdb402551bc500154f850863fe9953ef5dd6f3a75da0cb9e8c99b",
+    "registered": [],
+    "outbox_count": 0,
+    "per_destination": {
+      "substack": {
+        "destination": "substack",
+        "dispatch_id": "dispatch_99bced709eb50718ec5b8986367a8825",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": null,
+        "public_object_id": "223749516",
+        "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+        "publish_called": false
+      },
+      "telegram": {
+        "destination": "telegram",
+        "dispatch_id": "dispatch_a3f11868377329d130a7a4f70dcd4a94",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "x": {
+        "destination": "x",
+        "dispatch_id": "dispatch_97dc012d41ca46c9bb9056eb14405a3e",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "discord": {
+        "destination": "discord",
+        "dispatch_id": "dispatch_eebc8d1c4d9d3556b1d25358c6af8333",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "linkedin": {
+        "destination": "linkedin",
+        "dispatch_id": "dispatch_aecb984c8542d07b855016361667636a",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "facebook_page": {
+        "destination": "facebook_page",
+        "dispatch_id": "dispatch_c00c2b6e175c25f33fac46a263d27670",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "instagram_business": {
+        "destination": "instagram_business",
+        "dispatch_id": "dispatch_bb1d8d5d7f2899a6ce2506f2d0fd26dd",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "threads": {
+        "destination": "threads",
+        "dispatch_id": "dispatch_e7ee68547875c1965254330812753ae9",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "youtube": {
+        "destination": "youtube",
+        "dispatch_id": "dispatch_0017054d61d6323f1a5f7c71f761c8c0",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "dispatch_id": "dispatch_20856451a3489f0010a7492ede4a7190",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      }
+    },
+    "canonical_article_status": "NOT_CONFIRMED",
+    "canonical_article_real_published": false,
+    "canonical_url": null,
+    "canonical_publication_status": "CANONICAL_NOT_CONFIRMED",
+    "distribution_status": "CANONICAL_NOT_CONFIRMED",
+    "recovery_preflight": {
+      "safe_resumes": 0,
+      "safely_attempted": 0,
+      "stale_expired": 0,
+      "marked_unknown": 0,
+      "readbacks": 1,
+      "publish_calls": 0,
+      "readiness_probe_performed": false,
+      "per_destination": {
+        "discord": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "facebook_page": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "instagram_business": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "linkedin": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "linkedin_company": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "telegram": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "threads": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "x": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        },
+        "youtube": {
+          "status": "WAITING_CANONICAL_URL",
+          "publish_called": false
+        }
+      },
+      "recovery_attempt_budget": 9,
+      "backlog_remaining": 9,
+      "legacy_noncanonical_rows_skipped": 6,
+      "backlog_remaining_by_destination": [
+        "discord",
+        "facebook_page",
+        "instagram_business",
+        "linkedin",
+        "linkedin_company",
+        "telegram",
+        "threads",
+        "x",
+        "youtube"
+      ],
+      "backlog_remaining_obligations": [
+        {
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+          "destination": "discord",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+          "destination": "facebook_page",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+          "destination": "instagram_business",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+          "destination": "linkedin",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+          "destination": "telegram",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+          "destination": "threads",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+          "destination": "x",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+          "destination": "youtube",
+          "durable_status": "READY",
+          "blocking_status": "WAITING_CANONICAL_URL",
+          "reconciliation_status": ""
+        }
+      ],
+      "recovery_quarantined_obligations": [],
+      "recovery_quarantined_obligation_count": 0,
+      "backlog_blocking_new_publication": true,
+      "backlog_blocking_current_article": true
+    },
+    "public_write_performed": false,
+    "unknown_write_detected": false,
+    "site_publication_confirmed": false,
+    "site_url": null,
+    "site_readback_status": "NOT_FOUND_404",
+    "distribution_route": "CONFIRMED_SUBSTACK_WHILE_SITE_ABSENT",
+    "transaction_classification": "CANONICAL_NOT_CONFIRMED",
+    "derivative_confirmed_count": 0,
+    "derivative_attempted_count": 0,
+    "derivative_unknown_count": 0,
+    "derivative_absent_safe_to_retry_count": 0,
+    "derivative_failed_count": 0,
+    "derivative_never_attempted_count": 8,
+    "recovery_required_destinations": [],
+    "readback_limitation_destinations": [],
+    "unknown_write_count": 0,
+    "additional_destinations": {
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "dispatch_id": "dispatch_20856451a3489f0010a7492ede4a7190",
+        "dispatch_recorded": false,
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      }
+    },
+    "additional_confirmed_count": 0,
+    "additional_recovery_required_destinations": [
+      "linkedin_company"
+    ],
+    "substack_publication_confirmed": false
+  },
+  "publication": {
+    "accepted_evidence_sha256": "0e410a7056d7a9292b7e27df7611ac4d4911cf17f503a5252d4d7a57fd11a7bc",
+    "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+    "artifact_sha256": {
+      "article_manifest_v1.json": "7307014597bdb89b10f7ce0b31a524f973225b9428a8a9fe896784f50a90f4b6",
+      "native_derivative_previews_v1.json": "70f04956865d4d0e6042ea9edc270a861dd86a667737a5f04f9632cbee13c366",
+      "publication_lifecycle_plan_v1.json": "1d43f955979eef5dd8696ba1b17c2afefd9fb558f83c612bb2e8d3250ab2ef9a",
+      "qualified_article_record_v1.json": "c6750deb54cad5c26493079f3d71bbc4d241ab5b809f26b306f6545c94e19b04",
+      "run_context_v1.json": "3d3c38fb2d2ee6685e0258e4184c3454f95f9b6a6f8e471c3bd5839e9f1c7855"
+    },
+    "binding_sha256": "570f7a09c98d071246a959ec7b15680bcfd1275818086b0d9702b8f0d919d26b",
+    "media_sha256": {
+      "cc124-oil-followup-archive-refinery-fws": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+      "post-facts-fc5c1c6572545a5197e3": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd"
+    },
+    "native_result_sha256": "0a47102f1d226bf6d9d03e7f0be22c3c802228052f5d46fc226089750c81ecb1",
+    "plan_hash": "124365a10f9bdb402551bc500154f850863fe9953ef5dd6f3a75da0cb9e8c99b",
+    "prepared_handoff_sha256": "39cb98a9ac41c37ffb1361e1b9abe8c05f89f8da766765f7090a5bee44bf717c",
+    "publication_authority": false,
+    "review_id": "native-article-review-0331c88d706147b5a6f1ef6ab5964837",
+    "review_notes_sha256": "d7b75c75b1e7a66c5b2e10701d32490d082c14b2c8f2f4ea5e4ef436dfd4e21b",
+    "run_id": "cc124-oil-euro-followup-20261106-v2",
+    "schema_version": "contentops.native_publication_binding.v1",
+    "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+    "canonical_article_status": "NOT_CONFIRMED",
+    "canonical_article_real_published": false,
+    "canonical_url": null,
+    "canonical_publication_status": "CANONICAL_NOT_CONFIRMED",
+    "distribution_status": "CANONICAL_NOT_CONFIRMED",
+    "transaction_classification": "CANONICAL_NOT_CONFIRMED",
+    "derivative_confirmed_count": 0,
+    "derivative_attempted_count": 0,
+    "derivative_unknown_count": 0,
+    "derivative_absent_safe_to_retry_count": 0,
+    "derivative_failed_count": 0,
+    "derivative_never_attempted_count": 8,
+    "recovery_required_destinations": [],
+    "readback_limitation_destinations": [],
+    "unknown_write_detected": false,
+    "unknown_write_count": 0,
+    "additional_destinations": {
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_20856451a3489f0010a7492ede4a7190",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "READY"
+      }
+    },
+    "additional_confirmed_count": 0,
+    "additional_recovery_required_destinations": [
+      "linkedin_company"
+    ],
+    "state": "PENDING_NATIVE",
+    "operation_scope": "OWNER_MANUAL_LIVE",
+    "destinations": [
+      {
+        "destination": "substack",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_99bced709eb50718ec5b8986367a8825",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": null,
+        "public_object_id": "223749516",
+        "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "telegram",
+        "transport": "BOT_API",
+        "dispatch_id": "dispatch_a3f11868377329d130a7a4f70dcd4a94",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "READY"
+      },
+      {
+        "destination": "discord",
+        "transport": "WEBHOOK_API",
+        "dispatch_id": "dispatch_eebc8d1c4d9d3556b1d25358c6af8333",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "READY"
+      },
+      {
+        "destination": "x",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_97dc012d41ca46c9bb9056eb14405a3e",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "READY"
+      },
+      {
+        "destination": "linkedin",
+        "transport": "OFFICIAL_MEMBER_API",
+        "dispatch_id": "dispatch_aecb984c8542d07b855016361667636a",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "READY"
+      },
+      {
+        "destination": "facebook_page",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_c00c2b6e175c25f33fac46a263d27670",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "READY"
+      },
+      {
+        "destination": "instagram_business",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_bb1d8d5d7f2899a6ce2506f2d0fd26dd",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "READY"
+      },
+      {
+        "destination": "threads",
+        "transport": "THREADS_API",
+        "dispatch_id": "dispatch_e7ee68547875c1965254330812753ae9",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "READY"
+      },
+      {
+        "destination": "youtube",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_0017054d61d6323f1a5f7c71f761c8c0",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "READY"
+      },
+      {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_20856451a3489f0010a7492ede4a7190",
+        "status": "NOT_DISPATCHED",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": false,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "READY"
+      }
+    ],
+    "timing": {
+      "policy": "JIM_DECISION_53",
+      "target_minutes": 15,
+      "text_approved_at_utc": "2026-11-06T10:26:23.780939+00:00",
+      "dispatch_deadline_utc": "2026-11-06T10:41:23.780939+00:00",
+      "channels": [
+        {
+          "destination": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-06T10:29:25.925591+00:00",
+          "dispatched_at_utc": "2026-11-06T10:37:53.245Z",
+          "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+          "seconds_after_text_approval": 689.464061,
+          "within_target": true,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "telegram",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "discord",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "x",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "facebook_page",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "instagram_business",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "threads",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "youtube",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin_company",
+          "status": "NOT_DISPATCHED",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": null,
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        }
+      ],
+      "all_channels_dispatched_within_target": false,
+      "finished_piece_acceptance": {
+        "item": "CC-199",
+        "target_minutes": 30,
+        "all_destinations_with_image_readbacks_within_target": false
+      },
+      "state": "DISPATCH_NOW"
+    },
+    "skipped_destinations": [],
+    "pending_requests": [
+      {
+        "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+        "operation_id": "cc124-oil-euro-followup-20261106-v2",
+        "public_write_authorized": false,
+        "request": {
+          "action": "READBACK",
+          "canonical_url": null,
+          "content_binding": {
+            "artifact_manifest": [
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\run_context_v1.json",
+                "sha256": "3d3c38fb2d2ee6685e0258e4184c3454f95f9b6a6f8e471c3bd5839e9f1c7855"
+              }
+            ],
+            "expected_text_segments": [
+              "Capital Chronicle's pre-payrolls review gives oil a supply-risk test",
+              "Capital Chronicle's follow-up pairs oil's supply-risk reading with a range test, keeps euro countercases and treats gold's divergence as a challenge to one dollar story.",
+              "Capital Chronicle's November 6 pre-payrolls follow-up separates oil's supply-risk explanation from the dollar mechanism it sees in the euro. Gold's divergence challenges a uniform dollar account. The useful distinction is the different test attached to each interpretation. \n\n**Oil:** The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward. If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium. \n\n**Euro:** Capital Chronicle links the dollar bid to the risk impulse after the November 5 U.S. equity shock. For the euro, it retains two countercases: squaring of crowded short euro positions before payrolls and the rates channel that had weakened the dollar in the November 5 U.S. session. If the rates channel reasserts itself, the dollar-risk explanation would face a competing force. \n\n**Gold:** The review says gold made no lower low and had stopped following the dollar leg. That divergence is the review's test of a uniform dollar explanation. \n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. \n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers."
+            ],
+            "expected_thread_texts": [],
+            "media_manifest": [
+              {
+                "alt_text": "Gold's divergence challenges a uniform dollar account. The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+                "asset_id": "post-facts-fc5c1c6572545a5197e3",
+                "attribution": "Source: Capital Chronicle",
+                "caption": "Key facts from the article.",
+                "modality": "source_bound_data_card",
+                "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-fc5c1c6572545a5197e3.png",
+                "sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+                "source_page_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+              },
+              {
+                "alt_text": "Archive aerial photograph of storage tanks and coastal refinery infrastructure in Texas.",
+                "asset_id": "cc124-oil-followup-archive-refinery-fws",
+                "attribution": "U.S. Fish and Wildlife Service / Wikimedia Commons. Public domain.",
+                "caption": "Photo: U.S. Fish and Wildlife Service. A coastal Texas oil refinery. Archive photograph; the source does not give the capture date. License: https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg#Licensing. Source: https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg. Changes: Unchanged original; display resizing only.",
+                "license_url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg#Licensing",
+                "modality": "documentary_photo",
+                "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\oil-refinery-coastal-texas.jpg",
+                "rights_status": "PUBLIC_DOMAIN",
+                "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+                "source_page_url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg"
+              }
+            ],
+            "thread_post_count": 0
+          },
+          "destination": "substack",
+          "dispatch_attempt_identity": null,
+          "draft_readback_scope": {
+            "draft_urls": [
+              "https://capitalchronicle.substack.com/publish/post/210796285",
+              "https://capitalchronicle.substack.com/publish/post/210865567",
+              "https://capitalchronicle.substack.com/publish/post/210915784",
+              "https://capitalchronicle.substack.com/publish/post/211677374",
+              "https://capitalchronicle.substack.com/publish/post/212337344",
+              "https://capitalchronicle.substack.com/publish/post/213355736",
+              "https://capitalchronicle.substack.com/publish/post/213459905",
+              "https://capitalchronicle.substack.com/publish/post/213682262",
+              "https://capitalchronicle.substack.com/publish/post/213728600",
+              "https://capitalchronicle.substack.com/publish/post/222368666",
+              "https://capitalchronicle.substack.com/publish/post/223199520",
+              "https://capitalchronicle.substack.com/publish/post/223246940",
+              "https://capitalchronicle.substack.com/publish/post/223293057",
+              "https://capitalchronicle.substack.com/publish/post/223408612",
+              "https://capitalchronicle.substack.com/publish/post/223429113",
+              "https://capitalchronicle.substack.com/publish/post/223456283",
+              "https://capitalchronicle.substack.com/publish/post/223555673",
+              "https://capitalchronicle.substack.com/publish/post/223564454",
+              "https://capitalchronicle.substack.com/publish/post/223570288",
+              "https://capitalchronicle.substack.com/publish/post/223584317",
+              "https://capitalchronicle.substack.com/publish/post/223601127",
+              "https://capitalchronicle.substack.com/publish/post/223615409",
+              "https://capitalchronicle.substack.com/publish/post/223626281",
+              "https://capitalchronicle.substack.com/publish/post/223634631",
+              "https://capitalchronicle.substack.com/publish/post/223651009",
+              "https://capitalchronicle.substack.com/publish/post/223667079",
+              "https://capitalchronicle.substack.com/publish/post/223722704",
+              "https://capitalchronicle.substack.com/publish/post/223739949",
+              "https://capitalchronicle.substack.com/publish/post/223749516"
+            ],
+            "instructions": "Use exact public object first. Any draft fallback or scan considers only referenced_draft_ids; never enumerate all drafts or open an unreferenced draft, even if its title matches. Do not edit or delete drafts. An ignored draft is not proof of public-write absence; preserve UNKNOWN_WRITE.",
+            "referenced_draft_ids": [
+              "210796285",
+              "210865567",
+              "210915784",
+              "211677374",
+              "212337344",
+              "213355736",
+              "213459905",
+              "213682262",
+              "213728600",
+              "222368666",
+              "223199520",
+              "223246940",
+              "223293057",
+              "223408612",
+              "223429113",
+              "223456283",
+              "223555673",
+              "223564454",
+              "223570288",
+              "223584317",
+              "223601127",
+              "223615409",
+              "223626281",
+              "223634631",
+              "223651009",
+              "223667079",
+              "223722704",
+              "223739949",
+              "223749516"
+            ],
+            "scan_unreferenced_drafts": false
+          },
+          "entry_url": "https://capitalchronicle.substack.com/",
+          "expected_identity": "capitalchronicle.substack.com",
+          "forbidden": [
+            "login",
+            "reauthorize",
+            "account_switch",
+            "cookies",
+            "storage",
+            "blind_retry",
+            "bulk_x_ingestion"
+          ],
+          "intent_sha256": "6bf28e547fff681ad83a183ed29543741305ecf842f5a984c9a8a78e64e2b4d0",
+          "native_invocation_id": "/root",
+          "native_payload": {
+            "body_markdown": "Capital Chronicle's November 6 pre-payrolls follow-up separates oil's supply-risk explanation from the dollar mechanism it sees in the euro. Gold's divergence challenges a uniform dollar account. The useful distinction is the different test attached to each interpretation. \n\n**Oil:** The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward. If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium. \n\n**Euro:** Capital Chronicle links the dollar bid to the risk impulse after the November 5 U.S. equity shock. For the euro, it retains two countercases: squaring of crowded short euro positions before payrolls and the rates channel that had weakened the dollar in the November 5 U.S. session. If the rates channel reasserts itself, the dollar-risk explanation would face a competing force. \n\n**Gold:** The review says gold made no lower low and had stopped following the dollar leg. That divergence is the review's test of a uniform dollar explanation. \n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. \n\nAnalysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.",
+            "subtitle": "Capital Chronicle's follow-up pairs oil's supply-risk reading with a range test, keeps euro countercases and treats gold's divergence as a challenge to one dollar story.",
+            "title": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test"
+          },
+          "observation_epoch": 2989936,
+          "package_identity": "fa93b1095f9830d04310dcdb964d147703c2880422b3e79e3e173b6a9bc08f86",
+          "payload": null,
+          "payload_hash": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+          "public_object_id": "223749516",
+          "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+          "publication_clock_readback": "Return published_at_utc from the exact post's time datetime or post_date; preserve the original timestamp with a UTC offset. Never substitute a dispatch, event, retrieval, scheduled or current clock.",
+          "reader_text_normalization": "MARKDOWN_WHITESPACE_SMART_QUOTES_V1",
+          "request_sha256": "da0ba57b4d425725a442b2b7feebfc5d8c0fab8cc83c3be84f0eddb1a35aa341",
+          "schema_version": "contentops.neo_destination_handoff.v1",
+          "steps": [
+            "name_session; list tabs, open a task-owned tab",
+            "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+            "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+            "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+            "read back stable public object ID, exact public URL, identity and content; preserve ambiguity",
+            "Use exact public object first. Any draft fallback or scan considers only referenced_draft_ids; never enumerate all drafts or open an unreferenced draft, even if its title matches. Do not edit or delete drafts. An ignored draft is not proof of public-write absence; preserve UNKNOWN_WRITE."
+          ],
+          "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+          "surface": "SUBSTACK_ARTICLE",
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2"
+        },
+        "required_tool": "mcp__browseros_neo__run",
+        "schema_version": "contentops.native_neo_tool_request.v1",
+        "tool_request_sha256": "5629d3655fce86ccb04fd7607536ee1d4e706df180055f139fbb1740cf602ab7",
+        "action_claimed": false,
+        "next_operation": "publication-tool-begin"
+      }
+    ],
+    "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+    "next_operation": "publication-tool-begin",
+    "dispatch_continuation_operation": "publication-tool-begin",
+    "next_command": "python scripts/run_native_desktop_editorial.py publication-tool-begin --binding \"A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\native_operation_binding.json\" --request-sha256 da0ba57b4d425725a442b2b7feebfc5d8c0fab8cc83c3be84f0eddb1a35aa341 --native-invocation-id <actual-turn-id> --rollout config/native_desktop_rollout_v1.json",
+    "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale.",
+    "final_visual_acceptance": {
+      "review_type": "WRITER_ONE_EDITOR_CHECK_PUBLISH",
+      "policy_id": "JIM_DECISION_53",
+      "review_id": "native-article-review-0331c88d706147b5a6f1ef6ab5964837",
+      "text_approved_at_utc": "2026-11-06T10:26:23.780939+00:00",
+      "automated_media_check": {
+        "policy": "JIM_DECISION_53",
+        "check": "IMAGE_LOAD_AND_SIZE_ONCE",
+        "findings": [
+          {
+            "asset_id": "post-facts-fc5c1c6572545a5197e3",
+            "sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+            "pixels_inspected": false,
+            "loads": true,
+            "width": 1080,
+            "height": 1350,
+            "expected_dimensions": [
+              1080,
+              1350
+            ],
+            "right_size": true,
+            "status": "PASS"
+          },
+          {
+            "asset_id": "cc124-oil-followup-archive-refinery-fws",
+            "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+            "pixels_inspected": false,
+            "loads": true,
+            "width": 1512,
+            "height": 996,
+            "expected_dimensions": [
+              1512,
+              996
+            ],
+            "right_size": true,
+            "status": "PASS"
+          }
+        ],
+        "failures_logged_no_repair_loop": 0,
+        "blocks_publication": false
+      },
+      "pixels_inspected": false
+    },
+    "site_url": null,
+    "site_publication_confirmed": false,
+    "substack_publication_confirmed": false
+  },
+  "daily_email_digest": {
+    "digest_id": "cc143-digest-2026-11-05",
+    "confirmed": false,
+    "web_confirmed": true,
+    "email_confirmed": false,
+    "state": "WEB_CONFIRMED_EMAIL_READBACK_REQUIRED",
+    "public_object_id": "223626281",
+    "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-756",
+    "public_write_performed": false,
+    "native_continuation": {
+      "command": "digest-resume",
+      "arguments": [
+        "--rollout",
+        "config/native_desktop_rollout_v1.json",
+        "--native-invocation-id",
+        "<actual-active-invocation>"
+      ],
+      "instruction": "Continue this exact due digest through the existing Neo begin/submit loop before preparing another digest. Preserve any code tab and never read a mailbox or enter a code."
+    }
+  }
+}
