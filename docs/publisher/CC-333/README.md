@@ -1,5 +1,51 @@
 # CC-333: distinct images, two articles per day, Main scenarios
 
+## Source comparison after the due run, 7 November
+
+The earlier `JIM_DECISION_94_CC124_NOT_DUE` cause below is superseded. CC-124
+completed its due source comparison at 15:33–16:12 GMT+7 and returned to OPEN,
+next due **8 November 03:34 GMT+7**. It published no article. The remaining
+CC-333 cause is `JIM_DECISION_93_MAIN_SCENARIOS_INCOMPLETE`.
+
+This continuation reads the installed Publisher consumers and the current Main
+plan export in [consumer-verification.json](resume-20261107-1617/consumer-verification.json).
+The live image, scenario, article-policy and TradingView module Git blobs match the
+existing `contentops-live-20261107-cc333-r2` tag and this worktree; raw file hashes
+retain the Windows line-ending differences. The corresponding
+rollback tag remains `contentops-rollback-20261107-cc333-r2`. No runtime code or
+schedule change is needed for this source comparison.
+
+The full NFP Primary, Critical, Synthesis and integrated outputs and six latest
+complete daily Main reports retain the exact hashes searched by CC-124. Its
+three retained Main/BLS source records remain usable. The latest complete daily
+report is still the 6 November report. All 40 scenario records in the current
+validated plan export lack the main alternative's probability. The NFP report's
+approximately 65% direction assessments under separate strong/weak release
+conditions do not supply probabilities for a post-release base/alternative set,
+or complete six-market implications. No complement or scenario is invented.
+The [due run's source evidence](../CC-124/run-20261107-1533/README.md) retains
+the exact source passages and the scope of its wider held-data search.
+
+The installed image register has zero occupied article slots and capacity for
+one article under decision 94. The cap is not the current cause. The publication
+feed contains no article published after decision 93 took effect, so the two
+required new-piece canonical/social readbacks remain **0/2**. The original NFP
+binding and unanswered writer request remain unchanged and have no dispatch.
+
+CC-333 remains BLOCKED on Main's incomplete source fields, as decision 93 requires
+them (no-red-tape reason 2d). The chosen path preserves the existing operation and
+consumes its held facts for source comparison. Main must supply a dated complete
+scenario set; Publisher then uses the existing editorial and publication owners
+at an eligible CC-124 run and retains exact Substack/social readbacks for the next
+two compliant pieces. This run sends no chat message and makes no public write.
+
+No pytest process was started: the installed runtime code matches the already
+tested live tag. The prior 230 distinct passing builder checks and overlapping
+60/19 installed checks remain linked below; this run's evidence is an execution
+of the actual source/export/register consumers. All eight inherited modified
+files stay byte-identical and outside this item's commits. The current launch
+configured `gpt-6.1-sol/max`, recorded as `CONFIGURED_NOT_OBSERVED`.
+
 ## Resume on 7 November
 
 The remaining CC-316 source is merged into the existing CC-333 branch, preserving
