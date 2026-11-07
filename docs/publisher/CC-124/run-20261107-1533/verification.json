@@ -1,0 +1,33 @@
+{
+  "observed_at_utc": "2026-11-07T09:12:20.870589+00:00",
+  "status": "PASS",
+  "main_alternative_probability_absent": "40/40",
+  "retained_source_records_verified": 3,
+  "binding_bytes_unchanged": true,
+  "writer_request_bytes_unchanged": true,
+  "writer_return_present": false,
+  "operation_dispatches": [],
+  "active_leases": [],
+  "inherited_workspace_files_sha256": {
+    "docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl": "1cc4f6e6b95194d9093390cf5ccfd5c8f133fdfd016c6b463597fa17ed595483",
+    "docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl": "adcf8f92d3dc38f8ece8a08cc363a0b6d0f8ecac2e711df2469b193a9c26b7cd"
+  },
+  "inherited_workspace_bytes_unchanged": true,
+  "operating_wip_before_integration": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "cffe67cefeece6d6c4212033e4dc2afdd8d8981a1d39ce27db08886f2052b07d",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "58ed65ba9fa0dcab0ba90555ff67343c5f5e193fe5593e38319f6e8cd7765ca4"
+  },
+  "new_publications": 0,
+  "new_models": 0,
+  "new_media": 0,
+  "pytest_processes_started": 0,
+  "runtime_code_changed": false,
+  "native_operation_mutated": false,
+  "next_due_utc": "2026-11-07T20:33:04+00:00",
+  "next_due_gmt7": "8 Nov 2026 03:34 GMT+7",
+  "next_due_rounding": "Round the 03:33:04 GMT+7 twelve-hour restart instant up to the next minute."
+}
