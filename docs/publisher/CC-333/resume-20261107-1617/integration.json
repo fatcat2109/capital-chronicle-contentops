@@ -1,0 +1,47 @@
+{
+  "item": "CC-333",
+  "observed_at_utc": "2026-11-07T09:27:51.666050+00:00",
+  "installed_evidence_commit": "62ac396ba10e2622d8fe5364047f08d98a900434",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head": "62ac396ba10e2622d8fe5364047f08d98a900434",
+  "verified_installed_files": [
+    {
+      "path": "docs/publisher/CC-333/README.md",
+      "git_blob": "b6d9623b982667eb3129af214efed5b02d3e5408",
+      "installed": true
+    },
+    {
+      "path": "docs/publisher/CC-333/resume-20261107-1617/verify_consumers.py",
+      "git_blob": "6a8940cb716ce8b3681555038cc19db9fbec074f",
+      "installed": true
+    },
+    {
+      "path": "docs/publisher/CC-333/resume-20261107-1617/consumer-verification.json",
+      "git_blob": "634441beabb4d552aaa83f18d5a5e6d34c730120",
+      "installed": true
+    }
+  ],
+  "inherited_files_unchanged": {
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+    },
+    "A:\\Capital Chronicle\\ContentOps": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": true,
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": true,
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": true,
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": true,
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+    }
+  },
+  "runtime_code_changed": false,
+  "live_tag": "contentops-live-20261107-cc333-r2",
+  "rollback_tag": "contentops-rollback-20261107-cc333-r2",
+  "new_public_piece_readbacks": 0,
+  "required_public_piece_readbacks": 2,
+  "first_cause": "JIM_DECISION_93_MAIN_SCENARIOS_INCOMPLETE",
+  "next_cc124_due_gmt7": "8 Nov 2026 03:34 GMT+7",
+  "schedules_changed": false,
+  "chat_messages_sent": false
+}
