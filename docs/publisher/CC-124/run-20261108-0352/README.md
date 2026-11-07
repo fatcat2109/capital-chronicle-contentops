@@ -51,6 +51,12 @@ default and integrated Publisher consumers. The launch arguments were read back
 as `gpt-6.1-sol/max`; `CONFIGURED_NOT_OBSERVED` preserves the absence of runtime
 model telemetry. No schedule, chat message or native desktop control was used.
 
+The source-check sub-step was pushed and fast-forwarded into the Publisher
+operating root at `0d32f9727252ffe526c1314ab442f282243291f2`.
+[Integration readback](integration.json) verifies all ten installed Git blobs,
+the remote branch, retained pending writer and all eight inherited modified
+files. This installs task evidence only; it does not claim publication.
+
 Main's next dated report needs explicit post-release base-case and alternative
 probabilities, confirmations, implications for all six markets and invalidations.
 Publisher can then consume that version through the existing source-comparison

@@ -1,0 +1,83 @@
+{
+  "observed_at_utc": "2026-11-07T20:59:57.691348+00:00",
+  "status": "PASS",
+  "evidence_commit": "0d32f9727252ffe526c1314ab442f282243291f2",
+  "remote_branch_head": "0d32f9727252ffe526c1314ab442f282243291f2",
+  "operating_head": "0d32f9727252ffe526c1314ab442f282243291f2",
+  "operating_branch": "codex/contentops-local-publisher-20261030",
+  "installed_files": [
+    {
+      "path": "docs/publisher/CC-124/run-20261108-0352/README.md",
+      "git_blob": "d40ac9eaed14ecb9555d2ded30acd3a13c39b650",
+      "matches_evidence_commit": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261108-0352/compare_sources.py",
+      "git_blob": "70fad15df0a8d25c55c9a7b2eb1dc76d9cb7a2dc",
+      "matches_evidence_commit": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261108-0352/inspect_sources.py",
+      "git_blob": "7c0027c674eb85b12300488c26f9421b07d17d1b",
+      "matches_evidence_commit": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261108-0352/main-export-scenarios.json",
+      "git_blob": "d4b673dd3c09b73f4aaf17a2db22eb93f02453d7",
+      "matches_evidence_commit": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261108-0352/preflight.json",
+      "git_blob": "6124e25df884bc409e9c98df02e3730196a73b24",
+      "matches_evidence_commit": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261108-0352/publication-status.json",
+      "git_blob": "f8bd8c57ccad0bccf5bb4bdbb4e090fc2dbfd3d1",
+      "matches_evidence_commit": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261108-0352/source-comparison.json",
+      "git_blob": "75c1a8b80ddbba0a6d126d8222a5a64d7634d214",
+      "matches_evidence_commit": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261108-0352/source-readiness.json",
+      "git_blob": "e11109e3753a85c3ecd6220b5539e6f0c657e1b5",
+      "matches_evidence_commit": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261108-0352/verification.json",
+      "git_blob": "aa8d4ad85d70b04284389d96de7aae417b50e734",
+      "matches_evidence_commit": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261108-0352/verify_result.py",
+      "git_blob": "df2d9f92d04a64253a32197bcad10635016e0315",
+      "matches_evidence_commit": true
+    }
+  ],
+  "inherited_wip_bytes_unchanged": true,
+  "inherited_wip_sha256": {
+    "exec": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "1cc4f6e6b95194d9093390cf5ccfd5c8f133fdfd016c6b463597fa17ed595483",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "adcf8f92d3dc38f8ece8a08cc363a0b6d0f8ecac2e711df2469b193a9c26b7cd"
+    },
+    "operating": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "cffe67cefeece6d6c4212033e4dc2afdd8d8981a1d39ce27db08886f2052b07d",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "58ed65ba9fa0dcab0ba90555ff67343c5f5e193fe5593e38319f6e8cd7765ca4"
+    }
+  },
+  "pending_writer_request": "f91f22eaba23d5af0e115dd181655185d9a5639c627ea07de641d570f5e96c87",
+  "pending_writer_return_absent": true,
+  "article_acceptance_satisfied": false,
+  "new_publications": 0,
+  "first_cause": "JIM_DECISION_93_MAIN_SCENARIOS_INCOMPLETE",
+  "standing_item_status": "OPEN",
+  "next_due_gmt7": "8 Nov 2026 15:53 GMT+7",
+  "integration_scope": "Task evidence only; runtime code and native operation are unchanged."
+}
