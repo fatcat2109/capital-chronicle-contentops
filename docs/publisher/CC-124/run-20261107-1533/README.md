@@ -51,6 +51,12 @@ The active launch was read back as `gpt-6.1-sol/max`, with
 The inherited telemetry ledgers stay byte-identical and outside the commits.
 No schedule, chat message or native desktop control was used.
 
+The source-comparison sub-step was pushed and fast-forwarded into the Publisher
+operating root at `631c14f4f0e80c73bf079f5c248bf7ba57e20424`.
+[Integration readback](integration.json) checks its installed Git blobs, the
+pending native request and all inherited dirty files. This installs task
+evidence only; it does not claim a completed article or a publication.
+
 Main's next report needs explicit probabilities for its post-release base case
 and main alternative, plus their confirmations, six-market implications and
 invalidations. Publisher can then consume that dated version through the

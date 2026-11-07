@@ -1,0 +1,87 @@
+{
+  "observed_at_utc": "2026-11-07T09:14:55.313216+00:00",
+  "source_comparison_commit": "631c14f4f0e80c73bf079f5c248bf7ba57e20424",
+  "remote_readback": "631c14f4f0e80c73bf079f5c248bf7ba57e20424",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head": "631c14f4f0e80c73bf079f5c248bf7ba57e20424",
+  "installed_files": [
+    {
+      "path": "docs/publisher/CC-124/run-20261107-1533/README.md",
+      "git_blob": "5d6b811736b9bb6a8a9127573a0734796da23138",
+      "file_sha256": "e09008d6ebadf7ff65f25496addf3d8e8fafc233ccee56ed4d0add0b89efa500"
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261107-1533/check_source_readiness.py",
+      "git_blob": "c4cbc4c7f431982489af6d0dbfd2264671b80321",
+      "file_sha256": "6dacce3518cf309be7e719ed21314bbd2939df60921aa38f4900d1d314a4a9b2"
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261107-1533/inspect_resume.py",
+      "git_blob": "df4fad025b543946d049e5af1275205c6cc9368d",
+      "file_sha256": "5b6608faae92c700ff272ddf4d620d81cc3d18a863455c9724a7ba973815d643"
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261107-1533/main-scenario-search.json",
+      "git_blob": "c589d2cff8720ce74b93a9065394434e17f638de",
+      "file_sha256": "0461e9415a4c025816a6c4bd777b2c93cec1028a69e896f87bbd0d605e7dbe5b"
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261107-1533/resume-check.json",
+      "git_blob": "7da20252067672fa3c75ae8a9b237148a569e225",
+      "file_sha256": "1fd77d0c23d34c22fd2a4af0ee9a3ff248d58a568ab16b201ce80b19324f1821"
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261107-1533/search_main_scenarios.py",
+      "git_blob": "420ff5e71834355f6cbe810e473593298fbbb948",
+      "file_sha256": "7f3ceda367a19c50c7ac7daec9d132a58ba32a74c790b52cd62207c174ecaf2e"
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261107-1533/source-readiness.json",
+      "git_blob": "2f68057bcfd3edb2278c8af2aee12e3744a592eb",
+      "file_sha256": "0323142265bc584e610cafcf109cbc9df08fcc2550ee1fc5adc1b7de14246f16"
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261107-1533/verification.json",
+      "git_blob": "6f745d38d1dd6102723f9d2341c1b89ec2fd8d90",
+      "file_sha256": "58a367beb512ca8ab37dd378f8b5d5123c10b3e47a1749ec20814efaf59b4fb6"
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261107-1533/verify_closeout.py",
+      "git_blob": "7fe04601ed378eaee8b00c94e925203a47574919",
+      "file_sha256": "05146daca4aca3ca69744d504a805ff0d689d9443b228d5611b8be398976af3a"
+    }
+  ],
+  "inherited_operating_wip": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
+      "before": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "after": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": {
+      "before": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "after": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": {
+      "before": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "after": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
+      "before": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "after": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    },
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+      "before": "cffe67cefeece6d6c4212033e4dc2afdd8d8981a1d39ce27db08886f2052b07d",
+      "after": "cffe67cefeece6d6c4212033e4dc2afdd8d8981a1d39ce27db08886f2052b07d"
+    },
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+      "before": "58ed65ba9fa0dcab0ba90555ff67343c5f5e193fe5593e38319f6e8cd7765ca4",
+      "after": "58ed65ba9fa0dcab0ba90555ff67343c5f5e193fe5593e38319f6e8cd7765ca4"
+    }
+  },
+  "inherited_operating_bytes_unchanged": true,
+  "binding_bytes_unchanged": true,
+  "writer_request_bytes_unchanged": true,
+  "runtime_code_changed": false,
+  "article_published": false,
+  "schedules_changed": false,
+  "chat_messages_sent": false
+}
