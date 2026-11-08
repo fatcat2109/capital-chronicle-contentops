@@ -1,0 +1,514 @@
+{
+  "assignment": "CC341_SUPPLIED_DRAFT_EDITORIAL_PASS",
+  "operation_id": "cc341-weekend-wrap-20261109-v1",
+  "stage": "supplied-draft-review",
+  "completed_at_utc": "2026-11-08T18:47:30.182944+00:00",
+  "outcome": "EDITORIAL_PREPARATION_COMPLETE_SCENARIOS_INCOMPLETE",
+  "native_role_context": {
+    "canonical_native_task_path": "/root/cc341_editorial",
+    "parent_native_task_path": "/root",
+    "native_invocation_id": null,
+    "native_invocation_id_limit": "The platform context exposes this canonical native task path, but no separate invocation UUID or turn ID. None has been invented.",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "configuration_state": "CONFIGURED_NOT_OBSERVED",
+    "observed_model": null,
+    "observed_reasoning_effort": null,
+    "model_configuration_is_not_a_blocker": true,
+    "return_mechanism": "Native final return and these assigned artifacts inside the same parent operation.",
+    "publication_pipeline_receipt": false
+  },
+  "inputs": {
+    "assignment": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\editorial-assignment.json",
+      "sha256": "fd517a06aa4a46d92b96b54f8a9ca1e7045f82a5b905d7a0363d7b76cf807d85"
+    },
+    "source": {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+      "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+      "public_ready_section_lines": [
+        280,
+        304
+      ]
+    },
+    "supplied_draft": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\supplied-draft.md",
+      "sha256": "52cb4b13952af1df7138612a0b618ffe1e0d548af46345682c43bdbd23763661",
+      "matches_source_public_ready_section": true
+    },
+    "supplied_held_search": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\held-scenario-search.json",
+      "sha256": "a86aac8dc51acb942851e5f819169f8d0a61d4e837efe58d96aa7fca1db21a61"
+    },
+    "image_asset": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\tradingview-asset.json",
+      "sha256": "45ceb36d01d07aeaa42c3e9e7fdbdfd45d663e9fecdcf18258ad61f82f622b4c"
+    },
+    "image": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\media\\tradingview-8766e274d0d3a3ef-16x9.png",
+      "sha256": "2017406a74f98f3e823f0520ece32b3e9f7978a1550afb0fc2af56de50d1e80f",
+      "captured_at_utc": "2026-11-08T18:37:08.476898+00:00",
+      "credit": "Chart: TradingView",
+      "file_hash_verified": true,
+      "pixels_inspected_by_this_role": false,
+      "reuse_registry_and_eventual_publish_time_freshness_checked_by_this_role": false
+    }
+  },
+  "prepared_copy": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\prepared-body.md",
+    "sha256": "9bea834264dc2035560aa79d04c147f1389319b700b1fedccfdbd438df91acf9",
+    "bytes": 4637,
+    "notices": "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+    "supplied_draft_preserved_except_required_changes": true,
+    "changes": [
+      "Replaced only the last Sources/market-commentary line with the exact CC-341 standard notices.",
+      "Inserted the supplied USOIL image and its supplied caption after the introduction, retaining TradingView credit.",
+      "Inserted conditional, source-bound scenario prose under the Markdown ## Scenarios heading before The week ahead. It contains no placeholder probabilities."
+    ],
+    "public_placeholders_inserted": false,
+    "internal_report_text_or_account_details_inserted": false,
+    "source_numbers_altered": false,
+    "probability_numbers_inserted": false,
+    "public_scenario_prose_is_complete_for_decision_93": false,
+    "rendered_review_or_publication_approval": false
+  },
+  "source_findings": {
+    "opening_views": "Main gives directional ranges and confidence labels for all six markets in its first-hours opening view.",
+    "probability_finding": "The weekend report gives no probability for talks progressing/oil firm then fading, renewed Hormuz escalation, or acceptance of Iran's reopening offer.",
+    "confidence_is_not_probability": true,
+    "other_numbers_not_substituted": [
+      "The 78-80% December Fed hike odds describe Fed pricing, not the geopolitical scenarios.",
+      "The CPI preview's bin probabilities describe the printed October core CPI outcome, not these scenarios.",
+      "The 4 November post-midterm report's asset and risk-on scenarios concern a different event, horizon and market set.",
+      "Parent also examined an expired 6 November WTI floor-hold base case, about 55%, ending 13:15Z that Friday. It is not a probability for the three weekend geopolitical paths."
+    ],
+    "report_clocks": {
+      "reported_research_window_end_utc": "2026-11-08T18:15:00Z",
+      "reported_writing_end_utc": "2026-11-08T18:20:00Z",
+      "public_dateline": "Sunday 8 November, ET",
+      "no_new_event_or_price_observation_claimed": true
+    },
+    "base_case_fading_limit": "Main states a firmer oil opening view, diplomatic offsets and a reversal test. It does not assign a separate probability, complete confirmation rule or complete invalidation rule to the full 'firm then fading' geopolitical path."
+  },
+  "scenario_analysis": [
+    {
+      "scenario_id": "base",
+      "name": "Talks progress; oil firms at the open then fades",
+      "probability": null,
+      "probability_label": "Capital Chronicle model estimate",
+      "probability_source": null,
+      "confirmation": null,
+      "invalidation": null,
+      "available_confirmation_context": [
+        {
+          "value": "The opening view is oil +0.5% to +2.5%; Trump comments, Qatar mediation and Iran's standing offer offset transit risk.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              125,
+              129
+            ]
+          }
+        }
+      ],
+      "available_invalidation_context": [
+        {
+          "value": "WTI below Friday's close within two hours invalidates the higher-oil opening leg.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              128,
+              128
+            ]
+          },
+          "scope": "This is an invalidation of the firmer-oil leg, not of the complete geopolitical path."
+        }
+      ],
+      "six_market_implications": {
+        "XAUUSD": {
+          "value": "Near flat with a slight upward lean, -0.3% to +0.5%.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              93,
+              96
+            ]
+          }
+        },
+        "US500": {
+          "value": "Lower, -0.2% to -0.8%.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              101,
+              104
+            ]
+          }
+        },
+        "EURUSD": {
+          "value": "Slightly lower, 0 to -0.3%.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              109,
+              112
+            ]
+          }
+        },
+        "USDJPY": {
+          "value": "Near flat, -0.2% to +0.3%.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              117,
+              120
+            ]
+          }
+        },
+        "USOIL": {
+          "value": "Higher, +0.5% to +2.5% in the opening view, with diplomacy an offset.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              125,
+              129
+            ]
+          }
+        },
+        "BTCUSD": {
+          "value": "No weekend gap; Monday drift -2.5% to +1.5%, leaning lower with Nasdaq futures.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              133,
+              136
+            ]
+          }
+        }
+      },
+      "market_implication_scope": "These are Main's first-hours opening views. Main gives no separate complete six-market map for a subsequent oil-fading phase.",
+      "missing_fields": [
+        "probability",
+        "full_geopolitical_path_confirmation",
+        "full_geopolitical_path_invalidation",
+        "complete_fading_phase_market_implications"
+      ]
+    },
+    {
+      "scenario_id": "escalation",
+      "name": "Escalation around Hormuz",
+      "probability": null,
+      "probability_label": "Capital Chronicle model estimate",
+      "probability_source": null,
+      "confirmation": {
+        "value": "Brent above $103 means escalation is being priced beyond the weekend's facts.",
+        "source": {
+          "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+          "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+          "lines": [
+            128,
+            128
+          ]
+        }
+      },
+      "invalidation": null,
+      "six_market_implications": {
+        "XAUUSD": {
+          "value": "Two-sided: an oil/inflation/real-yield shock weighs on gold, while risk-off that drags yields lower supports it.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              89,
+              96
+            ]
+          }
+        },
+        "US500": {
+          "value": "Oil and Gulf risk weigh on equities.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              101,
+              104
+            ]
+          }
+        },
+        "EURUSD": {
+          "value": "Higher oil and Gulf risk weigh on the euro.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              109,
+              112
+            ]
+          }
+        },
+        "USDJPY": {
+          "value": "Competing forces: an oil gap weakens the yen through import costs; risk-off supports the yen. No net escalation-specific move is assigned.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              117,
+              120
+            ]
+          }
+        },
+        "USOIL": {
+          "value": "Transit-risk premium lifts oil.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              125,
+              129
+            ]
+          }
+        },
+        "BTCUSD": null
+      },
+      "available_context_not_promoted_to_scenario_value": [
+        {
+          "value": "Bitcoin follows Nasdaq; this is not an independently supplied escalation-specific forecast.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              133,
+              137
+            ]
+          }
+        }
+      ],
+      "missing_fields": [
+        "probability",
+        "invalidation",
+        "six_market_implications.BTCUSD"
+      ]
+    },
+    {
+      "scenario_id": "deal",
+      "name": "A deal on Iran's offer",
+      "probability": null,
+      "probability_label": "Capital Chronicle model estimate",
+      "probability_source": null,
+      "confirmation": {
+        "value": "A US statement accepting a framework for the two-day reopening plan.",
+        "source": {
+          "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+          "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+          "lines": [
+            128,
+            128
+          ]
+        }
+      },
+      "invalidation": null,
+      "six_market_implications": {
+        "XAUUSD": {
+          "value": "Lower oil and firmer equities help gold in the regime Main describes.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              94,
+              94
+            ]
+          },
+          "scope": "Mechanism for the diplomatic oil-down alternative; no separate deal-specific range is supplied."
+        },
+        "US500": {
+          "value": "Diplomatic de-escalation lowers oil and supports equities in isolation.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              66,
+              67
+            ]
+          }
+        },
+        "EURUSD": null,
+        "USDJPY": null,
+        "USOIL": {
+          "value": "A US statement accepting the framework would take oil down 3% to 8%, a Main inference.",
+          "source": {
+            "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+            "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+            "lines": [
+              128,
+              128
+            ]
+          }
+        },
+        "BTCUSD": null
+      },
+      "missing_fields": [
+        "probability",
+        "invalidation",
+        "six_market_implications.EURUSD",
+        "six_market_implications.USDJPY",
+        "six_market_implications.BTCUSD"
+      ]
+    }
+  ],
+  "social_scenarios": {
+    "base_case": "Base case: a firmer oil open meets a diplomatic brake; stocks lean lower, while gold and the yen stay near flat.",
+    "main_alternative": "Alternative: further Hormuz escalation lifts oil risk and weighs on equities; Brent above $103 would signal a stronger escalation premium.",
+    "complete_for_decision_93": false,
+    "missing_probability_values": true,
+    "delivered_to_any_channel": false
+  },
+  "independent_held_search": {
+    "searched_files": 831,
+    "roots": [
+      "A:\\Capital Chronicle\\Runtime\\MainPublicReports-v1",
+      "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs",
+      "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs",
+      "C:\\CapitalChronicleScratch\\ResearchRuns\\weekend-wrap-20261108",
+      "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy"
+    ],
+    "file_types": [
+      ".md",
+      ".json",
+      ".txt"
+    ],
+    "pruned_data_directories": [
+      ".git",
+      "__pycache__",
+      "d1-capture",
+      "histories",
+      "intraday",
+      "media",
+      "node_modules",
+      "request"
+    ],
+    "additional_exclusions": "Files over 5 MB and filenames suggesting credentials, secrets, cookies, tokens, 2FA or accounts. No such files were opened for this role.",
+    "method": "Searched retained text for Iran/Hormuz/Qeshm/Araghchi/Houthi together with probability/scenario/base-case/alternative terms, then inspected the matching current and prior analytical source spans.",
+    "geopolitical_scenario_candidate_files": [
+      {
+        "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261104T200106Z\\rejected-primary-native-attempt1.json",
+        "sha256": "4c48ad325020c19f73a31164bc6413b91f2eaa457ecefb4c92ee8bb739662251",
+        "matching_line_numbers": [
+          4,
+          14,
+          133,
+          151,
+          169,
+          185,
+          202,
+          223
+        ],
+        "total_matching_lines": 18
+      },
+      {
+        "path": "C:\\CapitalChronicleScratch\\ResearchRuns\\weekend-wrap-20261108\\codex_form0_stderr.txt",
+        "sha256": "61cd959af20d8beedd636adba3708fab66103fb4b9dfb1d169ed98e052298042",
+        "matching_line_numbers": [
+          82
+        ],
+        "total_matching_lines": 1
+      },
+      {
+        "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\CPI_20261110_PREVIEW_RESEARCH.md",
+        "sha256": "04772f9d3cfef1614bdcf4c09b3f056506cda30c77e73c49746cb422df69b754",
+        "matching_line_numbers": [
+          28,
+          32,
+          136,
+          192,
+          197,
+          199,
+          210,
+          284
+        ],
+        "total_matching_lines": 10
+      },
+      {
+        "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+        "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+        "matching_line_numbers": [
+          67,
+          296
+        ],
+        "total_matching_lines": 2
+      }
+    ],
+    "candidate_disposition": [
+      {
+        "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+        "finding": "Current weekend report: partial geopolitical views and tests, no probabilities."
+      },
+      {
+        "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\CPI_20261110_PREVIEW_RESEARCH.md",
+        "finding": "Lines 197-218 define core-CPI bins and first-hour reactions. These cannot supply a probability for weekend geopolitical events."
+      },
+      {
+        "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261104T200106Z\\rejected-primary-native-attempt1.json",
+        "finding": "Lines 6-7, 223, 295, 366, 437 and 514 concern 4 November post-midterm risk-on and asset plans. Event/horizon/universe mismatch; not discarded merely because its filename says rejected."
+      },
+      {
+        "path": "C:\\CapitalChronicleScratch\\ResearchRuns\\weekend-wrap-20261108\\codex_form0_stderr.txt",
+        "finding": "The probability/scenario match is quoted operating instructions, not analytical scenario values."
+      }
+    ],
+    "scope_limit": "This is a bounded search of the supplied held-report roots, not an assertion about files outside those roots."
+  },
+  "decision_93_assessment": {
+    "can_publish_under_decision_93_with_current_evidence": false,
+    "first_unsatisfied_requirement": "Main-sourced labelled model-estimate probabilities for the requested geopolitical scenarios.",
+    "additional_unsatisfied_requirements": "The full base path lacks explicit confirmation/invalidation and fading-phase mapping; alternatives lack complete invalidations and some event-specific six-market implications.",
+    "restriction_reason": "JIM_DECISION_93",
+    "authority": {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\JIM_DECISIONS_20261030.md",
+      "lines": [
+        1582,
+        1586
+      ]
+    },
+    "no_red_tape_application": "All usable held opening views, alternative mechanisms and price tests have been incorporated. No numerical substitute, unsupported complement or invented scenario value is used to fill an absent field. Model/effort telemetry is recorded, not used as a gate.",
+    "first_cause": "JIM_DECISION_93_MAIN_WEEKEND_SCENARIOS_INCOMPLETE"
+  },
+  "limits": [
+    "Source/editorial assessment only. No external source was fetched or independently verified.",
+    "No rendered canonical/channel review, image pixel review, public write, runtime-store mutation, tests, git action, agent dispatch or chat message was performed.",
+    "No parent pipeline receipt or actual runtime model/effort telemetry was fabricated."
+  ],
+  "next_action": "Parent continues cc341-weekend-wrap-20261109-v1 with this prepared copy. Obtain the absent event-specific probabilities and scenario fields from the existing Main report/dossier owner, bind them to exact sources, then complete the existing review/publication path. Preserve this preparation; do not manufacture values or silently replace the weekend scenario set with CPI or Fed outcomes.",
+  "additional_parent_source_search": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\additional-source-search.json",
+    "sha256": "c0a2325e6578532acb14acafad835f88ae16980f9c9951f32ba35b939554ecd9",
+    "observed_at_utc": "2026-11-08T18:46:03.784363+00:00",
+    "searched_sources": 67,
+    "export_scenarios": 40,
+    "export_null_scenarios": 2,
+    "export_missing_base_probability": 34,
+    "export_missing_alternative_probability": 40,
+    "data_research_paths": [
+      {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\data\\research",
+        "exists": false,
+        "searched_text_files": 0
+      },
+      {
+        "path": "A:\\Capital Chronicle\\ContentOps\\data\\research",
+        "exists": false,
+        "searched_text_files": 0
+      }
+    ],
+    "backlog_archive_matching_lines": [],
+    "first_cause": "JIM_DECISION_93_MAIN_WEEKEND_SCENARIOS_INCOMPLETE",
+    "evidence_scope": "The parent-created search artifact was read; this role did not repeat its runtime consumer inspection. Counts are separate search scopes and are not summed as unique sources."
+  }
+}

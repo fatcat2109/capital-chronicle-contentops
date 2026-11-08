@@ -1,0 +1,28 @@
+{
+  "observed_at_utc": "2026-11-08T18:47:06.332555+00:00",
+  "run_id": "cc341-weekend-wrap-20261109-v1",
+  "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc341-weekend-wrap-20261109-v1\\binding.json",
+  "binding_sha256": "56d9a9e1b5c9fd5f5f91a7ff32213423e40700048581a7a9550e2ce0ce86a4f9",
+  "cutoff_utc": "2026-11-08T18:34:48.697550Z",
+  "stage": "select",
+  "pending_request_sha256": "7e195acd945792c484659cd196e9efabe8bbbe44784d826315ad9df48ee0b252",
+  "pending_request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc341-weekend-wrap-20261109-v1\\desktop_request_select.json",
+  "accepted_selection_return": false,
+  "operation_dispatches": [],
+  "operation_active_leases": [],
+  "public_write_performed": false,
+  "channel_states": {
+    "substack": "NOT_ATTEMPTED_MAIN_SCENARIO_FIELDS_ABSENT",
+    "telegram": "NOT_ATTEMPTED_MAIN_SCENARIO_FIELDS_ABSENT",
+    "discord": "NOT_ATTEMPTED_MAIN_SCENARIO_FIELDS_ABSENT",
+    "x": "NOT_ATTEMPTED_MAIN_SCENARIO_FIELDS_ABSENT",
+    "linkedin": "NOT_ATTEMPTED_MAIN_SCENARIO_FIELDS_ABSENT",
+    "facebook": "NOT_ATTEMPTED_MAIN_SCENARIO_FIELDS_ABSENT",
+    "instagram": "NOT_ATTEMPTED_MAIN_SCENARIO_FIELDS_ABSENT",
+    "threads": "NOT_ATTEMPTED_MAIN_SCENARIO_FIELDS_ABSENT",
+    "youtube_community": "NOT_ATTEMPTED_MAIN_SCENARIO_FIELDS_ABSENT"
+  },
+  "first_cause": "JIM_DECISION_93_MAIN_WEEKEND_SCENARIOS_INCOMPLETE",
+  "next_actor": "Main report producer, then Codex Publisher",
+  "next_action": "Provide probabilities for the requested weekend scenarios and their source-bound confirmation, six-market implications and invalidation; Publisher admits the dated source revision through the existing source-review path before publishing."
+}
