@@ -1,0 +1,10 @@
+{
+  "observed_at_utc": "2026-11-08T10:33:48.2216830Z",
+  "started_at_utc": "2026-11-08T10:29:44.2845360Z",
+  "cpu_seconds": 3.3125,
+  "operation": "Stopped this run's read-only diagnostic helper",
+  "pid": 5184,
+  "reason": "Broad store integrity scan is unnecessary for source comparison; use bounded read-only dispatch/lease queries",
+  "user_applications_touched": false,
+  "store_bytes": 500191232
+}

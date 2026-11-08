@@ -1,0 +1,1881 @@
+{
+  "observed_at_utc": "2026-11-08T10:34:14.877044+00:00",
+  "classification": "SOURCE_BLOCKED",
+  "first_cause": "JIM_DECISION_93_MAIN_SCENARIOS_INCOMPLETE",
+  "reason": "Jim decision 93 requires Main-supplied probabilities, confirmation, all six market implications and invalidation for 2-3 scenarios. Do not invent a complement or use conditional direction confidence as scenario probability.",
+  "export_scenarios": 40,
+  "export_missing_main_alternative_probability": 40,
+  "export_missing_base_probability": 34,
+  "latest_complete_daily_report_unchanged": true,
+  "searched_native_reports": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261106-nfp\\dossier-20261106T093133Z\\primary-native.json",
+      "sha256": "19093505fb6d39424bf2c0a884e733ef2410874a292cba3975af72f527a1cc53",
+      "modified_at_utc": "2026-11-06T09:44:18.060279+00:00",
+      "same_bytes_as_previous_search": true,
+      "keys": [
+        "market_interpretation",
+        "claims",
+        "candidate_evaluations",
+        "proposed_expressions",
+        "watch_proposals",
+        "recommendation",
+        "causal_reasoning"
+      ],
+      "matches": [
+        {
+          "pointer": "/candidate_evaluations/0/invalidation",
+          "value": "After entry, a trade above 4110 (above the post-release short bounds and the capture, below the 5 Nov high 4146.9) means the market absorbed the strong print: stop. A post-release reading that is not STRONG arms nothing."
+        },
+        {
+          "pointer": "/candidate_evaluations/1/invalidation",
+          "value": "After entry, a trade below 1.11540 (below the 2 Nov low 1.11561 and the post-release long bounds) means the market is not buying the weak-USD read: stop. A post-release reading that is not WEAK arms nothing."
+        },
+        {
+          "pointer": "/proposed_expressions/0/scenario_id",
+          "value": "base"
+        },
+        {
+          "pointer": "/proposed_expressions/0/invalidation",
+          "value": "Stop on a trade above 4110 after entry; no entry if the release is not STRONG or if no fresh post-release bid falls inside 4033.406-4085.1955 (first blocking cause: price outside reviewed bounds); time exit 2026-11-10T13:00Z."
+        },
+        {
+          "pointer": "/proposed_expressions/1/scenario_id",
+          "value": "base"
+        },
+        {
+          "pointer": "/proposed_expressions/1/invalidation",
+          "value": "Stop on a trade below 1.11540 after entry; no entry if the release is not WEAK or if no fresh post-release ask falls inside 1.11674079-1.12051529 (first blocking cause: price outside reviewed bounds); time exit 2026-11-10T13:00Z."
+        },
+        {
+          "pointer": "/causal_reasoning/0/invalidation",
+          "value": "A trade above 4110 after entry, a release that is not STRONG, or the time exit at 2026-11-10T13:00Z ends the thesis."
+        },
+        {
+          "pointer": "/causal_reasoning/1/invalidation",
+          "value": "A trade below 1.11540 after entry, a release that is not WEAK, or the time exit at 2026-11-10T13:00Z ends the thesis."
+        }
+      ],
+      "theses_count": 0,
+      "not_taken_count": 0
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261106-nfp\\dossier-20261106T093133Z\\critical-native.json",
+      "sha256": "9fe682ca3038cfc4d4fc1ae573b342352fbd03b488d24a9e4696b5276e55d4e2",
+      "modified_at_utc": "2026-11-06T09:54:30.223191+00:00",
+      "same_bytes_as_previous_search": true,
+      "keys": [
+        "challenges",
+        "unsupported_claims",
+        "unsupported_transmission_claims",
+        "dimension_review",
+        "candidate_reviews",
+        "downgraded_watch_proposals",
+        "preserved_dissent",
+        "recommendation",
+        "review_summary",
+        "causal_attack"
+      ],
+      "matches": [],
+      "theses_count": 0,
+      "not_taken_count": 0
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261106-nfp\\dossier-20261106T093133Z\\owner-native.json",
+      "sha256": "a56d2c52ba4ed163ee6ff75d594eae2cc07d46d3806877d99c77256fb97291cc",
+      "modified_at_utc": "2026-11-06T10:03:03.723281+00:00",
+      "same_bytes_as_previous_search": true,
+      "keys": [
+        "calibration_state",
+        "same_model_sequential_review",
+        "independent_model_review_claimed",
+        "language",
+        "assessment_scope",
+        "decision",
+        "candidate_count",
+        "summary",
+        "causal_alternatives",
+        "contradictions",
+        "priced_in",
+        "scenario_assumptions",
+        "invalidation",
+        "portfolio_implications",
+        "next_review",
+        "evidence_membership_limit",
+        "coverage_limit",
+        "review_limit",
+        "candidates"
+      ],
+      "matches": [
+        {
+          "pointer": "/scenario_assumptions",
+          "value": [
+            {
+              "text": "STRONG means payrolls well above 65K with unemployment not above 4.2 percent. WEAK means payrolls well below 65K with unemployment not below 4.2 percent. Anything else arms nothing, and the arm step owns the thresholds. Critical recommends that the classification also weigh revisions and earnings, because a headline can be cancelled by either. The deterministic scenario set is uncalibrated (8 unknown dimensions), so its weights are not probabilities.",
+              "evidence_refs": [
+                "cc164:EURUSD:consensus_6:95fdad488b0357927654",
+                "cc164:EURUSD:consensus_8:45627d7b127405d26d52",
+                "cc164:EURUSD:consensus_4:ee391cfd130a12c63261"
+              ]
+            },
+            {
+              "text": "Each branch is expressed where room and positioning favour it. STRONG goes through a GOLD short: gold sits after a 210 rebound that was rejected at 4146.9, with the 2-4 Nov base (3891-3971) below. WEAK goes through a EURUSD long: price is in the lower part of its range under the 1.1268-1.1286 band of highs. US CPI at 13:30Z on 10 Nov (core m/m forecast 0.2) lies outside both plans by design, because both exit by 2026-11-09T09:00Z.",
+              "evidence_refs": [
+                "ev_primary_d7e0bc54eb984ea60397",
+                "ev_primary_6537573ef67502ac01fd",
+                "cc164:EURUSD:consensus_0:7f9f278277ab99a94d99"
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/invalidation",
+          "value": [
+            {
+              "text": "GOLD (Branch STRONG). Any of these ends the plan: a release that is not STRONG; no fresh post-release bid inside 4033.406-4085.1955 by 15:00Z (cause: price outside reviewed bounds, or late); a trade above 4110 after entry (stop); the time exit at 2026-11-09T09:00Z. Evidence that would reverse the thesis: the late-October FOMC signalled an end to hikes, or dated news showing gold-specific haven or fiscal demand strong enough to outweigh the USD leg inside the window.",
+              "evidence_refs": [
+                "ev_primary_d7e0bc54eb984ea60397",
+                "accepted-owner-research:question-f68da6125068304028b59e2c:v2"
+              ]
+            },
+            {
+              "text": "EURUSD (Branch WEAK). Any of these ends the plan: a release that is not WEAK; no fresh post-release ask inside 1.11674079-1.12020 by 15:00Z; a trade below 1.11480 after entry (stop); the time exit at 2026-11-09T09:00Z. Evidence that would reverse the thesis: dated news identifying a lasting euro-area shock behind the 6 Nov fall, or a weak headline paired with falling unemployment or strong earnings.",
+              "evidence_refs": [
+                "ev_primary_6537573ef67502ac01fd",
+                "cc164:EURUSD:consensus_4:ee391cfd130a12c63261"
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/0/invalidation",
+          "value": "Before entry: the release is not STRONG, or no fresh post-release bid falls inside 4033.406-4085.1955 by 2026-11-06T15:00:00Z (first blocking cause: price outside reviewed bounds, or late). After entry: a trade above 4110 (stop), or the time exit at 2026-11-09T09:00:00Z."
+        },
+        {
+          "pointer": "/candidates/0/model_numeric_probability_created",
+          "value": true
+        },
+        {
+          "pointer": "/candidates/1/invalidation",
+          "value": "Before entry: the release is not WEAK, or no fresh post-release ask falls inside 1.11674079-1.12020 by 2026-11-06T15:00:00Z (first blocking cause: price outside reviewed bounds, or late). After entry: a trade below 1.11480 (stop), or the time exit at 2026-11-09T09:00:00Z. Thesis reversal: dated news identifying a lasting euro-area shock behind the 6 Nov fall."
+        },
+        {
+          "pointer": "/candidates/1/model_numeric_probability_created",
+          "value": true
+        }
+      ],
+      "theses_count": 0,
+      "not_taken_count": 0
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261106-nfp\\dossier-20261106T093133Z\\native-hybrid-decision.json",
+      "sha256": "bed1ab2e0fee3f6bf0ed703220c6197f5a87a98e6d3f7b80ef66d4cfa53b88aa",
+      "modified_at_utc": "2026-11-06T10:03:20.048167+00:00",
+      "same_bytes_as_previous_search": true,
+      "keys": [
+        "actual_demo_authority",
+        "calibration_state",
+        "candidates",
+        "content_hash",
+        "cost_risk_owner",
+        "demo_order_send_calls",
+        "deterministic_evaluation_hash",
+        "deterministic_resolution",
+        "independent_model_review_claimed",
+        "numeric_forecasts",
+        "numeric_routes_required_for_qualitative_proposal",
+        "request_hash",
+        "result_hash",
+        "same_model_sequential_review",
+        "schema",
+        "two_leg_plan",
+        "version"
+      ],
+      "matches": [
+        {
+          "pointer": "/candidates/0/invalidation",
+          "value": "Before entry: the release is not STRONG, or no fresh post-release bid falls inside 4033.406-4085.1955 by 2026-11-06T15:00:00Z (first blocking cause: price outside reviewed bounds, or late). After entry: a trade above 4110 (stop), or the time exit at 2026-11-09T09:00:00Z."
+        },
+        {
+          "pointer": "/candidates/0/model_numeric_probability_created",
+          "value": true
+        },
+        {
+          "pointer": "/candidates/1/invalidation",
+          "value": "Before entry: the release is not WEAK, or no fresh post-release ask falls inside 1.11674079-1.12020 by 2026-11-06T15:00:00Z (first blocking cause: price outside reviewed bounds, or late). After entry: a trade below 1.11480 (stop), or the time exit at 2026-11-09T09:00:00Z. Thesis reversal: dated news identifying a lasting euro-area shock behind the 6 Nov fall."
+        },
+        {
+          "pointer": "/candidates/1/model_numeric_probability_created",
+          "value": true
+        },
+        {
+          "pointer": "/deterministic_resolution/watch_items/0/invalidation_condition",
+          "value": "Before entry: the release is not STRONG, or no fresh post-release bid falls inside 4033.406-4085.1955 by 2026-11-06T15:00:00Z (first blocking cause: price outside reviewed bounds, or late). After entry: a trade above 4110 (stop), or the time exit at 2026-11-09T09:00:00Z."
+        },
+        {
+          "pointer": "/deterministic_resolution/watch_items/0/scenario_id",
+          "value": "base"
+        },
+        {
+          "pointer": "/deterministic_resolution/watch_items/1/invalidation_condition",
+          "value": "Before entry: the release is not WEAK, or no fresh post-release ask falls inside 1.11674079-1.12020 by 2026-11-06T15:00:00Z (first blocking cause: price outside reviewed bounds, or late). After entry: a trade below 1.11480 (stop), or the time exit at 2026-11-09T09:00:00Z. Thesis reversal: dated news identifying a lasting euro-area shock behind the 6 Nov fall."
+        },
+        {
+          "pointer": "/deterministic_resolution/watch_items/1/scenario_id",
+          "value": "base"
+        },
+        {
+          "pointer": "/numeric_forecasts/0/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/1/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/2/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/3/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/4/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/5/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/6/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/7/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/8/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/9/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/10/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/11/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/12/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/13/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/14/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/15/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/16/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/17/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/18/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/19/direction_probability_up",
+          "value": null
+        },
+        {
+          "pointer": "/numeric_forecasts/20/direction_probability_up",
+          "value": null
+        }
+      ],
+      "theses_count": 0,
+      "not_taken_count": 0
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261106-nfp\\dossier-20261106T093133Z\\integrated-qualitative-evaluation.json",
+      "sha256": "11b7bf50c779310f377afd1adc6a6ba3c021bad1e1ae78ad0e7002e9f5a68649",
+      "modified_at_utc": "2026-11-06T10:03:20.013089+00:00",
+      "same_bytes_as_previous_search": true,
+      "keys": [
+        "actual_demo_authority",
+        "actual_paper_authority",
+        "canonical_state_mutated",
+        "committee_veto",
+        "decision_resolution",
+        "input_record_sha256",
+        "native_hybrid_admissions",
+        "qualitative_handoff",
+        "rejected_expressions",
+        "rejected_watches",
+        "result_sha256",
+        "risk_review",
+        "scheduler_owned",
+        "schema",
+        "validated_expressions"
+      ],
+      "matches": [
+        {
+          "pointer": "/decision_resolution/watch_items/0/invalidation_condition",
+          "value": "Before entry: the release is not STRONG, or no fresh post-release bid falls inside 4033.406-4085.1955 by 2026-11-06T15:00:00Z (first blocking cause: price outside reviewed bounds, or late). After entry: a trade above 4110 (stop), or the time exit at 2026-11-09T09:00:00Z."
+        },
+        {
+          "pointer": "/decision_resolution/watch_items/0/scenario_id",
+          "value": "base"
+        },
+        {
+          "pointer": "/decision_resolution/watch_items/1/invalidation_condition",
+          "value": "Before entry: the release is not WEAK, or no fresh post-release ask falls inside 1.11674079-1.12020 by 2026-11-06T15:00:00Z (first blocking cause: price outside reviewed bounds, or late). After entry: a trade below 1.11480 (stop), or the time exit at 2026-11-09T09:00:00Z. Thesis reversal: dated news identifying a lasting euro-area shock behind the 6 Nov fall."
+        },
+        {
+          "pointer": "/decision_resolution/watch_items/1/scenario_id",
+          "value": "base"
+        },
+        {
+          "pointer": "/qualitative_handoff/proposed_expressions/0/invalidation",
+          "value": "Stop on a trade above 4110 after entry; no entry if the release is not STRONG or if no fresh post-release bid falls inside 4033.406-4085.1955 (first blocking cause: price outside reviewed bounds); time exit 2026-11-10T13:00Z."
+        },
+        {
+          "pointer": "/qualitative_handoff/proposed_expressions/0/scenario_id",
+          "value": "base"
+        },
+        {
+          "pointer": "/qualitative_handoff/proposed_expressions/1/invalidation",
+          "value": "Stop on a trade below 1.11540 after entry; no entry if the release is not WEAK or if no fresh post-release ask falls inside 1.11674079-1.12051529 (first blocking cause: price outside reviewed bounds); time exit 2026-11-10T13:00Z."
+        },
+        {
+          "pointer": "/qualitative_handoff/proposed_expressions/1/scenario_id",
+          "value": "base"
+        },
+        {
+          "pointer": "/qualitative_handoff/watch_proposals/0/invalidation_condition",
+          "value": "Before entry: the release is not STRONG, or no fresh post-release bid falls inside 4033.406-4085.1955 by 2026-11-06T15:00:00Z (first blocking cause: price outside reviewed bounds, or late). After entry: a trade above 4110 (stop), or the time exit at 2026-11-09T09:00:00Z."
+        },
+        {
+          "pointer": "/qualitative_handoff/watch_proposals/0/scenario_id",
+          "value": "base"
+        },
+        {
+          "pointer": "/qualitative_handoff/watch_proposals/1/invalidation_condition",
+          "value": "Before entry: the release is not WEAK, or no fresh post-release ask falls inside 1.11674079-1.12020 by 2026-11-06T15:00:00Z (first blocking cause: price outside reviewed bounds, or late). After entry: a trade below 1.11480 (stop), or the time exit at 2026-11-09T09:00:00Z. Thesis reversal: dated news identifying a lasting euro-area shock behind the 6 Nov fall."
+        },
+        {
+          "pointer": "/qualitative_handoff/watch_proposals/1/scenario_id",
+          "value": "base"
+        }
+      ],
+      "theses_count": 0,
+      "not_taken_count": 0
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+      "sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+      "modified_at_utc": "2026-11-06T08:18:47.782128+00:00",
+      "same_bytes_as_previous_search": true,
+      "keys": [
+        "calibration_state",
+        "same_model_sequential_review",
+        "independent_model_review_claimed",
+        "language",
+        "assessment_scope",
+        "decision",
+        "candidate_count",
+        "summary",
+        "causal_alternatives",
+        "contradictions",
+        "priced_in",
+        "scenario_assumptions",
+        "invalidation",
+        "portfolio_implications",
+        "next_review",
+        "evidence_membership_limit",
+        "coverage_limit",
+        "review_limit",
+        "candidates"
+      ],
+      "matches": [
+        {
+          "pointer": "/scenario_assumptions",
+          "value": [
+            {
+              "text": "The request's 80/10/10 scenario weights are heuristic dimension tallies, not probabilities. The EURUSD short maps to risk_off (USD firmer as a haven), matching the 6 Nov Asia/Europe bars; the WTI long maps to base (commodities supply-led). The risk_off template has commodities weaker ex-gold, so the WTI long partly offsets the EURUSD short's scenario; the two plans do not conflict.",
+              "evidence_refs": [
+                "cc164:DXY:intraday_M15:25babd746c8e2aa520e8",
+                "cc164:USOIL:intraday_H1:799a14c7484d18732141"
+              ]
+            },
+            {
+              "text": "Assumed for the plans' window (to 13:15Z): no confirmed Hormuz agreement, and the Asia/Europe USD bid not reversed by pre-release squaring. Either failing ends the relevant thesis; the deterministic stops and the 13:15Z time exit bound the loss.",
+              "evidence_refs": [
+                "cc164:EURUSD:intraday_M15:b785f170fb00029b035c",
+                "cc164:USOIL:intraday_M15:c0b08646e0327f2a5cb6"
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/invalidation",
+          "value": [
+            {
+              "text": "EURUSD: before fill, cancel if a completed M15 bar's high reaches 1.12040 or at 11:30Z unfilled; after fill, stop-loss 1.12040 and time exit 13:15Z. Recorded (not gating, decision 81): DXY back under 101.750 means the USD leg is gone.",
+              "evidence_refs": [
+                "cc164:EURUSD:intraday_M15:b785f170fb00029b035c",
+                "cc164:DXY:intraday_M15:25babd746c8e2aa520e8"
+              ]
+            },
+            {
+              "text": "WTI: before fill, cancel if a completed M15 bar's low reaches 89.45 or at 11:30Z unfilled; after fill, stop-loss 89.45 and time exit 13:15Z. A confirmed ceasefire or agreement removes the supply thesis.",
+              "evidence_refs": [
+                "cc164:USOIL:intraday_M15:c0b08646e0327f2a5cb6",
+                "cc164:USOIL:intraday_H1:799a14c7484d18732141"
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/0/invalidation",
+          "value": "Not applicable (no plan). The bearish bias fails if US500 reclaims 7,394.46 while ETH trades above 2,246.81."
+        },
+        {
+          "pointer": "/candidates/0/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/1/invalidation",
+          "value": "Not applicable (no plan). The USD leg ends on an M15 close below 101.750."
+        },
+        {
+          "pointer": "/candidates/1/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/2/invalidation",
+          "value": "Not applicable (no plan). The short bias ends above 2,252."
+        },
+        {
+          "pointer": "/candidates/2/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/3/invalidation",
+          "value": "Before fill: a completed M15 bar with high at or above 1.12040 cancels the order; unfilled at 11:30Z it expires. After fill: stop-loss 1.12040; time exit 13:15Z at any P/L, before NFP. Recorded, not gating: DXY back under 101.750 means the USD leg is gone."
+        },
+        {
+          "pointer": "/candidates/3/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/3/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/3/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "high",
+              "operator": "GTE",
+              "threshold": 1.1204
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/4/invalidation",
+          "value": "Not applicable (no plan). The short bias ends on an M15 close above 1.3417."
+        },
+        {
+          "pointer": "/candidates/4/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/5/invalidation",
+          "value": "Not applicable (no plan)."
+        },
+        {
+          "pointer": "/candidates/5/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/6/invalidation",
+          "value": "Not applicable (no plan). The breakdown fails on an M15 close above 0.5568."
+        },
+        {
+          "pointer": "/candidates/6/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/7/invalidation",
+          "value": "Not applicable (no plan). The short bias fails on a reclaim of 7,394.46."
+        },
+        {
+          "pointer": "/candidates/7/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/8/invalidation",
+          "value": "Not applicable (no plan)."
+        },
+        {
+          "pointer": "/candidates/8/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/9/invalidation",
+          "value": "Not applicable (no plan)."
+        },
+        {
+          "pointer": "/candidates/9/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/10/invalidation",
+          "value": "Before fill: a completed M15 bar with low at or below 89.45 cancels the order; unfilled at 11:30Z it expires. After fill: stop-loss 89.45; time exit 13:15Z at any P/L, before NFP. A confirmed ceasefire or agreement removes the supply thesis."
+        },
+        {
+          "pointer": "/candidates/10/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/10/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/10/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "low",
+              "operator": "LTE",
+              "threshold": 89.45
+            }
+          ]
+        }
+      ],
+      "theses_count": 0,
+      "not_taken_count": 0
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+      "sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+      "modified_at_utc": "2026-11-06T06:03:38.600291+00:00",
+      "same_bytes_as_previous_search": true,
+      "keys": [
+        "calibration_state",
+        "same_model_sequential_review",
+        "independent_model_review_claimed",
+        "language",
+        "assessment_scope",
+        "decision",
+        "candidate_count",
+        "summary",
+        "causal_alternatives",
+        "contradictions",
+        "priced_in",
+        "scenario_assumptions",
+        "invalidation",
+        "portfolio_implications",
+        "next_review",
+        "evidence_membership_limit",
+        "coverage_limit",
+        "review_limit",
+        "candidates"
+      ],
+      "matches": [
+        {
+          "pointer": "/scenario_assumptions",
+          "value": [
+            {
+              "text": "The request's scenario weights (base 80, risk_on 10, risk_off 10; 0 strengthening, 0 weakening, 8 unknown dimensions) are heuristic shares, not probabilities. AUDUSD and SPX map to risk_off, GOLD and WTI to base. Base-case percentages in the rows are the Primary's uncalibrated qualitative judgments (50 to 60 percent), all below the 65 percent full-size bar, so every plan is STARTER under Jim's decision 55; no numeric model probability is created.",
+              "evidence_refs": [
+                "ev_primary_4d05fa0fd6b1ca24fb6d",
+                "ev_primary_d7e0bc54eb984ea60397",
+                "ev_primary_980b1fbdee6695facbbb",
+                "ev_primary_48f739dbf98ad8f4e9e5"
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/invalidation",
+          "value": [
+            {
+              "text": "AUDUSD: a completed M15 close above 0.69550 before a fill cancels the order; after a fill the 0.69550 stop closes it. Review-level: an NFP near or below 50k with US500 back above 7466.2.",
+              "evidence_refs": [
+                "cc164:AUDUSD:intraday_H1:4aae77964a60f6b787c6",
+                "cc164:AUDUSD:intraday_M15:68341432c15f94814fc6"
+              ]
+            },
+            {
+              "text": "GOLD: a completed M15 close above 4109 before a fill cancels; after a fill the 4109 stop closes it. Review-level: a soft NFP with US2Y below 4.40, or a GLD or IAU inflow on the next print.",
+              "evidence_refs": [
+                "cc164:XAUUSD:intraday_M15:3025033d6647fc17992e",
+                "official-rates:US2Y:2026-11-05:d230bbf179c6"
+              ]
+            },
+            {
+              "text": "SPX: a completed M15 close above 7536 before a fill cancels; after a fill the 7536 stop closes it. Review-level: USTEC above 27,620.",
+              "evidence_refs": [
+                "ev_primary_980b1fbdee6695facbbb",
+                "cc164:USTEC:intraday_M15:8542fe7389a7bc187eae"
+              ]
+            },
+            {
+              "text": "WTI: a completed M15 close above 91.55 (above today's 91.449 high) before a fill cancels; after a fill the 91.55 stop closes it. Review-level: an official collapse of the US-Iran talks, a confirmed Hormuz transit disruption, or a UKOIL H1 close above 101.999.",
+              "evidence_refs": [
+                "cc164:USOIL:intraday_M15:d728b8585cc82509a631",
+                "cc164:UKOIL:intraday_H1:0a4571a6280b22163ece"
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/0/invalidation",
+          "value": "Before a fill: a completed M15 bar closing above 0.69550 cancels the order. After a fill: the 0.69550 stop. Review-level: an NFP near or below 50k with US500 back above 7466.2."
+        },
+        {
+          "pointer": "/candidates/0/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/0/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/0/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "close",
+              "operator": "GT",
+              "threshold": 0.6955
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/1/invalidation",
+          "value": "A D1 close above 78,300 ends the short lean."
+        },
+        {
+          "pointer": "/candidates/1/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/2/invalidation",
+          "value": "An H1 close above 1.12441 ends the lower-high sequence."
+        },
+        {
+          "pointer": "/candidates/2/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/3/invalidation",
+          "value": "Before a fill: a completed M15 bar closing above 4109 cancels the order. After a fill: the 4109 stop. Review-level: a soft NFP with US2Y below 4.40, or a GLD or IAU inflow on the next print."
+        },
+        {
+          "pointer": "/candidates/3/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/3/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/3/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "close",
+              "operator": "GT",
+              "threshold": 4109
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/4/invalidation",
+          "value": "Before a fill: a completed M15 bar closing above 7536 cancels the order. After a fill: the 7536 stop. Review-level: USTEC above 27,620 (above the 5 Nov 14:30Z M15 low 27,598.4)."
+        },
+        {
+          "pointer": "/candidates/4/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/4/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/4/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "close",
+              "operator": "GT",
+              "threshold": 7536
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/5/invalidation",
+          "value": "An H1 close above 101.999 (4 Nov 11:00Z high)."
+        },
+        {
+          "pointer": "/candidates/5/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/6/invalidation",
+          "value": "A D1 close outside 156.40-159.05 ends the range view."
+        },
+        {
+          "pointer": "/candidates/6/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/7/invalidation",
+          "value": "An H1 close above 27,620 (above the 5 Nov 14:30Z M15 low 27,598.4)."
+        },
+        {
+          "pointer": "/candidates/7/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/8/invalidation",
+          "value": "Before a fill: a completed M15 bar closing above 91.55 cancels the order. After a fill: the 91.55 stop. Review-level: an official collapse of the US-Iran talks, a confirmed Hormuz transit disruption, or a UKOIL H1 close above 101.999."
+        },
+        {
+          "pointer": "/candidates/8/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/8/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/8/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "close",
+              "operator": "GT",
+              "threshold": 91.55
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/9/invalidation",
+          "value": "An H1 close above 13,880 (5 Nov 16:15-16:45Z highs 13,874-13,877)."
+        },
+        {
+          "pointer": "/candidates/9/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/10/invalidation",
+          "value": "Not applicable without a thesis."
+        },
+        {
+          "pointer": "/candidates/10/model_numeric_probability_created",
+          "value": false
+        }
+      ],
+      "theses_count": 0,
+      "not_taken_count": 0
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-c8bba0c593d99fb8\\owner-native.json",
+      "sha256": "17082bbfba405e93ea0ae42c167bbb8989d1e83c04a1c2b563d51c68c53910a2",
+      "modified_at_utc": "2026-11-05T16:54:50.041907+00:00",
+      "same_bytes_as_previous_search": true,
+      "keys": [
+        "calibration_state",
+        "same_model_sequential_review",
+        "independent_model_review_claimed",
+        "language",
+        "assessment_scope",
+        "decision",
+        "candidate_count",
+        "summary",
+        "causal_alternatives",
+        "contradictions",
+        "priced_in",
+        "scenario_assumptions",
+        "invalidation",
+        "portfolio_implications",
+        "next_review",
+        "evidence_membership_limit",
+        "coverage_limit",
+        "review_limit",
+        "candidates"
+      ],
+      "matches": [
+        {
+          "pointer": "/scenario_assumptions",
+          "value": [
+            {
+              "text": "The 80/10/10 scenario weights are uncalibrated heuristic shares from the deterministic dimension tally, not probabilities. USTEC is tagged risk_off (continuation after a failed reflex rally), GOLD risk_off on structure only (the Critical notes the haven leg is contradicted today), and WTI base (a supply-led regime, negative 20-day correlation to US500 of -0.42). The base-case shares in the candidate rows are the Primary's judgmental, uncalibrated figures (USTEC about 57%, WTI about 60%; GOLD about 57%, which the Critical lowered to closer to even). This synthesis creates no new numeric probability.",
+              "evidence_refs": [
+                "cc164:USOIL:quant_card:13e9b78655a989867c0c",
+                "cc164:XAUUSD:quant_card:0ca4833267c3cf40a626"
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/invalidation",
+          "value": [
+            {
+              "text": "USTEC: the WATCH is void before entry if any completed M15 bar trades at or above 27,520 (stop level) or at or below 26,650 (target reached without the rally), or at 2026-11-06T13:15Z without entry. Stop after entry: 27,520.",
+              "evidence_refs": [
+                "cc164:USTEC:intraday_M15:b0417cb531ef6edb5661"
+              ]
+            },
+            {
+              "text": "GOLD: the WATCH is void before entry if any completed M15 bar trades at or below 4,026 (under the 4 Nov 12:00-15:00Z H1 shelf, low 4,028.97) or at or above 4,134, or at 2026-11-06T13:15Z without entry. Stop after entry: 4,026.",
+              "evidence_refs": [
+                "cc164:XAUUSD:intraday_H1:76982c2ff095e04a566a",
+                "cc164:XAUUSD:intraday_M15:b3ace45ca75cfa227870"
+              ]
+            },
+            {
+              "text": "WTI: the WATCH is void before entry if any completed H1 bar trades at or below 86.30 (under the 4 Nov low of 86.59) or at or above 92.80, or at 2026-11-06T13:00Z without entry. Stop after entry: 86.30. Thesis-level: a dated US-Iran deal report (not encodable; a fill cannot check it under decision 61, and the stop covers this path).",
+              "evidence_refs": [
+                "ev_primary_48f739dbf98ad8f4e9e5"
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/0/invalidation",
+          "value": "Before entry: any completed M15 bar with a high at or above 27,520, or a low at or below 26,650, voids the WATCH; it also expires at 2026-11-06T13:15Z without entry. After entry: stop 27,520, target 26,650, planned exit 2026-11-06T20:45Z. Thesis killers: a capitulation reflex that holds above 27,484.39, or a dated Fed or administration backstop."
+        },
+        {
+          "pointer": "/candidates/0/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/0/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/0/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "high",
+              "operator": "GTE",
+              "threshold": 27520
+            },
+            {
+              "field": "low",
+              "operator": "LTE",
+              "threshold": 26650
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/1/invalidation",
+          "value": "Before entry: any completed M15 bar with a low at or below 4,026 (under the 4 Nov 15:00Z H1 low of 4,028.97) or a high at or above 4,134 voids the WATCH; it also expires at 2026-11-06T13:15Z without entry. After entry: stop 4,026, target 4,134, planned exit 2026-11-06T20:45Z at the latest (set 20:30Z). Thesis killer: gold falling at or above its 20-day beta on the next equity down-leg (not encodable; the stop covers this path)."
+        },
+        {
+          "pointer": "/candidates/1/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/1/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/1/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "low",
+              "operator": "LTE",
+              "threshold": 4026
+            },
+            {
+              "field": "high",
+              "operator": "GTE",
+              "threshold": 4134
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/2/invalidation",
+          "value": "Before entry: any completed H1 bar with a low at or below 86.30 or a high at or above 92.80 voids the WATCH; it also expires at 2026-11-06T13:00Z without entry. After entry: stop 86.30, target 92.80, planned exit 2026-11-06T20:30Z. Thesis killers: a dated US-Iran deal report, or a D1 close below 86.59."
+        },
+        {
+          "pointer": "/candidates/2/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/2/invalidation_timeframe",
+          "value": "H1"
+        },
+        {
+          "pointer": "/candidates/2/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "low",
+              "operator": "LTE",
+              "threshold": 86.3
+            },
+            {
+              "field": "high",
+              "operator": "GTE",
+              "threshold": 92.8
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/3/invalidation",
+          "value": "Not applicable (no plan registered). The reviewed terms stay on file: SELL 7,510-7,540 after an M15 rally stalls under 7,578, stop 7,584, target 7,380."
+        },
+        {
+          "pointer": "/candidates/3/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/4/invalidation",
+          "value": "Not applicable (no plan)."
+        },
+        {
+          "pointer": "/candidates/4/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/5/invalidation",
+          "value": "Not applicable (no plan)."
+        },
+        {
+          "pointer": "/candidates/5/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/6/invalidation",
+          "value": "Not applicable (no plan)."
+        },
+        {
+          "pointer": "/candidates/6/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/7/invalidation",
+          "value": "Not applicable (no plan)."
+        },
+        {
+          "pointer": "/candidates/7/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/8/invalidation",
+          "value": "Not applicable (no plan)."
+        },
+        {
+          "pointer": "/candidates/8/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/9/invalidation",
+          "value": "Not applicable (no plan)."
+        },
+        {
+          "pointer": "/candidates/9/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/10/invalidation",
+          "value": "Not applicable (no plan)."
+        },
+        {
+          "pointer": "/candidates/10/model_numeric_probability_created",
+          "value": false
+        }
+      ],
+      "theses_count": 0,
+      "not_taken_count": 0
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-45c4fbea254c0def\\owner-native.json",
+      "sha256": "e7e06616a1c44689d84741f769c9b1e242277d787e3c1940ca78eefa6b93a6b3",
+      "modified_at_utc": "2026-11-05T16:21:56.958702+00:00",
+      "same_bytes_as_previous_search": true,
+      "keys": [
+        "calibration_state",
+        "same_model_sequential_review",
+        "independent_model_review_claimed",
+        "language",
+        "assessment_scope",
+        "decision",
+        "candidate_count",
+        "summary",
+        "causal_alternatives",
+        "contradictions",
+        "priced_in",
+        "scenario_assumptions",
+        "invalidation",
+        "portfolio_implications",
+        "next_review",
+        "evidence_membership_limit",
+        "coverage_limit",
+        "review_limit",
+        "candidates"
+      ],
+      "matches": [
+        {
+          "pointer": "/scenario_assumptions",
+          "value": [
+            {
+              "text": "The deterministic scenario tally (0 strengthening, 0 weakening, 8 unknown; heuristic weights base 80, risk_off 10, risk_on 10) is uncalibrated, not a probability, and not a veto. The four shorts map to risk_off and the GOLD long to base. The bars show megacap-tech de-risking and a USD bid inside a risk-off session on 5 Nov, after a USD-weak, gold-strong session on 4 Nov (context: Schwab, 4 Nov 15:00Z, DXY -0.58 percent).",
+              "evidence_refs": [
+                "ev_primary_be382bcfc9bd9b3bc19c",
+                "ev_primary_6537573ef67502ac01fd",
+                "ev_primary_d7e0bc54eb984ea60397"
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/invalidation",
+          "value": [
+            {
+              "text": "USTEC short. Before entry, any completed M15 bar that closes above 27920 or has a low at or below 27000 cancels. After entry: stop 27920, target 27000, time exit 2026-11-06T20:45Z.",
+              "evidence_refs": [
+                "cc164:USTEC:intraday_M15:a5b46313e050c7605c18"
+              ]
+            },
+            {
+              "text": "GOLD long. Before entry, any completed M15 bar that closes below 4024 or above 4147 cancels. After entry: stop 4024, target 4140, time exit 2026-11-06T20:45Z.",
+              "evidence_refs": [
+                "cc164:XAUUSD:intraday_M15:1644fd8a44e436fef6ff"
+              ]
+            },
+            {
+              "text": "EURUSD short. Before entry, any completed M15 bar that closes above 1.1305 or has a low at or below 1.1180 cancels. After entry: stop 1.1305, target 1.1180, time exit 2026-11-09T20:00Z.",
+              "evidence_refs": [
+                "cc164:EURUSD:intraday_M15:bff22d01c7988665b9f4"
+              ]
+            },
+            {
+              "text": "WTI short. Before entry, any completed M15 bar that closes above 93.70 or has a low at or below 86.00 cancels. After entry: stop 93.70, target 87.40, time exit 2026-11-06T20:30Z.",
+              "evidence_refs": [
+                "cc164:USOIL:intraday_M15:57a82d9351c1e626a8ef"
+              ]
+            },
+            {
+              "text": "BTCUSD short. Before entry, any completed H1 bar that closes above 81400 or has a low at or below 76300 cancels. After entry: stop 81400, target 76300, time exit 2026-11-08T20:00Z. The thesis is invalid on a D1 close above 81400.",
+              "evidence_refs": [
+                "cc164:BTCUSD:quant_card:0c6baa1f11ecdb4b9e3c"
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/0/invalidation",
+          "value": "Before entry, any completed M15 bar that closes above 27920 or has a low at or below 27000 cancels. After entry: stop 27920, target 27000, time exit 2026-11-06T20:45Z. The thesis is invalid on an H1 close above 28100."
+        },
+        {
+          "pointer": "/candidates/0/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/0/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/0/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "close",
+              "operator": "GT",
+              "threshold": 27920
+            },
+            {
+              "field": "low",
+              "operator": "LTE",
+              "threshold": 27000
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/1/invalidation",
+          "value": "Before entry, any completed M15 bar that closes below 4024 or above 4147 cancels. After entry: stop 4024 (under the 4 Nov H1 lows 4028.97-4032.29), target 4140, time exit 2026-11-06T20:45Z. The thesis is invalid on an H1 close below 4024."
+        },
+        {
+          "pointer": "/candidates/1/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/1/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/1/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "close",
+              "operator": "LT",
+              "threshold": 4024
+            },
+            {
+              "field": "close",
+              "operator": "GT",
+              "threshold": 4147
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/2/invalidation",
+          "value": "Before entry, any completed M15 bar that closes above 1.1305 or has a low at or below 1.1180 cancels. After entry: stop 1.1305, target 1.1180, time exit 2026-11-09T20:00Z, with weekend gap risk. The thesis is invalid on an H1 close above 1.1305."
+        },
+        {
+          "pointer": "/candidates/2/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/2/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/2/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "close",
+              "operator": "GT",
+              "threshold": 1.1305
+            },
+            {
+              "field": "low",
+              "operator": "LTE",
+              "threshold": 1.118
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/3/invalidation",
+          "value": "Before entry, any completed M15 bar that closes above 93.70 or has a low at or below 86.00 cancels. After entry: stop 93.70 (above the 4 Nov 15:00Z H1 high 93.503), target 87.40, time exit 2026-11-06T20:30Z. The thesis is invalid on an H1 close above 93.70."
+        },
+        {
+          "pointer": "/candidates/3/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/3/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/3/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "close",
+              "operator": "GT",
+              "threshold": 93.7
+            },
+            {
+              "field": "low",
+              "operator": "LTE",
+              "threshold": 86.0
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/4/invalidation",
+          "value": "Before entry, any completed H1 bar that closes above 81400 or has a low at or below 76300 cancels. After entry: stop 81400 (above the 4 Nov high 81125.08), target 76300 (above the 3 Nov low 76256.33 and the 30 Oct low 76163.86), time exit 2026-11-08T20:00Z. The thesis is invalid on a D1 close above 81400."
+        },
+        {
+          "pointer": "/candidates/4/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/4/invalidation_timeframe",
+          "value": "H1"
+        },
+        {
+          "pointer": "/candidates/4/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "close",
+              "operator": "GT",
+              "threshold": 81400
+            },
+            {
+              "field": "low",
+              "operator": "LTE",
+              "threshold": 76300
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/5/invalidation",
+          "value": "Not applicable (no plan). The no-entry ends when one of the named triggers completes."
+        },
+        {
+          "pointer": "/candidates/5/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/6/invalidation",
+          "value": "Not applicable (no plan)."
+        },
+        {
+          "pointer": "/candidates/6/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/7/invalidation",
+          "value": "Not applicable (no plan)."
+        },
+        {
+          "pointer": "/candidates/7/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/8/invalidation",
+          "value": "Not applicable (no plan). The bearish view ends on an H1 close above 200.62."
+        },
+        {
+          "pointer": "/candidates/8/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/9/invalidation",
+          "value": "Not applicable (no plan)."
+        },
+        {
+          "pointer": "/candidates/9/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/10/invalidation",
+          "value": "Not applicable (no plan). The bullish view ends on an H1 close below 126.90."
+        },
+        {
+          "pointer": "/candidates/10/model_numeric_probability_created",
+          "value": false
+        }
+      ],
+      "theses_count": 0,
+      "not_taken_count": 0
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d232ac540a32a050\\owner-native.json",
+      "sha256": "34a8884208741350c679779d7ee5825b221d047e918c76c7428d071b82879406",
+      "modified_at_utc": "2026-11-05T11:12:27.155965+00:00",
+      "same_bytes_as_previous_search": true,
+      "keys": [
+        "calibration_state",
+        "same_model_sequential_review",
+        "independent_model_review_claimed",
+        "language",
+        "assessment_scope",
+        "decision",
+        "candidate_count",
+        "summary",
+        "causal_alternatives",
+        "contradictions",
+        "priced_in",
+        "scenario_assumptions",
+        "invalidation",
+        "portfolio_implications",
+        "next_review",
+        "evidence_membership_limit",
+        "coverage_limit",
+        "review_limit",
+        "candidates"
+      ],
+      "matches": [
+        {
+          "pointer": "/scenario_assumptions",
+          "value": [
+            {
+              "text": "The scenario set is a heuristic, uncalibrated tally (base 80, risk_on 10, risk_off 10) with all 8 dimensions unknown; the weights are not probabilities. The three WATCHes assume the post-midterm USD-down regime persists into 6 Nov. That matches the risk_on transmission (USD softer) better than base. The stated base-case percentages are uncalibrated role judgments (Primary 55-60%, Critical 50-60%), not model forecasts.",
+              "evidence_refs": [
+                "cc164:EURUSD:quant_card:8003c423cff6d204c285",
+                "cc164:XAUUSD:quant_card:442a73b06af85f74f442"
+              ]
+            },
+            {
+              "text": "Today's US releases (Challenger 12:30Z, jobless claims 13:30Z, Fed speakers 13:50Z and 14:10Z) fall inside the WATCH window. not_before_utc is 2026-11-05T13:45:00Z, so no trigger can form on the 13:30Z claims release bar.",
+              "evidence_refs": [
+                "cc164:EURUSD:intraday_M15:86ca96710a9ac665c947"
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/invalidation",
+          "value": [
+            {
+              "text": "GOLD: cancel before entry on any completed M15 close below 4085.0, or at expiry 2026-11-06T10:00:00Z. After entry: stop 4072.0, target 4175.0, planned exit 2026-11-06T13:00:00Z.",
+              "evidence_refs": [
+                "cc164:XAUUSD:intraday_M15:687a74eee1fc17701909"
+              ]
+            },
+            {
+              "text": "XAGUSD: cancel before entry on any completed M15 close below 52.10, or at expiry 2026-11-06T10:00:00Z. After entry: stop 51.95, target 53.65, planned exit 2026-11-06T13:00:00Z.",
+              "evidence_refs": [
+                "cc164:XAGUSD:intraday_M15:1b7b2660f61a9b453d99"
+              ]
+            },
+            {
+              "text": "EURUSD: cancel before entry on any completed M15 close below 1.12100 (below the 4 Nov 16:30Z post-midterm low of 1.12132), or at expiry 2026-11-06T12:00:00Z. After entry: stop 1.12450, target 1.13450, planned exit 2026-11-06T13:00:00Z.",
+              "evidence_refs": [
+                "cc164:EURUSD:intraday_M15:86ca96710a9ac665c947"
+              ]
+            },
+            {
+              "text": "A shared kill of the theme: a continued USD rebound after the 13:30Z claims, with real yields rising further. That would cancel the metals WATCHes through their cancel lines and leave the EURUSD breakout untriggered.",
+              "evidence_refs": [
+                "official-rates:US_REAL5Y:2026-11-04:f4278bb592ee",
+                "cc164:USDJPY:intraday_M15:ace851c847001999dd52"
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/0/invalidation",
+          "value": "Before entry: cancel on any completed M15 close below 4085.0 (back at the 01:00Z breakout bar's 4084.187 low), or at expiry 2026-11-06T10:00:00Z. After entry: stop-loss 4072.0 (below the shelf, above the 00:00Z low of 4061.412), take-profit 4175.0, planned exit 2026-11-06T13:00:00Z before the 13:30Z NFP release."
+        },
+        {
+          "pointer": "/candidates/0/model_numeric_probability_created",
+          "value": true
+        },
+        {
+          "pointer": "/candidates/0/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/0/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "close",
+              "operator": "LT",
+              "threshold": 4085.0
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/1/invalidation",
+          "value": "Before entry: cancel on any completed M15 close below 52.10, or at expiry 2026-11-06T10:00:00Z. After entry: stop-loss 51.95 (below the 4 Nov 19:30-20:45Z lows of 52.131-52.146 and the 5 Nov 00:00Z low of 52.215), take-profit 53.65, planned exit 2026-11-06T13:00:00Z before NFP."
+        },
+        {
+          "pointer": "/candidates/1/model_numeric_probability_created",
+          "value": true
+        },
+        {
+          "pointer": "/candidates/1/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/1/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "close",
+              "operator": "LT",
+              "threshold": 52.1
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/2/invalidation",
+          "value": "Before entry: cancel on any completed M15 close below 1.12100 (under the 4 Nov 16:30Z post-midterm low of 1.12132), or at expiry 2026-11-06T12:00:00Z. After entry: stop-loss 1.12450, back inside the range, which marks a failed breakout. Take-profit 1.13450. Planned exit 2026-11-06T13:00:00Z before NFP."
+        },
+        {
+          "pointer": "/candidates/2/model_numeric_probability_created",
+          "value": true
+        },
+        {
+          "pointer": "/candidates/2/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/2/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "close",
+              "operator": "LT",
+              "threshold": 1.121
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/3/invalidation",
+          "value": "This becomes a trade on a completed H1 close above 81,125 with EURUSD back above 1.1270, meaning the USD-down or risk-on leg is re-engaging. A re-run would then test a pullback long from 79,865-80,150 with a stop below 79,450 and a target under 81,728. Unregistered geometry for that re-run: entry 80,150, stop 79,450, target 81,650 gives about 1.31 after the 0.15%-per-leg reserve. A completed H1 close below 79,865 would instead justify a short re-run."
+        },
+        {
+          "pointer": "/candidates/3/model_numeric_probability_created",
+          "value": true
+        },
+        {
+          "pointer": "/candidates/4/invalidation",
+          "value": "This becomes a trade on a completed H1 close below 157.378 with US2Y falling. A short re-run would then set a stop above the breakdown and a target that clears the reserve (about 0.051 JPY: 7 USD commission plus 2 x 2 pips) at 1.25. A completed H1 close above 158.83 argues against the short."
+        },
+        {
+          "pointer": "/candidates/4/model_numeric_probability_created",
+          "value": true
+        },
+        {
+          "pointer": "/candidates/5/invalidation",
+          "value": "This becomes a trade on a completed H1 close above 7723.67 with USTEC back above its 28,427.04 snapshot. A breakout re-run would then need a target that clears the reserve at 1.25. A completed H1 close below 7668.35 with USTEC breaking 28,062.81 would justify a short re-run."
+        },
+        {
+          "pointer": "/candidates/5/model_numeric_probability_created",
+          "value": true
+        },
+        {
+          "pointer": "/candidates/6/invalidation",
+          "value": "This becomes a trade on a completed H1 close above 53,837, followed by a re-run that grounds the target from the full US30 daily series. A completed H1 close back below 53,441 would end the rotation-extension case."
+        },
+        {
+          "pointer": "/candidates/6/model_numeric_probability_created",
+          "value": true
+        },
+        {
+          "pointer": "/candidates/7/invalidation",
+          "value": "This becomes a trade on a completed H1 close below 28,062.81. A short re-run would then set a stop above 28,331 and a target that clears the reserve (7 points commission plus 2 x 0.05%) at 1.25. A completed H1 close back above 28,427 negates the short lean."
+        },
+        {
+          "pointer": "/candidates/7/model_numeric_probability_created",
+          "value": true
+        },
+        {
+          "pointer": "/candidates/8/invalidation",
+          "value": "A long re-run needs an officially or independently confirmed supply event plus a completed H1 close above 88.45 (the 4 Nov 18:15Z high). A short re-run needs a signed US-Iran framework plus a completed H1 close below 86.0."
+        },
+        {
+          "pointer": "/candidates/8/model_numeric_probability_created",
+          "value": true
+        },
+        {
+          "pointer": "/candidates/9/invalidation",
+          "value": "A long re-run needs an independently confirmed supply event plus a completed H1 close above 95.28. A short re-run needs a signed Hormuz deal plus a completed H1 close below 92.68."
+        },
+        {
+          "pointer": "/candidates/9/model_numeric_probability_created",
+          "value": true
+        },
+        {
+          "pointer": "/candidates/10/invalidation",
+          "value": "This becomes a trade on a completed H1 close below 129.73 with USTEC weakening. A short re-run would then need an after-cost check at 1.25. A filing confirming a deal plus an H1 close above 141.31 would instead open a long re-run."
+        },
+        {
+          "pointer": "/candidates/10/model_numeric_probability_created",
+          "value": true
+        }
+      ],
+      "theses_count": 0,
+      "not_taken_count": 0
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-74cef2ab0eda597b\\owner-native.json",
+      "sha256": "6d4053538c3a2fe4dcc6e011d07e105de6cda04a76d42769134f8b9c14d04e27",
+      "modified_at_utc": "2026-11-05T08:56:59.538917+00:00",
+      "same_bytes_as_previous_search": true,
+      "keys": [
+        "calibration_state",
+        "same_model_sequential_review",
+        "independent_model_review_claimed",
+        "language",
+        "assessment_scope",
+        "decision",
+        "candidate_count",
+        "summary",
+        "causal_alternatives",
+        "contradictions",
+        "priced_in",
+        "scenario_assumptions",
+        "invalidation",
+        "portfolio_implications",
+        "next_review",
+        "evidence_membership_limit",
+        "coverage_limit",
+        "review_limit",
+        "candidates"
+      ],
+      "matches": [
+        {
+          "pointer": "/scenario_assumptions",
+          "value": [
+            {
+              "text": "Working regime: post-midterm USD weakness plus an energy-shock unwind, with the deterministic scenario tally indeterminate (0 strengthening, 0 weakening, 8 unknown; weights heuristic and uncalibrated). The USD-short plans assume the 07:15Z USD bid stays a retracement below a broker DXY H1 close of 101.80 (above the 3-4 Nov highs). The WTI plan assumes de-escalation stays on track (supply-led commodities, base scenario). Base cases below are uncalibrated qualitative judgments carried from the Primary and bounded by the Critical; none is a model probability.",
+              "evidence_refs": [
+                "cc164:DXY:intraday_H1:80958c042bac95bf5d80",
+                "cc164:USOIL:intraday_H1:1dc9b0c1110d327d2ec7"
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/invalidation",
+          "value": [
+            {
+              "text": "Shared USD-leg invalidation (analytical, not a monitored predicate): a broker DXY H1 close above 101.80 withdraws the GOLD and EURUSD long theses. Plan-level: GOLD stop 4097.0 (break of the 4100-4109 higher-low shelf); EURUSD any completed M15 close below 1.12000 before entry, stop 1.11920 after entry; WTI any completed M15 close above 89.450 or below 85.800 before entry, stop 89.450 after entry.",
+              "evidence_refs": [
+                "cc164:DXY:intraday_H1:80958c042bac95bf5d80",
+                "cc164:XAUUSD:intraday_M15:247897f87c7e9d727f21",
+                "cc164:EURUSD:intraday_M15:cba6831d0f4b73e1662d",
+                "cc164:USOIL:intraday_M15:89b04954b801332d017b"
+              ]
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/0/invalidation",
+          "value": "Exit at stop-loss 4097.0 (break of the 4100-4109 higher-low shelf), at take-profit 4190.0, or at the planned exit 2026-11-06T20:30:00Z. No entry if the fresh ask is outside 4116.0-4133.0 or after 2026-11-05T11:55:00Z. Analytical thesis check (not a monitored predicate): a broker DXY H1 close above 101.80."
+        },
+        {
+          "pointer": "/candidates/0/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/1/invalidation",
+          "value": "Before entry: any completed M15 close below 1.12000 cancels the WATCH (the shelf failed); no trigger by 2026-11-06T13:00:00Z cancels it. After entry: stop-loss 1.11920 (below the 4 Nov Asia low 1.11991), take-profit 1.13000, or planned exit 2026-11-09T20:00:00Z, whichever comes first. Analytical thesis check (not monitored): a broker DXY H1 close above 101.80."
+        },
+        {
+          "pointer": "/candidates/1/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/1/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/1/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "close",
+              "operator": "LT",
+              "threshold": 1.12
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/2/invalidation",
+          "value": "Before entry: any completed M15 close above 89.450 (the bounce became a re-escalation repricing) or below 85.800 (the move left without a bounce; a breakdown plan needs a fresh run) cancels the WATCH; no trigger by 2026-11-06T16:00:00Z cancels it. After entry: stop-loss 89.450 (above the 4 Nov 16:45Z bar high 89.084), take-profit 85.300, or planned exit 2026-11-06T20:30:00Z (no weekend hold in a war-headline market), whichever comes first. Thesis-level: a confirmed attack on Gulf supply or a collapse of Iran-US talks."
+        },
+        {
+          "pointer": "/candidates/2/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/2/invalidation_timeframe",
+          "value": "M15"
+        },
+        {
+          "pointer": "/candidates/2/structured_watch/invalidation_predicates",
+          "value": [
+            {
+              "field": "close",
+              "operator": "GT",
+              "threshold": 89.45
+            },
+            {
+              "field": "close",
+              "operator": "LT",
+              "threshold": 85.8
+            }
+          ]
+        },
+        {
+          "pointer": "/candidates/3/invalidation",
+          "value": "Short bias withdrawn on a broker DXY H1 close above 101.80 (above the 3-4 Nov highs 101.794-101.945)."
+        },
+        {
+          "pointer": "/candidates/3/model_numeric_probability_created",
+          "value": false
+        },
+        {
+          "pointer": "/candidates/4/invalidation",
+          "value": "No plan is proposed. The named re-run long would be invalidated by an H1 close below 1.33900; a dovish hike with an H1 close below 1.3420 points the other way."
+        },
+        {
+          "pointer": "/candidates/4/model_numeric_probability_created",
+          "value": false
+        }
+      ],
+      "theses_count": 0,
+      "not_taken_count": 0
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261107T153604Z\\t2-output.json",
+      "sha256": "015c4d28d676e16924bdeb75102f6c5ad24ccddb75752ff4f5c74b7a7c2dffe4",
+      "modified_at_utc": "2026-11-07T15:44:41.658407+00:00",
+      "same_bytes_as_previous_search": true,
+      "keys": [
+        "schema",
+        "reader_run_id",
+        "cutoff_utc",
+        "theses",
+        "not_taken"
+      ],
+      "matches": [],
+      "theses_count": 2,
+      "not_taken_count": 63
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261107T010102Z\\t2-output.json",
+      "sha256": "99befe37441e5ae0aa6869f0cf8a11ba9e97bb833c0f48904921378f5fe0b33c",
+      "modified_at_utc": "2026-11-07T01:06:50.684842+00:00",
+      "same_bytes_as_previous_search": true,
+      "keys": [
+        "schema",
+        "reader_run_id",
+        "cutoff_utc",
+        "theses",
+        "not_taken"
+      ],
+      "matches": [],
+      "theses_count": 2,
+      "not_taken_count": 63
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261106T144035Z\\t2-output.json",
+      "sha256": "2d1a556a35b053d1ea9181bed64c8ea93b943f6c2d1cdb5d116ea086cee632c3",
+      "modified_at_utc": "2026-11-06T14:47:54.570614+00:00",
+      "same_bytes_as_previous_search": true,
+      "keys": [
+        "schema",
+        "reader_run_id",
+        "cutoff_utc",
+        "theses",
+        "not_taken"
+      ],
+      "matches": [],
+      "theses_count": 16,
+      "not_taken_count": 49
+    }
+  ],
+  "brain_runs_checked": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261107T155937Z",
+      "files": [
+        "OVERLAP_SKIPPED.json",
+        "run.json",
+        "STATUS.md",
+        "usage-before.json",
+        "usage-guard.json"
+      ],
+      "has_full_native_return": false,
+      "outcome_files": [
+        "OVERLAP_SKIPPED.json",
+        "run.json",
+        "STATUS.md"
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261107T154827Z",
+      "files": [
+        "catch-up.json",
+        "daily-market-config.json",
+        "entry-health.json",
+        "native-daily-config.json",
+        "precheck-1.json",
+        "precheck-verdict.json",
+        "precheck-waits.json",
+        "precheck.json",
+        "prepare-stderr.txt",
+        "PREPARE_REFUSED.json",
+        "rates-check.json",
+        "rates-context-selection.json",
+        "rates-fetch.json",
+        "rates-select.json",
+        "t2-admission-continuity.json",
+        "usage-before.json",
+        "usage-guard.json",
+        "wake.json"
+      ],
+      "has_full_native_return": false,
+      "outcome_files": [
+        "PREPARE_REFUSED.json"
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261107T011912Z",
+      "files": [
+        "catch-up.json",
+        "daily-market-config.json",
+        "daily-selection.json",
+        "entry-health.json",
+        "native-daily-config.json",
+        "precheck-1.json",
+        "precheck-verdict.json",
+        "precheck-waits.json",
+        "precheck.json",
+        "rates-check.json",
+        "rates-context-selection.json",
+        "rates-context.json",
+        "rates-fetch.json",
+        "rates-select.json",
+        "t2-admission-continuity.json",
+        "usage-before.json",
+        "usage-guard.json",
+        "wake.json"
+      ],
+      "has_full_native_return": false,
+      "outcome_files": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261107T010815Z",
+      "files": [
+        "catch-up.json",
+        "daily-market-config.json",
+        "entry-health.json",
+        "native-daily-config.json",
+        "precheck-1.json",
+        "precheck-verdict.json",
+        "precheck-waits.json",
+        "precheck.json",
+        "PREPARE_REFUSED.json",
+        "rates-check.json",
+        "rates-context-selection.json",
+        "rates-fetch.json",
+        "rates-select.json",
+        "run.json",
+        "STATUS.md",
+        "t2-admission-continuity.json",
+        "usage-before.json",
+        "usage-guard.json"
+      ],
+      "has_full_native_return": false,
+      "outcome_files": [
+        "PREPARE_REFUSED.json",
+        "run.json",
+        "STATUS.md"
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261106T195406Z",
+      "files": [
+        "catch-up.json",
+        "entry-health.json",
+        "precheck-1.json",
+        "precheck-verdict.json",
+        "precheck-waits.json",
+        "precheck.json",
+        "rates-check.json",
+        "rates-context-selection.json",
+        "rates-fetch.json",
+        "rates-select.json",
+        "t2-admission-continuity.json",
+        "usage-before.json",
+        "usage-guard.json"
+      ],
+      "has_full_native_return": false,
+      "outcome_files": []
+    }
+  ],
+  "backlog_search": [
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\BACKLOG.md",
+      "sha256": "5b9a0362e0a4f390ffbd3bc173e7c121839ee5d3a72854deaa4d10070a0d90ff",
+      "match_count": 16,
+      "matches": [
+        {
+          "line": 27,
+          "text": "  - Paid tier: Substack paid subscriptions, opening at $15 a month or $150 a year, and $250 a year for founding members. Free posts stay free. Paid posts carry Main's analysis as model estimates (dossiers, scenario matrices, the public calls' scorecard) from CC-264. Ops Product re-prices after 30 days of conversion data."
+        },
+        {
+          "line": 240,
+          "text": "- Outcome: the CC-014 export and its public projection carry Main's own analysis to the site and the newsroom, under decision 72 b. Today the export holds almost none (Ops Product's check, 5 Nov: 46 dossiers in `A:\\Capital Chronicle\\PrivateApp\\data\\desk-record.private.json`, `maintained_analysis` null on all, `scenarios` and `options_positioning` empty, 5 ABSTAIN headlines), so the 35 asset pages stay empty whatever the rights rule says. Code: `tools\\product\\desk_record_export_v1.py` and `desk_record_projection_v1.py` in the Main repository (live tag `live-20261105-cc241`, 91a5761ee, or newer)."
+        },
+        {
+          "line": 241,
+          "text": "  - Feed: each Tier 1 dossier takes Main's newest frozen analysis of that asset from the committee and T2 records under `A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\` (`daily-research-portfolio-279805139\\requests\\*\\`: owner records and decision freezes; `t2-runs\\*\\cards.json`): thesis, horizon, mechanism, opposing case, scenarios with their invalidation, and public conditional calls (decision 40), each with its run id and frozen time. US500 takes the newest GEX file through the existing `--gex-file` (the CC-038, CC-069 and CC-211 contract) as a modelled regime with at most four key levels. The quant card comes from CC-265's file, and the official expectation anchors from CC-266's file when it exists."
+        },
+        {
+          "line": 916,
+          "text": "- Ops Live, 6 Nov 10:02 GMT+7: reopened for Codex Main: was BLOCKED (HISTORICAL_PRE_CUTOFF_INPUTS_UNRECOVERED). Point-in-time purity is a margin, not a wall (decision 62): write the frozen scenario matrix for the CPI release of 10 Nov (and for NFP of 6 Nov only if the run starts before 17:00 GMT+7) from the 8 held consensus values and the 285 moves; the 31 consensus gaps and 5 late inputs show as thin cells labelled LATE_KNOWN or MISSING with widened bands, never dropped. Use the live index paths CC-112 publishes. Acceptance: the matrix command writes the CPI file with n per cell, gap cause and input known-at; the dossier consumer wired at d9ea59a28 reads it in a copied-state dossier preparation; no live-root integration inside the 18:30-22:30 GMT+7 freeze windows (branch work is free)."
+        },
+        {
+          "line": 1014,
+          "text": "- Ops Live, 5 Nov 11:11 GMT+7: moved from Codex Data to Claude (Jim, 5 Nov (relayed by Ops Product): Codex is over its weekly quota, so move part of its work to Claude; the runners logged 129 usage-limit stops for Main and 80 for Data since 3 Nov). It feeds CC-105's scenario matrix before CPI on 10 Nov."
+        },
+        {
+          "line": 1077,
+          "text": "  - every piece has a scenarios section (2-3 scenarios, each with its labelled model-estimate probability, confirmation, market moves and invalidation), and every social copy carries the base case and the main alternative."
+        },
+        {
+          "line": 1081,
+          "text": "- Branch: backlog/cc-124-main-source-check-20261108-1725 \u00b7 Result: +0: JIM_DECISION_93_MAIN_SCENARIOS_INCOMPLETE (40/40 alternatives lack probability); chose preserve NFP request because Main has no complete scenario set; 20438e9e pushed/live; 10 checks PASS, docs/publisher/CC-124/run-20261108-0352/README.md; Main supplies dated probabilities and six-market implications; Sol 6.1/max CONFIGURED_NOT_OBSERVED."
+        },
+        {
+          "line": 1497,
+          "text": "  Tests: 1 new; 32 pass. Next, after CC-330 names its fields: decision 93's scenario line in setup posts."
+        },
+        {
+          "line": 1692,
+          "text": "## CC-333 \u00b7 A new image for every piece, fewer and deeper pieces, scenarios in every post (Jim's decision 93)"
+        },
+        {
+          "line": 1702,
+          "text": "    - Every article has a scenarios section built from Main's report: 2-3 scenarios, each with its labelled model-estimate probability, what confirms it, how the six markets move, and what invalidates it."
+        },
+        {
+          "line": 1715,
+          "text": "- Owner: Codex Publisher \u00b7 Effort: max \u00b7 Risk: content (publication path) \u00b7 Due: Sat 7 Nov 2026 18:00 GMT+7 \u00b7 Status: BLOCKED (JIM_DECISION_93_MAIN_SCENARIOS_INCOMPLETE)"
+        },
+        {
+          "line": 1716,
+          "text": "- Branch: backlog/cc-333-image-scenarios-cap \u00b7 Result: d489e3b5 pushed/live; consumer read PASS, 0/2 readbacks; chose retained NFP over invented probabilities; Main supplies complete scenarios; docs/publisher/CC-333/README.md; Sol 6.1 MAX CONFIGURED_NOT_OBSERVED."
+        },
+        {
+          "line": 2105,
+          "text": "- Outcome: Jim, 4 Nov 14:25 GMT+7: build the private version for Jim; the public site will later be lifted straight from it once licensed. The private app plays the future customer product; today its only customer is Jim, at the highest subscription tier, and its interface keeps improving and inherits the public designs (CC-114's design system, the dense portal layout of Jim's 3 Nov brief). Assemble your built private-app work (CC-150 DEMO book and data health, CC-151 releases, consensus, surprise and market reaction, CC-152 positioning, scenarios and decision journal, CC-153 ContentOps pipeline view, CC-146 articles and events) into one app and deploy it yourself to `A:\\Capital Chronicle\\PrivateApp` (your runner can write there): a static build Jim opens at `A:\\Capital Chronicle\\PrivateApp\\index.html`, with its data embedded at build time from the live exports (the CC-014 desk export, the newsroom's published record, Main's ResearchRuns and the DEMO state, read only), plus `A:\\Capital Chronicle\\PrivateApp\\refresh.ps1`, a deterministic rebuild with no model call that Ops' Web runner runs every 30 minutes. Private data is fine here (decision 18 c); nothing is published."
+        },
+        {
+          "line": 3441,
+          "text": "- Ops Live, 6 Nov 21:04 GMT+7: added for Ops Product under Jim's decision 93 (scenario analysis in every post). Each registered plan's public row carries the base case and the main alternative, each with its model-estimate probability and a one-line market move, taken from the committee's own scenarios (the run's owner-native scenario_assumptions and the plan's thesis). No targets or sizes (decision 40). Acceptance adds: the composer's dry run renders the scenario line for both of 6 Nov's plans."
+        },
+        {
+          "line": 3443,
+          "text": "- Ops Live, 6 Nov 22:08 GMT+7: Ops Product's composer now reads FILLED and never posts it (ContentOps e3ec0779: a fill is a DEMO detail, decision 40), so FILLED ships now. Codex Main: name the scenario fields exactly in this item's Result line, so the composer builds its scenario line on them."
+        },
+        {
+          "line": 3445,
+          "text": "- Branch: backlog/cc-330-touch-plan-status \u00b7 Result: ac2e1c61a1fe1f90494de30ebd016916ab09c4b1 pushed; 184 PASS; tests/evidence/cc-330/scenarios-20261106.json; scenario_analysis.base_case.probability_pct, scenario_analysis.base_case.market_move, scenario_analysis.main_alternative.probability_pct, scenario_analysis.main_alternative.market_move; alternative probability null: committee did not supply it; Product scenario rendering pending; Ops live next."
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\BACKLOG_ARCHIVE.md",
+      "sha256": "161a4857ca67a5b567226ee0d71dbe7beda77cded15090465049888cfd61e509",
+      "match_count": 2,
+      "matches": [
+        {
+          "line": 1057,
+          "text": "- Branch: `backlog/cc-101-daily-entry-gates` (head af51dd696, on live 34254b7d0; merges cleanly with the CC-049 candidate) \u00b7 Result: neither blocker is enforced in code on the native OPEN path (the recorded FOMC run opened and admitted BTCUSD while it was ineligible with both); they act through the board labels the roles read as vetoes. (1) Stale reference: genuine entry gate with the wrong input (the last D1 close, 53 h old on Mondays, though the capture had the exact contract's tick 10 s old); fix: the capture's live-session tick (bid, own clock, authority `broker_observed_designated_demo_capture_tick`), the close kept as prior context, weekends still blocked, admission re-quote unchanged. (2) Horizon: owner `probabilistic_macro_cross_asset_v1` (7 targets; EURUSD has none); in all 9 daily requests since 26 Oct 0 of 21 slots admitted, the same 6 reason codes, all 189 forecasts INSUFFICIENT_PIT_DATA / CURRENT_REFRESH_MISSING (FRED blocked: CC-070; no refresh: CC-100); a genuine learning control that wrongly lowered every candidate to watch-only; fix: learning blockers keep the class (the paper path still refuses without horizons). Replay of the 2 Nov request: EURUSD and GOLD lose only the stale blocker and become expression-eligible, every other field unchanged, no arm, admission or sizing change. 2,991 tests at 2 workers: nothing new beyond the live heads; binding VALID. Evidence `A:\\Capital Chronicle\\ResearchRuns\\claude-main-builder-j-20261102\\cc-101\\README.md`."
+        },
+        {
+          "line": 1512,
+          "text": "- Outcome: one branch on the live head that merges Codex Main's finished, unpinned branches: CC-012 (scorer), CC-016 (ledger), CC-065 (test caching), CC-105 (scenario matrix) and CC-106 (forecast scoring). Ops can then fast-forward it in one step."
+        }
+      ]
+    }
+  ],
+  "data_research_paths": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\data\\research",
+      "exists": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\data\\research",
+      "exists": false
+    }
+  ],
+  "source_facts_used_by": "Installed RetainedSourceResearch and Main export reader, source comparison before any writer or publish.",
+  "t2_output_comparison": "The latest three held T2 outputs are included with their exact content hashes and scenario/probability key search.",
+  "choice": "Preserve the exact NFP operation and pending writer; retain usable Main and BLS facts; make no incomplete public post.",
+  "next_actor": "Main report producer, then Codex Publisher",
+  "next_action": "Main supplies a dated post-release base case and alternative with explicit probabilities, confirmation, six-market implications and invalidation. Publisher consumes that version in the existing operation/source-review path."
+}

@@ -1,0 +1,160 @@
+{
+  "observed_at_utc": "2026-11-08T10:34:15.979758+00:00",
+  "source_directory_inventory": [
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research",
+      "directories": [
+        {
+          "name": "shock-trigger",
+          "modified_utc": "2026-11-08T10:30:54.027368+00:00"
+        },
+        {
+          "name": "brain-runs",
+          "modified_utc": "2026-11-07T15:59:37.999736+00:00"
+        },
+        {
+          "name": "prompt-snapshots",
+          "modified_utc": "2026-11-07T15:58:21.614852+00:00"
+        },
+        {
+          "name": "daily-research-portfolio-279805139",
+          "modified_utc": "2026-11-07T15:55:36.272796+00:00"
+        },
+        {
+          "name": "t2-runs",
+          "modified_utc": "2026-11-07T15:47:02.273381+00:00"
+        },
+        {
+          "name": "jim-directives",
+          "modified_utc": "2026-11-07T15:35:42.972991+00:00"
+        },
+        {
+          "name": "20261106-nfp",
+          "modified_utc": "2026-11-06T09:31:33.352735+00:00"
+        },
+        {
+          "name": "prompts",
+          "modified_utc": "2026-11-02T02:19:52.579356+00:00"
+        },
+        {
+          "name": "ops",
+          "modified_utc": "2026-11-01T18:20:58.381429+00:00"
+        },
+        {
+          "name": "20261030-eci",
+          "modified_utc": "2026-10-30T12:22:03.387272+00:00"
+        },
+        {
+          "name": "cutover",
+          "modified_utc": "2026-10-29T15:46:50.305069+00:00"
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029",
+      "directories": [
+        {
+          "name": "20261106-1320-arrival-nfp",
+          "modified_utc": "2026-11-06T13:34:07.341572+00:00"
+        },
+        {
+          "name": "prompt-snapshots",
+          "modified_utc": "2026-11-06T13:20:58.384244+00:00"
+        },
+        {
+          "name": "20261106-0930-dossier-nfp",
+          "modified_utc": "2026-11-06T10:05:17.315808+00:00"
+        },
+        {
+          "name": "20261103-midterm-dossier",
+          "modified_utc": "2026-11-02T23:35:09.153771+00:00"
+        },
+        {
+          "name": "prompts",
+          "modified_utc": "2026-11-02T10:21:13.226983+00:00"
+        },
+        {
+          "name": "20261030-1220-arrival-eci",
+          "modified_utc": "2026-10-30T13:52:31.991932+00:00"
+        },
+        {
+          "name": "20261030-1000-dossier-eci",
+          "modified_utc": "2026-10-30T10:25:42.661244+00:00"
+        },
+        {
+          "name": "20261030-0200-arrival-boj",
+          "modified_utc": "2026-10-30T03:18:09.771584+00:00"
+        },
+        {
+          "name": "20261029-1305-arrival-ecb",
+          "modified_utc": "2026-10-29T13:25:15.045580+00:00"
+        },
+        {
+          "name": "20261029-1220-arrival-gdp-pce",
+          "modified_utc": "2026-10-29T12:38:47.224625+00:00"
+        },
+        {
+          "name": "20261029-1000-dossier-gdp-pce-ecb-boj",
+          "modified_utc": "2026-10-29T10:30:44.561296+00:00"
+        }
+      ]
+    }
+  ],
+  "latest_shock_trigger_daily_outputs": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\shock-trigger\\2026-11-07\\20261107T153542Z\\daily\\analysis.txt",
+      "sha256": "749d76fb35724f2e57d49d12fc4627c28d27b0967f13b6e77315085373bf1ec9",
+      "size": 297,
+      "modified_utc": "2026-11-07T16:02:10.455441+00:00",
+      "text": "Stopped as `OVERLAP_SKIPPED`: a recent run has no `STATUS.md`, triggering the prompt\u2019s overlap guard. Research did not run.\r\n\r\n[Saved status](</A:/Capital Chronicle/ResearchRuns/claude-main-research/brain-runs/run-20261107T155937Z/STATUS.md>) and JSON records contain verified prompt provenance."
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\shock-trigger\\2026-11-07\\20261107T153542Z\\daily\\codex-answer.txt",
+      "sha256": "a778d5be790ff18b5610bb8d7bac1d68c01b1b0079b1c052d659f75b0703bc0b",
+      "size": 295,
+      "modified_utc": "2026-11-07T16:02:10.334466+00:00",
+      "text": "Stopped as `OVERLAP_SKIPPED`: a recent run has no `STATUS.md`, triggering the prompt\u2019s overlap guard. Research did not run.\n\n[Saved status](</A:/Capital Chronicle/ResearchRuns/claude-main-research/brain-runs/run-20261107T155937Z/STATUS.md>) and JSON records contain verified prompt provenance."
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\shock-trigger\\2026-11-07\\20261107T153542Z\\daily\\headless-run.json",
+      "sha256": "e89063b1c8977386c0ea3b15b986098c05c02971e07df2a1db354eb039013cd4",
+      "size": 2446,
+      "modified_utc": "2026-11-07T16:02:10.462603+00:00",
+      "keys": [
+        "schema",
+        "scope",
+        "started_at_utc",
+        "request_prompt_sha256",
+        "prompt_sha256",
+        "pack_sha256",
+        "schema_sha256",
+        "auth_preflight",
+        "attempts",
+        "incidents",
+        "fallback_used",
+        "success",
+        "cap_spend",
+        "output",
+        "fallback_cause",
+        "cause",
+        "finished_at_utc",
+        "output_sha256",
+        "provenance",
+        "plan_provenance"
+      ],
+      "outcome": {}
+    }
+  ],
+  "data_research_roots": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\data\\research",
+      "exists": false,
+      "top_level_entries": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\data\\research",
+      "exists": false,
+      "top_level_entries": []
+    }
+  ]
+}
