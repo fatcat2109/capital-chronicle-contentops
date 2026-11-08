@@ -1,0 +1,18 @@
+{
+  "observed_at_utc": "2026-11-08T18:41:44.973858+00:00",
+  "snapshot_valid": true,
+  "snapshot_sha256": "2017406a74f98f3e823f0520ece32b3e9f7978a1550afb0fc2af56de50d1e80f",
+  "fingerprint": {
+    "sha256": "2017406a74f98f3e823f0520ece32b3e9f7978a1550afb0fc2af56de50d1e80f",
+    "perceptual_hash": "f8497621dbc0ada2",
+    "width": 1524,
+    "height": 858
+  },
+  "matching_published_or_reserved_images": [],
+  "production_day": "2026-11-08",
+  "daily_limit": 2,
+  "occupied_article_slots": 0,
+  "image_register_rows": 757,
+  "image_register_mutated": false,
+  "public_write_performed": false
+}
