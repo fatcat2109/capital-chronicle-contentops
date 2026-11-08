@@ -1,11 +1,15 @@
 """Verify preparation and the actual outstanding source requirement; no public write."""
 from datetime import datetime, timezone
 from hashlib import sha256
+import argparse
 import json
 from pathlib import Path
 import sys
 
 HERE = Path(__file__).resolve().parent
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--output", type=Path, default=HERE / "verification.json")
+args = parser.parse_args()
 LIVE = Path(r"A:\Capital Chronicle\ContentOps")
 sys.path.insert(0, str(LIVE))
 from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
@@ -55,5 +59,5 @@ result = {"observed_at_utc": datetime.now(timezone.utc).isoformat(), "preparatio
           "publication_acceptance_passed": False, "public_write_performed": False,
           "editorial_artifact_sha256": sha256((HERE / "editorial-pass.json").read_bytes()).hexdigest(),
           "prepared_body_sha256": sha256((HERE / "prepared-body.md").read_bytes()).hexdigest()}
-(HERE / "verification.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
 print(json.dumps(result))
