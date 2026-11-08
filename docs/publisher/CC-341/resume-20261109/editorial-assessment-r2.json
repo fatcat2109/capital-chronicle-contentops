@@ -1,0 +1,573 @@
+{
+  "schema": "cc341.writer_editorial_assessment.v1",
+  "operation_id": "cc341-weekend-wrap-20261109-r2",
+  "backlog_item": "CC-341",
+  "role": "Sol MAX writer/editor",
+  "native_context": "/root/cc341_writer",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "model_effort_evidence": "CONFIGURED_NOT_OBSERVED",
+  "runtime_model": null,
+  "runtime_effort": null,
+  "runtime_invocation_id": null,
+  "prepared_at_utc": "2026-11-08T23:45:34.257704+00:00",
+  "outcome": "R2_BODY_AND_SOURCE_BINDINGS_PREPARED",
+  "article_artifact": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\prepared-body-r2.md",
+    "sha256": "0534d293cbff25282840cc9aabcca06f66ace81ae31206e43e9b61899011f746"
+  },
+  "inputs": {
+    "supplied_draft": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\supplied-draft.md",
+      "sha256": "52cb4b13952af1df7138612a0b618ffe1e0d548af46345682c43bdbd23763661"
+    },
+    "prior_prepared_body": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\prepared-body.md",
+      "sha256": "9bea834264dc2035560aa79d04c147f1389319b700b1fedccfdbd438df91acf9"
+    },
+    "r2_report": {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+      "sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e"
+    },
+    "request": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\request.txt",
+      "sha256": "c4314f71fd09c51147b5b1787d01655586569cda80e6893f32c6cb79bf30e101"
+    },
+    "source_admission": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\source-admission.json",
+      "sha256": "774a43a2bcc11f72a81233c988debfa71fe85ae12cd4c41730dd5ef4354c9334"
+    },
+    "source_index": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\source\\index.json",
+      "sha256": "cf25581f5eb62efa17096bd6d69fcc5e24d3b14adfe3ccd201aaf73000be899c"
+    },
+    "cnbc_source_read": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\cnbc-source-read.md",
+      "sha256": "f2fae2627ccb158b0c3b8618a7e1cd76230dc09834e9af4fc095be4042ed6914"
+    },
+    "light_preparation": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\light-preparation.json",
+      "sha256": "abfa33323133e071b2a86b1aeebe897ec7a6b24a22c6786639dc5dcef540157c"
+    },
+    "tradingview_asset": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\tradingview-asset.json",
+      "sha256": "f69b043839f3e58990017d5d3b84dfa8b94a44ad74e13157ed56230178315f88"
+    }
+  },
+  "source_admission": {
+    "consumer": "RetainedSourceResearch",
+    "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+    "research_revision": "cf25581f5eb62efa17096bd6d69fcc5e24d3b14adfe3ccd201aaf73000be899c",
+    "document_ids": [
+      "cc341-weekend-wrap-20261109",
+      "cc341-weekend-wrap-r2-scenarios-20261109"
+    ],
+    "gaps": [],
+    "known_at_utc": "2026-11-08T23:26:00Z",
+    "original_operation_unchanged": true,
+    "revision_reason": "Ops reopened with material new analysis and Nvidia fact after the former cutoff; preserve prior zero-write frozen opportunity; new dated edition uses new operation identity."
+  },
+  "article_fields": {
+    "scenario_analysis": [
+      {
+        "name": "talks continue; oil firms at the open, then fades",
+        "role": "base_case",
+        "probability": "55%",
+        "confirmation": "oil gives back half its opening gain by Tuesday, Brent stays below $103, and the talks stay active.",
+        "market_moves": {
+          "USOIL": "Oil opens 0.5% to 2.5% higher and gives most of it back as talks continue.",
+          "XAUUSD": "gold, the euro and the yen stay near Friday's levels",
+          "US500": "Stocks lean lower at first on AI-stock stress",
+          "EURUSD": "gold, the euro and the yen stay near Friday's levels",
+          "USDJPY": "gold, the euro and the yen stay near Friday's levels",
+          "BTCUSD": "Bitcoin follows the Nasdaq."
+        },
+        "invalidation": "either alternative below.",
+        "source_bindings": {
+          "probability": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Base case, 55%: talks continue; oil firms at the open, then fades.** Oil opens 0.5% to 2.5% higher and gives most of it back as talks continue. Stocks lean lower at first on AI-stock stress; gold, the euro and the yen stay near Friday's levels; Bitcoin follows the Nasdaq. Tuesday's CPI report then drives rates and the dollar. *Confirms:* oil gives back half its opening gain by Tuesday, Brent stays below $103, and the talks stay active. *Invalidates:* either alternative below.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9188,
+              "end": 9670,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "confirmation": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Base case, 55%: talks continue; oil firms at the open, then fades.** Oil opens 0.5% to 2.5% higher and gives most of it back as talks continue. Stocks lean lower at first on AI-stock stress; gold, the euro and the yen stay near Friday's levels; Bitcoin follows the Nasdaq. Tuesday's CPI report then drives rates and the dollar. *Confirms:* oil gives back half its opening gain by Tuesday, Brent stays below $103, and the talks stay active. *Invalidates:* either alternative below.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9188,
+              "end": 9670,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "invalidation": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Base case, 55%: talks continue; oil firms at the open, then fades.** Oil opens 0.5% to 2.5% higher and gives most of it back as talks continue. Stocks lean lower at first on AI-stock stress; gold, the euro and the yen stay near Friday's levels; Bitcoin follows the Nasdaq. Tuesday's CPI report then drives rates and the dollar. *Confirms:* oil gives back half its opening gain by Tuesday, Brent stays below $103, and the talks stay active. *Invalidates:* either alternative below.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9188,
+              "end": 9670,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.USOIL": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Base case, 55%: talks continue; oil firms at the open, then fades.** Oil opens 0.5% to 2.5% higher and gives most of it back as talks continue. Stocks lean lower at first on AI-stock stress; gold, the euro and the yen stay near Friday's levels; Bitcoin follows the Nasdaq. Tuesday's CPI report then drives rates and the dollar. *Confirms:* oil gives back half its opening gain by Tuesday, Brent stays below $103, and the talks stay active. *Invalidates:* either alternative below.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9188,
+              "end": 9670,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.XAUUSD": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Base case, 55%: talks continue; oil firms at the open, then fades.** Oil opens 0.5% to 2.5% higher and gives most of it back as talks continue. Stocks lean lower at first on AI-stock stress; gold, the euro and the yen stay near Friday's levels; Bitcoin follows the Nasdaq. Tuesday's CPI report then drives rates and the dollar. *Confirms:* oil gives back half its opening gain by Tuesday, Brent stays below $103, and the talks stay active. *Invalidates:* either alternative below.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9188,
+              "end": 9670,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.US500": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Base case, 55%: talks continue; oil firms at the open, then fades.** Oil opens 0.5% to 2.5% higher and gives most of it back as talks continue. Stocks lean lower at first on AI-stock stress; gold, the euro and the yen stay near Friday's levels; Bitcoin follows the Nasdaq. Tuesday's CPI report then drives rates and the dollar. *Confirms:* oil gives back half its opening gain by Tuesday, Brent stays below $103, and the talks stay active. *Invalidates:* either alternative below.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9188,
+              "end": 9670,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.EURUSD": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Base case, 55%: talks continue; oil firms at the open, then fades.** Oil opens 0.5% to 2.5% higher and gives most of it back as talks continue. Stocks lean lower at first on AI-stock stress; gold, the euro and the yen stay near Friday's levels; Bitcoin follows the Nasdaq. Tuesday's CPI report then drives rates and the dollar. *Confirms:* oil gives back half its opening gain by Tuesday, Brent stays below $103, and the talks stay active. *Invalidates:* either alternative below.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9188,
+              "end": 9670,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.USDJPY": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Base case, 55%: talks continue; oil firms at the open, then fades.** Oil opens 0.5% to 2.5% higher and gives most of it back as talks continue. Stocks lean lower at first on AI-stock stress; gold, the euro and the yen stay near Friday's levels; Bitcoin follows the Nasdaq. Tuesday's CPI report then drives rates and the dollar. *Confirms:* oil gives back half its opening gain by Tuesday, Brent stays below $103, and the talks stay active. *Invalidates:* either alternative below.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9188,
+              "end": 9670,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.BTCUSD": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Base case, 55%: talks continue; oil firms at the open, then fades.** Oil opens 0.5% to 2.5% higher and gives most of it back as talks continue. Stocks lean lower at first on AI-stock stress; gold, the euro and the yen stay near Friday's levels; Bitcoin follows the Nasdaq. Tuesday's CPI report then drives rates and the dollar. *Confirms:* oil gives back half its opening gain by Tuesday, Brent stays below $103, and the talks stay active. *Invalidates:* either alternative below.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9188,
+              "end": 9670,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          }
+        }
+      },
+      {
+        "name": "escalation around Hormuz",
+        "role": "alternative",
+        "probability": "25%",
+        "confirmation": "Brent above $103, or a confirmed hit on Gulf oil production or exports.",
+        "market_moves": {
+          "USOIL": "Oil 4% to 10% higher",
+          "XAUUSD": "Gold is torn between inflation fears and falling yields.",
+          "US500": "stocks 1% to 3% lower",
+          "EURUSD": "the euro weaker",
+          "USDJPY": "oil weakens the yen, while risk-off supports it",
+          "BTCUSD": "Bitcoin 3% to 6% lower."
+        },
+        "invalidation": "two days without a new confirmed attack, with Brent back under $100.",
+        "source_bindings": {
+          "probability": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 25%: escalation around Hormuz.** New strikes on shipping or Gulf energy sites, or wider US or Israeli strikes on Iran. Oil 4% to 10% higher, stocks 1% to 3% lower, the euro weaker, Bitcoin 3% to 6% lower. Gold is torn between inflation fears and falling yields. *Confirms:* Brent above $103, or a confirmed hit on Gulf oil production or exports. *Invalidates:* two days without a new confirmed attack, with Brent back under $100.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9672,
+              "end": 10116,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "confirmation": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 25%: escalation around Hormuz.** New strikes on shipping or Gulf energy sites, or wider US or Israeli strikes on Iran. Oil 4% to 10% higher, stocks 1% to 3% lower, the euro weaker, Bitcoin 3% to 6% lower. Gold is torn between inflation fears and falling yields. *Confirms:* Brent above $103, or a confirmed hit on Gulf oil production or exports. *Invalidates:* two days without a new confirmed attack, with Brent back under $100.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9672,
+              "end": 10116,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "invalidation": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 25%: escalation around Hormuz.** New strikes on shipping or Gulf energy sites, or wider US or Israeli strikes on Iran. Oil 4% to 10% higher, stocks 1% to 3% lower, the euro weaker, Bitcoin 3% to 6% lower. Gold is torn between inflation fears and falling yields. *Confirms:* Brent above $103, or a confirmed hit on Gulf oil production or exports. *Invalidates:* two days without a new confirmed attack, with Brent back under $100.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9672,
+              "end": 10116,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.USOIL": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 25%: escalation around Hormuz.** New strikes on shipping or Gulf energy sites, or wider US or Israeli strikes on Iran. Oil 4% to 10% higher, stocks 1% to 3% lower, the euro weaker, Bitcoin 3% to 6% lower. Gold is torn between inflation fears and falling yields. *Confirms:* Brent above $103, or a confirmed hit on Gulf oil production or exports. *Invalidates:* two days without a new confirmed attack, with Brent back under $100.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9672,
+              "end": 10116,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.XAUUSD": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 25%: escalation around Hormuz.** New strikes on shipping or Gulf energy sites, or wider US or Israeli strikes on Iran. Oil 4% to 10% higher, stocks 1% to 3% lower, the euro weaker, Bitcoin 3% to 6% lower. Gold is torn between inflation fears and falling yields. *Confirms:* Brent above $103, or a confirmed hit on Gulf oil production or exports. *Invalidates:* two days without a new confirmed attack, with Brent back under $100.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9672,
+              "end": 10116,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.US500": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 25%: escalation around Hormuz.** New strikes on shipping or Gulf energy sites, or wider US or Israeli strikes on Iran. Oil 4% to 10% higher, stocks 1% to 3% lower, the euro weaker, Bitcoin 3% to 6% lower. Gold is torn between inflation fears and falling yields. *Confirms:* Brent above $103, or a confirmed hit on Gulf oil production or exports. *Invalidates:* two days without a new confirmed attack, with Brent back under $100.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9672,
+              "end": 10116,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.EURUSD": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 25%: escalation around Hormuz.** New strikes on shipping or Gulf energy sites, or wider US or Israeli strikes on Iran. Oil 4% to 10% higher, stocks 1% to 3% lower, the euro weaker, Bitcoin 3% to 6% lower. Gold is torn between inflation fears and falling yields. *Confirms:* Brent above $103, or a confirmed hit on Gulf oil production or exports. *Invalidates:* two days without a new confirmed attack, with Brent back under $100.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9672,
+              "end": 10116,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.USDJPY": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "| **USDJPY** (158.50) | Tracks US yields at 158.0 to 159.3. Intervention risk caps the upside near 159.5 to 160. | Net -0.5% to +0.5%: oil weakens the yen, while risk-off supports it. Intervention risk above 159.5. | **[was null]** Lower, -0.2% to -0.8% (158.2 to 157.2): Japan's terms of trade improve and US yields ease; risk-on yen selling offsets part |",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 6566,
+              "end": 6923,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.BTCUSD": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 25%: escalation around Hormuz.** New strikes on shipping or Gulf energy sites, or wider US or Israeli strikes on Iran. Oil 4% to 10% higher, stocks 1% to 3% lower, the euro weaker, Bitcoin 3% to 6% lower. Gold is torn between inflation fears and falling yields. *Confirms:* Brent above $103, or a confirmed hit on Gulf oil production or exports. *Invalidates:* two days without a new confirmed attack, with Brent back under $100.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 9672,
+              "end": 10116,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          }
+        }
+      },
+      {
+        "name": "a deal on Iran's offer",
+        "role": "alternative",
+        "probability": "20%",
+        "confirmation": "a US statement accepting the framework, then tankers moving through the strait.",
+        "market_moves": {
+          "USOIL": "Oil 3% to 8% lower",
+          "XAUUSD": "stocks, gold and the euro higher",
+          "US500": "stocks, gold and the euro higher",
+          "EURUSD": "stocks, gold and the euro higher",
+          "USDJPY": "the dollar softer against the yen",
+          "BTCUSD": "Bitcoin up."
+        },
+        "invalidation": "a US rejection, the offer lapsing, or oil back above Friday's close after an announcement.",
+        "source_bindings": {
+          "probability": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 20%: a deal on Iran's offer.** Washington accepts a framework for Tehran's plan to reopen Hormuz. Oil 3% to 8% lower; stocks, gold and the euro higher; the dollar softer against the yen; Bitcoin up. *Confirms:* a US statement accepting the framework, then tankers moving through the strait. *Invalidates:* a US rejection, the offer lapsing, or oil back above Friday's close after an announcement.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 10118,
+              "end": 10529,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "confirmation": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 20%: a deal on Iran's offer.** Washington accepts a framework for Tehran's plan to reopen Hormuz. Oil 3% to 8% lower; stocks, gold and the euro higher; the dollar softer against the yen; Bitcoin up. *Confirms:* a US statement accepting the framework, then tankers moving through the strait. *Invalidates:* a US rejection, the offer lapsing, or oil back above Friday's close after an announcement.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 10118,
+              "end": 10529,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "invalidation": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 20%: a deal on Iran's offer.** Washington accepts a framework for Tehran's plan to reopen Hormuz. Oil 3% to 8% lower; stocks, gold and the euro higher; the dollar softer against the yen; Bitcoin up. *Confirms:* a US statement accepting the framework, then tankers moving through the strait. *Invalidates:* a US rejection, the offer lapsing, or oil back above Friday's close after an announcement.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 10118,
+              "end": 10529,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.USOIL": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 20%: a deal on Iran's offer.** Washington accepts a framework for Tehran's plan to reopen Hormuz. Oil 3% to 8% lower; stocks, gold and the euro higher; the dollar softer against the yen; Bitcoin up. *Confirms:* a US statement accepting the framework, then tankers moving through the strait. *Invalidates:* a US rejection, the offer lapsing, or oil back above Friday's close after an announcement.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 10118,
+              "end": 10529,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.XAUUSD": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 20%: a deal on Iran's offer.** Washington accepts a framework for Tehran's plan to reopen Hormuz. Oil 3% to 8% lower; stocks, gold and the euro higher; the dollar softer against the yen; Bitcoin up. *Confirms:* a US statement accepting the framework, then tankers moving through the strait. *Invalidates:* a US rejection, the offer lapsing, or oil back above Friday's close after an announcement.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 10118,
+              "end": 10529,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.US500": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 20%: a deal on Iran's offer.** Washington accepts a framework for Tehran's plan to reopen Hormuz. Oil 3% to 8% lower; stocks, gold and the euro higher; the dollar softer against the yen; Bitcoin up. *Confirms:* a US statement accepting the framework, then tankers moving through the strait. *Invalidates:* a US rejection, the offer lapsing, or oil back above Friday's close after an announcement.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 10118,
+              "end": 10529,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.EURUSD": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 20%: a deal on Iran's offer.** Washington accepts a framework for Tehran's plan to reopen Hormuz. Oil 3% to 8% lower; stocks, gold and the euro higher; the dollar softer against the yen; Bitcoin up. *Confirms:* a US statement accepting the framework, then tankers moving through the strait. *Invalidates:* a US rejection, the offer lapsing, or oil back above Friday's close after an announcement.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 10118,
+              "end": 10529,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.USDJPY": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 20%: a deal on Iran's offer.** Washington accepts a framework for Tehran's plan to reopen Hormuz. Oil 3% to 8% lower; stocks, gold and the euro higher; the dollar softer against the yen; Bitcoin up. *Confirms:* a US statement accepting the framework, then tankers moving through the strait. *Invalidates:* a US rejection, the offer lapsing, or oil back above Friday's close after an announcement.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 10118,
+              "end": 10529,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          },
+          "market_moves.BTCUSD": {
+            "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+            "support_excerpt": "**Alternative, 20%: a deal on Iran's offer.** Washington accepts a framework for Tehran's plan to reopen Hormuz. Oil 3% to 8% lower; stocks, gold and the euro higher; the dollar softer against the yen; Bitcoin up. *Confirms:* a US statement accepting the framework, then tankers moving through the strait. *Invalidates:* a US rejection, the offer lapsing, or oil back above Friday's close after an announcement.",
+            "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+            "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+            "source_span": {
+              "start": 10118,
+              "end": 10529,
+              "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+            }
+          }
+        }
+      }
+    ],
+    "social_scenarios": {
+      "base_case": "Base case: 55% Capital Chronicle model estimate. Talks continue; oil firms at the open, then fades.",
+      "alternative": "Alternative: 25% Capital Chronicle model estimate. Hormuz escalation lifts oil and weighs on stocks."
+    },
+    "market_asset": "USOIL"
+  },
+  "scenario_horizon": {
+    "label": "Capital Chronicle model estimates for the week to Friday 13 November",
+    "start_utc": "2026-11-08T22:00:00Z",
+    "end_utc": "2026-11-13T21:00:00Z",
+    "source_binding": {
+      "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+      "support_excerpt": "- **Horizon:** from the reopen (8 Nov 22:00Z) to the US cash close on Fri 13 Nov (21:00Z). The three scenarios cover that horizon and sum to 100%.",
+      "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+      "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+      "source_span": {
+        "start": 1156,
+        "end": 1302,
+        "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+      }
+    }
+  },
+  "complete_source_scenario_definitions": {
+    "start": 3495,
+    "end": 5207,
+    "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding",
+    "excerpt": "## 2. The three scenarios\n\n| | **Base:** talks continue; oil firms at the open, then fades | **Escalation** around Hormuz | **Deal** on Iran's offer |\n|---|---|---|---|\n| **Probability** (Capital Chronicle model estimate) | **55%** | **25%** | **20%** |\n| **Defined as** | No signed framework. Incidents continue at about last week's pace, with no hit to Gulf oil production or exports. | New strikes on shipping or Gulf energy sites, or US or Israeli strikes on Iran beyond the weekend's \"minor\" ones. | A US statement accepting a framework for Iran's two-day plan to reopen Hormuz. |\n| **Confirms** (the full path) | WTI gives back at least half its opening gap by Tue 10 Nov 13:30Z (CPI). Brent stays below $103. Washington, Doha or Tehran keep describing the talks as active. | Brent settles above $103; or a confirmed hit on a Gulf production or export site; or UKMTO incidents above last week's pace. | The US statement; then tanker transits resuming through the strait (UKMTO, ship tracking). |\n| **Invalidates** | Either alternative's trigger. WTI below Friday's close (90.83 Dec futures) within two hours of the 23:00Z open voids only the firmer-oil opening leg, and moves weight toward the deal case. | 48 hours with no new confirmed attack on shipping or energy sites and Brent back below $100; or a joint US-Iran statement of progress. | A US rejection; the offer lapsing or withdrawn; or WTI back above Friday's close (90.83) after the announcement. |\n\nThese fill the editorial pass's missing fields:\n- **base:** `probability`, `full_geopolitical_path_confirmation`, `full_geopolitical_path_invalidation`;\n- **escalation:** `probability`, `invalidation`;\n- **deal:** `probability`, `invalidation`."
+  },
+  "complete_source_six_market_implications": {
+    "**USOIL** (90.83 Dec futures; 89.48 CFD)": {
+      "base": "Gives back most of a +0.5% to +2.5% open: -1.5% to +1.0% by CPI",
+      "escalation": "+4% to +10%, with Brent above $103",
+      "deal": "-3% to -8% (the report's estimate)",
+      "source_span": {
+        "start": 5582,
+        "end": 5766
+      }
+    },
+    "**XAUUSD** (4,070.6 to 4,071.2)": {
+      "base": "Flat to firmer as oil eases: 0 to +0.8%. Gold has traded opposite oil (20-day correlation -0.54). CPI sets the direction after Tuesday.",
+      "escalation": "Two-sided, -1% to +1%: oil and real yields weigh on it, while yields falling in a risk-off help it",
+      "deal": "+0.5% to +1.5%: lower oil and firmer equities help gold in this regime",
+      "source_span": {
+        "start": 5767,
+        "end": 6114
+      }
+    },
+    "**US500** (7,376.86 cash)": {
+      "base": "Recovers part of the opening dip: -0.8% to +0.5%. AI-stock stress, now Nvidia, is the drag; CPI is the main driver.",
+      "escalation": "-1% to -3%",
+      "deal": "+0.5% to +1.5%",
+      "source_span": {
+        "start": 6115,
+        "end": 6292
+      }
+    },
+    "**EURUSD** (1.1140)": {
+      "base": "Steadies at 1.111 to 1.116 as oil eases. CPI decides whether 1.1105 (the 52-week low) breaks.",
+      "escalation": "-0.3% to -0.8% (1.1051 to 1.1107)",
+      "deal": "**[was null]** Higher, +0.3% to +0.8% (1.1173 to 1.1229): cheaper energy for the euro area, and lower US hike odds",
+      "source_span": {
+        "start": 6293,
+        "end": 6565
+      }
+    },
+    "**USDJPY** (158.50)": {
+      "base": "Tracks US yields at 158.0 to 159.3. Intervention risk caps the upside near 159.5 to 160.",
+      "escalation": "Net -0.5% to +0.5%: oil weakens the yen, while risk-off supports it. Intervention risk above 159.5.",
+      "deal": "**[was null]** Lower, -0.2% to -0.8% (158.2 to 157.2): Japan's terms of trade improve and US yields ease; risk-on yen selling offsets part",
+      "source_span": {
+        "start": 6566,
+        "end": 6923
+      }
+    },
+    "**BTCUSD** (75,769.86 at 21:00Z)": {
+      "base": "Follows Nasdaq futures: -2% to +2% (about 74,250 to 77,300)",
+      "escalation": "**[was null]** Lower with tech and risk appetite, -3% to -6% (about 71,200 to 73,500). The weekend showed no safe-haven bid, and the 75,475 weekend low would give way.",
+      "deal": "**[was null]** Higher with tech, +1% to +4% (about 76,500 to 78,800)",
+      "source_span": {
+        "start": 6924,
+        "end": 7263
+      }
+    }
+  },
+  "copy_changes": [
+    "Preserved supplied draft except dated evening ET line, fresh lead image/credit, exact R2 Nvidia paragraph, R2 Scenarios, source-bound escalation dollar-yen sentence, and required notices.",
+    "R2 public section 5 is otherwise verbatim. Added only: Dollar-yen is two-sided: oil weakens the yen, while risk-off supports it.",
+    "No observed reopen values or later market facts added. No broker/account/execution identifiers copied."
+  ],
+  "nvidia_review": {
+    "public_addition": "**On Sunday, Nvidia.** Nvidia's board opened an independent investigation into chief executive Jensen Huang after reports in The New York Times and the Financial Times that a woman he had a relationship with was a suspected Chinese intelligence asset. Huang, who stays in his job, admitted the affair in a note to staff. The board said it has no reason to believe company secrets or national security were compromised. Nvidia is among the largest stocks in the S&P 500 and the Nasdaq-100, so the story adds to the AI-stock stress going into the open.",
+    "source_binding": {
+      "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+      "support_excerpt": "**On Sunday, Nvidia.** Nvidia's board opened an independent investigation into chief executive Jensen Huang after reports in The New York Times and the Financial Times that a woman he had a relationship with was a suspected Chinese intelligence asset. Huang, who stays in his job, admitted the affair in a note to staff. The board said it has no reason to believe company secrets or national security were compromised. Nvidia is among the largest stocks in the S&P 500 and the Nasdaq-100, so the story adds to the AI-stock stress going into the open.",
+      "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+      "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+      "source_span": {
+        "start": 10612,
+        "end": 11162,
+        "coordinate": "zero-based Unicode character offsets, end exclusive, universal newline decoding"
+      }
+    },
+    "retained_page": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\cnbc-source-read.md",
+      "sha256": "f2fae2627ccb158b0c3b8618a7e1cd76230dc09834e9af4fc095be4042ed6914"
+    },
+    "retained_page_url": "https://www.cnbc.com/2026/11/08/nvidia-jensen-huang-investigation-china-spy.html",
+    "page_published_display": "Sun, Nov 8 2026 3:12 PM EST",
+    "page_published_utc": "2026-11-08T20:12:00Z",
+    "finding": "Read retained opened-page text: board inquiry, admission of affair, continuing CEO and no-reason-to-believe compromise are supported. Suspected intelligence role remains attributed to The New York Times and the Financial Times; not presented as independently established."
+  },
+  "media_review": {
+    "asset_id": "tradingview-snapshot-07d7910582d96f7fd6cb",
+    "artifact": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\media\\tradingview-cd4d175c9c9bb144-16x9.png",
+      "sha256": "07d7910582d96f7fd6cb97b6d827171ec1bb15371b992f9aba6e0792426beb4e"
+    },
+    "width": 1524,
+    "height": 858,
+    "source_page_url": "https://www.tradingview.com/chart/?symbol=TVC:USOIL&interval=60",
+    "tv_symbol": "TVC:USOIL",
+    "interval": "1h",
+    "captured_at_utc": "2026-11-08T23:41:16.161085+00:00",
+    "caption": "Weekend wrap: Hormuz risk and the CPI week: 1h chart (TVC:USOIL). Chart: TradingView.",
+    "alt_text": "TradingView 1h candlestick chart of WTI crude oil (TVC CFD), TVC:USOIL, captured 18:41 ET on 8 November 2026.",
+    "placement": "after introduction",
+    "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+    "pixel_review": "Inspected the actual 1524x858 image using view_image. WTI crude-oil CFD 1h candlesticks and volume are legible; dates and price axis are visible; the created-with header and TradingView logo remain uncropped. No invented overlays or account/execution details are visible.",
+    "freshness_and_novelty": "Parent owns live registration/freshness/never-published readback; this assessment binds the supplied fresh asset bytes."
+  },
+  "dateline": {
+    "prepared_public_text": "*Weekend wrap, Sunday evening, 8 November. All times New York (ET).*",
+    "valid_until_utc": "2026-11-09T05:00:00Z",
+    "after_boundary": "Use Monday morning, 9 November ET, retaining weekend wrap; revise in same writer context if publication crosses boundary.",
+    "publication_deadline_utc": "2026-11-09T10:00:00Z"
+  },
+  "verification": {
+    "scenario_validator": "PASS validate_article_scenarios against exact R2 canonical text",
+    "source_hash": "MATCH",
+    "supplied_body_preservation": "PASS reversed authorized edits equals original supplied body",
+    "notices": "PASS exact required notices once",
+    "scenario_probabilities": "55%, 25%, 20% supplied directly, no complement calculated",
+    "six_markets": "PASS all three structured scenarios; USDJPY escalation added from R2 section 3",
+    "pixel_inspection": "PASS supplied TradingView image only",
+    "final_render_review": "PENDING parent packet/render; not claimed from source image inspection"
+  },
+  "limits": [
+    "Exact native writer request/response schema and institutional_edge_editorial_packet have not yet been supplied. This prepared artifact is not a response to an unseen frozen request.",
+    "Final canonical/channel rendered pixels and exact current article/media/render revision are not yet available in this role context. Parent will provide them for same-role final inspection.",
+    "Configured model and effort are recorded; actual runtime telemetry is unavailable in this subagent surface."
+  ],
+  "next_action": "Parent supplies the exact pending native writer packet and later exact final render/editor packet to /root/cc341_writer. Same role context returns the bound native artifacts and review; parent continues sole coordinator."
+}

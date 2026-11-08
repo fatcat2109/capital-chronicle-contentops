@@ -1,0 +1,54 @@
+{
+  "request_sha256": "b979ac09e49b84adbaeabaebbfd445b3810a05d022e77cb6534abdd0916e013d",
+  "output": {
+    "story_plan": {
+      "thesis": "Hormuz attacks and active diplomacy pull oil in opposing directions before the CPI week, while Nvidia adds equity stress. Preserve the supplied public draft and authorized R2 additions; scenario values remain the exact admitted Capital Chronicle estimates.",
+      "source_requests": [],
+      "photo_plan": {
+        "decision": "Use the freshly captured attributed USOIL TradingView snapshot as the lead visual. No additional contextual photo is supplied or needed for this short-path geopolitical news wrap.",
+        "reason": "The lead-market snapshot serves the actual argument and decision 93 visual requirement. No photo discovery delay or unrelated archive image. Retain full TradingView attribution and exact image bytes.",
+        "source_pack_basis": [
+          "cc341-weekend-wrap-20261109",
+          "cc341-weekend-wrap-r2-scenarios-20261109"
+        ]
+      },
+      "chart_plan": [
+        {
+          "chart_type": "TRADINGVIEW_SNAPSHOT",
+          "market_asset": "USOIL",
+          "asset_id": "tradingview-snapshot-07d7910582d96f7fd6cb",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\media\\tradingview-cd4d175c9c9bb144-16x9.png",
+          "sha256": "07d7910582d96f7fd6cb97b6d827171ec1bb15371b992f9aba6e0792426beb4e",
+          "placement_after": "introduction",
+          "source_page_url": "https://www.tradingview.com/chart/?symbol=TVC:USOIL&interval=60",
+          "captured_at_utc": "2026-11-08T23:41:16.161085+00:00",
+          "series": "TVC:USOIL",
+          "instrument_definition": "TradingView TVC WTI crude oil CFD; not December futures and not a broker execution quote",
+          "interval": "1h",
+          "currency": "USD",
+          "data_status": "Observed price snapshot; exact supplied chart window and axes retained. No numerical chart extraction or synthetic series.",
+          "credit": "Chart: TradingView",
+          "caption": "Weekend wrap: Hormuz risk and the CPI week: 1h chart (TVC:USOIL). Chart: TradingView.",
+          "alt_text": "TradingView 1h candlestick chart of WTI crude oil (TVC CFD), TVC:USOIL, captured 18:41 ET on 8 November 2026.",
+          "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+          "render_review": "Parent reports inspecting the captured asset; same designated MAX owns final article placement and review.",
+          "scope_reason": "Time-sensitive geopolitical weekend news with CPI preview as background, not fresh macro-release or policy-decision analysis. No fabricated headline/core/component histories; no added charts duplicating the snapshot.",
+          "reuse_state": "Parent reports fresh and never published; existing publisher image owner checks exact and perceptual hashes."
+        }
+      ]
+    }
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/cc341_light",
+    "observation_source": "Canonical collaboration native context /root/cc341_light and this actual assigned media-plan task",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "supported spawn arguments"
+  }
+}
