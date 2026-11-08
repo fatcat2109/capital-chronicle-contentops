@@ -35,7 +35,9 @@ this item's media folder. [Media checks](media-preflight.json) found no exact
 or perceptual match against 757 image-register rows and zero occupied article
 slots at the observation time. Parent inspected the image pixels; no final
 rendered article review or publication approval is claimed. Refresh through
-the same media owner if it is stale when publication becomes possible.
+the same media owner when publication becomes possible: the snapshot has now
+passed the coordinator's freshness interval. Its bytes and attribution remain
+verified; no refreshed capture is requested while Main's fields are absent.
 
 The preparation files are integrated into `A:\Capital Chronicle\ContentOps`.
 [The operating consumer read](operating-consumer-read.json) loads the exact

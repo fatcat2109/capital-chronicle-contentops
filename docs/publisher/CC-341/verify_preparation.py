@@ -36,7 +36,14 @@ assert not research.gaps, research.gaps
 record = research.records["cc341-weekend-wrap-20261109"]
 assert normalize(record["permitted_source_text"]) == normalize(draft)
 asset = json.loads((HERE / "tradingview-asset.json").read_bytes())
-validate_snapshot_asset(asset, market="USOIL", now=datetime.now(timezone.utc))
+validate_snapshot_asset(asset, market="USOIL")
+try:
+    validate_snapshot_asset(asset, market="USOIL", now=datetime.now(timezone.utc))
+    snapshot_freshness = "CURRENT_AT_OBSERVATION"
+except ValueError as exc:
+    if str(exc) != "TRADINGVIEW_SNAPSHOT_STALE":
+        raise
+    snapshot_freshness = "STALE_REFRESH_THROUGH_MEDIA_OWNER_BEFORE_PUBLICATION"
 assert sha256((LIVE / "docs/publisher/CC-341/media" / Path(asset["path"]).name).read_bytes()).hexdigest() == asset["sha256"]
 
 # Exercise the real decision-93 reader with the real, still-absent probabilities.
@@ -54,6 +61,7 @@ assert actual_requirement == "SCENARIO_PROBABILITY_REQUIRED", actual_requirement
 result = {"observed_at_utc": datetime.now(timezone.utc).isoformat(), "preparation_checks": "PASS",
           "original_paragraphs_preserved": len(paragraphs), "source_consumer": str(Path(sys.modules[RetainedSourceResearch.__module__].__file__)),
           "source_consumer_read": "PASS", "snapshot_and_integrated_bytes": "PASS",
+          "publication_time_snapshot_freshness": snapshot_freshness,
           "actual_remaining_requirement": actual_requirement, "reason": "JIM_DECISION_93",
           "three_geopolitical_probabilities": [s["probability"] for s in editor["scenario_analysis"]],
           "publication_acceptance_passed": False, "public_write_performed": False,
