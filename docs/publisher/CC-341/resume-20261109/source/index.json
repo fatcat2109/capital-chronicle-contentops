@@ -1,0 +1,423 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authority_ref": "JIM_DECISION_89",
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "source_url": "urn:cc-public-report:cc341:weekend-wrap:20261109",
+      "headline_id": "cc341-weekend-wrap-20261109",
+      "headline_text": "Tanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week",
+      "known_at_utc": "2026-11-08T18:20:00Z",
+      "revision_at_utc": "2026-11-08T18:40:39.699911+00:00",
+      "candidate_catalyst_tags": [
+        "weekend-wrap",
+        "Hormuz",
+        "CPI-week",
+        "six-market"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+          "source_sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+          "fragments": [
+            {
+              "start": 34999,
+              "end": 35113
+            },
+            {
+              "start": 35115,
+              "end": 35174
+            },
+            {
+              "start": 35176,
+              "end": 35437
+            },
+            {
+              "start": 35439,
+              "end": 36074
+            },
+            {
+              "start": 36076,
+              "end": 36360
+            },
+            {
+              "start": 36362,
+              "end": 36712
+            },
+            {
+              "start": 36714,
+              "end": 36817
+            },
+            {
+              "start": 36819,
+              "end": 37673
+            },
+            {
+              "start": 37675,
+              "end": 38341
+            },
+            {
+              "start": 38343,
+              "end": 38526
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "authority_ref": "JIM_DECISION_89",
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "source_url": "urn:cc-public-report:cc341:weekend-wrap:r2:20261109",
+      "headline_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+      "headline_text": "Weekend wrap R2: Capital Chronicle model-estimate scenarios 55% base, 25% escalation, 20% deal through Friday 13 November, plus attributed Nvidia update",
+      "known_at_utc": "2026-11-08T23:26:00Z",
+      "revision_at_utc": "2026-11-08T23:39:36.775238+00:00",
+      "candidate_catalyst_tags": [
+        "weekend-wrap",
+        "Hormuz",
+        "CPI-week",
+        "six-market"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+          "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+          "fragments": [
+            {
+              "start": 3495,
+              "end": 3520
+            },
+            {
+              "start": 3525,
+              "end": 3586
+            },
+            {
+              "start": 3587,
+              "end": 3617
+            },
+            {
+              "start": 3618,
+              "end": 3644
+            },
+            {
+              "start": 3665,
+              "end": 3717
+            },
+            {
+              "start": 3718,
+              "end": 3727
+            },
+            {
+              "start": 3728,
+              "end": 3737
+            },
+            {
+              "start": 3738,
+              "end": 3747
+            },
+            {
+              "start": 3750,
+              "end": 3766
+            },
+            {
+              "start": 3767,
+              "end": 3882
+            },
+            {
+              "start": 3883,
+              "end": 3998
+            },
+            {
+              "start": 3999,
+              "end": 4079
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+          "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+          "fragments": [
+            {
+              "start": 4082,
+              "end": 4112
+            },
+            {
+              "start": 4113,
+              "end": 4275
+            },
+            {
+              "start": 4276,
+              "end": 4402
+            },
+            {
+              "start": 4403,
+              "end": 4495
+            },
+            {
+              "start": 4498,
+              "end": 4515
+            },
+            {
+              "start": 4516,
+              "end": 4706
+            },
+            {
+              "start": 4707,
+              "end": 4843
+            },
+            {
+              "start": 4844,
+              "end": 4958
+            },
+            {
+              "start": 4961,
+              "end": 5008
+            },
+            {
+              "start": 5009,
+              "end": 5113
+            },
+            {
+              "start": 5114,
+              "end": 5162
+            },
+            {
+              "start": 5163,
+              "end": 5205
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+          "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+          "fragments": [
+            {
+              "start": 5207,
+              "end": 5259
+            },
+            {
+              "start": 5261,
+              "end": 5497
+            },
+            {
+              "start": 5500,
+              "end": 5521
+            },
+            {
+              "start": 5522,
+              "end": 5542
+            },
+            {
+              "start": 5543,
+              "end": 5555
+            },
+            {
+              "start": 5556,
+              "end": 5562
+            },
+            {
+              "start": 5583,
+              "end": 5625
+            },
+            {
+              "start": 5626,
+              "end": 5691
+            },
+            {
+              "start": 5692,
+              "end": 5728
+            },
+            {
+              "start": 5729,
+              "end": 5765
+            },
+            {
+              "start": 5768,
+              "end": 5801
+            },
+            {
+              "start": 5802,
+              "end": 5939
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+          "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+          "fragments": [
+            {
+              "start": 5940,
+              "end": 6040
+            },
+            {
+              "start": 6041,
+              "end": 6113
+            },
+            {
+              "start": 6116,
+              "end": 6143
+            },
+            {
+              "start": 6144,
+              "end": 6261
+            },
+            {
+              "start": 6262,
+              "end": 6274
+            },
+            {
+              "start": 6275,
+              "end": 6291
+            },
+            {
+              "start": 6294,
+              "end": 6315
+            },
+            {
+              "start": 6316,
+              "end": 6411
+            },
+            {
+              "start": 6412,
+              "end": 6447
+            },
+            {
+              "start": 6448,
+              "end": 6564
+            },
+            {
+              "start": 6567,
+              "end": 6588
+            },
+            {
+              "start": 6589,
+              "end": 6679
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+          "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+          "fragments": [
+            {
+              "start": 6680,
+              "end": 6781
+            },
+            {
+              "start": 6782,
+              "end": 6922
+            },
+            {
+              "start": 6925,
+              "end": 6959
+            },
+            {
+              "start": 6960,
+              "end": 7021
+            },
+            {
+              "start": 7022,
+              "end": 7191
+            },
+            {
+              "start": 7192,
+              "end": 7262
+            },
+            {
+              "start": 7265,
+              "end": 7480
+            },
+            {
+              "start": 7482,
+              "end": 7523
+            },
+            {
+              "start": 7525,
+              "end": 7664
+            },
+            {
+              "start": 7665,
+              "end": 7789
+            },
+            {
+              "start": 7790,
+              "end": 7913
+            },
+            {
+              "start": 7914,
+              "end": 8150
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+          "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+          "fragments": [
+            {
+              "start": 8151,
+              "end": 8370
+            },
+            {
+              "start": 8371,
+              "end": 8462
+            },
+            {
+              "start": 8463,
+              "end": 8637
+            },
+            {
+              "start": 8638,
+              "end": 8810
+            },
+            {
+              "start": 8811,
+              "end": 8957
+            },
+            {
+              "start": 8959,
+              "end": 9053
+            },
+            {
+              "start": 9055,
+              "end": 9067
+            },
+            {
+              "start": 9069,
+              "end": 9186
+            },
+            {
+              "start": 9188,
+              "end": 9670
+            },
+            {
+              "start": 9672,
+              "end": 10116
+            },
+            {
+              "start": 10118,
+              "end": 10529
+            },
+            {
+              "start": 10531,
+              "end": 10610
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+          "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+          "fragments": [
+            {
+              "start": 10612,
+              "end": 11162
+            },
+            {
+              "start": 11164,
+              "end": 11320
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
