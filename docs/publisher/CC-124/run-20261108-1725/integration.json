@@ -1,0 +1,32 @@
+{
+  "observed_at_utc": "2026-11-08T10:37:31.691421+00:00",
+  "status": "PASS",
+  "source_check_commit": "7958ea2c781824fb12ede798826cd81d0894197f",
+  "operating_head": "7958ea2c781824fb12ede798826cd81d0894197f",
+  "remote_branch_head": "7958ea2c781824fb12ede798826cd81d0894197f",
+  "checks": {
+    "operating_head_matches_pushed_commit": true,
+    "all_eleven_installed_blobs_match_commit": true,
+    "inherited_modified_bytes_unchanged": true,
+    "source_consumer_code_unchanged": true,
+    "publication_feed_unchanged": true
+  },
+  "installed_blobs": {
+    "docs/publisher/CC-124/run-20261108-1725/README.md": "2bf9b3522b61082c256a2e58ec053f31b6f4cef7",
+    "docs/publisher/CC-124/run-20261108-1725/compare_sources.py": "4e4a9199286e94ae925145985d7bed39160f510e",
+    "docs/publisher/CC-124/run-20261108-1725/helper-interruption.json": "b125a5f44da03dbcf48e7064108dcd2df63858b7",
+    "docs/publisher/CC-124/run-20261108-1725/inspect_sources.py": "6f83c7371b845b53d456fdc91451bda842434123",
+    "docs/publisher/CC-124/run-20261108-1725/main-export-scenarios.json": "3f536770a3c825f6752243985b965dacd3ab7acc",
+    "docs/publisher/CC-124/run-20261108-1725/preflight.json": "d14d091fde99f51b5ae2c44d7c02849b34117a46",
+    "docs/publisher/CC-124/run-20261108-1725/source-comparison.json": "a999fba692f814ae03f74b7b3f8ee533a85d84e8",
+    "docs/publisher/CC-124/run-20261108-1725/source-inventory.json": "e87c727b1bcd9ff0849490d60a6684c8a4017701",
+    "docs/publisher/CC-124/run-20261108-1725/source-readiness.json": "fcd01832364c5790243143c1d5a4b8e7201c060e",
+    "docs/publisher/CC-124/run-20261108-1725/verification.json": "3055209bae30b56dbed1772d00f99bc582b30459",
+    "docs/publisher/CC-124/run-20261108-1725/verify_result.py": "52b9bae932493e5e312d61f050337d87beb148fa"
+  },
+  "runtime_code_changed": false,
+  "publication_acceptance_passed": false,
+  "new_articles": 0,
+  "standing_item_status": "OPEN",
+  "next_due_gmt7": "9 Nov 2026 01:00 GMT+7"
+}

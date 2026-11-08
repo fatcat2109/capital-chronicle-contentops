@@ -45,3 +45,9 @@ Main's next dated report needs explicit base-case and alternative probabilities,
 confirmation, implications for all six markets and invalidation. Publisher then
 consumes that edition through the existing source-comparison and editorial path.
 This source check does not satisfy the item's publication acceptance test.
+
+The source-check sub-step was pushed and fast-forwarded into the Publisher
+operating root at `7958ea2c781824fb12ede798826cd81d0894197f`. [Integration readback](integration.json)
+verifies all eleven installed blobs, the remote branch, unchanged source-reader
+code and publication feed, and preservation of the inherited modified files.
+This installs the run evidence; the standing article item remains OPEN.
