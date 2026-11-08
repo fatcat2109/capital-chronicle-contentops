@@ -241,3 +241,37 @@ def test_public_review_notice_keeps_frozen_packet_limits_without_internal_produc
     article["substack_body_markdown"] = "Capital Chronicle reviews the report.\n\n" + (notice if keep_limits else "")
     blockers = _epistemic_copy_blockers(article, [], state)
     assert ("report_horizon_proxy_cost_limits_missing" not in blockers) is keep_limits
+
+
+@pytest.mark.parametrize("change", [None, "title", "opening", "rights", "hash", "lineage", "mixed"])
+def test_verified_public_excerpt_reaches_copy_consumer_without_ritual_rewrite(tmp_path, monkeypatch, change):
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack, _epistemic_copy_blockers
+    text = "Nvidia investigates a suspected intelligence link."
+    root, _, spec = retained(tmp_path, monkeypatch, text=text)
+    research = RetainedSourceResearch(root)
+    evidence = research.evidence({"headline_ids": [spec["headline_id"]]}, cutoff_utc=NOW)
+    docs = _source_pack(evidence["evidence_documents"])
+    state = evidence["epistemic_state"]
+    article = {key: "Capital Chronicle reviews the dated allegations" for key in
+               ("dek", "search_title", "meta_description", "social_hook")}
+    article.update(title=text, substack_body_markdown=text)
+    if change in {"title", "opening"}:
+        article["title" if change == "title" else "substack_body_markdown"] = "Nvidia confirms an intelligence link."
+    elif change == "rights":
+        docs[0]["source_reuse_constraints"]["public_expression_reuse_allowed"] = False
+    elif change == "hash":
+        docs[0]["canonical_content_text"] += " Changed bytes."
+    elif change == "lineage":
+        docs[0]["report_lineage"]["report_projection_sha256"] = "0" * 64
+    elif change == "mixed":
+        docs.append({"canonical_content_text": "External report"})
+    blockers = _epistemic_copy_blockers(article, [], state, source_pack=docs)
+    if change is None:
+        assert blockers == []
+        assert state["event_confirmation_state"] == "UNCONFIRMED"
+        assert state["underlying_event_may_be_stated_as_confirmed"] is False
+    elif change in {"title", "opening"}:
+        assert ("epistemic_title_attribution_or_uncertainty_missing" if change == "title"
+                else "epistemic_opening_reporting_state_missing") in blockers
+    else:
+        assert "report_horizon_proxy_cost_limits_missing" in blockers

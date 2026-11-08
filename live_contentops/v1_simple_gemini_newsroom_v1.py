@@ -1568,6 +1568,23 @@ def _first_body_paragraph(body: str) -> str:
     return ""
 
 
+def _verified_own_public_excerpts(document: Mapping[str, Any]) -> bool:
+    lineage = document.get("report_lineage") or {}
+    digest = lineage.get("report_projection_sha256")
+    rights = document.get("source_reuse_constraints") or {}
+    text = document.get("canonical_content_text")
+    return bool(
+        lineage.get("origin") == "RETAINED_MAIN_REPORT_EXACT_SPANS"
+        and re.fullmatch(r"[a-f0-9]{64}", str(digest or ""))
+        and document.get("url") == "urn:cc-public-report:main-retained:" + digest
+        and rights.get("scope") == "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS"
+        and rights.get("source_capture_sha256") == digest
+        and rights.get("public_expression_reuse_allowed") is True
+        and isinstance(text, str) and text
+        and document.get("canonical_content_sha256") == _text_hash(text)
+    )
+
+
 def _epistemic_copy_blockers(
     article: Mapping[str, Any],
     claims: Sequence[Mapping[str, Any]],
@@ -1578,13 +1595,20 @@ def _epistemic_copy_blockers(
         return []
     blockers = list(validate_epistemic_state(epistemic_state))
     desk_only = bool(source_pack) and all(d.get("desk_record_binding") for d in source_pack)
+    own_public_excerpts = bool(source_pack) and all(_verified_own_public_excerpts(d) for d in source_pack)
+
+    def exact_public_wording(value):
+        text = _normal(_SOURCE_MARKER_RE.sub("", str(value or "")))
+        return own_public_excerpts and bool(text) and any(
+            text in _normal(d["canonical_content_text"]) for d in source_pack)
     if desk_only:
         from live_contentops.capital_chronicle_desk_record_source_v1 import validate_article_citations
         try:
             validate_article_citations(article, [{"binding": d["desk_record_binding"]} for d in source_pack])
         except (ValueError, KeyError, TypeError) as exc:
             blockers.append(str(exc))
-    if epistemic_state.get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT" and not desk_only:
+    if (epistemic_state.get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT"
+            and not desk_only and not own_public_excerpts):
         notice = str(epistemic_state.get("report_scope_notice") or "")
         # The public equivalent omits the internal producer name. Preserve all
         # substantive limits from an older frozen packet, without requiring its
@@ -1620,13 +1644,16 @@ def _epistemic_copy_blockers(
         if value
     }
     if state != "CONFIRMED":
-        if not any(token in _normal(title) for token in attribution_tokens):
+        # Own public excerpts already carry source-bound reader wording. A ritual
+        # prefix/footer must not rewrite that wording (CC-341; decisions 62/98).
+        # New wording still needs the normal uncertainty/attribution checks.
+        if not exact_public_wording(title) and not any(token in _normal(title) for token in attribution_tokens):
             blockers.append("epistemic_title_attribution_or_uncertainty_missing")
         if label.casefold() not in dek.casefold() and not any(
             token in _normal(dek) for token in attribution_tokens
         ):
             blockers.append("epistemic_dek_attribution_or_label_missing")
-        if label.casefold() not in first.casefold() and not any(
+        if not exact_public_wording(first) and label.casefold() not in first.casefold() and not any(
             token in _normal(first) for token in attribution_tokens
         ):
             blockers.append("epistemic_opening_reporting_state_missing")
