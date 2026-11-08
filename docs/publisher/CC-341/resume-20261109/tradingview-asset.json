@@ -1,0 +1,53 @@
+{
+  "asset_id": "tradingview-snapshot-07d7910582d96f7fd6cb",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\media\\tradingview-cd4d175c9c9bb144-16x9.png",
+  "sha256": "07d7910582d96f7fd6cb97b6d827171ec1bb15371b992f9aba6e0792426beb4e",
+  "width": 1524,
+  "height": 858,
+  "mime_type": "image/png",
+  "modality": "tradingview_chart_snapshot",
+  "card_kind": "TRADINGVIEW_SNAPSHOT",
+  "media_role": "delivery_only",
+  "role": "market_chart",
+  "delivery_only": true,
+  "article_inclusion": true,
+  "canonical_article_media": true,
+  "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+  "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+  "attribution": "TradingView",
+  "credit": "Chart: TradingView",
+  "caption": "Weekend wrap: Hormuz risk and the CPI week: 1h chart (TVC:USOIL). Chart: TradingView.",
+  "alt_text": "TradingView 1h candlestick chart of WTI crude oil (TVC CFD), TVC:USOIL, captured 18:41 ET on 8 November 2026.",
+  "source_page_url": "https://www.tradingview.com/chart/?symbol=TVC:USOIL&interval=60",
+  "tradingview_snapshot": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\media\\USOIL_2026-11-08_23-41-15.png",
+    "sha256": "cd4d175c9c9bb144be640b595cd017ea5dff0f15404af9c91e28280fa7e67084",
+    "width": 1524,
+    "height": 856,
+    "tv_symbol": "TVC:USOIL",
+    "interval": "60",
+    "interval_label": "1h",
+    "legend": "1h",
+    "page_title": "USOIL 90.40 \u25b2 +0.06%",
+    "chart_url": "https://www.tradingview.com/chart/?symbol=TVC:USOIL&interval=60",
+    "suggested_filename": "USOIL_2026-11-08_23-41-15.png",
+    "captured_at_utc": "2026-11-08T23:41:16.161085+00:00",
+    "seconds": 28.2,
+    "framing": {
+      "ratio": "16:9",
+      "width": 1524,
+      "height": 858,
+      "original_box": [
+        0,
+        1,
+        1524,
+        857
+      ]
+    },
+    "policy": "contentops.tradingview_snapshot.v1",
+    "levels_drawn": [],
+    "target_drawn": false
+  },
+  "publication_authority": false,
+  "placement_after": "introduction"
+}
