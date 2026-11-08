@@ -43,3 +43,9 @@ CC-124 returns to **OPEN, next due 9 November 2026 at 07:03 GMT+7**,
 six hours after this worker's actual start. There were no new editorial calls,
 media, drafts or public writes. No schedule, chat or desktop control was used.
 The standing item's article publication acceptance remains unmet.
+
+The source-check sub-step was pushed and fast-forwarded into the Publisher
+operating root at `8c59949ba7a976b0cd7fea30e0661e60a76294c1`. [Integration readback](integration.json)
+verifies all ten installed blobs, the remote branch, unchanged live source readers
+and publication feed, and preservation of the eight inherited modified files.
+This integrates the run evidence; CC-124 remains OPEN.
